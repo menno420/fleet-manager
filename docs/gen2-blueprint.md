@@ -1,13 +1,18 @@
 # Gen-2 blueprint — Phase-2 (born-right) Project seed standard
 
-> **Status:** `plan`
+> **Status:** `binding`
 >
-> **DRAFT for the successor session to finalize and execute.** Drafted
-> 2026-07-09 at succession, synthesized from the fleet's own retros
+> Drafted 2026-07-09 at succession, synthesized from the fleet's own retros
 > ([`findings/retro-synthesis-2026-07-09.md`](findings/retro-synthesis-2026-07-09.md)
 > — especially the 13 cross-patterns and the lanes' F1/F4 prescriptions), the
 > quality-review prescriptions, and the launch kit experience. Gen-1 texts
 > being revised: [`prompts/README.md`](prompts/README.md).
+>
+> **Changelog:** 2026-07-09 (late evening) — finalized by the successor
+> session per [`handoff-2026-07-09.md`](handoff-2026-07-09.md): measured
+> ping read-latencies folded into §2a wake cadence, §5 open items resolved
+> (retro deliverables reconciled at HEAD, venture-lab founding text
+> finalized), status `plan` → `binding`.
 
 The premise: every gen-1 lane paid a tax rediscovering the same ~13 failure
 classes. Gen-2 lanes are **born right** — the seed state prevents the known
@@ -84,6 +89,41 @@ What the gen-1 texts (`docs/prompts/`) lacked, per the lanes' own testimony:
     Gen-2: "orders stay `new` in the file — diff the inbox against your own
     status" baked into control/README.
 
+## 2a. Wake cadence — measured, not asserted (ping test 2026-07-09)
+
+The ack sweep ([`findings/ping-test-2026-07-09.md`](findings/ping-test-2026-07-09.md)
+§ "Ack sweep results") measured the read half of the coordination loop:
+
+- **With a live session, order pickup is minutes:** 9m47s / 14m43s
+  dispatch→ack-on-main (superbot-next, substrate-kit — both discovered the
+  ping via mid-session inbox re-reads; in-session read→ack cost 2–11 min).
+- **Without a live session, it is unbounded:** 7 of 9 lanes never acked —
+  hours later. One lane (opus4.8) was *awake after the ping landed and still
+  missed it* (heartbeat 15m31s post-ping without an inbox re-read).
+
+So: **order-pickup SLA ≈ routine cadence + ~15 min.** The routine *is* the
+liveness design; everything else in §2 only works once something wakes the
+lane. Concrete cadence per lane class:
+
+| lane class | cadence | 2026-07-09 members | rationale |
+|---|---|---|---|
+| **A — active mission** (deep order queue / P0 band in flight) | **hourly** | superbot-next, substrate-kit, venture-lab at launch | orders arrive multiple times/day; hourly bounds pickup at ~75 min worst-case for the cost of a cheap no-op wake ("read inbox at HEAD; no new orders → one-line heartbeat, no PR") |
+| **B — standing-default product** (idle between orders, has a between-orders default) | **every 4 h** | websites, trading-strategy | order volume is a few/day at most; the standing default (groom, next lane) makes each wake productive even with an empty inbox |
+| **C — shipped / owner-gated tail** | **daily** | 3 codetool arms, superbot-games lanes post-mission | remaining work waits on owner clicks; a daily wake catches new orders and keeps status honest without burning quota |
+
+Rules that ride the cadence table:
+
+1. **Every routine prompt = the standing ritual** (inbox at HEAD FIRST →
+   act → status LAST), never a bespoke prompt per wake.
+2. **Reclassify on transition, not on schedule:** a Class-C lane given a new
+   mission becomes Class A the same day (owner-queue carries the routine
+   click); a Class-A lane whose mission completes drops to C.
+3. **A no-op wake must be cheap:** no new orders → at most a control-fast-lane
+   heartbeat (delta #9); never a full PR round.
+4. **Timestamps from `date -u`**, never the model's sense of time — the sweep
+   caught two lanes stamping local-time-as-Z (+1h drift); commit history is
+   the clock of record (R2).
+
 ## 3. OWNER SETUP checklist (the clicks only the owner can do, per new lane)
 
 1. **Repo:** create it; General → tick "Allow auto-merge" + "Automatically
@@ -99,7 +139,9 @@ What the gen-1 texts (`docs/prompts/`) lacked, per the lanes' own testimony:
    lane needs (never the ambient production Railway IDs).
 6. **Routine:** create the cadence wake routine — **standing note: routines
    are the highest-value click** (an unwoken lane does nothing; every gen-1
-   lane that stalled silently would have been caught by its next wake).
+   lane that stalled silently would have been caught by its next wake — now
+   *measured*: 7/9 lanes never acked the ping for lack of one). Cadence by
+   lane class per **§2a** (new lane = Class A, hourly).
 
 ## 4. MIGRATION POLICY
 
@@ -111,21 +153,30 @@ What the gen-1 texts (`docs/prompts/`) lacked, per the lanes' own testimony:
 - A gen-1 lane may be upgraded to gen-2 seed state **only at a natural
   boundary** (mission complete / repo reset), never mid-mission.
 
-## 5. OPEN ITEMS for the successor
+## 5. OPEN ITEMS — resolution record (2026-07-09 late evening, successor)
 
-1. **venture-lab as the born-right pilot** — finalize its gen-2 instruction
-   text from §1–§2 + the draft mission; owner clicks from §3; opening corpus =
-   [`findings/venture-shortlist-2026-07-09.md`](findings/venture-shortlist-2026-07-09.md).
-2. **Codex comparison arm** — proposed off the GPT-5.6 research
-   ([`findings/gpt-5-6-report-2026-07-09.md`](findings/gpt-5-6-report-2026-07-09.md)):
-   runs in OpenAI's environment; fair-comparison requirements are in that doc
-   (native harnesses, fixed dollar+wall-clock budget, artifact-based judging).
-3. **Ping-ack results** — collect the pending ack sweep
-   ([`findings/ping-test-2026-07-09.md`](findings/ping-test-2026-07-09.md)) and
-   fold read-latency into the wake-cadence design.
-4. **External campaign reports** — as the owner pastes ChatGPT/Codex/deep-
-   research reports back, commit to superbot `docs/eap/external-reviews/` and
-   cross-check every finding against repos (R2) before it drives changes.
-5. **Finalize this draft** — reconcile against any late gen-1 retro
-   deliverables (superbot-next's missing project-review, mining's PR #9) and
-   promote to `binding` convention docs where the fleet adopts it.
+1. **venture-lab as the born-right pilot — RESOLVED.** Founding instruction
+   text finalized in [`prompts/venture-lab-draft.md`](prompts/venture-lab-draft.md)
+   (applies §1 seed state + §2 template deltas; paste-verbatim ready). Owner
+   clicks consolidated into one launch item in
+   [`owner-queue.md`](owner-queue.md); opening corpus =
+   [`findings/venture-shortlist-2026-07-09.md`](findings/venture-shortlist-2026-07-09.md),
+   seeded to the lane via ORDER 001.
+2. **Codex comparison arm — MOVED TO TRACKING** (handoff in-flight list +
+   owner decision), not a blueprint blocker. Proposal + fair-comparison
+   requirements stay in
+   [`findings/gpt-5-6-report-2026-07-09.md`](findings/gpt-5-6-report-2026-07-09.md).
+3. **Ping-ack results — RESOLVED.** Read half collected
+   ([`findings/ping-test-2026-07-09.md`](findings/ping-test-2026-07-09.md)
+   § "Ack sweep results"); latencies folded into **§2a** above.
+4. **External campaign reports — MOVED TO TRACKING** (handoff in-flight
+   list): standing intake, not a blueprint blocker — commit pasted reports to
+   superbot `docs/eap/external-reviews/`, cross-check against repos (R2)
+   before anything drives changes.
+5. **Finalize this draft — DONE.** Late retro deliverables reconciled at
+   HEAD in the actual repos (R2): superbot-next's project-review retro now
+   **EXISTS** (`docs/retro/project-review-2026-07-09.md`, shipped by next#92
+   under ORDER 006 — the last missing lane retro is in); superbot-games
+   **PR #9 (mining retro) MERGED by the owner 19:02:46Z**; mining port PR #5
+   still open+draft awaiting the owner's ready+merge (owner-queue item).
+   Status flipped `plan` → `binding` (changelog at top).

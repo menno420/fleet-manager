@@ -68,3 +68,26 @@ prompt, and the external review pack are logged above; review pack ref: sb#1903
   draft, `docs/handoff-2026-07-09.md`, playbook R19, capabilities yt-dlp
   recipe, heartbeat refresh. Chat archives after merge; successor session
   takes over.
+
+## 2026-07-09 — late evening (successor: ping-ack collection + gen-2 finalization)
+
+- Ping-ack read-half sweep — all 9 lane status files + commits-API ack
+  timestamps read at HEAD: **2/9 acked** (superbot-next 9m47s, substrate-kit
+  14m43s dispatch→ack-on-main — both via live-session inbox re-reads; next's
+  ack landed on main 4m10s *before* the order itself did), **7/9 NO ACK**
+  (no live session; opus4.8 awake-but-missed 15m31s post-ping). Results +
+  6 conclusions appended to `docs/findings/ping-test-2026-07-09.md`.
+- gen-2 blueprint FINALIZED `plan` → `binding` — read latencies folded into
+  new §2a wake-cadence (Class A hourly / B 4-hourly / C daily); §5 open
+  items resolved; late retro deliverables reconciled at HEAD (next
+  project-review EXISTS via next#92; games retro #9 MERGED by owner
+  19:02:46Z; port #5 still open+draft).
+- venture-lab founding Custom Instructions finalized
+  (`docs/prompts/venture-lab-draft.md`, paste-verbatim) + ONE consolidated
+  launch click-list in `docs/owner-queue.md` (repo → ruleset → Project →
+  environment → hourly routine → boot); mining owner-queue item narrowed to
+  the remaining #5 click.
+- Handoff in-flight list updated (ping-ack: collected; venture-lab:
+  finalized; Codex arm + external campaign: tracking) + fleet-state drift
+  fixes verified at HEAD (kit v1.6.0/orders done; next retro; games #9).
+- Rails held: fleet-manager writes only; no lane inbox touched (R19).

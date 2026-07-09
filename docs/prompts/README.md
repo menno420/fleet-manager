@@ -17,7 +17,7 @@
 | [`game-exploration.md`](game-exploration.md) | superbot-games exploration-lane Custom Instructions + startup | ✅ |
 | [`universal-wakeup.md`](universal-wakeup.md) | Universal self-review / wake-up prompt (sent to all 10 lanes) | ✅ fleet-wide |
 | [`external-campaign-metaprompt.md`](external-campaign-metaprompt.md) | ChatGPT prompt-creation meta-prompt for the external review campaign | ✅ (to ChatGPT) |
-| [`venture-lab-draft.md`](venture-lab-draft.md) | Proposed venture-lab mission | ❌ NOT YET DEPLOYED — gen-2 born-right pilot candidate |
+| [`venture-lab-draft.md`](venture-lab-draft.md) | venture-lab gen-2 founding Custom Instructions (**FINALIZED** 2026-07-09 from the gen-2 blueprint, paste-verbatim) | ❌ NOT YET DEPLOYED — launch click-list is one item in [`../owner-queue.md`](../owner-queue.md) |
 
 ## Conventions this ledger records
 
