@@ -1,0 +1,126 @@
+{
+  "graduation": {
+    "criteria": {
+      "blocking_questions": 0,
+      "critical_slots_filled_pct": 0.8
+    },
+    "soft_target_sessions": 50
+  },
+  "graduation_proposed": false,
+  "kit_version": "1.4.0",
+  "last_compaction_session": 0,
+  "mode": "guided",
+  "mode_history": [],
+  "open_questions": [],
+  "planted_doc_hashes": {
+    ".session-journal.md": "3033f0818bf7b3d9a4743742ad99bb24df445451a70cbd537ecc45f47394d18f",
+    "CONSTITUTION.md": "13af28b9d6bf3cd2eeb89d3694c5270e3e8f7fd5100fe9ed7933d951a387df0d",
+    "docs/AGENT_ORIENTATION.md": "575f0f385f6239d4676a7c12eb0a6217ed80af66a24483d597c33aee6e5e7001",
+    "docs/ai-project-workflow.md": "1a21ebe0cdc72e3e1f4d48804a065e689c164bf1e56dae6464247574c24f28cd",
+    "docs/architecture.md": "13d5aed1149917d45be24eab41567315dfe7ffa5280a95db63c5bf64d6a46934",
+    "docs/collaboration-model.md": "d3bfea28e14d3c19f2c909c9beb6acf8e706e0bb57c014546dcf0be935af3311",
+    "docs/current-state.md": "180c356f54013c6178fc4898d542e7b0a58a0983254066fb9d39453a662a2088",
+    "docs/decisions.md": "7b718cd3857d7b694cfa66babfd9e070d6cb37ca1d67c8bb6ea0cfc0cf881f50",
+    "docs/helper-policy.md": "dfb662ccd990e31b6f9d8f139a28f59075ab356ee5453d7b546a43baf65ac8c1",
+    "docs/ideas/README.md": "4de49c317709b136fe8eb6a7f036d8ad8c8484b158ee63dd39573e3db0d1dfb4",
+    "docs/owner-profile.md": "280455cd4c8006eb5ac79bdaaf3345ea4c9e6028bc835547d2036772d3dad1b8",
+    "docs/ownership.md": "5efa2888f1b6c4274fab1625d6a397a306e995de9c7c2ecae76efc8321122f39",
+    "docs/question-router.md": "83c52cb839c595bfface26116b16355832bd78080ddb49b4e945bb6536c0a4a9",
+    "docs/repo-navigation-map.md": "61f30b0f4befcdc1e71c8587df3914710d5d58637a4883786cf45007366d2c00",
+    "docs/runtime_contracts.md": "14452bfd36b1f6afc725bc39a15e069f5b0ef5e273f21ffecba20cbadf3e57ad"
+  },
+  "project_id": "7976f2aa96d9",
+  "promotion_rights": "propose",
+  "quiet_sessions": 0,
+  "reflection_buffer": {
+    "active_count": 0,
+    "last_mined": "2026-07-09"
+  },
+  "review_log": [],
+  "session_count": 0,
+  "slot_values": {
+    "architecture_layers": {
+      "question_id": "Q-004",
+      "source": "user",
+      "value": "Flat docs repo, no code layers: docs/ (playbook, owner-queue, dispatch-log \u2014 manager working memory) + templates/ (worker preamble blocks) + control/ (protocol heartbeat: owner-written inbox.md, manager-written status.md). Program record lives in menno420/superbot docs/eap/, never here."
+    },
+    "doc_roots": {
+      "question_id": "Q-007",
+      "source": "derived",
+      "value": "docs"
+    },
+    "drift_resolution": {
+      "question_id": "Q-011",
+      "source": "user",
+      "value": "Source files and merged PRs win over any doc; when the playbook and reality disagree, fix the playbook the same session (friction -> rule, R-series)."
+    },
+    "integration_mode": {
+      "question_id": "Q-001",
+      "source": "user",
+      "value": "guided"
+    },
+    "mutation_seam": {
+      "question_id": "Q-009",
+      "source": "user",
+      "value": "All changes land as forward-only git commits through READY PRs to main (ruleset: PR required); control/inbox.md is append-only and owner-written; control/status.md is overwritten by the manager each working session."
+    },
+    "new_area_ownership": {
+      "question_id": "Q-013",
+      "source": "user",
+      "value": "New areas default to the manager as sole writer; anything the owner must act on goes into docs/owner-queue.md, never a new scattered surface."
+    },
+    "owner_profile": {
+      "question_id": "Q-008",
+      "source": "user",
+      "value": "Non-coder product owner: plain language, decisions pre-chewed (recommendation + default), one deduplicated ask queue in docs/owner-queue.md; asks stay valid until acted on and carry click-level instructions."
+    },
+    "ownership_model": {
+      "question_id": "Q-006",
+      "source": "user",
+      "value": "One writer per file: the owner writes control/inbox.md; the manager writes everything else (docs/, templates/, control/status.md). Shared-repo protocol surfaces follow docs/playbook.md R9-R10."
+    },
+    "primary_language": {
+      "question_id": "Q-003",
+      "source": "user",
+      "value": "Markdown docs repo; tooling in Python 3 (stdlib-only bootstrap.py)"
+    },
+    "project_name": {
+      "question_id": "Q-002",
+      "source": "user",
+      "value": "fleet-manager"
+    },
+    "review_ritual": {
+      "question_id": "Q-010",
+      "source": "user",
+      "value": "Manager verifies against repos (git evidence), never against agent reports (playbook R2); owner reviews via docs/owner-queue.md and orders via control/inbox.md."
+    },
+    "staleness_review": {
+      "question_id": "Q-012",
+      "source": "user",
+      "value": "control/status.md is refreshed every working session (its updated: line is the heartbeat); docs/playbook.md and docs/owner-queue.md are living and updated the day a lesson lands or an ask resolves."
+    },
+    "verify_command": {
+      "question_id": "Q-005",
+      "source": "user",
+      "value": "python3 bootstrap.py check --strict"
+    }
+  },
+  "slots": {
+    "architecture_layers": "filled",
+    "doc_roots": "provisional",
+    "drift_resolution": "filled",
+    "integration_mode": "filled",
+    "mutation_seam": "filled",
+    "new_area_ownership": "filled",
+    "owner_profile": "filled",
+    "ownership_model": "filled",
+    "primary_language": "filled",
+    "project_name": "filled",
+    "review_ritual": "filled",
+    "staleness_review": "filled",
+    "verify_command": "filled"
+  },
+  "stage": "integration",
+  "stance": "analysis",
+  "version": 1
+}

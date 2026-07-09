@@ -1,6 +1,6 @@
 # Owner queue
 
-> **Status:** `living` — the ONE deduplicated queue of things waiting on the owner.
+> **Status:** `living-ledger` — the ONE deduplicated queue of things waiting on the owner.
 > The manager adds/removes items; asks stay valid until acted on (playbook R11).
 
 Current queue (all queued 2026-07-09):
