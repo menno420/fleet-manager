@@ -16,10 +16,14 @@
 > [`../owner-queue.md`](../owner-queue.md). The owner pastes the block below
 > **verbatim** as the new Project's Custom Instructions.
 >
-> Note on CI: the Tier-1 smoke-only convention below follows the CI-tier
-> standard **currently being simulated** (in-flight fleet-manager PR #12) —
-> marked provisional inside the text; reconcile with the ratified standard
-> at first natural boundary.
+> Note on CI: drafted while the CI-tier standard was still in simulation;
+> **the standard RATIFIED mid-session** (PR #12 merged 2026-07-09 night,
+> [`../gen2-blueprint.md`](../gen2-blueprint.md) §2b): Tier-1 labs run
+> **fast-full** — the whole meaningful suite in ONE required ≤60s cell —
+> which the "ROM builds" check below satisfies (a clean ROM build IS this
+> lane's full per-PR suite; pokeemerald incremental is 2.0s). The paste
+> text cites §2b and tells the lane to re-check it at its first natural
+> boundary like every gen-2 lane.
 
 ## Founding instruction text (paste verbatim into the Project's Custom Instructions)
 
@@ -80,12 +84,13 @@ GIT / PR CONVENTIONS (binding; repo conventions override harness defaults):
   screenshot committed as proof + branch -> PR -> CI -> merge — before any
   real game work.
 
-CI (provisional — fleet CI-tier standard is being simulated; reconcile at
-first natural boundary): Tier-1 smoke-only per PR — ONE required check, "ROM
-builds", that compiles the track's ROM in <60s (pokeemerald incremental is
-2.0s; a Butano project is seconds — budget holds). Full checks (full
-rebuild, headless boot-and-screenshot regression) run at promotion points /
-nightly, not per PR.
+CI (per the fleet CI-TIER STANDARD, gen2-blueprint §2b — ratified
+2026-07-09; re-check it at your first natural boundary): Tier-1 fast-full —
+ONE required check, "ROM builds", that compiles the track's ROM in <60s
+(pokeemerald incremental is 2.0s; a Butano project is seconds — budget
+holds; a clean ROM build is this lane's whole meaningful per-PR suite).
+Heavier checks (full rebuild, headless boot-and-screenshot regression) run
+at promotion points / nightly, not per PR.
 
 KNOWN WALLS (docs/PLATFORM-LIMITS.md in each repo — probing a documented
 wall twice is a bug):
