@@ -22,6 +22,11 @@
 > R21** (fleet-manager PR #10 + venture-lab PR #1 evidence): REST
 > merge-on-green is the PRIMARY landing path on born-red and no-CI repos;
 > arm-at-creation is primary only where a check can go pending.
+> 2026-07-09 (night, later still) — **CI-TIER STANDARD added (§2b)** (owner
+> directive 2026-07-09 + [`findings/ci-tier-sim-2026-07-09.md`](findings/ci-tier-sim-2026-07-09.md)):
+> every gen-2 lane gets a CI tier at birth; the sim adjusted the prior —
+> Tier 1 labs run **fast-full** (whole suite, one ≤60s cell), not a smoke
+> subset; Tier 0 born-red repos keep the substrate-gate as the card hold.
 
 The premise: every gen-1 lane paid a tax rediscovering the same ~13 failure
 classes. Gen-2 lanes are **born right** — the seed state prevents the known
@@ -34,6 +39,7 @@ classes before the first order fires.
 - [ ] **CI + required checks aligned before any auto-merge is armed** — the
       required contexts name the actual CI job(s); no legacy contexts; no
       skipped-check satisfying a required check (kit incidents #7/#22; P10).
+      The lane's **CI tier is assigned here, at repo birth — per §2b**.
 - [ ] **Conventions file committed day 0**, stating explicitly:
       - **READY, never draft** (draft-PR whiplash hit 5+ lanes);
       - **MERGE AUTHORITY — the lane ALWAYS lands its own PRs** *(owner
@@ -159,13 +165,106 @@ Rules that ride the cadence table:
    caught two lanes stamping local-time-as-Z (+1h drift); commit history is
    the clock of record (R2).
 
+## 2b. CI-TIER STANDARD — simulated, not assumed (2026-07-09)
+
+> **Provenance:** owner directive 2026-07-09 (tier prior: 0 = docs no-CI,
+> 1 = labs smoke-only, 2 = prod full per-PR) +
+> [`findings/ci-tier-sim-2026-07-09.md`](findings/ci-tier-sim-2026-07-09.md)
+> (451 PRs / ~1250 runs calibration; 144-cell × 40-seed deterministic sim,
+> `tools/sim/ci_tier_sim.py`). Where the sim disagreed with the prior, the
+> tier parameters below are adjusted and the disagreement is flagged inline.
+
+Every gen-2 lane is assigned a CI tier at repo birth (part of the §1 born-right
+checklist). The tier decides what runs per PR, what runs nightly, and the landing
+path. Required-check names must match the real workflow jobs (§1 point 2 stands).
+
+### Tier 0 — docs / coordination repos (fleet-manager class)
+
+- **No full CI required.** Sim: below ~1% per-PR breakage, no-CI wins the damage
+  composite outright (13.3 vs 16.2 agent-min/window at p=0.003), and the whole
+  regime choice for this class is worth <15 agent-min per 8h window — CI here is
+  not a damage decision.
+- **Amendment to the prior (flagged):** repos that use the **born-red session-card
+  convention keep the single substrate-gate (~11s)** as a required check. Not for
+  detection — for **enforcement**: with zero checks nothing ever pends, so the card
+  hold does not exist and auto-merge can never arm (R21 shape b). The gate costs
+  ~3 wait-min per 8h window in the sim — noise.
+- Landing path: REST merge-on-green (R21 primary on this shape).
+- Optional: one full run at window end is near-free insurance (+0.5 machine-min)
+  that converts ad-hoc promotion surprises into an attributed list; sim shows it is
+  otherwise indistinguishable from no-CI.
+
+### Tier 1 — lab repos (codetool-lab class)
+
+- **ADJUSTED FROM THE PRIOR — the sim disagrees with "smoke-only".** The prior
+  assumed full CI is expensive; in labs it is not: the full suite runs in 22–45s,
+  i.e. at smoke speed. Full-suite-per-PR beats smoke-only on damage from 0.4%
+  breakage at 1× traffic and at ALL swept breakage rates at 2×/4× (73.6 → 17.7
+  agent-min/window at p=0.03 ×1; 938 → 80 at ×4). Smoke-only's only win is machine-
+  minutes (16 vs 80/window) — and most of that bill is accidental.
+- **Tier 1 standard: "fast-full" per PR** — run the **entire test suite in ONE slim
+  cell** (single OS, single Python, ≤60s wall; reference workflow
+  [`environments/templates/smoke.yml`](../environments/templates/smoke.yml)) as the
+  required check, **plus a nightly full-matrix run** (all OS/Python cells) **plus
+  the promotion gate**. This captures full-CI damage numbers at ≈smoke machine cost.
+- **Cost hygiene (sim-quantified):**
+  - **Fix the push+PR double-fire** — `on: push` to feature branches + `on:
+    pull_request` runs every check twice (fable5 verified: 10 check runs per head;
+    opus4.8: 42 runs / 22 PRs). Trigger on `pull_request` + `push: branches: [main]`
+    only. This alone halves lab CI spend.
+  - **Concurrency-cancel superseded runs** per branch (template included).
+  - **No macos in the per-PR path** — the only pathological CI state observed all
+    night was a permanently-queued macos-13 runner (stall-not-fail). Keep exotic
+    runners in the nightly matrix where a hang costs nothing.
+- Landing path: arm-at-creation (R5) — labs are pending-capable and mostly not
+  born-red; REST-on-green fallback per R8/R21.
+
+### Tier 2 — production repos (superbot / superbot-next class)
+
+- **Full per-PR CI stands (prior confirmed at the operating points that matter).**
+  Sim: full CI wins from ~1% breakage at ≥2× traffic and from ~3.3% at 1×; at 8%
+  breakage ×1 it is 145 vs 502 agent-min/window against smoke-only. Merge=deploy
+  (Q-0193) puts escaped breakage in production within minutes, which is why prod
+  severity outranks the calm-lane composite (flagged honestly: at 1× traffic and
+  ≤2% true breakage, smoke-only scores lower — 86 vs 108 at p=0.03; we keep full CI
+  for the burst regime and the tail risk, not the average day).
+- **Sim-quantified riders:**
+  - **Never require up-to-date branches** (and no merge queue at current scale) —
+    the up-to-date rule is the single biggest latency amplifier: it produces the
+    two-round tier (median merge latency 12.3 min, 37.6 stalls >10 min per window
+    at 4× traffic vs 3.9 at 1×). This confirms §3's existing instruction with
+    numbers.
+  - **The 5–7 min Code Quality wall is the next cost target:** it accounts for
+    essentially all of prod's agent-wait (98 → 494 poll-minutes/window from 1× to
+    4×). Splitting a <60s required core from the 5-min deep pass would move prod
+    toward lab-class latency without losing the gate.
+  - Born-red session PRs: arm is structurally refused all session ("unstable
+    status") — REST merge-on-green after the card flip is the primary landing path
+    (R21); do not retry the arm.
+  - True post-flip failure is ≤2% — a red after the flip is signal, not noise;
+    fix it, don't re-run it blind. (Raw 20–35% gate "failure rates" are the
+    born-red convention and must not be read as flakiness.)
+
+### Tier assignment quick rule
+
+| repo shape | tier | required per-PR check | nightly | landing path |
+|---|---|---|---|---|
+| docs / coordination | 0 | substrate-gate only if born-red convention, else none | optional single full run | REST merge-on-green |
+| lab / experiment | 1 | fast-full: whole suite, 1 cell, ≤60s | full matrix | arm at creation, REST fallback |
+| production (merge=deploy) | 2 | full CI (all required contexts) | full + deep scans | arm at creation; REST after born-red flip |
+
+Escalation: a Tier-1 lane graduates to Tier 2 when its merges become deploys or
+other lanes build on it same-day. A Tier-0 lane that starts carrying runtime code
+is misfiled — re-tier it.
+
 ## 3. OWNER SETUP checklist (the clicks only the owner can do, per new lane)
 
 1. **Repo:** create it; General → tick "Allow auto-merge" + "Automatically
    delete head branches."
 2. **Ruleset:** main requires PRs + the repo's real CI context(s) (exact
-   names!); do NOT restrict push; do NOT require up-to-date branches (or add a
-   merge queue).
+   names!, per the lane's CI tier — §2b); do NOT restrict push; do NOT require
+   up-to-date branches (or add a merge queue) — now sim-quantified: the
+   up-to-date rule is the single biggest latency amplifier (§2b Tier-2 rider).
 3. **Auto-merge sanity:** confirm the required context actually reports on a
    test PR before the lane relies on it.
 4. **Project (claude.ai):** create; paste Custom Instructions; set the model.
