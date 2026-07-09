@@ -1,6 +1,6 @@
 # Dispatch log
 
-> **Status:** `living` — dated log of what the manager dispatched and shipped.
+> **Status:** `living-ledger` — dated log of what the manager dispatched and shipped.
 > One line per dispatch; PR numbers where memorable.
 
 ## 2026-07-09 — gen-1 baseline day

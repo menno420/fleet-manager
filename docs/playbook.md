@@ -1,6 +1,6 @@
 # Fleet manager playbook
 
-> **Status:** `living` — the manager's operating memory; update the day a lesson is
+> **Status:** `living-ledger` — the manager's operating memory; update the day a lesson is
 > learned (friction → rule, same session).
 
 Numbered rules, each with the WHY that earned it. All dated 2026-07-09 (gen-1 baseline

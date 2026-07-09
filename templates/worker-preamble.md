@@ -1,6 +1,6 @@
 # Worker preamble templates
 
-> **Status:** `living` — standard blocks to paste into every worker prompt.
+> **Status:** `living-ledger` — standard blocks to paste into every worker prompt.
 > One block per worker type; paste verbatim, then append the task-specific body.
 
 ## (a) Write-worker preamble
