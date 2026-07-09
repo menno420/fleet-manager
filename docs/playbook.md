@@ -75,3 +75,8 @@ day) unless a later date is noted next to the rule.
     `docs/owner-queue.md` — never scattered in chat.** *WHY: scattered asks get lost
     and duplicated; a single queue with defaults is the only interface that survives
     across sessions.* (2026-07-09)
+17. **R17 — Owner-action gate: no ⚑ item leaves the manager without —
+    attempted-or-exact-wall evidence that it is truly owner-only, plus
+    WHAT/WHERE/HOW/WHY/UNBLOCKS in plain language.** Owner feedback: many fleet asks
+    were assumption-based or too complicated to act on. *WHY: unnecessary asks are the
+    most expensive failure — they spend the owner.* (2026-07-09)

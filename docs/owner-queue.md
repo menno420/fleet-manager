@@ -2,6 +2,7 @@
 
 > **Status:** `living-ledger` — the ONE deduplicated queue of things waiting on the owner.
 > The manager adds/removes items; asks stay valid until acted on (playbook R11).
+> Every item below must carry WHAT/WHERE/HOW/WHY/UNBLOCKS + proof it's owner-only (R17).
 
 Current queue (all queued 2026-07-09):
 
