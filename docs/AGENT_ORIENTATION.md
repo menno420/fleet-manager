@@ -20,10 +20,21 @@
 ## Manager working memory (this repo's own docs)
 
 - **[`docs/playbook.md`](playbook.md)** — the manager's operating rules
-  (R1–R16: orientation, dispatch, protocol, platform walls, owner interface).
+  (R1–R19: orientation, dispatch, protocol, platform walls, owner interface).
+- **[`docs/handoff-2026-07-09.md`](handoff-2026-07-09.md)** — succession
+  handoff: the successor session's first-read (fleet state + in-flight items).
 - **[`docs/owner-queue.md`](owner-queue.md)** — the one deduplicated queue of
   things waiting on the owner.
 - **[`docs/dispatch-log.md`](dispatch-log.md)** — dated log of dispatches.
+- **[`docs/capabilities.md`](capabilities.md)** — the capability manifest:
+  read before declaring anything impossible (R18).
+- **[`docs/prompts/README.md`](prompts/README.md)** — verbatim ledger of every
+  deployed fleet prompt (gen-1 texts + the venture-lab draft).
+- **[`docs/findings/README.md`](findings/README.md)** — committed
+  worker-research findings (retro synthesis, GPT-5.6, venture shortlist,
+  UI visibility, ping test).
+- **[`docs/gen2-blueprint.md`](gen2-blueprint.md)** — the Phase-2 (born-right)
+  Project seed standard (DRAFT).
 - **[`templates/worker-preamble.md`](../templates/worker-preamble.md)** —
   standard preamble blocks for every worker prompt.
 - **[`control/README.md`](../control/README.md)** — protocol heartbeat contract

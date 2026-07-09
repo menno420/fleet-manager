@@ -64,6 +64,17 @@ the manager/coordinator tier does.)
 Use **blocking foreground waits** — `until [ $(date +%s) -ge $end ]; do sleep 5; done` —
 never background timers. Background timers silently drop the final report. (Playbook R4.)
 
+### YouTube transcripts
+`youtube_transcript_api` is IP-blocked from datacenter IPs — sessions conclude
+transcripts are impossible. They aren't:
+
+```bash
+yt-dlp --skip-download --write-auto-sub <video-url>
+```
+
+works via its android-vr endpoint; then parse the resulting `.vtt` file.
+(Discovered 2026-07-09, transcript+miner task.)
+
 ## WALLED — verified walls (quote the observed error, don't paraphrase)
 
 - **Tag push, GitHub Release creation, remote branch deletion** — fail with **403 at the

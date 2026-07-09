@@ -83,3 +83,10 @@ day) unless a later date is noted next to the rule.
 18. **R18 (2026-07-09) — Capability manifest: `docs/capabilities.md` is read before
     claiming impossibility; new walls/recipes appended same session.** *WHY: the owner
     kept having to remind sessions about ffmpeg and env tokens.*
+19. **R19 (2026-07-09) — Serialize same-inbox appends — never two concurrent workers
+    appending to one inbox file; the ORDER-number race cost 2 PRs twice today. One
+    inbox-writer lane at a time; re-read the inbox immediately before merge.**
+    *WHY: substrate-kit ORDER 008 collided with a parallel manager dispatch during the
+    ping test (PR #62 closed, re-dispatched as ORDER 009/#64) — the same race that
+    earlier double-executed kit ORDER 005 (#50/#51); see
+    `docs/findings/ping-test-2026-07-09.md`.*
