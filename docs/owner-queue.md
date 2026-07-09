@@ -29,15 +29,17 @@ Rewritten 2026-07-09 from the retro synthesis (deduplicated). Fast wins first-is
      project-review ⚑ owner-actions (`docs/retro/project-review-2026-07-09.md`).
    - WHY owner-only: branch-protection edits 403 at the agent credential layer.
    - UNBLOCKS: kit PRs stop waiting on a check that never reports.
-3. **Mining merge authorization — ONE sentence.**
-   - WHAT: type in the mining session chat: "You may mark ready, arm auto-merge,
-     and merge superbot-games PRs #9 and #5." (Or click yourself: merge **#9**,
-     then mark **#5** ready and merge; #4 is already closed as redundant.)
-   - WHERE: the mining Project session (or github.com/menno420/superbot-games
-     PRs #9, #5).
-   - WHY owner-only: self-approval classifier blocks the lane from merging its
-     own PRs; one sentence collapses the 3 clicks.
-   - UNBLOCKS: mining retro + the 18-module pure-domain port land on main.
+3. **Mining PR #5 — mark ready + merge (half done: you merged #9 at 19:02Z ✅).**
+   - WHAT: superbot-games PR **#5** (the 18-module pure-domain port) is still
+     open and DRAFT. Click "Ready for review", then "Squash & merge" →
+     Confirm. (#9 merged 2026-07-09 19:02Z; #4 closed as redundant — verified
+     at HEAD.) Or type in the mining session chat: "You may mark ready, arm
+     auto-merge, and merge superbot-games PR #5."
+   - WHERE: github.com/menno420/superbot-games/pull/5.
+   - WHY owner-only: self-approval classifier blocks the lane from
+     marking-ready/merging its own PR (verbatim denials in the mining retro).
+   - UNBLOCKS: the mining port (18 modules, 62 tests) lands on main; the lane
+     proceeds to workflow seam + host adapter with a clean base.
 4. **PyPI trusted-publishing registration** — ~2 min.
    - WHAT: register a pending trusted publisher for the kit package.
    - WHERE: pypi.org → your account → Publishing → "Add a new pending publisher".
@@ -88,8 +90,48 @@ Rewritten 2026-07-09 from the retro synthesis (deduplicated). Fast wins first-is
     the pack is ready for your read + send.
 13. **Run the external ChatGPT review campaign** — pack live (sb#1903;
     next#57/#78): paste per pack instructions, feed replies back to any session.
-14. **Pick the gen-2 pilot mission** — the retro synthesis is in; blueprint
-    starts on your pick.
+14. **Launch venture-lab — the gen-2 born-right pilot** (~10 min of clicks,
+    in order; supersedes the old "pick the gen-2 pilot mission" ask — the
+    blueprint finalized venture-lab as the pilot under decide-and-flag; veto
+    = say so and the next candidate gets the same package).
+    - WHAT: create the venture-lab lane end-to-end — repo, ruleset, Project,
+      environment, wake routine. The founding Custom Instructions are
+      finalized and paste-ready in `docs/prompts/venture-lab-draft.md`
+      (§ "Founding instruction text").
+    - WHERE/HOW (click-level, in this order):
+      1. **Repo:** github.com/new → name `venture-lab`, private, tick "Add a
+         README". Then Settings → General → Pull Requests: tick **"Allow
+         auto-merge"** + **"Automatically delete head branches"**.
+      2. **Ruleset:** Settings → Rules → Rulesets → "New branch ruleset" →
+         name `main`, target the `main` branch, enable "Require a pull
+         request before merging". Do NOT restrict push; do NOT require
+         up-to-date branches. (Add the required status check
+         `substrate-gate` only AFTER the lane's first CI PR has reported it
+         — a required check that never reports jams auto-merge forever.)
+      3. **Project:** claude.ai → New Project `venture-lab` → paste the
+         Custom Instructions block from `docs/prompts/venture-lab-draft.md`
+         **verbatim** → set the model (your pick; default: same tier as the
+         current fleet coordinators).
+      4. **Environment:** claude.ai/code → Environments → New → paste
+         `environments/templates/setup-universal.sh` as the setup script;
+         no extra env vars at launch. Attach it to the Project.
+      5. **Routine:** the Project's routines/schedule UI → **hourly** wake
+         (gen2-blueprint §2a, Class A): "Read control/inbox.md at HEAD and
+         run the standing ritual from your instructions." This is the
+         highest-value click — the ping test measured 7/9 unwoken lanes
+         never picking an order up.
+      6. **Boot message:** "Boot: walking skeleton through the full merge
+         path, then ORDER 001." (The manager will have ORDER 001 + the
+         venture shortlist corpus queued in control/inbox.md; step 6 can
+         also confirm the ruleset check reports on the skeleton PR.)
+    - WHY owner-only: repo creation + settings, Project / environment /
+      routine creation are GitHub-settings and claude.ai UI surfaces — no
+      agent API for any of them (verified walls, docs/capabilities.md; R17:
+      attempted-or-exact-wall evidence on file for environments/routines,
+      repo-settings 403s in the kit retro).
+    - UNBLOCKS: phase-2 — the first born-right lane, which is both a revenue
+      probe and the live test of the gen-2 seed standard the whole next
+      generation launches from.
 
 ## Parked (valid, no rush)
 
