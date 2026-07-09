@@ -18,6 +18,10 @@
 > lane always lands its own PRs; review is post-merge
 > ([`review-queue.md`](review-queue.md)); do-not-automerge/owner-gated-merge
 > patterns killed for gen-2 lanes.
+> 2026-07-09 (night, later) — **landing-path mechanics aligned with playbook
+> R21** (fleet-manager PR #10 + venture-lab PR #1 evidence): REST
+> merge-on-green is the PRIMARY landing path on born-red and no-CI repos;
+> arm-at-creation is primary only where a check can go pending.
 
 The premise: every gen-1 lane paid a tax rediscovering the same ~13 failure
 classes. Gen-2 lanes are **born right** — the seed state prevents the known
@@ -34,12 +38,16 @@ classes before the first order fires.
       - **READY, never draft** (draft-PR whiplash hit 5+ lanes);
       - **MERGE AUTHORITY — the lane ALWAYS lands its own PRs** *(owner
         directive 2026-07-09)*: direct self-merge calls are
-        classifier-blocked (R12), but **arming auto-merge AT PR creation**
-        — in the checks-pending window — is allowed and server-side; that
-        **IS** the self-merge path. REST merge-on-green is the R8 fallback
-        when arming fails (GraphQL quota, window missed). Written grant, so
-        no session guesses its authority (sonnet5 F1-2; mining's nullified
-        output; opus4.8's falsely-owner-routed merges);
+        classifier-blocked (R12); the sanctioned self-merge path is picked
+        **by repo shape, per playbook R21**: on a repo where a check can go
+        pending and PRs aren't born-red, **arm auto-merge AT PR creation**
+        (allowed and server-side), with REST merge-on-green the R8 fallback
+        (GraphQL quota, window missed); on a **born-red repo or a
+        PR-requiring-ruleset repo with no CI**, arming is structurally
+        impossible ("unstable status" / "only applies when checks are
+        pending") — there **REST merge-on-green is PRIMARY**, not fallback.
+        Written grant, so no session guesses its authority (sonnet5 F1-2;
+        mining's nullified output; opus4.8's falsely-owner-routed merges);
       - **no PR ever waits for review before landing** *(owner directive
         2026-07-09)*: if a PR deserves second eyes, **merge anyway** and
         flag it — one line in the committed needs-second-review ledger
@@ -78,13 +86,16 @@ classes before the first order fires.
 What the gen-1 texts (`docs/prompts/`) lacked, per the lanes' own testimony:
 
 1. **No PR-state convention** → harness "create as draft" default won →
-   drafts sat hours. Gen-2: READY + arm-auto-merge-at-creation, in the
-   founding text.
+   drafts sat hours. Gen-2: READY + the R21 landing path in the founding
+   text (arm-at-creation where a check can go pending; REST merge-on-green
+   primary on born-red/no-CI repos).
 2. **No merge-authority statement** → each lane guessed; classifier outcomes
    diverged same-repo-same-day. Gen-2 *(owner directive 2026-07-09)*:
-   explicit, unconditional self-merge grant in the founding text — arm
-   auto-merge at PR creation (the sanctioned R12 path; REST merge-on-green
-   as R8 fallback), never wait for review; needs-second-eyes → merge anyway
+   explicit, unconditional self-merge grant in the founding text — landing
+   path per playbook R21 (arm auto-merge at PR creation, the sanctioned R12
+   path, where a check can go pending; **REST merge-on-green PRIMARY on
+   born-red/no-CI repos**, and the R8 fallback everywhere else), never wait
+   for review; needs-second-eyes → merge anyway
    + a [`review-queue.md`](review-queue.md) line and/or @Codex mention;
    review post-merge, veto = revert. **No gen-2 lane is owner-gated on
    merges** — the owner-gate option gen-1 lanes guessed themselves into is
