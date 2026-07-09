@@ -20,6 +20,8 @@
 | [`venture-lab-draft.md`](venture-lab-draft.md) | venture-lab gen-2 founding Custom Instructions (**FINALIZED** 2026-07-09 from the gen-2 blueprint, paste-verbatim) | ❌ NOT YET DEPLOYED — launch click-list is one item in [`../owner-queue.md`](../owner-queue.md) |
 | [`gen1-winddown-universal.md`](gen1-winddown-universal.md) | Universal gen-1 wind-down prompt (paste ×9 Projects) — each lane commits its succession package for its gen-2 relaunch (blueprint §4 natural-boundary migration) | ❌ NOT YET DEPLOYED — paste item in [`../owner-queue.md`](../owner-queue.md) |
 | [`game-lab-founding.md`](game-lab-founding.md) | game-lab gen-2 founding Custom Instructions (two-track GBA venture: private pokeemerald mod + public Butano homebrew; **FINALIZED** 2026-07-09 night from the owner’s decision + the toolchain scout proof, paste-verbatim) | ❌ NOT YET DEPLOYED — launch click-list is one item in [`../owner-queue.md`](../owner-queue.md) |
+| [`external-review-opus-2026-07-09.md`](external-review-opus-2026-07-09.md) | Independent doctrine-comparison review prompt (gen-2 vs. superbot original), owner-run in a normal Opus session | ✅ HANDED TO OWNER 2026-07-09, results pending |
+| [`external-review-sonnet-2026-07-09.md`](external-review-sonnet-2026-07-09.md) | Independent wind-down claims audit prompt (succession packages vs. git evidence), owner-run in a normal Sonnet session | ✅ HANDED TO OWNER 2026-07-09, results pending |
 
 ## Conventions this ledger records
 

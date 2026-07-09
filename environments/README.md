@@ -41,6 +41,7 @@ The websites control-plane renders this directory read-only at `/environments`
 | [`archetype-gba-lab.sh`](archetype-gba-lab.sh) | Setup script — game-lab GBA lanes (gba-homebrew public / pokemon-mod-lab PRIVATE): devkitARM r68 mirror route + agbcc + mGBA headless loop. Routes proven in-container by the toolchain scout 2026-07-09 (`docs/findings/gba-toolchain-proof-2026-07-09.md`); the assembled script itself is unverified-as-a-whole until the lane's first boot. |
 | [`templates/setup-universal.sh`](templates/setup-universal.sh) | The proven defensive multi-repo setup shim (playbook R15: exit 0 always) the archetype scripts derive from. |
 | [`templates/env-vars.md`](templates/env-vars.md) | Placeholder schema of the standard fleet variable set — names + purpose only, incl. the Railway-trio DANGER note. |
+| [`templates/smoke.yml`](templates/smoke.yml) | **Tier-1 "fast-full" reference CI workflow** (blueprint §2b CI-TIER STANDARD): whole suite, one ≤60s cell, PR+main-only triggers, concurrency-cancel, 3-min timeout. Copy into a lab repo's `.github/workflows/`; the `smoke` job name goes in the ruleset's required checks. |
 | [`multi-repo.md`](multi-repo.md) | Spec of the CURRENT live `multi-repo` environment, as built 2026-07-09. |
 | [`SPEC-TEMPLATE.md`](SPEC-TEMPLATE.md) | The form an agent fills when proposing a new Project's environment. |
 

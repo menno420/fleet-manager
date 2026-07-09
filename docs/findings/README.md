@@ -16,4 +16,5 @@
 | [`venture-shortlist-2026-07-09.md`](venture-shortlist-2026-07-09.md) | Monetization-video analysis: patterns, skeptic filter, 5-idea least-investment shortlist (venture-lab opening corpus) |
 | [`ui-visibility-2026-07-09.md`](ui-visibility-2026-07-09.md) | Two screen-recording analyses of claude.ai fleet visibility: session-level signals good, zero project-level rollup |
 | [`ping-test-2026-07-09.md`](ping-test-2026-07-09.md) | Fleet-wide PING dispatch table + write-latency findings (30s–14min by gate weight); ack sweep pending at handoff |
+| [`ci-tier-sim-2026-07-09.md`](ci-tier-sim-2026-07-09.md) | CI-tier simulation: 451 PRs / ~1250 runs calibration + 144-cell × 40-seed discrete-event sim of 4 CI regimes × 3 repo classes. **Basis of the blueprint's CI-TIER STANDARD** (Tier 1 labs adjusted smoke-only → fast-full) |
 | [`gba-toolchain-proof-2026-07-09.md`](gba-toolchain-proof-2026-07-09.md) | GBA toolchain scout ground truth (night): both game-lab tracks GO — pokeemerald byte-identical 1m20s/2.0s; Butano 17.5s via leseratte10 devkitARM r68 mirror; mGBA headless loop ~290 fps — caveats + private/public rails |

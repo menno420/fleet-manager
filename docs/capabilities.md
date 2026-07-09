@@ -106,6 +106,12 @@ all three routes proven (`docs/findings/gba-toolchain-proof-2026-07-09.md`):
   proxy (toolchain scout 2026-07-09). Don't re-probe; the working route is the
   leseratte10 mirror recipe in the CAN section above.
 - **Force-push / amending pushed history** — never. Forward-only commits.
+- **Cross-session agent messaging** — no `send_message`/`send_later` MCP tool exists in
+  coordinator or worker sessions of this org (**"No agent named ... is reachable"**;
+  trigger binding to another session rejected: **"binding a trigger to another session is
+  not enabled for this organization"**). Working delivery channels = git control-files bus
+  + PR comments on a PR the target session is subscribed to (delivery NOT guaranteed
+  before close-out — see playbook R20).
 
 ## DISCOVERY RULE
 
