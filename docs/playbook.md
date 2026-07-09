@@ -90,3 +90,10 @@ day) unless a later date is noted next to the rule.
     ping test (PR #62 closed, re-dispatched as ORDER 009/#64) — the same race that
     earlier double-executed kit ORDER 005 (#50/#51); see
     `docs/findings/ping-test-2026-07-09.md`.*
+20. **R20 (2026-07-09) — A mid-flight scope addition delivered to a running session
+    (a PR comment, a relayed message) is NOT delivered until the session acknowledges
+    it; unacknowledged by close-out = re-dispatch it as a fresh order.** *WHY: this
+    repo's PR #8 merged 19:31Z with a 19:23Z Task-4 scope comment unread — the session
+    closed out never having seen it, and the addition silently evaporated with the
+    chat. A running session has no obligation to re-poll its own PR thread; only an
+    ack (or a fresh order in the inbox lane) makes delivery real.*
