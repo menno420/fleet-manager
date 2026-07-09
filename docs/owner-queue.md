@@ -209,6 +209,53 @@ Rewritten 2026-07-09 from the retro synthesis (deduplicated). Fast wins first-is
       (kit #26), and 8 (kit #49) — the doc is the current source of truth on
       their live state; those items stay listed for their context only.
 
+17. **Launch game-lab — the two-track GBA venture you decided tonight**
+    (~10 min of clicks, in order; decision 2026-07-09 night, both tracks;
+    toolchain fully proven in-container the same night —
+    [`findings/gba-toolchain-proof-2026-07-09.md`](findings/gba-toolchain-proof-2026-07-09.md)).
+    - WHAT: create the game-lab lane end-to-end — TWO repos (one private,
+      one public), ONE Project, the gba-lab environment, an hourly wake
+      routine. The founding Custom Instructions are finalized and
+      paste-ready in
+      [`prompts/game-lab-founding.md`](prompts/game-lab-founding.md).
+    - WHERE/HOW (click-level, in this order):
+      1. **Repo 1 (public):** github.com/new → name `gba-homebrew`,
+         **public**, tick "Add a README". Then Settings → General → Pull
+         Requests: tick **"Allow auto-merge"** + **"Automatically delete
+         head branches"**.
+      2. **Repo 2 (PRIVATE):** github.com/new → name `pokemon-mod-lab`,
+         **private** (this one holds Nintendo-copyrighted decomp material —
+         it must NEVER be public), leave it **empty apart from the README**
+         (agents mirror pret/pokeemerald in themselves). Same Settings →
+         General → Pull Requests ticks: **"Allow auto-merge"** +
+         **"Automatically delete head branches"**.
+      3. **Project:** claude.ai → New Project `game-lab` → paste the Custom
+         Instructions block from `docs/prompts/game-lab-founding.md`
+         **verbatim** → set the model (your pick; default: same tier as the
+         current fleet coordinators) → add BOTH repos to the Project.
+      4. **Environment:** claude.ai/code → Environments → New environment →
+         name `gba-lab` → add repos `menno420/gba-homebrew` +
+         `menno420/pokemon-mod-lab` → Setup script: paste the full contents
+         of `environments/archetype-gba-lab.sh` → env vars: **none**.
+         Attach it to the game-lab Project.
+      5. **Routine:** the Project's routines/schedule UI → **hourly** wake
+         (gen2-blueprint §2a, Class A — new lane at launch): "Read
+         control/inbox.md at HEAD and run the standing ritual from your
+         instructions."
+      6. **Boot message:** "Boot: walking skeleton on both tracks (build +
+         headless screenshot through the full merge path), then ORDER 001."
+         (The manager queues ORDER 001 — scout-loop reproduction + 3 mod
+         concepts / 3 game concepts with scope estimates — in each repo's
+         control/inbox.md at seed.)
+    - WHY owner-only: repo creation + settings, Project / environment /
+      routine creation are GitHub-settings and claude.ai UI surfaces — no
+      agent API for any of them (verified walls, `docs/capabilities.md`;
+      same wall class R17-evidenced on the venture-lab item above).
+    - UNBLOCKS: the second gen-2 born-right lane; the first *playable*
+      fleet artifact (a modded Emerald in your hands + an original homebrew
+      ROM that is publish-safe); live reuse of the scout session's proven
+      toolchain before it goes stale.
+
 ## Parked (valid, no rush)
 
 - **codetool-lab-opus4.8 v0.1.0 tag + Release** — tag-push is walled (403);

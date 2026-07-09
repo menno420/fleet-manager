@@ -75,6 +75,20 @@ yt-dlp --skip-download --write-auto-sub <video-url>
 works via its android-vr endpoint; then parse the resulting `.vtt` file.
 (Discovered 2026-07-09, transcript+miner task.)
 
+### Build + test GBA ROMs entirely in-container (toolchain scout 2026-07-09)
+Sessions would assume a GBA toolchain/emulator loop is impossible headless. It isn't —
+all three routes proven (`docs/findings/gba-toolchain-proof-2026-07-09.md`):
+
+- **pokeemerald:** `apt install binutils-arm-none-eabi` (only extra dep) + agbcc per
+  its INSTALL.md → byte-identical retail build, 1m20s full / 2.0s incremental.
+- **devkitARM/Butano:** official devkitPro installers are WALLED (below); use the
+  **leseratte10 community mirror** (`https://wii.leseratte10.de/devkitPro/`) — extract
+  the devkitARM r68 linux_x86_64 `.pkg.tar.zst` packages, build make-rules/crt0 from
+  devkitPro's GitHub sources (⚠ unsigned community infra — supply-chain caveat).
+- **Headless emulator:** `apt install mgba-sdl` + `pip install mgba==0.10.2` (pin to
+  the system libmgba 0.10.x) → boot → run N frames → PNG at ~290 fps; scripted button
+  injection can verify changes in-game with no display and no human.
+
 ## WALLED — verified walls (quote the observed error, don't paraphrase)
 
 - **Tag push, GitHub Release creation, remote branch deletion** — fail with **403 at the
@@ -88,6 +102,9 @@ works via its android-vr endpoint; then parse the resulting `.vtt` file.
 - **GraphQL quota exhausts at fleet scale (~hourly)** — REST merge-on-green is the
   fallback; ready-flips (draft→ready) are GraphQL-only, so wait for quota reset for those.
   (Playbook R8.)
+- **Official devkitPro package installers/infra** — **Cloudflare 403** behind the fleet
+  proxy (toolchain scout 2026-07-09). Don't re-probe; the working route is the
+  leseratte10 mirror recipe in the CAN section above.
 - **Force-push / amending pushed history** — never. Forward-only commits.
 
 ## DISCOVERY RULE
