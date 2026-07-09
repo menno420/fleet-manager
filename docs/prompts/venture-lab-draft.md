@@ -14,6 +14,12 @@
 > History note: the original 2026-07-09 proposal (mission + rails + pilot
 > rationale) is preserved in this file's git history; the mission and hard
 > rails below are unchanged from it — the gen-2 conventions are what's new.
+>
+> 2026-07-09 (night, owner directive 2026-07-09): MERGE AUTHORITY block
+> upgraded to the fleet merge-authority policy
+> ([`../gen2-blueprint.md`](../gen2-blueprint.md) §1/§2) — always land own
+> PRs; review post-merge via [`../review-queue.md`](../review-queue.md)
+> and/or @Codex; veto = revert. The lane launches with this.
 
 ## Founding instruction text (paste verbatim into the Project's Custom Instructions)
 
@@ -47,10 +53,16 @@ FLEET PROTOCOL (standing ritual, every session):
 GIT / PR CONVENTIONS (binding; repo conventions override harness defaults):
 - READY, never draft. Arm auto-merge AT PR creation, while checks are
   pending (GitHub refuses to arm on an already-green PR).
-- MERGE AUTHORITY — written grant: you merge your own PRs via auto-merge on
-  green CI. The platform wall blocks only the direct self-merge call; arming
-  auto-merge is the sanctioned path. Done-when for any task is
-  agent-reachable: "PR open, READY, auto-merge armed, CI green."
+- MERGE AUTHORITY — written grant: you ALWAYS land your own PRs. The
+  platform wall blocks only the direct self-merge call; arming auto-merge
+  at creation is the sanctioned self-merge path, and REST merge-on-green is
+  the fallback when arming fails. NO PR ever waits for review before
+  landing: if a PR deserves second eyes, merge it anyway and flag it — one
+  line in docs/review-queue.md (number · what to re-check · why) and/or
+  request review by @-mentioning Codex on the PR thread. Review is
+  post-merge; veto = revert. Done-when for any task is agent-reachable:
+  "PR merged on green." Never apply do-not-automerge or hold a PR for an
+  owner merge.
 - Forward-only git: no force-push, no history rewrites.
 - WALKING SKELETON FIRST: within the first 20 minutes of the lane's life,
   drive one trivial change through the FULL merge path (branch → PR → CI →

@@ -13,6 +13,11 @@
 > ping read-latencies folded into §2a wake cadence, §5 open items resolved
 > (retro deliverables reconciled at HEAD, venture-lab founding text
 > finalized), status `plan` → `binding`.
+> 2026-07-09 (night) — **merge-authority policy** (owner directive
+> 2026-07-09): §1 conventions bullet + §2 delta 2 rewritten — every gen-2
+> lane always lands its own PRs; review is post-merge
+> ([`review-queue.md`](review-queue.md)); do-not-automerge/owner-gated-merge
+> patterns killed for gen-2 lanes.
 
 The premise: every gen-1 lane paid a tax rediscovering the same ~13 failure
 classes. Gen-2 lanes are **born right** — the seed state prevents the known
@@ -27,11 +32,24 @@ classes before the first order fires.
       skipped-check satisfying a required check (kit incidents #7/#22; P10).
 - [ ] **Conventions file committed day 0**, stating explicitly:
       - **READY, never draft** (draft-PR whiplash hit 5+ lanes);
-      - **self-merge-on-green where the repo allows it** — written grant, so
+      - **MERGE AUTHORITY — the lane ALWAYS lands its own PRs** *(owner
+        directive 2026-07-09)*: direct self-merge calls are
+        classifier-blocked (R12), but **arming auto-merge AT PR creation**
+        — in the checks-pending window — is allowed and server-side; that
+        **IS** the self-merge path. REST merge-on-green is the R8 fallback
+        when arming fails (GraphQL quota, window missed). Written grant, so
         no session guesses its authority (sonnet5 F1-2; mining's nullified
         output; opus4.8's falsely-owner-routed merges);
-      - **done-when = agent-reachable states** — "PR open, READY, green" for
-        owner-gated merges, never a merge the agent cannot perform (mining D5);
+      - **no PR ever waits for review before landing** *(owner directive
+        2026-07-09)*: if a PR deserves second eyes, **merge anyway** and
+        flag it — one line in the committed needs-second-review ledger
+        ([`review-queue.md`](review-queue.md): number · what to re-check ·
+        why) and/or request review by @-mentioning Codex on the PR thread.
+        Review is **post-merge**; veto = revert (forward-only). The
+        do-not-automerge / owner-gated-merge pattern is **dead in gen-2
+        lanes** (gen-1 carve-outs unaffected); done-when for every task is
+        therefore agent-reachable: "PR merged on green" (mining D5's
+        stalled-output class cannot recur);
       - forward-only git; repo conventions override harness defaults.
 - [ ] **control/ files + capability manifest + PLATFORM-LIMITS.md + retro
       questions planted day 0** — walls with exact error text ("probing a
@@ -63,8 +81,14 @@ What the gen-1 texts (`docs/prompts/`) lacked, per the lanes' own testimony:
    drafts sat hours. Gen-2: READY + arm-auto-merge-at-creation, in the
    founding text.
 2. **No merge-authority statement** → each lane guessed; classifier outcomes
-   diverged same-repo-same-day. Gen-2: explicit self-merge grant (or explicit
-   owner-gate + agent-reachable done-when).
+   diverged same-repo-same-day. Gen-2 *(owner directive 2026-07-09)*:
+   explicit, unconditional self-merge grant in the founding text — arm
+   auto-merge at PR creation (the sanctioned R12 path; REST merge-on-green
+   as R8 fallback), never wait for review; needs-second-eyes → merge anyway
+   + a [`review-queue.md`](review-queue.md) line and/or @Codex mention;
+   review post-merge, veto = revert. **No gen-2 lane is owner-gated on
+   merges** — the owner-gate option gen-1 lanes guessed themselves into is
+   retired for gen-2 (gen-1 carve-outs unaffected).
 3. **No write-scope contract** → every lane burned time probing tag/release/
    branch-delete 403s. Gen-2: state the walls up front + the sanctioned
    release path (Actions workflow_dispatch route, proven by opus4.8).
