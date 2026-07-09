@@ -80,3 +80,6 @@ day) unless a later date is noted next to the rule.
     WHAT/WHERE/HOW/WHY/UNBLOCKS in plain language.** Owner feedback: many fleet asks
     were assumption-based or too complicated to act on. *WHY: unnecessary asks are the
     most expensive failure — they spend the owner.* (2026-07-09)
+18. **R18 (2026-07-09) — Capability manifest: `docs/capabilities.md` is read before
+    claiming impossibility; new walls/recipes appended same session.** *WHY: the owner
+    kept having to remind sessions about ffmpeg and env tokens.*
