@@ -133,6 +133,32 @@ Rewritten 2026-07-09 from the retro synthesis (deduplicated). Fast wins first-is
       probe and the live test of the gen-2 seed standard the whole next
       generation launches from.
 
+15. **Paste the gen-1 wind-down prompt into each gen-1 Project** — the
+    fleet-wide gen-1 → gen-2 refresh (one identical paste ×9 chats).
+    - WHAT: send ONE universal wind-down message to every gen-1 Project's
+      chat, so each lane finishes/parks its open work and commits its own
+      succession package (retro, next-boot doc, proposed Custom Instructions,
+      tested environment spec, gen-2 feedback, "wind-down complete" status
+      marker) in its own repo — the raw material for each lane's fresh gen-2
+      relaunch.
+    - WHERE: each gen-1 claude.ai Project — superbot-next, substrate-kit,
+      websites, trading-strategy, codetool-lab-fable5, codetool-lab-opus4.8,
+      codetool-lab-sonnet5, superbot-games (mining), superbot-games
+      (exploration).
+    - HOW: open
+      https://raw.githubusercontent.com/menno420/fleet-manager/main/docs/prompts/gen1-winddown-universal.md
+      → copy everything inside the code fence (from "WIND-DOWN:" to "…keep
+      going.") → paste it as ONE message into each Project's chat. Same text
+      everywhere — each lane adapts it to its own repo.
+    - WHY owner-only: sending a message into a Project's chat is a claude.ai
+      UI action; agents have no surface to message other Projects' sessions
+      (same verified wall class as environments/routines,
+      `docs/capabilities.md`).
+    - UNBLOCKS: per-lane succession packages on each repo's main; the manager
+      tracks completion via each lane's `control/status.md` "wind-down
+      complete" marker, then queues the per-lane gen-2 relaunch clicks (fresh
+      Project + new instructions + new environment per blueprint §3).
+
 ## Parked (valid, no rush)
 
 - **codetool-lab-opus4.8 v0.1.0 tag + Release** — tag-push is walled (403);
