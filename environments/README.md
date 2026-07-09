@@ -33,7 +33,12 @@ The websites control-plane renders this directory read-only at `/environments`
 
 | File | What |
 |---|---|
-| [`templates/setup-universal.sh`](templates/setup-universal.sh) | The proven defensive multi-repo setup shim (playbook R15: exit 0 always). Default for every new environment. |
+| [`archetypes.md`](archetypes.md) | **The ≤4 consolidated environment archetypes** (owner directive 2026-07-09): project → archetype mapping, var-name unions, 3.10/3.11 wrinkle, owner paste-steps. Start here. |
+| [`archetype-python-lab.sh`](archetype-python-lab.sh) | Tested setup script — stdlib/tiny-dep lab lanes (kit, 3 codetool arms, games, fleet-manager, venture-lab). |
+| [`archetype-pinned-research.sh`](archetype-pinned-research.sh) | Tested setup script — pinned-requirements lanes (trading-strategy incl. its two-source workspace shape, websites). |
+| [`archetype-bot-prod.sh`](archetype-bot-prod.sh) | Tested setup script — production bot lanes (superbot-next lockfile, legacy superbot 3.10 pin). Only archetype allowed production-pointing vars. |
+| [`archetype-coordinator.sh`](archetype-coordinator.sh) | Tested setup script — the live multi-repo coordinator workspace (superset manifest handling). |
+| [`templates/setup-universal.sh`](templates/setup-universal.sh) | The proven defensive multi-repo setup shim (playbook R15: exit 0 always) the archetype scripts derive from. |
 | [`templates/env-vars.md`](templates/env-vars.md) | Placeholder schema of the standard fleet variable set — names + purpose only, incl. the Railway-trio DANGER note. |
 | [`multi-repo.md`](multi-repo.md) | Spec of the CURRENT live `multi-repo` environment, as built 2026-07-09. |
 | [`SPEC-TEMPLATE.md`](SPEC-TEMPLATE.md) | The form an agent fills when proposing a new Project's environment. |

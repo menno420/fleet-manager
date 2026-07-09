@@ -8,18 +8,50 @@ Rewritten 2026-07-09 from the retro synthesis (deduplicated). Fast wins first-is
 
 ## Active queue
 
-1. **Paste the env setup scripts (trading + kit)** — ~2 min each.
-   - WHAT: create claude.ai environments for trading-strategy and substrate-kit.
-   - WHERE: **claude.ai/code → Environments → New environment**, then attach to
-     the Project.
-   - HOW: paste the setup script into the Setup-script field —
-     `environments/templates/setup-universal.sh` is the proven default shim;
-     trading's and kit's exact scripts are in the retro-synthesis pack
-     (menno420/superbot `docs/eap/`) until their per-repo specs are filed here.
-     Variable NAMES per `environments/templates/env-vars.md` (values only in the
-     claude.ai panel — never in the repo).
-   - WHY owner-only: agents cannot create/edit environments (verified wall).
-   - UNBLOCKS: dependency-green boots in both Projects.
+1. **Create the ≤4 fleet environments (trading first)** — ~3 min each; this
+   ONE item replaces every earlier scattered environment ask (the old
+   "trading + kit paste" item and the per-lane spec asks). Everything you
+   paste lives in [`../environments/archetypes.md`](../environments/archetypes.md)
+   (mapping + var names) and the four `environments/archetype-*.sh` scripts —
+   all tested in-container 2026-07-09, incl. the exact two-source layout that
+   killed the trading sessions (transcripts in PR #10).
+   - WHAT: four claude.ai environments, one per archetype, covering every
+     current + planned Project.
+   - WHERE: **claude.ai/code → Environments → New environment** (steps 1–3);
+     **edit the existing `multi-repo` env** (step 4). Then each Project →
+     settings → Environment → select its archetype env.
+   - HOW (in this order — trading first):
+     1. **`pinned-research`** *(fixes the dead trading lane)*: New environment
+        → name `pinned-research` → add repos `menno420/trading-strategy` +
+        `menno420/substrate-kit` (+ `menno420/websites` if you want one shared
+        env) → Setup script: paste the full contents of
+        `environments/archetype-pinned-research.sh` → env vars: none for
+        trading; add `GITHUB_PAT`, `RAILWAY_API_KEY`, `SITE_PASSWORD`,
+        `DATABASE_URL` (websites' own app DB value) only if websites attaches
+        here. **Never** add `RAILWAY_PROJECT_ID` / `RAILWAY_SERVICE_ID` /
+        `RAILWAY_ENVIRONMENT_ID` to this env (production-pointing). Attach to
+        the trading-strategy (and optionally websites) Project.
+     2. **`python-lab`**: New environment → name `python-lab` → add repos
+        `substrate-kit`, `codetool-lab-fable5`, `codetool-lab-opus4.8`,
+        `codetool-lab-sonnet5`, `superbot-games`, `fleet-manager` (add
+        `venture-lab` after its launch) → Setup script: paste
+        `environments/archetype-python-lab.sh` → env vars: **none**. Attach to
+        the lab/games/kit/manager Projects.
+     3. **`bot-prod`**: New environment → name `bot-prod` → add repos
+        `superbot-next` (+ `superbot` if the legacy lane needs it) → Setup
+        script: paste `environments/archetype-bot-prod.sh` → env vars: copy
+        the NAMES from the superbot-next row of `environments/archetypes.md`
+        (values from your existing superbot env panel / Railway). This is the
+        ONLY env allowed the production-pointing vars.
+     4. **`multi-repo` (edit, don't create)**: open the existing multi-repo
+        environment → replace its Setup script with
+        `environments/archetype-coordinator.sh` → leave repos + vars as they
+        are. (Fixes the superbot 3.10-vs-3.11 pip wrinkle automatically.)
+   - WHY owner-only: agents cannot create/edit environments (verified wall,
+     `environments/README.md`).
+   - UNBLOCKS: dependency-green boots in every Project; retires the
+     provision-death failure class (4+ lanes) fleet-wide; trading's gen-2
+     relaunch.
 2. **kit P10 required-check swap.**
    - WHAT: swap substrate-kit main's required status check — remove the stale
      context, require the current gate.
@@ -112,9 +144,10 @@ Rewritten 2026-07-09 from the retro synthesis (deduplicated). Fast wins first-is
          Custom Instructions block from `docs/prompts/venture-lab-draft.md`
          **verbatim** → set the model (your pick; default: same tier as the
          current fleet coordinators).
-      4. **Environment:** claude.ai/code → Environments → New → paste
-         `environments/templates/setup-universal.sh` as the setup script;
-         no extra env vars at launch. Attach it to the Project.
+      4. **Environment:** attach the **`python-lab`** archetype environment
+         (queue item 1.2 — or create it now: paste
+         `environments/archetype-python-lab.sh` as the setup script); no
+         extra env vars at launch. Attach it to the Project.
       5. **Routine:** the Project's routines/schedule UI → **hourly** wake
          (gen2-blueprint §2a, Class A): "Read control/inbox.md at HEAD and
          run the standing ritual from your instructions." This is the
@@ -158,6 +191,23 @@ Rewritten 2026-07-09 from the retro synthesis (deduplicated). Fast wins first-is
       tracks completion via each lane's `control/status.md` "wind-down
       complete" marker, then queues the per-lane gen-2 relaunch clicks (fresh
       Project + new instructions + new environment per blueprint §3).
+
+16. **Run the merge session — one doc, all clicks.**
+    - WHAT: work through [`merge-queue-2026-07-09.md`](merge-queue-2026-07-09.md)
+      top to bottom — every open PR in the fleet, each re-verified at live
+      HEAD (2026-07-09 22:41Z) with a pre-chewed disposition and any
+      pre-merge step. 4 one-click merges, 1 needs a conflict fix first
+      (superbot-next #95 — the doc has the exact message to send that lane),
+      1 waits on another.
+    - WHERE: the PR links are in the doc; work in its row order.
+    - WHY owner-only: the still-open PRs are gen-1 owner-gated carve-outs
+      (kit pin-path/program-law ratification, mining's explicit owner gate)
+      — merge = your ratification.
+    - UNBLOCKS: kit bench B1 run-3, the mining port + wind-down landing,
+      superbot-next band-5 fixes.
+    - NOTE: this absorbs the *clicking* half of items 3 (mining #5), 6
+      (kit #26), and 8 (kit #49) — the doc is the current source of truth on
+      their live state; those items stay listed for their context only.
 
 ## Parked (valid, no rush)
 
