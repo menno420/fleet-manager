@@ -33,11 +33,12 @@ The websites control-plane renders this directory read-only at `/environments`
 
 | File | What |
 |---|---|
-| [`archetypes.md`](archetypes.md) | **The ≤4 consolidated environment archetypes** (owner directive 2026-07-09): project → archetype mapping, var-name unions, 3.10/3.11 wrinkle, owner paste-steps. Start here. |
+| [`archetypes.md`](archetypes.md) | **The consolidated environment archetypes (4 + gba-lab)** (owner directive 2026-07-09; gba-lab added as the justified 5th, 2026-07-09 night): project → archetype mapping, var-name unions, 3.10/3.11 wrinkle, owner paste-steps. Start here. |
 | [`archetype-python-lab.sh`](archetype-python-lab.sh) | Tested setup script — stdlib/tiny-dep lab lanes (kit, 3 codetool arms, games, fleet-manager, venture-lab). |
 | [`archetype-pinned-research.sh`](archetype-pinned-research.sh) | Tested setup script — pinned-requirements lanes (trading-strategy incl. its two-source workspace shape, websites). |
 | [`archetype-bot-prod.sh`](archetype-bot-prod.sh) | Tested setup script — production bot lanes (superbot-next lockfile, legacy superbot 3.10 pin). Only archetype allowed production-pointing vars. |
 | [`archetype-coordinator.sh`](archetype-coordinator.sh) | Tested setup script — the live multi-repo coordinator workspace (superset manifest handling). |
+| [`archetype-gba-lab.sh`](archetype-gba-lab.sh) | Setup script — game-lab GBA lanes (gba-homebrew public / pokemon-mod-lab PRIVATE): devkitARM r68 mirror route + agbcc + mGBA headless loop. Routes proven in-container by the toolchain scout 2026-07-09 (`docs/findings/gba-toolchain-proof-2026-07-09.md`); the assembled script itself is unverified-as-a-whole until the lane's first boot. |
 | [`templates/setup-universal.sh`](templates/setup-universal.sh) | The proven defensive multi-repo setup shim (playbook R15: exit 0 always) the archetype scripts derive from. |
 | [`templates/env-vars.md`](templates/env-vars.md) | Placeholder schema of the standard fleet variable set — names + purpose only, incl. the Railway-trio DANGER note. |
 | [`templates/smoke.yml`](templates/smoke.yml) | **Tier-1 "fast-full" reference CI workflow** (blueprint §2b CI-TIER STANDARD): whole suite, one ≤60s cell, PR+main-only triggers, concurrency-cancel, 3-min timeout. Copy into a lab repo's `.github/workflows/`; the `smoke` job name goes in the ruleset's required checks. |

@@ -1,4 +1,4 @@
-# Environment archetypes — the fleet's ≤4 consolidated environments
+# Environment archetypes — the fleet's consolidated environments (4 + gba-lab)
 
 > **Status:** `living-ledger`
 >
@@ -21,7 +21,13 @@
 > bare two-source checkout that killed 2 trading-strategy sessions at
 > provision** (test transcripts in PR #10's body).
 
-## The four archetypes
+## The archetypes
+
+*(The owner's original directive said ≤4; **gba-lab is the 5th by explicit
+justification** — the GBA cross-compile toolchain (devkitARM r68 + agbcc +
+mGBA headless, all apt/mirror/source-built) is far too heavy to fold into
+python-lab, and no other archetype may carry it. Added 2026-07-09 night with
+the game-lab founding package; decide-and-flag, vetoable.)*
 
 | Archetype | Script | Shape | Serves |
 |---|---|---|---|
@@ -29,6 +35,7 @@
 | **pinned-research** | [`archetype-pinned-research.sh`](archetype-pinned-research.sh) | pinned-`requirements*.txt` research/service lane; zero-to-few secrets; no local DB; may be a **two-source workspace** | trading-strategy, websites |
 | **bot-prod** | [`archetype-bot-prod.sh`](archetype-bot-prod.sh) | production Discord bot; Postgres; hash-pinned lockfile; **the only archetype allowed production-pointing vars** | superbot-next, superbot (legacy) |
 | **coordinator** | [`archetype-coordinator.sh`](archetype-coordinator.sh) | N-repo workspace (cwd is NOT a repo); superset manifest handling + dual interpreter | the live `multi-repo` env (fleet-manager coordination sessions) |
+| **gba-lab** | [`archetype-gba-lab.sh`](archetype-gba-lab.sh) | GBA cross-compile lab: devkitARM r68 (leseratte10 mirror route) + agbcc + binutils-arm-none-eabi + mGBA headless loop (`mgba-sdl` + pip `mgba==0.10.2`); zero secrets; no services | **gba-homebrew (planned, public)**, **pokemon-mod-lab (planned, PRIVATE)** — the game-lab venture |
 
 ## Project → archetype mapping (EVERY current + planned project)
 
@@ -41,6 +48,8 @@
 | menno420/superbot-games | **python-lab** | *(none)* | pure-stdlib domains; Block-4-class ban stands: never add Railway IDs / Discord tokens / DSNs / API keys here |
 | menno420/fleet-manager | **python-lab** | *(none)* | docs/control repo; stdlib `bootstrap.py` |
 | menno420/venture-lab (planned) | **python-lab** | *(none at launch)* | gen-2 born-right pilot; quality floor = substrate-kit; NO spend/account/publish vars without owner action |
+| menno420/gba-homebrew (planned, public) | **gba-lab** | *(none)* | Track B (Butano original homebrew); devkitARM via the leseratte10 r68 mirror route (⚠ unsigned community infra — supply-chain caveat in [`../docs/findings/gba-toolchain-proof-2026-07-09.md`](../docs/findings/gba-toolchain-proof-2026-07-09.md)); publish-safe code only |
+| menno420/pokemon-mod-lab (planned, PRIVATE) | **gba-lab** | *(none)* | Track A (pokeemerald mod); agents mirror pret/pokeemerald in; **Nintendo-copyrighted material — PRIVATE only, never publish/commit ROMs or extracted assets publicly** |
 | menno420/trading-strategy | **pinned-research** | *(none)* — proxy vars (`HTTPS_PROXY`, `REQUESTS_CA_BUNDLE`) and git auth are platform-provided | Python **3.11** floor (container 3.11.15 OK). **Its env is a TWO-SOURCE workspace** (trading-strategy + substrate-kit as cwd children) — the layout that killed 2 sessions; this archetype's script is tested against exactly that shape |
 | menno420/websites | **pinned-research** | `GITHUB_PAT`, `RAILWAY_API_KEY`, `SITE_PASSWORD`, `DATABASE_URL` (websites app DB); service-side/optional: `AUTOREFRESH_SECONDS`, `PORT` | THREE requirements files (root/botsite/dashboard) — script installs each individually; extras pytest+python-multipart baked in. Container is 3.11.x, production Dockerfiles 3.12 — do not assume 3.12 locally. **DENYLISTED here:** `RAILWAY_PROJECT_ID`/`RAILWAY_ENVIRONMENT_ID`/`RAILWAY_SERVICE_ID` (production-pointing; CI-enforced by `scripts/check_no_ambient_railway_ids.py`) |
 | menno420/superbot-next | **bot-prod** | Required fail-fast: `DISCORD_BOT_TOKEN_PRODUCTION`, `DATABASE_URL`. Ops: `BOT_PREFIX`, `BOT_OWNER_USER_ID`, `EXTRA_OWNER_USER_IDS`, `DISCORD_WEBHOOK_URL`, `LOG_LEVEL`, `HEALTH_PORT`, `HEALTH_HOST`, `AUTO_SYNC_COMMANDS`, `STRICT_DISABLED`, `IDENTITY_CONTRACT_STRICT`, `HEALTH_GROUPED_FINDINGS`, `AUTOMATION_SCHEDULER_ENABLED`. AI (dormant unkeyed): `AI_ENABLED`, `AI_DEFAULT_PROVIDER`, `AI_FALLBACK_PROVIDER`, `AI_TOOLS_ENABLED`, `AI_SERVER_MEMBER_LOOKUP_ENABLED`, `AI_TASKS_DISABLED`, `AI_TASK_ROUTING`, `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `SETUP_ADVISOR_PROVIDER`, `SETUP_ADVISOR_OPENAI_MODEL`. BTD6/media: `PARAGON_API_KEY`, `PARAGON_API_BASE_URL`, `BTD6_*` family, `YOUTUBE_API_KEY`. Plane/platform: `SB_DATA_PLANE`, `SB_TEST_DB_HOSTS`, `SB_PROD_ATTEST`, `SB_VERIFY_BOOT`, `SB_APPCMD_SYNC_GUILD_ID`, `SB_INTENT_MEMBERS_OK`, `SB_INTENT_MSGCONTENT_OK`, `RAILWAY_SERVICE_NAME`. Routines: `CLAUDE_ROUTINE_FIRE_URL`, `CLAUDE_ROUTINE_TOKEN`, `CLAUDE_ROUTINE_BETA`, `CLAUDE_ROUTINE_VERSION`, `CONTROL_API_TOKEN`. DB tuning: `DB_COMMAND_TIMEOUT_S`, `DB_IDLE_LIFETIME_S` | Python **3.11** (all CI jobs pinned); hash-pinned `requirements.lock` (`--require-hashes` — the script's dedicated branch); **needs Postgres** (CI uses postgres:18). Smallest-set rule still applies: a test-plane env sets only what the session needs |

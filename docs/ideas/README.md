@@ -44,6 +44,13 @@ frontmatter keeps the score.
 
 (Captured ideas, each with a state and a next destination — none left at `raw`.)
 
+### 2026-07-09 cohort — owner-decided (night)
+
+- [game-lab — two-track GBA venture](game-lab-2026-07-09.md) —
+  `promoted` · **decided — in founding** (owner decision 2026-07-09 night;
+  toolchain proven by the scout session) → founding package: prompt +
+  gba-lab archetype + owner-queue launch click-list
+
 ### 2026-07-09 cohort — owner-session brainstorm (~22:30–23:00Z)
 
 All owner-originated / owner-welcomed in tonight's live session; **none

@@ -114,3 +114,24 @@ prompt, and the external review pack are logged above; review pack ref: sb#1903
   born-red/no-CI repos (provenance: this repo's PR #10 + venture-lab PR #1).
 - In-flight carried: **Anthropic follow-up draft early next week** (before
   the 2026-07-14 close) — on the handoff in-flight list.
+
+## 2026-07-09 — night, later (game-lab decision + founding package)
+
+- **Owner decision: game-lab launches, BOTH tracks** — Track A private
+  Pokémon Emerald mod (pret/pokeemerald), Track B public original GBA
+  homebrew (Butano). Decided in tonight's owner session on the strength of
+  the toolchain scout proof.
+- Toolchain scout (same night) — all three loops PROVEN in-container:
+  pokeemerald byte-identical 1m20s/2.0s; Butano 17.5s via the leseratte10
+  devkitARM r68 mirror route (official installers Cloudflare-403); mGBA
+  headless boot/run/PNG at ~290 fps with scripted in-game verification.
+  Distilled to `docs/findings/gba-toolchain-proof-2026-07-09.md`
+  (screenshots live in the scout session's chat).
+- game-lab founding package shipped (this PR) — findings doc, gba-lab
+  environment archetype (justified 5th: `environments/archetype-gba-lab.sh`
+  + archetypes row), paste-ready founding prompt
+  (`docs/prompts/game-lab-founding.md`, gen-2 template, ORDER 001 draft),
+  ideas entry (decided — in founding), owner-queue launch click-list
+  (2 repos: gba-homebrew public / pokemon-mod-lab PRIVATE · Project ·
+  gba-lab env · hourly routine · boot line), capabilities.md GBA recipe +
+  devkitPro-403 wall (R18).
