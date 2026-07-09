@@ -27,7 +27,8 @@ day) unless a later date is noted next to the rule.
    background timers silently drop the report.* (2026-07-09)
 5. **R5 — Every PR-creating worker arms auto-merge AT CREATION, in the checks-pending
    window.** *WHY: GitHub refuses to arm auto-merge on an already-green PR — arm late
-   and the window is gone.* (2026-07-09)
+   and the window is gone.* (2026-07-09) *(Scope narrowed by R21: arm-at-creation is
+   primary only where a check can go pending and the repo isn't born-red.)*
 6. **R6 — READY, never draft — in every launch/instruction text.** *WHY: draft PRs
    don't auto-merge and become abandoned; saying it only sometimes means workers draft
    sometimes.* (2026-07-09)
@@ -97,3 +98,19 @@ day) unless a later date is noted next to the rule.
     closed out never having seen it, and the addition silently evaporated with the
     chat. A running session has no obligation to re-poll its own PR thread; only an
     ack (or a fresh order in the inbox lane) makes delivery real.*
+
+## MERGE MECHANICS
+
+21. **R21 (2026-07-09) — REST merge-on-green is the PRIMARY landing path on born-red
+    repos and on repos with a PR-requiring ruleset but no CI; arm-at-creation (R5)
+    stays primary only where a check can go pending and the repo isn't born-red.**
+    Arming auto-merge at PR creation is *structurally impossible* in two verified
+    shapes: **(a) born-red repos** — the gate check fails all session by design until
+    the final card flip, so GitHub refuses the arm the whole time ("pull request is in
+    unstable status"); **(b) PR-requiring ruleset, no CI** — no check ever goes
+    pending, so GitHub answers "Auto-merge only applies when checks are pending."
+    *WHY: fleet-manager PR #10 burned 3 failed arm attempts against this repo's own
+    born-red gate before landing via REST; venture-lab PR #1 hit the no-CI wall the
+    same night. R5 was written for repos where the pending window exists — on these
+    two shapes there is no window at all, and retrying the arm is probing a documented
+    wall.* (2026-07-09)

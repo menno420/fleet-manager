@@ -43,3 +43,27 @@ frontmatter keeps the score.
 ## Backlog
 
 (Captured ideas, each with a state and a next destination — none left at `raw`.)
+
+### 2026-07-09 cohort — owner-session brainstorm (~22:30–23:00Z)
+
+All owner-originated / owner-welcomed in tonight's live session; **none
+approved as launches** — captured for routing. Next destinations noted.
+
+- [Mobile-lab lane (React Native + Expo)](mobile-lab-lane-2026-07-09.md) —
+  `captured` · candidate **second gen-2 launch after venture-lab** → structured plan
+- [Spend-instrument model (capped autonomous purchasing)](spend-instrument-model-2026-07-09.md) —
+  `captured` · discuss-first (owner sets caps/categories)
+- [Email chief-of-staff (daily Gmail triage)](email-chief-of-staff-2026-07-09.md) —
+  `captured` · discuss-first (Gmail access + routine click are owner surfaces)
+- [Production watchdog lane for superbot](superbot-production-watchdog-2026-07-09.md) —
+  `captured` · structured plan (routine + Railway log access)
+- [Fleet security & dependency auditor](fleet-security-auditor-2026-07-09.md) —
+  `captured` · quick-win candidate (weekly routine, read-mostly)
+- [Devlog / building-in-public lane](devlog-building-in-public-2026-07-09.md) —
+  `captured` · structured plan; publishing owner-gated
+- [Bot analytics lane](bot-analytics-lane-2026-07-09.md) —
+  `captured` · structured plan (instrument first, report second)
+- [Design-system lane](design-system-lane-2026-07-09.md) —
+  `captured` · structured plan
+- [Research desk + release watcher](research-desk-release-watcher-2026-07-09.md) —
+  `captured` · quick-win candidate (weekly brief routine)

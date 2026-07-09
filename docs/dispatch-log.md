@@ -91,3 +91,26 @@ prompt, and the external review pack are logged above; review pack ref: sb#1903
   finalized; Codex arm + external campaign: tracking) + fleet-state drift
   fixes verified at HEAD (kit v1.6.0/orders done; next retro; games #9).
 - Rails held: fleet-manager writes only; no lane inbox touched (R19).
+
+## 2026-07-09 — night (wind-down sweep, PR #10 package, venture-lab seed, EAP extension)
+
+- Gen-1 wind-down progress — **7 of 9 repos DONE** (wind-down succession
+  packages committed lane-side); manager follow-up: sweep the remaining 2
+  lanes' `control/status.md` markers, then queue gen-2 relaunch clicks.
+- PR #10 package shipped — merge-authority policy (gen-2 blueprint §1/§2
+  rewrite), 4 tested environment archetypes (`environments/archetype-*.sh`),
+  verified merge queue (`docs/merge-queue-2026-07-09.md`); landed via REST
+  merge-on-green after 3 failed auto-merge arm attempts (→ playbook R21).
+- venture-lab **SEEDED** (`d065c68`) + **owner green light** in tonight's
+  session — the gen-2 born-right pilot is live-pending the owner-queue
+  click-list (ruleset, Project, environment, routine) + ORDER 001.
+- EAP window **EXTENDED to 2026-07-14** — Anthropic email 2026-07-09 22:29Z
+  (supersedes the Friday 2026-07-10 close); free-window burn re-planned.
+- Owner-session idea capture — 9 brainstorm ideas (~22:30–23:00Z) committed
+  to `docs/ideas/` (mobile-lab, spend instruments, email chief-of-staff,
+  superbot watchdog, security auditor, devlog, bot analytics, design system,
+  research desk); all `captured (not approved)`.
+- Playbook **R21** + blueprint alignment — REST merge-on-green PRIMARY on
+  born-red/no-CI repos (provenance: this repo's PR #10 + venture-lab PR #1).
+- In-flight carried: **Anthropic follow-up draft early next week** (before
+  the 2026-07-14 close) — on the handoff in-flight list.
