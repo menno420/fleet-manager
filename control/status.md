@@ -1,10 +1,10 @@
 # fleet-manager · status
-updated: 2026-07-09T17:55:00Z
-phase: retro synthesis delivered; gen-2 blueprint next (capability manifest, env registry, owner-action band shipped today)
+updated: 2026-07-09T18:55:00Z
+phase: succession package committed; chat archiving; successor session takes over phase-2 switch
 health: green
 kit: v1.4.0 · check: green · engaged: yes
-last-shipped: #6 — housekeeping: verification sweep + dispatch-log afternoon entries + owner-queue R17 rewrite + heartbeat
-blockers: none
+last-shipped: #7 — succession package: prompts ledger, findings ×5, gen-2 blueprint draft, handoff, R19
+blockers: none (ping-ack sweep pending — successor collects or re-sweeps)
 orders: acked= done=
-⚑ needs-owner: see docs/owner-queue.md (14 active + 3 parked)
-notes: ~19 orders in flight across the fleet (kit 6 · next 5 · websites 4 · games 2×4). Verification 17:43Z — websites ORDER 005 lost (re-dispatch); kit#56 order-append stale+collides with kit ORDER 006 (rewrite before merge); next#89 order-append open, unarmed. Program record: menno420/superbot docs/eap/.
+⚑ needs-owner: see docs/owner-queue.md (14 active + 3 parked); + venture-lab repo/Project creation when ready
+notes: successor first-read is docs/handoff-2026-07-09.md. Gen-2 blueprint DRAFT at docs/gen2-blueprint.md (finalize + execute). EAP free window closes Friday 2026-07-10. Program record: menno420/superbot docs/eap/.

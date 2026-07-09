@@ -48,3 +48,23 @@ prompt, and the external review pack are logged above; review pack ref: sb#1903
 - Housekeeping verification sweep (this session) — audited all afternoon
   dispatches against live GitHub; findings above + in `.sessions/`
   2026-07-09-housekeeping-verification card.
+
+## 2026-07-09 — evening (succession)
+
+- Ping test — one PING order appended + merged to all 9 fleet inboxes across
+  8 repos (write latency 30s–14min by required-check weight; substrate-kit
+  ORDER-008 collision → R19). Table:
+  `docs/findings/ping-test-2026-07-09.md`. **Ack sweep pending at handoff.**
+- GPT-5.6 research — live-web worker; facts+pricing+relevance, Codex-arm
+  recommendation, METR eval-gaming caution:
+  `docs/findings/gpt-5-6-report-2026-07-09.md`.
+- Transcript + miner — yt-dlp transcript recipe (→ capabilities.md) +
+  monetization-video analysis → venture shortlist:
+  `docs/findings/venture-shortlist-2026-07-09.md`.
+- Retro synthesis + UI-visibility analyses consolidated from worker outputs
+  into `docs/findings/` (previously uncommitted, chat-only).
+- Succession package (this PR) — `docs/prompts/` verbatim ledger (8 deployed
+  texts + venture-lab draft), `docs/findings/` ×5, `docs/gen2-blueprint.md`
+  draft, `docs/handoff-2026-07-09.md`, playbook R19, capabilities yt-dlp
+  recipe, heartbeat refresh. Chat archives after merge; successor session
+  takes over.
