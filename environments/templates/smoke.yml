@@ -1,0 +1,61 @@
+# smoke.yml — Tier 1 "fast-full" reference workflow (.github/workflows/smoke.yml)
+#
+# CI-tier standard (gen2-blueprint, sim provenance ci-tier-sim-2026-07-09):
+# run the ENTIRE test suite in ONE slim cell, target <=60s wall. The sim showed
+# lab full suites already run at smoke speed (22-45s), so a "reduced smoke
+# subset" buys nothing — run everything, once, fast. Keep the multi-OS/multi-
+# Python matrix in a NIGHTLY workflow, not here (the only pathological CI state
+# observed in calibration was a permanently-queued macos runner).
+#
+# Cost hygiene baked in (sim-quantified):
+# - trigger on pull_request + push-to-main ONLY: `on: push` to feature branches
+#   plus `on: pull_request` double-fires every check per PR head (fable5
+#   verified 2x; this alone halves lab CI spend)
+# - concurrency-cancel supersedes runs when a new push lands on the same ref
+# - minimal permissions (contents: read) — this check gates merges, it never writes
+# - hard 3-minute timeout: a hung runner becomes a fast red, not an eternal
+#   "queued" that stalls auto-merge forever
+#
+# Make THIS job name ("smoke") the ruleset's required status context — required
+# contexts must name real jobs or nothing ever pends and auto-merge can't arm
+# (R21 shape b / blueprint §1 point 1).
+
+name: smoke
+
+on:
+  pull_request:            # one run per PR head — the merge-gating event
+  push:
+    branches: [main]       # post-merge signal on main; NOT feature branches
+
+# Newest push wins; superseded runs are cancelled instead of burning minutes.
+concurrency:
+  group: smoke-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read           # checkout only; the gate never writes anything
+
+jobs:
+  smoke:                   # <= this exact name goes in the required-checks ruleset
+    runs-on: ubuntu-latest # single cell, boring runner; exotic OSes go nightly
+    timeout-minutes: 3     # stall-not-fail guard: hang -> red in 3 min, not never
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1   # shallow: history isn't needed to test HEAD
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"      # ONE version here; the matrix runs nightly
+          cache: pip                  # wheel cache keeps installs in seconds
+
+      - name: Install
+        run: python -m pip install -q -e . -r requirements.txt
+
+      # The one fast check: the FULL suite, quiet, fail-fast. For a substrate
+      # repo swap in:  python bootstrap.py check --strict
+      # Budget: <=60s. If the suite outgrows that, split a `-m "not slow"`
+      # core here and move @slow to nightly — don't let this gate creep past
+      # a minute or lanes start paying real poll-wait per merge.
+      - name: Fast-full test suite
+        run: python -m pytest -x -q
