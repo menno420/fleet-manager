@@ -26,13 +26,15 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
 > into item 12 (it is seat-3 finalize-first debt under Q-0261). No prior item
 > removed.
 
-> **Amended 2026-07-10 (night, package-centralization).** Items 13–14 added:
-> the consolidated **Project package paste wave** (the "re-base + deploy in one
+> **Amended 2026-07-10 (night, package-centralization).** Item 13 added: the
+> consolidated **Project package paste wave** (the "re-base + deploy in one
 > sitting" that item 8's resolution promised — the re-based packages now live in
-> [`../projects/`](../projects/README.md)) and the trading-strategy PR #37 merge
-> click. Kit OA8 (item 11) is now a subitem of the paste wave. Parked
-> codetool tag mislabel corrected with provenance (the un-released tags are
-> **fable5**'s, not opus4.8's).
+> [`../projects/`](../projects/README.md)). Kit OA8 (item 11) is now a subitem
+> of the paste wave. Parked codetool tag mislabel corrected with provenance
+> (the un-released tags are **fable5**'s, not opus4.8's). A planned
+> trading-strategy-PR-#37-merge-click item was verified **already done** before
+> adding — owner merged it 2026-07-10T20:56:34Z (see Resolved below); no stale
+> ask added.
 
 ## Active queue (HOT first)
 
@@ -271,6 +273,10 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
       `trig_017H9Qb9oxtLgUy6sw2gnSHg` (last committed record: v1-era text) +
       re-paste `projects/websites/instructions.md` (deployed text is the
       older pre-Q-0265 fitted version). Optional: retune `0 */4` → `0 */2`.
+      *Verify-first note (21:30Z): the 20:00Z fire landed 3 slices
+      (roster/#38 — silent-fire watch cleared), which is v2-shaped behavior;
+      if you already re-pasted v2, skip the trigger paste and keep only the
+      instructions re-paste.*
     - (e) **trading-strategy** — re-paste
       `projects/trading-strategy/instructions.md` (deployed CI is pre-Q-0265
       and pre-completion; the lane is parked green, so low rush).
@@ -285,18 +291,6 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
       no agent write surface (verified walls).
     - UNBLOCKS: every live seat running on committed, current text — closes
       the chat-only/console-only drift class fleet-wide.
-
-14. **trading-strategy PR #37 — owner merge click (final P5 report).**
-    - WHAT: merge https://github.com/menno420/trading-strategy/pull/37 — the
-      FINAL P5 holdout report. The holdout is **SPENT** (one-shot, run stamps
-      2026-07-10T16:47Z) and the report is FINAL; the PR is
-      **agent-unlandable behind a terminal classifier refusal** (no agent
-      retries it — probe-once-per-seat doctrine).
-    - WHERE/HOW: the PR's Merge button, ~10 s.
-    - WHY owner-only: merge authorization classifier-denied on the lane's
-      seat; terminal, not transient.
-    - UNBLOCKS: the trading program's terminal state landing on main (verdict:
-      0/13 clears significance; primary = RULE-PASS candidate, not a finding).
 
 ## Parked (valid, no rush)
 
@@ -378,6 +372,17 @@ state is committed in the repos). Do in one sitting whenever convenient.
 - **NOT yet safe:** codetool repo archive toggles ×3 (paired decision above
   — wait until the gen-3 succession question settles); anything holding an
   open READY PR.
+
+## Resolved 2026-07-10 (later additions)
+
+- **trading-strategy PR #37 (final P5 holdout report) — MERGED by the owner
+  2026-07-10T20:56:34Z** (merged_by menno420, API-verified at the
+  package-centralization pass ~21:30Z). The PR had been agent-unlandable
+  behind a terminal classifier refusal (refusal verbatim in trading
+  `control/status.md`); the click happened between the package builder's
+  snapshot (@ `ffdd6f6`) and this pass — never entered the queue as an open
+  item. Program terminal state is ON MAIN: holdout SPENT, report FINAL,
+  0/13 clears significance.
 
 ## Resolved 2026-07-10 (Q-0262 owner-rulings batch, reconciled by the 18:31Z wake)
 

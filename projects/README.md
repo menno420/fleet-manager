@@ -64,7 +64,7 @@ no paste record) · **n-a** (deliberately absent).
 | product-forge | LIVE (continuous) | `0 */2 * * *` + chain | deployed-stale (boot paste, pre-lessons) | deployed-stale (founding §2) | never | armed (`trig_012Evzt…`; text-equality unverified) | already live-continuous; games-web phase-1 SHIPPED (PRs #4+#5); §2b paste = belt-and-braces |
 | sim-lab | LIVE | `0 1-23/2 * * *` (odd) — **NOT armed** | deployed-presumed | deployed-stale (boot brief) | deployed-by-reference | **never — seat lacks scheduler tools** (OA-003) | owner arms via Routines screen; cadence-PAIRED with idea-engine (centralize as a pair) |
 | websites | LIVE (fresh-session-per-fire, no seat) | `0 */4 * * *` deployed · `0 */2` recommended | deployed-stale (older fm text; re-paste) | deployed-stale (v1 prompt live; v2 unverified) | unknown | trigger DEPLOYED-verified, prompt stale/unverified | only fresh-session lane; cron IS the pacemaker; one 16:01Z silent fire on record |
-| trading-strategy | PARKED GREEN — program COMPLETE | `0 */4` stale · `0 */2` spec'd (F-1 cutover) | deployed-stale (pre-Q-0265) | deployed-stale (old delegating one-liner) | unknown | never (live trigger stale on two axes) | **holdout SPENT, report FINAL; PR #37 = owner merge click** (terminal classifier refusal) |
+| trading-strategy | PARKED GREEN — program COMPLETE **ON MAIN** | `0 */4` stale at build · failsafe re-armed 21:03Z per fm roster | deployed-stale (pre-Q-0265) | deployed-stale (old delegating one-liner) | unknown | superseded at build (meta's F-1 cutover spec; fm roster records a failsafe armed 21:03Z — verify at next contact) | holdout SPENT, report FINAL; **PR #37 MERGED by owner 20:56:34Z** (was terminal-classifier-unlandable; meta's "sole open action" row predates the click) |
 | venture-lab | LIVE-BUT-DARK (no clock, stale heartbeat) | `0 */2` spec'd — NOT armed | never | never | never | never | riskiest lane state; ORDERs 002/003/004 ride fresh boot; ⚑B/⚑D frozen on Stripe P0 |
 | superbot-games | PARKED + CLOCKLESS (merged lane) | `0 */2` spec'd — NOT armed | never (current form) | never | unknown (two per-lane scripts, inconsistent dirs) | never | kit **v1.7.0 at HEAD** (heartbeat says v1.2.0 — drift); P0: CI collects 73/121 tests |
 | pokemon-mod-lab | LIVE-PARKED · **PRIVATE** | `0 */2` spec'd — NOT armed | deployed-stale (game-lab founding text) | never | unknown | never | private ⇒ raw-read DARK; env-attach is the only path (manager + kit need it too) |
@@ -95,9 +95,12 @@ is the consolidated owner-queue item ("Project package paste wave"):**
    `trig_017H9Qb9oxtLgUy6sw2gnSHg` (last committed record says v1-era text) +
    re-paste `projects/websites/instructions.md` (deployed text is the older
    pre-Q-0265 fm fitted version); optional: retune `0 */4` → `0 */2`.
+   Verify-first: the 20:00Z fire landed 3 slices (v2-shaped behavior) — if v2
+   was already re-pasted, only the instructions paste remains.
 5. **trading-strategy** — re-paste `projects/trading-strategy/instructions.md`
-   (deployed CI is pre-Q-0265/pre-completion); the failsafe F-1 cutover can
-   ride the seat, but the paste is owner-only.
+   (deployed CI is pre-Q-0265/pre-completion). The failsafe was re-armed
+   seat-side 21:03Z (fm roster) after this package's build snapshot — only
+   the instructions paste remains owner-side.
 6. **superbot (optional)** — `projects/superbot/instructions.md` only if the
    owner hosts superbot sessions in a Project whose console field is empty;
    `.claude/CLAUDE.md` already auto-loads in-repo.
