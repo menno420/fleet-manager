@@ -26,6 +26,14 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
 > into item 12 (it is seat-3 finalize-first debt under Q-0261). No prior item
 > removed.
 
+> **Amended 2026-07-10 (night, package-centralization).** Items 13–14 added:
+> the consolidated **Project package paste wave** (the "re-base + deploy in one
+> sitting" that item 8's resolution promised — the re-based packages now live in
+> [`../projects/`](../projects/README.md)) and the trading-strategy PR #37 merge
+> click. Kit OA8 (item 11) is now a subitem of the paste wave. Parked
+> codetool tag mislabel corrected with provenance (the un-released tags are
+> **fable5**'s, not opus4.8's).
+
 ## Active queue (HOT first)
 
 0. **Create the Idea Engine Project (superbot repo) — standing autonomous core.**
@@ -205,6 +213,10 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
     the hub Project) rides that package. Also listed in Resolved below.
 
 11. **kit OA8 — setup-script paste (🔥 gates the NEXT boot, seat 2).**
+    *(Folded into paste-wave item 13(a) — do it there; kept as a stub so
+    nothing dangles. The registry copy `projects/substrate-kit/setup-script.sh`
+    supersedes the bare `docs/gen2/setup.sh` pointer below — read the
+    package's meta first.)*
     - WHAT: paste substrate-kit `docs/gen2/setup.sh` verbatim into the kit
       environment's Setup script field.
     - WHERE: Claude console → kit environment settings → Setup script.
@@ -233,6 +245,59 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
     - UNBLOCKS: Builder ORDER 002 done-when, unattended Builder wrap-ups,
       every parity pending→ported flip + the `report` CI leg.
 
+13. **Project package paste wave (registry: [`projects/`](../projects/README.md)) —
+    ONE sitting, ~6 clicks.** The centralized, gen-3/Q-0265-re-based console
+    packages are committed (one dir per Project: instructions ·
+    coordinator-prompt · setup-script · failsafe text · meta). This is the
+    "re-base + deploy in one sitting" item 8's resolution promised. Source of
+    truth = the repo files; after any future edit, re-paste. Read each
+    package's `meta.md` first. The clicks (full detail: `projects/README.md`
+    § Paste wave):
+    - (a) **substrate-kit** — §2b continuous-mode amendment paste into the
+      live kit coordinator chat + **OA8** (= item 11): paste
+      `projects/substrate-kit/setup-script.sh` into the kit environment's
+      Setup-script field.
+    - (b) **product-forge** — §2b amendment paste into its live coordinator
+      chat (belt-and-braces: the seat already operates continuous per its
+      status @ `7f05aa8`, but the chat may still hold pre-Q-0265 §2 text).
+    - (c) **sim-lab** — arm the failsafe **via the Routines screen** with the
+      verbatim text in `projects/sim-lab/failsafe-prompt.md`, cron
+      `0 1-23/2 * * *` (odd hours — keep the idea-engine pair stagger). WHY
+      owner-only: the seat verifiably lacks `create_trigger`/`send_later`
+      (OA-003, "tool not present in session toolset") — the lane has NO clock
+      until this.
+    - (d) **websites** — re-paste the v2 wake prompt
+      (`projects/websites/coordinator-prompt.md`) into trigger
+      `trig_017H9Qb9oxtLgUy6sw2gnSHg` (last committed record: v1-era text) +
+      re-paste `projects/websites/instructions.md` (deployed text is the
+      older pre-Q-0265 fitted version). Optional: retune `0 */4` → `0 */2`.
+    - (e) **trading-strategy** — re-paste
+      `projects/trading-strategy/instructions.md` (deployed CI is pre-Q-0265
+      and pre-completion; the lane is parked green, so low rush).
+    - (f) **superbot (optional)** — `projects/superbot/instructions.md` only
+      if you host superbot sessions in a Project with an empty console field
+      (`.claude/CLAUDE.md` auto-loads in-repo either way).
+    - NOT in the wave (ride their seats' own boots — no click): fleet-manager,
+      superbot-next, idea-engine (live seats current/equivalent); venture-lab,
+      superbot-games, pokemon-mod-lab, gba-homebrew (parts ride their next
+      boot); archives/pre-birth (nothing to paste).
+    - WHY owner-only: console fields, Project chats, and trigger prompts have
+      no agent write surface (verified walls).
+    - UNBLOCKS: every live seat running on committed, current text — closes
+      the chat-only/console-only drift class fleet-wide.
+
+14. **trading-strategy PR #37 — owner merge click (final P5 report).**
+    - WHAT: merge https://github.com/menno420/trading-strategy/pull/37 — the
+      FINAL P5 holdout report. The holdout is **SPENT** (one-shot, run stamps
+      2026-07-10T16:47Z) and the report is FINAL; the PR is
+      **agent-unlandable behind a terminal classifier refusal** (no agent
+      retries it — probe-once-per-seat doctrine).
+    - WHERE/HOW: the PR's Merge button, ~10 s.
+    - WHY owner-only: merge authorization classifier-denied on the lane's
+      seat; terminal, not transient.
+    - UNBLOCKS: the trading program's terminal state landing on main (verdict:
+      0/13 clears significance; primary = RULE-PASS candidate, not a finding).
+
 ## Parked (valid, no rush)
 
 - **Account-wide visibility review** (carried over from the resolved
@@ -259,8 +324,18 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
   claude-sonnet-5 — websites PR #59, squash 2c89e96; evidence + probe:
   `capabilities.md` § routine self-arm rider).
 - **PyPI trusted-publishing registration** (~2 min) — token-less kit releases.
-- **codetool-lab-opus4.8 v0.1.0 tag + Release** — tag-push 403; owner click
-  at Releases → Draft. (Codetool Projects are CLOSED; repos stay.)
+- **codetool-lab-fable5 (envdrift) v0.1.0 + v0.2.0 tags + Releases** —
+  tag-push 403; owner click at Releases → Draft: v0.1.0 @ `73ef38d`, v0.2.0 @
+  `13a84e5`. (Codetool Projects are CLOSED; repos stay.) *Corrected
+  2026-07-10 (package-centralization): this line previously said
+  "codetool-lab-**opus4.8** v0.1.0" — a mislabel. opus4.8's (mdverify)
+  v0.1.0/v0.2.0 Releases are **LIVE** (published 2026-07-09T16:56:21Z /
+  17:57:53Z by `github-actions[bot]`; attested by its `control/status.md` @
+  `80f6cd1` and the fable5 correction commit `a6cf1a9`). The repo with
+  never-pushed tags is **fable5** — zero tags on its remote, verified
+  `ls-remote --tags` at package build; owner-manual steps in its
+  `docs/retro/project-review-2026-07-09.md` §(e). Provenance:
+  `projects/codetool-lab-{fable5,opus4.8}/meta.md`.*
 - **codetool archive toggles ×3 (paired DECISION).** All three codetool repos
   report `"archived": false` (API-verified 2026-07-10 ~15:12Z) while the
   ruling describes them as archived — unarchived public repos remain writable
