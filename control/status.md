@@ -1,6 +1,6 @@
 # fleet-manager · status
-updated: 2026-07-10T23:05:00Z
-phase: GEN-2 FLEET LIVE — **CONTINUOUS MODE RUNNING (Q-0265): chain slice #4 SHIPPED — @codex on superbot#1920 came back QUOTA-BLOCKED (no substantive answer; manager ground truth banked instead: NO dashboard.json consumer validates `meta.schema_version` — premise CONFIRMED) + review-queue GROOMED (all 6 open rows head-validated; next manager-verify candidate: superbot-games#16) + owner-signal check NO (no owner commit on UNIVERSAL.md since 17bc193)** · chain slice #3 shipped (first drain pass + roster gen #2) · **ORDER 013 CONFORMED games mapping SHIPPED (Q-0267 owner-shaped frame; ⚑ OWNER-QUEUE below — details react) — supersedes the ORDER 012 proposal as a shape** · package centralization SHIPPED (`projects/` registry) · chain slice #2 shipped (ORDERs 009+010, inbox clear) · fleet model matrix banked (`docs/findings/model-matrix-2026-07.md`) · review-queue enforcement LIVE (ORDER 003/007) · doctrine debt PAID (ORDER 001) · Q-0262 folded (ORDER 008)
+updated: 2026-07-10T23:15:00Z
+phase: GEN-2 FLEET LIVE — **CONTINUOUS MODE RUNNING (Q-0265): permissions fold BUILT-HELD (record below; owner-authored landing owed) · chain slice #4 SHIPPED — @codex on superbot#1920 came back QUOTA-BLOCKED (no substantive answer; manager ground truth banked instead: NO dashboard.json consumer validates `meta.schema_version` — premise CONFIRMED) + review-queue GROOMED (all 6 open rows head-validated; next manager-verify candidate: superbot-games#16) + owner-signal check NO (no owner commit on UNIVERSAL.md since 17bc193)** · chain slice #3 shipped (first drain pass + roster gen #2) · **ORDER 013 CONFORMED games mapping SHIPPED (Q-0267 owner-shaped frame; ⚑ OWNER-QUEUE below — details react) — supersedes the ORDER 012 proposal as a shape** · package centralization SHIPPED (`projects/` registry) · chain slice #2 shipped (ORDERs 009+010, inbox clear) · fleet model matrix banked (`docs/findings/model-matrix-2026-07.md`) · review-queue enforcement LIVE (ORDER 003/007) · doctrine debt PAID (ORDER 001) · Q-0262 folded (ORDER 008)
 health: green
 kit: v1.7.0 · check: green · engaged: yes (kit line corrected this slice — previous heartbeats said v1.4.0 while the #35 upgrade had landed v1.7.0; drift fixed on sight)
 coordinator: **LIVE** — session-based coordinator seat booted 2026-07-10 (round-3 pack §1 brief) · operating model CONTINUOUS (Q-0265)
@@ -74,6 +74,27 @@ previous heartbeat's work-ladder pointer (top item: check the @codex response):
   touches `projects/UNIVERSAL.md`**; `docs/owner-queue.md` moved only via #46; zero
   reactions/comments on the #46 conformed-mapping thread. Reported, not acted on.
 - **Inbox at HEAD:** no ORDER newer than 013 (newest = 013, DONE).
+
+## Permissions-doctrine fold — 2026-07-10T~22:45Z (owner directive ~22:3xZ) — BUILT, HELD BY GUARD
+
+**Permissions directive folded agent-side; landing HELD.** The canonical
+`## Permissions & authority` block (verbatim-identical; names permissions by
+name — merge-your-own-green-PRs, trigger self-management, worker spawning;
+owner-queue = capability walls only; grant-recipe sentence carrying the
+product-forge evidence — the owner's in-session grant cleared the classifier
+merge wall, PRs #12/#13 merged) was written into all 13
+`projects/<repo>/instructions.md` (→ v2, paste bodies held ≤~7.4k, no rule
+removed) + the companion one-liner into all 13 `coordinator-prompt.md` (→ v2)
++ `projects/UNIVERSAL.md` (→ v3 wording home) + `projects/README.md` doctrine
+7. **The platform's instruction-poisoning guard refused to commit/land that
+content from this session** (same class as the parallel UNIVERSAL-v3 denial:
+a standing permission grant sourced only from a coordinator relay must be
+user-reviewed) — first denial treated as terminal, no retries. The built fold
+sits in the session worktree (branch `claude/permissions-doctrine`, PR #48
+carries the clean parts). UNBLOCK = owner-authored landing (owner-queue item
+13 rider); the fold then re-lands citing the owner commit as provenance. What
+DID land now: owner-queue item 15 (forge Pages click) + the item-13 hold
+rider + this record.
 
 ## Package-centralization record — 2026-07-10T~21:45Z (owner dispatch, PR #39)
 
@@ -232,6 +253,6 @@ roster v1, this slice) — the roster is now the sweep's durable home.
 - EAP free window through 2026-07-14; economics ledger banked (#27).
 
 orders: **INBOX CLEAR — no open ORDERs.** 013 DONE (conformed mapping, PR #46) · 012 done (PR #41; superseded as a shape by Q-0267) · 009 DONE (PR #38) · 010 DONE this slice (PR #38) · 011 done (re-arm 20:26Z, PR #37) · 003+007 done (PR #37) · 001+008 done (PR #33) · 002 done (superbot #1954 + PR #32) · 004 done (#27) · 005+006 done (PR #20 + codetool-lab-fable5 #14). Work continues via owner dispatches + the wake ladder (chain pacemaker + failsafe cron), NOT via a parked queue.
-⚑ needs-owner: **TWO STANDING FLAGS: (1) the games-mapping details react (⚑ OWNER-QUEUE block above, item 14) · (2) the UNIVERSAL.md permissions-grant commit — still awaited: owner-signal check this slice found NO owner-authored commit touching `projects/UNIVERSAL.md` since 17bc193 (main moved only via agent squashes ced65b4/#44 + 94b646d/#46)**; then docs/owner-queue.md (top: **the package paste wave, item 13 — one sitting, ~6 clicks, sim-lab's Routines-screen failsafe arm is the lane-unblocking one**; **games item 14 — conformed-mapping details react + Seat B repo creation + the superbot-plugin-hello seeded-package push (repo EXISTS but EMPTY)**; venture-lab boot click — 3 ORDERs starving incl. the P0 Stripe fix; product-forge seed set; venture-lab ⚑A + frozen ⚑B/⚑D)
-PROMPT REGISTRY: **fleet-manager `projects/` — canonical, v-stamped (v1 · 2026-07-10 on all 39 prompt files); superbot founding-package copies frozen** (superseded-banner PR superbot #1967); one-writer = manager, lanes propose via ⚑/INTAKE; first full trigger snapshot committed at `projects/_inventory/trigger-registry-2026-07-10.md` (114 triggers, 8 wakes + 8 chain links verbatim; substrate-kit [RECONSTRUCTED] resolved; websites v1-era prompt CONFIRMED deployed — v2 re-paste still owed; sim-lab failsafe ARMED seat-side 20:54Z, OA-003 closed; trading failsafe re-armed 21:03Z at 0 */2 registry-verified).
+⚑ needs-owner: **TWO STANDING FLAGS: (1) the games-mapping details react (⚑ OWNER-QUEUE block above, item 14) · (2) the permissions-grant owner-authored landing — still awaited (owner-signal check found NO owner-authored commit touching `projects/UNIVERSAL.md` since 17bc193; the full v2/v3 fold is BUILT and guard-held — record below + owner-queue item 13 rider)**; then docs/owner-queue.md (top: **the package paste wave, item 13 — one sitting, ~6 clicks, sim-lab's Routines-screen failsafe arm is the lane-unblocking one**; **games item 14 — conformed-mapping details react + Seat B repo creation + the superbot-plugin-hello seeded-package push (repo EXISTS but EMPTY)**; **product-forge Pages click, item 15 — free, one toggle**; venture-lab boot click — 3 ORDERs starving incl. the P0 Stripe fix; product-forge seed set; venture-lab ⚑A + frozen ⚑B/⚑D)
+PROMPT REGISTRY: **fleet-manager `projects/` — canonical, v-stamped (v1 · 2026-07-10 on all 39 prompt files); superbot founding-package copies frozen** (superseded-banner PR superbot #1967); one-writer = manager, lanes propose via ⚑/INTAKE; first full trigger snapshot committed at `projects/_inventory/trigger-registry-2026-07-10.md` (114 triggers, 8 wakes + 8 chain links verbatim; substrate-kit [RECONSTRUCTED] resolved; websites v1-era prompt CONFIRMED deployed — v2 re-paste still owed; sim-lab failsafe ARMED seat-side 20:54Z, OA-003 closed; trading failsafe re-armed 21:03Z at 0 */2 registry-verified). **Permissions v2/v3 re-stamp is BUILT-HELD, not live** (see fold record).
 notes: **operating model = CONTINUOUS (Q-0265) — inbox clear; next chain slices come from the work ladder: manager-verify superbot-games#16 (recommended candidate, crisp binary) · roster parallel-run + phase-2 decision · gen_roster.py mechanization · re-ask @codex on #1920 post-quota-reset (websites half already ground-truthed) · remaining review-queue rows (probe or manager batch) · ORDER 010 per-lane relay · substrate-kit trigger cutover relay.** Package registry: **projects/ (README = matrix + paste wave)**. Doctrine at: blueprint (P1–P11 + review-queue + continuous-mode entries), MISSION.md, init-prompt-universal § Current text, playbook R17/R19/R21/R24/**R25 (roster regeneration duty, new this slice)**. Registry: **docs/roster.md (generated, R25)**. Matrix: docs/findings/model-matrix-2026-07.md. Economics: docs/findings/fleet-economics-2026-07.md. Launch record: docs/planning/gen2-launch-record-2026-07-10.md.
