@@ -1,5 +1,5 @@
 # fleet-manager · status
-updated: 2026-07-10T22:08:00Z
+updated: 2026-07-10T22:35:00Z
 phase: GEN-2 FLEET LIVE — **CONTINUOUS MODE RUNNING (Q-0265): ORDER 012 games-program mapping proposal SHIPPED (⚑ OWNER-REVIEW below — founding packages HELD) · PACKAGE CENTRALIZATION SHIPPED (`projects/` registry, this PR) — every Project's console package now has ONE committed home** · chain slice #2 shipped (ORDERs 009+010, inbox clear) · generated roster v1 LIVE (`docs/roster.md`, playbook R25) · fleet model matrix banked (`docs/findings/model-matrix-2026-07.md`) · review-queue enforcement LIVE (ORDER 003/007) · doctrine debt PAID (ORDER 001) · Q-0262 folded (ORDER 008)
 health: green
 kit: v1.7.0 · check: green · engaged: yes (kit line corrected this slice — previous heartbeats said v1.4.0 while the #35 upgrade had landed v1.7.0; drift fixed on sight)
@@ -20,7 +20,7 @@ routine: **fleet-manager failsafe wake** · cron 30 */2 * * * · id `trig_014odn
 > (PR #38, this record)**. F-1 rebind-then-delete cutover recipe held.
 
 last-shipped: #41 — ORDER 012 games-program mapping proposal (Q-0259 r5)
-universal-pointer: UNIVERSAL pointer prompts live at projects/UNIVERSAL.md (paste-same-everywhere, v1 · 2026-07-10)
+universal-pointer: **OWNER RULING 2026-07-10 (owner chat ~22:15Z): Custom Instructions = FULL per-repo `projects/<repo>/instructions.md` paste per Project (they survive archives — full text always present); the universal pointer survives ONLY as the wake/start-off prompt** — projects/UNIVERSAL.md restructured to v2 (wake block v2 + Custom-Instructions flow section; v1's universal instructions block retracted)
 blockers: none
 
 > ## ⚑ OWNER-REVIEW — games-program mapping proposal awaits your reaction — founding packages HELD
