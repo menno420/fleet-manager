@@ -19,6 +19,13 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
 > stubs so nothing dangles, and are no longer the full text — the §4 sheet is.
 > New item 0 added: create the Idea Engine Project (standing autonomous core).
 
+> **Amended 2026-07-10 (afternoon, launch-readiness sweep).** Items 9–12 added
+> from the 5-worker Q-0261 launch-readiness research (full classified checklist
+> with citations: [`launch-readiness-2026-07-10.md`](launch-readiness-2026-07-10.md));
+> codetool archive/release clicks added to Parked; flag-13 moved from Parked
+> into item 12 (it is seat-3 finalize-first debt under Q-0261). No prior item
+> removed.
+
 ## Active queue (HOT first)
 
 0. **Create the Idea Engine Project (superbot repo) — standing autonomous core.**
@@ -162,6 +169,61 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
    trading-strategy, exact live texts in each file's "Deployed fitted
    version"); 8 PROPOSED, none binding until pasted.
 
+9. **Create the `product-forge` repo + Product Forge Project (core seat 5, PRE-BIRTH).**
+   - WHAT: (1) create a **public, empty** repo `product-forge` (default branch
+     `main`); (2) create the Product Forge Project in claude.ai/code, attach
+     the repo, paste the founding package (superbot
+     `docs/planning/round3-founding-package-product-forge-2026-07-10.md` —
+     branch-only until superbot PR #1948 merges); (3) after the forge's seed PR
+     adds CI: tick *Allow auto-merge* + make the substrate gate / smoke check
+     **required** (ORDER 000's report names the exact check and asks once).
+   - WHERE/HOW: github.com/new; claude.ai → New Project; repo Settings after
+     the seed PR.
+   - WHY owner-only: repo creation is a verified agent 403 wall; Project
+     creation has no agent API surface; required-check settings are
+     agent-unreadable/unwritable.
+   - UNBLOCKS: core seat 5 of the Q-0261 standing six — the products loop.
+     Everything else (ORDER 000 walking skeleton, routine, control seed,
+     environments-registry spec) is agent work riding its boot.
+
+10. **Name the sixth core seat (DECISION, Q-0261.1).**
+    - WHAT: pick the sixth standing Project — candidates per the runbook:
+      **hub-superbot** (games/maintenance seat) or **websites**.
+    - HOW: one line in any channel; the manager drafts the founding package
+      once named.
+    - RECOMMENDATION: **hub-superbot** — the hub carries the router/ledger/
+      ideas machinery every other seat depends on and is the only core repo
+      without a standing wake; websites already runs armed as a manual lane.
+    - UNBLOCKS: completing the Q-0261 core-6 launch sequence.
+
+11. **kit OA8 — setup-script paste (🔥 gates the NEXT boot, seat 2).**
+    - WHAT: paste substrate-kit `docs/gen2/setup.sh` verbatim into the kit
+      environment's Setup script field.
+    - WHERE: Claude console → kit environment settings → Setup script.
+    - WHY owner-only: agents cannot read or write the settings dialog; the
+      current script killed a session AT PROVISIONING (kit PR #47 casualty).
+    - UNBLOCKS: reliable session starts for the relaunched kit Project — the
+      one item that can kill seat 2's fresh boot itself. Do BEFORE its first
+      session (if already pasted, say so and the ask is withdrawn — agents
+      can't confirm).
+
+12. **Settings-sweep additions (fold into the §4.9 sitting): superbot-next
+    finalize-first set.**
+    - WHAT: (a) create the **`superbot-plugin-hello`** repo (public, empty, no
+      template) — Builder ORDER 002's gate; (b) **relax superbot-next's
+      require-up-to-date merge rule** (or enable merge queue) — every session
+      loses time to the update-branch dance (#86/#87 stranded), which directly
+      degrades an unattended 2-hourly Builder loop; (c) **flag-13 corpus-red
+      disposition** — one line: "accept the lane's proposed disposition"
+      (recommendation on the decision sheet §4.5; moved here from Parked —
+      it is seat-3 finalize-first debt under Q-0261).
+    - WHERE: github.com/new; superbot-next Settings → Rulesets; any channel /
+      inbox ORDER via the manager for (c).
+    - WHY owner-only: repo creation + rulesets are agent 403 walls; flag-13 is
+      a product-policy ratification.
+    - UNBLOCKS: Builder ORDER 002 done-when, unattended Builder wrap-ups,
+      every parity pending→ported flip + the `report` CI leg.
+
 ## Parked (valid, no rush)
 
 - **Account-wide visibility review** (carried over from the resolved
@@ -171,8 +233,9 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
   owner queue is on the open internet) — remain public. Decide per-repo
   public/private; pairs with the decision sheet's §4.9 repo-settings sweep.
 - **superbot-next grants** — intents toggles · sacrificial Discord account ·
-  capped API key (band 7) · flag-13 ruling; folds into the band flow
-  (superbot-next `control/status.md` ⚑). Lane stays gen-1 mid-mission.
+  capped API key (band 7); folds into the band flow (superbot-next
+  `control/status.md` ⚑). Lane stays gen-1 mid-mission. (The flag-13 ruling
+  MOVED to active item 12 — it is seat-3 finalize-first debt under Q-0261.)
 - **websites product questions** — domains · /submit Postgres · /admin
   OAuth+home · restyle · cutover (websites `docs/owner/OWNER-ACTIONS.md`,
   each with a recommended default).
@@ -181,6 +244,24 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
 - **PyPI trusted-publishing registration** (~2 min) — token-less kit releases.
 - **codetool-lab-opus4.8 v0.1.0 tag + Release** — tag-push 403; owner click
   at Releases → Draft. (Codetool Projects are CLOSED; repos stay.)
+- **codetool archive toggles ×3 (paired DECISION).** All three codetool repos
+  report `"archived": false` (API-verified 2026-07-10 ~15:12Z) while the
+  ruling describes them as archived — unarchived public repos remain writable
+  surfaces. WHERE: each repo Settings → Danger Zone → "Archive this
+  repository" (~1 min each). PAIRED DECISION: archive now vs after the gen-3
+  succession question settles — recommendation: **wait, then archive**
+  (archiving makes the repos read-only and would break the NEXT-BOOT write
+  rituals the succession packs expect).
+- **cfgdiff v0.1.1 release — two clicks (codetool-lab-sonnet5).** (1) register
+  the PyPI trusted publisher (pypi.org → Publishing → pending publisher: owner
+  `menno420`, repo `codetool-lab-sonnet5`, workflow `release.yml`, environment
+  `pypi`, ~2 min); (2) `git tag -a v0.1.1 0b1eb60 -m "cfgdiff 0.1.1" && git
+  push origin v0.1.1` — do NOT tag v0.1.0 at `0260aae` (predates release.yml,
+  fires nothing). cfgdiff 0.1.1 sits on main unreleased; release.yml has never
+  fired. WHY owner-only: tag push is a credential-layer 403 on that seat.
+- **codetool stale branches ×2** — delete `claude/status-heartbeat-001`
+  (opus4.8) and `test/push-check` (sonnet5) at each repo's branches page
+  (~10 s each; agent branch-delete 403, verbatim in the succession docs).
 - **Archive the dead trading session** — claude.ai session list → ⋮ →
   Archive (still listed active).
 - **Paper-doll PNG pack for mining** — art asset, whenever.
