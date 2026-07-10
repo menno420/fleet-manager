@@ -1,9 +1,21 @@
 # fleet-manager · status
-updated: 2026-07-10T12:35:00Z
+updated: 2026-07-10T13:45:00Z
 phase: GEN-2 FLEET LIVE — morning consolidation after the overnight launch (2026-07-10 00:00–06:15Z: **116 PRs merged fleet-wide, zero stuck** — verified via the merged-PR search, not reports; full record: docs/planning/gen2-launch-record-2026-07-10.md)
 health: green
 kit: v1.4.0 · check: green · engaged: yes
-last-shipped: #23 — night-review remediation (⚑B/⚑D publish clicks FROZEN on D1; URGENT pokemon-mod-lab visibility flip queued; playbook R22/R23; visibility-check recipe)
+coordinator: **LIVE** — session-based coordinator seat booted 2026-07-10 (round-3 pack §1 brief)
+routine: fleet-manager 2-hourly standing wake · cron 30 */2 * * * · armed-by-me (verified in trigger list — id `trig_01QBrp5MjZL3F9mv6KsTXTzN`, enabled, next run 2026-07-10T14:36Z)
+
+> **Arming record (verbatim, 2026-07-10T13:40Z — reproducible recipe, first-class):**
+> Tool: claude-code-remote `create_trigger` (MCP; verified after with `list_triggers`).
+> Args: `name="fleet-manager 2-hourly standing wake"`, `cron_expression="30 */2 * * *"`,
+> `persistent_session_id="cse_01V66KdPhtbR1AThhK77kDqr"` (the coordinator session),
+> `prompt=` the standing 2-HOURLY WAKE text (stored verbatim in the trigger).
+> Result: `{"trigger":{"id":"trig_01QBrp5MjZL3F9mv6KsTXTzN","name":"fleet-manager 2-hourly standing wake","cron_expression":"30 */2 * * *","enabled":true,"next_run_at":"2026-07-10T14:36:04Z", … "persistent_session_id":"session_01V66KdPhtbR1AThhK77kDqr"}}`
+> — no error; the passed `cse_…` id was accepted and normalized to `session_…` form;
+> recurring cron (not one-shot) confirmed in the `list_triggers` output.
+
+last-shipped: #24 — archive prep: manager succession package (handoff-2026-07-10 + capabilities/dispatch-log appends); this PR (#26) lands the coordinator boot record
 blockers: none
 
 ## Lanes (current, one line each — verified at HEAD 2026-07-10 morning)
@@ -34,6 +46,6 @@ blockers: none
 - EAP free window through 2026-07-14; Anthropic follow-up draft rides the email pack (parked queue).
 - CORRECTED 2026-07-10 ~morning (was: PLATFORM GAP both sides): in-Project routine self-arm WORKS (owner-verified) — wake-arm ORDERs dispatched to 6 active lanes (venture-lab, substrate-kit, pokemon-mod-lab, gba-homebrew hourly; websites, trading-strategy 4-hourly). Coordinator/worker + cross-session walls stand (capabilities.md). Recipe pending: first successful lane records the exact tool/UI path; owner fallback only on a recorded lane failure.
 
-orders: acked= done= (no inbox orders for the manager repo)
+orders: 001–004 open (004 is P0 — economics ledger, deadline 2026-07-14) · 005–006 done (executed in PR #20 + codetool-lab-fable5 #14) · 007 new (@codex review-relay rule, this PR)
 ⚑ needs-owner: see docs/owner-queue.md (8 active + parked)
 notes: launch record + dispositions + verified overnight numbers: docs/planning/gen2-launch-record-2026-07-10.md. Fitted (≤7,500-char) Custom Instructions actually deployed to the websites + trading gen-2 Projects are recorded in docs/proposals/instructions/{websites,trading-strategy}.md § "Deployed fitted version".

@@ -99,3 +99,20 @@ opus4.8 evidence; seat-contamination caveat present in fleet-manager `docs/exper
 caveats) + `docs/experiments/harness-x-model-2026-07-09.md` (judge-note append) in this PR
 (fleet-manager PR #20); fable5 succession doc corrected in **codetool-lab-fable5 PR #14**
 (MERGED, squash a6cf1a9 — `docs/succession/PLATFORM-LIMITS.md` item 4 + item 8 rider).
+
+## ORDER 007 · 2026-07-10T13:43Z · status: new
+priority: P1
+owner: next fleet-manager doctrine session (may ride with ORDER 001/003)
+do: Mint the @codex review-relay playbook rule (owner directive Q-0258, 2026-07-10): any
+lane session with a review-worthy-but-not-owner-only question posts it as a PR comment
+mentioning @codex (one specific question, on the final head; template in superbot
+docs/planning/codex-review-integration-plan-2026-06-17.md Part C) instead of parking it
+in the owner-queue. Codex is the named standing drainer of the post-merge review
+convention; Q-0120 governs the return path (verify, never obey). Fold the rule into the
+blueprint/playbook where lane doctrine lives.
+why: round-3 brief §1 standing debt 6 — the only one of the seven brief debts that never
+got an inbox ORDER (001–006 cover debts 1–5 and 7); the owner is enabling the Codex
+GitHub integration across the valuable repos and rates its PR reviews highly (Q-0259
+ruling 3 extends this to standing @codex review on substantive superbot-next PRs).
+done-when: the rule is written into the lane playbook/blueprint with the Part C template
+pointer; ORDER status flipped to done with the landing PR cited.
