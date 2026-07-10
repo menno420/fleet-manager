@@ -204,7 +204,7 @@ dedicated session runs it); superbot-next ORDER 009 **applied** in next #105 (fl
 decision record on main). Owner-queue reconciled to the whole Q-0262 batch in the same
 PR; status acks 008 in its orders footer.
 
-## ORDER 009 · 2026-07-10T16:45Z · status: new
+## ORDER 009 · 2026-07-10T16:45Z · status: DONE (executed by the Q-0265 continuation-chain slice #2, 2026-07-10 ~21:20Z, fleet-manager PR #38)
 priority: P2
 owner: a future fleet-manager standing wake (any pass after the current round settles)
 do: Implement **generated roster v1** per
@@ -220,8 +220,21 @@ done-when: `docs/roster.md` generated on main with per-row evidence + one parall
 comparing it against the hand manifest; manifest pointer-stub migration executed or
 explicitly re-scheduled. **Decide-and-flag: this ORDER was self-filed by the manager
 (not owner-routed) — the owner may veto by striking it.**
+✅ DONE (v1 scope): `docs/roster.md` **generation #1** on main — 17 rows (one per lane,
+superbot-games split per-lane), each with heartbeat stamp + freshness age, phase, orders,
+kit, live trigger state (99-record `list_triggers` sweep) and repo@HEAD evidence; header
+carries generated-at + source-of-truth + the >24h kill-switch note. Regeneration duty
+minted as playbook **R25** (every manager wake regenerates; commit only on change).
+Staleness verdicts included (action-worthy: venture-lab 16h+ w/ 3 unconsumed ORDERs +
+no trigger; pokemon ORDER 003 unconsumed). **Deliberately deferred, decide-and-flag:**
+(a) `tools/gen_roster.py` mechanization — generation #1 was executed by the wake
+procedure itself; script lands once a parallel-run wake confirms the format; (b)
+**phase-2 manifest → pointer-stub migration NOT executed this slice** — the roster
+proves itself first (one parallel-run wake vs the hand manifest), then superbot
+`docs/eap/fleet-manifest.md` reduces to a pointer stub and `check_manifest_freshness.py`
+retires per its kill-switch header; owner may veto. This PR: fleet-manager **PR #38**.
 
-## ORDER 010 · 2026-07-10T19:45Z · status: new
+## ORDER 010 · 2026-07-10T19:45Z · status: DONE (matrix half executed by the Q-0265 continuation-chain slice #2, 2026-07-10 ~21:25Z, fleet-manager PR #38; per-lane relay rides each next lane contact)
 priority: P2
 owner: manager standing wake (rides the staleness sweep — per-lane, at next contact with each routine-armed lane)
 do: **Per-lane model verification sweep.** At the next contact with each routine-armed
@@ -237,6 +250,19 @@ header + card sonnet-5 on the evidenced websites fire — websites PR #59, squas
 `create_trigger` exposes no model arg, so per-session self-report is the only detector.
 done-when: matrix in a findings doc (`docs/findings/`), one row per routine-armed lane:
 Project setting · fired-session self-reported family · evidence link.
+✅ DONE: `docs/findings/model-matrix-2026-07.md` on main — one row per repo (all 16,
+routine-armed lanes covered), each: Project setting (**honest unknown everywhere**
+except the codetool experiment arms — not agent-visible on any surface; `create_trigger`
+no-model-arg re-confirmed on this slice's 99-record sweep) · card-self-reported families
+(family-level per Q-0262; newest ~3–5 cards per repo at HEAD) · fired-vs-manual where
+determinable (websites best-labelled; superbot reconcile routine = opus-4.8; fm chain =
+fable-5) · evidence links. Cross-surface disagreement cited (websites 16:01Z fire:
+Routines screen fable-5 vs card `claude-sonnet-5`, PR #59 squash 2c89e96 — card
+re-verified at HEAD 1430f61). Null conventions surfaced: trading "withheld", gba "ID
+withheld", pokemon "lane default", superbot newest template drops the line. Steps (1)/(2)
+per-lane template+card checks and (3) the ground-truth self-report instruction ride each
+next lane contact per the ORDER's own owner line (standing relay, matrix basis banked).
+This PR: fleet-manager **PR #38**.
 
 ## ORDER 011 · 2026-07-10T20:30Z · status: DONE (re-arm executed 20:26Z; recorded + re-verified by the chain slice ~20:45Z, fleet-manager PR #37)
 priority: P1
