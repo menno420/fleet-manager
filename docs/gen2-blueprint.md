@@ -31,6 +31,14 @@
 > (owner-verified 2026-07-10 ~morning: Project sessions CAN self-arm
 > in-Project routines; correction recorded in `capabilities.md`; recipe
 > pending — first successful lane records the exact tool/UI path).
+> 2026-07-10 (midday) — **§2a rider mechanism VERIFIED** (owner screen
+> recordings 11:01Z/11:04Z; round-3 brief §1): self-arm works via the
+> claude-code-remote scheduling tools (create_trigger / send_later family),
+> **SEAT-DEPENDENT** (same per-seat inconsistency class as the merge
+> classifier); "recipe pending" retired in `capabilities.md`. Ping-test
+> websites NO-ACK row corrected (websites acked late, +1h39m, via its
+> PR #44 — `findings/ping-test-2026-07-09.md` § Correction; §2a ack count
+> updated 2/9 → 3/9).
 
 The premise: every gen-1 lane paid a tax rediscovering the same ~13 failure
 classes. Gen-2 lanes are **born right** — the seed state prevents the known
@@ -142,9 +150,13 @@ The ack sweep ([`findings/ping-test-2026-07-09.md`](findings/ping-test-2026-07-0
 - **With a live session, order pickup is minutes:** 9m47s / 14m43s
   dispatch→ack-on-main (superbot-next, substrate-kit — both discovered the
   ping via mid-session inbox re-reads; in-session read→ack cost 2–11 min).
-- **Without a live session, it is unbounded:** 7 of 9 lanes never acked —
-  hours later. One lane (opus4.8) was *awake after the ping landed and still
-  missed it* (heartbeat 15m31s post-ping without an inbox re-read).
+- **Without a live session, it is unbounded:** 7 of 9 lanes had not acked at
+  sweep time — hours later. One lane (opus4.8) was *awake after the ping landed
+  and still missed it* (heartbeat 15m31s post-ping without an inbox re-read).
+  *(Corrected 2026-07-10: websites DID ack late — +1h39m landed→ack via its
+  PR #44, once a session went live in the lane — so the final count is 6 of 9
+  never-acked, 3/9 acked; the unbounded-without-liveness conclusion stands.
+  See `findings/ping-test-2026-07-09.md` § Correction.)*
 
 So: **order-pickup SLA ≈ routine cadence + ~15 min.** The routine *is* the
 liveness design; everything else in §2 only works once something wakes the
@@ -169,13 +181,20 @@ Rules that ride the cadence table:
    caught two lanes stamping local-time-as-Z (+1h drift); commit history is
    the clock of record (R2).
 
-> **Rider (2026-07-10, owner-verified):** the wake cadence above is now
-> **agent-executable** — Project sessions CAN self-arm their own in-Project
-> routines (the "walled on both sides" reading was wrong for Project surfaces;
-> correction + remaining non-Project walls in
-> [`capabilities.md`](capabilities.md); exact recipe pending — the first lane
-> that self-arms records the tool/UI path). §3 step 6's owner routine click
-> becomes the fallback, not the path.
+> **Rider (2026-07-10, owner-verified; mechanism verified ~11:01Z):** the wake
+> cadence above is now **agent-executable** — Project sessions CAN self-arm
+> their own in-Project routines (the "walled on both sides" reading was wrong
+> for Project surfaces; correction + remaining non-Project walls in
+> [`capabilities.md`](capabilities.md)). **Mechanism VERIFIED:** the
+> claude-code-remote scheduling tools (`create_trigger` / `send_later`
+> family) — **SEAT-DEPENDENT**, the same per-seat inconsistency class as the
+> merge classifier: the identical tool family that is absent/refused on some
+> seats arms successfully on others. Evidence: two ACTIVE "Created by Claude"
+> routines firing (trading-strategy 4-hourly, completed run 10:09; kit-lab
+> hourly, completed runs 12:28/12:28/12:30 — owner screen recordings
+> 2026-07-10 11:01Z/11:04Z). A lane whose seat is walled records the exact
+> tool call + verbatim error in its status; §3 step 6's owner routine click
+> is the fallback for those seats, not the path.
 
 ## 2b. CI-TIER STANDARD — simulated, not assumed (2026-07-09)
 

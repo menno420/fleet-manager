@@ -11,21 +11,45 @@ venture-lab repo exists (seeded + 9 PRs); kit #26/#49 and games #5 are MERGED
 overnight); the gen-1 wind-down, merge-session, and launch click-lists are DONE.
 Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2-launch-record-2026-07-10.md).
 
+> **Amended 2026-07-10 (midday, round-3 brief §1c).** The pure DECISION items
+> below (1 · 4 · 6 · 8, plus the concept/playtest picks in 3) are now
+> **consolidated — with recommendations and defaults — in the owner decision
+> sheet: superbot `docs/planning/round3-launch-pack-2026-07-10.md` §4**. Answer
+> them THERE (one sitting, ten numbered calls); the entries below are kept as
+> stubs so nothing dangles, and are no longer the full text — the §4 sheet is.
+> New item 0 added: create the Idea Engine Project (standing autonomous core).
+
 ## Active queue (HOT first)
 
-1. **🔥 HOT — kit F-5 one-letter ruling (A or B).**
-   - WHAT: read two short paragraphs and reply with one letter — which reading
-     of the benchmark pass/fail rule is intended. Reading A (strict
-     none-regressing) vs Reading B (7k-budget-purposive) produce OPPOSITE
-     verdicts on the same evidence; the B1 bench's whole 1-PASS/2-FAIL headline
-     hangs on it.
-   - WHERE: substrate-kit `docs/ideas/rubric-f5-none-regressing-wording-2026-07-09.md`.
-   - HOW: reply "A" or "B" in any channel (or an inbox order).
-   - WHY owner-only: bench/rubric is a pin path; the idea file reserves the
-     call ("Agents do not resolve this one") — it's product judgment on what
-     the rubric MEANS.
-   - UNBLOCKS: run-2/run-3 verdicts un-disputed; run-4 lands under a ruled
-     reading; honest KF-5 release notes.
+0. **Create the Idea Engine Project (superbot repo) — standing autonomous core.**
+   - WHAT: create ONE new claude.ai Project on the **superbot** repo (not
+     substrate-kit — the ideas pipeline `docs/ideas/` + router + grooming
+     doctrine live in superbot) whose mission is: generate + groom ideas into
+     `docs/ideas/`, promote the best into plans, and propose routing ORDERs to
+     the manager for lane repos. It is one of the FOUR permanently-running
+     Projects in the owner's standing-autonomous-core design (manager · Idea
+     Engine · superbot-next builder · Product Forge), each on a ~2-hourly
+     routine, looping without the owner.
+   - WHERE/HOW: claude.ai → new Project on menno420/superbot; then paste the
+     **routine text from superbot `docs/planning/round3-launch-pack-2026-07-10.md`
+     §5** (the "Arm a recurring routine for this Project yourself…" block) as
+     its first message — the Project arms its own routine via the verified
+     recipe (`create_trigger`, cron every 2 hours; `capabilities.md` CAN
+     entry); owner routine click only if that seat is walled.
+   - NOTE: **venture-lab becomes the Product Forge** seat of the core once its
+     §4.9 settings click lands (required check / Allow auto-merge — the
+     merge-path fix); no separate product-forge repo needed unless that click
+     is refused.
+   - WHY owner-only: creating claude.ai Projects has no agent API surface
+     (verified wall, `capabilities.md`).
+   - UNBLOCKS: the standing autonomous core's idea-generation loop — the
+     fleet generating its own work between owner sessions.
+
+1. **🔥 HOT — kit F-5 one-letter ruling (A or B).** → **decision sheet §4.1**
+   (superbot `docs/planning/round3-launch-pack-2026-07-10.md`; recommendation
+   there: the stricter Reading A). Stub retained: reply "A" or "B" in any
+   channel; kit-lab's dispatch is paused on it. Full context:
+   substrate-kit `docs/ideas/rubric-f5-none-regressing-wording-2026-07-09.md`.
 
 2. **venture-lab ⚑A–D — the revenue clicks (zips are ON MAIN, upload-ready).**
    PR #9 merged 05:11:50Z: both buyer zips are committed —
@@ -50,7 +74,9 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
      lane filing a merge-on-green workflow. The classifier walled agent
      self-merge there twice (verbatim denials in venture-lab
      `control/status.md`); without one of these, every overnight venture PR
-     waits for a click.
+     waits for a click. This rider is part of the **§4.9 repo-settings sweep**
+     on the decision sheet; once it lands, **venture-lab = the Product Forge**
+     seat of the standing autonomous core (item 0 above).
    - WHY owner-only: marketplace/payment accounts and repo settings are
      owner surfaces (agents: no accounts, no money, no external publish —
      hard rail).
@@ -69,16 +95,13 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
      patches work, not that they feel right.
    - UNBLOCKS: which QoL patches lock in before deeper mod work.
 
-4. **Concept picks — BOTH game-lab tracks (one message covers both).**
-   - WHAT: Track B — pick 1 of 3 committed concepts (Lumen Drift / Clockwork
-     Courier / Shoal); Lumen Drift is scope-complete with polish, so the pick
-     decides continue-polish vs transfer, not sunk work. Track A — pick from
-     its 3 committed mod concepts (ORDER 001 reserves both picks to you).
-   - WHERE: gba-homebrew `docs/concepts/session-1-concepts.md`;
-     pokemon-mod-lab's concepts doc.
-   - HOW: any signal (inbox order or PR comment), e.g. "Track B: Lumen Drift;
-     Track A: concept 2".
-   - UNBLOCKS: locks the target for the remaining game-lab sessions.
+4. **Concept picks — BOTH game-lab tracks.** → **decision sheet §4.3 + §4.4**
+   (recommendations there: Track A QoL+ — better, play the 12 patches first;
+   Track B order Lumen Drift release-prep so you can PLAY it before any new
+   concept). Stub retained: any signal works (inbox order or PR comment),
+   e.g. "Track B: Lumen Drift; Track A: QoL+". Full context:
+   gba-homebrew `docs/concepts/session-1-concepts.md` + pokemon-mod-lab's
+   concepts doc.
 
 5. **kit P10 required-check swap + P4 daily-loop schedule.**
    - P10 (2 min): substrate-kit → Settings → Rules → `main` ruleset →
@@ -96,17 +119,11 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
      morning "continue" message to the kit Project is the loop until the
      platform ships the surface.
 
-6. **trading P5 holdout unlock — the last roadmap step (decision, 1 line).**
-   - WHAT: authorize the one-shot holdout evaluation. Everything is
-     pre-registered (13 subjects, frozen params, verdict rules fixed before
-     any holdout number exists) in `docs/p5-holdout-protocol.md`; §7 requires
-     an explicit owner ORDER — no session may start it on less.
-   - WHERE/HOW: append an order to trading-strategy `control/inbox.md` naming
-     the protocol binding (the manager can draft it — you say "unlock").
-     Recommendation (decide-and-flag): unlock now; the protocol is one-shot
-     and ties/ambiguity already resolve against the strategy.
-   - UNBLOCKS: the final ranked report's §Holdout — the lab's terminal
-     deliverable.
+6. **trading P5 holdout unlock (decision, 1 line).** → **decision sheet §4.2**
+   (recommendation there: grant it — the protocol `docs/p5-holdout-protocol.md`
+   is pre-registered, code-enforced, one-shot; the lab is otherwise done and
+   idle). Stub retained: you say "unlock", the manager drafts the ORDER into
+   trading-strategy `control/inbox.md` naming the protocol as binding.
 
 7. **Wake-routine arming — self-arm rollout DISPATCHED (nothing to click unless a lane fails).**
    - WHAT: the "walled on BOTH sides" reading was corrected 2026-07-10
@@ -116,24 +133,23 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
      **Self-arm rollout dispatched (ORDERs queued to all active lanes)** —
      venture-lab, substrate-kit, pokemon-mod-lab, gba-homebrew hourly
      (Class A); websites, trading-strategy 4-hourly (Class B), per
-     blueprint §2a. Recipe pending: the first successful lane records the
-     exact tool/UI path in capabilities.md.
+     blueprint §2a. **Recipe now VERIFIED (2026-07-10 ~11:01Z):** the
+     claude-code-remote scheduling tools (`create_trigger` / `send_later`
+     family), seat-dependent — two lanes are ALREADY armed and firing
+     ("Created by Claude": trading-strategy 4-hourly, kit-lab hourly; owner
+     recordings 11:01Z/11:04Z). Those two need nothing from you.
    - **Owner fallback ONLY if a lane's attempt fails with a recorded error**
      — then that lane's routine (or the morning-"continue" interim) becomes
      a click again; otherwise nothing to do here.
    - UNBLOCKS: the fleet running on orders without manual wake-ups.
 
-8. **Review the 10 PROPOSED instruction packages.**
-   - WHAT: `docs/proposals/instructions/` — 10 gen-2 founding packages.
-     TWO are now DEPLOYED in fitted ≤7,500-char form (websites,
-     trading-strategy — the exact live texts are recorded in each file's
-     "Deployed fitted version" section); 8 remain PROPOSED, none binding
-     until pasted.
-   - WHERE: the README index + per-file §2 blocks; paste-time delta-8
-     checklist in the README.
-   - HOW: read at leisure; veto/edit by comment; paste order recommendation
-     is in the README.
-   - UNBLOCKS: relaunch texts for the remaining lanes when their turns come.
+8. **The 8 undeployed instruction packages.** → **decision sheet §4.8**
+   (recommendation there: **don't paste any today** — several were written
+   blueprint-blind; re-base them on the gen-3 blueprint delta and deploy in
+   one sitting when the manager's gen-3 report lands). Stub retained:
+   `docs/proposals/instructions/` — 2 of 10 DEPLOYED fitted (websites,
+   trading-strategy, exact live texts in each file's "Deployed fitted
+   version"); 8 PROPOSED, none binding until pasted.
 
 ## Parked (valid, no rush)
 

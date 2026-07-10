@@ -184,3 +184,42 @@ prompt, and the external review pack are logged above; review pack ref: sb#1903
 - Wake-arm ORDER rollout dispatched to 6 active lanes — venture-lab,
   substrate-kit, pokemon-mod-lab, gba-homebrew hourly (Class A); websites,
   trading-strategy 4-hourly (Class B), per blueprint §2a. (PR #19.)
+
+## 2026-07-10 — midday (ROUND-3 INTAKE, brief §1 task 1)
+
+- **ROUND-3 BRIEF received** (superbot
+  `docs/planning/round3-launch-pack-2026-07-10.md` §1; context: the overnight
+  review + EAP program review, both 2026-07-10). Intake recorded here; the six
+  STANDING DEBTS are now **ORDERS 001–006 in the manager's OWN
+  `control/inbox.md`** (the program-review §5.1 doctrine fix: amendments get
+  an ORDER + a named next-session owner, never a dangling "some future
+  session" — the one channel the manager built for everyone is no longer
+  unused on itself). ORDER 005 (ping-test websites false NO-ACK row) and
+  ORDER 006 (codetool release-wall contradiction + seat-contamination caveat)
+  executed immediately in the same PR (#20) + a small codetool-lab-fable5 PR.
+- **SECOND routines correction landed** — `capabilities.md` + blueprint §2a:
+  agent-armed routines WORK via the claude-code-remote scheduling tools
+  (`create_trigger` / `send_later` family), **SEAT-DEPENDENT** (same per-seat
+  class as the merge classifier); evidence: owner recordings 11:01Z/11:04Z —
+  two ACTIVE "Created by Claude" routines (trading-strategy 4-hourly, run
+  10:09; kit-lab hourly, runs 12:28/12:28/12:30). "Recipe pending" retired.
+- **STANDING AUTONOMOUS CORE (owner design, launch-pack §5) recorded** — four
+  Projects run permanently on ~2-hourly routines and loop without the owner:
+  (1) the manager, (2) a NEW dedicated **Idea Engine** Project on the superbot
+  repo, (3) the superbot-next builder, (4) a **Product Forge** (venture-lab
+  once its §4.9 merge-path click lands). Manager's role in the loop: route the
+  Idea Engine's proposals as ORDERs, consolidate the owner-queue, and watch
+  the four routines' liveness in the staleness sweep. Loop shape: Idea Engine
+  files/promotes → Manager routes → Builder + Forge consume → Manager
+  consolidates → Idea Engine grooms from what shipped; cadence staggered
+  (lanes even hours, manager odd/+1h). Owner-queue item 0 carries the Idea
+  Engine creation click. All other Projects stay owner-started, one by one.
+- **GEN-3 GATE recorded** — collect every lane's night self-review (the owner
+  is pasting a continuation+review prompt into each lane; answers land in the
+  lane repos) plus the Codex external reviews, and synthesize the gen-3
+  blueprint delta the same way the gen-1 retro fed gen-2. **Do NOT relaunch
+  lanes for gen-3 until the owner has seen the consolidated "state of the
+  fleet + gen-3 delta" report** — the owner wants ONE gate, at the blueprint.
+- Also expected: owner tests the three websites today — a suggestions ORDER
+  for the websites lane will follow; treat his notes as product feedback with
+  priority.

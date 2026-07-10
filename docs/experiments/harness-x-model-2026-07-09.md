@@ -176,3 +176,21 @@ and cadence from git history; test-LOC vs product-LOC; any rail violations
 ---
 
 *Append-only below this line after launch.*
+
+## Judge notes (append-only)
+
+- **2026-07-10 (pre-judging caveat — seat contamination; appended per the
+  round-3 brief §1 debt 6).** The gen-1 codetool model-comparison was found
+  contaminated: coordinator + wind-down seats ran claude-fable-5 inside at
+  least the sonnet5 (and likely fable5) arms — only sonnet5 disclosed it
+  loudly (superbot `docs/eap/fleet-overnight-review-2026-07-10.md`, finding
+  6). Consequence for THIS experiment: before scoring any pair, the judge
+  **verifies which seat/model produced the committed work** (commit
+  trailers, session cards, disclosure notes) and scores **builder-seat
+  output only**; an arm whose model identity cannot be established from
+  committed evidence is reported **"model unverifiable"**, not scored as its
+  nominal tier. Per-seat capability differences (merge classifier,
+  scheduling tools) are a same-class confound — check the arms faced the
+  same walls before attributing a delta to harness or model. This note adds
+  a verification step only; the frozen rubric, ladders, and wrappers are
+  unchanged. Full standing rule: [`README.md`](README.md) § Standing caveats.
