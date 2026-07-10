@@ -113,6 +113,43 @@ your seat, that is a **seat** wall — record the exact tool call + verbatim err
 true for non-Project surfaces (webagent coordinator + spawned workers; cross-session
 trigger binding).
 
+### ⚠ Rider on routine self-arm — model attribution is INCONSISTENT ACROSS SURFACES (recorded 2026-07-10 ~20:00Z, owner report + owner correction)
+Do NOT assume a routine-fired session runs the Project's configured model — and do
+NOT assert the opposite either. The verified finding is a **three-way surface
+disagreement with no authoritative panel**:
+
+- **Routines menu (owner UI):** displays **fable-5** for ALL project-created
+  routines — including the websites one below.
+- **Fired session's chat header (owner UI):** showed **"Sonnet 5"** for the
+  websites routine-fired session of 2026-07-10.
+- **Fired session's own card (committed self-report):** websites
+  `.sessions/2026-07-10-order008-first-fire-manifest-smoke.md` (merged in
+  websites PR #59, squash 2c89e96; re-verified at HEAD 2026-07-10 ~19:35Z)
+  line 8 reads verbatim: `- **📊 Model:** claude-sonnet-5 · medium ·
+  maintenance + smoke-check build` — while that Project is set to fable-5.
+
+Ground truth (what actually executed) is currently **undeterminable from any
+single panel**. Probe result (2026-07-10 ~19:34Z, this repo's finding job):
+the `create_trigger` MCP tool schema exposes **NO model parameter** — its
+properties are exactly `name`, `prompt`, `cron_expression`, `run_once_at`,
+`persistent_session_id`, `create_new_session_on_fire`, `environment_id`,
+`notifications` — so there is no agent-side way to pin a fired session's
+model. `list_triggers` (50 trigger records read) shows **no model-related key**
+on any trigger: union of keys = `created_at, created_via, creator,
+cron_expression, enabled, ended_reason, id, job_config, last_fired_at, name,
+next_run_at, persist_session, persistent_session_id, run_once_at,
+session_grouping_id, updated_at`; `job_config.ccr.session_context` carries only
+`allowed_tools` + `mcp_config`; the sole "model" substring in the entire output
+is the phrase "collab-model" inside one trigger's prompt text.
+
+**Working detector:** the fleet's session-card `📊 Model:` convention
+(family-level names only, per Q-0262) — each fired session records the model
+identity its own harness/environment reports, at the moment of work. That
+self-report is itself a claim, but it is the only per-session, committed,
+from-inside-the-environment signal we have; the cross-surface disagreement is
+unresolved and queued for the Anthropic follow-up email (`docs/owner-queue.md`
+Parked).
+
 ### Check a repo's ACTUAL visibility — one API call (added 2026-07-10, night-review Q16)
 Sessions assert "this repo is PRIVATE" from READMEs and prior PR bodies without ever
 checking — that bug class shipped vendored Nintendo source publicly. Visibility is one

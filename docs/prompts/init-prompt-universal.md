@@ -23,6 +23,20 @@ WAKE CADENCE — arm it yourself (verified recipe, seat-dependent): call the cla
 Rails unchanged (forward-only git, live-test, decide-and-flag, write-back). Confirm now by overwriting control/status.md with your real current status.
 ```
 
+### Known limit — routine recipe rider (dated append 2026-07-10 ~20:00Z; include with every deployment)
+
+The model a fired session runs under is **not reliably determinable from the
+Routines screen** — model attribution is inconsistent across surfaces (the
+Routines menu displays fable-5 for all project-created routines while the
+evidenced websites fired session's chat header and own card said sonnet-5;
+evidence + probe: `../capabilities.md` § routine self-arm rider). There is no
+agent-side pin: `create_trigger` exposes **no model parameter** (probed
+2026-07-10). Mitigation is self-report: **record your own model identity
+(family-level, e.g. fable-5 / sonnet-5 — never exact IDs) on your session card's
+`📊 Model:` line every session**, taken from your own harness/environment at the
+moment of work. Deployers: append this known-limit line when pasting the Current
+text above (the verbatim block itself is never edited per this file's convention).
+
 ## Deployed text (gen-1, 2026-07-09 — SUPERSEDED, kept verbatim for history)
 
 Known-false line (F21): "A routine will wake you on a cadence…" — routine
