@@ -283,3 +283,32 @@ prompt, and the external review pack are logged above; review pack ref: sb#1903
   4. **pokemon-mod-lab** (effective after the owner's visibility flip) —
      verify visibility=private via the API, record in `control/status.md`;
      R22 applies every session thereafter.
+
+## 2026-07-10 — afternoon (visibility saga: the private-plan auto-merge wall)
+
+- pokemon-mod-lab visibility saga — sequence: the owner executed the 🚨 URGENT
+  flip to PRIVATE (night-review Q16: vendored Nintendo source was
+  world-readable); then flipped the repo PUBLIC again **solely to reach the
+  repo-settings auto-merge toggle**; the manager countered (same Q16
+  exposure); the owner flipped it back PRIVATE. **Root cause: on this GitHub
+  plan, private repos cannot enable the auto-merge toggle at all**
+  (owner-verified 2026-07-10). **Resolution: REST merge-on-green (R21) needs
+  no toggle** — recorded as a WALLED entry in `docs/capabilities.md`; a
+  visibility flip is never the fix for a merge-path problem. End state
+  verified live per R22 at this session: pokemon-mod-lab `private: true`;
+  fleet-manager itself still `private: false` (account-wide flips in
+  progress — successor retires/updates the URGENT owner-queue item once the
+  sweep settles, verifying bits per R22).
+
+## 2026-07-10 — afternoon (archive prep: manager succession package)
+
+- Owner archiving the manager chat — everything chat-only from that session
+  committed as the successor package (PR #24, `manager/archive-prep-2026-07-10`):
+  `docs/handoff-2026-07-10.md` (gen-2 → gen-3 succession: read order, live
+  state, in-flight/promises incl. the ⚑B/⚑D freeze + gen-3 gate + ORDER
+  001–004 pointers + the Anthropic follow-up material, and the
+  delivery-channel SOP with the comment-at-open + ack-token rule),
+  `docs/capabilities.md` append (private-plan auto-merge toggle wall + REST
+  merge-on-green resolution), this log's visibility-saga entry, and the
+  `.sessions/2026-07-10-archive-prep.md` card. Landed via REST
+  merge-on-green (R21 — no arm attempt).
