@@ -1,6 +1,6 @@
 # fleet-manager · status
-updated: 2026-07-10T21:50:00Z
-phase: GEN-2 FLEET LIVE — **CONTINUOUS MODE RUNNING (Q-0265): PACKAGE CENTRALIZATION SHIPPED (`projects/` registry, this PR) — every Project's console package now has ONE committed home** · chain slice #2 shipped (ORDERs 009+010, inbox clear) · generated roster v1 LIVE (`docs/roster.md`, playbook R25) · fleet model matrix banked (`docs/findings/model-matrix-2026-07.md`) · review-queue enforcement LIVE (ORDER 003/007) · doctrine debt PAID (ORDER 001) · Q-0262 folded (ORDER 008)
+updated: 2026-07-10T21:55:00Z
+phase: GEN-2 FLEET LIVE — **CONTINUOUS MODE RUNNING (Q-0265): ORDER 012 games-program mapping proposal SHIPPED (⚑ OWNER-REVIEW below — founding packages HELD) · PACKAGE CENTRALIZATION SHIPPED (`projects/` registry, this PR) — every Project's console package now has ONE committed home** · chain slice #2 shipped (ORDERs 009+010, inbox clear) · generated roster v1 LIVE (`docs/roster.md`, playbook R25) · fleet model matrix banked (`docs/findings/model-matrix-2026-07.md`) · review-queue enforcement LIVE (ORDER 003/007) · doctrine debt PAID (ORDER 001) · Q-0262 folded (ORDER 008)
 health: green
 kit: v1.7.0 · check: green · engaged: yes (kit line corrected this slice — previous heartbeats said v1.4.0 while the #35 upgrade had landed v1.7.0; drift fixed on sight)
 coordinator: **LIVE** — session-based coordinator seat booted 2026-07-10 (round-3 pack §1 brief) · operating model CONTINUOUS (Q-0265)
@@ -19,8 +19,32 @@ routine: **fleet-manager failsafe wake** · cron 30 */2 * * * · id `trig_014odn
 > the ORDER 003/007 slice (PR #37); **chain fire #2 ~21:00Z = the ORDER 009/010 slice
 > (PR #38, this record)**. F-1 rebind-then-delete cutover recipe held.
 
-last-shipped: #39 — package centralization (`projects/` registry + paste-wave owner-queue item)
+last-shipped: #41 — ORDER 012 games-program mapping proposal (Q-0259 r5)
 blockers: none
+
+> ## ⚑ OWNER-REVIEW — games-program mapping proposal awaits your reaction — founding packages HELD
+>
+> **`docs/proposals/games-program-mapping-2026-07-10.md`** (PR #41, ORDER 012): the
+> Q-0259 r.5 mapping — pokemon-mod-lab (QoL+) · gba-homebrew (release-prep + concept
+> options) · **superbot-games = Project 3** (engine+content) · **read-only games data
+> API in the superbot lane** as a contracted committed-JSON feed per #1920's verified
+> pattern (snapshot-first; live-endpoint upgrade path named, deferred) · sequence =
+> feed slice now, boots parallel after your reaction, games-web phase 2 + websites
+> stats on feed live. **The three founding packages ship only AFTER you react**
+> (this dispatch's done-when).
+>
+> - WHAT: react to the mapping (approve / redirect / veto any §4 flag).
+> - WHERE: `docs/proposals/games-program-mapping-2026-07-10.md` §4 (the four veto
+>   points) — reply in any chat or as an ORDER.
+> - HOW: one line suffices ("go" / "change X"); silence is NOT consent here — the
+>   dispatch's done-when names your reaction as the gate.
+> - WHY-IT-MATTERS: this is the Q-0259 r.5 shape of the whole games program (3
+>   Projects + the data API's home); redirecting after packages ship costs 3 re-pastes.
+> - UNBLOCKS: the 3 founding packages + boot paste wave; the superbot feed order can
+>   proceed regardless (superbot-lane work, flagged in the proposal).
+> - VERIFIED-NEEDED: agent-side research is done and cited in the proposal (#1920
+>   pattern verified at superbot `655e0fea`; estate inventoried at pinned HEADs) —
+>   only the product/intent call remains, which is owner-only per Q-0259 r5.
 
 ## Package-centralization record — 2026-07-10T~21:45Z (owner dispatch, PR #39)
 

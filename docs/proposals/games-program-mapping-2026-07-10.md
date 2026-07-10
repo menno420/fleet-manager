@@ -1,6 +1,6 @@
 # Games-program mapping proposal (Q-0259 r.5 · ORDER 012)
 
-> **Status:** `proposal — ⚑ OWNER-REVIEW.` Committed 2026-07-10 per the owner dispatch
+> **Status:** `plan` — ⚑ OWNER-REVIEW. Committed 2026-07-10 per the owner dispatch
 > (~21:4xZ; ORDER 012 in `control/inbox.md`). One proposed mapping, decide-and-flag;
 > alternatives one line each. **FOUNDING PACKAGES DEFERRED until the owner reacts**
 > (Q-0259 r5 + the dispatch's explicit done-when). Silence-window doctrine does NOT
