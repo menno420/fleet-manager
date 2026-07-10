@@ -208,8 +208,11 @@ prompt, and the external review pack are logged above; review pack ref: sb#1903
 - **STANDING AUTONOMOUS CORE (owner design, launch-pack §5) recorded** — four
   Projects run permanently on ~2-hourly routines and loop without the owner:
   (1) the manager, (2) a NEW dedicated **Idea Engine** Project on the superbot
-  repo, (3) the superbot-next builder, (4) a **Product Forge** (venture-lab
-  once its §4.9 merge-path click lands). Manager's role in the loop: route the
+  repo, (3) the superbot-next builder, (4) a **Product Forge** (seat: candidate
+  TBD per corrected round3-launch-pack §5 — owner retracted venture-lab
+  pairing, 2026-07-10; default fallback = seed a dedicated `product-forge` repo
+  born-right with a required check; venture-lab keeps its own venture mission
+  unchanged). Manager's role in the loop: route the
   Idea Engine's proposals as ORDERs, consolidate the owner-queue, and watch
   the four routines' liveness in the staleness sweep. Loop shape: Idea Engine
   files/promotes → Manager routes → Builder + Forge consume → Manager
