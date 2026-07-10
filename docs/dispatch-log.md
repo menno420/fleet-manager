@@ -149,3 +149,22 @@ prompt, and the external review pack are logged above; review pack ref: sb#1903
   (review-queue drainer, lane-seeder automation, fleet economics ledger);
   handoff websites drift fixed on sight (F15/D3). ⚑ Self-initiated within
   scope: D3 handoff fix + findings-README index row.
+
+## 2026-07-10 — morning (gen-2 launch consolidation)
+
+- Gen-2 fleet launched overnight — **116 PRs merged 00:00–06:15Z, zero
+  stuck** (verified against the merged-PR search, not reports; the "~80"
+  brief undercounted). Full record + dispositions + archetype map:
+  `docs/planning/gen2-launch-record-2026-07-10.md`.
+- `control/status.md` REWRITTEN (was stale at the gen-1 handoff,
+  last-shipped #7) — gen-2 lanes, in-flight, morning pointers.
+- `docs/owner-queue.md` REFRESHED into one deduplicated queue (8 active,
+  HOT = kit F-5 ruling; superseded items retired: environments created,
+  kit #26/#49 + games #5 merged, launch click-lists executed).
+- Two instruction packages DEPLOYED fitted (websites, trading-strategy —
+  ≤7,500-char re-trims recorded in the package files); capability walls
+  appended (Custom Instructions 8,000-char cap; routine/trigger creation
+  walled on BOTH sides — PLATFORM GAP, interim = morning "continue" per
+  Project).
+- Idea captured: GBA play-through-Discord
+  (`docs/ideas/gba-play-discord-2026-07-10.md`).

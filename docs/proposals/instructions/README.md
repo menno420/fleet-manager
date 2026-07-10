@@ -1,4 +1,11 @@
-# Gen-2 founding instruction packages — PROPOSED, none deployed
+# Gen-2 founding instruction packages — 2 DEPLOYED (fitted), 8 PROPOSED
+
+> **Deployment update 2026-07-10 (morning):** the **websites** and
+> **trading-strategy** packages are LIVE in their gen-2 Projects — in
+> re-trimmed ≤7,500-char form (the claude.ai Custom Instructions field caps
+> at 8,000 chars; both ~9k drafts overflowed at paste). The exact deployed
+> texts are recorded in each file's "Deployed fitted version" section. The
+> other 8 remain PROPOSED, binding nobody until pasted.
 
 > **Status:** `plan`
 >
@@ -31,7 +38,7 @@ citations of OTHER repos' ledger IDs are spelled as prose ("games ledger
 decision 0007") because this repo's stamp-discipline check is repo-blind.
 Nothing else was changed from the review drafts.
 
-## Index (all `PROPOSED`)
+## Index
 
 | Package | Lane / repo | Base text honored |
 |---|---|---|
@@ -41,8 +48,8 @@ Nothing else was changed from the review drafts.
 | [`games-mining.md`](games-mining.md) | superbot-games / mining | lane's own retro proposals, state-corrected at HEAD |
 | [`substrate-kit.md`](substrate-kit.md) | substrate-kit | lane's own gen-2 proposal + K-feedback |
 | [`superbot-next.md`](superbot-next.md) | superbot-next | lane succession + rebuild doctrine |
-| [`websites.md`](websites.md) | websites | lane's blind-written proposal + ORDER 005 first standing goal |
-| [`trading-strategy.md`](trading-strategy.md) | trading-strategy | lane's 8 ADDs + validation-threshold fix; env-gated |
+| [`websites.md`](websites.md) — **DEPLOYED (fitted)** | websites | lane's blind-written proposal + ORDER 005 first standing goal |
+| [`trading-strategy.md`](trading-strategy.md) — **DEPLOYED (fitted)** | trading-strategy | lane's 8 ADDs + validation-threshold fix; env-gated |
 | [`codetool-arm-template.md`](codetool-arm-template.md) | codetool-lab-{fable5, opus4.8, sonnet5} — ONE template ×3 arms | all three arms' proposals reconciled (opus4.8 ADD #2 replaced per fleet law) |
 | [`mobile-lab.md`](mobile-lab.md) | mobile-lab (idea-stage; no repo yet) | owner's captured idea, sharpened per finding F26 |
 
