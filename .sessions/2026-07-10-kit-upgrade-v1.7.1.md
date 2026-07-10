@@ -93,3 +93,17 @@ that landing recipe is re-typed by hand into every card; it belongs once in
 born-red-landing snippet cards can point to instead of restating —
 restatement is where drift will eventually creep in.
 
+
+## Landing note (wall record, per docs/capabilities.md discovery rule)
+
+After the commit that regenerated `.github/workflows/substrate-gate.yml`, NO
+event on this PR produced a gate run: synchronize (a401cdf 21:35Z, bb06f19
+21:36Z), an empty re-trigger commit (31b3008 21:47Z), and a close/reopen
+(~21:53Z) all created zero workflow runs, while other branches' runs fired
+normally at 21:38Z and 21:42Z (repo Actions healthy). Run 29125072548 (green)
+fired on PR open before the gate-modifying commit. Suspected cause: events
+authored by this session's credential do not create runs for a PR whose head
+modifies a workflow file. Local mirror of the exact CI gate command
+(`python3 bootstrap.py check --strict --require-session-log --session-log
+<this card>`) is green, exit 0. This commit is itself a re-trigger probe via
+the GitHub MCP app credential.
