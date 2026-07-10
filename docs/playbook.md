@@ -81,6 +81,11 @@ day) unless a later date is noted next to the rule.
     WHAT/WHERE/HOW/WHY/UNBLOCKS in plain language.** Owner feedback: many fleet asks
     were assumption-based or too complicated to act on. *WHY: unnecessary asks are the
     most expensive failure — they spend the owner.* (2026-07-09)
+    *Rider (2026-07-10, fleet policy Q-0262.2 via inbox ORDER 008): the OWNER-ACTION
+    field grammar is standardized fleet-wide — **substrate-kit's field set wins by
+    definition** (the kit's `owner-action-fields` advisory tokens are the canonical
+    form); a lane using a divergent form (venture-lab's `WHY`/`VERIFIED-WHEN`)
+    conforms at its **next kit upgrade**, not by a special-case rewrite.*
 18. **R18 (2026-07-09) — Capability manifest: `docs/capabilities.md` is read before
     claiming impossibility; new walls/recipes appended same session.** *WHY: the owner
     kept having to remind sessions about ffmpeg and env tokens.*
@@ -91,6 +96,11 @@ day) unless a later date is noted next to the rule.
     ping test (PR #62 closed, re-dispatched as ORDER 009/#64) — the same race that
     earlier double-executed kit ORDER 005 (#50/#51); see
     `docs/findings/ping-test-2026-07-09.md`.*
+    *Rider (2026-07-10): plans and wake pointers reference future inbox entries as
+    "the next free ORDER number at HEAD", **never a concrete number** — a parallel
+    writer can consume the number first. WHY: the 16:31Z wake had to renumber its
+    planned ORDER 008 → 009 because the owner dispatch session appended 008 in
+    parallel (`.sessions/2026-07-10-wake-1631-order-002.md` ⟲).*
 20. **R20 (2026-07-09) — A mid-flight scope addition delivered to a running session
     (a PR comment, a relayed message) is NOT delivered until the session acknowledges
     it; unacknowledged by close-out = re-dispatch it as a fresh order.** *WHY: this
@@ -114,6 +124,14 @@ day) unless a later date is noted next to the rule.
     same night. R5 was written for repos where the pending window exists — on these
     two shapes there is no window at all, and retrying the arm is probing a documented
     wall.* (2026-07-09)
+    *Correction (2026-07-10, blueprint amendment P1/F2): shape (a) over-generalized —
+    on a born-red repo the arm is refused only **once the gate has REPORTED failure**;
+    substrate-kit armed successfully ~dozens of times **inside the initial pending
+    window**. The variable is **arm timing + required-check config, not repo class**.
+    Practical rule unchanged in effect: on born-red PRs, arm inside the initial
+    pending window if you catch it, else REST merge-on-green after the flip — and
+    never retry a refused arm. A third shape (normal-CI repos, arm fails both ways)
+    is documented at blueprint §1/§2 delta 1 (P4/F5).* (2026-07-10)
 
 ## VERIFICATION GUARDS (Q-0194 friction→guard class, from the night-review-2026-07-10 Q-findings)
 

@@ -39,6 +39,24 @@
 > websites NO-ACK row corrected (websites acked late, +1h39m, via its
 > PR #44 — `findings/ping-test-2026-07-09.md` § Correction; §2a ack count
 > updated 2/9 → 3/9).
+> 2026-07-10 (evening) — **blueprint amendments P1–P11 APPLIED** (provenance:
+> [`findings/fable5-review-2026-07-09.md`](findings/fable5-review-2026-07-09.md)
+> §7, F-numbers cited inline; applied by the 18:31Z standing wake under inbox
+> ORDER 001, fleet-manager PR #33). Per-amendment landing spots: P1+P4 → §1
+> MERGE AUTHORITY landing-path bullet (+§2 delta 1); P3 → §1 refusal-branch
+> bullet (+§2 delta 2); P2 → §2a Class-A row + riding rule 3; P5 → §2
+> delta 3; P6 → §2 delta 4; P7 → §1 new distribution checklist item; P8 → §1
+> Model-line item; P9 → §3 step 4 paste-time lint; P10 → §2 delta 9; P11 →
+> §1 claims item + §2 delta 5. **Today-corrections applied where a proposal
+> was already superseded by verified reality, and said so:** P6's premise
+> ("no scheduler primitive exists") is narrowed — the claude-code-remote
+> `create_trigger`/`send_later` family IS the verified scheduler primitive
+> (seat-dependent, §2a rider), so the watchdog gate now keys on that boot
+> probe; P8's model line is additionally bound by the Q-0262.4 fleet policy
+> (family-level model names ONLY, exact IDs never — same PR, ORDER 008).
+> **Q-0262 fleet policies folded same pass (ORDER 008):** model-line policy
+> (§1 Model line), instruction-package deployment hold (§4), OWNER-ACTION
+> grammar (playbook R17 rider).
 
 The premise: every gen-1 lane paid a tax rediscovering the same ~13 failure
 classes. Gen-2 lanes are **born right** — the seed state prevents the known
@@ -55,27 +73,55 @@ classes before the first order fires.
 - [ ] **Conventions file committed day 0**, stating explicitly:
       - **READY, never draft** (draft-PR whiplash hit 5+ lanes);
       - **MERGE AUTHORITY — the lane ALWAYS lands its own PRs** *(owner
-        directive 2026-07-09)*: direct self-merge calls are
-        classifier-blocked (R12); the sanctioned self-merge path is picked
-        **by repo shape, per playbook R21**: on a repo where a check can go
+        directive 2026-07-09; landing-path mechanics amended per P1+P4,
+        F2/F5, 2026-07-10)*: direct self-merge calls are classifier-blocked
+        (R12); the sanctioned self-merge path is picked **by repo shape AND
+        arm timing, per playbook R21**: on a repo where a check can go
         pending and PRs aren't born-red, **arm auto-merge AT PR creation**
         (allowed and server-side), with REST merge-on-green the R8 fallback
-        (GraphQL quota, window missed); on a **born-red repo or a
-        PR-requiring-ruleset repo with no CI**, arming is structurally
-        impossible ("unstable status" / "only applies when checks are
-        pending") — there **REST merge-on-green is PRIMARY**, not fallback.
-        Written grant, so no session guesses its authority (sonnet5 F1-2;
-        mining's nullified output; opus4.8's falsely-owner-routed merges);
+        (GraphQL quota, window missed). On a **born-red repo**, the arm is
+        refused only **once the gate check has REPORTED failure** — the
+        variable is *arm timing + required-check config, not repo class*
+        (P1/F2: substrate-kit armed successfully ~dozens of times *inside
+        the initial pending window*): arm inside that window if you catch
+        it, else **REST merge-on-green after the card flip is PRIMARY** —
+        never retry a refused arm. On a **PR-requiring-ruleset repo with no
+        CI**, no check ever pends, so arming is structurally impossible
+        ("Auto-merge only applies when checks are pending") — REST
+        merge-on-green PRIMARY. **Third shape (P4/F5, normal-CI repos):**
+        the arm can fail BOTH ways — while pending it returns "unstable
+        status" (which is **NOT a failing-checks signal**, just a
+        misleading error), on green it returns "already clean", and fast
+        checks leave a near-zero window — there, **squash/REST-merge
+        directly on green and record which path fired**. Note: **MCP-created
+        PRs never trigger an enabler workflow** (app-token events don't fire
+        Actions) — arm yourself. Written grant, so no session guesses its
+        authority (sonnet5 F1-2; mining's nullified output; opus4.8's
+        falsely-owner-routed merges);
+      - **classifier-refusal branch — scripted, first denial stops the
+        attempt** *(P3, F4+F6, 2026-07-10)*: the auto-mode classifier denies
+        self-merges inconsistently per seat (same repo, same day). On the
+        **FIRST POLICY denial: never retry or reframe** (a retry is itself
+        flagged); leave the PR **READY + CI green**; record the **refusal
+        verbatim** in `control/status.md`; ⚑ flag the owner merge click;
+        add a [`review-queue.md`](review-queue.md) line. The task's
+        done-when **degrades to "PR open, READY, green"** — that terminal
+        state is legal and complete. (This fixes R12's now-falsified "the
+        wall blocks only the direct merge call" and the founding texts'
+        "never hold a PR" absolutism: a classifier-denied lane holding a
+        READY+green PR is compliant, not stalled.)
       - **no PR ever waits for review before landing** *(owner directive
-        2026-07-09)*: if a PR deserves second eyes, **merge anyway** and
-        flag it — one line in the committed needs-second-review ledger
+        2026-07-09; bounded by the refusal branch above)*: if a PR deserves
+        second eyes, **merge anyway** and flag it — one line in the
+        committed needs-second-review ledger
         ([`review-queue.md`](review-queue.md): number · what to re-check ·
         why) and/or request review by @-mentioning Codex on the PR thread.
         Review is **post-merge**; veto = revert (forward-only). The
         do-not-automerge / owner-gated-merge pattern is **dead in gen-2
         lanes** (gen-1 carve-outs unaffected); done-when for every task is
-        therefore agent-reachable: "PR merged on green" (mining D5's
-        stalled-output class cannot recur);
+        therefore agent-reachable: "PR merged on green" — or, on a
+        classifier denial, the P3 terminal "PR open, READY, green" (mining
+        D5's stalled-output class cannot recur);
       - forward-only git; repo conventions override harness defaults.
 - [ ] **control/ files + capability manifest + PLATFORM-LIMITS.md + retro
       questions planted day 0** — walls with exact error text ("probing a
@@ -84,6 +130,18 @@ classes before the first order fires.
 - [ ] **claims/ dir seeded** — with any shared surface (kit adoption,
       interface files, `.substrate/`) pre-resolved so no order delegates a
       shared-ground race (games collision; kit ORDER-005 double execution).
+      **Amended (P11, F30, 2026-07-10):** prose claims don't stop 90-second
+      races — seed a **machine check** too (CI lint: cross-lane path touched
+      without a matching claim = warn; duplicate/stale-claim advisory), and
+      dispatch obeys **"an order touching shared ground names exactly ONE
+      executing lane"** (a claims dir can't catch an order that names two).
+- [ ] **Referenced docs travel with the lane (P7, F9, 2026-07-10):** every
+      doc a founding text or order references must be **committed (or
+      copied) into the lane's own repo**, OR the order **declares its
+      read-repos** and the manager checks the session allowlist at dispatch
+      — two gen-1 lanes could not read the blueprint they were ordered to
+      align with (verbatim "Access denied"). **Mirror the blueprint §1–§2a
+      excerpt into each gen-2 seed.**
 - [ ] **Environment spec from `environments/SPEC-TEMPLATE.md`** — tested,
       shape-agnostic, defensive setup script (`exit 0` always); the
       setup-script bug killed sessions in 4+ lanes.
@@ -97,7 +155,16 @@ classes before the first order fires.
 - [ ] **Model + time line on every session card from card #1** — no
       grandfather backfills; identity not written at the moment of work is
       unrecoverable (proven independently by 3 lanes). Respect the program's
-      committed-file naming policy per repo.
+      committed-file naming policy per repo. **Amended (P8, F18 + Q-0262.4,
+      2026-07-10):** the model line is **family-level ONLY** (e.g. fable-5,
+      opus-4.8; exact model identifiers **never** appear in any committed
+      artifact — fleet policy Q-0262.4, which also un-nulls trading's model
+      rows). Where session policy withholds even the family name, write the
+      **literal token "withheld per session policy"** — never guess, never
+      omit silently; the owner maintains the lane→model mapping. This makes
+      the line satisfiable on policy-restricted seats (two gen-1 lanes had
+      to violate either their founding text or harness policy every
+      session).
 
 ## 2. INSTRUCTION TEMPLATE deltas vs gen-1
 
@@ -105,8 +172,14 @@ What the gen-1 texts (`docs/prompts/`) lacked, per the lanes' own testimony:
 
 1. **No PR-state convention** → harness "create as draft" default won →
    drafts sat hours. Gen-2: READY + the R21 landing path in the founding
-   text (arm-at-creation where a check can go pending; REST merge-on-green
-   primary on born-red/no-CI repos).
+   text — arm-at-creation where a check can go pending (on born-red repos:
+   only inside the initial pending window, P1); REST merge-on-green primary
+   on born-red-after-report/no-CI repos. **Amended (P4, F5, 2026-07-10):**
+   if arming fails BOTH ways (pending-reads-as-"unstable status" — NOT a
+   failing-checks signal — / "already clean" on green: the known
+   normal-CI-repo wall), **squash/REST-merge directly on green — record
+   which path fired**. MCP-created PRs never trigger an enabler workflow —
+   arm yourself.
 2. **No merge-authority statement** → each lane guessed; classifier outcomes
    diverged same-repo-same-day. Gen-2 *(owner directive 2026-07-09)*:
    explicit, unconditional self-merge grant in the founding text — landing
@@ -117,16 +190,41 @@ What the gen-1 texts (`docs/prompts/`) lacked, per the lanes' own testimony:
    + a [`review-queue.md`](review-queue.md) line and/or @Codex mention;
    review post-merge, veto = revert. **No gen-2 lane is owner-gated on
    merges** — the owner-gate option gen-1 lanes guessed themselves into is
-   retired for gen-2 (gen-1 carve-outs unaffected).
+   retired for gen-2 (gen-1 carve-outs unaffected). **Amended (P3, F4+F6,
+   2026-07-10):** the grant carries the **scripted refusal branch** (§1):
+   first classifier denial → stop, PR READY+green, refusal verbatim in
+   status, ⚑ owner click, review-queue line — a denied seat's terminal
+   state is now defined, and founding texts may not forbid holding a PR in
+   that state.
 3. **No write-scope contract** → every lane burned time probing tag/release/
-   branch-delete 403s. Gen-2: state the walls up front + the sanctioned
-   release path (Actions workflow_dispatch route, proven by opus4.8).
+   branch-delete 403s. Gen-2: state the walls up front + the release path.
+   **Amended (P5, F7, 2026-07-10): the Actions `workflow_dispatch` release
+   route is NOT uniform** — fable5 was denied twice (once with owner
+   authorization on record) while opus4.8/kit shipped 9+ releases through
+   it; the wall is seat-dependent. Seed every gen-2 repo with the generic
+   `release.yml` (workflow_dispatch, contents:write) **AND run a birth-time
+   release-capability probe** whose result (granted / owner-manual) is
+   written into the lane's conventions file; document the owner-manual tag
+   ritual as the fallback; **never present the Actions route as universally
+   granted.**
 4. **No liveness contract** → dead sessions invisible for hours. Gen-2:
    heartbeat-before-work + spawn-liveness watchdog (first heartbeat within
-   5–10 min or treat as dead and respawn).
+   5–10 min or treat as dead and respawn). **Amended (P6, F8, 2026-07-10 —
+   corrected to verified reality):** the watchdog applies only where a
+   scheduling tool is **verified at boot** — and the verified primitive now
+   exists: the claude-code-remote `create_trigger`/`send_later` family
+   (§2a rider; seat-dependent). A seat whose boot probe finds the family
+   absent/refused names the substitute in its founding text (event-driven
+   checks + manager ping cadence / routines as the fleet's clock) and
+   **forbids improvised sleep-timers** (without colliding with R4's
+   sanctioned short foreground waits). §2a's "the routine IS the liveness
+   design" stays primary.
 5. **No order claim/lease** → double executions (kit #50/#51; manager's own
    ORDER-008 race). Gen-2: order-lease line + "re-read the inbox at HEAD
    immediately before composing/merging an append" (playbook R19).
+   **Amended (P11, F30, 2026-07-10):** plus the §1 machine check (CI lint
+   for unclaimed cross-lane touches) and the dispatch rule **"an order
+   touching shared ground names exactly ONE executing lane."**
 6. **No capability inventory** → opus4.8's "biggest blocker was FALSE."
    Gen-2: boot-time capability audit per session type (read
    `docs/capabilities.md` / repo copy before declaring anything impossible).
@@ -137,7 +235,13 @@ What the gen-1 texts (`docs/prompts/`) lacked, per the lanes' own testimony:
    (never idle, never undefined).
 9. **Heartbeat cost unaddressed** → status overwrites burned a PR round each.
    Gen-2: control fast lane in CI (this repo's substrate-gate pattern) +
-   batch heartbeats into substantive PRs.
+   batch heartbeats into substantive PRs. **Amended with numbers (P10, F29,
+   2026-07-10):** the fast lane ships **in the SEED CI**, paired with the
+   scoped status gate; **max one status PR per session** — batch heartbeats
+   into substantive PRs; **heartbeat-before-work is already satisfied by
+   the born-red card** (no separate heartbeat commit needed); a
+   direct-commit status lane is sanctioned for one-writer control files
+   where the ruleset allows it.
 10. **Inbox `status: new` semantics unstated** → lanes re-executed or waited.
     Gen-2: "orders stay `new` in the file — diff the inbox against your own
     status" baked into control/README.
@@ -164,7 +268,7 @@ lane. Concrete cadence per lane class:
 
 | lane class | cadence | 2026-07-09 members | rationale |
 |---|---|---|---|
-| **A — active mission** (deep order queue / P0 band in flight) | **hourly** | superbot-next, substrate-kit, venture-lab at launch | orders arrive multiple times/day; hourly bounds pickup at ~75 min worst-case for the cost of a cheap no-op wake ("read inbox at HEAD; no new orders → one-line heartbeat, no PR") |
+| **A — active mission** (deep order queue / P0 band in flight) | **hourly** | superbot-next, substrate-kit, venture-lab at launch | orders arrive multiple times/day; hourly bounds pickup at ~75 min worst-case for the cost of a cheap no-op wake ("read inbox at HEAD; no new orders → one-line heartbeat via the cheapest sanctioned path" — see riding rule 3/P2: on a PR-required main that is a **fast-lane PR round**, not "no PR") |
 | **B — standing-default product** (idle between orders, has a between-orders default) | **every 4 h** | websites, trading-strategy | order volume is a few/day at most; the standing default (groom, next lane) makes each wake productive even with an empty inbox |
 | **C — shipped / owner-gated tail** | **daily** | 3 codetool arms, superbot-games lanes post-mission | remaining work waits on owner clicks; a daily wake catches new orders and keeps status honest without burning quota |
 
@@ -175,8 +279,16 @@ Rules that ride the cadence table:
 2. **Reclassify on transition, not on schedule:** a Class-C lane given a new
    mission becomes Class A the same day (owner-queue carries the routine
    click); a Class-A lane whose mission completes drops to C.
-3. **A no-op wake must be cheap:** no new orders → at most a control-fast-lane
-   heartbeat (delta #9); never a full PR round.
+3. **A no-op wake must be cheap — defined concretely (P2, F3, 2026-07-10):**
+   the old "one-line heartbeat, no PR" was impossible on the PR-required
+   main §3 itself mandates (GH013 class; kit's D4 flagged it). The
+   sanctioned cheap heartbeat is, in order of preference: **(a)** where the
+   owner has carved an **unprotected status/control lane** out of the
+   ruleset → a direct commit, genuinely no PR; **(b)** everywhere else →
+   a **fast-lane PR round (~7–30s CI)** is the stated, accepted cost of a
+   no-op wake — batched into a substantive PR whenever one is in flight
+   (delta #9: max one status PR per session). Founding-text WAKE paragraphs
+   must not promise "no PR" on shape-(b) repos.
 4. **Timestamps from `date -u`**, never the model's sense of time — the sweep
    caught two lanes stamping local-time-as-Z (+1h drift); commit history is
    the clock of record (R2).
@@ -269,9 +381,11 @@ path. Required-check names must match the real workflow jobs (§1 point 2 stands
     essentially all of prod's agent-wait (98 → 494 poll-minutes/window from 1× to
     4×). Splitting a <60s required core from the 5-min deep pass would move prod
     toward lab-class latency without losing the gate.
-  - Born-red session PRs: arm is structurally refused all session ("unstable
-    status") — REST merge-on-green after the card flip is the primary landing path
-    (R21); do not retry the arm.
+  - Born-red session PRs: the arm is refused once the gate has *reported*
+    failure ("unstable status") — on a born-red PR that is nearly the whole
+    session; arming works only inside the initial pending window (P1/F2). REST
+    merge-on-green after the card flip is the primary landing path (R21);
+    never retry a refused arm.
   - True post-flip failure is ≤2% — a red after the flip is signal, not noise;
     fix it, don't re-run it blind. (Raw 20–35% gate "failure rates" are the
     born-red convention and must not be read as flakiness.)
@@ -299,6 +413,13 @@ is misfiled — re-tier it.
 3. **Auto-merge sanity:** confirm the required context actually reports on a
    test PR before the lane relies on it.
 4. **Project (claude.ai):** create; paste Custom Instructions; set the model.
+   **Paste-time lint (P9, F28, 2026-07-10) — 3 lines, checked before any
+   paste:** (1) the mission is ONE actionable sentence; (2) it carries a
+   **measurable, agent-reachable done-when**; (3) it names the
+   **between-orders standing default** (delta 8). Reference implementation:
+   games-exploration's closing line. Only 2 of the gen-1 lane proposals
+   satisfied delta 8 unlinted — most lanes would have been born violating
+   their own law.
 5. **Environment:** paste the tested setup script from
    `environments/SPEC-TEMPLATE.md`-derived spec; add only the env vars the
    lane needs (never the ambient production Railway IDs).
@@ -317,6 +438,13 @@ is misfiled — re-tier it.
   candidate — `prompts/venture-lab-draft.md`).
 - A gen-1 lane may be upgraded to gen-2 seed state **only at a natural
   boundary** (mission complete / repo reset), never mid-mission.
+- **Instruction-package deployment hold (fleet policy Q-0262.5, 2026-07-10):**
+  the 8 undeployed instruction packages in
+  [`proposals/instructions/`](proposals/instructions/) **STAY undeployed
+  until the gen-3 blueprint delta lands**; then re-base every package on the
+  gen-3 text (relaunch rule R-a — most were written blueprint-blind) and
+  deploy them **in one sitting**. The 2 already-deployed fitted packages
+  (websites, trading-strategy) are unaffected.
 
 ## 5. OPEN ITEMS — resolution record (2026-07-09 late evening, successor)
 
