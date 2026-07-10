@@ -1,5 +1,7 @@
 # PAIR-SONNET — devlog generator (Sonnet 5)
 
+> **Status:** `reference`
+>
 > Harness-comparison experiment package, drafted 2026-07-09.
 > Two sessions, same model (Sonnet 5), same task, same budget:
 > **Arm U** = Claude Code web session with ultracode multi-agent orchestration → repo `harness-exp-sonnet-u`

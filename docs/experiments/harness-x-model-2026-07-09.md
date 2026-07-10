@@ -1,6 +1,6 @@
 # Harness × model experiment — protocol (pre-registered 2026-07-09)
 
-> **Status:** `pre-registered` — committed BEFORE any of the six sessions
+> **Status:** `binding` — pre-registered: committed BEFORE any of the six sessions
 > launches. After launch this file is append-only (judge notes tomorrow);
 > the rubric and ladders below are frozen at launch.
 >

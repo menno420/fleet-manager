@@ -1,5 +1,7 @@
 # PAIR-OPUS — design-system kit generator (Opus 4.8)
 
+> **Status:** `reference`
+>
 > Harness-comparison experiment package. Drafted 2026-07-09 per owner design
 > (fleet experiment, 3 ideas x 1 model x 2 harnesses). Fairness doctrine:
 > fleet-manager `docs/findings/gpt-5-6-report-2026-07-09.md` — native harness

@@ -1,5 +1,7 @@
 # PAIR-FABLE — harness-comparison package (gba-play)
 
+> **Status:** `reference`
+>
 > Fleet harness experiment, owner-directed 2026-07-09.
 > Model tier: **Fable 5** (held constant across both arms — the controlled
 > variable is the harness, per the Codex-arm fairness doctrine in
