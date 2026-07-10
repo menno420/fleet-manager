@@ -52,8 +52,8 @@ UNIVERSAL-v3 worker's denial: a fleet-wide standing permission grant sourced
 only from a coordinator relay must be user-reviewed) — first denial terminal,
 no retries; the built fold stays in the session worktree awaiting the
 owner-authored provenance commit (owner-queue item 13 rider). Landed in this
-PR: owner-queue item 14 (forge Pages click) + item-13 hold rider, the status
-record, this card. Kit gate ran red pre-flip ONLY on the card hold (born-red
+PR: owner-queue item 15 (forge Pages click; 14 was taken by #46's games react
+in parallel) + item-13 hold rider, the status record, this card. Kit gate ran red pre-flip ONLY on the card hold (born-red
 design).
 
 Per-file paste-body char counts at v2 as built (block = 1,536 chars; budgets

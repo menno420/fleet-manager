@@ -1,10 +1,10 @@
 # fleet-manager · status
-updated: 2026-07-10T22:55:00Z
-phase: GEN-2 FLEET LIVE — **CONTINUOUS MODE RUNNING (Q-0265): ORDER 012 games-program mapping proposal SHIPPED (⚑ OWNER-REVIEW below — founding packages HELD) · PACKAGE CENTRALIZATION SHIPPED (`projects/` registry, this PR) — every Project's console package now has ONE committed home** · chain slice #2 shipped (ORDERs 009+010, inbox clear) · generated roster v1 LIVE (`docs/roster.md`, playbook R25) · fleet model matrix banked (`docs/findings/model-matrix-2026-07.md`) · review-queue enforcement LIVE (ORDER 003/007) · doctrine debt PAID (ORDER 001) · Q-0262 folded (ORDER 008)
+updated: 2026-07-10T23:15:00Z
+phase: GEN-2 FLEET LIVE — **CONTINUOUS MODE RUNNING (Q-0265): permissions fold BUILT-HELD (record below; owner-authored landing owed) · chain slice #4 SHIPPED — @codex on superbot#1920 came back QUOTA-BLOCKED (no substantive answer; manager ground truth banked instead: NO dashboard.json consumer validates `meta.schema_version` — premise CONFIRMED) + review-queue GROOMED (all 6 open rows head-validated; next manager-verify candidate: superbot-games#16) + owner-signal check NO (no owner commit on UNIVERSAL.md since 17bc193)** · chain slice #3 shipped (first drain pass + roster gen #2) · **ORDER 013 CONFORMED games mapping SHIPPED (Q-0267 owner-shaped frame; ⚑ OWNER-QUEUE below — details react) — supersedes the ORDER 012 proposal as a shape** · package centralization SHIPPED (`projects/` registry) · chain slice #2 shipped (ORDERs 009+010, inbox clear) · fleet model matrix banked (`docs/findings/model-matrix-2026-07.md`) · review-queue enforcement LIVE (ORDER 003/007) · doctrine debt PAID (ORDER 001) · Q-0262 folded (ORDER 008)
 health: green
 kit: v1.7.0 · check: green · engaged: yes (kit line corrected this slice — previous heartbeats said v1.4.0 while the #35 upgrade had landed v1.7.0; drift fixed on sight)
 coordinator: **LIVE** — session-based coordinator seat booted 2026-07-10 (round-3 pack §1 brief) · operating model CONTINUOUS (Q-0265)
-routine: **fleet-manager failsafe wake** · cron 30 */2 * * * · id `trig_014odnv5h1tkJAFRhix3tGLq` (verified live this slice in the 99-record `list_triggers` sweep: enabled, last fire 20:37:34Z, next ~22:34Z) · pacemaker = ~15-min `send_later` continuation chain, **HOT — chain slice #2 = this PR**
+routine: **fleet-manager failsafe wake** · cron 30 */2 * * * · id `trig_014odnv5h1tkJAFRhix3tGLq` (re-verified live this slice in the fresh **122-record** `list_triggers` sweep at ~22:07Z: enabled, last fire 20:37:34Z, next ~22:34Z) · pacemaker = ~15-min `send_later` continuation chain, **HOT — chain slice #4 = this PR (#49)**
 
 > **Re-arm record (verbatim, ORDER 011, Q-0265 cutover — executed 2026-07-10T20:26Z,
 > re-verified by the 20:43Z chain slice and again by this 21:20Z slice):**
@@ -19,33 +19,61 @@ routine: **fleet-manager failsafe wake** · cron 30 */2 * * * · id `trig_014odn
 > the ORDER 003/007 slice (PR #37); **chain fire #2 ~21:00Z = the ORDER 009/010 slice
 > (PR #38, this record)**. F-1 rebind-then-delete cutover recipe held.
 
-last-shipped: #41 — ORDER 012 games-program mapping proposal (Q-0259 r5)
+last-shipped: #49 — chain slice #4: codex quota-blocked verdict + dashboard.json ground truth + review-queue groom + owner-signal check (this PR); just before: #44 chain slice #3 (first drain pass + roster gen #2) · #46 ORDER 013 conformed games mapping (Q-0267 frame) · #45 Custom-Instructions owner ruling (UNIVERSAL.md v2) · #43 UNIVERSAL pointer prompts · #42 registry gap closure
 universal-pointer: **OWNER RULING 2026-07-10 (owner chat ~22:15Z): Custom Instructions = FULL per-repo `projects/<repo>/instructions.md` paste per Project (they survive archives — full text always present); the universal pointer survives ONLY as the wake/start-off prompt** — projects/UNIVERSAL.md restructured to v2 (wake block v2 + Custom-Instructions flow section; v1's universal instructions block retracted)
 blockers: none
 
-> ## ⚑ OWNER-REVIEW — games-program mapping proposal awaits your reaction — founding packages HELD
+> ## ⚑ OWNER-QUEUE — conformed games mapping awaits owner react — Q-0267 frame, details filled: API/contract/name/sequence
 >
-> **`docs/proposals/games-program-mapping-2026-07-10.md`** (PR #41, ORDER 012): the
-> Q-0259 r.5 mapping — pokemon-mod-lab (QoL+) · gba-homebrew (release-prep + concept
-> options) · **superbot-games = Project 3** (engine+content) · **read-only games data
-> API in the superbot lane** as a contracted committed-JSON feed per #1920's verified
-> pattern (snapshot-first; live-endpoint upgrade path named, deferred) · sequence =
-> feed slice now, boots parallel after your reaction, games-web phase 2 + websites
-> stats on feed live. **The three founding packages ship only AFTER you react**
-> (this dispatch's done-when).
->
-> - WHAT: react to the mapping (approve / redirect / veto any §4 flag).
-> - WHERE: `docs/proposals/games-program-mapping-2026-07-10.md` §4 (the four veto
->   points) — reply in any chat or as an ORDER.
-> - HOW: one line suffices ("go" / "change X"); silence is NOT consent here — the
->   dispatch's done-when names your reaction as the gate.
-> - WHY-IT-MATTERS: this is the Q-0259 r.5 shape of the whole games program (3
->   Projects + the data API's home); redirecting after packages ship costs 3 re-pastes.
-> - UNBLOCKS: the 3 founding packages + boot paste wave; the superbot feed order can
->   proceed regardless (superbot-lane work, flagged in the proposal).
-> - VERIFIED-NEEDED: agent-side research is done and cited in the proposal (#1920
->   pattern verified at superbot `655e0fea`; estate inventoried at pinned HEADs) —
->   only the product/intent call remains, which is owner-only per Q-0259 r5.
+> **`docs/proposals/games-program-mapping-conformed-2026-07-10.md`** (PR #46, ORDER
+> 013): the mapping is now OWNER-SHAPED (superbot router Q-0267 — Seat A = one
+> Project on `superbot-games`, whole world ecosystem; Seat B = new idle-engine repo,
+> egg farm = first THEME; website-first onboarding; plugin-native). The old PR #41
+> proposal is superseded AS A SHAPE (banner added); its #1920 findings + GBA-lane
+> rows carry forward. What awaits you now is the DETAILS react (§5 veto points):
+> **(1) API SPLIT** — game-state feed stays superbot-lane (#1920); theme/feature
+> manifests = game-seat + plugin-contract committed files raw-fetched by websites;
+> provisioning = setup-code first · **(2) theme contract drafted in Seat B**,
+> promoted to superbot-next's plugin-contract family later · **(3) new repo name
+> `superbot-idle`** (alternates: `superbot-plugin-idle`, `idle-engine`) ·
+> **(4) websites selector sequenced LAST-shippable** (website-first = user flow,
+> not build order). Owner-queue **item 14** carries the full WHAT/WHERE/UNBLOCKS —
+> plus the two real clicks: **create the Seat B repo** and the seeded-package push
+> for **`superbot-plugin-hello` (EXISTS since your 16:03Z creation, but EMPTY —
+> main/master raw 404)**. The Q-0259-era founding-package HOLD is read as RELEASED
+> by Q-0267 (the shaping IS the reaction); package *drafting* proceeds, pasting/boot
+> stays your clicks.
+
+## Chain-slice record — 2026-07-10T~22:50Z fire (chain slice #4, PR #49)
+
+Slice = **@codex response check + review-queue groom + owner-signal check**, per the
+previous heartbeat's work-ladder pointer (top item: check the @codex response):
+
+- **@codex on superbot #1920 — QUOTA-BLOCKED, no substantive answer.** The only reply
+  after our question (4939890801) is chatgpt-codex-connector[bot]
+  [comment 4939891407](https://github.com/menno420/superbot/pull/1920#issuecomment-4939891407)
+  @ 22:03:53Z — **7 seconds after the question**: "You have reached your Codex usage
+  limits for code reviews" (the earlier quota exhaustion confirmed as cause; re-ask
+  post-reset or drain manager-side). **Manager ground truth banked instead (Q-0120
+  style — verified against shipped source):** websites `dashboard/data_source.py` at
+  HEAD `144dfce` validates `meta.schema_version` ONLY for console.json
+  (`console_contract_issue()`); **NO consumer-side check exists for dashboard.json**
+  — the question's premise CONFIRMED for the primary consumer; botsite/in-repo half
+  still owed. Row annotated (`docs/review-queue.md`).
+- **Review-queue groomed:** all 6 remaining open rows re-validated live (every PR
+  exists + merged; head SHA + merged-at stamps per row); drain-path notes added
+  where thin (superbot-games#5 sequenced after #16's verdict; trading#21 partly
+  SUBSUMED by #36's demotion — live remainder = the two undocumented P1 drops;
+  pokemon#8 sha1-chain checkable from committed proof fixtures; gba#12 re-check =
+  dispatch-tier asserts vs compile-only CI). venture-lab#9: lane HEAD still
+  `7558cb2`, fix NOT landed, row open. **Next manager-verify candidate recommended:
+  superbot-games#16** (ORDER 001 P0 CI-collection fix still unexecuted — crisp
+  binary verify). Recommendation only, not executed.
+- **Owner-signal check (read-only): NO on all three.** Main since 17bc193 moved only
+  via agent squashes `ced65b4` (#44) and `94b646d` (#46); **no owner-authored commit
+  touches `projects/UNIVERSAL.md`**; `docs/owner-queue.md` moved only via #46; zero
+  reactions/comments on the #46 conformed-mapping thread. Reported, not acted on.
+- **Inbox at HEAD:** no ORDER newer than 013 (newest = 013, DONE).
 
 ## Permissions-doctrine fold — 2026-07-10T~22:45Z (owner directive ~22:3xZ) — BUILT, HELD BY GUARD
 
@@ -65,7 +93,7 @@ user-reviewed) — first denial treated as terminal, no retries. The built fold
 sits in the session worktree (branch `claude/permissions-doctrine`, PR #48
 carries the clean parts). UNBLOCK = owner-authored landing (owner-queue item
 13 rider); the fold then re-lands citing the owner commit as provenance. What
-DID land now: owner-queue item 14 (forge Pages click) + the item-13 hold
+DID land now: owner-queue item 15 (forge Pages click) + the item-13 hold
 rider + this record.
 
 ## Package-centralization record — 2026-07-10T~21:45Z (owner dispatch, PR #39)
@@ -102,6 +130,39 @@ inline provenance stamps; the assembler committed the result verbatim:
   (PRs #4+#5 — the "expect ORDER 001 pending" premise was ~2h stale);
   **superbot-games kit is actually v1.7.0 at HEAD** (PR #22 — the "v1.2.0,
   5 behind" row was heartbeat drift, not tree state).
+
+## Chain-slice record — 2026-07-10T~22:05Z fire (chain slice #3, PR #44)
+
+Slice = **first review-queue drain pass + roster generation #2**, per the previous
+heartbeat's work-ladder pointer:
+
+- **Review-queue drain pass (first ever — the ORDER 003 queue now HAS a drain
+  record).** Of the 8 backfilled rows: **superbot#1920** (the only Codex-enabled row)
+  drained to **@codex** per R24 — ONE question posted on the merged head
+  ([comment 4939890801](https://github.com/menno420/superbot/pull/1920#issuecomment-4939890801)):
+  does ANY existing consumer of `dashboard.json` (websites `dashboard/data_source.py`,
+  botsite, in-repo) actually read/validate `meta.schema_version`, or is the first
+  contract-version bump a silent cross-repo no-op until a consumer-side check exists?
+  Response pending — **Q-0120: verify against shipped source, never obey**.
+  **venture-lab#9 manager-verified** (highest-consequence Codex-less row): **D1 defect
+  CONFIRMED at HEAD `7558cb2`** — confirmed by code: `handle_purchase_event` reads only
+  `data.object.customer_email` (null on real events; `customer_details.email` never
+  read, session created without `customer_email`), the refusal **returns HTTP 200** so
+  Stripe never retries (worse than flagged), `success_url` uses the unsubstituted
+  `{CHECKOUT_EMAIL}` + hardcoded localhost, and all 13 tests are synthetic-shape only.
+  Full must-cover list for the lane's P0 ORDER 003 is on the row (`docs/review-queue.md`).
+  **trading#36** annotated: "drain before holdout" urgency MOOT (holdout spent via #37,
+  owner-merged); ordinary drain now.
+- **Roster generation #2** (R25): regenerated from all 16 heartbeats at HEAD (git
+  transport — shallow blob-filtered clones; direct API proxy-403s from this seat) +
+  the fresh 122-record trigger sweep. Headline deltas vs gen #1: **trading pivoted to
+  PAPER LANE OPERATIONAL** (4 PRs, opens 07-11) and its failsafe wake **fired for the
+  first time** (22:05:49Z); **substrate-kit released v1.7.1 fully agent-side** and the
+  adopter wave is rolling (websites #74, venture-lab #14, superbot-games #23, gba #27
+  all at v1.7.1); **websites closed ORDER 009 completely** (/projects + /reviews live,
+  5 slices); **superbot-next crossed the first parity flip** (#112); **venture-lab
+  still starving** (17h18m, no lane fire — only the manager-side kit wave moved HEAD);
+  enabled triggers 16 → 20 (continuation one-shots proliferating by design).
 
 ## Chain-slice record — 2026-07-10T~21:00Z fire (chain slice #2, PR #38)
 
@@ -152,19 +213,19 @@ confirmed. Full record: PR #33 + `.sessions/2026-07-10-wake-1831-doctrine.md`.
 Staleness-sweep table from that pass is superseded by **`docs/roster.md`** (generated
 roster v1, this slice) — the roster is now the sweep's durable home.
 
-## Lanes (one line each — verified at the 21:20Z roster generation; full table: docs/roster.md)
+## Lanes (one line each — verified at the 22:15Z roster generation #2; full table: docs/roster.md)
 
-- **venture-lab** — ⚠ STALEST LIVE LANE (16h+; 3 unconsumed ORDERs incl. P0 Stripe fix; ⚑B/⚑D stay FROZEN; no trigger — boot is an owner click).
+- **venture-lab** — ⚠ STALEST LIVE LANE, worsening (17h18m; 3 unconsumed ORDERs incl. P0 Stripe fix — **D1 defect re-confirmed live at HEAD by this slice's manager-verify**; ⚑B/⚑D stay FROZEN; no trigger — boot is an owner click). HEAD moved only via the manager-side v1.7.1 kit wave (#14).
 - **pokemon-mod-lab** — LANE PARKED by design; ORDER 003 unconsumed (no trigger); owner: playtest.
-- **gba-homebrew** — Lumen Drift SCOPE-COMPLETE; parked; kit v1.7.0 wave landed at HEAD.
-- **substrate-kit** — LIVE, ~18m fresh; v1.7.1 payload staged (#137), release claim open (21:11Z); trigger still pre-Q-0265 naming (standing wake) — cutover candidate at next contact.
-- **trading-strategy** — **PROGRAM COMPLETE ON MAIN** (holdout #37 merged: PRIMARY directional, not significant); failsafe wake armed 21:03Z; paper lane is the standing mission.
-- **websites** — CONTINUOUS, ~13m fresh; 20:00Z wake landed 3 slices (#64/#67/#69), claiming its ORDER 009; **silent-fire watch CLEARED** (16:01Z + 20:00Z fires both produced landed work per its own heartbeat).
-- **superbot (hub)** — LIVE, HEAD 20:53Z; recon loop self-fires via Actions; no control/status.md (roster uses HEAD fallback).
-- **superbot-next** — Builder seat HOT (failsafe wake + chain one-shots live); band-5 complete, first parity flip (#112); heartbeat lags chain ~2h (benign).
-- **superbot-games** — both gen-1 lanes closed/archived by design; boot-gating ORDERs pending; no trigger.
-- **product-forge / idea-engine / sim-lab** — all three CONTINUOUS and fresh (<40m); failsafe wakes firing; sim-lab VERDICT 001 finalized.
-- **codetool ×3** — wound down, >25h stale by design; safe-to-delete list in owner-queue.
+- **gba-homebrew** — Lumen Drift SCOPE-COMPLETE; parked; kit v1.7.1 wave landed at HEAD (#27).
+- **substrate-kit** — **v1.7.1 CUT + PUBLISHED fully agent-side** (tag @ `1cbd666`, release run SUCCESS, sha256 independently verified); adopter wave rolling; trigger still pre-Q-0265 naming — cutover relay still owed.
+- **trading-strategy** — **PAPER LANE OPERATIONAL** (4 PRs #40–#43: binding pre-registered protocol, loader rail, grading job; opens 07-11); failsafe wake **fired first time 22:05:49Z**; weekly-grading one-shot armed for 07-17.
+- **websites** — CONTINUOUS, ~17m fresh; **ORDER 009 FULLY CLOSED** (/projects #72 + /reviews #75 LIVE-verified; 5 slices this wake); send_later chain live-proven.
+- **superbot (hub)** — LIVE, HEAD 22:00Z (#1966); recon loop self-fires via Actions; no control/status.md (roster uses HEAD fallback). @codex question pending on #1920 (this slice).
+- **superbot-next** — Builder seat HOT (failsafe last fire 22:06Z + chain one-shot 22:18Z); band-5 complete, **first parity flip** (#112); heartbeat lags chain ~3h (benign).
+- **superbot-games** — both gen-1 lanes closed/archived by design; gen-2 boot now rides the Q-0267 conformed-mapping details react (⚑ OWNER-QUEUE item 14; package drafting proceeds per ORDER 013); no trigger; kit v1.7.1 at HEAD (#23).
+- **product-forge / idea-engine / sim-lab** — all three CONTINUOUS and fresh (<55m); failsafe wakes firing + chain one-shots armed; sim-lab VERDICT 002 finalized (#8); product-forge carries an owner standing merge grant (review-AFTER, 21:07Z).
+- **codetool ×3** — wound down, >26h stale by design; safe-to-delete list in owner-queue.
 
 ## In-flight (don't drop)
 
@@ -177,17 +238,21 @@ roster v1, this slice) — the roster is now the sweep's durable home.
 - **ORDER 010 relay:** per-lane template/card checks + the ground-truth self-report
   instruction ride each next lane contact (trading/gba/pokemon/superbot null conventions
   named in the matrix).
-- **Review-queue drain:** first @codex drain of the 8 backfilled rows — trading#36
-  time-sensitivity is RESOLVED (holdout already executed via #37; the row drains as
-  ordinary post-merge review now). fleet-manager Codex env ask still open on PR #26.
-- **Idea Engine seat:** trigger firing (20:01:12Z last) + repo fresh (~8m at sweep) —
+- **Review-queue drain:** first pass done (slice #3); **slice #4 groom: the #1920
+  @codex ask is QUOTA-BLOCKED** (connector-bot refusal 7 s after the question) —
+  re-ask when the Codex quota resets, or count the websites half DONE on the banked
+  manager ground truth (no dashboard.json schema_version consumer — row annotated);
+  botsite/in-repo half still owed. **Next manager-verify candidate: superbot-games#16**
+  (recommended, not executed). Remaining codex? rows await a per-repo Codex probe or
+  the next manager batch. fleet-manager Codex env ask still open on PR #26.
+- **Idea Engine seat:** trigger firing (22:05:22Z last) + repo fresh (~9m at sweep) —
   owner-queue item 0 retirement is safe at next queue touch.
 - **substrate-kit trigger naming:** still "2-hourly standing wake" (pre-Q-0265) — relay
   the failsafe-wake cutover at next lane contact.
 - Owner morning click-list: **docs/owner-queue.md**.
 - EAP free window through 2026-07-14; economics ledger banked (#27).
 
-orders: **INBOX CLEAR — no open ORDERs.** 009 DONE this slice (PR #38) · 010 DONE this slice (PR #38) · 011 done (re-arm 20:26Z, PR #37) · 003+007 done (PR #37) · 001+008 done (PR #33) · 002 done (superbot #1954 + PR #32) · 004 done (#27) · 005+006 done (PR #20 + codetool-lab-fable5 #14). Work continues via owner dispatches + the wake ladder (chain pacemaker + failsafe cron), NOT via a parked queue.
-⚑ needs-owner: see docs/owner-queue.md (top: **the package paste wave, item 13 — one sitting, ~6 clicks, sim-lab's Routines-screen failsafe arm is the lane-unblocking one**; venture-lab boot click — 3 ORDERs starving incl. the P0 Stripe fix; product-forge seed set; superbot-plugin-hello repo; venture-lab ⚑A + frozen ⚑B/⚑D)
-PROMPT REGISTRY: **fleet-manager `projects/` — canonical, v-stamped (instructions + coordinator-prompts at v2 · 2026-07-10 after the permissions fold; failsafe prompts unchanged at v1; UNIVERSAL.md v3 = canonical permissions wording); superbot founding-package copies frozen** (superseded-banner PR superbot #1967); one-writer = manager, lanes propose via ⚑/INTAKE; first full trigger snapshot committed at `projects/_inventory/trigger-registry-2026-07-10.md` (114 triggers, 8 wakes + 8 chain links verbatim; substrate-kit [RECONSTRUCTED] resolved; websites v1-era prompt CONFIRMED deployed — v2 re-paste still owed; sim-lab failsafe ARMED seat-side 20:54Z, OA-003 closed; trading failsafe re-armed 21:03Z at 0 */2 registry-verified).
-notes: **operating model = CONTINUOUS (Q-0265) — inbox clear; next chain slices come from the work ladder: roster parallel-run + phase-2 decision · gen_roster.py mechanization · first @codex review-queue drain · ORDER 010 per-lane relay · substrate-kit trigger cutover relay.** Package registry: **projects/ (README = matrix + paste wave)**. Doctrine at: blueprint (P1–P11 + review-queue + continuous-mode entries), MISSION.md, init-prompt-universal § Current text, playbook R17/R19/R21/R24/**R25 (roster regeneration duty, new this slice)**. Registry: **docs/roster.md (generated, R25)**. Matrix: docs/findings/model-matrix-2026-07.md. Economics: docs/findings/fleet-economics-2026-07.md. Launch record: docs/planning/gen2-launch-record-2026-07-10.md.
+orders: **INBOX CLEAR — no open ORDERs.** 013 DONE (conformed mapping, PR #46) · 012 done (PR #41; superseded as a shape by Q-0267) · 009 DONE (PR #38) · 010 DONE this slice (PR #38) · 011 done (re-arm 20:26Z, PR #37) · 003+007 done (PR #37) · 001+008 done (PR #33) · 002 done (superbot #1954 + PR #32) · 004 done (#27) · 005+006 done (PR #20 + codetool-lab-fable5 #14). Work continues via owner dispatches + the wake ladder (chain pacemaker + failsafe cron), NOT via a parked queue.
+⚑ needs-owner: **TWO STANDING FLAGS: (1) the games-mapping details react (⚑ OWNER-QUEUE block above, item 14) · (2) the permissions-grant owner-authored landing — still awaited (owner-signal check found NO owner-authored commit touching `projects/UNIVERSAL.md` since 17bc193; the full v2/v3 fold is BUILT and guard-held — record below + owner-queue item 13 rider)**; then docs/owner-queue.md (top: **the package paste wave, item 13 — one sitting, ~6 clicks, sim-lab's Routines-screen failsafe arm is the lane-unblocking one**; **games item 14 — conformed-mapping details react + Seat B repo creation + the superbot-plugin-hello seeded-package push (repo EXISTS but EMPTY)**; **product-forge Pages click, item 15 — free, one toggle**; venture-lab boot click — 3 ORDERs starving incl. the P0 Stripe fix; product-forge seed set; venture-lab ⚑A + frozen ⚑B/⚑D)
+PROMPT REGISTRY: **fleet-manager `projects/` — canonical, v-stamped (v1 · 2026-07-10 on all 39 prompt files); superbot founding-package copies frozen** (superseded-banner PR superbot #1967); one-writer = manager, lanes propose via ⚑/INTAKE; first full trigger snapshot committed at `projects/_inventory/trigger-registry-2026-07-10.md` (114 triggers, 8 wakes + 8 chain links verbatim; substrate-kit [RECONSTRUCTED] resolved; websites v1-era prompt CONFIRMED deployed — v2 re-paste still owed; sim-lab failsafe ARMED seat-side 20:54Z, OA-003 closed; trading failsafe re-armed 21:03Z at 0 */2 registry-verified). **Permissions v2/v3 re-stamp is BUILT-HELD, not live** (see fold record).
+notes: **operating model = CONTINUOUS (Q-0265) — inbox clear; next chain slices come from the work ladder: manager-verify superbot-games#16 (recommended candidate, crisp binary) · roster parallel-run + phase-2 decision · gen_roster.py mechanization · re-ask @codex on #1920 post-quota-reset (websites half already ground-truthed) · remaining review-queue rows (probe or manager batch) · ORDER 010 per-lane relay · substrate-kit trigger cutover relay.** Package registry: **projects/ (README = matrix + paste wave)**. Doctrine at: blueprint (P1–P11 + review-queue + continuous-mode entries), MISSION.md, init-prompt-universal § Current text, playbook R17/R19/R21/R24/**R25 (roster regeneration duty, new this slice)**. Registry: **docs/roster.md (generated, R25)**. Matrix: docs/findings/model-matrix-2026-07.md. Economics: docs/findings/fleet-economics-2026-07.md. Launch record: docs/planning/gen2-launch-record-2026-07-10.md.
