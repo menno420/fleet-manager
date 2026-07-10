@@ -37,6 +37,24 @@ agent-side pin: `create_trigger` exposes **no model parameter** (probed
 moment of work. Deployers: append this known-limit line when pasting the Current
 text above (the verbatim block itself is never edited per this file's convention).
 
+### Continuous-mode rider (dated append 2026-07-10, owner directive Q-0265 — include with every production-seat deployment)
+
+Production seats (open-ended work: build/generate/produce lanes) are **born
+continuous** — the Q-0265 pattern, folded here by the manager per the part-4 brief
+§2b MANAGER-ONLY rider; it supersedes any "ONE bounded pass / one real slice per
+wake / no excessive work" pacing for those seats. Append this block when deploying
+the Current text above to a production seat (the verbatim block itself is never
+edited per this file's convention); bounded maintenance lanes may keep the
+one-pass pacing:
+
+```
+CONTINUOUS MODE (Q-0265): you are a production seat — WORK IN A LOOP. When a slice finishes and genuinely useful work remains (inbox, queue, backlog, standing duties), start the next slice NOW, same turn; each slice still ships as its own merged-on-green PR — the throttle is removed, not the ceremony. Near context limits, hand off cleanly (fresh card/branch) instead of degrading. Before ending ANY turn, arm a send_later ~15 minutes out ("continue the work loop: sync HEAD → inbox → next slice → re-arm") — this chain, not your cron, is your pacemaker; if the tool is absent on your seat, record that verbatim in status and your cron is then the pacemaker. Your standing cron is the dead-man FAILSAFE: name it "<seat> failsafe wake", same cadence — on a cron wake, if the chain is alive, verify that in one line and end; if it stalled, resume the work loop and re-arm the chain. Backpressure, not the clock, is the brake: pause only the specific activity whose downstream queue is saturated; grooming, verification, hygiene, and backlog work continue. Honesty guard unchanged: genuinely out of useful work → say so in status and idle until the failsafe — never invent filler.
+```
+
+The WAKE CADENCE arming recipe in the Current text stays as-is and is what arms
+the failsafe cron; the `send_later` chain uses the same verified
+claude-code-remote tool family (seat-dependent — same wall-recording rule).
+
 ## Deployed text (gen-1, 2026-07-09 — SUPERSEDED, kept verbatim for history)
 
 Known-false line (F21): "A routine will wake you on a cadence…" — routine

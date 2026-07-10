@@ -212,3 +212,20 @@ header + card sonnet-5 on the evidenced websites fire — websites PR #59, squas
 `create_trigger` exposes no model arg, so per-session self-report is the only detector.
 done-when: matrix in a findings doc (`docs/findings/`), one row per routine-armed lane:
 Project setting · fired-session self-reported family · evidence link.
+
+## ORDER 011 · 2026-07-10T20:30Z · status: in-progress (2026-07-10 — a parallel worker is executing this right now)
+priority: P1
+owner: this coordinator session (the Q-0265 doctrine-fold coordinator; parallel worker executing)
+do: Adopt continuous mode for the manager seat itself (owner directive Q-0265, superbot
+router, 2026-07-10): re-word the manager's standing trigger to the failsafe-wake pattern
+("fleet-manager failsafe wake", same `30 */2 * * *` cadence — on a cron wake, if the
+send_later continuation chain is alive, verify that in one line and end; if it stalled,
+resume the work loop and re-arm the chain) + arm the ~15-min send_later continuation
+chain as the manager's pacemaker; record the re-arm (delete + create calls) verbatim in
+control/status.md per the proven cutover recipe.
+why: Q-0265 puts ALL six core seats on continuous mode, the manager included; the
+doctrine folds (gen-3 standard, blueprint changelog, init-prompt rider) land the pattern
+for future seats, but the manager's own live trigger still carries the old
+one-bounded-pass prompt.
+done-when: trigger registry shows the failsafe-wake trigger (old one deleted), a live
+continuation chain is armed, and status.md carries the verbatim re-arm record.
