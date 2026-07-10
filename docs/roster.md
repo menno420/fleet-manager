@@ -1,5 +1,7 @@
 # Fleet roster — GENERATED
 
+> **Status:** `living-ledger`
+>
 > **GENERATED — do not hand-edit; regenerated each manager wake.**
 >
 > **Generation #1** · generated-at **2026-07-10T21:20Z** · by the Q-0265 continuation-chain
