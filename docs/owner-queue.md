@@ -291,11 +291,17 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
       no agent write surface (verified walls).
     - UNBLOCKS: every live seat running on committed, current text — closes
       the chat-only/console-only drift class fleet-wide.
-    - **Rider (2026-07-10, permissions directive): paste the NEW v2 bodies.**
-      The permissions-doctrine fold version-bumped every package's
-      instructions + coordinator-prompt to v2 (canonical Permissions &
-      authority block; wording home `projects/UNIVERSAL.md`) — any paste from
-      a v1 body re-deploys the refuse-to-merge stall class the block kills.
+    - **Rider (2026-07-10, permissions directive): HOLD the instruction
+      pastes until the permissions v2 fold lands, then paste ONLY v2 bodies.**
+      The fold (canonical Permissions & authority block in all 13
+      instructions + coordinator-prompt one-liners + UNIVERSAL.md v3) is
+      BUILT but was refused landing by the platform's instruction-poisoning
+      guard: a standing permission grant whose only source is a coordinator
+      relay must be user-reviewed. OWNER ACTION: land the grant text as an
+      owner-authored commit (or paste-confirm it in a session you supervise);
+      the built fold then re-lands referencing your commit SHA as provenance.
+      Pasting a v1 body after that lands would re-deploy the refuse-to-merge
+      stall class the block kills.
 
 14. **product-forge: enable GitHub Pages (games-web publish) — one click,
     free.**
