@@ -89,14 +89,29 @@ all three routes proven (`docs/findings/gba-toolchain-proof-2026-07-09.md`):
   the system libmgba 0.10.x) → boot → run N frames → PNG at ~290 fps; scripted button
   injection can verify changes in-game with no display and no human.
 
-### Self-arm wake routines from inside a Project session (owner-verified 2026-07-10)
+### Self-arm wake routines from inside a Project session (owner-verified 2026-07-10; mechanism verified ~11:01Z)
 The "routine/trigger creation walled on BOTH sides" conclusion (2026-07-10 ~02:05Z)
-was **WRONG for Project sessions**: the owner verified (2026-07-10, ~morning) that
-Claude Code **Projects CAN create their own routines that fire inside the Project**.
-The walls below remain true for non-Project surfaces (webagent coordinator + spawned
-workers; cross-session trigger binding). Exact in-Project mechanism not yet recorded —
-**recipe pending: first successful lane records the exact tool/UI path** (append it
-here the same session).
+was **WRONG for Project sessions**: agent-armed routines **WORK**, and the mechanism
+is now verified — **the claude-code-remote scheduling tools (`create_trigger` /
+`send_later` family)**. They are **SEAT-DEPENDENT**: the same tool family that is
+absent or refused on some seats arms successfully on others — the same per-seat
+inconsistency class as the merge classifier (a wall recorded from one seat is that
+seat's outcome, not the platform's).
+
+**Evidence (owner screen recordings, 2026-07-10 11:01Z + 11:04Z, on file; logged in
+superbot `docs/planning/projects-eap-evaluation-log.md`):** the claude.ai Routines
+screen shows two ACTIVE routines "Created by Claude" and firing — "trading-strategy
+4-hourly standing ritual wake" (every 4h, completed run 10:09) and "kit-lab gen2
+hourly wake" (hourly, completed runs 12:28/12:28/12:30, driving the live kit-lab
+coordinator session).
+
+**Recipe:** from the lane's own session, call `create_trigger` (5-field cron,
+≥hourly) for a recurring wake, or `send_later` (delay/timestamp) for a one-shot —
+the routine fires back into the same session. If the tool is missing or refused on
+your seat, that is a **seat** wall — record the exact tool call + verbatim error in
+`control/status.md` and fall back to the owner routine click. The walls below remain
+true for non-Project surfaces (webagent coordinator + spawned workers; cross-session
+trigger binding).
 
 ## WALLED — verified walls (quote the observed error, don't paraphrase)
 
@@ -107,15 +122,20 @@ here the same session).
   both-sides wall below.)
 - **Routine/trigger creation — walled on NON-PROJECT surfaces only** (CORRECTED
   2026-07-10 ~morning, owner-verified — the earlier "unavailable on BOTH sides" reading
-  was wrong for Project sessions; see the CAN entry above: **in-Project self-arm WORKS**,
-  recipe pending: first successful lane records the exact tool/UI path). Still walled:
+  was wrong for Project sessions; SECOND correction 2026-07-10 ~11:01Z: mechanism now
+  verified — see the CAN entry above: **in-Project self-arm WORKS** via the
+  claude-code-remote scheduling tools (`create_trigger` / `send_later` family),
+  **seat-dependent** — same per-seat inconsistency class as the merge classifier).
+  Still walled:
   agent-side on the webagent coordinator + spawned workers (no send_later/self-trigger;
   self-arm attempts from those surfaces failed fleet-wide with recorded errors —
   create_trigger / trigger-binding rejections; the cross-session messaging wall below
   records the verbatim class); and cross-session trigger binding (rejected: **"binding a
   trigger to another session is not enabled for this organization"**). Owner-side,
   **this owner account's console lacked the routine/schedule option** at the 2026-07-10
-  ~02:05Z paste session. **Wake substitute where self-arm isn't available:** timed watch
+  ~02:05Z paste session — but the Routines screen EXISTS on the owner's mobile browser
+  (11:01Z recording, Samsung browser), so that console gap is per-device/per-surface,
+  not absolute. **Wake substitute where self-arm isn't available:** timed watch
   workers (blocking foreground waits, R4) + a morning "continue"/boot message per Project;
   lanes operate **self-terminal** (every session leaves its work safe with no future wake
   needed). Rollout: wake-arm ORDERs dispatched to all active lanes 2026-07-10 (owner-queue
