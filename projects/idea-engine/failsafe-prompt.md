@@ -1,3 +1,4 @@
+<!-- v1 · 2026-07-10 · fleet-manager projects registry -->
 # idea-engine — failsafe routine (DEPLOYED + VERIFIED)
 
 > Package part 4 of 4 · seat: **Idea Engine** (core seat 4, LIVE).
@@ -28,6 +29,10 @@ create_trigger {"name":"idea-engine failsafe wake","cron_expression":"0 */2 * * 
 ```
 
 ## The failsafe prompt text (verbatim, standalone)
+
+**Byte-verified against the live registry** (gap-closure pass, `list_triggers`
+2026-07-10 ~22:05Z): the stored prompt of `trig_0178q9Je2xRFJgthwamrg9Br`
+matches the block below byte-for-byte (261 chars).
 
 ```
 FAILSAFE WAKE (idea-engine, Q-0265): if your send_later continuation chain is alive, verify that in one line and end. If it stalled, resume the work loop (sync HEAD → inbox → slice after slice, each merged-on-green) and re-arm the chain (~15 min) before ending.

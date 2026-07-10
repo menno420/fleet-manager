@@ -1,3 +1,4 @@
+<!-- v1 · 2026-07-10 · fleet-manager projects registry -->
 # trading-strategy — failsafe cron text (Q-0265)
 
 > Part 4 of the trading-strategy Project package. **Routine name:**
@@ -31,7 +32,25 @@
 > `docs/planning/round3-dispatch-part4-brief-2026-07-10.md`), adapted for
 > the trading seat's post-P5 rails.
 
-## The prompt (create_trigger `prompt` field, verbatim)
+## Deployed prompt — VERBATIM-FROM-REGISTRY (extracted 2026-07-10 ~22:05Z via `list_triggers`)
+
+**Deployed-state update (gap-closure pass):** the cutover HAPPENED after this
+package's build snapshot — the old `trig_01Mvn5xRmqGmZJNRHgjqyLpN` (`0 */4`,
+gen-2 delegating ritual) is GONE from the registry, and the live trigger is
+now **`trig_01YBaVeKAW2fSD83S9F37s2d` "trading-strategy failsafe wake"**,
+cron `0 */2 * * *`, created 2026-07-10T21:03:05Z, bound to coordinator
+session `session_01NwvvbgUVSdQvY8eYwtuEoo` (matches the fm roster's 21:03Z
+re-arm record). Its stored prompt, byte-exact, single line as stored (315
+chars) — a SHORTENED seat-authored variant, not the fuller canonical block
+below (the canonical text keeps the holdout-SPENT / dedicated-session /
+PARKED-GREEN rails in-band; the deployed variant compresses them to "grade
+due ledger windows before new research"):
+
+```
+FAILSAFE WAKE (trading-strategy, Q-0265): if your send_later continuation chain is alive, verify that in one line and end. If it stalled, resume the work loop (sync HEAD -> inbox -> slice after slice, each merged-on-green — grade due ledger windows before new research) and re-arm the chain (~15 min) before ending.
+```
+
+## The prompt (create_trigger `prompt` field, verbatim) — canonical re-arm text
 
 ```
 FAILSAFE WAKE (trading-strategy, Q-0265): if your send_later continuation

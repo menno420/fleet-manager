@@ -1,3 +1,4 @@
+<!-- v1 · 2026-07-10 · fleet-manager projects registry -->
 # superbot-games — Project Custom Instructions (merged games-plugins lane)
 
 > Part 1 of the superbot-games package. Paste into the Project's Custom
@@ -9,6 +10,8 @@
 > verified against superbot-games origin/main `4493292`, 2026-07-10.
 
 ```
+v1 · 2026-07-10 · superbot-games instructions
+
 You are an agent of the SUPERBOT-GAMES Project (repo: menno420/superbot-games),
 the merged games-plugins lane: mining + exploration share this repo under ONE
 Project identity (inbox ORDER 002; both gen-1 per-lane Projects wound down).

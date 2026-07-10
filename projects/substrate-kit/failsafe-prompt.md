@@ -1,3 +1,4 @@
+<!-- v1 · 2026-07-10 · fleet-manager projects registry -->
 # substrate-kit — failsafe cron text (Q-0265)
 
 > Part 4 of the substrate-kit Project package. **Routine name:**
@@ -10,22 +11,33 @@
 > standing wake"**, cron `0 */2 * * *`, created 2026-07-10T15:53:36Z, bound to
 > coordinator session `session_01YMJrUDpcarFsqPZ2BeeiVB` (kit
 > `control/status.md` § ROUTINE STATE @ `7e600c6`). That is the OLD pre-Q-0265
-> standing-wake wording — its prompt text is NOT committed anywhere; status
-> says only that it "matched the coordinator's spec character-for-character",
-> i.e. [RECONSTRUCTED] it is the founding package §2 step-3 text ("ONE bounded
-> pass — exactly one of …", superbot
+> standing-wake wording — its **actual stored prompt is committed verbatim
+> below** (§ "Deployed prompt", VERBATIM-FROM-REGISTRY, extracted via
+> `list_triggers` 2026-07-10 ~22:05Z by the gap-closure pass; it confirms the
+> earlier reconstruction: the founding package §2 step-3 "ONE bounded pass"
+> text, superbot
 > `docs/planning/round3-founding-package-substrate-kit-2026-07-10.md`).
-> **This file is the replacement text** for the seat's next self-re-arm per
-> the part-4 brief §2b recipe: `delete_trigger` the old standing wake →
-> `create_trigger` with the name/cron/prompt below → verify both via
-> `list_triggers` (the registry is the proof — never wait for the first fire)
-> → record the delete+create calls verbatim in `control/status.md`.
+> **The § "Replacement prompt" block is the text for the seat's next
+> self-re-arm** per the part-4 brief §2b recipe: `delete_trigger` the old
+> standing wake → `create_trigger` with the name/cron/prompt below → verify
+> both via `list_triggers` (the registry is the proof — never wait for the
+> first fire) → record the delete+create calls verbatim in
+> `control/status.md`.
 >
 > Template provenance: part-4 brief §2b failsafe template (superbot
 > `docs/planning/round3-dispatch-part4-brief-2026-07-10.md`), adapted for the
 > kit seat.
 
-## The prompt (create_trigger `prompt` field, verbatim)
+## Deployed prompt — VERBATIM-FROM-REGISTRY (extracted 2026-07-10 ~22:05Z via `list_triggers`)
+
+The stored `prompt` field of live trigger `trig_016EfUawz6KxEYqUM6f1BqDw`,
+byte-exact, single line as stored (655 chars):
+
+```
+2-HOURLY WAKE (substrate-kit): sync menno420/substrate-kit to origin/main HEAD; read control/inbox.md at HEAD; then ONE bounded pass — exactly one of: advance one §6 centralization item | run one distribution wave for a pending kit release | one kit development/bench slice. Lane-repo writes are DISTRIBUTION ONLY (Q-0261.3) — never lane domain work, never their control/ files. Ship merged-on-green per the target repo's conventions; decide-and-flag; no excessive work — one real slice per wake. Overwrite control/status.md as the deliberate last step. If this trigger is one-shot rather than recurring, re-arm it for +120 minutes before ending the turn.
+```
+
+## Replacement prompt (create_trigger `prompt` field for the next self-re-arm, verbatim)
 
 ```
 FAILSAFE WAKE (substrate-kit, Q-0265): if your send_later continuation chain

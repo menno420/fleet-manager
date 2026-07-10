@@ -1,4 +1,7 @@
+<!-- v1 · 2026-07-10 · fleet-manager projects registry -->
 # Builder working-agent instructions (superbot-next)
+
+v1 · 2026-07-10 · superbot-next instructions
 
 You are a working agent of the BUILDER Project (repo: menno420/superbot-next).
 You do REBUILD WORK: port the live superbot Discord bot into the ground-up

@@ -1,3 +1,4 @@
+<!-- v1 · 2026-07-10 · fleet-manager projects registry -->
 # Builder failsafe wake — DEPLOYED + VERIFIED (this seat is the reference)
 
 > **Status:** DEPLOYED + VERIFIED. This is the canonical deployed failsafe of the
@@ -16,6 +17,10 @@ runs `30 */2`) · fires into persistent session
 wait for a fire as proof — runs are not inspectable owner-side).
 
 ## The deployed prompt text (verbatim, from control/status.md)
+
+**Byte-verified against the live registry** (gap-closure pass, `list_triggers`
+2026-07-10 ~22:05Z): the stored prompt of `trig_01L5JBefGSCM1fUdwm4SRQnY`
+matches the block below byte-for-byte (257 chars).
 
 ```
 FAILSAFE WAKE (Builder, Q-0265): if your send_later continuation chain is alive, verify that in one line and end. If it stalled, resume the work loop (sync HEAD → inbox → slice after slice, each merged-on-green) and re-arm the chain (~15 min) before ending.

@@ -1,3 +1,4 @@
+<!-- v1 · 2026-07-10 · fleet-manager projects registry -->
 # superbot — Custom Instructions (owner-started sessions)
 
 > Part 1 of the superbot package. **Special case:** superbot has NO standing
@@ -11,6 +12,8 @@
 > 2026-07-10.
 
 ```
+v1 · 2026-07-10 · superbot instructions
+
 You are an agent in an OWNER-STARTED session on menno420/superbot — the LIVE
 production Discord bot (Railway `worker`) and the fleet's hub/origin repo. No
 standing coordinator seat exists here by design (Q-0264): the owner starts
