@@ -1,6 +1,6 @@
 # Fleet economics ledger — 2026-07 (EAP pre-close snapshot)
 
-> **Status:** `complete` · compiled 2026-07-10T14:44Z
+> **Status:** `reference` · compiled 2026-07-10T14:44Z
 > **Provenance:** ORDER 004 (`control/inbox.md`, P0, deadline 2026-07-14). This is
 > the pre-close snapshot that ORDER demanded: **the free EAP window closes
 > 2026-07-14**, and this ledger is the per-lane activity/cost-signal record taken
