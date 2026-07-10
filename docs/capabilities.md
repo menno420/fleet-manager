@@ -185,6 +185,18 @@ session start.
   + PR comments on a PR the target session is subscribed to (delivery NOT guaranteed
   before close-out — see playbook R20).
 
+- **Private repos on this GitHub plan cannot enable the auto-merge toggle** (appended
+  2026-07-10, owner-verified: the owner flipped pokemon-mod-lab PUBLIC solely to reach
+  the repo-settings *Allow auto-merge* toggle, and flipped it back PRIVATE after the
+  manager's counter — the toggle simply is not offered on private repos on this plan).
+  Never advise a visibility flip to get the toggle. **Resolution: REST merge-on-green
+  needs no toggle (playbook R21)** — that is the standard landing path on private
+  repos; `enable_pr_auto_merge` / arm-at-creation is a dead end there, don't probe it.
+  Expect **rulesets / required-check features to be similarly limited on private repos**
+  on this plan; where settings-enforced protection isn't available, single-writer lanes
+  run **convention-enforced** (R9/R19: one writer per file, serialized inbox appends,
+  born-red cards + claim files).
+
 ## DISCOVERY RULE
 
 Before declaring anything impossible:
