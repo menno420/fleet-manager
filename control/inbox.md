@@ -322,3 +322,52 @@ PARALLEL after owner reacts · phase-2/stats on feed live — the owner's
 "API highest-leverage" read VALIDATED with the parallel-not-gating refinement.
 **⚑ OWNER-REVIEW flag set in status; FOUNDING PACKAGES HELD until the owner reacts.**
 This PR: fleet-manager **PR #41**.
+
+## ORDER 013 · 2026-07-10T22:35Z · status: ✅ DONE (conformed mapping committed, this PR; ⚑ OWNER-QUEUE — react on the DETAILS)
+priority: P1
+owner: coordinator (owner-dispatch execution, round-3 part-4e; parallel worker executing)
+do: **The games mapping is now OWNER-SHAPED via superbot router Q-0267 — produce the
+CONFORMED mapping that fills in details; the prior proposal (fm PR #41,
+docs/proposals/games-program-mapping-2026-07-10.md) is superseded as a shape and must
+be annotated so.** THE DECIDED FRAME (do not re-litigate): Seat A = ONE Project on
+existing superbot-games — the whole world ecosystem (exploration + mining + fishing +
+world-adjacent), gen-2 relaunch merging the two terminal gen-1 lanes, their succession
+packages (docs/retro/, docs/gen2-custom-instructions-exploration.md in that repo) as
+boot inputs. Seat B = NEW repo + Project for the idle game, egg farm = first THEME;
+template-first: idle-engine CORE + data-only THEME PACKS (same mechanics, different
+skin per server), themes CI-validated. Product direction: website-first onboarding —
+features/themes chosen on the website BEFORE the bot is invited; websites lane owns
+the selector UI; games seats own the manifests it renders. Games ship as plugin
+packages on superbot-next's manifest/plugin contract. STILL THE MANAGER'S TO PLACE
+(ground in the design doc + evidence, decide-and-flag): (1) the read-only data API —
+reconcile the prior superbot-lane committed-JSON placement (#1920) with the
+website-first frame: stay/move/split (game-state feed vs theme/feature manifests are
+different data)? (2) the theme-manifest contract's home — Seat B repo vs superbot-next
+vs websites, + how the websites selector consumes it; (3) the new repo's NAME
+(fleet-convention-grounded, 2 alternates); (4) first-shippable sequencing per seat
+(Seat A relaunch increment; Seat B skeleton: engine core + egg-farm theme pack + CI
+theme validation; websites selector increment; plugin-contract validation via
+superbot-plugin-hello) — dependency-honest order. Also: check whether
+menno420/superbot-plugin-hello exists now; refresh docs/owner-queue.md's games review
+item to the conformed doc; heartbeat with the ⚑ OWNER-QUEUE flag.
+why: Q-0267 (owner, live, 2026-07-10 ~22:1xZ) supersedes the ORDER 012 proposal as the
+source of the shape — the manager's deliverable becomes conformance + detail-filling,
+not an alternative frame.
+done-when: conformed mapping committed + supersedes banner on the old proposal +
+owner-queue item refreshed + ⚑ OWNER-QUEUE heartbeat.
+✅ DONE: `docs/proposals/games-program-mapping-conformed-2026-07-10.md` (this PR).
+Details placed: **(1) API SPLIT** — game-state feed stays the superbot-lane
+committed-JSON contract feed (#1920, unchanged); theme/feature manifests = committed
+files in the game-seat repos + superbot-next's plugin registry, raw-fetched by the
+websites selector; provisioning write path = plugin-contract family, setup-code first.
+**(2) Theme contract: Seat B drafts v1 + theme-gate CI in-repo**, flagged for promotion
+into superbot-next's plugin-contract family (D-0056) when a second game consumes it;
+websites raw-fetches schema + themes/*.yaml for the gallery. **(3) Name:
+`superbot-idle`** (alternates: superbot-plugin-idle, idle-engine). **(4) Sequence:**
+plugin-hello validation push ∥ Seat A relaunch (CI-gap fix → fishing on mining's
+substrate) ∥ superbot game-state feed slice → Seat B skeleton (core → schema+CI →
+egg-farm → more themes) → websites selector LAST-shippable (needs committed themes) →
+setup-code consumption. **superbot-plugin-hello: EXISTS (owner-created, public, pushed
+16:03:04Z) but EMPTY** — the superbot-next seeded package push is the unblocked next
+step. Old proposal banner + owner-queue item 14 + heartbeat: this PR (fleet-manager
+**PR #46**).

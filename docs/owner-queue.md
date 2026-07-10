@@ -231,9 +231,11 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
 
 12. **Settings-sweep additions (fold into the §4.9 sitting): superbot-next
     finalize-first set.**
-    - WHAT: (a) create the **`superbot-plugin-hello`** repo (public, empty, no
-      template) — Builder ORDER 002's gate; (b) **relax superbot-next's
-      require-up-to-date merge rule** (or enable merge queue) — every session
+    - WHAT: ~~(a) create the `superbot-plugin-hello` repo~~ **✅ (a) RESOLVED
+      2026-07-10: repo EXISTS** (owner-created, public, pushed 16:03:04Z —
+      verified via list_repos + raw probe, ORDER 013/PR #46; it is still
+      EMPTY — the seeded-package push rides games item 14); (b) **relax
+      superbot-next's require-up-to-date merge rule** (or enable merge queue) — every session
       loses time to the update-branch dance (#86/#87 stranded), which directly
       degrades an unattended 2-hourly Builder loop. ~~(c) flag-13 corpus-red
       disposition~~ **✅ (c) RESOLVED 2026-07-10 (Q-0262.3): ACCEPTED** —
@@ -291,6 +293,33 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
       no agent write surface (verified walls).
     - UNBLOCKS: every live seat running on committed, current text — closes
       the chat-only/console-only drift class fleet-wide.
+
+14. **Games program — react to the CONFORMED mapping's DETAILS (Q-0267 frame is
+    yours; the frame is decided).** Refreshed 2026-07-10 (ORDER 013, PR #46):
+    the old ⚑ OWNER-REVIEW ask on the PR #41 proposal is RETIRED — you shaped
+    the mapping yourself (superbot router Q-0267), which IS the reaction that
+    proposal awaited.
+    - WHAT: react to the four filled-in details (veto points §5):
+      **(1) API SPLIT** (game-state feed stays superbot-lane per #1920;
+      theme/feature manifests = game-seat + plugin-contract committed files,
+      raw-fetched by websites; provisioning = setup-code first) ·
+      **(2) theme contract drafted in Seat B**, promoted to the plugin-contract
+      family later · **(3) new repo name `superbot-idle`** (alternates:
+      `superbot-plugin-idle`, `idle-engine`) · **(4) websites selector
+      sequenced LAST-shippable** (website-first = user flow, not build order).
+    - WHERE: [`proposals/games-program-mapping-conformed-2026-07-10.md`](proposals/games-program-mapping-conformed-2026-07-10.md)
+      §5 — reply in any chat or as an ORDER; one line suffices ("go" /
+      "change X"). Silence-window doctrine applies to the details (they are
+      reversible paper); the two OWNER-ONLY clicks are real: **create the Seat
+      B repo** (name above) and **push/permission the seeded plugin package**
+      — `menno420/superbot-plugin-hello` EXISTS (your 16:03Z creation) but is
+      EMPTY; the superbot-next lane holds the seeded package in-tree at
+      `examples/superbot-plugin-hello/`.
+    - WHY owner-only: repo creation has no agent surface; the details react is
+      your Q-0240 veto window.
+    - UNBLOCKS: Seat B skeleton (engine + egg-farm theme + theme-gate CI), the
+      founding-package paste wave for both games seats, the websites selector
+      increment, the plugin-contract end-to-end proof.
 
 ## Parked (valid, no rush)
 
