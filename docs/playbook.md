@@ -114,3 +114,27 @@ day) unless a later date is noted next to the rule.
     same night. R5 was written for repos where the pending window exists — on these
     two shapes there is no window at all, and retrying the arm is probing a documented
     wall.* (2026-07-09)
+
+## VERIFICATION GUARDS (Q-0194 friction→guard class, from the night-review-2026-07-10 Q-findings)
+
+22. **R22 (2026-07-10) — VISIBILITY GUARD: any lane whose rails depend on repo
+    visibility verifies ACTUAL visibility via the API at every session start —
+    one call, `GET /repos/{owner}/{repo}` → read `.private`/`.visibility`
+    (recipe in `capabilities.md`).** Asserting "PRIVATE" without checking is
+    forbidden. *WHY: that assertion-without-verification is the bug class that
+    shipped vendored Nintendo source publicly — pokemon-mod-lab's README
+    declared a "no exceptions" PRIVATE rail, 8 PR bodies repeated "PRIVATE,"
+    and the repo was world-readable the whole time; nobody ever ran the one
+    API call that checks (night-review-2026-07-10 Q16).* (2026-07-10)
+23. **R23 (2026-07-10) — OWNER-ASK TRUTH-CHECK: any owner-queue item inviting
+    an outward-facing or irreversible click (publish, spend, send) must carry
+    evidence that the underlying artifact was verified end-to-end by someone
+    OTHER than its author; the manager never relays "ready, click here"
+    unverified.** *WHY: the ⚑B lesson — the queue invited the owner to publish
+    a $49 product at breakfast whose headline Stripe path had never executed
+    and near-certainly fails on the first real purchase (D1: customer_email
+    null on live events + invalid {CHECKOUT_EMAIL} success-URL placeholder);
+    the author's 13 green tests injected synthetic events encoding the
+    author's own wrong world-model, so only a non-author, real-path
+    verification can back a sell-claim (night-review-2026-07-10 Q2/Q6/Q18).*
+    (2026-07-10)

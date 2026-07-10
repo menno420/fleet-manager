@@ -21,6 +21,20 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
 
 ## Active queue (HOT first)
 
+> **🚨 URGENT (added 2026-07-10, night-review Q16) — flip pokemon-mod-lab to PRIVATE.**
+> WHERE/HOW: github.com/menno420/pokemon-mod-lab → Settings → Danger Zone →
+> Change visibility → Make private (2 clicks + type the repo name).
+> WHY: the repo carries the full vendored Nintendo decomp source and is currently
+> **PUBLIC** — world-readable — in direct violation of the lane's own "no exceptions"
+> PRIVATE hard rail (verified via the GitHub API `repo.private` bit; 8 PR bodies
+> asserted "PRIVATE" without anyone running the one call that checks). WHY owner-only:
+> repo visibility changes are a documented agent wall (repo-settings class — 403 on
+> every agent path). UNBLOCKS: the lane's rail becoming true; R22 verification
+> thereafter.
+> **Second ask, same sitting:** an account-wide visibility review at your next
+> settings pass — ALL 13 repos in the account are currently public, including
+> fleet-manager (this owner queue is on the open internet).
+
 0. **Create the Idea Engine Project (superbot repo) — standing autonomous core.**
    - WHAT: create ONE new claude.ai Project on the **superbot** repo (not
      substrate-kit — the ideas pipeline `docs/ideas/` + router + grooming
@@ -60,14 +74,22 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
      `STRIPE_WEBHOOK_SECRET` in `candidates/membership-kit/server/.env` (from
      `.env.example`). Test mode only; no real money. UNBLOCKS the live
      test-mode purchase→webhook→grant E2E.
-   - **⚑B — publish membership-kit at $49:** Gumroad or Lemon Squeezy → new
+   - **⚑B — publish membership-kit at $49:** ❄️ **FROZEN 2026-07-10: D1 Stripe
+     defect (headline paid path never executed; customer_email null on live
+     events + invalid {CHECKOUT_EMAIL} success-URL placeholder) — unfreezes
+     when venture-lab's fix ORDER lands with a real-path test.** Do NOT
+     publish until then. (When unfrozen: Gumroad or Lemon Squeezy → new
      product → paste `candidates/membership-kit/LISTING.md` → upload the
-     committed membership-kit-v0.2.zip → Publish.
+     committed membership-kit-v0.2.zip → Publish.)
    - **⚑C — (optional) Supabase + Discord accounts** for the hosted
      production stack (URL/key + invite URL into `server/.env`).
-   - **⚑D — publish template-packs at $19 PWYW:** same marketplace → paste
+   - **⚑D — publish template-packs at $19 PWYW:** ❄️ **FROZEN 2026-07-10: D1
+     Stripe defect (headline paid path never executed; customer_email null on
+     live events + invalid {CHECKOUT_EMAIL} success-URL placeholder) —
+     unfreezes when venture-lab's fix ORDER lands with a real-path test.**
+     (When unfrozen: same marketplace → paste
      `candidates/template-packs/LISTING.md` → upload the committed
-     template-packs-v0.1.zip → Publish. (The $59 `candidates/BUNDLE-LISTING.md`
+     template-packs-v0.1.zip → Publish. The $59 `candidates/BUNDLE-LISTING.md`
      goes live after ⚑B+⚑D — it needs their live URLs.)
    - Rider (repo settings, 1 min): give venture-lab a self-landable path —
      either make `substrate-gate` a REQUIRED check on `main`, or accept the
@@ -90,7 +112,8 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
      (2) reusable TMs + modern Exp. Share, (3) repel re-prompt + auto-run,
      (4) faster HP bars + battle messages.
    - WHERE: build artifacts / instructions in menno420/pokemon-mod-lab
-     (PRIVATE — never publish); PRs #4–#7.
+     (currently PUBLIC — see the URGENT item at the top of this queue; the
+     lane's rail says PRIVATE, never publish); PRs #4–#7.
    - HOW: one play session; drop reactions as a PR comment or inbox order —
      "keep/tune/drop" per patch is enough.
    - WHY owner-only: game-feel is taste; the headless harness proves the
