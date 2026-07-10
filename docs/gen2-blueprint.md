@@ -57,6 +57,26 @@
 > **Q-0262 fleet policies folded same pass (ORDER 008):** model-line policy
 > (§1 Model line), instruction-package deployment hold (§4), OWNER-ACTION
 > grammar (playbook R17 rider).
+> 2026-07-10 (night) — **CONTINUOUS-MODE OPERATING MODEL (owner directive
+> Q-0265, superbot router, 2026-07-10) supersedes one-slice-per-wake for
+> production seats** (folded by the manager per the part-4 brief §2b
+> MANAGER-ONLY rider). Any "ONE bounded pass / no excessive work — one real
+> slice per wake" pacing in this blueprint's templates and in deployed
+> founding packages is superseded for open-ended production seats: they are
+> **born continuous** — work loop (slice after slice, each still its own
+> merged-on-green PR; the throttle is removed, not the ceremony), a
+> `send_later` continuation chain ~15 min out as the pacemaker where the
+> seat's toolset has it, the standing cron demoted to a dead-man
+> "<seat> failsafe wake" (2-hourly stagger kept: lanes `0 */2`, manager
+> `30 */2`), **backpressure not time** as the brake, and the Q-0089 honesty
+> guard unchanged (genuinely out of work → say so and idle until the
+> failsafe). Free-window posture through 2026-07-14 is use-excessively;
+> everything produced feeds the owner's post-window consolidation pass.
+> §2a's *maintenance-seat* cadence doctrine remains valid for bounded
+> maintenance lanes; the gen-3 deployment standard (superbot
+> `docs/planning/gen3-deployment-standard-2026-07-10.md` §2, amended same
+> night) carries the born-continuous routine standard for new seats. The
+> companion rider lives in `prompts/init-prompt-universal.md`.
 
 The premise: every gen-1 lane paid a tax rediscovering the same ~13 failure
 classes. Gen-2 lanes are **born right** — the seed state prevents the known
