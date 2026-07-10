@@ -33,6 +33,8 @@
 - **[`docs/findings/README.md`](findings/README.md)** — committed
   worker-research findings (retro synthesis, GPT-5.6, venture shortlist,
   UI visibility, ping test).
+- **[`docs/experiments/README.md`](experiments/README.md)** — pre-registered
+  experiment protocols + judge records (harness × model, 2026-07-09).
 - **[`docs/gen2-blueprint.md`](gen2-blueprint.md)** — the Phase-2 (born-right)
   Project seed standard (DRAFT).
 - **[`templates/worker-preamble.md`](../templates/worker-preamble.md)** —
