@@ -123,3 +123,22 @@ GitHub integration across the valuable repos and rates its PR reviews highly (Q-
 ruling 3 extends this to standing @codex review on substantive superbot-next PRs).
 done-when: the rule is written into the lane playbook/blueprint with the Part C template
 pointer; ORDER status flipped to done with the landing PR cited.
+
+## ORDER 008 · 2026-07-10T15:33Z · status: new
+priority: P1
+do: OWNER RULINGS BATCH (owner delegation Q-0262, superbot router, 2026-07-10; routed by
+the owner's dispatch session — the lane-inbox halves [kit F-5=Reading A · trading holdout
+unlock · superbot-next flag-13 accepted] are routed directly as kit ORDER 011 / trading
+ORDER 008 / superbot-next ORDER 009; verify at their HEADs). Fold the fleet-policy half
+into doctrine + relay at next lane contact: (1) MODEL-LINE POLICY: family-level model
+names ONLY, everywhere (fable-5, opus-4.8; exact IDs never) — un-nulls trading's model
+rows. (2) OWNER-ACTION GRAMMAR: the kit's field set wins by definition; venture-lab
+conforms at its next kit upgrade. (3) The 8 undeployed instruction packages STAY
+undeployed until your gen-3 blueprint delta lands (re-base, then deploy in one sitting).
+(4) Roster note: core seat 6 (Q-0261) = the superbot hub Project — owner may veto.
+(5) Pokemon concept pick = QoL+ (Q-0262.7), effective when the games program boots
+post-core.
+why: Q-0262 applied the round-3 recommended answers wholesale; these five are the
+fleet-policy half that lives in your doctrine.
+done-when: policies folded into their blueprint/playbook homes + launch-readiness rows
+ticked where these close items; status acks 008.
