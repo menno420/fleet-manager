@@ -97,5 +97,5 @@ done-when: fable5's `docs/succession/PLATFORM-LIMITS.md` item 4 corrected citing
 opus4.8 evidence; seat-contamination caveat present in fleet-manager `docs/experiments/`.
 ✅ DONE: seat-contamination caveat folded into `docs/experiments/README.md` (§ Standing
 caveats) + `docs/experiments/harness-x-model-2026-07-09.md` (judge-note append) in this PR
-(fleet-manager PR #20); fable5 succession doc corrected in codetool-lab-fable5 PR
-(number recorded in `docs/dispatch-log.md` round-3 intake entry).
+(fleet-manager PR #20); fable5 succession doc corrected in **codetool-lab-fable5 PR #14**
+(MERGED, squash a6cf1a9 — `docs/succession/PLATFORM-LIMITS.md` item 4 + item 8 rider).

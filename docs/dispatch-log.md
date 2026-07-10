@@ -196,7 +196,9 @@ prompt, and the external review pack are logged above; review pack ref: sb#1903
   session" — the one channel the manager built for everyone is no longer
   unused on itself). ORDER 005 (ping-test websites false NO-ACK row) and
   ORDER 006 (codetool release-wall contradiction + seat-contamination caveat)
-  executed immediately in the same PR (#20) + a small codetool-lab-fable5 PR.
+  executed immediately in the same PR (#20) + codetool-lab-fable5 PR #14
+  (MERGED a6cf1a9: PLATFORM-LIMITS item 4 release-wall corrected to
+  seat-dependent, citing opus4.8's two live workflow_dispatch releases).
 - **SECOND routines correction landed** — `capabilities.md` + blueprint §2a:
   agent-armed routines WORK via the claude-code-remote scheduling tools
   (`create_trigger` / `send_later` family), **SEAT-DEPENDENT** (same per-seat
