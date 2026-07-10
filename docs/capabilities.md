@@ -113,6 +113,26 @@ your seat, that is a **seat** wall — record the exact tool call + verbatim err
 true for non-Project surfaces (webagent coordinator + spawned workers; cross-session
 trigger binding).
 
+### Check a repo's ACTUAL visibility — one API call (added 2026-07-10, night-review Q16)
+Sessions assert "this repo is PRIVATE" from READMEs and prior PR bodies without ever
+checking — that bug class shipped vendored Nintendo source publicly. Visibility is one
+call, no special scope needed:
+
+```bash
+# REST (works with the provisioned token, or unauthenticated for public repos):
+curl -s https://api.github.com/repos/{owner}/{repo} | python3 -c \
+  "import json,sys; d=json.load(sys.stdin); print('private:', d['private'], '· visibility:', d['visibility'])"
+# gh CLI equivalent:
+gh api /repos/{owner}/{repo} --jq '{private: .private, visibility: .visibility}'
+```
+
+The GitHub MCP works too — any get-repo-shaped call (e.g. `search_repositories` with
+`repo:{owner}/{repo}`) returns the same `.private`/`.visibility` fields in its JSON.
+Read `.private` (boolean) or `.visibility` (`public`/`private`/`internal`) from the
+response — never from a README, a rail declaration, or another PR's assertion.
+**Playbook R22:** any lane whose rails depend on visibility runs this once at every
+session start.
+
 ## WALLED — verified walls (quote the observed error, don't paraphrase)
 
 - **Tag push, GitHub Release creation, remote branch deletion** — fail with **403 at the

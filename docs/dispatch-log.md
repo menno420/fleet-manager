@@ -245,3 +245,41 @@ prompt, and the external review pack are logged above; review pack ref: sb#1903
   owner asks (next blueprint pass, with the R21 rewrite), scheduled
   deep-review layer (self-armed fm routine). Economics-ledger commitment:
   2026-07-12, else no new lanes after 07-14.
+
+## 2026-07-10 — afternoon (night-review remediation dispatch)
+
+- **Night-review follow-ups executed (this PR, #23)** — the audit's must-act
+  set converted from findings into live guardrails:
+  - **owner-queue:** venture-lab **⚑B and ⚑D publish clicks FROZEN**
+    ("FROZEN 2026-07-10: D1 Stripe defect (headline paid path never executed;
+    customer_email null on live events + invalid {CHECKOUT_EMAIL} success-URL
+    placeholder) — unfreezes when venture-lab's fix ORDER lands with a
+    real-path test"); new **🚨 URGENT top-of-queue item**: owner flips
+    pokemon-mod-lab to PRIVATE (Settings → Danger Zone) — vendored Nintendo
+    source is world-readable against the lane's "no exceptions" rail; second
+    line invites an account-wide visibility review (all 13 repos public).
+    Item 3's stale "(PRIVATE — never publish)" note corrected on sight.
+  - **playbook:** **R22 VISIBILITY GUARD** (rails that depend on visibility
+    verify the actual `repo.private` bit via API every session start) +
+    **R23 OWNER-ASK TRUTH-CHECK** (no outward-facing/irreversible owner click
+    ships without non-author end-to-end verification evidence). Provenance:
+    Q-0194 friction→guard class, night-review-2026-07-10 Q16/Q2/Q6/Q18.
+  - **capabilities:** CAN entry with the exact visibility-check recipe
+    (`GET /repos/{owner}/{repo}` → `.private`/`.visibility`; curl/gh/MCP forms).
+- **Four lane ORDERs dispatched immediately after this PR lands** (one repo at
+  a time, R19 serialization, each via that repo's fast lane):
+  1. **venture-lab (P0)** — fix D1/D2/D3 on the REAL Stripe path (handle
+     customer_email null, replace the {CHECKOUT_EMAIL} placeholder, HTTP-layer
+     real-path test, buyer-zip README → v0.2 reality, QUICKSTART mock-mode
+     trap, rebuild both zips); done-when includes "⚑B/⚑D unfreeze requested".
+     Publish clicks stay frozen until it lands.
+  2. **superbot-games (P0)** — CI collection-scope fix: the pytest gate
+     collects 73/121 tests (`games/exploration/tests/` invisible); collect ALL
+     suites + a collected-count assertion so scope-shrink is loud.
+  3. **trading-strategy** — add the founding-plan's deflated-Sharpe (or
+     equivalent) significance bar to the promotion rule BEFORE any holdout
+     use; re-grade AAPL-donchian honestly (expected: demote to candidate);
+     ledger the re-grade.
+  4. **pokemon-mod-lab** (effective after the owner's visibility flip) —
+     verify visibility=private via the API, record in `control/status.md`;
+     R22 applies every session thereafter.
