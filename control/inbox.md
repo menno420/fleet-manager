@@ -287,3 +287,38 @@ full 88-record `list_triggers` output** (new trigger present + enabled, next run
 old id absent). Continuation chain armed on the ~15-min `send_later` pattern; **first chain
 fire 20:43Z executed = the ORDER 003/007 slice (this PR)**. Verbatim re-arm record in
 `control/status.md` per the proven cutover recipe. This PR: fleet-manager **PR #37**.
+
+## ORDER 012 · 2026-07-10T21:42Z · status: ✅ DONE (proposal committed, PR #41; ⚑ OWNER-REVIEW pending — founding packages HELD)
+priority: P1
+owner: coordinator (owner-dispatch execution; parallel worker executing)
+do: **Propose the games-program repo mapping (Q-0259 r.5)**, reshaped by two facts the
+pre-birth sketch predates: (1) **games-web is the forge's first product** (phase 1
+merged — the web-visual layer has a home; do NOT reuse the pre-games-web sketch) and
+(2) **the versioned READ-ONLY data API over superbot's dashboard-data-contract pattern
+(superbot PR #1920) blocks BOTH games-web phase 2 AND websites stats/explorer pages —
+the mapping must place and sequence that API.** Ground the placement in what #1920's
+pattern actually is (verify at superbot origin/main — committed-JSON vs live service —
+before proposing). Cover: pokemon-mod-lab + gba-homebrew (existing repos, likely keep),
+whether superbot-games becomes/feeds a dedicated project, what happens to the in-bot
+game cogs (superbot-next band-6 port relationship), games-web's phase-2 dependency
+edge. Recommendation style: decide-and-flag — one proposed mapping, alternatives one
+line each. Sequencing language per Q-0266 (volume-first).
+why: Q-0259 r.5 assigns the manager the 3-projects/3-repos mapping decide-and-flag; no
+mapping proposal exists (the `projects/games-program/meta.md` sketch is pre-birth
+material, drafted before games-web shipped and before the API need surfaced).
+done-when: committed mapping proposal + ⚑ OWNER-REVIEW flag in status; **founding
+packages only AFTER the owner reacts** (Q-0259 r5 + this dispatch).
+✅ DONE: `docs/proposals/games-program-mapping-2026-07-10.md` committed (this PR).
+Mapping: pokemon-mod-lab (QoL+ per Q-0262.7) · gba-homebrew (Lumen Drift release-prep
++ concept options) · **superbot-games becomes Project 3** (engine+content; resolves
+the meta.md open question). **API placement: superbot lane**, contracted committed-JSON
+feed per #1920's actual pattern (verified at superbot origin/main `655e0fea`: contract
+file + stdlib repo-static producer + fail-closed checker + raw.githubusercontent
+consumption — NOT a live service; the games feed needs one NEW DB-reading producer,
+refresh path decided in the implementing superbot PR). games-web stays a forge product;
+its phase-2 edge = the feed's first family (mining character-sheet, produced TO its
+committed consumer contract). Sequence: feed slice NOW (superbot order) · boots
+PARALLEL after owner reacts · phase-2/stats on feed live — the owner's
+"API highest-leverage" read VALIDATED with the parallel-not-gating refinement.
+**⚑ OWNER-REVIEW flag set in status; FOUNDING PACKAGES HELD until the owner reacts.**
+This PR: fleet-manager **PR #41**.
