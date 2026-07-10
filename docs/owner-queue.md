@@ -21,20 +21,6 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
 
 ## Active queue (HOT first)
 
-> **🚨 URGENT (added 2026-07-10, night-review Q16) — flip pokemon-mod-lab to PRIVATE.**
-> WHERE/HOW: github.com/menno420/pokemon-mod-lab → Settings → Danger Zone →
-> Change visibility → Make private (2 clicks + type the repo name).
-> WHY: the repo carries the full vendored Nintendo decomp source and is currently
-> **PUBLIC** — world-readable — in direct violation of the lane's own "no exceptions"
-> PRIVATE hard rail (verified via the GitHub API `repo.private` bit; 8 PR bodies
-> asserted "PRIVATE" without anyone running the one call that checks). WHY owner-only:
-> repo visibility changes are a documented agent wall (repo-settings class — 403 on
-> every agent path). UNBLOCKS: the lane's rail becoming true; R22 verification
-> thereafter.
-> **Second ask, same sitting:** an account-wide visibility review at your next
-> settings pass — ALL 13 repos in the account are currently public, including
-> fleet-manager (this owner queue is on the open internet).
-
 0. **Create the Idea Engine Project (superbot repo) — standing autonomous core.**
    - WHAT: create ONE new claude.ai Project on the **superbot** repo (not
      substrate-kit — the ideas pipeline `docs/ideas/` + router + grooming
@@ -112,7 +98,7 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
      (2) reusable TMs + modern Exp. Share, (3) repel re-prompt + auto-run,
      (4) faster HP bars + battle messages.
    - WHERE: build artifacts / instructions in menno420/pokemon-mod-lab
-     (currently PUBLIC — see the URGENT item at the top of this queue; the
+     (now PRIVATE — flipped by the owner 2026-07-10, API-verified; the
      lane's rail says PRIVATE, never publish); PRs #4–#7.
    - HOW: one play session; drop reactions as a PR comment or inbox order —
      "keep/tune/drop" per patch is enough.
@@ -178,6 +164,12 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
 
 ## Parked (valid, no rush)
 
+- **Account-wide visibility review** (carried over from the resolved
+  pokemon-mod-lab URGENT item's second ask) — at your next settings pass:
+  all 13 repos in the account were public at the 2026-07-10 night review;
+  pokemon-mod-lab is now private, the rest — including fleet-manager (this
+  owner queue is on the open internet) — remain public. Decide per-repo
+  public/private; pairs with the decision sheet's §4.9 repo-settings sweep.
 - **superbot-next grants** — intents toggles · sacrificial Discord account ·
   capped API key (band 7) · flag-13 ruling; folds into the band flow
   (superbot-next `control/status.md` ⚑). Lane stays gen-1 mid-mission.
@@ -195,6 +187,11 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
 
 ## Resolved since the last rewrite (2026-07-09 → this morning)
 
+- **🚨→✅ pokemon-mod-lab flipped to PRIVATE (URGENT item, night-review Q16) —
+  DONE by the owner, re-verified 2026-07-10 via the GitHub API
+  (`repo.private` = true, `visibility: private`). The lane's "no exceptions"
+  PRIVATE hard rail is now true; R22 verification unblocked. The second ask
+  (account-wide visibility review) moved to Parked above as a normal item.**
 - Fleet environments created — gen-2 lanes booted in them overnight (item 1 retired).
 - venture-lab + game-lab launch click-lists executed (items 14/17 retired);
   gen-1 wind-down pasted and completed fleet-wide (item 15 retired).
