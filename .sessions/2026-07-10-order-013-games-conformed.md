@@ -1,6 +1,6 @@
 # 2026-07-10 — ORDER 013: conformed games mapping (Q-0267 owner-shaped frame)
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 📊 Model: fable family (worker, coordinator-dispatched) · start 2026-07-10T22:3xZ (`date -u`)
 
@@ -34,3 +34,45 @@ Evidence base read at pinned refs before writing: superbot origin/main
 superbot-plugin-hello` existence probe (list_repos: EXISTS, public, pushed
 2026-07-10T16:03:04Z; raw main/master both 404 → EMPTY shell, seeded package
 not yet pushed).
+
+## Close-out
+
+Landed exactly the five items declared above, one PR.
+
+The four placements (full grounding in the conformed doc):
+
+1. **Data API → SPLIT.** Game-state read feed stays the superbot-lane
+   committed-JSON contract feed (#1920 pattern, unchanged — superbot owns the
+   Postgres). Theme/feature manifests are different data: committed files in
+   the game-seat repos + superbot-next's plugin registry, raw-fetched by
+   websites. New write path (provisioning manifest) = plugin-contract family,
+   phase-1 setup-code.
+2. **Theme-manifest contract → Seat B repo drafts v1** (engine owns its schema;
+   theme-gate CI co-locates), flagged for promotion into superbot-next's
+   plugin-contract family when a second game consumes it. Websites renders the
+   gallery by raw-fetching schema + `themes/*.yaml`.
+3. **Repo name → `superbot-idle`** (sibling symmetry with `superbot-games`;
+   distribution inside follows the plugin naming). Alternates:
+   `superbot-plugin-idle`, `idle-engine`.
+4. **Sequencing** — dependency-honest: plugin-hello validation push (unblocked
+   NOW, repo exists but EMPTY) ∥ Seat A relaunch (CI-gap fix → fishing on
+   mining's substrate) ∥ superbot game-state feed slice → Seat B skeleton
+   (core → schema+CI → egg-farm theme) → websites selector LAST-shippable
+   (needs committed themes to render; website-first is the user flow, not the
+   build order).
+
+💡 **Session idea** (dedup-grepped `docs/`): a `tools/check_supersedes.py`-style
+proposal-freshness rule — any `docs/proposals/*.md` with `Status: plan` older
+than N days without a supersedes/decision banner gets flagged on the manager
+wake, so owner-shaped rulings (like Q-0267 today) can't leave a stale "awaiting
+react" proposal looking live. Cheap grep, catches exactly today's drift class.
+
+⟲ **Previous-session review:** the #43 universal-pointer worker shipped a clean
+paste-same-everywhere block and its card declared scope precisely — good. Miss
+worth one line: it did not stamp `projects/games-program/meta.md` (pre-birth
+archive) with a pointer to the then-live #41 proposal, which this session now
+had to chase across three docs; improvement adopted here — the conformed doc
+carries explicit supersedes/carry-forward lines for every predecessor artifact
+it touches.
+
+· end 2026-07-10T22:55Z
