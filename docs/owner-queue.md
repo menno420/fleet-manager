@@ -36,10 +36,10 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
      its first message — the Project arms its own routine via the verified
      recipe (`create_trigger`, cron every 2 hours; `capabilities.md` CAN
      entry); owner routine click only if that seat is walled.
-   - NOTE: **venture-lab becomes the Product Forge** seat of the core once its
-     §4.9 settings click lands (required check / Allow auto-merge — the
-     merge-path fix); no separate product-forge repo needed unless that click
-     is refused.
+   - NOTE: Product Forge seat: candidate TBD per corrected round3-launch-pack
+     §5 (owner retracted venture-lab pairing, 2026-07-10); default fallback =
+     seed a dedicated `product-forge` repo born-right with a required check.
+     venture-lab keeps its own venture mission unchanged.
    - WHY owner-only: creating claude.ai Projects has no agent API surface
      (verified wall, `capabilities.md`).
    - UNBLOCKS: the standing autonomous core's idea-generation loop — the
@@ -75,8 +75,10 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
      self-merge there twice (verbatim denials in venture-lab
      `control/status.md`); without one of these, every overnight venture PR
      waits for a click. This rider is part of the **§4.9 repo-settings sweep**
-     on the decision sheet; once it lands, **venture-lab = the Product Forge**
-     seat of the standing autonomous core (item 0 above).
+     on the decision sheet. Product Forge seat: candidate TBD per corrected
+     round3-launch-pack §5 (owner retracted venture-lab pairing, 2026-07-10);
+     default fallback = seed a dedicated `product-forge` repo born-right with
+     a required check. venture-lab keeps its own venture mission unchanged.
    - WHY owner-only: marketplace/payment accounts and repo settings are
      owner surfaces (agents: no accounts, no money, no external publish —
      hard rail).
