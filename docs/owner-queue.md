@@ -51,12 +51,19 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
      (verified wall, `capabilities.md`).
    - UNBLOCKS: the standing autonomous core's idea-generation loop — the
      fleet generating its own work between owner sessions.
+   - **⚑ LIKELY ALREADY DONE (evidence, 18:31Z wake — confirm & retire):**
+     live `list_triggers` shows an **"idea-engine 2-hourly standing wake"**
+     (`trig_01KBoHPaq…`, cron `0 */2 * * *`, enabled, last fired
+     2026-07-10T18:05:20Z) — a firing in-Project routine strongly implies
+     the Project exists and self-armed. Kept open only pending a heartbeat/
+     repo trace from that seat; the ~20:31Z wake confirms and retires this.
 
-1. **🔥 HOT — kit F-5 one-letter ruling (A or B).** → **decision sheet §4.1**
-   (superbot `docs/planning/round3-launch-pack-2026-07-10.md`; recommendation
-   there: the stricter Reading A). Stub retained: reply "A" or "B" in any
-   channel; kit-lab's dispatch is paused on it. Full context:
-   substrate-kit `docs/ideas/rubric-f5-none-regressing-wording-2026-07-09.md`.
+1. ~~🔥 HOT — kit F-5 one-letter ruling (A or B).~~ **✅ RESOLVED 2026-07-10
+   (Q-0262.1): Reading A** — routed as substrate-kit **ORDER 011** and already
+   **EXECUTED by the kit lane** (kit PRs #127/#128; family headline re-scored
+   **1 PASS / 3 FAIL** under Reading A; B-benches unpaused, B1 run-5 free to
+   fire; record: kit `bench/results/cold-start/f5-ruling-order-011.md`; kit
+   status @ 18:22Z confirms acked+done). Also listed in Resolved below.
 
 2. **venture-lab ⚑A–D — the revenue clicks (zips are ON MAIN, upload-ready).**
    PR #9 merged 05:11:50Z: both buyer zips are committed —
@@ -113,11 +120,12 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
      patches work, not that they feel right.
    - UNBLOCKS: which QoL patches lock in before deeper mod work.
 
-4. **Concept picks — BOTH game-lab tracks.** → **decision sheet §4.3 + §4.4**
-   (recommendations there: Track A QoL+ — better, play the 12 patches first;
-   Track B order Lumen Drift release-prep so you can PLAY it before any new
-   concept). Stub retained: any signal works (inbox order or PR comment),
-   e.g. "Track B: Lumen Drift; Track A: QoL+". Full context:
+4. **Concept picks — game-lab tracks.** Track A **✅ RESOLVED 2026-07-10
+   (Q-0262.7): pokemon concept = QoL+** — effective **when the games program
+   boots post-core** (not an immediate dispatch; the lane stays PARKED till
+   then). **Track B still open** → decision sheet §4.4 (recommendation:
+   order Lumen Drift release-prep so you can PLAY it before any new
+   concept). Any signal works (inbox order or PR comment). Full context:
    gba-homebrew `docs/concepts/session-1-concepts.md` + pokemon-mod-lab's
    concepts doc.
 
@@ -137,11 +145,13 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
      morning "continue" message to the kit Project is the loop until the
      platform ships the surface.
 
-6. **trading P5 holdout unlock (decision, 1 line).** → **decision sheet §4.2**
-   (recommendation there: grant it — the protocol `docs/p5-holdout-protocol.md`
-   is pre-registered, code-enforced, one-shot; the lab is otherwise done and
-   idle). Stub retained: you say "unlock", the manager drafts the ORDER into
-   trading-strategy `control/inbox.md` naming the protocol as binding.
+6. ~~trading P5 holdout unlock (decision, 1 line).~~ **✅ RESOLVED 2026-07-10
+   (Q-0262.2): GRANTED** — routed as trading-strategy **ORDER 008 @ fd5e9fe**
+   (protocol `docs/p5-holdout-protocol.md` binding). Lane has **ACKED** it
+   (trading status @ 16:21:48Z: "acked=001–008"); execution deliberately
+   waits for a FRESH dedicated session per protocol §7, sequenced after the
+   now-done ORDER 007 significance bar. Holdout verified still SEALED at ack.
+   Also listed in Resolved below.
 
 7. **Wake-routine arming — self-arm rollout DISPATCHED (nothing to click unless a lane fails).**
    - WHAT: the "walled on BOTH sides" reading was corrected 2026-07-10
@@ -161,13 +171,14 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
      a click again; otherwise nothing to do here.
    - UNBLOCKS: the fleet running on orders without manual wake-ups.
 
-8. **The 8 undeployed instruction packages.** → **decision sheet §4.8**
-   (recommendation there: **don't paste any today** — several were written
-   blueprint-blind; re-base them on the gen-3 blueprint delta and deploy in
-   one sitting when the manager's gen-3 report lands). Stub retained:
+8. ~~The 8 undeployed instruction packages (decision).~~ **✅ RESOLVED
+   2026-07-10 (Q-0262 / ORDER 008 policy 3): they STAY undeployed until the
+   gen-3 blueprint delta lands, then re-base + deploy in one sitting** —
+   now standing doctrine at blueprint §4 (folded by the 18:31Z wake). No
+   owner click until the manager's gen-3 report lands; the future deploy
+   sitting will be a fresh, dated queue item. Reference:
    `docs/proposals/instructions/` — 2 of 10 DEPLOYED fitted (websites,
-   trading-strategy, exact live texts in each file's "Deployed fitted
-   version"); 8 PROPOSED, none binding until pasted.
+   trading-strategy); 8 PROPOSED, none binding until pasted.
 
 9. **Create the `product-forge` repo + Product Forge Project (core seat 5, PRE-BIRTH).**
    - WHAT: (1) create a **public, empty** repo `product-forge` (default branch
@@ -186,15 +197,12 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
      Everything else (ORDER 000 walking skeleton, routine, control seed,
      environments-registry spec) is agent work riding its boot.
 
-10. **Name the sixth core seat (DECISION, Q-0261.1).**
-    - WHAT: pick the sixth standing Project — candidates per the runbook:
-      **hub-superbot** (games/maintenance seat) or **websites**.
-    - HOW: one line in any channel; the manager drafts the founding package
-      once named.
-    - RECOMMENDATION: **hub-superbot** — the hub carries the router/ledger/
-      ideas machinery every other seat depends on and is the only core repo
-      without a standing wake; websites already runs armed as a manual lane.
-    - UNBLOCKS: completing the Q-0261 core-6 launch sequence.
+10. ~~Name the sixth core seat (DECISION, Q-0261.1).~~ **✅ RESOLVED
+    2026-07-10 (Q-0262 / ORDER 008 policy 4): core seat 6 = the superbot hub
+    Project** (games/maintenance — the recommended pick, adopted wholesale;
+    **owner may veto** by striking this). Next agent step: the manager
+    drafts the hub founding package; the owner click that remains (create
+    the hub Project) rides that package. Also listed in Resolved below.
 
 11. **kit OA8 — setup-script paste (🔥 gates the NEXT boot, seat 2).**
     - WHAT: paste substrate-kit `docs/gen2/setup.sh` verbatim into the kit
@@ -213,14 +221,15 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
       template) — Builder ORDER 002's gate; (b) **relax superbot-next's
       require-up-to-date merge rule** (or enable merge queue) — every session
       loses time to the update-branch dance (#86/#87 stranded), which directly
-      degrades an unattended 2-hourly Builder loop; (c) **flag-13 corpus-red
-      disposition** — one line: "accept the lane's proposed disposition"
-      (recommendation on the decision sheet §4.5; moved here from Parked —
-      it is seat-3 finalize-first debt under Q-0261).
-    - WHERE: github.com/new; superbot-next Settings → Rulesets; any channel /
-      inbox ORDER via the manager for (c).
-    - WHY owner-only: repo creation + rulesets are agent 403 walls; flag-13 is
-      a product-policy ratification.
+      degrades an unattended 2-hourly Builder loop. ~~(c) flag-13 corpus-red
+      disposition~~ **✅ (c) RESOLVED 2026-07-10 (Q-0262.3): ACCEPTED** —
+      routed as superbot-next **ORDER 009**, applied by the lane in next
+      **#105** (decision record: superbot-next
+      `docs/parity/flag-13-disposition-2026-07-10.md`; lane status confirms
+      "OWNER-ACTION 1 (flag-13 corpus-red ruling) is CLEARED"). (a)+(b)
+      remain the open clicks.
+    - WHERE: github.com/new; superbot-next Settings → Rulesets.
+    - WHY owner-only: repo creation + rulesets are agent 403 walls.
     - UNBLOCKS: Builder ORDER 002 done-when, unattended Builder wrap-ups,
       every parity pending→ported flip + the `report` CI leg.
 
@@ -259,12 +268,58 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
   push origin v0.1.1` — do NOT tag v0.1.0 at `0260aae` (predates release.yml,
   fires nothing). cfgdiff 0.1.1 sits on main unreleased; release.yml has never
   fired. WHY owner-only: tag push is a credential-layer 403 on that seat.
-- **codetool stale branches ×2** — delete `claude/status-heartbeat-001`
-  (opus4.8) and `test/push-check` (sonnet5) at each repo's branches page
-  (~10 s each; agent branch-delete 403, verbatim in the succession docs).
-- **Archive the dead trading session** — claude.ai session list → ⋮ →
-  Archive (still listed active).
 - **Paper-doll PNG pack for mining** — art asset, whenever.
+
+### Safe to delete / archive (housekeeping, consolidated 2026-07-10 · 18:31Z wake)
+
+Everything here is verified spent — deleting/archiving loses nothing (all
+state is committed in the repos). Do in one sitting whenever convenient.
+
+- **Spent chats (archive in claude.ai):**
+  - **OLD kit-lab coordinator chat** — **cutover VERIFIED**: its old hourly
+    trigger `trig_01FnqnAQjLU2T8d16iHwWQ2h` is DELETED from the trigger
+    registry and the fresh seat is live (new 2-hourly trigger fired
+    16:02:43Z; fresh-seat heartbeat 16:17:12Z; F-1 rebind-then-delete
+    executed). Archiving it can no longer kill anything.
+  - **Dead trading gen-1 "ORDER 001 successor" session** — died at
+    provision, still lists as active (carried ask; trading status ⚑(d)).
+  - **Wound-down gen-1 lane chats generally** — every gen-1 lane committed
+    its succession package on main; chat context is spent by design.
+- **Stale branches (delete at each repo's branches page; agent
+  branch-delete is a verified 403):**
+  - codetool ×2 — `claude/status-heartbeat-001` (opus4.8) and
+    `test/push-check` (sonnet5), ~10 s each.
+  - superbot-games ×2 (per launch-readiness) — `mining/adopt-substrate-kit`
+    (closed-unmerged-deliberate) and `mining/grid-encounters` (**verify tip
+    is merged before deleting** — tip ≠ merged head at the survey).
+- **NOT yet safe:** codetool repo archive toggles ×3 (paired decision above
+  — wait until the gen-3 succession question settles); anything holding an
+  open READY PR.
+
+## Resolved 2026-07-10 (Q-0262 owner-rulings batch, reconciled by the 18:31Z wake)
+
+The owner answered the round-3 decision sheet **wholesale** (superbot router
+Q-0262; routed by the dispatch session as inbox ORDER 008 + lane orders):
+
+- **kit F-5 ruling = Reading A** (Q-0262.1) — routed as kit ORDER 011,
+  **executed** (kit #127/#128; headline 1 PASS / 3 FAIL; B1 run-5 unblocked).
+- **trading P5 holdout unlock = GRANTED** (Q-0262.2) — routed as trading
+  ORDER 008 @ fd5e9fe; lane acked; runs in a fresh dedicated session per the
+  binding protocol.
+- **superbot-next flag-13 disposition = ACCEPTED** (Q-0262.3) — routed as
+  next ORDER 009, **applied** in next #105
+  (`docs/parity/flag-13-disposition-2026-07-10.md`).
+- **Core seat 6 = the superbot hub Project** (ORDER 008 policy 4) — owner
+  may veto; manager drafts the founding package next.
+- **pokemon concept = QoL+** (Q-0262.7) — effective when the games program
+  boots post-core.
+- **The 8 undeployed instruction packages stay undeployed** until the gen-3
+  blueprint delta lands, then re-base + deploy in one sitting (policy 3 —
+  now doctrine at blueprint §4).
+- Fleet policies folded into doctrine same day (fleet-manager PR #33):
+  family-level model names ONLY (blueprint §1); kit OWNER-ACTION grammar
+  wins by definition, venture-lab conforms at next kit upgrade (playbook
+  R17 rider).
 
 ## Resolved since the last rewrite (2026-07-09 → this morning)
 

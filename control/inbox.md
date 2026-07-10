@@ -10,7 +10,7 @@ and reports progress in control/status.md.
 > Orders below were seeded from the six STANDING DEBTS in superbot
 > `docs/planning/round3-launch-pack-2026-07-10.md` §1.
 
-## ORDER 001 · 2026-07-10T12:05Z · status: new
+## ORDER 001 · 2026-07-10T12:05Z · status: DONE (executed by the 18:31Z standing-wake pass 2026-07-10, fleet-manager PR #33)
 priority: P1
 owner: next fleet-manager doctrine session (the first manager wake after this lands)
 do: Apply the blueprint amendment proposals **P1–P11** (`docs/findings/fable5-review-2026-07-09.md`
@@ -27,6 +27,20 @@ launched on the uncorrected text and hit the exact predicted merge wall twice.
 done-when: blueprint changelog records P1–P11 + D4/D5/D6 with provenance; the universal
 init prompt contains the verified recipe and no false routine promise; MISSION.md on main
 with an explicit done-when line.
+✅ DONE: **P1–P11 applied** to `docs/gen2-blueprint.md` with a provenance changelog entry
+(finding IDs + landing spots + today-corrections named: P6's "no scheduler primitive"
+premise narrowed — self-arm WORKS, the `create_trigger`/`send_later` family is the
+verified seat-dependent primitive; P8 additionally bound by the Q-0262 family-level
+model-name policy). **D4** applied (`docs/prompts/gen1-winddown-universal.md` — marker
+carve-out for merge-blocked lanes + stale "Deployed: not yet" drift fixed). **D5/init
+prompt REWRITTEN** (`docs/prompts/init-prompt-universal.md` — dated successor text: false
+routine promise removed; verified recipe in: `create_trigger` with cron + prompt +
+persistent_session_id (cse_/session_ accepted) OR create_new_session_on_fire=true,
+verbatim call+outcome in status, `list_triggers` verify, F-1 rebind-then-`delete_trigger`
+cutover, seat-dependent fallback ⚑). **D6/MISSION.md** on main (repo root) with the
+explicit done-when line (standing core runs a full week: zero stuck PRs, zero DARK/DEAD
+lanes, owner-queue grew only owner-only — then renew or re-scope). This PR: fleet-manager
+**PR #33**.
 
 ## ORDER 002 · 2026-07-10T12:05Z · status: DONE (executed by the 16:31Z standing-wake pass 2026-07-10, superbot PR #1954 + fleet-manager PR #32)
 priority: P1
@@ -133,7 +147,7 @@ ruling 3 extends this to standing @codex review on substantive superbot-next PRs
 done-when: the rule is written into the lane playbook/blueprint with the Part C template
 pointer; ORDER status flipped to done with the landing PR cited.
 
-## ORDER 008 · 2026-07-10T15:33Z · status: new
+## ORDER 008 · 2026-07-10T15:33Z · status: DONE (executed by the 18:31Z standing-wake pass 2026-07-10, fleet-manager PR #33)
 priority: P1
 do: OWNER RULINGS BATCH (owner delegation Q-0262, superbot router, 2026-07-10; routed by
 the owner's dispatch session — the lane-inbox halves [kit F-5=Reading A · trading holdout
@@ -151,6 +165,19 @@ why: Q-0262 applied the round-3 recommended answers wholesale; these five are th
 fleet-policy half that lives in your doctrine.
 done-when: policies folded into their blueprint/playbook homes + launch-readiness rows
 ticked where these close items; status acks 008.
+✅ DONE: all five fleet policies folded into their doctrine homes (fleet-manager PR #33):
+(1) model-line policy → blueprint §1 Model-line item (family-level ONLY, exact IDs never;
+merged with amendment P8's "withheld per session policy" token); (2) OWNER-ACTION grammar
+→ playbook R17 rider (kit's field set wins by definition; venture-lab conforms at next
+kit upgrade); (3) instruction-package hold → blueprint §4 (stay undeployed until the
+gen-3 blueprint delta, then re-base + deploy in one sitting); (4) core seat 6 = superbot
+hub → owner-queue item 10 RESOLVED (veto-able) + Resolved-batch entry; (5) pokemon
+concept = QoL+ (Q-0262.7, effective when the games program boots post-core) → owner-queue
+item 4 Track-A RESOLVED. Lane halves verified at their HEADs: kit ORDER 011 **executed**
+(#127/#128, Reading A, status 18:22Z); trading ORDER 008 **acked** @ 16:21:48Z (fresh
+dedicated session runs it); superbot-next ORDER 009 **applied** in next #105 (flag-13
+decision record on main). Owner-queue reconciled to the whole Q-0262 batch in the same
+PR; status acks 008 in its orders footer.
 
 ## ORDER 009 · 2026-07-10T16:45Z · status: new
 priority: P2

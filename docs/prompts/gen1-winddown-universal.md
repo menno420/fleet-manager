@@ -82,8 +82,28 @@ step hits a platform wall, record the exact error text and keep going.
 
 ## Deployment record
 
-- Deployed: **not yet** — owner-queue item ("Paste the gen-1 wind-down prompt
-  into each gen-1 Project", [`../owner-queue.md`](../owner-queue.md)).
+- Deployed: **2026-07-09 (night)** — pasted fleet-wide by the owner; the
+  gen-1 wind-down **completed across all target lanes** (owner-queue
+  2026-07-10 rewrite: "gen-1 wind-down pasted and completed fleet-wide";
+  launch record [`../planning/gen2-launch-record-2026-07-10.md`](../planning/gen2-launch-record-2026-07-10.md)).
+  *(Drift fix 2026-07-10, D4 pass: this line previously still said "not
+  yet" — stale since deployment.)*
+
+## Amendment (2026-07-10 — drift-fix D4, fable5-review F20, applied by ORDER 001)
+
+The deliverable-7 READY MARKER rides a merge that a **classifier-merge-blocked
+lane cannot perform** — the deliverable-1 carve-out ("PR open, READY, green" +
+⚑) did not cover the marker itself, so completion tracking failed silently for
+exactly the hardest-to-track lanes. **Carve-out, binding for any future
+deployment of this prompt (gen-2 → gen-3 reuse included):**
+
+- A wind-down marker **committed on a READY + green PR, plus a ⚑ owner merge
+  click, COUNTS as flipped** — the lane is complete, not stalled.
+- The manager's completion sweep checks **open READY PRs as well as
+  `control/status.md` at HEAD** before declaring a lane unfinished.
+
+## Deployment record (continued)
+
 - Target lanes (9): superbot-next · substrate-kit · websites ·
   trading-strategy · codetool-lab-fable5 · codetool-lab-opus4.8 ·
   codetool-lab-sonnet5 · superbot-games mining · superbot-games exploration.
