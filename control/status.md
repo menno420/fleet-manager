@@ -1,10 +1,10 @@
 # fleet-manager · status
-updated: 2026-07-10T22:55:00Z
-phase: GEN-2 FLEET LIVE — **CONTINUOUS MODE RUNNING (Q-0265): chain slice #3 SHIPPED — FIRST REVIEW-QUEUE DRAIN PASS (superbot#1920 → @codex asked · venture-lab#9 manager-verified: D1 defect CONFIRMED at HEAD · trading#36 urgency moot) + ROSTER GENERATION #2 (`docs/roster.md`, R25)** · **ORDER 013 CONFORMED games mapping SHIPPED (Q-0267 owner-shaped frame; ⚑ OWNER-QUEUE below — details react) — supersedes the ORDER 012 proposal as a shape** · package centralization SHIPPED (`projects/` registry) · chain slice #2 shipped (ORDERs 009+010, inbox clear) · fleet model matrix banked (`docs/findings/model-matrix-2026-07.md`) · review-queue enforcement LIVE (ORDER 003/007) · doctrine debt PAID (ORDER 001) · Q-0262 folded (ORDER 008)
+updated: 2026-07-10T23:05:00Z
+phase: GEN-2 FLEET LIVE — **CONTINUOUS MODE RUNNING (Q-0265): chain slice #4 SHIPPED — @codex on superbot#1920 came back QUOTA-BLOCKED (no substantive answer; manager ground truth banked instead: NO dashboard.json consumer validates `meta.schema_version` — premise CONFIRMED) + review-queue GROOMED (all 6 open rows head-validated; next manager-verify candidate: superbot-games#16) + owner-signal check NO (no owner commit on UNIVERSAL.md since 17bc193)** · chain slice #3 shipped (first drain pass + roster gen #2) · **ORDER 013 CONFORMED games mapping SHIPPED (Q-0267 owner-shaped frame; ⚑ OWNER-QUEUE below — details react) — supersedes the ORDER 012 proposal as a shape** · package centralization SHIPPED (`projects/` registry) · chain slice #2 shipped (ORDERs 009+010, inbox clear) · fleet model matrix banked (`docs/findings/model-matrix-2026-07.md`) · review-queue enforcement LIVE (ORDER 003/007) · doctrine debt PAID (ORDER 001) · Q-0262 folded (ORDER 008)
 health: green
 kit: v1.7.0 · check: green · engaged: yes (kit line corrected this slice — previous heartbeats said v1.4.0 while the #35 upgrade had landed v1.7.0; drift fixed on sight)
 coordinator: **LIVE** — session-based coordinator seat booted 2026-07-10 (round-3 pack §1 brief) · operating model CONTINUOUS (Q-0265)
-routine: **fleet-manager failsafe wake** · cron 30 */2 * * * · id `trig_014odnv5h1tkJAFRhix3tGLq` (re-verified live this slice in the fresh **122-record** `list_triggers` sweep at ~22:07Z: enabled, last fire 20:37:34Z, next ~22:34Z) · pacemaker = ~15-min `send_later` continuation chain, **HOT — chain slice #3 = this PR (#44)**
+routine: **fleet-manager failsafe wake** · cron 30 */2 * * * · id `trig_014odnv5h1tkJAFRhix3tGLq` (re-verified live this slice in the fresh **122-record** `list_triggers` sweep at ~22:07Z: enabled, last fire 20:37:34Z, next ~22:34Z) · pacemaker = ~15-min `send_later` continuation chain, **HOT — chain slice #4 = this PR (#49)**
 
 > **Re-arm record (verbatim, ORDER 011, Q-0265 cutover — executed 2026-07-10T20:26Z,
 > re-verified by the 20:43Z chain slice and again by this 21:20Z slice):**
@@ -19,7 +19,7 @@ routine: **fleet-manager failsafe wake** · cron 30 */2 * * * · id `trig_014odn
 > the ORDER 003/007 slice (PR #37); **chain fire #2 ~21:00Z = the ORDER 009/010 slice
 > (PR #38, this record)**. F-1 rebind-then-delete cutover recipe held.
 
-last-shipped: #44 — chain slice #3: first review-queue drain pass + roster generation #2 (this PR); siblings just before: #46 ORDER 013 conformed games mapping (Q-0267 frame) · #45 Custom-Instructions owner ruling (UNIVERSAL.md v2) · #43 UNIVERSAL pointer prompts · #42 registry gap closure
+last-shipped: #49 — chain slice #4: codex quota-blocked verdict + dashboard.json ground truth + review-queue groom + owner-signal check (this PR); just before: #44 chain slice #3 (first drain pass + roster gen #2) · #46 ORDER 013 conformed games mapping (Q-0267 frame) · #45 Custom-Instructions owner ruling (UNIVERSAL.md v2) · #43 UNIVERSAL pointer prompts · #42 registry gap closure
 universal-pointer: **OWNER RULING 2026-07-10 (owner chat ~22:15Z): Custom Instructions = FULL per-repo `projects/<repo>/instructions.md` paste per Project (they survive archives — full text always present); the universal pointer survives ONLY as the wake/start-off prompt** — projects/UNIVERSAL.md restructured to v2 (wake block v2 + Custom-Instructions flow section; v1's universal instructions block retracted)
 blockers: none
 
@@ -43,6 +43,37 @@ blockers: none
 > main/master raw 404)**. The Q-0259-era founding-package HOLD is read as RELEASED
 > by Q-0267 (the shaping IS the reaction); package *drafting* proceeds, pasting/boot
 > stays your clicks.
+
+## Chain-slice record — 2026-07-10T~22:50Z fire (chain slice #4, PR #49)
+
+Slice = **@codex response check + review-queue groom + owner-signal check**, per the
+previous heartbeat's work-ladder pointer (top item: check the @codex response):
+
+- **@codex on superbot #1920 — QUOTA-BLOCKED, no substantive answer.** The only reply
+  after our question (4939890801) is chatgpt-codex-connector[bot]
+  [comment 4939891407](https://github.com/menno420/superbot/pull/1920#issuecomment-4939891407)
+  @ 22:03:53Z — **7 seconds after the question**: "You have reached your Codex usage
+  limits for code reviews" (the earlier quota exhaustion confirmed as cause; re-ask
+  post-reset or drain manager-side). **Manager ground truth banked instead (Q-0120
+  style — verified against shipped source):** websites `dashboard/data_source.py` at
+  HEAD `144dfce` validates `meta.schema_version` ONLY for console.json
+  (`console_contract_issue()`); **NO consumer-side check exists for dashboard.json**
+  — the question's premise CONFIRMED for the primary consumer; botsite/in-repo half
+  still owed. Row annotated (`docs/review-queue.md`).
+- **Review-queue groomed:** all 6 remaining open rows re-validated live (every PR
+  exists + merged; head SHA + merged-at stamps per row); drain-path notes added
+  where thin (superbot-games#5 sequenced after #16's verdict; trading#21 partly
+  SUBSUMED by #36's demotion — live remainder = the two undocumented P1 drops;
+  pokemon#8 sha1-chain checkable from committed proof fixtures; gba#12 re-check =
+  dispatch-tier asserts vs compile-only CI). venture-lab#9: lane HEAD still
+  `7558cb2`, fix NOT landed, row open. **Next manager-verify candidate recommended:
+  superbot-games#16** (ORDER 001 P0 CI-collection fix still unexecuted — crisp
+  binary verify). Recommendation only, not executed.
+- **Owner-signal check (read-only): NO on all three.** Main since 17bc193 moved only
+  via agent squashes `ced65b4` (#44) and `94b646d` (#46); **no owner-authored commit
+  touches `projects/UNIVERSAL.md`**; `docs/owner-queue.md` moved only via #46; zero
+  reactions/comments on the #46 conformed-mapping thread. Reported, not acted on.
+- **Inbox at HEAD:** no ORDER newer than 013 (newest = 013, DONE).
 
 ## Package-centralization record — 2026-07-10T~21:45Z (owner dispatch, PR #39)
 
@@ -186,11 +217,13 @@ roster v1, this slice) — the roster is now the sweep's durable home.
 - **ORDER 010 relay:** per-lane template/card checks + the ground-truth self-report
   instruction ride each next lane contact (trading/gba/pokemon/superbot null conventions
   named in the matrix).
-- **Review-queue drain — first pass DONE (this slice):** superbot#1920 drained to
-  @codex (**check the response at next wake** — Q-0120: verify, never obey);
-  venture-lab#9 manager-verified (verdict on the row); trading#36 annotated. Remaining
-  5 codex? rows await a per-repo Codex probe or the next manager batch. fleet-manager
-  Codex env ask still open on PR #26.
+- **Review-queue drain:** first pass done (slice #3); **slice #4 groom: the #1920
+  @codex ask is QUOTA-BLOCKED** (connector-bot refusal 7 s after the question) —
+  re-ask when the Codex quota resets, or count the websites half DONE on the banked
+  manager ground truth (no dashboard.json schema_version consumer — row annotated);
+  botsite/in-repo half still owed. **Next manager-verify candidate: superbot-games#16**
+  (recommended, not executed). Remaining codex? rows await a per-repo Codex probe or
+  the next manager batch. fleet-manager Codex env ask still open on PR #26.
 - **Idea Engine seat:** trigger firing (22:05:22Z last) + repo fresh (~9m at sweep) —
   owner-queue item 0 retirement is safe at next queue touch.
 - **substrate-kit trigger naming:** still "2-hourly standing wake" (pre-Q-0265) — relay
@@ -199,6 +232,6 @@ roster v1, this slice) — the roster is now the sweep's durable home.
 - EAP free window through 2026-07-14; economics ledger banked (#27).
 
 orders: **INBOX CLEAR — no open ORDERs.** 013 DONE (conformed mapping, PR #46) · 012 done (PR #41; superseded as a shape by Q-0267) · 009 DONE (PR #38) · 010 DONE this slice (PR #38) · 011 done (re-arm 20:26Z, PR #37) · 003+007 done (PR #37) · 001+008 done (PR #33) · 002 done (superbot #1954 + PR #32) · 004 done (#27) · 005+006 done (PR #20 + codetool-lab-fable5 #14). Work continues via owner dispatches + the wake ladder (chain pacemaker + failsafe cron), NOT via a parked queue.
-⚑ needs-owner: see docs/owner-queue.md (top: **the package paste wave, item 13 — one sitting, ~6 clicks, sim-lab's Routines-screen failsafe arm is the lane-unblocking one**; **games item 14 — conformed-mapping details react + Seat B repo creation + the superbot-plugin-hello seeded-package push (repo EXISTS but EMPTY)**; venture-lab boot click — 3 ORDERs starving incl. the P0 Stripe fix; product-forge seed set; venture-lab ⚑A + frozen ⚑B/⚑D)
+⚑ needs-owner: **TWO STANDING FLAGS: (1) the games-mapping details react (⚑ OWNER-QUEUE block above, item 14) · (2) the UNIVERSAL.md permissions-grant commit — still awaited: owner-signal check this slice found NO owner-authored commit touching `projects/UNIVERSAL.md` since 17bc193 (main moved only via agent squashes ced65b4/#44 + 94b646d/#46)**; then docs/owner-queue.md (top: **the package paste wave, item 13 — one sitting, ~6 clicks, sim-lab's Routines-screen failsafe arm is the lane-unblocking one**; **games item 14 — conformed-mapping details react + Seat B repo creation + the superbot-plugin-hello seeded-package push (repo EXISTS but EMPTY)**; venture-lab boot click — 3 ORDERs starving incl. the P0 Stripe fix; product-forge seed set; venture-lab ⚑A + frozen ⚑B/⚑D)
 PROMPT REGISTRY: **fleet-manager `projects/` — canonical, v-stamped (v1 · 2026-07-10 on all 39 prompt files); superbot founding-package copies frozen** (superseded-banner PR superbot #1967); one-writer = manager, lanes propose via ⚑/INTAKE; first full trigger snapshot committed at `projects/_inventory/trigger-registry-2026-07-10.md` (114 triggers, 8 wakes + 8 chain links verbatim; substrate-kit [RECONSTRUCTED] resolved; websites v1-era prompt CONFIRMED deployed — v2 re-paste still owed; sim-lab failsafe ARMED seat-side 20:54Z, OA-003 closed; trading failsafe re-armed 21:03Z at 0 */2 registry-verified).
-notes: **operating model = CONTINUOUS (Q-0265) — inbox clear; next chain slices come from the work ladder: check the @codex response on superbot #1920 (verify, never obey) · roster parallel-run + phase-2 decision · gen_roster.py mechanization · remaining review-queue rows (5 codex? — probe or manager batch) · ORDER 010 per-lane relay · substrate-kit trigger cutover relay.** Package registry: **projects/ (README = matrix + paste wave)**. Doctrine at: blueprint (P1–P11 + review-queue + continuous-mode entries), MISSION.md, init-prompt-universal § Current text, playbook R17/R19/R21/R24/**R25 (roster regeneration duty, new this slice)**. Registry: **docs/roster.md (generated, R25)**. Matrix: docs/findings/model-matrix-2026-07.md. Economics: docs/findings/fleet-economics-2026-07.md. Launch record: docs/planning/gen2-launch-record-2026-07-10.md.
+notes: **operating model = CONTINUOUS (Q-0265) — inbox clear; next chain slices come from the work ladder: manager-verify superbot-games#16 (recommended candidate, crisp binary) · roster parallel-run + phase-2 decision · gen_roster.py mechanization · re-ask @codex on #1920 post-quota-reset (websites half already ground-truthed) · remaining review-queue rows (probe or manager batch) · ORDER 010 per-lane relay · substrate-kit trigger cutover relay.** Package registry: **projects/ (README = matrix + paste wave)**. Doctrine at: blueprint (P1–P11 + review-queue + continuous-mode entries), MISSION.md, init-prompt-universal § Current text, playbook R17/R19/R21/R24/**R25 (roster regeneration duty, new this slice)**. Registry: **docs/roster.md (generated, R25)**. Matrix: docs/findings/model-matrix-2026-07.md. Economics: docs/findings/fleet-economics-2026-07.md. Launch record: docs/planning/gen2-launch-record-2026-07-10.md.
