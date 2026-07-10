@@ -1,9 +1,3 @@
-> ⚠️ **UNRENDERED SLOTS BELOW — run `python3 bootstrap.py ask`.**
-> Every `${...}` token in this file is an unfilled interview slot, not
-> project truth. Fill: `bootstrap answer <slot> <value...>`, then
-> `bootstrap render --live` (fills in place and removes this banner).
-> Prose without `${...}` tokens is live guidance already.
-
 # fleet-manager — agent working agreement
 
 > **Status:** `binding`
@@ -14,29 +8,33 @@
 
 ## What this project is
 
-fleet-manager is built in ${primary_language}.
+fleet-manager is built in Markdown docs repo; tooling in Python 3 (stdlib-only bootstrap.py).
 
 ## Orientation — read first, in order
 
 1. This file — the working agreement.
 2. `docs/current-state.md` — what is true right now.
-3. `docs/AGENT_ORIENTATION.md` — the task-specific reading router.
+3. `docs/CAPABILITIES.md` — what sessions here CAN and CANNOT do (verified).
+   Never declare a wall or a missing credential without its discovery rule:
+   check the file → check the env → attempt once + capture the exact error →
+   append the finding same session.
+4. `docs/AGENT_ORIENTATION.md` — the task-specific reading router.
 
 ## Architecture — layers & import rules
 
-${architecture_layers}
+Flat docs repo, no code layers: docs/ (playbook, owner-queue, dispatch-log — manager working memory) + templates/ (worker preamble blocks) + control/ (protocol heartbeat: owner-written inbox.md, manager-written status.md). Program record lives in menno420/superbot docs/eap/, never here.
 
 ## Verifying a change
 
 Run before every push:
 
 ```
-${verify_command}
+python3 bootstrap.py check --strict
 ```
 
 ## How the maintainer works
 
-${owner_profile}
+Non-coder product owner: plain language, decisions pre-chewed (recommendation + default), one deduplicated ask queue in docs/owner-queue.md; asks stay valid until acted on and carry click-level instructions.
 
 ## Workflow adoption
 
