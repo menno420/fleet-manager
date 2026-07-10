@@ -51,6 +51,12 @@ day) unless a later date is noted next to the rule.
 11. **R11 — Orders carry done-when; owner asks carry click-level instructions AND stay
     valid until acted on.** *WHY: the manager once issued a click-list that expired in
     an hour — an ask the owner can't act on tomorrow is not an ask.* (2026-07-09)
+25. **R25 (2026-07-10) — Every manager wake regenerates `docs/roster.md` from the lane
+    heartbeats + live `list_triggers` (commit only on change); a roster stale >24h is
+    dead — trust the heartbeats directly** (ORDER 009, per
+    `docs/proposals/generated-roster-from-heartbeats.md`). *WHY: the hand-stamped
+    manifest froze stale twice in 30 hours; regeneration from the sources the freshness
+    checker already reads kills the staleness class structurally.* (2026-07-10)
 
 ## PLATFORM WALLS (verbatim-class — quote them, don't paraphrase)
 
