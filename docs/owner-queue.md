@@ -291,6 +291,25 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
       no agent write surface (verified walls).
     - UNBLOCKS: every live seat running on committed, current text — closes
       the chat-only/console-only drift class fleet-wide.
+    - **Rider (2026-07-10, permissions directive): paste the NEW v2 bodies.**
+      The permissions-doctrine fold version-bumped every package's
+      instructions + coordinator-prompt to v2 (canonical Permissions &
+      authority block; wording home `projects/UNIVERSAL.md`) — any paste from
+      a v1 body re-deploys the refuse-to-merge stall class the block kills.
+
+14. **product-forge: enable GitHub Pages (games-web publish) — one click,
+    free.**
+    - WHAT: enable GitHub Pages on menno420/product-forge.
+    - WHERE: github.com → product-forge → Settings → Pages.
+    - HOW: set **Source: GitHub Actions**; nothing else.
+    - WHY-IT-MATTERS: publishes games-web at
+      `menno420.github.io/product-forge/` on the next push to main — the
+      deploy workflow is already on main (forge PR #13); only this settings
+      toggle is missing, and repo Settings have no agent write surface.
+    - UNBLOCKS: a live, owner-viewable games-web build on every merge. Free,
+      no spend.
+    - VERIFIED-NEEDED: after the click, the next main push's Pages deploy run
+      goes green and the URL serves.
 
 ## Parked (valid, no rush)
 
