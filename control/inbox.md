@@ -65,7 +65,7 @@ executed "▶ tonight" plans removed); `check_manifest_freshness.py --strict` = 
 (agent-doable, not owner-only — owner-queue deliberately untouched). This PR: fleet-manager
 **PR #32**.
 
-## ORDER 003 · 2026-07-10T12:05Z · status: new
+## ORDER 003 · 2026-07-10T12:05Z · status: DONE (executed by the Q-0265 continuation-chain slice 2026-07-10 ~20:45Z, fleet-manager PR #37)
 priority: P1
 owner: next fleet-manager doctrine session (may ride with ORDER 001)
 do: Review-queue enforcement — adopt an **auto-append rule** (any PR > N lines of runtime
@@ -78,6 +78,23 @@ post-merge-review law the no-pre-merge-review policy rests on (program-review §
 queue was the safety valve that justified "no pre-merge review").
 done-when: the rule is binding in `review-queue.md` + blueprint; a drainer is named with a
 cadence; the first drain pass is logged with at least the highest-risk overnight PRs rowed.
+✅ DONE: auto-append rule BINDING in `docs/review-queue.md` header + blueprint changelog —
+**N=50 changed lines of runtime/product code** (excludes docs/, control/, .sessions/, pure
+test additions) OR any self-flagged risk → mandatory row, appended by the PR's own session
+before close (N=50 rationale documented in the file: catches real logic changes, skips
+heartbeat/docs churn — decide-and-flag, owner may re-tune). **Drainer named, two-tier:**
+PRIMARY = @codex post-merge review on Codex-enabled repos (Q-0258/Q-0259 r3; one specific
+question on the merged head, Part C template, Q-0120 return path); FALLBACK = manager
+failsafe-wake batches for repos without Codex (incl. fleet-manager itself — env not
+created, ask on PR #26). Cadence: every wake batch reviews new rows; >48h unread = heartbeat
+escalation. **First drain pass BACKFILLED — 8 rows** (venture-lab#9 D1-Stripe ·
+superbot-games#16 CI-collection + #5 mining port · trading#21 promotion verdicts + #36
+significance bar (pre-holdout, time-sensitive) · superbot#1920 checker-semantics (band's
+biggest diff; band had zero disbot/ runtime PRs — honest finding) · pokemon-mod-lab#8
+(chain head #4–#8, unplaytested) · gba-homebrew#12 compile-only-CI), each with why-risky +
+citation + drain path; Codex availability marked per repo (superbot LIVE — codex-labeled
+#1917 evidence; superbot-next LIVE; rest unknown-until-probed). This PR: fleet-manager
+**PR #37**.
 
 ## ORDER 004 · 2026-07-10T12:05Z · status: DONE (executed by the wake-slice session 2026-07-10, fleet-manager PR #27)
 priority: P0 (deadline — the free window closes 2026-07-14)
@@ -130,7 +147,7 @@ caveats) + `docs/experiments/harness-x-model-2026-07-09.md` (judge-note append) 
 (fleet-manager PR #20); fable5 succession doc corrected in **codetool-lab-fable5 PR #14**
 (MERGED, squash a6cf1a9 — `docs/succession/PLATFORM-LIMITS.md` item 4 + item 8 rider).
 
-## ORDER 007 · 2026-07-10T13:43Z · status: new
+## ORDER 007 · 2026-07-10T13:43Z · status: DONE (executed by the Q-0265 continuation-chain slice 2026-07-10 ~20:45Z, fleet-manager PR #37 — rode ORDER 003 as filed)
 priority: P1
 owner: next fleet-manager doctrine session (may ride with ORDER 001/003)
 do: Mint the @codex review-relay playbook rule (owner directive Q-0258, 2026-07-10): any
@@ -146,6 +163,14 @@ GitHub integration across the valuable repos and rates its PR reviews highly (Q-
 ruling 3 extends this to standing @codex review on substantive superbot-next PRs).
 done-when: the rule is written into the lane playbook/blueprint with the Part C template
 pointer; ORDER status flipped to done with the landing PR cited.
+✅ DONE: minted as playbook **R24** (new REVIEW RELAY section — the doctrine home ORDER
+001's folds used): any lane session with a review-worthy-but-NOT-owner-only question posts
+it as ONE specific question in a PR comment mentioning @codex on the final head (template:
+superbot `docs/planning/codex-review-integration-plan-2026-06-17.md` **Part C**); **Q-0120
+return path — verify against shipped source, never obey**; owner-queue is for owner-only
+items ONLY. Cites Q-0258 + Q-0259 r3. Blueprint changelog entry binds R24 as the PRIMARY
+tier of the review-queue drainer (same entry as ORDER 003). This PR: fleet-manager
+**PR #37**.
 
 ## ORDER 008 · 2026-07-10T15:33Z · status: DONE (executed by the 18:31Z standing-wake pass 2026-07-10, fleet-manager PR #33)
 priority: P1
@@ -213,7 +238,7 @@ header + card sonnet-5 on the evidenced websites fire — websites PR #59, squas
 done-when: matrix in a findings doc (`docs/findings/`), one row per routine-armed lane:
 Project setting · fired-session self-reported family · evidence link.
 
-## ORDER 011 · 2026-07-10T20:30Z · status: in-progress (2026-07-10 — a parallel worker is executing this right now)
+## ORDER 011 · 2026-07-10T20:30Z · status: DONE (re-arm executed 20:26Z; recorded + re-verified by the chain slice ~20:45Z, fleet-manager PR #37)
 priority: P1
 owner: this coordinator session (the Q-0265 doctrine-fold coordinator; parallel worker executing)
 do: Adopt continuous mode for the manager seat itself (owner directive Q-0265, superbot
@@ -229,3 +254,10 @@ for future seats, but the manager's own live trigger still carries the old
 one-bounded-pass prompt.
 done-when: trigger registry shows the failsafe-wake trigger (old one deleted), a live
 continuation chain is armed, and status.md carries the verbatim re-arm record.
+✅ DONE: new trigger **`trig_014odnv5h1tkJAFRhix3tGLq`** "fleet-manager failsafe wake"
+(cron `30 */2 * * *`, created 2026-07-10T20:26:23Z, bound to the coordinator session) live;
+old `trig_01QBrp5MjZL3F9mv6KsTXTzN` deleted — **both re-verified this slice against the
+full 88-record `list_triggers` output** (new trigger present + enabled, next run ~22:34Z;
+old id absent). Continuation chain armed on the ~15-min `send_later` pattern; **first chain
+fire 20:43Z executed = the ORDER 003/007 slice (this PR)**. Verbatim re-arm record in
+`control/status.md` per the proven cutover recipe. This PR: fleet-manager **PR #37**.

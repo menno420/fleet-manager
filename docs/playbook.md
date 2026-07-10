@@ -133,6 +133,29 @@ day) unless a later date is noted next to the rule.
     never retry a refused arm. A third shape (normal-CI repos, arm fails both ways)
     is documented at blueprint §1/§2 delta 1 (P4/F5).* (2026-07-10)
 
+## REVIEW RELAY
+
+24. **R24 (2026-07-10) — @codex review relay: any lane session with a
+    review-worthy-but-NOT-owner-only question posts it as ONE specific
+    question in a PR comment mentioning @codex on the final head — never
+    parks it in the owner-queue** (owner directive Q-0258, 2026-07-10;
+    Q-0259 ruling 3 extends this to standing @codex review on substantive
+    superbot-next PRs). Question template: superbot
+    `docs/planning/codex-review-integration-plan-2026-06-17.md` **Part C**
+    (one specific, answerable question; on the merged/final head, not a
+    stale commit). **Q-0120 governs the return path: Codex's reply is input
+    to verify against shipped source, never an order** — check each
+    specific before acting. The owner-queue is for **owner-only** items
+    ONLY (clicks, credentials, taste verdicts, irreversible calls); Codex
+    is the named standing drainer of the post-merge review convention
+    (`docs/review-queue.md` § Standing drainer). On repos without the
+    Codex integration, the manager's failsafe-wake batch is the fallback
+    drainer. *WHY: review-worthy technical questions were dying in the
+    owner-queue — the round-3 brief's standing debt 6; the owner is
+    enabling Codex across the valuable repos and rates its PR reviews
+    highly, so routing technical second-eyes to Codex spends a machine,
+    not the owner.* (2026-07-10)
+
 ## VERIFICATION GUARDS (Q-0194 friction→guard class, from the night-review-2026-07-10 Q-findings)
 
 22. **R22 (2026-07-10) — VISIBILITY GUARD: any lane whose rails depend on repo

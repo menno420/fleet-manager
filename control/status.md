@@ -1,23 +1,54 @@
 # fleet-manager · status
-updated: 2026-07-10T20:40:00Z
-phase: GEN-2 FLEET LIVE — standing-wake cadence RUNNING (18:31Z third pass closed below) · **doctrine debt PAID: blueprint amendments P1–P11 applied, MISSION.md on main, init prompt carries the verified routine recipe (ORDER 001)** · Q-0262 owner-rulings batch folded + owner-queue reconciled (ORDER 008) · **Q-0265 CONTINUOUS MODE: doctrine folds landing + manager seat adopting (~20:40Z job below)**
+updated: 2026-07-10T20:55:00Z
+phase: GEN-2 FLEET LIVE — **CONTINUOUS MODE RUNNING (Q-0265): ORDER 011 re-arm DONE, continuation chain HOT — first chain slice (ORDERs 003+007) shipped below** · doctrine debt PAID (P1–P11, MISSION.md, init-prompt recipe — ORDER 001) · Q-0262 batch folded (ORDER 008) · **review-queue enforcement LIVE: binding auto-append + @codex/manager two-tier drainer + 8-row backfill (ORDER 003/007)**
 health: green
 kit: v1.4.0 · check: green · engaged: yes
-coordinator: **LIVE** — session-based coordinator seat booted 2026-07-10 (round-3 pack §1 brief)
-routine: fleet-manager 2-hourly standing wake · cron 30 */2 * * * · armed-by-me (id `trig_01QBrp5MjZL3F9mv6KsTXTzN`) — **three consecutive on-schedule fires: 14:36Z + 16:31Z + 18:31Z (18:31:59Z)**; next run due 2026-07-10T~20:31Z
+coordinator: **LIVE** — session-based coordinator seat booted 2026-07-10 (round-3 pack §1 brief) · operating model CONTINUOUS (Q-0265)
+routine: **fleet-manager failsafe wake** · cron 30 */2 * * * · id `trig_014odnv5h1tkJAFRhix3tGLq` (Q-0265 failsafe-wake pattern — on a cron wake: chain alive → one-line verify + end; chain stalled → resume loop + re-arm) · pacemaker = ~15-min `send_later` continuation chain, **first chain fire 20:43Z executed** (the ORDER 003/007 slice)
 
-> **Arming record (verbatim, 2026-07-10T13:40Z — reproducible recipe, first-class):**
-> Tool: claude-code-remote `create_trigger` (MCP; verified after with `list_triggers`).
-> Args: `name="fleet-manager 2-hourly standing wake"`, `cron_expression="30 */2 * * *"`,
-> `persistent_session_id="cse_01V66KdPhtbR1AThhK77kDqr"` (the coordinator session),
-> `prompt=` the standing 2-HOURLY WAKE text (stored verbatim in the trigger).
-> Result: `{"trigger":{"id":"trig_01QBrp5MjZL3F9mv6KsTXTzN","name":"fleet-manager 2-hourly standing wake","cron_expression":"30 */2 * * *","enabled":true,"next_run_at":"2026-07-10T14:36:04Z", … "persistent_session_id":"session_01V66KdPhtbR1AThhK77kDqr"}}`
-> — no error; the passed `cse_…` id was accepted and normalized to `session_…` form;
-> recurring cron confirmed by the 14:36Z, 16:31Z **and** 18:31Z firings.
-> This recipe is now doctrine: `docs/prompts/init-prompt-universal.md` § Current text.
+> **Re-arm record (verbatim, ORDER 011, Q-0265 cutover — executed 2026-07-10T20:26Z,
+> re-verified by the 20:43Z chain slice):**
+> New trigger created: `trig_014odnv5h1tkJAFRhix3tGLq` · name `"fleet-manager failsafe
+> wake"` · `cron_expression="30 */2 * * *"` · created 2026-07-10T**20:26:23Z** ·
+> `persistent_session_id="session_01V66KdPhtbR1AThhK77kDqr"` (the coordinator) —
+> **verified live**: present + `enabled: true` in the full 88-record `list_triggers`
+> output at ~20:47Z, `next_run_at 2026-07-10T22:34:20Z`.
+> Old trigger `trig_01QBrp5MjZL3F9mv6KsTXTzN` ("fleet-manager 2-hourly standing wake")
+> **deleted — verified gone** (id absent from the same full 88-record listing).
+> Continuation chain: `send_later` pattern, ~15 min per link; **first chain fire 20:43Z
+> executed = the ORDER 003/007 slice (PR #37)**. F-1 rebind-then-delete cutover recipe
+> held (`docs/prompts/init-prompt-universal.md` § Current text).
+>
+> *(Superseded original arming record, 2026-07-10T13:40Z, kept for provenance: tool
+> claude-code-remote `create_trigger`; the passed `cse_…` id was accepted and normalized
+> to `session_…` form; the old trigger fired on schedule 14:36Z + 16:31Z + 18:31Z before
+> the Q-0265 cutover retired it.)*
 
-last-shipped: #33 — 18:31Z wake pass (ORDER 001 doctrine debt + ORDER 008 Q-0262 policies + owner-queue reconciliation)
+last-shipped: #37 — first continuation-chain slice (ORDER 003 review-queue enforcement + ORDER 007 @codex relay R24 + ORDER 011 close-out)
 blockers: none
+
+## Chain-slice record — 2026-07-10T20:43Z fire (first send_later chain slice, PR #37)
+
+Slice = **ORDERs 003 + 007 + 011 close-out**, per the ~20:40Z job's pointer (003 → 007
+riding — they share the Codex-as-drainer core):
+
+- **ORDER 003 DONE:** `docs/review-queue.md` auto-append rule now **BINDING** (>50
+  changed lines of runtime/product code — excl. docs/, control/, .sessions/, pure test
+  additions — OR any self-flagged risk → mandatory row by the PR's own session; N=50
+  rationale documented, decide-and-flag). Standing drainer named **two-tier**: PRIMARY
+  @codex post-merge review (Q-0258/Q-0259 r3, Part C template, Q-0120 return path);
+  FALLBACK manager failsafe-wake batches (fleet-manager itself has no Codex env — ask
+  on PR #26); >48h-unread rows escalate in this heartbeat. **First drain pass
+  backfilled 8 rows** (venture-lab#9 · superbot-games#16 + #5 · trading#21 + #36 ·
+  superbot#1920 · pokemon-mod-lab#8 · gba-homebrew#12) with why-risky + citations;
+  Codex availability marked per repo (superbot LIVE — codex-labeled #1917; superbot-next
+  LIVE; rest unknown-until-probed). Blueprint changelog entry binds the rule.
+- **ORDER 007 DONE:** @codex relay rule minted as playbook **R24** (REVIEW RELAY
+  section) — one specific question, PR comment mentioning @codex on the final head;
+  owner-queue is owner-only items ONLY; Q-0120 return path.
+- **ORDER 011 DONE:** re-arm record above (verbatim, both halves re-verified live).
+- **Time-sensitive row flagged:** trading#36 (significance-bar implementation) should
+  drain **before** the dedicated holdout session spends the one-shot holdout.
 
 ## Doctrine-fold job — 2026-07-10T~20:40Z (Q-0265 continuous mode, MANAGER-ONLY rider)
 
@@ -141,6 +172,6 @@ owner-queue § Resolved 2026-07-10). Routing outcomes: see the doc + PR #31's re
 - Owner morning click-list: **docs/owner-queue.md** (reconciled to Q-0262 this pass; boot-gating clicks now: kit OA8, product-forge repo+Project+check, superbot-plugin-hello repo).
 - EAP free window through 2026-07-14; economics ledger banked (#27).
 
-orders: **011 in-progress (manager adopts continuous mode, Q-0265 — parallel worker executing; filed by the ~20:40Z doctrine-fold job)** · 003 open (review-queue enforcement — next slice) · 007 new (@codex review-relay rule — rides 003 if capacity) · 009 new-P2 (generated roster v1 — future wake, owner may veto) · **010 new-P2 (per-lane model verification sweep — rides the staleness sweep; filed by the ~19:50Z finding job, PR #34)** · **001 DONE this pass (PR #33)** · **008 DONE this pass (PR #33)** · 002 done (superbot #1954 + PR #32) · 004–006 done (004 #27 · 005–006 PR #20 + codetool-lab-fable5 #14)
+orders: **003 DONE this slice (PR #37)** · **007 DONE this slice (PR #37)** · **011 DONE (re-arm 20:26Z; recorded PR #37)** · 009 new-P2 (generated roster v1 — **next chain slice**; owner may veto) · 010 new-P2 (per-lane model verification sweep — rides the staleness sweep; filed PR #34) · 001 done (PR #33) · 008 done (PR #33) · 002 done (superbot #1954 + PR #32) · 004–006 done (004 #27 · 005–006 PR #20 + codetool-lab-fable5 #14)
 ⚑ needs-owner: see docs/owner-queue.md (HOT stack shrank: F-5/holdout/flag-13/seat-6/pokemon all RESOLVED by Q-0262; top remaining: kit OA8 paste, product-forge seed set, superbot-plugin-hello repo, venture-lab ⚑A + frozen ⚑B/⚑D)
-notes: **operating model = CONTINUOUS (Q-0265, ~20:40Z job above): next actions ORDER 003 → 007 → 009 → 010 run via the send_later continuation chain, slice after slice — the cron becomes the failsafe once ORDER 011's re-arm lands.** ORDER 003 (review-queue enforcement: auto-append rule + named standing drainer + first drain pass) then 007 (@codex relay rule — same doctrine surfaces) then 009 (generated roster v1) then 010 (per-lane model verification sweep). Also next: websites second-fire check (escalate if silent) + Idea Engine seat confirm. Doctrine now at: blueprint (P1–P11 applied), MISSION.md, init-prompt-universal § Current text, playbook R17/R19/R21 riders. Launch record: docs/planning/gen2-launch-record-2026-07-10.md. Launch-readiness: docs/launch-readiness-2026-07-10.md (#30). Economics ledger: docs/findings/fleet-economics-2026-07.md.
+notes: **operating model = CONTINUOUS (Q-0265) — chain HOT: next chain slice = ORDER 009 (generated roster v1 per docs/proposals/generated-roster-from-heartbeats.md), then ORDER 010 (model matrix sweep); cron `trig_014odnv5h1tkJAFRhix3tGLq` is the failsafe.** Also next: websites second-fire check (escalate if silent) + Idea Engine seat confirm + first @codex drain of the 8 backfilled review-queue rows (trading#36 time-sensitive, pre-holdout). Doctrine now at: blueprint (P1–P11 + review-queue binding entry), MISSION.md, init-prompt-universal § Current text, playbook R17/R19/R21/R24. Launch record: docs/planning/gen2-launch-record-2026-07-10.md. Launch-readiness: docs/launch-readiness-2026-07-10.md (#30). Economics ledger: docs/findings/fleet-economics-2026-07.md.
