@@ -1545,3 +1545,53 @@ has never been executed. Who created pokemon-mod-lab public, and why, is not
 determinable from available data. The kit-side verifications (Q20/Q21) were
 made by direct grep/read of substrate-kit at `21d3ead` and fleet-manager at
 `41c4250`; both repos move fast, and those facts date to 2026-07-10.
+
+---
+
+## Post-review delta — what moved on main while this review was landing (fm PR #20, merged 2026-07-10 12:11Z)
+
+This review's evidence base is fleet-manager HEAD `41c4250`. While it was
+being composed, PR #20 (round-3 brief §1 task 1) merged. Honest
+reconciliation, so the doc is not stale on arrival:
+
+1. **Q22 (b) upgrades, and (a) strengthens.** A SECOND routines correction
+   landed: the in-Project self-arm mechanism is now **verified** — the
+   claude-code-remote scheduling tools (`create_trigger` / `send_later`
+   family) — and **seat-dependent** (owner screen recordings 11:01Z/11:04Z:
+   two ACTIVE "Created by Claude" routines firing). "Recipe pending" is
+   retired, so email item (b)'s hold condition is satisfied sooner than
+   predicted — the surface matrix can be assembled now. Better: seat
+   dependence is now documented in **two independent tool families** (the
+   merge classifier and the scheduling tools), which upgrades item (a) from
+   "one classifier misbehaves" to a platform-level per-seat-inconsistency
+   pattern. The "owner console lacks a Schedules pane" cell also narrows to
+   per-device (the pane exists on the owner's mobile browser).
+2. **Q15's missing mechanism now partially exists — manager-side.** The six
+   standing debts became ORDERs 001–006 in the manager's own
+   `control/inbox.md`, each with a named next-session owner + done-when; two
+   executed in the same PR. The websites NO-ACK orphan this review cited is
+   retired — and the correction cuts deeper than the debt: **websites had in
+   fact acked** (websites PR #44, landed→ack +1h39m); the "❌ NO ACK" row
+   itself was false narration, a fresh specimen for Q23's inventory. The
+   review-queue drainer (F10) is now ORDER 003. Still missing from the Q15
+   mechanism: the checker enforcement and the standing drain cadence — the
+   ORDERs are the format half, on one repo.
+3. **Q25's ledger has an owner now, still no data.** The fleet economics
+   ledger is inbox ORDER 004, P0, assigned to "the next session of ANY kind,"
+   deadline before 2026-07-14 — consistent with this review's 07-12
+   commitment. Not built as of this landing.
+4. **Q26-3 strengthens.** The scheduled deep-review layer's gate (self-armed
+   routines) is now mechanism-verified, and the round-3 launch pack's
+   "standing autonomous core" (four permanent ~2-hourly Projects) is the
+   natural host for it.
+5. **A gen-3 gate now exists** — no lane relaunch until the owner has seen a
+   consolidated "state of the fleet + gen-3 delta" report. This review, and
+   specifically its "Recommendations before scaling" section, is written as
+   an input to exactly that gate.
+
+**What #20 does *not* change:** Q11's verdict stands at the new HEAD — the
+capabilities DISCOVERY RULE still has no required surface field, and the fm
+ledger's release-wall entry is still unabsorbed (#20 fixed the
+codetool-lab-fable5 copy of that contradiction, not the fm ledger's). Q16
+(all repos public), Q2/Q6 (venture-lab D1–D3), Q7 (the 73/121 CI gap), Q12,
+Q17, Q19, and Q20/Q21 (kit state at `21d3ead`) are untouched.
