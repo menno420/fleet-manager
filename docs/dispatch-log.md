@@ -225,3 +225,20 @@ prompt, and the external review pack are logged above; review pack ref: sb#1903
 - Also expected: owner tests the three websites today — a suggestions ORDER
   for the websites lane will follow; treat his notes as product feedback with
   priority.
+## 2026-07-10 — midday (night-review audit landing)
+
+- Commissioned night review LANDED (this PR) — 26-question audit of the first
+  fully-autonomous night, answered against the eight HEAD-verified discovery
+  digests + live API checks: `docs/findings/night-review-2026-07-10.md`
+  (exec summary, full Q&A, send-ready Anthropic-email items, ranked
+  recommendations, "Where we were lucky"). Headline catches requiring action:
+  venture-lab ⚑B invites publishing a product whose headline Stripe claim has
+  never executed and near-certainly fails (D1) → ⚑B is "DO NOT publish yet"
+  until the ~1h fix session; superbot-games substrate-gate collects 73 of 121
+  tests (one-line fix named); pokemon-mod-lab is PUBLIC against its "no
+  exceptions" PRIVATE rail — all 13 account repos are public (owner decision
+  this week: flip private vs. amend the rail). Must-land-before-scaling set
+  (3): visibility/rails structural guard (kit v1.8.0), truth-boundary rule on
+  owner asks (next blueprint pass, with the R21 rewrite), scheduled
+  deep-review layer (self-armed fm routine). Economics-ledger commitment:
+  2026-07-12, else no new lanes after 07-14.
