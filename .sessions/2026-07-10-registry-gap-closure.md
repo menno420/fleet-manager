@@ -55,3 +55,20 @@ before the flip; flip last; REST squash on green substrate-gate.
   registry read — fix-on-sight); worktree isolation after a mid-flight branch switch by a
   parallel worker in the shared checkout (process note for the coordinator: shared-checkout
   workers should always work from `git worktree` copies).
+
+## Session enders
+
+- 💡 **Session idea:** add a manager-runnable **registry drift checker**
+  (`tools/check_prompt_registry.py`): re-run `list_triggers`, byte-compare every enabled
+  fleet-seat stored prompt against the seat's `failsafe-prompt.md` deployed-state block and
+  the `_inventory/` snapshot, and fail loud on any new mismatch — turning this pass's
+  one-off byte-verification into a repeatable sweep step (enforce, don't exhort; the
+  registry read is cheap and the mismatch class is now proven real: 4 of 8 wakes had
+  drifted from their committed claims).
+- ⟲ **Previous-session review:** the package-centralization assembly (PR #39) landed an
+  impressively complete 18-dir registry in one pass, and its honesty notes ([RECONSTRUCTED],
+  "text-equality unverified") are exactly what made this gap-closure mechanical — but it
+  stopped one step short of running `list_triggers` itself, leaving 4 verifiable claims
+  unverified for a follow-up PR. **Workflow improvement:** when a registry claim is
+  checkable by a single tool call available in-session, verify it in the same PR that
+  commits the claim — an honesty note should be the fallback, not the default.
