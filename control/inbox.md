@@ -56,7 +56,7 @@ queue was the safety valve that justified "no pre-merge review").
 done-when: the rule is binding in `review-queue.md` + blueprint; a drainer is named with a
 cadence; the first drain pass is logged with at least the highest-risk overnight PRs rowed.
 
-## ORDER 004 · 2026-07-10T12:05Z · status: new
+## ORDER 004 · 2026-07-10T12:05Z · status: DONE (executed by the wake-slice session 2026-07-10, fleet-manager PR #27)
 priority: P0 (deadline — the free window closes 2026-07-14)
 owner: next fleet-manager session of ANY kind (deadline jumps the queue)
 do: Build the **fleet economics ledger** BEFORE 2026-07-14: per-lane session/run counts and
@@ -67,6 +67,13 @@ why: the free window closes 2026-07-14 with zero cost data collected; the §2a c
 was built on zero cost data (program-review §8 names this the time-critical unbuilt idea).
 done-when: ledger on main before 2026-07-14 with per-lane counts + a cost-signal column,
 honest nulls included; owner-queue/status point at it.
+✅ DONE: `docs/findings/fleet-economics-2026-07.md` landed (fleet-manager PR #27, wake-slice
+session 2026-07-10T14:44Z) — per-lane table across all 13 repos (merged PRs window+all-time,
+default-branch commits, session cards, total Actions runs as the CI-minutes proxy, routine
+state), honest nulls for CI-minutes/token/$ (not agent-visible — recorded "not measurable",
+never invented), top-3 heaviest lanes + cadence-vs-activity outliers; findings README indexed.
+`control/status.md` deliberately untouched by this PR — the owner-queue/status pointer rides
+the coordinator's next heartbeat.
 
 ## ORDER 005 · 2026-07-10T12:05Z · status: DONE (executed in the PR that filed it)
 priority: P1
