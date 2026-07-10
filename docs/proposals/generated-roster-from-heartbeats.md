@@ -1,6 +1,6 @@
 # Proposal — generated fleet roster from lane heartbeats
 
-> **Status:** `proposed` — filed 2026-07-10T16:4xZ by the 16:31Z standing-wake pass
+> **Status:** `plan` — filed 2026-07-10T16:4xZ by the 16:31Z standing-wake pass
 > (ORDER 002 part 2). Routed as **fleet-manager inbox ORDER 009** (decide-and-flag:
 > implement v1 at a future manager wake; owner may veto). Provenance: superbot
 > `docs/eap/eap-program-review-2026-07-10.md` §6.2 (generated roster) + §5.4
