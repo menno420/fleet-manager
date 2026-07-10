@@ -52,7 +52,7 @@
 > ("no scheduler primitive exists") is narrowed — the claude-code-remote
 > `create_trigger`/`send_later` family IS the verified scheduler primitive
 > (seat-dependent, §2a rider), so the watchdog gate now keys on that boot
-> probe; P8's model line is additionally bound by the Q-0262.4 fleet policy
+> probe; P8's model line is additionally bound by the Q-0262 model-line fleet policy (ORDER 008 policy 1)
 > (family-level model names ONLY, exact IDs never — same PR, ORDER 008).
 > **Q-0262 fleet policies folded same pass (ORDER 008):** model-line policy
 > (§1 Model line), instruction-package deployment hold (§4), OWNER-ACTION
@@ -155,10 +155,10 @@ classes before the first order fires.
 - [ ] **Model + time line on every session card from card #1** — no
       grandfather backfills; identity not written at the moment of work is
       unrecoverable (proven independently by 3 lanes). Respect the program's
-      committed-file naming policy per repo. **Amended (P8, F18 + Q-0262.4,
+      committed-file naming policy per repo. **Amended (P8, F18 + Q-0262 policy 1,
       2026-07-10):** the model line is **family-level ONLY** (e.g. fable-5,
       opus-4.8; exact model identifiers **never** appear in any committed
-      artifact — fleet policy Q-0262.4, which also un-nulls trading's model
+      artifact — fleet policy Q-0262 / ORDER 008 policy 1, which also un-nulls trading's model
       rows). Where session policy withholds even the family name, write the
       **literal token "withheld per session policy"** — never guess, never
       omit silently; the owner maintains the lane→model mapping. This makes
@@ -438,7 +438,7 @@ is misfiled — re-tier it.
   candidate — `prompts/venture-lab-draft.md`).
 - A gen-1 lane may be upgraded to gen-2 seed state **only at a natural
   boundary** (mission complete / repo reset), never mid-mission.
-- **Instruction-package deployment hold (fleet policy Q-0262.5, 2026-07-10):**
+- **Instruction-package deployment hold (fleet policy Q-0262 / ORDER 008 policy 3, 2026-07-10):**
   the 8 undeployed instruction packages in
   [`proposals/instructions/`](proposals/instructions/) **STAY undeployed
   until the gen-3 blueprint delta lands**; then re-base every package on the

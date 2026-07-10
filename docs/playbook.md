@@ -81,7 +81,7 @@ day) unless a later date is noted next to the rule.
     WHAT/WHERE/HOW/WHY/UNBLOCKS in plain language.** Owner feedback: many fleet asks
     were assumption-based or too complicated to act on. *WHY: unnecessary asks are the
     most expensive failure — they spend the owner.* (2026-07-09)
-    *Rider (2026-07-10, fleet policy Q-0262.2 via inbox ORDER 008): the OWNER-ACTION
+    *Rider (2026-07-10, fleet policy Q-0262 / ORDER 008 policy 2): the OWNER-ACTION
     field grammar is standardized fleet-wide — **substrate-kit's field set wins by
     definition** (the kit's `owner-action-fields` advisory tokens are the canonical
     form); a lane using a divergent form (venture-lab's `WHY`/`VERIFIED-WHEN`)
