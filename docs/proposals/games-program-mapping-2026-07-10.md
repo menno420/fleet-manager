@@ -1,5 +1,10 @@
 # Games-program mapping proposal (Q-0259 r.5 · ORDER 012)
 
+> **⛔ SUPERSEDED AS A SHAPE (2026-07-10, superbot router Q-0267 — the owner shaped the
+> mapping himself):** the live mapping is **[`games-program-mapping-conformed-2026-07-10.md`](games-program-mapping-conformed-2026-07-10.md)**
+> (ORDER 013); only this doc's #1920 findings (§0), game-state-feed evidence (§2), and the
+> GBA-lane rows carry forward.
+
 > **Status:** `plan` — ⚑ OWNER-REVIEW. Committed 2026-07-10 per the owner dispatch
 > (~21:4xZ; ORDER 012 in `control/inbox.md`). One proposed mapping, decide-and-flag;
 > alternatives one line each. **FOUNDING PACKAGES DEFERRED until the owner reacts**

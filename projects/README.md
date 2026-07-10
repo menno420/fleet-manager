@@ -102,6 +102,12 @@ no paste record) · **n-a** (deliberately absent).
 
 ## Paste wave — what the owner pastes NOW vs what rides a boot
 
+**Paste shape (owner ruling 2026-07-10):** every instructions paste below is
+the **FULL `projects/<repo>/instructions.md` body** into that Project's Custom
+Instructions field (version-stamped — never the universal pointer); wake /
+start-off messages use the **universal wake block** in
+[`UNIVERSAL.md`](UNIVERSAL.md).
+
 **NOW (console/chat pastes + one Routines-screen arm) — the click-level list
 is the consolidated owner-queue item ("Project package paste wave"):**
 
@@ -147,18 +153,24 @@ is the consolidated owner-queue item ("Project package paste wave"):**
   failsafe texts, never executed.
 - **Archives / pre-birth** — nothing to paste by definition.
 
-## Universal pointer prompts
+## Universal wake prompt + Custom Instructions flow
 
-[`UNIVERSAL.md`](UNIVERSAL.md) holds the owner's **universal pointer prompts**
-— one Custom-Instructions block + one wake block pasted **identically into
-every Project**, so the owner pastes one text everywhere instead of matching
-prompts to projects: the Project's repo attachment tells the session which
-`projects/<repo>/` dir is its own, and the paste only points it at this
+**Owner ruling 2026-07-10 (recorded in [`UNIVERSAL.md`](UNIVERSAL.md), v2):
+Custom Instructions are pasted COMPLETE per Project** — the field gets the
+FULL `projects/<repo>/instructions.md` body, version-stamped, because Custom
+Instructions survive chat archives and the full text should always be present.
+Flow: edit the registry file first → bump its `vN` header → owner re-pastes
+the full body; drift check = ask the seat to quote its version header.
+
+The **universal pointer survives only as the wake/start-off prompt**:
+[`UNIVERSAL.md`](UNIVERSAL.md) holds ONE wake block pasted **identically into
+every Project** — the Project's repo attachment tells the session which
+`projects/<repo>/` dir is its own, and the wake only points it at this
 registry (raw fetches + quotable version headers). The per-repo packages above
-stay the **canonical content** — the universal blocks are pointers, never a
-replacement. Private-repo caveat: this works because fleet-manager is
-**public**, so the `raw.githubusercontent.com` fetches resolve from any seat
-without credentials.
+stay the **canonical content**. Private-repo caveat: the wake's raw fetches
+work because fleet-manager is **public**, so `raw.githubusercontent.com`
+resolves from any seat without credentials. (v1's universal
+Custom-Instructions pointer block is **retracted** by the ruling above.)
 
 ## Provenance
 
