@@ -44,6 +44,20 @@ frontmatter keeps the score.
 
 (Captured ideas, each with a state and a next destination — none left at `raw`.)
 
+### 2026-07-10 cohort — Fable-5 fleet review (verified corpus findings)
+
+Agent-originated, adversarially verified against the repos at HEAD before
+capture (review synthesis:
+[`../findings/fable5-review-2026-07-09.md`](../findings/fable5-review-2026-07-09.md));
+**none approved** — captured for routing.
+
+- [Review-queue drainer (post-merge review needs an owner)](review-queue-drainer-2026-07-10.md) —
+  `captured` · quick-win candidate (wake-routine step) or reviewer-lane → structured plan
+- [Lane-seeder automation (one run lands the full §1 seed state)](lane-seeder-automation-2026-07-10.md) —
+  `captured` · structured plan (kit-verb half routes to substrate-kit's backlog)
+- [Fleet economics ledger (cost line + cadence re-derivation before 07-14)](fleet-economics-ledger-2026-07-10.md) —
+  `captured` · quick-win candidate (telemetry line now, ledger routine next)
+
 ### 2026-07-09 cohort — owner-decided (night)
 
 - [game-lab — two-track GBA venture](game-lab-2026-07-09.md) —
