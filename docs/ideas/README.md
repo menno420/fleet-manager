@@ -44,6 +44,13 @@ frontmatter keeps the score.
 
 (Captured ideas, each with a state and a next destination — none left at `raw`.)
 
+### 2026-07-10 cohort — morning consolidation
+
+- [GBA play-through-Discord (mGBA headless + PIL frames + button-row controller)](gba-play-discord-2026-07-10.md) —
+  `captured` · structured plan when picked up (superbot-next plugin band or
+  games-plugins lane); rides the proven scout loop; homebrew public /
+  commercial private-guild-only rails
+
 ### 2026-07-10 cohort — Fable-5 fleet review (verified corpus findings)
 
 Agent-originated, adversarially verified against the repos at HEAD before

@@ -93,8 +93,25 @@ all three routes proven (`docs/findings/gba-toolchain-proof-2026-07-09.md`):
 
 - **Tag push, GitHub Release creation, remote branch deletion** — fail with **403 at the
   credential layer** → owner action required. Queue it in `docs/owner-queue.md` per R16/R17.
-- **Creating/editing claude.ai environments, routines, or Projects** — no API surface for
-  the agent → **owner clicks** in the claude.ai UI.
+- **Creating/editing claude.ai environments or Projects** — no API surface for
+  the agent → **owner clicks** in the claude.ai UI. (Routines are worse — see the
+  both-sides wall below.)
+- **Routine/trigger creation is unavailable on BOTH sides** (verified 2026-07-10):
+  agent-side, self-arm attempts failed fleet-wide with recorded errors (create_trigger /
+  trigger-binding rejections — the cross-session messaging wall below records the verbatim
+  class); owner-side, **this owner account's console lacks the routine/schedule option**
+  (checked at the 2026-07-10 ~02:05Z paste session). There is currently NO way to arm a
+  wake routine at all. **Wake substitute:** timed watch workers (blocking foreground waits,
+  R4) + a morning "continue"/boot message per Project; lanes operate **self-terminal**
+  (every session leaves its work safe with no future wake needed). Re-test occasionally —
+  if the platform ships the surface, owner-queue item 7 re-promotes to a click.
+- **claude.ai Project "Custom Instructions" field caps at 8,000 characters** (verified
+  2026-07-10 ~02:05Z): two ~9k founding packages (websites 9,209 chars; trading-strategy
+  8,980 chars) overflowed at paste and had to be re-trimmed live. **Recipe:** keep every
+  founding text ≤7,500 chars (headroom for future edits); cut repetition and asides, never
+  rules/rails/walls. The fitted texts actually deployed are recorded in
+  `docs/proposals/instructions/{websites,trading-strategy}.md` § "Deployed fitted version" —
+  fit new packages BEFORE handing the owner a paste.
 - **Direct self-merge of own PRs in established repos** — blocked by the classifier
   (**"[Self-Approval]…Merge Without Review"**). **Arming auto-merge while checks are
   pending is the sanctioned path** — the wall blocks the direct merge call, not the arm.
