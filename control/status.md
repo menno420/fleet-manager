@@ -1,10 +1,10 @@
 # fleet-manager · status
-updated: 2026-07-10T16:02:00Z
-phase: GEN-2 FLEET LIVE — standing-wake cadence RUNNING (14:36Z pass closed below; overnight launch 00:00–06:15Z: **116 PRs merged fleet-wide, zero stuck** — full record: docs/planning/gen2-launch-record-2026-07-10.md) · launch-readiness pass CLOSED (owner dispatch, section below)
+updated: 2026-07-10T16:45:00Z
+phase: GEN-2 FLEET LIVE — standing-wake cadence RUNNING (16:31Z second pass closed below; overnight launch 00:00–06:15Z: **116 PRs merged fleet-wide, zero stuck** — full record: docs/planning/gen2-launch-record-2026-07-10.md) · round-3 opening prerequisite CLEARED (superbot #1948 MERGED 16:01:56Z by the owner)
 health: green
 kit: v1.4.0 · check: green · engaged: yes
 coordinator: **LIVE** — session-based coordinator seat booted 2026-07-10 (round-3 pack §1 brief)
-routine: fleet-manager 2-hourly standing wake · cron 30 */2 * * * · armed-by-me (id `trig_01QBrp5MjZL3F9mv6KsTXTzN`) — **FIRED ON SCHEDULE 2026-07-10T14:36Z, recurring confirmed by the firing itself**; next run due 2026-07-10T~16:31Z
+routine: fleet-manager 2-hourly standing wake · cron 30 */2 * * * · armed-by-me (id `trig_01QBrp5MjZL3F9mv6KsTXTzN`) — **two consecutive on-schedule fires: 14:36Z + 16:31Z (16:32:01Z)**; next run due 2026-07-10T~18:31Z
 
 > **Arming record (verbatim, 2026-07-10T13:40Z — reproducible recipe, first-class):**
 > Tool: claude-code-remote `create_trigger` (MCP; verified after with `list_triggers`).
@@ -13,102 +13,81 @@ routine: fleet-manager 2-hourly standing wake · cron 30 */2 * * * · armed-by-m
 > `prompt=` the standing 2-HOURLY WAKE text (stored verbatim in the trigger).
 > Result: `{"trigger":{"id":"trig_01QBrp5MjZL3F9mv6KsTXTzN","name":"fleet-manager 2-hourly standing wake","cron_expression":"30 */2 * * *","enabled":true,"next_run_at":"2026-07-10T14:36:04Z", … "persistent_session_id":"session_01V66KdPhtbR1AThhK77kDqr"}}`
 > — no error; the passed `cse_…` id was accepted and normalized to `session_…` form;
-> recurring cron (not one-shot) confirmed in the `list_triggers` output — **and now by the
-> 14:36Z firing itself (see wake record below).**
+> recurring cron confirmed by the 14:36Z **and** 16:31Z firings.
 
-last-shipped: #30 — launch-readiness checklist (Q-0261 finalize-first, 13 seats, owner-queue synced)
+last-shipped: #32 — 16:31Z wake pass (ORDER 002 done: manifest re-stamp via superbot #1954 + generated-roster proposal + ORDER 009 filed)
 blockers: none
+
+## Wake record — 2026-07-10T16:31Z (second standing-wake pass)
+
+Routine fired on schedule at 16:32:01Z (second consecutive fire). Slice = **ORDER 002**
+(per the 14:36Z pass's next-wake pointer). What this pass did:
+
+- **ORDER 002 EXECUTED — fleet-manifest re-stamped to post-launch reality:** superbot
+  **PR #1954** (auto-merge armed on green Code Quality) rewrote EVERY row of
+  `docs/eap/fleet-manifest.md` from verified evidence (launch-readiness-2026-07-10 +
+  live `list_triggers` + per-repo `control/status.md` `updated:` fetch — no Last-seen
+  invented); added missing rows (pokemon-mod-lab, gba-homebrew, games-plugins merged
+  lane, mobile-lab); renamed trading-lab → trading-strategy; removed all executed
+  "▶ tonight" plans. `check_manifest_freshness.py --strict` = **13/13 FRESH, 0 stale**.
+- **Generated-roster proposal filed** (`docs/proposals/generated-roster-from-heartbeats.md`)
+  and routed as **inbox ORDER 009** (implement v1 at a future wake; decide-and-flag,
+  owner may veto) — kills the manifest-staleness class structurally (program-review §6.2).
+- **websites first-fire verdict: FIRED.** `trig_017H9Qb9oxtLgUy6sw2gnSHg`
+  `last_fired_at=2026-07-10T16:01:32Z`, `next_run_at=20:01Z` (live `list_triggers`).
+  Repo heartbeat commit not yet landed at check time (~16:35Z; fresh-session likely
+  still working) — next wake confirms the woken session's commit.
+- **substrate-kit F-1 cutover OBSERVED DONE:** old hourly `trig_01FnqnAQjLU2T8d16iHwWQ2h`
+  is GONE from the trigger registry; new **"substrate-kit 2-hourly standing wake"**
+  (`trig_016EfUawz6KxEYqUM6f1BqDw`, cron `0 */2 * * *`, armed 15:53:36Z) **fired
+  16:02:43Z** and the fresh seat heartbeat landed (kit status `updated: 16:17:12Z`,
+  HEAD 2ba610a 16:29Z) — the kit seat is LIVE past its boot gate; the launch-readiness
+  seat-2 boot-gating items are being consumed by the seat itself.
+- **superbot PR #1948 MERGED** 2026-07-10T16:01:56Z by the owner (merge 658d29e6) —
+  Q-0260/Q-0261 + the founding packages are ON MAIN; the round-opening prerequisite
+  and the launch-readiness caveat-1 are cleared.
+- **Inbox delta at HEAD:** ORDER 008 (Q-0262 owner-rulings batch, appended 15:33Z by the
+  owner dispatch session) found NEW — doctrine work, rides the next doctrine session
+  with 001/003/007.
+- **Trading lane live:** trading-strategy status `updated: 16:21:48Z`, HEAD e713abb —
+  ORDER 007 lane sessions dispatched and progressing (holdout stays SEALED; unlock
+  ORDER 008 @ fd5e9fe sequences after 007).
 
 ## Launch-readiness pass — 2026-07-10 (owner dispatch)
 
-Owner-dispatched pass, now CLOSED. Deliverable: **`docs/launch-readiness-2026-07-10.md`**
+Owner-dispatched pass, CLOSED. Deliverable: **`docs/launch-readiness-2026-07-10.md`**
 (merged PR #30, squash 7af63f8) — the Q-0261 finalize-first checklist across all 13 seats,
-owner-queue synced. Totals for the record:
+owner-queue synced. Totals: **38 OWNER-CLICK** (5 boot-gating) · **11 DECISION** ·
+**47 AGENT-DOABLE** (2 boot-gating agent items: superbot-next ORDER 008, superbot-games
+ORDER 001). ~~Round-opening prerequisite: merge superbot PR #1948~~ **DONE 16:01:56Z.**
+Routing outcomes + Codex-integration finding: see the doc + PR #31's record.
 
-- **38 OWNER-CLICK** items, of which **5 boot-gating**: kit OA8, Idea Engine Project,
-  product-forge repo + Project + check.
-- **11 DECISION** items.
-- **47 AGENT-DOABLE** items, of which **2 boot-gating agent items**: superbot-next
-  ORDER 008, superbot-games ORDER 001 (CI-collection).
-- **Round-opening prerequisite:** merge superbot **PR #1948** (Q-0261 material is
-  branch-only at 9b35fc46 until it lands).
+## Lanes (current, one line each — verified at the 16:31Z wake pass)
 
-### Routing outcomes (this pass)
-
-- **superbot-next ORDER 010** (@codex rule, Q-0259 r3) — landed PR #103, squash b63b933.
-- **superbot-games ORDER 002** (self-arm wake) — landed PR #21, squash adb5f9b.
-- **trading holdout-unlock relay** — **MOOT**: the owner dispatch session already landed it
-  as trading ORDER 008 @ fd5e9fe (Q-0262.2).
-- **websites OA12 relay** — **MOOT**: websites done=001–008 at d493792 — kit OA12 is
-  retirable by its fresh seat.
-- ⚠️ The owner-attended dispatch session is landing Q-0262 ORDERs **in parallel**
-  (trading 008, superbot-next 009, kit 011 ~15:33Z) — **always re-derive inbox numbers
-  at HEAD** before routing.
-
-### Finding — Codex GitHub integration (feeds ORDER 007)
-
-Confirmed **LIVE on superbot-next**: the `chatgpt-codex-connector` bot auto-reviewed
-PR #103 (clean). **NOT enabled on fleet-manager** — the bot asked for environment
-creation on PR #26. Relevant to ORDER 007 (@codex review-relay rule).
-
-## Wake record — 2026-07-10T14:36Z (first standing-wake pass)
-
-Routine `trig_01QBrp5MjZL3F9mv6KsTXTzN` fired on schedule — the arming record above is
-a **verified recurring** recipe, not just a one-shot proof. What that pass did (compressed;
-full close-out on PR #28):
-
-- **Fleet-wide session-ender sweep** — 13 repos, verified against git (verdicts below).
-- **ORDER 004 executed** — fleet economics ledger @ `docs/findings/fleet-economics-2026-07.md`
-  (PR #27, squash 070f8e6). Headline: fleet window 07-08→07-10 = **566 merged PRs /
-  937 commits / 230 session cards / 19,892 all-time Actions runs**, superbot ≈92% of runs;
-  CI minutes + tokens not measurable (honest nulls).
-- **venture-lab archive-ender ORDER routed** (the ENDER-MISSING fix) — venture-lab PR #12,
-  squash af11bdb.
-- **Stray PR #25 verified + merged** (ab63610) — pokemon-mod-lab **PRIVATE flip confirmed
-  via API**; the owner-queue 🚨 URGENT item is retired.
-
-### Ender-sweep verdicts (one line each)
-
-- **ENDER-VERIFIED:** trading-strategy (#34 13:49Z) · websites (#58 13:57Z) · substrate-kit (#125 14:19Z) · superbot-games (#19/#20 13:49–13:53Z)
-- **CLEAN-MORNING-ENDER** (terminal, pre-request): pokemon-mod-lab (b5b8ed6 07:50Z) · gba-homebrew (6e18b24 07:18Z)
-- **ENDER-MISSING:** venture-lab (heartbeat stale 04:57Z; boot ORDER routed — PR #12 above) · superbot-next (status 01:05Z mid-mission band-5, no close-out)
-- **PARTIAL:** superbot (close-out #1949 landed; PR #1948 open = owner-attended live dispatch session, not a stuck PR — now the Q-0261 round-opening prerequisite, see launch-readiness section)
-- **N/A-CLOSED:** codetool ×3 (wind-down 07-09; fable5 a6cf1a9 12:07Z was the expected ORDER-006 succession fix)
-- Owner informed: **10/13 archive-ready.**
-
-Next wake due **~2026-07-10T16:31Z** · planned slice: advance **ORDER 002** (manifest
-re-stamp — most-wrong rows venture-lab + trading-lab) **+ verify the websites 16:00Z
-first-fire happened**.
-
-## Lanes (current, one line each — verified at the 14:36Z wake pass; launch-readiness deltas folded in)
-
-- **venture-lab** (gen-2 pilot, live) — 9 PRs landed; 2 sellable products with buyer zips ON MAIN (#9 merged 05:11:50Z: membership-kit v0.2 + template-packs v0.1 + $59 bundle listing); revenue is owner-gated on ⚑A–D (owner-queue item 2). **⚑B/⚑D publish clicks FROZEN 2026-07-10 (night-review D1: headline Stripe path never executed, near-certain live failure) — unfreeze rides the P0 fix ORDER (dispatched) landing with a real-path test.** Heartbeat was stale (04:57Z) at the wake sweep — archive-ender boot ORDER routed (venture-lab PR #12, af11bdb).
-- **game-lab Track A / pokemon-mod-lab** (gen-2, live, **PRIVATE — flip confirmed via API at the 14:36Z pass; the 🚨 URGENT owner-queue item is retired**) — ORDER 001 done (#2/#3: retail-match build + dialogue mod + headless proof); QoL+ increments 1–4 shipped (#4–#7); clean morning ender b5b8ed6 07:50Z. Owner: playtest pass + concept pick (owner-queue items 3–4).
-- **game-lab Track B / gba-homebrew** (gen-2, live, public) — ORDER 001 done (#3 skeleton); Lumen Drift scope-complete through increment 3 + polish passes; clean morning ender 6e18b24 07:18Z (terminal). Owner: concept pick (owner-queue item 4).
-- **substrate-kit / kit-lab gen-2** (live) — overnight run: 12 build PRs (#84–#108 band), 814 tests green, night-cap #109/#110 reconciled; ender verified (#125 14:19Z). **Queue DRY**; the HOT owner item is the F-5 one-letter ruling (owner-queue item 1); P10 check swap + P4 daily loop queued; kit OA8 is a boot-gating OWNER-CLICK (launch-readiness); OA12 retirable (websites relay MOOT, see routing outcomes); kit ORDER 011 landing in parallel from the owner session (~15:33Z).
-- **trading-strategy gen-2** (live) — P1 (3 lanes, 590 configs) → P2 validation (14 verdicts, **1 promoted candidate: AAPL-donchian 15/5 daily**) → P3/P4 hardening + transfer (13/13 TRANSFER-FAILED, honestly ledgered) → P5 prep done (#30, pre-registered holdout protocol); ender verified (#34 13:49Z). Holdout unlock: **landed as trading ORDER 008 @ fd5e9fe by the owner session (Q-0262.2)** — the coordinator relay was MOOT.
-- **websites gen-2** (live) — ORDER 005 (the gen-1 trap) + ORDER 007 DONE (#50–#54): /queue + /environments shipped, skeleton proven; ender verified (#58 13:57Z); done=001–008 at d493792. Verify the 16:00Z routine first-fire at next wake.
-- **superbot** — #1915–#1926 landed (manifest un-drift, collision guard, claim visibility, dashboard feed, recon pass; **#1926 corrections MERGED 06:33Z**); close-out #1949 landed; PR #1948 open = owner-attended live dispatch session **and the Q-0261 round-opening prerequisite** (material branch-only at 9b35fc46 until merged).
-- **superbot-next** — stays gen-1 MID-MISSION (band 5 live-testing); overnight #98/#99 only (heartbeat + ideas seed); status 01:05Z, no close-out (ender-missing — watch). **ORDER 010 (@codex rule) landed PR #103 squash b63b933 this pass**; ORDER 009 landing in parallel from the owner session; ORDER 008 is a boot-gating agent item (launch-readiness). Grants still queued (parked).
-- **codetool arms ×3** — Projects → CLOSE; repos stay (disposition, launch record §2); fable5 a6cf1a9 12:07Z was the expected ORDER-006 succession fix, nothing new owed.
-- **superbot-games / games-plugins gen-2 lane** — the 18-module port merged (#5, 00:00:58Z); enders verified (#19/#20 13:49–13:53Z); **ORDER 002 (self-arm wake) landed PR #21 squash adb5f9b this pass**; ORDER 001 (CI-collection) is a boot-gating agent item (launch-readiness).
-- **mobile-lab · 6-repo harness experiment** — ready-not-launched (packages/prompts committed, paste-ready; experiment repos verified NOT created).
+- **venture-lab** — 9 PRs landed; 2 sellable products + buyer zips ON MAIN (#9, 05:11:50Z); **⚑B/⚑D publish clicks FROZEN** pending ORDER 003 (P0 real-Stripe-path fix); ORDERs 002/003/004 pending, all ride the fresh boot (heartbeat stale-by-design 04:57Z until ORDER 004; boot ORDER routed PR #12 @ af11bdb).
+- **pokemon-mod-lab** — **PRIVATE ✅ (API-verified)**; LANE PARKED session-008; ORDERs 002/003 consumable at first boot; kit v1.6.0; owner: playtest + concept pick.
+- **gba-homebrew** — Lumen Drift SCOPE-COMPLETE (session 7, close-out #24); ORDER 002 pending; kit v1.6.0; owner: play it + concept pick.
+- **substrate-kit** — **fresh seat LIVE**: self-armed 2-hourly wake fired 16:02:43Z, first heartbeat 16:17:12Z (HEAD 2ba610a); old trigger deleted (F-1 rebind-then-delete executed); v1.7.0; carried owner items: OA8 paste + F-5 ruling (HOT); ORDER 011 at its HEAD.
+- **trading-strategy** — PARKED GREEN (close-out #34) → **ORDER 007 lane live** (status 16:21:48Z, HEAD e713abb); holdout SEALED, unlock ORDER 008 @ fd5e9fe sequences after 007; routine 4-hourly recurring; kit v1.1.0 (oldest pin).
+- **websites** — orders 001–008 ALL done (d493792); routine **first fire VERIFIED 16:01:32Z** (fresh-session, archive-immune); woken-session heartbeat pending — confirm next wake; kit v1.6.0.
+- **superbot (hub)** — **#1948 MERGED 16:01:56Z** (658d29e6): Q-0261 material on main; manifest re-stamp #1954 in flight (this pass); Idea Engine seat pending owner Project click; recon loop self-fires (#1951).
+- **superbot-next** — gen-1 MID-MISSION band 5; **ENDER-MISSING** (status 01:05Z, ~15 h); ORDER 010 done (#103 b63b933); ORDERs 008 (boot-gating self-arm) + 009 pending; no Builder trigger exists — watch, don't interrupt.
+- **superbot-games** — lanes closed green (#19/#20); ORDER 001 (P0 CI-collection) + ORDER 002 (self-arm, inbox PR #21) pending — boot-gating pair; kit v1.2.0.
+- **codetool ×3** — Projects CLOSED; repos retained NOT platform-archived (owner toggle parked); opus4.8 shipped 2 live releases via workflow_dispatch; sonnet5 cfgdiff v0.1.1 pending 2 owner clicks; fable5 succession fix a6cf1a9.
+- **mobile-lab** — ready-not-launched; repos NOT created (owner-gated).
 
 ## In-flight (don't drop)
 
-- **Q-0261 round-opening prerequisite:** merge superbot PR #1948 (material branch-only at 9b35fc46) — gates the next round open.
-- **Parallel owner session:** the owner-attended dispatch session is landing Q-0262 ORDERs in parallel (trading 008 done @ fd5e9fe, superbot-next 009, kit 011 ~15:33Z) — **re-derive inbox numbers at HEAD before routing anything.**
-- **Night-review remediation ORDERs (dispatched 2026-07-10 afternoon, one repo at a time per R19):**
-  venture-lab P0 (D1/D2/D3 real-Stripe-path fix — gates the ⚑B/⚑D unfreeze);
-  superbot-games P0 (CI collects 73/121 tests — collect ALL suites + count assertion; = boot-gating ORDER 001);
-  trading-strategy (deflated-Sharpe significance bar before any holdout use + honest AAPL-donchian re-grade);
-  pokemon-mod-lab post-flip verify: **DONE at the 14:36Z pass**; R22 every-session check stands.
-- **Ender-missing follow-ups (from the 14:36Z sweep):** venture-lab boot ORDER routed (PR #12) — confirm its heartbeat refreshes next wake; superbot-next mid-mission with no close-out — watch, don't interrupt band 5.
-- **ORDER 007 input:** Codex integration LIVE on superbot-next (auto-reviewed #103 clean), NOT enabled on fleet-manager (env-creation ask on PR #26) — the relay rule must account for per-repo enablement.
-- Owner morning click-list: **docs/owner-queue.md** (HOT first; launch-readiness synced it — 38 OWNER-CLICK / 11 DECISION; the pokemon-mod-lab URGENT item stays retired).
-- EAP free window through 2026-07-14; Anthropic follow-up draft rides the email pack (parked queue). ORDER 004 pre-close snapshot is banked (#27).
-- CORRECTED 2026-07-10 ~morning (was: PLATFORM GAP both sides): in-Project routine self-arm WORKS (owner-verified; fleet-manager's own routine now recurring-confirmed at 14:36Z) — wake-arm ORDERs dispatched to 6 active lanes; superbot-games self-arm landed (#21). Coordinator/worker + cross-session walls stand (capabilities.md). Recipe pending: first successful lane records the exact tool/UI path; owner fallback only on a recorded lane failure.
+- ~~Q-0261 round-opening prerequisite: merge superbot PR #1948~~ **DONE 16:01:56Z (owner merge).**
+- **superbot PR #1954** (manifest re-stamp) — auto-merge armed; confirm merged at/before next wake.
+- **Night-review remediation ORDERs:** venture-lab P0 Stripe fix (gates ⚑B/⚑D unfreeze) · superbot-games P0 CI-collection (= boot-gating ORDER 001) · trading deflated-Sharpe bar (= ORDER 007, **now live in-lane**).
+- **Ender-missing follow-ups:** venture-lab boot ORDER routed (PR #12) — heartbeat still 04:57Z at this pass, refresh rides its fresh boot; superbot-next mid-mission no close-out — watch.
+- **Self-arm gap (from 14:36Z pass):** still NO triggers for venture-lab / pokemon-mod-lab / gba-homebrew (re-verified via `list_triggers` this pass); their ORDERs ride their next boots.
+- **websites woken-session heartbeat** — trigger fired 16:01:32Z, no repo commit yet at 16:35Z; verify a commit landed by the ~18:31Z wake (escalate only on a second silent fire).
+- **ORDER 007 input:** Codex integration LIVE on superbot-next, NOT enabled on fleet-manager (env-creation ask on PR #26).
+- Owner morning click-list: **docs/owner-queue.md** (launch-readiness synced; 5 boot-gating clicks: kit OA8, Idea Engine Project, product-forge repo+Project+check).
+- EAP free window through 2026-07-14; economics ledger banked (#27).
 
-orders: 001–003 open (001 doctrine P1–P11+MISSION.md · 002 manifest re-stamp · 003 review-queue enforcement) · 004–006 done (004 #27 economics ledger · 005–006 executed in PR #20 + codetool-lab-fable5 #14) · 007 new (@codex review-relay rule — rides the next doctrine session)
-⚑ needs-owner: see docs/owner-queue.md (HOT first; launch-readiness 2026-07-10 synced — 5 boot-gating clicks: kit OA8, Idea Engine Project, product-forge repo+Project+check)
-notes: launch record + dispositions + verified overnight numbers: docs/planning/gen2-launch-record-2026-07-10.md. Launch-readiness checklist: docs/launch-readiness-2026-07-10.md (#30). Economics ledger (ORDER 004): docs/findings/fleet-economics-2026-07.md. Fitted (≤7,500-char) Custom Instructions actually deployed to the websites + trading gen-2 Projects are recorded in docs/proposals/instructions/{websites,trading-strategy}.md § "Deployed fitted version".
+orders: 001/003 open (001 doctrine P1–P11+MISSION.md · 003 review-queue enforcement) · 007 new (@codex review-relay rule) · 008 new (Q-0262 owner-rulings batch — doctrine session) · 009 new (generated roster v1 — future wake, owner may veto) · 002 DONE this pass (superbot #1954 + PR #32) · 004–006 done (004 #27 · 005–006 PR #20 + codetool-lab-fable5 #14)
+⚑ needs-owner: see docs/owner-queue.md (HOT first; F-5 one-letter ruling gates kit B1 run-5 dispatch)
+notes: next wake ~2026-07-10T18:31Z · planned slice: **ORDER 001 or 003** (doctrine — 007/008 may ride along per their own owner lines). Launch record: docs/planning/gen2-launch-record-2026-07-10.md. Launch-readiness: docs/launch-readiness-2026-07-10.md (#30). Economics ledger: docs/findings/fleet-economics-2026-07.md. Generated-roster proposal: docs/proposals/generated-roster-from-heartbeats.md (ORDER 009). Fitted Custom Instructions deployed to websites + trading gen-2 Projects: docs/proposals/instructions/{websites,trading-strategy}.md § "Deployed fitted version".

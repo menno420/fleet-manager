@@ -28,7 +28,7 @@ done-when: blueprint changelog records P1–P11 + D4/D5/D6 with provenance; the 
 init prompt contains the verified recipe and no false routine promise; MISSION.md on main
 with an explicit done-when line.
 
-## ORDER 002 · 2026-07-10T12:05Z · status: new
+## ORDER 002 · 2026-07-10T12:05Z · status: DONE (executed by the 16:31Z standing-wake pass 2026-07-10, superbot PR #1954 + fleet-manager PR #32)
 priority: P1
 owner: next fleet-manager rollup/staleness-sweep session
 do: Re-stamp superbot `docs/eap/fleet-manifest.md` to post-launch reality (**all rows** —
@@ -41,6 +41,15 @@ pre-launch state; `check_manifest_freshness.py` (superbot #1923) already flags i
 done-when: every manifest row reflects post-launch reality and the freshness checker is
 green; a generated-roster proposal is filed (`docs/proposals/`) and routed to the owner-queue
 or an ORDER.
+✅ DONE: superbot `docs/eap/fleet-manifest.md` fully re-stamped to verified post-launch
+reality (superbot **PR #1954** — every row rewritten from launch-readiness + live
+`list_triggers` + per-repo `control/status.md` fetch; missing rows added: pokemon-mod-lab,
+gba-homebrew, games-plugins merged lane, mobile-lab; trading-lab renamed trading-strategy;
+executed "▶ tonight" plans removed); `check_manifest_freshness.py --strict` = **13/13 FRESH,
+0 stale**. Generated-roster proposal filed at
+`docs/proposals/generated-roster-from-heartbeats.md` and routed as **ORDER 009** below
+(agent-doable, not owner-only — owner-queue deliberately untouched). This PR: fleet-manager
+**PR #32**.
 
 ## ORDER 003 · 2026-07-10T12:05Z · status: new
 priority: P1
@@ -142,3 +151,20 @@ why: Q-0262 applied the round-3 recommended answers wholesale; these five are th
 fleet-policy half that lives in your doctrine.
 done-when: policies folded into their blueprint/playbook homes + launch-readiness rows
 ticked where these close items; status acks 008.
+
+## ORDER 009 · 2026-07-10T16:45Z · status: new
+priority: P2
+owner: a future fleet-manager standing wake (any pass after the current round settles)
+do: Implement **generated roster v1** per
+`docs/proposals/generated-roster-from-heartbeats.md` (filed by the 16:31Z wake, ORDER 002
+part 2): `tools/gen_roster.py` reading each lane's `control/status*.md` over git transport
++ `list_triggers` for live routine state → generated `docs/roster.md` regenerated each
+manager wake; then migrate superbot `docs/eap/fleet-manifest.md` to a pointer stub and
+retire `check_manifest_freshness.py` per its own kill-switch header.
+why: the hand-stamped manifest froze stale twice in 30 hours (grand-review §5, ORDER 002);
+regeneration from the heartbeats the freshness checker already reads kills the staleness
+class structurally (program-review §6.2, registry-disagreement §5.4).
+done-when: `docs/roster.md` generated on main with per-row evidence + one parallel-run wake
+comparing it against the hand manifest; manifest pointer-stub migration executed or
+explicitly re-scheduled. **Decide-and-flag: this ORDER was self-filed by the manager
+(not owner-routed) — the owner may veto by striking it.**
