@@ -2,7 +2,7 @@
 
 > Generated 2026-07-10 by `bootstrap.py upgrade`. Rollback: `python3 bootstrap.py upgrade --rollback`.
 
-**Docs:** consumer-edited: 3 · diverged: 2 · missing: 1 · template-improved: 2 · unchanged: 11
+**Docs:** consumer-edited: 3 · diverged: 2 · template-improved: 2 · unchanged: 12
 
 | planted doc | class | note |
 |---|---|---|
@@ -19,12 +19,17 @@
 | docs/AGENT_ORIENTATION.md | diverged | both the template and the doc moved — manual merge |
 | docs/current-state.md | unchanged | template identical across versions |
 | docs/question-router.md | unchanged | template identical across versions |
-| docs/CAPABILITIES.md | missing | absent — upgrade's adopt pass replants it |
+| docs/CAPABILITIES.md | unchanged | template identical across versions |
 | docs/ideas/README.md | consumer-edited | template unchanged — consumer-owned, nothing to apply |
 | .session-journal.md | unchanged | template identical across versions |
 | control/README.md | diverged | both the template and the doc moved — manual merge |
 | control/inbox.md | consumer-edited | template unchanged — consumer-owned, nothing to apply |
 | control/status.md | consumer-edited | template unchanged — consumer-owned, nothing to apply |
+
+## Applied (--apply-docs)
+
+- applied: CONSTITUTION.md (template@new, hash re-recorded)
+- applied: docs/collaboration-model.md (template@new, hash re-recorded)
 
 ## Template deltas for diverged docs
 
