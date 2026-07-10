@@ -1,8 +1,8 @@
 # 2026-07-10 — prompt-registry gap closure (v-stamps · one-writer · trigger snapshot)
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
-📊 Model: fable family (gap-closure worker, coordinator-dispatched) · start 2026-07-10T22:05Z (`date -u`)
+📊 Model: fable family (gap-closure worker, coordinator-dispatched) · start 2026-07-10T22:00Z · end 2026-07-10T22:10Z (`date -u`)
 
 ## Declared at open (born-red)
 
@@ -34,4 +34,24 @@ before the flip; flip last; REST squash on green substrate-gate.
 
 ## Done (close-out)
 
-_(pending — filled at flip)_
+- **GAP 1** — all 39 prompt-bearing files stamped: file-header HTML comment + in-paste
+  plain-text `v1 · 2026-07-10 · <seat> <part>` line (failsafe files header-only by design —
+  in-band stamps would break byte-matching against the stored trigger text). Governing
+  rules shipped as projects/README.md Doctrine items 2 (ONE WRITER + INTAKE) and 3
+  (VERSION-STAMP + EDIT-REGISTRY-FIRST + quote-the-header drift detection).
+- **GAP 3** — full `list_triggers` sweep (114 triggers, 2 pages). Byte-verdicts:
+  Builder + idea-engine EXACT; sim-lab content-match (wrap-only) and ARMED seat-side
+  20:54Z (OA-003 closed — file + matrix + paste-wave updated); fm MISMATCH (deployed is
+  the richer manager text, 497 chars — verbatim committed); product-forge MISMATCH
+  (deployed = generic §2b template, not the canonical long form — verbatim committed);
+  trading cutover CONFIRMED (new `trig_01YBaVeKAW…` @ `0 */2`, shortened prompt verbatim
+  committed, old id gone); substrate-kit [RECONSTRUCTED] resolved verbatim; websites
+  v1-era prompt CONFIRMED deployed (v2 re-paste still owed — paste-wave updated).
+  Snapshot: `projects/_inventory/trigger-registry-2026-07-10.md`.
+- **GAP 4** — superbot PR #1967 (docs-only, auto-merge armed per Q-0127): superseded
+  banners on the 5 founding packages + runbook §2 manager package.
+- Heartbeat carries the explicit PROMPT-REGISTRY location line.
+- ⚑ Self-initiated: matrix/paste-wave deployed-state fixes (drift visible in the same
+  registry read — fix-on-sight); worktree isolation after a mid-flight branch switch by a
+  parallel worker in the shared checkout (process note for the coordinator: shared-checkout
+  workers should always work from `git worktree` copies).
