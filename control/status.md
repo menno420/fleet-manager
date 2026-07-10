@@ -1,6 +1,6 @@
 # fleet-manager · status
-updated: 2026-07-10T19:50:00Z
-phase: GEN-2 FLEET LIVE — standing-wake cadence RUNNING (18:31Z third pass closed below) · **doctrine debt PAID: blueprint amendments P1–P11 applied, MISSION.md on main, init prompt carries the verified routine recipe (ORDER 001)** · Q-0262 owner-rulings batch folded + owner-queue reconciled (ORDER 008)
+updated: 2026-07-10T20:40:00Z
+phase: GEN-2 FLEET LIVE — standing-wake cadence RUNNING (18:31Z third pass closed below) · **doctrine debt PAID: blueprint amendments P1–P11 applied, MISSION.md on main, init prompt carries the verified routine recipe (ORDER 001)** · Q-0262 owner-rulings batch folded + owner-queue reconciled (ORDER 008) · **Q-0265 CONTINUOUS MODE: doctrine folds landing + manager seat adopting (~20:40Z job below)**
 health: green
 kit: v1.4.0 · check: green · engaged: yes
 coordinator: **LIVE** — session-based coordinator seat booted 2026-07-10 (round-3 pack §1 brief)
@@ -18,6 +18,31 @@ routine: fleet-manager 2-hourly standing wake · cron 30 */2 * * * · armed-by-m
 
 last-shipped: #33 — 18:31Z wake pass (ORDER 001 doctrine debt + ORDER 008 Q-0262 policies + owner-queue reconciliation)
 blockers: none
+
+## Doctrine-fold job — 2026-07-10T~20:40Z (Q-0265 continuous mode, MANAGER-ONLY rider)
+
+**Doctrine read at superbot origin/main `6f283b91`** (router Q-0265 continuous-mode
+directive + Q-0264 idea pipeline + part-4 brief §2b). Executing the §2b MANAGER-ONLY
+rider ("fold Q-0265 into the gen-3 blueprint delta + your doctrine ORDERs so every
+future seat is born continuous") — **three doctrine folds landing** as one coordinated
+job:
+
+- **superbot PR #1962** — gen-3 deployment standard §2: superseded one-slice pacing
+  amended to born-continuous (work loop · ~15-min `send_later` chain pacemaker ·
+  cron demoted to "<seat> failsafe wake", 2-hourly stagger kept · backpressure brake ·
+  Q-0089 honesty guard · free-window use-excessively posture through 2026-07-14).
+- **fleet-manager (this PR)** — blueprint changelog entry (continuous-mode operating
+  model supersedes one-slice-per-wake for production seats, Q-0265) + init-prompt
+  continuous-mode rider (verified arming recipe untouched) + **inbox ORDER 011**
+  (manager seat itself adopts continuous mode — status in-progress, a parallel worker
+  is executing the trigger re-word + `send_later` chain right now; its re-arm record
+  lands verbatim in this file per the proven cutover recipe).
+- **websites PR** — routine-prompt v2 (continuous-mode wake text, Q-0264 escalation
+  line into the work-ladder doc).
+
+**Manager operating model from here:** continuous mode — next actions run **ORDER 003
+→ 007 → 009 → 010 via the `send_later` continuation chain** (the cron becomes the
+failsafe once ORDER 011's re-arm lands), not one-per-wake.
 
 ## Critical-finding job — 2026-07-10T~19:50Z (owner-dispatched, between wakes)
 
@@ -116,6 +141,6 @@ owner-queue § Resolved 2026-07-10). Routing outcomes: see the doc + PR #31's re
 - Owner morning click-list: **docs/owner-queue.md** (reconciled to Q-0262 this pass; boot-gating clicks now: kit OA8, product-forge repo+Project+check, superbot-plugin-hello repo).
 - EAP free window through 2026-07-14; economics ledger banked (#27).
 
-orders: 003 open (review-queue enforcement — next slice) · 007 new (@codex review-relay rule — rides 003 if capacity) · 009 new-P2 (generated roster v1 — future wake, owner may veto) · **010 new-P2 (per-lane model verification sweep — rides the staleness sweep; filed by the ~19:50Z finding job, PR #34)** · **001 DONE this pass (PR #33)** · **008 DONE this pass (PR #33)** · 002 done (superbot #1954 + PR #32) · 004–006 done (004 #27 · 005–006 PR #20 + codetool-lab-fable5 #14)
+orders: **011 in-progress (manager adopts continuous mode, Q-0265 — parallel worker executing; filed by the ~20:40Z doctrine-fold job)** · 003 open (review-queue enforcement — next slice) · 007 new (@codex review-relay rule — rides 003 if capacity) · 009 new-P2 (generated roster v1 — future wake, owner may veto) · **010 new-P2 (per-lane model verification sweep — rides the staleness sweep; filed by the ~19:50Z finding job, PR #34)** · **001 DONE this pass (PR #33)** · **008 DONE this pass (PR #33)** · 002 done (superbot #1954 + PR #32) · 004–006 done (004 #27 · 005–006 PR #20 + codetool-lab-fable5 #14)
 ⚑ needs-owner: see docs/owner-queue.md (HOT stack shrank: F-5/holdout/flag-13/seat-6/pokemon all RESOLVED by Q-0262; top remaining: kit OA8 paste, product-forge seed set, superbot-plugin-hello repo, venture-lab ⚑A + frozen ⚑B/⚑D)
-notes: next wake ~2026-07-10T20:31Z · planned slice: **ORDER 003** (review-queue enforcement: auto-append rule + named standing drainer + first drain pass) **with ORDER 007 riding if capacity** (@codex relay rule — same doctrine surfaces). Also next wake: websites second-fire check (escalate if silent) + Idea Engine seat confirm. Doctrine now at: blueprint (P1–P11 applied), MISSION.md, init-prompt-universal § Current text, playbook R17/R19/R21 riders. Launch record: docs/planning/gen2-launch-record-2026-07-10.md. Launch-readiness: docs/launch-readiness-2026-07-10.md (#30). Economics ledger: docs/findings/fleet-economics-2026-07.md.
+notes: **operating model = CONTINUOUS (Q-0265, ~20:40Z job above): next actions ORDER 003 → 007 → 009 → 010 run via the send_later continuation chain, slice after slice — the cron becomes the failsafe once ORDER 011's re-arm lands.** ORDER 003 (review-queue enforcement: auto-append rule + named standing drainer + first drain pass) then 007 (@codex relay rule — same doctrine surfaces) then 009 (generated roster v1) then 010 (per-lane model verification sweep). Also next: websites second-fire check (escalate if silent) + Idea Engine seat confirm. Doctrine now at: blueprint (P1–P11 applied), MISSION.md, init-prompt-universal § Current text, playbook R17/R19/R21 riders. Launch record: docs/planning/gen2-launch-record-2026-07-10.md. Launch-readiness: docs/launch-readiness-2026-07-10.md (#30). Economics ledger: docs/findings/fleet-economics-2026-07.md.

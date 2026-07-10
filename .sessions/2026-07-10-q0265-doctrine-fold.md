@@ -1,6 +1,6 @@
 # 2026-07-10 — Q-0265 continuous-mode doctrine fold (manager-only rider, part-4 brief §2b)
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 📊 Model: fable-5 (family-level, per Q-0262 model-line policy) · start 2026-07-10T20:30Z
 
