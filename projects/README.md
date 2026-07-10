@@ -85,10 +85,10 @@ no paste record) · **n-a** (deliberately absent).
 | substrate-kit | LIVE | `0 */2 * * *` | deployed-stale (pre-Q-0265 founding §1) | deployed-stale (chat-amended only) | unknown (OA8 paste unconfirmed) | never (OLD standing wake still live — re-arm due) | write-all distribution seat; owns future template distribution |
 | superbot-next | LIVE (Builder) | `0 */2 * * *` + chain | never (new draft) | never (new draft) | deployed-by-reference (archetype verbatim) | **DEPLOYED-verified** (fleet reference instance) | Codex LIVE; 6 required checks; REST-squash fast lane |
 | idea-engine | LIVE | `0 */2 * * *` (even) + chain | deployed-equivalent | deployed-equivalent (chat) | deployed-by-reference | **DEPLOYED-verified** (committed verbatim) | Q-0265 reference implementation; cadence-PAIRED with sim-lab |
-| product-forge | LIVE (continuous) | `0 */2 * * *` + chain | deployed-stale (boot paste, pre-lessons) | deployed-stale (founding §2) | never | armed (`trig_012Evzt…`; text-equality unverified) | already live-continuous; games-web phase-1 SHIPPED (PRs #4+#5); §2b paste = belt-and-braces |
-| sim-lab | LIVE | `0 1-23/2 * * *` (odd) — **NOT armed** | deployed-presumed | deployed-stale (boot brief) | deployed-by-reference | **never — seat lacks scheduler tools** (OA-003) | owner arms via Routines screen; cadence-PAIRED with idea-engine (centralize as a pair) |
-| websites | LIVE (fresh-session-per-fire, no seat) | `0 */4 * * *` deployed · `0 */2` recommended | deployed-stale (older fm text; re-paste) | deployed-stale (v1 prompt live; v2 unverified) | unknown | trigger DEPLOYED-verified, prompt stale/unverified | only fresh-session lane; cron IS the pacemaker; one 16:01Z silent fire on record |
-| trading-strategy | PARKED GREEN — program COMPLETE **ON MAIN** | `0 */4` stale at build · failsafe re-armed 21:03Z per fm roster | deployed-stale (pre-Q-0265) | deployed-stale (old delegating one-liner) | unknown | superseded at build (meta's F-1 cutover spec; fm roster records a failsafe armed 21:03Z — verify at next contact) | holdout SPENT, report FINAL; **PR #37 MERGED by owner 20:56:34Z** (was terminal-classifier-unlandable; meta's "sole open action" row predates the click) |
+| product-forge | LIVE (continuous) | `0 */2 * * *` + chain | deployed-stale (boot paste, pre-lessons) | deployed-stale (founding §2) | never | **DEPLOYED-verified** (`trig_012Evzt…`; stored text = generic §2b template, VERBATIM-committed — differs from this package's canonical block, see failsafe-prompt.md) | already live-continuous; games-web phase-1 SHIPPED (PRs #4+#5); §2b paste = belt-and-braces |
+| sim-lab | LIVE | `0 1-23/2 * * *` (odd) + chain | deployed-presumed | deployed-stale (boot brief) | deployed-by-reference | **DEPLOYED-verified** (`trig_01SHfnLv…`, armed 20:54Z seat-side — OA-003 closed; content-match with this package) | cadence-PAIRED with idea-engine (centralize as a pair) |
+| websites | LIVE (fresh-session-per-fire, no seat) | `0 */4 * * *` deployed · `0 */2` recommended | deployed-stale (older fm text; re-paste) | deployed-stale (v1 prompt live; v2 unverified) | unknown | trigger DEPLOYED-verified; stored prompt VERBATIM-committed — **v1-era confirmed**, v2 re-paste owed | only fresh-session lane; cron IS the pacemaker; one 16:01Z silent fire on record |
+| trading-strategy | PARKED GREEN — program COMPLETE **ON MAIN** | `0 */2 * * *` (re-armed 21:03Z; registry-verified) | deployed-stale (pre-Q-0265) | deployed-stale (old delegating one-liner) | unknown | **DEPLOYED-verified** (`trig_01YBaVeKAW…`, `0 */2`, armed 21:03Z; shortened seat-authored prompt VERBATIM-committed — see failsafe-prompt.md) | holdout SPENT, report FINAL; **PR #37 MERGED by owner 20:56:34Z** (was terminal-classifier-unlandable; meta's "sole open action" row predates the click) |
 | venture-lab | LIVE-BUT-DARK (no clock, stale heartbeat) | `0 */2` spec'd — NOT armed | never | never | never | never | riskiest lane state; ORDERs 002/003/004 ride fresh boot; ⚑B/⚑D frozen on Stripe P0 |
 | superbot-games | PARKED + CLOCKLESS (merged lane) | `0 */2` spec'd — NOT armed | never (current form) | never | unknown (two per-lane scripts, inconsistent dirs) | never | kit **v1.7.0 at HEAD** (heartbeat says v1.2.0 — drift); P0: CI collects 73/121 tests |
 | pokemon-mod-lab | LIVE-PARKED · **PRIVATE** | `0 */2` spec'd — NOT armed | deployed-stale (game-lab founding text) | never | unknown | never | private ⇒ raw-read DARK; env-attach is the only path (manager + kit need it too) |
@@ -110,17 +110,19 @@ is the consolidated owner-queue item ("Project package paste wave"):**
    into the kit env's Setup-script field.
 2. **product-forge** — §2b amendment paste into the live coordinator chat
    (belt-and-braces; the seat already operates continuous per its status).
-3. **sim-lab** — arm the failsafe **via the Routines screen** with
-   `projects/sim-lab/failsafe-prompt.md` (cron `0 1-23/2 * * *`): the seat
-   verifiably lacks `create_trigger`/`send_later` (OA-003) — the lane has NO
-   clock until this click.
+3. **sim-lab** — ~~arm the failsafe via the Routines screen~~ **DONE seat-side
+   2026-07-10T20:54Z** (`trig_01SHfnLv6EqZesr4tC3T9kUU`, registry-verified by
+   the gap-closure pass — a later seat session carried the scheduler tools;
+   OA-003 closed). No owner click needed.
 4. **websites** — re-paste the v2 wake prompt
    (`projects/websites/coordinator-prompt.md`) into trigger
    `trig_017H9Qb9oxtLgUy6sw2gnSHg` (last committed record says v1-era text) +
    re-paste `projects/websites/instructions.md` (deployed text is the older
    pre-Q-0265 fm fitted version); optional: retune `0 */4` → `0 */2`.
-   Verify-first: the 20:00Z fire landed 3 slices (v2-shaped behavior) — if v2
-   was already re-pasted, only the instructions paste remains.
+   Verify-first RESOLVED (gap-closure pass, registry read): **v2 is NOT
+   deployed** — the stored prompt is the v1-era ORDER 008 text (committed
+   verbatim in failsafe-prompt.md), so BOTH pastes remain owed; the 20:00Z
+   fire's 3 slices happened under v1 (behavior was a misleading signal).
 5. **trading-strategy** — re-paste `projects/trading-strategy/instructions.md`
    (deployed CI is pre-Q-0265/pre-completion). The failsafe was re-armed
    seat-side 21:03Z (fm roster) after this package's build snapshot — only
