@@ -1,5 +1,5 @@
 # fleet-manager · status
-updated: 2026-07-10T18:47:00Z
+updated: 2026-07-10T19:50:00Z
 phase: GEN-2 FLEET LIVE — standing-wake cadence RUNNING (18:31Z third pass closed below) · **doctrine debt PAID: blueprint amendments P1–P11 applied, MISSION.md on main, init prompt carries the verified routine recipe (ORDER 001)** · Q-0262 owner-rulings batch folded + owner-queue reconciled (ORDER 008)
 health: green
 kit: v1.4.0 · check: green · engaged: yes
@@ -18,6 +18,26 @@ routine: fleet-manager 2-hourly standing wake · cron 30 */2 * * * · armed-by-m
 
 last-shipped: #33 — 18:31Z wake pass (ORDER 001 doctrine debt + ORDER 008 Q-0262 policies + owner-queue reconciliation)
 blockers: none
+
+## Critical-finding job — 2026-07-10T~19:50Z (owner-dispatched, between wakes)
+
+**Finding (owner report ~20:00Z + owner correction, framed accordingly):** model
+attribution for routine-fired sessions is **inconsistent across surfaces** — the
+Routines menu displays fable-5 for ALL project-created routines, while the evidenced
+websites fired session's chat header showed "Sonnet 5" and its own card self-reports
+`📊 Model: claude-sonnet-5` (websites PR #59, squash 2c89e96, card line 8 verified at
+HEAD). Ground truth is undeterminable from any single panel. **Probe:** `create_trigger`
+exposes **NO model parameter** (schema: name · prompt · cron_expression · run_once_at ·
+persistent_session_id · create_new_session_on_fire · environment_id · notifications);
+`list_triggers` (50 records) carries no model field anywhere — no agent-side pin exists;
+mitigation = per-session family-level self-report on the card (`📊 Model:` line).
+Landed (this PR, **#34**): capabilities rider + experiments caveat 5 + init-prompt
+known-limit rider + owner-queue Anthropic-email 4th platform bug + **ORDER 010**
+(per-lane model verification sweep w/ ground-truth self-report step, rides the
+staleness sweep). Known matrix so far (self-reports from cards, family-level):
+websites fire = **sonnet-5** (evidenced); superbot-next recent cards = fable-5;
+substrate-kit recent cards = fable-5 + opus-4.8 mixed (fired-vs-manual not
+distinguished for those two — ORDER 010 establishes the per-lane basis).
 
 ## Wake record — 2026-07-10T18:31Z (third standing-wake pass)
 
@@ -96,6 +116,6 @@ owner-queue § Resolved 2026-07-10). Routing outcomes: see the doc + PR #31's re
 - Owner morning click-list: **docs/owner-queue.md** (reconciled to Q-0262 this pass; boot-gating clicks now: kit OA8, product-forge repo+Project+check, superbot-plugin-hello repo).
 - EAP free window through 2026-07-14; economics ledger banked (#27).
 
-orders: 003 open (review-queue enforcement — next slice) · 007 new (@codex review-relay rule — rides 003 if capacity) · 009 new-P2 (generated roster v1 — future wake, owner may veto) · **001 DONE this pass (PR #33)** · **008 DONE this pass (PR #33)** · 002 done (superbot #1954 + PR #32) · 004–006 done (004 #27 · 005–006 PR #20 + codetool-lab-fable5 #14)
+orders: 003 open (review-queue enforcement — next slice) · 007 new (@codex review-relay rule — rides 003 if capacity) · 009 new-P2 (generated roster v1 — future wake, owner may veto) · **010 new-P2 (per-lane model verification sweep — rides the staleness sweep; filed by the ~19:50Z finding job, PR #34)** · **001 DONE this pass (PR #33)** · **008 DONE this pass (PR #33)** · 002 done (superbot #1954 + PR #32) · 004–006 done (004 #27 · 005–006 PR #20 + codetool-lab-fable5 #14)
 ⚑ needs-owner: see docs/owner-queue.md (HOT stack shrank: F-5/holdout/flag-13/seat-6/pokemon all RESOLVED by Q-0262; top remaining: kit OA8 paste, product-forge seed set, superbot-plugin-hello repo, venture-lab ⚑A + frozen ⚑B/⚑D)
 notes: next wake ~2026-07-10T20:31Z · planned slice: **ORDER 003** (review-queue enforcement: auto-append rule + named standing drainer + first drain pass) **with ORDER 007 riding if capacity** (@codex relay rule — same doctrine surfaces). Also next wake: websites second-fire check (escalate if silent) + Idea Engine seat confirm. Doctrine now at: blueprint (P1–P11 applied), MISSION.md, init-prompt-universal § Current text, playbook R17/R19/R21 riders. Launch record: docs/planning/gen2-launch-record-2026-07-10.md. Launch-readiness: docs/launch-readiness-2026-07-10.md (#30). Economics ledger: docs/findings/fleet-economics-2026-07.md.

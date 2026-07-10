@@ -195,3 +195,20 @@ done-when: `docs/roster.md` generated on main with per-row evidence + one parall
 comparing it against the hand manifest; manifest pointer-stub migration executed or
 explicitly re-scheduled. **Decide-and-flag: this ORDER was self-filed by the manager
 (not owner-routed) — the owner may veto by striking it.**
+
+## ORDER 010 · 2026-07-10T19:45Z · status: new
+priority: P2
+owner: manager standing wake (rides the staleness sweep — per-lane, at next contact with each routine-armed lane)
+do: **Per-lane model verification sweep.** At the next contact with each routine-armed
+lane: (1) confirm its session-card template carries the `📊 Model:` line; (2) confirm its
+recent fired-session cards record the actual model family (family-level names only, per
+Q-0262); (3) **ground-truth step:** instruct fired sessions to record the model identity
+their own harness/environment reports — family-level, in commits — so the matrix has a
+consistent per-session self-report basis (the Routines screen is NOT a reliable
+attribution surface; see `docs/capabilities.md` § routine self-arm rider). Report the
+fleet-wide Project-setting vs fired-model matrix.
+why: model attribution is inconsistent across surfaces (Routines menu fable-5 vs chat
+header + card sonnet-5 on the evidenced websites fire — websites PR #59, squash 2c89e96);
+`create_trigger` exposes no model arg, so per-session self-report is the only detector.
+done-when: matrix in a findings doc (`docs/findings/`), one row per routine-armed lane:
+Project setting · fired-session self-reported family · evidence link.

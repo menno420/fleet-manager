@@ -35,3 +35,19 @@ recomputation (authoritative over in-repo checkers, PAIR-OPUS rubric).
      `../capabilities.md`) are themselves a confound of the same class: a
      harness/model verdict must check whether the arms even had the same
      walls before attributing the delta to the model.
+  5. **Model-attribution surface disagreement (extended 2026-07-10 ~20:00Z;
+     evidence in `../capabilities.md` § routine self-arm rider).** Model
+     attribution is inconsistent across surfaces: for the websites
+     routine-fired session of 2026-07-10, the Routines menu displayed
+     fable-5 (as it does for ALL project-created routines), while the chat
+     header showed "Sonnet 5" and the session's own card self-reported
+     `📊 Model: claude-sonnet-5` (websites PR #59, squash 2c89e96). Ground
+     truth is undeterminable from any single panel, and `create_trigger`
+     exposes no model parameter to pin it. Rules: any experiment attributing
+     output to a model tier must verify identity **per-session via the
+     session's own card `📊 Model:` line** (the self-report from inside its
+     environment, family-level names) — never via the Project setting or the
+     Routines screen; that self-report is **still a claim** (the
+     cross-surface disagreement is unresolved); and **routine-fired sessions
+     are suspect by default** — treat their tier as unverified until the
+     card's self-report is checked.

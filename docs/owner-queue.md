@@ -249,7 +249,15 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
   OAuth+home · restyle · cutover (websites `docs/owner/OWNER-ACTIONS.md`,
   each with a recommended default).
 - **Anthropic email pack** — review + send; follow-up to the 07-09 22:29Z
-  extension mail before the 2026-07-14 window close.
+  extension mail before the 2026-07-14 window close. Include the four routines
+  platform bugs: (1) completed runs not inspectable from the Routines screen;
+  (2) Runs panel vs Routines screen disagreement; (3) the arming
+  seat-inconsistency; (4) **model attribution inconsistent across Routines
+  screen / chat header / session self-report — no authoritative surface**
+  (appended 2026-07-10: Routines menu shows fable-5 for all project-created
+  routines while the websites fired session's chat header + own card said
+  claude-sonnet-5 — websites PR #59, squash 2c89e96; evidence + probe:
+  `capabilities.md` § routine self-arm rider).
 - **PyPI trusted-publishing registration** (~2 min) — token-less kit releases.
 - **codetool-lab-opus4.8 v0.1.0 tag + Release** — tag-push 403; owner click
   at Releases → Draft. (Codetool Projects are CLOSED; repos stay.)
