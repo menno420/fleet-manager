@@ -1,3 +1,4 @@
+<!-- v1 · 2026-07-10 · fleet-manager projects registry -->
 # websites — wake cron text (Q-0265)
 
 > Part 4 of the websites Project package. **Routine name (deployed):** the
@@ -8,18 +9,21 @@
 > in-session ~15-min send_later chain, when the fired toolset has it, is a
 > within-wake accelerator only; see coordinator-prompt.md caveat).
 >
-> **Deployed-state (2026-07-10) — prompt text UNVERIFIED:** the trigger was
-> created 2026-07-10T13:49:36Z with the OLD v1-era delegating prompt — recorded
-> only as paraphrase, "prompt = the standing inbox ritual" (websites
-> `docs/owner/OWNER-ACTIONS.md` row E @ `fc8354e`; first fire confirmed
-> 2026-07-10T16:01:32Z via `list_triggers`). The verbatim deployed text is NOT
-> committed anywhere (inventory-lanes §1 "Missing (a)"). The repo's
-> `docs/project/routine-prompt.md` v2 (Q-0265 continuous) is marked "the one
-> to paste" — the owner MAY have re-pasted it into the Routines screen since,
-> but no paste record exists, so treat the deployed prompt as **v1-era until a
-> fired session's behavior proves otherwise** (a wake that works the loop and
-> mentions Q-0265/send_later is running v2; a wake that ships exactly one
-> bounded slice off "the standing inbox ritual" is still v1).
+> **Deployed-state (2026-07-10) — prompt text now VERIFIED (gap-closure pass,
+> `list_triggers` ~22:05Z): the deployed prompt IS the v1-era ORDER 008 text**,
+> full trigger name `websites lane wake — 4-hourly inbox ritual (ORDER 008)`,
+> created 2026-07-10T13:49:36Z, `create_new_session_on_fire` (no session
+> binding). VERBATIM-FROM-REGISTRY, byte-exact, single line as stored (576
+> chars):
+>
+> ```
+> websites lane wake (fleet ORDER 008). In /home/user/websites: git fetch origin main and land on origin/main HEAD, then read control/inbox.md at HEAD and run the standing per-session ritual from your instructions (control/README.md: execute any `status: new` order not already in your own control/status.md done= line, claim-first; then overwrite control/status.md as the deliberate last step). Honor the repo's .claude/CLAUDE.md working agreement and docs/CAPABILITIES.md walls; forward-only git; never edit control/inbox.md; never pass ambient RAILWAY_* env vars to anything.
+> ```
+>
+> This closes inventory-lanes §1 "Missing (a)" (the text is now committed) and
+> settles the v1-vs-v2 question: **v2 is NOT deployed** — the owner re-paste
+> (paste-wave item 4) is still owed. Note the 20:00Z fire's 3 landed slices
+> happened under this v1 text — behavior alone was a misleading v2 signal.
 >
 > **This package prescribes:**
 > - **Prompt:** the v2 text — identical to the fenced block in this package's

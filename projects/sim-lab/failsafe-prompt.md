@@ -1,10 +1,21 @@
+<!-- v1 · 2026-07-10 · fleet-manager projects registry -->
 # sim-lab — failsafe wake routine (part 4)
 
-> **Status: NOT ARMED.** The coordinator seat's toolset lacks `create_trigger`
-> AND `send_later` (verbatim wall, control/status.md OA-003 @ sim-lab 8b8075d:
-> "tool not present in session toolset") — so the routine could not be
-> agent-armed at boot and, until this package, its text lived ONLY in the
-> coordinator's first chat reply. **This file is the durable capture of that
+> **Status: ARMED + VERIFIED (deployed-state update, gap-closure pass
+> 2026-07-10 ~22:05Z via `list_triggers`):** the routine is LIVE as
+> **`trig_01SHfnLv6EqZesr4tC3T9kUU` "sim-lab failsafe wake"**, cron
+> `0 1-23/2 * * *`, created 2026-07-10T20:54:51Z, bound to coordinator session
+> `session_01JbwY8yeBzLKYcbeR89L88v` — armed AFTER this package's build
+> snapshot (OA-003 is closed; a send_later continuation chain link for the
+> same session is also live in the registry, so the seat evidently gained
+> scheduler tools). The stored prompt is **content-identical to the canonical
+> block below** — byte-difference is line-wrapping only (stored as one
+> 724-char line; the block below is the same text wrapped for the file).
+> Historical note (pre-arming state this file was built against): the boot
+> seat's toolset lacked `create_trigger` AND `send_later` (verbatim wall,
+> control/status.md OA-003 @ sim-lab 8b8075d: "tool not present in session
+> toolset") — so the routine could not be agent-armed at boot and its text
+> lived ONLY in the coordinator's first chat reply. **This file is the durable capture of that
 > chat-only text** (source: the founding package §2 step 4, quoted verbatim
 > below — superbot docs/planning/round3-founding-package-simulator-2026-07-10.md
 > @ origin/main dc19b1e, which is the committed twin of what the coordinator

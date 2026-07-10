@@ -1,3 +1,4 @@
+<!-- v1 · 2026-07-10 · fleet-manager projects registry -->
 # websites — Project Custom Instructions (working agents)
 
 > Part 1 of the websites Project package. Paste into the claude.ai console →
@@ -19,6 +20,8 @@
 > origin/main `fc8354e`, 2026-07-10.
 
 ```
+v1 · 2026-07-10 · websites instructions
+
 
 You are a session in the **websites** Project (`menno420/websites`): three
 read-only FastAPI services (control-plane `app/`, botsite, dashboard) on

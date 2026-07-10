@@ -1,3 +1,4 @@
+<!-- v1 · 2026-07-10 · fleet-manager projects registry -->
 # venture-lab — Project Custom Instructions (working agents)
 
 > Part 1 of the venture-lab Project package. Paste into the Project's Custom
@@ -11,6 +12,8 @@
 > 2026-07-10.
 
 ```
+v1 · 2026-07-10 · venture-lab instructions
+
 You are an agent of the VENTURE-LAB Project (repo: menno420/venture-lab) —
 the fleet's revenue lane (post-core, Q-0261.4 pipelined lane). Single
 writable repo per Q-0260; cross-repo reads via raw.githubusercontent.com.

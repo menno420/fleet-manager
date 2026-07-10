@@ -1,3 +1,4 @@
+<!-- v1 · 2026-07-10 · fleet-manager projects registry -->
 # fleet-manager — failsafe cron (dead-man wake)
 
 > **Status: DEPLOYED + VERIFIED** — trigger `trig_014odnv5h1tkJAFRhix3tGLq`,
@@ -21,25 +22,24 @@
 - **binding:** persistent — fires into the live coordinator chat (not
   fresh-session-per-fire)
 
-## Prompt text (deployed)
+## Prompt text (deployed) — VERBATIM-FROM-REGISTRY (extracted 2026-07-10 ~22:05Z via `list_triggers`)
+
+The stored `prompt` field of `trig_014odnv5h1tkJAFRhix3tGLq`, byte-exact,
+single line as stored (497 chars):
 
 ```
-FAILSAFE WAKE (fleet-manager, Q-0265): if your send_later continuation chain is
-alive, verify that in one line and end. If it stalled, resume the work loop
-(sync HEAD → inbox → slice after slice, each merged-on-green) and re-arm the
-chain (~15 min) before ending.
+FAILSAFE WAKE (fleet manager, Q-0265): if your send_later continuation chain is alive, verify that in one line and end. If it stalled, resume the work loop — sync menno420/fleet-manager to origin/main HEAD, read control/inbox.md at HEAD, then slice after slice (staleness sweep → route/advance ORDERs → owner-queue + safe-to-delete → doctrine ORDERs), each shipped as its own merged-on-green PR — and re-arm the chain (~15 min) before ending. Heartbeat control/status.md as each batch's last step.
 ```
 
-**Provenance of the text:** this is the Q-0265 failsafe template (superbot
-`docs/planning/round3-dispatch-part4-brief-2026-07-10.md` §2b, step 3)
-instantiated with `<seat>` = fleet-manager — the exact pattern ORDER 011's `do:`
-ordered deployed ("fleet-manager failsafe wake", same 30 */2 cadence, chain-alive
-→ one-line verify + end / chain-stalled → resume + re-arm). Honesty note: the
-in-repo re-arm record (status.md) commits the trigger **id, name, cron, creation
-time, session binding, and the pattern in summary form** verbatim; the full
-prompt string above is the §2b template the cutover executed, not a
-character-for-character quote lifted from status.md — a future verifier can
-confirm the stored prompt via `list_triggers` (it returns the prompt field).
+**Provenance of the text:** extracted verbatim from the live trigger registry
+by the 2026-07-10 gap-closure pass (this replaces the earlier honesty-noted
+template reconstruction, which differed from the deployed text: the stored
+prompt says "fleet manager" — space, not hyphen — and carries the manager's
+own richer work loop: staleness sweep → route/advance ORDERs → owner-queue +
+safe-to-delete → doctrine ORDERs, plus the heartbeat-as-last-step clause;
+the old generic §2b template quote is superseded by the block above). A
+future verifier re-confirms via `list_triggers` — the registry returns the
+stored prompt; see `../_inventory/trigger-registry-2026-07-10.md`.
 
 ## Role in the operating model (Q-0265)
 

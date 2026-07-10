@@ -1,3 +1,4 @@
+<!-- v1 · 2026-07-10 · fleet-manager projects registry -->
 # Product Forge — failsafe cron text (part 4 of 4)
 
 > Routine name: **`product-forge failsafe wake`** · cron: **`0 */2 * * *`** (even hours
@@ -12,10 +13,19 @@
 >   Chain alive (~15-min send_later continuation ticks) + failsafe cron
 >   `trig_012EvztCrHHg7s4mBsKT3VKs` 'product-forge failsafe wake' (`0 */2 * * *`),
 >   enabled."** — i.e. the seat cut over and ARMED the failsafe after the dispatch
->   snapshot. Caveat: status names the trigger id/name/cron but does **not** commit the
->   armed trigger's prompt text verbatim, so text-equality with the block below is
->   unverified from the repo (verify via `list_triggers` from the seat, or re-arm with
->   this canonical text).
+>   snapshot. Text-equality caveat RESOLVED 2026-07-10 ~22:05Z (gap-closure pass,
+>   `list_triggers`): the armed trigger's stored prompt is **NOT** the canonical block
+>   below — it is the generic §2b failsafe template, VERBATIM-FROM-REGISTRY (263 chars,
+>   single line as stored):
+>
+>   ```
+>   FAILSAFE WAKE (product-forge, Q-0265): if your send_later continuation chain is alive, verify that in one line and end. If it stalled, resume the work loop (sync HEAD → inbox → slice after slice, each merged-on-green) and re-arm the chain (~15 min) before ending.
+>   ```
+>
+>   The mismatch is functional-benign (chain-alive check + resume + re-arm are all
+>   present) but the seat-specific rails (product ORDER ladder, money-step brake) exist
+>   only in the canonical block below — re-arm with the canonical text at the seat's
+>   next cutover to close the gap.
 >
 > Source of the exact text: superbot
 > `docs/planning/round3-founding-package-product-forge-2026-07-10.md` §2 step 5

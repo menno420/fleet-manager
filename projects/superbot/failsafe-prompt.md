@@ -1,3 +1,4 @@
+<!-- v1 · 2026-07-10 · fleet-manager projects registry -->
 # superbot — failsafe / wake text: NONE by design
 
 **NO standing wake by design (Q-0264, 2026-07-10):** Q-0264 superseded the
