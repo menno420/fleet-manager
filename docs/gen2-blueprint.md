@@ -77,6 +77,24 @@
 > `docs/planning/gen3-deployment-standard-2026-07-10.md` §2, amended same
 > night) carries the born-continuous routine standard for new seats. The
 > companion rider lives in `prompts/init-prompt-universal.md`.
+> 2026-07-10 (night, later) — **REVIEW-QUEUE AUTO-APPEND RULE made BINDING +
+> standing drainer named** (inbox ORDERs 003 + 007, program-review §5.2,
+> owner directives Q-0258/Q-0259 r3; fleet-manager PR #37). The §1/§2
+> "needs-second-eyes → merge anyway + a review-queue line" convention now
+> has a **threshold and an owner**: every PR adding **>50 changed lines of
+> runtime/product code** (excluding docs/, control/, .sessions/, pure test
+> additions) OR carrying any self-flagged risk MUST append its own
+> [`review-queue.md`](review-queue.md) row before session close (N=50
+> rationale + full rule text live in that file's header — it catches real
+> logic changes, skips heartbeat churn; decide-and-flag, owner may re-tune).
+> The standing drainer is **two-tier: PRIMARY = @codex post-merge review**
+> on Codex-enabled repos (one specific question on the merged head, Part C
+> template, Q-0120 return path — playbook **R24**), **FALLBACK = the
+> manager's failsafe-wake batches** (which also escalate any row >48h
+> unread). First drain pass backfilled 8 rows for the overnight band's
+> highest-risk PRs. Rationale: 116 merged PRs / zero rows was the state
+> that voided the post-merge-review law this blueprint's merge policy
+> rests on.
 
 The premise: every gen-1 lane paid a tax rediscovering the same ~13 failure
 classes. Gen-2 lanes are **born right** — the seed state prevents the known
