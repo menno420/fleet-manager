@@ -20,6 +20,7 @@ routine: **fleet-manager failsafe wake** · cron 30 */2 * * * · id `trig_014odn
 > (PR #38, this record)**. F-1 rebind-then-delete cutover recipe held.
 
 last-shipped: #41 — ORDER 012 games-program mapping proposal (Q-0259 r5)
+universal-pointer: UNIVERSAL pointer prompts live at projects/UNIVERSAL.md (paste-same-everywhere, v1 · 2026-07-10)
 blockers: none
 
 > ## ⚑ OWNER-REVIEW — games-program mapping proposal awaits your reaction — founding packages HELD

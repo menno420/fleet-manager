@@ -121,6 +121,19 @@ is the consolidated owner-queue item ("Project package paste wave"):**
   failsafe texts, never executed.
 - **Archives / pre-birth** — nothing to paste by definition.
 
+## Universal pointer prompts
+
+[`UNIVERSAL.md`](UNIVERSAL.md) holds the owner's **universal pointer prompts**
+— one Custom-Instructions block + one wake block pasted **identically into
+every Project**, so the owner pastes one text everywhere instead of matching
+prompts to projects: the Project's repo attachment tells the session which
+`projects/<repo>/` dir is its own, and the paste only points it at this
+registry (raw fetches + quotable version headers). The per-repo packages above
+stay the **canonical content** — the universal blocks are pointers, never a
+replacement. Private-repo caveat: this works because fleet-manager is
+**public**, so the `raw.githubusercontent.com` fetches resolve from any seat
+without credentials.
+
 ## Provenance
 
 Built **2026-07-10** from the three-sweep inventory (committed here:
