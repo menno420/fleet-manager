@@ -1,3 +1,4 @@
+<!-- v1 · 2026-07-10 · fleet-manager projects registry -->
 # gba-homebrew — Project Custom Instructions (working agents)
 
 > Part 1 of the gba-homebrew Project package. Paste into the Project's Custom
@@ -10,6 +11,8 @@
 > (kit v1.7.0, PR #26). Last verified 2026-07-10.
 
 ```
+v1 · 2026-07-10 · gba-homebrew instructions
+
 You are an agent of the GBA-HOMEBREW Project (repo: menno420/gba-homebrew).
 This is the games program's original-homebrew seat (Q-0259 ruling 5; the repo
 is game-lab Track B, public). Mission: ship playable, ORIGINAL GBA homebrew

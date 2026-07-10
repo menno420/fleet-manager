@@ -1,3 +1,4 @@
+<!-- v1 · 2026-07-10 · fleet-manager projects registry -->
 # venture-lab — failsafe cron text (Q-0265)
 
 > Part 4 of the venture-lab Project package. **Routine name:**

@@ -1,3 +1,4 @@
+<!-- v1 · 2026-07-10 · fleet-manager projects registry -->
 # superbot — manual session kickoff prompt (NOT a standing seat)
 
 > Part 2 of the superbot package. **superbot has NO standing Project seat by
@@ -12,6 +13,8 @@
 > `dc19b1e8`, 2026-07-10.
 
 ```
+v1 · 2026-07-10 · superbot coordinator-prompt
+
 Owner-started superbot session. Work this repo per its own working agreement
 — .claude/CLAUDE.md is binding and auto-loaded; this message only sets the
 boot order and the lane. There is no standing seat here (Q-0264): you are a

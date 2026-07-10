@@ -1,3 +1,4 @@
+<!-- v1 · 2026-07-10 · fleet-manager projects registry -->
 # superbot-games — failsafe cron text (Q-0265)
 
 > Part 4 of the superbot-games Project package. **Routine name:**
