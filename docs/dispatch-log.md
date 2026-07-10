@@ -135,3 +135,17 @@ prompt, and the external review pack are logged above; review pack ref: sb#1903
   (2 repos: gba-homebrew public / pokemon-mod-lab PRIVATE · Project ·
   gba-lab env · hourly routine · boot line), capabilities.md GBA recipe +
   devkitPro-403 wall (R18).
+
+## 2026-07-10 — night (Fable-5 ultracode fleet review landing)
+
+- Fable-5 fleet review landed (this PR) — 30/30 adversarially confirmed
+  findings synthesized to `docs/findings/fable5-review-2026-07-09.md`
+  (owner exec summary, per-dimension dispositions, blueprint amendment
+  **PROPOSALS P1–P11** — blueprint/playbook/owner-queue NOT edited; the
+  next blueprint edit stays with the CI-tier sim session — and drift-fix
+  list D1–D6); 10 gen-2 founding instruction packages copied to
+  `docs/proposals/instructions/` (ALL PROPOSED, none deployed, paste-time
+  delta-8 lint in the README); 3 verified new ideas captured
+  (review-queue drainer, lane-seeder automation, fleet economics ledger);
+  handoff websites drift fixed on sight (F15/D3). ⚑ Self-initiated within
+  scope: D3 handoff fix + findings-README index row.
