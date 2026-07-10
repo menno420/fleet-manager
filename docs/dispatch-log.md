@@ -168,3 +168,19 @@ prompt, and the external review pack are logged above; review pack ref: sb#1903
   Project).
 - Idea captured: GBA play-through-Discord
   (`docs/ideas/gba-play-discord-2026-07-10.md`).
+
+## 2026-07-10 — morning, later (routine-wall correction + wake-arm rollout)
+
+- PLATFORM-GAP correction — owner-verified (2026-07-10 ~morning): Claude Code
+  Projects CAN create their own routines that fire inside the Project; the
+  "walled on BOTH sides" conclusion stands only for non-Project surfaces
+  (webagent coordinator + spawned workers: no send_later/self-trigger;
+  cross-session trigger binding refused — verbatim error texts KEPT in
+  capabilities.md). Corrected: capabilities.md (narrowed wall + CAN entry),
+  gen2-blueprint §2a rider (wake cadence now agent-executable), owner-queue
+  item 7 (→ "self-arm rollout dispatched; owner fallback only on a recorded
+  lane failure"). Exact in-Project mechanism unknown — recipe pending: first
+  successful lane records the exact tool/UI path.
+- Wake-arm ORDER rollout dispatched to 6 active lanes — venture-lab,
+  substrate-kit, pokemon-mod-lab, gba-homebrew hourly (Class A); websites,
+  trading-strategy 4-hourly (Class B), per blueprint §2a. (PR #19.)

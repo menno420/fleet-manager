@@ -89,6 +89,15 @@ all three routes proven (`docs/findings/gba-toolchain-proof-2026-07-09.md`):
   the system libmgba 0.10.x) → boot → run N frames → PNG at ~290 fps; scripted button
   injection can verify changes in-game with no display and no human.
 
+### Self-arm wake routines from inside a Project session (owner-verified 2026-07-10)
+The "routine/trigger creation walled on BOTH sides" conclusion (2026-07-10 ~02:05Z)
+was **WRONG for Project sessions**: the owner verified (2026-07-10, ~morning) that
+Claude Code **Projects CAN create their own routines that fire inside the Project**.
+The walls below remain true for non-Project surfaces (webagent coordinator + spawned
+workers; cross-session trigger binding). Exact in-Project mechanism not yet recorded —
+**recipe pending: first successful lane records the exact tool/UI path** (append it
+here the same session).
+
 ## WALLED — verified walls (quote the observed error, don't paraphrase)
 
 - **Tag push, GitHub Release creation, remote branch deletion** — fail with **403 at the
@@ -96,15 +105,21 @@ all three routes proven (`docs/findings/gba-toolchain-proof-2026-07-09.md`):
 - **Creating/editing claude.ai environments or Projects** — no API surface for
   the agent → **owner clicks** in the claude.ai UI. (Routines are worse — see the
   both-sides wall below.)
-- **Routine/trigger creation is unavailable on BOTH sides** (verified 2026-07-10):
-  agent-side, self-arm attempts failed fleet-wide with recorded errors (create_trigger /
-  trigger-binding rejections — the cross-session messaging wall below records the verbatim
-  class); owner-side, **this owner account's console lacks the routine/schedule option**
-  (checked at the 2026-07-10 ~02:05Z paste session). There is currently NO way to arm a
-  wake routine at all. **Wake substitute:** timed watch workers (blocking foreground waits,
-  R4) + a morning "continue"/boot message per Project; lanes operate **self-terminal**
-  (every session leaves its work safe with no future wake needed). Re-test occasionally —
-  if the platform ships the surface, owner-queue item 7 re-promotes to a click.
+- **Routine/trigger creation — walled on NON-PROJECT surfaces only** (CORRECTED
+  2026-07-10 ~morning, owner-verified — the earlier "unavailable on BOTH sides" reading
+  was wrong for Project sessions; see the CAN entry above: **in-Project self-arm WORKS**,
+  recipe pending: first successful lane records the exact tool/UI path). Still walled:
+  agent-side on the webagent coordinator + spawned workers (no send_later/self-trigger;
+  self-arm attempts from those surfaces failed fleet-wide with recorded errors —
+  create_trigger / trigger-binding rejections; the cross-session messaging wall below
+  records the verbatim class); and cross-session trigger binding (rejected: **"binding a
+  trigger to another session is not enabled for this organization"**). Owner-side,
+  **this owner account's console lacked the routine/schedule option** at the 2026-07-10
+  ~02:05Z paste session. **Wake substitute where self-arm isn't available:** timed watch
+  workers (blocking foreground waits, R4) + a morning "continue"/boot message per Project;
+  lanes operate **self-terminal** (every session leaves its work safe with no future wake
+  needed). Rollout: wake-arm ORDERs dispatched to all active lanes 2026-07-10 (owner-queue
+  item 7 — owner fallback only on a recorded lane failure).
 - **claude.ai Project "Custom Instructions" field caps at 8,000 characters** (verified
   2026-07-10 ~02:05Z): two ~9k founding packages (websites 9,209 chars; trading-strategy
   8,980 chars) overflowed at paste and had to be re-trimmed live. **Recipe:** keep every

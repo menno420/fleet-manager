@@ -1,9 +1,9 @@
 # fleet-manager · status
-updated: 2026-07-10T06:30:00Z
+updated: 2026-07-10T11:05:00Z
 phase: GEN-2 FLEET LIVE — morning consolidation after the overnight launch (2026-07-10 00:00–06:15Z: **116 PRs merged fleet-wide, zero stuck** — verified via the merged-PR search, not reports; full record: docs/planning/gen2-launch-record-2026-07-10.md)
 health: green
 kit: v1.4.0 · check: green · engaged: yes
-last-shipped: #18 — morning consolidation (this status rewrite, owner-queue refresh, deployed fitted instructions, launch record, gba-play idea, capability walls)
+last-shipped: #19 — routine-wall correction (in-Project self-arm WORKS, owner-verified 2026-07-10) + wake-arm rollout record
 blockers: none
 
 ## Lanes (current, one line each — verified at HEAD 2026-07-10 morning)
@@ -26,7 +26,7 @@ blockers: none
 - gba-homebrew session 6 (Lumen Drift polish pass 2) — WIP at morning read.
 - Owner morning click-list: **docs/owner-queue.md** (8 active items, HOT first).
 - EAP free window through 2026-07-14; Anthropic follow-up draft rides the email pack (parked queue).
-- PLATFORM GAP (recorded in capabilities.md): routine/trigger creation walled on BOTH sides — lanes run self-terminal; interim wake = a morning "continue" per Project.
+- CORRECTED 2026-07-10 ~morning (was: PLATFORM GAP both sides): in-Project routine self-arm WORKS (owner-verified) — wake-arm ORDERs dispatched to 6 active lanes (venture-lab, substrate-kit, pokemon-mod-lab, gba-homebrew hourly; websites, trading-strategy 4-hourly). Coordinator/worker + cross-session walls stand (capabilities.md). Recipe pending: first successful lane records the exact tool/UI path; owner fallback only on a recorded lane failure.
 
 orders: acked= done= (no inbox orders for the manager repo)
 ⚑ needs-owner: see docs/owner-queue.md (8 active + parked)

@@ -27,6 +27,10 @@
 > every gen-2 lane gets a CI tier at birth; the sim adjusted the prior —
 > Tier 1 labs run **fast-full** (whole suite, one ≤60s cell), not a smoke
 > subset; Tier 0 born-red repos keep the substrate-gate as the card hold.
+> 2026-07-10 (morning) — **§2a rider added: wake cadence is agent-executable**
+> (owner-verified 2026-07-10 ~morning: Project sessions CAN self-arm
+> in-Project routines; correction recorded in `capabilities.md`; recipe
+> pending — first successful lane records the exact tool/UI path).
 
 The premise: every gen-1 lane paid a tax rediscovering the same ~13 failure
 classes. Gen-2 lanes are **born right** — the seed state prevents the known
@@ -164,6 +168,14 @@ Rules that ride the cadence table:
 4. **Timestamps from `date -u`**, never the model's sense of time — the sweep
    caught two lanes stamping local-time-as-Z (+1h drift); commit history is
    the clock of record (R2).
+
+> **Rider (2026-07-10, owner-verified):** the wake cadence above is now
+> **agent-executable** — Project sessions CAN self-arm their own in-Project
+> routines (the "walled on both sides" reading was wrong for Project surfaces;
+> correction + remaining non-Project walls in
+> [`capabilities.md`](capabilities.md); exact recipe pending — the first lane
+> that self-arms records the tool/UI path). §3 step 6's owner routine click
+> becomes the fallback, not the path.
 
 ## 2b. CI-TIER STANDARD — simulated, not assumed (2026-07-09)
 

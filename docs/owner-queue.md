@@ -108,17 +108,20 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
    - UNBLOCKS: the final ranked report's §Holdout — the lab's terminal
      deliverable.
 
-7. **Wake-routine arming — recorded as PLATFORM GAP, no click possible.**
-   - WHAT: routine/trigger creation is walled on BOTH sides — agents
-     (self-arm attempts failed fleet-wide with recorded errors, capabilities.md)
-     AND this owner account (the console lacks the option — verified at the
-     2026-07-10 paste session). There is nothing to click today.
-   - INTERIM: lanes run **self-terminal** (every session leaves work safe with
-     no future wake needed — already founding law in the gen-2 texts); the
-     wake substitute is timed watch workers + **a morning "continue" message
-     per Project** (one paste each, any order).
-   - UNBLOCKS (when the platform ships the surface): the fleet running on
-     orders without manual wake-ups — re-promote to a click item then.
+7. **Wake-routine arming — self-arm rollout DISPATCHED (nothing to click unless a lane fails).**
+   - WHAT: the "walled on BOTH sides" reading was corrected 2026-07-10
+     (~morning, owner-verified): Project sessions CAN create their own
+     in-Project routines (capabilities.md carries the correction; the walls
+     stand for coordinator/worker surfaces and cross-session binding).
+     **Self-arm rollout dispatched (ORDERs queued to all active lanes)** —
+     venture-lab, substrate-kit, pokemon-mod-lab, gba-homebrew hourly
+     (Class A); websites, trading-strategy 4-hourly (Class B), per
+     blueprint §2a. Recipe pending: the first successful lane records the
+     exact tool/UI path in capabilities.md.
+   - **Owner fallback ONLY if a lane's attempt fails with a recorded error**
+     — then that lane's routine (or the morning-"continue" interim) becomes
+     a click again; otherwise nothing to do here.
+   - UNBLOCKS: the fleet running on orders without manual wake-ups.
 
 8. **Review the 10 PROPOSED instruction packages.**
    - WHAT: `docs/proposals/instructions/` — 10 gen-2 founding packages.
