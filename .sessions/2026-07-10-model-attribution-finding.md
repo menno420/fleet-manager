@@ -1,6 +1,6 @@
 # 2026-07-10 — Critical finding: model attribution inconsistent across surfaces (routine-fired sessions)
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 📊 Model: fable-5 (family-level, self-reported from this session's own harness) · high · docs + control finding-landing job · start 2026-07-10T19:37Z (`date -u`)
 
