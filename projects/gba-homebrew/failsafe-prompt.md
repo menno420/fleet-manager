@@ -1,3 +1,4 @@
+<!-- v1 · 2026-07-10 · fleet-manager projects registry -->
 # gba-homebrew — failsafe cron text (Q-0265)
 
 > Part 4 of the gba-homebrew Project package. **Routine name:**

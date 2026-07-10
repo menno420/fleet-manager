@@ -1,3 +1,4 @@
+<!-- v1 · 2026-07-10 · fleet-manager projects registry -->
 # pokemon-mod-lab — failsafe cron text (Q-0265) — NOT ARMED
 
 > Part 4 of the pokemon-mod-lab Project package. **Routine name:**

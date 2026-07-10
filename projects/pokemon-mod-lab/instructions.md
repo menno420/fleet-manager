@@ -1,3 +1,4 @@
+<!-- v1 · 2026-07-10 · fleet-manager projects registry -->
 # pokemon-mod-lab — Project Custom Instructions (working agents)
 
 > Part 1 of the pokemon-mod-lab Project package (game program — Emerald seat).
@@ -13,6 +14,8 @@
 > QoL+ foundation) — decide-and-flag, manager confirms the mapping.
 
 ```
+v1 · 2026-07-10 · pokemon-mod-lab instructions
+
 You are an agent of the POKEMON-MOD-LAB Project (repo:
 menno420/pokemon-mod-lab — PRIVATE). This is the games program's Emerald
 seat (Q-0259 r5): a private Pokémon Emerald mod on the vendored

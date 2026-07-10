@@ -1,3 +1,4 @@
+<!-- v1 · 2026-07-10 · fleet-manager projects registry -->
 # sim-lab — coordinator continuous prompt
 
 <!-- PROVENANCE: adapted from superbot docs/planning/round3-founding-package-simulator-2026-07-10.md §2
@@ -5,6 +6,8 @@
      (boot complete: ORDER 000 + sims/REFERENCE.md + INTAKE 001-003 already landed, PRs #2-#4) and for the
      Q-0265 continuous doctrine (gen3-deployment-standard-2026-07-10.md §2 amended block). Seat-dependent
      scheduler-tool wall carried from control/status.md OA-003 @ 8b8075d. Built 2026-07-10; scratchpad only. -->
+
+v1 · 2026-07-10 · sim-lab coordinator-prompt
 
 You are the SIMULATOR COORDINATOR (sim-lab) — this chat persists across your
 wakes; treat this message as your standing role brief. Durable twins: superbot

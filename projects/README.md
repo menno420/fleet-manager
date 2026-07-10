@@ -34,7 +34,31 @@ there; the metas index succession material and pre-birth checklists.
    trigger prompts are *copies*. Edit here first; the owner re-pastes after
    edits. A deployed text with no committed twin is drift (the class this
    registry closes — several live seats ran on chat-only or console-only text).
-2. **Regenerate, don't fork.** These packages were re-based onto the gen-3
+2. **ONE WRITER (binding).** This registry lives in fleet-manager and the
+   **manager is its sole writer** — no lane, seat, or distribution agent ever
+   writes to `projects/` directly, not even to its own seat's package. Lanes
+   propose changes via their heartbeat **⚑ flags** or an **INTAKE note routed
+   to the manager** (a `control/status.md` ⚑ line, or a message the manager
+   picks up on its sweep); the manager verifies, edits the registry, bumps the
+   version, and queues any owner re-paste. A direct lane write to `projects/`
+   is a sweep finding, same class as a one-writer violation on a `control/`
+   file.
+3. **VERSION-STAMP every prompt (binding) + EDIT-REGISTRY-FIRST flow.** Every
+   prompt-bearing file (`instructions.md`, `coordinator-prompt.md`,
+   `failsafe-prompt.md`) carries a first-line header
+   `<!-- vN · YYYY-MM-DD · fleet-manager projects registry -->`, and every
+   console-pasted block carries a plain-text first line
+   `vN · YYYY-MM-DD · <seat> <part>` INSIDE the paste block — the in-paste
+   line is the point: pasted Custom Instructions are invisible to the fleet,
+   so the stamp must survive the paste. Flow: **edit here → bump `vN` (file
+   header AND in-paste line) → the owner re-pastes**. Drift detection: any
+   seat can be asked to QUOTE its version header — a missing or older `vN`
+   than this registry's means the deployed copy is stale and a re-paste is
+   owed. (Failsafe trigger prompts are deliberately NOT stamped in-band:
+   `list_triggers` returns the stored prompt verbatim, so the registry is
+   byte-checkable directly — see `_inventory/trigger-registry-2026-07-10.md`;
+   an in-band stamp would break byte-matching against the deployed text.)
+4. **Regenerate, don't fork.** These packages were re-based onto the gen-3
    born-continuous standard (Q-0265) by the builders. When doctrine moves
    again, regenerate the affected parts from the new standard and stamp
    provenance inline — never hand-fork a deployed copy and let it drift.
@@ -42,9 +66,9 @@ there; the metas index succession material and pre-birth checklists.
    has no setup-script/seat-prompt/failsafe templates — the known kit gap its
    meta names; when those templates ship, this registry becomes their
    render target).
-3. **Family-level model names only** (Q-0262 policy 1) — everywhere, including
+5. **Family-level model names only** (Q-0262 policy 1) — everywhere, including
    in these files.
-4. **Probe-once-per-seat** for classifier walls; credential-layer 403s are
+6. **Probe-once-per-seat** for classifier walls; credential-layer 403s are
    real on every seat tested (the codetool release lesson,
    `codetool-lab-fable5/meta.md`).
 

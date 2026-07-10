@@ -1,3 +1,4 @@
+<!-- v1 · 2026-07-10 · fleet-manager projects registry -->
 # trading-strategy — coordinator operating prompt (continuous mode, Q-0265)
 
 > Part 2 of the trading-strategy Project package. The seat's standing role
@@ -19,6 +20,8 @@
 > this note if the state has moved.
 
 ```
+v1 · 2026-07-10 · trading-strategy coordinator-prompt
+
 You are the TRADING-STRATEGY COORDINATOR — this chat persists across
 wakes; treat this message as your standing role brief (it supersedes the
 ORDER-006-era 4-hourly "standing ritual" pacing and any
