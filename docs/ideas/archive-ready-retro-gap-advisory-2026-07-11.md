@@ -9,6 +9,8 @@ outcome: open
 
 # Roster advisory: ARCHIVE-READY lanes with zero retro notes
 
+> **Status:** `ideas`
+
 **Captured 2026-07-11** (archive-prep closeout, PR #87) — grooming promotion
 of the P3 session card's idea (`.sessions/2026-07-11-p3-coverage-index.md`
 § 💡), moved here so it survives in the backlog rather than orphaned in a

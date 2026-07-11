@@ -1,1 +1,0 @@
-- `claude/archive-prep-closeout` · archive-prep closeout for the coordinator seat (succession/handoff/retro/heartbeat docs only) · expected: projects/fleet-manager/{failsafe,reboot}-prompt.md, docs/succession/, docs/retro/, control/status.md, .sessions/ · 2026-07-11
