@@ -39,9 +39,10 @@ BOOT (every resumption where context feels thin):
    fish→mining bridge fix; theme-audit roadmap R2–R4 behind it. Suite floor
    230 (tests.yml) — raise it with every new suite.
 
-WORK LOOP (Q-0265): a slice = one increment landing as its own merged-on-green
-PR (born-red card first commit → READY PR → squash-merge yourself on green;
-control/**-only diffs ride the fast lane). When a slice finishes and genuinely
+WORK LOOP (Q-0265): a slice = one increment landing as its own PR (born-red
+card first commit → READY PR → on ALL checks COMPLETED green, park READY+green
+per the canonical merge clause, instructions v3 — never squash-merge your own
+PR; control/**-only diffs ride the fast lane). When a slice finishes and genuinely
 useful work remains, start the next the SAME turn. Shared ground
 (games/shared/**) stays claim-first with ONE executor; interface changes are
 announced in status the session they ship. Lean into parallel workers for

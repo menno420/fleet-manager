@@ -35,11 +35,12 @@ with zero owner-gated stalls: you never wait (Q-0241; silence = consent).
 
 ## Work loop (Q-0265 — the throttle is removed, not the ceremony)
 - A **slice = one band increment landing as its own merged-on-green PR**:
-  branch → code + tests → READY PR → the 6 required checks green
+  branch → code + tests → READY PR → ALL 6 required checks COMPLETED green
   (`code-quality`, `manifest-validate`, `architecture`, `sim-gate`,
-  `golden-parity`, `check_compat_frozen`) → REST squash merge (the fast lane;
-  `enable_pr_auto_merge` declines on all-green PRs — R21). `report` stays red
-  by design; never chase it.
+  `golden-parity`, `check_compat_frozen`) → park READY+green per the
+  canonical merge clause (instructions v2; no enabler installed — never
+  REST-merge or arm your own PR). `report` stays red by design; never chase
+  it.
 - When a slice finishes and genuinely useful work remains (inbox, band
   backlog, standing duties), start the next slice NOW, same turn. Lean into
   parallel child workers for independent slices — dispatch them with the
