@@ -35,7 +35,84 @@ the game-lab founding package; decide-and-flag, vetoable.)*
 | **pinned-research** | [`archetype-pinned-research.sh`](archetype-pinned-research.sh) | pinned-`requirements*.txt` research/service lane; zero-to-few secrets; no local DB; may be a **two-source workspace** | trading-strategy, websites |
 | **bot-prod** | [`archetype-bot-prod.sh`](archetype-bot-prod.sh) | production Discord bot; Postgres; hash-pinned lockfile; per-repo CI interpreter pins (superbot → `python3.10`, superbot-next → `python3.11`); non-mutating workspace-residue advisory (dead-branch/dirty-tree report + `git checkout main && git pull --ff-only` recovery hint); **the only archetype allowed production-pointing vars** | superbot-next, superbot (legacy) |
 | **coordinator** | [`archetype-coordinator.sh`](archetype-coordinator.sh) | N-repo workspace (cwd is NOT a repo); superset manifest handling + dual interpreter | the live `multi-repo` env (fleet-manager coordination sessions) |
-| **gba-lab** | [`archetype-gba-lab.sh`](archetype-gba-lab.sh) | GBA cross-compile lab: devkitARM r68 (leseratte10 mirror route) + agbcc + binutils-arm-none-eabi + mGBA headless loop (`mgba-sdl` + pip `mgba==0.10.2`); zero secrets; no services | **gba-homebrew (planned, public)**, **pokemon-mod-lab (planned, PRIVATE)** — the game-lab venture |
+| **gba-lab** | [`archetype-gba-lab.sh`](archetype-gba-lab.sh) | GBA cross-compile lab: devkitARM r68 (leseratte10 mirror route) + agbcc + binutils-arm-none-eabi + mGBA headless loop (`mgba-sdl` + pip `mgba==0.10.2`) + xdelta3 patch tooling; zero secrets; no services | **gba-homebrew (planned, public)**, **pokemon-mod-lab (planned, PRIVATE)** — the game-lab venture |
+
+## The base shim + knob table (R2, ORDER 018 — 2026-07-11)
+
+The four Python-family archetype scripts above are now **thin configs over ONE
+base shim**, [`setup-base.sh`](setup-base.sh) — the audit (§4.2, 2026-07-11)
+found the multi/single-repo detection block byte-identical in all 5 scripts
+and coordinator's manifest ladder a strict superset of the other three, so
+all shared logic lives in the base and each archetype is a ~25-line knob
+diff. **gba-lab stays a genuinely separate full script** (heavy
+apt/mirror/source toolchain — the audit's own carve-out).
+
+Each thin config resolves the base in order: `$FLEET_SETUP_BASE` override →
+`environments/setup-base.sh` (cwd IS fleet-manager) →
+`fleet-manager/environments/setup-base.sh` (workspace child) → alongside the
+script file → raw fetch from `fleet-manager/main` (Q-0260 path). If all fail
+it warns and still exits 0 (R15) — the session lives, installs run in-session.
+
+| Knob | python-lab | coordinator | bot-prod | pinned-research |
+|---|---|---|---|---|
+| `BASELINE_PIP` | `pytest ruff build` | `pytest ruff` | *(none)* | `pytest python-multipart` |
+| `PICK_PYTHON_TABLE` | *(none — python3)* | `superbot=python3.10 superbot-next=python3.11` | `superbot=python3.10 superbot-next=python3.11` | *(none — python3)* |
+| `ENV_REPORT` | *(none)* | *(none)* | `DISCORD_BOT_TOKEN_PRODUCTION DATABASE_URL SB_DATA_PLANE YOUTUBE_API_KEY` | `GITHUB_TOKEN GITHUB_PAT RAILWAY_API_KEY SITE_PASSWORD DATABASE_URL` |
+| `GIT_TRIAGE` (branch/dirty report, never mutates) | 0 | 0 | 1 | 1 |
+
+Notes:
+
+- **Audit §4.2 latent-bug fix:** coordinator's `pick_python` previously had
+  NO `superbot-next→python3.11` case (superbot-next, a child of the live
+  multi-repo env, installed under bare `python3` — correct only by luck). The
+  pin table is now data shared with bot-prod, so both carry both cases.
+- The base's manifest ladder is the coordinator superset for every archetype:
+  `scripts/env-setup.sh`|`scripts/setup-env.sh` → `requirements.lock`
+  (hash-pinned) → `requirements*.txt` (depth 2, each individually) →
+  `pyproject.toml` (`[dev]` then `-e .`) → skip. python-lab therefore now
+  also picks up `requirements-dev.txt` / lockfiles if a lab ever grows one —
+  intended superset behavior.
+- A second consolidation fix: `pick_python`'s missing-interpreter WARNING now
+  goes to stderr — it is called via command substitution, so the old stdout
+  warning would have been captured into the interpreter variable and
+  corrupted it (latent in every pre-consolidation copy).
+- The thin configs are **re-derived and unverified-as-thin-configs** until
+  the next owner paste / lane boot runs one end-to-end (Q-0105 posture); the
+  pre-consolidation scripts they replace were in-container tested (PR #10).
+
+### R3 disposition — gba-lab's two lane gaps (ORDER 018, 2026-07-11)
+
+- **(a) Patch/distribution tooling — FIXED IN-SCRIPT:** `xdelta3` added to the
+  apt baseline. The ROM itself is un-distributable, so a shipping pokemon mod
+  necessarily emits base→modded patches; xdelta3 is the in-apt-archive patch
+  tool and covers that the moment the lane ships. Confirming pokemon-mod-lab's
+  exact shipping model from fleet side is walled (PRIVATE repo — raw reads
+  need a grant this session doesn't hold), but the add is tiny, harmless for
+  Track B, and required under every patch-shipping model. **`flips` (Floating
+  IPS) NOT added — why-not:** it is not in the Ubuntu apt archive; installing
+  it would mean another unsigned source build, the exact supply-chain surface
+  R3(b) exists to shrink. If the lane specifically needs BPS/IPS output, it
+  adds a pinned build via its own `scripts/env-setup.sh` escape hatch.
+- **(b) devkitARM Track-B gating — FIXED IN-SCRIPT:** the Block-3 unsigned
+  leseratte10-mirror pull is now gated behind homebrew detection — it runs
+  only when a checked-out repo is NOT pokeemerald-shaped (the Block-4
+  `include/global.h` + `Makefile` signature), or when no repos are visible
+  (bare/unknown layout keeps the proven pre-gate behavior), or on
+  `GBA_TRACK_B=force`; `GBA_TRACK_B=skip` disables it outright. A
+  pokeemerald-only env no longer pulls a toolchain it never uses.
+
+### R6 decision — mobile-lab's shape (⚑ decide-and-flag, ORDER 018, 2026-07-11)
+
+**Decision: the repo escape-hatch STAYS; no node-lab knob is built today.**
+mobile-lab remains registered **python-lab** with its Node/Expo toolchain
+riding the repo's own `scripts/env-setup.sh` (which every archetype prefers
+automatically). Rationale: mobile-lab is the fleet's ONLY JS lane — a
+`node-lab` knob on the base shim would be speculative surface serving one
+held, unlaunched lane. **Named promotion path (binding when triggered):** the
+moment a SECOND JS lane appears, promote a thin `node-lab` knob (e.g.
+`BASELINE_NPM`) on `setup-base.sh` rather than repeating the escape-hatch or
+minting a 6th archetype — per the audit's own R6 reasoning. ⚑ Vetoable;
+flagged on the ORDER 018 run report.
 
 ## Project → archetype mapping (EVERY current + planned project)
 
@@ -52,7 +129,7 @@ the game-lab founding package; decide-and-flag, vetoable.)*
 | menno420/sim-lab | **python-lab** | *(none)* | registered 2026-07-11 (audit R1 — was self-flagged unregistered); round-3 lane, archetype script already reused verbatim (`projects/_inventory/inventory-hub.md`) |
 | menno420/product-forge | **python-lab** | *(none)* | registered 2026-07-11 (audit R1 — was self-flagged unregistered); round-3 lane, archetype script already reused verbatim |
 | menno420/idea-engine | **python-lab** | *(none)* | registered 2026-07-11 (audit R1); markdown-first repo, stdlib `bootstrap.py`; round-3 lane, archetype script already reused verbatim |
-| menno420/mobile-lab (held) | **python-lab** | *(none)* | registered 2026-07-11 (audit R1); Node/Expo toolchain rides the repo `scripts/env-setup.sh` escape hatch — orthogonal to all archetypes, pending the R6 node-lab decision before launch |
+| menno420/mobile-lab (held) | **python-lab** | *(none)* | registered 2026-07-11 (audit R1); Node/Expo toolchain rides the repo `scripts/env-setup.sh` escape hatch — R6 DECIDED 2026-07-11 (ORDER 018): escape-hatch stays; a `node-lab` knob on `setup-base.sh` is the named promotion path if a second JS lane appears (§ "R6 decision" above) |
 | menno420/gba-homebrew (planned, public) | **gba-lab** | *(none)* | Track B (Butano original homebrew); devkitARM via the leseratte10 r68 mirror route (⚠ unsigned community infra — supply-chain caveat in [`../docs/findings/gba-toolchain-proof-2026-07-09.md`](../docs/findings/gba-toolchain-proof-2026-07-09.md)); publish-safe code only |
 | menno420/pokemon-mod-lab (planned, PRIVATE) | **gba-lab** | *(none)* | Track A (pokeemerald mod); agents mirror pret/pokeemerald in; **Nintendo-copyrighted material — PRIVATE only, never publish/commit ROMs or extracted assets publicly** |
 | menno420/trading-strategy | **pinned-research** | *(none)* — proxy vars (`HTTPS_PROXY`, `REQUESTS_CA_BUNDLE`) and git auth are platform-provided | Python **3.11** floor (container 3.11.15 OK). **Its env is a TWO-SOURCE workspace** (trading-strategy + substrate-kit as cwd children) — the layout that killed 2 sessions; this archetype's script is tested against exactly that shape |
