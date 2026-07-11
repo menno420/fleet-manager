@@ -1,53 +1,43 @@
-<!-- v1 · 2026-07-10 · fleet-manager projects registry -->
-# superbot-games — failsafe cron text (Q-0265)
+<!-- v2 · 2026-07-11 · fleet-manager projects registry -->
+# superbot-games — failsafe wake trigger (Seat A) — DEPLOYED + REGISTRY-VERIFIED
 
-> Part 4 of the superbot-games Project package. **Routine name:**
-> `superbot-games failsafe wake` · **cadence:** `0 */2 * * *` (even hours :00 —
-> the core/lane stagger: lanes `0 */2`, manager `30 */2`; gen-3 deployment
-> standard §2) · fires into the persistent merged-lane coordinator session.
->
-> **NOT ARMED (2026-07-10).** The repo is CLOCKLESS: no routine exists anywhere
-> for it; inbox ORDER 002 (self-arm, status:new) is UNEXECUTED — arming this
-> failsafe + the pacemaker chain IS that order's Q-0265-shaped execution
-> (adaptation flagged in the coordinator prompt: the order's literal spec was
-> a pre-Q-0265 hourly standing wake). Known wall, on record verbatim from the
-> mining gen-1 close-out (superbot-games `control/status-mining.md` @
-> `4493292`): routine "NOT ARMED — no scheduler tool available this session
-> ('No such tool available: mcp__claude-code-remote__send_later')". Scheduler
-> tool availability is SEAT-DEPENDENT (websites/trading/kit/fleet-manager and
-> the Builder seat all armed successfully the same day) — re-probe on every
-> session; if the tools are absent on the arming seat, record the verbatim
-> denial in status + a ⚑ owner fallback, per ORDER 002's required-record rule.
->
-> Template provenance: part-4 brief §2b failsafe template (superbot
-> `docs/planning/round3-dispatch-part4-brief-2026-07-10.md` @ `53fb5ef`),
-> adapted for the merged games-plugins lane.
+> Part 4 of the superbot-games package. **Status: ARMED + LIVE** — the seat
+> SELF-BOOTED and armed this trigger itself 2026-07-10T23:47:02Z (v1's "NOT
+> ARMED / repo CLOCKLESS" state is history; ORDER 002's substance executed
+> seat-side in the Q-0265 shape). This file is the registry's byte-checkable
+> record of the STORED prompt — per registry doctrine, failsafe prompts carry
+> NO in-band version stamp so the block below can be byte-matched against
+> `list_triggers` output directly.
 
-## The prompt (create_trigger `prompt` field, verbatim)
+## Deployed trigger (registry metadata, `list_triggers` 2026-07-11T01:26:43Z)
+
+- **trigger id:** `trig_019ZgWyL78Rx1sr6LhvL8NE3`
+- **name:** `superbot-games failsafe wake`
+- **cron_expression:** `15 */2 * * *` (even hours :15 — lane stagger; Seat B
+  runs `45 */2`, manager `30 */2`)
+- **enabled:** true
+- **persistent_session_id:** `session_01TZcMwFdE7zvViW9HgH7fqZ` (the Seat A
+  coordinator session)
+- **created (armed):** 2026-07-10T23:47:02Z · created_via `meta_mcp`
+- **last_fired_at:** 2026-07-11T00:15:39Z · next_run_at 2026-07-11T02:15:00Z
+  at extraction
+- **prompt length:** 266 chars
+
+## The stored prompt text
+
+VERBATIM-FROM-REGISTRY · extracted 2026-07-11T01:26:43Z
 
 ```
-FAILSAFE WAKE (superbot-games, Q-0265): if your send_later/one-shot
-continuation chain is alive, verify that in one line and end. If it stalled,
-resume the work loop (sync menno420/superbot-games to origin/main HEAD →
-control/inbox.md at HEAD → slice after slice, each its own merged-on-green PR
-— mining and exploration plugin increments per your standing brief; the gate
-is untrustworthy until ORDER 001's collect-ALL-suites fix is merged, so
-verify with a full local collection) and re-arm the chain (~15 min) before
-ending. Overwrite control/status.md as the deliberate last step.
+FAILSAFE WAKE (superbot-games, Q-0265): if your send_later continuation chain is alive, verify that in one line and end. If it stalled, resume the work loop (sync HEAD -> inbox -> slice after slice, each merged-on-green) and re-arm the chain (~15 min) before ending.
 ```
 
-## create_trigger args (recipe)
+## Notes
 
-- `name`: `superbot-games failsafe wake`
-- `cron_expression`: `0 */2 * * *`
-- target: the persistent coordinator session — default self-bind when armed
-  from that session; do NOT set `create_new_session_on_fire`
-- `prompt`: the fenced block above, verbatim
-
-## Arming record (ORDER 002 requirement — do not skip)
-
-Write in `control/status.md`: the EXACT `create_trigger` call (tool name +
-arguments) and its outcome VERBATIM; verify presence via `list_triggers` (the
-registry is the proof — never wait for the first fire); on tool absence, the
-verbatim denial text + ⚑ owner fallback. Drop the `ORDER 001 …gate…` clause
-from the prompt at the first re-arm after the CI fix merges.
+- This is the generic §2b-template failsafe shape (superbot
+  `docs/planning/round3-dispatch-part4-brief-2026-07-10.md`), seat-armed — it
+  SUPERSEDES v1's longer draft text (which carried an ORDER-001 "gate is
+  untrustworthy" clause; that order merged via superbot-games PR #24, merge
+  SHA `7d4c347`, so the clause is obsolete anyway). Regenerate-don't-fork:
+  the deployed text above is canonical; v1's draft was never armed.
+- The cron is the dead-man failsafe only; the pacemaker is the seat's
+  one-shot/send_later continuation chain (Q-0265).
