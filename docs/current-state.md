@@ -78,6 +78,18 @@ The custodian toolchain shipped by the centralization plan P1→P3 (all
 - **Roster generations #1–#9** (hand → mechanized): `docs/roster.md` history
   in git; superseded superbot `docs/eap/fleet-manifest.md` on 2026-07-11.
 
+## 2026-07-11 archive-day session docs
+
+The 2026-07-11 coordinator-seat archive set (read-path links; the
+control/status.md heartbeat that previously referenced these was overwritten
+by the successor's 23:50Z heartbeat, PR #97):
+
+- [`findings/manifest-parallel-run-2026-07-11.md`](findings/manifest-parallel-run-2026-07-11.md)
+- [`planning/order-016-followups-2026-07-11.md`](planning/order-016-followups-2026-07-11.md)
+- [`retro/archive-ready-2026-07-11.md`](retro/archive-ready-2026-07-11.md)
+- [`retro/coordinator-seat-2026-07-11.md`](retro/coordinator-seat-2026-07-11.md)
+- [`succession/coordinator-handoff-2026-07-11-evening.md`](succession/coordinator-handoff-2026-07-11-evening.md)
+
 ## Where to read next
 
 `docs/roster.md` (fleet state now) → `docs/owner-queue.md` (what waits on
