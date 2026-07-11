@@ -426,6 +426,15 @@ manager sole writer, version stamps, family-level model names), owner-queue
 paste-wave items refreshed, and the boot clicks queued with WHAT/WHERE/UNBLOCKS.
 
 ## ORDER 015 · update 2026-07-11T01:55Z · status: ✅ DONE (as RE-SCOPED — registry centralization, not authoring; fleet-manager PR #58)
+priority: P1
+do: (append-only DONE flip for ORDER 015 above — no new work ordered; this
+block records the execution, fields per the kit's order grammar.)
+why: reality overtook the 00:45Z filing — both games seats SELF-BOOTED before
+any founding package was authored (handoff §5), so the executed scope is
+registry centralization, not authoring.
+done-when: (met in fleet-manager PR #58) both seats' packages committed to
+projects/ version-stamped from what the booted seats actually run; matrix +
+review-queue reconciled; ⚑ reconciliation flagged in control/status.md.
 ✅ DONE: executed per the coordinator handoff's reconcile note
 (`docs/succession/coordinator-handoff-2026-07-11.md` §5): reality overtook the
 filing — **both seats SELF-BOOTED** before any founding package was authored, so
