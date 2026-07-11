@@ -633,3 +633,46 @@ done-when: one base shim + knob table on main with the 4 archetype scripts as
 thin configs (superbot-next→3.11 case included); gba-lab's two gaps
 dispositioned; probe variants retired to one lineage; a recorded R6 decision
 (node-lab knob vs escape-hatch stays) in `environments/archetypes.md`.
+
+## ORDER 018 · update 2026-07-11T13:06Z · status: ✅ DONE (env consolidation R2/R3/R4/R6; fleet-manager PR #73)
+priority: P2
+do: (append-only DONE flip for ORDER 018 above — no new work ordered; this
+block records the execution, fields per the kit's order grammar.)
+why: all four items (R2/R3/R4/R6) are executed in one PR; the ORDER's
+done-when is met in full — no residue, no gated remainder.
+done-when: (met in fleet-manager PR #73) one base shim + knob table on main
+with the 4 archetype scripts as thin configs (superbot-next→3.11 case
+included); gba-lab's two gaps dispositioned; probe variants retired to one
+lineage; a recorded R6 decision in environments/archetypes.md.
+✅ DONE: executed (PR #73, lane worker session, model: fable-5, dispatched by
+coordinator cse_012o8pySy5K3AV6JWoPKryZL): **(1) R2** —
+`environments/setup-base.sh` landed (ONE base shim: the byte-identical
+multi/single-repo detection + the coordinator-superset manifest ladder,
+parameterized by knobs `BASELINE_PIP` / `PICK_PYTHON_TABLE` / `ENV_REPORT` /
+`GIT_TRIAGE`); the 4 Python-family archetype scripts are now ~25-line thin
+configs sourcing it (filenames stable — every meta.md pointer keeps
+resolving); knob table + notes in `environments/archetypes.md`. The audit
+§4.2 latent bug is FIXED — the consolidated pin table carries
+`superbot-next→python3.11` for coordinator too — plus a SECOND latent bug
+found during consolidation: `pick_python`'s missing-interpreter WARNING was
+emitted on stdout inside a command substitution and would have been captured
+INTO `$py`, corrupting the interpreter name; now stderr. **(2) R3** —
+gba-lab stays a separate full script; (a) FIXED IN-SCRIPT: `xdelta3` added
+to the apt baseline (patch-distribution tooling; `flips` deliberately NOT
+added — not in the Ubuntu apt archive, would mean another unsigned source
+build; why-not recorded in archetypes.md § "R3 disposition"); (b) FIXED
+IN-SCRIPT: the Block-3 unsigned devkitARM mirror pull is gated behind
+homebrew detection (pokeemerald-only env skips it; bare/unknown layout keeps
+the proven default; `GBA_TRACK_B=force`/`skip` overrides). **(3) R4** — the
+13 `projects/*/setup-script.sh` probe variants retired to short exit-0
+tombstones pointing at the one `environments/` lineage; superbot-games'
+`environment/`-vs-`environments/` split is LANE-SIDE (that repo) — listed as
+a follow-up on the heartbeat, not edited cross-repo from here. **(4) R6** —
+decision recorded in archetypes.md (⚑ decide-and-flag): mobile-lab's repo
+escape-hatch STAYS; a `node-lab` knob on `setup-base.sh` is the named
+promotion path the moment a second JS lane appears. All shipped scripts
+`bash -n` clean + sandbox-tested with stubbed apt/curl/python (multi-repo +
+single-repo, 3.11/3.10 pins, fallback WARN, base-unavailable fail-soft,
+Track-B gate skip/attempt/override — all exit 0). Thin configs are
+re-derived and unverified-as-thin-configs until the next owner paste / lane
+boot (Q-0105 posture; noted in archetypes.md).

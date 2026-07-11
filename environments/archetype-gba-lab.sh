@@ -37,15 +37,20 @@ export DEBIAN_FRONTEND=noninteractive
 log() { echo "[env-setup:gba-lab] $*"; }
 
 # --- Block 2: archetype baseline (best-effort, non-fatal) -------------------
-# apt layer: Track A assembler/linker + headless emulator + extraction tools.
+# apt layer: Track A assembler/linker + headless emulator + extraction tools
+# + patch-distribution tooling.
 # binutils-arm-none-eabi is the ONLY extra apt dep pokeemerald needs on this
 # container (scout-verified); mgba-sdl provides the system libmgba 0.10.x the
-# pip binding pins against; zstd unpacks the devkitARM .pkg.tar.zst packages.
-log "apt baseline: binutils-arm-none-eabi mgba-sdl zstd"
+# pip binding pins against; zstd unpacks the devkitARM .pkg.tar.zst packages;
+# xdelta3 emits base->modded ROM patches — the lane's only distributable form
+# (the ROM itself is un-distributable; audit R3a, ORDER 018). flips (Floating
+# IPS) is NOT in the Ubuntu apt archive — why-not recorded in archetypes.md
+# § "R3 disposition".
+log "apt baseline: binutils-arm-none-eabi mgba-sdl zstd xdelta3"
 (apt-get update -qq && apt-get install -y -qq \
-    binutils-arm-none-eabi mgba-sdl zstd) \
+    binutils-arm-none-eabi mgba-sdl zstd xdelta3) \
   || (sudo apt-get update -qq && sudo apt-get install -y -qq \
-    binutils-arm-none-eabi mgba-sdl zstd) \
+    binutils-arm-none-eabi mgba-sdl zstd xdelta3) \
   || log "apt install failed (non-fatal, continuing)"
 
 # pip layer: dev tools + the mGBA binding. PIN mgba==0.10.2 — it must match
@@ -60,9 +65,45 @@ python3 -m pip install --quiet pytest ruff Pillow "mgba==0.10.2" \
 # route: extract the r68 linux_x86_64 packages from the community mirror,
 # then build make-rules + crt0 from devkitPro's GitHub sources.
 # ⚠ Supply-chain caveat: the mirror is unsigned community infrastructure.
+#
+# GATED on homebrew detection (audit R3b, ORDER 018): a pokeemerald-only env
+# (Track A: agbcc) never uses devkitARM — pulling an unsigned-mirror
+# toolchain it never uses is pure supply-chain surface. Pull it only when a
+# checked-out repo actually looks Track-B-shaped (Butano/homebrew: any git
+# repo that is NOT pokeemerald-shaped by the Block-4 signature
+# include/global.h + Makefile), or when NO repos are visible (unknown/bare
+# layout — preserve the proven pre-gate behavior), or when forced.
+# Override: GBA_TRACK_B=force (always install) / GBA_TRACK_B=skip (never).
+needs_track_b() {
+  case "${GBA_TRACK_B:-}" in
+    force) return 0 ;;
+    skip)  log "GBA_TRACK_B=skip — devkitARM Track-B pull disabled"; return 1 ;;
+  esac
+  _repos=0
+  _trackb=0
+  if [ -d .git ]; then
+    _dirs="$PWD"
+  else
+    _dirs=""
+    for _d in */; do
+      [ -d "$_d/.git" ] && _dirs="$_dirs $PWD/${_d%/}"
+    done
+  fi
+  for _r in $_dirs; do
+    _repos=$((_repos + 1))
+    if [ -f "$_r/include/global.h" ] && [ -f "$_r/Makefile" ]; then
+      continue  # pokeemerald-shaped (Track A) — no devkitARM needed
+    fi
+    _trackb=1
+  done
+  [ "$_repos" -eq 0 ] && return 0  # unknown layout: keep the proven default
+  [ "$_trackb" -eq 1 ]
+}
 DKP="${DEVKITPRO:-/opt/devkitpro}"
 DKP_MIRROR="${GBA_DKP_MIRROR:-https://wii.leseratte10.de/devkitPro/devkitARM/r68%20%282026-06-10%29}"
-if [ -x "$DKP/devkitARM/bin/arm-none-eabi-gcc" ]; then
+if ! needs_track_b; then
+  log "no Butano/homebrew-shaped repo detected (pokeemerald-only env) — skipping devkitARM Track-B mirror pull (R3b gate; GBA_TRACK_B=force overrides)"
+elif [ -x "$DKP/devkitARM/bin/arm-none-eabi-gcc" ]; then
   log "devkitARM already present at $DKP/devkitARM — skipping install"
 else
   log "devkitARM r68 from mirror: $DKP_MIRROR"
@@ -93,10 +134,14 @@ else
   fi
 fi
 # Persist the env for the session (best-effort; harmless if profile unused).
-export DEVKITPRO="$DKP" DEVKITARM="$DKP/devkitARM"
-{ echo "export DEVKITPRO=$DKP"; echo "export DEVKITARM=$DKP/devkitARM"; \
-  echo 'export PATH="$DEVKITARM/bin:$PATH"'; } >> ~/.bashrc 2>/dev/null \
-  || log "bashrc persist failed (non-fatal)"
+# Only when the toolchain is actually on disk — a gated-off (pokeemerald-only)
+# env gets no dangling DEVKITPRO exports.
+if [ -d "$DKP/devkitARM" ]; then
+  export DEVKITPRO="$DKP" DEVKITARM="$DKP/devkitARM"
+  { echo "export DEVKITPRO=$DKP"; echo "export DEVKITARM=$DKP/devkitARM"; \
+    echo 'export PATH="$DEVKITARM/bin:$PATH"'; } >> ~/.bashrc 2>/dev/null \
+    || log "bashrc persist failed (non-fatal)"
+fi
 
 # --- Block 4: per-repo setup -------------------------------------------------
 # Detection order, most-specific first (every branch guarded):

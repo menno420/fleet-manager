@@ -1,114 +1,52 @@
 #!/usr/bin/env bash
 # ---------------------------------------------------------------------------
-# archetype-pinned-research.sh — setup script for the "pinned-research" archetype
+# archetype-pinned-research.sh — THIN CONFIG for the "pinned-research" archetype
+# (ORDER 018 R2: ALL logic lives in environments/setup-base.sh — one lineage)
 #
 # Canonical copy: menno420/fleet-manager · environments/archetype-pinned-research.sh
 # Serves: trading-strategy, websites.
-# Shape: pinned-requirements Python research/service lane; zero-to-few secrets;
-#        no local DB/Docker; may ship SEVERAL requirements files (websites has
-#        three: root + botsite/ + dashboard/).
-#
-# Derived from environments/templates/setup-universal.sh. CONTRACT (playbook
-# R15): NEVER fails the session — always exit 0. THE archetype contract, paid
-# for in blood (trading-strategy lost THREE sessions at provision — third
-# confirmed 2026-07-09T18:53Z, control/status.md): "the setup script must
-# exit 0 on a bare two-source checkout (cwd containing trading-strategy/ and
-# substrate-kit/), install only from a repo's own manifest, and never assume
-# its cwd is a git repository."
+# Shape: pinned-requirements Python research/service lane; zero-to-few
+# secrets; no local DB/Docker; may be a TWO-SOURCE workspace (the bare
+# trading-strategy + substrate-kit checkout that killed three sessions at
+# provision — the base's multi-repo branch is tested against exactly it) and
+# may ship SEVERAL requirements files (websites has three: root + botsite/ +
+# dashboard/ — the base installs each individually). The base also honors
+# websites' committed hook name scripts/setup-env.sh.
+# Knob table: environments/archetypes.md § "The base shim + knob table".
+# CONTRACT (playbook R15, inherited from the base): ALWAYS exits 0.
 # ---------------------------------------------------------------------------
+set +e
 
-# --- Block 1: defensive posture --------------------------------------------
-set +e          # a non-zero step must not abort the script
-# no set -u; no pipefail — tolerated, never fatal.
-export PIP_ROOT_USER_ACTION=ignore
-
-log() { echo "[env-setup:pinned-research] $*"; }
-
-# Boot triage: both lanes want >=3.11 (trading pins for 3.11; websites runs
-# 3.11 container / 3.12 prod). Container default 3.11.x satisfies both.
-log "python: $(python3 --version 2>&1 || echo 'python3 MISSING')"
-
-# --- Block 2: archetype baseline (best-effort, non-fatal) -------------------
-# pytest is CI's runner and absent from fresh containers (verified);
-# python-multipart is websites' known extra beyond its requirements files.
-log "baseline extras: pytest python-multipart"
-python3 -m pip install --quiet pytest python-multipart \
-  || log "extras install failed (non-fatal, continuing)"
-
-# --- Block 3: per-repo setup -------------------------------------------------
-# Detection order, most-specific first (every branch guarded):
-#   1. scripts/env-setup.sh OR scripts/setup-env.sh -> the repo knows best
-#      (interpreter-pin hatch; websites' committed name at HEAD is setup-env.sh).
-#   2. requirements*.txt up to depth 2 -> install EACH individually and
-#      non-fatally (websites ships three; one broken file must not block the
-#      rest). Existence is guaranteed by find — NEVER a bare `pip install -r`.
-#   3. nothing                 -> skip silently.
-setup_one() {
-  repo_dir="$1"
-  name="$(basename "$repo_dir")"
-  # Git-state triage (non-fatal): detached HEAD is normal on fresh clones —
-  # branch before committing; a dirty tree = persistent-workspace residue
-  # (recovery: git checkout main && git pull --ff-only).
-  if command -v git >/dev/null 2>&1 && [ -d "$repo_dir/.git" ]; then
-    br="$(git -C "$repo_dir" symbolic-ref --short -q HEAD 2>/dev/null || echo 'DETACHED HEAD — branch before committing')"
-    dirty=""
-    [ -n "$(git -C "$repo_dir" status --porcelain 2>/dev/null | head -1)" ] \
-      && dirty=" · DIRTY TREE (residue? git checkout main && git pull --ff-only)"
-    log "$name: git: ${br}${dirty}"
-  fi
-  hook=""
-  for h in scripts/env-setup.sh scripts/setup-env.sh; do
-    if [ -f "$repo_dir/$h" ]; then hook="$h"; break; fi
-  done
-  if [ -n "$hook" ]; then
-    log "$name: running $hook"
-    ( cd "$repo_dir" && bash "$hook" ) \
-      || log "$name: $hook failed (non-fatal, continuing)"
-  else
-    reqs="$(find "$repo_dir" -maxdepth 2 -name 'requirements*.txt' -not -path '*/.git/*' 2>/dev/null)"
-    if [ -n "$reqs" ]; then
-      printf '%s\n' "$reqs" | while IFS= read -r req; do
-        [ -f "$req" ] || continue
-        log "$name: python3 -m pip install -r ${req#"$repo_dir"/}"
-        ( cd "$repo_dir" && python3 -m pip install --quiet -r "$req" ) \
-          || log "$name: install of $req failed (non-fatal, continuing)"
-      done
-    else
-      log "$name: no setup hook or requirements*.txt — skipping"
-    fi
-  fi
-}
-
-# --- Block 4: multi-repo vs single-repo detection ---------------------------
-# Multi-source environment: cwd is a WORKSPACE whose child dirs are the git
-# clones — trading-strategy's live shape is /home/user containing
-# trading-strategy/ + substrate-kit/. The original script assumed single-repo
-# cwd here and died (exit 1, dead sessions). This branch is the fix.
-# Single-repo environment: cwd IS the repo (it has .git).
-if [ -d .git ]; then
-  setup_one "$PWD"
-else
-  found=0
-  for d in */; do
-    [ -d "$d/.git" ] || continue
-    found=1
-    setup_one "$PWD/${d%/}"
-  done
-  [ "$found" -eq 1 ] || setup_one "$PWD"
-fi
-
-# --- Block 5: env var presence report (NAMES only — never values) ------------
+# --- knobs -------------------------------------------------------------------
+ARCH_NAME="pinned-research"
+BASELINE_PIP="pytest python-multipart"  # pytest is CI's runner and absent from
+                                        # fresh containers; python-multipart is
+                                        # websites' known extra
+PICK_PYTHON_TABLE=""               # both lanes want >=3.11; container default
+                                   # python3 (3.11.x) satisfies both
 # websites' lane vars (spec §2 check set incl. platform-injected GITHUB_TOKEN
 # — its absence is a platform signal); trading needs none. Presence only.
-for v in GITHUB_TOKEN GITHUB_PAT RAILWAY_API_KEY SITE_PASSWORD DATABASE_URL; do
-  if [ -n "$(eval "printf '%s' \"\${$v:-}\"")" ]; then
-    log "env: $v is set"
-  else
-    log "env: $v is NOT set (fine unless this lane needs it)"
-  fi
-done
+ENV_REPORT="GITHUB_TOKEN GITHUB_PAT RAILWAY_API_KEY SITE_PASSWORD DATABASE_URL"
+GIT_TRIAGE=1                       # git-state triage (detached HEAD / dirty
+                                   # tree residue report — never mutates)
 
-# --- Block 6: unconditional success ------------------------------------------
-# The single most important line in the file (R15). Do not "improve" this.
-log "setup complete (defensive shim: always exit 0)"
+# --- locate + source the base shim (defensive: never die) --------------------
+BASE=""
+for c in "${FLEET_SETUP_BASE:-}" \
+         "environments/setup-base.sh" \
+         "fleet-manager/environments/setup-base.sh" \
+         "$(dirname -- "$0" 2>/dev/null)/setup-base.sh"; do
+  [ -n "$c" ] && [ -f "$c" ] && BASE="$c" && break
+done
+if [ -z "$BASE" ]; then
+  BASE="$(mktemp 2>/dev/null || echo "/tmp/setup-base.$$.sh")"
+  curl -fsSL --retry 2 --max-time 60 -o "$BASE" \
+    "https://raw.githubusercontent.com/menno420/fleet-manager/main/environments/setup-base.sh" \
+    || BASE=""
+fi
+if [ -n "$BASE" ]; then
+  . "$BASE"
+else
+  echo "[env-setup:$ARCH_NAME] setup-base.sh unavailable (no local copy; raw fetch failed) — deps NOT installed; run installs in-session (non-fatal)"
+fi
 exit 0
