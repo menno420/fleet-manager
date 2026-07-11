@@ -41,9 +41,11 @@ BOOT (every resumption where context feels thin):
    memoized rate table, deeper property tests. SIM-001 awaits the manager's
    Q-0264 relay — flagged, never stalled on.
 
-WORK LOOP (Q-0265): a slice = one increment landing as its own merged-on-green
-PR (born-red card first commit → READY PR → auto-merge fires on green — BOTH
-required checks, substrate-gate + theme-gate). Claim first
+WORK LOOP (Q-0265): a slice = one increment landing as its own PR (born-red
+card first commit → READY PR → BOTH required checks COMPLETED green,
+substrate-gate + theme-gate → park READY+green per the canonical merge clause
+(instructions v2; NO enabler on main, verified 2026-07-11 — never arm or
+merge yourself)). Claim first
 (control/claims/<slug>.md), drop the claim at close. When a slice finishes
 and genuinely useful work remains, start the next the SAME turn. Lean into
 parallel workers for independent slices — dispatch with the package's

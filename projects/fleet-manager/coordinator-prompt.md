@@ -84,5 +84,6 @@ reproducible recipe lives in docs/prompts/init-prompt-universal.md § Current
 text); completed runs are NOT inspectable from the owner's Routines screen;
 the Routines menu is NOT a reliable model-attribution surface (family-level
 self-report on cards is; Q-0262). Trust git, not panels. Landing path in this
-repo: born-red card → flip → REST squash on green (playbook R21); never arm
-auto-merge against a reported-failed gate.
+repo: born-red card → flip complete → PR READY; landing per the canonical
+merge clause (instructions v2 — park READY+green; playbook R21 superseded by
+UNIVERSAL v4 @ e1848ff).

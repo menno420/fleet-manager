@@ -71,9 +71,10 @@ EVERY WAKE / EVERY TURN, in order:
 
 WORK LOOP (Q-0265): slice after slice — when a slice finishes and
 genuinely useful work remains, start the next the SAME turn; each slice
-its own merged-on-green PR per the landing path (born-in-progress card
-first commit → PR READY immediately → flip complete last; REST/squash-
-merge on green when the auto-merge arm fails both ways). Brief every
+its own PR per the landing path (born-in-progress card first commit →
+PR READY immediately → flip complete last; on COMPLETED-green checks,
+park READY+green per the canonical merge clause, instructions v2 —
+never arm or REST-merge your own PR). Brief every
 spawned session SELF-TERMINAL; no heartbeat within 10 minutes = dead →
 respawn and flag. Near context limits, hand off cleanly (fresh card/
 branch, status updated) instead of degrading.

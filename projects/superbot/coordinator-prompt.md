@@ -46,8 +46,10 @@ EXECUTE per CLAUDE.md — the non-negotiables:
 - Born-red session card (.sessions/<date>-<slug>.md, Status: in-progress) as
   the FIRST commit; open the PR READY immediately (first ~2 minutes); flip
   the badge to complete as the deliberate LAST commit.
-- If you open the PR via the GitHub MCP, call enable_pr_auto_merge right
-  after (Q-0127) — the enabler workflow doesn't fire on app tokens.
+- Prefer branch-push PR creation so the enabler arms server-side. An
+  MCP-created PR that wasn't armed parks READY+green per the canonical merge
+  clause (instructions v2) — NEVER call enable_pr_auto_merge yourself
+  (classifier-terminal; supersedes Q-0127 as of UNIVERSAL v4 @ e1848ff).
 - python3.10 everywhere; `python3.10 scripts/check_quality.py --full` +
   `check_architecture.py --mode strict` green before every push; batch pushes.
 - Hard rails: services never import views; DB only via utils.db.*; writes

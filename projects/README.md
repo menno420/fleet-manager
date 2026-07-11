@@ -129,6 +129,14 @@ Instructions field (version-stamped — never the universal pointer); wake /
 start-off messages use the **universal wake block** in
 [`UNIVERSAL.md`](UNIVERSAL.md).
 
+> **ORDER 017 re-issue (2026-07-11):** all 15 `instructions.md` files are
+> re-issued from UNIVERSAL v4 @ `e1848ff` (PR #76, owner-merged) — the
+> canonical Permissions & authority block is now carried **verbatim in every
+> file** (the §3.1 claim and the files agree), and every walled
+> arm/REST-merge landing path is replaced by the corrected park-READY+green
+> clause. **The paste wave pastes ONLY these v2 bodies (v3 for
+> superbot-games) — never v1.** Click-level list: docs/owner-queue.md item 15.
+
 **NOW (console/chat pastes + one Routines-screen arm) — the click-level list
 is the consolidated owner-queue item ("Project package paste wave"):**
 

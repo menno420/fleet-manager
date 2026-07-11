@@ -157,7 +157,13 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
 
 13. **🔥 HOT (owner-provenance) — land the corrected UNIVERSAL.md
     merge-authority clause (audit §2.4).** *(Old item 16 — keep first-priority.)*
-    - **STATUS 2026-07-11 ~15:1xZ: RESOLVED-PENDING-MERGE of PR #76**
+    - **STATUS 2026-07-11 16:3xZ: ✅ RESOLVED — PR #76 MERGED by the owner**
+      (menno420, 2026-07-11T15:26:47Z, merge SHA `e1848ff`). UNIVERSAL.md is
+      v4 with the corrected §2.4 clause at BOTH locations. ORDER 017 executed
+      from it (PR #77 — the fleet-wide re-issue, parked READY for the owner's
+      click). This item is CLOSED; the paste wave (item 15) is now click-ready
+      once #77 lands.
+    - *(Superseded status trail:)* **RESOLVED-PENDING-MERGE of PR #76**
       (https://github.com/menno420/fleet-manager/pull/76 — the rebuilt #47
       payload: UNIVERSAL.md v3→v4, the §2.4 clause applied VERBATIM
       (cmp-verified byte-identical to the audit §2.4 block / the old item-16
@@ -179,16 +185,13 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
     - UNBLOCKS: gates **ORDER 017** (the fleet-wide walled-instruction
       re-issue) AND the item-C#15 paste wave; ends the nightly
       merge-stall/one-click-ask class at the root.
-    - VERIFIED-NEEDED: STILL NEEDED today — UNIVERSAL.md is still v3 (line 1
-      stamp `v3 · 2026-07-10 … owner-landed`) with the uncorrected "MERGE YOUR
-      OWN GREEN PRs / arm auto-merge at creation" text at both spots; PR #47
-      (the designated re-land vehicle) is still open holding ONLY its born-red
-      card `a4b736b` — the built fold was classifier-refused and is LOST with
-      its dead container (docs/succession/coordinator-handoff-2026-07-11.md §4).
-      Owner-only proof: the platform's instruction-poisoning guard refused a
-      coordinator-relayed landing of exactly this class of text; owner
-      provenance commit `c23223f` is the precedent.
-    - Blocking: **YES — blocks ORDER 017 + the paste wave.**
+    - VERIFIED 2026-07-11 (ORDER 017 session): UNIVERSAL.md is **v4** at
+      origin/main HEAD `e1848ff` (PR #76 merged by menno420 15:26:47Z); the
+      corrected clause is live at both locations (cmp-verified byte-identical
+      during the re-issue). The old "still v3" reading is stale and replaced.
+      PR #47 is MERGED (2026-07-11 14:55Z, merge `5625e3b`) as
+      intent-signal-only — the fold landed via #76, not #47.
+    - Blocking: no longer blocking — ORDER 017 executed (PR #77).
 
 ### (C) Claude platform (console / environments / sessions / Codex)
 
@@ -208,20 +211,42 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
       anywhere in today's sweeps; the PR #73 fix is INERT until pasted.
     - Blocking: blocks CI-parity installs in the coordinator env.
 
-15. **Item-13 paste wave (~6 pastes) — HELD on B#13 / PR #47 v2 fold.**
-    - WHAT: kit §2b + OA8 · forge §2b · sim-lab failsafe Routine
-      (`0 1-23/2 * * *`) · websites v2 wake + instructions · trading
-      instructions · superbot optional. Registry:
-      [`projects/README.md`](../projects/README.md) § Paste wave. *(Absorbs old
-      items 11 + 13.)*
-    - WHERE: console fields, Project chats, trigger prompts (no agent write
-      surface — verified walls).
-    - HOW: after B#13 lands and the v2 fold re-lands on PR #47, paste **ONLY v2
-      bodies**, one sitting.
-    - UNBLOCKS: every live seat running on committed, current text.
-    - VERIFIED-NEEDED: today — PR #47 unchanged (card-only, head `a4b736b`);
-      HOLD stands.
-    - Blocking: held (do not paste v1 bodies).
+15. **Paste wave — HELD on the ORDER 017 re-issue PR (#77); then one
+    sitting, v2 bodies only.**
+    - WHAT (in this order, one sitting, each paste = the FULL
+      `projects/<repo>/instructions.md` body from main after #77 lands —
+      **v2 everywhere, v3 for superbot-games; never v1**):
+      1. **websites** — re-paste the v2 wake prompt
+         (`projects/websites/coordinator-prompt.md`) into trigger
+         `trig_017H9Qb9oxtLgUy6sw2gnSHg` AND paste
+         `projects/websites/instructions.md` v2 into the Project's Custom
+         Instructions (deployed text is pre-Q-0265 v1 — most drifted).
+      2. **trading-strategy** — paste `instructions.md` v2 into its Project.
+      3. **substrate-kit** — paste `instructions.md` v2 + OA8 setup-script
+         field (`projects/substrate-kit/setup-script.sh`).
+      4. **product-forge** — paste `instructions.md` v2.
+      5. **sim-lab / idea-engine / fleet-manager / superbot-next** — paste
+         each `instructions.md` v2 into its Project field (live seats operate
+         equivalently; the paste closes the committed-vs-deployed gap).
+      6. **superbot-games (v3) · superbot-idle (v2) · superbot-mineverse
+         (v2)** — paste if/where those Projects carry Custom Instructions
+         (idle/games have no paste receipt yet — first paste creates it).
+      7. **superbot (optional)** — only if the owner hosts superbot sessions
+         in a Project with an empty field (`.claude/CLAUDE.md` auto-loads
+         in-repo).
+      Registry: [`projects/README.md`](../projects/README.md) § Paste wave.
+    - WHERE: console Custom-Instructions fields + the one websites trigger
+      prompt (no agent write surface — verified walls).
+    - HOW: merge PR #77 first (the re-issued bodies land on main), then paste
+      top to bottom in one sitting; each body carries its own `vN` header —
+      drift check = ask the seat to quote it.
+    - UNBLOCKS: every live seat running on the corrected merge clause +
+      permissions block; ends the walled-instruction class fleet-wide.
+    - VERIFIED-NEEDED 2026-07-11 (ORDER 017 session): the old HELD-on-#47
+      rider is OBSOLETE — the §2.4 payload landed via PR #76 (owner-merged
+      `e1848ff`), and #47 itself MERGED 2026-07-11 14:55Z (merge `5625e3b`)
+      as intent-signal-only. New hold: **#77 only.**
+    - Blocking: held until PR #77 lands (do not paste pre-#77 bodies).
 
 16. **superbot-next OA-5 — export real `ANTHROPIC_API_KEY` +
     `AI_ENABLED=true` into the builder session environment.**

@@ -86,5 +86,19 @@ and `projects/pokemon-mod-lab/` carry their own pre-seat instruction drafts
   `projects/README.md` doctrine · `docs/roster.md` gen #4/#5 (the "retro
   coordinator with NO repo" first sighting).
 
+## Merge-authority supersession note (2026-07-11, ORDER 017)
+
+Merge authority for both child repos is governed by the corrected UNIVERSAL
+v4 clause (PR #76, owner-merged, @ `e1848ff`) as carried in
+`projects/gba-homebrew/instructions.md` v2 + `projects/pokemon-mod-lab/
+instructions.md` v2 (park READY+green; never arm/REST-merge your own PR;
+silent-fire self-check rider for the hourly fresh-fire wakes). The seat's
+stored wake prompts (failsafe-prompt.md + triggers.md, VERBATIM-FROM-REGISTRY)
+predate v4 and are deliberately NOT edited here — editing them without
+re-arming would break the byte-match invariant. ⚑ FLAGGED FOLLOW-UP (retro
+seat or coordinator): re-arm the triggers with corrected prompt text
+(delete_trigger + create_trigger), then regenerate both files from the new
+registry records.
+
 **Last verified:** 2026-07-11 (trigger registry 13:17:24Z). Family-level
 model names only (Q-0262.4).
