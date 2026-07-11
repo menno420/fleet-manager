@@ -1,6 +1,6 @@
 # 2026-07-11 — ORDER 016: audit actions (§2.4 owner-queue item, env R1+R5, follow-up tracking)
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 📊 Model: Claude (Fable family) · start 2026-07-11T06:48Z (`date -u`) · lane
 worker dispatched by coordinator, executing the manager-owned NOW scope of
@@ -29,10 +29,13 @@ per-lane enabler verification. About to land, in order:
 5. Flip this card `complete` as the deliberate LAST step. NOT in scope:
    control/ writes, merging/arming auto-merge, editing projects/UNIVERSAL.md.
 
-## Close-out (what actually landed — card left `in-progress` deliberately)
+## Close-out (what actually landed)
 
-All four declared items landed, one commit each (PR #68); the card flip is
-the COORDINATOR's call, not this worker's (dispatch rail: "do not flip"):
+All four declared items landed, one commit each (PR #68), and a second
+close-out dispatch (same coordinator) landed the remaining ORDER-016 steps —
+enabler-verification findings doc `760c870`, inbox DONE append `bd45220`,
+status heartbeat `a2d4c23` — and flips this card as the deliberate last
+commit:
 
 1. R1 — `environments/archetypes.md` (Serves cell + 5 new mapping rows,
    superbot-idle flagged as the live-seat drift) +
@@ -46,6 +49,22 @@ the COORDINATOR's call, not this worker's (dispatch rail: "do not flip"):
 4. `docs/planning/order-016-followups-2026-07-11.md` — draft ORDERs 017
    (walled-instruction re-issue, GATED on item 16) + 018 (R2/R3/R4/R6 env
    consolidation), for the coordinator to file (one-writer rule).
+5. Per-lane enabler verification (ORDER 016 step 4) —
+   `docs/findings/enabler-install-verification-2026-07-11.md`: only 3/13
+   lanes (substrate-kit, superbot, idea-engine) have `auto-merge-enabler.yml`
+   installed; allow_auto_merge + required checks NOT MEASURABLE this session
+   (walls quoted verbatim in the doc). Cross-linked under the ORDER 017 draft
+   (10 lanes need an enabler installed before the corrected §2.4 wording is
+   true for them).
+6. Inbox DONE append (`control/inbox.md`, pure append, ORDER 015 update
+   grammar mirrored) + status heartbeat (`control/status.md` — slice record,
+   orders line 016 DONE-for-now-scope, notes ladder).
+
+**PR #68 state: PARKED READY+green.** The dispatched agent merge was
+classifier-denied ("[Self-Approval]/[Merge Without Review]", verbatim in the
+findings doc §"Live confirmation (same day)"); fm has no enabler installed,
+so no server-side arm path exists → a non-author landing is needed. Direct
+live evidence for the audit §2.4 corrected clause.
 
 Gate: `python3 bootstrap.py check --strict` — one real finding (badge token
 `draft` → fixed to `plan`); the remaining card-completeness finding is this
