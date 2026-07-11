@@ -30,11 +30,16 @@ All at `a6cf1a9`:
 - `docs/succession/PLATFORM-LIMITS.md` — walls with exact error text, including the
   seat-dependence correction (below).
 - `docs/succession/ENVIRONMENT.md` + `docs/succession/gen2-feedback.md`.
-- Setup scripts: **`environments/setup-universal.sh`** (fleet-canonical defensive shim,
-  R15 always-exit-0) routing to **`scripts/env-setup.sh`** (repo-specific editable
-  install, non-fatal). The most complete env-setup pair of the three codetool arms;
-  `control/status.md` ⚑(3) @ `a6cf1a9` names it as the paste-ready env script for any
-  gen-2/3 boot.
+- Setup script (environment field): **fleet-manager
+  `environments/archetype-python-lab.sh`** — repointed 2026-07-11 (ORDER 016 R5,
+  audit `docs/findings/instruction-and-env-audit-2026-07-11.md` §4.3): the
+  `setup-universal.sh` lineage silently skips `pyproject.toml`, so this repo's
+  editable `[dev]` deps never installed; the archetype script has the pyproject
+  `.[dev]` branch. Historical: the repo's own
+  **`environments/setup-universal.sh`** routing to **`scripts/env-setup.sh`**
+  (repo-specific editable install, non-fatal) — the pair `control/status.md` ⚑(3)
+  @ `a6cf1a9` named as paste-ready; the archetype script still prefers the repo's
+  `scripts/env-setup.sh` automatically.
 - Wider context: `docs/ROADMAP.md`, `docs/retro/wind-down-review-2026-07-09.md`
   (whole-life retro), `docs/retro/project-review-2026-07-09.md` §(e) (owner-manual
   release steps).

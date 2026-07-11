@@ -29,9 +29,15 @@ All at `80f6cd1`:
   lived only in the Project surface, never in git (`control/inbox.md` ORDER 001 @
   `80f6cd1` confirms the pattern).
 - `docs/succession/ENVIRONMENT.md` + `docs/succession/GEN2-FEEDBACK.md`.
-- Setup script: **`environments/setup.sh`** @ `80f6cd1` — defensive, always-exit-0,
-  cwd-detecting; written as the fix for the sibling-lane setup-death class (a session
-  that died ~10s after spawn, unnoticed ~2.8h).
+- Setup script (environment field): **fleet-manager
+  `environments/archetype-python-lab.sh`** — repointed 2026-07-11 (ORDER 016 R5,
+  audit `docs/findings/instruction-and-env-audit-2026-07-11.md` §4.3): the
+  `setup-universal.sh` lineage silently skips `pyproject.toml`, so this repo's
+  editable `[dev]` deps never installed; the archetype script has the pyproject
+  `.[dev]` branch. Historical: the repo's own **`environments/setup.sh`** @
+  `80f6cd1` — defensive, always-exit-0, cwd-detecting; written as the fix for the
+  sibling-lane setup-death class (a session that died ~10s after spawn, unnoticed
+  ~2.8h).
 - Whole-life retro: `docs/retro/project-review-final-2026-07-09.md` (named in
   `control/status.md` notes @ `80f6cd1`).
 
