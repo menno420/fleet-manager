@@ -4,117 +4,126 @@
 >
 > **GENERATED — do not hand-edit; regenerated each manager wake (`scripts/gen_roster.py`, R25).**
 >
-> **Generation #5** · generated-at **2026-07-11T04:28Z** · by lane worker (fable-5), dispatched by coordinator cse_012o8pySy5K3AV6JWoPKryZL · machine generation (`scripts/gen_roster.py`)
+> **Generation #6** · generated-at **2026-07-11T18:46Z** · by lane worker (fable-5), dispatched by coordinator cse_012o8pySy5K3AV6JWoPKryZL · machine generation (`scripts/gen_roster.py`)
 >
 > **Source of truth = the lane heartbeats** (each repo's `control/status*.md` at an ls-remote-verified HEAD over git transport) + the live trigger registry (`list_triggers` export). This file is a derived snapshot. **Kill-switch: if this file's generated-at goes stale >24h, trust the heartbeats directly** — do not act on a stale roster row.
 >
 > **Transport verification:** every repo HEAD below was fetched shallow and re-fetched until FETCH_HEAD == a fresh `git ls-remote` (stale-proxy-pack doctrine, roster gen #3); all repos converged on the first fetch. Repos that could not be read are marked NOT MEASURED with the verbatim wall reason — never guessed.
 >
-> **Trigger evidence:** 324-record export, **32 enabled**: 15 standing crons + 2 poke-only + 15 one-shots.
+> **Trigger evidence:** 690-record export, **21 enabled**: 7 standing crons + 2 poke-only + 12 one-shots.
 
 | Lane | Heartbeat `updated:` | Age | Verdict | Phase (machine-truncated) | Orders | Kit | Wake state (trigger · cron · last fire) | Evidence (repo @ HEAD) |
 |---|---|---|---|---|---|---|---|---|
-| superbot (hub) | n/a — no control/status*.md at HEAD; HEAD committer date 2026-07-11T03:43Z used | ~44m | FRESH | — | — | — | poke-only `superbot night executor`; poke-only `suberbot docs reconciliation` | `bd80501` 2026-07-11T03:43:26 |
-| superbot-next | 2026-07-11T03:30Z | ~58m | FRESH | band-5 COMPLETE — live-bug fix lane DONE via #111 (merge `569beea`; CI https://github.com/menno420/superbot-next/actions/runs/29116022101 — all 6 checks in tha… | acked=001,002,003,004,005,006,007,008,009,010,011 done=003,005,006,007,008,009,010,011 — ORDER 004:… | v1.8.0 · check: green (#135's own ladde… | **Builder failsafe wake** `trig_01L5JBefGSCM1fUdwm4SRQnY` · `0 */2 * * *` · last 2026-07-11T04:06:08 · next 2026-07-11T06:05; +1 one-shot(s), next 2026-07-11T04:28 | `531f14e` 2026-07-11T04:23:19 |
-| substrate-kit | 2026-07-11T04:25:00Z | ~3m | FRESH | ORDER 012 EXECUTED (model-attribution ground truth, P3 — the last open inbox order). Check-first verdicts: item 1 (session-card template carries `📊 Model:`) AL… | acked=001,002,003,004,005,006,007,008,009,010,011,012 done=001,002,003,004,005,006,007,008,009,010,… | v1.8.0 · check: green · engaged: yes | **substrate-kit failsafe wake** `trig_019nbVSWfu9grKjeHks97CeU` · `0 */2 * * *` · last 2026-07-11T04:01:54 · next 2026-07-11T06:01; +1 one-shot(s), next 2026-07-11T04:28 | `2a779b5` 2026-07-11T04:26:15 |
-| websites | 2026-07-11T04:24:00Z | ~4m | FRESH | CONTINUOUS MODE (manager Q-0265): 04:12Z nudge — slice 15 landed: #99 (bus doctrine "Landing other sessions' control-only work" in control/README.md — one WRIT… | acked=001-010 done=001-010 | v1.8.0 · check: green · engaged: yes | **websites lane wake — 4-hourly inbox ritual (ORDER 008)** `trig_017H9Qb9oxtLgUy6sw2gnSHg` · `0 */4 * * *` · last 2026-07-11T04:02:32 · next 2026-07-11T08:01 | `1b6dad9` 2026-07-11T04:24:08 |
-| trading-strategy | 2026-07-11T04:07:33Z | ~20m | FRESH | PAPER LANE OPERATIONAL — foundation complete on main. The standing mission after ORDER 008 (holdout SPENT, program complete, final report on main as ffdd6f6) i… | acked=001–009, done=001–009. ORDER 009 (P3, model-attribution ground truth + trading#21 P1-drops re… | substrate-kit v1.7.1 — upgraded from v1… | **trading-strategy failsafe wake** `trig_01YBaVeKAW2fSD83S9F37s2d` · `0 */2 * * *` · last 2026-07-11T04:02:07 · next 2026-07-11T06:01; +1 one-shot(s), next 2026-07-17T09:00 | `f4d9669` 2026-07-11T04:11:01 |
-| venture-lab | 2026-07-11T02:58:38Z | ~1h29m | FRESH | work loop — **launch-ready ×3 products (membership-kit, template-packs, stripe-webhook-test-kit)**. The frontier is now **owner-gated** (publish clicks + Strip… | — | — | **venture-lab failsafe wake** `trig_01X1dw1L1Udgt8atzzNWEJic` · `0 */2 * * *` · last 2026-07-11T04:09:44 · next 2026-07-11T06:08; +1 one-shot(s), next 2026-07-11T04:54 | `051ee59` 2026-07-11T03:30:13 |
-| superbot-games · Seat A | 2026-07-11T01:49:48Z | ~2h38m | FRESH | theme leaks R2 cleared — mining's grid/market/taxonomy player-visible nouns moved out of branching logic into swappable DATA tables keyed on neutral ids; READY… | acked=001,002 done=001,002 | — | **superbot-games failsafe wake** `trig_019ZgWyL78Rx1sr6LhvL8NE3` · `15 */2 * * *` · last 2026-07-11T04:15:27 · next 2026-07-11T06:15; +1 one-shot(s), next 2026-07-11T04:54 | `72612a1` 2026-07-11T03:33:17 |
-| superbot-idle (Seat B) | 2026-07-11T04:23:53Z | ~4m | FRESH | STEADY-STATE HOLD — founding package complete, volume backlog cleared honestly (44 PRs, zero denials, zero parked); lane deliberately holds new engine surface … | acked=000-001 done=000-001 | v1.7.1 · check: green | **superbot-idle failsafe wake** `trig_01TWKGFW8RUsMvxUMt2ndzqA` · `45 */2 * * *` · last 2026-07-11T02:45:09 · next 2026-07-11T04:45; +2 one-shot(s), next 2026-07-11T04:29 | `1b3a211` 2026-07-11T04:24:48 |
-| superbot-mineverse | 2026-07-11T04:27:00Z | ~1m | FRESH | DEEPENING — micro-polish (PR #23) MERGED: read side now renders the ENTIRE v1 contract, the deepening well is dry; no in-flight lanes — all remaining work exte… | acked=001 done=001 | v1.8.0 · check: green · engaged: yes # … | **superbot-mineverse failsafe wake** `trig_01K8xmAKYS5S2HLy1HPANM7j` · `20 */2 * * *` · last 2026-07-11T04:20:41 · next 2026-07-11T06:20; +2 one-shot(s), next 2026-07-11T04:35 | `2b1bd0b` 2026-07-11T04:28:10 |
-| retro-games coordinator (no repo) | n/a — registry-only seat (no repo) | n/a | n/a (registry-only seat) | — | — | — | **superbot-retro failsafe wake** `trig_01Y99uDKNtKTz2EtRYPWZkGY` · `50 */2 * * *` · last 2026-07-11T02:50:27 · next 2026-07-11T04:50; +1 one-shot(s), next 2026-07-11T04:31 | trigger registry only |
-| pokemon-mod-lab | 2026-07-11T04:03:05Z | ~24m | FRESH | Option A (Emerald QoL+ deepening, Q-0266 flagged reversible | — | v1.6.0 · check: green · engaged: yes | **pokemon-mod-lab hourly wake (ORDER 002)** `trig_01BTJjkMVMKtWPjuYe7643Hi` · `30 * * * *` · last 2026-07-11T03:36:20 · next 2026-07-11T04:36 | `297f67b` 2026-07-11T04:13:49 |
-| gba-homebrew | 2026-07-11T03:40:00Z | ~48m | FRESH | session 8 slice 6 (same worker continuing) — **CONSOLIDATION shipped as Lumen Drift v1.3**: slice 5's ranked polish debt items 1–3 all paid (route-recorder pro… | acked=001,002 done=001 (this repo's half), 002 EXECUTED (slice 2) — trigger `trig_0137SkvhXEJvwepX8… | v1.8.0 · check: green (full --strict ex… | **gba-homebrew hourly wake (ORDER 002)** `trig_0137SkvhXEJvwepX8aVNkcSn` · `0 * * * *` · last 2026-07-11T04:02:26 · next 2026-07-11T05:01 | `a168bf1` 2026-07-11T03:40:09 |
-| product-forge | 2026-07-11T12:00:00Z | future? | FRESH | (no phase line; lane: builder (ORDER 001 · games-web) · continuous-mode) | acked=001,002 done=001,002 | — | **product-forge failsafe wake** `trig_012EvztCrHHg7s4mBsKT3VKs` · `0 */2 * * *` · last 2026-07-11T04:08:20 · next 2026-07-11T06:07; +1 one-shot(s), next 2026-07-11T04:54 | `8c64db4` 2026-07-11T03:51:51 |
-| idea-engine | 2026-07-11T04:26:22Z (real wall-clock, per the control/READ… | ~1m | FRESH | STEADY — superbot-mineverse FIRST BATCH shipped (this slice, branch seed-superbot-mineverse-batch-1): the roster-born empty section (stub @ PR #66) gets its fi… | acked=001 done=001 (inbox re-read FIRST this session at origin/main HEAD b13aa36 and re-checked at … | v1.8.0 · check: green · engaged: yes | **idea-engine failsafe wake** `trig_0178q9Je2xRFJgthwamrg9Br` · `0 */2 * * *` · last 2026-07-11T04:05:14 · next 2026-07-11T06:04; +2 one-shot(s), next 2026-07-11T04:29 | `a1b320a` 2026-07-11T04:28:13 |
-| sim-lab | 2026-07-10T23:50:16Z | ~4h37m | STALE | continuous mode; VERDICT 005 finalized (INTAKE 005 → needs-more-evidence; ruling: annotate per-seat-type sections (CAPABILITIES.v1) — single-seat whole-file re… | acked= done= | v1.7.0 · check: green (substrate-gate: … | **sim-lab failsafe wake** `trig_01SHfnLv6EqZesr4tC3T9kUU` · `0 1-23/2 * * *` · last 2026-07-11T03:04:16 · next 2026-07-11T05:03; +2 one-shot(s), next 2026-07-11T04:54 | `f70fbea` 2026-07-11T03:30:46 |
-| codetool-lab-fable5 | 2026-07-09T20:06Z | ~32h22m | STALE-BY-DESIGN | wind-down complete — ready for archive + fresh session | acked=001,002,003,004 done=001,002,003,004 | — | **NONE** | `a6cf1a9` 2026-07-10T12:07:20 |
-| codetool-lab-opus4.8 | 2026-07-09T20:11:35Z | ~32h16m | STALE-BY-DESIGN | wind-down complete — ready for archive + fresh session | acked=001,002,003,004 done=001,002,003,004 | — | **NONE** | `80f6cd1` 2026-07-09T20:13:54 |
-| codetool-lab-sonnet5 | 2026-07-09T20:02:14Z | ~32h25m | STALE-BY-DESIGN | wind-down complete — ready for archive + fresh session | acked=001,002,003,004 done=001,002,003,004 | — | **NONE** | `66c3dfc` 2026-07-09T20:09:52 |
-| fleet-manager (this repo) | 2026-07-11T04:10:00Z — ORDER 010 relay COMPLETION slice (su… | ~18m | FRESH | **ORDER 010 RELAY COMPLETION DONE (PR #64) — the two lanes PR #63 could not reach are relayed: superbot-idle inbox ORDER 001 (idle PR #46, merge `6f94109`) + s… | **NONE OPEN — inbox CLEAR (001–015 all DONE).** 015 DONE (registry centralization, PR #58) · 014 DO… | v1.7.0 · check: green · engaged: yes | **fleet-manager failsafe wake** `trig_01F9UdoUtLy8oknBPBkHLshS` · `30 */2 * * *` · last 2026-07-11T02:34:16 · next 2026-07-11T04:36; +1 one-shot(s), next 2026-07-11T04:25 | `acb786f` 2026-07-11T04:17:34 |
+| superbot (hub) | n/a — no control/status*.md at HEAD; HEAD committer date 2026-07-11T18:26Z used | ~19m | FRESH | — | — | — | poke-only `superbot night executor`; poke-only `suberbot docs reconciliation` | `d647b2e` 2026-07-11T18:26:07 |
+| superbot-next | 2026-07-11T17:40Z | ~1h06m | FRESH | band-5 COMPLETE — live-bug fix lane DONE via #111 (merge `569beea`; CI https://github.com/menno420/superbot-next/actions/runs/29116022101 — all 6 checks in tha… | acked=001,002,003,004,005,006,007,008,009,010,011,012,013 done=003,005,006,007,008,009,010,011,012,… | v1.10.1 · check: green (#166 2026-07-11… | **Builder failsafe wake** `trig_01GLBYyf4aDS6AwpLVybZvVy` · `0 */2 * * *` · last 2026-07-11T18:06:28 · next 2026-07-11T20:07; +1 one-shot(s), next 2026-07-11T18:49 | `ab1e916` 2026-07-11T18:34:44 |
+| substrate-kit | 2026-07-11T18:25:00Z | ~21m | FRESH | v1.12.0-WAVE SLICE CLOSED — KIT FIX + DISTRIBUTION (kit-dev lane, coordinator-dispatched worker) — two items shipped and merged this slice: **(1) currency scan… | acked=001,002,003,004,005,006,007,008,009,010,011,012,013 done=001,002,003,004,005,006,007,008,009,… | v1.12.0 · check: green · engaged: yes | +1 one-shot(s), next 2026-07-11T18:45 | `21f4450` 2026-07-11T18:22:01 |
+| websites | 2026-07-11T16:27:00Z | ~2h19m | FRESH | CONTINUOUS MODE (manager Q-0265): 16:16Z nudge — slice 32 landed: #142 (rung-5 upkeep, buildable-now backlog empty): (a) HAND-KEPT-LIST AUDIT SWEEP — CLASS CLE… | acked=001-011 done=001-011 | v1.11.0 · check: green · engaged: yes | **websites lane wake — 4-hourly inbox ritual (ORDER 008)** `trig_017H9Qb9oxtLgUy6sw2gnSHg` · `0 */4 * * *` · last 2026-07-11T16:02:27 · next 2026-07-11T20:01 | `31cfd9f` 2026-07-11T17:20:42 |
+| trading-strategy | 2026-07-11T10:09:08Z | ~8h36m | STALE | PAPER LANE OPERATIONAL — foundation complete on main. The standing mission after ORDER 008 (holdout SPENT, program complete, final report on main as ffdd6f6) i… | acked=001–010, done=001–010. ORDER 010 (P1, owner-directed fleet self-review): executed 2026-07-11 … | substrate-kit v1.7.1 — upgraded from v1… | +1 one-shot(s), next 2026-07-17T09:00 | `2dd955d` 2026-07-11T17:20:32 |
+| venture-lab | 2026-07-11T18:17:33Z | ~28m | FRESH | work loop — **owner-engaged creative wave landed (#44–#48) + 3 digital products launch-ready**. The frontier is **owner-gated** on two axes: **publish clicks**… | — | — | **NONE** | `dfe3332` 2026-07-11T18:44:54 |
+| superbot-games · Seat A | 2026-07-11T13:19:52Z | ~5h26m | STALE | ORDER-004 owner-requested lane self-review — committed to this file (below) and shipped as a READY PR parked ⚑ for the owner's merge click; five feature PRs re… | acked=001,002,003,004 done=001,002 | — | **NONE** | `5d38593` 2026-07-11T17:22:53 |
+| superbot-idle (Seat B) | 2026-07-11T18:41:14Z | ~4m | FRESH | STEADY-STATE HOLD — owner-requested idea batch fully shipped (PRs #52–#68: sim harness + provisional run, achievements + save v2, buy-max, bounded multipliers,… | acked=000-002 done=000-002 | v1.7.1 · check: green | +1 one-shot(s), next 2026-07-11T18:52 | `4b40be5` 2026-07-11T18:42:23 |
+| superbot-mineverse | 2026-07-11T18:21:00Z | ~25m | FRESH | POLISH + ROBUSTNESS SHIPPED — PRs #32 (housekeeping) / #33 (a11y+responsive) / #34 (server robustness) all merged on green; pytest is now a VERIFIED-BLOCKING r… | acked=001,002 done=001,002 | v1.8.0 · check: green · engaged: yes # … | **superbot-mineverse failsafe wake** `trig_01K8xmAKYS5S2HLy1HPANM7j` · `20 */2 * * *` · last 2026-07-11T18:20:06 · next 2026-07-11T20:20; +1 one-shot(s), next 2026-07-11T18:43 | `8ee029d` 2026-07-11T18:44:17 |
+| retro-games coordinator (no repo) | n/a — registry-only seat (no repo) | n/a | n/a (registry-only seat) | — | — | — | **superbot-retro failsafe wake** `trig_01Y99uDKNtKTz2EtRYPWZkGY` · `50 */2 * * *` · last 2026-07-11T16:50:09 · next 2026-07-11T18:50 | trigger registry only |
+| pokemon-mod-lab | 2026-07-11T18:37:02Z | ~8m | FRESH | Option A (Emerald QoL+ deepening, Q-0266 flagged reversible | — | v1.12.0 (bumped by PR #43 since the las… | **pokemon-mod-lab hourly wake (ORDER 002)** `trig_01BTJjkMVMKtWPjuYe7643Hi` · `30 * * * *` · last 2026-07-11T18:36:24 · next 2026-07-11T19:36 | `24ed070` 2026-07-11T18:43:32 |
+| gba-homebrew | 2026-07-11T18:25:00Z | ~21m | FRESH | **GLOAMLINE ARC — session 17 (slice 3): WALKING SKELETON SHIPPED.** | — | v1.12.0 · engaged: yes | **gba-homebrew hourly wake (ORDER 002)** `trig_0137SkvhXEJvwepX8aVNkcSn` · `0 * * * *` · last 2026-07-11T18:02:06 · next 2026-07-11T19:01 | `bc92ad1` 2026-07-11T18:30:11 |
+| product-forge | 2026-07-11T10:27:30Z | ~8h18m | STALE | (no phase line; lane: builder (ORDER 001 · games-web) · continuous-mode) | acked=001,002,003,004 done=001,002,003 | — | **NONE** | `097f9b1` 2026-07-11T10:31:16 |
+| idea-engine | 2026-07-11T18:40:08Z (real wall-clock via date -u, per the … | ~5m | FRESH | PROBE — this slice (branch probe/rebuild-release-testing-loop, claim #199): third TOP-5 item 2 rebuild-release-testing-loop PROBED (single-pass full battery, G… | acked=001-002 done=001-002 (inbox read FIRST this session at wake HEAD 5905208 — no new orders; ORD… | v1.10.0 · check: green · engaged: yes | +2 one-shot(s), next 2026-07-11T18:47 | `0a682a3` 2026-07-11T18:41:17 |
+| sim-lab | 2026-07-11T18:26:30Z | ~19m | FRESH | continuous mode; VERDICT 011 (owner-002 — four-websites purpose-fit + nav-health audit, OWNER-DIRECT) FINALIZED — approve (serves-purpose on all four sites) + … | acked=ORDER-001 ORDER-002 done= (ORDER-001 model-attribution carried on the VERDICT 011 session car… | v1.7.0 · check: green (bootstrap.py che… | +1 one-shot(s), next 2026-07-11T18:47 | `45613e6` 2026-07-11T18:44:04 |
+| codetool-lab-fable5 | 2026-07-09T20:06Z | ~46h40m | STALE-BY-DESIGN | wind-down complete — ready for archive + fresh session | acked=001,002,003,004 done=001,002,003,004 | — | **NONE** | `a6cf1a9` 2026-07-10T12:07:20 |
+| codetool-lab-opus4.8 | 2026-07-09T20:11:35Z | ~46h34m | STALE-BY-DESIGN | wind-down complete — ready for archive + fresh session | acked=001,002,003,004 done=001,002,003,004 | — | **NONE** | `80f6cd1` 2026-07-09T20:13:54 |
+| codetool-lab-sonnet5 | 2026-07-09T20:02:14Z | ~46h43m | STALE-BY-DESIGN | wind-down complete — ready for archive + fresh session | acked=001,002,003,004 done=001,002,003,004 | — | **NONE** | `66c3dfc` 2026-07-09T20:09:52 |
+| fleet-manager (this repo) | 2026-07-11T17:05:00Z — ORDER 017 EXECUTED (all 15 instructi… | ~1h41m | FRESH | **ORDER 017 DONE — THE FLEET-WIDE WALLED-INSTRUCTION RE-ISSUE IS BUILT (PR #77, PARKED READY for the owner's click): all 15 `projects/<repo>/instructions.md` v… | **016 DONE for its now-scope (PR #68 parked READY+green awaiting non-author landing; re-issue owner… | v1.7.0 · check: green · engaged: yes | **fleet-manager failsafe wake** `trig_01F9UdoUtLy8oknBPBkHLshS` · `30 */2 * * *` · last 2026-07-11T18:37:07 · next 2026-07-11T20:36; +1 one-shot(s), next 2026-07-11T19:10 | `39b888a` 2026-07-11T18:40:11 |
 
-## Staleness verdicts (generation #5)
+## Staleness verdicts (generation #6)
 
-- **STALE:** sim-lab
-- **FRESH:** superbot (hub), superbot-next, substrate-kit, websites, trading-strategy, venture-lab, superbot-games · Seat A, superbot-idle (Seat B), superbot-mineverse, pokemon-mod-lab, gba-homebrew, product-forge, idea-engine, fleet-manager (this repo)
+- **STALE:** trading-strategy, superbot-games · Seat A, product-forge
+- **FRESH:** superbot (hub), superbot-next, substrate-kit, websites, venture-lab, superbot-idle (Seat B), superbot-mineverse, pokemon-mod-lab, gba-homebrew, idea-engine, sim-lab, fleet-manager (this repo)
 - **STALE-BY-DESIGN:** codetool-lab-fable5, codetool-lab-opus4.8, codetool-lab-sonnet5
 - **n/a (registry-only seat):** retro-games coordinator (no repo)
 
 > Machine generation: the hand generations' "Deltas vs generation #N-1" narrative is coordinator judgment and is NOT auto-derived — read `git diff` on this file, or append prose below before committing.
 
-## Deltas vs generation #4 (01:58Z → 04:28Z) — headline first
+## Deltas vs generation #5 (04:28Z → 18:46Z) — negative findings first
 
-1. **FIRST MACHINE GENERATION + tool-verification run 1 EXECUTED (the slice's core
-   point).** Gen #5 is the first roster produced by `scripts/gen_roster.py` (PR #62,
-   still Q-0105-UNVERIFIED at run time). A 6-lane hand sample spanning verdict classes
-   was verified cell-by-cell against ground truth (table below): **all verdicts and
-   heartbeat/evidence cells matched; ONE display bug found and fixed at root cause** —
-   `age_str` float truncation rendered an exact 32h18m as `~32h17m`
-   (`int((hours-h)*60)` on `17.999…`); fixed by rounding to whole seconds before
-   flooring to minutes, regression selfchecks added, this file regenerated post-fix.
-   The script's UNVERIFIED header stays (this is run 1 of the several its header
-   requires); a verification-run log line was added under its Reliability field.
-2. **NO DARK, NO DEAD — zero unmeasurable lanes.** Every repo converged on the first
-   fetch (no stale proxy packs this sweep); no lane heartbeat is >24h except the three
-   archived codetool seats (STALE-BY-DESIGN, ~32h, unchanged since wind-down).
-3. **Sole STALE: sim-lab** — heartbeat 2026-07-10T23:50:16Z (~4h37m vs its 2h cadence
-   bar of 4h), HEAD `f70fbea` 03:30:46Z. The lane itself declares **idle-by-design**
-   ("QUEUE STATE: EMPTY — pending next idea-engine outbox pull", verbatim at HEAD;
-   failsafe fired 03:04:16Z, next 05:03Z). Gen #4 classed this "benign heartbeat-lag";
-   the machine ladder honestly reports it STALE — watch, not action. If gen #6 sees the
-   heartbeat still at 23:50:16Z with the queue claiming activity, escalate.
-4. **product-forge RECOVERED from gen #4's WATCH (the escalation candidate is CLEARED)
-   — but its heartbeat is FUTURE-DATED (lane-side bug).** Gen #4's stalest live lane
-   (~3h36m, HEAD unmoved since 22:46Z) moved: HEAD `8c64db4` 03:51:51Z, ORDERs 001+002
-   done, PRs #1–#13 all merged. However `control/status.md` at that HEAD carries
-   `updated: 2026-07-11T12:00:00Z` — **~7.5h in the future** at generation time
-   (verbatim in the file; read via Contents API at HEAD `8c64db4`). The machine
-   rendered it honestly (`Age: future?`; verdict FRESH holds on ground truth — HEAD is
-   ~36m old). ⚑ route a relay: the lane should fix its stamp discipline, and a future
-   `updated:` should be treated as suspect data.
-5. **Registry growth: 232 → 324 records; enabled 31 → 32** (15 standing crons — steady
-   — + 2 legacy poke-only + 15 one-shots). **All 15 standing lane crons from gen #4
-   survived with identical trigger ids** (spot-compared id-by-id against the gen #4
-   table: superbot-next `trig_01L5JBefGSCM1fUdwm4SRQnY`, kit
-   `trig_019nbVSWfu9grKjeHks97CeU`, websites `trig_017H9Qb9oxtLgUy6sw2gnSHg`, trading
-   `trig_01YBaVeKAW2fSD83S9F37s2d`, venture `trig_01X1dw1L1Udgt8atzzNWEJic`, games
-   `trig_019ZgWyL78Rx1sr6LhvL8NE3`, idle `trig_01TWKGFW8RUsMvxUMt2ndzqA`, mineverse
-   `trig_01K8xmAKYS5S2HLy1HPANM7j`, retro `trig_01Y99uDKNtKTz2EtRYPWZkGY`, pokemon
-   `trig_01BTJjkMVMKtWPjuYe7643Hi`, gba `trig_0137SkvhXEJvwepX8aVNkcSn`, forge
-   `trig_012EvztCrHHg7s4mBsKT3VKs`, idea-engine `trig_0178q9Je2xRFJgthwamrg9Br`,
-   sim-lab `trig_01SHfnLv6EqZesr4tC3T9kUU`, fleet-manager
-   `trig_01F9UdoUtLy8oknBPBkHLshS`). **None disabled, none vanished; zero live lanes
-   triggerless** (gen #4's first-ever headline holds).
-6. **No new seats born this window** (gen #4 had two births; gen #5 has none —
-   superbot-mineverse and the retro coordinator are now steady-state rows).
-7. **The fleet is HOT:** 11 of 14 live-lane heartbeats are <1h old at 04:28Z;
-   superbot-next merged PR #145 (proof_channel parity flip) at 04:23:19Z — seconds
-   before this sweep's fetch — and the ls-remote verify loop caught it (evidence
-   `531f14e`).
+1. **NINE LANE FAILSAFES AUTO-DISABLED — `ended_reason=auto_disabled_env_deleted` (the
+   sweep's headline).** Between ~14:45Z and ~16:16Z every 2-hourly lane failsafe bound to a
+   deleted environment was auto-disabled by the platform (each id verbatim in the 690-record
+   export, with its final fire): superbot-next `trig_01L5JBefGSCM1fUdwm4SRQnY` (last fired
+   16:06:08Z), substrate-kit `trig_019nbVSWfu9grKjeHks97CeU` (16:01:50Z), trading-strategy
+   `trig_01YBaVeKAW2fSD83S9F37s2d` (16:02:17Z), venture-lab `trig_01X1dw1L1Udgt8atzzNWEJic`
+   (16:09:44Z), superbot-games `trig_019ZgWyL78Rx1sr6LhvL8NE3` (16:16:02Z), superbot-idle
+   `trig_01TWKGFW8RUsMvxUMt2ndzqA` (14:45:48Z), product-forge `trig_012EvztCrHHg7s4mBsKT3VKs`
+   (16:08:17Z), idea-engine `trig_0178q9Je2xRFJgthwamrg9Br` (16:05:09Z), sim-lab
+   `trig_01SHfnLv6EqZesr4tC3T9kUU` (15:04:20Z). Timing correlates with the env-consolidation
+   wave (fm ORDER 018 lineage / owner env deletions). **Only superbot-next re-armed** — new
+   "Builder failsafe wake" `trig_01GLBYyf4aDS6AwpLVybZvVy` (`0 */2 * * *`, firing, last
+   18:06:28Z). Net: **8 live lanes now have NO standing wake** and survive on send_later
+   chain links alone (12 enabled one-shots at export time) — a chain break makes a lane go
+   dark *silently*. ⚑ ESCALATE: re-arm failsafes for the 8 lanes (or record the intended
+   consolidation target). Standing crons 15 → 7; enabled 32 → 21; export 324 → 690 records
+   (growth is mostly spent one-shot chain links).
+2. **STALE ×3 (gen #5 had 1, and it recovered).** (a) **trading-strategy** ~8h36m —
+   `updated: 2026-07-11T10:09:08Z` at HEAD `2dd955d` (17:20:32Z, a kit-v1.12.0 session, not
+   the lane); lane idles by design pending the weekly grading cadence (protocol §6, next
+   2026-07-17) but its failsafe is among the 9 dead → nothing wakes it for that pass. (b)
+   **superbot-games** ~5h26m — heartbeat lag, not idleness: `updated: 13:19:52Z` while the
+   repo ran hot to `5d38593` 17:22:53Z (see recovery, item 3). (c) **product-forge** ~8h18m —
+   `updated: 10:27:30Z`, HEAD `097f9b1` 10:31:16Z: heartbeat AND repo both idle ~8h **and**
+   its failsafe is dead → the fleet's top DARK candidate for gen #7. Its gen-#5 FUTURE-DATED
+   stamp bug (12:00:00Z) is meanwhile FIXED — the stamp is now sane and past-dated.
+3. **superbot-games seat RECOVERED (the gen-#5→#6 window's good news), verified against
+   commits.** The lane itself owns the gap in its status at `5d38593`: "no lane output
+   ~02:15Z → ~11:xxZ; ORDER 003 (filed 03:32Z) and ORDER 004 (filed 09:59Z) sat unconsumed;
+   status.md went stale (last written 01:49Z)". Recovery evidence: ORDERs 003+004 executed
+   13:41Z (`82084aa` PR #46, `201f8dd` PR #47); the owner cleared the five parked PRs
+   (#34 `5147a23` 13:40:40Z, #36 `325c567` 13:40:49Z, #27 `50f6774` 14:56:05Z, #32 `f9c2f7a`
+   14:56:17Z, #38 `2f1e7cd` 14:56:26Z); D&D walking skeleton landed (#48 `b835f59` 15:03:41Z)
+   and the menu-balance sim (#49 `5d38593` 17:22:53Z). Residual watch: heartbeat discipline
+   (item 2b) — activity outran the status stamp by ~4h.
+4. **Fleet self-review (owner order, due since ~10:00Z): sim-lab ANSWERED · superbot hub
+   STILL MISSING.** (a) **sim-lab**: "Self-review 2026-07-11 (ORDER-002)" landed in
+   control/status.md at `87ca0dfb` (17:17:30Z, PR #37) — digest: VERDICTs 009+010 finalized
+   clean; the self-check battery caught a real escrow-pot model bug BEFORE finalization;
+   standing watches OA-002 (Codex usage-capped — no Codex evidence folded into any verdict
+   yet) + OA-004 (tag-push 403). Note: later wholesale heartbeat overwrites (#39 `d461932`,
+   #41 `4c74d7aa`) dropped the section — it survives only in git history and the current
+   status says "section stands from the prior heartbeat"; harmless but a
+   single-writer-overwrite convention gap. (b) **superbot hub**: ORDER 002 (filed 10:01Z)
+   still `status: new` in control/inbox.md at HEAD `d647b2e` — hub-touching sessions since
+   (fleet review PR #1998, merged 18:26:07Z) did NOT consume it; no "Self-review 2026-07-11"
+   exists anywhere in the repo (code search, 1 hit = the order text itself). Also answered
+   elsewhere this window, for the record: superbot-games ORDER 004 (`201f8dd`),
+   trading ORDER 010 (`ed8add3` 10:13:19Z), venture-lab ORDER 006 (status at `dfe3332`).
+5. **fm PR #77 (ORDER 017 instruction re-issue) is MERGED, not parked** — on main as
+   `39b888a` (18:40:11Z); the owner's click landed between gen #5 and this sweep. The
+   fleet-manager row's heartbeat (17:05Z) still describes it as parked — superseded by this
+   note; next fm heartbeat should re-stamp.
+6. **Kit v1.11→v1.12 wave spread during the window:** substrate-kit itself v1.12.0
+   (`21f4450`), pokemon v1.12.0 (PR #43), gba v1.12.0, superbot-games v1.12.0 (#51
+   `396144d`), trading v1.12.0 (#61 `2dd955d`); websites at v1.11.0, superbot-next v1.10.1,
+   idle v1.7.1, sim-lab v1.7.0 — spread is wide but no lane reports a red kit gate.
+7. **No DARK, no DEAD, no walls:** every repo converged on the first ls-remote-verified
+   fetch; the surviving 7 standing crons all fired on schedule in the last cycle (retro
+   16:50:09Z, fm 18:37:07Z, mineverse 18:20:06Z, pokemon 18:36:24Z, gba 18:02:06Z, websites
+   16:02:27Z, next 18:06:28Z). No seats born or retired; the three codetool seats stay
+   STALE-BY-DESIGN (~46h, unchanged since wind-down).
 
-## Tool-verification run 1 — hand sample vs machine output (generation #5)
+## Tool-verification run 2 — hand sample vs machine output (generation #6)
 
-Sample: 6 lanes spanning every verdict class present this generation (no DARK/DEAD
-exist to sample). Ground truth channels: GitHub MCP Contents API + `list_commits` at
-HEAD for 5 lanes; **superbot-mineverse via an independent shallow `git fetch` +
-`ls-remote`** after the Contents API returned the session-scope wall verbatim
-(`Access denied: repository "menno420/superbot-mineverse" is not configured for this
-session` — the same wall gen #4 recorded). Hand verdicts derived independently from
-the documented ladder (FRESH ≤ 2×cadence · STALE ≤24h · DARK >24h · DEAD unmeasurable;
-archived → STALE-BY-DESIGN). Run-1 values computed against the first generation pass
-(`--date 2026-07-11T04:24Z`); the shipped table above is the post-fix regeneration at
-04:28Z.
+Sample: 6 lanes spanning every verdict class present this generation (no DARK/DEAD exist to
+sample). Ground truth: GitHub MCP Contents API pinned to the roster's evidence SHA +
+`list_commits`; ages hand-computed against --date 2026-07-11T18:46Z; hand verdicts derived
+independently from the documented ladder.
 
 | Lane (sample class) | Machine verdict | Hand verdict | Cell-by-cell | Match? |
 |---|---|---|---|---|
-| superbot-next (FRESH) | FRESH | FRESH | `updated:` 03:30Z ✓ · age ~54m ✓ · evidence `531f14e` 04:23:19Z ✓ (= live HEAD, PR #145 merge) · trigger id+cron ✓ | ✅ |
-| sim-lab (STALE) | STALE | STALE | `updated:` 2026-07-10T23:50:16Z ✓ · age ~4h33m ✓ (hand: 4h33m44s, floored) · evidence `f70fbea` 03:30:46Z ✓ · cadence 2h from `0 1-23/2 * * *` ✓ | ✅ |
-| fleet-manager (manager row) | FRESH | FRESH | `updated:` 04:10:00Z ✓ · age ~14m ✓ · evidence `acb786f` = origin/main ✓ · failsafe id `trig_01F9UdoUtLy8oknBPBkHLshS` ✓ | ✅ |
-| superbot-mineverse (young seat) | FRESH | FRESH | `updated:` 04:19:00Z ✓ · age ~5m ✓ · evidence `1d8abc5` 04:23:26Z ✓ (independent fetch matched ls-remote) | ✅ |
-| codetool-lab-fable5 (parked) | STALE-BY-DESIGN | STALE-BY-DESIGN | `updated:` 2026-07-09T20:06Z ✓ · evidence `a6cf1a9` 2026-07-10T12:07:20Z ✓ · **age: machine `~32h17m` vs hand 32h18m — MISMATCH** | ❌ → **script bug, FIXED** (age_str float truncation; regression selfcheck added; regenerated) |
-| product-forge (anomaly probe) | FRESH | FRESH | stamp `2026-07-11T12:00:00Z` verbatim in the lane's file at HEAD `8c64db4` (future-dated — **lane-side bug**, headline 4) · age `future?` is the honest render · ground-truth HEAD 03:51:51Z also ⇒ FRESH | ✅ (legit ambiguity, documented) |
+| trading-strategy (STALE) | STALE | STALE | `updated:` 10:09:08Z ✓ (file@`2dd955d`) · age ~8h36m ✓ (hand 8h36m52s, floored) · evidence `2dd955d` 17:20:32Z ✓ · wake = one-shot only ✓ (failsafe auto-disabled) | ✅ |
+| superbot-games (STALE) | STALE | STALE | `updated:` 13:19:52Z ✓ (file@`5d38593`) · age ~5h26m ✓ (hand 5h26m08s) · evidence `5d38593` 17:22:53Z ✓ (= PR #49 merge) · wake NONE ✓ | ✅ |
+| venture-lab (FRESH, triggerless probe) | FRESH | FRESH | `updated:` 18:17:33Z ✓ (file@`dfe3332`) · age ~28m ✓ (hand 28m27s) · evidence `dfe3332` 18:44:54Z ✓ (PR #52 merge) · wake NONE ✓ (failsafe auto-disabled; chain-only) | ✅ |
+| sim-lab (FRESH, moved mid-sweep) | FRESH | FRESH | `updated:` 18:26:30Z ✓ at the fetched HEAD `45613e6` · age ~19m ✓ (hand 19m30s) · repo moved to `4c74d7aa` (18:46:48Z) seconds AFTER the verified fetch — world movement, not a tool error | ✅ |
+| superbot (hub fallback) | FRESH | FRESH | no control/status.md at HEAD confirmed via Contents API (verbatim: "path does not point to a file…") ✓ · HEAD-date fallback `d647b2e` 18:26:07Z ✓ (PR #1998 merge) · age ~19m ✓ (hand 19m53s) | ✅ |
+| codetool-lab-opus4.8 (parked) | STALE-BY-DESIGN | STALE-BY-DESIGN | `updated:` 2026-07-09T20:11:35Z ✓ · age ~46h34m ✓ (hand 46h34m25s) · evidence `80f6cd1` 2026-07-09T20:13:54Z ✓ (list_commits exact) | ✅ |
 
-**Outcome: verdicts 6/6 correct; one Age-cell display bug found and fixed at root
-cause. This counts as verification run 1 of the several the script's Q-0105 header
-requires — the UNVERIFIED header stays until more clean runs accumulate.**
+**Outcome: verdicts 6/6 correct, every heartbeat/age/evidence cell matched ground truth,
+zero fixes needed. This is verification run 2 (run 1 found + fixed the age_str display bug);
+the Q-0105 UNVERIFIED header stays until more clean runs accumulate per its own criteria.**
