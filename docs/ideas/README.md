@@ -44,6 +44,13 @@ frontmatter keeps the score.
 
 (Captured ideas, each with a state and a next destination — none left at `raw`.)
 
+### 2026-07-11 cohort — archive-prep closeout
+
+- [Roster advisory: ARCHIVE-READY lanes with zero retro notes](archive-ready-retro-gap-advisory-2026-07-11.md) —
+  `captured` · quick-win in `scripts/gen_roster.py` (advisory section, ~15
+  lines + selfcheck pin); promoted from the P3 session card's 💡 (grooming
+  step, PR #87)
+
 ### 2026-07-10 cohort — morning consolidation
 
 - [GBA play-through-Discord (mGBA headless + PIL frames + button-row controller)](gba-play-discord-2026-07-10.md) —
