@@ -1,8 +1,10 @@
 # Platform capability & limitation ledger — claude.ai Projects / sessions
 
+> **Status:** `reference`
+>
 > **Date:** 2026-07-12
 > **Author:** fleet-manager research session (`claude/research-platform`)
-> **Status:** verified ledger — every claim cited (file@sha, PR#, memory path, or
+> Verified ledger — every claim cited (file@sha, PR#, memory path, or
 > verbatim error) or explicitly marked UNVERIFIED / HYPOTHESIS. "Not measured"
 > beats invention. Family-level model names only. No secret values.
 > **Inputs:** the 2026-07-11 19-repo docs sweep + the team-memory/trigger-schema
