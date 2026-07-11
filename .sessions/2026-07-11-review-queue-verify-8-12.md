@@ -2,7 +2,7 @@
 
 > **Status:** `complete`
 
-📊 Model: Claude (Fable family, fable-5) · start 2026-07-11T~02:4xZ · lane
+📊 Model: Claude (Fable family, fable-5) · start 2026-07-11T~02:2xZ · lane
 worker dispatched by coordinator cse_012o8pySy5K3AV6JWoPKryZL
 
 ## Declared at open (born-red)
