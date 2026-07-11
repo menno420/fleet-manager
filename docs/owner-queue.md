@@ -36,46 +36,8 @@ manager curates from.
 
 ### (A) GitHub merges — one click each
 
-1. **superbot-games PR #27 — Q-0267 theme-readiness delta: MERGE.**
-   - id: OQ-GAMES-PR27-MERGE
-   - WHERE: https://github.com/menno420/superbot-games/pull/27
-   - HOW: click "Squash and merge".
-   - UNBLOCKS: Q-0267 audit delta on main; last of the parked five.
-   - VERIFIED-NEEDED: rebased onto main `201f8dd` at 13:51Z today (head
-     `4d91585`), mergeable_state clean, tests + substrate-gate green on head;
-     the independent review's concerns were addressed by the rebase. Owner-only
-     because agent self-merge is classifier-walled on this lane.
-   - Blocking: not-blocking (lane continues), but cheap — one click.
-
-2. **superbot-games PR #32 — survival sim harness: MERGE.**
-   - id: OQ-GAMES-PR32-MERGE
-   - WHERE: https://github.com/menno420/superbot-games/pull/32
-   - HOW: click "Squash and merge".
-   - UNBLOCKS: deterministic energy-difficulty sim + Q-0087 bands in CI.
-   - VERIFIED-NEEDED: head `a80d0de` 13:46Z today, mergeable_state clean, CI
-     green; the review's floor-conflict concern was resolved by adopting #34's
-     per-suite floors.
-   - Blocking: not-blocking.
-
-3. **superbot-games PR #38 — D&D story game design (docs-only): MERGE.**
-   - id: OQ-GAMES-PR38-MERGE
-   - WHERE: https://github.com/menno420/superbot-games/pull/38
-   - HOW: click "Squash and merge".
-   - UNBLOCKS: the first `games/story/` code PR — the lane holds it behind this
-     design doc.
-   - VERIFIED-NEEDED: head `41b7e2d` 13:45Z today, clean, green; the review's
-     leaked-tag concern was fixed in `cefa9e3` (0 occurrences remain).
-   - Blocking: blocks the story-game lane's next code PR.
-
-4. **substrate-kit PR #181 — T5 guard-probe re-scope: RATIFY (merge) or close
-   with a one-line reason.**
-   - id: OQ-KIT-PR181-RATIFY
-   - WHERE: https://github.com/menno420/substrate-kit/pull/181
-   - HOW: merge = approval of the bench re-scope; or close with a reason.
-   - UNBLOCKS: T5 bench v2 + the follow-up rubric-wording PR.
-   - VERIFIED-NEEDED: open, `do-not-automerge` BY DESIGN (deliberate owner
-     ratification gate), CI green, head `b1cbacf` — re-checked today.
-   - Blocking: blocks T5 bench v2 only.
+*(Empty — the whole 2026-07-11 merge group was clicked by the owner ~14:56Z;
+see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
 
 ### (B) GitHub settings / repo admin
 
@@ -177,45 +139,6 @@ manager curates from.
       cleanup — agent 403.)
     - Blocking: blocks the 07-14 play sitting artifact.
 
-13. **🔥 HOT (owner-provenance) — land the corrected UNIVERSAL.md
-    merge-authority clause (audit §2.4).** *(Old item 16 — keep first-priority.)*
-   - id: OQ-UNIVERSAL-MERGE-CLAUSE
-    - **STATUS 2026-07-11 16:3xZ: ✅ RESOLVED — PR #76 MERGED by the owner**
-      (menno420, 2026-07-11T15:26:47Z, merge SHA `e1848ff`). UNIVERSAL.md is
-      v4 with the corrected §2.4 clause at BOTH locations. ORDER 017 executed
-      from it (PR #77 — the fleet-wide re-issue, parked READY for the owner's
-      click). This item is CLOSED; the paste wave (item 15) is now click-ready
-      once #77 lands.
-    - *(Superseded status trail:)* **RESOLVED-PENDING-MERGE of PR #76**
-      (https://github.com/menno420/fleet-manager/pull/76 — the rebuilt #47
-      payload: UNIVERSAL.md v3→v4, the §2.4 clause applied VERBATIM
-      (cmp-verified byte-identical to the audit §2.4 block / the old item-16
-      paste block staged in PR #68 @ `c5e264f`) at BOTH locations). **The
-      owner merges #76 personally** — no auto-merge armed, lane worker will
-      not merge (instruction-authority content; the paste-block reference
-      below is kept intact for auditability). One click: merge PR #76 on
-      green, then this item closes and ORDER 017 + the C#15 paste wave
-      unblock.
-    - WHAT: owner-authored edit on fleet-manager main replacing
-      `projects/UNIVERSAL.md` `:42-44` and `:74-76` with the audit §2.4
-      corrected clause (verbatim paste block:
-      [`findings/instruction-and-env-audit-2026-07-11.md`](findings/instruction-and-env-audit-2026-07-11.md)
-      §2.4).
-    - WHERE: `projects/UNIVERSAL.md` on menno420/fleet-manager — edit directly
-      on main as yourself (or paste-confirm in a session you supervise).
-    - HOW: replace the "MERGE YOUR OWN GREEN PRs…" bullet at BOTH locations
-      with the §2.4 fenced block, verbatim; commit as owner.
-    - UNBLOCKS: gates **ORDER 017** (the fleet-wide walled-instruction
-      re-issue) AND the item-C#15 paste wave; ends the nightly
-      merge-stall/one-click-ask class at the root.
-    - VERIFIED 2026-07-11 (ORDER 017 session): UNIVERSAL.md is **v4** at
-      origin/main HEAD `e1848ff` (PR #76 merged by menno420 15:26:47Z); the
-      corrected clause is live at both locations (cmp-verified byte-identical
-      during the re-issue). The old "still v3" reading is stale and replaced.
-      PR #47 is MERGED (2026-07-11 14:55Z, merge `5625e3b`) as
-      intent-signal-only — the fold landed via #76, not #47.
-    - Blocking: no longer blocking — ORDER 017 executed (PR #77).
-
 33. **fleet-manager — tick "Allow GitHub Actions to create and approve pull
     requests"** *(new 2026-07-11, P1 FRESHNESS; the last click that makes
     roster freshness fully autonomous).*
@@ -260,8 +183,9 @@ manager curates from.
       anywhere in today's sweeps; the PR #73 fix is INERT until pasted.
     - Blocking: blocks CI-parity installs in the coordinator env.
 
-15. **Paste wave — HELD on the ORDER 017 re-issue PR (#77); then one
-    sitting, v2 bodies only.**
+15. **Paste wave — HOLD LIFTED (PR #77 MERGED by the owner
+    2026-07-11T18:40:12Z, merge `39b888a`): CLICK-READY, one sitting, v2
+    bodies only.**
     - id: OQ-PASTE-WAVE
     - WHAT (in this order, one sitting, each paste = the FULL
       `projects/<repo>/instructions.md` body from main after #77 lands —
@@ -287,16 +211,18 @@ manager curates from.
       Registry: [`projects/README.md`](../projects/README.md) § Paste wave.
     - WHERE: console Custom-Instructions fields + the one websites trigger
       prompt (no agent write surface — verified walls).
-    - HOW: merge PR #77 first (the re-issued bodies land on main), then paste
-      top to bottom in one sitting; each body carries its own `vN` header —
-      drift check = ask the seat to quote it.
+    - HOW: paste top to bottom in one sitting from main (the re-issued bodies
+      landed with #77); each body carries its own `vN` header — drift check =
+      ask the seat to quote it.
     - UNBLOCKS: every live seat running on the corrected merge clause +
       permissions block; ends the walled-instruction class fleet-wide.
-    - VERIFIED-NEEDED 2026-07-11 (ORDER 017 session): the old HELD-on-#47
-      rider is OBSOLETE — the §2.4 payload landed via PR #76 (owner-merged
-      `e1848ff`), and #47 itself MERGED 2026-07-11 14:55Z (merge `5625e3b`)
-      as intent-signal-only. New hold: **#77 only.**
-    - Blocking: held until PR #77 lands (do not paste pre-#77 bodies).
+    - VERIFIED 2026-07-11 (P3 curation sweep, live PR state): **PR #77 is
+      MERGED** (menno420, 2026-07-11T18:40:12Z, merge `39b888a`) — the hold is
+      lifted and the re-issued v2/v3 bodies are on main. (Trail: the old
+      HELD-on-#47 rider was already obsolete — the §2.4 payload landed via
+      PR #76, owner-merged `e1848ff`; #47 merged 14:55Z, `5625e3b`,
+      intent-signal-only.)
+    - Blocking: nothing holds it — click-ready.
 
 16. **superbot-next OA-5 — export real `ANTHROPIC_API_KEY` +
     `AI_ENABLED=true` into the builder session environment.**
@@ -497,6 +423,32 @@ manager curates from.
     veto = delete the Routine) · kit five releases cut agent-side ·
     superbot-next D-0064–D-0069 decide-and-flag.
     - id: OQ-STANDING-OBJECTION-NOTES
+
+## Resolved 2026-07-11 (P3 curation sweep, ~20:1xZ — every state below re-verified LIVE per PR, Q-0120)
+
+The whole (A) merge group plus the UNIVERSAL-clause trail item, all clicked by
+the owner (merged_by menno420 in every case; states read live via the GitHub
+API this sweep, not from reports):
+
+- **OQ-GAMES-PR27-MERGE ✅** — superbot-games #27 MERGED 2026-07-11T14:56:05Z,
+  merge `50f6774` (Q-0267 theme-readiness delta on main).
+- **OQ-GAMES-PR32-MERGE ✅** — superbot-games #32 MERGED 2026-07-11T14:56:17Z,
+  merge `f9c2f7a` (survival sim harness + Q-0087 bands in CI).
+- **OQ-GAMES-PR38-MERGE ✅** — superbot-games #38 MERGED 2026-07-11T14:56:26Z,
+  merge `2f1e7cd` (D&D story design; the story-game code lane is unblocked —
+  the walking skeleton in fact already landed as games #48 → `b835f59`).
+- **OQ-KIT-PR181-RATIFY ✅** — substrate-kit #181 MERGED (= ratified)
+  2026-07-11T14:56:40Z, merge `f7aa633` (T5 re-scope v2; kit's own ledger
+  recorded the ratification at `5d4978e`).
+- **OQ-UNIVERSAL-MERGE-CLAUSE ✅** *(old items 16 → 13 — the HOT
+  owner-provenance item)* — the corrected §2.4 merge-authority clause is LIVE:
+  PR #76 MERGED by the owner 2026-07-11T15:26:47Z (merge `e1848ff`,
+  UNIVERSAL.md v4 at both locations, cmp-verified during ORDER 017); ORDER 017
+  executed fleet-wide via PR #77, MERGED by the owner 2026-07-11T18:40:12Z
+  (merge `39b888a`). Trail: #47 merged 14:55:53Z (`5625e3b`,
+  intent-signal-only); the §2.4 block was staged by #68 (merged 11:48:30Z,
+  `c5e264f`). Successor ask: the paste wave (OQ-PASTE-WAVE) is now
+  click-ready.
 
 ## Resolved 2026-07-11 (verified)
 
