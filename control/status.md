@@ -1026,3 +1026,11 @@ Attribution: **lane worker fable-5, dispatched by coordinator cse_012o8pySy5K3AV
   repository ruleset — verbatim: `GH013 ... Changes must be made through a pull request.`
   Commit path v2 shipped as the follow-up PR: `bot/roster-regen` branch → create-or-reuse
   PR → immediate squash-merge in-run; denial parks ONE open PR + reds the run.
+- **SECOND WALL (v2 live test, run 29165152964, ~19:23Z) + v3 + ⚑ needs-owner:** PR
+  creation by GITHUB_TOKEN is ALSO blocked — verbatim: `GitHub Actions is not permitted
+  to create or approve pull requests (createPullRequest)`; the regen commit `a310a12` DID
+  reach `bot/roster-regen`. v3 shipped: honest degrade (reuse open PR / red with pointer).
+  **Owner click filed as docs/owner-queue.md item 33** (tick "Allow GitHub Actions to
+  create and approve pull requests", fleet-manager Settings → Actions) — until then the
+  cron run reds every 2h as a standing reminder and check_roster_freshness alarms at >4h;
+  no silent staleness possible.
