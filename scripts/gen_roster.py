@@ -20,6 +20,12 @@ Reliability: unverified — confirm its output against ground truth a few times
             matched ground truth; ONE display bug found and fixed (age_str
             float truncation, ~32h17m vs true 32h18m; regression selfcheck
             added). Header stays until several clean runs accumulate.
+            Verification run 2 (2026-07-11, roster gen #6): 6-lane hand sample
+            (STALE ×2, FRESH ×2 incl. a triggerless lane and one that moved
+            mid-sweep, hub fallback, STALE-BY-DESIGN) — verdicts 6/6 correct,
+            every heartbeat/age/evidence cell matched ground truth at the
+            pinned evidence SHA; ZERO fixes needed. First fully-clean run;
+            header stays (2 runs logged, criteria say several).
 Kill-switch: delete this if it proves unreliable over multiple sessions.
 =============================================================================
 
