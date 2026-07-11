@@ -424,3 +424,38 @@ prep is unblocked; ORDER 014 records the enablement context.
 done-when: both founding packages committed to projects/ (registry doctrine:
 manager sole writer, version stamps, family-level model names), owner-queue
 paste-wave items refreshed, and the boot clicks queued with WHAT/WHERE/UNBLOCKS.
+
+## ORDER 015 · update 2026-07-11T01:55Z · status: ✅ DONE (as RE-SCOPED — registry centralization, not authoring; fleet-manager PR #58)
+priority: P1
+do: (append-only DONE flip for ORDER 015 above — no new work ordered; this
+block records the execution, fields per the kit's order grammar.)
+why: reality overtook the 00:45Z filing — both games seats SELF-BOOTED before
+any founding package was authored (handoff §5), so the executed scope is
+registry centralization, not authoring.
+done-when: (met in fleet-manager PR #58) both seats' packages committed to
+projects/ version-stamped from what the booted seats actually run; matrix +
+review-queue reconciled; ⚑ reconciliation flagged in control/status.md.
+✅ DONE: executed per the coordinator handoff's reconcile note
+(`docs/succession/coordinator-handoff-2026-07-11.md` §5): reality overtook the
+filing — **both seats SELF-BOOTED** before any founding package was authored, so
+the remaining scope was sweeping what the booted seats ACTUALLY run into
+version-stamped `projects/` packages, regenerate-don't-fork. Landed (PR #58, lane
+worker session, model: fable-5, dispatched by coordinator cse_012o8pySy5K3AV6JWoPKryZL):
+**(1) Seat A** — `projects/superbot-games/` regenerated in place v1 → **v2**
+(seat LIVE: failsafe `trig_019ZgWyL78Rx1sr6LhvL8NE3` `15 */2 * * *` armed
+2026-07-10T23:47:02Z, stored prompt VERBATIM-FROM-REGISTRY extracted
+2026-07-11T01:26:43Z; order-001 MERGED — superbot-games PR #24, merge SHA
+`7d4c347`, fix in `.github/workflows/tests.yml`, floor since 121→147→230 at HEAD
+`773fab0`; orders 001+002 DONE per heartbeat 01:17:42Z; kit v1.8.0;
+setup-script.sh kept + marked NEVER-DEPLOYED). **(2) Seat B** —
+`projects/superbot-idle/` built v1 from the live seat (stub meta → real meta;
+HEAD `677b74d`, PRs #1–#25 merged, 216 tests, kit v1.7.1; failsafe
+`trig_01TWKGFW8RUsMvxUMt2ndzqA` `45 */2 * * *` armed 23:44:45Z,
+VERBATIM-FROM-REGISTRY; NO setup-script.sh — none verifiably deployed, stated in
+meta; never-deployed parts say so explicitly instead of inventing content).
+**(3)** `projects/README.md` matrix rows + stub list corrected; **(4)**
+review-queue superbot-games#16 CLOSED (VERIFIED-FIXED-AND-MERGED). The order's
+original done-when items "owner-queue paste-wave items refreshed" and "boot
+clicks queued" are MOOT under the re-scope (no boots remain to click — both
+seats run; paste-wave note updated in projects/README.md). ⚑ reconciliation
+flagged in `control/status.md` per decide-and-flag.
