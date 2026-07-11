@@ -21,6 +21,11 @@
 > bare two-source checkout that killed 2 trading-strategy sessions at
 > provision** (test transcripts in PR #10's body).
 
+> **Authorization layer:** this doc maps env-var **NAMES** per project; which of
+> them to actually **grant**, at what scope, and how much room to give each lane
+> lives in [`env-grant-policy.md`](env-grant-policy.md) (trust tiers + templates +
+> where-to-manage links).
+
 ## The archetypes
 
 *(The owner's original directive said ≤4; **gba-lab is the 5th by explicit
