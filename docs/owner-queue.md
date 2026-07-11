@@ -183,10 +183,20 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       anywhere in today's sweeps; the PR #73 fix is INERT until pasted.
     - Blocking: blocks CI-parity installs in the coordinator env.
 
-15. **Paste wave — HOLD LIFTED (PR #77 MERGED by the owner
-    2026-07-11T18:40:12Z, merge `39b888a`): CLICK-READY, one sitting, v2
-    bodies only.**
+15. **Paste wave — ⛔ SUPERSEDED 2026-07-11 (owner restructure directive,
+    slice 3, fm PR #91): do NOT run this wave as written.** *(Was: HOLD
+    LIFTED / click-ready after PR #77, merge `39b888a`.)*
     - id: OQ-PASTE-WAVE
+    - **Supersession note (2026-07-11, restructure directive):** the same-day
+      8-seat restructure (fm PRs #88/#89/#91, stacked) replaced the per-repo
+      Project layout this wave targets — the per-repo v2/v3 bodies below are
+      superseded by the 8 seat bodies, and the websites sub-step's "v2 wake
+      prompt" is stale (`projects/websites/coordinator-prompt.md` is **v3**
+      since slice 2). Live successors: **C#34 (OQ-RESTRUCTURE-PROJECTS)** +
+      **C#35 (OQ-RESTRUCTURE-INSTRUCTIONS-PASTE)** + **C#36
+      (OQ-RESTRUCTURE-TRIGGER-CUTOVER)**. Body below kept verbatim for
+      history/audit (the wave was click-ready when written; zero of its
+      pastes have a receipt, so nothing owner-side needs undoing).
     - WHAT (in this order, one sitting, each paste = the FULL
       `projects/<repo>/instructions.md` body from main after #77 lands —
       **v2 everywhere, v3 for superbot-games; never v1**):
@@ -293,6 +303,140 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       click):** superbot's `codex-final-review` workflow has had invalid YAML
       since 2026-06-19 — 0 successful runs of 2,811; latest run 29156086075
       instant-fails at parse.
+
+34. **Fleet restructure — create/rename the claude.ai Projects to the 8
+    standing seats** *(new 2026-07-11, owner restructure directive — slice 3,
+    fm PR #91; Projects are the restructure's one hard owner-only wall).*
+   - id: OQ-RESTRUCTURE-PROJECTS
+    - WHAT: end state = exactly 8 standing Projects — **Venture Lab ·
+      SuperBot World · Game Lab · Ideas Lab · Self Improvement ·
+      SuperBot 2.0 · Websites · Fleet Manager**. Recommended click path
+      (rename the strongest predecessor so its Project knowledge survives;
+      archive the rest):
+      1. RENAME the venture-lab Project → **Venture Lab** (absorbs
+         trading-strategy, research-only) · archive the trading-strategy
+         Project.
+      2. RENAME the superbot-mineverse Project → **SuperBot World**
+         (flagship = mineverse) · archive the superbot-games +
+         superbot-idle Projects.
+      3. RENAME the retro-games coordinator Project → **Game Lab** (it
+         already drives gba-homebrew + pokemon-mod-lab) · archive any
+         separate gba/pokemon Projects.
+      4. RENAME the idea-engine Project → **Ideas Lab** · archive the
+         sim-lab Project.
+      5. RENAME the substrate-kit Project → **Self Improvement**.
+      6. RENAME the superbot-next Project → **SuperBot 2.0** (the superbot
+         hub Project keeps its Q-0264 owner-session character inside the
+         merged seat — archive it only if you never start superbot sessions
+         from it).
+      7. KEEP **Websites** and the fleet-manager Project (→ **Fleet
+         Manager**) as-is.
+      8. Archive any leftover shells: codetool-lab ×3 (already closed) ·
+         mobile-lab / games-program if shells exist (pre-birth) ·
+         product-forge awaits E#37.
+      (Equivalent alternative: create the 6 new-name Projects fresh and
+      archive all predecessors — same end state, more clicks.)
+    - WHERE: claude.ai → Projects screen. Owner-side surface with NO agent
+      read — this list is derived from committed paste receipts/metas;
+      adjust to what the screen actually shows.
+    - HOW: per Project: ⋯ menu → Rename (or New Project); archive the
+      retired ones.
+    - UNBLOCKS: C#35 + C#36 (pastes and cutovers land in these Projects) —
+      the restructure's platform half.
+    - VERIFIED-NEEDED: registry restructured on the stacked PRs #88 (seats)
+      / #89 (prompts) / #91 (this queue) — merge order #88→#89→#91;
+      Projects = standing owner-only wall (no agent surface, playbook
+      platform-walls section).
+    - Blocking: blocks the restructure's platform half; the repo/registry
+      half is already parked on the stack.
+
+35. **Fleet restructure — paste each seat's instructions body into its
+    Project's Custom Instructions** *(new 2026-07-11, restructure directive —
+    slice 3, fm PR #91; supersedes C#15's per-repo wave).*
+   - id: OQ-RESTRUCTURE-INSTRUCTIONS-PASTE
+    - WHAT: after C#34, paste the FULL body of each registry file below
+      (source = the restructure stack, branch `claude/restructure-roster`
+      until it merges, then the same paths on main; every body fits the
+      verified 8,000-char console cap):
+      1. Venture Lab ← `projects/venture-lab/instructions.md` (v3 · 7,498)
+      2. SuperBot World ← `projects/superbot-world/instructions.md` (v1 · 7,489)
+      3. Game Lab ← `projects/game-lab/instructions.md` (v1 · 7,481)
+      4. Ideas Lab ← `projects/ideas-lab/instructions.md` (v1 · 7,494)
+      5. Self Improvement ← `projects/self-improvement/instructions.md` (v1 · 7,486)
+      6. SuperBot 2.0 ← `projects/superbot-2.0/instructions.md` (v1 · 7,499)
+      7. Websites ← `projects/websites/instructions.md` (v2 · 7,470 — carried
+         over from #77; still no paste receipt, so the paste is still owed)
+      8. Fleet Manager ← `projects/fleet-manager/instructions.md` (v3 ·
+         7,763 — needed on seat re-boot; the successor boot flow covers it)
+    - WHERE: each Project → Custom Instructions field (owner-only console
+      surface, verified wall).
+    - HOW: open the raw file → select all → paste. Drift check afterwards:
+      ask the seat to quote its in-paste first line
+      (`vN · 2026-07-11 · <seat> instructions`).
+    - UNBLOCKS: every standing seat running on the 8-seat doctrine text that
+      survives chat archives.
+    - VERIFIED-NEEDED: version headers + byte counts verified on the stack
+      2026-07-11 (slice 3); Custom-Instructions fields are a verified
+      owner-only wall (registry doctrine, projects/README.md §3).
+    - Blocking: do it in the same sitting as C#34 — a renamed Project still
+      carrying old per-repo instructions is live drift.
+
+36. **Fleet restructure — boot each new seat (one coordinator-prompt paste
+    per Project); the boot retires the old triggers and arms the new
+    failsafe** *(new 2026-07-11, restructure directive — slice 3, fm PR #91).*
+   - id: OQ-RESTRUCTURE-TRIGGER-CUTOVER
+    - WHAT: cutovers are agent-side by design (rebind-then-delete, BOOT
+      step 2 of each `projects/<seat>/coordinator-prompt.md`; the verbatim
+      create_trigger block + old-trigger list lives in each seat's
+      `projects/<seat>/failsafe-prompt.md`). Your click = paste each seat's
+      `coordinator-prompt.md` as the FIRST message of a new chat in that
+      Project. The boot then creates the new failsafe, verifies via
+      list_triggers, deletes the old triggers, verifies them absent, and
+      records every call verbatim in the seat heartbeat. Old triggers that
+      go (last committed registry state — each boot re-verifies live first):
+      - **SuperBot World** (arms `superbot-world failsafe wake` ·
+        `20 */2 * * *`): retires games `trig_019ZgWyL78Rx1sr6LhvL8NE3`
+        (`15 */2`) · idle `trig_01TWKGFW8RUsMvxUMt2ndzqA` (`45 */2`) ·
+        mineverse `trig_01K8xmAKYS5S2HLy1HPANM7j` (`20 */2`).
+      - **Game Lab** (arms `game-lab failsafe wake` · `50 */2 * * *`):
+        retires the retro failsafe `trig_01Y99uDKNtKTz2EtRYPWZkGY`
+        (`50 */2`) + BOTH hourly child wakes — gba
+        `trig_0137SkvhXEJvwepX8aVNkcSn` (`0 * * * *`) · pokemon
+        `trig_01BTJjkMVMKtWPjuYe7643Hi` (`30 * * * *`).
+      - **Ideas Lab** (arms `ideas-lab failsafe wake` · `0 */2 * * *`):
+        retires idea-engine `trig_0178q9Je2xRFJgthwamrg9Br` (`0 */2`) +
+        sim-lab `trig_01SHfnLv6EqZesr4tC3T9kUU` (`0 1-23/2`).
+      - **Self Improvement** (arms `self-improvement failsafe wake` ·
+        `0 */2 * * *`): retires the old pre-Q-0265 standing wake
+        `trig_016EfUawz6KxEYqUM6f1BqDw`.
+      - **SuperBot 2.0** (arms `superbot-2.0 failsafe wake` ·
+        `0 */2 * * *`): retires the Builder failsafe
+        `trig_01L5JBefGSCM1fUdwm4SRQnY`; superbot hub triggers are
+        explicitly left alone.
+      - **Venture Lab** (arms `venture-lab failsafe wake` · `0 */2 * * *`):
+        retires the trading-strategy failsafe
+        `trig_01YBaVeKAW2fSD83S9F37s2d` (`0 */2`).
+      - **Websites** — NO cutover (keeps `trig_017H9Qb9oxtLgUy6sw2gnSHg`,
+        `0 */4 * * *`); owed instead: re-paste
+        `projects/websites/coordinator-prompt.md` (now **v3**) into that
+        trigger's prompt on the Routines screen.
+      - **Fleet Manager** — unchanged by the restructure: the successor
+        coordinator rebinds-then-deletes `trig_01F9UdoUtLy8oknBPBkHLshS`
+        per `projects/fleet-manager/reboot-prompt.md` v2 (F-1).
+    - WHERE: each new Project (chat paste, first message); plus the one
+      websites trigger prompt on the Routines screen.
+    - HOW: one paste per seat, same sitting as C#34+C#35. If a seat's
+      surface walls the trigger calls, its boot records the verbatim denial
+      and hands you the create_trigger block (name + cron + prompt) from its
+      failsafe-prompt.md.
+    - UNBLOCKS: the 8-seat wake fabric; retires 9 armed triggers that
+      otherwise keep waking archived/retired seats every wake slot.
+    - VERIFIED-NEEDED: trigger ids/crons quoted from the slice-2 prompt
+      files at the stack head (committed registry state with extraction
+      receipts in each failsafe-prompt.md provenance block); every boot
+      re-verifies live via list_triggers before deleting anything.
+    - Blocking: until cutover, the old failsafes fire into archived seats
+      on every slot (silent-fire class).
 
 ### (D) External services
 
@@ -423,6 +567,41 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
     veto = delete the Routine) · kit five releases cut agent-side ·
     superbot-next D-0064–D-0069 decide-and-flag.
     - id: OQ-STANDING-OBJECTION-NOTES
+
+37. **product-forge disposition — not in the owner's 8-seat list: retire the
+    seat / fold into Venture Lab / keep as a 9th seat** *(new 2026-07-11,
+    restructure directive — slice 3, fm PR #91; structured choice — the seat
+    stays as-is until you pick; this one does NOT proceed on silence).*
+   - id: OQ-FORGE-DISPOSITION
+    - WHAT — pick one:
+      **A (recommended)** — retire the SEAT, keep the REPO parked: archive
+      the product-forge Project; registry dir `projects/product-forge/` →
+      pointer stub (manager executes). No trigger to disarm — roster gen #9
+      records its wake state as NONE. The repo keeps its KEEP verdict
+      (fleet-triage: real games-web, 22 PRs, "home to homeless projects");
+      future forge work routes via owner-started sessions or a Venture Lab
+      order. Fully reversible — the v2/v3 seat package stays in git history.
+      **B** — fold into **Venture Lab** (same shape as trading-strategy's
+      fold): forge becomes a Venture Lab work surface; registry dir merges;
+      one more repo on that seat's plate.
+      **C** — keep product-forge as an unlisted 9th standing seat (status
+      quo; contradicts the 8-seat directive — say so explicitly if intended).
+      Recommendation: **A** — matches the directive, loses nothing, cheapest
+      to reverse.
+    - WHERE: one word wherever the manager reads — `control/inbox.md` ORDER,
+      a live session, or a comment on the restructure stack (fm #88/#89/#91);
+      plus the Projects screen for the archive click if A.
+    - HOW: say "product-forge: A" (or B/C); the manager executes the
+      registry/roster half.
+    - UNBLOCKS: closes the restructure's only open seat question; lets the
+      projects/README.md MATRIX/paste-wave regen (named follow-up) render
+      exactly 8 seats.
+    - VERIFIED-NEEDED: slice-1 finding (fm PR #88): product-forge is a live
+      seat with a current package but absent from the owner's 8-seat list;
+      roster gen #9 row 2026-07-11: FRESH, wake NONE, phase "close-out /
+      archived-ready".
+    - Blocking: not-blocking (seat is dormant — no failsafe armed); blocks
+      only the final MATRIX regen follow-up.
 
 ## Resolved 2026-07-11 (P3 curation sweep, ~20:1xZ — every state below re-verified LIVE per PR, Q-0120)
 
