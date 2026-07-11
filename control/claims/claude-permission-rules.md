@@ -1,1 +1,0 @@
-- `claude/permission-rules` · **agent-permission port** — port superbot `.claude/settings.json` GitHub-MCP landing allows (merge/update PR) so auto-mode sessions land green PRs without classifier denials · `.claude/settings.json`, `docs/findings/`, `.sessions/` · 2026-07-11

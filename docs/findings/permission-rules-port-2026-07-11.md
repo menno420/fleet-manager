@@ -1,6 +1,8 @@
 # Agent-permission port — `.claude/settings.json` (2026-07-11)
 
-> **Status:** `landed` (PR #92)
+> **Status:** `reference`
+>
+> Landed via PR #92.
 
 ## Why
 
