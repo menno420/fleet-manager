@@ -4,558 +4,443 @@
 > The manager adds/removes items; asks stay valid until acted on (playbook R11).
 > Every item below must carry WHAT/WHERE/HOW/WHY/UNBLOCKS + proof it's owner-only (R17).
 
-Rewritten 2026-07-10 (morning, after the gen-2 overnight launch) — every item
-re-verified against live GitHub at HEAD. Superseded/stale items removed:
-venture-lab repo exists (seeded + 9 PRs); kit #26/#49 and games #5 are MERGED
-(00:07/00:12/00:00Z); the fleet environments exist (gen-2 lanes booted in them
-overnight); the gen-1 wind-down, merge-session, and launch click-lists are DONE.
-Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2-launch-record-2026-07-10.md).
+Rewritten **2026-07-11 (verified fleet-wide sweep — every item re-checked against
+live state; PR #75)**. Every finding below was verified TODAY (2026-07-11,
+~13:30–15:00Z) by read-only workers — citations are given per item. Lineage:
+previous full rewrite 2026-07-10 (morning) + four same-day amendments + the
+2026-07-11 ORDER 010 relay stamp; launch context:
+[`planning/gen2-launch-record-2026-07-10.md`](planning/gen2-launch-record-2026-07-10.md);
+the Q-0261 launch-readiness checklist that seeded items 9–12 of the previous
+rewrite: [`launch-readiness-2026-07-10.md`](launch-readiness-2026-07-10.md).
 
-> **Amended 2026-07-10 (midday, round-3 brief §1c).** The pure DECISION items
-> below (1 · 4 · 6 · 8, plus the concept/playtest picks in 3) are now
-> **consolidated — with recommendations and defaults — in the owner decision
-> sheet: superbot `docs/planning/round3-launch-pack-2026-07-10.md` §4**. Answer
-> them THERE (one sitting, ten numbered calls); the entries below are kept as
-> stubs so nothing dangles, and are no longer the full text — the §4 sheet is.
-> New item 0 added: create the Idea Engine Project (standing autonomous core).
+**Old-item mapping (superseded/absorbed by this rewrite):** item 3 (4-patch
+playtest → now SIX patches, folded into E#28(2)) · item 4 Track B (→ E#28(3)) ·
+item 11 (→ C#15 paste wave) · item 12(b) (→ B#7) · item 15 (→ D#26) · item 14
+(split: §5 veto → E#29, plugin seed push → C#18). Resolved-today findings are in
+"Resolved 2026-07-11 (verified)" below.
 
-> **Amended 2026-07-10 (afternoon, launch-readiness sweep).** Items 9–12 added
-> from the 5-worker Q-0261 launch-readiness research (full classified checklist
-> with citations: [`launch-readiness-2026-07-10.md`](launch-readiness-2026-07-10.md));
-> codetool archive/release clicks added to Parked; flag-13 moved from Parked
-> into item 12 (it is seat-3 finalize-first debt under Q-0261). No prior item
-> removed.
+Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
+(click-level) · UNBLOCKS · VERIFIED-NEEDED (evidence citation) · blocking?**
 
-> **Amended 2026-07-10 (night, package-centralization).** Item 13 added: the
-> consolidated **Project package paste wave** (the "re-base + deploy in one
-> sitting" that item 8's resolution promised — the re-based packages now live in
-> [`../projects/`](../projects/README.md)). Kit OA8 (item 11) is now a subitem
-> of the paste wave. Parked codetool tag mislabel corrected with provenance
-> (the un-released tags are **fable5**'s, not opus4.8's). A planned
-> trading-strategy-PR-#37-merge-click item was verified **already done** before
-> adding — owner merged it 2026-07-10T20:56:34Z (see Resolved below); no stale
-> ask added.
+## Active queue — grouped by click surface
 
-> **Amended 2026-07-11 (ORDER 010 relay slice).** Re-verified at HEAD: venture
-> ⚑B/⚑D unfrozen (D1 fix landed); items 0 and 9 resolved (overtaken by events);
-> items 3/12/13/14 stamped with fresh verification.
+### (A) GitHub merges — one click each
 
-## Active queue (HOT first)
+1. **superbot-games PR #27 — Q-0267 theme-readiness delta: MERGE.**
+   - WHERE: https://github.com/menno420/superbot-games/pull/27
+   - HOW: click "Squash and merge".
+   - UNBLOCKS: Q-0267 audit delta on main; last of the parked five.
+   - VERIFIED-NEEDED: rebased onto main `201f8dd` at 13:51Z today (head
+     `4d91585`), mergeable_state clean, tests + substrate-gate green on head;
+     the independent review's concerns were addressed by the rebase. Owner-only
+     because agent self-merge is classifier-walled on this lane.
+   - Blocking: not-blocking (lane continues), but cheap — one click.
 
-0. **Create the Idea Engine Project (superbot repo) — standing autonomous core.**
-   - WHAT: create ONE new claude.ai Project on the **superbot** repo (not
-     substrate-kit — the ideas pipeline `docs/ideas/` + router + grooming
-     doctrine live in superbot) whose mission is: generate + groom ideas into
-     `docs/ideas/`, promote the best into plans, and propose routing ORDERs to
-     the manager for lane repos. It is one of the FOUR permanently-running
-     Projects in the owner's standing-autonomous-core design (manager · Idea
-     Engine · superbot-next builder · Product Forge), each on a ~2-hourly
-     routine, looping without the owner.
-   - WHERE/HOW: claude.ai → new Project on menno420/superbot; then paste the
-     **routine text from superbot `docs/planning/round3-launch-pack-2026-07-10.md`
-     §5** (the "Arm a recurring routine for this Project yourself…" block) as
-     its first message — the Project arms its own routine via the verified
-     recipe (`create_trigger`, cron every 2 hours; `capabilities.md` CAN
-     entry); owner routine click only if that seat is walled.
-   - NOTE: Product Forge seat: candidate TBD per corrected round3-launch-pack
-     §5 (owner retracted venture-lab pairing, 2026-07-10); default fallback =
-     seed a dedicated `product-forge` repo born-right with a required check.
-     venture-lab keeps its own venture mission unchanged.
-   - WHY owner-only: creating claude.ai Projects has no agent API surface
-     (verified wall, `capabilities.md`).
-   - UNBLOCKS: the standing autonomous core's idea-generation loop — the
-     fleet generating its own work between owner sessions.
-   - **⚑ LIKELY ALREADY DONE (evidence, 18:31Z wake — confirm & retire):**
-     live `list_triggers` shows an **"idea-engine 2-hourly standing wake"**
-     (`trig_01KBoHPaq…`, cron `0 */2 * * *`, enabled, last fired
-     2026-07-10T18:05:20Z) — a firing in-Project routine strongly implies
-     the Project exists and self-armed. ~~Kept open only pending a heartbeat/
-     repo trace from that seat; the ~20:31Z wake confirms and retires this.~~
-     **✅ RESOLVED 2026-07-11:** heartbeat/repo trace confirmed — idea-engine
-     `control/status.md` @ origin/main `835b260` carries
-     `updated: 2026-07-11T03:25:00Z (real wall-clock, per the control/README
-     rule)`, phase STEADY (a live, current-hour heartbeat from the seat), and
-     the roster gen #4 row (fm PR #59, merge `b0639a9`) records: failsafe
-     `0 */2` armed, chain HOT, kit v1.8.0, STEADY. Project exists and loops;
-     retired per the item's own retire condition.
+2. **superbot-games PR #32 — survival sim harness: MERGE.**
+   - WHERE: https://github.com/menno420/superbot-games/pull/32
+   - HOW: click "Squash and merge".
+   - UNBLOCKS: deterministic energy-difficulty sim + Q-0087 bands in CI.
+   - VERIFIED-NEEDED: head `a80d0de` 13:46Z today, mergeable_state clean, CI
+     green; the review's floor-conflict concern was resolved by adopting #34's
+     per-suite floors.
+   - Blocking: not-blocking.
 
-1. ~~🔥 HOT — kit F-5 one-letter ruling (A or B).~~ **✅ RESOLVED 2026-07-10
-   (Q-0262.1): Reading A** — routed as substrate-kit **ORDER 011** and already
-   **EXECUTED by the kit lane** (kit PRs #127/#128; family headline re-scored
-   **1 PASS / 3 FAIL** under Reading A; B-benches unpaused, B1 run-5 free to
-   fire; record: kit `bench/results/cold-start/f5-ruling-order-011.md`; kit
-   status @ 18:22Z confirms acked+done). Also listed in Resolved below.
+3. **superbot-games PR #38 — D&D story game design (docs-only): MERGE.**
+   - WHERE: https://github.com/menno420/superbot-games/pull/38
+   - HOW: click "Squash and merge".
+   - UNBLOCKS: the first `games/story/` code PR — the lane holds it behind this
+     design doc.
+   - VERIFIED-NEEDED: head `41b7e2d` 13:45Z today, clean, green; the review's
+     leaked-tag concern was fixed in `cefa9e3` (0 occurrences remain).
+   - Blocking: blocks the story-game lane's next code PR.
 
-2. **venture-lab ⚑A–D — the revenue clicks (zips are ON MAIN, upload-ready).**
-   PR #9 merged 05:11:50Z: both buyer zips are committed —
-   `candidates/membership-kit/dist/membership-kit-v0.2.zip` and
-   `candidates/template-packs/dist/template-packs-v0.1.zip`.
-   - **⚑A — Stripe TEST keys:** free Stripe account → Developers → API keys →
-     copy `sk_test_…` into `STRIPE_SECRET_KEY` and the webhook `whsec_…` into
-     `STRIPE_WEBHOOK_SECRET` in `candidates/membership-kit/server/.env` (from
-     `.env.example`). Test mode only; no real money. UNBLOCKS the live
-     test-mode purchase→webhook→grant E2E.
-   - **⚑B — publish membership-kit at $49:** **✅ UNFROZEN 2026-07-11:** D1
-     Stripe fix landed — venture-lab PR #16 merged 2026-07-11T01:35:03Z
-     (merge `912da3e`), vendored-payload real-path HTTP tests; suite runs in
-     CI kit-tests (venture PR #28, `fc7f39c`); lane status @ `74894e5`
-     (02:58:38Z) reports launch-ready ×3 (membership-kit, template-packs,
-     stripe-webhook-test-kit). Publish steps below are live again.
-     (When unfrozen: Gumroad or Lemon Squeezy → new
-     product → paste `candidates/membership-kit/LISTING.md` → upload the
-     committed membership-kit-v0.2.zip → Publish.)
-   - **⚑C — (optional) Supabase + Discord accounts** for the hosted
-     production stack (URL/key + invite URL into `server/.env`).
-   - **⚑D — publish template-packs at $19 PWYW:** **✅ UNFROZEN 2026-07-11:**
-     D1 Stripe fix landed — venture-lab PR #16 merged 2026-07-11T01:35:03Z
-     (merge `912da3e`), vendored-payload real-path HTTP tests; suite runs in
-     CI kit-tests (venture PR #28, `fc7f39c`); lane status @ `74894e5`
-     (02:58:38Z) reports launch-ready ×3 (membership-kit, template-packs,
-     stripe-webhook-test-kit). Publish steps below are live again.
-     (When unfrozen: same marketplace → paste
-     `candidates/template-packs/LISTING.md` → upload the committed
-     template-packs-v0.1.zip → Publish. The $59 `candidates/BUNDLE-LISTING.md`
-     goes live after ⚑B+⚑D — it needs their live URLs.)
-   - Rider (repo settings, 1 min): give venture-lab a self-landable path —
-     either make `substrate-gate` a REQUIRED check on `main`, or accept the
-     lane filing a merge-on-green workflow. The classifier walled agent
-     self-merge there twice (verbatim denials in venture-lab
-     `control/status.md`); without one of these, every overnight venture PR
-     waits for a click. This rider is part of the **§4.9 repo-settings sweep**
-     on the decision sheet. Product Forge seat: candidate TBD per corrected
-     round3-launch-pack §5 (owner retracted venture-lab pairing, 2026-07-10);
-     default fallback = seed a dedicated `product-forge` repo born-right with
-     a required check. venture-lab keeps its own venture mission unchanged.
-   - WHY owner-only: marketplace/payment accounts and repo settings are
-     owner surfaces (agents: no accounts, no money, no external publish —
-     hard rail).
-   - UNBLOCKS: first-revenue path for both products.
+4. **substrate-kit PR #181 — T5 guard-probe re-scope: RATIFY (merge) or close
+   with a one-line reason.**
+   - WHERE: https://github.com/menno420/substrate-kit/pull/181
+   - HOW: merge = approval of the bench re-scope; or close with a reason.
+   - UNBLOCKS: T5 bench v2 + the follow-up rubric-wording PR.
+   - VERIFIED-NEEDED: open, `do-not-automerge` BY DESIGN (deliberate owner
+     ratification gate), CI green, head `b1cbacf` — re-checked today.
+   - Blocking: blocks T5 bench v2 only.
 
-3. **pokemon-mod-lab playtest — 4 game-feel patches, ONE pass.**
-   - WHAT: play the modded Emerald ROM once and react to the four QoL+
-     increments shipped overnight: (1) instant text + running indoors,
-     (2) reusable TMs + modern Exp. Share, (3) repel re-prompt + auto-run,
-     (4) faster HP bars + battle messages.
-   - WHERE: build artifacts / instructions in menno420/pokemon-mod-lab
-     (now PRIVATE — flipped by the owner 2026-07-10, API-verified; the
-     lane's rail says PRIVATE, never publish); PRs #4–#7.
-   - HOW: one play session; drop reactions as a PR comment or inbox order —
-     "keep/tune/drop" per patch is enough.
-   - WHY owner-only: game-feel is taste; the headless harness proves the
-     patches work, not that they feel right.
-   - UNBLOCKS: which QoL patches lock in before deeper mod work.
-   - **Updated 2026-07-11:** review-queue row pokemon#8 now stays open SOLELY
-     on this playtest — the sha1/byte-identity proof chain is manager-verified
-     (fm PR #61, merge `5244a1c`, 02:35:47Z); the code half needs nothing from
-     you. Scope has grown to the 12-patch #4–#8 train plus session-012 QoL+
-     slice 2 (pokemon PR #16, merge `aeaa4f7`, 02:40:09Z — bag R-tag art).
+### (B) GitHub settings / repo admin
 
-4. **Concept picks — game-lab tracks.** Track A **✅ RESOLVED 2026-07-10
-   (Q-0262.7): pokemon concept = QoL+** — effective **when the games program
-   boots post-core** (not an immediate dispatch; the lane stays PARKED till
-   then). **Track B still open** → decision sheet §4.4 (recommendation:
-   order Lumen Drift release-prep so you can PLAY it before any new
-   concept). Any signal works (inbox order or PR comment). Full context:
-   gba-homebrew `docs/concepts/session-1-concepts.md` + pokemon-mod-lab's
-   concepts doc.
+5. **pokemon-mod-lab OA-1 — add required check `ROM builds` (keep
+   substrate-gate).**
+   - WHERE: https://github.com/menno420/pokemon-mod-lab/settings/rules → main
+     ruleset → Require status checks.
+   - HOW: add context `ROM builds`; leave substrate-gate in place.
+   - UNBLOCKS: true merge-on-green — today a red ROM build could merge.
+   - VERIFIED-NEEDED: control/status.md@`f69ab95` (⚑ OWNER-ACTION 1, re-stated
+     14:10Z today); rulesets are a verified owner-only wall
+     (docs/PLATFORM-LIMITS.md).
+   - Blocking: not-blocking, but a live gate hole.
 
-5. **kit P10 required-check swap + P4 daily-loop schedule.**
-   - P10 (2 min): substrate-kit → Settings → Rules → `main` ruleset →
-     required status checks: REMOVE "Kit test suite" and "Cold-adoption smoke
-     (adopt + check --strict)", ADD `kit-quality` (GitHub Actions), and set
-     "Require branches to be up to date" OFF (a green PR sat `behind` 10+ min
-     overnight purely on that toggle). WHY owner-only: rulesets 403 on every
-     agent path. UNBLOCKS: deleting the legacy alias jobs; ends the
-     ~35-min queue-stall class.
-   - P4: arm the daily lab loop — kit's ask is Console → kit environment →
-     Schedules → New schedule, prompt from `docs/operations/lab-loop.md`
-     § Arming, cron `0 6 * * *`. **PLATFORM-GAP caveat (item 7):** if the
-     Schedules/routine pane is missing on your console too (it was at the
-     2026-07-10 paste attempt), this collapses into item 7's interim: a
-     morning "continue" message to the kit Project is the loop until the
-     platform ships the surface.
+6. **superbot-mineverse — add required check `pytest`.**
+   - WHERE: https://github.com/menno420/superbot-mineverse/settings/rules →
+     main ruleset → Require status checks.
+   - HOW: add context `pytest`.
+   - UNBLOCKS: test-gated merges without coordinator babysitting.
+   - VERIFIED-NEEDED: LIVE-PROVEN today — PR #30 merged 10:25:33Z while its
+     pytest check completed 10:26:13Z: the PR merged **40 s before pytest
+     finished**; only substrate-gate gated. Rulesets = owner-only wall.
+   - Blocking: not-blocking, but a live, demonstrated gate hole.
 
-6. ~~trading P5 holdout unlock (decision, 1 line).~~ **✅ RESOLVED 2026-07-10
-   (Q-0262.2): GRANTED** — routed as trading-strategy **ORDER 008 @ fd5e9fe**
-   (protocol `docs/p5-holdout-protocol.md` binding). Lane has **ACKED** it
-   (trading status @ 16:21:48Z: "acked=001–008"); execution deliberately
-   waits for a FRESH dedicated session per protocol §7, sequenced after the
-   now-done ORDER 007 significance bar. Holdout verified still SEALED at ack.
-   Also listed in Resolved below.
+7. **superbot-next OA-3 — enable merge queue OR drop require-up-to-date for
+   `docs/**` + `control/**`.**
+   - WHERE: https://github.com/menno420/superbot-next/settings/rules
+   - HOW: either enable the merge queue on main, or relax "require branches to
+     be up to date" for docs/control paths.
+   - UNBLOCKS: kills the update-branch dance on the 6-check ruleset (every
+     unattended Builder session loses time to it).
+   - VERIFIED-NEEDED: control/status.md@`168ef80` line 20(b) (today,
+     15:46+0200). Rulesets = owner-only wall. *(Absorbs old item 12(b).)*
+   - Blocking: not-blocking; chronic time sink.
 
-7. **Wake-routine arming — self-arm rollout DISPATCHED (nothing to click unless a lane fails).**
-   - WHAT: the "walled on BOTH sides" reading was corrected 2026-07-10
-     (~morning, owner-verified): Project sessions CAN create their own
-     in-Project routines (capabilities.md carries the correction; the walls
-     stand for coordinator/worker surfaces and cross-session binding).
-     **Self-arm rollout dispatched (ORDERs queued to all active lanes)** —
-     venture-lab, substrate-kit, pokemon-mod-lab, gba-homebrew hourly
-     (Class A); websites, trading-strategy 4-hourly (Class B), per
-     blueprint §2a. **Recipe now VERIFIED (2026-07-10 ~11:01Z):** the
-     claude-code-remote scheduling tools (`create_trigger` / `send_later`
-     family), seat-dependent — two lanes are ALREADY armed and firing
-     ("Created by Claude": trading-strategy 4-hourly, kit-lab hourly; owner
-     recordings 11:01Z/11:04Z). Those two need nothing from you.
-   - **Owner fallback ONLY if a lane's attempt fails with a recorded error**
-     — then that lane's routine (or the morning-"continue" interim) becomes
-     a click again; otherwise nothing to do here.
-   - UNBLOCKS: the fleet running on orders without manual wake-ups.
+8. **trading-strategy — tick "Allow auto-merge".**
+   - WHERE: https://github.com/menno420/trading-strategy/settings → General →
+     Pull Requests.
+   - HOW: tick the "Allow auto-merge" checkbox.
+   - UNBLOCKS: native auto-merge — ends the lane's poll-and-merge workaround.
+   - VERIFIED-NEEDED: control/status.md@`3172b43` ⚑(c), reconfirmed on PR #36
+     (the "unstable status" arming failure); a direct API read of the setting
+     field was unavailable to agents this session (exact-wall evidence).
+   - Blocking: not-blocking (REST-squash workaround in use, PRs #40–#43).
 
-8. ~~The 8 undeployed instruction packages (decision).~~ **✅ RESOLVED
-   2026-07-10 (Q-0262 / ORDER 008 policy 3): they STAY undeployed until the
-   gen-3 blueprint delta lands, then re-base + deploy in one sitting** —
-   now standing doctrine at blueprint §4 (folded by the 18:31Z wake). No
-   owner click until the manager's gen-3 report lands; the future deploy
-   sitting will be a fresh, dated queue item. Reference:
-   `docs/proposals/instructions/` — 2 of 10 DEPLOYED fitted (websites,
-   trading-strategy); 8 PROPOSED, none binding until pasted.
+9. **product-forge — post-seed settings residue: Allow auto-merge + required
+   gate.**
+   - WHERE: https://github.com/menno420/product-forge/settings
+   - HOW: tick "Allow auto-merge"; make the substrate gate / smoke check a
+     required check on main.
+   - UNBLOCKS: self-landing forge PRs.
+   - VERIFIED-NEEDED: old queue item 9's residue, unchanged today;
+     required-check settings are agent-unreadable/unwritable.
+   - Blocking: not-blocking.
 
-9. ~~**Create the `product-forge` repo + Product Forge Project (core seat 5, PRE-BIRTH).**~~
-   **✅ RESOLVED 2026-07-11 (halves 1+2, overtaken by events):** (1) the repo
-   EXISTS — `menno420/product-forge` is live with the games-web deploy
-   workflow on main (forge PR #13; "PRs #1–#13 ALL MERGED. Zero open …
-   main HEAD `6f5cfad`" per its own status); (2) the seat is BOOTED and
-   heartbeating — `control/status.md` at HEAD (commit `77f5231`) carries
-   `updated: 2026-07-10T22:22:00Z`, orders acked=001 done=001, "Continuous
-   mode Active. Chain alive (send_later continuation ticks) + failsafe cron
-   trig_012EvztCrHHg7s4mBsKT3VKs (`0 */2 * * *`), enabled"; roster gen #4 row
-   records "failsafe `0 */2`, session live".
-   - **Remaining (sub-click only, agent-unverifiable):** (3) after-seed-PR
-     settings — tick *Allow auto-merge* + make the substrate gate / smoke
-     check **required**. PRs #1–#13 all landed on green (which suggests it
-     may already be set), but required-check settings are
-     agent-unreadable/unwritable, so this one click stays until you confirm.
-   - NOTE: item 15 (enable GitHub Pages on product-forge) is separate and
-     unchanged — still open below.
-   - WHY the residue is owner-only: required-check settings are
-     agent-unreadable/unwritable.
+10. **substrate-kit P10 — swap required checks to `kit-quality`,
+    up-to-date OFF.**
+    - WHERE: substrate-kit → Settings → Rules → main ruleset (rulesets 403 for
+      agents).
+    - HOW: REMOVE "Kit test suite" + "Cold-adoption smoke", ADD `kit-quality`;
+      set "Require branches to be up to date" OFF.
+    - UNBLOCKS: retires the legacy alias jobs / the W-9 false-alarm class.
+    - VERIFIED-NEEDED: carried from kit ⚑ OWNER-ACTION 2 @ `2aa7a51` (the P4
+      daily-loop half of the old combined item is self-armed agent-side — see
+      Resolved below).
+    - Blocking: not-blocking.
 
-10. ~~Name the sixth core seat (DECISION, Q-0261.1).~~ **✅ RESOLVED
-    2026-07-10 (Q-0262 / ORDER 008 policy 4): core seat 6 = the superbot hub
-    Project** (games/maintenance — the recommended pick, adopted wholesale;
-    **owner may veto** by striking this). Next agent step: the manager
-    drafts the hub founding package; the owner click that remains (create
-    the hub Project) rides that package. Also listed in Resolved below.
+11. **websites — delete 4 stale branches.**
+    - WHAT: delete `claude/harden-verify`, `claude/rework-dashboard`,
+      `claude/wire-github-token-docs`, `manager/control-plant`. **NOT**
+      `claude/anthropic-review-site` (belongs to open PR #132).
+    - WHERE: https://github.com/menno420/websites/branches (or Settings →
+      enable "Automatically delete head branches").
+    - HOW: trash-icon per branch.
+    - UNBLOCKS: branch-list hygiene only.
+    - VERIFIED-NEEDED: all 4 still on remote today (ls-remote); agents 403 on
+      every deletion path (docs/CAPABILITIES.md@`52381a9`).
+    - Blocking: cosmetic.
 
-11. **kit OA8 — setup-script paste (🔥 gates the NEXT boot, seat 2).**
-    *(Folded into paste-wave item 13(a) — do it there; kept as a stub so
-    nothing dangles. The registry copy `projects/substrate-kit/setup-script.sh`
-    supersedes the bare `docs/gen2/setup.sh` pointer below — read the
-    package's meta first.)*
-    - WHAT: paste substrate-kit `docs/gen2/setup.sh` verbatim into the kit
-      environment's Setup script field.
-    - WHERE: Claude console → kit environment settings → Setup script.
-    - WHY owner-only: agents cannot read or write the settings dialog; the
-      current script killed a session AT PROVISIONING (kit PR #47 casualty).
-    - UNBLOCKS: reliable session starts for the relaunched kit Project — the
-      one item that can kill seat 2's fresh boot itself. Do BEFORE its first
-      session (if already pasted, say so and the ask is withdrawn — agents
-      can't confirm).
+12. **gba-homebrew — create the Lumen Drift GitHub Release.**
+    - WHERE: https://github.com/menno420/gba-homebrew/releases/new
+    - HOW: tag `lumen-drift-v1.3` (create on publish, target main) → title
+      `Lumen Drift v1.3` → attach `dist/lumen-drift.gba` (167,996 B; put sha256
+      `195a86795e57e2fa0059a96782f1ac7a147cbcebc0cb28a96f353e5d9babae94` in the
+      notes) → point notes at `docs/PLAYING.md`.
+    - UNBLOCKS: a downloadable player artifact for the 07-14 sitting + the
+      venture itch.io path (D#27).
+    - VERIFIED-NEEDED: today — ZERO releases AND zero tags on the repo
+      (`ls-remote --tags` empty; `list_releases` = `[]`); tag-push 403 wall
+      stands (docs/CAPABILITIES.md@`e00612c`). (Also carried: gba merged-branch
+      cleanup — agent 403.)
+    - Blocking: blocks the 07-14 play sitting artifact.
 
-12. **Settings-sweep additions (fold into the §4.9 sitting): superbot-next
-    finalize-first set.**
-    - WHAT: ~~(a) create the `superbot-plugin-hello` repo~~ **✅ (a) RESOLVED
-      2026-07-10: repo EXISTS** (owner-created, public, pushed 16:03:04Z —
-      verified via list_repos + raw probe, ORDER 013/PR #46; it is still
-      EMPTY — re-verified still EMPTY 2026-07-11 (Contents API: `409 Git
-      Repository is empty`, zero branches) — the seeded-package push rides
-      games item 14); (b) **relax
-      superbot-next's require-up-to-date merge rule** (or enable merge queue) — every session
-      loses time to the update-branch dance (#86/#87 stranded), which directly
-      degrades an unattended 2-hourly Builder loop. ~~(c) flag-13 corpus-red
-      disposition~~ **✅ (c) RESOLVED 2026-07-10 (Q-0262.3): ACCEPTED** —
-      routed as superbot-next **ORDER 009**, applied by the lane in next
-      **#105** (decision record: superbot-next
-      `docs/parity/flag-13-disposition-2026-07-10.md`; lane status confirms
-      "OWNER-ACTION 1 (flag-13 corpus-red ruling) is CLEARED"). (a)+(b)
-      remain the open clicks.
-    - WHERE: github.com/new; superbot-next Settings → Rulesets.
-    - WHY owner-only: repo creation + rulesets are agent 403 walls.
-    - UNBLOCKS: Builder ORDER 002 done-when, unattended Builder wrap-ups,
-      every parity pending→ported flip + the `report` CI leg.
-
-13. **Project package paste wave (registry: [`projects/`](../projects/README.md)) —
-    ONE sitting, ~6 clicks.** The centralized, gen-3/Q-0265-re-based console
-    packages are committed (one dir per Project: instructions ·
-    coordinator-prompt · setup-script · failsafe text · meta). This is the
-    "re-base + deploy in one sitting" item 8's resolution promised. Source of
-    truth = the repo files; after any future edit, re-paste. Read each
-    package's `meta.md` first. The clicks (full detail: `projects/README.md`
-    § Paste wave):
-    - (a) **substrate-kit** — §2b continuous-mode amendment paste into the
-      live kit coordinator chat + **OA8** (= item 11): paste
-      `projects/substrate-kit/setup-script.sh` into the kit environment's
-      Setup-script field.
-    - (b) **product-forge** — §2b amendment paste into its live coordinator
-      chat (belt-and-braces: the seat already operates continuous per its
-      status @ `7f05aa8`, but the chat may still hold pre-Q-0265 §2 text).
-    - (c) **sim-lab** — arm the failsafe **via the Routines screen** with the
-      verbatim text in `projects/sim-lab/failsafe-prompt.md`, cron
-      `0 1-23/2 * * *` (odd hours — keep the idea-engine pair stagger). WHY
-      owner-only: the seat verifiably lacks `create_trigger`/`send_later`
-      (OA-003, "tool not present in session toolset") — the lane has NO clock
-      until this.
-    - (d) **websites** — re-paste the v2 wake prompt
-      (`projects/websites/coordinator-prompt.md`) into trigger
-      `trig_017H9Qb9oxtLgUy6sw2gnSHg` (last committed record: v1-era text) +
-      re-paste `projects/websites/instructions.md` (deployed text is the
-      older pre-Q-0265 fitted version). Optional: retune `0 */4` → `0 */2`.
-      *Verify-first note (21:30Z): the 20:00Z fire landed 3 slices
-      (roster/#38 — silent-fire watch cleared), which is v2-shaped behavior;
-      if you already re-pasted v2, skip the trigger paste and keep only the
-      instructions re-paste.*
-    - (e) **trading-strategy** — re-paste
-      `projects/trading-strategy/instructions.md` (deployed CI is pre-Q-0265
-      and pre-completion; the lane is parked green, so low rush).
-    - (f) **superbot (optional)** — `projects/superbot/instructions.md` only
-      if you host superbot sessions in a Project with an empty console field
-      (`.claude/CLAUDE.md` auto-loads in-repo either way).
-    - NOT in the wave (ride their seats' own boots — no click): fleet-manager,
-      superbot-next, idea-engine (live seats current/equivalent); venture-lab,
-      superbot-games, pokemon-mod-lab, gba-homebrew (parts ride their next
-      boot); archives/pre-birth (nothing to paste).
-    - WHY owner-only: console fields, Project chats, and trigger prompts have
-      no agent write surface (verified walls).
-    - UNBLOCKS: every live seat running on committed, current text — closes
-      the chat-only/console-only drift class fleet-wide.
-    - **Rider (2026-07-10, permissions directive): HOLD the instruction
-      pastes until the permissions v2 fold lands, then paste ONLY v2 bodies.**
-      The fold (canonical Permissions & authority block in all 13
-      instructions + coordinator-prompt one-liners + UNIVERSAL.md v3) is
-      BUILT but was refused landing by the platform's instruction-poisoning
-      guard: a standing permission grant whose only source is a coordinator
-      relay must be user-reviewed. OWNER ACTION: land the grant text as an
-      owner-authored commit (or paste-confirm it in a session you supervise);
-      the built fold then re-lands referencing your commit SHA as provenance.
-      Pasting a v1 body after that lands would re-deploy the refuse-to-merge
-      stall class the block kills. **Verified 2026-07-11:** fm PR #47 still
-      OPEN at its born-red card only (head `a4b736b`, no commits since
-      2026-07-10T22:15Z) — the designated re-land vehicle per handoff §3.3;
-      HOLD stands, paste only v2 bodies after the fold re-lands.
-
-15. **product-forge: enable GitHub Pages (games-web publish) — one click,
-    free.** *(numbered 15: item 14 = the games-mapping react, added by #46 in
-    parallel.)*
-    - WHAT: enable GitHub Pages on menno420/product-forge.
-    - WHERE: github.com → product-forge → Settings → Pages.
-    - HOW: set **Source: GitHub Actions**; nothing else.
-    - WHY-IT-MATTERS: publishes games-web at
-      `menno420.github.io/product-forge/` on the next push to main — the
-      deploy workflow is already on main (forge PR #13); only this settings
-      toggle is missing, and repo Settings have no agent write surface.
-    - UNBLOCKS: a live, owner-viewable games-web build on every merge. Free,
-      no spend.
-    - VERIFIED-NEEDED: after the click, the next main push's Pages deploy run
-      goes green and the URL serves.
-
-14. **Games program — react-by-action RECEIVED for the repo name; §5 veto
-    points remain open for objection, founding-package prep proceeding
-    decide-and-flag.** Updated 2026-07-11 (ORDER 014): **the Seat B
-    repo-creation click is ✅ DONE — `menno420/superbot-idle` EXISTS**
-    (owner-created, public, pushed 2026-07-11T00:15:40Z; verified via
-    `list_repos` + raw README probe — main carries the seeded binding
-    lane-contract README per Q-0267's founding package). Creating the repo
-    under the proposed §5.3 name IS the react-by-action on the name; the
-    remaining §5 points — **(1) API SPLIT** (game-state feed stays
-    superbot-lane per #1920; theme/feature manifests = game-seat +
-    plugin-contract committed files, raw-fetched by websites; provisioning =
-    setup-code first) · **(2) theme contract drafted in Seat B**, promoted to
-    the plugin-contract family later · **(4) websites selector sequenced
-    LAST-shippable** — stay open **for objection only** (Q-0240 veto window);
-    silence = prep proceeds.
-    - WHAT (remaining): veto any §5 point if wrong; plus the one still-open
-      click: **push/permission the seeded plugin package** —
-      `menno420/superbot-plugin-hello` EXISTS (your 16:03Z creation) but is
-      EMPTY — re-verified still EMPTY 2026-07-11 (Contents API: `409 Git
-      Repository is empty`, zero branches); the superbot-next lane holds the
-      seeded package in-tree at `examples/superbot-plugin-hello/`.
-    - WHERE: [`proposals/games-program-mapping-conformed-2026-07-10.md`](proposals/games-program-mapping-conformed-2026-07-10.md)
-      §5 — one line in any chat or an ORDER. Veto window still open, prep
-    proceeding — re-verified 2026-07-11, no owner objection on record.
-    - NEXT (agent-side, no click): **ORDER 015** — prepare Seat A
-      (superbot-games relaunch) + Seat B (superbot-idle) founding packages
-      per the conformed mapping + gen-3 standard, decide-and-flag.
-    - UNBLOCKS: Seat B skeleton (engine + egg-farm theme + theme-gate CI), the
-      founding-package paste wave for both games seats, the websites selector
-      increment, the plugin-contract end-to-end proof.
-
-16. **🔥 HOT — land the corrected UNIVERSAL.md merge-authority clause (audit
-    §2.4) — fleet-critical, owner-provenance.**
-    - WHAT: replace the merge bullet in BOTH permissions blocks of
-      `projects/UNIVERSAL.md` (`:42-43` and `:75-76`) with the corrected
-      clause below. The current owner-landed text says "MERGE YOUR OWN GREEN
-      PRs: open PRs READY, arm auto-merge at creation (or REST-merge on
-      green)" — BOTH actions are refused by the auto-mode classifier as
-      "[Merge Without Review]/[Self-Approval]", terminally on the first
-      denial, so 12 of 13 lane instruction files prescribe a walled path as
-      PRIMARY (only substrate-kit is correct). Full analysis:
+13. **🔥 HOT (owner-provenance) — land the corrected UNIVERSAL.md
+    merge-authority clause (audit §2.4).** *(Old item 16 — keep first-priority.)*
+    - WHAT: owner-authored edit on fleet-manager main replacing
+      `projects/UNIVERSAL.md` `:42-44` and `:74-76` with the audit §2.4
+      corrected clause (verbatim paste block:
       [`findings/instruction-and-env-audit-2026-07-11.md`](findings/instruction-and-env-audit-2026-07-11.md)
-      §2. VERBATIM paste block (copied exactly from the audit §2.4):
-
-      ```
-      - LAND YOUR OWN GREEN PRs THE CANONICAL WAY: open the PR READY (non-draft) and
-        do NOTHING else merge-related. The repo's own auto-merge-enabler.yml workflow
-        (running as github-actions[bot]) arms squash auto-merge SERVER-SIDE and GitHub
-        lands the PR once required checks pass — with no agent merge call. CI green is
-        always required; this never bypasses a red gate.
-        * NEVER call enable_pr_auto_merge or merge_pull_request on your OWN PR — the
-          auto-mode classifier refuses author self-merge/self-arm as "[Merge Without
-          Review]/[Self-Approval]", TERMINALLY on the first denial (deny-wins; never
-          retry, reword, or re-route around it).
-        * IF A PR CAN'T LAND (enabler absent, "Allow auto-merge" OFF, no checks-pending
-          window / fast-CI arm race, or a "behind"-main stall): park it READY+green,
-          record the state, and KEEP OPENING MORE PRs — never fall back to an agent
-          REST merge-on-green. Landing resumes when the blocker clears.
-        * PERMITTED FALLBACKS: a DIFFERENT session may review-then-merge a PR it did
-          NOT author (a genuine non-author review passes the classifier); a repo that
-          structurally can't arm should stand up a GITHUB_TOKEN merge-on-green
-          workflow, not route around the wall per-PR.
-        (Canonical evidence: substrate-kit/docs/CAPABILITIES.md append-log 2026-07-10;
-        docs/operations/auto-merge-guards.md.)
-      ```
-
-    - WHERE: `projects/UNIVERSAL.md` in menno420/fleet-manager — edit it
-      directly on main (or in a session you supervise, paste-confirmed) as an
-      owner-authored commit.
+      §2.4).
+    - WHERE: `projects/UNIVERSAL.md` on menno420/fleet-manager — edit directly
+      on main as yourself (or paste-confirm in a session you supervise).
     - HOW: replace the "MERGE YOUR OWN GREEN PRs…" bullet at BOTH locations
-      (`:42-43` and `:75-76`) with the fenced block above, verbatim; commit as
-      yourself. **Cross-reference item 13's rider (PR #47 permissions-v2
-      fold): land this §2.4 clause together with / immediately after the v2
-      fold, so the paste wave carries ONE final text, not two revisions** —
-      PR #47 is the designated re-land vehicle and its HOLD says paste only
-      v2 bodies.
-    - WHY: seats stall on merges and route one-click asks to you every night
-      because the fleet's canonical instruction prescribes the
-      classifier-walled merge path; the kit's CAPABILITIES already carries
-      the working recipe (open READY, do nothing — the enabler workflow arms
-      server-side). Fixing UNIVERSAL at the root propagates to all 13 lanes
-      (the manager then re-issues every walled `instructions.md` from the
-      corrected block — that re-issue is drafted and GATED on this item:
-      [`planning/order-016-followups-2026-07-11.md`](planning/order-016-followups-2026-07-11.md)).
-    - UNBLOCKS: the fleet-wide walled-instruction re-issue (audit §2.2 table,
-      §3.2 same-file contradictions, §3.1 mandatory-block drift, §3.3 hoist);
-      ends the nightly merge-stall/one-click-ask class at the root.
-    - WHY owner-only (proof): `projects/UNIVERSAL.md` is OWNER-PROVENANCE —
-      the platform's instruction-poisoning guard previously refused a
-      coordinator-relayed landing of exactly this class of standing
-      permission text (see item 13's rider: the permissions-v2 fold was
-      "BUILT but refused landing… a standing permission grant whose only
-      source is a coordinator relay must be user-reviewed"; owner provenance
-      commit `c23223f`). The owner must land it directly; the manager may
-      not rewrite the block itself (ORDER 016's own rail).
+      with the §2.4 fenced block, verbatim; commit as owner.
+    - UNBLOCKS: gates **ORDER 017** (the fleet-wide walled-instruction
+      re-issue) AND the item-C#15 paste wave; ends the nightly
+      merge-stall/one-click-ask class at the root.
+    - VERIFIED-NEEDED: STILL NEEDED today — UNIVERSAL.md is still v3 (line 1
+      stamp `v3 · 2026-07-10 … owner-landed`) with the uncorrected "MERGE YOUR
+      OWN GREEN PRs / arm auto-merge at creation" text at both spots; PR #47
+      (the designated re-land vehicle) is still open holding ONLY its born-red
+      card `a4b736b` — the built fold was classifier-refused and is LOST with
+      its dead container (docs/succession/coordinator-handoff-2026-07-11.md §4).
+      Owner-only proof: the platform's instruction-poisoning guard refused a
+      coordinator-relayed landing of exactly this class of text; owner
+      provenance commit `c23223f` is the precedent.
+    - Blocking: **YES — blocks ORDER 017 + the paste wave.**
 
-17. **Re-paste the consolidated environment setup scripts into the running
-    environments — COORDINATOR ENVIRONMENT FIRST (added 2026-07-11,
-    post-ORDER-018).**
-    - WHAT: the Setup-script fields of your running environments still hold
-      the OLD pre-consolidation script text. Re-paste each one from the
-      consolidated `environments/` lineage that landed in fleet-manager
-      PR #73 (main @ `cf2c4ee`). Do the **coordinator (multi-repo)
-      environment FIRST** — that single paste activates the
-      `superbot-next → python3.11` fix: the old coordinator script installs
-      superbot-next under bare `python3` (wrong-by-luck), and the fixed pin
-      table only takes effect in an environment once its field is re-pasted.
-      Until then the fix is **inert** — it exists on main but no running
-      environment executes it.
-    - WHERE: claude.ai/code → Environments → (each environment) → Setup
-      script field. Environment-to-script map:
-      [`../environments/archetypes.md`](../environments/archetypes.md)
-      § "Project → archetype mapping" (every project's archetype + env-var
-      names) and § "Owner paste-steps" (the click path).
-    - HOW: for each environment, open its archetype file raw and paste the
-      FULL contents into the Setup-script field, replacing what is there:
-      1. **FIRST — coordinator env** (the live multi-repo env):
-         `https://raw.githubusercontent.com/menno420/fleet-manager/main/environments/archetype-coordinator.sh`
-      2. python-lab envs (substrate-kit, fleet-manager, superbot-games,
-         superbot-idle, sim-lab, product-forge, idea-engine, venture-lab,
-         superbot-mineverse):
-         `https://raw.githubusercontent.com/menno420/fleet-manager/main/environments/archetype-python-lab.sh`
-      3. pinned-research envs (trading-strategy, websites):
-         `https://raw.githubusercontent.com/menno420/fleet-manager/main/environments/archetype-pinned-research.sh`
-      4. bot-prod envs (superbot-next, superbot):
-         `https://raw.githubusercontent.com/menno420/fleet-manager/main/environments/archetype-bot-prod.sh`
-      5. gba-lab env (`superbot-retro`, attaching gba-homebrew +
-         pokemon-mod-lab):
-         `https://raw.githubusercontent.com/menno420/fleet-manager/main/environments/archetype-gba-lab.sh`
-      Environment VARIABLES are untouched — this is a script-text swap only.
-      The thin configs fetch `setup-base.sh` themselves (raw-fetch fallback
-      is built in), so the paste is one file per environment.
-    - WHY: PR #73 (ORDER 018) collapsed 4 drifting archetype scripts into
-      one audited base + thin configs and fixed two latent bugs in the
-      process — the audit §4.2 coordinator pin-table gap
-      (superbot-next→python3.11) and a `pick_python` WARNING that was
-      command-substitution-captured into the interpreter name. Every
-      environment still running old field text keeps both bugs live
-      (evidence: the ORDER 018 heartbeat in `control/status.md` + fm
-      [`findings/instruction-and-env-audit-2026-07-11.md`](findings/instruction-and-env-audit-2026-07-11.md)
-      §4.2; the heartbeat's own caveat: "thin configs re-derived +
-      unverified-as-thin-configs until next owner paste / lane boot").
-    - UNBLOCKS: superbot-next sessions in the coordinator env install under
-      the correct pinned python3.11 (CI parity); every lane env converges on
-      the one maintained lineage, so the next script fix is a single edit +
-      re-paste instead of five divergent ones; the first post-paste boots
-      also discharge the Q-0105 "unverified-as-thin-configs" posture.
-    - WHY owner-only (proof): environment Setup-script fields live in the
-      claude.ai console, which agents can neither read nor write — the 2026-07-11
-      audit could only compare committed lineages (its per-env "unknown /
-      no paste record" verdicts are exactly this wall), and every prior
-      field change in this queue's history was an owner paste (items 11/13).
-      Agent-side work is already done and merged (PR #73); only the pastes
-      remain.
+### (C) Claude platform (console / environments / sessions / Codex)
+
+14. **Re-paste the consolidated env setup scripts — COORDINATOR ENV FIRST.**
+    *(Old item 17.)*
+    - WHERE: claude.ai/code → Environments → (each env) → Setup script field;
+      environment-to-script map:
+      [`../environments/archetypes.md`](../environments/archetypes.md).
+    - HOW: coordinator (multi-repo) env FIRST —
+      `environments/archetype-coordinator.sh` raw from main — then python-lab /
+      pinned-research / bot-prod / gba-lab archetypes per the map. Script-text
+      swap only; variables untouched.
+    - UNBLOCKS: activates the superbot-next→python3.11 fix (PR #73) — inert
+      until pasted; converges every env on the one maintained lineage.
+    - VERIFIED-NEEDED: STILL NEEDED — platform-side, not agent-verifiable
+      (console fields have no agent read/write surface); no resolution evidence
+      anywhere in today's sweeps; the PR #73 fix is INERT until pasted.
+    - Blocking: blocks CI-parity installs in the coordinator env.
+
+15. **Item-13 paste wave (~6 pastes) — HELD on B#13 / PR #47 v2 fold.**
+    - WHAT: kit §2b + OA8 · forge §2b · sim-lab failsafe Routine
+      (`0 1-23/2 * * *`) · websites v2 wake + instructions · trading
+      instructions · superbot optional. Registry:
+      [`projects/README.md`](../projects/README.md) § Paste wave. *(Absorbs old
+      items 11 + 13.)*
+    - WHERE: console fields, Project chats, trigger prompts (no agent write
+      surface — verified walls).
+    - HOW: after B#13 lands and the v2 fold re-lands on PR #47, paste **ONLY v2
+      bodies**, one sitting.
+    - UNBLOCKS: every live seat running on committed, current text.
+    - VERIFIED-NEEDED: today — PR #47 unchanged (card-only, head `a4b736b`);
+      HOLD stands.
+    - Blocking: held (do not paste v1 bodies).
+
+16. **superbot-next OA-5 — export real `ANTHROPIC_API_KEY` +
+    `AI_ENABLED=true` into the builder session environment.**
+    - WHERE: the same env-var surface where `DISCORD_BOT_TOKEN_PRODUCTION`
+      lives (the builder session environment — NOT GitHub secrets/CI); config
+      seam `sb/spec/config.py:166` + `:148`.
+    - HOW: add the two variables to the builder env.
+    - UNBLOCKS: band-7 live-NL evidence (deterministic surfaces already
+      shipped, #151).
+    - VERIFIED-NEEDED: status@`168ef80` line 20(c) + band-7 wrap-up 12:45Z
+      today ("live-NL leg owner-key-gated"). API keys are owner-only.
+    - Blocking: blocks band-7's live-NL leg only.
+
+17. **superbot-mineverse — provision six host env vars.**
+    - WHAT: `DISCORD_OAUTH_CLIENT_ID`, `DISCORD_OAUTH_CLIENT_SECRET`,
+      `OAUTH_REDIRECT_URI`, `WEB_SESSION_SIGNING_KEY`, `MINING_WRITE_ENDPOINT`,
+      `MINING_WRITE_SHARED_SECRET`.
+    - WHERE: host runtime env + Discord Developer Portal (not CI).
+    - HOW: create the Discord OAuth app values in the Developer Portal; set all
+      six in the host runtime. The site runs degraded read-only meanwhile (130
+      tests pass with zero vars).
+    - UNBLOCKS: player sign-in; with the write pair + bot-lane FLAG 2,
+      test-guild write mode.
+    - VERIFIED-NEEDED: control/status.md@`4be012e` ⚑ OWNER-ACTION 1.
+      Credentials are owner-only.
+    - Blocking: blocks player sign-in only; site otherwise functional.
+
+18. **superbot-plugin-hello — say the seed-push word (LIVE OWNER WORD, not a
+    click).**
+    - WHAT: the repo exists but is EMPTY; the ask is to say **"push the plugin
+      seed"** in a session — the classifier requires a live owner word for
+      cross-repo publication.
+    - WHERE: any live session; seed staged at superbot-next
+      `examples/superbot-plugin-hello/` @`168ef80`; contract: superbot
+      `docs/owner/product-catalog.md` §10 @`9f46cb7`.
+    - HOW: one line in a session you're present in.
+    - UNBLOCKS: superbot-idle PLUG-001 (lane HOLD) + the plugin-contract
+      end-to-end proof.
+    - VERIFIED-NEEDED: re-verified today — Contents API returns verbatim
+      `409 Git Repository is empty`. *(Split out of old item 14.)*
+    - Blocking: blocks idle PLUG-001.
+
+19. **trading-strategy — archive the dead gen-1 "ORDER 001 successor"
+    session.**
+    - WHERE: claude.ai → project session list.
+    - HOW: archive the session (died at provision, still lists as active).
+    - UNBLOCKS: nothing — hygiene; consumes nothing.
+    - VERIFIED-NEEDED: status@`3172b43` ⚑(d).
+    - Blocking: cosmetic.
+
+20. **Codex — CHANGED: pool is FLAPPING, not hard-capped; usage raise now
+    OPTIONAL.**
+    - WHAT: the "Codex hard usage-cap" claim is retired — usage-limit replies
+      at 05:08Z today, then FULL substantive reviews on superbot-next #154
+      (05:54Z) and #157 (06:31Z).
+    - WHERE (optional): chatgpt.com/codex → usage/limits.
+    - HOW: raise limits only if you want fewer flaps — it is a mitigation, not
+      an outage fix.
+    - UNBLOCKS: steadier @codex review throughput.
+    - VERIFIED-NEEDED: status@`168ef80` FLAP UPDATE (today).
+    - Blocking: not-blocking.
+    - **Manager note (agent-fixable, routed to the superbot lane — NOT an owner
+      click):** superbot's `codex-final-review` workflow has had invalid YAML
+      since 2026-06-19 — 0 successful runs of 2,811; latest run 29156086075
+      instant-fails at parse.
+
+### (D) External services
+
+21. **venture-lab ⚑A — Stripe TEST keys.**
+    - WHERE: Stripe Dashboard (test mode) → Developers → API keys / Webhooks.
+    - HOW: paste `sk_test_…` as `STRIPE_SECRET_KEY` + `whsec_…` as
+      `STRIPE_WEBHOOK_SECRET` into `candidates/membership-kit/server/.env`
+      (never committed; no CI job reads these — local owner action).
+      Verified-when: `python3 app.py` prints `mode=stripe`; `stripe trigger
+      checkout.session.completed` grants membership → `/members` 200.
+    - UNBLOCKS: the only unverified leg of the payment path for all 3 products.
+    - VERIFIED-NEEDED: status@`a447f1a` ⚑A ("live E2E NEVER executed").
+      Payment accounts/keys are owner-only (hard rail).
+    - Blocking: blocks payment-path E2E verification.
+
+22. **venture-lab — the publish clicks (⚑B/⚑D/⚑E, all gates met).**
+    - WHAT: publish **membership-kit $49** (`dist/membership-kit-v0.2.zip`,
+      script `docs/launch/membership-kit/owner-actions.md`) ·
+      **template-packs $19 PWYW** (`dist/template-packs-v0.1.zip`) ·
+      **stripe-webhook-test-kit $29** (`dist/stripe-webhook-test-kit-v0.1.zip`,
+      sha256 `d3ac5f88…eeb0d8`, script
+      `docs/launch/stripe-webhook-test-kit/publish-owner-action.md`).
+    - WHERE: gumroad.com → New product (or Lemon Squeezy).
+    - HOW: per-product listing paste + zip upload + Publish (scripts above are
+      click-level).
+    - UNBLOCKS: the first-revenue path.
+    - VERIFIED-NEEDED: status@`a447f1a` line 12 "launch-ready ×3 … owner-gated";
+      revenue $0. Marketplace accounts are owner-only (hard rail).
+    - Blocking: blocks all revenue.
+
+23. **venture-lab — publish the gotcha article.**
+    - WHAT: publish `docs/launch/stripe-webhook-test-kit/gotcha-article.md`
+      ("Your Stripe webhook says customer_email is null — here's why").
+    - WHERE: Dev.to / Hashnode (funnel: `docs/launch/distribution-channels.md`).
+    - HOW: paste + publish.
+    - UNBLOCKS: starts the test-kit 14-day validation clock, on which
+      candidates #4/#5 wait.
+    - VERIFIED-NEEDED: external publish is owner-only (hard rail).
+    - Blocking: blocks the validation clock.
+
+24. **websites — Railway Postgres.**
+    - WHERE: railway.app → project superbot-websites → New → Database →
+      PostgreSQL.
+    - HOW: copy `DATABASE_URL` into service **botsite** → Variables.
+    - UNBLOCKS: public `/submit` intake.
+    - VERIFIED-NEEDED: status@`52381a9` ⚑ + `self-review-2026-07-11.md:95-101`;
+      agent-side is policy-walled (websites decision ledger, the
+      no-agent-provisioning rule).
+    - Blocking: blocks /submit.
+
+25. **websites — fine-grained PAT.**
+    - WHERE: create at https://github.com/settings/personal-access-tokens
+      (menno420 repos; contents+actions read; actions:write) → paste as
+      `GITHUB_TOKEN` on railway.app → superbot-websites → **control-plane** →
+      Variables (`docs/deployment.md` § owner TODO).
+    - HOW: two clicks (create, paste).
+    - UNBLOCKS: 5000 req/h for all fleet surfaces (now anonymous 60/h), board
+      cells, /owner CI re-run.
+    - VERIFIED-NEEDED: STILL unset — current-state.md@`52381a9`:109-110
+      corrected an earlier false "set" claim. Tokens are owner-only.
+    - Blocking: not-blocking, but rate-limits every fleet surface.
+
+26. **product-forge OA-003 — enable GitHub Pages.** *(Old item 15.)*
+    - WHERE: https://github.com/menno420/product-forge/settings/pages
+    - HOW: Source: **GitHub Actions**; then re-run the deploy-pages workflow.
+    - UNBLOCKS: the games-web RPG at `menno420.github.io/product-forge/`.
+    - VERIFIED-NEEDED: today — latest run 29128667052 (2026-07-10T22:46Z)
+      FAILED with "Get Pages site failed … Not Found" — Pages was never
+      enabled; only 2 runs exist. Repo Settings are owner-only.
+    - Blocking: blocks the public games-web build.
+
+27. **itch.io — Lumen Drift publish clicks (conditional).**
+    - WHERE: itch.io → new project.
+    - HOW: conditional on decision E#28(1); ride the 07-14 sitting together
+      with B#12's Release.
+    - UNBLOCKS: public playable distribution + the venture itch.io path.
+    - VERIFIED-NEEDED: external publish is owner-only (hard rail).
+    - Blocking: waits on E#28(1).
+
+### (E) Decisions & veto windows (silence-deadlines explicit)
+
+28. **THE 2026-07-14 BUNDLED SITTING — now FOUR decisions** (idea-engine
+    control/status.md@`2e03391` ⚑ line 9; grew from three — decision 4 added
+    this slice). Window ends **2026-07-14**.
+    1. **Lumen Drift itch.io go/no-go** + the publish clicks (D#27, B#12).
+    2. **pokemon playtest verdicts — NOTE: now SIX patches, not 4** (instant
+       text PR#4 · auto-run invert-B PR#6 · HP-bar drain 3× PR#7 ·
+       battle-message waits ×0.5 PR#7 · egg hatch 2×/3× patch#14/PR#21 ·
+       fishing dot 2× patch#16/PR#23; patch#15 excluded; rider: the Match Call
+       nag one-worder). 0/6 verdicted — docs/qol-patches.md@`f69ab95`:437
+       "Feel verdict pending". *(Supersedes old item 3.)*
+    3. **gba Track B concept pick** (Lumen-deepening / Clockwork Courier /
+       Shoal — the gba heartbeat carries it). *(Supersedes old item 4 Track B.)*
+    4. **post-EAP routine posture** — HARD deadline: decide **≤2026-07-13**;
+       RECOMMENDED **Option A**.
+
+29. **games §5 late-veto — OPEN, objection-only, silence=proceed ALREADY
+    OPERATING.** No calendar date; ORDER 015 inbox:420. The §5.3 name resolved
+    by react-by-action (owner created superbot-idle 2026-07-11T00:15:40Z);
+    points 1/2/4/5 stand accepted-by-boot, late veto open — re-verified today,
+    no objection on record. **No click unless vetoing.** *(Split out of old
+    item 14.)*
+
+30. **ORDER 018 R6 mobile-lab — decided 2026-07-11** (PR #73;
+    `environments/archetypes.md:104-115`): escape-hatch stays, no node-lab
+    knob. Standard Q-0240 vetoable, **NO dated window — open indefinitely**;
+    veto = strike the decision. No click unless vetoing.
+
+31. **trading OOS protocol — REFRAMED (was mislabeled a veto window): OPT-IN,
+    flag-only, NEVER self-executes, NO silence=proceed.** If wanted: file an
+    inbox ORDER authorizing a pre-registered post-2026 protocol draft; if not
+    wanted, no click — dev-candidates stay dev-only indefinitely
+    (status@`3172b43` ⚑(f)).
+
+32. **Standing objection-only notes (no click unless veto):** kit P4 daily
+    loop self-armed (`trig_01MHwmBrA1bziEp49g6xqGt5`, cron `0 6 * * *`;
+    veto = delete the Routine) · kit five releases cut agent-side ·
+    superbot-next D-0064–D-0069 decide-and-flag.
+
+## Resolved 2026-07-11 (verified)
+
+- **superbot-games #34 MERGED** 13:40:40Z (merge `5147a23`) and **#36 MERGED**
+  13:40:50Z (merge `325c567`); **games ORDER-004 self-review LANDED** (games
+  PR #47 → main `201f8dd`, 13:41:25Z). The "5 parked PRs" item is now the 3
+  merge clicks at A#1–3.
+- **pokemon-mod-lab PRIVATE confirmed stuck** (API `private: true` + lane R22
+  re-verify 14:07:05Z @`f69ab95`).
+- **kit P4 daily-loop half of old item 5 — self-armed agent-side** (kit
+  self-review @`2aa7a51`); the P10 half is carried as B#10.
+- **Codex hard-cap claim RETIRED → flapping** (evidence at C#20).
+- **trading OOS "veto window" framing RETIRED → opt-in** (reframed at E#31).
 
 ## Parked (valid, no rush)
 
-- **Account-wide visibility review** (carried over from the resolved
-  pokemon-mod-lab URGENT item's second ask) — at your next settings pass:
-  all 13 repos in the account were public at the 2026-07-10 night review;
-  pokemon-mod-lab is now private, the rest — including fleet-manager (this
-  owner queue is on the open internet) — remain public. Decide per-repo
-  public/private; pairs with the decision sheet's §4.9 repo-settings sweep.
+- **Account-wide visibility review** — all 13 repos public at the 2026-07-10
+  night review; pokemon-mod-lab now private, the rest — including
+  fleet-manager (this owner queue is on the open internet) — remain public.
+  Decide per-repo public/private; pairs with the §4.9 repo-settings sweep.
 - **superbot-next grants** — intents toggles · sacrificial Discord account ·
   capped API key (band 7); folds into the band flow (superbot-next
-  `control/status.md` ⚑). Lane stays gen-1 mid-mission. (The flag-13 ruling
-  MOVED to active item 12 — it is seat-3 finalize-first debt under Q-0261.)
-- **websites product questions** — domains · /submit Postgres · /admin
-  OAuth+home · restyle · cutover (websites `docs/owner/OWNER-ACTIONS.md`,
-  each with a recommended default).
-- **Anthropic email pack** — review + send; follow-up to the 07-09 22:29Z
-  extension mail before the 2026-07-14 window close. Include the four routines
-  platform bugs: (1) completed runs not inspectable from the Routines screen;
-  (2) Runs panel vs Routines screen disagreement; (3) the arming
-  seat-inconsistency; (4) **model attribution inconsistent across Routines
-  screen / chat header / session self-report — no authoritative surface**
-  (appended 2026-07-10: Routines menu shows fable-5 for all project-created
-  routines while the websites fired session's chat header + own card said
-  claude-sonnet-5 — websites PR #59, squash 2c89e96; evidence + probe:
-  `capabilities.md` § routine self-arm rider).
+  `control/status.md` ⚑). *(The API-key half is now the active C#16.)*
+- **websites product questions** — domains · /submit Postgres (now active
+  D#24) · /admin OAuth+home · restyle · cutover (websites
+  `docs/owner/OWNER-ACTIONS.md`, each with a recommended default).
+- **Anthropic email pack** — review + send before the 2026-07-14 window close;
+  include the four routines platform bugs (runs not inspectable · Runs-panel
+  vs Routines-screen disagreement · arming seat-inconsistency · model
+  attribution inconsistent across surfaces; evidence: `capabilities.md`
+  § routine self-arm rider).
 - **PyPI trusted-publishing registration** (~2 min) — token-less kit releases.
 - **codetool-lab-fable5 (envdrift) v0.1.0 + v0.2.0 tags + Releases** —
   tag-push 403; owner click at Releases → Draft: v0.1.0 @ `73ef38d`, v0.2.0 @
-  `13a84e5`. (Codetool Projects are CLOSED; repos stay.) *Corrected
-  2026-07-10 (package-centralization): this line previously said
-  "codetool-lab-**opus4.8** v0.1.0" — a mislabel. opus4.8's (mdverify)
-  v0.1.0/v0.2.0 Releases are **LIVE** (published 2026-07-09T16:56:21Z /
-  17:57:53Z by `github-actions[bot]`; attested by its `control/status.md` @
-  `80f6cd1` and the fable5 correction commit `a6cf1a9`). The repo with
-  never-pushed tags is **fable5** — zero tags on its remote, verified
-  `ls-remote --tags` at package build; owner-manual steps in its
-  `docs/retro/project-review-2026-07-09.md` §(e). Provenance:
-  `projects/codetool-lab-{fable5,opus4.8}/meta.md`.*
-- **codetool archive toggles ×3 (paired DECISION).** All three codetool repos
-  report `"archived": false` (API-verified 2026-07-10 ~15:12Z) while the
-  ruling describes them as archived — unarchived public repos remain writable
-  surfaces. WHERE: each repo Settings → Danger Zone → "Archive this
-  repository" (~1 min each). PAIRED DECISION: archive now vs after the gen-3
-  succession question settles — recommendation: **wait, then archive**
-  (archiving makes the repos read-only and would break the NEXT-BOOT write
-  rituals the succession packs expect).
-- **cfgdiff v0.1.1 release — two clicks (codetool-lab-sonnet5).** (1) register
-  the PyPI trusted publisher (pypi.org → Publishing → pending publisher: owner
-  `menno420`, repo `codetool-lab-sonnet5`, workflow `release.yml`, environment
-  `pypi`, ~2 min); (2) `git tag -a v0.1.1 0b1eb60 -m "cfgdiff 0.1.1" && git
-  push origin v0.1.1` — do NOT tag v0.1.0 at `0260aae` (predates release.yml,
-  fires nothing). cfgdiff 0.1.1 sits on main unreleased; release.yml has never
-  fired. WHY owner-only: tag push is a credential-layer 403 on that seat.
+  `13a84e5`. (Provenance of the earlier opus4.8 mislabel correction:
+  `projects/codetool-lab-{fable5,opus4.8}/meta.md`; opus4.8's mdverify
+  Releases are LIVE.)
+- **codetool archive toggles ×3 (paired DECISION)** — all three repos
+  `"archived": false` (API-verified 2026-07-10); recommendation: **wait until
+  the gen-3 succession question settles, then archive** (archiving makes the
+  repos read-only).
+- **cfgdiff v0.1.1 release — two clicks (codetool-lab-sonnet5):** (1) PyPI
+  pending publisher (owner `menno420`, repo `codetool-lab-sonnet5`, workflow
+  `release.yml`, environment `pypi`); (2) `git tag -a v0.1.1 0b1eb60 && git
+  push origin v0.1.1` — do NOT tag v0.1.0 at `0260aae` (predates release.yml).
+  Tag push is a credential-layer 403 on that seat.
 - **Paper-doll PNG pack for mining** — art asset, whenever.
 
 ### Safe to delete / archive (housekeeping, consolidated 2026-07-10 · 18:31Z wake)
@@ -563,104 +448,74 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
 Everything here is verified spent — deleting/archiving loses nothing (all
 state is committed in the repos). Do in one sitting whenever convenient.
 
-- **Spent chats (archive in claude.ai):**
-  - **OLD kit-lab coordinator chat** — **cutover VERIFIED**: its old hourly
-    trigger `trig_01FnqnAQjLU2T8d16iHwWQ2h` is DELETED from the trigger
-    registry and the fresh seat is live (new 2-hourly trigger fired
-    16:02:43Z; fresh-seat heartbeat 16:17:12Z; F-1 rebind-then-delete
-    executed). Archiving it can no longer kill anything.
-  - **Dead trading gen-1 "ORDER 001 successor" session** — died at
-    provision, still lists as active (carried ask; trading status ⚑(d)).
-  - **Wound-down gen-1 lane chats generally** — every gen-1 lane committed
-    its succession package on main; chat context is spent by design.
-- **Stale branches (delete at each repo's branches page; agent
-  branch-delete is a verified 403):**
-  - codetool ×2 — `claude/status-heartbeat-001` (opus4.8) and
-    `test/push-check` (sonnet5), ~10 s each.
-  - superbot-games ×2 (per launch-readiness) — `mining/adopt-substrate-kit`
-    (closed-unmerged-deliberate) and `mining/grid-encounters` (**verify tip
-    is merged before deleting** — tip ≠ merged head at the survey).
-- **NOT yet safe:** codetool repo archive toggles ×3 (paired decision above
-  — wait until the gen-3 succession question settles); anything holding an
-  open READY PR.
+- **Spent chats (archive in claude.ai):** OLD kit-lab coordinator chat
+  (cutover VERIFIED — old trigger deleted, fresh seat live) · dead trading
+  gen-1 "ORDER 001 successor" session (= C#19) · wound-down gen-1 lane chats
+  generally (succession packages on main; chat context spent by design).
+- **Stale branches (agent branch-delete is a verified 403):** codetool ×2 —
+  `claude/status-heartbeat-001` (opus4.8), `test/push-check` (sonnet5) ·
+  superbot-games ×2 — `mining/adopt-substrate-kit` (closed-unmerged-deliberate)
+  and `mining/grid-encounters` (**verify tip is merged before deleting**) ·
+  websites ×4 (= B#11).
+- **NOT yet safe:** codetool repo archive toggles ×3 (paired decision above);
+  anything holding an open READY PR.
 
-## Resolved 2026-07-11
+## Resolved 2026-07-11 (earlier — ORDER 010 relay slice)
 
-- **Item 0 (Idea Engine Project) — RESOLVED (ORDER 010 relay slice):** the
-  seat's heartbeat/repo trace landed — idea-engine `control/status.md` @
-  origin/main `835b260` reads `updated: 2026-07-11T03:25:00Z`, phase STEADY;
-  roster gen #4 row (fm PR #59, merge `b0639a9`): failsafe `0 */2` armed,
-  chain HOT, kit v1.8.0, STEADY. Retired per the item's own retire condition.
-- **Item 9 (product-forge repo + Project), halves 1+2 — RESOLVED (overtaken
-  by events):** repo exists with the deploy workflow on main (forge PR #13,
-  main HEAD `6f5cfad`); seat booted and heartbeating (`control/status.md` @
-  HEAD commit `77f5231`, `updated: 2026-07-10T22:22:00Z`, continuous mode +
-  failsafe cron `0 */2` enabled; roster gen #4: "failsafe `0 */2`, session
-  live"). Residue: the seed-PR settings sub-click (item 9's remaining line)
-  and item 15 (Pages), both still open.
-- **sim-lab OA-002 ("enable the Codex GitHub integration for sim-lab") —
-  RESOLVED**: Codex environments now exist for **ALL 12 active fleet repos**,
-  sim-lab included (owner update 2026-07-11 ~00:2xZ, inbox ORDER 014; stale
-  envs for dead repos deleted). The lane's `control/status.md` OA-002 line
-  closes at its next seat session; the first verdict PR's @codex comment
-  remains the live end-to-end test. Quota refusals are RETRY-LATER, never a
-  wall (`projects/README.md` § Codex fleet-wide enablement).
-- **fleet-manager Codex env ask (PR #26) — RESOLVED** by the same fleet-wide
-  enablement; the `capabilities.md` wall entry is retired and @codex is now
-  PRIMARY on this repo's own review-queue rows (ORDER 007 relay unblocked).
-- **Games mapping item 14, Seat B repo-creation click — DONE**:
+- **Item 0 (Idea Engine Project):** seat heartbeat/repo trace landed —
+  idea-engine `control/status.md` @ `835b260`, phase STEADY; roster gen #4 row
+  (fm PR #59, merge `b0639a9`): failsafe `0 */2` armed, chain HOT. Retired per
+  the item's own retire condition.
+- **Item 9 (product-forge repo + Project), halves 1+2 — overtaken by events:**
+  repo exists with the deploy workflow on main (forge PR #13, HEAD `6f5cfad`);
+  seat booted and heartbeating (`control/status.md` @ `77f5231`, continuous
+  mode + failsafe `0 */2`). Residue: the settings sub-click (now B#9) and
+  Pages (now D#26).
+- **sim-lab OA-002 (Codex integration):** Codex environments exist for ALL 12
+  active fleet repos (owner update 2026-07-11 ~00:2xZ, inbox ORDER 014). Quota
+  refusals are RETRY-LATER, never a wall.
+- **fleet-manager Codex env ask (PR #26):** resolved by the same fleet-wide
+  enablement; @codex now PRIMARY on this repo's review-queue rows.
+- **Games mapping item 14, Seat B repo-creation click — DONE:**
   `menno420/superbot-idle` exists (public, seeded, pushed
-  2026-07-11T00:15:40Z) — the react-by-action on the §5.3 name; see the
-  reworded item 14 above for the remaining veto window.
+  2026-07-11T00:15:40Z) — the react-by-action on the §5.3 name; remaining veto
+  window is E#29.
 
 ## Resolved 2026-07-10 (later additions)
 
 - **trading-strategy PR #37 (final P5 holdout report) — MERGED by the owner
-  2026-07-10T20:56:34Z** (merged_by menno420, API-verified at the
-  package-centralization pass ~21:30Z). The PR had been agent-unlandable
-  behind a terminal classifier refusal (refusal verbatim in trading
-  `control/status.md`); the click happened between the package builder's
-  snapshot (@ `ffdd6f6`) and this pass — never entered the queue as an open
-  item. Program terminal state is ON MAIN: holdout SPENT, report FINAL,
-  0/13 clears significance.
+  2026-07-10T20:56:34Z** (merged_by menno420, API-verified). Program terminal
+  state is ON MAIN: holdout SPENT, report FINAL, 0/13 clears significance.
 
 ## Resolved 2026-07-10 (Q-0262 owner-rulings batch, reconciled by the 18:31Z wake)
 
-The owner answered the round-3 decision sheet **wholesale** (superbot router
-Q-0262; routed by the dispatch session as inbox ORDER 008 + lane orders):
+The owner answered the round-3 decision sheet wholesale (superbot router
+Q-0262; routed as inbox ORDER 008 + lane orders):
 
-- **kit F-5 ruling = Reading A** (Q-0262.1) — routed as kit ORDER 011,
-  **executed** (kit #127/#128; headline 1 PASS / 3 FAIL; B1 run-5 unblocked).
-- **trading P5 holdout unlock = GRANTED** (Q-0262.2) — routed as trading
-  ORDER 008 @ fd5e9fe; lane acked; runs in a fresh dedicated session per the
-  binding protocol.
-- **superbot-next flag-13 disposition = ACCEPTED** (Q-0262.3) — routed as
-  next ORDER 009, **applied** in next #105
-  (`docs/parity/flag-13-disposition-2026-07-10.md`).
-- **Core seat 6 = the superbot hub Project** (ORDER 008 policy 4) — owner
-  may veto; manager drafts the founding package next.
+- **kit F-5 ruling = Reading A** (Q-0262.1) — kit ORDER 011, executed (kit
+  #127/#128; headline 1 PASS / 3 FAIL; B1 run-5 unblocked).
+- **trading P5 holdout unlock = GRANTED** (Q-0262.2) — trading ORDER 008
+  @ `fd5e9fe`; executed; terminal report merged (see above).
+- **superbot-next flag-13 disposition = ACCEPTED** (Q-0262.3) — next ORDER
+  009, applied in next #105.
+- **Core seat 6 = the superbot hub Project** (policy 4) — owner may veto.
 - **pokemon concept = QoL+** (Q-0262.7) — effective when the games program
-  boots post-core.
+  boots post-core (it since booted; QoL+ is the live concept).
 - **The 8 undeployed instruction packages stay undeployed** until the gen-3
   blueprint delta lands, then re-base + deploy in one sitting (policy 3 —
-  now doctrine at blueprint §4).
-- Fleet policies folded into doctrine same day (fleet-manager PR #33):
-  family-level model names ONLY (blueprint §1); kit OWNER-ACTION grammar
-  wins by definition, venture-lab conforms at next kit upgrade (playbook
-  R17 rider).
+  doctrine at blueprint §4; the deploy sitting is now C#15, held on B#13).
+- Fleet policies folded into doctrine same day (fm PR #33): family-level model
+  names ONLY (blueprint §1); kit OWNER-ACTION grammar wins by definition
+  (playbook R17 rider).
 
-## Resolved since the last rewrite (2026-07-09 → this morning)
+## Resolved since the last rewrite (2026-07-09 → 2026-07-10 morning)
 
-- **🚨→✅ pokemon-mod-lab flipped to PRIVATE (URGENT item, night-review Q16) —
-  DONE by the owner, re-verified 2026-07-10 via the GitHub API
-  (`repo.private` = true, `visibility: private`). The lane's "no exceptions"
-  PRIVATE hard rail is now true; R22 verification unblocked. The second ask
-  (account-wide visibility review) moved to Parked above as a normal item.**
-- Fleet environments created — gen-2 lanes booted in them overnight (item 1 retired).
-- venture-lab + game-lab launch click-lists executed (items 14/17 retired);
-  gen-1 wind-down pasted and completed fleet-wide (item 15 retired).
-- Merge session done: kit #26 + #49 MERGED ~00:10Z (ratifications live),
-  games #5 MERGED 00:00:58Z (items 3/6/8/16 retired); kit #22 retro-ratify
-  comment superseded by the #26 ratification lane closing.
-- Gen-1 wind-down prompt, external ChatGPT campaign, and Anthropic-email
-  items consolidated (campaign closed with gen-1; email pack parked above).
+- **🚨→✅ pokemon-mod-lab flipped to PRIVATE** (URGENT item, night-review Q16)
+  — done by the owner, re-verified via API; the account-wide visibility review
+  moved to Parked.
+- Fleet environments created — gen-2 lanes booted in them overnight.
+- venture-lab + game-lab launch click-lists executed; gen-1 wind-down pasted
+  and completed fleet-wide.
+- Merge session done: kit #26 + #49 MERGED ~00:10Z, games #5 MERGED 00:00:58Z.
+- Gen-1 wind-down prompt, external ChatGPT campaign, and Anthropic-email items
+  consolidated (campaign closed with gen-1; email pack parked above).
