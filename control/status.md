@@ -1020,3 +1020,9 @@ Attribution: **lane worker fable-5, dispatched by coordinator cse_012o8pySy5K3AV
   `list_triggers` is MCP-only so the dump is inherently a CCR-wake step; headless regen
   consumes the committed snapshot).
 - Slice record: `.sessions/2026-07-11-p1-freshness-custodian.md`.
+- **CORRECTION (same session, ~19:35Z): direct-push commit path SUPERSEDED by live test.**
+  PR #81 merged `ef45ccb`; the first workflow_dispatch regen run (29164975251) proved the
+  regen works (gen #7 committed on the runner) but the push to main was rejected by a
+  repository ruleset — verbatim: `GH013 ... Changes must be made through a pull request.`
+  Commit path v2 shipped as the follow-up PR: `bot/roster-regen` branch → create-or-reuse
+  PR → immediate squash-merge in-run; denial parks ONE open PR + reds the run.
