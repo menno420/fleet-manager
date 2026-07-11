@@ -1,1 +1,0 @@
-- `claude/kit-v1-12-0-upgrade` · **kit v1.11.0→v1.12.0 upgrade** — distribution-wave kit upgrade only (Q-0261.3) · expected files: bootstrap.py, .github/workflows/substrate-gate.yml, .substrate/**, kit-planted docs, this claim + session card · 2026-07-11
