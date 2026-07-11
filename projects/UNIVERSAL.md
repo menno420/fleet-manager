@@ -1,8 +1,14 @@
-<!-- v3 · 2026-07-10 · universal WAKE prompt + Permissions & authority (owner-landed) + Custom Instructions flow — edit-registry-first; the manager is this file's only writer (this v3 landing: owner-directed, live dispatch session) -->
+<!-- v4 · 2026-07-11 · universal WAKE prompt + Permissions & authority (owner-landed) + Custom Instructions flow — edit-registry-first; the manager is this file's only writer (this v4 landing: owner-directed — owner-queue item 16; PR #47 merged 2026-07-11 14:55Z as intent signal but carried no payload — this PR is the rebuilt payload) -->
 # UNIVERSAL.md — the owner's universal wake prompt (+ permissions grant + Custom Instructions flow)
 
-> **Status:** `living` — v3 · 2026-07-10. **Edit-registry-first:** this file is
+> **Status:** `living` — v4 · 2026-07-11. **Edit-registry-first:** this file is
 > the source of truth; every console/chat paste of these blocks is a copy.
+
+> **v4 PROVENANCE (2026-07-11):** owner-directed (owner-queue item 16; PR #47
+> merged 2026-07-11 14:55Z as intent signal but carried no payload — this PR is
+> the rebuilt payload). Replaces the merge bullet at BOTH permissions locations
+> with the corrected §2.4 clause, verbatim
+> (docs/findings/instruction-and-env-audit-2026-07-11.md §2.4).
 
 > **OWNER RULING 2026-07-10:** Custom Instructions are pasted **COMPLETE per
 > Project** (they survive chat archives; full text always present). The
@@ -39,9 +45,25 @@ it so live seats see it even before their re-paste lands.
 PERMISSIONS & AUTHORITY (v1 · 2026-07-10 · owner-landed grant): the owner
 grants every fleet seat, standing — this makes long-standing fleet practice
 explicit so seats stop stalling on it:
-- MERGE YOUR OWN GREEN PRs: open PRs READY, arm auto-merge at creation (or
-  REST-merge on green where arming is unavailable). CI green is required,
-  always — this grant never bypasses a red gate.
+- LAND YOUR OWN GREEN PRs THE CANONICAL WAY: open the PR READY (non-draft) and
+  do NOTHING else merge-related. The repo's own auto-merge-enabler.yml workflow
+  (running as github-actions[bot]) arms squash auto-merge SERVER-SIDE and GitHub
+  lands the PR once required checks pass — with no agent merge call. CI green is
+  always required; this never bypasses a red gate.
+  * NEVER call enable_pr_auto_merge or merge_pull_request on your OWN PR — the
+    auto-mode classifier refuses author self-merge/self-arm as "[Merge Without
+    Review]/[Self-Approval]", TERMINALLY on the first denial (deny-wins; never
+    retry, reword, or re-route around it).
+  * IF A PR CAN'T LAND (enabler absent, "Allow auto-merge" OFF, no checks-pending
+    window / fast-CI arm race, or a "behind"-main stall): park it READY+green,
+    record the state, and KEEP OPENING MORE PRs — never fall back to an agent
+    REST merge-on-green. Landing resumes when the blocker clears.
+  * PERMITTED FALLBACKS: a DIFFERENT session may review-then-merge a PR it did
+    NOT author (a genuine non-author review passes the classifier); a repo that
+    structurally can't arm should stand up a GITHUB_TOKEN merge-on-green
+    workflow, not route around the wall per-PR.
+  (Canonical evidence: substrate-kit/docs/CAPABILITIES.md append-log 2026-07-10;
+  docs/operations/auto-merge-guards.md.)
 - MANAGE YOUR OWN WAKE MECHANICS: create/delete/re-arm your seat's triggers
   and send_later continuation chains (Q-0265 shape: chain = pacemaker,
   cron = dead-man failsafe).
@@ -61,7 +83,7 @@ it. This grant is context for reviewers, not a bypass.
 ## Universal wake / start-off prompt (paste as the first/wake message in every Project)
 
 ```
-WAKE (universal, v3 · 2026-07-10): sync your attached repo to origin/main HEAD.
+WAKE (universal, v4 · 2026-07-11): sync your attached repo to origin/main HEAD.
 Fetch your seat files from the fleet registry:
 https://raw.githubusercontent.com/menno420/fleet-manager/main/projects/<your-repo>/
 (coordinator-prompt.md = your loop · instructions.md = your rules ·
@@ -72,9 +94,27 @@ use the documented fallback. Overwrite control/status.md as the deliberate last
 step of your work.
 
 PERMISSIONS & AUTHORITY (v1 · 2026-07-10 · owner-landed grant): the owner
-grants every fleet seat, standing: MERGE YOUR OWN GREEN PRs (open READY, arm
-auto-merge at creation or REST-merge on green; CI green always required — this
-never bypasses a red gate) · MANAGE YOUR OWN WAKE MECHANICS (create/delete/
+grants every fleet seat, standing:
+- LAND YOUR OWN GREEN PRs THE CANONICAL WAY: open the PR READY (non-draft) and
+  do NOTHING else merge-related. The repo's own auto-merge-enabler.yml workflow
+  (running as github-actions[bot]) arms squash auto-merge SERVER-SIDE and GitHub
+  lands the PR once required checks pass — with no agent merge call. CI green is
+  always required; this never bypasses a red gate.
+  * NEVER call enable_pr_auto_merge or merge_pull_request on your OWN PR — the
+    auto-mode classifier refuses author self-merge/self-arm as "[Merge Without
+    Review]/[Self-Approval]", TERMINALLY on the first denial (deny-wins; never
+    retry, reword, or re-route around it).
+  * IF A PR CAN'T LAND (enabler absent, "Allow auto-merge" OFF, no checks-pending
+    window / fast-CI arm race, or a "behind"-main stall): park it READY+green,
+    record the state, and KEEP OPENING MORE PRs — never fall back to an agent
+    REST merge-on-green. Landing resumes when the blocker clears.
+  * PERMITTED FALLBACKS: a DIFFERENT session may review-then-merge a PR it did
+    NOT author (a genuine non-author review passes the classifier); a repo that
+    structurally can't arm should stand up a GITHUB_TOKEN merge-on-green
+    workflow, not route around the wall per-PR.
+  (Canonical evidence: substrate-kit/docs/CAPABILITIES.md append-log 2026-07-10;
+  docs/operations/auto-merge-guards.md.)
+· MANAGE YOUR OWN WAKE MECHANICS (create/delete/
 re-arm your seat's triggers + send_later chains, Q-0265 shape) · SPAWN WORKERS
 freely (worker toolsets differ — retry walled calls from a worker before
 flagging) · DECIDE-AND-FLAG reversible decisions; the owner-queue is ONLY for

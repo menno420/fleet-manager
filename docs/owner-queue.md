@@ -157,6 +157,16 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
 
 13. **🔥 HOT (owner-provenance) — land the corrected UNIVERSAL.md
     merge-authority clause (audit §2.4).** *(Old item 16 — keep first-priority.)*
+    - **STATUS 2026-07-11 ~15:1xZ: RESOLVED-PENDING-MERGE of PR #76**
+      (https://github.com/menno420/fleet-manager/pull/76 — the rebuilt #47
+      payload: UNIVERSAL.md v3→v4, the §2.4 clause applied VERBATIM
+      (cmp-verified byte-identical to the audit §2.4 block / the old item-16
+      paste block staged in PR #68 @ `c5e264f`) at BOTH locations). **The
+      owner merges #76 personally** — no auto-merge armed, lane worker will
+      not merge (instruction-authority content; the paste-block reference
+      below is kept intact for auditability). One click: merge PR #76 on
+      green, then this item closes and ORDER 017 + the C#15 paste wave
+      unblock.
     - WHAT: owner-authored edit on fleet-manager main replacing
       `projects/UNIVERSAL.md` `:42-44` and `:74-76` with the audit §2.4
       corrected clause (verbatim paste block:

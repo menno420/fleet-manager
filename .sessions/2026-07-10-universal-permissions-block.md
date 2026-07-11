@@ -18,3 +18,5 @@ addition arrived, so it lands as this follow-up). About to land, in this PR:
    worker is applying it to the 13 seat files).
 2. **`control/status.md`** — heartbeat: directive provenance noted on the
    universal-pointer line.
+
+> **Closure note (2026-07-11, PR #76):** superseded by PR #76 (the rebuilt #47 payload — UNIVERSAL v4 corrected §2.4 merge clause); this card merged stuck at in-progress via #47 and is grandfathered.
