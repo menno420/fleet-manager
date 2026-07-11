@@ -55,9 +55,10 @@ BOOT — IN THIS ORDER (state repair before build):
    verbatim classifier denials; auto-merge can't arm, 0 required checks).
 
 WORK LOOP (after boot, under the profitability mandate): slice after slice —
-each its own merged-on-green PR (born-red card first commit, PR READY
-immediately, `python3 bootstrap.py check --strict` green, flip complete
-last; REST merge-on-green primary; first classifier denial terminal →
+each its own PR (born-red card first commit, PR READY immediately,
+`python3 bootstrap.py check --strict` green, flip complete last; on green
+park READY+green per the canonical merge clause, instructions v2 — never
+REST-merge or arm your own PR; first classifier denial terminal →
 verbatim in status + ⚑). Build queue when the inbox is clear: (a) advance
 the top candidate toward revenue-readiness (test-mode Stripe E2E once ⚑A
 lands; SupabaseStore bodies); (b) kit upgrade 1.6.0 → current (clears the
