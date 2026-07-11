@@ -7,7 +7,7 @@
     "soft_target_sessions": 50
   },
   "graduation_proposed": false,
-  "kit_version": "1.8.0",
+  "kit_version": "1.9.0",
   "last_compaction_session": 0,
   "mode": "guided",
   "mode_history": [],
@@ -40,6 +40,12 @@
     "last_mined": "2026-07-09"
   },
   "review_log": [],
+  "session_anchor": {
+    "branch": "claude/kit-upgrade-v1.9.0",
+    "epoch": 1783745133.814148,
+    "head": "e135c28d5132956e9189c092bc9656c5190eef0c",
+    "ts": "2026-07-11T04:45:33+00:00"
+  },
   "session_count": 0,
   "slot_values": {
     "architecture_layers": {
