@@ -444,6 +444,65 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
       commit `c23223f`). The owner must land it directly; the manager may
       not rewrite the block itself (ORDER 016's own rail).
 
+17. **Re-paste the consolidated environment setup scripts into the running
+    environments — COORDINATOR ENVIRONMENT FIRST (added 2026-07-11,
+    post-ORDER-018).**
+    - WHAT: the Setup-script fields of your running environments still hold
+      the OLD pre-consolidation script text. Re-paste each one from the
+      consolidated `environments/` lineage that landed in fleet-manager
+      PR #73 (main @ `cf2c4ee`). Do the **coordinator (multi-repo)
+      environment FIRST** — that single paste activates the
+      `superbot-next → python3.11` fix: the old coordinator script installs
+      superbot-next under bare `python3` (wrong-by-luck), and the fixed pin
+      table only takes effect in an environment once its field is re-pasted.
+      Until then the fix is **inert** — it exists on main but no running
+      environment executes it.
+    - WHERE: claude.ai/code → Environments → (each environment) → Setup
+      script field. Environment-to-script map:
+      [`../environments/archetypes.md`](../environments/archetypes.md)
+      § "Project → archetype mapping" (every project's archetype + env-var
+      names) and § "Owner paste-steps" (the click path).
+    - HOW: for each environment, open its archetype file raw and paste the
+      FULL contents into the Setup-script field, replacing what is there:
+      1. **FIRST — coordinator env** (the live multi-repo env):
+         `https://raw.githubusercontent.com/menno420/fleet-manager/main/environments/archetype-coordinator.sh`
+      2. python-lab envs (substrate-kit, fleet-manager, superbot-games,
+         superbot-idle, sim-lab, product-forge, idea-engine, venture-lab,
+         superbot-mineverse):
+         `https://raw.githubusercontent.com/menno420/fleet-manager/main/environments/archetype-python-lab.sh`
+      3. pinned-research envs (trading-strategy, websites):
+         `https://raw.githubusercontent.com/menno420/fleet-manager/main/environments/archetype-pinned-research.sh`
+      4. bot-prod envs (superbot-next, superbot):
+         `https://raw.githubusercontent.com/menno420/fleet-manager/main/environments/archetype-bot-prod.sh`
+      5. gba-lab env (`superbot-retro`, attaching gba-homebrew +
+         pokemon-mod-lab):
+         `https://raw.githubusercontent.com/menno420/fleet-manager/main/environments/archetype-gba-lab.sh`
+      Environment VARIABLES are untouched — this is a script-text swap only.
+      The thin configs fetch `setup-base.sh` themselves (raw-fetch fallback
+      is built in), so the paste is one file per environment.
+    - WHY: PR #73 (ORDER 018) collapsed 4 drifting archetype scripts into
+      one audited base + thin configs and fixed two latent bugs in the
+      process — the audit §4.2 coordinator pin-table gap
+      (superbot-next→python3.11) and a `pick_python` WARNING that was
+      command-substitution-captured into the interpreter name. Every
+      environment still running old field text keeps both bugs live
+      (evidence: the ORDER 018 heartbeat in `control/status.md` + fm
+      [`findings/instruction-and-env-audit-2026-07-11.md`](findings/instruction-and-env-audit-2026-07-11.md)
+      §4.2; the heartbeat's own caveat: "thin configs re-derived +
+      unverified-as-thin-configs until next owner paste / lane boot").
+    - UNBLOCKS: superbot-next sessions in the coordinator env install under
+      the correct pinned python3.11 (CI parity); every lane env converges on
+      the one maintained lineage, so the next script fix is a single edit +
+      re-paste instead of five divergent ones; the first post-paste boots
+      also discharge the Q-0105 "unverified-as-thin-configs" posture.
+    - WHY owner-only (proof): environment Setup-script fields live in the
+      claude.ai console, which agents can neither read nor write — the 2026-07-11
+      audit could only compare committed lineages (its per-env "unknown /
+      no paste record" verdicts are exactly this wall), and every prior
+      field change in this queue's history was an owner paste (items 11/13).
+      Agent-side work is already done and merged (PR #73); only the pastes
+      remain.
+
 ## Parked (valid, no rush)
 
 - **Account-wide visibility review** (carried over from the resolved
