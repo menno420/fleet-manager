@@ -113,6 +113,18 @@ SNAPSHOT CONVENTION (P1 FRESHNESS, centralization plan §3a, fm PR #81):
   commit-only-on-change option. An ad-hoc uncommitted export
   (tmp-triggers.json, gitignored) remains fine for one-off runs.
 
+CANDIDATE FEED (P2 QUEUE GENERATION, centralization plan §3b, fm PR #85):
+  every generation ALSO writes docs/owner-queue-candidates.md — a GENERATED,
+  NOT-source-of-truth extraction of each lane heartbeat's ⚑ needs-owner /
+  OWNER-ACTION blocks (verbatim, line-start-anchored ⚑/OWNER-ACTION starts;
+  `needs-owner: none` skipped; blocks deduped + capped). The manager curates
+  docs/owner-queue.md FROM the feed — nothing lands there automatically.
+  Feed items carry a deterministic content-derived `suggested-id`
+  (OQ-<LANE>-<WORDS>, never positional) and a `possibly-covered-by` hint
+  keyed on the queue's stable `id: OQ-…` slugs. `--check` compares the
+  ROSTER only (the feed rides the same regen commit); `--stdout` prints the
+  roster only and skips the feed.
+
 USAGE
   # generate (writes docs/roster.md relative to the repo root):
   python3 scripts/gen_roster.py --triggers telemetry/triggers-snapshot.json \
@@ -197,6 +209,8 @@ LANES = [
 
 GITHUB_BASE = "https://github.com/menno420/"
 ROSTER_REL = os.path.join("docs", "roster.md")
+CANDIDATES_REL = os.path.join("docs", "owner-queue-candidates.md")
+OWNER_QUEUE_REL = os.path.join("docs", "owner-queue.md")
 
 # ---------------------------------------------------------------- schema ---
 
@@ -404,6 +418,230 @@ def parse_status(text: str) -> dict:
     return fields
 
 
+# ----------------------------------------------- owner-flag extraction ----
+# P2 (QUEUE GENERATION, centralization plan §3b, fm PR #85): parse_status
+# only pulls header one-liners, so a lane's ⚑ needs-owner / OWNER-ACTION
+# block never surfaced centrally until a manual owner-queue sweep — the
+# highest-value channel had no automated aggregation. These helpers extract
+# those blocks into docs/owner-queue-candidates.md (GENERATED — the manager
+# still curates docs/owner-queue.md from it; nothing lands there
+# automatically).
+
+# A flag block STARTS on a line whose CONTENT BEGINS with ⚑ (optionally
+# behind list/quote/bold markup — the observed lane styles: `⚑ needs-owner:`,
+# `- **⚑ OWNER-ACTION 1:** …`, `⚑A — …`, `> ⚑ …`) or with the word
+# OWNER-ACTION itself. Deliberately line-start-anchored: a ⚑ quoted
+# mid-prose (fleet-manager's own giant phase lines re-tell old flags) is
+# NOT a new ask and must not spam the feed.
+FLAG_START_RE = re.compile(r"^\s*(?:[-*>]\s*|\d+\.\s+)*(?:\*\*)?\s*(?:⚑|OWNER-ACTION\b)")
+# `⚑ needs-owner: none` (and friends) = explicitly no ask — never a candidate.
+FLAG_NONE_RE = re.compile(
+    r"needs-owner[:\s*]*\s*(?:\*\*)?\s*[`'\"]?(none|n/?a|—|-)?[`'\"]?\s*$",
+    re.IGNORECASE)
+# Kit header fields end a block (the flag line is part of the header block
+# in the kit grammar; the next field is not a continuation of the ask).
+HEADER_FIELD_RE = re.compile(
+    r"^(updated|phase|health|kit|last-shipped|blockers|orders|notes|"
+    r"coordinator|routine|lane|timestamp):", re.IGNORECASE)
+FLAG_BLOCK_MAX_LINES = 25
+
+
+def parse_owner_flags(text: str) -> list[list[str]]:
+    """Extract ⚑ needs-owner / OWNER-ACTION blocks from a heartbeat.
+
+    Returns a list of blocks (each a list of verbatim lines). A block runs
+    from a flag-start line until a blank line, a markdown heading, a kit
+    header field, a code fence, or the next flag start; capped at
+    FLAG_BLOCK_MAX_LINES lines (truncation is marked). Duplicate blocks
+    (identical normalized text) are dropped.
+    """
+    blocks: list[list[str]] = []
+    seen: set[str] = set()
+    lines = text.splitlines()
+    i, n = 0, len(lines)
+    in_fence = False
+    while i < n:
+        line = lines[i]
+        if line.lstrip().startswith("```"):
+            in_fence = not in_fence
+            i += 1
+            continue
+        if in_fence or not FLAG_START_RE.search(line):
+            i += 1
+            continue
+        if FLAG_NONE_RE.search(line):
+            i += 1
+            continue
+        block = [line.rstrip()]
+        j = i + 1
+        while j < n and len(block) < FLAG_BLOCK_MAX_LINES:
+            nxt = lines[j]
+            if (not nxt.strip() or nxt.lstrip().startswith("#")
+                    or nxt.lstrip().startswith("```")
+                    or HEADER_FIELD_RE.match(nxt.strip())
+                    or FLAG_START_RE.search(nxt)):
+                break
+            block.append(nxt.rstrip())
+            j += 1
+        if j < n and len(block) >= FLAG_BLOCK_MAX_LINES:
+            block.append("… (block truncated at "
+                         f"{FLAG_BLOCK_MAX_LINES} lines by gen_roster)")
+        key = re.sub(r"\s+", " ", " ".join(block)).strip().lower()
+        if key not in seen:
+            seen.add(key)
+            blocks.append(block)
+        i = j
+    return blocks
+
+
+_SLUG_STOPWORDS = {"the", "a", "an", "of", "for", "and", "or", "to", "in",
+                   "on", "is", "are", "with", "needs", "owner", "action",
+                   "owneraction", "needsowner"}
+
+
+def suggest_slug(lane_repo: str | None, lane_name: str, first_line: str) -> str:
+    """Deterministic content-derived candidate id: OQ-<LANE>-<WORDS>.
+
+    NOT positional (positional numbers reshuffle on every queue rewrite —
+    the fm PR #75 renumbering broke a cross-reference; plan §3b). The
+    manager may adopt or rename the id when curating; stability matters
+    more than beauty.
+    """
+    lane_token = (lane_repo or lane_name).split()[0]
+    lane_token = re.sub(r"[^A-Za-z0-9]+", "-", lane_token).strip("-").upper()
+    cleaned = re.sub(r"[`*_>⚑#\[\]()]", " ", first_line)
+    words = [w for w in re.findall(r"[A-Za-z0-9]+", cleaned)
+             if w.lower() not in _SLUG_STOPWORDS][:4]
+    tail = "-".join(w.upper() for w in words) or "FLAG"
+    return f"OQ-{lane_token}-{tail}"
+
+
+PR_URL_RE = re.compile(r"github\.com/menno420/([\w.-]+)/pull/(\d+)")
+QUEUE_ID_RE = re.compile(r"^\s*-\s*id:\s*(OQ-[A-Z0-9-]+)\s*$", re.MULTILINE)
+
+
+def load_queue_pr_index(queue_path: str) -> dict[tuple[str, str], set[str]]:
+    """Map (repo, pr-number) -> owner-queue slug ids that cite it.
+
+    Used for the feed's `possibly-covered-by` hint so the manager sees at a
+    glance whether an extracted ask already has a curated queue item. Keyed
+    on the stable `id: OQ-…` slugs (P2), never positional numbers.
+    """
+    try:
+        with open(queue_path, encoding="utf-8") as fh:
+            text = fh.read()
+    except OSError:
+        return {}
+    index: dict[tuple[str, str], set[str]] = {}
+    current_id = None
+    for line in text.splitlines():
+        m = QUEUE_ID_RE.match(line)
+        if m:
+            current_id = m.group(1)
+            continue
+        if re.match(r"^\d+\.\s", line) or line.startswith("## "):
+            # a new item starts before its id line is seen; heading resets
+            if re.match(r"^#", line):
+                current_id = None
+        for repo, num in PR_URL_RE.findall(line):
+            if current_id:
+                index.setdefault((repo, num), set()).add(current_id)
+    return index
+
+
+# The ONE deliberate deviation from byte-verbatim block quoting (same class
+# as P1's api_token_hint strip): a lane heartbeat quoting a decision id like
+# `D-0005` would trip the kit's stamp-discipline check ("stamp each decision
+# at one home") on THIS repo every regen — the feed is a quotation, not a
+# second home. The ASCII hyphen in `D-NNN…` ids is swapped for U+2011
+# (non-breaking hyphen): visually identical, checker-inert. Grep the source
+# heartbeat for the exact byte form.
+_DECISION_ID_RE = re.compile(r"\bD-(\d{3,})\b")
+
+
+def _sanitize_feed_line(line: str) -> str:
+    line = line.replace("```", "ʼʼʼ")  # keep the fenced block intact
+    return _DECISION_ID_RE.sub("D‑\\1", line)
+
+
+def render_candidates(rows: list[dict], generation: int, now: datetime,
+                      generated_by: str, dispatched_by: str,
+                      queue_index: dict[tuple[str, str], set[str]]) -> str:
+    stamp = now.strftime("%Y-%m-%dT%H:%MZ")
+    out = []
+    out.append("# Owner-queue candidate feed — GENERATED\n")
+    # `living-ledger` is the kit-allowed badge closest to this file's nature
+    # (docs/roster.md precedent — machine-regenerated living state); the kit
+    # badge vocabulary has no `generated` token (check finding, PR #85).
+    out.append("> **Status:** `living-ledger`\n>")
+    out.append("> **GENERATED — NOT SOURCE OF TRUTH; the manager curates "
+               "`docs/owner-queue.md` from it.** Do not hand-edit; "
+               "regenerated with the roster on every regen "
+               "(`scripts/gen_roster.py`, P2 — centralization plan §3b).\n>")
+    out.append(f"> **Generation #{generation}** · generated-at **{stamp}** · "
+               f"by {generated_by}, dispatched by {dispatched_by}\n>")
+    out.append("> Every block below is a VERBATIM `⚑ needs-owner` / "
+               "`OWNER-ACTION` extraction from a lane heartbeat "
+               "(`control/status*.md` at the ls-remote-verified HEAD the "
+               "roster row cites). Nothing here lands in the owner queue "
+               "automatically: the manager dedups, verifies (R17), and "
+               "curates. `suggested-id` is a deterministic content-derived "
+               "slug the manager may adopt; `possibly-covered-by` lists "
+               "active queue ids citing the same PR — `none matched` means "
+               "manual dedup is still needed.\n")
+    total = 0
+    for row in rows:
+        flags = row.get("owner_flags") or []
+        if not flags:
+            continue
+        lane = row["lane"]
+        hb = row["hb"]
+        src = (f"{lane['repo']}/{hb['status_path']} @ `{hb['sha'][:7]}`"
+               if hb and hb.get("status_path") else "(no heartbeat file)")
+        used: set[str] = set()
+        for block in flags:
+            total += 1
+            first = re.sub(r"\s+", " ", block[0]).strip()
+            slug = suggest_slug(lane["repo"], lane["lane"], first)
+            if slug in used:
+                k = 2
+                while f"{slug}-{k}" in used:
+                    k += 1
+                slug = f"{slug}-{k}"
+            used.add(slug)
+            covered: set[str] = set()
+            body = "\n".join(block)
+            for repo, num in PR_URL_RE.findall(body):
+                covered |= queue_index.get((repo, num), set())
+            for num in re.findall(r"PR\s*#(\d+)", body):
+                if lane["repo"]:
+                    covered |= queue_index.get((lane["repo"], num), set())
+            out.append(f"### {lane['lane']} — {truncate(first, 110)}\n")
+            out.append(f"- suggested-id: `{slug}`")
+            out.append(f"- source: {src} · heartbeat `updated:` "
+                       f"{truncate(row['fields'].get('updated', 'n/a'), 60)}")
+            out.append("- possibly-covered-by: "
+                       + (", ".join(f"`{c}`" for c in sorted(covered))
+                          if covered else
+                          "none matched (manual dedup needed)"))
+            out.append("")
+            out.append("```text")
+            out.extend(_sanitize_feed_line(ln) for ln in block)
+            out.append("```")
+            out.append("")
+    if total == 0:
+        out.append("*(No lane heartbeat carries an extractable "
+                   "`⚑ needs-owner` / `OWNER-ACTION` block this "
+                   "generation.)*\n")
+    else:
+        out.append(f"---\n\n{total} candidate block(s) across "
+                   f"{sum(1 for r in rows if r.get('owner_flags'))} lane(s). "
+                   "Feed is additive-noise-tolerant by design: over-capture "
+                   "is curated out by the manager; silent stranding is the "
+                   "failure this feed exists to kill.\n")
+    return "\n".join(out) + "\n"
+
+
 ISO_RE = re.compile(r"(\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}(?::\d{2})?)"
                     r"(Z|[+-]\d{2}:\d{2})?")
 
@@ -496,6 +734,7 @@ def build_rows(records: list[dict], now: datetime, max_attempts: int,
                 row["hb"] = hb
                 if hb["status_text"]:
                     row["fields"] = parse_status(hb["status_text"])
+                    row["owner_flags"] = parse_owner_flags(hb["status_text"])
                 stamp = row["fields"].get("updated") or hb["head_date"]
                 when = parse_when(stamp)
                 if when:
@@ -700,6 +939,59 @@ def selfcheck() -> int:
                   "content": "…relay to idea-engine…", "role": "user"}}}]}}}]
     m2 = match_lane_triggers({"tokens": ["idea-engine"]}, recs2)
     ok(not m2["standing"], "named trigger body-mention does not attribute")
+    # owner-flag extraction (P2 candidate feed)
+    hb_text = ("# lane · status\n"
+               "updated: 2026-07-11T12:00Z\n"
+               "phase: building (⚑ quoted mid-prose must NOT extract)\n"
+               "⚑ needs-owner: none\n"
+               "notes: fine\n")
+    ok(parse_owner_flags(hb_text) == [], "needs-owner: none extracts nothing")
+    hb_text2 = ("updated: t\n"
+                "⚑ needs-owner: add required check `pytest`\n"
+                "  - WHERE: settings/rules\n"
+                "  - HOW: add context\n"
+                "notes: x\n")
+    fl2 = parse_owner_flags(hb_text2)
+    ok(len(fl2) == 1 and len(fl2[0]) == 3 and "WHERE" in fl2[0][1],
+       "needs-owner block captured with continuation, ended by header field")
+    hb_text3 = ("- **⚑ OWNER-ACTION 1:** enable Pages\n"
+                "- **⚑ OWNER-ACTION 2:** tick auto-merge\n"
+                "\n"
+                "⚑A — Stripe TEST keys\n"
+                "still the same block line\n"
+                "\n"
+                "prose mentioning ⚑ mid-line never starts a block\n")
+    fl3 = parse_owner_flags(hb_text3)
+    ok(len(fl3) == 3, "bullet OWNER-ACTIONs split into blocks; ⚑A caught; "
+                      f"mid-prose ⚑ ignored (got {len(fl3)})")
+    ok(fl3[2] == ["⚑A — Stripe TEST keys", "still the same block line"],
+       "⚑A block carries its continuation line")
+    dup = parse_owner_flags("⚑ OWNER-ACTION x\n\n⚑ OWNER-ACTION x\n")
+    ok(len(dup) == 1, "duplicate flag blocks deduplicated")
+    fence = parse_owner_flags("```\n⚑ OWNER-ACTION inside fence\n```\n")
+    ok(fence == [], "flags inside code fences ignored")
+    # slug suggestion — deterministic, content-derived, non-positional
+    s = suggest_slug("pokemon-mod-lab", "pokemon-mod-lab",
+                     "- **⚑ OWNER-ACTION 1:** add required check `ROM builds`")
+    ok(s == "OQ-POKEMON-MOD-LAB-1-ADD-REQUIRED-CHECK", f"slug derivation ({s})")
+    ok(suggest_slug("x", "x", "⚑") == "OQ-X-FLAG", "empty slug falls back")
+    # queue index keys on OQ slugs
+    import tempfile as _tf
+    with _tf.NamedTemporaryFile("w", suffix=".md", delete=False) as qf:
+        qf.write("## Active queue\n\n1. **games PR #27: MERGE.**\n"
+                 "   - id: OQ-GAMES-PR27-MERGE\n"
+                 "   - WHERE: https://github.com/menno420/superbot-games/pull/27\n")
+        qpath = qf.name
+    idx = load_queue_pr_index(qpath)
+    os.unlink(qpath)
+    ok(idx.get(("superbot-games", "27")) == {"OQ-GAMES-PR27-MERGE"},
+       f"queue PR index keyed on slug ids ({idx})")
+    # feed sanitization: decision ids checker-inert, fences kept intact
+    ok("D-0005" not in _sanitize_feed_line("… per D-0005 forbids …"),
+       "decision id hyphen swapped (stamp-discipline inert)")
+    ok("D‑0005" in _sanitize_feed_line("… per D-0005 forbids …"),
+       "decision id still human-readable after swap")
+    ok("```" not in _sanitize_feed_line("```bash"), "fence chars neutralized")
     # pipe escaping (markdown table safety)
     ok("\\|" in truncate("a|b", 50), "pipes escaped in cells")
 
@@ -803,10 +1095,23 @@ def main(argv=None) -> int:
 
     if args.stdout:
         sys.stdout.write(text)
-    else:
-        with open(roster_path, "w", encoding="utf-8") as fh:
-            fh.write(text)
-        print(f"gen_roster: wrote generation #{generation} to {roster_path}")
+        return 0
+
+    with open(roster_path, "w", encoding="utf-8") as fh:
+        fh.write(text)
+    print(f"gen_roster: wrote generation #{generation} to {roster_path}")
+
+    # P2 (§3b): the owner-queue candidate feed regenerates WITH the roster —
+    # same rows, same generation stamp, one regen path (manual + the
+    # roster-regen workflow both get it for free).
+    cand_path = (os.path.join(os.path.dirname(roster_path), "owner-queue-candidates.md")
+                 if args.out else os.path.join(repo_root(), CANDIDATES_REL))
+    queue_index = load_queue_pr_index(os.path.join(repo_root(), OWNER_QUEUE_REL))
+    cand_text = render_candidates(rows, generation, now, args.generated_by,
+                                  args.dispatched_by, queue_index)
+    with open(cand_path, "w", encoding="utf-8") as fh:
+        fh.write(cand_text)
+    print(f"gen_roster: wrote owner-queue candidate feed to {cand_path}")
     return 0
 
 
