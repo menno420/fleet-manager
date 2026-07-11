@@ -24,9 +24,10 @@ proposals, lane repos, and (worst) chat-only surfaces. This registry is their
 - `meta.md` — seat state, cadence, archetype, grants, Codex status, per-part
   deployed-state, and pinned sources. **Read the meta before pasting anything.**
 
-Archive/pre-birth dirs (`codetool-lab-*`, `mobile-lab`, `games-program`) carry
-only `meta.md` (+ `expected-seed.md` for games-program): nothing is deployed
-there; the metas index succession material and pre-birth checklists.
+Archive/pre-birth dirs (`codetool-lab-*`, `mobile-lab`, `games-program`,
+`superbot-idle`) carry only `meta.md` (+ `expected-seed.md` for games-program):
+nothing is deployed there; the metas index succession material and pre-birth
+checklists.
 
 **Doctrine:**
 
@@ -72,6 +73,22 @@ there; the metas index succession material and pre-birth checklists.
    real on every seat tested (the codetool release lesson,
    `codetool-lab-fable5/meta.md`).
 
+## Codex fleet-wide enablement (owner, 2026-07-11)
+
+Codex environments exist for **ALL 12 active fleet repos** — fleet-manager,
+idea-engine, product-forge, sim-lab, substrate-kit, superbot, superbot-games,
+superbot-idle, superbot-next, trading-strategy, venture-lab, websites — per
+the owner update 2026-07-11 ~00:2xZ (`control/inbox.md` ORDER 014). Stale
+environments for dead repos (codetool ×3) were deleted the same pass; their
+archive metas carry the note. Every "Codex: unknown / NO" verdict dated
+2026-07-10 or earlier is superseded.
+
+**Quota caveat (fleet-wide, one home — metas point here):** Codex quota
+refusals — e.g. superbot#1920's 2026-07-10T22:03:53Z reply "You have reached
+your Codex usage limits for code reviews" — are **RETRY-LATER, never a wall**.
+Re-ask after the quota window resets; never record a quota refusal as a Codex
+wall or fall back permanently to manager-side drains because of one.
+
 ## MATRIX — one row per Project (2026-07-10)
 
 Per-part states: **DEPLOYED-verified** (live + verified, text committed) ·
@@ -81,7 +98,7 @@ no paste record) · **n-a** (deliberately absent).
 
 | Project | Seat status | Cadence (failsafe cron) | 1 instructions | 2 coord prompt | 3 setup script | 4 failsafe | Key flag |
 |---|---|---|---|---|---|---|---|
-| fleet-manager | LIVE (manager, continuous) | `30 */2 * * *` + ~15-min chain | never (re-base; re-paste on re-boot) | DEPLOYED (live-amended chat) | unknown | **DEPLOYED-verified** (`trig_014odnv5h…`) | sole multi-repo seat (Q-0260 exception); Codex NOT enabled (ask on PR #26) |
+| fleet-manager | LIVE (manager, continuous) | `30 */2 * * *` + ~15-min chain | never (re-base; re-paste on re-boot) | DEPLOYED (live-amended chat) | unknown | **DEPLOYED-verified** (`trig_014odnv5h…`) | sole multi-repo seat (Q-0260 exception); Codex ENABLED (owner, 2026-07-11 — PR #26 ask resolved) |
 | substrate-kit | LIVE | `0 */2 * * *` | deployed-stale (pre-Q-0265 founding §1) | deployed-stale (chat-amended only) | unknown (OA8 paste unconfirmed) | never (OLD standing wake still live — re-arm due) | write-all distribution seat; owns future template distribution |
 | superbot-next | LIVE (Builder) | `0 */2 * * *` + chain | never (new draft) | never (new draft) | deployed-by-reference (archetype verbatim) | **DEPLOYED-verified** (fleet reference instance) | Codex LIVE; 6 required checks; REST-squash fast lane |
 | idea-engine | LIVE | `0 */2 * * *` (even) + chain | deployed-equivalent | deployed-equivalent (chat) | deployed-by-reference | **DEPLOYED-verified** (committed verbatim) | Q-0265 reference implementation; cadence-PAIRED with sim-lab |
@@ -99,6 +116,7 @@ no paste record) · **n-a** (deliberately absent).
 | codetool-lab-sonnet5 | ARCHIVE (Project closed; repo retained) | n-a | n-a | n-a | n-a | n-a | cfgdiff v0.1.1 pending 2 owner clicks (PyPI publisher + tag push) |
 | mobile-lab | PRE-BIRTH (no repo, no Project) | n-a | n-a (held gen-2 package; Q-0262.6 re-base first) | n-a | n-a | n-a | bundled with the 6-repo harness experiment (both ready-not-launched, owner-gated) |
 | games-program | PRE-BIRTH ×3 repos (Q-0259 r5) | n-a (per-repo at boot) | n-a | n-a | n-a | n-a | mapping DECIDE-AND-FLAG pending; `expected-seed.md` is the per-repo checklist |
+| superbot-idle | **LIVE — Seat B BOOTED** (repo owner-created ~2026-07-11T00:15Z; boot observed at roster gen #3: walking skeleton + theme-schema v1, kit v1.7.1) | `45 */2 * * *` + hot chain | never (registry package = ORDER 015) | never | unknown | DEPLOYED per roster gen #3 (seat-armed) | conformed games mapping Seat B (Q-0267); react-by-action on the repo name; registry package = ORDER 015 |
 
 ## Paste wave — what the owner pastes NOW vs what rides a boot
 

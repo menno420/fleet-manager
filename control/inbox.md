@@ -371,3 +371,56 @@ setup-code consumption. **superbot-plugin-hello: EXISTS (owner-created, public, 
 16:03:04Z) but EMPTY** — the superbot-next seeded package push is the unblocked next
 step. Old proposal banner + owner-queue item 14 + heartbeat: this PR (fleet-manager
 **PR #46**).
+
+## ORDER 014 · 2026-07-11T00:25Z · status: ✅ DONE (executed in the PR that filed it — owner-update propagation, fleet-manager PR #54)
+priority: P1
+owner: coordinator (owner update relayed 2026-07-11 ~00:2xZ; worker executing)
+do: **Propagate the owner's Codex fleet-wide enablement update (near-verbatim):**
+"Codex environments now exist for ALL 12 active fleet repos (fleet-manager,
+idea-engine, product-forge, sim-lab, substrate-kit, superbot, superbot-games,
+superbot-idle, superbot-next, trading-strategy, venture-lab, websites; stale envs
+for dead repos deleted)." NOTE THE SIGNAL: the list includes **superbot-idle** —
+verify via list_repos/API whether menno420/superbot-idle now EXISTS (the conformed
+mapping's proposed Seat B repo, owner-blessed by action if so) and its state.
+Changes (one PR): (1) projects/ metas — every Codex-status line → "Codex: ENABLED
+(owner, 2026-07-11)" on all 12 active repos; codetool ×3 archive metas note envs
+deleted; quota caveat centralized (quota refusals, e.g. superbot#1920 2026-07-10
+22:03Z, are RETRY-LATER, never a wall). (2) docs/capabilities.md — retire the
+"Codex has no environment for fleet-manager" wall (dated, owner provenance); add
+the fleet-wide enablement fact + quota caveat. (3) docs/review-queue.md — @codex
+PRIMARY on all 12 repos (fallback tier only for quota windows + archives);
+annotate open rows; ORDER 007 relay unblocked for fleet-manager PRs. (4)
+docs/owner-queue.md — sim-lab OA-002 → Resolved; item 14 Seat B repo-creation
+click DONE if superbot-idle exists (cite); react line → "react-by-action received
+for repo name; §5 veto points remain open for objection, founding-package prep
+proceeding decide-and-flag". (5) this ORDER appended + flipped ✅ DONE same PR;
+ORDER 015 added per the react-by-action. (6) Heartbeat last (00:3xZ stamp).
+why: owner update 2026-07-11 ~00:2xZ (live relay to the fleet-manager coordinator)
+— fleet-wide Codex enablement + the superbot-idle creation signal must land in the
+durable ledgers before the next wake batches drain on stale "no Codex env" facts.
+done-when: all six change sets merged in one PR with the superbot-idle verdict
+recorded (verified: EXISTS — public, seeded lane-contract README, pushed
+2026-07-11T00:15:40Z).
+
+## ORDER 015 · 2026-07-11T00:45Z · status: new
+priority: P1
+owner: coordinator (next chain slices execute it)
+do: **Prepare Seat A (superbot-games relaunch) + Seat B (superbot-idle) founding
+packages** per the conformed games mapping
+(docs/proposals/games-program-mapping-conformed-2026-07-10.md) + the gen-3
+born-continuous standard (Q-0265/Q-0266): per seat — instructions.md ·
+coordinator-prompt.md · setup-script.sh · failsafe-prompt.md · meta.md in
+projects/<repo>/, version-stamped, decide-and-flag. Seat A merges the two
+terminal gen-1 lanes' succession packages as boot inputs (superbot-games
+docs/retro/, docs/gen2-custom-instructions-exploration.md) and carries the
+ORDER-001 CI-collection fix (review-queue #16, corrected target
+.github/workflows/tests.yml) as first-increment work; Seat B builds on the
+seeded superbot-idle lane-contract README (engine core → theme schema +
+theme-gate CI → egg-farm theme; websites selector LAST-shippable). The owner
+may veto any §5 point before the boots (Q-0240 window — silence = proceed).
+why: the owner created menno420/superbot-idle under the conformed mapping's
+proposed name (react-by-action, 2026-07-11T00:15:40Z) — the mapping's founding
+prep is unblocked; ORDER 014 records the enablement context.
+done-when: both founding packages committed to projects/ (registry doctrine:
+manager sole writer, version stamps, family-level model names), owner-queue
+paste-wave items refreshed, and the boot clicks queued with WHAT/WHERE/UNBLOCKS.

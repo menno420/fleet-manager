@@ -27,13 +27,14 @@
   substrate-kit, superbot, superbot-games, superbot-next, websites
   (environments/multi-repo.md; the round-3 repos — idea-engine, sim-lab,
   product-forge — are public, raw-readable without attachment).
-- **Codex enabled: NO** — the Codex GitHub integration is not enabled for
-  fleet-manager: the bot asked for an environment to be set up on **fleet-manager
-  PR #26**, recorded at HEAD in `control/status.md` @702ba89 ("Codex integration
-  LIVE on superbot-next, NOT enabled on fleet-manager — env-creation ask on
-  PR #26") and in the ORDER 003 drain record ("fleet-manager itself has no Codex
-  env — ask on PR #26"). Consequence: the review-queue drainer runs two-tier with
-  the manager failsafe-wake batch as fallback.
+- **Codex: ENABLED (owner, 2026-07-11)** — Codex environments now exist for
+  ALL 12 active fleet repos, this one included (owner update 2026-07-11
+  ~00:2xZ, inbox ORDER 014). Supersedes the earlier "NO — env-creation ask on
+  PR #26" verdict (that ask is RESOLVED). Consequence: @codex is now the
+  PRIMARY review-queue drain path here too; the manager failsafe-wake batch
+  drops to the fallback tier (quota windows + archives/non-enabled repos
+  only). Quota refusals are RETRY-LATER, never a wall —
+  `projects/README.md` § Codex fleet-wide enablement.
 
 ## Deployed-state per package part
 

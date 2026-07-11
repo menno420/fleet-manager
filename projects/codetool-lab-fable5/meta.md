@@ -9,6 +9,10 @@
 > recommendation "wait, then archive" — archiving makes the repo read-only and would break
 > the NEXT-BOOT write rituals the succession pack expects. Repo HEAD at build time:
 > `a6cf1a9d5e8b` (= the succession-doc fix commit itself, PR #14).
+> **Codex env: DELETED (owner, 2026-07-11)** — stale Codex environments for dead
+> repos were removed in the fleet-wide Codex enablement pass (owner update
+> 2026-07-11 ~00:2xZ, fm inbox ORDER 014); this repo is not among the 12 active
+> repos with a Codex environment.
 
 No live package artifacts exist for this seat (nothing deployed; no Project). This meta
 is the archive index: where a gen-3 successor's seed material lives, and what state the

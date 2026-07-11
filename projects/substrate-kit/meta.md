@@ -20,11 +20,11 @@
   venture-lab, superbot-games, pokemon-mod-lab (private — attach is the only
   path), gba-homebrew, product-forge; codetool arms excluded/archived).
   Variables: none.
-- **Codex enabled:** **unknown.** One GitHub search for PRs with
-  codex-connector comments in menno420/substrate-kit returned 0, but the
-  available search endpoint is issue-scoped, so absence is not evidence; the
-  founding package §0 lists no Codex click for the kit (unlike sim-lab in the
-  part-4 brief). Not verified either way.
+- **Codex: ENABLED (owner, 2026-07-11)** — Codex environments exist for all
+  12 active fleet repos, the kit included (owner update 2026-07-11 ~00:2xZ,
+  fm inbox ORDER 014); supersedes the 2026-07-10 "unknown" verdict. Quota
+  refusals are RETRY-LATER, never a wall (fm `projects/README.md` § Codex
+  fleet-wide enablement).
 
 ## Deployed-state per part (2026-07-10)
 

@@ -8,6 +8,10 @@
 > `0eaa668` § Parked: "wait, then archive" — archiving would make the repo read-only and
 > break the NEXT-BOOT write rituals). Repo HEAD at build time: `80f6cd102ef6`
 > ("wind-down complete — ready for archive + fresh session", PR #22).
+> **Codex env: DELETED (owner, 2026-07-11)** — stale Codex environments for dead
+> repos were removed in the fleet-wide Codex enablement pass (owner update
+> 2026-07-11 ~00:2xZ, fm inbox ORDER 014); this repo is not among the 12 active
+> repos with a Codex environment.
 
 No live package artifacts (nothing deployed; no Project). This meta indexes the
 successor-seed material and the repo's terminal state.

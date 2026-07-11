@@ -41,11 +41,12 @@
   harness-walled). Fleet doctrine consumed read-only via public raw.
 
 ## Codex
-- **Unknown (cheap check done):** repo carries the @codex conventions (CONVENTIONS.md,
-  review-queue.md format line, state.json value @ 7f05aa8) but `review-queue.md` is
-  "(empty at seed)" and no PR/commit evidences an actual @codex interaction — whether
-  the Codex connector is enabled on the Project is not determinable from the repo.
-  Verify from the seat with one @codex PR comment when next relevant.
+- **ENABLED (owner, 2026-07-11)** — Codex environments exist for all 12 active
+  fleet repos (owner update 2026-07-11 ~00:2xZ, fm inbox ORDER 014); supersedes
+  the 2026-07-10 "unknown (cheap check done)" verdict. The repo's @codex
+  conventions (CONVENTIONS.md, review-queue.md format line) are live paths now.
+  Quota refusals are RETRY-LATER, never a wall (fm `projects/README.md`
+  § Codex fleet-wide enablement).
 
 ## Deployed-state per part
 | Part | File here | Deployed? |

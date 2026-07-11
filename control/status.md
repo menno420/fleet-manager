@@ -1,6 +1,6 @@
 # fleet-manager · status
-updated: 2026-07-11T00:15:00Z
-phase: GEN-2 FLEET LIVE — **CONTINUOUS MODE RUNNING (Q-0265): chain slice #7 SHIPPED — ROSTER GENERATION #3 with the biggest delta of any generation: THE GAMES PROGRAM BOOTED (superbot-idle repo LIVE — Seat B boot complete, walking skeleton + theme-schema v1, kit v1.7.1, failsafe `45 */2 * * *` + hot chain; superbot-games Seat A armed — failsafe `15 */2 * * *` created 23:47Z, live chain session, `order-001-collection-scope` branch in flight; the Q-0267 ⚑ details react ANSWERED BY ACTION; `superbot-plugin-hello` still EMPTY) + review-queue trading#21 manager-verified: first row ever CLOSED, RETIRED-SUPERSEDED (promotion label demoted by #36 re-grade · holdout SPENT/report FINAL · paper lane's binding protocol locks the forward subject — zero decision weight left; the two undocumented P1 drops AAPL-SMA/AAPL-MACD confirmed still undocumented but non-load-bearing, annotation rides next trading contact)** · slice #6: superbot-games#5 verify (risk SCOPED, 15/19 behavioral) + permissions grant LANDED OWNER-AUTHORED (`c23223f`, UNIVERSAL.md v3, PR #51) · slice #5: superbot-games#16 CONFIRMED-STILL-BROKEN (fix pointer → tests.yml) · slice #4: @codex quota-blocked + dashboard.json ground truth · slice #3: first drain pass + roster gen #2 · ORDER 013 conformed games mapping (Q-0267) · review-queue enforcement LIVE · doctrine debt PAID · Q-0262 folded
+updated: 2026-07-11T00:40:00Z
+phase: GEN-2 FLEET LIVE — **CONTINUOUS MODE RUNNING (Q-0265): OWNER UPDATE PROPAGATED (ORDER 014, PR #54) — CODEX ENABLED FLEET-WIDE on all 12 active repos incl. superbot-idle (stale dead-repo envs deleted; @codex now PRIMARY drain everywhere; fm's own PR #26 env ask RESOLVED; quota refusals = RETRY-LATER, never a wall; ORDER 015 filed: games founding packages — reconcile with the seats' self-boot per slice #7) · ⚑ SUPERBOT-IDLE owner-created 2026-07-11T00:15:40Z under the proposed §5.3 name, public, SEEDED with the Q-0267 lane-contract README = the games-mapping REACT-BY-ACTION; §5 veto window open · chain slice #7 SHIPPED — ROSTER GENERATION #3 with the biggest delta of any generation: THE GAMES PROGRAM BOOTED (superbot-idle repo LIVE — Seat B boot complete, walking skeleton + theme-schema v1, kit v1.7.1, failsafe `45 */2 * * *` + hot chain; superbot-games Seat A armed — failsafe `15 */2 * * *` created 23:47Z, live chain session, `order-001-collection-scope` branch in flight; the Q-0267 ⚑ details react ANSWERED BY ACTION; `superbot-plugin-hello` still EMPTY) + review-queue trading#21 manager-verified: first row ever CLOSED, RETIRED-SUPERSEDED (promotion label demoted by #36 re-grade · holdout SPENT/report FINAL · paper lane's binding protocol locks the forward subject — zero decision weight left; the two undocumented P1 drops AAPL-SMA/AAPL-MACD confirmed still undocumented but non-load-bearing, annotation rides next trading contact)** · slice #6: superbot-games#5 verify (risk SCOPED, 15/19 behavioral) + permissions grant LANDED OWNER-AUTHORED (`c23223f`, UNIVERSAL.md v3, PR #51) · slice #5: superbot-games#16 CONFIRMED-STILL-BROKEN (fix pointer → tests.yml) · slice #4: @codex quota-blocked + dashboard.json ground truth · slice #3: first drain pass + roster gen #2 · ORDER 013 conformed games mapping (Q-0267) · review-queue enforcement LIVE · doctrine debt PAID · Q-0262 folded
 health: green
 kit: v1.7.0 · check: green · engaged: yes
 coordinator: **LIVE** — session-based coordinator seat booted 2026-07-10 (round-3 pack §1 brief) · operating model CONTINUOUS (Q-0265)
@@ -19,11 +19,18 @@ routine: **fleet-manager failsafe wake** · cron 30 */2 * * * · id `trig_014odn
 > the ORDER 003/007 slice (PR #37); **chain fire #2 ~21:00Z = the ORDER 009/010 slice
 > (PR #38, this record)**. F-1 rebind-then-delete cutover recipe held.
 
-last-shipped: #53 — chain slice #7: roster generation #3 (GAMES-BOOT delta + stale-clone-cache transport caveat) + trading#21 RETIRED-SUPERSEDED (first closed review-queue row) (this PR); before: #52 slice #6 (superbot-games#5 verify + owner-signal YES on the permissions grant) · **#51 OWNER-LANDED (UNIVERSAL.md v3 permissions block, `c23223f`)** · #50 slice #5 (superbot-games#16 verify) · #49 slice #4 · #44 slice #3 · #46 ORDER 013 conformed games mapping
+last-shipped: #54 — owner-update propagation (ORDER 014 ✅ DONE + ORDER 015 filed): Codex ENABLED fleet-wide in all 12 active metas + capabilities wall retired + review-queue drain paths re-primaried + owner-queue OA-002/item-14 resolved + superbot-idle verdict EXISTS-SEEDED + `projects/superbot-idle/meta.md` (this PR); before: #53 — chain slice #7: roster generation #3 (GAMES-BOOT delta + stale-clone-cache transport caveat) + trading#21 RETIRED-SUPERSEDED (first closed review-queue row); before: #52 slice #6 (superbot-games#5 verify + owner-signal YES on the permissions grant) · **#51 OWNER-LANDED (UNIVERSAL.md v3 permissions block, `c23223f`)** · #50 slice #5 (superbot-games#16 verify) · #49 slice #4 · #44 slice #3 · #46 ORDER 013 conformed games mapping
 universal-pointer: **OWNER RULING 2026-07-10 (owner chat ~22:15Z): Custom Instructions = FULL per-repo `projects/<repo>/instructions.md` paste per Project (they survive archives — full text always present); the universal pointer survives ONLY as the wake/start-off prompt** — projects/UNIVERSAL.md restructured to v2 (wake block v2 + Custom-Instructions flow section; v1's universal instructions block retracted); **v3 landed owner-authored `c23223f` (PR #51) with the fleet-canonical Permissions & authority block**
 blockers: none
 
 > ## ⚑ OWNER-QUEUE — games program: the details react has been ANSWERED BY ACTION — seats are BOOTED; one click remains (plugin-hello push)
+>
+> **ORDER 014/015 layer (PR #54, merged-union with this record):** the owner's
+> ~00:2xZ update independently confirms the same react-by-action (superbot-idle
+> in the 12-repo Codex enablement list + the repo verified EXISTS-SEEDED) —
+> flag stands DOWNGRADED to "§5 veto window open"; **ORDER 015** (Seat A +
+> Seat B founding packages) executes on the next chain slices, reconciling the
+> registry with what the booted seats already run.
 >
 > **Observed at roster generation #3 (00:09Z):** the Q-0267 conformed mapping's
 > details (`docs/proposals/games-program-mapping-conformed-2026-07-10.md`, PR #46)
@@ -80,6 +87,25 @@ pointer:
   head still at its born-red card (`a4b736b`), the re-land commits visible only
   in a parallel worker's local branch. Re-checked at this PR's merge; whichever
   lands second reconciles by union (never clobber).
+
+## Owner-update propagation — 2026-07-11T00:2xZ relay (ORDER 014, PR #54)
+
+Owner update relayed live to the coordinator (~00:2xZ), executed by a worker in
+one PR (#54): **Codex environments exist for ALL 12 active fleet repos**; stale
+dead-repo envs deleted. Landed: all 12 `projects/` meta Codex lines → ENABLED
+(codetool ×3 archive metas note env deletion; central quota caveat in
+`projects/README.md` — refusals like superbot#1920's 22:03Z are RETRY-LATER,
+never a wall); `docs/capabilities.md` fm no-Codex-env wall RETIRED (dated,
+owner provenance); `docs/review-queue.md` re-primaried (@codex PRIMARY on all
+12; pokemon/gba rows stay manager-batch — outside the 12; ORDER 007 relay
+unblocked for fm PRs); `docs/owner-queue.md` sim-lab OA-002 + fm PR-#26 ask →
+Resolved, item 14 Seat B click DONE; **superbot-idle verdict: EXISTS — public,
+SEEDED (Q-0267 lane-contract README), pushed 00:15:40Z, `can_push: true`**
+(verified via `list_repos` + raw probe; MCP repo scope + api.github.com are
+walled for it from this seat, consistent with recorded walls) →
+`projects/superbot-idle/meta.md` stub committed; inbox ORDER 014 appended +
+✅ DONE, **ORDER 015 filed (new): Seat A + Seat B founding packages, next
+chain slices**. Heartbeat stamped last.
 
 ## Chain-slice record — 2026-07-10T~23:36Z fire (chain slice #6, PR #52)
 

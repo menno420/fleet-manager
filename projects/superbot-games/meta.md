@@ -42,10 +42,12 @@
   `menno420/superbot-next` (SubsystemManifest plugin contract) — declared in
   the held games-mining package §3. Variables: **none** (pure stdlib; Block-4
   ban on Railway IDs / tokens / DSNs stands).
-- **Codex enabled: unknown.** Cheap check this session: GitHub issue-scoped
-  search (`codex repo:menno420/superbot-games`) → 0 results; the endpoint
-  cannot see PR review comments, so absence is not evidence. No Codex click
-  recorded in any games package.
+- **Codex: ENABLED (owner, 2026-07-11)** — Codex environments exist for all
+  12 active fleet repos, superbot-games included (owner update 2026-07-11
+  ~00:2xZ, fm inbox ORDER 014); supersedes the "unknown" cheap-check verdict.
+  Review-queue rows #16/#5 can now drain via @codex directly. Quota refusals
+  are RETRY-LATER, never a wall (fm `projects/README.md` § Codex fleet-wide
+  enablement).
 
 ## Two-writer anomaly (the package's structural fix)
 

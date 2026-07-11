@@ -170,6 +170,23 @@ response — never from a README, a rail declaration, or another PR's assertion.
 **Playbook R22:** any lane whose rails depend on visibility runs this once at every
 session start.
 
+### Codex post-merge review — ENABLED on ALL 12 active fleet repos (owner, 2026-07-11)
+Codex environments exist for **every active fleet repo** — fleet-manager,
+idea-engine, product-forge, sim-lab, substrate-kit, superbot, superbot-games,
+superbot-idle, superbot-next, trading-strategy, venture-lab, websites — per the
+owner update 2026-07-11 ~00:2xZ (fm `control/inbox.md` ORDER 014; stale envs for
+dead repos deleted the same pass). **This RETIRES the recorded "fleet-manager has
+no Codex env — ask on PR #26" wall** (dated retirement 2026-07-11, owner
+provenance; the wall had been recorded in `control/status.md` @702ba89, the
+ORDER 003 drain record, and `projects/fleet-manager/meta.md` — all corrected).
+@codex is the PRIMARY review-queue drain path on all 12 repos
+(`docs/review-queue.md`).
+
+**Quota caveat:** Codex quota refusals — e.g. superbot#1920's 2026-07-10T22:03:53Z
+"You have reached your Codex usage limits for code reviews" — are **RETRY-LATER,
+never a wall**. Re-ask after the quota window resets; never record a quota
+refusal as a Codex wall.
+
 ## WALLED — verified walls (quote the observed error, don't paraphrase)
 
 - **Tag push, GitHub Release creation, remote branch deletion** — fail with **403 at the

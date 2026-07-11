@@ -320,29 +320,31 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
     - VERIFIED-NEEDED: after the click, the next main push's Pages deploy run
       goes green and the URL serves.
 
-14. **Games program — react to the CONFORMED mapping's DETAILS (Q-0267 frame is
-    yours; the frame is decided).** Refreshed 2026-07-10 (ORDER 013, PR #46):
-    the old ⚑ OWNER-REVIEW ask on the PR #41 proposal is RETIRED — you shaped
-    the mapping yourself (superbot router Q-0267), which IS the reaction that
-    proposal awaited.
-    - WHAT: react to the four filled-in details (veto points §5):
-      **(1) API SPLIT** (game-state feed stays superbot-lane per #1920;
-      theme/feature manifests = game-seat + plugin-contract committed files,
-      raw-fetched by websites; provisioning = setup-code first) ·
-      **(2) theme contract drafted in Seat B**, promoted to the plugin-contract
-      family later · **(3) new repo name `superbot-idle`** (alternates:
-      `superbot-plugin-idle`, `idle-engine`) · **(4) websites selector
-      sequenced LAST-shippable** (website-first = user flow, not build order).
-    - WHERE: [`proposals/games-program-mapping-conformed-2026-07-10.md`](proposals/games-program-mapping-conformed-2026-07-10.md)
-      §5 — reply in any chat or as an ORDER; one line suffices ("go" /
-      "change X"). Silence-window doctrine applies to the details (they are
-      reversible paper); the two OWNER-ONLY clicks are real: **create the Seat
-      B repo** (name above) and **push/permission the seeded plugin package**
-      — `menno420/superbot-plugin-hello` EXISTS (your 16:03Z creation) but is
+14. **Games program — react-by-action RECEIVED for the repo name; §5 veto
+    points remain open for objection, founding-package prep proceeding
+    decide-and-flag.** Updated 2026-07-11 (ORDER 014): **the Seat B
+    repo-creation click is ✅ DONE — `menno420/superbot-idle` EXISTS**
+    (owner-created, public, pushed 2026-07-11T00:15:40Z; verified via
+    `list_repos` + raw README probe — main carries the seeded binding
+    lane-contract README per Q-0267's founding package). Creating the repo
+    under the proposed §5.3 name IS the react-by-action on the name; the
+    remaining §5 points — **(1) API SPLIT** (game-state feed stays
+    superbot-lane per #1920; theme/feature manifests = game-seat +
+    plugin-contract committed files, raw-fetched by websites; provisioning =
+    setup-code first) · **(2) theme contract drafted in Seat B**, promoted to
+    the plugin-contract family later · **(4) websites selector sequenced
+    LAST-shippable** — stay open **for objection only** (Q-0240 veto window);
+    silence = prep proceeds.
+    - WHAT (remaining): veto any §5 point if wrong; plus the one still-open
+      click: **push/permission the seeded plugin package** —
+      `menno420/superbot-plugin-hello` EXISTS (your 16:03Z creation) but is
       EMPTY; the superbot-next lane holds the seeded package in-tree at
       `examples/superbot-plugin-hello/`.
-    - WHY owner-only: repo creation has no agent surface; the details react is
-      your Q-0240 veto window.
+    - WHERE: [`proposals/games-program-mapping-conformed-2026-07-10.md`](proposals/games-program-mapping-conformed-2026-07-10.md)
+      §5 — one line in any chat or an ORDER.
+    - NEXT (agent-side, no click): **ORDER 015** — prepare Seat A
+      (superbot-games relaunch) + Seat B (superbot-idle) founding packages
+      per the conformed mapping + gen-3 standard, decide-and-flag.
     - UNBLOCKS: Seat B skeleton (engine + egg-farm theme + theme-gate CI), the
       founding-package paste wave for both games seats, the websites selector
       increment, the plugin-contract end-to-end proof.
@@ -427,6 +429,23 @@ state is committed in the repos). Do in one sitting whenever convenient.
 - **NOT yet safe:** codetool repo archive toggles ×3 (paired decision above
   — wait until the gen-3 succession question settles); anything holding an
   open READY PR.
+
+## Resolved 2026-07-11
+
+- **sim-lab OA-002 ("enable the Codex GitHub integration for sim-lab") —
+  RESOLVED**: Codex environments now exist for **ALL 12 active fleet repos**,
+  sim-lab included (owner update 2026-07-11 ~00:2xZ, inbox ORDER 014; stale
+  envs for dead repos deleted). The lane's `control/status.md` OA-002 line
+  closes at its next seat session; the first verdict PR's @codex comment
+  remains the live end-to-end test. Quota refusals are RETRY-LATER, never a
+  wall (`projects/README.md` § Codex fleet-wide enablement).
+- **fleet-manager Codex env ask (PR #26) — RESOLVED** by the same fleet-wide
+  enablement; the `capabilities.md` wall entry is retired and @codex is now
+  PRIMARY on this repo's own review-queue rows (ORDER 007 relay unblocked).
+- **Games mapping item 14, Seat B repo-creation click — DONE**:
+  `menno420/superbot-idle` exists (public, seeded, pushed
+  2026-07-11T00:15:40Z) — the react-by-action on the §5.3 name; see the
+  reworded item 14 above for the remaining veto window.
 
 ## Resolved 2026-07-10 (later additions)
 

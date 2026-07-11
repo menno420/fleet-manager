@@ -40,11 +40,12 @@
   writable repo; substrate-kit is a read source in the env). **Env vars:
   NONE** — yfinance is keyless; git auth is platform-provided (archetype
   header + deployed §3). No secrets ever in repo or env.
-- **Codex enabled: unknown (cheap check done).** GitHub issue/PR search for
-  "codex" in menno420/trading-strategy = 0 results (2026-07-10) — no @codex
-  comment has ever been posted, so the toggle has never been exercised;
-  absence is not proof either way (search endpoint is issue-scoped). No
-  Codex click appears in the lane's founding package §Owner-clicks.
+- **Codex: ENABLED (owner, 2026-07-11)** — Codex environments exist for all
+  12 active fleet repos, trading-strategy included (owner update 2026-07-11
+  ~00:2xZ, fm inbox ORDER 014); supersedes the 2026-07-10 "unknown" verdict.
+  Review-queue rows trading#21/#36 can now drain via @codex directly. Quota
+  refusals are RETRY-LATER, never a wall (fm `projects/README.md` § Codex
+  fleet-wide enablement).
 
 ## Deployed-state per part (2026-07-10)
 

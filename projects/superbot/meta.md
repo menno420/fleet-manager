@@ -46,12 +46,17 @@
   the origin repo is the only active repo not on the substrate it exports"
   (`docs/eap/eap-program-review-2026-07-10.md` @ `dc19b1e8`). Real kit
   adoption is a substrate-kit-seat distribution job, not this package's.
-- **Codex:** **LIVE.** Evidence: merged codex-authored PR **#1917**
+- **Codex: ENABLED (owner, 2026-07-11; already LIVE before).** Evidence:
+  merged codex-authored PR **#1917**
   (`Merge pull request #1917 from menno420/codex/add-return-docstring-to-function-in-utils`,
   merge commit `f0737dee` on origin/main) + the standing @codex reviewer
   ruling Q-0258 with connector activity through the Sol/Codex evaluation
   thread #1938–#1943 (current-state ledger @ `dc19b1e8`; review-queue
-  backfill notes carried the same evidence hub-side).
+  backfill notes carried the same evidence hub-side). Fleet-wide enablement
+  confirmed by the owner 2026-07-11 ~00:2xZ (fm inbox ORDER 014). Quota
+  caveat: refusals like superbot#1920's 2026-07-10 22:03Z "usage limits"
+  reply are RETRY-LATER, never a wall (fm `projects/README.md` § Codex
+  fleet-wide enablement).
 
 ## Deployed-state per part (2026-07-10)
 
