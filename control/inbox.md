@@ -676,3 +676,47 @@ single-repo, 3.11/3.10 pins, fallback WARN, base-unavailable fail-soft,
 Track-B gate skip/attempt/override — all exit 0). Thin configs are
 re-derived and unverified-as-thin-configs until the next owner paste / lane
 boot (Q-0105 posture; noted in archetypes.md).
+
+## ORDER 017 · update 2026-07-11T17:00Z · status: ✅ DONE (instruction re-issue from UNIVERSAL v4; fleet-manager PR #77 — PARKED for the owner)
+priority: P1
+do: (append-only DONE flip for ORDER 017 above — no new work ordered; this
+block records the execution.)
+why: the gate cleared — owner-queue item 13 resolved by PR #76 (owner-merged
+2026-07-11T15:26:47Z, UNIVERSAL v4 @ `e1848ff`) — and the re-issue executed
+in one PR against the prepared edit manifest.
+done-when: (met in fleet-manager PR #77, parked READY for the owner's click —
+instruction-authority content; no auto-merge armed, no agent merge)
+✅ DONE: executed (PR #77, lane worker fable-5, dispatched by coordinator
+cse_012o8pySy5K3AV6JWoPKryZL):
+- **All 15 §2.2 rows re-issued** from the corrected clause: every
+  `projects/<repo>/instructions.md` v1→v2 (superbot-games v2→v3) with the
+  canonical Permissions & authority block inserted BYTE-VERBATIM from
+  `projects/UNIVERSAL.md:44-81` @ `e1848ff` (cmp-verified per file); each
+  repo's own required-check names + born-red gate kept; all 15 files < 7,500
+  bytes (paste-safe; websites trimmed 8,382→7,470).
+- **§3.2 contradictions gone**: fleet-manager :76 REST-mandate vs :85 wall
+  list (both rewritten to park-READY+green); trading-strategy :92 "MERGE
+  AUTHORITY is yours" deleted vs :93-96 terminal-denial (survives inside the
+  canonical block).
+- **§3.1 resolved by INSERTION** (UNIVERSAL is owner-only; its "verbatim in
+  every file" claim now TRUE — the claim and the files agree).
+- **§3.3 hoist**: staged as the owner paste bundle
+  `docs/proposals/universal-v5-hoist-bundle-2026-07-11.md` (v4→v5, owner
+  sitting) — NO agent edit to UNIVERSAL.md.
+- **§5.4 per-lane enabler status recorded in every file** per
+  docs/findings/enabler-install-verification-2026-07-11.md; the two unprobed
+  lanes were probed this session via raw fetch: superbot-idle NO enabler
+  (auto-merge-enabler.yml 404), superbot-mineverse HAS the enabler (200).
+  Enabler lanes (substrate-kit, superbot, idea-engine, + mineverse) say so;
+  all others carry park-READY+green + the GITHUB_TOKEN merge-on-green
+  standing fix + non-author review-then-merge path.
+- **Incident riders folded per-file**: merge-authorization,
+  all-checks-COMPLETED, token/CI-poll budget, fresh-clone workers, date -u
+  timestamps (all 15); Q-0120 phantom-claim rider into the 8 files missing
+  it; silent-fire self-check into websites, gba-homebrew, pokemon-mod-lab.
+- **Companion coordinator-prompt.md one-liners updated** (11 files);
+  playbook R21 annotated SUPERSEDED; superbot-mineverse :101-104
+  supersession note executed; superbot-retro meta.md note + flagged trigger
+  re-arm follow-up (registry-verbatim stored prompts NOT edited);
+  owner-queue items 13 + 15 refreshed; projects/README.md paste-wave
+  registry updated to v2/v3-bodies-only.

@@ -117,9 +117,16 @@ day) unless a later date is noted next to the rule.
 
 ## MERGE MECHANICS
 
-21. **R21 (2026-07-09) — REST merge-on-green is the PRIMARY landing path on born-red
+21. **R21 (2026-07-09) — SUPERSEDED 2026-07-11 by the corrected UNIVERSAL v4
+    §2.4 merge clause (PR #76, owner-merged @ `e1848ff`; re-issued fleet-wide
+    by ORDER 017): agents never REST-merge or arm their OWN PRs — on any
+    can't-land shape, park READY+green per the canonical clause (non-author
+    review-then-merge / owner click / GITHUB_TOKEN merge-on-green workflow).
+    Original text kept below for the structural findings (which shapes can't
+    arm), which remain true.** *(Original:)* REST merge-on-green is the
+    PRIMARY landing path on born-red
     repos and on repos with a PR-requiring ruleset but no CI; arm-at-creation (R5)
-    stays primary only where a check can go pending and the repo isn't born-red.**
+    stays primary only where a check can go pending and the repo isn't born-red.
     Arming auto-merge at PR creation is *structurally impossible* in two verified
     shapes: **(a) born-red repos** — the gate check fails all session by design until
     the final card flip, so GitHub refuses the arm the whole time ("pull request is in
