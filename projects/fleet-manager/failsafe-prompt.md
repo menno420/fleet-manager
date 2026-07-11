@@ -1,17 +1,18 @@
-<!-- v1 · 2026-07-10 · fleet-manager projects registry -->
+<!-- v2 · 2026-07-11 · fleet-manager projects registry -->
 # fleet-manager — failsafe cron (dead-man wake)
 
-> **Status: DEPLOYED + VERIFIED** — trigger `trig_014odnv5h1tkJAFRhix3tGLq`,
-> created 2026-07-10T20:26:23Z, bound to the coordinator session
-> `session_01V66KdPhtbR1AThhK77kDqr`; verified live (present + `enabled: true`)
-> in the full 88-record `list_triggers` output at ~20:47Z, `next_run_at`
-> 2026-07-10T22:34:20Z. The prior standing wake
-> `trig_01QBrp5MjZL3F9mv6KsTXTzN` ("fleet-manager 2-hourly standing wake") was
-> deleted and verified gone in the same listing. Record: fm `control/status.md`
-> re-arm record + `control/inbox.md` ORDER 011 ✅ DONE block (Q-0265 cutover,
-> landed via fleet-manager PR #37, branch `claude/order-003-007-review-queue`;
-> origin/main was still @702ba89 "in-progress" at build time — the DONE record
-> is the newer state).
+> **Status: DEPLOYED + VERIFIED** — trigger `trig_01F9UdoUtLy8oknBPBkHLshS`,
+> created 2026-07-11T01:04:10Z, bound to the successor coordinator session
+> `session_012o8pySy5K3AV6JWoPKryZL`; verified live (present + enabled) via
+> `list_triggers` ~01:05Z, `next_run_at` 2026-07-11T02:33:34Z. The prior
+> failsafe `trig_014odnv5h1tkJAFRhix3tGLq` (bound to the archived predecessor
+> coordinator session `session_01V66KdPhtbR1AThhK77kDqr`) was deleted and
+> verified-absent 2026-07-11 (F-1 rebind-then-delete cutover after the
+> predecessor chat archive — new trigger created + verified FIRST, old id
+> deleted second). The stored prompt of the new trigger was verified byte-exact
+> against § "Prompt text (deployed)" below (497 chars) — the deployed text is
+> UNCHANGED by the cutover. Record: fm `control/status.md` § "Successor seat
+> LIVE — F-1 cutover complete" (fleet-manager PR #57).
 
 ## Trigger fields
 
