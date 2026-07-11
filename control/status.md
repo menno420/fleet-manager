@@ -1,6 +1,6 @@
 # fleet-manager · status
-updated: 2026-07-11T01:12:00Z — successor coordinator session cse_012o8pySy5K3AV6JWoPKryZL (model: fable-5)
-phase: **SUCCESSOR COORDINATOR SEAT LIVE — F-1 TRIGGER CUTOVER COMPLETE (2026-07-11 ~01:04–01:06Z; predecessor chat archived ~01:10Z). The seat is no longer DOWN: new failsafe `trig_01F9UdoUtLy8oknBPBkHLshS` bound to the successor session, old `trig_014odnv5h1tkJAFRhix3tGLq` deleted + verified-absent, pacemaker one-shot armed (01:22Z). Continuous mode (Q-0265) resumed at the manager seat; ORDER 015 (re-scoped: registry centralization) executes next.** Fleet state at predecessor close (unchanged since): GEN-2 FLEET LIVE, continuous mode (Q-0265) paused only at the manager seat — all lane failsafes + chains keep running (roster gen #3). Prior phase (ORDER 014, PR #54) — CODEX ENABLED FLEET-WIDE on all 12 active repos incl. superbot-idle (stale dead-repo envs deleted; @codex now PRIMARY drain everywhere; fm's own PR #26 env ask RESOLVED; quota refusals = RETRY-LATER, never a wall; ORDER 015 filed: games founding packages — reconcile with the seats' self-boot per slice #7) · ⚑ SUPERBOT-IDLE owner-created 2026-07-11T00:15:40Z under the proposed §5.3 name, public, SEEDED with the Q-0267 lane-contract README = the games-mapping REACT-BY-ACTION; §5 veto window open · chain slice #7 SHIPPED — ROSTER GENERATION #3 with the biggest delta of any generation: THE GAMES PROGRAM BOOTED (superbot-idle repo LIVE — Seat B boot complete, walking skeleton + theme-schema v1, kit v1.7.1, failsafe `45 */2 * * *` + hot chain; superbot-games Seat A armed — failsafe `15 */2 * * *` created 23:47Z, live chain session, `order-001-collection-scope` branch in flight; the Q-0267 ⚑ details react ANSWERED BY ACTION; `superbot-plugin-hello` still EMPTY) + review-queue trading#21 manager-verified: first row ever CLOSED, RETIRED-SUPERSEDED (promotion label demoted by #36 re-grade · holdout SPENT/report FINAL · paper lane's binding protocol locks the forward subject — zero decision weight left; the two undocumented P1 drops AAPL-SMA/AAPL-MACD confirmed still undocumented but non-load-bearing, annotation rides next trading contact)** · slice #6: superbot-games#5 verify (risk SCOPED, 15/19 behavioral) + permissions grant LANDED OWNER-AUTHORED (`c23223f`, UNIVERSAL.md v3, PR #51) · slice #5: superbot-games#16 CONFIRMED-STILL-BROKEN (fix pointer → tests.yml) · slice #4: @codex quota-blocked + dashboard.json ground truth · slice #3: first drain pass + roster gen #2 · ORDER 013 conformed games mapping (Q-0267) · review-queue enforcement LIVE · doctrine debt PAID · Q-0262 folded
+updated: 2026-07-11T01:42:00Z — ORDER 015 slice: lane worker session (model: fable-5), dispatched by coordinator cse_012o8pySy5K3AV6JWoPKryZL (PR #58)
+phase: **ORDER 015 ✅ DONE (as RE-SCOPED, handoff §5: registry CENTRALIZED from the SELF-BOOTED games seats, not authored) — `projects/superbot-games/` regenerated v1→v2 (Seat A LIVE: failsafe `trig_019ZgWyL78Rx1sr6LhvL8NE3` `15 */2 * * *`; order-001 MERGED superbot-games PR #24, merge `7d4c347`; floor 230 at `773fab0`; kit v1.8.0) + `projects/superbot-idle/` built v1 (Seat B fully active: HEAD `677b74d`, PRs #1–#25 merged, 216 tests, kit v1.7.1; failsafe `trig_01TWKGFW8RUsMvxUMt2ndzqA` `45 */2 * * *`); both stored failsafe prompts committed VERBATIM-FROM-REGISTRY (extracted 01:26:43Z); review-queue superbot-games#16 CLOSED (VERIFIED-FIXED-AND-MERGED); inbox now EMPTY of open orders (⚑ reconciliation record below).** Prior phase: SUCCESSOR COORDINATOR SEAT LIVE — F-1 TRIGGER CUTOVER COMPLETE (2026-07-11 ~01:04–01:06Z; predecessor chat archived ~01:10Z; new failsafe `trig_01F9UdoUtLy8oknBPBkHLshS` bound to the successor session, old `trig_014odnv5h1tkJAFRhix3tGLq` deleted + verified-absent, pacemaker one-shot armed 01:22Z; continuous mode Q-0265 resumed at the manager seat).** Fleet state at predecessor close (unchanged since): GEN-2 FLEET LIVE, continuous mode (Q-0265) paused only at the manager seat — all lane failsafes + chains keep running (roster gen #3). Prior phase (ORDER 014, PR #54) — CODEX ENABLED FLEET-WIDE on all 12 active repos incl. superbot-idle (stale dead-repo envs deleted; @codex now PRIMARY drain everywhere; fm's own PR #26 env ask RESOLVED; quota refusals = RETRY-LATER, never a wall; ORDER 015 filed: games founding packages — reconcile with the seats' self-boot per slice #7) · ⚑ SUPERBOT-IDLE owner-created 2026-07-11T00:15:40Z under the proposed §5.3 name, public, SEEDED with the Q-0267 lane-contract README = the games-mapping REACT-BY-ACTION; §5 veto window open · chain slice #7 SHIPPED — ROSTER GENERATION #3 with the biggest delta of any generation: THE GAMES PROGRAM BOOTED (superbot-idle repo LIVE — Seat B boot complete, walking skeleton + theme-schema v1, kit v1.7.1, failsafe `45 */2 * * *` + hot chain; superbot-games Seat A armed — failsafe `15 */2 * * *` created 23:47Z, live chain session, `order-001-collection-scope` branch in flight; the Q-0267 ⚑ details react ANSWERED BY ACTION; `superbot-plugin-hello` still EMPTY) + review-queue trading#21 manager-verified: first row ever CLOSED, RETIRED-SUPERSEDED (promotion label demoted by #36 re-grade · holdout SPENT/report FINAL · paper lane's binding protocol locks the forward subject — zero decision weight left; the two undocumented P1 drops AAPL-SMA/AAPL-MACD confirmed still undocumented but non-load-bearing, annotation rides next trading contact)** · slice #6: superbot-games#5 verify (risk SCOPED, 15/19 behavioral) + permissions grant LANDED OWNER-AUTHORED (`c23223f`, UNIVERSAL.md v3, PR #51) · slice #5: superbot-games#16 CONFIRMED-STILL-BROKEN (fix pointer → tests.yml) · slice #4: @codex quota-blocked + dashboard.json ground truth · slice #3: first drain pass + roster gen #2 · ORDER 013 conformed games mapping (Q-0267) · review-queue enforcement LIVE · doctrine debt PAID · Q-0262 folded
 health: green
 kit: v1.7.0 · check: green · engaged: yes
 coordinator: **LIVE** — SUCCESSOR coordinator seat `cse_012o8pySy5K3AV6JWoPKryZL` booted 2026-07-11 from `projects/fleet-manager/reboot-prompt.md` (predecessor seat archived ~01:10Z) · operating model CONTINUOUS (Q-0265)
@@ -19,7 +19,63 @@ routine: **fleet-manager failsafe wake** · cron 30 */2 * * * · id `trig_01F9Ud
 > the ORDER 003/007 slice (PR #37); **chain fire #2 ~21:00Z = the ORDER 009/010 slice
 > (PR #38, this record)**. F-1 rebind-then-delete cutover recipe held.
 
-## Successor seat LIVE — F-1 cutover complete — 2026-07-11T01:0x–01:1xZ (this PR, #57)
+## ORDER 015 slice record — registry centralization — 2026-07-11T01:3x–01:4xZ (PR #58)
+
+Attribution: **lane worker session (model: fable-5), dispatched by coordinator
+cse_012o8pySy5K3AV6JWoPKryZL.**
+
+> **⚑ RECONCILIATION FLAG (decide-and-flag, per the ORDER 015 re-scope —
+> `docs/succession/coordinator-handoff-2026-07-11.md` §5): ORDER 015's
+> registry packages were CENTRALIZED FROM the self-booted seats, NOT AUTHORED
+> as founding packages.** Reality overtook the order's filing (00:45Z): both
+> games seats booted themselves before any founding package existed, so the
+> executed done-when is "sweep what the booted seats ACTUALLY run into
+> version-stamped `projects/` packages, regenerate-don't-fork" — the order's
+> original done-when items (owner-queue paste-wave refresh for boots, boot
+> clicks queued WHAT/WHERE/UNBLOCKS) are MOOT: no boots remain to click. Every
+> never-deployed package part says so explicitly instead of inventing content
+> (registry doctrine 1). Owner may veto/redirect any of this reading.
+
+What landed (all citations verified against live registry + ls-remote-matched
+repo HEADs):
+
+- **Seat A — `projects/superbot-games/` regenerated IN PLACE v1 → v2** (v1
+  described a PARKED+CLOCKLESS merged lane — history). Live facts swept:
+  failsafe **`trig_019ZgWyL78Rx1sr6LhvL8NE3`** "superbot-games failsafe wake"
+  `15 */2 * * *`, enabled, persistent session `session_01TZcMwFdE7zvViW9HgH7fqZ`,
+  armed 2026-07-10T23:47:02Z; stored prompt (266 chars) committed
+  VERBATIM-FROM-REGISTRY (extracted 2026-07-11T01:26:43Z). **order-001 MERGED**:
+  superbot-games PR #24 (head `241fb21`, merged 2026-07-11T00:20:47Z, merge SHA
+  `7d4c3473bb489e58c047c369521a66e7d6e1fbc0`; CI green — `tests` run
+  29131622448 + `substrate-gate` run 29131622510); fix in
+  `.github/workflows/tests.yml` (the order's substrate-gate.yml pointer was
+  stale), collected-count floor since raised 121→147→230 at games HEAD
+  `773fab0` (PRs #29/#33). Heartbeat 2026-07-11T01:17:42Z: orders
+  acked/done=001,002; kit v1.8.0. `setup-script.sh` kept + explicitly marked
+  NEVER-DEPLOYED (no paste receipt; repo carries its own three scripts).
+- **Seat B — `projects/superbot-idle/` built v1** (stub meta → real meta;
+  instructions + coordinator-prompt canonized from the repo's binding lane
+  contract; NO setup-script.sh — none verifiably deployed, stated in meta).
+  Live facts swept: idle HEAD `677b74d` (73 commits, PRs #1–#25 ALL merged,
+  founding queue COMPLETE, 216 tests green, kit v1.7.1, both required checks
+  substrate-gate + theme-gate); failsafe **`trig_01TWKGFW8RUsMvxUMt2ndzqA`**
+  "superbot-idle failsafe wake" `45 */2 * * *`, enabled, persistent session
+  `session_01BRmUrjckzMsewsXzpc3wwW`, armed 2026-07-10T23:44:45Z; stored
+  prompt (265 chars) VERBATIM-FROM-REGISTRY (extracted 01:26:43Z). Seat B's
+  inbox has NO manager orders yet; its SIM-001 (Q-0264) ⚑ still awaits the
+  manager's sim-lab relay — **standing manager to-do carried here.**
+- **`projects/README.md`**: both matrix rows corrected to LIVE reality; stub
+  list + stale paste-wave bullet updated.
+- **`docs/review-queue.md`**: superbot-games#16 **CLOSED —
+  VERIFIED-FIXED-AND-MERGED** (second row ever closed; verdict cites PR #24 /
+  `7d4c347` / CI runs; consequential note added: the still-open
+  superbot-games#5 row's "gate does not re-run the full suite" sequencing
+  caveat is obsolete — the gate re-runs all 230 on every PR).
+- **`control/inbox.md`**: ORDER 015 flipped ✅ DONE via append-only block
+  (one-writer: this PR is manager-lane work executing the coordinator's
+  dispatch).
+
+## Successor seat LIVE — F-1 cutover complete — 2026-07-11T01:0x–01:1xZ (PR #57)
 
 Attribution: **successor coordinator session cse_012o8pySy5K3AV6JWoPKryZL (model: fable-5)**.
 The predecessor coordinator chat was archived 2026-07-11 ~01:10Z; the successor
@@ -72,7 +128,7 @@ the session card + this heartbeat. No live triggers touched — the successor
 does the cutover. PR #47 verified still open at its born-red card only
 (`a4b736b`, no fold content); disposition = handoff §3.3.
 
-last-shipped: #55 — coordinator archive close-out (succession handoff doc + successor reboot prompt + enders; this PR, the seat's last); before: #54 — owner-update propagation (ORDER 014 ✅ DONE + ORDER 015 filed): Codex ENABLED fleet-wide in all 12 active metas + capabilities wall retired + review-queue drain paths re-primaried + owner-queue OA-002/item-14 resolved + superbot-idle verdict EXISTS-SEEDED + `projects/superbot-idle/meta.md` (this PR); before: #53 — chain slice #7: roster generation #3 (GAMES-BOOT delta + stale-clone-cache transport caveat) + trading#21 RETIRED-SUPERSEDED (first closed review-queue row); before: #52 slice #6 (superbot-games#5 verify + owner-signal YES on the permissions grant) · **#51 OWNER-LANDED (UNIVERSAL.md v3 permissions block, `c23223f`)** · #50 slice #5 (superbot-games#16 verify) · #49 slice #4 · #44 slice #3 · #46 ORDER 013 conformed games mapping
+last-shipped: #58 — ORDER 015 registry centralization (Seat A package v2 + Seat B package v1, VERBATIM failsafe prompts, README matrix, review-queue superbot-games#16 closed, ORDER 015 ✅ DONE; this PR); before: #57 — F-1 cutover record (successor failsafe live); before: #55 — coordinator archive close-out (succession handoff doc + successor reboot prompt + enders, the predecessor seat's last); before: #54 — owner-update propagation (ORDER 014 ✅ DONE + ORDER 015 filed): Codex ENABLED fleet-wide in all 12 active metas + capabilities wall retired + review-queue drain paths re-primaried + owner-queue OA-002/item-14 resolved + superbot-idle verdict EXISTS-SEEDED + `projects/superbot-idle/meta.md` (this PR); before: #53 — chain slice #7: roster generation #3 (GAMES-BOOT delta + stale-clone-cache transport caveat) + trading#21 RETIRED-SUPERSEDED (first closed review-queue row); before: #52 slice #6 (superbot-games#5 verify + owner-signal YES on the permissions grant) · **#51 OWNER-LANDED (UNIVERSAL.md v3 permissions block, `c23223f`)** · #50 slice #5 (superbot-games#16 verify) · #49 slice #4 · #44 slice #3 · #46 ORDER 013 conformed games mapping
 universal-pointer: **OWNER RULING 2026-07-10 (owner chat ~22:15Z): Custom Instructions = FULL per-repo `projects/<repo>/instructions.md` paste per Project (they survive archives — full text always present); the universal pointer survives ONLY as the wake/start-off prompt** — projects/UNIVERSAL.md restructured to v2 (wake block v2 + Custom-Instructions flow section; v1's universal instructions block retracted); **v3 landed owner-authored `c23223f` (PR #51) with the fleet-canonical Permissions & authority block**
 blockers: none
 
