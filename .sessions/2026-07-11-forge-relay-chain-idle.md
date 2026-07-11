@@ -1,6 +1,6 @@
 # 2026-07-11 — Forge heartbeat-fix relay (ORDER 003) + chain-idle heartbeat
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 📊 Model: Claude (Fable family, fable-5) · start 2026-07-11T04:50:59Z · lane worker
 dispatched by coordinator cse_012o8pySy5K3AV6JWoPKryZL
