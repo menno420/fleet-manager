@@ -1,6 +1,6 @@
 # ORDER 016 follow-ups — draft ORDERs (2026-07-11)
 
-> **Status:** `draft` — ready-to-file ORDER text produced by the ORDER 016
+> **Status:** `plan` — ready-to-file draft ORDER text produced by the ORDER 016
 > now-scope session (audit:
 > [`../findings/instruction-and-env-audit-2026-07-11.md`](../findings/instruction-and-env-audit-2026-07-11.md)).
 > **These are DRAFTS for the coordinator to file into `control/inbox.md`**
