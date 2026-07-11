@@ -4,8 +4,8 @@
 >
 > **GENERATED — do not hand-edit; regenerated each manager wake.**
 >
-> **Generation #2** · generated-at **2026-07-10T22:15Z** · by the Q-0265 continuation-chain
-> slice #3 (playbook R25; generation #1 was 21:20Z — deltas at the bottom; script
+> **Generation #3** · generated-at **2026-07-11T00:09Z** · by the Q-0265 continuation-chain
+> slice #7 (playbook R25; generation #2 was 22:15Z — deltas at the bottom; script
 > mechanization `tools/gen_roster.py` remains the follow-up once a parallel-run wake
 > confirms the format).
 >
@@ -16,76 +16,92 @@
 > file's generated-at goes stale >24h, trust the heartbeats directly** — do not act on
 > a stale roster row.
 >
-> Freshness age is `updated:` stamp vs generated-at. Repos without `control/` fall back
-> to HEAD committer date (superbot). Trigger evidence is from a **122-record**
-> `list_triggers` sweep at ~22:07Z (**20 enabled**: 9 standing crons + 2 legacy
-> poke-only + ~9 live continuation one-shots; NONE = no record for that lane).
+> **Generation note (transport honesty):** the first clone pass this generation served
+> **stale cached packs** through the agent proxy (9 of 13 repos came back at pre-22:00Z
+> HEADs); every repo was re-fetched until `FETCH_HEAD` matched a live `git ls-remote`
+> — all rows below are verified at the ls-remote HEAD (~00:05–00:09Z). Freshness age is
+> `updated:` stamp vs generated-at. Repos without `control/` fall back to HEAD committer
+> date (superbot). Trigger evidence is from a **175-record** `list_triggers` sweep at
+> ~00:03Z (**23 enabled**: 10 standing crons + 2 legacy poke-only + ~11 live
+> continuation/scheduled one-shots; NONE = no record for that lane).
 
 | Lane | Heartbeat `updated:` | Age | Phase (one line) | Orders (acked / done) | Kit | Wake state (trigger · cron · last fire) | Evidence (repo @ HEAD) |
 |---|---|---|---|---|---|---|---|
-| superbot (hub) | n/a — no `control/status.md` (pre-gen-2 home repo) | HEAD 22:00Z (~14m) | Hub live; recon loop self-fires via Actions (`reconciliation-trigger.yml`), not the trigger registry | n/a (router/inbox-less hub) | n/a (kit not adopted) | No repo wake trigger; 2 legacy enabled poke-only triggers ("superbot night executor", "suberbot docs reconciliation" — no schedule) | `9624c53` (#1966 sim-lab repo setup merge) |
-| superbot-next | 2026-07-10T19:12Z | ~3h03m | band-5 COMPLETE + **FIRST PARITY FLIP** (#112: `help` pending→ported, 3/3 goldens green); next: band-6 games + role/proof_channel EFFECT ports | acked 001–011 / done 003,005–011 (004 partial by design — flips when bands 6–9 carry both bindings) | v1.6.0 | **Builder failsafe wake** · `0 */2 * * *` · last 22:06:21Z; + enabled chain one-shot next 22:18Z → **chain HOT** (heartbeat lags the chain ~2h; HEAD 21:44Z) | `4a32f61` 21:44Z |
-| substrate-kit | 2026-07-10T21:26:00Z | ~49m | **v1.7.1 CUT + PUBLISHED fully agent-side** (tag live @ `1cbd666`, release run 29124338479 SUCCESS, sha256 independently verified); adopter wave rolling | acked 001–011 / done 001–011 | **v1.7.1 released** | **substrate-kit 2-hourly standing wake** · `0 */2 * * *` · last 20:09:49Z, next 22:08Z (still pre-Q-0265 naming — cutover relay still owed) | `415c37e` 21:25Z |
-| websites | 2026-07-10T21:58:00Z | ~17m | CONTINUOUS: 5 work slices this wake (#64/#67/#69/#72/#75); **ORDER 009 FULLY CLOSED** (/projects #72 + /reviews #75 LIVE-verified) | acked 001–009 / done 001–009 | v1.7.1 (#74) | **websites lane wake (ORDER 008)** · `0 */4 * * *` · last 20:02:42Z, next 00:01Z; send_later continuation chain LIVE-PROVEN (21:40Z nudge → #75) | `0cd08d2` 21:58Z |
-| trading-strategy | 2026-07-10T22:03:07Z | ~12m | **PAPER LANE OPERATIONAL** — foundation complete in 4 PRs (#40 design, #41 pre-registered protocol BINDING, #42 loader rail, #43 grading job); lane opens 2026-07-11, first evaluable signal ~early Aug | acked 001–008 / done 001–008 | v1.7.0 (#38) | **trading-strategy failsafe wake** · `0 */2 * * *` · **last 22:05:49Z — FIRST FIRE CONFIRMED** (gen#1: created, no fire yet); + one-shot 2026-07-17T09:00Z (weekly grading cadence) | `c47f74d` 22:05Z |
-| venture-lab | 2026-07-10T04:57:30Z | **~17h18m — STALEST LIVE LANE (worsening)** | Sellable zips complete (pre-boot heartbeat); ⚑B/⚑D publish clicks FROZEN (P0 Stripe fix = ORDER 003, unconsumed; **D1 defect re-confirmed at HEAD by this slice's manager-verify — `docs/review-queue.md` venture-lab#9 row**) | acked 001 / done 001 — **ORDERs 002/003/004 landed but unconsumed** (no lane session since 04:57Z) | HEAD merged **v1.7.1** wave (#14, 22:05Z — manager-side, not lane work) | **NONE** — no trigger record; ORDERs ride "next boot" that nothing schedules (owner-queue boot click) | `7558cb2` 22:05Z |
-| superbot-games · exploration | 2026-07-10T13:47Z | ~8h28m | archived-pending-gen-2 (wind-down complete #13); gen-2 boots await the games-mapping owner reaction (⚑ OWNER-REVIEW) | acked 001–005 / done 001–005 | status says v1.2.0; HEAD = **v1.7.1** upgrade (#23) | **NONE** — not armed (boot-gating ORDERs pending) | `b134961` 21:58Z |
-| superbot-games · mining | 2026-07-10T00:20Z | ~21h55m | gen-1 mining complete, lane closed; gen-2 boots from main | 001,004 done · 002,003 acked · 005 stale | consumes repo kit (v1.7.1 at HEAD) | **NONE** — not armed (self-reported + registry-confirmed) | same repo HEAD |
-| pokemon-mod-lab | 2026-07-10T07:49:08Z | ~14h26m | **LANE PARKED** (sessions 001–008 done, backlog exhausted, awaiting owner direction) | acked 001 / done 001 (+12 QoL) — **ORDER 003 (visibility verify) landed 12:56Z after last heartbeat, unconsumed** | v1.6.0 | **NONE** — no trigger record | `a76ada7` 12:56Z |
-| gba-homebrew | 2026-07-10T07:14:30Z | ~15h01m | Lumen Drift **SCOPE-COMPLETE** (session 7, polish list exhausted); parked | acked 001 / done 001 (joint done-when awaits Track A) | status v1.6.0; HEAD = **v1.7.1** wave (#27) | **NONE** — no trigger record | `16e64d7` 21:55Z |
-| product-forge | 2026-07-10T21:21:52Z | ~53m | CONTINUOUS: games-web extended past phase-1 (2nd character fixture + switcher, #10); **owner standing merge grant recorded 21:07Z** (review-AFTER model); PRs #1–#10 all merged, zero open | acked 001 / done 001 | v1.7.0 | **product-forge failsafe wake** · `0 */2 * * *` · last 22:08:20Z; + 22:14Z continuation one-shot → chain HOT | `11efb06` 21:23Z |
-| idea-engine | 2026-07-10T22:06:30Z | ~9m | STEADY — probe slices through #29; **backpressure LIFTED** (sim-lab pulled PROPOSALS 001–003; VERDICTs 001+002 returned); first substrate-kit Cross-links entry | acked — / done — (inbox verified empty at claim + re-checks) | v1.7.0 | **idea-engine failsafe wake** · `0 */2 * * *` · last 22:05:22Z; + 22:14Z continuation one-shot → chain HOT | `698fd93` 22:06Z |
-| sim-lab | 2026-07-10T21:52:00Z | ~23m | continuous — **VERDICT 002 finalized** (#8: INTAKE 001 panel-vs-single-pass, approve-selectively); next INTAKE 002 | acked — / done — | v1.7.0 | **sim-lab failsafe wake** · `0 1-23/2 * * *` (odd-hour stagger) · last 21:03:59Z, next 23:03Z; + 22:16Z continuation one-shot | `f8c86e3` 21:52Z |
-| codetool-lab-fable5 | 2026-07-09T20:06Z | ~26h09m — by design (wound down, ready for archive) | wind-down complete; succession pack #12; PLATFORM-LIMITS corrected (#14) | acked 001–004 / done 001–004 | n/a | **NONE** | `a6cf1a9` 12:07Z |
-| codetool-lab-opus4.8 | 2026-07-09T20:11:35Z | ~26h04m — by design | wind-down complete; v0.1.0+v0.2.0 releases live | acked 001–004 / done 001–004 | n/a | **NONE** | `80f6cd1` 07-09 |
-| codetool-lab-sonnet5 | 2026-07-09T20:02:14Z | ~26h13m — by design | wind-down complete; succession pack #15 | acked 001–004 / done 001–004 | n/a | **NONE** | `66c3dfc` 07-09 |
-| fleet-manager (this repo) | 2026-07-10T21:55:00Z (superseded by this slice's heartbeat) | ~20m | CONTINUOUS MODE (Q-0265) — chain slice #3 = first review-queue drain pass + this generation | inbox CLEAR (001–012 all DONE) | v1.7.0 | **fleet-manager failsafe wake** · `30 */2 * * *` · last 20:37:34Z, next 22:34Z; ~15-min `send_later` chain HOT | this PR |
+| superbot (hub) | n/a — no `control/status.md` (pre-gen-2 home repo) | HEAD 23:19Z (~50m) | Hub live; recon loop self-fires via Actions; games-idle founding package on main (`docs/planning/round3-founding-package-games-idle-2026-07-10.md`, consumed by the superbot-idle boot) | n/a (router/inbox-less hub) | n/a (kit not adopted) | No repo wake trigger; 2 legacy enabled poke-only triggers (no schedule) | `7c6278e` 23:19Z |
+| superbot-next | 2026-07-10T23:25Z | ~44m | band-5 COMPLETE + first parity flip held (#112); heartbeat now cites kit v1.7.1 at `7c819b1`; chain kept landing after the stamp (HEAD 00:02Z) | acked 001–011 / done 003,005–011 (004 partial by design — flips when bands 6–9 carry both bindings) | **v1.7.1** (was v1.6.0 at gen #2) | **Builder failsafe wake** · `0 */2 * * *` · last fired 22:06:21Z, next 00:05Z; + enabled chain one-shot 00:16Z → chain HOT | `2875665` 00:02:40Z |
+| substrate-kit | 2026-07-10T23:58:00Z | ~11m | **EAP program-review §6.10 SHIPPED** — auto-merge-enabler workflow planted by the kit + repo-settings one-time checklist in adopt (claim #152 `c9b632f` → build #153 `4ff0721`) | acked 001–011 / done 001–011 | v1.7.1 released | **`substrate-kit failsafe wake`** · `0 */2 * * *` · created **23:09:56Z** — **the Q-0265 cutover relay owed since gen #1 is DONE** (old "2-hourly standing wake" gone from the enabled set); first cron fire 00:08Z pending at sweep; + send_later chain link 00:15Z → chain HOT | `d8d9508` 23:57:58Z |
+| websites | 2026-07-10T23:57:00Z | ~12m | CONTINUOUS: **9 work slices this wake** (#64→#83; latest: /fleet.json shape-contract test); heartbeat pre-declared the 00:00Z 4-hourly fire collision rule | acked 001–009 / done 001–009 | v1.7.1 | **websites lane wake (ORDER 008)** · `0 */4 * * *` · **fired 00:02:41Z** (fresh), next 04:01Z; send_later chain live | `8c19e93` 23:58:18Z |
+| trading-strategy | 2026-07-10T23:15:00Z | ~54m | **PAPER LANE OPERATIONAL** — foundation complete (#40 design · #41 pre-registered protocol BINDING · #42 loader rail · #43 grading job); lane opens 2026-07-11; kit upgraded via #44 | acked 001–008 / done 001–008 | **v1.7.1** (#44 `24649d7`; was v1.7.0 at gen #2) | **trading-strategy failsafe wake** · `0 */2 * * *` · **fired 00:02:27Z** (fresh), next 02:01Z; + one-shot 2026-07-17T09:00Z (weekly grading) | `6799a4c` 23:23:05Z |
+| venture-lab | 2026-07-10T04:57:30Z | **~19h12m — STALEST LIVE LANE (still worsening)** | Sellable zips complete (pre-boot heartbeat); ⚑B/⚑D publish clicks FROZEN (P0 Stripe fix = ORDER 003, unconsumed; D1 defect confirmed at HEAD — review-queue venture-lab#9 row) | acked 001 / done 001 — **ORDERs 002/003/004 landed but unconsumed** (no lane session since 04:57Z) | v1.7.1 (manager-side wave #14) | **NONE** — no trigger record; still nothing schedules its "next boot" (owner-queue boot click) | `7558cb2` 22:05Z (unmoved since gen #2) |
+| superbot-games · Seat A (gen-2) | gen-1 heartbeats unchanged (exploration 07-09T20:09Z · mining 07-10T00:20Z) | gen-1 stale by design | **GEN-2 SEAT A BOOT UNDERWAY** — failsafe wake created 23:47:02Z + a live chain session (send_later 00:03Z link, "continue the work loop" for the games seat) + a fresh `order-001-collection-scope` branch on the repo (the P0 CI-collection fix in flight); no gen-2 heartbeat committed yet (repo HEAD still the kit-#23 merge) | gen-1: 001–005 done · gen-2 ORDER consumption starting (order-001 branch) | v1.7.1 at HEAD | **superbot-games failsafe wake** · `15 */2 * * *` · created 23:47:02Z, **first cron fire 00:15Z pending at sweep**; chain link 00:03Z armed | `b134961` 21:58:35Z + branch `order-001-collection-scope` |
+| **superbot-idle (NEW — Seat B)** | 2026-07-10T23:59:16Z | ~10m | **LANE BORN THIS WINDOW: BOOT COMPLETE** — ORDER 000 walking skeleton shipped (PR #2 → main `7d04c1b`); THEME SCHEMA v1 in progress (PR #4 merged 00:01:39Z, `control/theme-schema-v1-claim`); founding package = superbot `docs/planning/round3-founding-package-games-idle-2026-07-10.md`; repo carries `idle_engine/` + `themes/` + tests — the conformed-mapping Seat B (name as proposed) | ORDER 000 done | v1.7.1 | **superbot-idle failsafe wake** · `45 */2 * * *` · created 23:44:45Z, first cron fire 00:45Z pending; + send_later chain link 00:18Z → chain HOT | `187bed1` 00:01:39Z |
+| pokemon-mod-lab | 2026-07-10T07:49:08Z | ~16h20m | LANE PARKED by design; ORDER 003 (visibility verify) still unconsumed | acked 001 / done 001 (+12 QoL) | v1.6.0 | **NONE** — no trigger record | `a76ada7` 12:56Z (unmoved) |
+| gba-homebrew | 2026-07-10T07:14:30Z | ~16h55m | Lumen Drift SCOPE-COMPLETE; parked | acked 001 / done 001 (joint done-when awaits Track A) | status v1.6.0; HEAD = v1.7.1 wave (#27) | **NONE** — no trigger record | `16e64d7` 21:55:32Z (unmoved) |
+| product-forge | 2026-07-10T22:22:00Z | ~1h47m | CONTINUOUS: games-web extended past phase-1 (fixtures/switcher train continuing); owner standing merge grant (review-AFTER) in effect | acked 001 / done 001 | v1.7.0 | **product-forge failsafe wake** · `0 */2 * * *` · last fired 22:08:20Z, next 00:07Z; + send_later link 00:11Z → chain HOT | `77f5231` 22:46:56Z |
+| idea-engine | 2026-07-10T23:57:00Z | ~12m | STEADY — **probing superbot-games host-seam conformance stub** against live state (grounded at games HEAD `b134961`); grooming-round-2 contract amendments landed | inbox verified empty | v1.7.1 | **idea-engine failsafe wake** · `0 */2 * * *` · last fired 22:05:22Z, next 00:04Z; + send_later link 00:07Z → chain HOT | `6e33f1c` 23:58:26Z |
+| sim-lab | 2026-07-10T23:50:16Z | ~19m | continuous — **VERDICTs 003–005 finalized since gen #2** (queue EMPTY, INTAKE 001–005 all ruled); ⚠ new blocker: `harness-v0.1.0` **tag push 403** (refs/tags blocked through the proxy; branch pushes fine) | inbox empty | v1.7.0 | **sim-lab failsafe wake** · `0 1-23/2 * * *` · fired 23:04:26Z, next 01:03Z; + send_later link 00:15Z → chain HOT | `0368600` 23:51:53Z |
+| codetool-lab-fable5 | 2026-07-09T20:06Z | >28h — by design (wound down) | wind-down complete; succession pack + PLATFORM-LIMITS corrected | done 001–004 | n/a | **NONE** | `a6cf1a9` (unmoved, ls-remote-verified) |
+| codetool-lab-opus4.8 | 2026-07-09T20:11:35Z | >28h — by design | wind-down complete; v0.1.0+v0.2.0 releases live | done 001–004 | n/a | **NONE** | `80f6cd1` (unmoved, ls-remote-verified) |
+| codetool-lab-sonnet5 | 2026-07-09T20:02:14Z | >28h — by design | wind-down complete; succession pack #15 | done 001–004 | n/a | **NONE** | `66c3dfc` (unmoved, ls-remote-verified) |
+| fleet-manager (this repo) | superseded by this slice's heartbeat (00:1xZ) | live | CONTINUOUS MODE (Q-0265) — chain slice #7 = this generation + trading#21 remainder verify | inbox CLEAR (001–013 all DONE) | v1.7.0 | **fleet-manager failsafe wake** · `30 */2 * * *` · last fired 22:35:08Z, next 00:34Z; ~15-min `send_later` chain HOT | this PR |
 
-## Staleness verdicts (generation #2)
+## Staleness verdicts (generation #3)
 
-- **Action-worthy (unchanged, worsening):** **venture-lab** — now ~17h18m stale with the
-  same three unconsumed ORDERs (002/003/004 incl. the P0 Stripe fix) and still **no
-  trigger**; this slice's manager-verify **re-confirmed the D1 defect live at HEAD**
-  (review-queue venture-lab#9 verdict), so every hour of starvation is an hour the
-  frozen ⚑B/⚑D revenue clicks stay frozen. The owner boot click remains the only
-  unblock. Same class, smaller: **pokemon-mod-lab** (ORDER 003 still unconsumed, no
-  trigger).
-- **Stale-by-design (no action):** codetool ×3 (archived), superbot-games both lanes
-  (gen-1 closed; gen-2 boot-gated on the ⚑ OWNER-REVIEW games-mapping reaction),
-  gba-homebrew (scope-complete, parked).
-- **Benign lag:** superbot-next heartbeat ~3h behind a hot chain (HEAD 21:44Z, chain
-  one-shot 22:18Z armed) — the chain outruns the heartbeat cadence, as in gen #1.
+- **Action-worthy (unchanged, still worsening): venture-lab** — ~19h12m stale, same three
+  unconsumed ORDERs (002/003/004 incl. the P0 Stripe fix), still **no trigger**, HEAD
+  unmoved since the manager-side kit wave. Every hour of starvation keeps the frozen
+  ⚑B/⚑D revenue clicks frozen. The owner boot click remains the only unblock. Same
+  class, smaller: **pokemon-mod-lab** (ORDER 003 still unconsumed, no trigger).
+- **Stale-by-design (no action):** codetool ×3 (archived), gba-homebrew (scope-complete,
+  parked), superbot-games **gen-1** heartbeats (the gen-2 Seat A session is live but has
+  not committed a heartbeat yet — expected to appear within a wake; flag it if gen #4
+  still sees none).
+- **No lane DARK:** every continuous lane is <2h fresh; the two newborn games seats are
+  armed with first cron fires pending at sweep (00:15Z / 00:45Z).
 
-## Deltas vs generation #1 (21:20Z → 22:15Z)
+## Deltas vs generation #2 (22:15Z → 00:09Z) — headline first
 
-1. **trading-strategy pivoted whole-phase:** holdout-complete → **PAPER LANE
-   OPERATIONAL** (4 PRs #40–#43: binding pre-registered protocol + loader rail +
-   grading job; opens 2026-07-11) — and its failsafe wake **fired for the first time**
-   (22:05:49Z; gen #1: created, unfired). A 2026-07-17T09:00Z one-shot arms the weekly
-   grading cadence.
-2. **substrate-kit released v1.7.1** fully agent-side (gen #1: "payload staged, tag
-   deliberately next slice") — and the **v1.7.1 adopter wave is rolling**: websites
-   (#74), venture-lab (#14), superbot-games (#23), gba-homebrew (#27) all carry v1.7.1
-   at HEAD. Trigger still pre-Q-0265 naming; cutover relay still owed.
-3. **websites closed ORDER 009 completely** (/projects #72 + /reviews #75 live-verified;
-   5 slices this wake, up from 3) — the silent-fire watch stays cleared; its send_later
-   chain is live-proven.
-4. **superbot-next crossed the parity milestone:** first subsystem flip (help
-   pending→ported, #112) + band-5 live-bug lane (#111).
-5. **product-forge:** owner **standing merge grant** (review-AFTER) recorded 21:07Z;
-   games-web extended past phase-1 (#10).
-6. **idea-engine/sim-lab loop is closing:** sim-lab VERDICT 002 finalized; idea-engine
-   backpressure lifted, probes parking honestly.
-7. **venture-lab: no lane fire, still starving** — only delta is the manager-side kit
-   wave at HEAD; staleness grew 16h23m → 17h18m.
-8. **Sweep size:** 99 → 122 trigger records, 16 → 20 enabled (continuation one-shots
-   proliferating by design — 6+ lanes run hot chains).
+1. **THE GAMES PROGRAM BOOTED (the biggest single delta of any generation so far):**
+   **`superbot-idle` exists and is LIVE** — Seat B born exactly on the conformed
+   mapping's proposed name: boot complete (walking skeleton PR #2), theme-schema v1 in
+   progress (PR #4, 00:01:39Z), kit v1.7.1, failsafe wake `45 */2 * * *` + hot
+   send_later chain; founding package consumed from superbot
+   `docs/planning/round3-founding-package-games-idle-2026-07-10.md`. **Seat A
+   (superbot-games) is armed too** — failsafe wake created 23:47:02Z (`15 */2 * * *`,
+   staggered against Seat B), a live chain session, and an `order-001-collection-scope`
+   branch pushed (the P0 CI-collection fix — unconsumed since 12:47Z — finally in
+   flight). The Q-0267 ⚑ OWNER-QUEUE details react has effectively been **answered by
+   action**. Still owner-open: **`superbot-plugin-hello` remains EMPTY** (ls-remote: zero
+   refs).
+2. **substrate-kit trigger cutover DONE** — the "relay still owed" item carried since
+   gen #1 resolved: new **`substrate-kit failsafe wake`** created 23:09:56Z, old
+   standing-wake name gone from the enabled set. Kit also shipped EAP §6.10 (auto-merge
+   enabler planted by the kit, #152/#153).
+3. **venture-lab: STILL STARVING, no fire** — the answer to gen #2's watch question is
+   no: no lane session, no trigger, HEAD unmoved; staleness grew 17h18m → ~19h12m. Now
+   the ONLY action-worthy stale lane (pokemon aside), and the contrast with the newborn
+   games seats (armed at birth) makes the missing boot click starker.
+4. **forge / sim-lab / idea-engine all active:** sim-lab finalized **three more
+   VERDICTs (003–005)** and emptied its intake queue — but hit a **new platform wall:
+   tag push 403** (refs/tags blocked; recorded on its heartbeat); idea-engine is probing
+   a **superbot-games host-seam conformance stub** (feeding the gen-2 boot); forge keeps
+   extending games-web under the owner's standing merge grant. All three chains HOT.
+5. **v1.7.1 adoption spread:** superbot-next (v1.6.0 → v1.7.1) and trading-strategy
+   (v1.7.0 → v1.7.1, #44) joined the wave; v1.7.0 stragglers now just product-forge,
+   sim-lab, fleet-manager itself.
+6. **Fresh cron fires at the top of the hour:** trading 00:02:27Z + websites 00:02:41Z
+   both fired and produced/landed work; sweep grew 122 → 175 records, enabled 20 → 23
+   (the two new games wakes + chain one-shots).
+7. **Transport caveat worth keeping:** this generation caught the git proxy serving
+   **stale cached clone packs** (9/13 repos initially at pre-22:00Z HEADs) — fixed by
+   re-fetching until FETCH_HEAD == ls-remote; future generations (and `gen_roster.py`)
+   must verify against `ls-remote` before trusting a shallow clone.
 
 ## Phase 2 (decide-and-flag, NOT executed this slice)
 
 Per the proposal's migration plan: after **one parallel-run wake** compares this roster
 against superbot `docs/eap/fleet-manifest.md` and closes generator gaps, the manifest is
 reduced to a **pointer stub** and `check_manifest_freshness.py` retires per its own
-kill-switch header. Still deliberately deferred — generation #2 was produced by the wake
-procedure, not yet by `tools/gen_roster.py`; the parallel-run comparison remains the next
-wake's job. ⚑ Owner may veto the phase-2 migration by striking this note.
+kill-switch header. Still deliberately deferred — generation #3 was again produced by
+the wake procedure, not yet by `tools/gen_roster.py`; the parallel-run comparison
+remains a next wake's job. ⚑ Owner may veto the phase-2 migration by striking this note.
