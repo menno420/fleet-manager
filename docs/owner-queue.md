@@ -379,6 +379,71 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
       founding-package paste wave for both games seats, the websites selector
       increment, the plugin-contract end-to-end proof.
 
+16. **🔥 HOT — land the corrected UNIVERSAL.md merge-authority clause (audit
+    §2.4) — fleet-critical, owner-provenance.**
+    - WHAT: replace the merge bullet in BOTH permissions blocks of
+      `projects/UNIVERSAL.md` (`:42-43` and `:75-76`) with the corrected
+      clause below. The current owner-landed text says "MERGE YOUR OWN GREEN
+      PRs: open PRs READY, arm auto-merge at creation (or REST-merge on
+      green)" — BOTH actions are refused by the auto-mode classifier as
+      "[Merge Without Review]/[Self-Approval]", terminally on the first
+      denial, so 12 of 13 lane instruction files prescribe a walled path as
+      PRIMARY (only substrate-kit is correct). Full analysis:
+      [`findings/instruction-and-env-audit-2026-07-11.md`](findings/instruction-and-env-audit-2026-07-11.md)
+      §2. VERBATIM paste block (copied exactly from the audit §2.4):
+
+      ```
+      - LAND YOUR OWN GREEN PRs THE CANONICAL WAY: open the PR READY (non-draft) and
+        do NOTHING else merge-related. The repo's own auto-merge-enabler.yml workflow
+        (running as github-actions[bot]) arms squash auto-merge SERVER-SIDE and GitHub
+        lands the PR once required checks pass — with no agent merge call. CI green is
+        always required; this never bypasses a red gate.
+        * NEVER call enable_pr_auto_merge or merge_pull_request on your OWN PR — the
+          auto-mode classifier refuses author self-merge/self-arm as "[Merge Without
+          Review]/[Self-Approval]", TERMINALLY on the first denial (deny-wins; never
+          retry, reword, or re-route around it).
+        * IF A PR CAN'T LAND (enabler absent, "Allow auto-merge" OFF, no checks-pending
+          window / fast-CI arm race, or a "behind"-main stall): park it READY+green,
+          record the state, and KEEP OPENING MORE PRs — never fall back to an agent
+          REST merge-on-green. Landing resumes when the blocker clears.
+        * PERMITTED FALLBACKS: a DIFFERENT session may review-then-merge a PR it did
+          NOT author (a genuine non-author review passes the classifier); a repo that
+          structurally can't arm should stand up a GITHUB_TOKEN merge-on-green
+          workflow, not route around the wall per-PR.
+        (Canonical evidence: substrate-kit/docs/CAPABILITIES.md append-log 2026-07-10;
+        docs/operations/auto-merge-guards.md.)
+      ```
+
+    - WHERE: `projects/UNIVERSAL.md` in menno420/fleet-manager — edit it
+      directly on main (or in a session you supervise, paste-confirmed) as an
+      owner-authored commit.
+    - HOW: replace the "MERGE YOUR OWN GREEN PRs…" bullet at BOTH locations
+      (`:42-43` and `:75-76`) with the fenced block above, verbatim; commit as
+      yourself. **Cross-reference item 13's rider (PR #47 permissions-v2
+      fold): land this §2.4 clause together with / immediately after the v2
+      fold, so the paste wave carries ONE final text, not two revisions** —
+      PR #47 is the designated re-land vehicle and its HOLD says paste only
+      v2 bodies.
+    - WHY: seats stall on merges and route one-click asks to you every night
+      because the fleet's canonical instruction prescribes the
+      classifier-walled merge path; the kit's CAPABILITIES already carries
+      the working recipe (open READY, do nothing — the enabler workflow arms
+      server-side). Fixing UNIVERSAL at the root propagates to all 13 lanes
+      (the manager then re-issues every walled `instructions.md` from the
+      corrected block — that re-issue is drafted and GATED on this item:
+      [`planning/order-016-followups-2026-07-11.md`](planning/order-016-followups-2026-07-11.md)).
+    - UNBLOCKS: the fleet-wide walled-instruction re-issue (audit §2.2 table,
+      §3.2 same-file contradictions, §3.1 mandatory-block drift, §3.3 hoist);
+      ends the nightly merge-stall/one-click-ask class at the root.
+    - WHY owner-only (proof): `projects/UNIVERSAL.md` is OWNER-PROVENANCE —
+      the platform's instruction-poisoning guard previously refused a
+      coordinator-relayed landing of exactly this class of standing
+      permission text (see item 13's rider: the permissions-v2 fold was
+      "BUILT but refused landing… a standing permission grant whose only
+      source is a coordinator relay must be user-reviewed"; owner provenance
+      commit `c23223f`). The owner must land it directly; the manager may
+      not rewrite the block itself (ORDER 016's own rail).
+
 ## Parked (valid, no rush)
 
 - **Account-wide visibility review** (carried over from the resolved

@@ -4,7 +4,8 @@
 #
 # Canonical copy: menno420/fleet-manager · environments/archetype-python-lab.sh
 # Serves: substrate-kit, codetool-lab-fable5, codetool-lab-opus4.8,
-#         codetool-lab-sonnet5, superbot-games, fleet-manager, venture-lab.
+#         codetool-lab-sonnet5, superbot-games, fleet-manager, venture-lab,
+#         sim-lab, product-forge, idea-engine, superbot-idle, mobile-lab.
 # Shape: stdlib-or-tiny-deps Python lab; zero secrets; no services.
 #
 # Derived from environments/templates/setup-universal.sh (the fleet canonical

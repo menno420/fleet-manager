@@ -30,8 +30,13 @@ must know to look here):
   per-row gen2-blueprint alignment column (the most blueprint-integrated of the three
   codetool proposals). Proposal only — the deployed gen-1 CI text was never committed.
 - `docs/succession/ENVIRONMENT.md` + `docs/succession/GEN2-FEEDBACK.md`.
-- Setup script: **`docs/succession/setup-universal.sh`** — fleet-canonical defensive
-  template adapted (pyproject editable + `[dev]` extra; always exits 0).
+- Setup script (environment field): **fleet-manager
+  `environments/archetype-python-lab.sh`** — repointed 2026-07-11 (ORDER 016 R5,
+  audit `docs/findings/instruction-and-env-audit-2026-07-11.md` §4.3): the
+  `setup-universal.sh` lineage silently skips `pyproject.toml`; the archetype
+  script has the pyproject `.[dev]` branch. Historical: the repo's own
+  **`docs/succession/setup-universal.sh`** — fleet-canonical defensive template
+  adapted (pyproject editable + `[dev]` extra; always exits 0).
 - Whole-life retro: `docs/retro/winddown-review-2026-07-09.md` (full PR ledger, every
   failure with exact error text; headline lesson: a differential oracle vs python-dotenv
   found 3 real parser bugs behind 114 green tests).

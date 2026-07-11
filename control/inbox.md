@@ -505,3 +505,34 @@ done-when: owner-queue item for §2.4 filed; R1+R5 landed; the walled-instructio
 re-issue + R2/R3/R4/R6 tracked as their own orders/lane; per-lane enabler-install
 verification recorded. (The merge-authority re-issue itself is gated on the owner
 landing §2.4 — do not rewrite the owner-provenance UNIVERSAL block yourself.)
+
+## ORDER 016 · update 2026-07-11T06:57Z · status: ✅ DONE (for its now-scope — owner-queue + R1/R5 + verification; fleet-manager PR #68)
+priority: P0
+do: (append-only DONE flip for ORDER 016 above — no new work ordered; this
+block records the execution, fields per the kit's order grammar.)
+why: the now-scope items (1)(3)(4) are executed and the gated item (2) +
+R2/R3/R4/R6 are tracked as their own orders, per the order's own done-when;
+the §2.2 re-issue stays OWNER-GATED on owner-queue item 16.
+done-when: (met in fleet-manager PR #68) owner-queue item for §2.4 filed;
+R1+R5 landed; the walled-instruction re-issue + R2/R3/R4/R6 tracked; per-lane
+enabler-install verification recorded.
+✅ DONE: executed (PR #68, lane worker session, model: fable-5, dispatched by
+coordinator cse_012o8pySy5K3AV6JWoPKryZL): **(1)** owner-queue item 16 filed —
+the audit §2.4 corrected merge-authority clause as a verbatim paste block for
+owner-provenance projects/UNIVERSAL.md. **(2)** R1 landed — 5 unregistered
+lanes (sim-lab, product-forge, idea-engine, superbot-idle, mobile-lab)
+registered in environments/archetypes.md + the archetype-python-lab.sh
+Serves: header. **(3)** R5 landed — the 3 projects/codetool-lab-*/meta.md
+setup-script fields repointed to archetype-python-lab.sh. **(4)** the §2.2
+re-issue + R2/R3/R4/R6 tracked as draft ORDERs 017/018 in
+docs/planning/order-016-followups-2026-07-11.md (⚑ drafts, NOT filed — inbox
+one-writer rule; coordinator to file). **(5)** per-lane enabler verification
+recorded at docs/findings/enabler-install-verification-2026-07-11.md — only
+3/13 lanes (substrate-kit, superbot, idea-engine) have auto-merge-enabler.yml
+installed; allow_auto_merge + required checks NOT MEASURABLE this session
+(walls quoted verbatim in the doc). The §2.2 re-issue itself stays
+OWNER-GATED on owner-queue item 16 (never rewrite the owner-provenance
+block). ⚑ PR #68 itself is PARKED READY+green — the agent merge was
+classifier-denied at dispatch (verbatim denial recorded in the findings doc
+§"Live confirmation (same day)"), so a non-author landing is needed
+(fleet-manager has NO enabler installed, per the verification table).
