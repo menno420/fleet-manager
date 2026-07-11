@@ -59,7 +59,8 @@
 #     to create or approve pull requests (createPullRequest)
 #   The regen + branch push WORKED (gen #7 commit a310a12 reached
 #   bot/roster-regen); only the PR-create permission is missing. The owner
-#   click is docs/owner-queue.md item 33. Until it lands, this workflow
+#   click is docs/owner-queue.md id OQ-FM-ACTIONS-PR-PERMISSION (P2 slug;
+#   was "item 33" pre-slug-migration). Until it lands, this workflow
 #   degrades honestly: it pushes the regen to bot/roster-regen, reuses an
 #   already-open PR when one exists, and otherwise reds with a pointer —
 #   the manager wake (or the owner click) completes the landing.
@@ -114,7 +115,7 @@ jobs:
           if [ "$age_h" -gt 24 ]; then
             echo "::warning::triggers snapshot is ${age_h}h old (>24h) — roster trigger columns lag reality; the manager wake owes a fresh list_triggers dump"
           fi
-      - name: regenerate docs/roster.md from the committed snapshot + live heartbeats
+      - name: regenerate docs/roster.md + docs/owner-queue-candidates.md from the committed snapshot + live heartbeats
         run: |
           python3 scripts/gen_roster.py \
             --triggers telemetry/triggers-snapshot.json \
@@ -122,27 +123,37 @@ jobs:
             --dispatched-by "cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)"
       - name: freshness self-check (blocking)
         run: python3 scripts/check_roster_freshness.py
+      - name: owner-queue merged-PR probe (P2 — REPORT-ONLY, never merge-blocking)
+        # check_owner_queue.py flags queue items whose cited PRs already
+        # merged/closed (the "already-satisfied ask" drift class; plan §3b).
+        # --advisory: flags surface as ::warning:: annotations on the run,
+        # exit 0 always — a stale queue item alerts the manager wake, it
+        # never jams the roster landing. GITHUB_TOKEN gives the API path;
+        # cross-repo public PR reads work with the repo-scoped token.
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/check_owner_queue.py --advisory
       - name: commit + land via PR (ruleset requires PRs on main — GH013, run 29164975251)
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if git diff --quiet -- docs/roster.md; then
-            echo "roster unchanged — nothing to commit"
+          if git diff --quiet -- docs/roster.md docs/owner-queue-candidates.md; then
+            echo "roster + candidate feed unchanged — nothing to commit"
             exit 0
           fi
           git config user.name "roster-regen[workflow]"
           git config user.email "actions@github.com"
           gen="$(grep -om1 'Generation #[0-9]*' docs/roster.md || echo 'Generation #?')"
           git checkout -B bot/roster-regen
-          git add docs/roster.md
+          git add docs/roster.md docs/owner-queue-candidates.md
           git commit -m "Roster regen (automated, ${gen}) [roster-regen.yml]"
           git push -f origin bot/roster-regen
           pr="$(gh pr list --head bot/roster-regen --state open --json number --jq '.[0].number' || true)"
           if [ -z "$pr" ]; then
             if ! gh pr create --head bot/roster-regen --base main \
               --title "Roster regen (automated, ${gen})" \
-              --body "Automated roster regeneration from the committed triggers snapshot + live heartbeats (.github/workflows/roster-regen.yml). Generated docs only — docs/roster.md."; then
-              echo "::error::PR creation DENIED (GITHUB_TOKEN cannot create PRs until the owner ticks 'Allow GitHub Actions to create and approve pull requests' — docs/owner-queue.md item 33). The regen commit IS pushed on bot/roster-regen; the next manager wake (or the owner) opens+lands it."
+              --body "Automated roster + owner-queue-candidate-feed regeneration from the committed triggers snapshot + live heartbeats (.github/workflows/roster-regen.yml). Generated docs only — docs/roster.md + docs/owner-queue-candidates.md."; then
+              echo "::error::PR creation DENIED (GITHUB_TOKEN cannot create PRs until the owner ticks 'Allow GitHub Actions to create and approve pull requests' — docs/owner-queue.md id OQ-FM-ACTIONS-PR-PERMISSION). The regen commit IS pushed on bot/roster-regen; the next manager wake (or the owner) opens+lands it."
               exit 1
             fi
             pr="$(gh pr list --head bot/roster-regen --state open --json number --jq '.[0].number')"

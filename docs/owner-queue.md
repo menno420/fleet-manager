@@ -22,11 +22,22 @@ item 11 (→ C#15 paste wave) · item 12(b) (→ B#7) · item 15 (→ D#26) · i
 Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
 (click-level) · UNBLOCKS · VERIFIED-NEEDED (evidence citation) · blocking?**
 
+**Stable ids (P2, 2026-07-11, fm PR #85):** every active item carries an
+`id: OQ-<slug>` line — content-derived, NEVER positional (this file's own
+PR #75 renumbering broke a cross-reference; numbers reshuffle on every
+rewrite, slugs survive it). Cross-references cite the slug, not "item N".
+An item keeps its slug for life — through rewrites, regrouping, and its
+move to Resolved. `scripts/check_owner_queue.py` enforces presence +
+uniqueness and probes cited-PR state at each wake/regen;
+`docs/owner-queue-candidates.md` (GENERATED) is the intake feed the
+manager curates from.
+
 ## Active queue — grouped by click surface
 
 ### (A) GitHub merges — one click each
 
 1. **superbot-games PR #27 — Q-0267 theme-readiness delta: MERGE.**
+   - id: OQ-GAMES-PR27-MERGE
    - WHERE: https://github.com/menno420/superbot-games/pull/27
    - HOW: click "Squash and merge".
    - UNBLOCKS: Q-0267 audit delta on main; last of the parked five.
@@ -37,6 +48,7 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
    - Blocking: not-blocking (lane continues), but cheap — one click.
 
 2. **superbot-games PR #32 — survival sim harness: MERGE.**
+   - id: OQ-GAMES-PR32-MERGE
    - WHERE: https://github.com/menno420/superbot-games/pull/32
    - HOW: click "Squash and merge".
    - UNBLOCKS: deterministic energy-difficulty sim + Q-0087 bands in CI.
@@ -46,6 +58,7 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
    - Blocking: not-blocking.
 
 3. **superbot-games PR #38 — D&D story game design (docs-only): MERGE.**
+   - id: OQ-GAMES-PR38-MERGE
    - WHERE: https://github.com/menno420/superbot-games/pull/38
    - HOW: click "Squash and merge".
    - UNBLOCKS: the first `games/story/` code PR — the lane holds it behind this
@@ -56,6 +69,7 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
 
 4. **substrate-kit PR #181 — T5 guard-probe re-scope: RATIFY (merge) or close
    with a one-line reason.**
+   - id: OQ-KIT-PR181-RATIFY
    - WHERE: https://github.com/menno420/substrate-kit/pull/181
    - HOW: merge = approval of the bench re-scope; or close with a reason.
    - UNBLOCKS: T5 bench v2 + the follow-up rubric-wording PR.
@@ -67,6 +81,7 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
 
 5. **pokemon-mod-lab OA-1 — add required check `ROM builds` (keep
    substrate-gate).**
+   - id: OQ-POKEMON-ROM-REQUIRED-CHECK
    - WHERE: https://github.com/menno420/pokemon-mod-lab/settings/rules → main
      ruleset → Require status checks.
    - HOW: add context `ROM builds`; leave substrate-gate in place.
@@ -77,6 +92,7 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
    - Blocking: not-blocking, but a live gate hole.
 
 6. **superbot-mineverse — add required check `pytest`.**
+   - id: OQ-MINEVERSE-PYTEST-REQUIRED-CHECK
    - WHERE: https://github.com/menno420/superbot-mineverse/settings/rules →
      main ruleset → Require status checks.
    - HOW: add context `pytest`.
@@ -88,6 +104,7 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
 
 7. **superbot-next OA-3 — enable merge queue OR drop require-up-to-date for
    `docs/**` + `control/**`.**
+   - id: OQ-NEXT-MERGE-QUEUE
    - WHERE: https://github.com/menno420/superbot-next/settings/rules
    - HOW: either enable the merge queue on main, or relax "require branches to
      be up to date" for docs/control paths.
@@ -98,6 +115,7 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
    - Blocking: not-blocking; chronic time sink.
 
 8. **trading-strategy — tick "Allow auto-merge".**
+   - id: OQ-TRADING-ALLOW-AUTOMERGE
    - WHERE: https://github.com/menno420/trading-strategy/settings → General →
      Pull Requests.
    - HOW: tick the "Allow auto-merge" checkbox.
@@ -109,6 +127,7 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
 
 9. **product-forge — post-seed settings residue: Allow auto-merge + required
    gate.**
+   - id: OQ-FORGE-SETTINGS-RESIDUE
    - WHERE: https://github.com/menno420/product-forge/settings
    - HOW: tick "Allow auto-merge"; make the substrate gate / smoke check a
      required check on main.
@@ -119,6 +138,7 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
 
 10. **substrate-kit P10 — swap required checks to `kit-quality`,
     up-to-date OFF.**
+   - id: OQ-KIT-P10-REQUIRED-CHECKS
     - WHERE: substrate-kit → Settings → Rules → main ruleset (rulesets 403 for
       agents).
     - HOW: REMOVE "Kit test suite" + "Cold-adoption smoke", ADD `kit-quality`;
@@ -130,6 +150,7 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
     - Blocking: not-blocking.
 
 11. **websites — delete 4 stale branches.**
+   - id: OQ-WEBSITES-STALE-BRANCHES
     - WHAT: delete `claude/harden-verify`, `claude/rework-dashboard`,
       `claude/wire-github-token-docs`, `manager/control-plant`. **NOT**
       `claude/anthropic-review-site` (belongs to open PR #132).
@@ -142,6 +163,7 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
     - Blocking: cosmetic.
 
 12. **gba-homebrew — create the Lumen Drift GitHub Release.**
+   - id: OQ-GBA-LUMEN-RELEASE
     - WHERE: https://github.com/menno420/gba-homebrew/releases/new
     - HOW: tag `lumen-drift-v1.3` (create on publish, target main) → title
       `Lumen Drift v1.3` → attach `dist/lumen-drift.gba` (167,996 B; put sha256
@@ -157,6 +179,7 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
 
 13. **🔥 HOT (owner-provenance) — land the corrected UNIVERSAL.md
     merge-authority clause (audit §2.4).** *(Old item 16 — keep first-priority.)*
+   - id: OQ-UNIVERSAL-MERGE-CLAUSE
     - **STATUS 2026-07-11 16:3xZ: ✅ RESOLVED — PR #76 MERGED by the owner**
       (menno420, 2026-07-11T15:26:47Z, merge SHA `e1848ff`). UNIVERSAL.md is
       v4 with the corrected §2.4 clause at BOTH locations. ORDER 017 executed
@@ -196,6 +219,7 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
 33. **fleet-manager — tick "Allow GitHub Actions to create and approve pull
     requests"** *(new 2026-07-11, P1 FRESHNESS; the last click that makes
     roster freshness fully autonomous).*
+   - id: OQ-FM-ACTIONS-PR-PERMISSION
     - WHERE: https://github.com/menno420/fleet-manager/settings/actions →
       "Workflow permissions".
     - HOW: check the box "Allow GitHub Actions to create and approve pull
@@ -221,6 +245,7 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
 
 14. **Re-paste the consolidated env setup scripts — COORDINATOR ENV FIRST.**
     *(Old item 17.)*
+    - id: OQ-ENV-SETUP-REPASTE
     - WHERE: claude.ai/code → Environments → (each env) → Setup script field;
       environment-to-script map:
       [`../environments/archetypes.md`](../environments/archetypes.md).
@@ -237,6 +262,7 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
 
 15. **Paste wave — HELD on the ORDER 017 re-issue PR (#77); then one
     sitting, v2 bodies only.**
+    - id: OQ-PASTE-WAVE
     - WHAT (in this order, one sitting, each paste = the FULL
       `projects/<repo>/instructions.md` body from main after #77 lands —
       **v2 everywhere, v3 for superbot-games; never v1**):
@@ -274,6 +300,7 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
 
 16. **superbot-next OA-5 — export real `ANTHROPIC_API_KEY` +
     `AI_ENABLED=true` into the builder session environment.**
+    - id: OQ-NEXT-API-KEY
     - WHERE: the same env-var surface where `DISCORD_BOT_TOKEN_PRODUCTION`
       lives (the builder session environment — NOT GitHub secrets/CI); config
       seam `sb/spec/config.py:166` + `:148`.
@@ -285,6 +312,7 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
     - Blocking: blocks band-7's live-NL leg only.
 
 17. **superbot-mineverse — provision six host env vars.**
+    - id: OQ-MINEVERSE-ENV-VARS
     - WHAT: `DISCORD_OAUTH_CLIENT_ID`, `DISCORD_OAUTH_CLIENT_SECRET`,
       `OAUTH_REDIRECT_URI`, `WEB_SESSION_SIGNING_KEY`, `MINING_WRITE_ENDPOINT`,
       `MINING_WRITE_SHARED_SECRET`.
@@ -300,6 +328,7 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
 
 18. **superbot-plugin-hello — say the seed-push word (LIVE OWNER WORD, not a
     click).**
+    - id: OQ-PLUGIN-SEED-WORD
     - WHAT: the repo exists but is EMPTY; the ask is to say **"push the plugin
       seed"** in a session — the classifier requires a live owner word for
       cross-repo publication.
@@ -315,6 +344,7 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
 
 19. **trading-strategy — archive the dead gen-1 "ORDER 001 successor"
     session.**
+    - id: OQ-TRADING-ARCHIVE-SESSION
     - WHERE: claude.ai → project session list.
     - HOW: archive the session (died at provision, still lists as active).
     - UNBLOCKS: nothing — hygiene; consumes nothing.
@@ -323,6 +353,7 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
 
 20. **Codex — CHANGED: pool is FLAPPING, not hard-capped; usage raise now
     OPTIONAL.**
+    - id: OQ-CODEX-FLAPPING
     - WHAT: the "Codex hard usage-cap" claim is retired — usage-limit replies
       at 05:08Z today, then FULL substantive reviews on superbot-next #154
       (05:54Z) and #157 (06:31Z).
@@ -340,6 +371,7 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
 ### (D) External services
 
 21. **venture-lab ⚑A — Stripe TEST keys.**
+    - id: OQ-VENTURE-STRIPE-KEYS
     - WHERE: Stripe Dashboard (test mode) → Developers → API keys / Webhooks.
     - HOW: paste `sk_test_…` as `STRIPE_SECRET_KEY` + `whsec_…` as
       `STRIPE_WEBHOOK_SECRET` into `candidates/membership-kit/server/.env`
@@ -352,6 +384,7 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
     - Blocking: blocks payment-path E2E verification.
 
 22. **venture-lab — the publish clicks (⚑B/⚑D/⚑E, all gates met).**
+    - id: OQ-VENTURE-PUBLISH-CLICKS
     - WHAT: publish **membership-kit $49** (`dist/membership-kit-v0.2.zip`,
       script `docs/launch/membership-kit/owner-actions.md`) ·
       **template-packs $19 PWYW** (`dist/template-packs-v0.1.zip`) ·
@@ -367,6 +400,7 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
     - Blocking: blocks all revenue.
 
 23. **venture-lab — publish the gotcha article.**
+    - id: OQ-VENTURE-GOTCHA-ARTICLE
     - WHAT: publish `docs/launch/stripe-webhook-test-kit/gotcha-article.md`
       ("Your Stripe webhook says customer_email is null — here's why").
     - WHERE: Dev.to / Hashnode (funnel: `docs/launch/distribution-channels.md`).
@@ -377,6 +411,7 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
     - Blocking: blocks the validation clock.
 
 24. **websites — Railway Postgres.**
+    - id: OQ-WEBSITES-RAILWAY-POSTGRES
     - WHERE: railway.app → project superbot-websites → New → Database →
       PostgreSQL.
     - HOW: copy `DATABASE_URL` into service **botsite** → Variables.
@@ -387,6 +422,7 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
     - Blocking: blocks /submit.
 
 25. **websites — fine-grained PAT.**
+    - id: OQ-WEBSITES-PAT
     - WHERE: create at https://github.com/settings/personal-access-tokens
       (menno420 repos; contents+actions read; actions:write) → paste as
       `GITHUB_TOKEN` on railway.app → superbot-websites → **control-plane** →
@@ -399,6 +435,7 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
     - Blocking: not-blocking, but rate-limits every fleet surface.
 
 26. **product-forge OA-003 — enable GitHub Pages.** *(Old item 15.)*
+    - id: OQ-FORGE-PAGES
     - WHERE: https://github.com/menno420/product-forge/settings/pages
     - HOW: Source: **GitHub Actions**; then re-run the deploy-pages workflow.
     - UNBLOCKS: the games-web RPG at `menno420.github.io/product-forge/`.
@@ -408,6 +445,7 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
     - Blocking: blocks the public games-web build.
 
 27. **itch.io — Lumen Drift publish clicks (conditional).**
+    - id: OQ-ITCH-LUMEN-PUBLISH
     - WHERE: itch.io → new project.
     - HOW: conditional on decision E#28(1); ride the 07-14 sitting together
       with B#12's Release.
@@ -431,6 +469,7 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
        Shoal — the gba heartbeat carries it). *(Supersedes old item 4 Track B.)*
     4. **post-EAP routine posture** — HARD deadline: decide **≤2026-07-13**;
        RECOMMENDED **Option A**.
+    - id: OQ-SITTING-0714-DECISIONS
 
 29. **games §5 late-veto — OPEN, objection-only, silence=proceed ALREADY
     OPERATING.** No calendar date; ORDER 015 inbox:420. The §5.3 name resolved
@@ -438,22 +477,26 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
     points 1/2/4/5 stand accepted-by-boot, late veto open — re-verified today,
     no objection on record. **No click unless vetoing.** *(Split out of old
     item 14.)*
+    - id: OQ-GAMES-S5-LATE-VETO
 
 30. **ORDER 018 R6 mobile-lab — decided 2026-07-11** (PR #73;
     `environments/archetypes.md:104-115`): escape-hatch stays, no node-lab
     knob. Standard Q-0240 vetoable, **NO dated window — open indefinitely**;
     veto = strike the decision. No click unless vetoing.
+    - id: OQ-R6-MOBILE-LAB-VETO
 
 31. **trading OOS protocol — REFRAMED (was mislabeled a veto window): OPT-IN,
     flag-only, NEVER self-executes, NO silence=proceed.** If wanted: file an
     inbox ORDER authorizing a pre-registered post-2026 protocol draft; if not
     wanted, no click — dev-candidates stay dev-only indefinitely
     (status@`3172b43` ⚑(f)).
+    - id: OQ-TRADING-OOS-OPTIN
 
 32. **Standing objection-only notes (no click unless veto):** kit P4 daily
     loop self-armed (`trig_01MHwmBrA1bziEp49g6xqGt5`, cron `0 6 * * *`;
     veto = delete the Routine) · kit five releases cut agent-side ·
     superbot-next D-0064–D-0069 decide-and-flag.
+    - id: OQ-STANDING-OBJECTION-NOTES
 
 ## Resolved 2026-07-11 (verified)
 
