@@ -45,8 +45,11 @@ bullets.
 #63), ORDER 010 slice record + fleet-manifest retirement record (superbot PR
 #1974, merge `4c21894`, 02:43:22Z) prepended, PR #62 merge-confirmation rider
 (03:06:05Z, squash `93d3a4d`) added to its existing record; In-flight relay
-note flipped EXECUTED; notes ladder struck; inbox ORDER 010 status line
-annotated (DONE-annotation pattern).
+note flipped EXECUTED; notes ladder struck. Inbox ORDER 010 status-line
+annotation was ATTEMPTED and REJECTED by the kit gate ([inbox-not-append] —
+append-only law); inbox restored to prior bytes verbatim, the annotation
+lives in the status.md slice record instead (the coordinator-anticipated
+fallback).
 
 ## Session enders
 

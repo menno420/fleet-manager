@@ -234,7 +234,7 @@ proves itself first (one parallel-run wake vs the hand manifest), then superbot
 `docs/eap/fleet-manifest.md` reduces to a pointer stub and `check_manifest_freshness.py`
 retires per its kill-switch header; owner may veto. This PR: fleet-manager **PR #38**.
 
-## ORDER 010 · 2026-07-10T19:45Z · status: DONE (matrix half executed by the Q-0265 continuation-chain slice #2, 2026-07-10 ~21:25Z, fleet-manager PR #38; per-lane relay rides each next lane contact; per-lane relay EXECUTED 2026-07-11 (11 lanes, fm PR #63 — see status.md slice record; superbot/idle/mineverse ride next contact))
+## ORDER 010 · 2026-07-10T19:45Z · status: DONE (matrix half executed by the Q-0265 continuation-chain slice #2, 2026-07-10 ~21:25Z, fleet-manager PR #38; per-lane relay rides each next lane contact)
 priority: P2
 owner: manager standing wake (rides the staleness sweep — per-lane, at next contact with each routine-armed lane)
 do: **Per-lane model verification sweep.** At the next contact with each routine-armed

@@ -73,9 +73,18 @@ cse_012o8pySy5K3AV6JWoPKryZL.**
   plugin-hello re-verified EMPTY (409 verbatim) · PR #47 still OPEN at born-red
   card `a4b736b` (re-land vehicle, HOLD stands) · games §5 veto window stamped
   open.
-- **ORDER 010 relay half now fully executed** — inbox ORDER 010 status line
-  annotated accordingly (DONE-annotation pattern); the In-flight relay note
-  updated in place.
+- **ORDER 010 relay half now fully executed** — the In-flight relay note
+  updated in place. **Inbox left UNTOUCHED by gate ruling:** the attempted
+  ORDER 010 status-line DONE-annotation was rejected by the kit gate
+  (substrate-gate finding verbatim: "[inbox-not-append] control/inbox.md:
+  control/inbox.md changed non-append vs the merge-base — the one-writer/
+  append-only law (control/README.md) allows only additions at the end; an
+  existing ORDER was edited, reordered, or deleted. Restore the prior bytes
+  verbatim and append your new ORDER block instead.") — so this slice record
+  is the durable annotation: **inbox ORDER 010's "per-lane relay rides each
+  next lane contact" parenthetical is superseded — per-lane relay EXECUTED
+  2026-07-11 (11 lanes, fm PR #63; superbot/idle/mineverse ride next
+  contact).**
 
 ## Fleet-manifest retirement slice record — 2026-07-11T02:43Z (superbot PR #1974)
 
