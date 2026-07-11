@@ -1,6 +1,6 @@
 # UNIVERSAL v4 → v5 owner paste bundle — §3.3 hoist + incident riders
 
-> **Status:** `proposal — owner paste, one sitting`
+> **Status:** `owner-guidance` (proposal — owner paste, one sitting)
 >
 > Prepared 2026-07-11 by the ORDER 017 executing session (PR #77).
 > `projects/UNIVERSAL.md` is **owner-only**: this bundle is NEVER self-applied
