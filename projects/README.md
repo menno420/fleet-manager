@@ -116,7 +116,7 @@ no paste record) · **n-a** (deliberately absent).
 | codetool-lab-sonnet5 | ARCHIVE (Project closed; repo retained) | n-a | n-a | n-a | n-a | n-a | cfgdiff v0.1.1 pending 2 owner clicks (PyPI publisher + tag push) |
 | mobile-lab | PRE-BIRTH (no repo, no Project) | n-a | n-a (held gen-2 package; Q-0262.6 re-base first) | n-a | n-a | n-a | bundled with the 6-repo harness experiment (both ready-not-launched, owner-gated) |
 | games-program | PRE-BIRTH ×3 repos (Q-0259 r5) | n-a (per-repo at boot) | n-a | n-a | n-a | n-a | mapping DECIDE-AND-FLAG pending; `expected-seed.md` is the per-repo checklist |
-| superbot-idle | **REPO EXISTS (owner-created ~2026-07-11T00:15Z, seeded README)** — Project PRE-BIRTH | n-a (rides Seat B boot) | n-a | n-a | n-a | n-a | conformed games mapping Seat B (Q-0267); react-by-action on the repo name; founding package = ORDER 015 |
+| superbot-idle | **LIVE — Seat B BOOTED** (repo owner-created ~2026-07-11T00:15Z; boot observed at roster gen #3: walking skeleton + theme-schema v1, kit v1.7.1) | `45 */2 * * *` + hot chain | never (registry package = ORDER 015) | never | unknown | DEPLOYED per roster gen #3 (seat-armed) | conformed games mapping Seat B (Q-0267); react-by-action on the repo name; registry package = ORDER 015 |
 
 ## Paste wave — what the owner pastes NOW vs what rides a boot
 

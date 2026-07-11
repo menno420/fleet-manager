@@ -1,4 +1,4 @@
-# superbot-idle — package meta (STUB — pre-package)
+# superbot-idle — package meta (STUB — pre-package; seat already LIVE)
 
 > **Status: PRE-PACKAGE.** Repo **EXISTS** — owner-created (verified 2026-07-11
 > ~00:4xZ via `list_repos` + raw README probe: `menno420/superbot-idle`, public,
@@ -15,10 +15,15 @@ This is the conformed games mapping's **Seat B** (idle-game engine + data-only
 theme packs; egg farm = first THEME, not the product — frame: superbot router
 Q-0267; details: fm `docs/proposals/games-program-mapping-conformed-2026-07-10.md`).
 
-- **Project:** none yet — the founding package (instructions · coordinator
-  prompt · setup script · failsafe · full meta) is **ORDER 015** work
-  (`control/inbox.md`), prepared decide-and-flag per the conformed mapping +
-  the gen-3 born-continuous standard.
+- **Project/seat:** **BOOTED — Seat B is LIVE** (roster generation #3,
+  fm PR #53, observed 2026-07-11T00:09Z: boot complete — walking skeleton
+  PR #2, theme-schema v1 in progress PR #4; founding package consumed from
+  superbot `docs/planning/round3-founding-package-games-idle-2026-07-10.md`;
+  kit v1.7.1; failsafe wake `45 */2 * * *` + hot chain). The **registry
+  package** for this dir (instructions · coordinator prompt · setup script ·
+  failsafe · full meta) is **ORDER 015** work (`control/inbox.md`) —
+  centralize what the booted seat actually runs, decide-and-flag, per the
+  conformed mapping + the gen-3 born-continuous standard.
 - **Codex: ENABLED (owner, 2026-07-11)** — Codex environments exist for all 12
   active fleet repos, superbot-idle included (owner update 2026-07-11 ~00:2xZ,
   fm inbox ORDER 014). Quota refusals are RETRY-LATER, never a wall
