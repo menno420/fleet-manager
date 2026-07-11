@@ -13,8 +13,13 @@ Why added : Roster generations #1-#4 (fleet-manager PRs #38/#44/#53/#59) were
             at an ls-remote-verified HEAD.
 Date      : 2026-07-11 (lane worker, model: fable-5, dispatched by coordinator
             cse_012o8pySy5K3AV6JWoPKryZL)
-Reliability: unverified — confirm its output against ground truth a few times
-            across sessions before trusting it.
+Reliability: VERIFIED — graduated 2026-07-11 after three logged ground-truth
+            runs (Q-0105 criteria: "confirm across sessions" — runs below;
+            run 1 found+fixed one display bug, runs 2 and 3 were fully
+            clean). The roster may be treated as authoritative WITHIN its
+            freshness bar (check_roster_freshness.py 4h / in-file 24h
+            kill-switch); the tool itself no longer needs per-run
+            hand-verification.
             Verification run 1 (2026-07-11, roster gen #5): 6-lane hand sample
             across verdict classes — ALL verdicts + heartbeat/evidence cells
             matched ground truth; ONE display bug found and fixed (age_str
@@ -26,7 +31,20 @@ Reliability: unverified — confirm its output against ground truth a few times
             every heartbeat/age/evidence cell matched ground truth at the
             pinned evidence SHA; ZERO fixes needed. First fully-clean run;
             header stays (2 runs logged, criteria say several).
-Kill-switch: delete this if it proves unreliable over multiple sessions.
+            Verification run 3 (2026-07-11, roster gen #9, P3 fm PR #86 —
+            the GRADUATION run): 4-lane hand sample (superbot hub FRESH,
+            substrate-kit FRESH + its 2 legacy DARK sub-rows,
+            superbot-games STALE + its DARK/DEAD sub-rows,
+            trading-strategy FRESH) against independently-fetched ground
+            truth (fresh depth-2 clones, own ls-tree + stamp reads) —
+            verdicts 8/8 (4 lanes + 4 sub-rows), every evidence
+            SHA/HEAD-date exact, heartbeat-file enumeration exactly matched
+            each repo's control/ tree (first run exercising the P3 sub-row
+            + heartbeat_files paths); ZERO fixes needed.
+Kill-switch: KEPT despite graduation (Q-0105 letter) — delete this script
+            if it proves unreliable over multiple sessions; a green verdict
+            that fights visible evidence is the tool's bug (Q-0120) —
+            re-open verification before trusting it again.
 =============================================================================
 
 WHAT IT EMITS (machine gen-N format — a deliberate SUBSET of the hand format):
@@ -53,8 +71,9 @@ VERDICT LADDER (documented so the vocabulary stays stable):
            on a lane that should have one.
   Overrides: disposition "archived"/"parked" reports STALE-BY-DESIGN instead
   of DARK/DEAD; "registry-only" seats (no repo) are judged on trigger
-  last-fire only; the hub (no control/status.md by design) falls back to HEAD
-  committer date as its activity signal, as gens #1-#4 did.
+  last-fire only; any repo WITHOUT a control/status*.md falls back to HEAD
+  committer date as its activity signal (the pre-#2003 hub behavior, kept
+  generic — the hub itself heartbeats since superbot c18a9c3, P3).
 
 TRANSPORT DOCTRINE (inherited from roster gen #3, MANDATORY — the git proxy
 serves stale cached clone packs; 9/13 repos came back hours old on first
@@ -113,6 +132,28 @@ SNAPSHOT CONVENTION (P1 FRESHNESS, centralization plan §3a, fm PR #81):
   commit-only-on-change option. An ad-hoc uncommitted export
   (tmp-triggers.json, gitignored) remains fine for one-off runs.
 
+SUB-ROWS + EVIDENCE INDEX (P3 COVERAGE + INDEX, centralization plan §3c):
+  every generation enumerates ALL control/status*.md heartbeat files per
+  repo — the repo's committed substrate.config.json `heartbeat_files`
+  declaration wins the ordering when present; a control/ glob is the
+  fallback and also catches undeclared files — and emits ONE ROSTER
+  SUB-ROW per extra heartbeat file ("↳ <lane> — <file>", verdict from
+  that file's own `updated:` stamp; triggers stay on the parent row).
+  This closes the multi-seat blind spot where one row stood in for three
+  (superbot-games carries status.md + status-mining.md +
+  status-exploration.md). Sub-row heartbeats ALSO feed the P2 candidate
+  extraction, so an owner-ask in a sub-seat file can no longer strand.
+  Every generation ALSO writes docs/evidence-index.md — a GENERATED
+  cross-repo index linking each lane to its evidence home (the lane's
+  docs/current-state.md, latest .sessions/ card, docs/retro when present,
+  all pinned at the ls-remote-verified HEAD the roster row cites) so the
+  manager-internal ↔ program-facing record split (plan §4) is navigable
+  from one place. The hub row is REAL since superbot PR #2003 gave
+  superbot a control/status.md (c18a9c3): the old "hub (no
+  control/status.md by design)" disposition + HEAD-committer-date
+  fallback is retired as a special case — the generic no-status-file
+  fallback still applies to any repo without one.
+
 CANDIDATE FEED (P2 QUEUE GENERATION, centralization plan §3b, fm PR #85):
   every generation ALSO writes docs/owner-queue-candidates.md — a GENERATED,
   NOT-source-of-truth extraction of each lane heartbeat's ⚑ needs-owner /
@@ -160,13 +201,15 @@ from datetime import datetime, timezone
 # Fields:
 #   lane        display name (roster row, first column)
 #   repo        GitHub repo under menno420/, or None for registry-only seats
-#   disposition "live" | "hub" (no control/status.md by design) |
-#               "archived" (stale-by-design) | "registry-only" (no repo)
+#   disposition "live" | "archived" (stale-by-design) |
+#               "registry-only" (no repo)
+#               (the old "hub" disposition is RETIRED, P3: superbot has a
+#               real control/status.md since PR #2003 → c18a9c3)
 #   tokens      lowercase substrings that attribute triggers (by name, and by
 #               stored-prompt content for anonymous send_later links)
 # --------------------------------------------------------------------------
 LANES = [
-    {"lane": "superbot (hub)", "repo": "superbot", "disposition": "hub",
+    {"lane": "superbot (hub)", "repo": "superbot", "disposition": "live",
      "tokens": ["suberbot docs", "superbot docs", "superbot night"]},
     {"lane": "superbot-next", "repo": "superbot-next", "disposition": "live",
      "tokens": ["superbot-next", "builder"]},
@@ -211,6 +254,7 @@ GITHUB_BASE = "https://github.com/menno420/"
 ROSTER_REL = os.path.join("docs", "roster.md")
 CANDIDATES_REL = os.path.join("docs", "owner-queue-candidates.md")
 OWNER_QUEUE_REL = os.path.join("docs", "owner-queue.md")
+EVIDENCE_REL = os.path.join("docs", "evidence-index.md")
 
 # ---------------------------------------------------------------- schema ---
 
@@ -363,8 +407,31 @@ def fetch_verified(url: str, workdir: str, max_attempts: int) -> tuple[str, int]
                f"{max_attempts} attempts")
 
 
+def order_heartbeat_paths(declared: list[str], globbed: list[str]) -> list[str]:
+    """Order the heartbeat files to read (P3 sub-rows, plan §3c).
+
+    Pure so --selfcheck pins it. The repo's substrate.config.json
+    `heartbeat_files` declaration wins the ordering when present; globbed
+    control/status*.md files not declared are appended (an undeclared
+    sub-seat file must never be invisible — that was gap 3). Declared
+    files missing from the tree are dropped (never invent a heartbeat).
+    control/status.md is always first when present (the primary row).
+    """
+    paths = [p for p in declared if p in globbed]
+    paths += [c for c in globbed if c not in paths]
+    if "control/status.md" in paths:
+        paths.remove("control/status.md")
+        paths.insert(0, "control/status.md")
+    return paths
+
+
 def read_heartbeat(url: str, max_attempts: int) -> dict:
-    """Fetch a repo's HEAD + control/status*.md over verified git transport."""
+    """Fetch a repo's HEAD + ALL control/status*.md + evidence paths.
+
+    One verified fetch serves three consumers (P3): every heartbeat file
+    (sub-rows), the primary status (roster row), and the evidence-index
+    discovery (docs/current-state.md, latest .sessions/ card, docs/retro).
+    """
     with tempfile.TemporaryDirectory(prefix="genroster-") as tmp:
         sha, attempts = fetch_verified(url, tmp, max_attempts)
         raw_date = _git(["log", "-1", "--format=%cI", "FETCH_HEAD"],
@@ -378,22 +445,53 @@ def read_heartbeat(url: str, max_attempts: int) -> dict:
                          .strftime("%Y-%m-%dT%H:%M:%SZ"))
         except ValueError:
             head_date = raw_date
-        status_text = None
-        status_path = None
+
+        def ls(path: str) -> list[str]:
+            try:
+                return _git(["ls-tree", "--name-only", "FETCH_HEAD", path],
+                            cwd=tmp).splitlines()
+            except Wall:
+                return []
+
+        # -- heartbeat files: declared heartbeat_files wins, glob fallback --
+        declared: list[str] = []
         try:
-            listing = _git(["ls-tree", "--name-only", "FETCH_HEAD", "control/"],
-                           cwd=tmp)
-            candidates = [ln for ln in listing.splitlines()
-                          if re.fullmatch(r"control/status[^/]*\.md", ln)]
-            preferred = [c for c in candidates if c == "control/status.md"]
-            for path in preferred + [c for c in candidates if c not in preferred]:
-                status_text = _git(["show", f"FETCH_HEAD:{path}"], cwd=tmp)
-                status_path = path
-                break
-        except Wall:
-            pass  # no control/ tree — hub-style repo; HEAD date is the signal
+            cfg = json.loads(_git(["show", "FETCH_HEAD:substrate.config.json"],
+                                  cwd=tmp))
+            raw = cfg.get("heartbeat_files")
+            if isinstance(raw, list):
+                declared = [p for p in raw if isinstance(p, str)]
+        except (Wall, json.JSONDecodeError):
+            pass  # no config / unparseable — the glob below is the source
+        globbed = [ln for ln in ls("control/")
+                   if re.fullmatch(r"control/status[^/]*\.md", ln)]
+        statuses: list[dict] = []
+        for path in order_heartbeat_paths(declared, globbed):
+            try:
+                statuses.append({"path": path,
+                                 "text": _git(["show", f"FETCH_HEAD:{path}"],
+                                              cwd=tmp)})
+            except Wall:
+                continue  # listed but unreadable — skip, never invent
+
+        # -- evidence discovery (P3 index; same pinned tree) --
+        cards = sorted(ln for ln in ls(".sessions/")
+                       if ln.endswith(".md")
+                       and not ln.endswith("README.md"))
+        retro = sorted(ln for ln in ls("docs/retro/") if ln.endswith(".md"))
+        evidence = {
+            "current_state": ("docs/current-state.md"
+                              if "docs/current-state.md" in ls("docs/")
+                              else None),
+            "latest_card": cards[-1] if cards else None,
+            "retro_latest": retro[-1] if retro else None,
+            "retro_count": len(retro),
+        }
+        primary = statuses[0] if statuses else None
         return {"sha": sha, "attempts": attempts, "head_date": head_date,
-                "status_text": status_text, "status_path": status_path}
+                "status_text": primary["text"] if primary else None,
+                "status_path": primary["path"] if primary else None,
+                "statuses": statuses, "evidence": evidence}
 
 
 # --------------------------------------------------------------- parsing ---
@@ -642,6 +740,86 @@ def render_candidates(rows: list[dict], generation: int, now: datetime,
     return "\n".join(out) + "\n"
 
 
+# ------------------------------------------------ evidence index (P3) -----
+
+def render_evidence_index(rows: list[dict], generation: int, now: datetime,
+                          generated_by: str, dispatched_by: str) -> str:
+    """docs/evidence-index.md — each lane row → its evidence home (§3c).
+
+    One row per LANE (sub-rows share the repo's evidence). Links pin to the
+    same ls-remote-verified HEAD SHA the roster row cites, so the index can
+    never be fresher than its evidence. The manager-internal ↔
+    program-facing record split (plan §4) is navigable from this one page.
+    """
+    stamp = now.strftime("%Y-%m-%dT%H:%MZ")
+    out = []
+    out.append("# Cross-repo evidence index — GENERATED\n")
+    out.append("> **Status:** `living-ledger`\n>")
+    out.append("> **GENERATED — NOT SOURCE OF TRUTH.** Do not hand-edit; "
+               "regenerated with `docs/roster.md` on every regen "
+               "(`scripts/gen_roster.py`, P3 — centralization plan §3c). "
+               "Each repo stays canonical for its OWN internal state (plan "
+               "§4): this index LINKS evidence homes, it never copies them "
+               "(copies drift).\n>")
+    out.append(f"> **Generation #{generation}** · generated-at **{stamp}** · "
+               f"by {generated_by}, dispatched by {dispatched_by}\n>")
+    out.append("> **Program-narrative home:** cross-repo program reviews / "
+               "night-reviews / email drafts live in **superbot "
+               "[`docs/eap/`](https://github.com/menno420/superbot/tree/main/"
+               "docs/eap)** (front door: its README); fleet-wide state lives "
+               "HERE in fleet-manager (roster · owner-queue · fleet-triage · "
+               "capabilities · environments). Links below pin to the "
+               "ls-remote-verified HEAD each roster row cites.\n")
+    out.append("| Lane | Heartbeat file(s) | `docs/current-state.md` | "
+               "Latest `.sessions/` card | `docs/retro/` | Pinned @ HEAD |")
+    out.append("|---|---|---|---|---|---|")
+
+    def link(repo: str, sha: str, path: str, label: str | None = None) -> str:
+        return (f"[{label or path}]({GITHUB_BASE}{repo}/blob/{sha}/{path})")
+
+    for row in rows:
+        if row.get("subrow"):
+            continue  # sub-rows share the parent lane's evidence
+        lane = row["lane"]
+        repo = lane["repo"]
+        if repo is None:
+            out.append(f"| {lane['lane']} | n/a — registry-only seat | — | — "
+                       "| — | trigger registry only |")
+            continue
+        if row["wall"]:
+            wall = truncate(row["wall"], 80)
+            out.append(f"| {lane['lane']} | NOT MEASURED (wall: {wall}) | — "
+                       "| — | — | NOT MEASURED |")
+            continue
+        hb = row["hb"]
+        sha = hb["sha"]
+        ev = hb.get("evidence") or {}
+        hbs = hb.get("statuses") or []
+        hb_cell = (", ".join(link(repo, sha, st["path"],
+                                  st["path"].removeprefix("control/"))
+                             for st in hbs)
+                   if hbs else "none — HEAD committer date is the signal")
+        cs = (link(repo, sha, ev["current_state"], "current-state.md")
+              if ev.get("current_state") else "—")
+        card = (link(repo, sha, ev["latest_card"],
+                     os.path.basename(ev["latest_card"]))
+                if ev.get("latest_card") else "—")
+        retro = (link(repo, sha, ev["retro_latest"],
+                      f"{os.path.basename(ev['retro_latest'])} "
+                      f"(+{ev['retro_count'] - 1} more)"
+                      if ev.get("retro_count", 0) > 1
+                      else os.path.basename(ev["retro_latest"]))
+                 if ev.get("retro_latest") else "—")
+        out.append(f"| {lane['lane']} | {hb_cell} | {cs} | {card} | {retro} "
+                   f"| `{sha[:7]}` |")
+
+    out.append("\n> A `—` cell is an HONEST absence at the pinned HEAD "
+               "(the file/dir does not exist there), never a broken link. "
+               "Walled repos degrade to NOT MEASURED with the verbatim "
+               "reason, same doctrine as the roster.")
+    return "\n".join(out) + "\n"
+
+
 ISO_RE = re.compile(r"(\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}(?::\d{2})?)"
                     r"(Z|[+-]\d{2}:\d{2})?")
 
@@ -692,6 +870,11 @@ def truncate(text: str, limit: int) -> str:
     text = re.sub(r"\s+", " ", text).strip()
     # markdown tables break on raw pipes
     text = text.replace("|", "\\|")
+    # Roster cells are QUOTATIONS of lane heartbeats, not decision homes —
+    # the same stamp-discipline swap as the candidate feed (P2; first
+    # tripped by a P3 sub-row quoting `D-0002` in its kit cell): ASCII
+    # hyphen in D-NNN ids -> U+2011, visually identical, checker-inert.
+    text = _DECISION_ID_RE.sub("D‑\\1", text)
     return text if len(text) <= limit else text[: limit - 1] + "…"
 
 
@@ -727,6 +910,7 @@ def build_rows(records: list[dict], now: datetime, max_attempts: int,
                 cad = c
         row = {"lane": lane, "trig": trig, "cadence": cad, "hb": None,
                "wall": None, "fields": {}, "age_h": None}
+        subrows: list[dict] = []
         if lane["repo"]:
             url = GITHUB_BASE + lane["repo"]
             try:
@@ -739,11 +923,35 @@ def build_rows(records: list[dict], now: datetime, max_attempts: int,
                 when = parse_when(stamp)
                 if when:
                     row["age_h"] = (now - when).total_seconds() / 3600
+                # P3 sub-rows (plan §3c): one row per EXTRA heartbeat file,
+                # judged on that file's own stamp; triggers stay on the
+                # parent row. Sub-row heartbeats also feed the P2 candidate
+                # extraction (a sub-seat ask must not strand).
+                for st in hb["statuses"][1:]:
+                    sub = {"lane": {"lane": f"↳ {lane['lane']} — `{st['path']}`",
+                                    "repo": lane["repo"],
+                                    "disposition": lane["disposition"],
+                                    "tokens": []},
+                           "trig": {"standing": [], "oneshot": [], "poke": []},
+                           "cadence": cad, "wall": None, "age_h": None,
+                           "subrow": True,
+                           "hb": dict(hb, status_text=st["text"],
+                                      status_path=st["path"]),
+                           "fields": parse_status(st["text"]),
+                           "owner_flags": parse_owner_flags(st["text"])}
+                    swhen = parse_when(sub["fields"].get("updated") or
+                                       hb["head_date"])
+                    if swhen:
+                        sub["age_h"] = (now - swhen).total_seconds() / 3600
+                    sub["verdict"] = verdict_for(lane["disposition"],
+                                                 sub["age_h"], cad, False)
+                    subrows.append(sub)
             except Wall as exc:
                 row["wall"] = str(exc)
         row["verdict"] = verdict_for(lane["disposition"], row["age_h"],
                                      row["cadence"], row["wall"] is not None)
         rows.append(row)
+        rows.extend(subrows)
     return rows
 
 
@@ -796,7 +1004,14 @@ def render(rows: list[dict], records: list[dict], generation: int,
                "with the verbatim wall reason — never guessed.\n>")
     out.append(f"> **Trigger evidence:** {len(records)}-record export, "
                f"**{len(enabled)} enabled**: {len(crons)} standing crons + "
-               f"{len(pokes)} poke-only + {len(ones)} one-shots.\n")
+               f"{len(pokes)} poke-only + {len(ones)} one-shots.\n>")
+    out.append("> **Sub-rows (P3, plan §3c):** a `↳` row is an EXTRA "
+               "heartbeat file in the same repo (all `control/status*.md` "
+               "are enumerated; `substrate.config.json heartbeat_files` "
+               "ordering honored) — judged on its own `updated:` stamp; "
+               "wake triggers live on the parent lane row. Evidence homes "
+               "per lane: `docs/evidence-index.md` (generated with this "
+               "file).\n")
     out.append("| Lane | Heartbeat `updated:` | Age | Verdict | Phase (machine-truncated) | Orders | Kit | Wake state (trigger · cron · last fire) | Evidence (repo @ HEAD) |")
     out.append("|---|---|---|---|---|---|---|---|---|")
 
@@ -827,7 +1042,9 @@ def render(rows: list[dict], records: list[dict], generation: int,
                        phase=truncate(f.get("phase", "—"), 160),
                        orders=truncate(f.get("orders", "—"), 100),
                        kit=truncate(f.get("kit", "—"), 40),
-                       wake=render_wake(row["trig"]),
+                       wake=("(triggers on the parent lane row)"
+                             if row.get("subrow")
+                             else render_wake(row["trig"])),
                        evidence=evidence))
 
     out.append(f"\n## Staleness verdicts (generation #{generation})\n")
@@ -994,6 +1211,47 @@ def selfcheck() -> int:
     ok("```" not in _sanitize_feed_line("```bash"), "fence chars neutralized")
     # pipe escaping (markdown table safety)
     ok("\\|" in truncate("a|b", 50), "pipes escaped in cells")
+    ok("D-0002" not in truncate("adopted (D-0002)", 50)
+       and "D‑0002" in truncate("adopted (D-0002)", 50),
+       "decision ids in roster cells are stamp-discipline inert")
+    # P3: heartbeat-file ordering (declared wins, glob catches undeclared,
+    # status.md always first, declared-but-absent dropped)
+    ok(order_heartbeat_paths(
+        ["control/status-mining.md", "control/status.md"],
+        ["control/status-exploration.md", "control/status-mining.md",
+         "control/status.md"]) ==
+       ["control/status.md", "control/status-mining.md",
+        "control/status-exploration.md"],
+       "heartbeat ordering: status.md first, declared order, glob extras last")
+    ok(order_heartbeat_paths(["control/ghost.md"], ["control/status.md"]) ==
+       ["control/status.md"], "declared-but-absent heartbeat dropped")
+    ok(order_heartbeat_paths([], []) == [], "no heartbeat files -> empty")
+    # P3: evidence-index rendering (banner, sub-row collapse, honest walls)
+    _sha = "a" * 40
+    _hb = {"sha": _sha, "attempts": 1, "head_date": "2026-07-11T00:00:00Z",
+           "status_text": "", "status_path": "control/status.md",
+           "statuses": [{"path": "control/status.md", "text": ""}],
+           "evidence": {"current_state": "docs/current-state.md",
+                        "latest_card": ".sessions/2026-07-11-x.md",
+                        "retro_latest": "docs/retro/r1.md",
+                        "retro_count": 2}}
+    _rows_ev = [
+        {"lane": {"lane": "xlane", "repo": "xrepo"}, "wall": None, "hb": _hb},
+        {"lane": {"lane": "↳ xlane — `control/status-sub.md`",
+                  "repo": "xrepo"}, "subrow": True, "wall": None, "hb": _hb},
+        {"lane": {"lane": "regseat", "repo": None}, "wall": None, "hb": None},
+        {"lane": {"lane": "walled", "repo": "wrepo"}, "wall": "boom",
+         "hb": None},
+    ]
+    ev_txt = render_evidence_index(
+        _rows_ev, 1, datetime(2026, 7, 11, tzinfo=timezone.utc), "t", "t")
+    ok("NOT SOURCE OF TRUTH" in ev_txt, "evidence index carries the banner")
+    ok("↳" not in ev_txt, "sub-rows collapse into the parent lane row")
+    ok(f"blob/{_sha}/docs/current-state.md" in ev_txt,
+       "current-state link pinned at the verified HEAD sha")
+    ok("(+1 more)" in ev_txt, "retro count surfaced")
+    ok("registry-only seat" in ev_txt, "registry-only seat rendered honestly")
+    ok("wall: boom" in ev_txt, "walled repo degrades to NOT MEASURED")
 
     for msg in fails:
         print(f"SELFCHECK FAIL: {msg}", file=sys.stderr)
@@ -1112,6 +1370,16 @@ def main(argv=None) -> int:
     with open(cand_path, "w", encoding="utf-8") as fh:
         fh.write(cand_text)
     print(f"gen_roster: wrote owner-queue candidate feed to {cand_path}")
+
+    # P3 (§3c): the cross-repo evidence index regenerates WITH the roster —
+    # same rows, same pinned SHAs, one regen path.
+    ev_path = (os.path.join(os.path.dirname(roster_path), "evidence-index.md")
+               if args.out else os.path.join(repo_root(), EVIDENCE_REL))
+    ev_text = render_evidence_index(rows, generation, now, args.generated_by,
+                                    args.dispatched_by)
+    with open(ev_path, "w", encoding="utf-8") as fh:
+        fh.write(ev_text)
+    print(f"gen_roster: wrote cross-repo evidence index to {ev_path}")
     return 0
 
 

@@ -1,15 +1,62 @@
 {
-  "_comment": "AgentContextPack index (design-spec 2.10). Each `areas` entry feeds one generated <state_dir>/contextpacks/<name>.context.md: `name` (the area; slugified into the pack filename), `folio` (the canonical entry-point doc for the area), `binding_docs` (authoritative contracts to read first), `source_roots` (key files/dirs; existence-checked at generation, missing ones flagged), `do_not_create` (existing systems an agent must not duplicate), `gates` (currently active expansion conditions), `verification` (commands to run before pushing). The generator also accepts a manifest snapshot ({\"subsystems\": [...]}) instead of this file.",
+  "_comment": "AgentContextPack index (design-spec 2.10). Each `areas` entry feeds one generated <state_dir>/contextpacks/<name>.context.md: `name` (the area; slugified into the pack filename), `folio` (the canonical entry-point doc for the area), `binding_docs` (authoritative contracts to read first), `source_roots` (key files/dirs; existence-checked at generation, missing ones flagged), `do_not_create` (existing systems an agent must not duplicate), `gates` (currently active expansion conditions), `verification` (commands to run before pushing). The generator also accepts a manifest snapshot ({\"subsystems\": [...]}) instead of this file. Filled 2026-07-11 (P3, fm PR #86) — was the example-area template stub (centralization plan gap 5).",
   "project": "fleet-manager",
   "areas": [
     {
-      "name": "example-area",
-      "folio": "",
-      "binding_docs": [],
-      "source_roots": [],
-      "do_not_create": [],
+      "name": "records-custody",
+      "folio": "docs/current-state.md",
+      "binding_docs": [
+        "MISSION.md",
+        "docs/playbook.md",
+        "docs/architecture.md"
+      ],
+      "source_roots": [
+        "scripts/gen_roster.py",
+        "scripts/check_roster_freshness.py",
+        "scripts/check_owner_queue.py",
+        ".github/workflows/roster-regen.yml",
+        ".github/workflows/roster-freshness.yml",
+        "telemetry/triggers-snapshot.json",
+        "docs/roster.md",
+        "docs/owner-queue.md",
+        "docs/owner-queue-candidates.md",
+        "docs/evidence-index.md",
+        "docs/fleet-triage.md"
+      ],
+      "do_not_create": [
+        "a second fleet roster/manifest — docs/roster.md is canonical (superbot docs/eap/fleet-manifest.md was superseded 2026-07-11)",
+        "a second owner queue — docs/owner-queue.md is the ONE deduplicated queue; the candidate feed is generated intake, never a queue",
+        "hand-edits to generated files (docs/roster.md, docs/owner-queue-candidates.md, docs/evidence-index.md) — edit the generator"
+      ],
       "gates": [],
-      "verification": []
+      "verification": [
+        "python3 scripts/gen_roster.py --selfcheck",
+        "python3 scripts/check_owner_queue.py --selftest",
+        "python3 scripts/check_roster_freshness.py --advisory",
+        "python3 bootstrap.py check --strict"
+      ]
+    },
+    {
+      "name": "control-bus",
+      "folio": "control/README.md",
+      "binding_docs": [
+        "control/README.md",
+        "docs/playbook.md"
+      ],
+      "source_roots": [
+        "control/inbox.md",
+        "control/status.md",
+        "control/claims",
+        ".github/workflows/substrate-gate.yml"
+      ],
+      "do_not_create": [
+        "a second order channel — control/inbox.md is one-writer/append-only",
+        "a shared claims list — control/claims/ is one-file-per-claim (0% conflict, measured)"
+      ],
+      "gates": [],
+      "verification": [
+        "python3 bootstrap.py check --strict --status-only"
+      ]
     }
   ]
 }
