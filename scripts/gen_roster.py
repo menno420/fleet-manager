@@ -15,6 +15,11 @@ Date      : 2026-07-11 (lane worker, model: fable-5, dispatched by coordinator
             cse_012o8pySy5K3AV6JWoPKryZL)
 Reliability: unverified — confirm its output against ground truth a few times
             across sessions before trusting it.
+            Verification run 1 (2026-07-11, roster gen #5): 6-lane hand sample
+            across verdict classes — ALL verdicts + heartbeat/evidence cells
+            matched ground truth; ONE display bug found and fixed (age_str
+            float truncation, ~32h17m vs true 32h18m; regression selfcheck
+            added). Header stays until several clean runs accumulate.
 Kill-switch: delete this if it proves unreliable over multiple sessions.
 =============================================================================
 
@@ -413,11 +418,15 @@ def parse_when(stamp: str) -> datetime | None:
 def age_str(hours: float) -> str:
     if hours < 0:
         return "future?"
+    # Round to whole seconds BEFORE flooring to minutes: `hours` arrives as
+    # seconds/3600 and the float noise truncates an exact minute down —
+    # 32.3h rendered "~32h17m" because (32.3-32)*60 == 17.999…  (caught by
+    # hand verification at roster gen #5, verification run 1).
+    total_m = int(round(hours * 3600)) // 60
     if hours < 1:
-        return f"~{int(hours * 60)}m"
+        return f"~{total_m}m"
     if hours < 48:
-        h = int(hours)
-        m = int((hours - h) * 60)
+        h, m = divmod(total_m, 60)
         return f"~{h}h{m:02d}m"
     return f"~{hours / 24:.1f}d"
 
@@ -621,6 +630,13 @@ def selfcheck() -> int:
        "wall -> DEAD")
     ok(verdict_for("archived", 900.0, 2.0, False) == "STALE-BY-DESIGN",
        "archived override")
+    # age rendering — the float-truncation regression (gen #5 verification
+    # run 1: 32.3h must be 32h18m, not 32h17m) + floor-of-seconds semantics
+    ok(age_str(32.3) == "~32h18m", "exact minute not truncated by float noise")
+    ok(age_str(4 + 33 / 60 + 44 / 3600) == "~4h33m",
+       "seconds floored to the minute")
+    ok(age_str(0.5) == "~30m", "sub-hour age")
+    ok(age_str(-0.1) == "future?", "negative age -> future?")
     # status parsing + stamps
     f = parse_status("# x\nupdated: 2026-07-11T01:45Z\nphase: hello\n"
                      "kit: v1.8.0 · check: green\norders: none\n")
