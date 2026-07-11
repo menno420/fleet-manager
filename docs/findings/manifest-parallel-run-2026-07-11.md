@@ -1,6 +1,6 @@
 # Parallel-run: fm roster gen #4 vs superbot fleet-manifest — 2026-07-11
 
-> **Status:** `finding` — the one-parallel-run-wake condition from
+> **Status:** `reference` — the one-parallel-run-wake condition from
 > `docs/proposals/generated-roster-from-heartbeats.md` (phase 2) is MET by this run.
 > Produced by the roster-gen-4 lane worker (model: fable-5), dispatched by successor
 > coordinator cse_012o8pySy5K3AV6JWoPKryZL.
