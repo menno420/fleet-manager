@@ -105,6 +105,22 @@ auto-disable incident would already be a git diff. Concrete improvement
 shipped here: the snapshot is now committed BY RULE (required wake step), so
 no future export is ever discarded.
 
+## Post-merge follow-up (same session — regen commit path v2)
+
+PR #81 merged `ef45ccb`; the regen workflow was then live-fired via
+workflow_dispatch (run 29164975251) as first-run evidence. **The flagged
+direct-push risk materialized verbatim:** `remote: error: GH013: Repository
+rule violations found for refs/heads/main.` / `- Changes must be made through
+a pull request.` / `! [remote rejected] HEAD -> main (push declined due to
+repository rule violations)`. The regen itself WORKED on the runner (gen #7
+committed: `1 file changed, 26 insertions(+), 110 deletions(-)`); only the
+push was declined — so the ruleset "changes through a PR" is now VERIFIED
+FACT, not an unknown. Root-cause fix shipped same session (friction→guard):
+commit path v2 = fixed branch `bot/roster-regen` → create-or-reuse PR →
+immediate `gh pr merge --squash` in the same run; merge denial parks exactly
+ONE open PR + reds the run. Workflow header carries the verbatim GH013
+evidence.
+
 ## Verification
 
 - `python3 scripts/gen_roster.py --selfcheck` → PASS (0 failures).
