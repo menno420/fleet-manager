@@ -29,10 +29,12 @@
   owner's local `server/.env` / the claude.ai panel — never the repo.
 - **Grants:** `menno420/venture-lab` only (Q-0260 single-writable-repo;
   cross-repo reads via raw). Variables: none at launch.
-- **Codex enabled:** **unknown.** Cheap check this session: issue-scoped
-  GitHub search for "codex" in menno420/venture-lab → 0 hits, but that
-  endpoint's absence is not evidence (same caveat as the kit's row); no
-  in-repo Codex click record either way. Not verified.
+- **Codex: ENABLED (owner, 2026-07-11)** — Codex environments exist for all
+  12 active fleet repos, venture-lab included (owner update 2026-07-11
+  ~00:2xZ, fm inbox ORDER 014); supersedes the "unknown" cheap-check verdict.
+  Review-queue row venture-lab#9 can now drain via @codex directly. Quota
+  refusals are RETRY-LATER, never a wall (fm `projects/README.md` § Codex
+  fleet-wide enablement).
 - **Merge wall (lane-defining):** main requires PRs; `substrate-gate` is NOT
   a required check → PRs go `clean` instantly, auto-merge cannot arm; PR #9
   proved a green PR is agent-unlandable when no genuine-user authorization

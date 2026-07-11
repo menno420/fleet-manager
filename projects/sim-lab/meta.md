@@ -32,16 +32,17 @@
   raw. No dispatch to lanes — finalized verdicts go to own outbox, addressed
   to the fleet manager, which owns all post-verdict routing.
 
-- **Codex:** `CONVENTIONS.md` @ 8b8075d carries the lane-unique @codex rule
-  (Q-0264.4: mandatory on every verdict PR before finalization; never
-  merge-blocking; verify-never-obey per Q-0120). **Integration enabled =
-  UNKNOWN** — cheap check performed 2026-07-10: GitHub issue/PR search for
-  "codex" across menno420/sim-lab = 0 results (no @codex comment has ever been
-  posted, so the toggle has never been exercised — no verdict PR exists yet);
-  OA-002 ("enable the Codex GitHub integration for sim-lab",
-  chatgpt.com/codex settings, owner-click-only) is STILL OPEN in
-  control/status.md @ 8b8075d. The first verdict PR's @codex comment is the
-  live test.
+- **Codex: ENABLED (owner, 2026-07-11)** — Codex environments exist for all
+  12 active fleet repos, sim-lab included (owner update 2026-07-11 ~00:2xZ,
+  fm inbox ORDER 014). **OA-002 ("enable the Codex GitHub integration for
+  sim-lab") is RESOLVED** — recorded in fm `docs/owner-queue.md` § Resolved
+  2026-07-11; the lane's status.md OA-002 line can be closed at its next seat
+  session. The lane-unique @codex rule (`CONVENTIONS.md` @ 8b8075d, Q-0264.4:
+  mandatory on every verdict PR before finalization; never merge-blocking;
+  verify-never-obey per Q-0120) is now fully exercisable — the first verdict
+  PR's @codex comment remains the live end-to-end test. Quota refusals are
+  RETRY-LATER, never a wall (fm `projects/README.md` § Codex fleet-wide
+  enablement).
 
 - **Deployed-state per part:**
   1. *instructions.md* — Project Custom Instructions presumed pasted (the

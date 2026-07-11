@@ -40,11 +40,11 @@
   `.claude/CLAUDE.md`). Session-side `api.github.com` stays 403-gated to
   ungrained repos (the add_repo wall — same append log). Variables: names
   above; no secret values anywhere in the package.
-- **Codex enabled:** **unknown.** One GitHub search for "codex" in
-  menno420/websites issues/PRs returned 0 (2026-07-10, this session), but the
-  endpoint is issue-scoped so absence is not evidence; no Codex click is
-  recorded in the lane's OWNER-ACTIONS or the fm package. Not verified either
-  way — same verdict shape as the substrate-kit package.
+- **Codex: ENABLED (owner, 2026-07-11)** — Codex environments exist for all
+  12 active fleet repos, websites included (owner update 2026-07-11 ~00:2xZ,
+  fm inbox ORDER 014); supersedes the 2026-07-10 "unknown" verdict. Quota
+  refusals are RETRY-LATER, never a wall (fm `projects/README.md` § Codex
+  fleet-wide enablement).
 
 ## Deployed-state per part (2026-07-10)
 
