@@ -66,6 +66,12 @@ its own required-check names/born-red gate kept); both §3.2 contradictions
 gone; §3.1 resolved one way or the other with the claim and the files
 agreeing; §3.3 hoist landed via an owner-provenance path; per-lane
 enabler/arm status recorded per repo.
+> **Per-lane verification landed (2026-07-11, ORDER 016 step 4):**
+> [`../findings/enabler-install-verification-2026-07-11.md`](../findings/enabler-install-verification-2026-07-11.md)
+> — only 3/13 lanes (substrate-kit, superbot, idea-engine) have the enabler
+> installed, so **10 lanes need an enabler (or a `GITHUB_TOKEN` merge-on-green
+> workflow) INSTALLED — an agent-doable PR per repo — before the corrected §2.4
+> wording is true for them**.
 
 ## ORDER 018 · 2026-07-11T06:5xZ · status: draft
 
