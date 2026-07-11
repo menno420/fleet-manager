@@ -459,3 +459,49 @@ original done-when items "owner-queue paste-wave items refreshed" and "boot
 clicks queued" are MOOT under the re-scope (no boots remain to click — both
 seats run; paste-wave note updated in projects/README.md). ⚑ reconciliation
 flagged in `control/status.md` per decide-and-flag.
+
+## ORDER 016 · 2026-07-11T01:5xZ · status: new
+priority: P0
+owner: owner-directed (relayed via a superbot session, 2026-07-11 — the owner
+asked for a cross-project instruction + env audit; this ORDER carries its output)
+do: **Act on the fleet instruction + environment audit**
+(docs/findings/instruction-and-env-audit-2026-07-11.md — READ IT FIRST; every
+claim is file:line-cited, verify against the tree per R2). Sequenced:
+(1) **FLEET-CRITICAL, route to the owner-queue:** the audit §2.4 corrected
+merge-authority clause for projects/UNIVERSAL.md. The current owner-landed block
+tells every seat to "arm auto-merge at creation / REST-merge on green" — BOTH are
+classifier-walled (terminal), so 12/13 lanes prescribe the walled path as PRIMARY
+(only substrate-kit is correct). The corrected clause = "open READY, do nothing
+else, the auto-merge-enabler.yml workflow lands it server-side; never call
+enable_pr_auto_merge/merge_pull_request yourself; if it can't land, park
+READY+green and keep opening PRs — never agent REST-merge." UNIVERSAL.md is
+OWNER-PROVENANCE (instruction-poisoning guard) → the owner lands it, not the
+manager. Add a six-field owner-queue item with the audit §2.4 paste block.
+(2) **After the owner lands §2.4:** re-issue every walled projects/<repo>/
+instructions.md (audit §2.2 table) from the corrected block, keeping each repo's
+own required-check names/born-red gate, and fix the §3.2 same-file contradictions
+(fleet-manager:76-vs-85, trading:92-vs-96) in the same pass; resolve the §3.1
+mandatory-block drift (claimed verbatim, present in 0/13); hoist §3.3 into
+UNIVERSAL.md.
+(3) **Do now (manager-owned, no owner needed):** env **R1** (register sim-lab,
+product-forge, idea-engine, **superbot-idle** [live seat, no archetype named],
+mobile-lab in archetypes.md + the python-lab Serves: header) and **R5** (point
+the codetool-lab-* env fields at archetype-python-lab.sh, not setup-universal.sh
+— pyproject [dev] deps silently skip today). File **R2/R3/R4/R6** (one base shim +
+3 knobs; gba-lab flips/xdelta + gated devkitARM; retire per-package probe
+variants; mobile-lab node-lab decision) as a consolidation lane.
+(4) **Per-lane verify** before trusting the "just let the enabler do it" fix: for
+each repo confirm auto-merge-enabler.yml is actually installed in
+.github/workflows/ AND "Allow auto-merge" + the required check are set — lanes
+that structurally can't arm (fast-CI race / no pending window / venture-lab
+substrate-gate-not-required / trading Allow-auto-merge-OFF) need the two-party or
+GITHUB_TOKEN merge-on-green workflow, not just corrected wording.
+why: seats stall on merges and route one-click asks to the owner every night
+because the fleet's own canonical instruction prescribes the classifier-walled
+merge path (the kit's CAPABILITIES already has the working recipe). Fixing
+UNIVERSAL at the root propagates to all 13 lanes. Env consolidation cuts the
+setup-script surface ~4→1 and closes a live-seat drift.
+done-when: owner-queue item for §2.4 filed; R1+R5 landed; the walled-instruction
+re-issue + R2/R3/R4/R6 tracked as their own orders/lane; per-lane enabler-install
+verification recorded. (The merge-authority re-issue itself is gated on the owner
+landing §2.4 — do not rewrite the owner-provenance UNIVERSAL block yourself.)
