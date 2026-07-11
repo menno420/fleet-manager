@@ -36,6 +36,10 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
 > adding — owner merged it 2026-07-10T20:56:34Z (see Resolved below); no stale
 > ask added.
 
+> **Amended 2026-07-11 (ORDER 010 relay slice).** Re-verified at HEAD: venture
+> ⚑B/⚑D unfrozen (D1 fix landed); items 0 and 9 resolved (overtaken by events);
+> items 3/12/13/14 stamped with fresh verification.
+
 ## Active queue (HOT first)
 
 0. **Create the Idea Engine Project (superbot repo) — standing autonomous core.**
@@ -65,8 +69,15 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
      live `list_triggers` shows an **"idea-engine 2-hourly standing wake"**
      (`trig_01KBoHPaq…`, cron `0 */2 * * *`, enabled, last fired
      2026-07-10T18:05:20Z) — a firing in-Project routine strongly implies
-     the Project exists and self-armed. Kept open only pending a heartbeat/
-     repo trace from that seat; the ~20:31Z wake confirms and retires this.
+     the Project exists and self-armed. ~~Kept open only pending a heartbeat/
+     repo trace from that seat; the ~20:31Z wake confirms and retires this.~~
+     **✅ RESOLVED 2026-07-11:** heartbeat/repo trace confirmed — idea-engine
+     `control/status.md` @ origin/main `835b260` carries
+     `updated: 2026-07-11T03:25:00Z (real wall-clock, per the control/README
+     rule)`, phase STEADY (a live, current-hour heartbeat from the seat), and
+     the roster gen #4 row (fm PR #59, merge `b0639a9`) records: failsafe
+     `0 */2` armed, chain HOT, kit v1.8.0, STEADY. Project exists and loops;
+     retired per the item's own retire condition.
 
 1. ~~🔥 HOT — kit F-5 one-letter ruling (A or B).~~ **✅ RESOLVED 2026-07-10
    (Q-0262.1): Reading A** — routed as substrate-kit **ORDER 011** and already
@@ -84,19 +95,23 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
      `STRIPE_WEBHOOK_SECRET` in `candidates/membership-kit/server/.env` (from
      `.env.example`). Test mode only; no real money. UNBLOCKS the live
      test-mode purchase→webhook→grant E2E.
-   - **⚑B — publish membership-kit at $49:** ❄️ **FROZEN 2026-07-10: D1 Stripe
-     defect (headline paid path never executed; customer_email null on live
-     events + invalid {CHECKOUT_EMAIL} success-URL placeholder) — unfreezes
-     when venture-lab's fix ORDER lands with a real-path test.** Do NOT
-     publish until then. (When unfrozen: Gumroad or Lemon Squeezy → new
+   - **⚑B — publish membership-kit at $49:** **✅ UNFROZEN 2026-07-11:** D1
+     Stripe fix landed — venture-lab PR #16 merged 2026-07-11T01:35:03Z
+     (merge `912da3e`), vendored-payload real-path HTTP tests; suite runs in
+     CI kit-tests (venture PR #28, `fc7f39c`); lane status @ `74894e5`
+     (02:58:38Z) reports launch-ready ×3 (membership-kit, template-packs,
+     stripe-webhook-test-kit). Publish steps below are live again.
+     (When unfrozen: Gumroad or Lemon Squeezy → new
      product → paste `candidates/membership-kit/LISTING.md` → upload the
      committed membership-kit-v0.2.zip → Publish.)
    - **⚑C — (optional) Supabase + Discord accounts** for the hosted
      production stack (URL/key + invite URL into `server/.env`).
-   - **⚑D — publish template-packs at $19 PWYW:** ❄️ **FROZEN 2026-07-10: D1
-     Stripe defect (headline paid path never executed; customer_email null on
-     live events + invalid {CHECKOUT_EMAIL} success-URL placeholder) —
-     unfreezes when venture-lab's fix ORDER lands with a real-path test.**
+   - **⚑D — publish template-packs at $19 PWYW:** **✅ UNFROZEN 2026-07-11:**
+     D1 Stripe fix landed — venture-lab PR #16 merged 2026-07-11T01:35:03Z
+     (merge `912da3e`), vendored-payload real-path HTTP tests; suite runs in
+     CI kit-tests (venture PR #28, `fc7f39c`); lane status @ `74894e5`
+     (02:58:38Z) reports launch-ready ×3 (membership-kit, template-packs,
+     stripe-webhook-test-kit). Publish steps below are live again.
      (When unfrozen: same marketplace → paste
      `candidates/template-packs/LISTING.md` → upload the committed
      template-packs-v0.1.zip → Publish. The $59 `candidates/BUNDLE-LISTING.md`
@@ -129,6 +144,11 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
    - WHY owner-only: game-feel is taste; the headless harness proves the
      patches work, not that they feel right.
    - UNBLOCKS: which QoL patches lock in before deeper mod work.
+   - **Updated 2026-07-11:** review-queue row pokemon#8 now stays open SOLELY
+     on this playtest — the sha1/byte-identity proof chain is manager-verified
+     (fm PR #61, merge `5244a1c`, 02:35:47Z); the code half needs nothing from
+     you. Scope has grown to the 12-patch #4–#8 train plus session-012 QoL+
+     slice 2 (pokemon PR #16, merge `aeaa4f7`, 02:40:09Z — bag R-tag art).
 
 4. **Concept picks — game-lab tracks.** Track A **✅ RESOLVED 2026-07-10
    (Q-0262.7): pokemon concept = QoL+** — effective **when the games program
@@ -190,22 +210,25 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
    `docs/proposals/instructions/` — 2 of 10 DEPLOYED fitted (websites,
    trading-strategy); 8 PROPOSED, none binding until pasted.
 
-9. **Create the `product-forge` repo + Product Forge Project (core seat 5, PRE-BIRTH).**
-   - WHAT: (1) create a **public, empty** repo `product-forge` (default branch
-     `main`); (2) create the Product Forge Project in claude.ai/code, attach
-     the repo, paste the founding package (superbot
-     `docs/planning/round3-founding-package-product-forge-2026-07-10.md` —
-     branch-only until superbot PR #1948 merges); (3) after the forge's seed PR
-     adds CI: tick *Allow auto-merge* + make the substrate gate / smoke check
-     **required** (ORDER 000's report names the exact check and asks once).
-   - WHERE/HOW: github.com/new; claude.ai → New Project; repo Settings after
-     the seed PR.
-   - WHY owner-only: repo creation is a verified agent 403 wall; Project
-     creation has no agent API surface; required-check settings are
+9. ~~**Create the `product-forge` repo + Product Forge Project (core seat 5, PRE-BIRTH).**~~
+   **✅ RESOLVED 2026-07-11 (halves 1+2, overtaken by events):** (1) the repo
+   EXISTS — `menno420/product-forge` is live with the games-web deploy
+   workflow on main (forge PR #13; "PRs #1–#13 ALL MERGED. Zero open …
+   main HEAD `6f5cfad`" per its own status); (2) the seat is BOOTED and
+   heartbeating — `control/status.md` at HEAD (commit `77f5231`) carries
+   `updated: 2026-07-10T22:22:00Z`, orders acked=001 done=001, "Continuous
+   mode Active. Chain alive (send_later continuation ticks) + failsafe cron
+   trig_012EvztCrHHg7s4mBsKT3VKs (`0 */2 * * *`), enabled"; roster gen #4 row
+   records "failsafe `0 */2`, session live".
+   - **Remaining (sub-click only, agent-unverifiable):** (3) after-seed-PR
+     settings — tick *Allow auto-merge* + make the substrate gate / smoke
+     check **required**. PRs #1–#13 all landed on green (which suggests it
+     may already be set), but required-check settings are
+     agent-unreadable/unwritable, so this one click stays until you confirm.
+   - NOTE: item 15 (enable GitHub Pages on product-forge) is separate and
+     unchanged — still open below.
+   - WHY the residue is owner-only: required-check settings are
      agent-unreadable/unwritable.
-   - UNBLOCKS: core seat 5 of the Q-0261 standing six — the products loop.
-     Everything else (ORDER 000 walking skeleton, routine, control seed,
-     environments-registry spec) is agent work riding its boot.
 
 10. ~~Name the sixth core seat (DECISION, Q-0261.1).~~ **✅ RESOLVED
     2026-07-10 (Q-0262 / ORDER 008 policy 4): core seat 6 = the superbot hub
@@ -234,7 +257,9 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
     - WHAT: ~~(a) create the `superbot-plugin-hello` repo~~ **✅ (a) RESOLVED
       2026-07-10: repo EXISTS** (owner-created, public, pushed 16:03:04Z —
       verified via list_repos + raw probe, ORDER 013/PR #46; it is still
-      EMPTY — the seeded-package push rides games item 14); (b) **relax
+      EMPTY — re-verified still EMPTY 2026-07-11 (Contents API: `409 Git
+      Repository is empty`, zero branches) — the seeded-package push rides
+      games item 14); (b) **relax
       superbot-next's require-up-to-date merge rule** (or enable merge queue) — every session
       loses time to the update-branch dance (#86/#87 stranded), which directly
       degrades an unattended 2-hourly Builder loop. ~~(c) flag-13 corpus-red
@@ -303,7 +328,10 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
       owner-authored commit (or paste-confirm it in a session you supervise);
       the built fold then re-lands referencing your commit SHA as provenance.
       Pasting a v1 body after that lands would re-deploy the refuse-to-merge
-      stall class the block kills.
+      stall class the block kills. **Verified 2026-07-11:** fm PR #47 still
+      OPEN at its born-red card only (head `a4b736b`, no commits since
+      2026-07-10T22:15Z) — the designated re-land vehicle per handoff §3.3;
+      HOLD stands, paste only v2 bodies after the fold re-lands.
 
 15. **product-forge: enable GitHub Pages (games-web publish) — one click,
     free.** *(numbered 15: item 14 = the games-mapping react, added by #46 in
@@ -338,10 +366,12 @@ Full launch context: [`planning/gen2-launch-record-2026-07-10.md`](planning/gen2
     - WHAT (remaining): veto any §5 point if wrong; plus the one still-open
       click: **push/permission the seeded plugin package** —
       `menno420/superbot-plugin-hello` EXISTS (your 16:03Z creation) but is
-      EMPTY; the superbot-next lane holds the seeded package in-tree at
-      `examples/superbot-plugin-hello/`.
+      EMPTY — re-verified still EMPTY 2026-07-11 (Contents API: `409 Git
+      Repository is empty`, zero branches); the superbot-next lane holds the
+      seeded package in-tree at `examples/superbot-plugin-hello/`.
     - WHERE: [`proposals/games-program-mapping-conformed-2026-07-10.md`](proposals/games-program-mapping-conformed-2026-07-10.md)
-      §5 — one line in any chat or an ORDER.
+      §5 — one line in any chat or an ORDER. Veto window still open, prep
+    proceeding — re-verified 2026-07-11, no owner objection on record.
     - NEXT (agent-side, no click): **ORDER 015** — prepare Seat A
       (superbot-games relaunch) + Seat B (superbot-idle) founding packages
       per the conformed mapping + gen-3 standard, decide-and-flag.
@@ -432,6 +462,18 @@ state is committed in the repos). Do in one sitting whenever convenient.
 
 ## Resolved 2026-07-11
 
+- **Item 0 (Idea Engine Project) — RESOLVED (ORDER 010 relay slice):** the
+  seat's heartbeat/repo trace landed — idea-engine `control/status.md` @
+  origin/main `835b260` reads `updated: 2026-07-11T03:25:00Z`, phase STEADY;
+  roster gen #4 row (fm PR #59, merge `b0639a9`): failsafe `0 */2` armed,
+  chain HOT, kit v1.8.0, STEADY. Retired per the item's own retire condition.
+- **Item 9 (product-forge repo + Project), halves 1+2 — RESOLVED (overtaken
+  by events):** repo exists with the deploy workflow on main (forge PR #13,
+  main HEAD `6f5cfad`); seat booted and heartbeating (`control/status.md` @
+  HEAD commit `77f5231`, `updated: 2026-07-10T22:22:00Z`, continuous mode +
+  failsafe cron `0 */2` enabled; roster gen #4: "failsafe `0 */2`, session
+  live"). Residue: the seed-PR settings sub-click (item 9's remaining line)
+  and item 15 (Pages), both still open.
 - **sim-lab OA-002 ("enable the Codex GitHub integration for sim-lab") —
   RESOLVED**: Codex environments now exist for **ALL 12 active fleet repos**,
   sim-lab included (owner update 2026-07-11 ~00:2xZ, inbox ORDER 014; stale
