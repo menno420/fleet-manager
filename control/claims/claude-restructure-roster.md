@@ -1,1 +1,0 @@
-- `claude/restructure-roster` · restructure slice 3 (owner queue + roster re-stamp + heartbeat) · expected: docs/owner-queue.md, docs/fleet-triage.md, docs/roster.md (appended prose only), control/status.md, .sessions/ · 2026-07-11
