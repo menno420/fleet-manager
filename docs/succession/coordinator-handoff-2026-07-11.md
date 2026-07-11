@@ -1,6 +1,6 @@
 # Coordinator succession handoff — 2026-07-11
 
-> **Status:** `handoff` — written ~01:0xZ 2026-07-11 by the outgoing coordinator
+> **Status:** `reference` — succession handoff, written ~01:0xZ 2026-07-11 by the outgoing coordinator
 > session (`session_01V66KdPhtbR1AThhK77kDqr`, Claude Fable 5 family) as its chat
 > was archived. **This is the successor coordinator's ONE-READ state doc.** Boot
 > flow: the owner pastes `projects/fleet-manager/reboot-prompt.md` into a fresh
