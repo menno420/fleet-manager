@@ -24,10 +24,11 @@ proposals, lane repos, and (worst) chat-only surfaces. This registry is their
 - `meta.md` — seat state, cadence, archetype, grants, Codex status, per-part
   deployed-state, and pinned sources. **Read the meta before pasting anything.**
 
-Archive/pre-birth dirs (`codetool-lab-*`, `mobile-lab`, `games-program`,
-`superbot-idle`) carry only `meta.md` (+ `expected-seed.md` for games-program):
-nothing is deployed there; the metas index succession material and pre-birth
-checklists.
+Archive/pre-birth dirs (`codetool-lab-*`, `mobile-lab`, `games-program`)
+carry only `meta.md` (+ `expected-seed.md` for games-program): nothing is
+deployed there; the metas index succession material and pre-birth checklists.
+(`superbot-idle` left stub status 2026-07-11 — the full Seat B package landed
+via ORDER 015.)
 
 **Doctrine:**
 
@@ -107,7 +108,7 @@ no paste record) · **n-a** (deliberately absent).
 | websites | LIVE (fresh-session-per-fire, no seat) | `0 */4 * * *` deployed · `0 */2` recommended | deployed-stale (older fm text; re-paste) | deployed-stale (v1 prompt live; v2 unverified) | unknown | trigger DEPLOYED-verified; stored prompt VERBATIM-committed — **v1-era confirmed**, v2 re-paste owed | only fresh-session lane; cron IS the pacemaker; one 16:01Z silent fire on record |
 | trading-strategy | PARKED GREEN — program COMPLETE **ON MAIN** | `0 */2 * * *` (re-armed 21:03Z; registry-verified) | deployed-stale (pre-Q-0265) | deployed-stale (old delegating one-liner) | unknown | **DEPLOYED-verified** (`trig_01YBaVeKAW…`, `0 */2`, armed 21:03Z; shortened seat-authored prompt VERBATIM-committed — see failsafe-prompt.md) | holdout SPENT, report FINAL; **PR #37 MERGED by owner 20:56:34Z** (was terminal-classifier-unlandable; meta's "sole open action" row predates the click) |
 | venture-lab | LIVE-BUT-DARK (no clock, stale heartbeat) | `0 */2` spec'd — NOT armed | never | never | never | never | riskiest lane state; ORDERs 002/003/004 ride fresh boot; ⚑B/⚑D frozen on Stripe P0 |
-| superbot-games | PARKED + CLOCKLESS (merged lane) | `0 */2` spec'd — NOT armed | never (current form) | never | unknown (two per-lane scripts, inconsistent dirs) | never | kit **v1.7.0 at HEAD** (heartbeat says v1.2.0 — drift); P0: CI collects 73/121 tests |
+| superbot-games | **LIVE — Seat A self-booted 2026-07-10** (single games seat, all of `games/**`) | `15 */2 * * *` + chain — **ARMED** (`trig_019ZgWyL78Rx1sr6LhvL8NE3`, 23:47:02Z) | never pasted (v2 regenerated — ORDER 015) | never (v2 canonized for re-boot) | NEVER-DEPLOYED draft (kept + marked) | **DEPLOYED-verified** (stored prompt VERBATIM-committed) | order-001 CI fix **MERGED** (PR #24, `7d4c347`); floor 230 at `773fab0`; kit v1.8.0; orders 001+002 DONE; package regenerated v2 (ORDER 015) |
 | pokemon-mod-lab | LIVE-PARKED · **PRIVATE** | `0 */2` spec'd — NOT armed | deployed-stale (game-lab founding text) | never | unknown | never | private ⇒ raw-read DARK; env-attach is the only path (manager + kit need it too) |
 | gba-homebrew | LIVE-PARKED (scope-complete) | `0 */2` spec'd — NOT armed | unknown | never | unknown (repo's own toolchain script proven) | never | Track-B concept pick open; archetype gba-lab unverified-as-a-whole |
 | superbot | NO SEAT by design (Q-0264) | none — recon loop is issue-based | n-a (`.claude/CLAUDE.md` IS the deployed text) | n-a (manual kickoff prompt) | unknown | n-a (deliberate absence, documented) | hub + LIVE production bot; Codex LIVE; owner-started sessions only |
@@ -116,7 +117,7 @@ no paste record) · **n-a** (deliberately absent).
 | codetool-lab-sonnet5 | ARCHIVE (Project closed; repo retained) | n-a | n-a | n-a | n-a | n-a | cfgdiff v0.1.1 pending 2 owner clicks (PyPI publisher + tag push) |
 | mobile-lab | PRE-BIRTH (no repo, no Project) | n-a | n-a (held gen-2 package; Q-0262.6 re-base first) | n-a | n-a | n-a | bundled with the 6-repo harness experiment (both ready-not-launched, owner-gated) |
 | games-program | PRE-BIRTH ×3 repos (Q-0259 r5) | n-a (per-repo at boot) | n-a | n-a | n-a | n-a | mapping DECIDE-AND-FLAG pending; `expected-seed.md` is the per-repo checklist |
-| superbot-idle | **LIVE — Seat B BOOTED** (repo owner-created ~2026-07-11T00:15Z; boot observed at roster gen #3: walking skeleton + theme-schema v1, kit v1.7.1) | `45 */2 * * *` + hot chain | never (registry package = ORDER 015) | never | unknown | DEPLOYED per roster gen #3 (seat-armed) | conformed games mapping Seat B (Q-0267); react-by-action on the repo name; registry package = ORDER 015 |
+| superbot-idle | **LIVE — Seat B fully active** (founding queue COMPLETE, volume phase; PRs #1–#25 merged, 216 tests, HEAD `677b74d`) | `45 */2 * * *` + hot chain — **ARMED** (`trig_01TWKGFW8RUsMvxUMt2ndzqA`, 23:44:45Z) | never pasted (v1 canonized — ORDER 015) | never (v1 canonized for re-boot) | n-a (none deployed — stated in meta) | **DEPLOYED-verified** (stored prompt VERBATIM-committed) | conformed games mapping Seat B (Q-0267); kit v1.7.1; both checks required (substrate-gate + theme-gate); SIM-001 awaits manager relay; **registry package landed v1 (ORDER 015, this PR)** |
 
 ## Paste wave — what the owner pastes NOW vs what rides a boot
 
@@ -163,9 +164,10 @@ is the consolidated owner-queue item ("Project package paste wave"):**
   drafts here canonize text for re-boot/succession.
 - **venture-lab** — all four parts ride ORDER 004's fresh boot (arming
   included).
-- **superbot-games** — parts ride first merged-lane boot (ORDER 002 arming;
-  scheduler tools are seat-dependent — re-probe, fall back to an owner
-  Routines-screen arm like sim-lab if absent).
+- **superbot-games, superbot-idle** — SELF-BOOTED 2026-07-10 (failsafes
+  seat-armed, chains live); nothing rides a boot anymore. The v2/v1
+  instructions canonized by ORDER 015 join the paste wave only when the owner
+  next re-pastes those Projects' Custom Instructions.
 - **pokemon-mod-lab, gba-homebrew** — ride the games-program boot (Q-0259 r5
   mapping first); their unexecuted hourly ORDER 002s are superseded by these
   failsafe texts, never executed.
