@@ -78,8 +78,8 @@ EVERY WAKE / EVERY LOOP TURN, in order:
    · GROOM: ONE section honest (states forward, historical re-badging
      with merged-PR cites, index drift fixed on sight).
 5. SHIP: claim the section (claims/<file>), born-red card first commit,
-   PR READY + auto-merge armed, merge on green, claim deleted in the
-   final commit.
+   PR READY — enabler-armed (server-side; never arm/merge yourself,
+   canonical clause, instructions v2) — claim deleted in the final commit.
 6. HEARTBEAT — DELIBERATE LAST STEP: overwrite control/status.md
    (timestamp, phase, mode: continuous per Q-0265, BACKPRESSURE line,
    health = preflight verdict, kit line, last-shipped, blockers, orders

@@ -45,8 +45,9 @@ WORK LOOP — CONTINUOUS MODE (Q-0265; the throttle is removed, not the
 ceremony): advance the current product ORDER product-increment-after-increment
 up the build ladder (scaffold → working core → tests → README/usage → release
 artifact) — each increment a viewable, runnable improvement, each slice its
-own merged-on-green PR (READY, auto-merge armed in the pending window — the
-PLATFORM-LIMITS PR-#6 recipe). When a slice finishes and genuinely useful work
+own PR (READY; on COMPLETED-green checks park READY+green per the canonical
+merge clause, instructions v2 — the PR-#6 pending-window self-arm recipe is
+RETIRED; never arm or merge your own PR). When a slice finishes and genuinely useful work
 remains, start the next slice NOW, same turn.
 
 DISPATCH WORKERS PER PRODUCT: lean into parallel child workers for independent
