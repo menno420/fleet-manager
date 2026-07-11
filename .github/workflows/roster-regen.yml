@@ -1,0 +1,120 @@
+# roster-regen — automated docs/roster.md regeneration on a timely trigger.
+#
+# ============================== PROVENANCE ==============================
+# Why added : P1 (FRESHNESS) of the fleet centralization plan (superbot
+#             docs/planning/fleet-centralization-plan-2026-07-11.md §3a):
+#             regen must NOT depend on the manager agent waking — the only
+#             prior regen path was an agent wake + a hand-exported triggers
+#             JSON, and the roster went ~13h stale when the seat parked.
+#             Motivating incident: roster gen #6 (2026-07-11) found NINE
+#             lane failsafes auto-disabled (ended_reason=
+#             auto_disabled_env_deleted, 14:45-16:16Z); that silent-dark
+#             class hides behind exactly this staleness.
+# Date      : 2026-07-11 (lane worker, model: fable-5, dispatched by
+#             coordinator cse_012o8pySy5K3AV6JWoPKryZL; fleet-manager PR #81)
+# Reliability: unverified — confirm its output against ground truth a few
+#             times across sessions before trusting it (watch the first
+#             scheduled runs; verify the pushed roster's cells like a
+#             gen_roster verification run).
+# Kill-switch: delete this if it proves unreliable over multiple sessions.
+# ========================================================================
+#
+# WHAT gen_roster.py NEEDS HERE (verified against its source, 2026-07-11):
+#   (1) the committed telemetry/triggers-snapshot.json (list_triggers is
+#       MCP-only, so the snapshot dump is inherently a CCR manager-wake
+#       step; this workflow only CONSUMES the committed snapshot);
+#   (2) the `git` binary + plain https to github.com — it reads each lane
+#       heartbeat via `git ls-remote` + shallow `git fetch` in a temp dir.
+#       Actions runners have normal direct internet: the agent-session
+#       git-proxy stale-pack caveat does NOT apply here, so the script's
+#       re-fetch-until-converged loop trivially passes on attempt 1;
+#   (3) python3 stdlib only. NOTE: private lane repos (pokemon-mod-lab)
+#       are unreadable to an unauthenticated fetch and GITHUB_TOKEN is
+#       scoped to THIS repo only — those rows degrade honestly to
+#       "NOT MEASURED (wall: ...)" per gen_roster's design. If that row
+#       matters, the owner can add a read-only PAT secret and wire it in.
+#
+# COMMIT PATH (decide-and-flag, PR #81): DIRECT PUSH via GITHUB_TOKEN.
+#   Rationale: docs-only generated artifact; a PR path is structurally
+#   broken for a bot in this repo (no auto-merge-enabler installed, and
+#   GITHUB_TOKEN-created PRs never trigger workflows, so substrate-gate
+#   would never report and the PR parks forever). If branch protection
+#   rejects the push, this run goes RED — itself the loud signal — and
+#   check_roster_freshness.py reds manager PRs ~4h later (double alarm);
+#   the fix (allow the push, or a PAT with bypass) is an owner-queue item.
+#   Note: a GITHUB_TOKEN push does not trigger other workflows (GitHub
+#   recursion guard) — substrate-gate simply doesn't run on these
+#   generated-docs commits, which is neutral: the same gate never gated
+#   roster content, only session cards and control/ grammar.
+#
+# CCR-TRIGGER ALTERNATIVE (recorded fallback, per the plan): if Actions
+#   cron proves unreliable, arm a dedicated CCR routine instead —
+#   create_trigger(name="fleet roster regen", cron_expression="40 */2 * * *",
+#   create_new_session_on_fire=true, prompt="Sync menno420/fleet-manager to
+#   origin/main. Export list_triggers fully (paginate) to
+#   telemetry/triggers-snapshot.json (stable-sort by id), run
+#   python3 scripts/gen_roster.py --triggers telemetry/triggers-snapshot.json,
+#   verify with scripts/check_roster_freshness.py, land both as a
+#   merged-on-green PR."). That path ALSO refreshes the snapshot (it has
+#   MCP), at the cost of agent-session walls this workflow avoids.
+#
+# Cadence: every 2h at minute 40 — offset from the lane heartbeat crons
+# (lanes wake at :00/:15/:20/:30/:45/:50 on even hours; the manager
+# failsafe is 30 */2) so this reads settled heartbeats and never races
+# the manager's own wake writes.
+name: roster-regen
+on:
+  schedule:
+    - cron: "40 */2 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: roster-regen
+  cancel-in-progress: false
+jobs:
+  regen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+      - name: snapshot-age advisory (the snapshot is only as fresh as the last manager wake)
+        # The committed snapshot is refreshed by CCR manager wakes, not by
+        # this workflow (list_triggers is MCP-only). A stale snapshot means
+        # the roster's TRIGGER columns lag reality even though heartbeat
+        # columns are fresh — warn loudly, but still regenerate (fresh
+        # heartbeats + stale triggers beats an entirely frozen roster).
+        run: |
+          snap_ts="$(git log -1 --format=%ct -- telemetry/triggers-snapshot.json || echo 0)"
+          if [ "$snap_ts" = "0" ] || [ -z "$snap_ts" ]; then
+            echo "::error::telemetry/triggers-snapshot.json missing from git history — regen cannot run headless"
+            exit 1
+          fi
+          age_h=$(( ( $(date +%s) - snap_ts ) / 3600 ))
+          echo "snapshot age: ${age_h}h (committed $(git log -1 --format=%cI -- telemetry/triggers-snapshot.json))"
+          if [ "$age_h" -gt 24 ]; then
+            echo "::warning::triggers snapshot is ${age_h}h old (>24h) — roster trigger columns lag reality; the manager wake owes a fresh list_triggers dump"
+          fi
+      - name: regenerate docs/roster.md from the committed snapshot + live heartbeats
+        run: |
+          python3 scripts/gen_roster.py \
+            --triggers telemetry/triggers-snapshot.json \
+            --generated-by "roster-regen workflow (GitHub Actions, headless)" \
+            --dispatched-by "cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)"
+      - name: freshness self-check (blocking)
+        run: python3 scripts/check_roster_freshness.py
+      - name: commit + push on change
+        run: |
+          if git diff --quiet -- docs/roster.md; then
+            echo "roster unchanged — nothing to commit"
+            exit 0
+          fi
+          git config user.name "roster-regen[workflow]"
+          git config user.email "actions@github.com"
+          git add docs/roster.md
+          gen="$(grep -om1 'Generation #[0-9]*' docs/roster.md || echo 'Generation #?')"
+          git commit -m "Roster regen (automated, ${gen}) [roster-regen.yml]"
+          # tolerate a racing merge: rebase once, then push
+          git pull --rebase origin main || true
+          git push origin HEAD:main

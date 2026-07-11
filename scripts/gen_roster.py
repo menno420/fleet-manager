@@ -100,9 +100,22 @@ index — on mismatch):
   pages' records concatenated under "data") and a raw single page are both
   accepted. Records with duplicate ids are deduplicated (first wins).
 
+SNAPSHOT CONVENTION (P1 FRESHNESS, centralization plan §3a, fm PR #81):
+  the canonical --triggers source is the COMMITTED export,
+  `telemetry/triggers-snapshot.json` — dumped + committed at each manager
+  wake (list_triggers is MCP-only, so the dump is inherently a CCR-wake
+  step; records stable-sorted by trigger id, pages merged under one "data"
+  key). The headless roster-regen cron (.github/workflows/roster-regen.yml,
+  `40 */2 * * *`) consumes the committed snapshot and re-fetches heartbeats
+  live, so the roster stays fresh between wakes; its TRIGGER columns are
+  only as fresh as the last committed snapshot. Regen + a green
+  scripts/check_roster_freshness.py is a REQUIRED wake step, not a
+  commit-only-on-change option. An ad-hoc uncommitted export
+  (tmp-triggers.json, gitignored) remains fine for one-off runs.
+
 USAGE
   # generate (writes docs/roster.md relative to the repo root):
-  python3 scripts/gen_roster.py --triggers tmp-triggers.json \
+  python3 scripts/gen_roster.py --triggers telemetry/triggers-snapshot.json \
       --generated-by "roster lane worker (model: fable-5)" \
       --dispatched-by "coordinator cse_..." [--generation N] [--date ISO]
   # drift check (exits 2 on ANY difference vs the committed roster;

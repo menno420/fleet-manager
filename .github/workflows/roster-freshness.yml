@@ -1,0 +1,42 @@
+# roster-freshness — PR gate on the roster's generated-at stamp.
+#
+# ============================== PROVENANCE ==============================
+# Why added : P1 (FRESHNESS) of the fleet centralization plan (superbot
+#             docs/planning/fleet-centralization-plan-2026-07-11.md §3a):
+#             a stale roster must be impossible to miss. Lives in its OWN
+#             workflow file because substrate-gate.yml is KIT-OWNED
+#             (adopt/upgrade overwrites hand edits — its header says
+#             host customizations go in a separate workflow).
+# Date      : 2026-07-11 (lane worker, model: fable-5, dispatched by
+#             coordinator cse_012o8pySy5K3AV6JWoPKryZL; fleet-manager PR #81)
+# Reliability: unverified — confirm its output against ground truth a few
+#             times across sessions before trusting it.
+# Kill-switch: delete this if it proves unreliable over multiple sessions.
+# ========================================================================
+#
+# SEVERITY (decide-and-flag, PR #81; the plan doc leaves it unstated):
+#   BLOCKING on manager-authored branches (claude/*) — the manager owns
+#   roster custody, so its own PRs red until the roster is regenerated
+#   (that is the plan's "make regen a required, verified wake step" given
+#   teeth). ADVISORY (warn, exit 0) on every other branch — a lane/owner
+#   PR is never jammed by the manager's stale roster.
+name: roster-freshness
+on:
+  pull_request:
+jobs:
+  freshness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: roster freshness (blocking on claude/*, advisory elsewhere)
+        run: |
+          case "${{ github.head_ref }}" in
+            claude/*)
+              echo "manager-authored branch — freshness is BLOCKING"
+              python3 scripts/check_roster_freshness.py
+              ;;
+            *)
+              echo "non-manager branch — freshness is ADVISORY (never exit-affecting)"
+              python3 scripts/check_roster_freshness.py --advisory
+              ;;
+          esac
