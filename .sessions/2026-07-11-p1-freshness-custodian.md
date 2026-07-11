@@ -121,6 +121,19 @@ immediate `gh pr merge --squash` in the same run; merge denial parks exactly
 ONE open PR + reds the run. Workflow header carries the verbatim GH013
 evidence.
 
+**Second live wall (v2 test, run 29165152964, ~19:23Z):** PR creation by
+GITHUB_TOKEN is also blocked — verbatim: `pull request create failed:
+GraphQL: GitHub Actions is not permitted to create or approve pull requests
+(createPullRequest)`. The regen + branch push WORKED (gen #7 commit `a310a12`
+on `bot/roster-regen`); only the PR-create permission is missing — an
+owner-only settings toggle. Shipped v3 (third PR this session): honest
+degrade (reuse an open PR when one exists; otherwise red with a pointer) +
+**owner-queue item 33** (click-level: tick "Allow GitHub Actions to create
+and approve pull requests" in fleet-manager Settings → Actions). Terminal
+state until that click: heartbeat columns regen at manager wakes as before,
+the cron run reds every 2h as a standing reminder, and the freshness checker
+alarms at >4h — no silent staleness is possible, which is P1's actual bar.
+
 ## Verification
 
 - `python3 scripts/gen_roster.py --selfcheck` → PASS (0 failures).

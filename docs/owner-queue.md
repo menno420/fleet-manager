@@ -193,6 +193,30 @@ Item fields (R17, kit grammar): **WHAT · WHERE (click-surface URL) · HOW
       intent-signal-only — the fold landed via #76, not #47.
     - Blocking: no longer blocking — ORDER 017 executed (PR #77).
 
+33. **fleet-manager — tick "Allow GitHub Actions to create and approve pull
+    requests"** *(new 2026-07-11, P1 FRESHNESS; the last click that makes
+    roster freshness fully autonomous).*
+    - WHERE: https://github.com/menno420/fleet-manager/settings/actions →
+      "Workflow permissions".
+    - HOW: check the box "Allow GitHub Actions to create and approve pull
+      requests" → Save. (If greyed out, flip the same toggle in the
+      account-level Actions settings first.)
+    - UNBLOCKS: the roster-regen cron (`40 */2 * * *`,
+      `.github/workflows/roster-regen.yml`) landing `docs/roster.md`
+      regenerations on its own — it already regenerates + pushes
+      `bot/roster-regen` fine but cannot open the PR.
+    - VERIFIED-NEEDED: attempted twice live 2026-07-11 (~19:17Z + ~19:23Z),
+      walls verbatim — direct push: `GH013 … Changes must be made through a
+      pull request.` (run 29164975251); PR path: `pull request create failed:
+      GraphQL: GitHub Actions is not permitted to create or approve pull
+      requests (createPullRequest)` (run 29165152964; the regen commit
+      `a310a12` DID reach `bot/roster-regen`, so ONLY the PR-create
+      permission is missing). Owner-only: repo/account settings surface, no
+      API path for GITHUB_TOKEN.
+    - Blocking: not-blocking (manager wakes still regen the roster; the
+      freshness checker alarms at >4h), but this click removes the last
+      manager-wake dependence — the whole point of P1.
+
 ### (C) Claude platform (console / environments / sessions / Codex)
 
 14. **Re-paste the consolidated env setup scripts — COORDINATOR ENV FIRST.**

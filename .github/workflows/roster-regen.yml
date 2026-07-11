@@ -52,6 +52,17 @@
 #   bot/roster-regen for the next manager wake to land — one PR, not an
 #   accumulating pile). Either terminal state is loud; and
 #   check_roster_freshness.py reds manager PRs ~4h later (double alarm).
+#   v3 ADDENDUM (second live wall, run 29165152964, 2026-07-11T19:23Z):
+#   PR creation by GITHUB_TOKEN is ALSO blocked until the owner ticks
+#   "Allow GitHub Actions to create and approve pull requests" — verbatim:
+#     pull request create failed: GraphQL: GitHub Actions is not permitted
+#     to create or approve pull requests (createPullRequest)
+#   The regen + branch push WORKED (gen #7 commit a310a12 reached
+#   bot/roster-regen); only the PR-create permission is missing. The owner
+#   click is docs/owner-queue.md item 33. Until it lands, this workflow
+#   degrades honestly: it pushes the regen to bot/roster-regen, reuses an
+#   already-open PR when one exists, and otherwise reds with a pointer —
+#   the manager wake (or the owner click) completes the landing.
 #
 # CCR-TRIGGER ALTERNATIVE (recorded fallback, per the plan): if Actions
 #   cron proves unreliable, arm a dedicated CCR routine instead —
@@ -128,9 +139,12 @@ jobs:
           git push -f origin bot/roster-regen
           pr="$(gh pr list --head bot/roster-regen --state open --json number --jq '.[0].number' || true)"
           if [ -z "$pr" ]; then
-            gh pr create --head bot/roster-regen --base main \
+            if ! gh pr create --head bot/roster-regen --base main \
               --title "Roster regen (automated, ${gen})" \
-              --body "Automated roster regeneration from the committed triggers snapshot + live heartbeats (.github/workflows/roster-regen.yml). Generated docs only — docs/roster.md."
+              --body "Automated roster regeneration from the committed triggers snapshot + live heartbeats (.github/workflows/roster-regen.yml). Generated docs only — docs/roster.md."; then
+              echo "::error::PR creation DENIED (GITHUB_TOKEN cannot create PRs until the owner ticks 'Allow GitHub Actions to create and approve pull requests' — docs/owner-queue.md item 33). The regen commit IS pushed on bot/roster-regen; the next manager wake (or the owner) opens+lands it."
+              exit 1
+            fi
             pr="$(gh pr list --head bot/roster-regen --state open --json number --jq '.[0].number')"
           fi
           echo "landing roster regen via PR #$pr"
