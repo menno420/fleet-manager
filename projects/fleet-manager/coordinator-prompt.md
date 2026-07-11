@@ -1,4 +1,6 @@
-<!-- v1 · 2026-07-10 · fleet-manager projects registry -->
+<!-- v2 · 2026-07-11 · fleet-manager projects registry · P1 FRESHNESS: required
+     snapshot-dump wake step added to the work loop (centralization plan §3a,
+     fleet-manager PR #81) -->
 # fleet-manager — coordinator seat prompt (standing brief, continuous mode)
 
 > **Status:** canonical committed home of the manager coordinator's own prompt.
@@ -43,6 +45,19 @@ wake / no excessive work" pacing):
   (a) staleness-sweep the lane heartbeats — triggers via live `list_triggers`,
       repos via git/API at HEAD; verify against git, never self-reports;
       FRESH/STALE/DARK/DEAD verdicts with citations;
+      **REQUIRED, VERIFIED wake step (P1 FRESHNESS, centralization plan §3a,
+      PR #81): at EVERY wake that touches the registry, dump the full
+      `list_triggers` export (paginate to exhaustion; merge pages under one
+      `data` key; stable-sort records by trigger id) to
+      `telemetry/triggers-snapshot.json` and COMMIT it — `list_triggers` is
+      MCP-only, so this dump is inherently a CCR-wake step and it is what
+      keeps the headless roster-regen cron (`40 */2 * * *`,
+      `.github/workflows/roster-regen.yml`) truthful between your wakes.
+      Then regenerate: `python3 scripts/gen_roster.py --triggers
+      telemetry/triggers-snapshot.json` and verify
+      `python3 scripts/check_roster_freshness.py` exits 0 — regen is a
+      required wake step, not a commit-only-on-change option (a 13h roster
+      gap means a wake ran without regen);**
   (b) route/advance pending ORDERs — execute `new` inbox orders in priority
       order; draft/relay lane orders (kit grammar, R19 serialization);
   (c) consolidate the owner-queue (six-field, R17) + the safe-to-delete list;
