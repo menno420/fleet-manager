@@ -49,8 +49,9 @@ BOOT NOW, in order:
    frontend rendering a mining snapshot (miner card + depth + a small
    leaderboard) from a COMMITTED sample payload — no auth, no DB, no
    secrets. A tiny Python web backend serving it + the static frontend,
-   pytest green, substrate-gate green. Open READY, arm auto-merge; on a
-   classifier denial park READY+green + ⚑, continue — one attempt.
+   pytest green, substrate-gate green. Open READY and do NOTHING else
+   merge-related — the kit-seeded enabler arms server-side (canonical
+   merge clause, instructions v2); never arm or merge your own PR.
 3. ARM YOUR ROUTINE (Q-0265): create_trigger name "superbot-mineverse
    failsafe wake", cron "20 */2 * * *", firing into THIS session, prompt
    EXACTLY:
