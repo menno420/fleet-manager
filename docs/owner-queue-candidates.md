@@ -4,7 +4,7 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #9** · generated-at **2026-07-11T20:18Z** · by P3 lane worker (model: fable-5), dispatched by coordinator cse_012o8pySy5K3AV6JWoPKryZL (P3, fm PR #86)
+> **Generation #9** · generated-at **2026-07-11T20:25Z** · by P3 lane worker (model: fable-5), dispatched by coordinator cse_012o8pySy5K3AV6JWoPKryZL (P3, fm PR #86)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
@@ -21,7 +21,7 @@
 ### superbot-next — ⚑ needs-owner: FOUR live OWNER-ACTION items below (six-field format per control/README.md) — items 2 and 3 un…
 
 - suggested-id: `OQ-SUPERBOT-NEXT-FOUR-LIVE-ITEMS-BELOW`
-- source: superbot-next/control/status.md @ `c3037d5` · heartbeat `updated:` 2026-07-11T20:20Z
+- source: superbot-next/control/status.md @ `f71d60b` · heartbeat `updated:` 2026-07-11T20:20Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -31,7 +31,7 @@
 ### superbot-next — ⚑ OWNER-ACTION 2 — create the hello-plugin repo (flag 18a)
 
 - suggested-id: `OQ-SUPERBOT-NEXT-2-CREATE-HELLO-PLUGIN`
-- source: superbot-next/control/status.md @ `c3037d5` · heartbeat `updated:` 2026-07-11T20:20Z
+- source: superbot-next/control/status.md @ `f71d60b` · heartbeat `updated:` 2026-07-11T20:20Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -47,7 +47,7 @@ VERIFIED-NEEDED: attempted repo-create with the integration token — GitHub ret
 ### superbot-next — ⚑ OWNER-ACTION 3 — kill the branch-update merge dance
 
 - suggested-id: `OQ-SUPERBOT-NEXT-3-KILL-BRANCH-UPDATE`
-- source: superbot-next/control/status.md @ `c3037d5` · heartbeat `updated:` 2026-07-11T20:20Z
+- source: superbot-next/control/status.md @ `f71d60b` · heartbeat `updated:` 2026-07-11T20:20Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -63,7 +63,7 @@ VERIFIED-NEEDED: repo Settings/Rulesets are admin-only — agent tokens can read
 ### superbot-next — ⚑ OWNER-ACTION 4 — RETIRED 2026-07-11 (was: configure Codex for this repo — environment + code-review capacit…
 
 - suggested-id: `OQ-SUPERBOT-NEXT-4-RETIRED-2026-07`
-- source: superbot-next/control/status.md @ `c3037d5` · heartbeat `updated:` 2026-07-11T20:20Z
+- source: superbot-next/control/status.md @ `f71d60b` · heartbeat `updated:` 2026-07-11T20:20Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -74,7 +74,7 @@ RESOLVED owner-side, both halves: the connector produced a FULL substantive revi
 ### superbot-next — ⚑ OWNER-ACTION 5 — provide the band-7 AI key envelope (live-NL leg)
 
 - suggested-id: `OQ-SUPERBOT-NEXT-5-PROVIDE-BAND-7`
-- source: superbot-next/control/status.md @ `c3037d5` · heartbeat `updated:` 2026-07-11T20:20Z
+- source: superbot-next/control/status.md @ `f71d60b` · heartbeat `updated:` 2026-07-11T20:20Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -90,7 +90,7 @@ VERIFIED-NEEDED: verified during #151's ORDER 004 live drive — `ANTHROPIC_API_
 ### superbot-next — ⚑ OWNER-ACTION 6 — re-arm the fleet's dead failsafe routines (2026-07-11T16:31Z env-teardown fallout)
 
 - suggested-id: `OQ-SUPERBOT-NEXT-6-RE-ARM-FLEET`
-- source: superbot-next/control/status.md @ `c3037d5` · heartbeat `updated:` 2026-07-11T20:20Z
+- source: superbot-next/control/status.md @ `f71d60b` · heartbeat `updated:` 2026-07-11T20:20Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -363,7 +363,7 @@ VERIFIED-NEEDED: cross-repo write to `menno420/websites` is out of this session'
 ### websites — ⚑ needs-owner: SEVEN asks — canonical list in docs/owner/OWNER-ACTIONS.md: (1) PR #141 merge click (+ branch …
 
 - suggested-id: `OQ-WEBSITES-SEVEN-ASKS-CANONICAL-LIST`
-- source: websites/control/status.md @ `556ff9b` · heartbeat `updated:` 2026-07-11T19:49:00Z
+- source: websites/control/status.md @ `0545906` · heartbeat `updated:` 2026-07-11T19:49:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -373,7 +373,7 @@ VERIFIED-NEEDED: cross-repo write to `menno420/websites` is out of this session'
 ### websites — ⚑ OWNER-ACTION
 
 - suggested-id: `OQ-WEBSITES-FLAG`
-- source: websites/control/status.md @ `556ff9b` · heartbeat `updated:` 2026-07-11T19:49:00Z
+- source: websites/control/status.md @ `0545906` · heartbeat `updated:` 2026-07-11T19:49:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -389,7 +389,7 @@ VERIFIED-NEEDED: cross-repo write to `menno420/websites` is out of this session'
 ### websites — ⚑ OWNER-ACTION
 
 - suggested-id: `OQ-WEBSITES-FLAG-2`
-- source: websites/control/status.md @ `556ff9b` · heartbeat `updated:` 2026-07-11T19:49:00Z
+- source: websites/control/status.md @ `0545906` · heartbeat `updated:` 2026-07-11T19:49:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -539,58 +539,20 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
   · WHAT: two decisions were taken without per-action owner signoff: (1) all merges 2026-07-11 executed under the standing grant (owner in-session event b92aab44); (2) the idle pacemaker was widened 15→45 min with the 2-hourly failsafe as backstop. · ASK: veto either retroactively, or no action needed to keep them.
 ```
 
-### superbot-games · Seat A — ⚑ needs-owner: (1) FIVE green + reviewed PRs each need ONE merge click — order: #34 first (ends floor churn),…
+### superbot-games · Seat A — ⚑ needs-owner: see the OWNER-ACTION block below + docs/retro/archive-ready-2026-07-11.md
 
-- suggested-id: `OQ-SUPERBOT-GAMES-1-FIVE-GREEN-REVIEWED`
-- source: superbot-games/control/status.md @ `5a9d4d2` · heartbeat `updated:` 2026-07-11T13:19:52Z
+- suggested-id: `OQ-SUPERBOT-GAMES-SEE-BLOCK-BELOW-DOCS`
+- source: superbot-games/control/status.md @ `3250181` · heartbeat `updated:` 2026-07-11T19:39:14Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-⚑ needs-owner: (1) FIVE green + reviewed PRs each need ONE merge click — order: #34 first (ends floor churn), then #36, #38, then #32 & #27 (these two need a quick rebase first); a direct "merge them" in the world-games session also clears the gate. (2) Model-attribution (ORDER 003): this lane records `📊 Model: Opus 4.8` (family-level, environment-reported) on session cards, never the exact internal id — confirm that family-level form is wanted, or say if "Claude Opus" is preferred. (3) No spend / publish / external-account / production-data actions taken; no secrets in repo — only decide-and-flag items were re-scoping #36 (documented) and building churn-fix #34.
-```
-
-### superbot-games · Seat A — - **⚑ FIVE PRs are green + reviewed and need one merge click each** (agent self-merge is
-
-- suggested-id: `OQ-SUPERBOT-GAMES-FIVE-PRS-GREEN-REVIEWED`
-- source: superbot-games/control/status.md @ `5a9d4d2` · heartbeat `updated:` 2026-07-11T13:19:52Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-- **⚑ FIVE PRs are green + reviewed and need one merge click each** (agent self-merge is
-  classifier-blocked): merge **#34 first** (ends floor churn), then **#36**, **#38**, then
-  **#32** & **#27** (these two need a quick rebase first). Alternative: a direct "merge them"
-  instruction in the world-games session clears the gate and the lane lands all five in order.
-```
-
-### superbot-games · Seat A — - **⚑ Model-attribution (ORDER 003):** the lane records `📊 Model: Opus 4.8` (family-level, the
-
-- suggested-id: `OQ-SUPERBOT-GAMES-MODEL-ATTRIBUTION-ORDER-003`
-- source: superbot-games/control/status.md @ `5a9d4d2` · heartbeat `updated:` 2026-07-11T13:19:52Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-- **⚑ Model-attribution (ORDER 003):** the lane records `📊 Model: Opus 4.8` (family-level, the
-  environment-reported family) on session cards, never the exact internal id, per the
-  operator's don't-embed-the-id rule — confirm that's the family-level form wanted, or say if
-  "Claude Opus" is preferred.
-```
-
-### superbot-games · Seat A — - **⚑ No spend / publish / external-account / production-data actions taken; no secrets in
-
-- suggested-id: `OQ-SUPERBOT-GAMES-NO-SPEND-PUBLISH-EXTERNAL`
-- source: superbot-games/control/status.md @ `5a9d4d2` · heartbeat `updated:` 2026-07-11T13:19:52Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-- **⚑ No spend / publish / external-account / production-data actions taken; no secrets in
-  repo.** Only decide-and-flag items were: re-scoping #36 (documented) and building the
-  churn-fix #34 design.
+⚑ needs-owner: see the OWNER-ACTION block below + docs/retro/archive-ready-2026-07-11.md
 ```
 
 ### ↳ superbot-games · Seat A — `control/status-exploration.md` — ⚑ needs-owner: \|
 
 - suggested-id: `OQ-SUPERBOT-GAMES-FLAG`
-- source: superbot-games/control/status-exploration.md @ `5a9d4d2` · heartbeat `updated:` 2026-07-09T20:09Z
+- source: superbot-games/control/status-exploration.md @ `3250181` · heartbeat `updated:` 2026-07-09T20:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -702,7 +664,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### gba-homebrew — ⚑ needs-owner (carried + one NEW):
 
 - suggested-id: `OQ-GBA-HOMEBREW-CARRIED-ONE-NEW`
-- source: gba-homebrew/control/status.md @ `75ef9ba` · heartbeat `updated:` 2026-07-11T19:56:00Z (session 20 own-section update on top …
+- source: gba-homebrew/control/status.md @ `dcfa865` · heartbeat `updated:` 2026-07-11T20:15:00Z (session 22, bare hourly wake heartbea…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -712,7 +674,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### gba-homebrew — - **⚑ owner-click: create the Lumen Drift GitHub Release** (worker seat
 
 - suggested-id: `OQ-GBA-HOMEBREW-CLICK-CREATE-LUMEN-DRIFT`
-- source: gba-homebrew/control/status.md @ `75ef9ba` · heartbeat `updated:` 2026-07-11T19:56:00Z (session 20 own-section update on top …
+- source: gba-homebrew/control/status.md @ `dcfa865` · heartbeat `updated:` 2026-07-11T20:15:00Z (session 22, bare hourly wake heartbea…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -732,7 +694,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### gba-homebrew — - **⚑ owner-click: merged-branch cleanup** — worker seat gets 403 on
 
 - suggested-id: `OQ-GBA-HOMEBREW-CLICK-MERGED-BRANCH-CLEANUP`
-- source: gba-homebrew/control/status.md @ `75ef9ba` · heartbeat `updated:` 2026-07-11T19:56:00Z (session 20 own-section update on top …
+- source: gba-homebrew/control/status.md @ `dcfa865` · heartbeat `updated:` 2026-07-11T20:15:00Z (session 22, bare hourly wake heartbea…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -745,7 +707,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### gba-homebrew — - **⚑ owner-click (NEW): add `NDS ROM build` to the required checks**
 
 - suggested-id: `OQ-GBA-HOMEBREW-CLICK-NEW-ADD-NDS`
-- source: gba-homebrew/control/status.md @ `75ef9ba` · heartbeat `updated:` 2026-07-11T19:56:00Z (session 20 own-section update on top …
+- source: gba-homebrew/control/status.md @ `dcfa865` · heartbeat `updated:` 2026-07-11T20:15:00Z (session 22, bare hourly wake heartbea…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -760,7 +722,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### gba-homebrew — - **⚑ graze tuning wants owner hands-on validation** — the
 
 - suggested-id: `OQ-GBA-HOMEBREW-GRAZE-TUNING-WANTS-HANDS`
-- source: gba-homebrew/control/status.md @ `75ef9ba` · heartbeat `updated:` 2026-07-11T19:56:00Z (session 20 own-section update on top …
+- source: gba-homebrew/control/status.md @ `dcfa865` · heartbeat `updated:` 2026-07-11T20:15:00Z (session 22, bare hourly wake heartbea…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -777,7 +739,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### gba-homebrew — - ⚑ (**awareness, no click needed**) — the routine model-attribution
 
 - suggested-id: `OQ-GBA-HOMEBREW-AWARENESS-NO-CLICK-NEEDED`
-- source: gba-homebrew/control/status.md @ `75ef9ba` · heartbeat `updated:` 2026-07-11T19:56:00Z (session 20 own-section update on top …
+- source: gba-homebrew/control/status.md @ `dcfa865` · heartbeat `updated:` 2026-07-11T20:15:00Z (session 22, bare hourly wake heartbea…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -1034,5 +996,5 @@ PROMPT REGISTRY: **fleet-manager `projects/` — canonical, v-stamped (v1 · 202
 
 ---
 
-69 candidate block(s) across 16 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
+66 candidate block(s) across 16 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
 

@@ -870,6 +870,11 @@ def truncate(text: str, limit: int) -> str:
     text = re.sub(r"\s+", " ", text).strip()
     # markdown tables break on raw pipes
     text = text.replace("|", "\\|")
+    # Roster cells are QUOTATIONS of lane heartbeats, not decision homes —
+    # the same stamp-discipline swap as the candidate feed (P2; first
+    # tripped by a P3 sub-row quoting `D-0002` in its kit cell): ASCII
+    # hyphen in D-NNN ids -> U+2011, visually identical, checker-inert.
+    text = _DECISION_ID_RE.sub("D‑\\1", text)
     return text if len(text) <= limit else text[: limit - 1] + "…"
 
 
@@ -1206,6 +1211,9 @@ def selfcheck() -> int:
     ok("```" not in _sanitize_feed_line("```bash"), "fence chars neutralized")
     # pipe escaping (markdown table safety)
     ok("\\|" in truncate("a|b", 50), "pipes escaped in cells")
+    ok("D-0002" not in truncate("adopted (D-0002)", 50)
+       and "D‑0002" in truncate("adopted (D-0002)", 50),
+       "decision ids in roster cells are stamp-discipline inert")
     # P3: heartbeat-file ordering (declared wins, glob catches undeclared,
     # status.md always first, declared-but-absent dropped)
     ok(order_heartbeat_paths(
