@@ -1,0 +1,1 @@
+- `claude/kit-upgrade-v1.11.0` · **kit upgrade** — substrate-kit v1.10.1 → v1.11.0 (release asset c339bd6a…) · bootstrap.py, .github/workflows/substrate-gate.yml, .substrate/** · 2026-07-11
