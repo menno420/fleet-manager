@@ -1,23 +1,20 @@
 #!/usr/bin/env bash
 # ---------------------------------------------------------------------------
-# setup-script.sh — superbot-games (merged games-plugins lane) environment setup
+# setup-script.sh — superbot-games (Seat A) environment setup
+# v2 · 2026-07-11 · fleet-manager projects registry
 #
 # Part 3 of the superbot-games Project package. Owner pastes this into
 # claude.ai/code → Environments → <env> → Setup script.
 #
-# CANONICALIZED 2026-07-10 from the repo's TWO existing setup scripts, which
-# live in INCONSISTENT directories at origin/main @ 4493292:
-#   - environment/setup-exploration.sh  (singular dir; fleet-template mirror,
-#     TESTED 2026-07-09: two runs, repo dir + clean dir, exit 0 both — PR #13)
-#   - environments/setup-mining.sh      (plural dir; adds pytest install +
-#     kit-check + test-smoke probes — PR #14)
-# Base = exploration's (the tested fleet-template shape, matching
-# fleet-manager environments/archetype-python-lab.sh, whose header lists
-# superbot-games as a consumer); mining's pytest/kit/test probes folded in;
-# capability-probe block added (websites docs/project/setup-script.sh
-# pattern). CANONICAL HOME going forward: environments/ (plural — the fleet
-# convention); the first session should commit this file there and retire the
-# two per-lane scripts (flagged in meta.md).
+# *** DEPLOYED STATE: NEVER-DEPLOYED AS-WRITTEN (registry draft). ***
+# No paste receipt exists for this script; the seat SELF-BOOTED 2026-07-10
+# and runs without a registry-verified Setup-script field. What verifiably
+# EXISTS at origin/main 773fab0: three scripts in the repo —
+# scripts/env-setup.sh (kit-standard), environment/setup-exploration.sh,
+# environments/setup-mining.sh (gen-1 per-lane, inconsistent dirs; v1's
+# canonical-home consolidation was never executed). This draft remains the
+# registry's canonicalized derivation of those (see meta.md deployed-state
+# table); refreshed v2 for post-ORDER-001 reality (gate fixed, floor 230).
 #
 # Python deps — from the ACTUAL manifests: the repo has NO requirements.txt
 # and NO pyproject.toml (pure-stdlib domain code); CI (tests.yml) installs
@@ -75,12 +72,12 @@ setup_one() {
       || log "$name: bootstrap.py check reported findings / could not run (non-fatal; re-run in-session)"
   fi
 
-  # ORDER-001 collection probe (informational): the CI gate collects 73/121
-  # until the collect-ALL-suites fix lands — print the REAL collected count so
-  # the session sees the truth at boot. Floor today: 121.
+  # Full-collection probe (informational): ORDER 001's collect-ALL-suites fix
+  # is MERGED (PR #24, merge 7d4c347) — CI itself now floors the count (230 at
+  # 773fab0). Print the real collected count so the session sees it at boot.
   if [ -n "$PY" ] && [ -d "$repo_dir/tests" ]; then
     count="$( cd "$repo_dir" && "$PY" -m pytest --collect-only -q tests/ games/exploration/tests/ 2>/dev/null | tail -1 )"
-    log "$name: full-collection probe (tests/ + games/exploration/tests/): ${count:-unavailable} (expected floor: 121)"
+    log "$name: full-collection probe (tests/ + games/exploration/tests/): ${count:-unavailable} (CI floor: 230 at 773fab0 — check tests.yml for current)"
   fi
 }
 
@@ -109,7 +106,7 @@ if command -v git >/dev/null 2>&1 && [ -d .git ]; then
     || log "probe: git ls-remote FAILED — record the exact error in-session before declaring a wall"
   [ -n "$(git status --porcelain 2>/dev/null | head -1)" ] && log "NOTE: working tree dirty"
 fi
-log "probe: scheduler/GitHub MCP tools are seat-dependent (mining wall on record: 'No such tool available: mcp__claude-code-remote__send_later') — probe in-session, once, capture verbatim"
+log "probe: scheduler/GitHub MCP tools are seat-dependent (gen-1 mining wall on record: 'No such tool available: mcp__claude-code-remote__send_later'; the LIVE Seat A session armed trig_019ZgWyL78Rx1sr6LhvL8NE3 successfully 2026-07-10T23:47Z) — probe in-session, once, capture verbatim"
 
 # --- Block 6: env var contract (NAMES only — never values) --------------------
 # This lane needs NO secrets: pure-stdlib, no live infra, no DB, no Discord
