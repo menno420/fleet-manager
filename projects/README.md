@@ -5,6 +5,20 @@
 > dispatch) from the three-sweep inventory by three parallel builders; committed
 > verbatim by the assembler.
 
+> **⚠ RESTRUCTURED 2026-07-11 (owner directive — 8 standing Projects, slice 1).**
+> The fleet's standing seats are now: **Venture Lab** (`venture-lab/` — folds
+> trading-strategy, research-only) · **SuperBot World** (`superbot-world/` —
+> folds superbot-games + superbot-idle + superbot-mineverse; flagship =
+> mineverse) · **Game Lab** (`game-lab/` — folds gba-homebrew +
+> pokemon-mod-lab; standalone) · **Ideas Lab** (`ideas-lab/` — folds
+> idea-engine + sim-lab) · **Self Improvement** (`self-improvement/` —
+> substrate-kit) · **SuperBot 2.0** (`superbot-2.0/` — superbot +
+> superbot-next) · **Websites** (`websites/`) · **Fleet Manager**
+> (`fleet-manager/`). All other dirs are single-file pointer stubs (retired or
+> merged-source); `product-forge/` awaits owner disposition (not in the 8-seat
+> list). The MATRIX and paste-wave sections below predate the restructure —
+> treat them as historical until slice 2 (prompt re-sync) regenerates them.
+
 ## What this registry is
 
 Every claude.ai Project in the fleet runs on **four owner-pasted parts** that
