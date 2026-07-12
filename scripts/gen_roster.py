@@ -67,7 +67,15 @@ VERDICT LADDER (documented so the vocabulary stays stable):
   STALE  — age > 2x cadence but <= 24h. Watch, not action.
   DARK   — age > 24h on a live lane (R25: a roster/heartbeat >24h is dead —
            trust nothing, escalate).
-  DEAD   — heartbeat NOT MEASURABLE at all (repo/branch/status unreadable)
+  UNREADABLE (transport/auth) — the REPO could not be read over git
+           transport at all (private-repo auth wall, non-convergent proxy).
+           A MEASUREMENT artifact, never lane death: the lane may be
+           perfectly alive behind the wall (gen #21 lesson: pokemon-mod-lab
+           printed DEAD while it was ARCHIVE-READY with kit v1.15.0 merged
+           hours earlier). Fix the transport (ROSTER_READ_TOKEN, below);
+           never triage the lane off this verdict.
+  DEAD   — the repo IS readable but no heartbeat signal is measurable
+           (no parseable `updated:` stamp and no parseable HEAD date)
            on a lane that should have one.
   Overrides: disposition "archived"/"parked" reports STALE-BY-DESIGN instead
   of DARK/DEAD; "registry-only" seats (no repo) are judged on trigger
@@ -83,6 +91,16 @@ fetch on 2026-07-10):
   default 5). A repo that never converges, or that cannot be read at all
   (private wall, nonexistent), degrades EXPLICITLY to
   "NOT MEASURED (wall: <reason>)" — a Last-seen is never invented.
+  AUTH (gen #21 root-cause fix): reads go over plain https git transport,
+  which is unauthenticated on the headless Actions runner — public lane
+  repos succeed, the private one (pokemon-mod-lab) walls with "could not
+  read Username". When the dedicated env ROSTER_READ_TOKEN is set (a
+  fine-grained read-only PAT; the roster-regen workflow forwards the
+  secret of the same name), every github.com read sends it as a
+  basic-auth extraheader — the same mechanism actions/checkout uses.
+  GH_TOKEN / GITHUB_TOKEN are DELIBERATELY not picked up: agent sessions
+  export literal "proxy-injected" placeholders in both, and sending that
+  as a credential would 401 reads that succeed today.
 
 EXPECTED --triggers JSON SHAPE (documented from a real `list_triggers`
 response, 2026-07-11; the script FAILS LOUDLY — nonzero exit, named record
@@ -192,6 +210,7 @@ No third-party deps: stdlib + the git binary via subprocess only.
 from __future__ import annotations
 
 import argparse
+import base64
 import difflib
 import json
 import os
@@ -554,9 +573,52 @@ def _git(args: list[str], cwd: str | None = None, timeout: int = 120) -> str:
     return proc.stdout
 
 
+# Read-token plumbing (gen #21 root cause — see TRANSPORT DOCTRINE above).
+# ONLY this dedicated var triggers auth injection; GH_TOKEN/GITHUB_TOKEN are
+# deliberately ignored (agent sessions export literal "proxy-injected"
+# placeholders there — an invalid credential breaks reads that succeed today).
+AUTH_TOKEN_ENV = "ROSTER_READ_TOKEN"
+
+# Auth-shaped wall reasons (vs. e.g. stale-proxy non-convergence): the
+# unauthenticated-prompt refusal, an explicit auth failure, and the
+# masked-404 GitHub returns for a private repo the token cannot see.
+AUTH_WALL_RE = re.compile(
+    r"could not read (Username|Password)|Authentication failed"
+    r"|Repository not found",
+    re.IGNORECASE)
+
+
+def _auth_args(url: str) -> list[str]:
+    """`git -c` args injecting the read token (when set) for github.com reads.
+
+    Same header actions/checkout writes; the token never appears in
+    cleartext in the argument (base64 basic-auth pair), and Wall messages
+    quote git stderr which never echoes headers.
+    """
+    token = os.environ.get(AUTH_TOKEN_ENV, "").strip()
+    if not token or not url.startswith("https://github.com/"):
+        return []
+    pair = base64.b64encode(f"x-access-token:{token}".encode()).decode()
+    return ["-c",
+            f"http.https://github.com/.extraheader=AUTHORIZATION: basic {pair}"]
+
+
+def describe_wall(reason: str) -> str:
+    """Annotate an auth-shaped wall with its fix pointer (pure, selfchecked).
+
+    The roster quotes wall reasons verbatim; appending the pointer here
+    means every UNREADABLE row tells the reader HOW to make it readable
+    instead of looking like an unexplained outage.
+    """
+    if AUTH_WALL_RE.search(reason):
+        return (f"{reason} — private/auth wall; set {AUTH_TOKEN_ENV} "
+                "(fine-grained read-only PAT) to authenticate the read")
+    return reason
+
+
 def ls_remote_head(url: str) -> str:
     """SHA of the remote default-branch HEAD (raises Wall)."""
-    out = _git(["ls-remote", url, "HEAD"])
+    out = _git([*_auth_args(url), "ls-remote", url, "HEAD"])
     for line in out.splitlines():
         sha, _, ref = line.partition("\t")
         if ref.strip() == "HEAD":
@@ -574,8 +636,8 @@ def fetch_verified(url: str, workdir: str, max_attempts: int) -> tuple[str, int]
     _git(["init", "-q", workdir])
     fetched = ""
     for attempt in range(1, max_attempts + 1):
-        _git(["fetch", "-q", "--depth", "1", url, "HEAD"], cwd=workdir,
-             timeout=300)
+        _git([*_auth_args(url), "fetch", "-q", "--depth", "1", url, "HEAD"],
+             cwd=workdir, timeout=300)
         fetched = _git(["rev-parse", "FETCH_HEAD"], cwd=workdir).strip()
         target = ls_remote_head(url)  # re-pin: the world may move mid-loop
         if fetched == target:
@@ -1063,7 +1125,13 @@ def verdict_for(disposition: str, age_h: float | None, cadence_h: float,
         return "STALE-BY-DESIGN"
     if disposition == "registry-only":
         return "n/a (registry-only seat)"
-    if walled or age_h is None:
+    if walled:
+        # A transport/auth wall is a MEASUREMENT artifact, never lane death
+        # (gen #21: pokemon-mod-lab printed DEAD while demonstrably alive
+        # behind its private wall). DEAD below is reserved for a READABLE
+        # repo with no measurable heartbeat signal.
+        return "UNREADABLE (transport/auth)"
+    if age_h is None:
         return "DEAD (not measurable)"
     if age_h <= 2 * cadence_h:
         return "FRESH"
@@ -1124,7 +1192,7 @@ def build_rows(records: list[dict], now: datetime, max_attempts: int,
                                                  sub["age_h"], cad, False)
                     subrows.append(sub)
             except Wall as exc:
-                row["wall"] = str(exc)
+                row["wall"] = describe_wall(str(exc))
         row["verdict"] = verdict_for(lane["disposition"], row["age_h"],
                                      row["cadence"], row["wall"] is not None)
         rows.append(row)
@@ -1179,7 +1247,9 @@ def render(rows: list[dict], records: list[dict], generation: int,
                   + ", ".join(r["lane"]["lane"] for r in refetched)
                   if refetched else "; all repos converged on the first fetch")
                + ". Repos that could not be read are marked NOT MEASURED "
-               "with the verbatim wall reason — never guessed.\n>")
+               "with the verbatim wall reason and verdict UNREADABLE "
+               "(transport/auth) — a measurement artifact, never guessed "
+               "and never printed as lane death.\n>")
     out.append(f"> **Trigger evidence:** {len(records)}-record export, "
                f"**{len(enabled)} enabled**: {len(crons)} standing crons + "
                f"{len(pokes)} poke-only + {len(ones)} one-shots.\n>")
@@ -1238,8 +1308,9 @@ def render(rows: list[dict], records: list[dict], generation: int,
                        evidence=evidence))
 
     out.append(f"\n## Staleness verdicts (generation #{generation})\n")
-    order = ["DARK", "DEAD (not measurable)", "STALE", "FRESH",
-             "STALE-BY-DESIGN", "n/a (registry-only seat)"]
+    order = ["DARK", "DEAD (not measurable)", "UNREADABLE (transport/auth)",
+             "STALE", "FRESH", "STALE-BY-DESIGN",
+             "n/a (registry-only seat)"]
     for v in order:
         lanes = [r["lane"]["lane"] for r in rows if r["verdict"] == v]
         if lanes:
@@ -1348,10 +1419,44 @@ def selfcheck() -> int:
     ok(verdict_for("live", 1.0, 2.0, False) == "FRESH", "1h/2h -> FRESH")
     ok(verdict_for("live", 5.0, 2.0, False) == "STALE", "5h/2h -> STALE")
     ok(verdict_for("live", 30.0, 2.0, False) == "DARK", ">24h -> DARK")
-    ok(verdict_for("live", None, 2.0, True).startswith("DEAD"),
-       "wall -> DEAD")
+    ok(verdict_for("live", None, 2.0, True) == "UNREADABLE (transport/auth)",
+       "wall -> UNREADABLE, never DEAD (gen #21 pokemon-mod-lab lesson)")
+    ok(verdict_for("live", None, 2.0, False) == "DEAD (not measurable)",
+       "readable repo with no measurable signal -> DEAD")
     ok(verdict_for("archived", 900.0, 2.0, False) == "STALE-BY-DESIGN",
        "archived override")
+    # wall annotation: auth-shaped reasons get the fix pointer, others don't
+    ok(AUTH_TOKEN_ENV in describe_wall(
+        "fatal: could not read Username for 'https://github.com': "
+        "terminal prompts disabled"),
+       "auth wall annotated with the read-token pointer")
+    ok(AUTH_TOKEN_ENV in describe_wall("remote: Repository not found."),
+       "masked-404 private wall annotated too")
+    ok(describe_wall("stale proxy pack: abc != def after 5 attempts")
+       == "stale proxy pack: abc != def after 5 attempts",
+       "non-auth wall left verbatim")
+    # read-token injection: dedicated env only, github.com only, no cleartext
+    _saved_tok = os.environ.pop(AUTH_TOKEN_ENV, None)
+    try:
+        ok(_auth_args("https://github.com/menno420/x") == [],
+           "no token -> no auth args (unauthenticated read unchanged)")
+        os.environ[AUTH_TOKEN_ENV] = "tok-selfcheck"
+        aa = _auth_args("https://github.com/menno420/x")
+        ok(len(aa) == 2 and aa[0] == "-c"
+           and aa[1].startswith("http.https://github.com/.extraheader="
+                                "AUTHORIZATION: basic ")
+           and "tok-selfcheck" not in aa[1],
+           f"token -> basic-auth extraheader, never cleartext ({aa})")
+        ok(_auth_args("https://example.com/x") == [],
+           "non-github url never receives the header")
+        os.environ[AUTH_TOKEN_ENV] = "   "
+        ok(_auth_args("https://github.com/menno420/x") == [],
+           "blank token (unset Actions secret renders empty) -> unauthenticated")
+    finally:
+        if _saved_tok is None:
+            os.environ.pop(AUTH_TOKEN_ENV, None)
+        else:
+            os.environ[AUTH_TOKEN_ENV] = _saved_tok
     # age rendering — the float-truncation regression (gen #5 verification
     # run 1: 32.3h must be 32h18m, not 32h17m) + floor-of-seconds semantics
     ok(age_str(32.3) == "~32h18m", "exact minute not truncated by float noise")
