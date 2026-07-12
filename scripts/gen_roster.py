@@ -236,6 +236,8 @@ LANES = [
     {"lane": "retro-games coordinator (no repo)", "repo": None,
      "disposition": "registry-only",
      "tokens": ["superbot-retro", "retro-games"]},
+    {"lane": "game-lab (no repo)", "repo": None,
+     "disposition": "registry-only", "tokens": ["game-lab"]},
     {"lane": "pokemon-mod-lab", "repo": "pokemon-mod-lab",
      "disposition": "live", "tokens": ["pokemon"]},
     {"lane": "gba-homebrew", "repo": "gba-homebrew", "disposition": "live",
