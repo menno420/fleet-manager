@@ -1,32 +1,48 @@
 #!/usr/bin/env python3
-"""Regenerate the 8 per-project startup files (artifact B) from universal-startup.md (A).
+"""prompts v3.3 — budget/drift checker + projects/ registry sync.
 
-v3.2 regen discipline (QA PR #100 D-1, + owner correction 2026-07-12 D-9):
-every byte of a B file outside the slot fills + the WORK SOURCES insert is
-A-verbatim. Never hand-edit a B file — edit A or the SEAT config below, then
-rerun:
+v3.3 (owner spec 2026-07-12) RETIRED the two assembly steps this script used
+to perform:
 
-    python3 docs/prompts/v3/tools/regen_b_files.py
+  * Custom Instructions are no longer assembled from custom-instructions-core.md
+    + a seat C block — each per-project/<seat>-custom-instructions.md now IS the
+    complete, authored, one-file-per-seat paste artifact (seat header +
+    condensed five-section skeleton + keyword dictionary + routes).
+    HARD cap 8,000 chars (verified console wall) · aim <=7,500.
+  * Startup prompts are no longer generated from universal-startup.md — each
+    per-project/<seat>-startup.md is an authored, EXPANDED per-seat file that
+    carries the universal doctrine VERBATIM. NO char cap (owner spec
+    2026-07-12): size is a NOTE, not a gate.
 
-STATELESS RULE (D-9, owner correction 2026-07-12): no slot fill or WORK
-SOURCES line may assert a volatile fact — no concrete PR numbers, no SHA/CI
-colors, no trigger ids, no dated one-shot work items. A fill names WHERE
-state lives (inbox, status, queue doc, telemetry), never WHAT it currently
-says. Current work reaches a seat through its repo documents (inbox ORDERs,
-status baton, queue docs) — v3.1's still-valid FIRST WORK ORDERS items were
-relocated as ORDERs to the owning repos' inboxes (per-project/README.md
-changelog, v3.2 entry).
+What remains — and what this script now does on every run (default mode):
 
-The script fills {{SLOT ...}} tokens (key = first word inside the braces),
-inserts the seat's WORK SOURCES block before the WORK LOOP paragraph, writes
-each per-project/<seat>-startup.md with a stamped header carrying the real
-wc -c of the paste body, and prints the budget table for
-per-project/README.md. Fitted target 7,500 / hard cap 8,000 per file.
+  python3 docs/prompts/v3/tools/regen_b_files.py
+      1. CI budget gate: per-seat char counts; exit non-zero if any CI paste
+         body exceeds the 8,000 HARD cap (count the paste as pasted — the
+         Codex PR #103 lesson; there are no placeholders left to fill).
+      2. Startup size NOTE table (informational, never fails).
+      3. DRIFT CHECKS (all fail the run on mismatch), so the CI keyword layer
+         and the startup doctrine layer can't silently drift from their
+         sources:
+         - ENDER SYNC (drift class D-10): every startup's inlined SESSION
+           ENDER steps must byte-match the canonical step block in
+           ../session-ender.md (single source: edit D, re-splice the 8).
+         - GRANT SYNC: every startup's PERMISSIONS & AUTHORITY block must
+           byte-match the owner-landed grant in projects/UNIVERSAL.md
+           (first/canonical occurrence) — the grant is owner-provenance and
+           is never paraphrased.
+         - DOCTRINE IDENTITY: the ==== DOCTRINE ==== section must be
+           byte-identical across all 8 startups after normalizing the one
+           per-seat fill (the CONTROL BUS status grammar).
+         - CARD-BLOCK IDENTITY: the "• SESSION CARD (born-red mechanics..."
+           block must be byte-identical across all 8 startups.
+         - STAMP/DRIFT-CHECK lines present in every CI and startup body.
+         - FAILSAFE EXTRACTION: each startup must still carry the BOOT 3a
+           FAILSAFE WAKE prompt + cron + step-4 old-trigger sources (the
+           registry failsafe-prompt.md files are derived from them).
 
-REGISTRY MODES (registry sync, owner-directed 2026-07-12): the projects/<seat>/
-copies (coordinator-prompt.md / instructions.md / failsafe-prompt.md) that
-downstream surfaces (the control website) read are GENERATED from the v3
-sources here — never hand-edited (same D-1 discipline as the B files):
+REGISTRY MODES (unchanged contract; the projects/<seat>/ copies that
+downstream surfaces read are GENERATED — never hand-edited):
 
     python3 docs/prompts/v3/tools/regen_b_files.py --check-registry
         Diff every projects/<seat>/ copy against its v3-derived expected body
@@ -37,479 +53,213 @@ sources here — never hand-edited (same D-1 discipline as the B files):
         Regenerate the projects/<seat>/ copies (bodies + stamped registry
         headers). SHA = the commit governing docs/prompts/v3 (default: derived
         via `git log -1 --format=%H -- docs/prompts/v3`); version stamps come
-        from REGISTRY below — bump them there when re-syncing a new generation.
+        from SEATS below — bump them there at every re-sync.
 
-Expected bodies: coordinator-prompt.md = the seat's per-project/<seat>-startup.md
-verbatim; instructions.md = the assembled Custom Instructions paste (core v3.1
-lines 1-2 with SEAT_NAME filled + seat C block + core remainder with
-STATUS_GRAMMAR filled, per custom-instructions-core.md § Paste order);
-failsafe-prompt.md = the seat-filled A step-3a failsafe wake text (D-2 single
-source) wrapped with the seat's name + D-7 stagger-table cron.
+Expected bodies: coordinator-prompt.md = the seat's <seat>-startup.md paste
+body VERBATIM; instructions.md = the seat's <seat>-custom-instructions.md
+paste body VERBATIM; failsafe-prompt.md = the seat's BOOT 3a FAILSAFE WAKE
+text wrapped with the seat name + the D-7 stagger-table cron (both extracted
+from the startup itself, so the failsafe can never drift from the prompt that
+arms it).
 
-Provenance: prompts v3.1 build (fleet-manager PR #103); v3.2 stateless
-rebuild (owner correction 2026-07-12); each B header carries the sha1 of the
-A body it was generated from (computed at regen time).
+Provenance: v3.1 build (PR #103) · v3.2 stateless rebuild + registry modes
+(PR #108/#110) · v3.3 one-file-per-seat rebuild (owner spec 2026-07-12).
+STATELESS (D-9) still binds both layers: no volatile facts in any paste.
 """
 
-import hashlib
 import re
+import subprocess
 import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 V3 = HERE.parent
-DATE = "2026-07-12"
-
-FITTED = 7500
-HARD = 8000
-
-
-def a_body() -> str:
-    text = (V3 / "universal-startup.md").read_text()
-    m = re.search(r"^v3\.2 · 2026-07-12 · universal startup.*", text, re.M)
-    return text[m.start():].rstrip("\n") + "\n"
-
-
-def a_stamp() -> str:
-    """Content stamp of the A paste body (sha1, first 12 hex) — computed at regen
-    time so the stamp can never lag the file the way a commit sha would."""
-    return hashlib.sha1(a_body().encode()).hexdigest()[:12]
-
-
-SLOT_RE = re.compile(r"\{\{([A-Za-z_]+)[^}]*\}\}", re.S)
-
-
-def fill(body: str, slots: dict) -> str:
-    def repl(m):
-        key = m.group(1)
-        if key == "slots":  # literal fixed text in A's role brief
-            return m.group(0)
-        if key not in slots:
-            raise KeyError(f"no fill for slot {key}")
-        return slots[key]
-
-    return SLOT_RE.sub(repl, body)
-
-
-def build(seat: dict) -> str:
-    body = fill(a_body(), seat["slots"])
-    # Generation rule (documented): the role brief's "Unfilled {{slots}}" sentence
-    # self-describes A's unslotted behavior; in a generated B every slot is filled,
-    # so the sentence is dropped (v3.0 drafter precedent, now a single scripted rule
-    # instead of 8 hand deviations).
-    body = body.replace(" Unfilled {{slots}}: derive and proceed — EXCEPT trigger deletion (step 4: unfilled = delete NOTHING).", "")
-    anchor = "\nWORK LOOP — CONTINUOUS"
-    assert anchor in body
-    body = body.replace(anchor, "\n" + seat["orders"].strip() + "\n" + anchor.lstrip("\n"))
-    n = len(body)
-    status = "fitted" if n <= FITTED else (f"over fitted by {n - FITTED}, under hard — flagged" if n <= HARD else f"OVER HARD by {n - HARD} — MUST TRIM")
-    header = (
-        "> **Status:** `reference`\n\n"
-        f"<!-- v3.2 · {DATE} · GENERATED from ../universal-startup.md (A v3.2, body sha1 {a_stamp()}) by tools/regen_b_files.py — every byte outside the slot fills + the WORK SOURCES insert + ONE scripted transform (A's self-referential \"Unfilled {{{{slots}}}}\" sentence is dropped from every B) is A-verbatim; hand-edits are FORBIDDEN (drift class D-1, PR #100): edit A or the seat config, then regenerate. STATELESS (D-9, owner correction 2026-07-12): this prompt carries NO volatile state — current work lives in the repo docs it points at. Canonical FAILSAFE WAKE + PACEMAKER text: A steps 3a/3b (D-2/D-3). Cron slot: per-project/README.md stagger table (D-7). -->\n"
-        f"<!-- char-count: {n:,} chars = the paste body below this comment block (headers excluded; computed by the regen script) · budget ≤7,500 fitted / 8,000 hard · {status} -->\n"
-        f"<!-- provenance: v3.2 stateless rebuild of the v3.1 seat draft (owner correction 2026-07-12 — volatile facts stripped to repo-doc pointers; still-valid v3.1 now-actions relocated as inbox ORDERs, see per-project/README.md v3.2 changelog): {seat['fixes']} -->\n\n"
-    )
-    return header + body, n, status
-
-
-SEATS = [
-    # ------------------------------------------------------------------ fleet-manager
-    dict(
-        file="fleet-manager-startup.md",
-        fixes="v3.1 W1-W3 (roster/queue/staleness) folded into MISSION + WORK SOURCES (recurring duties, not one-shots); parked-PR + trigger facts live in control/status.md + docs/owner-queue.md + telemetry/",
-        slots=dict(
-            SEAT_NAME="Fleet Manager",
-            REPOS="menno420/fleet-manager (+ fleet READ)",
-            HEARTBEAT_REPO="fleet-manager",
-            MISSION=(
-                "fleet oversight, NOT lane work — keep the records true: roster (docs/roster.md, the ONLY live one), owner-queue, "
-                "fleet-triage, ORDERs + fan-in (Q-0264). Each wake: roster ≤4h; queue re-verified; sweep recorded"
-            ),
-            HARD_RAILS=(
-                "⚠ HARD RAILS: (1) OVERSIGHT ONLY — never build a lane's slice: ORDER its inbox; a lane the roster marks "
-                "DARK gets an owner-queue disposition, never an ORDER. (2) PARKED PRs — any PR the heartbeat/owner-queue "
-                "marks parked / owner-ratification: never merge, rebase, or edit it. (3) Newest heartbeat wins across "
-                "main + open PRs."
-            ),
-            ORIENTATION_PATH=(
-                "CONSTITUTION.md → control/status+inbox → docs/{roster,owner-queue,playbook}.md; verify = "
-                "check_roster_freshness.py + check_owner_queue.py"
-            ),
-            EXPECTED_RED=(
-                "substrate-gate (born-red HOLD) · roster-freshness red on a >4h roster (regen in your OWN PR; root = "
-                "Actions-PR wall, ⚑ OQ-FM-ACTIONS-PR-PERMISSION)"
-            ),
-            ORDER_GRAMMAR="append-only headers keep `status: new` after DONE-flips",
-            OWNER_TURN_LANDING="the inbox (next free number)",
-            CRON_STAGGER="30 */2 * * *",
-            OLD_TRIGGER_SOURCES=(
-                "the predecessor heartbeat (control/status.md routine block) + telemetry/triggers-snapshot.json"
-            ),
-        ),
-        orders="""WORK SOURCES (durable ladder — current work lives in the repo, never in this prompt):
-(a) control/inbox.md at HEAD — a `new` ORDER outranks everything; read FULL ORDER threads.
-(b) docs/owner-queue.md + docs/roster.md + docs/fleet-triage.md, against the control/status.md baton — re-verify every ask, claim, and parked-PR row on live GitHub before acting on it; close what's satisfied.
-(c) the highest-value buildable increment of the mission: roster fresh (≤4h), queue verified, staleness sweep recorded, DEAD/DARK verdicts routed as ORDERs or ⚑ — never just reported.""",
-    ),
-    # ------------------------------------------------------------------ self-improvement
-    dict(
-        file="self-improvement-startup.md",
-        fixes="v3.1 orders 1-4: registry-truth overtaken (docs/adopters.md regenerated with tree evidence — verify there); upgrade-wave folded into MISSION; boot-pointer + gate-integrity relocated to kit inbox ORDER 015",
-        slots=dict(
-            SEAT_NAME="Self Improvement",
-            REPOS="menno420/substrate-kit",
-            HEARTBEAT_REPO="substrate-kit",
-            MISSION=(
-                "own the portable workflow kit; make its claims TRUE. Done-when: docs/adopters.md (the generated registry) "
-                "matches the fleet by discovery; every reachable adopter runs the current kit release; no template ships a "
-                "dead boot pointer"
-            ),
-            HARD_RAILS=(
-                "⚠ HARD RAILS: (1) Owner-ratification pin PRs (label `do-not-automerge`; the live list is in control/status.md "
-                "⚑ blocks) — never arm, close, or rebase one. (2) Adopter writes = KIT DISTRIBUTION ONLY (Q-0261.3): never "
-                "adopter product code, control/, or settings.json/hooks/permission config (owner-landed, even in a kit "
-                "release). (3) Never merge your own bench-oracle changes."
-            ),
-            ORIENTATION_PATH=(
-                "CONSTITUTION.md → control/inbox → status.md (status outranks current-state.md); verify = the command "
-                "status.md names (its verify line is truth; a doc snippet that disagrees is stale)"
-            ),
-            EXPECTED_RED=(
-                "the kit-quality check's Session-gate STEP holds born-red cards BY DESIGN (+ legacy-alias jobs) — "
-                "adopters call this substrate-gate; the kit has NO check of that name"
-            ),
-            ORDER_GRAMMAR="ORDER truth = status.md `done=` line, never inbox `status: new`",
-            OWNER_TURN_LANDING="the inbox (next free number)",
-            CRON_STAGGER="0 */2 * * *",
-            OLD_TRIGGER_SOURCES=(
-                "the kit heartbeat's routine block; the kit-lab DAILY is an owner BUSINESS cron — KEEP "
-                "(kill-switch: docs/operations/lab-loop.md)"
-            ),
-        ),
-        orders="""WORK SOURCES (durable ladder — current work lives in the repo, never in this prompt):
-(a) control/inbox.md at HEAD — a `new` ORDER outranks everything (done-truth = status.md `done=`).
-(b) control/status.md baton + docs/adopters.md (the generated adopter registry — regenerate, never hand-edit) — re-verify claims against each adopter's tree before acting.
-(c) the highest-value buildable increment of the mission: adopter currency, template truth (no dead boot pointers ship), gate integrity.""",
-    ),
-    # ------------------------------------------------------------------ superbot
-    dict(
-        file="superbot-startup.md",
-        fixes="v3.1 F2 verified terminal (dead, evidence in the v3.2 changelog); F1 + F3 relocated to superbot-next inbox ORDERs 014/015; F4 (port loop) folded into WORK SOURCES (c) as the standing mission",
-        slots=dict(
-            SEAT_NAME="SuperBot 2.0",
-            REPOS="menno420/superbot (LIVE prod) + menno420/superbot-next",
-            HEARTBEAT_REPO="superbot-next",
-            MISSION=(
-                "build superbot-next, port band by band, live bot healthy; done-when: subsystems flipped "
-                "(check_parity_depth CI = count source), CUT stages reversible, superbot green"
-            ),
-            HARD_RAILS=(
-                "⚠ LIVE BOT: merge=deploy (Q-0193 — never ask for a \"restart\"); Q-0213 brake — *Delete/*Restore live-bot data "
-                "ONLY on an explicit owner turn naming the target; python3.10 check_quality.py --full ONLY; CLAUDE.md "
-                "propose-only (Q-0106). ⚠ NEVER-WAIT (Q-0241) = superbot-next-ONLY, plan-named reversible paths; CI green "
-                "still required; never overrides core NOT-COVERED."
-            ),
-            ORIENTATION_PATH=(
-                "superbot: .claude/CLAUDE.md → current-state; superbot-next: CONSTITUTION.md → control/status.md → "
-                "docs/status/README-first.md"
-            ),
-            EXPECTED_RED=(
-                "superbot-next golden-parity WORKFLOW red-by-design — judge only the required `gate` job + six gates; "
-                "superbot all-green (born-red HOLD only)"
-            ),
-            ORDER_GRAMMAR="status.md `orders: done=` is truth; the inbox is manager-owned — never edit it",
-            OWNER_TURN_LANDING="control/outbox.md, manager-addressed (the inbox is manager-owned)",
-            CRON_STAGGER="0 1-23/2 * * *",
-            OLD_TRIGGER_SOURCES=(
-                "the predecessor heartbeat's routine block (possibly none live — verify, never assume)"
-            ),
-        ),
-        orders="""WORK SOURCES (durable ladder — current work lives in the repo, never in this prompt):
-(a) control/inbox.md at HEAD in each repo — a `new` ORDER outranks everything (done-truth = status.md `done=`).
-(b) superbot-next control/status.md + docs/status/README-first.md; superbot docs/current-state.md — re-verify claims at HEAD before acting.
-(c) the port loop (standing mission): next wave slice, six gates each; port oracle = the LOCAL superbot clone, never MCP. superbot = hub upkeep + stale-pointer fixes (Q-0166).""",
-    ),
-    # ------------------------------------------------------------------ superbot-world
-    dict(
-        file="superbot-world-startup.md",
-        fixes="v3.1 W1/W2/W3 all verified still-valid and relocated: mineverse inbox ORDER 003 (security-fix landing order), idle inbox ORDER 003 (pytest CI), games inbox ORDER 005 (heartbeat truth-stamp); security ordering kept as a standing rail, PR number removed",
-        slots=dict(
-            SEAT_NAME="SuperBot World",
-            REPOS="menno420/superbot-games + superbot-idle + superbot-mineverse (flagship)",
-            HEARTBEAT_REPO="superbot-mineverse (games/idle status = ARCHIVES, read-only)",
-            MISSION=(
-                "one truthful, secured three-game seat. Done-when: security-ordering rail satisfied at HEAD; every repo's "
-                "test suite gates PRs in CI; heartbeats + claims match live"
-            ),
-            HARD_RAILS=(
-                "⚠ SECURITY BEFORE SECRETS (standing ORDERING rule): a security fix on the auth/login path merges BEFORE "
-                "anything secrets-adjacent; secrets-provisioning asks stay SUBORDINATE until the fix is in main (live "
-                "instances: the inbox/heartbeat). ⚠ STALE-HEARTBEAT TRAP: a heartbeat can describe an ARCHIVED world — "
-                "VERIFY AT HEAD before trusting ANY status claim; a claim with no PR yet is LIVE — age it. "
-                "⚠ GREEN ≠ TESTED: where a repo's CI runs no test suite (check the workflows, not the badge), run the "
-                "suite locally before any merge."
-            ),
-            ORIENTATION_PATH=(
-                "docs/current-state.md per repo — trust it only after the stale-heartbeat rail check"
-            ),
-            EXPECTED_RED=(
-                "substrate-gate born-red HOLD (all 3); genuinely green: games tests.yml · idle theme-gate · mineverse schema-gate"
-            ),
-            ORDER_GRAMMAR="headers may lag DONE-flips",
-            OWNER_TURN_LANDING="the inbox (next free number)",
-            CRON_STAGGER="15 1-23/2 * * *",
-            OLD_TRIGGER_SOURCES=(
-                "the predecessor heartbeats + fleet-manager telemetry/triggers-snapshot.json — verify each "
-                "(\"maybe auto-disabled\" ≠ \"never armed\")"
-            ),
-        ),
-        orders="""WORK SOURCES (durable ladder — current work lives in the repo, never in this prompt):
-(a) control/inbox.md at HEAD in EACH repo — a `new` ORDER outranks everything; read FULL threads.
-(b) control/status.md + docs/current-state.md per repo — every claim re-verified at HEAD (the stale-heartbeat rail) before it drives work.
-(c) the highest-value buildable increment of the mission: security ordering first, CI test coverage, truthful records.""",
-    ),
-    # ------------------------------------------------------------------ game-lab
-    dict(
-        file="game-lab-startup.md",
-        fixes="v3.1 W1 card-convention verified DONE (.sessions/README.md in both repos); pml .gitignore half relocated to pml inbox ORDER 006; W2 required-check clicks live in fm docs/owner-queue.md; W3 folded into WORK SOURCES (c)",
-        slots=dict(
-            SEAT_NAME="Game Lab",
-            REPOS="menno420/gba-homebrew (Track A PUBLIC) + menno420/pokemon-mod-lab (Track B PRIVATE); HEADLESS — the owner playtests",
-            HEARTBEAT_REPO="EACH repo",
-            MISSION=(
-                "headless-proven increments on both tracks, never crossing; Lumen Drift Release owner-gated; B "
-                "ROM-built + mGBA-proven"
-            ),
-            HARD_RAILS=(
-                "⚠ TRACK ISOLATION (prose-only — this rail IS the guard): NOTHING from Track B (Nintendo-copyrighted) ever "
-                "reaches Track A or ANY public surface — code, ROMs, assets, shots, hashes, PR/card text; pml stays "
-                "PRIVATE, never holds ROMs/assets/a baserom (gba commits dist/ ROMs — never pml). ⚠ R22 BEFORE "
-                "private-track work, EVERY session: verify pml via github-MCP search_repositories (→ visibility) — the "
-                "api.github.com wall does NOT cover the MCP, never skip; record `visibility: private — verified <ISO>` in "
-                "status; Public → STOP ⚑. ⚠ PROOF: A green = ROM builds + substrate-gate, gameplay proof post-landing "
-                "(headless-boot dispatch, cite run); B done = ROM builds AND mGBA-proven (shots private, sha1 chain); "
-                "armed ≠ proven. Toolchain walls: Custom Instructions."
-            ),
-            ORIENTATION_PATH="README + CONSTITUTION.md + current-state + CAPABILITIES per repo",
-            EXPECTED_RED="substrate-gate born-red card HOLD; genuinely green: rom-builds per track",
-            ORDER_GRAMMAR="status stamps = snapshots, not order lists",
-            OWNER_TURN_LANDING="the inbox (next free number)",
-            CRON_STAGGER="15 */2 * * *",
-            OLD_TRIGGER_SOURCES=(
-                "this lane's heartbeats + fm telemetry/triggers-snapshot.json — this lane's only"
-            ),
-        ),
-        orders="""WORK SOURCES (durable ladder — current work lives in the repo, never in this prompt):
-(a) control/inbox.md at HEAD in EACH repo — a `new` ORDER outranks everything; read FULL threads.
-(b) control/status.md + docs/current-state.md per repo; required-check truth = the LIVE set (probe PR check-runs if the ruleset API is gated), not a doc's claim; owner click-asks: fm docs/owner-queue.md.
-(c) highest-value headless-proven increment per track (Track A toward Lumen Drift Release; playtests + B pick owner-gated ⚑).""",
-    ),
-    # ------------------------------------------------------------------ websites
-    dict(
-        file="websites-startup.md",
-        fixes="v3.1 orders 1-4 all verified still-valid and relocated to websites inbox ORDERs 012 (records reconcile + CLAUDE.md re-render + bake-ask truth) and 013 (owner-POST CSRF); the un-park line was one-shot state and is retired",
-        slots=dict(
-            SEAT_NAME="Websites",
-            REPOS="menno420/websites — FOUR FastAPI services (app/ control-plane, botsite, dashboard, review/)",
-            HEARTBEAT_REPO="websites",
-            MISSION=(
-                "OWNER LAUNCH CONSOLE (preflighted, auto-verified owner-actions) + FLEET ARCADE (games front door); "
-                "done-when: live on Railway via `quality`-green merges, test-covered + probed"
-            ),
-            HARD_RAILS=(
-                "HARD RAILS: (1) MERGE = DEPLOY (Railway); required check `quality`; branch claude/*. (2) Verify = `python3 "
-                "-m pytest tests/ botsite/tests dashboard/tests review/tests -q` + `bootstrap.py check --strict` — the "
-                "full four-suite run; a repo doc showing fewer suites is stale (fix it, don't follow it). (3) OWNER ASKS: "
-                "six-field ⚑ OWNER-ACTION (docs/owner/OWNER-ACTIONS.md) + heartbeat mirror; re-verify every wake."
-            ),
-            ORIENTATION_PATH=".claude/CLAUDE.md → docs/current-state.md → docs/CAPABILITIES.md (full triple exists here)",
-            EXPECTED_RED="the born-red card HOLD only; `quality` green expected on main",
-            ORDER_GRAMMAR="ORDER truth = status.md `done=`, not inbox `status:`",
-            OWNER_TURN_LANDING="the inbox (next free number)",
-            CRON_STAGGER="45 */2 * * *",
-            OLD_TRIGGER_SOURCES=(
-                "the heartbeat's routine block + the account-wide registry searched by name+prompt (record each id "
-                "before deleting; a BUSINESS wake is rebound per step 4, never just dropped)"
-            ),
-        ),
-        orders="""WORK SOURCES (durable ladder — current work lives in the repo, never in this prompt):
-(a) control/inbox.md at HEAD — a `new` ORDER outranks everything (done-truth = status.md `done=`).
-(b) docs/owner/OWNER-ACTIONS.md (the ⚑ ask ledger) + docs/current-state.md + the control/status.md baton — re-verify every ask and claim on live GitHub each wake; clear what's satisfied; verify crons BY EVENT TYPE before any ⚑.
-(c) the highest-value buildable increment of the mission: launch-console + arcade slices, test-covered, landed via `quality`-green merges.""",
-    ),
-    # ------------------------------------------------------------------ venture-lab
-    dict(
-        file="venture-lab-startup.md",
-        fixes="v3.1 F1 dispositions verified and relocated: venture inbox ORDER 007 (open-PR ⚑ re-verification), trading inbox ORDER 011 (parked-PR landing + grading-executor verification); F2's business-cron rebind duty is A step 4; F3 folded into WORK SOURCES (b)",
-        slots=dict(
-            SEAT_NAME="Venture Lab",
-            REPOS="menno420/venture-lab + menno420/trading-strategy",
-            HEARTBEAT_REPO="EACH repo (venture prose; trading key:val)",
-            MISSION=(
-                "sellables reach owner-click-ready; trading paper lane intact + graded — the weekly grading pass always "
-                "has a live executor. Done-when: no stranded green PRs; heartbeats verified"
-            ),
-            HARD_RAILS=(
-                "⚠ HARD RAILS: (1) MERGE PATH: venture — READY on claude/*, NOTHING merge-related (the enabler lands green); "
-                "never self-arm/self-merge; parked = owner-merge. trading — MCP squash = recorded practice: ONE attempt, "
-                "first denial retires it. (2) RESEARCH-ONLY (trading): no broker/order/exchange-write code or live API "
-                "config, EVER; holdout SPENT; paper lane = load_paper_ohlcv only; promotion owner-gated; never claim a "
-                "money path works without EXECUTING it. (3) Owner-⚑s verbatim at queue top."
-            ),
-            ORIENTATION_PATH="current-state.md + docs/conventions.md per repo",
-            EXPECTED_RED=(
-                "venture: kit-tests + substrate-gate (born-red HOLD); trading: tests only"
-            ),
-            ORDER_GRAMMAR="ORDERs repo-first — qualify numbers per repo",
-            OWNER_TURN_LANDING="the inbox (next free number)",
-            CRON_STAGGER="45 1-23/2 * * *",
-            OLD_TRIGGER_SOURCES=(
-                "the money-seat heartbeats (trading status carries the trigger-id records); the weekly grading cron is a "
-                "BUSINESS cron — rebound per step 4, never just deleted"
-            ),
-        ),
-        orders="""WORK SOURCES (durable ladder — current work lives in the repo, never in this prompt):
-(a) control/inbox.md at HEAD in EACH repo — a `new` ORDER outranks everything; qualify ORDER numbers per repo.
-(b) control/status.md + docs/current-state.md per repo — re-stamp what contradicts live GitHub; disposition every open PR against its close/park record; pay lane-owed kit bumps.
-(c) the highest-value buildable increment of the mission: sellables toward owner-click-ready; the paper lane graded, intact, and executor-secured.""",
-    ),
-    # ------------------------------------------------------------------ ideas-lab
-    dict(
-        file="ideas-lab-startup.md",
-        fixes="v3.1 order 1 verified DEAD (chain closed and moved on — evidence in the v3.2 changelog); order 2 relocated to sim-lab inbox ORDER 003 (landing-path workflow); order 3 folded into WORK SOURCES (b)",
-        slots=dict(
-            SEAT_NAME="Ideas Lab",
-            REPOS="menno420/idea-engine + menno420/sim-lab",
-            HEARTBEAT_REPO="idea-engine (plus sim-lab's, as the merged seat)",
-            MISSION=(
-                "keep the generate→verify loop alive: PROPOSALs (idea-engine) → VERDICTs (sim-lab) → manager routes "
-                "(Q-0264); done-when: preflight green; no orphaned PROPOSAL; routines armed + verified"
-            ),
-            HARD_RAILS=(
-                "⚠ HARD RAILS: (1) GATE: preflight/substrate-gate red is REAL (the born-red card HOLD is the sole "
-                "exception) — a red gate is your first slice, fixed forward-tolerant, never waved off. (2) MANAGER "
-                "FAN-IN: sim-lab verdicts go to the fleet manager (Q-0264); never short-circuit bilaterally."
-            ),
-            ORIENTATION_PATH=(
-                "idea-engine: control/status.md is truth (current-state is boilerplate); sim-lab: CONSTITUTION.md + "
-                "PLATFORM-LIMITS.md"
-            ),
-            EXPECTED_RED="born-red card HOLD only — preflight/substrate-gate red is REAL",
-            ORDER_GRAMMAR="headers may lag DONE-flips",
-            OWNER_TURN_LANDING="the inbox (next free number)",
-            CRON_STAGGER="30 1-23/2 * * *",
-            OLD_TRIGGER_SOURCES=(
-                "this lane's heartbeat + fleet-manager telemetry/triggers-snapshot.json; a prior coordinator may still be "
-                "LIVE — confirm its chat is archived BEFORE deleting its failsafe; THIS lane's ids only, never \"stragglers\""
-            ),
-        ),
-        orders="""WORK SOURCES (durable ladder — current work lives in the repo, never in this prompt):
-(a) control/inbox.md at HEAD in EACH repo — a `new` ORDER outranks everything; read FULL threads.
-(b) idea-engine control/outbox.md (the PROPOSAL→VERDICT chain: newest unverdicted PROPOSAL = the loop's next pull; NEVER append a duplicate VERDICT) + control/status.md per repo — re-verify ⚑/ask rows against live GitHub; re-stamp only what contradicts.
-(c) the highest-value buildable increment of the mission: the generate→verify loop moving, verdicts fanned in to the manager.""",
-    ),
-]
-
-
-# --------------------------------------------------------------------------
-# REGISTRY sync (projects/<seat>/ copies — owner-directed 2026-07-12)
-# --------------------------------------------------------------------------
-
-REPO = V3.parent.parent.parent  # repo root
+REPO = V3.parent.parent.parent
 PROJECTS = REPO / "projects"
 MARKER = "<!-- registry-header-end -->"
-
-# startup file -> (projects/ dir, per-artifact version stamps). Versions follow
-# each registry file's OWN pre-existing lineage (surveyed 2026-07-12) — bump
-# here at every re-sync that changes content.
-REGISTRY = {
-    "fleet-manager-startup.md": ("fleet-manager", {"coordinator": "v4", "instructions": "v4", "failsafe": "v4"}),
-    "superbot-startup.md": ("superbot-2.0", {"coordinator": "v2", "instructions": "v2", "failsafe": "v2"}),
-    "websites-startup.md": ("websites", {"coordinator": "v4", "instructions": "v3", "failsafe": "v3"}),
-    "self-improvement-startup.md": ("self-improvement", {"coordinator": "v2", "instructions": "v2", "failsafe": "v2"}),
-    "superbot-world-startup.md": ("superbot-world", {"coordinator": "v2", "instructions": "v2", "failsafe": "v2"}),
-    "game-lab-startup.md": ("game-lab", {"coordinator": "v2", "instructions": "v2", "failsafe": "v2"}),
-    "ideas-lab-startup.md": ("ideas-lab", {"coordinator": "v2", "instructions": "v2", "failsafe": "v2"}),
-    "venture-lab-startup.md": ("venture-lab", {"coordinator": "v3", "instructions": "v4", "failsafe": "v3"}),
-}
-
 PROVENANCE_DATE = "2026-07-12"
 
+CI_HARD = 8000
+CI_AIM = 7500
 
-def core_paste() -> str:
-    """The UNIVERSAL CORE paste text (between CORE-START/CORE-END, fence-stripped,
-    no trailing newline) — raw, placeholders unfilled."""
-    text = (V3 / "custom-instructions-core.md").read_text()
-    m = re.search(r"<!-- CORE-START[^\n]*-->\n```\n(.*?)\n```\n<!-- CORE-END -->", text, re.S)
+# One row per seat: prompt-source filenames, projects/ dir, and the registry
+# version stamps (each registry file's OWN lineage — bump at every re-sync
+# that changes content; v3.3 bumped every artifact by one over the PR #110
+# v3.2 sync).
+SEATS = [
+    dict(name="Fleet Manager", startup="fleet-manager-startup.md",
+         ci="fleet-manager-custom-instructions.md", reg="fleet-manager",
+         versions={"coordinator": "v5", "instructions": "v5", "failsafe": "v5"}),
+    dict(name="SuperBot 2.0", startup="superbot-startup.md",
+         ci="superbot-custom-instructions.md", reg="superbot-2.0",
+         versions={"coordinator": "v3", "instructions": "v3", "failsafe": "v3"}),
+    dict(name="Websites", startup="websites-startup.md",
+         ci="websites-custom-instructions.md", reg="websites",
+         versions={"coordinator": "v5", "instructions": "v4", "failsafe": "v4"}),
+    dict(name="Self Improvement", startup="self-improvement-startup.md",
+         ci="self-improvement-custom-instructions.md", reg="self-improvement",
+         versions={"coordinator": "v3", "instructions": "v3", "failsafe": "v3"}),
+    dict(name="SuperBot World", startup="superbot-world-startup.md",
+         ci="superbot-world-custom-instructions.md", reg="superbot-world",
+         versions={"coordinator": "v3", "instructions": "v3", "failsafe": "v3"}),
+    dict(name="Game Lab", startup="game-lab-startup.md",
+         ci="game-lab-custom-instructions.md", reg="game-lab",
+         versions={"coordinator": "v3", "instructions": "v3", "failsafe": "v3"}),
+    dict(name="Ideas Lab", startup="ideas-lab-startup.md",
+         ci="ideas-lab-custom-instructions.md", reg="ideas-lab",
+         versions={"coordinator": "v3", "instructions": "v3", "failsafe": "v3"}),
+    dict(name="Venture Lab", startup="venture-lab-startup.md",
+         ci="venture-lab-custom-instructions.md", reg="venture-lab",
+         versions={"coordinator": "v4", "instructions": "v5", "failsafe": "v4"}),
+]
+
+DOCTRINE_START = "════════ DOCTRINE — full text, binding ════════"
+DOCTRINE_END_PREFIX = "Settings/permission config only with the owner live HERE"
+CARD_PREFIX = "• SESSION CARD (born-red mechanics, in full):"
+
+
+def paste_body(path: Path) -> str:
+    """Everything from the first `v3.3 ` stamp line onward (repo file headers
+    above it excluded), trailing newline stripped — the char-count basis."""
+    text = path.read_text()
+    m = re.search(r"^v3\.3 ", text, re.M)
     if not m:
-        raise RuntimeError("CORE-START/CORE-END block not found in custom-instructions-core.md")
-    return m.group(1)
+        raise RuntimeError(f"{path.name}: no v3.3 stamp line found")
+    return text[m.start():].rstrip("\n")
 
 
-def c_file(startup_file: str):
-    return V3 / "per-project" / startup_file.replace("-startup.md", "-custom-instructions.md")
-
-
-def seat_block(startup_file: str) -> str:
-    """The seat C block paste body: everything below the Status badge + header
-    comments of per-project/<seat>-custom-instructions.md, trailing newline
-    stripped (this is the byte basis of the README budget table)."""
-    out, started, in_comment = [], False, False
-    for ln in c_file(startup_file).read_text().split("\n"):
-        if not started:
-            s = ln.strip()
-            if s.startswith("> **Status:**") or s == "":
-                continue
-            if s.startswith("<!--"):
-                in_comment = not s.endswith("-->")
-                continue
-            if in_comment:
-                if s.endswith("-->"):
-                    in_comment = False
-                continue
-            started = True
-        out.append(ln)
-    return "\n".join(out).rstrip("\n")
-
-
-def status_grammar(startup_file: str) -> str:
-    """{{STATUS_GRAMMAR}} fill, declared in the seat C file's own header."""
-    m = re.search(r'\{\{STATUS_GRAMMAR\}\} = "([^"]+)"', c_file(startup_file).read_text())
+def ender_canonical() -> str:
+    """The canonical session-ender step block (steps 1-6 + the Confirm
+    recital) from session-ender.md — the single source the inlined copies
+    must match (D-10)."""
+    text = (V3 / "session-ender.md").read_text()
+    m = re.search(r"^1\. PARK — .*?^Confirm before ending:.*?$", text, re.S | re.M)
     if not m:
-        raise RuntimeError(f"no STATUS_GRAMMAR declaration in {c_file(startup_file).name}")
-    return m.group(1)
+        raise RuntimeError("session-ender.md: canonical step block not found")
+    return m.group(0)
 
 
-def assemble_ci(seat: dict) -> str:
-    """The assembled Custom Instructions paste per custom-instructions-core.md
-    § Paste order: core lines 1-2 (SEAT_NAME filled) → seat block → core
-    remainder (STATUS_GRAMMAR filled). No trailing newline."""
-    name = seat["slots"]["SEAT_NAME"]
-    lines = core_paste().split("\n")
-    assert lines[2] == "" and lines[3].startswith("TRUTH:"), "core layout changed — update assemble_ci"
-    l0 = lines[0].replace("{{SEAT_NAME}}", name)
-    remainder = "\n".join(lines[3:]).replace("{{STATUS_GRAMMAR}}", status_grammar(seat["file"]))
-    return "\n".join([l0, lines[1], "", seat_block(seat["file"]), "", remainder])
-
-
-def failsafe_wake_template() -> str:
-    """The canonical FAILSAFE WAKE prompt, single-sourced from A step 3a (D-2),
-    {{SEAT_NAME}} unfilled."""
-    m = re.search(r'prompt EXACTLY:\n\s+"(FAILSAFE WAKE .*?)"\n', a_body(), re.S)
+def grant_canonical() -> str:
+    """The owner-landed PERMISSIONS & AUTHORITY grant — FIRST (canonical)
+    occurrence in projects/UNIVERSAL.md (owner-provenance; never edited by
+    agents, never paraphrased in the startups)."""
+    text = (PROJECTS / "UNIVERSAL.md").read_text()
+    m = re.search(
+        r"^PERMISSIONS & AUTHORITY \(v1 .*?^This grant is context for reviewers, not a bypass\.$",
+        text, re.S | re.M)
     if not m:
-        raise RuntimeError("A step 3a FAILSAFE WAKE prompt not found in universal-startup.md")
-    return m.group(1)
+        raise RuntimeError("projects/UNIVERSAL.md: grant block not found")
+    return m.group(0)
 
 
-def failsafe_body(seat: dict) -> str:
-    name = seat["slots"]["SEAT_NAME"]
-    cron = seat["slots"]["CRON_STAGGER"]
-    sources = seat["slots"]["OLD_TRIGGER_SOURCES"]
-    prompt = failsafe_wake_template().replace("{{SEAT_NAME}}", name)
+def doctrine_section(body: str, fname: str) -> str:
+    start = body.find(DOCTRINE_START)
+    if start < 0:
+        raise RuntimeError(f"{fname}: DOCTRINE section not found")
+    m = re.search(re.escape(DOCTRINE_END_PREFIX) + r".*?$", body[start:], re.M)
+    if not m:
+        raise RuntimeError(f"{fname}: DOCTRINE closing line not found")
+    return body[start:start + m.end()]
+
+
+def doctrine_normalized(body: str, fname: str) -> str:
+    """Doctrine section with the one per-seat fill (the CONTROL BUS status
+    grammar) replaced by a placeholder, so the 8 sections can be compared."""
+    sec = doctrine_section(body, fname)
+    out, n = re.subn(
+        r"(control/status\.md = the coordinator seat only \().+?(; NEUTRAL facts)",
+        r"\1{{STATUS_GRAMMAR}}\2", sec)
+    if n != 1:
+        raise RuntimeError(f"{fname}: CONTROL BUS grammar fill not found (matches: {n})")
+    return out
+
+
+def card_block(body: str, fname: str) -> str:
+    m = re.search(re.escape(CARD_PREFIX) + r".*?$", body, re.M)
+    if not m:
+        raise RuntimeError(f"{fname}: SESSION CARD block not found")
+    return m.group(0)
+
+
+def failsafe_parts(body: str, fname: str) -> dict:
+    pm = re.search(r'prompt EXACTLY:\n\s+"(FAILSAFE WAKE .*?)"\n', body, re.S)
+    cm = re.search(r'cron_expression "([^"]+)"', body)
+    sm = re.search(r"find them in (.+?) \+ ids the heartbeat marks left-for-successor",
+                   body, re.S)
+    if not (pm and cm and sm):
+        raise RuntimeError(f"{fname}: failsafe wake prompt / cron / old-trigger sources not extractable")
+    return {"prompt": pm.group(1), "cron": cm.group(1), "sources": sm.group(1)}
+
+
+# ---------------------------------------------------------------- default mode
+
+
+def run_checks() -> int:
+    fails = []
+    ci_rows, su_rows = [], []
+    ender = ender_canonical().replace("\n\nConfirm before ending:", "\nConfirm before ending:")
+    grant = grant_canonical()
+    doctrines, cards = {}, {}
+
+    for seat in SEATS:
+        ci_path = V3 / "per-project" / seat["ci"]
+        su_path = V3 / "per-project" / seat["startup"]
+        ci = paste_body(ci_path)
+        su = paste_body(su_path)
+        n = len(ci)
+        ci_rows.append((seat["ci"], n))
+        su_rows.append((seat["startup"], len(su)))
+        if n > CI_HARD:
+            fails.append(f"{seat['ci']}: CI paste {n:,} chars — OVER the 8,000 HARD cap by {n - CI_HARD}")
+        if "DRIFT CHECK" not in ci.splitlines()[0]:
+            fails.append(f"{seat['ci']}: line 1 missing the DRIFT CHECK stamp")
+        if "DRIFT CHECK" not in su.splitlines()[1]:
+            fails.append(f"{seat['startup']}: line 2 missing the DRIFT CHECK rule")
+        if ender not in su.replace("\n\nConfirm before ending:", "\nConfirm before ending:"):
+            fails.append(f"{seat['startup']}: inlined SESSION ENDER drifted from session-ender.md (D-10)")
+        if grant not in su:
+            fails.append(f"{seat['startup']}: PERMISSIONS grant drifted from projects/UNIVERSAL.md")
+        try:
+            doctrines[seat["startup"]] = doctrine_normalized(su, seat["startup"])
+            cards[seat["startup"]] = card_block(su, seat["startup"])
+            failsafe_parts(su, seat["startup"])
+        except RuntimeError as e:
+            fails.append(str(e))
+
+    for pool, label in ((doctrines, "DOCTRINE section"), (cards, "SESSION CARD block")):
+        if pool and len(set(pool.values())) != 1:
+            ref_name, ref = next(iter(pool.items()))
+            for fname, val in pool.items():
+                if val != ref:
+                    fails.append(f"{fname}: {label} differs from {ref_name} — the shared text drifted")
+
+    print(f"{'Custom Instructions (v3.3, one file per seat)':58s} {'chars':>6s}  vs hard 8,000 / aim 7,500")
+    for f, n in ci_rows:
+        status = "OVER HARD — MUST TRIM" if n > CI_HARD else ("over aim, under hard — flagged by design" if n > CI_AIM else "within aim")
+        print(f"{f:58s} {n:6,d}  {status}")
+    print()
+    print(f"{'Expanded startups (v3.3, size NOTE — no cap)':58s} {'chars':>6s}")
+    for f, n in su_rows:
+        print(f"{f:58s} {n:6,d}")
+    print()
+    if fails:
+        for f in fails:
+            print(f"FAIL: {f}")
+        return 1
+    print("drift checks: OK — ender sync (D-10), grant sync, doctrine identity, "
+          "card-block identity, stamps, failsafe extraction: all 8 seats clean")
+    return 0
+
+
+# ---------------------------------------------------------------- registry
+
+
+def failsafe_body(seat: dict, parts: dict) -> str:
+    name = seat["name"]
     return f"""# {name} — failsafe cron (dead-man wake, Q-0265)
 
 - **Routine name:** `{name} failsafe wake`
-- **cron:** `{cron}` — slot per the v3.2 stagger table
+- **cron:** `{parts['cron']}` — slot per the stagger table
   (docs/prompts/v3/per-project/README.md, canonical home D-7; the fleet manager
   arbitrates slots — a foreign trigger on the slot is reported, never
   re-slotted; this table supersedes any cron previously recorded in this file)
@@ -518,83 +268,82 @@ def failsafe_body(seat: dict) -> str:
   `list_triggers` before writing "armed" — never wait for a first fire
   (completed runs are not inspectable owner-side).
 
-## Prompt text (create_trigger `prompt`, EXACTLY — single-sourced from docs/prompts/v3/universal-startup.md step 3a, D-2)
+## Prompt text (create_trigger `prompt`, EXACTLY — single-sourced from the seat's v3.3 startup, BOOT step 3a (D-2))
 
 ```
-{prompt}
+{parts['prompt']}
 ```
 
-## Cutover (A step 4 — rebind-then-delete)
+## Cutover (BOOT step 4 — rebind-then-delete)
 
 Create + verify the NEW failsafe first, then delete the old id and verify it
 absent. NO trigger ids are baked here (STATELESS, D-9) — find old ids in:
-{sources}; plus ids the heartbeat marks left-for-successor. `list_triggers` is
+{parts['sources']}; plus ids the heartbeat marks left-for-successor. `list_triggers` is
 ACCOUNT-WIDE (paginate to exhaustion) — delete ONLY an id those records
 attribute to THIS seat, binding audit-verified; unattributable = a sibling's:
 record, never delete. A BUSINESS cron (a scheduled deliverable) is rebound,
-never dropped."""
+never dropped — EXCEPT a FRESH-SESSION-PER-FIRE business cron: KEPT as-is,
+never rebound and never deleted (it binds to no mortal seat session)."""
 
 
 def registry_header(seat: dict, artifact: str, version: str, sha: str, body: str) -> str:
-    name = seat["slots"]["SEAT_NAME"]
-    reg_dir = REGISTRY[seat["file"]][0]
+    name = seat["name"]
     titles = {
-        "coordinator": "coordinator seat prompt (registry copy, prompts v3.2)",
-        "instructions": "Custom Instructions (registry copy, prompts v3.2)",
-        "failsafe": "failsafe cron text (registry copy, prompts v3.2)",
+        "coordinator": "coordinator seat prompt (registry copy, prompts v3.3)",
+        "instructions": "Custom Instructions (registry copy, prompts v3.3)",
+        "failsafe": "failsafe cron text (registry copy, prompts v3.3)",
     }
     specific = {
         "coordinator": (
-            f"> Body below the marker = docs/prompts/v3/per-project/{seat['file']} VERBATIM\n"
-            "> (the seat's generated v3.2 startup artifact B — paste as the FIRST message of\n"
-            "> the seat's coordinator chat; the paste body is below that file's own header\n"
-            "> comments)."
+            f"> Body below the marker = docs/prompts/v3/per-project/{seat['startup']} paste\n"
+            "> body VERBATIM (the seat's AUTHORED v3.3 EXPANDED startup — doctrine inlined\n"
+            "> in full, NO char cap; paste as the FIRST message of the seat's coordinator\n"
+            "> chat)."
         ),
         "instructions": (
-            "> Paste FULL into the Project's Custom Instructions. Body below the marker =\n"
-            "> the ASSEMBLED v3.2 paste per docs/prompts/v3/custom-instructions-core.md\n"
-            "> § Paste order: core v3.1 lines 1-2 (SEAT_NAME filled) + seat C block\n"
-            f"> (per-project/{c_file(seat['file']).name}) + core remainder\n"
-            "> (STATUS_GRAMMAR filled).\n"
+            f"> Paste FULL into the Project's Custom Instructions. Body below the marker =\n"
+            f"> docs/prompts/v3/per-project/{seat['ci']} paste body\n"
+            "> VERBATIM — v3.3 is ONE AUTHORED FILE PER SEAT (seat header + condensed\n"
+            "> five-section skeleton + keyword dictionary + routes); the v3.1/v3.2\n"
+            "> core+seat-block assembly is RETIRED.\n"
             f"> char-count: {len(body):,} chars = the paste body below the marker, trailing\n"
-            "> newline excluded (CHARACTERS — the fleet budget basis, same as the v3.2\n"
-            f"> README table; raw UTF-8 bytes {len(body.encode('utf-8')):,}) · hard cap 8,000 chars:\n"
-            f"> {'PASS' if len(body) <= HARD else 'OVER — MUST TRIM'}."
+            "> newline excluded (CHARACTERS — the fleet budget basis; raw UTF-8 bytes\n"
+            f"> {len(body.encode('utf-8')):,}) · hard cap 8,000 chars: "
+            f"{'PASS' if len(body) <= CI_HARD else 'OVER — MUST TRIM'}."
         ),
         "failsafe": (
-            "> Body below the marker wraps the seat-filled A step-3a FAILSAFE WAKE text\n"
-            "> (D-2 single source) with this seat's name + D-7 stagger-table cron."
+            "> Body below the marker wraps the seat's BOOT step-3a FAILSAFE WAKE text\n"
+            "> (extracted from the seat's v3.3 startup — D-2 single source) with the seat\n"
+            "> name + D-7 stagger-table cron."
         ),
     }
     return (
         f"<!-- {version} · {PROVENANCE_DATE} · fleet-manager projects registry — GENERATED COPY, do not edit\n"
         "     (regenerate: docs/prompts/v3/tools/regen_b_files.py --write-registry; drift guard: --check-registry) -->\n"
-        f"<!-- generated from docs/prompts/v3 @ {sha} (owner-directed rebuild 2026-07-11/12) -->\n"
+        f"<!-- generated from docs/prompts/v3 @ {sha} (prompts v3.3, owner-directed rebuild 2026-07-12) -->\n"
         f"# {name} — {titles[artifact]}\n\n"
         "> **GENERATED COPY — NOT SOURCE OF TRUTH.** This registry copy is GENERATED FROM\n"
-        "> the v3 home: **docs/prompts/v3/ is the source of truth** (generation v3.2,\n"
+        "> the v3 home: **docs/prompts/v3/ is the source of truth** (generation v3.3,\n"
         "> stateless, D-9). Edit the v3 sources and regenerate — never this file.\n"
-        f"> Version lineage: {version} ({PROVENANCE_DATE}) supersedes the pre-rebuild registry copy\n"
-        f"> in projects/{reg_dir}/ (last synced by the 2026-07-11 restructure).\n"
+        f"> Version lineage: {version} ({PROVENANCE_DATE}) supersedes the v3.2 registry sync copy.\n"
         f"{specific[artifact]}\n\n"
         f"{MARKER}\n"
     )
 
 
 def registry_expected(seat: dict) -> dict:
-    """artifact -> (relpath, expected body bytes AFTER the marker line)."""
-    reg_dir = REGISTRY[seat["file"]][0]
-    coord_body = (V3 / "per-project" / seat["file"]).read_text().rstrip("\n")
+    su = paste_body(V3 / "per-project" / seat["startup"])
+    ci = paste_body(V3 / "per-project" / seat["ci"])
+    parts = failsafe_parts(su, seat["startup"])
+    reg_dir = PROJECTS / seat["reg"]
     return {
-        "coordinator": (PROJECTS / reg_dir / "coordinator-prompt.md", coord_body),
-        "instructions": (PROJECTS / reg_dir / "instructions.md", assemble_ci(seat)),
-        "failsafe": (PROJECTS / reg_dir / "failsafe-prompt.md", failsafe_body(seat)),
+        "coordinator": (reg_dir / "coordinator-prompt.md", su),
+        "instructions": (reg_dir / "instructions.md", ci),
+        "failsafe": (reg_dir / "failsafe-prompt.md", failsafe_body(seat, parts)),
     }
 
 
 def resolve_sha() -> str:
-    import subprocess
-
     return subprocess.check_output(
         ["git", "-C", str(REPO), "log", "-1", "--format=%H", "--", "docs/prompts/v3"],
         text=True,
@@ -604,13 +353,12 @@ def resolve_sha() -> str:
 def write_registry(sha: str) -> int:
     fail = False
     for seat in SEATS:
-        versions = REGISTRY[seat["file"]][1]
         for artifact, (path, body) in registry_expected(seat).items():
-            path.write_text(registry_header(seat, artifact, versions[artifact], sha, body) + body + "\n")
+            path.write_text(registry_header(seat, artifact, seat["versions"][artifact], sha, body) + body + "\n")
             n = len(body)
             flag = ""
-            if artifact == "instructions" and n > HARD:
-                flag = f"  !! OVER HARD by {n - HARD}"
+            if artifact == "instructions" and n > CI_HARD:
+                flag = f"  !! OVER HARD by {n - CI_HARD}"
                 fail = True
             print(f"wrote {path.relative_to(REPO)}  ({n:,} chars){flag}")
     return 1 if fail else 0
@@ -647,18 +395,7 @@ def main(argv: list) -> int:
     if "--write-registry" in argv:
         sha = argv[argv.index("--sha") + 1] if "--sha" in argv else resolve_sha()
         return write_registry(sha)
-    rows = []
-    fail = False
-    for seat in SEATS:
-        out, n, status = build(seat)
-        (V3 / "per-project" / seat["file"]).write_text(out)
-        rows.append((seat["file"], n, status))
-        if n > HARD:
-            fail = True
-    print(f"{'file':40s} {'chars':>6s}  status")
-    for f, n, s in rows:
-        print(f"{f:40s} {n:6,d}  {s}")
-    return 1 if fail else 0
+    return run_checks()
 
 
 if __name__ == "__main__":
