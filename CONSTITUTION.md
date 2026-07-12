@@ -25,6 +25,9 @@
   a missing credential: check `docs/CAPABILITIES.md` (the verified ledger) →
   check the environment → attempt once and capture the exact error → append
   the finding same session.
+- **Recurring actions run through the skill index.** `docs/SKILLS.md` names
+  every kit-shipped skill and when to reach for it — check it before
+  improvising a procedure or repo-searching "how do we do X here".
 - When a doc and a source file disagree: Source files and merged PRs win over any doc; when the playbook and reality disagree, fix the playbook the same session (friction -> rule, R-series).
 
 ## Autonomy rails — act vs. ask
@@ -40,7 +43,11 @@
   asks are banned. Every ask carries the OWNER-ACTION fields — WHAT / WHERE
   / HOW / WHY-IT-MATTERS / UNBLOCKS / VERIFIED-NEEDED (format:
   `control/README.md`) — phrased so a non-technical owner can act directly.
-  Expire stale asks; fewer, clearer asks beat complete lists.
+  Expire stale asks; fewer, clearer asks beat complete lists. Owner-facing
+  output follows the owner-assist standard — paste-ready finished values, a
+  risk class (✅ / ↩️ / ⚠️) on every manual step, decisions as structured
+  choices with a **bolded recommendation**, answerable with one letter
+  (standard: `control/README.md`).
 
 ## Changing the rules — propose, don't apply
 
