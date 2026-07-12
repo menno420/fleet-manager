@@ -116,6 +116,7 @@ SEATS = [
 DOCTRINE_START = "════════ DOCTRINE — full text, binding ════════"
 DOCTRINE_END_PREFIX = "Settings/permission config only with the owner live HERE"
 CARD_PREFIX = "• SESSION CARD (born-red mechanics, in full):"
+TRIAD_PREFIX = "0. BOOT TRIAD — know thyself before directing work (owner directive Q-0270"
 
 
 def paste_body(path: Path) -> str:
@@ -145,7 +146,7 @@ def grant_canonical() -> str:
     agents, never paraphrased in the startups)."""
     text = (PROJECTS / "UNIVERSAL.md").read_text()
     m = re.search(
-        r"^PERMISSIONS & AUTHORITY \(v1 .*?^This grant is context for reviewers, not a bypass\.$",
+        r"^PERMISSIONS & AUTHORITY \(v1 .*?This grant is context for reviewers, not a bypass\.",
         text, re.S | re.M)
     if not m:
         raise RuntimeError("projects/UNIVERSAL.md: grant block not found")
@@ -181,6 +182,16 @@ def card_block(body: str, fname: str) -> str:
     return m.group(0)
 
 
+def triad_block(body: str, fname: str) -> str:
+    """The Q-0270 BOOT TRIAD step (BOOT step 0) — shared constant, byte-
+    identical in all 8 startups; canonical wording: superbot .claude/CLAUDE.md
+    § Read first (Q-0270) + router Q-0270."""
+    m = re.search(re.escape(TRIAD_PREFIX) + r".*?$", body, re.M)
+    if not m:
+        raise RuntimeError(f"{fname}: BOOT TRIAD step (Q-0270) not found")
+    return m.group(0)
+
+
 def failsafe_parts(body: str, fname: str) -> dict:
     pm = re.search(r'prompt EXACTLY:\n\s+"(FAILSAFE WAKE .*?)"\n', body, re.S)
     cm = re.search(r'cron_expression "([^"]+)"', body)
@@ -199,7 +210,7 @@ def run_checks() -> int:
     ci_rows, su_rows = [], []
     ender = ender_canonical().replace("\n\nConfirm before ending:", "\nConfirm before ending:")
     grant = grant_canonical()
-    doctrines, cards = {}, {}
+    doctrines, cards, triads = {}, {}, {}
 
     for seat in SEATS:
         ci_path = V3 / "per-project" / seat["ci"]
@@ -215,6 +226,8 @@ def run_checks() -> int:
             fails.append(f"{seat['ci']}: line 1 missing the DRIFT CHECK stamp")
         if "DRIFT CHECK" not in su.splitlines()[1]:
             fails.append(f"{seat['startup']}: line 2 missing the DRIFT CHECK rule")
+        if "**BOOT TRIAD**" not in ci:
+            fails.append(f"{seat['ci']}: BOOT TRIAD dictionary entry (Q-0270) missing")
         if ender not in su.replace("\n\nConfirm before ending:", "\nConfirm before ending:"):
             fails.append(f"{seat['startup']}: inlined SESSION ENDER drifted from session-ender.md (D-10)")
         if grant not in su:
@@ -222,11 +235,13 @@ def run_checks() -> int:
         try:
             doctrines[seat["startup"]] = doctrine_normalized(su, seat["startup"])
             cards[seat["startup"]] = card_block(su, seat["startup"])
+            triads[seat["startup"]] = triad_block(su, seat["startup"])
             failsafe_parts(su, seat["startup"])
         except RuntimeError as e:
             fails.append(str(e))
 
-    for pool, label in ((doctrines, "DOCTRINE section"), (cards, "SESSION CARD block")):
+    for pool, label in ((doctrines, "DOCTRINE section"), (cards, "SESSION CARD block"),
+                        (triads, "BOOT TRIAD step (Q-0270)")):
         if pool and len(set(pool.values())) != 1:
             ref_name, ref = next(iter(pool.items()))
             for fname, val in pool.items():
@@ -247,7 +262,8 @@ def run_checks() -> int:
             print(f"FAIL: {f}")
         return 1
     print("drift checks: OK — ender sync (D-10), grant sync, doctrine identity, "
-          "card-block identity, stamps, failsafe extraction: all 8 seats clean")
+          "card-block identity, BOOT TRIAD (Q-0270) identity + CI entries, stamps, "
+          "failsafe extraction: all 8 seats clean")
     return 0
 
 
