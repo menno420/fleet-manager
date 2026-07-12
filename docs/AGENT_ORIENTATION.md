@@ -28,6 +28,10 @@
 - **[`docs/dispatch-log.md`](dispatch-log.md)** — dated log of dispatches.
 - **[`docs/capabilities.md`](capabilities.md)** — the capability manifest:
   read before declaring anything impossible (R18).
+- **[`docs/research/2026-07-12-platform-capabilities.md`](research/2026-07-12-platform-capabilities.md)**
+  — the verified platform capability/limitation ledger (what claude.ai
+  Projects/sessions CAN and CANNOT do; seat variance, merge classifier,
+  triggers, webhook gaps, unknowns + safe probes).
 - **[`docs/prompts/README.md`](prompts/README.md)** — verbatim ledger of every
   deployed fleet prompt (gen-1 texts + the venture-lab draft).
 - **[`docs/findings/README.md`](findings/README.md)** — committed
