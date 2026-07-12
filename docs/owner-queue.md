@@ -91,10 +91,10 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
    gate — ⛔ mooted by the consolidation archive path (see note).**
    - id: OQ-FORGE-SETTINGS-RESIDUE
    - **Reconciliation note (2026-07-12, consolidation plan):** the plan
-     verdicts product-forge MIGRATE-THEN-ARCHIVE (Phase 1 rehomes → the B#38
+     verdicts product-forge MIGRATE-THEN-ARCHIVE (Phase 1 rehomes → the B#40
      archive click, OQ-CONSOLIDATION-ARCHIVE-FORGE) — an archived repo needs
      no auto-merge/required-check settings. **Skip these clicks** unless the
-     archive path is vetoed at E#42; body kept verbatim below for audit.
+     archive path is vetoed at E#44; body kept verbatim below for audit.
    - WHERE: https://github.com/menno420/product-forge/settings
    - HOW: tick "Allow auto-merge"; make the substrate gate / smoke check a
      required check on main.
@@ -168,8 +168,20 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
     - Blocking: not-blocking (manager wakes still regen the roster; the
       freshness checker alarms at >4h), but this click removes the last
       manager-wake dependence — the whole point of P1.
+    - **BRIDGED 2026-07-12 (owner-live session):** a CCR routine now lands the
+      parked roster PRs — `fleet roster regen bridge` trigger
+      `trig_011LrFY1k5cUHRYH6zwTvPvn`, cron `50 */2 * * *`, fresh session in
+      the fleet-manager environment; it also refreshes the triggers snapshot
+      each fire (something Actions can't do) and **self-retires** (deletes its
+      own trigger) once it observes a roster-regen Actions run whose PR-create
+      step succeeded — i.e. once this click lands. The click is still wanted
+      (free, permanent, removes the bridge's token cost) but no longer blocks
+      roster freshness. Direct API toggle was re-attempted from the owner-live
+      session 2026-07-12: the agent proxy walls ALL `/actions/*` admin paths
+      (verbatim: "Access to this GitHub Actions path is not permitted through
+      this proxy") — confirmed owner-only from any agent venue.
 
-38. **Consolidation Phase 3.1 — archive product-forge (AFTER the Phase 1
+40. **Consolidation Phase 3.1 — archive product-forge (AFTER the Phase 1
     migrations land)** *(new 2026-07-12, consolidation plan:
     [`planning/2026-07-12-repo-consolidation-plan.md`](planning/2026-07-12-repo-consolidation-plan.md)
     § 3.1).*
@@ -179,7 +191,7 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       Zone → "Archive this repository".
     - HOW: one click — **gated on the plan's ORDERs P1-1/P1-2/P1-3** (rehome
       games-web, the data-API proposal, the retro) landing first, and on the
-      E#42 gate letter (OQ-CONSOLIDATION-DELETE-VS-ARCHIVE).
+      E#44 gate letter (OQ-CONSOLIDATION-DELETE-VS-ARCHIVE).
     - UNBLOCKS: removes the repo from the kit re-render fan-out (it drew
       re-render PRs for nothing on 2026-07-12); first slice of 19 → 16.
     - VERIFIED-NEEDED: plan § 3.1 — heartbeat frozen 2026-07-11T19:39:50Z; no
@@ -190,37 +202,37 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
     - Dedup: this click moots B#9 (OQ-FORGE-SETTINGS-RESIDUE) and D#26
       (OQ-FORGE-PAGES) — reconciliation notes added on those items.
 
-39. **Consolidation Phase 3.2 — archive codetool-lab-sonnet5 (AFTER the
+41. **Consolidation Phase 3.2 — archive codetool-lab-sonnet5 (AFTER the
     Phase 1 migrations land)** *(new 2026-07-12, consolidation plan § 3.2).*
    - id: OQ-CONSOLIDATION-ARCHIVE-SONNET5
     - WHAT: GitHub archive toggle (read-only, reversible).
     - WHERE: https://github.com/menno420/codetool-lab-sonnet5 → Settings →
       Danger Zone.
     - HOW: one click — gated on ORDER P1-4 (port the two writeups to
-      substrate-kit) **and your E#43 letter** (release first if A — archiving
+      substrate-kit) **and your E#45 letter** (release first if A — archiving
       freezes the tag-push path forever).
     - UNBLOCKS: second consolidation slice; no trigger references the repo.
     - VERIFIED-NEEDED: census § sonnet5 — last commit `66c3dfc` 2026-07-09;
       zero tags on origin; owner ruling 2026-07-10 "archive … after harvest".
     - RISK: ↩️ reversible — unarchive toggle; the one thing archiving does
-      freeze is tag-push, which is exactly why E#43 sequences first.
+      freeze is tag-push, which is exactly why E#45 sequences first.
     - Blocking: not-blocking.
 
-40. **Consolidation Phase 3.3 — archive codetool-lab-fable5 (AFTER the
+42. **Consolidation Phase 3.3 — archive codetool-lab-fable5 (AFTER the
     Phase 1 migrations land)** *(new 2026-07-12, consolidation plan § 3.3).*
    - id: OQ-CONSOLIDATION-ARCHIVE-FABLE5
     - WHAT: GitHub archive toggle (read-only, reversible).
     - WHERE: https://github.com/menno420/codetool-lab-fable5 → Settings →
       Danger Zone.
     - HOW: one click — gated on ORDER P1-5 (your named `.pyc`/`.gitignore`
-      hygiene precondition) **and your E#44 letter**.
+      hygiene precondition) **and your E#46 letter**.
     - UNBLOCKS: third consolidation slice; no trigger references the repo.
     - VERIFIED-NEEDED: census § fable5 — `.pyc`/.gitignore defect verified @
       `a6cf1a9`; owner precondition on record.
     - RISK: ↩️ reversible — unarchive toggle.
     - Blocking: not-blocking.
 
-41. **Consolidation Phase 3.4 — protect pokemon-mod-lab `main` (the fleet's
+43. **Consolidation Phase 3.4 — protect pokemon-mod-lab `main` (the fleet's
     only unprotected default branch)** *(new 2026-07-12, consolidation plan
     § 3.4).*
    - id: OQ-POKEMON-PROTECT-MAIN
@@ -327,20 +339,31 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       today ("live-NL leg owner-key-gated"). API keys are owner-only.
     - Blocking: blocks band-7's live-NL leg only.
 
-17. **superbot-mineverse — provision six host env vars.**
+17. **superbot-mineverse — REDUCED 2026-07-12 to TWO Discord-portal steps
+    (was: six host env vars).** *(Owner-live session executed the rest.)*
     - id: OQ-MINEVERSE-ENV-VARS
-    - WHAT: `DISCORD_OAUTH_CLIENT_ID`, `DISCORD_OAUTH_CLIENT_SECRET`,
-      `OAUTH_REDIRECT_URI`, `WEB_SESSION_SIGNING_KEY`, `MINING_WRITE_ENDPOINT`,
-      `MINING_WRITE_SHARED_SECRET`.
-    - WHERE: host runtime env + Discord Developer Portal (not CI).
-    - HOW: create the Discord OAuth app values in the Developer Portal; set all
-      six in the host runtime. The site runs degraded read-only meanwhile (130
-      tests pass with zero vars).
-    - UNBLOCKS: player sign-in; with the write pair + bot-lane FLAG 2,
+    - DONE agent-side 2026-07-12 (owner-live, owner-approved): the web host
+      now EXISTS — Railway project `superbot-mineverse`, service `web`,
+      domain `https://web-production-97636.up.railway.app`, start command
+      `python3 server/app.py`, deployed read-only degraded (by design). THREE
+      of the six vars are set: `WEB_SESSION_SIGNING_KEY` (fresh random),
+      `OAUTH_REDIRECT_URI`
+      (`https://web-production-97636.up.railway.app/auth/callback`),
+      `DISCORD_OAUTH_CLIENT_ID` (the production Discord app's id).
+    - WHAT remains OWNER (Discord Developer Portal, one sitting):
+      (1) copy the app's **OAuth2 client secret** → set as
+      `DISCORD_OAUTH_CLIENT_SECRET` on the Railway `web` service;
+      (2) on the same portal screen, **register the redirect URI**
+      `https://web-production-97636.up.railway.app/auth/callback` in
+      OAuth2 → Redirects (must byte-equal the env var).
+    - WHAT remains AGENT (not owner — do NOT park on the queue): the write
+      pair `MINING_WRITE_ENDPOINT` + `MINING_WRITE_SHARED_SECRET` waits on
+      superbot bot-lane **FLAG 2** (the HMAC write endpoint,
+      mineverse control/status.md spec) — routed to the superbot lane.
+    - UNBLOCKS: (owner half) player sign-in on the live host; (agent half)
       test-guild write mode.
-    - VERIFIED-NEEDED: control/status.md@`4be012e` ⚑ OWNER-ACTION 1.
-      Credentials are owner-only.
-    - Blocking: blocks player sign-in only; site otherwise functional.
+    - VERIFIED-NEEDED: portal secrets are genuinely owner-only (no API path).
+    - Blocking: blocks player sign-in only; the site is otherwise live.
 
 18. **superbot-plugin-hello — say the seed-push word (LIVE OWNER WORD, not a
     click).**
@@ -422,7 +445,7 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       8. Archive any leftover shells: codetool-lab ×3 (already closed) ·
          mobile-lab / games-program if shells exist (pre-birth) ·
          product-forge Project archives per the consolidation disposition
-         (E#37 ⛔ superseded → B#38 + E#42, 2026-07-12).
+         (E#37 ⛔ superseded → B#40 + E#44, 2026-07-12).
       (Equivalent alternative: create the 6 new-name Projects fresh and
       archive all predecessors — same end state, more clicks.)
     - WHERE: claude.ai → Projects screen. Owner-side surface with NO agent
@@ -637,11 +660,11 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
 26. **product-forge OA-003 — enable GitHub Pages.** *(Old item 15.)*
     - id: OQ-FORGE-PAGES
     - **Reconciliation note (2026-07-12, consolidation plan):** hold this
-      click — product-forge is MIGRATE-THEN-ARCHIVE (B#38,
+      click — product-forge is MIGRATE-THEN-ARCHIVE (B#40,
       OQ-CONSOLIDATION-ARCHIVE-FORGE), and the games-web build it would
       publish is rehoming under ORDER P1-1 (websites arcade or
       superbot-games); Pages on an archived repo serves nothing. Revisit only
-      if the archive path is vetoed at E#42.
+      if the archive path is vetoed at E#44.
     - WHERE: https://github.com/menno420/product-forge/settings/pages
     - HOW: Source: **GitHub Actions**; then re-run the deploy-pages workflow.
     - UNBLOCKS: the games-web RPG at `menno420.github.io/product-forge/`.
@@ -684,7 +707,7 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
     4. **post-EAP routine posture** — HARD deadline: decide **≤2026-07-13**;
        RECOMMENDED **Option A** (plan 5d restates: keep the 2-hourly
        failsafes, retire EAP-specific pacemakers — failsafes are cheap; the
-       burn is in repo crons, see E#45/E#46).
+       burn is in repo crons, see E#47/E#48).
     5. **websites cutover Options A–D** — retire superbot `dashboard/` +
        `botsite/` in favor of the Railway replacements. RECOMMENDED
        **decide now, execute after CUT-3** — retiring superbot surfaces
@@ -731,8 +754,8 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       choice — option A's "keep the repo parked" framing is out of date; the
       repo now archives (reversibly) after its named assets land elsewhere.
       The seat-registry half (pointer-stub `projects/product-forge/`) rides
-      the same disposition. Live successors: **B#38
-      (OQ-CONSOLIDATION-ARCHIVE-FORGE)** gated by **E#42
+      the same disposition. Live successors: **B#40
+      (OQ-CONSOLIDATION-ARCHIVE-FORGE)** gated by **E#44
       (OQ-CONSOLIDATION-DELETE-VS-ARCHIVE)**; plan:
       [`planning/2026-07-12-repo-consolidation-plan.md`](planning/2026-07-12-repo-consolidation-plan.md)
       § "Provenance & supersessions". Body kept verbatim below for
@@ -767,7 +790,23 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
     - Blocking: not-blocking (seat is dormant — no failsafe armed); blocks
       only the final MATRIX regen follow-up.
 
-42. **Consolidation gate — delete vs archive (the plan's FIRST structured
+38. **Railway GitHub App — grant repo access to `superbot-mineverse`** *(new
+    2026-07-12, owner-live session).*
+   - id: OQ-RAILWAY-APP-MINEVERSE
+    - WHERE: https://github.com/settings/installations → Railway → Repository
+      access → add `menno420/superbot-mineverse`.
+    - HOW: two clicks (Configure → select repo → Save).
+    - UNBLOCKS: merge=deploy for the mineverse web host — GitHub-triggered
+      builds currently FAIL instantly (no build log; the app can't read the
+      repo). Today's deploy was a one-shot CLI upload from the owner-live
+      session; pushes to main will NOT auto-deploy until this click.
+    - VERIFIED-NEEDED: 4 instant deployment FAILs 2026-07-12 15:57Z with empty
+      build logs (repo-fetch failure signature); the app installation surface
+      is owner-only.
+    - Blocking: not-blocking today (CLI deploy live), but the site drifts from
+      main until clicked.
+
+44. **Consolidation gate — delete vs archive (the plan's FIRST structured
     choice; answer before any Phase 3 click)** *(new 2026-07-12,
     consolidation plan
     [`planning/2026-07-12-repo-consolidation-plan.md`](planning/2026-07-12-repo-consolidation-plan.md)
@@ -789,16 +828,16 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       a live session, or a comment on the plan branch.
     - HOW: say "contradiction: A" (or B). Full reasoning: plan § "⚠ First
       structured choice" (the click surface is here; the reasoning is there).
-    - UNBLOCKS: the whole Phase 2/3 set below rides this framing — B#38–40
+    - UNBLOCKS: the whole Phase 2/3 set below rides this framing — B#42–42
       read their letter from here; the rest of the plan assumes A.
     - VERIFIED-NEEDED: both contradicting instructions are on record (plan
       § cites the 2026-07-10 ruling's home at superbot
       `docs/ideas/adopt-codetool-lab-tools-2026-07-10.md`).
     - RISK: ↩️ A is fully reversible (unarchive toggle) · ⚠️ B is
       destructive — hence the written-override + cooling-off rail.
-    - Blocking: blocks B#38–40 (the archive clicks) and sequences E#43/E#44.
+    - Blocking: blocks B#42–42 (the archive clicks) and sequences E#45/E#46.
 
-43. **Consolidation Phase 2.1 — cfgdiff v0.1.1 (codetool-lab-sonnet5):
+45. **Consolidation Phase 2.1 — cfgdiff v0.1.1 (codetool-lab-sonnet5):
     release it before the archive?** *(new 2026-07-12, consolidation plan
     § Phase 2 decision 1.)*
    - id: OQ-CFGDIFF-RELEASE-DECISION
@@ -807,21 +846,21 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       workflow_dispatch recipe (the route opus4.8 used to ship mdverify
       v0.1.0/v0.2.0 on 2026-07-09). One agent slice; zero tags exist on
       origin today, and **archiving freezes the tag-push path forever**, so
-      this lands before the B#39 click.
+      this lands before the B#41 click.
       **B** — explicitly accept cfgdiff staying unreleased; archive as-is.
     - WHERE: one word to the manager (inbox ORDER / live session). The
       owner-click half of A is already staged click-level in Parked
       § "cfgdiff v0.1.1 release — two clicks".
     - HOW: say "cfgdiff: A" (or B). Reasoning: plan § Phase 2 decision 1.
-    - UNBLOCKS: sequences B#39 (OQ-CONSOLIDATION-ARCHIVE-SONNET5) — the
+    - UNBLOCKS: sequences B#41 (OQ-CONSOLIDATION-ARCHIVE-SONNET5) — the
       archive click waits on this letter.
     - VERIFIED-NEEDED: census § sonnet5 — zero tags on origin (`ls-remote`);
       owner ruling 2026-07-10 "archive … after harvest".
     - RISK: ↩️ reversible — A's release can be deleted; B forecloses nothing
       until the archive click itself (unarchive reopens the tag path).
-    - Blocking: blocks B#39 only.
+    - Blocking: blocks B#41 only.
 
-44. **Consolidation Phase 2.2 — envdrift (codetool-lab-fable5):
+46. **Consolidation Phase 2.2 — envdrift (codetool-lab-fable5):
     release/adopt before the archive?** *(new 2026-07-12, consolidation plan
     § Phase 2 decision 2.)*
    - id: OQ-ENVDRIFT-RELEASE-DECISION
@@ -838,13 +877,13 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       historical tags; this decision covers whether a releasable version
       ships at all before the freeze).
     - HOW: say "envdrift: A" (or B). Reasoning: plan § Phase 2 decision 2.
-    - UNBLOCKS: sequences B#40 (OQ-CONSOLIDATION-ARCHIVE-FABLE5).
+    - UNBLOCKS: sequences B#42 (OQ-CONSOLIDATION-ARCHIVE-FABLE5).
     - VERIFIED-NEEDED: census § fable5 — no release workflow; defects @
       `a6cf1a9`; tag-push is a verified 403 wall for agents on that seat.
-    - RISK: ↩️ reversible — same shape as E#43.
-    - Blocking: blocks B#40 only.
+    - RISK: ↩️ reversible — same shape as E#45.
+    - Blocking: blocks B#42 only.
 
-45. **Consolidation Phase 2.3 — superbot cron trims (the ≈170 runs/day
+47. **Consolidation Phase 2.3 — superbot cron trims (the ≈170 runs/day
     burner)** *(new 2026-07-12, consolidation plan § Phase 2 decision 3.)*
    - id: OQ-SUPERBOT-CRON-TRIM
     - WHAT — pick one; today `ci-rerun-watchdog.yml` `*/12 * * * *` ≈120/day
@@ -857,13 +896,13 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       production-repo cadence.
     - HOW: say "superbot crons: A" (or B). Cost table: plan § "Cost table".
     - UNBLOCKS: the largest single cut of the fleet's scheduled Actions burn
-      (~235 runs/day fleet-wide today, ≈80% reduction across E#45+E#46).
+      (~235 runs/day fleet-wide today, ≈80% reduction across E#47+E#48).
     - VERIFIED-NEEDED: plan cost table — schedules verified per-repo by
       grepping `schedule:` at origin/main.
     - RISK: ↩️ reversible — one-line cron revert per workflow.
     - Blocking: not-blocking; pure cost.
 
-46. **Consolidation Phase 2.4 — websites enabler cron + fleet-manager
+48. **Consolidation Phase 2.4 — websites enabler cron + fleet-manager
     roster-regen cadence trims (≈65 runs/day combined)** *(new 2026-07-12,
     consolidation plan § Phase 2 decision 4.)*
    - id: OQ-WEBSITES-FM-CRON-TRIM
@@ -880,10 +919,48 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
     - HOW: say "websites/fm crons: A" (or B). Reasoning + numbers: plan
       § Phase 2 decision 4 + cost table.
     - UNBLOCKS: websites ≈53 → ≈5/day; fleet-manager ~12 → ~2/day or
-      on-change; pairs with E#45 for the ≈80% fleet-wide cut.
+      on-change; pairs with E#47 for the ≈80% fleet-wide cut.
     - VERIFIED-NEEDED: plan cost table (same `schedule:` grep method).
     - RISK: ↩️ reversible — cron lines restore in one commit.
     - Blocking: not-blocking; pure cost.
+    - **Reconciliation note (2026-07-12 merge):** the owner-live session armed a
+      CCR roster bridge (`trig_011LrFY1k5cUHRYH6zwTvPvn`, `50 */2 * * *`, see
+      B#33 BRIDGED note) that rides the same roster-regen cadence and
+      self-retires when OQ-FM-ACTIONS-PR-PERMISSION lands — weigh it in the
+      roster-regen half of this letter (it does not decide A/B).
+
+### (F) New intake 2026-07-12 (owner-live session) — decisions, no rush
+
+39. **Railway project duplication — websites services exist in BOTH
+    `reliable-grace` (live: review-production-f027, superbot-app) and
+    `superbot-websites` (parallel copy, has `control-plane`).**
+   - id: OQ-RAILWAY-PROJECT-SPLIT
+    - WHAT: decide the canonical home. RECOMMENDATION: **freeze until the
+      2026-07-14 EAP window closes** (the Anthropic email links the
+      reliable-grace URLs — do not move/rename them this week), then have the
+      Websites seat consolidate into `superbot-websites` and retire the
+      duplicates. `ANTHROPIC_API_KEY` was set on BOTH review services
+      2026-07-12 so either path works.
+    - WHERE/HOW: one word to the manager (inbox ORDER) after 07-14.
+    - Blocking: nothing; a drift hazard if both sets keep deploying.
+
+## Resolved 2026-07-12 (owner-live session — Railway/API executed directly)
+
+- **websites `ANTHROPIC_API_KEY` ✅** — set on the LIVE review service
+  (`reliable-grace`/review, serving review-production-f027; owner-approved,
+  service redeployed 2026-07-12 ~16:0xZ) AND on the parallel
+  `superbot-websites`/review service. The websites-order (ORDER 019) B-section
+  blocker is pre-cleared; the on-site AI assistant has its key.
+- **mineverse web host ✅ (the non-portal 4/6 of OQ-MINEVERSE-ENV-VARS)** —
+  Railway project `superbot-mineverse` created, `web` service deployed
+  read-only degraded at `https://web-production-97636.up.railway.app` (CLI
+  one-shot; see OQ-RAILWAY-APP-MINEVERSE for the auto-deploy click), 3 vars
+  set (signing key · redirect URI · client id). Remainder split: 2 portal
+  steps stay owner (item 17), the write pair stays agent-side (FLAG 2).
+- **roster-freshness BRIDGED ✅** — `fleet roster regen bridge`
+  (`trig_011LrFY1k5cUHRYH6zwTvPvn`, `50 */2 * * *`, fleet-manager env,
+  fresh-session) lands parked roster PRs + refreshes the triggers snapshot;
+  self-retires when OQ-FM-ACTIONS-PR-PERMISSION lands.
 
 ## Resolved 2026-07-11 (P3 curation sweep, ~20:1xZ — every state below re-verified LIVE per PR, Q-0120)
 
@@ -947,23 +1024,23 @@ API this sweep, not from reports):
   `13a84e5`. (Provenance of the earlier opus4.8 mislabel correction:
   `projects/codetool-lab-{fable5,opus4.8}/meta.md`; opus4.8's mdverify
   Releases are LIVE.) *(2026-07-12: the release-or-not decision is now
-  ACTIVE at E#44, OQ-ENVDRIFT-RELEASE-DECISION — this stays as the click
-  surface for the historical tags if E#44 = A.)*
+  ACTIVE at E#46, OQ-ENVDRIFT-RELEASE-DECISION — this stays as the click
+  surface for the historical tags if E#46 = A.)*
 - **codetool archive toggles ×3 (paired DECISION)** — all three repos
   `"archived": false` (API-verified 2026-07-10); recommendation: **wait until
   the gen-3 succession question settles, then archive** (archiving makes the
   repos read-only). *(2026-07-12: PROMOTED — superseded by the consolidation
-  plan's sequenced clicks: sonnet5 + fable5 archive at B#39/B#40 after
-  Phase 1 + E#43/E#44; opus4.8 stays UNARCHIVED (KEEP-QUIET, mdverify
+  plan's sequenced clicks: sonnet5 + fable5 archive at B#41/B#42 after
+  Phase 1 + E#45/E#46; opus4.8 stays UNARCHIVED (KEEP-QUIET, mdverify
   release host — per the plan it is NOT one of the three archives; the third
-  is product-forge, B#38).)*
+  is product-forge, B#40).)*
 - **cfgdiff v0.1.1 release — two clicks (codetool-lab-sonnet5):** (1) PyPI
   pending publisher (owner `menno420`, repo `codetool-lab-sonnet5`, workflow
   `release.yml`, environment `pypi`); (2) `git tag -a v0.1.1 0b1eb60 && git
   push origin v0.1.1` — do NOT tag v0.1.0 at `0260aae` (predates release.yml).
   Tag push is a credential-layer 403 on that seat. *(2026-07-12: the
-  release-or-not decision is now ACTIVE at E#43,
-  OQ-CFGDIFF-RELEASE-DECISION — these two clicks are the HOW if E#43 = A.)*
+  release-or-not decision is now ACTIVE at E#45,
+  OQ-CFGDIFF-RELEASE-DECISION — these two clicks are the HOW if E#45 = A.)*
 - **Paper-doll PNG pack for mining** — art asset, whenever.
 
 ### Safe to delete / archive (housekeeping, consolidated 2026-07-10 · 18:31Z wake)

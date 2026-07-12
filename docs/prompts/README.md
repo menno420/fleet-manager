@@ -54,6 +54,14 @@ owner baseline 2026-07-11) lives under [`v3/`](v3/per-project/README.md), drafte
   [`baseline-2026-07-11/game-lab.md`](baseline-2026-07-11/game-lab.md) ·
   [`baseline-2026-07-11/websites.md`](baseline-2026-07-11/websites.md).
 
+## External prompts — handed to sessions outside the fleet
+
+- [GPT deep-research prompt (2026-07-12)](external/2026-07-12-gpt-deep-research-prompt.md)
+  — self-contained briefing + research mission for an external GPT
+  deep-research session ("sol 5.6"): the system's architecture, the
+  2026-07-10→12 story, the known-problem census, and the audit questions,
+  compressed from the 2026-07-12 research corpus. Zero repo access assumed.
+
 ## Conventions this ledger records
 
 - **Custom Instructions** blocks live in each claude.ai Project's settings

@@ -27,8 +27,10 @@ auto-merge armed**. Deliverables 2–3 follow on this branch after the plan doc.
   3 duplicates, 4 deferred. All 8 custom-instruction files under the
   8,000 char+byte gate; registry `--check-registry` OK
   (`regen_b_files.py` sources → `projects/<seat>/` copies re-synced).
-- **D3 — owner-queue**: B#38–41 + E#42–46 added; E#37 superseded; E#28
-  folded to 5 decisions.
+- **D3 — owner-queue**: B#40–43 + E#44–48 added (opened as B#38–41 +
+  E#42–46; renumbered in the origin/main merge — main's owner-live session
+  took 38/39 for OQ-RAILWAY-APP-MINEVERSE / OQ-RAILWAY-PROJECT-SPLIT; ids
+  unchanged); E#37 superseded; E#28 folded to 5 decisions.
 - **Codex outcome**: usage-limited on this PR #122 (comment 4951946498) —
   no review will come until limits reset; coordinator re-pokes. The 3 P2
   findings from its review of superseded #121 (review 4680334132 on

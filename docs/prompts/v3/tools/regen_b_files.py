@@ -66,6 +66,15 @@ text wrapped with the seat name + the D-7 stagger-table cron (both extracted
 from the startup itself, so the failsafe can never drift from the prompt that
 arms it).
 
+SEAT-DIGEST LANE (grounded-skills slice 6 fm wiring, 2026-07-12): the
+sibling tool seat_digest_sync.py consumes the kit's machine extraction
+contract (fence-prefix match + byte compare, tree-scan only, never
+executing kit code) into generated projects/<seat>/seat-digest.md renders,
+and byte-checks any substrate-kit:*-digest fence embedded in a paste
+against them (no-third-copy chain, kit plan §4.2e). The default run below
+prints its findings ADVISORY-only; the exit-affecting gate is
+`seat_digest_sync.py --check`.
+
 Provenance: v3.1 build (PR #103) · v3.2 stateless rebuild + registry modes
 (PR #108/#110) · v3.3 one-file-per-seat rebuild (owner spec 2026-07-12) ·
 v3.4 currency restamp (prompt-currency audit deltas, 2026-07-12). PENDING
@@ -282,6 +291,17 @@ def run_checks() -> int:
     print(f"{'Expanded startups (v3.4, size NOTE — no cap)':58s} {'chars':>6s}")
     for f, n in su_rows:
         print(f"{f:58s} {n:6,d}")
+    print()
+    # SEAT-DIGEST advisory (grounded-skills slice 6 fm wiring, 2026-07-12):
+    # kit extraction-contract renders (projects/<seat>/seat-digest.md) +
+    # paste-fence byte-match — print-only here per the kit's advisory-first
+    # posture for unproven checkers; the exit-affecting gate is
+    # `python3 docs/prompts/v3/tools/seat_digest_sync.py --check`.
+    try:
+        import seat_digest_sync
+        seat_digest_sync.advisory()
+    except Exception as exc:  # advisory must never break the regen gate
+        print(f"seat-digest advisory skipped: {exc}")
     print()
     if fails:
         for f in fails:
