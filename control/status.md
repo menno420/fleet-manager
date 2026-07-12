@@ -1,22 +1,18 @@
 # fleet-manager · status
 
-updated: 2026-07-12T18:55:00Z — trigger-health remediation wake (PR #135): fresh snapshot, PASS 6/6, BEFORE failures self-resolved.
+updated: 2026-07-12T19:55:07Z — **COORDINATOR SESSION CLOSED** (owner's universal session ender executed; successor boots per `projects/fleet-manager/coordinator-prompt.md` at HEAD).
 
-phase: **prompt program COMPLETE through v3.3.** Owner-corrected generations: v3.2 stateless (#108) → registry sync (#110) → **v3.3 three-layer (#111 @ `98d0f68`)**: expanded startup prompts (~27k), keyword-dictionary Custom Instructions ≤8,000 chars dual-basis, BOOT TRIAD (superbot Q-0270), boot-verification doctrine, `docs/prompts/v3/planned-routes.md`, drift checks incl. registry match 24/24.
+phase: **prompt program COMPLETE through v3.4** (docs/prompts/v3/ + registry synced, PR #122); consolidation plan approved + merged (`docs/planning/2026-07-12-repo-consolidation-plan.md`).
 
 health: green
 
 kit: v1.7.0 · check: green · engaged: yes
 
-coordinator: **LIVE — session_01FMJoC5uC6WSUTosceTGcmo (continuous operation).**
+coordinator: **CLOSED — session ended 2026-07-12 ~19:55Z (was session_01FMJoC5uC6WSUTosceTGcmo, continuous operation). Successor boots per projects/fleet-manager/coordinator-prompt.md at HEAD.**
 
-routine: failsafe **trig_01BKpsyoBzp1K1ob9H3iu1gM** cron "30 */2 * * *" live (verified earlier today, 2026-07-12); pacemaker send_later chain active; arming path = worker-relay recipe (spawned worker calls send_later / create_trigger, binds to parent session).
+routine: disposition as verified by the coordinator 2026-07-12 ~19:50Z (full 947-record pagination): pending session one-shot **trig_018dtpq5y4vYN7wij2hMouxJ deleted** and verified absent; 67 prior pacemaker one-shots already self-fired (no action); FAILSAFE **trig_01BKpsyoBzp1K1ob9H3iu1gM** ("fleet-manager failsafe wake", cron `30 */2 * * *`, enabled, next fire ~20:31Z) **LEFT ARMED as the successor's dead-man bridge** — successor boot cutover rebinds-then-deletes it. No business crons owned by this session. Nothing uncloseable.
 
-registry: projects/\<seat\>/ — all 8 standing seats serve **v3.3 @ `48650f8` stamps**; control website reads projects/ on main live (websites `app/projects.py`, 180s cache).
-
-sweep: **midday staleness sweep (PR #113, ~11:17–11:25Z): 6 FRESH / 2 STALE seats** (superbot-world 3/3 STALE — worsened; game-lab new STALE via pokemon-mod-lab). Trigger snapshot re-captured: **832 triggers** (28 enabled: 9 crons + 19 one-shots) → `telemetry/triggers-snapshot.json`; roster regenerated **gen 14**. Full report: `docs/research/2026-07-12-staleness-sweep-midday.md` (9-item needs-attention shortlist).
-
-trigger-health: **remediation wake (PR #135): PASS 6/6, exit 0** (evaluated 18:44Z against the fresh export). Fresh 941-record snapshot (10 pages, captured_at 2026-07-12T18:25:51Z, 0 dupes) committed with top-level `captured_at` per the ORDER 020 recipe (telemetry/README.md). The 11:12Z BEFORE failures all self-resolved between 11:12Z and the 18:25Z capture — no `send_message` recovery needed: game-lab failsafe `trig_01JD1t7rD5jUCqkJQJaNCi3E` live (last_fired 16:50:26Z, next 18:50Z); both dead chains (`session_014Z1fPG7Wa6VHprJqLcux4f`, `session_01SphTJEnN1PYjYZhHNWoJik`) have future ticks armed. LANES gained a game-lab registry-only row (`gen_roster.py`); roster regenerated gen-19. FLAG: I1 blind spot — `trig_011XAWqPeksS8LBrS5G9RvVc` (superbot autonomous dispatch, cron, next_run_at 10d past) is skipped because the export omits the `enabled` field on disabled routines and `gen_roster.trigger_wedged` (scripts/gen_roster.py:409) treats absent-`enabled` as disabled — correct for a user-paused routine, but the checker cannot distinguish "paused" from "enabled-field missing", so a truly-enabled record lacking the field would be silently unflagged (917/941 records lack `enabled`).
+trigger-health: check live (`scripts/check_trigger_health.py`, PASS 6/6 at snapshot 18:25Z — see PR #135).
 
 ## Walls
 
@@ -24,39 +20,30 @@ Walls (summarized): agent-initiated merges of peer PRs are denied in auto mode; 
 
 ## Landed / parked
 
-Landed today (2026-07-12), by PR:
+Day summary (2026-07-12), pointers:
 
-- **#88/#89/#91** — restructure chain.
-- **#97** — coordinator heartbeat (status.md overwrite).
-- **#92** — permission grants port (.claude/settings.json).
-- **#93–#96** — research wave (platform capabilities, problem census core + satellites, prompt architecture).
-- **#100–#102** — QA passes.
-- **#98** — prompts v3 draft; **#103** — v3.1 + codex fixes.
-- **#99/#104/#109** — roster regens.
-- **#105** — staleness sweep (first 8-seat registry sweep).
-- **#106/#107** — owner-queue re-stamp + kit ORDER 014 triage.
-- **#108** — prompts v3.2 (stateless startup artifacts).
-- **#110** — registry sync (projects/ regenerated from v3.2).
-- **#111** — prompts v3.3 (three-layer generation) @ `98d0f68`.
-- **substrate-kit:** ORDER 014 delivered (kit #254/#256) + ORDER 015 filed.
-- **12 relocated ORDERs** merged across 10 lane repos (v3.2 relocation program).
+- prompts v3.0→v3.4 program complete (`docs/prompts/v3/` + registry synced).
+- consolidation plan approved + merged (`docs/planning/2026-07-12-repo-consolidation-plan.md` — Phase 1 ORDERs ready to route, Phase 2 decisions + ≤2026-07-13 bundle with owner, Phase 3 clicks gated).
+- trigger-health check live (`scripts/check_trigger_health.py`, PASS 6/6 at snapshot 18:25Z).
+- /prompts page live on the control site; GPT research prompt at `docs/prompts/external/`.
 
-Open: this session's PR only (#133 — ORDER 020 trigger-health check; #113 merged). No other open PRs in fleet-manager.
+PR terminal states (verified at close, 2026-07-12 ~19:55Z): **#122** (consolidation plan + v3.4) merged 19:49Z; **#121** (game-lab proposal — superseded as a shape by merged #122) was recommended for owner-close but the owner **MERGED it 19:35Z instead**, so both landed — no reconciliation debt beyond what #122's supersedes-banner already records; **#116** owner-closed unmerged; **#118**, **#135** merged. No parked/open fleet-manager PRs remain besides the close-out PR itself (#139).
 
 ## Orders
 
-- inbox 001–018 all DONE.
-- **ORDER 020 DONE (PR #133)** — per-wake trigger-health check: `scripts/check_trigger_health.py` (R26, 6 invariants, nonzero exit on FAIL) + roster "Trigger health" column/section (`scripts/gen_roster.py`) on the Actions regen substrate + `captured_at` snapshot convention (`telemetry/README.md`) + wake-prompt wiring (v3 per-project + registry copies). DONE flip appended to inbox per grammar.
-- ORDERs 019 / 021 / 022: Websites-seat orders — not this repo's to execute; tracked via the roster/heartbeat sweep.
-- owner-directed overnight prompt-rebuild program (2026-07-11): COMPLETE through v3.3 (see phase line).
+- inbox 001–018 all DONE; ORDER 020 DONE (PR #133). ORDERs 019/021/022 are websites-seat orders — tracked via the roster/heartbeat sweep.
 
-next-2: (1) monitor lane boots on the v3.3 prompts; (2) kit skills-program alignment for `docs/prompts/v3/planned-routes.md`.
+next-3 for successor:
+
+1. Route the consolidation plan's Phase 1 migration ORDERs to owning lanes.
+2. Monitor codex-fold state of merged #122 (post-merge follow-up commit if the 5 codex findings from 19:26Z weren't all folded pre-merge — check the synthesis session's last report/PR comments) + resume staleness cadence.
+3. Meta-restamp salvage follow-up if the owner approves (see ⚑ below).
 
 ## ⚑ needs-owner
 
 Pointers only (details in `docs/owner-queue.md`):
 
-- owner-queue C#34–C#36 — pastes now serve v3.3.
-- owner-queue E#37 — forge disposition.
-- OQ-FM-ACTIONS-PR-PERMISSION — Actions PR-permission toggle.
+- owner-queue B#40–43 + E#44–48; decision bundle due ≤2026-07-13.
 - venture-lab exposure item (see owner-queue).
+- seat pastes per C#34–36 (v3.4 artifacts).
+- **meta restamps dropped with #116's close — #122 touched zero meta.md files, so the nine seat meta lane-state re-verifications (venture-lab ACTIVE vs stale LIVE-BUT-DARK meta, product-forge archived-ready, websites parked + trigger mismatch, etc.) live only on branch `claude/meta-restamp` @ `8fe8f8b` (needs a v3.4 stamp bump if re-cut); say "salvage the metas" to re-cut — the /projects page cards stay stale until then.**
