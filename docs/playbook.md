@@ -57,6 +57,24 @@ day) unless a later date is noted next to the rule.
     `docs/proposals/generated-roster-from-heartbeats.md`). *WHY: the hand-stamped
     manifest froze stale twice in 30 hours; regeneration from the sources the freshness
     checker already reads kills the staleness class structurally.* (2026-07-10)
+26. **R26 (2026-07-12) — Every manager wake runs the trigger-health check on the fresh
+    registry export and acts on FAILs the SAME wake** (ORDER 020; canonical spec:
+    superbot `docs/owner/trigger-health-order-2026-07-12.md`). Procedure: export
+    `list_triggers` (ALL pages) → `telemetry/triggers-snapshot.json` with a top-level
+    `captured_at` stamp → `python3 scripts/check_trigger_health.py` → nonzero exit =
+    act now: `send_message` each DEAD-chain seat session to resume + re-arm + verify
+    (the ONLY working cross-session revival path — cross-session trigger calls are
+    org-refused, and settings.json allowlist edits provably don't hold, Q-0242 — a
+    recovery that needs trigger tools runs in a Routine-spawned session); re-arm/verify
+    wedged crons the seat owns; owner-queue what only the owner can revive; then record
+    the verdict in `control/status.md`. The roster's "Trigger health" column/section
+    (`scripts/gen_roster.py`) is the same detection on the Actions regen substrate, so
+    the watchdog's record survives a CCR scheduler outage. *WHY: 2026-07-12
+    ~02:30–08:00Z the scheduler degraded silently — 9 dropped one-shots, wedged cron
+    failsafes frozen hours in the past while still enabled, two seats dark ~6h;
+    everything needed to catch it was in `list_triggers` all night and nothing was
+    watching. Replaying that registry through this check surfaces every one of them in
+    a single wake (`enabled ∧ next_run_at < capture − 15min`).* (2026-07-12)
 
 ## PLATFORM WALLS (verbatim-class — quote them, don't paraphrase)
 

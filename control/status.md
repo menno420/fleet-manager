@@ -1,6 +1,6 @@
 # fleet-manager · status
 
-updated: 2026-07-12T11:37:32Z — midday staleness sweep landed (PR #113).
+updated: 2026-07-12T18:35:00Z — ORDER 020 landed (PR #133): per-wake trigger-health check (R26).
 
 phase: **prompt program COMPLETE through v3.3.** Owner-corrected generations: v3.2 stateless (#108) → registry sync (#110) → **v3.3 three-layer (#111 @ `98d0f68`)**: expanded startup prompts (~27k), keyword-dictionary Custom Instructions ≤8,000 chars dual-basis, BOOT TRIAD (superbot Q-0270), boot-verification doctrine, `docs/prompts/v3/planned-routes.md`, drift checks incl. registry match 24/24.
 
@@ -15,6 +15,8 @@ routine: failsafe **trig_01BKpsyoBzp1K1ob9H3iu1gM** cron "30 */2 * * *" live (ve
 registry: projects/\<seat\>/ — all 8 standing seats serve **v3.3 @ `48650f8` stamps**; control website reads projects/ on main live (websites `app/projects.py`, 180s cache).
 
 sweep: **midday staleness sweep (PR #113, ~11:17–11:25Z): 6 FRESH / 2 STALE seats** (superbot-world 3/3 STALE — worsened; game-lab new STALE via pokemon-mod-lab). Trigger snapshot re-captured: **832 triggers** (28 enabled: 9 crons + 19 one-shots) → `telemetry/triggers-snapshot.json`; roster regenerated **gen 14**. Full report: `docs/research/2026-07-12-staleness-sweep-midday.md` (9-item needs-attention shortlist).
+
+trigger-health: **first R26 run (ORDER 020, PR #133) vs the committed gen-14 snapshot (capture-instant eval 11:12Z): FAIL 4/6** — 1 WEDGED cron (`trig_01JD1t7rD5jUCqkJQJaNCi3E` game-lab failsafe, next frozen 10:50Z) · 6 DROPPED-or-QUEUED one-shots across 5 sessions · 2 DEAD chains (`session_014Z1fPG7Wa6VHprJqLcux4f` substrate-kit, `session_01SphTJEnN1PYjYZhHNWoJik`) · manager failsafe OK · snapshot 7h stale at run time. Next wake owes: fresh `list_triggers` export WITH top-level `captured_at` (telemetry/README.md recipe), re-run `scripts/check_trigger_health.py`, `send_message` any still-dead chains (R26). Incident replay proof: the 06:33Z mid-outage snapshot reds 5/6 (venture-lab + kit-lab + manager failsafes WEDGED, 6 dropped, 4 dead chains) — the 2026-07-12 outage is now a same-wake catch.
 
 ## Walls
 
@@ -39,11 +41,13 @@ Landed today (2026-07-12), by PR:
 - **substrate-kit:** ORDER 014 delivered (kit #254/#256) + ORDER 015 filed.
 - **12 relocated ORDERs** merged across 10 lane repos (v3.2 relocation program).
 
-Open: **PR #113 only** — midday staleness sweep (research doc + 832-trigger snapshot + roster gen 14 + this heartbeat); #112 merged at `d4989c9` 11:06Z. No other open PRs in fleet-manager.
+Open: this session's PR only (#133 — ORDER 020 trigger-health check; #113 merged). No other open PRs in fleet-manager.
 
 ## Orders
 
 - inbox 001–018 all DONE.
+- **ORDER 020 DONE (PR #133)** — per-wake trigger-health check: `scripts/check_trigger_health.py` (R26, 6 invariants, nonzero exit on FAIL) + roster "Trigger health" column/section (`scripts/gen_roster.py`) on the Actions regen substrate + `captured_at` snapshot convention (`telemetry/README.md`) + wake-prompt wiring (v3 per-project + registry copies). DONE flip appended to inbox per grammar.
+- ORDERs 019 / 021 / 022: Websites-seat orders — not this repo's to execute; tracked via the roster/heartbeat sweep.
 - owner-directed overnight prompt-rebuild program (2026-07-11): COMPLETE through v3.3 (see phase line).
 
 next-2: (1) monitor lane boots on the v3.3 prompts; (2) kit skills-program alignment for `docs/prompts/v3/planned-routes.md`.
