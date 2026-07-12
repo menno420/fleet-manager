@@ -1,6 +1,6 @@
 # fleet-manager · status
 
-updated: 2026-07-12T19:55:07Z — **COORDINATOR SESSION CLOSED** (owner's universal session ender executed; successor boots per `projects/fleet-manager/coordinator-prompt.md` at HEAD).
+updated: 2026-07-12T19:59:17Z — **COORDINATOR SESSION CLOSED** (owner's universal session ender executed; successor boots per `projects/fleet-manager/coordinator-prompt.md` at HEAD).
 
 phase: **prompt program COMPLETE through v3.4** (docs/prompts/v3/ + registry synced, PR #122); consolidation plan approved + merged (`docs/planning/2026-07-12-repo-consolidation-plan.md`).
 
@@ -27,7 +27,11 @@ Day summary (2026-07-12), pointers:
 - trigger-health check live (`scripts/check_trigger_health.py`, PASS 6/6 at snapshot 18:25Z).
 - /prompts page live on the control site; GPT research prompt at `docs/prompts/external/`.
 
-PR terminal states (verified at close, 2026-07-12 ~19:55Z): **#122** (consolidation plan + v3.4) merged 19:49Z; **#121** (game-lab proposal — superseded as a shape by merged #122) was recommended for owner-close but the owner **MERGED it 19:35Z instead**, so both landed — no reconciliation debt beyond what #122's supersedes-banner already records; **#116** owner-closed unmerged; **#118**, **#135** merged. No parked/open fleet-manager PRs remain besides the close-out PR itself (#139).
+PR terminal states (verified at close, 2026-07-12 ~19:59Z): **#122** (consolidation plan + v3.4) merged 19:49Z; **#121** (game-lab proposal, superseded as a shape by #122) merged 19:35Z; **#118**, **#135** merged; **#116** owner-closed unmerged.
+
+Parked/open: **PR #140** (head `e43d2db`, CI green, docs-only merged-state fixes + supersession pointers; landing path: owner-click / owner-provenance dispatch) — plus the close-out PR itself (#139).
+
+Safe-to-delete: stray branch **`claude/consolidation-plan-v34` @ `30a48fa`** (nothing unique on it — content landed via #122's merge; agent delete hit a verified 403 wall, so owner/dispatch delete; entry rides #140's queue note).
 
 ## Orders
 
@@ -36,7 +40,7 @@ PR terminal states (verified at close, 2026-07-12 ~19:55Z): **#122** (consolidat
 next-3 for successor:
 
 1. Route the consolidation plan's Phase 1 migration ORDERs to owning lanes.
-2. Monitor codex-fold state of merged #122 (post-merge follow-up commit if the 5 codex findings from 19:26Z weren't all folded pre-merge — check the synthesis session's last report/PR comments) + resume staleness cadence.
+2. Confirm #140 lands (owner-click) + resume staleness cadence. (Codex round 2 on #122 COMPLETED — 5/5 findings verified + applied pre-merge via commits `6fd51f3` + `d285e4d`; follow-ups ride #140.)
 3. Meta-restamp salvage follow-up if the owner approves (see ⚑ below).
 
 ## ⚑ needs-owner
