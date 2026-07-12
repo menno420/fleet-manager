@@ -6,19 +6,23 @@
 #             standing permission to merge all PRs + "fix the root
 #             problem"). This repo CANNOT use GitHub-native auto-merge
 #             (toggle unavailable on the private repo/plan), so the
-#             sim-lab reference's arm-native shape is adapted to the
-#             REST merge-on-green shape its own fallback note names for
-#             exactly this repo class. Lives in its OWN workflow file
-#             because substrate-gate.yml is KIT-OWNED (adopt/upgrade
-#             overwrites hand edits).
-# Reference : menno420/sim-lab .github/workflows/auto-merge-enabler.yml
-#             @ 26cbb1de65e654aac46b3667ea16806f4364e107 (repo ref
-#             f4d3e02) — guard shapes carried over: never-gate-on-nothing
-#             (here: a non-empty REQUIRED_FLOOR unioned with the rules
-#             API), fresh label re-read (stale-payload race),
-#             injection-safe argv/env passing (never interpolate
-#             PR-controlled strings into shell), Head-ref: squash
-#             provenance.
+#             fleet's enabler shape (arm and let GitHub merge) is
+#             replaced by verify-then-direct-squash-merge. Lives in its
+#             OWN workflow file because substrate-gate.yml is KIT-OWNED
+#             (adopt/upgrade overwrites hand edits).
+# References: menno420/websites .github/workflows/host-automerge-extras.yml
+#             @ 0aeb803f07dea996ed19fee1ee9efec220a0a363 — the sweep
+#             shape (cron + workflow_dispatch over every open eligible
+#             claude/* PR), the direct `gh pr merge --squash` landing
+#             for already-green PRs, and the workflow-touching-PR rail
+#             (.github/workflows/** diffs are owner-merge-only).
+#             menno420/idea-engine .github/workflows/auto-merge-enabler.yml
+#             @ 819a8d57e21f7793ccf9e707ba62649b8b969f60 — the
+#             in-progress session-card SKIP (born-red card = "more
+#             commits are coming"), the fresh do-not-automerge label
+#             re-read (stale-payload race guard), and the injection-safe
+#             argv/env handling of PR-controlled strings (its PR #64
+#             precedent) + Head-ref: squash provenance (its PR #62).
 # Date      : 2026-07-12 (build worker, model: fable-5; fleet-manager
 #             PR #146)
 # Reliability: unverified — confirm its merges against ground truth a few
@@ -26,28 +30,45 @@
 # Kill-switch: delete this if it proves unreliable over multiple sessions.
 # ========================================================================
 #
-# WHAT IT DOES: on every check completion / PR readiness change, sweep
-# ALL open, READY (non-draft), same-repo PRs with head `claude/*` and
-# base `main`; for each, verify EVERY required check context on the
-# head SHA is completed+success (pending/queued = NOT ready); then
-# squash-merge with GITHUB_TOKEN. No agent merge call anywhere.
+# WHAT IT DOES: on check completion / PR readiness or label changes /
+# the half-hourly cron / manual dispatch, sweep ALL open, READY
+# (non-draft), same-repo PRs with head `claude/*` and base `main`; for
+# each, verify EVERY check run on the head SHA is completed+success
+# (pending or missing = NOT ready — skip this round, a later event or
+# the next cron re-sweeps); then squash-merge directly with
+# GITHUB_TOKEN. Check verification is GENERIC on purpose: this repo's
+# required-check enforcement state is unverified (the rules API
+# reported ZERO required contexts live — PR #146 run 29214147939), so
+# the workflow trusts what actually ran, never a rules count.
 #
-# WHY NOTHING CAN LAND EARLY: the required `substrate-gate` check is
-# born-red by design — it stays red until the PR's in-diff session card
-# flips to `complete` — so this workflow structurally cannot merge a
-# half-done session. The card flip IS the arm.
+# WHY NOTHING CAN LAND EARLY: (1) the `substrate-gate` check is
+# born-red by design — red until the PR's in-diff session card flips
+# `complete` — and a non-success check run fails verification; (2) the
+# card SKIP below independently refuses to merge while an in-diff
+# `.sessions/*.md` card still says `in-progress`, even if every check
+# were green (the idea-engine PR #80/#81 close-out race class).
 #
-# CARVE-OUTS (ratification park — skipped, never merged/closed/rebased):
-# labels `do-not-automerge` and `owner-held`, re-read FRESH from the API
-# per PR (the sim-lab stale-payload label-race guard: event payloads
-# snapshot labels; an MCP-created PR gets its label in a second call).
+# CARVE-OUTS (skipped, never merged/closed/rebased):
+#   * labels `do-not-automerge` / `owner-held` (= ratification park),
+#     re-read FRESH from the API per PR — event payloads snapshot
+#     labels at open; an MCP-created PR gets its label in a second call;
+#   * any PR whose diff touches .github/workflows/** — workflow PRs
+#     stay OWNER-MERGE-ONLY (the websites rail). This PR (#146) parks
+#     itself under its own rail, by design.
 #
 # RACE GUARD: the merge call pins `--match-head-commit <verified SHA>`,
 # so a push racing the sweep can never land an unverified head.
 #
+# SELF-EXEMPTION (documented, narrow): on pull_request triggers this
+# workflow's own job is itself a check run on the head SHA and is
+# `in_progress` while it evaluates — requiring it to be completed would
+# deadlock every event-triggered sweep. Check runs named exactly
+# `merge-on-green` are therefore exempt from the all-green requirement
+# (and only those; nothing else is ever exempt).
+#
 # KNOWN LIMIT (accepted): merges performed with GITHUB_TOKEN do not
 # trigger other `push`-event workflows on main (GitHub's recursion
-# guard). substrate-gate's push-on-main run is verification-only, and
+# guard). substrate-gate's push-on-main run is verification-only and
 # roster-regen is not push-triggered, so nothing load-bearing is lost.
 name: merge-on-green
 on:
@@ -58,6 +79,13 @@ on:
   workflow_run:
     workflows: [substrate-gate, roster-freshness]
     types: [completed]
+  schedule:
+    # The reliable backstop lane (websites sweep shape): check_suite /
+    # workflow_run only fire from this file's copy on main, and
+    # GITHUB_TOKEN-created events don't retrigger workflows — the cron
+    # catches anything the event lanes miss.
+    - cron: "7,37 * * * *"
+  workflow_dispatch:
 permissions:
   contents: write
   pull-requests: write
@@ -70,6 +98,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   merge-on-green:
+    if: github.repository == 'menno420/fleet-manager'
     runs-on: ubuntu-latest
     steps:
       - name: Sweep open claude/* PRs and squash-merge the fully-green ones
@@ -77,54 +106,36 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python3 - <<'PY'
-          import json, os, subprocess, sys
+          import json, os, re, subprocess, sys, urllib.parse
 
           repo = os.environ["GITHUB_REPOSITORY"]
           PARK_LABELS = {"do-not-automerge", "owner-held"}
-          # The repo's required-check FLOOR. LIVE-VERIFIED (PR #146, run
-          # 29214147939): the rules API below returned ZERO contexts on
-          # main — this repo's checks are not enforced via a ruleset
-          # visible to GITHUB_TOKEN (classic branch protection is not
-          # surfaced by rules/branches/*, and .../protection needs admin).
-          # The floor is unioned with whatever the API reports, so the
-          # gate can never be empty (no gate inversion) and never ignores
-          # a ruleset-added check. Update this set if the repo's required
-          # checks change.
-          REQUIRED_FLOOR = {"substrate-gate", "freshness"}
+          SELF_CHECK_NAMES = {"merge-on-green"}  # see SELF-EXEMPTION header note
 
           def gh(*args, ok_fail=False):
               # argv-only (never a shell string): PR-controlled values
-              # (branch names, titles) ride as arguments but can never
-              # splice into a command (sim-lab PR #64 precedent).
+              # (branch names, card paths, titles) ride as arguments but
+              # can never splice into a command (idea-engine PR #64
+              # precedent).
               r = subprocess.run(["gh", *args], capture_output=True, text=True)
               if r.returncode != 0 and not ok_fail:
                   print(r.stderr, file=sys.stderr)
                   sys.exit(1)  # fail LOUD: an unreadable API must not merge
               return r.returncode, r.stdout, r.stderr
 
-          # 1. Required check CONTEXTS on main = ruleset-reported contexts
-          #    UNION the hardcoded floor. The sim-lab refuse-to-arm guard's
-          #    intent (never gate on nothing) is preserved by the non-empty
-          #    floor; the union means a future ruleset-added check is
-          #    honored automatically.
-          _, out, _ = gh("api", f"repos/{repo}/rules/branches/main",
-                         "--jq", '[.[] | select(.type == "required_status_checks")'
-                                 ' | .parameters.required_status_checks // [] | .[].context]')
-          from_rules = set(json.loads(out or "[]"))
-          if not from_rules:
-              print("note: rules API reports zero required contexts on main "
-                    "(expected on this repo — see REQUIRED_FLOOR comment); "
-                    "gating on the floor.")
-          required = sorted(from_rules | REQUIRED_FLOOR)
-          print(f"required contexts ({len(required)}): {required}")
+          def parse_lines(out):
+              vals = []
+              for line in out.splitlines():
+                  if not line:
+                      continue
+                  v = json.loads(line)
+                  vals.append(json.loads(v) if isinstance(v, str) else v)
+              return vals
 
-          # 2. All open PRs, filtered to the landing lane.
+          # All open PRs, filtered to the landing lane.
           _, out, _ = gh("api", f"repos/{repo}/pulls?state=open&per_page=100",
                          "--paginate", "--jq", ".[] | @json")
-          def parse_line(line):
-              v = json.loads(line)
-              return json.loads(v) if isinstance(v, str) else v
-          prs = [parse_line(l) for l in out.splitlines() if l]
+          prs = parse_lines(out)
 
           merged, skipped = [], []
           for pr in prs:
@@ -140,51 +151,78 @@ jobs:
               if not head_ref.startswith("claude/"):
                   skipped.append((n, f"head {head_ref!r} not claude/*")); continue
 
-              # 3. Labels re-read FRESH (never trust the event payload).
+              # Ratification park — labels re-read FRESH (never trust the
+              # event payload; idea-engine stale-payload race guard).
               _, out, _ = gh("api", f"repos/{repo}/issues/{n}/labels",
                              "--jq", "[.[].name]")
-              labels = set(json.loads(out or "[]"))
-              park = labels & PARK_LABELS
+              park = set(json.loads(out or "[]")) & PARK_LABELS
               if park:
                   skipped.append((n, f"ratification park: {sorted(park)}")); continue
 
-              # 4. EVERY required context on the head SHA must be
-              #    completed+success. Check runs first (filter=latest);
-              #    legacy commit statuses as fallback for contexts not
-              #    reported as check runs. Pending/queued/missing = NOT ready.
+              # PR file listing — feeds BOTH the workflow-touching rail
+              # (websites) and the in-progress-card skip (idea-engine).
+              _, out, _ = gh("api", f"repos/{repo}/pulls/{n}/files?per_page=100",
+                             "--paginate", "--jq", ".[] | @json")
+              entries = parse_lines(out)
+              files = [e["filename"] for e in entries]
+
+              # Owner-merge-only rail: workflow-touching PRs are never
+              # merged by a workflow.
+              if any(f.startswith(".github/workflows/") for f in files):
+                  skipped.append((n, ".github/workflows/** in diff — "
+                                     "owner-merge-only")); continue
+
+              # In-progress session-card skip: a born-red card added or
+              # modified by this PR means "more commits are coming" —
+              # never land it this round, even fully green. Card paths +
+              # contents are PR-controlled: parsed in Python only, never
+              # interpolated into shell.
+              cards = [e["filename"] for e in entries
+                       if e["filename"].startswith(".sessions/")
+                       and e["filename"].endswith(".md")
+                       and e["filename"] != ".sessions/README.md"
+                       and e.get("status") != "removed"]
+              in_progress = []
+              for path in cards:
+                  _, raw, _ = gh("api", "-H",
+                                 "Accept: application/vnd.github.raw+json",
+                                 f"repos/{repo}/contents/"
+                                 f"{urllib.parse.quote(path)}?ref={head_sha}")
+                  m = re.search(r"\*\*Status:\*\*\s*`?([A-Za-z-]+)`?", raw)
+                  status = m.group(1) if m else "<no Status badge>"
+                  print(f"PR #{n} card {path} @ {head_sha[:12]}: status={status}")
+                  if status == "in-progress":
+                      in_progress.append(path)
+              if in_progress:
+                  skipped.append((n, "in-progress session card(s): "
+                                     + ", ".join(in_progress))); continue
+
+              # GENERIC check verification: EVERY check run on the head
+              # SHA (latest attempt per name, minus the self-exemption)
+              # must be completed+success. Zero check runs = nothing
+              # verified = NOT ready. Pending anywhere = NOT ready.
               _, out, _ = gh("api",
                              f"repos/{repo}/commits/{head_sha}/check-runs"
                              "?filter=latest&per_page=100", "--paginate",
-                             "--jq", '[.check_runs[] | {name, status, conclusion}]')
-              runs = {}
-              for page in out.splitlines():
-                  for cr in json.loads(page or "[]"):
-                      runs[cr["name"]] = cr
-              statuses = None  # fetched lazily only if a context needs it
-              not_ready = []
-              for ctx in required:
-                  cr = runs.get(ctx)
-                  if cr is not None:
-                      if cr["status"] != "completed" or cr["conclusion"] != "success":
-                          not_ready.append(f"{ctx}: {cr['status']}/{cr['conclusion']}")
-                      continue
-                  if statuses is None:
-                      _, sout, _ = gh("api",
-                                      f"repos/{repo}/commits/{head_sha}/status",
-                                      "--jq", '[.statuses[] | {context, state}]')
-                      statuses = {s["context"]: s["state"]
-                                  for s in json.loads(sout or "[]")}
-                  if statuses.get(ctx) != "success":
-                      not_ready.append(f"{ctx}: {statuses.get(ctx, 'MISSING')}")
+                             "--jq", '.check_runs[] | {name, status, conclusion} | @json')
+              runs = {cr["name"]: cr for cr in parse_lines(out)
+                      if cr["name"] not in SELF_CHECK_NAMES}
+              if not runs:
+                  skipped.append((n, "no check runs on head SHA — "
+                                     "nothing verified")); continue
+              not_ready = [f"{name}: {cr['status']}/{cr['conclusion']}"
+                           for name, cr in sorted(runs.items())
+                           if cr["status"] != "completed"
+                           or cr["conclusion"] != "success"]
               if not_ready:
                   skipped.append((n, "; ".join(not_ready))); continue
 
-              # 5. Squash-merge, pinned to the SHA just verified so a race
-              #    push can never land unverified. Head-ref provenance in
-              #    the squash body (sim-lab host customization: squash-only
-              #    history otherwise starves branch surveys). A failed
-              #    merge (conflict, base moved) is a warning, not a crash —
-              #    the next completion event re-sweeps.
+              # Squash-merge, pinned to the SHA just verified so a race
+              # push can never land unverified. Head-ref provenance in
+              # the squash body (idea-engine PR #62: squash-only history
+              # otherwise starves branch surveys). A failed merge
+              # (conflict, base moved) is a warning, not a crash — the
+              # next event or cron re-sweeps.
               rc, mout, merr = gh("pr", "merge", str(n), "--repo", repo,
                                   "--squash", "--match-head-commit", head_sha,
                                   "--body", f"Head-ref: {head_ref}",
