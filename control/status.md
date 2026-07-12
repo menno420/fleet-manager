@@ -1,6 +1,6 @@
 # fleet-manager · status
 
-updated: 2026-07-12T11:03:55Z — CONTINUOUS OPERATION (coordinator session_01FMJoC5uC6WSUTosceTGcmo live).
+updated: 2026-07-12T11:37:32Z — midday staleness sweep landed (PR #113).
 
 phase: **prompt program COMPLETE through v3.3.** Owner-corrected generations: v3.2 stateless (#108) → registry sync (#110) → **v3.3 three-layer (#111 @ `98d0f68`)**: expanded startup prompts (~27k), keyword-dictionary Custom Instructions ≤8,000 chars dual-basis, BOOT TRIAD (superbot Q-0270), boot-verification doctrine, `docs/prompts/v3/planned-routes.md`, drift checks incl. registry match 24/24.
 
@@ -13,6 +13,8 @@ coordinator: **LIVE — session_01FMJoC5uC6WSUTosceTGcmo (continuous operation).
 routine: failsafe **trig_01BKpsyoBzp1K1ob9H3iu1gM** cron "30 */2 * * *" live (verified earlier today, 2026-07-12); pacemaker send_later chain active; arming path = worker-relay recipe (spawned worker calls send_later / create_trigger, binds to parent session).
 
 registry: projects/\<seat\>/ — all 8 standing seats serve **v3.3 @ `48650f8` stamps**; control website reads projects/ on main live (websites `app/projects.py`, 180s cache).
+
+sweep: **midday staleness sweep (PR #113, ~11:17–11:25Z): 6 FRESH / 2 STALE seats** (superbot-world 3/3 STALE — worsened; game-lab new STALE via pokemon-mod-lab). Trigger snapshot re-captured: **832 triggers** (28 enabled: 9 crons + 19 one-shots) → `telemetry/triggers-snapshot.json`; roster regenerated **gen 14**. Full report: `docs/research/2026-07-12-staleness-sweep-midday.md` (9-item needs-attention shortlist).
 
 ## Walls
 
@@ -37,7 +39,7 @@ Landed today (2026-07-12), by PR:
 - **substrate-kit:** ORDER 014 delivered (kit #254/#256) + ORDER 015 filed.
 - **12 relocated ORDERs** merged across 10 lane repos (v3.2 relocation program).
 
-Open: **PR #112 only** — this heartbeat PR (control/status.md v3.3 overwrite + session card); no other open PRs in fleet-manager (verified via live open-PR list 2026-07-12T11:03Z).
+Open: **PR #113 only** — midday staleness sweep (research doc + 832-trigger snapshot + roster gen 14 + this heartbeat); #112 merged at `d4989c9` 11:06Z. No other open PRs in fleet-manager.
 
 ## Orders
 
