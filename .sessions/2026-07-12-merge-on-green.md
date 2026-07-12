@@ -23,8 +23,10 @@ to "verify-then-REST-squash-merge", the landing path sim-lab's own
 fallback note names for repos shaped like this one.
 
 Guards: `do-not-automerge` / `owner-held` labels = ratification park
-(skipped); pending required check = not ready; zero required contexts =
-refuse (never merge ungated); `--match-head-commit` pins the verified
+(skipped); pending required check = not ready; the required-context set
+is the branch-rules API unioned with a non-empty hardcoded floor
+(`substrate-gate`, `freshness`) so the gate can never be empty (never
+merge ungated); `--match-head-commit` pins the verified
 SHA so a race push can't land unverified; born-red interplay intact —
 substrate-gate stays red until the session card flips `complete`, so
 nothing lands early by design.
@@ -37,6 +39,12 @@ every required context (`substrate-gate`, `freshness`) on the head SHA
 is completed+success; squash-merge with GITHUB_TOKEN pinned to the
 verified SHA. Verified: YAML parses, embedded python compiles,
 `bootstrap.py check --strict` shows only the designed born-red hold.
+LIVE FINDING (this PR's own first run, Actions run 29214147939): the
+`rules/branches/main` API reports ZERO required contexts on this repo
+— the checks are enforced outside a token-visible ruleset — so the
+sweep now gates on the rules API unioned with a hardcoded floor
+(`substrate-gate`, `freshness`); without the floor the workflow would
+have safely refused forever and never merged anything.
 Sibling note: the shared checkout at /home/user/fleet-manager was
 mid-merge on branch pr143 (coordinator merge lane) — this session moved
 to an isolated git worktree instead of touching it.

@@ -13,8 +13,9 @@
 #             overwrites hand edits).
 # Reference : menno420/sim-lab .github/workflows/auto-merge-enabler.yml
 #             @ 26cbb1de65e654aac46b3667ea16806f4364e107 (repo ref
-#             f4d3e02) — guard shapes carried over: refuse on zero
-#             required contexts, fresh label re-read (stale-payload race),
+#             f4d3e02) — guard shapes carried over: never-gate-on-nothing
+#             (here: a non-empty REQUIRED_FLOOR unioned with the rules
+#             API), fresh label re-read (stale-payload race),
 #             injection-safe argv/env passing (never interpolate
 #             PR-controlled strings into shell), Head-ref: squash
 #             provenance.
@@ -80,6 +81,16 @@ jobs:
 
           repo = os.environ["GITHUB_REPOSITORY"]
           PARK_LABELS = {"do-not-automerge", "owner-held"}
+          # The repo's required-check FLOOR. LIVE-VERIFIED (PR #146, run
+          # 29214147939): the rules API below returned ZERO contexts on
+          # main — this repo's checks are not enforced via a ruleset
+          # visible to GITHUB_TOKEN (classic branch protection is not
+          # surfaced by rules/branches/*, and .../protection needs admin).
+          # The floor is unioned with whatever the API reports, so the
+          # gate can never be empty (no gate inversion) and never ignores
+          # a ruleset-added check. Update this set if the repo's required
+          # checks change.
+          REQUIRED_FLOOR = {"substrate-gate", "freshness"}
 
           def gh(*args, ok_fail=False):
               # argv-only (never a shell string): PR-controlled values
@@ -91,20 +102,21 @@ jobs:
                   sys.exit(1)  # fail LOUD: an unreadable API must not merge
               return r.returncode, r.stdout, r.stderr
 
-          # 1. Required check CONTEXTS on main — refuse to merge anything
-          #    if there are none (the sim-lab refuse-to-arm guard, inverted
-          #    for the merge path: with no required contexts this workflow
-          #    would land PRs gated on nothing).
+          # 1. Required check CONTEXTS on main = ruleset-reported contexts
+          #    UNION the hardcoded floor. The sim-lab refuse-to-arm guard's
+          #    intent (never gate on nothing) is preserved by the non-empty
+          #    floor; the union means a future ruleset-added check is
+          #    honored automatically.
           _, out, _ = gh("api", f"repos/{repo}/rules/branches/main",
                          "--jq", '[.[] | select(.type == "required_status_checks")'
                                  ' | .parameters.required_status_checks // [] | .[].context]')
-          required = json.loads(out or "[]")
+          from_rules = set(json.loads(out or "[]"))
+          if not from_rules:
+              print("note: rules API reports zero required contexts on main "
+                    "(expected on this repo — see REQUIRED_FLOOR comment); "
+                    "gating on the floor.")
+          required = sorted(from_rules | REQUIRED_FLOOR)
           print(f"required contexts ({len(required)}): {required}")
-          if not required:
-              print("::warning::main requires no status-check CONTEXTS — "
-                    "refusing to merge anything. Make 'substrate-gate' (+ "
-                    "'freshness') required checks first (Settings → Rulesets).")
-              sys.exit(0)
 
           # 2. All open PRs, filtered to the landing lane.
           _, out, _ = gh("api", f"repos/{repo}/pulls?state=open&per_page=100",
