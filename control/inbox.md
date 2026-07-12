@@ -768,3 +768,138 @@ done-when: the check runs automatically each wake AND re-playing the 2026-07-12 
 snapshot (venture-lab failsafe frozen 06:06, kit-lab loop frozen 06:08, 9 dropped
 one-shots) surfaces every one as WEDGED/DROPPED/DEAD in a single wake, with a
 send_message recovery attempted the same cycle.
+
+## ORDER 021 · 2026-07-12T17:25Z · status: new
+priority: P2 (after ORDER 019's time-sensitive workstreams)
+owner: Websites seat
+provenance: owner live directive 2026-07-12 (owner-live superbot session, delivered on his
+behalf): "there should be a place on the control website that shows all the links of our own
+websites and websites we have active business"
+do: Build a **web-presence directory** on the control-plane site: one page that lists every
+fleet web surface with a link, one-line purpose, and live health. Source it from a COMMITTED
+registry file (JSON or md table — your call; agent-updatable by PR, rendered at request time)
+so the page is a single source of truth, never hand-maintained HTML. Three sections:
+(1) **Our sites** — seed with the verified 2026-07-12 inventory: review-production-f027
+(public program review, the Anthropic-email link) · web-production-97636 (mineverse, Games
+flagship) · superbot-app (botsite) · superbot-dashboard (Discord-gated) · control-plane-
+production-abb0 (owner console) + the three parallel copies dashboard-production-a91b /
+botsite-production-cfd7 / review-production-fc91 (label these DUPLICATES pending
+OQ-RAILWAY-PROJECT-SPLIT consolidation — do not present as distinct products).
+(2) **External business surfaces** — empty at launch but first-class: Gumroad/Lemon Squeezy
+listings, itch.io pages, published articles, GitHub Releases, as they go live (venture-lab's
+three products + Lumen Drift + games-web are each one owner click away — list them as
+"pending publish" rows with what unblocks each).
+(3) **Health** — reuse the existing readiness/probe machinery (the control-plane already
+probes services) for a per-row live/degraded/down badge with an as-of stamp; never fabricate
+liveness (arcade-registry precedent: a dead link renders as an honest status note, not a
+button).
+why: the owner's recurring pain is "what is live and where do I find it" — today an owner-live
+session had to reconstruct the inventory from the Railway API by hand. The fleet has 8+ public
+surfaces and a growing external footprint; a self-maintaining directory ends the question.
+done-when: the directory page is live on the control-plane behind the existing gate (plus a
+public variant if trivially safe — links only, no secrets), rendered from the committed
+registry, seeded with the section-1 inventory above, health badges honest, and a status report
+lands in control/status.md naming the registry path so other seats know where to add rows.
+
+## ORDER 022 · 2026-07-12T17:40Z · status: new
+priority: P1 (rides with ORDER 019 — same sitting; items 1–2 are minutes each)
+owner: Websites seat
+provenance: owner live directive 2026-07-12 (owner-live superbot session — the "which discussed
+things are not yet planned or live" audit); companion to ORDERs 019 + 021.
+do: four deltas the 019/021 bodies don't cover —
+(1) **Flip the arcade's mineverse card to LIVE** (botsite/data/arcade.json — the #161 design:
+data change only): mineverse now serves at `https://web-production-97636.up.railway.app`
+(read-only; sign-in one owner click away). Set availability live + the URL (keep the
+`?ref=fleet-arcade` attribution convention); status_note stays honest: "read-only demo —
+player sign-in launching" until the owner's redirect click lands. Re-verify the URL is 200 at
+change time; never ship a dead button.
+(2) **Verify the /owner/environments live half NOW** — `RAILWAY_TOKEN` (project-scoped,
+superbot-websites/production) was set on control-plane 2026-07-12 and the service redeployed.
+The page's GraphQL query shape was explicitly UNVERIFIED until a token existed (#166 deferred
+note). Load the page; if the Railway panel renders variable NAMES, record verified; if it
+degrades, fix the query against the real API response — that was the designed failure mode,
+not an incident.
+(3) **Make the daily review-bake actually land** — the workflow regenerates fine but dies at
+`gh pr create`: "GitHub Actions is not permitted to create or approve pull requests" (runs
+29167034060 + 29184552812; same wall fleet-manager had). Proven fix from today, copy it: arm a
+SELF-RETIRING CCR bridge routine (create_trigger, fresh-session, this repo's environment,
+offset a few minutes after the bake cron) that lands the parked bake branch/PR each fire and
+deletes itself once it observes an Actions run where PR-create succeeded (= the owner ticked
+the toggle). Reference implementation: fleet-manager trig_011LrFY1k5cUHRYH6zwTvPvn (armed
+2026-07-12; pattern in fleet-manager docs/capabilities.md § rescue venue). Also add the
+websites Actions-toggle click to docs/owner-queue-candidates intake so the manager carries it.
+(4) **Reconcile stale asks in docs/owner/OWNER-ACTIONS.md + control/status.md**: the
+ANTHROPIC_API_KEY ask (SET on BOTH review services 2026-07-12 — live reliable-grace/review
+redeployed AND superbot-websites/review), the RAILWAY_TOKEN ask (SET, see item 2), and any
+GITHUB_TOKEN residue (#160 already struck it). Strike-with-evidence per your records
+convention; do not re-flag satisfied asks.
+FENCES (both weeks-scoped, not forever): do NOT move/rename review-production-f027 or
+consolidate the duplicate Railway projects during the EAP window (through 2026-07-14) — the
+Anthropic email links the live URLs; consolidation is parked as owner-queue
+OQ-RAILWAY-PROJECT-SPLIT for after the window.
+why: mineverse went live, the token landed, and the bake root-cause got a proven fix — all
+TODAY, after 019/021 were written; without this order the arcade lies, the env page stays
+unverified, and the review site data silently ages.
+done-when: arcade card live + honest; /owner/environments Railway panel verified (or fixed)
+with the result in status.md; the bake bridge routine armed + recorded (verbatim create_trigger
+call + list_triggers verify in status.md); OWNER-ACTIONS carries zero satisfied-but-open asks.
+
+## ORDER 022 · update 2026-07-12T18:00Z · status: amended — item 3 OBSOLETE (owner clicked both toggles; live-verified)
+priority: P1 (unchanged)
+owner: Websites seat (unchanged)
+do: SKIP ORDER 022 item 3 — do NOT arm the bake bridge routine. The owner ticked "Allow
+GitHub Actions to create and approve pull requests" on BOTH repos (fleet-manager + websites)
+2026-07-12 ~17:45Z, and the owner-live session live-verified both: websites review-bake
+dispatch run 29202721928 → SUCCESS end-to-end (runs 1–2 had died at PR-create);
+fleet-manager roster-regen run 29202721367 → SUCCESS and self-landed roster Generations
+#17/#18 (PRs #129/#131, opened AND squash-merged by the workflow itself). Instead of the
+bridge: confirm the next SCHEDULED bake run also lands (dispatch path proven; cron path
+should follow) and record it in status.md. Items 1, 2, 4 and the EAP-window fences stand
+unchanged. (The fleet-manager roster bridge trigger was deleted the same hour; owner-queue
+item 33 → RESOLVED.)
+why: arming a bridge for an already-open permission would waste a standing routine and
+mislead the next reader about the wall's state.
+done-when: status.md records the next scheduled bake run's conclusion; no bridge trigger
+exists for the bake.
+
+## ORDER 020 · update 2026-07-12T18:40Z · status: ✅ DONE (per-wake trigger-health check; fleet-manager PR #133)
+priority: P1
+do: (append-only DONE flip for ORDER 020 above — no new work ordered; this
+block records the execution, fields per the kit's order grammar; written by
+the ORDER-020 lane worker as manager delegate.)
+why: the ORDER's done-when is met in full — the check runs at every wake by
+R26 + the wake-prompt wiring, and re-playing the 2026-07-12 incident registry
+surfaces every wedge/drop/dead-chain in a single wake.
+done-when: (met in fleet-manager PR #133) check runs automatically each wake
+AND the 2026-07-12 registry replay surfaces the venture-lab failsafe wedge,
+the kit-lab loop wedge, and the dropped one-shots as WEDGED/DROPPED/DEAD with
+a send_message recovery named the same cycle.
+✅ DONE: executed (PR #133, lane worker session, model: fable-5, dispatched by
+the coordinator). **(1) Detection** — `scripts/check_trigger_health.py` (R26,
+stdlib-only): six PASS/FAIL invariants per wake — I1 WEDGED-cron
+(`enabled ∧ next_run_at < capture − 15min`), I2 DROPPED one-shot (enabled past
+`run_once_at`; QUEUED-vs-LOST flagged as indistinguishable per the spec note),
+I3 DEAD-chain (dropped tick + no future tick on the seat session, recovery =
+`send_message` that session; Q-0242 venue caveat quoted in the output), I4
+manager-failsafe present + unwedged, I5 roster freshness (stale roster = the
+regen cron may itself be wedged), I6 snapshot freshness; nonzero exit on any
+FAIL; `--selfcheck` offline assertions; `--now` replay mode. **(2) Roster
+record (spec step 2 + second-substrate note)** — `scripts/gen_roster.py` now
+renders a per-lane "Trigger health" column + a fleet-wide "Trigger health"
+section (WEDGED/DROPPED/DEAD detail with lane attribution) from the same
+primitives, so the watchdog's record rides the Actions regen cron and survives
+a CCR scheduler outage. Health is evaluated AT the snapshot's capture instant
+— NEW top-level `captured_at` stamp in the export (telemetry/README.md recipe
+step 3; wall-clock eval measured to fabricate 7/9 false wedges on a 2.5h-old
+snapshot; fallback ladder documented in `snapshot_eval_time`). **(3) Wake
+wiring (stateless — prompts name the check, the script holds the logic)** —
+playbook R26; v3 per-project startup + custom-instructions verify lines;
+projects/fleet-manager registry copies byte-synced with a delta stamp.
+**(4) Proof** — incident replay (mid-outage snapshot `4111da4` @ 06:33Z):
+FAIL 5/6 — 6 WEDGED crons incl. venture-lab (frozen 04:06Z), kit-lab loop
+(frozen 06:08Z) and the manager's own failsafe, 6 dropped one-shots, 4 DEAD
+chains each naming its send_message recovery — the spec's done-when replay.
+Live run (committed gen-14 snapshot, capture-instant 11:12Z): FAIL 4/6 — REAL
+findings (game-lab failsafe wedged at 10:50Z, 6 dropped, 2 dead chains,
+snapshot 7h stale), hand-verified against the raw records; recorded in
+control/status.md for the next wake to act on (R26).

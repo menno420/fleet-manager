@@ -144,42 +144,19 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       cleanup — agent 403.)
     - Blocking: blocks the 07-14 play sitting artifact.
 
-33. **fleet-manager — tick "Allow GitHub Actions to create and approve pull
-    requests"** *(new 2026-07-11, P1 FRESHNESS; the last click that makes
-    roster freshness fully autonomous).*
+33. **✅ RESOLVED 2026-07-12 — fleet-manager Actions PR-permission toggle
+    CLICKED by the owner and LIVE-VERIFIED.**
    - id: OQ-FM-ACTIONS-PR-PERMISSION
-    - WHERE: https://github.com/menno420/fleet-manager/settings/actions →
-      "Workflow permissions".
-    - HOW: check the box "Allow GitHub Actions to create and approve pull
-      requests" → Save. (If greyed out, flip the same toggle in the
-      account-level Actions settings first.)
-    - UNBLOCKS: the roster-regen cron (`40 */2 * * *`,
-      `.github/workflows/roster-regen.yml`) landing `docs/roster.md`
-      regenerations on its own — it already regenerates + pushes
-      `bot/roster-regen` fine but cannot open the PR.
-    - VERIFIED-NEEDED: attempted twice live 2026-07-11 (~19:17Z + ~19:23Z),
-      walls verbatim — direct push: `GH013 … Changes must be made through a
-      pull request.` (run 29164975251); PR path: `pull request create failed:
-      GraphQL: GitHub Actions is not permitted to create or approve pull
-      requests (createPullRequest)` (run 29165152964; the regen commit
-      `a310a12` DID reach `bot/roster-regen`, so ONLY the PR-create
-      permission is missing). Owner-only: repo/account settings surface, no
-      API path for GITHUB_TOKEN.
-    - Blocking: not-blocking (manager wakes still regen the roster; the
-      freshness checker alarms at >4h), but this click removes the last
-      manager-wake dependence — the whole point of P1.
-    - **BRIDGED 2026-07-12 (owner-live session):** a CCR routine now lands the
-      parked roster PRs — `fleet roster regen bridge` trigger
-      `trig_011LrFY1k5cUHRYH6zwTvPvn`, cron `50 */2 * * *`, fresh session in
-      the fleet-manager environment; it also refreshes the triggers snapshot
-      each fire (something Actions can't do) and **self-retires** (deletes its
-      own trigger) once it observes a roster-regen Actions run whose PR-create
-      step succeeded — i.e. once this click lands. The click is still wanted
-      (free, permanent, removes the bridge's token cost) but no longer blocks
-      roster freshness. Direct API toggle was re-attempted from the owner-live
-      session 2026-07-12: the agent proxy walls ALL `/actions/*` admin paths
-      (verbatim: "Access to this GitHub Actions path is not permitted through
-      this proxy") — confirmed owner-only from any agent venue.
+    - Evidence: dispatch run 29202721367 (2026-07-12 17:49Z) SUCCESS
+      end-to-end, and the workflow **self-landed roster Generations #17 and
+      #18** (PRs #129 + #131, opened AND squash-merged by the workflow
+      itself). The stale-roster red-gate class is closed; roster freshness
+      no longer depends on any wake.
+    - The 2026-07-12 bridge routine (`trig_011LrFY1k5cUHRYH6zwTvPvn`) was
+      deleted the same hour by the owner-live session — no self-retirement
+      wait needed. (History: the toggle was walled from every agent venue —
+      the proxy blocks all `/actions/*` admin paths — which is why the
+      bridge existed at all; full trail in this file's git history.)
 
 40. **Consolidation Phase 3.1 — archive product-forge (AFTER the Phase 1
     migrations land)** *(new 2026-07-12, consolidation plan:
@@ -339,9 +316,21 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       today ("live-NL leg owner-key-gated"). API keys are owner-only.
     - Blocking: blocks band-7's live-NL leg only.
 
-17. **superbot-mineverse — REDUCED 2026-07-12 to TWO Discord-portal steps
-    (was: six host env vars).** *(Owner-live session executed the rest.)*
+17. **✅ RESOLVED 2026-07-12 — mineverse player sign-in LIVE, owner-verified
+    end-to-end** (was: six host env vars → two portal steps → done).
     - id: OQ-MINEVERSE-ENV-VARS
+    - FINAL: the owner registered the redirect URI (evening) and, after the
+      UA-403 token-exchange fix (mineverse #45 — Cloudflare rejects urllib's
+      default User-Agent; auto-deployed 18:22Z), **completed a full live
+      sign-in** (~20:50 local, screenshot: "Signed in as 3404…6000" on
+      web-production-97636). Sign-in requires nothing further from anyone.
+    - Still open, AGENT-side only (superbot bot lane, specs verbatim in
+      mineverse control/status.md): **FLAG 1** (60s snapshot relay → real
+      miners replace the sample snapshot + the STALE banner clears) and
+      **FLAG 2** (HMAC write endpoint → the write pair
+      `MINING_WRITE_ENDPOINT`/`MINING_WRITE_SHARED_SECRET` gets provisioned
+      and the action buttons go live, test-guild allowlisted).
+    - History below kept for the record:
     - DONE agent-side 2026-07-12 (owner-live, owner-approved): the web host
       now EXISTS — Railway project `superbot-mineverse`, service `web`,
       domain `https://web-production-97636.up.railway.app`, start command
@@ -350,12 +339,18 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       `OAUTH_REDIRECT_URI`
       (`https://web-production-97636.up.railway.app/auth/callback`),
       `DISCORD_OAUTH_CLIENT_ID` (the production Discord app's id).
-    - WHAT remains OWNER (Discord Developer Portal, one sitting):
-      (1) copy the app's **OAuth2 client secret** → set as
-      `DISCORD_OAUTH_CLIENT_SECRET` on the Railway `web` service;
-      (2) on the same portal screen, **register the redirect URI**
-      `https://web-production-97636.up.railway.app/auth/callback` in
-      OAuth2 → Redirects (must byte-equal the env var).
+    - UPDATE 2026-07-12 (same session, owner-decided): the client-secret half
+      is DONE — the owner chose to **reuse the superbot-dashboard's Discord
+      app** (id `1403818430758654132`; its id+secret copied from the
+      `reliable-grace`/dashboard service, mineverse `web` redeployed,
+      `/api/me` now reports `auth_configured: true`). Note: the sign-in
+      consent screen shows the dashboard app's name/icon (rename in the
+      portal if wanted — cosmetic only).
+    - WHAT remains OWNER (Discord Developer Portal, ONE click):
+      on app `1403818430758654132` → OAuth2 → Redirects, **add**
+      `https://web-production-97636.up.railway.app/auth/callback` as a
+      second redirect (the dashboard's existing one stays; must byte-equal
+      the env var).
     - WHAT remains AGENT (not owner — do NOT park on the queue): the write
       pair `MINING_WRITE_ENDPOINT` + `MINING_WRITE_SHARED_SECRET` waits on
       superbot bot-lane **FLAG 2** (the HMAC write endpoint,
@@ -790,21 +785,19 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
     - Blocking: not-blocking (seat is dormant — no failsafe armed); blocks
       only the final MATRIX regen follow-up.
 
-38. **Railway GitHub App — grant repo access to `superbot-mineverse`** *(new
-    2026-07-12, owner-live session).*
+38. **✅ STRUCK 2026-07-12 (same session) — item was INVALID: the Railway
+    GitHub App has had "All repositories" access all along** (owner
+    screenshot of the installation page; unchanged since install).
    - id: OQ-RAILWAY-APP-MINEVERSE
-    - WHERE: https://github.com/settings/installations → Railway → Repository
-      access → add `menno420/superbot-mineverse`.
-    - HOW: two clicks (Configure → select repo → Save).
-    - UNBLOCKS: merge=deploy for the mineverse web host — GitHub-triggered
-      builds currently FAIL instantly (no build log; the app can't read the
-      repo). Today's deploy was a one-shot CLI upload from the owner-live
-      session; pushes to main will NOT auto-deploy until this click.
-    - VERIFIED-NEEDED: 4 instant deployment FAILs 2026-07-12 15:57Z with empty
-      build logs (repo-fetch failure signature); the app installation surface
-      is owner-only.
-    - Blocking: not-blocking today (CLI deploy live), but the site drifts from
-      main until clicked.
+    - The instant build failures that seeded this item were mis-attributed:
+      they were the missing Dockerfile (a pre-Dockerfile CLI upload failed
+      identically; both paths succeeded once mineverse #44 added it).
+      Merge=deploy is LIVE-VERIFIED: Railway auto-built #44's merge commit
+      `ac312e8` at 16:50:00Z — one minute after the merge, no click needed.
+    - Lesson recorded (capabilities.md rescue-venue section): an instant
+      BUILD_IMAGE failure with an empty log means "no buildable app
+      detected", NOT "repo unreadable" — check the tree for a build recipe
+      before blaming app access.
 
 44. **Consolidation gate — delete vs archive (the plan's FIRST structured
     choice; answer before any Phase 3 click)** *(new 2026-07-12,
@@ -954,13 +947,21 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
 - **mineverse web host ✅ (the non-portal 4/6 of OQ-MINEVERSE-ENV-VARS)** —
   Railway project `superbot-mineverse` created, `web` service deployed
   read-only degraded at `https://web-production-97636.up.railway.app` (CLI
-  one-shot; see OQ-RAILWAY-APP-MINEVERSE for the auto-deploy click), 3 vars
+  one-shot; auto-deploy verified working same day — item 38 struck), 3 vars
   set (signing key · redirect URI · client id). Remainder split: 2 portal
   steps stay owner (item 17), the write pair stays agent-side (FLAG 2).
+- **mineverse sign-in: OWNER PORTAL STEPS COMPLETE ✅ (evening, same day)** —
+  the owner registered the redirect URI (proven: Discord's consent screen
+  renders on /auth/login) after the OAuth-app reuse (item 17 update). The
+  first live sign-in then failed at token exchange — root-caused to
+  discord.com/Cloudflare 403ing urllib's default User-Agent (valid
+  id+secret; curl UA 200 vs python UA 403 on the same endpoint) — fixed in
+  mineverse PR #45 (UA header + server-side error logging). Nothing further
+  is owner-side for sign-in; #45's merge auto-deploys and the owner retries.
 - **roster-freshness BRIDGED ✅** — `fleet roster regen bridge`
   (`trig_011LrFY1k5cUHRYH6zwTvPvn`, `50 */2 * * *`, fleet-manager env,
   fresh-session) lands parked roster PRs + refreshes the triggers snapshot;
-  self-retires when OQ-FM-ACTIONS-PR-PERMISSION lands.
+  RETIRED same day: the owner clicked the toggle and the bridge trigger was deleted after live verification (runs 29202721367, PRs #129/#131).
 
 ## Resolved 2026-07-11 (P3 curation sweep, ~20:1xZ — every state below re-verified LIVE per PR, Q-0120)
 
