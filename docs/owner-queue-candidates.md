@@ -4,7 +4,7 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #11** · generated-at **2026-07-12T03:02Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #12** · generated-at **2026-07-12T03:52Z** · by machine generation (scripts/gen_roster.py), dispatched by (not stated)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
@@ -21,7 +21,7 @@
 ### superbot-next — ⚑ needs-owner: FOUR live OWNER-ACTION items below (six-field format per control/README.md) — items 2 and 3 un…
 
 - suggested-id: `OQ-SUPERBOT-NEXT-FOUR-LIVE-ITEMS-BELOW`
-- source: superbot-next/control/status.md @ `39bf226` · heartbeat `updated:` 2026-07-12T01:05Z
+- source: superbot-next/control/status.md @ `95b6fda` · heartbeat `updated:` 2026-07-12T03:45Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -31,7 +31,7 @@
 ### superbot-next — ⚑ OWNER-ACTION 2 — create the hello-plugin repo (flag 18a)
 
 - suggested-id: `OQ-SUPERBOT-NEXT-2-CREATE-HELLO-PLUGIN`
-- source: superbot-next/control/status.md @ `39bf226` · heartbeat `updated:` 2026-07-12T01:05Z
+- source: superbot-next/control/status.md @ `95b6fda` · heartbeat `updated:` 2026-07-12T03:45Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -47,7 +47,7 @@ VERIFIED-NEEDED: attempted repo-create with the integration token — GitHub ret
 ### superbot-next — ⚑ OWNER-ACTION 3 — kill the branch-update merge dance
 
 - suggested-id: `OQ-SUPERBOT-NEXT-3-KILL-BRANCH-UPDATE`
-- source: superbot-next/control/status.md @ `39bf226` · heartbeat `updated:` 2026-07-12T01:05Z
+- source: superbot-next/control/status.md @ `95b6fda` · heartbeat `updated:` 2026-07-12T03:45Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -63,7 +63,7 @@ VERIFIED-NEEDED: repo Settings/Rulesets are admin-only — agent tokens can read
 ### superbot-next — ⚑ OWNER-ACTION 4 — RETIRED 2026-07-11 (was: configure Codex for this repo — environment + code-review capacit…
 
 - suggested-id: `OQ-SUPERBOT-NEXT-4-RETIRED-2026-07`
-- source: superbot-next/control/status.md @ `39bf226` · heartbeat `updated:` 2026-07-12T01:05Z
+- source: superbot-next/control/status.md @ `95b6fda` · heartbeat `updated:` 2026-07-12T03:45Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -74,7 +74,7 @@ RESOLVED owner-side, both halves: the connector produced a FULL substantive revi
 ### superbot-next — ⚑ OWNER-ACTION 5 — provide the band-7 AI key envelope (live-NL leg)
 
 - suggested-id: `OQ-SUPERBOT-NEXT-5-PROVIDE-BAND-7`
-- source: superbot-next/control/status.md @ `39bf226` · heartbeat `updated:` 2026-07-12T01:05Z
+- source: superbot-next/control/status.md @ `95b6fda` · heartbeat `updated:` 2026-07-12T03:45Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -90,7 +90,7 @@ VERIFIED-NEEDED: verified during #151's ORDER 004 live drive — `ANTHROPIC_API_
 ### superbot-next — ⚑ OWNER-ACTION 6 — re-arm the fleet's dead failsafe routines (2026-07-11T16:31Z env-teardown fallout)
 
 - suggested-id: `OQ-SUPERBOT-NEXT-6-RE-ARM-FLEET`
-- source: superbot-next/control/status.md @ `39bf226` · heartbeat `updated:` 2026-07-12T01:05Z
+- source: superbot-next/control/status.md @ `95b6fda` · heartbeat `updated:` 2026-07-12T03:45Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -585,6 +585,85 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ⚑ needs-owner: 1 item — provision the six env vars to switch sign-in on (and, for test-guild write mode, the write-endpoint pair). Structured OWNER-ACTION block below. Also owner-side, informational: review/merge your own open PR #31 (Codex security report); Builder-lane FLAGs 1+2 below stay informational until the manager picks them up; stage-5 live-prod flag remains owner-only.
 ```
 
+### pokemon-mod-lab — 1. **⚑ OWNER-ACTION 1 — `ROM builds` required-check click.** GitHub →
+
+- suggested-id: `OQ-POKEMON-MOD-LAB-1-1-ROM-BUILDS`
+- source: pokemon-mod-lab/control/status.md @ `08d2611` · heartbeat `updated:` 2026-07-11T21:03:45Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+1. **⚑ OWNER-ACTION 1 — `ROM builds` required-check click.** GitHub →
+   Settings → Rules → `main` ruleset → require status checks → add
+   `ROM builds` (keep `substrate-gate`). No agent API surface for
+   rulesets (`docs/PLATFORM-LIMITS.md`).
+```
+
+### pokemon-mod-lab — 2. **⚑ OWNER-ACTION 2 — next-arc concept pick.** One word: continue
+
+- suggested-id: `OQ-POKEMON-MOD-LAB-2-2-NEXT-ARC`
+- source: pokemon-mod-lab/control/status.md @ `08d2611` · heartbeat `updated:` 2026-07-11T21:03:45Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+2. **⚑ OWNER-ACTION 2 — next-arc concept pick.** One word: continue
+   Emerald QoL+ (new-lead spikes) / Emerald Hard / Nuzlocke Mode
+   (`docs/mod-concepts.md`). Lane default remains QoL+; reversible.
+```
+
+### pokemon-mod-lab — 3. **⚑ OWNER-ACTION 3 — playtest verdict on the 6 game-feel patches**
+
+- suggested-id: `OQ-POKEMON-MOD-LAB-3-3-PLAYTEST-VERDICT`
+- source: pokemon-mod-lab/control/status.md @ `08d2611` · heartbeat `updated:` 2026-07-11T21:03:45Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+3. **⚑ OWNER-ACTION 3 — playtest verdict on the 6 game-feel patches**
+   (instant text #4, auto-run #6, HP drain 3× #7, battle msg ×0.5 #7,
+   egg hatch 2×/3× #21, fishing dots 2× #23) + the Match Call
+   random-nag rider. One-line header flag per revert
+   (`docs/build-presets.md`); hatch-128 stacking waits on this.
+```
+
+### pokemon-mod-lab — 4. **⚑ stale ref `track-a/session-019` — owner click to delete**
+
+- suggested-id: `OQ-POKEMON-MOD-LAB-4-STALE-REF-TRACK`
+- source: pokemon-mod-lab/control/status.md @ `08d2611` · heartbeat `updated:` 2026-07-11T21:03:45Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+4. **⚑ stale ref `track-a/session-019` — owner click to delete**
+   (content squash-merged via PR #24 long ago; sessions must not touch
+   it).
+```
+
+### pokemon-mod-lab — 5. **⚑ NEW (housekeeping) — stale ref `track-a/session-024` — owner
+
+- suggested-id: `OQ-POKEMON-MOD-LAB-5-NEW-HOUSEKEEPING-STALE`
+- source: pokemon-mod-lab/control/status.md @ `08d2611` · heartbeat `updated:` 2026-07-11T21:03:45Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+5. **⚑ NEW (housekeeping) — stale ref `track-a/session-024` — owner
+   click to delete** (content superseded by PR #31; PR #29 closed).
+   Session 041 attempted `git push origin :track-a/session-024` at
+   archive time and was DENIED by the platform's auto-mode classifier
+   ("[Git Destructive] ... not named or authorized by the user") — not
+   retried, per playbook. Either owner-click it away alongside
+   session-019, or explicitly authorize a future session to delete it.
+```
+
+### pokemon-mod-lab — - OWNER-ACTION 4 (wake-env GitHub write tools) and OWNER-ACTION 5
+
+- suggested-id: `OQ-POKEMON-MOD-LAB-4-WAKE-ENV-GITHUB`
+- source: pokemon-mod-lab/control/status.md @ `08d2611` · heartbeat `updated:` 2026-07-11T21:03:45Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+- OWNER-ACTION 4 (wake-env GitHub write tools) and OWNER-ACTION 5
+  (`add_repo` classifier denials): **RESOLVED** — 20 consecutive clean
+  wake cycles (024–043). Reopen only on regression.
+```
+
 ### gba-homebrew — ⚑ needs-owner (carried + one NEW):
 
 - suggested-id: `OQ-GBA-HOMEBREW-CARRIED-ONE-NEW`
@@ -696,7 +775,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### idea-engine — ⚑ needs-owner: ARCHIVE HANDOFF (this slice, wrap-up — read FIRST at next wake): (1) STANDING RULING Q-0265, C…
 
 - suggested-id: `OQ-IDEA-ENGINE-ARCHIVE-HANDOFF-THIS-SLICE`
-- source: idea-engine/control/status.md @ `ce2fab4` · heartbeat `updated:` 2026-07-12T02:44:21Z (real wall-clock via date -u, per the …
+- source: idea-engine/control/status.md @ `6d40f6f` · heartbeat `updated:` 2026-07-12T03:29:00Z (real wall-clock via date -u, per the …
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -713,212 +792,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ⚑ needs-owner: (1) delete leftover branch claude/status-heartbeat-001 (sessions 403 on ref deletes); (2) OPTIONAL PyPI publish of mdverify (needs owner token; name free as of 2026-07-09); (3) OPTIONAL Claude GitHub App connect for native tag/release
 ```
 
-### fleet-manager (this repo) — - **⚑ Decide-and-flag decisions (owner/coordinator may redirect):**
-
-- suggested-id: `OQ-FLEET-MANAGER-DECIDE-FLAG-DECISIONS-COORDINATOR`
-- source: fleet-manager/control/status.md @ `ff4be55` · heartbeat `updated:` 2026-07-11T21:50:00Z — ARCHIVE-PREP CLOSEOUT (coordinator s…
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-- **⚑ Decide-and-flag decisions (owner/coordinator may redirect):**
-  (a) feed path `docs/owner-queue-candidates.md` (plan names no path);
-  (b) feed badge `living-ledger` (kit vocabulary has no `generated` token);
-  (c) ONE verbatim-quoting deviation in the feed: `D-NNN…` decision-id
-  hyphens swapped to U+2011 so quotations never trip the kit's
-  one-home stamp discipline (same class as P1's api_token_hint strip);
-  (d) prober severity REPORT-ONLY (plan leaves it unstated);
-  (e) session transport fallback: api.github.com is proxy-403 in agent
-  sessions (verbatim wall recorded in the script) → github.com HTML
-  state-marker fallback, Actions keeps the API path;
-  (f) positional-ref lint covers THIS repo's living config surfaces only —
-  the plan's cross-repo `owner-queue item <N>` lint rides P3 (DEVIATION,
-  partial); `projects/UNIVERSAL.md` excluded (owner-provenance, frozen
-  provenance notes);
-  (g) only ACTIVE numbered items slugged; Parked/Resolved bullets keep their
-  prose form until touched.
-- **Roster gen #8** committed in-branch (fresh full regen; same rows feed
-  both files — freshness had NOT tripped, this was the feed's first
-  generation run, doubling as a gen_roster verification pass: no walls, all
-  repos converged).
-```
-
-### fleet-manager (this repo) — - **⚑ Drift flagged for follow-up (spotted, out of this bounded slice):**
-
-- suggested-id: `OQ-FLEET-MANAGER-DRIFT-FLAGGED-FOLLOW-UP`
-- source: fleet-manager/control/status.md @ `ff4be55` · heartbeat `updated:` 2026-07-11T21:50:00Z — ARCHIVE-PREP CLOSEOUT (coordinator s…
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-- **⚑ Drift flagged for follow-up (spotted, out of this bounded slice):**
-  the 2026-07-10 `projects/gba-homebrew/` + `projects/pokemon-mod-lab/`
-  packages record their cadence as "`0 */2` spec'd — NOT armed" and the
-  hourly ORDER 002s as unexecuted/superseded — stale since 01:36Z; those
-  two packages need regeneration against the live retro seat.
-- **Owner-queue item 17 filed** — re-paste the consolidated `environments/`
-  setup scripts (PR #73 → `cf2c4ee`) into the running environments,
-  coordinator environment FIRST (activates the superbot-next→python3.11
-  fix, inert until re-pasted); click-level with raw URLs per archetype.
-- **superbot-games nudge sent ~13:1xZ 2026-07-11** — seat alive but idle
-  02:15Z→13:00Z (12 silent wakes); a direct task list was delivered to the
-  seat; escalation path: rebuild the seat from its registry package
-  (`projects/superbot-games/`, v2) if 2 more idle wakes pass.
-```
-
-### fleet-manager (this repo) — ⚑ **only 3/13 lanes (substrate-kit, superbot, idea-engine) have
-
-- suggested-id: `OQ-FLEET-MANAGER-ONLY-3-13-LANES`
-- source: fleet-manager/control/status.md @ `ff4be55` · heartbeat `updated:` 2026-07-11T21:50:00Z — ARCHIVE-PREP CLOSEOUT (coordinator s…
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-  ⚑ **only 3/13 lanes (substrate-kit, superbot, idea-engine) have
-  auto-merge-enabler.yml installed**; allow_auto_merge + required checks NOT
-  MEASURABLE this session (no repo-get/branch-protection MCP tool; direct REST
-  403 "GitHub access is not enabled for this session" — walls quoted verbatim
-  in the doc).
-- **PR #68 PARKED READY+green** — the dispatched agent merge of PR #68 was
-  classifier-denied ("[Self-Approval]/[Merge Without Review]", verbatim in the
-  findings doc §"Live confirmation (same day)"); fm has NO enabler installed
-  (per the verification table), so there is no server-side arm path either →
-  **a non-author landing is needed**. Direct live evidence for the §2.4
-  corrected clause and for retiring the fm `instructions.md:76`-vs-`:85`
-  "REST merge-on-green is PRIMARY" contradiction (audit §3.2).
-```
-
-### fleet-manager (this repo) — - **⚑ Self-decided design decisions (decide-and-flag, owner/coordinator may
-
-- suggested-id: `OQ-FLEET-MANAGER-SELF-DECIDED-DESIGN-DECISIONS`
-- source: fleet-manager/control/status.md @ `ff4be55` · heartbeat `updated:` 2026-07-11T21:50:00Z — ARCHIVE-PREP CLOSEOUT (coordinator s…
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-- **⚑ Self-decided design decisions (decide-and-flag, owner/coordinator may
-  redirect):** (1) landed at `scripts/gen_roster.py` per the coordinator
-  dispatch — the proposal + gens #1–#4 said `tools/gen_roster.py`; dispatch won,
-  flagged for consistency; (2) in-script `LANES` registry (19 seats incl.
-  registry-only retro-games + archived codetool ×3) is the one hand-maintained
-  input — add a lane there when a seat is born; (3) verdict ladder codified:
-  FRESH ≤2× wake cadence (cadence parsed from the matched cron, 2h default),
-  STALE >2×cadence ≤24h, DARK >24h, DEAD = not measurable; archived lanes report
-  STALE-BY-DESIGN; (4) `--check` byte-compares full output — Age is computed
-  against `--date`, so reproducibility requires passing the committed
-  generation's args (documented in usage); (5) Deltas-vs-previous-generation
-  narrative deliberately NOT auto-derived (coordinator judgment, per the
-  proposal's "what stays human"); (6) `tmp-triggers.json` added to `.gitignore`
-  so the documented export filename can never be committed by accident (raw
-  export stays uncommitted per the dispatch).
-- Usage doc = the script's own header docstring (schema, verdict ladder,
-  transport doctrine, all three modes with example invocations).
-- Walls: none this slice (pokemon-mod-lab private repo read fine over git
-  transport; all 18 repo fetches converged on the first attempt this run).
-```
-
-### fleet-manager (this repo) — **⚑ PHASE-2 DECISION flagged above** (roster canonical; manifest → pointer stub;
-
-- suggested-id: `OQ-FLEET-MANAGER-PHASE-2-DECISION-FLAGGED`
-- source: fleet-manager/control/status.md @ `ff4be55` · heartbeat `updated:` 2026-07-11T21:50:00Z — ARCHIVE-PREP CLOSEOUT (coordinator s…
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-  **⚑ PHASE-2 DECISION flagged above** (roster canonical; manifest → pointer stub;
-  checker retires) — superbot repo NOT edited this slice; follow-up order owed.
-- **Ladder item 7 DONE (executed by a dispatched worker, coordinator
-  cse_012o8pySy5K3AV6JWoPKryZL): superbot#1920 @codex re-ask posted
-  2026-07-11T01:45Z as comment 4941269996** — the original ask re-issued verbatim
-  after the Codex quota refusal (comment 4939891407); verified present in the
-  re-fetched thread; no prior Codex answer existed — the RETRY-LATER doctrine held.
-- **Walls hit this slice (verbatim class):** GitHub MCP `get_file_contents` on
-  superbot-idle / superbot-mineverse → `Access denied: repository … is not configured
-  for this session` (both repos absent from this seat's allowed-repo list; worked
-  around via shallow clone over git transport — no roster gap). `superbot-retro`
-  ls-remote → `fatal: could not read Username` (repo does not exist / not accessible:
-  the retro seat is registry-only, recorded as such in the roster).
-```
-
-### fleet-manager (this repo) — > **⚑ RECONCILIATION FLAG (decide-and-flag, per the ORDER 015 re-scope —
-
-- suggested-id: `OQ-FLEET-MANAGER-RECONCILIATION-FLAG-DECIDE-FLAG`
-- source: fleet-manager/control/status.md @ `ff4be55` · heartbeat `updated:` 2026-07-11T21:50:00Z — ARCHIVE-PREP CLOSEOUT (coordinator s…
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-> **⚑ RECONCILIATION FLAG (decide-and-flag, per the ORDER 015 re-scope —
-> `docs/succession/coordinator-handoff-2026-07-11.md` §5): ORDER 015's
-> registry packages were CENTRALIZED FROM the self-booted seats, NOT AUTHORED
-> as founding packages.** Reality overtook the order's filing (00:45Z): both
-> games seats booted themselves before any founding package existed, so the
-> executed done-when is "sweep what the booted seats ACTUALLY run into
-> version-stamped `projects/` packages, regenerate-don't-fork" — the order's
-> original done-when items (owner-queue paste-wave refresh for boots, boot
-> clicks queued WHAT/WHERE/UNBLOCKS) are MOOT: no boots remain to click. Every
-> never-deployed package part says so explicitly instead of inventing content
-> (registry doctrine 1). Owner may veto/redirect any of this reading.
-```
-
-### fleet-manager (this repo) — ⚑B/⚑D unfrozen; what remains is the OWNER side (parked merges + publish clicks,
-
-- suggested-id: `OQ-FLEET-MANAGER-B-D-UNFROZEN-WHAT`
-- source: fleet-manager/control/status.md @ `ff4be55` · heartbeat `updated:` 2026-07-11T21:50:00Z — ARCHIVE-PREP CLOSEOUT (coordinator s…
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-  ⚑B/⚑D unfrozen; what remains is the OWNER side (parked merges + publish clicks,
-  per the lane's own heartbeat @ `2021bab`).
-- **ORDER 010 relay: ✅ EXECUTED (PR #63)** — the per-lane template/card checks +
-  ground-truth self-report ORDER is APPENDED at 11 lane inboxes (no longer "rides
-  each next lane contact"; slice record above), **including the trading#21 residue
-  annotation suggestion (the two undocumented P1 drops, AAPL-SMA/AAPL-MACD — now
-  trading ORDER 009, PR #52)**. Residual: superbot (no inbox — decide-and-flag
-  surface recommended) + superbot-idle/superbot-mineverse (session-scope wall)
-  ride next contact.
-- **Review-queue drain:** trading#21 CLOSED this slice (RETIRED-SUPERSEDED — first
-  closed row). Open rows: venture-lab#9 (awaits the lane's P0 fix) ·
-  ~~superbot-games#16~~ (CLOSED at #58 — order-001 MERGED, PR #24 `7d4c347`) ·
-  superbot-games#5 (verbatim-port read; 4 import-only modules) · trading#36 (ordinary
-  drain) · superbot#1920 (**@codex re-ask POSTED 01:45Z, comment 4941269996 — await
-  the answer**; botsite/in-repo half owed) · pokemon#8 · gba#12. **Next
-  manager-verify candidate: pokemon#8 (sha1-chain from committed proof fixtures) or
-  gba#12 (dispatch-tier asserts vs compile-only CI).** fleet-manager Codex env ask
-  still open on PR #26.
-- **sim-lab tag-push 403:** new platform wall recorded on its heartbeat — candidate
-  for the capability ledger + a kit-side release-route note at next kit contact.
-- **substrate-kit trigger naming:** ~~cutover relay owed~~ **RESOLVED — verified at
-  gen #3** (failsafe wake live 23:09:56Z).
-- Owner morning click-list: **docs/owner-queue.md**.
-- EAP free window through 2026-07-14; economics ledger banked (#27).
-```
-
-### fleet-manager (this repo) — ⚑ needs-owner (was the PENDING-OWNER FIVE at archive; item 1 RESOLVED 2026-07-11 ~01:0xZ — full detail handof…
-
-- suggested-id: `OQ-FLEET-MANAGER-WAS-PENDING-FIVE-AT`
-- source: fleet-manager/control/status.md @ `ff4be55` · heartbeat `updated:` 2026-07-11T21:50:00Z — ARCHIVE-PREP CLOSEOUT (coordinator s…
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-⚑ needs-owner (was the PENDING-OWNER FIVE at archive; item 1 RESOLVED 2026-07-11 ~01:0xZ — full detail handoff §3 + docs/owner-queue.md): **(1) ~~paste `projects/fleet-manager/reboot-prompt.md` into a fresh coordinator chat~~ ✅ RESOLVED — successor seat LIVE, F-1 cutover complete (record above) · (2) ~~venture-lab fresh session~~ ✅ RESOLVED at gen #4 (lane relaunched — failsafe 00:30:36Z, ORDERs 001–004 done, ⚑B/⚑D UNFROZEN; the owner's remaining venture clicks are the lane's own parked merges + publish clicks) · (3) `superbot-plugin-hello` seeded-package push (repo still EMPTY at 00:07Z ls-remote) · (4) attended-session permissions re-land (grant landed `c23223f`; the built fold DIED with this container — rebuild recipe handoff §4; PR #47 = born-red card only, the re-land vehicle or close-with-reason) · (5) games mapping §5 late-veto window (accepted-by-boot otherwise)**; then the package paste wave (owner-queue item 13 — HELD on (4): paste the folded v2 texts, not v1s) + product-forge Pages click (item 15)
-PROMPT REGISTRY: **fleet-manager `projects/` — canonical, v-stamped (v1 · 2026-07-10 on all 39 prompt files); superbot founding-package copies frozen** (superseded-banner PR superbot #1967); one-writer = manager, lanes propose via ⚑/INTAKE; first full trigger snapshot committed at `projects/_inventory/trigger-registry-2026-07-10.md` (114 triggers; live sweep now 175 records / 23 enabled — see roster gen #3); websites v1-era prompt CONFIRMED deployed — v2 re-paste still owed. **Permissions v2/v3 re-stamp: owner provenance landed (`c23223f`); per-repo re-land in flight (PR #47) — not yet live at this write.**
-```
-
-### fleet-manager (this repo) — - **⚑ ESCALATION carried in the roster:** nine lane failsafes auto-disabled
-
-- suggested-id: `OQ-FLEET-MANAGER-ESCALATION-CARRIED-ROSTER-NINE`
-- source: fleet-manager/control/status.md @ `ff4be55` · heartbeat `updated:` 2026-07-11T21:50:00Z — ARCHIVE-PREP CLOSEOUT (coordinator s…
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-- **⚑ ESCALATION carried in the roster:** nine lane failsafes auto-disabled
-  (`auto_disabled_env_deleted`, ~14:45–16:16Z); only superbot-next re-armed
-  (`trig_01GLBYyf4aDS6AwpLVybZvVy`). 8 live lanes chain-only; product-forge (idle ~8h, dead
-  failsafe) is the top DARK candidate for gen #7 — re-arm decision needed.
-- **Self-review sweep state:** answered = sim-lab (87ca0dfb), superbot-games (201f8dd),
-  trading (ed8add3), venture-lab (dfe3332 status); **still missing = superbot hub** (ORDER
-  002 `status: new` at d647b2e despite hub-touching sessions since).
-- **fm PR #77:** MERGED by the owner into main as `39b888a` (18:40:11Z) — the parked-hold
-  described in the 17:05Z stamp above is RESOLVED; this record supersedes it.
-- Slice record: `.sessions/2026-07-11-roster-gen-6.md`.
-```
-
 ---
 
-61 candidate block(s) across 15 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
+58 candidate block(s) across 15 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
 
