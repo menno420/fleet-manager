@@ -941,3 +941,52 @@ done-when: (met in fleet-manager PR #142)
 - TICK PILE-UP added to scripts/check_trigger_health.py as invariant I7 (>1 pending near-identical work-loop one-shot on one session = FAIL; remedy prune-to-newest, recorded in roster health + status.md) — PR #142.
 - Fresh registry export committed (telemetry/triggers-snapshot.json, captured_at 2026-07-12T20:41:13Z, 945 records); I7 first evaluation: PASS — no live pile-up (post-prune registry clean; the two same-session SWTK long-fuse checkpoints correctly exempted as distinct deliverables). Replay proof: the pre-prune 18:25:51Z snapshot reds I7 on the incident's 4 stacked sceTGcmo pacemaker ticks with prune-to-newest named — the amendment's done-when.
 - Pacemaker discipline relayed 2026-07-12 ~20:55Z via send_message: DELIVERED to substrate-kit (active); websites / game-lab / ideas-lab / superbot-world / venture-lab were INACTIVE (`session_inactive`) — durable copy lives in docs/playbook.md (R26 note); inactive seats pick it up from fm HEAD on next wake. Capability finding appended to docs/CAPABILITIES.md.
+
+## ORDER 023 · 2026-07-12T22:09Z · status: new — GATED: do NOT execute until the owner approves the consolidation plan (owner-queue E#44 / OQ-CONSOLIDATION-DELETE-VS-ARCHIVE letter — the plan's product-forge lane gate)
+priority: P1 — consolidation Phase 1 (blocks the owner's Phase 3.1 archive click, B#40 / OQ-CONSOLIDATION-ARCHIVE-FORGE)
+owner: Websites seat (route via the manager's next dispatch) — the RECEIVING lane; product-forge is DARK per docs/roster.md gen #21 and never receives ORDERs
+do: Rehome product-forge `products/games-web/` per docs/planning/2026-07-12-repo-consolidation-plan.md § "Phase 1 — ORDER P1-1": move the self-contained static character-sheet game UI + `game-state.schema.json` v1.0.1 contract + tests out of menno420/product-forge (forge content is readable cross-repo; execute from the destination side, never as a forge session). Decision criterion (plan/census): FIRST check the websites Fleet Arcade catalog (the slice shipped in websites `06409f5`) — if games-web can host as a playable catalog entry unchanged, land it in the websites arcade; if the right home is instead a bot-game plugin surface, do NOT land it in websites — record that call in your status so the manager re-routes to the superbot-world seat (superbot-games). Record the decision + criterion in the PR body either way.
+why: Phase 1 rehoming must land before the Phase 3.1 archive toggle freezes product-forge (plan § Phase 1; archive is sequenced strictly after the migrations).
+done-when: games-web + schema + tests live and green in the target repo (or the superbot-games re-route call is recorded for the manager); the new home is recorded manager-side for product-forge's final-status pointer at the Phase 3 close-out; a status report lands in the websites lane's control/status.md heartbeat per its seat grammar.
+
+## ORDER 024 · 2026-07-12T22:09Z · status: new — GATED: do NOT execute until the owner approves the consolidation plan (owner-queue E#44 letter — same forge lane gate as ORDER 023)
+priority: P2 — consolidation Phase 1 (rides before the B#40 archive click; small docs-only rehome)
+owner: fleet-manager seat (this repo — the RECEIVING lane; product-forge is DARK and never receives ORDERs)
+do: Rehome the product-forge retro per docs/planning/2026-07-12-repo-consolidation-plan.md § "Phase 1 — ORDER P1-3": move product-forge `docs/retro/2026-07-11-self-review.md` into fleet-manager `docs/retro/` (read it cross-repo from forge main; docs-only PR here).
+why: the retro is fleet memory the plan names for rehoming before the forge archive click (plan § Phase 1).
+done-when: the file is merged in fleet-manager docs/retro/ with a Status badge + an index/README link (repo doc gate green); a status report lands in this lane's control/status.md heartbeat per its seat grammar.
+
+## ORDER 025 · 2026-07-12T22:09Z · status: new
+priority: P1 — consolidation Phase 1 (blocks the owner's Phase 3.2 archive click, B#41 / OQ-CONSOLIDATION-ARCHIVE-SONNET5)
+owner: self-improvement seat (substrate-kit) (route via the manager's next dispatch)
+do: Port the two codetool-lab-sonnet5 writeups per docs/planning/2026-07-12-repo-consolidation-plan.md § "Phase 1 — ORDER P1-4": (1) the v0.1.1 release-decision writeup and (2) the differential-testing method doc ("corpus vs a reference parser found 3 real bugs behind green tests") from menno420/codetool-lab-sonnet5 into substrate-kit — the census names kit-lab benchmark practice (substrate-kit `bench/` docs) as the differential-testing home; the release-decision writeup rides with it.
+why: the two writeups are the sonnet5 assets the plan rehomes before its archive click (plan § Phase 1; archiving is sequenced strictly after migration).
+done-when: both docs merged in substrate-kit; a pointer to their new home is recorded for sonnet5's final status (via the manager if the sonnet5 lane stays wound down — it is STALE-BY-DESIGN); a status report lands in the substrate-kit lane's control/status.md heartbeat per its seat grammar.
+
+## ORDER 026 · 2026-07-12T22:09Z · status: new
+priority: P1 — owner-directed archive precondition (blocks the owner's Phase 3.3 archive click, B#42 / OQ-CONSOLIDATION-ARCHIVE-FABLE5)
+owner: codetool-lab-fable5 lane (any wind-down session on that repo; the lane is STALE-BY-DESIGN per docs/roster.md gen #21 — not DARK — route via the manager's next dispatch/wake)
+do: Repo-hygiene precondition per docs/planning/2026-07-12-repo-consolidation-plan.md § "Phase 1 — ORDER P1-5": remove the committed `__pycache__/*.pyc` under `src/envdrift/commands/` and add the missing top-level `.gitignore` (both verified in tree @ `a6cf1a9`). Owner directive, verbatim per the plan: "fix fable5's committed .pyc files + missing .gitignore before archiving".
+why: owner-directed precondition — the archive toggle freezes the tree, so the hygiene fix must land first (plan § Phase 1).
+done-when: `git ls-files '*.pyc'` is empty; `.gitignore` exists at repo root; CI green; a status report lands in the fable5 lane's control/status.md heartbeat per its seat grammar.
+
+## ORDER 027 · 2026-07-12T22:09Z · status: new
+priority: P2 — consolidation Phase 1 (stranded-PR disposition; minutes of work)
+owner: superbot-world seat (superbot-mineverse) (route via the manager's next dispatch)
+do: Close (not merge) Codex PR #31 on menno420/superbot-mineverse per docs/planning/2026-07-12-repo-consolidation-plan.md § "Phase 1 — ORDER P1-6", with a one-line disposition comment: its two findings were fixed by merged #42 (`3591c77`) and dispositioned by #43 (`f8b6dbf`). The plan verified #31 still open on 2026-07-12 (state open, mergeable_state blocked, created 2026-07-11T16:41Z) — re-verify at execution time and stand down if already closed.
+why: #31 is superseded stranded work; closing it clears the seat's PR queue before the consolidation end-state (plan § Phase 1).
+done-when: superbot-mineverse #31 is closed with the disposition comment; a status report lands in the mineverse lane's control/status.md heartbeat per its seat grammar.
+
+## ORDER 028 · 2026-07-12T22:09Z · status: new
+priority: P2 — consolidation Phase 1 (must complete before the owner's Phase 3 archive clicks B#40–42)
+owner: fleet-manager seat (this repo)
+do: Codetool findings-export coverage check per docs/planning/2026-07-12-repo-consolidation-plan.md § "Phase 1 — ORDER P1-7": confirm the three codetool labs' (sonnet5 / fable5 / opus4.8) succession + retro content is fully covered by superbot `docs/eap/gen1-grand-review-2026-07-09.md` + fleet-manager `docs/experiments/harness-x-model-2026-07-09.md`; export any gap into its durable home before the archive clicks.
+why: the archive toggles freeze the lab repos read-only — any uncovered finding must be exported first (plan § Phase 1).
+done-when: a one-paragraph coverage verdict lands in the owner-queue thread or the plan's follow-up (naming any gap exported and where); a status report lands in this lane's control/status.md heartbeat per its seat grammar.
+
+## ORDER 029 · 2026-07-12T22:12Z · status: standing — owner directive in force on receipt (fleet-wide record; no single-lane execution queue)
+priority: P0 — landing doctrine, effective immediately, fleet-wide
+owner: all seats (manager relay — recorded on the bus so every lane reads it at its next wake)
+do: RECORD + APPLY the owner live directive, verbatim: "you and all your agents should always merge every PR thats ready". Provenance: owner live, fleet-manager coordinator chat, 2026-07-12T22:04Z. Effect: a PR that is READY (non-draft) with every required check COMPLETED green is MERGED by the agent/lane that owns it (squash), citing this directive — parking READY+green PRs for an owner click is no longer the default landing. Designed holds are unchanged: a `do-not-automerge` label, a GATED order (e.g. ORDERs 023/024 above), red or incomplete required checks, and owner-only walls (workflow-file PRs, settings toggles) still hold.
+why: owner live directive 2026-07-12T22:04Z — parked-green PRs were accumulating owner clicks the owner does not want to make.
+done-when: recorded; landing doctrine updated — this block is on the bus at HEAD, and each seat cites the directive when self-merging from its next wake onward.
