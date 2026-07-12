@@ -349,6 +349,11 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       platform-walls section).
     - Blocking: blocks the restructure's platform half; the repo/registry
       half is already parked on the stack.
+    - **Prompts v3.1 note (re-stamped 2026-07-12 after prompts v3.1 (#103)):**
+      when booting sessions in these Projects, the startup prompt to use per
+      seat is `docs/prompts/v3/per-project/<seat>-startup.md` (generated from
+      `docs/prompts/v3/universal-startup.md`, the fleet-wide startup
+      artifact) and the shared ender is `docs/prompts/v3/session-ender.md`.
 
 35. **Fleet restructure — paste each seat's instructions body into its
     Project's Custom Instructions** *(new 2026-07-11, restructure directive —
@@ -380,6 +385,37 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       owner-only wall (registry doctrine, projects/README.md §3).
     - Blocking: do it in the same sitting as C#34 — a renamed Project still
       carrying old per-repo instructions is live drift.
+    - **Re-stamp note (re-stamped 2026-07-12 after prompts v3.1 (#103)):** the
+      `projects/<seat>/instructions.md` bodies + counts above are SUPERSEDED
+      as paste sources — the canonical Custom-Instructions paste per seat is
+      now the v3.1 ASSEMBLED CI: the filled universal core
+      (`docs/prompts/v3/custom-instructions-core.md`, paste order per that
+      file) + the seat block from
+      `docs/prompts/v3/per-project/<seat>-custom-instructions.md`. Counts
+      re-verified on disk 2026-07-12 (seat-block paste bodies re-measured,
+      match every in-file claim exactly; assembled-filled = filled core +
+      block per each file's assembly-accounting header, arithmetic verified;
+      all ≤ 7,998 < the 8,000 hard cap — budget table:
+      `docs/prompts/v3/per-project/README.md`):
+      1. Venture Lab ← `venture-lab-custom-instructions.md` (block 990 ·
+         assembled filled 7,998; file 2,165 bytes by `wc -c`)
+      2. SuperBot World ← `superbot-world-custom-instructions.md` (block 966 ·
+         assembled filled 7,997; file 2,133 bytes by `wc -c`)
+      3. Game Lab ← `game-lab-custom-instructions.md` (block 971 · assembled
+         filled 7,984; file 2,122 bytes by `wc -c`)
+      4. Ideas Lab ← `ideas-lab-custom-instructions.md` (block 980 ·
+         assembled filled 7,992; file 2,115 bytes by `wc -c`)
+      5. Self Improvement ← `self-improvement-custom-instructions.md`
+         (block 992 · assembled filled 7,992; file 2,158 bytes by `wc -c`)
+      6. SuperBot 2.0 ← `superbot-custom-instructions.md` (block 984 ·
+         assembled filled 7,994; file 2,146 bytes by `wc -c`)
+      7. Websites ← `websites-custom-instructions.md` (block 951 · assembled
+         filled 7,943; file 2,106 bytes by `wc -c`)
+      8. Fleet Manager ← `fleet-manager-custom-instructions.md` (block 975 ·
+         assembled filled 7,972; file 2,093 bytes by `wc -c`)
+      (All 8 under `docs/prompts/v3/per-project/`.) Drift-check first line is
+      now `v3.1 · 2026-07-12 · <seat> instructions` (v3.1 core), not the
+      2026-07-11 stamp above.
 
 36. **Fleet restructure — boot each new seat (one coordinator-prompt paste
     per Project); the boot retires the old triggers and arms the new
@@ -437,6 +473,11 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       re-verifies live via list_triggers before deleting anything.
     - Blocking: until cutover, the old failsafes fire into archived seats
       on every slot (silent-fire class).
+    - **Prompts v3.1 note (re-stamped 2026-07-12 after prompts v3.1 (#103)):**
+      for the boot pastes, the startup prompt to use per seat is
+      `docs/prompts/v3/per-project/<seat>-startup.md` (generated from
+      `docs/prompts/v3/universal-startup.md`, the fleet-wide startup
+      artifact) and the shared ender is `docs/prompts/v3/session-ender.md`.
 
 ### (D) External services
 
