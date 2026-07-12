@@ -806,7 +806,7 @@ priority: P1 (rides with ORDER 019 — same sitting; items 1–2 are minutes eac
 owner: Websites seat
 provenance: owner live directive 2026-07-12 (owner-live superbot session — the "which discussed
 things are not yet planned or live" audit); companion to ORDERs 019 + 021.
-do — four deltas the 019/021 bodies don't cover:
+do: four deltas the 019/021 bodies don't cover —
 (1) **Flip the arcade's mineverse card to LIVE** (botsite/data/arcade.json — the #161 design:
 data change only): mineverse now serves at `https://web-production-97636.up.railway.app`
 (read-only; sign-in one owner click away). Set availability live + the URL (keep the
