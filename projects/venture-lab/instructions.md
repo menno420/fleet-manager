@@ -1,6 +1,6 @@
 <!-- v5 · 2026-07-12 · fleet-manager projects registry — GENERATED COPY, do not edit
      (regenerate: docs/prompts/v3/tools/regen_b_files.py --write-registry; drift guard: --check-registry) -->
-<!-- generated from docs/prompts/v3 @ 347abdbeee2d7199127bffc96692bae9dc8d4837 (prompts v3.3, owner-directed rebuild 2026-07-12) -->
+<!-- generated from docs/prompts/v3 @ 48650f8f4227b7b465fe70d25c8f6cd86b5d1d90 (prompts v3.3, owner-directed rebuild 2026-07-12) -->
 # Venture Lab — Custom Instructions (registry copy, prompts v3.3)
 
 > **GENERATED COPY — NOT SOURCE OF TRUTH.** This registry copy is GENERATED FROM
