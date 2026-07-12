@@ -28,10 +28,13 @@ cited PR.
 
 The trigger-health remediation session (PR #135) closed cleanly: fresh snapshot,
 verbatim before/after verdict in the PR body, and the I1 blind-spot flag was
-honest about what the checker cannot distinguish. What this close-out surfaced
-as an improvement: its session card carried the full grammar (idea + review
-sections), but nothing in the repo's card template or README warns that the
-substrate-gate enforces those sections on ADDED cards — this session's born-red
-card went red on exactly that. Improvement: state the required card sections
-explicitly in `.sessions/README.md` so a card is born grammar-complete instead
-of discovering the requirement from a failed gate run.
+honest about what the checker cannot distinguish. Improvement this close-out
+surfaced: `.sessions/README.md` line 3 does list the required card markers
+(Status badge, Session idea, Previous-session review, Model line), but this
+session's born-red card still went red on the grammar gate because the
+close-out procedure it followed said only "create the card with Status:
+in-progress" — the marker list lives one hop away from the instruction that
+creates the card. Improvement: the coordinator-prompt/session-ender text that
+orders card creation should name the full marker set inline (or point at
+README line 3), so a card is born grammar-complete instead of discovering the
+requirement from a failed gate run.
