@@ -1,1 +1,0 @@
-- `claude/order-014-v31-crosscheck` · **ORDER 014 cross-check** — verify kit hardening-input claims (substrate-kit @ 8a544a6) against shipped prompts v3.1; queue verified deltas · expected files: docs/prompts/v3/per-project/README.md + .sessions/ card · 2026-07-12
