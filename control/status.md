@@ -1,6 +1,6 @@
 # fleet-manager · status
 
-updated: 2026-07-11T23:50:47Z — CONTINUOUS OPERATION (successor coordinator session_01FMJoC5uC6WSUTosceTGcmo live; predecessor archived 21:50Z).
+updated: 2026-07-12T03:56:06Z — CONTINUOUS OPERATION (successor coordinator session_01FMJoC5uC6WSUTosceTGcmo live; predecessor archived 21:50Z). Staleness-sweep close-out worker re-stamped this heartbeat with the sweep record below.
 
 phase: **owner-directed OVERNIGHT PROMPT REBUILD (research wave of 5 sessions running: platform capabilities, problem census core, problem census satellites, prompt architecture, kit ORDER dispatch) + restructure chain parked.**
 
@@ -18,7 +18,8 @@ Walls (summarized): agent-initiated merges of peer PRs are denied in auto mode (
 
 ## Landed / parked
 
-- PRs #88/#89/#91 restructure chain parked READY+green awaiting merge authority (#91 needs guard-fires.jsonl union rebase after #88/#89).
+- **Staleness sweep DONE (first under the 8-seat registry, 2026-07-12):** roll-up 7/8 seats FRESH, **superbot-world STALE** (superbot-games heartbeat contradicted — its 5 "parked" PRs all merged, HEAD moved 8 merges; lane must re-stamp); trading-strategy FRESH-borderline (drifts STALE ~2026-07-14 if parked PR #64 unmerged). 783-trigger snapshot refreshed (`telemetry/triggers-snapshot.json`), roster regen gen #12. Report + 9-item needs-attention shortlist: `docs/research/2026-07-12-staleness-sweep-8seat.md`. Sweep PR **#105 parked READY+green pending merge** (merge authority denied for that session).
+- PRs #88/#89/#91 restructure chain: MERGED 2026-07-12T03:15–03:26Z (merge authority arrived after the previous stamp).
 - PR #92 permission-rules port parked green (12 mcp__github__ grants; bypassPermissions pending owner word in the port session).
 
 ## Orders
