@@ -5,7 +5,10 @@
 > v3.3 rebuild follow-up ledger (integration PR, 2026-07-12; drafted by the
 > v3.3 CI drafting pass). Every route used in the 8 shipped v3.3 Custom
 > Instructions exists on disk TODAY (verified in the local seat-repo clones @
-> 2026-07-12 HEADs). This file tracks (a) keywords whose CURRENT route is a
+> 2026-07-12 HEADs) — with one tracked half-exception: the superbot-2.0
+> ORDER-grammar route resolves in superbot-next only (the superbot repo has
+> no control/README.md; the CI names the resolving repo inline, and the §A
+> row below tracks the durable fix). This file tracks (a) keywords whose CURRENT route is a
 > stopgap that should be replaced by a durable home, and (b) content
 > deliberately NOT given a CI dictionary entry because its v3.3 home is the
 > EXPANDED STARTUP — listed so nothing falls between the two layers. Work an

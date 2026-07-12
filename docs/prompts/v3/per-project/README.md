@@ -71,26 +71,28 @@ superbot-plugin-hello (helper, folded into SuperBot 2.0's F1).
 Hard cap: **Custom Instructions ≤ 8,000 chars** (verified console wall; aim
 ≤7,500 — every seat runs over the aim BY DESIGN: the owner's mandated keyword
 set outranks the fitted target, same call as v3.2's safety-over-fitted).
-UTF-8 bytes also ≤ 8,000 for all 8 (belt-and-braces; the fleet budget basis
-is characters). **Startups have NO cap** — sizes below are a NOTE, not a
+UTF-8 bytes also gated ≤ 8,000 for all 8 by the checker (belt-and-braces;
+the fleet budget basis is characters). **Startups have NO cap** — sizes below are a NOTE, not a
 gate (owner spec 2026-07-12). The session ender is a chat paste (no console
 cap).
 
-| Seat | CI (chars) | CI headroom | Expanded startup (chars) | v3.2 startup was |
+| Seat | CI (chars) | CI (bytes) | Expanded startup (chars) | v3.2 startup was |
 |---|---:|---:|---:|---:|
-| fleet-manager | 7,850 | 150 | 27,122 | 7,833 |
-| superbot | 7,935 | 65 | 27,338 | 7,819 |
-| websites | 7,928 | 72 | 27,023 | 7,838 |
-| self-improvement | 7,918 | 82 | 27,186 | 7,927 |
-| superbot-world | 7,924 | 76 | 26,712 | 7,868 |
-| game-lab | 7,927 | 73 | 26,549 | 7,999 |
-| ideas-lab | 7,855 | 145 | 26,857 | 7,770 |
-| venture-lab | 7,926 | 74 | 26,899 | 7,841 |
+| fleet-manager | 7,850 | 7,922 | 27,409 | 7,833 |
+| superbot | 7,934 | 7,996 | 27,625 | 7,819 |
+| websites | 7,925 | 7,997 | 27,310 | 7,838 |
+| self-improvement | 7,918 | 7,988 | 27,473 | 7,927 |
+| superbot-world | 7,924 | 7,986 | 26,999 | 7,868 |
+| game-lab | 7,927 | 7,995 | 26,836 | 7,999 |
+| ideas-lab | 7,855 | 7,925 | 27,144 | 7,770 |
+| venture-lab | 7,926 | 7,994 | 27,186 | 7,841 |
 
-Seat-first ratio (line-identity method, drafting-pass measurement): ~74–76%
-of each CI's non-blank chars are seat-specific — the v3.2 assembled CI ran
-~12% seat share, which is what the owner rejected. Counts restate at every
-edit: run the checker, then update this table + each file's own header.
+Seat-first ratio: ~74–76% of each CI's non-blank chars are seat-specific on
+the drafting-pass line-identity basis (~72.8–73.1% on the verifier's
+paste-body line-identity measurement — both clear the ≥60% bar); the v3.2
+assembled CI ran ~12% seat share, which is what the owner rejected. Counts
+restate at every edit: run the checker, then update this table + each
+file's own header.
 
 ## v3.2 budget table (HISTORICAL — the assembled-CI generation this table measured is retired; FILLED values)
 
@@ -349,7 +351,14 @@ doctrine verbatim**. Applied in one integration pass:
    identity, card-block + triad identity, stamps, failsafe extraction);
    `--check-registry` / `--write-registry` kept — registry failsafe bodies
    now derive from each startup's own BOOT 3a text.
-7. **UNIVERSAL.md grant sha reconciled:** the true last-touch commit of
+7. **Thorough boot verification preferred (owner doctrine, live 2026-07-12):**
+   BOOT 2 in every startup now states it explicitly — current state moves
+   fast, so a fresh-looking baton NARROWS the search but never substitutes
+   for verification; re-verify every claim you act on at live HEAD, even
+   when the handoff reads current. Checker-enforced as a shared block; a
+   16-file sweep found NO skip-tempting wording to neutralize (both grep
+   hits were pro-verification or unrelated).
+8. **UNIVERSAL.md grant sha reconciled:** the true last-touch commit of
    `projects/UNIVERSAL.md` is **16161af** (v4, 2026-07-11; `e1848ff` is its
    PR #76 merge commit with identical content, `e801da5` is a later
    kit-bump commit that did not touch the file — both stale citations).

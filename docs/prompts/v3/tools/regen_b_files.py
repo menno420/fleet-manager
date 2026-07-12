@@ -17,9 +17,11 @@ to perform:
 What remains — and what this script now does on every run (default mode):
 
   python3 docs/prompts/v3/tools/regen_b_files.py
-      1. CI budget gate: per-seat char counts; exit non-zero if any CI paste
-         body exceeds the 8,000 HARD cap (count the paste as pasted — the
-         Codex PR #103 lesson; there are no placeholders left to fill).
+      1. CI budget gate: per-seat char AND UTF-8 byte counts; exit non-zero
+         if any CI paste body exceeds the 8,000 HARD cap on EITHER basis
+         (chars = the verified console wall and fleet budget basis; bytes
+         gated too, belt-and-braces). Count the paste as pasted — the Codex
+         PR #103 lesson; there are no placeholders left to fill.
       2. Startup size NOTE table (informational, never fails).
       3. DRIFT CHECKS (all fail the run on mismatch), so the CI keyword layer
          and the startup doctrine layer can't silently drift from their
@@ -117,6 +119,8 @@ DOCTRINE_START = "════════ DOCTRINE — full text, binding ═�
 DOCTRINE_END_PREFIX = "Settings/permission config only with the owner live HERE"
 CARD_PREFIX = "• SESSION CARD (born-red mechanics, in full):"
 TRIAD_PREFIX = "0. BOOT TRIAD — know thyself before directing work (owner directive Q-0270"
+BATON_PREFIX = "THOROUGH BOOT VERIFICATION IS PREFERRED (owner doctrine 2026-07-12)"
+BATON_END = "even when the handoff reads current."
 
 
 def paste_body(path: Path) -> str:
@@ -192,6 +196,16 @@ def triad_block(body: str, fname: str) -> str:
     return m.group(0)
 
 
+def baton_block(body: str, fname: str) -> str:
+    """The BOOT 2 thorough-verification sentence (owner doctrine 2026-07-12:
+    the baton NARROWS the search, it never substitutes for verification) —
+    shared constant, byte-identical in all 8 startups."""
+    m = re.search(re.escape(BATON_PREFIX) + r".*?" + re.escape(BATON_END), body, re.S)
+    if not m:
+        raise RuntimeError(f"{fname}: BOOT 2 thorough-verification sentence not found")
+    return m.group(0)
+
+
 def failsafe_parts(body: str, fname: str) -> dict:
     pm = re.search(r'prompt EXACTLY:\n\s+"(FAILSAFE WAKE .*?)"\n', body, re.S)
     cm = re.search(r'cron_expression "([^"]+)"', body)
@@ -210,7 +224,7 @@ def run_checks() -> int:
     ci_rows, su_rows = [], []
     ender = ender_canonical().replace("\n\nConfirm before ending:", "\nConfirm before ending:")
     grant = grant_canonical()
-    doctrines, cards, triads = {}, {}, {}
+    doctrines, cards, triads, batons = {}, {}, {}, {}
 
     for seat in SEATS:
         ci_path = V3 / "per-project" / seat["ci"]
@@ -218,10 +232,13 @@ def run_checks() -> int:
         ci = paste_body(ci_path)
         su = paste_body(su_path)
         n = len(ci)
-        ci_rows.append((seat["ci"], n))
+        nb = len(ci.encode("utf-8"))
+        ci_rows.append((seat["ci"], n, nb))
         su_rows.append((seat["startup"], len(su)))
         if n > CI_HARD:
             fails.append(f"{seat['ci']}: CI paste {n:,} chars — OVER the 8,000 HARD cap by {n - CI_HARD}")
+        if nb > CI_HARD:
+            fails.append(f"{seat['ci']}: CI paste {nb:,} UTF-8 bytes — OVER the 8,000 HARD cap by {nb - CI_HARD}")
         if "DRIFT CHECK" not in ci.splitlines()[0]:
             fails.append(f"{seat['ci']}: line 1 missing the DRIFT CHECK stamp")
         if "DRIFT CHECK" not in su.splitlines()[1]:
@@ -236,22 +253,25 @@ def run_checks() -> int:
             doctrines[seat["startup"]] = doctrine_normalized(su, seat["startup"])
             cards[seat["startup"]] = card_block(su, seat["startup"])
             triads[seat["startup"]] = triad_block(su, seat["startup"])
+            batons[seat["startup"]] = baton_block(su, seat["startup"])
             failsafe_parts(su, seat["startup"])
         except RuntimeError as e:
             fails.append(str(e))
 
     for pool, label in ((doctrines, "DOCTRINE section"), (cards, "SESSION CARD block"),
-                        (triads, "BOOT TRIAD step (Q-0270)")):
+                        (triads, "BOOT TRIAD step (Q-0270)"),
+                        (batons, "BOOT 2 thorough-verification sentence")):
         if pool and len(set(pool.values())) != 1:
             ref_name, ref = next(iter(pool.items()))
             for fname, val in pool.items():
                 if val != ref:
                     fails.append(f"{fname}: {label} differs from {ref_name} — the shared text drifted")
 
-    print(f"{'Custom Instructions (v3.3, one file per seat)':58s} {'chars':>6s}  vs hard 8,000 / aim 7,500")
-    for f, n in ci_rows:
-        status = "OVER HARD — MUST TRIM" if n > CI_HARD else ("over aim, under hard — flagged by design" if n > CI_AIM else "within aim")
-        print(f"{f:58s} {n:6,d}  {status}")
+    print(f"{'Custom Instructions (v3.3, one file per seat)':58s} {'chars':>6s} {'bytes':>6s}  vs hard 8,000 (both) / aim 7,500")
+    for f, n, nb in ci_rows:
+        worst = max(n, nb)
+        status = "OVER HARD — MUST TRIM" if worst > CI_HARD else ("over aim, under hard — flagged by design" if n > CI_AIM else "within aim")
+        print(f"{f:58s} {n:6,d} {nb:6,d}  {status}")
     print()
     print(f"{'Expanded startups (v3.3, size NOTE — no cap)':58s} {'chars':>6s}")
     for f, n in su_rows:
@@ -262,8 +282,8 @@ def run_checks() -> int:
             print(f"FAIL: {f}")
         return 1
     print("drift checks: OK — ender sync (D-10), grant sync, doctrine identity, "
-          "card-block identity, BOOT TRIAD (Q-0270) identity + CI entries, stamps, "
-          "failsafe extraction: all 8 seats clean")
+          "card-block identity, BOOT TRIAD (Q-0270) identity + CI entries, BOOT 2 "
+          "thorough-verification identity, stamps, failsafe extraction: all 8 seats clean")
     return 0
 
 
@@ -371,11 +391,12 @@ def write_registry(sha: str) -> int:
     for seat in SEATS:
         for artifact, (path, body) in registry_expected(seat).items():
             path.write_text(registry_header(seat, artifact, seat["versions"][artifact], sha, body) + body + "\n")
-            n = len(body)
+            n = max(len(body), len(body.encode("utf-8")))
             flag = ""
             if artifact == "instructions" and n > CI_HARD:
                 flag = f"  !! OVER HARD by {n - CI_HARD}"
                 fail = True
+            n = len(body)
             print(f"wrote {path.relative_to(REPO)}  ({n:,} chars){flag}")
     return 1 if fail else 0
 
