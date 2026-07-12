@@ -75,6 +75,20 @@ day) unless a later date is noted next to the rule.
     everything needed to catch it was in `list_triggers` all night and nothing was
     watching. Replaying that registry through this check surfaces every one of them in
     a single wake (`enabled ∧ next_run_at < capture − 15min`).* (2026-07-12)
+    **Pacemaker discipline (ORDER 020 amendment 2026-07-12T19:20Z):** re-arm the next
+    tick ONLY after consuming the prior one — **ONE outstanding tick per session,
+    ever**; a wake with nothing to do re-arms SILENTLY and must not emit a filler
+    reply. Enforcement is invariant **I7 TICK-PILE-UP** in
+    `scripts/check_trigger_health.py`: >1 pending same-session one-shots with
+    near-identical normalized message text (timestamps/`#hex`/digits stripped) =
+    FAIL; long-fuse DISTINCT scheduled deliverables are exempt. Remedy: **prune to
+    the NEWEST tick** (delete the rest) and record the prune in the roster health
+    column + `control/status.md`. *WHY: live incident 2026-07-12 evening — one
+    session held FOUR near-identical pending pacemaker ticks and flooded its chat
+    with degenerate one-word replies as they fired minutes apart; the owner had to
+    notice by eye and hand-prune. Replaying the pre-prune 18:25Z registry through
+    I7 surfaces that exact stack (4 ticks, prune-to-newest named) in one wake.*
+    (2026-07-12)
 
 ## PLATFORM WALLS (verbatim-class — quote them, don't paraphrase)
 
