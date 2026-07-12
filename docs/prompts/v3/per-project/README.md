@@ -133,3 +133,116 @@ cutover; the fm delete list defers it (C-9's double-assignment resolved).
   auto-disable, I-52 venture #51 HOT, I-55 gba/trading required-check clicks,
   I-67 routines email pack) are OWNER-QUEUE work, not prompt text — left for
   the fleet-manager seat's QUEUE SWEEP (its W2 already re-verifies asks).
+
+## v3.1 KNOWN DEFECTS queue — ORDER 014 cross-check (v3.2 input)
+
+Source for every entry: substrate-kit ORDER 014 deliverable
+`docs/reports/2026-07-12-prompt-template-hardening-input.md` @ kit main
+`8a544a6` (kit PR #256). Method: a kit report is a claim, not a fact — every
+§(c) "the fleet prompts state this wrongly" item was verified against the
+SHIPPED v3.1 files in this tree (grep + read, 2026-07-12). Note the kit's §(c)
+audited the LEGACY prompts (`projects/substrate-kit/` @ e801da5c), which still
+carry those defects on main — the v3.1 rebuild does not, verdicts below.
+
+**§(c) corrections — v3.1 verdicts (5 checked, 0 real v3.1 defects):**
+
+1. Retired failsafe trigger/session ids (`trig_016EfUawz6KxEYqUM6f1BqDw`,
+   `session_01YMJrUDpcarFsqPZ2BeeiVB`) → **not affected — already correct**:
+   zero occurrences anywhere under `docs/prompts/v3/`; baked trigger ids are
+   banned by design (`../custom-instructions-core.md:81` "no trigger ids
+   (those live in artifact B's volatile cutover slots only)") and the kit
+   seat's cutover slot cites heartbeat pointers, not ids
+   (`self-improvement-startup.md:24` "the 2-hourly failsafe (heartbeat
+   #252/#253 ids)"). No fix needed.
+2. meta.md stale facts (archived coordinator session named live; "Part 4
+   failsafe NOT deployed"; "852 tests"; "20 templates") → **not affected —
+   already correct**: none of the stale tokens appear in v3.1; the kit seat
+   states current truth "every reachable adopter ≥ v1.12.1"
+   (`self-improvement-startup.md:11`). No fix needed.
+3. coordinator-prompt.md staleness (kit @ `7e600c6` / "proven (v1.7.0)";
+   PACEMAKER "this chain, not your cron, keeps you running") → **not affected
+   — already correct**: neither token appears; v3.1 states the corrected
+   doctrine "Q-0265: chain = pacemaker, cron = dead-man failsafe"
+   (`../custom-instructions-core.md:51`) plus the ender never-re-arm
+   exception (`../universal-startup.md:22`). No fix needed.
+4. lab-loop "👤 the loop cannot arm itself / owner console action" (falsified
+   twice — agent-side create_trigger succeeded, kit PRs #195/#253) → **not
+   affected — already correct**: v3.1 never repeats the claim; the daily is
+   handled as disposition only ("the 06:00Z kit-lab DAILY = owner BUSINESS
+   cron — KEEP", `self-improvement-startup.md:24`; "never yours to delete",
+   `self-improvement-custom-instructions.md:11`) — an ownership/protection
+   label, not an arming-capability claim. The kit-side lab-loop.md fix is the
+   kit lane's follow-up (per the ORDER 014 doc itself). See entry 7 for the
+   adjacent generic-rebind gap this check surfaced.
+5. Model-class / environment-id display anomaly (registry shows Opus-class +
+   `env_01WAB…` for all kit triggers; kit flags it display-artifact) → **not
+   affected — already compliant**: no `env_*` id and no model id appears
+   anywhere under v3/; the core already mandates "family-level model names
+   only" (`../custom-instructions-core.md:45`) — exactly the mitigation the
+   kit doc asks prompts to adopt. No fix needed.
+6. instructions.md v2 → the kit found no wrong facts there; nothing to
+   verify, no queue entry.
+
+**§(a)/(b) coverage gaps — REAL v3.2 queue entries:**
+
+7. **Fresh-session-per-fire binding rule missing; the generic BUSINESS-cron
+   rebind text conflicts with it** — source: ORDER 014 §a.1 ("a standing loop
+   must be fresh-session-per-fire so it survives session archive") + §b
+   routines row. v3.1 line affected: `../universal-startup.md:24` (A step 4,
+   regenerated into all 8 B files) "A BUSINESS cron (a scheduled deliverable)
+   is rebound, never dropped: create its replacement bound to THIS session →
+   verify → delete the old" — wrong for a fresh-session-per-fire deliverable
+   (the live kit-lab daily, kit PR #253): rebinding it to the seat session
+   would re-create the dies-with-the-seat class the kit doc names; today only
+   the kit seat's hand-written "KEEP" note (`self-improvement-startup.md:24`)
+   saves the one live instance. Proposed fix: one clause in A step 4 — a
+   business cron armed fresh-session-per-fire is KEPT as-is, never rebound;
+   plus the binding-choice sentence (self-bind = live-seat failsafe only,
+   re-armed at every cutover; standing loop = fresh-session-per-fire). Then
+   regen the 8 B files. Priority: **P2**.
+8. **Heartbeat `kit:` exact line grammar not prompt-carried** — source: ORDER
+   014 §a.4 ("the prompt must carry the exact line shapes or adopters
+   regenerate the drift class every wave"; incident: pokemon-mod-lab's
+   `- **kit:** vX` bold form is invisible to `KIT_LINE_RE`, kit
+   `src/engine/grammar.py:120`) + §b grammar row (◐ partial). v3.1 line
+   affected: `../custom-instructions-core.md:47` CONTROL BUS carries the
+   one-writer + neutrality rules and a `{{STATUS_GRAMMAR}}` slot, but every
+   seat fill is a write-mode only (e.g. "wholesale overwrite",
+   `self-improvement-custom-instructions.md:5`) — the exact plain-form
+   `kit: vX.Y.Z · check: green|red · engaged: yes|no` shape, the bold-form
+   negative example, and the adopters.md version-deference rule ride no v3.1
+   paste. Proposed fix: one core sentence in CONTROL BUS (or a widened
+   `{{STATUS_GRAMMAR}}` convention): plain `kit:` line verbatim + "the
+   bold-label form does not parse" + "fleet version truth defers to the
+   generated docs/adopters.md, never hand-asserted". Priority: **P2**.
+9. **Stale-MCP-PR-read cross-check not explicit** — source: ORDER 014 §a.3
+   ("Never trust an MCP PR read alone for merge/CI state — cross-check via
+   git fetch or the Actions runs"; ~25-min-stale reads, kit friction #15;
+   guard status: prose-only, "MUST ride the prompts"). v3.1 nearest coverage:
+   `../universal-startup.md:29` (diff the merge commit) + `:31` (never record
+   "pushed"/"done" without exit 0 AND git ls-remote) +
+   `../custom-instructions-core.md:62` (Q-0120 tool verdicts are leads) —
+   pushes and merges are covered, but no line names PR-STATE READS as
+   stale-prone. Proposed fix: one clause in the TOOL FACTS rider
+   (`../custom-instructions-core.md:56`): "MCP PR-state reads can serve
+   ~25-min-stale data — cross-check merge/CI state via git fetch or the
+   Actions runs". Priority: **P3**.
+
+**§(a)/(b) items verified already covered in v3.1 (no queue entry):** landing
+path §a.2 — READY + never-self-arm/merge + enabler + deny-wins
+(`../custom-instructions-core.md:51`), LANDING DOCTRINE (`:54`), born-red
+card FIRST commit / flip LAST (`../universal-startup.md:25`), designed-HOLD +
+legacy-alias-jobs red reading (`../custom-instructions-core.md:49`;
+`self-improvement-startup.md:16`). Verify-don't-trust §a.3 core —
+tree-beats-any-doc precedence (`../universal-startup.md:9`), verify-after-arm
+via list_triggers (`:21`), account-wide paginate-to-exhaustion / "page 1 is
+never the registry" (`:24`), checker's-bug clause
+(`../custom-instructions-core.md:62`). Claims one-file + claim-before-build
+§a.5 (`../universal-startup.md:25`; `../custom-instructions-core.md:58`).
+Preflight fetch + hard-reset §a.5 (`../universal-startup.md:16` HARD-SYNC,
+with the dirty-tree rescue-branch guard). Sequential trigger-call pacing §a.5
+(`../custom-instructions-core.md:49` "ONE trigger-MCP call per worker"). The
+§b rows marked "❌ missing" name KIT-TEMPLATE graduation work
+(CONSTITUTION/landing-path/routines templates) — that is the Self Improvement
+seat's lane, not a v3.1 prompt defect; only their fleet-prompt shadows
+(entries 7–9) queue here.
