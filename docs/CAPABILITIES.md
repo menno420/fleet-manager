@@ -423,6 +423,16 @@ marketplace publishes (Gumroad/dev.to) remain owner-account hard rails.
   run **convention-enforced** (R9/R19: one writer per file, serialized inbox appends,
   born-red cards + claim files).
 
+- **send_message to an INACTIVE seat session fails** (appended 2026-07-12, venue:
+  autonomous-project/webagent-coordinator — a venue that, unlike the org's
+  coordinator/worker sessions above, DOES carry the send_message MCP tool):
+  **"Cannot send events to inactive session (session_inactive)"** — verified
+  2026-07-12 ~20:5xZ against 5 seat coordinator sessions (websites, game-lab,
+  ideas-lab, superbot-world, venture-lab); only a mid-turn ACTIVE session
+  (substrate-kit) accepted delivery. Cross-seat relay therefore rides durable
+  homes (fm inbox / playbook / registry docs) — send_message is opportunistic,
+  not guaranteed.
+
 ## DISCOVERY RULE
 
 Before declaring anything impossible:

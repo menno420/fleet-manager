@@ -26,6 +26,12 @@ Reliability: unverified — confirm its output against ground truth a few
             degradation residue. Verbatim output in the PR #133 session
             card.
 Kill-switch: delete this if it proves unreliable over multiple sessions.
+Amended   : 2026-07-12 (ORDER 020 update 19:20Z, PR #142) — I7 TICK-PILE-UP
+            added after the same-evening live incident: one session held FOUR
+            identical pending pacemaker ticks (19:11/19:17/19:39/19:57Z) and
+            flooded its chat with degenerate replies as they fired minutes
+            apart; the owner had to notice by eye and hand-prune. I7 automates
+            that detection + names the hand-prune remedy.
 =============================================================================
 
 WHAT IT CHECKS (one PASS/FAIL line per invariant; exit 1 on any FAIL)
@@ -53,6 +59,17 @@ WHAT IT CHECKS (one PASS/FAIL line per invariant; exit 1 on any FAIL)
                        (4h) of now — findings from an old snapshot
                        describe the past; refresh (list_triggers, ALL
                        pages, write top-level `captured_at`) first.
+  I7 TICK-PILE-UP      no session holds >1 PENDING (enabled, unfired)
+                       one-shots with same/near-identical message text
+                       (timestamps, `#hex` suffixes and digits stripped
+                       before comparing). Long-fuse DISTINCT scheduled
+                       deliverables (different normalized text) are NOT
+                       pile-up. Remedy: prune to the NEWEST tick; record
+                       the prune in the roster health column +
+                       control/status.md. (ORDER 020 amendment
+                       2026-07-12T19:20Z — pacemaker discipline: re-arm
+                       ONLY after consuming the prior tick; ONE
+                       outstanding tick per session, ever.)
 
 EVAL INSTANT (why not wall-clock now): a snapshot is a point-in-time
 export — judging it at a later wall clock FABRICATES wedges (measured:
@@ -84,6 +101,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import sys
 from datetime import datetime, timezone
 
@@ -101,9 +119,78 @@ def fmt(dt: datetime | None) -> str:
     return dt.strftime("%Y-%m-%dT%H:%MZ") if dt else "n/a"
 
 
+# ------------------------------------------------ I7 TICK-PILE-UP (helpers) --
+# ORDER 020 amendment 2026-07-12T19:20Z: >1 pending pacemaker/work-loop
+# one-shot bound to the SAME session with same/near-identical message text
+# is a PILE-UP (the stacked-tick chat-flood incident). Distinct long-fuse
+# scheduled deliverables on one session (different normalized text) are fine.
+
+_TS_RE = re.compile(r"\d{4}-\d{2}-\d{2}T[\d:.]+Z?")   # ISO timestamps
+_HEX_RE = re.compile(r"#[0-9a-fA-F]+\b")               # send_later #hex tags
+_DIGIT_RE = re.compile(r"\d+")
+
+
+def normalize_tick_text(text: str) -> str:
+    """Normalize a tick's text for near-identity comparison.
+
+    Strips ISO timestamps, `#hex` suffixes, and remaining digits, then
+    lowercases and collapses whitespace — two re-arms of the same work-loop
+    prompt differ only in those tokens.
+    """
+    text = _TS_RE.sub(" ", text)
+    text = _HEX_RE.sub(" ", text)
+    text = _DIGIT_RE.sub(" ", text)
+    return " ".join(text.lower().split())
+
+
+def pending_oneshot(rec: dict) -> bool:
+    """PENDING one-shot: enabled, has run_once_at, no fired/ended state.
+
+    A delivered one-shot disables itself and records
+    ended_reason=run_once_fired, so enabled ∧ no ended_reason = not yet
+    consumed (whether future-due or past-due/queued).
+    """
+    return bool(rec.get("enabled") and rec.get("run_once_at")
+                and not rec.get("ended_reason"))
+
+
+def tick_text(rec: dict) -> str:
+    """The tick's message text (stored prompt), name as the fallback.
+
+    The stored prompt is the identity that matters — distinct deliverables
+    ride distinct prompts even when every send_later NAME normalizes to the
+    same string (verified: two SWTK checkpoints, T+7 vs T+14, same session).
+    """
+    return gen_roster.prompt_text(rec) or rec.get("name", "")
+
+
+def tick_pileups(records: list[dict]) -> list[dict]:
+    """Group pending one-shots by (session, normalized text); >1 = pile-up.
+
+    Returns [{"session", "norm", "ticks"(oldest→newest by run_once_at)}].
+    Sessionless one-shots cannot pile onto a session and are skipped.
+    """
+    groups: dict = {}
+    for r in records:
+        if not pending_oneshot(r):
+            continue
+        sess = r.get("persistent_session_id")
+        if not sess:
+            continue
+        groups.setdefault((sess, normalize_tick_text(tick_text(r))),
+                          []).append(r)
+    pileups = []
+    for (sess, norm), ticks in sorted(groups.items()):
+        if len(ticks) > 1:
+            ticks.sort(key=lambda r: (r.get("run_once_at") or "",
+                                      r.get("created_at") or ""))
+            pileups.append({"session": sess, "norm": norm, "ticks": ticks})
+    return pileups
+
+
 def check(records: list[dict], eval_dt: datetime, now: datetime,
           roster_text: str | None, snapshot_age_known: bool) -> list[tuple]:
-    """Return [(invariant, passed, detail_lines)] for all six invariants."""
+    """Return [(invariant, passed, detail_lines)] for all seven invariants."""
     results = []
     hr = gen_roster.health_report(records, eval_dt)
 
@@ -199,6 +286,26 @@ def check(records: list[dict], eval_dt: datetime, now: datetime,
     if not snapshot_age_known:
         line += " [capture instant is a fallback estimate — see basis above]"
     results.append(("I6 SNAPSHOT-FRESH", passed, [line]))
+
+    # I7 TICK-PILE-UP (ORDER 020 amendment 2026-07-12T19:20Z)
+    lines = []
+    for p in tick_pileups(records):
+        ids = " → ".join(
+            f"`{r['id']}` (due {(r.get('run_once_at') or '?')[:16]}Z)"
+            for r in p["ticks"])
+        lanes = sorted({gen_roster.attribute_lane(r) or "(unattributed)"
+                        for r in p["ticks"]})
+        lines.append(f"`{p['session']}`: {len(p['ticks'])} pending "
+                     f"near-identical ticks, oldest→newest: {ids} · lane: "
+                     + ", ".join(lanes)
+                     + f" · text: {p['norm'][:60]!r}"
+                     + f" → REMEDY: prune to the NEWEST tick "
+                     f"(keep `{p['ticks'][-1]['id']}`, delete the rest); "
+                     "record the prune in the roster health column + "
+                     "control/status.md")
+    results.append(("I7 TICK-PILE-UP", not lines, lines or
+                    ["no session holds >1 pending near-identical work-loop "
+                     "one-shots (distinct long-fuse deliverables exempt)"]))
     return results
 
 
@@ -256,6 +363,43 @@ def selfcheck() -> int:
     late = datetime(2026, 7, 12, 13, 54, tzinfo=timezone.utc)
     ok(not run([manager_ok], now=late)["I6 SNAPSHOT-FRESH"][0],
        "7h-old snapshot reds I6")
+
+    # I7 TICK-PILE-UP (ORDER 020 amendment): two pending re-arms of the
+    # same work-loop prompt on one session = pile-up; two DISTINCT
+    # long-fuse deliverables on one session = exempt.
+    tick_old = {"id": "trig_p1", "name": "send_later 2026-07-12T06:50Z #aa11",
+                "created_at": "t", "enabled": True,
+                "run_once_at": "2026-07-12T06:50:00Z",
+                "persistent_session_id": "session_pile"}
+    tick_new = dict(tick_old, id="trig_p2",
+                    name="send_later 2026-07-12T06:55Z #bb22",
+                    run_once_at="2026-07-12T06:55:00Z")
+    r = run([manager_ok, tick_old, tick_new])
+    ok(not r["I7 TICK-PILE-UP"][0], "2 pending near-identical ticks red I7")
+    i7_text = " ".join(r["I7 TICK-PILE-UP"][1])
+    ok("trig_p1" in i7_text and "trig_p2" in i7_text
+       and i7_text.index("trig_p1") < i7_text.index("trig_p2"),
+       "I7 names the ticks oldest→newest")
+    ok("keep `trig_p2`" in i7_text and "prune" in i7_text,
+       "I7 remedy prunes to the NEWEST tick")
+    fuse_a = {"id": "trig_f1", "name": "send_later 2026-07-19T16:37Z #c1",
+              "created_at": "t", "enabled": True,
+              "run_once_at": "2026-07-19T16:37:00Z",
+              "persistent_session_id": "session_fuse",
+              "job_config": {"ccr": {"events": [{"data": {"message":
+                  {"content": "T+7 checkpoint: log the funnel numbers"}}}]}}}
+    fuse_b = {"id": "trig_f2", "name": "send_later 2026-07-26T16:37Z #c2",
+              "created_at": "t", "enabled": True,
+              "run_once_at": "2026-07-26T16:37:00Z",
+              "persistent_session_id": "session_fuse",
+              "job_config": {"ccr": {"events": [{"data": {"message":
+                  {"content": "T+14 KILL-RULE checkpoint: assess and act"}}}]}}}
+    ok(run([manager_ok, fuse_a, fuse_b])["I7 TICK-PILE-UP"][0],
+       "distinct long-fuse deliverables on one session stay out of I7")
+    fired = dict(tick_old, id="trig_p3", ended_reason="run_once_fired")
+    del fired["enabled"]  # a delivered one-shot loses `enabled` on export
+    ok(run([manager_ok, tick_new, fired])["I7 TICK-PILE-UP"][0],
+       "an already-fired sibling does not count toward a pile-up")
 
     for msg in fails:
         print(f"SELFCHECK FAIL: {msg}", file=sys.stderr)
