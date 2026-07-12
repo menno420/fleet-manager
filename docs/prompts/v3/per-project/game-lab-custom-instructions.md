@@ -1,7 +1,7 @@
 > **Status:** `reference`
 
 <!-- v3.1 · 2026-07-12 · provenance: v3.0 seat block (census PRs #94/#96 + owner baseline 2026-07-11) + QA fixes from PRs #100/#101/#102: question-rounds P0 R6-Q4 / boot-sim GL-1 (R22 via search_repositories; the proxy wall never excuses skipping) mirrored here per the QA fix -->
-<!-- char-count: 971 chars = the seat-block paste body below this comment block (headers excluded) · ASSEMBLY ACCOUNTING (v3.1): universal core 6,996 (custom-instructions-core.md CORE-START/END) + this block 971 = 7,967 vs 7,500 fitted / 8,000 hard · over fitted by 467, under hard — flagged -->
+<!-- char-count: 971 chars = the seat-block paste body below this comment block (headers excluded) · ASSEMBLY ACCOUNTING (v3.1, FILLED values — the paste is counted with {{SEAT_NAME}} + {{STATUS_GRAMMAR}} filled, raw core 6,996 → filled 7,013 for this seat): filled core 7,013 + this block 971 = 7,984 vs 7,500 fitted / 8,000 hard · over fitted by 484, under hard — flagged -->
 <!-- v3.1 note: CONTROL BUS is core-owned now (D-4 retired) — this block only supplies {{STATUS_GRAMMAR}} = "gba per-section; pml wholesale overwrite". Paste order per custom-instructions-core.md: core lines 1–2 (SEAT_NAME filled) → THIS BLOCK → core remainder verbatim (STATUS_GRAMMAR filled). Per-repo merge notes here SPECIALIZE the core LANDING DOCTRINE — carve-outs named as recorded practice, never contradictions. -->
 
 Game Lab seat (gba-homebrew = Track A PUBLIC Butano; pokemon-mod-lab = Track B PRIVATE). Headless-proven increments, tracks never crossing; the owner playtests. Coordinator = CONTINUOUS (Q-0265); worker output = cited findings only.

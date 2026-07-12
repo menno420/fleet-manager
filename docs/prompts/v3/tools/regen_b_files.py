@@ -71,7 +71,7 @@ def build(seat: dict) -> str:
     status = "fitted" if n <= FITTED else (f"over fitted by {n - FITTED}, under hard — flagged" if n <= HARD else f"OVER HARD by {n - HARD} — MUST TRIM")
     header = (
         "> **Status:** `reference`\n\n"
-        f"<!-- v3.1 · {DATE} · GENERATED from ../universal-startup.md (A v3.1, body sha1 {a_stamp()}) by tools/regen_b_files.py — every byte outside the slot fills + the FIRST WORK ORDERS insert is A-verbatim; hand-edits are FORBIDDEN (drift class D-1, PR #100): edit A or the seat config, then regenerate. Canonical FAILSAFE WAKE + PACEMAKER text: A steps 3a/3b (D-2/D-3). Cron slot: per-project/README.md stagger table (D-7). -->\n"
+        f"<!-- v3.1 · {DATE} · GENERATED from ../universal-startup.md (A v3.1, body sha1 {a_stamp()}) by tools/regen_b_files.py — every byte outside the slot fills + the FIRST WORK ORDERS insert + ONE scripted transform (A's self-referential \"Unfilled {{{{slots}}}}\" sentence is dropped from every B) is A-verbatim; hand-edits are FORBIDDEN (drift class D-1, PR #100): edit A or the seat config, then regenerate. Canonical FAILSAFE WAKE + PACEMAKER text: A steps 3a/3b (D-2/D-3). Cron slot: per-project/README.md stagger table (D-7). -->\n"
         f"<!-- char-count: {n:,} chars = the paste body below this comment block (headers excluded; computed by the regen script) · budget ≤7,500 fitted / 8,000 hard · {status} -->\n"
         f"<!-- provenance: v3.0 seat draft (research PRs #93/#95 + census PRs #94/#96 + owner baseline 2026-07-11) + QA fixes applied from PRs #100/#101/#102: {seat['fixes']} -->\n\n"
     )
@@ -105,6 +105,7 @@ SEATS = [
                 "Actions-PR wall, ⚑ OQ-FM-ACTIONS-PR-PERMISSION)"
             ),
             ORDER_GRAMMAR="append-only headers keep `status: new` after DONE-flips",
+            OWNER_TURN_LANDING="the inbox (next free number)",
             CRON_STAGGER="30 */2 * * *",
             OLD_TRIGGER_IDS=(
                 "the live prior failsafe (heartbeat/#97: trig_01F9UdoUtLy8oknBPBkHLshS; census: trig_01BKpsyoBzp1K1ob9H3iu1gM) "
@@ -142,6 +143,7 @@ SEATS = [
                 "adopters call this substrate-gate; the kit has NO check of that name"
             ),
             ORDER_GRAMMAR="ORDER truth = status.md `done=` line, never inbox `status: new`",
+            OWNER_TURN_LANDING="the inbox (next free number)",
             CRON_STAGGER="0 */2 * * *",
             OLD_TRIGGER_IDS=(
                 "the 2-hourly failsafe (heartbeat #252/#253 ids); the 06:00Z kit-lab DAILY = owner BUSINESS cron — KEEP "
@@ -181,6 +183,7 @@ SEATS = [
                 "superbot all-green (born-red HOLD only)"
             ),
             ORDER_GRAMMAR="status.md `orders: done=` is truth; the inbox is manager-owned — never edit it",
+            OWNER_TURN_LANDING="control/outbox.md, manager-addressed (the inbox is manager-owned)",
             CRON_STAGGER="0 1-23/2 * * *",
             OLD_TRIGGER_IDS="none live expected (wake loop disarmed Jul 11; ~20 spent disabled one-shots)",
         ),
@@ -216,6 +219,7 @@ F4 Port loop: next wave slice (expect wave6/inventory-flip), six gates each; por
                 "substrate-gate born-red HOLD (all 3); genuinely green: games tests.yml · idle theme-gate · mineverse schema-gate"
             ),
             ORDER_GRAMMAR="headers may lag DONE-flips",
+            OWNER_TURN_LANDING="the inbox (next free number)",
             CRON_STAGGER="15 1-23/2 * * *",
             OLD_TRIGGER_IDS=(
                 "games trig_019ZgWyL78Rx1sr6LhvL8NE3 (15 */2 — WAS armed per ORDER-015, maybe auto-disabled; never assume "
@@ -252,6 +256,7 @@ W3 games — truth-stamp the heartbeat ONCE (archival correction, NOT resumption
             ORIENTATION_PATH="README + CONSTITUTION.md + current-state + CAPABILITIES per repo (no CLAUDE.md — expected)",
             EXPECTED_RED="substrate-gate born-red card HOLD; genuinely green: rom-builds per track",
             ORDER_GRAMMAR="status stamps = snapshots, not order lists",
+            OWNER_TURN_LANDING="the inbox (next free number)",
             CRON_STAGGER="15 */2 * * *",
             OLD_TRIGGER_IDS=(
                 "gba/pml hourly wakes trig_0137SkvhXEJvwepX8aVNkcSn + trig_01BTJjkMVMKtWPjuYe7643Hi + retro-games "
@@ -284,6 +289,7 @@ W3 Track A toward Lumen Drift Release (playtests + B pick owner-gated ⚑). Done
             ORIENTATION_PATH=".claude/CLAUDE.md → docs/current-state.md → docs/CAPABILITIES.md (full triple exists here)",
             EXPECTED_RED="the born-red card HOLD only; `quality` green expected on main",
             ORDER_GRAMMAR="ORDER truth = status.md `done=`, not inbox `status:`",
+            OWNER_TURN_LANDING="the inbox (next free number)",
             CRON_STAGGER="45 */2 * * *",
             OLD_TRIGGER_IDS=(
                 "the v1-era 4-hourly wake (ORDER-008 text; no id slot — find by name+prompt in the audit, record the id) + "
@@ -321,6 +327,7 @@ W3 Track A toward Lumen Drift Release (playtests + B pick owner-gated ⚑). Done
                 "venture: kit-tests + substrate-gate (born-red HOLD); trading: tests only"
             ),
             ORDER_GRAMMAR="ORDERs repo-first — qualify numbers per repo",
+            OWNER_TURN_LANDING="the inbox (next free number)",
             CRON_STAGGER="45 1-23/2 * * *",
             OLD_TRIGGER_IDS=(
                 "trig_01X1dw1L1Udgt8atzzNWEJic + trig_017o6azZTd9pzcaSthEncT5q; grading trig_015aNMg5ncoSE2Roe4MKjQnr = "
@@ -356,6 +363,7 @@ F3 RE-STAMP what contradicts live GitHub — trading's heartbeat is the stale on
             ),
             EXPECTED_RED="born-red HOLD only — preflight/substrate-gate red is REAL now (post-#221)",
             ORDER_GRAMMAR="headers may lag DONE-flips",
+            OWNER_TURN_LANDING="the inbox (next free number)",
             CRON_STAGGER="30 1-23/2 * * *",
             OLD_TRIGGER_IDS=(
                 "the prior coordinator may be LIVE (status ACTIVE; failsafe trig_01T83UuVthszGBcENYwrTrm7 at 0 */2 squats "

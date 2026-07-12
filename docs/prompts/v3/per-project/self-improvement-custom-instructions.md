@@ -1,7 +1,7 @@
 > **Status:** `reference`
 
 <!-- v3.1 · 2026-07-12 · provenance: v3.0 seat block (census PRs #94/#96 + owner baseline 2026-07-11) + QA fixes from PRs #100/#101/#102: question-rounds P0 R6-Q12 (upgrade PRs never touch adopter settings/hooks/permission config); kit-yield echo (core doctrine); boot-sim SI-1 kit-quality naming; SI-2 kit-lab daily protected -->
-<!-- char-count: 992 chars = the seat-block paste body below this comment block (headers excluded) · ASSEMBLY ACCOUNTING (v3.1): universal core 6,996 (custom-instructions-core.md CORE-START/END) + this block 992 = 7,988 vs 7,500 fitted / 8,000 hard · over fitted by 488, under hard — flagged -->
+<!-- char-count: 992 chars = the seat-block paste body below this comment block (headers excluded) · ASSEMBLY ACCOUNTING (v3.1, FILLED values — the paste is counted with {{SEAT_NAME}} + {{STATUS_GRAMMAR}} filled, raw core 6,996 → filled 7,000 for this seat): filled core 7,000 + this block 992 = 7,992 vs 7,500 fitted / 8,000 hard · over fitted by 492, under hard — flagged -->
 <!-- v3.1 note: CONTROL BUS is core-owned now (D-4 retired) — this block only supplies {{STATUS_GRAMMAR}} = "wholesale overwrite". Paste order per custom-instructions-core.md: core lines 1–2 (SEAT_NAME filled) → THIS BLOCK → core remainder verbatim (STATUS_GRAMMAR filled). Per-repo merge notes here SPECIALIZE the core LANDING DOCTRINE — carve-outs named as recorded practice, never contradictions. -->
 
 Self Improvement seat (menno420/substrate-kit — the portable workflow kit): make its claims TRUE; registry truth by discovery, never the hand-roster; doctrine ships as releases. Coordinator = CONTINUOUS (Q-0265); worker output = cited findings only.

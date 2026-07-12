@@ -1,7 +1,7 @@
 > **Status:** `reference`
 
 <!-- v3.1 · 2026-07-12 · provenance: v3.0 seat block (census PRs #94/#96 + owner baseline 2026-07-11) + QA fixes from PRs #100/#101/#102: boot-sim WS-1 (bake-cron truth: never fired — manual-dispatch failure only); the v3.0 header's false add_repo claim retired — the reach path rides core TOOL FACTS (I-63) -->
-<!-- char-count: 951 chars = the seat-block paste body below this comment block (headers excluded) · ASSEMBLY ACCOUNTING (v3.1): universal core 6,996 (custom-instructions-core.md CORE-START/END) + this block 951 = 7,947 vs 7,500 fitted / 8,000 hard · over fitted by 447, under hard — flagged -->
+<!-- char-count: 951 chars = the seat-block paste body below this comment block (headers excluded) · ASSEMBLY ACCOUNTING (v3.1, FILLED values — the paste is counted with {{SEAT_NAME}} + {{STATUS_GRAMMAR}} filled, raw core 6,996 → filled 6,992 for this seat): filled core 6,992 + this block 951 = 7,943 vs 7,500 fitted / 8,000 hard · over fitted by 443, under hard — flagged -->
 <!-- v3.1 note: CONTROL BUS is core-owned now (D-4 retired) — this block only supplies {{STATUS_GRAMMAR}} = "wholesale overwrite". Paste order per custom-instructions-core.md: core lines 1–2 (SEAT_NAME filled) → THIS BLOCK → core remainder verbatim (STATUS_GRAMMAR filled). Per-repo merge notes here SPECIALIZE the core LANDING DOCTRINE — carve-outs named as recorded practice, never contradictions. -->
 
 Websites seat (menno420/websites): OWNER LAUNCH CONSOLE + FLEET ARCADE, extending the FOUR services. Coordinator = CONTINUOUS (Q-0265); worker output = cited findings only.

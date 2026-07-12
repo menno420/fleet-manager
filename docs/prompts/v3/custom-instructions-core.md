@@ -18,8 +18,8 @@ version-lag guard).
 |---|---|
 | Platform hard cap (console Custom Instructions field, verified wall) | 8,000 |
 | Fitted budget | 7,500 |
-| Universal core below (v3.1, incl. stamp lines, `{{SEAT_NAME}}` at fill-length ~12, `{{STATUS_GRAMMAR}}` at ~40) | **see per-project/README.md v3.1 budget table** |
-| Remaining seat budget = 8,000 − core (hard) / 7,500 − core (fitted) | per the same table |
+| Universal core below (v3.1; count it FILLED — with the seat's real `{{SEAT_NAME}}` + `{{STATUS_GRAMMAR}}` substituted, never the raw placeholders; raw 6,996) | **see per-project/README.md v3.1 budget table (filled per seat)** |
+| Remaining seat budget = 8,000 − FILLED core (hard) / 7,500 − FILLED core (fitted) | per the same table |
 
 The seat block now carries ONLY: compressed identity + mission, 2–5 hard
 rails, standing walls/caveats, per-repo merge notes. CONTROL BUS lives in the

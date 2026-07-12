@@ -8,7 +8,9 @@
 v3.1 composition (supersedes the v3.0 hand-drafting recipe): every
 **`<seat>-startup.md`** (artifact B) is **GENERATED** from `../universal-startup.md`
 (A) by **`../tools/regen_b_files.py`** — slot fills + a FIRST WORK ORDERS insert
-are the only per-seat bytes; everything else is A-verbatim, and each B header
++ ONE scripted transform (A's self-referential "Unfilled {{slots}}" sentence is
+dropped from every B — in a generated B every slot is filled) are the only
+non-A-verbatim bytes; everything else is A-verbatim, and each B header
 carries the sha1 of the A body it was generated from. **Never hand-edit a B
 file** (drift class D-1, PR #100): edit A or the seat config in the script,
 then rerun it. Each **`<seat>-custom-instructions.md`** carries the seat C
@@ -36,28 +38,32 @@ mineverse) · Game Lab (gba-homebrew + pokemon-mod-lab) · Ideas Lab
 seat 9 via this same recipe — stagger slot below), codetool-lab-* (DARK),
 superbot-plugin-hello (helper, folded into SuperBot 2.0's F1).
 
-## v3.1 budget table (real counts, regen-verified 2026-07-12)
+## v3.1 budget table (real counts, regen-verified 2026-07-12; FILLED values)
 
 Hard caps: startup ≤ 8,000 · assembled CI ≤ 8,000 — **all 20 within hard**.
-Fitted target 7,500: the universal artifacts fit; **every B file and assembled
-CI runs over fitted, flagged in its header** — the QA fix volume (12 P0s, 3
-BLOCKERs, 12 contradictions) does not fit under 7,500 without dropping safety
-rules, and the mission ranks safety over the fitted target.
+**Assembled CI is counted with `{{SEAT_NAME}}` + `{{STATUS_GRAMMAR}}` FILLED**
+(Codex PR #103 review: the raw-placeholder count under-measured every paste by
+the fill delta and let 3 seats silently exceed 8,000 — never count a paste
+with placeholders in it). Fitted target 7,500: the universal artifacts fit;
+**every B file and assembled CI runs over fitted, flagged in its header** —
+the QA fix volume (12 P0s, 3 BLOCKERs, 12 contradictions) does not fit under
+7,500 without dropping safety rules, and the mission ranks safety over the
+fitted target.
 
 | Artifact | Chars | vs fitted 7,500 / hard 8,000 |
 |---|---:|---|
-| A universal-startup (body) | 6,496 | n/a (template; skeleton budget ≤ ~6,600) |
-| C universal core (CORE-START/END) | 6,996 | leaves ≤ 1,004 seat-block hard budget |
-| D session-ender (body) | 3,300 | chat paste — console cap n/a; over its ~2,000 prose budget BY DESIGN (P0 ender fixes), flagged in-file |
-| Seat | Startup B | Seat block C | Assembled CI | Status |
-| fleet-manager | 7,798 | 975 | 7,971 | under hard, over fitted — flagged |
-| superbot | 7,958 | 991 | 7,987 | under hard, over fitted — flagged |
-| websites | 7,969 | 951 | 7,947 | under hard, over fitted — flagged |
-| self-improvement | 7,960 | 992 | 7,988 | under hard, over fitted — flagged |
-| superbot-world | 7,968 | 1,002 | 7,998 | under hard, over fitted — flagged |
-| game-lab | 7,999 | 971 | 7,967 | under hard, over fitted — flagged |
-| ideas-lab | 7,954 | 980 | 7,976 | under hard, over fitted — flagged |
-| venture-lab | 8,000 | 1,004 | 8,000 | AT hard cap exactly, over fitted — flagged |
+| A universal-startup (body) | 6,373 | n/a (template; skeleton budget ≤ ~6,600) |
+| C universal core (CORE-START/END) | 6,996 raw · 6,992–7,031 filled per seat | seat-block hard budget = 8,000 − FILLED core |
+| D session-ender (body) | 3,411 | chat paste — console cap n/a; over its ~2,000 prose budget BY DESIGN (P0 ender fixes), flagged in-file |
+| Seat | Startup B | Seat block C | Assembled CI (filled core + block) | Status |
+| fleet-manager | 7,796 | 975 | 7,972 | under hard, over fitted — flagged |
+| superbot | 7,993 | 984 | 7,994 | under hard, over fitted — flagged |
+| websites | 7,967 | 951 | 7,943 | under hard, over fitted — flagged |
+| self-improvement | 7,958 | 992 | 7,992 | under hard, over fitted — flagged |
+| superbot-world | 7,966 | 966 | 7,997 | under hard, over fitted — flagged |
+| game-lab | 7,997 | 971 | 7,984 | under hard, over fitted — flagged |
+| ideas-lab | 7,952 | 980 | 7,992 | under hard, over fitted — flagged |
+| venture-lab | 7,998 | 990 | 7,998 | under hard, over fitted — flagged |
 
 The v3.0 constant "core 6,117" is RETIRED (D-8); the single source for the
 core figure is this table + the core file's own markers, restated at every
