@@ -6,6 +6,20 @@
 
 # Custom Instructions — universal core (artifact C)
 
+> **⚠ v3.3 (2026-07-12): SUPERSEDED AS A CI ASSEMBLY SOURCE — reference
+> doctrine only, no longer assembled into any Custom Instructions paste.**
+> The v3.3 rebuild (owner spec 2026-07-12) retired the core+seat-block
+> assembly: each `per-project/<seat>-custom-instructions.md` now IS the
+> complete per-seat paste artifact (seat-first keyword dictionary), and the
+> expanded `per-project/<seat>-startup.md` files carry this file's doctrine
+> (TRUTH + INJECTION GUARD, CONTROL BUS, GEN-3 digest, all v3.1 QA riders)
+> VERBATIM. This file is KEPT because the v3.3 CI dictionaries route rider
+> keywords here (their `CORE` alias) — the CORE-START/CORE-END block below is
+> frozen as that reference text (sourced @ 95b5c8f; do not paste it into a
+> console field; a durable-home hoist for the rider texts is tracked in
+> `docs/prompts/v3/planned-routes.md` §A). Everything below this note is the v3.1 artifact,
+> kept verbatim for reference.
+
 Every seat's Custom Instructions paste = **[universal core below, verbatim] +
 [seat block]**, assembled in the paste order given here. This file is the single
 home of the core; a seat file never re-words a core block — a core change

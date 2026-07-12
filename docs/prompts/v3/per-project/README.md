@@ -1,30 +1,49 @@
 > **Status:** `reference`
 
-<!-- v3.2 · 2026-07-12 · provenance: owner correction 2026-07-12 (stateless startup artifacts — see the v3.2 changelog section below). Prior: v3.1 (v3.0 plan research PRs #93/#95 + owner baseline 2026-07-11 + QA PRs #100/#101/#102, applied in PR #103) -->
+<!-- v3.3 · 2026-07-12 · provenance: owner spec 2026-07-12 (overnight prompt rebuild — CI becomes a per-seat keyword dictionary; startups EXPAND, no char cap; see the v3.3 changelog section below). Prior: v3.2 (stateless correction) · v3.1 (research PRs #93/#95 + owner baseline + QA PRs #100/#101/#102, applied in PR #103) -->
 <!-- char-count: planning doc, no paste budget applies -->
 
-# Per-project prompts (artifact B + seat C blocks) — v3.2
+# Per-project prompts — v3.3 (per-seat Custom Instructions + expanded startups)
 
-v3.2 composition (supersedes v3.1's only in the insert block): every
-**`<seat>-startup.md`** (artifact B) is **GENERATED** from `../universal-startup.md`
-(A) by **`../tools/regen_b_files.py`** — slot fills + a WORK SOURCES insert
-+ ONE scripted transform (A's self-referential "Unfilled {{slots}}" sentence is
-dropped from every B — in a generated B every slot is filled) are the only
-non-A-verbatim bytes; everything else is A-verbatim, and each B header
-carries the sha1 of the A body it was generated from. **Never hand-edit a B
-file** (drift class D-1, PR #100): edit A or the seat config in the script,
-then rerun it. **STATELESS RULE (drift class D-9, owner correction
-2026-07-12): startup prompts never carry volatile state** — no concrete PR
-numbers, no SHA/CI colors, no trigger ids asserted as facts, no "do X now"
-execute items. A slot fill names WHERE current state lives (inbox, status,
-queue doc, telemetry), never WHAT it currently says; current work reaches a
-seat only through its WORK SOURCES ladder — (a) `control/inbox.md` at HEAD,
-(b) the seat's named state docs, (c) the standing mission. Durable standing
-rails (track isolation, security-before-secrets ordering, research-only
-constraints) stay in the prompt — they are mission, not state. Each
-**`<seat>-custom-instructions.md`** carries the seat C block; CONTROL BUS is
-core-owned since v3.1 (D-4 retired) — a seat block only supplies the
-`{{STATUS_GRAMMAR}}` fill declared in its header.
+v3.3 composition (owner spec 2026-07-12 — supersedes the v3.2 generated/
+assembled model):
+
+- **`<seat>-custom-instructions.md`** = the seat's **complete Custom
+  Instructions paste artifact, ONE AUTHORED FILE PER SEAT**: seat header +
+  condensed five-section skeleton (Orientation · Landing path · Routine-fired
+  session · Never-idle ladder · Capabilities/heartbeat/asks) + a **keyword
+  dictionary** (fleet vocabulary → meaning → route) + a Routes footer. The
+  v3.1/v3.2 core+seat-block **assembly is RETIRED** — nothing is assembled;
+  the file is the paste. `../custom-instructions-core.md` is kept as routed
+  **reference doctrine only** (the dictionaries' `CORE` alias). HARD cap
+  8,000 chars (verified console wall) · aim ≤7,500; count the paste as
+  pasted (Codex PR #103 lesson — no placeholders remain).
+- **`<seat>-startup.md`** = the seat's **AUTHORED, EXPANDED coordinator
+  brief** — no longer generated from `../universal-startup.md` (that template
+  is kept as the v3.2 skeleton of record). The v3.2 procedure text is
+  preserved byte-verbatim outside the documented v3.3 splices; the universal
+  doctrine now rides **in the startup, verbatim and in full** (TRUTH +
+  INJECTION GUARD, WORKER-RELAY, CONTROL BUS, GEN-3 HYGIENE v5, the
+  owner-landed PERMISSIONS grant from `projects/UNIVERSAL.md`, all nine QA
+  riders, the session ender inlined from `../session-ender.md`). **NO char
+  cap — size is a NOTE, not a gate** (owner spec 2026-07-12).
+- **Layer contract:** the Custom Instructions are the **compression
+  dictionary** over the startup — every dictionary keyword's full behavior
+  lives in the startup (or the repo doc the entry routes to); a CI entry and
+  its source may never disagree. Keywords/expansions still lacking a durable
+  routed home are tracked in **[`../planned-routes.md`](../planned-routes.md)**.
+- **Drift guards** (run `python3 ../tools/regen_b_files.py` after ANY prompt
+  edit; all fail the run): CI hard-cap gate · **ender sync D-10** (each
+  startup's inlined ender byte-matches `../session-ender.md`) · **grant
+  sync** (each startup's grant byte-matches `projects/UNIVERSAL.md`'s
+  canonical block) · **doctrine identity** (the DOCTRINE section
+  byte-identical across all 8 after normalizing the one status-grammar
+  fill) · card-block identity · stamp/DRIFT-CHECK lines · failsafe
+  extraction. Registry sync keeps `--check-registry` / `--write-registry`.
+- **STATELESS RULE (D-9, unchanged):** neither layer carries volatile state —
+  no concrete PR numbers, no SHA/CI colors, no trigger ids asserted as facts,
+  no "do X now" items; prompts name WHERE current state lives; current work
+  reaches a seat only through its WORK SOURCES ladder.
 
 ## Census inputs — AVAILABLE (write against them, not from memory)
 
@@ -47,7 +66,35 @@ mineverse) · Game Lab (gba-homebrew + pokemon-mod-lab) · Ideas Lab
 seat 9 via this same recipe — stagger slot below), codetool-lab-* (DARK),
 superbot-plugin-hello (helper, folded into SuperBot 2.0's F1).
 
-## v3.2 budget table (real counts, regen-verified 2026-07-12; FILLED values)
+## v3.3 size table (real counts, checker-verified 2026-07-12 — `../tools/regen_b_files.py`)
+
+Hard cap: **Custom Instructions ≤ 8,000 chars** (verified console wall; aim
+≤7,500 — every seat runs over the aim BY DESIGN: the owner's mandated keyword
+set outranks the fitted target, same call as v3.2's safety-over-fitted).
+UTF-8 bytes also gated ≤ 8,000 for all 8 by the checker (belt-and-braces;
+the fleet budget basis is characters). **Startups have NO cap** — sizes below are a NOTE, not a
+gate (owner spec 2026-07-12). The session ender is a chat paste (no console
+cap).
+
+| Seat | CI (chars) | CI (bytes) | Expanded startup (chars) | v3.2 startup was |
+|---|---:|---:|---:|---:|
+| fleet-manager | 7,850 | 7,922 | 27,409 | 7,833 |
+| superbot | 7,934 | 7,996 | 27,625 | 7,819 |
+| websites | 7,925 | 7,997 | 27,310 | 7,838 |
+| self-improvement | 7,918 | 7,988 | 27,473 | 7,927 |
+| superbot-world | 7,924 | 7,986 | 26,999 | 7,868 |
+| game-lab | 7,927 | 7,995 | 26,836 | 7,999 |
+| ideas-lab | 7,855 | 7,925 | 27,144 | 7,770 |
+| venture-lab | 7,926 | 7,994 | 27,186 | 7,841 |
+
+Seat-first ratio: ~74–76% of each CI's non-blank chars are seat-specific on
+the drafting-pass line-identity basis (~72.8–73.1% on the verifier's
+paste-body line-identity measurement — both clear the ≥60% bar); the v3.2
+assembled CI ran ~12% seat share, which is what the owner rejected. Counts
+restate at every edit: run the checker, then update this table + each
+file's own header.
+
+## v3.2 budget table (HISTORICAL — the assembled-CI generation this table measured is retired; FILLED values)
 
 Hard caps: startup ≤ 8,000 · assembled CI ≤ 8,000 — **all 20 within hard**.
 **Assembled CI is counted with `{{SEAT_NAME}}` + `{{STATUS_GRAMMAR}}` FILLED**
@@ -195,7 +242,8 @@ carry those defects on main — the v3.1 rebuild does not, verdicts below.
 6. instructions.md v2 → the kit found no wrong facts there; nothing to
    verify, no queue entry.
 
-**§(a)/(b) coverage gaps — REAL v3.2 queue entries:**
+**§(a)/(b) coverage gaps — REAL v3.2 queue entries (ALL THREE CLOSED by the
+v3.3 rebuild — see the v3.3 changelog below):**
 
 7. **Fresh-session-per-fire binding rule missing; the generic BUSINESS-cron
    rebind text conflicts with it** — source: ORDER 014 §a.1 ("a standing loop
@@ -258,6 +306,65 @@ with the dirty-tree rescue-branch guard). Sequential trigger-call pacing §a.5
 (CONSTITUTION/landing-path/routines templates) — that is the Self Improvement
 seat's lane, not a v3.1 prompt defect; only their fleet-prompt shadows
 (entries 7–9) queue here.
+
+## v3.3 changelog — seat-first keyword-dictionary CIs + expanded startups (owner spec 2026-07-12)
+
+**Owner spec (live, 2026-07-12, overnight prompt rebuild):** the v3.2
+assembled CI (core-dominant, ~12% seat share) is what the owner rejected;
+v3.3 rebuilds the CI on the deployed v2 style — seat-first, the owner's
+five-section skeleton — as a **compression dictionary/routing layer**, and
+the startup prompts lose their char cap and **EXPAND to carry the universal
+doctrine verbatim**. Applied in one integration pass:
+
+1. **CI: one authored file per seat** (`<seat>-custom-instructions.md`
+   replaced in place — the seat C blocks became the full artifacts). The
+   core+seat-block assembly is retired; `../custom-instructions-core.md` is
+   marked superseded-as-assembly-source and kept as routed reference
+   doctrine (its rider block frozen @ 95b5c8f — the dictionaries' `CORE`
+   alias). Every dictionary route target verified on disk at seat-repo
+   HEADs 2026-07-12; stopgap routes tracked in
+   [`../planned-routes.md`](../planned-routes.md).
+2. **Startups: authored expanded files** (v3.2 procedure text byte-verbatim
+   outside four documented splices: WORK-LOOP pointer, LANDING pointer,
+   GEN-3+TRUTH pointer paragraph → full DOCTRINE section, stamp line). New:
+   YOUR SEAT section (repos/stack, CI checks by exact name, per-repo MERGE
+   MECHANICS, walls, CAPABILITIES discovery, full born-red card mechanics),
+   ROUTINE-FIRED probe-landing-tools protocol (WS-1 fleet-wide), DOCTRINE
+   in full (grant VERBATIM from `projects/UNIVERSAL.md`, nine QA riders),
+   HEARTBEAT `kit:` line grammar + six-field asks, SESSION ENDER inlined.
+   `../universal-startup.md` marked superseded-as-generation-source.
+3. **BOOT TRIAD (Q-0270, owner directive relayed live 2026-07-12):** BOOT
+   step 0 in every startup + a dictionary keyword in every CI — state model
+   (family-level) + venue + ability envelope; autonomous sessions pre-route
+   around known stall classes and park only on a REAL denial, never
+   preemptively; owner-live sessions assume no special limitations (Q-0269).
+4. **v3.2 defect queue CLOSED:** #7 fresh-session-per-fire (BOOT 4 EXCEPTION
+   + ender step 3(b)), #8 `kit:` line grammar (HEARTBEAT section + CI kit
+   gate entry), #9 MCP PR-read staleness (TOOL FACTS rider extension + CI
+   TOOL FACTS clause).
+5. **Ender v3.3** (`../session-ender.md`): step 3(b) fresh-session-per-fire
+   clause; now also INLINED in every startup — D stays canonical, drift
+   class **D-10** minted (checker verifies every inlined copy).
+6. **Tooling** (`../tools/regen_b_files.py`): generation/assembly modes
+   REMOVED (they would clobber the authored v3.3 files); default run = CI
+   hard-cap gate + drift checks (ender D-10, grant vs UNIVERSAL.md, doctrine
+   identity, card-block + triad identity, stamps, failsafe extraction);
+   `--check-registry` / `--write-registry` kept — registry failsafe bodies
+   now derive from each startup's own BOOT 3a text.
+7. **Thorough boot verification preferred (owner doctrine, live 2026-07-12):**
+   BOOT 2 in every startup now states it explicitly — current state moves
+   fast, so a fresh-looking baton NARROWS the search but never substitutes
+   for verification; re-verify every claim you act on at live HEAD, even
+   when the handoff reads current. Checker-enforced as a shared block; a
+   16-file sweep found NO skip-tempting wording to neutralize (both grep
+   hits were pro-verification or unrelated).
+8. **UNIVERSAL.md grant sha reconciled:** the true last-touch commit of
+   `projects/UNIVERSAL.md` is **16161af** (v4, 2026-07-11; `e1848ff` is its
+   PR #76 merge commit with identical content, `e801da5` is a later
+   kit-bump commit that did not touch the file — both stale citations).
+   v3.3 artifacts stamp `UNIVERSAL v4@16161af`; the core file's internal
+   `e801da5` citation is part of the frozen v3.1 reference block and was
+   left untouched.
 
 ## v3.2 changelog — stateless rebuild (owner correction 2026-07-12)
 
