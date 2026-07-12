@@ -23,13 +23,19 @@
 > rebind-then-delete cutover recipes ride each seat's boot). **Slice 3
 > (prompts v3.2 registry sync, 2026-07-12) landed:** each of the 8 seat dirs'
 > `coordinator-prompt.md` + `instructions.md` + `failsafe-prompt.md` is now a
-> **GENERATED copy of the v3.2 generation** (stateless, D-9) — source of truth
+> **GENERATED copy** (stateless, D-9) — source of truth
 > = `docs/prompts/v3/`; regenerate via
 > `docs/prompts/v3/tools/regen_b_files.py --write-registry`, drift guard
-> `--check-registry`. The MATRIX and paste-wave sections below still predate
-> the restructure — treat them as historical until a follow-up regenerates
-> them against the 8 seats; for the 8 standing seats, the current paste is
-> always the v3.2 body in the seat's dir.
+> `--check-registry`. **Slice 4 (prompts v3.3 registry sync, 2026-07-12)
+> landed:** the copies now carry the **v3.3 generation** — `instructions.md`
+> = the seat's authored one-file Custom Instructions (seat-first keyword
+> dictionary, ≤8,000 chars; the core+seat-block assembly is retired) and
+> `coordinator-prompt.md` = the seat's EXPANDED startup (full doctrine
+> verbatim, no char cap; includes the Q-0270 BOOT TRIAD). The MATRIX and
+> paste-wave sections below still predate the restructure — treat them as
+> historical until a follow-up regenerates them against the 8 seats; for the
+> 8 standing seats, the current paste is always the v3.3 body in the seat's
+> dir.
 
 ## What this registry is
 
