@@ -928,8 +928,16 @@ done-when: the wake ritual flags >1 same-session pending work-loop one-shots as 
 prunes to newest, and records it — re-playing tonight's registry (4 stacked sceTGcmo ticks)
 would surface and fix it in one wake.
 
-### ORDER 020 update · 2026-07-12T21:58Z · amendment status: ✅ DONE
-Executed by the successor coordinator (boot 2026-07-12 ~20:30Z, session continuous):
+## ORDER 020 · update 2026-07-12T21:58Z · status: ✅ DONE (amendment — I7 TICK-PILE-UP; fleet-manager PR #142)
+priority: P1 (unchanged)
+do: (append-only DONE flip for the 19:20Z TICK PILE-UP amendment above — no new work
+ordered; executed by the successor coordinator, boot 2026-07-12 ~20:30Z, session
+continuous.)
+why: the amendment's done-when is met — the wake ritual now flags >1 same-session
+pending near-identical work-loop one-shots as PILE-UP with prune-to-newest named,
+and replaying tonight's registry surfaces the stacked sceTGcmo ticks in one wake.
+done-when: (met in fleet-manager PR #142)
+✅ DONE:
 - TICK PILE-UP added to scripts/check_trigger_health.py as invariant I7 (>1 pending near-identical work-loop one-shot on one session = FAIL; remedy prune-to-newest, recorded in roster health + status.md) — PR #142.
 - Fresh registry export committed (telemetry/triggers-snapshot.json, captured_at 2026-07-12T20:41:13Z, 945 records); I7 first evaluation: PASS — no live pile-up (post-prune registry clean; the two same-session SWTK long-fuse checkpoints correctly exempted as distinct deliverables). Replay proof: the pre-prune 18:25:51Z snapshot reds I7 on the incident's 4 stacked sceTGcmo pacemaker ticks with prune-to-newest named — the amendment's done-when.
 - Pacemaker discipline relayed 2026-07-12 ~20:55Z via send_message: DELIVERED to substrate-kit (active); websites / game-lab / ideas-lab / superbot-world / venture-lab were INACTIVE (`session_inactive`) — durable copy lives in docs/playbook.md (R26 note); inactive seats pick it up from fm HEAD on next wake. Capability finding appended to docs/CAPABILITIES.md.
