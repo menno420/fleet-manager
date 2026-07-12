@@ -88,8 +88,13 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
    - Blocking: not-blocking (REST-squash workaround in use, PRs #40–#43).
 
 9. **product-forge — post-seed settings residue: Allow auto-merge + required
-   gate.**
+   gate — ⛔ mooted by the consolidation archive path (see note).**
    - id: OQ-FORGE-SETTINGS-RESIDUE
+   - **Reconciliation note (2026-07-12, consolidation plan):** the plan
+     verdicts product-forge MIGRATE-THEN-ARCHIVE (Phase 1 rehomes → the B#38
+     archive click, OQ-CONSOLIDATION-ARCHIVE-FORGE) — an archived repo needs
+     no auto-merge/required-check settings. **Skip these clicks** unless the
+     archive path is vetoed at E#42; body kept verbatim below for audit.
    - WHERE: https://github.com/menno420/product-forge/settings
    - HOW: tick "Allow auto-merge"; make the substrate gate / smoke check a
      required check on main.
@@ -163,6 +168,81 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
     - Blocking: not-blocking (manager wakes still regen the roster; the
       freshness checker alarms at >4h), but this click removes the last
       manager-wake dependence — the whole point of P1.
+
+38. **Consolidation Phase 3.1 — archive product-forge (AFTER the Phase 1
+    migrations land)** *(new 2026-07-12, consolidation plan:
+    [`planning/2026-07-12-repo-consolidation-plan.md`](planning/2026-07-12-repo-consolidation-plan.md)
+    § 3.1).*
+   - id: OQ-CONSOLIDATION-ARCHIVE-FORGE
+    - WHAT: GitHub archive toggle (read-only, reversible — nothing deleted).
+    - WHERE: https://github.com/menno420/product-forge → Settings → Danger
+      Zone → "Archive this repository".
+    - HOW: one click — **gated on the plan's ORDERs P1-1/P1-2/P1-3** (rehome
+      games-web, the data-API proposal, the retro) landing first, and on the
+      E#42 gate letter (OQ-CONSOLIDATION-DELETE-VS-ARCHIVE).
+    - UNBLOCKS: removes the repo from the kit re-render fan-out (it drew
+      re-render PRs for nothing on 2026-07-12); first slice of 19 → 16.
+    - VERIFIED-NEEDED: plan § 3.1 — heartbeat frozen 2026-07-11T19:39:50Z; no
+      armed trigger references it (832-record trigger-map snapshot). Archive
+      toggles are an owner-only settings wall.
+    - RISK: ↩️ reversible — unarchive is the same settings toggle.
+    - Blocking: not-blocking; sequenced after Phase 1.
+    - Dedup: this click moots B#9 (OQ-FORGE-SETTINGS-RESIDUE) and D#26
+      (OQ-FORGE-PAGES) — reconciliation notes added on those items.
+
+39. **Consolidation Phase 3.2 — archive codetool-lab-sonnet5 (AFTER the
+    Phase 1 migrations land)** *(new 2026-07-12, consolidation plan § 3.2).*
+   - id: OQ-CONSOLIDATION-ARCHIVE-SONNET5
+    - WHAT: GitHub archive toggle (read-only, reversible).
+    - WHERE: https://github.com/menno420/codetool-lab-sonnet5 → Settings →
+      Danger Zone.
+    - HOW: one click — gated on ORDER P1-4 (port the two writeups to
+      substrate-kit) **and your E#43 letter** (release first if A — archiving
+      freezes the tag-push path forever).
+    - UNBLOCKS: second consolidation slice; no trigger references the repo.
+    - VERIFIED-NEEDED: census § sonnet5 — last commit `66c3dfc` 2026-07-09;
+      zero tags on origin; owner ruling 2026-07-10 "archive … after harvest".
+    - RISK: ↩️ reversible — unarchive toggle; the one thing archiving does
+      freeze is tag-push, which is exactly why E#43 sequences first.
+    - Blocking: not-blocking.
+
+40. **Consolidation Phase 3.3 — archive codetool-lab-fable5 (AFTER the
+    Phase 1 migrations land)** *(new 2026-07-12, consolidation plan § 3.3).*
+   - id: OQ-CONSOLIDATION-ARCHIVE-FABLE5
+    - WHAT: GitHub archive toggle (read-only, reversible).
+    - WHERE: https://github.com/menno420/codetool-lab-fable5 → Settings →
+      Danger Zone.
+    - HOW: one click — gated on ORDER P1-5 (your named `.pyc`/`.gitignore`
+      hygiene precondition) **and your E#44 letter**.
+    - UNBLOCKS: third consolidation slice; no trigger references the repo.
+    - VERIFIED-NEEDED: census § fable5 — `.pyc`/.gitignore defect verified @
+      `a6cf1a9`; owner precondition on record.
+    - RISK: ↩️ reversible — unarchive toggle.
+    - Blocking: not-blocking.
+
+41. **Consolidation Phase 3.4 — protect pokemon-mod-lab `main` (the fleet's
+    only unprotected default branch)** *(new 2026-07-12, consolidation plan
+    § 3.4).*
+   - id: OQ-POKEMON-PROTECT-MAIN
+    - WHAT: branch protection / a ruleset on `main` — `protected:false` today
+      via `list_branches`; every other checked repo is protected or has
+      documented required-check evidence.
+    - WHERE: https://github.com/menno420/pokemon-mod-lab → Settings →
+      Branches (or Rules → Rulesets).
+    - HOW: add a ruleset matching what you set on websites 2026-07-09.
+      **Dedup vs B#5 (OQ-POKEMON-ROM-REQUIRED-CHECK): distinct but paired** —
+      B#5 adds the `ROM builds` required-check context INSIDE a main ruleset;
+      this item creates the protection itself (the census read the
+      classic-protection boolean as false; rule details are agent-unverifiable
+      on this private repo, so whether a ruleset already exists can only be
+      confirmed on your screen). Do both at the same sitting — creating or
+      opening the ruleset here is the natural moment to add B#5's context.
+    - UNBLOCKS: closes the fleet's one protection gap.
+    - VERIFIED-NEEDED: plan § 3.4 + census § pokemon-mod-lab Methods note
+      (boolean flag only). Rulesets are a verified owner-only wall
+      (docs/PLATFORM-LIMITS.md).
+    - RISK: ↩️ reversible — delete the ruleset to undo.
+    - Blocking: not-blocking, but cheap and worth doing at the B#5 sitting.
 
 ### (C) Claude platform (console / environments / sessions / Codex)
 
@@ -341,7 +421,8 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
          Manager**) as-is.
       8. Archive any leftover shells: codetool-lab ×3 (already closed) ·
          mobile-lab / games-program if shells exist (pre-birth) ·
-         product-forge awaits E#37.
+         product-forge Project archives per the consolidation disposition
+         (E#37 ⛔ superseded → B#38 + E#42, 2026-07-12).
       (Equivalent alternative: create the 6 new-name Projects fresh and
       archive all predecessors — same end state, more clicks.)
     - WHERE: claude.ai → Projects screen. Owner-side surface with NO agent
@@ -555,6 +636,12 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
 
 26. **product-forge OA-003 — enable GitHub Pages.** *(Old item 15.)*
     - id: OQ-FORGE-PAGES
+    - **Reconciliation note (2026-07-12, consolidation plan):** hold this
+      click — product-forge is MIGRATE-THEN-ARCHIVE (B#38,
+      OQ-CONSOLIDATION-ARCHIVE-FORGE), and the games-web build it would
+      publish is rehoming under ORDER P1-1 (websites arcade or
+      superbot-games); Pages on an archived repo serves nothing. Revisit only
+      if the archive path is vetoed at E#42.
     - WHERE: https://github.com/menno420/product-forge/settings/pages
     - HOW: Source: **GitHub Actions**; then re-run the deploy-pages workflow.
     - UNBLOCKS: the games-web RPG at `menno420.github.io/product-forge/`.
@@ -574,9 +661,17 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
 
 ### (E) Decisions & veto windows (silence-deadlines explicit)
 
-28. **THE 2026-07-14 BUNDLED SITTING — now FOUR decisions** (idea-engine
+28. **THE 2026-07-14 BUNDLED SITTING — now FIVE decisions** (idea-engine
     control/status.md@`2e03391` ⚑ line 9; grew from three — decision 4 added
-    this slice). Window ends **2026-07-14**.
+    the 07-11 slice, decision 5 added 2026-07-12 from the consolidation
+    plan). Window ends **2026-07-14**.
+    **Consolidation-plan note (2026-07-12):** this sitting IS the plan's
+    ⏰ TIME-CRITICAL bundle
+    ([`planning/2026-07-12-repo-consolidation-plan.md`](planning/2026-07-12-repo-consolidation-plan.md)
+    § "⏰ TIME-CRITICAL bundle") — its 5a–5d map to decisions 1–4 below
+    (recommendations restated there); 5e is decision 5, new. The plan asks
+    for the whole bundle **≤2026-07-13, one sitting** (the EAP window ends
+    2026-07-14) — decision 4's hard deadline now covers all five.
     1. **Lumen Drift itch.io go/no-go** + the publish clicks (D#27, B#12).
     2. **pokemon playtest verdicts — NOTE: now SIX patches, not 4** (instant
        text PR#4 · auto-run invert-B PR#6 · HP-bar drain 3× PR#7 ·
@@ -587,7 +682,14 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
     3. **gba Track B concept pick** (Lumen-deepening / Clockwork Courier /
        Shoal — the gba heartbeat carries it). *(Supersedes old item 4 Track B.)*
     4. **post-EAP routine posture** — HARD deadline: decide **≤2026-07-13**;
-       RECOMMENDED **Option A**.
+       RECOMMENDED **Option A** (plan 5d restates: keep the 2-hourly
+       failsafes, retire EAP-specific pacemakers — failsafes are cheap; the
+       burn is in repo crons, see E#45/E#46).
+    5. **websites cutover Options A–D** — retire superbot `dashboard/` +
+       `botsite/` in favor of the Railway replacements. RECOMMENDED
+       **decide now, execute after CUT-3** — retiring superbot surfaces
+       before the cutover decision would strand live services. *(New
+       2026-07-12, plan 5e.)*
     - id: OQ-SITTING-0714-DECISIONS
 
 29. **games §5 late-veto — OPEN, objection-only, silence=proceed ALREADY
@@ -617,11 +719,24 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
     superbot-next D-0064–D-0069 decide-and-flag.
     - id: OQ-STANDING-OBJECTION-NOTES
 
-37. **product-forge disposition — not in the owner's 8-seat list: retire the
-    seat / fold into Venture Lab / keep as a 9th seat** *(new 2026-07-11,
-    restructure directive — slice 3, fm PR #91; structured choice — the seat
-    stays as-is until you pick; this one does NOT proceed on silence).*
+37. **product-forge disposition — ⛔ SUPERSEDED 2026-07-12 (repo
+    consolidation plan): do NOT answer this A/B/C as written.** *(Was: not in
+    the owner's 8-seat list — retire the seat / fold into Venture Lab / keep
+    as a 9th seat; new 2026-07-11, restructure directive — slice 3, fm
+    PR #91.)*
    - id: OQ-FORGE-DISPOSITION
+    - **Supersession note (2026-07-12, consolidation plan):** the census
+      verdict **MIGRATE-THEN-ARCHIVE** + the plan's Phase 1 rehomes (ORDERs
+      P1-1/2/3) + the Phase 3.1 archive click replace this item's A/B/C
+      choice — option A's "keep the repo parked" framing is out of date; the
+      repo now archives (reversibly) after its named assets land elsewhere.
+      The seat-registry half (pointer-stub `projects/product-forge/`) rides
+      the same disposition. Live successors: **B#38
+      (OQ-CONSOLIDATION-ARCHIVE-FORGE)** gated by **E#42
+      (OQ-CONSOLIDATION-DELETE-VS-ARCHIVE)**; plan:
+      [`planning/2026-07-12-repo-consolidation-plan.md`](planning/2026-07-12-repo-consolidation-plan.md)
+      § "Provenance & supersessions". Body kept verbatim below for
+      history/audit.
     - WHAT — pick one:
       **A (recommended)** — retire the SEAT, keep the REPO parked: archive
       the product-forge Project; registry dir `projects/product-forge/` →
@@ -651,6 +766,124 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       archived-ready".
     - Blocking: not-blocking (seat is dormant — no failsafe armed); blocks
       only the final MATRIX regen follow-up.
+
+42. **Consolidation gate — delete vs archive (the plan's FIRST structured
+    choice; answer before any Phase 3 click)** *(new 2026-07-12,
+    consolidation plan
+    [`planning/2026-07-12-repo-consolidation-plan.md`](planning/2026-07-12-repo-consolidation-plan.md)
+    § "⚠ First structured choice"; adopted from the game-lab-seat proposal's
+    gate #1).*
+   - id: OQ-CONSOLIDATION-DELETE-VS-ARCHIVE
+    - WHAT — pick one; two of your own instructions contradict (standing
+      ruling 2026-07-10 "delete no repos — they are the fleet's memory" vs
+      ask 2026-07-12 "delete the test repos"), and this letter resolves it:
+      **A (recommended)** — harvest → archive (read-only), delete NOTHING.
+      Reversible, honors the standing ruling, still removes the repos from
+      the active roster. Every "test-scratch"-labeled repo was found to hold
+      shipped releases, finished unreleased tools, or a pinned contract
+      exemplar — none is safe to delete on the label.
+      **B** — deletion, as an explicit written override of the 2026-07-10
+      ruling, per named repo, only after a ≥7-day post-archive cooling-off.
+      Not recommended.
+    - WHERE: one word wherever the manager reads — `control/inbox.md` ORDER,
+      a live session, or a comment on the plan branch.
+    - HOW: say "contradiction: A" (or B). Full reasoning: plan § "⚠ First
+      structured choice" (the click surface is here; the reasoning is there).
+    - UNBLOCKS: the whole Phase 2/3 set below rides this framing — B#38–40
+      read their letter from here; the rest of the plan assumes A.
+    - VERIFIED-NEEDED: both contradicting instructions are on record (plan
+      § cites the 2026-07-10 ruling's home at superbot
+      `docs/ideas/adopt-codetool-lab-tools-2026-07-10.md`).
+    - RISK: ↩️ A is fully reversible (unarchive toggle) · ⚠️ B is
+      destructive — hence the written-override + cooling-off rail.
+    - Blocking: blocks B#38–40 (the archive clicks) and sequences E#43/E#44.
+
+43. **Consolidation Phase 2.1 — cfgdiff v0.1.1 (codetool-lab-sonnet5):
+    release it before the archive?** *(new 2026-07-12, consolidation plan
+    § Phase 2 decision 1.)*
+   - id: OQ-CFGDIFF-RELEASE-DECISION
+    - WHAT — pick one:
+      **A (recommended)** — release-in-place via the proven
+      workflow_dispatch recipe (the route opus4.8 used to ship mdverify
+      v0.1.0/v0.2.0 on 2026-07-09). One agent slice; zero tags exist on
+      origin today, and **archiving freezes the tag-push path forever**, so
+      this lands before the B#39 click.
+      **B** — explicitly accept cfgdiff staying unreleased; archive as-is.
+    - WHERE: one word to the manager (inbox ORDER / live session). The
+      owner-click half of A is already staged click-level in Parked
+      § "cfgdiff v0.1.1 release — two clicks".
+    - HOW: say "cfgdiff: A" (or B). Reasoning: plan § Phase 2 decision 1.
+    - UNBLOCKS: sequences B#39 (OQ-CONSOLIDATION-ARCHIVE-SONNET5) — the
+      archive click waits on this letter.
+    - VERIFIED-NEEDED: census § sonnet5 — zero tags on origin (`ls-remote`);
+      owner ruling 2026-07-10 "archive … after harvest".
+    - RISK: ↩️ reversible — A's release can be deleted; B forecloses nothing
+      until the archive click itself (unarchive reopens the tag path).
+    - Blocking: blocks B#39 only.
+
+44. **Consolidation Phase 2.2 — envdrift (codetool-lab-fable5):
+    release/adopt before the archive?** *(new 2026-07-12, consolidation plan
+    § Phase 2 decision 2.)*
+   - id: OQ-ENVDRIFT-RELEASE-DECISION
+    - WHAT — pick one:
+      **A (recommended)** — same release-in-place route (a release workflow
+      must be added first — none exists on that repo), then archive;
+      optionally adopt envdrift as a fleet tool afterwards (your named
+      environment-tidying interest).
+      **B** — accept unreleased; archive after ORDER P1-5 (the
+      `.pyc`/`.gitignore` hygiene precondition) lands.
+    - WHERE: one word to the manager. The tag/Release click surface already
+      exists in Parked § "codetool-lab-fable5 (envdrift) v0.1.0 + v0.2.0
+      tags + Releases" (same repo, same wall — that parked item covers the
+      historical tags; this decision covers whether a releasable version
+      ships at all before the freeze).
+    - HOW: say "envdrift: A" (or B). Reasoning: plan § Phase 2 decision 2.
+    - UNBLOCKS: sequences B#40 (OQ-CONSOLIDATION-ARCHIVE-FABLE5).
+    - VERIFIED-NEEDED: census § fable5 — no release workflow; defects @
+      `a6cf1a9`; tag-push is a verified 403 wall for agents on that seat.
+    - RISK: ↩️ reversible — same shape as E#43.
+    - Blocking: blocks B#40 only.
+
+45. **Consolidation Phase 2.3 — superbot cron trims (the ≈170 runs/day
+    burner)** *(new 2026-07-12, consolidation plan § Phase 2 decision 3.)*
+   - id: OQ-SUPERBOT-CRON-TRIM
+    - WHAT — pick one; today `ci-rerun-watchdog.yml` `*/12 * * * *` ≈120/day
+      + `pr-conflict-guard.yml` `*/30 * * * *` ≈48/day:
+      **A (recommended)** — watchdog → hourly (24/day) and conflict-guard →
+      every 2 h (12/day): ≈168/day → ≈36/day, both functions stay alive.
+      **B** — keep as-is until superbot's post-CUT-3 re-verdict.
+    - WHERE: one word to the manager — the cron edits themselves are
+      agent-side one-liners; the letter is yours because it changes live
+      production-repo cadence.
+    - HOW: say "superbot crons: A" (or B). Cost table: plan § "Cost table".
+    - UNBLOCKS: the largest single cut of the fleet's scheduled Actions burn
+      (~235 runs/day fleet-wide today, ≈80% reduction across E#45+E#46).
+    - VERIFIED-NEEDED: plan cost table — schedules verified per-repo by
+      grepping `schedule:` at origin/main.
+    - RISK: ↩️ reversible — one-line cron revert per workflow.
+    - Blocking: not-blocking; pure cost.
+
+46. **Consolidation Phase 2.4 — websites enabler cron + fleet-manager
+    roster-regen cadence trims (≈65 runs/day combined)** *(new 2026-07-12,
+    consolidation plan § Phase 2 decision 4.)*
+   - id: OQ-WEBSITES-FM-CRON-TRIM
+    - WHAT — pick one; today websites `auto-merge-enabler.yml`
+      `13,43 * * * *` = 48/day (+ healthcheck 6-hourly + review-bake daily
+      ≈5/day) and fleet-manager `roster-regen.yml` every 2 h ≈12/day, each
+      firing able to commit to main:
+      **A (recommended)** — enabler → event-driven (`pull_request` trigger —
+      it only has work when a PR opens) and roster-regen → regen-on-change
+      (push-triggered) or 2×/day.
+      **B** — keep as-is.
+    - WHERE: one word to the manager — agent-side workflow edits, your
+      letter because both crons can commit to main.
+    - HOW: say "websites/fm crons: A" (or B). Reasoning + numbers: plan
+      § Phase 2 decision 4 + cost table.
+    - UNBLOCKS: websites ≈53 → ≈5/day; fleet-manager ~12 → ~2/day or
+      on-change; pairs with E#45 for the ≈80% fleet-wide cut.
+    - VERIFIED-NEEDED: plan cost table (same `schedule:` grep method).
+    - RISK: ↩️ reversible — cron lines restore in one commit.
+    - Blocking: not-blocking; pure cost.
 
 ## Resolved 2026-07-11 (P3 curation sweep, ~20:1xZ — every state below re-verified LIVE per PR, Q-0120)
 
@@ -713,16 +946,24 @@ API this sweep, not from reports):
   tag-push 403; owner click at Releases → Draft: v0.1.0 @ `73ef38d`, v0.2.0 @
   `13a84e5`. (Provenance of the earlier opus4.8 mislabel correction:
   `projects/codetool-lab-{fable5,opus4.8}/meta.md`; opus4.8's mdverify
-  Releases are LIVE.)
+  Releases are LIVE.) *(2026-07-12: the release-or-not decision is now
+  ACTIVE at E#44, OQ-ENVDRIFT-RELEASE-DECISION — this stays as the click
+  surface for the historical tags if E#44 = A.)*
 - **codetool archive toggles ×3 (paired DECISION)** — all three repos
   `"archived": false` (API-verified 2026-07-10); recommendation: **wait until
   the gen-3 succession question settles, then archive** (archiving makes the
-  repos read-only).
+  repos read-only). *(2026-07-12: PROMOTED — superseded by the consolidation
+  plan's sequenced clicks: sonnet5 + fable5 archive at B#39/B#40 after
+  Phase 1 + E#43/E#44; opus4.8 stays UNARCHIVED (KEEP-QUIET, mdverify
+  release host — per the plan it is NOT one of the three archives; the third
+  is product-forge, B#38).)*
 - **cfgdiff v0.1.1 release — two clicks (codetool-lab-sonnet5):** (1) PyPI
   pending publisher (owner `menno420`, repo `codetool-lab-sonnet5`, workflow
   `release.yml`, environment `pypi`); (2) `git tag -a v0.1.1 0b1eb60 && git
   push origin v0.1.1` — do NOT tag v0.1.0 at `0260aae` (predates release.yml).
-  Tag push is a credential-layer 403 on that seat.
+  Tag push is a credential-layer 403 on that seat. *(2026-07-12: the
+  release-or-not decision is now ACTIVE at E#43,
+  OQ-CFGDIFF-RELEASE-DECISION — these two clicks are the HOW if E#43 = A.)*
 - **Paper-doll PNG pack for mining** — art asset, whenever.
 
 ### Safe to delete / archive (housekeeping, consolidated 2026-07-10 · 18:31Z wake)
