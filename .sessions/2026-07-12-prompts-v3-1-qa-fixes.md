@@ -51,6 +51,8 @@ park the PR READY+green for coordinator confirmation.
   R1-Q9's wrong-Project-paste stop clause (the READ-ONLY writable-set rule
   covers the harm; venture files sit at exactly 8,000); incident-replay MEDIUM
   leftovers I-38/I-44/I-45/I-46/I-58-partial/I-65-tag-push/I-66/I-72-disarm.
+- Codex review: pending — usage-limit reply 2026-07-12 03:1xZ; coordinator
+  re-pokes 06:00Z.
 
 ## Walls hit
 
