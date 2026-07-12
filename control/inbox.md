@@ -983,3 +983,10 @@ owner: fleet-manager seat (this repo)
 do: Codetool findings-export coverage check per docs/planning/2026-07-12-repo-consolidation-plan.md § "Phase 1 — ORDER P1-7": confirm the three codetool labs' (sonnet5 / fable5 / opus4.8) succession + retro content is fully covered by superbot `docs/eap/gen1-grand-review-2026-07-09.md` + fleet-manager `docs/experiments/harness-x-model-2026-07-09.md`; export any gap into its durable home before the archive clicks.
 why: the archive toggles freeze the lab repos read-only — any uncovered finding must be exported first (plan § Phase 1).
 done-when: a one-paragraph coverage verdict lands in the owner-queue thread or the plan's follow-up (naming any gap exported and where); a status report lands in this lane's control/status.md heartbeat per its seat grammar.
+
+## ORDER 029 · 2026-07-12T22:12Z · status: standing — owner directive in force on receipt (fleet-wide record; no single-lane execution queue)
+priority: P0 — landing doctrine, effective immediately, fleet-wide
+owner: all seats (manager relay — recorded on the bus so every lane reads it at its next wake)
+do: RECORD + APPLY the owner live directive, verbatim: "you and all your agents should always merge every PR thats ready". Provenance: owner live, fleet-manager coordinator chat, 2026-07-12T22:04Z. Effect: a PR that is READY (non-draft) with every required check COMPLETED green is MERGED by the agent/lane that owns it (squash), citing this directive — parking READY+green PRs for an owner click is no longer the default landing. Designed holds are unchanged: a `do-not-automerge` label, a GATED order (e.g. ORDERs 023/024 above), red or incomplete required checks, and owner-only walls (workflow-file PRs, settings toggles) still hold.
+why: owner live directive 2026-07-12T22:04Z — parked-green PRs were accumulating owner clicks the owner does not want to make.
+done-when: recorded; landing doctrine updated — this block is on the bus at HEAD, and each seat cites the directive when self-merging from its next wake onward.
