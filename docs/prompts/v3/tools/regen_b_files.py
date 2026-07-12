@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
-"""prompts v3.3 — budget/drift checker + projects/ registry sync.
+"""prompts v3.4 — budget/drift checker + projects/ registry sync.
 
 v3.3 (owner spec 2026-07-12) RETIRED the two assembly steps this script used
+(v3.4, 2026-07-12, is a currency restamp of the same one-file-per-seat model —
+the prompt-currency audit deltas; no mechanics change).
 to perform:
 
   * Custom Instructions are no longer assembled from custom-instructions-core.md
@@ -74,7 +76,11 @@ prints its findings ADVISORY-only; the exit-affecting gate is
 `seat_digest_sync.py --check`.
 
 Provenance: v3.1 build (PR #103) · v3.2 stateless rebuild + registry modes
-(PR #108/#110) · v3.3 one-file-per-seat rebuild (owner spec 2026-07-12).
+(PR #108/#110) · v3.3 one-file-per-seat rebuild (owner spec 2026-07-12) ·
+v3.4 currency restamp (prompt-currency audit deltas, 2026-07-12). PENDING
+(v3.5, blocked on unreleased kit #279): consume the kit seat-digest fences
+(substrate-kit:skills-digest / walls-digest, 1,500-char budget) so seat
+walls/skills blocks render from kit truth — do NOT wire until released.
 STATELESS (D-9) still binds both layers: no volatile facts in any paste.
 """
 
@@ -100,28 +106,28 @@ CI_AIM = 7500
 SEATS = [
     dict(name="Fleet Manager", startup="fleet-manager-startup.md",
          ci="fleet-manager-custom-instructions.md", reg="fleet-manager",
-         versions={"coordinator": "v5", "instructions": "v5", "failsafe": "v5"}),
+         versions={"coordinator": "v6", "instructions": "v6", "failsafe": "v6"}),
     dict(name="SuperBot 2.0", startup="superbot-startup.md",
          ci="superbot-custom-instructions.md", reg="superbot-2.0",
-         versions={"coordinator": "v3", "instructions": "v3", "failsafe": "v3"}),
+         versions={"coordinator": "v4", "instructions": "v4", "failsafe": "v4"}),
     dict(name="Websites", startup="websites-startup.md",
          ci="websites-custom-instructions.md", reg="websites",
-         versions={"coordinator": "v5", "instructions": "v4", "failsafe": "v4"}),
+         versions={"coordinator": "v6", "instructions": "v5", "failsafe": "v5"}),
     dict(name="Self Improvement", startup="self-improvement-startup.md",
          ci="self-improvement-custom-instructions.md", reg="self-improvement",
-         versions={"coordinator": "v3", "instructions": "v3", "failsafe": "v3"}),
+         versions={"coordinator": "v4", "instructions": "v4", "failsafe": "v4"}),
     dict(name="SuperBot World", startup="superbot-world-startup.md",
          ci="superbot-world-custom-instructions.md", reg="superbot-world",
-         versions={"coordinator": "v3", "instructions": "v3", "failsafe": "v3"}),
+         versions={"coordinator": "v4", "instructions": "v4", "failsafe": "v4"}),
     dict(name="Game Lab", startup="game-lab-startup.md",
          ci="game-lab-custom-instructions.md", reg="game-lab",
-         versions={"coordinator": "v3", "instructions": "v3", "failsafe": "v3"}),
+         versions={"coordinator": "v4", "instructions": "v4", "failsafe": "v4"}),
     dict(name="Ideas Lab", startup="ideas-lab-startup.md",
          ci="ideas-lab-custom-instructions.md", reg="ideas-lab",
-         versions={"coordinator": "v3", "instructions": "v3", "failsafe": "v3"}),
+         versions={"coordinator": "v4", "instructions": "v4", "failsafe": "v4"}),
     dict(name="Venture Lab", startup="venture-lab-startup.md",
          ci="venture-lab-custom-instructions.md", reg="venture-lab",
-         versions={"coordinator": "v4", "instructions": "v5", "failsafe": "v4"}),
+         versions={"coordinator": "v5", "instructions": "v6", "failsafe": "v5"}),
 ]
 
 DOCTRINE_START = "════════ DOCTRINE — full text, binding ════════"
@@ -133,12 +139,12 @@ BATON_END = "even when the handoff reads current."
 
 
 def paste_body(path: Path) -> str:
-    """Everything from the first `v3.3 ` stamp line onward (repo file headers
+    """Everything from the first `v3.4 ` stamp line onward (repo file headers
     above it excluded), trailing newline stripped — the char-count basis."""
     text = path.read_text()
-    m = re.search(r"^v3\.3 ", text, re.M)
+    m = re.search(r"^v3\.4 ", text, re.M)
     if not m:
-        raise RuntimeError(f"{path.name}: no v3.3 stamp line found")
+        raise RuntimeError(f"{path.name}: no v3.4 stamp line found")
     return text[m.start():].rstrip("\n")
 
 
@@ -276,13 +282,13 @@ def run_checks() -> int:
                 if val != ref:
                     fails.append(f"{fname}: {label} differs from {ref_name} — the shared text drifted")
 
-    print(f"{'Custom Instructions (v3.3, one file per seat)':58s} {'chars':>6s} {'bytes':>6s}  vs hard 8,000 (both) / aim 7,500")
+    print(f"{'Custom Instructions (v3.4, one file per seat)':58s} {'chars':>6s} {'bytes':>6s}  vs hard 8,000 (both) / aim 7,500")
     for f, n, nb in ci_rows:
         worst = max(n, nb)
         status = "OVER HARD — MUST TRIM" if worst > CI_HARD else ("over aim, under hard — flagged by design" if n > CI_AIM else "within aim")
         print(f"{f:58s} {n:6,d} {nb:6,d}  {status}")
     print()
-    print(f"{'Expanded startups (v3.3, size NOTE — no cap)':58s} {'chars':>6s}")
+    print(f"{'Expanded startups (v3.4, size NOTE — no cap)':58s} {'chars':>6s}")
     for f, n in su_rows:
         print(f"{f:58s} {n:6,d}")
     print()
@@ -324,7 +330,7 @@ def failsafe_body(seat: dict, parts: dict) -> str:
   `list_triggers` before writing "armed" — never wait for a first fire
   (completed runs are not inspectable owner-side).
 
-## Prompt text (create_trigger `prompt`, EXACTLY — single-sourced from the seat's v3.3 startup, BOOT step 3a (D-2))
+## Prompt text (create_trigger `prompt`, EXACTLY — single-sourced from the seat's v3.4 startup, BOOT step 3a (D-2))
 
 ```
 {parts['prompt']}
@@ -345,21 +351,21 @@ never rebound and never deleted (it binds to no mortal seat session)."""
 def registry_header(seat: dict, artifact: str, version: str, sha: str, body: str) -> str:
     name = seat["name"]
     titles = {
-        "coordinator": "coordinator seat prompt (registry copy, prompts v3.3)",
-        "instructions": "Custom Instructions (registry copy, prompts v3.3)",
-        "failsafe": "failsafe cron text (registry copy, prompts v3.3)",
+        "coordinator": "coordinator seat prompt (registry copy, prompts v3.4)",
+        "instructions": "Custom Instructions (registry copy, prompts v3.4)",
+        "failsafe": "failsafe cron text (registry copy, prompts v3.4)",
     }
     specific = {
         "coordinator": (
             f"> Body below the marker = docs/prompts/v3/per-project/{seat['startup']} paste\n"
-            "> body VERBATIM (the seat's AUTHORED v3.3 EXPANDED startup — doctrine inlined\n"
+            "> body VERBATIM (the seat's AUTHORED v3.4 EXPANDED startup — doctrine inlined\n"
             "> in full, NO char cap; paste as the FIRST message of the seat's coordinator\n"
             "> chat)."
         ),
         "instructions": (
             f"> Paste FULL into the Project's Custom Instructions. Body below the marker =\n"
             f"> docs/prompts/v3/per-project/{seat['ci']} paste body\n"
-            "> VERBATIM — v3.3 is ONE AUTHORED FILE PER SEAT (seat header + condensed\n"
+            "> VERBATIM — v3.4 is ONE AUTHORED FILE PER SEAT (seat header + condensed\n"
             "> five-section skeleton + keyword dictionary + routes); the v3.1/v3.2\n"
             "> core+seat-block assembly is RETIRED.\n"
             f"> char-count: {len(body):,} chars = the paste body below the marker, trailing\n"
@@ -376,12 +382,12 @@ def registry_header(seat: dict, artifact: str, version: str, sha: str, body: str
     return (
         f"<!-- {version} · {PROVENANCE_DATE} · fleet-manager projects registry — GENERATED COPY, do not edit\n"
         "     (regenerate: docs/prompts/v3/tools/regen_b_files.py --write-registry; drift guard: --check-registry) -->\n"
-        f"<!-- generated from docs/prompts/v3 @ {sha} (prompts v3.3, owner-directed rebuild 2026-07-12) -->\n"
+        f"<!-- generated from docs/prompts/v3 @ {sha} (prompts v3.4, currency restamp 2026-07-12) -->\n"
         f"# {name} — {titles[artifact]}\n\n"
         "> **GENERATED COPY — NOT SOURCE OF TRUTH.** This registry copy is GENERATED FROM\n"
-        "> the v3 home: **docs/prompts/v3/ is the source of truth** (generation v3.3,\n"
+        "> the v3 home: **docs/prompts/v3/ is the source of truth** (generation v3.4,\n"
         "> stateless, D-9). Edit the v3 sources and regenerate — never this file.\n"
-        f"> Version lineage: {version} ({PROVENANCE_DATE}) supersedes the v3.2 registry sync copy.\n"
+        f"> Version lineage: {version} ({PROVENANCE_DATE}) supersedes the v3.3 registry sync copy.\n"
         f"{specific[artifact]}\n\n"
         f"{MARKER}\n"
     )

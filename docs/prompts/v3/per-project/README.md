@@ -1,12 +1,14 @@
 > **Status:** `reference`
 
-<!-- v3.3 · 2026-07-12 · provenance: owner spec 2026-07-12 (overnight prompt rebuild — CI becomes a per-seat keyword dictionary; startups EXPAND, no char cap; see the v3.3 changelog section below). Prior: v3.2 (stateless correction) · v3.1 (research PRs #93/#95 + owner baseline + QA PRs #100/#101/#102, applied in PR #103) -->
+<!-- v3.4 · 2026-07-12 · provenance: prompt-currency audit (docs/research/2026-07-12-prompt-currency-audit.md, PR #118 lane) — 16-delta currency restamp of the v3.3 one-file-per-seat model; see the v3.4 changelog section below. Prior: v3.3 (owner spec 2026-07-12, overnight prompt rebuild — CI becomes a per-seat keyword dictionary; startups EXPAND, no char cap) · v3.2 (stateless correction) · v3.1 (research PRs #93/#95 + owner baseline + QA PRs #100/#101/#102, applied in PR #103) -->
 <!-- char-count: planning doc, no paste budget applies -->
 
-# Per-project prompts — v3.3 (per-seat Custom Instructions + expanded startups)
+# Per-project prompts — v3.4 (per-seat Custom Instructions + expanded startups)
 
-v3.3 composition (owner spec 2026-07-12 — supersedes the v3.2 generated/
-assembled model):
+v3.4 is a **currency restamp** of the v3.3 composition (no mechanics change —
+the 16 prompt-currency-audit deltas applied 2026-07-12; changelog below). The
+composition itself is the v3.3 owner spec (2026-07-12 — supersedes the v3.2
+generated/assembled model):
 
 - **`<seat>-custom-instructions.md`** = the seat's **complete Custom
   Instructions paste artifact, ONE AUTHORED FILE PER SEAT**: seat header +
@@ -66,15 +68,29 @@ mineverse) · Game Lab (gba-homebrew + pokemon-mod-lab) · Ideas Lab
 seat 9 via this same recipe — stagger slot below), codetool-lab-* (DARK),
 superbot-plugin-hello (helper, folded into SuperBot 2.0's F1).
 
-## v3.3 size table (real counts, checker-verified 2026-07-12 — `../tools/regen_b_files.py`)
+## v3.4 size table (real counts, checker-verified 2026-07-12 — `../tools/regen_b_files.py`)
 
-Hard cap: **Custom Instructions ≤ 8,000 chars** (verified console wall; aim
-≤7,500 — every seat runs over the aim BY DESIGN: the owner's mandated keyword
-set outranks the fitted target, same call as v3.2's safety-over-fitted).
-UTF-8 bytes also gated ≤ 8,000 for all 8 by the checker (belt-and-braces;
-the fleet budget basis is characters). **Startups have NO cap** — sizes below are a NOTE, not a
-gate (owner spec 2026-07-12). The session ender is a chat paste (no console
-cap).
+Hard cap: **Custom Instructions ≤ 8,000 chars AND ≤ 8,000 UTF-8 bytes**
+(verified console wall; aim ≤7,500 — every seat runs over the aim BY DESIGN:
+the owner's mandated keyword set outranks the fitted target, same call as
+v3.2's safety-over-fitted). **Bytes are the binding basis at these margins**
+(em-dashes and the RISK emoji are multi-byte): three seats sit ≤4 bytes under
+the wall — any future CI addition needs a compensating trim in the same edit.
+**Startups have NO cap** — sizes below are a NOTE, not a gate (owner spec
+2026-07-12). The session ender is a chat paste (no console cap).
+
+| Seat | CI (chars) | CI (bytes) | Expanded startup (chars) | v3.3 CI was (chars/bytes) |
+|---|---:|---:|---:|---:|
+| fleet-manager | 7,867 | 7,950 | 28,542 | 7,850 / 7,922 |
+| superbot | 7,922 | 7,993 | 28,591 | 7,934 / 7,996 |
+| websites | 7,895 | 7,976 | 28,256 | 7,925 / 7,997 |
+| self-improvement | 7,908 | 7,989 | 28,328 | 7,918 / 7,988 |
+| superbot-world | 7,919 | 7,996 | 27,854 | 7,924 / 7,986 |
+| game-lab | 7,917 | 7,996 | 27,691 | 7,927 / 7,995 |
+| ideas-lab | 7,897 | 7,978 | 27,974 | 7,855 / 7,925 |
+| venture-lab | 7,916 | 7,997 | 28,047 | 7,926 / 7,994 |
+
+## v3.3 size table (HISTORICAL — superseded by the v3.4 restamp above)
 
 | Seat | CI (chars) | CI (bytes) | Expanded startup (chars) | v3.2 startup was |
 |---|---:|---:|---:|---:|
@@ -127,30 +143,32 @@ core edit.
 
 ## Failsafe cron stagger table (canonical home — D-7; the manager arbitrates)
 
-| Seat | cron | Slot | Provenance |
-|---|---|---|---|
-| self-improvement | `0 */2 * * *` | even :00 | v3.0, kept |
-| game-lab | `15 */2 * * *` | even :15 | baseline kept |
-| fleet-manager | `30 */2 * * *` | even :30 | census-verified |
-| websites | `45 */2 * * *` | even :45 | baseline kept |
-| superbot | `0 1-23/2 * * *` | odd :00 | v3.0, kept |
-| superbot-world | `15 1-23/2 * * *` | odd :15 | v3.0, kept |
-| ideas-lab | `30 1-23/2 * * *` | odd :30 | v3.0, kept |
-| venture-lab | `45 1-23/2 * * *` | odd :45 | v3.0, kept |
+| Seat | cron | Slot | Provenance | Live state (audit, 2026-07-12 ~15:40Z) |
+|---|---|---|---|---|
+| self-improvement | `0 */2 * * *` | even :00 | v3.0, kept | live on slot ✓ |
+| game-lab | `50 */2 * * *` | even :50 | **re-slotted to live 2026-07-12** (was `15 */2`; the live trigger already fires at :50 — table adopts it, no re-arm) | live on slot ✓ |
+| fleet-manager | `30 */2 * * *` | even :30 | census-verified | live on slot ✓ |
+| websites | `45 */2 * * *` | even :45 | baseline kept | assumed on slot (verify at next sweep) |
+| superbot | `0 1-23/2 * * *` | odd :00 | v3.0, kept | ⚠ **NO live seat failsafe — arm to this slot** |
+| superbot-world | `15 1-23/2 * * *` | odd :15 | v3.0, kept | ⚠ live at `0 */2` (squats even :00) — **re-arm to this slot** |
+| ideas-lab | `30 1-23/2 * * *` | odd :30 | v3.0, kept | ⚠ live at `0 */2` (squats even :00) — **re-arm to this slot** |
+| venture-lab | `45 1-23/2 * * *` | odd :45 | v3.0, kept | ⚠ live at `0 */2` (squats even :00) — **re-arm to this slot** |
 
-Seat-9+ slots: `5/20/35/50` past the hour (even parity first). **The fleet
-manager is the slot arbiter** — a seat NEVER re-slots itself; a foreign trigger
-on your slot is reported in status, and slot changes are a registry edit here
-(question-rounds R5-Q5). Known transients until cutovers complete (replay C-9;
-**re-verified 2026-07-12 against `telemetry/triggers-snapshot.json`**): the
-pre-merge gba/pml hourly wakes and the retro-games trigger are **ABSENT from
-the snapshot** (already gone — nothing left to delete); the old ideas-lab
-failsafe (`0 */2`, squatting the self-improvement slot) is **still present**
-(Ideas Lab's cutover deletes it, after confirming the prior coordinator chat
-is archived). Venture-lab's grading BUSINESS cron (`0 9 * * 5`) does not
-collide and is rebound-never-deleted (A step 4). Since v3.2, NO trigger id is
-baked into any prompt — cutover ids come from heartbeats + the telemetry
-snapshot (D-9).
+Seat-9+ slots: `5/20/35` past the hour, plus even `:15` (freed by game-lab's
+re-slot; even parity first). **The fleet manager is the slot arbiter** — a
+seat NEVER re-slots itself; a foreign trigger on your slot is reported in
+status, and slot changes are a registry edit here (question-rounds R5-Q5).
+**Live-trigger reconciliation (v3.4 delta 13, from the prompt-currency
+audit's trigger census, ~15:40Z):** superbot-world, ideas-lab, and venture-lab
+failsafes are ALL live at `0 */2` — a four-way collision with the
+self-improvement slot — and superbot has NO live seat failsafe; the ⚠ rows
+above are the collision-free re-slot. **Seat-side re-arm ORDERs are the
+manager's follow-up work — this doc edit re-slots the registry only.** The
+earlier snapshot-verified transients (pre-merge gba/pml hourly wakes,
+retro-games trigger) remain gone. Venture-lab's grading BUSINESS cron
+(`0 9 * * 5`) does not collide and is rebound-never-deleted (A step 4). Since
+v3.2, NO trigger id is baked into any prompt — cutover ids come from
+heartbeats + the telemetry snapshot (D-9).
 
 ## v3.0 KNOWN DEFECTS queue — v3.1 disposition
 
@@ -182,8 +200,9 @@ snapshot (D-9).
   (core riders); P2 "calibration" applied (A). No P0/P1 rows were dropped.
 - Incident-replay MEDIUM leftovers not encodable under the caps: I-38
   orientation-sprawl root cause (a superbot-repo docs problem, not a prompt
-  line), I-44 CAPABILITIES/capabilities case-duplicate (repo cleanup, routed
-  to the fm seat's sweep), I-58's remaining auto-merge race classes
+  line), I-44 CAPABILITIES/capabilities case-duplicate (**RESOLVED 2026-07-12
+  — v3.4 delta 14**: lowercase folded into `docs/CAPABILITIES.md`, pointer
+  stub left), I-58's remaining auto-merge race classes
   (trailing-commit race, GraphQL rate-limit, disarm false-success — need
   fresh evidence before prompting), I-66 subscription no-green-event note
   (partially covered by TOKEN BUDGET park-don't-poll), I-72 dry-backlog →
@@ -306,6 +325,102 @@ with the dirty-tree rescue-branch guard). Sequential trigger-call pacing §a.5
 (CONSTITUTION/landing-path/routines templates) — that is the Self Improvement
 seat's lane, not a v3.1 prompt defect; only their fleet-prompt shadows
 (entries 7–9) queue here.
+
+## v3.4 changelog — prompt-currency restamp (2026-07-12, same day as v3.3)
+
+**Source:** the prompt-currency audit
+(`docs/research/2026-07-12-prompt-currency-audit.md`, PR #118 lane) — its §4
+table is the authoritative delta list (16 deltas: 2 P0 · 11 P1 · 3 P2). v3.3
+went stale within ~5 hours of landing (four seats' merge lines contradicted by
+same-day enabler merges + two P0 defects in the park-green entry itself).
+Disposition of all 16, applied in one restamp pass:
+
+1. **[P0-1] park-green laundering qualifier** — all 8 CI dictionaries: "a
+   DIFFERENT session may review-merge **on its OWN genuine review only —
+   relayed/dispatched authority = laundering, denied**" (PR #113 denial class
+   "cross-session permission laundering", n=2 with the 2026-07-11 fm #68/#88-89
+   denials). Compensating budget trims applied to ALL 8 CIs (deltas 1/5/8/9/11
+   together added ~+350 chars per CI; filler compressed, no rule dropped).
+2. **[P0-2] fm landing path** — fm CI: "landing rides a fresh owner-provenance
+   dispatch or owner click (this lane's recorded denials name relayed
+   authorization — successor review-merge retired)"; fm startup MERGE
+   MECHANICS restated to match (layer contract).
+3. **[P1-3] PR #113 denial recorded** — appended to `docs/CAPABILITIES.md`
+   append log (dated, denial class quoted, session id; done jointly with
+   delta 14). The full verbatim denial text was never committed by the denied
+   session — recorded as such; future denials must be committed verbatim at
+   deny time.
+4. **[P1-4] websites enabler live** — `websites-startup.md` MERGE MECHANICS +
+   CI Merge clause rewritten to enabler-live semantics (arms claude/* at open;
+   green PRs self-land; enabler merged websites #167).
+5. **[P1-5] merge-on-green reference exists** — all-8 CI park-green tail:
+   "(none committed yet)" → "(reference: sim-lab, live)"; ideas-lab CI +
+   startup sim-lab line → "merge-on-green INSTALLED (ORDER 003) — zero agent
+   merge calls"; `../planned-routes.md` §A merge-on-green row struck with the
+   landing pointer.
+6. **[P1-6] trading enabler canonical** — venture-lab CI + startup: "enabler
+   INSTALLED and self-landing proven — canonical path; MCP squash exception
+   RETIRED-superseded" (five self-landings via github-actions[bot] 2026-07-12).
+7. **[P1-7] superbot-world SECURITY-BEFORE-SECRETS flipped** — CSRF landed
+   (mineverse #42); open half = owner provisioning of the six OAuth/write
+   secrets, now UNBLOCKED (startup :13 self-neutralizes, no edit — per audit).
+8. **[P1-8] WALLS staleness rule** — all 8 CIs: "(quote; fresh entries never
+   re-probe, >14d re-verify with one cheap attempt)" (kit v1.14.0 DISCOVERY
+   step 5).
+9. **[P1-9] six-field ask + RISK line** — all 8 CIs + startups: "+ RISK:
+   ✅|↩️|⚠" (kit #272 owner-action grammar) + "structured choices carry a
+   **bolded recommendation**, one-letter answerable".
+10. **[P1-10] BOOT 4 verify-it-DELIVERS** — all 8 startups: fresh-session-per-
+    fire delivery = UNVERIFIED-BROKEN until a SCHEDULED fire is proven
+    (0-for-2 observed); wedge signature (`enabled ∧ next_run_at < now−15min`);
+    manual-fire trap (fire_trigger advances last_fired_at, not next_run_at);
+    failsafe wakes check the standing loop's last slot (blind window). The
+    keep-don't-rebind rule itself is unchanged. Align wording with the kit's
+    `routines.md.tmpl` when kit #287 releases.
+11. **[P1-11] skills + /intake routed** — new **skills** dictionary keyword
+    (→ `docs/SKILLS.md`) + owner-request route → `/intake` in all 8 CIs; a
+    SKILLS & INTAKE bullet in all 8 startups. **PENDING half:** the
+    `docs/ROUTINES.md` route waits on a kit release carrying kit #287 (merged,
+    unreleased at restamp time) — tracked in `../planned-routes.md` §A.
+12. **[P1-12] seat-digest regen wiring — BLOCKED, not applied** — kit #279
+    (`substrate-kit:skills-digest`/`walls-digest` fences) is unreleased; do
+    NOT wire `../tools/regen_b_files.py` to fences that don't exist at any
+    adopter HEAD. Recorded as the top v3.5 item (also in the tool's header).
+13. **[P1-13] failsafe stagger table reconciled** — see the re-slotted table
+    above: game-lab re-slotted to its live `50 */2`; superbot-world/ideas-lab/
+    venture-lab flagged ⚠ re-arm (all live at `0 */2`, colliding with
+    self-improvement); superbot flagged ⚠ arm (no live failsafe). **Seat
+    re-arm ORDERs are the manager's follow-up, not part of this restamp.**
+14. **[P2-14] I-44 case-duplicate resolved** — `docs/capabilities.md`
+    (lowercase, the old fleet manifest) folded into the kit-owned
+    `docs/CAPABILITIES.md` (below the kit fence, own section); a pointer stub
+    left at the lowercase path so old links resolve.
+15. **[P2-15] LANDING-splice evidence n≥2** — all 8 startups' LANDING line
+    citation upgraded: "(relayed = denied — recorded denials n≥2, fm
+    docs/CAPABILITIES.md append log)" (delta 3's record is the second data
+    point; no doctrine change).
+16. **[P2-16] planned-routes CSRF-floor row — WATCH, no edit** (promotable to
+    a websites durable doc once websites PR #159 lands).
+
+**PR #121 v1.1-delta dedup** (game-lab consolidation plan, 8 candidates,
+verified against HEAD before disposition): #1 canonical merge clause =
+duplicate of delta 1 + the standing park-green/PERMISSIONS text; #4 isolated
+clone per worker = already in v3.3 GIT HYGIENE ("workers run in FRESH
+clones/worktrees"); #6 verify external-bot claims = already Q-0120; #8
+verify-via-list_triggers-not-snapshot = already BOOT 4 + D-9 + verify-after-arm.
+**Applied as an additional v3.4 delta:** #5 registry-meta restamp duty → fm
+startup WORK SOURCES (b): a `projects/<seat>/meta.md` claim contradicted by
+the seat's live heartbeat is drift — restamp it (meta-lag class; fm PR #116
+precedent). **Deferred:** #2 pacemaker queue-behind-busy-session doctrine
+(platform-behavior claim, not verifiable against repo state from this seat);
+#3 WAIT-FOR-BASE pre-build pattern (seat-local workflow pattern, evidence
+lives in gba session records — v3.5 candidate); #7 archive checklist
+trigger-disarm rule (durable home is the consolidation plan/playbook, PR #121
+still a proposal awaiting owner sign-off).
+
+**Registry:** every projects/<seat>/ artifact re-synced and version-bumped by
+one (fm v6/v6/v6 · websites v6/v5/v5 · venture-lab v5/v6/v5 · the other five
+v4/v4/v4); stamps in the regen tool's SEATS block.
 
 ## v3.3 changelog — seat-first keyword-dictionary CIs + expanded startups (owner spec 2026-07-12)
 
