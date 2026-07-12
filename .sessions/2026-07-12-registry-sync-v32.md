@@ -1,6 +1,6 @@
 # 2026-07-12 — registry sync: projects/ seat files to prompts v3.2
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 📊 Model: fable-5 · start 2026-07-12 ·
 lane worker (owner-directed 2026-07-12, dispatched by coordinator)
