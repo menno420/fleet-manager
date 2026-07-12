@@ -16,8 +16,13 @@
 > superbot-next) · **Websites** (`websites/`) · **Fleet Manager**
 > (`fleet-manager/`). All other dirs are single-file pointer stubs (retired or
 > merged-source); `product-forge/` awaits owner disposition (not in the 8-seat
-> list). The MATRIX and paste-wave sections below predate the restructure —
-> treat them as historical until slice 2 (prompt re-sync) regenerates them.
+> list). **Slice 2 (prompt re-sync, 2026-07-11) landed:** every live seat's
+> `coordinator-prompt.md` + `failsafe-prompt.md` is now a real,
+> version-stamped body consistent with the 8-seat shape (new-seat prompts v1,
+> venture-lab v2, websites v3, fleet-manager coordinator v3; trigger
+> rebind-then-delete cutover recipes ride each seat's boot). The MATRIX and
+> paste-wave sections below still predate the restructure — treat them as
+> historical until a follow-up regenerates them against the 8 seats.
 
 ## What this registry is
 
