@@ -4,7 +4,7 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #18** · generated-at **2026-07-12T17:49Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #19** · generated-at **2026-07-12T18:44Z** · by machine generation (scripts/gen_roster.py), dispatched by (not stated)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
@@ -21,7 +21,7 @@
 ### superbot-next — ⚑ needs-owner: THREE live OWNER-ACTION items below (six-field format per control/README.md) — item 2 DROPPED …
 
 - suggested-id: `OQ-SUPERBOT-NEXT-THREE-LIVE-ITEMS-BELOW`
-- source: superbot-next/control/status.md @ `2c15d58` · heartbeat `updated:` 2026-07-12T16:55Z
+- source: superbot-next/control/status.md @ `b7a0513` · heartbeat `updated:` 2026-07-12T18:30Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -31,7 +31,7 @@
 ### superbot-next — - OWNER-ACTION 2 DROPPED below per the done-when ("the ask is gone"); the owner had created the repo (list_re…
 
 - suggested-id: `OQ-SUPERBOT-NEXT-2-DROPPED-BELOW-PER`
-- source: superbot-next/control/status.md @ `2c15d58` · heartbeat `updated:` 2026-07-12T16:55Z
+- source: superbot-next/control/status.md @ `b7a0513` · heartbeat `updated:` 2026-07-12T18:30Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -42,7 +42,7 @@
 ### superbot-next — - ⚑ CORPUS RETIREMENT FLAG (prominent by design — owner-vetoable, REVERSIBLE; now THREE executed): #249 retir…
 
 - suggested-id: `OQ-SUPERBOT-NEXT-CORPUS-RETIREMENT-FLAG-PROMINENT`
-- source: superbot-next/control/status.md @ `2c15d58` · heartbeat `updated:` 2026-07-12T16:55Z
+- source: superbot-next/control/status.md @ `b7a0513` · heartbeat `updated:` 2026-07-12T18:30Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -54,7 +54,7 @@
 ### superbot-next — ⚑ OWNER-ACTION 3 — kill the branch-update merge dance
 
 - suggested-id: `OQ-SUPERBOT-NEXT-3-KILL-BRANCH-UPDATE`
-- source: superbot-next/control/status.md @ `2c15d58` · heartbeat `updated:` 2026-07-12T16:55Z
+- source: superbot-next/control/status.md @ `b7a0513` · heartbeat `updated:` 2026-07-12T18:30Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -71,7 +71,7 @@ VERIFIED-NEEDED: repo Settings/Rulesets are admin-only — agent tokens can read
 ### superbot-next — ⚑ OWNER-ACTION 4 — RETIRED 2026-07-11 (was: configure Codex for this repo — environment + code-review capacit…
 
 - suggested-id: `OQ-SUPERBOT-NEXT-4-RETIRED-2026-07`
-- source: superbot-next/control/status.md @ `2c15d58` · heartbeat `updated:` 2026-07-12T16:55Z
+- source: superbot-next/control/status.md @ `b7a0513` · heartbeat `updated:` 2026-07-12T18:30Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -83,7 +83,7 @@ RISK: ✅ safe / read-only — item RETIRED, no manual step remains; the block i
 ### superbot-next — ⚑ OWNER-ACTION 5 — provide the band-7 AI key envelope (live-NL leg)
 
 - suggested-id: `OQ-SUPERBOT-NEXT-5-PROVIDE-BAND-7`
-- source: superbot-next/control/status.md @ `2c15d58` · heartbeat `updated:` 2026-07-12T16:55Z
+- source: superbot-next/control/status.md @ `b7a0513` · heartbeat `updated:` 2026-07-12T18:30Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -100,7 +100,7 @@ VERIFIED-NEEDED: verified during #151's ORDER 004 live drive — `ANTHROPIC_API_
 ### superbot-next — ⚑ OWNER-ACTION 6 — re-arm the fleet's dead failsafe routines (2026-07-11T16:31Z env-teardown fallout)
 
 - suggested-id: `OQ-SUPERBOT-NEXT-6-RE-ARM-FLEET`
-- source: superbot-next/control/status.md @ `2c15d58` · heartbeat `updated:` 2026-07-12T16:55Z
+- source: superbot-next/control/status.md @ `b7a0513` · heartbeat `updated:` 2026-07-12T18:30Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -117,7 +117,7 @@ VERIFIED-NEEDED: a platform ENV TEARDOWN at 2026-07-11T16:31Z auto-disabled sche
 ### substrate-kit — ⚑ FOR MANAGER (relay debts owed to the kit — refreshed at the v1.12.0-wave close; wave-B v1.12.1 items append…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-MANAGER-RELAY-DEBTS-OWED`
-- source: substrate-kit/control/status.md @ `0801be9` · heartbeat `updated:` 2026-07-12T16:55:00Z
+- source: substrate-kit/control/status.md @ `ac612ab` · heartbeat `updated:` 2026-07-12T18:05:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -139,7 +139,7 @@ VERIFIED-NEEDED: a platform ENV TEARDOWN at 2026-07-11T16:31Z auto-disabled sche
 ### substrate-kit — ⚑ needs-owner: thirteen open items (items 2–12 carried verbatim — ordinals kept stable so cross-references ho…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-THIRTEEN-OPEN-ITEMS-ITEMS`
-- source: substrate-kit/control/status.md @ `0801be9` · heartbeat `updated:` 2026-07-12T16:55:00Z
+- source: substrate-kit/control/status.md @ `ac612ab` · heartbeat `updated:` 2026-07-12T18:05:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -149,7 +149,7 @@ VERIFIED-NEEDED: a platform ENV TEARDOWN at 2026-07-11T16:31Z auto-disabled sche
 ### substrate-kit — ⚑ OWNER-ACTION 15 — T5 v3 probe re-shape — pin PR #238 awaits your ratification (do-not-automerge by design; …
 
 - suggested-id: `OQ-SUBSTRATE-KIT-15-T5-V3-PROBE`
-- source: substrate-kit/control/status.md @ `0801be9` · heartbeat `updated:` 2026-07-12T16:55:00Z
+- source: substrate-kit/control/status.md @ `ac612ab` · heartbeat `updated:` 2026-07-12T18:05:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -166,7 +166,7 @@ VERIFIED-NEEDED: pin-path law (§5.0, check_bench_integrity rule 1): the lab nev
 ### substrate-kit — ⚑ OWNER-ACTION 14 — rubric §3 T5 v2 alignment — pin PR #220 awaits your ratification (do-not-automerge by des…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-14-RUBRIC-3-T5`
-- source: substrate-kit/control/status.md @ `0801be9` · heartbeat `updated:` 2026-07-12T16:55:00Z
+- source: substrate-kit/control/status.md @ `ac612ab` · heartbeat `updated:` 2026-07-12T18:05:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -184,7 +184,7 @@ VERIFIED-NEEDED: pin-path law (§5.0, check_bench_integrity rule 1): the lab nev
 ### substrate-kit — ⚑ OWNER-ACTION 2 — P10 required-check swap
 
 - suggested-id: `OQ-SUBSTRATE-KIT-2-P10-REQUIRED-CHECK`
-- source: substrate-kit/control/status.md @ `0801be9` · heartbeat `updated:` 2026-07-12T16:55:00Z
+- source: substrate-kit/control/status.md @ `ac612ab` · heartbeat `updated:` 2026-07-12T18:05:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -201,7 +201,7 @@ VERIFIED-NEEDED: no agent path to rulesets — direct api.github.com is 403 thro
 ### substrate-kit — ⚑ OWNER-ACTION 3 — P4 arm the daily lab loop
 
 - suggested-id: `OQ-SUBSTRATE-KIT-3-P4-ARM-DAILY`
-- source: substrate-kit/control/status.md @ `0801be9` · heartbeat `updated:` 2026-07-12T16:55:00Z
+- source: substrate-kit/control/status.md @ `ac612ab` · heartbeat `updated:` 2026-07-12T18:05:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -221,7 +221,7 @@ VERIFIED-NEEDED: the console Schedules pane is owner UI — routine/schedule cre
 ### substrate-kit — ⚑ OWNER-ACTION 4 — P5 create Railway project kit-lab
 
 - suggested-id: `OQ-SUBSTRATE-KIT-4-P5-CREATE-RAILWAY`
-- source: substrate-kit/control/status.md @ `0801be9` · heartbeat `updated:` 2026-07-12T16:55:00Z
+- source: substrate-kit/control/status.md @ `ac612ab` · heartbeat `updated:` 2026-07-12T18:05:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -238,7 +238,7 @@ VERIFIED-NEEDED: Railway project creation is owner console UI, and the ambient-I
 ### substrate-kit — ⚑ OWNER-ACTION 5 — P8 confirm MIT
 
 - suggested-id: `OQ-SUBSTRATE-KIT-5-P8-CONFIRM-MIT`
-- source: substrate-kit/control/status.md @ `0801be9` · heartbeat `updated:` 2026-07-12T16:55:00Z
+- source: substrate-kit/control/status.md @ `ac612ab` · heartbeat `updated:` 2026-07-12T18:05:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -255,7 +255,7 @@ VERIFIED-NEEDED: a license choice is a legal/product decision — owner judgment
 ### substrate-kit — ⚑ OWNER-ACTION 6 — P11 public flip OR P13 read-only PAT (pick one)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-6-P11-PUBLIC-FLIP`
-- source: substrate-kit/control/status.md @ `0801be9` · heartbeat `updated:` 2026-07-12T16:55:00Z
+- source: substrate-kit/control/status.md @ `ac612ab` · heartbeat `updated:` 2026-07-12T18:05:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -272,7 +272,7 @@ VERIFIED-NEEDED: repo visibility and credential minting are account-owner surfac
 ### substrate-kit — ⚑ OWNER-ACTION 7 — superbot upgrade decision
 
 - suggested-id: `OQ-SUBSTRATE-KIT-7-SUPERBOT-UPGRADE-DECISION`
-- source: substrate-kit/control/status.md @ `0801be9` · heartbeat `updated:` 2026-07-12T16:55:00Z
+- source: substrate-kit/control/status.md @ `ac612ab` · heartbeat `updated:` 2026-07-12T18:05:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -289,7 +289,7 @@ VERIFIED-NEEDED: the pin is a recorded owner decision (docs/adopters.md: "the v1
 ### substrate-kit — ⚑ OWNER-ACTION 8 — web-environment setup script paste
 
 - suggested-id: `OQ-SUBSTRATE-KIT-8-WEB-ENVIRONMENT-SETUP`
-- source: substrate-kit/control/status.md @ `0801be9` · heartbeat `updated:` 2026-07-12T16:55:00Z
+- source: substrate-kit/control/status.md @ `ac612ab` · heartbeat `updated:` 2026-07-12T18:05:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -307,7 +307,7 @@ VERIFIED-NEEDED: the environment settings dialog is owner-only console UI (docs/
 ### substrate-kit — ⚑ OWNER-ACTION 9 — (informational, low priority) optional self-merge permission rule
 
 - suggested-id: `OQ-SUBSTRATE-KIT-9-INFORMATIONAL-LOW-PRIORITY`
-- source: substrate-kit/control/status.md @ `0801be9` · heartbeat `updated:` 2026-07-12T16:55:00Z
+- source: substrate-kit/control/status.md @ `ac612ab` · heartbeat `updated:` 2026-07-12T18:05:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -324,7 +324,7 @@ VERIFIED-NEEDED: the classifier denial is verbatim in docs/CAPABILITIES.md (2026
 ### substrate-kit — ⚑ OWNER-ACTION 10 — branch cleanup (lowest priority)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-10-BRANCH-CLEANUP-LOWEST`
-- source: substrate-kit/control/status.md @ `0801be9` · heartbeat `updated:` 2026-07-12T16:55:00Z
+- source: substrate-kit/control/status.md @ `ac612ab` · heartbeat `updated:` 2026-07-12T18:05:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -341,7 +341,7 @@ VERIFIED-NEEDED: branch deletion is 403 on EVERY agent path (git push :branch 40
 ### substrate-kit — ⚑ OWNER-ACTION 11 — enable "automatically update branches" (closes the auto-merge behind-stall)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-11-ENABLE-AUTOMATICALLY-UPDATE`
-- source: substrate-kit/control/status.md @ `0801be9` · heartbeat `updated:` 2026-07-12T16:55:00Z
+- source: substrate-kit/control/status.md @ `ac612ab` · heartbeat `updated:` 2026-07-12T18:05:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -358,7 +358,7 @@ VERIFIED-NEEDED: repo General settings are owner-only UI; no agent path to toggl
 ### substrate-kit — ⚑ OWNER-ACTION 12 — route the websites ORDER 005 fleet relay
 
 - suggested-id: `OQ-SUBSTRATE-KIT-12-ROUTE-WEBSITES-ORDER`
-- source: substrate-kit/control/status.md @ `0801be9` · heartbeat `updated:` 2026-07-12T16:55:00Z
+- source: substrate-kit/control/status.md @ `ac612ab` · heartbeat `updated:` 2026-07-12T18:05:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -375,7 +375,7 @@ VERIFIED-NEEDED: cross-repo write to `menno420/websites` is out of this session'
 ### substrate-kit — ⚑ version-truth deference (flagged for the owner's §7 layering ruling, decide-and-flag): generated `docs/adop…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-VERSION-TRUTH-DEFERENCE-FLAGGED`
-- source: substrate-kit/control/status.md @ `0801be9` · heartbeat `updated:` 2026-07-12T16:55:00Z
+- source: substrate-kit/control/status.md @ `ac612ab` · heartbeat `updated:` 2026-07-12T18:05:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -385,27 +385,27 @@ VERIFIED-NEEDED: cross-repo write to `menno420/websites` is out of this session'
 ### ↳ substrate-kit — `control/status-superbot-coordinator.md` — ⚑ needs-owner: 1) verify/deliver the testing-lane wind-down — superbot-next control/status.md was still UNFLI…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-1-VERIFY-DELIVER-TESTING`
-- source: substrate-kit/control/status-superbot-coordinator.md @ `0801be9` · heartbeat `updated:` 2026-07-10T13:47:02Z
+- source: substrate-kit/control/status-superbot-coordinator.md @ `ac612ab` · heartbeat `updated:` 2026-07-10T13:47:02Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
 ⚑ needs-owner: 1) verify/deliver the testing-lane wind-down — superbot-next control/status.md was still UNFLIPPED at 2026-07-10T13:45Z (band-5 "NEXT LANE: LIVE-DRIVE", 01:05Z heartbeat), so that lane's seven wind-down deliverables are still owed [unblocks: superbot-next lane archive]; 2) kernel-surface-drift ruling (flag 13 in superbot-next docs/status/testing-report-2026-07-09.md: "relax-compare" or "re-baseline") [unblocks: ALL parity flips]; 3) create repo superbot-plugin-hello (github.com/new, owner menno420, Public, no README) [unblocks: ORDER 002 done]; 4) paste the setup script from docs/environment-setup-script.md into the project Environment settings (re-verified exit-0 at wind-down) [unblocks: no more provisioning deaths]; 5) nod for wiring superbot's new collision/freshness checkers (#1918/#1923) into code-quality.yml — one small PR, owner said workflow edits need a nod [unblocks: checkers enforce in CI]; 6) stale trading-lab/venture-lab manifest rows (manager-owned file) + Q-0248 taxonomy lacks a "tooling" class [unblocks: honest telemetry]
 ```
 
-### websites — ⚑ needs-owner: pointer — canonical six-field blocks live in docs/owner/OWNER-ACTIONS.md (re-read this heartbe…
+### websites — ⚑ needs-owner: pointer — canonical six-field blocks live in docs/owner/OWNER-ACTIONS.md ONLY (reconciled this…
 
 - suggested-id: `OQ-WEBSITES-POINTER-CANONICAL-SIX-FIELD`
-- source: websites/control/status.md @ `e25d7d5` · heartbeat `updated:` 2026-07-12T16:41:04Z
+- source: websites/control/status.md @ `fba35dd` · heartbeat `updated:` 2026-07-12T18:23:20Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-⚑ needs-owner: pointer — canonical six-field blocks live in docs/owner/OWNER-ACTIONS.md (re-read this heartbeat). EIGHT active asks there: Actions "allow create PRs" toggle (review-bake), Q-0004, Discord OAuth (post-Q-0004), armed control service + token (post-Q-0004), botsite DATABASE_URL Postgres, PayPal Payouts creds (ORDER 018), botsite SITE_PASSWORD (ORDER 018), fine-grained contents:write PAT as GITHUB_TOKEN on control-plane+botsite (ORDER 020). The ledger's review-Railway-service ask appears SATISFIED (service live-verified this session, above) — reconcile owed; the ANTHROPIC_API_KEY ask is kept-for-record as reported-resolved. NOT yet in the ledger: the RAILWAY_TOKEN block for /owner/environments' live half (#166, merged) — the six-field block is still owed (verified absent from OWNER-ACTIONS.md this session).
+⚑ needs-owner: pointer — canonical six-field blocks live in docs/owner/OWNER-ACTIONS.md ONLY (reconciled this sitting under fleet-manager ORDER 022: RAILWAY_TOKEN + ANTHROPIC_API_KEY struck to Decided; the review-service ask was already struck). Open asks there: botsite SITE_PASSWORD; the Actions "allow create PRs" toggle (review-bake); botsite Postgres/DATABASE_URL; PayPal Payouts creds; the fine-grained GitHub contents:write PAT (ORDER 020); Discord OAuth redirect-URI + client secret (owner decision pending — gates the environments hub).
 ```
 
 ### trading-strategy — ⚑ needs-owner (six-field form — what / why / exact click / where / blocking? / fallback; durable copies with …
 
 - suggested-id: `OQ-TRADING-STRATEGY-SIX-FIELD-FORM-WHAT`
-- source: trading-strategy/control/status.md @ `dfd46bb` · heartbeat `updated:` 2026-07-12T12:12Z
+- source: trading-strategy/control/status.md @ `b354548` · heartbeat `updated:` 2026-07-12T12:12Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -420,20 +420,20 @@ VERIFIED-NEEDED: cross-repo write to `menno420/websites` is out of this session'
 next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — first pass is expected FLAT: warm-up runs ~3 weeks; this deadline now HAS an executor — the re-armed weekly grading trigger trig_015aNMg5ncoSE2Roe4MKjQnr fires 2026-07-17T09:05Z, ⚑ (g) RESOLVED)
 ```
 
-### venture-lab — - **⚑ LAUNCH — COMPLETE END-TO-END (⚑A VERIFIED · ⚑E LAUNCHED · article LIVE); one owner click still benefits…
+### venture-lab — - **⚑ LAUNCH — COMPLETE END-TO-END, now in MEASUREMENT mode (⚑A VERIFIED · ⚑E LAUNCHED · article LIVE · test …
 
 - suggested-id: `OQ-VENTURE-LAB-LAUNCH-COMPLETE-END-END`
-- source: venture-lab/control/status.md @ `2cf81cd` · heartbeat `updated:` 2026-07-12T17:24Z
+- source: venture-lab/control/status.md @ `24eb11d` · heartbeat `updated:` 2026-07-12T18:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-- **⚑ LAUNCH — COMPLETE END-TO-END (⚑A VERIFIED · ⚑E LAUNCHED · article LIVE); one owner click still benefits the clock** · WHAT: (A) ⚑A env secret — **DONE/VERIFIED via PR #74**; (E) Gumroad $29 listing — **DONE/LIVE** (<https://mennomagic01.gumroad.com/l/stripe-webhook-test-kit>, HTTP 200); the **free gotcha article** — **DONE/LIVE** on dev.to (<https://dev.to/menno420/your-stripe-webhook-says-customeremail-is-null-heres-why-and-the-fix-1bgp>, HTTP 200 at 2026-07-12T17:24:10Z, product link present, ZERO tags observed). **Remaining, still open:** (1) a first **test purchase** to walk the end-to-end buyer path — **UNCONFIRMED**. · WHY: the listing + funnel top are live and the T→T+14 kill clock is running (T=2026-07-12T16:25Z; T+14=2026-07-26); a test purchase de-risks the buyer path. Runbook: `docs/launch/OWNER-LAUNCH-HOUR.md`; record: `docs/launch/stripe-webhook-test-kit/LAUNCH-LOG.md`. · VERIFIED-WHEN: a first test purchase completes end-to-end (the article funnel top is already live). **Discoverability follow-up (cheap, owner-side):** the article rendered with ZERO tags — adding `stripe`/`webhooks`/`payments`/`debugging` boosts dev.to feed/tag-page reach.
+- **⚑ LAUNCH — COMPLETE END-TO-END, now in MEASUREMENT mode (⚑A VERIFIED · ⚑E LAUNCHED · article LIVE · test purchase VERIFIED); no open owner click** · WHAT: (A) ⚑A env secret — **DONE/VERIFIED via PR #74**; (E) Gumroad $29 listing — **DONE/LIVE** (<https://mennomagic01.gumroad.com/l/stripe-webhook-test-kit>, HTTP 200); the **free gotcha article** — **DONE/LIVE** on dev.to (<https://dev.to/menno420/your-stripe-webhook-says-customeremail-is-null-heres-why-and-the-fix-1bgp>, HTTP 200 at 2026-07-12T17:24:10Z, product link present; the **4 tags — `stripe`/`debugging`/`webhooks`/`payments` — went LIVE 2026-07-12T17:24:24Z**, verified via dev.to API — the earlier "ZERO tags" reading raced the owner's edit and is corrected); (1) owner **test purchase — DONE/VERIFIED 2026-07-12** (discounted end-to-end buy; success banner shown; download page served the `stripe-webhook-test-kit-v0.1` ZIP, 19.4 KB, working Download button; checkout→receipt→download confirmed). · WHY: all four launch legs are recorded on `main`; the T→T+14 kill clock is running (T=2026-07-12T16:25Z; T+14=2026-07-26) and the launch is now in **measurement mode** — the coordinator watches Gumroad analytics + dev.to engagement at the two armed checkpoints. Runbook: `docs/launch/OWNER-LAUNCH-HOUR.md`; record: `docs/launch/stripe-webhook-test-kit/LAUNCH-LOG.md`. · VERIFIED-WHEN: **SATISFIED** — all four legs done (⚑A #74 · ⚑E #84 · article #85 · test purchase). No open owner action; measurement is coordinator-side (checkpoints 2026-07-19 / 2026-07-26).
 ```
 
 ### venture-lab — - **⚑ NEW — books read-through → pick winner(s) → choose the illustration/publishing path** · WHAT: read the …
 
 - suggested-id: `OQ-VENTURE-LAB-NEW-BOOKS-READ-THROUGH`
-- source: venture-lab/control/status.md @ `2cf81cd` · heartbeat `updated:` 2026-07-12T17:24Z
+- source: venture-lab/control/status.md @ `24eb11d` · heartbeat `updated:` 2026-07-12T18:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -443,7 +443,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### venture-lab — - **⚑M1 — License a COMMERCIAL market-data feed (the free feeds are personal-use only)** · WHAT: replace yfin…
 
 - suggested-id: `OQ-VENTURE-LAB-M1-LICENSE-COMMERCIAL-MARKET`
-- source: venture-lab/control/status.md @ `2cf81cd` · heartbeat `updated:` 2026-07-12T17:24Z
+- source: venture-lab/control/status.md @ `24eb11d` · heartbeat `updated:` 2026-07-12T18:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -453,7 +453,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### venture-lab — - **⚑M2 — One-off NL legal/compliance counsel check of the premium copy** · WHAT: a single fixed-cost review …
 
 - suggested-id: `OQ-VENTURE-LAB-M2-ONE-OFF-NL`
-- source: venture-lab/control/status.md @ `2cf81cd` · heartbeat `updated:` 2026-07-12T17:24Z
+- source: venture-lab/control/status.md @ `24eb11d` · heartbeat `updated:` 2026-07-12T18:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -463,7 +463,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### venture-lab — - **⚑M3 — Existing KILL CRITERION stands: 2-week owner dogfood before any premium build** · WHAT: the owner u…
 
 - suggested-id: `OQ-VENTURE-LAB-M3-EXISTING-KILL-CRITERION`
-- source: venture-lab/control/status.md @ `2cf81cd` · heartbeat `updated:` 2026-07-12T17:24Z
+- source: venture-lab/control/status.md @ `24eb11d` · heartbeat `updated:` 2026-07-12T18:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -473,7 +473,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### venture-lab — - **⚑ NEW — market-state-dashboard Phase 1 build go/no-go** · WHAT: approve (or decline) building the Phase-1…
 
 - suggested-id: `OQ-VENTURE-LAB-NEW-MARKET-STATE-DASHBOARD`
-- source: venture-lab/control/status.md @ `2cf81cd` · heartbeat `updated:` 2026-07-12T17:24Z
+- source: venture-lab/control/status.md @ `24eb11d` · heartbeat `updated:` 2026-07-12T18:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -483,7 +483,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### venture-lab — - **⚑ — delete stale branch `money-seat-heartbeat` (403 for agents)** · WHAT: delete the abandoned non-`claud…
 
 - suggested-id: `OQ-VENTURE-LAB-DELETE-STALE-BRANCH-MONEY`
-- source: venture-lab/control/status.md @ `2cf81cd` · heartbeat `updated:` 2026-07-12T17:24Z
+- source: venture-lab/control/status.md @ `24eb11d` · heartbeat `updated:` 2026-07-12T18:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -493,7 +493,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### venture-lab — - **⚑B — publish membership-kit at $49 — UNFROZEN ✅** · WHAT: publish `candidates/membership-kit/LISTING.md` …
 
 - suggested-id: `OQ-VENTURE-LAB-B-PUBLISH-MEMBERSHIP-KIT`
-- source: venture-lab/control/status.md @ `2cf81cd` · heartbeat `updated:` 2026-07-12T17:24Z
+- source: venture-lab/control/status.md @ `24eb11d` · heartbeat `updated:` 2026-07-12T18:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -503,7 +503,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### venture-lab — - **⚑D — publish template-packs at $19 PWYW — UNFROZEN ✅** · WHAT: publish `candidates/template-packs/LISTING…
 
 - suggested-id: `OQ-VENTURE-LAB-D-PUBLISH-TEMPLATE-PACKS`
-- source: venture-lab/control/status.md @ `2cf81cd` · heartbeat `updated:` 2026-07-12T17:24Z
+- source: venture-lab/control/status.md @ `24eb11d` · heartbeat `updated:` 2026-07-12T18:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -513,7 +513,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### venture-lab — - **⚑E — publish stripe-webhook-test-kit at $29 — LAUNCHED ✅ 2026-07-12 (flagship; see LAUNCH block + LAUNCH-…
 
 - suggested-id: `OQ-VENTURE-LAB-E-PUBLISH-STRIPE-WEBHOOK`
-- source: venture-lab/control/status.md @ `2cf81cd` · heartbeat `updated:` 2026-07-12T17:24Z
+- source: venture-lab/control/status.md @ `24eb11d` · heartbeat `updated:` 2026-07-12T18:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -523,7 +523,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### venture-lab — - **⚑ FOLLOW-UP (post-launch, conditional) — move the paid zip out of the public repo tree if sales materiali…
 
 - suggested-id: `OQ-VENTURE-LAB-FOLLOW-UP-POST-LAUNCH`
-- source: venture-lab/control/status.md @ `2cf81cd` · heartbeat `updated:` 2026-07-12T17:24Z
+- source: venture-lab/control/status.md @ `24eb11d` · heartbeat `updated:` 2026-07-12T18:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -533,7 +533,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### venture-lab — - **⚑F — publish the Agent Fleet Field Manual at $39 — QUEUED ✅** · WHAT: publish per `docs/launch/agent-flee…
 
 - suggested-id: `OQ-VENTURE-LAB-F-PUBLISH-AGENT-FLEET`
-- source: venture-lab/control/status.md @ `2cf81cd` · heartbeat `updated:` 2026-07-12T17:24Z
+- source: venture-lab/control/status.md @ `24eb11d` · heartbeat `updated:` 2026-07-12T18:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -543,7 +543,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### venture-lab — - **⚑ — publish the free gotcha article — PUBLISHED ✅ 2026-07-12** · DONE: the owner published it personally …
 
 - suggested-id: `OQ-VENTURE-LAB-PUBLISH-FREE-GOTCHA-ARTICLE`
-- source: venture-lab/control/status.md @ `2cf81cd` · heartbeat `updated:` 2026-07-12T17:24Z
+- source: venture-lab/control/status.md @ `24eb11d` · heartbeat `updated:` 2026-07-12T18:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -553,7 +553,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### venture-lab — - **⚑G — enable GitHub Pages (Bababoefoe QR story-site) — $0** · WHAT: enable GitHub Pages per `candidates/ba…
 
 - suggested-id: `OQ-VENTURE-LAB-G-ENABLE-GITHUB-PAGES`
-- source: venture-lab/control/status.md @ `2cf81cd` · heartbeat `updated:` 2026-07-12T17:24Z
+- source: venture-lab/control/status.md @ `24eb11d` · heartbeat `updated:` 2026-07-12T18:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -563,7 +563,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### venture-lab — - **⚑ — owner photo samples upload (photo-packs)** · WHAT: upload downsized (**≤2048px**) **watermarked** pre…
 
 - suggested-id: `OQ-VENTURE-LAB-PHOTO-SAMPLES-UPLOAD-PHOTO`
-- source: venture-lab/control/status.md @ `2cf81cd` · heartbeat `updated:` 2026-07-12T17:24Z
+- source: venture-lab/control/status.md @ `24eb11d` · heartbeat `updated:` 2026-07-12T18:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -573,7 +573,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### venture-lab — - **⚑ (optional) — Supabase project for hosted persistence** · WHAT: create a Supabase project + `members` ta…
 
 - suggested-id: `OQ-VENTURE-LAB-OPTIONAL-SUPABASE-PROJECT-HOSTED`
-- source: venture-lab/control/status.md @ `2cf81cd` · heartbeat `updated:` 2026-07-12T17:24Z
+- source: venture-lab/control/status.md @ `24eb11d` · heartbeat `updated:` 2026-07-12T18:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -583,7 +583,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### venture-lab — - **⚑ — decide-and-flag decisions open for retroactive veto (ORDER 006 mirror)** · WHAT: (1) all merges 2026-…
 
 - suggested-id: `OQ-VENTURE-LAB-DECIDE-FLAG-DECISIONS-OPEN`
-- source: venture-lab/control/status.md @ `2cf81cd` · heartbeat `updated:` 2026-07-12T17:24Z
+- source: venture-lab/control/status.md @ `24eb11d` · heartbeat `updated:` 2026-07-12T18:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -593,7 +593,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### venture-lab — - **⚑ — close PR #51 + delete branch `menno420-patch-1` (photo exposure): RESOLVED.** PR #51 CLOSED unmerged …
 
 - suggested-id: `OQ-VENTURE-LAB-CLOSE-PR-51-DELETE`
-- source: venture-lab/control/status.md @ `2cf81cd` · heartbeat `updated:` 2026-07-12T17:24Z
+- source: venture-lab/control/status.md @ `24eb11d` · heartbeat `updated:` 2026-07-12T18:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -603,7 +603,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### venture-lab — - **⚑ — disposition PR #38 (stale codex pre-publish review): RESOLVED.** PR #38 (`codex/review-code-for-publi…
 
 - suggested-id: `OQ-VENTURE-LAB-DISPOSITION-PR-38-STALE`
-- source: venture-lab/control/status.md @ `2cf81cd` · heartbeat `updated:` 2026-07-12T17:24Z
+- source: venture-lab/control/status.md @ `24eb11d` · heartbeat `updated:` 2026-07-12T18:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -613,7 +613,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### superbot-games · Seat A — ⚑ needs-owner: see the OWNER-ACTION block below + docs/retro/archive-ready-2026-07-11.md
 
 - suggested-id: `OQ-SUPERBOT-GAMES-SEE-BLOCK-BELOW-DOCS`
-- source: superbot-games/control/status.md @ `bdc4cd1` · heartbeat `updated:` 2026-07-11T19:39:14Z
+- source: superbot-games/control/status.md @ `0082ee2` · heartbeat `updated:` 2026-07-11T19:39:14Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -623,7 +623,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### ↳ superbot-games · Seat A — `control/status-exploration.md` — ⚑ needs-owner: \|
 
 - suggested-id: `OQ-SUPERBOT-GAMES-FLAG`
-- source: superbot-games/control/status-exploration.md @ `bdc4cd1` · heartbeat `updated:` 2026-07-09T20:09Z
+- source: superbot-games/control/status-exploration.md @ `0082ee2` · heartbeat `updated:` 2026-07-09T20:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -646,11 +646,90 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### superbot-mineverse — ⚑ MERGE-ORDER: merge PR #42 (this login-CSRF fix) BEFORE provisioning the secrets below, so sign-in never run…
 
 - suggested-id: `OQ-SUPERBOT-MINEVERSE-MERGE-ORDER-MERGE-PR`
-- source: superbot-mineverse/control/status.md @ `ac312e8` · heartbeat `updated:` 2026-07-11T23:51:34Z
+- source: superbot-mineverse/control/status.md @ `e6d4ac7` · heartbeat `updated:` 2026-07-11T23:51:34Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
 ⚑ MERGE-ORDER: merge PR #42 (this login-CSRF fix) BEFORE provisioning the secrets below, so sign-in never runs in production without the per-browser binding in place.
+```
+
+### pokemon-mod-lab — 1. **⚑ OWNER-ACTION 1 — `ROM builds` required-check click.** GitHub →
+
+- suggested-id: `OQ-POKEMON-MOD-LAB-1-1-ROM-BUILDS`
+- source: pokemon-mod-lab/control/status.md @ `759dee4` · heartbeat `updated:` 2026-07-11T21:03:45Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+1. **⚑ OWNER-ACTION 1 — `ROM builds` required-check click.** GitHub →
+   Settings → Rules → `main` ruleset → require status checks → add
+   `ROM builds` (keep `substrate-gate`). No agent API surface for
+   rulesets (`docs/PLATFORM-LIMITS.md`).
+```
+
+### pokemon-mod-lab — 2. **⚑ OWNER-ACTION 2 — next-arc concept pick.** One word: continue
+
+- suggested-id: `OQ-POKEMON-MOD-LAB-2-2-NEXT-ARC`
+- source: pokemon-mod-lab/control/status.md @ `759dee4` · heartbeat `updated:` 2026-07-11T21:03:45Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+2. **⚑ OWNER-ACTION 2 — next-arc concept pick.** One word: continue
+   Emerald QoL+ (new-lead spikes) / Emerald Hard / Nuzlocke Mode
+   (`docs/mod-concepts.md`). Lane default remains QoL+; reversible.
+```
+
+### pokemon-mod-lab — 3. **⚑ OWNER-ACTION 3 — playtest verdict on the 6 game-feel patches**
+
+- suggested-id: `OQ-POKEMON-MOD-LAB-3-3-PLAYTEST-VERDICT`
+- source: pokemon-mod-lab/control/status.md @ `759dee4` · heartbeat `updated:` 2026-07-11T21:03:45Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+3. **⚑ OWNER-ACTION 3 — playtest verdict on the 6 game-feel patches**
+   (instant text #4, auto-run #6, HP drain 3× #7, battle msg ×0.5 #7,
+   egg hatch 2×/3× #21, fishing dots 2× #23) + the Match Call
+   random-nag rider. One-line header flag per revert
+   (`docs/build-presets.md`); hatch-128 stacking waits on this.
+```
+
+### pokemon-mod-lab — 4. **⚑ stale ref `track-a/session-019` — owner click to delete**
+
+- suggested-id: `OQ-POKEMON-MOD-LAB-4-STALE-REF-TRACK`
+- source: pokemon-mod-lab/control/status.md @ `759dee4` · heartbeat `updated:` 2026-07-11T21:03:45Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+4. **⚑ stale ref `track-a/session-019` — owner click to delete**
+   (content squash-merged via PR #24 long ago; sessions must not touch
+   it).
+```
+
+### pokemon-mod-lab — 5. **⚑ NEW (housekeeping) — stale ref `track-a/session-024` — owner
+
+- suggested-id: `OQ-POKEMON-MOD-LAB-5-NEW-HOUSEKEEPING-STALE`
+- source: pokemon-mod-lab/control/status.md @ `759dee4` · heartbeat `updated:` 2026-07-11T21:03:45Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+5. **⚑ NEW (housekeeping) — stale ref `track-a/session-024` — owner
+   click to delete** (content superseded by PR #31; PR #29 closed).
+   Session 041 attempted `git push origin :track-a/session-024` at
+   archive time and was DENIED by the platform's auto-mode classifier
+   ("[Git Destructive] ... not named or authorized by the user") — not
+   retried, per playbook. Either owner-click it away alongside
+   session-019, or explicitly authorize a future session to delete it.
+```
+
+### pokemon-mod-lab — - OWNER-ACTION 4 (wake-env GitHub write tools) and OWNER-ACTION 5
+
+- suggested-id: `OQ-POKEMON-MOD-LAB-4-WAKE-ENV-GITHUB`
+- source: pokemon-mod-lab/control/status.md @ `759dee4` · heartbeat `updated:` 2026-07-11T21:03:45Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+- OWNER-ACTION 4 (wake-env GitHub write tools) and OWNER-ACTION 5
+  (`add_repo` classifier denials): **RESOLVED** — 20 consecutive clean
+  wake cycles (024–043). Reopen only on regression.
 ```
 
 ### product-forge — ⚑ OWNER-ACTION (OA-003, open)
@@ -676,11 +755,11 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### idea-engine — ⚑ needs-owner: ARCHIVE HANDOFF (this slice, wrap-up — read FIRST at next wake): (1) STANDING RULING Q-0265, C…
 
 - suggested-id: `OQ-IDEA-ENGINE-ARCHIVE-HANDOFF-THIS-SLICE`
-- source: idea-engine/control/status.md @ `bb5a9d6` · heartbeat `updated:` 2026-07-12T16:28:23Z (real wall-clock via date -u, per the …
+- source: idea-engine/control/status.md @ `fa38a95` · heartbeat `updated:` 2026-07-12T18:10:58Z (real wall-clock via date -u, per the …
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-⚑ needs-owner: ARCHIVE HANDOFF (this slice, wrap-up — read FIRST at next wake): (1) STANDING RULING Q-0265, CONTINUOUS-CHAINING MODE — restored DURABLY here this slice (it previously lived only in session cards, grep of this file was negative): the coordinator chains bounded slices CONTINUOUSLY via child sessions, the next slice dispatching as each one reports; the 2-hourly cron trigger is a FAILSAFE DEADMAN WAKE, not the work cadence (README § Coordination; first recorded live in this file @ 139932e). The archiving coordinator's failsafe cron trigger AND its 15-minute send_later chain are being DISMANTLED with the chat archive — a fresh coordinator MUST RE-ARM BOTH per Q-0265 at first wake. (2) THE ≤07-13 OWNER SITTING BUNDLE (context: Projects are free through 2026-07-14, the owner consolidates after — decide ≤2026-07-13): FOUR decisions in ONE sitting — (a) Lumen Drift itch.io go/no-go (standing OWNER-ACTION entry below), (b) pokemon playtest verdicts (fm docs/owner-queue.md item 3), (c) the gba concept pick (the lane's own heartbeat ⚑), (d) the post-EAP standing-routine posture (standing entry below — RECOMMENDED Option A). (3) WEBSITES CUTOVER choice — one structured reply, RECOMMENDED Option A (the standing entry below, first item). The standing entries follow VERBATIM from the prior overwrite: STANDING (routed by #159, preserved verbatim this slice again) — WEBSITES CUTOVER-ROLE, one structured choice (fan-in of the websites lane's own OWNER-ACTIONS rows 6/4/1 @ 92c3dc6 — the canonical rows STAY on the lane's surface; this entry only bundles three rows that are really ONE decision into a single paste-ready sitting, per the fewer-clearer-asks hygiene): ⚑ OWNER-ACTION WHAT: one reply deciding the websites cutover role — go/no-go on retiring superbot's old dashboard/ + botsite/ site services, where bot control lives (websites / superbot / superbot-next), and (optionally) domains. WHERE: reply in any owner channel the manager sweep reads; the lane executes from its own list — menno420/websites docs/owner/OWNER-ACTIONS.md rows 1/4/6 (optional 2-min pre-check first: open the three live site URLs linked from the websites README, or have the lane run its scripts/healthcheck.py — its own row 6 asks for exactly that verify-then-go). HOW (paste ONE line — recommendation first): RECOMMENDED "Cutover Option A: go — retire superbot's dashboard/ + botsite/ services; the new sites keep reading old-repo data until the bot cutover; bot control home = superbot-next (ruled now, wired later); domains stay deferred." · Alternatives: "Option B: botsite-only go now, dashboard later" (the lane plan's own site order) · "Option C: hold everything for one combined cutover when superbot-next reaches parity" (zero clicks now; cost = dual-maintenance for the parity months) · "Option D: no-go — deliberately keep dual-running." WHY-IT-MATTERS: the replacements are live and verified daily (all three services deploy-verified at websites 1ff77e4); while the call is unmade you pay dual maintenance on old+new sites and the de-facto answer bakes in. UNBLOCKS: websites rework-plan steps 3/5 (retiring the last dual-running old-repo web surfaces), the Q4 control-panel wiring path, domain assignment — and closes this repo's superbot #155 shortlist item 2 for good. VERIFIED-NEEDED: owner-gated by rule, not capability — the lane's own surface marks the retirement "Gated: needs your go" (OWNER-ACTIONS row 6 @ 92c3dc6) and the control home "Do not port without an owner call" (row 1); its question-router Q6 reads "(unanswered — deferred to cutover)"; DNS/service retirement are owner-only Railway/DNS mutations (the lane's D‑0005 class), deliberately not attempted from any agent seat. ALSO STANDING (preserved verbatim from #158): SELF-REVIEW 2026-07-11 (ORDER 002): owner items collected in the Self-review record at docs/retro/self-review-2026-07-11.md (moved verbatim from the foot of this file at the 2026-07-11 wrap-up) — the ≤2026-07-14 sitting bundle (FOUR decisions as of #174, standing entries below) + the venture-lab two repo toggles (#110) + the Q-0266 framing veto window. Prior text verbatim: SHARED-WINDOW NOTE UPDATE (this slice, same fewer-clearer-asks hygiene): the gba-homebrew CONCEPT PICK (lane ⚑ @ c7592d6 — Lumen-deepening / Clockwork Courier / Shoal, full click path on the lane's own heartbeat; seeded-cave-runs is now the costed 'more Lumen' option, this slice's park) is the THIRD item landing in the SAME ≤2026-07-14 EAP sitting — deliberately NOT a new ⚑ here, the ask lives on the LANE's own heartbeat (one ask, one owner surface); the sweep should read the sitting as carrying FOUR bundled decisions: (1) the Lumen Drift itch.io go/no-go standing entry below, (2) fm docs/owner-queue.md item 3 (pokemon playtest verdicts), (3) the gba concept pick, (4) the post-EAP routine posture (#174's entry, below). The prior note follows verbatim: SHARED-WINDOW NOTE (this slice, hygiene per fewer-clearer-asks): the pokemon-mod-lab playtest-kit park (this slice) is deliberately NOT a new ⚑ here — its owner ask already lives as fm docs/owner-queue.md item 3 @ 1afca50 (one ask, one owner surface, the manager's); what the sweep must see is that BOTH owner-sitting items — the Lumen Drift ⚑ OWNER-ACTION below AND that queue item — land in the SAME EAP sitting, window ends 2026-07-14; the kit-preparation routing (fm order or lane self-serve) is the manager-side item flagged in notes. The standing entry follows verbatim: ⚑ OWNER-ACTION (from this slice, decision-adjacent — EAP window ends 2026-07-14): WHAT: post-EAP go/no-go + one itch.io sitting to publish Lumen Drift as a PWYW listing. WHERE: itch.io (account) + gba-homebrew dist/lumen-drift.gba v1.3 (sha256 195a867…, provenance dist/README.md) + the parked idea ideas/venture-lab/games-adjacent-candidate-three-2026-07-10.md. HOW: play Lumen Drift during the EAP sitting; on go: create itch.io account → New project → set pay-what-you-want → upload dist/lumen-drift.gba → publish (venture-lab pre-drafts the full listing copy so this is paste-and-click). WHY-IT-MATTERS: first second-channel distribution datapoint + a publish pipeline every finished fleet game inherits, at zero build cost. UNBLOCKS: the parked candidate #3, venture-lab's listing-kit prep, and gives revenue-ingestion-owner-relay its first non-marketplace source. Sequencing note (from the #97-era probe): the click need NOT wait on the revenue-ingestion relay — itch.io/marketplace sales exports are retro-downloadable, so pre-relay sales stay recoverable; the lane lands the ledger convention independently (fan-in below, flagged ORDER-worthy). VERIFIED-NEEDED: account creation/external publishing is rail-banned for agents on both lanes' READMEs (venture-lab @ 0ad0ea4, gba-homebrew @ 31c8672) — owner-only by rule, not by missing capability. ALSO note for the :30 sweep: the wake-resilience verdict (PR #56) is gated on an owner click that already lives as a six-field OWNER-ACTION entry on the TRADING-STRATEGY lane's own heartbeat @ `d0d789e` (⚑ (b): paste environments/setup-universal.sh into that project's environment setup-script field); deliberately NOT duplicated here per the fewer-clearer-asks hygiene — one ask, one owner surface, the lane's. Routed via the trading-strategy fan-in note below. SAME hygiene for venture-lab's ⚑B/⚑D publish clicks (launch-ready, UNFROZEN @ `9f1b616`) — they live as owner-action entries on the LANE's own docs/launch/membership-kit/owner-actions.md, deliberately NOT duplicated here; routed via the venture-lab fan-in note below. STANDING FROM #174 (decision 4 of the ≤07-14 sitting): ⚑ OWNER-ACTION (from #174, HARD deadline — decide ≤2026-07-13, EAP window wraps 2026-07-14): WHAT: one reply setting the post-EAP standing-routine posture — what keeps firing on paid usage after 07-14. WHERE: reply in any owner channel the manager sweep reads; execution is manager-side trigger edits (roster gen #5 @ fm 7c13be7: 32 enabled = 15 standing crons + 2 poke-only + 15 one-shots). HOW (paste ONE line — recommendation first): RECOMMENDED "Post-EAP routines Option A: core-6 Projects keep current cadence (per Q-0261), every other standing cron drops to daily, one-shots expire on completion; revisit at first paid invoice." · Alternatives: "Option B: keep all 15 standing crons as-is (accept unmetered paid burn)" · "Option C: freeze all crons at window close; owner wakes lanes manually" · "Option D: name a monthly budget figure; manager thins cadence to fit and reports the cut list." WHY-IT-MATTERS: with no ruling, Option B happens by inertia — every cron fires into the paid period at a burn no agent can measure (fm fleet-economics honest-nulls: token/$ "not measurable"). UNBLOCKS: the manager's pre-close cadence sweep; closes the open post-EAP pricing question (superbot projects-eap-product-review-2026-07-07.md:150); the mechanical limit-deferred half proceeds independently as superbot's plan (PR #1845). VERIFIED-NEEDED: owner-only by evidence — no post-EAP budget ruling exists anywhere (full-tree greps of fresh clones superbot @ 9f46cb7 + fleet-manager @ 7c13be7 at #174; only the open question and Q-0261's "until the EAP ends" boundary), and spend/billing surfaces are owner-UI-only (fm model-matrix: no agent-visible field on any probed surface).
+⚑ needs-owner: ARCHIVE HANDOFF (this slice, wrap-up — read FIRST at next wake): (1) STANDING RULING Q-0265, CONTINUOUS-CHAINING MODE — restored DURABLY here this slice (it previously lived only in session cards, grep of this file was negative): the coordinator chains bounded slices CONTINUOUSLY via child sessions, the next slice dispatching as each one reports; the 2-hourly cron trigger is a FAILSAFE DEADMAN WAKE, not the work cadence (README § Coordination; first recorded live in this file @ 139932e). The archiving coordinator's failsafe cron trigger AND its 15-minute send_later chain are being DISMANTLED with the chat archive — a fresh coordinator MUST RE-ARM BOTH per Q-0265 at first wake. (2) THE ≤07-13 OWNER SITTING BUNDLE (context: Projects are free through 2026-07-14, the owner consolidates after — decide ≤2026-07-13): FOUR decisions in ONE sitting — (a) Lumen Drift itch.io go/no-go (standing OWNER-ACTION entry below), (b) pokemon playtest verdicts (fm docs/owner-queue.md item 3), (c) the gba concept pick (the lane's own heartbeat ⚑), (d) the post-EAP standing-routine posture (standing entry below — RECOMMENDED Option A). (3) WEBSITES CUTOVER choice — one structured reply, RECOMMENDED Option A (the standing entry below, first item). The standing entries follow VERBATIM from the prior overwrite: STANDING (routed by #159, preserved verbatim this slice again) — WEBSITES CUTOVER-ROLE, one structured choice (fan-in of the websites lane's own OWNER-ACTIONS rows 6/4/1 @ 92c3dc6 — the canonical rows STAY on the lane's surface; this entry only bundles three rows that are really ONE decision into a single paste-ready sitting, per the fewer-clearer-asks hygiene): ⚑ OWNER-ACTION WHAT: one reply deciding the websites cutover role — go/no-go on retiring superbot's old dashboard/ + botsite/ site services, where bot control lives (websites / superbot / superbot-next), and (optionally) domains. WHERE: reply in any owner channel the manager sweep reads; the lane executes from its own list — menno420/websites docs/owner/OWNER-ACTIONS.md rows 1/4/6 (optional 2-min pre-check first: open the three live site URLs linked from the websites README, or have the lane run its scripts/healthcheck.py — its own row 6 asks for exactly that verify-then-go). HOW (paste ONE line — recommendation first): RECOMMENDED "Cutover Option A: go — retire superbot's dashboard/ + botsite/ services; the new sites keep reading old-repo data until the bot cutover; bot control home = superbot-next (ruled now, wired later); domains stay deferred." · Alternatives: "Option B: botsite-only go now, dashboard later" (the lane plan's own site order) · "Option C: hold everything for one combined cutover when superbot-next reaches parity" (zero clicks now; cost = dual-maintenance for the parity months) · "Option D: no-go — deliberately keep dual-running." WHY-IT-MATTERS: the replacements are live and verified daily (all three services deploy-verified at websites 1ff77e4); while the call is unmade you pay dual maintenance on old+new sites and the de-facto answer bakes in. UNBLOCKS: websites rework-plan steps 3/5 (retiring the last dual-running old-repo web surfaces), the Q4 control-panel wiring path, domain assignment — and closes this repo's superbot #155 shortlist item 2 for good. VERIFIED-NEEDED: owner-gated by rule, not capability — the lane's own surface marks the retirement "Gated: needs your go" (OWNER-ACTIONS row 6 @ 92c3dc6) and the control home "Do not port without an owner call" (row 1); its question-router Q6 reads "(unanswered — deferred to cutover)"; DNS/service retirement are owner-only Railway/DNS mutations (the lane's D‑0005 class), deliberately not attempted from any agent seat. ALSO STANDING (preserved verbatim from #158): SELF-REVIEW 2026-07-11 (ORDER 002): owner items collected in the Self-review record at docs/retro/self-review-2026-07-11.md (moved verbatim from the foot of this file at the 2026-07-11 wrap-up) — the ≤2026-07-14 sitting bundle (FOUR decisions as of #174, standing entries below) + the venture-lab two repo toggles (#110) + the Q-0266 framing veto window. Prior text verbatim: SHARED-WINDOW NOTE UPDATE (this slice, same fewer-clearer-asks hygiene): the gba-homebrew CONCEPT PICK (lane ⚑ @ c7592d6 — Lumen-deepening / Clockwork Courier / Shoal, full click path on the lane's own heartbeat; seeded-cave-runs is now the costed 'more Lumen' option, this slice's park) is the THIRD item landing in the SAME ≤2026-07-14 EAP sitting — deliberately NOT a new ⚑ here, the ask lives on the LANE's own heartbeat (one ask, one owner surface); the sweep should read the sitting as carrying FOUR bundled decisions: (1) the Lumen Drift itch.io go/no-go standing entry below, (2) fm docs/owner-queue.md item 3 (pokemon playtest verdicts), (3) the gba concept pick, (4) the post-EAP routine posture (#174's entry, below). The prior note follows verbatim: SHARED-WINDOW NOTE (this slice, hygiene per fewer-clearer-asks): the pokemon-mod-lab playtest-kit park (this slice) is deliberately NOT a new ⚑ here — its owner ask already lives as fm docs/owner-queue.md item 3 @ 1afca50 (one ask, one owner surface, the manager's); what the sweep must see is that BOTH owner-sitting items — the Lumen Drift ⚑ OWNER-ACTION below AND that queue item — land in the SAME EAP sitting, window ends 2026-07-14; the kit-preparation routing (fm order or lane self-serve) is the manager-side item flagged in notes. The standing entry follows verbatim: ⚑ OWNER-ACTION (from this slice, decision-adjacent — EAP window ends 2026-07-14): WHAT: post-EAP go/no-go + one itch.io sitting to publish Lumen Drift as a PWYW listing. WHERE: itch.io (account) + gba-homebrew dist/lumen-drift.gba v1.3 (sha256 195a867…, provenance dist/README.md) + the parked idea ideas/venture-lab/games-adjacent-candidate-three-2026-07-10.md. HOW: play Lumen Drift during the EAP sitting; on go: create itch.io account → New project → set pay-what-you-want → upload dist/lumen-drift.gba → publish (venture-lab pre-drafts the full listing copy so this is paste-and-click). WHY-IT-MATTERS: first second-channel distribution datapoint + a publish pipeline every finished fleet game inherits, at zero build cost. UNBLOCKS: the parked candidate #3, venture-lab's listing-kit prep, and gives revenue-ingestion-owner-relay its first non-marketplace source. Sequencing note (from the #97-era probe): the click need NOT wait on the revenue-ingestion relay — itch.io/marketplace sales exports are retro-downloadable, so pre-relay sales stay recoverable; the lane lands the ledger convention independently (fan-in below, flagged ORDER-worthy). VERIFIED-NEEDED: account creation/external publishing is rail-banned for agents on both lanes' READMEs (venture-lab @ 0ad0ea4, gba-homebrew @ 31c8672) — owner-only by rule, not by missing capability. ALSO note for the :30 sweep: the wake-resilience verdict (PR #56) is gated on an owner click that already lives as a six-field OWNER-ACTION entry on the TRADING-STRATEGY lane's own heartbeat @ `d0d789e` (⚑ (b): paste environments/setup-universal.sh into that project's environment setup-script field); deliberately NOT duplicated here per the fewer-clearer-asks hygiene — one ask, one owner surface, the lane's. Routed via the trading-strategy fan-in note below. SAME hygiene for venture-lab's ⚑B/⚑D publish clicks (launch-ready, UNFROZEN @ `9f1b616`) — they live as owner-action entries on the LANE's own docs/launch/membership-kit/owner-actions.md, deliberately NOT duplicated here; routed via the venture-lab fan-in note below. STANDING FROM #174 (decision 4 of the ≤07-14 sitting): ⚑ OWNER-ACTION (from #174, HARD deadline — decide ≤2026-07-13, EAP window wraps 2026-07-14): WHAT: one reply setting the post-EAP standing-routine posture — what keeps firing on paid usage after 07-14. WHERE: reply in any owner channel the manager sweep reads; execution is manager-side trigger edits (roster gen #5 @ fm 7c13be7: 32 enabled = 15 standing crons + 2 poke-only + 15 one-shots). HOW (paste ONE line — recommendation first): RECOMMENDED "Post-EAP routines Option A: core-6 Projects keep current cadence (per Q-0261), every other standing cron drops to daily, one-shots expire on completion; revisit at first paid invoice." · Alternatives: "Option B: keep all 15 standing crons as-is (accept unmetered paid burn)" · "Option C: freeze all crons at window close; owner wakes lanes manually" · "Option D: name a monthly budget figure; manager thins cadence to fit and reports the cut list." WHY-IT-MATTERS: with no ruling, Option B happens by inertia — every cron fires into the paid period at a burn no agent can measure (fm fleet-economics honest-nulls: token/$ "not measurable"). UNBLOCKS: the manager's pre-close cadence sweep; closes the open post-EAP pricing question (superbot projects-eap-product-review-2026-07-07.md:150); the mechanical limit-deferred half proceeds independently as superbot's plan (PR #1845). VERIFIED-NEEDED: owner-only by evidence — no post-EAP budget ruling exists anywhere (full-tree greps of fresh clones superbot @ 9f46cb7 + fleet-manager @ 7c13be7 at #174; only the open question and Q-0261's "until the EAP ends" boundary), and spend/billing surfaces are owner-UI-only (fm model-matrix: no agent-visible field on any probed surface). ⚑ GIFT REPO (from #264): one reply decides — repo name (rec: makerbench), visibility (rec: private + friend as collaborator), project cut (rec: all five a-e). Optional add-on: buy a PCA9685 16-ch servo driver (~€10) — the arm kit has no controller and project (c) assumes one. Unblocks slice-1 routing. Full paste-ready line in ideas/venture-lab/maker-gift-repo-blueprint-2026-07-12.md.
 ```
 
 ### codetool-lab-opus4.8 — ⚑ needs-owner: (1) delete leftover branch claude/status-heartbeat-001 (sessions 403 on ref deletes); (2) OPTI…
@@ -695,5 +774,5 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 
 ---
 
-52 candidate block(s) across 13 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
+58 candidate block(s) across 14 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
 
