@@ -308,6 +308,14 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
     standing seats** *(new 2026-07-11, owner restructure directive — slice 3,
     fm PR #91; Projects are the restructure's one hard owner-only wall).*
    - id: OQ-RESTRUCTURE-PROJECTS
+    - **Note (2026-07-12, prompts v3.2 — owner correction): the startup
+      prompts these Projects get are now STATELESS** — no PR numbers, CI
+      colors, trigger ids, or "do X now" items are baked into any paste;
+      current work always comes from each repo's `control/inbox.md` + state
+      docs (the WORK SOURCES ladder). Whenever this restructure runs, paste
+      the **v3.2** bodies from `docs/prompts/v3/per-project/` — being
+      stateless, they need no re-cut before the sitting the way dated
+      v3.0/v3.1 drafts did.
     - WHAT: end state = exactly 8 standing Projects — **Venture Lab ·
       SuperBot World · Game Lab · Ideas Lab · Self Improvement ·
       SuperBot 2.0 · Websites · Fleet Manager**. Recommended click path

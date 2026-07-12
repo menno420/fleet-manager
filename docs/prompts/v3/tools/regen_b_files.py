@@ -1,20 +1,31 @@
 #!/usr/bin/env python3
 """Regenerate the 8 per-project startup files (artifact B) from universal-startup.md (A).
 
-v3.1 regen discipline (QA PR #100, drift class D-1): every byte of a B file
-outside the slot fills + the FIRST WORK ORDERS insert is A-verbatim. Never
-hand-edit a B file — edit A or the SEAT config below, then rerun:
+v3.2 regen discipline (QA PR #100 D-1, + owner correction 2026-07-12 D-9):
+every byte of a B file outside the slot fills + the WORK SOURCES insert is
+A-verbatim. Never hand-edit a B file — edit A or the SEAT config below, then
+rerun:
 
     python3 docs/prompts/v3/tools/regen_b_files.py
 
+STATELESS RULE (D-9, owner correction 2026-07-12): no slot fill or WORK
+SOURCES line may assert a volatile fact — no concrete PR numbers, no SHA/CI
+colors, no trigger ids, no dated one-shot work items. A fill names WHERE
+state lives (inbox, status, queue doc, telemetry), never WHAT it currently
+says. Current work reaches a seat through its repo documents (inbox ORDERs,
+status baton, queue docs) — v3.1's still-valid FIRST WORK ORDERS items were
+relocated as ORDERs to the owning repos' inboxes (per-project/README.md
+changelog, v3.2 entry).
+
 The script fills {{SLOT ...}} tokens (key = first word inside the braces),
-inserts the seat's FIRST WORK ORDERS block before the WORK LOOP paragraph,
-writes each per-project/<seat>-startup.md with a stamped header carrying the
-real wc -c of the paste body, and prints the budget table for
+inserts the seat's WORK SOURCES block before the WORK LOOP paragraph, writes
+each per-project/<seat>-startup.md with a stamped header carrying the real
+wc -c of the paste body, and prints the budget table for
 per-project/README.md. Fitted target 7,500 / hard cap 8,000 per file.
 
-Provenance: prompts v3.1 build (fleet-manager PR #103); each B header carries
-the sha1 of the A body it was generated from (computed at regen time).
+Provenance: prompts v3.1 build (fleet-manager PR #103); v3.2 stateless
+rebuild (owner correction 2026-07-12); each B header carries the sha1 of the
+A body it was generated from (computed at regen time).
 """
 
 import hashlib
@@ -32,7 +43,7 @@ HARD = 8000
 
 def a_body() -> str:
     text = (V3 / "universal-startup.md").read_text()
-    m = re.search(r"^v3\.1 · 2026-07-12 · universal startup.*", text, re.M)
+    m = re.search(r"^v3\.2 · 2026-07-12 · universal startup.*", text, re.M)
     return text[m.start():].rstrip("\n") + "\n"
 
 
@@ -67,13 +78,13 @@ def build(seat: dict) -> str:
     anchor = "\nWORK LOOP — CONTINUOUS"
     assert anchor in body
     body = body.replace(anchor, "\n" + seat["orders"].strip() + "\n" + anchor.lstrip("\n"))
-    n = len(body.encode("utf-8")) if False else len(body)
+    n = len(body)
     status = "fitted" if n <= FITTED else (f"over fitted by {n - FITTED}, under hard — flagged" if n <= HARD else f"OVER HARD by {n - HARD} — MUST TRIM")
     header = (
         "> **Status:** `reference`\n\n"
-        f"<!-- v3.1 · {DATE} · GENERATED from ../universal-startup.md (A v3.1, body sha1 {a_stamp()}) by tools/regen_b_files.py — every byte outside the slot fills + the FIRST WORK ORDERS insert + ONE scripted transform (A's self-referential \"Unfilled {{{{slots}}}}\" sentence is dropped from every B) is A-verbatim; hand-edits are FORBIDDEN (drift class D-1, PR #100): edit A or the seat config, then regenerate. Canonical FAILSAFE WAKE + PACEMAKER text: A steps 3a/3b (D-2/D-3). Cron slot: per-project/README.md stagger table (D-7). -->\n"
+        f"<!-- v3.2 · {DATE} · GENERATED from ../universal-startup.md (A v3.2, body sha1 {a_stamp()}) by tools/regen_b_files.py — every byte outside the slot fills + the WORK SOURCES insert + ONE scripted transform (A's self-referential \"Unfilled {{{{slots}}}}\" sentence is dropped from every B) is A-verbatim; hand-edits are FORBIDDEN (drift class D-1, PR #100): edit A or the seat config, then regenerate. STATELESS (D-9, owner correction 2026-07-12): this prompt carries NO volatile state — current work lives in the repo docs it points at. Canonical FAILSAFE WAKE + PACEMAKER text: A steps 3a/3b (D-2/D-3). Cron slot: per-project/README.md stagger table (D-7). -->\n"
         f"<!-- char-count: {n:,} chars = the paste body below this comment block (headers excluded; computed by the regen script) · budget ≤7,500 fitted / 8,000 hard · {status} -->\n"
-        f"<!-- provenance: v3.0 seat draft (research PRs #93/#95 + census PRs #94/#96 + owner baseline 2026-07-11) + QA fixes applied from PRs #100/#101/#102: {seat['fixes']} -->\n\n"
+        f"<!-- provenance: v3.2 stateless rebuild of the v3.1 seat draft (owner correction 2026-07-12 — volatile facts stripped to repo-doc pointers; still-valid v3.1 now-actions relocated as inbox ORDERs, see per-project/README.md v3.2 changelog): {seat['fixes']} -->\n\n"
     )
     return header + body, n, status
 
@@ -82,7 +93,7 @@ SEATS = [
     # ------------------------------------------------------------------ fleet-manager
     dict(
         file="fleet-manager-startup.md",
-        fixes="boot-sim FM-1..FM-4; replay C-7/C-9 (cutover ids reconciled vs the armed registry; retro-games id ceded to Game Lab); question-rounds P0 regen set",
+        fixes="v3.1 W1-W3 (roster/queue/staleness) folded into MISSION + WORK SOURCES (recurring duties, not one-shots); parked-PR + trigger facts live in control/status.md + docs/owner-queue.md + telemetry/",
         slots=dict(
             SEAT_NAME="Fleet Manager",
             REPOS="menno420/fleet-manager (+ fleet READ)",
@@ -92,13 +103,14 @@ SEATS = [
                 "fleet-triage, ORDERs + fan-in (Q-0264). Each wake: roster ≤4h; queue re-verified; sweep recorded"
             ),
             HARD_RAILS=(
-                "⚠ HARD RAILS: (1) OVERSIGHT ONLY — never build a lane's slice: ORDER its inbox; product-forge is DARK — "
-                "don't ORDER it, owner-queue its disposition (not a seat). (2) PARKED STACK #88/#89/#91/#92 — never "
-                "merge/rebase/edit; expect parked, or later. (3) Newest heartbeat wins across main + open PRs (#97)."
+                "⚠ HARD RAILS: (1) OVERSIGHT ONLY — never build a lane's slice: ORDER its inbox; a lane the roster marks "
+                "DARK gets an owner-queue disposition, never an ORDER. (2) PARKED PRs — any PR the heartbeat/owner-queue "
+                "marks parked / owner-ratification: never merge, rebase, or edit it. (3) Newest heartbeat wins across "
+                "main + open PRs."
             ),
             ORIENTATION_PATH=(
-                "CONSTITUTION.md → control/status+inbox → docs/{roster,owner-queue,playbook}.md (no CLAUDE.md — expected, "
-                "#92 parked); verify = check_roster_freshness.py + check_owner_queue.py"
+                "CONSTITUTION.md → control/status+inbox → docs/{roster,owner-queue,playbook}.md; verify = "
+                "check_roster_freshness.py + check_owner_queue.py"
             ),
             EXPECTED_RED=(
                 "substrate-gate (born-red HOLD) · roster-freshness red on a >4h roster (regen in your OWN PR; root = "
@@ -107,59 +119,59 @@ SEATS = [
             ORDER_GRAMMAR="append-only headers keep `status: new` after DONE-flips",
             OWNER_TURN_LANDING="the inbox (next free number)",
             CRON_STAGGER="30 */2 * * *",
-            OLD_TRIGGER_IDS=(
-                "the live prior failsafe (heartbeat/#97: trig_01F9UdoUtLy8oknBPBkHLshS; census: trig_01BKpsyoBzp1K1ob9H3iu1gM) "
-                "— verify each; retro-games trig_01Y99uDKNtKTz2EtRYPWZkGY is GAME LAB's, not yours"
+            OLD_TRIGGER_SOURCES=(
+                "the predecessor heartbeat (control/status.md routine block) + telemetry/triggers-snapshot.json"
             ),
         ),
-        orders="""FIRST WORK ORDERS (each: verify at boot — expected as of 2026-07-12, or later; one PR each):
-1. ROSTER — regen docs/roster.md (R25) in your session PR whenever generated-at >4h (gen #10 expected on main, PR #99). Done-when: roster-freshness green.
-2. QUEUE SWEEP — re-verify every owner-queue ask + heartbeat claim on live GitHub; close satisfied ones. Done-when: zero stale asks.
-3. STALENESS SWEEP — stamp vs git log -1 + live PRs per lane; verdicts to fleet-triage; a DEAD verdict becomes a routed ORDER or ⚑, never just a report. Done-when: dated verdicts.""",
+        orders="""WORK SOURCES (durable ladder — current work lives in the repo, never in this prompt):
+(a) control/inbox.md at HEAD — a `new` ORDER outranks everything; read FULL ORDER threads.
+(b) docs/owner-queue.md + docs/roster.md + docs/fleet-triage.md, against the control/status.md baton — re-verify every ask, claim, and parked-PR row on live GitHub before acting on it; close what's satisfied.
+(c) the highest-value buildable increment of the mission: roster fresh (≤4h), queue verified, staleness sweep recorded, DEAD/DARK verdicts routed as ORDERs or ⚑ — never just reported.""",
     ),
     # ------------------------------------------------------------------ self-improvement
     dict(
         file="self-improvement-startup.md",
-        fixes="boot-sim SI-1 (kit-quality, not substrate-gate) / SI-2 (kit-lab daily kept as BUSINESS cron) / SI-3 / SI-4 / SI-5 (verify command); question-rounds P0 R6-Q12 rides the seat C block",
+        fixes="v3.1 orders 1-4: registry-truth overtaken (docs/adopters.md regenerated with tree evidence — verify there); upgrade-wave folded into MISSION; boot-pointer + gate-integrity relocated to kit inbox ORDER 015",
         slots=dict(
             SEAT_NAME="Self Improvement",
             REPOS="menno420/substrate-kit",
             HEARTBEAT_REPO="substrate-kit",
             MISSION=(
-                "own the portable workflow kit; make its claims TRUE. Done-when: registry matches the fleet by discovery; "
-                "every reachable adopter ≥ v1.12.1; no template ships a dead boot pointer"
+                "own the portable workflow kit; make its claims TRUE. Done-when: docs/adopters.md (the generated registry) "
+                "matches the fleet by discovery; every reachable adopter runs the current kit release; no template ships a "
+                "dead boot pointer"
             ),
             HARD_RAILS=(
-                "⚠ HARD RAILS: (1) PRs #220/#238 = owner-ratification parks — never arm, close, or rebase. (2) Adopter writes = KIT "
-                "DISTRIBUTION ONLY (Q-0261.3): never adopter product code, control/, or settings.json/hooks/permission "
-                "config (owner-landed, even in a kit release). (3) Never merge your own bench-oracle changes."
+                "⚠ HARD RAILS: (1) Owner-ratification pin PRs (label `do-not-automerge`; the live list is in control/status.md "
+                "⚑ blocks) — never arm, close, or rebase one. (2) Adopter writes = KIT DISTRIBUTION ONLY (Q-0261.3): never "
+                "adopter product code, control/, or settings.json/hooks/permission config (owner-landed, even in a kit "
+                "release). (3) Never merge your own bench-oracle changes."
             ),
             ORIENTATION_PATH=(
-                "CONSTITUTION.md → control/inbox → status.md (no CLAUDE.md — expected; status outranks current-state.md); "
-                "verify = python3 -m pytest tests/ -q (no root bootstrap.py at HEAD)"
+                "CONSTITUTION.md → control/inbox → status.md (status outranks current-state.md); verify = the command "
+                "status.md names (its verify line is truth; a doc snippet that disagrees is stale)"
             ),
             EXPECTED_RED=(
-                "the kit-quality check's Session-gate STEP holds born-red cards BY DESIGN (+ two legacy-alias jobs) — "
+                "the kit-quality check's Session-gate STEP holds born-red cards BY DESIGN (+ legacy-alias jobs) — "
                 "adopters call this substrate-gate; the kit has NO check of that name"
             ),
             ORDER_GRAMMAR="ORDER truth = status.md `done=` line, never inbox `status: new`",
             OWNER_TURN_LANDING="the inbox (next free number)",
             CRON_STAGGER="0 */2 * * *",
-            OLD_TRIGGER_IDS=(
-                "the 2-hourly failsafe (heartbeat #252/#253 ids); the 06:00Z kit-lab DAILY = owner BUSINESS cron — KEEP "
+            OLD_TRIGGER_SOURCES=(
+                "the kit heartbeat's routine block; the kit-lab DAILY is an owner BUSINESS cron — KEEP "
                 "(kill-switch: docs/operations/lab-loop.md)"
             ),
         ),
-        orders="""FIRST WORK ORDERS (verify at boot — expected as of 2026-07-12, or later):
-1. REGISTRY TRUTH — fleet-repos.txt blind to ≥3 vendored adopters; "v1.12.1 COMPLETE" is FALSE — make the checker DISCOVER adopters. Done-when: row per adopter; claim retracted.
-2. BOOT-POINTER CLASS — AGENT_ORIENTATION.md.tmpl:10,:34 → dead .claude/CLAUDE.md in ≥4 repos. Fix template + target-exists check + boot layer to CONSTITUTION.md. Done-when: no dead pointer ships.
-3. UPGRADE WAVE — next release carries orders 1–2; upgrade the laggards (branch claude/* or the enabler never arms). Done-when: every reachable adopter ≥ v1.12.1 by discovery.
-4. GATE INTEGRITY — close the added-card advisory loophole + severity-tier DRIFT; verify Q-0254's claim. Done-when: added-card fixture holds red.""",
+        orders="""WORK SOURCES (durable ladder — current work lives in the repo, never in this prompt):
+(a) control/inbox.md at HEAD — a `new` ORDER outranks everything (done-truth = status.md `done=`).
+(b) control/status.md baton + docs/adopters.md (the generated adopter registry — regenerate, never hand-edit) — re-verify claims against each adopter's tree before acting.
+(c) the highest-value buildable increment of the mission: adopter currency, template truth (no dead boot pointers ship), gate integrity.""",
     ),
     # ------------------------------------------------------------------ superbot
     dict(
         file="superbot-startup.md",
-        fixes="boot-sim SB-1 (tiebreak in seat C WALLS) / SB-2 (done via status.md; inbox manager-owned) / SB-3 / SB-4 (F2 verify-first) / SB-5; question-rounds P0 Q-0213 brake + Q-0241 scope",
+        fixes="v3.1 F2 verified terminal (dead, evidence in the v3.2 changelog); F1 + F3 relocated to superbot-next inbox ORDERs 014/015; F4 (port loop) folded into WORK SOURCES (c) as the standing mission",
         slots=dict(
             SEAT_NAME="SuperBot 2.0",
             REPOS="menno420/superbot (LIVE prod) + menno420/superbot-next",
@@ -175,8 +187,8 @@ SEATS = [
                 "still required; never overrides core NOT-COVERED."
             ),
             ORIENTATION_PATH=(
-                "superbot: .claude/CLAUDE.md → current-state (no CAPABILITIES.md); superbot-next: BROKEN BOOT — "
-                "CONSTITUTION.md → control/status.md → docs/status/README-first.md"
+                "superbot: .claude/CLAUDE.md → current-state; superbot-next: CONSTITUTION.md → control/status.md → "
+                "docs/status/README-first.md"
             ),
             EXPECTED_RED=(
                 "superbot-next golden-parity WORKFLOW red-by-design — judge only the required `gate` job + six gates; "
@@ -185,35 +197,37 @@ SEATS = [
             ORDER_GRAMMAR="status.md `orders: done=` is truth; the inbox is manager-owned — never edit it",
             OWNER_TURN_LANDING="control/outbox.md, manager-addressed (the inbox is manager-owned)",
             CRON_STAGGER="0 1-23/2 * * *",
-            OLD_TRIGGER_IDS="none live expected (wake loop disarmed Jul 11; ~20 spent disabled one-shots)",
+            OLD_TRIGGER_SOURCES=(
+                "the predecessor heartbeat's routine block (possibly none live — verify, never assume)"
+            ),
         ),
-        orders="""FIRST WORK ORDERS (verify at boot — expected as of 2026-07-12, or later):
-F1 plugin-hello exists (empty; lock pins it) — mark ORDER 002 done via status.md `orders: done=002` (never inbox-append), drop OWNER-ACTION 2; seeding it = write-permitted for this order. Done-when: asks gone.
-F2 VERIFY FIRST — expected discharged: #196/#206 closed, #213/#217 merged, claim gone; remainder → supersede-and-close (Codex phantoms, Q-0120). Done-when: PRs terminal.
-F3 Render superbot-next CLAUDE.md from .substrate/claude/ + fix AGENT_ORIENTATION's dead pointer + promote the flip-playbook trap index to docs/. Done-when: at HEAD.
-F4 Port loop: next wave slice (expect wave6/inventory-flip), six gates each; port oracle = the LOCAL superbot clone, never MCP. superbot = hub upkeep + stale-pointer fixes (Q-0166).""",
+        orders="""WORK SOURCES (durable ladder — current work lives in the repo, never in this prompt):
+(a) control/inbox.md at HEAD in each repo — a `new` ORDER outranks everything (done-truth = status.md `done=`).
+(b) superbot-next control/status.md + docs/status/README-first.md; superbot docs/current-state.md — re-verify claims at HEAD before acting.
+(c) the port loop (standing mission): next wave slice, six gates each; port oracle = the LOCAL superbot clone, never MCP. superbot = hub upkeep + stale-pointer fixes (Q-0166).""",
     ),
     # ------------------------------------------------------------------ superbot-world
     dict(
         file="superbot-world-startup.md",
-        fixes="boot-sim SW-1 (idle carve-out in seat C) / SW-2 / SW-3 (archival truth-stamp) / SW-4 (per-session authorship) / SW-5 (~1.1k); replay C-8 (games trigger vs armed registry); R6-Q7 claim aging",
+        fixes="v3.1 W1/W2/W3 all verified still-valid and relocated: mineverse inbox ORDER 003 (security-fix landing order), idle inbox ORDER 003 (pytest CI), games inbox ORDER 005 (heartbeat truth-stamp); security ordering kept as a standing rail, PR number removed",
         slots=dict(
             SEAT_NAME="SuperBot World",
             REPOS="menno420/superbot-games + superbot-idle + superbot-mineverse (flagship)",
             HEARTBEAT_REPO="superbot-mineverse (games/idle status = ARCHIVES, read-only)",
             MISSION=(
-                "one truthful, secured three-game seat. Done-when: #42 merged + #31 dispositioned; idle's ~1.1k-test suite "
-                "gates PRs in CI; heartbeats + claims match live"
+                "one truthful, secured three-game seat. Done-when: security-ordering rail satisfied at HEAD; every repo's "
+                "test suite gates PRs in CI; heartbeats + claims match live"
             ),
             HARD_RAILS=(
-                "⚠ #42 BEFORE SECRETS: mineverse PR #42 (login-CSRF, branch security/oauth-csrf-snapshot-validation, green @ "
-                "fff0caa or later) merges BEFORE anything secrets-adjacent; the six-OAuth-env-var ask stays SUBORDINATE "
-                "meanwhile. ⚠ STALE-HEARTBEAT TRAP: heartbeats describe an ARCHIVED world — VERIFY AT HEAD before trusting "
-                "ANY status claim; a claim with no PR yet is LIVE — age it. Mineverse HEAD: ZERO runs as of 2026-07-12. "
-                "⚠ GREEN ≠ TESTED (idle): no pytest in CI — run pytest -q before any idle merge until W2."
+                "⚠ SECURITY BEFORE SECRETS (standing ORDERING rule): a security fix on the auth/login path merges BEFORE "
+                "anything secrets-adjacent; secrets-provisioning asks stay SUBORDINATE until the fix is in main (live "
+                "instances: the inbox/heartbeat). ⚠ STALE-HEARTBEAT TRAP: a heartbeat can describe an ARCHIVED world — "
+                "VERIFY AT HEAD before trusting ANY status claim; a claim with no PR yet is LIVE — age it. "
+                "⚠ GREEN ≠ TESTED: where a repo's CI runs no test suite (check the workflows, not the badge), run the "
+                "suite locally before any merge."
             ),
             ORIENTATION_PATH=(
-                "docs/current-state.md per repo (games/idle: no CLAUDE.md — expected; mineverse's lies — W1 re-renders it)"
+                "docs/current-state.md per repo — trust it only after the stale-heartbeat rail check"
             ),
             EXPECTED_RED=(
                 "substrate-gate born-red HOLD (all 3); genuinely green: games tests.yml · idle theme-gate · mineverse schema-gate"
@@ -221,20 +235,20 @@ F4 Port loop: next wave slice (expect wave6/inventory-flip), six gates each; por
             ORDER_GRAMMAR="headers may lag DONE-flips",
             OWNER_TURN_LANDING="the inbox (next free number)",
             CRON_STAGGER="15 1-23/2 * * *",
-            OLD_TRIGGER_IDS=(
-                "games trig_019ZgWyL78Rx1sr6LhvL8NE3 (15 */2 — WAS armed per ORDER-015, maybe auto-disabled; never assume "
-                "\"never armed\") + idle trig_01TWKGFW8RUsMvxUMt2ndzqA (expected deleted) — verify each"
+            OLD_TRIGGER_SOURCES=(
+                "the predecessor heartbeats + fleet-manager telemetry/triggers-snapshot.json — verify each "
+                "(\"maybe auto-disabled\" ≠ \"never armed\")"
             ),
         ),
-        orders="""FIRST WORK ORDERS (verify at boot — expected as of 2026-07-12, or later):
-W1 mineverse — land PR #42: a DIFFERENT session authored it (per-SESSION authorship — your genuine review = the non-author path); ONE attempt; denial → park, ⚑ owner TOP. Done-when: #42 in main, diff shows payload. Then #31; re-render CLAUDE.md.
-W2 idle — add CI running the pytest suite on PR + push; ⚑ owner to mark required. Done-when: green on a real PR.
-W3 games — truth-stamp the heartbeat ONCE (archival correction, NOT resumption: its 5 owner-merge asks are DONE); delete the 5 stale claims, evidence cited. Done-when: status + claims match live.""",
+        orders="""WORK SOURCES (durable ladder — current work lives in the repo, never in this prompt):
+(a) control/inbox.md at HEAD in EACH repo — a `new` ORDER outranks everything; read FULL threads.
+(b) control/status.md + docs/current-state.md per repo — every claim re-verified at HEAD (the stale-heartbeat rail) before it drives work.
+(c) the highest-value buildable increment of the mission: security ordering first, CI test coverage, truthful records.""",
     ),
     # ------------------------------------------------------------------ game-lab
     dict(
         file="game-lab-startup.md",
-        fixes="boot-sim GL-1 (R22 via search_repositories + proxy-wall carve-out, also P0 R6-Q4) / GL-2 (probe-PR fallback) / GL-3 (both PRs); replay C-9 (owns the retro-games delete + gba/pml hourly wakes)",
+        fixes="v3.1 W1 card-convention verified DONE (.sessions/README.md in both repos); pml .gitignore half relocated to pml inbox ORDER 006; W2 required-check clicks live in fm docs/owner-queue.md; W3 folded into WORK SOURCES (c)",
         slots=dict(
             SEAT_NAME="Game Lab",
             REPOS="menno420/gba-homebrew (Track A PUBLIC) + menno420/pokemon-mod-lab (Track B PRIVATE); HEADLESS — the owner playtests",
@@ -253,25 +267,24 @@ W3 games — truth-stamp the heartbeat ONCE (archival correction, NOT resumption
                 "(headless-boot dispatch, cite run); B done = ROM builds AND mGBA-proven (shots private, sha1 chain); "
                 "armed ≠ proven. Toolchain walls: Custom Instructions."
             ),
-            ORIENTATION_PATH="README + CONSTITUTION.md + current-state + CAPABILITIES per repo (no CLAUDE.md — expected)",
+            ORIENTATION_PATH="README + CONSTITUTION.md + current-state + CAPABILITIES per repo",
             EXPECTED_RED="substrate-gate born-red card HOLD; genuinely green: rom-builds per track",
             ORDER_GRAMMAR="status stamps = snapshots, not order lists",
             OWNER_TURN_LANDING="the inbox (next free number)",
             CRON_STAGGER="15 */2 * * *",
-            OLD_TRIGGER_IDS=(
-                "gba/pml hourly wakes trig_0137SkvhXEJvwepX8aVNkcSn + trig_01BTJjkMVMKtWPjuYe7643Hi + retro-games "
-                "trig_01Y99uDKNtKTz2EtRYPWZkGY (YOURS — fm defers it) — this lane's only"
+            OLD_TRIGGER_SOURCES=(
+                "this lane's heartbeats + fm telemetry/triggers-snapshot.json — this lane's only"
             ),
         ),
-        orders="""FIRST WORK ORDERS (verify at boot — expected as of 2026-07-12, or later):
-W1 card convention (per-track prefixes; each fired session commits a card + 📊 Model: line) + pml .gitignore (*.gba, *.sav, baserom*). Done-when: BOTH PRs merged (one per repo).
-W2 read the LIVE required-check sets (probe PR check-runs if the ruleset API is gated); refresh ⚑ clicks (gba +"NDS ROM build", pml +"ROM builds"). Done-when: ⚑ live.
-W3 Track A toward Lumen Drift Release (playtests + B pick owner-gated ⚑). Done-when: one headless-proven slice merged.""",
+        orders="""WORK SOURCES (durable ladder — current work lives in the repo, never in this prompt):
+(a) control/inbox.md at HEAD in EACH repo — a `new` ORDER outranks everything; read FULL threads.
+(b) control/status.md + docs/current-state.md per repo; required-check truth = the LIVE set (probe PR check-runs if the ruleset API is gated), not a doc's claim; owner click-asks: fm docs/owner-queue.md.
+(c) highest-value headless-proven increment per track (Track A toward Lumen Drift Release; playtests + B pick owner-gated ⚑).""",
     ),
     # ------------------------------------------------------------------ websites
     dict(
         file="websites-startup.md",
-        fixes="boot-sim WS-1 (cron NEVER fired) / WS-2 (supersedes STAYS-ARMED) / WS-3 (un-park owner-authorized by this paste) / WS-4 (id-less wake procedure); I-63 header defect fixed (TOOL FACTS rides the core)",
+        fixes="v3.1 orders 1-4 all verified still-valid and relocated to websites inbox ORDERs 012 (records reconcile + CLAUDE.md re-render + bake-ask truth) and 013 (owner-POST CSRF); the un-park line was one-shot state and is retired",
         slots=dict(
             SEAT_NAME="Websites",
             REPOS="menno420/websites — FOUR FastAPI services (app/ control-plane, botsite, dashboard, review/)",
@@ -282,67 +295,65 @@ W3 Track A toward Lumen Drift Release (playtests + B pick owner-gated ⚑). Done
             ),
             HARD_RAILS=(
                 "HARD RAILS: (1) MERGE = DEPLOY (Railway); required check `quality`; branch claude/*. (2) Verify = `python3 "
-                "-m pytest tests/ botsite/tests dashboard/tests review/tests -q` + `bootstrap.py check --strict` — NOT "
-                "the stale CLAUDE.md snippet (order 3). (3) OWNER ASKS: six-field ⚑ OWNER-ACTION (docs/owner/OWNER-ACTIONS.md) "
-                "+ heartbeat mirror; re-verify every wake. (4) Status reads CLOSING/PARKED — THIS paste un-parks it."
+                "-m pytest tests/ botsite/tests dashboard/tests review/tests -q` + `bootstrap.py check --strict` — the "
+                "full four-suite run; a repo doc showing fewer suites is stale (fix it, don't follow it). (3) OWNER ASKS: "
+                "six-field ⚑ OWNER-ACTION (docs/owner/OWNER-ACTIONS.md) + heartbeat mirror; re-verify every wake."
             ),
             ORIENTATION_PATH=".claude/CLAUDE.md → docs/current-state.md → docs/CAPABILITIES.md (full triple exists here)",
             EXPECTED_RED="the born-red card HOLD only; `quality` green expected on main",
             ORDER_GRAMMAR="ORDER truth = status.md `done=`, not inbox `status:`",
             OWNER_TURN_LANDING="the inbox (next free number)",
             CRON_STAGGER="45 */2 * * *",
-            OLD_TRIGGER_IDS=(
-                "the v1-era 4-hourly wake (ORDER-008 text; no id slot — find by name+prompt in the audit, record the id) + "
-                "any prior failsafe; SUPERSEDES status.md \"STAYS ARMED\""
+            OLD_TRIGGER_SOURCES=(
+                "the heartbeat's routine block + the account-wide registry searched by name+prompt (record each id "
+                "before deleting; a BUSINESS wake is rebound per step 4, never just dropped)"
             ),
         ),
-        orders="""FIRST WORK ORDERS (verify at boot — expected as of 2026-07-12, or later):
-1. RECONCILE — status.md + OWNER-ACTIONS.md vs live GitHub: clear satisfied asks (#141 expected satisfied), fix the prune list (~14 vs 7 real), stamp the sha. Done-when: zero contradicted claims.
-2. CSRF FIX — app/owner.py POST refresh/rerun-ci ride Basic auth alone: CSRF token or Origin check + rate-limit, with tests. Done-when: merged green.
-3. RE-RENDER CLAUDE.md via the kit: four services + four-suite verify. Done-when: doc matches the tree.
-4. REVIEW-BAKE truth — the ONLY bake run (29167034060) was a MANUAL dispatch failing on the Actions-can't-create-PRs wall; the 05:23Z cron NEVER fired as of 2026-07-12 — verify BY EVENT TYPE before any ⚑ (wall real — owner toggle; stats stranded on bake/*). Done-when: the ask matches the run history.""",
+        orders="""WORK SOURCES (durable ladder — current work lives in the repo, never in this prompt):
+(a) control/inbox.md at HEAD — a `new` ORDER outranks everything (done-truth = status.md `done=`).
+(b) docs/owner/OWNER-ACTIONS.md (the ⚑ ask ledger) + docs/current-state.md + the control/status.md baton — re-verify every ask and claim on live GitHub each wake; clear what's satisfied; verify crons BY EVENT TYPE before any ⚑.
+(c) the highest-value buildable increment of the mission: launch-console + arcade slices, test-covered, landed via `quality`-green merges.""",
     ),
     # ------------------------------------------------------------------ venture-lab
     dict(
         file="venture-lab-startup.md",
-        fixes="boot-sim VL-1 (disposition grammar; #58 CLOSED) / VL-2 (enabler proven #59/#60) / VL-3 (rebind = create-new→verify→delete-old) / VL-4 (#65) / VL-5 / VL-6 (trading heartbeat stale) / VL-7 (via A); replay C-2 resolution in seat C",
+        fixes="v3.1 F1 dispositions verified and relocated: venture inbox ORDER 007 (open-PR ⚑ re-verification), trading inbox ORDER 011 (parked-PR landing + grading-executor verification); F2's business-cron rebind duty is A step 4; F3 folded into WORK SOURCES (b)",
         slots=dict(
             SEAT_NAME="Venture Lab",
             REPOS="menno420/venture-lab + menno420/trading-strategy",
             HEARTBEAT_REPO="EACH repo (venture prose; trading key:val)",
             MISSION=(
-                "sellables reach owner-click-ready; trading paper lane intact + graded. Done-when: no stranded green PRs; "
-                "07-17 grading secured to THIS session; heartbeats verified"
+                "sellables reach owner-click-ready; trading paper lane intact + graded — the weekly grading pass always "
+                "has a live executor. Done-when: no stranded green PRs; heartbeats verified"
             ),
             HARD_RAILS=(
-                "⚠ HARD RAILS: (1) MERGE PATH: venture — READY on claude/*, NOTHING merge-related (the enabler lands green, "
-                "proven #59/#60); never self-arm/self-merge; parked = owner-merge. trading — MCP squash = recorded "
-                "practice: ONE attempt, first denial retires it. (2) RESEARCH-ONLY (trading): no "
-                "broker/order/exchange-write code or live API config, EVER; holdout SPENT; paper lane = load_paper_ohlcv "
-                "only; promotion owner-gated; never claim a money path works without EXECUTING it (D1). (3) Owner-⚑s "
-                "verbatim at queue top (#51 HOT — owner-only)."
+                "⚠ HARD RAILS: (1) MERGE PATH: venture — READY on claude/*, NOTHING merge-related (the enabler lands green); "
+                "never self-arm/self-merge; parked = owner-merge. trading — MCP squash = recorded practice: ONE attempt, "
+                "first denial retires it. (2) RESEARCH-ONLY (trading): no broker/order/exchange-write code or live API "
+                "config, EVER; holdout SPENT; paper lane = load_paper_ohlcv only; promotion owner-gated; never claim a "
+                "money path works without EXECUTING it. (3) Owner-⚑s verbatim at queue top."
             ),
-            ORIENTATION_PATH="current-state.md + docs/conventions.md per repo (no CLAUDE.md in either — expected)",
+            ORIENTATION_PATH="current-state.md + docs/conventions.md per repo",
             EXPECTED_RED=(
                 "venture: kit-tests + substrate-gate (born-red HOLD); trading: tests only"
             ),
             ORDER_GRAMMAR="ORDERs repo-first — qualify numbers per repo",
             OWNER_TURN_LANDING="the inbox (next free number)",
             CRON_STAGGER="45 1-23/2 * * *",
-            OLD_TRIGGER_IDS=(
-                "trig_01X1dw1L1Udgt8atzzNWEJic + trig_017o6azZTd9pzcaSthEncT5q; grading trig_015aNMg5ncoSE2Roe4MKjQnr = "
-                "BUSINESS cron — rebound per F2, never just deleted"
+            OLD_TRIGGER_SOURCES=(
+                "the money-seat heartbeats (trading status carries the trigger-id records); the weekly grading cron is a "
+                "BUSINESS cron — rebound per step 4, never just deleted"
             ),
         ),
-        orders="""FIRST WORK ORDERS (verify at boot — expected as of 2026-07-12, or later):
-F1 DISPOSITION every open PR vs its close/park record (2026-07-12: #51 HOT owner-only · #57 parked owner-merge · #58 CLOSED-superseded, never re-land · #64 non-author review-merge · #65 per doctrine). Done-when: each merged, parked-⚑, or closed.
-F2 SECURE THE 07-17 GRADING PASS (⚑ g: session triggers die at archive): NEW weekly trigger (0 9 * * 5, grade_paper.py prompt) bound HERE → verify → delete trig_015aNMg5… (binding not updatable); 07-17 near, no executor → run grade_paper.py NOW. Done-when: new id bound here; ids in trading status.
-F3 RE-STAMP what contradicts live GitHub — trading's heartbeat is the stale one; pay lane-owed kit bumps. Done-when: stamps match git log.""",
+        orders="""WORK SOURCES (durable ladder — current work lives in the repo, never in this prompt):
+(a) control/inbox.md at HEAD in EACH repo — a `new` ORDER outranks everything; qualify ORDER numbers per repo.
+(b) control/status.md + docs/current-state.md per repo — re-stamp what contradicts live GitHub; disposition every open PR against its close/park record; pay lane-owed kit bumps.
+(c) the highest-value buildable increment of the mission: sellables toward owner-click-ready; the paper lane graded, intact, and executor-secured.""",
     ),
     # ------------------------------------------------------------------ ideas-lab
     dict(
         file="ideas-lab-startup.md",
-        fixes="boot-sim IL-1 (gate GREEN since #221) / IL-2 (verify-the-handoff-closed) / IL-3 (prior coordinator LIVE; scoped deletion) / IL-4 / IL-5 / IL-6; question-rounds P0 T1 ('delete stragglers' retired)",
+        fixes="v3.1 order 1 verified DEAD (chain closed and moved on — evidence in the v3.2 changelog); order 2 relocated to sim-lab inbox ORDER 003 (landing-path workflow); order 3 folded into WORK SOURCES (b)",
         slots=dict(
             SEAT_NAME="Ideas Lab",
             REPOS="menno420/idea-engine + menno420/sim-lab",
@@ -352,28 +363,27 @@ F3 RE-STAMP what contradicts live GitHub — trading's heartbeat is the stale on
                 "(Q-0264); done-when: preflight green; no orphaned PROPOSAL; routines armed + verified"
             ),
             HARD_RAILS=(
-                "⚠ HARD RAILS: (1) GATE: preflight.py GREEN since PR #221/329547d (verify at boot; expected green "
-                "2026-07-12) — substrate-gate red is now REAL except the born-red HOLD; a roster reshape (fm #88/#89/#91, "
-                "parked) redding check_sections → fix forward-tolerant. (2) MANAGER FAN-IN: sim-lab verdicts go to the "
-                "fleet manager (Q-0264); never short-circuit bilaterally."
+                "⚠ HARD RAILS: (1) GATE: preflight/substrate-gate red is REAL (the born-red card HOLD is the sole "
+                "exception) — a red gate is your first slice, fixed forward-tolerant, never waved off. (2) MANAGER "
+                "FAN-IN: sim-lab verdicts go to the fleet manager (Q-0264); never short-circuit bilaterally."
             ),
             ORIENTATION_PATH=(
                 "idea-engine: control/status.md is truth (current-state is boilerplate); sim-lab: CONSTITUTION.md + "
-                "PLATFORM-LIMITS.md (no .claude/ — expected)"
+                "PLATFORM-LIMITS.md"
             ),
-            EXPECTED_RED="born-red HOLD only — preflight/substrate-gate red is REAL now (post-#221)",
+            EXPECTED_RED="born-red card HOLD only — preflight/substrate-gate red is REAL",
             ORDER_GRAMMAR="headers may lag DONE-flips",
             OWNER_TURN_LANDING="the inbox (next free number)",
             CRON_STAGGER="30 1-23/2 * * *",
-            OLD_TRIGGER_IDS=(
-                "the prior coordinator may be LIVE (status ACTIVE; failsafe trig_01T83UuVthszGBcENYwrTrm7 at 0 */2 squats "
-                "the Self Improvement slot): confirm that chat is archived BEFORE deleting; THIS lane's ids only — never \"stragglers\""
+            OLD_TRIGGER_SOURCES=(
+                "this lane's heartbeat + fleet-manager telemetry/triggers-snapshot.json; a prior coordinator may still be "
+                "LIVE — confirm its chat is archived BEFORE deleting its failsafe; THIS lane's ids only, never \"stragglers\""
             ),
         ),
-        orders="""FIRST WORK ORDERS (verify at boot — expected as of 2026-07-12, or later):
-1. VERIFY THE HANDOFF CLOSED — PROPOSAL 010 expected already verdicted (VERDICT 012 + fan-in PR #227); only if truly unverdicted, pull as INTAKE (verbatim number + stamp + pinned sha) → sim → verdict via fan-in; NEVER append a duplicate VERDICT. Done-when: chain verified closed, or the missing verdict landed.
-2. SIM-LAB LANDING PATH — no enabler; own-PR REST merges violate doctrine: stand up a GITHUB_TOKEN merge-on-green workflow; meanwhile park READY+green. Done-when: a PR lands without an agent merge call.
-3. STALE-STATE SWEEP — verify every heartbeat ⚑/ask row vs live GitHub; re-stamp ONLY what contradicts (both expected fresh as of 2026-07-12). Done-when: zero contradicted rows.""",
+        orders="""WORK SOURCES (durable ladder — current work lives in the repo, never in this prompt):
+(a) control/inbox.md at HEAD in EACH repo — a `new` ORDER outranks everything; read FULL threads.
+(b) idea-engine control/outbox.md (the PROPOSAL→VERDICT chain: newest unverdicted PROPOSAL = the loop's next pull; NEVER append a duplicate VERDICT) + control/status.md per repo — re-verify ⚑/ask rows against live GitHub; re-stamp only what contradicts.
+(c) the highest-value buildable increment of the mission: the generate→verify loop moving, verdicts fanned in to the manager.""",
     ),
 ]
 
