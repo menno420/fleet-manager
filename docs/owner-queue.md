@@ -236,9 +236,21 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       today ("live-NL leg owner-key-gated"). API keys are owner-only.
     - Blocking: blocks band-7's live-NL leg only.
 
-17. **superbot-mineverse — REDUCED 2026-07-12 to TWO Discord-portal steps
-    (was: six host env vars).** *(Owner-live session executed the rest.)*
+17. **✅ RESOLVED 2026-07-12 — mineverse player sign-in LIVE, owner-verified
+    end-to-end** (was: six host env vars → two portal steps → done).
     - id: OQ-MINEVERSE-ENV-VARS
+    - FINAL: the owner registered the redirect URI (evening) and, after the
+      UA-403 token-exchange fix (mineverse #45 — Cloudflare rejects urllib's
+      default User-Agent; auto-deployed 18:22Z), **completed a full live
+      sign-in** (~20:50 local, screenshot: "Signed in as 3404…6000" on
+      web-production-97636). Sign-in requires nothing further from anyone.
+    - Still open, AGENT-side only (superbot bot lane, specs verbatim in
+      mineverse control/status.md): **FLAG 1** (60s snapshot relay → real
+      miners replace the sample snapshot + the STALE banner clears) and
+      **FLAG 2** (HMAC write endpoint → the write pair
+      `MINING_WRITE_ENDPOINT`/`MINING_WRITE_SHARED_SECRET` gets provisioned
+      and the action buttons go live, test-guild allowlisted).
+    - History below kept for the record:
     - DONE agent-side 2026-07-12 (owner-live, owner-approved): the web host
       now EXISTS — Railway project `superbot-mineverse`, service `web`,
       domain `https://web-production-97636.up.railway.app`, start command
