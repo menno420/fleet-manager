@@ -861,3 +861,45 @@ why: arming a bridge for an already-open permission would waste a standing routi
 mislead the next reader about the wall's state.
 done-when: status.md records the next scheduled bake run's conclusion; no bridge trigger
 exists for the bake.
+
+## ORDER 020 · update 2026-07-12T18:40Z · status: ✅ DONE (per-wake trigger-health check; fleet-manager PR #133)
+priority: P1
+do: (append-only DONE flip for ORDER 020 above — no new work ordered; this
+block records the execution, fields per the kit's order grammar; written by
+the ORDER-020 lane worker as manager delegate.)
+why: the ORDER's done-when is met in full — the check runs at every wake by
+R26 + the wake-prompt wiring, and re-playing the 2026-07-12 incident registry
+surfaces every wedge/drop/dead-chain in a single wake.
+done-when: (met in fleet-manager PR #133) check runs automatically each wake
+AND the 2026-07-12 registry replay surfaces the venture-lab failsafe wedge,
+the kit-lab loop wedge, and the dropped one-shots as WEDGED/DROPPED/DEAD with
+a send_message recovery named the same cycle.
+✅ DONE: executed (PR #133, lane worker session, model: fable-5, dispatched by
+the coordinator). **(1) Detection** — `scripts/check_trigger_health.py` (R26,
+stdlib-only): six PASS/FAIL invariants per wake — I1 WEDGED-cron
+(`enabled ∧ next_run_at < capture − 15min`), I2 DROPPED one-shot (enabled past
+`run_once_at`; QUEUED-vs-LOST flagged as indistinguishable per the spec note),
+I3 DEAD-chain (dropped tick + no future tick on the seat session, recovery =
+`send_message` that session; Q-0242 venue caveat quoted in the output), I4
+manager-failsafe present + unwedged, I5 roster freshness (stale roster = the
+regen cron may itself be wedged), I6 snapshot freshness; nonzero exit on any
+FAIL; `--selfcheck` offline assertions; `--now` replay mode. **(2) Roster
+record (spec step 2 + second-substrate note)** — `scripts/gen_roster.py` now
+renders a per-lane "Trigger health" column + a fleet-wide "Trigger health"
+section (WEDGED/DROPPED/DEAD detail with lane attribution) from the same
+primitives, so the watchdog's record rides the Actions regen cron and survives
+a CCR scheduler outage. Health is evaluated AT the snapshot's capture instant
+— NEW top-level `captured_at` stamp in the export (telemetry/README.md recipe
+step 3; wall-clock eval measured to fabricate 7/9 false wedges on a 2.5h-old
+snapshot; fallback ladder documented in `snapshot_eval_time`). **(3) Wake
+wiring (stateless — prompts name the check, the script holds the logic)** —
+playbook R26; v3 per-project startup + custom-instructions verify lines;
+projects/fleet-manager registry copies byte-synced with a delta stamp.
+**(4) Proof** — incident replay (mid-outage snapshot `4111da4` @ 06:33Z):
+FAIL 5/6 — 6 WEDGED crons incl. venture-lab (frozen 04:06Z), kit-lab loop
+(frozen 06:08Z) and the manager's own failsafe, 6 dropped one-shots, 4 DEAD
+chains each naming its send_message recovery — the spec's done-when replay.
+Live run (committed gen-14 snapshot, capture-instant 11:12Z): FAIL 4/6 — REAL
+findings (game-lab failsafe wedged at 10:50Z, 6 dropped, 2 dead chains,
+snapshot 7h stale), hand-verified against the raw records; recorded in
+control/status.md for the next wake to act on (R26).

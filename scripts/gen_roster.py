@@ -113,7 +113,13 @@ index — on mismatch):
       }, ...
     ],
     "has_more": bool,             # optional (pagination flag)
-    "next_cursor": str            # optional
+    "next_cursor": str,           # optional
+    "captured_at": ISO-8601       # optional (ORDER 020): the instant the
+                                  # export was taken — write it at every
+                                  # wake dump; trigger-health verdicts are
+                                  # evaluated AT this instant (see
+                                  # snapshot_eval_time for the fallback
+                                  # ladder when it is absent)
   }
   A merged multi-page export (this repo's convention: one dict with all
   pages' records concatenated under "data") and a raw single page are both
@@ -335,30 +341,199 @@ def cadence_hours(cron: str) -> float | None:
     return None
 
 
+def owns_record(lane: dict, rec: dict) -> bool:
+    """Does this lane own this trigger record? (extracted for ORDER 020)."""
+    tokens = [t.lower() for t in lane["tokens"]]
+    hay = rec["name"].lower()
+    if any(t in hay for t in tokens):
+        return True
+    # ONLY anonymous send_later links fall back to prompt-body matching:
+    # named triggers routinely MENTION sibling lanes in their prompts
+    # (verified 2026-07-11: sim-lab's failsafe prompt mentions
+    # idea-engine), so body-matching a named trigger mis-attributes it.
+    if not hay.startswith("send_later"):
+        return False
+    body = prompt_text(rec).lower()
+    return bool(body) and any(t in body for t in tokens)
+
+
 def match_lane_triggers(lane: dict, records: list[dict]) -> dict:
     """Split a lane's enabled triggers into standing / one-shot / poke-only."""
-    tokens = [t.lower() for t in lane["tokens"]]
-
-    def owns(rec: dict) -> bool:
-        hay = rec["name"].lower()
-        if any(t in hay for t in tokens):
-            return True
-        # ONLY anonymous send_later links fall back to prompt-body matching:
-        # named triggers routinely MENTION sibling lanes in their prompts
-        # (verified 2026-07-11: sim-lab's failsafe prompt mentions
-        # idea-engine), so body-matching a named trigger mis-attributes it.
-        if not hay.startswith("send_later"):
-            return False
-        body = prompt_text(rec).lower()
-        return bool(body) and any(t in body for t in tokens)
-
-    mine = [r for r in records if r.get("enabled") and owns(r)]
+    mine = [r for r in records if r.get("enabled") and owns_record(lane, r)]
     return {
         "standing": [r for r in mine if r.get("cron_expression")],
         "oneshot": [r for r in mine if r.get("run_once_at")],
         "poke": [r for r in mine
                  if not r.get("cron_expression") and not r.get("run_once_at")],
     }
+
+
+def attribute_lane(rec: dict) -> str | None:
+    """Best-effort lane attribution for one record (first LANES match wins)."""
+    for lane in LANES:
+        if lane["tokens"] and owns_record(lane, rec):
+            return lane["lane"]
+    return None
+
+
+# ------------------------------------------------------- trigger health ----
+# ORDER 020 (2026-07-12, P1 reliability — fleet-manager control/inbox.md;
+# canonical spec: superbot docs/owner/trigger-health-order-2026-07-12.md).
+# On 2026-07-12 ~02:30-08:00Z the trigger scheduler degraded SILENTLY: 9
+# one-shot ticks dropped, several cron failsafes wedged with next_run_at
+# frozen hours in the past while still enabled, two seats dark ~6h.
+# Everything needed to catch it was visible in list_triggers all night —
+# nothing was watching. These primitives are the detection; the per-wake
+# CLI is scripts/check_trigger_health.py (which imports them), and the
+# roster's "Trigger health" column below keeps the watchdog's record on
+# the Actions regen substrate so it survives a CCR scheduler outage.
+
+# Detection signature (verified against the incident registry):
+# `enabled ∧ next_run_at < eval − 15min`.
+WEDGE_GRACE_MIN = 15
+
+
+def fire_time(rec: dict):
+    """Next scheduled fire instant of a record (cron next or one-shot due)."""
+    return parse_when(rec.get("next_run_at") or rec.get("run_once_at") or "")
+
+
+def trigger_wedged(rec: dict, eval_dt: datetime) -> bool:
+    """WEDGED cron: enabled, standing, next_run_at frozen > grace in the past.
+
+    A healthy trigger ADVANCES next_run_at after each fire; a past
+    next_run_at on an enabled cron means the scheduler is not delivering.
+    """
+    if not rec.get("enabled") or not rec.get("cron_expression"):
+        return False
+    nra = parse_when(rec.get("next_run_at") or "")
+    return (nra is not None
+            and (eval_dt - nra).total_seconds() / 60 > WEDGE_GRACE_MIN)
+
+
+def oneshot_dropped(rec: dict, eval_dt: datetime) -> bool:
+    """DROPPED-or-QUEUED one-shot: still enabled > grace past run_once_at.
+
+    A delivered one-shot disables itself (ended_reason=run_once_fired), so
+    enabled + past-due = undelivered. CAVEAT (spec note): a QUEUED tick
+    (bound to a busy session — delivers when the turn goes idle, sound by
+    design) is indistinguishable from a genuinely LOST one on the registry;
+    both are flagged — an unlabeled queue is still a risk.
+    """
+    if not rec.get("enabled") or not rec.get("run_once_at"):
+        return False
+    roa = parse_when(rec["run_once_at"])
+    return (roa is not None
+            and (eval_dt - roa).total_seconds() / 60 > WEDGE_GRACE_MIN)
+
+
+def has_future_tick(recs: list[dict], eval_dt: datetime) -> bool:
+    """Any enabled record in recs with a fire instant still in the future?"""
+    for r in recs:
+        if not r.get("enabled"):
+            continue
+        ft = fire_time(r)
+        if ft is not None and ft > eval_dt:
+            return True
+    return False
+
+
+def health_report(records: list[dict], eval_dt: datetime) -> dict:
+    """Fleet-wide WEDGED / DROPPED / DEAD-chain report (ORDER 020).
+
+    DEAD chain = a seat session with >=1 dropped one-shot AND no future
+    tick armed (spec step 4) — grouped by persistent_session_id, because a
+    pacemaker chain is a property of the session it feeds, not of a lane
+    name. Dropped one-shots WITHOUT a session id still count as dropped
+    but cannot be chain-judged (listed under session None, never DEAD).
+    """
+    enabled = [r for r in records if r.get("enabled")]
+    wedged = [r for r in enabled if trigger_wedged(r, eval_dt)]
+    dropped = [r for r in enabled if oneshot_dropped(r, eval_dt)]
+    dropped_ids = {r["id"] for r in dropped}
+    by_session: dict = {}
+    for r in enabled:
+        by_session.setdefault(r.get("persistent_session_id"), []).append(r)
+    dead = []
+    for sess in sorted(k for k in by_session if k is not None):
+        recs = by_session[sess]
+        sess_dropped = [r for r in recs if r["id"] in dropped_ids]
+        if sess_dropped and not has_future_tick(recs, eval_dt):
+            dead.append({"session": sess, "dropped": sess_dropped})
+    return {"wedged": wedged, "dropped": dropped, "dead_chains": dead,
+            "by_session": by_session}
+
+
+def snapshot_eval_time(payload: dict, triggers_path: str | None,
+                       records: list[dict]):
+    """The instant trigger health is evaluated AT: the snapshot's capture time.
+
+    Returns (datetime | None, basis_str). Evaluating at wall-clock `now`
+    instead would FABRICATE wedges from any snapshot older than one wake
+    cadence (measured: the 11:25Z gen-14 snapshot read at 13:54Z false-
+    wedges 7/9 healthy crons). The true capture instant is bounded by
+    newest-record-stamp <= capture <= git-commit-time, and BOTH bounds
+    were measured hours off on real snapshots (record stamps lag 3h into
+    the 2026-07-12 outage because a frozen scheduler writes nothing; the
+    gen-14 commit lagged capture 2.5h behind a parked regen PR). Ladder:
+      1. top-level `captured_at` in the export — exact; written by the
+         wake dump since ORDER 020 (extra top-level keys were always
+         schema-legal). The rung every post-ORDER-020 snapshot hits.
+      2. newest created/updated/last_fired stamp across the records —
+         the LOWER bound: UNDERSTATES capture during an outage, so wedge
+         verdicts turn conservative (may miss the newest wedge until the
+         next captured_at export), never inflated. Chosen over commit
+         time because a fabricated fleet-wide wedge alarm (upper bound)
+         costs trust the watchdog needs.
+      3. git commit time of the snapshot path — last resort for an
+         export whose records carry no parseable stamps at all.
+    """
+    cap = parse_when(str(payload.get("captured_at") or ""))
+    if cap is not None:
+        return cap, "snapshot captured_at"
+    best = None
+    for r in records:
+        for field in ("created_at", "updated_at", "last_fired_at"):
+            t = parse_when(str(r.get(field) or ""))
+            if t is not None and (best is None or t > best):
+                best = t
+    if best is not None:
+        return best, ("newest record stamp — lower bound; UNDERSTATES "
+                      "capture during an outage, verdicts conservative "
+                      "(export with `captured_at` for exactness)")
+    if triggers_path:
+        try:
+            out = _git(["log", "-1", "--format=%cI", "--",
+                        os.path.relpath(triggers_path, repo_root())],
+                       cwd=repo_root()).strip()
+            when = parse_when(out)
+            if when is not None:
+                return when, ("git commit time of the snapshot — upper "
+                              "bound; can OVERSTATE capture behind a "
+                              "parked regen PR")
+        except (Wall, ValueError, OSError):
+            pass
+    return None, "no eval basis derivable"
+
+
+def lane_health_cell(trig: dict, eval_dt) -> str:
+    """The roster's per-lane Trigger health cell (ORDER 020 step 2)."""
+    all_recs = trig["standing"] + trig["oneshot"] + trig["poke"]
+    if not all_recs:
+        return "— (no attributed triggers)"
+    if eval_dt is None:
+        return "n/a (no eval basis)"
+    bits = []
+    for r in trig["standing"]:
+        if trigger_wedged(r, eval_dt):
+            bits.append(f"⚠️ WEDGED `{r['id']}` (next frozen "
+                        f"{(r.get('next_run_at') or '?')[:16]}Z)")
+    ndrop = sum(1 for r in trig["oneshot"] if oneshot_dropped(r, eval_dt))
+    if ndrop:
+        bits.append(f"⚠️ {ndrop} DROPPED-or-QUEUED one-shot(s)")
+    if bits and not has_future_tick(all_recs, eval_dt):
+        bits.append("💀 DEAD chain (no future tick armed)")
+    return "; ".join(bits) if bits else "OK"
 
 
 # ------------------------------------------------------------ transport ----
@@ -971,7 +1146,8 @@ def render_wake(trig: dict) -> str:
 
 
 def render(rows: list[dict], records: list[dict], generation: int,
-           now: datetime, generated_by: str, dispatched_by: str) -> str:
+           now: datetime, generated_by: str, dispatched_by: str,
+           eval_dt=None, eval_basis: str = "no eval basis derivable") -> str:
     enabled = [r for r in records if r.get("enabled")]
     crons = [r for r in enabled if r.get("cron_expression")]
     ones = [r for r in enabled if r.get("run_once_at")]
@@ -1011,9 +1187,19 @@ def render(rows: list[dict], records: list[dict], generation: int,
                "ordering honored) — judged on its own `updated:` stamp; "
                "wake triggers live on the parent lane row. Evidence homes "
                "per lane: `docs/evidence-index.md` (generated with this "
-               "file).\n")
-    out.append("| Lane | Heartbeat `updated:` | Age | Verdict | Phase (machine-truncated) | Orders | Kit | Wake state (trigger · cron · last fire) | Evidence (repo @ HEAD) |")
-    out.append("|---|---|---|---|---|---|---|---|---|")
+               "file).\n>")
+    health = health_report(records, eval_dt) if eval_dt is not None else None
+    out.append("> **Trigger health (ORDER 020):** evaluated at **"
+               + (eval_dt.strftime("%Y-%m-%dT%H:%MZ") if eval_dt else "n/a")
+               + f"** (basis: {eval_basis}) · grace {WEDGE_GRACE_MIN}min. "
+               + (f"Fleet-wide: **{len(health['wedged'])} WEDGED cron(s) · "
+                  f"{len(health['dropped'])} DROPPED-or-QUEUED one-shot(s) · "
+                  f"{len(health['dead_chains'])} DEAD chain(s)**"
+                  if health is not None else "NOT EVALUATED (no basis)")
+               + " — detail section below the verdicts; wake-time "
+               "enforcement: `scripts/check_trigger_health.py`.\n")
+    out.append("| Lane | Heartbeat `updated:` | Age | Verdict | Phase (machine-truncated) | Orders | Kit | Wake state (trigger · cron · last fire) | Trigger health | Evidence (repo @ HEAD) |")
+    out.append("|---|---|---|---|---|---|---|---|---|---|")
 
     for row in rows:
         lane = row["lane"]
@@ -1036,7 +1222,7 @@ def render(rows: list[dict], records: list[dict], generation: int,
             age = age_str(row["age_h"]) if row["age_h"] is not None else "n/a"
             evidence = f"`{hb['sha'][:7]}` {hb['head_date'][:19]}"
         out.append("| {lane} | {hb} | {age} | {verdict} | {phase} | {orders} "
-                   "| {kit} | {wake} | {evidence} |".format(
+                   "| {kit} | {wake} | {health} | {evidence} |".format(
                        lane=lane["lane"], hb=hb_cell, age=age,
                        verdict=row["verdict"],
                        phase=truncate(f.get("phase", "—"), 160),
@@ -1045,6 +1231,8 @@ def render(rows: list[dict], records: list[dict], generation: int,
                        wake=("(triggers on the parent lane row)"
                              if row.get("subrow")
                              else render_wake(row["trig"])),
+                       health=("(parent row)" if row.get("subrow")
+                               else lane_health_cell(row["trig"], eval_dt)),
                        evidence=evidence))
 
     out.append(f"\n## Staleness verdicts (generation #{generation})\n")
@@ -1054,6 +1242,63 @@ def render(rows: list[dict], records: list[dict], generation: int,
         lanes = [r["lane"]["lane"] for r in rows if r["verdict"] == v]
         if lanes:
             out.append(f"- **{v}:** " + ", ".join(lanes))
+    out.append(f"\n## Trigger health (generation #{generation})\n")
+    out.append("> ORDER 020 (per-wake trigger-health; canonical spec: "
+               "superbot `docs/owner/trigger-health-order-2026-07-12.md`). "
+               "Evaluated at **"
+               + (eval_dt.strftime("%Y-%m-%dT%H:%MZ") if eval_dt else "n/a")
+               + f"** (basis: {eval_basis}); grace {WEDGE_GRACE_MIN}min. A "
+               "QUEUED tick (bound to a busy session — delivers when the "
+               "turn goes idle, sound by design) is indistinguishable from "
+               "a LOST one on the registry, so BOTH are flagged. Recovery "
+               "for a DEAD chain / dark seat: `send_message` that seat's "
+               "session (the manager's only working cross-session revival "
+               "path — fire/update/create_trigger on another session are "
+               "org-refused; do NOT re-edit .claude/settings.json for the "
+               "prompts, Q-0242). This section rides the Actions regen "
+               "substrate so the watchdog's record survives a CCR "
+               "scheduler outage.\n")
+    if health is None:
+        out.append("- **NOT EVALUATED** — no capture-time basis derivable "
+                   "from the snapshot.")
+    elif not (health["wedged"] or health["dropped"] or health["dead_chains"]):
+        out.append("- **All clear** — no wedged crons, no dropped "
+                   "one-shots, no dead chains at the evaluated instant.")
+    else:
+        if health["wedged"]:
+            out.append(f"- **WEDGED cron(s): {len(health['wedged'])}** — "
+                       "enabled with `next_run_at` frozen in the past:")
+            for r in health["wedged"]:
+                out.append(f"  - `{r['id']}` {truncate(r['name'], 60)} · "
+                           f"`{r.get('cron_expression')}` · next frozen "
+                           f"{(r.get('next_run_at') or '?')[:16]}Z · lane: "
+                           f"{attribute_lane(r) or '(unattributed)'}")
+        if health["dropped"]:
+            out.append(f"- **DROPPED-or-QUEUED one-shot(s): "
+                       f"{len(health['dropped'])}** — enabled past "
+                       "`run_once_at` (never delivered), by seat session:")
+            groups: dict = {}
+            for r in health["dropped"]:
+                groups.setdefault(r.get("persistent_session_id"),
+                                  []).append(r)
+            for sess in sorted(groups, key=str):
+                rs = groups[sess]
+                oldest = min((r.get("run_once_at") or "?")[:16] for r in rs)
+                lanes = sorted({attribute_lane(r) or "(unattributed)"
+                                for r in rs})
+                out.append(f"  - `{sess or '(no session id)'}`: {len(rs)} "
+                           f"dropped, oldest due {oldest}Z · lane: "
+                           + ", ".join(lanes))
+        if health["dead_chains"]:
+            out.append(f"- **DEAD chain(s): {len(health['dead_chains'])}** "
+                       "— dropped tick + NO future tick armed on the "
+                       "session (recover via `send_message`):")
+            for d in health["dead_chains"]:
+                lanes = sorted({attribute_lane(r) or "(unattributed)"
+                                for r in d["dropped"]})
+                out.append(f"  - `{d['session']}` · {len(d['dropped'])} "
+                           "dropped, no future tick · lane: "
+                           + ", ".join(lanes))
     out.append("\n> Machine generation: the hand generations' \"Deltas vs "
                "generation #N-1\" narrative is coordinator judgment and is "
                "NOT auto-derived — read `git diff` on this file, or append "
@@ -1226,6 +1471,73 @@ def selfcheck() -> int:
     ok(order_heartbeat_paths(["control/ghost.md"], ["control/status.md"]) ==
        ["control/status.md"], "declared-but-absent heartbeat dropped")
     ok(order_heartbeat_paths([], []) == [], "no heartbeat files -> empty")
+    # ORDER 020: trigger-health primitives (wedge / drop / dead-chain)
+    _t0 = datetime(2026, 7, 12, 6, 33, tzinfo=timezone.utc)
+    _wedged = {"id": "trig_w", "name": "venture-lab money-seat failsafe wake",
+               "created_at": "t", "enabled": True,
+               "cron_expression": "0 */2 * * *",
+               "next_run_at": "2026-07-12T04:06:34.945805082Z"}
+    _healthy = {"id": "trig_h", "name": "x failsafe", "created_at": "t",
+                "enabled": True, "cron_expression": "30 */2 * * *",
+                "next_run_at": "2026-07-12T06:30:00Z"}
+    _disabled = dict(_wedged, id="trig_d", enabled=False)
+    ok(trigger_wedged(_wedged, _t0), "frozen cron 147m past -> WEDGED")
+    ok(not trigger_wedged(_healthy, _t0),
+       "cron 3m past next fire is within grace -> not wedged")
+    ok(not trigger_wedged(_disabled, _t0), "disabled cron never wedged")
+    _drop = {"id": "trig_o", "name": "send_later 2026-07-12T06:00Z #85fcf4",
+             "created_at": "t", "enabled": True,
+             "run_once_at": "2026-07-12T06:00:00Z",
+             "persistent_session_id": "session_dead"}
+    _fired = dict(_drop, id="trig_f", enabled=False,
+                  ended_reason="run_once_fired")
+    _due_soon = {"id": "trig_s", "name": "send_later x", "created_at": "t",
+                 "enabled": True, "run_once_at": "2026-07-12T07:00:00Z",
+                 "persistent_session_id": "session_live"}
+    ok(oneshot_dropped(_drop, _t0), "enabled one-shot 33m past due -> DROPPED")
+    ok(not oneshot_dropped(_fired, _t0), "fired (disabled) one-shot not dropped")
+    ok(not oneshot_dropped(_due_soon, _t0), "future one-shot not dropped")
+    _hr = health_report([_wedged, _healthy, _disabled, _drop, _fired,
+                         _due_soon], _t0)
+    ok([r["id"] for r in _hr["wedged"]] == ["trig_w"], "health: wedged set")
+    ok([r["id"] for r in _hr["dropped"]] == ["trig_o"], "health: dropped set")
+    ok([d["session"] for d in _hr["dead_chains"]] == ["session_dead"],
+       "dead chain: dropped tick + no future tick on the session")
+    _revived = dict(_due_soon, id="trig_r",
+                    persistent_session_id="session_dead")
+    ok(health_report([_drop, _revived], _t0)["dead_chains"] == [],
+       "a future tick on the same session keeps the chain alive")
+    _orphan = dict(_drop, id="trig_n")
+    _orphan.pop("persistent_session_id")
+    ok(health_report([_orphan], _t0)["dead_chains"] == [],
+       "session-less dropped one-shot is dropped but never chain-judged")
+    # eval-time ladder: captured_at wins; record stamps are the last rung
+    _ev, _basis = snapshot_eval_time(
+        {"captured_at": "2026-07-12T06:33:02Z", "data": []}, None, [])
+    ok(_ev is not None and _ev.minute == 33 and "captured_at" in _basis,
+       "eval time: captured_at rung")
+    _ev2, _basis2 = snapshot_eval_time(
+        {"data": []}, None,
+        [{"id": "trig_x", "name": "n", "created_at": "2026-07-12T03:35:50Z",
+          "last_fired_at": "2026-07-12T03:00:00Z"}])
+    ok(_ev2 is not None and _ev2.hour == 3 and "UNDERSTATES" in _basis2,
+       "eval time: record-stamp rung is labeled conservative")
+    ok(snapshot_eval_time({"data": []}, None, [])[0] is None,
+       "eval time: honest None when underivable")
+    # lane attribution + per-lane health cell
+    ok(attribute_lane(_wedged) == "venture-lab", "wedged cron lane-attributed")
+    ok(attribute_lane(_drop) is None, "anonymous one-shot unattributed")
+    _cell = lane_health_cell(
+        {"standing": [_wedged], "oneshot": [_drop], "poke": []}, _t0)
+    ok("WEDGED" in _cell and "DROPPED" in _cell and "DEAD chain" in _cell,
+       f"health cell carries wedge+drop+dead ({_cell})")
+    ok(lane_health_cell({"standing": [_healthy], "oneshot": [], "poke": []},
+                        _t0) == "OK", "healthy lane cell is OK")
+    ok(lane_health_cell({"standing": [], "oneshot": [], "poke": []}, _t0)
+       .startswith("—"), "triggerless lane cell is an honest dash")
+    ok(lane_health_cell({"standing": [_wedged], "oneshot": [], "poke": []},
+                        None) == "n/a (no eval basis)",
+       "no eval basis -> n/a cell, never a fabricated verdict")
     # P3: evidence-index rendering (banner, sub-row collapse, honest walls)
     _sha = "a" * 40
     _hb = {"sha": _sha, "attempts": 1, "head_date": "2026-07-11T00:00:00Z",
@@ -1329,8 +1641,10 @@ def main(argv=None) -> int:
 
     rows = build_rows(records, now, args.max_fetch_attempts,
                       log=lambda *a: print(*a, file=sys.stderr))
+    eval_dt, eval_basis = snapshot_eval_time(payload, args.triggers, records)
     text = render(rows, records, generation, now,
-                  args.generated_by, args.dispatched_by)
+                  args.generated_by, args.dispatched_by,
+                  eval_dt=eval_dt, eval_basis=eval_basis)
 
     if args.check:
         if committed is None:

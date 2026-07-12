@@ -28,11 +28,24 @@ history** — e.g. the 2026-07-11 incident (NINE lane failsafes auto-disabled,
    `next_cursor` until `has_more` is false).
 2. Merge all pages' records under one `data` key; dedupe by id (first wins);
    **sort by trigger id** (stable diffs); record the count.
-3. Write `telemetry/triggers-snapshot.json` (2-space indent, sorted keys,
+3. **Stamp the capture instant (ORDER 020):** write a top-level
+   `"captured_at": "<ISO8601 UTC of the export>"` next to `data`. Trigger-
+   health verdicts (wedge/drop/dead-chain) are evaluated AT this instant —
+   without it the tooling falls back to bounds that were each measured
+   hours off on real snapshots (`scripts/gen_roster.py`
+   `snapshot_eval_time` documents the ladder).
+4. Write `telemetry/triggers-snapshot.json` (2-space indent, sorted keys,
    trailing newline) and commit it with the count in the message.
-4. Regenerate the roster from it and verify freshness:
+5. **Run the trigger-health check and act on FAILs the same wake (R26,
+   ORDER 020):** `python3 scripts/check_trigger_health.py` — WEDGED crons,
+   DROPPED one-shots, DEAD chains (recover via `send_message`), manager
+   failsafe, roster + snapshot freshness; nonzero exit = act now, then
+   record the verdict in `control/status.md`.
+6. Regenerate the roster from it and verify freshness:
    `python3 scripts/gen_roster.py --triggers telemetry/triggers-snapshot.json`
-   then `python3 scripts/check_roster_freshness.py` (must exit 0).
+   then `python3 scripts/check_roster_freshness.py` (must exit 0). The
+   roster now carries a "Trigger health" column + section from the same
+   snapshot — the watchdog's record on the Actions substrate.
 
 **Freshness semantics:** heartbeat columns of an auto-regenerated roster are
 live; **trigger columns are only as fresh as this committed snapshot** (the
