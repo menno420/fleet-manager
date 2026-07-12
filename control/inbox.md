@@ -843,3 +843,21 @@ unverified, and the review site data silently ages.
 done-when: arcade card live + honest; /owner/environments Railway panel verified (or fixed)
 with the result in status.md; the bake bridge routine armed + recorded (verbatim create_trigger
 call + list_triggers verify in status.md); OWNER-ACTIONS carries zero satisfied-but-open asks.
+
+## ORDER 022 · update 2026-07-12T18:00Z · status: amended — item 3 OBSOLETE (owner clicked both toggles; live-verified)
+priority: P1 (unchanged)
+owner: Websites seat (unchanged)
+do: SKIP ORDER 022 item 3 — do NOT arm the bake bridge routine. The owner ticked "Allow
+GitHub Actions to create and approve pull requests" on BOTH repos (fleet-manager + websites)
+2026-07-12 ~17:45Z, and the owner-live session live-verified both: websites review-bake
+dispatch run 29202721928 → SUCCESS end-to-end (runs 1–2 had died at PR-create);
+fleet-manager roster-regen run 29202721367 → SUCCESS and self-landed roster Generations
+#17/#18 (PRs #129/#131, opened AND squash-merged by the workflow itself). Instead of the
+bridge: confirm the next SCHEDULED bake run also lands (dispatch path proven; cron path
+should follow) and record it in status.md. Items 1, 2, 4 and the EAP-window fences stand
+unchanged. (The fleet-manager roster bridge trigger was deleted the same hour; owner-queue
+item 33 → RESOLVED.)
+why: arming a bridge for an already-open permission would waste a standing routine and
+mislead the next reader about the wall's state.
+done-when: status.md records the next scheduled bake run's conclusion; no bridge trigger
+exists for the bake.

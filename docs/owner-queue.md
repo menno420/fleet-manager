@@ -139,42 +139,19 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       cleanup — agent 403.)
     - Blocking: blocks the 07-14 play sitting artifact.
 
-33. **fleet-manager — tick "Allow GitHub Actions to create and approve pull
-    requests"** *(new 2026-07-11, P1 FRESHNESS; the last click that makes
-    roster freshness fully autonomous).*
+33. **✅ RESOLVED 2026-07-12 — fleet-manager Actions PR-permission toggle
+    CLICKED by the owner and LIVE-VERIFIED.**
    - id: OQ-FM-ACTIONS-PR-PERMISSION
-    - WHERE: https://github.com/menno420/fleet-manager/settings/actions →
-      "Workflow permissions".
-    - HOW: check the box "Allow GitHub Actions to create and approve pull
-      requests" → Save. (If greyed out, flip the same toggle in the
-      account-level Actions settings first.)
-    - UNBLOCKS: the roster-regen cron (`40 */2 * * *`,
-      `.github/workflows/roster-regen.yml`) landing `docs/roster.md`
-      regenerations on its own — it already regenerates + pushes
-      `bot/roster-regen` fine but cannot open the PR.
-    - VERIFIED-NEEDED: attempted twice live 2026-07-11 (~19:17Z + ~19:23Z),
-      walls verbatim — direct push: `GH013 … Changes must be made through a
-      pull request.` (run 29164975251); PR path: `pull request create failed:
-      GraphQL: GitHub Actions is not permitted to create or approve pull
-      requests (createPullRequest)` (run 29165152964; the regen commit
-      `a310a12` DID reach `bot/roster-regen`, so ONLY the PR-create
-      permission is missing). Owner-only: repo/account settings surface, no
-      API path for GITHUB_TOKEN.
-    - Blocking: not-blocking (manager wakes still regen the roster; the
-      freshness checker alarms at >4h), but this click removes the last
-      manager-wake dependence — the whole point of P1.
-    - **BRIDGED 2026-07-12 (owner-live session):** a CCR routine now lands the
-      parked roster PRs — `fleet roster regen bridge` trigger
-      `trig_011LrFY1k5cUHRYH6zwTvPvn`, cron `50 */2 * * *`, fresh session in
-      the fleet-manager environment; it also refreshes the triggers snapshot
-      each fire (something Actions can't do) and **self-retires** (deletes its
-      own trigger) once it observes a roster-regen Actions run whose PR-create
-      step succeeded — i.e. once this click lands. The click is still wanted
-      (free, permanent, removes the bridge's token cost) but no longer blocks
-      roster freshness. Direct API toggle was re-attempted from the owner-live
-      session 2026-07-12: the agent proxy walls ALL `/actions/*` admin paths
-      (verbatim: "Access to this GitHub Actions path is not permitted through
-      this proxy") — confirmed owner-only from any agent venue.
+    - Evidence: dispatch run 29202721367 (2026-07-12 17:49Z) SUCCESS
+      end-to-end, and the workflow **self-landed roster Generations #17 and
+      #18** (PRs #129 + #131, opened AND squash-merged by the workflow
+      itself). The stale-roster red-gate class is closed; roster freshness
+      no longer depends on any wake.
+    - The 2026-07-12 bridge routine (`trig_011LrFY1k5cUHRYH6zwTvPvn`) was
+      deleted the same hour by the owner-live session — no self-retirement
+      wait needed. (History: the toggle was walled from every agent venue —
+      the proxy blocks all `/actions/*` admin paths — which is why the
+      bridge existed at all; full trail in this file's git history.)
 
 ### (C) Claude platform (console / environments / sessions / Codex)
 
@@ -728,7 +705,7 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
 - **roster-freshness BRIDGED ✅** — `fleet roster regen bridge`
   (`trig_011LrFY1k5cUHRYH6zwTvPvn`, `50 */2 * * *`, fleet-manager env,
   fresh-session) lands parked roster PRs + refreshes the triggers snapshot;
-  self-retires when OQ-FM-ACTIONS-PR-PERMISSION lands.
+  RETIRED same day: the owner clicked the toggle and the bridge trigger was deleted after live verification (runs 29202721367, PRs #129/#131).
 
 ## Resolved 2026-07-11 (P3 curation sweep, ~20:1xZ — every state below re-verified LIVE per PR, Q-0120)
 
