@@ -63,7 +63,7 @@ corrected by the verifier. HEAD SHAs are survey-time stamps.
 | 4 | superbot-next | RUNNING; **`golden-parity` RED on main** — verifier-confirmed 20/20 most recent runs `completed/failure` (latest 15:24:47Z) while the separate `ci` workflow is 30/30 green. Survey A's "CI green" was misleading; correction binding | Ground-up rebuild of superbot | `sb/`, `parity/` goldens, `manifest/` + `plugins.lock.json` (pins superbot-plugin-hello by manifest sha256 @ `65f4ba7`), `docs/game-plugin-contract.md` @ `d3f3cb4` |
 | 5 | websites | RUNNING; `review-bake` RED (its only 2 runs ever both failed: 07-11T20:26Z, 07-12T07:38Z — verifier-confirmed); `quality` green | Consolidated web properties; 3 Railway services deploy-verified daily | `app/` fleet control site, `botsite/`, `dashboard/`, `review/` @ `dfd6cce`; 6 standing owner asks in `docs/owner/OWNER-ACTIONS.md` |
 | 6 | venture-lab | RUNNING; launch gated on owner (⚑E Gumroad $29 listing) | Money seat (venture-lab + trading-strategy merged, owner decision): monetizable content ventures | `candidates/` 16 ventures incl. ~26k-word novella, `membership-kit/` launch-ready, `docs/launch/`, `docs/PLATFORM-LIMITS.md` (cites the opus4.8 release recipe) @ `19e7e88` |
-| 7 | trading-strategy | IDLE-HEALTHY, self-declared ARCHIVE-READY | Trading research lab, folded into the Money seat | `docs/final-report.md`, p1/p2 results docs, `docs/holdout-enforcement.md`, 229 tests @ `dfd46bb`. **Live routine:** weekly grading trigger `trig_015aNMg5ncoSe2Roe4MKjQnr` fires 2026-07-17T09:05Z into the Money seat |
+| 7 | trading-strategy | IDLE-HEALTHY, self-declared ARCHIVE-READY | Trading research lab, folded into the Money seat | `docs/final-report.md`, p1/p2 results docs, `docs/holdout-enforcement.md`, 229 tests @ `dfd46bb`. **Live routine:** weekly grading trigger `trig_015aNMg5ncoSE2Roe4MKjQnr` fires 2026-07-17T09:05Z into the Money seat |
 | 8 | idea-engine | RUNNING, green | Ideas Lab seat: fleet ideation pipeline | `ideas/` 13 lane sections, `review-queue.md` @ `ff48c2f`. Carries the **≤2026-07-13 four-decision bundle** (§3) |
 | 9 | sim-lab | RUNNING, green | Ideas Lab seat: evidence/verdict sims | `sims/` V001–V014 verdict packages @ `477b452`. Also: two **verified Codex fabrications** on #44/#53 (comments citing nonexistent commits) |
 | 10 | gba-homebrew | RUNNING, green; #68/#69 parked READY+green | game-lab seat (Track B), Butano GBA homebrew — live merged-seat heartbeat "WORK LOOP cycle 4" | `dist/lumen-drift.gba` v1.3 (itch.io go/no-go pending), `dist/brineward.nds`, `dist/gloamline.nds`, `games/` @ `f16e404` |
@@ -104,7 +104,7 @@ banner above).
 | superbot-next | **KEEP** | Active rebuild, band-5 complete, 7 fresh PRs at survey time — but carries the fleet's worst red leg (golden-parity red on main, §3) |
 | websites | **KEEP** | Live product: 3 Railway services deploy-verified daily @ `dfd6cce`; active seat on v1 |
 | venture-lab | **KEEP** | Money seat live, owner mid-Launch-Hour (⚑E Gumroad listing); revenue candidates are the fleet's monetization surface |
-| trading-strategy | **ARCHIVE-AFTER-CHECKLIST** | Self-declared ARCHIVE-READY @ `dfd46bb` with evidence docs complete; **checklist must retarget/consciously keep `trig_015aNMg5ncoSe2Roe4MKjQnr`** (weekly grading, fires 2026-07-17T09:05Z into the Money seat — it must survive the archive or be deliberately moved) + heartbeat #73 owner-flags h/i |
+| trading-strategy | **ARCHIVE-AFTER-CHECKLIST** | Self-declared ARCHIVE-READY @ `dfd46bb` with evidence docs complete; **checklist must retarget/consciously keep `trig_015aNMg5ncoSE2Roe4MKjQnr`** (weekly grading, fires 2026-07-17T09:05Z into the Money seat — it must survive the archive or be deliberately moved) + heartbeat #73 owner-flags h/i |
 | idea-engine | **KEEP** | Active Ideas Lab seat, ~38 merged PRs this seat session; custodian of the ≤2026-07-13 decision bundle |
 | sim-lab | **KEEP** | Active verdict/evidence seat (V001–V014); shares the live Ideas Lab seat with idea-engine (Q-0264) |
 | gba-homebrew | **KEEP** | Live game-lab seat heartbeat (WORK LOOP cycle 4); shipped ROMs in `dist/`; itch.io go/no-go pending in the decision bundle |
@@ -112,7 +112,7 @@ banner above).
 | superbot-mineverse | **KEEP** | Active-ish, security slice just landed (#42 merged 13:54Z); one owner gate (6 env secrets) from resuming; part of superbot-world seat scope |
 | superbot-games | **ARCHIVE-AFTER-CHECKLIST** | Archive-prep by its own status @ `bdc4cd1`; checklist: disposition PRs #59/#60 (green; #60 carries the D1/D2 schema/audit decision), export owner asks, final retro at HEAD |
 | superbot-idle | **ARCHIVE-AFTER-CHECKLIST** | "ARCHIVED-READY / dormant, wake loop DISARMED" @ `45ff2bf`; checklist: disposition PRs #72/#74 (green; #74 is a workflow-file PR = owner-only merge), required-check click, export owner asks, final retro |
-| product-forge | **ARCHIVE-AFTER-CHECKLIST** | "close-out / archived-ready", inbox dry since ORDER 004, failsafe disarmed @ `4fdfa8a`; checklist: resolve OA-003 (Pages deploy — live or drop), export owner asks, final retro. NOTE: `projects/product-forge/` is a standing SEAT package — archiving the repo does not retire the seat (owner-queue E#37 "forge disposition" pending) |
+| product-forge | **ARCHIVE-AFTER-CHECKLIST** | "close-out / archived-ready", inbox dry since ORDER 004, failsafe disarmed @ `4fdfa8a`; checklist: resolve OA-003 (Pages deploy — live or drop), export owner asks, final retro. NOTE: `projects/product-forge/` is a standing SEAT package — archiving the repo does not retire the seat (owner-queue E#37 / `OQ-FORGE-DISPOSITION` pending — see §4.2: the manager never ORDERs this DARK seat) |
 | superbot-plugin-hello | **KEEP** | Pinned by superbot-next `plugins.lock.json` manifest sha256 (@ `65f4ba7`); the plugin-contract validation exemplar; deleting/archiving re-opens PLUG-001-class blocks (verifier iii.3). NOT scratch despite the 1-commit history |
 | codetool-lab-opus4.8 | **KEEP (unarchived)** | Standing owner ruling keeps it unarchived: live mdverify releases v0.1.0/v0.2.0 + `action.yml` (archive-safe but keep per ruling) + the fleet's proven workflow_dispatch release recipe, cited by venture-lab `docs/PLATFORM-LIMITS.md` and product-forge's founding package |
 | codetool-lab-fable5 | **HARVEST-THEN-ARCHIVE** | envdrift 0.2.0 finished but **unreleased** — harvest first (§Stage D options below), THEN archive read-only per the 2026-07-10 ruling |
@@ -257,7 +257,7 @@ done-when: status.md shows phase=reset-complete, all-PRs-parked, retro path,
 | websites | LIVE on v1 (meta: instructions pasted, ORDERs 012–017 executing) | **v1.1 delta ack** |
 | superbot-2.0 (superbot + superbot-next) | NOT booted (both repos: no seat/boot mention in status.md; package "never pasted") | **FULL reset order** + first slice = golden-parity red leg (§3.2) |
 | superbot-world (mineverse/games/idle) | NOT booted (package "never pasted"; lanes in archive-prep/dormant/stalled) | **FULL reset order** + archive checklists for games/idle (§2) |
-| product-forge | NOT booted currently (seat closed out; failsafe disarmed) | **FULL reset order** + its own archive checklist / E#37 forge disposition |
+| product-forge | NOT booted; classified **DARK** by the manager (`projects/fleet-manager/instructions.md:55`: "product-forge is DARK: never ORDER it — owner-queue its disposition") | **NO order.** Owner-queue disposition per `OQ-FORGE-DISPOSITION` (`docs/owner-queue.md` #37 — structured choice: A retire-seat/keep-repo (recommended there) · B fold into Venture Lab · C keep as 9th seat; "does NOT proceed on silence"); no reset order until the owner picks A/B/C. Its §2 archive checklist then rides the chosen path |
 | self-improvement (substrate-kit) | NOT booted as a seat (no seat boot in status.md; lane self-armed failsafe `trig_011iJucRpsruWJ4dFB7xVbvf` 2026-07-11T23:09Z) | **FULL reset order** + custody of pin PRs #220/#238 ratification queue |
 
 ### 4.3 Authority note (blocking)
@@ -277,7 +277,15 @@ grant. Execution of §4 therefore requires the owner to either:
 
 ---
 
-## 5. Instruction v1.1 deltas (learned 2026-07-12 — fold into each `projects/<seat>/` package)
+## 5. Instruction v1.1 deltas (learned 2026-07-12)
+
+**Where to apply them:** the `projects/<seat>/` packages are **GENERATED
+copies** — source of truth is `docs/prompts/v3/`, regenerated via
+`docs/prompts/v3/tools/regen_b_files.py --write-registry` with a drift guard
+(`projects/README.md`). Fold these deltas into the **v3 prompt sources**, then
+run the regeneration step to refresh every seat's registry copy — never
+hand-edit the generated `projects/<seat>/` files (drift-guarded; edits would
+be overwritten and the guard reds).
 
 1. **Canonical merge clause, written explicitly:** slice PRs PARK READY+green;
    agent self-merge is platform-classifier-blocked; only an owner click or a
