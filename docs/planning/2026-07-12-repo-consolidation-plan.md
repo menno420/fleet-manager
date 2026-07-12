@@ -85,6 +85,16 @@ concurrently and independently. Where they touch the same repos:
 Each written as a routed ORDER spec (kit grammar: executor / scope /
 done-when).
 
+**Product-forge lane gate — codex finding (from the #121 review) applied:**
+the product-forge seat is **DARK** per the fleet-manager instructions — it
+never receives ORDERs; its disposition is owner-queued. The P1-1/2/3 specs
+below therefore name only **non-forge executors**, and the rehomes execute via
+non-forge lanes (fleet-manager sessions or the destination repos' own lanes —
+product-forge content is readable cross-repo), **only after the owner approves
+this plan** (the plan itself is the disposition surface that superseded
+owner-queue E#37 / OQ-FORGE-DISPOSITION). That approval gate is the one
+exception to this phase's "start now".
+
 **ORDER P1-1 — product-forge: rehome `products/games-web/`**
 - executor / owning repo: superbot-world seat (superbot-games) **or** websites
   seat — decided at PR time.
@@ -315,7 +325,10 @@ cooling-off. This plan recommends never taking it.
   docs-only): its delete-contradiction gate, decision bundle, stranded-work
   lists, and harvest options are folded in above; its RESET ORDER template and
   8 v1.1 instruction-delta candidates are **routed to the prompt-v3.4 restamp**
-  (deliverable 2 on this branch), not this doc. **Recommended: close #121
+  (deliverable 2 on this branch), not this doc — applied to the
+  `docs/prompts/v3/` **sources** with the `projects/<seat>/` copies regenerated
+  (`regen_b_files.py` + `--write-registry`), never to the generated copies
+  directly (codex #121 finding, already the v3.4 method). **Recommended: close #121
   after this lands** (owner click — this session does not close it).
 - **Supersedes owner-queue E#37 (OQ-FORGE-DISPOSITION):** the census verdict
   MIGRATE-THEN-ARCHIVE replaces E#37's option-A "keep the repo parked"
