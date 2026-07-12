@@ -1,53 +1,42 @@
 # fleet-manager · status
 
-updated: 2026-07-12T19:59:17Z — **COORDINATOR SESSION CLOSED** (owner's universal session ender executed; successor boots per `projects/fleet-manager/coordinator-prompt.md` at HEAD).
+updated: 2026-07-12T22:00:00Z — coordinator seat ACTIVE (successor booted 2026-07-12 ~20:30Z per projects/fleet-manager/coordinator-prompt.md v3.4; continuous operation).
 
-phase: **prompt program COMPLETE through v3.4** (docs/prompts/v3/ + registry synced, PR #122); consolidation plan approved + merged (`docs/planning/2026-07-12-repo-consolidation-plan.md`).
+phase: oversight steady-state post v3.4; consolidation plan Phase 1 ORDER routing pending.
 
 health: green
 
 kit: v1.7.0 · check: green · engaged: yes
 
-coordinator: **CLOSED — session ended 2026-07-12 ~19:55Z (was session_01FMJoC5uC6WSUTosceTGcmo, continuous operation). Successor boots per projects/fleet-manager/coordinator-prompt.md at HEAD.**
+coordinator: session_01UutkJqyMcHC1VyFW8fe1a9 (this seat's live session).
 
-routine: disposition as verified by the coordinator 2026-07-12 ~19:50Z (full 947-record pagination): pending session one-shot **trig_018dtpq5y4vYN7wij2hMouxJ deleted** and verified absent; 67 prior pacemaker one-shots already self-fired (no action); FAILSAFE **trig_01BKpsyoBzp1K1ob9H3iu1gM** ("fleet-manager failsafe wake", cron `30 */2 * * *`, enabled, next fire ~20:31Z) **LEFT ARMED as the successor's dead-man bridge** — successor boot cutover rebinds-then-deletes it. No business crons owned by this session. Nothing uncloseable.
+routine: FAILSAFE trig_01UQTZFvknBosXVo4YKKfazZ ("Fleet Manager failsafe wake", cron 30 */2 * * *, bound this session, verified via list_triggers post-create). Predecessor failsafe trig_01BKpsyoBzp1K1ob9H3iu1gM retired at boot cutover (rebind-then-delete recipe). Pacemaker chain live: ONE pending ~15-min tick at any time (Q-0265).
 
-trigger-health: check live (`scripts/check_trigger_health.py`, PASS 6/6 at snapshot 18:25Z — see PR #135).
+trigger-health: fresh export committed this session (telemetry/triggers-snapshot.json, captured_at 2026-07-12T20:41:13Z, 945 records / 14 enabled-recurring incl. new fm failsafe); check result: PASS 7/7 incl. I7 TICK-PILE-UP first run (no live pile-up — post-prune registry clean, SWTK long-fuse pair correctly exempted; pre-prune 18:25Z replay reds I7 on the incident's 4 stacked sceTGcmo ticks) (PR #142).
 
 ## Walls
 
-Walls (summarized): agent-initiated merges of peer PRs are denied in auto mode; permission-guard edits require live user intent in the acting session; standalone sleep blocked; direct push to main blocked (GH013).
+Walls (summarized): agent-initiated merges of peer PRs denied in auto mode; permission-guard edits need live user intent in the acting session; standalone sleep blocked; direct push to main blocked (GH013); send_message reaches only ACTIVE sessions (see docs/CAPABILITIES.md 2026-07-12).
 
 ## Landed / parked
 
-Day summary (2026-07-12), pointers:
-
-- prompts v3.0→v3.4 program complete (`docs/prompts/v3/` + registry synced).
-- consolidation plan approved + merged (`docs/planning/2026-07-12-repo-consolidation-plan.md` — Phase 1 ORDERs ready to route, Phase 2 decisions + ≤2026-07-13 bundle with owner, Phase 3 clicks gated).
-- trigger-health check live (`scripts/check_trigger_health.py`, PASS 6/6 at snapshot 18:25Z).
-- /prompts page live on the control site; GPT research prompt at `docs/prompts/external/`.
-
-PR terminal states (verified at close, 2026-07-12 ~19:59Z): **#122** (consolidation plan + v3.4) merged 19:49Z; **#121** (game-lab proposal, superseded as a shape by #122) merged 19:35Z; **#118**, **#135** merged; **#116** owner-closed unmerged.
-
-Parked/open: **PR #140** (head `e43d2db`, CI green, docs-only merged-state fixes + supersession pointers; landing path: owner-click / owner-provenance dispatch) — plus the close-out PR itself (#139).
-
-Safe-to-delete: stray branch **`claude/consolidation-plan-v34` @ `30a48fa`** (nothing unique on it — content landed via #122's merge; agent delete hit a verified 403 wall, so owner/dispatch delete; entry rides #140's queue note).
+- PR #142 (this session): ORDER 020 amendment — I7 TICK-PILE-UP in check_trigger_health.py + fresh snapshot + playbook pacemaker-discipline note + CAPABILITIES finding + this heartbeat. Landing path: owner-click / owner-provenance dispatch (park READY+green).
+- Predecessor close-out fully landed: #139 + #140 both MERGED 2026-07-12T20:07Z (verified live) — nothing inherited parked.
+- Residue: stray branch claude/consolidation-plan-v34 @ 30a48fa safe-to-delete (agent delete 403-walled; owner/dispatch). Branch claude/meta-restamp @ 8fe8f8b holds the meta restamps (needs v3.4 stamp bump if re-cut; owner: "salvage the metas").
 
 ## Orders
 
-- inbox 001–018 all DONE; ORDER 020 DONE (PR #133). ORDERs 019/021/022 are websites-seat orders — tracked via the roster/heartbeat sweep.
+- inbox 001–018 DONE; 020 base DONE (#133) + 020 amendment DONE this session (PR #142; see inbox flip). 019 / 021 / 022 OPEN — websites-seat orders (019 time-sensitive, EAP window through 2026-07-14); websites coordinator on them per roster gen #20.
 
-next-3 for successor:
+next-3:
 
-1. Route the consolidation plan's Phase 1 migration ORDERs to owning lanes.
-2. Confirm #140 lands (owner-click) + resume staleness cadence. (Codex round 2 on #122 COMPLETED — 5/5 findings verified + applied pre-merge via commits `6fd51f3` + `d285e4d`; follow-ups ride #140.)
-3. Meta-restamp salvage follow-up if the owner approves (see ⚑ below).
+1. Route the consolidation plan's Phase 1 migration ORDERs to owning lanes (docs/planning/2026-07-12-repo-consolidation-plan.md).
+2. Staleness sweep + roster cadence; verify websites progress on ORDERs 019/021/022 at live HEAD.
+3. Surface the ≤2026-07-13 owner decision bundle (owner-queue B#40–43 + E#44–48).
 
 ## ⚑ needs-owner
 
-Pointers only (details in `docs/owner-queue.md`):
+Pointers only (details in docs/owner-queue.md):
 
-- owner-queue B#40–43 + E#44–48; decision bundle due ≤2026-07-13.
-- venture-lab exposure item (see owner-queue).
-- seat pastes per C#34–36 (v3.4 artifacts).
-- **meta restamps dropped with #116's close — #122 touched zero meta.md files, so the nine seat meta lane-state re-verifications (venture-lab ACTIVE vs stale LIVE-BUT-DARK meta, product-forge archived-ready, websites parked + trigger mismatch, etc.) live only on branch `claude/meta-restamp` @ `8fe8f8b` (needs a v3.4 stamp bump if re-cut); say "salvage the metas" to re-cut — the /projects page cards stay stale until then.**
+- decision bundle due ≤2026-07-13 (B#40–43 + E#44–48).
+- venture-lab exposure item; seat pastes C#34–36 (v3.4 artifacts); meta-restamp salvage ("salvage the metas" re-cuts claude/meta-restamp with a v3.4 stamp).
