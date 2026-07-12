@@ -1,5 +1,7 @@
 # Problem census — core repos (2026-07-12)
 
+> **Status:** `reference`
+
 **Date:** 2026-07-12 (overnight program of 2026-07-11).
 **Purpose:** input for regression-proof startup prompts and custom instructions
 per fleet Project — what each repo's sessions must know at minute 0, what lies
