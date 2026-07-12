@@ -1058,6 +1058,10 @@ state is committed in the repos). Do in one sitting whenever convenient.
   superbot-games ×2 — `mining/adopt-substrate-kit` (closed-unmerged-deliberate)
   and `mining/grid-encounters` (**verify tip is merged before deleting**) ·
   websites ×4 (= B#11).
+- **fleet-manager stale branch (agent branch-delete is a verified 403):**
+  `claude/consolidation-plan-v34` @ 30a48fa — accidental resurrection of PR
+  #122's merged head during a parallel merge-back; nothing unique on it (its
+  content landed via #122's merge commit fda3182/8f92faa).
 - **NOT yet safe:** codetool repo archive toggles ×3 (paired decision above);
   anything holding an open READY PR.
 
