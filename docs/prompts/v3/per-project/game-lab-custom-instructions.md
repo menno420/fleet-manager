@@ -1,3 +1,5 @@
+> **Status:** `reference`
+
 <!-- v3.0-draft · 2026-07-12 · provenance: research PRs #93/#95 + census PRs #94/#96 + owner baseline 2026-07-11 -->
 <!-- char-count: 1,382 chars = the seat-block paste body below this comment block (headers excluded; wc -c) · seat budget ≈1,383 fitted / 1,883 hard -->
 <!-- Assembly accounting: universal core 6,117 (custom-instructions-core.md CORE-START/END, SEAT_NAME=Game Lab at fill-length 8) + this seat block 1,382 = TOTAL 7,499 ≤ 7,500 fitted (8,000 hard). Paste order: core lines 1–2 → THIS BLOCK → core remainder verbatim. -->

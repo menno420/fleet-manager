@@ -1,3 +1,5 @@
+> **Status:** `reference`
+
 <!-- v3.0-draft · 2026-07-12 · provenance: research PRs #93/#95 + census PRs #94/#96 + owner baseline 2026-07-11 -->
 <!-- char-count: 1,380 chars = the seat-block paste body below this comment block (headers excluded; wc -c) · seat budget ≈1,383 fitted / 1,883 hard (custom-instructions-core.md arithmetic) -->
 <!-- Artifact C seat block — SuperBot World. ASSEMBLY ACCOUNTING: universal core 6,117 + this seat block 1,380 = 7,497 total, ≤7,500 fitted / 8,000 hard. Paste order per custom-instructions-core.md: core lines 1–2 (SEAT_NAME = "SuperBot World") → THIS BLOCK → core remainder (TRUTH/WORKER-RELAY → GEN-3 RIDER → PERMISSIONS → INCIDENT RIDERS) verbatim. The #42-before-secrets rail rides here compressed; full form in the startup (artifact B). -->

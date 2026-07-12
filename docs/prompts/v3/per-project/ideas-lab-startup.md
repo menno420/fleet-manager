@@ -1,3 +1,5 @@
+> **Status:** `reference`
+
 <!-- v3.0-draft · 2026-07-12 · provenance: research PRs #93/#95 + census PRs #94/#96 + owner baseline 2026-07-11 -->
 <!-- char-count: 7,498 chars = the paste body below this comment block (headers excluded; real wc -c) · budget ≤7,500 fitted / 8,000 hard (spec §6) -->
 <!-- Artifact B — Ideas Lab startup = universal-startup.md (artifact A) with slots filled + seat delta (rails, FIRST WORK ORDERS, ender split), per per-project/README.md composition (README wins). Deliberate deviations from A-verbatim, budget-forced (A itself runs 5,467c vs its ~5,000 budget — flagged): (i) A step 3 lacks the baseline's per-repo inbox qualifier — appended "in EACH repo"; (ii) A's "Unfilled {{slots}}" sentence dropped (all slots filled); (iii) step 1 "(green expected)" scoped by the expected-red rail; (iv) calibration extended per owner delta 3 (recite expected-red + rebind rule). NUMBERING/STAMPS/merge-path/codex rails are C-owned (census "instructions must encode") — they live in ideas-lab-custom-instructions.md, not here. -->

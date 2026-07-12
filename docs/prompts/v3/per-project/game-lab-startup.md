@@ -1,3 +1,5 @@
+> **Status:** `reference`
+
 <!-- v3.0-draft · 2026-07-12 · provenance: research PRs #93/#95 + census PRs #94/#96 + owner baseline 2026-07-11 -->
 <!-- char-count: 7,498 chars = the paste body below this comment block (headers excluded; wc -c) · budget ≤7,500 fitted / 8,000 hard (spec §6) -->
 <!-- STAGGER-SLOT: baseline, kept — failsafe cron "15 */2 * * *" (even hours :15) unchanged from owner baseline 2026-07-11 -->

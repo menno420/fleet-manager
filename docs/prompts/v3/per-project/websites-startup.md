@@ -1,3 +1,5 @@
+> **Status:** `reference`
+
 <!-- v3.0-draft · 2026-07-12 · provenance: research PRs #93/#95 + census PRs #94/#96 + owner baseline 2026-07-11 -->
 <!-- char-count: 7497 chars = the paste body below this comment block (headers excluded) · budget ≤7,500 fitted / 8,000 hard (spec §6) · measured: awk after BODY-START | wc -c -->
 <!-- Artifact B — Websites seat startup = universal-startup.md (A) body + seat delta, evolved from the deployed owner baseline (baseline-2026-07-11/websites.md). Persistent-coordinator shape per the deployed baseline; the per-project README row still describes the stale registry@f3e2dc4 fresh-session-per-fire shape — conflict noted in the drafter report. Seat trims of A verbatim (budget pressure valve, all covered by the co-deployed Custom Instructions seat block): dropped the "Unfilled {{slots}}" sentence (all slots filled), A's settings-grant sentence in LANDING (websites is hooks-only, no grant — ledger §2.5), and the ORDER-truth caveat + CSRF rail + add_repo clause (moved to the seat CI block). -->

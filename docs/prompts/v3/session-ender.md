@@ -1,3 +1,5 @@
+> **Status:** `reference`
+
 <!-- v3.0-draft · 2026-07-12 · provenance: research PRs #93/#95 + owner baseline 2026-07-11 · owner spec delta 2026-07-11T23:47Z (the ender NEVER re-arms) -->
 <!-- char-count: 1,896 chars = the paste body below this comment block (headers excluded) · budget ~2,000 (spec §6) -->
 <!-- Artifact D — universal session ender. ONE version for every seat; no slots. Net-new artifact (spec §3a). -->

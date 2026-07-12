@@ -1,3 +1,5 @@
+> **Status:** `reference`
+
 <!-- v3.0-draft · 2026-07-12 · provenance: research PRs #93/#95 + owner baseline 2026-07-11 -->
 <!-- char-count: 5,868 chars = the paste body below this comment block (headers excluded) · budget ~5,000 (spec §6: A ≤ ~5,000 so B = A + seat delta stays ≤ ~7,500) — over budget, flagged in the v3.1 defect queue (per-project/README.md); +401 on 2026-07-12: integrator added the LANDING founding-brief-vs-relay dispatch rule (capability-ledger-grade, fm PR #99 evidence). The 8 seat B files embed the pre-edit A@1915599 and inherit this line at next regen. -->
 <!-- Artifact A — universal startup template. Slots are {{LIKE_THIS}}; everything outside a slot is byte-identical for every seat. Sendable AS-IS to any Project: an unfilled slot self-describes and the surrounding instruction still binds. -->

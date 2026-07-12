@@ -1,3 +1,5 @@
+> **Status:** `reference`
+
 <!-- v3.0-draft · 2026-07-12 · provenance: research PRs #93/#95 + census PRs #94/#96 + owner baseline 2026-07-11 -->
 <!-- char-count: 7,500 chars = the paste body below this comment block (headers excluded), real wc -c · budget ≤7,500 fitted / 8,000 hard (spec §6) -->
 <!-- Artifact B — SuperBot 2.0 seat startup (repos: menno420/superbot + menno420/superbot-next) = universal-startup.md (A) with slots filled + seat delta; FIRST WORK ORDERS inserted after BOOT (A has no slot for it — composition per per-project/README.md, which wins over the spec skeleton). -->

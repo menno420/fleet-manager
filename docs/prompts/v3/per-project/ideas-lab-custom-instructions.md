@@ -1,3 +1,5 @@
+> **Status:** `reference`
+
 <!-- v3.0-draft · 2026-07-12 · provenance: research PRs #93/#95 + census PRs #94/#96 + owner baseline 2026-07-11 -->
 <!-- char-count: 1,383 chars = the seat-block paste body below this comment block (headers excluded; real wc -c) · seat budget ≈1,383 fitted / 1,883 hard (custom-instructions-core.md arithmetic) -->
 <!-- Assembly accounting: universal core 6,117 (CORE-START/CORE-END markers, custom-instructions-core.md; {{SEAT_NAME}}="Ideas Lab") + this seat block 1,383 = 7,500 assembled ≤ 7,500 fitted / 8,000 hard. Paste order: core lines 1–2 (version line + DRIFT CHECK) → this block → core remainder verbatim. -->

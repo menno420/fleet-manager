@@ -1,3 +1,5 @@
+> **Status:** `reference`
+
 <!-- v3.0-draft · 2026-07-12 · provenance: research PRs #93/#95 + census PRs #94/#96 + owner baseline 2026-07-11 -->
 <!-- char-count: 1,607 chars = the seat-block paste body between the two markers below (headers excluded, real wc -c) · seat budget ≈1,383 fitted / 1,883 hard (custom-instructions-core.md arithmetic) — fitted OVERRUN by 224 (was 281 pre-integrator-trim 2026-07-12; dual-repo seat; every census must-encode item retained), under hard; flagged in seat report -->
 <!-- Artifact C seat block — Venture Lab. Paste order per custom-instructions-core.md: core lines 1–2 (SEAT_NAME=Venture Lab) → THIS BLOCK → core remainder verbatim. Core blocks stay verbatim (the #15 drift guard); this seat compresses its OWN block only (the sanctioned pressure valve). -->

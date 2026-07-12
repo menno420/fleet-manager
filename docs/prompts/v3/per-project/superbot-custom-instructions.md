@@ -1,3 +1,5 @@
+> **Status:** `reference`
+
 <!-- v3.0-draft · 2026-07-12 · provenance: research PRs #93/#95 + census PRs #94/#96 + owner baseline 2026-07-11 -->
 <!-- char-count: 1,380 chars = the seat-block paste body below this comment block (headers excluded), real wc -c · seat budget ≈1,383 fitted / 1,883 hard (custom-instructions-core.md arithmetic) -->
 <!-- ASSEMBLY ACCOUNTING: universal core 6,117 + this seat block 1,380 = 7,497 assembled ≤ 7,500 fitted (8,000 hard). Paste order per custom-instructions-core.md: core lines 1-2 (version line with SEAT_NAME=SuperBot 2.0 + DRIFT CHECK) → THIS BLOCK → core remainder (TRUTH/WORKER-RELAY → GEN-3 RIDER v5 → PERMISSIONS & AUTHORITY v4 → INCIDENT RIDERS), verbatim. -->

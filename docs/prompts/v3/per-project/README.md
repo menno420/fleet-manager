@@ -1,5 +1,7 @@
+> **Status:** `reference`
+
 <!-- v3.0-draft · 2026-07-12 · provenance: research PRs #93/#95 + owner baseline 2026-07-11 -->
-<!-- char-count: 10,857 chars = this whole file (planning doc, no paste budget applies) -->
+<!-- char-count: 10,857 chars = this whole file at draft, before the Status-badge hygiene line above (added 2026-07-12; planning doc, no paste budget applies) -->
 
 # Per-project prompts (artifact B + seat CI blocks) — phase-2 plan
 

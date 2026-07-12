@@ -1,3 +1,5 @@
+> **Status:** `reference`
+
 <!-- v3.0-draft · 2026-07-12 · provenance: research PRs #93/#95 + census PRs #94/#96 + owner baseline 2026-07-11 -->
 <!-- char-count: 1,382 chars = the SEAT BLOCK paste text between the fence markers below (headers + prose excluded, real wc -c; corrected -1 by integrator 2026-07-12) · seat budget ≈1,383 fitted / 1,883 hard (custom-instructions-core.md arithmetic) -->
 <!-- Assembly accounting: universal core 6,117 + this seat block 1,382 = 7,499 total vs 7,500 fitted / 8,000 hard. Paste order per custom-instructions-core.md: core lines 1–2 ({{SEAT_NAME}} = Fleet Manager) → THIS BLOCK → core remainder verbatim. -->

@@ -1,3 +1,5 @@
+> **Status:** `reference`
+
 <!-- v3.0-draft · 2026-07-12 · provenance: research PRs #93/#95 + census PRs #94/#96 + owner baseline 2026-07-11 -->
 <!-- char-count: 7,485 chars = the paste body below this comment block (headers excluded; wc -c, recomputed after final edit) · budget ≤7,500 fitted / 8,000 hard (spec §6) -->
 <!-- Artifact B — Self Improvement seat (repo menno420/substrate-kit). Composition per per-project/README.md: ../universal-startup.md (A, 5,467c) with slots filled + seat delta (rails, cutover ids, FIRST WORK ORDERS inserted between BOOT and WORK LOOP); every A line outside a slot is byte-identical. -->

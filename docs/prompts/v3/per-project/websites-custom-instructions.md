@@ -1,3 +1,5 @@
+> **Status:** `reference`
+
 <!-- v3.0-draft · 2026-07-12 · provenance: research PRs #93/#95 + census PRs #94/#96 + owner baseline 2026-07-11 -->
 <!-- char-count: 1381 chars = the seat-block paste body below (headers excluded) · seat budget ≈1,383 fitted / 1,883 hard (custom-instructions-core.md arithmetic) · measured: awk after BODY-START | wc -c -->
 <!-- Artifact C seat block — Websites. Paste order per custom-instructions-core.md: core lines 1–2 (SEAT_NAME=Websites) → THIS BLOCK → core remainder verbatim. -->

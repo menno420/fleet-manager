@@ -1,3 +1,5 @@
+> **Status:** `reference`
+
 <!-- v3.0-draft · 2026-07-12 · provenance: research PRs #93/#95 + census PRs #94/#96 + owner baseline 2026-07-11 -->
 <!-- char-count: 1,381 chars = the seat-block paste body below this comment block (headers excluded; wc -c, recomputed after final edit) · seat budget ≈1,383 fitted / 1,883 hard (custom-instructions-core.md arithmetic) -->
 <!-- ASSEMBLY ACCOUNTING: universal core 6,117 + this seat block 1,381 = 7,498 assembled ≤ 7,500 fitted / 8,000 hard. Paste order per custom-instructions-core.md: core lines 1–2 (version line with SEAT_NAME = "Self Improvement" + DRIFT CHECK) → this seat block → core remainder (TRUTH/WORKER-RELAY → GEN-3 RIDER v5 @ 76d854d → PERMISSIONS UNIVERSAL v4 @ e801da5 → INCIDENT RIDERS), all verbatim. -->
