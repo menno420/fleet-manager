@@ -1,12 +1,12 @@
-<!-- v3 · 2026-07-12 · fleet-manager projects registry — GENERATED COPY, do not edit
+<!-- v4 · 2026-07-12 · fleet-manager projects registry — GENERATED COPY, do not edit
      (regenerate: docs/prompts/v3/tools/regen_b_files.py --write-registry; drift guard: --check-registry) -->
-<!-- generated from docs/prompts/v3 @ 48650f8f4227b7b465fe70d25c8f6cd86b5d1d90 (prompts v3.3, owner-directed rebuild 2026-07-12) -->
-# Game Lab — failsafe cron text (registry copy, prompts v3.3)
+<!-- generated from docs/prompts/v3 @ c8d45f39436242f383c9cd4feb9c526709b5923a (prompts v3.4, currency restamp 2026-07-12) -->
+# Game Lab — failsafe cron text (registry copy, prompts v3.4)
 
 > **GENERATED COPY — NOT SOURCE OF TRUTH.** This registry copy is GENERATED FROM
-> the v3 home: **docs/prompts/v3/ is the source of truth** (generation v3.3,
+> the v3 home: **docs/prompts/v3/ is the source of truth** (generation v3.4,
 > stateless, D-9). Edit the v3 sources and regenerate — never this file.
-> Version lineage: v3 (2026-07-12) supersedes the v3.2 registry sync copy.
+> Version lineage: v4 (2026-07-12) supersedes the v3.3 registry sync copy.
 > Body below the marker wraps the seat's BOOT step-3a FAILSAFE WAKE text
 > (extracted from the seat's v3.3 startup — D-2 single source) with the seat
 > name + D-7 stagger-table cron.
@@ -15,7 +15,7 @@
 # Game Lab — failsafe cron (dead-man wake, Q-0265)
 
 - **Routine name:** `Game Lab failsafe wake`
-- **cron:** `15 */2 * * *` — slot per the stagger table
+- **cron:** `50 */2 * * *` — slot per the stagger table
   (docs/prompts/v3/per-project/README.md, canonical home D-7; the fleet manager
   arbitrates slots — a foreign trigger on the slot is reported, never
   re-slotted; this table supersedes any cron previously recorded in this file)
@@ -24,7 +24,7 @@
   `list_triggers` before writing "armed" — never wait for a first fire
   (completed runs are not inspectable owner-side).
 
-## Prompt text (create_trigger `prompt`, EXACTLY — single-sourced from the seat's v3.3 startup, BOOT step 3a (D-2))
+## Prompt text (create_trigger `prompt`, EXACTLY — single-sourced from the seat's v3.4 startup, BOOT step 3a (D-2))
 
 ```
 FAILSAFE WAKE (Game Lab, Q-0265): send_later chain alive → verify in one line, end. Stalled → resume the work loop (sync HEAD → inbox → slice after slice, landed per LANDING), re-arm the chain (~15 min), and write your heartbeat (control/status.md, per-seat grammar) as the deliberate last step.
