@@ -4,14 +4,14 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #12** · generated-at **2026-07-12T03:52Z** · by machine generation (scripts/gen_roster.py), dispatched by (not stated)
+> **Generation #13** · generated-at **2026-07-12T08:13Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
 ### superbot (hub) — ⚑ needs-owner: none new hub-specific (verified against fm docs/owner-queue.md @ 7ff1f75 — the hub's owner tai…
 
 - suggested-id: `OQ-SUPERBOT-NONE-NEW-HUB-SPECIFIC`
-- source: superbot/control/status.md @ `1ecc211` · heartbeat `updated:` 2026-07-11T19:45:00Z
+- source: superbot/control/status.md @ `befc6d0` · heartbeat `updated:` 2026-07-11T19:45:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -21,7 +21,7 @@
 ### superbot-next — ⚑ needs-owner: FOUR live OWNER-ACTION items below (six-field format per control/README.md) — items 2 and 3 un…
 
 - suggested-id: `OQ-SUPERBOT-NEXT-FOUR-LIVE-ITEMS-BELOW`
-- source: superbot-next/control/status.md @ `95b6fda` · heartbeat `updated:` 2026-07-12T03:45Z
+- source: superbot-next/control/status.md @ `c03df80` · heartbeat `updated:` 2026-07-12T07:55Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -31,7 +31,7 @@
 ### superbot-next — ⚑ OWNER-ACTION 2 — create the hello-plugin repo (flag 18a)
 
 - suggested-id: `OQ-SUPERBOT-NEXT-2-CREATE-HELLO-PLUGIN`
-- source: superbot-next/control/status.md @ `95b6fda` · heartbeat `updated:` 2026-07-12T03:45Z
+- source: superbot-next/control/status.md @ `c03df80` · heartbeat `updated:` 2026-07-12T07:55Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -47,7 +47,7 @@ VERIFIED-NEEDED: attempted repo-create with the integration token — GitHub ret
 ### superbot-next — ⚑ OWNER-ACTION 3 — kill the branch-update merge dance
 
 - suggested-id: `OQ-SUPERBOT-NEXT-3-KILL-BRANCH-UPDATE`
-- source: superbot-next/control/status.md @ `95b6fda` · heartbeat `updated:` 2026-07-12T03:45Z
+- source: superbot-next/control/status.md @ `c03df80` · heartbeat `updated:` 2026-07-12T07:55Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -63,7 +63,7 @@ VERIFIED-NEEDED: repo Settings/Rulesets are admin-only — agent tokens can read
 ### superbot-next — ⚑ OWNER-ACTION 4 — RETIRED 2026-07-11 (was: configure Codex for this repo — environment + code-review capacit…
 
 - suggested-id: `OQ-SUPERBOT-NEXT-4-RETIRED-2026-07`
-- source: superbot-next/control/status.md @ `95b6fda` · heartbeat `updated:` 2026-07-12T03:45Z
+- source: superbot-next/control/status.md @ `c03df80` · heartbeat `updated:` 2026-07-12T07:55Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -74,7 +74,7 @@ RESOLVED owner-side, both halves: the connector produced a FULL substantive revi
 ### superbot-next — ⚑ OWNER-ACTION 5 — provide the band-7 AI key envelope (live-NL leg)
 
 - suggested-id: `OQ-SUPERBOT-NEXT-5-PROVIDE-BAND-7`
-- source: superbot-next/control/status.md @ `95b6fda` · heartbeat `updated:` 2026-07-12T03:45Z
+- source: superbot-next/control/status.md @ `c03df80` · heartbeat `updated:` 2026-07-12T07:55Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -90,7 +90,7 @@ VERIFIED-NEEDED: verified during #151's ORDER 004 live drive — `ANTHROPIC_API_
 ### superbot-next — ⚑ OWNER-ACTION 6 — re-arm the fleet's dead failsafe routines (2026-07-11T16:31Z env-teardown fallout)
 
 - suggested-id: `OQ-SUPERBOT-NEXT-6-RE-ARM-FLEET`
-- source: superbot-next/control/status.md @ `95b6fda` · heartbeat `updated:` 2026-07-12T03:45Z
+- source: superbot-next/control/status.md @ `c03df80` · heartbeat `updated:` 2026-07-12T07:55Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -585,85 +585,6 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ⚑ needs-owner: 1 item — provision the six env vars to switch sign-in on (and, for test-guild write mode, the write-endpoint pair). Structured OWNER-ACTION block below. Also owner-side, informational: review/merge your own open PR #31 (Codex security report); Builder-lane FLAGs 1+2 below stay informational until the manager picks them up; stage-5 live-prod flag remains owner-only.
 ```
 
-### pokemon-mod-lab — 1. **⚑ OWNER-ACTION 1 — `ROM builds` required-check click.** GitHub →
-
-- suggested-id: `OQ-POKEMON-MOD-LAB-1-1-ROM-BUILDS`
-- source: pokemon-mod-lab/control/status.md @ `08d2611` · heartbeat `updated:` 2026-07-11T21:03:45Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-1. **⚑ OWNER-ACTION 1 — `ROM builds` required-check click.** GitHub →
-   Settings → Rules → `main` ruleset → require status checks → add
-   `ROM builds` (keep `substrate-gate`). No agent API surface for
-   rulesets (`docs/PLATFORM-LIMITS.md`).
-```
-
-### pokemon-mod-lab — 2. **⚑ OWNER-ACTION 2 — next-arc concept pick.** One word: continue
-
-- suggested-id: `OQ-POKEMON-MOD-LAB-2-2-NEXT-ARC`
-- source: pokemon-mod-lab/control/status.md @ `08d2611` · heartbeat `updated:` 2026-07-11T21:03:45Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-2. **⚑ OWNER-ACTION 2 — next-arc concept pick.** One word: continue
-   Emerald QoL+ (new-lead spikes) / Emerald Hard / Nuzlocke Mode
-   (`docs/mod-concepts.md`). Lane default remains QoL+; reversible.
-```
-
-### pokemon-mod-lab — 3. **⚑ OWNER-ACTION 3 — playtest verdict on the 6 game-feel patches**
-
-- suggested-id: `OQ-POKEMON-MOD-LAB-3-3-PLAYTEST-VERDICT`
-- source: pokemon-mod-lab/control/status.md @ `08d2611` · heartbeat `updated:` 2026-07-11T21:03:45Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-3. **⚑ OWNER-ACTION 3 — playtest verdict on the 6 game-feel patches**
-   (instant text #4, auto-run #6, HP drain 3× #7, battle msg ×0.5 #7,
-   egg hatch 2×/3× #21, fishing dots 2× #23) + the Match Call
-   random-nag rider. One-line header flag per revert
-   (`docs/build-presets.md`); hatch-128 stacking waits on this.
-```
-
-### pokemon-mod-lab — 4. **⚑ stale ref `track-a/session-019` — owner click to delete**
-
-- suggested-id: `OQ-POKEMON-MOD-LAB-4-STALE-REF-TRACK`
-- source: pokemon-mod-lab/control/status.md @ `08d2611` · heartbeat `updated:` 2026-07-11T21:03:45Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-4. **⚑ stale ref `track-a/session-019` — owner click to delete**
-   (content squash-merged via PR #24 long ago; sessions must not touch
-   it).
-```
-
-### pokemon-mod-lab — 5. **⚑ NEW (housekeeping) — stale ref `track-a/session-024` — owner
-
-- suggested-id: `OQ-POKEMON-MOD-LAB-5-NEW-HOUSEKEEPING-STALE`
-- source: pokemon-mod-lab/control/status.md @ `08d2611` · heartbeat `updated:` 2026-07-11T21:03:45Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-5. **⚑ NEW (housekeeping) — stale ref `track-a/session-024` — owner
-   click to delete** (content superseded by PR #31; PR #29 closed).
-   Session 041 attempted `git push origin :track-a/session-024` at
-   archive time and was DENIED by the platform's auto-mode classifier
-   ("[Git Destructive] ... not named or authorized by the user") — not
-   retried, per playbook. Either owner-click it away alongside
-   session-019, or explicitly authorize a future session to delete it.
-```
-
-### pokemon-mod-lab — - OWNER-ACTION 4 (wake-env GitHub write tools) and OWNER-ACTION 5
-
-- suggested-id: `OQ-POKEMON-MOD-LAB-4-WAKE-ENV-GITHUB`
-- source: pokemon-mod-lab/control/status.md @ `08d2611` · heartbeat `updated:` 2026-07-11T21:03:45Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-- OWNER-ACTION 4 (wake-env GitHub write tools) and OWNER-ACTION 5
-  (`add_repo` classifier denials): **RESOLVED** — 20 consecutive clean
-  wake cycles (024–043). Reopen only on regression.
-```
-
 ### gba-homebrew — ⚑ needs-owner (carried + one NEW):
 
 - suggested-id: `OQ-GBA-HOMEBREW-CARRIED-ONE-NEW`
@@ -775,7 +696,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### idea-engine — ⚑ needs-owner: ARCHIVE HANDOFF (this slice, wrap-up — read FIRST at next wake): (1) STANDING RULING Q-0265, C…
 
 - suggested-id: `OQ-IDEA-ENGINE-ARCHIVE-HANDOFF-THIS-SLICE`
-- source: idea-engine/control/status.md @ `6d40f6f` · heartbeat `updated:` 2026-07-12T03:29:00Z (real wall-clock via date -u, per the …
+- source: idea-engine/control/status.md @ `b5cc329` · heartbeat `updated:` 2026-07-12T08:11:08Z (real wall-clock via date -u, per the …
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -794,5 +715,5 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 
 ---
 
-58 candidate block(s) across 15 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
+52 candidate block(s) across 14 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
 
