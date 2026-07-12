@@ -58,6 +58,9 @@ The custodian toolchain shipped by the centralization plan P1→P3 (all
   the roster changes; the manager wake or the owner lands it).
 - **Paste wave click-ready**: `OQ-PASTE-WAVE` (hold lifted — fm #77 merged
   `39b888a`).
+- **PR #95** — prompt-architecture research slice:
+  `docs/research/2026-07-12-prompt-architecture.md` (requirements spec for the
+  v3 prompt set; parked green for coordinator consumption).
 
 ## Recently shipped (newest first)
 

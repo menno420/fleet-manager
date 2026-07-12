@@ -1,6 +1,6 @@
 # Prompt architecture & steering — requirements spec for the v3 prompt set
 
-> **Status:** `research` · 2026-07-12 · branch `claude/research-prompt-arch` (PR #95)
+> **Status:** `reference` · research deliverable · 2026-07-12 · branch `claude/research-prompt-arch` (PR #95)
 >
 > Slice of the owner-directed overnight prompt-set program. This is the
 > requirements spec the synthesis session writes final prompt text from — it is
