@@ -50,3 +50,20 @@
 - **n/a (registry-only seat):** retro-games coordinator (no repo)
 
 > Machine generation: the hand generations' "Deltas vs generation #N-1" narrative is coordinator judgment and is NOT auto-derived — read `git diff` on this file, or append prose below before committing.
+
+**2026-07-11 owner-restructure annotation (slice 3, fm PR #91 — appended
+prose per the footer rule; generated rows above deliberately untouched):**
+the rows reflect the PRE-CUTOVER live registry and stay correct until the
+owner executes the 8-seat restructure (`docs/owner-queue.md`:
+OQ-RESTRUCTURE-PROJECTS → OQ-RESTRUCTURE-INSTRUCTIONS-PASTE →
+OQ-RESTRUCTURE-TRIGGER-CUTOVER; product-forge: OQ-FORGE-DISPOSITION). The
+repo→seat mapping + constituent last-seen table is re-stamped in
+`docs/fleet-triage.md` § "2026-07-11 owner restructure". **Generator
+follow-up (NOT done this slice — `gen_roster.py` is graduated-VERIFIED and
+the lane rows are still live truth):** after the cutover lands, re-annotate
+`LANES` for the 8-seat shape — the new `<seat> failsafe wake` trigger names
+(superbot-world · game-lab · ideas-lab · self-improvement · superbot-2.0)
+match NO existing lane token, so post-cutover generations would leave them
+unattributed; only venture-lab / websites / fleet-manager tokens already
+match. This note is regen-ephemeral by design — the next generation
+overwrites it; the durable copies live in fleet-triage + the owner queue.
