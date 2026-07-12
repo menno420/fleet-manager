@@ -1,1 +1,0 @@
-- `claude/prompts-v3-3` · prompts v3.3 rebuild (docs/prompts/v3/ CIs + startups + tooling + projects/<seat>/ registry re-sync) · expected files: docs/prompts/v3/**, projects/<8 seat dirs>/{coordinator-prompt,instructions,failsafe-prompt}.md, projects/README.md, .sessions/ · 2026-07-12
