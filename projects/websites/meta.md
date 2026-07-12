@@ -1,5 +1,20 @@
 # websites — Project package meta
 
+> **Restamp 2026-07-12:** the sibling package files (`instructions.md` /
+> `coordinator-prompt.md` / `failsafe-prompt.md`) are GENERATED COPIES
+> serving **prompts v3.3** (generated from `docs/prompts/v3` @ `48650f8`;
+> v3.3 generation on main @ `98d0f68`) — under the v3 generation the lane
+> moves off the fresh-session-per-fire model to the uniform self-bind
+> pattern. Lane state as of 2026-07-12 — verify at HEAD: the Q-0265
+> continuous-mode chain is **PARKED** (owner archive-prep order; lane
+> heartbeat `control/status.md` updated 2026-07-11T19:49:00Z, phase CLOSING,
+> health green) while the repo still lands work (HEAD `869cb76`,
+> 2026-07-12T13:50:06Z). That heartbeat records the 4-hourly wake trigger as
+> staying armed, but `trig_017H9Qb9oxtLgUy6sw2gnSHg` is ABSENT from the later
+> committed registry snapshot (fm `telemetry/triggers-snapshot.json`,
+> exported 2026-07-12) — no websites trigger appears there; re-arm rides the
+> v3.3 deployment sitting (owner-queue C#34–C#36).
+
 - **Seat:** post-core lane (not one of the Q-0261 core six) — **LIVE**, and
   websites is the fleet's only lane running **fresh-session-per-fire** with no
   persistent coordinator seat. Gen-2 Project relaunched 2026-07-10 (fitted
@@ -46,7 +61,13 @@
   refusals are RETRY-LATER, never a wall (fm `projects/README.md` § Codex
   fleet-wide enablement).
 
-## Deployed-state per part (2026-07-10)
+## Deployed-state per part (2026-07-10 snapshot — historical)
+
+> **Restamp 2026-07-12:** dated build-time snapshot, kept as provenance.
+> Superseded since: package files serve prompts v3.3 (banner above); row 4's
+> deployed trigger `trig_017H9Qb9oxtLgUy6sw2gnSHg` is absent from the
+> 2026-07-12 committed registry snapshot; the lane chain is PARKED per the
+> owner archive-prep order. Verify at HEAD.
 
 | Part | This package file | Deployed today | Citation |
 |---|---|---|---|
@@ -95,3 +116,6 @@
 **Last verified:** 2026-07-10 (all repo citations `git show`n from freshly
 fetched origin/main this session; trigger facts are the repo's committed
 records — the live registry was NOT re-queried this session).
+**Restamped 2026-07-12** (lane state re-verified: websites HEAD `869cb76`
+2026-07-12T13:50:06Z + `control/status.md` updated 2026-07-11T19:49:00Z;
+trigger facts from fm `telemetry/triggers-snapshot.json` exported 2026-07-12).

@@ -2,20 +2,24 @@
 
 - **Seat:** revenue lane, POST-CORE (Q-0261.4 pipelined path — not one of the
   core six). Owner mandate: profitability to fund the fleet (Q-0259.4).
-- **Lane state: LIVE-BUT-DARK — the riskiest lane state in the fleet.** The
-  repo is active (PRs #2–#9 merged; #9 squash `95b755b` 05:11:50Z put the
-  sellable buyer zips on main) but the lane has NO CLOCK (`list_triggers`
-  shows no venture-lab trigger — fm `docs/launch-readiness-2026-07-10.md`
-  §"Gap found live") and its heartbeat is STALE at 2026-07-10T04:57:30Z
-  (`control/status.md` @ `a22b403` still says "PR #9 awaiting owner merge" —
-  false since 05:11Z). Three ORDERs sit unexecuted at `control/inbox.md` @
-  `f999ddf`: 002 (self-arm), 003 (P0 Stripe real-path fix — the ⚑B/⚑D
-  unfreeze gate), 004 (archive-ender, names itself the fresh boot's task).
-  Launch-readiness verdict: "sharpest state-risk in the fleet: the heartbeat
-  the fresh Project reads is stale-by-design until ORDER 004 executes."
+- **Lane state (as of 2026-07-12 — verify at HEAD): ACTIVE Money seat,
+  clocked and fresh.** The 2026-07-10 "LIVE-BUT-DARK / no clock / stale
+  heartbeat" verdict this meta previously carried is DEAD — kept in git
+  history as provenance. Verified now: venture-lab + trading-strategy run
+  merged under ONE **Money seat** (owner decision 2026-07-11, per the lane's
+  own heartbeat); heartbeat FRESH (`control/status.md` updated
+  2026-07-12T13:33:41Z, status green, phase "ACTIVE — LAUNCH IN PROGRESS,
+  owner mid-Launch-Hour"); repo HEAD `574408a` (2026-07-12T13:54:12Z). The
+  once-unexecuted ORDERs 002/003/004 are recorded done/acked in that
+  heartbeat (orders acked+done 001–007 at its stamp).
 - **Cadence:** `0 */2 * * *` (gen-3 standard lane stagger). Under Q-0265 the
   cron is the dead-man failsafe; the send_later ~15-min chain is the
-  pacemaker. NOT ARMED — arming rides the fresh boot (parts 2 + 4).
+  pacemaker. **ARMED as of 2026-07-12:** `trig_017o6azZTd9pzcaSthEncT5q`
+  "venture-lab money-seat failsafe wake", cron `0 */2 * * *`, enabled,
+  created 2026-07-11T23:07:30Z, plus weekly trading-lane grading
+  `trig_015aNMg5ncoSE2Roe4MKjQnr` (`0 9 * * 5`) — both in
+  fm `telemetry/triggers-snapshot.json` (exported 2026-07-12) and confirmed
+  live in the lane heartbeat (failsafe fire verified 2026-07-12T12:07Z).
 - **Environment archetype:** **python-lab**
   (`fleet-manager environments/archetype-python-lab.sh` verbatim) —
   archetypes.md maps "menno420/venture-lab (planned) → python-lab, env vars
@@ -35,14 +39,18 @@
   Review-queue row venture-lab#9 can now drain via @codex directly. Quota
   refusals are RETRY-LATER, never a wall (fm `projects/README.md` § Codex
   fleet-wide enablement).
-- **Merge wall (lane-defining):** main requires PRs; `substrate-gate` is NOT
-  a required check → PRs go `clean` instantly, auto-merge cannot arm; PR #9
-  proved a green PR is agent-unlandable when no genuine-user authorization
-  exists (two verbatim classifier denials recorded in `docs/PLATFORM-LIMITS.md`
-  @ `4c1b1c2` + status). Package parts 1–2 carry REST merge-on-green as
-  primary, first-denial-terminal refusal branch, and the agent-doable
-  systemic fix (GITHUB_TOKEN merge-on-green workflow — launch-readiness
-  recommendation (b)).
+- **Merge wall (lane-defining, 2026-07-10 record):** main requires PRs;
+  `substrate-gate` is NOT a required check → PRs go `clean` instantly,
+  auto-merge cannot arm; PR #9 proved a green PR is agent-unlandable when no
+  genuine-user authorization exists (two verbatim classifier denials recorded
+  in `docs/PLATFORM-LIMITS.md` @ `4c1b1c2` + status). Package parts 1–2 carry
+  REST merge-on-green as primary, first-denial-terminal refusal branch, and
+  the agent-doable systemic fix (GITHUB_TOKEN merge-on-green workflow —
+  launch-readiness recommendation (b)). **Superseded 2026-07-12:** the lane's
+  heartbeat (2026-07-12T13:33:41Z) records the kit-owned auto-merge enabler
+  installed with both repo settings ON and the self-landing path PROVEN live
+  (`claude/*`-headed PRs squash-auto-land on green server-side); the lane
+  never arms or merges its own PR by hand. Verify at HEAD.
 - **Duplicate-file flag (for the lane to fix on boot):** the repo carries
   BOTH `docs/CAPABILITIES.md` (3,472 B, kit-generated) and
   `docs/capabilities.md` (4,634 B, fleet-manifest copy carried at seed) — a
@@ -50,7 +58,15 @@
   on case-insensitive filesystems). Queued as work-loop item (c) in part 2:
   merge into ONE ledger at the kit-convention path, update pointers.
 
-## Deployed-state per part (2026-07-10)
+## Deployed-state per part (2026-07-10 snapshot — historical)
+
+> **Restamp 2026-07-12:** this table is the 2026-07-10 build-time snapshot,
+> kept as provenance. Superseded since: the package files here are GENERATED
+> COPIES serving **prompts v3.3** (generated from `docs/prompts/v3` @
+> `48650f8`; v3.3 generation on main @ `98d0f68`); row 4's "NOT ARMED —
+> lane is clockless" is dead (Money-seat failsafe + weekly grading cron
+> armed — see Cadence above); the lane runs live with a fresh heartbeat.
+> Verify at HEAD.
 
 | Part | This package file | Deployed today | Citation |
 |---|---|---|---|
@@ -88,3 +104,6 @@
 
 **Last verified:** 2026-07-10 (venture-lab + fleet-manager files fetched from
 origin/main this session; superbot router read locally at `4fac759`).
+**Restamped 2026-07-12** (lane state re-verified: venture-lab HEAD `574408a`
+2026-07-12T13:54:12Z + `control/status.md` updated 2026-07-12T13:33:41Z;
+triggers from fm `telemetry/triggers-snapshot.json` exported 2026-07-12).

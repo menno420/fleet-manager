@@ -1,18 +1,21 @@
-<!-- v1 · 2026-07-11 · fleet-manager projects registry -->
+<!-- v2 · 2026-07-12 · fleet-manager projects registry -->
 # Self Improvement — Project package meta
 
-> **Status:** `new seat — v1, owner fleet restructure 2026-07-11 (slice 1)`.
-> Created by the restructure to the 8 standing Projects. Nothing of this
-> package is deployed yet: `instructions.md` v1 is authored (never pasted);
-> `coordinator-prompt.md` / `failsafe-prompt.md` carry REAL v1 bodies since
-> slice 2 (prompt re-sync, 2026-07-11) — never pasted/armed; deployment +
-> trigger cutover ride the merged seat's boot (rebind-then-delete recipe in
-> `failsafe-prompt.md`).
+> **Status:** `standing seat — v2 restamp 2026-07-12` (v1: owner fleet
+> restructure 2026-07-11, slice 1). The sibling package files
+> (`instructions.md` / `coordinator-prompt.md` / `failsafe-prompt.md`) are
+> GENERATED COPIES serving **prompts v3.3** (generated from `docs/prompts/v3`
+> @ `48650f8`; v3.3 generation on main @ `98d0f68`) — the slice-1/slice-2 v1
+> bodies this meta previously described are superseded. Custom-Instructions
+> deployment still rides the owner sitting (owner-queue C#34–C#36).
 
 - **Seat:** Self Improvement (standing Project).
 - **Writable repos:** menno420/substrate-kit.
 - **Folds (sources):** substrate-kit (v2) — full prior packages live in git history:
   `projects/substrate-kit/` (last full state @ `1dea86d`).
 - **Seat notes:** Rename of the substrate-kit seat (single repo, scope unchanged): kit development + fleet-wide distribution.
-- **Deployed state:** instructions never pasted; prompts authored (v1,
-  slice 2) but never pasted; no trigger armed FOR THIS SEAT yet (boot/slice 3).
+- **Deployed state (as of 2026-07-12 — verify at HEAD):** Custom-Instructions
+  paste unreceipted (owner-queue C#34–C#36 open at this repo's HEAD).
+  Seat-repo failsafe ARMED: `trig_011iJucRpsruWJ4dFB7xVbvf` "substrate-kit
+  failsafe wake", cron `0 */2 * * *`, enabled, created 2026-07-11T23:09:20Z
+  (`telemetry/triggers-snapshot.json`, exported 2026-07-12).

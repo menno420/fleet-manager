@@ -1,5 +1,18 @@
 # meta — fleet-manager package
 
+> **Restamp 2026-07-12:** the sibling package files (`instructions.md` /
+> `coordinator-prompt.md` / `failsafe-prompt.md`) are now GENERATED COPIES
+> serving **prompts v3.3** (generated from `docs/prompts/v3` @ `48650f8`;
+> v3.3 generation on main @ `98d0f68`) — the hand-authored gen-3 re-base
+> bodies described below are superseded as file contents; the deployed-state
+> history below is kept as provenance. As of 2026-07-12 the seat is LIVE in
+> continuous operation with failsafe `trig_01BKpsyoBzp1K1ob9H3iu1gM`
+> "fleet-manager failsafe wake", cron `30 */2 * * *` (created
+> 2026-07-11T23:11:42Z; `telemetry/triggers-snapshot.json` exported
+> 2026-07-12 + `control/status.md` updated 2026-07-12T11:03:55Z) — the ORDER
+> 011-era `trig_014odnv5h1tkJAFRhix3tGLq` is retired (absent from that
+> snapshot). Verify at HEAD.
+
 - **Project:** fleet-manager — the MANAGER core seat (seat 1 of the core six,
   Q-0261). **LIVE** since 2026-07-10 ~13:45Z (runbook §3.1: env + §2a/§2b pasted,
   calibration GOOD, boot PR fleet-manager#26 squash-merged `117caeb`); running
@@ -41,7 +54,7 @@
 | Part | State |
 |---|---|
 | `coordinator-prompt.md` | **DEPLOYED** — the seat prompt was owner-pasted as the chat's first message at boot (runbook §2b v3 FINAL, ~13:45Z) and lives in the persistent coordinator chat, subsequently amended live by the owner-pasted Q-0265 §2b block + ORDER 011. This file is the first committed home of that text (previously superbot-only), re-based to continuous per Q-0265 — the live chat already operates on the amended model, so a re-paste is only needed on a seat re-boot. |
-| `failsafe-prompt.md` | **DEPLOYED + VERIFIED** — `trig_014odnv5h1tkJAFRhix3tGLq` "fleet-manager failsafe wake", cron `30 */2 * * *`, created 20:26:23Z, verified in the 88-record `list_triggers` at ~20:47Z; old trigger deleted-and-verified-gone (status.md re-arm record, PR #37). |
+| `failsafe-prompt.md` | **DEPLOYED + VERIFIED** (2026-07-10 record) — `trig_014odnv5h1tkJAFRhix3tGLq` "fleet-manager failsafe wake", cron `30 */2 * * *`, created 20:26:23Z, verified in the 88-record `list_triggers` at ~20:47Z; old trigger deleted-and-verified-gone (status.md re-arm record, PR #37). **Superseded 2026-07-12:** live failsafe is now `trig_01BKpsyoBzp1K1ob9H3iu1gM` (created 2026-07-11T23:11:42Z; see restamp banner) and the file body is the v3.3 generated copy. |
 | `instructions.md` | **NEVER DEPLOYED as such** — the Project's Custom Instructions field carries the runbook §2a v3 text pasted at boot (pre-Q-0265, "ONE bounded slice"); sessions have since run from the pasted founding package + the live chat amendments. This file is the gen-3 re-base (Q-0265 + Q-0264 + landing pattern folded, 2026-07-10 provenance stamps inline) — needs an owner re-paste to become the deployed text. |
 | `setup-script.sh` | **UNKNOWN** — what the live `multi-repo` env's setup field actually holds is owner-side UI the manager cannot read (environments/README wall); the canonical intended content is `archetype-coordinator.sh` verbatim. This repo-fitted variant has no paste record (new file). |
 
@@ -79,4 +92,6 @@ is your durable twin" pointer widened to include this committed file
 **Family-level model names only** throughout (Q-0262 policy 1).
 
 - **Last verified:** 2026-07-10 (~21:2xZ, this build; read-only — nothing
-  committed or pushed by the builder).
+  committed or pushed by the builder). **Restamped 2026-07-12** (trigger +
+  generation stamps re-verified against `telemetry/triggers-snapshot.json`
+  exported 2026-07-12 and `control/status.md` @ 2026-07-12T11:03:55Z).

@@ -1,6 +1,21 @@
 # product-forge — package meta (core seat 5)
 
 ## Seat state
+
+> **Restamp 2026-07-12 — as of 2026-07-12, ARCHIVED-READY (verify at HEAD):**
+> the lane closed itself out on 2026-07-11 — its heartbeat
+> (`control/status.md`, updated 2026-07-11T19:39:50Z) records phase
+> "close-out / archived-ready", all four inbox ORDERs done, all lane PRs
+> merged, and **NO trigger armed** (the coordinator disarmed the
+> "product-forge failsafe wake" `trig_012EvztCrHHg7s4mBsKT3VKs` and the
+> continuation chain at close-out; resume recipe in the lane's
+> `docs/retro/archive-ready-2026-07-11.md`). Last default-branch commit:
+> `4fdfa8a`, 2026-07-11T19:49:47Z. Confirmed absent from the committed
+> registry snapshot (fm `telemetry/triggers-snapshot.json`, exported
+> 2026-07-12). product-forge is NOT one of the 8 standing restructure seats;
+> its disposition is with the owner (owner-queue E#37). The "LIVE" state
+> below is the 2026-07-10 build-time record, kept as provenance.
+
 - **LIVE.** Booted 2026-07-10 ~19:05Z **pre-Q-0265-merge** (dispatch record; part4-brief
   lists Product Forge among the 5 live seats owed the §2b amendment paste).
 - **Ground-truth override (repo wins, discovered this build):** `control/status.md` @
@@ -54,7 +69,7 @@
 | 1 instructions | `instructions.md` (5,870-char paste block) | **Never deployed as this text.** The live Project holds the founding package §1 paste from the ~19:05Z boot (already natively continuous, but pre-dating ORDER-001 lessons + claim ritual + PR-#6 landing recipe folded in here). |
 | 2 coordinator prompt | `coordinator-prompt.md` | **OLD package pasted** — chat holds founding §2 (boot-shaped: seed-verify steps 1–4 now historical). This version is the standing continuous prompt updated to actual repo state. |
 | 3 setup script | `setup-script.sh` | **Never.** No in-repo or recorded env script for this seat anywhere (lanes inventory §6: "no env setup script in-repo"); env presumably pastes archetype-python-lab per §3 — unverified from repo. |
-| 4 failsafe | `failsafe-prompt.md` | **ARMED per repo status** (trig_012EvztCrHHg7s4mBsKT3VKs) — dispatch premise "NOT armed" stale; armed prompt's verbatim text uncommitted → text-equality with the canonical block unverified. |
+| 4 failsafe | `failsafe-prompt.md` | **ARMED per repo status** (trig_012EvztCrHHg7s4mBsKT3VKs) — dispatch premise "NOT armed" stale; armed prompt's verbatim text uncommitted → text-equality with the canonical block unverified. **Superseded 2026-07-12: DISARMED at the lane's 2026-07-11 close-out** (see Seat state restamp banner). |
 
 ## Notes / divergences (decide-and-flag)
 - Build order said "squash on green substrate-gate"; repo-verified recipe is native
@@ -86,3 +101,7 @@
 ## Last-verified
 2026-07-10 ~21:1xZ — superbot origin/main dc19b1e; product-forge origin/main 7f05aa8
 (both freshly fetched this session).
+**Restamped 2026-07-12** — seat state re-verified: product-forge default-branch
+HEAD `4fdfa8a` (2026-07-11T19:49:47Z) + `control/status.md` updated
+2026-07-11T19:39:50Z (archived-ready, no trigger armed); trigger absence
+confirmed in fm `telemetry/triggers-snapshot.json` (exported 2026-07-12).
