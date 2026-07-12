@@ -1,6 +1,6 @@
 # fleet-manager · status
 
-updated: 2026-07-12T18:35:00Z — ORDER 020 landed (PR #133): per-wake trigger-health check (R26).
+updated: 2026-07-12T18:55:00Z — trigger-health remediation wake (PR #135): fresh snapshot, PASS 6/6, BEFORE failures self-resolved.
 
 phase: **prompt program COMPLETE through v3.3.** Owner-corrected generations: v3.2 stateless (#108) → registry sync (#110) → **v3.3 three-layer (#111 @ `98d0f68`)**: expanded startup prompts (~27k), keyword-dictionary Custom Instructions ≤8,000 chars dual-basis, BOOT TRIAD (superbot Q-0270), boot-verification doctrine, `docs/prompts/v3/planned-routes.md`, drift checks incl. registry match 24/24.
 
@@ -16,7 +16,7 @@ registry: projects/\<seat\>/ — all 8 standing seats serve **v3.3 @ `48650f8` s
 
 sweep: **midday staleness sweep (PR #113, ~11:17–11:25Z): 6 FRESH / 2 STALE seats** (superbot-world 3/3 STALE — worsened; game-lab new STALE via pokemon-mod-lab). Trigger snapshot re-captured: **832 triggers** (28 enabled: 9 crons + 19 one-shots) → `telemetry/triggers-snapshot.json`; roster regenerated **gen 14**. Full report: `docs/research/2026-07-12-staleness-sweep-midday.md` (9-item needs-attention shortlist).
 
-trigger-health: **first R26 run (ORDER 020, PR #133) vs the committed gen-14 snapshot (capture-instant eval 11:12Z): FAIL 4/6** — 1 WEDGED cron (`trig_01JD1t7rD5jUCqkJQJaNCi3E` game-lab failsafe, next frozen 10:50Z) · 6 DROPPED-or-QUEUED one-shots across 5 sessions · 2 DEAD chains (`session_014Z1fPG7Wa6VHprJqLcux4f` substrate-kit, `session_01SphTJEnN1PYjYZhHNWoJik`) · manager failsafe OK · snapshot 7h stale at run time. Next wake owes: fresh `list_triggers` export WITH top-level `captured_at` (telemetry/README.md recipe), re-run `scripts/check_trigger_health.py`, `send_message` any still-dead chains (R26). Incident replay proof: the 06:33Z mid-outage snapshot reds 5/6 (venture-lab + kit-lab + manager failsafes WEDGED, 6 dropped, 4 dead chains) — the 2026-07-12 outage is now a same-wake catch.
+trigger-health: **remediation wake (PR #135): PASS 6/6, exit 0** (evaluated 18:44Z against the fresh export). Fresh 941-record snapshot (10 pages, captured_at 2026-07-12T18:25:51Z, 0 dupes) committed with top-level `captured_at` per the ORDER 020 recipe (telemetry/README.md). The 11:12Z BEFORE failures all self-resolved between 11:12Z and the 18:25Z capture — no `send_message` recovery needed: game-lab failsafe `trig_01JD1t7rD5jUCqkJQJaNCi3E` live (last_fired 16:50:26Z, next 18:50Z); both dead chains (`session_014Z1fPG7Wa6VHprJqLcux4f`, `session_01SphTJEnN1PYjYZhHNWoJik`) have future ticks armed. LANES gained a game-lab registry-only row (`gen_roster.py`); roster regenerated gen-19. FLAG: I1 blind spot — `trig_011XAWqPeksS8LBrS5G9RvVc` (superbot autonomous dispatch, cron, next_run_at 10d past) is skipped because the export omits the `enabled` field on disabled routines and `gen_roster.trigger_wedged` (scripts/gen_roster.py:409) treats absent-`enabled` as disabled — correct for a user-paused routine, but the checker cannot distinguish "paused" from "enabled-field missing", so a truly-enabled record lacking the field would be silently unflagged (917/941 records lack `enabled`).
 
 ## Walls
 
