@@ -903,3 +903,27 @@ Live run (committed gen-14 snapshot, capture-instant 11:12Z): FAIL 4/6 — REAL
 findings (game-lab failsafe wedged at 10:50Z, 6 dropped, 2 dead chains,
 snapshot 7h stale), hand-verified against the raw records; recorded in
 control/status.md for the next wake to act on (R26).
+
+## ORDER 020 · update 2026-07-12T19:20Z · status: amended — add the TICK PILE-UP detection signature (live incident, same day)
+priority: P1 (unchanged)
+owner: fleet-manager (the manager itself — same wake ritual as the base order)
+do: Add a FOURTH detection signature to the per-wake trigger-health check: **TICK PILE-UP —
+more than one pending pacemaker/work-loop one-shot bound to the SAME session** (same or
+near-identical message text). Remedy: prune to the NEWEST tick (delete the rest) and record
+the prune in the roster health column + status.md. Also relay the pacemaker discipline rule
+to every seat (manager relay or next prompt re-issue): re-arm ONLY after consuming the prior
+tick — one outstanding tick per session, ever; a wake with nothing to do re-arms SILENTLY and
+must not emit a filler reply.
+why: live incident 2026-07-12 evening — the Websites coordinator chat was flooded with
+degenerate one-word replies ("court") as stacked pacemaker ticks fired minutes apart; the
+registry showed one session with FOUR identical pending ticks (19:11/19:17/19:39/19:57Z) plus
+duplicates on two other seats. The owner had to notice it by eye (screen recording); nothing
+watched for it. The owner-live session pruned the surplus ticks by hand (deleted
+trig_01WDo1jC9KUEqQXpTZto7Qya, trig_01DDuyrSM1DdhHmUUayxw9sH, trig_01XBpwCcn91h5TELTEz7tWcQ;
+kept the newest 19:57 tick + the distinct codex-retry one-shot) — that hand-prune is exactly
+what this signature automates. (Same sweep also deleted the now-redundant
+"Websites review-bake bridge" cron trig_01A49tzPzuG3NeRZsLrUNx3T — the Actions toggle is
+live-verified, run 29202721928.)
+done-when: the wake ritual flags >1 same-session pending work-loop one-shots as PILE-UP,
+prunes to newest, and records it — re-playing tonight's registry (4 stacked sceTGcmo ticks)
+would surface and fix it in one wake.
