@@ -800,3 +800,46 @@ done-when: the directory page is live on the control-plane behind the existing g
 public variant if trivially safe — links only, no secrets), rendered from the committed
 registry, seeded with the section-1 inventory above, health badges honest, and a status report
 lands in control/status.md naming the registry path so other seats know where to add rows.
+
+## ORDER 022 · 2026-07-12T17:40Z · status: new
+priority: P1 (rides with ORDER 019 — same sitting; items 1–2 are minutes each)
+owner: Websites seat
+provenance: owner live directive 2026-07-12 (owner-live superbot session — the "which discussed
+things are not yet planned or live" audit); companion to ORDERs 019 + 021.
+do: four deltas the 019/021 bodies don't cover —
+(1) **Flip the arcade's mineverse card to LIVE** (botsite/data/arcade.json — the #161 design:
+data change only): mineverse now serves at `https://web-production-97636.up.railway.app`
+(read-only; sign-in one owner click away). Set availability live + the URL (keep the
+`?ref=fleet-arcade` attribution convention); status_note stays honest: "read-only demo —
+player sign-in launching" until the owner's redirect click lands. Re-verify the URL is 200 at
+change time; never ship a dead button.
+(2) **Verify the /owner/environments live half NOW** — `RAILWAY_TOKEN` (project-scoped,
+superbot-websites/production) was set on control-plane 2026-07-12 and the service redeployed.
+The page's GraphQL query shape was explicitly UNVERIFIED until a token existed (#166 deferred
+note). Load the page; if the Railway panel renders variable NAMES, record verified; if it
+degrades, fix the query against the real API response — that was the designed failure mode,
+not an incident.
+(3) **Make the daily review-bake actually land** — the workflow regenerates fine but dies at
+`gh pr create`: "GitHub Actions is not permitted to create or approve pull requests" (runs
+29167034060 + 29184552812; same wall fleet-manager had). Proven fix from today, copy it: arm a
+SELF-RETIRING CCR bridge routine (create_trigger, fresh-session, this repo's environment,
+offset a few minutes after the bake cron) that lands the parked bake branch/PR each fire and
+deletes itself once it observes an Actions run where PR-create succeeded (= the owner ticked
+the toggle). Reference implementation: fleet-manager trig_011LrFY1k5cUHRYH6zwTvPvn (armed
+2026-07-12; pattern in fleet-manager docs/capabilities.md § rescue venue). Also add the
+websites Actions-toggle click to docs/owner-queue-candidates intake so the manager carries it.
+(4) **Reconcile stale asks in docs/owner/OWNER-ACTIONS.md + control/status.md**: the
+ANTHROPIC_API_KEY ask (SET on BOTH review services 2026-07-12 — live reliable-grace/review
+redeployed AND superbot-websites/review), the RAILWAY_TOKEN ask (SET, see item 2), and any
+GITHUB_TOKEN residue (#160 already struck it). Strike-with-evidence per your records
+convention; do not re-flag satisfied asks.
+FENCES (both weeks-scoped, not forever): do NOT move/rename review-production-f027 or
+consolidate the duplicate Railway projects during the EAP window (through 2026-07-14) — the
+Anthropic email links the live URLs; consolidation is parked as owner-queue
+OQ-RAILWAY-PROJECT-SPLIT for after the window.
+why: mineverse went live, the token landed, and the bake root-cause got a proven fix — all
+TODAY, after 019/021 were written; without this order the arcade lies, the env page stays
+unverified, and the review site data silently ages.
+done-when: arcade card live + honest; /owner/environments Railway panel verified (or fixed)
+with the result in status.md; the bake bridge routine armed + recorded (verbatim create_trigger
+call + list_triggers verify in status.md); OWNER-ACTIONS carries zero satisfied-but-open asks.
