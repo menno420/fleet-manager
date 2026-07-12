@@ -1,21 +1,30 @@
 > **Status:** `reference`
 
-<!-- v3.1 · 2026-07-12 · provenance: v3.0 plan (research PRs #93/#95 + owner baseline 2026-07-11) + the v3.1 QA-fix build (QA PRs #100 incident-replay / #101 question-rounds / #102 boot-sim; applied in PR #103) -->
+<!-- v3.2 · 2026-07-12 · provenance: owner correction 2026-07-12 (stateless startup artifacts — see the v3.2 changelog section below). Prior: v3.1 (v3.0 plan research PRs #93/#95 + owner baseline 2026-07-11 + QA PRs #100/#101/#102, applied in PR #103) -->
 <!-- char-count: planning doc, no paste budget applies -->
 
-# Per-project prompts (artifact B + seat C blocks) — v3.1
+# Per-project prompts (artifact B + seat C blocks) — v3.2
 
-v3.1 composition (supersedes the v3.0 hand-drafting recipe): every
+v3.2 composition (supersedes v3.1's only in the insert block): every
 **`<seat>-startup.md`** (artifact B) is **GENERATED** from `../universal-startup.md`
-(A) by **`../tools/regen_b_files.py`** — slot fills + a FIRST WORK ORDERS insert
+(A) by **`../tools/regen_b_files.py`** — slot fills + a WORK SOURCES insert
 + ONE scripted transform (A's self-referential "Unfilled {{slots}}" sentence is
 dropped from every B — in a generated B every slot is filled) are the only
 non-A-verbatim bytes; everything else is A-verbatim, and each B header
 carries the sha1 of the A body it was generated from. **Never hand-edit a B
 file** (drift class D-1, PR #100): edit A or the seat config in the script,
-then rerun it. Each **`<seat>-custom-instructions.md`** carries the seat C
-block; CONTROL BUS is core-owned in v3.1 (D-4 retired) — a seat block only
-supplies the `{{STATUS_GRAMMAR}}` fill declared in its header.
+then rerun it. **STATELESS RULE (drift class D-9, owner correction
+2026-07-12): startup prompts never carry volatile state** — no concrete PR
+numbers, no SHA/CI colors, no trigger ids asserted as facts, no "do X now"
+execute items. A slot fill names WHERE current state lives (inbox, status,
+queue doc, telemetry), never WHAT it currently says; current work reaches a
+seat only through its WORK SOURCES ladder — (a) `control/inbox.md` at HEAD,
+(b) the seat's named state docs, (c) the standing mission. Durable standing
+rails (track isolation, security-before-secrets ordering, research-only
+constraints) stay in the prompt — they are mission, not state. Each
+**`<seat>-custom-instructions.md`** carries the seat C block; CONTROL BUS is
+core-owned since v3.1 (D-4 retired) — a seat block only supplies the
+`{{STATUS_GRAMMAR}}` fill declared in its header.
 
 ## Census inputs — AVAILABLE (write against them, not from memory)
 
@@ -38,32 +47,32 @@ mineverse) · Game Lab (gba-homebrew + pokemon-mod-lab) · Ideas Lab
 seat 9 via this same recipe — stagger slot below), codetool-lab-* (DARK),
 superbot-plugin-hello (helper, folded into SuperBot 2.0's F1).
 
-## v3.1 budget table (real counts, regen-verified 2026-07-12; FILLED values)
+## v3.2 budget table (real counts, regen-verified 2026-07-12; FILLED values)
 
 Hard caps: startup ≤ 8,000 · assembled CI ≤ 8,000 — **all 20 within hard**.
 **Assembled CI is counted with `{{SEAT_NAME}}` + `{{STATUS_GRAMMAR}}` FILLED**
 (Codex PR #103 review: the raw-placeholder count under-measured every paste by
 the fill delta and let 3 seats silently exceed 8,000 — never count a paste
 with placeholders in it). Fitted target 7,500: the universal artifacts fit;
-**every B file and assembled CI runs over fitted, flagged in its header** —
-the QA fix volume (12 P0s, 3 BLOCKERs, 12 contradictions) does not fit under
-7,500 without dropping safety rules, and the mission ranks safety over the
-fitted target.
+**every B file runs over fitted, flagged in its header** — the safety-rail
+volume does not fit under 7,500 without dropping rules, and the mission ranks
+safety over the fitted target. Seat-block C and assembled-CI figures are
+**unchanged from v3.1** (the C artifacts were audited, not edited, in v3.2).
 
 | Artifact | Chars | vs fitted 7,500 / hard 8,000 |
 |---|---:|---|
-| A universal-startup (body) | 6,373 | n/a (template; skeleton budget ≤ ~6,600) |
+| A universal-startup (body) | 6,567 | n/a (template; skeleton budget ≤ ~6,600) |
 | C universal core (CORE-START/END) | 6,996 raw · 6,992–7,031 filled per seat | seat-block hard budget = 8,000 − FILLED core |
 | D session-ender (body) | 3,411 | chat paste — console cap n/a; over its ~2,000 prose budget BY DESIGN (P0 ender fixes), flagged in-file |
-| Seat | Startup B | Seat block C | Assembled CI (filled core + block) | Status |
-| fleet-manager | 7,796 | 975 | 7,972 | under hard, over fitted — flagged |
-| superbot | 7,993 | 984 | 7,994 | under hard, over fitted — flagged |
-| websites | 7,967 | 951 | 7,943 | under hard, over fitted — flagged |
-| self-improvement | 7,958 | 992 | 7,992 | under hard, over fitted — flagged |
-| superbot-world | 7,966 | 966 | 7,997 | under hard, over fitted — flagged |
-| game-lab | 7,997 | 971 | 7,984 | under hard, over fitted — flagged |
-| ideas-lab | 7,952 | 980 | 7,992 | under hard, over fitted — flagged |
-| venture-lab | 7,998 | 990 | 7,998 | under hard, over fitted — flagged |
+| Seat | Startup B (v3.2) | Seat block C | Assembled CI (filled core + block) | Status |
+| fleet-manager | 7,833 | 975 | 7,972 | under hard, over fitted — flagged |
+| superbot | 7,819 | 984 | 7,994 | under hard, over fitted — flagged |
+| websites | 7,838 | 951 | 7,943 | under hard, over fitted — flagged |
+| self-improvement | 7,927 | 992 | 7,992 | under hard, over fitted — flagged |
+| superbot-world | 7,868 | 966 | 7,997 | under hard, over fitted — flagged |
+| game-lab | 7,999 | 971 | 7,984 | under hard, over fitted — flagged |
+| ideas-lab | 7,770 | 980 | 7,992 | under hard, over fitted — flagged |
+| venture-lab | 7,841 | 990 | 7,998 | under hard, over fitted — flagged |
 
 The v3.0 constant "core 6,117" is RETIRED (D-8); the single source for the
 core figure is this table + the core file's own markers, restated at every
@@ -85,13 +94,16 @@ core edit.
 Seat-9+ slots: `5/20/35/50` past the hour (even parity first). **The fleet
 manager is the slot arbiter** — a seat NEVER re-slots itself; a foreign trigger
 on your slot is reported in status, and slot changes are a registry edit here
-(question-rounds R5-Q5). Known transients until cutovers complete (replay C-9):
-the pre-merge gba/pml hourly wakes fire at :00/:30 every hour (Game Lab's
-cutover deletes them), and the old ideas-lab failsafe (`0 */2`) squats the
-self-improvement slot (Ideas Lab's cutover deletes it). Venture-lab's grading
-BUSINESS cron (`0 9 * * 5`) does not collide. Trigger-delete ownership
-tiebreak: retro-games trig_01Y99uDKNtKTz2EtRYPWZkGY belongs to **Game Lab's**
-cutover; the fm delete list defers it (C-9's double-assignment resolved).
+(question-rounds R5-Q5). Known transients until cutovers complete (replay C-9;
+**re-verified 2026-07-12 against `telemetry/triggers-snapshot.json`**): the
+pre-merge gba/pml hourly wakes and the retro-games trigger are **ABSENT from
+the snapshot** (already gone — nothing left to delete); the old ideas-lab
+failsafe (`0 */2`, squatting the self-improvement slot) is **still present**
+(Ideas Lab's cutover deletes it, after confirming the prior coordinator chat
+is archived). Venture-lab's grading BUSINESS cron (`0 9 * * 5`) does not
+collide and is rebound-never-deleted (A step 4). Since v3.2, NO trigger id is
+baked into any prompt — cutover ids come from heartbeats + the telemetry
+snapshot (D-9).
 
 ## v3.0 KNOWN DEFECTS queue — v3.1 disposition
 
@@ -246,3 +258,65 @@ with the dirty-tree rescue-branch guard). Sequential trigger-call pacing §a.5
 (CONSTITUTION/landing-path/routines templates) — that is the Self Improvement
 seat's lane, not a v3.1 prompt defect; only their fleet-prompt shadows
 (entries 7–9) queue here.
+
+## v3.2 changelog — stateless rebuild (owner correction 2026-07-12)
+
+**Owner correction (live, 2026-07-12): startup prompts must never contain
+volatile state** — no concrete PR numbers, no SHA/CI colors, no trigger ids
+asserted as facts, no "do X now" execute items. Prompts direct agents to the
+repo documents where current state lives. Applied to all 9 startup artifacts
+(A + the 8 B files; D audited — already stateless, stamp bumped) in one pass:
+
+1. **A template** (`../universal-startup.md` → v3.2): STATELESS sentence in
+   the role brief; `{{OLD_TRIGGER_IDS}}` slot replaced by
+   `{{OLD_TRIGGER_SOURCES}}` (fills name records, never ids); the LANDING
+   "fm PR #99 / HYPOTHESIS n=1" citation and the GEN-3 "rider v5 @ 76d854d;
+   grant v4 @ e801da5" SHAs dropped for durable pointers. Drift class **D-9**
+   minted (stateless rule; enforced at regen review, header-documented).
+2. **Every seat's FIRST WORK ORDERS → a WORK SOURCES ladder** — (a)
+   `control/inbox.md` at HEAD, (b) the seat's named state docs (all verified
+   to exist at that repo's HEAD 2026-07-12: fm docs/{owner-queue,roster,
+   fleet-triage}.md · superbot-next docs/status/README-first.md ·
+   websites docs/owner/OWNER-ACTIONS.md + docs/current-state.md · kit
+   docs/adopters.md · per-repo control/status.md + docs/current-state.md for
+   world/game-lab/venture/ideas — zero gaps found, so no heartbeat-fallback
+   pointer was needed), (c) the standing mission.
+3. **Durable rails KEPT** (mission, not state): game-lab track isolation +
+   R22 + proof rails verbatim; "security fix on the auth/login path merges
+   BEFORE anything secrets-adjacent" as a standing ORDERING rule (PR number
+   removed); trading research-only rail verbatim; venture merge-path rail
+   (evidence PR numbers removed).
+
+**Relocations — still-valid now-actions filed as inbox ORDERs (verified at
+the owning repo's HEAD first):**
+
+| Owning repo | ORDER | Relocated action | Verification (2026-07-12) |
+|---|---|---|---|
+| superbot-mineverse | 003 | land the login-CSRF PR #42 (non-author review-merge, ONE attempt), then disposition #31, re-render CLAUDE.md | #42 OPEN, mergeable_state clean @ head `2557f1a`; #31 OPEN (codex, blocked) |
+| superbot-idle | 003 | add pytest CI on PR+push; ⚑ owner mark required | `.github/workflows/` @ `c6a349d` = substrate-gate.yml + theme-gate.yml only — no pytest job |
+| superbot-games | 005 | truth-stamp the heartbeat ONCE (archival correction) | status updated 2026-07-11T19:39:14Z claims 5 open parked PRs + HEAD `5d38593`; live: #50 MERGED 2026-07-11T20:25:22Z, main = `5ddfbee` |
+| pokemon-mod-lab | 006 | add .gitignore (`*.gba`, `*.sav`, `baserom*`) | no `.gitignore` at origin/main `08d2611` |
+| superbot-next | 014 | seed superbot-plugin-hello + flip ORDER 002 via status.md | repo EMPTY (API 409 "Git Repository is empty"); status @ 07:55Z: 002 acked, NOT in `done=` |
+| superbot-next | 015 | render CLAUDE.md from .substrate/claude/ + fix AGENT_ORIENTATION dead pointer | no `.claude/CLAUDE.md` at `c03df80`; `docs/AGENT_ORIENTATION.md:10,:34` point at it; source exists at `.substrate/claude/CLAUDE.md` |
+| websites | 012 | reconcile status/OWNER-ACTIONS vs live + re-render CLAUDE.md + bake-ask truth | status @ HEAD still lists #141 "awaiting owner squash-merge" — #141 MERGED 2026-07-11T20:24:48Z; `.claude/CLAUDE.md:40` says "Three… services" + `:47` two-suite verify while `review/` exists at `8f97654`; review-bake 2/2 runs FAILED incl. the first `schedule` fire 29184552812 @ 2026-07-12T07:38Z (v3.1's "cron NEVER fired" is itself stale) |
+| websites | 013 | CSRF/Origin check + rate-limit on app/owner.py POST routes | `app/owner.py` @ `8f97654`: zero csrf/origin hits |
+| venture-lab | 007 | re-verify + ⚑-escalate the open-PR dispositions (owner-only photo-exposure PR; parked launch-packet PR) | #51 OPEN ("Add files via upload", since 2026-07-11T18:24Z); #57 OPEN, label do-not-automerge, park-owner-merge |
+| trading-strategy | 011 | land #64 (non-author review-merge) + #65 per doctrine; verify the weekly grading executor before 2026-07-17 | #64 OPEN, #65 OPEN; grading trigger `trig_015aNMg5…` present in fm telemetry snapshot + documented bound to the live Money-seat coordinator (PR #64 body) |
+| substrate-kit | 015 | fix the AGENT_ORIENTATION.md.tmpl dead boot pointer class (+ gate-integrity verify-first rider) | tmpl:8-12,:32-36 @ `8a544a6` point at `.claude/CLAUDE.md`; superbot-next confirmed shipping without one |
+| sim-lab | 003 | stand up a GITHUB_TOKEN merge-on-green workflow (landing path) | `.github/workflows/` @ `e857b24` = substrate-gate.yml only |
+
+**Dead / already-done v3.1 items (no ORDER filed; evidence):** superbot F2 —
+#196/#206 CLOSED-unmerged, #213/#217 MERGED (API-verified); venture #58
+CLOSED-unmerged; ideas order 1 — `sims/verdict-012-doc-cite-checker-spec/`
+exists @ sim-lab `e857b24` and the chain has moved on (PROPOSAL 011
+sim-ready, verdict-013 landed): handoff closed; game-lab W1 card-convention —
+`.sessions/README.md` with the model-line doctrine at HEAD in both repos;
+game-lab W2 required-check click-asks — already durable in fm
+docs/owner-queue.md (items 5/6); kit order 1 registry-truth — overtaken:
+docs/adopters.md regenerated 2026-07-11T22:36:49Z from per-repo tree
+evidence with DRIFT rows; fm parked stack — #88/#89/#91 terminal (not in
+open PRs), #92 OPEN parked and recorded in control/status.md; v3.1 baked
+cutover trigger ids (gba/pml hourly, retro-games, games ORDER-015, idle,
+fm prior failsafe) — ALL absent from `telemetry/triggers-snapshot.json`
+(783 triggers, 2026-07-12): nothing to delete; kit #220/#238 ratification
+parks — OPEN, and already durably recorded in kit control/status.md ⚑ 14/15.

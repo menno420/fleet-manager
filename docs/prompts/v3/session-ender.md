@@ -1,10 +1,10 @@
 > **Status:** `reference`
 
-<!-- v3.1 · 2026-07-12 · provenance: v3.0 (research PRs #93/#95 + owner baseline 2026-07-11 · owner spec delta 2026-07-11T23:47Z: the ender NEVER re-arms) + QA fixes from PRs #100/#101/#102 -->
+<!-- v3.2 · 2026-07-12 · provenance: owner correction 2026-07-12 (stateless-startup audit — the ender's paste body was AUDITED and found already stateless: no PR numbers, no trigger ids, no CI colors, no one-shot work items; version stamp bumped, body otherwise unchanged from v3.1). Prior: v3.1 (v3.0 research PRs #93/#95 + owner baseline 2026-07-11 · owner spec delta 2026-07-11T23:47Z: the ender NEVER re-arms + QA fixes from PRs #100/#101/#102). -->
 <!-- char-count: see the v3.1 budget table in per-project/README.md · v3.0 budget was ~2,000 (spec §6); v3.1 runs over it BY DESIGN — the QA P0 set (ender-blackout fix R3-Q3, business-cron exception R6-Q15/C-6, heartbeat-route-to-main R3-Q7/Q8, parked-PR landing-path R3-Q4, pending-checks R3-Q11, REPORT destination R3-Q15, worker-scope R5-Q13) all land here; flagged, not trimmed (safety rules outrank the prose budget). The ender is a chat paste, not a console field — the 8,000 console wall does not apply; keep it lean anyway. -->
 <!-- Artifact D — universal session ender. ONE version for every seat; no slots. v3.1 step order (QA R3-Q8: two "deliberate last" superlatives could not both hold; Codex PR #103 review: disposition precedes the heartbeat so delete failures land in the baton): 1 PARK → 2 RELEASE → 3 ROUTINE DISPOSITION (deletions verified BEFORE the baton is written) → 4 HEARTBEAT (a COMMIT on the session PR, recording real ids closed/uncloseable) → 5 FLIP (the last commit) → 6 REPORT. The FAILSAFE cron is NOT deleted at close (F-1 doctrine, C-6): it stays armed as the successor's dead-man bridge; the successor's boot cutover rebinds-then-deletes it; the sole owner-retire deletion is the true final call, after the flip. -->
 
-v3.1 · 2026-07-12 · universal session ender
+v3.2 · 2026-07-12 · universal session ender
 
 SHUT DOWN NOW, in order. This ends your session's chain — start no new work. (Coordinator sessions only: a dispatched/worker session skips steps 3–5 — it reports to its coordinator and never writes control/status.md.)
 
