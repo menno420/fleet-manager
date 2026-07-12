@@ -2,6 +2,9 @@
 
 > **Status:** `plan`
 >
+> **Superseded by [`docs/planning/2026-07-12-repo-consolidation-plan.md`](../planning/2026-07-12-repo-consolidation-plan.md)
+> (PR #122), which reconciles this proposal with the phase-A census.**
+>
 > **PROPOSAL — owner sign-off required. Nothing in this document self-executes.**
 >
 > Prepared by the **game-lab coordinator seat on owner order, 2026-07-12**

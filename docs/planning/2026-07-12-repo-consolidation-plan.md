@@ -6,8 +6,10 @@
 > Finalized from the phase-A census
 > ([`research/2026-07-12-repo-consolidation-census.md`](../research/2026-07-12-repo-consolidation-census.md)
 > @ `6ac4352`, PR #119), reconciled with the game-lab-seat proposal
-> ([PR #121](https://github.com/menno420/fleet-manager/pull/121)), which this
-> plan **cites and supersedes**. Phase 1 is agent work; Phases 2–3 are yours.
+> ([PR #121](https://github.com/menno420/fleet-manager/pull/121), since
+> **merged to main** — its proposal doc now carries a supersession pointer
+> back to this plan), which this plan **cites and supersedes**; this plan
+> remains the finalized successor. Phase 1 is agent work; Phases 2–3 are yours.
 > Every archive here is a reversible GitHub settings toggle — **nothing is
 > deleted, ever, under this plan.**
 
@@ -319,7 +321,8 @@ cooling-off. This plan recommends never taking it.
 ## Provenance & supersessions
 
 - Built from the phase-A census @ `6ac4352` (PR #119) + the prompt-currency
-  audit (PR #118 branch).
+  audit (PR #118, since **merged** —
+  `docs/research/2026-07-12-prompt-currency-audit.md` on main @ `d38bafb`).
 - **Cites and supersedes [PR #121](https://github.com/menno420/fleet-manager/pull/121)**
   ("Proposal: fleet consolidation + seat reset plan", head `9a5075a`, green,
   docs-only): its delete-contradiction gate, decision bundle, stranded-work
@@ -328,8 +331,11 @@ cooling-off. This plan recommends never taking it.
   (deliverable 2 on this branch), not this doc — applied to the
   `docs/prompts/v3/` **sources** with the `projects/<seat>/` copies regenerated
   (`regen_b_files.py` + `--write-registry`), never to the generated copies
-  directly (codex #121 finding, already the v3.4 method). **Recommended: close #121
-  after this lands** (owner click — this session does not close it).
+  directly (codex #121 finding, already the v3.4 method). **Merged-state note
+  (2026-07-12):** #121 has since **merged to main** (19:34Z, `b127b98`) rather
+  than being closed; its proposal doc
+  (`docs/proposals/2026-07-12-consolidation-and-reset-plan.md`) now carries a
+  supersession pointer to this plan, which remains the finalized successor.
 - **Supersedes owner-queue E#37 (OQ-FORGE-DISPOSITION):** the census verdict
   MIGRATE-THEN-ARCHIVE replaces E#37's option-A "keep the repo parked"
   framing; the new ask is this plan's Phase 3.1 archive click (after Phase 1
