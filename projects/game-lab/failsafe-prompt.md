@@ -1,54 +1,41 @@
-<!-- v1 · 2026-07-11 · fleet-manager projects registry -->
-# Game Lab — failsafe cron text (Q-0265)
+<!-- v2 · 2026-07-12 · fleet-manager projects registry — GENERATED COPY, do not edit
+     (regenerate: docs/prompts/v3/tools/regen_b_files.py --write-registry; drift guard: --check-registry) -->
+<!-- generated from docs/prompts/v3 @ 6391b2f1f91b45cba6864693abe700cc5f9aaaca (owner-directed rebuild 2026-07-11/12) -->
+# Game Lab — failsafe cron text (registry copy, prompts v3.2)
 
-> Part 4 of the Game Lab Project package. **Routine name:**
-> `game-lab failsafe wake` · **cadence:** `50 */2 * * *` (even hours :50 —
-> inherits the retired superbot-retro slot in the gen-3 lane stagger; manager
-> reads at :30) · fires into the persistent coordinator session (default
-> self-bind). **Provenance:** v1 · 2026-07-11, owner restructure directive
-> 2026-07-11 — replaces the slice-1 v0 placeholder; authored from the retired
-> superbot-retro seat's failsafe + child-wake pattern (packages @ `1dea86d`).
-> Per registry doctrine the trigger prompt block below is deliberately NOT
-> version-stamped in-band (byte-checkable against `list_triggers`).
->
-> **Deployed state (2026-07-11): NOT ARMED for this seat.** The retired
-> superbot-retro seat's triggers are still armed against these repos (last
-> committed registry state — re-verify via `list_triggers` before acting):
-> - retro failsafe: `trig_01Y99uDKNtKTz2EtRYPWZkGY` (`50 */2 * * *`)
-> - gba hourly child wake: `trig_0137SkvhXEJvwepX8aVNkcSn` (`0 * * * *`)
-> - pokemon hourly child wake: `trig_01BTJjkMVMKtWPjuYe7643Hi` (`30 * * * *`)
->
-> **Cutover recipe (rides the merged seat's boot — coordinator-prompt.md
-> BOOT step 2, rebind-then-delete):** create THIS trigger first, verify via
-> `list_triggers` (the registry is the proof — never wait for the first
-> fire), THEN delete all three old triggers and verify them absent — the
-> merged seat replaces the retro parent+children pattern with one seat + one
-> failsafe. Record every call + outcome verbatim in the gba-homebrew
-> heartbeat. If the seat's surface walls the calls: record the verbatim
-> denial and hand the owner this block (name + cadence + prompt) via the
-> owner-queue.
+> **GENERATED COPY — NOT SOURCE OF TRUTH.** This registry copy is GENERATED FROM
+> the v3 home: **docs/prompts/v3/ is the source of truth** (generation v3.2,
+> stateless, D-9). Edit the v3 sources and regenerate — never this file.
+> Version lineage: v2 (2026-07-12) supersedes the pre-rebuild registry copy
+> in projects/game-lab/ (last synced by the 2026-07-11 restructure).
+> Body below the marker wraps the seat-filled A step-3a FAILSAFE WAKE text
+> (D-2 single source) with this seat's name + D-7 stagger-table cron.
 
-## The prompt (create_trigger `prompt` field, verbatim)
+<!-- registry-header-end -->
+# Game Lab — failsafe cron (dead-man wake, Q-0265)
+
+- **Routine name:** `Game Lab failsafe wake`
+- **cron:** `15 */2 * * *` — slot per the v3.2 stagger table
+  (docs/prompts/v3/per-project/README.md, canonical home D-7; the fleet manager
+  arbitrates slots — a foreign trigger on the slot is reported, never
+  re-slotted; this table supersedes any cron previously recorded in this file)
+- **binding:** persistent — fires into the live coordinator session
+  (self-bind). After EVERY arming call verify trigger + binding via
+  `list_triggers` before writing "armed" — never wait for a first fire
+  (completed runs are not inspectable owner-side).
+
+## Prompt text (create_trigger `prompt`, EXACTLY — single-sourced from docs/prompts/v3/universal-startup.md step 3a, D-2)
 
 ```
-FAILSAFE WAKE (game-lab, Q-0265): if your send_later continuation chain is
-alive, verify that in one line and end. If it stalled, resume the work
-loop: sync menno420/gba-homebrew + pokemon-mod-lab to origin/main HEAD →
-read each control/inbox.md at HEAD → run the R22 visibility check (pokemon
-public → STOP, flag) → slice after slice, each its own PR (strict track
-isolation: nothing from the private Track A ever reaches a public surface;
-headless in-game proof before "done"; no SuperBot repos, ever) — and
-re-arm the chain (~15 min) before ending. Overwrite gba-homebrew
-control/status.md as the deliberate last step.
+FAILSAFE WAKE (Game Lab, Q-0265): send_later chain alive → verify in one line, end. Stalled → resume the work loop (sync HEAD → inbox → slice after slice, landed per LANDING), re-arm the chain (~15 min), and write your heartbeat (control/status.md, per-seat grammar) as the deliberate last step.
 ```
 
-## create_trigger args (recipe)
+## Cutover (A step 4 — rebind-then-delete)
 
-- `name`: `game-lab failsafe wake`
-- `cron_expression`: `50 */2 * * *`
-- target: this (persistent coordinator) session — default self-bind; do NOT
-  set `create_new_session_on_fire`
-- `prompt`: the fenced block above, verbatim
-- After creating: verify via `list_triggers`, then retire the three
-  superbot-retro triggers (delete + verify absent) and record all calls
-  verbatim in the heartbeat.
+Create + verify the NEW failsafe first, then delete the old id and verify it
+absent. NO trigger ids are baked here (STATELESS, D-9) — find old ids in:
+this lane's heartbeats + fm telemetry/triggers-snapshot.json — this lane's only; plus ids the heartbeat marks left-for-successor. `list_triggers` is
+ACCOUNT-WIDE (paginate to exhaustion) — delete ONLY an id those records
+attribute to THIS seat, binding audit-verified; unattributable = a sibling's:
+record, never delete. A BUSINESS cron (a scheduled deliverable) is rebound,
+never dropped.

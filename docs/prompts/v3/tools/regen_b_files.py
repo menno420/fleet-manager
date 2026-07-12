@@ -23,6 +23,29 @@ each per-project/<seat>-startup.md with a stamped header carrying the real
 wc -c of the paste body, and prints the budget table for
 per-project/README.md. Fitted target 7,500 / hard cap 8,000 per file.
 
+REGISTRY MODES (registry sync, owner-directed 2026-07-12): the projects/<seat>/
+copies (coordinator-prompt.md / instructions.md / failsafe-prompt.md) that
+downstream surfaces (the control website) read are GENERATED from the v3
+sources here — never hand-edited (same D-1 discipline as the B files):
+
+    python3 docs/prompts/v3/tools/regen_b_files.py --check-registry
+        Diff every projects/<seat>/ copy against its v3-derived expected body
+        (registry provenance headers ignored — everything above the
+        `<!-- registry-header-end -->` marker line). Exit non-zero on drift.
+
+    python3 docs/prompts/v3/tools/regen_b_files.py --write-registry [--sha SHA]
+        Regenerate the projects/<seat>/ copies (bodies + stamped registry
+        headers). SHA = the commit governing docs/prompts/v3 (default: derived
+        via `git log -1 --format=%H -- docs/prompts/v3`); version stamps come
+        from REGISTRY below — bump them there when re-syncing a new generation.
+
+Expected bodies: coordinator-prompt.md = the seat's per-project/<seat>-startup.md
+verbatim; instructions.md = the assembled Custom Instructions paste (core v3.1
+lines 1-2 with SEAT_NAME filled + seat C block + core remainder with
+STATUS_GRAMMAR filled, per custom-instructions-core.md § Paste order);
+failsafe-prompt.md = the seat-filled A step-3a failsafe wake text (D-2 single
+source) wrapped with the seat's name + D-7 stagger-table cron.
+
 Provenance: prompts v3.1 build (fleet-manager PR #103); v3.2 stateless
 rebuild (owner correction 2026-07-12); each B header carries the sha1 of the
 A body it was generated from (computed at regen time).
@@ -388,7 +411,242 @@ SEATS = [
 ]
 
 
-def main() -> int:
+# --------------------------------------------------------------------------
+# REGISTRY sync (projects/<seat>/ copies — owner-directed 2026-07-12)
+# --------------------------------------------------------------------------
+
+REPO = V3.parent.parent.parent  # repo root
+PROJECTS = REPO / "projects"
+MARKER = "<!-- registry-header-end -->"
+
+# startup file -> (projects/ dir, per-artifact version stamps). Versions follow
+# each registry file's OWN pre-existing lineage (surveyed 2026-07-12) — bump
+# here at every re-sync that changes content.
+REGISTRY = {
+    "fleet-manager-startup.md": ("fleet-manager", {"coordinator": "v4", "instructions": "v4", "failsafe": "v4"}),
+    "superbot-startup.md": ("superbot-2.0", {"coordinator": "v2", "instructions": "v2", "failsafe": "v2"}),
+    "websites-startup.md": ("websites", {"coordinator": "v4", "instructions": "v3", "failsafe": "v3"}),
+    "self-improvement-startup.md": ("self-improvement", {"coordinator": "v2", "instructions": "v2", "failsafe": "v2"}),
+    "superbot-world-startup.md": ("superbot-world", {"coordinator": "v2", "instructions": "v2", "failsafe": "v2"}),
+    "game-lab-startup.md": ("game-lab", {"coordinator": "v2", "instructions": "v2", "failsafe": "v2"}),
+    "ideas-lab-startup.md": ("ideas-lab", {"coordinator": "v2", "instructions": "v2", "failsafe": "v2"}),
+    "venture-lab-startup.md": ("venture-lab", {"coordinator": "v3", "instructions": "v4", "failsafe": "v3"}),
+}
+
+PROVENANCE_DATE = "2026-07-12"
+
+
+def core_paste() -> str:
+    """The UNIVERSAL CORE paste text (between CORE-START/CORE-END, fence-stripped,
+    no trailing newline) — raw, placeholders unfilled."""
+    text = (V3 / "custom-instructions-core.md").read_text()
+    m = re.search(r"<!-- CORE-START[^\n]*-->\n```\n(.*?)\n```\n<!-- CORE-END -->", text, re.S)
+    if not m:
+        raise RuntimeError("CORE-START/CORE-END block not found in custom-instructions-core.md")
+    return m.group(1)
+
+
+def c_file(startup_file: str):
+    return V3 / "per-project" / startup_file.replace("-startup.md", "-custom-instructions.md")
+
+
+def seat_block(startup_file: str) -> str:
+    """The seat C block paste body: everything below the Status badge + header
+    comments of per-project/<seat>-custom-instructions.md, trailing newline
+    stripped (this is the byte basis of the README budget table)."""
+    out, started, in_comment = [], False, False
+    for ln in c_file(startup_file).read_text().split("\n"):
+        if not started:
+            s = ln.strip()
+            if s.startswith("> **Status:**") or s == "":
+                continue
+            if s.startswith("<!--"):
+                in_comment = not s.endswith("-->")
+                continue
+            if in_comment:
+                if s.endswith("-->"):
+                    in_comment = False
+                continue
+            started = True
+        out.append(ln)
+    return "\n".join(out).rstrip("\n")
+
+
+def status_grammar(startup_file: str) -> str:
+    """{{STATUS_GRAMMAR}} fill, declared in the seat C file's own header."""
+    m = re.search(r'\{\{STATUS_GRAMMAR\}\} = "([^"]+)"', c_file(startup_file).read_text())
+    if not m:
+        raise RuntimeError(f"no STATUS_GRAMMAR declaration in {c_file(startup_file).name}")
+    return m.group(1)
+
+
+def assemble_ci(seat: dict) -> str:
+    """The assembled Custom Instructions paste per custom-instructions-core.md
+    § Paste order: core lines 1-2 (SEAT_NAME filled) → seat block → core
+    remainder (STATUS_GRAMMAR filled). No trailing newline."""
+    name = seat["slots"]["SEAT_NAME"]
+    lines = core_paste().split("\n")
+    assert lines[2] == "" and lines[3].startswith("TRUTH:"), "core layout changed — update assemble_ci"
+    l0 = lines[0].replace("{{SEAT_NAME}}", name)
+    remainder = "\n".join(lines[3:]).replace("{{STATUS_GRAMMAR}}", status_grammar(seat["file"]))
+    return "\n".join([l0, lines[1], "", seat_block(seat["file"]), "", remainder])
+
+
+def failsafe_wake_template() -> str:
+    """The canonical FAILSAFE WAKE prompt, single-sourced from A step 3a (D-2),
+    {{SEAT_NAME}} unfilled."""
+    m = re.search(r'prompt EXACTLY:\n\s+"(FAILSAFE WAKE .*?)"\n', a_body(), re.S)
+    if not m:
+        raise RuntimeError("A step 3a FAILSAFE WAKE prompt not found in universal-startup.md")
+    return m.group(1)
+
+
+def failsafe_body(seat: dict) -> str:
+    name = seat["slots"]["SEAT_NAME"]
+    cron = seat["slots"]["CRON_STAGGER"]
+    sources = seat["slots"]["OLD_TRIGGER_SOURCES"]
+    prompt = failsafe_wake_template().replace("{{SEAT_NAME}}", name)
+    return f"""# {name} — failsafe cron (dead-man wake, Q-0265)
+
+- **Routine name:** `{name} failsafe wake`
+- **cron:** `{cron}` — slot per the v3.2 stagger table
+  (docs/prompts/v3/per-project/README.md, canonical home D-7; the fleet manager
+  arbitrates slots — a foreign trigger on the slot is reported, never
+  re-slotted; this table supersedes any cron previously recorded in this file)
+- **binding:** persistent — fires into the live coordinator session
+  (self-bind). After EVERY arming call verify trigger + binding via
+  `list_triggers` before writing "armed" — never wait for a first fire
+  (completed runs are not inspectable owner-side).
+
+## Prompt text (create_trigger `prompt`, EXACTLY — single-sourced from docs/prompts/v3/universal-startup.md step 3a, D-2)
+
+```
+{prompt}
+```
+
+## Cutover (A step 4 — rebind-then-delete)
+
+Create + verify the NEW failsafe first, then delete the old id and verify it
+absent. NO trigger ids are baked here (STATELESS, D-9) — find old ids in:
+{sources}; plus ids the heartbeat marks left-for-successor. `list_triggers` is
+ACCOUNT-WIDE (paginate to exhaustion) — delete ONLY an id those records
+attribute to THIS seat, binding audit-verified; unattributable = a sibling's:
+record, never delete. A BUSINESS cron (a scheduled deliverable) is rebound,
+never dropped."""
+
+
+def registry_header(seat: dict, artifact: str, version: str, sha: str, body: str) -> str:
+    name = seat["slots"]["SEAT_NAME"]
+    reg_dir = REGISTRY[seat["file"]][0]
+    titles = {
+        "coordinator": "coordinator seat prompt (registry copy, prompts v3.2)",
+        "instructions": "Custom Instructions (registry copy, prompts v3.2)",
+        "failsafe": "failsafe cron text (registry copy, prompts v3.2)",
+    }
+    specific = {
+        "coordinator": (
+            f"> Body below the marker = docs/prompts/v3/per-project/{seat['file']} VERBATIM\n"
+            "> (the seat's generated v3.2 startup artifact B — paste as the FIRST message of\n"
+            "> the seat's coordinator chat; the paste body is below that file's own header\n"
+            "> comments)."
+        ),
+        "instructions": (
+            "> Paste FULL into the Project's Custom Instructions. Body below the marker =\n"
+            "> the ASSEMBLED v3.2 paste per docs/prompts/v3/custom-instructions-core.md\n"
+            "> § Paste order: core v3.1 lines 1-2 (SEAT_NAME filled) + seat C block\n"
+            f"> (per-project/{c_file(seat['file']).name}) + core remainder\n"
+            "> (STATUS_GRAMMAR filled).\n"
+            f"> char-count: {len(body):,} chars = the paste body below the marker, trailing\n"
+            "> newline excluded (CHARACTERS — the fleet budget basis, same as the v3.2\n"
+            f"> README table; raw UTF-8 bytes {len(body.encode('utf-8')):,}) · hard cap 8,000 chars:\n"
+            f"> {'PASS' if len(body) <= HARD else 'OVER — MUST TRIM'}."
+        ),
+        "failsafe": (
+            "> Body below the marker wraps the seat-filled A step-3a FAILSAFE WAKE text\n"
+            "> (D-2 single source) with this seat's name + D-7 stagger-table cron."
+        ),
+    }
+    return (
+        f"<!-- {version} · {PROVENANCE_DATE} · fleet-manager projects registry — GENERATED COPY, do not edit\n"
+        "     (regenerate: docs/prompts/v3/tools/regen_b_files.py --write-registry; drift guard: --check-registry) -->\n"
+        f"<!-- generated from docs/prompts/v3 @ {sha} (owner-directed rebuild 2026-07-11/12) -->\n"
+        f"# {name} — {titles[artifact]}\n\n"
+        "> **GENERATED COPY — NOT SOURCE OF TRUTH.** This registry copy is GENERATED FROM\n"
+        "> the v3 home: **docs/prompts/v3/ is the source of truth** (generation v3.2,\n"
+        "> stateless, D-9). Edit the v3 sources and regenerate — never this file.\n"
+        f"> Version lineage: {version} ({PROVENANCE_DATE}) supersedes the pre-rebuild registry copy\n"
+        f"> in projects/{reg_dir}/ (last synced by the 2026-07-11 restructure).\n"
+        f"{specific[artifact]}\n\n"
+        f"{MARKER}\n"
+    )
+
+
+def registry_expected(seat: dict) -> dict:
+    """artifact -> (relpath, expected body bytes AFTER the marker line)."""
+    reg_dir = REGISTRY[seat["file"]][0]
+    coord_body = (V3 / "per-project" / seat["file"]).read_text().rstrip("\n")
+    return {
+        "coordinator": (PROJECTS / reg_dir / "coordinator-prompt.md", coord_body),
+        "instructions": (PROJECTS / reg_dir / "instructions.md", assemble_ci(seat)),
+        "failsafe": (PROJECTS / reg_dir / "failsafe-prompt.md", failsafe_body(seat)),
+    }
+
+
+def resolve_sha() -> str:
+    import subprocess
+
+    return subprocess.check_output(
+        ["git", "-C", str(REPO), "log", "-1", "--format=%H", "--", "docs/prompts/v3"],
+        text=True,
+    ).strip()
+
+
+def write_registry(sha: str) -> int:
+    fail = False
+    for seat in SEATS:
+        versions = REGISTRY[seat["file"]][1]
+        for artifact, (path, body) in registry_expected(seat).items():
+            path.write_text(registry_header(seat, artifact, versions[artifact], sha, body) + body + "\n")
+            n = len(body)
+            flag = ""
+            if artifact == "instructions" and n > HARD:
+                flag = f"  !! OVER HARD by {n - HARD}"
+                fail = True
+            print(f"wrote {path.relative_to(REPO)}  ({n:,} chars){flag}")
+    return 1 if fail else 0
+
+
+def check_registry() -> int:
+    drift = 0
+    for seat in SEATS:
+        for artifact, (path, body) in registry_expected(seat).items():
+            rel = path.relative_to(REPO)
+            if not path.exists():
+                print(f"DRIFT {rel}: file missing")
+                drift += 1
+                continue
+            text = path.read_text()
+            if f"{MARKER}\n" not in text:
+                print(f"DRIFT {rel}: no '{MARKER}' marker line")
+                drift += 1
+                continue
+            actual = text.split(f"{MARKER}\n", 1)[1]
+            if actual != body + "\n":
+                print(f"DRIFT {rel}: body differs from the v3 source ({artifact})")
+                drift += 1
+    if drift:
+        print(f"check-registry: {drift} file(s) drifted from docs/prompts/v3 — regenerate with --write-registry")
+        return 1
+    print(f"check-registry: OK — all {len(SEATS) * 3} projects/<seat>/ copies match docs/prompts/v3")
+    return 0
+
+
+def main(argv: list) -> int:
+    if "--check-registry" in argv:
+        return check_registry()
+    if "--write-registry" in argv:
+        sha = argv[argv.index("--sha") + 1] if "--sha" in argv else resolve_sha()
+        return write_registry(sha)
     rows = []
     fail = False
     for seat in SEATS:
@@ -404,4 +662,4 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(main(sys.argv[1:]))

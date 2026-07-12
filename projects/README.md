@@ -20,9 +20,16 @@
 > `coordinator-prompt.md` + `failsafe-prompt.md` is now a real,
 > version-stamped body consistent with the 8-seat shape (new-seat prompts v1,
 > venture-lab v2, websites v3, fleet-manager coordinator v3; trigger
-> rebind-then-delete cutover recipes ride each seat's boot). The MATRIX and
-> paste-wave sections below still predate the restructure — treat them as
-> historical until a follow-up regenerates them against the 8 seats.
+> rebind-then-delete cutover recipes ride each seat's boot). **Slice 3
+> (prompts v3.2 registry sync, 2026-07-12) landed:** each of the 8 seat dirs'
+> `coordinator-prompt.md` + `instructions.md` + `failsafe-prompt.md` is now a
+> **GENERATED copy of the v3.2 generation** (stateless, D-9) — source of truth
+> = `docs/prompts/v3/`; regenerate via
+> `docs/prompts/v3/tools/regen_b_files.py --write-registry`, drift guard
+> `--check-registry`. The MATRIX and paste-wave sections below still predate
+> the restructure — treat them as historical until a follow-up regenerates
+> them against the 8 seats; for the 8 standing seats, the current paste is
+> always the v3.2 body in the seat's dir.
 
 ## What this registry is
 
@@ -155,6 +162,16 @@ start-off messages use the **universal wake block** in
 > arm/REST-merge landing path is replaced by the corrected park-READY+green
 > clause. **The paste wave pastes ONLY these v2 bodies (v3 for
 > superbot-games) — never v1.** Click-level list: docs/owner-queue.md item 15.
+
+> **SUPERSEDED for the 8 standing seats (2026-07-12, prompts v3.2):** the
+> v2/v3 bodies named above and below predate the overnight prompt rebuild.
+> For each of the 8 seats (fleet-manager, superbot-2.0, websites,
+> self-improvement, superbot-world, game-lab, ideas-lab, venture-lab) the
+> current paste is its regenerated `projects/<seat>/instructions.md` (v3.2
+> assembly, ≤8,000-char verified) and `coordinator-prompt.md` (v3.2 stateless
+> startup); failsafe text = `projects/<seat>/failsafe-prompt.md` (A step-3a
+> wake + D-7 stagger cron). Generated from `docs/prompts/v3` — see each
+> file's provenance header.
 
 **NOW (console/chat pastes + one Routines-screen arm) — the click-level list
 is the consolidated owner-queue item ("Project package paste wave"):**

@@ -1,52 +1,41 @@
-<!-- v1 · 2026-07-11 · fleet-manager projects registry -->
-# Self Improvement — failsafe cron text (Q-0265)
+<!-- v2 · 2026-07-12 · fleet-manager projects registry — GENERATED COPY, do not edit
+     (regenerate: docs/prompts/v3/tools/regen_b_files.py --write-registry; drift guard: --check-registry) -->
+<!-- generated from docs/prompts/v3 @ 6391b2f1f91b45cba6864693abe700cc5f9aaaca (owner-directed rebuild 2026-07-11/12) -->
+# Self Improvement — failsafe cron text (registry copy, prompts v3.2)
 
-> Part 4 of the Self Improvement Project package. **Routine name:**
-> `self-improvement failsafe wake` · **cadence:** `0 */2 * * *` (even hours
-> :00 — the substrate-kit seat's existing slot in the gen-3 lane stagger;
-> manager reads at :30) · fires into the persistent coordinator session
-> (default self-bind). **Provenance:** v1 · 2026-07-11, owner restructure
-> directive 2026-07-11 — replaces the slice-1 v0 placeholder; the seat is a
-> rename of the substrate-kit seat (source package @ `1dea86d`), whose
-> Q-0265 failsafe re-arm was ALREADY due (the old pre-Q-0265 standing wake
-> is still what's armed). Per registry doctrine the trigger prompt block
-> below is deliberately NOT version-stamped in-band (byte-checkable against
-> `list_triggers`).
->
-> **Deployed state (2026-07-11): NOT ARMED as a failsafe.** Still armed
-> (last committed registry state — re-verify via `list_triggers` before
-> acting): `trig_016EfUawz6KxEYqUM6f1BqDw` — "substrate-kit 2-hourly
-> standing wake" (the OLD pre-Q-0265 standing wake, not a dead-man
-> failsafe).
->
-> **Cutover recipe (rides the seat's next boot — coordinator-prompt.md BOOT
-> step 2, rebind-then-delete):** create THIS trigger first, verify via
-> `list_triggers` (the registry is the proof — never wait for the first
-> fire), THEN delete the old standing wake and verify it absent. Record
-> every call + outcome verbatim in `control/status.md`. If the seat's
-> surface walls the calls: record the verbatim denial and hand the owner
-> this block (name + cadence + prompt) via the owner-queue.
+> **GENERATED COPY — NOT SOURCE OF TRUTH.** This registry copy is GENERATED FROM
+> the v3 home: **docs/prompts/v3/ is the source of truth** (generation v3.2,
+> stateless, D-9). Edit the v3 sources and regenerate — never this file.
+> Version lineage: v2 (2026-07-12) supersedes the pre-rebuild registry copy
+> in projects/self-improvement/ (last synced by the 2026-07-11 restructure).
+> Body below the marker wraps the seat-filled A step-3a FAILSAFE WAKE text
+> (D-2 single source) with this seat's name + D-7 stagger-table cron.
 
-## The prompt (create_trigger `prompt` field, verbatim)
+<!-- registry-header-end -->
+# Self Improvement — failsafe cron (dead-man wake, Q-0265)
+
+- **Routine name:** `Self Improvement failsafe wake`
+- **cron:** `0 */2 * * *` — slot per the v3.2 stagger table
+  (docs/prompts/v3/per-project/README.md, canonical home D-7; the fleet manager
+  arbitrates slots — a foreign trigger on the slot is reported, never
+  re-slotted; this table supersedes any cron previously recorded in this file)
+- **binding:** persistent — fires into the live coordinator session
+  (self-bind). After EVERY arming call verify trigger + binding via
+  `list_triggers` before writing "armed" — never wait for a first fire
+  (completed runs are not inspectable owner-side).
+
+## Prompt text (create_trigger `prompt`, EXACTLY — single-sourced from docs/prompts/v3/universal-startup.md step 3a, D-2)
 
 ```
-FAILSAFE WAKE (self-improvement, Q-0265): if your send_later continuation
-chain is alive, verify that in one line and end. If it stalled, resume the
-work loop: sync menno420/substrate-kit to origin/main HEAD →
-control/inbox.md at HEAD → slice after slice, each its own PR on the full
-quality bar (pytest + check --strict + dist byte-pin + ruff) — kit
-development and fleet distribution only; never a lane's domain work
-(Q-0261.3) — and re-arm the chain (~15 min) before ending. Overwrite
-control/status.md as the deliberate last step.
+FAILSAFE WAKE (Self Improvement, Q-0265): send_later chain alive → verify in one line, end. Stalled → resume the work loop (sync HEAD → inbox → slice after slice, landed per LANDING), re-arm the chain (~15 min), and write your heartbeat (control/status.md, per-seat grammar) as the deliberate last step.
 ```
 
-## create_trigger args (recipe)
+## Cutover (A step 4 — rebind-then-delete)
 
-- `name`: `self-improvement failsafe wake`
-- `cron_expression`: `0 */2 * * *`
-- target: this (persistent coordinator) session — default self-bind; do NOT
-  set `create_new_session_on_fire`
-- `prompt`: the fenced block above, verbatim
-- After creating: verify via `list_triggers`, then retire the old standing
-  wake `trig_016EfUawz6KxEYqUM6f1BqDw` (delete + verify absent) and record
-  all calls verbatim in the heartbeat.
+Create + verify the NEW failsafe first, then delete the old id and verify it
+absent. NO trigger ids are baked here (STATELESS, D-9) — find old ids in:
+the kit heartbeat's routine block; the kit-lab DAILY is an owner BUSINESS cron — KEEP (kill-switch: docs/operations/lab-loop.md); plus ids the heartbeat marks left-for-successor. `list_triggers` is
+ACCOUNT-WIDE (paginate to exhaustion) — delete ONLY an id those records
+attribute to THIS seat, binding audit-verified; unattributable = a sibling's:
+record, never delete. A BUSINESS cron (a scheduled deliverable) is rebound,
+never dropped.
