@@ -658,21 +658,19 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
     - Blocking: not-blocking (seat is dormant — no failsafe armed); blocks
       only the final MATRIX regen follow-up.
 
-38. **Railway GitHub App — grant repo access to `superbot-mineverse`** *(new
-    2026-07-12, owner-live session).*
+38. **✅ STRUCK 2026-07-12 (same session) — item was INVALID: the Railway
+    GitHub App has had "All repositories" access all along** (owner
+    screenshot of the installation page; unchanged since install).
    - id: OQ-RAILWAY-APP-MINEVERSE
-    - WHERE: https://github.com/settings/installations → Railway → Repository
-      access → add `menno420/superbot-mineverse`.
-    - HOW: two clicks (Configure → select repo → Save).
-    - UNBLOCKS: merge=deploy for the mineverse web host — GitHub-triggered
-      builds currently FAIL instantly (no build log; the app can't read the
-      repo). Today's deploy was a one-shot CLI upload from the owner-live
-      session; pushes to main will NOT auto-deploy until this click.
-    - VERIFIED-NEEDED: 4 instant deployment FAILs 2026-07-12 15:57Z with empty
-      build logs (repo-fetch failure signature); the app installation surface
-      is owner-only.
-    - Blocking: not-blocking today (CLI deploy live), but the site drifts from
-      main until clicked.
+    - The instant build failures that seeded this item were mis-attributed:
+      they were the missing Dockerfile (a pre-Dockerfile CLI upload failed
+      identically; both paths succeeded once mineverse #44 added it).
+      Merge=deploy is LIVE-VERIFIED: Railway auto-built #44's merge commit
+      `ac312e8` at 16:50:00Z — one minute after the merge, no click needed.
+    - Lesson recorded (capabilities.md rescue-venue section): an instant
+      BUILD_IMAGE failure with an empty log means "no buildable app
+      detected", NOT "repo unreadable" — check the tree for a build recipe
+      before blaming app access.
 
 ### (F) New intake 2026-07-12 (owner-live session) — decisions, no rush
 
@@ -699,9 +697,17 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
 - **mineverse web host ✅ (the non-portal 4/6 of OQ-MINEVERSE-ENV-VARS)** —
   Railway project `superbot-mineverse` created, `web` service deployed
   read-only degraded at `https://web-production-97636.up.railway.app` (CLI
-  one-shot; see OQ-RAILWAY-APP-MINEVERSE for the auto-deploy click), 3 vars
+  one-shot; auto-deploy verified working same day — item 38 struck), 3 vars
   set (signing key · redirect URI · client id). Remainder split: 2 portal
   steps stay owner (item 17), the write pair stays agent-side (FLAG 2).
+- **mineverse sign-in: OWNER PORTAL STEPS COMPLETE ✅ (evening, same day)** —
+  the owner registered the redirect URI (proven: Discord's consent screen
+  renders on /auth/login) after the OAuth-app reuse (item 17 update). The
+  first live sign-in then failed at token exchange — root-caused to
+  discord.com/Cloudflare 403ing urllib's default User-Agent (valid
+  id+secret; curl UA 200 vs python UA 403 on the same endpoint) — fixed in
+  mineverse PR #45 (UA header + server-side error logging). Nothing further
+  is owner-side for sign-in; #45's merge auto-deploys and the owner retries.
 - **roster-freshness BRIDGED ✅** — `fleet roster regen bridge`
   (`trig_011LrFY1k5cUHRYH6zwTvPvn`, `50 */2 * * *`, fleet-manager env,
   fresh-session) lands parked roster PRs + refreshes the triggers snapshot;
