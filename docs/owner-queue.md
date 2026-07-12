@@ -163,6 +163,18 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
     - Blocking: not-blocking (manager wakes still regen the roster; the
       freshness checker alarms at >4h), but this click removes the last
       manager-wake dependence — the whole point of P1.
+    - **BRIDGED 2026-07-12 (owner-live session):** a CCR routine now lands the
+      parked roster PRs — `fleet roster regen bridge` trigger
+      `trig_011LrFY1k5cUHRYH6zwTvPvn`, cron `50 */2 * * *`, fresh session in
+      the fleet-manager environment; it also refreshes the triggers snapshot
+      each fire (something Actions can't do) and **self-retires** (deletes its
+      own trigger) once it observes a roster-regen Actions run whose PR-create
+      step succeeded — i.e. once this click lands. The click is still wanted
+      (free, permanent, removes the bridge's token cost) but no longer blocks
+      roster freshness. Direct API toggle was re-attempted from the owner-live
+      session 2026-07-12: the agent proxy walls ALL `/actions/*` admin paths
+      (verbatim: "Access to this GitHub Actions path is not permitted through
+      this proxy") — confirmed owner-only from any agent venue.
 
 ### (C) Claude platform (console / environments / sessions / Codex)
 
@@ -247,20 +259,31 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       today ("live-NL leg owner-key-gated"). API keys are owner-only.
     - Blocking: blocks band-7's live-NL leg only.
 
-17. **superbot-mineverse — provision six host env vars.**
+17. **superbot-mineverse — REDUCED 2026-07-12 to TWO Discord-portal steps
+    (was: six host env vars).** *(Owner-live session executed the rest.)*
     - id: OQ-MINEVERSE-ENV-VARS
-    - WHAT: `DISCORD_OAUTH_CLIENT_ID`, `DISCORD_OAUTH_CLIENT_SECRET`,
-      `OAUTH_REDIRECT_URI`, `WEB_SESSION_SIGNING_KEY`, `MINING_WRITE_ENDPOINT`,
-      `MINING_WRITE_SHARED_SECRET`.
-    - WHERE: host runtime env + Discord Developer Portal (not CI).
-    - HOW: create the Discord OAuth app values in the Developer Portal; set all
-      six in the host runtime. The site runs degraded read-only meanwhile (130
-      tests pass with zero vars).
-    - UNBLOCKS: player sign-in; with the write pair + bot-lane FLAG 2,
+    - DONE agent-side 2026-07-12 (owner-live, owner-approved): the web host
+      now EXISTS — Railway project `superbot-mineverse`, service `web`,
+      domain `https://web-production-97636.up.railway.app`, start command
+      `python3 server/app.py`, deployed read-only degraded (by design). THREE
+      of the six vars are set: `WEB_SESSION_SIGNING_KEY` (fresh random),
+      `OAUTH_REDIRECT_URI`
+      (`https://web-production-97636.up.railway.app/auth/callback`),
+      `DISCORD_OAUTH_CLIENT_ID` (the production Discord app's id).
+    - WHAT remains OWNER (Discord Developer Portal, one sitting):
+      (1) copy the app's **OAuth2 client secret** → set as
+      `DISCORD_OAUTH_CLIENT_SECRET` on the Railway `web` service;
+      (2) on the same portal screen, **register the redirect URI**
+      `https://web-production-97636.up.railway.app/auth/callback` in
+      OAuth2 → Redirects (must byte-equal the env var).
+    - WHAT remains AGENT (not owner — do NOT park on the queue): the write
+      pair `MINING_WRITE_ENDPOINT` + `MINING_WRITE_SHARED_SECRET` waits on
+      superbot bot-lane **FLAG 2** (the HMAC write endpoint,
+      mineverse control/status.md spec) — routed to the superbot lane.
+    - UNBLOCKS: (owner half) player sign-in on the live host; (agent half)
       test-guild write mode.
-    - VERIFIED-NEEDED: control/status.md@`4be012e` ⚑ OWNER-ACTION 1.
-      Credentials are owner-only.
-    - Blocking: blocks player sign-in only; site otherwise functional.
+    - VERIFIED-NEEDED: portal secrets are genuinely owner-only (no API path).
+    - Blocking: blocks player sign-in only; the site is otherwise live.
 
 18. **superbot-plugin-hello — say the seed-push word (LIVE OWNER WORD, not a
     click).**
@@ -651,6 +674,55 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       archived-ready".
     - Blocking: not-blocking (seat is dormant — no failsafe armed); blocks
       only the final MATRIX regen follow-up.
+
+38. **Railway GitHub App — grant repo access to `superbot-mineverse`** *(new
+    2026-07-12, owner-live session).*
+   - id: OQ-RAILWAY-APP-MINEVERSE
+    - WHERE: https://github.com/settings/installations → Railway → Repository
+      access → add `menno420/superbot-mineverse`.
+    - HOW: two clicks (Configure → select repo → Save).
+    - UNBLOCKS: merge=deploy for the mineverse web host — GitHub-triggered
+      builds currently FAIL instantly (no build log; the app can't read the
+      repo). Today's deploy was a one-shot CLI upload from the owner-live
+      session; pushes to main will NOT auto-deploy until this click.
+    - VERIFIED-NEEDED: 4 instant deployment FAILs 2026-07-12 15:57Z with empty
+      build logs (repo-fetch failure signature); the app installation surface
+      is owner-only.
+    - Blocking: not-blocking today (CLI deploy live), but the site drifts from
+      main until clicked.
+
+### (F) New intake 2026-07-12 (owner-live session) — decisions, no rush
+
+39. **Railway project duplication — websites services exist in BOTH
+    `reliable-grace` (live: review-production-f027, superbot-app) and
+    `superbot-websites` (parallel copy, has `control-plane`).**
+   - id: OQ-RAILWAY-PROJECT-SPLIT
+    - WHAT: decide the canonical home. RECOMMENDATION: **freeze until the
+      2026-07-14 EAP window closes** (the Anthropic email links the
+      reliable-grace URLs — do not move/rename them this week), then have the
+      Websites seat consolidate into `superbot-websites` and retire the
+      duplicates. `ANTHROPIC_API_KEY` was set on BOTH review services
+      2026-07-12 so either path works.
+    - WHERE/HOW: one word to the manager (inbox ORDER) after 07-14.
+    - Blocking: nothing; a drift hazard if both sets keep deploying.
+
+## Resolved 2026-07-12 (owner-live session — Railway/API executed directly)
+
+- **websites `ANTHROPIC_API_KEY` ✅** — set on the LIVE review service
+  (`reliable-grace`/review, serving review-production-f027; owner-approved,
+  service redeployed 2026-07-12 ~16:0xZ) AND on the parallel
+  `superbot-websites`/review service. The websites-order (ORDER 019) B-section
+  blocker is pre-cleared; the on-site AI assistant has its key.
+- **mineverse web host ✅ (the non-portal 4/6 of OQ-MINEVERSE-ENV-VARS)** —
+  Railway project `superbot-mineverse` created, `web` service deployed
+  read-only degraded at `https://web-production-97636.up.railway.app` (CLI
+  one-shot; see OQ-RAILWAY-APP-MINEVERSE for the auto-deploy click), 3 vars
+  set (signing key · redirect URI · client id). Remainder split: 2 portal
+  steps stay owner (item 17), the write pair stays agent-side (FLAG 2).
+- **roster-freshness BRIDGED ✅** — `fleet roster regen bridge`
+  (`trig_011LrFY1k5cUHRYH6zwTvPvn`, `50 */2 * * *`, fleet-manager env,
+  fresh-session) lands parked roster PRs + refreshes the triggers snapshot;
+  self-retires when OQ-FM-ACTIONS-PR-PERMISSION lands.
 
 ## Resolved 2026-07-11 (P3 curation sweep, ~20:1xZ — every state below re-verified LIVE per PR, Q-0120)
 
