@@ -270,12 +270,18 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       `OAUTH_REDIRECT_URI`
       (`https://web-production-97636.up.railway.app/auth/callback`),
       `DISCORD_OAUTH_CLIENT_ID` (the production Discord app's id).
-    - WHAT remains OWNER (Discord Developer Portal, one sitting):
-      (1) copy the app's **OAuth2 client secret** → set as
-      `DISCORD_OAUTH_CLIENT_SECRET` on the Railway `web` service;
-      (2) on the same portal screen, **register the redirect URI**
-      `https://web-production-97636.up.railway.app/auth/callback` in
-      OAuth2 → Redirects (must byte-equal the env var).
+    - UPDATE 2026-07-12 (same session, owner-decided): the client-secret half
+      is DONE — the owner chose to **reuse the superbot-dashboard's Discord
+      app** (id `1403818430758654132`; its id+secret copied from the
+      `reliable-grace`/dashboard service, mineverse `web` redeployed,
+      `/api/me` now reports `auth_configured: true`). Note: the sign-in
+      consent screen shows the dashboard app's name/icon (rename in the
+      portal if wanted — cosmetic only).
+    - WHAT remains OWNER (Discord Developer Portal, ONE click):
+      on app `1403818430758654132` → OAuth2 → Redirects, **add**
+      `https://web-production-97636.up.railway.app/auth/callback` as a
+      second redirect (the dashboard's existing one stays; must byte-equal
+      the env var).
     - WHAT remains AGENT (not owner — do NOT park on the queue): the write
       pair `MINING_WRITE_ENDPOINT` + `MINING_WRITE_SHARED_SECRET` waits on
       superbot bot-lane **FLAG 2** (the HMAC write endpoint,
