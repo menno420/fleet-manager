@@ -42,6 +42,10 @@ auto-merge armed**. Deliverables 2–3 follow on this branch after the plan doc.
   already-satisfied; (3) provenance line now states explicitly that
   #121's v1.1 deltas targeted the `docs/prompts/v3/` sources + regen,
   never the generated copies — already the v3.4 method.
+- **Codex round 2** (on `b3a38ba`): 5/5 findings verified real and
+  applied — fm CI intake path `docs/` prefix restored, wall-staleness
+  exception mirrored into all 8 startups, B#40–42 range fixed,
+  seat-digest re-synced, registry restamped to the true source commit.
 
 💡 Session idea: **codex re-poke queue** — fleet-manager should keep a
 small "codex re-request when usage resets" list (PR + date) in

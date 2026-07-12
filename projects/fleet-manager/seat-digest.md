@@ -14,7 +14,7 @@
 > (enforced by seat_digest_sync.py --check). Fix drift at the source and
 > re-run --sync; never edit this file, never merge content back by hand.
 > Sources at last sync:
-> - menno420/fleet-manager/docs/seat-digest.md · sha256 f6215eeced1d · venues=autonomous-project,any
+> - menno420/fleet-manager/docs/seat-digest.md · sha256 10565e4c8d8f · venues=autonomous-project,any
 
 <!-- registry-header-end -->
 ## menno420/fleet-manager — docs/seat-digest.md
@@ -44,6 +44,7 @@ Full index (grounds + capabilities): `docs/SKILLS.md` — the source this block 
 - `any` · **`api.github.com` direct HTTP**: blocked → GitHub access is MCP-tools-only.
 - `any` · **Environment / Project creation**: owner-click actions in the console — queue them as structured owner asks, never wait silently. Routine/schedule creation…
 - `any` · **GraphQL API quota**: tight — batch queries and prefer the REST-backed MCP tools for bulk reads.
+- `autonomous-project` · **Non-author merge on relayed/dispatched authority = DENIED; denial class quoted: "cross-session permission laundering"** (fm PR #113 landing attempt,…
 
 Full ledger (all venues, evidence, freshness): `docs/CAPABILITIES.md` — the seat-local source of truth; append findings THERE, never here.
 <!-- substrate-kit:walls-digest END -->
