@@ -768,3 +768,35 @@ done-when: the check runs automatically each wake AND re-playing the 2026-07-12 
 snapshot (venture-lab failsafe frozen 06:06, kit-lab loop frozen 06:08, 9 dropped
 one-shots) surfaces every one as WEDGED/DROPPED/DEAD in a single wake, with a
 send_message recovery attempted the same cycle.
+
+## ORDER 021 · 2026-07-12T17:25Z · status: new
+priority: P2 (after ORDER 019's time-sensitive workstreams)
+owner: Websites seat
+provenance: owner live directive 2026-07-12 (owner-live superbot session, delivered on his
+behalf): "there should be a place on the control website that shows all the links of our own
+websites and websites we have active business"
+do: Build a **web-presence directory** on the control-plane site: one page that lists every
+fleet web surface with a link, one-line purpose, and live health. Source it from a COMMITTED
+registry file (JSON or md table — your call; agent-updatable by PR, rendered at request time)
+so the page is a single source of truth, never hand-maintained HTML. Three sections:
+(1) **Our sites** — seed with the verified 2026-07-12 inventory: review-production-f027
+(public program review, the Anthropic-email link) · web-production-97636 (mineverse, Games
+flagship) · superbot-app (botsite) · superbot-dashboard (Discord-gated) · control-plane-
+production-abb0 (owner console) + the three parallel copies dashboard-production-a91b /
+botsite-production-cfd7 / review-production-fc91 (label these DUPLICATES pending
+OQ-RAILWAY-PROJECT-SPLIT consolidation — do not present as distinct products).
+(2) **External business surfaces** — empty at launch but first-class: Gumroad/Lemon Squeezy
+listings, itch.io pages, published articles, GitHub Releases, as they go live (venture-lab's
+three products + Lumen Drift + games-web are each one owner click away — list them as
+"pending publish" rows with what unblocks each).
+(3) **Health** — reuse the existing readiness/probe machinery (the control-plane already
+probes services) for a per-row live/degraded/down badge with an as-of stamp; never fabricate
+liveness (arcade-registry precedent: a dead link renders as an honest status note, not a
+button).
+why: the owner's recurring pain is "what is live and where do I find it" — today an owner-live
+session had to reconstruct the inventory from the Railway API by hand. The fleet has 8+ public
+surfaces and a growing external footprint; a self-maintaining directory ends the question.
+done-when: the directory page is live on the control-plane behind the existing gate (plus a
+public variant if trivially safe — links only, no secrets), rendered from the committed
+registry, seeded with the section-1 inventory above, health badges honest, and a status report
+lands in control/status.md naming the registry path so other seats know where to add rows.
