@@ -53,3 +53,26 @@ recovery, no trigger edits, no seat notifications.
 - **Unattributable legacy superbot triggers recorded, not deleted** — old
   superbot-console routines (dispatch / night executor / docs reconciliation)
   predate the fleet lane naming; left untouched per the verify-only order.
+
+## 💡 Session idea
+
+Add an advisory (never-red) tier to `check_trigger_health.py`: report
+enabled-absent cron records whose `next_run_at` is > grace in the past and
+whose `ended_reason` is empty (the exact shape of
+`trig_011XAWqPeksS8LBrS5G9RvVc`). Per API semantics these are user-paused —
+correct to not FAIL — but the class is invisible today, and an export that
+ever dropped the `enabled` field would silently pass I1. One `[ADVISORY]`
+line per record costs nothing and makes the blind spot self-announcing.
+
+## ⟲ Previous-session review
+
+The ORDER 020 session (PR #133) shipped a genuinely solid checker — the
+capture-instant eval ladder and the replay proof against the mid-incident
+snapshot were exactly right. What it missed: it encoded "absent `enabled` =>
+disabled" (gen_roster.py:96) without recording that 917/941 real records
+lack the field — so the dominant branch of the predicate was undocumented
+and untested against a real export until this wake's anomaly check. System
+improvement: when a schema comment declares a default for an optional field,
+also record the field's observed frequency in the live data (one line in
+telemetry/README.md), so the next agent knows which branch actually carries
+the load.
