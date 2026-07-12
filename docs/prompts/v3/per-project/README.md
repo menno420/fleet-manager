@@ -329,7 +329,8 @@ seat's lane, not a v3.1 prompt defect; only their fleet-prompt shadows
 ## v3.4 changelog — prompt-currency restamp (2026-07-12, same day as v3.3)
 
 **Source:** the prompt-currency audit
-(`docs/research/2026-07-12-prompt-currency-audit.md`, PR #118 lane) — its §4
+(`docs/research/2026-07-12-prompt-currency-audit.md`, PR #118 — since merged
+to main, `d38bafb`) — its §4
 table is the authoritative delta list (16 deltas: 2 P0 · 11 P1 · 3 P2). v3.3
 went stale within ~5 hours of landing (four seats' merge lines contradicted by
 same-day enabler merges + two P0 defects in the park-green entry itself).
@@ -415,8 +416,10 @@ precedent). **Deferred:** #2 pacemaker queue-behind-busy-session doctrine
 (platform-behavior claim, not verifiable against repo state from this seat);
 #3 WAIT-FOR-BASE pre-build pattern (seat-local workflow pattern, evidence
 lives in gba session records — v3.5 candidate); #7 archive checklist
-trigger-disarm rule (durable home is the consolidation plan/playbook, PR #121
-still a proposal awaiting owner sign-off).
+trigger-disarm rule (durable home is the consolidation plan/playbook; #121 has
+since merged to main and is superseded by
+`docs/planning/2026-07-12-repo-consolidation-plan.md`, which carries that
+checklist).
 
 **Registry:** every projects/<seat>/ artifact re-synced and version-bumped by
 one (fm v6/v6/v6 · websites v6/v5/v5 · venture-lab v5/v6/v5 · the other five

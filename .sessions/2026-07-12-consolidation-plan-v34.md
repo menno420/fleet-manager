@@ -46,6 +46,13 @@ auto-merge armed**. Deliverables 2–3 follow on this branch after the plan doc.
   applied — fm CI intake path `docs/` prefix restored, wall-staleness
   exception mirrored into all 8 startups, B#40–42 range fixed,
   seat-digest re-synced, registry restamped to the true source commit.
+- **Landed + merged-state follow-up**: a parallel merge-back (`fda3182`)
+  carried R26 into the branch and the owner merged PR #122 to main
+  (2026-07-12 19:49Z, `8f92faa`). This docs-only follow-up records the
+  merged state the plan's text predated: #118 merged (`d38bafb`), #121
+  merged (`b127b98`, not closed) with a supersession pointer added to its
+  proposal doc, and the v3.4 changelog's "#121 still a proposal" note
+  updated.
 
 💡 Session idea: **codex re-poke queue** — fleet-manager should keep a
 small "codex re-request when usage resets" list (PR + date) in
