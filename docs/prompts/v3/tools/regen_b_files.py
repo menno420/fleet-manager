@@ -13,17 +13,17 @@ writes each per-project/<seat>-startup.md with a stamped header carrying the
 real wc -c of the paste body, and prints the budget table for
 per-project/README.md. Fitted target 7,500 / hard cap 8,000 per file.
 
-Provenance: prompts v3.1 build (fleet-manager PR #103); A commit stamped in
-A_COMMIT below — update it when A changes.
+Provenance: prompts v3.1 build (fleet-manager PR #103); each B header carries
+the sha1 of the A body it was generated from (computed at regen time).
 """
 
+import hashlib
 import re
 import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 V3 = HERE.parent
-A_COMMIT = "08c86fa"  # universal-startup.md (A v3.1) source commit — update on every A edit
 DATE = "2026-07-12"
 
 FITTED = 7500
@@ -34,6 +34,12 @@ def a_body() -> str:
     text = (V3 / "universal-startup.md").read_text()
     m = re.search(r"^v3\.1 · 2026-07-12 · universal startup.*", text, re.M)
     return text[m.start():].rstrip("\n") + "\n"
+
+
+def a_stamp() -> str:
+    """Content stamp of the A paste body (sha1, first 12 hex) — computed at regen
+    time so the stamp can never lag the file the way a commit sha would."""
+    return hashlib.sha1(a_body().encode()).hexdigest()[:12]
 
 
 SLOT_RE = re.compile(r"\{\{([A-Za-z_]+)[^}]*\}\}", re.S)
@@ -65,7 +71,7 @@ def build(seat: dict) -> str:
     status = "fitted" if n <= FITTED else (f"over fitted by {n - FITTED}, under hard — flagged" if n <= HARD else f"OVER HARD by {n - HARD} — MUST TRIM")
     header = (
         "> **Status:** `reference`\n\n"
-        f"<!-- v3.1 · {DATE} · GENERATED from ../universal-startup.md (A v3.1 @ {A_COMMIT}) by tools/regen_b_files.py — every byte outside the slot fills + the FIRST WORK ORDERS insert is A-verbatim; hand-edits are FORBIDDEN (drift class D-1, PR #100): edit A or the seat config, then regenerate. Canonical FAILSAFE WAKE + PACEMAKER text: A steps 3a/3b (D-2/D-3). Cron slot: per-project/README.md stagger table (D-7). -->\n"
+        f"<!-- v3.1 · {DATE} · GENERATED from ../universal-startup.md (A v3.1, body sha1 {a_stamp()}) by tools/regen_b_files.py — every byte outside the slot fills + the FIRST WORK ORDERS insert is A-verbatim; hand-edits are FORBIDDEN (drift class D-1, PR #100): edit A or the seat config, then regenerate. Canonical FAILSAFE WAKE + PACEMAKER text: A steps 3a/3b (D-2/D-3). Cron slot: per-project/README.md stagger table (D-7). -->\n"
         f"<!-- char-count: {n:,} chars = the paste body below this comment block (headers excluded; computed by the regen script) · budget ≤7,500 fitted / 8,000 hard · {status} -->\n"
         f"<!-- provenance: v3.0 seat draft (research PRs #93/#95 + census PRs #94/#96 + owner baseline 2026-07-11) + QA fixes applied from PRs #100/#101/#102: {seat['fixes']} -->\n\n"
     )

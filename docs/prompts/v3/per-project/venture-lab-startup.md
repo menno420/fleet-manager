@@ -1,6 +1,6 @@
 > **Status:** `reference`
 
-<!-- v3.1 · 2026-07-12 · GENERATED from ../universal-startup.md (A v3.1 @ 08c86fa) by tools/regen_b_files.py — every byte outside the slot fills + the FIRST WORK ORDERS insert is A-verbatim; hand-edits are FORBIDDEN (drift class D-1, PR #100): edit A or the seat config, then regenerate. Canonical FAILSAFE WAKE + PACEMAKER text: A steps 3a/3b (D-2/D-3). Cron slot: per-project/README.md stagger table (D-7). -->
+<!-- v3.1 · 2026-07-12 · GENERATED from ../universal-startup.md (A v3.1, body sha1 6fcdac7e0291) by tools/regen_b_files.py — every byte outside the slot fills + the FIRST WORK ORDERS insert is A-verbatim; hand-edits are FORBIDDEN (drift class D-1, PR #100): edit A or the seat config, then regenerate. Canonical FAILSAFE WAKE + PACEMAKER text: A steps 3a/3b (D-2/D-3). Cron slot: per-project/README.md stagger table (D-7). -->
 <!-- char-count: 8,000 chars = the paste body below this comment block (headers excluded; computed by the regen script) · budget ≤7,500 fitted / 8,000 hard · over fitted by 500, under hard — flagged -->
 <!-- provenance: v3.0 seat draft (research PRs #93/#95 + census PRs #94/#96 + owner baseline 2026-07-11) + QA fixes applied from PRs #100/#101/#102: boot-sim VL-1 (disposition grammar; #58 CLOSED) / VL-2 (enabler proven #59/#60) / VL-3 (rebind = create-new→verify→delete-old) / VL-4 (#65) / VL-5 / VL-6 (trading heartbeat stale) / VL-7 (via A); replay C-2 resolution in seat C -->
 

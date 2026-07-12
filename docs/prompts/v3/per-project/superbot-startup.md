@@ -1,6 +1,6 @@
 > **Status:** `reference`
 
-<!-- v3.1 · 2026-07-12 · GENERATED from ../universal-startup.md (A v3.1 @ 08c86fa) by tools/regen_b_files.py — every byte outside the slot fills + the FIRST WORK ORDERS insert is A-verbatim; hand-edits are FORBIDDEN (drift class D-1, PR #100): edit A or the seat config, then regenerate. Canonical FAILSAFE WAKE + PACEMAKER text: A steps 3a/3b (D-2/D-3). Cron slot: per-project/README.md stagger table (D-7). -->
+<!-- v3.1 · 2026-07-12 · GENERATED from ../universal-startup.md (A v3.1, body sha1 6fcdac7e0291) by tools/regen_b_files.py — every byte outside the slot fills + the FIRST WORK ORDERS insert is A-verbatim; hand-edits are FORBIDDEN (drift class D-1, PR #100): edit A or the seat config, then regenerate. Canonical FAILSAFE WAKE + PACEMAKER text: A steps 3a/3b (D-2/D-3). Cron slot: per-project/README.md stagger table (D-7). -->
 <!-- char-count: 7,958 chars = the paste body below this comment block (headers excluded; computed by the regen script) · budget ≤7,500 fitted / 8,000 hard · over fitted by 458, under hard — flagged -->
 <!-- provenance: v3.0 seat draft (research PRs #93/#95 + census PRs #94/#96 + owner baseline 2026-07-11) + QA fixes applied from PRs #100/#101/#102: boot-sim SB-1 (tiebreak in seat C WALLS) / SB-2 (done via status.md; inbox manager-owned) / SB-3 / SB-4 (F2 verify-first) / SB-5; question-rounds P0 Q-0213 brake + Q-0241 scope -->
 
