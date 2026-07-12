@@ -23,6 +23,37 @@
 | [`external-review-opus-2026-07-09.md`](external-review-opus-2026-07-09.md) | Independent doctrine-comparison review prompt (gen-2 vs. superbot original), owner-run in a normal Opus session | ✅ HANDED TO OWNER 2026-07-09, results pending |
 | [`external-review-sonnet-2026-07-09.md`](external-review-sonnet-2026-07-09.md) | Independent wind-down claims audit prompt (succession packages vs. git evidence), owner-run in a normal Sonnet session | ✅ HANDED TO OWNER 2026-07-09, results pending |
 
+## v3 (gen-2 blueprint) prompt drafts — dated successors, 2026-07-12
+
+The v3 generation (provenance: research PRs #93/#95, problem census PRs #94/#96,
+owner baseline 2026-07-11) lives under [`v3/`](v3/per-project/README.md), drafted
+2026-07-12, **not yet deployed**:
+
+- **Universal artifacts:** [`v3/universal-startup.md`](v3/universal-startup.md)
+  (artifact A), [`v3/custom-instructions-core.md`](v3/custom-instructions-core.md)
+  (artifact C core), [`v3/session-ender.md`](v3/session-ender.md) (artifact D).
+- **Per-seat files** (plan + status: [`v3/per-project/README.md`](v3/per-project/README.md)):
+  [`fleet-manager-startup.md`](v3/per-project/fleet-manager-startup.md) ·
+  [`fleet-manager-custom-instructions.md`](v3/per-project/fleet-manager-custom-instructions.md) ·
+  [`superbot-startup.md`](v3/per-project/superbot-startup.md) ·
+  [`superbot-custom-instructions.md`](v3/per-project/superbot-custom-instructions.md) ·
+  [`websites-startup.md`](v3/per-project/websites-startup.md) ·
+  [`websites-custom-instructions.md`](v3/per-project/websites-custom-instructions.md) ·
+  [`self-improvement-startup.md`](v3/per-project/self-improvement-startup.md) ·
+  [`self-improvement-custom-instructions.md`](v3/per-project/self-improvement-custom-instructions.md) ·
+  [`superbot-world-startup.md`](v3/per-project/superbot-world-startup.md) ·
+  [`superbot-world-custom-instructions.md`](v3/per-project/superbot-world-custom-instructions.md) ·
+  [`game-lab-startup.md`](v3/per-project/game-lab-startup.md) ·
+  [`game-lab-custom-instructions.md`](v3/per-project/game-lab-custom-instructions.md) ·
+  [`ideas-lab-startup.md`](v3/per-project/ideas-lab-startup.md) ·
+  [`ideas-lab-custom-instructions.md`](v3/per-project/ideas-lab-custom-instructions.md) ·
+  [`venture-lab-startup.md`](v3/per-project/venture-lab-startup.md) ·
+  [`venture-lab-custom-instructions.md`](v3/per-project/venture-lab-custom-instructions.md).
+- **Owner baseline 2026-07-11** (verbatim owner-pasted deployed prompts the v3
+  drafts inherit from — never edit their paste bodies):
+  [`baseline-2026-07-11/game-lab.md`](baseline-2026-07-11/game-lab.md) ·
+  [`baseline-2026-07-11/websites.md`](baseline-2026-07-11/websites.md).
+
 ## Conventions this ledger records
 
 - **Custom Instructions** blocks live in each claude.ai Project's settings
