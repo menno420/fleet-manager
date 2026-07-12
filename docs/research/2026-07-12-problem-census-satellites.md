@@ -1,6 +1,6 @@
 # Problem census — satellite repos (2026-07-12)
 
-> **Status:** `complete` — dated snapshot (census night 2026-07-11→12); repos move on, verify against HEAD before acting.
+> **Status:** `historical` — dated snapshot (census night 2026-07-11→12); repos move on, verify against HEAD before acting.
 
 > **Date:** 2026-07-12
 > **Author:** fleet-manager research worker (overnight program: regression-proof startup prompts)
