@@ -254,7 +254,7 @@ Concrete frictions the merged seat prompt must absorb:
 4. **`.claude/` asymmetry.** Only mineverse commits CLAUDE.md + settings.json hooks (pinned to `/usr/bin/python3.10`); games/idle have none. Session behavior (hooks, orientation) silently changes depending on which repo the seat cd's into — and mineverse's CLAUDE.md is factually wrong about its own architecture.
 5. **Claims conventions.** games uses `control/claims/<branch>.md` (currently 5 stale post-merge), idle used control/claims (cleaned), mineverse "control/claims/ contains only its README". Merged seat needs one claims dir + a terminal-state sweep rule.
 6. **Both dormant repos disarmed their wake loops with re-arm recipes in different places** (idle: status.md ROUTINE RECORD; mineverse: heartbeat notes + retro) — the merged seat prompt must point to both re-arm specs, or the seat wakes blind.
-7. **Cross-repo dependency direction:** mineverse's FLAG 1/2 target the superbot bot lane, games' persistence waits on superbot-next D-0043 — the merged seat will carry inter-repo blocks it cannot clear itself; needs an explicit "externally-blocked ≠ actionable" list.
+7. **Cross-repo dependency direction:** mineverse's FLAG 1/2 target the superbot bot lane, games' persistence waits on a superbot-next games-persistence decision (id stamped at its one fleet-manager home, the superbot-world custom instructions in `docs/prompts/v3/per-project/`) — the merged seat will carry inter-repo blocks it cannot clear itself; needs an explicit "externally-blocked ≠ actionable" list.
 
 #### Top regression risks (this slice)
 1. **Mineverse login-CSRF fix (PR #42) rots unmerged** — repo archived, routines disarmed, auto-merge skipped its branch, heartbeat unaware; if the owner provisions the six OAuth secrets first, sign-in goes live vulnerable.
@@ -593,7 +593,7 @@ Prompt must say:
 Instructions must encode:
 - One canonical heartbeat home per repo, with the archived per-lane status files explicitly marked history; one claims dir + terminal-state sweep rule.
 - Both dormant repos' re-arm recipes (idle status.md RE-ARM SPEC; mineverse heartbeat/retro notes); verify via list_triggers after arming.
-- An explicit "externally-blocked ≠ actionable" list (mineverse FLAGs 1/2 → superbot bot lane; games persistence → superbot-next D-0043).
+- An explicit "externally-blocked ≠ actionable" list (mineverse FLAGs 1/2 → superbot bot lane; games persistence → the superbot-next games-persistence decision, id at its stamp home in `docs/prompts/v3/per-project/superbot-world-custom-instructions.md`).
 
 Not promptable (owner/tooling): six OAuth env vars; enabler's `claude/*`-only filter; merge queue; pytest-required repo-settings click; scheduler-tool seat availability; the model-line vs no-id-in-artifacts ruling; transfer-policy source model decision.
 
