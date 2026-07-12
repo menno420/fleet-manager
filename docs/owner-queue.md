@@ -828,14 +828,14 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       a live session, or a comment on the plan branch.
     - HOW: say "contradiction: A" (or B). Full reasoning: plan § "⚠ First
       structured choice" (the click surface is here; the reasoning is there).
-    - UNBLOCKS: the whole Phase 2/3 set below rides this framing — B#42–42
+    - UNBLOCKS: the whole Phase 2/3 set below rides this framing — B#40–42
       read their letter from here; the rest of the plan assumes A.
     - VERIFIED-NEEDED: both contradicting instructions are on record (plan
       § cites the 2026-07-10 ruling's home at superbot
       `docs/ideas/adopt-codetool-lab-tools-2026-07-10.md`).
     - RISK: ↩️ A is fully reversible (unarchive toggle) · ⚠️ B is
       destructive — hence the written-override + cooling-off rail.
-    - Blocking: blocks B#42–42 (the archive clicks) and sequences E#45/E#46.
+    - Blocking: blocks B#40–42 (the archive clicks) and sequences E#45/E#46.
 
 45. **Consolidation Phase 2.1 — cfgdiff v0.1.1 (codetool-lab-sonnet5):
     release it before the archive?** *(new 2026-07-12, consolidation plan
