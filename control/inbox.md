@@ -720,3 +720,51 @@ cse_012o8pySy5K3AV6JWoPKryZL):
   re-arm follow-up (registry-verbatim stored prompts NOT edited);
   owner-queue items 13 + 15 refreshed; projects/README.md paste-wave
   registry updated to v2/v3-bodies-only.
+
+## ORDER 019 · 2026-07-12T16:10Z · status: new
+priority: P1 — time-sensitive (Anthropic EAP review window through Tue 2026-07-14)
+owner: Websites seat (route via the manager's next dispatch; the owner-live superbot
+session delivered this order on the owner's behalf — owner-queue item 5 of the
+2026-07-12 fleet-drive log)
+do: Refresh + upgrade the public program-review site
+(`https://review-production-f027.up.railway.app`) per the FULL order at superbot
+`docs/owner/websites-review-site-order-2026-07-12.md` (read it raw from superbot main —
+the "ORDER (paste-in)" block is the executable body). Four workstreams: **(A)** refresh
+ALL data to 2026-07-12 (the scheduler incident, 15→8 seat consolidation, live counts
+with as-of stamps, every claim → a public commit, fix the daily auto-refresh);
+**(B)** enable the live on-site AI review/interaction assistant (server-side key, Ask +
+Review modes, evidence-grounded only, rate-limit + spend cap);
+**(C)** rebuild the homepage (one-line what-this-is, key-stats row, 3–5 finding cards,
+AI panel, "how this site is organized" map); **(D)** accuracy + polish pass.
+PRE-CLEARED: the one owner secret the order anticipated is ALREADY SET — the owner-live
+2026-07-12 session provisioned `ANTHROPIC_API_KEY` on BOTH review services (the live
+`reliable-grace`/review serving review-production-f027, redeployed same hour, AND the
+parallel `superbot-websites`/review). Do NOT re-flag it; build against it.
+why: the second Anthropic email (sent 2026-07-12 13:24Z) links this site as the evidence
+home; reviewers click it this week. Its data is a 07-11 snapshot and the AI promise isn't
+live yet.
+done-when: live URL shows 07-12 data + the incident + 8-seat fleet page; the AI panel
+answers grounded questions on the public site; homepage leads with the findings; a status
+report lands in control/status.md with model choice, rate-limit and spend-cap values.
+
+## ORDER 020 · 2026-07-12T16:10Z · status: new
+priority: P1 — reliability (closes the 2026-07-12 silent-outage detection gap)
+owner: fleet-manager (the manager itself — fold into the wake ritual / gen_roster.py)
+do: Add a per-wake trigger-health check per the FULL order at superbot
+`docs/owner/trigger-health-order-2026-07-12.md` (the fenced ORDER block is the executable
+body). Each wake: read list_triggers (all pages); flag WEDGED crons
+(`enabled ∧ next_run_at < now − 15min`); flag DROPPED one-shots (past `run_once_at`,
+still enabled); flag DEAD chains (dropped one-shot + no future tick); recover dark seats
+via send_message (the only working cross-session revival path — org policy blocks
+cross-session trigger calls); treat a stale docs/roster.md as the regen cron itself
+wedged (flag loudly). Keep health output on the roster (Actions substrate) so the
+watchdog's record survives a CCR scheduler outage. Do NOT re-edit .claude/settings.json
+for recovery-tool prompts (Q-0242 — the allowlist provably doesn't hold; recovery runs
+in Routine-spawned sessions whose spawn-time session_context carries the grants).
+why: 2026-07-12 ~02:30–08:00Z the scheduler degraded silently — 9 dropped one-shots, 2
+wedged crons, two seats dark ~6h. Everything needed to catch it was in list_triggers all
+night; nothing was watching. Detection signature verified against the incident registry.
+done-when: the check runs automatically each wake AND re-playing the 2026-07-12 registry
+snapshot (venture-lab failsafe frozen 06:06, kit-lab loop frozen 06:08, 9 dropped
+one-shots) surfaces every one as WEDGED/DROPPED/DEAD in a single wake, with a
+send_message recovery attempted the same cycle.
