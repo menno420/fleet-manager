@@ -1,136 +1,135 @@
 > **Status:** `reference`
 
-<!-- v3.0-draft · 2026-07-12 · provenance: research PRs #93/#95 + owner baseline 2026-07-11 -->
-<!-- char-count: 10,857 chars = this whole file at draft, before the Status-badge hygiene line above (added 2026-07-12; planning doc, no paste budget applies) -->
+<!-- v3.1 · 2026-07-12 · provenance: v3.0 plan (research PRs #93/#95 + owner baseline 2026-07-11) + the v3.1 QA-fix build (QA PRs #100 incident-replay / #101 question-rounds / #102 boot-sim; applied in PR #103) -->
+<!-- char-count: planning doc, no paste budget applies -->
 
-# Per-project prompts (artifact B + seat CI blocks) — phase-2 plan
+# Per-project prompts (artifact B + seat C blocks) — v3.1
 
-Phase 2 writes, per seat: **`<seat>-startup.md`** (artifact B = `../universal-startup.md`
-verbatim + the seat delta: identity/repos/heartbeat home, 2–5 hard rails, volatile
-cutover slots — old trigger ids marked "expect X, or later" — cron stagger, and
-sequenced FIRST WORK ORDERS each with a done-when) and **`<seat>-custom-instructions.md`**
-(the seat block per `../custom-instructions-core.md`, ≤ ~1,383 chars fitted).
-Budget: B = A (~5.5k) + delta ≤ ~7,500 pasteable.
+v3.1 composition (supersedes the v3.0 hand-drafting recipe): every
+**`<seat>-startup.md`** (artifact B) is **GENERATED** from `../universal-startup.md`
+(A) by **`../tools/regen_b_files.py`** — slot fills + a FIRST WORK ORDERS insert
++ ONE scripted transform (A's self-referential "Unfilled {{slots}}" sentence is
+dropped from every B — in a generated B every slot is filled) are the only
+non-A-verbatim bytes; everything else is A-verbatim, and each B header
+carries the sha1 of the A body it was generated from. **Never hand-edit a B
+file** (drift class D-1, PR #100): edit A or the seat config in the script,
+then rerun it. Each **`<seat>-custom-instructions.md`** carries the seat C
+block; CONTROL BUS is core-owned in v3.1 (D-4 retired) — a seat block only
+supplies the `{{STATUS_GRAMMAR}}` fill declared in its header.
 
-## Census inputs — AVAILABLE (write B against them, not from memory)
+## Census inputs — AVAILABLE (write against them, not from memory)
 
-- **Core census — PR #94**, branch `claude/research-census-core` @ `5fa812f`,
-  `docs/research/2026-07-12-problem-census-core.md` (superbot, superbot-next,
-  websites, substrate-kit, fleet-manager, product-forge).
-- **Satellite census — PR #96**, branch `claude/research-census-sat` @ `1daa81f`,
-  `docs/research/2026-07-12-problem-census-satellites.md` (superbot-games, superbot-idle,
-  superbot-mineverse, gba-homebrew, pokemon-mod-lab, venture-lab, trading-strategy,
-  idea-engine, sim-lab, superbot-plugin-hello, codetool labs).
+- **Core census — PR #94**, `docs/research/2026-07-12-problem-census-core.md`.
+- **Satellite census — PR #96**, `docs/research/2026-07-12-problem-census-satellites.md`.
+- **QA audits (v3.1's fix source): PRs #100/#101/#102**,
+  `docs/research/2026-07-12-qa-{incident-replay,question-rounds,boot-simulation}.md`.
 
-Both are dated snapshots — re-verify volatile facts at HEAD before baking any
-into a prompt (and per map #13, bake state as read-at-HEAD steps, not facts).
+All are dated snapshots — the v3.1 grammar for every baked specific is
+**"verify at boot; expected X as of 2026-07-12, or later"** (boot-sim class b).
 
-## The 8 seats (owner restructure 2026-07-11, `projects/README.md` @ `claude/restructure-roster` f3e2dc4)
+## The 8 seats (owner restructure 2026-07-11)
 
-| # | Seat | Repos folded | Phase-2 files | Census findings that feed it |
-|---|---|---|---|---|
-| 1 | **Fleet Manager** | fleet-manager | `fleet-manager-startup.md` + `-custom-instructions.md` | Core §fleet-manager: roster-freshness time-bomb (gen #10 stuck on `bot/roster-regen`, Actions-PR wall → blocking red on every `claude/*` PR); no CLAUDE.md/`.claude/` on main (settings port parked in PR #92); seat-in-handover state. |
-| 2 | **SuperBot 2.0** | superbot + superbot-next | `superbot-startup.md` + `-custom-instructions.md` (drafter's simpler slug adopted — integrator 2026-07-12) | Core §superbot (heartbeat asserts superseded facts w/o `verified-against:` stamps; 79 KB orientation payload) + §superbot-next (no `.claude/CLAUDE.md` at HEAD — fresh session loads nothing; wake loop disarmed; stale OWNER-ACTION asking for an already-existing repo). |
-| 3 | **Websites** | websites | `websites-startup.md` + `-custom-instructions.md` | Core §websites: review-bake cron dies daily on the Actions-PR wall; baked stats stranded on `bake/*` branches (undeletable, 403); deliberately-parked STALE state. Baseline prompt: `../../baseline-2026-07-11/websites.md` (fresh-session-per-fire shape — B here is the wake-routine prompt + CI carries the durable context). |
-| 4 | **Self Improvement** | substrate-kit | `self-improvement-startup.md` + `-custom-instructions.md` | Core §substrate-kit: adopter registry blind to ≥3 (likely 5) vendored adopters; "v1.12.1 distribution COMPLETE" false fleet-wide; substrate-gate false-green bug live downstream; kit-template root cause of the missing-CLAUDE.md class. |
-| 5 | **SuperBot World** | superbot-games + superbot-idle + superbot-mineverse (flagship: mineverse) | `superbot-world-startup.md` + `-custom-instructions.md` | Sat §SuperBot World: games heartbeat instructs owner to merge 5 already-merged PRs + 5 phantom claim files at HEAD; mineverse "IN FLIGHT: (none)" while green security PR #42 sits unmerged; idle genuinely dormant/FRESH. |
-| 6 | **Game Lab** | gba-homebrew + pokemon-mod-lab (standalone; Track B PRIVATE) | `game-lab-startup.md` + `-custom-instructions.md` | Sat §Game Lab: both FRESH; track-isolation hard rail + R22 private-visibility check carry over from the owner baseline `../../baseline-2026-07-11/game-lab.md` (the persistent-coordinator style baseline). |
-| 7 | **Ideas Lab** | idea-engine + sim-lab (+ the superbot-plugin-hello DEAD-empty-repo finding) | `ideas-lab-startup.md` + `-custom-instructions.md` | Sat §Ideas Lab: idea-engine CI gate exits 2 at HEAD (merge gate broken, unfiled); sim-lab FRESH (11 verdicts finalized); plugin-hello: zero commits ever — second leg of a handoff never fired. |
-| 8 | **Venture Lab** | venture-lab + trading-strategy (research-only) | `venture-lab-startup.md` + `-custom-instructions.md` | Sat §Venture Lab: venture-lab committed heartbeat declares ARCHIVE-READY at `e7e5c9f` while HEAD is `296a1a9` with 3 post-archive PRs; trading FRESH (marginal), open succession PR #64; money protocol rail (D1 LESSON: never claim a payment path works without executing it). |
+Unchanged from v3.0: Fleet Manager · SuperBot 2.0 (superbot + superbot-next) ·
+Websites · Self Improvement (substrate-kit) · SuperBot World (games + idle +
+mineverse) · Game Lab (gba-homebrew + pokemon-mod-lab) · Ideas Lab
+(idea-engine + sim-lab) · Venture Lab (venture-lab + trading-strategy).
 
-## Not seats (do not write B files for these)
+**Not seats:** product-forge (⚑ awaits owner disposition; if seated it becomes
+seat 9 via this same recipe — stagger slot below), codetool-lab-* (DARK),
+superbot-plugin-hello (helper, folded into SuperBot 2.0's F1).
 
-- ⚑ **product-forge** — awaits owner disposition (spec §8 flag; not in the 8-seat
-  list). Core census §product-forge findings (dead CLAUDE.md pointer, dark inbox)
-  are PARKED here until the owner rules; if seated, it becomes seat 9 via this
-  same recipe.
-- **codetool-lab-{opus4.8,sonnet5,fable5}** — DARK, wound down 2026-07-09/10;
-  succession material only (sat census §codetool).
-- **superbot-plugin-hello** — helper repo, folded into Ideas Lab's findings.
+## v3.1 budget table (real counts, regen-verified 2026-07-12; FILLED values)
 
-## Phase-2 checklist (per seat)
+Hard caps: startup ≤ 8,000 · assembled CI ≤ 8,000 — **all 20 within hard**.
+**Assembled CI is counted with `{{SEAT_NAME}}` + `{{STATUS_GRAMMAR}}` FILLED**
+(Codex PR #103 review: the raw-placeholder count under-measured every paste by
+the fill delta and let 3 seats silently exceed 8,000 — never count a paste
+with placeholders in it). Fitted target 7,500: the universal artifacts fit;
+**every B file and assembled CI runs over fitted, flagged in its header** —
+the QA fix volume (12 P0s, 3 BLOCKERs, 12 contradictions) does not fit under
+7,500 without dropping safety rules, and the mission ranks safety over the
+fitted target.
 
-1. Fill A's slots from the seat row above + the seat's census section; every
-   volatile fact (trigger ids, PR numbers, HEAD shas) marked "expect X, or later".
-2. Write FIRST WORK ORDERS in kit ORDER grammar (sequenced, one named executor,
-   concrete done-when) — the top items come straight from the census findings column.
-3. Write the seat CI block within the measured budget (`../custom-instructions-core.md`
-   arithmetic); re-measure the assembled paste with `wc -c` ≤ 7,500.
-4. Stamp both files `v3.0-draft · <date>` + char-count line, same convention as
-   the universal artifacts.
+| Artifact | Chars | vs fitted 7,500 / hard 8,000 |
+|---|---:|---|
+| A universal-startup (body) | 6,373 | n/a (template; skeleton budget ≤ ~6,600) |
+| C universal core (CORE-START/END) | 6,996 raw · 6,992–7,031 filled per seat | seat-block hard budget = 8,000 − FILLED core |
+| D session-ender (body) | 3,411 | chat paste — console cap n/a; over its ~2,000 prose budget BY DESIGN (P0 ender fixes), flagged in-file |
+| Seat | Startup B | Seat block C | Assembled CI (filled core + block) | Status |
+| fleet-manager | 7,796 | 975 | 7,972 | under hard, over fitted — flagged |
+| superbot | 7,993 | 984 | 7,994 | under hard, over fitted — flagged |
+| websites | 7,967 | 951 | 7,943 | under hard, over fitted — flagged |
+| self-improvement | 7,958 | 992 | 7,992 | under hard, over fitted — flagged |
+| superbot-world | 7,966 | 966 | 7,997 | under hard, over fitted — flagged |
+| game-lab | 7,997 | 971 | 7,984 | under hard, over fitted — flagged |
+| ideas-lab | 7,952 | 980 | 7,992 | under hard, over fitted — flagged |
+| venture-lab | 7,998 | 990 | 7,998 | under hard, over fitted — flagged |
 
-## Phase-2 status — DRAFTED + INTEGRATED (v3.0-draft, 2026-07-12)
+The v3.0 constant "core 6,117" is RETIRED (D-8); the single source for the
+core figure is this table + the core file's own markers, restated at every
+core edit.
 
-All 16 files (8 seats × startup B + custom-instructions C seat block) are in this
-directory, audited and reconciled by the integrator on 2026-07-12. Char counts are
-real `wc -c` of the paste body (headers excluded), verified against each file's
-declared char-count line. Assembled = universal core 6,117 + seat block.
-
-| Seat | Startup B | Seat block C | Assembled CI | Status |
-|---|---:|---:|---:|---|
-| fleet-manager | 7,497 | 1,382 | 7,499 | drafted v3.0-draft, fitted |
-| superbot | 7,500 | 1,380 | 7,497 | drafted v3.0-draft, fitted |
-| websites | 7,497 | 1,381 | 7,498 | drafted v3.0-draft, fitted |
-| self-improvement | 7,485 | 1,381 | 7,498 | drafted v3.0-draft, fitted |
-| superbot-world | 7,431 | 1,380 | 7,497 | drafted v3.0-draft, fitted |
-| game-lab | 7,498 | 1,382 | 7,499 | drafted v3.0-draft, fitted |
-| ideas-lab | 7,498 | 1,383 | 7,500 | drafted v3.0-draft, fitted |
-| venture-lab | 7,398 | 1,607 | 7,724 | drafted v3.0-draft; startup fitted after integrator trim (was 7,986); seat block over fitted by 224, under 1,883 hard — every census must-encode item retained, flagged in-file |
-
-Hard caps: startup ≤8,000 · assembled CI ≤8,000 — **all 16 within hard**; fitted
-targets startup ≤7,500 · seat block ≈1,383.
-
-**A-line inheritance note:** the 8 B files embed the pre-edit A@`1915599`. On
-2026-07-12 the integrator added one LANDING sentence to `../universal-startup.md`
-(founding-brief-vs-relay dispatch rule, fm PR #99 evidence; A body now 5,868c) —
-the B files predate that line and inherit it at the next regen; do NOT retrofit
-it by hand.
-
-## Failsafe cron stagger table (no collisions, verified 2026-07-12)
+## Failsafe cron stagger table (canonical home — D-7; the manager arbitrates)
 
 | Seat | cron | Slot | Provenance |
 |---|---|---|---|
-| self-improvement | `0 */2 * * *` | even hours :00 | proposed (integrator-harmonized) |
-| game-lab | `15 */2 * * *` | even hours :15 | **baseline kept** (`../../baseline-2026-07-11/game-lab.md`) |
-| fleet-manager | `30 */2 * * *` | even hours :30 | **census-verified** (core census §fleet-manager, trig_01BKpsyoBzp1K1ob9H3iu1gM per parked #97) |
-| websites | `45 */2 * * *` | even hours :45 | **baseline kept** (`../../baseline-2026-07-11/websites.md`) |
-| superbot | `0 1-23/2 * * *` | odd hours :00 | proposed (integrator-harmonized) |
-| superbot-world | `15 1-23/2 * * *` | odd hours :15 | proposed (integrator-harmonized) |
-| ideas-lab | `30 1-23/2 * * *` | odd hours :30 | proposed (integrator-harmonized) |
-| venture-lab | `45 1-23/2 * * *` | odd hours :45 | proposed (integrator-harmonized) |
+| self-improvement | `0 */2 * * *` | even :00 | v3.0, kept |
+| game-lab | `15 */2 * * *` | even :15 | baseline kept |
+| fleet-manager | `30 */2 * * *` | even :30 | census-verified |
+| websites | `45 */2 * * *` | even :45 | baseline kept |
+| superbot | `0 1-23/2 * * *` | odd :00 | v3.0, kept |
+| superbot-world | `15 1-23/2 * * *` | odd :15 | v3.0, kept |
+| ideas-lab | `30 1-23/2 * * *` | odd :30 | v3.0, kept |
+| venture-lab | `45 1-23/2 * * *` | odd :45 | v3.0, kept |
 
-Every seat wakes every 2 hours; no two seats share a minute-slot in the same hour
-parity. The manager's :30 even slot is the fan-in read point the lanes stagger
-around. Venture-lab's kept grading trigger (`0 9 * * 5`, trig_015aNMg5ncoSE2Roe4MKjQnr)
-does not collide (Friday 09:00, rebind-per-F2).
+Seat-9+ slots: `5/20/35/50` past the hour (even parity first). **The fleet
+manager is the slot arbiter** — a seat NEVER re-slots itself; a foreign trigger
+on your slot is reported in status, and slot changes are a registry edit here
+(question-rounds R5-Q5). Known transients until cutovers complete (replay C-9):
+the pre-merge gba/pml hourly wakes fire at :00/:30 every hour (Game Lab's
+cutover deletes them), and the old ideas-lab failsafe (`0 */2`) squats the
+self-improvement slot (Ideas Lab's cutover deletes it). Venture-lab's grading
+BUSINESS cron (`0 9 * * 5`) does not collide. Trigger-delete ownership
+tiebreak: retro-games trig_01Y99uDKNtKTz2EtRYPWZkGY belongs to **Game Lab's**
+cutover; the fm delete list defers it (C-9's double-assignment resolved).
 
-## KNOWN DEFECTS → v3.1 queue (consolidated from the 8 drafter flags, 2026-07-12)
+## v3.0 KNOWN DEFECTS queue — v3.1 disposition
 
-1. **A body over budget** — 5,467c at draft (now 5,868c after the LANDING addition)
-   vs the ~5,000 §6 target; squeezes every seat delta, worst for dual/tri-repo
-   seats (venture-lab, superbot-world had to compress A recap lines).
-2. **A BOOT-1 orientation path hardcoded but dead in ≥4 repos** —
-   `.claude/CLAUDE.md → docs/current-state.md → docs/CAPABILITIES.md` should
-   become a `{{ORIENTATION_PATH}}` slot (fleet-manager, superbot-next, and others
-   have no CLAUDE.md at HEAD; seats patch around it via SEAT DELTA blocks).
-3. **A lacks a `{{FIRST_WORK_ORDERS}}` slot** — this README mandates the section;
-   all 8 drafters inserted it between BOOT and WORK LOOP. Canonize that placement
-   as an explicit slot in A at next regen.
-4. **A BOOT-3 inbox read needs "in EACH repo"** for multi-repo seats (venture-lab,
-   superbot-world, ideas-lab, game-lab each patched it locally).
-5. **A BOOT-1 "(green expected)" clashes with expected-red seats** — fleet-manager
-   (roster-freshness red), superbot-next (golden-parity red-by-design), and the
-   substrate-gate born-red class; seats scoped it via EXPECTED-RED blocks.
-6. **PACEMAKER "before ending ANY turn" wording** can be read against the
-   session-ender's never-re-arm rule; needs an A-side "(the ender alone closes
-   the chain)" clause.
-7. **census-core vs census-sat conflict on pokemon-mod-lab required checks** —
-   drafters resolved via "read the LIVE required-check set"; carry that resolution
-   into v3.1 rather than either census figure.
-8. **Ledger §2.7 "enabler in 3/13 lanes" figure stale vs census** — mineverse has
-   the enabler at HEAD; re-count at next ledger pass.
-9. **One HYPOTHESIS rides in superbot C** — settings-grants-cause-self-arm-success
-   (platform-capabilities §2.5 marks it unproven); keep the HYPOTHESIS marker until
-   proven or retired.
-10. **trading MCP squash-on-green is encoded as precedent, not guarantee**
-    ("every merge to date") — do not harden it into a rule without fresh evidence.
+1. A over budget → **restructured**: A carries procedures; riders moved to the
+   core (division-of-labor note in A's header); A body 6,496.
+2. BOOT-1 orientation path hardcoded/dead → **fixed**: `{{ORIENTATION_PATH}}`
+   slot + universal dead-pointer rule (skip, note, continue).
+3. Missing FIRST_WORK_ORDERS slot → **fixed**: canonical insert point in the
+   regen script (between BOOT and WORK LOOP).
+4. BOOT-3 per-repo inbox read → **fixed**: "READ THE BATON, in EACH repo"
+   (now also reads control/status.md — the succession baton, T7).
+5. "(green expected)" vs expected-red seats → **fixed**: `{{EXPECTED_RED}}`
+   slot; red outside the set = first slice.
+6. PACEMAKER vs ender never-re-arm → **fixed** in A step 3b (ender exception,
+   canonical, all 9 copies regenerated; C-5/D-3 retired).
+7. pokemon-mod-lab required-check conflict → **carried**: game-lab W2 reads
+   the LIVE required set (probe-PR fallback, GL-2).
+8. Stale "enabler in 3/13 lanes" figure → superseded by per-seat merge notes
+   specializing the core LANDING DOCTRINE.
+9. superbot settings-grant HYPOTHESIS → **kept**, HYPOTHESIS-marked, now
+   bounded by the doctrine's ONE-attempt rule (C-3 resolved).
+10. trading squash precedent-not-guarantee → **fixed**: named a repo-local
+    sole exception, ONE attempt, retired on first denial, never transfers
+    (C-2 resolved).
+
+## v3.1 residuals (not applied, with reasons)
+
+- Question-rounds P2 "budget directive" and "rate-limit classify" are applied
+  (core riders); P2 "calibration" applied (A). No P0/P1 rows were dropped.
+- Incident-replay MEDIUM leftovers not encodable under the caps: I-38
+  orientation-sprawl root cause (a superbot-repo docs problem, not a prompt
+  line), I-44 CAPABILITIES/capabilities case-duplicate (repo cleanup, routed
+  to the fm seat's sweep), I-58's remaining auto-merge race classes
+  (trailing-commit race, GraphQL rate-limit, disarm false-success — need
+  fresh evidence before prompting), I-66 subscription no-green-event note
+  (partially covered by TOKEN BUDGET park-don't-poll), I-72 dry-backlog →
+  disarm-ask conversion (owner-policy question, router material).
+- Owner-queue gaps from PR #100 (I-37 websites toggle, I-43 env-teardown
+  auto-disable, I-52 venture #51 HOT, I-55 gba/trading required-check clicks,
+  I-67 routines email pack) are OWNER-QUEUE work, not prompt text — left for
+  the fleet-manager seat's QUEUE SWEEP (its W2 already re-verifies asks).
