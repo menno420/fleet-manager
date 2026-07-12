@@ -1,6 +1,6 @@
 # 2026-07-12 — merge-on-green: permanent landing path for READY claude/* PRs
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 📊 Model: fable-5
 
@@ -28,3 +28,32 @@ refuse (never merge ungated); `--match-head-commit` pins the verified
 SHA so a race push can't land unverified; born-red interplay intact —
 substrate-gate stays red until the session card flips `complete`, so
 nothing lands early by design.
+
+## What happened
+
+Shipped `.github/workflows/merge-on-green.yml` (PR #146): sweep on
+check_suite/workflow_run completion + PR readiness/label events; verify
+every required context (`substrate-gate`, `freshness`) on the head SHA
+is completed+success; squash-merge with GITHUB_TOKEN pinned to the
+verified SHA. Verified: YAML parses, embedded python compiles,
+`bootstrap.py check --strict` shows only the designed born-red hold.
+Sibling note: the shared checkout at /home/user/fleet-manager was
+mid-merge on branch pr143 (coordinator merge lane) — this session moved
+to an isolated git worktree instead of touching it.
+
+💡 Session idea: **fleet landing-path audit column** — add a roster
+column recording each seat repo's verified landing path (native
+auto-merge enabler / REST merge-on-green / documented owner-click), and
+a periodic audit slice that re-verifies it (does the workflow exist on
+main? did the last 3 claude/* PRs land without a human merge call?).
+Today's stall existed precisely because "how PRs land here" was nowhere
+recorded per-repo; dedup-checked docs/ideas/ + docs/roster.md — not
+previously proposed.
+
+⟲ Previous-session review: today's landing stall burned roughly an hour
+of owner attention because the seat probed the classifier PR-by-PR
+instead of shipping the structural fix first — merge-on-green should
+have been slice #2 the moment the native-auto-merge wall was confirmed.
+Workflow improvement: when a wall is confirmed structural (not
+transient), the next slice is the permanent path around it, not another
+probe of the wall.
