@@ -4,14 +4,14 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #9** · generated-at **2026-07-11T20:25Z** · by P3 lane worker (model: fable-5), dispatched by coordinator cse_012o8pySy5K3AV6JWoPKryZL (P3, fm PR #86)
+> **Generation #10** · generated-at **2026-07-11T23:32Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
 ### superbot (hub) — ⚑ needs-owner: none new hub-specific (verified against fm docs/owner-queue.md @ 7ff1f75 — the hub's owner tai…
 
 - suggested-id: `OQ-SUPERBOT-NONE-NEW-HUB-SPECIFIC`
-- source: superbot/control/status.md @ `76d854d` · heartbeat `updated:` 2026-07-11T19:45:00Z
+- source: superbot/control/status.md @ `1ecc211` · heartbeat `updated:` 2026-07-11T19:45:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -21,7 +21,7 @@
 ### superbot-next — ⚑ needs-owner: FOUR live OWNER-ACTION items below (six-field format per control/README.md) — items 2 and 3 un…
 
 - suggested-id: `OQ-SUPERBOT-NEXT-FOUR-LIVE-ITEMS-BELOW`
-- source: superbot-next/control/status.md @ `f71d60b` · heartbeat `updated:` 2026-07-11T20:20Z
+- source: superbot-next/control/status.md @ `8062e83` · heartbeat `updated:` 2026-07-11T23:10Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -31,7 +31,7 @@
 ### superbot-next — ⚑ OWNER-ACTION 2 — create the hello-plugin repo (flag 18a)
 
 - suggested-id: `OQ-SUPERBOT-NEXT-2-CREATE-HELLO-PLUGIN`
-- source: superbot-next/control/status.md @ `f71d60b` · heartbeat `updated:` 2026-07-11T20:20Z
+- source: superbot-next/control/status.md @ `8062e83` · heartbeat `updated:` 2026-07-11T23:10Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -47,7 +47,7 @@ VERIFIED-NEEDED: attempted repo-create with the integration token — GitHub ret
 ### superbot-next — ⚑ OWNER-ACTION 3 — kill the branch-update merge dance
 
 - suggested-id: `OQ-SUPERBOT-NEXT-3-KILL-BRANCH-UPDATE`
-- source: superbot-next/control/status.md @ `f71d60b` · heartbeat `updated:` 2026-07-11T20:20Z
+- source: superbot-next/control/status.md @ `8062e83` · heartbeat `updated:` 2026-07-11T23:10Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -63,7 +63,7 @@ VERIFIED-NEEDED: repo Settings/Rulesets are admin-only — agent tokens can read
 ### superbot-next — ⚑ OWNER-ACTION 4 — RETIRED 2026-07-11 (was: configure Codex for this repo — environment + code-review capacit…
 
 - suggested-id: `OQ-SUPERBOT-NEXT-4-RETIRED-2026-07`
-- source: superbot-next/control/status.md @ `f71d60b` · heartbeat `updated:` 2026-07-11T20:20Z
+- source: superbot-next/control/status.md @ `8062e83` · heartbeat `updated:` 2026-07-11T23:10Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -74,7 +74,7 @@ RESOLVED owner-side, both halves: the connector produced a FULL substantive revi
 ### superbot-next — ⚑ OWNER-ACTION 5 — provide the band-7 AI key envelope (live-NL leg)
 
 - suggested-id: `OQ-SUPERBOT-NEXT-5-PROVIDE-BAND-7`
-- source: superbot-next/control/status.md @ `f71d60b` · heartbeat `updated:` 2026-07-11T20:20Z
+- source: superbot-next/control/status.md @ `8062e83` · heartbeat `updated:` 2026-07-11T23:10Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -90,7 +90,7 @@ VERIFIED-NEEDED: verified during #151's ORDER 004 live drive — `ANTHROPIC_API_
 ### superbot-next — ⚑ OWNER-ACTION 6 — re-arm the fleet's dead failsafe routines (2026-07-11T16:31Z env-teardown fallout)
 
 - suggested-id: `OQ-SUPERBOT-NEXT-6-RE-ARM-FLEET`
-- source: superbot-next/control/status.md @ `f71d60b` · heartbeat `updated:` 2026-07-11T20:20Z
+- source: superbot-next/control/status.md @ `8062e83` · heartbeat `updated:` 2026-07-11T23:10Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -103,14 +103,17 @@ UNBLOCKS: the standing autonomous core's sibling lanes resuming their loops.
 VERIFIED-NEEDED: a platform ENV TEARDOWN at 2026-07-11T16:31Z auto-disabled scheduled triggers fleet-wide (ended_reason "auto_disabled_env_deleted" observed via list_triggers from the coordinator session); this lane self-healed its own failsafe but has no tool path to another lane's triggers — cross-lane trigger repair is owner/manager-only; owner was alerted ~2026-07-11T17:31Z; no repo evidence shows the sibling failsafes re-armed since.
 ```
 
-### substrate-kit — ⚑ FOR MANAGER (relay debts owed to the kit — refreshed at the v1.12.0-wave close):
+### substrate-kit — ⚑ FOR MANAGER (relay debts owed to the kit — refreshed at the v1.12.0-wave close; wave-B v1.12.1 items append…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-MANAGER-RELAY-DEBTS-OWED`
-- source: substrate-kit/control/status.md @ `17ac5ad` · heartbeat `updated:` 2026-07-11T19:51:53Z
+- source: substrate-kit/control/status.md @ `1a85751` · heartbeat `updated:` 2026-07-11T23:14:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-⚑ FOR MANAGER (relay debts owed to the kit — refreshed at the v1.12.0-wave close):
+⚑ FOR MANAGER (relay debts owed to the kit — refreshed at the v1.12.0-wave close; wave-B v1.12.1 items appended 2026-07-11):
+- **NEW — wave-B v1.12.1 findings (fresh items only; chronic ones re-flagged in place below):** (a) **fleet-manager has no live root CLAUDE.md** (staged only) — its working agreement never loads in a real session; (b) **fleet-manager's 3×-re-flagged lane-owed items** (heartbeat bump, owner-action-fields, orientation merge) may deserve graduation from wave-report ⚠️ noise into explicit `control/inbox` ORDERs — three consecutive waves of re-flagging shows the lane isn't picking them up from status prose; (c) **venture-lab `docs/AGENT_ORIENTATION.md` points at `.claude/CLAUDE.md` which doesn't exist live** (staged only) — 2nd consecutive wave this fired; kit-side template fix pending; (d) gba-homebrew: nothing — cleanest tree of the four.
+- **Re-flagged by wave B (chronic, already listed below, still true post-v1.12.1):** pokemon-mod-lab heartbeat `kit:` line STILL v1.6.0 — now TWO versions stale (3rd flag) · pokemon-mod-lab claims-home decision still open (root `claims/` vs `control/claims/`) · pokemon-mod-lab `automerge.required_context` still says "substrate-gate" but the real required check is "ROM builds" (re-confirmed live: the wave PR merged on "ROM builds") · fleet-manager heartbeat STILL v1.7.0 (now five versions stale) · fleet-manager owner-action-fields advisory (chronic).
+- **NEW — adopter-outcomes report shipped** (docs/reports/2026-07-11-adopter-outcomes-measurement.md, #247) — headline: before/after effect unmeasurable (9/10 adopters born-with-kit; superbot pin-only); false-claim audit near-clean (1 confirmed instance, sbn #44, self-corrected); superbot-next heartbeat kit: line still stale at v1.10.1 vs tree v1.12.0 (lane-owned, known drift class).
 - **NEW — pokemon-mod-lab lane-owed items (from the v1.6.0 → v1.12.0 catch-up, pokemon-mod-lab#43; Q-0261.3 scope, deliberately NOT done by the wave):** (a) its `control/status.md:40` heartbeat still says kit v1.6.0 — one-writer per file, the lane must bump it; (b) claims-home decision owed — legacy root `claims/` is the binding practice there vs the kit's `control/claims/`; the check advisory fires every session until the lane pins one via `substrate.config.json` → `claims_dir`; (c) its `automerge.required_context` defaults to "substrate-gate" but the repo's actual required check is **"ROM builds"** — must be fixed BEFORE its staged auto-merge enabler is ever wired live; (d) `control/README.md` classified DIVERGED — manual merge owed, delta preserved in `.substrate/upgrade-report.md` § Template deltas; (e) its heartbeat uses the bold-label `- **kit:** vX` form the kit's KIT_LINE_RE doesn't parse (kit-side grammar follow-up idea filed on the #232 session card).
 - **heartbeat `kit:`-line bump OWNERSHIP question (wave-report inconsistency)** — still open: the wave records disagree about who owes the post-upgrade heartbeat bump (websites bumped its `kit:` line in-lane on the wave PR itself and scanned clean at the #207 regen; every other adopter's bump is recorded as "lane-owed" and chronically lags 1–3 releases — the registry's whole recurring self-report DRIFT class). The manager should rule which seat owns the post-wave `kit:`-line bump — the wave-upgrade PR itself (websites' shape) vs each lane's next wake — so the drift class ends fleet-wide instead of regenerating as ⚠️ noise every wave. The pokemon-mod-lab item (a) above is the newest instance.
 - **superbot-next origin/main was force-pushed mid-wave** (the v1.10.x window) — flagged, not touched by any kit-seat session; their lane owns the history reconcile.
@@ -121,7 +124,7 @@ VERIFIED-NEEDED: a platform ENV TEARDOWN at 2026-07-11T16:31Z auto-disabled sche
 ### substrate-kit — ⚑ needs-owner: thirteen open items (items 2–12 carried verbatim — ordinals kept stable so cross-references ho…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-THIRTEEN-OPEN-ITEMS-ITEMS`
-- source: substrate-kit/control/status.md @ `17ac5ad` · heartbeat `updated:` 2026-07-11T19:51:53Z
+- source: substrate-kit/control/status.md @ `1a85751` · heartbeat `updated:` 2026-07-11T23:14:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -131,7 +134,7 @@ VERIFIED-NEEDED: a platform ENV TEARDOWN at 2026-07-11T16:31Z auto-disabled sche
 ### substrate-kit — ⚑ OWNER-ACTION 15 — T5 v3 probe re-shape — pin PR #238 awaits your ratification (do-not-automerge by design; …
 
 - suggested-id: `OQ-SUBSTRATE-KIT-15-T5-V3-PROBE`
-- source: substrate-kit/control/status.md @ `17ac5ad` · heartbeat `updated:` 2026-07-11T19:51:53Z
+- source: substrate-kit/control/status.md @ `1a85751` · heartbeat `updated:` 2026-07-11T23:14:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -147,7 +150,7 @@ VERIFIED-NEEDED: pin-path law (§5.0, check_bench_integrity rule 1): the lab nev
 ### substrate-kit — ⚑ OWNER-ACTION 14 — rubric §3 T5 v2 alignment — pin PR #220 awaits your ratification (do-not-automerge by des…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-14-RUBRIC-3-T5`
-- source: substrate-kit/control/status.md @ `17ac5ad` · heartbeat `updated:` 2026-07-11T19:51:53Z
+- source: substrate-kit/control/status.md @ `1a85751` · heartbeat `updated:` 2026-07-11T23:14:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -164,7 +167,7 @@ VERIFIED-NEEDED: pin-path law (§5.0, check_bench_integrity rule 1): the lab nev
 ### substrate-kit — ⚑ OWNER-ACTION 2 — P10 required-check swap
 
 - suggested-id: `OQ-SUBSTRATE-KIT-2-P10-REQUIRED-CHECK`
-- source: substrate-kit/control/status.md @ `17ac5ad` · heartbeat `updated:` 2026-07-11T19:51:53Z
+- source: substrate-kit/control/status.md @ `1a85751` · heartbeat `updated:` 2026-07-11T23:14:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -180,7 +183,7 @@ VERIFIED-NEEDED: no agent path to rulesets — direct api.github.com is 403 thro
 ### substrate-kit — ⚑ OWNER-ACTION 3 — P4 arm the daily lab loop
 
 - suggested-id: `OQ-SUBSTRATE-KIT-3-P4-ARM-DAILY`
-- source: substrate-kit/control/status.md @ `17ac5ad` · heartbeat `updated:` 2026-07-11T19:51:53Z
+- source: substrate-kit/control/status.md @ `1a85751` · heartbeat `updated:` 2026-07-11T23:14:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -198,7 +201,7 @@ VERIFIED-NEEDED: the console Schedules pane is owner UI — routine/schedule cre
 ### substrate-kit — ⚑ OWNER-ACTION 4 — P5 create Railway project kit-lab
 
 - suggested-id: `OQ-SUBSTRATE-KIT-4-P5-CREATE-RAILWAY`
-- source: substrate-kit/control/status.md @ `17ac5ad` · heartbeat `updated:` 2026-07-11T19:51:53Z
+- source: substrate-kit/control/status.md @ `1a85751` · heartbeat `updated:` 2026-07-11T23:14:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -214,7 +217,7 @@ VERIFIED-NEEDED: Railway project creation is owner console UI, and the ambient-I
 ### substrate-kit — ⚑ OWNER-ACTION 5 — P8 confirm MIT
 
 - suggested-id: `OQ-SUBSTRATE-KIT-5-P8-CONFIRM-MIT`
-- source: substrate-kit/control/status.md @ `17ac5ad` · heartbeat `updated:` 2026-07-11T19:51:53Z
+- source: substrate-kit/control/status.md @ `1a85751` · heartbeat `updated:` 2026-07-11T23:14:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -230,7 +233,7 @@ VERIFIED-NEEDED: a license choice is a legal/product decision — owner judgment
 ### substrate-kit — ⚑ OWNER-ACTION 6 — P11 public flip OR P13 read-only PAT (pick one)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-6-P11-PUBLIC-FLIP`
-- source: substrate-kit/control/status.md @ `17ac5ad` · heartbeat `updated:` 2026-07-11T19:51:53Z
+- source: substrate-kit/control/status.md @ `1a85751` · heartbeat `updated:` 2026-07-11T23:14:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -246,7 +249,7 @@ VERIFIED-NEEDED: repo visibility and credential minting are account-owner surfac
 ### substrate-kit — ⚑ OWNER-ACTION 7 — superbot upgrade decision
 
 - suggested-id: `OQ-SUBSTRATE-KIT-7-SUPERBOT-UPGRADE-DECISION`
-- source: substrate-kit/control/status.md @ `17ac5ad` · heartbeat `updated:` 2026-07-11T19:51:53Z
+- source: substrate-kit/control/status.md @ `1a85751` · heartbeat `updated:` 2026-07-11T23:14:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -262,7 +265,7 @@ VERIFIED-NEEDED: the pin is a recorded owner decision (docs/adopters.md: "the v1
 ### substrate-kit — ⚑ OWNER-ACTION 8 — web-environment setup script paste
 
 - suggested-id: `OQ-SUBSTRATE-KIT-8-WEB-ENVIRONMENT-SETUP`
-- source: substrate-kit/control/status.md @ `17ac5ad` · heartbeat `updated:` 2026-07-11T19:51:53Z
+- source: substrate-kit/control/status.md @ `1a85751` · heartbeat `updated:` 2026-07-11T23:14:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -279,7 +282,7 @@ VERIFIED-NEEDED: the environment settings dialog is owner-only console UI (docs/
 ### substrate-kit — ⚑ OWNER-ACTION 9 — (informational, low priority) optional self-merge permission rule
 
 - suggested-id: `OQ-SUBSTRATE-KIT-9-INFORMATIONAL-LOW-PRIORITY`
-- source: substrate-kit/control/status.md @ `17ac5ad` · heartbeat `updated:` 2026-07-11T19:51:53Z
+- source: substrate-kit/control/status.md @ `1a85751` · heartbeat `updated:` 2026-07-11T23:14:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -295,7 +298,7 @@ VERIFIED-NEEDED: the classifier denial is verbatim in docs/CAPABILITIES.md (2026
 ### substrate-kit — ⚑ OWNER-ACTION 10 — branch cleanup (lowest priority)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-10-BRANCH-CLEANUP-LOWEST`
-- source: substrate-kit/control/status.md @ `17ac5ad` · heartbeat `updated:` 2026-07-11T19:51:53Z
+- source: substrate-kit/control/status.md @ `1a85751` · heartbeat `updated:` 2026-07-11T23:14:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -311,7 +314,7 @@ VERIFIED-NEEDED: branch deletion is 403 on EVERY agent path (git push :branch 40
 ### substrate-kit — ⚑ OWNER-ACTION 11 — enable "automatically update branches" (closes the auto-merge behind-stall)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-11-ENABLE-AUTOMATICALLY-UPDATE`
-- source: substrate-kit/control/status.md @ `17ac5ad` · heartbeat `updated:` 2026-07-11T19:51:53Z
+- source: substrate-kit/control/status.md @ `1a85751` · heartbeat `updated:` 2026-07-11T23:14:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -327,7 +330,7 @@ VERIFIED-NEEDED: repo General settings are owner-only UI; no agent path to toggl
 ### substrate-kit — ⚑ OWNER-ACTION 12 — route the websites ORDER 005 fleet relay
 
 - suggested-id: `OQ-SUBSTRATE-KIT-12-ROUTE-WEBSITES-ORDER`
-- source: substrate-kit/control/status.md @ `17ac5ad` · heartbeat `updated:` 2026-07-11T19:51:53Z
+- source: substrate-kit/control/status.md @ `1a85751` · heartbeat `updated:` 2026-07-11T23:14:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -343,7 +346,7 @@ VERIFIED-NEEDED: cross-repo write to `menno420/websites` is out of this session'
 ### substrate-kit — ⚑ version-truth deference (flagged for the owner's §7 layering ruling, decide-and-flag): generated `docs/adop…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-VERSION-TRUTH-DEFERENCE-FLAGGED`
-- source: substrate-kit/control/status.md @ `17ac5ad` · heartbeat `updated:` 2026-07-11T19:51:53Z
+- source: substrate-kit/control/status.md @ `1a85751` · heartbeat `updated:` 2026-07-11T23:14:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -353,7 +356,7 @@ VERIFIED-NEEDED: cross-repo write to `menno420/websites` is out of this session'
 ### ↳ substrate-kit — `control/status-superbot-coordinator.md` — ⚑ needs-owner: 1) verify/deliver the testing-lane wind-down — superbot-next control/status.md was still UNFLI…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-1-VERIFY-DELIVER-TESTING`
-- source: substrate-kit/control/status-superbot-coordinator.md @ `17ac5ad` · heartbeat `updated:` 2026-07-10T13:47:02Z
+- source: substrate-kit/control/status-superbot-coordinator.md @ `1a85751` · heartbeat `updated:` 2026-07-10T13:47:02Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -363,7 +366,7 @@ VERIFIED-NEEDED: cross-repo write to `menno420/websites` is out of this session'
 ### websites — ⚑ needs-owner: SEVEN asks — canonical list in docs/owner/OWNER-ACTIONS.md: (1) PR #141 merge click (+ branch …
 
 - suggested-id: `OQ-WEBSITES-SEVEN-ASKS-CANONICAL-LIST`
-- source: websites/control/status.md @ `0545906` · heartbeat `updated:` 2026-07-11T19:49:00Z
+- source: websites/control/status.md @ `8f97654` · heartbeat `updated:` 2026-07-11T19:49:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -373,7 +376,7 @@ VERIFIED-NEEDED: cross-repo write to `menno420/websites` is out of this session'
 ### websites — ⚑ OWNER-ACTION
 
 - suggested-id: `OQ-WEBSITES-FLAG`
-- source: websites/control/status.md @ `0545906` · heartbeat `updated:` 2026-07-11T19:49:00Z
+- source: websites/control/status.md @ `8f97654` · heartbeat `updated:` 2026-07-11T19:49:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -389,7 +392,7 @@ VERIFIED-NEEDED: cross-repo write to `menno420/websites` is out of this session'
 ### websites — ⚑ OWNER-ACTION
 
 - suggested-id: `OQ-WEBSITES-FLAG-2`
-- source: websites/control/status.md @ `0545906` · heartbeat `updated:` 2026-07-11T19:49:00Z
+- source: websites/control/status.md @ `8f97654` · heartbeat `updated:` 2026-07-11T19:49:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -405,7 +408,7 @@ VERIFIED-NEEDED: cross-repo write to `menno420/websites` is out of this session'
 ### trading-strategy — ⚑ needs-owner (six-field form — what / why / exact click / where / blocking? / fallback; durable copies with …
 
 - suggested-id: `OQ-TRADING-STRATEGY-SIX-FIELD-FORM-WHAT`
-- source: trading-strategy/control/status.md @ `d3ae8f4` · heartbeat `updated:` 2026-07-11T19:33:12Z
+- source: trading-strategy/control/status.md @ `ea22323` · heartbeat `updated:` 2026-07-11T19:33:12Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -421,7 +424,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### venture-lab — - **⚑ HOT — close PR #51 + delete branch `menno420-patch-1` (photo exposure)**
 
 - suggested-id: `OQ-VENTURE-LAB-HOT-CLOSE-PR-51`
-- source: venture-lab/control/status.md @ `2044dc6` · heartbeat `updated:` 2026-07-11T19:37:09Z
+- source: venture-lab/control/status.md @ `296a1a9` · heartbeat `updated:` 2026-07-11T19:37:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -432,7 +435,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### venture-lab — - **⚑ — disposition PR #38 (stale codex pre-publish review)**
 
 - suggested-id: `OQ-VENTURE-LAB-DISPOSITION-PR-38-STALE`
-- source: venture-lab/control/status.md @ `2044dc6` · heartbeat `updated:` 2026-07-11T19:37:09Z
+- source: venture-lab/control/status.md @ `296a1a9` · heartbeat `updated:` 2026-07-11T19:37:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -443,7 +446,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### venture-lab — - **⚑B — publish membership-kit at $49 — UNFROZEN ✅**
 
 - suggested-id: `OQ-VENTURE-LAB-B-PUBLISH-MEMBERSHIP-KIT`
-- source: venture-lab/control/status.md @ `2044dc6` · heartbeat `updated:` 2026-07-11T19:37:09Z
+- source: venture-lab/control/status.md @ `296a1a9` · heartbeat `updated:` 2026-07-11T19:37:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -454,7 +457,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### venture-lab — - **⚑D — publish template-packs at $19 PWYW — UNFROZEN ✅**
 
 - suggested-id: `OQ-VENTURE-LAB-D-PUBLISH-TEMPLATE-PACKS`
-- source: venture-lab/control/status.md @ `2044dc6` · heartbeat `updated:` 2026-07-11T19:37:09Z
+- source: venture-lab/control/status.md @ `296a1a9` · heartbeat `updated:` 2026-07-11T19:37:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -465,7 +468,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### venture-lab — - **⚑E — publish stripe-webhook-test-kit at $29 — QUEUED (2026-07-11) ✅**
 
 - suggested-id: `OQ-VENTURE-LAB-E-PUBLISH-STRIPE-WEBHOOK`
-- source: venture-lab/control/status.md @ `2044dc6` · heartbeat `updated:` 2026-07-11T19:37:09Z
+- source: venture-lab/control/status.md @ `296a1a9` · heartbeat `updated:` 2026-07-11T19:37:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -476,7 +479,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### venture-lab — - **⚑F — publish the Agent Fleet Field Manual at $39 — QUEUED (2026-07-11) ✅**
 
 - suggested-id: `OQ-VENTURE-LAB-F-PUBLISH-AGENT-FLEET`
-- source: venture-lab/control/status.md @ `2044dc6` · heartbeat `updated:` 2026-07-11T19:37:09Z
+- source: venture-lab/control/status.md @ `296a1a9` · heartbeat `updated:` 2026-07-11T19:37:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -487,7 +490,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### venture-lab — - **⚑ — publish the free gotcha article**
 
 - suggested-id: `OQ-VENTURE-LAB-PUBLISH-FREE-GOTCHA-ARTICLE`
-- source: venture-lab/control/status.md @ `2044dc6` · heartbeat `updated:` 2026-07-11T19:37:09Z
+- source: venture-lab/control/status.md @ `296a1a9` · heartbeat `updated:` 2026-07-11T19:37:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -498,7 +501,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### venture-lab — - **⚑A — provide test-mode Stripe API keys — OPEN (live E2E still unverified)**
 
 - suggested-id: `OQ-VENTURE-LAB-PROVIDE-TEST-MODE-STRIPE`
-- source: venture-lab/control/status.md @ `2044dc6` · heartbeat `updated:` 2026-07-11T19:37:09Z
+- source: venture-lab/control/status.md @ `296a1a9` · heartbeat `updated:` 2026-07-11T19:37:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -509,7 +512,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### venture-lab — - **⚑ — owner photo samples upload (photo-packs)**
 
 - suggested-id: `OQ-VENTURE-LAB-PHOTO-SAMPLES-UPLOAD-PHOTO`
-- source: venture-lab/control/status.md @ `2044dc6` · heartbeat `updated:` 2026-07-11T19:37:09Z
+- source: venture-lab/control/status.md @ `296a1a9` · heartbeat `updated:` 2026-07-11T19:37:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -520,7 +523,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### venture-lab — - **⚑ (optional) — Supabase project for hosted persistence**
 
 - suggested-id: `OQ-VENTURE-LAB-OPTIONAL-SUPABASE-PROJECT-HOSTED`
-- source: venture-lab/control/status.md @ `2044dc6` · heartbeat `updated:` 2026-07-11T19:37:09Z
+- source: venture-lab/control/status.md @ `296a1a9` · heartbeat `updated:` 2026-07-11T19:37:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -531,7 +534,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### venture-lab — - **⚑ — decide-and-flag decisions open for retroactive veto (ORDER 006 mirror)**
 
 - suggested-id: `OQ-VENTURE-LAB-DECIDE-FLAG-DECISIONS-OPEN`
-- source: venture-lab/control/status.md @ `2044dc6` · heartbeat `updated:` 2026-07-11T19:37:09Z
+- source: venture-lab/control/status.md @ `296a1a9` · heartbeat `updated:` 2026-07-11T19:37:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -542,7 +545,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### superbot-games · Seat A — ⚑ needs-owner: see the OWNER-ACTION block below + docs/retro/archive-ready-2026-07-11.md
 
 - suggested-id: `OQ-SUPERBOT-GAMES-SEE-BLOCK-BELOW-DOCS`
-- source: superbot-games/control/status.md @ `3250181` · heartbeat `updated:` 2026-07-11T19:39:14Z
+- source: superbot-games/control/status.md @ `5ddfbee` · heartbeat `updated:` 2026-07-11T19:39:14Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -552,7 +555,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### ↳ superbot-games · Seat A — `control/status-exploration.md` — ⚑ needs-owner: \|
 
 - suggested-id: `OQ-SUPERBOT-GAMES-FLAG`
-- source: superbot-games/control/status-exploration.md @ `3250181` · heartbeat `updated:` 2026-07-09T20:09Z
+- source: superbot-games/control/status-exploration.md @ `5ddfbee` · heartbeat `updated:` 2026-07-09T20:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -582,89 +585,10 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ⚑ needs-owner: 1 item — provision the six env vars to switch sign-in on (and, for test-guild write mode, the write-endpoint pair). Structured OWNER-ACTION block below. Also owner-side, informational: review/merge your own open PR #31 (Codex security report); Builder-lane FLAGs 1+2 below stay informational until the manager picks them up; stage-5 live-prod flag remains owner-only.
 ```
 
-### pokemon-mod-lab — 1. **⚑ OWNER-ACTION 1 — `ROM builds` required-check click.** GitHub →
-
-- suggested-id: `OQ-POKEMON-MOD-LAB-1-1-ROM-BUILDS`
-- source: pokemon-mod-lab/control/status.md @ `3dcb707` · heartbeat `updated:` 2026-07-11T20:03:55Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-1. **⚑ OWNER-ACTION 1 — `ROM builds` required-check click.** GitHub →
-   Settings → Rules → `main` ruleset → require status checks → add
-   `ROM builds` (keep `substrate-gate`). No agent API surface for
-   rulesets (`docs/PLATFORM-LIMITS.md`).
-```
-
-### pokemon-mod-lab — 2. **⚑ OWNER-ACTION 2 — next-arc concept pick.** One word: continue
-
-- suggested-id: `OQ-POKEMON-MOD-LAB-2-2-NEXT-ARC`
-- source: pokemon-mod-lab/control/status.md @ `3dcb707` · heartbeat `updated:` 2026-07-11T20:03:55Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-2. **⚑ OWNER-ACTION 2 — next-arc concept pick.** One word: continue
-   Emerald QoL+ (new-lead spikes) / Emerald Hard / Nuzlocke Mode
-   (`docs/mod-concepts.md`). Lane default remains QoL+; reversible.
-```
-
-### pokemon-mod-lab — 3. **⚑ OWNER-ACTION 3 — playtest verdict on the 6 game-feel patches**
-
-- suggested-id: `OQ-POKEMON-MOD-LAB-3-3-PLAYTEST-VERDICT`
-- source: pokemon-mod-lab/control/status.md @ `3dcb707` · heartbeat `updated:` 2026-07-11T20:03:55Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-3. **⚑ OWNER-ACTION 3 — playtest verdict on the 6 game-feel patches**
-   (instant text #4, auto-run #6, HP drain 3× #7, battle msg ×0.5 #7,
-   egg hatch 2×/3× #21, fishing dots 2× #23) + the Match Call
-   random-nag rider. One-line header flag per revert
-   (`docs/build-presets.md`); hatch-128 stacking waits on this.
-```
-
-### pokemon-mod-lab — 4. **⚑ stale ref `track-a/session-019` — owner click to delete**
-
-- suggested-id: `OQ-POKEMON-MOD-LAB-4-STALE-REF-TRACK`
-- source: pokemon-mod-lab/control/status.md @ `3dcb707` · heartbeat `updated:` 2026-07-11T20:03:55Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-4. **⚑ stale ref `track-a/session-019` — owner click to delete**
-   (content squash-merged via PR #24 long ago; sessions must not touch
-   it).
-```
-
-### pokemon-mod-lab — 5. **⚑ NEW (housekeeping) — stale ref `track-a/session-024` — owner
-
-- suggested-id: `OQ-POKEMON-MOD-LAB-5-NEW-HOUSEKEEPING-STALE`
-- source: pokemon-mod-lab/control/status.md @ `3dcb707` · heartbeat `updated:` 2026-07-11T20:03:55Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-5. **⚑ NEW (housekeeping) — stale ref `track-a/session-024` — owner
-   click to delete** (content superseded by PR #31; PR #29 closed).
-   Session 041 attempted `git push origin :track-a/session-024` at
-   archive time and was DENIED by the platform's auto-mode classifier
-   ("[Git Destructive] ... not named or authorized by the user") — not
-   retried, per playbook. Either owner-click it away alongside
-   session-019, or explicitly authorize a future session to delete it.
-```
-
-### pokemon-mod-lab — - OWNER-ACTION 4 (wake-env GitHub write tools) and OWNER-ACTION 5
-
-- suggested-id: `OQ-POKEMON-MOD-LAB-4-WAKE-ENV-GITHUB`
-- source: pokemon-mod-lab/control/status.md @ `3dcb707` · heartbeat `updated:` 2026-07-11T20:03:55Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-- OWNER-ACTION 4 (wake-env GitHub write tools) and OWNER-ACTION 5
-  (`add_repo` classifier denials): **RESOLVED** — 18 consecutive clean
-  wake cycles (024–041). Reopen only on regression.
-```
-
 ### gba-homebrew — ⚑ needs-owner (carried + one NEW):
 
 - suggested-id: `OQ-GBA-HOMEBREW-CARRIED-ONE-NEW`
-- source: gba-homebrew/control/status.md @ `dcfa865` · heartbeat `updated:` 2026-07-11T20:15:00Z (session 22, bare hourly wake heartbea…
+- source: gba-homebrew/control/status.md @ `d1ec24f` · heartbeat `updated:` 2026-07-11T21:03:45Z (session 23, bare hourly wake heartbea…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -674,7 +598,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### gba-homebrew — - **⚑ owner-click: create the Lumen Drift GitHub Release** (worker seat
 
 - suggested-id: `OQ-GBA-HOMEBREW-CLICK-CREATE-LUMEN-DRIFT`
-- source: gba-homebrew/control/status.md @ `dcfa865` · heartbeat `updated:` 2026-07-11T20:15:00Z (session 22, bare hourly wake heartbea…
+- source: gba-homebrew/control/status.md @ `d1ec24f` · heartbeat `updated:` 2026-07-11T21:03:45Z (session 23, bare hourly wake heartbea…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -694,7 +618,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### gba-homebrew — - **⚑ owner-click: merged-branch cleanup** — worker seat gets 403 on
 
 - suggested-id: `OQ-GBA-HOMEBREW-CLICK-MERGED-BRANCH-CLEANUP`
-- source: gba-homebrew/control/status.md @ `dcfa865` · heartbeat `updated:` 2026-07-11T20:15:00Z (session 22, bare hourly wake heartbea…
+- source: gba-homebrew/control/status.md @ `d1ec24f` · heartbeat `updated:` 2026-07-11T21:03:45Z (session 23, bare hourly wake heartbea…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -707,7 +631,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### gba-homebrew — - **⚑ owner-click (NEW): add `NDS ROM build` to the required checks**
 
 - suggested-id: `OQ-GBA-HOMEBREW-CLICK-NEW-ADD-NDS`
-- source: gba-homebrew/control/status.md @ `dcfa865` · heartbeat `updated:` 2026-07-11T20:15:00Z (session 22, bare hourly wake heartbea…
+- source: gba-homebrew/control/status.md @ `d1ec24f` · heartbeat `updated:` 2026-07-11T21:03:45Z (session 23, bare hourly wake heartbea…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -722,7 +646,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### gba-homebrew — - **⚑ graze tuning wants owner hands-on validation** — the
 
 - suggested-id: `OQ-GBA-HOMEBREW-GRAZE-TUNING-WANTS-HANDS`
-- source: gba-homebrew/control/status.md @ `dcfa865` · heartbeat `updated:` 2026-07-11T20:15:00Z (session 22, bare hourly wake heartbea…
+- source: gba-homebrew/control/status.md @ `d1ec24f` · heartbeat `updated:` 2026-07-11T21:03:45Z (session 23, bare hourly wake heartbea…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -739,7 +663,7 @@ next-update-by: 2026-07-17T23:59:00Z (weekly grading cadence, protocol §6 — f
 ### gba-homebrew — - ⚑ (**awareness, no click needed**) — the routine model-attribution
 
 - suggested-id: `OQ-GBA-HOMEBREW-AWARENESS-NO-CLICK-NEEDED`
-- source: gba-homebrew/control/status.md @ `dcfa865` · heartbeat `updated:` 2026-07-11T20:15:00Z (session 22, bare hourly wake heartbea…
+- source: gba-homebrew/control/status.md @ `d1ec24f` · heartbeat `updated:` 2026-07-11T21:03:45Z (session 23, bare hourly wake heartbea…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -792,7 +716,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### fleet-manager (this repo) — - **⚑ Decide-and-flag decisions (owner/coordinator may redirect):**
 
 - suggested-id: `OQ-FLEET-MANAGER-DECIDE-FLAG-DECISIONS-COORDINATOR`
-- source: fleet-manager/control/status.md @ `70c9520` · heartbeat `updated:` 2026-07-11T20:00:00Z — P2 QUEUE GENERATION SHIPPED (fleet c…
+- source: fleet-manager/control/status.md @ `e801da5` · heartbeat `updated:` 2026-07-11T21:50:00Z — ARCHIVE-PREP CLOSEOUT (coordinator s…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -821,7 +745,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### fleet-manager (this repo) — - **⚑ Drift flagged for follow-up (spotted, out of this bounded slice):**
 
 - suggested-id: `OQ-FLEET-MANAGER-DRIFT-FLAGGED-FOLLOW-UP`
-- source: fleet-manager/control/status.md @ `70c9520` · heartbeat `updated:` 2026-07-11T20:00:00Z — P2 QUEUE GENERATION SHIPPED (fleet c…
+- source: fleet-manager/control/status.md @ `e801da5` · heartbeat `updated:` 2026-07-11T21:50:00Z — ARCHIVE-PREP CLOSEOUT (coordinator s…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -843,7 +767,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### fleet-manager (this repo) — ⚑ **only 3/13 lanes (substrate-kit, superbot, idea-engine) have
 
 - suggested-id: `OQ-FLEET-MANAGER-ONLY-3-13-LANES`
-- source: fleet-manager/control/status.md @ `70c9520` · heartbeat `updated:` 2026-07-11T20:00:00Z — P2 QUEUE GENERATION SHIPPED (fleet c…
+- source: fleet-manager/control/status.md @ `e801da5` · heartbeat `updated:` 2026-07-11T21:50:00Z — ARCHIVE-PREP CLOSEOUT (coordinator s…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -864,7 +788,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### fleet-manager (this repo) — - **⚑ Self-decided design decisions (decide-and-flag, owner/coordinator may
 
 - suggested-id: `OQ-FLEET-MANAGER-SELF-DECIDED-DESIGN-DECISIONS`
-- source: fleet-manager/control/status.md @ `70c9520` · heartbeat `updated:` 2026-07-11T20:00:00Z — P2 QUEUE GENERATION SHIPPED (fleet c…
+- source: fleet-manager/control/status.md @ `e801da5` · heartbeat `updated:` 2026-07-11T21:50:00Z — ARCHIVE-PREP CLOSEOUT (coordinator s…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -892,7 +816,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### fleet-manager (this repo) — **⚑ PHASE-2 DECISION flagged above** (roster canonical; manifest → pointer stub;
 
 - suggested-id: `OQ-FLEET-MANAGER-PHASE-2-DECISION-FLAGGED`
-- source: fleet-manager/control/status.md @ `70c9520` · heartbeat `updated:` 2026-07-11T20:00:00Z — P2 QUEUE GENERATION SHIPPED (fleet c…
+- source: fleet-manager/control/status.md @ `e801da5` · heartbeat `updated:` 2026-07-11T21:50:00Z — ARCHIVE-PREP CLOSEOUT (coordinator s…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -914,7 +838,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### fleet-manager (this repo) — > **⚑ RECONCILIATION FLAG (decide-and-flag, per the ORDER 015 re-scope —
 
 - suggested-id: `OQ-FLEET-MANAGER-RECONCILIATION-FLAG-DECIDE-FLAG`
-- source: fleet-manager/control/status.md @ `70c9520` · heartbeat `updated:` 2026-07-11T20:00:00Z — P2 QUEUE GENERATION SHIPPED (fleet c…
+- source: fleet-manager/control/status.md @ `e801da5` · heartbeat `updated:` 2026-07-11T21:50:00Z — ARCHIVE-PREP CLOSEOUT (coordinator s…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -934,7 +858,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### fleet-manager (this repo) — ⚑B/⚑D unfrozen; what remains is the OWNER side (parked merges + publish clicks,
 
 - suggested-id: `OQ-FLEET-MANAGER-B-D-UNFROZEN-WHAT`
-- source: fleet-manager/control/status.md @ `70c9520` · heartbeat `updated:` 2026-07-11T20:00:00Z — P2 QUEUE GENERATION SHIPPED (fleet c…
+- source: fleet-manager/control/status.md @ `e801da5` · heartbeat `updated:` 2026-07-11T21:50:00Z — ARCHIVE-PREP CLOSEOUT (coordinator s…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -967,7 +891,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### fleet-manager (this repo) — ⚑ needs-owner (was the PENDING-OWNER FIVE at archive; item 1 RESOLVED 2026-07-11 ~01:0xZ — full detail handof…
 
 - suggested-id: `OQ-FLEET-MANAGER-WAS-PENDING-FIVE-AT`
-- source: fleet-manager/control/status.md @ `70c9520` · heartbeat `updated:` 2026-07-11T20:00:00Z — P2 QUEUE GENERATION SHIPPED (fleet c…
+- source: fleet-manager/control/status.md @ `e801da5` · heartbeat `updated:` 2026-07-11T21:50:00Z — ARCHIVE-PREP CLOSEOUT (coordinator s…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -978,7 +902,7 @@ PROMPT REGISTRY: **fleet-manager `projects/` — canonical, v-stamped (v1 · 202
 ### fleet-manager (this repo) — - **⚑ ESCALATION carried in the roster:** nine lane failsafes auto-disabled
 
 - suggested-id: `OQ-FLEET-MANAGER-ESCALATION-CARRIED-ROSTER-NINE`
-- source: fleet-manager/control/status.md @ `70c9520` · heartbeat `updated:` 2026-07-11T20:00:00Z — P2 QUEUE GENERATION SHIPPED (fleet c…
+- source: fleet-manager/control/status.md @ `e801da5` · heartbeat `updated:` 2026-07-11T21:50:00Z — ARCHIVE-PREP CLOSEOUT (coordinator s…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -996,5 +920,5 @@ PROMPT REGISTRY: **fleet-manager `projects/` — canonical, v-stamped (v1 · 202
 
 ---
 
-66 candidate block(s) across 16 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
+60 candidate block(s) across 15 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
 
