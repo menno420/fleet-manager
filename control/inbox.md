@@ -1109,3 +1109,55 @@ beats suspending a review channel the owner rates highly.
 done-when: standing — each seat applies the gate from its next wake onward and
 cites it when discarding a failed reply; playbook R24 carries the gate as
 doctrine (amended in the PR that filed this ORDER).
+
+## ORDER 039 · 2026-07-13T00:40Z · status: standing
+priority: P0-tonight — owner night-run directive, in force on receipt
+owner: Fleet Manager seat (the rules within bind all seats)
+do: Execute the owner's night-run directive, recorded VERBATIM below.
+why: owner live in the fleet-manager coordinator chat, 2026-07-13T00:4xZ (top-precedence owner turn).
+done-when: morning tally (~06:00Z) posted in heartbeat + outbox per the directive.
+
+```
+DIRECT ORDER — FLEET MANAGER (owner, 2026-07-13, night run). Land this verbatim in your
+inbox (top-precedence owner turn), then execute all night.
+
+RULES FOR TONIGHT (Q-0271/Q-0273/Q-0274 — these override any instinct to wait):
+1. I am away until morning; that is the system's normal state. Silence = consent = done.
+   Never hold or re-confirm finished work.
+2. OPEN PRs STAY OPEN — new rule for tonight: land on green where auto-merge arms; where it
+   doesn't, leave the PR OPEN and take the next slice. No merge-chasing, no parking-and-
+   waiting, no counting open PRs as blockers — I sweep them when I'm back (VENUE:hub). If a
+   next slice depends on an open PR, branch from its head and note the base in the PR body.
+3. FIND YOUR WORK, in order: your inbox at HEAD → superbot docs/owner/fleet-grounding.md §2
+   (my mission + ordered goals for you) → your playbook/backlog at HEAD → your generative
+   rung. An empty queue means GENERATE, never idle.
+4. NO STALLS UNDER ANY CIRCUMSTANCES: probe before declaring a wall (attempt once, verbatim
+   error; quote fresh documented walls instead of re-probing); genuinely-owner-only item →
+   six-field owner-queue entry (VENUE:hub if merge/destructive-shaped) → CONTINUE same turn;
+   design/feasibility uncertainty → SIM-REQUEST via outbox → CONTINUE.
+5. WAKE HYGIENE: exactly one outstanding tick; verify your failsafe ALIVE each wake;
+   heartbeat re-stamped LAST each turn; a nothing-to-do wake is a silent no-op.
+6. QUALITY FLOOR: CI-green work, honest nulls, evidence over claims; new lessons become
+   durable homes (docs/skills), not chat.
+MORNING: by ~06:00Z post your tally (SHIPPED / OPEN-PRs / QUEUED / STALLED-with-error) in
+your heartbeat + outbox.
+
+YOUR SEAT TONIGHT (you already dispatched my goals as ORDERs 030–036 — good; now run the
+night on top of them):
+1. WATCHDOG every wake (R26): trigger-health on a fresh export, FAILs acted on same wake;
+   any dark seat send_message-revived.
+2. TRACK the night: per-seat progress against the 030–036 goals in the roster; stuck-list
+   doctrine stands (a genuinely stuck PR gets its blocker named and stops costing attention;
+   the pipeline never pauses on it — gba #76 included: queue my 1-click, move on).
+3. ROUTE within one wake: verdicts → build seats · SIM-REQUESTs → Ideas Lab · WEBSITE-IDEA
+   markers → Websites · World's minigame section spec → SuperBot 2.0.
+4. OWNER-QUEUE: verify-first curation all night; VENUE:hub tagging; the ≤07-13 sitting
+   bundle + the three one-reply unblocks stay paste-ready at the top.
+5. Keep folding the autonomy rider + the two superbot seed skills into your v3 prompt
+   sources so the next restamp inherits them.
+6. MORNING ROSTER ~06:00Z: per-seat tallies + dropped-tick report + the ROUND-TRIP flag.
+```
+
+Manager annotation (post-receipt): gba #76 had already MERGED (0e08695) before this
+order arrived — the "gba #76 included: queue my 1-click, move on" clause is satisfied
+on the merge side; its remaining owner click is OQ-GBA-ROM-RULESET (B#51).

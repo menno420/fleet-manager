@@ -1,6 +1,8 @@
 # fleet-manager · status
 
-updated: 2026-07-13T00:10Z — coordinator seat ACTIVE (continuous operation; booted 2026-07-12 ~20:30Z per projects/fleet-manager/coordinator-prompt.md v3.4).
+updated: 2026-07-13T00:40Z — coordinator seat ACTIVE (continuous operation; booted 2026-07-12 ~20:30Z per projects/fleet-manager/coordinator-prompt.md v3.4).
+
+mode: NIGHT-RUN (ORDER 039)
 
 phase: oversight steady-state; consolidation Phase 1 ORDERs routed; owner goal ORDERs 030–036 dispatched.
 
@@ -36,7 +38,7 @@ next-3:
 
 1. gba-homebrew arm-failure diagnosed → clickset filed as OQ-GBA-ROM-RULESET (B#51); confirm the first self-armed gba PR after the click.
 2. Verify merge-on-green + the enablers on the next real PRs fleet-wide; games #65/#66 armed 2026-07-13T00:10Z — confirm they land.
-3. Owner sitting bundle ≤07-13 surfacing (B#40–43 + E#44–48 + the two new B-group clicks).
+3. Owner sitting bundle ≤07-13 surfacing (B#40–43 + E#44–48 + the two new B-group clicks); morning tally ~06:00Z (SHIPPED / OPEN-PRs / QUEUED / STALLED-with-error) in heartbeat + outbox per ORDER 039.
 
 ## ⚑ needs-owner
 
