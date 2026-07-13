@@ -20,9 +20,9 @@ Walls (summarized): permission-guard edits need live user intent in the acting s
 
 ## Landed / parked
 
-- Landed today (this seat): #142 (I7 TICK-PILE-UP + fresh snapshot), #143 (consolidation Phase 1 ORDERs 023–029), #144 (roster UNREADABLE fix + ROSTER_READ_TOKEN wiring), #146 (merge-on-green workflow — live: first sweep runs verified), #147 (owner goal ORDERs 030–036), plus this PR (#148: ORDER 019/021/022 flips, ORDERs 037/038, R24 authenticity gate, owner-queue B#49/B#50, this heartbeat).
+- Landed today (this seat): #142 (I7 TICK-PILE-UP + fresh snapshot), #143 (consolidation Phase 1 ORDERs 023–029), #144 (roster UNREADABLE fix + ROSTER_READ_TOKEN wiring), #146 (merge-on-green workflow — live: first sweep runs verified), #147 (owner goal ORDERs 030–036), plus this PR (#148: ORDER 019/021/022 flips, ORDERs 037/038, R24 authenticity gate, owner-queue B#49/B#50/B#51, this heartbeat).
 - Landing doctrine: owner standing merge permission (ORDER 029) + merge-on-green sweep (cron 7,37 * * * *); workflow-touching PRs remain the owner/coordinator merge lane.
-- Fleet enabler state: superbot-idle enabler installed @ 457407c (INERT until OQ-IDLE-REQUIRED-CHECKS — zero required checks, so it safely refuses to arm); superbot-games enabler @ dd867c8 (self-proven; required checks already wired); superbot-next #321 armed by the bot (report job red-by-design, not required); gba-homebrew #76 arm failing (diagnosis in flight).
+- Fleet enabler state: superbot-idle enabler installed @ 457407c (INERT until OQ-IDLE-REQUIRED-CHECKS — zero required checks, so it safely refuses to arm); superbot-games enabler @ dd867c8 (self-proven; required checks already wired); superbot-next #321 armed by the bot (report job red-by-design, not required); gba-homebrew #76 MERGED 0e08695 — enabler installed, INERT until OQ-GBA-ROM-RULESET (zero token-readable required contexts; it correctly refuses to arm).
 - Websites ORDERs 019/021/022 DONE — flipped this PR on manager sweep evidence (2026-07-12T22:1x–22:2xZ; websites heartbeat aafad91). Roster gen #22+ healthy.
 
 ## Orders
@@ -34,7 +34,7 @@ Walls (summarized): permission-guard edits need live user intent in the acting s
 
 next-3:
 
-1. gba-homebrew #76 arm-failure diagnosis → clickset or fix.
+1. gba-homebrew arm-failure diagnosed → clickset filed as OQ-GBA-ROM-RULESET (B#51); confirm the first self-armed gba PR after the click.
 2. Verify merge-on-green + the enablers on the next real PRs fleet-wide; games #65/#66 armed 2026-07-13T00:10Z — confirm they land.
 3. Owner sitting bundle ≤07-13 surfacing (B#40–43 + E#44–48 + the two new B-group clicks).
 
@@ -44,4 +44,5 @@ Pointers only (details in docs/owner-queue.md):
 
 - OQ-FM-ROSTER-READ-PAT (B#49 — read-only PAT → `ROSTER_READ_TOKEN` secret; unblocks honest pokemon-mod-lab roster rows).
 - OQ-IDLE-REQUIRED-CHECKS (B#50 — superbot-idle Allow auto-merge + pytest/substrate-gate required checks; unblocks parked idle #75/#76).
+- OQ-GBA-ROM-RULESET (B#51 — gba-homebrew ruleset requiring `ROM builds`; unblocks gba self-landing incl. parked slice PRs).
 - Sitting bundle E#28 + the one-reply unblocks: venture "go with defaults"; superbot-next ruleset click.

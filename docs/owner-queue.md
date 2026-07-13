@@ -273,6 +273,26 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
     - RISK: ✅ reversible — both settings toggle back off.
     - Blocking: not-blocking, but holds two parked PRs.
 
+51. **gba-homebrew — make "ROM builds" a required check via a RULESET on
+    main** *(new 2026-07-13, consolidation batch — coordinator addition).*
+   - id: OQ-GBA-ROM-RULESET
+    - WHAT: make `ROM builds` a required status check via a **ruleset** on
+      `main` (rulesets are token-readable; classic branch protection reads
+      403 for GITHUB_TOKEN, so the enabler can only see ruleset-defined
+      contexts).
+    - WHERE: https://github.com/menno420/gba-homebrew → Settings → Rules →
+      Rulesets → New branch ruleset → target `main` → Require status checks
+      → add context `ROM builds` → Active.
+    - HOW: ~1 min, one ruleset form.
+    - WHY: the newly installed enabler (PR #76, merged 0e08695) sees ZERO
+      token-readable required contexts and correctly refuses to arm until a
+      ruleset exists.
+    - UNBLOCKS: gba PRs self-land (including the parked slice PRs).
+    - VERIFIED-NEEDED: the next `claude/*` PR on gba-homebrew shows
+      "Auto-merge enabled" instead of the refuse-to-arm warning.
+    - RISK: ✅ reversible — delete or deactivate the ruleset to undo.
+    - Blocking: not-blocking, but holds the parked gba slice PRs.
+
 ### (C) Claude platform (console / environments / sessions / Codex)
 
 14. **Re-paste the consolidated env setup scripts — COORDINATOR ENV FIRST.**
