@@ -1,0 +1,1 @@
+- claude/v3-rider-fold · v3 registry v3.5 restamp: fold Q-0271 autonomy rider + Q-0273 seed skills into docs/prompts/v3/ (per-project CIs + startups + README + tools/regen_b_files.py + projects/<seat>/ registry re-sync) · expected files: docs/prompts/v3/**, projects/*/ (generated), docs/SKILLS.md pointer, control/claims/ · 2026-07-13
