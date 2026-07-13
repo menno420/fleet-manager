@@ -254,24 +254,17 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
     - RISK: ✅ read-only, single-repo token — minimal scope, revocable.
     - Blocking: not-blocking, but the row lies until clicked.
 
-50. **superbot-idle — Allow auto-merge + required checks on main**
-    *(new 2026-07-13, consolidation batch).*
+50. **✅ RESOLVED 2026-07-13 (wake-session live verification) — superbot-idle
+    self-landing is WORKING; the two parked PRs landed automatically.**
    - id: OQ-IDLE-REQUIRED-CHECKS
-    - WHAT: tick "Allow auto-merge" AND add a ruleset on `main` requiring
-      the check contexts `pytest` and `substrate-gate`.
-    - WHERE: https://github.com/menno420/superbot-idle/settings (General →
-      Pull Requests for the auto-merge tick; Rules → Rulesets for the
-      required checks).
-    - HOW: ~2 min, one sitting.
-    - WHY: with zero required checks the new merge enabler safely refuses to
-      arm (nothing would gate the merge) — installed 457407c but INERT until
-      this click.
-    - UNBLOCKS: parked idle PRs #75/#76 land automatically, and all future
-      seat PRs self-land on green.
-    - VERIFIED-NEEDED: the next agent PR on superbot-idle shows "Auto-merge
-      enabled".
-    - RISK: ✅ reversible — both settings toggle back off.
-    - Blocking: not-blocking, but holds two parked PRs.
+    - Evidence (live GitHub, read 2026-07-13 ~13:20Z): idle **PR #76 MERGED
+      2026-07-13T01:23:35Z** and **PR #75 (PLUG-001 adapter) MERGED
+      2026-07-13T01:26:30Z**, both `merged_by: github-actions[bot]` — the
+      item's UNBLOCKS ("parked idle PRs #75/#76 land automatically") is
+      satisfied verbatim, and open idle PRs = 0. Caveat, honest: the merge
+      record alone cannot distinguish native auto-merge (the Allow-auto-merge
+      tick) from a `GITHUB_TOKEN` merge-on-green workflow — either way the
+      self-landing path this item existed for is live. Body history in git.
 
 51. **gba-homebrew — make "ROM builds" a required check via a RULESET on
     main** *(new 2026-07-13, consolidation batch — coordinator addition).*

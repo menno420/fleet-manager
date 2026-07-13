@@ -500,3 +500,25 @@ make kit-repo-local `bootstrap.py check --strict` run the SAME preflight legs as
 CI substrate-gate (check_ideas --outbox + inbox append-only grammar w/ merge-base) so
 local green ⇒ CI green; evidence: two local-green→CI-red round-trips in one night
 (idea-engine PRs #274, #299). Kit-owned; agent-doable; no owner click.
+
+---
+
+## 2026-07-13 · PARKED-SET CURRENCY DELTA (wake work session, verified live ~13:20Z)
+
+Updates to the FLEET NIGHT-REPORT ROLL-UP owner-sweep list, every state read from
+live GitHub this wake:
+
+- **gba-homebrew: the parked set is now #82–#90** (was #82–#89) — new seat-ender
+  PR #90 opened 10:57:01Z (`claude/seat-ender-20260713` @ `7ba68fb`); #82–#89 all
+  still OPEN, READY. Enabler still refuses to arm (zero required contexts;
+  refusal re-verified in PR #89's report, run 29222310196) — B#51
+  (OQ-GBA-ROM-RULESET) unchanged, still the unblock.
+- **pokemon-mod-lab: the parked set is now #57–#59 + #61–#64** — new seat-ender
+  PR #64 opened 10:55:20Z (@ `c2da09e`); #60 remains closed-retracted. B#58
+  (OQ-PML-ENABLER-INSTALL) unchanged.
+- **substrate-kit #317: still OPEN, now carries `do-not-automerge`** (program-law
+  gate designed hold; head `82fca96`). New: heartbeat PR #326 opened 12:51:53Z by
+  the REBOOTED Self Improvement seat (v3.6 boot) — the reboot wave is live.
+- **superbot-idle: parked set CLEARED** — #75 + #76 self-landed 01:23–01:26Z
+  (merged_by github-actions[bot]); open idle PRs = 0. Owner-queue B#50 marked
+  ✅ RESOLVED this wake with the merge evidence.
