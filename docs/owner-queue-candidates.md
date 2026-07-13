@@ -4,48 +4,40 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #23** · generated-at **2026-07-13T04:10Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #24** · generated-at **2026-07-13T07:50Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
 ### superbot (hub) — ⚑ needs-owner: none new hub-specific (verified against fm docs/owner-queue.md @ 7ff1f75 — the hub's owner tai…
 
 - suggested-id: `OQ-SUPERBOT-NONE-NEW-HUB-SPECIFIC`
-- source: superbot/control/status.md @ `5262fe4` · heartbeat `updated:` 2026-07-11T19:45:00Z
+- source: superbot/control/status.md @ `df5ee69` · heartbeat `updated:` 2026-07-11T19:45:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
 ⚑ needs-owner: none new hub-specific (verified against fm docs/owner-queue.md @ 7ff1f75 — the hub's owner tail is already queued there). Manager-sweep note, NOT an owner click: fm owner-queue C#20's manager note (superbot codex-final-review invalid YAML) is RESOLVED by superbot PR #1995 (8214200) — retire that line at the next sweep.
 ```
 
-### superbot-next — ⚑ needs-owner (morning queue):
+### superbot-next — ⚑ needs-owner (morning sweep, ordered):
 
-- suggested-id: `OQ-SUPERBOT-NEXT-MORNING-QUEUE`
-- source: superbot-next/control/status.md @ `a4d51b6` · heartbeat `updated:` 2026-07-13T02:47Z
+- suggested-id: `OQ-SUPERBOT-NEXT-MORNING-SWEEP-ORDERED`
+- source: superbot-next/control/status.md @ `faeedde` · heartbeat `updated:` 2026-07-13T05:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-⚑ needs-owner (morning queue):
-1. superbot mineverse PRs are held as DRAFTS by the merge=deploy guard (Q-0193) — owner flips ready to land+deploy: #2058 (FLAG 1 snapshot read-relay; checks green as reported) and #2061 (FLAG 2 HMAC write endpoint; still iterating, last push 02:41Z).
-2. CodeQL raised 6 new alerts (1 high) on superbot#2061 — child session fixing; owner review before deploy (as reported in coordinator chat).
-3. Settings-prune corpus ratification (docs/review/admin-surface-audit-2026-07-12.md §8).
-```
-
-### superbot-next — 4. OWNER-ACTION 3 — ruleset/merge-queue; OWNER-ACTION 5 — ANTHROPIC_API_KEY + AI_ENABLED (six-field records i…
-
-- suggested-id: `OQ-SUPERBOT-NEXT-4-3-RULESET-MERGE`
-- source: superbot-next/control/status.md @ `a4d51b6` · heartbeat `updated:` 2026-07-13T02:47Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-4. OWNER-ACTION 3 — ruleset/merge-queue; OWNER-ACTION 5 — ANTHROPIC_API_KEY + AI_ENABLED (six-field records in pre-close status at `694e056`).
-5. One-click: delete branches `scratch/union-test-a` + `scratch/union-test-b` (agent branch-deletion returns 403).
+⚑ needs-owner (morning sweep, ordered):
+1. Flip superbot #2058 + #2061 to ready (merge=deploy; the second may need a 1-line `mining_player_state.py` resolve).
+2. Sweep-merge the WP stack #312→#317→#335→#344, then #320.
+3. Ratify the curation DROP list (60 items, report §DROP).
+4. D‑0083 anchor call (#346 proposal).
+5. SBW spec for sections (SIM-REQUEST outstanding).
+6. Standing: settings-prune ratification; OWNER-ACTION 3 (ruleset/merge-queue) + 5 (ANTHROPIC_API_KEY/AI_ENABLED); delete scratch/union-test-a,-b; ORDER 001 live-drive token run.
 ```
 
 ### substrate-kit — ⚑ FOR OWNER (paste-ready, carried from the standing set — full field blocks verbatim in git history of this f…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-PASTE-READY-CARRIED-FROM`
-- source: substrate-kit/control/status.md @ `917261b` · heartbeat `updated:` 2026-07-13T02:11:22Z
+- source: substrate-kit/control/status.md @ `45fb77c` · heartbeat `updated:` 2026-07-13T05:17:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -58,7 +50,7 @@
 ### substrate-kit — - **⚑ 6 public-flip-or-PAT (pick one):** make this repo public (⚠️ effectively irreversible) OR mint a fine-g…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-6-PUBLIC-FLIP-PAT`
-- source: substrate-kit/control/status.md @ `917261b` · heartbeat `updated:` 2026-07-13T02:11:22Z
+- source: substrate-kit/control/status.md @ `45fb77c` · heartbeat `updated:` 2026-07-13T05:17:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -69,7 +61,7 @@
 ### ↳ substrate-kit — `control/status-superbot-coordinator.md` — ⚑ needs-owner: 1) verify/deliver the testing-lane wind-down — superbot-next control/status.md was still UNFLI…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-1-VERIFY-DELIVER-TESTING`
-- source: substrate-kit/control/status-superbot-coordinator.md @ `917261b` · heartbeat `updated:` 2026-07-10T13:47:02Z
+- source: substrate-kit/control/status-superbot-coordinator.md @ `45fb77c` · heartbeat `updated:` 2026-07-10T13:47:02Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -79,11 +71,11 @@
 ### websites — ⚑ needs-owner: pointer — canonical six-field blocks live in docs/owner/OWNER-ACTIONS.md ONLY (do not duplicat…
 
 - suggested-id: `OQ-WEBSITES-POINTER-CANONICAL-SIX-FIELD`
-- source: websites/control/status.md @ `1a411d1` · heartbeat `updated:` 2026-07-13T02:51:21Z
+- source: websites/control/status.md @ `8a0bfae` · heartbeat `updated:` 2026-07-13T06:43:25Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-⚑ needs-owner: pointer — canonical six-field blocks live in docs/owner/OWNER-ACTIONS.md ONLY (do not duplicate them here). Seven asks open there at this write: botsite SITE_PASSWORD; botsite Postgres/DATABASE_URL; PayPal Payouts creds; Q-0004; Discord OAuth redirect-URI + client secret (environments-hub gate — DECISION PENDING, seam in place); the armed-service ask; the fine-grained GitHub contents:write PAT (ORDER 020 owner writeback commits). The Actions "allow create PRs" toggle is Decided (row M struck via PR #210).
+⚑ needs-owner: pointer — canonical six-field blocks live in docs/owner/OWNER-ACTIONS.md ONLY (do not duplicate them here). Seven asks open there, unchanged: botsite SITE_PASSWORD; botsite Postgres/DATABASE_URL; PayPal Payouts creds; Q-0004; Discord OAuth redirect-URI + client secret (environments-hub gate — DECISION PENDING, seam in place); the armed-service ask; the fine-grained GitHub contents:write PAT (ORDER 020 owner writeback). These are exactly the owner-gated remainder of ORDER 022 item 2.
 ```
 
 ### superbot-games · Seat A — ⚑ needs-owner: ORDER 004 (self-review) — SATISFIED on main: artifact at docs/retro/close-out-world-games-2026…
@@ -129,14 +121,15 @@
 - ⚑ to manager: no longer a blocker-ask. Optional follow-up only — owner may create the standalone superbot-plugin-hello repo (still empty); exemplar is in-tree meanwhile.
 ```
 
-### superbot-mineverse — ⚑ needs-owner: provision the six host env secrets (block below) — the SECURITY BEFORE SECRETS gate is CLEAR (…
+### superbot-mineverse — ⚑ needs-owner: MINING_WRITE_ENDPOINT + MINING_WRITE_SHARED_SECRET pair (conformance is then one command: `pyt…
 
-- suggested-id: `OQ-SUPERBOT-MINEVERSE-PROVISION-SIX-HOST-ENV`
-- source: superbot-mineverse/control/status.md @ `79a4018` · heartbeat `updated:` 2026-07-12T23:41:43Z
+- suggested-id: `OQ-SUPERBOT-MINEVERSE-MINING-WRITE-ENDPOINT-MINING`
+- source: superbot-mineverse/control/status.md @ `35f147a` · heartbeat `updated:` 2026-07-13T04:12:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-⚑ needs-owner: provision the six host env secrets (block below) — the SECURITY BEFORE SECRETS gate is CLEAR (#42 in main).
+⚑ needs-owner: MINING_WRITE_ENDPOINT + MINING_WRITE_SHARED_SECRET pair (conformance is then one command: `python3 scripts/conformance_run.py`, docs/conformance-runbook.md) — full OWNER-ACTION block (WHAT/WHERE/HOW/WHY-IT-MATTERS/UNBLOCKS/VERIFIED-NEEDED/RISK): control/outbox.md entry 2026-07-12T21:05Z. Owner-decision queue: § QUEUED below.
+practice (2026-07-13T05:27:28Z): ORDER 038 adopted (fm inbox, standing, 2026-07-13): VERDICT 016 authenticity gate applied to every cross-agent reviewer reply before acting (cited line ranges must be ≤ EOF at the reviewed head; failed reply = fabricated, discarded with citation) — Q-0120 still governs replies that pass.
 ```
 
 ### product-forge — ⚑ OWNER-ACTION (OA-003, open)
@@ -162,7 +155,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### idea-engine — ⚑ needs-owner (condensed from the session-1 close-out — canonical full-field detail stands in history at c775…
 
 - suggested-id: `OQ-IDEA-ENGINE-CONDENSED-FROM-SESSION-1`
-- source: idea-engine/control/status.md @ `15d1802` · heartbeat `updated:` 2026-07-12T23:44:55Z (real wall-clock via date -u, per the …
+- source: idea-engine/control/status.md @ `9b24977` · heartbeat `updated:` 2026-07-13T05:14:54Z (real wall-clock via date -u, per the …
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -181,5 +174,5 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 
 ---
 
-14 candidate block(s) across 12 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
+13 candidate block(s) across 12 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
 
