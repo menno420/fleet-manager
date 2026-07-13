@@ -29,6 +29,9 @@ The v3 generation (provenance: research PRs #93/#95, problem census PRs #94/#96,
 owner baseline 2026-07-11) lives under [`v3/`](v3/per-project/README.md), drafted
 2026-07-12, **not yet deployed**:
 
+- **Owner skim doc — what changed v3.4 → v3.5 → v3.6 (2026-07-13 night folds):**
+  [`v3/CHANGES-v3.4-to-v3.5.md`](v3/CHANGES-v3.4-to-v3.5.md).
+
 - **Universal artifacts:** [`v3/universal-startup.md`](v3/universal-startup.md)
   (artifact A), [`v3/custom-instructions-core.md`](v3/custom-instructions-core.md)
   (artifact C core), [`v3/session-ender.md`](v3/session-ender.md) (artifact D).
@@ -48,7 +51,10 @@ owner baseline 2026-07-11) lives under [`v3/`](v3/per-project/README.md), drafte
   [`ideas-lab-startup.md`](v3/per-project/ideas-lab-startup.md) ·
   [`ideas-lab-custom-instructions.md`](v3/per-project/ideas-lab-custom-instructions.md) ·
   [`venture-lab-startup.md`](v3/per-project/venture-lab-startup.md) ·
-  [`venture-lab-custom-instructions.md`](v3/per-project/venture-lab-custom-instructions.md).
+  [`venture-lab-custom-instructions.md`](v3/per-project/venture-lab-custom-instructions.md) ·
+  [`curious-research-startup.md`](v3/per-project/curious-research-startup.md) ·
+  [`curious-research-custom-instructions.md`](v3/per-project/curious-research-custom-instructions.md)
+  (seat 9, added v3.6).
 - **Owner baseline 2026-07-11** (verbatim owner-pasted deployed prompts the v3
   drafts inherit from — never edit their paste bodies):
   [`baseline-2026-07-11/game-lab.md`](baseline-2026-07-11/game-lab.md) ·
