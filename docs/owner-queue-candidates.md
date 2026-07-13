@@ -4,14 +4,14 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #32** · generated-at **2026-07-13T18:39Z** · by fleet-manager failsafe wake 18:34Z (work slice), dispatched by failsafe cron 30 */2 * * * (trig_01FpTbpXCeGcotnBpTkscAdr)
+> **Generation #33** · generated-at **2026-07-13T20:00Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
 ### superbot (hub) — ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready…
 
 - suggested-id: `OQ-SUPERBOT-HUB-SIDE-RESIDUE-ONLY`
-- source: superbot/control/status.md @ `9776401` · heartbeat `updated:` 2026-07-13T09:45:00Z
+- source: superbot/control/status.md @ `1cc5536` · heartbeat `updated:` 2026-07-13T09:45:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -55,7 +55,7 @@
 ### websites — ⚑ needs-owner: pointer — canonical six-field blocks live in docs/owner/OWNER-ACTIONS.md ONLY. EIGHT asks open…
 
 - suggested-id: `OQ-WEBSITES-POINTER-CANONICAL-SIX-FIELD`
-- source: websites/control/status.md @ `c4ffe25` · heartbeat `updated:` 2026-07-13T11:31:00Z
+- source: websites/control/status.md @ `2e83c9e` · heartbeat `updated:` 2026-07-13T11:31:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -108,100 +108,21 @@
 ### superbot-idle (Seat B) — - ⚑ to manager: no longer a blocker-ask. Optional follow-up only — owner may create the standalone superbot-p…
 
 - suggested-id: `OQ-SUPERBOT-IDLE-MANAGER-NO-LONGER-BLOCKER`
-- source: superbot-idle/control/status.md @ `4c31a2c` · heartbeat `updated:` 2026-07-13T17:43Z
+- source: superbot-idle/control/status.md @ `1f4d774` · heartbeat `updated:` 2026-07-13T17:43Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
 - ⚑ to manager: no longer a blocker-ask. Optional follow-up only — owner may create the standalone superbot-plugin-hello repo (still empty); exemplar is in-tree meanwhile.
 ```
 
-### superbot-mineverse — ⚑ needs-owner: pytest as a required check on superbot-idle main — full six-field OWNER-ACTION block: control/…
+### superbot-mineverse — ⚑ needs-owner: pytest as required check on superbot-idle main (OA-003) — full six-field OWNER-ACTION block: t…
 
 - suggested-id: `OQ-SUPERBOT-MINEVERSE-PYTEST-AS-REQUIRED-CHECK`
-- source: superbot-mineverse/control/status.md @ `f79d0ae` · heartbeat `updated:` 2026-07-13T16:15:03Z
+- source: superbot-mineverse/control/status.md @ `ae98dd0` · heartbeat `updated:` 2026-07-13T18:45:43Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-⚑ needs-owner: pytest as a required check on superbot-idle main — full six-field OWNER-ACTION block: control/outbox.md entry 2026-07-13T14:56Z (VENUE: hub). Carried: MINING_WRITE_ENDPOINT + MINING_WRITE_SHARED_SECRET pair — control/outbox.md 2026-07-12T21:05Z.
-```
-
-### pokemon-mod-lab — 1. **⚑ OWNER-ACTION 1 — `ROM builds` required-check click.** GitHub →
-
-- suggested-id: `OQ-POKEMON-MOD-LAB-1-1-ROM-BUILDS`
-- source: pokemon-mod-lab/control/status.md @ `759dee4` · heartbeat `updated:` 2026-07-11T21:03:45Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-1. **⚑ OWNER-ACTION 1 — `ROM builds` required-check click.** GitHub →
-   Settings → Rules → `main` ruleset → require status checks → add
-   `ROM builds` (keep `substrate-gate`). No agent API surface for
-   rulesets (`docs/PLATFORM-LIMITS.md`).
-```
-
-### pokemon-mod-lab — 2. **⚑ OWNER-ACTION 2 — next-arc concept pick.** One word: continue
-
-- suggested-id: `OQ-POKEMON-MOD-LAB-2-2-NEXT-ARC`
-- source: pokemon-mod-lab/control/status.md @ `759dee4` · heartbeat `updated:` 2026-07-11T21:03:45Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-2. **⚑ OWNER-ACTION 2 — next-arc concept pick.** One word: continue
-   Emerald QoL+ (new-lead spikes) / Emerald Hard / Nuzlocke Mode
-   (`docs/mod-concepts.md`). Lane default remains QoL+; reversible.
-```
-
-### pokemon-mod-lab — 3. **⚑ OWNER-ACTION 3 — playtest verdict on the 6 game-feel patches**
-
-- suggested-id: `OQ-POKEMON-MOD-LAB-3-3-PLAYTEST-VERDICT`
-- source: pokemon-mod-lab/control/status.md @ `759dee4` · heartbeat `updated:` 2026-07-11T21:03:45Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-3. **⚑ OWNER-ACTION 3 — playtest verdict on the 6 game-feel patches**
-   (instant text #4, auto-run #6, HP drain 3× #7, battle msg ×0.5 #7,
-   egg hatch 2×/3× #21, fishing dots 2× #23) + the Match Call
-   random-nag rider. One-line header flag per revert
-   (`docs/build-presets.md`); hatch-128 stacking waits on this.
-```
-
-### pokemon-mod-lab — 4. **⚑ stale ref `track-a/session-019` — owner click to delete**
-
-- suggested-id: `OQ-POKEMON-MOD-LAB-4-STALE-REF-TRACK`
-- source: pokemon-mod-lab/control/status.md @ `759dee4` · heartbeat `updated:` 2026-07-11T21:03:45Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-4. **⚑ stale ref `track-a/session-019` — owner click to delete**
-   (content squash-merged via PR #24 long ago; sessions must not touch
-   it).
-```
-
-### pokemon-mod-lab — 5. **⚑ NEW (housekeeping) — stale ref `track-a/session-024` — owner
-
-- suggested-id: `OQ-POKEMON-MOD-LAB-5-NEW-HOUSEKEEPING-STALE`
-- source: pokemon-mod-lab/control/status.md @ `759dee4` · heartbeat `updated:` 2026-07-11T21:03:45Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-5. **⚑ NEW (housekeeping) — stale ref `track-a/session-024` — owner
-   click to delete** (content superseded by PR #31; PR #29 closed).
-   Session 041 attempted `git push origin :track-a/session-024` at
-   archive time and was DENIED by the platform's auto-mode classifier
-   ("[Git Destructive] ... not named or authorized by the user") — not
-   retried, per playbook. Either owner-click it away alongside
-   session-019, or explicitly authorize a future session to delete it.
-```
-
-### pokemon-mod-lab — - OWNER-ACTION 4 (wake-env GitHub write tools) and OWNER-ACTION 5
-
-- suggested-id: `OQ-POKEMON-MOD-LAB-4-WAKE-ENV-GITHUB`
-- source: pokemon-mod-lab/control/status.md @ `759dee4` · heartbeat `updated:` 2026-07-11T21:03:45Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-- OWNER-ACTION 4 (wake-env GitHub write tools) and OWNER-ACTION 5
-  (`add_repo` classifier denials): **RESOLVED** — 20 consecutive clean
-  wake cycles (024–043). Reopen only on regression.
+⚑ needs-owner: pytest as required check on superbot-idle main (OA-003) — full six-field OWNER-ACTION block: this repo's control/outbox.md entry 2026-07-13T14:56Z (VENUE: hub). Carried: MINING_WRITE_ENDPOINT + MINING_WRITE_SHARED_SECRET pair — control/outbox.md entry 2026-07-12T21:05Z.
 ```
 
 ### product-forge — ⚑ OWNER-ACTION (OA-003, open)
@@ -227,7 +148,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### idea-engine — ⚑ needs-owner: unchanged — the full three-item bundle (owner sitting ≤2026-07-13, websites cutover, gift repo…
 
 - suggested-id: `OQ-IDEA-ENGINE-UNCHANGED-FULL-THREE-ITEM`
-- source: idea-engine/control/status.md @ `94fd30c` · heartbeat `updated:` 2026-07-13T17:59:21Z (real wall-clock via date -u, per the …
+- source: idea-engine/control/status.md @ `0cad099` · heartbeat `updated:` 2026-07-13T17:59:21Z (real wall-clock via date -u, per the …
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -246,5 +167,5 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 
 ---
 
-19 candidate block(s) across 12 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
+13 candidate block(s) across 11 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
 
