@@ -990,3 +990,52 @@ owner: all seats (manager relay — recorded on the bus so every lane reads it a
 do: RECORD + APPLY the owner live directive, verbatim: "you and all your agents should always merge every PR thats ready". Provenance: owner live, fleet-manager coordinator chat, 2026-07-12T22:04Z. Effect: a PR that is READY (non-draft) with every required check COMPLETED green is MERGED by the agent/lane that owns it (squash), citing this directive — parking READY+green PRs for an owner click is no longer the default landing. Designed holds are unchanged: a `do-not-automerge` label, a GATED order (e.g. ORDERs 023/024 above), red or incomplete required checks, and owner-only walls (workflow-file PRs, settings toggles) still hold.
 why: owner live directive 2026-07-12T22:04Z — parked-green PRs were accumulating owner clicks the owner does not want to make.
 done-when: recorded; landing doctrine updated — this block is on the bus at HEAD, and each seat cites the directive when self-merging from its next wake onward.
+
+## ORDER 030 · 2026-07-13T00:01Z · status: new
+priority: P1 — TONIGHT'S finalization mandate
+owner: SuperBot 2.0 seat (superbot-next + superbot prod)
+do: Owner's words, verbatim: "as much finalization as possible gets done tonight, all finished features properly implemented, simulations and reviews done to find out which commands and buttons should be kept or reworked, at least the full core and all admin and setup functions fully complete and production ready ... I want everything working as intended, and as finished and finetuned as possible" — live testing follows later; the mandate now is completeness + polish. Includes the build side of the minigame/casino consolidation: one section, games grouped, guild-configurable enable-all-or-pick-a-few, panels updating dynamically to the enabled set ("this is more a job for superbot-next, and mostly already exists") — consume SuperBot World's inventory/spec (ORDER 031). Context: these goals are being consolidated into a fleet grounding doc by the hub venue (superbot docs/owner/fleet-grounding.md, pending commit) — read it when it lands.
+why: owner goals message — owner live in the fleet-manager coordinator chat, 2026-07-13T00:1xZ.
+done-when: finalization sweep lands as green PRs; an evidenced KEEP/REWORK/DROP verdict exists per command/button; core+admin+setup surfaces each report implemented+tested+production-ready; status report in the seat heartbeat.
+
+## ORDER 031 · 2026-07-13T00:01Z · status: new
+priority: P1 — games finalization + casino inventory/spec
+owner: SuperBot World seat (superbot-games + superbot-idle + superbot-mineverse)
+do: Owner's words, verbatim: "finalize the mining game completely as a standalone game, with integration in the exploration/world hub" — review end-to-end first, then extend/improve wherever possible; "same for fishing and the idle game". Card games and all minigames consolidated "into one minigame/casino section" with expanded options ("any kind of minigame they can add should be there"), in sections with enable-all-or-pick-a-few and dynamically updating panels — this seat owns the game inventory, section spec, and per-game readiness; the panel build is superbot-next's (ORDER 030): publish the spec for it via heartbeat/outbox. Context: these goals are being consolidated into a fleet grounding doc by the hub venue (superbot docs/owner/fleet-grounding.md, pending commit) — read it when it lands.
+why: owner goals message — owner live in the fleet-manager coordinator chat, 2026-07-13T00:1xZ.
+done-when: mining/fishing/idle each have a review+finalize+improve report and landed PRs; the casino inventory+spec is published and referenced in the heartbeat.
+
+## ORDER 032 · 2026-07-13T00:01Z · status: standing
+priority: P2 — endless idea cycle (standing)
+owner: Ideas Lab seat (idea-engine + sim-lab)
+do: Owner's words, verbatim: "keeps producing and testing an endless cycle of ideas for any of the repos or completely unrelated to anything" — continuous harvest→probe→verdict→outbox; SIM-REQUESTs from build seats are priority intake; verdicts route only through the manager. Context: these goals are being consolidated into a fleet grounding doc by the hub venue (superbot docs/owner/fleet-grounding.md, pending commit) — read it when it lands.
+why: owner goals message — owner live in the fleet-manager coordinator chat, 2026-07-13T00:1xZ.
+done-when: standing — each wake's heartbeat shows cycle throughput (ideas produced/tested/verdicts finalized), honest nulls included.
+
+## ORDER 033 · 2026-07-13T00:01Z · status: standing
+priority: P2 — both Venture Lab lanes continue (standing)
+owner: Venture Lab seat (venture-lab + trading-strategy)
+do: Continue BOTH lanes. Products, owner's words verbatim: "complete as many finished books and sellable products as possible"; "come up with multiple new book ideas as well as write multiple versions of each book"; website-shaped ideas get an explicit WEBSITE-IDEA outbox marker for the manager to route to Websites. Trading, verbatim: "find more strategies to backtest, as well as more stocks, more indicators" — expand the surface continuously, record every result honestly including nulls. Context: these goals are being consolidated into a fleet grounding doc by the hub venue (superbot docs/owner/fleet-grounding.md, pending commit) — read it when it lands.
+why: owner goals message — owner live in the fleet-manager coordinator chat, 2026-07-13T00:1xZ.
+done-when: standing — per-wake shipped/publish-READY counts, new book ideas + versions, WEBSITE-IDEA markers, and backtest-surface growth in the heartbeat.
+
+## ORDER 034 · 2026-07-13T00:01Z · status: new
+priority: P2 — self-thinking research + skill-pack mechanism
+owner: Self Improvement seat (substrate-kit)
+do: Continue current direction and fold in today's lessons. Owner research mandate, verbatim: "spend more time into finding out how we can let the sessions actually think more for themselves" — rationalize whether actions should ALSO be executed; turn lessons/ideas into permanent solutions; agents "eager to initiate helpful actions"; build the mechanism that "makes agents self initiate structural durable improvement" — a skill-pack method: baked lessons loadable on demand ("prevents it from taking up too much storage in the CLAUDE.md itself, but is still always loadable on demand"), so no session re-discovers problems/workarounds. Seed skills to generalize (verify at superbot HEAD, .claude/skills/, provenance Q-0273): chase-references (resolve every link/name/reference in an ask before acting) and prep-owner-steps ("lead with the link and the copy/paste ready file in chat as a separate block" — map the owner's exact steps, ship every blob he must enter paste-ready). Context: these goals are being consolidated into a fleet grounding doc by the hub venue (superbot docs/owner/fleet-grounding.md, pending commit) — read it when it lands.
+why: owner goals message — owner live in the fleet-manager coordinator chat, 2026-07-13T00:1xZ.
+done-when: research findings + a shipped or concretely planned kit mechanism reported in the heartbeat; seed skills generalized into kit templates or an evidenced reason why not yet.
+
+## ORDER 035 · 2026-07-13T00:01Z · status: standing
+priority: P2 — websites quality bar + self-initiated builds (standing)
+owner: Websites seat
+do: Owner's words, verbatim: "continue with all they're doing" — control plane, pod websites, Anthropic review website. The quality bar, verbatim: "every website is properly, efficiently created. so that every page shows you immediately what it is, what it does, and the most important features that it has" — audit every live page against this and fix misses. Also, verbatim: "scan the repos and initiate anything that might be able to be done as a website"; execute the existing plan and "not stop until it's all done. And, actually, well made". Context: these goals are being consolidated into a fleet grounding doc by the hub venue (superbot docs/owner/fleet-grounding.md, pending commit) — read it when it lands.
+why: owner goals message — owner live in the fleet-manager coordinator chat, 2026-07-13T00:1xZ.
+done-when: standing — clarity-bar audit results, plan progress, and self-initiated builds in each heartbeat.
+
+## ORDER 036 · 2026-07-13T00:01Z · status: new
+priority: P2 — mass game production beyond GBA/NDS
+owner: Game Lab seat (gba-homebrew + pokemon-mod-lab)
+do: Owner's words, verbatim: "focus on producing multiple different games ... produce in mass" like Venture Lab — multiple things to test, try out, "maybe even things we can sell"; "not just stick to only the GBA game or NDS, Pokemon games ... make web browser games, or try to make the foundations or plans for actual mobile games" — browser games coordinate with Websites (arcade home); mobile = framework choice + pipeline + running skeleton or an evidenced wall. Context: these goals are being consolidated into a fleet grounding doc by the hub venue (superbot docs/owner/fleet-grounding.md, pending commit) — read it when it lands.
+why: owner goals message — owner live in the fleet-manager coordinator chat, 2026-07-13T00:1xZ.
+done-when: current tracks keep shipping AND new prototypes/concepts appear per wake (playable slice + one-page concept incl. sellability guess), reported in the heartbeat.
