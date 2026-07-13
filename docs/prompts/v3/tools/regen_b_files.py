@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""prompts v3.4 — budget/drift checker + projects/ registry sync.
+"""prompts v3.6 — budget/drift checker + projects/ registry sync.
 
 v3.3 (owner spec 2026-07-12) RETIRED the two assembly steps this script used
 (v3.4, 2026-07-12, is a currency restamp of the same one-file-per-seat model —
@@ -36,10 +36,10 @@ What remains — and what this script now does on every run (default mode):
            (first/canonical occurrence) — the grant is owner-provenance and
            is never paraphrased.
          - DOCTRINE IDENTITY: the ==== DOCTRINE ==== section must be
-           byte-identical across all 8 startups after normalizing the one
+           byte-identical across ALL seat startups after normalizing the one
            per-seat fill (the CONTROL BUS status grammar).
          - CARD-BLOCK IDENTITY: the "• SESSION CARD (born-red mechanics..."
-           block must be byte-identical across all 8 startups.
+           block must be byte-identical across ALL seat startups.
          - STAMP/DRIFT-CHECK lines present in every CI and startup body.
          - FAILSAFE EXTRACTION: each startup must still carry the BOOT 3a
            FAILSAFE WAKE prompt + cron + step-4 old-trigger sources (the
@@ -79,8 +79,10 @@ Provenance: v3.1 build (PR #103) · v3.2 stateless rebuild + registry modes
 (PR #108/#110) · v3.3 one-file-per-seat rebuild (owner spec 2026-07-12) ·
 v3.4 currency restamp (prompt-currency audit deltas, 2026-07-12) · v3.5
 autonomy-rider + seed-skills fold (Q-0271/Q-0273, ORDER 039 task 5,
-2026-07-13). PENDING
-(v3.6, blocked on unreleased kit #279): consume the kit seat-digest fences
+2026-07-13) · v3.6 stage-2 fold (open-PRs-stay-open STANDING + Q-0272 reading
+path + Q-0273 venue model + Q-0274 grounding boot-read + the NINTH SEAT
+Curious Research, owner night order TASK 1, 2026-07-13). PENDING
+(v3.7, blocked on unreleased kit #279): consume the kit seat-digest fences
 (substrate-kit:skills-digest / walls-digest, 1,500-char budget) so seat
 walls/skills blocks render from kit truth — do NOT wire until released.
 STATELESS (D-9) still binds both layers: no volatile facts in any paste.
@@ -98,6 +100,7 @@ PROJECTS = REPO / "projects"
 MARKER = "<!-- registry-header-end -->"
 PROVENANCE_DATE = "2026-07-13"
 
+VERSION = "v3.6"  # the current generation stamp — bump at every body-changing re-sync
 CI_HARD = 8000
 CI_AIM = 7500
 
@@ -108,28 +111,34 @@ CI_AIM = 7500
 SEATS = [
     dict(name="Fleet Manager", startup="fleet-manager-startup.md",
          ci="fleet-manager-custom-instructions.md", reg="fleet-manager",
-         versions={"coordinator": "v7", "instructions": "v7", "failsafe": "v7"}),
+         versions={"coordinator": "v8", "instructions": "v8", "failsafe": "v8"}),
     dict(name="SuperBot 2.0", startup="superbot-startup.md",
          ci="superbot-custom-instructions.md", reg="superbot-2.0",
-         versions={"coordinator": "v5", "instructions": "v5", "failsafe": "v5"}),
+         versions={"coordinator": "v6", "instructions": "v6", "failsafe": "v6"}),
     dict(name="Websites", startup="websites-startup.md",
          ci="websites-custom-instructions.md", reg="websites",
-         versions={"coordinator": "v7", "instructions": "v6", "failsafe": "v6"}),
+         versions={"coordinator": "v8", "instructions": "v7", "failsafe": "v7"}),
     dict(name="Self Improvement", startup="self-improvement-startup.md",
          ci="self-improvement-custom-instructions.md", reg="self-improvement",
-         versions={"coordinator": "v5", "instructions": "v5", "failsafe": "v5"}),
+         versions={"coordinator": "v6", "instructions": "v6", "failsafe": "v6"}),
     dict(name="SuperBot World", startup="superbot-world-startup.md",
          ci="superbot-world-custom-instructions.md", reg="superbot-world",
-         versions={"coordinator": "v5", "instructions": "v5", "failsafe": "v5"}),
+         versions={"coordinator": "v6", "instructions": "v6", "failsafe": "v6"}),
     dict(name="Game Lab", startup="game-lab-startup.md",
          ci="game-lab-custom-instructions.md", reg="game-lab",
-         versions={"coordinator": "v5", "instructions": "v5", "failsafe": "v5"}),
+         versions={"coordinator": "v6", "instructions": "v6", "failsafe": "v6"}),
     dict(name="Ideas Lab", startup="ideas-lab-startup.md",
          ci="ideas-lab-custom-instructions.md", reg="ideas-lab",
-         versions={"coordinator": "v5", "instructions": "v5", "failsafe": "v5"}),
+         versions={"coordinator": "v6", "instructions": "v6", "failsafe": "v6"}),
     dict(name="Venture Lab", startup="venture-lab-startup.md",
          ci="venture-lab-custom-instructions.md", reg="venture-lab",
-         versions={"coordinator": "v6", "instructions": "v7", "failsafe": "v6"}),
+         versions={"coordinator": "v7", "instructions": "v8", "failsafe": "v7"}),
+    # NINTH SEAT (v3.6, owner night order TASK 1, 2026-07-13): founding pair
+    # source = superbot docs/owner/curious-research-project-prompts-2026-07-13.md
+    # @ c65750e, conformed to the registry format; failsafe slot 20 */2 (D-7).
+    dict(name="Curious Research", startup="curious-research-startup.md",
+         ci="curious-research-custom-instructions.md", reg="curious-research",
+         versions={"coordinator": "v1", "instructions": "v1", "failsafe": "v1"}),
 ]
 
 DOCTRINE_START = "════════ DOCTRINE — full text, binding ════════"
@@ -141,12 +150,12 @@ BATON_END = "even when the handoff reads current."
 
 
 def paste_body(path: Path) -> str:
-    """Everything from the first `v3.4 ` stamp line onward (repo file headers
+    """Everything from the first `VERSION ` stamp line onward (repo file headers
     above it excluded), trailing newline stripped — the char-count basis."""
     text = path.read_text()
-    m = re.search(r"^v3\.5 ", text, re.M)
+    m = re.search(rf"^{re.escape(VERSION)} ", text, re.M)
     if not m:
-        raise RuntimeError(f"{path.name}: no v3.5 stamp line found")
+        raise RuntimeError(f"{path.name}: no {VERSION} stamp line found")
     return text[m.start():].rstrip("\n")
 
 
@@ -205,7 +214,7 @@ def card_block(body: str, fname: str) -> str:
 
 def triad_block(body: str, fname: str) -> str:
     """The Q-0270 BOOT TRIAD step (BOOT step 0) — shared constant, byte-
-    identical in all 8 startups; canonical wording: superbot .claude/CLAUDE.md
+    identical in ALL seat startups; canonical wording: superbot .claude/CLAUDE.md
     § Read first (Q-0270) + router Q-0270."""
     m = re.search(re.escape(TRIAD_PREFIX) + r".*?$", body, re.M)
     if not m:
@@ -216,7 +225,7 @@ def triad_block(body: str, fname: str) -> str:
 def baton_block(body: str, fname: str) -> str:
     """The BOOT 2 thorough-verification sentence (owner doctrine 2026-07-12:
     the baton NARROWS the search, it never substitutes for verification) —
-    shared constant, byte-identical in all 8 startups."""
+    shared constant, byte-identical in ALL seat startups."""
     m = re.search(re.escape(BATON_PREFIX) + r".*?" + re.escape(BATON_END), body, re.S)
     if not m:
         raise RuntimeError(f"{fname}: BOOT 2 thorough-verification sentence not found")
@@ -284,13 +293,13 @@ def run_checks() -> int:
                 if val != ref:
                     fails.append(f"{fname}: {label} differs from {ref_name} — the shared text drifted")
 
-    print(f"{'Custom Instructions (v3.5, one file per seat)':58s} {'chars':>6s} {'bytes':>6s}  vs hard 8,000 (both) / aim 7,500")
+    print(f"{'Custom Instructions (' + VERSION + ', one file per seat)':58s} {'chars':>6s} {'bytes':>6s}  vs hard 8,000 (both) / aim 7,500")
     for f, n, nb in ci_rows:
         worst = max(n, nb)
         status = "OVER HARD — MUST TRIM" if worst > CI_HARD else ("over aim, under hard — flagged by design" if n > CI_AIM else "within aim")
         print(f"{f:58s} {n:6,d} {nb:6,d}  {status}")
     print()
-    print(f"{'Expanded startups (v3.5, size NOTE — no cap)':58s} {'chars':>6s}")
+    print(f"{'Expanded startups (' + VERSION + ', size NOTE — no cap)':58s} {'chars':>6s}")
     for f, n in su_rows:
         print(f"{f:58s} {n:6,d}")
     print()
@@ -311,7 +320,7 @@ def run_checks() -> int:
         return 1
     print("drift checks: OK — ender sync (D-10), grant sync, doctrine identity, "
           "card-block identity, BOOT TRIAD (Q-0270) identity + CI entries, BOOT 2 "
-          "thorough-verification identity, stamps, failsafe extraction: all 8 seats clean")
+          f"thorough-verification identity, stamps, failsafe extraction: all {len(SEATS)} seats clean")
     return 0
 
 
@@ -332,7 +341,7 @@ def failsafe_body(seat: dict, parts: dict) -> str:
   `list_triggers` before writing "armed" — never wait for a first fire
   (completed runs are not inspectable owner-side).
 
-## Prompt text (create_trigger `prompt`, EXACTLY — single-sourced from the seat's v3.4 startup, BOOT step 3a (D-2))
+## Prompt text (create_trigger `prompt`, EXACTLY — single-sourced from the seat's {VERSION} startup, BOOT step 3a (D-2))
 
 ```
 {parts['prompt']}
@@ -353,21 +362,21 @@ never rebound and never deleted (it binds to no mortal seat session)."""
 def registry_header(seat: dict, artifact: str, version: str, sha: str, body: str) -> str:
     name = seat["name"]
     titles = {
-        "coordinator": "coordinator seat prompt (registry copy, prompts v3.4)",
-        "instructions": "Custom Instructions (registry copy, prompts v3.4)",
-        "failsafe": "failsafe cron text (registry copy, prompts v3.4)",
+        "coordinator": f"coordinator seat prompt (registry copy, prompts {VERSION})",
+        "instructions": f"Custom Instructions (registry copy, prompts {VERSION})",
+        "failsafe": f"failsafe cron text (registry copy, prompts {VERSION})",
     }
     specific = {
         "coordinator": (
             f"> Body below the marker = docs/prompts/v3/per-project/{seat['startup']} paste\n"
-            "> body VERBATIM (the seat's AUTHORED v3.4 EXPANDED startup — doctrine inlined\n"
+            f"> body VERBATIM (the seat's AUTHORED {VERSION} EXPANDED startup — doctrine inlined\n"
             "> in full, NO char cap; paste as the FIRST message of the seat's coordinator\n"
             "> chat)."
         ),
         "instructions": (
             f"> Paste FULL into the Project's Custom Instructions. Body below the marker =\n"
             f"> docs/prompts/v3/per-project/{seat['ci']} paste body\n"
-            "> VERBATIM — v3.4 is ONE AUTHORED FILE PER SEAT (seat header + condensed\n"
+            f"> VERBATIM — {VERSION} is ONE AUTHORED FILE PER SEAT (seat header + condensed\n"
             "> five-section skeleton + keyword dictionary + routes); the v3.1/v3.2\n"
             "> core+seat-block assembly is RETIRED.\n"
             f"> char-count: {len(body):,} chars = the paste body below the marker, trailing\n"
@@ -377,19 +386,19 @@ def registry_header(seat: dict, artifact: str, version: str, sha: str, body: str
         ),
         "failsafe": (
             "> Body below the marker wraps the seat's BOOT step-3a FAILSAFE WAKE text\n"
-            "> (extracted from the seat's v3.3 startup — D-2 single source) with the seat\n"
+            f"> (extracted from the seat's {VERSION} startup — D-2 single source) with the seat\n"
             "> name + D-7 stagger-table cron."
         ),
     }
     return (
         f"<!-- {version} · {PROVENANCE_DATE} · fleet-manager projects registry — GENERATED COPY, do not edit\n"
         "     (regenerate: docs/prompts/v3/tools/regen_b_files.py --write-registry; drift guard: --check-registry) -->\n"
-        f"<!-- generated from docs/prompts/v3 @ {sha} (prompts v3.4, currency restamp 2026-07-12) -->\n"
+        f"<!-- generated from docs/prompts/v3 @ {sha} (prompts {VERSION}, stage-2 fold {PROVENANCE_DATE}) -->\n"
         f"# {name} — {titles[artifact]}\n\n"
         "> **GENERATED COPY — NOT SOURCE OF TRUTH.** This registry copy is GENERATED FROM\n"
-        "> the v3 home: **docs/prompts/v3/ is the source of truth** (generation v3.4,\n"
+        f"> the v3 home: **docs/prompts/v3/ is the source of truth** (generation {VERSION},\n"
         "> stateless, D-9). Edit the v3 sources and regenerate — never this file.\n"
-        f"> Version lineage: {version} ({PROVENANCE_DATE}) supersedes the v3.3 registry sync copy.\n"
+        f"> Version lineage: {version} ({PROVENANCE_DATE}) supersedes the prior registry sync copy.\n"
         f"{specific[artifact]}\n\n"
         f"{MARKER}\n"
     )
