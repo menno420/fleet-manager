@@ -522,3 +522,20 @@ live GitHub this wake:
 - **superbot-idle: parked set CLEARED** — #75 + #76 self-landed 01:23–01:26Z
   (merged_by github-actions[bot]); open idle PRs = 0. Owner-queue B#50 marked
   ✅ RESOLVED this wake with the merge evidence.
+
+---
+
+## 2026-07-13 · Q-0264 RELAY-CONSUMPTION SWEEP — ALL FAN-OUT STILL OWED (trigger-health worker session, verified read-only 13:13:45Z)
+
+Verification pass on the FAN-IN relay record above (L468–502): all four
+lane-inbox writes are **still owed** — venture-lab ← V037/V039/V040/V041 ·
+superbot-idle ← V038 (clears that lane's declared RESUME TRIGGER,
+status.md L8/L94) · superbot-games ← V042/V043/V044/V045 · substrate-kit
+(Self Improvement seat) ← idea-engine ASK 002. Consumption verified PENDING
+at every target's live HEAD: venture-lab `765e1f8` · superbot-idle `b03cc96`
+· superbot-games `57f69be` · substrate-kit `949875c` (originator idea-engine
+`c807960` still shows ASK 002 `status: new`). No verdict string appears in
+any target lane's control files; no lane self-served from this outbox. Full
+SHA-cited per-verdict table: `docs/fleet-triage.md` § "2026-07-13 · Q-0264
+relay-consumption sweep". Fan-out remains with the coordinator at next
+dispatch, per the relay record's own wording.
