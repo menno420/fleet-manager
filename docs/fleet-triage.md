@@ -184,6 +184,71 @@ TASK 3 escalation needed — the rung-2 send_message nudge contemplated at
 (idle: tools/simulate.py A10 v2 harness follow-up, flagged in its status;
 games: PR #83 landing on its card flip).
 
+## 2026-07-13 · I1b disposition — `trig_011XAWqPeksS8LBrS5G9RvVc` "superbot autonomous dispatch" (20:51Z, read-only, SHA-cited)
+
+> Dated evidence note (per §How-to-re-verdict pt 4). Baton item from the
+> failsafe wake 2026-07-13T20:33Z (executor session, fm PR #175): the standing
+> I1b AMBIGUOUS-ENABLED WARN row in `check_trigger_health.py` gets its
+> classification. The trigger is NOT fleet-manager's — nothing here modifies
+> it; the verdict routes to the superbot hub seat via `control/outbox.md`
+> (same wake) for disposal by its owner.
+
+**Verdict: DORMANT OWNER-PAUSED REMNANT of the pre-fleet-era superbot
+dispatch routine — recommend disposal by its owner (superbot hub seat /
+owner console: delete, or annotate-and-leave-paused). Do NOT re-enable or
+rebind as-is.**
+
+Registry facts (fresh export, `telemetry/triggers-snapshot.json`
+`captured_at 2026-07-13T20:42:00Z`, this wake's PR #175 commit `90e1a7f`):
+
+- `trig_011XAWqPeksS8LBrS5G9RvVc` · name "superbot autonomous dispatch" ·
+  cron `0 */3 * * *` · created 2026-06-12T20:15:49Z via `http_api` ·
+  environment `env_01CZRF681i8ef2zqt9GgboYy` (superbot).
+- `last_fired_at` 2026-07-02T00:07:46Z · `updated_at` 2026-07-02T02:38:10Z ·
+  `next_run_at` FROZEN at 2026-07-02T03:07:12Z (11+ days past) · `enabled`
+  ABSENT · `ended_reason` ABSENT. Per the CCR `list_triggers` contract, a
+  disabled routine with empty `ended_reason` = **user-paused** — i.e. the
+  registry shape reads as a console pause action at ~2026-07-02T02:38Z,
+  ~2.5h after its last fire, not a platform auto-disable and not a wedge.
+- Same-env cross-check (same export): superbot's environment holds exactly
+  one ENABLED trigger — the poke-only `suberbot docs reconciliation`
+  (`trig_018wP6XTPmf9DLnxrG4RpGVh`). The dispatch trigger's sibling
+  `superbot night executor` (`trig_01MWHvQFnRF1dVdZFSP6SM5L`) is likewise
+  disabled with no `ended_reason` — the other standing I1b WARN row, same
+  remnant class.
+
+Repo evidence (superbot read READ-ONLY over raw.githubusercontent.com at
+main = `1cc553651a19016a4b1439f048b49e7baa28dfb1`, ls-remote-verified):
+
+- `docs/operations/autonomous-routines.md@1cc5536` L30: "superbot dispatch —
+  the single execution routine | console Schedule (every ~2–3h,
+  `0 */2 * * *`, owner-tuned, Q-0146)" — the trigger's stored prompt opens
+  with the exact dispatch-routine text ("You are the SuperBot DISPATCH
+  routine — the single execution routine that does ALL the project's build
+  work…"), confirming identity; the `0 */3` cron on the record is the
+  owner-tuned variant the same line anticipates.
+- Same file L279–289: the "superbot night executor" was MERGED into dispatch
+  (Q-0145, 2026-06-15) — the sibling record is a documented remnant.
+- Same file L331: "Pause/kill: toggle a routine off (or delete it) in the
+  console" — the pause path matches the registry shape.
+- Staleness of the stored prompt: it still carries the Q-0117
+  `needs-hermes-review` merge gate (retired by Q-0197 per the same doc's L30)
+  and pre-dates the fleet-era continuous-mode seat model (Q-0265). The hub's
+  build work is lane-side now (superbot-next; fm inbox ORDER 030), and the
+  superbot hub roster row (roster gen #34) is a coordination surface.
+- **Doc drift flagged to the superbot seat:** `autonomous-routines.md@1cc5536`
+  L395/L406 still present the dispatch console Schedule as the live, reliable
+  cadence — false since the 2026-07-02 pause; the disposing session should
+  annotate it.
+
+Why "recommend deletion by owner" and not "rebind": deletion is destructive
+and the pause was an owner action, so the superbot seat should confirm with
+the owner (the stored prompt is preserved verbatim in this repo's committed
+snapshots and in superbot `docs/operations/hermes-dispatch-bridge.md`, so
+nothing is lost). If the hub ever wants a scheduled execution wake again, the
+correct move is a FRESH trigger from current v3.x prompt sources, not
+re-enabling this stale-doctrine record.
+
 ## How to re-verdict
 
 1. Verify against live source (Q-0120 — never against report text).
