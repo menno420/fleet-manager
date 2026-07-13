@@ -233,6 +233,46 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
     - RISK: ↩️ reversible — delete the ruleset to undo.
     - Blocking: not-blocking, but cheap and worth doing at the B#5 sitting.
 
+49. **fleet-manager — roster read PAT for the one private lane repo**
+    *(new 2026-07-13, consolidation batch).*
+   - id: OQ-FM-ROSTER-READ-PAT
+    - WHAT: create a fine-grained PAT (repository access: **pokemon-mod-lab
+      only**, permission: Contents **read-only**) and save it as a
+      fleet-manager Actions secret named `ROSTER_READ_TOKEN`.
+    - WHERE: https://github.com/settings/personal-access-tokens/new
+      (Settings → Developer settings → Fine-grained tokens), then
+      https://github.com/menno420/fleet-manager/settings/secrets/actions
+      (New repository secret → `ROSTER_READ_TOKEN`).
+    - HOW: two clicksets, ~2 min total; the workflow wiring is already
+      merged (fm PR #144) — the secret is the only missing piece.
+    - WHY: headless roster regen cannot read the one private lane repo, so
+      its row printed DEAD while the lane was alive.
+    - UNBLOCKS: real pokemon-mod-lab roster rows (honest freshness instead
+      of a false DEAD).
+    - VERIFIED-NEEDED: next roster generation shows a real `updated:` stamp
+      on the pokemon-mod-lab row.
+    - RISK: ✅ read-only, single-repo token — minimal scope, revocable.
+    - Blocking: not-blocking, but the row lies until clicked.
+
+50. **superbot-idle — Allow auto-merge + required checks on main**
+    *(new 2026-07-13, consolidation batch).*
+   - id: OQ-IDLE-REQUIRED-CHECKS
+    - WHAT: tick "Allow auto-merge" AND add a ruleset on `main` requiring
+      the check contexts `pytest` and `substrate-gate`.
+    - WHERE: https://github.com/menno420/superbot-idle/settings (General →
+      Pull Requests for the auto-merge tick; Rules → Rulesets for the
+      required checks).
+    - HOW: ~2 min, one sitting.
+    - WHY: with zero required checks the new merge enabler safely refuses to
+      arm (nothing would gate the merge) — installed 457407c but INERT until
+      this click.
+    - UNBLOCKS: parked idle PRs #75/#76 land automatically, and all future
+      seat PRs self-land on green.
+    - VERIFIED-NEEDED: the next agent PR on superbot-idle shows "Auto-merge
+      enabled".
+    - RISK: ✅ reversible — both settings toggle back off.
+    - Blocking: not-blocking, but holds two parked PRs.
+
 ### (C) Claude platform (console / environments / sessions / Codex)
 
 14. **Re-paste the consolidated env setup scripts — COORDINATOR ENV FIRST.**
