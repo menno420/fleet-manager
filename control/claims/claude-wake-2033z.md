@@ -1,1 +1,0 @@
-- `claude/wake-2033z` · failsafe-wake slices: roster regen (R25), trigger snapshot refresh (I6), I1b frozen-trigger disposition · 2026-07-13
