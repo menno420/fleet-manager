@@ -1,6 +1,6 @@
 # fleet-manager · status
 
-updated: 2026-07-13T06:52Z — idle owner-question routing worker write (coordinator-delegated; coordinator seat session_01UutkJqyMcHC1VyFW8fe1a9 continuous since 2026-07-12 ~20:30Z).
+updated: 2026-07-13T09:00Z — batch-2 routing worker write (coordinator-delegated; coordinator seat session_01UutkJqyMcHC1VyFW8fe1a9 continuous since 2026-07-12 ~20:30Z). Q-0264 fan-in batch 2 ROUTED: ORDER 044 dispatched (Ideas Lab — 7 SIM-REQUESTs: 3 venture pricing from the ~05:00Z morning tally + 4 superbot-games balance asks from its outbox @ HEAD; sequenced after ORDER 005's two) + relayed as idea-engine local ORDER 006; venture's one owner-gated tally ask routed as B#54 OQ-VENTURE-SANDBOX-REPO. Websites batch-2 needed NO routing — the seat self-triaged all 8 venture WEBSITE-IDEAs (its heartbeat, updated 2026-07-13T08:41:55Z: 4 built #254/#255/#256/#258, 1 in flight, 1 remaining, 1 dup of #248, 1 owner-gated on the photo originals).
 
 mode: MORNING-REPORTED (NIGHT-RUN closed out — ORDER 039/040 morning deliverable landed)
 
@@ -30,11 +30,11 @@ Walls (summarized): permission-guard edits need live user intent in the acting s
 
 ## Orders
 
-- inbox 001–018 DONE; 019/021/022 DONE; 020 base+amendment DONE; 023/024 GATED on E#44; 025–028 routed; 029 standing (owner merge directive); 030–036 dispatched, night-run executed against them (per-seat state: outbox tally); 037 DONE (games #76, verified merged 02:42:35Z); 038 standing; 039/040 morning deliverable DONE (this PR); 041 core+remainder SHIPPED lane-side, heartbeat done-flip pending; 042/043 NEW (this PR).
+- inbox 001–018 DONE; 019/021/022 DONE; 020 base+amendment DONE; 023/024 GATED on E#44; 025–028 routed; 029 standing (owner merge directive); 030–036 dispatched, night-run executed against them (per-seat state: outbox tally); 037 DONE (games #76, verified merged 02:42:35Z); 038 standing; 039/040 morning deliverable DONE (this PR); 041 SHIPPED-IN-FULL (websites heartbeat 08:41Z: #236 + #239, inbox@f8527f44); 042 ACK SATISFIED (both pages verified live 06:29Z: /puddle-museum #247 + /products/catalog #248); 043 relayed as idea-engine local ORDER 005 (07:51Z, pickup pending); 044 NEW (this PR — batch-2: 7 SIM-REQUESTs, relayed as idea-engine local ORDER 006).
 
 next-3:
 
-1. Verify ORDER 041/042/043 pickups in the websites + Ideas Lab heartbeats (041 needs only the done-flip; 042 is verify-and-report — #247/#248 pre-built; 043 = two SIM intakes).
+1. Verify ORDER 043/044 pickups in the Ideas Lab heartbeat (local ORDERs 005 + 006; 043 = two SIM intakes, 044 = seven batch-2 intakes — verdicts route back via its outbox for manager relay to venture-lab / superbot-idle / superbot-games inboxes).
 2. Drift-row re-paste when the owner sits: v3.6 re-paste per seat via the websites prompt console (version-aware drift row shows deployed v3.4 vs canonical v3.6), plus the OWNER CLICKS list in the outbox tally (B#49/B#50/B#51, sitting bundle E#28, venture defaults, next ruleset, pml branch delete, green-parked PR sweep).
 3. Resume normal cadence: post-tally the seat returns to oversight steady-state — ORDER-020 trigger-health per wake, R27 idle-ladder sweeps, roster gen #24 (~06:40Z) sanity check. Idle owner questions ROUTED as **E#52/E#53** (docs/owner-queue.md, PR #159 — the two fleet numbers the idle outbox requested; relay of the assigned numbers to the seat's inbox rides the next dispatch).
 

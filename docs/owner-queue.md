@@ -293,6 +293,30 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
     - RISK: ✅ reversible — delete or deactivate the ruleset to undo.
     - Blocking: not-blocking, but holds the parked gba slice PRs.
 
+54. **venture-lab — sandbox repo to production-verify merge-on-green.yml**
+    *(new 2026-07-13, Q-0264 fan-in batch 2 — routed from venture-lab's
+    morning tally; fm ORDER 044 routes the tally's seven sim asks, this is
+    its one owner-gated ask.)*
+   - id: OQ-VENTURE-SANDBOX-REPO
+    - WHAT: create a tiny sandbox repo (or say one word approving venture
+      creating one) so the seat can production-verify its
+      `merge-on-green.yml` workflow before adopting it on the real lane
+      repos.
+    - WHERE: https://github.com/new (or a one-word approval in chat — the
+      manager relays it).
+    - HOW: ~1 min — name it anything (e.g. `venture-sandbox`), private,
+      empty; or reply "sandbox: yes".
+    - WHY: repo creation is an owner capability wall; venture asked for
+      exactly this in its morning tally (venture-lab control/outbox.md
+      "night-run MORNING TALLY" SIM-REQUEST line, ~05:00Z).
+    - UNBLOCKS: venture's landing-path automation (self-landing PRs on
+      green instead of the poll-and-merge workaround).
+    - VERIFIED-NEEDED: sandbox repo exists + the venture heartbeat records
+      the merge-on-green verification run.
+    - RISK: ✅ reversible — a throwaway sandbox repo; delete it after the
+      verification.
+    - Blocking: not-blocking, but holds the lane's merge automation.
+
 ### (C) Claude platform (console / environments / sessions / Codex)
 
 14. **Re-paste the consolidated env setup scripts — COORDINATOR ENV FIRST.**
@@ -1016,6 +1040,9 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       PROVISIONAL numbers; C removes surfaces but is a one-commit revert.
     - Blocking: P1 for the idle seat — blocks its core-growth-loop lane;
       blocks nothing fleet-side.
+    - Prior art (2026-07-13, batch-2 routing): the T10 cost-curve verdict
+      subtree already exists — sim-lab `sims/verdict-017-t10-cost-curve/` —
+      so letter A's sim leg starts from a run, not from scratch.
 
 53. **superbot-idle — content-depth / endgame direction after the
     upgrade→prestige spine.** *(new 2026-07-13; routed from superbot-idle
