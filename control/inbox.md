@@ -1262,3 +1262,38 @@ why: owner final night order 2026-07-13 TASK 2 (ORDER 040, owner live in the coo
 chat 2026-07-13T01:2xZ).
 done-when: any seat's current + historical prompts are two clicks from the site root;
 every rendering traces to the registry; status report in the websites heartbeat.
+
+## ORDER 042 · 2026-07-13T05:00Z · status: new
+priority: P1 — route venture-lab WEBSITE-IDEA markers (night batch 1)
+owner: Websites seat
+do: Route venture-lab's two WEBSITE-IDEA markers (venture-lab control/outbox.md
+"night-run batch 1", ~2026-07-13T01:49Z) into the site, built per ORDER 035's clarity
+bar: (1) "The Puddle Museum" interactive kids site / book marketing page (source: books
+lane, venture PR #105 packet); (2) a static catalog-storefront auto-generated from
+venture docs/publishing/vetting/*.md + OWNER-QUEUE.md (the vetting pipeline is already
+structured data). MANAGER NOTE (sweep evidence, 04:5xZ): the seat appears to have
+pre-built both on its own initiative — websites #247 (/puddle-museum, merged 04:25:44Z)
+and #248 (/products/catalog over the 22 vetting packets @ venture 2c039e3, merged
+04:17:31Z) — so the expected first act is VERIFY those two pages against this order's
+scope and report, not rebuild.
+why: manager routing of ORDER 033's WEBSITE-IDEA lane (venture outbox markers exist for
+exactly this fan-out); morning-tally dispatch per ORDER 039/040.
+done-when: both sites/pages exist (or are explicitly triaged-with-reason) and the
+websites heartbeat says so, citing the PRs.
+
+## ORDER 043 · 2026-07-13T05:00Z · status: new
+priority: P1 — SIM-REQUEST priority intake (two build-seat asks)
+owner: Ideas Lab seat (idea-engine + sim-lab)
+do: Priority-intake two build-seat SIM-REQUESTs per ORDER 032 ("SIM-REQUESTs from build
+seats are priority intake"): (1) venture-lab's serialized-fiction pricing feasibility —
+Ultramarine 3-part serial at $2.99/episode vs $3.99–$5.99 single volume (venture-lab
+control/outbox.md "night-run batch 1", ~01:49Z; packet detail in venture PR #109);
+(2) superbot-idle's SIM-001 follow-up — economy-FEEL cluster, three asks: first-upgrade
+no-op at low counts, weak prestige payoff (ratio 0.9175 for a 3.49h grind), and the A10
+strict-vs-trend ruling + PROVISIONAL-table graduation (superbot-idle control/outbox.md
+2026-07-13 SIM-REQUEST entry, ref docs/design/economy-v1.md § SIM-001/Q-0264).
+why: ORDER 032 standing priority-intake rule; both asks surfaced via lane outboxes
+tonight and route only through the manager.
+done-when: verdicts posted to the requesting seats via the manager fan-in (manager
+relays each verdict pointer to venture-lab's and superbot-idle's inboxes); cycle ledger
+shows both intakes.
