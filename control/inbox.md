@@ -1297,3 +1297,39 @@ tonight and route only through the manager.
 done-when: verdicts posted to the requesting seats via the manager fan-in (manager
 relays each verdict pointer to venture-lab's and superbot-idle's inboxes); cycle ledger
 shows both intakes.
+
+## ORDER 044 · 2026-07-13T08:58Z · status: new
+priority: P1 — SIM-REQUEST priority intake, batch 2 (seven build-seat asks)
+owner: Ideas Lab seat (idea-engine + sim-lab)
+do: Priority-intake SEVEN batch-2 SIM-REQUESTs per ORDER 032 ("SIM-REQUESTs from build
+seats are priority intake"), sequenced AFTER ORDER 043's two (already relayed as
+idea-engine local ORDER 005, 07:51Z — do not duplicate those). Venture pricing (3 —
+packet: venture-lab control/outbox.md "night-run MORNING TALLY", ~05:00Z; product
+listings/gates in venture docs/publishing/OWNER-QUEUE.md):
+(1) photo packs — PWYW-vs-$5, a $3 anchor, and a two-pack bundle (note the packs are
+HARD-GATED on owner-held originals; pricing verdict is still serveable now);
+(2) Ship-It Bundle — $59 vs $64/$68 anchor points;
+(3) narrow-TAM cookbooks — $19 fixed vs PWYW (canonical case: Merge-Wall Cookbook $19).
+Superbot-games balance (4 — packet: superbot-games control/outbox.md @ HEAD, all four
+marked status: open, each with verbatim-pinned constants + per-request module pointers):
+(4) mining-economy-tuning — surface descend-gate shape (depth_access-only gating;
+games/mining/core/world.py + equipment.py) + faucet/sink gap (rewards/items vs
+market.GEAR_SHOP + structures._FORGE_BUILD_LADDER);
+(5) fishing-economy-tuning — pin a per-species sell/reward curve + a fishing progression
+curve (games/fishing/inventory/adapter.py empty ProgressionDelta; re-run the pinned
+games/fishing/sim/catch_sim.py under new targets per docs/design/fishing-catch-skeleton.md §5);
+(6) dnd-escort-double-mint — one traversal mints the safe_passage escort bundle 2×
+(games/dnd/core/effects.py _escort_step wired to two options in games/dnd/data/scenes.py);
+intended, or mint-at-most-once?
+(7) exploration-reward-bands — reconcile games/exploration/quest/catalog.py TIER_CAPS
+placeholders against the real Q-0087 dual-track bands + ratify the survival Medium/Hard
+gradient (games/exploration/survival/difficulty.py).
+Prior art: sim-lab sims/verdict-017-t10-cost-curve/ (cost-curve method) and
+sims/verdict-006-idle-economy-sim-kernel/ for the economy asks.
+why: ORDER 032 standing priority-intake rule; all seven surfaced via lane outboxes in the
+batch-2 sweep (venture morning tally ~05:00Z; games outbox @ HEAD) and route only through
+the manager. Venture's fourth tally ask (owner sandbox repo) is owner-gated, routed to
+docs/owner-queue.md B#54 (OQ-VENTURE-SANDBOX-REPO), not to this order.
+done-when: verdicts posted via the Ideas Lab outbox to the manager, each naming its
+requesting seat (venture-lab · superbot-games), for manager relay to the requesting
+inboxes; cycle ledger shows all seven intakes.
