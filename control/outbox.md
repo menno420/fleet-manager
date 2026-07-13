@@ -227,3 +227,238 @@ Residue: pml stale branch `claude/fm-r27-wake-repair` awaits owner delete
 7. **pml branch delete**: `claude/fm-r27-wake-repair` (403-walled for agents).
 8. Morning sweep of the green-parked PRs: pml #57/#58/#59/#61 + gba #82–#87 (or B#51
    makes gba self-landing) + substrate-kit #317 ratification (label removal).
+
+---
+
+## 2026-07-13 · FLEET NIGHT-REPORT ROLL-UP (owner ask ~09:00Z)
+
+Compiled 2026-07-13T09:56Z by the roll-up worker (fable-5), dispatched by the
+coordinator (session_01UutkJqyMcHC1VyFW8fe1a9). Basis: the 13 seat NIGHT REPORTs
+posted in response to the ~09:11Z NIGHT REPORT REQUEST orders, each read at its
+landing ref; load-bearing merge SHAs spot-checked against the seats' live main
+histories (1–2 per seat, all matched). Reporting window per seat: 2026-07-12T22:30Z
+→ ~09:12–10:05Z. Lane-reported = the seat's own claim, not re-verified here.
+
+### substrate-kit (ORDER 017 report, on main via PR #323 = `ba9a098`; also #320 tally)
+
+- SHIPPED: 13 in-window merges #308–#316/#318–#322 (K0 gauge `174b113` · seed skills
+  `2325e71` · adopter-outcome report `b171d02` · ORDER 016/017 landings, spot-checked).
+- OPEN: #317 rider+reading-path graduation — ALL GREEN, `do-not-automerge` ratification
+  park; landing path = owner review-merge. Only open PR.
+- Orders 001–017 done/served. Asks: ⚑ set UNCHANGED (P10 required-check swap = B#10 ·
+  fm #122 restamp · UNIVERSAL fetch-list bump · public-flip-or-PAT · grounded-skills
+  window ~07-19..26) — all previously routed, nothing new to queue.
+- Stalls: none; one platform anomaly — 01:49Z pacemaker one-shot never delivered,
+  failsafe bridged 02:07Z (already on the fm status ⚑).
+- Wake-chain: failsafe 6/6 fires; kit-lab daily cron delivered ON SCHEDULE 06:10Z —
+  first proven fresh-session-per-fire scheduled delivery.
+- NEXT: owner sweeps #317 → release wave (main 34+ commits past v1.15.0).
+
+### curious-research (REPORT 001, on main `a7e9a3f` via PR #8)
+
+- SHIPPED: 7 merges #1–#7 — kit seed + teaching doctrine (#1 `ff35b69`, verified),
+  idea ritual (2 build / 1 think-more), 2 animated guides, possibility dossier.
+- OPEN: none at report. Orders: 001 served. Stalls: one amend/force-push classifier
+  denial (worked around); failsafe's FIRST fire 29 min late, on time since.
+- Asks: slicer choice (unblocks retraction follow-up) — NOT previously queued →
+  **added as queue item 55**. Gift-polish go/no-go: **OVERTAKEN BY EVENTS** — the trio
+  shipped post-report at 09:55Z (#9 tolerance-test-coin · #10 welcome tour + README
+  gift note); owner review is now retroactive veto on those merges, not a go/no-go.
+- Discrepancy note: REPORT 001 is stamped 10:05Z but its PR #8 merged 09:20:58Z —
+  stamp artifact, substance unaffected.
+
+### gba-homebrew (ORDER 006 report — PARKED on PR #89 head `a84933b`)
+
+- SHIPPED: 6 merges via the owner's 01:43–01:45Z hand-sweep — #75 Gloamline s10
+  (merge `92d4f03`, verified; the seat itself corrected the circulating `253ff64` =
+  head SHA) · #77/#78/#79/#80/#81 (Drift Garden PWA, Undertow, Tiltstone, rematch).
+- OPEN: GREEN-PARKED SET #82–#89 (8 PRs — Brineward 6+7, Deepcast, Drift Garden
+  game, release packaging + 4 zips, Cindervault, 2 control) — all check-runs success,
+  run ids cited in the report; awaiting owner sweep or B#51.
+- Stalls: enabler REFUSES TO ARM (no required-check contexts — verbatim located, run
+  29222310196) = B#51 exactly; 3 coordinator-ledger denials could NOT be located
+  verbatim in-repo (honest note); api.github.com REST silent-empty through the proxy.
+- Asks: B#51 + sweep queued; NEW: stale-branch delete `claude/brineward-wind` after
+  #82 → **folded into queue item 59**.
+- Wake-chain: failsafe verified live (last 08:50Z, next 10:50Z); pacemaker at idle-anchor.
+- Reading/merge note: #87 and #89 both create `control/outbox.md` — they conflict at
+  sweep time; merge either first, the other re-lands trivially.
+
+### pokemon-mod-lab (ORDER 008 report — PARKED on PR #63 head `db46649`)
+
+- SHIPPED: **zero merges by design** — main stood at `759dee4` all night per the
+  ORDER 007 owner park-green rule. Night work parked OPEN: #57 #58 #59 #61 #62 (+#63
+  report PR), all both-checks green with run ids cited. #60 closed-retracted (R27
+  false alarm, matches the fm record).
+- Orders 001–008 served (006/007 pending-merge with the park). Repo visibility
+  re-verified private 09:17Z (R22 guard).
+- Asks: sweep clicks queued; carried OWNER-ACTIONs 1/2/3 queued (B#5/E#28); NEW:
+  enabler-install decision (install kit auto-merge enabler vs keep park-and-sweep) →
+  **added as queue item 58**; stale-ref deletes ×3 → **folded into queue item 59**.
+- Stalls: only the pre-window self-merge classifier denial (known wall class).
+- Wake-chain: failsafe verified live; pacemaker ticks all fired; idle-anchor.
+
+### superbot-next (ORDER 018 report, on main; outbox 09:25Z)
+
+- SHIPPED: **44 merges #306–#366** (every SHA verified by the seat against origin/main;
+  #366 = `902791d` spot-checked) — fishing port complete, curation rework, D-0082
+  slices, WP-1. CORRECTION vs the relayed ~35: actual 44; #302–#309 partly pre-window.
+  superbot (per-ledger, seat has no repo access): 7 merges #2054–#2062; a circulating
+  #2063 is UNVERIFIED from that seat — treat as not-merged unless seen repo-side.
+- OPEN: 10 PRs — WP stack #312→#317→#335→#344 (green, owner sweep; non-claude/*
+  branch so the enabler never arms) · #320 (green, classifier-denied merge — owner
+  click) · #332 armed · #333/#345 ZERO check-runs (outage residue — need a CI
+  re-trigger) · #352 pending · #354 the only genuine red (check_compat_frozen).
+  superbot #2058/#2061 = deliberate DRAFT deploy-holds (owner flip = deploy).
+- Stalls (8 verbatim denials in the report): merge-without-review ×2, CI-bypass on the
+  enabler-workflow bundle, force-push/reset/dropdb worker denials, scratch-branch 403,
+  hermes `missing_config`. Platform: trigger-scheduler wedge 01:07–02:44Z (recovered) ·
+  Actions check-run outage ~03:40Z (residue = #333/#345).
+- Asks: OWNER-ACTION 3/5 + ORDER 001 token run queued; NEW: curation DROP-list (60
+  items) + settings-prune + D-0083 anchor ratifications → **queue item 57**; hermes
+  egress creds (CLAUDE_ROUTINE_FIRE_URL + token) → **queue item 60**. SBW minigame
+  inventory+spec SIM-REQUEST is seat-to-seat (manager relay, not owner).
+- Wake-chain: failsafe + pacemaker healthy end-to-end incl. late-flushed wedge ticks.
+
+### superbot-games (ORDER 006 report, on main 09:22Z)
+
+- SHIPPED: 14 merges #65–#78 (enabler install `dd867c8` + dnd finalize `0ee7482`
+  spot-checked) — mining/fishing WORKFLOW seams, standalone CLIs, hub launcher, dnd +
+  exploration finalized. Suite 310 → **516**, floors met, verified at HEAD.
+- OPEN: none (API-verified). Orders all served incl. fm ORDER 037 (#76). Stalls: none.
+- Asks: 4 SIM-REQUESTs already routed (fm ORDER 044 → idea-engine local ORDER 006);
+  D2 audit-item-grants ratification + standalone-CLI persistence format governance +
+  rung-3 packaging decision remain seat-queued (decide-and-flag reversible; flagged
+  here, NOT added to the owner queue — manager can bundle them into the next sitting
+  if the owner wants them owner-side).
+- Wake-chain (seat-level, one chain for games/idle/mineverse): failsafe verified live
+  09:16Z; pacemaker continuous; one duplicate tick ~02:35Z pruned same-wake.
+
+### superbot-idle (ORDER 004 report, on main 09:25Z)
+
+- SHIPPED: 9 merges #75–#83 — enabler install, PLUG-001 adapter inc1+inc2 (the
+  cross-seat plugin contract now consumed), catalog wave 4 (15 packs), playability
+  wave. Suite → **1260 passed**, verified at HEAD `161bc7d`.
+- OPEN: none. Orders 001–004 done. Stalls: none in-repo.
+- Asks: ALL previously routed — SIM-001 economy-FEEL cluster (ORDER 043/005 relay),
+  the 2 owner Q-blocks = queue items 52/53 (assigned yesterday-night), OA-003 pytest
+  required check = B#50. Nothing new to queue.
+- Wake-chain: seat-level chain healthy (see superbot-games line).
+
+### superbot-mineverse (ORDER 005 report, on main 09:28Z)
+
+- SHIPPED: 17 merges #50–#66 (ORDER 005 landing `3fe538e` + minigame spec `7f33c2b`
+  spot-checked) — minigame section spec for SuperBot 2.0, FLAG-1/FLAG-2 seams,
+  conformance runner, dedupes. Suite → **522 passed** at HEAD.
+- Cross-seat (lane-reported): fishing port complete in superbot-next; WP stack +
+  #320 open there (matches that seat's own report).
+- OPEN in-repo: none. Orders 001–005 done. Stalls: none.
+- Asks: MINING_WRITE_ENDPOINT + SECRET pair already queued (C-group); substrate-kit
+  born-red fail-open gate fix is seat→kit (idea already filed kit-side, not owner);
+  dig-gating A/B/C rides superbot-next #320's body (part of the WP-stack sweep —
+  flagged, not separately queued).
+- Wake-chain: seat-level chain healthy.
+
+### idea-engine + sim-lab (Ideas Lab seat — NIGHT-REPORT 001 twins, on both mains 09:31/09:32Z)
+
+- SHIPPED: idea-engine **31 merges #276–#306** (21 PROPOSALs P014–P034 + 10 control;
+  P034 `eea4e5b` spot-checked) · sim-lab **26 merges #57–#82** (21 VERDICTs V015–V035:
+  7 approve / 1 conditional / 7 null / 6 reject; V035 `24ba4f7` spot-checked). The
+  proposal→verdict loop ran hands-free all night.
+- OPEN: only the two night-report PRs at final append (since landed — reports read on
+  main). Orders: 003 standing-ACTIVE · 004/007 done · 005/006 acked — the 9
+  SIM-REQUESTs are being dispatched to sim sessions THIS WAKE; intake consumed
+  through V035, next = INTAKE 034 → V036.
+- Asks: ASK 001 (upstream claude/ prefix into the kit enabler template) is seat→kit,
+  already relayed. sim-lab NOTE: ROUTINE_PAT not set — GITHUB_TOKEN fallback works;
+  flag only if PAT attribution is wanted (noted, not queued).
+- Stalls: Write-tool report-file refusals ×5+ (workers switched to text, zero loss) ·
+  sleep block · one gh 502 · #271 enabler-allowlist jam (fixed #272). A watchdog
+  "wedge" claim was checked and REFUTED against the trigger registry.
+- Wake-chain: failsafe healthy (last 07:39Z); pacemaker unbroken all night.
+
+### venture-lab (ORDER 009 report, on main 09:26Z)
+
+- SHIPPED: **46 merges #96–#141** (first-parent verified by the seat; #141 `374e8d1` +
+  tally `5814880` spot-checked) — 6 products publish-READY at the quality floor +
+  SWTK $29 verified live; ~215k words (6 books + 2 novella cuts + Ultramarine serial +
+  4 NL editions) + 27 board-book texts; OWNER-QUEUE 106 clicks / 18 sequences.
+- OPEN: zero. Orders 001–009 served/terminal. Stalls: none material; the dawn
+  forced-update marker investigated CLEAN (fast-forward artifact, twice re-verified).
+- Asks: 5 SIM-REQUESTs all routed (ORDERs 043/044 + B#54 sandbox) · "go with
+  defaults" one-reply unblock queued · seat OWNER-QUEUE 17 decision rows (D1–D4
+  headline, NL titles, board-book channel, Weigh House strategy, Painted Stones D9
+  rec: Park) live in venture's own docs/publishing/OWNER-QUEUE.md — pointer stands,
+  not duplicated here. 10 WEBSITE-IDEAs: routed/self-triaged (ORDER 042 satisfied).
+- Wake-chain: failsafe on schedule all night; pacemaker resumed at ORDER service;
+  grading cron next 07-17; SWTK T+7/T+14 checks armed 07-19/07-26.
+
+### trading-strategy (ORDER-013 report, on main 09:22Z)
+
+- SHIPPED: 18 merges #80–#97 (synthesis `374651a` + tally `de5a477` spot-checked) —
+  Round-3 research complete: **3,468 configs / 312 graded lanes → 0 PROMOTED / 64
+  KEEP-dev / 248 KILL, max t 1.38 vs bar 2.64 — honest null, rails held** (holdout +
+  paper byte-untouched, verified via diff). Notable negative: TSLA rsi mean-reversion
+  t = −3.01. Ledger +309 rows; 437 tests green on main CI.
+- OPEN: zero. Orders 001–013 done/served. Stalls: none material.
+- Asks: NEW — KILL-SIG three-way verdict-class proposal (KEEP/KILL/KILL-SIG from the
+  already-computed t-stat) awaiting review → **added as queue item 56**. Next research
+  round awaits direction (manager-side). Holdout re-arm stays owner-gated (E#31 class).
+- Wake-chain: failsafe on schedule; grading cron 07-17 (rebind, never delete).
+
+### websites (ORDER 023 report, on main 09:30Z)
+
+- SHIPPED: **45 merges #217–#264** (clarity gate `1b294d5` + bake `bcf2943`
+  spot-checked) — clarity bar CI-PERMANENT (123 routes) · prompt library complete
+  (drift row, version history, supersession) · batch-2 venture markers 5 built / 1
+  dup / 1 remaining / 1 owner-gated · **first-ever successful scheduled review bake**
+  (run 29235587736, SUCCESS 08:28:54Z) with its data PR #259 landed after a
+  close/reopen kick. Suite 757 → **1172 passed**.
+- OPEN: 3 draft kit-stub lifeboats #245/#249/#257 (do-not-merge by design; owner may
+  close + delete branches). Zero open non-draft.
+- Stalls (verbatim in report): `rm` classifier denial ("[Irreversible Local
+  Destruction]") → lifeboat workaround · scheduler late-delivery 00:45–02:10Z
+  (recovered) · **GITHUB_TOKEN-authored PRs can't self-trigger CI** (anti-recursion) —
+  the #259 finding; kit/fleet note: bot-opened PRs need a PAT-authored open or a
+  reopen kick. Worth folding into the kit's enabler doctrine.
+- Asks: SEVEN owner asks, all canonical in websites `docs/owner/OWNER-ACTIONS.md`
+  (Q-0004 topology gate · Discord OAuth · control-API token · SITE_PASSWORD ·
+  DATABASE_URL · PayPal creds · contents:write PAT) — pointer previously recorded in
+  the fm queue's parked section; not re-duplicated.
+- Wake-chain: failsafe verified (last 08:45Z, next 10:45Z); pacemaker live; the
+  6-pending-one-shots observation = multiple concurrent seats' ticks, self-retiring.
+- ORDER 024 in flight: /prompts current-generation-source fix is the next slice.
+
+### FLEET FOOTER
+
+- **Totals:** summing the reports' own in-window merge counts: **≈276 PRs merged
+  fleet-wide overnight** across the 13 reporting repos (kit 13 · cr 7 · gba 6 ·
+  pml 0-by-design · next 44 · games 14 · idle 9 · mineverse 17 · idea-engine 31 ·
+  sim-lab 26 · venture 46 · trading 18 · websites 45) **+ 7 superbot merges
+  per-ledger** (unverifiable from the reporting seat). As-reported sum — windows
+  vary by ~40 min at the edges and some counts include manager-authored order
+  landings; not independently re-counted repo-by-repo.
+- **Coverage: 13/13 posted, 0 pending.** Report stamps 09:22Z–10:05Z (the 10:05Z
+  curious-research stamp is a clock artifact — its PR merged 09:20:58Z).
+- **NEW asks surfaced by the roll-up, now queued** (docs/owner-queue.md, this PR):
+  **55** curious-research slicer answer (E) · **56** trading KILL-SIG verdict class
+  (E) · **57** superbot-next curation ratifications — DROP-list 60 items +
+  settings-prune + D-0083 anchor (E) · **58** pml enabler-install decision (E) ·
+  **59** stale-branch delete batch gba×1 + pml×3 (B) · **60** superbot-next hermes
+  egress creds (C). Flagged-not-queued (seat-side or decide-and-flag): games
+  D2/persistence/rung-3 ratifications · mineverse dig-gating (rides next #320) ·
+  sim-lab ROUTINE_PAT attribution · venture's 17 seat-queue decision rows (pointer
+  stands). OVERTAKEN: curious-research gift-polish go/no-go (trio shipped 09:55Z,
+  #9/#10 — owner review is now retroactive).
+- **Stall classes worth owner eyes:** the GITHUB_TOKEN-PR-can't-self-trigger-CI
+  finding (websites #259 — kit doctrine candidate) · trigger-scheduler wedge
+  01:07–02:44Z + the undelivered kit pacemaker one-shot (platform, both bridged by
+  failsafes) · the superbot-next #333/#345 zero-check-run residue (needs a CI
+  re-trigger before any sweep).
+- **Parked-PR reading note:** the gba and pml night reports live on PR heads
+  (gba #89 `a84933b`, pml #63 `db46649`), NOT on their mains, until the owner sweep
+  lands the parked sets; gba #87 vs #89 conflict on `control/outbox.md` creation —
+  merge either first, the other re-lands trivially.
+- **Wake-chain fleet health: 13/13 chains alive.** Every seat's failsafe verified
+  (most API-verified at write); the night's two platform incidents (scheduler wedge,
+  dropped one-shots) were bridged by failsafes with zero lost work.

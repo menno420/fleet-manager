@@ -317,6 +317,27 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       verification.
     - Blocking: not-blocking, but holds the lane's merge automation.
 
+59. **Stale-branch delete batch — gba ×1 + pml ×3 (agent delete is
+    403-walled).** *(new 2026-07-13, night-report roll-up — restated asks
+    from the gba ORDER 006 + pml ORDER 008 night reports; joins the queued
+    pml `claude/fm-r27-wake-repair` delete.)*
+    - id: OQ-STALE-BRANCH-DELETES-0713
+    - WHAT: delete stale remote branches — gba-homebrew:
+      `claude/brineward-wind` (**AFTER #82 merges** — #82 carries its
+      slice 6); pokemon-mod-lab: `track-a/session-019`,
+      `track-a/session-024`, `claude/eloquent-newton-qaf1ii` (head of
+      closed-not-merged PR #47).
+    - WHERE: each repo's /branches page (or the PR pages' delete-branch
+      buttons after the sweep).
+    - HOW: ~1 min total — four delete clicks; sequence the gba one after
+      the #82 merge.
+    - UNBLOCKS: nothing — pure hygiene; prevents stale-base confusion for
+      future agent sessions.
+    - VERIFIED-NEEDED: gba PR #89 head `a84933b` outbox §4(c); pml PR #63
+      head `db46649` status "Asks pending" item 2; branch deletion is a
+      verified agent wall (both repos' docs/PLATFORM-LIMITS.md).
+    - Blocking: not-blocking.
+
 ### (C) Claude platform (console / environments / sessions / Codex)
 
 14. **Re-paste the consolidated env setup scripts — COORDINATOR ENV FIRST.**
@@ -669,6 +690,24 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       `docs/prompts/v3/per-project/<seat>-startup.md` (generated from
       `docs/prompts/v3/universal-startup.md`, the fleet-wide startup
       artifact) and the shared ender is `docs/prompts/v3/session-ender.md`.
+
+60. **superbot-next — hermes egress credentials
+    (`CLAUDE_ROUTINE_FIRE_URL` + token).** *(new 2026-07-13, night-report
+    roll-up — from the ORDER 018 report's asks-pending + stall item 8.)*
+    - id: OQ-NEXT-HERMES-EGRESS-CREDS
+    - WHAT: provide the hermes egress pair — `CLAUDE_ROUTINE_FIRE_URL` +
+      its token — to the superbot-next environment so the hermes probe
+      stops failing `RuntimeError: missing_config`.
+    - WHERE: the superbot-next session environment / env-var surface
+      (console → environment settings), same surface as OA-5's
+      `ANTHROPIC_API_KEY` (C#16 — bundle the two pastes in one sitting).
+    - HOW: two env-var pastes.
+    - UNBLOCKS: the hermes routine-fire egress path from that seat
+      (currently hard-walled at config).
+    - VERIFIED-NEEDED: superbot-next `control/outbox.md` ORDER 018 report
+      (on main via #366 = `902791d`), STALLS item 8 verbatim + the
+      asks-pending line.
+    - Blocking: not-blocking — blocks only the hermes lane.
 
 ### (D) External services
 
@@ -1074,6 +1113,84 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
     - RISK: ↩️ reversible — design/scoping only until SIM registration; no
       live numbers move under any letter.
     - Blocking: not-blocking (P2); sequencing-only interaction with E#52.
+
+55. **curious-research — which slicer do you use?** *(new 2026-07-13,
+    night-report roll-up — the seat asked in its PR #4 and restated it in
+    REPORT 001's asks-pending.)*
+    - id: OQ-CR-SLICER-ANSWER
+    - WHAT: name the slicer you actually run (e.g. Cura / PrusaSlicer /
+      OrcaSlicer / Bambu Studio) — one word.
+    - WHERE: any surface the manager reads (chat / inbox); relayed to
+      curious-research's inbox.
+    - HOW: say "slicer: <name>".
+    - UNBLOCKS: the seat's menu-clicks retraction follow-up guide (exact
+      click-paths need the real slicer) — its NEXT-3 item 2.
+    - VERIFIED-NEEDED: curious-research `control/outbox.md` REPORT 001 on
+      main `a7e9a3f` (asks-pending item 1). NOTE: the trio in asks-pending
+      item 2 (gift-polish go/no-go) shipped post-report at 09:55Z (#9 +
+      #10) — that half is OVERTAKEN; only the slicer answer remains live.
+    - RISK: ✅ none — an answer, not a change.
+    - Blocking: blocks only that follow-up guide.
+
+56. **trading-strategy — KILL-SIG three-way verdict class: approve/veto.**
+    *(new 2026-07-13, night-report roll-up — from the ORDER-013 report's
+    pending list.)*
+    - id: OQ-TRADING-KILLSIG-VERDICT-CLASS
+    - WHAT: approve (or veto) adding a KEEP / KILL / KILL-SIG three-way
+      verdict derived from the already-computed promotion_grade t-stat —
+      KILL-SIG marks significantly-NEGATIVE strategies (e.g. TSLA
+      rsi_mean_reversion t = −3.01 overnight, worse than buy-and-hold) as
+      their own evidence class instead of a plain KILL.
+    - WHERE: one word to the manager; relayed to trading's inbox.
+    - HOW: say "KILL-SIG: yes" (recommended — research-lane-only grading
+      metadata, no live-trading surface) or "no".
+    - UNBLOCKS: the next research round's grading schema; keeps
+      significant negatives discoverable as anti-signals.
+    - VERIFIED-NEEDED: trading `.sessions/2026-07-13-r3-meanrev-new-tickers.md`
+      (PR #91 card) + the NIGHT REPORT pending list on main (report via
+      #97 = `08969bb`).
+    - RISK: ↩️ reversible — grading metadata only; holdout/paper rails
+      untouched.
+    - Blocking: not-blocking (next round can run on the old two-way).
+
+57. **superbot-next — curation ratification bundle: DROP-list (60 items) +
+    settings-prune + D-0083 anchor.** *(new 2026-07-13, night-report
+    roll-up — the ORDER 018 report's asks-pending, decide-and-flag work
+    now awaiting the owner's one-pass review.)*
+    - id: OQ-NEXT-CURATION-RATIFICATIONS
+    - WHAT: one sitting, three ratifications — (1) the curation DROP list:
+      60 items proposed for drop (report § DROP, landed via #327 =
+      `f47ec6d`); (2) the settings-prune set; (3) the D-0083 anchor
+      decision (proposal merged via #346 = `4f469fe`).
+    - WHERE: the cited PRs/report on superbot-next main; reply through the
+      manager or the seat's inbox.
+    - HOW: "curation: ratify all" (or name exceptions per list).
+    - UNBLOCKS: the curation rework tail (the open #332/#333/#345/#352/#354
+      set builds on these calls); prevents rework if a drop is vetoed late.
+    - VERIFIED-NEEDED: superbot-next ORDER 018 report on main (via #366 =
+      `902791d`), asks-pending line; curation report #327.
+    - RISK: ↩️ reversible pre-cutover — everything is on the rebuild
+      substrate, Q-0241 lane.
+    - Blocking: not-blocking (Q-0241: decided-and-flagged, veto window).
+
+58. **pokemon-mod-lab — enabler-install decision: auto-merge or keep
+    park-and-sweep.** *(new 2026-07-13, night-report roll-up — ORDER 008
+    report ask 3.)*
+    - id: OQ-PML-ENABLER-INSTALL
+    - WHAT: pick one — **A**: install the kit's auto-merge-enabler workflow
+      in pokemon-mod-lab (green control-lane PRs then self-land, as in the
+      other seats); **B**: keep the current park-and-sweep convention (all
+      night work parks green for your morning sweep).
+    - WHERE: one word to the manager; relayed to the seat's inbox (install
+      itself is agent-doable once decided — only the decision is yours).
+    - HOW: say "pml enabler: A" (or B). If A, pair it with B#5 (ROM builds
+      required check) so the enabler has contexts to gate on.
+    - UNBLOCKS: ends the recurring pml parked-PR pile (5 green PRs parked
+      tonight alone: #57/#58/#59/#61/#62 + the report PR #63).
+    - VERIFIED-NEEDED: pml ORDER 008 report on PR #63 head `db46649`,
+      "Asks pending" item 3 ("Decision only — nothing was installed").
+    - RISK: ↩️ reversible — a workflow file; delete to revert.
+    - Blocking: not-blocking, but the pile regrows every night run.
 
 ### (F) New intake 2026-07-12 (owner-live session) — decisions, no rush
 
