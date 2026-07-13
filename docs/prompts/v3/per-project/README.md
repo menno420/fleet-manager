@@ -1,12 +1,14 @@
 > **Status:** `reference`
 
-<!-- v3.4 · 2026-07-12 · provenance: prompt-currency audit (docs/research/2026-07-12-prompt-currency-audit.md, PR #118 lane) — 16-delta currency restamp of the v3.3 one-file-per-seat model; see the v3.4 changelog section below. Prior: v3.3 (owner spec 2026-07-12, overnight prompt rebuild — CI becomes a per-seat keyword dictionary; startups EXPAND, no char cap) · v3.2 (stateless correction) · v3.1 (research PRs #93/#95 + owner baseline + QA PRs #100/#101/#102, applied in PR #103) -->
+<!-- v3.5 · 2026-07-13 · provenance: ORDER 039 seat-task 5 (owner night-run directive) — Q-0271 autonomy-rider + Q-0273 seed-skills fold into all 8 startup DOCTRINE sections + CI dictionaries; see the v3.5 changelog section below. Prior: v3.4 (prompt-currency audit (docs/research/2026-07-12-prompt-currency-audit.md, PR #118 lane) — 16-delta currency restamp of the v3.3 one-file-per-seat model; see the v3.4 changelog section below. Prior: v3.3 (owner spec 2026-07-12, overnight prompt rebuild — CI becomes a per-seat keyword dictionary; startups EXPAND, no char cap) · v3.2 (stateless correction) · v3.1 (research PRs #93/#95 + owner baseline + QA PRs #100/#101/#102, applied in PR #103) -->
 <!-- char-count: planning doc, no paste budget applies -->
 
-# Per-project prompts — v3.4 (per-seat Custom Instructions + expanded startups)
+# Per-project prompts — v3.5 (per-seat Custom Instructions + expanded startups)
 
-v3.4 is a **currency restamp** of the v3.3 composition (no mechanics change —
-the 16 prompt-currency-audit deltas applied 2026-07-12; changelog below). The
+v3.5 **folds the Q-0271 AUTONOMY RIDER and the two Q-0273 seed skills** into the
+v3.4 bodies (no mechanics change — the fold Q-0271 itself named as destined for
+the instruction bodies; changelog below). v3.4 was a currency restamp of the
+v3.3 composition (16 prompt-currency-audit deltas, 2026-07-12). The
 composition itself is the v3.3 owner spec (2026-07-12 — supersedes the v3.2
 generated/assembled model):
 
@@ -68,7 +70,25 @@ mineverse) · Game Lab (gba-homebrew + pokemon-mod-lab) · Ideas Lab
 seat 9 via this same recipe — stagger slot below), codetool-lab-* (DARK),
 superbot-plugin-hello (helper, folded into SuperBot 2.0's F1).
 
-## v3.4 size table (real counts, checker-verified 2026-07-12 — `../tools/regen_b_files.py`)
+## v3.5 size table (real counts, checker-verified 2026-07-13 — `../tools/regen_b_files.py`)
+
+Same caps as v3.4 (CI HARD ≤ 8,000 chars AND bytes; bytes binding at these
+margins; startups NO cap — size is a NOTE). The "v3.4 was" column is the
+measured pre-fold baseline of 2026-07-13 (fleet-manager's CI had drifted
++26/+26 over the v3.4 table via post-restamp seat edits, e.g. R26).
+
+| Seat | CI (chars) | CI (bytes) | Expanded startup (chars) | v3.4 CI was (chars/bytes) |
+|---|---:|---:|---:|---:|
+| fleet-manager | 7,909 | 7,992 | 30,916 | 7,893 / 7,976 |
+| superbot | 7,914 | 7,985 | 30,642 | 7,922 / 7,993 |
+| websites | 7,911 | 7,992 | 30,307 | 7,895 / 7,976 |
+| self-improvement | 7,909 | 7,990 | 30,432 | 7,908 / 7,989 |
+| superbot-world | 7,917 | 7,992 | 29,958 | 7,919 / 7,996 |
+| game-lab | 7,917 | 7,996 | 29,795 | 7,917 / 7,996 |
+| ideas-lab | 7,913 | 7,994 | 30,078 | 7,897 / 7,978 |
+| venture-lab | 7,915 | 7,996 | 30,151 | 7,916 / 7,997 |
+
+## v3.4 size table (HISTORICAL — superseded by the v3.5 fold above)
 
 Hard cap: **Custom Instructions ≤ 8,000 chars AND ≤ 8,000 UTF-8 bytes**
 (verified console wall; aim ≤7,500 — every seat runs over the aim BY DESIGN:
@@ -325,6 +345,50 @@ with the dirty-tree rescue-branch guard). Sequential trigger-call pacing §a.5
 (CONSTITUTION/landing-path/routines templates) — that is the Self Improvement
 seat's lane, not a v3.1 prompt defect; only their fleet-prompt shadows
 (entries 7–9) queue here.
+
+## v3.5 changelog — autonomy-rider + seed-skills fold (2026-07-13, ORDER 039 task 5)
+
+**Source:** owner night-run directive ORDER 039 seat-task 5 (control/inbox.md) =
+superbot `docs/owner/fleet-grounding.md` §2 goal 5 ("fold the autonomy rider +
+the seed skills into the v3.4+ bodies"). Material verified at superbot HEAD
+`cdb2680`: router Q-0271/Q-0272/Q-0273, the AUTONOMY RIDER canonical text
+(`docs/owner/fleet-rearm-2026-07-12.md` §3 — Q-0271 named this fold: "destined
+verbatim for the v3.4 instruction bodies"), and the two seed SKILL.md bodies
+(`.claude/skills/chase-references/` + `.claude/skills/prep-owner-steps/`).
+
+1. **AUTONOMY RIDER → the shared DOCTRINE section of all 8 startups**
+   (byte-identical insert, doctrine-identity checked; compressed digest citing
+   the canonical verbatim copy): owner absent = NORMAL; silence = consent =
+   done — no review step for agent work; an OPEN PR is never a reason to stop;
+   the OWNER-ONLY list (settings/rulesets · secrets/env/host · external
+   publish + money · destructive prod-data · account/portal) is the sole
+   legitimate park class — queue-and-continue, never wait-in-place;
+   uncertainty routes as SIM-REQUEST; NEVER-WAIT ≠ BYPASS CI.
+2. **SEED SKILLS doctrine block** (same insert): **chase-references** (resolve
+   EVERY reference in an ask before acting; an unfound reference is a search
+   task, never a skip; state the assembled picture back, Q-0254) +
+   **prep-owner-steps** (lead with the deep link; every owner-entered blob as
+   its own paste-ready block; batch clicks/pastes to ONE sitting; close with
+   payoff + verification). Reference bodies: superbot `.claude/skills/`,
+   canonical until the kit generalizes them (ORDER 034 lane).
+3. **CI dictionary hooks, all 8:** BOOT TRIAD entry extended to "(Q-0270) /
+   **AUTONOMY** (Q-0271) — owner away = NORMAL, queue-and-continue"; skills
+   entry extended with "seeds Q-0273: **chase-references** +
+   **prep-owner-steps** -> sb:.claude/skills/". Full behavior rides the
+   startups per the layer contract; the split is recorded in
+   [`../planned-routes.md`](../planned-routes.md) §B.
+4. **Compensating budget trims** (pre-fold CIs sat 3–24 bytes under the 8,000
+   wall): shared-entry wording compressions applied identically across the 8
+   (e.g. "MCP PR-state reads" → "MCP PR reads", "structured choices carry a"
+   → "structured choices:") plus small seat-section compressions — wording
+   only, NO rule dropped; final counts in the v3.5 table (all ≤ 7,996 bytes).
+5. **NOT folded — ORDER 039's open-PRs-stay-open night rule:** a night-mode
+   rule, not durable doctrine; the registry is STATELESS (D-9) and has no
+   mode-rider slot. It lives in the ORDER thread only.
+6. **Registry re-synced** (`--write-registry`); every projects/<seat>/
+   artifact version-bumped by one (stamps in the regen tool's SEATS block).
+   Top v3.6 item remains the kit #279 seat-digest fence wiring (blocked,
+   unreleased).
 
 ## v3.4 changelog — prompt-currency restamp (2026-07-12, same day as v3.3)
 

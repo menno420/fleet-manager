@@ -67,3 +67,22 @@ flag them self-initiated on the run report; binding working-agreement text
 is proposed through `docs/question-router.md`, never self-applied — the
 full clause and its provenance live in the working agreement
 (`CONSTITUTION.md`, superbot Q-0194 · Q-0106 · Q-0172).
+
+## Fleet seed skills — pointer (not kit-shipped yet)
+
+Two owner-directed seed methods (superbot Q-0273, 2026-07-12) are **installed
+as reference implementations in superbot**, canonical there until the kit
+generalizes them into the shipped skill set (the Self Improvement lane's v2
+order carries the program; see fleet-manager ORDER 034 + the v3.5 prompt
+registry fold, `docs/prompts/v3/per-project/README.md` § v3.5 changelog):
+
+- **chase-references** — resolve EVERY reference in an ask (links, paths,
+  repo names, PR/Q numbers) before acting; an unfound reference is a search
+  task, never a skip. Body: superbot `.claude/skills/chase-references/SKILL.md`.
+- **prep-owner-steps** — hand the owner finished steps: lead with the deep
+  link, every blob paste-ready in its own block, batch clicks to one sitting.
+  Body: superbot `.claude/skills/prep-owner-steps/SKILL.md`.
+
+*(Seat-local pointer section — expected to be superseded by kit-shipped rows
+at a future adopt/upgrade; if a regen clobbers it, the durable homes above
+still route via the v3.5 Custom Instructions `skills` entry.)*

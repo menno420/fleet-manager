@@ -49,6 +49,7 @@ or startup edit doesn't orphan a row:
 | worker-stall once/twice ladder full text | 15 | CI one-line in backpressure/budgets; startups § WORK-LOOP RIDERS |
 | fresh-session-per-fire business-cron clause (v3.2 defect #7 — CLOSED in v3.3) | 35 | startups BOOT 4 EXCEPTION + ender step 3(b); CI one-clause in the business-cron entry (3 seats) |
 | MCP-PR-read staleness (v3.2 defect #9 — CLOSED in v3.3) | 37 | startups § TOOL FACTS extension; CI one-clause in TOOL FACTS |
+| AUTONOMY RIDER full text + seed-skill methods (v3.5 fold, Q-0271/Q-0273) | v3.5 | startups § DOCTRINE (byte-identical insert: AUTONOMY RIDER + SEED SKILLS); CI carries one-clause hooks only (BOOT TRIAD/AUTONOMY + skills seeds) to hold the 8,000 budget; durable skill bodies = superbot .claude/skills/ until the kit generalizes them (then route each repo's own docs/SKILLS.md rows) |
 
 ## C. Fact-sheet corrections found while verifying routes (2026-07-12)
 
