@@ -1,30 +1,30 @@
 # Fleet Manager — coordinator heartbeat
 
-updated: 2026-07-13T13:02:45Z — coordinator live (webagent Project seat; executor dispatch on PR #166)
+updated: 2026-07-13T13:32:31Z — coordinator live (webagent Project seat; PR #166 merged, PR #167 closing out, Q-0264 fan-out dispatch in flight)
 
 ## Routine disposition
-- Failsafe armed: `trig_01FpTbpXCeGcotnBpTkscAdr` · cron `30 */2 * * *` · bound to the live coordinator session · verified via full-paginated list_triggers · next fire 2026-07-13T14:33Z.
-- Pacemaker chain live: one-shot send_later, ~15 min cadence (Q-0265 shape), re-armed each working turn.
-- Predecessor failsafe `trig_01UQTZFvknBosXVo4YKKfazZ` deleted at boot cutover and verified absent (delete succeeded; re-probe returns not-found; registry scan clean). No business crons owned by this seat; nothing uncloseable.
-- Trigger export refreshed: telemetry/triggers-snapshot.json @ f09ba87 (1223 records · 22 enabled · captured 2026-07-13T12:36Z). check_trigger_health: 7/7 PASS on the fresh export (boot readout was 2/7 on the stale night export, as the predecessor baton predicted).
-- Checker gap (fact, for next wake's PR): check_trigger_health I1 skips records with `enabled` absent — e.g. `trig_011XAWqPeksS8LBrS5G9RvVc`, next_run frozen 2026-07-02.
+- Failsafe armed: `trig_01FpTbpXCeGcotnBpTkscAdr` · cron `30 */2 * * *` · bound to the live coordinator session · next fire 2026-07-13T14:33Z.
+- Pacemaker chain live: one-shot send_later, ~15 min cadence (Q-0265), re-armed each working turn.
+- Correction to the 13:02Z heartbeat: predecessor failsafe `trig_01UQTZFvknBosXVo4YKKfazZ` was deleted by the coordinator's cutover worker at ~12:41Z (that delete succeeded); the executor's later re-probes returned not-found. The 12:36Z telemetry snapshot still listing it is capture-instant residue, not live state.
 
-## Shipped this wake (PR #166, branch claude/wake-2026-07-13, window 12:34–12:56Z)
-- Roster gen #27 @ 9d3c855 (12:43Z): FRESH ×10 · DARK ×8 · STALE gba-homebrew · STALE-BY-DESIGN ×3. pokemon-mod-lab verdict from a real read (heartbeat 2026-07-11T21:03:45Z @ 759dee4 → DARK ~39.6h; headless B#49 stands).
-- ORDER 028 / P1-7 DONE-flipped @ 1298fc7: labs' succession/retro content covered; the one remaining gap (sonnet5 differential-testing method + v0.1.1 writeup, absent from kit @ d916d94) already tracked under open ORDER 025/P1-4 (B#41). Lab HEADs: sonnet5 66c3dfc · fable5 a6cf1a9 · opus4.8 80f6cd1.
-- Q-0264 fan-in @ 0a71ad1: 9/9 SIM-REQUESTs served — VERDICTs 037–045 finalized @ sim-lab afe18f3 (venture-lab ×4 · superbot-idle V038 · superbot-games ×4); per-seat relay pointers in control/outbox.md (lane inboxes are read-only from this seat — relay per Q-0264). idea-engine ASK 002 routed to Self Improvement via the same record.
-- B#50 (superbot-idle required-checks) RESOLVED @ 2f7bf8b: idle #75/#76 merged 01:23–01:26Z by github-actions; triage idle row re-verdicted; parked-set currency refreshed.
-- Verify at close: check_roster_freshness exit 0 (gen #27) · check_owner_queue exit 0 CLEAN · check_trigger_health 7/7 · bootstrap check --strict exit 0 (designed born-red HOLD on this session's own card until the flip).
+## Shipped
+- PR #166 MERGED 13:03Z — wake slices: roster gen #27 · ORDER 028/P1-7 DONE · Q-0264 verdict record (control/outbox.md) · B#50 resolved · trigger export refresh @ f09ba87.
+- PR #167 (claude/trigger-health-i1-fix, head 43d422f) — this heartbeat's vehicle:
+  - I1b AMBIGUOUS-ENABLED invariant added to scripts/check_trigger_health.py @ 661aaf3: absent-`enabled` records surfaced instead of skipped (trig_011XAWqPeksS8LBrS5G9RvVc frozen-next_run now WARNs, exit-neutral; verdict shape `PASS — 7/8 green, 1 WARN`, exit 0; selfcheck +7 assertions). Closes the prior baton's I1 gap; before/after in the PR body.
+  - Q-0264 relay-consumption sweep (13:13Z, read-only): V037–V045 + idea-engine ASK 002 ALL PENDING fan-out, zero lane-side consumption — 10-row SHA-cited table in docs/fleet-triage.md § "2026-07-13 · Q-0264 relay-consumption sweep"; verification note in control/outbox.md.
+  - Upkeep: stale merged-PR claim claude-wake-2026-07-13 deleted on sight.
+- Verify at close: roster-freshness exit 0 · owner-queue exit 0 CLEAN · trigger-health exit 0 · bootstrap check --strict red only on this card's designed hold until the flip.
+
+## Q-0264 fan-out (in flight)
+- The four owed lane-inbox relays are dispatched as control-only append PRs, one per repo (manager provenance, Q-0264): venture-lab ← V037/V039/V040/V041 · superbot-idle ← V038 (clears its declared RESUME TRIGGER) · superbot-games ← V042–V045 · substrate-kit ← idea-engine ASK 002 (Self Improvement seat). Sources: sim-lab afe18f3 · fm control/outbox.md. Completion note lands in control/outbox.md when the dispatch reports.
 
 ## Open/parked PRs + landing paths
-- fm #166 (this session): OPEN + READY; lands on green after the card flip (repo merge-on-green path; fallback owner-click via hub).
-- substrate-kit #317: do-not-automerge — ratification park, untouched.
-- substrate-kit #326: sibling kit-seat heartbeat PR (12:51Z), not this seat's.
-- gba-homebrew #82–#90 · pokemon-mod-lab #57–#59, #61–#64 (#60 closed-retracted): parked set verified current 12:56Z.
+- fm #167: OPEN + READY; lands on green after the card flip (merge-on-green; fallback owner-click via hub).
+- substrate-kit #317 do-not-automerge ratification park · substrate-kit #326 sibling kit-seat PR · gba-homebrew #82–#90 · pokemon-mod-lab #57–#59, #61–#64: unchanged, untouched.
 
 ## Next-2 baton
-1. Verify the Q-0264 relay pointers get consumed lane-side (fan-out follow-up); lane-inbox writes stay out of this seat's write scope.
-2. Fix the check_trigger_health I1 absent-`enabled` gap in a dedicated PR; watch for owner sitting-bundle answers (none observed this wake).
+1. Verify the four Q-0264 fan-out PRs landed and re-sweep lane consumption (PENDING → CONSUMED) next wake; completion note in control/outbox.md.
+2. Owner sitting-bundle watch (none observed this wake); inbox ORDERs 023/024 remain owner-gated.
 
 ## ⚑ Owner asks
 - None new this wake. Standing queue: docs/owner-queue.md.
