@@ -611,3 +611,48 @@ relays the I1b disposition + L395/L406 doc-drift rider to the superbot hub seat.
 Relayed by coordinator dispatch 2026-07-13. (Cited fm main `18c3f21` — the
 dispatch-referenced `1777a27` is not an object on fm main; #175's squash-merge
 is `18c3f21`.)
+
+---
+
+## 2026-07-13 · EAP NIGHT-ORDER FAN-OUT COMPLETE — ORDER 045 dispatch, all 11 lane PRs (fm-side close, 2026-07-13T22:37:18Z)
+
+The ORDER 045 Phase 3 fan-out (per-seat EAP final-night worklists,
+`docs/eap-final-night-worklists-2026-07-13.md` @ `ca1ce28`, incl. the
+amendment-1 pokemon-mod-lab reactivation) is DISPATCHED to every active
+seat. All 11 lane PRs, with LIVE states — the three not-yet-confirmed ones
+re-verified via the GitHub API this session at ~22:34–22:35Z; the eight
+known-merged ones as recorded at dispatch:
+
+| Seat / repo | PR | Local ORDER | LIVE state |
+|---|---|---|---|
+| superbot (hub) | #2090 | ORDER 004 | OPEN non-draft, head `99f6b06` — verified live 22:34Z: ZERO check runs on head, commit status `conflict-guard` SUCCESS 22:26:35Z ("No merge conflict with the base branch"), but the API's `mergeable_state` read `dirty` at poll — needs a branch-update/CI kick before it can land |
+| superbot-next | #418 | ORDER 019 | MERGED (dispatch record) |
+| superbot-mineverse | #84 | ORDER 006 | MERGED 22:19:15Z by github-actions[bot] — verified live 22:34Z |
+| superbot-idle | #103 | ORDER 007 | MERGED (dispatch record) |
+| pokemon-mod-lab | #66 | ORDER 007 | OPEN, PARKED GREEN — verified live 22:35Z: both checks success (ROM builds 22:20:09Z · substrate-gate 22:18:05Z); parked per the seat's park-and-sweep convention, incl. the owner-reactivation record |
+| sim-lab | #113 | ORDER 005 | MERGED (dispatch record) |
+| idea-engine | #356 | ORDER 008 | MERGED (dispatch record) |
+| trading-strategy | #113 | ORDER 014 | MERGED (dispatch record) |
+| venture-lab | #168 | ORDER 011 | MERGED (dispatch record) |
+| substrate-kit | #338 | ORDER 019 | MERGED (dispatch record) |
+| websites | #306 | ORDER 027 | MERGED (dispatch record) |
+
+*(11 lane PRs total. gba-homebrew, superbot-games, product-forge, and the
+kit sub-rows drew no dispatch — they are the DARK dispositions routed
+owner-side below.)*
+
+**Systemic finding (fixed in-flight):** the kit's inbox-order-grammar gate
+requires `priority:` / `do:` / `why:` fields that the relay payloads
+lacked — every affected lane's relay was corrected in-flight to pass the
+gate; no lane was skipped. Kit-side follow-up (make the relay template
+carry the fields by construction) is a Self Improvement seat candidate.
+
+**DARK dispositions → owner queue (this same PR):** the sweep's four
+no-ORDER seats are now owner-queue items — superbot-games re-wake-or-
+reassign (OQ-GAMES-DARK-REWAKE-OR-REASSIGN) · gba-homebrew re-wake
+(OQ-GBA-DARK-REWAKE) · product-forge no-action confirm, still E#44-gated
+(OQ-FORGE-DARK-NO-ACTION-CONFIRM) · kit sub-rows wound-down confirm
+(OQ-KIT-SUBROWS-WINDDOWN-CONFIRM). Source:
+`docs/eap-final-night-worklists-2026-07-13.md` @ `ca1ce28` § DARK
+dispositions. ORDER 045's fan-out step (worklists doc self item 5) is
+CLOSED with this entry.
