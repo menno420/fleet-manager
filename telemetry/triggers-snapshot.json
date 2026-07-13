@@ -1,11 +1,12 @@
 {
   "capture_notes": [
-    "Capture 2026-07-13T00:39:53Z is a FULL VERBATIM list_triggers export (11 pages, limit 100, cursor-to-exhaustion; capture window 2026-07-13T00:39:53Z-00:43:16Z, 1034 records, 0 cursor-overlap duplicates). Every record carries its complete registry body (job_config/creator/created_at/updated_at present on all 1034), so NO merge over prior bodies was needed: these bodies SUPERSEDE the 2026-07-12T20:41Z trimmed-merge snapshot, including the carried-forward fields it inherited from the 18:25:51Z capture. Absent key = null, as before; records id-sorted.",
-    "created_at BOUND resolution: the 7 post-18:25Z records whose created_at was a documented bound in the 20:41Z notes (trig_014uX3xuYZod7L4CmM1kfKBb, trig_019TQyrRe9KQwrUN25yJQzi2, trig_019ouxGEiAYPgXseNdjP26WX, trig_01CA29izEdEvnb1JVfpmM6wW, trig_01M3kr5j34ukHgNk1p8H41A3, trig_01MpTgczheU95UgCuaPTYc51, trig_01WA3ewRinYv6sN9Sm4CGx3b) now carry registry ground-truth created_at from this verbatim export; the bound note is retired.",
-    "Deleted between the 20:41Z and 00:39:53Z captures (10): trig_011iJucRpsruWJ4dFB7xVbvf, trig_015aNMg5ncoSE2Roe4MKjQnr, trig_017o6azZTd9pzcaSthEncT5q, trig_01Aak59jvQQdimDgy5K1yAGQ, trig_01BKpsyoBzp1K1ob9H3iu1gM, trig_01JD1t7rD5jUCqkJQJaNCi3E, trig_01KQbKNiSVfZRWutKEWFx2q2, trig_01PJhGcoUJ7rYL51DKY2fjHo, trig_01T83UuVthszGBcENYwrTrm7, trig_01VQs4pm9Uw1LDeXzn2J6Wve. 99 records are new since 20:41Z. The 20:41Z notes' forecast boot-cutover delta reconciles here as predicted: old fm failsafe trig_01BKpsyoBzp1K1ob9H3iu1gM deletion confirmed (absent), successor failsafe trig_01UQTZFvknBosXVo4YKKfazZ (cron '30 */2 * * *') present.",
-    "DROPPED TICK: trig_0123fu7onT7wGMNB9ZtbtdqL (send_later one-shot, scheduled fire 2026-07-13T00:06:00Z, bound session_01UutkJqyMcHC1VyFW8fe1a9, message 'continue the work loop: sync HEAD -> inbox -> next slice -> re-arm') NEVER DELIVERED - at this capture it is still enabled, unfired (no last_fired_at), 33+ min past run_once_at. The seat failsafe trig_01UQTZFvknBosXVo4YKKfazZ caught the stall: it fired 2026-07-13T00:37:55Z and woke the seat. A replacement pacemaker tick (trig_01HRNuGwoSf1pR9nPhmE6QX7, 01:09:00Z, same session, same work-loop text) was armed at 00:38:31Z, so the dropped tick + its replacement coexist pending on one session in this capture - an expected I7 TICK-PILE-UP flag; remedy is pruning the OLDER dropped tick (coordinator action, recorded in the 2026-07-13 night-watchdog-1 session card)."
+    "Capture 2026-07-13T02:28:33Z is a FULL VERBATIM list_triggers export (11 pages, limit 100, cursor-to-exhaustion; capture window 2026-07-13T02:28:33Z-02:31:32Z, 1078 records, 0 cursor-overlap duplicates). Every record carries its complete registry body; these bodies SUPERSEDE the 2026-07-13T00:39:53Z capture. Absent key = null, as before; records id-sorted. Enabled count 35 (was 24 at 00:39:53Z).",
+    "Deleted between the 00:39:53Z and 02:28:33Z captures (1): trig_0123fu7onT7wGMNB9ZtbtdqL — the 00:06Z dropped tick that watchdog 1 (PR #150) listed for pruning; its deletion here confirms the coordinator executed the prune. 45 records are new since 00:39:53Z.",
+    "Watchdog-1 open-item resolutions, verified in this export: (a) Ideas Lab I7 pile-up (session_01Q5sGKgKCngGa7jgfzEGeEQ) resolved by DELIVERY, not prune — the recommended prune target trig_01Vsq76foscQRFz2YZNHpZCQ fired 2026-07-13T00:41:25Z and the newer trig_01BWZxRpeqGdg46CCbAs8hYt fired 00:47:35Z (both run_once_fired; a ~6-min double-wake, self-cleared). (b) SuperBot World dropped tick trig_01Ufj7W9MvsMvboqTAALgWX8 (session_013CEaD81nh2E4wK1NsrKMPV, due 00:14Z) resolved QUEUED-not-LOST: it delivered 2026-07-13T02:08:14Z, ~1h54m past due — proof the registry's QUEUED-vs-LOST ambiguity (I2 caveat) can only be settled by a later export. (c) The fleet-manager replacement pacemaker trig_01HRNuGwoSf1pR9nPhmE6QX7 delivered on time (01:09:54Z); the manager failsafe trig_01UQTZFvknBosXVo4YKKfazZ is healthy, next 02:37:36Z.",
+    "SCHEDULER DEGRADATION RECURRENCE (partial), visible in this capture: one-shot ticks due 2026-07-13T01:08Z-01:58Z across 8 seat sessions were undelivered at capture, and TWO seat failsafe crons are wedged per I1 (trig_01TuQrpMVpDCXB3K3VbjQUoA 'SuperBot 2.0 failsafe wake' next frozen 01:07:07Z; trig_01Kz3j5ECTZ29hNZCHukgCA1 'Ideas Lab failsafe wake' next frozen 01:38:53Z) - same signature as the 2026-07-12 ~02:30-08:00Z incident (ORDER 020), but selective: sibling failsafes at 01:15Z (SuperBot World), 01:45Z (Venture Lab), 02:07-02:10Z (Self Improvement, Websites, Game Lab) all fired. Queued delivery visibly resumed ~02:08Z (the SuperBot World 00:14Z tick delivered 02:08:14Z). SuperBot 2.0 (session_01KhzyfUk76YB9Bj2TPF6h5z) is the DEAD-CHAIN case: pacemaker 01:37Z + its own scheduler-wedge probe 01:58Z both undelivered AND its failsafe is one of the two wedged crons - no armed future tick; recovery per I3 is send_message. Curious Research (session_01N9QvWRsgjhunTTPJU3UoZA, ninth seat): pacemaker 01:39Z undelivered; its failsafe cron trig_01WLfpsEhiPEoT18G9ds1sM5 (20 */2, created 01:22:54Z) was 8.5min past its FIRST-EVER fire (02:20Z) at capture - within I1 grace but zero fire history, so coverage is armed-but-unproven.",
+    "Forecast for the next export (R26 forecast-note doctrine): (a) fleet-manager failsafe trig_01UQTZFvknBosXVo4YKKfazZ fires 02:37:36Z - should show last_fired ~02:37Z and next_run_at advanced (~04:37Z); the fm coordinator session holds ZERO pending one-shots at this capture, failsafe-only coverage. (b) Ideas Lab pacemaker trig_01XR69tzhvJ2VxRE3JtdJr45 (02:39:00Z, session_01Q5sGKgKCngGa7jgfzEGeEQ) should appear fired-or-pruned. (c) Curious Research failsafe trig_01WLfpsEhiPEoT18G9ds1sM5 should show a first last_fired ~02:20Z; still-unfired = a third wedge. (d) The two wedged failsafes should either show next_run_at advanced (recovered) or remain frozen at 01:07:07Z/01:38:53Z (still wedged); frozen-next-capture escalates them from queued-ambiguous to confirmed-wedged."
   ],
-  "captured_at": "2026-07-13T00:39:53Z",
+  "captured_at": "2026-07-13T02:28:33Z",
   "data": [
     {
       "created_at": "2026-07-11T00:41:35.547924Z",
@@ -2176,6 +2177,64 @@
       "updated_at": "2026-07-11T21:35:18.340621Z"
     },
     {
+      "created_at": "2026-07-13T00:47:08.699229Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "enabled": true,
+      "id": "trig_011pRNSD2DxaiwzmPYhNgMpX",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "night-run tick: check the five production sessions (scribe/Brineward6, Gloamline, web game, mobile foundation, pml), unblock stalls, dispatch follow-on slices, re-arm one tick",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "3b628c26-ccaf-4192-b227-4ba5ee1992fc"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "name": "send_later 2026-07-13T01:08Z #2a8e35",
+      "next_run_at": "2026-07-13T01:08:00Z",
+      "persist_session": true,
+      "persistent_session_id": "session_015xJBwRogy1ByzZmeWC38qW",
+      "run_once_at": "2026-07-13T01:08:00Z",
+      "session_grouping_id": "sgrp_01WdNyDMRCjseEXV7Yvademi",
+      "updated_at": "2026-07-13T00:47:08.699229Z"
+    },
+    {
       "created_at": "2026-07-12T08:09:28.668633Z",
       "created_via": "meta_mcp",
       "creator": {
@@ -2625,64 +2684,6 @@
       "run_once_at": "2026-07-12T12:22:00Z",
       "session_grouping_id": "sgrp_01WdNyDMRCjseEXV7Yvademi",
       "updated_at": "2026-07-12T12:22:39.138725Z"
-    },
-    {
-      "created_at": "2026-07-12T23:45:55.807474Z",
-      "created_via": "meta_mcp",
-      "creator": {
-        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
-      },
-      "enabled": true,
-      "id": "trig_0123fu7onT7wGMNB9ZtbtdqL",
-      "job_config": {
-        "ccr": {
-          "events": [
-            {
-              "data": {
-                "isSynthetic": true,
-                "message": {
-                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
-                  "role": "user"
-                },
-                "parent_tool_use_id": null,
-                "type": "user",
-                "uuid": "74a0fcf8-04ef-4be2-a2d0-92eeb2d33871"
-              }
-            }
-          ],
-          "session_context": {
-            "allowed_tools": [
-              "preset:default",
-              "Task",
-              "Bash",
-              "Glob",
-              "Grep",
-              "Read",
-              "Edit",
-              "MultiEdit",
-              "Write",
-              "NotebookEdit",
-              "WebFetch",
-              "TodoWrite",
-              "WebSearch",
-              "BashOutput",
-              "KillBash",
-              "Skill",
-              "Tmux",
-              "Monitor",
-              "SendUserFile",
-              "REPL"
-            ]
-          }
-        }
-      },
-      "name": "send_later 2026-07-13T00:06Z #00a779",
-      "next_run_at": "2026-07-13T00:06:00Z",
-      "persist_session": true,
-      "persistent_session_id": "session_01UutkJqyMcHC1VyFW8fe1a9",
-      "run_once_at": "2026-07-13T00:06:00Z",
-      "session_grouping_id": "sgrp_01JHS1G4pvdBek4TEKsJp1zC",
-      "updated_at": "2026-07-12T23:45:55.807474Z"
     },
     {
       "created_at": "2026-07-12T00:34:42.164859Z",
@@ -5241,9 +5242,9 @@
           }
         }
       },
-      "last_fired_at": "2026-07-12T23:16:01.568627Z",
+      "last_fired_at": "2026-07-13T01:15:22.793422Z",
       "name": "SuperBot World failsafe wake",
-      "next_run_at": "2026-07-13T01:15:00Z",
+      "next_run_at": "2026-07-13T03:15:00Z",
       "notifications": {
         "channel": {
           "email": false,
@@ -7864,6 +7865,65 @@
       "updated_at": "2026-07-11T04:45:25.275501Z"
     },
     {
+      "created_at": "2026-07-13T00:54:30.665830Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "ended_reason": "run_once_fired",
+      "id": "trig_013ujxayiBswo1UyD3EFHfQr",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "2184def6-f4d2-4f94-b423-8b9643b59122"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "last_fired_at": "2026-07-13T01:15:22.975939Z",
+      "name": "send_later 2026-07-13T01:15Z #70141b",
+      "next_run_at": "2026-07-14T01:15:22.836129584Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01KhzyfUk76YB9Bj2TPF6h5z",
+      "run_once_at": "2026-07-13T01:15:00Z",
+      "session_grouping_id": "sgrp_01X3MRCgqNvZTbxXb87U4NyV",
+      "updated_at": "2026-07-13T01:15:23.006552Z"
+    },
+    {
       "created_at": "2026-07-12T22:59:03.475324Z",
       "created_via": "meta_mcp",
       "creator": {
@@ -9841,6 +9901,65 @@
       "updated_at": "2026-07-11T15:44:27.097393Z"
     },
     {
+      "created_at": "2026-07-13T01:42:53.056215Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "ended_reason": "run_once_fired",
+      "id": "trig_014eFyHczxmnorQ59571RExo",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "999ff224-02a3-4424-8b0c-72299f9ace0c"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "last_fired_at": "2026-07-13T02:03:28.504526Z",
+      "name": "send_later 2026-07-13T02:03Z #a6fb86",
+      "next_run_at": "2026-07-14T02:03:28.115785621Z",
+      "persist_session": true,
+      "persistent_session_id": "session_013CEaD81nh2E4wK1NsrKMPV",
+      "run_once_at": "2026-07-13T02:03:00Z",
+      "session_grouping_id": "sgrp_01VLL1ZRJtHEPkEJK84vMPYU",
+      "updated_at": "2026-07-13T02:03:28.545765Z"
+    },
+    {
       "created_at": "2026-07-11T15:20:45.597591Z",
       "created_via": "meta_mcp",
       "creator": {
@@ -10350,6 +10469,65 @@
       "updated_at": "2026-07-12T18:52:24.653699Z"
     },
     {
+      "created_at": "2026-07-13T00:43:50.995874Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "ended_reason": "run_once_fired",
+      "id": "trig_014wMENJgDsDNgsFsauFXHXF",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "41e6e708-a5d2-4479-933b-fee47785a478"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "last_fired_at": "2026-07-13T00:59:27.184334Z",
+      "name": "send_later 2026-07-13T00:59Z #6ba69e",
+      "next_run_at": "2026-07-14T00:59:27.060300449Z",
+      "persist_session": true,
+      "persistent_session_id": "session_013CEaD81nh2E4wK1NsrKMPV",
+      "run_once_at": "2026-07-13T00:59:00Z",
+      "session_grouping_id": "sgrp_01VLL1ZRJtHEPkEJK84vMPYU",
+      "updated_at": "2026-07-13T00:59:27.210376Z"
+    },
+    {
       "created_at": "2026-07-12T12:08:23.525992Z",
       "created_via": "meta_mcp",
       "creator": {
@@ -10582,6 +10760,65 @@
       "persistent_session_id": "session_01JbwY8yeBzLKYcbeR89L88v",
       "run_once_at": "2026-07-10T22:48:00Z",
       "updated_at": "2026-07-11T21:40:17.688390Z"
+    },
+    {
+      "created_at": "2026-07-13T00:43:46.661524Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "ended_reason": "run_once_fired",
+      "id": "trig_0151y7YBs87JUnWtSFSgu4b2",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "9f3f0c51-0229-47f5-942f-c3babe9a36c8"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "last_fired_at": "2026-07-13T00:59:23.691958Z",
+      "name": "send_later 2026-07-13T00:59Z #075cf7",
+      "next_run_at": "2026-07-14T00:59:23.475330137Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01MSze9jQLdxByyv2j6rm29c",
+      "run_once_at": "2026-07-13T00:59:00Z",
+      "session_grouping_id": "sgrp_01GWoqRWh8YPLmokSzqMhewU",
+      "updated_at": "2026-07-13T00:59:23.747549Z"
     },
     {
       "created_at": "2026-07-11T02:36:33.251773Z",
@@ -10817,6 +11054,65 @@
       "run_once_at": "2026-07-11T19:34:00Z",
       "session_grouping_id": "sgrp_01GWoqRWh8YPLmokSzqMhewU",
       "updated_at": "2026-07-11T19:34:24.377751Z"
+    },
+    {
+      "created_at": "2026-07-13T02:06:07.419252Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "ended_reason": "run_once_fired",
+      "id": "trig_0159ok46Q4pvvuDsKZaQKXf4",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "d16b01bf-dc35-4aeb-834a-e9c4f5c65e0a"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "last_fired_at": "2026-07-13T02:22:26.409100Z",
+      "name": "send_later 2026-07-13T02:22Z #d32cfe",
+      "next_run_at": "2026-07-14T02:22:26.283286766Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01Q5sGKgKCngGa7jgfzEGeEQ",
+      "run_once_at": "2026-07-13T02:22:00Z",
+      "session_grouping_id": "sgrp_014F2sZkBUvBKNsk2PrF3jKS",
+      "updated_at": "2026-07-13T02:22:26.435593Z"
     },
     {
       "created_at": "2026-07-11T05:22:11.311350Z",
@@ -11932,6 +12228,64 @@
       "persistent_session_id": "session_01VHEs2RDpuLUsiMhzPVcYjQ",
       "run_once_at": "2026-07-09T02:37:00Z",
       "updated_at": "2026-07-09T02:37:18.966654Z"
+    },
+    {
+      "created_at": "2026-07-13T02:14:21.238935Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "enabled": true,
+      "id": "trig_015bHF2GUHkFNehKkqnVqKuA",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "c0ea071f-c376-4e5e-ad07-5826bd446247"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "name": "send_later 2026-07-13T02:30Z #807783",
+      "next_run_at": "2026-07-13T02:30:00Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01K3A7v82YxTxzaFztpbgEY2",
+      "run_once_at": "2026-07-13T02:30:00Z",
+      "session_grouping_id": "sgrp_015tTCEF2BeC5UgpNyo3wwio",
+      "updated_at": "2026-07-13T02:14:21.238935Z"
     },
     {
       "created_at": "2026-07-12T13:25:53.655169Z",
@@ -13971,6 +14325,65 @@
       "run_once_at": "2026-07-11T08:08:00Z",
       "session_grouping_id": "sgrp_01X3MRCgqNvZTbxXb87U4NyV",
       "updated_at": "2026-07-11T08:08:45.871706Z"
+    },
+    {
+      "created_at": "2026-07-13T01:46:29.972761Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "ended_reason": "run_once_fired",
+      "id": "trig_016Up6D8XCeA2T3uj4GBPZBv",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "04bf78de-bfd0-4dbf-b154-a126535b49e7"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "last_fired_at": "2026-07-13T02:27:43.213394Z",
+      "name": "send_later 2026-07-13T02:27Z #69b8ec",
+      "next_run_at": "2026-07-14T02:27:43.074752680Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01UutkJqyMcHC1VyFW8fe1a9",
+      "run_once_at": "2026-07-13T02:27:00Z",
+      "session_grouping_id": "sgrp_01JHS1G4pvdBek4TEKsJp1zC",
+      "updated_at": "2026-07-13T02:27:43.239997Z"
     },
     {
       "created_at": "2026-07-11T16:54:33.899511Z",
@@ -17653,6 +18066,65 @@
       "updated_at": "2026-07-11T21:35:18.340621Z"
     },
     {
+      "created_at": "2026-07-13T00:48:05.039763Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "ended_reason": "run_once_fired",
+      "id": "trig_01812LwZqvDeB3u9kVMXfiMV",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "36230285-af10-4f71-80e7-a418e00bbfe0"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "last_fired_at": "2026-07-13T01:04:47.656819Z",
+      "name": "send_later 2026-07-13T01:04Z #00aedf",
+      "next_run_at": "2026-07-14T01:04:47.518810579Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01Q5sGKgKCngGa7jgfzEGeEQ",
+      "run_once_at": "2026-07-13T01:04:00Z",
+      "session_grouping_id": "sgrp_014F2sZkBUvBKNsk2PrF3jKS",
+      "updated_at": "2026-07-13T01:04:47.682745Z"
+    },
+    {
       "created_at": "2026-07-12T15:11:06.384451Z",
       "created_via": "meta_mcp",
       "creator": {
@@ -18223,6 +18695,65 @@
       "updated_at": "2026-07-12T23:30:16.313659Z"
     },
     {
+      "created_at": "2026-07-13T00:59:23.531361Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "ended_reason": "run_once_fired",
+      "id": "trig_018MLJaowefUhDWELz5CFKMq",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "cc4bec90-deaf-4d5c-b4ab-cc7b235b526e"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "last_fired_at": "2026-07-13T01:15:18.588981Z",
+      "name": "send_later 2026-07-13T01:15Z #22c927",
+      "next_run_at": "2026-07-14T01:15:18.429196101Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01Q5sGKgKCngGa7jgfzEGeEQ",
+      "run_once_at": "2026-07-13T01:15:00Z",
+      "session_grouping_id": "sgrp_014F2sZkBUvBKNsk2PrF3jKS",
+      "updated_at": "2026-07-13T01:15:18.627263Z"
+    },
+    {
       "created_at": "2026-07-11T01:43:32.800930Z",
       "created_via": "meta_mcp",
       "creator": {
@@ -18673,6 +19204,64 @@
       "updated_at": "2026-07-11T06:37:20.073305Z"
     },
     {
+      "created_at": "2026-07-13T01:16:28.252232Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "enabled": true,
+      "id": "trig_018WjdikWoXQxh1fCdp66whE",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "5c910648-0a21-4c63-a558-ea975e0d5ead"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "name": "send_later 2026-07-13T01:37Z #e1c139",
+      "next_run_at": "2026-07-13T01:37:00Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01KhzyfUk76YB9Bj2TPF6h5z",
+      "run_once_at": "2026-07-13T01:37:00Z",
+      "session_grouping_id": "sgrp_01X3MRCgqNvZTbxXb87U4NyV",
+      "updated_at": "2026-07-13T01:16:28.252232Z"
+    },
+    {
       "created_at": "2026-07-11T00:45:23.087747Z",
       "created_via": "meta_mcp",
       "creator": {
@@ -18787,6 +19376,63 @@
       "run_once_at": "2026-07-12T10:51:00Z",
       "session_grouping_id": "sgrp_015tTCEF2BeC5UgpNyo3wwio",
       "updated_at": "2026-07-12T10:51:17.895551Z"
+    },
+    {
+      "created_at": "2026-07-13T01:09:00.694176Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "enabled": true,
+      "id": "trig_018kUNW1tVjjmKUyb47fxwSj",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "PR-watch check-in: verify curious-research PR #1 (the seed) reached terminal state. Expected path: substrate-gate reports green → merge (auto-merge if the owner enabled the toggle, else his click). If still open AND the gate check reported green but the PR shows a pending required check that never reports: the ruleset's required-check name is mistyped — tell the owner the exact fix (Settings → Rules → required status check must read exactly `substrate-gate`). If the gate itself failed: read the log, fix forward on claude/seed-kit-and-teaching-doctrine, push. If merged: stand down silently.",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "7b1ea225-e4a8-466b-a526-2fa97dadd6f0"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "name": "send_later 2026-07-13T01:55Z #d189fb",
+      "next_run_at": "2026-07-13T01:55:00Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01Kn5PjZR5EDJL75BeELkUfr",
+      "run_once_at": "2026-07-13T01:55:00Z",
+      "updated_at": "2026-07-13T01:09:00.694176Z"
     },
     {
       "created_at": "2026-07-12T10:35:02.590713Z",
@@ -19180,6 +19826,64 @@
       "run_once_at": "2026-07-11T07:15:00Z",
       "session_grouping_id": "sgrp_01JHS1G4pvdBek4TEKsJp1zC",
       "updated_at": "2026-07-11T07:15:30.015711Z"
+    },
+    {
+      "created_at": "2026-07-13T01:23:19.278916Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "enabled": true,
+      "id": "trig_018rSkhaVaGJK3mXf6bA2v8K",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "80fe5a0a-4d3e-4d58-b6f5-d791af837152"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "name": "send_later 2026-07-13T01:39Z #e96e09",
+      "next_run_at": "2026-07-13T01:39:00Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01Q5sGKgKCngGa7jgfzEGeEQ",
+      "run_once_at": "2026-07-13T01:39:00Z",
+      "session_grouping_id": "sgrp_014F2sZkBUvBKNsk2PrF3jKS",
+      "updated_at": "2026-07-13T01:23:19.278916Z"
     },
     {
       "created_at": "2026-07-10T23:55:06.276988Z",
@@ -20620,6 +21324,122 @@
       "updated_at": "2026-07-11T21:35:18.340621Z"
     },
     {
+      "created_at": "2026-07-13T01:47:38.564046Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "enabled": true,
+      "id": "trig_019YuiwiG7wf8GHss1TnMEnv",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "PROBE TICK + work loop: scheduler-wedge check (pacemaker 01:37Z + failsafe 01:07Z both unfired) — if this arrives, new triggers fire; proceed: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "5ff28493-36be-48bd-865d-09cd23685ac5"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "name": "send_later 2026-07-13T01:58Z #6c4ee6",
+      "next_run_at": "2026-07-13T01:58:00Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01KhzyfUk76YB9Bj2TPF6h5z",
+      "run_once_at": "2026-07-13T01:58:00Z",
+      "session_grouping_id": "sgrp_01X3MRCgqNvZTbxXb87U4NyV",
+      "updated_at": "2026-07-13T01:47:38.564046Z"
+    },
+    {
+      "created_at": "2026-07-13T02:16:27.602583Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "enabled": true,
+      "id": "trig_019aoHQmoBKLGwmNYHZM2kbc",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "504d50c7-85bf-4f90-9b44-e12753af58b3"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "name": "send_later 2026-07-13T02:47Z #df9b8d",
+      "next_run_at": "2026-07-13T02:47:00Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01CXEh5TBKBNTDGgsDstfcjc",
+      "run_once_at": "2026-07-13T02:47:00Z",
+      "session_grouping_id": "sgrp_01KjSDRvi2ErWcR8vVrTsGEt",
+      "updated_at": "2026-07-13T02:16:27.602583Z"
+    },
+    {
       "created_at": "2026-07-12T01:23:39.454830Z",
       "created_via": "meta_mcp",
       "creator": {
@@ -20847,9 +21667,9 @@
           }
         }
       },
-      "last_fired_at": "2026-07-12T22:45:31.652074Z",
+      "last_fired_at": "2026-07-13T02:10:03.646986Z",
       "name": "Websites failsafe wake",
-      "next_run_at": "2026-07-13T00:45:00Z",
+      "next_run_at": "2026-07-13T02:45:00Z",
       "notifications": {
         "channel": {
           "email": false,
@@ -21194,6 +22014,64 @@
       "run_once_at": "2026-07-11T03:45:00Z",
       "session_grouping_id": "sgrp_01JHS1G4pvdBek4TEKsJp1zC",
       "updated_at": "2026-07-11T03:45:23.020105Z"
+    },
+    {
+      "created_at": "2026-07-13T02:14:13.584106Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "enabled": true,
+      "id": "trig_019fKeGAKtpMEqbWkcuvPpYn",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "night-run tick: check pml #59 recovery + Brineward #82 landing, dispatch next breadth slice if capacity, re-arm one tick",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "17a2b970-eb76-4158-af4f-6c2b6ba26976"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "name": "send_later 2026-07-13T02:40Z #b0dbd8",
+      "next_run_at": "2026-07-13T02:40:00Z",
+      "persist_session": true,
+      "persistent_session_id": "session_015xJBwRogy1ByzZmeWC38qW",
+      "run_once_at": "2026-07-13T02:40:00Z",
+      "session_grouping_id": "sgrp_01WdNyDMRCjseEXV7Yvademi",
+      "updated_at": "2026-07-13T02:14:13.584106Z"
     },
     {
       "created_at": "2026-07-12T21:49:24.278957Z",
@@ -22568,6 +23446,65 @@
       "updated_at": "2026-07-11T09:49:01.532097Z"
     },
     {
+      "created_at": "2026-07-13T01:17:29.447916Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "ended_reason": "run_once_fired",
+      "id": "trig_01ACgbTLnDBvkzZAEtYGQ5Hh",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "e97a49e1-ce64-409f-ac00-0559fbd277ea"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "last_fired_at": "2026-07-13T01:33:26.019548Z",
+      "name": "send_later 2026-07-13T01:33Z #b9c1d9",
+      "next_run_at": "2026-07-14T01:33:25.889198483Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01MSze9jQLdxByyv2j6rm29c",
+      "run_once_at": "2026-07-13T01:33:00Z",
+      "session_grouping_id": "sgrp_01GWoqRWh8YPLmokSzqMhewU",
+      "updated_at": "2026-07-13T01:33:26.052386Z"
+    },
+    {
       "created_at": "2026-07-10T22:09:49.086969Z",
       "created_via": "meta_mcp",
       "creator": {
@@ -22624,6 +23561,64 @@
       "persistent_session_id": "session_01NwvvbgUVSdQvY8eYwtuEoo",
       "run_once_at": "2026-07-10T22:25:00Z",
       "updated_at": "2026-07-11T21:40:17.551873Z"
+    },
+    {
+      "created_at": "2026-07-13T01:06:31.877963Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "enabled": true,
+      "id": "trig_01AGpPVhsG8DvuJe4kpfg4bo",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "8a84dcc1-d396-4d3a-99b9-ada17f332d10"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "name": "send_later 2026-07-13T01:27Z #e1825f",
+      "next_run_at": "2026-07-13T01:27:00Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01CXEh5TBKBNTDGgsDstfcjc",
+      "run_once_at": "2026-07-13T01:27:00Z",
+      "session_grouping_id": "sgrp_01KjSDRvi2ErWcR8vVrTsGEt",
+      "updated_at": "2026-07-13T01:06:31.877963Z"
     },
     {
       "created_at": "2026-07-11T15:11:45.904626Z",
@@ -25843,7 +26838,7 @@
       "creator": {
         "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
       },
-      "enabled": true,
+      "ended_reason": "run_once_fired",
       "id": "trig_01BWZxRpeqGdg46CCbAs8hYt",
       "job_config": {
         "ccr": {
@@ -25887,13 +26882,14 @@
           }
         }
       },
+      "last_fired_at": "2026-07-13T00:47:35.838886Z",
       "name": "send_later 2026-07-13T00:47Z #3672b2",
-      "next_run_at": "2026-07-13T00:47:00Z",
+      "next_run_at": "2026-07-14T00:47:35.694509777Z",
       "persist_session": true,
       "persistent_session_id": "session_01Q5sGKgKCngGa7jgfzEGeEQ",
       "run_once_at": "2026-07-13T00:47:00Z",
       "session_grouping_id": "sgrp_014F2sZkBUvBKNsk2PrF3jKS",
-      "updated_at": "2026-07-13T00:31:13.100503Z"
+      "updated_at": "2026-07-13T00:47:35.867540Z"
     },
     {
       "created_at": "2026-07-12T15:42:54.786462Z",
@@ -28908,6 +29904,65 @@
       "updated_at": "2026-07-12T22:04:27.619089Z"
     },
     {
+      "created_at": "2026-07-13T01:06:31.655256Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "ended_reason": "run_once_fired",
+      "id": "trig_01Cs52D6BBiZphyYadTYbGRA",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "d91c3f2a-233f-4118-93a5-095a9e78c00e"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "last_fired_at": "2026-07-13T01:22:32.550583Z",
+      "name": "send_later 2026-07-13T01:22Z #fac232",
+      "next_run_at": "2026-07-14T01:22:32.423078431Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01K3A7v82YxTxzaFztpbgEY2",
+      "run_once_at": "2026-07-13T01:22:00Z",
+      "session_grouping_id": "sgrp_015tTCEF2BeC5UgpNyo3wwio",
+      "updated_at": "2026-07-13T01:22:32.580388Z"
+    },
+    {
       "created_at": "2026-07-11T06:07:29.121090Z",
       "created_via": "meta_mcp",
       "creator": {
@@ -30088,7 +31143,7 @@
       "creator": {
         "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
       },
-      "enabled": true,
+      "ended_reason": "run_once_fired",
       "id": "trig_01Djg27Rr6xvGkZAqoKXJqJ3",
       "job_config": {
         "ccr": {
@@ -30132,13 +31187,14 @@
           }
         }
       },
+      "last_fired_at": "2026-07-13T00:54:03.321343Z",
       "name": "send_later 2026-07-13T00:54Z #281907",
-      "next_run_at": "2026-07-13T00:54:00Z",
+      "next_run_at": "2026-07-14T00:54:03.147416519Z",
       "persist_session": true,
       "persistent_session_id": "session_01KhzyfUk76YB9Bj2TPF6h5z",
       "run_once_at": "2026-07-13T00:54:00Z",
       "session_grouping_id": "sgrp_01X3MRCgqNvZTbxXb87U4NyV",
-      "updated_at": "2026-07-13T00:38:28.462414Z"
+      "updated_at": "2026-07-13T00:54:03.352467Z"
     },
     {
       "created_at": "2026-07-11T17:00:46.233739Z",
@@ -31647,6 +32703,64 @@
       "updated_at": "2026-07-11T21:40:17.929675Z"
     },
     {
+      "created_at": "2026-07-13T02:04:04.104728Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "enabled": true,
+      "id": "trig_01E91ZrhYCWauAFCePvGZdzJ",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "6238b120-7959-4c46-b3d3-3b32e341da16"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "name": "send_later 2026-07-13T02:30Z #9e12c0",
+      "next_run_at": "2026-07-13T02:30:00Z",
+      "persist_session": true,
+      "persistent_session_id": "session_013CEaD81nh2E4wK1NsrKMPV",
+      "run_once_at": "2026-07-13T02:30:00Z",
+      "session_grouping_id": "sgrp_01VLL1ZRJtHEPkEJK84vMPYU",
+      "updated_at": "2026-07-13T02:04:04.104728Z"
+    },
+    {
       "created_at": "2026-07-10T10:11:04.010618Z",
       "created_via": "meta_mcp",
       "creator": {
@@ -32050,9 +33164,9 @@
           }
         }
       },
-      "last_fired_at": "2026-07-13T00:10:57.967158Z",
+      "last_fired_at": "2026-07-13T02:07:55.311584Z",
       "name": "Self Improvement failsafe wake",
-      "next_run_at": "2026-07-13T02:07:18.184378540Z",
+      "next_run_at": "2026-07-13T04:07:18.184378540Z",
       "notifications": {
         "channel": {
           "email": false,
@@ -33103,6 +34217,65 @@
       "updated_at": "2026-07-12T11:26:49.622663Z"
     },
     {
+      "created_at": "2026-07-13T01:07:03.078288Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "ended_reason": "run_once_fired",
+      "id": "trig_01EwYrBZ4tAjA3mwyfRPJDMT",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "Check PR #229: merged? If merged, verify live https://control-plane-production-abb0.up.railway.app/version == merge sha and spot-check /activity /reviews /journal/websites ledes.",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "73d14eeb-4fb8-4012-b4d9-84a066e77b27"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "last_fired_at": "2026-07-13T01:28:48.119479Z",
+      "name": "send_later 2026-07-13T01:28Z #05f004",
+      "next_run_at": "2026-07-14T01:28:47.957618446Z",
+      "persist_session": true,
+      "persistent_session_id": "session_014tULQydFc9shxtDFb2L7kh",
+      "run_once_at": "2026-07-13T01:28:00Z",
+      "session_grouping_id": "sgrp_015tTCEF2BeC5UgpNyo3wwio",
+      "updated_at": "2026-07-13T01:28:48.158927Z"
+    },
+    {
       "created_at": "2026-07-11T19:34:35.613353Z",
       "created_via": "meta_mcp",
       "creator": {
@@ -33160,6 +34333,64 @@
       "run_once_at": "2026-07-11T20:15:00Z",
       "session_grouping_id": "sgrp_01WdNyDMRCjseEXV7Yvademi",
       "updated_at": "2026-07-11T20:15:18.227746Z"
+    },
+    {
+      "created_at": "2026-07-13T02:08:38.847774Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "enabled": true,
+      "id": "trig_01F4AVwutFqnh3JyDwDt7dFU",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "7812abf9-23cf-4b69-88a0-7c30079e191e"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "name": "send_later 2026-07-13T02:34Z #f2e6e5",
+      "next_run_at": "2026-07-13T02:34:00Z",
+      "persist_session": true,
+      "persistent_session_id": "session_013CEaD81nh2E4wK1NsrKMPV",
+      "run_once_at": "2026-07-13T02:34:00Z",
+      "session_grouping_id": "sgrp_01VLL1ZRJtHEPkEJK84vMPYU",
+      "updated_at": "2026-07-13T02:08:38.847774Z"
     },
     {
       "created_at": "2026-07-11T17:41:39.407490Z",
@@ -37279,6 +38510,65 @@
       "updated_at": "2026-07-11T21:35:18.340621Z"
     },
     {
+      "created_at": "2026-07-13T01:00:09.899861Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "ended_reason": "run_once_fired",
+      "id": "trig_01GYvWPDm1EyZkcB2aSWm16U",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "002a0181-3fe5-41b1-9d45-c590292ce4c5"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "last_fired_at": "2026-07-13T01:16:20.998705Z",
+      "name": "send_later 2026-07-13T01:16Z #0c1fd6",
+      "next_run_at": "2026-07-14T01:16:20.860883732Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01MSze9jQLdxByyv2j6rm29c",
+      "run_once_at": "2026-07-13T01:16:00Z",
+      "session_grouping_id": "sgrp_01GWoqRWh8YPLmokSzqMhewU",
+      "updated_at": "2026-07-13T01:16:21.030603Z"
+    },
+    {
       "created_at": "2026-07-11T03:38:07.017420Z",
       "created_via": "meta_mcp",
       "creator": {
@@ -37591,6 +38881,65 @@
       "run_once_at": "2026-07-11T18:32:00Z",
       "session_grouping_id": "sgrp_01X3MRCgqNvZTbxXb87U4NyV",
       "updated_at": "2026-07-11T18:32:23.846190Z"
+    },
+    {
+      "created_at": "2026-07-13T00:49:08.164369Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "ended_reason": "run_once_fired",
+      "id": "trig_01GexDWYvVoU9Q4cC43HaKkC",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "c296a2af-a85f-459f-91e6-70f6402e6aa3"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "last_fired_at": "2026-07-13T01:05:42.868386Z",
+      "name": "send_later 2026-07-13T01:05Z #7d8693",
+      "next_run_at": "2026-07-14T01:05:42.695215309Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01K3A7v82YxTxzaFztpbgEY2",
+      "run_once_at": "2026-07-13T01:05:00Z",
+      "session_grouping_id": "sgrp_015tTCEF2BeC5UgpNyo3wwio",
+      "updated_at": "2026-07-13T01:05:42.903477Z"
     },
     {
       "created_at": "2026-07-11T18:13:50.230876Z",
@@ -39369,9 +40718,9 @@
           }
         }
       },
-      "last_fired_at": "2026-07-12T23:45:07.511589Z",
+      "last_fired_at": "2026-07-13T01:45:14.729897Z",
       "name": "Venture Lab failsafe wake",
-      "next_run_at": "2026-07-13T01:45:00Z",
+      "next_run_at": "2026-07-13T03:45:00Z",
       "notifications": {
         "channel": {
           "email": false,
@@ -39742,7 +41091,7 @@
       "creator": {
         "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
       },
-      "enabled": true,
+      "ended_reason": "run_once_fired",
       "id": "trig_01HRNuGwoSf1pR9nPhmE6QX7",
       "job_config": {
         "ccr": {
@@ -39786,13 +41135,14 @@
           }
         }
       },
+      "last_fired_at": "2026-07-13T01:09:54.709430Z",
       "name": "send_later 2026-07-13T01:09Z #6a79eb",
-      "next_run_at": "2026-07-13T01:09:00Z",
+      "next_run_at": "2026-07-14T01:09:54.545618630Z",
       "persist_session": true,
       "persistent_session_id": "session_01UutkJqyMcHC1VyFW8fe1a9",
       "run_once_at": "2026-07-13T01:09:00Z",
       "session_grouping_id": "sgrp_01JHS1G4pvdBek4TEKsJp1zC",
-      "updated_at": "2026-07-13T00:38:31.012448Z"
+      "updated_at": "2026-07-13T01:09:54.751613Z"
     },
     {
       "created_at": "2026-07-11T10:57:04.724965Z",
@@ -42594,6 +43944,65 @@
       "updated_at": "2026-07-11T06:06:48.439697Z"
     },
     {
+      "created_at": "2026-07-13T01:06:35.657513Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "ended_reason": "run_once_fired",
+      "id": "trig_01Ji179vFqEjnCGWyg2Dndo3",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "ef191f29-574c-4997-a103-20d03f6c7eee"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "last_fired_at": "2026-07-13T01:22:32.369735Z",
+      "name": "send_later 2026-07-13T01:22Z #3209a8",
+      "next_run_at": "2026-07-14T01:22:32.232708771Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01Q5sGKgKCngGa7jgfzEGeEQ",
+      "run_once_at": "2026-07-13T01:22:00Z",
+      "session_grouping_id": "sgrp_014F2sZkBUvBKNsk2PrF3jKS",
+      "updated_at": "2026-07-13T01:22:32.401146Z"
+    },
+    {
       "created_at": "2026-07-11T11:30:43.940464Z",
       "created_via": "meta_mcp",
       "creator": {
@@ -44538,6 +45947,65 @@
       "updated_at": "2026-07-11T21:40:17.688390Z"
     },
     {
+      "created_at": "2026-07-13T01:45:45.581494Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "ended_reason": "run_once_fired",
+      "id": "trig_01Kawb8HasUHWFEWQ1hqxYoy",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "61499bfc-5053-4819-8269-7b21f5fce178"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "last_fired_at": "2026-07-13T02:16:04.335819Z",
+      "name": "send_later 2026-07-13T02:16Z #c79b7b",
+      "next_run_at": "2026-07-14T02:16:04.202484359Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01CXEh5TBKBNTDGgsDstfcjc",
+      "run_once_at": "2026-07-13T02:16:00Z",
+      "session_grouping_id": "sgrp_01KjSDRvi2ErWcR8vVrTsGEt",
+      "updated_at": "2026-07-13T02:16:04.360486Z"
+    },
+    {
       "created_at": "2026-07-12T23:11:10.100618Z",
       "created_via": "meta_mcp",
       "creator": {
@@ -45479,6 +46947,64 @@
       "run_once_at": "2026-07-11T00:03:00Z",
       "session_grouping_id": "sgrp_01VLL1ZRJtHEPkEJK84vMPYU",
       "updated_at": "2026-07-11T00:03:43.488515Z"
+    },
+    {
+      "created_at": "2026-07-13T02:09:15.185561Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "enabled": true,
+      "id": "trig_01KpeNktduqT5YTuNgetcwDP",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "BACKUP WAKE DUTY due: send cross-session message 'MORNING TALLY WAKE — scheduler wedge backup (from completeness lane)' to session_01KhzyfUk76YB9Bj2TPF6h5z via claude-code-remote send_message; also fold the night tally into the next report.",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "a1f15017-298f-4790-883f-b438e72370b5"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "name": "send_later 2026-07-13T05:05Z #f973dc",
+      "next_run_at": "2026-07-13T05:05:00Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01A38T6LKWhE2LxJwCJo9yyE",
+      "run_once_at": "2026-07-13T05:05:00Z",
+      "session_grouping_id": "sgrp_01X3MRCgqNvZTbxXb87U4NyV",
+      "updated_at": "2026-07-13T02:09:15.185561Z"
     },
     {
       "created_at": "2026-07-12T14:15:47.037978Z",
@@ -47781,9 +49307,9 @@
           }
         }
       },
-      "last_fired_at": "2026-07-12T22:50:25.480515Z",
+      "last_fired_at": "2026-07-13T02:10:09.991594Z",
       "name": "Game Lab failsafe wake",
-      "next_run_at": "2026-07-13T00:50:00Z",
+      "next_run_at": "2026-07-13T02:50:00Z",
       "notifications": {
         "channel": {
           "email": false,
@@ -48614,6 +50140,65 @@
       "run_once_at": "2026-07-12T13:41:00Z",
       "session_grouping_id": "sgrp_01VLL1ZRJtHEPkEJK84vMPYU",
       "updated_at": "2026-07-12T13:41:37.290056Z"
+    },
+    {
+      "created_at": "2026-07-13T01:45:30.389426Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "ended_reason": "run_once_fired",
+      "id": "trig_01LmLpcbapzrcV3uEHjdgWfJ",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "night-run tick: verify merge-sweep state (main tips, #77/#57/#58 status), check Brineward-7 and pml-slice sessions, dispatch next work, re-arm one tick",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "a81d7080-20aa-4e2f-8094-eeae38cd39af"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "last_fired_at": "2026-07-13T02:11:47.373809Z",
+      "name": "send_later 2026-07-13T02:11Z #9b2b98",
+      "next_run_at": "2026-07-14T02:11:47.226946723Z",
+      "persist_session": true,
+      "persistent_session_id": "session_015xJBwRogy1ByzZmeWC38qW",
+      "run_once_at": "2026-07-13T02:11:00Z",
+      "session_grouping_id": "sgrp_01WdNyDMRCjseEXV7Yvademi",
+      "updated_at": "2026-07-13T02:11:47.401019Z"
     },
     {
       "created_at": "2026-07-11T04:51:18.767442Z",
@@ -50878,6 +52463,65 @@
       "updated_at": "2026-07-11T21:28:57.561049Z"
     },
     {
+      "created_at": "2026-07-13T01:32:10.760890Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "ended_reason": "run_once_fired",
+      "id": "trig_01MWcTeaLFrt9haTR4msM2CE",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "70412ce0-04da-4d98-9d63-912990300da8"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "last_fired_at": "2026-07-13T01:48:48.996933Z",
+      "name": "send_later 2026-07-13T01:48Z #c394ef",
+      "next_run_at": "2026-07-14T01:48:48.849079766Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01Q5sGKgKCngGa7jgfzEGeEQ",
+      "run_once_at": "2026-07-13T01:48:00Z",
+      "session_grouping_id": "sgrp_014F2sZkBUvBKNsk2PrF3jKS",
+      "updated_at": "2026-07-13T01:48:49.034354Z"
+    },
+    {
       "created_at": "2026-07-12T21:01:32.220592Z",
       "created_via": "meta_mcp",
       "creator": {
@@ -51444,6 +53088,63 @@
       "run_once_at": "2026-07-11T06:44:00Z",
       "session_grouping_id": "sgrp_01X3MRCgqNvZTbxXb87U4NyV",
       "updated_at": "2026-07-11T06:44:24.125535Z"
+    },
+    {
+      "created_at": "2026-07-13T01:51:08.362835Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "enabled": true,
+      "id": "trig_01Mij8ppYp6nWtLdxaPsdnTM",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "Final PR-watch check-in of the night: verify superbot PR #2060 (night close-out) reached terminal state — auto-merge armed, docs-only. If merged: stand down silently, no re-arm, no message (the owner is asleep; the session's work is complete). If still open: read the failing check, fix forward, push, re-arm auto-merge, and re-arm one more check ~45 min out. Do not start new work — the fleet runs itself; the 07-14 brief owns the morning.",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "397d1754-966e-4eaf-b599-6f3ececab62e"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "name": "send_later 2026-07-13T02:42Z #e0c20b",
+      "next_run_at": "2026-07-13T02:42:00Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01Kn5PjZR5EDJL75BeELkUfr",
+      "run_once_at": "2026-07-13T02:42:00Z",
+      "updated_at": "2026-07-13T01:51:08.362835Z"
     },
     {
       "created_at": "2026-07-11T13:47:55.363536Z",
@@ -53434,7 +55135,7 @@
       "creator": {
         "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
       },
-      "enabled": true,
+      "ended_reason": "run_once_fired",
       "id": "trig_01NbTCA1fy9LdWuFPAmgRHNR",
       "job_config": {
         "ccr": {
@@ -53478,12 +55179,13 @@
           }
         }
       },
+      "last_fired_at": "2026-07-13T01:10:45.531222Z",
       "name": "send_later 2026-07-13T01:10Z #dedd14",
-      "next_run_at": "2026-07-13T01:10:00Z",
+      "next_run_at": "2026-07-14T01:10:45.388766335Z",
       "persist_session": true,
       "persistent_session_id": "session_01Kn5PjZR5EDJL75BeELkUfr",
       "run_once_at": "2026-07-13T01:10:00Z",
-      "updated_at": "2026-07-13T00:14:33.238641Z"
+      "updated_at": "2026-07-13T01:10:45.570963Z"
     },
     {
       "created_at": "2026-07-10T14:28:14.182126Z",
@@ -54714,6 +56416,65 @@
       "run_once_at": "2026-07-12T22:37:00Z",
       "session_grouping_id": "sgrp_014F2sZkBUvBKNsk2PrF3jKS",
       "updated_at": "2026-07-12T22:37:25.521718Z"
+    },
+    {
+      "created_at": "2026-07-13T00:43:08.402574Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "ended_reason": "run_once_fired",
+      "id": "trig_01PUw3WTX6w68MvpESo7tzox",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "fd2795e1-9184-4b9d-9754-cec70b9bb43b"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "last_fired_at": "2026-07-13T02:10:20.233118Z",
+      "name": "send_later 2026-07-13T00:59Z #f7a335",
+      "next_run_at": "2026-07-14T02:10:20.083740508Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01CXEh5TBKBNTDGgsDstfcjc",
+      "run_once_at": "2026-07-13T00:59:00Z",
+      "session_grouping_id": "sgrp_01KjSDRvi2ErWcR8vVrTsGEt",
+      "updated_at": "2026-07-13T02:10:20.267557Z"
     },
     {
       "created_at": "2026-07-10T21:26:57.623783Z",
@@ -56103,6 +57864,65 @@
       "updated_at": "2026-07-12T17:43:14.843104Z"
     },
     {
+      "created_at": "2026-07-13T01:49:47.830637Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "ended_reason": "run_once_fired",
+      "id": "trig_01QJ1QPtr89BDR9G4nLKWtn3",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "7e21dc43-0153-435b-af6a-84f02cb7e4a1"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "last_fired_at": "2026-07-13T02:05:45.827796Z",
+      "name": "send_later 2026-07-13T02:05Z #641267",
+      "next_run_at": "2026-07-14T02:05:45.618949104Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01Q5sGKgKCngGa7jgfzEGeEQ",
+      "run_once_at": "2026-07-13T02:05:00Z",
+      "session_grouping_id": "sgrp_014F2sZkBUvBKNsk2PrF3jKS",
+      "updated_at": "2026-07-13T02:05:45.864658Z"
+    },
+    {
       "created_at": "2026-07-11T02:34:17.723150Z",
       "created_via": "meta_mcp",
       "creator": {
@@ -57078,6 +58898,64 @@
       "persistent_session_id": "session_01BRmUrjckzMsewsXzpc3wwW",
       "run_once_at": "2026-07-11T00:51:00Z",
       "updated_at": "2026-07-11T21:35:18.340621Z"
+    },
+    {
+      "created_at": "2026-07-13T02:08:51.502970Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "enabled": true,
+      "id": "trig_01QsU2UCJ5q6KbNCMn8HcsqR",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "50403c6d-fe2a-4579-820e-e483b44f2d91"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "name": "send_later 2026-07-13T02:24Z #749514",
+      "next_run_at": "2026-07-13T02:24:00Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01MSze9jQLdxByyv2j6rm29c",
+      "run_once_at": "2026-07-13T02:24:00Z",
+      "session_grouping_id": "sgrp_01GWoqRWh8YPLmokSzqMhewU",
+      "updated_at": "2026-07-13T02:08:51.502970Z"
     },
     {
       "created_at": "2026-07-12T16:17:01.349363Z",
@@ -58916,6 +60794,64 @@
       "run_once_at": "2026-07-12T22:33:00Z",
       "session_grouping_id": "sgrp_015tTCEF2BeC5UgpNyo3wwio",
       "updated_at": "2026-07-12T22:33:26.725412Z"
+    },
+    {
+      "created_at": "2026-07-13T02:10:48.517479Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "enabled": true,
+      "id": "trig_01RhVf5C5Y65rd7yfVgRiUjx",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "4e33f977-9c0c-466f-9cbb-4da31ca8002e"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "name": "send_later 2026-07-13T02:41Z #149731",
+      "next_run_at": "2026-07-13T02:41:00Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01CXEh5TBKBNTDGgsDstfcjc",
+      "run_once_at": "2026-07-13T02:41:00Z",
+      "session_grouping_id": "sgrp_01KjSDRvi2ErWcR8vVrTsGEt",
+      "updated_at": "2026-07-13T02:10:48.517479Z"
     },
     {
       "created_at": "2026-07-11T08:31:55.122887Z",
@@ -66035,6 +67971,64 @@
       "updated_at": "2026-07-12T02:11:14.180115Z"
     },
     {
+      "created_at": "2026-07-13T01:33:46.681465Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "enabled": true,
+      "id": "trig_01USg5i3qna4fCX5ZeePg7Gj",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "b0cfda75-d8c9-4c48-9977-b076932a51be"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "name": "send_later 2026-07-13T01:49Z #3238c2",
+      "next_run_at": "2026-07-13T01:49:00Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01MSze9jQLdxByyv2j6rm29c",
+      "run_once_at": "2026-07-13T01:49:00Z",
+      "session_grouping_id": "sgrp_01GWoqRWh8YPLmokSzqMhewU",
+      "updated_at": "2026-07-13T01:33:46.681465Z"
+    },
+    {
       "created_at": "2026-07-11T09:38:47.224872Z",
       "created_via": "meta_mcp",
       "creator": {
@@ -66151,6 +68145,65 @@
       "run_once_at": "2026-07-11T00:14:00Z",
       "session_grouping_id": "sgrp_015tTCEF2BeC5UgpNyo3wwio",
       "updated_at": "2026-07-11T01:10:59.117494Z"
+    },
+    {
+      "created_at": "2026-07-13T00:59:48.402065Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "ended_reason": "run_once_fired",
+      "id": "trig_01UUg7LAdt7yZ4iwbd8gYVvK",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "83289ad6-9950-447f-8cd9-3f23e7230942"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "last_fired_at": "2026-07-13T01:20:39.315505Z",
+      "name": "send_later 2026-07-13T01:20Z #10c480",
+      "next_run_at": "2026-07-14T01:20:39.181266045Z",
+      "persist_session": true,
+      "persistent_session_id": "session_013CEaD81nh2E4wK1NsrKMPV",
+      "run_once_at": "2026-07-13T01:20:00Z",
+      "session_grouping_id": "sgrp_01VLL1ZRJtHEPkEJK84vMPYU",
+      "updated_at": "2026-07-13T01:20:39.343414Z"
     },
     {
       "created_at": "2026-07-10T09:09:16.019118Z",
@@ -66998,7 +69051,7 @@
       "creator": {
         "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
       },
-      "enabled": true,
+      "ended_reason": "run_once_fired",
       "id": "trig_01Ufj7W9MvsMvboqTAALgWX8",
       "job_config": {
         "ccr": {
@@ -67042,13 +69095,14 @@
           }
         }
       },
+      "last_fired_at": "2026-07-13T02:08:14.885007Z",
       "name": "send_later 2026-07-13T00:14Z #6b3caf",
-      "next_run_at": "2026-07-13T00:14:00Z",
+      "next_run_at": "2026-07-14T02:08:14.714716100Z",
       "persist_session": true,
       "persistent_session_id": "session_013CEaD81nh2E4wK1NsrKMPV",
       "run_once_at": "2026-07-13T00:14:00Z",
       "session_grouping_id": "sgrp_01VLL1ZRJtHEPkEJK84vMPYU",
-      "updated_at": "2026-07-12T23:58:27.577437Z"
+      "updated_at": "2026-07-13T02:08:14.920305Z"
     },
     {
       "created_at": "2026-07-12T22:01:44.152999Z",
@@ -69131,7 +71185,7 @@
       "creator": {
         "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
       },
-      "enabled": true,
+      "ended_reason": "run_once_fired",
       "id": "trig_01VRCkR5HZPjnBVV8UENSArs",
       "job_config": {
         "ccr": {
@@ -69175,13 +71229,14 @@
           }
         }
       },
+      "last_fired_at": "2026-07-13T00:47:35.950966Z",
       "name": "send_later 2026-07-13T00:47Z #7dcf75",
-      "next_run_at": "2026-07-13T00:47:00Z",
+      "next_run_at": "2026-07-14T00:47:35.820296881Z",
       "persist_session": true,
       "persistent_session_id": "session_01K3A7v82YxTxzaFztpbgEY2",
       "run_once_at": "2026-07-13T00:47:00Z",
       "session_grouping_id": "sgrp_015tTCEF2BeC5UgpNyo3wwio",
-      "updated_at": "2026-07-13T00:31:55.244932Z"
+      "updated_at": "2026-07-13T00:47:35.984925Z"
     },
     {
       "created_at": "2026-07-11T12:50:46.068449Z",
@@ -69240,6 +71295,124 @@
       "persistent_session_id": "session_01BRmUrjckzMsewsXzpc3wwW",
       "run_once_at": "2026-07-11T13:06:00Z",
       "updated_at": "2026-07-11T21:35:18.340621Z"
+    },
+    {
+      "created_at": "2026-07-13T01:21:10.973068Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "ended_reason": "run_once_fired",
+      "id": "trig_01VcsgixBuSMj7YATLLVU4F6",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "90788953-b9d5-428b-b3fe-4713eb4dc510"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "last_fired_at": "2026-07-13T01:42:31.484004Z",
+      "name": "send_later 2026-07-13T01:42Z #783c8a",
+      "next_run_at": "2026-07-14T01:42:31.325198614Z",
+      "persist_session": true,
+      "persistent_session_id": "session_013CEaD81nh2E4wK1NsrKMPV",
+      "run_once_at": "2026-07-13T01:42:00Z",
+      "session_grouping_id": "sgrp_01VLL1ZRJtHEPkEJK84vMPYU",
+      "updated_at": "2026-07-13T01:42:31.527284Z"
+    },
+    {
+      "created_at": "2026-07-13T01:15:57.436963Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "ended_reason": "run_once_fired",
+      "id": "trig_01VdyA4xHNPkZF7d7JiRvvfH",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "d72fd2e0-4702-4bf4-85ef-6e88497da116"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "last_fired_at": "2026-07-13T01:31:33.839086Z",
+      "name": "send_later 2026-07-13T01:31Z #983228",
+      "next_run_at": "2026-07-14T01:31:33.670093425Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01Q5sGKgKCngGa7jgfzEGeEQ",
+      "run_once_at": "2026-07-13T01:31:00Z",
+      "session_grouping_id": "sgrp_014F2sZkBUvBKNsk2PrF3jKS",
+      "updated_at": "2026-07-13T01:31:33.860849Z"
     },
     {
       "created_at": "2026-07-11T02:04:28.929225Z",
@@ -69734,7 +71907,7 @@
       "creator": {
         "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
       },
-      "enabled": true,
+      "ended_reason": "run_once_fired",
       "id": "trig_01Vsq76foscQRFz2YZNHpZCQ",
       "job_config": {
         "ccr": {
@@ -69778,13 +71951,14 @@
           }
         }
       },
+      "last_fired_at": "2026-07-13T00:41:25.619906Z",
       "name": "send_later 2026-07-13T00:41Z #6dc5e7",
-      "next_run_at": "2026-07-13T00:41:00Z",
+      "next_run_at": "2026-07-14T00:41:25.492419649Z",
       "persist_session": true,
       "persistent_session_id": "session_01Q5sGKgKCngGa7jgfzEGeEQ",
       "run_once_at": "2026-07-13T00:41:00Z",
       "session_grouping_id": "sgrp_014F2sZkBUvBKNsk2PrF3jKS",
-      "updated_at": "2026-07-13T00:25:08.171495Z"
+      "updated_at": "2026-07-13T00:41:25.648500Z"
     },
     {
       "created_at": "2026-07-12T14:52:52.281442Z",
@@ -70963,6 +73137,124 @@
       "updated_at": "2026-07-12T22:03:00.270069Z"
     },
     {
+      "created_at": "2026-07-13T00:42:07.472356Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "ended_reason": "run_once_fired",
+      "id": "trig_01WEExtS85xf58vF6rjr5e61",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "6bb434d9-e25d-4a4a-838d-c1d34dae9ec4"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "last_fired_at": "2026-07-13T00:58:32.742393Z",
+      "name": "send_later 2026-07-13T00:58Z #444e4d",
+      "next_run_at": "2026-07-14T00:58:32.575589301Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01Q5sGKgKCngGa7jgfzEGeEQ",
+      "run_once_at": "2026-07-13T00:58:00Z",
+      "session_grouping_id": "sgrp_014F2sZkBUvBKNsk2PrF3jKS",
+      "updated_at": "2026-07-13T00:58:32.811880Z"
+    },
+    {
+      "created_at": "2026-07-13T01:10:20.600211Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "ended_reason": "run_once_fired",
+      "id": "trig_01WGVUQTpATZtHxRfcsAAH7B",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "952217f8-2d2d-4117-956f-0d92334a8188"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "last_fired_at": "2026-07-13T01:46:06.662715Z",
+      "name": "send_later 2026-07-13T01:46Z #6b3f02",
+      "next_run_at": "2026-07-14T01:46:06.512470350Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01UutkJqyMcHC1VyFW8fe1a9",
+      "run_once_at": "2026-07-13T01:46:00Z",
+      "session_grouping_id": "sgrp_01JHS1G4pvdBek4TEKsJp1zC",
+      "updated_at": "2026-07-13T01:46:06.697016Z"
+    },
+    {
       "created_at": "2026-07-11T23:12:30.728292Z",
       "created_via": "meta_mcp",
       "creator": {
@@ -71450,6 +73742,189 @@
       "persistent_session_id": "session_017yrng4qx2LcLNqKb5AGoe8",
       "run_once_at": "2026-07-11T03:39:22Z",
       "updated_at": "2026-07-11T21:40:17.808964Z"
+    },
+    {
+      "created_at": "2026-07-13T01:22:54.935106Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "cron_expression": "20 */2 * * *",
+      "enabled": true,
+      "id": "trig_01WLfpsEhiPEoT18G9ds1sM5",
+      "job_config": {
+        "ccr": {
+          "environment_id": "env_01R7HZmxtsoGMKH4ncTJCWyk",
+          "events": [
+            {
+              "data": {
+                "message": {
+                  "content": "FAILSAFE WAKE (Curious Research): chain alive → verify in one line, end. Stalled → resume the work loop (sync HEAD → inbox → next slice per the startup program), re-arm the pacemaker, heartbeat LAST.",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "session_id": "",
+                "type": "user",
+                "uuid": "385b15dd-ab5c-4398-b1ad-fa403dcceddb"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ],
+            "autofix_on_pr_create": false,
+            "mcp_config": {
+              "mcpServers": {
+                "claude-code-remote": {
+                  "headers": {
+                    "X-MCP-Server-ID": "bf7c680d-5fdc-5ef4-b4a0-abadb619bf0a"
+                  },
+                  "tools": [
+                    {
+                      "name": "list_sessions",
+                      "permission_policy": "always_allow"
+                    },
+                    {
+                      "name": "get_session",
+                      "permission_policy": "always_allow"
+                    },
+                    {
+                      "name": "list_events",
+                      "permission_policy": "always_allow"
+                    },
+                    {
+                      "name": "send_message",
+                      "permission_policy": "always_allow"
+                    },
+                    {
+                      "name": "create_session",
+                      "permission_policy": "always_allow"
+                    },
+                    {
+                      "name": "create_trigger",
+                      "permission_policy": "always_allow"
+                    },
+                    {
+                      "name": "list_triggers",
+                      "permission_policy": "always_allow"
+                    },
+                    {
+                      "name": "update_trigger",
+                      "permission_policy": "always_allow"
+                    },
+                    {
+                      "name": "delete_trigger",
+                      "permission_policy": "always_allow"
+                    },
+                    {
+                      "name": "fire_trigger",
+                      "permission_policy": "always_allow"
+                    },
+                    {
+                      "name": "send_later",
+                      "permission_policy": "always_allow"
+                    },
+                    {
+                      "name": "interrupt_session",
+                      "permission_policy": "always_allow"
+                    },
+                    {
+                      "name": "archive_session",
+                      "permission_policy": "always_allow"
+                    },
+                    {
+                      "name": "unarchive_session",
+                      "permission_policy": "always_allow"
+                    },
+                    {
+                      "name": "set_session_title",
+                      "permission_policy": "always_allow"
+                    },
+                    {
+                      "name": "list_environments",
+                      "permission_policy": "always_allow"
+                    },
+                    {
+                      "name": "list_repos",
+                      "permission_policy": "always_allow"
+                    },
+                    {
+                      "name": "set_session_tags",
+                      "permission_policy": "always_allow"
+                    },
+                    {
+                      "name": "register_repo_root",
+                      "permission_policy": "always_allow"
+                    },
+                    {
+                      "name": "subscribe_pr_activity",
+                      "permission_policy": "always_allow"
+                    },
+                    {
+                      "name": "unsubscribe_pr_activity",
+                      "permission_policy": "always_allow"
+                    }
+                  ],
+                  "type": "http",
+                  "url": "https://api.anthropic.com/v2/ccr-sessions/-/meta/mcp"
+                }
+              }
+            },
+            "outcomes": [
+              {
+                "git_repository": {
+                  "git_info": {
+                    "branches": [
+                      "claude/stoic-albattani"
+                    ],
+                    "repo": "menno420/curious-research"
+                  }
+                }
+              }
+            ],
+            "sources": [
+              {
+                "git_repository": {
+                  "url": "https://github.com/menno420/curious-research"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "name": "Curious Research failsafe wake",
+      "next_run_at": "2026-07-13T02:20:00Z",
+      "notifications": {
+        "channel": {
+          "email": false,
+          "push": false,
+          "slack": false
+        }
+      },
+      "persist_session": true,
+      "persistent_session_id": "session_01N9QvWRsgjhunTTPJU3UoZA",
+      "session_grouping_id": "sgrp_01MmChRwYy8PLiE1skvQJSKR",
+      "updated_at": "2026-07-13T01:25:07.617676Z"
     },
     {
       "created_at": "2026-07-10T14:49:07.074299Z",
@@ -72725,6 +75200,65 @@
       "updated_at": "2026-07-11T01:13:43.962004Z"
     },
     {
+      "created_at": "2026-07-13T01:57:10.630734Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "ended_reason": "run_once_fired",
+      "id": "trig_01WwowUKnJfCwbsJufnd6sB9",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "4ddc17c0-68ee-4230-9c3c-e707c820f037"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "last_fired_at": "2026-07-13T02:13:32.409047Z",
+      "name": "send_later 2026-07-13T02:13Z #e391b8",
+      "next_run_at": "2026-07-14T02:13:32.263127231Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01K3A7v82YxTxzaFztpbgEY2",
+      "run_once_at": "2026-07-13T02:13:00Z",
+      "session_grouping_id": "sgrp_015tTCEF2BeC5UgpNyo3wwio",
+      "updated_at": "2026-07-13T02:13:32.443798Z"
+    },
+    {
       "created_at": "2026-07-11T16:27:13.846789Z",
       "created_via": "meta_mcp",
       "creator": {
@@ -72956,6 +75490,64 @@
       "persistent_session_id": "session_01BRmUrjckzMsewsXzpc3wwW",
       "run_once_at": "2026-07-11T06:58:00Z",
       "updated_at": "2026-07-11T21:35:18.340621Z"
+    },
+    {
+      "created_at": "2026-07-13T01:23:11.277602Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "enabled": true,
+      "id": "trig_01X57VU1y3HFkHMs4yihsEVA",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "PACEMAKER (Curious Research): working turn check — confirm children are progressing, settle anything owed, re-arm one pacemaker.",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "d3723422-f10b-4ebe-a9f3-3ffc4f0f90f3"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "name": "send_later 2026-07-13T01:39Z #00d428",
+      "next_run_at": "2026-07-13T01:39:00Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01N9QvWRsgjhunTTPJU3UoZA",
+      "run_once_at": "2026-07-13T01:39:00Z",
+      "session_grouping_id": "sgrp_01MmChRwYy8PLiE1skvQJSKR",
+      "updated_at": "2026-07-13T01:23:11.277602Z"
     },
     {
       "created_at": "2026-07-12T00:02:02.244022Z",
@@ -73530,7 +76122,7 @@
       "creator": {
         "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
       },
-      "enabled": true,
+      "ended_reason": "run_once_fired",
       "id": "trig_01XAzgms8L4eHomp5rfJvjUE",
       "job_config": {
         "ccr": {
@@ -73574,12 +76166,13 @@
           }
         }
       },
+      "last_fired_at": "2026-07-13T01:32:34.218556Z",
       "name": "send_later 2026-07-13T01:32Z #bfb1b3",
-      "next_run_at": "2026-07-13T01:32:00Z",
+      "next_run_at": "2026-07-14T01:32:34.064083541Z",
       "persist_session": true,
       "persistent_session_id": "session_01Kn5PjZR5EDJL75BeELkUfr",
       "run_once_at": "2026-07-13T01:32:00Z",
-      "updated_at": "2026-07-13T00:31:26.888227Z"
+      "updated_at": "2026-07-13T01:32:34.256794Z"
     },
     {
       "created_at": "2026-07-12T21:20:58.233671Z",
@@ -73871,6 +76464,64 @@
       "run_once_at": "2026-07-12T06:48:00Z",
       "session_grouping_id": "sgrp_01JHS1G4pvdBek4TEKsJp1zC",
       "updated_at": "2026-07-12T06:48:16.958032Z"
+    },
+    {
+      "created_at": "2026-07-13T02:23:31.983095Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "enabled": true,
+      "id": "trig_01XR69tzhvJ2VxRE3JtdJr45",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "832bcdbc-1865-4243-8a71-0ef1fd36716d"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "name": "send_later 2026-07-13T02:39Z #16bdb9",
+      "next_run_at": "2026-07-13T02:39:00Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01Q5sGKgKCngGa7jgfzEGeEQ",
+      "run_once_at": "2026-07-13T02:39:00Z",
+      "session_grouping_id": "sgrp_014F2sZkBUvBKNsk2PrF3jKS",
+      "updated_at": "2026-07-13T02:23:31.983095Z"
     },
     {
       "created_at": "2026-07-12T22:06:30.867394Z",
@@ -75087,6 +77738,64 @@
       "run_once_at": "2026-07-10T23:35:00Z",
       "session_grouping_id": "sgrp_014F2sZkBUvBKNsk2PrF3jKS",
       "updated_at": "2026-07-10T23:35:28.468341Z"
+    },
+    {
+      "created_at": "2026-07-13T01:23:34.249752Z",
+      "created_via": "meta_mcp",
+      "creator": {
+        "account_uuid": "bdbf0e4d-9abd-47ab-b8bb-0d6321910bed"
+      },
+      "enabled": true,
+      "id": "trig_01Y5f5tZLyWfvqHFarni8GUE",
+      "job_config": {
+        "ccr": {
+          "events": [
+            {
+              "data": {
+                "isSynthetic": true,
+                "message": {
+                  "content": "continue the work loop: sync HEAD → inbox → next slice → re-arm",
+                  "role": "user"
+                },
+                "parent_tool_use_id": null,
+                "type": "user",
+                "uuid": "99d896e0-d3c5-4a83-854e-8644e9ce66c4"
+              }
+            }
+          ],
+          "session_context": {
+            "allowed_tools": [
+              "preset:default",
+              "Task",
+              "Bash",
+              "Glob",
+              "Grep",
+              "Read",
+              "Edit",
+              "MultiEdit",
+              "Write",
+              "NotebookEdit",
+              "WebFetch",
+              "TodoWrite",
+              "WebSearch",
+              "BashOutput",
+              "KillBash",
+              "Skill",
+              "Tmux",
+              "Monitor",
+              "SendUserFile",
+              "REPL"
+            ]
+          }
+        }
+      },
+      "name": "send_later 2026-07-13T01:39Z #fc1190",
+      "next_run_at": "2026-07-13T01:39:00Z",
+      "persist_session": true,
+      "persistent_session_id": "session_01K3A7v82YxTxzaFztpbgEY2",
+      "run_once_at": "2026-07-13T01:39:00Z",
+      "session_grouping_id": "sgrp_015tTCEF2BeC5UgpNyo3wwio",
+      "updated_at": "2026-07-13T01:23:34.249752Z"
     },
     {
       "created_at": "2026-07-11T18:38:45.605126Z",
