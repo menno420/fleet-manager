@@ -81,6 +81,38 @@ Out of the 8: **product-forge** (live seat, disposition pending —
 `OQ-FORGE-DISPOSITION`). Retired to stubs (slice 1): codetool-lab ×3 ·
 mobile-lab · games-program · superbot-retro (+ 11 merged-source dirs).
 
+## 2026-07-13 · Q-0264 relay-consumption sweep (13:13:45Z, read-only, SHA-cited)
+
+> Dated evidence note (per §How-to-re-verdict pt 4 — dated notes land here, not
+> a fork file). Sweep question: have the 9 sim-lab verdicts **V037–V045**
+> (finalized at sim-lab @ `afe18f3`, 09:43–11:35Z) and **idea-engine ASK 002**
+> — all recorded as relay pointers in fm `control/outbox.md` @ `a32eb2c`
+> L468–502 ("Q-0264 FAN-IN" section) — been consumed lane-side? **Answer: no.
+> Zero lane-side consumption; all 10 items PENDING manager fan-out**, exactly
+> as the relay record's own "coordinator relays at next dispatch" wording
+> anticipated. No lane is no-signal (all have fresh heartbeats); no lane
+> self-served from the fm outbox either.
+
+| Lane | Verdict / ask | Status | Evidence (lane HEAD-cited) |
+|---|---|---|---|
+| venture-lab | V037 Ultramarine serial pricing — CONDITIONAL (R3 default arm) | **pending** | venture-lab@`765e1f8`: inbox latest = ORDER 009 (09:11Z night-report ask), no verdict relay; outbox L24 still lists the Ultramarine SIM-REQUEST as PENDING; no "V037" string in any control file |
+| venture-lab | V039 photo packs — CONDITIONAL ($5 fixed default + bundle row) | **pending** | venture-lab@`765e1f8`: no "V039" in control/{inbox,status,outbox}.md; outbox L24 lists photo-packs SIM-REQUEST as PENDING |
+| venture-lab | V040 Ship-It Bundle — CONDITIONAL ($59 ratified, parked switch rule) | **pending** | venture-lab@`765e1f8`: no "V040" in control files; outbox L24 lists the $59-vs-anchors SIM-REQUEST as PENDING |
+| venture-lab | V041 narrow-TAM cookbooks — CONDITIONAL ($19 fixed default) | **pending** | venture-lab@`765e1f8`: no "V041" in control files; outbox L24 lists the $19-vs-PWYW SIM-REQUEST as PENDING |
+| superbot-idle | V038 SIM-001 economy-FEEL — CONDITIONAL (graduate PROVISIONAL table; A10 re-wording seat-side) | **pending** | superbot-idle@`b03cc96`: no "V038" in control files; status.md L8 `blockers: SIM-001/Q-0264 … still open`, L94 `RESUME TRIGGER: Q-0264 ruling lands`; inbox latest = ORDER 004 (09:09Z), no verdict relay. **Relay clears this lane's declared RESUME TRIGGER.** |
+| superbot-games | V042 mining-economy — APPROVE (2 flagged rows) | **pending** | superbot-games@`57f69be`: no "V042" in control files; status.md L77 + outbox L290 still list mining-economy-tuning SIM-REQUEST as PENDING |
+| superbot-games | V043 fishing-economy — APPROVE-WITH-CONSTANTS (wire VERBATIM at the seam) | **pending** | superbot-games@`57f69be`: no "V043" in control files; status.md L78 lists fishing-economy-tuning as PENDING |
+| superbot-games | V044 dnd-escort-double-mint — MINT-AT-MOST-ONCE (guard at bundle fold) | **pending** | superbot-games@`57f69be`: no "V044" in control files; status.md L79 lists dnd-escort-double-mint as PENDING |
+| superbot-games | V045 exploration-reward-bands — RATIFY-WITH-NULL (numeric import waits on superbot P0 artifact) | **pending** | superbot-games@`57f69be`: no "V045" in control files; status.md L80 lists exploration-reward-bands as PENDING |
+| idea-engine → Self Improvement seat | ASK 002 — kit-local `check --strict` ⇒ CI substrate-gate parity (evidence: idea-engine PRs #274/#299) | **pending** | Originator idea-engine@`c807960`: outbox L295 ASK 002 still `status: new` (status.md L6 corroborates). Target substrate-kit@`949875c`: no "ASK 002" / check-parity order in control/inbox.md |
+
+**Pending lane-inbox writes owed (manager fan-out at next dispatch):**
+venture-lab ← V037/V039/V040/V041 · superbot-idle ← V038 (clears its RESUME
+TRIGGER) · superbot-games ← V042/V043/V044/V045 · substrate-kit (Self
+Improvement seat) ← idea-engine ASK 002. Method: read-only (`git fetch` +
+`git show origin/main:<file>` per lane); lane HEADs as cited above. Sweep run
+from the trigger-health-i1 worker session (fm PR #167, Slice B).
+
 ## How to re-verdict
 
 1. Verify against live source (Q-0120 — never against report text).
