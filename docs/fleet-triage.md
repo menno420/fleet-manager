@@ -138,6 +138,30 @@ Note: the games/kit "tip" SHAs relayed at fan-out (`af36d52`, `9a6caa4`) were
 branch heads; the main squash SHAs are `156e2de` / `430f7a2` — delivery
 confirmed on main in all four lanes.
 
+## 2026-07-13 · Q-0264 relay-consumption re-check (17:03:39Z, read-only, SHA-cited)
+
+> Dated evidence note (per §How-to-re-verdict pt 4). Read-only re-check from
+> the failsafe-wake 16:33Z executor session; prior sweeps: PR #167 (13:13:45Z)
+> and PR #169 (14:37:33Z, above). Delta-only: venture-lab 010 and
+> substrate-kit 018 were already **CONSUMED** at the 14:37Z re-sweep
+> (venture-lab #163 `e252b46`; substrate-kit #332 `3d58a46`) — not
+> re-litigated here. This re-check covers only the two lanes left PENDING.
+
+| Lane | ORDER | 14:37Z state | Live HEAD (17:03Z) | Verdict | Evidence |
+|---|---|---|---|---|---|
+| superbot-idle | 005 (V038, SIM-001) | inbox@`675c347`, status: new; ack ledger stops at 004 | `96cd635` (HEAD advanced) | **STILL-PENDING** | inbox@`96cd635` line 40: `## ORDER 005 · 2026-07-13T13:40:58Z · status: new` (unchanged); status.md@`96cd635` line 9: `orders: acked=000-004 done=000-004` — ledger has not advanced past 004; lane alive (HEAD moved past `675c347` on unrelated work) but the order untouched |
+| superbot-games | 007 (V042–V045) | inbox@`d6a9526`, status: new; acked ledger stops at 006 | `d6a9526` (HEAD unchanged) | **STILL-PENDING** | repo HEAD is the same commit as the 14:37Z sweep, so the whole tree is byte-identical; re-fetched anyway: inbox@`d6a9526` line 103: `## ORDER 007 · 2026-07-13T13:42:24Z · status: new`; status.md@`d6a9526` line 13: `orders: acked=001,002,003,004,005,006` — no new commits at all since 14:04Z |
+
+**Re-check result:** 0 of 2 pending lanes consumed since 14:37Z —
+superbot-idle ORDER 005 and superbot-games ORDER 007 both STILL-PENDING at
+live HEAD. Cumulative Q-0264 consumption: 2 of 4 (venture-lab,
+substrate-kit). Next natural checkpoint: the SuperBot World seat's next
+failsafe wake (`trig_01QctdbvhdcvuSFsCPxdseae` `15 1-23/2 * * *`, next
+~17:15Z per the 16:56Z snapshot — the seat covers superbot-games +
+superbot-idle); if a third sweep still finds `status: new`, the manager
+should consider a send_message nudge per the ORDER 040 TASK 3 escalation
+ladder (rung 2).
+
 ## How to re-verdict
 
 1. Verify against live source (Q-0120 — never against report text).
