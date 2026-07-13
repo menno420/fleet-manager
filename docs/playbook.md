@@ -89,6 +89,27 @@ day) unless a later date is noted next to the rule.
     notice by eye and hand-prune. Replaying the pre-prune 18:25Z registry through
     I7 surfaces that exact stack (4 ticks, prune-to-newest named) in one wake.*
     (2026-07-12)
+27. **R27 (2026-07-13) — MANAGER-BACKUP LADDER: an idle lane escalates DISPATCH →
+    REVIVE → BACKUP-BUILD; the manager is the fleet's backup when anything fails**
+    (owner final night order, ORDER 040 TASK 3 — owner live 2026-07-13; an
+    owner-authorized exception to the OVERSIGHT-ONLY rail for the **idle-lane case
+    only**). Detection, each wake alongside the ORDER-020/R26 trigger-health sweep —
+    a lane is IDLE when any of: heartbeat stale past ~2× its cadence · no fresh
+    commits/PRs · no armed wake. Escalate in order, recording each rung in the
+    roster: **(1) DISPATCH** — a fresh, concrete ORDER into the lane's inbox (its
+    030–036 goals give the material); **(2) REVIVE** — `send_message` the seat's
+    session; manually fire fresh-session triggers where that path works;
+    **(3) BACKUP-BUILD** — if still dead at the NEXT wake, send the manager's own
+    worker agents to do the lane's next slice directly in the lane repo: `claude/*`
+    branch, normal PR, PR body marked "manager-backup for <seat>", lane conventions
+    respected (their CLAUDE.md / kit gates), ONE slice per worker; keep going until
+    the lane wakes, then hand back via its inbox and STOP. Genuinely-owner-only
+    failures still go to the owner queue (VENUE:hub) — but a lane being asleep is
+    never owner-only anymore: the manager is the backup. The roster records per-lane
+    idle-state + which rung fired. *WHY: oversight-only left a dead lane costing the
+    whole night until the owner returned; the owner explicitly authorized this
+    ladder so sleep is a manager-recoverable state, not an owner-blocking one.*
+    (2026-07-13, provenance ORDER 040)
 
 ## PLATFORM WALLS (verbatim-class — quote them, don't paraphrase)
 
