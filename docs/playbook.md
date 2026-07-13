@@ -110,6 +110,25 @@ day) unless a later date is noted next to the rule.
     whole night until the owner returned; the owner explicitly authorized this
     ladder so sleep is a manager-recoverable state, not an owner-blocking one.*
     (2026-07-13, provenance ORDER 040)
+    **DETECTION (amendment from the first live execution — R27 run 2026-07-13
+    ~02:36Z on pokemon-mod-lab: rung 1 dispatched, then withdrawn as a verified
+    false positive; pml PR #60 closed-with-reason):**
+    - **Sweep main AND all open PR heads.** Idle detection MUST read heartbeats
+      AND inbox state across `main` and every OPEN PR head — under the standing
+      open-PRs-stay-open posture the freshest heartbeat can live on an unmerged
+      head; a main-only sweep manufactures false DEAD-WAKE positives.
+      (Newest-heartbeat-wins already says this; R27 now cites it explicitly.)
+    - **Check the CURRENT trigger registry for seat-consolidation** before
+      declaring a wake dead — a lane's own cadence claim (e.g. "hourly wake
+      armed") can be superseded by a shared-seat failsafe (pokemon → Game Lab
+      seat, failsafe `trig_01LZ37j6…`, verified firing).
+    - **Check in-flight appends on the repo's OPEN PR heads** before assigning
+      the "next free ORDER number" in any lane inbox — append-only numbering
+      collides across parked heads (the ORDER 007 collision with pml PR #58).
+    - **A rebuttal from the target seat is a Q-0120 LEAD, not noise:** verify
+      each of its claims at live GitHub; all-confirmed → withdraw the rung with
+      a one-line reason (the executed precedent).
+    (2026-07-13, provenance: R27 first execution + withdrawal)
 
 ## PLATFORM WALLS (verbatim-class — quote them, don't paraphrase)
 

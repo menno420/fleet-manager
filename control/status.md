@@ -1,6 +1,6 @@
 # fleet-manager · status
 
-updated: 2026-07-13T01:32Z — coordinator seat ACTIVE (continuous operation; booted 2026-07-12 ~20:30Z per projects/fleet-manager/coordinator-prompt.md v3.4).
+updated: 2026-07-13T03:05Z — coordinator seat ACTIVE (continuous operation; booted 2026-07-12 ~20:30Z per projects/fleet-manager/coordinator-prompt.md v3.4).
 
 mode: NIGHT-RUN (ORDER 039 + 040)
 
@@ -38,7 +38,7 @@ next-3:
 
 1. ORDER 040 TASK 1 — v3.5 completion in flight (stage-1 fold shipped pre-order as PR #151 @ 728dc07; remaining: Q-0272 reading path + Q-0274 grounding-file boot reading + open-PRs-stay-open standing default + Curious Research ninth seat, then restamp + kept/changed notes + v3.4→v3.5 skim page).
 2. ORDER 041 dispatched to the Websites seat (browsable per-seat prompt version history v3.3→v3.4→v3.5 sourced from the fm registry as single source of truth) — track in the websites heartbeat.
-3. Backup-ladder ARMED (R27, ORDER 040 TASK 3 — sweep #1 @01:12Z: all 12 lanes active — no rung fired yet); morning roster ~06:00Z carries per-lane idle-state + rung record, plus v3.5 state + the Websites ORDER number per the ORDER 040 morning line.
+3. Backup-ladder ARMED (R27, ORDER 040 TASK 3 — sweep #1 @01:12Z: all 12 lanes active — no rung fired yet); morning roster ~06:00Z carries per-lane idle-state + rung record, plus v3.5 state + the Websites ORDER number per the ORDER 040 morning line. **R27 first execution (~02:36Z, pokemon-mod-lab): FALSE POSITIVE** — rung 1 dispatched, then withdrawn after verification (pml PR #60 closed-with-reason); lesson folded into R27 as the DETECTION sub-note (docs/playbook.md). Residue: stale branch `claude/fm-r27-wake-repair` in pml awaits owner delete (403-walled).
 
 ## ⚑ needs-owner
 
