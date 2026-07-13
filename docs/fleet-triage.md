@@ -113,6 +113,31 @@ Improvement seat) ← idea-engine ASK 002. Method: read-only (`git fetch` +
 `git show origin/main:<file>` per lane); lane HEADs as cited above. Sweep run
 from the trigger-health-i1 worker session (fm PR #167, Slice B).
 
+## 2026-07-13 · Q-0264 relay-consumption re-sweep (14:37:33Z, read-only, SHA-cited)
+
+> Dated evidence note (per §How-to-re-verdict pt 4). Read-only re-sweep from
+> the wake-14:34Z session (recorded in fm PR #169); prior sweep: PR #167
+> (13:13:45Z section above). Since that sweep the manager fan-out has landed
+> in all four lane inboxes — this re-sweep asks whether the lanes have
+> **consumed** the delivered orders. **Answer: 2 of 4 lanes CONSUMED**
+> (venture-lab, substrate-kit); superbot-idle and superbot-games still
+> PENDING at HEAD.
+
+| Lane | ORDER | Delivered (PR / main squash) | Verdict | Evidence |
+|---|---|---|---|---|
+| venture-lab | 010 (V037/V039/V040/V041) | #161 / `84d4bcb` @ 13:42:35Z | **CONSUMED** | PR #163 merged 14:03:14Z (squash `e252b46`) applies all four verdicts + heartbeat "ORDER 010 applied + ack"; follow-on #164 (`d71649b`, 14:29Z), #165 (`5944109`, 14:33Z) |
+| superbot-idle | 005 (V038, SIM-001) | #88 / `05a99f5` @ 13:42:59Z | **PENDING** | inbox@`675c347` (blob `15f11c5`): ORDER 005 still `status: new`; status.md@HEAD acked/done ledger stops at 004; lane alive (#89 `e740810` 14:03Z, #90 `675c347` 14:25Z, both unrelated); 0 open PRs |
+| superbot-games | 007 (V042–V045) | #80 / `156e2de` @ 13:44:12Z | **PENDING** | inbox@`d6a9526` (blob `75c2609`): ORDER 007 still `status: new`; acked ledger stops at 006; newest heartbeat section = 09:22Z night report; lane alive (#81 groom `d6a9526` 14:04Z, unrelated); 0 open PRs |
+| substrate-kit | 018 (ASK 002 → check --strict CI parity) | #329 / `430f7a2` @ 13:43:11Z | **CONSUMED** | PR #332 merged 14:32:29Z (squash `3d58a46`) — check --strict runs inbox + preflight_scripts legs locally, tests pinned; intervening #330 (`481f682`, 13:49Z), #331 (`a4b9808`, 14:06Z) |
+
+**Re-sweep result:** 2 of 4 lanes CONSUMED (venture-lab via #163 `e252b46`;
+substrate-kit via #332 `3d58a46`); superbot-idle ORDER 005 and superbot-games
+ORDER 007 PENDING — still `status: new` at HEAD with no verdict work started,
+though both lanes show unrelated post-delivery merges (alive, not stalled).
+Note: the games/kit "tip" SHAs relayed at fan-out (`af36d52`, `9a6caa4`) were
+branch heads; the main squash SHAs are `156e2de` / `430f7a2` — delivery
+confirmed on main in all four lanes.
+
 ## How to re-verdict
 
 1. Verify against live source (Q-0120 — never against report text).
