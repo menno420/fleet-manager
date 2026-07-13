@@ -341,3 +341,33 @@ cooling-off. This plan recommends never taking it.
   framing; the new ask is this plan's Phase 3.1 archive click (after Phase 1
   rehoming), and the seat-registry half (pointer-stub `projects/product-forge/`)
   rides the same disposition.
+
+## Follow-up — ORDER P1-7 coverage verdict (2026-07-13, FM wake work session)
+
+**Verdict: COVERED, with ONE already-tracked gap — no new export performed, none
+needed beyond what ORDER 025 / P1-4 already carries.** Method: all three lab
+trees read at their frozen HEADs (sonnet5 `66c3dfc` · fable5 `a6cf1a9` ·
+opus4.8 `80f6cd1`) against the two named coverage docs. (1) superbot
+`docs/eap/gen1-grand-review-2026-07-09.md` covers the three arms second-hand
+by design ("trading + 3 codetool arms + venture-lab covered second-hand via
+committed retros/manifest", §1) — wind-down audit table row "✅ ×4 per manifest
++ retro-synthesis" (§5), per-arm PR-count audit (opus4.8 100 · fable5 66 ·
+"sonnet5 arm had nothing landed to audit"), succession-content synthesis incl.
+opus4.8's boot-time capability audit and the fable5-vs-opus4.8 release-route
+reconciliation (the PLATFORM-LIMITS item-4 correction itself landed via inbox
+ORDER 006 → codetool-lab-fable5 PR #14, merge `a6cf1a9`). (2) fleet-manager
+`docs/experiments/README.md` § Standing caveats + the harness-x-model judge
+note carry the model-comparison's seat-contamination caveat + model-attribution
+rules (folded per ORDER 006/008). **The one gap:** sonnet5's two named assets —
+the differential-testing method ("corpus vs python-dotenv found 3 real bugs
+behind 114 green tests": `docs/retro/winddown-review-2026-07-09.md:53`,
+`docs/succession/GEN2-FEEDBACK.md:64`, `PROPOSED-CUSTOM-INSTRUCTIONS.md:38`)
+and the v0.1.1 release-decision writeup (`docs/succession/README.md:50`,
+`NEXT-BOOT.md:69`) — are NOT yet in substrate-kit (verified zero hits at kit
+HEAD `d916d94`, 2026-07-13); their export is exactly inbox **ORDER 025 /
+plan ORDER P1-4** (Self Improvement seat, still open), on which the B#41
+archive click already waits. Remaining lab-tree content is tool-internal
+(mdverify DECISIONS.md, envdrift ROADMAP.md, ENVIRONMENT/NEXT-BOOT packs) and
+stays readable in the archived repos — archive is read-only, not deletion, so
+no further export is required. **Archive-click gating unchanged:** B#40 waits
+on P1-1/P1-3 + E#44; B#41 on P1-4 + E#45; B#42 on P1-5 + E#46.

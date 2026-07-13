@@ -1333,3 +1333,24 @@ docs/owner-queue.md B#54 (OQ-VENTURE-SANDBOX-REPO), not to this order.
 done-when: verdicts posted via the Ideas Lab outbox to the manager, each naming its
 requesting seat (venture-lab · superbot-games), for manager relay to the requesting
 inboxes; cycle ledger shows all seven intakes.
+
+## ORDER 028 · update 2026-07-13T13:05Z · status: ✅ DONE (codetool findings-export coverage check; this wake's PR)
+priority: P2 (unchanged)
+do: (append-only DONE flip for ORDER 028 above — no new work ordered; this
+block records the execution, fields per the kit's order grammar; written by
+the 2026-07-13 FM wake work session as manager delegate.)
+why: the ORDER's done-when is met — a coverage verdict naming the one gap and
+its export path landed in the plan's follow-up section.
+done-when: (met) one-paragraph coverage verdict in the plan's follow-up,
+naming any gap and where it exports.
+✅ DONE: verdict at docs/planning/2026-07-12-repo-consolidation-plan.md
+§ "Follow-up — ORDER P1-7 coverage verdict (2026-07-13)". Summary: the three
+labs' succession/retro content is COVERED — grand-review second-hand synthesis
+(wind-down audit ✅×4, per-arm PR audit, release-route reconciliation) + the
+experiments README/harness-doc contamination caveats — with ONE already-tracked
+gap: sonnet5's differential-testing method + v0.1.1 release-decision writeups
+are NOT yet in substrate-kit (zero hits at kit HEAD `d916d94`, 2026-07-13);
+that export IS open ORDER 025 / plan P1-4, which the B#41 archive click
+already gates on. Lab HEADs read: sonnet5 `66c3dfc` · fable5 `a6cf1a9` ·
+opus4.8 `80f6cd1`. No new export needed; remaining lab content is
+tool-internal and stays readable post-archive.
