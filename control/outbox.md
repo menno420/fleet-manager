@@ -568,3 +568,39 @@ Q-0264, coordinator dispatch 2026-07-13.
 terminal (MERGED 2026-07-13T13:36:04Z by github-actions[bot], squash
 `d5b5b4e`); the claim file itself accidentally landed on main via that same
 merge. Claims are delete-at-close.
+
+---
+
+## 2026-07-13 · I1b DISPOSITION — "superbot autonomous dispatch" trigger is a dormant owner-paused remnant (failsafe-wake 20:33Z executor session, 2026-07-13T20:52Z)
+
+Finding for fan-out to the **superbot hub seat** (the trigger's owner — it is NOT
+fleet-manager's; nothing was modified). Classifies the standing I1b
+AMBIGUOUS-ENABLED WARN row in `scripts/check_trigger_health.py`.
+
+**Verdict:** `trig_011XAWqPeksS8LBrS5G9RvVc` "superbot autonomous dispatch"
+(cron `0 */3 * * *`) is a **dormant, owner-paused remnant of the pre-fleet-era
+dispatch routine** — not a wedge, not a platform auto-disable, and not a live
+routine to rebind. **Recommended disposition (by the superbot seat, owner
+confirming since the pause was an owner action): delete it in the console, or
+annotate-and-leave-paused; do NOT re-enable or rebind as-is.** Its stored
+prompt carries retired doctrine (the Q-0117 `needs-hermes-review` gate, retired
+by Q-0197; pre-Q-0265 seat model) — a future scheduled hub wake should be a
+FRESH trigger from current prompt sources. The sibling record
+`trig_01MWHvQFnRF1dVdZFSP6SM5L` "superbot night executor" (documented as MERGED
+into dispatch, Q-0145) is the same remnant class — dispose together.
+
+**Evidence (SHA-cited):** registry — fresh export
+`telemetry/triggers-snapshot.json` `captured_at 2026-07-13T20:42:00Z` (fm PR
+#175, commit `90e1a7f`): `enabled` ABSENT + `ended_reason` ABSENT (= user-paused
+per the CCR `list_triggers` contract), `last_fired_at` 2026-07-02T00:07:46Z,
+`updated_at` 2026-07-02T02:38:10Z, `next_run_at` frozen 2026-07-02T03:07:12Z;
+superbot's env (`env_01CZRF681i8ef2zqt9GgboYy`) has exactly one ENABLED trigger
+left (the poke-only `suberbot docs reconciliation`). Repo — superbot
+`docs/operations/autonomous-routines.md` @ main `1cc5536` L30 (identity + Q-0146
+console-Schedule cadence + Q-0197 retirement), L279–289 (night-executor merge,
+Q-0145), L331 (console pause/kill path). Full SHA-cited note:
+`docs/fleet-triage.md` § "2026-07-13 · I1b disposition".
+
+**Rider for the superbot seat:** doc drift — `autonomous-routines.md@1cc5536`
+L395/L406 still present the dispatch console Schedule as the live cadence;
+annotate when disposing.
