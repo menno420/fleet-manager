@@ -1,6 +1,6 @@
 # Fleet Manager — coordinator heartbeat
 
-updated: Mon Jul 13 13:01:03 UTC 2026 — coordinator live (webagent Project seat; executor dispatch on PR #166)
+updated: 2026-07-13T13:02:45Z — coordinator live (webagent Project seat; executor dispatch on PR #166)
 
 ## Routine disposition
 - Failsafe armed: `trig_01FpTbpXCeGcotnBpTkscAdr` · cron `30 */2 * * *` · bound to the live coordinator session · verified via full-paginated list_triggers · next fire 2026-07-13T14:33Z.
