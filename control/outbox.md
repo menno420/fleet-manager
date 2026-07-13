@@ -604,3 +604,10 @@ Q-0145), L331 (console pause/kill path). Full SHA-cited note:
 **Rider for the superbot seat:** doc drift — `autonomous-routines.md@1cc5536`
 L395/L406 still present the dispatch console Schedule as the live cadence;
 annotate when disposing.
+
+**Fan-out completed 2026-07-13T21:15:39Z:** superbot PR #2087 (open, auto-merge
+armed SQUASH, born-red card flipped complete) — `control/inbox.md` ORDER 003
+relays the I1b disposition + L395/L406 doc-drift rider to the superbot hub seat.
+Relayed by coordinator dispatch 2026-07-13. (Cited fm main `18c3f21` — the
+dispatch-referenced `1777a27` is not an object on fm main; #175's squash-merge
+is `18c3f21`.)
