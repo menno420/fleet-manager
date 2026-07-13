@@ -1,6 +1,6 @@
 # fleet-manager · status
 
-updated: 2026-07-13T05:02Z — morning-tally worker write (coordinator-delegated; coordinator seat session_01UutkJqyMcHC1VyFW8fe1a9 continuous since 2026-07-12 ~20:30Z).
+updated: 2026-07-13T06:52Z — idle owner-question routing worker write (coordinator-delegated; coordinator seat session_01UutkJqyMcHC1VyFW8fe1a9 continuous since 2026-07-12 ~20:30Z).
 
 mode: MORNING-REPORTED (NIGHT-RUN closed out — ORDER 039/040 morning deliverable landed)
 
@@ -36,7 +36,7 @@ next-3:
 
 1. Verify ORDER 041/042/043 pickups in the websites + Ideas Lab heartbeats (041 needs only the done-flip; 042 is verify-and-report — #247/#248 pre-built; 043 = two SIM intakes).
 2. Drift-row re-paste when the owner sits: v3.6 re-paste per seat via the websites prompt console (version-aware drift row shows deployed v3.4 vs canonical v3.6), plus the OWNER CLICKS list in the outbox tally (B#49/B#50/B#51, sitting bundle E#28, venture defaults, next ruleset, pml branch delete, green-parked PR sweep).
-3. Resume normal cadence: post-tally the seat returns to oversight steady-state — ORDER-020 trigger-health per wake, R27 idle-ladder sweeps, roster gen #24 (~06:40Z) sanity check, mint the two fleet Q-numbers the idle outbox requests.
+3. Resume normal cadence: post-tally the seat returns to oversight steady-state — ORDER-020 trigger-health per wake, R27 idle-ladder sweeps, roster gen #24 (~06:40Z) sanity check. Idle owner questions ROUTED as **E#52/E#53** (docs/owner-queue.md, PR #159 — the two fleet numbers the idle outbox requested; relay of the assigned numbers to the seat's inbox rides the next dispatch).
 
 ## ⚑ needs-owner
 
