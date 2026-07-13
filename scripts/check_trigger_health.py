@@ -32,12 +32,33 @@ Amended   : 2026-07-12 (ORDER 020 update 19:20Z, PR #142) — I7 TICK-PILE-UP
             flooded its chat with degenerate replies as they fired minutes
             apart; the owner had to notice by eye and hand-prune. I7 automates
             that detection + names the hand-prune remedy.
+Amended   : 2026-07-13 (heartbeat "Checker gap" + Next-2 baton item 2,
+            PR #167) — I1b AMBIGUOUS-ENABLED added: I1 only looks at
+            records with `enabled` == True, so a record whose `enabled`
+            key is ABSENT from the export was invisible entirely — a cron
+            frozen weeks in the past (`trig_011XAWqPeksS8LBrS5G9RvVc`,
+            next_run 2026-07-02T03:07Z, observed live 2026-07-13) slipped
+            the watchdog. I1b surfaces the absent-`enabled` class without
+            guessing liveness.
 =============================================================================
 
-WHAT IT CHECKS (one PASS/FAIL line per invariant; exit 1 on any FAIL)
+WHAT IT CHECKS (one PASS/FAIL line per invariant; exit 1 on any FAIL —
+WARN lines never affect the exit code)
   I1 WEDGED-CRON       no enabled standing cron has next_run_at frozen
                        > grace (15min) in the past. A healthy trigger
                        ADVANCES next_run_at after each fire.
+  I1b AMBIGUOUS-ENABLED registry records with the `enabled` key ABSENT
+                       (not False) are invisible to I1. A fired/ended
+                       record loses `enabled` on export and carries an
+                       ended_reason (expected history — counted, not
+                       listed). An absent-`enabled` record with NO
+                       ended_reason has UNKNOWN liveness: it is LISTED,
+                       never guessed; one that is also a standing cron
+                       with next_run_at frozen > grace in the past is a
+                       WARN (either a disabled remnant the export
+                       under-reports or a live-but-stuck cron —
+                       indistinguishable on the registry; verify live).
+                       WARN exits 0 — remnants are expected.
   I2 DROPPED-ONESHOT   no enabled one-shot is > grace past run_once_at
                        (a delivered one-shot disables itself). CAVEAT: a
                        QUEUED tick (bound to a busy session; delivers at
@@ -188,9 +209,50 @@ def tick_pileups(records: list[dict]) -> list[dict]:
     return pileups
 
 
+# -------------------------------------- I1b AMBIGUOUS-ENABLED (helpers) --
+# PR #167 (2026-07-13): I1 (via gen_roster.health_report) only sees records
+# with `enabled` == True, so a record whose `enabled` key is ABSENT from the
+# export is skipped by every invariant. Most absent-`enabled` records are
+# expected history (a delivered one-shot loses `enabled` and records
+# ended_reason=run_once_fired; auto_disabled_* likewise explains itself) —
+# but an absent-`enabled` record with NO ended_reason has UNKNOWN liveness
+# and must be SURFACED, never guessed.
+
+
+def split_absent_enabled(records: list[dict]) -> tuple[list[dict], list[dict]]:
+    """Split absent-`enabled` records into (ambiguous, explained-remnants).
+
+    ambiguous = `enabled` key absent AND no ended_reason (liveness unknown);
+    remnants  = `enabled` key absent WITH an ended_reason (expected history).
+    Records that CARRY `enabled` (True or False) belong to the other
+    invariants and are not this class.
+    """
+    absent = [r for r in records if "enabled" not in r]
+    ambiguous = [r for r in absent if not r.get("ended_reason")]
+    remnants = [r for r in absent if r.get("ended_reason")]
+    return ambiguous, remnants
+
+
+def ambiguous_frozen(rec: dict, eval_dt: datetime) -> bool:
+    """Ambiguous record with a FROZEN fire signal: standing cron whose
+    next_run_at is > grace in the past — gen_roster.trigger_wedged's
+    signature minus the `enabled` gate (which is exactly what's absent).
+    """
+    if not rec.get("cron_expression"):
+        return False
+    nra = gen_roster.parse_when(rec.get("next_run_at") or "")
+    return (nra is not None
+            and (eval_dt - nra).total_seconds() / 60
+            > gen_roster.WEDGE_GRACE_MIN)
+
+
 def check(records: list[dict], eval_dt: datetime, now: datetime,
           roster_text: str | None, snapshot_age_known: bool) -> list[tuple]:
-    """Return [(invariant, passed, detail_lines)] for all seven invariants."""
+    """Return [(invariant, status, detail_lines)] for all eight invariants.
+
+    status is True (PASS), False (FAIL), or the string "WARN" — WARN is
+    truthy on purpose: it never counts toward the failing exit code.
+    """
     results = []
     hr = gen_roster.health_report(records, eval_dt)
 
@@ -203,6 +265,34 @@ def check(records: list[dict], eval_dt: datetime, now: datetime,
     results.append(("I1 WEDGED-CRON", not lines, lines or
                     [f"no enabled cron frozen > {gen_roster.WEDGE_GRACE_MIN}m"
                      f" past at {fmt(eval_dt)}"]))
+
+    # I1b AMBIGUOUS-ENABLED (PR #167 — the I1 absent-`enabled` blind spot)
+    ambiguous, remnants = split_absent_enabled(records)
+    frozen = [r for r in ambiguous if ambiguous_frozen(r, eval_dt)]
+    remnant_note = (f"{len(remnants)} ended/fired absent-`enabled` "
+                    "remnant(s) — expected history, not listed")
+    if not ambiguous:
+        results.append(("I1b AMBIGUOUS-ENABLED", True,
+                        [f"no absent-`enabled` record lacks an ended_reason "
+                         f"({remnant_note})"]))
+    else:
+        lines = []
+        for r in ambiguous:
+            state = ("FROZEN next_run_at (invisible to I1)" if r in frozen
+                     else "no frozen fire signal")
+            lines.append(f"`{r['id']}` {r['name']!r} "
+                         f"`{r.get('cron_expression')}` next "
+                         f"{(r.get('next_run_at') or '?')[:16]}Z — {state}"
+                         f" · lane: "
+                         f"{gen_roster.attribute_lane(r) or '(unattributed)'}")
+        lines.append(remnant_note)
+        if frozen:
+            lines.append("liveness UNKNOWN on the registry (`enabled` absent "
+                         "is not False) — verify each FROZEN record live "
+                         "(list_triggers / owner Routines screen) and "
+                         "disable-or-re-arm; never guess")
+        results.append(("I1b AMBIGUOUS-ENABLED",
+                        "WARN" if frozen else True, lines))
 
     # I2 DROPPED-ONESHOT
     lines = []
@@ -401,6 +491,35 @@ def selfcheck() -> int:
     ok(run([manager_ok, tick_new, fired])["I7 TICK-PILE-UP"][0],
        "an already-fired sibling does not count toward a pile-up")
 
+    # I1b AMBIGUOUS-ENABLED (PR #167): a record with `enabled` ABSENT is
+    # invisible to I1; ambiguous (no ended_reason) records are LISTED and a
+    # frozen standing cron among them WARNs — never FAILs, never guessed.
+    # Shapes from the observed live instances (snapshot @ f09ba87).
+    ambig_frozen_rec = {"id": "trig_a1", "name": "superbot autonomous dispatch",
+                        "created_at": "t",
+                        "cron_expression": "0 */3 * * *",
+                        "next_run_at": "2026-07-02T03:07:12Z"}
+    ambig_idle_rec = {"id": "trig_a2", "name": "superbot night executor",
+                      "created_at": "t",
+                      "next_run_at": "0001-01-01T00:00:00Z"}
+    r = run([manager_ok, ambig_frozen_rec, ambig_idle_rec])
+    ok(r["I1 WEDGED-CRON"][0],
+       "absent-enabled frozen cron still stays out of I1 (the blind spot "
+       "is surfaced by I1b, not folded into I1's enabled semantics)")
+    ok(r["I1b AMBIGUOUS-ENABLED"][0] == "WARN",
+       "ambiguous record with FROZEN next_run_at WARNs I1b")
+    i1b_text = " ".join(r["I1b AMBIGUOUS-ENABLED"][1])
+    ok("trig_a1" in i1b_text and "FROZEN" in i1b_text,
+       "I1b lists the frozen ambiguous record as FROZEN")
+    ok("trig_a2" in i1b_text, "I1b lists the non-frozen ambiguous record too")
+    ok("never guess" in i1b_text,
+       "I1b names the live-verify remedy, never guesses liveness")
+    ok(run([manager_ok, ambig_idle_rec])["I1b AMBIGUOUS-ENABLED"][0] is True,
+       "ambiguous without a frozen fire signal PASSes I1b (listed only)")
+    ok(run([manager_ok, fired])["I1b AMBIGUOUS-ENABLED"][0] is True,
+       "ended/fired absent-enabled remnants are expected history, not "
+       "ambiguous")
+
     for msg in fails:
         print(f"SELFCHECK FAIL: {msg}", file=sys.stderr)
     print(f"selfcheck: {'FAIL' if fails else 'PASS'} ({len(fails)} failure(s))")
@@ -475,12 +594,15 @@ def main(argv=None) -> int:
           f"grace {gen_roster.WEDGE_GRACE_MIN}min · now {fmt(now)}")
     print("=" * 72)
     results = check(records, eval_dt, now, roster_text, snapshot_age_known)
-    failed = 0
-    for name, passed, detail in results:
-        print(f"[{name:<19}] {'PASS' if passed else 'FAIL'} — {detail[0]}")
+    failed = warned = 0
+    for name, status, detail in results:
+        label = status if isinstance(status, str) else (
+            "PASS" if status else "FAIL")
+        print(f"[{name:<21}] {label} — {detail[0]}")
         for extra in detail[1:]:
-            print(f"{'':>28}{extra}")
-        failed += 0 if passed else 1
+            print(f"{'':>30}{extra}")
+        failed += 0 if status else 1        # "WARN" is truthy: never fails
+        warned += 1 if status == "WARN" else 0
     print("-" * 72)
     if failed:
         print(f"VERDICT: FAIL — {failed}/{len(results)} invariant(s) red. "
@@ -488,6 +610,11 @@ def main(argv=None) -> int:
               "crons you own, refresh stale substrates; record the verdict "
               "in control/status.md (spec step 5; recovery venue caveat "
               "Q-0242).")
+    elif warned:
+        print(f"VERDICT: PASS — {len(results) - warned}/{len(results)} "
+              f"green, {warned} WARN (ambiguous-`enabled` record(s) need a "
+              "live verify; exit stays 0 — absent-`enabled` remnants are "
+              "expected history).")
     else:
         print(f"VERDICT: PASS — all {len(results)} invariants green.")
     if failed and args.advisory:
