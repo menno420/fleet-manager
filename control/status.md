@@ -1,42 +1,47 @@
 # fleet-manager · status
 
-updated: 2026-07-12T22:00:00Z — coordinator seat ACTIVE (successor booted 2026-07-12 ~20:30Z per projects/fleet-manager/coordinator-prompt.md v3.4; continuous operation).
+updated: 2026-07-13T00:10Z — coordinator seat ACTIVE (continuous operation; booted 2026-07-12 ~20:30Z per projects/fleet-manager/coordinator-prompt.md v3.4).
 
-phase: oversight steady-state post v3.4; consolidation plan Phase 1 ORDER routing pending.
+phase: oversight steady-state; consolidation Phase 1 ORDERs routed; owner goal ORDERs 030–036 dispatched.
 
 health: green
 
 kit: v1.7.0 · check: green · engaged: yes
 
-coordinator: session_01UutkJqyMcHC1VyFW8fe1a9 (this seat's live session).
+coordinator: session_01UutkJqyMcHC1VyFW8fe1a9 (this seat's live session; continuous, booted 2026-07-12 ~20:30Z).
 
-routine: FAILSAFE trig_01UQTZFvknBosXVo4YKKfazZ ("Fleet Manager failsafe wake", cron 30 */2 * * *, bound this session, verified via list_triggers post-create). Predecessor failsafe trig_01BKpsyoBzp1K1ob9H3iu1gM retired at boot cutover (rebind-then-delete recipe). Pacemaker chain live: ONE pending ~15-min tick at any time (Q-0265).
+routine: FAILSAFE trig_01UQTZFvknBosXVo4YKKfazZ ("Fleet Manager failsafe wake", cron 30 */2 * * *, bound this session, verified via list_triggers post-create; first scheduled fire proven 2026-07-12T22:37Z). Pacemaker chain live: ONE pending tick outstanding (Q-0265). Predecessor failsafe trig_01BKpsyoBzp1K1ob9H3iu1gM deleted at boot cutover (rebind-then-delete recipe).
 
-trigger-health: fresh export committed this session (telemetry/triggers-snapshot.json, captured_at 2026-07-12T20:41:13Z, 945 records / 14 enabled-recurring incl. new fm failsafe); check result: PASS 7/7 incl. I7 TICK-PILE-UP first run (no live pile-up — post-prune registry clean, SWTK long-fuse pair correctly exempted; pre-prune 18:25Z replay reds I7 on the incident's 4 stacked sceTGcmo ticks) (PR #142).
+trigger-health: last committed export telemetry/triggers-snapshot.json (captured_at 2026-07-12T20:41:13Z, 945 records); check result PASS 7/7 incl. I7 TICK-PILE-UP (PR #142; detail in that PR + .sessions/).
 
 ## Walls
 
-Walls (summarized): agent-initiated merges of peer PRs denied in auto mode; permission-guard edits need live user intent in the acting session; standalone sleep blocked; direct push to main blocked (GH013); send_message reaches only ACTIVE sessions (see docs/CAPABILITIES.md 2026-07-12).
+Walls (summarized): permission-guard edits need live user intent in the acting session; standalone sleep blocked; direct push to main blocked (GH013); send_message reaches only ACTIVE sessions (docs/CAPABILITIES.md 2026-07-12). Peer-PR merge/arm calls now run under the owner's standing permission (ORDER 029) — games #65/#66 armed 2026-07-13T00:10Z without denial.
 
 ## Landed / parked
 
-- PR #142 (this session): ORDER 020 amendment — I7 TICK-PILE-UP in check_trigger_health.py + fresh snapshot + playbook pacemaker-discipline note + CAPABILITIES finding + this heartbeat. Landing path: owner-click / owner-provenance dispatch (park READY+green).
-- Predecessor close-out fully landed: #139 + #140 both MERGED 2026-07-12T20:07Z (verified live) — nothing inherited parked.
-- Residue: stray branch claude/consolidation-plan-v34 @ 30a48fa safe-to-delete (agent delete 403-walled; owner/dispatch). Branch claude/meta-restamp @ 8fe8f8b holds the meta restamps (needs v3.4 stamp bump if re-cut; owner: "salvage the metas").
+- Landed today (this seat): #142 (I7 TICK-PILE-UP + fresh snapshot), #143 (consolidation Phase 1 ORDERs 023–029), #144 (roster UNREADABLE fix + ROSTER_READ_TOKEN wiring), #146 (merge-on-green workflow — live: first sweep runs verified), #147 (owner goal ORDERs 030–036), plus this PR (#148: ORDER 019/021/022 flips, ORDERs 037/038, R24 authenticity gate, owner-queue B#49/B#50, this heartbeat).
+- Landing doctrine: owner standing merge permission (ORDER 029) + merge-on-green sweep (cron 7,37 * * * *); workflow-touching PRs remain the owner/coordinator merge lane.
+- Fleet enabler state: superbot-idle enabler installed @ 457407c (INERT until OQ-IDLE-REQUIRED-CHECKS — zero required checks, so it safely refuses to arm); superbot-games enabler @ dd867c8 (self-proven; required checks already wired); superbot-next #321 armed by the bot (report job red-by-design, not required); gba-homebrew #76 arm failing (diagnosis in flight).
+- Websites ORDERs 019/021/022 DONE — flipped this PR on manager sweep evidence (2026-07-12T22:1x–22:2xZ; websites heartbeat aafad91). Roster gen #22+ healthy.
 
 ## Orders
 
-- inbox 001–018 DONE; 020 base DONE (#133) + 020 amendment DONE this session (PR #142; see inbox flip). 019 / 021 / 022 OPEN — websites-seat orders (019 time-sensitive, EAP window through 2026-07-14); websites coordinator on them per roster gen #20.
+- inbox 001–018 DONE; 019/021/022 DONE (flipped this PR); 020 base + amendment DONE (#133, #142).
+- 023/024 GATED on E#44 (consolidation delete-vs-archive letter); 025–028 routed to owning lanes (#143); 029 standing (owner merge directive, fleet-wide).
+- 030–036 dispatched (owner per-seat goals, #147).
+- 037 (superbot-games mining `updated:` stamp repair) + 038 (standing fleet-wide codex-authenticity gate, sim-lab VERDICT 016) filed this PR.
 
 next-3:
 
-1. Route the consolidation plan's Phase 1 migration ORDERs to owning lanes (docs/planning/2026-07-12-repo-consolidation-plan.md).
-2. Staleness sweep + roster cadence; verify websites progress on ORDERs 019/021/022 at live HEAD.
-3. Surface the ≤2026-07-13 owner decision bundle (owner-queue B#40–43 + E#44–48).
+1. gba-homebrew #76 arm-failure diagnosis → clickset or fix.
+2. Verify merge-on-green + the enablers on the next real PRs fleet-wide; games #65/#66 armed 2026-07-13T00:10Z — confirm they land.
+3. Owner sitting bundle ≤07-13 surfacing (B#40–43 + E#44–48 + the two new B-group clicks).
 
 ## ⚑ needs-owner
 
 Pointers only (details in docs/owner-queue.md):
 
-- decision bundle due ≤2026-07-13 (B#40–43 + E#44–48).
-- venture-lab exposure item; seat pastes C#34–36 (v3.4 artifacts); meta-restamp salvage ("salvage the metas" re-cuts claude/meta-restamp with a v3.4 stamp).
+- OQ-FM-ROSTER-READ-PAT (B#49 — read-only PAT → `ROSTER_READ_TOKEN` secret; unblocks honest pokemon-mod-lab roster rows).
+- OQ-IDLE-REQUIRED-CHECKS (B#50 — superbot-idle Allow auto-merge + pytest/substrate-gate required checks; unblocks parked idle #75/#76).
+- Sitting bundle E#28 + the one-reply unblocks: venture "go with defaults"; superbot-next ruleset click.
