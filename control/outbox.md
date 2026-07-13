@@ -539,3 +539,32 @@ any target lane's control files; no lane self-served from this outbox. Full
 SHA-cited per-verdict table: `docs/fleet-triage.md` § "2026-07-13 · Q-0264
 relay-consumption sweep". Fan-out remains with the coordinator at next
 dispatch, per the relay record's own wording.
+
+---
+
+## 2026-07-13 · Q-0264 FAN-OUT COMPLETE — relays delivered lane-side (coordinator dispatch, 2026-07-13T13:47:30Z)
+
+All four owed relays from the FAN-IN record (L468–502) and the relay-consumption
+sweep above are now DELIVERED and MERGED lane-side:
+
+- **venture-lab PR #161** — ORDER 010 (V037/V039/V040/V041) — MERGED 13:42:35Z,
+  8/8 checks green, tip `a3e95fc`.
+- **superbot-idle PR #88** — ORDER 005 (V038) — MERGED 13:43:00Z, 4/4 checks
+  green, tip `5a4ac35`; that lane's declared RESUME TRIGGER
+  (control/status.md:94 @ `3a4fa5f`) is cleared for its SIM-001/V038 component.
+- **superbot-games PR #80** — ORDER 007 (V042–V045) — MERGED 13:44:13Z, 3/3
+  checks green, tip `af36d52`.
+- **substrate-kit PR #329** — ORDER 018 (idea-engine ASK 002 → Self Improvement
+  seat) — MERGED 13:43:11Z, 4/4 checks green, tip `9a6caa4`.
+
+All four merged by each repo's own enable-auto-merge automation
+(github-actions[bot]) on green; no denials; entries append-only,
+control/inbox.md-only diffs; sources verified at sim-lab `afe18f3` ·
+fm `a32eb2c` · idea-engine `c807960`. Relayed by the Fleet Manager seat per
+Q-0264, coordinator dispatch 2026-07-13.
+
+**Upkeep (stale claim cleanup):** deleted
+`control/claims/claude-trigger-health-i1-fix.md` — its lane's PR #167 is
+terminal (MERGED 2026-07-13T13:36:04Z by github-actions[bot], squash
+`d5b5b4e`); the claim file itself accidentally landed on main via that same
+merge. Claims are delete-at-close.
