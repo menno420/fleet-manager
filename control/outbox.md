@@ -462,3 +462,41 @@ histories (1–2 per seat, all matched). Reporting window per seat: 2026-07-12T2
 - **Wake-chain fleet health: 13/13 chains alive.** Every seat's failsafe verified
   (most API-verified at write); the night's two platform incidents (scheduler wedge,
   dropped one-shots) were bridged by failsafes with zero lost work.
+
+---
+
+## 2026-07-13 · Q-0264 FAN-IN — ALL 9 SIM-REQUEST VERDICTS SERVED (relay record, wake work session ~13:15Z)
+
+Successor-baton item 1 verified and served: Ideas Lab consumed both relayed batches
+(idea-engine local ORDERs 005/006 = fm ORDER 043's two + fm ORDER 044's seven) and
+sim-lab finalized ALL NINE verdicts — INTAKE simreq-001…009 → VERDICTs 036-adjacent
+037–045, every one `status: finalized` at sim-lab HEAD `afe18f3` (timestamps
+09:43–11:35Z; idea-engine HEAD `c807960` NIGHT-REPORT 001 corroborates the dispatch).
+Each verdict names its requesting seat for manager relay (Q-0264 — verdicts route only
+through the manager). **Relay pointers by seat** (this session is repo-scoped to
+fleet-manager; the coordinator relays these into the seat inboxes at next dispatch,
+or the seats read them here at next wake):
+
+- **venture-lab** (4): V037 Ultramarine serial pricing — CONDITIONAL (R3 default: no
+  carry-through data; default arm per packet) · V039 photo packs — CONDITIONAL ($5
+  fixed default + bundle row; packs stay owner-gated on originals) · V040 Ship-It
+  Bundle — CONDITIONAL ($59 ratified w/ parked switch rule) · V041 narrow-TAM
+  cookbooks — CONDITIONAL ($19 fixed default; no PWYW data exists).
+- **superbot-idle** (1): V038 SIM-001 economy-FEEL — CONDITIONAL (graduate the
+  seven-parameter PROVISIONAL table; strict-A10 fails but inside 0.02 wiggle band;
+  A10 re-wording lands in docs/design/economy-v1.md, seat-side). Co-consumer:
+  owner-queue E#52 (generator purchase curve).
+- **superbot-games** (4): V042 mining-economy — APPROVE (ratify every packet constant;
+  2 flagged rows: pickaxe feltness + booster pricing — booster-bypass follow-up
+  already in flight as idea-engine PROPOSAL 035, 12:12Z) · V043 fishing-economy —
+  APPROVE-WITH-CONSTANTS (both asks: sell curve + progression; wire VERBATIM at the
+  seam) · V044 dnd-escort-double-mint — MINT-AT-MOST-ONCE (uncapped faucet, guard at
+  bundle fold) · V045 exploration-reward-bands — RATIFY-WITH-NULL (placeholders stay
+  verbatim; numeric band import waits on the named upstream superbot P0 artifact).
+
+Also received this wake (route to Self Improvement seat at next dispatch):
+**idea-engine ASK 002** (2026-07-13T12:45:33Z, target fleet-manager, status new) —
+make kit-repo-local `bootstrap.py check --strict` run the SAME preflight legs as the
+CI substrate-gate (check_ideas --outbox + inbox append-only grammar w/ merge-base) so
+local green ⇒ CI green; evidence: two local-green→CI-red round-trips in one night
+(idea-engine PRs #274, #299). Kit-owned; agent-doable; no owner click.
