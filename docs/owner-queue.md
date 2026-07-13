@@ -982,6 +982,72 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       self-retires when OQ-FM-ACTIONS-PR-PERMISSION lands — weigh it in the
       roster-regen half of this letter (it does not decide A/B).
 
+52. **superbot-idle — generator-purchase economy: add the missing core growth
+    verb?** *(new 2026-07-13; routed from superbot-idle control/outbox.md
+    "OWNER QUESTION: generator-purchase economy", night run 2026-07-13, per
+    the Q-0264 fan-in — this E-number is the fleet number the outbox asked
+    the manager to assign; morning tally #158 next-3 item 3.)*
+    - id: OQ-IDLE-GENERATOR-PURCHASE
+    - WHAT — pick one; today there is NO way to buy generators (counts are
+      fixed per the repo's current-state.md), so a fresh GameState produces
+      nothing, tier2 (in every 2-gen pack) + the owned-milestone track are
+      permanently dead content, and boost2 is a trap buy:
+      **A (recommended)** — add `purchase_generator` with a geometric
+      per-generator cost curve (the idle-genre standard), all numbers
+      PROVISIONAL and SIM-pinned (pre-registered target T10 + a fresh
+      economy sim) before merge — restores the genre's primary growth verb
+      at the lowest design risk.
+      **B** — a different curve shape (linear/tiered) if the Simulator's
+      run prefers it.
+      **C** — do NOT add it: declare tier2 + owned-milestones intentionally
+      inert and remove the trap surfaces.
+    - WHERE: one word wherever the manager reads — `control/inbox.md` ORDER
+      or a live session; the manager relays the letter to superbot-idle's
+      inbox.
+    - HOW: say "idle generators: A" (or B/C).
+    - UNBLOCKS: the core idle growth loop (the seat marks this P1 /
+      blocking); un-deadens tier2 + the owned-milestone track; lets the
+      pre-registered T10 target run.
+    - VERIFIED-NEEDED: superbot-idle `control/outbox.md` @ HEAD (2026-07-13
+      OWNER QUESTION entry, "needs fleet Q-number — manager to assign");
+      the same night outbox's SIM-001 cluster documents the adjacent
+      low-count no-op evidence.
+    - RISK: ↩️ reversible — a new purchase path behind SIM-pinned
+      PROVISIONAL numbers; C removes surfaces but is a one-commit revert.
+    - Blocking: P1 for the idle seat — blocks its core-growth-loop lane;
+      blocks nothing fleet-side.
+
+53. **superbot-idle — content-depth / endgame direction after the
+    upgrade→prestige spine.** *(new 2026-07-13; routed from superbot-idle
+    control/outbox.md "OWNER QUESTION: content-depth / endgame", night run
+    2026-07-13, per the Q-0264 fan-in — E-number = the assigned fleet
+    number, same as E#52.)*
+    - id: OQ-IDLE-CONTENT-DEPTH
+    - WHAT — pick one; the engine is complete but shallow as a game: two
+      upgrades per pack cap out, prestige pays ~+8–10% for a ~3.5h grind
+      (greedy-sim ratio 0.9175), and there is no goal/event/endgame past
+      the wall:
+      **A (recommended)** — pursue timed-events scoping next, building on
+      the seat's existing `docs/design/timed-events-scoping.md` (values
+      stay unregistered pending SIM-002/Q-0264) — cheapest depth win
+      because the scoping doc already exists and registration gates keep
+      it from outrunning the SIM-001 verdicts.
+      **B** — prioritize a different depth mechanic (deeper upgrade
+      ladders, endgame prestige tiers, achievements-as-goals).
+      **C** — hold all depth work until the generator economy (E#52) +
+      SIM-001 verdicts land.
+    - WHERE: same surface as E#52 — one word to the manager; relayed to
+      superbot-idle's inbox.
+    - HOW: say "idle depth: A" (or B/C).
+    - UNBLOCKS: the seat's next design lane after the engine spine; pairs
+      with (does not gate) E#52.
+    - VERIFIED-NEEDED: superbot-idle `control/outbox.md` @ HEAD (2026-07-13
+      OWNER QUESTION entry, P2); `docs/design/timed-events-scoping.md`
+      exists per that entry (values unregistered pending SIM-002/Q-0264).
+    - RISK: ↩️ reversible — design/scoping only until SIM registration; no
+      live numbers move under any letter.
+    - Blocking: not-blocking (P2); sequencing-only interaction with E#52.
+
 ### (F) New intake 2026-07-12 (owner-live session) — decisions, no rush
 
 39. **Railway project duplication — websites services exist in BOTH
