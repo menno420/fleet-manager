@@ -15,5 +15,6 @@ rollups live in **menno420/superbot** (`docs/eap/`).
 | [`docs/playbook.md`](docs/playbook.md) | The manager's operating memory — dated, numbered rules (orientation, dispatch, protocol, platform walls, owner interface). |
 | [`docs/owner-queue.md`](docs/owner-queue.md) | The one deduplicated queue of things waiting on the owner. |
 | [`docs/dispatch-log.md`](docs/dispatch-log.md) | Dated log of what the manager dispatched and shipped. |
+| [EAP final-night worklists (2026-07-13)](docs/eap-final-night-worklists-2026-07-13.md) | ORDER 045 fleet sweep — per-seat prioritized night worklists, DARK dispositions, cross-cutting findings. |
 | [`templates/`](templates/) | Standard preamble blocks pasted into every worker prompt. |
 | [`control/`](control/) | Protocol heartbeat — `inbox.md` (owner → manager orders), `status.md` (manager heartbeat). |

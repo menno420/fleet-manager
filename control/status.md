@@ -1,25 +1,28 @@
 # Fleet Manager — coordinator heartbeat
 
-updated: 2026-07-13T20:59:38Z — coordinator live (webagent Project seat; failsafe wake 20:33Z closing out on PR #175)
+updated: 2026-07-13T22:05:03Z — coordinator live, OWNER LIVE in coordinator chat (EAP final night; closing out PR #178)
+
+## Owner directive (2026-07-13 ~21:34Z, ORDER 045)
+- "Find the current state of all repos and dispatch instructions for all projects… full list to work on tonight since it's the last day of the EAP." Amendment 1: pokemon-mod-lab override-ACTIVE ("pokemon mod lab should continue", ~21:53Z). Not every repo is active — roster-DARK seats excluded from fan-out, dispositioned instead.
+
+## Shipped this wake (PR #178, claude/eap-final-worklists)
+- docs/eap-final-night-worklists-2026-07-13.md: 12 per-seat night worklists (superbot, superbot-next, superbot-idle, superbot-mineverse, websites, substrate-kit, trading-strategy, venture-lab, idea-engine, sim-lab, pokemon-mod-lab override-active, fleet-manager self), fleet summary table, DARK dispositions, cross-cutting findings — all SHA-cited.
+- ORDER 045 landed verbatim in control/inbox.md + amendment 1.
+- Earlier this session-day: I1b disposition relayed (superbot #2087 merged @ a724e9d3, ORDER 003 there covers the two dormant owner-paused triggers + full doc-drift done-when).
+
+## Phase 3 (in flight)
+- Fan-out dispatch is delivering each active lane's night ORDER into its control inbox (11 lanes), incl. the missed ORDER 025 relay to substrate-kit. ORDER 031 landing: decide-and-flag → superbot-next as primary owner (split noted; casino-spec dependency routed per the doc's cross-cutting findings). DARK dispositions (superbot-games ~35h w/ pending ORDERs 030/031/037 · gba-homebrew ~29h w/ V050/V054 armed · product-forge E#44-gated · kit sub-rows · codetool-labs) go to docs/owner-queue.md.
 
 ## Routine disposition
-- Failsafe armed: `trig_01FpTbpXCeGcotnBpTkscAdr` · cron `30 */2 * * *` · bound to the live coordinator session · fired 14:34Z / 16:33Z / 18:34Z / 20:33Z as designed · next fire ~22:33Z. Single FM failsafe.
-- Pacemaker chain live: one-shot send_later, ~15 min cadence (Q-0265); honesty-guard idles bridged by the failsafe.
-
-## Shipped this wake (PR #175, claude/wake-2033z)
-- Trigger snapshot refresh @ 90e1a7f: read-only full pagination (15 pages), 1333 → 1406 records (+73, 0 deleted, 22 enabled), captured_at 2026-07-13T20:42Z; final-page splice from prior capture disclosed in capture_notes; no trigger touched. check_trigger_health I6 back to 0.2h.
-- Roster gen #34 @ cc1f55b (20:48Z, consuming the fresh snapshot; gen #33 had landed via the scheduled cron PR #174); owner-queue-candidates + evidence-index regenerated in the same run.
-- I1b frozen-trigger DISPOSITION @ 1777a27: trig_011XAWqPeksS8LBrS5G9RvVc ("superbot autonomous dispatch") classified as a dormant owner-paused remnant of the pre-fleet dispatch routine (enabled absent + no ended_reason = user-paused; frozen since 2026-07-02; prompt matches the retired dispatch text per superbot docs/operations/autonomous-routines.md @ 1cc5536; sibling trig_01MWHvQFnRF1dVdZFSP6SM5L "superbot night executor" is the same class). Recommended disposition: superbot seat + owner delete or annotate-and-leave-paused; do NOT re-enable as-is. Routed via fleet-triage dated note + control/outbox.md fan-out entry; superbot repo untouched. Rider for the superbot seat: autonomous-routines.md L395/L406 still present the Schedule as live — doc drift.
-- Verify at close: roster-freshness exit 0 (gen #34) · owner-queue exit 0 CLEAN · trigger-health PASS + standing designed I1b WARN · bootstrap strict green apart from this card's designed hold until the flip.
-- fm inbox read in full: no new fm-actionable ORDER; 023/024 remain owner-gated.
+- Failsafe `trig_01FpTbpXCeGcotnBpTkscAdr` · 30 */2 * * * · fired 14:34/16:33/18:34/20:33Z · next ~22:33Z. Pacemaker chain live (~15 min, Q-0265).
 
 ## Open/parked PRs + landing paths
-- fm #175: OPEN + READY; lands on green after the card flip (merge-on-green; fallback owner-click via hub).
-- substrate-kit #317 do-not-automerge ratification park · gba-homebrew #82–#90 · pokemon-mod-lab #57–#59, #61–#64: unchanged, untouched.
+- fm #178: OPEN + READY; lands on green after the flip (merge-on-green; fallback owner-click).
+- substrate-kit #317 ratification park · gba #82–#90 · pml #57–#65 parked set: untouched (pml items appear in its worklist as owner-pending only).
 
 ## Next-2 baton
-1. Fan out the I1b disposition (control/outbox.md entry @ 1777a27) to the superbot seat at next dispatch — ORDER carrying the verdict + the autonomous-routines.md L395/L406 doc-drift rider; then verify consumption on a later wake.
-2. Owner sitting-bundle watch; fm inbox ORDERs 023/024 remain owner-gated.
+1. Verify Phase 3 delivery lane-by-lane (11 ORDERs landed + kit ORDER 025), then spot-check consumption on the overnight wakes.
+2. fm-self worklist (doc §fleet-manager): route V055–V057, answer idea-engine ASKs 001–004, owner-queue the DARK dispositions + websites lifeboats, Q-numbers for idle's Q-blocks.
 
 ## ⚑ Owner asks
-- None new this wake. Standing queue: docs/owner-queue.md.
+- DARK re-wake decisions: superbot-games and gba-homebrew hold served/approved work but are DARK — re-wake or reassign (owner call, queued in docs/owner-queue.md).

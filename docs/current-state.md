@@ -61,6 +61,9 @@ The custodian toolchain shipped by the centralization plan P1→P3 (all
 - **PR #95** — prompt-architecture research slice:
   `docs/research/2026-07-12-prompt-architecture.md` (requirements spec for the
   v3 prompt set; parked green for coordinator consumption).
+- **PR #178** — ORDER 045 EAP final-night fleet sweep + per-seat worklists:
+  [EAP final-night worklists (2026-07-13)](eap-final-night-worklists-2026-07-13.md)
+  (Phase 1+2 in the PR; Phase 3 lane fan-out is the follow-up dispatch).
 
 ## Recently shipped (newest first)
 
