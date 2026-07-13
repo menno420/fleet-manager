@@ -162,6 +162,28 @@ superbot-idle); if a third sweep still finds `status: new`, the manager
 should consider a send_message nudge per the ORDER 040 TASK 3 escalation
 ladder (rung 2).
 
+## 2026-07-13 · Q-0264 relay-consumption THIRD check (18:40Z, read-only, SHA-cited)
+
+> Dated evidence note (per §How-to-re-verdict pt 4). Read-only third check from
+> the failsafe-wake 18:34Z work slice (fm PR #173); prior sweeps: PR #167
+> (13:13:45Z), PR #169 (14:37:33Z), and the 17:03:39Z re-check above.
+> Delta-only: covers the two lanes left STILL-PENDING at 17:03Z.
+> **Answer: BOTH CONSUMED — cumulative Q-0264 consumption now 4 of 4.**
+
+| Lane | ORDER | 17:03Z state | Live HEAD (18:40Z) | Verdict | Evidence |
+|---|---|---|---|---|---|
+| superbot-idle | 005 (V038, SIM-001) | STILL-PENDING @ `96cd635` | `4c31a2c` (inbox blob `15f11c5`, status blob `cdda9f0`) | **CONSUMED** | status.md@`4c31a2c` (updated 2026-07-13T17:43Z): `orders: acked=000-005 done=000-005`; dedicated "§ ORDER 005 — SIM-001 VERDICT 038 consumed" section — graduation PR #93 (economy-v1.md table PROVISIONAL → SIM-PINNED + A10 re-registered in trend form, zero parameter changes; claim via fast-lane PR #92 merged 17:29:27Z). Inbox thread itself still reads `status: new` — inbox is one-writer (manager), so the ack lives in status.md per the seat grammar |
+| superbot-games | 007 (V042–V045) | STILL-PENDING @ `d6a9526` | `ce70d9e` (inbox blob `75c2609`, status blob `b2909a4`) | **CONSUMED** | status.md@`ce70d9e`: `orders: acked=001,002,003,004,005,006,007 done=001,002,003,005,006,007` + done=007 per the order's own clause; dedicated "§ ORDER 007 ACK — 2026-07-13T17:45:47Z" section — V042 APPROVE ratified, V043 wired + V044 guard landed via PR #83 (open READY on the card-guarded enabler at check time), V045 ratified-with-NULL; four SIM-REQUESTs closed in control/outbox.md. Same one-writer-inbox note as above |
+
+**Third-check result:** 2 of 2 previously-pending lanes CONSUMED between
+17:03Z and ~17:45Z (both by the SuperBot World seat's 17:15Z failsafe wake
+window, as the 17:03Z note predicted). **Cumulative: 4/4** (venture-lab #163,
+substrate-kit #332, superbot-idle #93, superbot-games #83). No ORDER 040
+TASK 3 escalation needed — the rung-2 send_message nudge contemplated at
+17:03Z is moot. Q-0264 fan-out consumption is CLOSED; residue rides lane-side
+(idle: tools/simulate.py A10 v2 harness follow-up, flagged in its status;
+games: PR #83 landing on its card flip).
+
 ## How to re-verdict
 
 1. Verify against live source (Q-0120 — never against report text).
