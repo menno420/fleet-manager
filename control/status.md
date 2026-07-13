@@ -1,45 +1,30 @@
-# fleet-manager · status
+# Fleet Manager — coordinator heartbeat
 
-updated: 2026-07-13T10:45Z — **COORDINATOR SESSION CLOSED** (universal ender executed: retro card + this final heartbeat + verify gates; close-out PR #164). Successor boots per `projects/fleet-manager/coordinator-prompt.md` at HEAD — **registry v3.6** (canonical since #153; the closing session ran on a v3.4 paste — owner re-paste owed, see ⚑).
+updated: 2026-07-13T13:02:45Z — coordinator live (webagent Project seat; executor dispatch on PR #166)
 
-mode: CLOSED (coordinator seat session_01UutkJqyMcHC1VyFW8fe1a9, live 2026-07-12 ~20:30Z → 2026-07-13 ~10:45Z, ended by universal ender)
+## Routine disposition
+- Failsafe armed: `trig_01FpTbpXCeGcotnBpTkscAdr` · cron `30 */2 * * *` · bound to the live coordinator session · verified via full-paginated list_triggers · next fire 2026-07-13T14:33Z.
+- Pacemaker chain live: one-shot send_later, ~15 min cadence (Q-0265 shape), re-armed each working turn.
+- Predecessor failsafe `trig_01UQTZFvknBosXVo4YKKfazZ` deleted at boot cutover and verified absent (delete succeeded; re-probe returns not-found; registry scan clean). No business crons owned by this seat; nothing uncloseable.
+- Trigger export refreshed: telemetry/triggers-snapshot.json @ f09ba87 (1223 records · 22 enabled · captured 2026-07-13T12:36Z). check_trigger_health: 7/7 PASS on the fresh export (boot readout was 2/7 on the stale night export, as the predecessor baton predicted).
+- Checker gap (fact, for next wake's PR): check_trigger_health I1 skips records with `enabled` absent — e.g. `trig_011XAWqPeksS8LBrS5G9RvVc`, next_run frozen 2026-07-02.
 
-health: green
+## Shipped this wake (PR #166, branch claude/wake-2026-07-13, window 12:34–12:56Z)
+- Roster gen #27 @ 9d3c855 (12:43Z): FRESH ×10 · DARK ×8 · STALE gba-homebrew · STALE-BY-DESIGN ×3. pokemon-mod-lab verdict from a real read (heartbeat 2026-07-11T21:03:45Z @ 759dee4 → DARK ~39.6h; headless B#49 stands).
+- ORDER 028 / P1-7 DONE-flipped @ 1298fc7: labs' succession/retro content covered; the one remaining gap (sonnet5 differential-testing method + v0.1.1 writeup, absent from kit @ d916d94) already tracked under open ORDER 025/P1-4 (B#41). Lab HEADs: sonnet5 66c3dfc · fable5 a6cf1a9 · opus4.8 80f6cd1.
+- Q-0264 fan-in @ 0a71ad1: 9/9 SIM-REQUESTs served — VERDICTs 037–045 finalized @ sim-lab afe18f3 (venture-lab ×4 · superbot-idle V038 · superbot-games ×4); per-seat relay pointers in control/outbox.md (lane inboxes are read-only from this seat — relay per Q-0264). idea-engine ASK 002 routed to Self Improvement via the same record.
+- B#50 (superbot-idle required-checks) RESOLVED @ 2f7bf8b: idle #75/#76 merged 01:23–01:26Z by github-actions; triage idle row re-verdicted; parked-set currency refreshed.
+- Verify at close: check_roster_freshness exit 0 (gen #27) · check_owner_queue exit 0 CLEAN · check_trigger_health 7/7 · bootstrap check --strict exit 0 (designed born-red HOLD on this session's own card until the flip).
 
-kit: v1.7.0 · check: green at flip (the close-out card's born-red hold was the only red; owner-queue CLEAN, roster fresh 2.9h) · engaged: yes
+## Open/parked PRs + landing paths
+- fm #166 (this session): OPEN + READY; lands on green after the card flip (repo merge-on-green path; fallback owner-click via hub).
+- substrate-kit #317: do-not-automerge — ratification park, untouched.
+- substrate-kit #326: sibling kit-seat heartbeat PR (12:51Z), not this seat's.
+- gba-homebrew #82–#90 · pokemon-mod-lab #57–#59, #61–#64 (#60 closed-retracted): parked set verified current 12:56Z.
 
-coordinator: NONE (seat closed; successor boots per the coordinator prompt at HEAD).
+## Next-2 baton
+1. Verify the Q-0264 relay pointers get consumed lane-side (fan-out follow-up); lane-inbox writes stay out of this seat's write scope.
+2. Fix the check_trigger_health I1 absent-`enabled` gap in a dedicated PR; watch for owner sitting-bundle answers (none observed this wake).
 
-## Routine disposition (as verified at close)
-
-- **Pending pacemaker `trig_01BcUd9esEAeAs9kEEKjkxLh` DELETED + verified absent** — confirmed by full trigger-registry pagination, 1,202 records read.
-- **16 historical one-shots** already self-fired (self-disabling; nothing to clean).
-- **FAILSAFE `trig_01UQTZFvknBosXVo4YKKfazZ`** (cron `30 */2 * * *`, last fired 10:37Z) **LEFT ARMED deliberately** as the successor's dead-man bridge — boot cutover **rebinds-then-deletes** (arm your own failsafe against your session, then delete this one; never delete first).
-- No business crons owned by this seat; **nothing uncloseable**.
-- Close-out `check_trigger_health.py` readout (honest): I6 SNAPSHOT-FRESH red — the committed snapshot is the 04:06Z night export (6.6h old at close); the 1,202-record pagination above is the fresher truth for THIS seat's triggers. I7 TICK-PILE-UP red on `session_01Q5sGKgKCngGa7jgfzEGeEQ` (foreign seat, 2 pending ticks) — this ender makes no trigger calls; **successor's first watchdog wake refreshes the export and prunes per the I7 REMEDY line**.
-
-## Landed / parked
-
-- **fm open PRs: 0** (besides close-out PR #164, which the merge-on-green sweep lands). Nothing parked fm-side.
-- Session shipped **#142–#144, #146–#155, #157–#159, #162, #163** (all merged; roster regens #145/#156/#160/#161 were Actions-authored). Full cited retro: `.sessions/2026-07-13-coordinator-close.md` + the PR #164 body (the durable copy).
-- **Fleet parked sets** (gba #82–#89, pml #57–#63, kit #317) are lane-owned — pointer: `control/outbox.md` § FLEET NIGHT-REPORT ROLL-UP (the owner sweep list).
-
-## Orders
-
-001–022 DONE (020 base+amendment incl.); **023/024 GATED on E#44**; 025–028 routed; 029 standing (owner merge directive); **030–036 standing/served** per the outbox roll-up (night run executed against them); 037 DONE; 038 standing; 039/040 DONE (morning tally delivered); **041/042 done** (websites #236/#239 + #247/#248 verified live); **043/044 relayed as idea-engine local ORDERs 005/006, service in progress** (Ideas Lab pickup → verdicts route back via its outbox).
-
-## ⚑ needs-owner
-
-Pointers only (details: `docs/owner-queue.md` + the OWNER CLICKS section of the outbox roll-up):
-
-- Queue items **B#49 / B#50 / B#51 / B#54**, sitting bundle **E#28**, **E#52/E#53**, items **55–60**.
-- **Registry v3.6 re-paste** per seat (deployed seats still run v3.4; version-aware drift row on the prompt console).
-- Venture **"go with defaults"** one-reply unblock.
-- **Parked-PR sweep** (gba/pml/kit sets above).
-
-## next-2 (successor baton)
-
-1. **Verify Ideas Lab serves the 9 relayed SIM-REQUESTs** (idea-engine local ORDERs 005/006 = ORDER 043's two + ORDER 044's seven) and **route the verdicts back** to venture-lab / superbot-idle / superbot-games inboxes.
-2. **Execute owner sitting-bundle answers when they arrive** (E#28 + the one-reply unblocks). Then normal cadence: roster sanity ≤4h, ORDER-020 trigger-health per wake (first wake: refresh the stale export + prune the I7 foreign-seat pile-up).
-
-retro: `.sessions/2026-07-13-coordinator-close.md`
+## ⚑ Owner asks
+- None new this wake. Standing queue: docs/owner-queue.md.
