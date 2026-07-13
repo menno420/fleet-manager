@@ -1371,3 +1371,21 @@ why: owner directive 2026-07-13 ~21:34Z — last day of the EAP; every project n
 worklist for tonight.
 done-when: the worklists doc is on main with a prioritized list per active seat + DARK
 dispositions + fleet summary; Phase 3 fan-out dispatched to the lane inboxes.
+
+## ORDER 045 · update 2026-07-13T21:59Z · status: open — amendment 1 (pokemon-mod-lab reactivated by owner override)
+priority: P0 (unchanged)
+owner: Fleet Manager seat (unchanged)
+do: ADD pokemon-mod-lab to ORDER 045's active-seat set. Owner override, live in the
+FM coordinator chat 2026-07-13 ~21:53Z, VERBATIM: "pokemon mod lab should continue" —
+overrides roster gen #35's DARK/UNREADABLE verdict; the seat is treated ACTIVE for
+the EAP final-night exercise. Swept read-only post-override at HEAD `759dee4` (local
+clone via the fleet git proxy works; the UNREADABLE wall was the terminal-prompt
+access path, not the repo). A 6-item worklist added to
+docs/eap-final-night-worklists-2026-07-13.md (top item: post-EAP playtest kit, EAP
+window closes 2026-07-14). Parked PRs #57–#59/#61–#65 remain owner-sweep-only —
+reference notes, never merge work. Include the seat in the Phase 3 fan-out.
+why: owner directive supersedes the roster verdict; the seat carries real,
+time-critical buildable work tonight.
+done-when: (folds into ORDER 045's done-when) the worklists doc carries the
+pokemon-mod-lab seat section + fleet-summary row, and the Phase 3 fan-out includes
+the seat.

@@ -27,6 +27,7 @@ workers, every claim SHA-cited.
 | venture-lab | `be6c75d` |
 | idea-engine | `2808b16` |
 | sim-lab | `32ff5c3` |
+| pokemon-mod-lab | `759dee4` (late sweep, post-override) |
 
 Why-tonight tags: `[lane]` unfinished lane work · `[standing]` standing/unconsumed
 ORDER · `[verdict]` sim verdict served/approved awaiting build · `[build-direct]`
@@ -50,6 +51,7 @@ closes 07-14 · `[relay]` fm routing/relay debt.
 | venture-lab | STALE ~5h04m | 0 | 7 | Next product to publish-READY |
 | idea-engine | FRESH ~1h24m | 0 | 6 | V054/V055 closure + claim prunes |
 | sim-lab | FRESH ~1h22m | 0 | 5 | PROPOSAL 047 → VERDICT 058 |
+| pokemon-mod-lab | DARK→ACTIVE (owner override 2026-07-13) | 8 (all owner-parked) | 6 | Post-EAP playtest kit |
 | fleet-manager (self) | FRESH ~31m | 1 (#178, this session) | 7 | Route V055–V057 + verify V046–V054 |
 
 ---
@@ -194,6 +196,32 @@ Healthy and nearly drained: 57 verdicts finalized, 0 open PRs, all ORDERs done.
 
 **Blocked (do not schedule):** OA-002 Codex quota · OA-003 review-site deploy · OA-004 harness tag-push 403 (all owner actions, `control/status.md` ⚑ @`32ff5c3`).
 
+## pokemon-mod-lab — swept @ `759dee4`
+
+**Override provenance (stated up front):** owner directive, live in the coordinator
+chat 2026-07-13 ~21:53Z, VERBATIM: **"pokemon mod lab should continue"** — overrides
+roster gen #35's DARK/UNREADABLE verdict; the seat is ACTIVE for tonight. Swept
+read-only post-override at HEAD `759dee4` (local clone via the fleet git proxy
+works; the UNREADABLE wall was the terminal-prompt access path, not the repo).
+Lane is honest-idle with all recent work green-parked on 8 owner-sweep PRs.
+
+1. Post-EAP playtest kit PR — pinned artifact spec + per-patch player notes generated from `docs/proof/session-*/` + keep/tune/drop verdict form; absent at `docs/`@`759dee4` (idea-engine `ideas/pokemon-mod-lab/post-eap-playtest-kit-2026-07-10.md`) `[standing]` `[deadline]` — time-critical, EAP window closes 2026-07-14
+2. Patch-only egress doctrine slice — README egress paragraph + `repo.private` CI assert; verified missing at README/workflows@`759dee4`; EXCLUDE the `.gitignore` half — parked #57 owns it (idea file + `README.md@759dee4`) `[improve]`
+3. Review-queue #13 determinism re-run — `tools/verify_toolchain.sh` on tonight's container (needs only python3 + apt xdelta3); record the second-machine result in-row (`docs/review-queue.md@759dee4` row #13) `[lane]`
+4. Review-queue #15 mixed-flag guard spot-check — 2–3 `#if QOL_X` guard sites against the original patch commits; pure code inspection, no toolchain (`docs/review-queue.md@759dee4` row #15) `[lane]`
+5. Review-queue #23 fishing fixture-and-control emulator matrix — CONDITIONAL: buildable only if the container carries/installs the ROM toolchain (binutils-arm-none-eabi + agbcc per `docs/build-presets.md`); probe the toolchain once, park on real denial (`docs/review-queue.md@759dee4` row #23) `[lane]`
+6. Harvest the 2 live idea-engine items (playtest kit + egress doctrine) into local `docs/ideas/` with frontmatter records — local idea backlog is empty while both real ideas live off-repo (`docs/ideas/README.md@759dee4`) `[improve]`
+
+**Blocked / owner-pending (do not schedule):** 8 green-parked owner-sweep PRs
+#57–#59, #61–#65 — UNTOUCHABLE, reference-only, the owner sweep lands them · 4
+stale-ref branch deletes (`track-a/session-019`, `track-a/session-024`,
+`claude/eloquent-newton-qaf1ii`, `claude/fm-r27-wake-repair`) · enabler-install
+decision · OWNER-ACTIONs 1–3 (required-check click · concept pick · 6-patch
+playtest verdict + Match Call rider).
+
+**Hazard:** any new PR touching `control/status.md` or `control/outbox.md` widens
+the existing #61/#63/#64/#65 conflict set — prefer docs-only diffs.
+
 ## fleet-manager (self) — session branch @ `59ffe56` (PR #178)
 
 1. Route sim-lab verdicts V055–V057 (owner-readers / superbot-mineverse / venture-lab) + verify V046–V054 routing actually happened at the :30 sweeps — sim-lab keeps no routed/consumed marker; routing is fm-side per Q-0260 (sim-lab `control/outbox.md` L979–L1019 @`32ff5c3`) `[relay]`
@@ -213,7 +241,7 @@ Healthy and nearly drained: 57 verdicts finalized, 0 open PRs, all ORDERs done.
 - **product-forge** — DARK ~2.1d; fm ORDERs 023/024 (games-web → websites arcade; retro → fm docs) are GATED on owner consolidation approval E#44. No action until the owner answers.
 - **substrate-kit sub-rows gba-trackb (~3.7d) + superbot-coordinator (~3.3d)** — presumed wound down; owner confirm so the roster rows can be retired (roster gen #35).
 - **codetool-lab ×3** (all three seat rows) — STALE-BY-DESIGN ~4.1d, wound down. No action.
-- **pokemon-mod-lab** — UNREADABLE (private repo + terminal-prompts-disabled wall). Owner call on access or wind-down (roster gen #35).
+- **pokemon-mod-lab** — REACTIVATED by owner override 2026-07-13 ~21:53Z ("pokemon mod lab should continue"), superseding gen #35's DARK/UNREADABLE verdict — full worklist in its seat section above; include it in the Phase 3 fan-out.
 
 ## Cross-cutting findings
 
