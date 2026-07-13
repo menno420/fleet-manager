@@ -1,6 +1,6 @@
 # 2026-07-13 — Coordinator session close-out: retro + final heartbeat
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 📊 Model: fable-5 · start 2026-07-13T10:42Z (`date -u`)
 
@@ -129,6 +129,23 @@ close-out **verifies terminal states at write time** (this card's shipped
 set was checked against `git log` at HEAD, and "parked: none" was checked
 against live open-PR state) rather than trusting session memory.
 
-## Done (close-out)
+## Done (close-out) · end 2026-07-13T10:47Z (`date -u`)
 
-(written before the flip — see the final commit)
+All declared deliverables landed on PR #164 (born-red `ff0b957` → retro `7394ff0` →
+heartbeat `662ee62` → this flip):
+
+- RETRO written above (four sections, cited against `git log` at HEAD).
+- `control/status.md` overwritten wholesale: CLOSED heartbeat, verified routine
+  disposition (pacemaker deleted + verified absent by 1,202-record pagination;
+  FAILSAFE left armed as the successor's dead-man bridge), orders one-liner,
+  ⚑ needs-owner pointers, next-2 successor baton, retro pointer.
+- Verify gates: `bootstrap.py check --strict` red ONLY on this card's designed
+  born-red hold (clears with this flip); `check_owner_queue.py` CLEAN (exit 0);
+  `check_roster_freshness.py` OK 2.9h (exit 0); `check_trigger_health.py` exit 1
+  — I6 stale 04:06Z snapshot + I7 foreign-seat pile-up
+  (`session_01Q5sGKgKCngGa7jgfzEGeEQ`), both recorded for the successor's first
+  watchdog wake (this ender makes no trigger calls).
+- `control/claims/` swept: README only — no residue from this session's workers;
+  no foreign claims present.
+- PR #164 body carries the full durable report (shipped / parked / seams-none /
+  walls verbatim / lessons baked). Merge-on-green sweep lands it — no self-merge.
