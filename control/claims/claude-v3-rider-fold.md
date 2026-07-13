@@ -1,1 +1,0 @@
-- `claude/v3-rider-fold` · v3.5 registry fold: Q-0271 autonomy rider + Q-0273 seed skills into docs/prompts/v3/ (CIs + startups + README + regen tool + projects/ registry re-sync + docs/SKILLS.md pointer) · 2026-07-13
