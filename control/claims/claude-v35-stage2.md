@@ -1,1 +1,0 @@
-- `claude/v35-stage2` · v3.5 stage-2 prompt fold (docs/prompts/v3/** + projects/** registry regen + curious-research seat) · 2026-07-13
