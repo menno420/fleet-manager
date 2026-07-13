@@ -29,6 +29,9 @@ The v3 generation (provenance: research PRs #93/#95, problem census PRs #94/#96,
 owner baseline 2026-07-11) lives under [`v3/`](v3/per-project/README.md), drafted
 2026-07-12, **not yet deployed**:
 
+- **Owner skim doc — what changed v3.4 → v3.5 → v3.6 (2026-07-13 night folds):**
+  [`v3/CHANGES-v3.4-to-v3.5.md`](v3/CHANGES-v3.4-to-v3.5.md).
+
 - **Universal artifacts:** [`v3/universal-startup.md`](v3/universal-startup.md)
   (artifact A), [`v3/custom-instructions-core.md`](v3/custom-instructions-core.md)
   (artifact C core), [`v3/session-ender.md`](v3/session-ender.md) (artifact D).

@@ -112,6 +112,9 @@ SEAT_REPOS = {
     "game-lab": ["gba-homebrew", "pokemon-mod-lab"],
     "ideas-lab": ["idea-engine", "sim-lab"],
     "venture-lab": ["venture-lab"],
+    # NINTH SEAT (v3.6, 2026-07-13): gains a committed docs/seat-digest.md at
+    # its kit >= v1.15.0 upgrade wave; --sync picks it up when present.
+    "curious-research": ["curious-research"],
 }
 
 

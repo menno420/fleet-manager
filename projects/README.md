@@ -34,8 +34,13 @@
 > verbatim, no char cap; includes the Q-0270 BOOT TRIAD). The MATRIX and
 > paste-wave sections below still predate the restructure — treat them as
 > historical until a follow-up regenerates them against the 8 seats; for the
-> 8 standing seats, the current paste is always the v3.3 body in the seat's
-> dir.
+> standing seats, the current paste is always the newest-generation body in
+> the seat's dir. **Slice 5 (prompts v3.6 registry sync, 2026-07-13) landed:**
+> the **NINTH SEAT `curious-research/`** joins the registry (founding pair
+> conformed from superbot docs/owner/curious-research-project-prompts-2026-07-13.md;
+> failsafe slot `20 */2`), and all copies carry the **v3.6 generation**
+> (open-PRs-stay-open STANDING + Q-0272 reading path + Q-0273 VENUE:hub +
+> Q-0274 grounding boot-read).
 
 ## What this registry is
 

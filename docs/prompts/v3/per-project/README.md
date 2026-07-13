@@ -1,16 +1,18 @@
 > **Status:** `reference`
 
-<!-- v3.5 · 2026-07-13 · provenance: ORDER 039 seat-task 5 (owner night-run directive) — Q-0271 autonomy-rider + Q-0273 seed-skills fold into all 8 startup DOCTRINE sections + CI dictionaries; see the v3.5 changelog section below. Prior: v3.4 (prompt-currency audit (docs/research/2026-07-12-prompt-currency-audit.md, PR #118 lane) — 16-delta currency restamp of the v3.3 one-file-per-seat model; see the v3.4 changelog section below. Prior: v3.3 (owner spec 2026-07-12, overnight prompt rebuild — CI becomes a per-seat keyword dictionary; startups EXPAND, no char cap) · v3.2 (stateless correction) · v3.1 (research PRs #93/#95 + owner baseline + QA PRs #100/#101/#102, applied in PR #103) -->
+<!-- v3.6 · 2026-07-13 · provenance: owner final night order TASK 1 (v3.5 stage-2) — open-PRs-stay-open STANDING + Q-0272 reading path + Q-0273 venue model + Q-0274 grounding boot-read folded into all 9 startup DOCTRINE sections + CI dictionaries, and the NINTH SEAT (Curious Research) added; see the v3.6 changelog section below. Prior: v3.5 (ORDER 039 seat-task 5 — Q-0271 autonomy-rider + Q-0273 seed-skills fold into all 8 startup DOCTRINE sections + CI dictionaries; see the v3.5 changelog section below). v3.4 (prompt-currency audit (docs/research/2026-07-12-prompt-currency-audit.md, PR #118 lane) — 16-delta currency restamp of the v3.3 one-file-per-seat model; see the v3.4 changelog section below. Prior: v3.3 (owner spec 2026-07-12, overnight prompt rebuild — CI becomes a per-seat keyword dictionary; startups EXPAND, no char cap) · v3.2 (stateless correction) · v3.1 (research PRs #93/#95 + owner baseline + QA PRs #100/#101/#102, applied in PR #103) -->
 <!-- char-count: planning doc, no paste budget applies -->
 
-# Per-project prompts — v3.5 (per-seat Custom Instructions + expanded startups)
+# Per-project prompts — v3.6 (per-seat Custom Instructions + expanded startups)
 
-v3.5 **folds the Q-0271 AUTONOMY RIDER and the two Q-0273 seed skills** into the
-v3.4 bodies (no mechanics change — the fold Q-0271 itself named as destined for
-the instruction bodies; changelog below). v3.4 was a currency restamp of the
-v3.3 composition (16 prompt-currency-audit deltas, 2026-07-12). The
-composition itself is the v3.3 owner spec (2026-07-12 — supersedes the v3.2
-generated/assembled model):
+v3.6 (v3.5 **stage-2**, owner final night order TASK 1) **completes the fold
+program**: OPEN-PRs-STAY-OPEN promoted to the STANDING default, the Q-0272
+reading path, the Q-0273 venue model (`VENUE:hub`), the Q-0274 grounding
+boot-read — and the **NINTH SEAT, Curious Research** (changelog below). v3.5
+folded the Q-0271 AUTONOMY RIDER + the two Q-0273 seed skills into the v3.4
+bodies. v3.4 was a currency restamp of the v3.3 composition (16
+prompt-currency-audit deltas, 2026-07-12). The composition itself is the v3.3
+owner spec (2026-07-12 — supersedes the v3.2 generated/assembled model):
 
 - **`<seat>-custom-instructions.md`** = the seat's **complete Custom
   Instructions paste artifact, ONE AUTHORED FILE PER SEAT**: seat header +
@@ -41,7 +43,7 @@ generated/assembled model):
   startup's inlined ender byte-matches `../session-ender.md`) · **grant
   sync** (each startup's grant byte-matches `projects/UNIVERSAL.md`'s
   canonical block) · **doctrine identity** (the DOCTRINE section
-  byte-identical across all 8 after normalizing the one status-grammar
+  byte-identical across all 9 after normalizing the one status-grammar
   fill) · card-block identity · stamp/DRIFT-CHECK lines · failsafe
   extraction. Registry sync keeps `--check-registry` / `--write-registry`.
 - **STATELESS RULE (D-9, unchanged):** neither layer carries volatile state —
@@ -59,18 +61,42 @@ generated/assembled model):
 All are dated snapshots — the v3.1 grammar for every baked specific is
 **"verify at boot; expected X as of 2026-07-12, or later"** (boot-sim class b).
 
-## The 8 seats (owner restructure 2026-07-11)
+## The 9 seats (owner restructure 2026-07-11 + ninth seat 2026-07-13)
 
-Unchanged from v3.0: Fleet Manager · SuperBot 2.0 (superbot + superbot-next) ·
+The 8 from v3.0: Fleet Manager · SuperBot 2.0 (superbot + superbot-next) ·
 Websites · Self Improvement (substrate-kit) · SuperBot World (games + idle +
 mineverse) · Game Lab (gba-homebrew + pokemon-mod-lab) · Ideas Lab
 (idea-engine + sim-lab) · Venture Lab (venture-lab + trading-strategy).
+**Seat 9 (v3.6, owner-created 2026-07-13 ~03:05): Curious Research**
+(curious-research — the teaching-and-research gift seat; founding pair:
+superbot docs/owner/curious-research-project-prompts-2026-07-13.md, conformed
+to this registry's format in v3.6).
 
 **Not seats:** product-forge (⚑ awaits owner disposition; if seated it becomes
-seat 9 via this same recipe — stagger slot below), codetool-lab-* (DARK),
+seat 10 via this same recipe — stagger slot below), codetool-lab-* (DARK),
 superbot-plugin-hello (helper, folded into SuperBot 2.0's F1).
 
-## v3.5 size table (real counts, checker-verified 2026-07-13 — `../tools/regen_b_files.py`)
+## v3.6 size table (real counts, checker-verified 2026-07-13 — `../tools/regen_b_files.py`)
+
+Same caps as v3.5 (CI HARD ≤ 8,000 chars AND bytes; bytes binding at these
+margins; startups NO cap — size is a NOTE). The stage-2 folds added ~+310
+bytes per CI; compensating wording compressions (shared + per-seat, NO rule
+dropped — the fat details ride the startups per the layer contract) brought
+every seat back under the wall.
+
+| Seat | CI (chars) | CI (bytes) | Expanded startup (chars) | v3.5 CI was (chars/bytes) |
+|---|---:|---:|---:|---:|
+| fleet-manager | 7,966 | 7,993 | 32,749 | 7,909 / 7,992 |
+| superbot | 7,966 | 7,993 | 32,475 | 7,914 / 7,985 |
+| websites | 7,969 | 7,998 | 32,140 | 7,911 / 7,992 |
+| self-improvement | 7,970 | 7,999 | 32,265 | 7,909 / 7,990 |
+| superbot-world | 7,971 | 7,998 | 31,791 | 7,917 / 7,992 |
+| game-lab | 7,969 | 7,999 | 31,628 | 7,917 / 7,996 |
+| ideas-lab | 7,965 | 7,992 | 31,911 | 7,913 / 7,994 |
+| venture-lab | 7,962 | 7,991 | 31,984 | 7,915 / 7,996 |
+| curious-research | 7,967 | 7,998 | 32,961 | — (new seat) |
+
+## v3.5 size table (HISTORICAL — superseded by the v3.6 fold above)
 
 Same caps as v3.4 (CI HARD ≤ 8,000 chars AND bytes; bytes binding at these
 margins; startups NO cap — size is a NOTE). The "v3.4 was" column is the
@@ -173,9 +199,10 @@ core edit.
 | superbot-world | `15 1-23/2 * * *` | odd :15 | v3.0, kept | ⚠ live at `0 */2` (squats even :00) — **re-arm to this slot** |
 | ideas-lab | `30 1-23/2 * * *` | odd :30 | v3.0, kept | ⚠ live at `0 */2` (squats even :00) — **re-arm to this slot** |
 | venture-lab | `45 1-23/2 * * *` | odd :45 | v3.0, kept | ⚠ live at `0 */2` (squats even :00) — **re-arm to this slot** |
+| curious-research | `20 */2 * * *` | even :20 | **v3.6 (2026-07-13)** — the founding pair's owner-chosen free offset, adopted into the registry | armed at seat founding (verify at next sweep) |
 
-Seat-9+ slots: `5/20/35` past the hour, plus even `:15` (freed by game-lab's
-re-slot; even parity first). **The fleet manager is the slot arbiter** — a
+Seat-10+ slots: `5/35` past the hour, plus even `:15` (freed by game-lab's
+re-slot; even parity first; `:20` taken by curious-research, v3.6). **The fleet manager is the slot arbiter** — a
 seat NEVER re-slots itself; a foreign trigger on your slot is reported in
 status, and slot changes are a registry edit here (question-rounds R5-Q5).
 **Live-trigger reconciliation (v3.4 delta 13, from the prompt-currency
@@ -346,6 +373,66 @@ with the dirty-tree rescue-branch guard). Sequential trigger-call pacing §a.5
 seat's lane, not a v3.1 prompt defect; only their fleet-prompt shadows
 (entries 7–9) queue here.
 
+## v3.6 changelog — stage-2 fold + the ninth seat (2026-07-13, owner final night order TASK 1)
+
+**Version label: v3.6, not "v3.5 stage-2".** The registry's own rule decides
+it: the stamp line is the DRIFT CHECK — any body-changing re-sync must bump
+the generation so a stale paste is detectable by quoting the stamp. Stage-2
+changes every startup body, so it takes the next number. (The former "v3.6 =
+kit #279 seat-digest fences" pending item shifts to v3.7 — still blocked on an
+unreleased kit.) Owner skim doc for the whole night's delta:
+[`../CHANGES-v3.4-to-v3.5.md`](../CHANGES-v3.4-to-v3.5.md).
+
+**Sources verified at superbot HEAD `c65750e` (2026-07-13):**
+`docs/owner/fleet-direct-orders-2026-07-13.md` (the standing open-PRs rule) ·
+`docs/fleet-reading-path.md` + `scripts/fleet_status.py` (Q-0272) ·
+`docs/owner/fleet-night-orders-2026-07-12.md` §0b + router Q-0273 (venue
+model) · `docs/owner/fleet-grounding.md` + router Q-0274 (grounding) ·
+`docs/owner/curious-research-project-prompts-2026-07-13.md` (ninth-seat
+founding pair).
+
+1. **OPEN-PRs-STAY-OPEN → STANDING default** (all 9 startups, shared DOCTRINE
+   AUTONOMY RIDER sentence, byte-identical): land on green where auto-merge
+   arms; otherwise leave the PR OPEN and take the next slice — never
+   merge-chase, never park-and-wait, open PRs are never blockers; follow-on
+   work stacks on the open head with the base noted in the PR body; the owner
+   sweeps open PRs from the hub venue. This supersedes v3.5 changelog item 5:
+   the owner promoted the night rule to durable doctrine (direct orders
+   2026-07-13), so it now clears the D-9 statelessness bar. CI hook: the
+   BOOT TRIAD / AUTONOMY dictionary entry.
+2. **FLEET READ (Q-0272)** (shared DOCTRINE paragraph): standing read-only
+   authorization for every fleet repo (pml DARK), the
+   `docs/fleet-reading-path.md` route, `fleet_status.py` as the live-state
+   command, and the unchanged boundaries (MCP scoped to attached repos;
+   writes in-repo; cross-repo work via manager ORDERs). CI hook: the Routes
+   footer.
+3. **VENUE MODEL (Q-0273)** (shared DOCTRINE paragraph): hub venue vs Project
+   seats vs the PM seat; merge/destructive-shaped owner-queue items carry the
+   `VENUE:hub` tag. CI hook: the six-field-ask sentence.
+4. **GROUNDING (Q-0274)** as boot reading: the shared DOCTRINE names §0–§1 +
+   YOUR seat's § + §10; each seat's Orientation route bullet carries its own
+   § number (fm §2 · superbot §3 · world §4 · ideas §5 · venture §6 · kit §7
+   · websites §8 · game-lab §9; curious-research predates its § and routes to
+   its founding pair).
+5. **NINTH SEAT — Curious Research:** `curious-research-startup.md` +
+   `curious-research-custom-instructions.md`, the founding pair conformed to
+   the registry format (shared blocks byte-identical, drift-checked; volatile
+   night program NOT carried, per D-9); failsafe slot `20 */2 * * *` adopted
+   into the stagger table; registered in the regen tool's SEATS block +
+   `seat_digest_sync.py`'s seat map; registry dir `projects/curious-research/`
+   generated at v1.
+6. **Budget compressions, no rule dropped:** the stage-2 folds added ~+310
+   bytes per CI; compensating wording compressions (shared set applied
+   identically across the 9, plus small per-seat compressions — e.g.
+   dictionary separators to ASCII hyphens, detail that rides the startups
+   verbatim shortened to its keyword) brought all 9 CIs to ≤ 7,999 bytes.
+   One factual refresh rode along: the superbot CI's `Q-0241 never-wait`
+   entry no longer reads "superbot-next ONLY" (Q-0271 generalized never-wait
+   fleet-wide; Q-0241 remains the rebuild's stronger rider).
+7. **Registry re-synced** (`--write-registry`); every projects/<seat>/
+   artifact version-bumped by one; curious-research artifacts start at v1.
+   Top v3.7 item: the kit #279 seat-digest fence wiring (blocked, unreleased).
+
 ## v3.5 changelog — autonomy-rider + seed-skills fold (2026-07-13, ORDER 039 task 5)
 
 **Source:** owner night-run directive ORDER 039 seat-task 5 (control/inbox.md) =
@@ -384,7 +471,10 @@ verbatim for the v3.4 instruction bodies"), and the two seed SKILL.md bodies
    only, NO rule dropped; final counts in the v3.5 table (all ≤ 7,996 bytes).
 5. **NOT folded — ORDER 039's open-PRs-stay-open night rule:** a night-mode
    rule, not durable doctrine; the registry is STATELESS (D-9) and has no
-   mode-rider slot. It lives in the ORDER thread only.
+   mode-rider slot. It lives in the ORDER thread only. **SUPERSEDED in v3.6:**
+   the owner promoted the rule to the STANDING default in the 2026-07-13
+   direct orders (superbot docs/owner/fleet-direct-orders-2026-07-13.md) —
+   folded as durable doctrine in the v3.6 changelog below.
 6. **Registry re-synced** (`--write-registry`); every projects/<seat>/
    artifact version-bumped by one (stamps in the regen tool's SEATS block).
    Top v3.6 item remains the kit #279 seat-digest fence wiring (blocked,
