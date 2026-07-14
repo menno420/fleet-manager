@@ -4,14 +4,14 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #46** · generated-at **2026-07-14T10:22Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #47** · generated-at **2026-07-14T11:59Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
 ### superbot (hub) — ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready…
 
 - suggested-id: `OQ-SUPERBOT-HUB-SIDE-RESIDUE-ONLY`
-- source: superbot/control/status.md @ `b822196` · heartbeat `updated:` 2026-07-13T18:00:00Z
+- source: superbot/control/status.md @ `92675e3` · heartbeat `updated:` 2026-07-13T18:00:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -21,7 +21,7 @@
 ### substrate-kit — ⚑ FOR OWNER (unchanged standing set — full paste-ready field blocks verbatim in git history of this file @ 86…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-UNCHANGED-STANDING-SET-FULL`
-- source: substrate-kit/control/status.md @ `86d8ac7` · heartbeat `updated:` 2026-07-14T04:02Z · coordinator session live (v3.6) · phase…
+- source: substrate-kit/control/status.md @ `bf39df0` · heartbeat `updated:` 2026-07-14T10:18Z · phase: EAP CLOSED — ORDER 021 walkthrou…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -34,7 +34,7 @@
 ### substrate-kit — - ⚑ 6 public-flip-or-PAT (unblocks B2–B4 cross-repo sweeps).
 
 - suggested-id: `OQ-SUBSTRATE-KIT-6-PUBLIC-FLIP-PAT`
-- source: substrate-kit/control/status.md @ `86d8ac7` · heartbeat `updated:` 2026-07-14T04:02Z · coordinator session live (v3.6) · phase…
+- source: substrate-kit/control/status.md @ `bf39df0` · heartbeat `updated:` 2026-07-14T10:18Z · phase: EAP CLOSED — ORDER 021 walkthrou…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -45,7 +45,7 @@
 ### ↳ substrate-kit — `control/status-superbot-coordinator.md` — ⚑ needs-owner: 1) verify/deliver the testing-lane wind-down — superbot-next control/status.md was still UNFLI…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-1-VERIFY-DELIVER-TESTING`
-- source: substrate-kit/control/status-superbot-coordinator.md @ `86d8ac7` · heartbeat `updated:` 2026-07-10T13:47:02Z
+- source: substrate-kit/control/status-superbot-coordinator.md @ `bf39df0` · heartbeat `updated:` 2026-07-10T13:47:02Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -71,7 +71,7 @@ pointer_r5c_proposal: docs/proposals/r5c-btc-bollinger-breakout-oos-proposal.md 
 ### venture-lab — ⚑ Owner asks queued: (1) OWNER-QUEUE click-runs (docs/publishing/OWNER-QUEUE.md, defaults **bolded**, "go wit…
 
 - suggested-id: `OQ-VENTURE-LAB-ASKS-QUEUED-1-QUEUE`
-- source: venture-lab/control/status.md @ `37e3c05` · heartbeat `updated:` 2026-07-14T08:58:01Z
+- source: venture-lab/control/status.md @ `d9c1fdd` · heartbeat `updated:` 2026-07-14T10:21:38Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -85,32 +85,23 @@ Next 2 (baton): (1) Friday 2026-07-17 grading pass — executor live on the coor
 2026-07-14T06:34:32Z ORDER 012 ack/done (fence-exposure fold, PR `claude/order-012-fence`): the kit `substrate-kit:capability-seed` fence restored in `docs/CAPABILITIES.md` in kit form (byte-identical to this repo's own `bootstrap.py` template render and to the superbot-next reference at `docs/CAPABILITIES.md:19`/`:101`); the real verified walls folded venue-tagged into the ledger's append log (self-merge classifier with the agent-unlandable-PR recipe `autonomous-project` · direct-push-to-main 422 ruleset · branch-delete 403 re-verify · no-API owner-click surfaces, all `any`); `docs/PLATFORM-LIMITS.md` converted to a pointer + verbatim-evidence appendix so the ledger is the ONE extractable source of truth; `docs/seat-digest.md` regenerated via `python3 bootstrap.py seat-digest` — the walls block now renders 7 rows + "+2 more" instead of "(no walls recorded for these venues)"; `python3 bootstrap.py check --strict` green locally apart from the designed born-red card hold (flipped at close). Done-when met at the PR head; landing rides the enabler on the `claude/*` head.
 2026-07-14T08:58:01Z EAP-audit note: the EAP project audit landed via PR #192 → `docs/audits/eap-project-audit-2026-07-14.md` (measured: VL 152 session cards / 224 commits / 192 PRs; TS 71 / 130 / 121; walls and asks recorded in §3/§9).
 2026-07-14T09:08:55Z EAP-audit follow-up: audit §8 attributions corrected via PR #193 — the selection-fair/reason_class/review-index/KILL-SIG fixes now cited repo-qualified to verified trading-strategy PRs (#111 d498018 · #121 c60183f · #109 3c628e4 · #100 08ddbd4) → docs/audits/eap-project-audit-2026-07-14.md §8.
+2026-07-14T10:21:38Z ORDER 013+014 ack/done (EAP final-day close-out): done-when met for both at the PR heads. ORDER 013 (INC-44) → PR #196 — docs/conventions.md rules 2–3 rewritten to the enabler doctrine (rule 3's merge-then-flag posture kept), docs/review-queue.md "self-merge grant" citation synced; no binding line instructs agent-side arming. ORDER 014(a)(2) decide-and-flag → PR #195 — stranded telemetry commit d1b0208 recovered by cherry-pick (branch pruning stays credential-walled, docs/PLATFORM-LIMITS.md). ORDER 014(b) → PR #197 — docs/eap-closeout-walkthrough-2026-07-14.md, sections A–E, linked from docs/AGENT_ORIENTATION.md; the OWNER ACTIONS checklist is surfaced in control/outbox.md ("2026-07-14 · EAP FINAL-DAY CLOSE-OUT" entry). All three PRs READY (never draft) on claude/* heads with born-red cards flipping next; landing rides the auto-merge enabler — this seat armed nothing and merged nothing. Parked, cited, not chased: the 262 owner publish clicks / 16 hard-gated sequences (docs/publishing/OWNER-QUEUE.md); grading pass time-gated to 2026-07-17T09:05Z (trig_01UsNU4JRps4b7jiAMdEfXNi).
 ```
 
-### superbot-games · Seat A — ⚑ needs-owner: ORDER 004 (self-review) — SATISFIED on main: artifact at docs/retro/close-out-world-games-2026…
+### superbot-games · Seat A — ⚑ needs-owner: 4 standing decisions, none new this wake — the OWNER ACTIONS checklist (deep links + bolded re…
 
-- suggested-id: `OQ-SUPERBOT-GAMES-ORDER-004-SELF-REVIEW`
-- source: superbot-games/control/status.md @ `ed2fabb` · heartbeat `updated:` 2026-07-12T10:16:22Z
+- suggested-id: `OQ-SUPERBOT-GAMES-4-STANDING-DECISIONS-NONE`
+- source: superbot-games/control/status.md @ `717e36c` · heartbeat `updated:` 2026-07-14T11:41:04Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-⚑ needs-owner: ORDER 004 (self-review) — SATISFIED on main: artifact at docs/retro/close-out-world-games-2026-07-11.md (authored 201f8dd/#47, relocated at close-out 3a4eb98/#57); done=004 is backed by real, spec-compliant content, not a bare marker. Remaining owner items: the OWNER-ACTION block below + docs/retro/archive-ready-2026-07-11.md. ⚑ mining WORKFLOW seam (rung 2) — audit-schema decision (D1 which schema / D2 audit item-grants, a divergence from the oracle) needs owner/lab ratification; scoped in docs/design/mining-workflow-seam.md, PR #60.
-```
-
-### superbot-games · Seat A — - ⚑ rung-3 packaging decision — docs/design/mining-host-adapter.md (scoped via #66).
-
-- suggested-id: `OQ-SUPERBOT-GAMES-RUNG-3-PACKAGING-DECISION`
-- source: superbot-games/control/status.md @ `ed2fabb` · heartbeat `updated:` 2026-07-12T10:16:22Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-- ⚑ rung-3 packaging decision — docs/design/mining-host-adapter.md (scoped via #66).
+⚑ needs-owner: 4 standing decisions, none new this wake — the OWNER ACTIONS checklist (deep links + bolded recommendations + VERIFY steps) is docs/eap-closeout-walkthrough-2026-07-14.md §C, surfaced verbatim in control/outbox.md § EAP CLOSE-OUT: (1) D2 audit-grants ratification · (2) rung-3 packaging/hermeticity · (3) persistence format-governance (3 sub-decisions) · (4) transfer-policy source model. RISK: all four are ↩️ reversible decision replies; no destructive click owed.
 ```
 
 ### ↳ superbot-games · Seat A — `control/status-exploration.md` — ⚑ needs-owner: \|
 
 - suggested-id: `OQ-SUPERBOT-GAMES-FLAG`
-- source: superbot-games/control/status-exploration.md @ `ed2fabb` · heartbeat `updated:` 2026-07-09T20:09Z
+- source: superbot-games/control/status-exploration.md @ `717e36c` · heartbeat `updated:` 2026-07-09T20:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -130,30 +121,40 @@ Next 2 (baton): (1) Friday 2026-07-17 grading pass — executor live on the coor
   posture, open until the P3→P4 gate), D‑0009 (CI gate; revert = veto).
 ```
 
+### superbot-idle (Seat B) — ⚑ needs-owner: OA-003 — WHAT: add `pytest` as a required status check on main. WHERE: https://github.com/menn…
+
+- suggested-id: `OQ-SUPERBOT-IDLE-OA-003-WHAT-ADD`
+- source: superbot-idle/control/status.md @ `ce5387c` · heartbeat `updated:` 2026-07-14T11:32:05Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+⚑ needs-owner: OA-003 — WHAT: add `pytest` as a required status check on main. WHERE: https://github.com/menno420/superbot-idle/settings/branches → `main` protection rule → required status checks. HOW: add `pytest` alongside `substrate-gate` + `theme-gate` (click only). RISK: ✅ safe · ↩️ reversible (uncheck to undo). WHY-IT-MATTERS: until then a PR can merge with the test suite red (GREEN ≠ TESTED). UNBLOCKS: merge-on-green becomes trustworthy for every future PR. VERIFIED-NEEDED: branch-protection settings are owner/admin-only — standing since PR #74 (OA-003); agent sessions hold no repo admin scope. Full pending-decision list with recommendations: docs/eap-closeout-walkthrough-2026-07-14.md § C.
+```
+
 ### superbot-idle (Seat B) — - ⚑ to manager: no longer a blocker-ask. Optional follow-up only — owner may create the standalone superbot-p…
 
 - suggested-id: `OQ-SUPERBOT-IDLE-MANAGER-NO-LONGER-BLOCKER`
-- source: superbot-idle/control/status.md @ `efccd69` · heartbeat `updated:` 2026-07-13T17:43Z
+- source: superbot-idle/control/status.md @ `ce5387c` · heartbeat `updated:` 2026-07-14T11:32:05Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
 - ⚑ to manager: no longer a blocker-ask. Optional follow-up only — owner may create the standalone superbot-plugin-hello repo (still empty); exemplar is in-tree meanwhile.
 ```
 
-### superbot-mineverse — ⚑ needs-owner: (1) sender-side HMAC adoption — owner/bot-lane work via the superbot #2058 draft flip; full OW…
+### superbot-mineverse — ⚑ needs-owner: the four pending clicks are consolidated in the walkthrough's OWNER ACTIONS checklist (docs/ea…
 
-- suggested-id: `OQ-SUPERBOT-MINEVERSE-1-SENDER-SIDE-HMAC`
-- source: superbot-mineverse/control/status.md @ `c01c013` · heartbeat `updated:` 2026-07-14T09:03:48Z
+- suggested-id: `OQ-SUPERBOT-MINEVERSE-FOUR-PENDING-CLICKS-CONSOLIDATED`
+- source: superbot-mineverse/control/status.md @ `ae1c414` · heartbeat `updated:` 2026-07-14T11:34:32Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-⚑ needs-owner: (1) sender-side HMAC adoption — owner/bot-lane work via the superbot #2058 draft flip; full OWNER-ACTION block below (§ OWNER-ACTION). (2) The six OAuth/write host env vars remain owner-only — six-field block: control/outbox.md entry 2026-07-12T21:05Z (outstanding pair: MINING_WRITE_ENDPOINT + MINING_WRITE_SHARED_SECRET; the ingest side additionally needs MINING_SNAPSHOT_RELAY_SHARED_SECRET + MINING_SNAPSHOT_PATH web-host-side, see §2058 block). (3) Carried: pytest as required check on superbot-idle main (OA-003) — six-field block: control/outbox.md entry 2026-07-13T14:56Z (VENUE: hub).
+⚑ needs-owner: the four pending clicks are consolidated in the walkthrough's OWNER ACTIONS checklist (docs/eap-closeout-walkthrough-2026-07-14.md §C, each with a bolded recommendation + VERIFY step): (1) superbot #2058 draft flip + sender-side HMAC — six-field block below (§ OWNER-ACTION, carried); (2) the six host env vars, names only — six-field block: control/outbox.md entry 2026-07-12T21:05Z (outstanding pair: MINING_WRITE_ENDPOINT + MINING_WRITE_SHARED_SECRET; ingest side adds MINING_SNAPSHOT_RELAY_SHARED_SECRET + MINING_SNAPSHOT_PATH web-host-side); (3) real-endpoint conformance e2e once the write pair exists (docs/conformance-runbook.md — env-gated); (4) carried OA-003: pytest as required check on superbot-idle main — six-field block: control/outbox.md entry 2026-07-13T14:56Z (VENUE: hub).
 ```
 
 ### superbot-mineverse — ⚑ OWNER-ACTION
 
 - suggested-id: `OQ-SUPERBOT-MINEVERSE-FLAG`
-- source: superbot-mineverse/control/status.md @ `c01c013` · heartbeat `updated:` 2026-07-14T09:03:48Z
+- source: superbot-mineverse/control/status.md @ `ae1c414` · heartbeat `updated:` 2026-07-14T11:34:32Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -170,7 +171,7 @@ VERIFIED-NEEDED: #2058 is another repo's owner/bot-lane draft and its body names
 ### gba-homebrew — - **⚑ Self-initiated** (rung 4, coordinator-directed): web-arcade
 
 - suggested-id: `OQ-GBA-HOMEBREW-SELF-INITIATED-RUNG-4`
-- source: gba-homebrew/control/status.md @ `f485622` · heartbeat `updated:` 2026-07-12T16:20:12Z
+- source: gba-homebrew/control/status.md @ `2cbeb7b` · heartbeat `updated:` 2026-07-12T16:20:12Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -197,7 +198,7 @@ VERIFIED-NEEDED: #2058 is another repo's owner/bot-lane draft and its body names
 ### gba-homebrew — - **⚑ Self-initiated closing upkeep** (`claude/arcade-refresh`, cut
 
 - suggested-id: `OQ-GBA-HOMEBREW-SELF-INITIATED-CLOSING-UPKEEP`
-- source: gba-homebrew/control/status.md @ `f485622` · heartbeat `updated:` 2026-07-12T16:20:12Z
+- source: gba-homebrew/control/status.md @ `2cbeb7b` · heartbeat `updated:` 2026-07-12T16:20:12Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -214,6 +215,23 @@ VERIFIED-NEEDED: #2058 is another repo's owner/bot-lane draft and its body names
   paths complete (#110–#128), committed-proofs convention, dist
   versions per dist/README.md. (3) Stale-claims sweep: six served
   claims deleted, each verified merged at live GitHub (#83, #84,
+```
+
+### gba-homebrew — - ⚑ contained sweep: served claims deleted — claude-tiltstone-{par,
+
+- suggested-id: `OQ-GBA-HOMEBREW-CONTAINED-SWEEP-SERVED-CLAIMS`
+- source: gba-homebrew/control/status.md @ `2cbeb7b` · heartbeat `updated:` 2026-07-12T16:20:12Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+- ⚑ contained sweep: served claims deleted — claude-tiltstone-{par,
+  juice,cells,packs} (merged today, shas above) + claude-arcade-refresh
+  (#130 = `d0290d6` on origin/main, verified live).
+- strict check: pre-flip exit 1 (designed born-red hold on this
+  session's card, sole finding); post-flip expected exit 0 (the flip
+  is this branch's last commit). Outbox appended (22:29Z ask closed).
+- PR #133 opened READY on main; no merge/auto-merge calls from this
+  session — the server-side enabler decides on green.
 ```
 
 ### product-forge — ⚑ OWNER-ACTION (OA-003, open)
@@ -239,7 +257,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### idea-engine — ⚑ needs-owner: unchanged — the full three-item bundle (owner sitting ≤2026-07-13, websites cutover, gift repo…
 
 - suggested-id: `OQ-IDEA-ENGINE-UNCHANGED-FULL-THREE-ITEM`
-- source: idea-engine/control/status.md @ `24195f8` · heartbeat `updated:` 2026-07-14T09:31:52Z (real wall-clock via date -u, monotoni…
+- source: idea-engine/control/status.md @ `6d6735f` · heartbeat `updated:` 2026-07-14T09:31:52Z (real wall-clock via date -u, monotoni…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -258,5 +276,5 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 
 ---
 
-17 candidate block(s) across 13 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
+18 candidate block(s) across 13 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
 
