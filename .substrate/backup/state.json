@@ -7,22 +7,22 @@
     "soft_target_sessions": 50
   },
   "graduation_proposed": false,
-  "kit_version": "1.15.0",
+  "kit_version": "1.16.0",
   "last_compaction_session": 0,
   "mode": "guided",
   "mode_history": [],
   "open_questions": [],
   "planted_doc_hashes": {
     ".session-journal.md": "3033f0818bf7b3d9a4743742ad99bb24df445451a70cbd537ecc45f47394d18f",
-    "CONSTITUTION.md": "384bbe77a922abbddb70cafb7b1b34a7d7a14e84132381642e8ff2632fd1cf33",
-    "control/claims/README.md": "94281a6f9c7eb98a7d27ccac8a2ebc485f6e32c9addef5be0612d0a177e04d87",
+    "CONSTITUTION.md": "e344a5567def3bc23f8c6b8810870ca4058471271fbe6e714ba44cf298b5b956",
+    "control/claims/README.md": "1f8cb9cf506506977b3d0592138536f667edbceab5d5f45b4acff0ca247d8fa0",
     "docs/AGENT_ORIENTATION.md": "575f0f385f6239d4676a7c12eb0a6217ed80af66a24483d597c33aee6e5e7001",
     "docs/CAPABILITIES.md": "41d555a7971042c43a4fede58b7b46ec34872e85bf5c53a4d4ab5e1c1e1fb8e8",
-    "docs/ROUTINES.md": "68ffa1d72d456233c7ed9cfad0396f263abc91ca7995c84bcb34ceac10420748",
+    "docs/ROUTINES.md": "d43bf3676b4602bd7d9f332267e94fc4b4c85776ef50421798a4bccae9e82b4b",
     "docs/SKILLS.md": "798e25e797fc277973dfc0bd06fb72697ef9f666ac1e7587261736a0b4aeed43",
     "docs/ai-project-workflow.md": "1a21ebe0cdc72e3e1f4d48804a065e689c164bf1e56dae6464247574c24f28cd",
     "docs/architecture.md": "13d5aed1149917d45be24eab41567315dfe7ffa5280a95db63c5bf64d6a46934",
-    "docs/collaboration-model.md": "ed3e38021d570d5e07ad3e457e9d5518b9939beb8d81dd31fcc8473aa2505800",
+    "docs/collaboration-model.md": "58530c2968732318df9055fb179178993f26f61ea8e3fd5db62f2702e01af0f1",
     "docs/current-state.md": "180c356f54013c6178fc4898d542e7b0a58a0983254066fb9d39453a662a2088",
     "docs/decisions.md": "7b718cd3857d7b694cfa66babfd9e070d6cb37ca1d67c8bb6ea0cfc0cf881f50",
     "docs/helper-policy.md": "dfb662ccd990e31b6f9d8f139a28f59075ab356ee5453d7b546a43baf65ac8c1",
@@ -30,9 +30,10 @@
     "docs/owner-profile.md": "280455cd4c8006eb5ac79bdaaf3345ea4c9e6028bc835547d2036772d3dad1b8",
     "docs/ownership.md": "5efa2888f1b6c4274fab1625d6a397a306e995de9c7c2ecae76efc8321122f39",
     "docs/question-router.md": "94c4d77b286de6011c3d241e3aebdd7c7f294e036ed476f0e4fe92e5d4992bd3",
+    "docs/reading-path.md": "a9808cb898cf7bed4362e01893dfd76ce215d1ee89f8394b223add7a725d7d9b",
     "docs/repo-navigation-map.md": "61f30b0f4befcdc1e71c8587df3914710d5d58637a4883786cf45007366d2c00",
     "docs/runtime_contracts.md": "14452bfd36b1f6afc725bc39a15e069f5b0ef5e273f21ffecba20cbadf3e57ad",
-    "docs/seat-digest.md": "ad84f214386edb416e3f9a845f5efcb23e26b68bd1437a4dda7bf3a35b49737c",
+    "docs/seat-digest.md": "55ca4382afe87c757c0e86928556a6336a41f68d98d5e0f994d6a9de545f3fea",
     "scripts/env-setup.sh": "cd2145129fcba288ff9399ad44146a09017d85813e282c16bcba22340b613a2c"
   },
   "project_id": "7976f2aa96d9",
@@ -65,6 +66,21 @@
       "question_id": "Q-011",
       "source": "user",
       "value": "Source files and merged PRs win over any doc; when the playbook and reality disagree, fix the playbook the same session (friction -> rule, R-series)."
+    },
+    "fleet_dark_repos": {
+      "question_id": "Q-016",
+      "source": "user",
+      "value": "all fleet siblings are public and readable read-only EXCEPT pokemon-mod-lab (PRIVATE \u2014 raw/clone hits an auth wall; roster marks it NOT MEASURED; never raw-fetch or guess about it). Live list of lanes: docs/roster.md (generated)"
+    },
+    "fleet_siblings": {
+      "question_id": "Q-015",
+      "source": "user",
+      "value": "docs/roster.md is the generated sibling map \u2014 one row per lane: repo \u00b7 seat/role \u00b7 heartbeat verdict \u00b7 kit version \u00b7 triggers \u00b7 HEAD evidence. Each sibling's truth files are its control/status*.md heartbeat(s) plus its docs/CAPABILITIES.md; regenerate-don't-restate \u2014 never hand-copy roster rows here"
+    },
+    "fleet_status_command": {
+      "question_id": "Q-014",
+      "source": "user",
+      "value": "open docs/roster.md \u2014 the generated fleet roster (regenerated ~2-hourly by .github/workflows/roster-regen.yml via scripts/gen_roster.py; if its generated-at is >24h stale, trust the lane heartbeats directly per its kill-switch note)"
     },
     "integration_mode": {
       "question_id": "Q-001",
@@ -121,6 +137,9 @@
     "architecture_layers": "filled",
     "doc_roots": "provisional",
     "drift_resolution": "filled",
+    "fleet_dark_repos": "filled",
+    "fleet_siblings": "filled",
+    "fleet_status_command": "filled",
     "integration_mode": "filled",
     "mutation_seam": "filled",
     "new_area_ownership": "filled",
