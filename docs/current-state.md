@@ -57,8 +57,13 @@ swept 2026-07-14T02:5xZ against the live GitHub API.)
   dispatcher lands it.
 - **EAP audit fan-out (2026-07-14)** — every Project lands
   `docs/audits/eap-project-audit-2026-07-14.md` in its repo(s); tracker:
-  [EAP audit collection (2026-07-14)](eap-audit-collection.md) (0/13 at
-  HEAD at the 08:34Z seed scan; synthesis + final-email draft at majority).
+  [EAP audit collection (2026-07-14)](eap-audit-collection.md) (sweep 2 at
+  09:52Z: **7/13 at HEAD, majority CROSSED** — synthesis + final-email
+  draft step now due, flagged to the coordinator).
+- **EAP final-day closeout fan-out (2026-07-14, fm #193)** — 13 lane
+  closeout ORDERs dispatched ~09:34–09:37Z, **13/13 terminal** (12 merged +
+  pokemon-mod-lab #85 parked green by design); full record:
+  [EAP final recon + closeout fan-out (2026-07-14)](eap-final-recon-2026-07-14.md).
 - Previous entries live-verified MERGED and moved below: fm #86
   (2026-07-11T20:31:56Z), fm #95 (2026-07-12T01:56:29Z), fm #178
   (2026-07-13T22:07:14Z). `OQ-FM-ACTIONS-PR-PERMISSION` RESOLVED 2026-07-12
