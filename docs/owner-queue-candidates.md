@@ -4,7 +4,7 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #44** · generated-at **2026-07-14T08:43Z** · by manager failsafe wake 0845Z (worker session), dispatched by fleet-manager coordinator failsafe wake, 2026-07-14T08:45Z
+> **Generation #45** · generated-at **2026-07-14T09:03Z** · by manager failsafe wake 0845Z (worker session), merge-resolution regen absorbing automated gen #44 (PR #192), dispatched by fleet-manager coordinator failsafe wake, 2026-07-14T08:45Z
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
@@ -55,7 +55,7 @@
 ### venture-lab — ⚑ Owner asks queued: (1) OWNER-QUEUE click-runs (docs/publishing/OWNER-QUEUE.md, defaults **bolded**, "go wit…
 
 - suggested-id: `OQ-VENTURE-LAB-ASKS-QUEUED-1-QUEUE`
-- source: venture-lab/control/status.md @ `17b0499` · heartbeat `updated:` 2026-07-14T04:01:48Z
+- source: venture-lab/control/status.md @ `72a9c8a` · heartbeat `updated:` 2026-07-14T08:58:01Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -67,6 +67,7 @@ Next 2 (baton): (1) Friday 2026-07-17 grading pass — executor live on the coor
 2026-07-14T03:43:50Z night-progress (BOOKS generative rung, ORDER 008 item 1 / ORDER 011 item 2): second adult title **The Wire Garden** complete on PR #187 (`claude/night-wire-garden`) — 12 chapters, honest `wc -w` 15,900 (band 15,000–16,000), `candidates/adult-novels/the-wire-garden/{en/the-wire-garden.md,DECISIONS.md}` (verified-vs-invented Dodendraad ledger; exact-title collision recorded, subtitle mandatory; NL title pre-named De draadtuin); shortlist doc marked 2 WRITTEN · 3 unwritten (next: The Salt Bell 24/30); docs/publishing/** untouched — vetting packet queued as follow-up slice.
 2026-07-14T04:01:48Z night-summary (continuation wave complete — final close-out slice, `claude/night-wire-garden-packet`): the Wire Garden owed follow-up landed — vetting packet `docs/publishing/vetting/the-wire-garden.md` (manuscript-backed, 15,900w re-measured; §2 collision re-scan confirms the 2025 genre-disjoint Marcum thriller, retitle declined, subtitle *A novella of the Dodendraad* MANDATORY; NL pre-name *De draadtuin* carried), keyword-map rows (2 browse-node claims + 7 EN rows; C3's fifth Netherlands era-register, WWI neutral-border/Dodendraad; full-map V057 first-claim scan run at proposal and re-run at apply, zero collisions), ONE `derive_owner_queue.py` regen — counts now **19 decisions / 44 sequences / 262 clicks (16 hard-gated), 46/46 inputs clean** (from 19/43/256, 16) — counts-sync to current-state + NEXT-SESSION. NIGHT TALLY, all lists done, no remainder: venture shipped product #10 (AI Novella Production Kit $29 publish-READY) + 2 new EN novellas (The Sweetwater Sea 15,243w PR #182, The Wire Garden 15,900w PR #187) + 7 NL editions (PRs #183–#186 wave — NL catalog 13/13 complete) + 8 large-print EDITION-SPECs (PR #172) + sim verdicts applied (V037/V039/V040/V041 + V053/V057/V049, PRs #163/#173) + V020 probe pre-registered (PR #179); trading shipped round 6 + retrospective + 2 infra improvements (trading repo); pointers: docs/publishing/OWNER-QUEUE.md (owner clicks), docs/current-state.md + docs/NEXT-SESSION.md (synced counts).
 2026-07-14T06:34:32Z ORDER 012 ack/done (fence-exposure fold, PR `claude/order-012-fence`): the kit `substrate-kit:capability-seed` fence restored in `docs/CAPABILITIES.md` in kit form (byte-identical to this repo's own `bootstrap.py` template render and to the superbot-next reference at `docs/CAPABILITIES.md:19`/`:101`); the real verified walls folded venue-tagged into the ledger's append log (self-merge classifier with the agent-unlandable-PR recipe `autonomous-project` · direct-push-to-main 422 ruleset · branch-delete 403 re-verify · no-API owner-click surfaces, all `any`); `docs/PLATFORM-LIMITS.md` converted to a pointer + verbatim-evidence appendix so the ledger is the ONE extractable source of truth; `docs/seat-digest.md` regenerated via `python3 bootstrap.py seat-digest` — the walls block now renders 7 rows + "+2 more" instead of "(no walls recorded for these venues)"; `python3 bootstrap.py check --strict` green locally apart from the designed born-red card hold (flipped at close). Done-when met at the PR head; landing rides the enabler on the `claude/*` head.
+2026-07-14T08:58:01Z EAP-audit note: the EAP project audit landed via PR #192 → `docs/audits/eap-project-audit-2026-07-14.md` (measured: VL 152 session cards / 224 commits / 192 PRs; TS 71 / 130 / 121; walls and asks recorded in §3/§9).
 ```
 
 ### superbot-games · Seat A — ⚑ needs-owner: ORDER 004 (self-review) — SATISFIED on main: artifact at docs/retro/close-out-world-games-2026…
@@ -231,7 +232,7 @@ VERIFIED-NEEDED: #2058 is another repo's owner/bot-lane draft and its body names
 ### gba-homebrew — - **⚑ Self-initiated** (rung 4, coordinator-directed): web-arcade
 
 - suggested-id: `OQ-GBA-HOMEBREW-SELF-INITIATED-RUNG-4`
-- source: gba-homebrew/control/status.md @ `87680c9` · heartbeat `updated:` 2026-07-12T16:20:12Z
+- source: gba-homebrew/control/status.md @ `d0290d6` · heartbeat `updated:` 2026-07-12T16:20:12Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -253,6 +254,28 @@ VERIFIED-NEEDED: #2058 is another repo's owner/bot-lane draft and its body names
   package is current, and no inbox ORDER is unserved (001-005 all
   served; the EAP night ORDER never arrived — the #104 outbox ask to
   the manager stands). Open non-lane PRs: Tiltstone stack
+```
+
+### gba-homebrew — - **⚑ Self-initiated closing upkeep** (`claude/arcade-refresh`, cut
+
+- suggested-id: `OQ-GBA-HOMEBREW-SELF-INITIATED-CLOSING-UPKEEP`
+- source: gba-homebrew/control/status.md @ `d0290d6` · heartbeat `updated:` 2026-07-12T16:20:12Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+- **⚑ Self-initiated closing upkeep** (`claude/arcade-refresh`, cut
+  from main @ `87680c9`, PR #129 merged): three contained items, one
+  PR. (1) Web-arcade repin: `dist/web/` + `dist/releases/` re-run
+  through the #109 machinery at HEAD — Undertow zip v1.0 -> v1.5
+  (#110/#114/#118/#123/#126), Drift Garden v1.0 -> v1.4
+  (#111/#115/#119/#124), arcade bundle v1.1 -> v1.2; Tiltstone
+  unchanged and its rebuilt zip reproduced the #109 pin byte-exactly.
+  `--verify` green twice; run-twice zips byte-identical.
+  (2) `docs/current-state.md` rewritten to HEAD (the old revision's
+  log ended at session 8): 11-game roster, all four named growth
+  paths complete (#110–#128), committed-proofs convention, dist
+  versions per dist/README.md. (3) Stale-claims sweep: six served
+  claims deleted, each verified merged at live GitHub (#83, #84,
 ```
 
 ### product-forge — ⚑ OWNER-ACTION (OA-003, open)
@@ -297,5 +320,5 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 
 ---
 
-21 candidate block(s) across 13 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
+22 candidate block(s) across 13 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
 
