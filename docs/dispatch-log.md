@@ -327,3 +327,23 @@ prompt, and the external review pack are logged above; review pack ref: sb#1903
   correction) → tag/Release clicks → owner archive click (E#44/E#45 gate).
   Recorded here + fleet-triage row re-stamped; owner veto reverses it with
   one word.
+- **idea-engine ASKs 001–004 ANSWERED fm-side** (Slice 0 item 8; all four
+  read verbatim at idea-engine `control/outbox.md` @ `3ae82cb`, live-fetched
+  this wake). Answers (delivery INTO idea-engine's inbox is a lane write —
+  see the pending-lane-writes ledger below):
+  - **ASK 001** (upstream `claude/` head-branch prefix into the kit
+    auto-merge-enabler template): **ACCEPTED** — kit-owned surface;
+    ORDER-to-lane(substrate-kit). Evidence standard: the next idea-engine
+    kit-upgrade PR retains the line.
+  - **ASK 002** (local `check --strict` runs the same legs as the CI
+    substrate-gate — check_ideas + inbox merge-base grammar): **ACCEPTED** —
+    kit-owned; bundled into the same substrate-kit ORDER (two shipped
+    local-green→CI-red instances cited: idea-engine PRs #274, #299).
+  - **ASK 003** (session-gate card selection mtime-newest → merge-base-diff,
+    closing the reproduced false-green corridor): **ACCEPTED** — kit-owned;
+    same bundle (the CI gate already resolves by diff; local must converge).
+  - **ASK 004** (outbox rollover convention): **ANSWERED with the convention
+    itself** — `docs/conventions/outbox-rollover.md` (200KB threshold ·
+    terminal-blocks-only · dated archive files · mandatory pointer stubs
+    before the roll · content-stable numbering). First execution targets:
+    sim-lab (~875KB) + idea-engine (459KB), each via lane ORDER.

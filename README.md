@@ -26,6 +26,7 @@ records custody + manager-internal memory → here.
 | [Central docs plan](docs/central-docs-plan.md) | Fleet documentation centralization plan — what moves where, migration order. |
 | [`docs/trigger-health-spec.md`](docs/trigger-health-spec.md) | The per-wake trigger-health spec (R26 / ORDER 020) — canonical here since 2026-07-14 (plan A2). |
 | [`docs/q-index.md`](docs/q-index.md) | Repo-qualified Q→pointer table for cross-repo-cited owner decisions (superbot router stays canonical). |
+| [`docs/conventions/outbox-rollover.md`](docs/conventions/outbox-rollover.md) | The append-only outbox rollover/archival convention (plan A10 — answers idea-engine ASK 004). |
 | [Fleet inconsistencies (2026-07-13)](docs/fleet-inconsistencies-2026-07-13.md) | 19-repo review ledger of cross-fleet inconsistencies — fix-now items + ORDER-to-lane rest. |
 | [EAP story](docs/eap-story.md) | The Extended Autonomy Program, told start to finish — what was built and how. |
 | [EAP retrospective](docs/eap-retrospective.md) | EAP retrospective — what worked, what didn't, what carries forward. |
