@@ -1,24 +1,22 @@
 # Fleet Manager — coordinator heartbeat
 
-updated: 2026-07-14T14:07:26Z — coordinator live, OWNER LIVE (EAP final day; branch-recreation follow-up closing on PR #200; owner-live hub sweep still pending)
+updated: 2026-07-14T16:14Z — coordinator live, OWNER LIVE (EAP final day; branch-sweep addendum closing on PR #205; post-sweep reconciliation running in parallel on PR #203 — its heartbeat supersedes this one when it lands)
 
 ## Routine disposition
-- Failsafe armed: `trig_01FpTbpXCeGcotnBpTkscAdr` · cron `30 */2 * * *` · next ~14:33Z. Pacemaker chain live (~30 min, Q-0265).
+- Failsafe armed: `trig_01FpTbpXCeGcotnBpTkscAdr` · cron `30 */2 * * *` · next ~16:33Z. Pacemaker chain live (~30 min, Q-0265).
 
-## Shipped this wake (PR #200, claude/branch-recreation-followup + kit lane)
-- substrate-kit ORDER 022 (P0) MERGED via kit #369 @ 1a55020: PROPOSAL 003 + its 13:44Z ADDENDUM relayed verbatim — stop-hook must never push a branch whose PR already merged; fix before the fleet reboot.
-- BRANCH-LITTER ROOT CAUSE, revised per evidence (Q-0120): census confirmed 460/491 survivors at exact merged-head SHA, but curious-research's controlled counter-datapoint (their #46: survived bot-auto-merge with ZERO post-merge push) + our spot-samples (websites #240/#212, bot-merged, tip==head) revise the primary cause to GitHub's delete-branch-on-merge NOT firing for auto-merged PRs; the session post-merge re-push is the proven secondary path. Email ask-4 clause landed corrected; census at docs/findings/branch-recreation-census-2026-07-14.md; checklist row 11 trued (one-time sweep safe-permanent for the existing ~460, but accumulation CONTINUES for future bot-merged PRs until the GitHub-side cause is fixed).
-- Census errata baked in: websites #19 merged 2026-07-09 (not 07-14); fm #122 tip is a rewritten sibling pushed 21s post-merge.
-- Provenance: coordinator dispatch (no fm inbox ORDER covers this work — same pattern as kit ORDER 021; recorded here as the durable trace).
-- Gates at close: 4/4 verify scripts green; bootstrap red only on this card's hold.
+## Shipped this wake (PR #205 + kit lane)
+- BRANCH-LITTER ROOT CAUSE SETTLED via web research: GitHub's delete-branch-on-merge silently skips merges performed by app/bot actors (community#63409 · cli/cli#9073; docs name only rules/rulesets as exclusions) — covers every fleet auto-merge. pull_request:closed cleanup is a known trap (GITHUB_TOKEN events don't trigger workflows). Remedy = scheduled cron branch-sweep.
+- substrate-kit ORDER 023 (P1, extends 022) MERGED via kit #375: branch-sweep.yml template — enumerate merged+closed PRs, delete claude/*/codex/*/bot/* head refs, skip open-PR heads; done-when: kit release + adopters regenerate.
+- fm records: census doc dated addendum (settled cause + 4 source URLs) + checklist row 11 trued.
+- Owner-live hub sweep near-done at last check (10/13 repos at zero open PRs; kit #317 + pml #84/#85 owner-merged; residue: pml #86 dirty-needs-retarget, pml #68, superbot #2061 held-draft, next's 11 frozen WP-stack).
 
 ## Open/parked PRs + landing paths
-- fm #200: OPEN + READY; lands on green after the flip (merge-on-green sweep).
-- pml #66/#82/#84/#85/#86 + kit #317: awaiting the owner-live hub sweep.
+- fm #205: OPEN + READY; lands on green after the flip. fm #203 (reconciliation): in flight, parallel lane.
 
 ## Next-2 baton
-1. Post-hub-sweep reconciliation (records true-up, final pre-archive state); verify kit ORDER 022 consumption (fix released before reboot).
-2. superbot walkthrough watch (last straggler) · reboot founding prompts on owner request.
+1. PR #203 reconciliation completes the final pre-archive record (all fm records trued to the swept fleet).
+2. Reboot founding prompts on owner request; verify kit ORDERs 022/023 consumption post-reboot.
 
 ## ⚑ Owner asks
-- Checklist (50 rows, row 11 updated) at docs/eap-owner-checklist-2026-07-14.md; E#28 expires TODAY; hub sweep clears the merge/branch rows.
+- Checklist at docs/eap-owner-checklist-2026-07-14.md (remaining rows ≈ console/credential/decision only after the sweep). E#28 expires TODAY.
