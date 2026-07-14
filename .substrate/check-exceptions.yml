@@ -1,0 +1,25 @@
+# one entry per accepted finding — reason is REQUIRED
+# These three stamp findings are fired by foreign-repo ledger IDs quoted as
+# review evidence in the 2026-07-13 EAP fleet-review docs. The stamp rule
+# guards fm's OWN D-NNNN citations (one home per fm decision); the review
+# docs quote substrate-kit / sim-lab / websites ledger IDs verbatim as
+# evidence (the inconsistency ledger's whole subject is cross-repo ID drift,
+# INC-49), so rewording them would destroy the evidence they carry.
+- path: eap-story.md
+  kind: stamp
+  reason: "D-0001 here is substrate-kit's ledger ID (dogfooding decision), quoted as review evidence — not an fm stamp; fm's own D-0001 home is docs/decisions.md"
+  triaged: 2026-07-14
+  by: session-central-docs-review
+  verdict: false_positive
+- path: central-docs-plan.md
+  kind: stamp
+  reason: "D-0002 here is substrate-kit's program-law anti-copy ID, load-bearing in the centralization plan and quoted in the inconsistency ledger — foreign-ledger citation, not an fm stamp"
+  triaged: 2026-07-14
+  by: session-central-docs-review
+  verdict: false_positive
+- path: findings/retro-synthesis-2026-07-09.md
+  kind: stamp
+  reason: "D-0008 collision is sim-lab's ledger ID quoted as INC-49 evidence in fleet-inconsistencies-2026-07-13.md against the pre-existing retro-synthesis citation — cross-repo quote, not a second fm stamp home"
+  triaged: 2026-07-14
+  by: session-central-docs-review
+  verdict: false_positive
