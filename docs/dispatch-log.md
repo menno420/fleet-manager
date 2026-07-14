@@ -363,11 +363,16 @@ the Slice 0 items themselves, which are complete fm-side.
    `docs/owner/trigger-health-order-2026-07-12.md` → pointer to fm
    `docs/trigger-health-spec.md` (plan A2 / Slice 0 item 4, the #1974
    pattern) · superbot outside fm write scope tonight.
+   → ✅ dispatched — superbot PR #2094 / ORDER 005 / MERGED (rows 1+2
+   relayed as ONE ORDER; branch `claude/fm-dispatch-0409z`;
+   premise-checked unsatisfied at superbot `619f488`).
 2. **superbot** · supersession banners on the two frozen seeds
    `docs/planning/fleet-centralization-plan-2026-07-11.md` +
    `docs/planning/fleet-review-2026-07-11.md` → pointer to fm
    `docs/planning/2026-07-14-central-docs-plan.md` (plan §1
    Self-application / Slice 0 item 9) · same.
+   → ✅ dispatched — superbot PR #2094 / ORDER 005 / MERGED (same
+   single ORDER as row 1).
 3. **substrate-kit** · one bundled ORDER: (a) enabler-template `claude/`
    head-branch allowlist line (idea-engine ASK 001); (b) `check --strict`
    converges on the CI substrate-gate legs (ASK 002); (c) session-gate card
@@ -376,16 +381,35 @@ the Slice 0 items themselves, which are complete fm-side.
    lowercase `fleet-manager docs/capabilities.md` pointer → uppercase
    `docs/CAPABILITIES.md` (INC-29 / plan B2 — one template fix heals ~14
    adopters) · all kit-owned surfaces.
+   → ✅ dispatched — substrate-kit PR #361 / ORDER 020 / MERGED
+   04:12:59Z. Premise check at kit `a4d858e`: sub-items (a)/(b)/(c) ALL
+   THREE already satisfied lane-side (recorded as satisfied inside
+   ORDER 020); build items are (d) + (e), both still live
+   (`src/engine/templates/CAPABILITIES.md.tmpl:8` +
+   `src/engine/seatdigest.py:31`/`:442`).
 4. **idea-engine** · deliver the ASK 001–004 answers (above) into its
    `control/inbox.md` + ORDER its own outbox rollover per the convention ·
    lane write.
+   → ✅ dispatched — idea-engine PR #396 / ORDER 010 / MERGED 04:10:55Z
+   (outbox measured 525,256 B, un-rolled; ASKs still `status: new` at
+   `267b4d5`).
 5. **sim-lab** · ORDER the ~875KB outbox rollover per
    `docs/conventions/outbox-rollover.md` + cross-link the OA-002 split
    verdict (enabled=resolved / quota=open, INC-04) into its ledger · lane
    write.
+   → ✅ dispatched — sim-lab PR #127 / ORDER 006 / MERGED 04:11:31Z
+   (outbox measured 1,016,968 B ≈ 993KB, not the ledgered ~875KB; OA-002
+   split verdict absent; sim-lab ORDER 005 item 5 was
+   rollover-prep-only, parked on the ASK 004 answer this delivers).
 6. **pokemon-mod-lab** · correct its own "Q-0266" citations for the QoL+
    pick to `superbot:Q-0262.7` (INC-09, ORDER-to-lane half; fm's side fixed
    this wake in `docs/q-index.md` + the findings doc) · lane write.
+   → ✅ dispatched — pokemon-mod-lab PR #82 / ORDER 007 / OPEN at
+   dispatch close (substrate-gate SUCCESS, ROM builds in_progress;
+   merge-on-green path, private-repo auto-merge wall respected). Q-0266
+   hits confirmed live at pml `759dee4`: `docs/review-queue.md:21`,
+   `docs/backlog.md:16`, `docs/current-state.md:120`+`:142`, plus two
+   historical `.sessions/` cards (annotation-style fix acceptable).
 7. **product-forge** · land the final-status pointer (INC-63 / plan ORDER
    023 done-when): a short banner in `archive-ready-2026-07-11.md` +
    `control/status.md` stating the fleet verdict MIGRATE-THEN-ARCHIVE
@@ -396,6 +420,10 @@ the Slice 0 items themselves, which are complete fm-side.
    authorized at that sitting) — recorded here so the resume-recipe trap
    (a fresh session re-arming a wake on an archive-bound repo) stays
    visible until the banner lands. *(Added wake 0235Z Slice D.)*
+   → ⏸ **OWNER-GATED, not written** — forge is DARK by verdict and
+   receives no ORDERs (dispatch rails); the write rides the owner's
+   E#44 archive sitting (or a manager-backup write authorized there).
+   No forge write occurred in this fan-out.
 
 ## 2026-07-14 — overnight wake 0235Z, Slice D (INC-10 trigger dedup + ledger truing)
 
@@ -422,3 +450,41 @@ the Slice 0 items themselves, which are complete fm-side.
   refreshed to the 03:30Z full export (1584 records, +178/−0 vs 20:42Z) —
   I6 green; overall trigger-health verdict PASS 8/9 + 1 expected WARN
   (I1b superbot remnants).
+
+## 2026-07-14 — early morning (coordinator dispatch fan-out: 7 pending lane writes)
+
+- **Fan-out executed** (provenance: fm heartbeat baton PR #182; dispatch run
+  against fm main @ `780c81b`) — 6 of the 7 pending-lane-write rows above
+  dispatched as 5 lane PRs, all control-only inbox appends carrying the
+  four-field priority/do/why/done-when block, `status: new`, provenance
+  "relayed by the Fleet Manager seat, coordinator dispatch 2026-07-14, fm
+  docs/dispatch-log.md @ 780c81b". No denials anywhere in the fan-out.
+- Rows 1+2 (superbot supersession stub + banners) relayed as ONE ORDER —
+  superbot PR #2094 / ORDER 005 / MERGED (branch `claude/fm-dispatch-0409z`;
+  premise-checked unsatisfied at superbot `619f488`).
+- Row 3 (substrate-kit bundle a–e) — kit PR #361 / ORDER 020 / MERGED
+  04:12:59Z. **Premise finding:** at kit `a4d858e`, sub-items (a) enabler
+  `claude/` allowlist, (b) `check --strict` = CI-gate legs, and (c) card
+  selection by merge-base diff were ALL THREE already satisfied lane-side
+  (recorded as satisfied inside ORDER 020); the live build items are (d) the
+  A10 outbox-size advisory and (e) the INC-29 lowercase CAPABILITIES pointer
+  (still live at `src/engine/templates/CAPABILITIES.md.tmpl:8` +
+  `src/engine/seatdigest.py:31`/`:442`).
+- Row 4 (idea-engine ASK 001–004 answers + rollover) — idea-engine PR #396 /
+  ORDER 010 / MERGED 04:10:55Z (outbox measured 525,256 B, un-rolled; ASKs
+  still `status: new` at `267b4d5`).
+- Row 5 (sim-lab rollover + OA-002 cross-link) — sim-lab PR #127 /
+  ORDER 006 / MERGED 04:11:31Z. **Observation:** outbox measured 1,016,968 B
+  ≈ 993KB — grown past the ledgered ~875KB, sharpening the rollover case;
+  OA-002 split verdict absent from its ledger; sim-lab ORDER 005 item 5 was
+  rollover-prep-only, parked on the ASK 004 answer this dispatch delivers.
+- Row 6 (pokemon-mod-lab Q-0266 → superbot:Q-0262.7) — pml PR #82 /
+  ORDER 007 / OPEN at dispatch close (substrate-gate SUCCESS, ROM builds
+  in_progress; merge-on-green path, private-repo auto-merge wall respected).
+  Q-0266 hits confirmed live at pml `759dee4`.
+- Row 7 (product-forge final-status pointer) — **NOT written; OWNER-GATED**
+  per dispatch rails (forge DARK by verdict, receives no ORDERs); rides the
+  owner's E#44 archive sitting or a manager-backup write authorized there.
+- Ledger truing (this PR) — all 7 pending-lane-write rows annotated with
+  their dispatched/owner-gated outcomes; completion block appended to
+  `control/outbox.md`.

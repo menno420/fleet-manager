@@ -660,3 +660,30 @@ CLOSED with this entry.
 ## 2026-07-14 · FAN-OUT TABLE TRUING — #2090 + pml #66 live re-verify (wake 0235Z, 2026-07-14T02:46Z)
 
 Truing the two non-terminal rows of the 22:37Z fan-out table above, verified live via the GitHub API this wake: **superbot #2090 (ORDER 004) is MERGED** — `merged_at 2026-07-13T22:43:26Z`, merged_by menno420, head `a792523` (the table's "dirty at poll" state resolved ~6 min after that entry); **pokemon-mod-lab #66 (ORDER 007) remains OPEN, PARKED GREEN for the owner click** — `mergeable_state: clean`, both checks completed success (ROM builds 22:20:09Z · substrate-gate 22:18:05Z), head `5b1d71c`. All 11 fan-out PRs are now terminal-or-parked: 10 merged + 1 parked green.
+
+## 2026-07-14 · COORDINATOR DISPATCH COMPLETE — 7 pending lane writes fanned out (fm-side close, 2026-07-14T04:22:20Z)
+
+The 2026-07-14 coordinator dispatch (provenance: fm heartbeat baton PR #182;
+executed against fm main @ `780c81b`) is COMPLETE — **6 of 7 rows dispatched
+as 5 lane PRs**:
+
+| Target repo | PR | Local ORDER | State |
+|---|---|---|---|
+| superbot (rows 1+2, one ORDER) | #2094 | ORDER 005 | MERGED |
+| substrate-kit (row 3, bundle a–e) | #361 | ORDER 020 | MERGED 04:12:59Z |
+| idea-engine (row 4, ASK 001–004 + rollover) | #396 | ORDER 010 | MERGED 04:10:55Z |
+| sim-lab (row 5, rollover + OA-002) | #127 | ORDER 006 | MERGED 04:11:31Z |
+| pokemon-mod-lab (row 6, Q-0266 fix) | #82 | ORDER 007 | OPEN — merge-on-green (substrate-gate SUCCESS, ROM builds in_progress at close; private-repo auto-merge wall respected) |
+
+Row 7 (product-forge final-status pointer): **OWNER-GATED, not written** —
+forge is DARK by verdict per the dispatch rails; the write rides the owner's
+E#44 archive sitting (or a manager-backup write authorized there).
+
+All lane PRs were control-only inbox appends carrying the four-field
+priority/do/why/done-when block, `status: new`, provenance "relayed by the
+Fleet Manager seat, coordinator dispatch 2026-07-14, fm docs/dispatch-log.md
+@ 780c81b". Notables: kit premise check at `a4d858e` found sub-items (a)/(b)/(c)
+already satisfied lane-side (recorded inside ORDER 020; build items d+e);
+sim-lab outbox measured 1,016,968 B ≈ 993KB (grown past the ledgered ~875KB).
+**No denials anywhere in the fan-out.** Ledger rows trued in
+`docs/dispatch-log.md` (this PR).
