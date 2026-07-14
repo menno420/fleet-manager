@@ -687,3 +687,29 @@ already satisfied lane-side (recorded inside ORDER 020; build items d+e);
 sim-lab outbox measured 1,016,968 B ≈ 993KB (grown past the ledgered ~875KB).
 **No denials anywhere in the fan-out.** Ledger rows trued in
 `docs/dispatch-log.md` (this PR).
+
+## 2026-07-14 · COORDINATOR DISPATCH COMPLETE — wake-0434z pending rows closed (fm-side close, 2026-07-14T05:48:20Z)
+
+The 2026-07-14 0530Z coordinator dispatch (mandate: dispatch-log
+wake-0434z pending row + wake-0434z card § D; scouted and executed
+against fm main @ `3b335a8`) is COMPLETE — **4 lane writes delivered
+(all MERGED), 2 rows skipped with cause**:
+
+| Target repo | PR | Local ORDER | State |
+|---|---|---|---|
+| superbot-next (INC-42 plugin-pin, routed from plugin-hello — no `control/` dir at `bbaccec`) | #461 | ORDER 020 | MERGED — commit `541a377` (repo merge-on-green) |
+| websites (B4 fence restore only; walls content healthy) | #329 | ORDER 028 | MERGED — commit `c4542a6` |
+| venture-lab (B4 fence restore + PLATFORM-LIMITS walls fold) | #189 | ORDER 012 | MERGED — commit `962e46d` |
+| sim-lab (B4 walls fold into restored fence) | #130 | ORDER 007 | MERGED — commit `ca44b93` |
+
+Skips: **B2** (kit lowercase-pointer template fix) — already ordered:
+kit inbox ORDER 020 sub-item (e) (kit PR #361, MERGED 04:12:59Z)
+carries the identical fix; defect confirmed still live at kit `c0297d8`
+(`CAPABILITIES.md.tmpl:8`, `seatdigest.py:31`/`:442`) — no duplicate
+ORDER written. **B4 pokemon-mod-lab** — SKIP-satisfied: fence PRESENT +
+walls digest healthy at pml `759dee4` (fills the fence-index
+NOT-MEASURED row); pml ORDER 007 rides open PR #82 — untouched.
+
+No denials anywhere in the dispatch. Ledger rows trued in
+`docs/dispatch-log.md`; trigger-health verification note recorded in
+`docs/fleet-triage.md` (same PR).
