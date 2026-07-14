@@ -177,6 +177,14 @@ SUB-ROWS + EVIDENCE INDEX (P3 COVERAGE + INDEX, centralization plan §3c):
   control/status.md by design)" disposition + HEAD-committer-date
   fallback is retired as a special case — the generic no-status-file
   fallback still applies to any repo without one.
+  Since 2026-07-14 (central-docs-plan Slice 0 item 2, classes D1–D3) the
+  evidence index ALSO carries per-file program-evidence row classes:
+  superbot docs/eap/* (one row per doc — closes the measured 0-links gap),
+  substrate-kit docs/reports/* (fleet evidence), the gen-2 feedback +
+  custom-instructions proposal docs discovered by pattern in their five
+  home repos, the superbot-next rebuild-evidence corpus, and a static
+  retro-errata register. All discovered at the SAME pinned SHA as the
+  lane row (see EVIDENCE_EXTRA / RETRO_ERRATA below).
 
 CANDIDATE FEED (P2 QUEUE GENERATION, centralization plan §3b, fm PR #85):
   every generation ALSO writes docs/owner-queue-candidates.md — a GENERATED,
@@ -282,6 +290,58 @@ ROSTER_REL = os.path.join("docs", "roster.md")
 CANDIDATES_REL = os.path.join("docs", "owner-queue-candidates.md")
 OWNER_QUEUE_REL = os.path.join("docs", "owner-queue.md")
 EVIDENCE_REL = os.path.join("docs", "evidence-index.md")
+
+# ------------------- program-evidence row classes (Slice 0 item 2) --------
+# Centralization plan D1–D3 (docs/central-docs-plan.md §2 class D): the
+# evidence index carries per-file row classes beyond the lane table.
+# Discovery is regex-over-`git ls-tree -r` at the SAME pinned SHA as the
+# lane row, so a per-file row can never be fresher than its lane evidence.
+# INDEX rows only — the corpora stay home-side (plan §4 class D), fm links.
+
+# D2 — gen-2 blueprint feedback docs + the paired custom-instructions
+# proposals ("written explicitly for the manager to collect", plan D2).
+_GEN2_RE = re.compile(
+    r"(?i)^docs/.*(gen2[-_]?feedback|custom-instructions-proposal"
+    r"|proposed-custom-instructions)[^/]*\.md$")
+# D3 — superbot-next rebuild evidence corpus (plan D3, next candidate 5).
+_NEXT_REBUILD_RE = re.compile(
+    r"^docs/.*(rebuild-completion-report|orchestration-retrospectiv"
+    r"|self-review-2026-07-09|project-review-2026-07-09"
+    r"|program-review-2026-07-12|curation-report-2026-07-13)[^/]*\.md$")
+
+EVIDENCE_EXTRA: dict[str, dict[str, re.Pattern]] = {
+    # D1 — EAP program-narrative corpus: home stays superbot docs/eap/
+    # (plan §7.2); fm indexes row-level (the measured gap was 0 links).
+    "superbot": {"eap": re.compile(r"^docs/eap/[^/]+\.md$")},
+    # D3 — kit fleet-evidence reports (incl. the two cfgdiff reports the
+    # plan's fact-check verified at kit 727f5db).
+    "substrate-kit": {"kit_reports": re.compile(r"^docs/reports/[^/]+\.md$")},
+    "superbot-games": {"gen2": _GEN2_RE},
+    "trading-strategy": {"gen2": _GEN2_RE},
+    "codetool-lab-sonnet5": {"gen2": _GEN2_RE},
+    "codetool-lab-fable5": {"gen2": _GEN2_RE},
+    "codetool-lab-opus4.8": {"gen2": _GEN2_RE},
+    "superbot-next": {"next_rebuild": _NEXT_REBUILD_RE},
+}
+
+# D3 — retro errata: corrections that today live only in superbot docs
+# (plan D3 / opus4.8 candidate 4). Static register, rendered beside the
+# per-file rows; source links pin at superbot's roster-row SHA.
+RETRO_ERRATA: list[dict] = [
+    {"repo": "codetool-lab-opus4.8",
+     "claim": "retro names commit `c96318c` “the main tip at "
+              "wind-down”",
+     "correction": "FALSIFIED — three more PRs merged after it; the lane's "
+                   "wind-down-complete commit is PR #22 `80f6cd1`, ~2h later",
+     "source_repo": "superbot",
+     "source_path": "docs/eap/fleet-winddown-audit-2026-07-09.md"},
+    {"repo": "codetool-lab-opus4.8",
+     "claim": "an exact quoted error-message sequence attributed to one doc",
+     "correction": "MISATTRIBUTED — the quote only appears in a different "
+                   "doc (winddown-audit finding 2)",
+     "source_repo": "superbot",
+     "source_path": "docs/eap/fleet-winddown-audit-2026-07-09.md"},
+]
 
 # ---------------------------------------------------------------- schema ---
 
@@ -726,6 +786,20 @@ def read_heartbeat(url: str, max_attempts: int) -> dict:
             "retro_latest": retro[-1] if retro else None,
             "retro_count": len(retro),
         }
+        # -- program-evidence per-file discovery (Slice 0 item 2, D1–D3) --
+        # Same pinned tree; regex over a recursive docs/ listing. An empty
+        # match list is an HONEST absence at this SHA, never invented.
+        extra: dict[str, list[str]] = {}
+        spec = EVIDENCE_EXTRA.get(url.rstrip("/").split("/")[-1])
+        if spec:
+            try:
+                tree = _git(["ls-tree", "-r", "--name-only", "FETCH_HEAD",
+                             "docs"], cwd=tmp).splitlines()
+            except Wall:
+                tree = []
+            for key, pat in spec.items():
+                extra[key] = sorted(p for p in tree if pat.search(p))
+        evidence["extra"] = extra
         primary = statuses[0] if statuses else None
         return {"sha": sha, "attempts": attempts, "head_date": head_date,
                 "status_text": primary["text"] if primary else None,
@@ -1056,6 +1130,72 @@ def render_evidence_index(rows: list[dict], generation: int, now: datetime,
                "(the file/dir does not exist there), never a broken link. "
                "Walled repos degrade to NOT MEASURED with the verbatim "
                "reason, same doctrine as the roster.")
+
+    # ---- program-evidence per-file rows (Slice 0 item 2, plan D1–D3) ----
+    by_repo: dict[str, dict] = {}
+    for row in rows:
+        if row.get("subrow") or not row["lane"]["repo"] or not row.get("hb"):
+            continue
+        by_repo[row["lane"]["repo"]] = row["hb"]
+
+    def extra_files(repo: str, key: str) -> list[str] | None:
+        hb = by_repo.get(repo)
+        if hb is None:
+            return None  # walled / not fetched this generation
+        return (hb.get("evidence") or {}).get("extra", {}).get(key, [])
+
+    def file_bullets(repo: str, key: str) -> list[str]:
+        files = extra_files(repo, key)
+        if files is None:
+            return [f"- NOT MEASURED — `{repo}` unreadable at this "
+                    "generation (see the roster row's verbatim wall)."]
+        if not files:
+            return [f"- — none found at `{repo}`'s pinned HEAD "
+                    "(honest absence, pattern-discovered)."]
+        sha = by_repo[repo]["sha"]
+        return [f"- {link(repo, sha, p)}" for p in files]
+
+    out.append("\n## Program evidence — per-file rows "
+               "(central-docs-plan D1–D3)\n")
+    out.append("Discovered by pattern at the SAME pinned SHA as each lane "
+               "row above. INDEX rows only — every corpus stays canonical "
+               "in its home repo (plan §4 class D); fm links, never copies.\n")
+
+    out.append("### D1 — superbot `docs/eap/` (program-narrative corpus; "
+               "home stays superbot)\n")
+    out.extend(file_bullets("superbot", "eap"))
+
+    out.append("\n### D3 — substrate-kit `docs/reports/` (fleet evidence)\n")
+    out.extend(file_bullets("substrate-kit", "kit_reports"))
+
+    out.append("\n### D2 — gen-2 feedback + custom-instructions proposals\n")
+    out.append("Written for the manager to collect; the codetool-lab copies "
+               "are archive-bound (also on the D5 mirror-before-archive "
+               "list).\n")
+    for repo in ("superbot-games", "trading-strategy", "codetool-lab-sonnet5",
+                 "codetool-lab-fable5", "codetool-lab-opus4.8"):
+        out.append(f"**{repo}**\n")
+        out.extend(file_bullets(repo, "gen2"))
+        out.append("")
+
+    out.append("### D3 — superbot-next rebuild evidence corpus "
+               "(pointers only)\n")
+    out.extend(file_bullets("superbot-next", "next_rebuild"))
+
+    out.append("\n### D3 — retro errata register\n")
+    out.append("Corrections that would otherwise live only in the source "
+               "repo's audit docs; registered beside the evidence they "
+               "correct.\n")
+    out.append("| Repo | Recorded claim | Correction | Source |")
+    out.append("|---|---|---|---|")
+    for err in RETRO_ERRATA:
+        src_hb = by_repo.get(err["source_repo"])
+        src = (link(err["source_repo"], src_hb["sha"], err["source_path"])
+               if src_hb else
+               f"`{err['source_repo']}:{err['source_path']}` (NOT MEASURED "
+               "this generation)")
+        out.append(f"| {err['repo']} | {err['claim']} | {err['correction']} "
+                   f"| {src} |")
     return "\n".join(out) + "\n"
 
 
