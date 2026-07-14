@@ -351,6 +351,10 @@ WP legs #317→#335→#344→#371 + games #141 still landing at ~16:00Z; no
 action, self-resolving (fresh merges carry in-progress CI on their
 minutes-old HEADs, normal).
 
+**2026-07-14T19:51Z true-up — loose end (1) CLOSED:** superbot #2105
+merged 18:52:49Z; both EAP docs verified at superbot main `0b90ad3`
+(squash-merge = HEAD); fleet at 13/13 walkthroughs + audits.
+
 **Heartbeat caveat:** the pml and fleet-manager heartbeats at main
 pre-date the sweep (05:07:37Z / 14:07:26Z) and still describe pre-sweep
 state — factually superseded; truing rides each lane's normal next wake,
