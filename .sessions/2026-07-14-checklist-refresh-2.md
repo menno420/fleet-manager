@@ -1,6 +1,6 @@
 # Session — 2026-07-14 — EAP owner-checklist refresh #2
 
-> **Status:** in-progress
+> **Status:** complete
 
 - **About to do / did:** merged the §C OWNER ACTIONS rows from the three EAP closeout walkthroughs that landed after the ~12:02Z straggler sweep — websites @ `ad1c1c1`, idea-engine @ `e85b039`, sim-lab @ `2725e4a` (each read via `git show origin/main:docs/eap-closeout-walkthrough-2026-07-14.md` at live HEAD) — into `docs/eap-owner-checklist-2026-07-14.md` (41 → 50 rows: websites rows 42–47, idea-engine row 48, sim-lab rows 49–50; in-place dedupe annotations on rows 1/2/11/16; pml walkthrough riding open PR #86 folded into row 2 as a fifth merge click). Updated `docs/eap-audit-collection.md` walkthrough column (three LANDED @ SHA; pml → PARKED on PR #86 head `a4e1b35`; superbot → STILL MISSING @ `92675e3`, closeout ORDER 006 partially unconsumed) and both docs' stragglers summaries (11/13 landed).
 - 📊 Model: Claude 5 family
