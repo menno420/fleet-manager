@@ -1389,3 +1389,25 @@ time-critical buildable work tonight.
 done-when: (folds into ORDER 045's done-when) the worklists doc carries the
 pokemon-mod-lab seat section + fleet-summary row, and the Phase 3 fan-out includes
 the seat.
+
+## ORDER 045 · update 2026-07-14T07:57:55Z · status: done — delivery verified, manager flip
+priority: P0 (unchanged)
+owner: Fleet Manager seat (unchanged)
+verified: live GitHub, 2026-07-14T07:47Z, zero discrepancies. Worklists doc
+`docs/eap-final-night-worklists-2026-07-13.md` on fm main @ `1694bfc`
+(blob `6c0750c`) with per-seat prioritized lists for 12 seats including the
+pokemon-mod-lab amendment-1 section (swept @ `759dee4`), a `## DARK
+dispositions` section (6 entries), and a `## Fleet summary` 12-row table
+including the pml row. Phase-3 fan-out: 11/11 lane ORDER PRs verified —
+10 MERGED 2026-07-13T22:15:55–22:43:26Z (superbot #2090/ORDER 004 merged
+22:43:26Z, superbot-next #418, mineverse #84, idle #103, sim-lab #113,
+idea-engine #356, trading-strategy #113, venture-lab #168, substrate-kit
+#338, websites #306) + pokemon-mod-lab #66 OPEN parked green by design
+(mergeable_state clean, ROM builds ✅ + substrate-gate ✅).
+done-when: every clause SATISFIED — the worklists doc is on main with a
+prioritized list per active seat + DARK dispositions + fleet summary
+(including the amendment-1 pml section and row); Phase 3 fan-out dispatched
+11/11 to the lane inboxes.
+caveat: pml #66 remains OPEN parked green for the owner click alongside
+#57–#65 — it IS the delivery itself, not outstanding work.
+provenance: coordinator dispatch 2026-07-14, verified live per Q-0120.
