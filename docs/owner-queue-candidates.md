@@ -4,14 +4,14 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #52** · generated-at **2026-07-14T20:45Z** · by failsafe wake 20:34Z (fm PR #210), dispatched by fleet-manager coordinator failsafe-wake dispatch
+> **Generation #53** · generated-at **2026-07-14T21:32Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
 ### superbot (hub) — ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready…
 
 - suggested-id: `OQ-SUPERBOT-HUB-SIDE-RESIDUE-ONLY`
-- source: superbot/control/status.md @ `0b90ad3` · heartbeat `updated:` 2026-07-13T18:00:00Z
+- source: superbot/control/status.md @ `5179d93` · heartbeat `updated:` 2026-07-13T18:00:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -21,7 +21,7 @@
 ### substrate-kit — ⚑ FOR OWNER (unchanged standing set — full paste-ready field blocks verbatim in git history of this file @ 86…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-UNCHANGED-STANDING-SET-FULL`
-- source: substrate-kit/control/status.md @ `3bc0c49` · heartbeat `updated:` 2026-07-14T19:08Z · phase: post-EAP — v1.17.0 CUT + VERIFIE…
+- source: substrate-kit/control/status.md @ `3897250` · heartbeat `updated:` 2026-07-14T21:03Z · phase: post-EAP — v1.17.0 adopter wave …
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -34,7 +34,7 @@
 ### substrate-kit — - ⚑ 6 public-flip-or-PAT (unblocks B2–B4 cross-repo sweeps).
 
 - suggested-id: `OQ-SUBSTRATE-KIT-6-PUBLIC-FLIP-PAT`
-- source: substrate-kit/control/status.md @ `3bc0c49` · heartbeat `updated:` 2026-07-14T19:08Z · phase: post-EAP — v1.17.0 CUT + VERIFIE…
+- source: substrate-kit/control/status.md @ `3897250` · heartbeat `updated:` 2026-07-14T21:03Z · phase: post-EAP — v1.17.0 adopter wave …
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -45,33 +45,17 @@
 ### ↳ substrate-kit — `control/status-superbot-coordinator.md` — ⚑ needs-owner: 1) verify/deliver the testing-lane wind-down — superbot-next control/status.md was still UNFLI…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-1-VERIFY-DELIVER-TESTING`
-- source: substrate-kit/control/status-superbot-coordinator.md @ `3bc0c49` · heartbeat `updated:` 2026-07-10T13:47:02Z
+- source: substrate-kit/control/status-superbot-coordinator.md @ `3897250` · heartbeat `updated:` 2026-07-10T13:47:02Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
 ⚑ needs-owner: 1) verify/deliver the testing-lane wind-down — superbot-next control/status.md was still UNFLIPPED at 2026-07-10T13:45Z (band-5 "NEXT LANE: LIVE-DRIVE", 01:05Z heartbeat), so that lane's seven wind-down deliverables are still owed [unblocks: superbot-next lane archive]; 2) kernel-surface-drift ruling (flag 13 in superbot-next docs/status/testing-report-2026-07-09.md: "relax-compare" or "re-baseline") [unblocks: ALL parity flips]; 3) create repo superbot-plugin-hello (github.com/new, owner menno420, Public, no README) [unblocks: ORDER 002 done]; 4) paste the setup script from docs/environment-setup-script.md into the project Environment settings (re-verified exit-0 at wind-down) [unblocks: no more provisioning deaths]; 5) nod for wiring superbot's new collision/freshness checkers (#1918/#1923) into code-quality.yml — one small PR, owner said workflow edits need a nod [unblocks: checkers enforce in CI]; 6) stale trading-lab/venture-lab manifest rows (manager-owned file) + Q-0248 taxonomy lacks a "tooling" class [unblocks: honest telemetry]
 ```
 
-### trading-strategy — ⚑ needs-owner: the 6 owner_actions items above (full detail walkthrough §C)
-
-- suggested-id: `OQ-TRADING-STRATEGY-6-ACTIONS-ITEMS-ABOVE`
-- source: trading-strategy/control/status.md @ `f5e6e86` · heartbeat `updated:` 2026-07-14T10:11:08Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-⚑ needs-owner: the 6 owner_actions items above (full detail walkthrough §C)
-pointer_walkthrough: docs/eap-closeout-walkthrough-2026-07-14.md (this repo, PR #123)
-pointer_audit: docs/audits/eap-project-audit-2026-07-14.md (this repo, PR #123) → menno420/venture-lab docs/audits/eap-project-audit-2026-07-14.md @ 37e3c05
-pointer_r7_plan: docs/research-round-7-plan.md (this repo, PR #123)
-pointer_r6_results: docs/research-round-6-results.md (this repo)
-pointer_retrospective: docs/research-program-retrospective.md (this repo)
-pointer_r5c_proposal: docs/proposals/r5c-btc-bollinger-breakout-oos-proposal.md (this repo, owner-gated)
-```
-
 ### venture-lab — ⚑ Owner asks queued: (1) OWNER-QUEUE click-runs (docs/publishing/OWNER-QUEUE.md, defaults **bolded**, "go wit…
 
 - suggested-id: `OQ-VENTURE-LAB-ASKS-QUEUED-1-QUEUE`
-- source: venture-lab/control/status.md @ `f9e8bfd` · heartbeat `updated:` 2026-07-14T10:21:38Z
+- source: venture-lab/control/status.md @ `ae24321` · heartbeat `updated:` 2026-07-14T10:21:38Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -91,7 +75,7 @@ Next 2 (baton): (1) Friday 2026-07-17 grading pass — executor live on the coor
 ### superbot-games · Seat A — ⚑ needs-owner: 4 standing decisions, none new this wake — the OWNER ACTIONS checklist (deep links + bolded re…
 
 - suggested-id: `OQ-SUPERBOT-GAMES-4-STANDING-DECISIONS-NONE`
-- source: superbot-games/control/status.md @ `d7595aa` · heartbeat `updated:` 2026-07-14T11:41:04Z
+- source: superbot-games/control/status.md @ `42a31c5` · heartbeat `updated:` 2026-07-14T11:41:04Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -101,7 +85,7 @@ Next 2 (baton): (1) Friday 2026-07-17 grading pass — executor live on the coor
 ### ↳ superbot-games · Seat A — `control/status-exploration.md` — ⚑ needs-owner: \|
 
 - suggested-id: `OQ-SUPERBOT-GAMES-FLAG`
-- source: superbot-games/control/status-exploration.md @ `d7595aa` · heartbeat `updated:` 2026-07-09T20:09Z
+- source: superbot-games/control/status-exploration.md @ `42a31c5` · heartbeat `updated:` 2026-07-09T20:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -144,148 +128,11 @@ Next 2 (baton): (1) Friday 2026-07-17 grading pass — executor live on the coor
 ### superbot-mineverse — ⚑ needs-owner: unchanged — the four pending clicks remain consolidated in docs/eap-closeout-walkthrough-2026-…
 
 - suggested-id: `OQ-SUPERBOT-MINEVERSE-UNCHANGED-FOUR-PENDING-CLICKS`
-- source: superbot-mineverse/control/status.md @ `8d8b4b6` · heartbeat `updated:` 2026-07-14T18:59:20Z
+- source: superbot-mineverse/control/status.md @ `a9a6769` · heartbeat `updated:` 2026-07-14T18:59:20Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
 ⚑ needs-owner: unchanged — the four pending clicks remain consolidated in docs/eap-closeout-walkthrough-2026-07-14.md §C (superbot #2058 draft flip + sender-side HMAC · six host env vars · env-gated conformance e2e · carried OA-003), each with a bolded recommendation + VERIFY step; full six-field blocks in the 2026-07-14T11:34:32Z heartbeat (git history of this file) and control/outbox.md.
-```
-
-### pokemon-mod-lab — 1. **⚑ OWNER-ACTION 1 — `ROM builds` required-check click.** GitHub →
-
-- suggested-id: `OQ-POKEMON-MOD-LAB-1-1-ROM-BUILDS`
-- source: pokemon-mod-lab/control/status.md @ `7d4fa41` · heartbeat `updated:` 2026-07-14T05:07:37Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-1. **⚑ OWNER-ACTION 1 — `ROM builds` required-check click.** GitHub →
-   Settings → Rules → `main` ruleset → require status checks → add
-   `ROM builds` (keep `substrate-gate`). No agent API surface for
-   rulesets (`docs/PLATFORM-LIMITS.md`).
-```
-
-### pokemon-mod-lab — 2. **⚑ OWNER-ACTION 2 — next-arc concept pick.** One word: continue
-
-- suggested-id: `OQ-POKEMON-MOD-LAB-2-2-NEXT-ARC`
-- source: pokemon-mod-lab/control/status.md @ `7d4fa41` · heartbeat `updated:` 2026-07-14T05:07:37Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-2. **⚑ OWNER-ACTION 2 — next-arc concept pick.** One word: continue
-   Emerald QoL+ (new-lead spikes) / Emerald Hard / Nuzlocke Mode
-   (`docs/mod-concepts.md`). Lane default remains QoL+; reversible.
-   **This is also the still-open half of review-queue row #14** (does
-   the Q-0266 Option A default match owner intent).
-```
-
-### pokemon-mod-lab — 3. **⚑ OWNER-ACTION 3 — playtest verdict on the 6 game-feel patches** +
-
-- suggested-id: `OQ-POKEMON-MOD-LAB-3-3-PLAYTEST-VERDICT`
-- source: pokemon-mod-lab/control/status.md @ `7d4fa41` · heartbeat `updated:` 2026-07-14T05:07:37Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-3. **⚑ OWNER-ACTION 3 — playtest verdict on the 6 game-feel patches** +
-   the Match Call random-nag rider. **The kit for exactly this is
-   night item 1: [`../docs/play/README.md`](../docs/play/README.md)**
-   (≤15 min, keep/tune/drop form included; EAP window ends 2026-07-14).
-   Rows #22 (trimmed nurse prompt read), #21 (hatch-pacing feel), #6's
-   remaining halves (auto-run feel + repel-prompt flow), #4's remaining
-   half (instant-text reading feel), #7's remaining half (3x HP-drain /
-   halved-wait pacing feel) and now #5's remaining half (modern
-   Exp. Share progression feel during a real playthrough) sit in this
-   queue — same class, same kit.
-```
-
-### pokemon-mod-lab — 4. **⚑ stale ref `track-a/session-019` — owner click to delete**
-
-- suggested-id: `OQ-POKEMON-MOD-LAB-4-STALE-REF-TRACK`
-- source: pokemon-mod-lab/control/status.md @ `7d4fa41` · heartbeat `updated:` 2026-07-14T05:07:37Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-4. **⚑ stale ref `track-a/session-019` — owner click to delete**
-   (squash-merged via PR #24; sessions must not touch it).
-```
-
-### pokemon-mod-lab — 5. **⚑ stale ref `track-a/session-024` — owner click to delete**
-
-- suggested-id: `OQ-POKEMON-MOD-LAB-5-STALE-REF-TRACK`
-- source: pokemon-mod-lab/control/status.md @ `7d4fa41` · heartbeat `updated:` 2026-07-14T05:07:37Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-5. **⚑ stale ref `track-a/session-024` — owner click to delete**
-   (superseded by PR #31; PR #29 closed; session 041's delete attempt
-   was classifier-DENIED, not retried).
-6. **night chain #69→#81 + #83 ready for owner review-merge in stack
-   order.**
-```
-
-### gba-homebrew — - **⚑ Self-initiated** (rung 4, coordinator-directed): web-arcade
-
-- suggested-id: `OQ-GBA-HOMEBREW-SELF-INITIATED-RUNG-4`
-- source: gba-homebrew/control/status.md @ `fd471ba` · heartbeat `updated:` 2026-07-12T16:20:12Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-- **⚑ Self-initiated** (rung 4, coordinator-directed): web-arcade
-  packaging refreshed from main @ `982b23a` — **supersedes the
-  stale PR #85 pending owner disposition** (#85 is conflicted and
-  packaged the pre-#84 Drift Garden foundation; it was not touched,
-  closed, or commented on).
-- `tools/package-web-arcade.sh` now stages main's ACTUAL shipped
-  set: Undertow v1.0, Tiltstone v1.0 (pre-juice — the #92←#93←#95←#97
-  stack is still open; juice.js staging + version bump noted as the
-  pending follow-up), Drift Garden **v1.0 as the playable seeded
-  round game** (#84, merge `7ffcf1c`), arcade bundle v1.1.
-  Determinism: fixed epoch + LC_ALL=C-sorted `zip -X`, two runs
-  byte-identical; `docs/RELEASES.md` pins every zip AND staged file
-  sha256, machine-asserted by the new `--verify` mode.
-- With this slice: **Shoal v1.0 and Clockwork Courier v1.0 are both
-  CONCEPT-COMPLETE** (PRs #98-#103, #96+#105-#108), the web arcade
-  package is current, and no inbox ORDER is unserved (001-005 all
-  served; the EAP night ORDER never arrived — the #104 outbox ask to
-  the manager stands). Open non-lane PRs: Tiltstone stack
-```
-
-### gba-homebrew — - **⚑ Self-initiated closing upkeep** (`claude/arcade-refresh`, cut
-
-- suggested-id: `OQ-GBA-HOMEBREW-SELF-INITIATED-CLOSING-UPKEEP`
-- source: gba-homebrew/control/status.md @ `fd471ba` · heartbeat `updated:` 2026-07-12T16:20:12Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-- **⚑ Self-initiated closing upkeep** (`claude/arcade-refresh`, cut
-  from main @ `87680c9`, PR #129 merged): three contained items, one
-  PR. (1) Web-arcade repin: `dist/web/` + `dist/releases/` re-run
-  through the #109 machinery at HEAD — Undertow zip v1.0 -> v1.5
-  (#110/#114/#118/#123/#126), Drift Garden v1.0 -> v1.4
-  (#111/#115/#119/#124), arcade bundle v1.1 -> v1.2; Tiltstone
-  unchanged and its rebuilt zip reproduced the #109 pin byte-exactly.
-  `--verify` green twice; run-twice zips byte-identical.
-  (2) `docs/current-state.md` rewritten to HEAD (the old revision's
-  log ended at session 8): 11-game roster, all four named growth
-  paths complete (#110–#128), committed-proofs convention, dist
-  versions per dist/README.md. (3) Stale-claims sweep: six served
-  claims deleted, each verified merged at live GitHub (#83, #84,
-```
-
-### gba-homebrew — - ⚑ contained sweep: served claims deleted — claude-tiltstone-{par,
-
-- suggested-id: `OQ-GBA-HOMEBREW-CONTAINED-SWEEP-SERVED-CLAIMS`
-- source: gba-homebrew/control/status.md @ `fd471ba` · heartbeat `updated:` 2026-07-12T16:20:12Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-- ⚑ contained sweep: served claims deleted — claude-tiltstone-{par,
-  juice,cells,packs} (merged today, shas above) + claude-arcade-refresh
-  (#130 = `d0290d6` on origin/main, verified live).
-- strict check: pre-flip exit 1 (designed born-red hold on this
-  session's card, sole finding); post-flip expected exit 0 (the flip
-  is this branch's last commit). Outbox appended (22:29Z ask closed).
-- PR #133 opened READY on main; no merge/auto-merge calls from this
-  session — the server-side enabler decides on green.
 ```
 
 ### product-forge — ⚑ OWNER-ACTION (OA-003, open)
@@ -311,7 +158,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### idea-engine — ⚑ needs-owner: all owner items consolidated in the walkthrough §C checklist — docs/eap-closeout-walkthrough-2…
 
 - suggested-id: `OQ-IDEA-ENGINE-ALL-ITEMS-CONSOLIDATED-WALKTHROUGH`
-- source: idea-engine/control/status.md @ `a754d7e` · heartbeat `updated:` 2026-07-14T12:51:46Z (real wall-clock via date -u, monotoni…
+- source: idea-engine/control/status.md @ `d086bfa` · heartbeat `updated:` 2026-07-14T12:51:46Z (real wall-clock via date -u, monotoni…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -330,5 +177,5 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 
 ---
 
-22 candidate block(s) across 14 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
+13 candidate block(s) across 11 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
 
