@@ -516,6 +516,84 @@ the Slice 0 items themselves, which are complete fm-side.
   `control/` directory** at its single seed commit `bbaccec`. *(Trued by
   the dispatch-0530Z close, 2026-07-14T05:48Z.)*
 
+## 2026-07-14 — wake 0633Z Slice C (pre-drafted lane payloads, pending coordinator dispatch)
+
+Inconsistency-ledger remediation (fm-write-scope wake; every premise
+re-verified live at the lane's origin/main this wake, 2026-07-14T07:06Z).
+Four-field payloads, paste-ready for the next fan-out. One payload per lane;
+sub-items map to INC rows.
+
+1. **superbot-idle heartbeat re-stamp (INC-17).**
+   - priority: P2 — heartbeat freshness (fleet-inconsistency ledger Class B)
+   - do: overwrite-re-stamp `control/status.md`'s top block per
+     `control/README.md`: fresh `updated:` stamp, `orders:` line carrying the
+     ORDER 006/007 dispositions (served via PRs #101–#111 per the night
+     record), and the `kit:` line re-derived from the tree (v1.15.0 — the
+     remembered v1.7.1 is the INC-40 class). Execution rides the
+     OQ-HEARTBEAT-DOCTRINE-RULING verdict (fm `docs/owner-queue.md`);
+     recommendation A (overwrite-per-session) is the fm default.
+   - why: INC-17 — heartbeat frozen at `updated: 2026-07-13T17:43Z` /
+     `done=000-005` while ORDERs 006/007 were served and 2026-07-14 work
+     shipped (re-verified live this wake: raw `control/status.md` @ main
+     still 17:43Z; evidence-index g43 pins idle @ `5ddd5a2` with a
+     2026-07-14 session card).
+   - done-when: idle's roster row shows no heartbeat-vs-commits divergence
+     marker at the next fm regen.
+
+2. **venture-lab conventions rules 2–3 → enabler doctrine (INC-44).**
+   - priority: P2 — doctrine drift, rated HIGH by the lane's own notes
+   - do: rewrite `docs/conventions.md` rules 2–3 to the enabler doctrine —
+     the `auto-merge-enabler` workflow arms `claude/*` PRs; agent-side
+     arming and direct self-merge are classifier-DENIED per the repo's own
+     PLATFORM-LIMITS — keeping rule 3's merge-then-flag review posture, and
+     update `docs/review-queue.md`'s "self-merge grant" citation to match.
+   - why: INC-44 — binding text grants what the classifier denies;
+     re-verified live this wake at venture-lab main: rule 2 still says "arm
+     it at creation … THE self-merge path" while the same file's
+     branch-naming preamble already documents enabler-side arming, and
+     current-state says "Lanes never arm or merge their own PRs".
+   - done-when: conventions rules 2–3 match PLATFORM-LIMITS + current-state;
+     no binding line instructs agent-side arming.
+
+3. **superbot-next: withdraw ⚑8 + entry-doc re-stamp (INC-58 + INC-22).**
+   - priority: P2 — false-alarm owner ask (burns owner attention) + stale
+     boot-set docs
+   - do: (a) INC-58 — withdraw ⚑8 (the history-rewrite confirm ask,
+     `control/status.md` needs-owner list) with the ground-truth citation:
+     NO rewrite happened — #319's squash `91b0767` resolves at origin
+     (re-verified live 2026-07-14T07:05Z via the commits API: "feat(creature):
+     … (#319)", committed 2026-07-12T23:52:05Z) and `2cb4d91` is simply PR
+     #334's squash (2026-07-13T02:51:30Z); "history roots at 2cb4d91" was a
+     shallow-clone artifact, as the coordinator's own 07-12 addendum already
+     suspected. (b) INC-22 — re-stamp the two entry docs: `README.md:12`
+     ("band 5 … live-testing in flight") and `docs/current-state.md` § In
+     flight (snapshot 2026-07-10) to current reality — both re-verified
+     stale live this wake.
+   - why: INC-58 — a standing owner ask contradicting verifiable git ground
+     truth; INC-22 — boot-set docs ~4 days stale at the fleet's highest
+     velocity, contradicting their own next paragraphs.
+   - done-when: ⚑8 gone from the heartbeat; README + current-state In-flight
+     stamped ≥ 2026-07-14.
+
+4. **websites: token-line truth fix + journal quick-reference refresh
+   (INC-23 + INC-24).**
+   - priority: P3 — stale session-start orientation surfaces
+   - do: (a) INC-23 — fix `docs/current-state.md:125` ("control-plane GitHub
+     token is currently UNSET") to the resolved state per the repo's own
+     `docs/CAPABILITIES.md` 2026-07-12 entry ("RESOLVES the 2026-07-09
+     GITHUB_TOKEN wall — the live control-plane now runs with a working
+     GITHUB_TOKEN"); both sides re-verified live this wake, still
+     contradictory at main. (b) INC-24 — refresh `.session-journal.md`
+     ⚡ Quick reference: "one repo, three independent … services" → four
+     (review/ live since 2026-07-12) and "Tests (60 total)" → the current
+     four-suite count + the four-suite pytest command (derive counts at fix
+     time; CLAUDE.md's verify line is the model).
+   - why: INC-23/24 — the boot-set state doc contradicts the capability
+     ledger, and the journal's first lines undercount the running system.
+   - done-when: both surfaces name four services; the token line cites the
+     CAPABILITIES resolution; journal test command matches the CLAUDE.md
+     four-suite line.
+
 ## 2026-07-14 — coordinator dispatch 0530Z (wake-0434z pending rows closed)
 
 Dispatch mandate: the INC-42 pending row above + the wake-0434z card § D
