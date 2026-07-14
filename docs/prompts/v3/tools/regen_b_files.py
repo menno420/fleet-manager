@@ -123,7 +123,8 @@ SEATS = [
          versions={"coordinator": "v6", "instructions": "v6", "failsafe": "v6"}),
     dict(name="SuperBot World", startup="superbot-world-startup.md",
          ci="superbot-world-custom-instructions.md", reg="superbot-world",
-         versions={"coordinator": "v6", "instructions": "v6", "failsafe": "v6"}),
+         # v7 coordinator/instructions 2026-07-14: INC-08 seat-fact patch
+         versions={"coordinator": "v7", "instructions": "v7", "failsafe": "v6"}),
     dict(name="Game Lab", startup="game-lab-startup.md",
          ci="game-lab-custom-instructions.md", reg="game-lab",
          versions={"coordinator": "v6", "instructions": "v6", "failsafe": "v6"}),

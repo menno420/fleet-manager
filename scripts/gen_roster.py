@@ -177,6 +177,14 @@ SUB-ROWS + EVIDENCE INDEX (P3 COVERAGE + INDEX, centralization plan §3c):
   control/status.md by design)" disposition + HEAD-committer-date
   fallback is retired as a special case — the generic no-status-file
   fallback still applies to any repo without one.
+  Since 2026-07-14 (central-docs-plan Slice 0 item 2, classes D1–D3) the
+  evidence index ALSO carries per-file program-evidence row classes:
+  superbot docs/eap/* (one row per doc — closes the measured 0-links gap),
+  substrate-kit docs/reports/* (fleet evidence), the gen-2 feedback +
+  custom-instructions proposal docs discovered by pattern in their five
+  home repos, the superbot-next rebuild-evidence corpus, and a static
+  retro-errata register. All discovered at the SAME pinned SHA as the
+  lane row (see EVIDENCE_EXTRA / RETRO_ERRATA below).
 
 CANDIDATE FEED (P2 QUEUE GENERATION, centralization plan §3b, fm PR #85):
   every generation ALSO writes docs/owner-queue-candidates.md — a GENERATED,
@@ -255,10 +263,30 @@ LANES = [
     {"lane": "retro-games coordinator (no repo)", "repo": None,
      "disposition": "registry-only",
      "tokens": ["superbot-retro", "retro-games"]},
+    # 8-seat restructure seats (2026-07-11) — the seat failsafes are named
+    # after the SEAT ("SuperBot World failsafe wake"), not any constituent
+    # repo, so repo-token attribution missed all of them and the wedge
+    # watchdog printed "(no attributed triggers)" on every constituent row
+    # (INC-62, observed on idea-engine/'Ideas Lab failsafe wake'). One
+    # registry-only entry per multi-repo/renamed seat carries the wake.
     {"lane": "game-lab (no repo)", "repo": None,
-     "disposition": "registry-only", "tokens": ["game-lab"]},
+     "disposition": "registry-only", "tokens": ["game-lab", "game lab"]},
+    {"lane": "SuperBot World seat (games+idle+mineverse)", "repo": None,
+     "disposition": "registry-only", "tokens": ["superbot world"]},
+    {"lane": "Ideas Lab seat (idea-engine+sim-lab)", "repo": None,
+     "disposition": "registry-only", "tokens": ["ideas lab"]},
+    {"lane": "Self Improvement seat (substrate-kit)", "repo": None,
+     "disposition": "registry-only", "tokens": ["self improvement"]},
+    {"lane": "SuperBot 2.0 seat (superbot+superbot-next)", "repo": None,
+     "disposition": "registry-only", "tokens": ["superbot 2.0"]},
+    {"lane": "Curious Research seat (no repo)", "repo": None,
+     "disposition": "registry-only", "tokens": ["curious research"]},
     {"lane": "pokemon-mod-lab", "repo": "pokemon-mod-lab",
-     "disposition": "live", "tokens": ["pokemon"]},
+     "disposition": "live", "tokens": ["pokemon"],
+     # INC-20: the fleet's ONE private repo — an auth wall here is a
+     # known-credential gap (ROSTER_READ_TOKEN owner secret pending, fm
+     # PR #144), never generic darkness. verdict_for renders it distinctly.
+     "private": True},
     {"lane": "gba-homebrew", "repo": "gba-homebrew", "disposition": "live",
      "tokens": ["gba"]},
     {"lane": "product-forge", "repo": "product-forge", "disposition": "live",
@@ -282,6 +310,73 @@ ROSTER_REL = os.path.join("docs", "roster.md")
 CANDIDATES_REL = os.path.join("docs", "owner-queue-candidates.md")
 OWNER_QUEUE_REL = os.path.join("docs", "owner-queue.md")
 EVIDENCE_REL = os.path.join("docs", "evidence-index.md")
+LANES_JSON_REL = os.path.join("registry", "lanes.json")
+
+# ------------------- program-evidence row classes (Slice 0 item 2) --------
+# Centralization plan D1–D3 (docs/central-docs-plan.md §2 class D): the
+# evidence index carries per-file row classes beyond the lane table.
+# Discovery is regex-over-`git ls-tree -r` at the SAME pinned SHA as the
+# lane row, so a per-file row can never be fresher than its lane evidence.
+# INDEX rows only — the corpora stay home-side (plan §4 class D), fm links.
+
+# D2 — gen-2 blueprint feedback docs + the paired custom-instructions
+# proposals ("written explicitly for the manager to collect", plan D2).
+_GEN2_RE = re.compile(
+    r"(?i)^docs/.*(gen2[-_]?feedback|custom-instructions-proposal"
+    r"|proposed-custom-instructions)[^/]*\.md$")
+# D3 — superbot-next rebuild evidence corpus (plan D3, next candidate 5).
+_NEXT_REBUILD_RE = re.compile(
+    r"^docs/.*(rebuild-completion-report|orchestration-retrospectiv"
+    r"|self-review-2026-07-09|project-review-2026-07-09"
+    r"|program-review-2026-07-12|curation-report-2026-07-13)[^/]*\.md$")
+
+EVIDENCE_EXTRA: dict[str, dict[str, re.Pattern]] = {
+    # D1 — EAP program-narrative corpus: home stays superbot docs/eap/
+    # (plan §7.2); fm indexes row-level (the measured gap was 0 links).
+    "superbot": {"eap": re.compile(r"^docs/eap/[^/]+\.md$")},
+    # D3 — kit fleet-evidence reports (incl. the two cfgdiff reports the
+    # plan's fact-check verified at kit 727f5db).
+    "substrate-kit": {"kit_reports": re.compile(r"^docs/reports/[^/]+\.md$")},
+    "superbot-games": {"gen2": _GEN2_RE},
+    "trading-strategy": {"gen2": _GEN2_RE},
+    "codetool-lab-sonnet5": {"gen2": _GEN2_RE},
+    "codetool-lab-fable5": {"gen2": _GEN2_RE},
+    "codetool-lab-opus4.8": {"gen2": _GEN2_RE},
+    "superbot-next": {"next_rebuild": _NEXT_REBUILD_RE},
+}
+
+# D3 — retro errata: corrections that today live only in superbot docs
+# (plan D3 / opus4.8 candidate 4). Static register, rendered beside the
+# per-file rows; source links pin at superbot's roster-row SHA.
+RETRO_ERRATA: list[dict] = [
+    {"repo": "codetool-lab-opus4.8",
+     "claim": "retro names commit `c96318c` “the main tip at "
+              "wind-down”",
+     "correction": "FALSIFIED — three more PRs merged after it; the lane's "
+                   "wind-down-complete commit is PR #22 `80f6cd1`, ~2h later",
+     "source_repo": "superbot",
+     "source_path": "docs/eap/fleet-winddown-audit-2026-07-09.md"},
+    {"repo": "codetool-lab-opus4.8",
+     "claim": "an exact quoted error-message sequence attributed to one doc",
+     "correction": "MISATTRIBUTED — the quote only appears in a different "
+                   "doc (winddown-audit finding 2)",
+     "source_repo": "superbot",
+     "source_path": "docs/eap/fleet-winddown-audit-2026-07-09.md"},
+    # INC-64 residue + INC-65 (2026-07-14, wake 0235Z Slice D):
+    {"repo": "codetool-lab-opus4.8",
+     "claim": "retro's 102-test suite count",
+     "correction": "OFF-BY-ONE — the shipped suite is 103; the slip was "
+                   "never amended in-file (winddown audit)",
+     "source_repo": "superbot",
+     "source_path": "docs/eap/fleet-winddown-audit-2026-07-09.md"},
+    {"repo": "codetool-lab-sonnet5",
+     "claim": "README/review wording “two-arm model-comparison”",
+     "correction": "THREE arms — the lane's own PR #1 body names both "
+                   "siblings (fable5, opus4.8); flagged by its unmerged "
+                   "2026-07-13 audit, unfixed on main @ `66c3dfc` (INC-65)",
+     "source_repo": "fleet-manager",
+     "source_path": "docs/fleet-inconsistencies-2026-07-13.md"},
+]
 
 # ---------------------------------------------------------------- schema ---
 
@@ -399,7 +494,8 @@ def attribute_lane(rec: dict) -> str | None:
 
 # ------------------------------------------------------- trigger health ----
 # ORDER 020 (2026-07-12, P1 reliability — fleet-manager control/inbox.md;
-# canonical spec: superbot docs/owner/trigger-health-order-2026-07-12.md).
+# canonical spec: docs/trigger-health-spec.md — MOVED into fm 2026-07-14,
+# central-docs-plan A2; was superbot docs/owner/trigger-health-order-2026-07-12.md).
 # On 2026-07-12 ~02:30-08:00Z the trigger scheduler degraded SILENTLY: 9
 # one-shot ticks dropped, several cron failsafes wedged with next_run_at
 # frozen hours in the past while still enabled, two seats dark ~6h.
@@ -726,6 +822,20 @@ def read_heartbeat(url: str, max_attempts: int) -> dict:
             "retro_latest": retro[-1] if retro else None,
             "retro_count": len(retro),
         }
+        # -- program-evidence per-file discovery (Slice 0 item 2, D1–D3) --
+        # Same pinned tree; regex over a recursive docs/ listing. An empty
+        # match list is an HONEST absence at this SHA, never invented.
+        extra: dict[str, list[str]] = {}
+        spec = EVIDENCE_EXTRA.get(url.rstrip("/").split("/")[-1])
+        if spec:
+            try:
+                tree = _git(["ls-tree", "-r", "--name-only", "FETCH_HEAD",
+                             "docs"], cwd=tmp).splitlines()
+            except Wall:
+                tree = []
+            for key, pat in spec.items():
+                extra[key] = sorted(p for p in tree if pat.search(p))
+        evidence["extra"] = extra
         primary = statuses[0] if statuses else None
         return {"sha": sha, "attempts": attempts, "head_date": head_date,
                 "status_text": primary["text"] if primary else None,
@@ -1056,6 +1166,72 @@ def render_evidence_index(rows: list[dict], generation: int, now: datetime,
                "(the file/dir does not exist there), never a broken link. "
                "Walled repos degrade to NOT MEASURED with the verbatim "
                "reason, same doctrine as the roster.")
+
+    # ---- program-evidence per-file rows (Slice 0 item 2, plan D1–D3) ----
+    by_repo: dict[str, dict] = {}
+    for row in rows:
+        if row.get("subrow") or not row["lane"]["repo"] or not row.get("hb"):
+            continue
+        by_repo[row["lane"]["repo"]] = row["hb"]
+
+    def extra_files(repo: str, key: str) -> list[str] | None:
+        hb = by_repo.get(repo)
+        if hb is None:
+            return None  # walled / not fetched this generation
+        return (hb.get("evidence") or {}).get("extra", {}).get(key, [])
+
+    def file_bullets(repo: str, key: str) -> list[str]:
+        files = extra_files(repo, key)
+        if files is None:
+            return [f"- NOT MEASURED — `{repo}` unreadable at this "
+                    "generation (see the roster row's verbatim wall)."]
+        if not files:
+            return [f"- — none found at `{repo}`'s pinned HEAD "
+                    "(honest absence, pattern-discovered)."]
+        sha = by_repo[repo]["sha"]
+        return [f"- {link(repo, sha, p)}" for p in files]
+
+    out.append("\n## Program evidence — per-file rows "
+               "(central-docs-plan D1–D3)\n")
+    out.append("Discovered by pattern at the SAME pinned SHA as each lane "
+               "row above. INDEX rows only — every corpus stays canonical "
+               "in its home repo (plan §4 class D); fm links, never copies.\n")
+
+    out.append("### D1 — superbot `docs/eap/` (program-narrative corpus; "
+               "home stays superbot)\n")
+    out.extend(file_bullets("superbot", "eap"))
+
+    out.append("\n### D3 — substrate-kit `docs/reports/` (fleet evidence)\n")
+    out.extend(file_bullets("substrate-kit", "kit_reports"))
+
+    out.append("\n### D2 — gen-2 feedback + custom-instructions proposals\n")
+    out.append("Written for the manager to collect; the codetool-lab copies "
+               "are archive-bound (also on the D5 mirror-before-archive "
+               "list).\n")
+    for repo in ("superbot-games", "trading-strategy", "codetool-lab-sonnet5",
+                 "codetool-lab-fable5", "codetool-lab-opus4.8"):
+        out.append(f"**{repo}**\n")
+        out.extend(file_bullets(repo, "gen2"))
+        out.append("")
+
+    out.append("### D3 — superbot-next rebuild evidence corpus "
+               "(pointers only)\n")
+    out.extend(file_bullets("superbot-next", "next_rebuild"))
+
+    out.append("\n### D3 — retro errata register\n")
+    out.append("Corrections that would otherwise live only in the source "
+               "repo's audit docs; registered beside the evidence they "
+               "correct.\n")
+    out.append("| Repo | Recorded claim | Correction | Source |")
+    out.append("|---|---|---|---|")
+    for err in RETRO_ERRATA:
+        src_hb = by_repo.get(err["source_repo"])
+        src = (link(err["source_repo"], src_hb["sha"], err["source_path"])
+               if src_hb else
+               f"`{err['source_repo']}:{err['source_path']}` (NOT MEASURED "
+               "this generation)")
+        out.append(f"| {err['repo']} | {err['claim']} | {err['correction']} "
+                   f"| {src} |")
     return "\n".join(out) + "\n"
 
 
@@ -1120,7 +1296,7 @@ def truncate(text: str, limit: int) -> str:
 # --------------------------------------------------------------- verdict ---
 
 def verdict_for(disposition: str, age_h: float | None, cadence_h: float,
-                walled: bool) -> str:
+                walled: bool, private: bool = False) -> str:
     if disposition == "archived":
         return "STALE-BY-DESIGN"
     if disposition == "registry-only":
@@ -1129,7 +1305,11 @@ def verdict_for(disposition: str, age_h: float | None, cadence_h: float,
         # A transport/auth wall is a MEASUREMENT artifact, never lane death
         # (gen #21: pokemon-mod-lab printed DEAD while demonstrably alive
         # behind its private wall). DEAD below is reserved for a READABLE
-        # repo with no measurable heartbeat signal.
+        # repo with no measurable heartbeat signal. A wall on the KNOWN
+        # private repo is rendered distinctly (INC-20): it is a credential
+        # gap (ROSTER_READ_TOKEN pending), not generic unreadability.
+        if private:
+            return "PRIVATE (auth wall — not DARK; ROSTER_READ_TOKEN pending)"
         return "UNREADABLE (transport/auth)"
     if age_h is None:
         return "DEAD (not measurable)"
@@ -1194,7 +1374,23 @@ def build_rows(records: list[dict], now: datetime, max_attempts: int,
             except Wall as exc:
                 row["wall"] = describe_wall(str(exc))
         row["verdict"] = verdict_for(lane["disposition"], row["age_h"],
-                                     row["cadence"], row["wall"] is not None)
+                                     row["cadence"], row["wall"] is not None,
+                                     lane.get("private", False))
+        # INC-16 divergence signal: a STALE/DARK verdict rests on the
+        # heartbeat stamp alone, but the repo HEAD committer date is in the
+        # same fetch — when commits are FRESH while the heartbeat is not,
+        # the lane is ACTIVE with a lagging heartbeat (the superbot-games
+        # ~50-PRs-while-rated-DARK failure). DARK is never declared on
+        # heartbeat alone: the marker rides the verdict cell + a summary
+        # line, so a re-wake ask is never filed against a pushing lane.
+        if (row["verdict"] in ("STALE", "DARK") and row["hb"]
+                and row["hb"].get("head_date")):
+            head_when = parse_when(row["hb"]["head_date"])
+            if head_when:
+                head_age = (now - head_when).total_seconds() / 3600
+                # same FRESH bar the heartbeat itself is judged by
+                if head_age <= 2 * row["cadence"]:
+                    row["divergence"] = head_age
         rows.append(row)
         rows.extend(subrows)
     return rows
@@ -1296,7 +1492,10 @@ def render(rows: list[dict], records: list[dict], generation: int,
         out.append("| {lane} | {hb} | {age} | {verdict} | {phase} | {orders} "
                    "| {kit} | {wake} | {health} | {evidence} |".format(
                        lane=lane["lane"], hb=hb_cell, age=age,
-                       verdict=row["verdict"],
+                       verdict=row["verdict"]
+                       + (" ⚠ commits-FRESH (heartbeat lags — lane ACTIVE "
+                          "by pushes, INC-16)"
+                          if row.get("divergence") is not None else ""),
                        phase=truncate(f.get("phase", "—"), 160),
                        orders=truncate(f.get("orders", "—"), 100),
                        kit=truncate(f.get("kit", "—"), 40),
@@ -1308,16 +1507,29 @@ def render(rows: list[dict], records: list[dict], generation: int,
                        evidence=evidence))
 
     out.append(f"\n## Staleness verdicts (generation #{generation})\n")
-    order = ["DARK", "DEAD (not measurable)", "UNREADABLE (transport/auth)",
+    order = ["DARK", "DEAD (not measurable)",
+             "PRIVATE (auth wall — not DARK; ROSTER_READ_TOKEN pending)",
+             "UNREADABLE (transport/auth)",
              "STALE", "FRESH", "STALE-BY-DESIGN",
              "n/a (registry-only seat)"]
     for v in order:
         lanes = [r["lane"]["lane"] for r in rows if r["verdict"] == v]
         if lanes:
             out.append(f"- **{v}:** " + ", ".join(lanes))
+    divergent = [r for r in rows if r.get("divergence") is not None]
+    if divergent:
+        out.append("- **⚠ heartbeat-vs-commits divergence (INC-16 — "
+                   "verdicts above rest on the heartbeat; these lanes' repo "
+                   "HEADs are FRESH, so treat them as ACTIVE, never re-wake "
+                   "or declare dead on the heartbeat alone):** "
+                   + ", ".join(f"{r['lane']['lane']} (heartbeat "
+                               f"{age_str(r['age_h'])} vs newest commit "
+                               f"{age_str(r['divergence'])})"
+                               for r in divergent))
     out.append(f"\n## Trigger health (generation #{generation})\n")
     out.append("> ORDER 020 (per-wake trigger-health; canonical spec: "
-               "superbot `docs/owner/trigger-health-order-2026-07-12.md`). "
+               "fm `docs/trigger-health-spec.md` — moved in 2026-07-14, "
+               "plan A2). "
                "Evaluated at **"
                + (eval_dt.strftime("%Y-%m-%dT%H:%MZ") if eval_dt else "n/a")
                + f"** (basis: {eval_basis}); grace {WEDGE_GRACE_MIN}min. A "
@@ -1421,6 +1633,22 @@ def selfcheck() -> int:
     ok(verdict_for("live", 30.0, 2.0, False) == "DARK", ">24h -> DARK")
     ok(verdict_for("live", None, 2.0, True) == "UNREADABLE (transport/auth)",
        "wall -> UNREADABLE, never DEAD (gen #21 pokemon-mod-lab lesson)")
+    ok(verdict_for("live", None, 2.0, True, private=True)
+       == "PRIVATE (auth wall — not DARK; ROSTER_READ_TOKEN pending)",
+       "wall on the known private repo renders distinctly (INC-20)")
+    ok(verdict_for("live", 1.0, 2.0, False, private=True) == "FRESH",
+       "private flag changes nothing when the repo is readable")
+    # INC-62: the 8-seat failsafe names attribute to the seat registry rows
+    seat_rec = {"id": "trig_s", "name": "Ideas Lab failsafe wake",
+                "created_at": "t", "enabled": True,
+                "cron_expression": "30 1-23/2 * * *"}
+    ok(attribute_lane(seat_rec) == "Ideas Lab seat (idea-engine+sim-lab)",
+       "seat-named failsafe attributes to its seat registry row (INC-62)")
+    ok(attribute_lane({"id": "trig_s2", "name": "SuperBot World failsafe wake",
+                       "created_at": "t", "enabled": True,
+                       "cron_expression": "15 1-23/2 * * *"})
+       == "SuperBot World seat (games+idle+mineverse)",
+       "SuperBot World failsafe attributes to its seat row")
     ok(verdict_for("live", None, 2.0, False) == "DEAD (not measurable)",
        "readable repo with no measurable signal -> DEAD")
     ok(verdict_for("archived", 900.0, 2.0, False) == "STALE-BY-DESIGN",
@@ -1801,6 +2029,38 @@ def main(argv=None) -> int:
     with open(ev_path, "w", encoding="utf-8") as fh:
         fh.write(ev_text)
     print(f"gen_roster: wrote cross-repo evidence index to {ev_path}")
+
+    # C3 (central-docs-plan Slice 0 item 3): the machine-readable lane
+    # registry regenerates WITH the roster. The authored source of truth is
+    # the LANES constant above (one named writer); this emission exists so
+    # external consumers (websites #102's client-side repoint; kit docs that
+    # still derived sections from the superseded superbot fleet-manifest)
+    # read a stable JSON artifact instead of scraping a python constant.
+    lanes_path = (os.path.join(os.path.dirname(roster_path), "..",
+                               LANES_JSON_REL)
+                  if args.out else os.path.join(repo_root(), LANES_JSON_REL))
+    lanes_path = os.path.normpath(lanes_path)
+    os.makedirs(os.path.dirname(lanes_path), exist_ok=True)
+    lanes_payload = {
+        "_source_of_truth": ("GENERATED — the authored master is the LANES "
+                             "constant in scripts/gen_roster.py; regenerated "
+                             "with every roster generation. Do not hand-edit "
+                             "(central-docs-plan C3)."),
+        "generation": generation,
+        "generated_at": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "lanes": [
+            {"lane": lane["lane"],
+             "repo": lane["repo"],
+             "github": (GITHUB_BASE + lane["repo"]) if lane["repo"] else None,
+             "disposition": lane["disposition"],
+             "tokens": lane["tokens"]}
+            for lane in LANES
+        ],
+    }
+    with open(lanes_path, "w", encoding="utf-8") as fh:
+        json.dump(lanes_payload, fh, indent=2, ensure_ascii=False)
+        fh.write("\n")
+    print(f"gen_roster: wrote machine-readable lane registry to {lanes_path}")
     return 0
 
 

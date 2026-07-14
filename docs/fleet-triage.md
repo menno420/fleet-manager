@@ -45,16 +45,19 @@ action to activate) · **DELETE** (none).
 | **gba-homebrew** (GBA game) | Game Lab (public track) | 🟢 | KEEP | Playable committed ROM, reproducible CI build; low-maintenance | Owner: create the Lumen Drift v1.3 Release (`OQ-GBA-LUMEN-RELEASE`) |
 | **pokemon-mod-lab** (private ROM mod) | Game Lab (private track — track isolation binding) | 🟢 | KEEP-PARKED | Real 16-patch mod, private, copyright-safe; idle ~18 sessions, all owner-gated | **Pause/slow the hourly wake**; owner playtest verdict unblocks it (`OQ-SITTING-0714-DECISIONS`) |
 | **trading-strategy** (quant research) | Venture Lab (research-only annex — backtest engine only) | 🟢 | KEEP-PARKED | Honestly complete (holdout spent, 0/13 cleared); paper lane in warm-up | Leave parked until the 2026-07-17 grading |
-| **sim-lab** (evidence/lie-detector) | Ideas Lab (verify half of the generate→verify loop) | 🟢 | KEEP | 10 verdicts, self-checks caught a real bug; idle-by-design not stuck | ~~Owner: enable Codex (OA-002)~~ *(post-seed: resolved — Codex envs exist for all 12 active repos, ORDER 014)* |
+| **sim-lab** (evidence/lie-detector) | Ideas Lab (verify half of the generate→verify loop) | 🟢 | KEEP | 67 verdicts (numbering high-water — sim-lab's own count; 62 `sims/verdict-*` dirs on disk, live-verified 2026-07-14 at HEAD `311c461`, INC-14; the seed's "10" was a dated snapshot), self-checks caught a real bug; idle-by-design not stuck | ~~Owner: enable Codex (OA-002)~~ *(post-seed: integration-ENABLED resolved — Codex envs exist for all 12 active repos, ORDER 014; quota-throughput half OPEN sim-lab-side — INC-04 split, 2026-07-14)* |
 | **idea-engine** (ideation) | Ideas Lab (generate half) | 🟢 | KEEP | 193 PRs, reports verify true; surfaced a real superbot false-green | Split the 25KB status.md; lift the ≤07-13 owner decision out of the bloat |
 | **fleet-manager** (coordination substrate) | Fleet Manager (manager) | 🟢 | KEEP | The de-facto SSOT; roster/queue/inbox real | *(post-seed: the seed's "ledgers drift + stubs unfilled" 🟡 is CLOSED by P1–P3, fm #81–#86)* Keep the custodian loop green |
-| **superbot-plugin-hello** | seed — spans SuperBot 2.0 (contract) ↔ SuperBot World (consumers) | ⚪ empty | **SEED** | Empty repo gating two finished engines (idle + games) | 🟢 One word: "push the plugin seed" (`OQ-PLUGIN-SEED-WORD`) |
-| **codetool-lab-fable5** (envdrift) | none — seat retired to stub (slice 1) | ⚫ parked | **ARCHIVE** | Finished CLI, wound-down, no mission | Archive after gen-3 succession settles; pending tag/Release clicks |
-| **codetool-lab-opus4.8** (mdverify) | none — seat retired to stub (slice 1) | ⚫ parked | **ARCHIVE** | Finished CLI, releases live, wound-down, no mission | Archive after gen-3 succession settles |
+| **superbot-plugin-hello** | seed — spans SuperBot 2.0 (contract) ↔ SuperBot World (consumers) | 🟢 seeded | **KEEP-QUIET** *(re-verdict 2026-07-14, INC-01: seeded `bbaccec` 2026-07-12T13:29Z, live-re-verified non-empty; pinned by superbot-next `plugins.lock.json` — never archive)* | Contract exemplar, dormant-by-design; idle PLUG-001 unblocked (adapter #75/#78) | none — passive-by-design (no heartbeat) |
+| **codetool-lab-fable5** (envdrift) | none — seat retired to stub (slice 1) | ⚫ parked | **ARCHIVE** *(disposition DECIDED 2026-07-14 — archive, no relaunch; sequenced release-before-archive; see dispatch-log)* | Finished CLI, wound-down, no mission | D5 mirror-before-archive + P1-5 hygiene + tag/Release clicks, then owner archive click (E#44/E#45 gate) |
+| **codetool-lab-opus4.8** (mdverify) | none — seat retired to stub (slice 1) | ⚫ parked | **KEEP unarchived** *(re-verdict 2026-07-14, INC-03: this row's old ARCHIVE contradicted the standing 2026-07-10 owner ruling + live mdverify releases v0.1.0/v0.2.0 — the consolidation plan's reconciled verdict wins; decide-and-flag)* | Finished CLI, releases LIVE (the fleet's release exemplar), wound-down | none — dormant KEEP; re-verdict only if the owner rules again |
 | **codetool-lab-sonnet5** (cfgdiff) | none — seat retired to stub (slice 1) | ⚫ parked | **ARCHIVE** | Finished CLI, wound-down, no mission | Archive after gen-3 succession settles; pending v0.1.1 tag |
 
 **19 repos · 15 active (all KEEP-family) · 3 ARCHIVE · 1 SEED · 0 DELETE**
 (seed tally, unchanged at port time).
+*Re-tally 2026-07-14 (Slice 0 item 6 re-verdicts): 17 KEEP-family
+(opus4.8 → KEEP per INC-03; plugin-hello → KEEP-QUIET, seeded) ·
+2 ARCHIVE (fable5 — decided, sonnet5) · 0 SEED · 0 DELETE.*
 
 ## 2026-07-11 owner restructure — 8 standing seats (slice 3 re-stamp)
 

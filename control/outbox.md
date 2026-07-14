@@ -656,3 +656,7 @@ reassign (OQ-GAMES-DARK-REWAKE-OR-REASSIGN) · gba-homebrew re-wake
 `docs/eap-final-night-worklists-2026-07-13.md` @ `ca1ce28` § DARK
 dispositions. ORDER 045's fan-out step (worklists doc self item 5) is
 CLOSED with this entry.
+
+## 2026-07-14 · FAN-OUT TABLE TRUING — #2090 + pml #66 live re-verify (wake 0235Z, 2026-07-14T02:46Z)
+
+Truing the two non-terminal rows of the 22:37Z fan-out table above, verified live via the GitHub API this wake: **superbot #2090 (ORDER 004) is MERGED** — `merged_at 2026-07-13T22:43:26Z`, merged_by menno420, head `a792523` (the table's "dirty at poll" state resolved ~6 min after that entry); **pokemon-mod-lab #66 (ORDER 007) remains OPEN, PARKED GREEN for the owner click** — `mergeable_state: clean`, both checks completed success (ROM builds 22:20:09Z · substrate-gate 22:18:05Z), head `5b1d71c`. All 11 fan-out PRs are now terminal-or-parked: 10 merged + 1 parked green.

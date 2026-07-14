@@ -59,7 +59,8 @@ day) unless a later date is noted next to the rule.
     checker already reads kills the staleness class structurally.* (2026-07-10)
 26. **R26 (2026-07-12) — Every manager wake runs the trigger-health check on the fresh
     registry export and acts on FAILs the SAME wake** (ORDER 020; canonical spec:
-    superbot `docs/owner/trigger-health-order-2026-07-12.md`). Procedure: export
+    [`docs/trigger-health-spec.md`](trigger-health-spec.md) — moved into fm
+    2026-07-14, central-docs-plan A2). Procedure: export
     `list_triggers` (ALL pages) → `telemetry/triggers-snapshot.json` with a top-level
     `captured_at` stamp → `python3 scripts/check_trigger_health.py` → nonzero exit =
     act now: `send_message` each DEAD-chain seat session to resume + re-arm + verify
@@ -129,6 +130,28 @@ day) unless a later date is noted next to the rule.
       each of its claims at live GitHub; all-confirmed → withdraw the rung with
       a one-line reason (the executed precedent).
     (2026-07-13, provenance: R27 first execution + withdrawal)
+
+28. **R28 (2026-07-14) — ORDER/relay composition + ack-sweep hygiene** (INC-15 /
+    INC-50 / INC-66, fleet-inconsistency ledger 2026-07-13):
+    - **Repo-qualify every path in an ORDER or relay.** A path like
+      "`docs/owner-queue.md`" is fm's own; a seat obeying the order cannot
+      resolve it in-repo (the ORDER 019 → superbot-next failure, INC-15).
+      Write `fleet-manager docs/owner-queue.md@SHA` (or the target repo's own
+      path) — same rule as evidence citations.
+    - **Never ask a lane to "ack in your inbox thread."** Inboxes are
+      one-writer (manager) and the kit's inbox-order-grammar gate REJECTS
+      non-ORDER lane appends (verified live: idle PR #104; mineverse ORDER 006
+      rerouted; trading ORDER 014 violation) — a done-when demanding an inbox
+      ack is machine-unsatisfiable. The ack instruction is always: **ack via
+      your `control/status.md` orders line (or an outbox entry)** (INC-50).
+    - **Ack sweeps parse BODIES, not titles.** A PR titled "ack ORDER N" can
+      carry a body reporting the order MISSING (gba PR #104) — a title-only
+      sweep misreads the night as ordered. Read the ack body / status.md
+      orders line before flipping anything to done (INC-66).
+    *WHY: three separately-observed failure shapes of the same class — the
+    manager's own composed text is a protocol surface, and sloppy composition
+    manufactures lane-side contradictions the sweeps then re-flag.*
+    (2026-07-14, provenance: wake 0235Z Slice D, INC-15/50/66)
 
 ## PLATFORM WALLS (verbatim-class — quote them, don't paraphrase)
 

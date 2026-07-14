@@ -312,3 +312,113 @@ prompt, and the external review pack are logged above; review pack ref: sb#1903
   merge-on-green resolution), this log's visibility-saga entry, and the
   `.sessions/2026-07-10-archive-prep.md` card. Landed via REST
   merge-on-green (R21 — no arm attempt).
+
+## 2026-07-14 — overnight wake 0235Z, Slice C (central-docs-plan Slice 0)
+
+- **codetool-lab-fable5 disposition DECIDED: ARCHIVE, no relaunch**
+  (decide-and-flag, Q-0240 class — the lane sat "ready for archive + fresh
+  session" for 4 days with no decision either way; fable5 candidate 7 /
+  plan C2). Rationale: the gen-2 8-seat structure has no codetool seat, the
+  CLI (envdrift) is finished and wound down, and the consolidation plan's
+  reconciled verdict is HARVEST-THEN-ARCHIVE with release-in-place. No fresh
+  session will be armed. Sequencing (unchanged, all prior gates retained):
+  P1-5 repo hygiene → D5 mirror-before-archive (succession pack,
+  PLATFORM-LIMITS, custom-instructions-proposal, ROADMAP stale-recipe
+  correction) → tag/Release clicks → owner archive click (E#44/E#45 gate).
+  Recorded here + fleet-triage row re-stamped; owner veto reverses it with
+  one word.
+- **idea-engine ASKs 001–004 ANSWERED fm-side** (Slice 0 item 8; all four
+  read verbatim at idea-engine `control/outbox.md` @ `3ae82cb`, live-fetched
+  this wake). Answers (delivery INTO idea-engine's inbox is a lane write —
+  see the pending-lane-writes ledger below):
+  - **ASK 001** (upstream `claude/` head-branch prefix into the kit
+    auto-merge-enabler template): **ACCEPTED** — kit-owned surface;
+    ORDER-to-lane(substrate-kit). Evidence standard: the next idea-engine
+    kit-upgrade PR retains the line.
+  - **ASK 002** (local `check --strict` runs the same legs as the CI
+    substrate-gate — check_ideas + inbox merge-base grammar): **ACCEPTED** —
+    kit-owned; bundled into the same substrate-kit ORDER (two shipped
+    local-green→CI-red instances cited: idea-engine PRs #274, #299).
+  - **ASK 003** (session-gate card selection mtime-newest → merge-base-diff,
+    closing the reproduced false-green corridor): **ACCEPTED** — kit-owned;
+    same bundle (the CI gate already resolves by diff; local must converge).
+  - **ASK 004** (outbox rollover convention): **ANSWERED with the convention
+    itself** — `docs/conventions/outbox-rollover.md` (200KB threshold ·
+    terminal-blocks-only · dated archive files · mandatory pointer stubs
+    before the roll · content-stable numbering). First execution targets:
+    sim-lab (~875KB) + idea-engine (459KB), each via lane ORDER.
+- **Central-docs plan landed at its §1 home** (Slice 0 item 9):
+  `docs/planning/2026-07-14-central-docs-plan.md` (moved from
+  `docs/central-docs-plan.md`, permanent MOVED stub left); the two frozen
+  superbot seeds indexed as provenance in `docs/planning/README.md`
+  (verified present at superbot `3477594`).
+
+### Pending lane writes (Slice 0 deferrals — fm-write-scope wake; dispatch from here)
+
+One line each: target repo · what · why deferred. All are inbox-ORDER
+deliveries the next dispatch/coordinator turn performs; nothing below blocks
+the Slice 0 items themselves, which are complete fm-side.
+
+1. **superbot** · supersession stub on
+   `docs/owner/trigger-health-order-2026-07-12.md` → pointer to fm
+   `docs/trigger-health-spec.md` (plan A2 / Slice 0 item 4, the #1974
+   pattern) · superbot outside fm write scope tonight.
+2. **superbot** · supersession banners on the two frozen seeds
+   `docs/planning/fleet-centralization-plan-2026-07-11.md` +
+   `docs/planning/fleet-review-2026-07-11.md` → pointer to fm
+   `docs/planning/2026-07-14-central-docs-plan.md` (plan §1
+   Self-application / Slice 0 item 9) · same.
+3. **substrate-kit** · one bundled ORDER: (a) enabler-template `claude/`
+   head-branch allowlist line (idea-engine ASK 001); (b) `check --strict`
+   converges on the CI substrate-gate legs (ASK 002); (c) session-gate card
+   selection mtime→merge-base-diff (ASK 003); (d) A10 outbox-size advisory
+   in `check --strict`; (e) seat-digest/CAPABILITIES templates' dead
+   lowercase `fleet-manager docs/capabilities.md` pointer → uppercase
+   `docs/CAPABILITIES.md` (INC-29 / plan B2 — one template fix heals ~14
+   adopters) · all kit-owned surfaces.
+4. **idea-engine** · deliver the ASK 001–004 answers (above) into its
+   `control/inbox.md` + ORDER its own outbox rollover per the convention ·
+   lane write.
+5. **sim-lab** · ORDER the ~875KB outbox rollover per
+   `docs/conventions/outbox-rollover.md` + cross-link the OA-002 split
+   verdict (enabled=resolved / quota=open, INC-04) into its ledger · lane
+   write.
+6. **pokemon-mod-lab** · correct its own "Q-0266" citations for the QoL+
+   pick to `superbot:Q-0262.7` (INC-09, ORDER-to-lane half; fm's side fixed
+   this wake in `docs/q-index.md` + the findings doc) · lane write.
+7. **product-forge** · land the final-status pointer (INC-63 / plan ORDER
+   023 done-when): a short banner in `archive-ready-2026-07-11.md` +
+   `control/status.md` stating the fleet verdict MIGRATE-THEN-ARCHIVE
+   ("do NOT re-arm the wake or resume continuous mode — fm consolidation
+   plan 2026-07-12; archive click gated on E#44") · forge is DARK by
+   verdict and receives no ORDERs, so this is a one-off write that should
+   ride the owner's E#44 archive sitting (or a manager-backup write
+   authorized at that sitting) — recorded here so the resume-recipe trap
+   (a fresh session re-arming a wake on an archive-bound repo) stays
+   visible until the banner lands. *(Added wake 0235Z Slice D.)*
+
+## 2026-07-14 — overnight wake 0235Z, Slice D (INC-10 trigger dedup + ledger truing)
+
+- **INC-10 fm-failsafe duplicate-cron disposition — verified, NOT deleted,
+  invariant shipped.** Live full `list_triggers` enumeration (16 pages,
+  limit 100, cursor to exhaustion, 1584 records, 2026-07-14T03:24–03:30Z):
+  keeper `trig_01FpTbpXCeGcotnBpTkscAdr` LIVE and healthy (verbatim record:
+  name `"Fleet Manager failsafe wake"`, cron `30 */2 * * *`, enabled=true,
+  created 2026-07-13T12:32:14Z, last_fired 2026-07-14T02:33:44Z, next_run
+  2026-07-14T04:33:27Z); the recorded duplicate
+  `trig_01UQTZFvknBosXVo4YKKfazZ` is **absent from the entire live
+  registry** — and blob-level checks of the committed snapshots pin the
+  deletion window to 2026-07-13 12:36Z→16:56Z (present in `f09ba87`,
+  absent from `51cd038` and every capture since; the keeper's created_at
+  12:32:14Z reads as a rebind-then-delete cutover). The wake-1633z card's
+  "both live, both PASS" claim described the stale 12:36Z snapshot, not
+  its own fresh export — Q-0120 noted in this wake's review ender.
+  Per the deny-wins protocol (delete only if BOTH confirmed live and
+  identical) **nothing was deleted this session**. Prevention shipped
+  anyway: **I8 DUPLICATE-CRON** invariant in
+  `scripts/check_trigger_health.py` (WARN on >1 enabled standing cron with
+  identical normalized name+schedule; remedy verify-live-first, keep
+  oldest-created; selfcheck-covered). `telemetry/triggers-snapshot.json`
+  refreshed to the 03:30Z full export (1584 records, +178/−0 vs 20:42Z) —
+  I6 green; overall trigger-health verdict PASS 8/9 + 1 expected WARN
+  (I1b superbot remnants).

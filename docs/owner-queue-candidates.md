@@ -4,7 +4,7 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #37** · generated-at **2026-07-14T03:45Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #40** · generated-at **2026-07-14T03:58Z** · by conflict-reconcile worker (model: fable-5), PR #182 post-close merge of main, dispatched by fleet-manager coordinator (PR #182 mergeable_state dirty reconcile)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
@@ -21,7 +21,7 @@
 ### substrate-kit — ⚑ FOR OWNER (unchanged standing set — full paste-ready field blocks verbatim in git history of this file @ 86…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-UNCHANGED-STANDING-SET-FULL`
-- source: substrate-kit/control/status.md @ `e564b2d` · heartbeat `updated:` 2026-07-14T03:20:00Z · worker session (coordinator-dispatch…
+- source: substrate-kit/control/status.md @ `e06624b` · heartbeat `updated:` 2026-07-14T03:50:00Z · worker session (coordinator-dispatch…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -34,7 +34,7 @@
 ### substrate-kit — - ⚑ 6 public-flip-or-PAT (unblocks B2–B4 cross-repo sweeps).
 
 - suggested-id: `OQ-SUBSTRATE-KIT-6-PUBLIC-FLIP-PAT`
-- source: substrate-kit/control/status.md @ `e564b2d` · heartbeat `updated:` 2026-07-14T03:20:00Z · worker session (coordinator-dispatch…
+- source: substrate-kit/control/status.md @ `e06624b` · heartbeat `updated:` 2026-07-14T03:50:00Z · worker session (coordinator-dispatch…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -45,7 +45,7 @@
 ### ↳ substrate-kit — `control/status-superbot-coordinator.md` — ⚑ needs-owner: 1) verify/deliver the testing-lane wind-down — superbot-next control/status.md was still UNFLI…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-1-VERIFY-DELIVER-TESTING`
-- source: substrate-kit/control/status-superbot-coordinator.md @ `e564b2d` · heartbeat `updated:` 2026-07-10T13:47:02Z
+- source: substrate-kit/control/status-superbot-coordinator.md @ `e06624b` · heartbeat `updated:` 2026-07-10T13:47:02Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -55,7 +55,7 @@
 ### venture-lab — ⚑ Owner asks queued: (1) OWNER-QUEUE click-runs (docs/publishing/OWNER-QUEUE.md, defaults **bolded**, "go wit…
 
 - suggested-id: `OQ-VENTURE-LAB-ASKS-QUEUED-1-QUEUE`
-- source: venture-lab/control/status.md @ `11059f2` · heartbeat `updated:` 2026-07-14T01:13:32Z
+- source: venture-lab/control/status.md @ `a9e202d` · heartbeat `updated:` 2026-07-14T01:13:32Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -64,12 +64,13 @@ Next 2 (baton): (1) Friday 2026-07-17 grading pass — executor live on the coor
 2026-07-14T02:10Z night-progress (BOOKS generative rung, ORDER 008 item 1 / ORDER 011 item 2): new adult title **The Sweetwater Sea** complete on PR #182 (`claude/night-new-title`) — 12 chapters, honest `wc -w` 15,243 (band 15,000–16,000), `candidates/adult-novels/the-sweetwater-sea/{en/the-sweetwater-sea.md,DECISIONS.md}` (verified-vs-invented ledger in DECISIONS); shortlist of 4 ranked unwritten concepts (The Wire Garden 26/30 · The Salt Bell 24 · The Lamp Room 24 · The Eleven Cities 23) recorded at `docs/ideas/2026-07-14-adult-title-concepts.md`; `docs/publishing/**` untouched — Sweetwater vetting packet queued as the follow-up slice; enabler's armed squash auto-merge left in place.
 2026-07-14T02:40Z night-progress (BOOKS lane, ORDER 011 item 2 continuation, owner night directive): NL catalog line COMPLETE — three complete NL editions landed tonight: *Liefde in de kantlijn* 15,633w (PR #183, merged), *De Morgendeur* 16,730w (PR #185, merged), *De geborgen boomgaard* 15,750w (anchor PR #184, enabler auto-merge armed, lands on the card flip); adult NL editions now 11, every ORDER-011 EN adult manuscript covered (EN-only remainders: *The Harvest Rows* Book 3 + tonight's *The Sweetwater Sea*, PR #182). Follow-through in the same batch per the #166 remedy class (PR #184): 4 vetting packets — `de-geborgen-boomgaard`, `liefde-in-de-kantlijn`, `de-morgendeur` (Book-2 length-band ⚑ carried untouched), `the-sweetwater-sea` (coordinator scope-add for PR #182; collision recorded honestly: Low exact-title, Moderate Great-Lakes-epithet search drift, subtitle mandatory) — keyword-map rows (6 new browse-node claims + 28 keyword rows incl. three C4 first-claims, the map's first SERIES node-share for De Morgendeur, and C3's fourth Netherlands era-register for Sweetwater; full-map V057 first-claim scan clean, no existing claim touched), ONE `derive_owner_queue.py` regen — counts now **19 decisions / 41 sequences / 241 clicks (14 hard-gated), 43/43 inputs clean** (from 19/37/213, 11 hard-gated) — and counts-sync to current-state + NEXT-SESSION (stale "4 adult NL editions" → 11 by grep; packets 38 → 42; adult EN manuscripts 12 → 13).
 2026-07-14T03:40Z night-progress (BOOKS lane, ORDER 011 NL-completion remainder, night-final slice): NL catalog 13/13 COMPLETE — the two EN-only remainders landed as NL editions on PR #186 (`claude/night-nl-final`, born-red anchor card): *De zoete zee* 15,467w (12 chapters, +1.5% over the 15,243w EN source; pre-named title per DECISIONS.md, subtitle *Een novelle van de Zuiderzee*) and *De Oogstslag* 24,655w (12 chapters, +5.7% over the 23,334w EN source; title derived decide-and-flag — no pre-naming existed — Books One–Two series glossary inherited unchanged, translated AS WRITTEN with the Book-2 length-band ⚑ untouched). Same-batch follow-through per the #166 remedy class: 2 vetting packets (`de-zoete-zee`, `de-oogstslag`) + 14 keyword-map rows (7+7 NL C4 first-claims; full-map V057 first-claim scan run clean twice — at proposal and re-run at apply — zero collisions, no spares used; De zoete zee shares The Sweetwater Sea's two browse nodes per C4, De Oogstslag rides De Nachtoven's two per the §3 series rule, the map's second series node-share), ONE `derive_owner_queue.py` regen — counts now **19 decisions / 43 sequences / 256 clicks (16 hard-gated), 45/45 inputs clean** (from 19/41/241, 14 hard-gated) — and counts-sync to current-state + NEXT-SESSION (adult NL editions 11 → 13, packets 42 → 44; night-kiln versions/README "two EN novellas" intro drift fixed to three EN + three NL). Title-ratification ⚑s queued owner-side (De Oogstslag bundled with the series' titles, De zoete zee with its §2 collision findings); nothing published, no clicks performed.
+2026-07-14T03:43:50Z night-progress (BOOKS generative rung, ORDER 008 item 1 / ORDER 011 item 2): second adult title **The Wire Garden** complete on PR #187 (`claude/night-wire-garden`) — 12 chapters, honest `wc -w` 15,900 (band 15,000–16,000), `candidates/adult-novels/the-wire-garden/{en/the-wire-garden.md,DECISIONS.md}` (verified-vs-invented Dodendraad ledger; exact-title collision recorded, subtitle mandatory; NL title pre-named De draadtuin); shortlist doc marked 2 WRITTEN · 3 unwritten (next: The Salt Bell 24/30); docs/publishing/** untouched — vetting packet queued as follow-up slice.
 ```
 
 ### superbot-games · Seat A — ⚑ needs-owner: ORDER 004 (self-review) — SATISFIED on main: artifact at docs/retro/close-out-world-games-2026…
 
 - suggested-id: `OQ-SUPERBOT-GAMES-ORDER-004-SELF-REVIEW`
-- source: superbot-games/control/status.md @ `1d38230` · heartbeat `updated:` 2026-07-12T10:16:22Z
+- source: superbot-games/control/status.md @ `e2cc40f` · heartbeat `updated:` 2026-07-12T10:16:22Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -79,7 +80,7 @@ Next 2 (baton): (1) Friday 2026-07-17 grading pass — executor live on the coor
 ### superbot-games · Seat A — - ⚑ rung-3 packaging decision — docs/design/mining-host-adapter.md (scoped via #66).
 
 - suggested-id: `OQ-SUPERBOT-GAMES-RUNG-3-PACKAGING-DECISION`
-- source: superbot-games/control/status.md @ `1d38230` · heartbeat `updated:` 2026-07-12T10:16:22Z
+- source: superbot-games/control/status.md @ `e2cc40f` · heartbeat `updated:` 2026-07-12T10:16:22Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -89,7 +90,7 @@ Next 2 (baton): (1) Friday 2026-07-17 grading pass — executor live on the coor
 ### ↳ superbot-games · Seat A — `control/status-exploration.md` — ⚑ needs-owner: \|
 
 - suggested-id: `OQ-SUPERBOT-GAMES-FLAG`
-- source: superbot-games/control/status-exploration.md @ `1d38230` · heartbeat `updated:` 2026-07-09T20:09Z
+- source: superbot-games/control/status-exploration.md @ `e2cc40f` · heartbeat `updated:` 2026-07-09T20:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -122,7 +123,7 @@ Next 2 (baton): (1) Friday 2026-07-17 grading pass — executor live on the coor
 ### superbot-mineverse — ⚑ needs-owner: (1) sender-side HMAC adoption — owner/bot-lane work via the superbot #2058 draft flip; full OW…
 
 - suggested-id: `OQ-SUPERBOT-MINEVERSE-1-SENDER-SIDE-HMAC`
-- source: superbot-mineverse/control/status.md @ `4f4b50d` · heartbeat `updated:` 2026-07-13T23:44:28Z
+- source: superbot-mineverse/control/status.md @ `0b388f1` · heartbeat `updated:` 2026-07-14T03:46:08Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -132,7 +133,7 @@ Next 2 (baton): (1) Friday 2026-07-17 grading pass — executor live on the coor
 ### superbot-mineverse — ⚑ OWNER-ACTION
 
 - suggested-id: `OQ-SUPERBOT-MINEVERSE-FLAG`
-- source: superbot-mineverse/control/status.md @ `4f4b50d` · heartbeat `updated:` 2026-07-13T23:44:28Z
+- source: superbot-mineverse/control/status.md @ `0b388f1` · heartbeat `updated:` 2026-07-14T03:46:08Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -146,10 +147,89 @@ UNBLOCKS: live bot→web snapshot flow (FLAG 1), replacing the committed fixture
 VERIFIED-NEEDED: #2058 is another repo's owner/bot-lane draft and its body names no transport auth (recorded in `docs/mining-data-contract.md` @48e158e); agent sessions hold no write seat on menno420/superbot and no host-env access (docs/CAPABILITIES.md) — receive-side work is complete in this repo (PRs #88/#93), only the sender half remains.
 ```
 
+### pokemon-mod-lab — 1. **⚑ OWNER-ACTION 1 — `ROM builds` required-check click.** GitHub →
+
+- suggested-id: `OQ-POKEMON-MOD-LAB-1-1-ROM-BUILDS`
+- source: pokemon-mod-lab/control/status.md @ `759dee4` · heartbeat `updated:` 2026-07-11T21:03:45Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+1. **⚑ OWNER-ACTION 1 — `ROM builds` required-check click.** GitHub →
+   Settings → Rules → `main` ruleset → require status checks → add
+   `ROM builds` (keep `substrate-gate`). No agent API surface for
+   rulesets (`docs/PLATFORM-LIMITS.md`).
+```
+
+### pokemon-mod-lab — 2. **⚑ OWNER-ACTION 2 — next-arc concept pick.** One word: continue
+
+- suggested-id: `OQ-POKEMON-MOD-LAB-2-2-NEXT-ARC`
+- source: pokemon-mod-lab/control/status.md @ `759dee4` · heartbeat `updated:` 2026-07-11T21:03:45Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+2. **⚑ OWNER-ACTION 2 — next-arc concept pick.** One word: continue
+   Emerald QoL+ (new-lead spikes) / Emerald Hard / Nuzlocke Mode
+   (`docs/mod-concepts.md`). Lane default remains QoL+; reversible.
+```
+
+### pokemon-mod-lab — 3. **⚑ OWNER-ACTION 3 — playtest verdict on the 6 game-feel patches**
+
+- suggested-id: `OQ-POKEMON-MOD-LAB-3-3-PLAYTEST-VERDICT`
+- source: pokemon-mod-lab/control/status.md @ `759dee4` · heartbeat `updated:` 2026-07-11T21:03:45Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+3. **⚑ OWNER-ACTION 3 — playtest verdict on the 6 game-feel patches**
+   (instant text #4, auto-run #6, HP drain 3× #7, battle msg ×0.5 #7,
+   egg hatch 2×/3× #21, fishing dots 2× #23) + the Match Call
+   random-nag rider. One-line header flag per revert
+   (`docs/build-presets.md`); hatch-128 stacking waits on this.
+```
+
+### pokemon-mod-lab — 4. **⚑ stale ref `track-a/session-019` — owner click to delete**
+
+- suggested-id: `OQ-POKEMON-MOD-LAB-4-STALE-REF-TRACK`
+- source: pokemon-mod-lab/control/status.md @ `759dee4` · heartbeat `updated:` 2026-07-11T21:03:45Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+4. **⚑ stale ref `track-a/session-019` — owner click to delete**
+   (content squash-merged via PR #24 long ago; sessions must not touch
+   it).
+```
+
+### pokemon-mod-lab — 5. **⚑ NEW (housekeeping) — stale ref `track-a/session-024` — owner
+
+- suggested-id: `OQ-POKEMON-MOD-LAB-5-NEW-HOUSEKEEPING-STALE`
+- source: pokemon-mod-lab/control/status.md @ `759dee4` · heartbeat `updated:` 2026-07-11T21:03:45Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+5. **⚑ NEW (housekeeping) — stale ref `track-a/session-024` — owner
+   click to delete** (content superseded by PR #31; PR #29 closed).
+   Session 041 attempted `git push origin :track-a/session-024` at
+   archive time and was DENIED by the platform's auto-mode classifier
+   ("[Git Destructive] ... not named or authorized by the user") — not
+   retried, per playbook. Either owner-click it away alongside
+   session-019, or explicitly authorize a future session to delete it.
+```
+
+### pokemon-mod-lab — - OWNER-ACTION 4 (wake-env GitHub write tools) and OWNER-ACTION 5
+
+- suggested-id: `OQ-POKEMON-MOD-LAB-4-WAKE-ENV-GITHUB`
+- source: pokemon-mod-lab/control/status.md @ `759dee4` · heartbeat `updated:` 2026-07-11T21:03:45Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+- OWNER-ACTION 4 (wake-env GitHub write tools) and OWNER-ACTION 5
+  (`add_repo` classifier denials): **RESOLVED** — 20 consecutive clean
+  wake cycles (024–043). Reopen only on regression.
+```
+
 ### gba-homebrew — - **⚑ Self-initiated** (rung 4, coordinator-directed): web-arcade
 
 - suggested-id: `OQ-GBA-HOMEBREW-SELF-INITIATED-RUNG-4`
-- source: gba-homebrew/control/status.md @ `a5fec7a` · heartbeat `updated:` 2026-07-12T16:20:12Z
+- source: gba-homebrew/control/status.md @ `3ca91fc` · heartbeat `updated:` 2026-07-12T16:20:12Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -196,7 +276,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### idea-engine — ⚑ needs-owner: unchanged — the full three-item bundle (owner sitting ≤2026-07-13, websites cutover, gift repo…
 
 - suggested-id: `OQ-IDEA-ENGINE-UNCHANGED-FULL-THREE-ITEM`
-- source: idea-engine/control/status.md @ `f19ec0f` · heartbeat `updated:` 2026-07-13T22:48:38Z (real wall-clock via date -u, monotoni…
+- source: idea-engine/control/status.md @ `267b4d5` · heartbeat `updated:` 2026-07-13T22:48:38Z (real wall-clock via date -u, monotoni…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -215,5 +295,5 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 
 ---
 
-15 candidate block(s) across 12 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
+21 candidate block(s) across 13 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
 
