@@ -1259,6 +1259,36 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       revives.
     - Blocking: not-blocking; roster hygiene.
 
+65. **⏰ TIME-BOXED before Friday 2026-07-17 09:00Z — trading-strategy:
+    resolve the duplicate grading fire.** *(new 2026-07-14, Slice 0 item 7 /
+    plan C9.)*
+    - id: OQ-TRADING-0717-DOUBLE-GRADING-FIRE
+    - WHAT: TWO enabled triggers both fire the FIRST paper-lane grading on
+      Friday 2026-07-17 ~09:00Z — the standing weekly cron
+      `trig_01UsNU4JRps4b7jiAMdEfXNi` ("trading-strategy weekly paper-lane
+      grading", `0 9 * * 5`, next 2026-07-17T09:05Z) AND a foreign one-shot
+      `trig_01YXNmgqYeYQ1LuepsLmbNCG` ("send_later 2026-07-17T09:00Z
+      #345500", run_once_at 09:00:00Z). Two grading sessions five minutes
+      apart = double-write risk on the paper ledger's first-ever grading
+      record.
+    - WHERE: https://claude.ai console → Routines (cross-session trigger
+      deletion is org-refused agent-side, so the delete click is yours;
+      or say the word and the owning session can self-delete if reachable).
+    - HOW: one letter — **A: delete the 09:00Z one-shot, keep the weekly
+      cron (RECOMMENDED — the cron is the durable pacemaker; the one-shot
+      is redundant with it and fires first, taking the "first grading"
+      write)** · B: keep both (accept double-fire; second session must
+      detect the existing grading record) · C: disable the cron, keep the
+      one-shot (leaves NO standing grading pacemaker after 07-17).
+    - UNBLOCKS: a clean single-writer first grading of paper-0001 — the
+      record the trading KEEP-PARKED verdict waits on.
+    - VERIFY: `telemetry/triggers-snapshot.json` (both records verbatim,
+      re-checked at this wake); trading triage row "Leave parked until the
+      2026-07-17 grading".
+    - RISK: ⚠️ time-boxed — after Friday 09:00Z the double-fire has already
+      happened; the ask expires into cleanup instead of prevention.
+    - Blocking: blocks nothing today; blocks the clean first grading Friday.
+
 ### (F) New intake 2026-07-12 (owner-live session) — decisions, no rush
 
 39. **Railway project duplication — websites services exist in BOTH
