@@ -638,3 +638,31 @@ re-verified at live lane HEADs before writing. Outcomes:
 6. **Phase 1 B4 pokemon-mod-lab** → ⏭ SKIP-satisfied — fence PRESENT +
    walls digest healthy at pml `759dee4` (fills the fence-index
    NOT-MEASURED row); pml ORDER 007 rides open PR #82 — untouched.
+
+## 2026-07-14 — EAP final-day closeout fan-out (coordinator dispatch, ORDERs written 09:34–09:37Z)
+
+Owner directive (EAP final day) → one closeout ORDER per active lane:
+(a) FINISH the recon-cited completable-today list (park honestly with
+citation otherwise) + (b) land `docs/eap-closeout-walkthrough-2026-07-14.md`
+with an OWNER ACTIONS checklist. Recon + findings record:
+`docs/eap-final-recon-2026-07-14.md`; premises re-verified live before each
+write; every terminal state below re-verified at live GitHub ground truth
+09:51–09:53Z (`git fetch` merge-commit committer times / MCP reads for the
+open PR). Mid-fan-out incident: the shared ORDER template's `- field:`
+dash prefixes defeated the kit `inbox-order-grammar` enforcer on every
+gated lane — fixed by one fixup commit per red branch ~09:41–09:42Z
+(details + residue in the recon doc findings).
+
+- → ✅ dispatched — superbot PR #2096 / ORDER 006 / MERGED 2026-07-14T09:43:33Z (opened 09:36:20Z)
+- → ✅ dispatched — superbot-next PR #469 / ORDER 022 / MERGED 2026-07-14T09:40:52Z (opened 09:37:16Z; merged pre-fix — its CI lacks `--inbox-base` wiring; dash-format residue on main)
+- → ✅ dispatched — substrate-kit PR #367 / ORDER 021 / MERGED 2026-07-14T09:42:31Z (opened 09:34:48Z)
+- → ✅ dispatched — websites PR #335 / ORDER 030 / MERGED 2026-07-14T09:42:25Z (opened 09:34:50Z)
+- → ✅ dispatched — venture-lab PR #194 / ORDER 014 / MERGED 2026-07-14T09:42:26Z (opened 09:34:55Z)
+- → ✅ dispatched — trading-strategy PR #122 / ORDER 015 / MERGED 2026-07-14T09:42:26Z (opened 09:34:53Z)
+- → ✅ dispatched — idea-engine PR #417 / ORDER 012 / MERGED 2026-07-14T09:42:34Z (opened 09:34:58Z)
+- → ✅ dispatched — sim-lab PR #138 / ORDER 008 / MERGED 2026-07-14T09:42:37Z (opened 09:35:03Z; also routes the stranded superbot-games fishing SIM-REQUESTs)
+- → ✅ dispatched — superbot-idle PR #130 / ORDER 009 / MERGED 2026-07-14T09:42:17Z (opened 09:34:40Z)
+- → ✅ dispatched — superbot-games PR #136 / ORDER 009 / MERGED 2026-07-14T09:42:38Z (opened 09:35:16Z)
+- → ✅ dispatched — superbot-mineverse PR #108 / ORDER 008 / MERGED 2026-07-14T09:44:33Z (opened 09:35:50Z)
+- → ✅ dispatched — pokemon-mod-lab PR #85 / ORDER 009 / PARKED GREEN @ bbb2361 (opened 09:36:04Z; substrate-gate + ROM builds success, mergeable_state clean re-read 09:52Z — no merge automation in this repo, joins the owner-sweep wave; 009 is the collision-safe number past the parked triple-007 + 008)
+- → ✅ dispatched — gba-homebrew PR #132 / ORDER 006 / MERGED 2026-07-14T09:38:53Z (opened 09:36:09Z; merged pre-fix — its gate step self-skipped; dash-format residue on main; supersedes the never-delivered night ORDER + answers the seat's 22:29Z outbox ask)
