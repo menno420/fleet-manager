@@ -4,14 +4,14 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #47** · generated-at **2026-07-14T11:59Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #48** · generated-at **2026-07-14T14:26Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
 ### superbot (hub) — ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready…
 
 - suggested-id: `OQ-SUPERBOT-HUB-SIDE-RESIDUE-ONLY`
-- source: superbot/control/status.md @ `92675e3` · heartbeat `updated:` 2026-07-13T18:00:00Z
+- source: superbot/control/status.md @ `bc9c9e5` · heartbeat `updated:` 2026-07-13T18:00:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -21,7 +21,7 @@
 ### substrate-kit — ⚑ FOR OWNER (unchanged standing set — full paste-ready field blocks verbatim in git history of this file @ 86…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-UNCHANGED-STANDING-SET-FULL`
-- source: substrate-kit/control/status.md @ `bf39df0` · heartbeat `updated:` 2026-07-14T10:18Z · phase: EAP CLOSED — ORDER 021 walkthrou…
+- source: substrate-kit/control/status.md @ `4f6e50c` · heartbeat `updated:` 2026-07-14T10:18Z · phase: EAP CLOSED — ORDER 021 walkthrou…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -34,7 +34,7 @@
 ### substrate-kit — - ⚑ 6 public-flip-or-PAT (unblocks B2–B4 cross-repo sweeps).
 
 - suggested-id: `OQ-SUBSTRATE-KIT-6-PUBLIC-FLIP-PAT`
-- source: substrate-kit/control/status.md @ `bf39df0` · heartbeat `updated:` 2026-07-14T10:18Z · phase: EAP CLOSED — ORDER 021 walkthrou…
+- source: substrate-kit/control/status.md @ `4f6e50c` · heartbeat `updated:` 2026-07-14T10:18Z · phase: EAP CLOSED — ORDER 021 walkthrou…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -45,7 +45,7 @@
 ### ↳ substrate-kit — `control/status-superbot-coordinator.md` — ⚑ needs-owner: 1) verify/deliver the testing-lane wind-down — superbot-next control/status.md was still UNFLI…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-1-VERIFY-DELIVER-TESTING`
-- source: substrate-kit/control/status-superbot-coordinator.md @ `bf39df0` · heartbeat `updated:` 2026-07-10T13:47:02Z
+- source: substrate-kit/control/status-superbot-coordinator.md @ `4f6e50c` · heartbeat `updated:` 2026-07-10T13:47:02Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -254,14 +254,14 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
   owner can perform.
 ```
 
-### idea-engine — ⚑ needs-owner: unchanged — the full three-item bundle (owner sitting ≤2026-07-13, websites cutover, gift repo…
+### idea-engine — ⚑ needs-owner: all owner items consolidated in the walkthrough §C checklist — docs/eap-closeout-walkthrough-2…
 
-- suggested-id: `OQ-IDEA-ENGINE-UNCHANGED-FULL-THREE-ITEM`
-- source: idea-engine/control/status.md @ `6d6735f` · heartbeat `updated:` 2026-07-14T09:31:52Z (real wall-clock via date -u, monotoni…
+- suggested-id: `OQ-IDEA-ENGINE-ALL-ITEMS-CONSOLIDATED-WALKTHROUGH`
+- source: idea-engine/control/status.md @ `e85b039` · heartbeat `updated:` 2026-07-14T12:51:46Z (real wall-clock via date -u, monotoni…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-⚑ needs-owner: unchanged — the full three-item bundle (owner sitting ≤2026-07-13, websites cutover, gift repo) stands in history @ ff0b1cb control/status.md ⚑ block.
+⚑ needs-owner: all owner items consolidated in the walkthrough §C checklist — docs/eap-closeout-walkthrough-2026-07-14.md §C (three-item bundle · makerbench tweak reply · branch-autodelete setting · sim-lab OA-002/003/004); that checklist is the single pointer, no separate list kept here.
 ```
 
 ### codetool-lab-opus4.8 — ⚑ needs-owner: (1) delete leftover branch claude/status-heartbeat-001 (sessions 403 on ref deletes); (2) OPTI…
