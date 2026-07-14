@@ -4,14 +4,14 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #48** · generated-at **2026-07-14T14:26Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #49** · generated-at **2026-07-14T16:01Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
 ### superbot (hub) — ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready…
 
 - suggested-id: `OQ-SUPERBOT-HUB-SIDE-RESIDUE-ONLY`
-- source: superbot/control/status.md @ `bc9c9e5` · heartbeat `updated:` 2026-07-13T18:00:00Z
+- source: superbot/control/status.md @ `e257340` · heartbeat `updated:` 2026-07-13T18:00:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -21,7 +21,7 @@
 ### substrate-kit — ⚑ FOR OWNER (unchanged standing set — full paste-ready field blocks verbatim in git history of this file @ 86…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-UNCHANGED-STANDING-SET-FULL`
-- source: substrate-kit/control/status.md @ `4f6e50c` · heartbeat `updated:` 2026-07-14T10:18Z · phase: EAP CLOSED — ORDER 021 walkthrou…
+- source: substrate-kit/control/status.md @ `3092aa3` · heartbeat `updated:` 2026-07-14T14:56Z · phase: post-EAP — v1.16.0 CUT + VERIFIE…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -34,7 +34,7 @@
 ### substrate-kit — - ⚑ 6 public-flip-or-PAT (unblocks B2–B4 cross-repo sweeps).
 
 - suggested-id: `OQ-SUBSTRATE-KIT-6-PUBLIC-FLIP-PAT`
-- source: substrate-kit/control/status.md @ `4f6e50c` · heartbeat `updated:` 2026-07-14T10:18Z · phase: EAP CLOSED — ORDER 021 walkthrou…
+- source: substrate-kit/control/status.md @ `3092aa3` · heartbeat `updated:` 2026-07-14T14:56Z · phase: post-EAP — v1.16.0 CUT + VERIFIE…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -45,7 +45,7 @@
 ### ↳ substrate-kit — `control/status-superbot-coordinator.md` — ⚑ needs-owner: 1) verify/deliver the testing-lane wind-down — superbot-next control/status.md was still UNFLI…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-1-VERIFY-DELIVER-TESTING`
-- source: substrate-kit/control/status-superbot-coordinator.md @ `4f6e50c` · heartbeat `updated:` 2026-07-10T13:47:02Z
+- source: substrate-kit/control/status-superbot-coordinator.md @ `3092aa3` · heartbeat `updated:` 2026-07-10T13:47:02Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -55,7 +55,7 @@
 ### trading-strategy — ⚑ needs-owner: the 6 owner_actions items above (full detail walkthrough §C)
 
 - suggested-id: `OQ-TRADING-STRATEGY-6-ACTIONS-ITEMS-ABOVE`
-- source: trading-strategy/control/status.md @ `21886fd` · heartbeat `updated:` 2026-07-14T10:11:08Z
+- source: trading-strategy/control/status.md @ `f5e6e86` · heartbeat `updated:` 2026-07-14T10:11:08Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -71,7 +71,7 @@ pointer_r5c_proposal: docs/proposals/r5c-btc-bollinger-breakout-oos-proposal.md 
 ### venture-lab — ⚑ Owner asks queued: (1) OWNER-QUEUE click-runs (docs/publishing/OWNER-QUEUE.md, defaults **bolded**, "go wit…
 
 - suggested-id: `OQ-VENTURE-LAB-ASKS-QUEUED-1-QUEUE`
-- source: venture-lab/control/status.md @ `d9c1fdd` · heartbeat `updated:` 2026-07-14T10:21:38Z
+- source: venture-lab/control/status.md @ `f9e8bfd` · heartbeat `updated:` 2026-07-14T10:21:38Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -144,7 +144,7 @@ Next 2 (baton): (1) Friday 2026-07-17 grading pass — executor live on the coor
 ### superbot-mineverse — ⚑ needs-owner: the four pending clicks are consolidated in the walkthrough's OWNER ACTIONS checklist (docs/ea…
 
 - suggested-id: `OQ-SUPERBOT-MINEVERSE-FOUR-PENDING-CLICKS-CONSOLIDATED`
-- source: superbot-mineverse/control/status.md @ `ae1c414` · heartbeat `updated:` 2026-07-14T11:34:32Z
+- source: superbot-mineverse/control/status.md @ `419d559` · heartbeat `updated:` 2026-07-14T11:34:32Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -154,7 +154,7 @@ Next 2 (baton): (1) Friday 2026-07-17 grading pass — executor live on the coor
 ### superbot-mineverse — ⚑ OWNER-ACTION
 
 - suggested-id: `OQ-SUPERBOT-MINEVERSE-FLAG`
-- source: superbot-mineverse/control/status.md @ `ae1c414` · heartbeat `updated:` 2026-07-14T11:34:32Z
+- source: superbot-mineverse/control/status.md @ `419d559` · heartbeat `updated:` 2026-07-14T11:34:32Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -171,7 +171,7 @@ VERIFIED-NEEDED: #2058 is another repo's owner/bot-lane draft and its body names
 ### gba-homebrew — - **⚑ Self-initiated** (rung 4, coordinator-directed): web-arcade
 
 - suggested-id: `OQ-GBA-HOMEBREW-SELF-INITIATED-RUNG-4`
-- source: gba-homebrew/control/status.md @ `2cbeb7b` · heartbeat `updated:` 2026-07-12T16:20:12Z
+- source: gba-homebrew/control/status.md @ `fd471ba` · heartbeat `updated:` 2026-07-12T16:20:12Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -198,7 +198,7 @@ VERIFIED-NEEDED: #2058 is another repo's owner/bot-lane draft and its body names
 ### gba-homebrew — - **⚑ Self-initiated closing upkeep** (`claude/arcade-refresh`, cut
 
 - suggested-id: `OQ-GBA-HOMEBREW-SELF-INITIATED-CLOSING-UPKEEP`
-- source: gba-homebrew/control/status.md @ `2cbeb7b` · heartbeat `updated:` 2026-07-12T16:20:12Z
+- source: gba-homebrew/control/status.md @ `fd471ba` · heartbeat `updated:` 2026-07-12T16:20:12Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -220,7 +220,7 @@ VERIFIED-NEEDED: #2058 is another repo's owner/bot-lane draft and its body names
 ### gba-homebrew — - ⚑ contained sweep: served claims deleted — claude-tiltstone-{par,
 
 - suggested-id: `OQ-GBA-HOMEBREW-CONTAINED-SWEEP-SERVED-CLAIMS`
-- source: gba-homebrew/control/status.md @ `2cbeb7b` · heartbeat `updated:` 2026-07-12T16:20:12Z
+- source: gba-homebrew/control/status.md @ `fd471ba` · heartbeat `updated:` 2026-07-12T16:20:12Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -257,7 +257,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### idea-engine — ⚑ needs-owner: all owner items consolidated in the walkthrough §C checklist — docs/eap-closeout-walkthrough-2…
 
 - suggested-id: `OQ-IDEA-ENGINE-ALL-ITEMS-CONSOLIDATED-WALKTHROUGH`
-- source: idea-engine/control/status.md @ `e85b039` · heartbeat `updated:` 2026-07-14T12:51:46Z (real wall-clock via date -u, monotoni…
+- source: idea-engine/control/status.md @ `a754d7e` · heartbeat `updated:` 2026-07-14T12:51:46Z (real wall-clock via date -u, monotoni…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
