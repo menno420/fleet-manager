@@ -49,24 +49,27 @@ The custodian toolchain shipped by the centralization plan P1→P3 (all
 ## In flight
 
 (Verify against live source control — this section is a dated snapshot,
-2026-07-11T20:2xZ.)
+swept 2026-07-14T02:5xZ against the live GitHub API.)
 
-- **PR #86** (this): P3 coverage + index — the centralization plan's final
-  phase.
-- **Owner click pending**: `OQ-FM-ACTIONS-PR-PERMISSION` (Actions may not
-  create PRs, so the regen cron parks its commit on `bot/roster-regen` when
-  the roster changes; the manager wake or the owner lands it).
-- **Paste wave click-ready**: `OQ-PASTE-WAVE` (hold lifted — fm #77 merged
-  `39b888a`).
-- **PR #95** — prompt-architecture research slice:
-  `docs/research/2026-07-12-prompt-architecture.md` (requirements spec for the
-  v3 prompt set; parked green for coordinator consumption).
-- **PR #178** — ORDER 045 EAP final-night fleet sweep + per-seat worklists:
-  [EAP final-night worklists (2026-07-13)](eap-final-night-worklists-2026-07-13.md)
-  (Phase 1+2 in the PR; Phase 3 lane fan-out is the follow-up dispatch).
+- **PR #182** — wake 0235Z overnight slices (branch `claude/wake-0235z`):
+  Slice A rescue-branch reconcile · Slice B outbox truing · Slice C
+  centralization-plan Slice 0 (this sweep). Born-red by design; the
+  dispatcher lands it.
+- Previous entries live-verified MERGED and moved below: fm #86
+  (2026-07-11T20:31:56Z), fm #95 (2026-07-12T01:56:29Z), fm #178
+  (2026-07-13T22:07:14Z). `OQ-FM-ACTIONS-PR-PERMISSION` RESOLVED 2026-07-12
+  (owner clicked; run 29202721367 green) and `OQ-PASTE-WAVE` SUPERSEDED
+  2026-07-11 (restructure directive) — see `docs/owner-queue.md`.
 
 ## Recently shipped (newest first)
 
+- **ORDER 045 EAP final-night fleet sweep** (fm #178, merged
+  2026-07-13T22:07:14Z): [EAP final-night worklists
+  (2026-07-13)](eap-final-night-worklists-2026-07-13.md) — per-seat night
+  worklists + ORDER 045 landed in `control/inbox.md`.
+- **Prompt-architecture research slice** (fm #95, merged
+  2026-07-12T01:56:29Z): `docs/research/2026-07-12-prompt-architecture.md`
+  (requirements spec for the v3 prompt set).
 - **EAP fleet review docs** (fm #181, `claude/central-docs-review`,
   2026-07-13/14): the owner-directed 19-repo review's four deliverables —
   [central docs plan](central-docs-plan.md) ·

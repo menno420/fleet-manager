@@ -1,12 +1,19 @@
 # fleet-manager — the manager Project's home
 
-This repo is the fleet manager's **working memory**: its playbook, worker
-templates, owner queue, dispatch log, and its own protocol heartbeat.
+This repo is the fleet's **records custodian** (Option A custodian-primary —
+owner decision 2026-07-11) and the fleet manager's working memory: its
+playbook, worker templates, owner queue, dispatch log, and its own protocol
+heartbeat.
 
-It is **NOT program record**. The fleet manifest, EAP evidence, and program
-rollups live in **menno420/superbot** (`docs/eap/`).
+**Fleet state is canonical HERE**: the generated roster (`docs/roster.md`)
+superseded the hand-kept superbot `docs/eap/fleet-manifest.md` on 2026-07-11
+and is the fleet-state source of truth, alongside the owner queue, evidence
+index, triage register, and triggers snapshot. The EAP **program-narrative
+corpus** (the story of the program) stays in **menno420/superbot**
+(`docs/eap/`) — indexed from here (`docs/evidence-index.md`), never copied.
 
-**Design rule:** program-facing truth → superbot; manager-internal memory → here.
+**Design rule:** program-narrative truth → superbot `docs/eap/`; fleet-state
+records custody + manager-internal memory → here.
 
 ## Map
 
