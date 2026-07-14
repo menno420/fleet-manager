@@ -386,3 +386,25 @@ the Slice 0 items themselves, which are complete fm-side.
 6. **pokemon-mod-lab** · correct its own "Q-0266" citations for the QoL+
    pick to `superbot:Q-0262.7` (INC-09, ORDER-to-lane half; fm's side fixed
    this wake in `docs/q-index.md` + the findings doc) · lane write.
+
+## 2026-07-14 — overnight wake 0235Z, Slice D (INC-10 trigger dedup + ledger truing)
+
+- **INC-10 fm-failsafe duplicate-cron disposition — verified, NOT deleted,
+  invariant shipped.** Live full `list_triggers` enumeration (16 pages,
+  limit 100, cursor to exhaustion, 1584 records, 2026-07-14T03:24–03:30Z):
+  keeper `trig_01FpTbpXCeGcotnBpTkscAdr` LIVE and healthy (verbatim record:
+  name `"Fleet Manager failsafe wake"`, cron `30 */2 * * *`, enabled=true,
+  created 2026-07-13T12:32:14Z, last_fired 2026-07-14T02:33:44Z, next_run
+  2026-07-14T04:33:27Z); the recorded duplicate
+  `trig_01UQTZFvknBosXVo4YKKfazZ` is **absent from the entire live
+  registry** — deleted upstream between the 2026-07-13T16:56Z capture
+  (which recorded both) and the 20:42Z capture (which already lacked it).
+  Per the deny-wins protocol (delete only if BOTH confirmed live and
+  identical) **nothing was deleted this session**. Prevention shipped
+  anyway: **I8 DUPLICATE-CRON** invariant in
+  `scripts/check_trigger_health.py` (WARN on >1 enabled standing cron with
+  identical normalized name+schedule; remedy verify-live-first, keep
+  oldest-created; selfcheck-covered). `telemetry/triggers-snapshot.json`
+  refreshed to the 03:30Z full export (1584 records, +178/−0 vs 20:42Z) —
+  I6 green; overall trigger-health verdict PASS 8/9 + 1 expected WARN
+  (I1b superbot remnants).

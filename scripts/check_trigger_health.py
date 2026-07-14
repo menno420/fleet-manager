@@ -33,6 +33,14 @@ Amended   : 2026-07-12 (ORDER 020 update 19:20Z, PR #142) — I7 TICK-PILE-UP
             flooded its chat with degenerate replies as they fired minutes
             apart; the owner had to notice by eye and hand-prune. I7 automates
             that detection + names the hand-prune remedy.
+Amended   : 2026-07-14 (wake 0235Z, INC-10) — I8 DUPLICATE-CRON added:
+            the 2026-07-13T16:56Z export held TWO enabled identical
+            "Fleet Manager failsafe wake" crons (`30 */2 * * *`) and both
+            PASSED I4 — the check verified a failsafe exists but never
+            flagged duplication (double-fire per wake window). Live
+            re-verification 2026-07-14T03:2xZ found the duplicate
+            (trig_01UQTZFvknBosXVo4YKKfazZ) already gone, so nothing was
+            deleted; the invariant prevents the recurrence.
 Amended   : 2026-07-13 (heartbeat "Checker gap" + Next-2 baton item 2,
             PR #167) — I1b AMBIGUOUS-ENABLED added: I1 only looks at
             records with `enabled` == True, so a record whose `enabled`
@@ -81,6 +89,15 @@ WARN lines never affect the exit code)
                        (4h) of now — findings from an old snapshot
                        describe the past; refresh (list_triggers, ALL
                        pages, write top-level `captured_at`) first.
+  I8 DUPLICATE-CRON    no two ENABLED standing crons share an identical
+                       normalized name AND schedule (double-fire every
+                       wake window — the INC-10 class: two identical
+                       "Fleet Manager failsafe wake" `30 */2` crons both
+                       passed I4). WARN, not FAIL: registry `enabled`
+                       can lie (I1b caveat), so the remedy is verify BOTH
+                       live via list_triggers first, then keep the
+                       OLDEST-created id (the one docs cite) and delete
+                       the rest. Lane attribution printed per group.
   I7 TICK-PILE-UP      no session holds >1 PENDING (enabled, unfired)
                        one-shots with same/near-identical message text
                        (timestamps, `#hex` suffixes and digits stripped
@@ -210,6 +227,36 @@ def tick_pileups(records: list[dict]) -> list[dict]:
     return pileups
 
 
+# ------------------------------------------ I8 DUPLICATE-CRON (helpers) --
+# INC-10 (2026-07-14): two enabled standing crons with identical name +
+# schedule double-fire every wake window, and I4 passes both (it verifies
+# existence, never uniqueness). Signature: identical whitespace-collapsed
+# case-folded name AND identical cron_expression, both enabled.
+
+
+def duplicate_cron_groups(records: list[dict]) -> list[dict]:
+    """Group ENABLED standing crons by (normalized name, cron); >1 = dup.
+
+    Returns [{"name", "cron", "crons"(oldest→newest by created_at)}].
+    Normalization is deliberately shallow (lowercase + collapse spaces):
+    the observed incident was byte-identical names, and a looser match
+    would false-positive distinct seats sharing a schedule slot.
+    """
+    groups: dict = {}
+    for r in records:
+        if not (r.get("enabled") and r.get("cron_expression")):
+            continue
+        key = (" ".join(r.get("name", "").lower().split()),
+               r["cron_expression"])
+        groups.setdefault(key, []).append(r)
+    dups = []
+    for (name, cron), rs in sorted(groups.items()):
+        if len(rs) > 1:
+            rs.sort(key=lambda r: r.get("created_at") or "")
+            dups.append({"name": name, "cron": cron, "crons": rs})
+    return dups
+
+
 # -------------------------------------- I1b AMBIGUOUS-ENABLED (helpers) --
 # PR #167 (2026-07-13): I1 (via gen_roster.health_report) only sees records
 # with `enabled` == True, so a record whose `enabled` key is ABSENT from the
@@ -249,7 +296,7 @@ def ambiguous_frozen(rec: dict, eval_dt: datetime) -> bool:
 
 def check(records: list[dict], eval_dt: datetime, now: datetime,
           roster_text: str | None, snapshot_age_known: bool) -> list[tuple]:
-    """Return [(invariant, status, detail_lines)] for all eight invariants.
+    """Return [(invariant, status, detail_lines)] for all nine invariants.
 
     status is True (PASS), False (FAIL), or the string "WARN" — WARN is
     truthy on purpose: it never counts toward the failing exit code.
@@ -397,6 +444,26 @@ def check(records: list[dict], eval_dt: datetime, now: datetime,
     results.append(("I7 TICK-PILE-UP", not lines, lines or
                     ["no session holds >1 pending near-identical work-loop "
                      "one-shots (distinct long-fuse deliverables exempt)"]))
+
+    # I8 DUPLICATE-CRON (INC-10, 2026-07-14)
+    lines = []
+    for d in duplicate_cron_groups(records):
+        ids = " · ".join(
+            f"`{r['id']}` (created {(r.get('created_at') or '?')[:16]}Z)"
+            for r in d["crons"])
+        lanes = sorted({gen_roster.attribute_lane(r) or "(unattributed)"
+                        for r in d["crons"]})
+        lines.append(f"{len(d['crons'])}× enabled {d['name']!r} "
+                     f"`{d['cron']}`, oldest→newest: {ids} · lane: "
+                     + ", ".join(lanes)
+                     + f" → REMEDY: verify EACH live (list_triggers — "
+                     f"registry `enabled` can lie, I1b caveat), then keep "
+                     f"the OLDEST-created `{d['crons'][0]['id']}` and "
+                     "delete the rest; record the dedup in "
+                     "control/status.md + the dispatch log")
+    results.append(("I8 DUPLICATE-CRON", "WARN" if lines else True, lines or
+                    ["no two enabled standing crons share an identical "
+                     "name+schedule"]))
     return results
 
 
@@ -491,6 +558,37 @@ def selfcheck() -> int:
     del fired["enabled"]  # a delivered one-shot loses `enabled` on export
     ok(run([manager_ok, tick_new, fired])["I7 TICK-PILE-UP"][0],
        "an already-fired sibling does not count toward a pile-up")
+
+    # I8 DUPLICATE-CRON (INC-10): two enabled standing crons with an
+    # identical normalized name + schedule WARN oldest-first; a disabled
+    # twin, a different schedule, or a different name is NOT a duplicate.
+    dup_a = {"id": "trig_d1", "name": "Fleet Manager failsafe wake",
+             "created_at": "2026-07-12T20:33:00Z", "enabled": True,
+             "cron_expression": "30 */2 * * *",
+             "next_run_at": "2026-07-12T06:30:00Z"}
+    dup_b = dict(dup_a, id="trig_d2", created_at="2026-07-13T12:32:00Z")
+    r = run([dup_a, dup_b])
+    ok(r["I8 DUPLICATE-CRON"][0] == "WARN",
+       "two enabled identical name+schedule crons WARN I8")
+    i8_text = " ".join(r["I8 DUPLICATE-CRON"][1])
+    ok("trig_d1" in i8_text and "trig_d2" in i8_text
+       and i8_text.index("trig_d1") < i8_text.index("trig_d2"),
+       "I8 lists the duplicates oldest→newest")
+    ok("keep the OLDEST-created `trig_d1`" in i8_text,
+       "I8 remedy keeps the oldest-created id")
+    ok("verify EACH live" in i8_text,
+       "I8 remedy verifies live before any delete (I1b caveat)")
+    ok(run([dup_a, dict(dup_b, cron_expression="0 */2 * * *")])
+       ["I8 DUPLICATE-CRON"][0] is True,
+       "same name, different schedule is not a duplicate")
+    ok(run([dup_a, dict(dup_b, name="Websites failsafe wake")])
+       ["I8 DUPLICATE-CRON"][0] is True,
+       "different name, same schedule is not a duplicate")
+    ok(run([dup_a, dict(dup_b, enabled=False)])
+       ["I8 DUPLICATE-CRON"][0] is True,
+       "a disabled twin is not a duplicate")
+    ok(run([manager_ok])["I8 DUPLICATE-CRON"][0] is True,
+       "a single enabled cron passes I8")
 
     # I1b AMBIGUOUS-ENABLED (PR #167): a record with `enabled` ABSENT is
     # invisible to I1; ambiguous (no ended_reason) records are LISTED and a
