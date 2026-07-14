@@ -1,6 +1,6 @@
 <!-- v6 · 2026-07-13 · fleet-manager projects registry — GENERATED COPY, do not edit
      (regenerate: docs/prompts/v3/tools/regen_b_files.py --write-registry; drift guard: --check-registry) -->
-<!-- generated from docs/prompts/v3 @ 6715ade82b16d19ae9a96b6d6837e9a0e4684bc1 (prompts v3.6, stage-2 fold 2026-07-13) -->
+<!-- generated from docs/prompts/v3 @ f8527f4478539e8b0a2d1e55bcd628aff98adf34 (prompts v3.6, stage-2 fold 2026-07-13) -->
 # Game Lab — failsafe cron text (registry copy, prompts v3.6)
 
 > **GENERATED COPY — NOT SOURCE OF TRUTH.** This registry copy is GENERATED FROM
