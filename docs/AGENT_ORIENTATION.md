@@ -19,6 +19,9 @@
 
 ## Manager working memory (this repo's own docs)
 
+- **[`docs/RESUME.md`](RESUME.md)** — **start here after the 2026-07 hiatus**:
+  the revival door (what this repo is, boot path, EAP finale artifacts,
+  how to re-arm the seat, standing batons).
 - **[`docs/playbook.md`](playbook.md)** — the manager's operating rules
   (R1–R19: orientation, dispatch, protocol, platform walls, owner interface).
 - **[`docs/handoff-2026-07-09.md`](handoff-2026-07-09.md)** — succession
