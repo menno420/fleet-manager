@@ -404,10 +404,10 @@ the Slice 0 items themselves, which are complete fm-side.
 6. **pokemon-mod-lab** · correct its own "Q-0266" citations for the QoL+
    pick to `superbot:Q-0262.7` (INC-09, ORDER-to-lane half; fm's side fixed
    this wake in `docs/q-index.md` + the findings doc) · lane write.
-   → ✅ dispatched — pokemon-mod-lab PR #82 / ORDER 007 / OPEN at
-   dispatch close (substrate-gate SUCCESS, ROM builds in_progress;
-   merge-on-green path, private-repo auto-merge wall respected). Q-0266
-   hits confirmed live at pml `759dee4`: `docs/review-queue.md:21`,
+   → ✅ dispatched — pokemon-mod-lab PR #82 / ORDER 007 / **MERGED
+   2026-07-14T15:03:44Z by menno420** (owner PR sweep; was OPEN at
+   dispatch close — trued post-sweep 2026-07-14 ~16:1xZ, live MCP read).
+   Q-0266 hits confirmed live at pml `759dee4`: `docs/review-queue.md:21`,
    `docs/backlog.md:16`, `docs/current-state.md:120`+`:142`, plus two
    historical `.sessions/` cards (annotation-style fix acceptable).
 7. **product-forge** · land the final-status pointer (INC-63 / plan ORDER
@@ -479,8 +479,8 @@ the Slice 0 items themselves, which are complete fm-side.
   OA-002 split verdict absent from its ledger; sim-lab ORDER 005 item 5 was
   rollover-prep-only, parked on the ASK 004 answer this dispatch delivers.
 - Row 6 (pokemon-mod-lab Q-0266 → superbot:Q-0262.7) — pml PR #82 /
-  ORDER 007 / OPEN at dispatch close (substrate-gate SUCCESS, ROM builds
-  in_progress; merge-on-green path, private-repo auto-merge wall respected).
+  ORDER 007 / **MERGED 2026-07-14T15:03:44Z by menno420** (owner PR
+  sweep; was OPEN at dispatch close — trued post-sweep, live MCP read).
   Q-0266 hits confirmed live at pml `759dee4`.
 - Row 7 (product-forge final-status pointer) — **NOT written; OWNER-GATED**
   per dispatch rails (forge DARK by verdict, receives no ORDERs); rides the
@@ -638,6 +638,8 @@ re-verified at live lane HEADs before writing. Outcomes:
 6. **Phase 1 B4 pokemon-mod-lab** → ⏭ SKIP-satisfied — fence PRESENT +
    walls digest healthy at pml `759dee4` (fills the fence-index
    NOT-MEASURED row); pml ORDER 007 rides open PR #82 — untouched.
+   *(Post-sweep truing 2026-07-14: #82 has since MERGED 15:03:44Z in the
+   owner sweep.)*
 
 ## 2026-07-14 — EAP final-day closeout fan-out (coordinator dispatch, ORDERs written 09:34–09:37Z)
 
@@ -664,5 +666,5 @@ gated lane — fixed by one fixup commit per red branch ~09:41–09:42Z
 - → ✅ dispatched — superbot-idle PR #130 / ORDER 009 / MERGED 2026-07-14T09:42:17Z (opened 09:34:40Z)
 - → ✅ dispatched — superbot-games PR #136 / ORDER 009 / MERGED 2026-07-14T09:42:38Z (opened 09:35:16Z)
 - → ✅ dispatched — superbot-mineverse PR #108 / ORDER 008 / MERGED 2026-07-14T09:44:33Z (opened 09:35:50Z)
-- → ✅ dispatched — pokemon-mod-lab PR #85 / ORDER 009 / PARKED GREEN @ bbb2361 (opened 09:36:04Z; substrate-gate + ROM builds success, mergeable_state clean re-read 09:52Z — no merge automation in this repo, joins the owner-sweep wave; 009 is the collision-safe number past the parked triple-007 + 008)
+- → ✅ dispatched — pokemon-mod-lab PR #85 / ORDER 009 / **MERGED 2026-07-14T15:11:37Z** (merge `978dc0bd`; landed in the owner's 15:09–15:18Z pml sweep — was PARKED GREEN @ bbb2361, opened 09:36:04Z; trued post-sweep. Sweep context: #84 merged 15:09:23Z, #68 closed unmerged 15:15:39Z, #86 merged 15:18:06Z → pml main `7d4fa41`, 0 open PRs; 009 was the collision-safe number past the parked triple-007 + 008)
 - → ✅ dispatched — gba-homebrew PR #132 / ORDER 006 / MERGED 2026-07-14T09:38:53Z (opened 09:36:09Z; merged pre-fix — its gate step self-skipped; dash-format residue on main; supersedes the never-delivered night ORDER + answers the seat's 22:29Z outbox ask)

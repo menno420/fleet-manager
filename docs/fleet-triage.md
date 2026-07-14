@@ -299,6 +299,63 @@ Checker follow-through (same PR, decide-and-flag):
 key as disabled, so the standing frozen-next_run WARN for disabled
 routines downgrades to INFO (PASS); records stay listed, never dropped.
 
+## Post-sweep final state — 2026-07-14 (measured 15:54–15:59Z)
+
+> Dated evidence note (per §How-to-re-verdict pt 4). Synthesized from the
+> three post-sweep measurement workers (windows 15:53–15:59Z, GitHub MCP +
+> raw-at-main probes; recorded by the records-truing worker of PR #203,
+> ~16:1xZ). Context: the owner's EAP-close PR sweep ran ~13:46–15:57Z and
+> was **still in motion at measurement close** — superbot #2058 merged
+> 15:55:33Z, superbot-next #312 15:56:42Z, and substrate-kit #373 15:57:20Z
+> landed live *under* the measurement; expect further movement (WP legs).
+
+| Repo | Open PRs (by-design holds named) | main HEAD + checks | audit@main | walkthrough@main | Newest heartbeat |
+|---|---|---|---|---|---|
+| superbot | 2 — #2102 (recon session, in-flight born-red, self-merges on green) · #2061 (held draft by design, deploy-safety) | `e2573407` (#2058 merge, 15:55:33Z) — Code Quality + CodeQL in_progress (fresh merge), 5 other checks success; prior main `30ed76a4` fully green | ❌ **MISSING** | ❌ **MISSING** (sole fleet gap) | 2026-07-13T18:00:00Z (no standing seat, Q-0264; "flip #2058" line now half-stale) |
+| superbot-next | 10 — all by-design: WP legs #317/#335/#344/#371 (owner merge order) · #392 (parked) · #466/#473/#476/#477 (`do-not-automerge`) · #474 (claim) | `5981658` (#312 WP-2 merge, 15:56:42Z) — ci/substrate-gate/release success; golden-parity + named-gates in_progress (fresh merge) | ✅ (#468) | ✅ | 2026-07-14T14:30:20Z (fleet's newest) |
+| substrate-kit | 0 (#373 merged 15:57:20Z under measurement) | `3092aa3` (#373 merge, 15:57:20Z) — run not yet indexed (seconds-old); v1.16.0 release run success 14:48–14:49Z | ✅ | ✅ (#368) | 2026-07-14T14:56Z (v1.16.0 CUT + VERIFIED) |
+| websites | 0 (8 lifeboats closed unmerged 13:46Z; #324 owner-merged 13:54:55Z) | `ee47f8d` (kit v1.16.0 #338, 15:44:54Z) — no run at SHA yet; latest main runs all success | ✅ (#332) | ✅ (#336) | 2026-07-14T13:12:32Z (session closed, EAP wrapped) |
+| venture-lab | 0 | `f9e8bfd` (kit upgrade #198, 15:41:54Z) — no runs at SHA (PR-triggered); prior main green | ✅ (seat, covers trading) | ✅ | 2026-07-14T10:21:38Z |
+| trading-strategy | 0 | `f5e6e86` (kit upgrade #125, 15:42:20Z) — no runs at SHA; prior main green 14:39Z | ✅ | ✅ | 2026-07-14T10:11:08Z |
+| idea-engine | 0 | `a754d7e` (kit upgrade #422, 15:41:59Z) — no runs at SHA; prior main green | ✅ (seat, covers sim-lab) | ✅ (#420) | 2026-07-14T12:51:46Z (EAP CLOSED) |
+| sim-lab | 0 | `2725e4a` (#142, 12:53:45Z) — no post-07-12 main runs (PR-triggered); no red anywhere | — by design (seat audit at idea-engine) | ✅ (#141) | 2026-07-14T12:51:32Z (EAP CLOSED) |
+| gba-homebrew | 0 | `fd471ba` (kit upgrade #137, 15:42:38Z) — no runs at SHA; newest main runs green 07-13 | ✅ | ✅ | ts 2026-07-14T11:41Z (append-only file) |
+| pokemon-mod-lab | 0 — **entire 28-PR parked wave swept** | `7d4fa41` (#86 merge, 15:18:06Z) — rom-builds + substrate-gate SUCCESS | ✅ (#84, blob `69feea6f`) | ✅ (#86, blob `aade289d`) | 2026-07-14T05:07:37Z (pre-sweep content — stale by design until the lane's next write) |
+| superbot-mineverse | 0 | `419d559` (kit upgrade #110, 15:45:45Z) — no runs at SHA; prior main green | ✅ (seat-wide, covers games + idle) | ✅ | 2026-07-14T11:34:32Z |
+| superbot-games | 1 — #141 (kit v1.16.0 wave): all checks SUCCESS 15:40Z, auto-merge armed, `mergeable_state: clean`, pending merge latency | `717e36c` (#139+#140, 11:42:15Z) — no runs at SHA; prior main green | — by design (seat audit at mineverse) | ✅ (#139) | 2026-07-14T11:41:04Z (ORDER 009 complete) |
+| superbot-idle | 0 | `ce5387c` (#132, 11:36:48Z) — no runs at SHA; prior main green | — by design (seat audit at mineverse) | ✅ (#132) | 2026-07-14T11:32:05Z |
+| fleet-manager | 1 — #203 (this session, born-red by design) | `7044e4b` (kit upgrade #202, 15:42:28Z) — merge-on-green ×2 success at SHA | ✅ (#189) | n/a (not a walkthrough target) | 2026-07-14T14:07:26Z (pre-sweep — says "hub sweep still pending") |
+
+**pml resolution (the sweep's headline):** PR **#84** (EAP seat audit)
+MERGED 15:09:23Z (merge `a877b25f`) · **#85** (ORDER 009 dispatch) MERGED
+15:11:37Z (merge `978dc0bd`) · **#68** CLOSED unmerged 15:15:39Z
+(superseded by #84 per its own §C-3; was the wave's only red PR) · **#86**
+(carries the pml walkthrough) MERGED 15:18:06Z — GitHub auto-retargeted its
+base to main when #85's branch merged, no manual re-target needed; its
+merge commit IS pml main HEAD `7d4fa41`, CI green. pml at **0 open PRs**.
+
+**Branch-delta verdict:** the sweep deleted **NO branches** — websites 167
+live `claude/*` = 167 census (byte-for-byte); superbot-next 148 live vs
+146 census (+2 new same-day, 0 deleted). The census corollary (one-time
+bulk deletion of the 460 exact-match survivors,
+[branch-recreation census](findings/branch-recreation-census-2026-07-14.md))
+**stands for a later sitting** (owner-checklist rows 4/11; owner-queue
+B#59).
+
+**Loose ends (2):** (1) **superbot hub missing BOTH EAP docs at main
+`e2573407`** — the fleet's sole remaining EAP-doc gap; exact fix: one
+docs-only superbot PR adding `docs/eap-closeout-walkthrough-2026-07-14.md`
++ `docs/audits/eap-project-audit-2026-07-14.md` (the same "(b) walkthrough"
+item every other lane's ORDER carried). (2) **Sweep tail** — superbot-next
+WP legs #317→#335→#344→#371 + games #141 still landing at ~16:00Z; no
+action, self-resolving (fresh merges carry in-progress CI on their
+minutes-old HEADs, normal).
+
+**Heartbeat caveat:** the pml and fleet-manager heartbeats at main
+pre-date the sweep (05:07:37Z / 14:07:26Z) and still describe pre-sweep
+state — factually superseded; truing rides each lane's normal next wake,
+no dedicated dispatch needed.
+
 ## How to re-verdict
 
 1. Verify against live source (Q-0120 — never against report text).

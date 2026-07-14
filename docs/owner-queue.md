@@ -325,6 +325,17 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
     from the gba ORDER 006 + pml ORDER 008 night reports; joins the queued
     pml `claude/fm-r27-wake-repair` delete.)*
     - id: OQ-STALE-BRANCH-DELETES-0713
+    - **Post-sweep truing (2026-07-14 ~16:1xZ): NOT satisfied by the
+      owner's 13:46–15:57Z PR sweep** — the sweep merged/closed PRs but
+      deleted NO branches (measured: websites 167 live `claude/*` = 167
+      census, byte-for-byte; superbot-next 148 live vs 146 census, +2
+      new / 0 deleted). All four target branches re-verified live still
+      present ~16:05Z via MCP: gba `claude/brineward-wind` @ `eb3235a`;
+      pml `track-a/session-019` @ `cd5ca75`, `track-a/session-024` @
+      `73ca29e`, `claude/eloquent-newton-qaf1ii` @ `2efdde0`. **KEEP —
+      the census corollary (bulk deletion of the 460 exact-match
+      survivors, `docs/findings/branch-recreation-census-2026-07-14.md`)
+      stands for a later sitting.**
     - WHAT: delete stale remote branches — gba-homebrew:
       `claude/brineward-wind` (**gate CLEARED 2026-07-14** — was "AFTER
       #82 merges"; gba-homebrew PR #82 MERGED 2026-07-13T17:46:23Z,
@@ -1199,6 +1210,13 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       #82 (ORDER 007 Q-0266→Q-0262.7 citation fix, control-only, created
       2026-07-14T04:11:11Z, head `18024e4`) both OPEN, `mergeable_state:
       clean`, owner sweep pending.
+      **Post-sweep truing (2026-07-14 ~16:1xZ): the pile is CLEARED** —
+      the owner sweep merged #66 (14:57:46Z) and #82 (15:03:44Z), then
+      #84 (15:09:23Z) / #85 (15:11:37Z) / #86 (15:18:06Z) and closed #68
+      unmerged (15:15:39Z); pml is at **0 open PRs** (live-verified,
+      pml main `7d4fa41`). **The A/B decision itself stays open** — the
+      pile regrows on every night run until the enabler question is
+      answered; today's sweep is evidence for A's value, not a resolution.
     - RISK: ↩️ reversible — a workflow file; delete to revert.
     - Blocking: not-blocking, but the pile regrows every night run.
 
