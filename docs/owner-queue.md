@@ -50,7 +50,8 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
    - UNBLOCKS: true merge-on-green — today a red ROM build could merge.
    - VERIFIED-NEEDED: control/status.md@`f69ab95` (⚑ OWNER-ACTION 1, re-stated
      14:10Z today); rulesets are a verified owner-only wall
-     (docs/PLATFORM-LIMITS.md).
+     (pokemon-mod-lab `docs/PLATFORM-LIMITS.md` @ `759dee4` — no such file
+     exists in fleet-manager; repo-qualified 2026-07-14, INC-11).
    - Blocking: not-blocking, but a live gate hole.
 
 6. **✅ RESOLVED (owner clicked 2026-07-11; swept 2026-07-14, Slice 0 item 6 /
@@ -226,7 +227,8 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
     - UNBLOCKS: closes the fleet's one protection gap.
     - VERIFIED-NEEDED: plan § 3.4 + census § pokemon-mod-lab Methods note
       (boolean flag only). Rulesets are a verified owner-only wall
-      (docs/PLATFORM-LIMITS.md).
+      (pokemon-mod-lab `docs/PLATFORM-LIMITS.md` @ `759dee4`; repo-qualified
+      2026-07-14, INC-11).
     - RISK: ↩️ reversible — delete the ruleset to undo.
     - Blocking: not-blocking, but cheap and worth doing at the B#5 sitting.
 
@@ -325,7 +327,8 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       future agent sessions.
     - VERIFIED-NEEDED: gba PR #89 head `a84933b` outbox §4(c); pml PR #63
       head `db46649` status "Asks pending" item 2; branch deletion is a
-      verified agent wall (both repos' docs/PLATFORM-LIMITS.md).
+      verified agent wall (gba-homebrew + pokemon-mod-lab, each repo's own
+      `docs/PLATFORM-LIMITS.md`; repo-qualified 2026-07-14, INC-11).
     - Blocking: not-blocking.
 
 ### (C) Claude platform (console / environments / sessions / Codex)
