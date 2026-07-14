@@ -67,6 +67,12 @@ The custodian toolchain shipped by the centralization plan P1→P3 (all
 
 ## Recently shipped (newest first)
 
+- **EAP fleet review docs** (fm #181, `claude/central-docs-review`,
+  2026-07-13/14): the owner-directed 19-repo review's four deliverables —
+  [central docs plan](central-docs-plan.md) ·
+  [fleet inconsistency ledger (2026-07-13)](fleet-inconsistencies-2026-07-13.md) ·
+  [EAP story](eap-story.md) ·
+  [EAP retrospective](eap-retrospective.md).
 - **P3 — coverage + index** (fm #86): heartbeat sub-rows · evidence index ·
   real hub row (superbot #2003 → `c18a9c3`) · this ledger + project index
   filled · fleet-triage register ported · `gen_roster.py` graduated · queue
