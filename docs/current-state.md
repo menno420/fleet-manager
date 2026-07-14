@@ -55,6 +55,10 @@ swept 2026-07-14T02:5xZ against the live GitHub API.)
   Slice A rescue-branch reconcile · Slice B outbox truing · Slice C
   centralization-plan Slice 0 (this sweep). Born-red by design; the
   dispatcher lands it.
+- **EAP audit fan-out (2026-07-14)** — every Project lands
+  `docs/audits/eap-project-audit-2026-07-14.md` in its repo(s); tracker:
+  [EAP audit collection (2026-07-14)](eap-audit-collection.md) (0/13 at
+  HEAD at the 08:34Z seed scan; synthesis + final-email draft at majority).
 - Previous entries live-verified MERGED and moved below: fm #86
   (2026-07-11T20:31:56Z), fm #95 (2026-07-12T01:56:29Z), fm #178
   (2026-07-13T22:07:14Z). `OQ-FM-ACTIONS-PR-PERMISSION` RESOLVED 2026-07-12

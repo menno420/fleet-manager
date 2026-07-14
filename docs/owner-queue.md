@@ -119,6 +119,17 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
     - WHAT: delete `claude/harden-verify`, `claude/rework-dashboard`,
       `claude/wire-github-token-docs`, `manager/control-plant`. **NOT**
       `claude/anthropic-review-site` (belongs to open PR #132).
+      **⚠ Caution (re-verified 2026-07-14T08:47Z, wake 0845Z):**
+      `claude/anthropic-review-site` is NO LONGER on the remote — PR #132
+      MERGED 2026-07-11T15:15:42Z (merged_by menno420) and its head branch
+      has since been deleted (absent from the live 183-head branch listing;
+      empty exact-pattern `ls-remote` probe). The do-NOT-delete note above
+      is moot, and the branch list drifts — **re-verify the four target
+      branches on the live /branches page at the delete sitting before
+      clicking** (all 4 were still present at the 08:36Z scan:
+      `claude/harden-verify` @ `722a8af`, `claude/rework-dashboard` @
+      `a0b459f`, `claude/wire-github-token-docs` @ `f7ae7ec`,
+      `manager/control-plant` @ `ddd7ec6`).
     - WHERE: https://github.com/menno420/websites/branches (or Settings →
       enable "Automatically delete head branches").
     - HOW: trash-icon per branch.
@@ -315,20 +326,26 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
     pml `claude/fm-r27-wake-repair` delete.)*
     - id: OQ-STALE-BRANCH-DELETES-0713
     - WHAT: delete stale remote branches — gba-homebrew:
-      `claude/brineward-wind` (**AFTER #82 merges** — #82 carries its
-      slice 6); pokemon-mod-lab: `track-a/session-019`,
+      `claude/brineward-wind` (**gate CLEARED 2026-07-14** — was "AFTER
+      #82 merges"; gba-homebrew PR #82 MERGED 2026-07-13T17:46:23Z,
+      merged_by github-actions[bot], live-verified 2026-07-14T08:36Z);
+      pokemon-mod-lab: `track-a/session-019`,
       `track-a/session-024`, `claude/eloquent-newton-qaf1ii` (head of
       closed-not-merged PR #47).
     - WHERE: each repo's /branches page (or the PR pages' delete-branch
       buttons after the sweep).
-    - HOW: ~1 min total — four delete clicks; sequence the gba one after
-      the #82 merge.
+    - HOW: ~1 min total — four delete clicks, **all four immediately
+      clickable now** (the gba sequencing hold is satisfied).
     - UNBLOCKS: nothing — pure hygiene; prevents stale-base confusion for
       future agent sessions.
     - VERIFIED-NEEDED: gba PR #89 head `a84933b` outbox §4(c); pml PR #63
       head `db46649` status "Asks pending" item 2; branch deletion is a
       verified agent wall (gba-homebrew + pokemon-mod-lab, each repo's own
       `docs/PLATFORM-LIMITS.md`; repo-qualified 2026-07-14, INC-11).
+      Re-verified 2026-07-14T08:36Z (wake 0845Z scan): all four branches
+      still on remote — gba `claude/brineward-wind` @ `eb3235a`; pml
+      `track-a/session-019` @ `cd5ca75`, `track-a/session-024` @
+      `73ca29e`, `claude/eloquent-newton-qaf1ii` @ `2efdde0`.
     - Blocking: not-blocking.
 
 ### (C) Claude platform (console / environments / sessions / Codex)
@@ -796,6 +813,11 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
     control/status.md@`2e03391` ⚑ line 9; grew from three — decision 4 added
     the 07-11 slice, decision 5 added 2026-07-12 from the consolidation
     plan). Window ends **2026-07-14**.
+    **⏰ EXPIRES TODAY (annotated 2026-07-14, wake 0845Z):** the window
+    ends TODAY — this is the sitting's last scheduled day (decision 4's
+    inner "≤2026-07-13" hard deadline has already lapsed); after today the
+    bundle needs an explicit window extension or per-decision expiry
+    dispositions.
     **Consolidation-plan note (2026-07-12):** this sitting IS the plan's
     ⏰ TIME-CRITICAL bundle
     ([`planning/2026-07-12-repo-consolidation-plan.md`](planning/2026-07-12-repo-consolidation-plan.md)
@@ -1171,6 +1193,12 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       tonight alone: #57/#58/#59/#61/#62 + the report PR #63).
     - VERIFIED-NEEDED: pml ORDER 008 report on PR #63 head `db46649`,
       "Asks pending" item 3 ("Decision only — nothing was installed").
+      Re-verified 2026-07-14T08:36Z (wake 0845Z scan): the park-and-sweep
+      pile is live — pml PR #66 (ORDER 007 EAP final-night worklist relay,
+      control-only, created 2026-07-13T22:15:30Z, head `5b1d71c`) and PR
+      #82 (ORDER 007 Q-0266→Q-0262.7 citation fix, control-only, created
+      2026-07-14T04:11:11Z, head `18024e4`) both OPEN, `mergeable_state:
+      clean`, owner sweep pending.
     - RISK: ↩️ reversible — a workflow file; delete to revert.
     - Blocking: not-blocking, but the pile regrows every night run.
 
