@@ -539,6 +539,9 @@ sub-items map to INC rows.
      2026-07-14 session card).
    - done-when: idle's roster row shows no heartbeat-vs-commits divergence
      marker at the next fm regen.
+   → ✅ dispatched — superbot-idle PR #129 / ORDER 008 / MERGED 2026-07-14T07:48:28Z
+   (premise re-verified live: status.md still `updated: 2026-07-13T17:43Z`,
+   orders line lacked 006/007 dispositions).
 
 2. **venture-lab conventions rules 2–3 → enabler doctrine (INC-44).**
    - priority: P2 — doctrine drift, rated HIGH by the lane's own notes
@@ -554,6 +557,9 @@ sub-items map to INC rows.
      current-state says "Lanes never arm or merge their own PRs".
    - done-when: conventions rules 2–3 match PLATFORM-LIMITS + current-state;
      no binding line instructs agent-side arming.
+   → ✅ dispatched — venture-lab PR #191 / ORDER 013 / MERGED 2026-07-14T07:49:12Z
+   (premise re-verified live: rule 2 still read "arm it **at creation** …
+   THE self-merge path").
 
 3. **superbot-next: withdraw ⚑8 + entry-doc re-stamp (INC-58 + INC-22).**
    - priority: P2 — false-alarm owner ask (burns owner attention) + stale
@@ -574,6 +580,11 @@ sub-items map to INC rows.
      velocity, contradicting their own next paragraphs.
    - done-when: ⚑8 gone from the heartbeat; README + current-state In-flight
      stamped ≥ 2026-07-14.
+   → ✅ dispatched — superbot-next PR #464 / ORDER 021 / MERGED
+   (premise re-verified live: ⚑8 still present in the needs-owner list;
+   README:12 still "band 5 … live-testing in flight"; current-state
+   In-flight snapshot still 2026-07-10 — both sub-items outstanding;
+   highest prior ORDER was 020).
 
 4. **websites: token-line truth fix + journal quick-reference refresh
    (INC-23 + INC-24).**
@@ -593,6 +604,11 @@ sub-items map to INC rows.
    - done-when: both surfaces name four services; the token line cites the
      CAPABILITIES resolution; journal test command matches the CLAUDE.md
      four-suite line.
+   → ✅ dispatched — websites PR #331 / ORDER 029 / MERGED 2026-07-14T07:52:31Z
+   (premise re-verified live: current-state still "GitHub token is currently
+   UNSET"; journal still "three … services" / "Tests (60 total)". Priority
+   downgraded P3→P2 at write time — the target's control/README.md grammar
+   pins `priority: P0 | P1 | P2`).
 
 ## 2026-07-14 — coordinator dispatch 0530Z (wake-0434z pending rows closed)
 

@@ -713,3 +713,33 @@ NOT-MEASURED row); pml ORDER 007 rides open PR #82 — untouched.
 No denials anywhere in the dispatch. Ledger rows trued in
 `docs/dispatch-log.md`; trigger-health verification note recorded in
 `docs/fleet-triage.md` (same PR).
+
+## 2026-07-14 · COORDINATOR DISPATCH COMPLETE — wake-0633Z Slice C payloads fanned out (fm-side close, 2026-07-14T07:57:55Z)
+
+The 2026-07-14 0740z coordinator dispatch (mandate: the four wake-0633Z
+Slice C pre-drafted payloads in `docs/dispatch-log.md`; executed against
+fm main @ `1694bfc`) is COMPLETE — **4 of 4 payloads dispatched as 4 lane
+PRs, all control-only, all merged by each repo's own automation (no
+agent-side arming), every premise re-verified live before writing**:
+
+| Target repo | PR | Local ORDER | State | INC ids |
+|---|---|---|---|---|
+| superbot-idle (heartbeat re-stamp) | #129 | ORDER 008 | MERGED 2026-07-14T07:48:28Z | INC-17 |
+| venture-lab (conventions rules 2–3 → enabler doctrine) | #191 | ORDER 013 | MERGED 07:49:12Z | INC-44 |
+| superbot-next (withdraw ⚑8 + entry-doc re-stamp) | #464 | ORDER 021 | MERGED | INC-58 + INC-22 |
+| websites (token-line truth fix + journal quick-ref refresh) | #331 | ORDER 029 | MERGED 07:52:31Z | INC-23 + INC-24 |
+
+Notables: websites payload priority downgraded P3→P2 at write time — the
+target's `control/README.md` grammar pins `priority: P0 | P1 | P2`.
+
+**No GitHub-side denials anywhere in the fan-out.** The only denial was
+environmental: the websites worker's local `git push` failed verbatim
+"remote: Invalid username or token. Password authentication is not
+supported for Git operations." — worked around first-try via the MCP
+write path.
+
+The **ORDER 045 DONE-flip** was appended to `control/inbox.md` in this
+same PR (delivery verified live 2026-07-14T07:47Z, zero discrepancies;
+pokemon-mod-lab #66 remains OPEN parked green by design — it IS the
+delivery, awaiting the owner click per that repo's owner-sweep
+convention).
