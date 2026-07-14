@@ -1,1 +1,0 @@
-- `claude/eap-project-audit` · **eap-audit** — EAP close-out project audit, docs-only · `docs/audits/`, `.sessions/` · 2026-07-14

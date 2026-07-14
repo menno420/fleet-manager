@@ -1,6 +1,6 @@
 # 2026-07-14 — EAP close-out project audit
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 📊 Model: Claude Fable · start 2026-07-14 ·
 coordinator-dispatched worker (EAP close-out audit lane)
