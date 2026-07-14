@@ -23,7 +23,7 @@ records custody + manager-internal memory → here.
 | [`docs/owner-queue.md`](docs/owner-queue.md) | The one deduplicated queue of things waiting on the owner. |
 | [`docs/dispatch-log.md`](docs/dispatch-log.md) | Dated log of what the manager dispatched and shipped. |
 | [EAP final-night worklists (2026-07-13)](docs/eap-final-night-worklists-2026-07-13.md) | ORDER 045 fleet sweep — per-seat prioritized night worklists, DARK dispositions, cross-cutting findings. |
-| [Central docs plan](docs/central-docs-plan.md) | Fleet documentation centralization plan — what moves where, migration order. |
+| [Central docs plan](docs/planning/2026-07-14-central-docs-plan.md) | Fleet documentation centralization plan — what moves where, migration order (landed at its §1 home 2026-07-14; stub at the old path). |
 | [`docs/trigger-health-spec.md`](docs/trigger-health-spec.md) | The per-wake trigger-health spec (R26 / ORDER 020) — canonical here since 2026-07-14 (plan A2). |
 | [`docs/q-index.md`](docs/q-index.md) | Repo-qualified Q→pointer table for cross-repo-cited owner decisions (superbot router stays canonical). |
 | [`docs/conventions/outbox-rollover.md`](docs/conventions/outbox-rollover.md) | The append-only outbox rollover/archival convention (plan A10 — answers idea-engine ASK 004). |

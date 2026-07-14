@@ -347,3 +347,42 @@ prompt, and the external review pack are logged above; review pack ref: sb#1903
     terminal-blocks-only · dated archive files · mandatory pointer stubs
     before the roll · content-stable numbering). First execution targets:
     sim-lab (~875KB) + idea-engine (459KB), each via lane ORDER.
+- **Central-docs plan landed at its §1 home** (Slice 0 item 9):
+  `docs/planning/2026-07-14-central-docs-plan.md` (moved from
+  `docs/central-docs-plan.md`, permanent MOVED stub left); the two frozen
+  superbot seeds indexed as provenance in `docs/planning/README.md`
+  (verified present at superbot `3477594`).
+
+### Pending lane writes (Slice 0 deferrals — fm-write-scope wake; dispatch from here)
+
+One line each: target repo · what · why deferred. All are inbox-ORDER
+deliveries the next dispatch/coordinator turn performs; nothing below blocks
+the Slice 0 items themselves, which are complete fm-side.
+
+1. **superbot** · supersession stub on
+   `docs/owner/trigger-health-order-2026-07-12.md` → pointer to fm
+   `docs/trigger-health-spec.md` (plan A2 / Slice 0 item 4, the #1974
+   pattern) · superbot outside fm write scope tonight.
+2. **superbot** · supersession banners on the two frozen seeds
+   `docs/planning/fleet-centralization-plan-2026-07-11.md` +
+   `docs/planning/fleet-review-2026-07-11.md` → pointer to fm
+   `docs/planning/2026-07-14-central-docs-plan.md` (plan §1
+   Self-application / Slice 0 item 9) · same.
+3. **substrate-kit** · one bundled ORDER: (a) enabler-template `claude/`
+   head-branch allowlist line (idea-engine ASK 001); (b) `check --strict`
+   converges on the CI substrate-gate legs (ASK 002); (c) session-gate card
+   selection mtime→merge-base-diff (ASK 003); (d) A10 outbox-size advisory
+   in `check --strict`; (e) seat-digest/CAPABILITIES templates' dead
+   lowercase `fleet-manager docs/capabilities.md` pointer → uppercase
+   `docs/CAPABILITIES.md` (INC-29 / plan B2 — one template fix heals ~14
+   adopters) · all kit-owned surfaces.
+4. **idea-engine** · deliver the ASK 001–004 answers (above) into its
+   `control/inbox.md` + ORDER its own outbox rollover per the convention ·
+   lane write.
+5. **sim-lab** · ORDER the ~875KB outbox rollover per
+   `docs/conventions/outbox-rollover.md` + cross-link the OA-002 split
+   verdict (enabled=resolved / quota=open, INC-04) into its ledger · lane
+   write.
+6. **pokemon-mod-lab** · correct its own "Q-0266" citations for the QoL+
+   pick to `superbot:Q-0262.7` (INC-09, ORDER-to-lane half; fm's side fixed
+   this wake in `docs/q-index.md` + the findings doc) · lane write.

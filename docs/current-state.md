@@ -72,7 +72,7 @@ swept 2026-07-14T02:5xZ against the live GitHub API.)
   (requirements spec for the v3 prompt set).
 - **EAP fleet review docs** (fm #181, `claude/central-docs-review`,
   2026-07-13/14): the owner-directed 19-repo review's four deliverables —
-  [central docs plan](central-docs-plan.md) ·
+  [central docs plan](planning/2026-07-14-central-docs-plan.md) ·
   [fleet inconsistency ledger (2026-07-13)](fleet-inconsistencies-2026-07-13.md) ·
   [EAP story](eap-story.md) ·
   [EAP retrospective](eap-retrospective.md).
