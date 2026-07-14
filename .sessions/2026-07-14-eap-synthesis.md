@@ -7,3 +7,5 @@
 about to do: synthesize EAP final email draft + consolidated owner checklist from all landed audits/walkthroughs.
 
 Provenance: control/status.md@b01c14f Next-2 baton item 1 (majority-in synthesis dispatch) + live coordinator dispatch; inbox ORDER 046 requested for the record.
+
+- 10:36Z — email draft + owner checklist written, final straggler sweep recorded.

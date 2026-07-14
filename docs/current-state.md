@@ -64,6 +64,11 @@ swept 2026-07-14T02:5xZ against the live GitHub API.)
   closeout ORDERs dispatched ~09:34–09:37Z, **13/13 terminal** (12 merged +
   pokemon-mod-lab #85 parked green by design); full record:
   [EAP final recon + closeout fan-out (2026-07-14)](eap-final-recon-2026-07-14.md).
+- **EAP close — synthesis deliverables (2026-07-14, fm #194)** — the
+  [final feedback email draft](eap-final-email-draft-2026-07-14.md) (owner
+  paste-ready, ranked ANTHROPIC asks + themed appendix) and the
+  [one-sitting owner checklist](eap-owner-checklist-2026-07-14.md) (29 rows,
+  landed-walkthrough §C items merged in; final straggler sweep 10:30Z).
 - Previous entries live-verified MERGED and moved below: fm #86
   (2026-07-11T20:31:56Z), fm #95 (2026-07-12T01:56:29Z), fm #178
   (2026-07-13T22:07:14Z). `OQ-FM-ACTIONS-PR-PERMISSION` RESOLVED 2026-07-12

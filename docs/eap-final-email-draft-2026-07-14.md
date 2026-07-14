@@ -1,0 +1,73 @@
+# EAP final feedback email — owner draft (2026-07-14)
+
+> **Status:** `owner-guidance`
+>
+> UPDATABLE — stragglers were still pending at final sweep (see the straggler section); the body is safe to send as-is. Counts sit in the visible text; provenance sits in HTML comments (invisible in rendered views and most email clients — strip freely).
+
+The final feedback email for the Claude Code EAP (thread "Claude Code Projects Review", Diana Liu / claude-code-early-access@anthropic.com), written for the owner to paste. Sources: the eight landed per-repo audits covering twelve seats, plus [docs/eap-retrospective.md](eap-retrospective.md) §3 — every ANTHROPIC-dispositioned item merged and deduped into the ranked themes below; the long tail lives in the appendix table. Companion: [eap-owner-checklist-2026-07-14.md](eap-owner-checklist-2026-07-14.md).
+
+---
+
+## COPY FROM HERE
+
+**Subject:** Final EAP feedback — a week of running Claude Code as an agent fleet
+
+Hi Diana,
+
+Thanks for the program, and for last week's extension. I used the EAP to run Claude Code as a self-managing fleet: one coordinator project steering agent seats across a ~19-repo portfolio, with the agents doing all the building, reviewing and bookkeeping — I can't code, I only steer. In the final week, the twelve repos with landed closing audits recorded about 2,700 PRs opened (2,641 merged), ~3,400 commits to main and ~1,570 session logs, with median open-to-merge under 5 minutes in every repo once the agents had built their own landing automation. <!-- sums across audits: substrate-kit@86d8ac7 + websites@a17de3b + superbot-next@e24503f + superbot-mineverse@f8abafb (covers games+idle) + venture-lab@eb38b52 (covers trading-strategy) + gba-homebrew@d0d73ab + idea-engine@fe81988 (covers sim-lab) + fleet-manager@b01c14f: PRs opened 361+332+466+370+192+121+130+545+190 = 2,707; merged 2,641; commits 3,406; session cards 1,573 -->
+
+What I'd ask you to fix, ranked by what it cost me:
+
+**1. A merge-consent shape I can actually grant.** The auto-mode classifier refuses agents merging (or arming auto-merge on) green agent-built PRs, and the boundary shifts by session kind and by day: my seats logged 20+ verbatim merge-path denials, several reading "Reason: No reason provided", one for merely documenting the workaround, and one identical call granted ~20 times, then denied. Green PRs then wait on my click — one repo parked 16 PRs over an hour (worst 8.2 h), one seat's click-queue hit 262 pending items. Please give owners a standing grant the classifier honors ("required checks green ⇒ agents may merge claude/* in repos I own"), with denial reasons always populated. <!-- websites@a17de3b §4.7: 4 denials, 16 PRs &gt;1h, worst #163 8.2h; superbot-next@e24503f: 5 denials incl. "No reason provided", #320 14.1h; mineverse@f8abafb: ≥6 denials + "[Instruction Poisoning]" fired on documenting the workaround; venture-lab@eb38b52 Ask A (#9/#15/#55) + Ask D (262 pending clicks); gba@d0d73ab §9.3: re-arm granted ~20x then "[Create Unsafe Agents]"; fleet-manager@b01c14f §3 (#68/#113) -->
+
+**2. Agent-readable repo settings, and a batchable approval surface.** Settings, rulesets, required checks and routine config are click-only for me and invisible to the agents — merge automation that couldn't read branch protection refused to arm for 17.5 hours and silently parked a whole wave of finished work. Please add read-only settings/branch-protection/rulesets reads, and a propose-and-confirm queue I can approve in batches. <!-- gba@d0d73ab §9.1: 17.5h refuse-to-arm epoch ≈57 of 64.6 measured PR wall-clock hours; fleet-manager §3: allow_auto_merge absent from repo objects, no ruleset read; retrospective §3 items 1–2 -->
+
+**3. Scheduler and session-lifecycle observability.** Fresh-session-per-fire crons delivered 0-for-2, reproduced independently across six seats; deleted triggers vanish with no tombstone; one platform event silently disabled nine failsafe triggers at once; a session that dies at provision emits nothing — that cost me an afternoon, three times. Please expose delivery/deletion audit state and provision-failure events, and fix fresh-session cron delivery. <!-- fleet-manager §5: 0-for-2, independently observed by websites/sim-lab/gba/pml/games; nine ended_reason=auto_disabled_env_deleted failsafes (2026-07-11); substrate-kit B-10/B-11: tombstone-less trig_01USg…, proven over 1203 records / 13 pages; venture-lab Ask C: dead-at-provision x3 -->
+
+**4. Let sessions delete the branches they pushed.** Every deletion path returns 403. One two-repo seat accumulated 187 dead branches in 5 days, another 389 in 3.6 days, and squash-merges stranded data commits on branches nobody can prune. <!-- venture-lab Ask B: 187 (131+56), telemetry commit c0fce7c now in no ref; idea-engine ask 3: 389 (304+85) in 3.6 days; websites: 182 remote branches; mineverse seat: 126 stale merged branches -->
+
+**5. Read-only api.github.com through the proxy — and preinstall gh.** Direct GETs 403; in-container curl even returns empty with exit 0, so poll loops never fire; GraphQL serves a pinned set whose error message suggests `gh api` — but gh isn't installed; and GraphQL quota exhausts roughly hourly at fleet scale (10,498/5,000). <!-- substrate-kit B-1: 3 dated 403s; gba §9.2: silent-empty curl, plus sleep-denial leaves no sanctioned poll-wait; venture-lab Ask E: GraphQL "use gh api" verbatim; fleet-manager §3: "gh: command not found", GraphQL 10,498/5,000 ~hourly -->
+
+**6. GitHub MCP freshness and completeness.** PR state served up to ~25 minutes stale with no freshness signal — several seats hit it, and it is exactly how agents double-land work; the auto_merge field is absent, rulesets are unreadable, and actions_list ignores per_page (one history read took 53 pages). <!-- substrate-kit B-5/B-6; websites §6 row 4; superbot-next §6.4; venture-lab Ask E: 53 pages; fleet-manager §3 -->
+
+**7. Show sessions their own usage.** Token and cost fields were null in all 141 telemetry rows one seat kept, and no agent-reachable surface shows CI minutes or spend — the fleet's real economics stayed "not measurable" for the whole program. <!-- mineverse ask 5: 141 telemetry rows all null; fleet-manager §9 ask 4 + retrospective §3 item 15 -->
+
+What genuinely worked: agent-built landing automation (auto-merge enabler + born-red gate, zero bad merges), one-file-per-claim coordination (~98%→0% conflicts), wake-chain redundancy, same-day friction-to-CI-gate conversion. <!-- websites §8: born-red pipeline 63 landings zero bad merges (the gate exists because PR #19 once auto-merged EMPTY); claim measurement ~98%→0% (substrate-kit, mineverse, idea-engine); substrate-kit §8: 4/4 then 6/6 wake-drop bridges; idea-engine §8: 18/18 one-shots, zero missed wakes across ~16h -->
+
+For a future program: design for fleets, not single sessions. Standing owner grants, lifecycle observability and a batchable approval queue would have removed most of the human bottleneck I hit. Happy to demo the fleet live, or share the full per-repo audits.
+
+Best,
+Menno
+
+## COPY TO HERE
+
+---
+
+## Appendix — full themed ask table
+
+| # | Theme | Seats reporting | Measured evidence | The exact ask |
+|---|---|---|---|---|
+| 1 | Merge authority / classifier consent | kit B-7 · websites §9.1 · next §3.1/§4 · mineverse ask 1 · venture-lab Ask A · gba §9.3 · idea-engine ask 5 · fm §3/§9.1 | 20+ verbatim merge-path denials; "No reason provided" (next, VL); documenting the workaround itself denied (mineverse); re-arm granted ~20x then denied (gba); 16 PRs &gt;1h worst 8.2h (websites); #320 14.1h (next); 262 pending clicks (VL); pre-enabler all 63 games merges owner-click, worst 1126 min | Owner-configurable standing grant honored by the classifier; denial Reason always populated; documented, venue-consistent boundary; distinct per-session identity or a review-delegation primitive (mineverse) |
+| 2 | Owner-approval surface + settings/rulesets reads | gba §9.1/§9.4 · fm §3 · venture-lab Ask D · kit P10 · retrospective §3.1–2 | 17.5h refuse-to-arm epoch = ~57 of 64.6 measured PR wall-clock hours (gba); allow_auto_merge absent, no branch-protection/ruleset MCP read (fm); 262 clicks / 44 sequences / 16 hard-gated (VL) | Read-only MCP surface for settings, branch protection, rulesets; propose-and-confirm APIs or a batchable owner click queue |
+| 3 | Scheduler / trigger / session lifecycle | kit B-9/B-10/B-11/B-20 · websites row 11 · next §9.3 · mineverse ask 4 · venture-lab Ask C · gba §9.3 · idea-engine ask 4 · fm §5/§9.2–3 | Fresh-session crons 0-for-2 across ≥6 seats; tombstone-less trigger deletions; 9 failsafes auto-disabled in one env-teardown; dead-at-provision sessions x3; 1,236-trigger 13-page listing to find 2 ids; fire_trigger doesn't advance next_run_at; configured Opus-family routine delivered Fable-family sessions | Delivery/deletion audit trail with tombstones + actor; provision-failure events; fix fresh-session cron delivery; list_triggers filtering; model param on create_trigger; sub-hour wakes; session-targetable timers |
+| 4 | Branch delete / tag / release 403 | websites row 6 · venture-lab Ask B · idea-engine ask 3 · mineverse · gba · fm §3 | 187 dead branches in 5 days (VL seat); 389 in 3.6 days (ie seat); 182 (websites); 126 (mineverse seat); telemetry commit c0fce7c stranded in no ref | Allow sessions to delete claude/* heads they pushed (narrowest safe scope) + tag push; or surface auto-delete-head-branches as an agent-visible action |
+| 5 | Proxy / API egress | kit B-1 · websites rows 4/7 · gba §9.2 · venture-lab Ask E · fm §3 | api.github.com 403 (3 dated hits, kit); proxy 403 masks real 404 semantics (9/10 sampled, websites); silent-empty curl exit 0 (gba); TLS 1.3 ClientHello reset forces --ssl-version-max=tls1.2 (websites); GraphQL 10,498/5,000 ~hourly (fm); gh absent | Read-only api.github.com GETs through the proxy (at least for public/allowlisted repos); explicit proxy errors instead of empty-exit-0; TLS 1.3 in the MITM path; preinstall gh; API headroom at fleet scale |
+| 6 | GitHub MCP freshness / completeness | kit B-5/B-6 · websites §6 · next §6.4 · mineverse ask 3 · venture-lab Ask E · idea-engine ask 2 · fm §3 | PR state ~25 min stale, no freshness signal (5+ seats); auto_merge field absent; actions_list ignores per_page (53 pages); read scope frozen at session creation ("Access denied: repository … not configured for this session"); Read tool 256KB cap (outbox hit 1,091,133 B) | Freshness hint or shorter TTL; auto_merge + issue-timeline in reads; honor per_page; ruleset/branch-protection reads; extendable read allowlist; chunked Read past 256KB |
+| 7 | Usage / cost visibility | mineverse ask 5 · fm §9 ask 4 · retrospective §3.15 | All 141 telemetry rows null on tokens/cost; CI minutes and dollar spend invisible from any agent-reachable surface; "185 queued owner clicks and zero measured revenue" | Per-session token/cost totals (even coarse, end-of-session) exposed to the session itself |
+| 8 | Session identity, venue and policy opacity | kit B-20 · mineverse (toolsets) · idea-engine ask 5 · gba §9.3 · retrospective §3.10 | Coordinator-spawned sessions provisioned with another Project's identity 3x in one night (kit); "No such tool available" varies per seat; Write-tool REPORT refusal reproduced ~10x; same read denied one day, permitted the next | Bind spawned-session identity to the requested project; declare the toolset/policy envelope at boot; stable refusal reason codes with scope/TTL |
+| 9 | Cross-session communication | fm §3/§9.3 · retrospective §3.6 | send_message to inactive sessions fails ("session_inactive", 5/6 relay failures); cross-session trigger binding org-refused; the whole control/ git bus exists as a workaround | Queued delivery that persists to the target's next wake, or an org-scoped wake-a-sibling primitive |
+| 10 | Event delivery | retrospective §3.9 · venture-lab wishlist 6 | Only CI failures + comments delivered; CI-success/merge/push invisible (merge-on-green must poll); designed born-red reds = 31%/26% of all CI runs with no way to annotate | CI-success/merge/push webhook events; a check-run annotation for designed holds |
+| 11 | Environment / platform misc | fm §3/§10 · next §6.6 · retrospective §3.8/11/14/16 | Project custom instructions cap at 8,000 chars (two ~9k packages overflowed at paste); repo creation 403 cost ~2–3 days behind an owner click; merge queue named "the single highest-leverage ask" in two repos' retros; one context-exhaustion casualty mid-wrap-up | Raise the 8k cap; scoped repo creation under an owner allowlist; merge queue / batched branch auto-update; coordinator-tier tool parity; fresh clones or a loud staleness signal at boot |
+
+## Stragglers at final sweep (2026-07-14 10:30Z UTC)
+
+Sweep record (github MCP `get_file_contents` at `refs/heads/main`, per-repo SHA or 404):
+
+- **Audits** (`docs/audits/eap-project-audit-2026-07-14.md` in the 4 target repos): **superbot 404** (expected — the hub corpus lives in `docs/eap/` by design; closeout via superbot #2096) · **pokemon-mod-lab 404 on main** (expected — the audit sits in parked PR #84, re-verified at sweep: still open, `mergeable_state: clean`, head 6349c6c) · **sim-lab 404** (expected — covered by the idea-engine seat audit @ fe81988) · **trading-strategy LANDED @ b4a0360** — landed post-draft, ANTHROPIC items pending fold-in; read at sweep, it is a THIN POINTER to the venture-lab seat audit @ eb38b52 already folded into this draft (quotes its §1 numbers verbatim, adds no new asks), so nothing materially pends.
+- **Walkthroughs** (`docs/eap-closeout-walkthrough-2026-07-14.md` in the 13 target repos): **2/13 landed** — substrate-kit @ e0a6f6c (main bf39df0) and trading-strategy @ 5820a41 (main 21886fd); their §C owner actions are merged into the companion [checklist](eap-owner-checklist-2026-07-14.md). The other 11 (superbot, superbot-next, websites, venture-lab, superbot-games, superbot-idle, superbot-mineverse, pokemon-mod-lab, gba-homebrew, idea-engine, sim-lab) returned 404 at sweep.
+- **Change vs expectations:** trading-strategy was expected covered-by-venture-lab only; it additionally landed both the pointer audit and a full walkthrough. Everything else matched expectations.
+
+## Sources
+
+- substrate-kit `docs/audits/eap-project-audit-2026-07-14.md` @ 86d8ac7 · websites @ a17de3b · superbot-next @ e24503f · superbot-mineverse @ f8abafb (covers superbot-games + superbot-idle) · venture-lab @ eb38b52 (covers trading-strategy) · gba-homebrew @ d0d73ab · idea-engine @ fe81988 (covers sim-lab) · fleet-manager @ b01c14f.
+- fleet-manager `docs/eap-retrospective.md` §3 and `docs/eap-audit-collection.md` @ b01c14f.
