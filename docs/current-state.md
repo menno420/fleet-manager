@@ -64,9 +64,9 @@ swept 2026-07-14T02:5xZ against the live GitHub API.)
 ## Recently shipped (newest first)
 
 - **ORDER 045 EAP final-night fleet sweep** (fm #178, merged
-  2026-07-13T22:07:14Z): [EAP final-night worklists
-  (2026-07-13)](eap-final-night-worklists-2026-07-13.md) — per-seat night
-  worklists + ORDER 045 landed in `control/inbox.md`.
+  2026-07-13T22:07:14Z):
+  [EAP final-night worklists (2026-07-13)](eap-final-night-worklists-2026-07-13.md)
+  — per-seat night worklists + ORDER 045 landed in `control/inbox.md`.
 - **Prompt-architecture research slice** (fm #95, merged
   2026-07-12T01:56:29Z): `docs/research/2026-07-12-prompt-architecture.md`
   (requirements spec for the v3 prompt set).
