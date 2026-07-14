@@ -386,6 +386,16 @@ the Slice 0 items themselves, which are complete fm-side.
 6. **pokemon-mod-lab** · correct its own "Q-0266" citations for the QoL+
    pick to `superbot:Q-0262.7` (INC-09, ORDER-to-lane half; fm's side fixed
    this wake in `docs/q-index.md` + the findings doc) · lane write.
+7. **product-forge** · land the final-status pointer (INC-63 / plan ORDER
+   023 done-when): a short banner in `archive-ready-2026-07-11.md` +
+   `control/status.md` stating the fleet verdict MIGRATE-THEN-ARCHIVE
+   ("do NOT re-arm the wake or resume continuous mode — fm consolidation
+   plan 2026-07-12; archive click gated on E#44") · forge is DARK by
+   verdict and receives no ORDERs, so this is a one-off write that should
+   ride the owner's E#44 archive sitting (or a manager-backup write
+   authorized at that sitting) — recorded here so the resume-recipe trap
+   (a fresh session re-arming a wake on an archive-bound repo) stays
+   visible until the banner lands. *(Added wake 0235Z Slice D.)*
 
 ## 2026-07-14 — overnight wake 0235Z, Slice D (INC-10 trigger dedup + ledger truing)
 
