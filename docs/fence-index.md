@@ -16,6 +16,10 @@
 > acting on a row (one curl per repo; recipe at the bottom). Decide-and-flag:
 > kept as a dated hand-probe for now — mechanizing it into `gen_roster.py`
 > is a natural follow-up once the row set stabilizes.
+> **Partial re-probe 2026-07-14T06:50Z** (wake 0633Z, B4 verification —
+> capability-seed column only, for the three INC-48 lanes): venture-lab row
+> flipped ✅ (ORDER 012 executed); websites + sim-lab unchanged ❌ (ORDERs
+> 028/007 delivered, still `status: new` lane-side).
 
 ## The three fences (contract: kit `src/engine/grammar.py`, vendored in the consumer)
 
@@ -31,15 +35,15 @@
 |---|---|---|---|
 | fleet-manager | ✅ exposed | ✅ present | fm's own source; consumer selftest target |
 | superbot-next | ✅ exposed | ✅ present | |
-| websites | ✅ exposed | ❌ absent | walls live un-fenced → digest under-reports (INC-48 class) |
+| websites | ✅ exposed | ❌ absent (re-probed 06:50Z @ `868626c`) | walls live un-fenced → digest under-reports (INC-48 class); fence-restore ORDER 028 delivered 05:39Z (PR #329), `status: new` |
 | trading-strategy | ✅ exposed | ✅ present | |
-| venture-lab | ✅ exposed | ❌ absent | INC-48 class (walls in PLATFORM-LIMITS, digest empty) |
+| venture-lab | ✅ exposed | ✅ present (re-probed 06:50Z @ `68d57bb`) | INC-48 CLOSED — ORDER 012 executed (venture PR #189): fence restored, walls venue-tagged in the append log, `PLATFORM-LIMITS.md` demoted to evidence-appendix pointer |
 | superbot-games | ✅ exposed | ✅ present | |
 | superbot-idle | ✅ exposed | ✅ present | |
 | superbot-mineverse | ✅ exposed | ✅ present | |
 | gba-homebrew | ✅ exposed | ✅ present | |
 | idea-engine | ✅ exposed | ✅ present | |
-| sim-lab | ✅ exposed | ❌ absent | INC-48 named case — real walls in `PLATFORM-LIMITS.md` (mirrored to the fm master 2026-07-14, B3); digest renders "(no walls recorded)" |
+| sim-lab | ✅ exposed | ❌ absent (re-probed 06:50Z @ `201cb01`) | INC-48 named case — real walls in `PLATFORM-LIMITS.md` (mirrored to the fm master 2026-07-14, B3); digest renders "(no walls recorded)"; walls-fold ORDER 007 delivered 05:40Z (PR #130), `status: new` |
 | superbot | ❌ no digest file | ❌ absent | kit deliberately pinned v1.0.0 (INC-41) — pre-digest generation |
 | substrate-kit | ❌ no digest file | ❌ absent | the kit's self-hosting repo; generates the contract, doesn't consume it |
 | product-forge | ❌ no digest file | ❌ absent | kit v1.7.0 lag; archive-bound (E#44) |

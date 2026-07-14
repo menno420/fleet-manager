@@ -175,6 +175,257 @@ session is not enabled for this organization"); tag push 403 (sim-lab OA-004
 intermittently rate-limited with REST merge-on-green as the proven fallback
 (playbook R8) — sim-lab adds VERDICTs 003/009/011 as evidence.
 
+### substrate-kit (seat: Self Improvement) — mirrored 2026-07-14 from `docs/reports/2026-07-12-trigger-forensics.md` + `docs/retro/self-review-2026-07-09-kitlab-coordinator.md` @ `2a2d92b`
+
+New at the fm master (not previously recorded here):
+
+- 2026-07-14 · wall · autonomous-project · **Fresh-session cron delivery is
+  UNVERIFIED-BROKEN (0-for-2) while self-bound delivery ran 100%** — two
+  fresh-session (`create_new_session_on_fire`) crons ever armed on this seat: one
+  hard-vanished unfired, the other's scheduled slot was never self-delivered
+  (`next_run_at` stayed frozen in the past); meanwhile every self-bound cron and all
+  ~60+ `send_later` one-shots scanned fired on schedule. · evidence: kit trigger
+  forensics §(b) H1 @ `2a2d92b` · workaround: keep wakes on self-bound triggers /
+  send_later chains; fm's own wake chain already complies.
+- 2026-07-14 · wall · any · **Trigger deletions can be TOMBSTONE-LESS** — auto-disabled
+  triggers stay listed with an `ended_reason` (`auto_disabled_env_deleted`,
+  `auto_disabled_session_gone` observed), so a trigger that is *totally absent* from a
+  full registry walk was hard-deleted, actor invisible agent-side. · evidence: kit
+  forensics §(a).5 (`trig_01MHwm…` vanish, 718-entry full walk) @ `2a2d92b` ·
+  workaround: never infer "never existed" from absence; diff full exports over time
+  (fm `telemetry/triggers-snapshot.json` is that diff surface).
+- 2026-07-14 · wall · any · **A manual `fire_trigger` sets `last_fired_at` WITHOUT
+  advancing `next_run_at`** — `last_fired_at` alone is not scheduler health; a frozen
+  past `next_run_at` beside a fresh `last_fired_at` means a manual kick, not a working
+  cron. · evidence: kit forensics §(a).6/§(e).4 @ `2a2d92b` · workaround-for: the
+  false-healthy misread (fm `check_trigger_health.py` evaluates `next_run_at`).
+- 2026-07-14 · capability · subagent · **Worktree-per-worker is the collision-free
+  parallel layout** — parallel workers sharing one `/home/user` checkout collided on
+  working-tree state; per-worker `git worktree` clones in scratchpad fixed it same-day
+  and became the default. · evidence: kit retro self-review 2026-07-09 issue 4 +
+  project-review KL-2 row @ `2a2d92b` · workaround-for: shared-checkout state clobber
+  between concurrent workers.
+
+### venture-lab (seat: Venture Lab) — mirrored 2026-07-14 from `docs/CAPABILITIES.md` append log + `docs/PLATFORM-LIMITS.md` evidence appendix @ `68d57bb`
+
+All four of venture's venue-tagged walls are corroborations of findings already at
+this master (no re-statement): self-merge/auto-merge-arm classifier denials with the
+relayed-authority-never-genuine rider (venture PRs #9/#15/#55 verbatim ·
+`[Self-Approval]` / `[Merge Without Review]`); branch deletion 403 re-verified
+2026-07-13 at the credential layer **with the sharpening that no MCP branch-delete
+surface exists at all** (evidenced against a 94-branch stale-`claude/*` hygiene list);
+direct-push-to-main ruleset wall; no-API owner-click surfaces. Structural note worth
+keeping: venture's post-ORDER-012 layout (fenced ledger = source of truth,
+`PLATFORM-LIMITS.md` = verbatim-evidence appendix pointer) is the B4 target shape for
+the remaining split-ledger lanes.
+
+### codetool-lab-opus4.8 (seat: gen-1 codetool lane, archive-bound) — mirrored 2026-07-14 from `docs/succession/NEXT-BOOT.md` §3 @ `80f6cd1`
+
+New at the fm master:
+
+- 2026-07-14 · wall · any · **`macos-13` CI runner cells queue 12+ minutes and never
+  allocate** (GitHub deprecating macOS-13 hosted runners) — don't add the cell; cover
+  old-Python floors on Ubuntu. · evidence: opus4.8 KNOWN-WALLS table @ `80f6cd1`.
+- 2026-07-14 · wall · autonomous-project · **`enable_pr_auto_merge` while checks are
+  pending can refuse with a MISLEADING error** — "The pull request is in unstable
+  status (required checks are failing)" when checks are merely *pending*, not failing.
+  Seat/repo-dependent: the arm-in-pending-window recipe works elsewhere (product-forge
+  below, playbook R5/R12). · evidence: opus4.8 KNOWN-WALLS @ `80f6cd1`; fable5 item 7
+  + idle's "fails BOTH ways" row corroborate · workaround: read the error against the
+  actual check state; on refusal fall back to merge-on-green / enabler.
+- 2026-07-14 · wall · any · **Setup scripts that die kill the session SILENTLY and it
+  stays "active"** — a sibling-lane session died ~10s after spawn and sat unnoticed
+  ~2.8h; no error surfaces anywhere agent-visible. · evidence: opus4.8 KNOWN-WALLS @
+  `80f6cd1` (fable5 item 10: 76 min lost to a missing requirements.txt) · workaround:
+  defensive always-exit-0 setup scripts (fm `environments/setup-universal.sh`, playbook
+  R15) + first-heartbeat-within-10-min-or-respawn for coordinators.
+
+Corroborations: retry-of-a-denied-merge escalates the classifier (verbatim new class
+kept: `[Auto-Mode Bypass] … tunneling a blocked action`); cross-session `send_message`
+revoked mid-run; tag-push 403 with `claude/*` branch pushes fine; the
+workflow_dispatch release recipe proven first-try twice (runs 29035224581 /
+29038899218 — already the E3 seed evidence).
+
+### codetool-lab-sonnet5 (seat: gen-1 codetool lane, archive-bound) — mirrored 2026-07-14 from `docs/succession/NEXT-BOOT.md` §3 @ `66c3dfc`
+
+New at the fm master:
+
+- 2026-07-14 · wall · any · **The GitHub MCP toolset has NO release/tag creation
+  tools** — only read-only release/tag surfaces (`list_releases`,
+  `get_latest_release`, `get_release_by_tag`, `get_tag`, `list_tags`); a session
+  cannot cut a release via MCP even where git 403s are bypassed. · evidence: sonnet5
+  KNOWN-WALLS @ `66c3dfc` · workaround: the workflow_dispatch release path (seed
+  capability above).
+- 2026-07-14 · capability · any · **PyPI publishing rides owner-side
+  trusted-publisher registration** (pypi.org → Publishing → pending publisher: owner ·
+  repo · `release.yml` · environment `pypi`) — after that one owner click, the release
+  workflow publishes with NO session credential existing or needed. · evidence:
+  sonnet5 KNOWN-WALLS @ `66c3dfc` · workaround-for: "no PyPI token" being read as a
+  publish wall.
+
+### codetool-lab-fable5 (seat: gen-1 codetool lane, archive-bound) — mirrored 2026-07-14 from `docs/succession/PLATFORM-LIMITS.md` @ `a6cf1a9`
+
+New at the fm master:
+
+- 2026-07-14 · wall · any · **Releases API + git-refs API verbatims** (the two
+  non-git-transport release routes): Releases API → "Creating, editing, or deleting
+  releases is not permitted for this session type." (403); create-tag-ref API →
+  "Write access to this GitHub API path is not permitted through this proxy." (403).
+  · evidence: fable5 PLATFORM-LIMITS items 2–3 @ `a6cf1a9` · workaround: same
+  workflow_dispatch release path.
+- 2026-07-14 · wall · any · **PR webhook subscriptions do NOT deliver CI-success /
+  new-push events** — comment/PR events arrive, check outcomes don't; poll when a
+  check result matters. · evidence: fable5 PLATFORM-LIMITS "What verifiably WORKS"
+  rider @ `a6cf1a9`.
+- 2026-07-14 · wall · any · **Harness policy forbids committing the session's model
+  identifier string into repo artifacts** — the reason the fleet's `📊 Model:` card
+  convention is FAMILY-LEVEL names only (superbot Q-0262). · evidence: fable5
+  PLATFORM-LIMITS item 11 @ `a6cf1a9`.
+
+Corroborations: item 4's seat-dependent release-classifier correction is the E3
+rider already mandated to travel with the release playbook ("route closed" was one
+seat's outcome — opus4.8 published twice via the identical route); MCP auto-merge
+"effectively unarmable" both-ways matches idle's row; `send_message` revoked
+mid-flight (~18:00Z) matches opus4.8; setup-script silent kill folded into the
+opus4.8 entry above.
+
+### gba-homebrew (seat: game-lab Track B) — mirrored 2026-07-14 from `docs/PLATFORM-LIMITS.md` @ `e6b7693` (fleet-generic rows only; GBA/NDS toolchain quirks stay lane-side by design — venue-scoped facts)
+
+New at the fm master:
+
+- 2026-07-14 · wall · routine-fired · **Wake-session `add_repo` is classifier-denied
+  ~1-in-2 ("Unauthorized Persistence"), so some wake hours silently produce NO lane
+  session** (OA-5) — compounding, not identical to, the OA-4 PR-less-wake gap. ·
+  evidence: gba PLATFORM-LIMITS dated notes §2026-07-11 item 3 @ `e6b7693` ·
+  workaround: none agent-side; owner added both repos to the routine's scope (below),
+  and absence-of-heartbeat monitoring (fm roster) is the detection net.
+- 2026-07-14 · capability · owner-live · **Agent-created routines ARE owner-editable:
+  they appear in the owner's Routines screen and their REPO SCOPE can be edited
+  there** — the owner added both lane repos to the hourly wake, and the fix is
+  CONFIRMED WORKING (first PR-capable wake observed: pokemon-mod-lab PR #30, merged
+  2026-07-11T12:06:21Z). · evidence: gba PLATFORM-LIMITS dated notes §2026-07-11
+  items 1 @ `e6b7693` · workaround-for: OA-4 (wake sessions stranding PR-less
+  branches). Rider: wake branches come out harness-named `claude/*` regardless of
+  lane branch conventions — audit accordingly.
+- 2026-07-14 · wall · any · **Auto-merge fires on the REQUIRED-check set, not on "all
+  jobs green"** — a merge can land while non-required jobs are still running (gba:
+  NDS proofs finishing on the post-merge main run). Footgun, not a wall: after any
+  merge, verify the post-merge main run before calling it "on green". · evidence:
+  gba PLATFORM-LIMITS slice-4/5 note @ `e6b7693`.
+
+Corroborations: Opus-configured routine delivering Fable-family wake sessions
+(owner-reported 2026-07-11) is a fourth data point for the model-attribution
+surface-disagreement rider recorded below (Anthropic follow-up queue);
+`api.github.com` refusals for out-of-scope repos beside working `git ls-remote`
+/`clone` match the sim-lab bypass entry; devkitPro Cloudflare 403 + leseratte10
+mirror already recorded in the folded manifest.
+
+### product-forge (seat: forge, DARK/archive-bound — mirror-before-archive) — mirrored 2026-07-14 from `PLATFORM-LIMITS.md` @ `4fdfa8a`
+
+New at the fm master:
+
+- 2026-07-14 · wall · any · **A red `check_run` can expose an EMPTY log/annotation
+  body over the API** — you cannot always diagnose a failed gate from the check_run;
+  diagnose locally (`python3 bootstrap.py check --strict` reproduces the substrate
+  gate exactly). · evidence: forge PLATFORM-LIMITS §2026-07-10 @ `4fdfa8a`.
+- 2026-07-14 · wall · any · **Ruleset/branch-protection CONTENTS are not readable
+  from sessions** — required-check strings and `allow_auto_merge` cannot be confirmed
+  by reading config; verify functionally against a live PR (does the gate appear and
+  block; does auto-merge arm). · evidence: forge PLATFORM-LIMITS §2026-07-10 @
+  `4fdfa8a` (write-side sibling: mineverse's "Modify Shared Resources" denial below).
+
+Corroborations: the arm-in-the-pending-window recipe with measured ~5–7s window,
+verified on PRs #6/#7/#9/#10/#11/#21, plus the seat-variance ledger (denied on
+#8/#12/#13/#14/#15/#17/#19/#22 → escalate to the coordinator holding the owner's
+in-session grant, NEVER a peer worker — "permission laundering") is the A8
+merge-authority doctrine's strongest evidence set; already indexed by the plan.
+
+### trading-strategy (seat: trading) — mirrored 2026-07-14 from `docs/CAPABILITIES.md` append log @ `d857e50`
+
+Single append entry, a corroboration: the `auto-merge-enabler.yml` workflow arming
+native squash auto-merge on non-draft `claude/*` PRs (installed PR #65, proven on
+#66–#76) — the superbot Q-0123 enabler pattern working as designed on a lane repo;
+its rider ("the prior REST/MCP squash-on-green exception is RETIRED-superseded —
+never revive it") is the doctrine-hygiene half worth keeping visible.
+
+### superbot-idle (seat: SuperBot World, Seat B) — mirrored 2026-07-14 from `PLATFORM-LIMITS.md` @ `5ddd5a2` (CAPABILITIES append log empty at HEAD — B4 fold class)
+
+New at the fm master:
+
+- 2026-07-14 · wall · owner-live · **Completed routine runs are not inspectable
+  owner-side** — the status heartbeat is the only readable record of what a fired
+  routine did; trust git over any panel. · evidence: idle PLATFORM-LIMITS @ `5ddd5a2`.
+- 2026-07-14 · wall · autonomous-project · **A PR can stall with ZERO check runs**
+  (`mergeable_state: unknown` — GitHub never built the merge ref, so no workflow
+  dispatches; observed ~5 min on idle PR #61); a rebase + re-push retriggers checks
+  instantly. Rebase, don't wait. · evidence: idle PLATFORM-LIMITS @ `5ddd5a2` ·
+  rider: idle's recipe used `--force-with-lease` on its own PR head — acceptable only
+  there; fleet doctrine elsewhere stays forward-only.
+
+Corroborations: coordinator-lacks-scheduler-tools-while-worker-has-them matches the
+sim-lab mirrored entry above; shared-token rate limits match the GraphQL-quota seed
+wall; auto-merge "fails BOTH ways on fast CI" folded into the opus4.8 arm-window
+entry.
+
+### idea-engine (seat: Ideas Lab) — mirrored 2026-07-14 from `docs/CAPABILITIES.md` append log @ `02ea4ce`
+
+New at the fm master:
+
+- 2026-07-14 · wall · any · **Pushes authored with a workflow's own `GITHUB_TOKEN`
+  never retrigger workflow runs** (GitHub anti-recursion) — automation that pushes
+  then waits on CI stalls silently; checks never report. · evidence: idea-engine
+  append 2026-07-11 (behind-stall probe, PR #138 card) @ `02ea4ce` · workaround:
+  explicit `workflow_dispatch`/re-run, or push with a non-`GITHUB_TOKEN` credential.
+  (Same mechanism class as superbot Q-0127: app-token PR creation not firing the
+  enabler.)
+- 2026-07-14 · wall · any · **`*.github.io` (GitHub Pages) is not fetchable through
+  the egress proxy** — `curl https://menno420.github.io/…` → `curl: (56) CONNECT
+  tunnel failed, response 403` while `raw.githubusercontent.com` works; live Pages
+  state cannot be verified from a seat. · evidence: idea-engine append 2026-07-11 @
+  `02ea4ce` · workaround: conclude Pages state from committed workflow-run records,
+  and put live-site smoke checks in the target repo's own post-deploy CI.
+- 2026-07-14 · wall · any · **GitHub atom feeds
+  (`github.com/<owner>/<repo>/commits/<branch>.atom`) are a SEAT-DEPENDENT SHA-pin
+  source** — worked from one seat, 403'd from another. · evidence: idea-engine append
+  2026-07-11 @ `02ea4ce` · workaround: pin via `git ls-remote` (credentials inject on
+  the git transport — the reliable cross-repo pin method, matching the sim-lab bypass
+  entry above).
+
+### superbot-mineverse (seat: SuperBot World) — mirrored 2026-07-14 from `docs/CAPABILITIES.md` append log @ `0b388f1`
+
+New at the fm master:
+
+- 2026-07-14 · wall · autonomous-project · **Branch-protection/ruleset MODIFICATION
+  is classifier-denied on agent seats** — verbatim reason: "Modify Shared Resources"
+  (attempt: adding a required status check to main's ruleset). Owner-only surface;
+  route as a click-level ⚑ OWNER-ACTION. · evidence: mineverse append 2026-07-11 @
+  `0b388f1` (read-side sibling: forge's ruleset-contents-unreadable entry above).
+- 2026-07-14 · wall · any · **`gh` CLI is absent from these containers** — use the
+  GitHub MCP (in-scope repo) or plain git over HTTPS; fable5 recorded the same
+  (`gh: command not found`). · evidence: mineverse append 2026-07-11 @ `0b388f1` +
+  fable5 PLATFORM-LIMITS item 6 @ `a6cf1a9`.
+
+Corroborations: coordinator seat lacking GitHub MCP AND Bash while workers carry
+both (strongest statement yet of the toolset seat-split — sim-lab/idle entries
+above); `send_later` being SELF-SESSION-ONLY with `create_trigger` +
+`persistent_session_id` + `run_once_at` as the cross-session wake path (matches the
+sim-lab self-bind capability); `api.github.com` proxy-403 with raw/tree-page reads
+as the oracle path.
+
+### B3 sweep status (2026-07-14T06:50Z)
+
+Mirrored: sim-lab (04:34Z wake) + the 10 lanes above (this wake) — the central-docs
+plan's B3 row source set is now covered except: **pokemon-mod-lab** (private — raw
+read walled from this seat; prose-only mirror rule applies when the
+ROSTER_READ_TOKEN path lands, plan §6 private-content guard). Residual sources for
+the NEXT sweep, outside the B3 row's enumeration but probed non-empty:
+**websites** `docs/CAPABILITIES.md` append log (10 dated entries at `868626c`, e.g.
+Railway variable-write harness denial; dispatch-chained check runs not counting as
+required contexts; routine-fired toolset gaps) — deliberately not mirrored this
+wake to keep this pass to the plan's enumerated set (decide-and-flag);
+**superbot-games** append log is empty at HEAD. superbot-next's denial-class corpus
+is A8/A12 doctrine material routed by the plan, not B3 ledger rows.
+
 ## Fleet capability manifest (folded from `docs/capabilities.md`, 2026-07-12 — I-44 resolution)
 
 > Folded verbatim from the old lowercase `docs/capabilities.md` (established
