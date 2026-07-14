@@ -70,6 +70,36 @@ resolved and the kit stop-hook guard ships (relayed as substrate-kit inbox
 ORDER — a sibling worker is landing it as a kit PR; see the kit inbox ORDER,
 control-only PR of 2026-07-14).
 
+## Addendum — root cause settled + remedy (2026-07-14 ~16:10Z)
+
+Web research (coordinator, 2026-07-14) settled the PRIMARY mechanism:
+GitHub's "Automatically delete head branches" silently skips merges
+performed by **app/bot actors** — which covers every fleet auto-merge
+(armed via GITHUB_TOKEN / the MCP app token). Sources:
+
+- <https://github.com/orgs/community/discussions/63409> (2023-08-10 —
+  head branches are not auto-deleted when the PR is merged via an app
+  token)
+- <https://github.com/cli/cli/issues/9073>
+- GitHub's own docs
+  (<https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-the-automatic-deletion-of-branches>)
+  name only rules/rulesets as exclusions — the app-actor gap is
+  undocumented, community-reported behavior.
+
+This confirms the census fingerprint (460/491 exact-match survivors here;
+the coordinator additionally measured 551/562 spent refs in superbot) and
+upgrades the ADDENDUM's "best-fit" to settled.
+
+**Remedy (settled): a SCHEDULED cron sweep workflow per repo** — enumerate
+merged+closed PRs, delete their head refs (`claude/*`, `codex/*`, `bot/*`
+patterns), skip any ref that is the head of an open PR, log deletions.
+A `pull_request: closed` cleanup workflow is a known trap: events
+performed with GITHUB_TOKEN do not trigger workflows
+(<https://docs.github.com/en/actions/security-guides/automatic-token-authentication>),
+so it would never fire for exactly the bot-merged PRs that need it.
+Dispatched to substrate-kit as inbox **ORDER 023** (extends ORDER 022;
+P1 — the P0 stop-hook guard already shipped in kit v1.16.0).
+
 ## Provenance
 
 Relayed by the Fleet Manager seat per owner discussion, coordinator dispatch
