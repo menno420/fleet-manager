@@ -52,6 +52,18 @@ Amended   : 2026-07-13 (heartbeat "Checker gap" + Next-2 baton item 2,
             next_run 2026-07-02T03:07Z, observed live 2026-07-13) slipped
             the watchdog. I1b surfaces the absent-`enabled` class without
             guessing liveness.
+Amended   : 2026-07-14 (dispatch 0530Z close) — I1b decode RESOLVED:
+            live verification ~05:35Z (full 17-page list_triggers
+            enumeration, ~1,642 routines; recorded in
+            docs/fleet-triage.md) confirmed the API OMITS `enabled` when
+            false — absent = DISABLED. Both live instances
+            (trig_01MWHvQFnRF1dVdZFSP6SM5L superbot night executor,
+            trig_011XAWqPeksS8LBrS5G9RvVc superbot autonomous dispatch)
+            are DISABLED/user-paused; a frozen next_run_at on such a
+            record is the expected footprint of a pause (a disabled
+            routine's next_run_at does not advance), NOT a scheduler
+            fault. I1b's frozen-record WARN downgraded to INFO (PASS);
+            records stay LISTED, never dropped.
 =============================================================================
 
 WHAT IT CHECKS (one PASS/FAIL line per invariant; exit 1 on any FAIL —
@@ -60,17 +72,17 @@ WARN lines never affect the exit code)
                        > grace (15min) in the past. A healthy trigger
                        ADVANCES next_run_at after each fire.
   I1b AMBIGUOUS-ENABLED registry records with the `enabled` key ABSENT
-                       (not False) are invisible to I1. A fired/ended
-                       record loses `enabled` on export and carries an
-                       ended_reason (expected history — counted, not
-                       listed). An absent-`enabled` record with NO
-                       ended_reason has UNKNOWN liveness: it is LISTED,
-                       never guessed; one that is also a standing cron
-                       with next_run_at frozen > grace in the past is a
-                       WARN (either a disabled remnant the export
-                       under-reports or a live-but-stuck cron —
-                       indistinguishable on the registry; verify live).
-                       WARN exits 0 — remnants are expected.
+                       (not False) are invisible to I1. Decode RESOLVED
+                       (live-verified 2026-07-14): the API OMITS
+                       `enabled` when false, so absent = DISABLED. A
+                       fired/ended record also carries an ended_reason
+                       (expected history — counted, not listed); an
+                       absent-`enabled` record with NO ended_reason is a
+                       disabled/user-paused routine — LISTED as INFO,
+                       and a frozen next_run_at on it is the expected
+                       footprint of a pause (a disabled routine's
+                       next_run_at does not advance), not a scheduler
+                       fault. Always PASS.
   I2 DROPPED-ONESHOT   no enabled one-shot is > grace past run_once_at
                        (a delivered one-shot disables itself). CAVEAT: a
                        QUEUED tick (bound to a busy session; delivers at
@@ -265,16 +277,19 @@ def duplicate_cron_groups(records: list[dict]) -> list[dict]:
 # with `enabled` == True, so a record whose `enabled` key is ABSENT from the
 # export is skipped by every invariant. Most absent-`enabled` records are
 # expected history (a delivered one-shot loses `enabled` and records
-# ended_reason=run_once_fired; auto_disabled_* likewise explains itself) —
-# but an absent-`enabled` record with NO ended_reason has UNKNOWN liveness
-# and must be SURFACED, never guessed.
+# ended_reason=run_once_fired; auto_disabled_* likewise explains itself).
+# Decode RESOLVED 2026-07-14 (dispatch 0530Z close; live-verified against
+# the full 17-page registry enumeration): the API OMITS `enabled` when
+# false, so absent = DISABLED — an absent-`enabled` record with NO
+# ended_reason is a disabled/user-paused routine, listed as INFO.
 
 
 def split_absent_enabled(records: list[dict]) -> tuple[list[dict], list[dict]]:
-    """Split absent-`enabled` records into (ambiguous, explained-remnants).
+    """Split absent-`enabled` records into (disabled/paused, remnants).
 
-    ambiguous = `enabled` key absent AND no ended_reason (liveness unknown);
-    remnants  = `enabled` key absent WITH an ended_reason (expected history).
+    First list = `enabled` key absent AND no ended_reason (disabled,
+    user-paused — absent decodes as False per the 2026-07-14 live verify);
+    remnants = `enabled` key absent WITH an ended_reason (expected history).
     Records that CARRY `enabled` (True or False) belong to the other
     invariants and are not this class.
     """
@@ -317,20 +332,23 @@ def check(records: list[dict], eval_dt: datetime, now: datetime,
                     [f"no enabled cron frozen > {gen_roster.WEDGE_GRACE_MIN}m"
                      f" past at {fmt(eval_dt)}"]))
 
-    # I1b AMBIGUOUS-ENABLED (PR #167 — the I1 absent-`enabled` blind spot)
-    ambiguous, remnants = split_absent_enabled(records)
-    frozen = [r for r in ambiguous if ambiguous_frozen(r, eval_dt)]
+    # I1b AMBIGUOUS-ENABLED (PR #167 blind spot; decode RESOLVED
+    # 2026-07-14: the API omits `enabled` when false, so absent = disabled
+    # — a frozen next_run_at on one is a pause footprint, INFO not WARN)
+    disabled, remnants = split_absent_enabled(records)
+    frozen = [r for r in disabled if ambiguous_frozen(r, eval_dt)]
     remnant_note = (f"{len(remnants)} ended/fired absent-`enabled` "
                     "remnant(s) — expected history, not listed")
-    if not ambiguous:
+    if not disabled:
         results.append(("I1b AMBIGUOUS-ENABLED", True,
                         [f"no absent-`enabled` record lacks an ended_reason "
                          f"({remnant_note})"]))
     else:
         lines = []
-        for r in ambiguous:
-            state = ("FROZEN next_run_at (invisible to I1)" if r in frozen
-                     else "no frozen fire signal")
+        for r in disabled:
+            state = ("FROZEN next_run_at — expected pause footprint, INFO "
+                     "(a disabled routine's next_run_at does not advance)"
+                     if r in frozen else "no frozen fire signal")
             lines.append(f"`{r['id']}` {r['name']!r} "
                          f"`{r.get('cron_expression')}` next "
                          f"{(r.get('next_run_at') or '?')[:16]}Z — {state}"
@@ -338,12 +356,12 @@ def check(records: list[dict], eval_dt: datetime, now: datetime,
                          f"{gen_roster.attribute_lane(r) or '(unattributed)'}")
         lines.append(remnant_note)
         if frozen:
-            lines.append("liveness UNKNOWN on the registry (`enabled` absent "
-                         "is not False) — verify each FROZEN record live "
-                         "(list_triggers / owner Routines screen) and "
-                         "disable-or-re-arm; never guess")
-        results.append(("I1b AMBIGUOUS-ENABLED",
-                        "WARN" if frozen else True, lines))
+            lines.append("absent `enabled` = DISABLED (live-verified decode "
+                         "2026-07-14: the API omits `enabled` when false) — "
+                         "these are user-paused routines, not scheduler "
+                         "faults; re-enable or delete via the owner "
+                         "Routines screen if unwanted")
+        results.append(("I1b AMBIGUOUS-ENABLED", True, lines))
 
     # I2 DROPPED-ONESHOT
     lines = []
@@ -594,9 +612,11 @@ def selfcheck() -> int:
        "a single enabled cron passes I8")
 
     # I1b AMBIGUOUS-ENABLED (PR #167): a record with `enabled` ABSENT is
-    # invisible to I1; ambiguous (no ended_reason) records are LISTED and a
-    # frozen standing cron among them WARNs — never FAILs, never guessed.
-    # Shapes from the observed live instances (snapshot @ f09ba87).
+    # invisible to I1. Decode resolved 2026-07-14 (live-verified: the API
+    # omits `enabled` when false): absent = disabled — records are LISTED
+    # as INFO and a frozen standing cron among them is a pause footprint
+    # (PASS, was WARN). Shapes from the observed live instances
+    # (snapshot @ f09ba87; both confirmed disabled/user-paused live).
     ambig_frozen_rec = {"id": "trig_a1", "name": "superbot autonomous dispatch",
                         "created_at": "t",
                         "cron_expression": "0 */3 * * *",
@@ -608,19 +628,20 @@ def selfcheck() -> int:
     ok(r["I1 WEDGED-CRON"][0],
        "absent-enabled frozen cron still stays out of I1 (the blind spot "
        "is surfaced by I1b, not folded into I1's enabled semantics)")
-    ok(r["I1b AMBIGUOUS-ENABLED"][0] == "WARN",
-       "ambiguous record with FROZEN next_run_at WARNs I1b")
+    ok(r["I1b AMBIGUOUS-ENABLED"][0] is True,
+       "disabled (absent-enabled) record with FROZEN next_run_at PASSes "
+       "I1b as INFO (pause footprint — was WARN before the decode)")
     i1b_text = " ".join(r["I1b AMBIGUOUS-ENABLED"][1])
     ok("trig_a1" in i1b_text and "FROZEN" in i1b_text,
-       "I1b lists the frozen ambiguous record as FROZEN")
-    ok("trig_a2" in i1b_text, "I1b lists the non-frozen ambiguous record too")
-    ok("never guess" in i1b_text,
-       "I1b names the live-verify remedy, never guesses liveness")
+       "I1b lists the frozen disabled record as FROZEN")
+    ok("trig_a2" in i1b_text, "I1b lists the non-frozen disabled record too")
+    ok("pause footprint" in i1b_text and "DISABLED" in i1b_text,
+       "I1b decodes absent-enabled as disabled (pause footprint, not fault)")
     ok(run([manager_ok, ambig_idle_rec])["I1b AMBIGUOUS-ENABLED"][0] is True,
-       "ambiguous without a frozen fire signal PASSes I1b (listed only)")
+       "disabled without a frozen fire signal PASSes I1b (listed only)")
     ok(run([manager_ok, fired])["I1b AMBIGUOUS-ENABLED"][0] is True,
        "ended/fired absent-enabled remnants are expected history, not "
-       "ambiguous")
+       "the disabled/paused class")
 
     for msg in fails:
         print(f"SELFCHECK FAIL: {msg}", file=sys.stderr)
@@ -714,9 +735,8 @@ def main(argv=None) -> int:
               "Q-0242).")
     elif warned:
         print(f"VERDICT: PASS — {len(results) - warned}/{len(results)} "
-              f"green, {warned} WARN (ambiguous-`enabled` record(s) need a "
-              "live verify; exit stays 0 — absent-`enabled` remnants are "
-              "expected history).")
+              f"green, {warned} WARN (see the WARN line(s) above for the "
+              "verify-live remedy; exit stays 0).")
     else:
         print(f"VERDICT: PASS — all {len(results)} invariants green.")
     if failed and args.advisory:
