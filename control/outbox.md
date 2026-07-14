@@ -782,3 +782,22 @@ recommendation + VERIFY step each); the fm owner-queue remains the
 cross-fleet dedup surface. No lane inbox was touched beyond the 13
 append-only ORDERs; nothing was armed or merged by this seat (pml #85
 parks for the owner per that repo's convention).
+
+## 2026-07-14 · SUPERBOT-NEXT ORDER 022 GRAMMAR REPAIR — lane→manager ask served (dispatched worker, 2026-07-14T16:44:38Z)
+
+superbot-next `control/inbox.md` ORDER 022 (appended #469, 09:36:47Z) wrote its four
+required fields as markdown bullets (`- priority:` …), unparseable by the kit's
+`[inbox-order-grammar]` enforcer (`ORDER_REQUIRED_FIELDS` + `_validate_block`,
+`ln.lstrip().startswith(field)`). The lane's ask (superbot-next PR #484 outbox entry)
+requested the manager de-bullet it in place; the checker source FORBIDS in-place inbox
+edits (`inbox-not-append`: merge-base must stay a byte-prefix, `check_inbox_append`),
+so the repair shipped in the one checker-accepted shape — a pure-append grammar-clean
+REISSUE block (bare fields, values-by-reference) — superbot-next PR #486
+(`claude/fm-fix-order022-grammar` @ fd35395), local proof green via CI's exact
+commands before push. Q-0120 re-verify note: the ask's "reds `checkers` on every open
+PR" premise did NOT reproduce at live HEAD — every recent `checkers` run is green
+(incl. #484's own run 29349755083; ci.yml's shallow checkout self-skips the inbox leg,
+and substrate-gate's merge-base = main tip keeps the bulleted block out of every PR's
+appended region). Defect was real but latent (protocol nonconformance), not fleet-redding.
+Dispatch-log row skipped: `docs/dispatch-log.md` lives outside `control/`, and this
+entry rides the control fast lane — coordinator may add the row on its next docs pass.
