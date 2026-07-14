@@ -1393,6 +1393,10 @@ the seat.
 ## ORDER 045 · update 2026-07-14T07:57:55Z · status: done — delivery verified, manager flip
 priority: P0 (unchanged)
 owner: Fleet Manager seat (unchanged)
+do: FLIP ORDER 045 to `status: done` — the delivery is verified complete; no
+further work rides this order.
+why: every done-when clause is SATISFIED (verification below), so the order
+must stop reading as open work in the inbox.
 verified: live GitHub, 2026-07-14T07:47Z, zero discrepancies. Worklists doc
 `docs/eap-final-night-worklists-2026-07-13.md` on fm main @ `1694bfc`
 (blob `6c0750c`) with per-seat prioritized lists for 12 seats including the
