@@ -53,16 +53,13 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
      (docs/PLATFORM-LIMITS.md).
    - Blocking: not-blocking, but a live gate hole.
 
-6. **superbot-mineverse — add required check `pytest`.**
+6. **✅ RESOLVED (owner clicked 2026-07-11; swept 2026-07-14, Slice 0 item 6 /
+   INC-06) — superbot-mineverse `pytest` IS a required check.**
    - id: OQ-MINEVERSE-PYTEST-REQUIRED-CHECK
-   - WHERE: https://github.com/menno420/superbot-mineverse/settings/rules →
-     main ruleset → Require status checks.
-   - HOW: add context `pytest`.
-   - UNBLOCKS: test-gated merges without coordinator babysitting.
-   - VERIFIED-NEEDED: LIVE-PROVEN today — PR #30 merged 10:25:33Z while its
-     pytest check completed 10:26:13Z: the PR merged **40 s before pytest
-     finished**; only substrate-gate gated. Rulesets = owner-only wall.
-   - Blocking: not-blocking, but a live, demonstrated gate hole.
+   - Evidence: enabler rules probe verbatim `required contexts (2):
+     ["substrate-gate","pytest"]` (Actions run 29260140367); re-confirmed
+     live 2026-07-14 (mineverse notes §5.1/§11). The 07-11 gate hole
+     (PR #30 merged 40 s before pytest finished) is closed.
 
 7. **superbot-next OA-3 — enable merge queue OR drop require-up-to-date for
    `docs/**` + `control/**`.**
@@ -458,21 +455,17 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
     - VERIFIED-NEEDED: portal secrets are genuinely owner-only (no API path).
     - Blocking: blocks player sign-in only; the site is otherwise live.
 
-18. **superbot-plugin-hello — say the seed-push word (LIVE OWNER WORD, not a
-    click).**
+18. **✅ RESOLVED (delivered 2026-07-12; swept 2026-07-14, Slice 0 item 6 /
+    INC-01) — superbot-plugin-hello seed is PUSHED.**
     - id: OQ-PLUGIN-SEED-WORD
-    - WHAT: the repo exists but is EMPTY; the ask is to say **"push the plugin
-      seed"** in a session — the classifier requires a live owner word for
-      cross-repo publication.
-    - WHERE: any live session; seed staged at superbot-next
-      `examples/superbot-plugin-hello/` @`168ef80`; contract: superbot
-      `docs/owner/product-catalog.md` §10 @`9f46cb7`.
-    - HOW: one line in a session you're present in.
-    - UNBLOCKS: superbot-idle PLUG-001 (lane HOLD) + the plugin-contract
-      end-to-end proof.
-    - VERIFIED-NEEDED: re-verified today — Contents API returns verbatim
-      `409 Git Repository is empty`. *(Split out of old item 14.)*
-    - Blocking: blocks idle PLUG-001.
+    - Evidence: the seed was delivered 2026-07-12T13:29Z (`bbaccec`, ORDER
+      002/014 per superbot-next `control/status.md`); **live-re-verified
+      2026-07-14** — Contents API returns a full tree at `bbaccec` (README,
+      pyproject, `superbot_plugin_hello/`, `tests/`), no 409. The idle
+      PLUG-001 HOLD reason is gone (adapter merged, idle #75/#78).
+    - History: the ask was written against a genuinely-empty repo and went
+      stale after the owner delivered — the exact expiry class
+      `check_owner_queue.py` should learn to probe (INC-06 disposition).
 
 19. **trading-strategy — archive the dead gen-1 "ORDER 001 successor"
     session.**
@@ -495,10 +488,11 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
     - UNBLOCKS: steadier @codex review throughput.
     - VERIFIED-NEEDED: status@`168ef80` FLAP UPDATE (today).
     - Blocking: not-blocking.
-    - **Manager note (agent-fixable, routed to the superbot lane — NOT an owner
-      click):** superbot's `codex-final-review` workflow has had invalid YAML
-      since 2026-06-19 — 0 successful runs of 2,811; latest run 29156086075
-      instant-fails at parse.
+    - **Manager note — ✅ the YAML half is RESOLVED (swept 2026-07-14, Slice 0
+      item 6):** superbot's `codex-final-review` invalid-YAML (broken since
+      2026-06-19, 0 successful runs of ~2,808) was fixed by **superbot PR
+      #1995, MERGED 2026-07-11T15:18:41Z** (live-verified via the GitHub
+      API). Only the flapping-quota half of this item remains.
 
 34. **Fleet restructure — create/rename the claude.ai Projects to the 8
     standing seats** *(new 2026-07-11, owner restructure directive — slice 3,
@@ -1125,26 +1119,18 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
     - RISK: ✅ none — an answer, not a change.
     - Blocking: blocks only that follow-up guide.
 
-56. **trading-strategy — KILL-SIG three-way verdict class: approve/veto.**
-    *(new 2026-07-13, night-report roll-up — from the ORDER-013 report's
-    pending list.)*
+56. **✅ RETIRED to decided-and-flagged (swept 2026-07-14, Slice 0 item 6 /
+    INC-05) — trading already ratified AND shipped KILL-SIG.**
     - id: OQ-TRADING-KILLSIG-VERDICT-CLASS
-    - WHAT: approve (or veto) adding a KEEP / KILL / KILL-SIG three-way
-      verdict derived from the already-computed promotion_grade t-stat —
-      KILL-SIG marks significantly-NEGATIVE strategies (e.g. TSLA
-      rsi_mean_reversion t = −3.01 overnight, worse than buy-and-hold) as
-      their own evidence class instead of a plain KILL.
-    - WHERE: one word to the manager; relayed to trading's inbox.
-    - HOW: say "KILL-SIG: yes" (recommended — research-lane-only grading
-      metadata, no live-trading surface) or "no".
-    - UNBLOCKS: the next research round's grading schema; keeps
-      significant negatives discoverable as anti-signals.
-    - VERIFIED-NEEDED: trading `.sessions/2026-07-13-r3-meanrev-new-tickers.md`
-      (PR #91 card) + the NIGHT REPORT pending list on main (report via
-      #97 = `08969bb`).
-    - RISK: ↩️ reversible — grading metadata only; holdout/paper rails
-      untouched.
-    - Blocking: not-blocking (next round can run on the old two-way).
+    - Evidence (live-verified via the GitHub API 2026-07-14): trading **PR
+      #109 MERGED 2026-07-13T14:03:52Z** — independent review verdict
+      **ACCEPT**, ratifying the already-merged R4-A adoption
+      (`trading_lab.promotion.classify_verdict`, shipped in trading #100);
+      trading **PR #118 MERGED 2026-07-13T23:12:14Z** — Round 6 graded 58
+      lanes natively under it (8 KILL-SIG). Decide-and-flag class (Q-0240):
+      research-lane grading metadata, reversible; the owner's remaining
+      control is veto-on-review, not pre-approval. Flagged here; no owner
+      action needed.
 
 57. **superbot-next — curation ratification bundle: DROP-list (60 items) +
     settings-prune + D-0083 anchor.** *(new 2026-07-13, night-report
@@ -1430,6 +1416,14 @@ state is committed in the repos). Do in one sitting whenever convenient.
 - **sim-lab OA-002 (Codex integration):** Codex environments exist for ALL 12
   active fleet repos (owner update 2026-07-11 ~00:2xZ, inbox ORDER 014). Quota
   refusals are RETRY-LATER, never a wall.
+  - *Reconciliation (2026-07-14, Slice 0 item 6 / INC-04 — the fm↔sim-lab
+    state fork):* the two repos conflated **integration-ENABLED** (done —
+    the resolution above stands) with **usage-QUOTA-capped** (still real:
+    sim-lab `control/status.md` holds ⚑ OA-002 open with 6+ @codex questions
+    pending on quota flaps). Split verdict: enabled = RESOLVED here;
+    quota-throughput = OPEN, tracked sim-lab-side (its ledger is the write
+    surface) + the flapping evidence at `OQ-CODEX-FLAPPING`. Cross-link:
+    sim-lab inconsistency 4.
 - **fleet-manager Codex env ask (PR #26):** resolved by the same fleet-wide
   enablement; @codex now PRIMARY on this repo's review-queue rows.
 - **Games mapping item 14, Seat B repo-creation click — DONE:**

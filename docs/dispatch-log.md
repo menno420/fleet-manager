@@ -312,3 +312,18 @@ prompt, and the external review pack are logged above; review pack ref: sb#1903
   merge-on-green resolution), this log's visibility-saga entry, and the
   `.sessions/2026-07-10-archive-prep.md` card. Landed via REST
   merge-on-green (R21 — no arm attempt).
+
+## 2026-07-14 — overnight wake 0235Z, Slice C (central-docs-plan Slice 0)
+
+- **codetool-lab-fable5 disposition DECIDED: ARCHIVE, no relaunch**
+  (decide-and-flag, Q-0240 class — the lane sat "ready for archive + fresh
+  session" for 4 days with no decision either way; fable5 candidate 7 /
+  plan C2). Rationale: the gen-2 8-seat structure has no codetool seat, the
+  CLI (envdrift) is finished and wound down, and the consolidation plan's
+  reconciled verdict is HARVEST-THEN-ARCHIVE with release-in-place. No fresh
+  session will be armed. Sequencing (unchanged, all prior gates retained):
+  P1-5 repo hygiene → D5 mirror-before-archive (succession pack,
+  PLATFORM-LIMITS, custom-instructions-proposal, ROADMAP stale-recipe
+  correction) → tag/Release clicks → owner archive click (E#44/E#45 gate).
+  Recorded here + fleet-triage row re-stamped; owner veto reverses it with
+  one word.
