@@ -1327,6 +1327,42 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
     - Blocking: not-blocking (mitigated by the divergence marker); blocks
       only the Class B ledger rows' final retirement.
 
+67. **@codex verdict-review doctrine ruling — gate vs suspend (one word,
+    fleet-wide).** *(new 2026-07-14, wake 0633Z Slice C — INC-43, the
+    fleet-inconsistency ledger's Class E doctrine fork.)*
+    - id: OQ-CODEX-GATE-VS-SUSPEND-RULING
+    - WHAT: sim-lab's binding docs fork on the @codex step. Its README
+      still MANDATES an @codex review comment on every verdict PR before
+      finalization (Q-0264.4) while the step is SUSPENDED @ `dedc12e`
+      after 3/3 verified fabricated reviews (incidents #1–#3);
+      current-state records the suspension, the binding docs don't.
+      Meanwhile fm ordered fleet-wide adoption of the VERDICT 016
+      authenticity gate ("gate, don't suspend" — fm inbox L1095). Pick
+      one: **A (recommended): GATE — reinstate the @codex step behind the
+      VERDICT 016 authenticity checks (an external review only counts
+      when it demonstrably engages the real diff), fleet-wide** ·
+      B: SUSPEND — retire the mandate everywhere until Codex
+      quota/fabrication stabilizes; binding docs annotated accordingly.
+    - WHERE: one word wherever the manager reads — `control/inbox.md`
+      ORDER or a live session ("codex: A" / "codex: B").
+    - HOW: on the word, ONE ORDER-to-lane(sim-lab) annotates
+      README/CONVENTIONS/owner-profile once; the same word settles any
+      other lane's review-step wording.
+    - WHY: two binding texts disagree about a mandatory review step; a
+      literal follower of the README performs a ceremony the lane itself
+      verified produces fabricated reviews.
+    - UNBLOCKS: retires INC-43; unforks sim-lab's binding docs from its
+      practiced state.
+    - VERIFIED-NEEDED: re-verified live 2026-07-14T07:04Z at sim-lab
+      origin/main — README ("Every verdict PR gets an @codex review
+      comment … before finalization (Q-0264.4)") vs
+      `docs/current-state.md:235` ("SUSPENDED per the outbox codex-line
+      escalation @ dedc12e"); fm `docs/fleet-inconsistencies-2026-07-13.md`
+      INC-43.
+    - RISK: ✅ a doctrine word; the annotation pass is reversible text.
+    - Blocking: not-blocking (sim-lab operates on the suspension); blocks
+      only the doctrine fork's retirement.
+
 ### (F) New intake 2026-07-12 (owner-live session) — decisions, no rush
 
 39. **Railway project duplication — websites services exist in BOTH
