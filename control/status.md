@@ -1,20 +1,24 @@
 # Fleet Manager — coordinator heartbeat
 
-updated: 2026-07-14T19:55:32Z — coordinator live, OWNER LIVE (EAP final evening; fleet 13/13; ledger true-up closing on PR #208)
+updated: 2026-07-14T20:51:31Z — coordinator live (EAP complete; maintenance wake 20:34Z closing on PR #210)
 
 ## Routine disposition
-- Failsafe armed: `trig_01FpTbpXCeGcotnBpTkscAdr` · cron `30 */2 * * *` · next ~20:33Z. Pacemaker chain live (~30 min, Q-0265). Known chore: I6 snapshot-staleness (6.5h vs 4h bar) — next wake refreshes the export.
+- Failsafe armed: `trig_01FpTbpXCeGcotnBpTkscAdr` · cron `30 */2 * * *` · next ~22:33Z · single FM failsafe. Pacemaker chain live (~30 min, Q-0265). Trigger-health 9/9 on the fresh 20:4xZ snapshot (1809 records, +80 — all work-loop one-shots; no standing-cron changes).
 
-## FLEET STATE — EAP COMPLETE
-- superbot gap CLOSED via #2105 (merged 18:52:49Z, superbot main 0b90ad3): audit + walkthrough landed, ORDER 006 done with finish-or-park accounting. Fleet: 13/13 audits · 13/13 walkthroughs.
-- Records trued this PR (#208): audit-collection 13/13-both-columns header · owner-checklist recounted 53 rows / 6 done / 47 open (superbot §C merged: trigger deletes per ORDER 003 · email-3 row with the reconcile-two-drafts flag — fm docs/eap-final-email-draft-2026-07-14.md is the commissioned synthesis · five router Qs with per-Q recs; keep-held #2061 and branch-delete rows annotated) · dispatch-log ORDER 006 CONSUMED with both deviations Q-0120-verified (docs ratchet 21→22 reversal path @ check_docs.py:164-170; script-soft-vs-test-hard mismatch flagged as superbot follow-up) · fleet-triage loose-end (1) CLOSED.
+## Shipped this wake (PR #210, claude/wake-2034z)
+- Trigger snapshot refresh — I6 cleared (was 7.2h).
+- Roster gen #52: pokemon-mod-lab verdict PRIVATE(not measured) → STALE, cited (heartbeat read now succeeds, updated 2026-07-14T05:07Z — access path confirmed per ORDER 045's finding); one new pml link red resolved with a reason-carrying exception after live verification.
+- Inbox @ 444b3ea quiet: only fm-owned `new` is ORDER 024 (owner-gated, E#44); ORDER 045 done.
+- Verify at close: roster 0.0h · owner-queue CLEAN · trigger-health 9/9 · bootstrap strict red only on this card's hold.
+
+## FLEET STATE (standing): EAP COMPLETE — 13/13 audits · 13/13 walkthroughs · all four fm ledgers final (#208) · email draft + 53-row owner checklist on main.
 
 ## Open/parked PRs + landing paths
-- fm #208: OPEN + READY; lands on green after the flip (merge-on-green sweep). Everything else fleet-wide terminal or by-design holds (superbot #2061 held-draft; next WP freeze).
+- fm #210: OPEN + READY; lands on green after the flip (merge-on-green sweep). Fleet otherwise terminal or by-design holds (superbot #2061 held-draft; next WP freeze).
 
 ## Next-2 baton
-1. Trigger-snapshot refresh (I6) on the next wake; then honest idle — the seat's EAP work is complete.
-2. Reboot founding prompts on owner request; post-reboot verify kit ORDERs 022/023 consumption.
+1. Honest idle — the seat's EAP work is complete; wakes stay maintenance-only (snapshot/roster) until the owner calls the archive + reboot.
+2. On owner request: reboot founding prompts; post-reboot verify kit ORDERs 022/023 consumption + adopter regeneration.
 
 ## ⚑ Owner asks
-- docs/eap-owner-checklist-2026-07-14.md (53 rows, 47 open — console/credential/decision + branch hygiene): deadline rows first (E#28 TODAY, email-3 window TODAY — reconcile the two drafts, fm synthesis recommended) · then the one-sitting sweep.
+- docs/eap-owner-checklist-2026-07-14.md (53 rows / 47 open): deadline rows first (E#28 + email-3 window TODAY — reconcile the two drafts, fm synthesis recommended), then the one-sitting sweep.
