@@ -4,7 +4,7 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #51** · generated-at **2026-07-14T19:52Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #52** · generated-at **2026-07-14T20:45Z** · by failsafe wake 20:34Z (fm PR #210), dispatched by fleet-manager coordinator failsafe-wake dispatch
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
@@ -151,6 +151,77 @@ Next 2 (baton): (1) Friday 2026-07-17 grading pass — executor live on the coor
 ⚑ needs-owner: unchanged — the four pending clicks remain consolidated in docs/eap-closeout-walkthrough-2026-07-14.md §C (superbot #2058 draft flip + sender-side HMAC · six host env vars · env-gated conformance e2e · carried OA-003), each with a bolded recommendation + VERIFY step; full six-field blocks in the 2026-07-14T11:34:32Z heartbeat (git history of this file) and control/outbox.md.
 ```
 
+### pokemon-mod-lab — 1. **⚑ OWNER-ACTION 1 — `ROM builds` required-check click.** GitHub →
+
+- suggested-id: `OQ-POKEMON-MOD-LAB-1-1-ROM-BUILDS`
+- source: pokemon-mod-lab/control/status.md @ `7d4fa41` · heartbeat `updated:` 2026-07-14T05:07:37Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+1. **⚑ OWNER-ACTION 1 — `ROM builds` required-check click.** GitHub →
+   Settings → Rules → `main` ruleset → require status checks → add
+   `ROM builds` (keep `substrate-gate`). No agent API surface for
+   rulesets (`docs/PLATFORM-LIMITS.md`).
+```
+
+### pokemon-mod-lab — 2. **⚑ OWNER-ACTION 2 — next-arc concept pick.** One word: continue
+
+- suggested-id: `OQ-POKEMON-MOD-LAB-2-2-NEXT-ARC`
+- source: pokemon-mod-lab/control/status.md @ `7d4fa41` · heartbeat `updated:` 2026-07-14T05:07:37Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+2. **⚑ OWNER-ACTION 2 — next-arc concept pick.** One word: continue
+   Emerald QoL+ (new-lead spikes) / Emerald Hard / Nuzlocke Mode
+   (`docs/mod-concepts.md`). Lane default remains QoL+; reversible.
+   **This is also the still-open half of review-queue row #14** (does
+   the Q-0266 Option A default match owner intent).
+```
+
+### pokemon-mod-lab — 3. **⚑ OWNER-ACTION 3 — playtest verdict on the 6 game-feel patches** +
+
+- suggested-id: `OQ-POKEMON-MOD-LAB-3-3-PLAYTEST-VERDICT`
+- source: pokemon-mod-lab/control/status.md @ `7d4fa41` · heartbeat `updated:` 2026-07-14T05:07:37Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+3. **⚑ OWNER-ACTION 3 — playtest verdict on the 6 game-feel patches** +
+   the Match Call random-nag rider. **The kit for exactly this is
+   night item 1: [`../docs/play/README.md`](../docs/play/README.md)**
+   (≤15 min, keep/tune/drop form included; EAP window ends 2026-07-14).
+   Rows #22 (trimmed nurse prompt read), #21 (hatch-pacing feel), #6's
+   remaining halves (auto-run feel + repel-prompt flow), #4's remaining
+   half (instant-text reading feel), #7's remaining half (3x HP-drain /
+   halved-wait pacing feel) and now #5's remaining half (modern
+   Exp. Share progression feel during a real playthrough) sit in this
+   queue — same class, same kit.
+```
+
+### pokemon-mod-lab — 4. **⚑ stale ref `track-a/session-019` — owner click to delete**
+
+- suggested-id: `OQ-POKEMON-MOD-LAB-4-STALE-REF-TRACK`
+- source: pokemon-mod-lab/control/status.md @ `7d4fa41` · heartbeat `updated:` 2026-07-14T05:07:37Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+4. **⚑ stale ref `track-a/session-019` — owner click to delete**
+   (squash-merged via PR #24; sessions must not touch it).
+```
+
+### pokemon-mod-lab — 5. **⚑ stale ref `track-a/session-024` — owner click to delete**
+
+- suggested-id: `OQ-POKEMON-MOD-LAB-5-STALE-REF-TRACK`
+- source: pokemon-mod-lab/control/status.md @ `7d4fa41` · heartbeat `updated:` 2026-07-14T05:07:37Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+5. **⚑ stale ref `track-a/session-024` — owner click to delete**
+   (superseded by PR #31; PR #29 closed; session 041's delete attempt
+   was classifier-DENIED, not retried).
+6. **night chain #69→#81 + #83 ready for owner review-merge in stack
+   order.**
+```
+
 ### gba-homebrew — - **⚑ Self-initiated** (rung 4, coordinator-directed): web-arcade
 
 - suggested-id: `OQ-GBA-HOMEBREW-SELF-INITIATED-RUNG-4`
@@ -259,5 +330,5 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 
 ---
 
-17 candidate block(s) across 13 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
+22 candidate block(s) across 14 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
 

@@ -23,3 +23,17 @@
   triaged: 2026-07-14
   by: session-central-docs-review
   verdict: false_positive
+# Link finding fired by the roster-regen owner-queue candidate feed: the feed
+# quotes pokemon-mod-lab lane content VERBATIM inside a ```text fence, and that
+# content carries a repo-relative link (../docs/play/README.md) that resolves in
+# pokemon-mod-lab (verified live at pml HEAD 2026-07-14: docs/play/README.md
+# exists) but is dead when rendered inside fleet-manager. Quoted lane evidence,
+# not an fm link — rewriting it would corrupt the quoted heartbeat text. The
+# lane only became readable this wake (ORDER 045 amendment: the old wall was the
+# access path), which is why the finding is new.
+- path: owner-queue-candidates.md
+  kind: link
+  reason: "generated feed quotes pokemon-mod-lab heartbeat verbatim; ../docs/play/README.md is pml-repo-relative (live at pml HEAD, verified 2026-07-14), dead only rendered here — quoted cross-repo evidence, not an fm link"
+  triaged: 2026-07-14
+  by: session-wake-2034z
+  verdict: false_positive
