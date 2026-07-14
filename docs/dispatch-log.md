@@ -656,6 +656,7 @@ gated lane — fixed by one fixup commit per red branch ~09:41–09:42Z
 (details + residue in the recon doc findings).
 
 - → ✅ dispatched — superbot PR #2096 / ORDER 006 / MERGED 2026-07-14T09:43:33Z (opened 09:36:20Z)
+  - ↳ **CONSUMED/done (trued 2026-07-14T19:51Z): superbot PR #2105 MERGED 18:52:49Z** — squash-merge = superbot main HEAD `0b90ad35ec4932b6b0525d3df960841bb84b913e`; both deliverables verified at main (`docs/audits/eap-project-audit-2026-07-14.md` + `docs/eap-closeout-walkthrough-2026-07-14.md`). Two flagged deviations, Q-0120-verified at superbot HEAD `0b90ad3`: (1) docs-budget ratchet raised 21 → 22 in superbot `scripts/check_docs.py:164-170`, carrying a dated provenance comment with an explicit reversal path ("Reversible: once the EAP closeout is consumed, a reconciliation pass may move it under docs/eap/ … and re-lower to 21"); (2) checker-vs-test severity mismatch flagged as a superbot follow-up lead, not patched (`.sessions/2026-07-14-eap-docs-closeout.md:73-82`: the script reports the ratchet "soft — not a CI failure" while the twin pytest invariant `test_repo_top_level_docs_within_ratchet` enforces the same number hard).
 - → ✅ dispatched — superbot-next PR #469 / ORDER 022 / MERGED 2026-07-14T09:40:52Z (opened 09:37:16Z; merged pre-fix — its CI lacks `--inbox-base` wiring; dash-format residue on main)
 - → ✅ dispatched — substrate-kit PR #367 / ORDER 021 / MERGED 2026-07-14T09:42:31Z (opened 09:34:48Z)
 - → ✅ dispatched — websites PR #335 / ORDER 030 / MERGED 2026-07-14T09:42:25Z (opened 09:34:50Z)
