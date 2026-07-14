@@ -1,0 +1,1 @@
+- `claude/fm-dispatch-0740z` · **dispatch-0740z close** — dispatch-log truing + outbox close + ORDER 045 flip · docs/dispatch-log.md, control/outbox.md, control/inbox.md, .sessions/ · 2026-07-14
