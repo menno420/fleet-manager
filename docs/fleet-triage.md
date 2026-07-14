@@ -275,6 +275,30 @@ ORDERs visible at lane inbox HEAD; pokemon-mod-lab #82 open/clean (no
 dispatch-log truing needed) and #66 parked-healthy with the auto-merge
 armed-state honestly NOT MEASURED for this session's toolset.
 
+## 2026-07-14 · Trigger-health live verification — I1b decode resolved (dispatch 0530Z close)
+
+> Dated evidence note (per §How-to-re-verdict pt 4). Coordinator-verified
+> finding, recorded by the dispatch-0530Z close-out worker
+> 2026-07-14T05:48Z (`date -u`); quoted verbatim:
+
+"2026-07-14 ~05:35Z live verification (full 17-page list_triggers
+pagination, ~1,642 routines): trig_01MWHvQFnRF1dVdZFSP6SM5L (superbot
+night executor) and trig_011XAWqPeksS8LBrS5G9RvVc (superbot autonomous
+dispatch) are both DISABLED/user-paused (enabled key absent = false;
+ended_reason absent = user-paused). The dispatch routine's next_run_at is
+frozen at the never-executed 2026-07-02T03:07 slot because a disabled
+routine's next_run_at does not advance — the frozen-next_run WARN is the
+expected footprint of a pause, NOT a scheduler fault. Neither is wedged;
+neither fires until re-enabled. API decoding note for the checker:
+`enabled` is OMITTED when false — I1b's ambiguous-enabled class can be
+resolved to disabled-when-absent. Superbot ORDER 003 (delete or
+annotate-and-leave-paused) remains the right disposition."
+
+Checker follow-through (same PR, decide-and-flag):
+`scripts/check_trigger_health.py` I1b now decodes an absent `enabled`
+key as disabled, so the standing frozen-next_run WARN for disabled
+routines downgrades to INFO (PASS); records stay listed, never dropped.
+
 ## How to re-verdict
 
 1. Verify against live source (Q-0120 — never against report text).
