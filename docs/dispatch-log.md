@@ -510,3 +510,37 @@ the Slice 0 items themselves, which are complete fm-side.
     table now detects it every regen, but only a lane write can close it.
   - done-when: `gen_kit_versions.py` renders the plugin-hello row
     "OK — mirrors host superbot-next pin" at the next fm regen.
+  → ✅ dispatched — superbot-next PR #461 / ORDER 020 / commit `541a377` /
+  MERGED (repo merge-on-green). Routed to the host lane superbot-next per
+  the payload's own fallback clause: superbot-plugin-hello has **no
+  `control/` directory** at its single seed commit `bbaccec`. *(Trued by
+  the dispatch-0530Z close, 2026-07-14T05:48Z.)*
+
+## 2026-07-14 — coordinator dispatch 0530Z (wake-0434z pending rows closed)
+
+Dispatch mandate: the INC-42 pending row above + the wake-0434z card § D
+("Skipped (not fm write scope): B2 … and B4 … the coordinator files
+both"). Scouted and executed against fm main @ `3b335a8`; every premise
+re-verified at live lane HEADs before writing. Outcomes:
+
+1. **INC-42 plugin-pin drift** (row above) → ✅ dispatched —
+   superbot-next PR #461 / ORDER 020 / commit `541a377` / MERGED (repo
+   merge-on-green). Plugin-hello has no `control/` dir at `bbaccec`, so
+   the ORDER routed to the host lane per the payload's fallback clause.
+2. **Phase 1 B2 (kit lowercase-pointer template fix)** →
+   ⏭ SKIPPED — already ordered: kit inbox ORDER 020 sub-item (e)
+   (delivered via kit PR #361, MERGED 04:12:59Z) already carries the
+   identical fix; defect confirmed still live at kit `c0297d8`
+   (`src/engine/templates/CAPABILITIES.md.tmpl:8`,
+   `src/engine/seatdigest.py:31`/`:442`) — no duplicate ORDER written.
+3. **Phase 1 B4 websites** → ✅ dispatched — ORDER 028 (fence restore
+   only; walls content already healthy in its `docs/CAPABILITIES.md`) /
+   websites PR #329 / commit `c4542a6` / MERGED.
+4. **Phase 1 B4 venture-lab** → ✅ dispatched — ORDER 012 (fence
+   restore + PLATFORM-LIMITS walls fold) / venture-lab PR #189 /
+   commit `962e46d` / MERGED.
+5. **Phase 1 B4 sim-lab** → ✅ dispatched — ORDER 007 (walls fold into
+   the restored fence) / sim-lab PR #130 / commit `ca44b93` / MERGED.
+6. **Phase 1 B4 pokemon-mod-lab** → ⏭ SKIP-satisfied — fence PRESENT +
+   walls digest healthy at pml `759dee4` (fills the fence-index
+   NOT-MEASURED row); pml ORDER 007 rides open PR #82 — untouched.
