@@ -290,6 +290,7 @@ ROSTER_REL = os.path.join("docs", "roster.md")
 CANDIDATES_REL = os.path.join("docs", "owner-queue-candidates.md")
 OWNER_QUEUE_REL = os.path.join("docs", "owner-queue.md")
 EVIDENCE_REL = os.path.join("docs", "evidence-index.md")
+LANES_JSON_REL = os.path.join("registry", "lanes.json")
 
 # ------------------- program-evidence row classes (Slice 0 item 2) --------
 # Centralization plan D1–D3 (docs/central-docs-plan.md §2 class D): the
@@ -1941,6 +1942,38 @@ def main(argv=None) -> int:
     with open(ev_path, "w", encoding="utf-8") as fh:
         fh.write(ev_text)
     print(f"gen_roster: wrote cross-repo evidence index to {ev_path}")
+
+    # C3 (central-docs-plan Slice 0 item 3): the machine-readable lane
+    # registry regenerates WITH the roster. The authored source of truth is
+    # the LANES constant above (one named writer); this emission exists so
+    # external consumers (websites #102's client-side repoint; kit docs that
+    # still derived sections from the superseded superbot fleet-manifest)
+    # read a stable JSON artifact instead of scraping a python constant.
+    lanes_path = (os.path.join(os.path.dirname(roster_path), "..",
+                               LANES_JSON_REL)
+                  if args.out else os.path.join(repo_root(), LANES_JSON_REL))
+    lanes_path = os.path.normpath(lanes_path)
+    os.makedirs(os.path.dirname(lanes_path), exist_ok=True)
+    lanes_payload = {
+        "_source_of_truth": ("GENERATED — the authored master is the LANES "
+                             "constant in scripts/gen_roster.py; regenerated "
+                             "with every roster generation. Do not hand-edit "
+                             "(central-docs-plan C3)."),
+        "generation": generation,
+        "generated_at": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "lanes": [
+            {"lane": lane["lane"],
+             "repo": lane["repo"],
+             "github": (GITHUB_BASE + lane["repo"]) if lane["repo"] else None,
+             "disposition": lane["disposition"],
+             "tokens": lane["tokens"]}
+            for lane in LANES
+        ],
+    }
+    with open(lanes_path, "w", encoding="utf-8") as fh:
+        json.dump(lanes_payload, fh, indent=2, ensure_ascii=False)
+        fh.write("\n")
+    print(f"gen_roster: wrote machine-readable lane registry to {lanes_path}")
     return 0
 
 

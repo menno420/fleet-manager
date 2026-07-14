@@ -1,0 +1,195 @@
+{
+  "_source_of_truth": "GENERATED — the authored master is the LANES constant in scripts/gen_roster.py; regenerated with every roster generation. Do not hand-edit (central-docs-plan C3).",
+  "generation": 38,
+  "generated_at": "2026-07-14T02:58:51Z",
+  "lanes": [
+    {
+      "lane": "superbot (hub)",
+      "repo": "superbot",
+      "github": "https://github.com/menno420/superbot",
+      "disposition": "live",
+      "tokens": [
+        "suberbot docs",
+        "superbot docs",
+        "superbot night"
+      ]
+    },
+    {
+      "lane": "superbot-next",
+      "repo": "superbot-next",
+      "github": "https://github.com/menno420/superbot-next",
+      "disposition": "live",
+      "tokens": [
+        "superbot-next",
+        "builder"
+      ]
+    },
+    {
+      "lane": "substrate-kit",
+      "repo": "substrate-kit",
+      "github": "https://github.com/menno420/substrate-kit",
+      "disposition": "live",
+      "tokens": [
+        "substrate-kit",
+        "kit-lab"
+      ]
+    },
+    {
+      "lane": "websites",
+      "repo": "websites",
+      "github": "https://github.com/menno420/websites",
+      "disposition": "live",
+      "tokens": [
+        "websites"
+      ]
+    },
+    {
+      "lane": "trading-strategy",
+      "repo": "trading-strategy",
+      "github": "https://github.com/menno420/trading-strategy",
+      "disposition": "live",
+      "tokens": [
+        "trading"
+      ]
+    },
+    {
+      "lane": "venture-lab",
+      "repo": "venture-lab",
+      "github": "https://github.com/menno420/venture-lab",
+      "disposition": "live",
+      "tokens": [
+        "venture"
+      ]
+    },
+    {
+      "lane": "superbot-games · Seat A",
+      "repo": "superbot-games",
+      "github": "https://github.com/menno420/superbot-games",
+      "disposition": "live",
+      "tokens": [
+        "superbot-games"
+      ]
+    },
+    {
+      "lane": "superbot-idle (Seat B)",
+      "repo": "superbot-idle",
+      "github": "https://github.com/menno420/superbot-idle",
+      "disposition": "live",
+      "tokens": [
+        "superbot-idle"
+      ]
+    },
+    {
+      "lane": "superbot-mineverse",
+      "repo": "superbot-mineverse",
+      "github": "https://github.com/menno420/superbot-mineverse",
+      "disposition": "live",
+      "tokens": [
+        "superbot-mineverse",
+        "mineverse"
+      ]
+    },
+    {
+      "lane": "retro-games coordinator (no repo)",
+      "repo": null,
+      "github": null,
+      "disposition": "registry-only",
+      "tokens": [
+        "superbot-retro",
+        "retro-games"
+      ]
+    },
+    {
+      "lane": "game-lab (no repo)",
+      "repo": null,
+      "github": null,
+      "disposition": "registry-only",
+      "tokens": [
+        "game-lab"
+      ]
+    },
+    {
+      "lane": "pokemon-mod-lab",
+      "repo": "pokemon-mod-lab",
+      "github": "https://github.com/menno420/pokemon-mod-lab",
+      "disposition": "live",
+      "tokens": [
+        "pokemon"
+      ]
+    },
+    {
+      "lane": "gba-homebrew",
+      "repo": "gba-homebrew",
+      "github": "https://github.com/menno420/gba-homebrew",
+      "disposition": "live",
+      "tokens": [
+        "gba"
+      ]
+    },
+    {
+      "lane": "product-forge",
+      "repo": "product-forge",
+      "github": "https://github.com/menno420/product-forge",
+      "disposition": "live",
+      "tokens": [
+        "product-forge",
+        "forge"
+      ]
+    },
+    {
+      "lane": "idea-engine",
+      "repo": "idea-engine",
+      "github": "https://github.com/menno420/idea-engine",
+      "disposition": "live",
+      "tokens": [
+        "idea-engine"
+      ]
+    },
+    {
+      "lane": "sim-lab",
+      "repo": "sim-lab",
+      "github": "https://github.com/menno420/sim-lab",
+      "disposition": "live",
+      "tokens": [
+        "sim-lab"
+      ]
+    },
+    {
+      "lane": "codetool-lab-fable5",
+      "repo": "codetool-lab-fable5",
+      "github": "https://github.com/menno420/codetool-lab-fable5",
+      "disposition": "archived",
+      "tokens": [
+        "codetool-lab-fable5"
+      ]
+    },
+    {
+      "lane": "codetool-lab-opus4.8",
+      "repo": "codetool-lab-opus4.8",
+      "github": "https://github.com/menno420/codetool-lab-opus4.8",
+      "disposition": "archived",
+      "tokens": [
+        "codetool-lab-opus4.8"
+      ]
+    },
+    {
+      "lane": "codetool-lab-sonnet5",
+      "repo": "codetool-lab-sonnet5",
+      "github": "https://github.com/menno420/codetool-lab-sonnet5",
+      "disposition": "archived",
+      "tokens": [
+        "codetool-lab-sonnet5"
+      ]
+    },
+    {
+      "lane": "fleet-manager (this repo)",
+      "repo": "fleet-manager",
+      "github": "https://github.com/menno420/fleet-manager",
+      "disposition": "live",
+      "tokens": [
+        "fleet-manager",
+        "fleet manager"
+      ]
+    }
+  ]
+}
