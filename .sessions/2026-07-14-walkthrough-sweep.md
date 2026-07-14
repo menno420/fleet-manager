@@ -1,6 +1,6 @@
 # 2026-07-14 — EAP walkthrough straggler sweep
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 📊 Model: Claude Fable (family-level)
 
