@@ -488,3 +488,25 @@ the Slice 0 items themselves, which are complete fm-side.
 - Ledger truing (this PR) — all 7 pending-lane-write rows annotated with
   their dispatched/owner-gated outcomes; completion block appended to
   `control/outbox.md`.
+
+## 2026-07-14 — wake 0434z (pre-drafted lane payload, pending coordinator dispatch)
+
+- **Pending lane write — superbot-plugin-hello kit-pin bump (INC-42
+  remediation; detection landed fm-side as `registry/kit-versions.md`,
+  PR #185).** Target: superbot-plugin-hello (or its host lane superbot-next
+  if the plugin repo takes no direct sessions). Four-field payload,
+  paste-ready for the next fan-out:
+  - priority: P2 — version-line drift (INC-42; detected live by
+    `scripts/gen_kit_versions.py`: plugin pins v1.13.0, host superbot-next
+    pins v1.15.0)
+  - do: bump `substrate.config.json` `kit_version` in
+    menno420/superbot-plugin-hello to mirror the host superbot-next's pin
+    (v1.15.0 at fm PR #185 time — re-derive at execution; the seed commit's
+    "mirroring the host's pin" claim is the contract being restored), and
+    re-verify the manifest hash the seed commit cites against the host's
+    live `plugins.lock.json` (the 06023075→ff75b9eb drift class) — fix or
+    annotate in the same PR.
+  - why: INC-42 — nothing in-repo flags the drift (no planted docs); the fm
+    table now detects it every regen, but only a lane write can close it.
+  - done-when: `gen_kit_versions.py` renders the plugin-hello row
+    "OK — mirrors host superbot-next pin" at the next fm regen.

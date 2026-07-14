@@ -789,15 +789,32 @@ def read_heartbeat(url: str, max_attempts: int) -> dict:
                 return []
 
         # -- heartbeat files: declared heartbeat_files wins, glob fallback --
+        # -- kit version from the TREE (INC-40): substrate.config.json pin +
+        #    .substrate/state.json installed version are the primary record;
+        #    the heartbeat `kit:` line is prose that chronically lags
+        #    (idle 8 releases behind at the 2026-07-13 review) and becomes
+        #    fallback-only. Absence is honest: no config/state = no value.
         declared: list[str] = []
+        kit_tree: dict = {"pinned": None, "state": None}
         try:
             cfg = json.loads(_git(["show", "FETCH_HEAD:substrate.config.json"],
                                   cwd=tmp))
             raw = cfg.get("heartbeat_files")
             if isinstance(raw, list):
                 declared = [p for p in raw if isinstance(p, str)]
+            v = cfg.get("kit_version")
+            if isinstance(v, str) and v:
+                kit_tree["pinned"] = v
         except (Wall, json.JSONDecodeError):
             pass  # no config / unparseable — the glob below is the source
+        try:
+            state = json.loads(_git(
+                ["show", "FETCH_HEAD:.substrate/state.json"], cwd=tmp))
+            v = state.get("kit_version")
+            if isinstance(v, str) and v:
+                kit_tree["state"] = v
+        except (Wall, json.JSONDecodeError):
+            pass  # no state file — pinned/heartbeat carry what is known
         globbed = [ln for ln in ls("control/")
                    if re.fullmatch(r"control/status[^/]*\.md", ln)]
         statuses: list[dict] = []
@@ -840,7 +857,8 @@ def read_heartbeat(url: str, max_attempts: int) -> dict:
         return {"sha": sha, "attempts": attempts, "head_date": head_date,
                 "status_text": primary["text"] if primary else None,
                 "status_path": primary["path"] if primary else None,
-                "statuses": statuses, "evidence": evidence}
+                "statuses": statuses, "evidence": evidence,
+                "kit_tree": kit_tree}
 
 
 # --------------------------------------------------------------- parsing ---
@@ -1396,6 +1414,42 @@ def build_rows(records: list[dict], now: datetime, max_attempts: int,
     return rows
 
 
+# INC-41 — deliberate kit pins, listed so no registry rendering "fixes" them:
+# superbot pins 1.0.0 (CLAUDE.md Q-0254 note — "until superbot itself upgrades
+# from a real kit release") and substrate-kit self-pins 1.0.0 (the designed
+# owner-held pin path). If the pinned value ever moves off the listed one the
+# label disappears on its own — never hand-remove it.
+DELIBERATE_KIT_PINS = {"superbot": "1.0.0", "substrate-kit": "1.0.0"}
+
+
+def kit_cell(row: dict) -> str:
+    """Kit column — TREE-derived primary (INC-40), heartbeat line fallback.
+
+    - Sub-rows (extra per-lane heartbeat files, typically frozen archives)
+      never contribute their own `kit:` line: a parseable line in an archived
+      file otherwise renders as current (INC-40's superbot-games v1.7.1 case).
+    - Deliberate pins are labeled, not "corrected" (INC-41) — and the hub's
+      pin now renders instead of "—".
+    - When the tree and the heartbeat line disagree, the tree wins and the
+      lag is flagged inline.
+    """
+    if row.get("subrow"):
+        return "(parent row; archived kit: line excluded — INC-40)"
+    hb = row.get("hb") or {}
+    kt = hb.get("kit_tree") or {}
+    tree = kt.get("state") or kt.get("pinned")
+    hb_line = (row.get("fields") or {}).get("kit")
+    if tree:
+        repo = (row.get("lane") or {}).get("repo")
+        if DELIBERATE_KIT_PINS.get(repo) == kt.get("pinned") and \
+                (kt.get("state") or kt.get("pinned")) == kt.get("pinned"):
+            return f"v{tree} (deliberate pin — INC-41)"
+        if hb_line and f"v{tree}" not in hb_line:
+            return f"v{tree} (tree; hb line lags — INC-40)"
+        return f"v{tree} (tree)"
+    return hb_line or "—"
+
+
 def render_wake(trig: dict) -> str:
     bits = []
     for r in trig["standing"]:
@@ -1498,7 +1552,7 @@ def render(rows: list[dict], records: list[dict], generation: int,
                           if row.get("divergence") is not None else ""),
                        phase=truncate(f.get("phase", "—"), 160),
                        orders=truncate(f.get("orders", "—"), 100),
-                       kit=truncate(f.get("kit", "—"), 40),
+                       kit=truncate(kit_cell(row), 48),
                        wake=("(triggers on the parent lane row)"
                              if row.get("subrow")
                              else render_wake(row["trig"])),
@@ -1709,6 +1763,28 @@ def selfcheck() -> int:
                       "- **kit:** v1.6.0 · check: green\n")
     ok(fb.get("phase") == "work loop X", "bullet-form phase parsed")
     ok(fb.get("kit", "").startswith("v1.6.0"), "bullet-form kit parsed")
+    # kit cell — tree-primary derivation (INC-40) + deliberate pins (INC-41)
+    _kr = {"lane": {"repo": "somerepo"},
+           "hb": {"kit_tree": {"pinned": "1.15.0", "state": "1.15.0"}},
+           "fields": {"kit": "v1.7.1 · check: green"}}
+    ok(kit_cell(_kr) == "v1.15.0 (tree; hb line lags — INC-40)",
+       "tree beats a lagging heartbeat kit: line")
+    _kr["fields"]["kit"] = "v1.15.0 · check: green"
+    ok(kit_cell(_kr) == "v1.15.0 (tree)", "tree + agreeing hb line = plain")
+    ok(kit_cell({"lane": {"repo": "x"}, "hb": {"kit_tree": {}},
+                 "fields": {"kit": "v1.8.0"}}) == "v1.8.0",
+       "no tree value falls back to the heartbeat line")
+    ok(kit_cell({"lane": {"repo": "x"}, "hb": {}, "fields": {}}) == "—",
+       "no data at all renders em-dash")
+    ok(kit_cell({"subrow": True, "lane": {"repo": "x"},
+                 "hb": {"kit_tree": {"state": "1.15.0"}},
+                 "fields": {"kit": "v1.7.1"}})
+       == "(parent row; archived kit: line excluded — INC-40)",
+       "sub-row kit: line excluded (INC-40 archived-file case)")
+    ok(kit_cell({"lane": {"repo": "superbot"},
+                 "hb": {"kit_tree": {"pinned": "1.0.0", "state": None}},
+                 "fields": {}}) == "v1.0.0 (deliberate pin — INC-41)",
+       "hub pin surfaces labeled instead of em-dash (INC-41)")
     # lane: fallback when no phase line exists (product-forge style)
     ff = parse_status("updated: t\nlane: builder (ORDER 001)\n")
     ok("lane: builder" in ff.get("phase", ""), "phase falls back to lane:")

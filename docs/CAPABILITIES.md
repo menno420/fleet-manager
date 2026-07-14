@@ -131,6 +131,50 @@ findings go here, below the fence.)
 
 ---
 
+## Mirrored lane findings (B3 — the fleet aggregate, venue-tagged + source-SHA'd)
+
+> Central-docs-plan Phase 1 / B3: each lane's `CAPABILITIES`/`PLATFORM-LIMITS`
+> append log stays the master **write surface for its own venue**; this section
+> is the master **aggregate** — every mirrored finding carries venue + seat +
+> source SHA, deduped against fm's own holdings (a finding fm already records
+> is listed as corroboration, not re-stated). Never write lane-side files from
+> here; sync at manager wakes.
+
+### sim-lab (seat: Ideas Lab) — mirrored 2026-07-14 from `PLATFORM-LIMITS.md` @ `09782df`
+
+New at the fm master (not previously recorded here):
+
+- 2026-07-14 · capability · autonomous-project · **Trigger tools are ABSENT from a
+  project-coordinator's top-level toolset but PRESENT behind ToolSearch in its WORKER
+  seats** — and a worker seat CAN self-bind a trigger to its OWN coordinator session
+  (`create_trigger` with `persistent_session_id` = the coordinator session id; one armed
+  on cron `0 1-23/2 * * *` fired on schedule; `send_later` deliveries verified across
+  ~22h). · evidence: sim-lab `PLATFORM-LIMITS.md` § "Routine / wake arming" @ `09782df`
+  · workaround-for: the "no scheduler in this seat" misread — search the worker toolset
+  before declaring the wall.
+- 2026-07-14 · wall · autonomous-project · **Auto-merge SQUASH RACE**: when no required
+  checks are pending, SQUASH fires on the first green head before a trailing heartbeat
+  commit can land — the heartbeat must ride a follow-up control fast-lane PR
+  (forward-only). Seen on sim-lab #38/#39 and #40/#41. · evidence: sim-lab
+  `PLATFORM-LIMITS.md` § "Merge path" @ `09782df` · workaround: never stack a
+  must-land commit behind an armed green head; follow-up PR instead.
+- 2026-07-14 · wall · autonomous-project · **`api.github.com` is 403-walled for
+  non-scoped repos** (session proxy); PROVEN bypass = `raw.githubusercontent.com` +
+  `git ls-remote` + shallow clones. · evidence: sim-lab `PLATFORM-LIMITS.md`
+  § "Merge path" @ `09782df` — matches fm's own `check_owner_queue.py` fallback note;
+  now recorded as a first-class wall entry.
+- 2026-07-14 · wall · any · **Browser Routines UI cannot bind a routine to a project
+  session** — it only targets repos/environments (owner-verified 2026-07-10).
+  · evidence: sim-lab `PLATFORM-LIMITS.md` @ `09782df` · workaround: agent-side
+  self-bind from a worker seat (capability above).
+
+Corroborations (fm already records these — sim-lab evidence strengthens, no re-statement):
+cross-session trigger binding org-wall (verbatim match: "binding a trigger to another
+session is not enabled for this organization"); tag push 403 (sim-lab OA-004
+`harness-v0.1.0` un-pushed → owner-queue class R16/R17); GraphQL auto-merge
+intermittently rate-limited with REST merge-on-green as the proven fallback
+(playbook R8) — sim-lab adds VERDICTs 003/009/011 as evidence.
+
 ## Fleet capability manifest (folded from `docs/capabilities.md`, 2026-07-12 — I-44 resolution)
 
 > Folded verbatim from the old lowercase `docs/capabilities.md` (established

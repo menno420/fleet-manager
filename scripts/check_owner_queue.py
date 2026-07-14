@@ -43,6 +43,19 @@ WHAT IT CHECKS (docs/owner-queue.md, or --queue PATH)
      "owner-queue item <N>" by position; historical bytes (.sessions/,
      control/status.md slice records, docs/ narrative) are append-only
      records and are deliberately OUT of lint scope.
+  4. SATISFIED REQUIRED-CHECK ASKS (INC-06 residue, added 2026-07-14, wake
+     0434z / fm PR #185; unverified — confirm against ground truth across
+     sessions) — an ACTIVE item asking the owner to add a `context` as a
+     REQUIRED check is probed against the repo's live branch rules
+     (GET /repos/menno420/<repo>/rules/branches/main). If the asked context
+     is already required, the ask is satisfied and flags — the INC-06 class
+     (OQ-MINEVERSE-PYTEST-REQUIRED-CHECK survived 3 days after the owner
+     clicked it) rots silently because no PR citation exists to catch.
+     Repo attribution follows the check-1 discipline: exactly one
+     menno420/<repo> reference in the item, else note-skip (never guessed).
+     In agent sessions api.github.com is proxy-walled (403) and there is no
+     HTML fallback for rules — the probe degrades honestly to NOT MEASURED;
+     the Actions regen run is the reliable venue for this check.
 
 API ACCESS
   Plain REST via urllib (stdlib only) — the same access class the
@@ -87,6 +100,14 @@ MERGE_ACTION_RE = re.compile(r"\bMERGE\b|RESOLVED-PENDING-MERGE|"
                              r"\bHOW\b[^\n]*\bmerge\b", re.IGNORECASE)
 RESOLVED_SELF_RE = re.compile(r"✅\s*RESOLVED")
 POSITIONAL_REF_RE = re.compile(r"owner[- ]queue\s+item\s+#?\d+", re.IGNORECASE)
+# Check 4 (INC-06 residue): "add/make/set/tick/enable … `<context>` … required"
+# — the backticked context must sit near the ask verb and the word
+# "required" near the context, so prose that merely mentions "required"
+# elsewhere never fires.
+REQUIRED_CHECK_ASK_RE = re.compile(
+    r"\b(?:add|make|set|tick|enable)\b[^\n`]{0,80}`([\w][\w .\-/]*)`"
+    r"[^\n]{0,60}\brequired\b", re.IGNORECASE)
+REPO_REF_RE = re.compile(r"menno420/([\w.-]+?)(?=[/\s`).,;:]|$)")
 
 
 def repo_root() -> str:
@@ -223,10 +244,75 @@ def fetch_pr_state(repo: str, number: str, token: str | None,
     return state
 
 
+def fetch_required_contexts(repo: str, token: str | None,
+                            cache: dict) -> dict:
+    """Live required status-check contexts on <repo> main (check 4).
+
+    Rules API only — no HTML fallback exists for branch rules, so a walled
+    probe degrades honestly to NOT MEASURED (sessions hit the api.github.com
+    proxy 403; Actions runners do not — same split as fetch_pr_state).
+    """
+    key = ("rules", repo)
+    if key in cache:
+        return cache[key]
+    url = f"{API_BASE}/{repo}/rules/branches/main"
+    req = urllib.request.Request(url, headers={
+        "Accept": "application/vnd.github+json",
+        "User-Agent": "fleet-manager-check-owner-queue",
+        **({"Authorization": f"Bearer {token}"} if token else {}),
+    })
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            data = json.loads(resp.read().decode())
+        contexts: list[str] = []
+        for rule in data if isinstance(data, list) else []:
+            if rule.get("type") == "required_status_checks":
+                for chk in (rule.get("parameters") or {}).get(
+                        "required_status_checks", []):
+                    ctx = chk.get("context")
+                    if ctx:
+                        contexts.append(ctx)
+        result = {"contexts": contexts, "wall": None}
+    except (urllib.error.URLError, OSError, json.JSONDecodeError) as exc:
+        result = {"contexts": [], "wall": str(exc)}
+    cache[key] = result
+    return result
+
+
 # ------------------------------------------------------------- checks ------
 
-def check_queue(text: str, fetch, out: list[str]) -> int:
-    """Run checks 1+2 over a queue text. Returns flag count."""
+def check_required_check_asks(item: dict, fetch_rules, out: list[str],
+                              label: str) -> int:
+    """Check 4: flag required-check asks the owner already satisfied."""
+    m = REQUIRED_CHECK_ASK_RE.search(item["text"])
+    if not m:
+        return 0
+    ctx = m.group(1).strip()
+    repos = list(dict.fromkeys(REPO_REF_RE.findall(item["text"])))
+    if len(repos) != 1:
+        which = ("no menno420/<repo> reference" if not repos
+                 else f"{len(repos)} different repos")
+        out.append(f"note  [{label}] required-check ask for `{ctx}` "
+                   f"skipped (item cites {which} — attribution would be a "
+                   "guess, and walls/guesses are never invented)")
+        return 0
+    st = fetch_rules(repos[0])
+    if st["wall"]:
+        out.append(f"note  [{label}] {repos[0]} branch rules NOT MEASURED "
+                   f"(wall: {st['wall']}) — never guessed; the Actions "
+                   "regen run is the reliable venue for this probe")
+        return 0
+    if ctx in st["contexts"]:
+        out.append(f"FLAG [satisfied-required-check-ask] {label}: `{ctx}` "
+                   f"is ALREADY a required check on {repos[0]} main "
+                   f"(live contexts: {st['contexts']}) — the ask is "
+                   "satisfied; mark it ✅ RESOLVED and sweep (INC-06 class)")
+        return 1
+    return 0
+
+
+def check_queue(text: str, fetch, out: list[str], fetch_rules=None) -> int:
+    """Run checks 1+2 (+4 when fetch_rules given). Returns flag count."""
     items = parse_queue(text)
     flags = 0
     if not items:
@@ -248,6 +334,8 @@ def check_queue(text: str, fetch, out: list[str]) -> int:
                 out.append(f"FLAG [duplicate-slug] {it['id']} used by items "
                            f"{seen_ids[it['id']]} and {it['number']}")
             seen_ids[it["id"]] = it["number"]
+        if fetch_rules is not None:
+            flags += check_required_check_asks(it, fetch_rules, out, label)
         if not MERGE_ACTION_RE.search(it["text"]):
             continue
         pairs, notes = cited_prs(it)
@@ -340,12 +428,21 @@ def selftest() -> int:
             {"state": None, "merged": False, "merged_at": None,
              "wall": f"no recorded state for {repo}#{num} (selftest stub)"})
 
+    def stub_rules(repo):
+        # Ground truth recorded 2026-07-14 (INC-06 live probe, wake 0235Z):
+        # mineverse main requires exactly ["substrate-gate", "pytest"]
+        # (enabler rules probe verbatim, Actions run 29260140367).
+        if repo == "superbot-mineverse":
+            return {"contexts": ["substrate-gate", "pytest"], "wall": None}
+        return {"contexts": [],
+                "wall": f"no recorded rules for {repo} (selftest stub)"}
+
     def run(name):
         path = os.path.join(root, "scripts", "fixtures", name)
         with open(path, encoding="utf-8") as fh:
             text = fh.read()
         out: list[str] = []
-        return check_queue(text, stub_fetch, out), out
+        return check_queue(text, stub_fetch, out, fetch_rules=stub_rules), out
 
     bad_flags, bad_out = run("owner-queue-known-bad.md")
     if bad_flags < 2:
@@ -358,6 +455,10 @@ def selftest() -> int:
                for ln in bad_out):
         fails.append("known-bad: MERGE item citing merged games#34 did not "
                      "fire merged-citation")
+    if not any("[satisfied-required-check-ask]" in ln and "pytest" in ln
+               for ln in bad_out):
+        fails.append("known-bad: satisfied required-check ask (mineverse "
+                     "pytest, the INC-06 case) did not fire")
     good_flags, good_out = run("owner-queue-known-good.md")
     if good_flags != 0:
         fails.append(f"known-good fixture must be clean, got {good_flags} "
@@ -403,7 +504,9 @@ def main(argv=None) -> int:
     cache: dict = {}
     out: list[str] = []
     flags = check_queue(text, lambda r, n: fetch_pr_state(r, n, token, cache),
-                        out)
+                        out,
+                        fetch_rules=lambda r: fetch_required_contexts(
+                            r, token, cache))
     if not args.skip_positional_lint:
         flags += check_positional_refs(repo_root(), out)
 
@@ -415,7 +518,7 @@ def main(argv=None) -> int:
     verdict = ("CLEAN — no merged/closed citations, slugs intact"
                if flags == 0 else f"{flags} FLAG(S) — queue needs a sweep")
     print(f"check_owner_queue: {verdict} "
-          f"(queried {len(cache)} PR(s), {args.queue})")
+          f"(queried {len(cache)} record(s), {args.queue})")
     return 0 if (flags == 0 or args.advisory) else 1
 
 

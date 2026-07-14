@@ -39,6 +39,9 @@
   UI visibility, ping test).
 - **[`docs/experiments/README.md`](experiments/README.md)** — pre-registered
   experiment protocols + judge records (harness × model, 2026-07-09).
+- **[`docs/fence-index.md`](fence-index.md)** — which fleet repos expose which
+  seat-digest extraction fences (central-docs-plan C13; consumer =
+  `docs/prompts/v3/tools/seat_digest_sync.py`).
 - **[`docs/gen2-blueprint.md`](gen2-blueprint.md)** — the Phase-2 (born-right)
   Project seed standard (DRAFT).
 - **[`templates/worker-preamble.md`](../templates/worker-preamble.md)** —

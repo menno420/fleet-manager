@@ -36,6 +36,21 @@
      (merge `e1848ff`); the checker must fire [resolved-not-swept].
    - Blocking: no longer blocking.
 
+### (C) Settings toggles
+
+3. **superbot-mineverse — make the test suite blocking.**
+   - id: OQ-FIXTURE-MINEVERSE-PYTEST-REQUIRED
+   - WHERE: https://github.com/menno420/superbot-mineverse settings →
+     Rules → main ruleset.
+   - HOW: add `pytest` as a required status check on main.
+   - UNBLOCKS: red suites can no longer land.
+   - VERIFIED-NEEDED: fixture — modeled on the REAL INC-06 drift
+     (OQ-MINEVERSE-PYTEST-REQUIRED-CHECK survived 3 days after the owner
+     clicked it 2026-07-11; live contexts `["substrate-gate","pytest"]`,
+     Actions run 29260140367); the checker must fire
+     [satisfied-required-check-ask].
+   - Blocking: not-blocking.
+
 ## Resolved (fixture tail — outside the active region, never scanned)
 
 - A resolved entry citing https://github.com/menno420/fleet-manager/pull/76
