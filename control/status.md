@@ -1,24 +1,23 @@
 # Fleet Manager — coordinator heartbeat
 
-updated: 2026-07-14T08:58:27Z — coordinator live, OWNER LIVE (EAP final day; audit collection underway; wake 0845z closing on PR #191)
+updated: 2026-07-14T10:40:55Z — coordinator live, OWNER LIVE (EAP final day; synthesis closing on PR #194)
 
 ## Routine disposition
-- Failsafe armed: `trig_01FpTbpXCeGcotnBpTkscAdr` · cron `30 */2 * * *` · fired through 08:33Z · next ~10:33Z · single FM failsafe. Pacemaker chain live (~20 min, Q-0265). Trigger-health 9/9 green on the fresh 08:38Z snapshot (1676 records, +92; zero touched) — I6 cleared.
+- Failsafe armed: `trig_01FpTbpXCeGcotnBpTkscAdr` · cron `30 */2 * * *` · fired through 10:33Z · next ~12:33Z · single FM failsafe. Pacemaker chain live (~20 min, Q-0265).
 
-## Shipped this wake (PR #191, claude/wake-0845z)
-- Snapshot refresh @ 36f29b1 · roster gen #44 @ 3dd4356 — six lanes flipped FRESH → STALE ⚠ commits-FRESH (heartbeats aged while lanes push; consistent with seats mid-audit).
-- Owner-queue truing @ 6e94cf3: Gallivan-interview is NOT an fm queue row (lives superbot-side; owner-confirmed done day one — strike routed via the superbot seat) · B#59 gate CLEARED (gba #82 merged) — its four deletes now clickable · E#28 annotated EXPIRES TODAY · E#58 re-stamped (pml #66/#82 open+clean, clicks pending) · B#11 caution: websites' do-not-delete branch claude/anthropic-review-site is gone from remote (its PR #132 merged 07-11 by the owner) — re-verify targets at the delete sitting.
-- AUDIT-WATCH live: docs/eap-audit-collection.md — owner sent the EAP audit prompt to all 8 Projects ~08:30Z. Initial state 08:38Z: 0/13 target repos have docs/audits/eap-project-audit-2026-07-14.md at HEAD; 3 in flight born-red (websites #332 · substrate-kit #366 · venture-lab #192); fm's own audit DONE via #189. Synthesis + final-email draft fires at majority-in.
-- INC-29 fm half verified generator-baked (bootstrap seat-digest reverts hand fixes byte-exactly) — rerouted to the substrate-kit lane; INC-49/60 fm halves noted too large for a capacity slice.
-- Verify at close: roster OK 0.2h · queue CLEAN · trigger-health 9/9 · bootstrap strict red only on this card's hold.
+## Shipped this wake (PR #194, claude/eap-synthesis)
+- docs/eap-final-email-draft-2026-07-14.md — owner-voice final feedback email (600-word body, 7 ranked asks with measured evidence: merge-consent grant · settings read + batchable approvals · scheduler/lifecycle observability · branch-delete 403 · proxy'd api.github.com + gh · MCP freshness/completeness · usage visibility; full cited version below the COPY marker). Sourced from all landed audits + fm audit + eap-retrospective §3.
+- docs/eap-owner-checklist-2026-07-14.md — 29 consolidated owner actions (18 core/settings + 10 walkthrough-§C + 1 housekeeping), two ⏰ deadlines flagged (E#28 TODAY, E#65 before Fri 09:00Z), recommendations bolded, VERIFY column throughout.
+- Both docs marked UPDATABLE: at the 10:30Z sweep, audits complete-or-accounted (superbot corpus in docs/eap/ by design · pml audit rides parked #84 — merging it is checklist row 2 · sim-lab covered by idea-engine · trading-strategy thin-pointer landed @ b4a0360); walkthroughs 2/13 landed (substrate-kit @ e0a6f6c, trading-strategy @ 5820a41 — §C merged); 11 walkthroughs pending lane execution of the 09:3xZ closeout ORDERs.
+- PROVENANCE NOTE: the retroactive ORDER 046 inbox append was classifier-denied ("[Instruction Poisoning]") — one attempt, reverted byte-exact, not retried (deny-wins). The synthesis dispatch's provenance = the live owner directive in the coordinator chat (2026-07-14 ~10:07Z) + the prior heartbeat's Next-2 baton item 1; recorded here as the durable trace.
 
 ## Open/parked PRs + landing paths
-- fm #191: OPEN + READY; lands on green after the flip (merge-on-green sweep).
-- pokemon-mod-lab #82 + #66 (owner clicks) · kit #317 ratification park · gba #83–#90 (B#59 deletes now clickable) · pml #57–#65: untouched.
+- fm #194: OPEN + READY; lands on green after the flip (merge-on-green sweep).
+- pml #84 (audit, parked green) · #85 (closeout ORDER, parked green) · #66 + #82 (owner clicks) · kit #317 ratification park: untouched.
 
 ## Next-2 baton
-1. AUDIT SWEEP each wake: re-scan the 13 targets for landed audits, update docs/eap-audit-collection.md rows (PR #, headline numbers, ANTHROPIC asks); at majority-in, dispatch the synthesis + final-email draft (merge + dedupe all ANTHROPIC-tagged asks; EAP ends TODAY per Diana Liu's extension mail).
-2. End-of-day sweep: every fleet PR terminal or cleanly parked with cited reason; owner-queue final state for the close.
+1. Straggler sweep on later wakes: as the 11 pending walkthroughs land, merge their §C rows into the checklist and refresh both UPDATABLE docs (delta commits, same doc paths).
+2. End-of-day terminal sweep: every fleet PR terminal or cleanly parked with cited reason; final owner-queue state; the email send is the owner's call from the draft.
 
 ## ⚑ Owner asks
-- pml #66 + #82 clicks (VENUE:hub) · B#59 four gba deletes (now unblocked) · E#28 expires today · rescue-branch delete · 0717 grading-fire (rec A) · DARK re-wake decisions · dictionary re-paste v3.6.
+- The 29-row checklist (docs/eap-owner-checklist-2026-07-14.md) is the single sitting — two deadline items first (E#28 today, E#65 Fri 09:00Z).
