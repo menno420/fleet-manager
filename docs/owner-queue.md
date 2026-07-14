@@ -254,24 +254,17 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
     - RISK: ✅ read-only, single-repo token — minimal scope, revocable.
     - Blocking: not-blocking, but the row lies until clicked.
 
-50. **superbot-idle — Allow auto-merge + required checks on main**
-    *(new 2026-07-13, consolidation batch).*
+50. **✅ RESOLVED 2026-07-13 (wake-session live verification) — superbot-idle
+    self-landing is WORKING; the two parked PRs landed automatically.**
    - id: OQ-IDLE-REQUIRED-CHECKS
-    - WHAT: tick "Allow auto-merge" AND add a ruleset on `main` requiring
-      the check contexts `pytest` and `substrate-gate`.
-    - WHERE: https://github.com/menno420/superbot-idle/settings (General →
-      Pull Requests for the auto-merge tick; Rules → Rulesets for the
-      required checks).
-    - HOW: ~2 min, one sitting.
-    - WHY: with zero required checks the new merge enabler safely refuses to
-      arm (nothing would gate the merge) — installed 457407c but INERT until
-      this click.
-    - UNBLOCKS: parked idle PRs #75/#76 land automatically, and all future
-      seat PRs self-land on green.
-    - VERIFIED-NEEDED: the next agent PR on superbot-idle shows "Auto-merge
-      enabled".
-    - RISK: ✅ reversible — both settings toggle back off.
-    - Blocking: not-blocking, but holds two parked PRs.
+    - Evidence (live GitHub, read 2026-07-13 ~13:20Z): idle **PR #76 MERGED
+      2026-07-13T01:23:35Z** and **PR #75 (PLUG-001 adapter) MERGED
+      2026-07-13T01:26:30Z**, both `merged_by: github-actions[bot]` — the
+      item's UNBLOCKS ("parked idle PRs #75/#76 land automatically") is
+      satisfied verbatim, and open idle PRs = 0. Caveat, honest: the merge
+      record alone cannot distinguish native auto-merge (the Allow-auto-merge
+      tick) from a `GITHUB_TOKEN` merge-on-green workflow — either way the
+      self-landing path this item existed for is live. Body history in git.
 
 51. **gba-homebrew — make "ROM builds" a required check via a RULESET on
     main** *(new 2026-07-13, consolidation batch — coordinator addition).*
@@ -1191,6 +1184,94 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       "Asks pending" item 3 ("Decision only — nothing was installed").
     - RISK: ↩️ reversible — a workflow file; delete to revert.
     - Blocking: not-blocking, but the pile regrows every night run.
+
+61. **superbot-games — DARK seat: re-wake or reassign its build orders.**
+    *(new 2026-07-13, EAP final-night DARK sweep —
+    docs/eap-final-night-worklists-2026-07-13.md @ `ca1ce28` § DARK
+    dispositions.)*
+    - id: OQ-GAMES-DARK-REWAKE-OR-REASSIGN
+    - WHAT — pick one:
+      **A (recommended)** — re-wake the seat: its served balance verdicts
+      (ORDER 006 done — mining V042, fishing curve, DnD escort ruling,
+      exploration bands) and standing fm ORDERs 030/031/037 are armed with
+      no executor; a wake consumes them where they already live.
+      **B** — reassign its build orders to an active seat (the SuperBot
+      World lane or superbot-next executes the wiring instead; the manager
+      relays the orders).
+    - WHERE: one word wherever the manager reads — `control/inbox.md`
+      ORDER or a live session.
+    - HOW: say "games: A" (or B).
+    - WHY: the seat has been DARK ~35h14m while served verdicts + three
+      standing fm ORDERs sit unconsumed — armed work with no executor.
+    - UNBLOCKS: the V042-band wiring + fm ORDERs 030/031/037 get an
+      executor under either letter.
+    - VERIFIED-NEEDED: docs/eap-final-night-worklists-2026-07-13.md @
+      `ca1ce28` § DARK dispositions (roster gen #35; idea-engine
+      `control/inbox.md` ORDER 006 @ `2808b16`).
+    - RISK: ↩️ reversible — a routing choice; the orders themselves are
+      unchanged either way.
+    - Blocking: not-blocking fleet-side; blocks that seat's armed work.
+
+62. **gba-homebrew — DARK seat: re-wake.** *(new 2026-07-13, EAP
+    final-night DARK sweep — same source doc as E#61.)*
+    - id: OQ-GBA-DARK-REWAKE
+    - WHAT: re-wake the gba-homebrew seat — approved verdicts V050
+      (Gloamline survival ceiling) + V054 (Brineward band-2) are served
+      and build-direct plans are armed, with no live executor.
+    - WHERE: the Game Lab Project (a wake paste), or one word to the
+      manager.
+    - HOW: say "gba: wake" (or paste the seat's startup prompt in its
+      Project).
+    - WHY: DARK ~29h10m with approved verdicts + armed build-direct plans
+      sitting idle.
+    - UNBLOCKS: the V050/V054 build lanes.
+    - VERIFIED-NEEDED: docs/eap-final-night-worklists-2026-07-13.md @
+      `ca1ce28` § DARK dispositions (sim-lab `control/outbox.md`
+      L879/L959 @ `32ff5c3`).
+    - RISK: ✅ a wake, nothing structural.
+    - Blocking: not-blocking; holds only that lane's armed work.
+
+63. **product-forge — confirm no-action (stays gated on E#44,
+    OQ-CONSOLIDATION-DELETE-VS-ARCHIVE).** *(new 2026-07-13, EAP
+    final-night DARK sweep — same source doc as E#61.)*
+    - id: OQ-FORGE-DARK-NO-ACTION-CONFIRM
+    - WHAT: confirm the sweep's no-action disposition — product-forge
+      stays DARK (~2.1d) by design; fm ORDERs 023/024 (games-web →
+      websites arcade; retro → fm docs) remain GATED on your consolidation
+      approval at E#44 (OQ-CONSOLIDATION-DELETE-VS-ARCHIVE). Nothing runs
+      until that letter.
+    - WHERE: one word to the manager — or fold into the E#44 answer
+      itself.
+    - HOW: say "forge: confirmed" (or just answer E#44, which supersedes
+      this confirm).
+    - WHY: closes the DARK-sweep loop explicitly, so the seat's darkness
+      reads as decided rather than missed by future sweeps.
+    - UNBLOCKS: nothing directly — records that forge-DARK is
+      intentional until E#44.
+    - VERIFIED-NEEDED: docs/eap-final-night-worklists-2026-07-13.md @
+      `ca1ce28` § DARK dispositions.
+    - RISK: ✅ an acknowledgment, not a change.
+    - Blocking: not-blocking.
+
+64. **substrate-kit sub-rows gba-trackb + superbot-coordinator — confirm
+    wound down so the roster rows retire.** *(new 2026-07-13, EAP
+    final-night DARK sweep — same source doc as E#61.)*
+    - id: OQ-KIT-SUBROWS-WINDDOWN-CONFIRM
+    - WHAT: confirm the two substrate-kit sub-rows are wound down —
+      gba-trackb (~3.7d stale) + superbot-coordinator (~3.3d stale), both
+      presumed wound down by roster gen #35 — so the roster generator can
+      retire the rows instead of printing them stale forever.
+    - WHERE: one word to the manager.
+    - HOW: say "sub-rows: retire" (or name one to keep).
+    - WHY: presumed-dead rows that never retire are permanent roster
+      noise and mask real freshness regressions.
+    - UNBLOCKS: roster hygiene — gen output stops carrying two
+      known-stale rows.
+    - VERIFIED-NEEDED: docs/eap-final-night-worklists-2026-07-13.md @
+      `ca1ce28` § DARK dispositions (roster gen #35).
+    - RISK: ↩️ reversible — a retired row re-adds in one regen if a seat
+      revives.
+    - Blocking: not-blocking; roster hygiene.
 
 ### (F) New intake 2026-07-12 (owner-live session) — decisions, no rush
 

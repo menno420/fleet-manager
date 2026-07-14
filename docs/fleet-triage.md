@@ -40,7 +40,7 @@ action to activate) · **DELETE** (none).
 | **venture-lab** (first revenue) | Venture Lab | 🟡 | KEEP | 3 real built products; **critical Stripe fail-open** before publish | 🔴 Fail-closed on partial Stripe config, then publish |
 | **superbot-mineverse** (web game) | SuperBot World (flagship) | 🟡 | KEEP | Real read-only demo; login-CSRF + pytest-not-required before secrets | Bind OAuth state to browser + schema-validate; make pytest required |
 | **superbot-games** (game engines) | SuperBot World | 🟢 | KEEP | Pure-domain, green, DM-clamp verified; parked on plugin contract (correct) | ~~Owner merge #49 then #50~~ *(post-seed: #49 merged `5d38593` 17:22Z)*; refresh stale status |
-| **superbot-idle** (idle engine) | SuperBot World | 🟡 | KEEP-SEQUENCE | 827 tests, 12 themes; **self-parked on a blocker that's already resolved** | Lift PLUG-001 (contract EXISTS in superbot-next), build the adapter; land SIM-001 |
+| **superbot-idle** (idle engine) | SuperBot World | 🟡 | KEEP-SEQUENCE | 1227 tests, 15 themes; PLUG-001 adapter MERGED (#75, 2026-07-13T01:26Z, self-landed) + wave-4 packs (#76); SIM-001 verdict DELIVERED (sim-lab V038 CONDITIONAL @ `afe18f3` — graduate the PROVISIONAL table) | Act on V038 graduation (seat-side economy-v1.md re-registration) + owner letters E#52/E#53 |
 | **product-forge** (web-product forge) | ⚑ owner disposition pending (`OQ-FORGE-DISPOSITION` — not in the 8-seat list) | 🟢 | KEEP | Real games-web, 22 PRs, foundational infra ("home to homeless projects") | Owner: enable GitHub Pages (one toggle — `OQ-FORGE-PAGES`) |
 | **gba-homebrew** (GBA game) | Game Lab (public track) | 🟢 | KEEP | Playable committed ROM, reproducible CI build; low-maintenance | Owner: create the Lumen Drift v1.3 Release (`OQ-GBA-LUMEN-RELEASE`) |
 | **pokemon-mod-lab** (private ROM mod) | Game Lab (private track — track isolation binding) | 🟢 | KEEP-PARKED | Real 16-patch mod, private, copyright-safe; idle ~18 sessions, all owner-gated | **Pause/slow the hourly wake**; owner playtest verdict unblocks it (`OQ-SITTING-0714-DECISIONS`) |
@@ -80,6 +80,174 @@ action to activate) · **DELETE** (none).
 Out of the 8: **product-forge** (live seat, disposition pending —
 `OQ-FORGE-DISPOSITION`). Retired to stubs (slice 1): codetool-lab ×3 ·
 mobile-lab · games-program · superbot-retro (+ 11 merged-source dirs).
+
+## 2026-07-13 · Q-0264 relay-consumption sweep (13:13:45Z, read-only, SHA-cited)
+
+> Dated evidence note (per §How-to-re-verdict pt 4 — dated notes land here, not
+> a fork file). Sweep question: have the 9 sim-lab verdicts **V037–V045**
+> (finalized at sim-lab @ `afe18f3`, 09:43–11:35Z) and **idea-engine ASK 002**
+> — all recorded as relay pointers in fm `control/outbox.md` @ `a32eb2c`
+> L468–502 ("Q-0264 FAN-IN" section) — been consumed lane-side? **Answer: no.
+> Zero lane-side consumption; all 10 items PENDING manager fan-out**, exactly
+> as the relay record's own "coordinator relays at next dispatch" wording
+> anticipated. No lane is no-signal (all have fresh heartbeats); no lane
+> self-served from the fm outbox either.
+
+| Lane | Verdict / ask | Status | Evidence (lane HEAD-cited) |
+|---|---|---|---|
+| venture-lab | V037 Ultramarine serial pricing — CONDITIONAL (R3 default arm) | **pending** | venture-lab@`765e1f8`: inbox latest = ORDER 009 (09:11Z night-report ask), no verdict relay; outbox L24 still lists the Ultramarine SIM-REQUEST as PENDING; no "V037" string in any control file |
+| venture-lab | V039 photo packs — CONDITIONAL ($5 fixed default + bundle row) | **pending** | venture-lab@`765e1f8`: no "V039" in control/{inbox,status,outbox}.md; outbox L24 lists photo-packs SIM-REQUEST as PENDING |
+| venture-lab | V040 Ship-It Bundle — CONDITIONAL ($59 ratified, parked switch rule) | **pending** | venture-lab@`765e1f8`: no "V040" in control files; outbox L24 lists the $59-vs-anchors SIM-REQUEST as PENDING |
+| venture-lab | V041 narrow-TAM cookbooks — CONDITIONAL ($19 fixed default) | **pending** | venture-lab@`765e1f8`: no "V041" in control files; outbox L24 lists the $19-vs-PWYW SIM-REQUEST as PENDING |
+| superbot-idle | V038 SIM-001 economy-FEEL — CONDITIONAL (graduate PROVISIONAL table; A10 re-wording seat-side) | **pending** | superbot-idle@`b03cc96`: no "V038" in control files; status.md L8 `blockers: SIM-001/Q-0264 … still open`, L94 `RESUME TRIGGER: Q-0264 ruling lands`; inbox latest = ORDER 004 (09:09Z), no verdict relay. **Relay clears this lane's declared RESUME TRIGGER.** |
+| superbot-games | V042 mining-economy — APPROVE (2 flagged rows) | **pending** | superbot-games@`57f69be`: no "V042" in control files; status.md L77 + outbox L290 still list mining-economy-tuning SIM-REQUEST as PENDING |
+| superbot-games | V043 fishing-economy — APPROVE-WITH-CONSTANTS (wire VERBATIM at the seam) | **pending** | superbot-games@`57f69be`: no "V043" in control files; status.md L78 lists fishing-economy-tuning as PENDING |
+| superbot-games | V044 dnd-escort-double-mint — MINT-AT-MOST-ONCE (guard at bundle fold) | **pending** | superbot-games@`57f69be`: no "V044" in control files; status.md L79 lists dnd-escort-double-mint as PENDING |
+| superbot-games | V045 exploration-reward-bands — RATIFY-WITH-NULL (numeric import waits on superbot P0 artifact) | **pending** | superbot-games@`57f69be`: no "V045" in control files; status.md L80 lists exploration-reward-bands as PENDING |
+| idea-engine → Self Improvement seat | ASK 002 — kit-local `check --strict` ⇒ CI substrate-gate parity (evidence: idea-engine PRs #274/#299) | **pending** | Originator idea-engine@`c807960`: outbox L295 ASK 002 still `status: new` (status.md L6 corroborates). Target substrate-kit@`949875c`: no "ASK 002" / check-parity order in control/inbox.md |
+
+**Pending lane-inbox writes owed (manager fan-out at next dispatch):**
+venture-lab ← V037/V039/V040/V041 · superbot-idle ← V038 (clears its RESUME
+TRIGGER) · superbot-games ← V042/V043/V044/V045 · substrate-kit (Self
+Improvement seat) ← idea-engine ASK 002. Method: read-only (`git fetch` +
+`git show origin/main:<file>` per lane); lane HEADs as cited above. Sweep run
+from the trigger-health-i1 worker session (fm PR #167, Slice B).
+
+## 2026-07-13 · Q-0264 relay-consumption re-sweep (14:37:33Z, read-only, SHA-cited)
+
+> Dated evidence note (per §How-to-re-verdict pt 4). Read-only re-sweep from
+> the wake-14:34Z session (recorded in fm PR #169); prior sweep: PR #167
+> (13:13:45Z section above). Since that sweep the manager fan-out has landed
+> in all four lane inboxes — this re-sweep asks whether the lanes have
+> **consumed** the delivered orders. **Answer: 2 of 4 lanes CONSUMED**
+> (venture-lab, substrate-kit); superbot-idle and superbot-games still
+> PENDING at HEAD.
+
+| Lane | ORDER | Delivered (PR / main squash) | Verdict | Evidence |
+|---|---|---|---|---|
+| venture-lab | 010 (V037/V039/V040/V041) | #161 / `84d4bcb` @ 13:42:35Z | **CONSUMED** | PR #163 merged 14:03:14Z (squash `e252b46`) applies all four verdicts + heartbeat "ORDER 010 applied + ack"; follow-on #164 (`d71649b`, 14:29Z), #165 (`5944109`, 14:33Z) |
+| superbot-idle | 005 (V038, SIM-001) | #88 / `05a99f5` @ 13:42:59Z | **PENDING** | inbox@`675c347` (blob `15f11c5`): ORDER 005 still `status: new`; status.md@HEAD acked/done ledger stops at 004; lane alive (#89 `e740810` 14:03Z, #90 `675c347` 14:25Z, both unrelated); 0 open PRs |
+| superbot-games | 007 (V042–V045) | #80 / `156e2de` @ 13:44:12Z | **PENDING** | inbox@`d6a9526` (blob `75c2609`): ORDER 007 still `status: new`; acked ledger stops at 006; newest heartbeat section = 09:22Z night report; lane alive (#81 groom `d6a9526` 14:04Z, unrelated); 0 open PRs |
+| substrate-kit | 018 (ASK 002 → check --strict CI parity) | #329 / `430f7a2` @ 13:43:11Z | **CONSUMED** | PR #332 merged 14:32:29Z (squash `3d58a46`) — check --strict runs inbox + preflight_scripts legs locally, tests pinned; intervening #330 (`481f682`, 13:49Z), #331 (`a4b9808`, 14:06Z) |
+
+**Re-sweep result:** 2 of 4 lanes CONSUMED (venture-lab via #163 `e252b46`;
+substrate-kit via #332 `3d58a46`); superbot-idle ORDER 005 and superbot-games
+ORDER 007 PENDING — still `status: new` at HEAD with no verdict work started,
+though both lanes show unrelated post-delivery merges (alive, not stalled).
+Note: the games/kit "tip" SHAs relayed at fan-out (`af36d52`, `9a6caa4`) were
+branch heads; the main squash SHAs are `156e2de` / `430f7a2` — delivery
+confirmed on main in all four lanes.
+
+## 2026-07-13 · Q-0264 relay-consumption re-check (17:03:39Z, read-only, SHA-cited)
+
+> Dated evidence note (per §How-to-re-verdict pt 4). Read-only re-check from
+> the failsafe-wake 16:33Z executor session; prior sweeps: PR #167 (13:13:45Z)
+> and PR #169 (14:37:33Z, above). Delta-only: venture-lab 010 and
+> substrate-kit 018 were already **CONSUMED** at the 14:37Z re-sweep
+> (venture-lab #163 `e252b46`; substrate-kit #332 `3d58a46`) — not
+> re-litigated here. This re-check covers only the two lanes left PENDING.
+
+| Lane | ORDER | 14:37Z state | Live HEAD (17:03Z) | Verdict | Evidence |
+|---|---|---|---|---|---|
+| superbot-idle | 005 (V038, SIM-001) | inbox@`675c347`, status: new; ack ledger stops at 004 | `96cd635` (HEAD advanced) | **STILL-PENDING** | inbox@`96cd635` line 40: `## ORDER 005 · 2026-07-13T13:40:58Z · status: new` (unchanged); status.md@`96cd635` line 9: `orders: acked=000-004 done=000-004` — ledger has not advanced past 004; lane alive (HEAD moved past `675c347` on unrelated work) but the order untouched |
+| superbot-games | 007 (V042–V045) | inbox@`d6a9526`, status: new; acked ledger stops at 006 | `d6a9526` (HEAD unchanged) | **STILL-PENDING** | repo HEAD is the same commit as the 14:37Z sweep, so the whole tree is byte-identical; re-fetched anyway: inbox@`d6a9526` line 103: `## ORDER 007 · 2026-07-13T13:42:24Z · status: new`; status.md@`d6a9526` line 13: `orders: acked=001,002,003,004,005,006` — no new commits at all since 14:04Z |
+
+**Re-check result:** 0 of 2 pending lanes consumed since 14:37Z —
+superbot-idle ORDER 005 and superbot-games ORDER 007 both STILL-PENDING at
+live HEAD. Cumulative Q-0264 consumption: 2 of 4 (venture-lab,
+substrate-kit). Next natural checkpoint: the SuperBot World seat's next
+failsafe wake (`trig_01QctdbvhdcvuSFsCPxdseae` `15 1-23/2 * * *`, next
+~17:15Z per the 16:56Z snapshot — the seat covers superbot-games +
+superbot-idle); if a third sweep still finds `status: new`, the manager
+should consider a send_message nudge per the ORDER 040 TASK 3 escalation
+ladder (rung 2).
+
+## 2026-07-13 · Q-0264 relay-consumption THIRD check (18:40Z, read-only, SHA-cited)
+
+> Dated evidence note (per §How-to-re-verdict pt 4). Read-only third check from
+> the failsafe-wake 18:34Z work slice (fm PR #173); prior sweeps: PR #167
+> (13:13:45Z), PR #169 (14:37:33Z), and the 17:03:39Z re-check above.
+> Delta-only: covers the two lanes left STILL-PENDING at 17:03Z.
+> **Answer: BOTH CONSUMED — cumulative Q-0264 consumption now 4 of 4.**
+
+| Lane | ORDER | 17:03Z state | Live HEAD (18:40Z) | Verdict | Evidence |
+|---|---|---|---|---|---|
+| superbot-idle | 005 (V038, SIM-001) | STILL-PENDING @ `96cd635` | `4c31a2c` (inbox blob `15f11c5`, status blob `cdda9f0`) | **CONSUMED** | status.md@`4c31a2c` (updated 2026-07-13T17:43Z): `orders: acked=000-005 done=000-005`; dedicated "§ ORDER 005 — SIM-001 VERDICT 038 consumed" section — graduation PR #93 (economy-v1.md table PROVISIONAL → SIM-PINNED + A10 re-registered in trend form, zero parameter changes; claim via fast-lane PR #92 merged 17:29:27Z). Inbox thread itself still reads `status: new` — inbox is one-writer (manager), so the ack lives in status.md per the seat grammar |
+| superbot-games | 007 (V042–V045) | STILL-PENDING @ `d6a9526` | `ce70d9e` (inbox blob `75c2609`, status blob `b2909a4`) | **CONSUMED** | status.md@`ce70d9e`: `orders: acked=001,002,003,004,005,006,007 done=001,002,003,005,006,007` + done=007 per the order's own clause; dedicated "§ ORDER 007 ACK — 2026-07-13T17:45:47Z" section — V042 APPROVE ratified, V043 wired + V044 guard landed via PR #83 (open READY on the card-guarded enabler at check time), V045 ratified-with-NULL; four SIM-REQUESTs closed in control/outbox.md. Same one-writer-inbox note as above |
+
+**Third-check result:** 2 of 2 previously-pending lanes CONSUMED between
+17:03Z and ~17:45Z (both by the SuperBot World seat's 17:15Z failsafe wake
+window, as the 17:03Z note predicted). **Cumulative: 4/4** (venture-lab #163,
+substrate-kit #332, superbot-idle #93, superbot-games #83). No ORDER 040
+TASK 3 escalation needed — the rung-2 send_message nudge contemplated at
+17:03Z is moot. Q-0264 fan-out consumption is CLOSED; residue rides lane-side
+(idle: tools/simulate.py A10 v2 harness follow-up, flagged in its status;
+games: PR #83 landing on its card flip).
+
+## 2026-07-13 · I1b disposition — `trig_011XAWqPeksS8LBrS5G9RvVc` "superbot autonomous dispatch" (20:51Z, read-only, SHA-cited)
+
+> Dated evidence note (per §How-to-re-verdict pt 4). Baton item from the
+> failsafe wake 2026-07-13T20:33Z (executor session, fm PR #175): the standing
+> I1b AMBIGUOUS-ENABLED WARN row in `check_trigger_health.py` gets its
+> classification. The trigger is NOT fleet-manager's — nothing here modifies
+> it; the verdict routes to the superbot hub seat via `control/outbox.md`
+> (same wake) for disposal by its owner.
+
+**Verdict: DORMANT OWNER-PAUSED REMNANT of the pre-fleet-era superbot
+dispatch routine — recommend disposal by its owner (superbot hub seat /
+owner console: delete, or annotate-and-leave-paused). Do NOT re-enable or
+rebind as-is.**
+
+Registry facts (fresh export, `telemetry/triggers-snapshot.json`
+`captured_at 2026-07-13T20:42:00Z`, this wake's PR #175 commit `90e1a7f`):
+
+- `trig_011XAWqPeksS8LBrS5G9RvVc` · name "superbot autonomous dispatch" ·
+  cron `0 */3 * * *` · created 2026-06-12T20:15:49Z via `http_api` ·
+  environment `env_01CZRF681i8ef2zqt9GgboYy` (superbot).
+- `last_fired_at` 2026-07-02T00:07:46Z · `updated_at` 2026-07-02T02:38:10Z ·
+  `next_run_at` FROZEN at 2026-07-02T03:07:12Z (11+ days past) · `enabled`
+  ABSENT · `ended_reason` ABSENT. Per the CCR `list_triggers` contract, a
+  disabled routine with empty `ended_reason` = **user-paused** — i.e. the
+  registry shape reads as a console pause action at ~2026-07-02T02:38Z,
+  ~2.5h after its last fire, not a platform auto-disable and not a wedge.
+- Same-env cross-check (same export): superbot's environment holds exactly
+  one ENABLED trigger — the poke-only `suberbot docs reconciliation`
+  (`trig_018wP6XTPmf9DLnxrG4RpGVh`). The dispatch trigger's sibling
+  `superbot night executor` (`trig_01MWHvQFnRF1dVdZFSP6SM5L`) is likewise
+  disabled with no `ended_reason` — the other standing I1b WARN row, same
+  remnant class.
+
+Repo evidence (superbot read READ-ONLY over raw.githubusercontent.com at
+main = `1cc553651a19016a4b1439f048b49e7baa28dfb1`, ls-remote-verified):
+
+- `docs/operations/autonomous-routines.md@1cc5536` L30: "superbot dispatch —
+  the single execution routine | console Schedule (every ~2–3h,
+  `0 */2 * * *`, owner-tuned, Q-0146)" — the trigger's stored prompt opens
+  with the exact dispatch-routine text ("You are the SuperBot DISPATCH
+  routine — the single execution routine that does ALL the project's build
+  work…"), confirming identity; the `0 */3` cron on the record is the
+  owner-tuned variant the same line anticipates.
+- Same file L279–289: the "superbot night executor" was MERGED into dispatch
+  (Q-0145, 2026-06-15) — the sibling record is a documented remnant.
+- Same file L331: "Pause/kill: toggle a routine off (or delete it) in the
+  console" — the pause path matches the registry shape.
+- Staleness of the stored prompt: it still carries the Q-0117
+  `needs-hermes-review` merge gate (retired by Q-0197 per the same doc's L30)
+  and pre-dates the fleet-era continuous-mode seat model (Q-0265). The hub's
+  build work is lane-side now (superbot-next; fm inbox ORDER 030), and the
+  superbot hub roster row (roster gen #34) is a coordination surface.
+- **Doc drift flagged to the superbot seat:** `autonomous-routines.md@1cc5536`
+  L395/L406 still present the dispatch console Schedule as the live, reliable
+  cadence — false since the 2026-07-02 pause; the disposing session should
+  annotate it.
+
+Why "recommend deletion by owner" and not "rebind": deletion is destructive
+and the pause was an owner action, so the superbot seat should confirm with
+the owner (the stored prompt is preserved verbatim in this repo's committed
+snapshots and in superbot `docs/operations/hermes-dispatch-bridge.md`, so
+nothing is lost). If the hub ever wants a scheduled execution wake again, the
+correct move is a FRESH trigger from current v3.x prompt sources, not
+re-enabling this stale-doctrine record.
 
 ## How to re-verdict
 

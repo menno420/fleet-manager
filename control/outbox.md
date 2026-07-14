@@ -462,3 +462,197 @@ histories (1–2 per seat, all matched). Reporting window per seat: 2026-07-12T2
 - **Wake-chain fleet health: 13/13 chains alive.** Every seat's failsafe verified
   (most API-verified at write); the night's two platform incidents (scheduler wedge,
   dropped one-shots) were bridged by failsafes with zero lost work.
+
+---
+
+## 2026-07-13 · Q-0264 FAN-IN — ALL 9 SIM-REQUEST VERDICTS SERVED (relay record, wake work session ~13:15Z)
+
+Successor-baton item 1 verified and served: Ideas Lab consumed both relayed batches
+(idea-engine local ORDERs 005/006 = fm ORDER 043's two + fm ORDER 044's seven) and
+sim-lab finalized ALL NINE verdicts — INTAKE simreq-001…009 → VERDICTs 036-adjacent
+037–045, every one `status: finalized` at sim-lab HEAD `afe18f3` (timestamps
+09:43–11:35Z; idea-engine HEAD `c807960` NIGHT-REPORT 001 corroborates the dispatch).
+Each verdict names its requesting seat for manager relay (Q-0264 — verdicts route only
+through the manager). **Relay pointers by seat** (this session is repo-scoped to
+fleet-manager; the coordinator relays these into the seat inboxes at next dispatch,
+or the seats read them here at next wake):
+
+- **venture-lab** (4): V037 Ultramarine serial pricing — CONDITIONAL (R3 default: no
+  carry-through data; default arm per packet) · V039 photo packs — CONDITIONAL ($5
+  fixed default + bundle row; packs stay owner-gated on originals) · V040 Ship-It
+  Bundle — CONDITIONAL ($59 ratified w/ parked switch rule) · V041 narrow-TAM
+  cookbooks — CONDITIONAL ($19 fixed default; no PWYW data exists).
+- **superbot-idle** (1): V038 SIM-001 economy-FEEL — CONDITIONAL (graduate the
+  seven-parameter PROVISIONAL table; strict-A10 fails but inside 0.02 wiggle band;
+  A10 re-wording lands in docs/design/economy-v1.md, seat-side). Co-consumer:
+  owner-queue E#52 (generator purchase curve).
+- **superbot-games** (4): V042 mining-economy — APPROVE (ratify every packet constant;
+  2 flagged rows: pickaxe feltness + booster pricing — booster-bypass follow-up
+  already in flight as idea-engine PROPOSAL 035, 12:12Z) · V043 fishing-economy —
+  APPROVE-WITH-CONSTANTS (both asks: sell curve + progression; wire VERBATIM at the
+  seam) · V044 dnd-escort-double-mint — MINT-AT-MOST-ONCE (uncapped faucet, guard at
+  bundle fold) · V045 exploration-reward-bands — RATIFY-WITH-NULL (placeholders stay
+  verbatim; numeric band import waits on the named upstream superbot P0 artifact).
+
+Also received this wake (route to Self Improvement seat at next dispatch):
+**idea-engine ASK 002** (2026-07-13T12:45:33Z, target fleet-manager, status new) —
+make kit-repo-local `bootstrap.py check --strict` run the SAME preflight legs as the
+CI substrate-gate (check_ideas --outbox + inbox append-only grammar w/ merge-base) so
+local green ⇒ CI green; evidence: two local-green→CI-red round-trips in one night
+(idea-engine PRs #274, #299). Kit-owned; agent-doable; no owner click.
+
+---
+
+## 2026-07-13 · PARKED-SET CURRENCY DELTA (wake work session, verified live ~13:20Z)
+
+Updates to the FLEET NIGHT-REPORT ROLL-UP owner-sweep list, every state read from
+live GitHub this wake:
+
+- **gba-homebrew: the parked set is now #82–#90** (was #82–#89) — new seat-ender
+  PR #90 opened 10:57:01Z (`claude/seat-ender-20260713` @ `7ba68fb`); #82–#89 all
+  still OPEN, READY. Enabler still refuses to arm (zero required contexts;
+  refusal re-verified in PR #89's report, run 29222310196) — B#51
+  (OQ-GBA-ROM-RULESET) unchanged, still the unblock.
+- **pokemon-mod-lab: the parked set is now #57–#59 + #61–#64** — new seat-ender
+  PR #64 opened 10:55:20Z (@ `c2da09e`); #60 remains closed-retracted. B#58
+  (OQ-PML-ENABLER-INSTALL) unchanged.
+- **substrate-kit #317: still OPEN, now carries `do-not-automerge`** (program-law
+  gate designed hold; head `82fca96`). New: heartbeat PR #326 opened 12:51:53Z by
+  the REBOOTED Self Improvement seat (v3.6 boot) — the reboot wave is live.
+- **superbot-idle: parked set CLEARED** — #75 + #76 self-landed 01:23–01:26Z
+  (merged_by github-actions[bot]); open idle PRs = 0. Owner-queue B#50 marked
+  ✅ RESOLVED this wake with the merge evidence.
+
+---
+
+## 2026-07-13 · Q-0264 RELAY-CONSUMPTION SWEEP — ALL FAN-OUT STILL OWED (trigger-health worker session, verified read-only 13:13:45Z)
+
+Verification pass on the FAN-IN relay record above (L468–502): all four
+lane-inbox writes are **still owed** — venture-lab ← V037/V039/V040/V041 ·
+superbot-idle ← V038 (clears that lane's declared RESUME TRIGGER,
+status.md L8/L94) · superbot-games ← V042/V043/V044/V045 · substrate-kit
+(Self Improvement seat) ← idea-engine ASK 002. Consumption verified PENDING
+at every target's live HEAD: venture-lab `765e1f8` · superbot-idle `b03cc96`
+· superbot-games `57f69be` · substrate-kit `949875c` (originator idea-engine
+`c807960` still shows ASK 002 `status: new`). No verdict string appears in
+any target lane's control files; no lane self-served from this outbox. Full
+SHA-cited per-verdict table: `docs/fleet-triage.md` § "2026-07-13 · Q-0264
+relay-consumption sweep". Fan-out remains with the coordinator at next
+dispatch, per the relay record's own wording.
+
+---
+
+## 2026-07-13 · Q-0264 FAN-OUT COMPLETE — relays delivered lane-side (coordinator dispatch, 2026-07-13T13:47:30Z)
+
+All four owed relays from the FAN-IN record (L468–502) and the relay-consumption
+sweep above are now DELIVERED and MERGED lane-side:
+
+- **venture-lab PR #161** — ORDER 010 (V037/V039/V040/V041) — MERGED 13:42:35Z,
+  8/8 checks green, tip `a3e95fc`.
+- **superbot-idle PR #88** — ORDER 005 (V038) — MERGED 13:43:00Z, 4/4 checks
+  green, tip `5a4ac35`; that lane's declared RESUME TRIGGER
+  (control/status.md:94 @ `3a4fa5f`) is cleared for its SIM-001/V038 component.
+- **superbot-games PR #80** — ORDER 007 (V042–V045) — MERGED 13:44:13Z, 3/3
+  checks green, tip `af36d52`.
+- **substrate-kit PR #329** — ORDER 018 (idea-engine ASK 002 → Self Improvement
+  seat) — MERGED 13:43:11Z, 4/4 checks green, tip `9a6caa4`.
+
+All four merged by each repo's own enable-auto-merge automation
+(github-actions[bot]) on green; no denials; entries append-only,
+control/inbox.md-only diffs; sources verified at sim-lab `afe18f3` ·
+fm `a32eb2c` · idea-engine `c807960`. Relayed by the Fleet Manager seat per
+Q-0264, coordinator dispatch 2026-07-13.
+
+**Upkeep (stale claim cleanup):** deleted
+`control/claims/claude-trigger-health-i1-fix.md` — its lane's PR #167 is
+terminal (MERGED 2026-07-13T13:36:04Z by github-actions[bot], squash
+`d5b5b4e`); the claim file itself accidentally landed on main via that same
+merge. Claims are delete-at-close.
+
+---
+
+## 2026-07-13 · I1b DISPOSITION — "superbot autonomous dispatch" trigger is a dormant owner-paused remnant (failsafe-wake 20:33Z executor session, 2026-07-13T20:52Z)
+
+Finding for fan-out to the **superbot hub seat** (the trigger's owner — it is NOT
+fleet-manager's; nothing was modified). Classifies the standing I1b
+AMBIGUOUS-ENABLED WARN row in `scripts/check_trigger_health.py`.
+
+**Verdict:** `trig_011XAWqPeksS8LBrS5G9RvVc` "superbot autonomous dispatch"
+(cron `0 */3 * * *`) is a **dormant, owner-paused remnant of the pre-fleet-era
+dispatch routine** — not a wedge, not a platform auto-disable, and not a live
+routine to rebind. **Recommended disposition (by the superbot seat, owner
+confirming since the pause was an owner action): delete it in the console, or
+annotate-and-leave-paused; do NOT re-enable or rebind as-is.** Its stored
+prompt carries retired doctrine (the Q-0117 `needs-hermes-review` gate, retired
+by Q-0197; pre-Q-0265 seat model) — a future scheduled hub wake should be a
+FRESH trigger from current prompt sources. The sibling record
+`trig_01MWHvQFnRF1dVdZFSP6SM5L` "superbot night executor" (documented as MERGED
+into dispatch, Q-0145) is the same remnant class — dispose together.
+
+**Evidence (SHA-cited):** registry — fresh export
+`telemetry/triggers-snapshot.json` `captured_at 2026-07-13T20:42:00Z` (fm PR
+#175, commit `90e1a7f`): `enabled` ABSENT + `ended_reason` ABSENT (= user-paused
+per the CCR `list_triggers` contract), `last_fired_at` 2026-07-02T00:07:46Z,
+`updated_at` 2026-07-02T02:38:10Z, `next_run_at` frozen 2026-07-02T03:07:12Z;
+superbot's env (`env_01CZRF681i8ef2zqt9GgboYy`) has exactly one ENABLED trigger
+left (the poke-only `suberbot docs reconciliation`). Repo — superbot
+`docs/operations/autonomous-routines.md` @ main `1cc5536` L30 (identity + Q-0146
+console-Schedule cadence + Q-0197 retirement), L279–289 (night-executor merge,
+Q-0145), L331 (console pause/kill path). Full SHA-cited note:
+`docs/fleet-triage.md` § "2026-07-13 · I1b disposition".
+
+**Rider for the superbot seat:** doc drift — `autonomous-routines.md@1cc5536`
+L395/L406 still present the dispatch console Schedule as the live cadence;
+annotate when disposing.
+
+**Fan-out completed 2026-07-13T21:15:39Z:** superbot PR #2087 (open, auto-merge
+armed SQUASH, born-red card flipped complete) — `control/inbox.md` ORDER 003
+relays the I1b disposition + L395/L406 doc-drift rider to the superbot hub seat.
+Relayed by coordinator dispatch 2026-07-13. (Cited fm main `18c3f21` — the
+dispatch-referenced `1777a27` is not an object on fm main; #175's squash-merge
+is `18c3f21`.)
+
+---
+
+## 2026-07-13 · EAP NIGHT-ORDER FAN-OUT COMPLETE — ORDER 045 dispatch, all 11 lane PRs (fm-side close, 2026-07-13T22:37:18Z)
+
+The ORDER 045 Phase 3 fan-out (per-seat EAP final-night worklists,
+`docs/eap-final-night-worklists-2026-07-13.md` @ `ca1ce28`, incl. the
+amendment-1 pokemon-mod-lab reactivation) is DISPATCHED to every active
+seat. All 11 lane PRs, with LIVE states — the three not-yet-confirmed ones
+re-verified via the GitHub API this session at ~22:34–22:35Z; the eight
+known-merged ones as recorded at dispatch:
+
+| Seat / repo | PR | Local ORDER | LIVE state |
+|---|---|---|---|
+| superbot (hub) | #2090 | ORDER 004 | OPEN non-draft, head `99f6b06` — verified live 22:34Z: ZERO check runs on head, commit status `conflict-guard` SUCCESS 22:26:35Z ("No merge conflict with the base branch"), but the API's `mergeable_state` read `dirty` at poll — needs a branch-update/CI kick before it can land |
+| superbot-next | #418 | ORDER 019 | MERGED (dispatch record) |
+| superbot-mineverse | #84 | ORDER 006 | MERGED 22:19:15Z by github-actions[bot] — verified live 22:34Z |
+| superbot-idle | #103 | ORDER 007 | MERGED (dispatch record) |
+| pokemon-mod-lab | #66 | ORDER 007 | OPEN, PARKED GREEN — verified live 22:35Z: both checks success (ROM builds 22:20:09Z · substrate-gate 22:18:05Z); parked per the seat's park-and-sweep convention, incl. the owner-reactivation record |
+| sim-lab | #113 | ORDER 005 | MERGED (dispatch record) |
+| idea-engine | #356 | ORDER 008 | MERGED (dispatch record) |
+| trading-strategy | #113 | ORDER 014 | MERGED (dispatch record) |
+| venture-lab | #168 | ORDER 011 | MERGED (dispatch record) |
+| substrate-kit | #338 | ORDER 019 | MERGED (dispatch record) |
+| websites | #306 | ORDER 027 | MERGED (dispatch record) |
+
+*(11 lane PRs total. gba-homebrew, superbot-games, product-forge, and the
+kit sub-rows drew no dispatch — they are the DARK dispositions routed
+owner-side below.)*
+
+**Systemic finding (fixed in-flight):** the kit's inbox-order-grammar gate
+requires `priority:` / `do:` / `why:` fields that the relay payloads
+lacked — every affected lane's relay was corrected in-flight to pass the
+gate; no lane was skipped. Kit-side follow-up (make the relay template
+carry the fields by construction) is a Self Improvement seat candidate.
+
+**DARK dispositions → owner queue (this same PR):** the sweep's four
+no-ORDER seats are now owner-queue items — superbot-games re-wake-or-
+reassign (OQ-GAMES-DARK-REWAKE-OR-REASSIGN) · gba-homebrew re-wake
+(OQ-GBA-DARK-REWAKE) · product-forge no-action confirm, still E#44-gated
+(OQ-FORGE-DARK-NO-ACTION-CONFIRM) · kit sub-rows wound-down confirm
+(OQ-KIT-SUBROWS-WINDDOWN-CONFIRM). Source:
+`docs/eap-final-night-worklists-2026-07-13.md` @ `ca1ce28` § DARK
+dispositions. ORDER 045's fan-out step (worklists doc self item 5) is
+CLOSED with this entry.
