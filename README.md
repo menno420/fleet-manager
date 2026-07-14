@@ -31,5 +31,6 @@ records custody + manager-internal memory → here.
 | [EAP story](docs/eap-story.md) | The Extended Autonomy Program, told start to finish — what was built and how. |
 | [EAP retrospective](docs/eap-retrospective.md) | EAP retrospective — what worked, what didn't, what carries forward. |
 | [EAP project audit (2026-07-14)](docs/audits/eap-project-audit-2026-07-14.md) | Close-out audit of this seat — measured merge/scheduling/ceremony friction, dispositioned (FLEET-FIX / ANTHROPIC / ACCEPTED); deltas the retrospective. |
+| [EAP audit collection (2026-07-14)](docs/eap-audit-collection.md) | AUDIT-WATCH tracker for the fleet-wide EAP project-audit fan-out — one row per target repo; synthesis + final-email draft fires at majority. |
 | [`templates/`](templates/) | Standard preamble blocks pasted into every worker prompt. |
 | [`control/`](control/) | Protocol heartbeat — `inbox.md` (owner → manager orders), `status.md` (manager heartbeat). |
