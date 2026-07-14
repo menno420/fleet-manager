@@ -59,7 +59,8 @@ day) unless a later date is noted next to the rule.
     checker already reads kills the staleness class structurally.* (2026-07-10)
 26. **R26 (2026-07-12) — Every manager wake runs the trigger-health check on the fresh
     registry export and acts on FAILs the SAME wake** (ORDER 020; canonical spec:
-    superbot `docs/owner/trigger-health-order-2026-07-12.md`). Procedure: export
+    [`docs/trigger-health-spec.md`](trigger-health-spec.md) — moved into fm
+    2026-07-14, central-docs-plan A2). Procedure: export
     `list_triggers` (ALL pages) → `telemetry/triggers-snapshot.json` with a top-level
     `captured_at` stamp → `python3 scripts/check_trigger_health.py` → nonzero exit =
     act now: `send_message` each DEAD-chain seat session to resume + re-arm + verify

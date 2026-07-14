@@ -53,7 +53,7 @@
 
 ## Trigger health (generation #38)
 
-> ORDER 020 (per-wake trigger-health; canonical spec: superbot `docs/owner/trigger-health-order-2026-07-12.md`). Evaluated at **2026-07-13T20:42Z** (basis: snapshot captured_at); grace 15min. A QUEUED tick (bound to a busy session — delivers when the turn goes idle, sound by design) is indistinguishable from a LOST one on the registry, so BOTH are flagged. Recovery for a DEAD chain / dark seat: `send_message` that seat's session (the manager's only working cross-session revival path — fire/update/create_trigger on another session are org-refused; do NOT re-edit .claude/settings.json for the prompts, Q-0242). This section rides the Actions regen substrate so the watchdog's record survives a CCR scheduler outage.
+> ORDER 020 (per-wake trigger-health; canonical spec: fm `docs/trigger-health-spec.md` — moved in 2026-07-14, plan A2). Evaluated at **2026-07-13T20:42Z** (basis: snapshot captured_at); grace 15min. A QUEUED tick (bound to a busy session — delivers when the turn goes idle, sound by design) is indistinguishable from a LOST one on the registry, so BOTH are flagged. Recovery for a DEAD chain / dark seat: `send_message` that seat's session (the manager's only working cross-session revival path — fire/update/create_trigger on another session are org-refused; do NOT re-edit .claude/settings.json for the prompts, Q-0242). This section rides the Actions regen substrate so the watchdog's record survives a CCR scheduler outage.
 
 - **All clear** — no wedged crons, no dropped one-shots, no dead chains at the evaluated instant.
 

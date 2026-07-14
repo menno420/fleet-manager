@@ -460,7 +460,8 @@ def attribute_lane(rec: dict) -> str | None:
 
 # ------------------------------------------------------- trigger health ----
 # ORDER 020 (2026-07-12, P1 reliability — fleet-manager control/inbox.md;
-# canonical spec: superbot docs/owner/trigger-health-order-2026-07-12.md).
+# canonical spec: docs/trigger-health-spec.md — MOVED into fm 2026-07-14,
+# central-docs-plan A2; was superbot docs/owner/trigger-health-order-2026-07-12.md).
 # On 2026-07-12 ~02:30-08:00Z the trigger scheduler degraded SILENTLY: 9
 # one-shot ticks dropped, several cron failsafes wedged with next_run_at
 # frozen hours in the past while still enabled, two seats dark ~6h.
@@ -1458,7 +1459,8 @@ def render(rows: list[dict], records: list[dict], generation: int,
             out.append(f"- **{v}:** " + ", ".join(lanes))
     out.append(f"\n## Trigger health (generation #{generation})\n")
     out.append("> ORDER 020 (per-wake trigger-health; canonical spec: "
-               "superbot `docs/owner/trigger-health-order-2026-07-12.md`). "
+               "fm `docs/trigger-health-spec.md` — moved in 2026-07-14, "
+               "plan A2). "
                "Evaluated at **"
                + (eval_dt.strftime("%Y-%m-%dT%H:%MZ") if eval_dt else "n/a")
                + f"** (basis: {eval_basis}); grace {WEDGE_GRACE_MIN}min. A "

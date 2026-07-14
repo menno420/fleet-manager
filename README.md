@@ -24,6 +24,7 @@ records custody + manager-internal memory → here.
 | [`docs/dispatch-log.md`](docs/dispatch-log.md) | Dated log of what the manager dispatched and shipped. |
 | [EAP final-night worklists (2026-07-13)](docs/eap-final-night-worklists-2026-07-13.md) | ORDER 045 fleet sweep — per-seat prioritized night worklists, DARK dispositions, cross-cutting findings. |
 | [Central docs plan](docs/central-docs-plan.md) | Fleet documentation centralization plan — what moves where, migration order. |
+| [`docs/trigger-health-spec.md`](docs/trigger-health-spec.md) | The per-wake trigger-health spec (R26 / ORDER 020) — canonical here since 2026-07-14 (plan A2). |
 | [Fleet inconsistencies (2026-07-13)](docs/fleet-inconsistencies-2026-07-13.md) | 19-repo review ledger of cross-fleet inconsistencies — fix-now items + ORDER-to-lane rest. |
 | [EAP story](docs/eap-story.md) | The Extended Autonomy Program, told start to finish — what was built and how. |
 | [EAP retrospective](docs/eap-retrospective.md) | EAP retrospective — what worked, what didn't, what carries forward. |

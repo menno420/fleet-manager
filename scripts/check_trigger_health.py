@@ -3,7 +3,8 @@
 
 ================================ PROVENANCE ================================
 Why added : ORDER 020 (control/inbox.md, 2026-07-12T16:10Z, P1 reliability;
-            canonical spec: superbot docs/owner/
+            canonical spec: docs/trigger-health-spec.md — moved into fm
+            2026-07-14 per central-docs-plan A2; was superbot docs/owner/
             trigger-health-order-2026-07-12.md). On 2026-07-12
             ~02:30-08:00Z the trigger scheduler degraded SILENTLY: 9
             one-shot ticks dropped, several cron failsafes wedged
