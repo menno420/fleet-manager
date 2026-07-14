@@ -63,6 +63,11 @@ swept 2026-07-14T02:5xZ against the live GitHub API.)
 
 ## Recently shipped (newest first)
 
+- **EAP close-out project audit** (fm #189, `claude/eap-project-audit`,
+  2026-07-14): [EAP project audit (2026-07-14)](audits/eap-project-audit-2026-07-14.md)
+  — measured seat audit (merge friction, scheduling, ceremony, self-fixes,
+  top-5 pains with paste-ready Anthropic asks); deltas the
+  [EAP retrospective](eap-retrospective.md).
 - **ORDER 045 EAP final-night fleet sweep** (fm #178, merged
   2026-07-13T22:07:14Z):
   [EAP final-night worklists (2026-07-13)](eap-final-night-worklists-2026-07-13.md)
