@@ -1,7 +1,7 @@
 {
   "_source_of_truth": "GENERATED — the authored master is the LANES constant in scripts/gen_roster.py; regenerated with every roster generation. Do not hand-edit (central-docs-plan C3).",
-  "generation": 38,
-  "generated_at": "2026-07-14T02:58:51Z",
+  "generation": 39,
+  "generated_at": "2026-07-14T03:39:01Z",
   "lanes": [
     {
       "lane": "superbot (hub)",
@@ -105,7 +105,53 @@
       "github": null,
       "disposition": "registry-only",
       "tokens": [
-        "game-lab"
+        "game-lab",
+        "game lab"
+      ]
+    },
+    {
+      "lane": "SuperBot World seat (games+idle+mineverse)",
+      "repo": null,
+      "github": null,
+      "disposition": "registry-only",
+      "tokens": [
+        "superbot world"
+      ]
+    },
+    {
+      "lane": "Ideas Lab seat (idea-engine+sim-lab)",
+      "repo": null,
+      "github": null,
+      "disposition": "registry-only",
+      "tokens": [
+        "ideas lab"
+      ]
+    },
+    {
+      "lane": "Self Improvement seat (substrate-kit)",
+      "repo": null,
+      "github": null,
+      "disposition": "registry-only",
+      "tokens": [
+        "self improvement"
+      ]
+    },
+    {
+      "lane": "SuperBot 2.0 seat (superbot+superbot-next)",
+      "repo": null,
+      "github": null,
+      "disposition": "registry-only",
+      "tokens": [
+        "superbot 2.0"
+      ]
+    },
+    {
+      "lane": "Curious Research seat (no repo)",
+      "repo": null,
+      "github": null,
+      "disposition": "registry-only",
+      "tokens": [
+        "curious research"
       ]
     },
     {

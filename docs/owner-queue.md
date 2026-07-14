@@ -1292,6 +1292,41 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       happened; the ask expires into cleanup instead of prevention.
     - Blocking: blocks nothing today; blocks the clean first grading Friday.
 
+66. **Heartbeat doctrine ruling — frozen-archive vs overwrite-per-session
+    (one word, fleet-wide).** *(new 2026-07-14, wake 0235Z Slice D —
+    INC-16/17/19/80, the fleet-inconsistency ledger's Class B root cause.)*
+    - id: OQ-HEARTBEAT-DOCTRINE-RULING
+    - WHAT: two binding texts disagree about the same file: every repo's
+      `control/README.md` mandates OVERWRITE-per-session heartbeats, while
+      superbot `docs/fleet-reading-path.md:55-56` blesses idle/mineverse
+      "frozen archive" heartbeats — and seats froze accordingly
+      (superbot-games heartbeat frozen at 2026-07-12T10:16Z while ~50 PRs
+      shipped; superbot-idle same class). Pick one: **A (recommended):
+      overwrite-per-session everywhere — a heartbeat is a LIVE signal;
+      archived narrative goes to docs/retro/** · B: frozen-archive allowed
+      for wound-down lanes, with a mandatory `frozen:` marker line the
+      roster can parse.
+    - WHERE: one word wherever the manager reads — `control/inbox.md`
+      ORDER or a live session ("heartbeats: A" / "heartbeats: B").
+    - HOW: on the word, ONE kit/fm pass re-stamps the divergent seats and
+      annotates fleet-reading-path (pending lane writes; superbot +
+      affected lanes).
+    - WHY: the manager's roster read heartbeat prose as truth and rated a
+      shipping seat DARK ~37h (INC-16) — the owner was even asked to
+      re-wake a seat that shipped #92–#106 that same night. Mitigation
+      already shipped fm-side (this wake): the roster now carries a
+      heartbeat-vs-commits divergence marker, so DARK is never declared on
+      heartbeat alone — but the doctrine fork itself only closes with this
+      ruling.
+    - UNBLOCKS: retires INC-16/17/19/80 (half of ledger Class B) in one
+      ruling.
+    - VERIFIED-NEEDED: fm `docs/fleet-inconsistencies-2026-07-13.md` §3
+      (both sides cited per row); roster gen #39 divergence line
+      (`docs/roster.md`).
+    - RISK: ✅ a doctrine word; the re-stamp pass is reversible text.
+    - Blocking: not-blocking (mitigated by the divergence marker); blocks
+      only the Class B ledger rows' final retirement.
+
 ### (F) New intake 2026-07-12 (owner-live session) — decisions, no rush
 
 39. **Railway project duplication — websites services exist in BOTH

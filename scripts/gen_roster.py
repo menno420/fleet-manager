@@ -263,10 +263,30 @@ LANES = [
     {"lane": "retro-games coordinator (no repo)", "repo": None,
      "disposition": "registry-only",
      "tokens": ["superbot-retro", "retro-games"]},
+    # 8-seat restructure seats (2026-07-11) — the seat failsafes are named
+    # after the SEAT ("SuperBot World failsafe wake"), not any constituent
+    # repo, so repo-token attribution missed all of them and the wedge
+    # watchdog printed "(no attributed triggers)" on every constituent row
+    # (INC-62, observed on idea-engine/'Ideas Lab failsafe wake'). One
+    # registry-only entry per multi-repo/renamed seat carries the wake.
     {"lane": "game-lab (no repo)", "repo": None,
-     "disposition": "registry-only", "tokens": ["game-lab"]},
+     "disposition": "registry-only", "tokens": ["game-lab", "game lab"]},
+    {"lane": "SuperBot World seat (games+idle+mineverse)", "repo": None,
+     "disposition": "registry-only", "tokens": ["superbot world"]},
+    {"lane": "Ideas Lab seat (idea-engine+sim-lab)", "repo": None,
+     "disposition": "registry-only", "tokens": ["ideas lab"]},
+    {"lane": "Self Improvement seat (substrate-kit)", "repo": None,
+     "disposition": "registry-only", "tokens": ["self improvement"]},
+    {"lane": "SuperBot 2.0 seat (superbot+superbot-next)", "repo": None,
+     "disposition": "registry-only", "tokens": ["superbot 2.0"]},
+    {"lane": "Curious Research seat (no repo)", "repo": None,
+     "disposition": "registry-only", "tokens": ["curious research"]},
     {"lane": "pokemon-mod-lab", "repo": "pokemon-mod-lab",
-     "disposition": "live", "tokens": ["pokemon"]},
+     "disposition": "live", "tokens": ["pokemon"],
+     # INC-20: the fleet's ONE private repo — an auth wall here is a
+     # known-credential gap (ROSTER_READ_TOKEN owner secret pending, fm
+     # PR #144), never generic darkness. verdict_for renders it distinctly.
+     "private": True},
     {"lane": "gba-homebrew", "repo": "gba-homebrew", "disposition": "live",
      "tokens": ["gba"]},
     {"lane": "product-forge", "repo": "product-forge", "disposition": "live",
@@ -342,6 +362,20 @@ RETRO_ERRATA: list[dict] = [
                    "doc (winddown-audit finding 2)",
      "source_repo": "superbot",
      "source_path": "docs/eap/fleet-winddown-audit-2026-07-09.md"},
+    # INC-64 residue + INC-65 (2026-07-14, wake 0235Z Slice D):
+    {"repo": "codetool-lab-opus4.8",
+     "claim": "retro's 102-test suite count",
+     "correction": "OFF-BY-ONE — the shipped suite is 103; the slip was "
+                   "never amended in-file (winddown audit)",
+     "source_repo": "superbot",
+     "source_path": "docs/eap/fleet-winddown-audit-2026-07-09.md"},
+    {"repo": "codetool-lab-sonnet5",
+     "claim": "README/review wording “two-arm model-comparison”",
+     "correction": "THREE arms — the lane's own PR #1 body names both "
+                   "siblings (fable5, opus4.8); flagged by its unmerged "
+                   "2026-07-13 audit, unfixed on main @ `66c3dfc` (INC-65)",
+     "source_repo": "fleet-manager",
+     "source_path": "docs/fleet-inconsistencies-2026-07-13.md"},
 ]
 
 # ---------------------------------------------------------------- schema ---
@@ -1262,7 +1296,7 @@ def truncate(text: str, limit: int) -> str:
 # --------------------------------------------------------------- verdict ---
 
 def verdict_for(disposition: str, age_h: float | None, cadence_h: float,
-                walled: bool) -> str:
+                walled: bool, private: bool = False) -> str:
     if disposition == "archived":
         return "STALE-BY-DESIGN"
     if disposition == "registry-only":
@@ -1271,7 +1305,11 @@ def verdict_for(disposition: str, age_h: float | None, cadence_h: float,
         # A transport/auth wall is a MEASUREMENT artifact, never lane death
         # (gen #21: pokemon-mod-lab printed DEAD while demonstrably alive
         # behind its private wall). DEAD below is reserved for a READABLE
-        # repo with no measurable heartbeat signal.
+        # repo with no measurable heartbeat signal. A wall on the KNOWN
+        # private repo is rendered distinctly (INC-20): it is a credential
+        # gap (ROSTER_READ_TOKEN pending), not generic unreadability.
+        if private:
+            return "PRIVATE (auth wall — not DARK; ROSTER_READ_TOKEN pending)"
         return "UNREADABLE (transport/auth)"
     if age_h is None:
         return "DEAD (not measurable)"
@@ -1336,7 +1374,23 @@ def build_rows(records: list[dict], now: datetime, max_attempts: int,
             except Wall as exc:
                 row["wall"] = describe_wall(str(exc))
         row["verdict"] = verdict_for(lane["disposition"], row["age_h"],
-                                     row["cadence"], row["wall"] is not None)
+                                     row["cadence"], row["wall"] is not None,
+                                     lane.get("private", False))
+        # INC-16 divergence signal: a STALE/DARK verdict rests on the
+        # heartbeat stamp alone, but the repo HEAD committer date is in the
+        # same fetch — when commits are FRESH while the heartbeat is not,
+        # the lane is ACTIVE with a lagging heartbeat (the superbot-games
+        # ~50-PRs-while-rated-DARK failure). DARK is never declared on
+        # heartbeat alone: the marker rides the verdict cell + a summary
+        # line, so a re-wake ask is never filed against a pushing lane.
+        if (row["verdict"] in ("STALE", "DARK") and row["hb"]
+                and row["hb"].get("head_date")):
+            head_when = parse_when(row["hb"]["head_date"])
+            if head_when:
+                head_age = (now - head_when).total_seconds() / 3600
+                # same FRESH bar the heartbeat itself is judged by
+                if head_age <= 2 * row["cadence"]:
+                    row["divergence"] = head_age
         rows.append(row)
         rows.extend(subrows)
     return rows
@@ -1438,7 +1492,10 @@ def render(rows: list[dict], records: list[dict], generation: int,
         out.append("| {lane} | {hb} | {age} | {verdict} | {phase} | {orders} "
                    "| {kit} | {wake} | {health} | {evidence} |".format(
                        lane=lane["lane"], hb=hb_cell, age=age,
-                       verdict=row["verdict"],
+                       verdict=row["verdict"]
+                       + (" ⚠ commits-FRESH (heartbeat lags — lane ACTIVE "
+                          "by pushes, INC-16)"
+                          if row.get("divergence") is not None else ""),
                        phase=truncate(f.get("phase", "—"), 160),
                        orders=truncate(f.get("orders", "—"), 100),
                        kit=truncate(f.get("kit", "—"), 40),
@@ -1450,13 +1507,25 @@ def render(rows: list[dict], records: list[dict], generation: int,
                        evidence=evidence))
 
     out.append(f"\n## Staleness verdicts (generation #{generation})\n")
-    order = ["DARK", "DEAD (not measurable)", "UNREADABLE (transport/auth)",
+    order = ["DARK", "DEAD (not measurable)",
+             "PRIVATE (auth wall — not DARK; ROSTER_READ_TOKEN pending)",
+             "UNREADABLE (transport/auth)",
              "STALE", "FRESH", "STALE-BY-DESIGN",
              "n/a (registry-only seat)"]
     for v in order:
         lanes = [r["lane"]["lane"] for r in rows if r["verdict"] == v]
         if lanes:
             out.append(f"- **{v}:** " + ", ".join(lanes))
+    divergent = [r for r in rows if r.get("divergence") is not None]
+    if divergent:
+        out.append("- **⚠ heartbeat-vs-commits divergence (INC-16 — "
+                   "verdicts above rest on the heartbeat; these lanes' repo "
+                   "HEADs are FRESH, so treat them as ACTIVE, never re-wake "
+                   "or declare dead on the heartbeat alone):** "
+                   + ", ".join(f"{r['lane']['lane']} (heartbeat "
+                               f"{age_str(r['age_h'])} vs newest commit "
+                               f"{age_str(r['divergence'])})"
+                               for r in divergent))
     out.append(f"\n## Trigger health (generation #{generation})\n")
     out.append("> ORDER 020 (per-wake trigger-health; canonical spec: "
                "fm `docs/trigger-health-spec.md` — moved in 2026-07-14, "
@@ -1564,6 +1633,22 @@ def selfcheck() -> int:
     ok(verdict_for("live", 30.0, 2.0, False) == "DARK", ">24h -> DARK")
     ok(verdict_for("live", None, 2.0, True) == "UNREADABLE (transport/auth)",
        "wall -> UNREADABLE, never DEAD (gen #21 pokemon-mod-lab lesson)")
+    ok(verdict_for("live", None, 2.0, True, private=True)
+       == "PRIVATE (auth wall — not DARK; ROSTER_READ_TOKEN pending)",
+       "wall on the known private repo renders distinctly (INC-20)")
+    ok(verdict_for("live", 1.0, 2.0, False, private=True) == "FRESH",
+       "private flag changes nothing when the repo is readable")
+    # INC-62: the 8-seat failsafe names attribute to the seat registry rows
+    seat_rec = {"id": "trig_s", "name": "Ideas Lab failsafe wake",
+                "created_at": "t", "enabled": True,
+                "cron_expression": "30 1-23/2 * * *"}
+    ok(attribute_lane(seat_rec) == "Ideas Lab seat (idea-engine+sim-lab)",
+       "seat-named failsafe attributes to its seat registry row (INC-62)")
+    ok(attribute_lane({"id": "trig_s2", "name": "SuperBot World failsafe wake",
+                       "created_at": "t", "enabled": True,
+                       "cron_expression": "15 1-23/2 * * *"})
+       == "SuperBot World seat (games+idle+mineverse)",
+       "SuperBot World failsafe attributes to its seat row")
     ok(verdict_for("live", None, 2.0, False) == "DEAD (not measurable)",
        "readable repo with no measurable signal -> DEAD")
     ok(verdict_for("archived", 900.0, 2.0, False) == "STALE-BY-DESIGN",
