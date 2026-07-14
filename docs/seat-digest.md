@@ -68,14 +68,8 @@ block — a consumer's byte-match drift guard compares against exactly them.
    capabilities and walls; sessions append verified findings there.
 2. **This file** — a derived render of that ledger (walls) and the kit's
    `SKILLS` list (skills). Regenerated, never edited; never a copy of record.
-3. **fleet-manager `docs/CAPABILITIES.md` § "Fleet capability manifest"** —
-   the fleet aggregation point; cross-repo findings are consolidated there by
-   the manager. (The lowercase `docs/capabilities.md` is a MOVED stub since
-   2026-07-12 — I-44 fold; hand-fixed here 2026-07-14 per INC-29, because the
-   kit render template still emits the dead path. The template fix is
-   kit-owned — routed as an ORDER-to-lane to substrate-kit; a local
-   `bootstrap.py seat-digest` regen will reintroduce this line until the kit
-   ships it.)
+3. **fleet-manager `docs/capabilities.md`** — the fleet aggregation point;
+   cross-repo findings are consolidated there by the manager.
 
 No third authored copy is ever minted (grounded-skills plan §4.2e). A prompt
 block, a seat paste, or any downstream copy is a RENDER of step 2 and is
