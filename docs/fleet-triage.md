@@ -252,6 +252,29 @@ nothing is lost). If the hub ever wants a scheduled execution wake again, the
 correct move is a FRESH trigger from current v3.x prompt sources, not
 re-enabling this stale-doctrine record.
 
+## 2026-07-14 · Failsafe-wake fan-out verification sweep (05:03:18Z, read-only, SHA-cited)
+
+> Dated evidence note (per §How-to-re-verdict pt 4). Read-only verification
+> sweep from the failsafe-wake 04:34Z session (fm PR #185, branch
+> `claude/wake-0434z`); observation window 2026-07-14T04:37–04:45Z, all reads
+> at live GitHub HEAD. Record stamped 2026-07-14T05:03:18Z (`date -u`).
+
+| Item | State | Verdict | Evidence |
+|---|---|---|---|
+| pokemon-mod-lab PR #82 ("control: ORDER 007 — correct QoL+ pick Q-0266 citations…") | OPEN, mergeable_state clean, head `18024e4` | **NOT MERGED — no truing needed** | Both checks SUCCESS (ROM builds completed 04:13:25Z; substrate-gate 04:11:21Z). Dispatch-log row already says open — verified consistent at inbox/dispatch-log HEAD `e100bfe` |
+| pokemon-mod-lab PR #66 | OPEN, parked (owner-click), head `5b1d71c` | **PARKED, healthy** | Both checks SUCCESS since 2026-07-13T22:20Z, no labels; auto-merge armed-state **NOT MEASURED** (gh CLI absent, REST disabled for session, GitHub MCP omits the auto_merge field) |
+| Delivered-ORDER spot-check: superbot ORDER 005 | delivered, `status: new` | **VISIBLE at lane inbox HEAD** | superbot control/inbox.md @ main `50481b7` contains `## ORDER 005 · 2026-07-14T04:09:34Z · status: new` |
+| Delivered-ORDER spot-check: substrate-kit ORDER 020 | delivered, `status: new` | **VISIBLE at lane inbox HEAD** | substrate-kit control/inbox.md @ main `c0297d8` contains `## ORDER 020 · 2026-07-14T04:12:12Z · status: new` (last ORDER in file) |
+
+**Overnight fan-out landings (verified ~05:0xZ by the build pass):**
+superbot #2094 MERGED 04:18:04Z · substrate-kit #361 MERGED 04:12:59Z ·
+idea-engine #396 MERGED 04:10:55Z · sim-lab #127 MERGED 04:11:31Z.
+
+**Sweep result:** all four overnight fan-out PRs landed; both delivered
+ORDERs visible at lane inbox HEAD; pokemon-mod-lab #82 open/clean (no
+dispatch-log truing needed) and #66 parked-healthy with the auto-merge
+armed-state honestly NOT MEASURED for this session's toolset.
+
 ## How to re-verdict
 
 1. Verify against live source (Q-0120 — never against report text).
