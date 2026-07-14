@@ -743,3 +743,42 @@ same PR (delivery verified live 2026-07-14T07:47Z, zero discrepancies;
 pokemon-mod-lab #66 remains OPEN parked green by design — it IS the
 delivery, awaiting the owner click per that repo's owner-sweep
 convention).
+
+## 2026-07-14 · COORDINATOR DISPATCH COMPLETE — EAP final-day closeout fan-out (fm-side close, 2026-07-14T10:03Z)
+
+The EAP final-day closeout dispatch (owner directive 2026-07-14; fm PR
+#193, branch `claude/eap-final-closeout`) is COMPLETE — **13 of 13 lane
+ORDERs terminal: 12 MERGED + 1 parked green by design**, every state
+re-verified at live GitHub ground truth 09:51–09:53Z (git fetch
+merge-commit committer times; MCP reads for the open PRs):
+
+| Lane | PR | Local ORDER | State |
+|---|---|---|---|
+| superbot (hub) | #2096 | ORDER 006 | MERGED 2026-07-14T09:43:33Z |
+| superbot-next | #469 | ORDER 022 | MERGED 09:40:52Z (pre-fix; gate gap, see recon findings) |
+| substrate-kit | #367 | ORDER 021 | MERGED 09:42:31Z |
+| websites | #335 | ORDER 030 | MERGED 09:42:25Z |
+| venture-lab | #194 | ORDER 014 | MERGED 09:42:26Z |
+| trading-strategy | #122 | ORDER 015 | MERGED 09:42:26Z |
+| idea-engine | #417 | ORDER 012 | MERGED 09:42:34Z |
+| sim-lab | #138 | ORDER 008 | MERGED 09:42:37Z |
+| superbot-idle | #130 | ORDER 009 | MERGED 09:42:17Z |
+| superbot-games | #136 | ORDER 009 | MERGED 09:42:38Z |
+| superbot-mineverse | #108 | ORDER 008 | MERGED 09:44:33Z |
+| pokemon-mod-lab | #85 | ORDER 009 | PARKED GREEN @ bbb2361 (substrate-gate + ROM builds success; no merge automation — owner-sweep wave) |
+| gba-homebrew | #132 | ORDER 006 | MERGED 09:38:53Z (pre-fix; gate self-skip, see recon findings) |
+
+Records landed in this PR: `docs/eap-final-recon-2026-07-14.md` (Part-1
+recon rows + DARK-seat dispositions + findings, incl. the
+`inbox-order-grammar` dash-prefix defect and its one-commit-per-lane fleet
+fix ~09:41–09:42Z) · `docs/eap-audit-collection.md` sweep 2 (7/13 audits
+at HEAD, **majority CROSSED** — synthesis + final-email step flagged due)
+· `docs/dispatch-log.md` 13 rows.
+
+Owner-actions now aggregate LANE-SIDE: each closeout ORDER's (b) item has
+every seat land `docs/eap-closeout-walkthrough-2026-07-14.md` whose OWNER
+ACTIONS checklist carries the seat's pending clicks (bolded
+recommendation + VERIFY step each); the fm owner-queue remains the
+cross-fleet dedup surface. No lane inbox was touched beyond the 13
+append-only ORDERs; nothing was armed or merged by this seat (pml #85
+parks for the owner per that repo's convention).
