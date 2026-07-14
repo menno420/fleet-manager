@@ -407,8 +407,12 @@ the Slice 0 items themselves, which are complete fm-side.
   created 2026-07-13T12:32:14Z, last_fired 2026-07-14T02:33:44Z, next_run
   2026-07-14T04:33:27Z); the recorded duplicate
   `trig_01UQTZFvknBosXVo4YKKfazZ` is **absent from the entire live
-  registry** — deleted upstream between the 2026-07-13T16:56Z capture
-  (which recorded both) and the 20:42Z capture (which already lacked it).
+  registry** — and blob-level checks of the committed snapshots pin the
+  deletion window to 2026-07-13 12:36Z→16:56Z (present in `f09ba87`,
+  absent from `51cd038` and every capture since; the keeper's created_at
+  12:32:14Z reads as a rebind-then-delete cutover). The wake-1633z card's
+  "both live, both PASS" claim described the stale 12:36Z snapshot, not
+  its own fresh export — Q-0120 noted in this wake's review ender.
   Per the deny-wins protocol (delete only if BOTH confirmed live and
   identical) **nothing was deleted this session**. Prevention shipped
   anyway: **I8 DUPLICATE-CRON** invariant in

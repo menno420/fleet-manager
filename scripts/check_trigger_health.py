@@ -34,13 +34,16 @@ Amended   : 2026-07-12 (ORDER 020 update 19:20Z, PR #142) — I7 TICK-PILE-UP
             apart; the owner had to notice by eye and hand-prune. I7 automates
             that detection + names the hand-prune remedy.
 Amended   : 2026-07-14 (wake 0235Z, INC-10) — I8 DUPLICATE-CRON added:
-            the 2026-07-13T16:56Z export held TWO enabled identical
-            "Fleet Manager failsafe wake" crons (`30 */2 * * *`) and both
-            PASSED I4 — the check verified a failsafe exists but never
-            flagged duplication (double-fire per wake window). Live
-            re-verification 2026-07-14T03:2xZ found the duplicate
-            (trig_01UQTZFvknBosXVo4YKKfazZ) already gone, so nothing was
-            deleted; the invariant prevents the recurrence.
+            the 2026-07-13T12:36Z export (f09ba87) held TWO enabled
+            identical "Fleet Manager failsafe wake" crons (`30 */2`) and
+            both PASSED I4 — the check verified a failsafe exists but
+            never flagged duplication (double-fire per wake window). The
+            duplicate (trig_01UQTZFvknBosXVo4YKKfazZ) was deleted
+            upstream between the 12:36Z and 16:56Z captures (a
+            rebind-then-delete cutover; the keeper was created 12:32Z);
+            full live enumeration 2026-07-14T03:2xZ confirmed it absent,
+            so nothing was deleted this wake. The invariant catches the
+            window itself next time.
 Amended   : 2026-07-13 (heartbeat "Checker gap" + Next-2 baton item 2,
             PR #167) — I1b AMBIGUOUS-ENABLED added: I1 only looks at
             records with `enabled` == True, so a record whose `enabled`
