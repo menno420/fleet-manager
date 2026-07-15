@@ -1438,3 +1438,9 @@ priority: P1
 do: (status flip) venture WEBSITE-IDEA routing verified satisfied: websites PR #247 (/puddle-museum, merged 2026-07-13T04:25:44Z) and PR #248 (/products/catalog over the 22 vetting packets @ venture 2c039e3, merged 2026-07-13T04:17:31Z) both exist and are merged, matching the manager note; seat-side confirmation on record — websites control/outbox.md ("fm 042 SATISFIED (both pages verified live 06:29Z)"). Evidence: https://github.com/menno420/websites/pull/247 · https://github.com/menno420/websites/pull/248.
 why: Consuming the pre-extension backlog during the 2026-07-15 reboot night.
 done-when: This entry — terminal.
+
+## ORDER 026 · 2026-07-15T04:37Z · status: parked-green
+priority: P2
+do: (status flip) codetool-lab-fable5 hygiene executed: PR #16 parked-green (all 5 CI checks success; repo has no merge-on-green workflow; ORDER 029 merge authority left to owner/another session) — evidence: https://github.com/menno420/codetool-lab-fable5/pull/16 — `git ls-files '*.pyc'` empty on branch; 11 tracked .pyc removed; top-level .gitignore added.
+why: Consuming the pre-extension backlog; unblocks owner archive click B#42.
+done-when: Owner merges PR #16 then archives.
