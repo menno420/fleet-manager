@@ -40,22 +40,61 @@ manager curates from.
 "Resolved 2026-07-11 (P3 curation sweep)" below. Section repopulated
 2026-07-15.)*
 
-63. **fleet-manager — merge PR #227 (the lanes.json regen fix).** *(new
-    2026-07-15, morning sweep.)*
+63. **fleet-manager — merge PR #227 (the lanes.json regen fix) — ⚠ now
+    needs conflict resolution first.** *(new 2026-07-15, morning sweep;
+    amended 2026-07-15 ~14:1xZ, rollout-verification sweep.)*
     - id: OQ-FM-PR227-MERGE
+    - **Amendment (2026-07-15, 14:0xZ sweep):** PR #227 is now
+      `mergeable_state=dirty` — the roster-regen cron merge #231 (Gen #59,
+      landed 12:04Z) advanced main past #227's 09:16Z base into the same
+      generated-docs territory as its `registry/lanes.json` sync-to-Gen-#58.
+      Checks on the old head are still green, but **the one-click merge
+      will now fail**; the PR needs conflict resolution first (merge main
+      IN + regen, per docs precedent), which a future fm session can do.
+      Item stays OPEN — owner click applies after the conflict fix.
     - WHAT: merge fleet-manager PR #227 — fixes lanes.json regeneration so
       the roster-regen cron keeps `registry/lanes.json` in generation parity
       with `docs/roster.md` (the Gen 56-vs-57 counter-lag drift class). CI is
       GREEN, but the PR diffs a workflow file, so merge-on-green parks it on
       its owner-merge-only rail — it cannot land itself.
     - WHERE: https://github.com/menno420/fleet-manager/pull/227
-    - HOW: one merge click at the URL above.
+    - HOW: (after an fm session resolves the conflict) one merge click at
+      the URL above.
     - UNBLOCKS: lanes.json generation-parity self-healing on future cron
       runs (no more hand-fixed counter lag).
     - VERIFIED-NEEDED: PR #227 shows MERGED (the check_owner_queue probe
-      will flag this item the moment it lands — sweep it to Resolved then).
+      will flag this item the moment it lands — sweep it to Resolved then);
+      dirty state per the 14:0xZ sweep
+      ([`findings/merge-on-green-rollout-verification-2026-07-15.md`](findings/merge-on-green-rollout-verification-2026-07-15.md)
+      § cross-cutting gap 5).
     - RISK: ✅ reversible (revert commit; docs/registry regen only).
     - Blocking: not-blocking; quality-of-substrate.
+
+68. **Merge the five merge-on-green installer PRs — one click each.** *(new
+    2026-07-15, rollout-verification sweep, fm PR #233.)*
+    - id: OQ-ROLLOUT-INSTALLER-CLICKS
+    - WHAT: land today's merge-on-green rollout — five installer PRs
+      (opened 13:41–13:57Z) each self-parked on the workflow-file
+      owner-merge-only rail they install; nothing landed on any main.
+    - WHERE (paste-ready, one merge click each):
+      - https://github.com/menno420/codetool-lab-opus4.8/pull/24
+      - https://github.com/menno420/codetool-lab-fable5/pull/17
+      - https://github.com/menno420/product-forge/pull/25
+      - https://github.com/menno420/pokemon-mod-lab/pull/89
+      - https://github.com/menno420/superbot-plugin-hello/pull/3
+    - HOW: one merge click per URL (5 total).
+    - UNBLOCKS: self-landing green PRs in those five lanes (ends the
+      park-and-sweep pile in pml — absorbs the B#58/OQ-PML-ENABLER-INSTALL
+      "A" path; ends product-forge's 7+h green-unmerged waits).
+    - NOTE: superbot-plugin-hello additionally needs a CI workflow before
+      its file does anything — the repo has zero CI, and the sweep treats
+      zero check runs as NOT-ready by design; merging #3 alone is a no-op
+      there.
+    - VERIFIED-NEEDED: each PR shows MERGED; evidence base:
+      [`findings/merge-on-green-rollout-verification-2026-07-15.md`](findings/merge-on-green-rollout-verification-2026-07-15.md)
+      (per-repo table, INSTALLER-PR-OPEN rows).
+    - RISK: ✅ reversible — workflow files; delete to revert.
+    - Blocking: not-blocking, but holds merge automation in five lanes.
 
 ### (B) GitHub settings / repo admin
 
@@ -92,16 +131,17 @@ manager curates from.
      15:46+0200). Rulesets = owner-only wall. *(Absorbs old item 12(b).)*
    - Blocking: not-blocking; chronic time sink.
 
-8. **trading-strategy — tick "Allow auto-merge".**
+8. **✅ RESOLVED (proven live; swept 2026-07-15, rollout-verification
+   sweep) — trading-strategy "Allow auto-merge" is evidently ON.**
    - id: OQ-TRADING-ALLOW-AUTOMERGE
-   - WHERE: https://github.com/menno420/trading-strategy/settings → General →
-     Pull Requests.
-   - HOW: tick the "Allow auto-merge" checkbox.
-   - UNBLOCKS: native auto-merge — ends the lane's poll-and-merge workaround.
-   - VERIFIED-NEEDED: control/status.md@`3172b43` ⚑(c), reconfirmed on PR #36
-     (the "unstable status" arming failure); a direct API read of the setting
-     field was unavailable to agents this session (exact-wall evidence).
-   - Blocking: not-blocking (REST-squash workaround in use, PRs #40–#43).
+   - Evidence: PR #128 merged 2026-07-15T03:38:26Z by
+     **github-actions[bot]** (also #126, 2026-07-14T20:53:11Z, same path) —
+     native auto-merge armed by `auto-merge-enabler.yml` (installed
+     `bf885f0`, PR #65) performed the merges, which is only possible with
+     the repo setting ticked. The setting field itself stays
+     agent-unreadable; the behavior is the proof.
+     ([`findings/merge-on-green-rollout-verification-2026-07-15.md`](findings/merge-on-green-rollout-verification-2026-07-15.md)
+     trading-strategy row.)
 
 9. **product-forge — post-seed settings residue: Allow auto-merge + required
    gate — ⛔ mooted by the consolidation archive path (see note).**
@@ -316,29 +356,22 @@ manager curates from.
     - RISK: ✅ reversible — delete or deactivate the ruleset to undo.
     - Blocking: not-blocking, but holds the parked gba slice PRs.
 
-54. **venture-lab — sandbox repo to production-verify merge-on-green.yml**
-    *(new 2026-07-13, Q-0264 fan-in batch 2 — routed from venture-lab's
-    morning tally; fm ORDER 044 routes the tally's seven sim asks, this is
-    its one owner-gated ask.)*
+54. **✅ RESOLVED (UNBLOCKS satisfied by production proof; swept 2026-07-15,
+    rollout-verification sweep) — venture-lab landing-path automation is
+    live without a sandbox.** *(was: sandbox repo to production-verify
+    merge-on-green.yml — new 2026-07-13, Q-0264 fan-in batch 2.)*
    - id: OQ-VENTURE-SANDBOX-REPO
-    - WHAT: create a tiny sandbox repo (or say one word approving venture
-      creating one) so the seat can production-verify its
-      `merge-on-green.yml` workflow before adopting it on the real lane
-      repos.
-    - WHERE: https://github.com/new (or a one-word approval in chat — the
-      manager relays it).
-    - HOW: ~1 min — name it anything (e.g. `venture-sandbox`), private,
-      empty; or reply "sandbox: yes".
-    - WHY: repo creation is an owner capability wall; venture asked for
-      exactly this in its morning tally (venture-lab control/outbox.md
-      "night-run MORNING TALLY" SIM-REQUEST line, ~05:00Z).
-    - UNBLOCKS: venture's landing-path automation (self-landing PRs on
-      green instead of the poll-and-merge workaround).
-    - VERIFIED-NEEDED: sandbox repo exists + the venture heartbeat records
-      the merge-on-green verification run.
-    - RISK: ✅ reversible — a throwaway sandbox repo; delete it after the
-      verification.
-    - Blocking: not-blocking, but holds the lane's merge automation.
+    - Evidence: the item's UNBLOCKS ("venture's landing-path automation —
+      self-landing PRs on green instead of the poll-and-merge workaround")
+      is satisfied in production: venture-lab PR #203 merged
+      2026-07-15T04:10:06Z by **github-actions[bot]** via the
+      `auto-merge-enabler.yml` installed 2026-07-11 (`305646f`, PR #59) —
+      the lane adopted the kit enabler path instead of a merge-on-green.yml
+      and it is production-proven on the real repo; a sandbox verification
+      run is moot.
+      ([`findings/merge-on-green-rollout-verification-2026-07-15.md`](findings/merge-on-green-rollout-verification-2026-07-15.md)
+      venture-lab row.) If the seat later still wants a sandbox for a
+      *different* workflow experiment, that is a new ask — file it fresh.
 
 59. **Stale-branch delete batch — gba ×1 + pml ×3 (agent delete is
     403-walled).** *(new 2026-07-13, night-report roll-up — restated asks
@@ -1252,9 +1285,18 @@ manager curates from.
     - Blocking: not-blocking (Q-0241: decided-and-flagged, veto window).
 
 58. **pokemon-mod-lab — enabler-install decision: auto-merge or keep
-    park-and-sweep.** *(new 2026-07-13, night-report roll-up — ORDER 008
-    report ask 3.)*
+    park-and-sweep — ⚠ decision has materialized as installer PR #89.**
+    *(new 2026-07-13, night-report roll-up — ORDER 008 report ask 3;
+    amended 2026-07-15 ~14:1xZ, rollout-verification sweep.)*
     - id: OQ-PML-ENABLER-INSTALL
+    - **Amendment (2026-07-15):** the A-vs-B decision materialized as the
+      merge-on-green installer **PR #89** (opened 2026-07-15T13:56:05Z,
+      head `claude/install-merge-on-green` @ `9e49a1e`, fm port adapted to
+      `workflow_run [substrate-gate, rom-builds]`), self-parked
+      owner-merge-only. **Its merge click is folded into
+      `OQ-ROLLOUT-INSTALLER-CLICKS` (A#68)** — clicking that item's pml
+      link IS choosing "A"; no separate word to the manager needed. Pair
+      with B#5 (OQ-POKEMON-ROM-REQUIRED-CHECK) for a gated landing path.
     - WHAT: pick one — **A**: install the kit's auto-merge-enabler workflow
       in pokemon-mod-lab (green control-lane PRs then self-land, as in the
       other seats); **B**: keep the current park-and-sweep convention (all

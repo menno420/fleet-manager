@@ -82,6 +82,12 @@ swept 2026-07-14T02:5xZ against the live GitHub API.)
 
 ## Recently shipped (newest first)
 
+- **Merge-on-green rollout verification** (fm #233,
+  `claude/merge-on-green-verify-0715`, 2026-07-15):
+  [Merge-on-green rollout verification (2026-07-15)](findings/merge-on-green-rollout-verification-2026-07-15.md)
+  — 19-repo sweep: 13 proven / 5 installer-PR-open / 1 missing; today's
+  rollout wave landed nothing on any main (all five installer PRs
+  self-parked owner-merge-only); fm #227 gone conflict-dirty (A#63 amended).
 - **EAP close-out project audit** (fm #189, `claude/eap-project-audit`,
   2026-07-14): [EAP project audit (2026-07-14)](audits/eap-project-audit-2026-07-14.md)
   — measured seat audit (merge friction, scheduling, ceremony, self-fixes,

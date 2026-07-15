@@ -524,6 +524,44 @@ and the gap was flagged to the owner in the ~07:10Z morning summary — carried
 again on this wake's heartbeat next-2-tasks, no new queue item (dedup, R11).
 product-forge stays excluded per standing decision (state unchanged).
 
+## 2026-07-15 · merge-on-green verification + reboot-gap re-sweep (14:00–14:10Z)
+
+> Dated evidence note (per §How-to-re-verdict pt 4). Read-only 19-repo
+> verification sweep from the 14:xxZ dispatched working session (fm PR #233);
+> four workers, raw+MCP, wall clock `date -u` 14:00:49–14:01:19Z at start.
+> Full per-repo table + citations:
+> [`findings/merge-on-green-rollout-verification-2026-07-15.md`](findings/merge-on-green-rollout-verification-2026-07-15.md).
+> Headline: **13/19 merge-automation PROVEN (bot merge today) · 5/19
+> installer-PR-open (today's 13:41–13:57Z rollout, nothing landed on any
+> main) · 1/19 missing (sonnet5, skipped).**
+
+**(a) The five installer-PR lanes — landing paths:**
+
+| Lane | Landing-path note | Citation |
+|---|---|---|
+| codetool-lab-opus4.8 | no self-landing until owner merges installer [PR #24](https://github.com/menno420/codetool-lab-opus4.8/pull/24) | opened 2026-07-15T13:44:19Z, head `claude/install-merge-on-green` @ `342f793`, self-parked owner-merge-only |
+| codetool-lab-fable5 | no self-landing until owner merges installer [PR #17](https://github.com/menno420/codetool-lab-fable5/pull/17) | opened 2026-07-15T13:49:04Z, head `ci/merge-on-green-automation` @ `b37b3ca`, self-parked |
+| product-forge | no self-landing until owner merges installer [PR #25](https://github.com/menno420/product-forge/pull/25) | opened 2026-07-15T13:56:45Z, head `ci/merge-on-green` @ `78ff3bc`, self-parked; its body cites #24's 7+h green-unmerged wait as the motivating gap |
+| pokemon-mod-lab | no self-landing until owner merges installer [PR #89](https://github.com/menno420/pokemon-mod-lab/pull/89) | opened 2026-07-15T13:56:05Z, head `claude/install-merge-on-green` @ `9e49a1e`, self-parked; #87/#88 sit open awaiting the owner sweep meanwhile |
+| superbot-plugin-hello | no self-landing until owner merges installer [PR #3](https://github.com/menno420/superbot-plugin-hello/pull/3) — **and inert even then**: repo has zero CI (no `.github/` at main `5d97aa7`), and the sweep treats zero check runs as NOT-ready by design | opened 2026-07-15T13:41:30Z, self-parked; #1/#2 were hand-merged with zero check runs |
+
+**(b) codetool-lab-sonnet5:** no merge automation at main `0331176` (only
+ci.yml + release.yml), rollout skipped it entirely (0 open PRs, no installer
+PR at 14:04Z); latest merge #17 2026-07-14T07:07:03Z by menno420 (manual).
+Consistent with its ARCHIVE verdict / wind-down state (B#41) — verdict row
+unchanged, gap recorded.
+
+**(c) Reboot-gap re-sweep verdicts** (vs the 12:51–12:54Z sweep above; the
+DARK/reboot-gap class established there stands — manager relay commits are
+not seat-side signal):
+
+| Lane | Heartbeat `updated:` | Age at 14:0xZ | Verdict | Citation |
+|---|---|---|---|---|
+| superbot-games | 2026-07-14T11:41:04Z (seat-written, ORDER 009 truth-stamp) | ~26.3h | **DARK — reboot gap continues** (no seat-side signal since; only newer main activity is the manager's ORDER 010 relay commit `446a84e` 03:38:31Z) | status @ main `446a84e`; 0 open PRs |
+| superbot-idle | 2026-07-14T11:32:05Z (seat-written, ORDER 008 re-stamp) | ~26.5h | **DARK — reboot gap continues** (same pattern; only the ORDER 010 relay `8a7275d` 03:38:39Z since) | status @ main `8a7275d`; 0 open PRs |
+| superbot-mineverse | 2026-07-14T18:59:20Z (cross-seat relay written by a games worker) | ~19h | **STALE** (no armed trigger — reboot gap; only the ORDER 009 relay `b9ade33` 03:40:11Z since) | status @ main `b9ade33`; 0 open PRs |
+| superbot (hub) | 2026-07-13T18:00:00Z (no-standing-seat/irregular by design, Q-0264) | ~44h (stamp) | **FRESH via HEAD-activity fallback** — same-day merge #2111 at 12:54:46Z (main `3fb5dd0`) + 2 intentional open PRs (#2110 docs 10:24:32Z; #2061 held draft, Q-0193) | HEAD `3fb5dd0`; hub doctrine per status header |
+
 ## How to re-verdict
 
 1. Verify against live source (Q-0120 — never against report text).
