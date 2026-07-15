@@ -1,0 +1,1 @@
+- branch `claude/oversight-wake-0715b` · scope: routine oversight wake (roster freshness verify, owner-queue/fleet-triage re-verify, staleness sweep, heartbeat) · 2026-07-15
