@@ -471,6 +471,59 @@ record; **revisit next sweep** — if a fresh trace or the #490 flip appears,
 re-verdict to LIVE; if still dark, escalate the failsafe-didn't-fire question
 as its own trigger-health item.
 
+## 2026-07-15 · oversight-wake staleness sweep (12:51–12:54Z, read-only, SHA-cited)
+
+> Dated evidence note (per §How-to-re-verdict pt 4). Per-lane heartbeat sweep
+> from the 12:51Z oversight wake (fm PR #232): `updated:` stamps read via
+> raw.githubusercontent.com `control/status.md` at HEAD (pml via GitHub MCP —
+> private, raw-walled), HEADs via `git ls-remote`; wall clock `date -u`
+> 12:53:42Z. Roster gen #59 (12:03Z, automated regen #231) verified fresh
+> (0.8h, checker OK) — this sweep is the independent read on top of it.
+
+| Lane | Heartbeat `updated:` | Age | Verdict | Citation |
+|---|---|---|---|---|
+| superbot (hub) | 2026-07-13T18:00:00Z | ~42.9h | DARK-heartbeat / hub-STEADY (ACTIVE by pushes, Q-0264 no-standing-seat lag, INC-16) | HEAD `f8e2313` (2026-07-15T06:33:22Z merge) |
+| superbot-next | 2026-07-14T21:28:31Z (main; overwrite rides unlanded #490) | ~15.4h | **LIVE — re-verdict, see note below** (close COMPLETE; landing owner-gated) | HEAD `454ec71` 10:39:57Z; PR #490 head `0ea6338`, updated 11:38:39Z |
+| substrate-kit | 2026-07-15T12:52Z | ~2m | FRESH | HEAD `4e29182` |
+| websites | 2026-07-15T11:56:59Z | ~57m | FRESH | HEAD `4b7c20c` (advanced past roster's `8fb3ac5` @ 12:02:26Z); failsafe `trig_01VRT9F6jYNXym3nn18vVQQK` armed |
+| venture-lab | 2026-07-15T04:01:46Z | ~8.9h | STALE-heartbeat (wake chain healthy — failsafe last fired 09:45:15Z, trigger-health OK) | HEAD `520bdfc` 04:10:05Z |
+| trading-strategy | 2026-07-14T21:17:36Z | ~15.6h | STALE — by-design (KEEP-PARKED until 2026-07-17 grading) | HEAD `458b43c` |
+| idea-engine | 2026-07-15T07:58:02Z | ~4.9h | STALE ⚠ commits-FRESH (ACTIVE, INC-16) | HEAD `828b18e` 11:37:33Z |
+| sim-lab | 2026-07-15T04:06:11Z | ~8.8h | STALE ⚠ commits-FRESH (ACTIVE — VERDICT 089 landed mid-sweep) | HEAD `e26996b` 12:06:24Z (#158) |
+| gba-homebrew | 2026-07-14T21:16:02Z | ~15.6h | STALE ⚠ commits-FRESH (ACTIVE by pushes) | HEAD `0048a5d` 11:01:26Z |
+| pokemon-mod-lab | 2026-07-14T05:07:37Z (measured via GitHub MCP this sweep — raw fetch is auth-walled, roster prints NOT MEASURED) | ~31.8h | DARK-by-stamp / PARKED-owner-gated (its own heartbeat: "queue's session-servable remainder: NONE — every remaining item is owner-gated") | status blob `cf4643a` @ HEAD `7d4fa41` |
+| superbot-mineverse | 2026-07-14T18:59:20Z | ~17.9h | STALE (no armed trigger — reboot gap) | HEAD `b9ade33` |
+| superbot-games | 2026-07-14T11:41:04Z | ~25.2h | DARK (no armed trigger — reboot gap) | HEAD `446a84e` |
+| superbot-idle | 2026-07-14T11:32:05Z | ~25.4h | DARK (no armed trigger — reboot gap) | HEAD `8a7275d` |
+| product-forge | 2026-07-11T19:39:50Z | ~3.7d | DARK by standing decision — state UNCHANGED (no disposition note owed) | HEAD `f7f2dd2` unchanged |
+| codetool-lab-sonnet5 | 2026-07-09T20:02:14Z | ~5.7d | STALE-BY-DESIGN | HEAD `0331176` unchanged |
+| codetool-lab-fable5 | 2026-07-09T20:06Z | ~5.7d | STALE-BY-DESIGN (HEAD moved by the owner's #16 merge 10:54:19Z — expected, A#62 resolution) | HEAD `3f83cbb` |
+| codetool-lab-opus4.8 | 2026-07-09T20:11:35Z | ~5.7d | STALE-BY-DESIGN (dormant KEEP, INC-03) | HEAD `0e0ec02` unchanged |
+| fleet-manager | this wake | — | FRESH (PR #232) | branch `claude/oversight-wake-0715b` |
+
+**superbot-next re-verdict (supersedes the 10:02Z "STALE — stalled mid-close"
+verdict above):** the 10:02Z reading is falsified by later evidence — the seat
+resumed and **completed its close-out**: PR #490 body carries a full
+"Session close-out (2026-07-15)" section (commits `48246aa`…`0ea6338`; claims
+swept, ORDER 023 acked+done, routine disposition recorded — failsafe
+`trig_01UC7wiV3n5Vgs3RpSQt4gWz` stays armed, next fire 13:08Z), PR updated
+11:38:39Z, and main took `454ec71` at 10:39:57Z. The card flip is NOT
+forgotten — it is held by a documented, verbatim-quoted Self-Approval
+classifier denial in the PR body; the lane's own recorded landing path is one
+owner message in that coordinator chat: **"flip and land #490"**. The
+false-dormant main heartbeat clears when #490 lands (its heartbeat overwrite
+rides the PR). Verdict: **LIVE, close complete, landing owner-gated** — no
+manager action owed beyond this record.
+
+**DARK routing disposition (games · idle · mineverse-STALE · hub-heartbeat):**
+all four sit in the known owner v3.6 reboot gap — no armed triggers since the
+2026-07-14 EAP shutdown deletions, so no DRAFT ORDER is filed (a trigger-less
+seat cannot consume one; writing one would be dead-letter). The standing
+owner-queue home for seat boots is **C#36 (OQ-RESTRUCTURE-TRIGGER-CUTOVER)**,
+and the gap was flagged to the owner in the ~07:10Z morning summary — carried
+again on this wake's heartbeat next-2-tasks, no new queue item (dedup, R11).
+product-forge stays excluded per standing decision (state unchanged).
+
 ## How to re-verdict
 
 1. Verify against live source (Q-0120 — never against report text).
