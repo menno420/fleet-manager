@@ -7,4 +7,4 @@ generation (diff hub prompt artifacts vs the shipped bodies; fold real drift
 only), ship the paste-ready per-seat starting-prompt index the owner asked for
 live this session (2026-07-15), and note both in docs/current-state.md.
 
-- 📊 Model: `fable-5` (family-level, self-reported by this session's harness)
+- **📊 Model:** Fable · high · docs-only

@@ -82,6 +82,15 @@ swept 2026-07-14T02:5xZ against the live GitHub API.)
 
 ## Recently shipped (newest first)
 
+- **Registry v3.5 synthesis verified complete + paste-ready per-seat prompt
+  index** (fm #248, `claude/registry-v3-5-synthesis`, 2026-07-15): ORDER 040
+  TASK 1 closed by verification — the v3.5 generation shipped 2026-07-13
+  (stage-1 PR #151 = v3.5; stage-2 = v3.6 per the registry bump rule) and
+  this pass confirmed all folds present in the shipped v3.6 bodies (drift
+  checks 9/9 clean, registry copies 27/27 in sync, no body drift → no bump).
+  New owner-facing index:
+  [Paste-ready starting prompts per seat](prompts/v3/README.md) — per-seat
+  file map + kept/changed notes, so any seat can be re-founded in one paste.
 - **Merge-on-green rollout verification** (fm #233,
   `claude/merge-on-green-verify-0715`, 2026-07-15):
   [Merge-on-green rollout verification (2026-07-15)](findings/merge-on-green-rollout-verification-2026-07-15.md)
