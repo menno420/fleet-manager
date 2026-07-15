@@ -1,8 +1,8 @@
 # 2026-07-15 — wake-1126z-queue-sweep (fm wake: queue A#62 sweep + ORDER 026/046 + trigger-snapshot honesty + heartbeat)
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
-- **📊 Model:** Claude Fable (Claude 5 family) · high · queue-sweep
+- **📊 Model:** Claude Fable (Claude 5 family) · high · docs-only
 
 ## What happened
 
