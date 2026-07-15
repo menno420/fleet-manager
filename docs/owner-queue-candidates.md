@@ -4,7 +4,7 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #58** · generated-at **2026-07-15T08:57Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #59** · generated-at **2026-07-15T12:03Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
@@ -21,7 +21,7 @@
 ### substrate-kit — - ⚑ FOR OWNER REVIEW: ORDER 024 (control/inbox.md @ 58b3f80) states "do NOT re-arm routines yet; wait for the…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-REVIEW-ORDER-024-CONTROL`
-- source: substrate-kit/control/status.md @ `22fd280` · heartbeat `updated:` 2026-07-15T06:15Z · phase: EAP EXTENSION ACTIVE (EAP throug…
+- source: substrate-kit/control/status.md @ `7473869` · heartbeat `updated:` 2026-07-15T11:41Z · phase: EAP EXTENSION ACTIVE (EAP throug…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -31,7 +31,7 @@
 ### substrate-kit — ⚑ P10 required-check swap
 
 - suggested-id: `OQ-SUBSTRATE-KIT-P10-REQUIRED-CHECK-SWAP`
-- source: substrate-kit/control/status.md @ `22fd280` · heartbeat `updated:` 2026-07-15T06:15Z · phase: EAP EXTENSION ACTIVE (EAP throug…
+- source: substrate-kit/control/status.md @ `7473869` · heartbeat `updated:` 2026-07-15T11:41Z · phase: EAP EXTENSION ACTIVE (EAP throug…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -48,7 +48,7 @@ RISK: ↩️ reversible — re-add the old required checks in the same ruleset p
 ### substrate-kit — ⚑ public-flip-or-PAT (pick one)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-PUBLIC-FLIP-PAT-PICK`
-- source: substrate-kit/control/status.md @ `22fd280` · heartbeat `updated:` 2026-07-15T06:15Z · phase: EAP EXTENSION ACTIVE (EAP throug…
+- source: substrate-kit/control/status.md @ `7473869` · heartbeat `updated:` 2026-07-15T11:41Z · phase: EAP EXTENSION ACTIVE (EAP throug…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -65,7 +65,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### ↳ substrate-kit — `control/status-superbot-coordinator.md` — ⚑ needs-owner: 1) verify/deliver the testing-lane wind-down — superbot-next control/status.md was still UNFLI…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-1-VERIFY-DELIVER-TESTING`
-- source: substrate-kit/control/status-superbot-coordinator.md @ `22fd280` · heartbeat `updated:` 2026-07-10T13:47:02Z
+- source: substrate-kit/control/status-superbot-coordinator.md @ `7473869` · heartbeat `updated:` 2026-07-10T13:47:02Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -168,7 +168,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### idea-engine — ⚑ needs-owner: unchanged — docs/eap-closeout-walkthrough-2026-07-14.md §C.
 
 - suggested-id: `OQ-IDEA-ENGINE-UNCHANGED-DOCS-EAP-CLOSEOUT`
-- source: idea-engine/control/status.md @ `e17ebe7` · heartbeat `updated:` 2026-07-15T07:58:02Z (real wall-clock via date -u, monotoni…
+- source: idea-engine/control/status.md @ `828b18e` · heartbeat `updated:` 2026-07-15T07:58:02Z (real wall-clock via date -u, monotoni…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
