@@ -746,10 +746,27 @@ manager curates from.
       asks-pending line.
     - Blocking: not-blocking — blocks only the hermes lane.
 
-61. **substrate-kit — "kit go": re-arm the wake chain (seat is in STANDBY
-    with ZERO armed triggers).** *(new 2026-07-15, reboot night —
-    coordinator ask; classifier wall recorded, one attempt.)*
+61. **✅ RESOLVED 2026-07-15 (lane-side — no owner action was needed) —
+    substrate-kit resumed from STANDBY on its own wake chain.** *(was: "kit
+    go": re-arm the wake chain; new 2026-07-15, reboot night — coordinator
+    ask; classifier wall recorded, one attempt.)*
     - id: OQ-KIT-GO-REARM
+    - Evidence (live at kit HEAD `22fd280`, read ~06:2xZ): kit resumed
+      lane-side — out of the 04:21Z STANDBY (#381) since the 04:46Z wake
+      (#382, ORDER 024 acked+done on first rebooted wake); heartbeat 05:10Z
+      carried wake trigger `trig_01CUfSZo9Uky9DdpoqpZPcfT` (cron `0 */2`,
+      enabled, coordinator-bound), whose 06:05Z fire (next-fire 06:04Z) is
+      recorded in the 06:15Z heartbeat (#384, merged 06:17:07Z); real lane
+      activity PR #383 merged 05:13:04Z (`5905201`). ORDERs 022/023 read
+      done on the kit heartbeat (`done=001–024`; 022 = v1.16.0 stop-hook,
+      023 = PRs #376/#379 — inbox headers stay `new` by pure-append). The
+      VERIFIED-NEEDED bar ("status.md shows new trigger ids verified via
+      list_triggers") is met by the heartbeat's read-only trigger-inventory
+      record. Note for the owner's review, carried on the kit heartbeat:
+      the failsafe post-dates ORDER 024's "do NOT re-arm" line — kit flags
+      the discrepancy neutrally (⚑ FOR OWNER REVIEW) rather than
+      adjudicating it.
+    - History below kept verbatim for the record:
     - WHAT: reply **"kit go"** (one word) in the coordinator chat, or paste
       substrate-kit's v3.6 reboot prompt into its Project.
     - WHERE: the coordinator session (the chat this queue is curated from)
