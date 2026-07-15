@@ -1,6 +1,6 @@
 # 2026-07-15 — oversight-wake-0715b (routine seat wake: roster verify · queue/triage re-verify · staleness sweep · heartbeat)
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** Fable (Claude 5 family) · high · docs-only
 
