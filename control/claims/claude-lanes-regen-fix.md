@@ -1,1 +1,0 @@
-- `claude/lanes-regen-fix` · fix roster-regen.yml lanes.json staging lag + sync registry/lanes.json to committed generation · expected files: .github/workflows/roster-regen.yml, registry/lanes.json, control/status-fleet-manager.md, .sessions/2026-07-15-lanes-regen-fix.md · 2026-07-15
