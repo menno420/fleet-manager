@@ -33,5 +33,6 @@ records custody + manager-internal memory → here.
 | [EAP project audit (2026-07-14)](docs/audits/eap-project-audit-2026-07-14.md) | Close-out audit of this seat — measured merge/scheduling/ceremony friction, dispositioned (FLEET-FIX / ANTHROPIC / ACCEPTED); deltas the retrospective. |
 | [EAP audit collection (2026-07-14)](docs/eap-audit-collection.md) | AUDIT-WATCH tracker for the fleet-wide EAP project-audit fan-out — one row per target repo; synthesis + final-email draft fires at majority. |
 | [EAP final recon + closeout fan-out (2026-07-14)](docs/eap-final-recon-2026-07-14.md) | Final-day record — per-lane recon (heartbeat age, completable-today, parked), the 13-lane closeout ORDER fan-out with live-verified terminal states, DARK-seat dispositions, and findings (ORDER-grammar defect + fleet fix). |
+| [Pre-reboot fleet review (2026-07-15)](docs/pre-reboot-review-2026-07-15.md) | Owner review surface for the EAP-extension reboot — 48h activity audit (all 20 repos), consolidation proposal (decide-and-flag), extension-note fan-out record. |
 | [`templates/`](templates/) | Standard preamble blocks pasted into every worker prompt. |
 | [`control/`](control/) | Protocol heartbeat — `inbox.md` (owner → manager orders), `status.md` (manager heartbeat). |

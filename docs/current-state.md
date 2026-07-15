@@ -51,6 +51,11 @@ The custodian toolchain shipped by the centralization plan P1→P3 (all
 (Verify against live source control — this section is a dated snapshot,
 swept 2026-07-14T02:5xZ against the live GitHub API.)
 
+- **EAP EXTENDED through 2026-07-21 (2026-07-15)** — Anthropic mail
+  2026-07-14T23:07:44Z; the 2026-07-14 dormancy orders are superseded pending
+  the owner's per-project reboot review (ORDER 046). Review surface:
+  [Pre-reboot fleet review (2026-07-15)](pre-reboot-review-2026-07-15.md)
+  (48h activity audit · consolidation proposal · fan-out record).
 - **PR #182** — wake 0235Z overnight slices (branch `claude/wake-0235z`):
   Slice A rescue-branch reconcile · Slice B outbox truing · Slice C
   centralization-plan Slice 0 (this sweep). Born-red by design; the

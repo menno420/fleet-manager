@@ -1415,3 +1415,14 @@ prioritized list per active seat + DARK dispositions + fleet summary
 caveat: pml #66 remains OPEN parked green for the owner click alongside
 #57–#65 — it IS the delivery itself, not outstanding work.
 provenance: coordinator dispatch 2026-07-14, verified live per Q-0120.
+
+## ORDER 046 · 2026-07-15T03:40Z · status: new
+priority: P1
+do: record + act on the EAP extension — the program is extended through 2026-07-21
+(Anthropic mail, Diana Liu, 2026-07-14T23:07:44Z, subject "Claude Code Projects EAP:
+Extending to Tues 7/21"; metadata reference only). The 2026-07-14 dormancy orders are
+superseded pending the owner's per-project reboot review; see
+docs/pre-reboot-review-2026-07-15.md.
+why: fm HEAD had no durable record of the extension (record gap found at 94bad42).
+done-when: reboot review executed per the doc; extension noted in all lane inboxes.
+provenance: landed by the coordinator on live owner directives, 2026-07-15.
