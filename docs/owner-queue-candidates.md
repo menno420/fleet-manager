@@ -4,14 +4,14 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #61** · generated-at **2026-07-15T16:06Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #62** · generated-at **2026-07-15T17:50Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
 ### superbot (hub) — ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready…
 
 - suggested-id: `OQ-SUPERBOT-HUB-SIDE-RESIDUE-ONLY`
-- source: superbot/control/status.md @ `6f18d94` · heartbeat `updated:` 2026-07-13T18:00:00Z
+- source: superbot/control/status.md @ `799ee32` · heartbeat `updated:` 2026-07-13T18:00:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -21,7 +21,7 @@
 ### substrate-kit — - ⚑ FOR OWNER REVIEW: ORDER 024 (control/inbox.md @ 58b3f80) states "do NOT re-arm routines yet; wait for the…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-REVIEW-ORDER-024-CONTROL`
-- source: substrate-kit/control/status.md @ `6a88392` · heartbeat `updated:` 2026-07-15T15:55Z · phase: EAP EXTENSION ACTIVE (EAP throug…
+- source: substrate-kit/control/status.md @ `193bdb5` · heartbeat `updated:` 2026-07-15T17:32Z · phase: EAP EXTENSION ACTIVE (EAP throug…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -31,7 +31,7 @@
 ### substrate-kit — ⚑ P10 required-check swap
 
 - suggested-id: `OQ-SUBSTRATE-KIT-P10-REQUIRED-CHECK-SWAP`
-- source: substrate-kit/control/status.md @ `6a88392` · heartbeat `updated:` 2026-07-15T15:55Z · phase: EAP EXTENSION ACTIVE (EAP throug…
+- source: substrate-kit/control/status.md @ `193bdb5` · heartbeat `updated:` 2026-07-15T17:32Z · phase: EAP EXTENSION ACTIVE (EAP throug…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -48,7 +48,7 @@ RISK: ↩️ reversible — re-add the old required checks in the same ruleset p
 ### substrate-kit — ⚑ public-flip-or-PAT (pick one)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-PUBLIC-FLIP-PAT-PICK`
-- source: substrate-kit/control/status.md @ `6a88392` · heartbeat `updated:` 2026-07-15T15:55Z · phase: EAP EXTENSION ACTIVE (EAP throug…
+- source: substrate-kit/control/status.md @ `193bdb5` · heartbeat `updated:` 2026-07-15T17:32Z · phase: EAP EXTENSION ACTIVE (EAP throug…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -65,7 +65,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### ↳ substrate-kit — `control/status-superbot-coordinator.md` — ⚑ needs-owner: 1) verify/deliver the testing-lane wind-down — superbot-next control/status.md was still UNFLI…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-1-VERIFY-DELIVER-TESTING`
-- source: substrate-kit/control/status-superbot-coordinator.md @ `6a88392` · heartbeat `updated:` 2026-07-10T13:47:02Z
+- source: substrate-kit/control/status-superbot-coordinator.md @ `193bdb5` · heartbeat `updated:` 2026-07-10T13:47:02Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
