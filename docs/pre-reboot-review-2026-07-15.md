@@ -1,6 +1,6 @@
 # Pre-reboot fleet review — 2026-07-15
 
-> **Status:** `complete`
+> **Status:** `audit`
 >
 > Owner review document: 48h activity audit (all 20 repos) + consolidation
 > proposal (decide-and-flag; nothing migrates without owner review) +
