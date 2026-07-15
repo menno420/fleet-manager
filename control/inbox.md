@@ -1426,3 +1426,15 @@ docs/pre-reboot-review-2026-07-15.md.
 why: fm HEAD had no durable record of the extension (record gap found at 94bad42).
 done-when: reboot review executed per the doc; extension noted in all lane inboxes.
 provenance: landed by the coordinator on live owner directives, 2026-07-15.
+
+## ORDER 027 · 2026-07-15T04:31:54Z · status: done
+priority: P2
+do: (status flip) mineverse Codex PR #31 found already MERGED — not closed by this pulse; merged 2026-07-12T19:52:53Z by menno420 (before ORDER 027 was filed at 22:09Z), head d66d9a5, adds docs/pre-provisioning-security-report-2026-07-11.md; per the order's stand-down clause the PR was NOT touched; evidence: https://github.com/menno420/superbot-mineverse/pull/31.
+why: Consuming the pre-extension backlog during the 2026-07-15 reboot night.
+done-when: This entry — terminal.
+
+## ORDER 042 · 2026-07-15T04:31:54Z · status: done
+priority: P1
+do: (status flip) venture WEBSITE-IDEA routing verified satisfied: websites PR #247 (/puddle-museum, merged 2026-07-13T04:25:44Z) and PR #248 (/products/catalog over the 22 vetting packets @ venture 2c039e3, merged 2026-07-13T04:17:31Z) both exist and are merged, matching the manager note; seat-side confirmation on record — websites control/outbox.md ("fm 042 SATISFIED (both pages verified live 06:29Z)"). Evidence: https://github.com/menno420/websites/pull/247 · https://github.com/menno420/websites/pull/248.
+why: Consuming the pre-extension backlog during the 2026-07-15 reboot night.
+done-when: This entry — terminal.
