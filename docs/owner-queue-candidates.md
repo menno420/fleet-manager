@@ -4,7 +4,7 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #55** · generated-at **2026-07-15T03:38Z** · by pre-reboot-review landing session (coordinator's landing hand), dispatched by coordinator dispatch 2026-07-15 (PR #215 freshness regen)
+> **Generation #56** · generated-at **2026-07-15T03:52Z** · by pre-reboot-review landing session (coordinator's landing hand), dispatched by coordinator dispatch 2026-07-15 (PR #215 merge-conflict regen, #191-pattern recovery)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
@@ -131,7 +131,7 @@
 ### superbot-mineverse — ⚑ needs-owner: unchanged — the four pending clicks remain consolidated in docs/eap-closeout-walkthrough-2026-…
 
 - suggested-id: `OQ-SUPERBOT-MINEVERSE-UNCHANGED-FOUR-PENDING-CLICKS`
-- source: superbot-mineverse/control/status.md @ `a9a6769` · heartbeat `updated:` 2026-07-14T18:59:20Z
+- source: superbot-mineverse/control/status.md @ `b9ade33` · heartbeat `updated:` 2026-07-14T18:59:20Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
