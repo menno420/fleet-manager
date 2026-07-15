@@ -2,7 +2,7 @@
 
 > **Status:** `complete`
 
-📊 Model: Claude Fable (family-level)
+📊 Model: Claude Fable (Claude 5 family) · unstated · docs-only
 
 About to: measure the owner-swept fleet live and true docs/eap-audit-collection.md, docs/dispatch-log.md, docs/owner-queue.md, docs/eap-owner-checklist-2026-07-14.md, docs/fleet-triage.md to the measurement. Final pre-archive record.
 

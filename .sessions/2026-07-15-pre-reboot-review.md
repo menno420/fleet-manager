@@ -2,7 +2,7 @@
 
 > **Status:** `complete`
 
-📊 Model: Claude Fable (family-level) · high · coordination
+📊 Model: Claude Fable (Claude 5 family) · high · docs-only (coordination)
 
 about to do: land the pre-reboot review as the coordinator's landing hand — write `docs/pre-reboot-review-2026-07-15.md` (48h fleet activity audit + consolidation proposal + extension-note fan-out record), link it from the README doc index, append the EAP-extension ORDER to `control/inbox.md`, and update `control/status.md` wholesale to the LIVE-again heartbeat.
 
@@ -22,4 +22,4 @@ Provenance: coordinator dispatch 2026-07-15, executing the owner's live directiv
 
 ⟲ Previous-session review: the walled executor's deny-wins handling was clean — one attempt per write, no retry-hammering, and the denial surfaced with enough context that this landing hand could re-deliver everything (doc, ORDER, heartbeat) without re-deriving any of it.
 
-📊 Model: Claude Fable (family-level) · high · coordination
+📊 Model: Claude Fable (Claude 5 family) · high · docs-only (coordination)

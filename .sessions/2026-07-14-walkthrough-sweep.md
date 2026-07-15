@@ -2,7 +2,7 @@
 
 > **Status:** `complete`
 
-📊 Model: Claude Fable (family-level)
+📊 Model: Claude Fable (Claude 5 family) · unstated · docs-only
 
 about to do: sweep newly-landed EAP closeout walkthroughs (`docs/eap-closeout-walkthrough-2026-07-14.md`) across the 13 target repos at live HEAD and merge their §C owner-action rows into `docs/eap-owner-checklist-2026-07-14.md`, refreshing the UPDATABLE docs (audit-collection walkthrough state, email-draft straggler appendix) to live truth.
 
