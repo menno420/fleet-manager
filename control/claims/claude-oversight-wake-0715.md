@@ -1,1 +1,1 @@
-- claude/oversight-wake-0715 · routine oversight wake (owner-queue checker upgrade + installer-PR re-probe + roster freshness + fm #227 re-check + heartbeat) · 2026-07-15
+- `claude/oversight-wake-0715` · routine oversight wake (check_owner_queue dirty-parked-PR upgrade + A#68 installer re-probe + roster freshness + fm #227 re-check + heartbeat) · 2026-07-15

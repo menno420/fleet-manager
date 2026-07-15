@@ -90,6 +90,9 @@ manager curates from.
       its file does anything — the repo has zero CI, and the sweep treats
       zero check runs as NOT-ready by design; merging #3 alone is a no-op
       there.
+    - STATUS (re-probe 2026-07-15 ~15:0xZ, oversight wake): all five still
+      OPEN, none merged; each reads live `mergeable_state=clean` — the five
+      clicks remain valid as written, no rot.
     - VERIFIED-NEEDED: each PR shows MERGED; evidence base:
       [`findings/merge-on-green-rollout-verification-2026-07-15.md`](findings/merge-on-green-rollout-verification-2026-07-15.md)
       (per-repo table, INSTALLER-PR-OPEN rows).

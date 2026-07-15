@@ -22,9 +22,24 @@
      (merge `5147a23`); the checker must fire [merged-citation].
    - Blocking: not-blocking.
 
+2. **fleet-manager PR #227 — lanes.json regen fix: MERGE.**
+   - id: OQ-FIXTURE-FM-PR227-PARKED-ROT
+   - WHERE: https://github.com/menno420/fleet-manager/pull/227
+   - HOW: click "Squash and merge".
+   - UNBLOCKS: lanes.json generation-lag fix on main.
+   - VERIFIED-NEEDED: fixture — modeled on the REAL A#63 rot (fm #227's
+     one-click claim rotted when roster cron #231 / Gen #59 advanced main
+     past it, 2026-07-15T12:04Z; state pinned in `--selftest`); the item
+     text deliberately does NOT acknowledge the rot, so the checker must
+     fire the check-1b parked-rot flag. (The two acknowledgment trigger
+     words — and the flag's own name, which contains one — are avoided in
+     this item's text on purpose: naming the rotted state would trip the
+     check-1b downgrade to a note.)
+   - Blocking: not-blocking.
+
 ### (B) Hot items
 
-2. **🔥 HOT — land the corrected UNIVERSAL.md merge-authority clause.**
+3. **🔥 HOT — land the corrected UNIVERSAL.md merge-authority clause.**
    - id: OQ-FIXTURE-UNIVERSAL-CLAUSE
    - **STATUS: ✅ RESOLVED — RESOLVED-PENDING-MERGE of PR #76**
      (https://github.com/menno420/fleet-manager/pull/76 — the rebuilt
@@ -38,7 +53,7 @@
 
 ### (C) Settings toggles
 
-3. **superbot-mineverse — make the test suite blocking.**
+4. **superbot-mineverse — make the test suite blocking.**
    - id: OQ-FIXTURE-MINEVERSE-PYTEST-REQUIRED
    - WHERE: https://github.com/menno420/superbot-mineverse settings →
      Rules → main ruleset.
