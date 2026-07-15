@@ -574,17 +574,40 @@ not seat-side signal):
 
 | Lane | Landing path NOW | Citation |
 |---|---|---|
-| codetool-lab-opus4.8 | **self-landing on green (installed-unproven)** — sweep live at main `61efaa9`; no bot merge has exercised it yet | #24 merged 15:29:44Z |
+| codetool-lab-opus4.8 | **self-landing PROVEN** *(flipped 2026-07-15 ~20:3xZ, evening oversight wake, fm PR #245)* — probe [#25](https://github.com/menno420/codetool-lab-opus4.8/pull/25) `merged: true`, merged_by **github-actions[bot]**, merged_at 2026-07-15T15:30:46Z (~62 s after install) | #24 merged 15:29:44Z |
 | codetool-lab-fable5 | **self-landing PROVEN** — probe #18 merged_by github-actions[bot] 16:54:14Z | #17 merged 15:29:47Z; main `e7ca47c` |
-| product-forge | **self-landing on green (installed-unproven)** — sweep live at main `1efbb3b`; ends the 7+h green-unmerged wait class once exercised | #25 merged 15:29:50Z |
+| product-forge | **self-landing PROVEN** *(flipped 2026-07-15 ~20:3xZ, evening oversight wake, fm PR #245)* — probe [#26](https://github.com/menno420/product-forge/pull/26) `merged: true`, merged_by **github-actions[bot]**, merged_at 2026-07-15T15:30:14Z (~24 s after install; the 7+h green-unmerged wait class is closed) | #25 merged 15:29:50Z |
 | pokemon-mod-lab | **self-landing PROVEN** — probe #90 merged_by github-actions[bot] 15:30:22Z, ~30 s after install | #89 merged 15:29:52Z; main `ec63823` (file via MCP Contents API) |
 | superbot-plugin-hello | **installed but INERT** — zero CI in repo, zero check runs = NOT-ready by design; needs a minimal CI gate (agent-doable) or accept-as-inert (see register row) | #3 merged 15:29:41Z; main `abd9133` |
 
-Fleet headline: **18/19 covered — 15 PROVEN · 2 installed-unproven
-(opus4.8, product-forge) · 1 installed-inert (plugin-hello) · 1 MISSING
-(codetool-lab-sonnet5, ARCHIVE-candidate B#41 — rollout skipped it by
-design).** fm #227 (A#63) re-verified this wake: still OPEN awaiting
-conflict resolution + owner click; its queue row stays.
+Fleet headline *(updated 2026-07-15 ~20:3xZ, evening oversight wake, fm
+PR #245 — both former installed-unproven rows flipped PROVEN on live
+`merged_by github-actions[bot]` evidence above)*: **18/19 covered — 17
+PROVEN · 0 installed-unproven · 1 installed-inert (plugin-hello) · 1
+MISSING (codetool-lab-sonnet5, ARCHIVE-candidate B#41 — rollout skipped
+it by design).** fm #227 (A#63): conflict RESOLVED by the evening wake
+(merge main in + lanes.json regen to Gen #63, head `45ba285`,
+mergeable_state now `unstable` = awaiting checks) — owner click applies
+on green.
+
+## 2026-07-15 · Evening oversight wake (20:26Z sweep, fm PR #245) — seat staleness verdicts
+
+> Dated evidence note. Probes 2026-07-15T20:26–20:29Z via the GitHub API
+> (heartbeat file at HEAD + newest main commit + open PR count per repo).
+> The DARK/reboot-gap class from the 12:5xZ / 14:0xZ sweeps above
+> **stands and has now crossed the >30h escalation bar for games + idle**
+> — the only newer main activity on all three World lanes is the
+> externally-dispatched merge-automation verification probe of
+> 14:19–14:45Z, which is not seat-side signal (same rule as the
+> manager-relay exclusion above). Escalated on owner-queue **C#36**
+> (boot-sitting recommendation).
+
+| Lane | Heartbeat `updated:` | Age at 20:26Z | Newest main commit | Open PRs | Verdict |
+|---|---|---|---|---|---|
+| superbot-games | 2026-07-14T11:41:04Z (seat-written) | **~32.8h** | `1543c4b` #146 probe merge 2026-07-15T14:45:35Z (not seat-side) | 0 | **DARK >30h → ESCALATE** |
+| superbot-idle | 2026-07-14T11:32:05Z (seat-written) | **~32.9h** | `a37d00e` #140 probe merge 2026-07-15T14:19:48Z (not seat-side) | 0 | **DARK >30h → ESCALATE** |
+| superbot-mineverse | 2026-07-14T18:59:20Z (cross-seat relay) | ~25.5h | `ac2b874` #114 probe merge 2026-07-15T14:24:01Z (not seat-side) | 0 | **STALE** (under the 30h bar) |
+| superbot (hub) | (no-standing-seat/irregular by design, Q-0264) | n/a | `82c68e3` merge #2115 2026-07-15T19:41:35Z | 2 (#2110 ready · #2061 held draft, both intentional) | **FRESH via HEAD-activity** (~0.7h) |
 
 ## How to re-verdict
 

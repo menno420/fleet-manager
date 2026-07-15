@@ -40,10 +40,25 @@ manager curates from.
 "Resolved 2026-07-11 (P3 curation sweep)" below. Section repopulated
 2026-07-15.)*
 
-63. **fleet-manager — merge PR #227 (the lanes.json regen fix) — ⚠ now
-    needs conflict resolution first.** *(new 2026-07-15, morning sweep;
-    amended 2026-07-15 ~14:1xZ, rollout-verification sweep.)*
+63. **fleet-manager — merge PR #227 (the lanes.json regen fix) — ✔ conflict
+    RESOLVED, one click applies on green.** *(new 2026-07-15, morning sweep;
+    amended 2026-07-15 ~14:1xZ, rollout-verification sweep; conflict fixed
+    2026-07-15 ~20:3xZ, evening oversight wake, fm PR #245.)*
     - id: OQ-FM-PR227-MERGE
+    - **Conflict fixed (2026-07-15 ~20:3xZ, evening oversight wake):** a
+      fm session merged main INTO `claude/lanes-regen-fix` (never rebase,
+      plain push) — conflicts in `control/status.md` (took main's newer
+      17:10Z heartbeat) and `.substrate/guard-fires.jsonl` (append-only
+      union, 0 dupes); `registry/lanes.json` re-synced by re-running the
+      PR's own regen path pinned to main's committed **Gen #63 /
+      2026-07-15T19:47Z** (`gen_roster.py --generation 63`, lanes.json
+      kept, docs restored). Merge commit **`45ba285`**; `bootstrap.py
+      check --strict` all-pass + roster freshness OK + trigger health 9/9
+      on the merged tree; live re-poll shows `mergeable_state=unstable`
+      (= mergeable, checks running). **The one-click merge at the URL
+      below now applies once checks are green** (the PR diffs a workflow
+      file, so merge-on-green's owner-merge-only rail still parks it —
+      the click stays yours by design).
     - **Amendment (2026-07-15, 14:0xZ sweep):** PR #227 is now
       `mergeable_state=dirty` — the roster-regen cron merge #231 (Gen #59,
       landed 12:04Z) advanced main past #227's 09:16Z base into the same
@@ -69,34 +84,6 @@ manager curates from.
       § cross-cutting gap 5).
     - RISK: ✅ reversible (revert commit; docs/registry regen only).
     - Blocking: not-blocking; quality-of-substrate.
-
-68. **✅ RESOLVED (owner clicked all five 2026-07-15T15:29:41–15:29:52Z;
-    verified live + swept 2026-07-15 ~17:0xZ, oversight wake, fm PR #241) —
-    the five merge-on-green installer PRs are MERGED.**
-    - id: OQ-ROLLOUT-INSTALLER-CLICKS
-    - Evidence (each `merged_by menno420`; workflow file verified present at
-      each repo's live main@HEAD):
-      opus4.8 [#24](https://github.com/menno420/codetool-lab-opus4.8/pull/24)
-      15:29:44Z (main `61efaa9`) ·
-      fable5 [#17](https://github.com/menno420/codetool-lab-fable5/pull/17)
-      15:29:47Z (main `e7ca47c`) ·
-      product-forge [#25](https://github.com/menno420/product-forge/pull/25)
-      15:29:50Z (main `1efbb3b`) ·
-      pml [#89](https://github.com/menno420/pokemon-mod-lab/pull/89)
-      15:29:52Z (main `ec63823`, file via MCP Contents API — private repo) ·
-      plugin-hello [#3](https://github.com/menno420/superbot-plugin-hello/pull/3)
-      15:29:41Z (main `abd9133`).
-    - Already PROVEN live in two of the five: fable5 probe #18 + pml probe
-      #90 each merged_by **github-actions[bot]** same day. Coverage headline
-      now **18/19**; full table in the findings addendum:
-      [`findings/merge-on-green-rollout-verification-2026-07-15.md`](findings/merge-on-green-rollout-verification-2026-07-15.md)
-      § Addendum 17:0xZ.
-    - Residual (NOT an owner click — hub-side recommendation, recorded on
-      the fleet-triage plugin-hello row): superbot-plugin-hello's new
-      automation is **INERT** — the repo has zero CI, and the sweep treats
-      zero check runs as NOT-ready by design; it merges nothing until a
-      minimal CI gate exists there (agent-doable) or the inert state is
-      accepted.
 
 ### (B) GitHub settings / repo admin
 
@@ -196,6 +183,11 @@ manager curates from.
     - UNBLOCKS: branch-list hygiene only.
     - VERIFIED-NEEDED: all 4 still on remote today (ls-remote); agents 403 on
       every deletion path (docs/CAPABILITIES.md@`52381a9`).
+    - Re-verified 2026-07-15T20:29Z (evening oversight wake, fm PR #245):
+      all 4 target branches still live at the same SHAs — ls-remote:
+      `claude/harden-verify` @ `722a8af` · `claude/rework-dashboard` @
+      `a0b459f` · `claude/wire-github-token-docs` @ `f7ae7ec` ·
+      `manager/control-plant` @ `ddd7ec6`. Item stays OPEN.
     - Blocking: cosmetic.
 
 12. **gba-homebrew — create the Lumen Drift GitHub Release.**
@@ -412,6 +404,9 @@ manager curates from.
       still on remote — gba `claude/brineward-wind` @ `eb3235a`; pml
       `track-a/session-019` @ `cd5ca75`, `track-a/session-024` @
       `73ca29e`, `claude/eloquent-newton-qaf1ii` @ `2efdde0`.
+      Re-verified again 2026-07-15T20:29Z (evening oversight wake, fm PR
+      #245): all four still live at the same SHAs (gba via ls-remote; pml
+      via MCP list_branches). Item stays OPEN.
     - Blocking: not-blocking.
 
 ### (C) Claude platform (console / environments / sessions / Codex)
@@ -763,6 +758,17 @@ manager curates from.
       `docs/prompts/v3/per-project/<seat>-startup.md` (generated from
       `docs/prompts/v3/universal-startup.md`, the fleet-wide startup
       artifact) and the shared ender is `docs/prompts/v3/session-ender.md`.
+    - **⚠ Escalation 2026-07-15 ~20:3xZ (evening oversight wake, fm PR
+      #245): superbot-games + superbot-idle are now >30h DARK — RECOMMEND
+      a boot sitting.** Live-probed 2026-07-15T20:26Z: games heartbeat
+      `updated: 2026-07-14T11:41:04Z` (**~32.8h dark**) · idle heartbeat
+      `updated: 2026-07-14T11:32:05Z` (**~32.9h dark**); mineverse
+      `updated: 2026-07-14T18:59:20Z` (~25.5h, approaching the bar). The
+      only newer main activity on all three is the externally-dispatched
+      merge-automation probe of 14:19–14:45Z — not seat-side signal. The
+      **SuperBot World** paste above (one coordinator-prompt paste, which
+      also retires the three old lane failsafes) is the cure; recommend it
+      leads the C#34+C#35+C#36 sitting.
 
 60. **superbot-next — hermes egress credentials
     (`CLAUDE_ROUTINE_FIRE_URL` + token).** *(new 2026-07-13, night-report
@@ -1530,6 +1536,34 @@ manager curates from.
       2026-07-12 so either path works.
     - WHERE/HOW: one word to the manager (inbox ORDER) after 07-14.
     - Blocking: nothing; a drift hazard if both sets keep deploying.
+
+## Resolved 2026-07-15 (evening oversight wake ~20:3xZ, fm PR #245 — state read live via the GitHub API, Q-0120)
+
+- **OQ-ROLLOUT-INSTALLER-CLICKS ✅** *(was A#68; self-declared RESOLVED
+  17:0xZ by fm PR #241, moved to this section by the evening wake — the
+  4 `resolved-not-swept` check_owner_queue flags close with this move)* —
+  the owner merged all five merge-on-green installer PRs
+  2026-07-15T15:29:41–15:29:52Z (each `merged_by menno420`; workflow file
+  verified at each repo's live main):
+  opus4.8 [#24](https://github.com/menno420/codetool-lab-opus4.8/pull/24)
+  15:29:44Z (main `61efaa9`) ·
+  fable5 [#17](https://github.com/menno420/codetool-lab-fable5/pull/17)
+  15:29:47Z (main `e7ca47c`) ·
+  product-forge [#25](https://github.com/menno420/product-forge/pull/25)
+  15:29:50Z (main `1efbb3b`) ·
+  pml [#89](https://github.com/menno420/pokemon-mod-lab/pull/89)
+  15:29:52Z (main `ec63823`) ·
+  plugin-hello [#3](https://github.com/menno420/superbot-plugin-hello/pull/3)
+  15:29:41Z (main `abd9133`).
+  Since PROVEN live in **four** of five (fable5 probe #18 16:54:14Z · pml
+  probe #90 15:30:22Z · opus4.8 probe #25 15:30:46Z · product-forge probe
+  #26 15:30:14Z — each `merged_by github-actions[bot]`; the last two
+  flipped by the evening wake). Coverage headline **18/19 — 17 PROVEN**;
+  full table: fleet-triage § 2026-07-15 A#68 note + evening-wake update.
+  Residual (hub-side recommendation, on the fleet-triage plugin-hello
+  row, NOT an owner click): plugin-hello's automation is INERT — zero CI,
+  zero check runs = NOT-ready by design; needs a minimal CI gate
+  (agent-doable) or accept-as-inert.
 
 ## Resolved 2026-07-15 (queue sweep, 11:4xZ — state read live via the GitHub API, Q-0120)
 
