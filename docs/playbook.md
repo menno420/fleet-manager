@@ -210,6 +210,28 @@ day) unless a later date is noted next to the rule.
     chat. A running session has no obligation to re-poll its own PR thread; only an
     ack (or a fresh order in the inbox lane) makes delivery real.*
 
+29. **R29 (2026-07-15) — THE OWNER NEVER REVIEWS PRs: feature PRs flip and land on
+    green by default; never park, freeze, or queue feature work "awaiting owner
+    merge order" / owner ratification** (inbox ORDER 047; owner verbatim, live
+    turn 2026-07-15: "Confirmed: I don't review PRs and never will. Feature PRs
+    should land on green automatically. Only destructive-tier work (prod cutover,
+    prod-data deletion/import, token swaps, spending money) gets a hold." — earlier
+    phrasing: "it would be like putting a gate without a lock"). Quality assurance
+    is CI + cross-agent review (R24 relay), never owner review. Holds remain ONLY
+    for the destructive tier — production cutover/decommission, prod-data
+    deletion/import, secret/token swaps, spending money — and even those are
+    decide-and-flag with a reversible path where one exists. Unchanged by this
+    rule: born-red session cards (they gate on WORK COMPLETE, flipped by the
+    session itself — not owner-review holds); technical/platform walls (R12's
+    no-self-merge classifier, merge-on-green's workflow-file rail, missing CI) —
+    those are quoted verbatim and routed as walls, never re-framed as "owner
+    review". Owner-queue merge clicks stay legitimate ONLY where a technical wall
+    makes the click the sole landing path — the ask then names the wall, not
+    "ratification". *WHY: the owner was shown a lane's queue of feature PRs
+    deliberately frozen "awaiting your merge order" and rejected the pattern —
+    a gate the owner never operates is a gate without a lock, and every frozen
+    green PR was pure delay.* (2026-07-15, provenance ORDER 047)
+
 ## MERGE MECHANICS
 
 21. **R21 (2026-07-09) — SUPERSEDED 2026-07-11 by the corrected UNIVERSAL v4
