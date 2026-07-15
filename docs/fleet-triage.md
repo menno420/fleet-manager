@@ -449,6 +449,28 @@ auth wall (roster: NOT MEASURED). Neutral, no alarms — the reboot gap was
 flagged to the owner in the ~07:10Z morning summary (A#62 + reboot gaps)
 and the failsafe lattice covers the quiet lanes.
 
+## 2026-07-15 · superbot-next verdict STALE — stalled mid-close (recon 10:02Z, recorded ~10:2xZ)
+
+**Verdict: STALE (stalled mid-close), remedy in the owner's hands.** Evidence
+from the 10:02Z reconnaissance: the superbot-next coordinator rebooted 04:20Z
+and worked to **04:58Z**, then went dark **mid-close** — PR **#490** sits open
+**born-red** (its in-progress session card never flipped; auto-merge is
+armed-but-held by the card gate), and the main-branch heartbeat still falsely
+reads **SEAT DORMANT** (pre-reboot residue the stalled close never corrected).
+**No wake trace since ~05:01Z despite the 2-hourly failsafe** — the failsafe
+lattice did not revive this seat, which is what upgrades the reading from
+"quiet" to STALE. The seat's 9 other open PRs are **deliberately parked
+owner-gated lanes**, not new drift: WP stack #344/#371/#392,
+`do-not-automerge` #466/#473/#476/#477, outbox #484/#485. Net: **nothing
+substantive dropped** — all queued work is owner-gated; the only casualty is
+the unflipped #490 close + the false-dormant heartbeat. **Remedy is with the
+owner** (advised live ~10:1xZ this morning): reply "continue" in the stalled
+session so it finishes its close, or boot a fresh v3.6 session which will
+adopt/flip #490 at orientation. No coordinator action owed beyond this
+record; **revisit next sweep** — if a fresh trace or the #490 flip appears,
+re-verdict to LIVE; if still dark, escalate the failsafe-didn't-fire question
+as its own trigger-health item.
+
 ## How to re-verdict
 
 1. Verify against live source (Q-0120 — never against report text).
