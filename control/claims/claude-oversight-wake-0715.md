@@ -1,0 +1,1 @@
+- claude/oversight-wake-0715 · routine oversight wake (owner-queue checker upgrade + installer-PR re-probe + roster freshness + fm #227 re-check + heartbeat) · 2026-07-15
