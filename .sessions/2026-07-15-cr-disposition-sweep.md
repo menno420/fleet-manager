@@ -1,6 +1,6 @@
 # Session — 2026-07-15 — curious-research disposition + reboot sweep + heartbeat
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 Intent: record the owner's live curious-research PARKED verdict in docs/fleet-triage.md, take a first read-only v3.6 reboot sweep across the roster seats, and refresh control/status.md heartbeat.
 
@@ -39,3 +39,18 @@ seeing post-cutoff stamps. Registry-only seats (game-lab, SuperBot World,
 Ideas Lab, Self Improvement, SuperBot 2.0, Curious Research, retro-games)
 have no repo heartbeat to measure. curious-research: PARKED by owner
 decision — excluded from reboot expectations entirely.
+
+## Enders
+
+- 💡 Session idea: teach `scripts/gen_roster.py` (or a small sibling
+  `scripts/reboot_sweep.py`) a `--since <ts>` mode that emits exactly this
+  sweep table (per-seat heartbeat vs a cutoff timestamp) — the reboot wave
+  will want this measurement repeated several times over the next hours, and
+  a one-command generator beats hand-curling 17 repos each pass.
+- ⟲ Previous-session review (pre-reboot-review, fm PR #215): thorough 48h
+  audit with SHA-cited evidence and a clean ORDER 046 record — its one miss
+  is that the LIVE heartbeat it shipped (03:40:49Z) landed minutes before
+  the reboot cutoff it announced, so the very next sweep (this one) had to
+  re-stamp; a heartbeat written to mark a wave should stamp at-or-after the
+  wave's own start time.
+- **📊 Model:** Claude Fable (Claude 5 family) · high · docs-only
