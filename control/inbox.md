@@ -1450,3 +1450,15 @@ priority: P1
 do: (status flip) sonnet5 writeup port found already MERGED in substrate-kit — kit PR #340 ("Port fm ORDER 025 writeups into bench docs (ORDER 019 item 5)", merged 2026-07-13T23:28:24Z, commit 0e7191d): both writeups live at kit docs/reports/2026-07-09-cfgdiff-differential-testing-method.md (Status `reference`) and docs/reports/2026-07-09-cfgdiff-v0.1.1-release-decision.md (Status `audit`), each carrying a provenance header to source repo menno420/codetool-lab-sonnet5 @ 66c3dfc and linked from bench/README.md § "Method + practice writeups"; kit heartbeat #348 recorded the completion per the seat grammar ("fm ORDER 025 port: #340 merged … Owner's B#41 archive click unblocked"); this entry records the new-home pointer for sonnet5's final status manager-side (the sonnet5 lane stays wound down, STALE-BY-DESIGN). Re-verified file-by-file at kit HEAD e900008, 2026-07-15 — no re-port performed per the stand-down doctrine. Evidence: https://github.com/menno420/substrate-kit/pull/340.
 why: executed — all done-when legs met; the B#41 archive click no longer waits on this order.
 done-when: satisfied — this entry is terminal.
+
+## ORDER 026 · 2026-07-15T11:39Z · status: done
+priority: P2
+do: (status flip) codetool-lab-fable5 PR #16 now MERGED live — merged by the owner (merged_by menno420) 2026-07-15T10:54:19Z, head ba88daa (11 tracked .pyc removed + top-level .gitignore added); state read live via the GitHub API this wake, superseding the 04:37Z parked-green entry. Owner-queue A#62 (OQ-FABLE5-PR16-MERGE) swept to Resolved the same pass; B#42 archive click now gates only on the E#46 envdrift letter. Evidence: https://github.com/menno420/codetool-lab-fable5/pull/16.
+why: the parked-green header went stale the moment the owner clicked; queue + inbox reconciled together.
+done-when: satisfied — this entry is terminal.
+
+## ORDER 046 · 2026-07-15T11:39Z · status: done
+priority: P1
+do: (status flip) both done-when legs verified: (1) reboot review executed per docs/pre-reboot-review-2026-07-15.md (on disk at HEAD; the v3.6 reboot ran overnight — see control/status.md ledger #215–#229); (2) extension noted in all LIVE lane inboxes, each verified by raw read this wake (11:39Z): substrate-kit control/inbox.md @ 0d79ac52e (line 296) · gba-homebrew @ 0048a5da9 (line 99) · idea-engine @ 828b18ea5 (line 230) · sim-lab @ 17c45585c (line 249) — all carry the "EAP EXTENDED through 2026-07-21" note verbatim. Dormant/parked seats get owner-queue disposition, not ORDERs, so live-lane coverage completes the leg.
+why: the 03:40Z header still read `new` after both legs were satisfied; flipping keeps the inbox truthful.
+done-when: satisfied — this entry is terminal.
