@@ -4,14 +4,14 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #58** · generated-at **2026-07-15T08:57Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #63** · generated-at **2026-07-15T19:47Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
 ### superbot (hub) — ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready…
 
 - suggested-id: `OQ-SUPERBOT-HUB-SIDE-RESIDUE-ONLY`
-- source: superbot/control/status.md @ `f8e2313` · heartbeat `updated:` 2026-07-13T18:00:00Z
+- source: superbot/control/status.md @ `82c68e3` · heartbeat `updated:` 2026-07-13T18:00:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -21,7 +21,7 @@
 ### substrate-kit — - ⚑ FOR OWNER REVIEW: ORDER 024 (control/inbox.md @ 58b3f80) states "do NOT re-arm routines yet; wait for the…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-REVIEW-ORDER-024-CONTROL`
-- source: substrate-kit/control/status.md @ `22fd280` · heartbeat `updated:` 2026-07-15T06:15Z · phase: EAP EXTENSION ACTIVE (EAP throug…
+- source: substrate-kit/control/status.md @ `e196936` · heartbeat `updated:` 2026-07-15T19:41Z · phase: EAP EXTENSION ACTIVE (EAP throug…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -31,7 +31,7 @@
 ### substrate-kit — ⚑ P10 required-check swap
 
 - suggested-id: `OQ-SUBSTRATE-KIT-P10-REQUIRED-CHECK-SWAP`
-- source: substrate-kit/control/status.md @ `22fd280` · heartbeat `updated:` 2026-07-15T06:15Z · phase: EAP EXTENSION ACTIVE (EAP throug…
+- source: substrate-kit/control/status.md @ `e196936` · heartbeat `updated:` 2026-07-15T19:41Z · phase: EAP EXTENSION ACTIVE (EAP throug…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -48,7 +48,7 @@ RISK: ↩️ reversible — re-add the old required checks in the same ruleset p
 ### substrate-kit — ⚑ public-flip-or-PAT (pick one)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-PUBLIC-FLIP-PAT-PICK`
-- source: substrate-kit/control/status.md @ `22fd280` · heartbeat `updated:` 2026-07-15T06:15Z · phase: EAP EXTENSION ACTIVE (EAP throug…
+- source: substrate-kit/control/status.md @ `e196936` · heartbeat `updated:` 2026-07-15T19:41Z · phase: EAP EXTENSION ACTIVE (EAP throug…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -65,7 +65,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### ↳ substrate-kit — `control/status-superbot-coordinator.md` — ⚑ needs-owner: 1) verify/deliver the testing-lane wind-down — superbot-next control/status.md was still UNFLI…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-1-VERIFY-DELIVER-TESTING`
-- source: substrate-kit/control/status-superbot-coordinator.md @ `22fd280` · heartbeat `updated:` 2026-07-10T13:47:02Z
+- source: substrate-kit/control/status-superbot-coordinator.md @ `e196936` · heartbeat `updated:` 2026-07-10T13:47:02Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -75,7 +75,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### venture-lab — ⚑ owner: the Project's custom instructions are dictionary v3.4; the registry copy is v3.6 — re-paste from fm:…
 
 - suggested-id: `OQ-VENTURE-LAB-PROJECT-S-CUSTOM-INSTRUCTIONS`
-- source: venture-lab/control/status.md @ `520bdfc` · heartbeat `updated:` 2026-07-15T04:01:46Z
+- source: venture-lab/control/status.md @ `3bc9e19` · heartbeat `updated:` 2026-07-15T04:01:46Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -85,7 +85,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### superbot-games · Seat A — ⚑ needs-owner: 4 standing decisions, none new this wake — the OWNER ACTIONS checklist (deep links + bolded re…
 
 - suggested-id: `OQ-SUPERBOT-GAMES-4-STANDING-DECISIONS-NONE`
-- source: superbot-games/control/status.md @ `446a84e` · heartbeat `updated:` 2026-07-14T11:41:04Z
+- source: superbot-games/control/status.md @ `1543c4b` · heartbeat `updated:` 2026-07-14T11:41:04Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -95,7 +95,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### ↳ superbot-games · Seat A — `control/status-exploration.md` — ⚑ needs-owner: \|
 
 - suggested-id: `OQ-SUPERBOT-GAMES-FLAG`
-- source: superbot-games/control/status-exploration.md @ `446a84e` · heartbeat `updated:` 2026-07-09T20:09Z
+- source: superbot-games/control/status-exploration.md @ `1543c4b` · heartbeat `updated:` 2026-07-09T20:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -118,7 +118,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### superbot-idle (Seat B) — ⚑ needs-owner: OA-003 — WHAT: add `pytest` as a required status check on main. WHERE: https://github.com/menn…
 
 - suggested-id: `OQ-SUPERBOT-IDLE-OA-003-WHAT-ADD`
-- source: superbot-idle/control/status.md @ `8a7275d` · heartbeat `updated:` 2026-07-14T11:32:05Z
+- source: superbot-idle/control/status.md @ `a37d00e` · heartbeat `updated:` 2026-07-14T11:32:05Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -128,7 +128,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### superbot-idle (Seat B) — - ⚑ to manager: no longer a blocker-ask. Optional follow-up only — owner may create the standalone superbot-p…
 
 - suggested-id: `OQ-SUPERBOT-IDLE-MANAGER-NO-LONGER-BLOCKER`
-- source: superbot-idle/control/status.md @ `8a7275d` · heartbeat `updated:` 2026-07-14T11:32:05Z
+- source: superbot-idle/control/status.md @ `a37d00e` · heartbeat `updated:` 2026-07-14T11:32:05Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -138,7 +138,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### superbot-mineverse — ⚑ needs-owner: unchanged — the four pending clicks remain consolidated in docs/eap-closeout-walkthrough-2026-…
 
 - suggested-id: `OQ-SUPERBOT-MINEVERSE-UNCHANGED-FOUR-PENDING-CLICKS`
-- source: superbot-mineverse/control/status.md @ `b9ade33` · heartbeat `updated:` 2026-07-14T18:59:20Z
+- source: superbot-mineverse/control/status.md @ `ac2b874` · heartbeat `updated:` 2026-07-14T18:59:20Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -148,7 +148,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### product-forge — ⚑ OWNER-ACTION (OA-003, open)
 
 - suggested-id: `OQ-PRODUCT-FORGE-OA-003-OPEN`
-- source: product-forge/control/status.md @ `f7f2dd2` · heartbeat `updated:` 2026-07-11T19:39:50Z
+- source: product-forge/control/status.md @ `1efbb3b` · heartbeat `updated:` 2026-07-11T19:39:50Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -168,7 +168,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### idea-engine — ⚑ needs-owner: unchanged — docs/eap-closeout-walkthrough-2026-07-14.md §C.
 
 - suggested-id: `OQ-IDEA-ENGINE-UNCHANGED-DOCS-EAP-CLOSEOUT`
-- source: idea-engine/control/status.md @ `e17ebe7` · heartbeat `updated:` 2026-07-15T07:58:02Z (real wall-clock via date -u, monotoni…
+- source: idea-engine/control/status.md @ `97b8865` · heartbeat `updated:` 2026-07-15T07:58:02Z (real wall-clock via date -u, monotoni…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -178,7 +178,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### codetool-lab-opus4.8 — ⚑ needs-owner: (1) delete leftover branch claude/status-heartbeat-001 (sessions 403 on ref deletes); (2) OPTI…
 
 - suggested-id: `OQ-CODETOOL-LAB-OPUS4-8-1-DELETE-LEFTOVER-BRANCH`
-- source: codetool-lab-opus4.8/control/status.md @ `0e0ec02` · heartbeat `updated:` 2026-07-09T20:11:35Z
+- source: codetool-lab-opus4.8/control/status.md @ `61efaa9` · heartbeat `updated:` 2026-07-09T20:11:35Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text

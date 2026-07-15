@@ -34,6 +34,17 @@ WHAT IT CHECKS (docs/owner-queue.md, or --queue PATH)
      item: the ask is (at least partially) already satisfied and the item
      needs a re-verify/sweep. An item whose own text already says
      `✅ RESOLVED` gets the softer "sweep it to the Resolved section" flag.
+     1b. DIRTY PARKED PR (added 2026-07-15, oversight wake 1458Z; unverified —
+     confirm against ground truth across sessions) — a cited PR that is still
+     OPEN but whose live `mergeable_state` is `dirty` (merge-conflicted)
+     flags the item: the row's "one-click merge" claim has rotted (the A#63
+     class — fm #227 went dirty when the roster cron advanced main past it).
+     Softer note when the item's own text already acknowledges the conflict
+     (mentions dirty/conflict) — the checker catches SILENT rot, not
+     already-surfaced state. `mergeable_state` is API-only (the HTML fallback
+     carries no reliable marker, and GitHub may report `unknown` while
+     recomputing) — both degrade honestly to a NOT MEASURED note, never a
+     flag; the Actions regen run is the reliable venue.
   2. SLUG DISCIPLINE — every active item must carry a stable
      `- id: OQ-<slug>` line (P2: positional numbers reshuffle on every
      rewrite — the fm PR #75 renumbering broke a cross-reference), and ids
@@ -99,6 +110,9 @@ ITEM_START_RE = re.compile(r"^(\d+)\.\s+(.*)$")
 MERGE_ACTION_RE = re.compile(r"\bMERGE\b|RESOLVED-PENDING-MERGE|"
                              r"\bHOW\b[^\n]*\bmerge\b", re.IGNORECASE)
 RESOLVED_SELF_RE = re.compile(r"✅\s*RESOLVED")
+# Check 1b: an item that already names the conflict is surfaced state, not
+# silent rot — downgrade the dirty-parked flag to a note.
+DIRTY_ACK_RE = re.compile(r"\bdirty\b|\bconflict", re.IGNORECASE)
 POSITIONAL_REF_RE = re.compile(r"owner[- ]queue\s+item\s+#?\d+", re.IGNORECASE)
 # Check 4 (INC-06 residue): "add/make/set/tick/enable … `<context>` … required"
 # — the backticked context must sit near the ask verb and the word
@@ -199,7 +213,7 @@ def fetch_pr_state(repo: str, number: str, token: str | None,
 
     def wall(reason: str) -> dict:
         return {"state": None, "merged": False, "merged_at": None,
-                "wall": reason}
+                "mergeable_state": None, "wall": reason}
 
     url = f"{API_BASE}/{repo}/pulls/{number}"
     req = urllib.request.Request(url, headers={
@@ -211,7 +225,8 @@ def fetch_pr_state(repo: str, number: str, token: str | None,
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode())
         state = {"state": data.get("state"), "merged": bool(data.get("merged")),
-                 "merged_at": data.get("merged_at"), "wall": None}
+                 "merged_at": data.get("merged_at"),
+                 "mergeable_state": data.get("mergeable_state"), "wall": None}
     except (urllib.error.URLError, OSError, json.JSONDecodeError) as api_exc:
         # SESSION FALLBACK (live-verified 2026-07-11): in agent sessions the
         # egress proxy policy-blocks api.github.com — verbatim
@@ -234,6 +249,9 @@ def fetch_pr_state(repo: str, number: str, token: str | None,
                          "merged": s == "merged",
                          "merged_at": ("(timestamp n/a — html fallback)"
                                        if s == "merged" else None),
+                         # html pages carry no reliable mergeable_state
+                         # marker — check 1b degrades to NOT MEASURED.
+                         "mergeable_state": None,
                          "wall": None}
             else:
                 state = wall(f"api: {api_exc}; html fallback: page fetched "
@@ -364,6 +382,31 @@ def check_queue(text: str, fetch, out: list[str], fetch_rules=None) -> int:
                 out.append(f"FLAG [closed-citation] {label}: cited "
                            f"{repo}#{num} is CLOSED unmerged — the click "
                            "described no longer exists; re-verify the item")
+            elif st["state"] == "open":
+                # Check 1b — dirty parked PR (the A#63 class).
+                ms = st.get("mergeable_state")
+                if ms == "dirty":
+                    if DIRTY_ACK_RE.search(it["text"]):
+                        out.append(
+                            f"note  [{label}] cited {repo}#{num} is OPEN "
+                            "with mergeable_state=dirty, but the item "
+                            "already acknowledges the conflict — "
+                            "already-surfaced state, not silent rot")
+                    else:
+                        flags += 1
+                        out.append(
+                            f"FLAG [dirty-parked-pr] {label}: cited "
+                            f"{repo}#{num} is OPEN but mergeable_state="
+                            "dirty (merge-conflicted) — the row's "
+                            "one-click merge claim has rotted; resolve "
+                            "the conflict or re-verify the item "
+                            "(the A#63 / fm#227 class)")
+                elif ms in (None, "unknown"):
+                    out.append(
+                        f"note  [{label}] {repo}#{num} OPEN, "
+                        f"mergeable_state NOT MEASURED "
+                        f"({'html fallback carries none' if ms is None else 'GitHub still computing'}) "
+                        "— dirty-parked check skipped, never guessed")
     return flags
 
 
@@ -413,7 +456,16 @@ KNOWN_STATES = {
     ("superbot-games", "34"): {"state": "closed", "merged": True,
                                "merged_at": "2026-07-11T13:40:40Z", "wall": None},
     ("fleet-manager", "85"): {"state": "open", "merged": False,
-                              "merged_at": None, "wall": None},
+                              "merged_at": None, "mergeable_state": "clean",
+                              "wall": None},
+    # Ground truth recorded 2026-07-15 (oversight wake 1458Z): fm #227 went
+    # mergeable_state=dirty after the roster cron (#231, Gen #59) advanced
+    # main past it at 12:04Z — the A#63 queue amendment records it. Pinned
+    # dirty here so the check-1b fixture never rots (live it may later read
+    # `unknown` while GitHub recomputes, or merge — the stub is the pin).
+    ("fleet-manager", "227"): {"state": "open", "merged": False,
+                               "merged_at": None, "mergeable_state": "dirty",
+                               "wall": None},
 }
 
 
@@ -459,6 +511,10 @@ def selftest() -> int:
                for ln in bad_out):
         fails.append("known-bad: satisfied required-check ask (mineverse "
                      "pytest, the INC-06 case) did not fire")
+    if not any("[dirty-parked-pr]" in ln and "fleet-manager#227" in ln
+               for ln in bad_out):
+        fails.append("known-bad: parked MERGE item citing dirty fm#227 did "
+                     "not fire dirty-parked-pr (the A#63 class)")
     good_flags, good_out = run("owner-queue-known-good.md")
     if good_flags != 0:
         fails.append(f"known-good fixture must be clean, got {good_flags} "
