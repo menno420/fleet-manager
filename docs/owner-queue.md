@@ -46,7 +46,8 @@ manager curates from.
     2026-07-15 ~20:3xZ, evening oversight wake, fm #245 — since merged;
     re-conflicted by that very merge and re-fixed ~21:3xZ, see Update below.)*
     - id: OQ-FM-PR227-MERGE
-    - **Update (2026-07-15 ~21:3xZ, owner-directed — ORDER 047 / fm PR #246):**
+    - **Update (2026-07-15 ~21:3xZ, owner-directed — ORDER 047, landed via
+      fm #246 — since merged; history-as-context, not this item's ask):**
       per the owner's live no-PR-review directive ("I don't review PRs and
       never will. Feature PRs should land on green automatically."), any
       owner-*ratification* framing on this park is retired. The #245 merge to

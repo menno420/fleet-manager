@@ -29,6 +29,9 @@ The v3 generation (provenance: research PRs #93/#95, problem census PRs #94/#96,
 owner baseline 2026-07-11) lives under [`v3/`](v3/per-project/README.md), drafted
 2026-07-12, **not yet deployed**:
 
+- **Paste-ready starting prompts per seat (found/re-found any seat in one
+  sitting):** [`v3/README.md`](v3/README.md) — per-seat file map + the
+  ORDER 040 T1 kept/changed notes (added 2026-07-15).
 - **Owner skim doc — what changed v3.4 → v3.5 → v3.6 (2026-07-13 night folds):**
   [`v3/CHANGES-v3.4-to-v3.5.md`](v3/CHANGES-v3.4-to-v3.5.md).
 
