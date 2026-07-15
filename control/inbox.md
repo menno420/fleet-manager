@@ -1444,3 +1444,9 @@ priority: P2
 do: (status flip) codetool-lab-fable5 hygiene executed: PR #16 parked-green (all 5 CI checks success; repo has no merge-on-green workflow; ORDER 029 merge authority left to owner/another session) — evidence: https://github.com/menno420/codetool-lab-fable5/pull/16 — `git ls-files '*.pyc'` empty on branch; 11 tracked .pyc removed; top-level .gitignore added.
 why: Consuming the pre-extension backlog; unblocks owner archive click B#42.
 done-when: Owner merges PR #16 then archives.
+
+## ORDER 025 · 2026-07-15T05:06Z · status: done
+priority: P1
+do: (status flip) sonnet5 writeup port found already MERGED in substrate-kit — kit PR #340 ("Port fm ORDER 025 writeups into bench docs (ORDER 019 item 5)", merged 2026-07-13T23:28:24Z, commit 0e7191d): both writeups live at kit docs/reports/2026-07-09-cfgdiff-differential-testing-method.md (Status `reference`) and docs/reports/2026-07-09-cfgdiff-v0.1.1-release-decision.md (Status `audit`), each carrying a provenance header to source repo menno420/codetool-lab-sonnet5 @ 66c3dfc and linked from bench/README.md § "Method + practice writeups"; kit heartbeat #348 recorded the completion per the seat grammar ("fm ORDER 025 port: #340 merged … Owner's B#41 archive click unblocked"); this entry records the new-home pointer for sonnet5's final status manager-side (the sonnet5 lane stays wound down, STALE-BY-DESIGN). Re-verified file-by-file at kit HEAD e900008, 2026-07-15 — no re-port performed per the stand-down doctrine. Evidence: https://github.com/menno420/substrate-kit/pull/340.
+why: executed — all done-when legs met; the B#41 archive click no longer waits on this order.
+done-when: satisfied — this entry is terminal.
