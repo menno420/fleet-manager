@@ -33,6 +33,13 @@
   root-caused + workflow fixed this PR; backlog otherwise DRY; no owner replies
   yet to the ~07:10Z summary; seat picture unchanged (idea-engine⇄sim-lab
   cycling; 9 un-rebooted).
+- **Landing state (verified live):** substrate-gate GREEN on the final head
+  `be3988f` (the earlier red was the designed born-red hold), but merge-on-green
+  **skipped #227 by design** — its owner-merge-only rail parks any PR whose diff
+  touches `.github/workflows/**` (verbatim sweep log, run 29404130566: `skipped
+  PR #227: .github/workflows/** in diff — owner-merge-only`). So this PR waits
+  for the owner/coordinator merge click; it will never auto-land, and that is
+  the rail working, not a defect.
 - **Checkers:** check_owner_queue CLEAN; roster freshness OK (Gen #58, 0.4h);
   `bootstrap.py check --strict` clean apart from the designed born-red hold and
   4 pre-existing model-line advisories on 07-14 cards (advisory-only, not this
