@@ -11,7 +11,13 @@
 > wake-0715c working session (fm PR #233). Verify against live repos before
 > acting (playbook R2 / Q-0120).
 
-**Headline: 13/19 PROVEN · 5/19 INSTALLER-PR-OPEN · 1/19 MISSING.** The 13
+> **Superseded headline — see the 2026-07-15 ~17:0xZ addendum at the bottom:**
+> the owner merged all five installer PRs at 15:29:41–15:29:52Z, so coverage
+> is now **18/19 installed (15 proven + 3 installed-unproven) · 1/19 MISSING
+> (sonnet5, B#41 archive-candidate)**. The 14:0xZ table below is the frozen
+> pre-click audit record.
+
+**Headline (as of 14:0xZ): 13/19 PROVEN · 5/19 INSTALLER-PR-OPEN · 1/19 MISSING.** The 13
 proven repos each carry a same-day (2026-07-15) bot-attributed merge — or,
 for superbot, its deliberate PAT attribution — via the OLDER
 `auto-merge-enabler.yml` mechanism (installed 2026-06-13…2026-07-14) or
@@ -90,6 +96,33 @@ enabler-armed merge on an ordinary `claude/*` head — not an install.
    `mergeable_state` now `dirty`, so the owner-queue A#63 "one merge click"
    fails until a session merges main in and regenerates. Checks on the old
    head are still green — green checks do not imply mergeable.
+
+## Addendum — 2026-07-15 ~17:0xZ (oversight wake, fm PR #241): the five installer clicks LANDED
+
+Re-verified live 16:59–17:05Z (`date -u`), GitHub MCP `pull_request_read` +
+per-repo `git ls-remote` main SHAs + workflow-file presence checks
+(raw.githubusercontent for public repos; pml via the MCP Contents API — its
+raw 404 is the private-repo token wall, NOT file absence). The owner merged
+all five A#68 installer PRs in one sitting, 15:29:41–15:29:52Z:
+
+| Repo | Installer PR | merged_at (merged_by menno420) | main@HEAD at verify | merge-on-green.yml at main | Status |
+|---|---|---|---|---|---|
+| superbot-plugin-hello | [#3](https://github.com/menno420/superbot-plugin-hello/pull/3) | 2026-07-15T15:29:41Z | `abd9133` | ✅ (raw 200) | **INSTALLED-INERT** — repo still has zero CI; zero check runs = NOT-ready by design, so the sweep merges nothing until some CI produces check runs (gap 3 below stands) |
+| codetool-lab-opus4.8 | [#24](https://github.com/menno420/codetool-lab-opus4.8/pull/24) | 2026-07-15T15:29:44Z | `61efaa9` | ✅ (raw 200) | **INSTALLED-UNPROVEN** — no bot merge has exercised it yet |
+| codetool-lab-fable5 | [#17](https://github.com/menno420/codetool-lab-fable5/pull/17) | 2026-07-15T15:29:47Z | `e7ca47c` (advanced past merge `a423032`) | ✅ (raw 200) | **PROVEN** — probe PR [#18](https://github.com/menno420/codetool-lab-fable5/pull/18) merged_by **github-actions[bot]** 2026-07-15T16:54:14Z (= main `e7ca47c`) |
+| product-forge | [#25](https://github.com/menno420/product-forge/pull/25) | 2026-07-15T15:29:50Z | `1efbb3b` | ✅ (raw 200) | **INSTALLED-UNPROVEN** — no bot merge has exercised it yet |
+| pokemon-mod-lab (private) | [#89](https://github.com/menno420/pokemon-mod-lab/pull/89) | 2026-07-15T15:29:52Z | `ec63823` | ✅ (MCP Contents API, blob `273fea1`) | **PROVEN** — probe PR [#90](https://github.com/menno420/pokemon-mod-lab/pull/90) merged_by **github-actions[bot]** 2026-07-15T15:30:22Z, ~30 s after install |
+
+**New headline: 18/19 covered — 15 PROVEN (the 13 above + fable5 + pml) ·
+2 INSTALLED-UNPROVEN (opus4.8, product-forge) · 1 INSTALLED-INERT
+(superbot-plugin-hello, zero CI) · 1/19 MISSING (codetool-lab-sonnet5 —
+archive-candidate, B#41).** Cross-cutting gap 3 (plugin-hello
+inert-without-CI) is now LIVE, not hypothetical: the file is on main but
+merges nothing until the hub adds a minimal CI gate or the owner accepts the
+automation as inert — recorded on the fleet-triage plugin-hello row and the
+manager heartbeat. Gap 5 (fm #227 dirty) re-verified this wake: still OPEN,
+unresolved. Owner-queue A#68 (OQ-ROLLOUT-INSTALLER-CLICKS) swept to Resolved
+this pass.
 
 ## Method
 

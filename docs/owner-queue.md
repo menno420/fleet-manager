@@ -70,34 +70,33 @@ manager curates from.
     - RISK: ✅ reversible (revert commit; docs/registry regen only).
     - Blocking: not-blocking; quality-of-substrate.
 
-68. **Merge the five merge-on-green installer PRs — one click each.** *(new
-    2026-07-15, rollout-verification sweep, fm PR #233.)*
+68. **✅ RESOLVED (owner clicked all five 2026-07-15T15:29:41–15:29:52Z;
+    verified live + swept 2026-07-15 ~17:0xZ, oversight wake, fm PR #241) —
+    the five merge-on-green installer PRs are MERGED.**
     - id: OQ-ROLLOUT-INSTALLER-CLICKS
-    - WHAT: land today's merge-on-green rollout — five installer PRs
-      (opened 13:41–13:57Z) each self-parked on the workflow-file
-      owner-merge-only rail they install; nothing landed on any main.
-    - WHERE (paste-ready, one merge click each):
-      - https://github.com/menno420/codetool-lab-opus4.8/pull/24
-      - https://github.com/menno420/codetool-lab-fable5/pull/17
-      - https://github.com/menno420/product-forge/pull/25
-      - https://github.com/menno420/pokemon-mod-lab/pull/89
-      - https://github.com/menno420/superbot-plugin-hello/pull/3
-    - HOW: one merge click per URL (5 total).
-    - UNBLOCKS: self-landing green PRs in those five lanes (ends the
-      park-and-sweep pile in pml — absorbs the B#58/OQ-PML-ENABLER-INSTALL
-      "A" path; ends product-forge's 7+h green-unmerged waits).
-    - NOTE: superbot-plugin-hello additionally needs a CI workflow before
-      its file does anything — the repo has zero CI, and the sweep treats
-      zero check runs as NOT-ready by design; merging #3 alone is a no-op
-      there.
-    - STATUS (re-probe 2026-07-15 ~15:0xZ, oversight wake): all five still
-      OPEN, none merged; each reads live `mergeable_state=clean` — the five
-      clicks remain valid as written, no rot.
-    - VERIFIED-NEEDED: each PR shows MERGED; evidence base:
+    - Evidence (each `merged_by menno420`; workflow file verified present at
+      each repo's live main@HEAD):
+      opus4.8 [#24](https://github.com/menno420/codetool-lab-opus4.8/pull/24)
+      15:29:44Z (main `61efaa9`) ·
+      fable5 [#17](https://github.com/menno420/codetool-lab-fable5/pull/17)
+      15:29:47Z (main `e7ca47c`) ·
+      product-forge [#25](https://github.com/menno420/product-forge/pull/25)
+      15:29:50Z (main `1efbb3b`) ·
+      pml [#89](https://github.com/menno420/pokemon-mod-lab/pull/89)
+      15:29:52Z (main `ec63823`, file via MCP Contents API — private repo) ·
+      plugin-hello [#3](https://github.com/menno420/superbot-plugin-hello/pull/3)
+      15:29:41Z (main `abd9133`).
+    - Already PROVEN live in two of the five: fable5 probe #18 + pml probe
+      #90 each merged_by **github-actions[bot]** same day. Coverage headline
+      now **18/19**; full table in the findings addendum:
       [`findings/merge-on-green-rollout-verification-2026-07-15.md`](findings/merge-on-green-rollout-verification-2026-07-15.md)
-      (per-repo table, INSTALLER-PR-OPEN rows).
-    - RISK: ✅ reversible — workflow files; delete to revert.
-    - Blocking: not-blocking, but holds merge automation in five lanes.
+      § Addendum 17:0xZ.
+    - Residual (NOT an owner click — hub-side recommendation, recorded on
+      the fleet-triage plugin-hello row): superbot-plugin-hello's new
+      automation is **INERT** — the repo has zero CI, and the sweep treats
+      zero check runs as NOT-ready by design; it merges nothing until a
+      minimal CI gate exists there (agent-doable) or the inert state is
+      accepted.
 
 ### (B) GitHub settings / repo admin
 
