@@ -1,0 +1,1 @@
+- claude/roster-regen-0810 · fm slice: roster freshness check (fresh, regen skipped) + seat delta + fleet-triage note + heartbeat · expected files: docs/fleet-triage.md, control/status.md, .sessions/ · 2026-07-15
