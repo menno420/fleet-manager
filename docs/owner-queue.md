@@ -58,6 +58,23 @@ manager curates from.
     - RISK: ✅ reversible (revert commit; repo not yet archived).
     - Blocking: not-blocking; gates B#42 only.
 
+63. **fleet-manager — merge PR #227 (the lanes.json regen fix).** *(new
+    2026-07-15, morning sweep.)*
+    - id: OQ-FM-PR227-MERGE
+    - WHAT: merge fleet-manager PR #227 — fixes lanes.json regeneration so
+      the roster-regen cron keeps `registry/lanes.json` in generation parity
+      with `docs/roster.md` (the Gen 56-vs-57 counter-lag drift class). CI is
+      GREEN, but the PR diffs a workflow file, so merge-on-green parks it on
+      its owner-merge-only rail — it cannot land itself.
+    - WHERE: https://github.com/menno420/fleet-manager/pull/227
+    - HOW: one merge click at the URL above.
+    - UNBLOCKS: lanes.json generation-parity self-healing on future cron
+      runs (no more hand-fixed counter lag).
+    - VERIFIED-NEEDED: PR #227 shows MERGED (the check_owner_queue probe
+      will flag this item the moment it lands — sweep it to Resolved then).
+    - RISK: ✅ reversible (revert commit; docs/registry regen only).
+    - Blocking: not-blocking; quality-of-substrate.
+
 ### (B) GitHub settings / repo admin
 
 5. **pokemon-mod-lab OA-1 — add required check `ROM builds` (keep
