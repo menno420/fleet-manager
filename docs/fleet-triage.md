@@ -418,6 +418,37 @@ three codetool-lab repos (STALE-BY-DESIGN / DARK, no reboot expected for
 the last four). Neutral, no alarms: a rebooted seat only stamps at session
 close, and the failsafe lattice covers the quiet lanes.
 
+## 2026-07-15 · morning seat delta vs 06:26Z (08:12–08:15Z, read-only)
+
+Measured 08:12–08:15Z (`date -u`; shallow clones at HEAD for heartbeat
+`updated:` stamps + newest default-branch commits, codetool labs via
+`git ls-remote`) against the 06:26Z baseline (fm heartbeat stamp 06:23:58Z /
+`14b5d51`). **Delta: the idea-engine⇄sim-lab loop is the only seat-side
+mover, and it is cycling fast** — idea-engine heartbeat re-stamped
+07:58:02Z, newest commit `8b8fa6c` 08:01:57Z (#433, "cycles P064–P068
+verdicted (V077–V081), loop live"); sim-lab newest commit `23cb87b`
+08:13:39Z (#151, VERDICT 082 — WIP-cap dryness floor, P069). The other two
+overnight-live lanes are quiet this window: substrate-kit HEAD unchanged at
+`22fd280` 06:17:07Z (last act recorded the 06:05Z failsafe fire as honest
+idle, #384; heartbeat 06:15Z, FRESH) and gba-homebrew unchanged at
+`18ddd08` 06:22:06Z (#145, wickroad growth cut 4 v0.5 — landed just before
+the baseline). Automated substrate movement only: fleet-manager roster
+regen Gen #57 landed 06:38:33Z (`dbd64a3`, PR #224, roster-regen.yml) and
+superbot hub took a bot dashboard-refresh merge `f8e2313` 06:33:22Z
+(#2109) — routine, hub heartbeat still 2026-07-13T18:00Z (Q-0264/INC-16
+lag, ACTIVE by pushes). **The un-rebooted set is unchanged at 9** (hub,
+trading-strategy, superbot-games, superbot-idle, superbot-mineverse,
+product-forge, codetool labs ×3): zero seat-side commits in the window —
+newest movement remains the coordinator's 03:37–03:41Z EAP-extension-note
+relays (trading `458b43c`, games `446a84e`, idle `8a7275d`, mineverse
+`b9ade33`) or older (forge `f7f2dd2` 07-14, labs `5b0835b`/`0e0ec02`/
+`0331176` unchanged). Rebooted-but-quiet also unchanged: superbot-next
+(`ad75bbc` 03:41Z), websites (`3cac461` 03:37:59Z), venture-lab (`520bdfc`
+04:10:05Z, heartbeat 04:01:46Z); pokemon-mod-lab still behind the private
+auth wall (roster: NOT MEASURED). Neutral, no alarms — the reboot gap was
+flagged to the owner in the ~07:10Z morning summary (A#62 + reboot gaps)
+and the failsafe lattice covers the quiet lanes.
+
 ## How to re-verdict
 
 1. Verify against live source (Q-0120 — never against report text).
