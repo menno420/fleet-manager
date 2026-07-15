@@ -390,6 +390,34 @@ Next sweep should start seeing post-03:45Z stamps as rebooted sessions
 close; per-seat table in the session card
 `.sessions/2026-07-15-cr-disposition-sweep.md` (fm PR #217).
 
+## 2026-07-15 · second v3.6 reboot re-sweep (05:39–05:44Z, read-only)
+
+Measured 05:39–05:44Z (`date -u`; heartbeats via raw.githubusercontent.com
+`control/status.md` at HEAD, pml via GitHub MCP as private; newest
+default-branch commits via GitHub MCP) against the 04:28Z baseline (fm PR
+#220 heartbeat: 9/18 active post-03:45Z). **Delta: 5 seats show new
+post-04:28Z activity, and the not-yet-rebooted set is unchanged at 9.** The
+headline mover is **substrate-kit**, out of its 04:21Z all-triggers-deleted
+STANDBY: heartbeat re-stamped 05:10Z ("EAP EXTENSION ACTIVE … routines
+coordinator-managed") now carrying wake trigger `trig_01CUfSZo9Uky9DdpoqpZPcfT`
+(a trigger id absent from roster gen #56 — re-arm evidence), newest commit
+`5905201` 05:13:04Z (kit #383); the C#61 kit-go hold reads as resolved
+lane-side. Also newly active: gba-homebrew `4a61ec9` 05:12:49Z (#143,
+wickroad contracts v0.3), idea-engine (heartbeat 05:02:38Z + `85114c5`
+05:06:06Z, PROPOSAL 065 round-13), sim-lab `b7a6859` 05:41:04Z (VERDICT 078
+rejecting P065 — the generate→verify loop live end-to-end overnight), and
+fleet-manager itself (heartbeat 05:04Z + `e4abf1d` 05:07:28Z, #221).
+Rebooted-at-baseline but quiet since: superbot-next (newest `ad75bbc`
+03:41Z), websites (`3cac461` 03:37:59Z), venture-lab (heartbeat 04:01:46Z,
+`520bdfc` 04:10:05Z), pokemon-mod-lab (heartbeat 2026-07-14T05:07Z, newest
+commit 2026-07-14T15:18Z). Still not rebooted — newest commits are the
+coordinator's own 03:36–03:41Z extension-note relays or older, zero
+seat-side post-04:28Z activity: superbot hub, trading-strategy,
+superbot-games, superbot-idle, superbot-mineverse, product-forge, and the
+three codetool-lab repos (STALE-BY-DESIGN / DARK, no reboot expected for
+the last four). Neutral, no alarms: a rebooted seat only stamps at session
+close, and the failsafe lattice covers the quiet lanes.
+
 ## How to re-verdict
 
 1. Verify against live source (Q-0120 — never against report text).
