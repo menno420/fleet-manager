@@ -1,1 +1,0 @@
-- `claude/session-ender-handoff` · **session-ender handoff: RESUME.md rewrite + final heartbeat + card** · docs/RESUME.md, control/status.md, .sessions/ · 2026-07-15
