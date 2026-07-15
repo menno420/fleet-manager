@@ -36,8 +36,27 @@ manager curates from.
 
 ### (A) GitHub merges — one click each
 
-*(Empty — the whole 2026-07-11 merge group was clicked by the owner ~14:56Z;
-see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
+*(The whole 2026-07-11 merge group was clicked by the owner ~14:56Z; see
+"Resolved 2026-07-11 (P3 curation sweep)" below. Section repopulated
+2026-07-15.)*
+
+62. **codetool-lab-fable5 — merge PR #16 (the archive-precondition hygiene
+    fix), then proceed with the existing B#42 archive click.** *(new
+    2026-07-15, reboot night — ORDER 026 executed by the coordinator.)*
+    - id: OQ-FABLE5-PR16-MERGE
+    - WHAT: merge codetool-lab-fable5 PR #16 — hygiene: 11 tracked `.pyc`
+      files removed + `.gitignore` added; CI 5/5 green, parked READY (that
+      repo has no merge-on-green workflow, so it cannot land itself). This
+      satisfies the ORDER P1-5 `.pyc`/`.gitignore` hygiene precondition
+      named on B#42 (OQ-CONSOLIDATION-ARCHIVE-FABLE5); the E#46 envdrift
+      letter remains B#42's other gate.
+    - WHERE: https://github.com/menno420/codetool-lab-fable5/pull/16
+    - HOW: one merge click at the URL above.
+    - UNBLOCKS: the B#42 archive flow (jointly with your E#46 letter).
+    - VERIFIED-NEEDED: PR #16 shows MERGED (the check_owner_queue probe
+      will flag this item the moment it lands — sweep it to Resolved then).
+    - RISK: ✅ reversible (revert commit; repo not yet archived).
+    - Blocking: not-blocking; gates B#42 only.
 
 ### (B) GitHub settings / repo admin
 
@@ -726,6 +745,32 @@ see "Resolved 2026-07-11 (P3 curation sweep)" below.)*
       (on main via #366 = `902791d`), STALLS item 8 verbatim + the
       asks-pending line.
     - Blocking: not-blocking — blocks only the hermes lane.
+
+61. **substrate-kit — "kit go": re-arm the wake chain (seat is in STANDBY
+    with ZERO armed triggers).** *(new 2026-07-15, reboot night —
+    coordinator ask; classifier wall recorded, one attempt.)*
+    - id: OQ-KIT-GO-REARM
+    - WHAT: reply **"kit go"** (one word) in the coordinator chat, or paste
+      substrate-kit's v3.6 reboot prompt into its Project.
+    - WHERE: the coordinator session (the chat this queue is curated from)
+      or the substrate-kit Project.
+    - HOW (paste-ready): `kit go — re-arm substrate-kit's wake chain
+      (failsafe + daily loop), record trigger ids in control/status.md,
+      resume lane work incl. ORDERs 022/023; ORDER 024's hold is
+      satisfied.`
+    - WHY: kit rebooted into STANDBY at 04:21Z with ALL its wake triggers
+      deliberately deleted (its reading of ORDER 024's "wait for the
+      owner's per-seat go"); the coordinator's clarifying re-arm ORDER was
+      denied by the auto-mode classifier (needs genuine owner provenance,
+      not coordinator inference — one attempt, wall recorded); without a
+      failsafe a trigger-less seat never wakes on its own.
+    - UNBLOCKS: the whole kit lane, incl. ORDER 022 (P0 stop-hook fix) +
+      ORDER 023 (branch-sweep cron).
+    - VERIFIED-NEEDED: kit `control/status.md` shows new trigger ids
+      verified via `list_triggers`.
+    - RISK: ✅ reversible.
+    - Blocking: blocks the entire substrate-kit lane until answered.
+      **Recommendation: reply "kit go" here.**
 
 ### (D) External services
 
