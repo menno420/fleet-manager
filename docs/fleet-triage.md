@@ -48,7 +48,7 @@ action to activate) · **DELETE** (none).
 | **sim-lab** (evidence/lie-detector) | Ideas Lab (verify half of the generate→verify loop) | 🟢 | KEEP | 67 verdicts (numbering high-water — sim-lab's own count; 62 `sims/verdict-*` dirs on disk, live-verified 2026-07-14 at HEAD `311c461`, INC-14; the seed's "10" was a dated snapshot), self-checks caught a real bug; idle-by-design not stuck | ~~Owner: enable Codex (OA-002)~~ *(post-seed: integration-ENABLED resolved — Codex envs exist for all 12 active repos, ORDER 014; quota-throughput half OPEN sim-lab-side — INC-04 split, 2026-07-14)* |
 | **idea-engine** (ideation) | Ideas Lab (generate half) | 🟢 | KEEP | 193 PRs, reports verify true; surfaced a real superbot false-green | Split the 25KB status.md; lift the ≤07-13 owner decision out of the bloat |
 | **fleet-manager** (coordination substrate) | Fleet Manager (manager) | 🟢 | KEEP | The de-facto SSOT; roster/queue/inbox real | *(post-seed: the seed's "ledgers drift + stubs unfilled" 🟡 is CLOSED by P1–P3, fm #81–#86)* Keep the custodian loop green |
-| **superbot-plugin-hello** | seed — spans SuperBot 2.0 (contract) ↔ SuperBot World (consumers) | 🟢 seeded | **KEEP-QUIET** *(re-verdict 2026-07-14, INC-01: seeded `bbaccec` 2026-07-12T13:29Z, live-re-verified non-empty; pinned by superbot-next `plugins.lock.json` — never archive)* | Contract exemplar, dormant-by-design; idle PLUG-001 unblocked (adapter #75/#78) | none — passive-by-design (no heartbeat) |
+| **superbot-plugin-hello** | seed — spans SuperBot 2.0 (contract) ↔ SuperBot World (consumers) | 🟢 seeded | **KEEP-QUIET** *(re-verdict 2026-07-14, INC-01: seeded `bbaccec` 2026-07-12T13:29Z, live-re-verified non-empty; pinned by superbot-next `plugins.lock.json` — never archive)* | Contract exemplar, dormant-by-design; idle PLUG-001 unblocked (adapter #75/#78) | ⚠ merge-on-green.yml installed (owner-merged #3, 2026-07-15T15:29:41Z, main `abd9133`) but **INERT** — repo has zero CI, zero check runs = NOT-ready by design, so it merges nothing; hub should add a minimal CI gate (agent-doable) or accept the automation as inert (2026-07-15 addendum, [rollout findings](findings/merge-on-green-rollout-verification-2026-07-15.md)) |
 | **codetool-lab-fable5** (envdrift) | none — seat retired to stub (slice 1) | ⚫ parked | **ARCHIVE** *(disposition DECIDED 2026-07-14 — archive, no relaunch; sequenced release-before-archive; see dispatch-log)* | Finished CLI, wound-down, no mission | D5 mirror-before-archive + P1-5 hygiene + tag/Release clicks, then owner archive click (E#44/E#45 gate) |
 | **codetool-lab-opus4.8** (mdverify) | none — seat retired to stub (slice 1) | ⚫ parked | **KEEP unarchived** *(re-verdict 2026-07-14, INC-03: this row's old ARCHIVE contradicted the standing 2026-07-10 owner ruling + live mdverify releases v0.1.0/v0.2.0 — the consolidation plan's reconciled verdict wins; decide-and-flag)* | Finished CLI, releases LIVE (the fleet's release exemplar), wound-down | none — dormant KEEP; re-verdict only if the owner rules again |
 | **codetool-lab-sonnet5** (cfgdiff) | none — seat retired to stub (slice 1) | ⚫ parked | **ARCHIVE** | Finished CLI, wound-down, no mission | Archive after gen-3 succession settles; pending v0.1.1 tag |
@@ -561,6 +561,30 @@ not seat-side signal):
 | superbot-idle | 2026-07-14T11:32:05Z (seat-written, ORDER 008 re-stamp) | ~26.5h | **DARK — reboot gap continues** (same pattern; only the ORDER 010 relay `8a7275d` 03:38:39Z since) | status @ main `8a7275d`; 0 open PRs |
 | superbot-mineverse | 2026-07-14T18:59:20Z (cross-seat relay written by a games worker) | ~19h | **STALE** (no armed trigger — reboot gap; only the ORDER 009 relay `b9ade33` 03:40:11Z since) | status @ main `b9ade33`; 0 open PRs |
 | superbot (hub) | 2026-07-13T18:00:00Z (no-standing-seat/irregular by design, Q-0264) | ~44h (stamp) | **FRESH via HEAD-activity fallback** — same-day merge #2111 at 12:54:46Z (main `3fb5dd0`) + 2 intentional open PRs (#2110 docs 10:24:32Z; #2061 held draft, Q-0193) | HEAD `3fb5dd0`; hub doctrine per status header |
+
+## 2026-07-15 · A#68 installer clicks LANDED — merge-automation coverage 18/19 (oversight wake, 16:59–17:05Z, read-only verify)
+
+> Dated evidence note (per §How-to-re-verdict pt 4). Supersedes the 14:0xZ
+> note's "(a)" landing-path table above: the owner merged all five installer
+> PRs 2026-07-15T15:29:41–15:29:52Z (each `merged_by menno420`), and the
+> workflow file is verified at each repo's live main. Owner-queue A#68
+> (OQ-ROLLOUT-INSTALLER-CLICKS) swept to Resolved; full verification table:
+> [`findings/merge-on-green-rollout-verification-2026-07-15.md`](findings/merge-on-green-rollout-verification-2026-07-15.md)
+> § Addendum 17:0xZ. Recorded by fm PR #241.
+
+| Lane | Landing path NOW | Citation |
+|---|---|---|
+| codetool-lab-opus4.8 | **self-landing on green (installed-unproven)** — sweep live at main `61efaa9`; no bot merge has exercised it yet | #24 merged 15:29:44Z |
+| codetool-lab-fable5 | **self-landing PROVEN** — probe #18 merged_by github-actions[bot] 16:54:14Z | #17 merged 15:29:47Z; main `e7ca47c` |
+| product-forge | **self-landing on green (installed-unproven)** — sweep live at main `1efbb3b`; ends the 7+h green-unmerged wait class once exercised | #25 merged 15:29:50Z |
+| pokemon-mod-lab | **self-landing PROVEN** — probe #90 merged_by github-actions[bot] 15:30:22Z, ~30 s after install | #89 merged 15:29:52Z; main `ec63823` (file via MCP Contents API) |
+| superbot-plugin-hello | **installed but INERT** — zero CI in repo, zero check runs = NOT-ready by design; needs a minimal CI gate (agent-doable) or accept-as-inert (see register row) | #3 merged 15:29:41Z; main `abd9133` |
+
+Fleet headline: **18/19 covered — 15 PROVEN · 2 installed-unproven
+(opus4.8, product-forge) · 1 installed-inert (plugin-hello) · 1 MISSING
+(codetool-lab-sonnet5, ARCHIVE-candidate B#41 — rollout skipped it by
+design).** fm #227 (A#63) re-verified this wake: still OPEN awaiting
+conflict resolution + owner click; its queue row stays.
 
 ## How to re-verdict
 
