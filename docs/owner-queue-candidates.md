@@ -4,7 +4,7 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #57** · generated-at **2026-07-15T06:37Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #58** · generated-at **2026-07-15T08:57Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
@@ -168,7 +168,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### idea-engine — ⚑ needs-owner: unchanged — docs/eap-closeout-walkthrough-2026-07-14.md §C.
 
 - suggested-id: `OQ-IDEA-ENGINE-UNCHANGED-DOCS-EAP-CLOSEOUT`
-- source: idea-engine/control/status.md @ `1f304b0` · heartbeat `updated:` 2026-07-15T05:02:38Z (real wall-clock via date -u, monotoni…
+- source: idea-engine/control/status.md @ `e17ebe7` · heartbeat `updated:` 2026-07-15T07:58:02Z (real wall-clock via date -u, monotoni…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
