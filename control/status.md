@@ -1,12 +1,17 @@
 # Fleet Manager — coordinator heartbeat
 
-updated: 2026-07-14T21:16:02Z — SEAT DORMANT (owner order 2026-07-14: EAP complete, all projects paused for an undisclosed period)
+updated: 2026-07-15T03:40:49Z — coordinator LIVE again (EAP EXTENDED through 2026-07-21; dormancy superseded; owner reboot review in progress)
 
-## Dormancy record
-- EAP FINAL STATE: 13/13 audits · 13/13 walkthroughs · all ledgers final (#208) · email draft (scale-context addendum added) + 53-row owner checklist on main · fleet terminal or by-design holds.
-- ROUTINE DISPOSITION: pacemaker chain terminated (pending one-shots deleted); the failsafe cron trig_01FpTbpXCeGcotnBpTkscAdr is deleted by the coordinator as the true final call AFTER this PR merges (owner retire order) — if a stray fire occurs before that, the firing session should verify this heartbeat and END without working.
-- REVIVAL: read docs/RESUME.md first. Re-arm per docs/prompts/v3/ (failsafe 30 */2 * * * in the registry stagger slot) and resume the central-docs-plan phases.
-- Standing batons: kit ORDERs 022/023 (stop-hook fix + branch-sweep template) await kit release + adopter regen · fm ORDER 024 owner-gated (E#44) · owner checklist 47 open rows (console/credential/decision).
+## Routine disposition
+
+- Failsafe re-armed: trig_012QyaM9wybnThRv8psNibve · cron 30 */2 * * * · bound to the live coordinator session · next fire ~04:38Z. Pacemaker chain live (~30 min, Q-0265).
+
+## Revival state
+
+- Extension recorded: ORDER 046 + docs/pre-reboot-review-2026-07-15.md (48h audit: 15 repos genuinely active until shutdown; never-attached: superbot-plugin-hello + by-design darks; anomalies: pml #87 stuck, SBW trio unstamped, kit failsafe still armed · consolidation proposal: all KEEPs except forge/codetool archives per gated plan).
+- Owner is rebooting the Projects with v3.6 prompts; extension notes fanning out to 12 lane inboxes in parallel.
+- Standing: kit ORDERs 022/023 await the rebooted kit seat; owner checklist 47 rows; email draft (updated) awaits send before 7/21.
 
 ## ⚑ Owner
-- docs/eap-owner-checklist-2026-07-14.md remains the one-sitting list whenever convenient.
+
+- Pre-reboot review doc = the per-project review surface; E#44/45/46 gates unchanged.
