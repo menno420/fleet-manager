@@ -1,1 +1,0 @@
-- `claude/retire-c61` · **retire owner-queue C#61 (OQ-KIT-GO-REARM) — kit resume verified lane-side; heartbeat refresh** · docs/owner-queue.md + control/status.md + .sessions/ · 2026-07-15
