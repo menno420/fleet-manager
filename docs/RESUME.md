@@ -1,13 +1,13 @@
-# RESUME — start here after the hiatus
+# RESUME — start here, next coordinator
 
 > **Status:** `reference`
 >
-> The revival door for the fleet-manager seat. Written 2026-07-14 as the
-> fleet went dormant (owner order: EAP complete, all projects paused for an
-> undisclosed period). First read for whichever session wakes this seat back
-> up. Everything below was verified against the tree at write time; per the
-> truth bar, files and sibling HEADs win over this doc wherever they have
-> since moved.
+> The handoff door for the fleet-manager coordinator seat. Rewritten
+> 2026-07-15T10:21Z as the live coordinator chat archived (session-ender
+> handoff, PR #229); it supersedes the 2026-07-14 dormancy edition — the
+> fleet is **LIVE** again, not dormant. Everything below was verified
+> against the tree at write time; per the truth bar, files and sibling
+> HEADs win over this doc wherever they have since moved.
 
 ## 1 · What this repo is
 
@@ -15,79 +15,90 @@ fleet-manager is the fleet's source of truth and coordination hub: the
 manager seat that steers the ~13-seat / ~19-repo agent fleet through
 `control/` (owner-written `inbox.md` orders → manager-written `status.md`
 heartbeat) and holds the cross-repo ledgers (roster, owner-queue, triage,
-capabilities, dispatch log). The centralization program that makes it the
-main SoT is [docs/planning/2026-07-14-central-docs-plan.md](planning/2026-07-14-central-docs-plan.md):
-**Slice 0 is complete fm-side** (dispatch-log, 0235Z wake record: "the
-Slice 0 items themselves, which are complete fm-side") and **Phase 1 is done
-for everything fm-write-scope** (plan's Phase 1 status note @ 06:50Z — it
-closes fully when websites + sim-lab execute their lane-side folds).
-**Phases 2–5 (doctrine consolidation · pipeline ledgers · archive rescue ·
-owner-gated moves) resume on revival.**
+capabilities, dispatch log).
 
-## 2 · Boot path for a fresh session
+## 2 · Current state (as of 2026-07-15T10:21Z)
+
+- **Fleet is LIVE** — the owner's v3.6 reboot wave ran overnight
+  2026-07-15; the **EAP is extended to 2026-07-21** (ORDER 046,
+  `control/inbox.md`).
+- The previous coordinator session ran the overnight ledger **fm PRs
+  #215–#228** (all merged on green except **#227**, parked
+  owner-merge-only — workflow-file diff). Its final heartbeat is
+  `control/status.md` (phase: COORDINATOR SESSION ENDED).
+- **Live lanes**: substrate-kit · gba · the idea-engine⇄sim-lab proposal
+  loop (cycling fast). 9 seats remain un-rebooted **by owner choice**
+  (hub, trading, games, idle, mineverse, forge, labs ×3) — neutral, no
+  action owed until the owner sends their v3.6 prompts.
+
+## 3 · Boot path for a fresh coordinator session (unchanged)
+
+**HARD-SYNC first**: `git fetch origin main && git reset --hard
+origin/main` on a clean tree (a dirty tree is a predecessor's work —
+rescue-branch + push, never reset over it). Then read, in order:
 
 1. `CONSTITUTION.md` (repo root) — the binding working agreement.
-2. `control/status.md` — the dormancy record and last-known fleet state.
-3. [docs/roster.md](roster.md) (generated fleet roster — its generated-at
-   will be stale after the hiatus; trust lane heartbeats per its
-   kill-switch note) + [docs/owner-queue.md](owner-queue.md) +
+2. `control/status.md` — the last coordinator heartbeat.
+3. `control/inbox.md` **at HEAD** — owner orders (newest at bottom;
+   ORDER 046 is the EAP-extension order).
+4. [docs/roster.md](roster.md) + [docs/owner-queue.md](owner-queue.md) +
    [docs/playbook.md](playbook.md) (R1–R25 operating rules).
 
-## 3 · Where the EAP finale artifacts live
+Verify: `check_roster_freshness.py` + `check_owner_queue.py` +
+`check_trigger_health.py` (R26). Full boot text: the stored prompt in
+[docs/prompts/v3/per-project/fleet-manager-startup.md](prompts/v3/per-project/fleet-manager-startup.md).
 
-- **Final-night worklists** (per-seat, ORDER 045):
-  [docs/eap-final-night-worklists-2026-07-13.md](eap-final-night-worklists-2026-07-13.md).
-- **Audits collection** (all 13 seat audits, collected):
-  [docs/eap-audit-collection.md](eap-audit-collection.md).
-- **Review docs**: [docs/eap-retrospective.md](eap-retrospective.md) (the
-  program retrospective), [docs/eap-story.md](eap-story.md) (the narrative),
-  [docs/eap-final-recon-2026-07-14.md](eap-final-recon-2026-07-14.md)
-  (final reconciliation sweep).
-- **Owner checklist** (53 rows, ~47 still open at dormancy —
-  console/credential/decision items for one sitting):
-  [docs/eap-owner-checklist-2026-07-14.md](eap-owner-checklist-2026-07-14.md).
-- **Final feedback email draft** (body final, scale-context addendum added
-  2026-07-14): [docs/eap-final-email-draft-2026-07-14.md](eap-final-email-draft-2026-07-14.md).
-- **Final-state triage table** (keep / replace / archive / delete verdict
-  per repo): [docs/fleet-triage.md](fleet-triage.md).
+## 4 · Re-arm the wake chain (the outgoing session's triggers are GONE)
 
-## 4 · How to revive the seat
+The outgoing coordinator retired its own triggers at close — the failsafe
+`trig_012QyaM9wybnThRv8psNibve` and its pacemaker chain were deleted and
+verified gone via `list_triggers`. **Nothing wakes this seat until you
+re-arm it:**
 
-1. **Re-arm the failsafe cron** with the exact stored prompt from
-   [docs/prompts/v3/per-project/fleet-manager-startup.md](prompts/v3/per-project/fleet-manager-startup.md)
-   (name "Fleet Manager failsafe wake", cron `30 */2 * * *` — the seat's
-   slot in the stagger table at
+1. **Failsafe cron** — name `Fleet Manager failsafe wake`, cron
+   `30 */2 * * *` (the seat's slot in the stagger table,
    [docs/prompts/v3/per-project/README.md](prompts/v3/per-project/README.md)
-   § "Failsafe cron stagger table"; a foreign trigger in the slot → report,
-   never re-slot). The pre-dormancy failsafe
-   `trig_01FpTbpXCeGcotnBpTkscAdr` was retired at shutdown (see the
-   dormancy heartbeat) — create fresh, verify via `list_triggers`
-   (paginate fully) before trusting it.
-2. **Restart the pacemaker**: the ~15-min `send_later` continuation chain
-   (Q-0265 pattern — ONE send_later per working turn, never stacked; the
-   ender arms nothing), per
-   [docs/prompts/v3/per-project/fleet-manager-custom-instructions.md](prompts/v3/per-project/fleet-manager-custom-instructions.md).
-3. Resume the central-docs-plan phases (§1 above) and drain the batons (§5).
+   § "Failsafe cron stagger table"; a foreign trigger in the slot →
+   report, never re-slot), prompt = the stored startup prompt (§3 link).
+   Create fresh, then verify via `list_triggers` (paginate fully).
+2. **Pacemaker** — ~15–30 min `send_later` continuation per working turn
+   (Q-0265 pattern: ONE send_later per working turn, never stacked; the
+   session ender arms nothing). Doctrine:
+   [docs/prompts/v3/per-project/fleet-manager-custom-instructions.md](prompts/v3/per-project/fleet-manager-custom-instructions.md)
+   and `docs/ROUTINES.md`.
 
-## 5 · Standing batons (open work waiting at dormancy)
+## 5 · Open batons (waiting at handoff)
 
-- **substrate-kit inbox ORDERs 022 + 023 unconsumed** — the stop-hook
-  branch-recreation guard (022) and the scheduled branch-sweep workflow
-  template (023, extends 022; remedy settled in
-  [docs/findings/branch-recreation-census-2026-07-14.md](findings/branch-recreation-census-2026-07-14.md)).
-  Both await a kit release + adopter regeneration; verify at kit HEAD
-  before acting.
-- **fm ORDER 024 owner-gated** (`control/inbox.md`) — gated on the
-  owner-queue E#44 consolidation-plan letter; do not execute until the
-  owner approves.
-- **superbot follow-up leads** (dispatch-log true-up 2026-07-14T19:51Z):
-  the checker-vs-test severity mismatch (superbot
-  `.sessions/2026-07-14-eap-docs-closeout.md` — `check_docs.py` reports the
-  docs ratchet soft while the twin pytest invariant enforces it hard) and
-  the docs-budget ratchet 21 → 22 raise, which carries an explicit
-  reversal path once the EAP closeout is consumed.
-- **Owner checklist ~47 open rows** — §3 above; deadline rows are gone,
-  the rest is a one-sitting sweep whenever convenient.
-- **central-docs-plan Phases 2–5** — §1 above; Phase 1 residue = websites
-  ORDER 028 + sim-lab ORDER 007 lane-side folds (delivered, `status: new`
-  at their HEADs at write time).
+- **fm PR #227** — lanes.json regen fix, GREEN but parked
+  **owner-merge-only** (workflow-file diff); needs one owner merge click
+  (owner-queue **A#63**).
+- **codetool-lab-fable5 PR #16** — owner merge click (owner-queue
+  **A#62**).
+- **superbot-next STALE** — its coordinator rebooted 04:20Z, stalled
+  mid-close ~04:58Z; PR #490 sits born-red (card unflipped, auto-merge
+  armed but held). Owner was advised live (~10:1xZ) to reply "continue"
+  in that chat or boot a fresh v3.6 session. Verify at HEAD before
+  acting; triage entry: [docs/fleet-triage.md](fleet-triage.md).
+- **curious-research PARKED by owner** — no reboot; it gets a new
+  mission later. Do not wake it.
+- **ORDERs 023/024 owner-gated** — pending the owner-queue **E#44**
+  consolidation-plan disposition; do not execute until the owner
+  approves. (ORDERs 030–044 are lane-owned.)
+- **9 seats un-rebooted by owner choice** (§2) — neutral; not a
+  coordinator task.
+
+## 6 · Older reference (EAP finale, written at the 2026-07-14 dormancy)
+
+Still where they were: worklists
+[docs/eap-final-night-worklists-2026-07-13.md](eap-final-night-worklists-2026-07-13.md),
+audits [docs/eap-audit-collection.md](eap-audit-collection.md),
+retrospective [docs/eap-retrospective.md](eap-retrospective.md) + story
+[docs/eap-story.md](eap-story.md) + recon
+[docs/eap-final-recon-2026-07-14.md](eap-final-recon-2026-07-14.md),
+owner checklist (~47 rows open)
+[docs/eap-owner-checklist-2026-07-14.md](eap-owner-checklist-2026-07-14.md),
+email draft
+[docs/eap-final-email-draft-2026-07-14.md](eap-final-email-draft-2026-07-14.md).
+Reboot-night context: [docs/pre-reboot-review-2026-07-15.md](pre-reboot-review-2026-07-15.md).
+central-docs-plan Phases 2–5 remain open
+([docs/planning/2026-07-14-central-docs-plan.md](planning/2026-07-14-central-docs-plan.md)).
