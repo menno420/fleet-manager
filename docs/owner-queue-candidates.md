@@ -4,75 +4,82 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #56** · generated-at **2026-07-15T03:52Z** · by pre-reboot-review landing session (coordinator's landing hand), dispatched by coordinator dispatch 2026-07-15 (PR #215 merge-conflict regen, #191-pattern recovery)
+> **Generation #57** · generated-at **2026-07-15T06:37Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
 ### superbot (hub) — ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready…
 
 - suggested-id: `OQ-SUPERBOT-HUB-SIDE-RESIDUE-ONLY`
-- source: superbot/control/status.md @ `6be93a0` · heartbeat `updated:` 2026-07-13T18:00:00Z
+- source: superbot/control/status.md @ `f8e2313` · heartbeat `updated:` 2026-07-13T18:00:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
 ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready when deploy timing suits (CodeQL resolved by code change; merge=deploy Q-0193); the fleet-wide owner queue is consolidated in docs/eap/night-review-2026-07-13.md §7 (canonical: fm docs/owner-queue.md). Manager-sweep note, NOT an owner click: fm owner-queue C#20's manager note (superbot codex-final-review invalid YAML) is RESOLVED by superbot PR #1995 (8214200) — retire that line at the next sweep.
 ```
 
-### substrate-kit — ⚑ FOR OWNER (unchanged standing set — full paste-ready field blocks verbatim in git history of this file @ 86…
+### substrate-kit — - ⚑ FOR OWNER REVIEW: ORDER 024 (control/inbox.md @ 58b3f80) states "do NOT re-arm routines yet; wait for the…
 
-- suggested-id: `OQ-SUBSTRATE-KIT-UNCHANGED-STANDING-SET-FULL`
-- source: substrate-kit/control/status.md @ `28ba617` · heartbeat `updated:` 2026-07-14T21:03Z · phase: post-EAP — v1.17.0 adopter wave …
+- suggested-id: `OQ-SUBSTRATE-KIT-REVIEW-ORDER-024-CONTROL`
+- source: substrate-kit/control/status.md @ `22fd280` · heartbeat `updated:` 2026-07-15T06:15Z · phase: EAP EXTENSION ACTIVE (EAP throug…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-⚑ FOR OWNER (unchanged standing set — full paste-ready field blocks verbatim in git history of this file @ 86d2a57):
-- P10 required-check swap (ruleset: require `kit-quality`, drop the two legacy contexts).
-- fm #122 v3.4 restamp — owner reviews/merges PERSONALLY.
-- UNIVERSAL wake fetch-list vN bump (+ docs/seat-digest.md, docs/SKILLS.md).
+- ⚑ FOR OWNER REVIEW: ORDER 024 (control/inbox.md @ 58b3f80) states "do NOT re-arm routines yet; wait for the owner's per-seat go (the v3.6 reboot prompt IS that go)". The observed failsafe above post-dates that order. This heartbeat records the discrepancy neutrally for the owner's review/veto; it does not adjudicate it. Prior heartbeat (git history @ 58b3f80) had recorded all seat routines verified DOWN; kit-lab daily loop re-arm recipe remains docs/operations/lab-loop.md.
 ```
 
-### substrate-kit — - ⚑ 6 public-flip-or-PAT (unblocks B2–B4 cross-repo sweeps).
+### substrate-kit — ⚑ P10 required-check swap
 
-- suggested-id: `OQ-SUBSTRATE-KIT-6-PUBLIC-FLIP-PAT`
-- source: substrate-kit/control/status.md @ `28ba617` · heartbeat `updated:` 2026-07-14T21:03Z · phase: post-EAP — v1.17.0 adopter wave …
+- suggested-id: `OQ-SUBSTRATE-KIT-P10-REQUIRED-CHECK-SWAP`
+- source: substrate-kit/control/status.md @ `22fd280` · heartbeat `updated:` 2026-07-15T06:15Z · phase: EAP EXTENSION ACTIVE (EAP throug…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-- ⚑ 6 public-flip-or-PAT (unblocks B2–B4 cross-repo sweeps).
-- Grounded-skills measurement window ~2026-07-19..26 — silence accepts.
+⚑ P10 required-check swap
+WHAT: Swap which CI check main requires, from the two legacy names to the current one.
+WHERE: repo Settings → Rules → the `main` ruleset → required status checks.
+HOW: remove "Kit test suite" and "Cold-adoption smoke (adopt + check --strict)"; add `kit-quality` (source: GitHub Actions); set "Require branches to be up to date" OFF.
+WHY: the legacy alias jobs exist purely to satisfy the old required names; the up-to-date requirement stalls green PRs `behind`.
+UNBLOCKS: deleting the two legacy-alias jobs; ends the queue-stall class.
+VERIFY: next kit PR shows kit-quality as the only required check; agent then removes the alias jobs.
+RISK: ↩️ reversible — re-add the old required checks in the same ruleset panel.
+```
+
+### substrate-kit — ⚑ public-flip-or-PAT (pick one)
+
+- suggested-id: `OQ-SUBSTRATE-KIT-PUBLIC-FLIP-PAT-PICK`
+- source: substrate-kit/control/status.md @ `22fd280` · heartbeat `updated:` 2026-07-15T06:15Z · phase: EAP EXTENSION ACTIVE (EAP throug…
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+⚑ public-flip-or-PAT (pick one)
+WHAT: Let the other fleet repos read this one — either make it public or mint a read-only token.
+WHERE: P11: Settings → General → Danger Zone → Change visibility · P13: github.com/settings/tokens → fine-grained read-only PAT scoped to this repo, then add it to the fleet environments.
+HOW: P11 is click-through; P13 is create-token + paste into environment settings.
+WHY: sibling repos cannot read kit data today, so cross-repo sweeps and the merged console run blind.
+UNBLOCKS: B2–B4 cross-repo sweeps + kit data in the merged console.
+VERIFY: a sibling-seat session fetches a kit file read-only without "Access denied: repository … is not configured for this session".
+RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩️ P13 reversible — revoke anytime.
 ```
 
 ### ↳ substrate-kit — `control/status-superbot-coordinator.md` — ⚑ needs-owner: 1) verify/deliver the testing-lane wind-down — superbot-next control/status.md was still UNFLI…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-1-VERIFY-DELIVER-TESTING`
-- source: substrate-kit/control/status-superbot-coordinator.md @ `28ba617` · heartbeat `updated:` 2026-07-10T13:47:02Z
+- source: substrate-kit/control/status-superbot-coordinator.md @ `22fd280` · heartbeat `updated:` 2026-07-10T13:47:02Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
 ⚑ needs-owner: 1) verify/deliver the testing-lane wind-down — superbot-next control/status.md was still UNFLIPPED at 2026-07-10T13:45Z (band-5 "NEXT LANE: LIVE-DRIVE", 01:05Z heartbeat), so that lane's seven wind-down deliverables are still owed [unblocks: superbot-next lane archive]; 2) kernel-surface-drift ruling (flag 13 in superbot-next docs/status/testing-report-2026-07-09.md: "relax-compare" or "re-baseline") [unblocks: ALL parity flips]; 3) create repo superbot-plugin-hello (github.com/new, owner menno420, Public, no README) [unblocks: ORDER 002 done]; 4) paste the setup script from docs/environment-setup-script.md into the project Environment settings (re-verified exit-0 at wind-down) [unblocks: no more provisioning deaths]; 5) nod for wiring superbot's new collision/freshness checkers (#1918/#1923) into code-quality.yml — one small PR, owner said workflow edits need a nod [unblocks: checkers enforce in CI]; 6) stale trading-lab/venture-lab manifest rows (manager-owned file) + Q-0248 taxonomy lacks a "tooling" class [unblocks: honest telemetry]
 ```
 
-### venture-lab — ⚑E as NEGATIVE and queue the pause/delist owner action. If ≥1: record the
+### venture-lab — ⚑ owner: the Project's custom instructions are dictionary v3.4; the registry copy is v3.6 — re-paste from fm:…
 
-- suggested-id: `OQ-VENTURE-LAB-E-AS-NEGATIVE-QUEUE`
-- source: venture-lab/control/status.md @ `9ed6a35` · heartbeat `updated:` 2026-07-14T23:53:28Z
+- suggested-id: `OQ-VENTURE-LAB-PROJECT-S-CUSTOM-INSTRUCTIONS`
+- source: venture-lab/control/status.md @ `520bdfc` · heartbeat `updated:` 2026-07-15T04:01:46Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-  ⚑E as NEGATIVE and queue the pause/delist owner action. If ≥1: record the
-  positive signal and plan the next distribution step." (last id
-  trig_01SNkNWfSXoAdz1ALf4YNbC6)
-- FAILSAFE cron: "Venture Lab failsafe wake" · cron `45 1-23/2 * * *` ·
-  prompt: "FAILSAFE WAKE (Venture Lab, Q-0265): send_later chain alive →
-  verify in one line, end. Stalled → resume the work loop (sync HEAD → inbox
-  → slice after slice, landed per LANDING), re-arm the chain (~15 min), and
-  write your heartbeat (control/status.md, per-seat grammar) as the
-  deliberate last step." (last id trig_01SbFnHdb1bvUzDnKrDdRb6t)
-- PACEMAKER pattern: send_later ~15 min working / 30–45 idle, message
-  "continue the work loop: sync HEAD → inbox → next slice → re-arm".
-- FOREIGN, NOT ours, NOT deleted: trig_01YXNmgqYeYQ1LuepsLmbNCG fires
-  2026-07-17T09:00Z into a non-seat session; owner advised to
-  delete/confirm-dead.
+⚑ owner: the Project's custom instructions are dictionary v3.4; the registry copy is v3.6 — re-paste from fm:projects/venture-lab/instructions.md.
 ```
 
 ### superbot-games · Seat A — ⚑ needs-owner: 4 standing decisions, none new this wake — the OWNER ACTIONS checklist (deep links + bolded re…
@@ -138,77 +145,6 @@
 ⚑ needs-owner: unchanged — the four pending clicks remain consolidated in docs/eap-closeout-walkthrough-2026-07-14.md §C (superbot #2058 draft flip + sender-side HMAC · six host env vars · env-gated conformance e2e · carried OA-003), each with a bolded recommendation + VERIFY step; full six-field blocks in the 2026-07-14T11:34:32Z heartbeat (git history of this file) and control/outbox.md.
 ```
 
-### pokemon-mod-lab — 1. **⚑ OWNER-ACTION 1 — `ROM builds` required-check click.** GitHub →
-
-- suggested-id: `OQ-POKEMON-MOD-LAB-1-1-ROM-BUILDS`
-- source: pokemon-mod-lab/control/status.md @ `7d4fa41` · heartbeat `updated:` 2026-07-14T05:07:37Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-1. **⚑ OWNER-ACTION 1 — `ROM builds` required-check click.** GitHub →
-   Settings → Rules → `main` ruleset → require status checks → add
-   `ROM builds` (keep `substrate-gate`). No agent API surface for
-   rulesets (`docs/PLATFORM-LIMITS.md`).
-```
-
-### pokemon-mod-lab — 2. **⚑ OWNER-ACTION 2 — next-arc concept pick.** One word: continue
-
-- suggested-id: `OQ-POKEMON-MOD-LAB-2-2-NEXT-ARC`
-- source: pokemon-mod-lab/control/status.md @ `7d4fa41` · heartbeat `updated:` 2026-07-14T05:07:37Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-2. **⚑ OWNER-ACTION 2 — next-arc concept pick.** One word: continue
-   Emerald QoL+ (new-lead spikes) / Emerald Hard / Nuzlocke Mode
-   (`docs/mod-concepts.md`). Lane default remains QoL+; reversible.
-   **This is also the still-open half of review-queue row #14** (does
-   the Q-0266 Option A default match owner intent).
-```
-
-### pokemon-mod-lab — 3. **⚑ OWNER-ACTION 3 — playtest verdict on the 6 game-feel patches** +
-
-- suggested-id: `OQ-POKEMON-MOD-LAB-3-3-PLAYTEST-VERDICT`
-- source: pokemon-mod-lab/control/status.md @ `7d4fa41` · heartbeat `updated:` 2026-07-14T05:07:37Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-3. **⚑ OWNER-ACTION 3 — playtest verdict on the 6 game-feel patches** +
-   the Match Call random-nag rider. **The kit for exactly this is
-   night item 1: [`../docs/play/README.md`](../docs/play/README.md)**
-   (≤15 min, keep/tune/drop form included; EAP window ends 2026-07-14).
-   Rows #22 (trimmed nurse prompt read), #21 (hatch-pacing feel), #6's
-   remaining halves (auto-run feel + repel-prompt flow), #4's remaining
-   half (instant-text reading feel), #7's remaining half (3x HP-drain /
-   halved-wait pacing feel) and now #5's remaining half (modern
-   Exp. Share progression feel during a real playthrough) sit in this
-   queue — same class, same kit.
-```
-
-### pokemon-mod-lab — 4. **⚑ stale ref `track-a/session-019` — owner click to delete**
-
-- suggested-id: `OQ-POKEMON-MOD-LAB-4-STALE-REF-TRACK`
-- source: pokemon-mod-lab/control/status.md @ `7d4fa41` · heartbeat `updated:` 2026-07-14T05:07:37Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-4. **⚑ stale ref `track-a/session-019` — owner click to delete**
-   (squash-merged via PR #24; sessions must not touch it).
-```
-
-### pokemon-mod-lab — 5. **⚑ stale ref `track-a/session-024` — owner click to delete**
-
-- suggested-id: `OQ-POKEMON-MOD-LAB-5-STALE-REF-TRACK`
-- source: pokemon-mod-lab/control/status.md @ `7d4fa41` · heartbeat `updated:` 2026-07-14T05:07:37Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-5. **⚑ stale ref `track-a/session-024` — owner click to delete**
-   (superseded by PR #31; PR #29 closed; session 041's delete attempt
-   was classifier-DENIED, not retried).
-6. **night chain #69→#81 + #83 ready for owner review-merge in stack
-   order.**
-```
-
 ### product-forge — ⚑ OWNER-ACTION (OA-003, open)
 
 - suggested-id: `OQ-PRODUCT-FORGE-OA-003-OPEN`
@@ -229,14 +165,14 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
   owner can perform.
 ```
 
-### idea-engine — ⚑ needs-owner: all owner items consolidated in the walkthrough §C checklist — docs/eap-closeout-walkthrough-2…
+### idea-engine — ⚑ needs-owner: unchanged — docs/eap-closeout-walkthrough-2026-07-14.md §C.
 
-- suggested-id: `OQ-IDEA-ENGINE-ALL-ITEMS-CONSOLIDATED-WALKTHROUGH`
-- source: idea-engine/control/status.md @ `87ca673` · heartbeat `updated:` 2026-07-14T23:42:25Z (real wall-clock via date -u, monotoni…
+- suggested-id: `OQ-IDEA-ENGINE-UNCHANGED-DOCS-EAP-CLOSEOUT`
+- source: idea-engine/control/status.md @ `1f304b0` · heartbeat `updated:` 2026-07-15T05:02:38Z (real wall-clock via date -u, monotoni…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-⚑ needs-owner: all owner items consolidated in the walkthrough §C checklist — docs/eap-closeout-walkthrough-2026-07-14.md §C (three-item bundle · makerbench tweak reply · branch-autodelete setting · sim-lab OA-002/003/004); that checklist is the single pointer, no separate list kept here.
+⚑ needs-owner: unchanged — docs/eap-closeout-walkthrough-2026-07-14.md §C.
 ```
 
 ### codetool-lab-opus4.8 — ⚑ needs-owner: (1) delete leftover branch claude/status-heartbeat-001 (sessions 403 on ref deletes); (2) OPTI…
@@ -251,5 +187,5 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 
 ---
 
-18 candidate block(s) across 12 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
+14 candidate block(s) across 11 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
 
