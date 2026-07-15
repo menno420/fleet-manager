@@ -1,6 +1,6 @@
 # 2026-07-15 — registry v3.5 synthesis verification + paste-ready per-seat index (ORDER 040 T1)
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 Intent: verify ORDER 040 TASK 1's registry synthesis is complete at the current
 generation (diff hub prompt artifacts vs the shipped bodies; fold real drift
