@@ -360,6 +360,36 @@ pre-date the sweep (05:07:37Z / 14:07:26Z) and still describe pre-sweep
 state — factually superseded; truing rides each lane's normal next wake,
 no dedicated dispatch needed.
 
+## 2026-07-15 · curious-research disposition (owner decision, live turn) + first v3.6 reboot sweep (04:01–04:03Z, read-only)
+
+**curious-research verdict: PARKED** (owner decision 2026-07-15, live turn in
+the coordinator chat). Purpose complete — the seat is **not** being rebooted
+in the v3.6 wave and gets **no extension note** (delivery was twice-walled
+— no repo, registry-only seat — and the question is now moot); the seat
+awaits **a new mission from the owner** at a time of his choosing. The
+Curious Research failsafe (`trig_014XdBFcgKwu2Rd9122NZo3S` · `20 */2 * * *`)
+stays as registered; disposition of the trigger itself is the owner's call
+when the new mission is defined.
+
+**Reboot-sweep snapshot** (owner began firing v3.6 reboot prompts to most
+projects ~2026-07-15T03:45Z; measured 04:01–04:03Z via
+raw.githubusercontent.com `control/status.md` at HEAD, pml via GitHub MCP —
+read-only, `date -u` wall clock): **0 of 17 seat-repo heartbeats are
+post-03:45Z yet** — fully expected this early, since a rebooted seat only
+stamps `control/status.md` at its session close, typically well after boot;
+**neutral, no alarms**. Newest stamps: fleet-manager 2026-07-15T03:40:49Z
+(the coordinator's own LIVE revival stamp, 4 min *before* the cutoff),
+venture-lab 2026-07-14T23:53:28Z, idea-engine 2026-07-14T23:42:25Z; the
+bulk of the fleet sits on 2026-07-14 EAP-shutdown-era stamps
+(superbot-next 21:28Z, gba 21:16Z, trading 21:17Z, sim-lab 21:14Z,
+websites 21:12Z, kit 21:03Z, mineverse 18:59Z, games 11:41Z, idle 11:32Z,
+pml 05:07Z); superbot hub 2026-07-13T18:00Z (known Q-0264 no-standing-seat
+lag), product-forge 2026-07-11 (DARK, archive-ready) and the three
+codetool-lab repos 2026-07-09 (STALE-BY-DESIGN, no reboot expected).
+Next sweep should start seeing post-03:45Z stamps as rebooted sessions
+close; per-seat table in the session card
+`.sessions/2026-07-15-cr-disposition-sweep.md` (fm PR #217).
+
 ## How to re-verdict
 
 1. Verify against live source (Q-0120 — never against report text).
