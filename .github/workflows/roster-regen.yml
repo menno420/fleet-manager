@@ -120,7 +120,7 @@ jobs:
           if [ "$age_h" -gt 24 ]; then
             echo "::warning::triggers snapshot is ${age_h}h old (>24h) — roster trigger columns lag reality; the manager wake owes a fresh list_triggers dump"
           fi
-      - name: regenerate docs/roster.md + docs/owner-queue-candidates.md + docs/evidence-index.md from the committed snapshot + live heartbeats
+      - name: regenerate docs/roster.md + docs/owner-queue-candidates.md + docs/evidence-index.md + registry/lanes.json from the committed snapshot + live heartbeats
         env:
           # Fine-grained read-only PAT for PRIVATE lane repos
           # (pokemon-mod-lab). Renders EMPTY until the owner creates the
@@ -148,22 +148,22 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if git diff --quiet -- docs/roster.md docs/owner-queue-candidates.md docs/evidence-index.md; then
-            echo "roster + candidate feed + evidence index unchanged — nothing to commit"
+          if git diff --quiet -- docs/roster.md docs/owner-queue-candidates.md docs/evidence-index.md registry/lanes.json; then
+            echo "roster + candidate feed + evidence index + lane registry unchanged — nothing to commit"
             exit 0
           fi
           git config user.name "roster-regen[workflow]"
           git config user.email "actions@github.com"
           gen="$(grep -om1 'Generation #[0-9]*' docs/roster.md || echo 'Generation #?')"
           git checkout -B bot/roster-regen
-          git add docs/roster.md docs/owner-queue-candidates.md docs/evidence-index.md
+          git add docs/roster.md docs/owner-queue-candidates.md docs/evidence-index.md registry/lanes.json
           git commit -m "Roster regen (automated, ${gen}) [roster-regen.yml]"
           git push -f origin bot/roster-regen
           pr="$(gh pr list --head bot/roster-regen --state open --json number --jq '.[0].number' || true)"
           if [ -z "$pr" ]; then
             if ! gh pr create --head bot/roster-regen --base main \
               --title "Roster regen (automated, ${gen})" \
-              --body "Automated roster + owner-queue-candidate-feed + evidence-index regeneration from the committed triggers snapshot + live heartbeats (.github/workflows/roster-regen.yml). Generated docs only — docs/roster.md + docs/owner-queue-candidates.md + docs/evidence-index.md."; then
+              --body "Automated roster + owner-queue-candidate-feed + evidence-index + lane-registry regeneration from the committed triggers snapshot + live heartbeats (.github/workflows/roster-regen.yml). Generated docs only — docs/roster.md + docs/owner-queue-candidates.md + docs/evidence-index.md + registry/lanes.json."; then
               echo "::error::PR creation DENIED (GITHUB_TOKEN cannot create PRs until the owner ticks 'Allow GitHub Actions to create and approve pull requests' — docs/owner-queue.md id OQ-FM-ACTIONS-PR-PERMISSION). The regen commit IS pushed on bot/roster-regen; the next manager wake (or the owner) opens+lands it."
               exit 1
             fi
