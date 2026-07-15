@@ -40,24 +40,6 @@ manager curates from.
 "Resolved 2026-07-11 (P3 curation sweep)" below. Section repopulated
 2026-07-15.)*
 
-62. **codetool-lab-fable5 — merge PR #16 (the archive-precondition hygiene
-    fix), then proceed with the existing B#42 archive click.** *(new
-    2026-07-15, reboot night — ORDER 026 executed by the coordinator.)*
-    - id: OQ-FABLE5-PR16-MERGE
-    - WHAT: merge codetool-lab-fable5 PR #16 — hygiene: 11 tracked `.pyc`
-      files removed + `.gitignore` added; CI 5/5 green, parked READY (that
-      repo has no merge-on-green workflow, so it cannot land itself). This
-      satisfies the ORDER P1-5 `.pyc`/`.gitignore` hygiene precondition
-      named on B#42 (OQ-CONSOLIDATION-ARCHIVE-FABLE5); the E#46 envdrift
-      letter remains B#42's other gate.
-    - WHERE: https://github.com/menno420/codetool-lab-fable5/pull/16
-    - HOW: one merge click at the URL above.
-    - UNBLOCKS: the B#42 archive flow (jointly with your E#46 letter).
-    - VERIFIED-NEEDED: PR #16 shows MERGED (the check_owner_queue probe
-      will flag this item the moment it lands — sweep it to Resolved then).
-    - RISK: ✅ reversible (revert commit; repo not yet archived).
-    - Blocking: not-blocking; gates B#42 only.
-
 63. **fleet-manager — merge PR #227 (the lanes.json regen fix).** *(new
     2026-07-15, morning sweep.)*
     - id: OQ-FM-PR227-MERGE
@@ -246,8 +228,10 @@ manager curates from.
     - WHAT: GitHub archive toggle (read-only, reversible).
     - WHERE: https://github.com/menno420/codetool-lab-fable5 → Settings →
       Danger Zone.
-    - HOW: one click — gated on ORDER P1-5 (your named `.pyc`/`.gitignore`
-      hygiene precondition) **and your E#46 letter**.
+    - HOW: one click — the ORDER P1-5 `.pyc`/`.gitignore` hygiene
+      precondition is SATISFIED (fable5 #16 merged by you
+      2026-07-15T10:54:19Z; swept to Resolved 2026-07-15 below), so the
+      only remaining gate is **your E#46 letter**.
     - UNBLOCKS: third consolidation slice; no trigger references the repo.
     - VERIFIED-NEEDED: census § fable5 — `.pyc`/.gitignore defect verified @
       `a6cf1a9`; owner precondition on record.
@@ -1502,6 +1486,15 @@ manager curates from.
       2026-07-12 so either path works.
     - WHERE/HOW: one word to the manager (inbox ORDER) after 07-14.
     - Blocking: nothing; a drift hazard if both sets keep deploying.
+
+## Resolved 2026-07-15 (queue sweep, 11:4xZ — state read live via the GitHub API, Q-0120)
+
+- **OQ-FABLE5-PR16-MERGE ✅** *(was A#62)* — codetool-lab-fable5 #16 MERGED
+  by the owner (merged_by menno420) 2026-07-15T10:54:19Z, head `ba88daa`
+  (hygiene: 11 tracked `.pyc` files removed + top-level `.gitignore` added;
+  ORDER 026 / consolidation ORDER P1-5). The B#42 archive click
+  (OQ-CONSOLIDATION-ARCHIVE-FABLE5) is now gated only on the E#46 envdrift
+  letter — its HOW line updated this sweep.
 
 ## Resolved 2026-07-12 (owner-live session — Railway/API executed directly)
 
