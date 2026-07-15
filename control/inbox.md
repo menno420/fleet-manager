@@ -1462,3 +1462,45 @@ priority: P1
 do: (status flip) both done-when legs verified: (1) reboot review executed per docs/pre-reboot-review-2026-07-15.md (on disk at HEAD; the v3.6 reboot ran overnight — see control/status.md ledger #215–#229); (2) extension noted in all LIVE lane inboxes, each verified by raw read this wake (11:39Z): substrate-kit control/inbox.md @ 0d79ac52e (line 296) · gba-homebrew @ 0048a5da9 (line 99) · idea-engine @ 828b18ea5 (line 230) · sim-lab @ 17c45585c (line 249) — all carry the "EAP EXTENDED through 2026-07-21" note verbatim. Dormant/parked seats get owner-queue disposition, not ORDERs, so live-lane coverage completes the leg.
 why: the 03:40Z header still read `new` after both legs were satisfied; flipping keeps the inbox truthful.
 done-when: satisfied — this entry is terminal.
+
+## ORDER 047 · 2026-07-15T21:22:56Z · status: new
+priority: P0
+do: record + fan out the owner's standing no-PR-review policy, stated live this session
+(owner turn, 2026-07-15, dispatched working session on the fleet-manager seat).
+**Owner verbatim (primary, in-session confirmation):** "Confirmed: I don't review PRs
+and never will. Feature PRs should land on green automatically. Only destructive-tier
+work (prod cutover, prod-data deletion/import, token swaps, spending money) gets a
+hold." **Owner verbatim (context, earlier phrasing in the fleet-manager coordinator
+chat):** "I have never reviewed a PR and I don't intend to do so since I can't code,
+it would be like putting a gate without a lock."
+**Policy:** the owner does not and will not review PRs; quality assurance is CI +
+cross-agent review, never owner review. Feature PRs flip and land on green by
+default. Genuine safety holds remain ONLY for the destructive tier — production
+cutover/decommission, prod-data deletion/import, secret/token swaps, spending money —
+and even those are decide-and-flag with a reversible path where one exists, per
+existing fleet doctrine (superbot Q-0241 shape). Context: the owner was shown a
+lane's queue of feature PRs deliberately held/frozen "awaiting your merge order" and
+rejected that pattern.
+**Fan-out intent:** every lane retires "frozen/held awaiting owner merge order" as a
+state for feature PRs; sessions flip their own cards when work is verified complete
+and let merge automation land on green. This does NOT touch: historical records /
+denial logs / Walls entries (they stand as written); born-red session cards (they
+gate on WORK COMPLETE, flipped by the session itself — not owner-review holds);
+platform/permission rails that are technical walls rather than review holds (quote
+those verbatim, as always).
+**Paste-ready fan-out block for live-lane coordinator chats** (live lanes at roster
+Gen #63: superbot hub · substrate-kit · websites · idea-engine · sim-lab ·
+venture-lab · trading-strategy · gba-homebrew; skip DARK/DORMANT/wind-down seats —
+they receive it on revival):
+> Owner policy (fm ORDER 047): "I don't review PRs and never will. Feature PRs
+> should land on green automatically." Flip and land feature PRs on green; keep
+> holds only for the destructive tier (prod cutover, prod-data deletion/import,
+> token swaps, money).
+why: feature PRs were being parked "awaiting owner merge order" — a gate the owner
+never operates ("a gate without a lock"); the queue of frozen PRs it produced is the
+failure this order retires.
+done-when: playbook carries the rule (this PR); live lanes have received the fan-out
+block (owner/hub paste or next manager wake relays it into lane inboxes) and no lane
+holds feature PRs for owner review; destructive-tier holds unchanged.
+provenance: owner live turn, 2026-07-15, this working session (fm PR #246); landed by
+the dispatched session with the delegated pen.

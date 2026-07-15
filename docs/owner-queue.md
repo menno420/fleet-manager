@@ -43,8 +43,29 @@ manager curates from.
 63. **fleet-manager — merge PR #227 (the lanes.json regen fix) — ✔ conflict
     RESOLVED, one click applies on green.** *(new 2026-07-15, morning sweep;
     amended 2026-07-15 ~14:1xZ, rollout-verification sweep; conflict fixed
-    2026-07-15 ~20:3xZ, evening oversight wake, fm PR #245.)*
+    2026-07-15 ~20:3xZ, evening oversight wake, fm #245 — since merged;
+    re-conflicted by that very merge and re-fixed ~21:3xZ, see Update below.)*
     - id: OQ-FM-PR227-MERGE
+    - **Update (2026-07-15 ~21:3xZ, owner-directed — ORDER 047 / fm PR #246):**
+      per the owner's live no-PR-review directive ("I don't review PRs and
+      never will. Feature PRs should land on green automatically."), any
+      owner-*ratification* framing on this park is retired. The #245 merge to
+      main had re-conflicted the branch (`mergeable_state=dirty`); this
+      session merged main INTO `claude/lanes-regen-fix` again (never rebase),
+      re-resolving the single `.substrate/guard-fires.jsonl` conflict as a
+      verified append-only union (`git merge-file --union`; 0 entries lost
+      from either side). New head **`6d53047`** — live re-poll:
+      `mergeable_state=clean`, all 3 checks green (substrate-gate ·
+      freshness · merge-on-green, 21:30Z). **Landing path — recorded
+      honestly:** merge-on-green cannot land this PR because its diff touches
+      `.github/workflows/roster-regen.yml` and the workflow-file rail
+      (workflow-diff PRs are owner-merge-only — a deliberate technical
+      security carve-out in merge-on-green.yml, NOT a review hold; ORDER 047
+      explicitly leaves technical rails standing). So the one click below
+      remains the sole landing path; the ask now names the wall, not
+      "ratification". Flag (decide-and-flag): if the owner wants workflow-diff
+      PRs to self-land too, that is a merge-on-green.yml rail change — his
+      call, out of this session's scope.
     - **Conflict fixed (2026-07-15 ~20:3xZ, evening oversight wake):** a
       fm session merged main INTO `claude/lanes-regen-fix` (never rebase,
       plain push) — conflicts in `control/status.md` (took main's newer
