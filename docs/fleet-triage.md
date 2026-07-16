@@ -59,38 +59,6 @@ action to activate) · **DELETE** (none).
 (opus4.8 → KEEP per INC-03; plugin-hello → KEEP-QUIET, seeded) ·
 2 ARCHIVE (fable5 — decided, sonnet5) · 0 SEED · 0 DELETE.*
 
-## 2026-07-16 PM sweep — fleet oversight wake (PR #262)
-
-**Manager:** wake-0716-pm oversight seat · sweep ~2026-07-16T15:00Z. Live signals: superbot `scripts/fleet_status.py` + raw heartbeat reads + live GitHub PR state. pokemon-mod-lab skipped (DARK/private).
-
-**fleet-manager:** roster Gen #70 generated 2026-07-16T14:35Z (0.3h — fresh). 0 open PRs besides this one; night PRs #253–#256 + Gen-roster PRs #257–#261 all terminal on main. PR #227 verified MERGED 2026-07-15T22:47:58Z (owner-queue "click merge" item now stale — closed this sweep).
-
-| Seat | Heartbeat (UTC) | Class | State |
-|----|----|----|----|
-| idea-engine | 2026-07-16T14:33Z | FRESH | PROPOSAL-083 pipeline (PR #453); owner-ask ⚑ |
-| trading-strategy | 2026-07-16T14:48Z | FRESH | active; weekly grading |
-| substrate-kit | 2026-07-16T14:48Z | FRESH | seat closing, work PR #429 |
-| websites | 2026-07-16T09:00Z | FRESH | worker session; PR #365; main green (1588 tests); owner-ask ⚑ |
-| sim-lab | 2026-07-16T09:37Z | FRESH | V095 slice (PR #167); green on main |
-| venture-lab | 2026-07-16T02:46Z | STALE (~12h) | wake candidate; owner-ask ⚑ |
-| superbot-next | 2026-07-16T01:14Z | STALE (~14h) | rebuild loop live; slice #457 dispatched |
-| superbot-mineverse | 2026-07-16T00:55Z | STALE (~14h) | ORDER 009 ack; green; owner-ask ⚑ |
-| gba-homebrew | 2026-07-16T00:49Z | STALE (~14h) | ender heartbeat; owner-ask ⚑ |
-| superbot-games | 2026-07-14T11:41Z | STALE by design | FROZEN (EAP closeout) |
-| superbot-idle | 2026-07-14T11:32Z | STALE by design | FROZEN (EAP closeout) |
-| product-forge | 2026-07-11T19:39Z | STALE by design | archived; blocked on owner OA-003 (enable GitHub Pages); no wake armed |
-| superbot-plugin-hello | none | DARK | plugin scaffold, no heartbeat file — not an active seat |
-| pokemon-mod-lab | — | skipped | DARK/private |
-
-**Verdicts:**
-- **Wake candidates** (aged-but-active ~12–14h, not by-design frozen): superbot-next, gba-homebrew, superbot-mineverse, venture-lab. Routing a wake ORDER to these lane inboxes is cross-repo → agent-side classifier-walled on relayed authority this turn → flagged to coordinator/owner-live venue, not written here.
-- **STALE-by-design (no action):** superbot-games, superbot-idle (FROZEN, EAP-ended 2026-07-14); product-forge (archived, blocked on owner OA-003).
-- **DARK:** superbot-plugin-hello (scaffold, no seat), pokemon-mod-lab (private, skip).
-- **ORDER 047 & 048 fan-out still OPEN:** 0 lane inboxes cite them (re-confirmed this sweep). Cross-repo lane-inbox appends classifier-walled → owner-live venue. ⚑ coordinator.
-- **ORDER 049:** does not exist at HEAD — a prior coordinator session was classifier-blocked before landing it; text unrecoverable from tree. ⚑ coordinator to recover.
-- **Owner-ask fan-out:** 8 seats carry `⚑ owner-ask` blocks → candidate for a consolidated owner-queue pass.
-- **Trigger health:** I6 SNAPSHOT-FRESH FAIL (triggers snapshot 8.1h stale, 06:47Z export) + I8 DUPLICATE-CRON WARN ×4 (old+new failsafe crons enabled on superbot-2.0/superbot-world/venture-lab/websites). Cutover-seat lane; coordinator session cse_01WwuStAe6JuMatMRdiA8Zsi is verifying/re-arming the FM failsafe cron this turn. ⚑ coordinator.
-
 ## 2026-07-11 owner restructure — 8 standing seats (slice 3 re-stamp)
 
 > Re-stamped 2026-07-11 (restructure directive, slice 3 — fm PR #91, stacked
@@ -801,6 +769,38 @@ authority are classifier-denied — 6+ same-shape denials overnight per the
 coordinator (7 recorded in the canonical entry); canonical record +
 verbatim sample: docs/CAPABILITIES.md, 2026-07-16 WALL entry. Unlock =
 owner-live venue.
+
+## 2026-07-16 PM sweep — fleet oversight wake (PR #262)
+
+**Manager:** wake-0716-pm oversight seat · sweep ~2026-07-16T15:00Z. Live signals: superbot `scripts/fleet_status.py` + raw heartbeat reads + live GitHub PR state. pokemon-mod-lab skipped (DARK/private).
+
+**fleet-manager:** roster Gen #70 generated 2026-07-16T14:35Z (0.3h — fresh). 0 open PRs besides this one; night PRs #253–#256 + Gen-roster PRs #257–#261 all terminal on main. PR #227 verified still MERGED 2026-07-15T22:47:58Z; its owner-queue item (OQ-FM-PR227-MERGE) was already resolved by the earlier fm PR #253 wake — re-confirmed resolved this sweep, no open item remained.
+
+| Seat | Heartbeat (UTC) | Class | State |
+|----|----|----|----|
+| idea-engine | 2026-07-16T14:33Z | FRESH | PROPOSAL-083 pipeline (PR #453); owner-ask ⚑ |
+| trading-strategy | 2026-07-16T14:48Z | FRESH | active; weekly grading |
+| substrate-kit | 2026-07-16T14:48Z | FRESH | seat closing, work PR #429 |
+| websites | 2026-07-16T09:00Z | FRESH | worker session; PR #365; main green (1588 tests); owner-ask ⚑ |
+| sim-lab | 2026-07-16T09:37Z | FRESH | V095 slice (PR #167); green on main |
+| venture-lab | 2026-07-16T02:46Z | STALE (~12h) | wake candidate; owner-ask ⚑ |
+| superbot-next | 2026-07-16T01:14Z | STALE (~14h) | rebuild loop live; slice #457 dispatched |
+| superbot-mineverse | 2026-07-16T00:55Z | STALE (~14h) | ORDER 009 ack; green; owner-ask ⚑ |
+| gba-homebrew | 2026-07-16T00:49Z | STALE (~14h) | ender heartbeat; owner-ask ⚑ |
+| superbot-games | 2026-07-14T11:41Z | STALE by design | FROZEN (EAP closeout) |
+| superbot-idle | 2026-07-14T11:32Z | STALE by design | FROZEN (EAP closeout) |
+| product-forge | 2026-07-11T19:39Z | STALE by design | archived; blocked on owner OA-003 (enable GitHub Pages); no wake armed |
+| superbot-plugin-hello | none | DARK | plugin scaffold, no heartbeat file — not an active seat |
+| pokemon-mod-lab | — | skipped | DARK/private |
+
+**Verdicts:**
+- **Wake candidates** (aged-but-active ~12–14h, not by-design frozen): superbot-next, gba-homebrew, superbot-mineverse, venture-lab. Routing a wake ORDER to these lane inboxes is cross-repo → agent-side classifier-walled on relayed authority this turn → flagged to coordinator/owner-live venue, not written here.
+- **STALE-by-design (no action):** superbot-games, superbot-idle (FROZEN, EAP-ended 2026-07-14); product-forge (archived, blocked on owner OA-003).
+- **DARK:** superbot-plugin-hello (scaffold, no seat), pokemon-mod-lab (private, skip).
+- **ORDER 047 & 048 fan-out still OPEN:** 0 lane inboxes cite them (re-confirmed this sweep). Cross-repo lane-inbox appends classifier-walled → owner-live venue. ⚑ coordinator.
+- **ORDER 049:** does not exist at HEAD — a prior coordinator session was classifier-blocked before landing it; text unrecoverable from tree. ⚑ coordinator to recover.
+- **Owner-ask fan-out:** 8 seats carry `⚑ owner-ask` blocks → candidate for a consolidated owner-queue pass.
+- **Trigger health:** I6 SNAPSHOT-FRESH FAIL (triggers snapshot 8.1h stale, 06:47Z export) + I8 DUPLICATE-CRON WARN ×4 (old+new failsafe crons enabled on superbot-2.0/superbot-world/venture-lab/websites). Cutover-seat lane; coordinator session cse_01WwuStAe6JuMatMRdiA8Zsi is verifying/re-arming the FM failsafe cron this turn. ⚑ coordinator.
 
 ## How to re-verdict
 
