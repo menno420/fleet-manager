@@ -4,14 +4,14 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #72** · generated-at **2026-07-16T17:48Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #73** · generated-at **2026-07-16T19:43Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
 ### superbot (hub) — ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready…
 
 - suggested-id: `OQ-SUPERBOT-HUB-SIDE-RESIDUE-ONLY`
-- source: superbot/control/status.md @ `37fa174` · heartbeat `updated:` 2026-07-13T18:00:00Z
+- source: superbot/control/status.md @ `556c943` · heartbeat `updated:` 2026-07-13T18:00:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -133,7 +133,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### venture-lab — ⚑ owner (carried forward, still live):
 
 - suggested-id: `OQ-VENTURE-LAB-CARRIED-FORWARD-STILL-LIVE`
-- source: venture-lab/control/status.md @ `973fb05` · heartbeat `updated:` 2026-07-16T17:13:17Z
+- source: venture-lab/control/status.md @ `98f81d3` · heartbeat `updated:` 2026-07-16T17:48:59Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -230,7 +230,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### idea-engine — ⚑ needs-owner: docs/eap-closeout-walkthrough-2026-07-14.md §C (unchanged); the wake-rebind decision is review…
 
 - suggested-id: `OQ-IDEA-ENGINE-DOCS-EAP-CLOSEOUT-WALKTHROUGH`
-- source: idea-engine/control/status.md @ `8c83fef` · heartbeat `updated:` 2026-07-16T17:19:03Z · seat: Ideas Lab V098 fan-in mirror s…
+- source: idea-engine/control/status.md @ `3e3093a` · heartbeat `updated:` 2026-07-16T18:59:26Z · seat: Ideas Lab P087 game-slot draft…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
