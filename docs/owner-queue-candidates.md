@@ -4,34 +4,34 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #69** · generated-at **2026-07-16T12:04Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #70** · generated-at **2026-07-16T14:35Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
 ### superbot (hub) — ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready…
 
 - suggested-id: `OQ-SUPERBOT-HUB-SIDE-RESIDUE-ONLY`
-- source: superbot/control/status.md @ `7e41586` · heartbeat `updated:` 2026-07-13T18:00:00Z
+- source: superbot/control/status.md @ `60d937c` · heartbeat `updated:` 2026-07-13T18:00:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
 ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready when deploy timing suits (CodeQL resolved by code change; merge=deploy Q-0193); the fleet-wide owner queue is consolidated in docs/eap/night-review-2026-07-13.md §7 (canonical: fm docs/owner-queue.md). Manager-sweep note, NOT an owner click: fm owner-queue C#20's manager note (superbot codex-final-review invalid YAML) is RESOLVED by superbot PR #1995 (8214200) — retire that line at the next sweep.
 ```
 
-### substrate-kit — - ⚑ FOR OWNER REVIEW (carried forward): ORDER 024 says "do NOT re-arm routines yet; wait for the owner's per-…
+### substrate-kit — ⚑ FINDING (coordinator-reported) — the 06:00Z 'kit-lab daily' owner business cron was NOT found anywhere in t…
 
-- suggested-id: `OQ-SUBSTRATE-KIT-REVIEW-CARRIED-FORWARD-ORDER`
-- source: substrate-kit/control/status.md @ `65cf519` · heartbeat `updated:` 2026-07-16T09:51:29Z · phase: SEAT CLOSING (EAP through 202…
+- suggested-id: `OQ-SUBSTRATE-KIT-FINDING-COORDINATOR-REPORTED-06`
+- source: substrate-kit/control/status.md @ `1377a63` · heartbeat `updated:` 2026-07-16T14:25:21Z · phase: SEAT CLOSING · 1 work PR in f…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-- ⚑ FOR OWNER REVIEW (carried forward): ORDER 024 says "do NOT re-arm routines yet; wait for the owner's per-seat go". The enabled failsafe above (created 2026-07-16T01:09Z) post-dates that order. Recorded neutrally for owner review/veto; not adjudicated here. Kit-lab daily loop re-arm recipe: docs/operations/lab-loop.md.
+⚑ FINDING (coordinator-reported) — the 06:00Z 'kit-lab daily' owner business cron was NOT found anywhere in the account trigger registry (coordinator paginated ~2021 entries to exhaustion). Doctrine (docs/operations/lab-loop.md) says keep it armed across every cutover, but the coordinator reports nothing to keep — never created or deleted. Owner decision needed: recreate the kit-lab daily cron, or retire the doctrine line.
 ```
 
 ### substrate-kit — ⚑ v1.18.0 adopter-wave authorization
 
 - suggested-id: `OQ-SUBSTRATE-KIT-V1-18-0-ADOPTER`
-- source: substrate-kit/control/status.md @ `65cf519` · heartbeat `updated:` 2026-07-16T09:51:29Z · phase: SEAT CLOSING (EAP through 202…
+- source: substrate-kit/control/status.md @ `1377a63` · heartbeat `updated:` 2026-07-16T14:25:21Z · phase: SEAT CLOSING · 1 work PR in f…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -48,7 +48,7 @@ RISK: ↩️ reversible, distribution-only diffs.
 ### substrate-kit — ⚑ CAPABILITIES denial-record entry (parked)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-CAPABILITIES-DENIAL-RECORD-ENTRY`
-- source: substrate-kit/control/status.md @ `65cf519` · heartbeat `updated:` 2026-07-16T09:51:29Z · phase: SEAT CLOSING (EAP through 202…
+- source: substrate-kit/control/status.md @ `1377a63` · heartbeat `updated:` 2026-07-16T14:25:21Z · phase: SEAT CLOSING · 1 work PR in f…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -65,7 +65,7 @@ RISK: ↩️ reversible, docs-only.
 ### substrate-kit — ⚑ P10 required-check swap
 
 - suggested-id: `OQ-SUBSTRATE-KIT-P10-REQUIRED-CHECK-SWAP`
-- source: substrate-kit/control/status.md @ `65cf519` · heartbeat `updated:` 2026-07-16T09:51:29Z · phase: SEAT CLOSING (EAP through 202…
+- source: substrate-kit/control/status.md @ `1377a63` · heartbeat `updated:` 2026-07-16T14:25:21Z · phase: SEAT CLOSING · 1 work PR in f…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -82,7 +82,7 @@ RISK: ↩️ reversible — re-add the old required checks in the same ruleset p
 ### substrate-kit — ⚑ public-flip-or-PAT (pick one)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-PUBLIC-FLIP-PAT-PICK`
-- source: substrate-kit/control/status.md @ `65cf519` · heartbeat `updated:` 2026-07-16T09:51:29Z · phase: SEAT CLOSING (EAP through 202…
+- source: substrate-kit/control/status.md @ `1377a63` · heartbeat `updated:` 2026-07-16T14:25:21Z · phase: SEAT CLOSING · 1 work PR in f…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -99,7 +99,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### ↳ substrate-kit — `control/status-superbot-coordinator.md` — ⚑ needs-owner: 1) verify/deliver the testing-lane wind-down — superbot-next control/status.md was still UNFLI…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-1-VERIFY-DELIVER-TESTING`
-- source: substrate-kit/control/status-superbot-coordinator.md @ `65cf519` · heartbeat `updated:` 2026-07-10T13:47:02Z
+- source: substrate-kit/control/status-superbot-coordinator.md @ `1377a63` · heartbeat `updated:` 2026-07-10T13:47:02Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
