@@ -82,6 +82,15 @@ swept 2026-07-14T02:5xZ against the live GitHub API.)
 
 ## Recently shipped (newest first)
 
+- **Fleet-wide PR-landing audit** (fm #265, `claude/pr-audit-0716`,
+  2026-07-16): [Fleet-wide PR-landing audit (2026-07-16)](pr-landing-audit-2026-07-16.md)
+  — point-in-time read-only snapshot of PR auto-landing across all 19 fleet
+  repos (companion to fm ORDER 048): 19/19 repos have a working landing
+  workflow at HEAD; ~250 of ~259 48h merges landed automatically (merge order
+  = per-PR CI-completion time, not a queue); only 2 PRs genuinely stuck
+  (websites #359 auto-merge-not-armed, pokemon-mod-lab #87 conflict);
+  ~13 deliberate drafts (classifier-denial parks) are the main "why won't
+  this merge" bucket, several green-and-ready for one owner ready-click.
 - **Registry v3.5 synthesis verified complete + paste-ready per-seat prompt
   index** (fm #248, `claude/registry-v3-5-synthesis`, 2026-07-15): ORDER 040
   TASK 1 closed by verification — the v3.5 generation shipped 2026-07-13
