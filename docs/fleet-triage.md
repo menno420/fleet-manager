@@ -663,6 +663,40 @@ failsafe (`trig_01LgMqjbBHsNTWMe6T3vaWmk` → successor
 capture_notes; next wake's export should show the old ids gone — re-check
 then, coordinator-seat triggers are report-only for this session.
 
+## 2026-07-16 · night audit (wake session, seats read at origin/main HEAD ~01:15Z)
+
+Verdicts (evidence = each seat's own control/status.md + control/inbox.md + backlog docs):
+
+| seat | verdict | evidence |
+|---|---|---|
+| superbot (hub) | BUSY | ORDER 004 items 4–8 unfinished (recon guard absent from scripts/); 249 idea files; heartbeat 2.3d stale by design (Q-0264) |
+| superbot-next | BUSY | baton: #457 conform sweep + boot cutover; 27-row REWORK backlog (docs/review/curation-report-2026-07-13.md) |
+| websites | BUSY | docs/ideas/backlog.md ~1,936 lines; gated on 2 owner clicks (#345, #343) + 1 manager verdict (outbox SIM-REQUEST #355) |
+| substrate-kit | BUSY | 48 ideas; archive-ready plan S3–S5 remain (docs/planning/2026-07-15-archive-ready-close-out-plan.md) |
+| trading-strategy | BUSY (shallow ~1–2 nights) | round-7 pre-registered plan + Fri 09:00Z grading executor; AMBIGUITY: current-state says round-7 "awaits owner direction" while the plan reads self-startable — owner line requested |
+| venture-lab | BUSY (shallow) | baton: grading executor + main-verify proof run; 10 publish-READY SKUs owner-click-gated; stranded telemetry commit d1b0208 not on main at f8ccc60 |
+| superbot-games | BUSY | ORDER 008 wiring gated on fm relay of sim verdicts V075/V076; mining gen-2 baton 5 items (control/status-mining.md) |
+| superbot-idle | THIN | own "honest thin list"; roadmap items gated; sanctioned filler = catalog wave 6 (ORDER 007 item 1). DISCREPANCY: a roster read tonight called it frozen-by-design; the seat was ACTIVE by pushes ~1h45m before audit |
+| superbot-mineverse | THIN | fresh reboot heartbeat 00:55Z; only currently-doable baton item = mirror superbot-idle's #142 reconcile-race fix |
+| gba-homebrew | BUSY | NEXT-MENU 7 arcs, in-doc rec B1 = 5 designed Tiltstone cuts (docs/NEXT-MENU-2026-07-15.md) |
+| idea-engine | BUSY | standing generative rotation (ORDER 003/004); baton: shepherd parked #444, draft P080 |
+| sim-lab | THIN | reactive; queue = 1 item (V092/P079) blocked on idea-engine #444; NOT silent — Ideas Lab shipped sim-lab PRs #146–#162 after its 04:06Z heartbeat stamp (INC-16 heartbeat-lag class) |
+
+Findings: (1) The v3.6/v3.7 reboot is working — 7 seats posted fresh heartbeats
+with concrete batons within ~2h (websites 23:00Z · next 23:03Z · kit 23:05Z ·
+mineverse 00:55Z · trading 01:01Z · idea-engine 01:07Z · venture 01:12Z); 9/12
+seats BUSY with no new dispatch. (2) Top misread class remains
+heartbeat-vs-commit divergence (INC-16): 6 seats read DARK/STALE on roster gen
+#65 while actively shipping; the pending E#66 doctrine ruling plus
+substrate-kit's heartbeat-verb idea (kit docs/ideas/heartbeat-verb-2026-07-09.md)
+would retire most false-DARK sweeps. (3) fm ORDER 047/048 fan-out is open: 0
+lane inboxes cite them. (4) THIN-lane dispatch and the substrate-kit exchange
+were NOT executed: agent-side lane-inbox writes are classifier-walled tonight
+(see docs/CAPABILITIES.md, 2026-07-16 entry); routed to the owner queue.
+Skipped: pokemon-mod-lab (auth wall, OQ #49). No-ORDER by standing decision:
+product-forge (E#63), codetool-labs ×3 (B#41/B#42), plugin-hello (inert). No
+repo unreachable; no quota denials.
+
 ## How to re-verdict
 
 1. Verify against live source (Q-0120 — never against report text).
