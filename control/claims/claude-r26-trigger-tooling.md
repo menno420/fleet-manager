@@ -1,0 +1,1 @@
+- `claude/r26-trigger-tooling` · **R26 trigger-snapshot assembler + I8 re-check + heartbeat** · scripts/assemble_triggers_snapshot.py, telemetry/triggers-snapshot.json, docs/fleet-triage.md (I8 row), control/status.md, .sessions/ · 2026-07-16
