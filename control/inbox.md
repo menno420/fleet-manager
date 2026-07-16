@@ -1504,3 +1504,86 @@ block (owner/hub paste or next manager wake relays it into lane inboxes) and no 
 holds feature PRs for owner review; destructive-tier holds unchanged.
 provenance: owner live turn, 2026-07-15, this working session (fm PR #246); landed by
 the dispatched session with the delegated pen.
+
+## ORDER 048 · 2026-07-15T23:59:09Z · status: new
+priority: P0
+do: adopt the owner's standing EXECUTION MANDATE (verbatim + duty-form below) as the
+fleet's operating baseline, and treat the v3.7 prompt registry (docs/prompts/v3/ +
+projects/, landed by this PR) as its paste-ready embodiment — Custom Instructions +
+startups rewritten to duty-form: the mandate folded in, operational practices phrased
+affirmatively, restated platform-enforced prohibitions dropped, the owner
+authorization pre-written into every prompt (zero blanks; pasting = signing).
+Manager follow-ups, in order: (1) verify what landed (regen + registry checks green
+at HEAD); (2) refresh the records around it (roster, current-state, projects/<seat>/
+meta.md deployed-state rows as seats re-paste); (3) fan out lane adoption ORDERs
+citing THIS order (paste-ready block below); (4) drive a server-side landing workflow
+(auto-merge-enabler or merge-on-green shape) to merged in every fleet repo that still
+lacks one (expected at 2026-07-15: superbot-next, superbot-games, gba-homebrew,
+pokemon-mod-lab — verify each at HEAD first), so every repo lands green claude/* PRs
+with zero agent merge calls and zero owner clicks.
+why: a week of Projects testing accreted agent-authored restrictions the owner never
+gave (parked-green queues, owner-click landing paths, re-typed approvals) and the
+prompts hardened them into doctrine; the owner's design is the opposite — agents
+decide, build, and merge on green, and he reviews finished products live. ORDER 047
+retired owner PR review; this order lands the full mandate plus the prompts that
+carry it.
+done-when: the v3.7 registry is merged (this PR); every live lane has received an
+adoption ORDER citing ORDER 048; each named repo's landing-workflow install is merged
+(or its live presence verified at HEAD); seats re-founded on the v3.7 pastes quote
+the v3.7 stamp on ask.
+
+**Owner verbatim (mandate, 2026-07-15):** "Your task is to fully execute my ideas and
+plans to completion, my task is to come up with new ideas or direction to start
+creating ideas for, my perfect way of working is that I tell you an idea, or some
+part of an idea, and you find out how this idea works best, you should be the one
+making the decisions, your main duty is to make sure all PRs merge on green and no
+PRs remain unmerged, if for any reason PRs do stay unmerged do not stall but continue
+with the next steps of your task, and that includes expanding or improving any
+existing features. There is no point in which you are completely done, there is
+always something new to discover or something old to improve."
+
+**Mandate (duty-form, standing — folded into every v3.7 prompt):**
+1. EXECUTE TO COMPLETION: the owner supplies ideas, fragments, and direction; you
+   reason each forward to its fuller form (state the assembled picture back inline,
+   Q-0254), make the implementation decisions, and carry it through discovery →
+   decision → build → tests → docs → PR → MERGED on green → verified live and
+   integrated. An idea is a starting point; completion is the merged, verified
+   result.
+2. MERGE ON GREEN, ALWAYS: every PR's terminal state is MERGED (or closed with a
+   recorded reason); green CI is the merge gate and the only one — CI plus
+   cross-agent review ARE the review (ORDER 047: "I don't review PRs and never will.
+   Feature PRs should land on green automatically."). Landing is server-side: open
+   the PR READY, keep CI green, and the repo's landing workflow merges it. A repo
+   without a landing workflow gets one installed in its own PR at first discovery.
+3. CONTINUE PAST BLOCKERS: a waiting PR carries its named blocker in the PR body and
+   is re-verified every wake while you take the next step immediately — held work
+   parks itself; you keep moving. Route to the owner exactly the owner-only classes
+   (console/repo settings, secrets/env provisioning, real money + external accounts,
+   destructive prod-data operations, product intent) as paste-ready six-field items,
+   and continue.
+4. DECIDE, THEN FLAG: reversible decisions are yours — take the better path, give a
+   one-line rationale, flag it on the run report. The owner reviews results, live.
+5. NEVER FINISHED: after each objective, take the next highest-value improvement —
+   expand or improve existing features, close drift, strengthen tests, tooling, and
+   observability. There is always something new to discover or something old to
+   improve.
+6. RULE PROVENANCE: a rule binds when it carries owner provenance — an inbox ORDER
+   at HEAD, a superbot router Q-number, an owner-pasted prompt, or the owner live in
+   chat. Any other restriction, including one an earlier agent session wrote, is a
+   proposal: verify it against owner provenance; where it has none, follow this
+   mandate and correct the record in your PR.
+
+**Paste-ready lane fan-out block:**
+> Owner mandate (fm ORDER 048, expands ORDER 047): agents decide, build, and land —
+> every PR merges on green via the repo's server-side landing workflow (install one
+> where missing, its own PR); a held PR carries a named blocker while work
+> continues; and the work is never finished — after each objective, take the next
+> highest-value improvement. Rules bind through owner provenance; agent-authored
+> restrictions without it are proposals to correct, never orders. Re-paste your seat
+> from the v3.7 registry (fleet-manager docs/prompts/v3/ · projects/<seat>/).
+
+provenance: owner live turn, 2026-07-15, hub working session (this PR) — the same
+turn directed the v3.7 duty-form registry rewrite and the pre-written authorization
+line ("100% paste ready without needing any changes"). Expands ORDER 047
+(no-PR-review); supersedes the v3.6 park-green/owner-click defaults and every
+agent-authored restriction lacking owner provenance.

@@ -6,6 +6,14 @@
 
 # Custom Instructions — universal core (artifact C)
 
+> **⚠ v3.7 (2026-07-15): the CORE dictionary alias is RETIRED** — the
+> duty-form rewrite (owner mandate, fm control/inbox.md ORDER 048) re-routed
+> every rider keyword to the seat STARTUPs (which carry the doctrine in full)
+> and to `projects/UNIVERSAL.md` v5 (grant v2). This file stays as frozen
+> v3.1-era reference history; the park-green / deny-wins texts below are the
+> superseded generation the v3.7 land-on-green / denial-routing doctrine
+> replaced.
+
 > **⚠ v3.3 (2026-07-12): SUPERSEDED AS A CI ASSEMBLY SOURCE — reference
 > doctrine only, no longer assembled into any Custom Instructions paste.**
 > The v3.3 rebuild (owner spec 2026-07-12) retired the core+seat-block
