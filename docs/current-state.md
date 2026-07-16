@@ -89,6 +89,7 @@ swept 2026-07-14T02:5xZ against the live GitHub API.)
 
 ## Recently shipped (newest first)
 
+- [Overnight planning menu (2026-07-17)](planning/overnight-menu-2026-07-17.md) — 25 veto-ready fleet-manager seat proposals (overnight run 2026-07-16).
 - **Project recreation runbook — EAP wind-down cutover** (fm #271,
   `claude/recreation-runbook-0716`, 2026-07-16):
   [project-recreation-runbook.md](project-recreation-runbook.md) —

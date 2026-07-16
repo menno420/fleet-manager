@@ -802,6 +802,10 @@ owner-live venue.
 - **Owner-ask fan-out:** 8 seats carry `⚑ owner-ask` blocks → candidate for a consolidated owner-queue pass.
 - **Trigger health:** I6 SNAPSHOT-FRESH FAIL (triggers snapshot 8.1h stale, 06:47Z export) + I8 DUPLICATE-CRON WARN ×4 (old+new failsafe crons enabled on superbot-2.0/superbot-world/venture-lab/websites). Cutover-seat lane; coordinator session cse_01WwuStAe6JuMatMRdiA8Zsi is verifying/re-arming the FM failsafe cron this turn. ⚑ coordinator.
 
+## 2026-07-16 · late-evening sweep (overnight run)
+
+- **2026-07-16 ~21:45Z late-evening sweep (overnight run):** No verdict changes since the 15:00Z PM sweep. Deltas: roster advanced Gen #71→#74 (regen cron, all-clear); trigger-health now FAIL on I6 (snapshot export 2026-07-16T15:26Z is ~6.3h stale vs 4h bar — refresh `list_triggers` before acting; coordinator-session bound); standing I8 DUPLICATE-CRON WARN ×4 unchanged (keep-OLDEST is a sibling-lane call, not actioned). Roster + owner-queue checks green at HEAD 68f7994.
+
 ## How to re-verdict
 
 1. Verify against live source (Q-0120 — never against report text).
