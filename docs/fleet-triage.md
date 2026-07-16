@@ -609,6 +609,60 @@ on green.
 | superbot-mineverse | 2026-07-14T18:59:20Z (cross-seat relay) | ~25.5h | `ac2b874` #114 probe merge 2026-07-15T14:24:01Z (not seat-side) | 0 | **STALE** (under the 30h bar) |
 | superbot (hub) | (no-standing-seat/irregular by design, Q-0264) | n/a | `82c68e3` merge #2115 2026-07-15T19:41:35Z | 2 (#2110 ready · #2061 held draft, both intentional) | **FRESH via HEAD-activity** (~0.7h) |
 
+## 2026-07-16 · Maintenance-wake staleness sweep (01:10–01:15Z, read-only, fm PR #253)
+
+> Dated evidence note. Probes 2026-07-16T01:10–01:15Z via `fleet_status.py`
+> (superbot copy; raw heartbeat reads at HEAD) + this wake's fresh
+> `list_triggers` export (telemetry/triggers-snapshot.json,
+> captured_at 2026-07-16T01:08:37Z, 1954 records / 14 enabled).
+> Context: the owner rebooted the fleet on the v3.7 prompt registry tonight
+> (ORDER 048 landed fm #252; owner live turn ~01:0xZ relayed by the
+> coordinator) — most seats re-stamped within the hour.
+
+| Lane | Heartbeat `updated:` | Age at 01:10Z | Verdict | Evidence |
+|---|---|---|---|---|
+| idea-engine | 2026-07-16T01:07:29Z | ~3m | **FRESH** (v3.7 close-out stamp) | raw status @ HEAD |
+| venture-lab | 2026-07-16T01:02:15Z | ~8m | **FRESH** | raw status @ HEAD |
+| trading-strategy | 2026-07-16T01:01:39Z | ~8m | **FRESH** | raw status @ HEAD |
+| superbot-mineverse | 2026-07-16T00:55:09Z | ~15m | **FRESH — reboot gap CLOSED** (ORDER 009 ack, seat-side signal; was STALE 20:26Z) | raw status @ HEAD |
+| substrate-kit | 2026-07-16T00:55Z | ~15m | **FRESH** (worker-slice wake 00:39Z) | raw status @ HEAD |
+| gba-homebrew | 2026-07-16T00:49:49Z | ~20m | **FRESH — DARK cleared** (ender heartbeat; was DARK ⚠ commits-FRESH at Gen #65) | raw status @ HEAD |
+| superbot-next | 2026-07-16T00:22:00Z | ~48m | **FRESH** (merge-queue session landed; main `6047618`) | raw status @ HEAD |
+| websites | 2026-07-15T23:00:21Z | ~2.2h | **FRESH** (owner-ender close; failsafe bridge armed) | raw status @ HEAD |
+| fleet-manager | 2026-07-15T23:04:37Z | ~2.1h | **FRESH** (this wake re-stamps it) | this PR |
+| superbot-games | 2026-07-14T11:41:04Z | ~37.5h | **DARK by own stamp — but header says "status FROZEN — read mineverse's"**: the World seat's live heartbeat is mineverse (FRESH 00:55Z), so the seat is LIVE; the games file itself stays frozen by design. No new escalation; C#34–36 boot-sitting asks remain the owner-side record until the coordinator's morning verification. | fleet_status.py header + mineverse stamp |
+| superbot-idle | 2026-07-14T11:32:05Z | ~37.6h | **DARK by own stamp — FROZEN by design** (same pattern as games; seat LIVE via mineverse) | same |
+| superbot (hub) | 2026-07-13T18:00:00Z | ~2.3d | **FRESH via HEAD-activity fallback** (INC-16 — hub has no standing seat, Q-0264; newest commit ~16m at Gen #65) | roster Gen #65 divergence note |
+| sim-lab | 2026-07-15T04:06:11Z | ~21h | **STALE by stamp — seat LIVE via sibling** (Ideas Lab seat's idea-engine half closed out 01:07Z tonight; sim-lab half last stamped 04:06Z). Watch item: if sim-lab shows no seat-side signal by the next wake, route a dispatch rung (R27) via the coordinator. | raw status @ HEAD |
+| curious-research | 2026-07-14T21:23Z | ~28h | **DORMANT by owner order** (2026-07-14 live turn) — by design, never re-wake on staleness | status phase line |
+| product-forge | 2026-07-11T19:39:50Z | ~4.2d | **ARCHIVE-READY by design** (close-out complete; awaiting owner archive click) | register row |
+| codetool-labs ×3 | 2026-07-09 | ~6d | **STALE-BY-DESIGN** (wind-down complete; B#41/B#42 archive clicks) | register rows |
+| pokemon-mod-lab | n/a | n/a | **PRIVATE (auth wall — not DARK)**: raw reads 404; ROSTER_READ_TOKEN pending (B-section ask) | fleet_status.py wall line |
+
+**DEAD verdicts this sweep: none. New DARK routings: none needed** — every
+DARK-by-stamp row above is either frozen-by-design (games/idle), design-dormant
+(curious-research, labs, product-forge), an auth wall (pml), or covered by
+INC-16 HEAD-activity (hub). The 2026-07-15 evening escalation (games+idle DARK
+>30h → C#36) is superseded in practice by tonight's v3.7 reboot — mineverse
+carries fresh seat-side World signal; the C#34–36 items stay open pending the
+coordinator's morning platform-side verification.
+
+**Trigger-registry anomaly (report-only, coordinator-relayed + confirmed in
+this wake's export):** legacy `trig_011XAWqPeksS8LBrS5G9RvVc` "superbot
+autonomous dispatch" (cron `0 */3 * * *`, `enabled` ABSENT in the API record,
+next_run_at frozen 2026-07-02T03:07Z) — already dispositioned by the
+2026-07-13 I1b note above and the 2026-07-14 I1b decode (absent `enabled` =
+DISABLED; expected pause footprint). This wake's `check_trigger_health.py`
+reads it I1b PASS/INFO. No action taken; delete-if-unwanted stays an owner
+Routines-screen option. Also noted (capture-window artifact, not a pile-up):
+four seat failsafes appear doubled enabled in the 01:08Z snapshot because the
+coordinator's live re-arm cutover (new ids created 00:55–01:03Z) overlapped
+the export; the coordinator relayed post-verify deletion of the old FM
+failsafe (`trig_01LgMqjbBHsNTWMe6T3vaWmk` → successor
+`trig_01UNjDKaaiGuUTvyfQGLKLrn`). I8 WARN rows recorded in the snapshot
+capture_notes; next wake's export should show the old ids gone — re-check
+then, coordinator-seat triggers are report-only for this session.
+
 ## How to re-verdict
 
 1. Verify against live source (Q-0120 — never against report text).

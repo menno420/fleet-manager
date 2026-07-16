@@ -40,72 +40,9 @@ manager curates from.
 "Resolved 2026-07-11 (P3 curation sweep)" below. Section repopulated
 2026-07-15.)*
 
-63. **fleet-manager — merge PR #227 (the lanes.json regen fix) — ✔ conflict
-    RESOLVED, one click applies on green.** *(new 2026-07-15, morning sweep;
-    amended 2026-07-15 ~14:1xZ, rollout-verification sweep; conflict fixed
-    2026-07-15 ~20:3xZ, evening oversight wake, fm #245 — since merged;
-    re-conflicted by that very merge and re-fixed ~21:3xZ, see Update below.)*
-    - id: OQ-FM-PR227-MERGE
-    - **Update (2026-07-15 ~21:3xZ, owner-directed — ORDER 047, landed via
-      fm #246 — since merged; history-as-context, not this item's ask):**
-      per the owner's live no-PR-review directive ("I don't review PRs and
-      never will. Feature PRs should land on green automatically."), any
-      owner-*ratification* framing on this park is retired. The #245 merge to
-      main had re-conflicted the branch (`mergeable_state=dirty`); this
-      session merged main INTO `claude/lanes-regen-fix` again (never rebase),
-      re-resolving the single `.substrate/guard-fires.jsonl` conflict as a
-      verified append-only union (`git merge-file --union`; 0 entries lost
-      from either side). New head **`6d53047`** — live re-poll:
-      `mergeable_state=clean`, all 3 checks green (substrate-gate ·
-      freshness · merge-on-green, 21:30Z). **Landing path — recorded
-      honestly:** merge-on-green cannot land this PR because its diff touches
-      `.github/workflows/roster-regen.yml` and the workflow-file rail
-      (workflow-diff PRs are owner-merge-only — a deliberate technical
-      security carve-out in merge-on-green.yml, NOT a review hold; ORDER 047
-      explicitly leaves technical rails standing). So the one click below
-      remains the sole landing path; the ask now names the wall, not
-      "ratification". Flag (decide-and-flag): if the owner wants workflow-diff
-      PRs to self-land too, that is a merge-on-green.yml rail change — his
-      call, out of this session's scope.
-    - **Conflict fixed (2026-07-15 ~20:3xZ, evening oversight wake):** a
-      fm session merged main INTO `claude/lanes-regen-fix` (never rebase,
-      plain push) — conflicts in `control/status.md` (took main's newer
-      17:10Z heartbeat) and `.substrate/guard-fires.jsonl` (append-only
-      union, 0 dupes); `registry/lanes.json` re-synced by re-running the
-      PR's own regen path pinned to main's committed **Gen #63 /
-      2026-07-15T19:47Z** (`gen_roster.py --generation 63`, lanes.json
-      kept, docs restored). Merge commit **`45ba285`**; `bootstrap.py
-      check --strict` all-pass + roster freshness OK + trigger health 9/9
-      on the merged tree; live re-poll shows `mergeable_state=unstable`
-      (= mergeable, checks running). **The one-click merge at the URL
-      below now applies once checks are green** (the PR diffs a workflow
-      file, so merge-on-green's owner-merge-only rail still parks it —
-      the click stays yours by design).
-    - **Amendment (2026-07-15, 14:0xZ sweep):** PR #227 is now
-      `mergeable_state=dirty` — the roster-regen cron merge #231 (Gen #59,
-      landed 12:04Z) advanced main past #227's 09:16Z base into the same
-      generated-docs territory as its `registry/lanes.json` sync-to-Gen-#58.
-      Checks on the old head are still green, but **the one-click merge
-      will now fail**; the PR needs conflict resolution first (merge main
-      IN + regen, per docs precedent), which a future fm session can do.
-      Item stays OPEN — owner click applies after the conflict fix.
-    - WHAT: merge fleet-manager PR #227 — fixes lanes.json regeneration so
-      the roster-regen cron keeps `registry/lanes.json` in generation parity
-      with `docs/roster.md` (the Gen 56-vs-57 counter-lag drift class). CI is
-      GREEN, but the PR diffs a workflow file, so merge-on-green parks it on
-      its owner-merge-only rail — it cannot land itself.
-    - WHERE: https://github.com/menno420/fleet-manager/pull/227
-    - HOW: (after an fm session resolves the conflict) one merge click at
-      the URL above.
-    - UNBLOCKS: lanes.json generation-parity self-healing on future cron
-      runs (no more hand-fixed counter lag).
-    - VERIFIED-NEEDED: PR #227 shows MERGED (the check_owner_queue probe
-      will flag this item the moment it lands — sweep it to Resolved then);
-      dirty state per the 14:0xZ sweep
-      ([`findings/merge-on-green-rollout-verification-2026-07-15.md`](findings/merge-on-green-rollout-verification-2026-07-15.md)
-      § cross-cutting gap 5).
-    - RISK: ✅ reversible (revert commit; docs/registry regen only).
-    - Blocking: not-blocking; quality-of-substrate.
+*(A#63 OQ-FM-PR227-MERGE — the last active item in this group — was clicked by
+the owner 2026-07-15T22:47:58Z; swept to "Resolved 2026-07-16" below. Group is
+EMPTY as of the 2026-07-16 wake.)*
 
 ### (B) GitHub settings / repo admin
 
@@ -1558,6 +1495,19 @@ manager curates from.
       2026-07-12 so either path works.
     - WHERE/HOW: one word to the manager (inbox ORDER) after 07-14.
     - Blocking: nothing; a drift hazard if both sets keep deploying.
+
+## Resolved 2026-07-16 (maintenance wake ~01:1xZ, fm PR #253 — state read live via the GitHub API, Q-0120)
+
+- **OQ-FM-PR227-MERGE ✅** *(was A#63)* — fleet-manager
+  [#227](https://github.com/menno420/fleet-manager/pull/227) (lanes.json
+  generation-parity fix + roster-regen.yml staging fix) MERGED by the owner
+  (merged_by menno420) 2026-07-15T22:47:58Z, head `6d53047` — the
+  workflow-diff owner-merge-only rail made this click the sole landing path
+  (ORDER 047 leaves technical rails standing; the ask named the wall, not
+  ratification). Flagged by this wake's `check_owner_queue.py` run
+  (`merged-citation` on the cited PR) and verified live. UNBLOCKS delivered:
+  `registry/lanes.json` now stages with every roster-regen cron commit
+  (Gen #65 regen ran clean post-merge, roster PR #250).
 
 ## Resolved 2026-07-15 (evening oversight wake ~20:3xZ, fm PR #245 — state read live via the GitHub API, Q-0120)
 
