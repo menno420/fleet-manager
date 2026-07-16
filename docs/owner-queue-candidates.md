@@ -4,7 +4,7 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #70** · generated-at **2026-07-16T14:35Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #71** · generated-at **2026-07-16T16:00Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
@@ -18,20 +18,27 @@
 ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready when deploy timing suits (CodeQL resolved by code change; merge=deploy Q-0193); the fleet-wide owner queue is consolidated in docs/eap/night-review-2026-07-13.md §7 (canonical: fm docs/owner-queue.md). Manager-sweep note, NOT an owner click: fm owner-queue C#20's manager note (superbot codex-final-review invalid YAML) is RESOLVED by superbot PR #1995 (8214200) — retire that line at the next sweep.
 ```
 
-### substrate-kit — ⚑ FINDING (coordinator-reported) — the 06:00Z 'kit-lab daily' owner business cron was NOT found anywhere in t…
+### substrate-kit — ⚑ FOR OWNER — kit-lab daily cron: recreate or retire? (A/B)
 
-- suggested-id: `OQ-SUBSTRATE-KIT-FINDING-COORDINATOR-REPORTED-06`
-- source: substrate-kit/control/status.md @ `1377a63` · heartbeat `updated:` 2026-07-16T14:25:21Z · phase: SEAT CLOSING · 1 work PR in f…
+- suggested-id: `OQ-SUBSTRATE-KIT-KIT-LAB-DAILY-CRON`
+- source: substrate-kit/control/status.md @ `e16b2a7` · heartbeat `updated:` 2026-07-16T15:22:42Z · phase: 1 work PR in flight (#430 reg…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-⚑ FINDING (coordinator-reported) — the 06:00Z 'kit-lab daily' owner business cron was NOT found anywhere in the account trigger registry (coordinator paginated ~2021 entries to exhaustion). Doctrine (docs/operations/lab-loop.md) says keep it armed across every cutover, but the coordinator reports nothing to keep — never created or deleted. Owner decision needed: recreate the kit-lab daily cron, or retire the doctrine line.
+⚑ FOR OWNER — kit-lab daily cron: recreate or retire? (A/B)
+  WHAT:   The 06:00Z 'kit-lab daily' owner-business cron is absent from the account trigger registry (coordinator-reported: ~2021 entries paginated to exhaustion 2026-07-15; no kit-named or hour-6 cron; never created or deleted — not re-verified by this stateless seat).
+  WHERE:  docs/operations/lab-loop.md asserts it "stays armed across every cutover"; the registry has nothing to keep. The doc documents NO deliberate disarm — the loop is owner-armed-only (👤 P4, console Schedule) and cannot arm itself.
+  HOW:    (A) RECREATE — owner arms a daily `0 6 * * *` UTC Schedule in the Claude Code console pointed at the kit-lab loop; (B) RETIRE — remove the "stays armed" line from lab-loop.md and mark the loop dormant-by-design pending reboot.
+  WHY:    doctrine and reality contradict; a rebooted seat reads "armed" and trusts a loop that never runs. ORDER 024 also bars the seat from re-arming routines pending the per-seat reboot go, so it will not create the cron unilaterally.
+  UNBLOCKS: honest lab-loop doctrine — either daily owner business resumes (A) or the false "armed" claim is removed (B).
+  VERIFY: (A) the Schedule shows in the console trigger list and a 06:00Z run lands; (B) `grep -n "stays armed" docs/operations/lab-loop.md` returns nothing.
+  RISK ↩️ reversible either way. RECOMMENDATION: **A — recreate** (lab-loop.md frames it as genuine daily owner business; retiring silently drops it over a transient cutover gap; re-arming is one console action gated on the reboot go). Answer: A (recreate) / B (retire).
 ```
 
 ### substrate-kit — ⚑ v1.18.0 adopter-wave authorization
 
 - suggested-id: `OQ-SUBSTRATE-KIT-V1-18-0-ADOPTER`
-- source: substrate-kit/control/status.md @ `1377a63` · heartbeat `updated:` 2026-07-16T14:25:21Z · phase: SEAT CLOSING · 1 work PR in f…
+- source: substrate-kit/control/status.md @ `e16b2a7` · heartbeat `updated:` 2026-07-16T15:22:42Z · phase: 1 work PR in flight (#430 reg…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -48,7 +55,7 @@ RISK: ↩️ reversible, distribution-only diffs.
 ### substrate-kit — ⚑ CAPABILITIES denial-record entry (parked)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-CAPABILITIES-DENIAL-RECORD-ENTRY`
-- source: substrate-kit/control/status.md @ `1377a63` · heartbeat `updated:` 2026-07-16T14:25:21Z · phase: SEAT CLOSING · 1 work PR in f…
+- source: substrate-kit/control/status.md @ `e16b2a7` · heartbeat `updated:` 2026-07-16T15:22:42Z · phase: 1 work PR in flight (#430 reg…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -65,7 +72,7 @@ RISK: ↩️ reversible, docs-only.
 ### substrate-kit — ⚑ P10 required-check swap
 
 - suggested-id: `OQ-SUBSTRATE-KIT-P10-REQUIRED-CHECK-SWAP`
-- source: substrate-kit/control/status.md @ `1377a63` · heartbeat `updated:` 2026-07-16T14:25:21Z · phase: SEAT CLOSING · 1 work PR in f…
+- source: substrate-kit/control/status.md @ `e16b2a7` · heartbeat `updated:` 2026-07-16T15:22:42Z · phase: 1 work PR in flight (#430 reg…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -82,7 +89,7 @@ RISK: ↩️ reversible — re-add the old required checks in the same ruleset p
 ### substrate-kit — ⚑ public-flip-or-PAT (pick one)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-PUBLIC-FLIP-PAT-PICK`
-- source: substrate-kit/control/status.md @ `1377a63` · heartbeat `updated:` 2026-07-16T14:25:21Z · phase: SEAT CLOSING · 1 work PR in f…
+- source: substrate-kit/control/status.md @ `e16b2a7` · heartbeat `updated:` 2026-07-16T15:22:42Z · phase: 1 work PR in flight (#430 reg…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -96,10 +103,27 @@ VERIFY: a sibling-seat session fetches a kit file read-only without "Access deni
 RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩️ P13 reversible — revoke anytime.
 ```
 
+### substrate-kit — ⚑ **Kit self-pin version-truth ruling (§7)** — the kit's own adopters.md row shows a permanent cosmetic tree-…
+
+- suggested-id: `OQ-SUBSTRATE-KIT-KIT-SELF-PIN-VERSION`
+- source: substrate-kit/control/status.md @ `e16b2a7` · heartbeat `updated:` 2026-07-16T15:22:42Z · phase: 1 work PR in flight (#430 reg…
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+⚑ **Kit self-pin version-truth ruling (§7)** — the kit's own adopters.md row shows a permanent cosmetic tree-internal DRIFT.
+- WHAT: rule how the kit's OWN substrate.config.json pin should read so `currency` stops emitting a permanent tree-internal DRIFT row on substrate-kit itself.
+- WHERE: substrate.config.json `kit_version: 1.0.0` vs tree dist/bootstrap.py v1.18.0; emitted by src/engine/currency.py drifts(); surfaces on every docs/adopters.md regen.
+- HOW (A/B): **A (recommended)** — bump the kit's own pin to track its release (pin == KIT_VERSION, bumped at each release cut) ↩️ reversible; B — teach currency.drifts() the source repo's own pin is N/A (a floor, never DRIFT) and suppress/annotate that one row ↩️ reversible.
+- WHY: it is the only permanent false-DRIFT in the registry; it muddies every currency scan and the registry-truth signal.
+- UNBLOCKS: a clean self-row on adopters.md; clears the 2026-07-11 "§7 version-truth" retro park.
+- VERIFY: after the ruling, `dist/bootstrap.py currency` shows substrate-kit `current` with no tree-internal drift line.
+- RISK: ✅ (both options contained + reversible; no adopter writes).
+```
+
 ### ↳ substrate-kit — `control/status-superbot-coordinator.md` — ⚑ needs-owner: 1) verify/deliver the testing-lane wind-down — superbot-next control/status.md was still UNFLI…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-1-VERIFY-DELIVER-TESTING`
-- source: substrate-kit/control/status-superbot-coordinator.md @ `1377a63` · heartbeat `updated:` 2026-07-10T13:47:02Z
+- source: substrate-kit/control/status-superbot-coordinator.md @ `e16b2a7` · heartbeat `updated:` 2026-07-10T13:47:02Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -109,13 +133,13 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### venture-lab — ⚑ owner (carried forward, still live):
 
 - suggested-id: `OQ-VENTURE-LAB-CARRIED-FORWARD-STILL-LIVE`
-- source: venture-lab/control/status.md @ `95e1846` · heartbeat `updated:` 2026-07-16T02:46:04Z
+- source: venture-lab/control/status.md @ `acdbf2d` · heartbeat `updated:` 2026-07-16T15:48:03Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
 ⚑ owner (carried forward, still live):
 - Project custom instructions are dictionary v3.4 vs registry v3.6 — re-paste from fm:projects/venture-lab/instructions.md.
-- Publish clicks queued and untouched: `docs/publishing/OWNER-QUEUE.md` (19 decisions + 44 click-run sequences; 16 hard-gated). No click performed this wake.
+- Publish clicks queued and untouched: `docs/publishing/OWNER-QUEUE.md` (19 decisions + 44 click-run sequences; 16 hard-gated). No click performed this wake; PR #210 corrects only the WHY-blocked reason text on the hard-gated sequences, not the clicks themselves.
 ```
 
 ### superbot-games · Seat A — ⚑ needs-owner: 4 standing decisions, none new this wake — the OWNER ACTIONS checklist (deep links + bolded re…
@@ -174,7 +198,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### superbot-mineverse — ⚑ needs-owner: unchanged — the pending clicks stay consolidated in docs/eap-closeout-walkthrough-2026-07-14.m…
 
 - suggested-id: `OQ-SUPERBOT-MINEVERSE-UNCHANGED-PENDING-CLICKS-STAY`
-- source: superbot-mineverse/control/status.md @ `ea5c751` · heartbeat `updated:` 2026-07-16T00:55:09Z
+- source: superbot-mineverse/control/status.md @ `21b89a0` · heartbeat `updated:` 2026-07-16T00:55:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -204,11 +228,11 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### idea-engine — ⚑ needs-owner: docs/eap-closeout-walkthrough-2026-07-14.md §C (unchanged); the wake-rebind decision is review…
 
 - suggested-id: `OQ-IDEA-ENGINE-DOCS-EAP-CLOSEOUT-WALKTHROUGH`
-- source: idea-engine/control/status.md @ `96a9f22` · heartbeat `updated:` 2026-07-16T09:56:38Z (real wall-clock via date -u, monotoni…
+- source: idea-engine/control/status.md @ `4b9db80` · heartbeat `updated:` 2026-07-16T15:29:23Z (real wall-clock via date -u, monotoni…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-⚑ needs-owner: docs/eap-closeout-walkthrough-2026-07-14.md §C (unchanged); the wake-rebind decision is reviewed — the live cron stays as-is (see wakes line). ⚑ guard-fires telemetry delta left uncommitted — committing it was classifier-denied this session; owner decision needed (repo doctrine expects it to ride a session PR).
+⚑ needs-owner: docs/eap-closeout-walkthrough-2026-07-14.md §C (unchanged); the wake-rebind decision is reviewed — the live cron stays as-is (see wakes line). ⚑ guard-fires telemetry delta committed with this session PR per the checker's instruction.
 ```
 
 ### codetool-lab-opus4.8 — ⚑ needs-owner: (1) delete leftover branch claude/status-heartbeat-001 (sessions 403 on ref deletes); (2) OPTI…
@@ -223,5 +247,5 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 
 ---
 
-16 candidate block(s) across 11 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
+17 candidate block(s) across 11 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
 
