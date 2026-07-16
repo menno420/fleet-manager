@@ -1,6 +1,6 @@
 # 2026-07-16 — r26-trigger-tooling (routine R26 wake)
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 Intent: ship scripts/assemble_triggers_snapshot.py (PR #253's session idea — one-command R26 snapshot assembler), re-run the full list_triggers export to re-check the I8 duplicate-cron pairs from the 00:55–01:03Z failsafe cutover, refresh telemetry/triggers-snapshot.json + the fleet-triage I8 verdict, and rewrite the control/status.md heartbeat.
 
@@ -55,8 +55,8 @@ Intent: ship scripts/assemble_triggers_snapshot.py (PR #253's session idea — o
   control/status.md cites; print "cutover pair — keeper is the successor"
   instead of keep-oldest when created_at gap > ~12h. Dedup: grepped
   docs/ideas/ + recent cards for I8/keeper/binding — nothing covers it.
-- **📊 Model:** Fable 5 (Claude 5 family) · medium · build+verify
-  (R26 routine tooling + registry re-check)
+- **📊 Model:** Fable 5 (Claude 5 family) · medium · feature build
+  (R26 assembler tooling + registry re-check)
 - ⟲ **Previous-session review** (fm #254, night-audit-records card): the
   audit's verdict table with per-seat evidence citations is the strongest
   form a night audit has taken so far, and honestly recording the 7/7
