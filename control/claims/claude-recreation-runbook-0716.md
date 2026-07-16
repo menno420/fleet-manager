@@ -1,1 +1,0 @@
-- branch: claude/recreation-runbook-0716 · scope: docs/project-recreation-runbook.md (EAP recreation runbook) + current-state.md note + status.md heartbeat · date: 2026-07-16
