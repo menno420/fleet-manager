@@ -1,18 +1,34 @@
-# Fleet Manager — coordinator heartbeat
+---
+updated: 2026-07-16T15:03:57Z
+kit_version: 1.17.0
+seat: fleet-manager (manager)
+wake: wake-0716-pm oversight sweep (PR #262)
+---
 
-updated: 2026-07-16T06:52:09Z — morning wake triage (fm PR #257, branch claude/morning-wake-triage); dispatched worker slice, read-only oversight + records
+# Fleet Manager — status
 
-kit: v1.17.0
+Neutral heartbeat. Facts + pointers only. Orders live in `control/inbox.md`; asks in `docs/owner-queue.md`; sweep detail in `docs/fleet-triage.md`.
 
-## Routine disposition (as observed in the 06:47Z export)
+## Routine state
+- FM failsafe cron `30 */2 * * *` — coordinator session `cse_01WwuStAe6JuMatMRdiA8Zsi` is verifying/re-arming it separately this turn. (I6 snapshot was 8.1h stale at the 06:47Z export; not re-captured here.)
+- Roster: Gen #70, generated 2026-07-16T14:35Z (0.3h — fresh). roster-regen.yml healthy (Gen #66→#70 landed 03:49→14:35Z).
+- Trigger health (last export 06:47Z): I6 SNAPSHOT-FRESH FAIL + I8 DUPLICATE-CRON WARN ×4 (superbot-2.0/superbot-world/venture-lab/websites old failsafe crons still enabled) — cutover-seat disposition, coordinator lane.
 
-- **FM failsafe healthy:** `trig_01UNjDKaaiGuUTvyfQGLKLrn` "Fleet Manager failsafe wake", cron `30 */2 * * *`, enabled, next fire 2026-07-16T08:34Z (I4 PASS). Coordinator pacemaker chain live (coordinator overnight session ran 02:45Z and 04:15Z sweeps per its own relay; I3/I7 PASS on this export).
-- **Trigger health (this wake):** fresh FULL `list_triggers` export 2026-07-16T06:41–06:47Z (20 pages, 1995 records, 17 enabled; +31/−0 vs the 01:49Z capture) → `telemetry/triggers-snapshot.json` (captured_at 06:47:30Z), assembled by `scripts/assemble_triggers_snapshot.py` (proof run 2 — clean). `check_trigger_health.py`: **PASS — 8/9 green, 1 WARN (I8 DUPLICATE-CRON ×4, unchanged from 01:49Z)**. Old+new failsafe pairs STILL both enabled for **websites · venture-lab · superbot-world · superbot-2.0** (old ids: `trig_01VRT9F6jYNXym3nn18vVQQK` · `trig_01GeQiMM3nHMQTyuLMsWj7q3` · `trig_01RwQK2cBpgvY2xc2LZPSNtQ` · `trig_01UC7wiV3n5Vgs3RpSQt4gWz`; detail: docs/fleet-triage.md § 2026-07-16 I8 re-check). Those seats double-fire each wake window until the old ids are deleted; disposition belongs to the coordinator seat that ran the cutover. This session touched no trigger (read-only). Caveat: I8's printed keep-OLDEST remedy contradicts the cutover's keep-NEWEST intent — verify the keeper against this file before any deletion (fm #255 session idea).
+## PRs
+- **#262 (this session)** — wake-0716-pm oversight sweep; born-red (in-progress card holds substrate-gate), flips `complete` last → merge-on-green.yml lands it. No blocker.
+- fleet-manager open PRs otherwise: **none**. Night PRs #253–#256 + Gen-roster #257–#261 all terminal on main.
 
-## Facts
+## Fleet (sweep ~15:00Z — detail in docs/fleet-triage.md)
+- FRESH today: idea-engine, trading-strategy, substrate-kit, websites, sim-lab.
+- Wake candidates (~12–14h, active): superbot-next, gba-homebrew, superbot-mineverse, venture-lab.
+- STALE by design: superbot-games, superbot-idle (FROZEN); product-forge (archived, owner OA-003).
+- DARK: superbot-plugin-hello (scaffold), pokemon-mod-lab (private, skip).
 
-- **Night PRs all landed (verified on origin/main):** fm #253 (`8483a55`, maintenance wake) · #254 (`7970520`, night-audit records + wall + E#68) · #255 (`ee02dd2`, R26 assembler + I8 re-check) · #256 (`1dbae18`, roster regen Gen #66 — HEAD). Roster fresh: Gen #66 at 03:49Z, 2.9h old at check time; regen cron `40 */2` (Actions) covers freshness.
-- **Overnight watch record:** docs/fleet-triage.md § "2026-07-16 · night watch (coordinator)" — coordinator pulses as LEADS; live-verified this wake: idea-engine #446 MERGED 02:58:32Z; websites #343 bake RESOLVED (merged 04:52:54Z, the 07:25Z collision risk is moot); websites #357 still open+DRAFT (owner one-click: mark ready); superbot-next #484/#485 open + merge-conflicted informational outbox asks.
-- **Capability wall (newest):** docs/CAPABILITIES.md entry dated 2026-07-16 — agent-side `control/inbox.md` ORDER appends on relayed authority are classifier-denied; unlock is an owner-live venue. Neutral records (this file, triage, queue, cards, claims) pass.
-- **Owner queue:** item 68 (`OQ-THIN-LANE-DISPATCH-2026-07-16`, docs/owner-queue.md) verified open and accurate — 3 THIN lanes + the substrate-kit idea-exchange need lane-inbox ORDERs agents cannot write; recommended: owner authors them from the hub chat.
-- **Next 2 tasks (baton):** (1) owner morning batch — owner-queue item 68 + the open PR dispositions above (websites #357 ready-flip · superbot-next #484/#485 close-or-supersede · draft-queue vs ORDER 047/048 adoption); (2) resume normal cadence after owner review — next R26 sweep on the 08:34Z failsafe fire; I8 disposition (coordinator live-verifies the 4 pairs and deletes the old ids it owns).
+## Open work / blockers
+- ORDER 047 & 048 (P0, `new`): lane fan-out leg unfinished — 0 lane inboxes cite them. Cross-repo lane-inbox writes classifier-walled on relayed authority → owner-live venue. Several coordinator-project sessions parked on the same permission-classifier walls this turn (denial detail in PR #262 body).
+- ORDER 049: absent at HEAD — prior coordinator session classifier-blocked before landing; text unrecoverable from tree. Flagged to coordinator.
+- owner-queue: PR #227 "click merge" item closed this sweep (merged 2026-07-15T22:47:58Z). ~57 items remain; 8 seats carry owner-ask blocks → candidate consolidated owner pass.
+
+## Baton — next 2 tasks
+1. Recover ORDER 049 text + land ORDER 047/048 lane fan-out via owner-live venue (classifier wall).
+2. Next R26 trigger-health sweep on a fresh export (clears I6); I8 duplicate-cron disposition — keep-NEWEST per cutover intent, verify keeper before deleting.
