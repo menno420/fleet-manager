@@ -41,8 +41,50 @@ manager curates from.
 2026-07-15.)*
 
 *(A#63 OQ-FM-PR227-MERGE — the last active item in this group — was clicked by
-the owner 2026-07-15T22:47:58Z; swept to "Resolved 2026-07-16" below. Group is
-EMPTY as of the 2026-07-16 wake.)*
+the owner 2026-07-15T22:47:58Z; swept to "Resolved 2026-07-16" below. The group
+was EMPTY as of the 2026-07-16 wake; repopulated by the 2026-07-16 PR-landing
+audit below.)*
+
+69. **Merge websites #359 by hand — a green data-bake whose auto-merge never armed.** *(new 2026-07-16, PR-landing audit)*
+    - id: OQ-WEBSITES-359-MANUAL-MERGE
+    - WHAT: Squash-merge websites PR #359 (daily fleet-data bake). Checks green, not draft, but `mergeable_state: blocked` — native auto-merge failed to arm while sibling bake #343 auto-landed.
+    - WHERE: https://github.com/menno420/websites/pull/359
+    - HOW: Open the PR → "Squash and merge" → confirm. One click; no conflict, no rebase.
+    - WHY: A stale data bake sits un-landed; the refresh it carries won't reach the sites until it merges.
+    - UNBLOCKS: Fresh fleet-data on the websites services; clears the only stuck non-draft green PR in websites.
+    - VERIFIED-NEEDED: Live GH 2026-07-16 PM — open, not draft, `quality` check success, `mergeable_state: blocked` (auto-merge unarmed). Owner-only: the arm failed and no session merges PRs by hand.
+    - RISK: ↩️ reversible (revert the bake commit)
+    - VENUE: hub
+    - Blocking: not-blocking (data self-heals on the next bake, but the arm-miss is worth one manual land).
+
+70. **pokemon-mod-lab #87 — green but a real merge conflict: rebase-fix or close.** *(new 2026-07-16, PR-landing audit)*
+    - id: OQ-POKEMON-87-CONFLICT-DISPOSITION
+    - WHAT: Decide the fate of pokemon-mod-lab PR #87 (seat-dormant shutdown doc). Checks green but `mergeable_state: dirty` — base moved (#88/#90–#93 rewrote the same control/status.md) so it can't squash.
+      **A (recommended) — Rebase-fix:** dispatch a pokemon-mod-lab agent session to merge main in / resolve the control/status.md conflict, then let it land on green. Reply `A`.
+      **B — Close:** the doc is superseded by the newer dormancy commits; close #87 unmerged. Reply `B`.
+    - WHERE: https://github.com/menno420/pokemon-mod-lab/pull/87
+    - HOW: Reply A or B here. On A the manager files a pokemon-mod-lab ORDER; on B click "Close pull request".
+    - WHY: The PR is stuck (dirty) and pokemon-mod-lab is a dormant seat — either the shutdown doc lands cleanly or it's dropped; a dirty green PR left open is noise.
+    - UNBLOCKS: Clears pokemon-mod-lab's only stuck PR; finalizes the seat-dormancy record.
+    - VERIFIED-NEEDED: Live GH 2026-07-16 PM — open, not draft, substrate-gate + ROM builds green (ran 07-14, now stale), `mergeable=false` / `mergeable_state: dirty`. Owner-only: rebase needs a dispatched session (manager can't push lane repos); close is an owner click.
+    - RISK: ↩️ reversible (A re-openable; B re-openable)
+    - VENUE: hub
+    - Blocking: not-blocking.
+
+71. **Ready-flip trio — 3 green drafts parked by classifier denials, each needs one "Ready for review" click.** *(new 2026-07-16, PR-landing audit)*
+    - id: OQ-READY-FLIP-TRIO-0716
+    - WHAT: Mark three green-and-ready draft PRs "Ready for review" so their landing workflow can merge them. Each was left draft because the auto-mode classifier denied the autonomous ready-flip; the code is fine.
+      - gba-homebrew #153 — docs gate-orphan fix; ALSO repairs main's substrate-gate red (do this one first). https://github.com/menno420/gba-homebrew/pull/153
+      - superbot-idle #145 — control stale-claims sweep (control/**-only, clean). https://github.com/menno420/superbot-idle/pull/145
+      - superbot-games #149 — reconcile-race fix; carries a `do-not-automerge` label + touches a workflow file, so after ready-flip it still needs a manual "Squash and merge" (or clear the label). https://github.com/menno420/superbot-games/pull/149
+    - WHERE: the three PR URLs above.
+    - HOW: On each PR click "Ready for review". #153 and #145 auto-land on green. #149 also needs a manual "Squash and merge" (label + workflow-file carve-out) — or remove `do-not-automerge` to let it auto-land.
+    - WHY: All three are green with complete cards; only the draft flag holds them. #153 additionally clears a red substrate-gate on gba-homebrew main.
+    - UNBLOCKS: gba-homebrew main gate goes green (#153); idle claim-sweep lands; games reconcile-race fix lands.
+    - VERIFIED-NEEDED: Live GH 2026-07-16 PM — all three open, draft=true, all checks green, mergeable clean (#149 clean + `do-not-automerge`). Owner-only: sessions parked draft after the classifier denied the ready-flip shape; only an owner click flips ready.
+    - RISK: ↩️ reversible (re-draft / revert)
+    - VENUE: hub
+    - Blocking: partially — #153 leaves gba-homebrew main's gate red until flipped.
 
 ### (B) GitHub settings / repo admin
 
@@ -1503,6 +1545,11 @@ EMPTY as of the 2026-07-16 wake.)*
     - VERIFY: each target lane's control/inbox.md shows a new ORDER at HEAD.
     - RISK: ↩️ reversible (append-only inbox text; a wrong ORDER is
       superseded by a later append).
+    - Progress 2026-07-16 PM: Owner live-authorized the batch in the dispatch
+      session. superbot-mineverse ORDER 010 landed and merged (PR #118). The
+      remaining lanes were re-blocked by the auto-mode classifier after
+      authorization; the dispatch session parked on a pending permission
+      prompt. See the dispatch session for current status.
 
 ### (F) New intake 2026-07-12 (owner-live session) — decisions, no rush
 
