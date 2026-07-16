@@ -1,3 +1,1 @@
-# Claim
-
-- `claude/morning-wake-triage` · scope: morning wake ladder (roster/queue/triggers/triage/heartbeat) · 2026-07-16T06:40:19Z
+- `claude/morning-wake-triage` · **morning wake ladder (roster/queue/triggers/triage/heartbeat)** · .sessions, docs/fleet-triage.md, telemetry, control/status.md · 2026-07-16
