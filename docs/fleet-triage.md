@@ -663,6 +663,28 @@ failsafe (`trig_01LgMqjbBHsNTWMe6T3vaWmk` → successor
 capture_notes; next wake's export should show the old ids gone — re-check
 then, coordinator-seat triggers are report-only for this session.
 
+**I8 re-check (fresh full export 2026-07-16T01:44–01:49Z, 20 pages / 1964
+records / 17 enabled → `telemetry/triggers-snapshot.json` captured_at
+01:49:00Z, assembled by the new `scripts/assemble_triggers_snapshot.py`;
+fm PR #255, read-only): verdict WARN — the doubles are REAL, not a
+capture-window artifact.** Per old id: FM `trig_01LgMqjbBHsNTWMe6T3vaWmk`
+**ABSENT** (deleted as relayed; successor `trig_01UNjDKaaiGuUTvyfQGLKLrn`
+sole FM failsafe, next fire 02:32Z — I4 PASS) · Websites
+`trig_01VRT9F6jYNXym3nn18vVQQK` **PRESENT+ENABLED** (new
+`trig_01Cn7F2UvE62uDykSYQCDhtF` also enabled, same `45 */2`) · Venture Lab
+`trig_01GeQiMM3nHMQTyuLMsWj7q3` **PRESENT+ENABLED** (new
+`trig_01Er6TUtwybs9D9EuHCH32qX`, same `45 1-23/2`) · SuperBot World
+`trig_01RwQK2cBpgvY2xc2LZPSNtQ` **PRESENT+ENABLED** (new
+`trig_01B32hfwxfA67orKfBzQVdmU`, same `15 1-23/2`). Plus a FOURTH pair the
+01:08Z export predated: SuperBot 2.0 `trig_01UC7wiV3n5Vgs3RpSQt4gWz` (old,
+2026-07-15T04:07Z) + `trig_01E86nBnXqesQTwm6WA4mSUD` (new, 2026-07-16T01:07Z),
+same `0 1-23/2`. `check_trigger_health.py` on the fresh snapshot: **PASS —
+8/9 green, 1 WARN (I8 ×4 groups: superbot-2.0 · superbot-world · venture-lab
+· websites)**. Those seats double-fire each wake window until the old ids are
+deleted; disposition (live-verify each pair, delete the OLD id — the NEW ids
+are the cutover's installed keepers) belongs to the coordinator seat that ran
+the re-arm; this session touched no trigger (report-only per the wake brief).
+
 ## 2026-07-16 · night audit (wake session, seats read at origin/main HEAD ~01:15Z)
 
 Verdicts (evidence = each seat's own control/status.md + control/inbox.md + backlog docs):
