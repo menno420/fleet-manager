@@ -1,1 +1,0 @@
-- branch: claude/overnight-plan-menu-0716 · scope: docs/planning/overnight-menu-2026-07-17.md + control/status.md heartbeat + fleet-triage late-evening sweep entry · 2026-07-16
