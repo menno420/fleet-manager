@@ -1,8 +1,8 @@
 ---
-updated: 2026-07-16T21:30:24Z
+updated: 2026-07-16T21:56:32Z
 kit_version: 1.17.0
 seat: fleet-manager (manager)
-wake: recreation-runbook-0716 — ship docs/project-recreation-runbook.md (EAP cutover)
+wake: overnight-plan-menu-0716 — shipped docs/planning/overnight-menu-2026-07-17.md (25-proposal veto-ready seat menu); PART-1 records sweep
 ---
 
 # Fleet Manager — status
@@ -11,12 +11,12 @@ Neutral heartbeat. Facts + pointers only. Orders live in `control/inbox.md`; ask
 
 ## Routine state
 - FM failsafe cron `30 */2 * * *` — replacement `trig_01An9YmU3KC1kLhB5c9cv4Ax` PRESENT ("Fleet Manager failsafe wake", enabled, bound to coordinator session `session_01WwuStAe6JuMatMRdiA8Zsi`), next fire **2026-07-16T16:33Z**. Old `trig_01UNjDKaaiGuUTvyfQGLKLrn` ABSENT (deleted). I4 MANAGER-FAILSAFE PASS.
-- Roster: Gen #71 at HEAD (`1aabd29`, roster-regen.yml #267). I5 ROSTER-FRESH PASS.
-- Trigger health: last fresh export **captured_at 2026-07-16T15:26:43Z** (21 pages / 2033 records / 19 enabled), `check_trigger_health.py` **PASS — 8/9 green, 1 WARN**. I8 DUPLICATE-CRON **WARN ×4** persists on sibling seats post-cutover (report-only, no ids touched).
+- Roster: Gen #74 at HEAD (roster-regen.yml #272). I5 ROSTER-FRESH PASS.
+- Trigger health: last fresh export **captured_at 2026-07-16T15:26:43Z** (21 pages / 2033 records / 19 enabled), `check_trigger_health.py` **PASS — 8/9 green, 1 WARN**; I6 snapshot ~6.3h stale (coordinator-bound refresh). I8 DUPLICATE-CRON **WARN ×4** persists on sibling seats post-cutover (report-only, no ids touched).
 
 ## PRs
-- **#268 (this session)** — record PR-landing-audit owner actions in owner-queue + item-68 progress note; born-red card holds substrate-gate until flipped `complete`, then merge-on-green.yml lands it. In-flight.
-- Merged today on main: **#262** (wake-0716-pm sweep), **#263** (fix227prov follow-up), **#264** (R26 trigger-snapshot refresh), **#265** (fleet-wide PR-landing audit → `docs/pr-landing-audit-2026-07-16.md`), **#266** (stale-claim sweep from #262/#263 lane). Automated roster regen **#267** also merged (Gen #71, HEAD).
+- **#273 (this session)** — overnight plan-menu (menu + current-state link + late-evening triage sweep) — landing tonight on green; born-red card holds substrate-gate until flipped `complete`, then merge-on-green.yml lands it.
+- Merged today on main: **#262** (wake-0716-pm sweep), **#263** (fix227prov follow-up), **#264** (R26 trigger-snapshot refresh), **#265** (fleet-wide PR-landing audit → `docs/pr-landing-audit-2026-07-16.md`), **#266** (stale-claim sweep from #262/#263 lane), **#268** (PR-landing-audit owner actions + item-68 progress note). Automated roster regen **#272** merged (Gen #74, HEAD).
 - fleet-manager open PRs otherwise: none.
 
 ## Fleet (last sweep ~15:00Z — detail in docs/fleet-triage.md; PR-landing detail in docs/pr-landing-audit-2026-07-16.md; not re-run this wake)
@@ -34,5 +34,5 @@ Neutral heartbeat. Facts + pointers only. Orders live in `control/inbox.md`; ask
 - EAP wind-down: ends 2026-07-21 17:00 PT; recreation plan documented in docs/project-recreation-runbook.md; recreation executes control-plane-side (owner + coordinators), seat state is repo-resident so nothing is lost.
 
 ## Baton — next 2 tasks
-1. Orphan-trigger sweep after the owner stops Projects — match live `list_triggers` against the failsafe-id table in docs/project-recreation-runbook.md §2; delete only ids attributed to stopped seats.
-2. Verify each recreated seat's v3.7 prompt paste + failsafe cutover (new trigger confirmed live via `list_triggers` before deleting the old id).
+1. Owner veto pass on the overnight menu — `docs/planning/overnight-menu-2026-07-17.md` (25 proposals; recommended first-build set S3/S5/S9).
+2. EAP project recreation + orphan-trigger sweep tomorrow (per `docs/project-recreation-runbook.md` §2; cutover 2026-07-21 17:00 PT) — match live `list_triggers` against the failsafe-id table, delete only ids attributed to stopped seats; verify each recreated seat's v3.7 prompt paste + failsafe cutover.
