@@ -1,1 +1,0 @@
-- `claude/project-agent-instructions-ee4n43` · **v3.7 duty-form prompt registry + ORDER 048 owner mandate** · docs/prompts/v3/** + projects/** + control/inbox.md · 2026-07-15
