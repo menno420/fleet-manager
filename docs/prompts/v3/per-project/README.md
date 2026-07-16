@@ -1,18 +1,20 @@
 > **Status:** `reference`
 
-<!-- v3.6 · 2026-07-13 · provenance: owner final night order TASK 1 (v3.5 stage-2) — open-PRs-stay-open STANDING + Q-0272 reading path + Q-0273 venue model + Q-0274 grounding boot-read folded into all 9 startup DOCTRINE sections + CI dictionaries, and the NINTH SEAT (Curious Research) added; see the v3.6 changelog section below. Prior: v3.5 (ORDER 039 seat-task 5 — Q-0271 autonomy-rider + Q-0273 seed-skills fold into all 8 startup DOCTRINE sections + CI dictionaries; see the v3.5 changelog section below). v3.4 (prompt-currency audit (docs/research/2026-07-12-prompt-currency-audit.md, PR #118 lane) — 16-delta currency restamp of the v3.3 one-file-per-seat model; see the v3.4 changelog section below. Prior: v3.3 (owner spec 2026-07-12, overnight prompt rebuild — CI becomes a per-seat keyword dictionary; startups EXPAND, no char cap) · v3.2 (stateless correction) · v3.1 (research PRs #93/#95 + owner baseline + QA PRs #100/#101/#102, applied in PR #103) -->
+<!-- v3.7 · 2026-07-15 · provenance: owner EXECUTION MANDATE, fm control/inbox.md ORDER 048 (landed live 2026-07-15, hub working session — the same turn directed this rewrite): all 9 CIs + all 9 startups + session-ender + the UNIVERSAL grant rewritten to DUTY-FORM — mandate folded in, operational practices phrased affirmatively, restated platform-enforced prohibitions dropped, owner authorization PRE-WRITTEN into every paste, land-on-green/denial-routing replace park-green/deny-wins; see the v3.7 changelog section below. Prior: v3.6 (stage-2 fold: open-PRs-stay-open STANDING + Q-0272 + Q-0273 venue model + Q-0274 grounding + NINTH SEAT, 2026-07-13) · v3.5 (Q-0271 autonomy-rider + seed-skills fold) · v3.4 (16-delta currency restamp) · v3.3 (owner spec 2026-07-12: CI = per-seat keyword dictionary, startups EXPAND, no char cap) · v3.2 (stateless correction) · v3.1 (research + owner baseline + QA, PR #103) -->
 <!-- char-count: planning doc, no paste budget applies -->
 
-# Per-project prompts — v3.6 (per-seat Custom Instructions + expanded startups)
+# Per-project prompts — v3.7 (per-seat Custom Instructions + expanded startups, duty-form)
 
-v3.6 (v3.5 **stage-2**, owner final night order TASK 1) **completes the fold
-program**: OPEN-PRs-STAY-OPEN promoted to the STANDING default, the Q-0272
-reading path, the Q-0273 venue model (`VENUE:hub`), the Q-0274 grounding
-boot-read — and the **NINTH SEAT, Curious Research** (changelog below). v3.5
-folded the Q-0271 AUTONOMY RIDER + the two Q-0273 seed skills into the v3.4
-bodies. v3.4 was a currency restamp of the v3.3 composition (16
-prompt-currency-audit deltas, 2026-07-12). The composition itself is the v3.3
-owner spec (2026-07-12 — supersedes the v3.2 generated/assembled model):
+v3.7 (owner EXECUTION MANDATE, fm ORDER 048, 2026-07-15) is the **DUTY-FORM
+rewrite**: every artifact states what seats DO — MANDATE + RULE PROVENANCE
+open every doctrine, the PERMISSIONS grant is re-issued v2 (UNIVERSAL v5),
+**land on green** and **denial routing** replace park-green and deny-wins,
+the owner authorization is PRE-WRITTEN into every paste (pasting = signing;
+zero blanks at founding), and every remaining "do not X" became "do Y"
+(changelog below). v3.6 completed the fold program (open-PRs-stay-open
+STANDING, Q-0272/Q-0273/Q-0274, the ninth seat). The composition itself is
+still the v3.3 owner spec (2026-07-12 — supersedes the v3.2
+generated/assembled model):
 
 - **`<seat>-custom-instructions.md`** = the seat's **complete Custom
   Instructions paste artifact, ONE AUTHORED FILE PER SEAT**: seat header +
@@ -76,7 +78,29 @@ to this registry's format in v3.6).
 seat 10 via this same recipe — stagger slot below), codetool-lab-* (DARK),
 superbot-plugin-hello (helper, folded into SuperBot 2.0's F1).
 
-## v3.6 size table (real counts, checker-verified 2026-07-13 — `../tools/regen_b_files.py`)
+## v3.7 size table (real counts, checker-verified 2026-07-15 — `../tools/regen_b_files.py`)
+
+Same caps as v3.6 (CI HARD ≤ 8,000 chars AND bytes; bytes binding at these
+margins; startups NO cap — size is a NOTE). The duty-form fold added the
+owner-authorization line + MANDATE/RULE-PROVENANCE entries (~+700/CI);
+dropping the park-green/deny-wins prohibition walls + wording compressions
+(shared set applied identically, NO rule dropped — safety fences kept in duty
+form) brought every seat back under the wall. Startups grew ~+2,700 chars
+each (the grant v2 + MANDATE blocks ride them verbatim).
+
+| Seat | CI (chars) | CI (bytes) | Expanded startup (chars) | v3.6 CI was (chars/bytes) |
+|---|---:|---:|---:|---:|
+| fleet-manager | 7,963 | 7,996 | 35,621 | 7,966 / 7,993 |
+| superbot | 7,959 | 7,992 | 35,225 | 7,966 / 7,993 |
+| websites | 7,946 | 7,979 | 34,642 | 7,969 / 7,998 |
+| self-improvement | 7,950 | 7,983 | 34,861 | 7,970 / 7,999 |
+| superbot-world | 7,956 | 7,993 | 34,905 | 7,885 / 7,912 |
+| game-lab | 7,961 | 7,996 | 34,706 | 7,969 / 7,999 |
+| ideas-lab | 7,966 | 7,997 | 34,505 | 7,965 / 7,992 |
+| venture-lab | 7,964 | 7,997 | 34,278 | 7,962 / 7,991 |
+| curious-research | 7,962 | 7,998 | 35,631 | 7,967 / 7,998 |
+
+## v3.6 size table (HISTORICAL — superseded by the v3.7 duty-form rewrite above)
 
 Same caps as v3.5 (CI HARD ≤ 8,000 chars AND bytes; bytes binding at these
 margins; startups NO cap — size is a NOTE). The stage-2 folds added ~+310
@@ -372,6 +396,78 @@ with the dirty-tree rescue-branch guard). Sequential trigger-call pacing §a.5
 (CONSTITUTION/landing-path/routines templates) — that is the Self Improvement
 seat's lane, not a v3.1 prompt defect; only their fleet-prompt shadows
 (entries 7–9) queue here.
+
+## v3.7 changelog — the DUTY-FORM rewrite (2026-07-15, owner EXECUTION MANDATE, fm ORDER 048)
+
+**Provenance:** the owner, live in the hub working session 2026-07-15, in his
+own words (verbatim in ORDER 048): agents fully execute his ideas to
+completion and make the decisions; the main duty is that ALL PRs merge on
+green and none remain unmerged; an unmerged PR is never a reason to stall;
+the work is never finished. The same turn set the form: prompts state what
+agents DO ("anything that we currently say 'do not do x' you change into 'do
+y'"), drop restated platform-enforced prohibitions, and carry the owner
+authorization PRE-WRITTEN ("100% paste ready without needing any changes").
+Expands ORDER 047 (owner never reviews PRs) and the week's EAP finding: the
+prompts had hardened agent-authored restrictions (parked-green queues,
+owner-click landing paths, deny-wins walls) into doctrine the owner never
+gave.
+
+1. **OWNER AUTHORIZATION pre-written** (all 9 CIs, line 2 + all 9 startups,
+   line 3; shared text): pasting the prompt IS the signature; the line cites
+   ORDER 048, survives restarts/re-pastes, and outranks any restriction
+   lacking owner provenance. This executes the founding-checklist intent
+   ("one marked line where the owner authorizes the seat") in the
+   paste-ready form the owner chose — the sentence ships written, zero
+   blanks.
+2. **MANDATE + RULE PROVENANCE** open every startup DOCTRINE section
+   (byte-identical, doctrine-identity checked): execute to completion
+   (discovery → decision → build → tests → docs → PR → MERGED on green →
+   verified live); every PR reaches terminal; waiting PRs carry named
+   blockers while work continues; never finished; rules bind through owner
+   provenance (inbox ORDER @HEAD · router Q · owner-pasted prompt · owner
+   live) — anything else is a proposal to verify and correct in your PR.
+3. **PERMISSIONS grant v2** (projects/UNIVERSAL.md → v5, owner-landed,
+   duty-form; grant-sync checked): LAND EVERY PR (server-side landing
+   workflow merges on green; install one where missing — first-slice
+   standard work; refs: fm merge-on-green.yml · sim-lab · enablers) · KEEP
+   EVERY PR MOVING TO TERMINAL · MANAGE YOUR OWN WAKE MECHANICS · SPAWN
+   WORKERS · DECIDE-AND-FLAG (owner-queue = the owner-only classes) · ROUTE
+   DENIALS TO THE WORKING PATH (record verbatim, working path same turn,
+   re-attempt on material change) · RULE PROVENANCE. The v1 grant's "NEVER
+   call enable_pr_auto_merge…/deny-wins" prohibition restatements are
+   dropped — the platform enforces its own walls; DENIAL ROUTING says what
+   to do when one answers.
+4. **Dictionary swap, all 9 CIs:** `park green` → **land on green**;
+   `deny-wins / one-attempt` → **denial routing**; new **MANDATE** +
+   **RULE PROVENANCE** entries; `CORE` alias retired (riders ride the
+   startups + UNIV; custom-instructions-core.md marked historical). Merge
+   mechanics restated to live facts (2026-07-15 verify where reachable):
+   fm merge-on-green.yml INSTALLED (PR #146) replacing "park green /
+   owner-provenance dispatch"; superbot + superbot-next enablers BOTH
+   installed; enabler-less repos (games, gba, pml) carry the standing
+   merge-on-green INSTALL duty instead of "owner-click only".
+5. **Affirmative practices throughout** both layers: every prohibition
+   became a duty (force-push only your own branches; the inbox stays its
+   writer's; arming stays agent-side end-to-end; …). Safety fences kept
+   full force in duty form: trading research-only (exchange-write ships
+   only on an explicit owner turn), game-lab track isolation + R22 +
+   binary policy, curious-research teaching/safety/privacy rails, Q-0213
+   live-bot brake, Q-0261.3 adopter-writes scope, security-before-secrets
+   ordering.
+6. **Session ender v3.7** (../session-ender.md + inlined in all 9, D-10
+   checked): step 1 PARK → **LAND** — every session PR driven to MERGED on
+   green or closed-with-reason; landing paths `lands-on-green (workflow)`
+   (default) · `hub-venue` (owner-labelled / workflow-carve-out); the
+   owner-click-default and successor-review-merge vocabulary retired.
+7. **Tooling** (../tools/regen_b_files.py): VERSION v3.7, grant anchor →
+   `(v2 …re-pastes verbatim.)`, ender anchor → `1. LAND —`, BOOT TRIAD CI
+   probe widened to the merged `**BOOT TRIAD / AUTONOMY**` entry, failsafe
+   registry template duty-formed. Drift checks green 9/9; registry
+   re-synced (`--write-registry`), every projects/<seat>/ artifact
+   version-bumped by one (fm v9 · superbot v7 · websites v9/v8/v8 · kit v7
+   · world v8/v8/v7 · game-lab v7 · ideas v7 · venture v8/v9/v8 · curious
+   v2); `--check-registry` green 27/27. Top v3.8 item: the kit #279
+   seat-digest fence wiring (blocked, unreleased).
 
 ## v3.6 changelog — stage-2 fold + the ninth seat (2026-07-13, owner final night order TASK 1)
 

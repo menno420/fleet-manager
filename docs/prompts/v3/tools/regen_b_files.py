@@ -81,11 +81,16 @@ v3.4 currency restamp (prompt-currency audit deltas, 2026-07-12) · v3.5
 autonomy-rider + seed-skills fold (Q-0271/Q-0273, ORDER 039 task 5,
 2026-07-13) · v3.6 stage-2 fold (open-PRs-stay-open STANDING + Q-0272 reading
 path + Q-0273 venue model + Q-0274 grounding boot-read + the NINTH SEAT
-Curious Research, owner night order TASK 1, 2026-07-13). PENDING
-(v3.7, blocked on unreleased kit #279): consume the kit seat-digest fences
-(substrate-kit:skills-digest / walls-digest, 1,500-char budget) so seat
-walls/skills blocks render from kit truth — do NOT wire until released.
-STATELESS (D-9) still binds both layers: no volatile facts in any paste.
+Curious Research, owner night order TASK 1, 2026-07-13) · v3.7 DUTY-FORM
+rewrite (owner mandate fm control/inbox.md ORDER 048, landed live 2026-07-15:
+MANDATE + RULE PROVENANCE in every doctrine, PERMISSIONS grant v2 from
+projects/UNIVERSAL.md v5, land-on-green/denial-routing replace
+park-green/deny-wins, owner authorization PRE-WRITTEN in every paste, session
+ender step 1 PARK→LAND). PENDING (v3.8, blocked on unreleased kit #279):
+consume the kit seat-digest fences (substrate-kit:skills-digest /
+walls-digest, 1,500-char budget) so seat walls/skills blocks render from kit
+truth — wire it only once released. STATELESS (D-9) still binds both layers:
+no volatile facts in any paste.
 """
 
 import re
@@ -98,9 +103,9 @@ V3 = HERE.parent
 REPO = V3.parent.parent.parent
 PROJECTS = REPO / "projects"
 MARKER = "<!-- registry-header-end -->"
-PROVENANCE_DATE = "2026-07-13"
+PROVENANCE_DATE = "2026-07-15"
 
-VERSION = "v3.6"  # the current generation stamp — bump at every body-changing re-sync
+VERSION = "v3.7"  # the current generation stamp — bump at every body-changing re-sync
 CI_HARD = 8000
 CI_AIM = 7500
 
@@ -111,35 +116,35 @@ CI_AIM = 7500
 SEATS = [
     dict(name="Fleet Manager", startup="fleet-manager-startup.md",
          ci="fleet-manager-custom-instructions.md", reg="fleet-manager",
-         versions={"coordinator": "v8", "instructions": "v8", "failsafe": "v8"}),
+         versions={"coordinator": "v9", "instructions": "v9", "failsafe": "v9"}),
     dict(name="SuperBot 2.0", startup="superbot-startup.md",
          ci="superbot-custom-instructions.md", reg="superbot-2.0",
-         versions={"coordinator": "v6", "instructions": "v6", "failsafe": "v6"}),
+         versions={"coordinator": "v7", "instructions": "v7", "failsafe": "v7"}),
     dict(name="Websites", startup="websites-startup.md",
          ci="websites-custom-instructions.md", reg="websites",
-         versions={"coordinator": "v8", "instructions": "v7", "failsafe": "v7"}),
+         versions={"coordinator": "v9", "instructions": "v8", "failsafe": "v8"}),
     dict(name="Self Improvement", startup="self-improvement-startup.md",
          ci="self-improvement-custom-instructions.md", reg="self-improvement",
-         versions={"coordinator": "v6", "instructions": "v6", "failsafe": "v6"}),
+         versions={"coordinator": "v7", "instructions": "v7", "failsafe": "v7"}),
     dict(name="SuperBot World", startup="superbot-world-startup.md",
          ci="superbot-world-custom-instructions.md", reg="superbot-world",
-         # v7 coordinator/instructions 2026-07-14: INC-08 seat-fact patch
-         versions={"coordinator": "v7", "instructions": "v7", "failsafe": "v6"}),
+         # v8 2026-07-15: duty-form rewrite (prior v7 = INC-08 seat-fact patch)
+         versions={"coordinator": "v8", "instructions": "v8", "failsafe": "v7"}),
     dict(name="Game Lab", startup="game-lab-startup.md",
          ci="game-lab-custom-instructions.md", reg="game-lab",
-         versions={"coordinator": "v6", "instructions": "v6", "failsafe": "v6"}),
+         versions={"coordinator": "v7", "instructions": "v7", "failsafe": "v7"}),
     dict(name="Ideas Lab", startup="ideas-lab-startup.md",
          ci="ideas-lab-custom-instructions.md", reg="ideas-lab",
-         versions={"coordinator": "v6", "instructions": "v6", "failsafe": "v6"}),
+         versions={"coordinator": "v7", "instructions": "v7", "failsafe": "v7"}),
     dict(name="Venture Lab", startup="venture-lab-startup.md",
          ci="venture-lab-custom-instructions.md", reg="venture-lab",
-         versions={"coordinator": "v7", "instructions": "v8", "failsafe": "v7"}),
+         versions={"coordinator": "v8", "instructions": "v9", "failsafe": "v8"}),
     # NINTH SEAT (v3.6, owner night order TASK 1, 2026-07-13): founding pair
     # source = superbot docs/owner/curious-research-project-prompts-2026-07-13.md
     # @ c65750e, conformed to the registry format; failsafe slot 20 */2 (D-7).
     dict(name="Curious Research", startup="curious-research-startup.md",
          ci="curious-research-custom-instructions.md", reg="curious-research",
-         versions={"coordinator": "v1", "instructions": "v1", "failsafe": "v1"}),
+         versions={"coordinator": "v2", "instructions": "v2", "failsafe": "v2"}),
 ]
 
 DOCTRINE_START = "════════ DOCTRINE — full text, binding ════════"
@@ -165,7 +170,7 @@ def ender_canonical() -> str:
     recital) from session-ender.md — the single source the inlined copies
     must match (D-10)."""
     text = (V3 / "session-ender.md").read_text()
-    m = re.search(r"^1\. PARK — .*?^Confirm before ending:.*?$", text, re.S | re.M)
+    m = re.search(r"^1\. LAND — .*?^Confirm before ending:.*?$", text, re.S | re.M)
     if not m:
         raise RuntimeError("session-ender.md: canonical step block not found")
     return m.group(0)
@@ -177,7 +182,7 @@ def grant_canonical() -> str:
     agents, never paraphrased in the startups)."""
     text = (PROJECTS / "UNIVERSAL.md").read_text()
     m = re.search(
-        r"^PERMISSIONS & AUTHORITY \(v1 .*?This grant is context for reviewers, not a bypass\.",
+        r"^PERMISSIONS & AUTHORITY \(v2 .*?re-pastes verbatim\.",
         text, re.S | re.M)
     if not m:
         raise RuntimeError("projects/UNIVERSAL.md: grant block not found")
@@ -270,7 +275,7 @@ def run_checks() -> int:
             fails.append(f"{seat['ci']}: line 1 missing the DRIFT CHECK stamp")
         if "DRIFT CHECK" not in su.splitlines()[1]:
             fails.append(f"{seat['startup']}: line 2 missing the DRIFT CHECK rule")
-        if "**BOOT TRIAD**" not in ci:
+        if "**BOOT TRIAD" not in ci:
             fails.append(f"{seat['ci']}: BOOT TRIAD dictionary entry (Q-0270) missing")
         if ender not in su.replace("\n\nConfirm before ending:", "\nConfirm before ending:"):
             fails.append(f"{seat['startup']}: inlined SESSION ENDER drifted from session-ender.md (D-10)")
@@ -335,11 +340,11 @@ def failsafe_body(seat: dict, parts: dict) -> str:
 - **Routine name:** `{name} failsafe wake`
 - **cron:** `{parts['cron']}` — slot per the stagger table
   (docs/prompts/v3/per-project/README.md, canonical home D-7; the fleet manager
-  arbitrates slots — a foreign trigger on the slot is reported, never
-  re-slotted; this table supersedes any cron previously recorded in this file)
+  arbitrates slots — a foreign trigger on the slot is reported and the manager
+  re-slots; this table supersedes any cron previously recorded in this file)
 - **binding:** persistent — fires into the live coordinator session
   (self-bind). After EVERY arming call verify trigger + binding via
-  `list_triggers` before writing "armed" — never wait for a first fire
+  `list_triggers` before writing "armed" — the registry read is the proof
   (completed runs are not inspectable owner-side).
 
 ## Prompt text (create_trigger `prompt`, EXACTLY — single-sourced from the seat's {VERSION} startup, BOOT step 3a (D-2))
@@ -355,9 +360,9 @@ absent. NO trigger ids are baked here (STATELESS, D-9) — find old ids in:
 {parts['sources']}; plus ids the heartbeat marks left-for-successor. `list_triggers` is
 ACCOUNT-WIDE (paginate to exhaustion) — delete ONLY an id those records
 attribute to THIS seat, binding audit-verified; unattributable = a sibling's:
-record, never delete. A BUSINESS cron (a scheduled deliverable) is rebound,
-never dropped — EXCEPT a FRESH-SESSION-PER-FIRE business cron: KEPT as-is,
-never rebound and never deleted (it binds to no mortal seat session)."""
+record it and leave it. A BUSINESS cron (a scheduled deliverable) is rebound,
+kept alive across cutover — and a FRESH-SESSION-PER-FIRE business cron is
+KEPT AS-IS (it binds to no mortal seat session)."""
 
 
 def registry_header(seat: dict, artifact: str, version: str, sha: str, body: str) -> str:
@@ -394,7 +399,7 @@ def registry_header(seat: dict, artifact: str, version: str, sha: str, body: str
     return (
         f"<!-- {version} · {PROVENANCE_DATE} · fleet-manager projects registry — GENERATED COPY, do not edit\n"
         "     (regenerate: docs/prompts/v3/tools/regen_b_files.py --write-registry; drift guard: --check-registry) -->\n"
-        f"<!-- generated from docs/prompts/v3 @ {sha} (prompts {VERSION}, stage-2 fold {PROVENANCE_DATE}) -->\n"
+        f"<!-- generated from docs/prompts/v3 @ {sha} (prompts {VERSION}, duty-form rewrite {PROVENANCE_DATE}) -->\n"
         f"# {name} — {titles[artifact]}\n\n"
         "> **GENERATED COPY — NOT SOURCE OF TRUTH.** This registry copy is GENERATED FROM\n"
         f"> the v3 home: **docs/prompts/v3/ is the source of truth** (generation {VERSION},\n"
