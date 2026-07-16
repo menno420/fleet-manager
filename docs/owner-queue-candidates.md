@@ -4,14 +4,14 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #67** · generated-at **2026-07-16T07:04Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #68** · generated-at **2026-07-16T10:30Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
 ### superbot (hub) — ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready…
 
 - suggested-id: `OQ-SUPERBOT-HUB-SIDE-RESIDUE-ONLY`
-- source: superbot/control/status.md @ `2985434` · heartbeat `updated:` 2026-07-13T18:00:00Z
+- source: superbot/control/status.md @ `7e41586` · heartbeat `updated:` 2026-07-13T18:00:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -21,28 +21,51 @@
 ### substrate-kit — - ⚑ FOR OWNER REVIEW (carried forward): ORDER 024 says "do NOT re-arm routines yet; wait for the owner's per-…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-REVIEW-CARRIED-FORWARD-ORDER`
-- source: substrate-kit/control/status.md @ `7ba849e` · heartbeat `updated:` 2026-07-16T03:55:05Z · phase: EAP EXTENSION ACTIVE (EAP thr…
+- source: substrate-kit/control/status.md @ `65cf519` · heartbeat `updated:` 2026-07-16T09:51:29Z · phase: SEAT CLOSING (EAP through 202…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
 - ⚑ FOR OWNER REVIEW (carried forward): ORDER 024 says "do NOT re-arm routines yet; wait for the owner's per-seat go". The enabled failsafe above (created 2026-07-16T01:09Z) post-dates that order. Recorded neutrally for owner review/veto; not adjudicated here. Kit-lab daily loop re-arm recipe: docs/operations/lab-loop.md.
-- **DENIAL RECORD (2026-07-16): v1.18.0 adopter-upgrade wave PARKED.** A proposed adopter-wave dispatch was permission-denied by the seat session's classifier — verbatim: "[External System Writes] …clone, branch, commit, push, and open PRs against ~15 separate adopter repositories… no genuine user message anywhere in the transcript authorizing writes outside the single-repo mandate." Routed per denial-routing doctrine (⚑ ask below); do NOT retry that dispatch shape without owner provenance — coordinator relay alone is not authorization. Adopter repos are read-only from this lane until the owner speaks.
 ```
 
-### substrate-kit — ⚑ v1.18.0 adopter-wave authorization — WHAT: authorize the v1.18.0 adopter-upgrade wave. WHERE: any seat sess…
+### substrate-kit — ⚑ v1.18.0 adopter-wave authorization
 
 - suggested-id: `OQ-SUBSTRATE-KIT-V1-18-0-ADOPTER`
-- source: substrate-kit/control/status.md @ `7ba849e` · heartbeat `updated:` 2026-07-16T03:55:05Z · phase: EAP EXTENSION ACTIVE (EAP thr…
+- source: substrate-kit/control/status.md @ `65cf519` · heartbeat `updated:` 2026-07-16T09:51:29Z · phase: SEAT CLOSING (EAP through 202…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-⚑ v1.18.0 adopter-wave authorization — WHAT: authorize the v1.18.0 adopter-upgrade wave. WHERE: any seat session, one live owner turn. HOW: say 'run the v1.18.0 adopter wave'. WHY: the seat session's permission classifier denied adopter-repo writes dispatched on coordinator relay alone — verbatim: '[External System Writes] …clone, branch, commit, push, and open PRs against ~15 separate adopter repositories… no genuine user message anywhere in the transcript authorizing writes outside the single-repo mandate.' UNBLOCKS: ~15 adopter currency PRs to v1.18.0. VERIFY: wave report with per-adopter PR list. RISK: ↩️ reversible, distribution-only diffs.
+⚑ v1.18.0 adopter-wave authorization
+WHAT: authorize the v1.18.0 adopter-upgrade wave.
+WHERE: the executing seat session, one live owner turn.
+HOW: say 'run the v1.18.0 adopter wave'.
+WHY: the seat session's permission classifier denied adopter-repo writes dispatched on coordinator relay alone (denial record verbatim: PR #420 body § "Denial routing"); owner provenance in the executing session is the unblock.
+UNBLOCKS: ~15 adopter currency PRs to v1.18.0.
+VERIFY: wave report with per-adopter PR list.
+RISK: ↩️ reversible, distribution-only diffs.
+```
+
+### substrate-kit — ⚑ CAPABILITIES denial-record entry (parked)
+
+- suggested-id: `OQ-SUBSTRATE-KIT-CAPABILITIES-DENIAL-RECORD-ENTRY`
+- source: substrate-kit/control/status.md @ `65cf519` · heartbeat `updated:` 2026-07-16T09:51:29Z · phase: SEAT CLOSING (EAP through 202…
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+⚑ CAPABILITIES denial-record entry (parked)
+WHAT: approve appending the 2026-07-16 adopter-wave denial finding to docs/CAPABILITIES.md in summarized form (finding + date + pointer to the PR #420 body for the verbatim record).
+WHERE: the executing seat session, one live owner turn.
+HOW: say 'record the adopter-wave denial in CAPABILITIES, summarized'.
+WHY: the CAPABILITIES discovery rule wants attempted walls appended same-session; the seat parked the append pending owner direction on form/placement.
+UNBLOCKS: the can/cannot ledger stays complete for the successor.
+VERIFY: a dated docs/CAPABILITIES.md entry pointing at PR #420.
+RISK: ↩️ reversible, docs-only.
 ```
 
 ### substrate-kit — ⚑ P10 required-check swap
 
 - suggested-id: `OQ-SUBSTRATE-KIT-P10-REQUIRED-CHECK-SWAP`
-- source: substrate-kit/control/status.md @ `7ba849e` · heartbeat `updated:` 2026-07-16T03:55:05Z · phase: EAP EXTENSION ACTIVE (EAP thr…
+- source: substrate-kit/control/status.md @ `65cf519` · heartbeat `updated:` 2026-07-16T09:51:29Z · phase: SEAT CLOSING (EAP through 202…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -59,7 +82,7 @@ RISK: ↩️ reversible — re-add the old required checks in the same ruleset p
 ### substrate-kit — ⚑ public-flip-or-PAT (pick one)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-PUBLIC-FLIP-PAT-PICK`
-- source: substrate-kit/control/status.md @ `7ba849e` · heartbeat `updated:` 2026-07-16T03:55:05Z · phase: EAP EXTENSION ACTIVE (EAP thr…
+- source: substrate-kit/control/status.md @ `65cf519` · heartbeat `updated:` 2026-07-16T09:51:29Z · phase: SEAT CLOSING (EAP through 202…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -76,7 +99,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### ↳ substrate-kit — `control/status-superbot-coordinator.md` — ⚑ needs-owner: 1) verify/deliver the testing-lane wind-down — superbot-next control/status.md was still UNFLI…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-1-VERIFY-DELIVER-TESTING`
-- source: substrate-kit/control/status-superbot-coordinator.md @ `7ba849e` · heartbeat `updated:` 2026-07-10T13:47:02Z
+- source: substrate-kit/control/status-superbot-coordinator.md @ `65cf519` · heartbeat `updated:` 2026-07-10T13:47:02Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -178,14 +201,14 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
   owner can perform.
 ```
 
-### idea-engine — ⚑ needs-owner: unchanged — docs/eap-closeout-walkthrough-2026-07-14.md §C; plus the wake-rebind decision alre…
+### idea-engine — ⚑ needs-owner: docs/eap-closeout-walkthrough-2026-07-14.md §C (unchanged); the wake-rebind decision is review…
 
-- suggested-id: `OQ-IDEA-ENGINE-UNCHANGED-DOCS-EAP-CLOSEOUT`
-- source: idea-engine/control/status.md @ `d513f18` · heartbeat `updated:` 2026-07-16T06:26:45Z (real wall-clock via date -u, monotoni…
+- suggested-id: `OQ-IDEA-ENGINE-DOCS-EAP-CLOSEOUT-WALKTHROUGH`
+- source: idea-engine/control/status.md @ `96a9f22` · heartbeat `updated:` 2026-07-16T09:56:38Z (real wall-clock via date -u, monotoni…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-⚑ needs-owner: unchanged — docs/eap-closeout-walkthrough-2026-07-14.md §C; plus the wake-rebind decision already queued in the coordinator chat (see the wakes line — no new ask added here).
+⚑ needs-owner: docs/eap-closeout-walkthrough-2026-07-14.md §C (unchanged); the wake-rebind decision is reviewed — the live cron stays as-is (see wakes line). ⚑ guard-fires telemetry delta left uncommitted — committing it was classifier-denied this session; owner decision needed (repo doctrine expects it to ride a session PR).
 ```
 
 ### codetool-lab-opus4.8 — ⚑ needs-owner: (1) delete leftover branch claude/status-heartbeat-001 (sessions 403 on ref deletes); (2) OPTI…
@@ -200,5 +223,5 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 
 ---
 
-15 candidate block(s) across 11 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
+16 candidate block(s) across 11 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
 
