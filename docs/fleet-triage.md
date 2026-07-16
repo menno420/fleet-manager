@@ -719,6 +719,57 @@ Skipped: pokemon-mod-lab (auth wall, OQ #49). No-ORDER by standing decision:
 product-forge (E#63), codetool-labs ×3 (B#41/B#42), plugin-hello (inert). No
 repo unreachable; no quota denials.
 
+## 2026-07-16 · night watch (coordinator)
+
+*(Recorded 2026-07-16T06:5xZ by the morning wake slice, fm PR #257. Source:
+coordinator-worker observations relayed in the dispatch — **LEADS, not
+independently verified** except the rows marked VERIFIED, which were
+cross-checked live against GitHub this wake. Q-0120 governs: re-verify any
+LEAD against live source before acting on it.)*
+
+**Overnight pulses (coordinator-reported, LEAD):** sweeps at 02:45Z and
+04:15Z; 8 seats shipped 01:00–02:45Z and 5 more by 04:15Z; zero genuine CI
+failures across the night — every red was a designed born-red HOLD, not a
+failure. Not independently measured this wake ("not measured" beats
+invention; the per-seat PR lists live with the coordinator session).
+
+**idea-engine #446 — VERIFIED:** self-recovered and MERGED
+2026-07-16T02:58:32Z by github-actions[bot], head `dda8a54`
+(https://github.com/menno420/idea-engine/pull/446). Coordinator claim
+confirmed exactly.
+
+**Open owner dispositions at the morning handoff:**
+
+- **websites #357 — VERIFIED open + DRAFT** (rerun-ci jobs-preflight,
+  head `e8f1c78`, updated 01:23:59Z). PR body records the ready-flip
+  attempt rate-limited verbatim: "API rate limit already exceeded for
+  user ID 225413533"; the coordinator additionally reports a later flip
+  attempt classifier-walled (LEAD). Owner one-click: mark ready.
+- **websites #343 — VERIFIED RESOLVED:** the bake PR the coordinator
+  reported green-but-blocked ~21h (next-bake 07:25Z collision risk)
+  MERGED 2026-07-16T04:52:54Z by github-actions[bot], head `0d1d84b` —
+  the disposition self-cleared after the report; the 07:25Z bake-collision
+  risk is moot.
+- **superbot-next #484 / #485 — VERIFIED both open, mergeable_state
+  `dirty` (merge-conflicted):** informational lane→manager outbox asks,
+  both bodies explicitly "do not auto-merge / arm". Coordinator reports
+  them likely superseded and a manager close attempt classifier-denied
+  (LEAD — denial text lives with the coordinator session). Disposition
+  recommendation: close-with-reason once their outbox content is
+  confirmed mirrored at HEAD.
+- **Owner-release draft queue (coordinator-reported, LEAD):** superbot
+  #2061 · superbot-next #499/#500 · superbot-games #149 · superbot-idle
+  #145 · gba-homebrew #153 · trading-strategy #134 · websites #345 —
+  drafts held for owner release, in tension with ORDERs 047/048
+  (feature PRs land on green; owner never reviews PRs) pending lane
+  adoption of the fan-out. Not re-verified per-repo this wake.
+
+**Wall class (recorded):** agent-side directive writes on relayed
+authority are classifier-denied — 6+ same-shape denials overnight per the
+coordinator (7 recorded in the canonical entry); canonical record +
+verbatim sample: docs/CAPABILITIES.md, 2026-07-16 WALL entry. Unlock =
+owner-live venue.
+
 ## How to re-verdict
 
 1. Verify against live source (Q-0120 — never against report text).
