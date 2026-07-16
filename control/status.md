@@ -1,8 +1,8 @@
 ---
-updated: 2026-07-16T16:20:15Z
+updated: 2026-07-16T21:30:24Z
 kit_version: 1.17.0
 seat: fleet-manager (manager)
-wake: queue-audit-items-0716 — record PR-landing-audit owner actions (PR #268)
+wake: recreation-runbook-0716 — ship docs/project-recreation-runbook.md (EAP cutover)
 ---
 
 # Fleet Manager — status
@@ -31,7 +31,8 @@ Neutral heartbeat. Facts + pointers only. Orders live in `control/inbox.md`; ask
 - PR-landing audit (2026-07-16, `docs/pr-landing-audit-2026-07-16.md`) surfaced owner-only landings now recorded in `docs/owner-queue.md`: websites #359 (OQ-WEBSITES-359-MANUAL-MERGE), pokemon-mod-lab #87 (OQ-POKEMON-87-CONFLICT-DISPOSITION), ready-flip trio #153/#145/#149 (OQ-READY-FLIP-TRIO-0716).
 - E#68 (OQ-THIN-LANE-DISPATCH-2026-07-16): owner live-authorized the batch; superbot-mineverse ORDER 010 landed (PR #118); remaining lanes re-blocked by classifier, dispatch session parked on a pending permission prompt (progress note in owner-queue).
 - I8 DUPLICATE-CRON ×4: keep-OLDEST disposition per cutover intent is a sibling-lane call (verify each live before deleting the newer id); NOT actioned this wake.
+- EAP wind-down: ends 2026-07-21 17:00 PT; recreation plan documented in docs/project-recreation-runbook.md; recreation executes control-plane-side (owner + coordinators), seat state is repo-resident so nothing is lost.
 
 ## Baton — next 2 tasks
-1. Land ORDER 047/048 lane fan-out + recover ORDER 049 text via owner-live venue (classifier wall); relay the CAPABILITIES walls entry once unlocked.
-2. I8 duplicate-cron disposition — verify each sibling failsafe live, keep OLDEST-created id, delete the newer; record dedup here + dispatch log.
+1. Orphan-trigger sweep after the owner stops Projects — match live `list_triggers` against the failsafe-id table in docs/project-recreation-runbook.md §2; delete only ids attributed to stopped seats.
+2. Verify each recreated seat's v3.7 prompt paste + failsafe cutover (new trigger confirmed live via `list_triggers` before deleting the old id).

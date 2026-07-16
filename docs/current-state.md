@@ -51,6 +51,13 @@ The custodian toolchain shipped by the centralization plan P1→P3 (all
 (Verify against live source control — this section is a dated snapshot,
 swept 2026-07-14T02:5xZ against the live GitHub API.)
 
+- **EAP wind-down (2026-07-16):** Anthropic EAP ends Tuesday 2026-07-21
+  17:00 PT — Projects disabled, sessions read-only, data deleted in 180 days;
+  new-Project coordinator improvements do not backport in place. Owner plans
+  to stop and recreate Projects fresh (keeping 1–2 as controls) within the
+  window. Procedure:
+  [project-recreation-runbook.md](project-recreation-runbook.md). Next:
+  orphan-trigger sweep after the owner stops Projects.
 - **EAP EXTENDED through 2026-07-21 (2026-07-15)** — Anthropic mail
   2026-07-14T23:07:44Z; the 2026-07-14 dormancy orders are superseded pending
   the owner's per-project reboot review (ORDER 046). Review surface:
@@ -82,6 +89,11 @@ swept 2026-07-14T02:5xZ against the live GitHub API.)
 
 ## Recently shipped (newest first)
 
+- **Project recreation runbook — EAP wind-down cutover** (fm #271,
+  `claude/recreation-runbook-0716`, 2026-07-16):
+  [project-recreation-runbook.md](project-recreation-runbook.md) —
+  per-project closeout, per-seat recreation, A/B-test, and orphan-sweep
+  procedure for stopping/recreating Projects before the 2026-07-21 EAP cutoff.
 - **Fleet-wide PR-landing audit** (fm #265, `claude/pr-audit-0716`,
   2026-07-16): [Fleet-wide PR-landing audit (2026-07-16)](pr-landing-audit-2026-07-16.md)
   — point-in-time read-only snapshot of PR auto-landing across all 19 fleet
