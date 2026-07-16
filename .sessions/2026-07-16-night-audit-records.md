@@ -4,7 +4,7 @@
 
 Recording tonight's 12-seat backlog audit, the dispatch capability wall, and the owner ask.
 
-📊 Model: Fable · high effort · fleet-oversight records
+- **📊 Model:** Fable 5 (Claude 5 family) · high · review/verify (fleet-oversight night-audit records)
 
 Close-out: landed the 2026-07-16 night-audit triage section (docs/fleet-triage.md),
 the classifier-wall entry (docs/CAPABILITIES.md, dated 2026-07-16), and one
