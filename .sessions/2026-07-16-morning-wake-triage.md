@@ -1,6 +1,6 @@
 # Session — 2026-07-16 · morning wake triage
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 About to do: morning wake ladder — roster freshness check, owner-queue item 68 verify, trigger-health snapshot refresh + I8 duplicate-pair re-check (read-only), fleet-triage night-watch subsection, heartbeat rewrite.
 
@@ -55,7 +55,7 @@ About to do: morning wake ladder — roster freshness check, owner-queue item 68
   line (records delta vs prior capture) so runaway one-shot creation is a
   headline, not an archaeology find. Dedup: grepped docs/ideas/ + docs/ +
   .sessions/ for bloat/registry-size/export-cost — nothing covers it.
-- **📊 Model:** Fable 5 · medium · fleet-oversight wake slice
+- **📊 Model:** Fable 5 · medium · review/verify (fleet-oversight wake slice)
 - ⟲ **Previous-session review** (fm #255, r26-trigger-tooling card): the
   assembler it shipped paid for itself one wake later — this session's
   20-page export assembled + validated in one command (proof run 2, zero
