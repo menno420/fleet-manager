@@ -1481,6 +1481,29 @@ EMPTY as of the 2026-07-16 wake.)*
     - Blocking: not-blocking (sim-lab operates on the suspension); blocks
       only the doctrine fork's retirement.
 
+68. **⚑ Overnight dispatch decision — 3 THIN lanes + the substrate-kit
+    idea-exchange need lane-inbox ORDERs agents cannot write tonight.**
+    *(new 2026-07-16, night-audit wake — classifier wall.)*
+    - id: OQ-THIN-LANE-DISPATCH-2026-07-16
+    - VENUE: hub
+    - WHAT: Overnight dispatch decision — 3 THIN lanes (superbot-idle,
+      superbot-mineverse, sim-lab) and the substrate-kit idea-exchange need
+      lane-inbox ORDERs that agents cannot write tonight (classifier wall).
+    - WHERE: audit + per-lane evidence: docs/fleet-triage.md § 2026-07-16
+      night audit; wall: docs/CAPABILITIES.md 2026-07-16.
+    - HOW: **Recommended: author the lane ORDERs yourself from your live hub
+      chat** (each lane's triage row names its own backlog evidence to draw
+      from), or give a live go-ahead in the wake session's conversation so an
+      agent can draft and land them with owner provenance in-transcript.
+    - WHY: 7/7 agent-side attempts tonight were denied — inbox ORDER writes
+      on relayed authority are treated as instruction poisoning; a genuine
+      owner turn is the unlock.
+    - UNBLOCKS: ORDER 047/048 fan-out (0/8 lanes cite them), THIN-lane
+      overnight work, the fleet↔kit idea exchange the owner asked for.
+    - VERIFY: each target lane's control/inbox.md shows a new ORDER at HEAD.
+    - RISK: ↩️ reversible (append-only inbox text; a wrong ORDER is
+      superseded by a later append).
+
 ### (F) New intake 2026-07-12 (owner-live session) — decisions, no rush
 
 39. **Railway project duplication — websites services exist in BOTH
