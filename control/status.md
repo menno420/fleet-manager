@@ -27,7 +27,7 @@ Neutral heartbeat. Facts + pointers only. Orders live in `control/inbox.md`; ask
 ## Open work / blockers
 - ORDER 047 & 048 (P0, `new`): lane fan-out leg unfinished — 0 lane inboxes cite them. Cross-repo lane-inbox writes classifier-walled on relayed authority → owner-live venue. Several coordinator-project sessions parked on the same permission-classifier walls this turn (denial detail in PR #262 body).
 - ORDER 049: absent at HEAD — prior coordinator session classifier-blocked before landing; text unrecoverable from tree. Flagged to coordinator.
-- owner-queue: PR #227 "click merge" item closed this sweep (merged 2026-07-15T22:47:58Z). ~57 items remain; 8 seats carry owner-ask blocks → candidate consolidated owner pass.
+- owner-queue: PR #227 "click merge" item was already resolved by the earlier fm PR #253 wake (merge verified 2026-07-15T22:47:58Z; re-confirmed resolved this sweep — no open item). ~57 items remain; 8 seats carry owner-ask blocks → candidate consolidated owner pass.
 
 ## Baton — next 2 tasks
 1. Recover ORDER 049 text + land ORDER 047/048 lane fan-out via owner-live venue (classifier wall).
