@@ -1,18 +1,21 @@
 # Session — fm-anthropic-email-pack
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 **Branch:** `claude/fm-anthropic-email-pack-selfknowledge-0717`
 
-📊 Model: [[fill: model]]
+📊 Model: Opus 4.8 · medium · docs-only
 
-**About to do:** Extend the Anthropic email pack with an evidence-first capability-self-knowledge section (deferred-tool invisibility, misleading settings.json denial hint, classifier nondeterminism, connector passthrough) + the four-part product ask + the four routines platform bugs; paste-ready. This card holds the PR red (HOLD) until the doc section lands and the enders are filled, then flips `complete` last.
+**About to do:** Extend the Anthropic email pack with an evidence-first capability-self-knowledge section (deferred-tool invisibility, misleading settings.json denial hint, classifier nondeterminism, connector passthrough) + the four-part product ask + the four routines platform bugs; paste-ready. This card held the PR red (HOLD) until the doc section landed and the enders were filled, then flips `complete` last.
 
 **Did:**
-- [[fill: what landed]]
+- **New living pack doc `docs/anthropic-email-pack.md`** (owner-directed — owner redirect, coordinator chat 2026-07-17, event 66c15712). The 2026-07-14 email was already sent as a separate finalized artifact ([eap-final-email-draft-2026-07-14.md](../docs/eap-final-email-draft-2026-07-14.md)), so rather than editing that past-window doc, this lands the durable home for the **next** email — matching the owner-queue's exact "Anthropic email pack" term. prep-owner-steps grammar: one-line WHAT-TO-SEND-WHERE, then a self-contained paste-ready COPY-FROM/TO email body, then a supporting-evidence section (out of the copy block).
+- **The capability self-knowledge section, three parts:** (1) evidence timeline in the owner's framing with verbatim quotes + real trigger ids — deferred-tool invisibility (`create_trigger`/`send_later` not in the visible list → false "can't"), the misleading Bash-fallback denial quoted verbatim (points at `settings.json`, which auto mode doesn't read), the native MCP success (`trig_01Bo7dZxM9xz2hwR36L424Z8` failsafe + `trig_01HvbDCuRZqrZQVW3DqAwEot`/`trig_01SEE6hs3W4Tc6KhHRWH68Eq` pacemakers), classifier nondeterminism (identical `list_triggers` succeeded then denied), connector-passthrough caveat; (2) the four-part product ask (full tool inventory to self-inspection · true remediation surface in denials · deterministic/idempotent verdicts · the four routines platform bugs); (3) the one-line self-knowledge crib the owner asked for. Cross-references `docs/CAPABILITIES.md` (today's wake-chain UPDATE + the ToolSearch standing lesson from PR #294) — **not** duplicated.
+- **`docs/owner-queue.md` — pack pointer updated + drift fixed:** the "Anthropic email pack" item now records the 07-14 email as sent, points at the new `anthropic-email-pack.md` durable home (fixing the orphan-reachability gate), and corrects the stale lowercase `capabilities.md` citation to `CAPABILITIES.md` § routine self-arm rider.
+- **Checks green (verbatim in the run report):** `check_owner_queue.py` CLEAN exit 0; `check_roster_freshness.py` OK exit 0; `check_docs_links.py` CLEAN exit 0 (253 files, every intra-repo link resolves — the new doc's links included); `bootstrap.py check --strict` reachable-orphan finding cleared after linking from owner-queue.
 
-⚑ Self-initiated: [[fill]]
+⚑ Self-initiated: None on the deliverable — directed (owner redirect, event 66c15712). One contained decide-and-flag call: **created a new living pack doc rather than editing the sent 2026-07-14 final draft**, because that doc is a past-window finalized/sent artifact and the owner asked for the *next* email — noted in the PR body. Adjacent drift fixed on sight (fix-on-sight, not a new promotion): the owner-queue's stale `capabilities.md` casing + missing durable-home link.
 
-💡 Session idea: [[fill]]
+💡 Session idea: A `scripts/check_email_pack_freshness.py` guard that fails when `docs/owner-queue.md`'s "Anthropic email pack" item cites a send window/date now in the past while its linked pack doc still carries `Status: owner-guidance` with no "sent" marker — i.e. flag a queued owner-send that silently slipped its window (the exact class the 07-14 → next-email handoff exposed: a parked email whose window closed with no visible state transition). Dedup-checked `docs/ideas/` + README + the S9 wall-age flagger and PR #294's capability-freshness idea — those flag *stale walls*; this flags a *stale owner-send commitment*, a distinct target. Novel.
 
-⟲ Previous-session review: [[fill]]
+⟲ Previous-session review: PR #294 (fm-wake-chain-record-fix) did the hard part well — it turned a same-day "self-scheduling WALL" into a properly dated UPDATE with the verified `trig_01Bo7dZxM9xz2hwR36L424Z8` receipt and the ToolSearch standing lesson, which is *exactly* the evidence this email section is built on (a clean upstream that made this session cheap — good compounding). What it could have done better: it recorded the capability correction in `CAPABILITIES.md` but left the owner-queue's "Anthropic email pack" pointer still citing the lowercase `capabilities.md` and no durable home — the drift this session had to fix to pass the reachability gate. Workflow improvement (this session's 💡 acts on it): when a session corrects a capability that an owner-queue item cites as evidence, it should sweep the citing item in the same pass — a capability fact and its owner-facing pointer are one unit, and a checker that ties them (the freshness guard above) would enforce that rather than leave it to the next session to notice.
