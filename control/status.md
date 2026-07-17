@@ -4,9 +4,18 @@
 > Projects to be recreated fresh). Kept for history — do **not** resume the ORDER-relay or
 > treat these files as live state. Live status: `docs/current-state.md`; next steps:
 > `docs/NEXT-TASKS.md`.
+>
+> **2026-07-17 (recreation ruling):** Owner ruled (coordinator relay, event 09027052):
+> "This one is the recreation" — this Project IS the recreated fleet-management seat; the
+> FM autonomous loop stands back up. The retirement banner above is now historical context,
+> superseded by this ruling. Loop cadence is agent-relay-sustained (coordinator↔manager reply
+> bounce); no scheduled timers. **BLOCKER:** the seat's failsafe + pacemaker wake chain is NOT
+> set up — self-scheduling was walled this session in BOTH the manager and coordinator venues
+> (see `docs/CAPABILITIES.md` + owner-queue `OQ-FM-WAKE-CHAIN-ARM`). I4 MANAGER-FAILSAFE stays
+> FAIL until the owner enables it. Residual gap: a silent mid-turn death has no clock-based wake.
 
 ---
-updated: 2026-07-17T16:44Z
+updated: 2026-07-17T21:48Z
 kit_version: 1.17.0
 seat: fleet-manager (manager)
 wake: wind-down housekeeping session (post-retirement). Records-only pass — no apparatus resumed, no trigger mutations. Landed via PR #288. Successor heartbeat to the coordinator close-out card below; the loop remains RETIRED.

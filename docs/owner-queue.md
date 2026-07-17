@@ -58,6 +58,19 @@ remaining fleet-wide merges/ready-flips live in
   `main`** (rulesets are token-readable; classic protection reads 403 for GITHUB_TOKEN, so the
   enabler can't see the context otherwise). Settings → Rules → Rulesets → target `main` → require
   `ROM builds`. Lets gba PRs self-land.
+- **`OQ-FM-WAKE-CHAIN-ARM` — arm the FM seat's failsafe + pacemaker wake chain (or grant
+  self-scheduling permission).** WHAT: Enable the FM seat's failsafe + pacemaker wake chain, or
+  grant the FM/coordinator sessions permission to schedule their own wakes. WHERE: the FM seat
+  session's scheduling apparatus (both manager + coordinator venues currently walled). HOW:
+  (1) add a permission rule allowing these sessions to schedule wakes (per the classifier
+  denial's hint); OR (2) enable the wake chain directly using the exact params in the v3.7
+  registry brief `docs/prompts/v3/per-project/fleet-manager-startup.md` § routines — failsafe
+  "Fleet Manager failsafe wake" (2-hourly at :30) + a ~15-min pacemaker self-wake. WHY: owner
+  ruled C (recreation) so the loop stands up, but self-scheduling is classifier-walled in both
+  venues → no dead-man / no timer cadence (agent reply-bounce is the interim pacemaker).
+  UNBLOCKS: I4 MANAGER-FAILSAFE (currently FAIL) + a clock-based safety net against silent
+  mid-turn death. VERIFY: the failsafe shows enabled with a future next-fire bound to the FM
+  session. RISK: ✅ reversible (removable).
 
 ### (C) Product / external (cross-repo, owner-only — real accounts/keys)
 

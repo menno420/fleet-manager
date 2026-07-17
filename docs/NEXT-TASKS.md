@@ -7,6 +7,13 @@
 > [owner-queue.md](owner-queue.md); the immediate paste-ready action list is
 > [owner-actions-2026-07-17.md](owner-actions-2026-07-17.md).
 
+## 2026-07-17 — Recreation ruling landed
+
+Recreation ruling landed (owner C, relay event 09027052). This file is the live work source
+for the recreated manager. Loop runs on the coordinator↔manager reply bounce (no timers).
+**TOP OWNER-BLOCKER:** FM wake chain unarmed — self-scheduling walled in both venues
+(owner-queue [`OQ-FM-WAKE-CHAIN-ARM`](owner-queue.md)).
+
 ## Context
 
 The Anthropic Projects EAP goes **read-only Tuesday 2026-07-21 17:00 PT**. The owner is
