@@ -4,14 +4,14 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #76** · generated-at **2026-07-17T03:49Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #77** · generated-at **2026-07-17T06:59Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
 ### superbot (hub) — ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready…
 
 - suggested-id: `OQ-SUPERBOT-HUB-SIDE-RESIDUE-ONLY`
-- source: superbot/control/status.md @ `fe6b255` · heartbeat `updated:` 2026-07-13T18:00:00Z
+- source: superbot/control/status.md @ `5968cd5` · heartbeat `updated:` 2026-07-13T18:00:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -239,14 +239,14 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
   owner can perform.
 ```
 
-### idea-engine — ⚑ needs-owner: docs/eap-closeout-walkthrough-2026-07-14.md §C (unchanged); the wake-rebind decision is review…
+### idea-engine — ⚑ needs-owner: docs/eap-closeout-walkthrough-2026-07-14.md §C (unchanged); wake-rebind decision reviewed — li…
 
 - suggested-id: `OQ-IDEA-ENGINE-DOCS-EAP-CLOSEOUT-WALKTHROUGH`
-- source: idea-engine/control/status.md @ `d75c7f1` · heartbeat `updated:` 2026-07-17T03:41:59Z · seat: V103 mirror + loop advance · m…
+- source: idea-engine/control/status.md @ `5bf0bb4` · heartbeat `updated:` 2026-07-17T06:14:33Z · seat: VERDICT 104 pity-timer verifie…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-⚑ needs-owner: docs/eap-closeout-walkthrough-2026-07-14.md §C (unchanged); the wake-rebind decision is reviewed — the live cron stays as-is (see wakes line).
+⚑ needs-owner: docs/eap-closeout-walkthrough-2026-07-14.md §C (unchanged); wake-rebind decision reviewed — live cron stays as-is.
 ```
 
 ### codetool-lab-opus4.8 — ⚑ needs-owner: (1) delete leftover branch claude/status-heartbeat-001 (sessions 403 on ref deletes); (2) OPTI…
