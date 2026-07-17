@@ -820,6 +820,13 @@ owner-live venue.
 
 **EAP recreation A/B note.** These two stall classes (decision-freeze, draft-parking) are exactly what to measure in recreated vs. control projects — see [`docs/project-recreation-runbook.md`](./project-recreation-runbook.md).
 
+## 2026-07-17 · owner execution — gba main gate repaired
+
+*Records close-out of the owner-actions-2026-07-17 §1–§3 execution (09:17–10:19Z; fm PR #281). Per-PR state re-verified live via `get_pull_request` before writing (Q-0120).*
+
+- **gba-homebrew main substrate-gate REPAIRED** via [#153](https://github.com/menno420/gba-homebrew/pull/153) (MERGED 2026-07-17T09:17:04Z, the DO-FIRST flip) — the read-path-reachability orphan-fix that was red since #151. Consequence: the ~27 **parked arc PRs** (#154–#180) do NOT auto-clear; they inherited the gate-red and each need an **agent rebase onto #153's fix** before landing. This is **game-lab seat lane work, NOT a manager task** — flagged here so the next fleet sweep routes it to the lane, not the owner queue.
+- **Draft-parking incident (2026-07-16: gba 10 drafts, pokemon 2) partially resolved by owner execution:** pokemon-mod-lab #87 CLOSED-unmerged (10:17:04Z, D1 rec) and #94 MERGED (09:19:06Z, overnight veto menu now on main). The gba draft backlog persists as the rebase-onto-#153 lane work above.
+
 ## How to re-verdict
 
 1. Verify against live source (Q-0120 — never against report text).
