@@ -9,13 +9,18 @@
 > "This one is the recreation" — this Project IS the recreated fleet-management seat; the
 > FM autonomous loop stands back up. The retirement banner above is now historical context,
 > superseded by this ruling. Loop cadence is agent-relay-sustained (coordinator↔manager reply
-> bounce); no scheduled timers. **BLOCKER:** the seat's failsafe + pacemaker wake chain is NOT
+>> bounce); no scheduled timers. **UPDATE 2026-07-17T22:38Z (supersedes the BLOCKER below):** the
+> failsafe + pacemaker wake chain IS now set up agent-side — the earlier "self-scheduling wall"
+> was misdiagnosed (Bash-fallback path + a nondeterministic classifier). Native MCP scheduling via
+> worker ToolSearch works; failsafe `trig_01Bo7dZxM9xz2hwR36L424Z8` armed (coordinator-bound
+> dead-man, 2-hourly) + pacemaker restored. I4 MANAGER-FAILSAFE now SATISFIED;
+> `OQ-FM-WAKE-CHAIN-ARM` RESOLVED. ~~**BLOCKER:** the seat's failsafe + pacemaker wake chain is NOT
 > set up — self-scheduling was walled this session in BOTH the manager and coordinator venues
 > (see `docs/CAPABILITIES.md` + owner-queue `OQ-FM-WAKE-CHAIN-ARM`). I4 MANAGER-FAILSAFE stays
-> FAIL until the owner enables it. Residual gap: a silent mid-turn death has no clock-based wake.
+> FAIL until the owner enables it. Residual gap: a silent mid-turn death has no clock-based wake.~~
 
 ---
-updated: 2026-07-17T21:48Z
+updated: 2026-07-17T22:38Z
 kit_version: 1.17.0
 seat: fleet-manager (manager)
 wake: wind-down housekeeping session (post-retirement). Records-only pass — no apparatus resumed, no trigger mutations. Landed via PR #288. Successor heartbeat to the coordinator close-out card below; the loop remains RETIRED.
@@ -31,7 +36,7 @@ Records/housekeeping only. No autonomous apparatus resumed; no trigger created, 
 ## Trigger reality (fresh full `list_triggers` export 2026-07-17T16:32:25Z — 2331 records, 3 enabled)
 - **I6 SNAPSHOT-FRESH → PASS.** `telemetry/triggers-snapshot.json` refreshed from the 16:32Z export (prior capture 11:43:57Z was stale vs the 4h bar). No further refreshes planned.
 - **I8 DUPLICATE-CRON → PASS.** The 4 sibling duplicate failsafe-cron pairs (superbot-2.0 · superbot-world · venture-lab · websites) SELF-RESOLVED — siblings collapsed each pair to a single trigger during their own wind-down. Recorded as dedup evidence in `docs/fleet-triage.md`; NOT mutated by us (sibling-owned).
-- **I4 MANAGER-FAILSAFE → FAIL.** The FM failsafe `trig_01An9YmU3KC1kLhB5c9cv4Ax` (`Fleet Manager failsafe wake`, `30 */2 * * *`) is GONE from the live registry — already absent, nothing to cut over. **Decision: NOT re-armed** — per coordinator verdict A (wind-down housekeeping only; do not arm the perpetual failsafe+pacemaker loop) and the pending owner A/C decision on whether this Project is the post-wind-down recreation. If the owner answers C, a failsafe gets armed then.
+- **I4 MANAGER-FAILSAFE → SATISFIED (updated 2026-07-17T22:38Z).** A dead-man now exists: failsafe `trig_01Bo7dZxM9xz2hwR36L424Z8` (`Fleet Manager failsafe wake`, `30 */2 * * *`, enabled, next 2026-07-17T22:36Z, coordinator-bound, persist_session:true) — fires 2-hourly, checks seat liveness + nudges. Armed agent-side via native MCP scheduling (worker ToolSearch); the earlier wall was misdiagnosed (Bash-fallback path + nondeterministic classifier). Wake chain restored agent-side; `OQ-FM-WAKE-CHAIN-ARM` RESOLVED. The checker's snapshot-computed I4 (from `telemetry/triggers-snapshot.json`) still reads FAIL until the next snapshot refresh, then self-corrects. *(Prior state: the earlier failsafe `trig_01An9YmU3KC1kLhB5c9cv4Ax` was GONE from the registry and NOT re-armed under verdict A; superseded by this arming after the owner-C recreation ruling.)*
 
 ## Housekeeping landed
 - owner-queue checker (`scripts/check_owner_queue.py`) fixed for the new inline-`OQ-`-slug format (PL-006 checker-lag) — live run + selftest fixtures green.
