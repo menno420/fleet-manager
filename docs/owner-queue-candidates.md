@@ -4,14 +4,14 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #81** · generated-at **2026-07-17T16:00Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #82** · generated-at **2026-07-17T17:41Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
 ### superbot (hub) — ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready…
 
 - suggested-id: `OQ-SUPERBOT-HUB-SIDE-RESIDUE-ONLY`
-- source: superbot/control/status.md @ `bd7b738` · heartbeat `updated:` 2026-07-13T18:00:00Z
+- source: superbot/control/status.md @ `0b76bb9` · heartbeat `updated:` 2026-07-13T18:00:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -21,7 +21,7 @@
 ### superbot-next — ⚑ needs-owner: (1) disarm the residual failsafe wake triggers via the routines UI — both enabled duplicates o…
 
 - suggested-id: `OQ-SUPERBOT-NEXT-1-DISARM-RESIDUAL-FAILSAFE`
-- source: superbot-next/control/status.md @ `bde8f68` · heartbeat `updated:` 2026-07-17T13:30:00Z
+- source: superbot-next/control/status.md @ `3826061` · heartbeat `updated:` 2026-07-17T13:30:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -31,7 +31,7 @@
 ### substrate-kit — ⚑ FOR OWNER — kit-lab daily cron: recreate or retire? (A/B)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-KIT-LAB-DAILY-CRON`
-- source: substrate-kit/control/status.md @ `08751a1` · heartbeat `updated:` 2026-07-17T12:14:47Z · phase: SESSION-ENDER (owner-pasted v…
+- source: substrate-kit/control/status.md @ `828de60` · heartbeat `updated:` 2026-07-17T16:41:41Z · phase: SESSION-ENDER v3.7 — session …
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -48,7 +48,7 @@
 ### substrate-kit — ⚑ v1.18.0 adopter-wave authorization
 
 - suggested-id: `OQ-SUBSTRATE-KIT-V1-18-0-ADOPTER`
-- source: substrate-kit/control/status.md @ `08751a1` · heartbeat `updated:` 2026-07-17T12:14:47Z · phase: SESSION-ENDER (owner-pasted v…
+- source: substrate-kit/control/status.md @ `828de60` · heartbeat `updated:` 2026-07-17T16:41:41Z · phase: SESSION-ENDER v3.7 — session …
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -65,7 +65,7 @@ RISK: ↩️ reversible, distribution-only diffs.
 ### substrate-kit — ⚑ CAPABILITIES denial-record entry (parked)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-CAPABILITIES-DENIAL-RECORD-ENTRY`
-- source: substrate-kit/control/status.md @ `08751a1` · heartbeat `updated:` 2026-07-17T12:14:47Z · phase: SESSION-ENDER (owner-pasted v…
+- source: substrate-kit/control/status.md @ `828de60` · heartbeat `updated:` 2026-07-17T16:41:41Z · phase: SESSION-ENDER v3.7 — session …
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -82,7 +82,7 @@ RISK: ↩️ reversible, docs-only.
 ### substrate-kit — ⚑ P10 required-check swap
 
 - suggested-id: `OQ-SUBSTRATE-KIT-P10-REQUIRED-CHECK-SWAP`
-- source: substrate-kit/control/status.md @ `08751a1` · heartbeat `updated:` 2026-07-17T12:14:47Z · phase: SESSION-ENDER (owner-pasted v…
+- source: substrate-kit/control/status.md @ `828de60` · heartbeat `updated:` 2026-07-17T16:41:41Z · phase: SESSION-ENDER v3.7 — session …
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -99,7 +99,7 @@ RISK: ↩️ reversible — re-add the old required checks in the same ruleset p
 ### substrate-kit — ⚑ public-flip-or-PAT (pick one)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-PUBLIC-FLIP-PAT-PICK`
-- source: substrate-kit/control/status.md @ `08751a1` · heartbeat `updated:` 2026-07-17T12:14:47Z · phase: SESSION-ENDER (owner-pasted v…
+- source: substrate-kit/control/status.md @ `828de60` · heartbeat `updated:` 2026-07-17T16:41:41Z · phase: SESSION-ENDER v3.7 — session …
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -113,27 +113,10 @@ VERIFY: a sibling-seat session fetches a kit file read-only without "Access deni
 RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩️ P13 reversible — revoke anytime.
 ```
 
-### substrate-kit — ⚑ **Kit self-pin version-truth ruling (§7)** — the kit's own adopters.md row shows a permanent cosmetic tree-…
-
-- suggested-id: `OQ-SUBSTRATE-KIT-KIT-SELF-PIN-VERSION`
-- source: substrate-kit/control/status.md @ `08751a1` · heartbeat `updated:` 2026-07-17T12:14:47Z · phase: SESSION-ENDER (owner-pasted v…
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-⚑ **Kit self-pin version-truth ruling (§7)** — the kit's own adopters.md row shows a permanent cosmetic tree-internal DRIFT.
-- WHAT: rule how the kit's OWN substrate.config.json pin should read so `currency` stops emitting a permanent tree-internal DRIFT row on substrate-kit itself.
-- WHERE: substrate.config.json `kit_version: 1.0.0` vs tree dist/bootstrap.py v1.18.0; emitted by src/engine/currency.py drifts(); surfaces on every docs/adopters.md regen.
-- HOW (A/B): **A (recommended)** — bump the kit's own pin to track its release (pin == KIT_VERSION, bumped at each release cut) ↩️ reversible; B — teach currency.drifts() the source repo's own pin is N/A (a floor, never DRIFT) and suppress/annotate that one row ↩️ reversible.
-- WHY: it is the only permanent false-DRIFT in the registry; it muddies every currency scan and the registry-truth signal.
-- UNBLOCKS: a clean self-row on adopters.md; clears the 2026-07-11 "§7 version-truth" retro park.
-- VERIFY: after the ruling, `dist/bootstrap.py currency` shows substrate-kit `current` with no tree-internal drift line.
-- RISK: ✅ (both options contained + reversible; no adopter writes).
-```
-
 ### ↳ substrate-kit — `control/status-superbot-coordinator.md` — ⚑ needs-owner: 1) verify/deliver the testing-lane wind-down — superbot-next control/status.md was still UNFLI…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-1-VERIFY-DELIVER-TESTING`
-- source: substrate-kit/control/status-superbot-coordinator.md @ `08751a1` · heartbeat `updated:` 2026-07-10T13:47:02Z
+- source: substrate-kit/control/status-superbot-coordinator.md @ `828de60` · heartbeat `updated:` 2026-07-10T13:47:02Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -167,7 +150,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### superbot-games · Seat A — ⚑ needs-owner: 4 standing decisions, none new this wake — the OWNER ACTIONS checklist (deep links + bolded re…
 
 - suggested-id: `OQ-SUPERBOT-GAMES-4-STANDING-DECISIONS-NONE`
-- source: superbot-games/control/status.md @ `37ed426` · heartbeat `updated:` 2026-07-14T11:41:04Z
+- source: superbot-games/control/status.md @ `6f95b9a` · heartbeat `updated:` 2026-07-14T11:41:04Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -177,7 +160,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### ↳ superbot-games · Seat A — `control/status-exploration.md` — ⚑ needs-owner: \|
 
 - suggested-id: `OQ-SUPERBOT-GAMES-FLAG`
-- source: superbot-games/control/status-exploration.md @ `37ed426` · heartbeat `updated:` 2026-07-09T20:09Z
+- source: superbot-games/control/status-exploration.md @ `6f95b9a` · heartbeat `updated:` 2026-07-09T20:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -200,7 +183,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### superbot-idle (Seat B) — ⚑ needs-owner: OA-003 — WHAT: add `pytest` as a required status check on main. WHERE: https://github.com/menn…
 
 - suggested-id: `OQ-SUPERBOT-IDLE-OA-003-WHAT-ADD`
-- source: superbot-idle/control/status.md @ `a2d768a` · heartbeat `updated:` 2026-07-17T10:26:04Z
+- source: superbot-idle/control/status.md @ `3d8527f` · heartbeat `updated:` 2026-07-17T10:26:04Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -210,7 +193,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### superbot-idle (Seat B) — - ⚑ to manager: no longer a blocker-ask. Optional follow-up only — owner may create the standalone superbot-p…
 
 - suggested-id: `OQ-SUPERBOT-IDLE-MANAGER-NO-LONGER-BLOCKER`
-- source: superbot-idle/control/status.md @ `a2d768a` · heartbeat `updated:` 2026-07-17T10:26:04Z
+- source: superbot-idle/control/status.md @ `3d8527f` · heartbeat `updated:` 2026-07-17T10:26:04Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -247,14 +230,14 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
   owner can perform.
 ```
 
-### idea-engine — ⚑ needs-owner: ORDER 017 phone-as-Bluetooth-controller plan awaits owner review (ideas/product-forge/bt-contr…
+### idea-engine — ⚑ needs-owner: ORDER-010(c) sim-lab kit upgrade v1.15.0→v1.18.0 awaits owner in-session authorization · BT-co…
 
-- suggested-id: `OQ-IDEA-ENGINE-ORDER-017-PHONE-AS`
-- source: idea-engine/control/status.md @ `4de68f4` · heartbeat `updated:` 2026-07-17T15:23:00Z · seat: VERDICT 110 APPROVE LANDED — s…
+- suggested-id: `OQ-IDEA-ENGINE-ORDER-010-C-SIM`
+- source: idea-engine/control/status.md @ `04774f8` · heartbeat `updated:` 2026-07-17T16:13Z · seat: SESSION CLOSED (owner session-end…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-⚑ needs-owner: ORDER 017 phone-as-Bluetooth-controller plan awaits owner review (ideas/product-forge/bt-controller-plan-2026-07-17.md, PR #481).
+⚑ needs-owner: ORDER-010(c) sim-lab kit upgrade v1.15.0→v1.18.0 awaits owner in-session authorization · BT-controller plan (ORDER 017, PR #481) awaits owner review (ideas/product-forge/bt-controller-plan-2026-07-17.md) · ASK-005/006 await the fleet manager.
 ```
 
 ### codetool-lab-opus4.8 — ⚑ needs-owner: (1) delete leftover branch claude/status-heartbeat-001 (sessions 403 on ref deletes); (2) OPTI…
@@ -269,5 +252,5 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 
 ---
 
-18 candidate block(s) across 12 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
+17 candidate block(s) across 12 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
 
