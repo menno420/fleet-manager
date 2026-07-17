@@ -806,6 +806,20 @@ owner-live venue.
 
 - **2026-07-16 ~21:45Z late-evening sweep (overnight run):** No verdict changes since the 15:00Z PM sweep. Deltas: roster advanced Gen #71→#74 (regen cron, all-clear); trigger-health now FAIL on I6 (snapshot export 2026-07-16T15:26Z is ~6.3h stale vs 4h bar — refresh `list_triggers` before acting; coordinator-session bound); standing I8 DUPLICATE-CRON WARN ×4 unchanged (keep-OLDEST is a sibling-lane call, not actioned). Roster + owner-queue checks green at HEAD 68f7994.
 
+## 2026-07-17 · overnight run analysis
+
+*Source: coordinator overnight audit 2026-07-17 (git-verified). Window 2026-07-16T21:45Z → 2026-07-17T06:30Z, 15 repos.*
+
+**Run split.** 10 seats produced merged output. idea-engine ↔ sim-lab ran the proposal/verdict pipeline continuously to V104 (last landing 06:20Z). Most other seats did a single menu burst ~22:00–22:25Z, then idled.
+
+**INCIDENT — decision-freeze ("one parked decision froze the loop").** The superbot-next seat produced zero repo output after ~23:00Z despite an awake chat. Its coordinator let the #499/#500 consent question freeze the entire work loop instead of parking only those two PRs — contrary to the standing continue-past-blockers doctrine. The loop resumed the morning of 2026-07-17 after owner contact.
+
+**INCIDENT — draft-parking.** gba-homebrew opened 10 PRs overnight, all left as unmerged drafts (classifier-denied ready-flips; auto-merge skips drafts). pokemon-mod-lab showed the same pattern (2 parked PRs, including its heartbeat). Night output exists; none landed.
+
+**Quiet seats.** superbot-mineverse — no wake fired since ORDER 010 landed 2026-07-16. product-forge — frozen by design.
+
+**EAP recreation A/B note.** These two stall classes (decision-freeze, draft-parking) are exactly what to measure in recreated vs. control projects — see [`docs/project-recreation-runbook.md`](./project-recreation-runbook.md).
+
 ## How to re-verdict
 
 1. Verify against live source (Q-0120 — never against report text).
