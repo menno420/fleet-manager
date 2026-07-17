@@ -1,8 +1,8 @@
 ---
-updated: 2026-07-17T11:28Z
+updated: 2026-07-17T11:48Z
 kit_version: 1.17.0
 seat: fleet-manager (manager)
-wake: queue-closeout-0717 — records brought current after the owner executed owner-actions-2026-07-17 §1–§3 (09:17–10:19Z; 11 PRs terminal, 8 merged / 3 closed, all re-verified live per-PR). Closed owner-queue 69/70/71, updated 68, marked owner-actions §1–§3 EXECUTED, added fleet-triage gba-gate note; PR #281.
+wake: midday-snapshot-0717 — R26 / ORDER 020 per-wake trigger-health slice. Fresh full list_triggers export (captured 2026-07-17T11:43:57Z, 24 pages, 2313 records / 19 enabled) → check_trigger_health.py PASS 8/9 green, 1 WARN (exit 0). I6 SNAPSHOT-FRESH cleared to PASS. PR #282.
 ---
 
 # Fleet Manager — status
@@ -10,14 +10,15 @@ wake: queue-closeout-0717 — records brought current after the owner executed o
 Neutral heartbeat. Facts + pointers only. Orders live in `control/inbox.md`; asks in `docs/owner-queue.md`; sweep detail in `docs/fleet-triage.md`.
 
 ## Routine state
-- Trigger snapshot: last full export **captured_at 2026-07-17T00:34:34Z** (22 pages / 2166 records / 20 enabled). `check_trigger_health.py` last verdict **PASS — 8/9 green, 1 WARN** (exit 0); I6 SNAPSHOT-FRESH aging vs 4h bar — refresh `list_triggers` before acting.
-- FM failsafe cron `30 */2 * * *` — `trig_01An9YmU3KC1kLhB5c9cv4Ax` ("Fleet Manager failsafe wake", enabled, coordinator-bound). I4 MANAGER-FAILSAFE PASS.
-- Roster: Gen #76+ (roster-regen.yml). I5 ROSTER-FRESH — this wake verified 1.1h old (generated-at 2026-07-17T10:21Z, OK). Verify age at next wake.
-- I8 DUPLICATE-CRON **WARN ×4** — sibling-seat failsafe pairs (SuperBot 2.0, SuperBot World, Venture Lab, Websites) persist post-cutover; report-only, no ids touched (keep-OLDEST is a sibling-lane / orphan-sweep call, not this seat's to action).
+- Trigger snapshot: last full export **captured_at 2026-07-17T11:43:57Z** (24 pages / 2313 records / 19 enabled; +147 new / −0 gone vs the 00:34Z capture — the −1 enabled is benign work-loop churn, one-shots fired, I3 DEAD-CHAIN PASS). `check_trigger_health.py` verdict **PASS — 8/9 green, 1 WARN** (exit 0). I6 SNAPSHOT-FRESH **PASS** (0.0h old — cleared the prior aging warning).
+- FM failsafe cron `30 */2 * * *` — `trig_01An9YmU3KC1kLhB5c9cv4Ax` ("Fleet Manager failsafe wake", enabled, coordinator-bound, next 2026-07-17T12:36:53Z). I4 MANAGER-FAILSAFE PASS.
+- Roster: Gen #78+ (roster-regen.yml). I5 ROSTER-FRESH — this wake verified 1.4h old (generated-at 2026-07-17T10:21Z, OK). Verify age at next wake.
+- I8 DUPLICATE-CRON **WARN ×4** — sibling-seat failsafe pairs (SuperBot 2.0 `0 1-23/2 * * *`, SuperBot World `15 1-23/2 * * *`, Venture Lab `45 1-23/2 * * *`, Websites `45 */2 * * *`) persist post-cutover, unchanged from the night capture; report-only, no ids touched (keep-OLDEST is a sibling-lane / orphan-sweep call, not this seat's to action).
+- I1 WEDGED-CRON PASS — zero wedged (enabled + next_run_at >15min past); independent manual scan agrees.
 
 ## PRs
-- **#281 (this session)** — queue close-out: records current after owner-actions §1–§3 execution — landing on green; born-red card holds substrate-gate until flipped `complete`, then merge-on-green.yml lands it.
-- **Owner execution 2026-07-17 (09:17–10:19Z) landed on the LANE repos' own mains, not fleet-manager** — 8 merged (websites #380 · superbot-games #151 · gba-homebrew #153 · superbot-idle #145 · pokemon-mod-lab #94 · superbot-next #503/#499/#500) + 3 closed (websites #359 · superbot-games #149 · pokemon-mod-lab #87). fleet-manager main today still shows the #271–#280 range (roster-regen + overnight PRs); this #281 is the next fleet-manager PR.
+- **#282 (this session)** — midday trigger telemetry snapshot: refreshes `telemetry/triggers-snapshot.json` to the 11:43Z export + records the health verdict — opened READY via GitHub MCP, born-red card held it until closeout then flipped `complete`; landing left to merge-on-green.yml (auto-merge NOT armed by this seat).
+- fleet-manager main today shows the #271–#281 range (roster-regen + overnight PRs + queue-closeout #281); this #282 is the next fleet-manager PR.
 - fleet-manager open PRs otherwise: none.
 
 ## Fleet (owner-actions §1–§3 EXECUTED; §4 veto + §6 settings still OPEN — detail in docs/owner-actions-2026-07-17.md + docs/fleet-triage.md 2026-07-17)
@@ -35,5 +36,5 @@ Neutral heartbeat. Facts + pointers only. Orders live in `control/inbox.md`; ask
 - EAP wind-down: ends 2026-07-21 17:00 PT; recreation plan in docs/project-recreation-runbook.md; seat state is repo-resident so nothing is lost.
 
 ## Baton — next 2 tasks
-1. EAP project recreation + orphan-trigger sweep (per `docs/project-recreation-runbook.md` §2/§5; cutover 2026-07-21 17:00 PT) on owner go — match the fresh `list_triggers` snapshot against the failsafe-id table, delete only ids attributed to stopped seats; collapse the 4 I8 dup pairs (keep-OLDEST) after verifying each live; verify each recreated seat's v3.7 prompt paste + failsafe cutover.
-2. gba-homebrew ~27 parked arc PR rebases onto #153's gate fix — game-lab lane work (route to the lane, not the owner queue).
+1. Owner-side gates still open — §4 veto menus (6 menus ~266 proposals) + §6 settings/provisioning (9 console items) remain owner-side; pending owner action, not agent-doable.
+2. EAP project recreation + orphan-trigger sweep (per `docs/project-recreation-runbook.md` §2/§5; cutover 2026-07-21 17:00 PT) on owner go — match the fresh `list_triggers` snapshot against the failsafe-id table, delete only ids attributed to stopped seats; collapse the 4 I8 dup pairs (keep-OLDEST) after verifying each live; verify each recreated seat's v3.7 prompt paste + failsafe cutover.
