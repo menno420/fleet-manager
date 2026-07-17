@@ -89,6 +89,7 @@ swept 2026-07-14T02:5xZ against the live GitHub API.)
 
 ## Recently shipped (newest first)
 
+- [Owner actions — fleet-wide (2026-07-17)](owner-actions-2026-07-17.md) — verified, paste-ready list of every owner action across the fleet (merges, ready-flips, decisions, veto menus), checked live against GitHub.
 - [Overnight planning menu (2026-07-17)](planning/overnight-menu-2026-07-17.md) — 25 veto-ready fleet-manager seat proposals (overnight run 2026-07-16).
 - **Project recreation runbook — EAP wind-down cutover** (fm #271,
   `claude/recreation-runbook-0716`, 2026-07-16):
