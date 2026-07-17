@@ -4,29 +4,39 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #79** · generated-at **2026-07-17T11:54Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #80** · generated-at **2026-07-17T14:14Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
 ### superbot (hub) — ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready…
 
 - suggested-id: `OQ-SUPERBOT-HUB-SIDE-RESIDUE-ONLY`
-- source: superbot/control/status.md @ `f6b4011` · heartbeat `updated:` 2026-07-13T18:00:00Z
+- source: superbot/control/status.md @ `c901a95` · heartbeat `updated:` 2026-07-13T18:00:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
 ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready when deploy timing suits (CodeQL resolved by code change; merge=deploy Q-0193); the fleet-wide owner queue is consolidated in docs/eap/night-review-2026-07-13.md §7 (canonical: fm docs/owner-queue.md). Manager-sweep note, NOT an owner click: fm owner-queue C#20's manager note (superbot codex-final-review invalid YAML) is RESOLVED by superbot PR #1995 (8214200) — retire that line at the next sweep.
 ```
 
+### superbot-next — ⚑ needs-owner: (1) disarm the residual failsafe wake triggers via the routines UI — both enabled duplicates o…
+
+- suggested-id: `OQ-SUPERBOT-NEXT-1-DISARM-RESIDUAL-FAILSAFE`
+- source: superbot-next/control/status.md @ `bde8f68` · heartbeat `updated:` 2026-07-17T13:30:00Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+⚑ needs-owner: (1) disarm the residual failsafe wake triggers via the routines UI — both enabled duplicates of "SuperBot 2.0 failsafe wake": trig_01E86nBnXqesQTwm6WA4mSUD + trig_01UC7wiV3n5Vgs3RpSQt4gWz (no standing wake chain in the recreated Project); (2) delete 4 orphan merged branches (blocked agent-side by the GitHub 403 ref-delete wall, recorded 2026-07-17): #385 claude/energy-slice-2, #473 claude/title-equip-write, #476 claude/curation-row72, #424 claude/wp-stack-reconcile.
+```
+
 ### substrate-kit — ⚑ FOR OWNER — kit-lab daily cron: recreate or retire? (A/B)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-KIT-LAB-DAILY-CRON`
-- source: substrate-kit/control/status.md @ `0d519ba` · heartbeat `updated:` 2026-07-16T22:22:44Z · phase: planning mode (ORDER 025) — v…
+- source: substrate-kit/control/status.md @ `08751a1` · heartbeat `updated:` 2026-07-17T12:14:47Z · phase: SESSION-ENDER (owner-pasted v…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
 ⚑ FOR OWNER — kit-lab daily cron: recreate or retire? (A/B)
-  WHAT:   The 06:00Z 'kit-lab daily' owner-business cron is absent from the account trigger registry (coordinator-reported: ~2021 entries paginated to exhaustion 2026-07-15; no kit-named or hour-6 cron; never created or deleted — not re-verified by this stateless seat).
+  WHAT:   The 06:00Z 'kit-lab daily' owner-business cron is absent from the account trigger registry (coordinator-reported: ~2318 entries paginated to exhaustion 2026-07-17; no kit-named or hour-6 cron; never created or deleted — not re-verified by this stateless seat).
   WHERE:  docs/operations/lab-loop.md asserts it "stays armed across every cutover"; the registry has nothing to keep. The doc documents NO deliberate disarm — the loop is owner-armed-only (👤 P4, console Schedule) and cannot arm itself.
   HOW:    (A) RECREATE — owner arms a daily `0 6 * * *` UTC Schedule in the Claude Code console pointed at the kit-lab loop; (B) RETIRE — remove the "stays armed" line from lab-loop.md and mark the loop dormant-by-design pending reboot.
   WHY:    doctrine and reality contradict; a rebooted seat reads "armed" and trusts a loop that never runs. ORDER 024 also bars the seat from re-arming routines pending the per-seat reboot go, so it will not create the cron unilaterally.
@@ -38,7 +48,7 @@
 ### substrate-kit — ⚑ v1.18.0 adopter-wave authorization
 
 - suggested-id: `OQ-SUBSTRATE-KIT-V1-18-0-ADOPTER`
-- source: substrate-kit/control/status.md @ `0d519ba` · heartbeat `updated:` 2026-07-16T22:22:44Z · phase: planning mode (ORDER 025) — v…
+- source: substrate-kit/control/status.md @ `08751a1` · heartbeat `updated:` 2026-07-17T12:14:47Z · phase: SESSION-ENDER (owner-pasted v…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -55,7 +65,7 @@ RISK: ↩️ reversible, distribution-only diffs.
 ### substrate-kit — ⚑ CAPABILITIES denial-record entry (parked)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-CAPABILITIES-DENIAL-RECORD-ENTRY`
-- source: substrate-kit/control/status.md @ `0d519ba` · heartbeat `updated:` 2026-07-16T22:22:44Z · phase: planning mode (ORDER 025) — v…
+- source: substrate-kit/control/status.md @ `08751a1` · heartbeat `updated:` 2026-07-17T12:14:47Z · phase: SESSION-ENDER (owner-pasted v…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -72,7 +82,7 @@ RISK: ↩️ reversible, docs-only.
 ### substrate-kit — ⚑ P10 required-check swap
 
 - suggested-id: `OQ-SUBSTRATE-KIT-P10-REQUIRED-CHECK-SWAP`
-- source: substrate-kit/control/status.md @ `0d519ba` · heartbeat `updated:` 2026-07-16T22:22:44Z · phase: planning mode (ORDER 025) — v…
+- source: substrate-kit/control/status.md @ `08751a1` · heartbeat `updated:` 2026-07-17T12:14:47Z · phase: SESSION-ENDER (owner-pasted v…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -89,7 +99,7 @@ RISK: ↩️ reversible — re-add the old required checks in the same ruleset p
 ### substrate-kit — ⚑ public-flip-or-PAT (pick one)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-PUBLIC-FLIP-PAT-PICK`
-- source: substrate-kit/control/status.md @ `0d519ba` · heartbeat `updated:` 2026-07-16T22:22:44Z · phase: planning mode (ORDER 025) — v…
+- source: substrate-kit/control/status.md @ `08751a1` · heartbeat `updated:` 2026-07-17T12:14:47Z · phase: SESSION-ENDER (owner-pasted v…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -106,7 +116,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### substrate-kit — ⚑ **Kit self-pin version-truth ruling (§7)** — the kit's own adopters.md row shows a permanent cosmetic tree-…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-KIT-SELF-PIN-VERSION`
-- source: substrate-kit/control/status.md @ `0d519ba` · heartbeat `updated:` 2026-07-16T22:22:44Z · phase: planning mode (ORDER 025) — v…
+- source: substrate-kit/control/status.md @ `08751a1` · heartbeat `updated:` 2026-07-17T12:14:47Z · phase: SESSION-ENDER (owner-pasted v…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -123,43 +133,41 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### ↳ substrate-kit — `control/status-superbot-coordinator.md` — ⚑ needs-owner: 1) verify/deliver the testing-lane wind-down — superbot-next control/status.md was still UNFLI…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-1-VERIFY-DELIVER-TESTING`
-- source: substrate-kit/control/status-superbot-coordinator.md @ `0d519ba` · heartbeat `updated:` 2026-07-10T13:47:02Z
+- source: substrate-kit/control/status-superbot-coordinator.md @ `08751a1` · heartbeat `updated:` 2026-07-10T13:47:02Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
 ⚑ needs-owner: 1) verify/deliver the testing-lane wind-down — superbot-next control/status.md was still UNFLIPPED at 2026-07-10T13:45Z (band-5 "NEXT LANE: LIVE-DRIVE", 01:05Z heartbeat), so that lane's seven wind-down deliverables are still owed [unblocks: superbot-next lane archive]; 2) kernel-surface-drift ruling (flag 13 in superbot-next docs/status/testing-report-2026-07-09.md: "relax-compare" or "re-baseline") [unblocks: ALL parity flips]; 3) create repo superbot-plugin-hello (github.com/new, owner menno420, Public, no README) [unblocks: ORDER 002 done]; 4) paste the setup script from docs/environment-setup-script.md into the project Environment settings (re-verified exit-0 at wind-down) [unblocks: no more provisioning deaths]; 5) nod for wiring superbot's new collision/freshness checkers (#1918/#1923) into code-quality.yml — one small PR, owner said workflow edits need a nod [unblocks: checkers enforce in CI]; 6) stale trading-lab/venture-lab manifest rows (manager-owned file) + Q-0248 taxonomy lacks a "tooling" class [unblocks: honest telemetry]
 ```
 
-### venture-lab — - ⚑ owner (structural wall): the failsafe wake session (persistent, pinned-research env) has NO write access …
+### venture-lab — ⚑ owner (carried):
 
-- suggested-id: `OQ-VENTURE-LAB-STRUCTURAL-WALL-FAILSAFE-WAKE`
-- source: venture-lab/control/status.md @ `2348575` · heartbeat `updated:` 2026-07-16T22:09:11Z
+- suggested-id: `OQ-VENTURE-LAB-CARRIED`
+- source: venture-lab/control/status.md @ `9edfcba` · heartbeat `updated:` 2026-07-17T12:07:07Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-- ⚑ owner (structural wall): the failsafe wake session (persistent, pinned-research env) has NO write access to venture-lab — `git push` 403, "access to this repository is not enabled for this session". The backstop can observe but not land — owner-queue item.
-```
-
-### venture-lab — ⚑ owner (carried + new):
-
-- suggested-id: `OQ-VENTURE-LAB-CARRIED-NEW`
-- source: venture-lab/control/status.md @ `2348575` · heartbeat `updated:` 2026-07-16T22:09:11Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-⚑ owner (carried + new):
-- **NEW — failsafe seat write-wall:** venture-lab write is not enabled for the persistent failsafe session (`git push` 403); the backstop is observe-only until enabled. Owner-queue: enable venture-lab write for the failsafe seat, or accept observe-only.
-- Overnight veto-ready menu for the morning skim: `docs/ideas/2026-07-17-overnight-menu.md` (38 proposals; veto line-by-line).
-- Publish clicks queued and untouched: `docs/publishing/OWNER-QUEUE.md` — 45 sequences, 19 hard-gated, 268 unchecked clicks; none performed this wake.
-- Binding lever: the owner-only native-speaker proofread pass on the ready NL editions (4 closest titles carry a mechanical `PRE-QA.md`).
-- Length-band ruling awaiting a one-word ratify: `candidates/adult-novels/the-night-kiln/LENGTH-BAND-PREP.md` (De Morgendeur / De Oogstslag).
-- Project custom instructions dictionary v3.4 vs registry v3.6 — re-paste from fm:projects/venture-lab/instructions.md (carried).
+⚑ owner (carried):
+- **Failsafe/backstop seat write-wall:** venture-lab write is not enabled for
+  the persistent backstop session (`git push` 403); the backstop is
+  observe-only until enabled. Owner-queue: enable venture-lab write for that
+  seat, or accept observe-only.
+- Overnight veto-ready menu for the morning skim:
+  `docs/ideas/2026-07-17-overnight-menu.md` (38 proposals; veto line-by-line).
+- Publish clicks queued and untouched: `docs/publishing/OWNER-QUEUE.md` — none
+  performed this wake.
+- Binding lever: the owner-only native-speaker proofread pass on the ready NL
+  editions (the four closest titles carry a mechanical `PRE-QA.md` under
+  `candidates/adult-novels/*/versions/nl/PRE-QA.md`, #214).
+- Length-band ruling awaiting a one-word ratify:
+  `candidates/adult-novels/the-night-kiln/LENGTH-BAND-PREP.md` (De Morgendeur /
+  De Oogstslag).
 ```
 
 ### superbot-games · Seat A — ⚑ needs-owner: 4 standing decisions, none new this wake — the OWNER ACTIONS checklist (deep links + bolded re…
 
 - suggested-id: `OQ-SUPERBOT-GAMES-4-STANDING-DECISIONS-NONE`
-- source: superbot-games/control/status.md @ `fde7929` · heartbeat `updated:` 2026-07-14T11:41:04Z
+- source: superbot-games/control/status.md @ `37ed426` · heartbeat `updated:` 2026-07-14T11:41:04Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -169,7 +177,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### ↳ superbot-games · Seat A — `control/status-exploration.md` — ⚑ needs-owner: \|
 
 - suggested-id: `OQ-SUPERBOT-GAMES-FLAG`
-- source: superbot-games/control/status-exploration.md @ `fde7929` · heartbeat `updated:` 2026-07-09T20:09Z
+- source: superbot-games/control/status-exploration.md @ `37ed426` · heartbeat `updated:` 2026-07-09T20:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -212,7 +220,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### superbot-mineverse — ⚑ needs-owner: unchanged — the pending clicks stay consolidated in docs/eap-closeout-walkthrough-2026-07-14.m…
 
 - suggested-id: `OQ-SUPERBOT-MINEVERSE-UNCHANGED-PENDING-CLICKS-STAY`
-- source: superbot-mineverse/control/status.md @ `21b89a0` · heartbeat `updated:` 2026-07-16T00:55:09Z
+- source: superbot-mineverse/control/status.md @ `b512c03` · heartbeat `updated:` 2026-07-16T00:55:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -239,14 +247,14 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
   owner can perform.
 ```
 
-### idea-engine — ⚑ needs-owner: docs/eap-closeout-walkthrough-2026-07-14.md §C (unchanged); wake-rebind decision reviewed — li…
+### idea-engine — ⚑ needs-owner: ORDER 017 phone-as-Bluetooth-controller plan awaits owner review (ideas/product-forge/bt-contr…
 
-- suggested-id: `OQ-IDEA-ENGINE-DOCS-EAP-CLOSEOUT-WALKTHROUGH`
-- source: idea-engine/control/status.md @ `0e9f261` · heartbeat `updated:` 2026-07-17T11:12:40Z · seat: round-21 VERDICT 107 mirror (P…
+- suggested-id: `OQ-IDEA-ENGINE-ORDER-017-PHONE-AS`
+- source: idea-engine/control/status.md @ `f09b322` · heartbeat `updated:` 2026-07-17T13:28:28Z · seat: round-21 UNRELATED closer PROP…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-⚑ needs-owner: docs/eap-closeout-walkthrough-2026-07-14.md §C (unchanged); wake-rebind decision reviewed — live cron stays as-is.
+⚑ needs-owner: ORDER 017 phone-as-Bluetooth-controller plan awaits owner review (ideas/product-forge/bt-controller-plan-2026-07-17.md); docs/eap-closeout-walkthrough-2026-07-14.md §C unchanged.
 ```
 
 ### codetool-lab-opus4.8 — ⚑ needs-owner: (1) delete leftover branch claude/status-heartbeat-001 (sessions 403 on ref deletes); (2) OPTI…
@@ -261,5 +269,5 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 
 ---
 
-18 candidate block(s) across 11 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
+18 candidate block(s) across 12 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
 
