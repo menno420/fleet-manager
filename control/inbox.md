@@ -1587,3 +1587,9 @@ turn directed the v3.7 duty-form registry rewrite and the pre-written authorizat
 line ("100% paste ready without needing any changes"). Expands ORDER 047
 (no-PR-review); supersedes the v3.6 park-green/owner-click defaults and every
 agent-authored restriction lacking owner provenance.
+
+## ORDER 049 · 2026-07-17T13:30Z · status: new
+priority: P2
+do: RETIRED 2026-07-17 — autonomous apparatus wound down; historical only. This inbox (the owner→manager ORDER relay) is retired with the EAP wind-down (read-only 2026-07-21; Projects recreated fresh). No further ORDERs will be appended; do not resume the relay. Live status: docs/current-state.md · next steps: docs/NEXT-TASKS.md · bus banner: control/README.md.
+why: Fresh-start cleanup — the control/ message-bus is wound down; this closing ORDER marks the inbox historical without violating its append-only / one-writer invariant (a prepended banner would).
+done-when: Readers treat control/inbox.md as historical and no new ORDER blocks are appended after #049.

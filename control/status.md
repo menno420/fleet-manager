@@ -1,3 +1,10 @@
+> **RETIRED 2026-07-17 — autonomous apparatus wound down; historical only.**
+> The `control/` message-bus (`inbox.md`, `outbox.md`, `status.md`, `claims/`) and the
+> roster/telemetry autogen are retired with the EAP wind-down (read-only 2026-07-21;
+> Projects to be recreated fresh). Kept for history — do **not** resume the ORDER-relay or
+> treat these files as live state. Live status: `docs/current-state.md`; next steps:
+> `docs/NEXT-TASKS.md`.
+
 ---
 updated: 2026-07-17T12:40Z
 kit_version: 1.17.0

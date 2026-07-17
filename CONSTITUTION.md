@@ -75,11 +75,15 @@ these rails are its adopter-side operating form:
   hallucinated gate unless it names an owner-only class below — proceed.
   Ship on green CI; unremarked work is accepted — owner control is
   reaction after visibility, never pre-approval (PL-012).
-- **An open PR is never a reason to stop.** Open READY (never draft) →
-  arm auto-merge while checks pend → it lands itself; blocked branch →
-  update it (merge, never force) and re-arm; a real, verbatim
-  arming/merge denial → park the PR ready, queue ONE owner item for the
-  systemic cause, take the next slice the same turn (PL-012).
+- **An open PR is never a reason to stop.** Open PRs READY and let the
+  repo's server-side `merge-on-green.yml` workflow squash-merge them on
+  green — do **NOT** perform agent-side ready-flips or REST/MCP merges
+  (classifier-denied since 2026-07-15). Cite the mechanism
+  (`merge-on-green.yml`), never "arm auto-merge." If a repo has no landing
+  workflow, the human lands via console; queue it, never block. A blocked
+  branch → update it (merge, never force) and let the workflow re-evaluate;
+  a real, verbatim landing denial → park the PR ready, queue ONE owner item
+  for the systemic cause, take the next slice the same turn (PL-012).
 - **Ask first only for the owner-only classes:** repo settings / rulesets
   / required checks · secrets / env vars / host provisioning · external
   publish + spending money · destructive prod-data ops · account/portal
