@@ -1,7 +1,8 @@
 # Owner queue — KNOWN-GOOD fixture (check_owner_queue.py must come back CLEAN)
 
 > **Status:** `fixture` — Q-0120 ground-truth fixture for
-> `scripts/check_owner_queue.py` (P2, fleet-manager PR #85). Items below
+> `scripts/check_owner_queue.py` (P2, fleet-manager PR #85; converted to the
+> 2026-07-17 wind-down inline-slug bullet format in fm PR #288). Items below
 > are healthy: a merge-actionable item citing a PR that was genuinely OPEN
 > at fixture-authoring time (fleet-manager #85 — the P2 PR itself, live
 > while this fixture was built), plus a non-merge item with no PR
@@ -14,25 +15,21 @@
 > is a checker false-positive — investigate the checker, not the fixture
 > (Q-0120: a red that fights visible evidence is the tool's bug).
 
-## Active queue — grouped by click surface
+## Active — grouped by click surface
 
 ### (A) GitHub merges — one click each
 
-1. **fleet-manager PR #85 — P2 queue generation: MERGE.**
-   - id: OQ-FIXTURE-FM-PR85-MERGE
-   - WHERE: https://github.com/menno420/fleet-manager/pull/85
-   - HOW: click "Squash and merge".
-   - UNBLOCKS: the P2 deliverables on main.
-   - VERIFIED-NEEDED: fixture — OPEN at fixture time (2026-07-11 ~21:0xZ);
-     state pinned open in `--selftest`.
-   - Blocking: not-blocking.
+- **`OQ-FIXTURE-FM-PR85-MERGE` — fleet-manager PR #85 — P2 queue generation: MERGE.**
+  WHERE: https://github.com/menno420/fleet-manager/pull/85 · HOW: click "Squash and merge".
+  UNBLOCKS: the P2 deliverables on main.
+  VERIFIED-NEEDED: fixture — OPEN at fixture time (2026-07-11 ~21:0xZ); state pinned open in
+  `--selftest`. Blocking: not-blocking.
 
 ### (D) External services
 
-2. **venture-lab — Stripe TEST keys.**
-   - id: OQ-FIXTURE-VENTURE-STRIPE-KEYS
-   - WHERE: Stripe Dashboard (test mode) → Developers → API keys.
-   - HOW: paste `sk_test_…` into the server `.env` (never committed).
-   - UNBLOCKS: the only unverified leg of the payment path.
-   - VERIFIED-NEEDED: payment accounts/keys are owner-only (hard rail).
-   - Blocking: blocks payment-path E2E verification.
+- **`OQ-FIXTURE-VENTURE-STRIPE-KEYS` — venture-lab — Stripe TEST keys.**
+  WHERE: Stripe Dashboard (test mode) → Developers → API keys.
+  HOW: paste `sk_test_…` into the server `.env` (never committed).
+  UNBLOCKS: the only unverified leg of the payment path.
+  VERIFIED-NEEDED: payment accounts/keys are owner-only (hard rail).
+  Blocking: blocks payment-path E2E verification.

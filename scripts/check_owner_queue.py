@@ -105,8 +105,11 @@ import urllib.request
 API_BASE = "https://api.github.com/repos/menno420"
 PR_URL_RE = re.compile(r"github\.com/menno420/([\w.-]+)/pull/(\d+)")
 BARE_PR_RE = re.compile(r"\bPR\s*#(\d+)\b")
-ID_LINE_RE = re.compile(r"^\s*-\s*id:\s*(OQ-[A-Z0-9-]+)\s*$")
-ITEM_START_RE = re.compile(r"^(\d+)\.\s+(.*)$")
+# Active items are now bullets carrying an inline `OQ-…` slug (2026-07-17
+# wind-down slim), grouped under ### (A)–(G); the old numbered `N.` + separate
+# `- id:` line format is retired.
+ITEM_START_RE = re.compile(r"^[-*]\s+(.*)$")
+SLUG_INLINE_RE = re.compile(r"`(OQ-[A-Z0-9-]+)`")
 MERGE_ACTION_RE = re.compile(r"\bMERGE\b|RESOLVED-PENDING-MERGE|"
                              r"\bHOW\b[^\n]*\bmerge\b", re.IGNORECASE)
 RESOLVED_SELF_RE = re.compile(r"✅\s*RESOLVED")
@@ -133,29 +136,35 @@ def repo_root() -> str:
 def parse_queue(text: str) -> list[dict]:
     """Split the ACTIVE region of an owner-queue file into items.
 
-    Active region = from '## Active queue' to the next '## ' heading
-    ('### ' sub-groups stay inside). Each numbered item carries: number,
-    slug id (or None), title line, full body text.
+    Active region = from the '## Active …' heading to the next '## '
+    heading ('### ' sub-groups stay inside). Active items are bullets that
+    carry an inline `OQ-…` slug (2026-07-17 wind-down format); a bullet
+    with no slug is folded into the preceding item's body, never a new
+    item. Each item carries: number (a positional counter), slug id, title
+    line, full body text.
     """
     lines = text.splitlines()
     items: list[dict] = []
     active = False
+    counter = 0
     current: dict | None = None
     for line in lines:
         if line.startswith("## "):
             if current:
                 items.append(current)
                 current = None
-            active = line.lower().startswith("## active queue")
+            active = line.lower().startswith("## active")
             continue
         if not active:
             continue
         m = ITEM_START_RE.match(line)
-        if m:
+        slug = SLUG_INLINE_RE.search(line) if m else None
+        if m and slug:
             if current:
                 items.append(current)
-            current = {"number": int(m.group(1)), "id": None,
-                       "title": m.group(2).strip(), "body": [line]}
+            counter += 1
+            current = {"number": counter, "id": slug.group(1),
+                       "title": m.group(1).strip(), "body": [line]}
             continue
         if current is not None:
             if line.startswith("### "):
@@ -163,9 +172,6 @@ def parse_queue(text: str) -> list[dict]:
                 current = None
                 continue
             current["body"].append(line)
-            idm = ID_LINE_RE.match(line)
-            if idm:
-                current["id"] = idm.group(1)
     if current:
         items.append(current)
     for it in items:

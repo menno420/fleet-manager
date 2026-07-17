@@ -827,6 +827,21 @@ owner-live venue.
 - **gba-homebrew main substrate-gate REPAIRED** via [#153](https://github.com/menno420/gba-homebrew/pull/153) (MERGED 2026-07-17T09:17:04Z, the DO-FIRST flip) — the read-path-reachability orphan-fix that was red since #151. Consequence: the ~27 **parked arc PRs** (#154–#180) do NOT auto-clear; they inherited the gate-red and each need an **agent rebase onto #153's fix** before landing. This is **game-lab seat lane work, NOT a manager task** — flagged here so the next fleet sweep routes it to the lane, not the owner queue.
 - **Draft-parking incident (2026-07-16: gba 10 drafts, pokemon 2) partially resolved by owner execution:** pokemon-mod-lab #87 CLOSED-unmerged (10:17:04Z, D1 rec) and #94 MERGED (09:19:06Z, overnight veto menu now on main). The gba draft backlog persists as the rebase-onto-#153 lane work above.
 
+## 2026-07-17 · fm wind-down housekeeping — trigger-snapshot refresh + failsafe dedup evidence (fm PR #288)
+
+*Source: fm wind-down housekeeping PR #288. Triggers read READ-ONLY via `list_triggers` (24-page cursor-to-exhaustion export, captured 2026-07-17T16:32:25Z — 2331 records / 3 enabled), assembled by `scripts/assemble_triggers_snapshot.py`, validated through `check_trigger_health.py`. NO trigger was created, modified, fired, or deleted by this seat.*
+
+- **(a) Sibling duplicate failsafe-cron pairs — the roster-flagged I8 set — have SELF-RESOLVED; recorded here as dedup evidence, NOT actioned (SIBLING-owned; FM never mutates sibling triggers).** The four pairs `roster.md` (Gen #81) still lists:
+  - **websites** — `Websites failsafe wake` · `45 */2 * * *` · `trig_01Cn7F2UvE62uDykSYQCDhtF` + `trig_01VRT9F6jYNXym3nn18vVQQK`
+  - **venture-lab** — `Venture Lab failsafe wake` · `45 1-23/2 * * *` · `trig_01Er6TUtwybs9D9EuHCH32qX` + `trig_01GeQiMM3nHMQTyuLMsWj7q3`
+  - **SuperBot World** — `SuperBot World failsafe wake` · `15 1-23/2 * * *` · `trig_01B32hfwxfA67orKfBzQVdmU` + `trig_01RwQK2cBpgvY2xc2LZPSNtQ`
+  - **SuperBot 2.0** — `SuperBot 2.0 failsafe wake` · `0 1-23/2 * * *` · `trig_01E86nBnXqesQTwm6WA4mSUD` + `trig_01UC7wiV3n5Vgs3RpSQt4gWz`
+
+  All eight ids were **enabled** in the prior 2026-07-17T11:43:57Z snapshot; **all eight are ABSENT from the 16:32:25Z exhaustive export** (0 hits across all 24 raw pages, live-verified). The sibling seats collapsed each pair to a single trigger during their own wind-down (new singletons in the export: `SuperBot 2.0 failsafe wake` `trig_01GBaDCsMzgjwPbQCiKzyRDC` created 16:20Z; `Ideas Lab failsafe wake` `trig_01DQu7LbHvP8ZqC31douQTAe` 16:11Z). Consequence: **I8 DUPLICATE-CRON now PASS** (was the standing WARN ×4) — the documented project-recreation dedup sweep is **moot** for this set; no owner/lane action owed. (`roster.md` still shows the old pairs because Gen #81 was built from the 11:43Z snapshot; it self-corrects on the next regen against the refreshed snapshot.)
+- **(b) Trigger-health I6 SNAPSHOT-FRESH refreshed this PR.** `telemetry/triggers-snapshot.json` was stale (prior capture 11:43:57Z); the 16:32:25Z full re-export cleared it — **I6 now PASS** (0.0h old vs the 4h bar). Recorded in the snapshot's `_retired` marker as a final I6-clearing refresh; no further refreshes are planned.
+- **⚑ Surfaced by the refresh, NOT actioned (no trigger mutations this seat): I4 MANAGER-FAILSAFE now FAIL.** The FM failsafe cron `trig_01An9YmU3KC1kLhB5c9cv4Ax` (`Fleet Manager failsafe wake` · `30 */2 * * *`, enabled in the 11:43Z snapshot) is ABSENT from the 16:32Z export — the FM seat has no enabled standing-cron dead-man backstop. Consistent with the autonomous-apparatus wind-down; flagged for owner awareness, re-arm only if the FM seat is retained past recreation.
+- **(c) DRIFT CHECK — registry docs/prompts/v3 == the pasted `v3.7 · 2026-07-15` line: EQUAL. No re-paste owed.**
+
 ## How to re-verdict
 
 1. Verify against live source (Q-0120 — never against report text).
