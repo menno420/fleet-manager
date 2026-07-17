@@ -4,14 +4,14 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #82** · generated-at **2026-07-17T17:41Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #83** · generated-at **2026-07-17T19:42Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
 ### superbot (hub) — ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready…
 
 - suggested-id: `OQ-SUPERBOT-HUB-SIDE-RESIDUE-ONLY`
-- source: superbot/control/status.md @ `0b76bb9` · heartbeat `updated:` 2026-07-13T18:00:00Z
+- source: superbot/control/status.md @ `9ffe6da` · heartbeat `updated:` 2026-07-13T18:00:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -21,7 +21,7 @@
 ### superbot-next — ⚑ needs-owner: (1) disarm the residual failsafe wake triggers via the routines UI — both enabled duplicates o…
 
 - suggested-id: `OQ-SUPERBOT-NEXT-1-DISARM-RESIDUAL-FAILSAFE`
-- source: superbot-next/control/status.md @ `3826061` · heartbeat `updated:` 2026-07-17T13:30:00Z
+- source: superbot-next/control/status.md @ `0b1134b` · heartbeat `updated:` 2026-07-17T13:30:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -31,7 +31,7 @@
 ### substrate-kit — ⚑ FOR OWNER — kit-lab daily cron: recreate or retire? (A/B)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-KIT-LAB-DAILY-CRON`
-- source: substrate-kit/control/status.md @ `828de60` · heartbeat `updated:` 2026-07-17T16:41:41Z · phase: SESSION-ENDER v3.7 — session …
+- source: substrate-kit/control/status.md @ `c6914d1` · heartbeat `updated:` 2026-07-17T17:55:08Z · phase: SESSION-ENDER v3.7 — session …
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -48,7 +48,7 @@
 ### substrate-kit — ⚑ v1.18.0 adopter-wave authorization
 
 - suggested-id: `OQ-SUBSTRATE-KIT-V1-18-0-ADOPTER`
-- source: substrate-kit/control/status.md @ `828de60` · heartbeat `updated:` 2026-07-17T16:41:41Z · phase: SESSION-ENDER v3.7 — session …
+- source: substrate-kit/control/status.md @ `c6914d1` · heartbeat `updated:` 2026-07-17T17:55:08Z · phase: SESSION-ENDER v3.7 — session …
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -65,7 +65,7 @@ RISK: ↩️ reversible, distribution-only diffs.
 ### substrate-kit — ⚑ CAPABILITIES denial-record entry (parked)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-CAPABILITIES-DENIAL-RECORD-ENTRY`
-- source: substrate-kit/control/status.md @ `828de60` · heartbeat `updated:` 2026-07-17T16:41:41Z · phase: SESSION-ENDER v3.7 — session …
+- source: substrate-kit/control/status.md @ `c6914d1` · heartbeat `updated:` 2026-07-17T17:55:08Z · phase: SESSION-ENDER v3.7 — session …
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -82,7 +82,7 @@ RISK: ↩️ reversible, docs-only.
 ### substrate-kit — ⚑ P10 required-check swap
 
 - suggested-id: `OQ-SUBSTRATE-KIT-P10-REQUIRED-CHECK-SWAP`
-- source: substrate-kit/control/status.md @ `828de60` · heartbeat `updated:` 2026-07-17T16:41:41Z · phase: SESSION-ENDER v3.7 — session …
+- source: substrate-kit/control/status.md @ `c6914d1` · heartbeat `updated:` 2026-07-17T17:55:08Z · phase: SESSION-ENDER v3.7 — session …
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -99,7 +99,7 @@ RISK: ↩️ reversible — re-add the old required checks in the same ruleset p
 ### substrate-kit — ⚑ public-flip-or-PAT (pick one)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-PUBLIC-FLIP-PAT-PICK`
-- source: substrate-kit/control/status.md @ `828de60` · heartbeat `updated:` 2026-07-17T16:41:41Z · phase: SESSION-ENDER v3.7 — session …
+- source: substrate-kit/control/status.md @ `c6914d1` · heartbeat `updated:` 2026-07-17T17:55:08Z · phase: SESSION-ENDER v3.7 — session …
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -116,7 +116,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### ↳ substrate-kit — `control/status-superbot-coordinator.md` — ⚑ needs-owner: 1) verify/deliver the testing-lane wind-down — superbot-next control/status.md was still UNFLI…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-1-VERIFY-DELIVER-TESTING`
-- source: substrate-kit/control/status-superbot-coordinator.md @ `828de60` · heartbeat `updated:` 2026-07-10T13:47:02Z
+- source: substrate-kit/control/status-superbot-coordinator.md @ `c6914d1` · heartbeat `updated:` 2026-07-10T13:47:02Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
