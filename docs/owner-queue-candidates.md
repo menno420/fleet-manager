@@ -4,14 +4,14 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #77** · generated-at **2026-07-17T06:59Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #78** · generated-at **2026-07-17T10:21Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
 ### superbot (hub) — ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready…
 
 - suggested-id: `OQ-SUPERBOT-HUB-SIDE-RESIDUE-ONLY`
-- source: superbot/control/status.md @ `5968cd5` · heartbeat `updated:` 2026-07-13T18:00:00Z
+- source: superbot/control/status.md @ `20851ca` · heartbeat `updated:` 2026-07-13T18:00:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -159,7 +159,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### superbot-games · Seat A — ⚑ needs-owner: 4 standing decisions, none new this wake — the OWNER ACTIONS checklist (deep links + bolded re…
 
 - suggested-id: `OQ-SUPERBOT-GAMES-4-STANDING-DECISIONS-NONE`
-- source: superbot-games/control/status.md @ `197966d` · heartbeat `updated:` 2026-07-14T11:41:04Z
+- source: superbot-games/control/status.md @ `fde7929` · heartbeat `updated:` 2026-07-14T11:41:04Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -169,7 +169,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### ↳ superbot-games · Seat A — `control/status-exploration.md` — ⚑ needs-owner: \|
 
 - suggested-id: `OQ-SUPERBOT-GAMES-FLAG`
-- source: superbot-games/control/status-exploration.md @ `197966d` · heartbeat `updated:` 2026-07-09T20:09Z
+- source: superbot-games/control/status-exploration.md @ `fde7929` · heartbeat `updated:` 2026-07-09T20:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -192,7 +192,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### superbot-idle (Seat B) — ⚑ needs-owner: OA-003 — WHAT: add `pytest` as a required status check on main. WHERE: https://github.com/menn…
 
 - suggested-id: `OQ-SUPERBOT-IDLE-OA-003-WHAT-ADD`
-- source: superbot-idle/control/status.md @ `57e8378` · heartbeat `updated:` 2026-07-14T11:32:05Z
+- source: superbot-idle/control/status.md @ `e069fce` · heartbeat `updated:` 2026-07-14T11:32:05Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -202,7 +202,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### superbot-idle (Seat B) — - ⚑ to manager: no longer a blocker-ask. Optional follow-up only — owner may create the standalone superbot-p…
 
 - suggested-id: `OQ-SUPERBOT-IDLE-MANAGER-NO-LONGER-BLOCKER`
-- source: superbot-idle/control/status.md @ `57e8378` · heartbeat `updated:` 2026-07-14T11:32:05Z
+- source: superbot-idle/control/status.md @ `e069fce` · heartbeat `updated:` 2026-07-14T11:32:05Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -242,7 +242,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### idea-engine — ⚑ needs-owner: docs/eap-closeout-walkthrough-2026-07-14.md §C (unchanged); wake-rebind decision reviewed — li…
 
 - suggested-id: `OQ-IDEA-ENGINE-DOCS-EAP-CLOSEOUT-WALKTHROUGH`
-- source: idea-engine/control/status.md @ `5bf0bb4` · heartbeat `updated:` 2026-07-17T06:14:33Z · seat: VERDICT 104 pity-timer verifie…
+- source: idea-engine/control/status.md @ `e8ea486` · heartbeat `updated:` 2026-07-17T10:01:51Z · seat: round-21 VENTURE opener PROPOS…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
