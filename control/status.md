@@ -1,8 +1,8 @@
 ---
-updated: 2026-07-17T06:55Z
+updated: 2026-07-17T07:53Z
 kit_version: 1.17.0
 seat: fleet-manager (manager)
-wake: overnight-incidents-0717 — recorded the 2026-07-17 overnight run analysis (decision-freeze + draft-parking stall classes) in docs/fleet-triage.md; heartbeat refresh
+wake: owner-actions-0717 — built docs/owner-actions-2026-07-17.md, a live-verified fleet-wide owner-action overview (2 merges / 12 flips / 5 decisions / 6 veto menus ~266 proposals); PR #279.
 ---
 
 # Fleet Manager — status
@@ -37,5 +37,5 @@ Neutral heartbeat. Facts + pointers only. Orders live in `control/inbox.md`; ask
 - EAP wind-down: ends 2026-07-21 17:00 PT; recreation plan in docs/project-recreation-runbook.md; seat state is repo-resident so nothing is lost.
 
 ## Baton — next 2 tasks
-1. Owner veto pass on the overnight menu — `docs/planning/overnight-menu-2026-07-17.md` (25 proposals; recommended first-build set S3/S5/S9).
+1. Owner executes docs/owner-actions-2026-07-17.md via a hub session (start with gba #153 flip).
 2. EAP project recreation + orphan-trigger sweep (per `docs/project-recreation-runbook.md` §2/§5; cutover 2026-07-21 17:00 PT) — match the fresh snapshot against the failsafe-id table, delete only ids attributed to stopped seats; collapse the 4 I8 dup pairs (keep-OLDEST) after verifying each live; verify each recreated seat's v3.7 prompt paste + failsafe cutover.
