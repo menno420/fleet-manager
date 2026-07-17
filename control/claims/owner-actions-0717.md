@@ -1,0 +1,1 @@
+- `claude/owner-actions-0717` · **scope** — build docs/owner-actions-2026-07-17.md (verified fleet-wide owner-action overview) + link from docs/current-state.md · files: docs/owner-actions-2026-07-17.md, docs/current-state.md · 2026-07-17
