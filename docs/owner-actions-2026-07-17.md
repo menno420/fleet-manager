@@ -10,6 +10,28 @@
 > to execute in one sitting. Where a queued item was already resolved or
 > superseded, it is in §5 and dropped from the action sections.
 
+## ✅ EXECUTED 2026-07-17 (09:17–10:19Z)
+
+**§1–§3 all executed by the owner** the morning of 2026-07-17 (09:17–10:19Z).
+**11 PRs reached terminal state: 8 merged / 3 closed.** Every state below was
+re-verified live per-PR via `get_pull_request` on 2026-07-17 before this note
+was written (fleet-manager close-out PR #281).
+
+- **Merged (8):** websites #380 (10:19:30Z) · superbot-games #151 (09:20:49Z) ·
+  gba-homebrew #153 (09:17:04Z, the DO-FIRST — repaired main's substrate-gate) ·
+  superbot-idle #145 (09:19:07Z) · pokemon-mod-lab #94 (09:19:06Z) ·
+  superbot-next #503 (09:19:10Z), #499 (09:28:14Z), #500 (09:28:27Z).
+- **Closed-unmerged (3):** websites #359 (09:23:17Z — superseded by #380, §5) ·
+  pokemon-mod-lab #87 (10:17:04Z — §3 D1 outcome = CLOSE) · superbot-games #149
+  (10:17:01Z — **§3 D3 outcome was CLOSE, not rebase+merge**; the draft mirror of
+  idle #142 was discarded, the reconcile-race guard rides the idle-side fix).
+
+**Still OPEN for the owner (NOT executed):** **§4** veto passes (6 menus,
+~266 proposals — non-vetoed items get built either way) and **§6** settings /
+provisioning (9 owner-only console items). The **websites 8 green drafts** in §2
+also remain GATED behind the auto-merge draft-gap patch (§6 item 2) — not landed
+this sitting.
+
 ## Totals
 
 - **§1 Merges (owner click to land):** 2 — both need an admin-override click (branch protection blocks the normal path).
@@ -25,7 +47,9 @@
 
 ---
 
-## §1 — Merges (green, non-draft; need an owner click to land)
+## §1 — Merges (green, non-draft; need an owner click to land) — ✅ EXECUTED 2026-07-17
+
+*✅ EXECUTED: #380 merged 10:19:30Z (admin-override) + #359 closed 09:23:17Z; superbot-games #151 merged 09:20:49Z.*
 
 Both are green but `mergeable_state: blocked/unstable` — the normal auto-merge path is not available, so they need an **admin-override** squash-merge ("Merge without waiting for requirements").
 
@@ -43,7 +67,9 @@ Both are green but `mergeable_state: blocked/unstable` — the normal auto-merge
 
 ---
 
-## §2 — Ready-flips (green drafts → "Ready for review")
+## §2 — Ready-flips (green drafts → "Ready for review") — ✅ PARTIALLY EXECUTED 2026-07-17
+
+*✅ EXECUTED: ① gba-homebrew #153 MERGED 09:17:04Z · ② superbot-idle #145 MERGED 09:19:07Z · ③ pokemon-mod-lab #94 MERGED 09:19:06Z · ④ superbot-next #503 MERGED 09:19:10Z. **⑤ websites 8 green drafts stay GATED** behind the §6 auto-merge draft-gap patch — NOT flipped this sitting.*
 
 **① DO FIRST — gba-homebrew #153** — repairs main's substrate-gate + unblocks 27 arc PRs.
 - https://github.com/menno420/gba-homebrew/pull/153
@@ -71,7 +97,9 @@ Both are green but `mergeable_state: blocked/unstable` — the normal auto-merge
 
 ---
 
-## §3 — Decisions (one-letter answerable)
+## §3 — Decisions (one-letter answerable) — ✅ EXECUTED 2026-07-17
+
+*✅ EXECUTED: D1 pokemon-mod-lab #87 → CLOSE (closed 10:17:04Z) · D2 superbot-next #499+#500 → LAND both (merged 09:28:14Z / 09:28:27Z) · D3 superbot-games #149 → outcome was CLOSE, not rebase+merge (closed 10:17:01Z). D4 (websites bakes) / D5 (trading-strategy per-seat-go) ride their §6 settings items.*
 
 **D1 — pokemon-mod-lab #87: rebase vs close.**
 - https://github.com/menno420/pokemon-mod-lab/pull/87 — green CI but `mergeable_state: dirty` (real control/status.md conflict; the file it rewrites is already replaced on main by merged #92/#95).
