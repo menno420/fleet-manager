@@ -4,14 +4,14 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #80** · generated-at **2026-07-17T14:14Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #81** · generated-at **2026-07-17T16:00Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
 ### superbot (hub) — ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready…
 
 - suggested-id: `OQ-SUPERBOT-HUB-SIDE-RESIDUE-ONLY`
-- source: superbot/control/status.md @ `c901a95` · heartbeat `updated:` 2026-07-13T18:00:00Z
+- source: superbot/control/status.md @ `bd7b738` · heartbeat `updated:` 2026-07-13T18:00:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -250,11 +250,11 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### idea-engine — ⚑ needs-owner: ORDER 017 phone-as-Bluetooth-controller plan awaits owner review (ideas/product-forge/bt-contr…
 
 - suggested-id: `OQ-IDEA-ENGINE-ORDER-017-PHONE-AS`
-- source: idea-engine/control/status.md @ `f09b322` · heartbeat `updated:` 2026-07-17T13:28:28Z · seat: round-21 UNRELATED closer PROP…
+- source: idea-engine/control/status.md @ `4de68f4` · heartbeat `updated:` 2026-07-17T15:23:00Z · seat: VERDICT 110 APPROVE LANDED — s…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-⚑ needs-owner: ORDER 017 phone-as-Bluetooth-controller plan awaits owner review (ideas/product-forge/bt-controller-plan-2026-07-17.md); docs/eap-closeout-walkthrough-2026-07-14.md §C unchanged.
+⚑ needs-owner: ORDER 017 phone-as-Bluetooth-controller plan awaits owner review (ideas/product-forge/bt-controller-plan-2026-07-17.md, PR #481).
 ```
 
 ### codetool-lab-opus4.8 — ⚑ needs-owner: (1) delete leftover branch claude/status-heartbeat-001 (sessions 403 on ref deletes); (2) OPTI…
