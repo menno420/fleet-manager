@@ -1,1 +1,0 @@
-- `claude/night-snapshot-0717` · **refresh trigger telemetry snapshot + trigger-health verdicts (telemetry/triggers-snapshot.json)** · telemetry/, .sessions/, control/status.md · 2026-07-17
