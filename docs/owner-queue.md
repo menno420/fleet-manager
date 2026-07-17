@@ -311,11 +311,13 @@ API this sweep, not from reports):
 - **websites product questions** — domains · /submit Postgres (now active
   D#24) · /admin OAuth+home · restyle · cutover (websites
   `docs/owner/OWNER-ACTIONS.md`, each with a recommended default).
-- **Anthropic email pack** — review + send before the 2026-07-14 window close;
-  include the four routines platform bugs (runs not inspectable · Runs-panel
-  vs Routines-screen disagreement · arming seat-inconsistency · model
-  attribution inconsistent across surfaces; evidence: `capabilities.md`
-  § routine self-arm rider).
+- **Anthropic email pack** — the 2026-07-14 email was sent; the **next** email
+  (capability self-knowledge) is drafted paste-ready at
+  [anthropic-email-pack.md](anthropic-email-pack.md) — review + send on the
+  existing Gmail EAP thread. It folds in the four routines platform bugs (runs
+  not inspectable · Runs-panel vs Routines-screen disagreement · arming
+  seat-inconsistency · model attribution inconsistent across surfaces;
+  evidence: `CAPABILITIES.md` § routine self-arm rider).
 - **PyPI trusted-publishing registration** (~2 min) — token-less kit releases.
 - **codetool-lab-fable5 (envdrift) v0.1.0 + v0.2.0 tags + Releases** —
   tag-push 403; owner click at Releases → Draft: v0.1.0 @ `73ef38d`, v0.2.0 @
