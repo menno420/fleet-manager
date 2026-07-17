@@ -1,6 +1,6 @@
 # Session — night-snapshot-0717
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 **Branch:** `claude/night-snapshot-0717`
 
