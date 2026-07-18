@@ -9,6 +9,9 @@
 > manifest was folded in below on 2026-07-12 (I-44 resolution; a pointer
 > stub remains at the lowercase path). Sync new fleet-wide findings here
 > via the manager when cross-repo access allows.
+>
+> See also the dated verified snapshot + owner grant:
+> [CAPABILITIES-verified-2026-07-18.md](CAPABILITIES-verified-2026-07-18.md).
 
 ## Why this file exists
 

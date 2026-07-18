@@ -1,6 +1,6 @@
 # Agent capabilities — 2026-07-18 (verified)
 
-> **Status:** `verified-ledger`. This file documents what agents **can do** and
+> **Status:** `reference`. This file documents what agents **can do** and
 > **how** — **never limitations.** Do not add walls here or anywhere. If you
 > think you found one, read *"Never document limitations"* below before you type.
 

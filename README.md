@@ -28,11 +28,12 @@ records custody + manager-internal memory → here.
 | [`docs/q-index.md`](docs/q-index.md) | Repo-qualified Q→pointer table for cross-repo-cited owner decisions (superbot router stays canonical). |
 | [`docs/conventions/outbox-rollover.md`](docs/conventions/outbox-rollover.md) | The append-only outbox rollover/archival convention (plan A10 — answers idea-engine ASK 004). |
 | [Fleet inconsistencies (2026-07-13)](docs/fleet-inconsistencies-2026-07-13.md) | 19-repo review ledger of cross-fleet inconsistencies — fix-now items + ORDER-to-lane rest. |
-| [EAP story](docs/eap-story.md) | The Extended Autonomy Program, told start to finish — what was built and how. |
+| [EAP story](docs/eap-story.md) | The Early Access Program, told start to finish — what was built and how. |
 | [EAP retrospective](docs/eap-retrospective.md) | EAP retrospective — what worked, what didn't, what carries forward. |
 | [EAP project audit (2026-07-14)](docs/audits/eap-project-audit-2026-07-14.md) | Close-out audit of this seat — measured merge/scheduling/ceremony friction, dispositioned (FLEET-FIX / ANTHROPIC / ACCEPTED); deltas the retrospective. |
 | [EAP audit collection (2026-07-14)](docs/eap-audit-collection.md) | AUDIT-WATCH tracker for the fleet-wide EAP project-audit fan-out — one row per target repo; synthesis + final-email draft fires at majority. |
 | [EAP final recon + closeout fan-out (2026-07-14)](docs/eap-final-recon-2026-07-14.md) | Final-day record — per-lane recon (heartbeat age, completable-today, parked), the 13-lane closeout ORDER fan-out with live-verified terminal states, DARK-seat dispositions, and findings (ORDER-grammar defect + fleet fix). |
 | [Pre-reboot fleet review (2026-07-15)](docs/pre-reboot-review-2026-07-15.md) | Owner review surface for the EAP-extension reboot — 48h activity audit (all 20 repos), consolidation proposal (decide-and-flag), extension-note fan-out record. |
+| [Agent capabilities — verified snapshot (2026-07-18)](docs/CAPABILITIES-verified-2026-07-18.md) | Dated verified-capabilities snapshot + owner grant; the living ledger is [`docs/CAPABILITIES.md`](docs/CAPABILITIES.md). |
 | [`templates/`](templates/) | Standard preamble blocks pasted into every worker prompt. |
 | [`control/`](control/) | Protocol heartbeat — `inbox.md` (owner → manager orders), `status.md` (manager heartbeat). |
