@@ -1,9 +1,20 @@
 > **Status:** `reference`
 
-<!-- v3.7 · 2026-07-15 · provenance: owner EXECUTION MANDATE, fm control/inbox.md ORDER 048 (landed live 2026-07-15, hub working session — the same turn directed this rewrite): all 9 CIs + all 9 startups + session-ender + the UNIVERSAL grant rewritten to DUTY-FORM — mandate folded in, operational practices phrased affirmatively, restated platform-enforced prohibitions dropped, owner authorization PRE-WRITTEN into every paste, land-on-green/denial-routing replace park-green/deny-wins; see the v3.7 changelog section below. Prior: v3.6 (stage-2 fold: open-PRs-stay-open STANDING + Q-0272 + Q-0273 venue model + Q-0274 grounding + NINTH SEAT, 2026-07-13) · v3.5 (Q-0271 autonomy-rider + seed-skills fold) · v3.4 (16-delta currency restamp) · v3.3 (owner spec 2026-07-12: CI = per-seat keyword dictionary, startups EXPAND, no char cap) · v3.2 (stateless correction) · v3.1 (research + owner baseline + QA, PR #103) -->
+<!-- v3.8 · 2026-07-18 · provenance: opening-block addition — the WHO YOU ARE / KEEP GOING / WHAT THIS IS (EAP) / WHEN AN ACTION IS REFUSED opening block was added to all 9 seat startups (identity + continuous-operation + EAP definition + hub-escalation surfaced at the top of every coordinator brief) plus the README EAP-gloss correction; the block addition (prior PR) missed the version stamp, so this pass restamps every prompt to v3.8 · 2026-07-18 (VERSION + all 9 startup+CI generation stamps + each seat's coordinator registry version +1; instructions/failsafe registry versions unchanged — startup-only change). Prior: v3.7 · 2026-07-15 · owner EXECUTION MANDATE, fm control/inbox.md ORDER 048 (landed live 2026-07-15, hub working session — the same turn directed this rewrite): all 9 CIs + all 9 startups + session-ender + the UNIVERSAL grant rewritten to DUTY-FORM — mandate folded in, operational practices phrased affirmatively, restated platform-enforced prohibitions dropped, owner authorization PRE-WRITTEN into every paste, land-on-green/denial-routing replace park-green/deny-wins; see the v3.7 changelog section below. Prior: v3.6 (stage-2 fold: open-PRs-stay-open STANDING + Q-0272 + Q-0273 venue model + Q-0274 grounding + NINTH SEAT, 2026-07-13) · v3.5 (Q-0271 autonomy-rider + seed-skills fold) · v3.4 (16-delta currency restamp) · v3.3 (owner spec 2026-07-12: CI = per-seat keyword dictionary, startups EXPAND, no char cap) · v3.2 (stateless correction) · v3.1 (research + owner baseline + QA, PR #103) -->
 <!-- char-count: planning doc, no paste budget applies -->
 
-# Per-project prompts — v3.7 (per-seat Custom Instructions + expanded startups, duty-form)
+# Per-project prompts — v3.8 (per-seat Custom Instructions + expanded startups, duty-form)
+
+v3.8 (2026-07-18) is the **opening-block addition + version restamp**: every
+seat startup gained a **WHO YOU ARE / KEEP GOING / WHAT THIS IS (EAP) / WHEN AN
+ACTION IS REFUSED** opening block (identity + continuous-operation + EAP
+definition + hub-escalation surfaced at the top of each coordinator brief), and
+the README's EAP gloss was corrected. The block landed in a prior PR that missed
+the version stamp, so this pass restamps every prompt to **v3.8 · 2026-07-18**
+(the change is startup-only, so only each seat's **coordinator** registry
+version bumped +1; instructions/failsafe are unchanged). The v3.8 changelog is
+below; the composition is otherwise still the v3.7 duty-form form and the v3.3
+owner-spec structure.
 
 v3.7 (owner EXECUTION MANDATE, fm ORDER 048, 2026-07-15) is the **DUTY-FORM
 rewrite**: every artifact states what seats DO — MANDATE + RULE PROVENANCE
@@ -77,6 +88,27 @@ to this registry's format in v3.6).
 **Not seats:** product-forge (⚑ awaits owner disposition; if seated it becomes
 seat 10 via this same recipe — stagger slot below), codetool-lab-* (DARK),
 superbot-plugin-hello (helper, folded into SuperBot 2.0's F1).
+
+## v3.8 size table (real counts, checker-verified 2026-07-18 — `../tools/regen_b_files.py`)
+
+Same caps as v3.7 (CI HARD ≤ 8,000 chars AND bytes; startups NO cap — size is a
+NOTE). The v3.8 opening block was added to the **startups only** (~+1,600–1,650
+chars each; the startup `char-count` header comments were restamped to the real
+counts — the block-addition PR had left them lagging). CIs are byte-identical to
+v3.7 apart from the `v3.7`→`v3.8` generation stamp (same length), so their
+counts are unchanged and stay under the 8,000 wall on both bases.
+
+| Seat | CI (chars) | CI (bytes) | Expanded startup (chars) | v3.7 startup was (chars) |
+|---|---:|---:|---:|---:|
+| fleet-manager | 7,963 | 7,996 | 37,250 | 35,621 |
+| superbot | 7,959 | 7,992 | 36,853 | 35,225 |
+| websites | 7,946 | 7,979 | 36,266 | 34,642 |
+| self-improvement | 7,950 | 7,983 | 36,493 | 34,861 |
+| superbot-world | 7,956 | 7,993 | 36,535 | 34,905 |
+| game-lab | 7,961 | 7,996 | 36,330 | 34,706 |
+| ideas-lab | 7,966 | 7,997 | 36,130 | 34,505 |
+| venture-lab | 7,964 | 7,997 | 35,905 | 34,278 |
+| curious-research | 7,962 | 7,998 | 37,263 | 35,631 |
 
 ## v3.7 size table (real counts, checker-verified 2026-07-15 — `../tools/regen_b_files.py`)
 
@@ -396,6 +428,46 @@ with the dirty-tree rescue-branch guard). Sequential trigger-call pacing §a.5
 (CONSTITUTION/landing-path/routines templates) — that is the Self Improvement
 seat's lane, not a v3.1 prompt defect; only their fleet-prompt shadows
 (entries 7–9) queue here.
+
+## v3.8 changelog — opening-block addition + version restamp (2026-07-18)
+
+**Provenance:** a prior PR added a new opening block to all 9 seat startups but
+did not bump the version stamp, so every prompt still self-labelled `v3.7 ·
+2026-07-15` despite carrying 2026-07-18 content and the control-plane site showed
+the stale version. This pass is the proper **v3.8 · 2026-07-18** bump for that
+content (plus the README EAP-gloss correction landed the same day, 2026-07-18).
+
+1. **New opening block, all 9 startups (shared text, doctrine-adjacent — it sits
+   above the DOCTRINE section so the identity checks are unaffected):** four
+   short paragraphs surfaced at the top of every coordinator brief —
+   **WHO YOU ARE** (the seat is a standing, self-directed fleet member, not a
+   task to finish and hand back), **KEEP GOING** (start the next-highest-value
+   slice the same turn; arm the wake chain; the only acceptable stop is a
+   genuinely empty backlog stated in one honest line), **WHAT THIS IS** (the
+   fleet runs under the Claude Code Projects Early Access Program / **EAP** —
+   the definition, so "EAP" everywhere else resolves), and **WHEN AN ACTION IS
+   REFUSED** (a declined call is a transient, nondeterministic auto-mode refusal
+   — record it verbatim, take the working path, and escalate to the **hub chat**
+   if it still will not complete; the owner-queue stays reserved for genuine
+   owner-only work).
+2. **README EAP-gloss correction (2026-07-18):** the per-project + v3 README EAP
+   references were reconciled with the startup definition above.
+3. **Version restamp (the bump this PR exists for):** `../tools/regen_b_files.py`
+   `VERSION` `v3.7`→`v3.8` and `PROVENANCE_DATE` `2026-07-15`→`2026-07-18`; all 9
+   startup body stamps → `v3.8 · 2026-07-18 · EXPANDED …`; all 9 CI body
+   generation stamps `v3.7`→`v3.8` (mechanism-required — `paste_body()` keys the
+   paste off the single `VERSION` token for BOTH file types, so the CI stamp must
+   track it even though the CI bodies are otherwise unchanged); the 9 startup
+   `char-count` header comments recomputed to the real post-block counts (they had
+   lagged ~+1,600 since the block-addition PR).
+4. **Registry re-sync (`--write-registry`):** because the change is
+   **startup-only**, only each seat's **coordinator** registry version bumped +1
+   (fm v10 · superbot v8 · websites v10 · self-improvement v8 · superbot-world v9
+   · game-lab v8 · ideas-lab v8 · venture-lab v9 · curious v3);
+   instructions/failsafe versions are unchanged. All 27 `projects/<seat>/` copies
+   regenerated (coordinator bodies carry the new block; instructions/failsafe
+   change only the generation stamp + date). Drift checks green 9/9;
+   `--check-registry` green 27/27.
 
 ## v3.7 changelog — the DUTY-FORM rewrite (2026-07-15, owner EXECUTION MANDATE, fm ORDER 048)
 

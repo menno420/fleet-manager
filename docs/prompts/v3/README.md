@@ -3,12 +3,16 @@
 > **Status:** `audit`
 >
 > One-page map: for every seat, the exact registry files the owner copies to
-> found (or re-found) that seat in one paste sitting, plus the kept/changed
-> note for the v3.7 DUTY-FORM rewrite (owner mandate, fm control/inbox.md
-> ORDER 048, 2026-07-15). File bodies are canonical in
+> found (or re-found) that seat in one paste sitting. Current generation:
+> **v3.8 · 2026-07-18** — the WHO YOU ARE / KEEP GOING / WHAT THIS IS (EAP) /
+> WHEN AN ACTION IS REFUSED opening-block addition to every seat startup +
+> version restamp (the block-addition PR missed the stamp); prior: the v3.7
+> DUTY-FORM rewrite (owner mandate, fm control/inbox.md ORDER 048, 2026-07-15).
+> The v3.8 change is startup-only, so only each seat's coordinator registry copy
+> bumped. File bodies are canonical in
 > [`per-project/`](per-project/README.md); the `projects/<seat>/` copies are
 > generated from them (`--write-registry`), never hand-edited. Verified
-> 2026-07-15: `regen_b_files.py` drift checks green (9/9 seats),
+> 2026-07-18: `regen_b_files.py` drift checks green (9/9 seats),
 > `--check-registry` green (27/27 copies match).
 
 ## How to found a seat (one sitting — zero blanks to fill)
@@ -33,7 +37,7 @@
    [`per-project/README.md`](per-project/README.md) § "Failsafe cron stagger
    table" (the manager is the slot arbiter).
 
-## Per-seat index (registry generation v3.7, stamped 2026-07-15)
+## Per-seat index (registry generation v3.8, stamped 2026-07-18)
 
 | Seat | Live lane(s) it covers (roster Gen #63/#64) | Custom Instructions file | Startup file | Kept/changed at v3.6→v3.7 (ORDER 048 duty-form) |
 |---|---|---|---|---|
@@ -81,6 +85,19 @@ expands ORDER 047 "I don't review PRs and never will"):
 - **Session ender v3.7:** step 1 PARK → **LAND** (every PR driven to
   merged/closed; landing paths: `lands-on-green (workflow)` default ·
   `hub-venue` for owner-labelled/workflow-carve-out diffs).
+
+## Verification record (2026-07-18, v3.8 restamp PR)
+
+`python3 docs/prompts/v3/tools/regen_b_files.py` exit 0 — CI budgets all ≤
+8,000 chars AND bytes (7,946–7,966 / 7,979–7,998, unchanged from v3.7 apart
+from the same-length generation stamp); drift checks clean 9/9 (ender sync
+D-10, grant sync against UNIVERSAL v5 grant v2, doctrine identity, card-block
++ triad + baton identity, stamps, failsafe extraction — the new opening block
+sits above the DOCTRINE section so the shared-text identity checks are
+unaffected). `--write-registry` re-synced all 27 `projects/<seat>/` copies
+(coordinator stamps bumped by one for the startup-only block addition;
+instructions/failsafe unchanged apart from the generation stamp);
+`--check-registry` exit 0 (27/27).
 
 ## Verification record (2026-07-15, v3.7 landing PR)
 

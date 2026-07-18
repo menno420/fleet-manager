@@ -1,19 +1,19 @@
-<!-- v9 · 2026-07-15 · fleet-manager projects registry — GENERATED COPY, do not edit
+<!-- v10 · 2026-07-18 · fleet-manager projects registry — GENERATED COPY, do not edit
      (regenerate: docs/prompts/v3/tools/regen_b_files.py --write-registry; drift guard: --check-registry) -->
-<!-- generated from docs/prompts/v3 @ f6156ff9c610330f9d0515611df765a0002d6b79 (prompts v3.7, duty-form rewrite 2026-07-15) -->
-# Fleet Manager — coordinator seat prompt (registry copy, prompts v3.7)
+<!-- generated from docs/prompts/v3 @ 4cbaec783e5caf1d2737ba64361827bf9d97d962 (prompts v3.8, opening-block addition 2026-07-18) -->
+# Fleet Manager — coordinator seat prompt (registry copy, prompts v3.8)
 
 > **GENERATED COPY — NOT SOURCE OF TRUTH.** This registry copy is GENERATED FROM
-> the v3 home: **docs/prompts/v3/ is the source of truth** (generation v3.7,
+> the v3 home: **docs/prompts/v3/ is the source of truth** (generation v3.8,
 > stateless, D-9). Edit the v3 sources and regenerate — never this file.
-> Version lineage: v9 (2026-07-15) supersedes the prior registry sync copy.
+> Version lineage: v10 (2026-07-18) supersedes the prior registry sync copy.
 > Body below the marker = docs/prompts/v3/per-project/fleet-manager-startup.md paste
-> body VERBATIM (the seat's AUTHORED v3.7 EXPANDED startup — doctrine inlined
+> body VERBATIM (the seat's AUTHORED v3.8 EXPANDED startup — doctrine inlined
 > in full, NO char cap; paste as the FIRST message of the seat's coordinator
 > chat).
 
 <!-- registry-header-end -->
-v3.7 · 2026-07-15 · EXPANDED startup (coordinator brief) · Fleet Manager
+v3.8 · 2026-07-18 · EXPANDED startup (coordinator brief) · Fleet Manager
 DRIFT CHECK: when asked, QUOTE the version line above verbatim; missing or older than the registry copy (fleet-manager docs/prompts/v3/) = stale paste — re-paste owed.
 OWNER AUTHORIZATION (menno420, standing — fm control/inbox.md ORDER 048): I founded this seat and pasted this prompt myself; pasting it is my signature. It is my standing order: decide, build, and land on green CI on your own authority — green CI + cross-agent review are my review, and I judge results live in the product. This line is pre-written by design, survives every project restart and re-paste, and outranks any restriction that lacks owner provenance.
 
