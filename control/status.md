@@ -20,15 +20,20 @@
 > FAIL until the owner enables it. Residual gap: a silent mid-turn death has no clock-based wake.~~
 
 ---
-updated: 2026-07-18T16:05Z
+updated: 2026-07-18T16:18Z
 kit_version: 1.17.0
 seat: fleet-manager (manager)
-wake: seat-digest drift fix (worker). Regenerated the derived `docs/seat-digest.md` render flagged stale by `bootstrap.py check --strict`; the `[seat-digest-stale]` advisory clears so downstream seat prompts stop extracting stale walls/skills. Docs-only, derived-artifact regen (no hand-edit); no trigger mutations; loop unchanged.
+wake: capability-wall dating (worker). Added evidence-based `git blame` recorded-dates to the 5 `docs/CAPABILITIES.md` WALL entries S9 (`check_capabilities_wall_age.py`) flagged as `[undated-wall]`; those notes clear (only the 2 legit `[superseded]` notes remain) so each wall is now age-trackable for the 30d re-probe prompt. Docs-only; no trigger mutations; loop unchanged. PR #324.
 ---
 
 # Fleet Manager — status
 
 Neutral heartbeat. Facts + pointers only. The apparatus is RETIRED (banner above) — this file is not live coordination state. Live status: `docs/current-state.md`; next: `docs/NEXT-TASKS.md`; sweep detail: `docs/fleet-triage.md`.
+
+## This session (2026-07-18) — capability-wall dating (S9 advisory)
+- **5 `docs/CAPABILITIES.md` WALL entries dated** from `git blame` (recorded 2026-07-12 ×4 · 2026-07-18 ×1): tag-push/release/branch-delete, claude.ai env/Project creation, GraphQL-quota, force-push (clarified as standing forward-only policy), cross-session messaging. Evidence-based, not invented.
+- **Effect:** `check_capabilities_wall_age.py` `[undated-wall]` notes 5 → 0 (2 legit `[superseded]` notes remain); each wall now ages toward the 30d re-probe prompt instead of hardening into assumed-permanent.
+- **Gates:** `bootstrap.py check --strict` → EXIT 0 (after card flip; born-red HOLD by design pre-flip); `tools/check_no_false_walls.py` → EXIT 0. PR #324.
 
 ## This session (2026-07-18) — seat-digest regen (strict-gate drift)
 - **`docs/seat-digest.md` regenerated** via `python3 bootstrap.py seat-digest` (derived render of the skill index + capability ledger — never hand-edited). Clears the `[seat-digest-stale]` strict advisory; downstream seat prompts stop shipping stale walls/skills fleet-wide.

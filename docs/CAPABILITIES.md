@@ -694,9 +694,10 @@ marketplace publishes (Gumroad/dev.to) remain owner-account hard rails.
 
 - **Tag push, GitHub Release creation, remote branch deletion** — fail with **403 at the
   credential layer** → owner action required. Queue it in `docs/owner-queue.md` per R16/R17.
+  (recorded 2026-07-12 — re-probe once a direct-PAT session is live.)
 - **Creating/editing claude.ai environments or Projects** — no API surface for
   the agent → **owner clicks** in the claude.ai UI. (Routines are worse — see the
-  both-sides wall below.)
+  both-sides wall below.) (recorded 2026-07-12.)
 - **Routine/trigger creation — walled on NON-PROJECT surfaces only** (CORRECTED
   2026-07-10 ~morning, owner-verified — the earlier "unavailable on BOTH sides" reading
   was wrong for Project sessions; SECOND correction 2026-07-10 ~11:01Z: mechanism now
@@ -734,17 +735,18 @@ marketplace publishes (Gumroad/dev.to) remain owner-account hard rails.
 - **GraphQL quota exhausts at fleet scale (~hourly)** — prefer the REST-backed MCP tools
   for bulk reads and merges. This is a rate-limit to route around, NOT a merge wall:
   draft→ready flips and merges succeed via REST/MCP; only fall back / retry when GraphQL
-  itself is momentarily exhausted. (Playbook R8.)
+  itself is momentarily exhausted. (Playbook R8.) (recorded 2026-07-18.)
 - **Official devkitPro package installers/infra** — **Cloudflare 403** behind the fleet
   proxy (toolchain scout 2026-07-09). Don't re-probe; the working route is the
   leseratte10 mirror recipe in the CAN section above.
-- **Force-push / amending pushed history** — never. Forward-only commits.
+- **Force-push / amending pushed history** — never. Forward-only commits. (standing
+  forward-only policy, not a probeable platform wall; recorded 2026-07-12.)
 - **Cross-session agent messaging** — no `send_message`/`send_later` MCP tool exists in
   coordinator or worker sessions of this org (**"No agent named ... is reachable"**;
   trigger binding to another session rejected: **"binding a trigger to another session is
   not enabled for this organization"**). Working delivery channels = git control-files bus
   + PR comments on a PR the target session is subscribed to (delivery NOT guaranteed
-  before close-out — see playbook R20).
+  before close-out — see playbook R20). (recorded 2026-07-12.)
 
 - **Private repos on this GitHub plan cannot enable the auto-merge toggle** (appended
   2026-07-10, owner-verified: the owner flipped pokemon-mod-lab PUBLIC solely to reach
