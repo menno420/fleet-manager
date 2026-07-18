@@ -1,3 +1,4 @@
+<!-- v3.7 · 2026-07-18 · fleet-manager projects registry -->
 # venture-lab — Project package meta
 
 - **Seat:** revenue lane, POST-CORE (Q-0261.4 pipelined path — not one of the
@@ -50,14 +51,22 @@
   on case-insensitive filesystems). Queued as work-loop item (c) in part 2:
   merge into ONE ledger at the kit-convention path, update pointers.
 
-## Deployed-state per part (2026-07-10)
+## Deployed-state per part (2026-07-18)
 
-| Part | This package file | Deployed today | Citation |
-|---|---|---|---|
-| 1 instructions | `instructions.md` — Q-0265/Q-0264/Q-0259.4 re-base of the held gen-2 package | **NOTHING EVER DEPLOYED AS SUCH.** The gen-2 package was held per Q-0262.6 and never pasted; its predecessor `venture-lab-draft.md` also ❌ NOT deployed (fm prompts README). The lane has run on system-prompt identity + in-repo docs only — no Custom-Instructions paste record exists anywhere | fm `docs/proposals/instructions/venture-lab.md` @ `f28dd12` (badge: PROPOSED, not deployed); fm `docs/prompts/README.md` row; inventory-hub §A row 3 + §B; inventory-lanes §4 |
-| 2 coordinator prompt | `coordinator-prompt.md` v2 (slice-2 re-sync, 2026-07-11) — merged-seat brief (venture-lab + trading-strategy research annex): state-repair boot at HEAD, trigger cutover, profitability work loop | **NOT deployed** — no seat prompt has ever existed for this lane (no succession/boot brief on main, verified by the launch-readiness sweep; ORDER 004 orders one written) | fm `docs/launch-readiness-2026-07-10.md` §9; `control/inbox.md` ORDER 004 @ `f999ddf` |
-| 3 setup script | `setup-script.sh` — python-lab archetype + probe block + Stripe name-only probes | **NOT deployed** — no setup script exists anywhere in the venture-lab repo (inventory missing-parts matrix: ❌); what the console env field holds is unverifiable from in-repo (no paste record) | inventory-lanes §4 + matrix; fm `environments/archetypes.md` venture row |
-| 4 failsafe text | `failsafe-prompt.md` v2 (slice-2 re-sync, 2026-07-11) — merged-seat text, `0 */2 * * *`; cutover retires the old trading-strategy failsafe | **NOT ARMED** — lane is clockless; ORDER 002 unexecuted; no trigger in the registry. Arming rides the fresh boot | fm launch-readiness §"Gap found live" + §9; `control/inbox.md` ORDER 002 @ `f999ddf`; `control/status.md` @ `a22b403` (no routine record) |
+| Part | State |
+|---|---|
+| `instructions.md` (Custom Instructions) | v3.7 · 2026-07-18 · registry-current; never console-pasted — the registry copy is the deployed artifact |
+| `coordinator-prompt.md` (coordinator / wake prompt) | v3.7 · 2026-07-18 · registry-current; never console-pasted |
+| `failsafe-prompt.md` | v3.7 · 2026-07-18 · registry-current; failsafe byte-state verified via the triggers snapshot, not this table |
+
+<details><summary>Prior per-part deployment detail (pre-restamp, historical)</summary>
+
+- `instructions.md` — **NOTHING EVER DEPLOYED AS SUCH.** The held gen-2 package was never pasted; its predecessor `venture-lab-draft.md` also ❌ NOT deployed. The lane ran on system-prompt identity + in-repo docs only — no Custom-Instructions paste record exists. (fm `docs/proposals/instructions/venture-lab.md` @ `f28dd12`; `docs/prompts/README.md` row; inventory-hub §A row 3 + §B; inventory-lanes §4.)
+- `coordinator-prompt.md` — **NOT deployed**: no seat prompt has ever existed for this lane (no succession/boot brief on main, launch-readiness sweep; ORDER 004 orders one written). (fm `docs/launch-readiness-2026-07-10.md` §9; `control/inbox.md` ORDER 004 @ `f999ddf`.)
+- `setup-script.sh` — **NOT deployed**: no setup script exists anywhere in the venture-lab repo; what the console env field holds is unverifiable from in-repo (no paste record). (inventory-lanes §4 + matrix; fm `environments/archetypes.md` venture row.)
+- `failsafe-prompt.md` — **NOT ARMED**: lane was clockless; ORDER 002 unexecuted; arming rides the fresh boot. (fm launch-readiness §"Gap found live" + §9; `control/inbox.md` ORDER 002 @ `f999ddf`; `control/status.md` @ `a22b403`.)
+
+</details>
 
 ## Sources
 

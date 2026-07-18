@@ -1,3 +1,4 @@
+<!-- v3.7 · 2026-07-18 · fleet-manager projects registry -->
 # websites — Project package meta
 
 - **Seat:** post-core lane (not one of the Q-0261 core six) — **LIVE**, and
@@ -46,14 +47,22 @@
   refusals are RETRY-LATER, never a wall (fm `projects/README.md` § Codex
   fleet-wide enablement).
 
-## Deployed-state per part (2026-07-10)
+## Deployed-state per part (2026-07-18)
 
-| Part | This package file | Deployed today | Citation |
-|---|---|---|---|
-| 1 instructions | `instructions.md` — repo `docs/project/project-instructions.md` body @ `fc8354e` + the one Q-0265 fix (§ROUTINE-FIRED "ONE bounded slice" → work loop); body 6,989 chars | **DEPLOYED, but an OLDER text:** the fm gen-2 fitted version (7,496 chars) was pasted 2026-07-10 (~02:05Z) — that is pre-Q-0265 AND pre-dates the repo's own `docs/project/` package (written after the 16:01Z incident). No paste record exists for the repo file itself. **Re-paste needed** with this package's text | fm `docs/proposals/instructions/websites.md` §"Deployed fitted version" L324 @ `0eaa668` (in-file L3 "PROPOSED" badge is stale vs its own §Deployed — inventory-hub §A row 1); websites `docs/project/README.md` @ `fc8354e` (paste convention, no receipt) |
-| 2 wake prompt (= coordinator prompt for this fresh-session lane) | `coordinator-prompt.md` v3 (slice-2 re-sync, 2026-07-11 — Ideas Lab naming; lineage: repo `routine-prompt.md` v2 → ORDER 017 re-issue) + fresh-session send_later caveat | **NOT the deployed text** as of the last record: live trigger carries the v1-era "standing inbox ritual" delegating prompt (paraphrase only — verbatim uncommitted). Owner may have re-pasted v2 — **UNVERIFIED**; a fired session's behavior is the test (v2 = works the loop, cites Q-0265) | websites `docs/owner/OWNER-ACTIONS.md` row E @ `fc8354e`; `docs/project/routine-prompt.md` v2 banner @ `fc8354e`; inventory-lanes §1 routine-prompt row |
-| 3 setup script | `setup-script.sh` — `docs/project/setup-script.sh` @ `fc8354e` verbatim + registry note picking it canonical over the `scripts/setup-env.sh`+`env-setup.sh` lineage (retirement candidate for the lane) | Owner-paste convention, **no paste record** — which text (if either) the console env field holds is unverified; the archetype script is a third possible occupant | websites `docs/project/README.md` + inventory-lanes §1 "Missing (d)" (dual lineage); fm `environments/archetypes.md` websites row @ `0eaa668` |
-| 4 wake cron text | `failsafe-prompt.md` v2 — prescribes the v3 prompt + `0 */2` recommended (4-hourly kept legitimate) | **DEPLOYED trigger verified in registry** (`trig_017H9Qb9oxtLgUy6sw2gnSHg`, `0 */4 * * *`, fresh-session, first fire 16:01:32Z) but its **prompt text is v1-era per the last committed record and UNVERIFIED since** (possible owner re-paste of v2 — unrecorded) | websites `docs/owner/OWNER-ACTIONS.md` row E; `docs/CAPABILITIES.md` append log 2026-07-10 (trigger creation record 13:49:36Z); inventory-lanes §1 "Missing (a)/(c)" |
+| Part | State |
+|---|---|
+| `instructions.md` (Custom Instructions) | v3.7 · 2026-07-18 · registry-current; deployed console paste predates the registry — owner re-paste to v3.7 is the self-heal item (not repo-verified) |
+| `coordinator-prompt.md` (coordinator / wake prompt) | v3.7 · 2026-07-18 · registry-current; owner re-paste to v3.7 pending (self-heal; not repo-verified) |
+| `failsafe-prompt.md` | v3.7 · 2026-07-18 · registry-current; failsafe byte-state via the triggers snapshot |
+
+<details><summary>Prior per-part deployment detail (pre-restamp, historical)</summary>
+
+- `instructions.md` — **DEPLOYED, but an OLDER text**: the fm gen-2 fitted version (7,496 chars) was pasted 2026-07-10 (~02:05Z), which predates the registry AND the repo's own `docs/project/` package. No paste record exists for the repo file itself. Re-paste needed. (fm `docs/proposals/instructions/websites.md` §"Deployed fitted version" L324 @ `0eaa668`; websites `docs/project/README.md` @ `fc8354e`.)
+- `coordinator-prompt.md` (= wake prompt for this fresh-session lane) — **NOT the deployed text** as of the last record: live trigger carried an older "standing inbox ritual" delegating prompt (paraphrase only). Owner may have re-pasted — **UNVERIFIED**; a fired session's behavior is the test. (websites `docs/owner/OWNER-ACTIONS.md` row E @ `fc8354e`; `docs/project/routine-prompt.md` banner @ `fc8354e`.)
+- `setup-script.sh` — owner-paste convention, **no paste record**; which text the console env field holds is unverified. (websites `docs/project/README.md` + inventory-lanes §1; fm `environments/archetypes.md` websites row @ `0eaa668`.)
+- `failsafe-prompt.md` (wake cron) — **DEPLOYED trigger verified in registry** (`trig_017H9Qb9oxtLgUy6sw2gnSHg`, `0 */4 * * *`, fresh-session, first fire 16:01:32Z) but its prompt text predates the registry per the last committed record and is **UNVERIFIED since**. (websites `docs/owner/OWNER-ACTIONS.md` row E; `docs/CAPABILITIES.md` append log 2026-07-10.)
+
+</details>
 
 ## Known drift this package fixes / flags
 

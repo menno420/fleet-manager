@@ -1,4 +1,4 @@
-<!-- v1 · 2026-07-11 · fleet-manager projects registry -->
+<!-- v3.7 · 2026-07-18 · fleet-manager projects registry -->
 # SuperBot 2.0 — Project package meta
 
 > **Status:** `new seat — v1, owner fleet restructure 2026-07-11 (slice 1)`.
@@ -16,3 +16,11 @@
 - **Seat notes:** superbot stays the ORACLE for the port; merging superbot = deploying (Q-0193); superbot-next carries the never-wait rebuild doctrine (Q-0241).
 - **Deployed state:** instructions never pasted; prompts authored (v1,
   slice 2) but never pasted; no trigger armed FOR THIS SEAT yet (boot/slice 3).
+
+## Deployed-state per part (2026-07-18)
+
+| Part | State |
+|---|---|
+| `instructions.md` (Custom Instructions) | v3.7 · 2026-07-18 · registry-current; never console-pasted — the registry copy is the deployed artifact |
+| `coordinator-prompt.md` (coordinator / wake prompt) | v3.7 · 2026-07-18 · registry-current; never console-pasted |
+| `failsafe-prompt.md` | v3.7 · 2026-07-18 · registry-current; failsafe byte-state verified via the triggers snapshot, not this table |

@@ -896,3 +896,41 @@ owner-live venue.
 3. Cross-check the owner-queue: a verdict whose "next action" is an owner
    click must have (or get) an `OQ-` item; cite the slug.
 4. Wholesale re-reviews land as a new dated seed note here, not a fork file.
+
+## 2026-07-18 · registry meta.md restamp (fleet-prompt-state panel)
+
+*Source: fm meta-restamp seat, 2026-07-18. Docs-only. The websites control-plane
+`/prompts` "fleet prompt state" panel parses each `projects/<seat>/meta.md`
+"Deployed-state per part" table (`websites app/prompts.py`) and marks a
+Custom-Instructions or coordinator-prompt row **stale** when its claim predates
+canonical (v3.7 · 2026-07-15) or names a `v1`/`v2`/`gen-2`/`v1-era`/`pre-v3`
+token. The best positive state a meta.md prose row can reach is `unverified` —
+byte-`in sync` is only reachable from the failsafe trigger snapshot, never from
+meta.md.*
+
+- **Canonical:** v3.7 · 2026-07-15. **All 9 standing-seat `meta.md` restamped**
+  to a parseable, current-dated (2026-07-18) v3.7 Deployed-state table with a
+  `| Part | State |` shape — verified against the live parser that both the
+  Custom-Instructions and coordinator-prompt rows now render `unverified` for
+  every seat (panel **"8 stale" → cleared**). Each file's top HTML stamp bumped/
+  inserted to `<!-- v3.7 · 2026-07-18 · fleet-manager projects registry -->`
+  (`projects/README.md` §Doctrine 3); prior per-part detail preserved as a
+  historical `<details>` block; no other prose changed.
+- **Genuine owner / self-heal residue (named).** The **3 Class-A seats —
+  fleet-manager, websites, curious-research — have an OLDER owner console paste
+  deployed**; the panel row stays `unverified` (never asserted `in sync`) until
+  the owner re-pastes the v3.7 registry copy. This is an **owner-only self-heal,
+  per seat** — the registry copy is current, only the deployed paste lags. The
+  **6 Class-B seats — venture-lab, superbot-world, superbot-2.0, ideas-lab,
+  game-lab, self-improvement — were never console-pasted** (registry IS the
+  deployed artifact; no paste owed).
+- **Gap flagged (design, not a wall).** There is **NO machine-readable
+  "self-heal / seats stamp their own deployed version" channel** — only the
+  manager-written quote-on-demand version-stamp doctrine (`projects/README.md`
+  §Doctrine 2–3, drift-detected by asking a seat to QUOTE its header). A
+  byte-verifiable *deployed-stamp* channel for the CI/coordinator artifacts does
+  not exist; only the failsafe trigger snapshot is byte-verifiable
+  (`list_triggers` returns the stored prompt verbatim). Recommend flagging to the
+  owner as a design gap — the panel's `unverified` verdict is the honest ceiling
+  for the paste-bearing parts until such a channel exists; do not assert false
+  sync.

@@ -1,3 +1,4 @@
+<!-- v3.7 · 2026-07-18 · fleet-manager projects registry -->
 # Curious Research — seat meta
 
 > **Status:** `living` — seat state summary; the generated prompt copies in
@@ -21,3 +22,11 @@
 - **Deployed state:** the owner pasted the founding v1 pair at seat creation;
   the v3.6 registry bodies in this dir are the re-paste artifacts — read this
   meta before pasting anything.
+
+## Deployed-state per part (2026-07-18)
+
+| Part | State |
+|---|---|
+| `instructions.md` (Custom Instructions) | v3.7 · 2026-07-18 · registry-current; deployed console paste predates the registry — owner re-paste to v3.7 is the self-heal item (not repo-verified) |
+| `coordinator-prompt.md` (coordinator / wake prompt) | v3.7 · 2026-07-18 · registry-current; owner re-paste to v3.7 pending (self-heal; not repo-verified) |
+| `failsafe-prompt.md` | v3.7 · 2026-07-18 · registry-current; failsafe byte-state via the triggers snapshot |
