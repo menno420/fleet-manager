@@ -20,8 +20,7 @@ capabilities, dispatch log).
 ## 2 · Current state (as of 2026-07-15T10:21Z)
 
 - **Fleet is LIVE** — the owner's v3.6 reboot wave ran overnight
-  2026-07-15; the **EAP is extended to 2026-07-21** (ORDER 046,
-  `control/inbox.md`).
+  2026-07-15.
 - The previous coordinator session ran the overnight ledger **fm PRs
   #215–#228** (all merged on green except **#227**, parked
   owner-merge-only — workflow-file diff). Its final heartbeat is
@@ -39,8 +38,7 @@ rescue-branch + push, never reset over it). Then read, in order:
 
 1. `CONSTITUTION.md` (repo root) — the binding working agreement.
 2. `control/status.md` — the last coordinator heartbeat.
-3. `control/inbox.md` **at HEAD** — owner orders (newest at bottom;
-   ORDER 046 is the EAP-extension order).
+3. `control/inbox.md` **at HEAD** — owner orders (newest at bottom).
 4. [docs/roster.md](roster.md) + [docs/owner-queue.md](owner-queue.md) +
    [docs/playbook.md](playbook.md) (R1–R25 operating rules).
 
@@ -87,7 +85,7 @@ re-arm it:**
 - **9 seats un-rebooted by owner choice** (§2) — neutral; not a
   coordinator task.
 
-## 6 · Older reference (EAP finale, written at the 2026-07-14 dormancy)
+## 6 · Older reference (archived program docs)
 
 Still where they were: worklists
 [docs/eap-final-night-worklists-2026-07-13.md](eap-final-night-worklists-2026-07-13.md),
