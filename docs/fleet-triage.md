@@ -857,6 +857,16 @@ owner-live venue.
 - **Snapshot-rot note (record, no defect):** the roster Gen-N "backlog cleared" line was already stale ~90 min after generation — the live-recording practice (verify vs live GitHub each wake) IS the correction path; no fix needed.
 - **Reviewer thread closed:** fleet health OK — 14 live seats, 0 red main HEADs, 5 frozen-by-design; Ideas Lab is a finished mine.
 
+## 2026-07-18 · roster-freshness lapse + dropped-cron watch
+
+*Source: fm roster-freshness custodian seat, 2026-07-18. Incident found + fixed live; recorded here per §How-to-re-verdict pt 4 (dated note, not a fork file).*
+
+- **Incident.** At ~2026-07-18T03:28Z the roster (`docs/roster.md`) was found genuinely **4.0h stale** — `scripts/check_roster_freshness.py` RED (EXIT=1) against the 4h threshold.
+- **Root cause: GitHub Actions silently dropped the ~00:40Z `roster-regen.yml` cron window** (cron `40 */2 * * *`). The **workflow itself is healthy** — all recent *scheduled* runs `success`, `workflow_dispatch` present; GitHub's own scheduler skipped the window under load (a documented GitHub behavior — scheduled crons are best-effort and can be dropped). **NOT clock skew:** container UTC ≈ real UTC, cross-checked against two external clocks.
+- **Fix (clean).** Triggered `roster-regen.yml` via **`workflow_dispatch`** → **Generation #86 landed as PR #302** at ~03:29Z (main `f042f55`). Freshness now **OK — 0.0h, EXIT=0**.
+- **Watch-item.** The 2h cadence has **no margin against a single dropped window before the 4h staleness bar**. If GitHub keeps dropping scheduled windows, migrate roster-freshness to the **CCR-routine fallback the workflow's own provenance header already documents** (a dedicated `cron 40 */2` routine). First drop observed 2026-07-18. → owner-queue `OQ-FM-ROSTER-CRON-RELIABILITY`.
+- **Venue note.** No workflow code fixed by this seat — `.github/workflows/**` is owner/hub venue; the dispatch is a run-trigger, not a code change.
+
 ## How to re-verdict
 
 1. Verify against live source (Q-0120 — never against report text).
