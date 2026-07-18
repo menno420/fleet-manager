@@ -109,6 +109,7 @@ ready-flips / REST/MCP merges; this repo is insulated because it lands via the
 - **Wake-chain record correction** (fm #294, `17684c4`): recorded that agent-side scheduling works and the failsafe is armed — the earlier "self-scheduling wall" was a Bash-path + nondeterministic-classifier artifact, not a hard wall.
 - **Recreation ruling recorded** (fm #292, `22e4177`): owner-C ruling ("This one is the recreation") logged as the current governing state; the FM autonomous loop stands back up.
 - **Overnight oversight — liveness sweep + idea routing** (fm #298, `043c33a`): a verified fleet-triage liveness sweep + new [idea-routing-2026-07-18.md](idea-routing-2026-07-18.md) (Ideas-Lab candidates A–H → target lanes/first-slices, owner-only residue tracked as `OQ-IDEA-ROUTING-OWNER-ONLY`), every per-repo claim re-verified live against GitHub.
+- [Owner steps — fleet-wide (2026-07-18)](owner-steps-2026-07-18.md) — the current consolidated, payoff-ordered, one-sitting-batched list of every open owner-only step across the fleet (supersedes the 07-17 list; resolved items moved to its Appendix).
 - [Owner actions — fleet-wide (2026-07-17)](owner-actions-2026-07-17.md) — verified, paste-ready list of every owner action across the fleet (merges, ready-flips, decisions, veto menus), checked live against GitHub.
 - [Overnight planning menu (2026-07-17)](planning/overnight-menu-2026-07-17.md) — 25 veto-ready fleet-manager seat proposals (overnight run 2026-07-16).
 - **Project recreation runbook — EAP wind-down cutover** (fm #271,
