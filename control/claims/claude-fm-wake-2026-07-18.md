@@ -1,1 +1,1 @@
-- claude/fm-wake-2026-07-18 · seat wake: snapshot refresh + oversight records + heartbeat · 2026-07-18
+- `claude/fm-wake-2026-07-18` · **seat wake: snapshot refresh + oversight records + heartbeat** · control/status.md, .sessions/, telemetry/, docs/owner-queue.md · 2026-07-18
