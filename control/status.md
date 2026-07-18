@@ -6,14 +6,15 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-18T21:01Z
+updated: 2026-07-18T21:15Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
 failsafe armed + verified, predecessor crash-orphan failsafe deleted + verified absent),
 triggers-snapshot refreshed from the 20:42:05Z full export (I6 PASS), carve-out PRs
-pokemon-mod-lab #98 + product-forge #29 re-verified live GREEN, heartbeat recorded.
-PR #332.
+pokemon-mod-lab #98 + product-forge #29 re-verified live GREEN, heartbeat recorded
+(PR #332). Fleet PR sweep recorded 2026-07-18T21:15Z — 13 open PRs / 7 repos, detail in
+`docs/fleet-triage.md` § "2026-07-18 · fleet PR sweep (21:05–21:15Z)" (PR #334).
 ---
 
 # Fleet Manager — status
@@ -84,8 +85,11 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 1. Hub lands **pokemon-mod-lab #98** and **product-forge #29** — green, ready PRs touching
    `.github/workflows/**` (`merge-on-green.yml` skips workflow diffs → owner click or
    agent MCP/REST merge).
-2. Next wake: **fleet PR sweep** + roster-freshness / trigger-health watch
-   (`OQ-FM-ROSTER-CRON-RELIABILITY`); pick up the I8 superbot-world duplicate-cron WARN.
+2. Next wake: **re-sweep the 8 in-flight born-red session PRs** (websites #425/#428,
+   substrate-kit #470, idea-engine #597, trading-strategy #152, superbot-next #562/#563,
+   superbot #2148) + **websites #422 follow-up** (stuck red bake PR — lane fix/rebake or
+   close) + roster/trigger-health watch (`OQ-FM-ROSTER-CRON-RELIABILITY`; I8
+   superbot-world duplicate-cron WARN stays routed to that seat's own wake).
 
 ### Gates
 - `python3 scripts/check_trigger_health.py` → PASS (8/9 green, 1 WARN I8, exit 0).

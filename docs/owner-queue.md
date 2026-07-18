@@ -21,20 +21,8 @@ launch that seeded the earliest queue items: [`launch-readiness-2026-07-10.md`](
 
 ### (A) GitHub merges — one click each
 **EMPTY (this repo)** — 0 open PRs in fleet-manager. Any remaining fleet-wide merges/ready-flips
-live in [owner-actions-2026-07-17.md](owner-actions-2026-07-17.md), not here. The one cross-repo
-disposition still open is:
-
-- **`OQ-GBA-DRAFT-PILE` — gba-homebrew: dispose the 13 open born-red PRs (cross-repo).**
-  WHAT: flip the **3 non-draft** born-red PRs (#154 / #165 / #176) to **ready** — each then
-  auto-lands on green (lane-side, no owner click needed) — and decide **consolidate-or-close**
-  on the **10 drafts** (#157–#164, #177, #178), which are draft + in-progress card and so
-  **cannot** auto-land (draft PRs never trigger the landing workflow).
-  WHERE: gba-homebrew → open PRs (https://github.com/menno420/gba-homebrew/pulls).
-  WHY: draft PRs never fire the landing workflow; the pile is accumulating >24h.
-  UNBLOCKS: the Underroot / brineward arc slices.
-  VERIFY: the 13 resolve to landed-or-closed.
-  RISK: ✅ reversible. (Cross-ref the parked-arc triage note — fleet-triage 2026-07-17
-  "gba main gate repaired" + the 2026-07-18 overnight sweep.)
+live in [owner-actions-2026-07-17.md](owner-actions-2026-07-17.md), not here. The open cross-repo
+dispositions are the two workflow carve-outs:
 
 - **`OQ-POKEMON-98-WORKFLOW-MERGE` — pokemon-mod-lab: merge #98 (workflow-touching carve-out).**
   WHAT: merge [pokemon-mod-lab #98](https://github.com/menno420/pokemon-mod-lab/pull/98)
@@ -254,6 +242,17 @@ These once-active items are moot; ids retained so nothing is lost, full bodies i
   resolved; flapping-quota mitigation only).
 
 ---
+
+## Resolved 2026-07-18 (fleet PR sweep 21:05–21:15Z — state read live via the GitHub MCP, Q-0120)
+
+- **`OQ-GBA-DRAFT-PILE` ✅ RESOLVED 2026-07-18 (overtaken by events — remaining work is lane-side,
+  no owner click)** — the 13-PR born-red pile is **gone** (merged/closed); the only survivors are
+  gba-homebrew [#177](https://github.com/menno420/gba-homebrew/pull/177) /
+  [#178](https://github.com/menno420/gba-homebrew/pull/178), both **ready-flipped + auto-merge
+  armed 2026-07-18T11:26Z**, blocked only by the **by-design substrate-gate red** on main (#151
+  doc orphans). Clearing that gate is gba-lane work, not an owner click, so the item leaves the
+  Active queue. Evidence + disposition: fleet-triage § "2026-07-18 · fleet PR sweep
+  (21:05–21:15Z)".
 
 ## Resolved 2026-07-17 (agent-side — wake chain restored via native MCP scheduling)
 
