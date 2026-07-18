@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-18T21:32Z
+updated: 2026-07-18T22:04Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -31,6 +31,24 @@ Night-watch state recorded 2026-07-18T21:32Z (this refresh, records slice).
   `docs/CAPABILITIES.md` (this PR).
 - **fm PR #335 (`verify_routine_state.py`) merged** — one-command routine-state proof
   now on main.
+- **22:02–22:04Z re-sweep (this refresh):** all 6 remaining born-red PRs from the
+  21:05–21:15Z sweep **self-landed on green** — substrate-kit #470 (21:13Z) ·
+  superbot #2148 (owner-merged 21:12Z) · trading-strategy #152 (21:18Z) ·
+  superbot-next #562 (21:19Z) / #563 (21:20Z) · idea-engine #597 (21:22Z); websites
+  #425/#428 had landed earlier. gba-homebrew #177/#178 still draft-parked (07-16
+  landing wall, unchanged). Hub-queue rows unchanged: pokemon-mod-lab #98 +
+  product-forge #29 still OPEN/green awaiting workflow-carve-out merge.
+  **ORDER 036 picked up by the websites lane:** stuck bake PR #422 CLOSED
+  (terminal) 21:20:42Z; root-cause fix websites #434 (BAKE_PAT into the review-bake
+  landing step) OPEN, `do-not-automerge` + workflow diff — owner-gated on the
+  ASK-0008 BAKE_PAT Actions secret; the 2026-07-18 data refresh itself is not yet
+  re-landed. New open PRs since 21:15Z: idea-engine #600 · pokemon-mod-lab #104 ·
+  superbot-next #567 (normal lane work, expected to self-land) + websites #434
+  (owner-gated, above). Local checks: roster fresh (gen #96 21:28Z, I5 PASS);
+  trigger health PASS 8/9 (I8 superbot-world duplicate-cron WARN unchanged, stays
+  routed to that seat); `verify_routine_state.py` → known capture-lag DRIFT (2
+  mismatches on the fm failsafe cutover ids — expected until the next snapshot
+  refresh). Stale-claims cleanup: this PR (claims of merged #332/#337 retired).
 
 # Fleet Manager — status
 
@@ -100,13 +118,14 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 1. Hub lands **pokemon-mod-lab #98** and **product-forge #29** — green, ready PRs touching
    `.github/workflows/**` (`merge-on-green.yml` skips workflow diffs → owner click or
    agent MCP/REST merge).
-2. **~22:00Z wake:** re-sweep the 8 in-flight born-red session PRs (websites #425/#428,
-   substrate-kit #470, idea-engine #597, trading-strategy #152, superbot-next #562/#563,
-   superbot #2148) + roster/trigger-health watch (`OQ-FM-ROSTER-CRON-RELIABILITY`; I8
-   superbot-world duplicate-cron WARN stays routed to that seat's own wake) + **websites
-   #422 / ORDER-036 follow-through** (ORDER 036 landed via websites#433 sha `5689537` —
-   verify the lane picks it up and the stuck red bake PR #422 gets fixed/rebaked or
-   closed).
+2. **~22:33Z failsafe wake (`trig_01GK4mjoKBP3yCabn9ux1MB2`; or the ~22:31Z pacemaker
+   tick, whichever fires first):** watch websites #434 (owner-gated BAKE_PAT wiring —
+   once merged, confirm the 2026-07-18 data refresh actually re-lands, or a fresh bake
+   PR supersedes #422); watch the three new lane PRs land (idea-engine #600 ·
+   pokemon-mod-lab #104 · superbot-next #567); refresh `telemetry/triggers-snapshot.json`
+   at a convenient wake to clear the known capture-lag DRIFT; I8 superbot-world
+   duplicate-cron dedup stays routed to that seat's own wake
+   (`OQ-FM-ROSTER-CRON-RELIABILITY` roster watch: gen #96 arrived on time).
 
 ### Gates
 - `python3 scripts/check_trigger_health.py` → PASS (8/9 green, 1 WARN I8, exit 0).
