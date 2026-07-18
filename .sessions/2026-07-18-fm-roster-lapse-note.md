@@ -1,18 +1,21 @@
 # Session — fm-roster-lapse-note
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 **Branch:** `claude/fm-roster-lapse-note-0718`
 
-📊 Model: [[fill:model-line]]
+📊 Model: Opus 4.8 · medium · docs-only
 
 **About to do:** Record the 2026-07-18 roster-freshness lapse (GitHub dropped a cron window) + the workflow_dispatch fix (Gen #86) + a dropped-cron watch-note.
 
 **Did:**
-- [[fill:did]]
+- **Recorded the incident in `docs/fleet-triage.md`** as a dated `## 2026-07-18 · roster-freshness lapse + dropped-cron watch` note (newest-at-bottom, before §How-to-re-verdict): at ~03:28Z the roster was genuinely **4.0h stale** (`check_roster_freshness.py` RED/EXIT=1); root cause = GitHub Actions **silently dropped the ~00:40Z `roster-regen.yml` cron window** (cron `40 */2`) — workflow healthy (recent scheduled runs `success`, `workflow_dispatch` present), **NOT clock skew** (container UTC ≈ real UTC, cross-checked vs two external clocks). Fixed via `workflow_dispatch` → **Generation #86 landed as PR #302** (~03:29Z, main `f042f55`); freshness now **OK — 0.0h, EXIT=0**. Watch-item: recurring drops → migrate roster-freshness to the CCR-routine fallback the workflow header documents.
+- **Added `OQ-FM-ROSTER-CRON-RELIABILITY`** to `docs/owner-queue.md` group (D) Standing decisions — six-field + RISK ✅ (watch/record; any migration is owner/hub-venue), cross-linked to the triage note.
+- **No workflow code touched** — `.github/workflows/**` is owner/hub venue; the `workflow_dispatch` was a run-trigger, not a code change.
+- **Checks green at HEAD:** `check_owner_queue.py` CLEAN EXIT=0 · `check_roster_freshness.py` OK EXIT=0 (0.1h, Gen #86) · `check_docs_links.py` CLEAN (254 files) · `check_fleet_triage_staleness.py` CLEAN. `bootstrap.py check --strict` EXIT=1 == the born-red HOLD ONLY (this card in-progress during the run); the `model-line` advisories are **pre-existing on OTHER `2026-07-17-*` cards**, never-exit-affecting, out of this docs-only session's scope. Guard-fire delta (14 records) committed with the session, not reverted.
 
-⚑ Self-initiated: [[fill:self-initiated]]
+⚑ Self-initiated: None — directed deliverable (record the roster-freshness lapse + fix + watch-note). No autonomous idea promotion; no trigger created, modified, fired, or deleted (the `workflow_dispatch` that landed Gen #86 / PR #302 predates this session and is not a trigger mutation).
 
-💡 Session idea: [[fill:idea]]
+💡 Session idea: **A `check_scheduled_cron_landings.py` advisory checker** — the exact gap this incident exposed. GitHub's scheduler silently dropped a `roster-regen.yml` window and nothing noticed until the roster crossed the 4h staleness bar (a *downstream* symptom, ~4h late). A stdlib checker could read the recent `roster-regen.yml` run history (or the committed roster generation-timestamp series) and flag when the **actual** inter-generation gap exceeds the cron cadence by more than one window — surfacing a *dropped scheduled window at the next wake* instead of waiting for `check_roster_freshness` to go red hours later. Advisory only (never merge-blocking), standalone, sibling to the S3/S5/S9 trio. Dedup-checked `docs/ideas/` (16 files): distinct from `check_roster_freshness` (which ages the *stamp*, catching the symptom late) and the previous session's `check_apparatus_provenance` (which ages *kill-switch headers*); this ages *the scheduler's actual cadence vs its declared cron*, catching the cause early — novel.
 
-⟲ Previous-session review: [[fill:review]]
+⟲ Previous-session review: **PR #301 (fm-apparatus-sizing)** did the apparatus-sizing decision well: it read each workflow's real provenance header off disk rather than guessing, gave a per-file KEEP/HOLD verdict with load-bearing rationale, and correctly stayed decide-and-flag (touched no `.github/workflows/**`, flagging the cadence edit as owner/hub-venue with RISK ⚠️). Notably, its **HOLD recommendation on `roster-regen.yml`** — "reduce the 2h cadence to daily, keep `workflow_dispatch`" — intersects directly with *this* session's incident: a daily cadence would have made a single dropped window a **24h** lapse, not 4h, so the reliability question (`OQ-FM-ROSTER-CRON-RELIABILITY`) should be weighed *together* with the sizing decision, not after it — a slower cron is cheaper but strictly *less* resilient to GitHub's dropping windows unless paired with the CCR-routine fallback. **System improvement it surfaces (Q-0194 friction→guard):** #301 recommended a cadence change purely on cost grounds without a reliability datapoint, because none existed yet; the cheapest enforcing fix is that any owner-queue item recommending a **cron-cadence change** should cite the current dropped-window / staleness-margin evidence inline, so cost and resilience are decided from the same row — exactly the linkage this incident now provides.
