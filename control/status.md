@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-18T22:04Z
+updated: 2026-07-18T22:14Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -57,6 +57,40 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 ## This session (2026-07-18) — coordinator wake: cutover + snapshot refresh
 
 ### Routine state (verified live via list_triggers this session)
+
+<!-- routine-claims fence — the heartbeat's machine-readable routine-claims contract
+     (idea: PR #335 session card 💡; consumer: scripts/verify_routine_state.py, which
+     PREFERS this fence over prose-grammar scraping — the prose bullets below stay for
+     humans). Shape: a ```json fence tagged `routine-claims` holding one JSON object:
+       seat       string — the claiming seat
+       updated    string — UTC instant these claims were (re)verified
+       failsafe   object {id, cron, next_run_at, state: "armed"} — or a list of them
+       deleted    [ids] — trigger ids claimed deleted / verified absent
+       pacemaker  object {mode, cadence_minutes, note} — informational
+     Neutral facts only, written at heartbeat time from live-verified state. To the
+     verifier a present-but-malformed fence is a loud exit-2 contract violation, never
+     a silent prose fallback. (The `control/README.md` grammar doc is retired/
+     historical, so this contract note rides the file itself.) -->
+
+```json routine-claims
+{
+  "seat": "fleet-manager (coordinator)",
+  "updated": "2026-07-18T22:14Z",
+  "failsafe": {
+    "id": "trig_01GK4mjoKBP3yCabn9ux1MB2",
+    "cron": "30 */2 * * *",
+    "next_run_at": "2026-07-18T22:33:20Z",
+    "state": "armed"
+  },
+  "deleted": ["trig_01Bo7dZxM9xz2hwR36L424Z8"],
+  "pacemaker": {
+    "mode": "send_later",
+    "cadence_minutes": 30,
+    "note": "overnight cadence ~30 min; exactly one pending one-shot at a time"
+  }
+}
+```
+
 - **Fresh seat failsafe ARMED + VERIFIED:** `trig_01GK4mjoKBP3yCabn9ux1MB2`
   ("Fleet Manager failsafe wake", cron `30 */2 * * *`, bound to the live coordinator
   session, created 2026-07-18T20:58:28Z, next fire 2026-07-18T22:33:20Z).

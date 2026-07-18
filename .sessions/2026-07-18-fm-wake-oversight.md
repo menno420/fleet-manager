@@ -7,7 +7,7 @@
 - **Intent:** Coordinator wake: routine re-arm + cutover, triggers-snapshot
   refresh (I6), carve-out PR re-verification, heartbeat.
 
-- **📊 Model:** fable-family · high effort · fleet-oversight wake
+- **📊 Model:** fable-5 · high · review/verify — fleet-oversight wake
 
 ## What shipped
 - **Routine cutover (v3.8 doctrine, other workers executed the trigger calls; verified
