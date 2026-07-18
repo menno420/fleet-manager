@@ -1,1 +1,0 @@
-- `claude/fm-verify-routine-state` · **new tool: routine-state verifier** · scripts/ + docs/playbook.md · 2026-07-18
