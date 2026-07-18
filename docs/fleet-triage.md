@@ -857,6 +857,16 @@ owner-live venue.
 - **Snapshot-rot note (record, no defect):** the roster Gen-N "backlog cleared" line was already stale ~90 min after generation — the live-recording practice (verify vs live GitHub each wake) IS the correction path; no fix needed.
 - **Reviewer thread closed:** fleet health OK — 14 live seats, 0 red main HEADs, 5 frozen-by-design; Ideas Lab is a finished mine.
 
+## 2026-07-18 · hub PR sweep (~16:3xZ) — records reconcile
+
+*Source: fm hub-sweep-record seat, 2026-07-18. Every per-PR state re-verified live via github MCP `get_pull_request` / `get_check_runs` before writing (Q-0120 — never against report text). Oversight-only: recorded here, never pushed to sibling repos. Distinct from the earlier overnight-oversight sweep above (different open-PR set).*
+
+- **Hub PR sweep 2026-07-18T~16:3xZ — 20 repos, 7 open PRs at the sweep instant: 0 hub-merged, 4 held born-red, 2 owner carve-outs, 1 CI-red.**
+  - **4 held born-red** (structurally cannot hub-land — in-progress card holds substrate-gate/strict red): gba-homebrew [#177](https://github.com/menno420/gba-homebrew/pull/177) (bestiary cut-2, stacked on cut-1) · [#178](https://github.com/menno420/gba-homebrew/pull/178) (cut-3, stacked on cut-2) · idea-engine [#527](https://github.com/menno420/idea-engine/pull/527) (VERDICT 126, PHASE-1 HOLD) · trading-strategy [#151](https://github.com/menno420/trading-strategy/pull/151) (render_round_results). **Q-0120 correction:** trading #151 was born-red at the sweep instant but **auto-merged 2026-07-18T16:33:51Z** (github-actions[bot]) moments later — so it is NOT still held; **3 remain born-red** (gba #177/#178, idea-engine #527), 6 of the 7 still open now.
+  - **2 owner carve-outs** (workflow-touching; `merge-on-green.yml` skips `.github/workflows/**` diffs → no auto-land, needs owner merge click or agent MCP/REST merge — not an agent wall): pokemon-mod-lab [#98](https://github.com/menno420/pokemon-mod-lab/pull/98) (touches `rom-builds.yml`; OPEN, clean) · product-forge [#29](https://github.com/menno420/product-forge/pull/29) (adds `android-ci.yml`, self-flagged OWNER-ACTION; OPEN, clean). → owner-queue `OQ-POKEMON-98-WORKFLOW-MERGE` / `OQ-FORGE-29-WORKFLOW-MERGE` (added this sweep).
+  - **1 CI-red awaiting its own session** (flag only, not hub-fixable): superbot [#2148](https://github.com/menno420/superbot/pull/2148) (EAP de-wall evidence pack) — `code-quality` = **failure** on head SHA `fd2cf59` (check-run verified) despite card `complete`. The lane session owns the fix.
+  - **Dark-seat watch (no-open-PR signal only — heartbeats NOT pulled, so NOT proof of dark):** codetool-lab-fable5, codetool-lab-opus4.8, codetool-lab-sonnet5, superbot-plugin-hello, superbot-idle, venture-lab, superbot-games, sim-lab, superbot-mineverse. (Several are frozen-by-design per the register; a genuine dark-seat verdict needs a heartbeat read, not just a null PR list.)
+
 ## 2026-07-18 · roster-freshness lapse + dropped-cron watch
 
 *Source: fm roster-freshness custodian seat, 2026-07-18. Incident found + fixed live; recorded here per §How-to-re-verdict pt 4 (dated note, not a fork file).*

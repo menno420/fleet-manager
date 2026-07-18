@@ -23,12 +23,18 @@
 updated: 2026-07-18T16:18Z
 kit_version: 1.17.0
 seat: fleet-manager (manager)
-wake: capability-wall dating (worker). Added evidence-based `git blame` recorded-dates to the 5 `docs/CAPABILITIES.md` WALL entries S9 (`check_capabilities_wall_age.py`) flagged as `[undated-wall]`; those notes clear (only the 2 legit `[superseded]` notes remain) so each wall is now age-trackable for the 30d re-probe prompt. Docs-only; no trigger mutations; loop unchanged. PR #324.
+wake: hub PR-sweep record reconcile (worker). Recorded the genuine drift from the ~16:3xZ fleet sweep: two still-open workflow-touching owner-merge carve-outs (pokemon-mod-lab #98 `rom-builds.yml`, product-forge #29 `android-ci.yml`) into `docs/owner-queue.md` §(A), plus a dated sweep record into `docs/fleet-triage.md`. Every lead re-verified live (Q-0120) — trading #151 auto-merged mid-sweep, recorded as merged not held. Docs-only; no sibling repo touched; carve-outs RECORDED not merged. PR #325.
 ---
 
 # Fleet Manager — status
 
 Neutral heartbeat. Facts + pointers only. The apparatus is RETIRED (banner above) — this file is not live coordination state. Live status: `docs/current-state.md`; next: `docs/NEXT-TASKS.md`; sweep detail: `docs/fleet-triage.md`.
+
+## This session (2026-07-18) — hub PR-sweep record reconcile
+- **Genuine drift reconciled (records-only).** The ~16:3xZ fleet sweep found 2 still-open workflow-touching owner-merge carve-outs absent from `docs/owner-queue.md` §(A) and no dated record of this sweep in `docs/fleet-triage.md`.
+- **owner-queue §(A):** added `OQ-POKEMON-98-WORKFLOW-MERGE` (pokemon #98, touches `rom-builds.yml`) + `OQ-FORGE-29-WORKFLOW-MERGE` (product-forge #29, adds `android-ci.yml`) — both verified OPEN + `mergeable_state: clean` live. RECORD-ONLY (owner click or agent MCP/REST merge; `merge-on-green.yml` skips workflow diffs).
+- **fleet-triage:** dated `2026-07-18 · hub PR sweep (~16:3xZ)` record — 7 open at sweep instant (4 born-red, 2 carve-outs, 1 CI-red), with the Q-0120 correction that trading #151 auto-merged 16:33:51Z mid-sweep + a dark-seat watch (no-open-PR signal only).
+- **Gates:** `bootstrap.py check --strict` → EXIT 0 (after card flip; born-red HOLD pre-flip); `tools/check_no_false_walls.py` → EXIT 0; `scripts/check_owner_queue.py` → EXIT 0. PR #325.
 
 ## This session (2026-07-18) — capability-wall dating (S9 advisory)
 - **5 `docs/CAPABILITIES.md` WALL entries dated** from `git blame` (recorded 2026-07-12 ×4 · 2026-07-18 ×1): tag-push/release/branch-delete, claude.ai env/Project creation, GraphQL-quota, force-push (clarified as standing forward-only policy), cross-session messaging. Evidence-based, not invented.
