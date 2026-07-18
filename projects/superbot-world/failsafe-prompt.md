@@ -1,6 +1,6 @@
 <!-- v7 · 2026-07-15 · fleet-manager projects registry — GENERATED COPY, do not edit
      (regenerate: docs/prompts/v3/tools/regen_b_files.py --write-registry; drift guard: --check-registry) -->
-<!-- generated from docs/prompts/v3 @ 63689def1d00f837d84b4df5ea5b0e30717f2c67 (prompts v3.7, duty-form rewrite 2026-07-15) -->
+<!-- generated from docs/prompts/v3 @ f6156ff9c610330f9d0515611df765a0002d6b79 (prompts v3.7, duty-form rewrite 2026-07-15) -->
 # SuperBot World — failsafe cron text (registry copy, prompts v3.7)
 
 > **GENERATED COPY — NOT SOURCE OF TRUTH.** This registry copy is GENERATED FROM
