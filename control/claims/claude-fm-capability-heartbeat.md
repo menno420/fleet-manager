@@ -1,1 +1,0 @@
-- `claude/fm-capability-heartbeat` · **capability record + heartbeat refresh** · 2026-07-18
