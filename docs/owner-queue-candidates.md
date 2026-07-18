@@ -4,14 +4,14 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #94** · generated-at **2026-07-18T17:34Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #95** · generated-at **2026-07-18T19:45Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
 ### superbot (hub) — ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready…
 
 - suggested-id: `OQ-SUPERBOT-HUB-SIDE-RESIDUE-ONLY`
-- source: superbot/control/status.md @ `f87fa50` · heartbeat `updated:` 2026-07-13T18:00:00Z
+- source: superbot/control/status.md @ `1c6ea39` · heartbeat `updated:` 2026-07-13T18:00:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -21,7 +21,7 @@
 ### superbot-next — ⚑ needs-owner: (1) disarm the residual failsafe wake triggers via the routines UI — both enabled duplicates o…
 
 - suggested-id: `OQ-SUPERBOT-NEXT-1-DISARM-RESIDUAL-FAILSAFE`
-- source: superbot-next/control/status.md @ `8c7bbfc` · heartbeat `updated:` 2026-07-18T04:15:22Z
+- source: superbot-next/control/status.md @ `6b84248` · heartbeat `updated:` 2026-07-18T04:15:22Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -31,7 +31,7 @@
 ### substrate-kit — ⚑ FOR OWNER — kit-lab daily cron: recreate or retire? (A/B)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-KIT-LAB-DAILY-CRON`
-- source: substrate-kit/control/status.md @ `3fc8182` · heartbeat `updated:` 2026-07-18T17:18:08Z · phase: SESSION-ENDER v3.7 — coordina…
+- source: substrate-kit/control/status.md @ `3e7ed4d` · heartbeat `updated:` 2026-07-18T19:20:00Z · phase: guard-manifest single-source …
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -45,28 +45,28 @@
   RISK ↩️ reversible either way. RECOMMENDATION: **A — recreate** (lab-loop.md frames it as genuine daily owner business; retiring silently drops it over a transient cutover gap; re-arming is one console action gated on the reboot go). Answer: A (recreate) / B (retire).
 ```
 
-### substrate-kit — ⚑ v1.18.0 adopter-wave authorization
+### substrate-kit — ⚑ v1.19.0 adopter-wave authorization
 
-- suggested-id: `OQ-SUBSTRATE-KIT-V1-18-0-ADOPTER`
-- source: substrate-kit/control/status.md @ `3fc8182` · heartbeat `updated:` 2026-07-18T17:18:08Z · phase: SESSION-ENDER v3.7 — coordina…
+- suggested-id: `OQ-SUBSTRATE-KIT-V1-19-0-ADOPTER`
+- source: substrate-kit/control/status.md @ `3e7ed4d` · heartbeat `updated:` 2026-07-18T19:20:00Z · phase: guard-manifest single-source …
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-⚑ v1.18.0 adopter-wave authorization
-WHAT: authorize the v1.18.0 adopter-upgrade wave.
+⚑ v1.19.0 adopter-wave authorization
+WHAT: authorize the v1.19.0 adopter-upgrade wave. (v1.19.0 now supersedes v1.18.0 as the wave target — v1.18.0 was never distributed.)
 WHERE: the executing seat session, one live owner turn.
-HOW: say 'run the v1.18.0 adopter wave'.
+HOW: say 'run the v1.19.0 adopter wave'.
 WHY: the seat session's permission classifier denied adopter-repo writes dispatched on coordinator relay alone (denial record verbatim: PR #420 body § "Denial routing"); owner provenance in the executing session is the unblock.
-UNBLOCKS: ~15 adopter currency PRs to v1.18.0.
+UNBLOCKS: ~15 adopter currency PRs to v1.19.0.
 VERIFY: wave report with per-adopter PR list.
 RISK: ↩️ reversible, distribution-only diffs.
-  NOTE (superbot-games, carried from 2026-07-18 rung-2 re-verify): its DRIFT row is 1 genuine self-report lag + 2 consuming-lane false-positives. The wave clears the genuine half when superbot-games re-renders + re-stamps its own control/status.md v1.15.0→v1.18.0. The two consuming lanes (control/status-mining.md / control/status-exploration.md, v1.7.1 adoption-prose) will NOT clear on a version bump — their `kit:` lines are historical prose, not current claims; either reword them adopter-side, or (kit-side, NOT recommended) prune their tokens from docs/fleet-repos.txt at the cost of lane observability.
+  NOTE (superbot-games, carried from 2026-07-18 rung-2 re-verify): its DRIFT row is 1 genuine self-report lag + 2 consuming-lane false-positives. The wave clears the genuine half when superbot-games re-renders + re-stamps its own control/status.md v1.15.0→v1.19.0. The two consuming lanes (control/status-mining.md / control/status-exploration.md, v1.7.1 adoption-prose) will NOT clear on a version bump — their `kit:` lines are historical prose, not current claims; either reword them adopter-side, or (kit-side, NOT recommended) prune their tokens from docs/fleet-repos.txt at the cost of lane observability.
 ```
 
 ### substrate-kit — ⚑ CAPABILITIES denial-record entry (parked)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-CAPABILITIES-DENIAL-RECORD-ENTRY`
-- source: substrate-kit/control/status.md @ `3fc8182` · heartbeat `updated:` 2026-07-18T17:18:08Z · phase: SESSION-ENDER v3.7 — coordina…
+- source: substrate-kit/control/status.md @ `3e7ed4d` · heartbeat `updated:` 2026-07-18T19:20:00Z · phase: guard-manifest single-source …
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -83,7 +83,7 @@ RISK: ↩️ reversible, docs-only.
 ### substrate-kit — ⚑ P10 required-check swap
 
 - suggested-id: `OQ-SUBSTRATE-KIT-P10-REQUIRED-CHECK-SWAP`
-- source: substrate-kit/control/status.md @ `3fc8182` · heartbeat `updated:` 2026-07-18T17:18:08Z · phase: SESSION-ENDER v3.7 — coordina…
+- source: substrate-kit/control/status.md @ `3e7ed4d` · heartbeat `updated:` 2026-07-18T19:20:00Z · phase: guard-manifest single-source …
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -100,7 +100,7 @@ RISK: ↩️ reversible — re-add the old required checks in the same ruleset p
 ### substrate-kit — ⚑ public-flip-or-PAT (pick one)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-PUBLIC-FLIP-PAT-PICK`
-- source: substrate-kit/control/status.md @ `3fc8182` · heartbeat `updated:` 2026-07-18T17:18:08Z · phase: SESSION-ENDER v3.7 — coordina…
+- source: substrate-kit/control/status.md @ `3e7ed4d` · heartbeat `updated:` 2026-07-18T19:20:00Z · phase: guard-manifest single-source …
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -117,7 +117,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### ↳ substrate-kit — `control/status-superbot-coordinator.md` — ⚑ needs-owner: 1) verify/deliver the testing-lane wind-down — superbot-next control/status.md was still UNFLI…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-1-VERIFY-DELIVER-TESTING`
-- source: substrate-kit/control/status-superbot-coordinator.md @ `3fc8182` · heartbeat `updated:` 2026-07-10T13:47:02Z
+- source: substrate-kit/control/status-superbot-coordinator.md @ `3e7ed4d` · heartbeat `updated:` 2026-07-10T13:47:02Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -127,7 +127,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### venture-lab — **⚑ Owner action item (VENUE: hub):**
 
 - suggested-id: `OQ-VENTURE-LAB-ITEM-VENUE-HUB`
-- source: venture-lab/control/status.md @ `0662542` · heartbeat `updated:` 2026-07-17T22:40:00Z
+- source: venture-lab/control/status.md @ `f28465e` · heartbeat `updated:` 2026-07-17T22:40:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -241,7 +241,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### idea-engine — ⚑ needs-owner: ORDER-010(c) sim-lab kit upgrade v1.15.0→v1.18.0 PARKED on owner in-session authorization + AS…
 
 - suggested-id: `OQ-IDEA-ENGINE-ORDER-010-C-SIM`
-- source: idea-engine/control/status.md @ `2d7d05e` · heartbeat `updated:` 2026-07-18T17:13:36Z · seat: Ideas Lab work-slice — PROPOSA…
+- source: idea-engine/control/status.md @ `9678a2b` · heartbeat `updated:` 2026-07-18T19:23:54Z · seat: Ideas Lab work-slice — round-3…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
