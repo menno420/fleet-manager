@@ -28,10 +28,17 @@ Reliability: unverified — confirm its output against ground truth a few
             post-capture deltas the snapshot's own capture_notes record.
             Verbatim output in the PR #335 session card.
 Kill-switch: delete this if it proves unreliable over multiple sessions.
+Addendum   : 2026-07-18 (PR #339) — claims are now read from the heartbeat's
+            machine-readable ```json routine-claims``` fence when present
+            (the PR #335 card's 💡 idea; contract documented in the comment
+            block above the fence in control/status.md). The prose grammar
+            below stays as the fallback for fence-less heartbeats. A
+            present-but-malformed fence is a loud exit-2 contract violation,
+            never a silent prose fallback.
 =============================================================================
 
-WHAT IT CHECKS (claims come from the status file's routine block; actuals
-from the export)
+WHAT IT CHECKS (claims come from the status file's routine-claims fence when
+present, else its prose routine block; actuals from the export)
   C1 CLAIMED-FAILSAFE   every failsafe id the heartbeat claims ARMED is
                         present in the export, enabled, and (when the
                         claim names a cron) carries that exact cron.
@@ -135,6 +142,91 @@ def normalize_export(obj) -> tuple[list[dict], str | None]:
 
 
 # ----------------------------------------------------------- status side --
+
+FENCE_TAG = "routine-claims"
+
+
+class FenceError(Exception):
+    """A routine-claims fence is present but violates its contract."""
+
+
+def parse_fence_claims(text: str) -> dict | None:
+    """Parse the machine-readable ``routine-claims`` fence, if present.
+
+    Contract (control/status.md, comment block above the fence): one fenced
+    block whose info string carries ``routine-claims``, holding a single JSON
+    object with keys ``seat``, ``updated``, ``failsafe`` (one object or a
+    list of objects ``{id, cron, next_run_at, state: "armed"}``), ``deleted``
+    (list of trigger-id strings) and informational ``pacemaker``. Returns the
+    same claims shape as :func:`parse_status_claims` (``mentions`` always
+    empty — the fence carries claims only), or None when no tagged fence
+    exists. Raises :class:`FenceError` on any contract violation — a present
+    fence must parse; silent fallback to prose would hide exactly the drift
+    the fence exists to prevent.
+    """
+    bodies: list[list[str]] = []
+    body: list[str] | None = None
+    tagged = False
+    for line in text.splitlines():
+        stripped = line.strip()
+        if body is None:
+            if stripped.startswith("```"):
+                info = stripped.lstrip("`").strip()
+                tagged = FENCE_TAG in info.split()
+                body = []
+        elif stripped.startswith("```"):
+            if tagged:
+                bodies.append(body)
+            body = None
+        elif body is not None:
+            body.append(line)
+    if not bodies:
+        return None
+    if len(bodies) > 1:
+        raise FenceError(f"{len(bodies)} `{FENCE_TAG}` fences found — the "
+                         "contract allows exactly one per heartbeat")
+    try:
+        obj = json.loads("\n".join(bodies[0]))
+    except json.JSONDecodeError as exc:
+        raise FenceError(f"fence body is not valid JSON: {exc}") from exc
+    if not isinstance(obj, dict):
+        raise FenceError("fence body must be a single JSON object, got "
+                         f"{type(obj).__name__}")
+    armed: dict[str, str | None] = {}
+    fs = obj.get("failsafe")
+    entries = [] if fs is None else (fs if isinstance(fs, list) else [fs])
+    for entry in entries:
+        if not isinstance(entry, dict) or not isinstance(entry.get("id"), str):
+            raise FenceError("each failsafe entry must be an object with a "
+                             "string 'id'")
+        state = entry.get("state", "armed")
+        if state != "armed":
+            raise FenceError(f"failsafe `{entry['id']}` carries state "
+                             f"{state!r} — the contract defines only "
+                             "'armed'; record anything else in prose")
+        cron = entry.get("cron")
+        if cron is not None and not isinstance(cron, str):
+            raise FenceError(f"failsafe `{entry['id']}` cron must be a "
+                             "string when present")
+        armed[entry["id"]] = " ".join(cron.split()) if cron else None
+    deleted_raw = obj.get("deleted", [])
+    if not isinstance(deleted_raw, list) or not all(
+            isinstance(d, str) for d in deleted_raw):
+        raise FenceError("'deleted' must be a list of trigger-id strings")
+    deleted = list(dict.fromkeys(deleted_raw))
+    # Same contradictory-claim rule as the prose grammar: deleted wins.
+    for tid in deleted:
+        armed.pop(tid, None)
+    return {"armed": armed, "deleted": deleted, "mentions": []}
+
+
+def extract_claims(text: str) -> tuple[dict, str]:
+    """Claims + their source: the fence when present, else prose grammar."""
+    fence = parse_fence_claims(text)
+    if fence is not None:
+        return fence, "routine-claims fence"
+    return parse_status_claims(text), "prose grammar (no routine-claims fence)"
+
 
 def parse_status_claims(text: str) -> dict:
     """Parse the heartbeat's routine-block claims from status-file text.
@@ -256,6 +348,21 @@ seat: fleet-manager (coordinator)
 - **Predecessor failsafe `trig_old1` DELETED** and verified absent.
 """
 
+_SYNTH_FENCE_BODY = """\
+{"seat": "fleet-manager (coordinator)", "updated": "2026-07-18T22:14Z",
+ "failsafe": {"id": "trig_new1", "cron": "30 */2 * * *",
+              "next_run_at": "2026-07-18T22:33:20Z", "state": "armed"},
+ "deleted": ["trig_old1"],
+ "pacemaker": {"mode": "send_later", "cadence_minutes": 30, "note": "n"}}
+"""
+
+_SYNTH_STATUS_FENCE = (
+    "seat: fleet-manager (coordinator)\n"
+    "```json routine-claims\n" + _SYNTH_FENCE_BODY + "```\n"
+    "- stale prose claiming failsafe `trig_ghost9` cron `1 2 3 4 5` "
+    "stays human-only\n"
+)
+
 _SYNTH_NEW = {"id": "trig_new1", "name": "Fleet Manager failsafe wake",
               "created_at": "2026-07-18T20:58:28Z", "enabled": True,
               "cron_expression": "30 */2 * * *",
@@ -335,6 +442,50 @@ def selfcheck() -> int:
        {"armed": {}, "deleted": [], "mentions": []},
        "claimless status parses to empty claims")
 
+    # ---- routine-claims fence (PR #339) ----
+    fclaims, fsrc = extract_claims(_SYNTH_STATUS_FENCE)
+    ok(fsrc == "routine-claims fence", f"fence source label ({fsrc})")
+    ok(fclaims["armed"] == {"trig_new1": "30 */2 * * *"},
+       f"fence armed claim parses id + cron ({fclaims['armed']})")
+    ok(fclaims["deleted"] == ["trig_old1"], "fence deleted claim parses")
+    ok("trig_ghost9" not in fclaims["armed"],
+       "fence PREFERRED — prose claims around it are ignored")
+    ok(not [l for s, l in diff_claims(fclaims, [_SYNTH_NEW, _SYNTH_OTHER])
+            if s == "DRIFT"],
+       "fence claims diff clean against the matching export")
+    pclaims, psrc = extract_claims(_SYNTH_STATUS_OK)
+    ok(psrc.startswith("prose grammar"), f"fence-less source label ({psrc})")
+    ok(pclaims == parse_status_claims(_SYNTH_STATUS_OK),
+       "fence-less status falls back to the prose grammar")
+    aslist = _SYNTH_FENCE_BODY.replace('"failsafe": {', '"failsafe": [{') \
+                              .replace('"state": "armed"},',
+                                       '"state": "armed"}],')
+    lst = parse_fence_claims("```json routine-claims\n" + aslist + "```\n")
+    ok(lst is not None
+       and lst["armed"] == {"trig_new1": "30 */2 * * *"},
+       "failsafe-as-list shape parses identically")
+    ok(parse_fence_claims("```json\n{\"failsafe\": []}\n```\n") is None,
+       "untagged json fence is not the contract fence")
+    for label, bad in (
+            ("malformed JSON", "```json routine-claims\n{nope\n```\n"),
+            ("non-object body", "```json routine-claims\n[1]\n```\n"),
+            ("unknown failsafe state",
+             "```json routine-claims\n"
+             '{"failsafe": {"id": "trig_x", "state": "disarmed"}}\n```\n'),
+            ("id-less failsafe entry",
+             "```json routine-claims\n{\"failsafe\": {}}\n```\n"),
+            ("non-list deleted",
+             "```json routine-claims\n{\"deleted\": \"trig_x\"}\n```\n"),
+            ("two fences",
+             "```json routine-claims\n{}\n```\n"
+             "```json routine-claims\n{}\n```\n"),
+    ):
+        try:
+            parse_fence_claims(bad)
+            fails.append(f"fence contract violation ({label}) did not raise")
+        except FenceError:
+            pass
+
     for msg in fails:
         print(f"SELFCHECK FAIL: {msg}", file=sys.stderr)
     print(f"selfcheck: {'FAIL' if fails else 'PASS'} ({len(fails)} failure(s))")
@@ -372,13 +523,18 @@ def main(argv=None) -> int:
         return 2
     try:
         with open(args.status, encoding="utf-8") as fh:
-            claims = parse_status_claims(fh.read())
+            claims, claims_source = extract_claims(fh.read())
     except OSError as exc:
         print(f"VERDICT: UNREADABLE — status {args.status}: {exc}")
         return 2
+    except FenceError as exc:
+        print(f"VERDICT: UNREADABLE — routine-claims fence in {args.status} "
+              f"violates its contract: {exc}")
+        return 2
     if not claims["armed"] and not claims["deleted"]:
         print(f"VERDICT: UNREADABLE — no routine claims (armed failsafe / "
-              f"deleted id) parseable from {args.status}")
+              f"deleted id) parseable from {args.status} "
+              f"(claims source: {claims_source})")
         return 2
 
     now = datetime.now(timezone.utc)
@@ -387,6 +543,7 @@ def main(argv=None) -> int:
     print("=" * 72)
     print(f"ROUTINE STATE — {len(records)} records ({len(enabled)} enabled) "
           f"vs {os.path.relpath(args.status, root)}")
+    print(f"claims source: {claims_source}")
     if cap_dt:
         print(f"export capture instant {fmt(cap_dt)} "
               f"({(now - cap_dt).total_seconds() / 3600:.1f}h before "
