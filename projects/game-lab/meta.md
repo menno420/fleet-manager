@@ -1,4 +1,4 @@
-<!-- v1 · 2026-07-11 · fleet-manager projects registry -->
+<!-- v3.7 · 2026-07-18 · fleet-manager projects registry -->
 # Game Lab — Project package meta
 
 > **Status:** `new seat — v1, owner fleet restructure 2026-07-11 (slice 1)`.
@@ -16,3 +16,11 @@
 - **Seat notes:** Standalone — NO SuperBot connection. Strict public/private track isolation is the seat's hard rail. The retired superbot-retro seat's armed triggers (failsafe trig_01Y99uDKNtKTz2EtRYPWZkGY + hourly child wakes trig_0137SkvhXEJvwepX8aVNkcSn / trig_01BTJjkMVMKtWPjuYe7643Hi — last committed registry state) drove these repos: the rebind-then-delete cutover recipe is in this package's `failsafe-prompt.md` v1 (slice 2) and executes at the merged seat's boot.
 - **Deployed state:** instructions never pasted; prompts authored (v1,
   slice 2) but never pasted; no trigger armed FOR THIS SEAT yet (boot/slice 3).
+
+## Deployed-state per part (2026-07-18)
+
+| Part | State |
+|---|---|
+| `instructions.md` (Custom Instructions) | v3.7 · 2026-07-18 · registry-current; never console-pasted — the registry copy is the deployed artifact |
+| `coordinator-prompt.md` (coordinator / wake prompt) | v3.7 · 2026-07-18 · registry-current; never console-pasted |
+| `failsafe-prompt.md` | v3.7 · 2026-07-18 · registry-current; failsafe byte-state verified via the triggers snapshot, not this table |

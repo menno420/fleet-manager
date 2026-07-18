@@ -1,3 +1,4 @@
+<!-- v3.7 · 2026-07-18 · fleet-manager projects registry -->
 # meta — fleet-manager package
 
 - **Project:** fleet-manager — the MANAGER core seat (seat 1 of the core six,
@@ -36,14 +37,22 @@
   only). Quota refusals are RETRY-LATER, never a wall —
   `projects/README.md` § Codex fleet-wide enablement.
 
-## Deployed-state per package part
+## Deployed-state per part (2026-07-18)
 
 | Part | State |
 |---|---|
-| `coordinator-prompt.md` | **DEPLOYED** — the seat prompt was owner-pasted as the chat's first message at boot (runbook §2b v3 FINAL, ~13:45Z) and lives in the persistent coordinator chat, subsequently amended live by the owner-pasted Q-0265 §2b block + ORDER 011. This file is the first committed home of that text (previously superbot-only), re-based to continuous per Q-0265 — the live chat already operates on the amended model, so a re-paste is only needed on a seat re-boot. |
-| `failsafe-prompt.md` | **DEPLOYED + VERIFIED** — `trig_014odnv5h1tkJAFRhix3tGLq` "fleet-manager failsafe wake", cron `30 */2 * * *`, created 20:26:23Z, verified in the 88-record `list_triggers` at ~20:47Z; old trigger deleted-and-verified-gone (status.md re-arm record, PR #37). |
-| `instructions.md` | **NEVER DEPLOYED as such** — the Project's Custom Instructions field carries the runbook §2a v3 text pasted at boot (pre-Q-0265, "ONE bounded slice"); sessions have since run from the pasted founding package + the live chat amendments. This file is the gen-3 re-base (Q-0265 + Q-0264 + landing pattern folded, 2026-07-10 provenance stamps inline) — needs an owner re-paste to become the deployed text. |
-| `setup-script.sh` | **UNKNOWN** — what the live `multi-repo` env's setup field actually holds is owner-side UI the manager cannot read (environments/README wall); the canonical intended content is `archetype-coordinator.sh` verbatim. This repo-fitted variant has no paste record (new file). |
+| `instructions.md` (Custom Instructions) | v3.7 · 2026-07-18 · registry-current; deployed console paste predates the registry — owner re-paste to v3.7 is the self-heal item (not repo-verified) |
+| `coordinator-prompt.md` (coordinator / wake prompt) | v3.7 · 2026-07-18 · registry-current; owner re-paste to v3.7 pending (self-heal; not repo-verified) |
+| `failsafe-prompt.md` | v3.7 · 2026-07-18 · registry-current; failsafe byte-state via the triggers snapshot |
+
+<details><summary>Prior per-part deployment detail (pre-restamp, historical)</summary>
+
+- `coordinator-prompt.md` — **DEPLOYED**: owner-pasted as the chat's first message at boot (runbook §2b v3 FINAL, ~13:45Z), amended live by the owner-pasted Q-0265 §2b block + ORDER 011; re-based to continuous per Q-0265 — a re-paste is only needed on a seat re-boot.
+- `failsafe-prompt.md` — **DEPLOYED + VERIFIED**: `trig_014odnv5h1tkJAFRhix3tGLq` "fleet-manager failsafe wake", cron `30 */2 * * *`, created 20:26:23Z, verified in the 88-record `list_triggers` at ~20:47Z; old trigger deleted-and-verified-gone (status.md re-arm record, PR #37).
+- `instructions.md` — **NEVER DEPLOYED as such**: the Custom Instructions field carries the runbook §2a v3 text pasted at boot (predates the registry); this file is the gen-3 re-base (Q-0265 + Q-0264 + landing pattern folded) — needs an owner re-paste to become the deployed text.
+- `setup-script.sh` — **UNKNOWN**: what the live `multi-repo` env's setup field holds is owner-side UI the manager cannot read (environments/README wall); the canonical intended content is `archetype-coordinator.sh` verbatim. This repo-fitted variant has no paste record.
+
+</details>
 
 ## Provenance / sources (all read 2026-07-10)
 

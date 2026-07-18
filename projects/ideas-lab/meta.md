@@ -1,4 +1,4 @@
-<!-- v1 · 2026-07-11 · fleet-manager projects registry -->
+<!-- v3.7 · 2026-07-18 · fleet-manager projects registry -->
 # Ideas Lab — Project package meta
 
 > **Status:** `new seat — v1, owner fleet restructure 2026-07-11 (slice 1)`.
@@ -16,3 +16,11 @@
 - **Seat notes:** The generate→verify loop is INTERNAL to this seat — the old outbox→intake cross-project wait and the even/odd cadence pairing are retired. Old seats' armed failsafes (idea-engine trig_0178q9Je2xRFJgthwamrg9Br, sim-lab trig_01SHfnLv6EqZesr4tC3T9kUU — last committed registry state) still target the OLD seats: the rebind-then-delete cutover recipe is in this package's `failsafe-prompt.md` v1 (slice 2) and executes at the merged seat's boot.
 - **Deployed state:** instructions never pasted; prompts authored (v1,
   slice 2) but never pasted; no trigger armed FOR THIS SEAT yet (boot/slice 3).
+
+## Deployed-state per part (2026-07-18)
+
+| Part | State |
+|---|---|
+| `instructions.md` (Custom Instructions) | v3.7 · 2026-07-18 · registry-current; never console-pasted — the registry copy is the deployed artifact |
+| `coordinator-prompt.md` (coordinator / wake prompt) | v3.7 · 2026-07-18 · registry-current; never console-pasted |
+| `failsafe-prompt.md` | v3.7 · 2026-07-18 · registry-current; failsafe byte-state verified via the triggers snapshot, not this table |
