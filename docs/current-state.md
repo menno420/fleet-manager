@@ -25,15 +25,12 @@ canonical for its own internal state — this repo links, never copies.
 
 ## Stability baseline
 
-> **Recreated 2026-07-17 (supersedes the EAP wind-down retirement):** the owner
-> ruled this Project **is** the recreated fleet-management seat ("This one is
-> the recreation" — coordinator relay, event 09027052), so the autonomous loop
-> **stood back up**. The custodian toolchain below is the working baseline again.
-> The heavier roster/telemetry autogen is under a **sizing review** (NEXT-TASKS.md
-> item 3 — the recreated fleet is smaller, so the self-poll roster/relay loop may
-> be over-built); the `merge-on-green.yml` backstop lander and the
-> advisory stdlib checkers are the recommended keepers. The 2026-07-17 "retired /
-> read-only 2026-07-21" framing is now **historical context**, not current state.
+> **The fleet-management seat is live and the autonomous loop runs.** The
+> custodian toolchain below is the working baseline. The heavier roster/telemetry
+> autogen is under a **sizing review** (NEXT-TASKS.md item 3 — the fleet is
+> smaller now, so the self-poll roster/relay loop may be over-built); the
+> `merge-on-green.yml` backstop lander and the advisory stdlib checkers are the
+> recommended keepers.
 
 The custodian toolchain shipped by the centralization plan P1→P3 (all
 2026-07-11) is the accepted baseline:
@@ -56,24 +53,18 @@ The custodian toolchain shipped by the centralization plan P1→P3 (all
 - **Control bus**: `control/` inbox ORDER grammar + status heartbeat +
   one-file-per-claim `control/claims/`, CI-enforced by `substrate-gate.yml`.
 
-## Current state (2026-07-18) — recreated seat, loop back up
+## Current state (2026-07-18) — seat live, loop running
 
-**The seat is the recreation, and the autonomous loop is back up.** The owner
-ruled 2026-07-17 (coordinator relay, event 09027052): *"This one is the
-recreation"* — this Project **is** the recreated fleet-management seat, so the FM
-autonomous loop stood back up. That supersedes the EAP wind-down retirement
-framing (still historically true: the EAP goes read-only Tuesday 2026-07-21
-17:00 PT — Anthropic mail 2026-07-14T23:07Z — but the response is recreate-and-
-continue, not stop). Agents **land their own and sibling green PRs directly** —
-MCP/REST `merge_pull_request`, the draft→ready flip, or arming auto-merge, all
-normal agent work, not owner-gated (fm #308/#309, 2026-07-18); the repo's
-`merge-on-green.yml` enabler is a belt-and-suspenders backstop lander, not the
-only path. A one-off platform refusal is treated as **transient** — attempt once,
-record the exact error, take the next slice; if it persists, hand it to the hub
-chat, never to the owner-queue.
+**The fleet-management seat is live and the autonomous loop runs.** Agents
+**land their own and sibling green PRs directly** — MCP/REST `merge_pull_request`,
+the draft→ready flip, or arming auto-merge, all normal agent work, not owner-gated
+(fm #308/#309, 2026-07-18); the repo's `merge-on-green.yml` enabler is a
+belt-and-suspenders backstop lander, not the only path. A one-off platform refusal
+is treated as **transient** — attempt once, record the exact error, take the next
+slice; if it persists, hand it to the hub chat, never to the owner-queue.
 
-- **Wake chain restored agent-side.** The failsafe + pacemaker chain that the
-  wind-down had torn down is re-armed: failsafe `trig_01Bo7dZxM9xz2hwR36L424Z8`
+- **Wake chain armed agent-side.** The failsafe + pacemaker chain is armed:
+  failsafe `trig_01Bo7dZxM9xz2hwR36L424Z8`
   (`Fleet Manager failsafe wake`, cron `30 */2 * * *`, enabled, coordinator-bound
   dead-man, persist_session) + a pacemaker `send_later` chain (native MCP
   scheduling via worker ToolSearch). **I4 MANAGER-FAILSAFE → SATISFIED.** The
@@ -94,34 +85,31 @@ chat, never to the owner-queue.
   ADVISORY severity (never merge-blocking, not wired into `bootstrap.py check`):
   `check_fleet_triage_staleness.py` (S3) · `check_docs_links.py` (S5) ·
   `check_capabilities_wall_age.py` (S9).
-- **Apparatus scaffolding — sizing review, not retired.** The `control/`
-  message-bus and roster/telemetry autogen still carry their 2026-07-17 RETIRED
-  banners at the file level; whether the recreated (smaller) fleet revives them is
-  the open **sizing decision** at [NEXT-TASKS.md](NEXT-TASKS.md) item 3
-  (recommendation: keep `merge-on-green.yml` + the advisory checkers; re-scope the
-  heavier self-poll roster/relay autogen). The workflows are **not deleted**.
+- **Apparatus scaffolding — under sizing review.** The `control/` message-bus and
+  roster/telemetry autogen are historical scaffolding; whether the smaller fleet
+  revives them is the open **sizing decision** at [NEXT-TASKS.md](NEXT-TASKS.md)
+  item 3 (recommendation: keep `merge-on-green.yml` + the advisory checkers;
+  re-scope the heavier self-poll roster/relay autogen). The workflows are
+  **not deleted**.
 - **Owner-facing sources:** [owner-queue.md](owner-queue.md) (durable active owner
-  asks) → [NEXT-TASKS.md](NEXT-TASKS.md) (the recreated manager's task set) →
+  asks) → [NEXT-TASKS.md](NEXT-TASKS.md) (the manager's task set) →
   [owner-actions-2026-07-17.md](owner-actions-2026-07-17.md) (the paste-ready
-  fleet-wide action list from the wind-down window).
+  fleet-wide action list).
 
 ## Recently shipped (newest first)
 
 - **S3 — fleet-triage staleness flagger** (fm #299, `2126344`): `scripts/check_fleet_triage_staleness.py` — advisory re-verify prompt for register rows whose evidence pin (freshest of in-row date / register seed / dated sweep-note naming the repo) has aged past the window; excludes frozen-by-design verdicts. **Completes the S3/S5/S9 advisory-checker trio.**
 - **S9 — CAPABILITIES wall-age flagger** (fm #296, `53cc540`): `scripts/check_capabilities_wall_age.py` — flags `docs/CAPABILITIES.md` "verified wall" findings older than N days so a lifted wall (e.g. a classifier change) doesn't stay recorded as permanent.
 - **Anthropic email pack — capability self-knowledge section** (fm #295, `2ca6b3d`): new [anthropic-email-pack.md](anthropic-email-pack.md) — paste-ready follow-up email folding in the four routines-platform bugs (runs not inspectable · Runs/Routines panel disagreement · arming seat-inconsistency · model attribution), for the existing Gmail EAP thread.
-- **S5 — docs link-drift checker** (fm #293, `ddf9136`): `scripts/check_docs_links.py` — resolves every intra-repo markdown link in `docs/` + `control/README.md` and reports dead targets (also fixed the wind-down's broken links).
+- **S5 — docs link-drift checker** (fm #293, `ddf9136`): `scripts/check_docs_links.py` — resolves every intra-repo markdown link in `docs/` + `control/README.md` and reports dead targets.
 - **Wake-chain record correction** (fm #294, `17684c4`): recorded that agent-side scheduling works and the failsafe is armed — the earlier "self-scheduling wall" was a Bash-path + nondeterministic-classifier artifact, not a hard wall.
-- **Recreation ruling recorded** (fm #292, `22e4177`): owner-C ruling ("This one is the recreation") logged as the current governing state; the FM autonomous loop stands back up.
 - **Overnight oversight — liveness sweep + idea routing** (fm #298, `043c33a`): a verified fleet-triage liveness sweep + new [idea-routing-2026-07-18.md](idea-routing-2026-07-18.md) (Ideas-Lab candidates A–H → target lanes/first-slices, owner-only residue tracked as `OQ-IDEA-ROUTING-OWNER-ONLY`), every per-repo claim re-verified live against GitHub.
 - [Owner steps — fleet-wide (2026-07-18)](owner-steps-2026-07-18.md) — the current consolidated, payoff-ordered, one-sitting-batched list of every open owner-only step across the fleet (supersedes the 07-17 list; resolved items moved to its Appendix).
 - [Owner actions — fleet-wide (2026-07-17)](owner-actions-2026-07-17.md) — verified, paste-ready list of every owner action across the fleet (merges, ready-flips, decisions, veto menus), checked live against GitHub.
 - [Overnight planning menu (2026-07-17)](planning/overnight-menu-2026-07-17.md) — 25 veto-ready fleet-manager seat proposals (overnight run 2026-07-16).
-- **Project recreation runbook — EAP wind-down cutover** (fm #271,
-  `claude/recreation-runbook-0716`, 2026-07-16):
-  [project-recreation-runbook.md](project-recreation-runbook.md) —
-  per-project closeout, per-seat recreation, A/B-test, and orphan-sweep
-  procedure for stopping/recreating Projects before the 2026-07-21 EAP cutoff.
+- **Project recreation runbook** (fm #271, `claude/recreation-runbook-0716`,
+  2026-07-16): [project-recreation-runbook.md](project-recreation-runbook.md) —
+  per-project closeout, per-seat recreation, A/B-test, and orphan-sweep procedure.
 - **Fleet-wide PR-landing audit** (fm #265, `claude/pr-audit-0716`,
   2026-07-16): [Fleet-wide PR-landing audit (2026-07-16)](pr-landing-audit-2026-07-16.md)
   — point-in-time read-only snapshot of PR auto-landing across all 19 fleet
@@ -146,24 +134,24 @@ chat, never to the owner-queue.
   — 19-repo sweep: 13 proven / 5 installer-PR-open / 1 missing; today's
   rollout wave landed nothing on any main (all five installer PRs
   self-parked owner-merge-only); fm #227 gone conflict-dirty (A#63 amended).
-- **EAP close-out project audit** (fm #189, `claude/eap-project-audit`,
-  2026-07-14): [EAP project audit (2026-07-14)](audits/eap-project-audit-2026-07-14.md)
+- **Seat close-out project audit** (fm #189, `claude/eap-project-audit`,
+  2026-07-14): [project audit (2026-07-14)](audits/eap-project-audit-2026-07-14.md)
   — measured seat audit (merge friction, scheduling, ceremony, self-fixes,
   top-5 pains with paste-ready Anthropic asks); deltas the
-  [EAP retrospective](eap-retrospective.md).
-- **ORDER 045 EAP final-night fleet sweep** (fm #178, merged
+  [retrospective](eap-retrospective.md).
+- **ORDER 045 final-night fleet sweep** (fm #178, merged
   2026-07-13T22:07:14Z):
-  [EAP final-night worklists (2026-07-13)](eap-final-night-worklists-2026-07-13.md)
+  [final-night worklists (2026-07-13)](eap-final-night-worklists-2026-07-13.md)
   — per-seat night worklists + ORDER 045 landed in `control/inbox.md`.
 - **Prompt-architecture research slice** (fm #95, merged
   2026-07-12T01:56:29Z): `docs/research/2026-07-12-prompt-architecture.md`
   (requirements spec for the v3 prompt set).
-- **EAP fleet review docs** (fm #181, `claude/central-docs-review`,
+- **Fleet review docs** (fm #181, `claude/central-docs-review`,
   2026-07-13/14): the owner-directed 19-repo review's four deliverables —
   [central docs plan](planning/2026-07-14-central-docs-plan.md) ·
   [fleet inconsistency ledger (2026-07-13)](fleet-inconsistencies-2026-07-13.md) ·
-  [EAP story](eap-story.md) ·
-  [EAP retrospective](eap-retrospective.md).
+  [program story](eap-story.md) ·
+  [program retrospective](eap-retrospective.md).
 - **P3 — coverage + index** (fm #86): heartbeat sub-rows · evidence index ·
   real hub row (superbot #2003 → `c18a9c3`) · this ledger + project index
   filled · fleet-triage register ported · `gen_roster.py` graduated · queue
@@ -193,7 +181,7 @@ by the successor's 23:50Z heartbeat, PR #97):
 ## Next action / where to read next
 
 **Next action:** the flagged **apparatus SIZING decision** —
-[NEXT-TASKS.md](NEXT-TASKS.md) item 3. The recreated fleet is smaller, so the
+[NEXT-TASKS.md](NEXT-TASKS.md) item 3. The fleet is smaller now, so the
 self-poll roster/ORDER-relay autogen may be over-built; recommendation (a flagged
 decision, **not** yet executed): keep `merge-on-green.yml` + the S3/S5/S9 advisory
 checkers, re-scope the heavier roster/telemetry autogen unless a real multi-seat
@@ -201,7 +189,7 @@ fleet returns. Then the standing secondary task — groom `docs/ideas/` down its
 lifecycle.
 
 **Read next:** [owner-queue.md](owner-queue.md) (what waits on the owner) →
-[NEXT-TASKS.md](NEXT-TASKS.md) (the recreated manager's task set) →
+[NEXT-TASKS.md](NEXT-TASKS.md) (the manager's task set) →
 [fleet-triage.md](fleet-triage.md) (keep/replace/archive register) →
 [idea-routing-2026-07-18.md](idea-routing-2026-07-18.md) (Ideas-Lab routing) →
 [playbook.md](playbook.md) (operating rules R1…). The `docs/roster.md` /

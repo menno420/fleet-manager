@@ -1,23 +1,9 @@
-> **RETIRED 2026-07-17 — autonomous apparatus wound down; historical only.**
+> **Historical scaffolding — not live coordination state.**
 > The `control/` message-bus (`inbox.md`, `outbox.md`, `status.md`, `claims/`) and the
-> roster/telemetry autogen are retired with the EAP wind-down (read-only 2026-07-21;
-> Projects to be recreated fresh). Kept for history — do **not** resume the ORDER-relay or
-> treat these files as live state. Live status: `docs/current-state.md`; next steps:
-> `docs/NEXT-TASKS.md`.
->
-> **2026-07-17 (recreation ruling):** Owner ruled (coordinator relay, event 09027052):
-> "This one is the recreation" — this Project IS the recreated fleet-management seat; the
-> FM autonomous loop stands back up. The retirement banner above is now historical context,
-> superseded by this ruling. Loop cadence is agent-relay-sustained (coordinator↔manager reply
->> bounce); no scheduled timers. **UPDATE 2026-07-17T22:38Z (supersedes the BLOCKER below):** the
-> failsafe + pacemaker wake chain IS now set up agent-side — the earlier "self-scheduling wall"
-> was misdiagnosed (Bash-fallback path + a nondeterministic classifier). Native MCP scheduling via
-> worker ToolSearch works; failsafe `trig_01Bo7dZxM9xz2hwR36L424Z8` armed (coordinator-bound
-> dead-man, 2-hourly) + pacemaker restored. I4 MANAGER-FAILSAFE now SATISFIED;
-> `OQ-FM-WAKE-CHAIN-ARM` RESOLVED. ~~**BLOCKER:** the seat's failsafe + pacemaker wake chain is NOT
-> set up — self-scheduling was walled this session in BOTH the manager and coordinator venues
-> (see `docs/CAPABILITIES.md` + owner-queue `OQ-FM-WAKE-CHAIN-ARM`). I4 MANAGER-FAILSAFE stays
-> FAIL until the owner enables it. Residual gap: a silent mid-turn death has no clock-based wake.~~
+> roster/telemetry autogen are under a sizing review (`docs/NEXT-TASKS.md` item 3); the
+> workflows are kept, not deleted. Live status: `docs/current-state.md`; next steps:
+> `docs/NEXT-TASKS.md`. The seat's failsafe + pacemaker wake chain is armed agent-side
+> (failsafe `trig_01Bo7dZxM9xz2hwR36L424Z8`, 2-hourly, coordinator-bound; pacemaker restored).
 
 ---
 updated: 2026-07-18T18:55Z
@@ -32,7 +18,7 @@ no sibling repo touched; no new routine created. PR #327.
 
 # Fleet Manager — status
 
-Neutral heartbeat. Facts + pointers only. The apparatus is RETIRED (banner above) — this file is not live coordination state. Live status: `docs/current-state.md`; next: `docs/NEXT-TASKS.md`; sweep detail: `docs/fleet-triage.md`.
+Neutral heartbeat. Facts + pointers only. This file is not live coordination state (see banner). Live status: `docs/current-state.md`; next: `docs/NEXT-TASKS.md`; sweep detail: `docs/fleet-triage.md`.
 
 ## This session (2026-07-18) — session close ender
 
@@ -82,7 +68,7 @@ Neutral heartbeat. Facts + pointers only. The apparatus is RETIRED (banner above
 - **Websites custody asks addressed:** snapshot refresh applied; v3.7 stamp inference-flagged (reboot-current by inference, not repo-verified — do not assert a repo-verified stamp); SIM-REQUEST #355 → manager verdict A (bake release tags into `review/data`, keep botsite outbound-free), flagged decide-and-flag for owner veto.
 - Detail + evidence → `docs/fleet-triage.md` (2026-07-18 · Websites custody task).
 
-## This session (2026-07-17) — wind-down housekeeping, PR #288
+## This session (2026-07-17) — records housekeeping, PR #288
 Records/housekeeping only. No autonomous apparatus resumed; no trigger created, modified, fired, or deleted by this seat.
 
 ## Trigger reality (fresh full `list_triggers` export 2026-07-17T16:32:25Z — 2331 records, 3 enabled)

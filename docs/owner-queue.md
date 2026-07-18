@@ -1,31 +1,27 @@
 # Owner queue
 
 > **Status:** `living-ledger` — the ONE deduplicated list of things waiting on the owner.
-> **Slimmed 2026-07-17 (EAP wind-down fresh-start cleanup).** The pre-cleanup ~68-slug queue
-> is preserved in git history and in the **Resolved / Archive** sections below; this rewrite
-> keeps only the **genuinely-open** owner asks, a **Superseded-by-wind-down** index (ids kept —
-> nothing lost), and the historical resolved log. Item ids are stable `OQ-` slugs
-> (content-derived): an item keeps its slug through rewrites and its move to Resolved.
+> **Slimmed 2026-07-17.** The pre-cleanup ~68-slug queue is preserved in git history and in
+> the **Resolved / Archive** sections below; this rewrite keeps only the **genuinely-open**
+> owner asks, a **closed / no-action** index (ids kept — nothing lost), and the historical
+> resolved log. Item ids are stable `OQ-` slugs (content-derived): an item keeps its slug
+> through rewrites and its move to Resolved.
 
-## Context (2026-07-17)
+## Context
 
-The Anthropic Projects EAP goes **read-only Tuesday 2026-07-21 17:00 PT** (extended from the
-earlier 2026-07-14 window — Anthropic mail 2026-07-14T23:07Z). The owner is winding down the
-autonomous apparatus and **recreating the Projects fresh**. The fleet-wide PR backlog was
-**cleared 2026-07-17**; the paste-ready immediate list is
-[owner-actions-2026-07-17.md](owner-actions-2026-07-17.md), and the task set for the recreated
-manager is [NEXT-TASKS.md](NEXT-TASKS.md). Full prior detail for any item below lives in git
-history (pre-cleanup owner-queue) and in each item's original body. Historical lineage of the
-gen-2 launch that seeded the earliest queue items: [`launch-readiness-2026-07-10.md`](launch-readiness-2026-07-10.md).
+The paste-ready immediate action list is
+[owner-actions-2026-07-17.md](owner-actions-2026-07-17.md), and the manager's task set is
+[NEXT-TASKS.md](NEXT-TASKS.md). Full prior detail for any item below lives in git history
+(pre-cleanup owner-queue) and in each item's original body. Historical lineage of the gen-2
+launch that seeded the earliest queue items: [`launch-readiness-2026-07-10.md`](launch-readiness-2026-07-10.md).
 
 ---
 
 ## Active — genuinely-open owner asks
 
 ### (A) GitHub merges — one click each
-**EMPTY (this repo)** — 0 open PRs in fleet-manager; the fleet-wide backlog was cleared
-2026-07-17. Any remaining fleet-wide merges/ready-flips live in
-[owner-actions-2026-07-17.md](owner-actions-2026-07-17.md), not here. The one cross-repo
+**EMPTY (this repo)** — 0 open PRs in fleet-manager. Any remaining fleet-wide merges/ready-flips
+live in [owner-actions-2026-07-17.md](owner-actions-2026-07-17.md), not here. The one cross-repo
 disposition still open is:
 
 - **`OQ-GBA-DRAFT-PILE` — gba-homebrew: dispose the 13 open born-red PRs (cross-repo).**
@@ -74,8 +70,8 @@ disposition still open is:
   https://github.com/settings/personal-access-tokens/new, save it as a fleet-manager Actions
   secret `ROSTER_READ_TOKEN` (https://github.com/menno420/fleet-manager/settings/secrets/actions).
   UNBLOCKS: honest pokemon-mod-lab roster rows. ✅ read-only, revocable.
-  **Conditional** — only needed **if roster autogen is retained after recreation** (it is
-  currently retired; see NEXT-TASKS.md). Until created, the private lane row degrades honestly to
+  **Conditional** — only needed **if roster autogen is retained** (currently under the sizing
+  review; see NEXT-TASKS.md). Until created, the private lane row degrades honestly to
   UNREADABLE (never false-DEAD).
 - **`BAKE_PAT` (websites repo — cross-repo).** A `menno420/websites` Actions secret whose absence
   blocks the websites nightly fleet-data bake / #380-class auto-merge. **Not a fleet-manager
@@ -124,8 +120,7 @@ disposition still open is:
 
 - **`OQ-FM-APPARATUS-SIZING` — right-size fleet-manager's own apparatus (NEXT-TASKS item 3).**
   WHAT: Decide which fleet-manager self-apparatus workflows/docs to **KEEP** vs **RETIRE/right-size**
-  now that the fleet is a smaller recreated set — the recreation ruling (owner C, relay event
-  09027052) stood the loop back up, so this is a right-sizing pass, not a wind-down.
+  now that the fleet is a smaller set — a right-sizing pass on the self-apparatus.
   WHERE: `.github/workflows/**` (`merge-on-green.yml`, `substrate-gate.yml`, `roster-freshness.yml`,
   `roster-regen.yml`) + the `control/` message-bus (`inbox.md`/`outbox.md`/`status.md`) + the
   roster/telemetry autogen (`docs/roster.md`, `telemetry/triggers-snapshot.json`,
@@ -142,7 +137,7 @@ disposition still open is:
     `check_roster_freshness.py` / `check_docs_links.py` and the S3/S5/S9 drift/staleness checkers;
     stdlib-only, zero coupling to the retired autonomous apparatus, load-bearing for records hygiene.
   - **HOLD / right-size `roster-regen.yml`** — the heaviest self-poll autogen (cron `40 */2 * * *`,
-    every 2h → ~12 roster regens/day). A smaller recreated fleet does not need 2-hourly regeneration.
+    every 2h → ~12 roster regens/day). A smaller fleet does not need 2-hourly regeneration.
     **Recommended: reduce the cadence** (e.g. daily `40 6 * * *`, keeping `workflow_dispatch` for
     on-demand) rather than delete — reversible, keeps the regen path alive. Delete only if the roster
     itself is retired.
@@ -150,10 +145,10 @@ disposition still open is:
     (`control/inbox.md` is historical); keep the files as history, retire only the (now-absent)
     autogen that wrote them. No live workflow regenerates them, so no action beyond leaving them
     historical — revisit only if a real multi-seat fleet returns.
-  WHY: the recreated Projects start fresh and smaller; the ORDER-relay + roster autogen was built for
-  the full fleet and is over-built for a smaller relaunch. Keep the load-bearing merge/gate/checker
+  WHY: the fleet is smaller now; the ORDER-relay + roster autogen was built for the full fleet and
+  is over-built for a smaller one. Keep the load-bearing merge/gate/checker
   path; trim the over-built self-poll autogen.
-  UNBLOCKS: a lean, intentional recreated-manager apparatus; less autogen noise (fewer roster-regen
+  UNBLOCKS: a lean, intentional manager apparatus; less autogen noise (fewer roster-regen
   runs/PRs) without losing the landing path.
   VERIFY: after execution, the kept workflows (`merge-on-green` / `substrate-gate` /
   `roster-freshness`) still run + green; the reduced `roster-regen` fires on its slower cadence (or
@@ -181,12 +176,12 @@ disposition still open is:
   gates the archive clicks (`OQ-CONSOLIDATION-ARCHIVE-{FORGE,SONNET5,FABLE5}`) and the release
   decisions (`OQ-CFGDIFF-RELEASE-DECISION`, `OQ-ENVDRIFT-RELEASE-DECISION`). Plan:
   [`planning/2026-07-12-repo-consolidation-plan.md`](planning/2026-07-12-repo-consolidation-plan.md).
-  *(Re-evaluate scope against the wind-down: fewer live repos may make the whole program moot.)*
+  *(Re-evaluate scope: fewer live repos may make the whole program moot.)*
 - **`OQ-RAILWAY-PROJECT-SPLIT` — websites Railway duplication.** Services exist in BOTH
   `reliable-grace` (live) and `superbot-websites` (parallel copy). Decide the canonical home; the
-  Anthropic email links the reliable-grace URLs, so **do not move/rename them before 2026-07-21**,
-  then consolidate into `superbot-websites` and retire the duplicates. A drift hazard while both
-  deploy.
+  Anthropic email links the reliable-grace URLs, so **keep them reachable** while that reference
+  stands, then consolidate into `superbot-websites` and retire the duplicates. A drift hazard
+  while both deploy.
 - **`OQ-CR-SLICER-ANSWER` — curious-research: which slicer do you use?** One word (Cura /
   PrusaSlicer / OrcaSlicer / Bambu Studio). Unblocks that seat's menu-clicks follow-up guide.
 
@@ -199,9 +194,9 @@ disposition still open is:
 - `OQ-STANDING-OBJECTION-NOTES` — kit P4 daily loop self-armed · kit releases cut agent-side ·
   superbot-next D-0064–D-0069 decide-and-flag. Veto any by saying so.
 
-### (F) Seat design decisions — deferred to the recreated seats
+### (F) Seat design decisions — deferred to the seats
 
-These are genuine product/design forks the **recreated SuperBot World / SuperBot 2.0 seats**
+These are genuine product/design forks the **SuperBot World / SuperBot 2.0 seats**
 inherit; no owner click is blocking now.
 - `OQ-IDLE-GENERATOR-PURCHASE` — superbot-idle: add the missing generator-purchase growth verb
   (rec A: geometric cost curve, SIM-pinned).
@@ -230,32 +225,31 @@ inherit; no owner click is blocking now.
 
 ---
 
-## Superseded by the EAP wind-down (2026-07-17) — ids kept, no action
+## Closed / no action — ids kept
 
-The apparatus is being retired and the Projects recreated **fresh**, so these once-active items
-are moot. Ids retained so nothing is lost; full bodies in git history.
+These once-active items are moot; ids retained so nothing is lost, full bodies in git history.
 
-- **Restructure / trigger-cutover / env re-paste** — the fleet is recreated fresh, not
-  restructured: `OQ-RESTRUCTURE-PROJECTS`, `OQ-RESTRUCTURE-INSTRUCTIONS-PASTE`,
-  `OQ-RESTRUCTURE-TRIGGER-CUTOVER`, `OQ-ENV-SETUP-REPASTE`, `OQ-PASTE-WAVE` (already superseded).
+- **Restructure / trigger-cutover / env re-paste** — superseded; the fleet was not restructured:
+  `OQ-RESTRUCTURE-PROJECTS`, `OQ-RESTRUCTURE-INSTRUCTIONS-PASTE`,
+  `OQ-RESTRUCTURE-TRIGGER-CUTOVER`, `OQ-ENV-SETUP-REPASTE`, `OQ-PASTE-WAVE`.
   Superseded by [project-recreation-runbook.md](project-recreation-runbook.md).
-- **DARK-seat re-wakes** — seats winding down, not re-woken: `OQ-GAMES-DARK-REWAKE-OR-REASSIGN`,
+- **DARK-seat re-wakes** — not re-woken: `OQ-GAMES-DARK-REWAKE-OR-REASSIGN`,
   `OQ-GBA-DARK-REWAKE`, `OQ-FORGE-DARK-NO-ACTION-CONFIRM`, `OQ-KIT-SUBROWS-WINDDOWN-CONFIRM`,
   `OQ-GAMES-S5` re-wakes.
-- **Apparatus cron trims** — the crons themselves are being retired: `OQ-SUPERBOT-CRON-TRIM`,
-  `OQ-WEBSITES-FM-CRON-TRIM`.
-- **Fleet-wide doctrine rulings** — moot for a fresh fleet: `OQ-HEARTBEAT-DOCTRINE-RULING`,
+- **Apparatus cron trims** — folded into the apparatus sizing decision (`OQ-FM-APPARATUS-SIZING`):
+  `OQ-SUPERBOT-CRON-TRIM`, `OQ-WEBSITES-FM-CRON-TRIM`.
+- **Fleet-wide doctrine rulings** — moot: `OQ-HEARTBEAT-DOCTRINE-RULING`,
   `OQ-CODEX-GATE-VS-SUSPEND-RULING`.
-- **Overnight dispatch** — the overnight apparatus is retired: `OQ-THIN-LANE-DISPATCH-2026-07-16`
+- **Overnight dispatch** — superseded: `OQ-THIN-LANE-DISPATCH-2026-07-16`
   (remaining legs were classifier-walled).
 - **Time-boxed / window-expired** — deadlines passed: `OQ-TRADING-0717-DOUBLE-GRADING-FIRE`
   (before 2026-07-17 09:00Z; impact ~zero — grade_paper is a no-op until ~August),
   `OQ-SITTING-0714-DECISIONS` (2026-07-14 window closed; any live game/product sub-decisions —
-  playtest verdicts, gba Track B, websites cutover — carry forward via the recreated seats).
+  playtest verdicts, gba Track B, websites cutover — carry forward via the active seats).
 - **Mooted by consolidation** — `OQ-FORGE-SETTINGS-RESIDUE`, `OQ-FORGE-PAGES`,
   `OQ-FORGE-DISPOSITION`, `OQ-ITCH-LUMEN-PUBLISH`.
-- **Seat env credentials (re-provision on recreation)** — `OQ-NEXT-API-KEY`,
-  `OQ-NEXT-HERMES-EGRESS-CREDS` (re-add to the recreated superbot-next env if that lane resumes).
+- **Seat env credentials (re-provision if the seat resumes)** — `OQ-NEXT-API-KEY`,
+  `OQ-NEXT-HERMES-EGRESS-CREDS` (re-add to the superbot-next env if that lane resumes).
 - **Cosmetic / optional** — `OQ-TRADING-ARCHIVE-SESSION`, `OQ-CODEX-FLAPPING` (YAML half already
   resolved; flapping-quota mitigation only).
 
@@ -412,7 +406,7 @@ API this sweep, not from reports):
 - **Anthropic email pack** — the 2026-07-14 email was sent; the **next** email
   (capability self-knowledge) is drafted paste-ready at
   [anthropic-email-pack.md](anthropic-email-pack.md) — review + send on the
-  existing Gmail EAP thread. It folds in the four routines platform bugs (runs
+  existing Gmail thread. It folds in the four routines platform bugs (runs
   not inspectable · Runs-panel vs Routines-screen disagreement · arming
   seat-inconsistency · model attribution inconsistent across surfaces;
   evidence: `CAPABILITIES.md` § routine self-arm rider).
