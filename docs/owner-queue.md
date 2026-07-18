@@ -135,6 +135,17 @@ disposition still open is:
   agents); the **RECORD here is ✅ reversible**. Do not self-execute — the cadence edit / any retire
   is an owner/hub-venue action. *(Conditional cross-ref: `OQ-FM-ROSTER-READ-PAT` is only needed if
   roster autogen is retained; a `roster-regen` retire would moot it.)*
+- **`OQ-FM-ROSTER-CRON-RELIABILITY` — watch GitHub's scheduler reliability for `roster-regen.yml`.**
+  WHAT: watch whether GitHub Actions keeps dropping `roster-regen.yml`'s scheduled cron windows; if
+  drops recur (first drop observed 2026-07-18 → roster lapsed to **4.0h** stale before a
+  `workflow_dispatch` fix landed Gen #86 / PR #302), migrate roster-freshness to a dedicated **CCR
+  routine** (the workflow header documents this fallback).
+  WHERE: `.github/workflows/roster-regen.yml` cron (`40 */2`) + a possible CCR routine.
+  WHY: GitHub silently drops scheduled cron windows under load; the 2h cadence has no margin against a
+  single dropped window before the 4h staleness bar.
+  UNBLOCKS: reliable roster freshness without manual dispatch.
+  VERIFY: scheduled runs land on cadence / the roster stays <4h stale without manual intervention.
+  RISK: ✅ — watch/record only; any migration is an owner/hub-venue action.
 - **`OQ-CONSOLIDATION-DELETE-VS-ARCHIVE` — delete vs archive (the repo-consolidation gate).** Two
   of your own instructions contradict ("delete no repos — they are the fleet's memory" vs "delete
   the test repos"); one letter resolves it. **Recommended A** — harvest → archive (read-only),
