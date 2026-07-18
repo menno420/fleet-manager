@@ -1,8 +1,9 @@
-> **Provenance note (2026-07-17 recreation ruling, retained):** the 2026-07-17 EAP
-> wind-down banner is historical — the owner ruled (coordinator relay, event 09027052)
-> "This one is the recreation": this Project IS the recreated fleet-management seat and
-> the FM autonomous loop stands back up. This file is the seat's neutral heartbeat.
-> Live status: `docs/current-state.md`; next steps: `docs/NEXT-TASKS.md`.
+> **Historical scaffolding — not live coordination state.**
+> The `control/` message-bus (`inbox.md`, `outbox.md`, `status.md`, `claims/`) and the
+> roster/telemetry autogen are under a sizing review (`docs/NEXT-TASKS.md` item 3); the
+> workflows are kept, not deleted. Live status: `docs/current-state.md`; next steps:
+> `docs/NEXT-TASKS.md`. The seat's failsafe + pacemaker wake chain is armed agent-side
+> (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
 updated: 2026-07-18T21:01Z
@@ -17,8 +18,7 @@ PR #332.
 
 # Fleet Manager — status
 
-Neutral heartbeat. Facts + pointers only. Live status: `docs/current-state.md`; next:
-`docs/NEXT-TASKS.md`; sweep detail: `docs/fleet-triage.md`.
+Neutral heartbeat. Facts + pointers only. This file is not live coordination state (see banner). Live status: `docs/current-state.md`; next: `docs/NEXT-TASKS.md`; sweep detail: `docs/fleet-triage.md`.
 
 ## This session (2026-07-18) — coordinator wake: cutover + snapshot refresh
 
