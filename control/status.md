@@ -20,15 +20,19 @@
 > FAIL until the owner enables it. Residual gap: a silent mid-turn death has no clock-based wake.~~
 
 ---
-updated: 2026-07-18T14:27Z
+updated: 2026-07-18T16:05Z
 kit_version: 1.17.0
 seat: fleet-manager (manager)
-wake: websites custody task (owner-relayed). Records-only docs pass — triggers snapshot refreshed from a fresh validated export (no trigger mutations), custody outcomes recorded. The loop remains RETIRED (banner above); no apparatus resumed.
+wake: seat-digest drift fix (worker). Regenerated the derived `docs/seat-digest.md` render flagged stale by `bootstrap.py check --strict`; the `[seat-digest-stale]` advisory clears so downstream seat prompts stop extracting stale walls/skills. Docs-only, derived-artifact regen (no hand-edit); no trigger mutations; loop unchanged.
 ---
 
 # Fleet Manager — status
 
 Neutral heartbeat. Facts + pointers only. The apparatus is RETIRED (banner above) — this file is not live coordination state. Live status: `docs/current-state.md`; next: `docs/NEXT-TASKS.md`; sweep detail: `docs/fleet-triage.md`.
+
+## This session (2026-07-18) — seat-digest regen (strict-gate drift)
+- **`docs/seat-digest.md` regenerated** via `python3 bootstrap.py seat-digest` (derived render of the skill index + capability ledger — never hand-edited). Clears the `[seat-digest-stale]` strict advisory; downstream seat prompts stop shipping stale walls/skills fleet-wide.
+- **Gates:** `bootstrap.py check --strict` → advisory GONE (residual exit=1 is the by-design born-red session-card HOLD, clears on the card flip); `tools/check_no_false_walls.py` → EXIT 0 (regen introduced no present-tense capability-wall text). PR #323.
 
 ## This session (2026-07-18) — websites custody, snapshot refresh + record
 - **Triggers-snapshot refresh DONE** (2026-07-18T14:22Z export, 2488 records, I6 SNAPSHOT-FRESH PASS; `check_trigger_health.py` all-green). The snapshot now captures websites' failsafe `trig_01FYyvu2EytWF5NSEzLU2qLD` (cron `45 */2`), so the Websites project can clear its computed `/prompts` "not recorded" drift row (the upstream refresh its banner pointed at is now applied).
