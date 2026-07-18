@@ -867,6 +867,19 @@ owner-live venue.
 - **Watch-item.** The 2h cadence has **no margin against a single dropped window before the 4h staleness bar**. If GitHub keeps dropping scheduled windows, migrate roster-freshness to the **CCR-routine fallback the workflow's own provenance header already documents** (a dedicated `cron 40 */2` routine). First drop observed 2026-07-18. → owner-queue `OQ-FM-ROSTER-CRON-RELIABILITY`.
 - **Venue note.** No workflow code fixed by this seat — `.github/workflows/**` is owner/hub venue; the dispatch is a run-trigger, not a code change.
 
+## 2026-07-18 · fleet-wide stale merge-doctrine sweep
+
+*Source: fm fleet-doctrine-sweep seat, 2026-07-18. Read-only, verified vs each repo's origin/main. Oversight-only: recorded here, never pushed to sibling repos. Findings are framed as records of drift — "repo X's status doc still carries the pre-#308 doctrine" — not standing capability-denial claims.*
+
+- **Purpose.** After the owner reversed the "agents can't merge" doctrine (fleet-manager #308/#309), find sibling repos whose living/binding docs still carry the pre-reversal wording.
+- **Result: 10 of 14 already reconciled** (self-corrected 2026-07-18): superbot, superbot-next, superbot-games, superbot-mineverse, websites, venture-lab, idea-engine, sim-lab, trading-strategy, curious-research.
+- **STALE — needs a doc reconcile (routed to hub, cross-repo lane-doc edits):**
+  - **gba-homebrew** — `control/status.md` still carries the pre-#308 doctrine (~5 lines: :19 "Agent-side arming/merging stays WALLED…", the "agent landing path" section header, and :26/:27/:60 "owner ready-click → enabler lands"). Note: its OWN `docs/CAPABILITIES.md:89` was already corrected 2026-07-18, so the status doc now contradicts the repo's own ledger. Fix → agents merge/flip/arm directly; the enabler is one path, not the only one.
+  - **pokemon-mod-lab** — `docs/CAPABILITIES.md:97-100` still carries the uncorrected "Self-merge classifier" seed (every sibling swapped this for the fleet-standard "self-merge is NOT a wall (corrected 2026-07-18)"), plus `docs/current-state.md:89/:324` and `control/status.md:26/:30/:46` still read "owner-merge-only" for `.github/workflows/**` diffs. Fix → swap the seed to the fleet-standard line; the workflow-diff carve-out is partly real (the `merge-on-green.yml` GITHUB_TOKEN can't merge workflow-file diffs) BUT an agent can merge those directly via MCP/REST, so it is not an owner blocker (websites documents this exact case correctly).
+  - **superbot-idle** — `control/status.md:84` still carries a borderline past-tense residual ("left the merge decision to owner/coordinator per lane convention"); a one-line "(convention retired 2026-07-18)" pointer suffices. Its OA-003 (make `pytest` a required check) is a legitimate owner/settings item, unchanged.
+- **HISTORICAL residual (optional):** substrate-kit `docs/CAPABILITIES.md` append-log newest entries (:105 2026-07-17, :106 2026-07-16) are dated records, but :105 phrases a now-false "standing fleet rule: a session lands a PR ONLY by opening it READY…"; since the log is newest-first with no 2026-07-18 correction above it, a reader hits the false rule first — recommend a one-line dated correction entry on top. Verdict stays historical, not stale.
+- **Disposition.** The 3 stale reconciles + the kit pointer are cross-repo living-doc edits → routed to the hub chat (or the lane sessions) for application, same channel as the settings tier; fleet-manager's own docs are already reconciled (#313/#316).
+
 ## How to re-verdict
 
 1. Verify against live source (Q-0120 — never against report text).
