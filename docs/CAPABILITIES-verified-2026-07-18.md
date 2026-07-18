@@ -55,6 +55,7 @@ repos** (incl. private `pokemon-mod-lab`).
 | Live production **verification / rollback**, physical playtests | Requires a human watching the running system. |
 | Railway secret **values** you hold that aren't in env | Can set any var *given the value*; can't invent secrets. |
 | GitHub Pages **write**, org/billing/security-advanced settings | Not fired this session (Pages write would change live config); re-verify before claiming either way. |
+| **Direct push / commit to a *protected* `main`** | ❌ **Verified wall (HTTP 409, "Changes must be made through a pull request")** — branch-protection is enforced **even for the admin PAT**. This is real, not fabricated: open a PR and merge it (that path works). |
 
 *Nothing else surfaced as a PAT wall during comprehensive testing. If a specific
 operation is refused, record the **verbatim error + the exact path used
