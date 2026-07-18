@@ -1,6 +1,6 @@
 <!-- v7 · 2026-07-18 · fleet-manager projects registry — GENERATED COPY, do not edit
      (regenerate: docs/prompts/v3/tools/regen_b_files.py --write-registry; drift guard: --check-registry) -->
-<!-- generated from docs/prompts/v3 @ 4cbaec783e5caf1d2737ba64361827bf9d97d962 (prompts v3.8, opening-block addition 2026-07-18) -->
+<!-- generated from docs/prompts/v3 @ f3554d8d3ce5cba14f8d48f78bbf42f9e260b965 (prompts v3.8, opening-block addition 2026-07-18) -->
 # SuperBot World — failsafe cron text (registry copy, prompts v3.8)
 
 > **GENERATED COPY — NOT SOURCE OF TRUTH.** This registry copy is GENERATED FROM
@@ -30,13 +30,18 @@
 FAILSAFE WAKE (SuperBot World, Q-0265): send_later chain alive → verify in one line, end. Stalled → resume the work loop (sync HEAD → inbox → slice after slice, landed per LANDING), re-arm the chain (~15 min), and write your heartbeat (control/status.md, per-seat grammar) as the deliberate last step.
 ```
 
-## Cutover (BOOT step 4 — rebind-then-delete)
+## Cutover (BOOT step 4 — normally a no-op; crash-orphan cleanup only)
 
-Create + verify the NEW failsafe first, then delete the old id and verify it
-absent. NO trigger ids are baked here (STATELESS, D-9) — find old ids in:
-the predecessor heartbeats + fleet-manager telemetry/triggers-snapshot.json — verify each ("maybe auto-disabled" and "never armed" are different facts); plus ids the heartbeat marks left-for-successor. `list_triggers` is
-ACCOUNT-WIDE (paginate to exhaustion) — delete ONLY an id those records
-attribute to THIS seat, binding audit-verified; unattributable = a sibling's:
-record it and leave it. A BUSINESS cron (a scheduled deliverable) is rebound,
-kept alive across cutover — and a FRESH-SESSION-PER-FIRE business cron is
-KEPT AS-IS (it binds to no mortal seat session).
+Your predecessor's clean ender already wiped its seat to zero, so normally
+there is NOTHING to cut over — just confirm your fresh failsafe (armed in
+BOOT 3) is this seat's ONLY routine. CRASH-ORPHAN path only: a predecessor
+that CRASHED (no clean ender) leaves its startup-armed failsafe live — retire
+it AFTER your fresh one is verified live. NO trigger ids are baked here
+(STATELESS, D-9) — find old ids in: the predecessor heartbeats + fleet-manager telemetry/triggers-snapshot.json — verify each ("maybe auto-disabled" and "never armed" are different facts); plus ids the heartbeat
+marks left-for-successor. `list_triggers` is ACCOUNT-WIDE (paginate to
+exhaustion) — delete ONLY an id those records attribute to THIS seat, binding
+audit-verified; an unattributable or sibling id is left alone (never
+pattern-match, never account-sweep). Nothing else persists across a clean
+ender — the startup re-arms ONLY this single fresh failsafe; there are no
+business-cron exceptions (a mortal seat session never sees a future-dated cron
+once it ends, and recurring deliverables run in the continuous work loop).
