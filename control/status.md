@@ -20,15 +20,20 @@
 > FAIL until the owner enables it. Residual gap: a silent mid-turn death has no clock-based wake.~~
 
 ---
-updated: 2026-07-17T22:38Z
+updated: 2026-07-18T14:27Z
 kit_version: 1.17.0
 seat: fleet-manager (manager)
-wake: wind-down housekeeping session (post-retirement). Records-only pass — no apparatus resumed, no trigger mutations. Landed via PR #288. Successor heartbeat to the coordinator close-out card below; the loop remains RETIRED.
+wake: websites custody task (owner-relayed). Records-only docs pass — triggers snapshot refreshed from a fresh validated export (no trigger mutations), custody outcomes recorded. The loop remains RETIRED (banner above); no apparatus resumed.
 ---
 
 # Fleet Manager — status
 
 Neutral heartbeat. Facts + pointers only. The apparatus is RETIRED (banner above) — this file is not live coordination state. Live status: `docs/current-state.md`; next: `docs/NEXT-TASKS.md`; sweep detail: `docs/fleet-triage.md`.
+
+## This session (2026-07-18) — websites custody, snapshot refresh + record
+- **Triggers-snapshot refresh DONE** (2026-07-18T14:22Z export, 2488 records, I6 SNAPSHOT-FRESH PASS; `check_trigger_health.py` all-green). The snapshot now captures websites' failsafe `trig_01FYyvu2EytWF5NSEzLU2qLD` (cron `45 */2`), so the Websites project can clear its computed `/prompts` "not recorded" drift row (the upstream refresh its banner pointed at is now applied).
+- **Websites custody asks addressed:** snapshot refresh applied; v3.7 stamp inference-flagged (reboot-current by inference, not repo-verified — do not assert a repo-verified stamp); SIM-REQUEST #355 → manager verdict A (bake release tags into `review/data`, keep botsite outbound-free), flagged decide-and-flag for owner veto.
+- Detail + evidence → `docs/fleet-triage.md` (2026-07-18 · Websites custody task).
 
 ## This session (2026-07-17) — wind-down housekeeping, PR #288
 Records/housekeeping only. No autonomous apparatus resumed; no trigger created, modified, fired, or deleted by this seat.
