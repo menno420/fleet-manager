@@ -21,6 +21,9 @@ repo touched**; the two carve-out PRs are RECORDED, never merged.
   trading-strategy #151 auto-merged 16:33:51Z mid-sweep (recorded merged, not held), and a
   dark-seat watch (no-open-PR signal only — heartbeats not pulled).
 - `control/status.md` — heartbeat refreshed (FM sole writer; structure preserved).
+- Also fixed inherited orphan `docs/prompts/v3/universal-continue.md` (from #326) — added
+  reachability link from `docs/prompts/v3/README.md` (shared-prompts list item 5); was blocking
+  `substrate-gate` fleet-wide (coordinator-authorized, decide-and-flag).
 
 ## Verified live (each sweep lead re-checked vs GitHub, never report text — Q-0120)
 

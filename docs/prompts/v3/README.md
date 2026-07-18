@@ -33,7 +33,13 @@
 4. **Session ender** → [`session-ender.md`](session-ender.md) is the shared
    chat paste used at session close (already inlined in every startup;
    pasted separately only when driving an ender by hand).
-5. Failsafe cron slots per seat: the stagger table in
+5. **Universal Continue** → [`universal-continue.md`](universal-continue.md)
+   is the shared mid-life *resume* paste — dropped into a project that already
+   exists to pick the standing work back up (after a night run, after new
+   instructions land at HEAD, or to un-stall it). The per-seat
+   `<seat>-startup.md` prompts stay the cold-start artifacts; this is the
+   resume, fetched live by the control-plane `/prompts` registry.
+6. Failsafe cron slots per seat: the stagger table in
    [`per-project/README.md`](per-project/README.md) § "Failsafe cron stagger
    table" (the manager is the slot arbiter).
 
