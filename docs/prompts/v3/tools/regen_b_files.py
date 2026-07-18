@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""prompts v3.6 — budget/drift checker + projects/ registry sync.
+"""prompts v3.8 — budget/drift checker + projects/ registry sync.
 
 v3.3 (owner spec 2026-07-12) RETIRED the two assembly steps this script used
 (v3.4, 2026-07-12, is a currency restamp of the same one-file-per-seat model —
@@ -86,11 +86,17 @@ rewrite (owner mandate fm control/inbox.md ORDER 048, landed live 2026-07-15:
 MANDATE + RULE PROVENANCE in every doctrine, PERMISSIONS grant v2 from
 projects/UNIVERSAL.md v5, land-on-green/denial-routing replace
 park-green/deny-wins, owner authorization PRE-WRITTEN in every paste, session
-ender step 1 PARK→LAND). PENDING (v3.8, blocked on unreleased kit #279):
-consume the kit seat-digest fences (substrate-kit:skills-digest /
-walls-digest, 1,500-char budget) so seat walls/skills blocks render from kit
-truth — wire it only once released. STATELESS (D-9) still binds both layers:
-no volatile facts in any paste.
+ender step 1 PARK→LAND) · v3.8 opening-block addition (2026-07-18: the WHO YOU
+ARE / KEEP GOING / WHAT THIS IS (EAP) / WHEN AN ACTION IS REFUSED opening block
+added to every seat startup — identity + continuous-operation + EAP definition
++ hub-escalation surfaced at the top of each coordinator brief; startup-only, so
+only each seat's `coordinator` registry version bumped +1, instructions/failsafe
+unchanged; the version stamp was missed in the block-addition PR and is
+restamped here). PENDING (v3.9, blocked on unreleased kit #279): consume the kit
+seat-digest fences (substrate-kit:skills-digest / walls-digest, 1,500-char
+budget) so seat walls/skills blocks render from kit truth — wire it only once
+released. STATELESS (D-9) still binds both layers: no volatile facts in any
+paste.
 """
 
 import re
@@ -103,9 +109,9 @@ V3 = HERE.parent
 REPO = V3.parent.parent.parent
 PROJECTS = REPO / "projects"
 MARKER = "<!-- registry-header-end -->"
-PROVENANCE_DATE = "2026-07-15"
+PROVENANCE_DATE = "2026-07-18"
 
-VERSION = "v3.7"  # the current generation stamp — bump at every body-changing re-sync
+VERSION = "v3.8"  # the current generation stamp — bump at every body-changing re-sync
 CI_HARD = 8000
 CI_AIM = 7500
 
@@ -116,35 +122,35 @@ CI_AIM = 7500
 SEATS = [
     dict(name="Fleet Manager", startup="fleet-manager-startup.md",
          ci="fleet-manager-custom-instructions.md", reg="fleet-manager",
-         versions={"coordinator": "v9", "instructions": "v9", "failsafe": "v9"}),
+         versions={"coordinator": "v10", "instructions": "v9", "failsafe": "v9"}),
     dict(name="SuperBot 2.0", startup="superbot-startup.md",
          ci="superbot-custom-instructions.md", reg="superbot-2.0",
-         versions={"coordinator": "v7", "instructions": "v7", "failsafe": "v7"}),
+         versions={"coordinator": "v8", "instructions": "v7", "failsafe": "v7"}),
     dict(name="Websites", startup="websites-startup.md",
          ci="websites-custom-instructions.md", reg="websites",
-         versions={"coordinator": "v9", "instructions": "v8", "failsafe": "v8"}),
+         versions={"coordinator": "v10", "instructions": "v8", "failsafe": "v8"}),
     dict(name="Self Improvement", startup="self-improvement-startup.md",
          ci="self-improvement-custom-instructions.md", reg="self-improvement",
-         versions={"coordinator": "v7", "instructions": "v7", "failsafe": "v7"}),
+         versions={"coordinator": "v8", "instructions": "v7", "failsafe": "v7"}),
     dict(name="SuperBot World", startup="superbot-world-startup.md",
          ci="superbot-world-custom-instructions.md", reg="superbot-world",
-         # v8 2026-07-15: duty-form rewrite (prior v7 = INC-08 seat-fact patch)
-         versions={"coordinator": "v8", "instructions": "v8", "failsafe": "v7"}),
+         # v9 2026-07-18: opening-block addition (prior v8 = duty-form rewrite; v7 = INC-08 seat-fact patch)
+         versions={"coordinator": "v9", "instructions": "v8", "failsafe": "v7"}),
     dict(name="Game Lab", startup="game-lab-startup.md",
          ci="game-lab-custom-instructions.md", reg="game-lab",
-         versions={"coordinator": "v7", "instructions": "v7", "failsafe": "v7"}),
+         versions={"coordinator": "v8", "instructions": "v7", "failsafe": "v7"}),
     dict(name="Ideas Lab", startup="ideas-lab-startup.md",
          ci="ideas-lab-custom-instructions.md", reg="ideas-lab",
-         versions={"coordinator": "v7", "instructions": "v7", "failsafe": "v7"}),
+         versions={"coordinator": "v8", "instructions": "v7", "failsafe": "v7"}),
     dict(name="Venture Lab", startup="venture-lab-startup.md",
          ci="venture-lab-custom-instructions.md", reg="venture-lab",
-         versions={"coordinator": "v8", "instructions": "v9", "failsafe": "v8"}),
+         versions={"coordinator": "v9", "instructions": "v9", "failsafe": "v8"}),
     # NINTH SEAT (v3.6, owner night order TASK 1, 2026-07-13): founding pair
     # source = superbot docs/owner/curious-research-project-prompts-2026-07-13.md
     # @ c65750e, conformed to the registry format; failsafe slot 20 */2 (D-7).
     dict(name="Curious Research", startup="curious-research-startup.md",
          ci="curious-research-custom-instructions.md", reg="curious-research",
-         versions={"coordinator": "v2", "instructions": "v2", "failsafe": "v2"}),
+         versions={"coordinator": "v3", "instructions": "v2", "failsafe": "v2"}),
 ]
 
 DOCTRINE_START = "════════ DOCTRINE — full text, binding ════════"
@@ -399,7 +405,7 @@ def registry_header(seat: dict, artifact: str, version: str, sha: str, body: str
     return (
         f"<!-- {version} · {PROVENANCE_DATE} · fleet-manager projects registry — GENERATED COPY, do not edit\n"
         "     (regenerate: docs/prompts/v3/tools/regen_b_files.py --write-registry; drift guard: --check-registry) -->\n"
-        f"<!-- generated from docs/prompts/v3 @ {sha} (prompts {VERSION}, duty-form rewrite {PROVENANCE_DATE}) -->\n"
+        f"<!-- generated from docs/prompts/v3 @ {sha} (prompts {VERSION}, opening-block addition {PROVENANCE_DATE}) -->\n"
         f"# {name} — {titles[artifact]}\n\n"
         "> **GENERATED COPY — NOT SOURCE OF TRUTH.** This registry copy is GENERATED FROM\n"
         f"> the v3 home: **docs/prompts/v3/ is the source of truth** (generation {VERSION},\n"
