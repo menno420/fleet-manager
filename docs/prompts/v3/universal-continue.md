@@ -2,6 +2,8 @@
 
 <!-- universal-continue.md · 2026-07-18 · the CONTINUATION / RESUME paste artifact (owner-directed, 2026-07-18). NOT a cold-start: paste to an EXISTING project to resume after a night run, after new instructions land in the repos, or to un-stall it. The per-seat <seat>-startup.md prompts remain the cold-start artifacts; this is the mid-life resume. Replaces the role of the retired universal-startup.md generator (a cold-start skeleton, do-not-paste). Fetched live by the control-plane /prompts registry. -->
 
+v1.0 · 2026-07-18 · universal continue
+
 # Continue — universal resume prompt
 
 Paste to a project that already exists — after a night run, after new instructions land, or when it has stalled and you want it to pick back up. Your startup prompt still governs what the seat is; this only says "resume, and here's how to report back."
