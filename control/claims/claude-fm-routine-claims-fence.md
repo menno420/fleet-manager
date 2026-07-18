@@ -1,1 +1,0 @@
-- `claude/fm-routine-claims-fence` · **heartbeat routine-claims fence + verifier support** · control/status.md, scripts/verify_routine_state.py, .sessions/ · 2026-07-18
