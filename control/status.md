@@ -6,15 +6,47 @@
 > (failsafe `trig_01Bo7dZxM9xz2hwR36L424Z8`, 2-hourly, coordinator-bound; pacemaker restored).
 
 ---
-updated: 2026-07-18T16:18Z
+updated: 2026-07-18T18:55Z
 kit_version: 1.17.0
 seat: fleet-manager (manager)
-wake: hub PR-sweep record reconcile (worker). Recorded the genuine drift from the ~16:3xZ fleet sweep: two still-open workflow-touching owner-merge carve-outs (pokemon-mod-lab #98 `rom-builds.yml`, product-forge #29 `android-ci.yml`) into `docs/owner-queue.md` §(A), plus a dated sweep record into `docs/fleet-triage.md`. Every lead re-verified live (Q-0120) — trading #151 auto-merged mid-sweep, recorded as merged not held. Docs-only; no sibling repo touched; carve-outs RECORDED not merged. PR #325.
+wake: session close ender (worker). Recorded the closing heartbeat, disposed of the ~15-min
+continuation self-wake `trig_016hgD5SdgKsLWKdo4GY5UBN` (removed), and left the coordinator
+dead-man failsafe `trig_01Bo7dZxM9xz2hwR36L424Z8` armed as the successor bridge. Four PRs landed
+this session (#320 #323 #324 #325); none open. Owner asks + next-2 baton recorded below. Docs-only;
+no sibling repo touched; no new routine created. PR #327.
 ---
 
 # Fleet Manager — status
 
 Neutral heartbeat. Facts + pointers only. This file is not live coordination state (see banner). Live status: `docs/current-state.md`; next: `docs/NEXT-TASKS.md`; sweep detail: `docs/fleet-triage.md`.
+
+## This session (2026-07-18) — session close ender
+
+### Routine state
+- **Continuation self-wake `trig_016hgD5SdgKsLWKdo4GY5UBN` (~15-min) REMOVED this session.** No other pending self-wake remains for the session.
+- **Coordinator dead-man cron `trig_01Bo7dZxM9xz2hwR36L424Z8` LEFT ARMED** (`30 */2 * * *`, next 2026-07-18T18:31:41Z) — successor bridge / silent-death failsafe. No new routine created this session.
+
+### PRs this session (all landed, none open)
+- **#320** `41ab62c` — registry meta.md restamp; prompt-state panel stale count cleared.
+- **#323** `dbd894a` — seat-digest regenerated; strict advisory cleared.
+- **#324** `24a1f4e` — 5 capability-ledger entries dated; S9 undated-wall count 5 → 0.
+- **#325** `4336fb3` — hub PR-sweep records + a reachability link that re-greened `substrate-gate` repo-wide.
+
+### Owner asks (paste-ready)
+1. **Console re-paste — three Class-A seats (fleet-manager, websites, curious-research).** The console-deployed prompt predates the v3.7 registry; paste each seat's current v3.7 registry prompt into its console to bring the deployed copy to v3.7.
+2. **Optional fleet-manager branch protection.** Enable "do not allow administrators to bypass required checks" so a red `substrate-gate` can't be admin-merged. Deliberate tradeoff — owner's call.
+3. **Self-heal-stamp design gap.** There is no machine-readable self-heal-stamp mechanism, so registry meta.md rows can only reach `unverified`, never `in-sync` (byte-sync comes solely from the failsafe trigger snapshot). Flagged for a future rule.
+4. **Owner-queue carry-forward.** Read the current `docs/owner-queue.md` and carry forward, paste-ready, any remaining genuine owner-only items (secrets, settings, money, product intent).
+
+### Next-2-tasks baton
+1. Hub lands **pokemon-mod-lab #98** and **product-forge #29** on a future wake — green, ready PRs touching `.github/workflows/**` (`merge-on-green.yml` skips workflow diffs → owner click or agent MCP/REST merge).
+2. Next ladder scan — **roster-freshness watch** (`OQ-FM-ROSTER-CRON-RELIABILITY`), trigger-health, fleet PR sweep.
+
+### Gates
+- `python3 bootstrap.py check --strict` → EXIT 0 (after card flip; born-red HOLD by design pre-flip).
+- `python3 tools/check_no_false_walls.py` → EXIT 0.
+- `python3 scripts/check_owner_queue.py` → EXIT 0.
+- PR #327.
 
 ## This session (2026-07-18) — hub PR-sweep record reconcile
 - **Genuine drift reconciled (records-only).** The ~16:3xZ fleet sweep found 2 still-open workflow-touching owner-merge carve-outs absent from `docs/owner-queue.md` §(A) and no dated record of this sweep in `docs/fleet-triage.md`.
@@ -42,7 +74,7 @@ Records/housekeeping only. No autonomous apparatus resumed; no trigger created, 
 ## Trigger reality (fresh full `list_triggers` export 2026-07-17T16:32:25Z — 2331 records, 3 enabled)
 - **I6 SNAPSHOT-FRESH → PASS.** `telemetry/triggers-snapshot.json` refreshed from the 16:32Z export (prior capture 11:43:57Z was stale vs the 4h bar). No further refreshes planned.
 - **I8 DUPLICATE-CRON → PASS.** The 4 sibling duplicate failsafe-cron pairs (superbot-2.0 · superbot-world · venture-lab · websites) SELF-RESOLVED — siblings collapsed each pair to a single trigger during their own wind-down. Recorded as dedup evidence in `docs/fleet-triage.md`; NOT mutated by us (sibling-owned).
-- **I4 MANAGER-FAILSAFE → SATISFIED (updated 2026-07-17T22:38Z).** A dead-man now exists: failsafe `trig_01Bo7dZxM9xz2hwR36L424Z8` (`Fleet Manager failsafe wake`, `30 */2 * * *`, enabled, next 2026-07-17T22:36Z, coordinator-bound, persist_session:true) — fires 2-hourly, checks seat liveness + nudges. Armed agent-side via native MCP scheduling (worker ToolSearch); the earlier wall was misdiagnosed (Bash-fallback path + nondeterministic classifier). Wake chain restored agent-side; `OQ-FM-WAKE-CHAIN-ARM` RESOLVED. The checker's snapshot-computed I4 (from `telemetry/triggers-snapshot.json`) still reads FAIL until the next snapshot refresh, then self-corrects. *(Prior state: the earlier failsafe `trig_01An9YmU3KC1kLhB5c9cv4Ax` was GONE from the registry and NOT re-armed under verdict A; superseded by this arming after the owner-C recreation ruling.)*
+- **I4 MANAGER-FAILSAFE → SATISFIED (updated 2026-07-17T22:38Z).** A dead-man now exists: failsafe `trig_01Bo7dZxM9xz2hwR36L424Z8` (`Fleet Manager failsafe wake`, `30 */2 * * *`, enabled, next 2026-07-18T18:31:41Z, coordinator-bound, persist_session:true) — fires 2-hourly, checks seat liveness + nudges. Armed agent-side via native MCP scheduling (worker ToolSearch); the earlier wall was misdiagnosed (Bash-fallback path + nondeterministic classifier). Wake chain restored agent-side; `OQ-FM-WAKE-CHAIN-ARM` RESOLVED. The checker's snapshot-computed I4 (from `telemetry/triggers-snapshot.json`) still reads FAIL until the next snapshot refresh, then self-corrects. *(Prior state: the earlier failsafe `trig_01An9YmU3KC1kLhB5c9cv4Ax` was GONE from the registry and NOT re-armed under verdict A; superseded by this arming after the owner-C recreation ruling.)*
 
 ## Housekeeping landed
 - owner-queue checker (`scripts/check_owner_queue.py`) fixed for the new inline-`OQ-`-slug format (PL-006 checker-lag) — live run + selftest fixtures green.
