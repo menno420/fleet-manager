@@ -40,6 +40,33 @@ disposition still open is:
   RISK: ✅ reversible. (Cross-ref the parked-arc triage note — fleet-triage 2026-07-17
   "gba main gate repaired" + the 2026-07-18 overnight sweep.)
 
+- **`OQ-POKEMON-98-WORKFLOW-MERGE` — pokemon-mod-lab: merge #98 (workflow-touching carve-out).**
+  WHAT: merge [pokemon-mod-lab #98](https://github.com/menno420/pokemon-mod-lab/pull/98)
+  "Reconcile QoL patch count to 16 + add CI drift guard" (squash).
+  WHERE: https://github.com/menno420/pokemon-mod-lab/pull/98 → "Merge pull request".
+  WHY: the diff touches `.github/workflows/rom-builds.yml`, and `merge-on-green.yml` skips
+  workflow-file diffs (its GITHUB_TOKEN can't merge `.github/workflows/**` changes), so the PR
+  does **not** auto-land — landing needs an owner merge click (or an agent MCP/REST merge). Not
+  an agent-capability wall; a carve-out of the one landing workflow.
+  UNBLOCKS: the QoL-count CI drift guard (reds any PR whose living docs disagree with `qol.h`).
+  VERIFY: PR is green (`mergeable_state: clean`, verified live 2026-07-18) + touches
+  `.github/workflows/rom-builds.yml`.
+  RISK: ✅ reversible. Provenance: hub PR sweep 2026-07-18. RECORD-ONLY — do not close.
+- **`OQ-FORGE-29-WORKFLOW-MERGE` — product-forge: merge #29 (workflow-touching carve-out).**
+  WHAT: merge [product-forge #29](https://github.com/menno420/product-forge/pull/29)
+  "phone-controller: Gradle CI lane for the Android verdict port" (squash).
+  WHERE: https://github.com/menno420/product-forge/pull/29 → "Merge pull request".
+  WHY: the PR **adds** `.github/workflows/android-ci.yml` (self-flagged ⚑ OWNER-ACTION), and
+  `merge-on-green.yml` skips workflow-file diffs (its GITHUB_TOKEN can't merge
+  `.github/workflows/**` changes), so it does **not** auto-land — landing needs an owner merge
+  click (or an agent MCP/REST merge). The companion code PR (no workflow file) already
+  auto-merged normally, proving the split works.
+  UNBLOCKS: green CI on future `products/phone-controller/android/**` changes (unit-tests the
+  SDK-free Kotlin verdict port so it can't drift from the Python core).
+  VERIFY: PR is green (`mergeable_state: clean`, verified live 2026-07-18) + adds
+  `.github/workflows/android-ci.yml`.
+  RISK: ✅ reversible. Provenance: hub PR sweep 2026-07-18. RECORD-ONLY — do not close.
+
 ### (B) Secrets & GitHub settings (owner-only walls)
 
 - **`OQ-FM-ROSTER-READ-PAT` — `ROSTER_READ_TOKEN` secret.** Create a fine-grained READ-ONLY PAT
