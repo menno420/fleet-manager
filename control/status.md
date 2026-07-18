@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-18T21:15Z
+updated: 2026-07-18T21:32Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -15,7 +15,22 @@ triggers-snapshot refreshed from the 20:42:05Z full export (I6 PASS), carve-out 
 pokemon-mod-lab #98 + product-forge #29 re-verified live GREEN, heartbeat recorded
 (PR #332). Fleet PR sweep recorded 2026-07-18T21:15Z — 13 open PRs / 7 repos, detail in
 `docs/fleet-triage.md` § "2026-07-18 · fleet PR sweep (21:05–21:15Z)" (PR #334).
+Night-watch state recorded 2026-07-18T21:32Z (this refresh, records slice).
 ---
+
+## Night watch (2026-07-18, overnight)
+
+- **Owner asleep as of ~2026-07-18T21:25Z.** Standing directive for the night: watch
+  the projects, route where necessary, improve own repo.
+- **Pacemaker cadence stretched to ~30 min overnight** (from ~15 min); decide-and-flag
+  posture; failsafe cron `30 */2 * * *` unchanged.
+- **Routed + landed tonight:** websites ORDER 036 appended to menno420/websites
+  `control/inbox.md` (branch `claude/manager-order-bake-422`, PR websites#433, landed by
+  the websites landing workflow 2026-07-18T21:19:37Z, merge sha `5689537`) — the
+  cross-repo lane-inbox ORDER route verified end-to-end, recorded as a capability in
+  `docs/CAPABILITIES.md` (this PR).
+- **fm PR #335 (`verify_routine_state.py`) merged** — one-command routine-state proof
+  now on main.
 
 # Fleet Manager — status
 
@@ -81,15 +96,17 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 4. **Owner-queue carry-forward.** Read `docs/owner-queue.md` and carry forward, paste-ready,
    any remaining genuine owner-only items (secrets, settings, money, product intent).
 
-### Next-2-tasks baton
+### Next-2-tasks baton (refreshed 2026-07-18T21:32Z)
 1. Hub lands **pokemon-mod-lab #98** and **product-forge #29** — green, ready PRs touching
    `.github/workflows/**` (`merge-on-green.yml` skips workflow diffs → owner click or
    agent MCP/REST merge).
-2. Next wake: **re-sweep the 8 in-flight born-red session PRs** (websites #425/#428,
+2. **~22:00Z wake:** re-sweep the 8 in-flight born-red session PRs (websites #425/#428,
    substrate-kit #470, idea-engine #597, trading-strategy #152, superbot-next #562/#563,
-   superbot #2148) + **websites #422 follow-up** (stuck red bake PR — lane fix/rebake or
-   close) + roster/trigger-health watch (`OQ-FM-ROSTER-CRON-RELIABILITY`; I8
-   superbot-world duplicate-cron WARN stays routed to that seat's own wake).
+   superbot #2148) + roster/trigger-health watch (`OQ-FM-ROSTER-CRON-RELIABILITY`; I8
+   superbot-world duplicate-cron WARN stays routed to that seat's own wake) + **websites
+   #422 / ORDER-036 follow-through** (ORDER 036 landed via websites#433 sha `5689537` —
+   verify the lane picks it up and the stuck red bake PR #422 gets fixed/rebaked or
+   closed).
 
 ### Gates
 - `python3 scripts/check_trigger_health.py` → PASS (8/9 green, 1 WARN I8, exit 0).
