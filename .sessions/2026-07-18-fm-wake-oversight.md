@@ -1,6 +1,6 @@
 # 2026-07-18 · fm wake: triggers-snapshot refresh + oversight records
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **Date:** 2026-07-18
 - **Seat:** fleet-manager coordinator
