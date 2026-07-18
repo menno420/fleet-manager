@@ -42,6 +42,11 @@ the Projects fresh**. This file is what the recreated manager should pick up fir
    over-built for a smaller relaunch — **recommend keeping only `merge-on-green.yml`** (the
    server-side landing path that is not classifier-gated) and retiring the self-poll roster/relay
    loop unless a real multi-seat fleet returns.
+   **→ Recommendation recorded → [`OQ-FM-APPARATUS-SIZING`](owner-queue.md) (awaiting owner)**
+   (2026-07-18): KEEP `merge-on-green.yml` + `substrate-gate.yml` + `roster-freshness.yml` + the
+   S3/S5/S9 advisory checkers; HOLD/right-size `roster-regen.yml` (reduce the 2-hourly self-poll
+   cadence rather than delete); `control/`+`telemetry/` stay historical. Decide-and-flag — EXECUTION
+   is owner/hub-venue (touches `.github/workflows/**`); nothing self-executed.
 
 ## Records hygiene (already done in this cleanup — verify on recreation)
 
