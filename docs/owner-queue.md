@@ -23,9 +23,22 @@ gen-2 launch that seeded the earliest queue items: [`launch-readiness-2026-07-10
 ## Active — genuinely-open owner asks
 
 ### (A) GitHub merges — one click each
-**EMPTY** — 0 open PRs in this repo; the fleet-wide backlog was cleared 2026-07-17. Any
-remaining fleet-wide merges/ready-flips live in
-[owner-actions-2026-07-17.md](owner-actions-2026-07-17.md), not here.
+**EMPTY (this repo)** — 0 open PRs in fleet-manager; the fleet-wide backlog was cleared
+2026-07-17. Any remaining fleet-wide merges/ready-flips live in
+[owner-actions-2026-07-17.md](owner-actions-2026-07-17.md), not here. The one cross-repo
+disposition still open is:
+
+- **`OQ-GBA-DRAFT-PILE` — gba-homebrew: dispose the 13 open born-red PRs (cross-repo).**
+  WHAT: flip the **3 non-draft** born-red PRs (#154 / #165 / #176) to **ready** — each then
+  auto-lands on green (lane-side, no owner click needed) — and decide **consolidate-or-close**
+  on the **10 drafts** (#157–#164, #177, #178), which are draft + in-progress card and so
+  **cannot** auto-land (draft PRs never trigger the landing workflow).
+  WHERE: gba-homebrew → open PRs (https://github.com/menno420/gba-homebrew/pulls).
+  WHY: draft PRs never fire the landing workflow; the pile is accumulating >24h.
+  UNBLOCKS: the Underroot / brineward arc slices.
+  VERIFY: the 13 resolve to landed-or-closed.
+  RISK: ✅ reversible. (Cross-ref the parked-arc triage note — fleet-triage 2026-07-17
+  "gba main gate repaired" + the 2026-07-18 overnight sweep.)
 
 ### (B) Secrets & GitHub settings (owner-only walls)
 
@@ -118,6 +131,13 @@ inherit; no owner click is blocking now.
   (rec A: timed-events scoping).
 - `OQ-NEXT-CURATION-RATIFICATIONS` — superbot-next: one-pass ratify the DROP-list (60) +
   settings-prune + D-0083 anchor (reversible pre-cutover, Q-0241 lane).
+- **`OQ-IDEA-ROUTING-OWNER-ONLY` — Ideas-Lab items that are owner-only (not auto-routable).**
+  The verified 2026-07-18 idea-routing pass
+  ([idea-routing-2026-07-18.md](idea-routing-2026-07-18.md)) routed the buildable candidates
+  (A–H) to their target lanes; these remaining Ideas-Lab items need an owner decision/action
+  and cannot be auto-routed: **V011** review-service deploy · **venture-lab money-gated** items
+  (×11, real accounts/keys) · **makerbench** · **trading** (owner-by-design) · **Ideas-Lab
+  seat revival**. No agent click lands these — record-only until the owner acts. RISK: ✅.
 
 ### (G) Hygiene (whenever — cosmetic, all agent-403-walled)
 

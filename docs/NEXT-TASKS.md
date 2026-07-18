@@ -77,3 +77,7 @@ autonomous apparatus, which is retired.
 - The genuine cross-repo product asks (venture-lab revenue publish, websites Postgres/PAT) and the
   repo-consolidation delete-vs-archive gate are tracked in [owner-queue.md](owner-queue.md) — re-scope
   the consolidation program against the smaller post-wind-down fleet.
+- **Idea routing (2026-07-18)** — the verified Ideas-Lab verdict routing (candidates A–H → target
+  lanes, first slices, verification) is recorded in
+  [idea-routing-2026-07-18.md](idea-routing-2026-07-18.md); the recreated per-lane seats pick up
+  their slice when live (owner-only residue tracked as `OQ-IDEA-ROUTING-OWNER-ONLY`).

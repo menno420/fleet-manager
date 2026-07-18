@@ -842,6 +842,21 @@ owner-live venue.
 - **⚑ Surfaced by the refresh, NOT actioned (no trigger mutations this seat): I4 MANAGER-FAILSAFE now FAIL.** The FM failsafe cron `trig_01An9YmU3KC1kLhB5c9cv4Ax` (`Fleet Manager failsafe wake` · `30 */2 * * *`, enabled in the 11:43Z snapshot) is ABSENT from the 16:32Z export — the FM seat has no enabled standing-cron dead-man backstop. Consistent with the autonomous-apparatus wind-down; flagged for owner awareness, re-arm only if the FM seat is retained past recreation.
 - **(c) DRIFT CHECK — registry docs/prompts/v3 == the pasted `v3.7 · 2026-07-15` line: EQUAL. No re-paste owed.**
 
+## 2026-07-18 · overnight oversight sweep (verified read-only vs live GitHub)
+
+*Source: fm overnight-oversight seat, 2026-07-18. Every per-repo claim re-verified live via github MCP (`list_pull_requests` / `get_commit` / `get_check_runs`) before writing (Q-0120 — never against report text). Oversight-only: recorded here, never pushed to sibling repos.*
+
+- **gba-homebrew — 13 open PRs** (was ~27 #154–#180; the rest rebased onto [#153](https://github.com/menno420/gba-homebrew/pull/153)'s read-path-reachability fix / cleared). Split:
+  - **3 non-draft born-red: #154, #165, #176** — CHEAPEST FIX: flip each in-progress card to ready → auto-lands on green (lane-side action). These are structurally able to auto-land the moment their card flips.
+  - **10 draft born-red: #157, #158, #159, #160, #161, #162, #163, #164, #177, #178** — draft + in-progress card = structurally *cannot* auto-land (draft PRs never trigger the landing workflow); **lane decides consolidate-or-close.**
+  - substrate-gate born-red confirmed (#154 / #158 / #165: substrate-gate = failure, ROM builds = success) via check-run conclusions. Lane **ALIVE** (main advancing past #153). → owner-queue `OQ-GBA-DRAFT-PILE`.
+- **superbot-mineverse #120 — RESOLVED** (auto-merged 2026-07-17T23:03:35Z by github-actions[bot], head `9ef495e`). No action.
+- **product-forge — STALLED confirmed** (main HEAD `1efbb3b`, 2026-07-15T15:30Z, "merge-automation verification probe (#26)"; ~2d old + heartbeat ~6d stale). Consistent with the existing `OQ-FORGE-DISPOSITION` archive-ready row — **CONFIRM only, no new item.**
+- **Frozen-by-design (evidence-checked):** superbot-plugin-hello, codetool-lab-fable5 / -opus4.8 / -sonnet5, curious-research. **Fresh / moving:** superbot-next #512, superbot-idle #151, idea-engine #494.
+- **CI-confirmation method:** check-run conclusions ARE independently readable via github MCP `get_check_runs` (born-red confirmed that way); the legacy combined-status rollup is uninformative on check-runs-only repos — that is a rollup limitation, **not a proxy wall.**
+- **Snapshot-rot note (record, no defect):** the roster Gen-N "backlog cleared" line was already stale ~90 min after generation — the live-recording practice (verify vs live GitHub each wake) IS the correction path; no fix needed.
+- **Reviewer thread closed:** fleet health OK — 14 live seats, 0 red main HEADs, 5 frozen-by-design; Ideas Lab is a finished mine.
+
 ## How to re-verdict
 
 1. Verify against live source (Q-0120 — never against report text).
