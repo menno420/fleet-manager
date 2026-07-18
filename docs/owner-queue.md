@@ -423,12 +423,14 @@ state is committed in the repos). Do in one sitting whenever convenient.
   (cutover VERIFIED — old trigger deleted, fresh seat live) · dead trading
   gen-1 "ORDER 001 successor" session (= C#19) · wound-down gen-1 lane chats
   generally (succession packages on main; chat context spent by design).
-- **Stale branches (agent branch-delete is a verified 403):** codetool ×2 —
+- **Stale branches (agent branch-delete works — 204 via the direct-token path;
+  only the proxied path 403s — so these are agent-doable now, not owner-only):** codetool ×2 —
   `claude/status-heartbeat-001` (opus4.8), `test/push-check` (sonnet5) ·
   superbot-games ×2 — `mining/adopt-substrate-kit` (closed-unmerged-deliberate)
   and `mining/grid-encounters` (**verify tip is merged before deleting**) ·
   websites ×4 (= B#11).
-- **fleet-manager stale branch (agent branch-delete is a verified 403):**
+- **fleet-manager stale branch (agent branch-delete works — 204 via the direct-token
+  path; only the proxied path 403s — agent-doable now, not owner-only):**
   `claude/consolidation-plan-v34` @ 30a48fa — accidental resurrection of PR
   #122's merged head during a parallel merge-back; nothing unique on it (its
   content landed via #122's merge commit fda3182/8f92faa).
