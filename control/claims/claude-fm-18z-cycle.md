@@ -1,0 +1,1 @@
+- `claude/fm-18z-cycle` · **18Z snapshot + queue re-scope** · telemetry/ + docs/owner-queue.md + docs/fleet-triage.md + control/status.md · 2026-07-19
