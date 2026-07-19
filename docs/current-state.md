@@ -85,9 +85,13 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   ADVISORY severity (never merge-blocking, not wired into `bootstrap.py check`):
   `check_fleet_triage_staleness.py` (S3) · `check_docs_links.py` (S5) ·
   `check_capabilities_wall_age.py` (S9); joined 2026-07-19 in the same advisory
-  tier by `check_lane_liveness.py` (fm #350, R27 idle detection) and
+  tier by `check_lane_liveness.py` (fm #350, R27 idle detection),
   `check_capabilities_grammar.py` (fm #358) — format linter for the
-  CAPABILITIES.md append surfaces, giving the S9 ager firm parsing ground.
+  CAPABILITIES.md append surfaces, giving the S9 ager firm parsing ground —
+  and `check_label_hygiene.py` (fm #370) — nothing-stuck hold-label detector
+  (fleet-wide `do-not-automerge`/`owner-held`/variant definitions + open
+  applications; `--strict` exits 1 only on an application to an OPEN item;
+  the verification command for `OQ-LABEL-DEFS-DELETE`).
 - **Apparatus scaffolding — under sizing review.** The `control/` message-bus and
   roster/telemetry autogen are historical scaffolding; whether the smaller fleet
   revives them is the open **sizing decision** at [NEXT-TASKS.md](NEXT-TASKS.md)
