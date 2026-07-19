@@ -956,3 +956,31 @@ meta.md.*
   - **8 in-flight born-red session PRs (working as designed — no action, re-sweep next wake):** websites [#425](https://github.com/menno420/websites/pull/425) / [#428](https://github.com/menno420/websites/pull/428) · substrate-kit [#470](https://github.com/menno420/substrate-kit/pull/470) · idea-engine [#597](https://github.com/menno420/idea-engine/pull/597) · trading-strategy [#152](https://github.com/menno420/trading-strategy/pull/152) · superbot-next [#562](https://github.com/menno420/superbot-next/pull/562) / [#563](https://github.com/menno420/superbot-next/pull/563) · superbot [#2148](https://github.com/menno420/superbot/pull/2148) (still pending its lane fix).
   - **Staleness / strays:** no stale PRs (oldest open ~43h); zero strays beyond the 2 carve-outs above.
 - **Trigger-health I8 WARN (sibling lane, attribution only):** two enabled "SuperBot World failsafe wake" crons — `trig_01XJJ88pQaQFRSpVAviCfAZe` (created 2026-07-17) · `trig_01DbcKVWxn6RJPhfyRkgTg6m` (created 2026-07-18T17:08Z). Sibling-seat ids, **left alone per attribution doctrine** (this seat makes no trigger calls against sibling lanes). **Disposition: SuperBot World seat's own BOOT-4 cutover miss — the fix belongs to that seat's next wake** (verify each live, keep one, delete the rest).
+
+## 2026-07-19 · trigger-registry watch items (00:06:22Z capture) — records slice
+
+*Source: fm records slice (PR #341), 2026-07-19. Facts read from the fresh
+2026-07-19T00:06:22Z full `list_triggers` export (1962 records, 17 enabled) now
+committed as `telemetry/triggers-snapshot.json`. Oversight-only: recorded here,
+no trigger calls made against sibling lanes.*
+
+- **2026-07-19 · SBW duplicate failsafe pair PERSISTS at the 00:06Z capture.** Both
+  "SuperBot World failsafe wake" crons (`15 1-23/2 * * *`) are still enabled —
+  `trig_01XJJ88pQaQFRSpVAviCfAZe` (created 2026-07-17T22:11Z) ·
+  `trig_01DbcKVWxn6RJPhfyRkgTg6m` (created 2026-07-18T17:08Z) — and **both fired
+  ~23:15Z** (last_fired 23:15:21Z / 23:15:19Z) **into different sessions**: two
+  parallel SuperBot World seats are being woken every 2h. I8 WARN unchanged.
+  **Disposition unchanged: SuperBot World seat's own BOOT-4 cutover fix** (verify
+  each live, keep the oldest, delete the rest) — sibling ids, left alone per
+  attribution doctrine. **Escalation tripwire: if the pair is still duplicated at
+  the next snapshot capture, raise an owner-queue note** (two woken seats burning
+  double wake budget is past the "route to the seat" threshold).
+- **2026-07-19 · Venture Lab armed a weekly-grading business cron post-v3.8.**
+  NEW `trig_01BDrZZM5dMS6NJLevGxdZR3` "Venture Lab weekly grading (business
+  cron)" — `0 9 * * 5`, created 2026-07-18T21:02Z, never fired, next
+  2026-07-24T09:07Z. Created ~35 min AFTER the v3.8 zero-routines ender doctrine
+  landed on main (fm PR #330, owner-merged 20:27Z) — **read as pre-repaste
+  drift, not defiance**: the seat's deployed prompt predates v3.8 (console
+  re-paste ask already queued, owner asks item 1). **Disposition: Venture Lab
+  seat folds the weekly grading into its work loop per v3.8 when its prompt
+  re-paste lands**; sibling id, left alone — no trigger calls made.
