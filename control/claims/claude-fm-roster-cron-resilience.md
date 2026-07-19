@@ -1,0 +1,1 @@
+- `claude/fm-roster-cron-resilience` · **roster-regen second cron + hub-merge ask** · .github/workflows/roster-regen.yml + docs/owner-queue.md + control/status.md · 2026-07-19
