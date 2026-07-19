@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-19T03:07Z
+updated: 2026-07-19T05:46Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -18,7 +18,8 @@ pokemon-mod-lab #98 + product-forge #29 re-verified live GREEN, heartbeat record
 Night-watch state recorded 2026-07-18T21:32Z (records slice). 00Z snapshot
 refresh + heartbeat recorded 2026-07-19T00:14Z (records slice, PR #341). 02:33Z
 failsafe stall-catch heartbeat recorded 2026-07-19T02:35Z (PR #342). 03:0xZ
-night-wake records slice recorded 2026-07-19T03:07Z (this refresh, PR #343).
+night-wake records slice recorded 2026-07-19T03:07Z (PR #343). ~06Z morning
+sweep recorded 2026-07-19T05:46Z (this refresh, PR #346).
 ---
 
 ## Night watch (2026-07-18, overnight)
@@ -100,6 +101,28 @@ night-wake records slice recorded 2026-07-19T03:07Z (this refresh, PR #343).
   product-forge #29 only.**
 - **Baton unchanged otherwise:** websites ORDER 036 ack/rebake ~06:00Z escalation
   decision stands.
+
+### ~06Z morning-sweep records slice (2026-07-19, PR #346)
+
+- **Escalation decision TAKEN — websites ORDER 036:** lane fully silent since
+  21:52Z (no commits, no heartbeat bump, 036 unacked ~8.5h across the
+  23:45Z/01:45Z/03:45Z failsafe windows; #434 still conflict-dirty +
+  `do-not-automerge` + ASK-0008-gated — all verified live at HEAD `a5fdad4`,
+  05:44Z). Verdict: **seat chain possibly stalled overnight — flagged for the
+  owner's morning** via info-only owner-queue note `OQ-WEBSITES-036-STALL`
+  (VENUE: none) **+ the lane's next failsafe wake**. Not hub-executable; no
+  trigger calls made against the lane. Full evidence:
+  `docs/fleet-triage.md` § "2026-07-19 · ~06Z morning sweep".
+- **Fleet PRs (05:43Z):** 7 open / 5 repos; 1 NEW since 03:40Z — idea-engine
+  #622 (normal lane work); 0 new stuck reds, 0 green strays. Hub queue
+  confirmed: product-forge #29 (clean/green) + fm #344 (workflow carve-outs).
+- **Roster:** the Actions lane recovered overnight — automated gen #99
+  (04:04Z, PR #345) landed after the 00:40Z/02:40Z drops; I5 PASS, 1.7h old
+  at 05:44Z. (#344's odd-hour second cron still worth landing — drops recur.)
+- **Trigger health:** 8/9 + **I6 FAIL** (snapshot capture 00:06Z, 5.6h > 4h
+  bar) — this sweep's venue makes no trigger-MCP calls, so the export refresh
+  rides the coordinator's next wake. I8 SBW duplicate-pair WARN unchanged
+  (routed to that seat). `verify_routine_state.py` → OK, 2 claims verified.
 
 # Fleet Manager — status
 
@@ -214,18 +237,17 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 4. **Owner-queue carry-forward.** Read `docs/owner-queue.md` and carry forward, paste-ready,
    any remaining genuine owner-only items (secrets, settings, money, product intent).
 
-### Next-2-tasks baton (refreshed 2026-07-19T02:35Z)
-1. Hub lands **product-forge #29** — green, ready PR touching `.github/workflows/**`
-   (`merge-on-green.yml` skips workflow diffs → owner click or agent MCP/REST merge).
-   (**pokemon-mod-lab #98 dropped from this row** — closed 23:18:04Z as superseded by
-   #107; retire its `OQ-POKEMON-98-WORKFLOW-MERGE` owner-queue row in the next records
-   slice.)
-2. **~06:00Z:** websites **ORDER-036 ack/rebake escalation decision + re-sweep** —
-   036 still unacked at HEAD and no rebake landed since 00:00Z; #434 (BAKE_PAT wiring)
-   is now conflict-dirty on top of its owner gate, so the lane needs a rebase first.
-   Then re-sweep: fleet open-PR pass, I8 SBW duplicate-pair tripwire (owner-queue note
-   if still duplicated at the next capture), roster/snapshot freshness (watch the
-   02:40Z roster regen window — 00:40Z did not land; 4h bar crossed ~03:31Z).
+### Next-2-tasks baton (refreshed 2026-07-19T05:46Z)
+1. **Hub lands the two green workflow carve-outs:** product-forge **#29** (clean,
+   green) + fleet-manager **#344** (odd-hour roster cron — the scheduler-drop fix;
+   drops recurred again tonight before gen #99 recovered). `merge-on-green.yml`
+   skips workflow diffs → owner click or agent MCP/REST merge.
+2. **Daytime:** watch websites **ORDER-036 follow-through** (escalation decision
+   TAKEN this sweep — `OQ-WEBSITES-036-STALL` info note stands until the lane
+   acks + rebakes; retire it on movement) **+ prove the odd-hour roster cron**
+   after #344 merges (first odd-hour window should show a run object). Also due
+   at the coordinator's next wake: triggers-snapshot refresh (I6 FAIL, 5.6h) and
+   the I8 SBW duplicate-pair re-check.
 
 ### Gates
 - `python3 scripts/check_trigger_health.py` → PASS (8/9 green, 1 WARN I8, exit 0).

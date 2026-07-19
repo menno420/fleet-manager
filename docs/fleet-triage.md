@@ -984,3 +984,55 @@ no trigger calls made against sibling lanes.*
   re-paste ask already queued, owner asks item 1). **Disposition: Venture Lab
   seat folds the weekly grading into its work loop per v3.8 when its prompt
   re-paste lands**; sibling id, left alone — no trigger calls made.
+
+## 2026-07-19 · ~06Z morning sweep (05:43–05:45Z, read-only, MCP-verified) — coordinator wake records
+
+*Source: fm morning-sweep worker (PR #346), 2026-07-19. Every per-PR state and
+websites fact MCP-verified live 05:43–05:45Z before writing (Q-0120). Oversight-
+only: recorded here, never pushed to sibling repos. No trigger calls made.*
+
+- **Fleet open-PR state (05:43Z): 7 open PRs across 5 repos — 1 NEW since the
+  03:40Z pass, 0 new stuck reds, 0 green strays.**
+  - **NEW:** idea-engine [#622](https://github.com/menno420/idea-engine/pull/622)
+    (05:40:33Z, "VERDICT 169 mirror — PROPOSAL 156 APPROVE") — normal lane work,
+    expected to self-land on green. No action.
+  - **Hub queue confirmed:** product-forge [#29](https://github.com/menno420/product-forge/pull/29)
+    still OPEN, `mergeable_state: clean` (workflow carve-out; `OQ-FORGE-29-WORKFLOW-MERGE`) ·
+    fleet-manager [#344](https://github.com/menno420/fleet-manager/pull/344) still OPEN
+    (odd-hour roster cron; workflow carve-out, `OQ-FM-ROSTER-CRON-SECOND-LINE` rides that PR).
+  - **Unchanged known set:** superbot-next [#576](https://github.com/menno420/superbot-next/pull/576)
+    (parked by design — classifier-wall doc PR, owner-attended completion) ·
+    superbot-next [#571](https://github.com/menno420/superbot-next/pull/571) /
+    [#567](https://github.com/menno420/superbot-next/pull/567) (lane docs work, open
+    since ~22Z/21:54Z — watch for self-land) · websites
+    [#434](https://github.com/menno420/websites/pull/434) (below).
+- **websites deep-check (05:44Z, all read at HEAD `a5fdad4`):**
+  - `control/status.md`: `updated: 2026-07-18T21:42:45Z`; `orders:` line reads
+    `acked=001-035` — **ORDER 036 NOT acked.**
+  - [#434](https://github.com/menno420/websites/pull/434) (BAKE_PAT wiring, the 036
+    root-cause fix): still OPEN, **`mergeable_state: dirty` — conflict NOT
+    resolved**, `do-not-automerge` label still on, last updated 21:28:19Z.
+  - **No bake/data-refresh PR or commit on websites main since 21:52:34Z** — newest
+    commit is `a5fdad4` (#425, botsite durable /submit). The 2026-07-18 fleet-data
+    refresh remains un-relanded.
+  - **Failsafe-cron read:** websites failsafe fires `45 */2 * * *`; the 23:45Z,
+    01:45Z and 03:45Z windows produced **zero landed output** (no commits, no
+    heartbeat bump, no ack). The 05:45Z window was imminent at sweep time
+    (05:43Z) — re-checked pre-flip, see the disposition line for the result.
+- **ESCALATION DISPOSITION — websites ORDER 036 (decided this sweep):** the lane
+  showed **no activity of any kind since 21:52Z** (~8h silent; 036 unacked since it
+  landed 21:19:36Z, ~8.5h). Verdict: **websites seat chain possibly stalled
+  overnight — ORDER 036 unacked ~9h; disposition: flagged for the owner's morning
+  (owner-queue note `OQ-WEBSITES-036-STALL`, info-only) + the lane's next failsafe
+  wake.** Not hub-executable: #434 is `do-not-automerge` + owner-gated (ASK-0008
+  BAKE_PAT secret half) and conflict-dirty — the rebase + ack + rebake are lane
+  work; the secret half is owner work. No trigger calls made against the lane
+  (attribution doctrine).
+- **Local gate verdicts (05:44Z):** roster FRESH — gen #99, generated-at
+  2026-07-19T04:04Z (landed via automated #345 at 04:05:12Z — the Actions lane DID
+  fire overnight after the 00:40Z/02:40Z drops), 1.7h old, I5 PASS. Trigger health:
+  **8/9 + I6 FAIL** — snapshot capture instant 00:06Z is 5.6h past the 4h bar; this
+  sweep's venue makes no trigger-MCP calls, so the export refresh rides the
+  coordinator's next wake (disposition, not a wall). I8 SBW duplicate-pair WARN
+  unchanged (routed to that seat; tripwire re-arms at the next capture).
+  `verify_routine_state.py` → OK, 2 claims verified (C1 failsafe + C3 deleted).

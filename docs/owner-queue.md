@@ -19,6 +19,23 @@ launch that seeded the earliest queue items: [`launch-readiness-2026-07-10.md`](
 
 ## Active — genuinely-open owner asks
 
+- **`OQ-WEBSITES-036-STALL` — INFO-ONLY (VENUE: none): websites lane hasn't acked ORDER 036.**
+  WHAT: the websites seat has not acked ORDER 036 (unstick the stuck fleet-data bake — fix/rebake
+  after #422 closed) since the ORDER landed 2026-07-18T21:19:36Z; the lane has been fully silent
+  since 21:52Z (no commits, no heartbeat bump, no ack through the 23:45Z/01:45Z/03:45Z failsafe
+  windows — verified at HEAD `a5fdad4`, 2026-07-19T05:44Z sweep). Root-cause fix websites
+  [#434](https://github.com/menno420/websites/pull/434) sits conflict-dirty + `do-not-automerge`
+  + owner-gated (ASK-0008 BAKE_PAT secret half).
+  WHERE: nothing to click — informational. The lane's own next failsafe wake (`45 */2 * * *`)
+  and/or an owner glance at the websites seat is the recovery path.
+  WHY: the ~06:00Z escalation decision (03:0xZ baton) came due with zero overnight movement —
+  recording the stall so it can't silently persist.
+  UNBLOCKS: fresh fleet data (the 2026-07-18 review-bake refresh is still un-relanded).
+  VERIFY: websites `control/status.md` `orders:` line shows 036 acked + a rebake/data-refresh
+  commit lands on websites main.
+  RISK: ✅ info-only — no action taken, no trigger calls made against the lane. Retire this note
+  the moment the lane moves. Provenance: fm morning sweep 2026-07-19 (PR #346).
+
 ### (A) GitHub merges — one click each
 **EMPTY (this repo)** — 0 open PRs in fleet-manager. Any remaining fleet-wide merges/ready-flips
 live in [owner-actions-2026-07-17.md](owner-actions-2026-07-17.md), not here. The open cross-repo
