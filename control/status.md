@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-19T15:30Z
+updated: 2026-07-19T16:20Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -38,6 +38,16 @@ the fence's `updated` bump below was written BY the emitter, dogfood).
 14Z cycle (snapshot 2129/16 @ 14:05:27Z, I6 PASS · fleet re-sweep: 5 open
 fleet-wide, zero new strays · planning re-groom: 3 ranked, top = read-side
 volatile-drift check) recorded 2026-07-19T14:17Z (records slice, PR #364).
+Read-side volatile-field drift check landed in `verify_routine_state.py`
+(build slice, PR #365). R30 workflow-PR merge policy adopted (records slice,
+PR #368). Label-hygiene checker `scripts/check_label_hygiene.py` landed
+(build slice, PR #370) — ground-truth run 1 at 16:15Z: **19/19 repos
+measured, 0 hold-class definitions, 0 open applications** — the 9
+`OQ-LABEL-DEFS-DELETE` definitions are GONE at run time (deleted between
+the 08:38Z queue write and 16:15Z; checker = the item's verification
+command), while the websites re-creation machinery
+(`host-automerge-extras.yml`) is still live on main — the checker is the
+tripwire for re-appearance.
 ---
 
 ## Night watch (2026-07-18, overnight)
@@ -567,6 +577,51 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
    (R30 adoption records DONE, this PR).
 3. **Watches:** next I6 snapshot refresh due **~18:00Z** (4h bar on the
    14:05:27Z capture); superbot-next #567/#571 CI-kick routing.
+
+### ~16:1xZ build slice — label-hygiene checker landed (2026-07-19, PR #370)
+
+- **Slice "check_label_hygiene.py" SHIPPED** (slice 3 of
+  `docs/planning/2026-07-19-next-slices.md`): `scripts/check_label_hygiene.py`
+  — stdlib-only advisory checker mechanizing the owner's 2026-07-19
+  nothing-stuck directive. Per fleet repo (gen_roster.LANES repos +
+  curious-research, 19 total): hold-class label DEFINITIONS
+  (`do-not-automerge` / `owner-held` / variants; `needs-human-review` and the
+  codex pair deliberately excluded — routing labels, merge-on-green ignores
+  them) and OPEN PRs/issues CARRYING one. WARN lines carry paste-ready
+  remedies (MCP strip / hub REST DELETE one-liners citing
+  `OQ-LABEL-DEFS-DELETE`). Advisory exit 0; `--strict` exits 1 only on an
+  application to an OPEN item. Honest `NOT MEASURED (wall: …)` per repo on
+  any HTTP wall (403/429 rate-limit-aware). Q-0105 unverified header;
+  indexed in `docs/current-state.md` advisory-tier bullet.
+- **Ground-truth run 1 (16:15Z, verbatim headline):** `HEADLINE: 0 hold-class
+  definition(s) · 0 application(s) to OPEN items · 0 repo(s) not measured
+  (of 19)` — i.e. the 9 `do-not-automerge` definitions in the
+  `OQ-LABEL-DEFS-DELETE` queue text are **already deleted** (executed between
+  the 08:38Z queue write and 16:15Z — hub venue or owner; this run is the
+  "re-run after deletions → 0 definitions" verification the item needed).
+  **Caveat stands:** websites `host-automerge-extras.yml` on main still
+  auto-re-creates + auto-applies the label on workflow-touching `claude/*`
+  PRs (verified via raw read 16:16Z, create call at its line ~79) — the
+  definition WILL re-appear until the owner-venue carve-out removal lands;
+  this checker is now the standing tripwire for that re-appearance.
+  Queue-item state update (mark `OQ-LABEL-DEFS-DELETE` deletions-done /
+  caveat-only) left to the coordinator's next records slice — flagged, not
+  edited here (records surface is the seat's).
+- No trigger-MCP calls from this venue; no sibling repo written.
+
+### Baton (16:1xZ refresh)
+1. **Hub/owner:** `OQ-SBW-DUP-FAILSAFE` (SBW dup failsafe delete — second
+   escalation cycle) + the **websites label-machinery cleanup**
+   (`host-automerge-extras.yml` carve-out removal — owner's live venue).
+   `OQ-LABEL-DEFS-DELETE`: deletions **verified executed** (run 1 above);
+   records slice should re-scope the item to the websites caveat only.
+   Verification command now standing:
+   `python3 scripts/check_label_hygiene.py` (expect 0 definitions).
+2. **Next slice:** I8-reads-lane-fence, or a fresh planning groom
+   (label-hygiene checker DONE, this PR — next-slices queue drained).
+3. **Watches:** next I6 snapshot refresh due **~18:00Z** (4h bar on the
+   14:05:27Z capture); superbot-next #567/#571 CI-kick routing; websites
+   label re-appearance (tripwire = this slice's checker).
 
 ## Pointers
 - Live status → `docs/current-state.md`
