@@ -19,46 +19,98 @@ launch that seeded the earliest queue items: [`launch-readiness-2026-07-10.md`](
 
 ## Active — genuinely-open owner asks
 
+- **`OQ-SBW-DUP-FAILSAFE` — (VENUE: hub) delete one of the two enabled "SuperBot World failsafe wake" crons.**
+  WHAT: two enabled crons with identical name + schedule (`15 1-23/2 * * *`) are waking two parallel
+  SuperBot World seats every 2h — `trig_01XJJ88pQaQFRSpVAviCfAZe` (created 2026-07-17T22:11Z) and
+  `trig_01DbcKVWxn6RJPhfyRkgTg6m` (created 2026-07-18T17:08Z); both fired ~05:15Z (~3s apart), both
+  next 07:15Z, confirmed at two consecutive snapshot captures (00:06:22Z + 06:15:10Z — the 00:06Z
+  watch item's escalation tripwire fired). **Recommendation: delete
+  `trig_01XJJ88pQaQFRSpVAviCfAZe` (the older, 07-17-created one; the 07-18 one is the current
+  seat's cutover-armed failsafe)** — one letter answers this (Y = delete the recommended id).
+  WHERE: hub chat trigger tools (`list_triggers` → `delete_trigger`).
+  HOW: paste-ready — (1) `list_triggers` and verify BOTH ids exist enabled; (2)
+  `delete_trigger trig_01XJJ88pQaQFRSpVAviCfAZe`; (3) `list_triggers` again and confirm the id is
+  absent and exactly one "SuperBot World failsafe wake" remains.
+  WHY: both fire every 2h (~2–3s apart), waking two parallel SBW sessions — double token burn plus
+  a two-writer collision risk on the SBW seat's repos/state.
+  UNBLOCKS: clean single SBW wake chain.
+  VERIFY: the next fm triggers snapshot shows exactly one enabled "SuperBot World failsafe wake"
+  (I8 WARN clears in `check_trigger_health.py`).
+  RISK: ✅ reversible (re-create from the SBW startup prompt). Honest note: fm doctrine forbids
+  this seat deleting a sibling lane's trigger id from its own venue — hence the hub routing.
+  Provenance: fm records slice 2026-07-19 (PR #347), escalation record in `docs/fleet-triage.md`.
+  *Status 2026-07-19T08:38Z (PR #351): unchanged — still open, unaffected by the morning
+  nothing-stuck executions (label/merge sweep touched PRs, not triggers).*
+
+- **`OQ-WEBSITES-036-STALL` — INFO-ONLY (VENUE: none): websites lane hasn't acked ORDER 036.**
+  WHAT: the websites seat has not acked ORDER 036 (unstick the stuck fleet-data bake — fix/rebake
+  after #422 closed) since the ORDER landed 2026-07-18T21:19:36Z; the lane has been fully silent
+  since 21:52Z (no commits, no heartbeat bump, no ack through the 23:45Z/01:45Z/03:45Z failsafe
+  windows — verified at HEAD `a5fdad4`, 2026-07-19T05:44Z sweep). Root-cause fix websites
+  [#434](https://github.com/menno420/websites/pull/434) sits conflict-dirty + `do-not-automerge`
+  + owner-gated (ASK-0008 BAKE_PAT secret half).
+  WHERE: nothing to click — informational. The lane's own next failsafe wake (`45 */2 * * *`)
+  and/or an owner glance at the websites seat is the recovery path.
+  WHY: the ~06:00Z escalation decision (03:0xZ baton) came due with zero overnight movement —
+  recording the stall so it can't silently persist.
+  UNBLOCKS: fresh fleet data (the 2026-07-18 review-bake refresh is still un-relanded).
+  VERIFY: websites `control/status.md` `orders:` line shows 036 acked + a rebake/data-refresh
+  commit lands on websites main.
+  RISK: ✅ info-only — no action taken, no trigger calls made against the lane. Retire this note
+  the moment the lane moves. Provenance: fm morning sweep 2026-07-19 (PR #346).
+  *Annotation 2026-07-19T08:38Z ([fm #351](https://github.com/menno420/fleet-manager/pull/351),
+  owner nothing-stuck directive executions): the stuck
+  bake's root-cause fix **#434 was label-stripped + squash-merged by the hub** (merged
+  2026-07-19T07:50:01Z, merge sha `403a91d`) — BAKE_PAT wiring is live with the
+  `|| GITHUB_TOKEN` fallback (degrades to today's behavior if the secret is absent). The lane
+  itself showed first movement at 07:26:23Z (websites #436 heartbeat commit, lane-liveness
+  ground-truth run, PR #350). **Still outstanding lane-side: the 2026-07-18 data refresh
+  re-land + the 036 ack** — keep this row until both happen.*
+
+- **`OQ-LABEL-DEFS-DELETE` — (VENUE: hub) delete the `do-not-automerge` label DEFINITIONS in 9
+  repos (owner nothing-stuck directive, 2026-07-19).**
+  WHAT: the 2026-07-19 label sweep found the `do-not-automerge` label **defined** in 9 repos;
+  only one open item carried it (websites #434 — stripped + merged 07:50:01Z), so the fleet is
+  label-clean on open PRs, but the directive ("I want them gone, nothing should ever be stuck")
+  also wants the definitions removed so nothing can be parked again.
+  WHERE: hub-venue GitHub label deletion — paste-ready DELETE list (repo → label page →
+  `do-not-automerge` → Delete):
+  1. https://github.com/menno420/websites/labels
+  2. https://github.com/menno420/substrate-kit/labels
+  3. https://github.com/menno420/fleet-manager/labels
+  4. https://github.com/menno420/superbot/labels
+  5. https://github.com/menno420/gba-homebrew/labels
+  6. https://github.com/menno420/idea-engine/labels
+  7. https://github.com/menno420/venture-lab/labels
+  8. https://github.com/menno420/superbot-games/labels
+  9. https://github.com/menno420/superbot-next/labels
+  (Equivalent REST: `DELETE /repos/menno420/<repo>/labels/do-not-automerge` ×9, direct-egress
+  PAT path.)
+  WHY routed here (dated incident, 2026-07-19): the sweep worker's venue had no MCP delete-label
+  tool and its REST attempts returned 401/403 (verbatim errors in the sweep record) — a
+  transient venue/path state per doctrine, **not a wall**; the hub venue's direct-PAT path is
+  the working route.
+  CAVEAT — websites needs more than the label delete: `host-automerge-extras.yml` (from
+  websites PR #324) **auto-re-creates + auto-applies** the label on workflow-touching
+  `claude/*` PRs — machinery, so in websites the workflow's carve-out behavior must be removed
+  too or the label just comes back. That removal is in flight: the carve-out-removal worker
+  dispatch hit the platform auto-mode classifier's guardrail-removal provenance check
+  (2026-07-19; explicit owner confirmation wording requested, awaiting) — transient venue
+  denial, retry with the confirmation.
+  VERIFY: label absent from all 9 label pages; a workflow-touching websites `claude/*` PR no
+  longer gets the label auto-applied.
+  RISK: ✅ reversible (labels re-creatable). Provenance: owner live directive ~2026-07-19T08:00Z
+  (verbatim in `docs/fleet-triage.md` § "owner nothing-stuck directive"); fm records slice
+  PR #351.
+
 ### (A) GitHub merges — one click each
-**1 open PR in this repo** (the workflow carve-out below). Any remaining fleet-wide
-merges/ready-flips live in [owner-actions-2026-07-17.md](owner-actions-2026-07-17.md), not here.
-
-- **`OQ-FM-ROSTER-CRON-SECOND-LINE` — fleet-manager: merge PR #344 (one-line workflow cron
-  addition; VENUE:hub).**
-  WHAT: merge [fleet-manager #344](https://github.com/menno420/fleet-manager/pull/344)
-  "ci: second roster-regen cron (odd hours) — scheduler-drop resilience" (squash). **Recommended:
-  merge on green — answerable with one click; no choices to make.**
-  WHERE: https://github.com/menno420/fleet-manager/pull/344 → "Merge pull request".
-  HOW: hub-venue merge click, or an MCP/REST merge on green (both fine; `merge-on-green.yml`
-  deliberately skips workflow-file diffs, so it will not self-land).
-  WHY: GitHub's best-effort scheduler drops `roster-regen.yml`'s scheduled windows — run objects
-  never created for 00:40Z three nights running (07-17/18/19) plus 02:40Z tonight; workflow itself
-  healthy (30/30 green, active, chronic +45–140m delay). Full diagnosis in the PR body. A second
-  cron `40 1-23/2 * * *` (odd hours) interleaves the existing even-hour line → net hourly coverage,
-  so one dropped window is covered by the adjacent hour; regen exits clean when nothing changed
-  (~30s per extra fire).
-  UNBLOCKS: roster freshness without manual stall-guard regens (the gen #86/PR #302 and
-  gen #98/PR #343 class of hand-fixes).
-  VERIFY: next dropped even-hour window is covered by the odd-hour fire — a roster generation lands
-  within ~1h of the drop, roster stays <4h stale with no manual dispatch.
-  RISK: ✅ reversible — one-line revert of the added cron line.
-
-The other open cross-repo disposition is the product-forge workflow carve-out:
-
-- **`OQ-FORGE-29-WORKFLOW-MERGE` — product-forge: merge #29 (workflow-touching carve-out).**
-  WHAT: merge [product-forge #29](https://github.com/menno420/product-forge/pull/29)
-  "phone-controller: Gradle CI lane for the Android verdict port" (squash).
-  WHERE: https://github.com/menno420/product-forge/pull/29 → "Merge pull request".
-  WHY: the PR **adds** `.github/workflows/android-ci.yml` (self-flagged ⚑ OWNER-ACTION), and
-  `merge-on-green.yml` skips workflow-file diffs (its GITHUB_TOKEN can't merge
-  `.github/workflows/**` changes), so it does **not** auto-land — landing needs an owner merge
-  click (or an agent MCP/REST merge). The companion code PR (no workflow file) already
-  auto-merged normally, proving the split works.
-  UNBLOCKS: green CI on future `products/phone-controller/android/**` changes (unit-tests the
-  SDK-free Kotlin verdict port so it can't drift from the Python core).
-  VERIFY: PR is green (`mergeable_state: clean`, verified live 2026-07-18) + adds
-  `.github/workflows/android-ci.yml`.
-  RISK: ✅ reversible. Provenance: hub PR sweep 2026-07-18. RECORD-ONLY — do not close.
+**EMPTY** — 0 open PRs in fleet-manager needing a click, and the last cross-repo workflow
+carve-out (product-forge #29) was **merged by the hub 2026-07-19T07:41:57Z** under the owner's
+nothing-stuck directive (`OQ-FORGE-29-WORKFLOW-MERGE` → Resolved below). Any remaining
+fleet-wide merges/ready-flips live in
+[owner-actions-2026-07-17.md](owner-actions-2026-07-17.md), not here. fm
+[#344](https://github.com/menno420/fleet-manager/pull/344) is tracked under
+`OQ-FM-ROSTER-CRON-RELIABILITY` (conflict-dirty; owner armed auto-merge; not a click item).
 
 ### (B) Secrets & GitHub settings (owner-only walls)
 
@@ -155,12 +207,6 @@ The other open cross-repo disposition is the product-forge workflow carve-out:
   is an owner/hub-venue action. *(Conditional cross-ref: `OQ-FM-ROSTER-READ-PAT` is only needed if
   roster autogen is retained; a `roster-regen` retire would moot it.)*
 - **`OQ-FM-ROSTER-CRON-RELIABILITY` — watch GitHub's scheduler reliability for `roster-regen.yml`.**
-  *Verdict reached 2026-07-19: drops DO recur* — run objects never created for the 00:40Z window
-  three nights running (07-17/18/19) plus 02:40Z tonight; workflow healthy (30/30 green, active,
-  chronic +45–140m start delay). Diagnosis: fleet-manager PR #344 body. **Remedied by
-  `OQ-FM-ROSTER-CRON-SECOND-LINE` (second cron, odd hours → hourly coverage) once merged** — this
-  watch stays open until that fix lands and proves out (a dropped even-hour window covered by the
-  adjacent odd-hour fire), then moves to Resolved.
   WHAT: watch whether GitHub Actions keeps dropping `roster-regen.yml`'s scheduled cron windows; if
   drops recur (first drop observed 2026-07-18 → roster lapsed to **4.0h** stale before a
   `workflow_dispatch` fix landed Gen #86 / PR #302), migrate roster-freshness to a dedicated **CCR
@@ -171,6 +217,13 @@ The other open cross-repo disposition is the product-forge workflow carve-out:
   UNBLOCKS: reliable roster freshness without manual dispatch.
   VERIFY: scheduled runs land on cadence / the roster stays <4h stale without manual intervention.
   RISK: ✅ — watch/record only; any migration is an owner/hub-venue action.
+  *Status 2026-07-19T08:38Z (PR #351): verdict reached — drops recur; the one-line fix (second
+  odd-hour cron) is fm [#344](https://github.com/menno420/fleet-manager/pull/344), still OPEN,
+  `mergeable_state: dirty`, head `c2ca6b6` (verified live 08:39Z). **Owner armed native
+  auto-merge** on it; the conflict-fix worker was stopped by the owner pre-push — relaunch
+  awaits the owner's "go". (Note: #344 carries its own queue row `OQ-FM-ROSTER-CRON-SECOND-LINE`
+  in its diff — that slug lands here only when #344 merges; until then this row is the live
+  tracker.)*
 - **`OQ-CONSOLIDATION-DELETE-VS-ARCHIVE` — delete vs archive (the repo-consolidation gate).** Two
   of your own instructions contradict ("delete no repos — they are the fleet's memory" vs "delete
   the test repos"); one letter resolves it. **Recommended A** — harvest → archive (read-only),
@@ -257,6 +310,15 @@ These once-active items are moot; ids retained so nothing is lost, full bodies i
   resolved; flapping-quota mitigation only).
 
 ---
+
+## Resolved 2026-07-19 (morning executions ~07:40–08:10Z, owner nothing-stuck directive — state read live via the GitHub MCP, Q-0120; fm PR #351)
+
+- **`OQ-FORGE-29-WORKFLOW-MERGE` ✅ RESOLVED 2026-07-19 (hub-executed — no owner click needed)** —
+  [product-forge #29](https://github.com/menno420/product-forge/pull/29) **squash-merged directly
+  via MCP 2026-07-19T07:41:57Z**, merge sha `20be7493a7c4d96b3b61e1f2f023ed77ad015e27`;
+  `android-ci.yml` verified present on product-forge main. Executed under the owner's live
+  ~08:00Z nothing-stuck directive (verbatim in `docs/fleet-triage.md` § "owner nothing-stuck
+  directive"). The hub queue's last workflow carve-out is cleared.
 
 ## Resolved 2026-07-19 (03:0xZ night wake, fm PR #343 — state read live via the GitHub MCP at the 02:33Z stall-catch, Q-0120)
 

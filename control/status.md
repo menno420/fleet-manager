@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-19T03:41Z
+updated: 2026-07-19T08:59Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -18,15 +18,16 @@ pokemon-mod-lab #98 + product-forge #29 re-verified live GREEN, heartbeat record
 Night-watch state recorded 2026-07-18T21:32Z (records slice). 00Z snapshot
 refresh + heartbeat recorded 2026-07-19T00:14Z (records slice, PR #341). 02:33Z
 failsafe stall-catch heartbeat recorded 2026-07-19T02:35Z (PR #342). 03:0xZ
-night-wake records slice recorded 2026-07-19T03:07Z (PR #343). Roster-cron
-diagnosis + fix recorded 2026-07-19T03:41Z (this refresh, PR #344): roster-regen
-00:40Z+02:40Z skips = GitHub scheduler drops (run objects never created; workflow
-active, 0 failures in 30 runs, chronic +45–140m delay); stall-guard covered gen
-#98; fix PR #344 (second cron `40 1-23/2 * * *` → hourly coverage) parked READY
-on the workflow-diff carve-out (VENUE:hub, owner-queue item
-`OQ-FM-ROSTER-CRON-SECOND-LINE`). Baton: (1) hub — product-forge #29 + fm #344
-(both workflow carve-outs, merge on green); (2) ~06:00Z — websites ORDER-036
-escalation decision + fleet re-sweep.
+night-wake records slice recorded 2026-07-19T03:07Z (PR #343). ~06Z morning
+sweep recorded 2026-07-19T05:46Z (PR #346). 06:15Z triggers-snapshot refresh +
+SBW duplicate-failsafe escalation recorded 2026-07-19T06:23Z (records slice,
+PR #347). ~07:2xZ planning pass recorded 2026-07-19T07:28Z (planning slice,
+PR #349). Lane-liveness checker landed (build slice, PR #350). Owner
+nothing-stuck directive ~08:00Z + morning executions (forge #29 merged
+07:41:57Z, websites #434 label-stripped + merged 07:50:01Z, 9-repo label
+sweep) recorded 2026-07-19T08:38Z (records slice, PR #351). Regen-window skip
+detector landed in `check_roster_freshness.py` (build slice, PR #352, this
+refresh).
 ---
 
 ## Night watch (2026-07-18, overnight)
@@ -109,6 +110,49 @@ escalation decision + fleet re-sweep.
 - **Baton unchanged otherwise:** websites ORDER 036 ack/rebake ~06:00Z escalation
   decision stands.
 
+### ~06Z morning-sweep records slice (2026-07-19, PR #346)
+
+- **Escalation decision TAKEN — websites ORDER 036:** lane fully silent since
+  21:52Z (no commits, no heartbeat bump, 036 unacked ~8.5h across the
+  23:45Z/01:45Z/03:45Z failsafe windows; #434 still conflict-dirty +
+  `do-not-automerge` + ASK-0008-gated — all verified live at HEAD `a5fdad4`,
+  05:44Z). Verdict: **seat chain possibly stalled overnight — flagged for the
+  owner's morning** via info-only owner-queue note `OQ-WEBSITES-036-STALL`
+  (VENUE: none) **+ the lane's next failsafe wake**. Not hub-executable; no
+  trigger calls made against the lane. Full evidence:
+  `docs/fleet-triage.md` § "2026-07-19 · ~06Z morning sweep".
+- **Fleet PRs (05:43Z):** 7 open / 5 repos; 1 NEW since 03:40Z — idea-engine
+  #622 (normal lane work); 0 new stuck reds, 0 green strays. Hub queue
+  confirmed: product-forge #29 (clean/green) + fm #344 (workflow carve-outs).
+- **Roster:** the Actions lane recovered overnight — automated gen #99
+  (04:04Z, PR #345) landed after the 00:40Z/02:40Z drops; I5 PASS, 1.7h old
+  at 05:44Z. (#344's odd-hour second cron still worth landing — drops recur.)
+- **Trigger health:** 8/9 + **I6 FAIL** (snapshot capture 00:06Z, 5.6h > 4h
+  bar) — this sweep's venue makes no trigger-MCP calls, so the export refresh
+  rides the coordinator's next wake. I8 SBW duplicate-pair WARN unchanged
+  (routed to that seat). `verify_routine_state.py` → OK, 2 claims verified.
+
+### 06:15Z snapshot refresh + SBW duplicate-failsafe escalation (2026-07-19, PR #347)
+
+- **`telemetry/triggers-snapshot.json` refreshed** from the full 2026-07-19T06:15:10Z
+  export (**2024 records, 17 enabled**, 21 pages, cursor-to-exhaustion; +62 new / -0
+  gone vs the 00:06:22Z capture). `check_trigger_health.py` → **PASS (8/9 green,
+  1 WARN I8, exit 0)**; I6 SNAPSHOT-FRESH → PASS (0.1h at check time).
+  `verify_routine_state.py --export telemetry/triggers-snapshot.json` → **OK,
+  fence-sourced, 2 claims verified** (C1 failsafe + C3 deleted).
+- **Seat failsafe healthy in the export:** `trig_01GK4mjoKBP3yCabn9ux1MB2` enabled,
+  last_fired 2026-07-19T04:32:17Z, next 2026-07-19T06:31:48Z (export values; if
+  reading after ~06:31Z that fire will have happened and next_run re-advanced —
+  written at 06:23Z, pre-fire).
+- **SBW duplicate-pair ESCALATED — the 00:06Z tripwire FIRED:** both "SuperBot World
+  failsafe wake" crons still enabled at this second capture
+  (`trig_01XJJ88pQaQFRSpVAviCfAZe` 07-17T22:11Z · `trig_01DbcKVWxn6RJPhfyRkgTg6m`
+  07-18T17:08Z; both fired ~05:15Z, both next 07:15Z). Owner-queue item
+  **`OQ-SBW-DUP-FAILSAFE`** raised (Active, VENUE: hub) — recommendation: delete the
+  older `trig_01XJJ88pQaQFRSpVAviCfAZe`; the 07-18 one is the current seat's. Full
+  escalation record: `docs/fleet-triage.md` § "2026-07-19 · SBW duplicate-failsafe
+  ESCALATION". No trigger calls made from this venue (attribution doctrine).
+
 # Fleet Manager — status
 
 Neutral heartbeat. Facts + pointers only. This file is not live coordination state (see banner). Live status: `docs/current-state.md`; next: `docs/NEXT-TASKS.md`; sweep detail: `docs/fleet-triage.md`.
@@ -136,12 +180,12 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 ```json routine-claims
 {
   "seat": "fleet-manager (coordinator)",
-  "updated": "2026-07-19T00:14Z",
+  "updated": "2026-07-19T06:23Z",
   "failsafe": {
     "id": "trig_01GK4mjoKBP3yCabn9ux1MB2",
     "cron": "30 */2 * * *",
-    "next_run_at": "2026-07-19T00:31:48Z",
-    "last_fired": "2026-07-18T22:33:40Z",
+    "next_run_at": "2026-07-19T06:31:48Z",
+    "last_fired": "2026-07-19T04:32:17Z",
     "state": "armed"
   },
   "deleted": ["trig_01Bo7dZxM9xz2hwR36L424Z8"],
@@ -222,18 +266,102 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 4. **Owner-queue carry-forward.** Read `docs/owner-queue.md` and carry forward, paste-ready,
    any remaining genuine owner-only items (secrets, settings, money, product intent).
 
-### Next-2-tasks baton (refreshed 2026-07-19T02:35Z)
-1. Hub lands **product-forge #29** — green, ready PR touching `.github/workflows/**`
-   (`merge-on-green.yml` skips workflow diffs → owner click or agent MCP/REST merge).
-   (**pokemon-mod-lab #98 dropped from this row** — closed 23:18:04Z as superseded by
-   #107; retire its `OQ-POKEMON-98-WORKFLOW-MERGE` owner-queue row in the next records
-   slice.)
-2. **~06:00Z:** websites **ORDER-036 ack/rebake escalation decision + re-sweep** —
-   036 still unacked at HEAD and no rebake landed since 00:00Z; #434 (BAKE_PAT wiring)
-   is now conflict-dirty on top of its owner gate, so the lane needs a rebase first.
-   Then re-sweep: fleet open-PR pass, I8 SBW duplicate-pair tripwire (owner-queue note
-   if still duplicated at the next capture), roster/snapshot freshness (watch the
-   02:40Z roster regen window — 00:40Z did not land; 4h bar crossed ~03:31Z).
+### ~07:2xZ planning pass (2026-07-19, PR #349)
+
+- **Owner posted the universal continue prompt (~07:45Z intent):** when executable
+  work is drained, PLAN. Executed as a planning slice: the ~8 night-shift session-card
+  💡 ideas groomed into a ranked next-slices queue —
+  **`docs/planning/2026-07-19-next-slices.md`** (indexed in `docs/planning/README.md`).
+- **Top picks (the standing "next slice" queue, in order):**
+  (1) `check_lane_liveness.py` seat-chain stall detector ·
+  (2) regen-window skip detector in `check_roster_freshness.py` ·
+  (3) seat-provenance-aware I8 remedy in `check_trigger_health.py`.
+- **Dropped/routed honestly:** `post_capture_deltas` superseded by the routine-claims
+  fence; `gen_hub_queue_baton.py` parked (inputs don't exist fleet-wide yet);
+  bake auto-supersede routed to the websites lane (ORDER 036 follow-up, not fm work).
+  Reasons in the plan doc.
+- Hub items, watches, and routine state **unchanged** from the 06:23Z heartbeat;
+  no trigger-MCP calls from this venue.
+
+### ~07:4xZ build slice — lane-liveness checker landed (2026-07-19, PR #350)
+
+- **Slice 1 of the next-slices queue SHIPPED:** `scripts/check_lane_liveness.py` —
+  per-lane LIVE/QUIET/STALLED/DARK verdicts from newest main-commit + heartbeat
+  signal vs failsafe cadence (snapshot-sourced); `--strict` exits 1 on STALLED.
+  Advisory tier, Q-0105 unverified header; indexed in `docs/playbook.md` R27
+  (detection-mechanized note). Ground-truth run 1 at 07:36Z: 15 live lanes
+  measured in ~25s, 0 walls; **websites came back LIVE — the lane resumed at
+  07:26:23Z (websites #436 heartbeat commit) after ~9.6h silent since 21:52:34Z**,
+  so the 036 stall is showing movement (watch below can begin retiring); the
+  stall-window signature itself (21:52Z read at 07:45Z → STALLED) is pinned in
+  `--selfcheck`. Known gap, honest: gba-homebrew / product-forge / trading-strategy
+  carry no attributable failsafe cron (Game Lab seat constituents are not
+  name-derivable) → cadence "assumed", never STALLED.
+
+### ~08:0xZ owner nothing-stuck directive — morning executions (2026-07-19, PR #351)
+
+- **Owner live directive, ~2026-07-19T08:00Z (verbatim, provenance record):**
+  > "There are 'do not automerge' labels in some repos and I want then gone,
+  > nothing should ever be stuck, I'm not going to look through PRs to merge
+  > them."
+- **Executed under it (facts, merge states re-verified live 08:39Z):**
+  - **product-forge #29 squash-merged via MCP 07:41:57Z**, merge sha `20be749`;
+    `android-ci.yml` on main → `OQ-FORGE-29-WORKFLOW-MERGE` **Resolved**. Hub
+    queue's last workflow carve-out cleared.
+  - **websites #434 label-stripped + squash-merged 07:50:01Z**, merge sha
+    `403a91d` — BAKE_PAT wiring live with the `|| GITHUB_TOKEN` fallback
+    (degraded-not-broken if the secret is absent). The 2026-07-18 data refresh
+    re-land + 036 ack remain lane work (`OQ-WEBSITES-036-STALL` annotated).
+  - **9-repo `do-not-automerge` label sweep:** definitions in 9 repos; only ONE
+    open item carried the label (websites #434, handled). Definitions not
+    deletable from the sweep worker's venue (no MCP delete-label tool; REST
+    401/403 verbatim-recorded — dated venue/path state, not a wall) → routed
+    to the hub queue as **`OQ-LABEL-DEFS-DELETE`** (paste-ready list; websites
+    caveat: `host-automerge-extras.yml` auto-re-creates/auto-applies the label,
+    so websites also needs the carve-out removal).
+  - **Carve-out-removal worker dispatch:** stopped by the platform auto-mode
+    classifier (guardrail-removal provenance check) — owner asked for explicit
+    confirmation wording; awaiting. Transient venue denial per doctrine.
+  - **fm #344:** still open, `mergeable_state: dirty`, head `c2ca6b6`; owner
+    armed native auto-merge; conflict-fix worker stopped by the owner pre-push
+    — relaunch awaits the owner's "go".
+- Full record: `docs/fleet-triage.md` § "2026-07-19 · owner nothing-stuck
+  directive — morning executions". Routine state untouched; no trigger-MCP
+  calls from this venue.
+
+### ~08:5xZ build slice — regen-window skip detector landed (2026-07-19, PR #352)
+
+- **Slice 2 of the next-slices queue SHIPPED:** `scripts/check_roster_freshness.py`
+  now parses the cron line(s) out of `.github/workflows/roster-regen.yml` and
+  reports `REGEN WINDOWS: N scheduled since generated-at, M missed (grace 2h)`
+  with a WARN line per missed window — informational only, the 4h freshness bar
+  stays the ONLY exit-red; `--strict-windows` opt-in exit-1 for future CI;
+  workflow missing/unparseable degrades to "not measured". Q-0105 unverified
+  header on the block. Ground-truth run 1 (08:58Z): 1 window scheduled since
+  gen #100 (07:08Z), 0 missed (08:40Z still within grace). Synthetic replay of
+  the incident night (stamp 23:31Z read at 03:30Z): the 00:40Z drop
+  self-announces as `1 missed` while freshness is still OK at 4.0h — exactly
+  the pre-bar signal that was missing tonight. Exit contract regression-checked
+  against main (identical codes, only the informational lines added).
+
+### Next-tasks baton (refreshed 2026-07-19T08:59Z)
+1. **Awaiting owner (two items):** (a) the **"go" to relaunch the fm #344
+   conflict-fix worker** (auto-merge already armed — it lands on green once the
+   conflict clears); (b) the **explicit confirmation wording for the websites
+   carve-out-removal dispatch** (classifier provenance check). Also still
+   queued for a hub-chat sitting: `OQ-SBW-DUP-FAILSAFE` (delete the older
+   `trig_01XJJ88pQaQFRSpVAviCfAZe`) + the new `OQ-LABEL-DEFS-DELETE`
+   (9 label-definition deletions; paste-ready in `docs/owner-queue.md`).
+2. **Next executable slice (planning queue, PR #349):** **seat-provenance-aware
+   I8 remedy** (`check_trigger_health.py`) — rank duplicate-cron deletes by
+   seat provenance so the remedy line can't contradict a correct escalation
+   (the SBW pair lesson). Slice 1 (`check_lane_liveness.py`) DONE, PR #350;
+   slice 2 (regen-window skip detector) DONE, PR #352. Full queue:
+   `docs/planning/2026-07-19-next-slices.md`.
+3. **Watches:** websites lane **revival** (first movement 07:26:23Z, #436;
+   `OQ-WEBSITES-036-STALL` retires when the data refresh re-lands + 036 acks)
+   **+ I6 snapshot refresh due ~10:15Z** (4h bar on the 06:15:10Z capture)
+   **+ prove the odd-hour roster cron** after #344 merges.
 
 ### Gates
 - `python3 scripts/check_trigger_health.py` → PASS (8/9 green, 1 WARN I8, exit 0).

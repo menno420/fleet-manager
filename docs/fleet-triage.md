@@ -984,3 +984,144 @@ no trigger calls made against sibling lanes.*
   re-paste ask already queued, owner asks item 1). **Disposition: Venture Lab
   seat folds the weekly grading into its work loop per v3.8 when its prompt
   re-paste lands**; sibling id, left alone — no trigger calls made.
+
+## 2026-07-19 · ~06Z morning sweep (05:43–05:45Z, read-only, MCP-verified) — coordinator wake records
+
+*Source: fm morning-sweep worker (PR #346), 2026-07-19. Every per-PR state and
+websites fact MCP-verified live 05:43–05:45Z before writing (Q-0120). Oversight-
+only: recorded here, never pushed to sibling repos. No trigger calls made.*
+
+- **Fleet open-PR state (05:43Z): 7 open PRs across 5 repos — 1 NEW since the
+  03:40Z pass, 0 new stuck reds, 0 green strays.**
+  - **NEW:** idea-engine [#622](https://github.com/menno420/idea-engine/pull/622)
+    (05:40:33Z, "VERDICT 169 mirror — PROPOSAL 156 APPROVE") — normal lane work,
+    expected to self-land on green. No action.
+  - **Hub queue confirmed:** product-forge [#29](https://github.com/menno420/product-forge/pull/29)
+    still OPEN, `mergeable_state: clean` (workflow carve-out; `OQ-FORGE-29-WORKFLOW-MERGE`) ·
+    fleet-manager [#344](https://github.com/menno420/fleet-manager/pull/344) still OPEN
+    (odd-hour roster cron; workflow carve-out, `OQ-FM-ROSTER-CRON-SECOND-LINE` rides that PR).
+  - **Unchanged known set:** superbot-next [#576](https://github.com/menno420/superbot-next/pull/576)
+    (parked by design — classifier-wall doc PR, owner-attended completion) ·
+    superbot-next [#571](https://github.com/menno420/superbot-next/pull/571) /
+    [#567](https://github.com/menno420/superbot-next/pull/567) (lane docs work, open
+    since ~22Z/21:54Z — watch for self-land) · websites
+    [#434](https://github.com/menno420/websites/pull/434) (below).
+- **websites deep-check (05:44Z, all read at HEAD `a5fdad4`):**
+  - `control/status.md`: `updated: 2026-07-18T21:42:45Z`; `orders:` line reads
+    `acked=001-035` — **ORDER 036 NOT acked.**
+  - [#434](https://github.com/menno420/websites/pull/434) (BAKE_PAT wiring, the 036
+    root-cause fix): still OPEN, **`mergeable_state: dirty` — conflict NOT
+    resolved**, `do-not-automerge` label still on, last updated 21:28:19Z.
+  - **No bake/data-refresh PR or commit on websites main since 21:52:34Z** — newest
+    commit is `a5fdad4` (#425, botsite durable /submit). The 2026-07-18 fleet-data
+    refresh remains un-relanded.
+  - **Failsafe-cron read:** websites failsafe fires `45 */2 * * *`; the 23:45Z,
+    01:45Z and 03:45Z windows produced **zero landed output** (no commits, no
+    heartbeat bump, no ack). The 05:45Z window was imminent at sweep time
+    (05:43Z) — re-checked pre-flip, see the disposition line for the result.
+- **ESCALATION DISPOSITION — websites ORDER 036 (decided this sweep):** the lane
+  showed **no activity of any kind since 21:52Z** (~8h silent; 036 unacked since it
+  landed 21:19:36Z, ~8.5h). Verdict: **websites seat chain possibly stalled
+  overnight — ORDER 036 unacked ~9h; disposition: flagged for the owner's morning
+  (owner-queue note `OQ-WEBSITES-036-STALL`, info-only) + the lane's next failsafe
+  wake.** Not hub-executable: #434 is `do-not-automerge` + owner-gated (ASK-0008
+  BAKE_PAT secret half) and conflict-dirty — the rebase + ack + rebake are lane
+  work; the secret half is owner work. No trigger calls made against the lane
+  (attribution doctrine).
+- **Local gate verdicts (05:44Z):** roster FRESH — gen #99, generated-at
+  2026-07-19T04:04Z (landed via automated #345 at 04:05:12Z — the Actions lane DID
+  fire overnight after the 00:40Z/02:40Z drops), 1.7h old, I5 PASS. Trigger health:
+  **8/9 + I6 FAIL** — snapshot capture instant 00:06Z is 5.6h past the 4h bar; this
+  sweep's venue makes no trigger-MCP calls, so the export refresh rides the
+  coordinator's next wake (disposition, not a wall). I8 SBW duplicate-pair WARN
+  unchanged (routed to that seat; tripwire re-arms at the next capture).
+  `verify_routine_state.py` → OK, 2 claims verified (C1 failsafe + C3 deleted).
+
+## 2026-07-19 · SBW duplicate-failsafe ESCALATION — tripwire FIRED (06:15:10Z capture) — records slice
+
+*Source: fm records slice (PR #347), 2026-07-19. Facts read from the fresh
+2026-07-19T06:15:10Z full `list_triggers` export (2024 records, 17 enabled) now
+committed as `telemetry/triggers-snapshot.json`. Oversight-only: recorded here,
+no trigger calls made from this venue.*
+
+- **The 00:06Z watch item's escalation tripwire has FIRED.** The tripwire read:
+  *"if the pair is still duplicated at the next snapshot capture, raise an
+  owner-queue note."* At the second capture (06:15:10Z) both "SuperBot World
+  failsafe wake" crons (`15 1-23/2 * * *`) are **STILL both enabled**:
+  - `trig_01XJJ88pQaQFRSpVAviCfAZe` — created 2026-07-17T22:11:56Z, last_fired
+    2026-07-19T05:15:26Z, next 07:15:00Z.
+  - `trig_01DbcKVWxn6RJPhfyRkgTg6m` — created 2026-07-18T17:08:23Z, last_fired
+    2026-07-19T05:15:23Z, next 07:15:00Z.
+- **Two captures cited:** first at 2026-07-19T00:06:22Z (both fired ~23:15Z —
+  last_fired 23:15:21Z / 23:15:19Z, watch item above); second at
+  2026-07-19T06:15:10Z (both fired ~05:15Z, ~3s apart, next both 07:15Z). Six
+  more hours = three more double-wake windows with no seat-side dedup — past the
+  "route to the seat" threshold, exactly as the tripwire defined.
+- **Escalation executed: owner-queue item `OQ-SBW-DUP-FAILSAFE` raised (Active,
+  VENUE: hub)** — delete one of the pair from the hub chat's trigger tools.
+  **Recommendation: delete `trig_01XJJ88pQaQFRSpVAviCfAZe` (the older,
+  07-17-created one)** — the 07-18T17:08Z cron is the *current* SBW seat's own
+  cutover-armed failsafe, so it is the one whose session binding is live. Note
+  honestly: `check_trigger_health.py`'s generic I8 remedy says "keep the
+  OLDEST"; that heuristic is seat-blind — here provenance decides (the newer id
+  belongs to the seat that is actually running), so the seat-aware
+  recommendation inverts it. Either deletion is ✅ reversible (re-create from
+  the SBW startup prompt).
+- **Attribution doctrine intact:** fm doctrine forbids this seat deleting a
+  sibling lane's trigger id — hence the hub-chat routing rather than a direct
+  `delete_trigger` from this venue. I8 stays WARN (not FAIL) until the dedup
+  lands; VERIFY = the next fm snapshot shows exactly one enabled SBW failsafe.
+
+## 2026-07-19 · owner "nothing-stuck" directive — morning executions (~07:40–08:10Z) — records slice
+
+*Source: fm records slice (PR #351), 2026-07-19T08:38Z. Facts from this
+morning's hub workers, merge states re-verified live via the GitHub MCP at
+record time (Q-0120). RAW DATA; no trigger-MCP calls from this venue.*
+
+- **Owner live directive, ~2026-07-19T08:00Z (verbatim, provenance record):**
+  > "There are 'do not automerge' labels in some repos and I want then gone,
+  > nothing should ever be stuck, I'm not going to look through PRs to merge
+  > them."
+- **product-forge #29 MERGED** — squash-merged directly via MCP
+  2026-07-19T07:41:57Z, merge sha `20be7493a7c4d96b3b61e1f2f023ed77ad015e27`;
+  `android-ci.yml` verified present on product-forge main. Owner-queue row
+  `OQ-FORGE-29-WORKFLOW-MERGE` → **Resolved** (hub queue's last workflow
+  carve-out cleared).
+- **websites #434 MERGED** — `do-not-automerge` label stripped, then
+  squash-merged (merged_at 2026-07-19T07:50:01Z, merge sha
+  `403a91def5c315ea75623b574df60fa42cbf8cda`). BAKE_PAT wiring is live in
+  `review-bake.yml` with the `|| GITHUB_TOKEN` fallback — degraded-not-broken
+  behavior until/unless the BAKE_PAT secret exists (the fallback reproduces
+  today's exact behavior). The 2026-07-18 data refresh itself is still
+  un-relanded — lane work.
+- **Fleet do-not-automerge label sweep (directive execution, facts):**
+  - Label **defined in 9 repos**: websites, substrate-kit, fleet-manager,
+    superbot, gba-homebrew, idea-engine, venture-lab, superbot-games,
+    superbot-next.
+  - **Only ONE open item carried it** — websites #434 (stripped + merged,
+    above). Nothing else in the fleet is label-stuck as of the sweep.
+  - **Label definitions NOT deletable from this venue**: the GitHub MCP
+    toolset has no delete-label tool; the REST path returned 401/403
+    (verbatim errors recorded by the sweep worker). Per doctrine this is a
+    venue/path state, not a wall — the deletions route to the hub queue
+    (`OQ-LABEL-DEFS-DELETE`).
+  - **websites machinery caveat:** `host-automerge-extras.yml` (from websites
+    PR #324) AUTO-RE-CREATES and auto-applies the `do-not-automerge` label on
+    workflow-touching `claude/*` PRs — so in websites, deleting the label
+    definition alone cannot satisfy the directive; the workflow behavior
+    itself needs changing (carve-out removal, below).
+- **Carve-out-removal worker dispatch BLOCKED (transient venue denial, NOT a
+  wall):** the platform auto-mode classifier's guardrail-removal provenance
+  check stopped the dispatch and asked for explicit owner confirmation
+  wording; awaiting that confirmation. Recorded per doctrine as an
+  attempt-once venue denial — do not generalize.
+- **fm #344 (odd-hour roster cron):** still OPEN, `mergeable_state: dirty`,
+  head `c2ca6b6` (re-verified live 08:39Z); **owner armed native auto-merge**
+  on it; the conflict-fix worker was stopped by the owner pre-push; relaunch
+  awaits the owner's "go". Note (drift, recorded): #344's body says it queued
+  `OQ-FM-ROSTER-CRON-SECOND-LINE` in `docs/owner-queue.md`, but that edit
+  rides the unmerged PR itself — on main the live row is
+  `OQ-FM-ROSTER-CRON-RELIABILITY` (annotated this slice).
+- **fm #350 (`check_lane_liveness.py`) merged earlier this morning** — slice 1
+  of the next-slices queue done; next executable = **regen-window skip
+  detector** (`docs/planning/2026-07-19-next-slices.md`).
