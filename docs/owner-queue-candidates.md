@@ -4,14 +4,14 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #100** · generated-at **2026-07-19T07:08Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #101** · generated-at **2026-07-19T10:09Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
 ### superbot (hub) — ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready…
 
 - suggested-id: `OQ-SUPERBOT-HUB-SIDE-RESIDUE-ONLY`
-- source: superbot/control/status.md @ `df7bf8d` · heartbeat `updated:` 2026-07-13T18:00:00Z
+- source: superbot/control/status.md @ `cc78f7e` · heartbeat `updated:` 2026-07-13T18:00:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -21,7 +21,7 @@
 ### superbot-next — ⚑ needs-owner: (1) disarm the residual failsafe wake triggers via the routines UI — both enabled duplicates o…
 
 - suggested-id: `OQ-SUPERBOT-NEXT-1-DISARM-RESIDUAL-FAILSAFE`
-- source: superbot-next/control/status.md @ `266c749` · heartbeat `updated:` 2026-07-18T04:15:22Z
+- source: superbot-next/control/status.md @ `140b0d3` · heartbeat `updated:` 2026-07-19T07:56:54Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -31,7 +31,7 @@
 ### substrate-kit — ⚑ FOR OWNER — kit-lab daily cron: recreate or retire? (A/B)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-KIT-LAB-DAILY-CRON`
-- source: substrate-kit/control/status.md @ `4bb8f7f` · heartbeat `updated:` 2026-07-19T02:42:21Z · phase: rank-2 folded-gate diff-aware…
+- source: substrate-kit/control/status.md @ `4e29ef6` · heartbeat `updated:` 2026-07-19T09:46:29Z · phase: R5 SHIPPED (capability stale-…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -48,7 +48,7 @@
 ### substrate-kit — ⚑ v1.19.0 adopter-wave authorization
 
 - suggested-id: `OQ-SUBSTRATE-KIT-V1-19-0-ADOPTER`
-- source: substrate-kit/control/status.md @ `4bb8f7f` · heartbeat `updated:` 2026-07-19T02:42:21Z · phase: rank-2 folded-gate diff-aware…
+- source: substrate-kit/control/status.md @ `4e29ef6` · heartbeat `updated:` 2026-07-19T09:46:29Z · phase: R5 SHIPPED (capability stale-…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -66,7 +66,7 @@ RISK: ↩️ reversible, distribution-only diffs.
 ### substrate-kit — ⚑ CAPABILITIES denial-record entry (parked)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-CAPABILITIES-DENIAL-RECORD-ENTRY`
-- source: substrate-kit/control/status.md @ `4bb8f7f` · heartbeat `updated:` 2026-07-19T02:42:21Z · phase: rank-2 folded-gate diff-aware…
+- source: substrate-kit/control/status.md @ `4e29ef6` · heartbeat `updated:` 2026-07-19T09:46:29Z · phase: R5 SHIPPED (capability stale-…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -80,27 +80,10 @@ VERIFY: a dated docs/CAPABILITIES.md entry pointing at PR #420.
 RISK: ↩️ reversible, docs-only.
 ```
 
-### substrate-kit — ⚑ P10 required-check swap
-
-- suggested-id: `OQ-SUBSTRATE-KIT-P10-REQUIRED-CHECK-SWAP`
-- source: substrate-kit/control/status.md @ `4bb8f7f` · heartbeat `updated:` 2026-07-19T02:42:21Z · phase: rank-2 folded-gate diff-aware…
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-⚑ P10 required-check swap
-WHAT: Swap which CI check main requires, from the two legacy names to the current one.
-WHERE: repo Settings → Rules → the `main` ruleset → required status checks.
-HOW: in the ruleset panel, remove the two legacy-alias check names, add `kit-quality`.
-WHY: the two legacy-alias jobs are permanently-absent required checks that stall every PR's merge until the enabler/lander path clears them; kit-quality is the real check.
-UNBLOCKS: deleting the two legacy-alias jobs; ends the queue-stall class.
-VERIFY: next kit PR shows kit-quality as the only required check; agent then removes the alias jobs.
-RISK: ↩️ reversible — re-add the old required checks in the same ruleset panel.
-```
-
 ### substrate-kit — ⚑ public-flip-or-PAT (pick one)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-PUBLIC-FLIP-PAT-PICK`
-- source: substrate-kit/control/status.md @ `4bb8f7f` · heartbeat `updated:` 2026-07-19T02:42:21Z · phase: rank-2 folded-gate diff-aware…
+- source: substrate-kit/control/status.md @ `4e29ef6` · heartbeat `updated:` 2026-07-19T09:46:29Z · phase: R5 SHIPPED (capability stale-…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -114,56 +97,37 @@ VERIFY: a sibling-seat session fetches a kit file read-only without "Access deni
 RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩️ P13 reversible — revoke anytime.
 ```
 
+### substrate-kit — ⚑ t5-headless-guard fix (owner-gated: pin-path + cross-tree kit-lab)
+
+- suggested-id: `OQ-SUBSTRATE-KIT-T5-HEADLESS-GUARD-FIX`
+- source: substrate-kit/control/status.md @ `4e29ef6` · heartbeat `updated:` 2026-07-19T09:46:29Z · phase: R5 SHIPPED (capability stale-…
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+⚑ t5-headless-guard fix (owner-gated: pin-path + cross-tree kit-lab)
+WHAT: fix the T5 bench probe so it produces a real in-session guard fire in the ON arm. Recommend shape 2 (check-driven guards) — needs no hook-honoring harness rebuild and the enforcement surface exists headless.
+WHERE: kit-lab repo, `bench/tasks/T5.md` (PIN PATH) + `bench/README.md` / `run_ab.py`; optional engine sliver `src/engine/checks/` (substrate-kit) for the last-card freshness anchor — verify it is not already covered by #19's `--require-session-log`.
+HOW: shape 2 — the arm's protocol runs `check --strict` inside the session flow (or a wrapper fails the task on red) so the guard's fire/obey/repair arc is observable without the hook layer.
+WHY: without it, T5 scores all guard items n/a — the ON arm demonstrates nothing over the unguarded baseline; the guard-probe purpose of T5 is unmet.
+UNBLOCKS: a T5 run that scores guard fire/obey/repair met/not-met instead of n/a; closes judge report §5.5 item 2.
+VERIFY: a T5 run produces ≥1 real in-session guard fire (or a recorded deliberate violation) in the ON arm.
+RISK: ⚠️ pin-path change → must land via a `do-not-automerge` owner-review PR in kit-lab; not landable from substrate-kit. Detail home: docs/planning/2026-07-19-needs-planning-recipes.md §4.
+```
+
 ### ↳ substrate-kit — `control/status-superbot-coordinator.md` — ⚑ needs-owner: 1) verify/deliver the testing-lane wind-down — superbot-next control/status.md was still UNFLI…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-1-VERIFY-DELIVER-TESTING`
-- source: substrate-kit/control/status-superbot-coordinator.md @ `4bb8f7f` · heartbeat `updated:` 2026-07-10T13:47:02Z
+- source: substrate-kit/control/status-superbot-coordinator.md @ `4e29ef6` · heartbeat `updated:` 2026-07-10T13:47:02Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
 ⚑ needs-owner: 1) verify/deliver the testing-lane wind-down — superbot-next control/status.md was still UNFLIPPED at 2026-07-10T13:45Z (band-5 "NEXT LANE: LIVE-DRIVE", 01:05Z heartbeat), so that lane's seven wind-down deliverables are still owed [unblocks: superbot-next lane archive]; 2) kernel-surface-drift ruling (flag 13 in superbot-next docs/status/testing-report-2026-07-09.md: "relax-compare" or "re-baseline") [unblocks: ALL parity flips]; 3) create repo superbot-plugin-hello (github.com/new, owner menno420, Public, no README) [unblocks: ORDER 002 done]; 4) paste the setup script from docs/environment-setup-script.md into the project Environment settings (re-verified exit-0 at wind-down) [unblocks: no more provisioning deaths]; 5) nod for wiring superbot's new collision/freshness checkers (#1918/#1923) into code-quality.yml — one small PR, owner said workflow edits need a nod [unblocks: checkers enforce in CI]; 6) stale trading-lab/venture-lab manifest rows (manager-owned file) + Q-0248 taxonomy lacks a "tooling" class [unblocks: honest telemetry]
 ```
 
-### venture-lab — OWNER-ACTION handoff that stops at paste-ready (owner-gated publishing — the
-
-- suggested-id: `OQ-VENTURE-LAB-HANDOFF-THAT-STOPS-AT`
-- source: venture-lab/control/status.md @ `5d439bf` · heartbeat `updated:` 2026-07-19T00:29:52Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-  OWNER-ACTION handoff that stops at paste-ready (owner-gated publishing — the
-  doc never auto-publishes). Linked from `docs/launch/README.md` (Cross-product)
-  so the docs-gate reaches it; #243/#246 cited as the worked examples. Docs/
-  markdown-only, reversible; no OWNER-QUEUE row (a playbook is not a publish
-  surface). Posting stays an owner paste-and-post (OWNER-ACTION) — the seat
-  performed no publish/spend/account action.
-```
-
-### venture-lab — **⚑ Owner-queue (paste-ready, all owner-only):**
-
-- suggested-id: `OQ-VENTURE-LAB-QUEUE-PASTE-READY-ALL`
-- source: venture-lab/control/status.md @ `5d439bf` · heartbeat `updated:` 2026-07-19T00:29:52Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-**⚑ Owner-queue (paste-ready, all owner-only):**
-1. ~8 publish clicks — nothing live yet — per
-   [`../docs/publishing/OWNER-QUEUE.md`](../docs/publishing/OWNER-QUEUE.md)
-   (authoritative; decisions renumber on insert). The 2 bundles auto-unblock once
-   their components publish.
-2. Delete leftover remote branch `probe/push-access-check-2026-07-17` (agents are
-   403-walled on branch delete).
-3. LENGTH-BAND-PREP one-word ratify (unblocks Night Kiln NL omnibus + NL
-   narration).
-4. Native-speaker NL proofread (unblocks Salt Bell / Wire Garden NL editions).
-5. R5 yes/no — authorize/decline the `_api-hardening-core` refactor of the 8
-   shipped kits.
-```
-
 ### superbot-games · Seat A — ⚑ needs-owner: 4 standing decisions, none new this wake — the OWNER ACTIONS checklist (deep links + bolded re…
 
 - suggested-id: `OQ-SUPERBOT-GAMES-4-STANDING-DECISIONS-NONE`
-- source: superbot-games/control/status.md @ `51975b0` · heartbeat `updated:` 2026-07-14T11:41:04Z
+- source: superbot-games/control/status.md @ `1c63f3b` · heartbeat `updated:` 2026-07-14T11:41:04Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -173,7 +137,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### ↳ superbot-games · Seat A — `control/status-exploration.md` — ⚑ needs-owner: \|
 
 - suggested-id: `OQ-SUPERBOT-GAMES-FLAG`
-- source: superbot-games/control/status-exploration.md @ `51975b0` · heartbeat `updated:` 2026-07-09T20:09Z
+- source: superbot-games/control/status-exploration.md @ `1c63f3b` · heartbeat `updated:` 2026-07-09T20:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -196,7 +160,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### superbot-idle (Seat B) — ⚑ needs-owner: OA-003 — WHAT: add `pytest` as a required status check on main. WHERE: https://github.com/menn…
 
 - suggested-id: `OQ-SUPERBOT-IDLE-OA-003-WHAT-ADD`
-- source: superbot-idle/control/status.md @ `38648a5` · heartbeat `updated:` 2026-07-17T10:26:04Z
+- source: superbot-idle/control/status.md @ `d2b6d38` · heartbeat `updated:` 2026-07-17T10:26:04Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -206,7 +170,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### superbot-idle (Seat B) — - ⚑ to manager: no longer a blocker-ask. Optional follow-up only — owner may create the standalone superbot-p…
 
 - suggested-id: `OQ-SUPERBOT-IDLE-MANAGER-NO-LONGER-BLOCKER`
-- source: superbot-idle/control/status.md @ `38648a5` · heartbeat `updated:` 2026-07-17T10:26:04Z
+- source: superbot-idle/control/status.md @ `d2b6d38` · heartbeat `updated:` 2026-07-17T10:26:04Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -216,7 +180,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### superbot-mineverse — ⚑ needs-owner: unchanged — the pending clicks stay consolidated in docs/eap-closeout-walkthrough-2026-07-14.m…
 
 - suggested-id: `OQ-SUPERBOT-MINEVERSE-UNCHANGED-PENDING-CLICKS-STAY`
-- source: superbot-mineverse/control/status.md @ `18a006c` · heartbeat `updated:` 2026-07-16T00:55:09Z
+- source: superbot-mineverse/control/status.md @ `a8373a2` · heartbeat `updated:` 2026-07-16T00:55:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -226,7 +190,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### gba-homebrew — - ⚑ **OWNER/HUB asks (ender):** **merge pml #98 + product-forge #29 in the hub** — both are workflow-file PRs…
 
 - suggested-id: `OQ-GBA-HOMEBREW-HUB-ASKS-ENDER-MERGE`
-- source: gba-homebrew/control/status.md @ `97ac85d` · heartbeat `updated:` 2026-07-18T17:03:04Z (ISO-8601 UTC; coordinator ENDER close…
+- source: gba-homebrew/control/status.md @ `01a72c5` · heartbeat `updated:` 2026-07-18T17:03:04Z (ISO-8601 UTC; coordinator ENDER close…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -241,7 +205,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### product-forge — ⚑ OWNER-ACTION (OA-003, open)
 
 - suggested-id: `OQ-PRODUCT-FORGE-OA-003-OPEN`
-- source: product-forge/control/status.md @ `8934ec1` · heartbeat `updated:` 2026-07-11T19:39:50Z
+- source: product-forge/control/status.md @ `e3fc844` · heartbeat `updated:` 2026-07-11T19:39:50Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -261,7 +225,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### idea-engine — ⚑ needs-owner: ORDER-010(c) sim-lab kit upgrade v1.15.0→v1.18.0 PARKED on owner in-session authorization + AS…
 
 - suggested-id: `OQ-IDEA-ENGINE-ORDER-010-C-SIM`
-- source: idea-engine/control/status.md @ `e7c7e10` · heartbeat `updated:` 2026-07-19T07:02:35Z · seat: mirror slice — round-37 GAME-s…
+- source: idea-engine/control/status.md @ `a97ac1a` · heartbeat `updated:` 2026-07-19T09:48:43Z · seat: round-38 UNRELATED-slot PROPOS…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -280,5 +244,5 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 
 ---
 
-19 candidate block(s) across 13 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
+17 candidate block(s) across 12 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
 
