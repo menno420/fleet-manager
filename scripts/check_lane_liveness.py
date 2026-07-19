@@ -70,6 +70,33 @@ VERDICT LADDER
   failsafe proves wakes were SCHEDULED, not delivered — a STALLED verdict
   therefore means "windows passed, nothing landed", whichever side dropped.
 
+WAKE COLUMN — wake-without-work refinement (2026-07-19, groom slice #2)
+  The STALLED verdict alone cannot tell WHICH side dropped. The snapshot's
+  `last_fired_at` on the lane's failsafe cron can — so each armed lane also
+  gets a wake-state annotation that splits silence into two distinct states:
+
+    asleep        the failsafe is armed on paper but was NOT actually firing
+                  at the capture instant (no fire on record, or the last fire
+                  is > 2 cadence windows older than `captured_at`) — the
+                  scheduler side dropped; silence costs nothing but delivers
+                  nothing.
+    WAKING-IDLE   the failsafe HAS fired >= 2 windows (from the cron cadence
+                  + `last_fired_at`) after the lane's newest landed signal —
+                  wakes are being delivered and BURNING TOKENS WITH ZERO
+                  OUTPUT. A distinct, worse state than mere quiet: the chain
+                  runs, the work doesn't land.
+    waking        firing on schedule, and the lane's output is not >= 2 fire
+                  windows behind (healthy, or too early to call).
+
+  The verdict ladder above is unchanged — the wake column refines STALLED
+  (and QUIET) with the burn signal, it never replaces them. Honest caveat:
+  the column reads the COMMITTED snapshot only, so fires after `captured_at`
+  are invisible (capture lag) — the capture instant is printed with the
+  table so the reader knows the blind window. With a single most-recent
+  `last_fired_at`, earlier fires are inferred from the cron cadence (a fire
+  every cadence window between the lane's last signal and the recorded
+  fire), which the on-schedule check above supports.
+
 EXIT CONTRACT (advisory-only tier, same as the S3/S5/S9 trio — this checker
 is NEVER merge-blocking):
   default    exit 0 always (table + one summary line).
@@ -101,6 +128,10 @@ DEFAULT_CADENCE_H = 2.0
 LIVE_MAX_WINDOWS = 2.0
 QUIET_MAX_WINDOWS = 4.0
 
+# Wake-without-work thresholds (see "WAKE COLUMN" in the module docstring).
+ASLEEP_LAG_WINDOWS = 2.0     # last fire > this many cadences before capture
+WAKING_IDLE_MIN_FIRES = 2    # fires since last output that mean "burning"
+
 # Multi-repo seats name their failsafe after the SEAT, not any constituent
 # repo ("SuperBot World failsafe wake"), so repo-token attribution misses
 # them (INC-62). This map hands a constituent repo its covering registry-only
@@ -127,20 +158,31 @@ def lane_by_name(name: str) -> dict | None:
     return None
 
 
-def lane_cadence(lane: dict, records: list[dict]) -> tuple[float, bool, str]:
-    """(cadence_hours, failsafe_enabled, source_label) for one lane.
+def _newest_fire(recs: list[dict]) -> datetime | None:
+    """Newest parseable `last_fired_at` across enabled standing records."""
+    fires = [gen_roster.parse_when(r.get("last_fired_at") or "") for r in recs]
+    fires = [f for f in fires if f is not None]
+    return max(fires) if fires else None
+
+
+def lane_cadence(lane: dict,
+                 records: list[dict]) -> tuple[float, bool, str,
+                                               datetime | None]:
+    """(cadence_hours, failsafe_enabled, source_label, last_fired) per lane.
 
     Pure over (lane, records) so --selfcheck pins it. Cadence = the minimum
     across the lane's own enabled standing crons; else the covering seat's;
     else the assumed default. failsafe_enabled is True only when a real
     enabled standing cron was found on either rung — the assumed rung never
-    claims an armed failsafe.
+    claims an armed failsafe. last_fired = the newest `last_fired_at` across
+    the winning rung's records (None on the assumed rung, or when the
+    snapshot carries no parseable fire stamp).
     """
     own = gen_roster.match_lane_triggers(lane, records)["standing"]
     cads = [gen_roster.cadence_hours(r["cron_expression"]) for r in own]
     cads = [c for c in cads if c]
     if cads:
-        return min(cads), True, "own failsafe cron"
+        return min(cads), True, "own failsafe cron", _newest_fire(own)
     cover_name = SEAT_COVER.get(lane.get("repo") or "")
     cover = lane_by_name(cover_name) if cover_name else None
     if cover:
@@ -148,8 +190,72 @@ def lane_cadence(lane: dict, records: list[dict]) -> tuple[float, bool, str]:
         cads = [gen_roster.cadence_hours(r["cron_expression"]) for r in seat]
         cads = [c for c in cads if c]
         if cads:
-            return min(cads), True, f"seat cron ({cover_name.split(' (')[0]})"
-    return DEFAULT_CADENCE_H, False, "assumed (no armed cron found)"
+            return (min(cads), True,
+                    f"seat cron ({cover_name.split(' (')[0]})",
+                    _newest_fire(seat))
+    return DEFAULT_CADENCE_H, False, "assumed (no armed cron found)", None
+
+
+# ---------------------------------------------------------------------------
+# Wake-without-work detector (groom slice #2)
+# ============================== PROVENANCE =================================
+# Why added : The 2026-07-19 SBW finding — a seat whose failsafe keeps firing
+#             while its lanes land NOTHING is a distinct, worse state than
+#             mere quiet: wakes are burning tokens with zero output. The
+#             STALLED verdict already correlates last-activity vs cadence but
+#             cannot say WHICH side dropped; the committed snapshot's
+#             `last_fired_at` can. Splits "asleep" (failsafe not firing) from
+#             "WAKING-IDLE" (firing on schedule, no landed output). Evening
+#             re-groom rank #2, docs/planning/2026-07-19-next-slices.md;
+#             dispatched via the control/status.md baton.
+# Date      : 2026-07-19 (build-slice worker, model: fable-5, dispatched by
+#             the fleet-manager coordinator seat; PR #379)
+# Reliability: unverified — confirm its output against ground truth a few
+#             times across sessions before trusting it. Ground-truth run 1
+#             (2026-07-19, PR #379): the STALLED SBW constituent lanes scored
+#             WAKING-IDLE (seat failsafe last fired 17:15Z, hours after each
+#             lane's newest landed signal) — matching the day's hand-read
+#             SBW record. Verbatim table in the PR body + session card.
+# Kill-switch: delete this block (and the Wake column wiring) if it proves
+#             unreliable over multiple sessions.
+# ===========================================================================
+
+def fires_since(last_fired: datetime | None, signal: datetime | None,
+                cadence_h: float) -> int:
+    """Inferred count of failsafe fires AFTER the lane's newest signal.
+
+    Only `last_fired_at` (the most recent fire) is recorded, so earlier
+    fires are inferred from the cron cadence: one fire per cadence window
+    across the signal→last_fired gap, plus the recorded fire itself.
+    0 when the lane landed output at/after the last recorded fire.
+    """
+    if last_fired is None or signal is None or last_fired <= signal:
+        return 0
+    gap_h = (last_fired - signal).total_seconds() / 3600.0
+    return int(gap_h / cadence_h) + 1
+
+
+def wake_state(armed: bool, last_fired: datetime | None,
+               signal: datetime | None, cadence_h: float,
+               captured: datetime | None) -> str:
+    """Pure wake-without-work ladder (see module docstring, WAKE COLUMN)."""
+    if not armed:
+        return "—"
+    if last_fired is None:
+        return "asleep? (armed, no fire on record)"
+    if captured is not None:
+        lag_h = (captured - last_fired).total_seconds() / 3600.0
+        if lag_h > ASLEEP_LAG_WINDOWS * cadence_h:
+            return f"asleep (last fire {gen_roster.age_str(lag_h)} " \
+                   "before capture)"
+    if signal is None:
+        return "waking (no signal to compare)"
+    fires = fires_since(last_fired, signal, cadence_h)
+    if fires >= WAKING_IDLE_MIN_FIRES:
+        return f"WAKING-IDLE ({fires} fires since last output)"
+    if fires == 1:
+        return "waking (1 fire since output)"
+    return "waking"
 
 
 def verdict_for(windows: float | None, failsafe_enabled: bool) -> str:
@@ -180,12 +286,12 @@ def newest_signal(hb: dict) -> tuple[datetime | None, str]:
 
 
 def measure_lane(lane: dict, records: list[dict], now: datetime,
-                 max_attempts: int) -> dict:
+                 max_attempts: int, captured: datetime | None = None) -> dict:
     """One lane's row: signals fetched live, verdict from the pure ladder."""
-    cadence, armed, source = lane_cadence(lane, records)
+    cadence, armed, source, last_fired = lane_cadence(lane, records)
     row = {"lane": lane["lane"], "cadence": cadence, "armed": armed,
            "source": source, "signal": None, "signal_kind": "—",
-           "age_h": None, "windows": None}
+           "age_h": None, "windows": None, "wake": "—"}
     if lane["disposition"] != "live":
         row["verdict"] = ("SKIP (archived — stale-by-design)"
                           if lane["disposition"] == "archived"
@@ -197,16 +303,19 @@ def measure_lane(lane: dict, records: list[dict], now: datetime,
     except gen_roster.Wall as wall:
         row["verdict"] = ("NOT MEASURED "
                           f"(wall: {gen_roster.describe_wall(str(wall))})")
+        row["wake"] = wake_state(armed, last_fired, None, cadence, captured)
         return row
     signal, kind = newest_signal(hb)
     if signal is None:
         row["verdict"] = "DARK"
+        row["wake"] = wake_state(armed, last_fired, None, cadence, captured)
         return row
     age_h = (now - signal).total_seconds() / 3600.0
     windows = age_h / cadence
     row.update(signal=signal.strftime("%Y-%m-%dT%H:%MZ"), signal_kind=kind,
                age_h=age_h, windows=windows,
-               verdict=verdict_for(windows, armed))
+               verdict=verdict_for(windows, armed),
+               wake=wake_state(armed, last_fired, signal, cadence, captured))
     return row
 
 
@@ -216,21 +325,35 @@ def render(rows: list[dict], now: datetime, captured_at: str) -> str:
            f"triggers snapshot captured_at {captured_at}",
            "",
            "| Lane | Last signal | Kind | Age | Cadence (source) | Windows "
-           "| Failsafe | Verdict |",
-           "|---|---|---|---|---|---|---|---|"]
+           "| Failsafe | Wake (snapshot) | Verdict |",
+           "|---|---|---|---|---|---|---|---|---|"]
     for r in rows:
         age = gen_roster.age_str(r["age_h"]) if r["age_h"] is not None else "—"
         win = f"{r['windows']:.1f}" if r["windows"] is not None else "—"
         out.append(
             f"| {r['lane']} | {r['signal'] or '—'} | {r['signal_kind']} "
             f"| {age} | {r['cadence']:g}h ({r['source']}) | {win} "
-            f"| {'enabled' if r['armed'] else '—'} | {r['verdict']} |")
+            f"| {'enabled' if r['armed'] else '—'} | {r.get('wake', '—')} "
+            f"| {r['verdict']} |")
     stalled = [r["lane"] for r in rows if r["verdict"] == "STALLED"]
     dark = [r["lane"] for r in rows if r["verdict"] == "DARK"]
     unmeasured = [r for r in rows if r["verdict"].startswith("NOT MEASURED")]
+    idle = [r["lane"] for r in rows
+            if r.get("wake", "").startswith("WAKING-IDLE")]
+    asleep = [r["lane"] for r in rows
+              if r.get("wake", "").startswith("asleep")]
     out += ["", f"STALLED: {', '.join(stalled) if stalled else 'none'} · "
+                f"WAKING-IDLE: {', '.join(idle) if idle else 'none'} · "
+                f"asleep: {', '.join(asleep) if asleep else 'none'} · "
                 f"DARK: {', '.join(dark) if dark else 'none'} · "
-                f"not measured: {len(unmeasured)}"]
+                f"not measured: {len(unmeasured)}",
+            "",
+            "Wake-column caveat: reads the COMMITTED snapshot only — fires "
+            f"after captured_at {captured_at} are invisible (capture lag). "
+            "WAKING-IDLE = failsafe fired ≥2 windows after the lane's newest "
+            "landed signal (earlier fires inferred from the cron cadence): "
+            "wakes are burning tokens with zero landed output. asleep = "
+            "armed on paper, not firing at capture."]
     return "\n".join(out)
 
 
@@ -251,19 +374,45 @@ def selfcheck() -> int:
     # cadence resolution over a synthetic registry
     recs = [{"id": "trig_a", "name": "Websites failsafe wake",
              "created_at": "2026-07-19T00:00:00Z", "enabled": True,
-             "cron_expression": "45 */2 * * *"},
+             "cron_expression": "45 */2 * * *",
+             "last_fired_at": "2026-07-19T16:45:12.229448Z"},
             {"id": "trig_b", "name": "SuperBot World failsafe wake",
              "created_at": "2026-07-19T00:00:00Z", "enabled": True,
-             "cron_expression": "15 1-23/2 * * *"}]
+             "cron_expression": "15 1-23/2 * * *",
+             "last_fired_at": "2026-07-19T17:15:27Z"}]
     web = lane_by_name("websites")
-    assert web and lane_cadence(web, recs) == (2.0, True, "own failsafe cron")
+    assert web and lane_cadence(web, recs) == (
+        2.0, True, "own failsafe cron",
+        datetime(2026, 7, 19, 16, 45, 12, tzinfo=timezone.utc))
     idle = lane_by_name("superbot-idle (Seat B)")
-    cad, armed, src = lane_cadence(idle, recs)
+    cad, armed, src, fired = lane_cadence(idle, recs)
     assert (cad, armed) == (2.0, True) and src.startswith("seat cron"), src
+    assert fired == datetime(2026, 7, 19, 17, 15, 27, tzinfo=timezone.utc)
     forge = lane_by_name("product-forge")
-    cad, armed, src = lane_cadence(forge, recs)
-    assert (cad, armed) == (DEFAULT_CADENCE_H, False) and "assumed" in src
-    print("selfcheck OK (10 pins)")
+    cad, armed, src, fired = lane_cadence(forge, recs)
+    assert (cad, armed, fired) == (DEFAULT_CADENCE_H, False, None)
+    assert "assumed" in src
+    # wake-without-work ladder (pure pins)
+    t = lambda h, m=0: datetime(2026, 7, 19, h, m, tzinfo=timezone.utc)  # noqa: E731
+    assert fires_since(None, t(10), 2.0) == 0            # no fire on record
+    assert fires_since(t(17, 15), None, 2.0) == 0        # no signal (DARK)
+    assert fires_since(t(10), t(12), 2.0) == 0           # output after fire
+    assert fires_since(t(12, 30), t(12), 2.0) == 1       # sub-window gap
+    assert fires_since(t(17, 15), t(7, 34), 2.0) == 5    # the SBW signature
+    assert wake_state(False, t(17), t(7), 2.0, t(18)) == "—"
+    assert wake_state(True, None, t(7), 2.0, t(18)).startswith("asleep?")
+    assert wake_state(True, t(9), t(7), 2.0, t(18)).startswith(
+        "asleep (last fire")                             # 9h lag > 2 windows
+    assert wake_state(True, t(17, 15), None, 2.0, t(18)) == \
+        "waking (no signal to compare)"
+    assert wake_state(True, t(17, 15), t(7, 34), 2.0, t(18)) == \
+        "WAKING-IDLE (5 fires since last output)"        # SBW ground truth
+    assert wake_state(True, t(12, 30), t(12), 2.0, t(13)) == \
+        "waking (1 fire since output)"
+    assert wake_state(True, t(12, 30), t(13), 2.0, t(13)) == "waking"
+    assert wake_state(True, t(17, 15), t(7, 34), 2.0, None) == \
+        "WAKING-IDLE (5 fires since last output)"        # no captured_at
+    print("selfcheck OK (24 pins)")
     return 0
 
 
@@ -293,6 +442,7 @@ def main(argv=None) -> int:
     except (OSError, json.JSONDecodeError, gen_roster.SchemaError) as exc:
         print(f"triggers snapshot unreadable: {exc}", file=sys.stderr)
         return 2
+    captured = gen_roster.parse_when(str(payload.get("captured_at") or ""))
     wanted = ({r.strip() for r in args.repos.split(",") if r.strip()}
               if args.repos else None)
     rows = []
@@ -302,7 +452,8 @@ def main(argv=None) -> int:
         if wanted is None and lane["disposition"] != "live":
             continue  # full runs skip archived/registry-only silently
         rows.append(measure_lane(lane, records, now,
-                                 args.max_fetch_attempts))
+                                 args.max_fetch_attempts,
+                                 captured=captured))
     print(render(rows, now, str(payload.get("captured_at") or "unknown")))
     if args.strict and any(r["verdict"] == "STALLED" for r in rows):
         return 1
