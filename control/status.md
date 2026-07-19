@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-19T17:05Z
+updated: 2026-07-19T18:08Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -47,7 +47,11 @@ measured, 0 hold-class definitions, 0 open applications** — the 9
 the 08:38Z queue write and 16:15Z; checker = the item's verification
 command), while the websites re-creation machinery
 (`host-automerge-extras.yml`) is still live on main — the checker is the
-tripwire for re-appearance.
+tripwire for re-appearance. R30 pre-merge checker `scripts/r30_merge_check.py`
+landed (build slice, PR #372). 18Z cycle (snapshot 2159/16 @ 17:57:56Z, I6
+PASS · SBW dup pair THIRD escalation cycle · `OQ-LABEL-DEFS-DELETE` →
+Resolved-verified, residual re-scoped to `OQ-WEBSITES-LABEL-MACHINERY`)
+recorded 2026-07-19T18:08Z (records slice, PR #374).
 ---
 
 ## Night watch (2026-07-18, overnight)
@@ -200,12 +204,12 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 ```json routine-claims
 {
   "seat": "fleet-manager (coordinator)",
-  "updated": "2026-07-19T14:42Z",
+  "updated": "2026-07-19T18:05Z",
   "failsafe": {
     "id": "trig_01GK4mjoKBP3yCabn9ux1MB2",
     "cron": "30 */2 * * *",
-    "next_run_at": "2026-07-19T14:31:48Z",
-    "last_fired": "2026-07-19T12:32:22Z",
+    "next_run_at": "2026-07-19T18:31:48Z",
+    "last_fired": "2026-07-19T16:32:24Z",
     "state": "armed"
   },
   "deleted": [
@@ -653,6 +657,53 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
    `check_label_hygiene.py`). Future workflow-touching PRs: run
    `r30_merge_check.py` before merging, quote its output in the merge
    record.
+
+## 18Z CYCLE — SNAPSHOT + QUEUE RE-SCOPE (18:0xZ, records slice, PR #374)
+
+- **`telemetry/triggers-snapshot.json` refreshed** from the full
+  2026-07-19T17:57:56Z export: **2159 records, 16 enabled** (22 pages, 0
+  cursor-overlap dups, +30 new / -0 gone vs 14:05:27Z).
+  `check_trigger_health.py` → **PASS — 8/9 green, 1 WARN** (I8 SBW pair,
+  exit 0); **I6 SNAPSHOT-FRESH PASS** (0.1h). `verify_routine_state.py
+  --export telemetry/triggers-snapshot.json` → **VERDICT OK — 3 claims
+  verified, fence-sourced** (C1 failsafe · C3 deleted · V1 volatile fields
+  current). Fence bumped by `emit_routine_claims.py`: failsafe **last_fired
+  2026-07-19T16:32:24Z, next 2026-07-19T18:31:48Z** (export values; nominal).
+  One FM pacemaker one-shot pending (~18:28Z) — chain alive.
+- **SBW duplicate failsafe pair — THIRD escalation cycle.** Both ids still
+  enabled at 17:57:56Z; observed double-fires today 09:15Z / 13:15Z / 15:15Z /
+  17:15Z, next 19:15Z. `OQ-SBW-DUP-FAILSAFE` (VENUE: hub) stands, three
+  capture cycles unexecuted; queue row annotated. Aggravating: lane-liveness
+  verdicts all three SBW constituent lanes STALLED (below).
+- **Queue re-scope:** `OQ-LABEL-DEFS-DELETE` → **Resolved (verified)** — the
+  16:15Z `check_label_hygiene.py` run 1 (19/19 repos, 0 definitions, 0
+  applications) is the item's own VERIFY; residual websites machinery caveat
+  promoted to new Active item **`OQ-WEBSITES-LABEL-MACHINERY`** (owner venue —
+  two 2026-07-19 classifier gates on the relayed dispatch; lands under R30 once
+  its PR exists). Dated record: `docs/fleet-triage.md` § "18Z cycle".
+- **Lane liveness (run 18:05Z, verbatim tail):**
+  `STALLED: superbot-games · Seat A, superbot-idle (Seat B), superbot-mineverse · DARK: none · not measured: 0`
+  — e.g. `| superbot-games · Seat A | 2026-07-19T08:50Z | main commit | ~9h15m
+  | 2h (seat cron (SuperBot World seat)) | 4.6 | enabled | STALLED |`. 5 lanes
+  LIVE (superbot ~26m · trading-strategy ~1m · venture-lab ~16m · idea-engine
+  ~0m · sim-lab ~6m · fm ~30m), the rest QUIET within design; the STALLED trio
+  is the SBW seat — same lane as the duplicate-failsafe item.
+- No trigger-MCP calls from this venue; RAW-DATA reporting.
+
+### Baton (18:0xZ refresh)
+1. **Owner (2 items):** `OQ-SBW-DUP-FAILSAFE` — delete the crash-orphan SBW
+   failsafe (THIRD escalation cycle; hint = keep newest
+   `trig_01DbcKVWxn6RJPhfyRkgTg6m`, heartbeat check decides) ·
+   `OQ-WEBSITES-LABEL-MACHINERY` — websites `host-automerge-extras.yml`
+   carve-out removal (owner venue; classifier-gated twice 2026-07-19; lands
+   under R30 once open). Both paste-ready in `docs/owner-queue.md`.
+2. **Next:** evening idle cadence — honest watches + records (next-slices
+   queue drained; I8-reads-lane-fence remains the one groomed candidate);
+   **next snapshot refresh ~22:00Z** (4h bar on the 17:57:56Z capture); fresh
+   planning groom when new ideas accumulate.
+3. **Watches:** SBW 19:15Z double-fire (third-cycle tripwire) + the STALLED
+   SBW constituent lanes; superbot-next #567/#571 CI-kick routing; websites
+   label re-appearance (tripwire `check_label_hygiene.py`).
 
 ## Pointers
 - Live status → `docs/current-state.md`

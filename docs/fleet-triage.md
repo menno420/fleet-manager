@@ -1214,3 +1214,45 @@ trigger-MCP calls from this venue.*
   attempt-once, venue-specific classifier state — the cleanup rides the
   owner's live venue (see `OQ-LABEL-DEFS-DELETE` caveat), and once its PR
   exists it lands under R30.
+
+## 2026-07-19 · 18Z cycle — snapshot refresh + SBW THIRD escalation cycle + queue re-scope (records slice)
+
+*Source: fm records slice (fm PR #374), written 2026-07-19T18:0xZ. Snapshot facts
+from the verified full 2026-07-19T17:57:56Z export; lane facts from
+`check_lane_liveness.py` run at 18:05Z. RAW DATA; no trigger-MCP calls from this
+venue.*
+
+- **`telemetry/triggers-snapshot.json` refreshed** from the full
+  2026-07-19T17:57:56Z export: **2159 records, 16 enabled** (22 pages,
+  0 cursor-overlap dups, +30 new / -0 gone vs the 14:05:27Z capture).
+  `check_trigger_health.py` → **PASS 8/9, 1 WARN (I8), exit 0**; I6
+  SNAPSHOT-FRESH PASS (0.1h). `verify_routine_state.py --export` →
+  **VERDICT OK, fence-sourced, 3 claims verified** (C1 failsafe + C3 deleted +
+  V1 volatile fields current post-bump). FM failsafe nominal in the export:
+  `trig_01GK4mjoKBP3yCabn9ux1MB2` enabled, last_fired 2026-07-19T16:32:24Z,
+  next 2026-07-19T18:31:48Z; one FM pacemaker one-shot pending (~18:28Z) —
+  chain alive.
+- **SBW duplicate failsafe pair PERSISTS — THIRD escalation cycle.** Both
+  "SuperBot World failsafe wake" crons still enabled at 17:57:56Z
+  (`trig_01XJJ88pQaQFRSpVAviCfAZe` 07-17T22:11Z ·
+  `trig_01DbcKVWxn6RJPhfyRkgTg6m` 07-18T17:08Z); observed double-fires today
+  **09:15Z / 13:15Z / 15:15Z / 17:15Z**, next double-fire **19:15Z**. The hub
+  delete (`OQ-SBW-DUP-FAILSAFE`, VENUE: hub) has now survived THREE capture
+  cycles unexecuted. Aggravating signal: `check_lane_liveness.py` (18:05Z)
+  verdicts all three SBW-seat constituent lanes **STALLED** (superbot-games
+  Seat A ~9h15m · superbot-idle ~10h39m · superbot-mineverse ~10h39m, all past
+  4+ failsafe windows) — the pair is double-waking a seat whose lanes are
+  landing nothing.
+- **`OQ-LABEL-DEFS-DELETE` → RESOLVED (verified).** `check_label_hygiene.py`
+  ground-truth run 1 (2026-07-19T16:15Z, fm PR #370): `HEADLINE: 0 hold-class
+  definition(s) · 0 application(s) to OPEN items · 0 repo(s) not measured
+  (of 19)` — the 9 queued `do-not-automerge` definitions were deleted between
+  the 08:38Z queue write and 16:15Z; the checker run is the item's own VERIFY
+  step. Residual re-scoped to new Active item **`OQ-WEBSITES-LABEL-MACHINERY`**
+  (owner venue: the relayed `host-automerge-extras.yml` removal dispatch was
+  classifier-gated twice on 2026-07-19; once its PR is open it lands under R30).
+- **R30 pre-merge checker SHIPPED** — `scripts/r30_merge_check.py` (build
+  slice, fm PR #372, merged 17:0xZ): the workflow-PR 3-point verification
+  (head-SHA-bound Codex evidence · checks+statuses green · secret+egress scan)
+  mechanized with PASS/REVIEW/STOP exits; ground-truthed on fm #344 (REVIEW)
+  and fm #362 (STOP).
