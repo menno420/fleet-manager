@@ -277,6 +277,24 @@ day) unless a later date is noted next to the rule.
     pending window if you catch it, else REST merge-on-green after the flip — and
     never retry a refused arm. A third shape (normal-CI repos, arm fails both ways)
     is documented at blueprint §1/§2 delta 1 (P4/F5).* (2026-07-10)
+30. **R30 (2026-07-19) — Workflow-touching PRs: agent-merge after Codex-clean, never an
+    owner click and never a mutable label** (owner live 2026-07-19: "remove my review
+    from it completely ... agents should just merge it"). Extends R29 to the last
+    owner-click it left standing — `.github/workflows/**`, held only by the CI token's
+    inability to push workflow changes. The fleet agent path merges a workflow PR once,
+    **at the exact head SHA**, it confirms: Codex reviewed THAT commit with no P1/P2 and
+    not `CHANGES_REQUESTED` (inline AND summary); every check + commit status green; and
+    the resulting head workflow doesn't pair secret/env access with outbound egress
+    (whole-file scan incl. interpreter/`/dev/tcp`; a patch-less/oversized diff is a STOP
+    → owner queue). No label is ever trusted as authorization. Full policy:
+    [`workflow-pr-merge-policy.md`](workflow-pr-merge-policy.md). *WHY: the first attempt
+    — a CI `codex-cleared` label gate (PR #362, closed) — was found by Codex's own review
+    to have ~7 critical bypasses (forgeable label, added-lines-only scan,
+    missing-patch-read-as-safe, stale clearance surviving new commits, attacker-named
+    check exemptions); the merge-side agent re-checking the real head is robust where a
+    CI label is not. Codex is a demonstrably strong reviewer — it tore the naive gate
+    apart — but the merge decision must re-verify at the head, never trust a cached
+    signal.* (2026-07-19)
 
 ## REVIEW RELAY
 
