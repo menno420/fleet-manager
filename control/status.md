@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-19T10:38Z
+updated: 2026-07-19T11:02Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -32,7 +32,9 @@ cron live on main) + seat-provenance-aware I8 remedy landed (build slice,
 PR #353). 10Z triggers-snapshot refresh (2086/17 @ 10:28:57Z) + **odd-hour
 roster-cron delivery PROOF ACHIEVED** (gen #101, 10:09Z) + websites 036
 ack confirmed / `OQ-WEBSITES-036-STALL` retired, recorded 2026-07-19T10:38Z
-(records slice, PR #355, this refresh).
+(records slice, PR #355). Write-side fence emitter
+`scripts/emit_routine_claims.py` landed (build slice, PR #357, this refresh —
+the fence's `updated` bump below was written BY the emitter, dogfood).
 ---
 
 ## Night watch (2026-07-18, overnight)
@@ -185,7 +187,7 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 ```json routine-claims
 {
   "seat": "fleet-manager (coordinator)",
-  "updated": "2026-07-19T10:38Z",
+  "updated": "2026-07-19T11:02Z",
   "failsafe": {
     "id": "trig_01GK4mjoKBP3yCabn9ux1MB2",
     "cron": "30 */2 * * *",
@@ -193,7 +195,9 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
     "last_fired": "2026-07-19T08:32:09Z",
     "state": "armed"
   },
-  "deleted": ["trig_01Bo7dZxM9xz2hwR36L424Z8"],
+  "deleted": [
+    "trig_01Bo7dZxM9xz2hwR36L424Z8"
+  ],
   "pacemaker": {
     "mode": "send_later",
     "cadence_minutes": 30,
@@ -402,17 +406,38 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
   durable intake verified live 08:27:36Z), #440 merged (`f8caa03`), #441 in
   flight. → **`OQ-WEBSITES-036-STALL` RETIRED** to the queue's Resolved section.
 
-### Next-tasks baton (refreshed 2026-07-19T10:38Z)
+### ~11:0xZ build slice — write-side fence emitter landed (2026-07-19, PR #357)
+
+- **Below-the-line slice from the PR #349 plan SHIPPED:**
+  `scripts/emit_routine_claims.py` — stdlib write-side updater for the
+  routine-claims fence above: rewrites it from CLI args
+  (`--failsafe-id/--cron/--next-run/--last-fired/--state`, repeatable
+  `--deleted` = wholesale-overwrite, `--pacemaker-cadence/--pacemaker-note`,
+  `--updated` default now; unspecified fields carry forward), round-trips the
+  result through `verify_routine_state.py`'s own `parse_fence_claims` before
+  writing, `--dry-run` prints, exit 2 on zero/multiple fences. Q-0105
+  unverified header; indexed in `docs/playbook.md` R26 next to the read side.
+  Kills the PR #341-flagged drift source (hand-edited fence JSON going stale).
+- **Dogfood:** this heartbeat's fence `updated: 2026-07-19T11:02Z` was written
+  by the emitter itself (values otherwise unchanged — the 10:31:48Z-window
+  failsafe fire is NOT verifiable from this venue: no trigger-MCP calls, and
+  the committed 10:28:57Z snapshot is pre-fire, so `last_fired`/`next_run_at`
+  honestly carry the export truth). `verify_routine_state.py --export
+  telemetry/triggers-snapshot.json` → OK, fence-sourced, 2 claims verified,
+  post-write.
+
+### Next-tasks baton (refreshed 2026-07-19T11:02Z)
 1. **Hub-chat sitting awaited (owner):** `OQ-SBW-DUP-FAILSAFE` (delete the
    crash-orphan SBW failsafe — heartbeat check decides; hint = keep newest
    `trig_01DbcKVWxn6RJPhfyRkgTg6m`) + `OQ-LABEL-DEFS-DELETE` (9 label-definition
    deletions; paste-ready in `docs/owner-queue.md`) + the **explicit confirmation
    wording for the websites carve-out-removal dispatch** (classifier provenance
    check).
-2. **Next executable slice:** below-the-line items from the PR #349 plan —
-   **write-side fence emitter** (`--emit-fence` on `verify_routine_state.py`) or
-   **`check_capabilities_grammar.py`** — or a fresh groom on the next planning
-   pass if neither still earns a slice.
+2. **Next executable slice:** **`check_capabilities_grammar.py`** (capabilities-
+   grammar linter, last below-the-line item from the PR #349 plan) — or a fresh
+   groom on the next planning pass if it no longer earns a slice. (Write-side
+   fence emitter DONE, PR #357 — landed as a standalone script rather than an
+   `--emit-fence` flag: read tool stays read-only.)
 3. **Watches:** **next I6 snapshot refresh due ~14:30Z** (4h bar on the
    10:28:57Z capture). Websites-lane watch retired (036 acked + discharged,
    above); odd-hour proof watch retired (ACHIEVED, above).
@@ -424,7 +449,7 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
   design pre-flip).
 - `python3 scripts/verify_routine_state.py --export telemetry/triggers-snapshot.json`
   → VERDICT OK (fence-sourced, 2 claims verified; re-run 2026-07-19T10:35Z).
-- PR #332 (merged); this refresh: PR #355.
+- PR #332 (merged); this refresh: PR #357 (prior: #355 merged).
 
 ## Pointers
 - Live status → `docs/current-state.md`
