@@ -9,6 +9,7 @@
 
 | Date | Doc | Scope |
 |---|---|---|
+| 2026-07-19 | [Session-card idea backlog (GENERATED)](idea-backlog.md) | Machine-harvested index of every `.sessions/*.md` card 💡 idea (idea · source card · groomed/ungroomed pointer, age flag) — regenerate with `python3 scripts/gen_idea_backlog.py`; grooming passes start here instead of hand-grepping cards |
 | 2026-07-19 | [Next executable slices — night-shift idea groom](2026-07-19-next-slices.md) | Ranked queue of next fm-seat slices groomed from the ~8 night-shift session-card 💡 ideas (top 3: lane-liveness checker · regen-window skip detector · I8 provenance remedy); dropped/routed ideas recorded with reasons |
 | 2026-07-14 | [Fleet docs centralization plan](2026-07-14-central-docs-plan.md) | The 19-repo review's actionable plan making fm the single source of truth for fleet docs — 47 enumerated items in 5 classes, Slice 0 + Phases 1–5; landed here per its own §1 Self-application (moved from `docs/central-docs-plan.md`, permanent stub left) |
 | 2026-07-12 | [Repo consolidation plan (phase B)](2026-07-12-repo-consolidation-plan.md) | Owner-facing consolidation plan: 19 → 16 unarchived repos / 8 seats; Phase 1 agent migration ORDERs, Phase 2 one-letter owner decisions (incl. cron trims + the ≤2026-07-13 bundle), Phase 3 owner clicks; reconciles census PR #119 with proposal PR #121 (supersedes it and owner-queue E#37) |
