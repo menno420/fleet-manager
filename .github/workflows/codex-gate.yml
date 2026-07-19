@@ -1,0 +1,213 @@
+# codex-gate — replaces the owner's manual review of workflow-touching PRs
+# with an automated Codex clearance signal, per owner direction (2026-07-19,
+# live: "remove my review from it completely — I never look at it anyway").
+#
+# WHY THIS EXISTS
+#   merge-on-green.yml deliberately never merges PRs that touch
+#   .github/workflows/** — the CI GITHUB_TOKEN cannot push workflow-file
+#   changes, and auto-merging them blind is how a malicious "telemetry"-style
+#   PR would exfiltrate repo secrets. Historically those PRs were parked
+#   "owner-merge-only". The owner has confirmed they never review them, so a
+#   never-read human gate protected nothing. This workflow replaces it with a
+#   gate that DOES read the diff: Codex.
+#
+# WHAT IT DOES (label-only — it never merges anything itself)
+#   For every open, non-draft, base=main, same-repo PR whose diff touches
+#   .github/workflows/**, it decides one of:
+#     * needs-human-review — the added workflow lines match an "exfil shape"
+#       (reference a secret / dump the env AND make an outbound network call).
+#       A deterministic regex, immune to being talked down like an AI reviewer.
+#       Never auto-cleared; a human must look.
+#     * (await) — Codex has not reviewed the CURRENT head commit yet. Posts
+#       "@codex review" once per head (idempotent via a hidden marker), then
+#       waits. Codex does not auto-review pushes, so it must be nudged.
+#     * codex-flagged — Codex reviewed the head and left >=1 P1/P2 finding.
+#       Not cleared.
+#     * codex-cleared — Codex reviewed THIS head with zero P1/P2 findings, the
+#       diff is not exfil-shaped, and every check on the head is green.
+#
+#   The actual merge of a codex-cleared workflow PR is done by the fleet agent
+#   path (the Claude GitHub App token, which is short-lived and may merge
+#   workflow files) — NOT by a CI job holding a stored PAT. Nothing merge-
+#   capable-over-workflow-files is ever left sitting in a repo secret.
+#
+# FAIL-CLOSED: any API read failure, missing data, or uncertainty leaves the
+#   PR NOT cleared (it removes/omits the codex-cleared label). The only path to
+#   codex-cleared is a positive, current-head Codex review with no P1/P2.
+#   A bug here can at worst fail to clear a PR (the pre-existing state); it can
+#   never merge one (this workflow has no merge step).
+#
+# This file lives OUTSIDE merge-on-green.yml on purpose: a fault here cannot
+# break the main landing sweep.
+name: codex-gate
+on:
+  pull_request_review:
+    types: [submitted]
+  check_suite:
+    types: [completed]
+  workflow_run:
+    workflows: [substrate-gate, roster-freshness, merge-on-green]
+    types: [completed]
+  schedule:
+    - cron: "17,47 * * * *"
+  workflow_dispatch:
+permissions:
+  contents: read
+  pull-requests: write
+  checks: read
+concurrency:
+  group: codex-gate
+  cancel-in-progress: false
+jobs:
+  codex-gate:
+    if: github.repository == 'menno420/fleet-manager'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ensure gate labels exist
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          gh label create codex-cleared     -R "$REPO" --color 0e8a16 --description "Codex reviewed this head with no P1/P2; agent may merge" --force
+          gh label create codex-flagged      -R "$REPO" --color d93f0b --description "Codex left a P1/P2 finding on this head" --force
+          gh label create needs-human-review -R "$REPO" --color b60205 --description "Exfil-shaped workflow change — a human must look" --force
+
+      - name: Label Codex-cleared workflow PRs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 - <<'PY'
+          import json, os, re, subprocess, sys
+
+          repo = os.environ["GITHUB_REPOSITORY"]
+          CODEX = "chatgpt-codex-connector[bot]"
+          CLEARED, FLAGGED, HUMAN = "codex-cleared", "codex-flagged", "needs-human-review"
+          SELF_CHECK = {"merge-on-green", "codex-gate"}
+
+          # An added workflow line that reads a secret / dumps the env AND an
+          # added line that makes an outbound network call = exfil shape.
+          SECRET_RE = re.compile(r"secrets\.|toJSON\(\s*secrets|printenv|env\s*\||\$\{\{\s*env\b", re.I)
+          EGRESS_RE = re.compile(r"\b(curl|wget|nc|ncat|telnet|Invoke-WebRequest|Invoke-RestMethod)\b", re.I)
+
+          def gh(*args, ok_fail=False):
+              r = subprocess.run(["gh", *args], capture_output=True, text=True)
+              if r.returncode != 0 and not ok_fail:
+                  print(r.stderr, file=sys.stderr)
+                  sys.exit(1)  # fail LOUD on an unexpected error
+              return r.returncode, r.stdout, r.stderr
+
+          def rows(out):
+              vals = []
+              for ln in (out or "").splitlines():
+                  if not ln:
+                      continue
+                  v = json.loads(ln)
+                  vals.append(json.loads(v) if isinstance(v, str) else v)
+              return vals
+
+          def add_label(n, name):
+              gh("pr", "edit", str(n), "-R", repo, "--add-label", name, ok_fail=True)
+
+          def rm_label(n, name):
+              gh("pr", "edit", str(n), "-R", repo, "--remove-label", name, ok_fail=True)
+
+          rc, out, _ = gh("api", f"repos/{repo}/pulls?state=open&per_page=100",
+                          "--paginate", "--jq", ".[] | @json")
+          for pr in rows(out):
+              n = pr["number"]
+              head = pr["head"]["sha"]
+              if pr.get("draft"):
+                  continue
+              if pr["base"]["ref"] != "main":
+                  continue
+              if (pr["head"]["repo"] or {}).get("full_name") != repo:
+                  continue
+
+              # Only workflow-touching PRs are this gate's business.
+              rc, fo, _ = gh("api", f"repos/{repo}/pulls/{n}/files?per_page=100",
+                             "--paginate", "--jq", ".[] | @json", ok_fail=True)
+              if rc != 0:
+                  continue  # fail-closed: can't read files -> don't clear
+              entries = rows(fo)
+              wf = [e for e in entries if e["filename"].startswith(".github/workflows/")]
+              if not wf:
+                  continue
+
+              # (1) Exfil shape on ADDED lines only -> needs a human, never cleared.
+              added = "\n".join(
+                  l for e in wf for l in (e.get("patch") or "").splitlines()
+                  if l.startswith("+") and not l.startswith("+++")
+              )
+              if SECRET_RE.search(added) and EGRESS_RE.search(added):
+                  rm_label(n, CLEARED)
+                  add_label(n, HUMAN)
+                  print(f"PR #{n}: exfil-shaped workflow diff -> {HUMAN}")
+                  continue
+
+              # (2) Codex review on the CURRENT head?
+              rc, ro, _ = gh("api", f"repos/{repo}/pulls/{n}/reviews?per_page=100",
+                             "--paginate", "--jq", ".[] | @json", ok_fail=True)
+              if rc != 0:
+                  rm_label(n, CLEARED); continue  # fail-closed
+              codex_head_reviews = [
+                  r for r in rows(ro)
+                  if (r.get("user") or {}).get("login") == CODEX
+                  and r.get("commit_id") == head
+              ]
+              if not codex_head_reviews:
+                  # Nudge Codex once per head (it does not auto-review pushes).
+                  marker = f"<!-- codex-gate:requested {head} -->"
+                  rc, co, _ = gh("api", f"repos/{repo}/issues/{n}/comments?per_page=100",
+                                 "--paginate", "--jq", ".[] | @json", ok_fail=True)
+                  requested = any(marker in (c.get("body") or "") for c in rows(co)) if rc == 0 else True
+                  if not requested:
+                      gh("api", "-X", "POST", f"repos/{repo}/issues/{n}/comments",
+                         "-f", f"body=@codex review\n{marker}", ok_fail=True)
+                      print(f"PR #{n}: requested Codex review for {head[:12]}")
+                  else:
+                      print(f"PR #{n}: awaiting Codex review for {head[:12]}")
+                  rm_label(n, CLEARED)
+                  continue
+
+              # (3) Any P1/P2 finding by Codex on this head -> flagged.
+              rc, rco, _ = gh("api", f"repos/{repo}/pulls/{n}/comments?per_page=100",
+                              "--paginate", "--jq", ".[] | @json", ok_fail=True)
+              if rc != 0:
+                  rm_label(n, CLEARED); continue  # fail-closed
+              findings = [
+                  c for c in rows(rco)
+                  if (c.get("user") or {}).get("login") == CODEX
+                  and c.get("commit_id") == head
+                  and re.search(r"\bP[12]\b", c.get("body") or "")
+              ]
+              if findings:
+                  rm_label(n, CLEARED)
+                  add_label(n, FLAGGED)
+                  print(f"PR #{n}: Codex left {len(findings)} P1/P2 finding(s) -> {FLAGGED}")
+                  continue
+
+              # (4) Every check on the head green (self-exemptions aside).
+              rc, ko, _ = gh("api",
+                             f"repos/{repo}/commits/{head}/check-runs?filter=latest&per_page=100",
+                             "--paginate", "--jq",
+                             ".check_runs[] | {name, status, conclusion} | @json", ok_fail=True)
+              if rc != 0:
+                  rm_label(n, CLEARED); continue  # fail-closed
+              runs = {cr["name"]: cr for cr in rows(ko) if cr["name"] not in SELF_CHECK}
+              if not runs:
+                  rm_label(n, CLEARED); print(f"PR #{n}: no checks yet"); continue
+              not_green = [f"{nm}:{cr['status']}/{cr['conclusion']}"
+                           for nm, cr in runs.items()
+                           if cr["status"] != "completed" or cr["conclusion"] != "success"]
+              if not_green:
+                  rm_label(n, CLEARED)
+                  print(f"PR #{n}: not green: {not_green}")
+                  continue
+
+              # Positively cleared: Codex reviewed THIS head, no P1/P2, not
+              # exfil-shaped, all green. Agent path may merge.
+              rm_label(n, FLAGGED)
+              rm_label(n, HUMAN)
+              add_label(n, CLEARED)
+              print(f"PR #{n}: CODEX-CLEARED (agent may merge)")
+          PY
