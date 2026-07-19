@@ -39,53 +39,42 @@ launch that seeded the earliest queue items: [`launch-readiness-2026-07-10.md`](
   RISK: ✅ reversible (re-create from the SBW startup prompt). Honest note: fm doctrine forbids
   this seat deleting a sibling lane's trigger id from its own venue — hence the hub routing.
   Provenance: fm records slice 2026-07-19 (PR #347), escalation record in `docs/fleet-triage.md`.
-  *Status 2026-07-19T08:38Z (PR #351): unchanged — still open, unaffected by the morning
+  *Status 2026-07-19T08:38Z (fm PR #351): unchanged — still open, unaffected by the morning
   nothing-stuck executions (label/merge sweep touched PRs, not triggers).*
+  *Status 2026-07-19T18:0xZ (18Z records slice) — **THIRD escalation cycle**: both ids STILL
+  enabled in the 2026-07-19T17:57:56Z capture; observed double-fires today
+  09:15Z / 13:15Z / 15:15Z / 17:15Z (~seconds apart each window), next double-fire 19:15Z.
+  The hub delete has now survived three capture cycles unexecuted. Related live signal:
+  `check_lane_liveness.py` (18:05Z) verdicts all three SBW-seat constituent lanes STALLED
+  (superbot-games Seat A ~9h15m · superbot-idle ~10h39m · superbot-mineverse ~10h39m) —
+  the duplicate wakes are burning double tokens while the lane itself lands nothing.*
 
-- **`OQ-LABEL-DEFS-DELETE` — (VENUE: hub) delete the `do-not-automerge` label DEFINITIONS in 9
-  repos (owner nothing-stuck directive, 2026-07-19).**
-  WHAT: the 2026-07-19 label sweep found the `do-not-automerge` label **defined** in 9 repos;
-  only one open item carried it (websites #434 — stripped + merged 07:50:01Z), so the fleet is
-  label-clean on open PRs, but the directive ("I want them gone, nothing should ever be stuck")
-  also wants the definitions removed so nothing can be parked again.
-  WHERE: hub-venue GitHub label deletion — paste-ready DELETE list (repo → label page →
-  `do-not-automerge` → Delete):
-  1. https://github.com/menno420/websites/labels
-  2. https://github.com/menno420/substrate-kit/labels
-  3. https://github.com/menno420/fleet-manager/labels
-  4. https://github.com/menno420/superbot/labels
-  5. https://github.com/menno420/gba-homebrew/labels
-  6. https://github.com/menno420/idea-engine/labels
-  7. https://github.com/menno420/venture-lab/labels
-  8. https://github.com/menno420/superbot-games/labels
-  9. https://github.com/menno420/superbot-next/labels
-  (Equivalent REST: `DELETE /repos/menno420/<repo>/labels/do-not-automerge` ×9, direct-egress
-  PAT path.)
-  WHY routed here (dated incident, 2026-07-19): the sweep worker's venue had no MCP delete-label
-  tool and its REST attempts returned 401/403 (verbatim errors in the sweep record) — a
-  transient venue/path state per doctrine, **not a wall**; the hub venue's direct-PAT path is
-  the working route.
-  CAVEAT — websites needs more than the label delete: `host-automerge-extras.yml` (from
-  websites PR #324) **auto-re-creates + auto-applies** the label on workflow-touching
-  `claude/*` PRs — machinery, so in websites the workflow's carve-out behavior must be removed
-  too or the label just comes back.
-  *R30 UPDATE (2026-07-19, ~15:3xZ records slice):* the **policy half of this thread is
-  ANSWERED** — playbook **R30** (fm PR #367, merged 2026-07-19T14:41Z;
-  `docs/workflow-pr-merge-policy.md`, owner-live provenance quoted therein) removes the
-  owner from workflow-diff PR merges entirely: once a websites carve-out-removal PR
-  exists, it is **agent-merged** after the policy's 3-point head-SHA check — no owner
-  merge click, no confirmation-to-merge needed. What remains pending is the **cleanup
-  itself** (the websites workflow edit): a manager-relayed removal dispatch was
-  classifier-gated **twice today (2026-07-19)** by the platform auto-mode
-  guardrail-removal provenance check — a dated, transient venue state per doctrine —
-  so this cleanup currently **rides the owner's live venue** (a dispatch made with the
-  owner present/confirming, or the owner's own session), and once its PR is open it
-  lands under R30.
-  VERIFY: label absent from all 9 label pages; a workflow-touching websites `claude/*` PR no
-  longer gets the label auto-applied.
-  RISK: ✅ reversible (labels re-creatable). Provenance: owner live directive ~2026-07-19T08:00Z
-  (verbatim in `docs/fleet-triage.md` § "owner nothing-stuck directive"); fm records slice
-  PR #351.
+- **`OQ-WEBSITES-LABEL-MACHINERY` — (VENUE: owner-live) remove the websites
+  `host-automerge-extras.yml` label re-creation machinery (residual of the resolved
+  `OQ-LABEL-DEFS-DELETE`).**
+  WHAT: the 9 `do-not-automerge` label DEFINITIONS are verified deleted fleet-wide
+  (see the 18Z Resolved entry below), but websites `host-automerge-extras.yml` on main
+  (from websites PR #324; create call verified via raw read 2026-07-19T16:16Z, ~line 79)
+  still **auto-re-creates + auto-applies** the label on workflow-touching `claude/*`
+  PRs — so in websites the label WILL re-appear until the workflow's carve-out behavior
+  is removed.
+  WHERE/WHY owner venue (dated basis, 2026-07-19): a manager-relayed removal dispatch
+  was classifier-gated **twice on 2026-07-19** by the platform auto-mode
+  guardrail-removal provenance check (denials recorded in `docs/fleet-triage.md`
+  § "R30 landed" — transient venue state per doctrine, not a wall) — so the edit
+  currently rides the owner's live venue: a dispatch made with the owner
+  present/confirming, or the owner's own session.
+  HOW it lands once open: under playbook **R30** (fm PR #367;
+  `docs/workflow-pr-merge-policy.md`) the resulting workflow-diff PR is
+  **agent-merged** after the 3-point head-SHA check (`scripts/r30_merge_check.py`,
+  fm PR #372) — no owner merge click needed; only the dispatch provenance is the
+  owner's.
+  VERIFY: a workflow-touching websites `claude/*` PR no longer gets the label
+  auto-applied; standing tripwire `python3 scripts/check_label_hygiene.py`
+  (re-appearance of the definition = the machinery fired again).
+  RISK: ✅ reversible (workflow edit in a PR). Provenance: owner nothing-stuck
+  directive ~2026-07-19T08:00Z; re-scoped out of `OQ-LABEL-DEFS-DELETE` by the 18Z
+  records slice.
 
 ### (A) GitHub merges — one click each
 **EMPTY** — 0 open PRs in fleet-manager needing a click, and the last cross-repo workflow
@@ -283,6 +272,24 @@ These once-active items are moot; ids retained so nothing is lost, full bodies i
   resolved; flapping-quota mitigation only).
 
 ---
+
+## Resolved 2026-07-19 (18Z records slice — verified by `check_label_hygiene.py` ground truth, Q-0120)
+
+- **`OQ-LABEL-DEFS-DELETE` — RESOLVED (deletions verified executed).** The 9
+  `do-not-automerge` label DEFINITIONS queued for hub deletion (websites ·
+  substrate-kit · fleet-manager · superbot · gba-homebrew · idea-engine ·
+  venture-lab · superbot-games · superbot-next) are **GONE**: ground-truth run 1
+  of `scripts/check_label_hygiene.py` (landed fm PR #370) at 2026-07-19T16:15Z
+  measured **19/19 fleet repos, 0 hold-class definitions, 0 applications to OPEN
+  items** — i.e. the deletions were executed between the 08:38Z queue write
+  (fm PR #351) and 16:15Z (hub venue or owner), and the checker run IS the
+  "re-run after deletions → 0 definitions" verification the item specified.
+  The item's residual websites caveat (`host-automerge-extras.yml`
+  auto-re-create/auto-apply machinery, still live on main at 16:16Z) is NOT
+  covered by the deletions and is re-scoped to its own Active item
+  **`OQ-WEBSITES-LABEL-MACHINERY`** above (owner venue; two 2026-07-19
+  classifier gates on the relayed dispatch; lands under R30 once open).
+  Standing tripwire for label re-appearance: `python3 scripts/check_label_hygiene.py`.
 
 ## Resolved 2026-07-19 (10Z records slice — websites status read live via raw fetch, Q-0120; fm PR #355)
 
