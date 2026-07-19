@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-19T11:38Z
+updated: 2026-07-19T14:17Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -35,6 +35,9 @@ ack confirmed / `OQ-WEBSITES-036-STALL` retired, recorded 2026-07-19T10:38Z
 (records slice, PR #355). Write-side fence emitter
 `scripts/emit_routine_claims.py` landed (build slice, PR #357, this refresh —
 the fence's `updated` bump below was written BY the emitter, dogfood).
+14Z cycle (snapshot 2129/16 @ 14:05:27Z, I6 PASS · fleet re-sweep: 5 open
+fleet-wide, zero new strays · planning re-groom: 3 ranked, top = read-side
+volatile-drift check) recorded 2026-07-19T14:17Z (records slice, PR #364).
 ---
 
 ## Night watch (2026-07-18, overnight)
@@ -187,12 +190,12 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 ```json routine-claims
 {
   "seat": "fleet-manager (coordinator)",
-  "updated": "2026-07-19T11:38Z",
+  "updated": "2026-07-19T14:13Z",
   "failsafe": {
     "id": "trig_01GK4mjoKBP3yCabn9ux1MB2",
     "cron": "30 */2 * * *",
-    "next_run_at": "2026-07-19T10:31:48Z",
-    "last_fired": "2026-07-19T08:32:09Z",
+    "next_run_at": "2026-07-19T14:31:48Z",
+    "last_fired": "2026-07-19T12:32:22Z",
     "state": "armed"
   },
   "deleted": [
@@ -475,6 +478,42 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 - `python3 scripts/check_capabilities_grammar.py` → CLEAN (0 flags, 0 notes;
   first run, 2026-07-19T11:38Z; selftest PASS).
 - PR #332 (merged); this refresh: PR #358 (prior: #357 merged `d65f099`).
+
+### 14Z cycle — snapshot + fleet re-sweep + planning re-groom (2026-07-19, PR #364)
+
+- **`telemetry/triggers-snapshot.json` refreshed** from the full 2026-07-19T14:05:27Z
+  export: **2129 records, 16 enabled** (22 pages, 0 cursor-overlap dups, +43 new /
+  -0 gone vs 10:28:57Z). Health: **PASS 8/9, 1 WARN** (I8 SBW pair, below); **I6
+  PASS** (0.1h old). `verify_routine_state.py --export` → **VERDICT OK**
+  (fence-sourced, 2 claims verified). Fence bumped: failsafe `last_fired`
+  2026-07-19T12:32:22Z (scheduled delivery again proven), `next_run_at`
+  2026-07-19T14:31:48Z. One FM pacemaker one-shot pending (~14:36Z) — chain alive.
+- **Fleet re-sweep (read-only, 14:12–14:16Z): 5 open PRs fleet-wide, zero new
+  strays.** gba #177/#178 RESOLVED-CLOSED (subsumed-by-#179); websites throughput
+  STRONG (8 merges since 05:45Z incl. ORDER 037/038 Discord OAuth — zero open);
+  superbot-next #567/#571 open with ZERO check runs (app-token symptom; need a
+  CI kick from a superbot-next seat — not green, not merged from here) and #576
+  parked (classifier wall, owner-attended). Detail:
+  `docs/fleet-triage.md` § "14Z cycle fleet re-sweep". Nothing merged directly
+  this sweep (no green stray existed).
+- **SBW duplicate failsafe pair PERSISTS — SECOND escalation cycle.** Both ids
+  still enabled in the 14:05:27Z capture; the hub delete (`OQ-SBW-DUP-FAILSAFE`)
+  has now survived two capture cycles unexecuted.
+- **Planning re-groom DONE** (the 07:26Z queue + below-the-line all landed:
+  #350/#352/#353/#357/#358): 8 new 💡 harvested, 3 ranked —
+  see `docs/planning/2026-07-19-next-slices.md` § "Re-groom — 14Z cycle".
+
+### Baton (14Z refresh)
+1. **On the owner:** `OQ-SBW-DUP-FAILSAFE` (delete the crash-orphan SBW failsafe —
+   second escalation cycle) + `OQ-LABEL-DEFS-DELETE` (9 label definitions) + the
+   **carve-out yes/no** (explicit confirmation wording for the websites
+   carve-out-removal dispatch). All paste-ready in `docs/owner-queue.md`.
+2. **Next slice:** volatile-field drift check in `verify_routine_state.py`
+   (re-groom top pick — the fence sat two firings stale this cycle and the
+   read side said OK; make that a WARN). Then: I8-reads-lane-fence ·
+   `check_label_hygiene.py`.
+3. **Watches:** next I6 snapshot refresh due **~18:00Z** (4h bar on the
+   14:05:27Z capture); superbot-next #567/#571 CI-kick routing.
 
 ## Pointers
 - Live status → `docs/current-state.md`

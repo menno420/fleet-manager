@@ -1125,3 +1125,54 @@ record time (Q-0120). RAW DATA; no trigger-MCP calls from this venue.*
 - **fm #350 (`check_lane_liveness.py`) merged earlier this morning** — slice 1
   of the next-slices queue done; next executable = **regen-window skip
   detector** (`docs/planning/2026-07-19-next-slices.md`).
+
+## 2026-07-19 · 14Z cycle fleet re-sweep (14:12–14:16Z, read-only, MCP-verified) — records slice
+
+*Source: fm records slice (PR #364). Open-PR states verified live via the GitHub
+MCP at 14:12–14:15Z (Q-0120). RAW DATA; no trigger-MCP calls from this venue.*
+
+- **Fleet-wide open-PR census (search `is:pr is:open user:menno420`, complete):
+  5 open PRs total.** fm #364 (this slice) · sim-lab #258 (born-red VERDICT 184,
+  created 14:12Z — ACTIVE session, leave alone) · superbot-next #567 / #571 /
+  #576. Nothing else open anywhere — no new strays since the 05:45Z sweep.
+- **superbot-next #567 + #571 — open, ZERO check runs on their heads**
+  (`ba83969`, `99015dc`; `get_check_runs` → `total_count: 0` on both,
+  `mergeable_state: unknown`). Both MCP-app-created (session ended ~22:49Z
+  07-18) — the known app-token symptom: workflows never fired, so they are NOT
+  green and NOT direct-merge candidates under the green-only carve-out. Route:
+  a superbot-next seat (or hub worker) re-push/empty-commit to kick CI, then
+  normal green landing. Docs-only diffs, no workflow files — not the
+  workflow-diff carve-out class.
+- **superbot-next #576 — unchanged**: parked classifier-wall, owner-attended
+  completion path stated in its body. Listed, not touched.
+- **gba #177/#178 RESOLVED-CLOSED** (the 05:45Z "held by by-design gate red"
+  watch): both CLOSED unmerged 2026-07-18T23:21Z as subsumed-by-#179 (cut2/cut3
+  content already on main via the #179 stack squash; claims swept via #204).
+  gba also landed #205 (EAP close-out doc, 07:38Z) and #206 (dist ROM refresh
+  to post-#201 build, 07:55Z). gba lane fully quiet — zero open PRs.
+- **websites post-revival throughput: STRONG.** Since 05:45Z, 8 PRs merged —
+  #436 (07:26Z heartbeat), #434 (07:50Z BAKE_PAT wiring, owner-armed), #438
+  (07:53Z bake proof — PAT identity, real quality check, auto-merge fired:
+  BAKE_PAT landing path PROVEN end-to-end), #439 (08:01Z ASK-0008 finalize),
+  #440 (08:17Z), #441 (09:22Z /submit live-badge), #442 (11:35Z ORDER 037
+  botsite Discord OAuth), #443 (12:15Z ORDER 038 dashboard Discord OAuth);
+  #422/#437 stale bakes closed. Zero open. "One Discord login for everything"
+  is now code-complete across all three services; the owner unlock is the
+  redirect-URI + env-var pastes.
+- **fm #344 MERGED** — by the owner (merged_at 2026-07-19T09:22:03Z) after his
+  conflict fix; the odd-hour roster cron is live (regens #361 gen#104 13:41Z /
+  #363 gen#105 14:06Z observed post-merge). `OQ-FM-ROSTER-CRON-RELIABILITY`
+  already marked Resolved in `docs/owner-queue.md` — no drift found.
+- **Roster verdict changes (gen #104 → #105, on main):** venture-lab FRESH →
+  STALE (~4h31m); superbot-games Seat A dropped its `⚠ commits-FRESH`
+  annotation (now plain DARK — pushes quieted); substrate-kit phase advanced
+  R11 → R14 SHIPPED. Aging only — no new STALLED verdicts.
+- **SBW duplicate failsafe pair PERSISTS in the 14:05:27Z capture** — both
+  `trig_01XJJ88pQaQFRSpVAviCfAZe` (07-17T22:11Z) and
+  `trig_01DbcKVWxn6RJPhfyRkgTg6m` (07-18T17:08Z) still enabled; I8 WARN
+  unchanged. **Second escalation cycle** — `OQ-SBW-DUP-FAILSAFE` (VENUE: hub)
+  stands; the hub delete has still not been executed.
+- **Workflow-diff strays waiting on the owner's carve-out answer:** none open
+  this sweep (the #344 case resolved by owner hand; websites #434 landed by
+  owner arm). The pending owner answer (carve-out yes/no) still gates FUTURE
+  workflow-diff strays — question stands in the baton.
