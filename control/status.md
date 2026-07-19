@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-19T02:35Z
+updated: 2026-07-19T03:07Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -17,7 +17,8 @@ pokemon-mod-lab #98 + product-forge #29 re-verified live GREEN, heartbeat record
 `docs/fleet-triage.md` § "2026-07-18 · fleet PR sweep (21:05–21:15Z)" (PR #334).
 Night-watch state recorded 2026-07-18T21:32Z (records slice). 00Z snapshot
 refresh + heartbeat recorded 2026-07-19T00:14Z (records slice, PR #341). 02:33Z
-failsafe stall-catch heartbeat recorded 2026-07-19T02:35Z (this refresh).
+failsafe stall-catch heartbeat recorded 2026-07-19T02:35Z (PR #342). 03:0xZ
+night-wake records slice recorded 2026-07-19T03:07Z (this refresh, PR #343).
 ---
 
 ## Night watch (2026-07-18, overnight)
@@ -87,6 +88,18 @@ failsafe stall-catch heartbeat recorded 2026-07-19T02:35Z (this refresh).
   row is flagged for the next records slice (docs edit, outside this control-only diff).
 - **fleet-manager main:** no commits since `335595f`; `control/inbox.md` unchanged —
   ORDER 049 retirement banner is the newest entry, no surprises.
+
+### 03:0xZ night-wake records slice (2026-07-19, PR #343)
+
+- **Roster:** the 02:40Z roster-regen Actions window did NOT fire (gen #97 / 23:31Z was
+  still current on main at 03:05Z, 3.6h old) — regenerated in-PR as **gen #98,
+  generated-at 2026-07-19T03:06Z** (night-watch stall guard);
+  `check_roster_freshness.py` → OK, 0.0h old.
+- **Owner-queue:** stale `OQ-POKEMON-98-WORKFLOW-MERGE` row retired to Resolved
+  (pokemon-mod-lab #98 closed unmerged 23:18:04Z, superseded by #107) — **hub queue =
+  product-forge #29 only.**
+- **Baton unchanged otherwise:** websites ORDER 036 ack/rebake ~06:00Z escalation
+  decision stands.
 
 # Fleet Manager — status
 
