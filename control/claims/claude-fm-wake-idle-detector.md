@@ -1,0 +1,1 @@
+- `claude/fm-wake-idle-detector` · **wake-without-work detector in scripts/check_lane_liveness.py (groom slice #2: WAKING-IDLE vs asleep from snapshot last_fired_at)** · scripts/ + control/status.md · 2026-07-19
