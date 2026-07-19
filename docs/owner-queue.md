@@ -42,31 +42,6 @@ launch that seeded the earliest queue items: [`launch-readiness-2026-07-10.md`](
   *Status 2026-07-19T08:38Z (PR #351): unchanged — still open, unaffected by the morning
   nothing-stuck executions (label/merge sweep touched PRs, not triggers).*
 
-- **`OQ-WEBSITES-036-STALL` — INFO-ONLY (VENUE: none): websites lane hasn't acked ORDER 036.**
-  WHAT: the websites seat has not acked ORDER 036 (unstick the stuck fleet-data bake — fix/rebake
-  after #422 closed) since the ORDER landed 2026-07-18T21:19:36Z; the lane has been fully silent
-  since 21:52Z (no commits, no heartbeat bump, no ack through the 23:45Z/01:45Z/03:45Z failsafe
-  windows — verified at HEAD `a5fdad4`, 2026-07-19T05:44Z sweep). Root-cause fix websites
-  [#434](https://github.com/menno420/websites/pull/434) sits conflict-dirty + `do-not-automerge`
-  + owner-gated (ASK-0008 BAKE_PAT secret half).
-  WHERE: nothing to click — informational. The lane's own next failsafe wake (`45 */2 * * *`)
-  and/or an owner glance at the websites seat is the recovery path.
-  WHY: the ~06:00Z escalation decision (03:0xZ baton) came due with zero overnight movement —
-  recording the stall so it can't silently persist.
-  UNBLOCKS: fresh fleet data (the 2026-07-18 review-bake refresh is still un-relanded).
-  VERIFY: websites `control/status.md` `orders:` line shows 036 acked + a rebake/data-refresh
-  commit lands on websites main.
-  RISK: ✅ info-only — no action taken, no trigger calls made against the lane. Retire this note
-  the moment the lane moves. Provenance: fm morning sweep 2026-07-19 (PR #346).
-  *Annotation 2026-07-19T08:38Z ([fm #351](https://github.com/menno420/fleet-manager/pull/351),
-  owner nothing-stuck directive executions): the stuck
-  bake's root-cause fix **#434 was label-stripped + squash-merged by the hub** (merged
-  2026-07-19T07:50:01Z, merge sha `403a91d`) — BAKE_PAT wiring is live with the
-  `|| GITHUB_TOKEN` fallback (degrades to today's behavior if the secret is absent). The lane
-  itself showed first movement at 07:26:23Z (websites #436 heartbeat commit, lane-liveness
-  ground-truth run, PR #350). **Still outstanding lane-side: the 2026-07-18 data refresh
-  re-land + the 036 ack** — keep this row until both happen.*
-
 - **`OQ-LABEL-DEFS-DELETE` — (VENUE: hub) delete the `do-not-automerge` label DEFINITIONS in 9
   repos (owner nothing-stuck directive, 2026-07-19).**
   WHAT: the 2026-07-19 label sweep found the `do-not-automerge` label **defined** in 9 repos;
@@ -293,7 +268,18 @@ These once-active items are moot; ids retained so nothing is lost, full bodies i
 
 ---
 
-## Resolved 2026-07-19 (roster-cron closeout ~09:2xZ — workflow read at origin/main, Q-0120; fm PR #353)
+## Resolved 2026-07-19 (10Z records slice — websites status read live via raw fetch, Q-0120; fm PR #355)
+
+- **`OQ-WEBSITES-036-STALL` ✅ RETIRED 2026-07-19 (lane revived — 036 acked + discharged)** —
+  the info-only stall note (fm PR #346; annotated PR #351) hits its own retire condition:
+  websites `control/status.md` (live raw fetch 2026-07-19T10:36Z, stamp **09:17:59Z**) shows
+  `orders: acked=001-036 done=001-020,022-036` with **036 discharged — "BAKE_PAT landing path
+  proven, ASK-0008 finalized via merged PR #439"**; lane clearly alive (first movement
+  07:26:23Z / #436, then #439 + #440 merged — main tip `f8caa03` — and #441 in flight;
+  ORDER 034 also done: botsite `/submit` durable-intake verified live 08:27:36Z). The
+  discharge is the lane's own declaration per its status grammar — the ORDER's bake path is
+  proven and the seat holds any residual data-refresh work in its own baton, so nothing
+  remains hub-side. No action taken against the lane; note retired on evidence.
 
 - **`OQ-FM-ROSTER-CRON-RELIABILITY` ✅ RESOLVED 2026-07-19 (fix live on main — owner merged #344)** —
   the watch's verdict was already reached (drops recur: 00:40Z 3 nights running, +02:40Z on
@@ -308,6 +294,13 @@ These once-active items are moot; ids retained so nothing is lost, full bodies i
   is 09:40Z) → **fix live, delivery proof pending the next odd-hour window** — tracked as a
   baton watch in `control/status.md`, not an owner ask. The CCR-routine migration fallback
   stays documented in the workflow header if drops persist even at hourly coverage.
+  **PROOF ACHIEVED 2026-07-19 (10Z records slice, fm PR #355):** roster-regen `schedule`
+  run #83 fired **2026-07-19T10:09:02Z** (success) and delivered **gen #101** (merged
+  10:09:34Z, commit `b95d398`) — within ~1h of the first post-merge odd :40 window (09:40Z,
+  ~29 min GitHub schedule delay) and *before* the next even window (10:40Z). Attribution to
+  the odd-hours line is clean: the Actions run list shows **no run between 07:08:39Z and
+  10:09:02Z**, i.e. the 08:40Z even window itself skipped and the odd line's delivery covered
+  it — exactly the adjacent-hour coverage #344 was built for. Baton watch retired.
   Companion slug `OQ-FM-ROSTER-CRON-SECOND-LINE` (the queue row #344 carried in its own diff)
   is **closed here too** — the owner's conflict resolution kept main's queue text, so that row
   never landed; this entry is its terminal record.

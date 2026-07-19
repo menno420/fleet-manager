@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-19T09:29Z
+updated: 2026-07-19T10:38Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -29,7 +29,10 @@ sweep) recorded 2026-07-19T08:38Z (records slice, PR #351). Regen-window skip
 detector landed in `check_roster_freshness.py` (build slice, PR #352).
 **fm #344 MERGED by the owner 09:22:03Z** (conflict resolved; odd-hours roster
 cron live on main) + seat-provenance-aware I8 remedy landed (build slice,
-PR #353, this refresh).
+PR #353). 10Z triggers-snapshot refresh (2086/17 @ 10:28:57Z) + **odd-hour
+roster-cron delivery PROOF ACHIEVED** (gen #101, 10:09Z) + websites 036
+ack confirmed / `OQ-WEBSITES-036-STALL` retired, recorded 2026-07-19T10:38Z
+(records slice, PR #355, this refresh).
 ---
 
 ## Night watch (2026-07-18, overnight)
@@ -182,12 +185,12 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 ```json routine-claims
 {
   "seat": "fleet-manager (coordinator)",
-  "updated": "2026-07-19T06:23Z",
+  "updated": "2026-07-19T10:38Z",
   "failsafe": {
     "id": "trig_01GK4mjoKBP3yCabn9ux1MB2",
     "cron": "30 */2 * * *",
-    "next_run_at": "2026-07-19T06:31:48Z",
-    "last_fired": "2026-07-19T04:32:17Z",
+    "next_run_at": "2026-07-19T10:31:48Z",
+    "last_fired": "2026-07-19T08:32:09Z",
     "state": "armed"
   },
   "deleted": ["trig_01Bo7dZxM9xz2hwR36L424Z8"],
@@ -368,32 +371,60 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
   06:15Z snapshot now recommends the SBW pair correctly
   (hint = `trig_01DbcKVWxn6RJPhfyRkgTg6m`, matching `OQ-SBW-DUP-FAILSAFE`).
 
-### Next-tasks baton (refreshed 2026-07-19T09:29Z)
-1. **Awaiting owner (one item):** the **explicit confirmation wording for the
-   websites carve-out-removal dispatch** (classifier provenance check). Also
-   still queued for a hub-chat sitting: `OQ-SBW-DUP-FAILSAFE` (delete the older
-   `trig_01XJJ88pQaQFRSpVAviCfAZe`) + `OQ-LABEL-DEFS-DELETE`
-   (9 label-definition deletions; paste-ready in `docs/owner-queue.md`).
-   (fm #344 is no longer awaited — merged 09:22Z, above.)
-2. **Next executable slice:** the planned queue (PR #349) is **drained** —
-   slices 1–3 all DONE (#350, #352, #353). Next up = the plan's
-   below-the-line items: **write-side fence emitter** (`--emit-fence` on
-   `verify_routine_state.py`) or **`check_capabilities_grammar.py`** — or a
-   fresh groom on the next planning pass if neither still earns a slice.
-3. **Watches:** **odd-hour roster-cron delivery proof** (first odd window
-   09:40Z; proof = a roster gen stamped within ~1h of an odd :40 window —
-   `check_roster_freshness.py`'s window report announces a miss) **+ websites
-   lane revival** (first movement 07:26:23Z, #436; `OQ-WEBSITES-036-STALL`
-   retires when the data refresh re-lands + 036 acks) **+ I6 snapshot refresh
-   due ~10:15Z** (4h bar on the 06:15:10Z capture).
+### 10:3xZ records slice — 10Z snapshot + odd-hour PROOF ACHIEVED (2026-07-19, PR #355)
+
+- **`telemetry/triggers-snapshot.json` refreshed** from the full 2026-07-19T10:28:57Z
+  export (**2086 records, 17 enabled**, 21 pages, cursor-to-exhaustion; +62 new / -0
+  gone vs the 06:15:10Z capture). `check_trigger_health.py` → **PASS (8/9 green,
+  1 WARN I8, exit 0)**; I6 SNAPSHOT-FRESH → PASS (0.1h at check time); I5 keys on the
+  fresh gen #101 roster (0.4h). `verify_routine_state.py --export
+  telemetry/triggers-snapshot.json` → **OK, fence-sourced, 2 claims verified**
+  (C1 failsafe + C3 deleted).
+- **Seat failsafe healthy in the export:** `trig_01GK4mjoKBP3yCabn9ux1MB2` enabled,
+  **last_fired 2026-07-19T08:32:09Z, next 2026-07-19T10:31:48Z** (export values,
+  capture 10:28:57Z — pre-fire; this heartbeat is written 10:38Z, so the 10:31:48Z
+  fire has likely already happened and next_run re-advanced — fence carries the
+  export truth, honestly pre-fire).
+- **Odd-hour roster-cron delivery PROOF ACHIEVED:** roster-regen `schedule` run #83
+  fired **10:09:02Z** (success) → **gen #101** merged 10:09:34Z (`b95d398`) —
+  within ~1h of the first post-merge odd :40 window (09:40Z; ~29 min schedule
+  delay), before the 10:40Z even window. Actions run list shows **no run between
+  07:08:39Z and 10:09:02Z** — the 08:40Z even window itself skipped and the odd
+  line covered it, exactly #344's adjacent-hour design. `OQ-FM-ROSTER-CRON-RELIABILITY`
+  Resolved entry annotated; watch retired.
+- **I8 SBW duplicate-pair PERSISTS at 10:28Z** — both "SuperBot World failsafe wake"
+  crons still enabled (`trig_01XJJ88pQaQFRSpVAviCfAZe` · `trig_01DbcKVWxn6RJPhfyRkgTg6m`);
+  the hub delete has not happened → **`OQ-SBW-DUP-FAILSAFE` stands** (hub venue).
+  No new persistent triggers in the delta; no trigger-MCP calls from this venue.
+- **websites lane CONFIRMED revived:** live raw fetch of its `control/status.md`
+  (stamp **09:17:59Z**) — `orders: acked=001-036`, **036 discharged** (BAKE_PAT
+  landing path proven via merged #439), ORDER 034 done (botsite `/submit`
+  durable intake verified live 08:27:36Z), #440 merged (`f8caa03`), #441 in
+  flight. → **`OQ-WEBSITES-036-STALL` RETIRED** to the queue's Resolved section.
+
+### Next-tasks baton (refreshed 2026-07-19T10:38Z)
+1. **Hub-chat sitting awaited (owner):** `OQ-SBW-DUP-FAILSAFE` (delete the
+   crash-orphan SBW failsafe — heartbeat check decides; hint = keep newest
+   `trig_01DbcKVWxn6RJPhfyRkgTg6m`) + `OQ-LABEL-DEFS-DELETE` (9 label-definition
+   deletions; paste-ready in `docs/owner-queue.md`) + the **explicit confirmation
+   wording for the websites carve-out-removal dispatch** (classifier provenance
+   check).
+2. **Next executable slice:** below-the-line items from the PR #349 plan —
+   **write-side fence emitter** (`--emit-fence` on `verify_routine_state.py`) or
+   **`check_capabilities_grammar.py`** — or a fresh groom on the next planning
+   pass if neither still earns a slice.
+3. **Watches:** **next I6 snapshot refresh due ~14:30Z** (4h bar on the
+   10:28:57Z capture). Websites-lane watch retired (036 acked + discharged,
+   above); odd-hour proof watch retired (ACHIEVED, above).
 
 ### Gates
-- `python3 scripts/check_trigger_health.py` → PASS (8/9 green, 1 WARN I8, exit 0).
+- `python3 scripts/check_trigger_health.py` → PASS (8/9 green, 1 WARN I8, exit 0;
+  re-run 2026-07-19T10:35Z on the 10:28:57Z snapshot).
 - `python3 bootstrap.py check --strict` → EXIT 0 after the card flip (born-red HOLD by
   design pre-flip).
 - `python3 scripts/verify_routine_state.py --export telemetry/triggers-snapshot.json`
-  → VERDICT OK (fence-sourced, first live OK; 2026-07-19T00:13Z, PR #341).
-- PR #332 (merged); this refresh: PR #341.
+  → VERDICT OK (fence-sourced, 2 claims verified; re-run 2026-07-19T10:35Z).
+- PR #332 (merged); this refresh: PR #355.
 
 ## Pointers
 - Live status → `docs/current-state.md`
