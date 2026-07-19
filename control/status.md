@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-19T07:28Z
+updated: 2026-07-19T07:40Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -278,7 +278,22 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 - Hub items, watches, and routine state **unchanged** from the 06:23Z heartbeat;
   no trigger-MCP calls from this venue.
 
-### Next-tasks baton (refreshed 2026-07-19T07:28Z)
+### ~07:4xZ build slice — lane-liveness checker landed (2026-07-19, PR #350)
+
+- **Slice 1 of the next-slices queue SHIPPED:** `scripts/check_lane_liveness.py` —
+  per-lane LIVE/QUIET/STALLED/DARK verdicts from newest main-commit + heartbeat
+  signal vs failsafe cadence (snapshot-sourced); `--strict` exits 1 on STALLED.
+  Advisory tier, Q-0105 unverified header; indexed in `docs/playbook.md` R27
+  (detection-mechanized note). Ground-truth run 1 at 07:36Z: 15 live lanes
+  measured in ~25s, 0 walls; **websites came back LIVE — the lane resumed at
+  07:26:23Z (websites #436 heartbeat commit) after ~9.6h silent since 21:52:34Z**,
+  so the 036 stall is showing movement (watch below can begin retiring); the
+  stall-window signature itself (21:52Z read at 07:45Z → STALLED) is pinned in
+  `--selfcheck`. Known gap, honest: gba-homebrew / product-forge / trading-strategy
+  carry no attributable failsafe cron (Game Lab seat constituents are not
+  name-derivable) → cadence "assumed", never STALLED.
+
+### Next-tasks baton (refreshed 2026-07-19T07:40Z)
 1. **Hub executes its queue (unchanged):** land the two green workflow carve-outs —
    product-forge **#29** (clean, green) + fleet-manager **#344** (odd-hour roster
    cron; scheduler drops recurred overnight before gen #99 recovered;
@@ -286,11 +301,11 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
    merge) — **+ execute `OQ-SBW-DUP-FAILSAFE`** (hub chat: delete one of the two
    SBW failsafe crons; recommended delete = older `trig_01XJJ88pQaQFRSpVAviCfAZe`;
    paste-ready steps in `docs/owner-queue.md`).
-2. **Next executable slices (planning pass, PR #349):** build in order —
-   `check_lane_liveness.py` → regen-window skip detector
-   (`check_roster_freshness.py`) → I8 provenance-ranked remedy
-   (`check_trigger_health.py`). Full rationale + below-the-line queue:
-   `docs/planning/2026-07-19-next-slices.md`.
+2. **Next executable slices (planning pass, PR #349):** slice 1
+   (`check_lane_liveness.py`) **DONE — PR #350**. Build next, in order:
+   regen-window skip detector (`check_roster_freshness.py`) → I8
+   provenance-ranked remedy (`check_trigger_health.py`). Full rationale +
+   below-the-line queue: `docs/planning/2026-07-19-next-slices.md`.
 3. **Watches (unchanged):** websites **ORDER-036** (lane silent overnight —
    `OQ-WEBSITES-036-STALL` stands until the lane acks + rebakes; retire on
    movement) **+ prove the odd-hour roster cron** after #344 merges (first

@@ -134,6 +134,13 @@ day) unless a later date is noted next to the rule.
       each of its claims at live GitHub; all-confirmed → withdraw the rung with
       a one-line reason (the executed precedent).
     (2026-07-13, provenance: R27 first execution + withdrawal)
+    **DETECTION IS MECHANIZED (2026-07-19, PR #350):** `python3
+    scripts/check_lane_liveness.py` scores every lane LIVE / QUIET / STALLED /
+    DARK from its newest main-commit + heartbeat signal vs its failsafe
+    cadence (`--strict` exits 1 on any STALLED — the websites-036 stall
+    signature that was caught ~4h late by hand). Advisory tier, unverified
+    (Q-0105 header); main-only signals, so apply the open-PR-heads caveat
+    above before escalating a rung off its verdict.
 
 28. **R28 (2026-07-14) — ORDER/relay composition + ack-sweep hygiene** (INC-15 /
     INC-50 / INC-66, fleet-inconsistency ledger 2026-07-13):
