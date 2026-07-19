@@ -35,6 +35,19 @@ Addendum   : 2026-07-18 (PR #339) — claims are now read from the heartbeat's
             below stays as the fallback for fence-less heartbeats. A
             present-but-malformed fence is a loud exit-2 contract violation,
             never a silent prose fallback.
+Addendum 2 : 2026-07-19 (PR #365) — volatile-field drift check (V1). Founding
+            case: across the 10:28Z→14:05Z window the fence's failsafe
+            `last_fired`/`next_run_at` sat TWO firings stale while this
+            verifier said OK (it checked only id/enabled/cron). Now, when
+            the fence carries those informational fields and the export has
+            them for the claimed failsafe, they are diffed: export newer
+            than fence = INFO "fence volatile fields lag export by N
+            firing(s) — refresh via emit_routine_claims.py". NEVER a DRIFT
+            verdict change — the C1/C3 contract is untouched; volatile
+            fields are advisory by the fence contract ("extra informational
+            keys … the verifier reads id/state/cron and ignores the rest"
+            — they now inform, still never gate). `--volatile-strict`
+            opts in to exit 1 on lag.
 =============================================================================
 
 WHAT IT CHECKS (claims come from the status file's routine-claims fence when
@@ -51,6 +64,11 @@ present, else its prose routine block; actuals from the export)
   INFO PENDING-TICKS    pending one-shot send_laters bound to the seat
                         (pacemaker chain), listed for the record — never
                         drift by themselves.
+  INFO VOLATILE (V1)    fence-claimed `last_fired`/`next_run_at` vs the
+                        export's values for the claimed failsafe — lag is
+                        reported (with a firing count when the cron period
+                        is derivable), never a DRIFT; `--volatile-strict`
+                        exits 1 on lag.
 
 CAPTURE-LAG HONESTY: a DRIFT verdict against an export captured BEFORE the
 heartbeat's claims were made may be capture lag, not live drift (today's
@@ -67,6 +85,7 @@ USAGE
   python3 scripts/verify_routine_state.py --export fresh.json
   python3 scripts/verify_routine_state.py --export flat-array.json \
       --status control/status.md
+  python3 scripts/verify_routine_state.py --volatile-strict  # exit 1 on lag
   python3 scripts/verify_routine_state.py --selfcheck        # offline
 
 Accepted --export shapes (all normalized + id-deduped, first wins):
@@ -193,6 +212,7 @@ def parse_fence_claims(text: str) -> dict | None:
         raise FenceError("fence body must be a single JSON object, got "
                          f"{type(obj).__name__}")
     armed: dict[str, str | None] = {}
+    volatile: dict[str, dict] = {}
     fs = obj.get("failsafe")
     entries = [] if fs is None else (fs if isinstance(fs, list) else [fs])
     for entry in entries:
@@ -209,6 +229,12 @@ def parse_fence_claims(text: str) -> dict | None:
             raise FenceError(f"failsafe `{entry['id']}` cron must be a "
                              "string when present")
         armed[entry["id"]] = " ".join(cron.split()) if cron else None
+        # Informational volatile fields (advisory per the fence contract —
+        # kept as strings; non-string values stay ignored, as before V1).
+        vol = {k: entry[k] for k in ("last_fired", "next_run_at")
+               if isinstance(entry.get(k), str)}
+        if vol:
+            volatile[entry["id"]] = vol
     deleted_raw = obj.get("deleted", [])
     if not isinstance(deleted_raw, list) or not all(
             isinstance(d, str) for d in deleted_raw):
@@ -217,7 +243,9 @@ def parse_fence_claims(text: str) -> dict | None:
     # Same contradictory-claim rule as the prose grammar: deleted wins.
     for tid in deleted:
         armed.pop(tid, None)
-    return {"armed": armed, "deleted": deleted, "mentions": []}
+        volatile.pop(tid, None)
+    return {"armed": armed, "deleted": deleted, "mentions": [],
+            "volatile": volatile}
 
 
 def extract_claims(text: str) -> tuple[dict, str]:
@@ -265,7 +293,10 @@ def parse_status_claims(text: str) -> dict:
     # drift line if the record is still enabled).
     for tid in deleted:
         armed.pop(tid, None)
-    return {"armed": armed, "deleted": deleted, "mentions": mentions}
+    # Prose carries no machine-readable volatile fields; empty for shape
+    # parity with the fence parser.
+    return {"armed": armed, "deleted": deleted, "mentions": mentions,
+            "volatile": {}}
 
 
 # -------------------------------------------------------------- the diff --
@@ -337,6 +368,93 @@ def diff_claims(claims: dict, records: list[dict]) -> list[tuple[str, str]]:
         out.append(("INFO", "no pending seat-bound one-shot identifiable "
                     "in the export"))
     return out
+
+
+# ------------------------------------------------- volatile fields (V1) --
+
+_VOLATILE_TOL_S = 60  # fence stamps are minute/second-truncated vs export ns
+
+_PERIOD_RE = re.compile(r"^\s*\d+\s+(\*|\*/(\d+))\s+\*\s+\*\s+\*\s*$")
+
+
+def cron_period_minutes(cron: str | None) -> int | None:
+    """Best-effort period for the hourly-family crons the fleet arms.
+
+    `M * * * *` → 60 · `M */N * * *` → N*60. Anything else (dom/dow/hour
+    fields in play) → None — the lag line then reports raw timestamps
+    without inventing a firing count.
+    """
+    if not cron:
+        return None
+    m = _PERIOD_RE.match(cron)
+    if not m:
+        return None
+    return 60 * int(m.group(2) or 1)
+
+
+def diff_volatile(claims: dict, records: list[dict]
+                  ) -> tuple[list[tuple[str, str]], int]:
+    """Diff fence-claimed volatile fields against the export's. Advisory.
+
+    For each claimed-armed failsafe present in the export whose fence entry
+    carried `last_fired`/`next_run_at`, compare against the record's
+    `last_fired_at`/`next_run_at`. Returns (results, lag_count):
+      * export newer than fence (>60s) → INFO lag line (capture-lag honesty:
+        a fence written before the export's newer fire is EXPECTED rot, not
+        live drift) + lag_count increment — never a DRIFT;
+      * fence newer than export → INFO (fence live-verified post-capture;
+        the export is the stale side);
+      * within tolerance → OK, volatile fields current.
+    """
+    out: list[tuple[str, str]] = []
+    lag = 0
+    by_id = {r["id"]: r for r in records}
+    for tid, vol in claims.get("volatile", {}).items():
+        rec = by_id.get(tid)
+        if rec is None:
+            continue  # C1 already reports the absence; nothing to compare
+        pairs = []  # (label, fence_dt, export_dt)
+        for label, f_key, e_key in (("last_fired", "last_fired", "last_fired_at"),
+                                    ("next_run_at", "next_run_at", "next_run_at")):
+            f_dt = gen_roster.parse_when(vol.get(f_key) or "")
+            e_dt = gen_roster.parse_when(str(rec.get(e_key) or ""))
+            if f_dt and e_dt:
+                pairs.append((label, f_dt, e_dt))
+        if not pairs:
+            out.append(("INFO", f"V1 fence volatile fields on `{tid}` not "
+                        "comparable — export lacks parseable "
+                        "last_fired_at/next_run_at counterparts"))
+            continue
+        both = " · ".join(f"{lb} fence {fmt(f)} / export {fmt(e)}"
+                          for lb, f, e in pairs)
+        newer = [(lb, f, e) for lb, f, e in pairs
+                 if (e - f).total_seconds() > _VOLATILE_TOL_S]
+        if newer:
+            lag += 1
+            period = cron_period_minutes(claims["armed"].get(tid))
+            # next_run_at advances exactly one period per fire — the
+            # cleanest firing counter; fall back to the last_fired delta.
+            lb, f, e = next(((p for p in newer if p[0] == "next_run_at")),
+                            newer[0])
+            if period:
+                n = max(1, round((e - f).total_seconds() / 60 / period))
+                count = f"{n} firing(s)"
+            else:
+                count = "≥1 firing (period underivable from cron)"
+            out.append(("INFO", f"V1 fence volatile fields on `{tid}` lag "
+                        f"export by {count} ({both}) — fence written before "
+                        "the export's newer fire = expected rot, not live "
+                        "drift; refresh via emit_routine_claims.py"))
+        elif any((f - e).total_seconds() > _VOLATILE_TOL_S
+                 for _, f, e in pairs):
+            out.append(("INFO", f"V1 fence volatile fields on `{tid}` are "
+                        f"NEWER than the export ({both}) — fence "
+                        "live-verified after capture; refresh the snapshot "
+                        "for a comparable baseline"))
+        else:
+            out.append(("OK", f"V1 fence volatile fields on `{tid}` current "
+                        f"vs export ({both})"))
+    return out, lag
 
 
 # ------------------------------------------------------------- selfcheck --
@@ -439,7 +557,7 @@ def selfcheck() -> int:
         except ExportError:
             pass
     ok(parse_status_claims("no routine ids here") ==
-       {"armed": {}, "deleted": [], "mentions": []},
+       {"armed": {}, "deleted": [], "mentions": [], "volatile": {}},
        "claimless status parses to empty claims")
 
     # ---- routine-claims fence (PR #339) ----
@@ -486,6 +604,51 @@ def selfcheck() -> int:
         except FenceError:
             pass
 
+    # ---- volatile-field drift, V1 (PR #365) ----
+    ok(cron_period_minutes("30 */2 * * *") == 120, "2-hourly cron period")
+    ok(cron_period_minutes("5 * * * *") == 60, "hourly cron period")
+    ok(cron_period_minutes("0 9 * * 5") is None,
+       "weekly cron period underivable (honest None)")
+    ok(fclaims["volatile"] ==
+       {"trig_new1": {"next_run_at": "2026-07-18T22:33:20Z"}},
+       f"fence volatile fields parse ({fclaims['volatile']})")
+    vres, vlag = diff_volatile(fclaims, [_SYNTH_NEW, _SYNTH_OTHER])
+    ok(vlag == 0 and any(s == "OK" and "current" in l for s, l in vres),
+       f"matching volatile fields report current, zero lag ({vres})")
+    lag_claims = {"armed": {"trig_new1": "30 */2 * * *"}, "deleted": [],
+                  "mentions": [],
+                  "volatile": {"trig_new1":
+                               {"last_fired": "2026-07-18T16:32:09Z",
+                                "next_run_at": "2026-07-18T18:33:20Z"}}}
+    # Founding shape: export next_run 22:33:20 is 4h (= 2 firings of the
+    # 2-hourly cron) past the fence's 18:33:20 claim.
+    lres, llag = diff_volatile(lag_claims, [_SYNTH_NEW])
+    ok(llag == 1 and any("lag export by 2 firing(s)" in l for _, l in lres),
+       f"stale fence volatile fields report lag with firing count ({lres})")
+    ok(any("emit_routine_claims.py" in l for _, l in lres),
+       "lag line names the refresh path (emit_routine_claims.py)")
+    ok(not any(s == "DRIFT" for s, _ in lres),
+       "volatile lag is INFO, never a DRIFT")
+    nores, nolag = diff_volatile(dict(lag_claims, armed={"trig_new1": None}),
+                                 [_SYNTH_NEW])
+    ok(nolag == 1 and any("≥1 firing" in l for _, l in nores),
+       "cron-less claim still lags honestly without a firing count")
+    ahead = {"armed": {"trig_new1": "30 */2 * * *"}, "deleted": [],
+             "mentions": [],
+             "volatile": {"trig_new1":
+                          {"next_run_at": "2026-07-19T00:33:20Z"}}}
+    ares, alag = diff_volatile(ahead, [_SYNTH_NEW])
+    ok(alag == 0 and any("NEWER than the export" in l for _, l in ares),
+       "fence ahead of a stale export reports NEWER, zero lag")
+    ok(diff_volatile(claims, [_SYNTH_NEW]) == ([], 0),
+       "prose claims (no volatile fields) yield no V1 lines")
+    ok(diff_volatile(lag_claims, [_SYNTH_OTHER]) == ([], 0),
+       "absent claimed id is C1's report, not V1's")
+    bare = {k: v for k, v in _SYNTH_NEW.items() if k != "next_run_at"}
+    cres, clag = diff_volatile(lag_claims, [bare])
+    ok(clag == 0 and any("not comparable" in l for _, l in cres),
+       "export without volatile counterparts reports not-comparable")
+
     for msg in fails:
         print(f"SELFCHECK FAIL: {msg}", file=sys.stderr)
     print(f"selfcheck: {'FAIL' if fails else 'PASS'} ({len(fails)} failure(s))")
@@ -507,6 +670,10 @@ def main(argv=None) -> int:
                     default=os.path.join(root, "control", "status.md"),
                     help="heartbeat file whose routine claims to verify "
                     "(default: control/status.md)")
+    ap.add_argument("--volatile-strict", action="store_true",
+                    help="exit 1 when fence volatile fields "
+                    "(last_fired/next_run_at) lag the export (default: "
+                    "INFO only — volatile fields are advisory)")
     ap.add_argument("--selfcheck", action="store_true",
                     help="run offline assertions and exit")
     args = ap.parse_args(argv)
@@ -552,6 +719,8 @@ def main(argv=None) -> int:
         print(f"export carries no capture instant · now={fmt(now)}")
     print("=" * 72)
     results = diff_claims(claims, records)
+    vol_results, n_lag = diff_volatile(claims, records)
+    results += vol_results
     for status, line in results:
         print(f"[{status:<5}] {line}")
     print("-" * 72)
@@ -568,6 +737,11 @@ def main(argv=None) -> int:
         return 1
     print("VERDICT: OK — heartbeat routine claims match the export "
           f"({sum(1 for s, _ in results if s == 'OK')} claim(s) verified).")
+    if args.volatile_strict and n_lag:
+        print(f"VOLATILE-STRICT: exit 1 — {n_lag} fence claim(s) carry "
+              "volatile fields lagging the export (advisory rot; refresh "
+              "via emit_routine_claims.py).")
+        return 1
     return 0
 
 
