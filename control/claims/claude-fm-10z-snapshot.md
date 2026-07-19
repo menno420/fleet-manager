@@ -1,0 +1,1 @@
+- `claude/fm-10z-snapshot` · **10Z snapshot + heartbeat** · telemetry/ + control/status.md + docs/ · 2026-07-19
