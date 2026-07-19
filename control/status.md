@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-19T14:45Z
+updated: 2026-07-19T15:30Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -530,6 +530,41 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
    carve-out-removal dispatch). All paste-ready in `docs/owner-queue.md`.
 2. **Next slice:** I8-reads-lane-fence or `check_label_hygiene.py`
    (volatile-field drift check DONE, PR #365).
+3. **Watches:** next I6 snapshot refresh due **~18:00Z** (4h bar on the
+   14:05:27Z capture); superbot-next #567/#571 CI-kick routing.
+
+### ~15:3xZ records slice — R30 ADOPTED (2026-07-19, PR #368)
+
+- **Playbook R30 adopted by this seat** — landed on main today by a **sibling
+  session** (fm **PR #367**, merged 14:41:37Z, commit `234303e`):
+  `docs/playbook.md` R30 + binding `docs/workflow-pr-merge-policy.md`
+  (owner-live provenance quoted therein). Operating change for this seat:
+  **future workflow-diff PRs (`.github/workflows/**`) in tended repos are
+  agent-merged** after the policy's 3-point head-SHA check — (1) Codex-clean
+  at the exact head (not `CHANGES_REQUESTED`, zero P1/P2, inline + summary),
+  (2) all checks + commit statuses green, (3) whole-file secret+egress scan
+  clean; patch-less/oversized diff = STOP → owner queue. No label is ever
+  trusted as merge authorization (the #362 CI-label attempt is closed-dead).
+- **Records reconciled:** `docs/owner-queue.md` — the "carve-out confirmation
+  awaited from owner" thread annotated ANSWERED-by-R30/#367 (sections A ·
+  `OQ-LABEL-DEFS-DELETE` · `OQ-FM-APPARATUS-SIZING`); the two live hub items
+  stand (`OQ-SBW-DUP-FAILSAFE`, `OQ-LABEL-DEFS-DELETE`), the latter now
+  noting the websites label-machinery cleanup (`host-automerge-extras.yml`
+  auto-apply) rides the owner's live venue (manager-relayed removal
+  classifier-gated twice today — dated record in `docs/fleet-triage.md`).
+  Full dated entry: `docs/fleet-triage.md` § "2026-07-19 · R30 landed".
+- Parallel-writer note: sibling active 12:01–14:41Z on this repo; zero
+  collisions with this seat's #364/#365 (per-file claims + separate branches).
+- Routine state untouched; no trigger-MCP calls from this venue.
+
+### Baton (15:3xZ refresh)
+1. **Hub/owner:** `OQ-SBW-DUP-FAILSAFE` (SBW dup failsafe delete — second
+   escalation cycle) + `OQ-LABEL-DEFS-DELETE` (9 label definitions) + the
+   **websites label-machinery cleanup** (`host-automerge-extras.yml` carve-out
+   removal — owner's live venue; the merge-policy half is ANSWERED by R30, no
+   confirmation-to-merge outstanding). Paste-ready in `docs/owner-queue.md`.
+2. **Next slice:** `check_label_hygiene.py` or I8-reads-lane-fence
+   (R30 adoption records DONE, this PR).
 3. **Watches:** next I6 snapshot refresh due **~18:00Z** (4h bar on the
    14:05:27Z capture); superbot-next #567/#571 CI-kick routing.
 
