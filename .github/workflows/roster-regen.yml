@@ -89,6 +89,12 @@ name: roster-regen
 on:
   schedule:
     - cron: "40 */2 * * *"
+    # Second line (odd hours) — scheduler-drop resilience, 2026-07-19: GitHub's
+    # best-effort scheduler dropped the 00:40Z window 3 nights running (+02:40Z
+    # on 07-19) with run objects never created; interleaving odd hours gives net
+    # hourly coverage so one dropped window is covered by the adjacent hour.
+    # Regen exits clean when nothing changed (~30s per extra fire).
+    - cron: "40 1-23/2 * * *"
   workflow_dispatch:
 permissions:
   contents: write
