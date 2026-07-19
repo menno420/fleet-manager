@@ -98,3 +98,65 @@ baton.
 
 **Queue drained 2026-07-19 (~09:3xZ).** Next = the below-the-line items (fence
 emitter · capabilities-grammar linter) or a fresh groom on the next planning pass.
+
+---
+
+## Re-groom — 14Z cycle (2026-07-19T14:16Z, PR #364)
+
+The 07:26Z queue **and** its below-the-line items are all landed: #350
+(lane-liveness) · #352 (regen-skip) · #353 (I8 provenance) · #356 (fence
+emitter, `emit_routine_claims.py`) · #358 (capabilities grammar linter). This
+pass harvests the 💡 blocks recorded SINCE the 07:2x groom (cards:
+lane-liveness, morning-records, regen-skip-detector, i8-provenance,
+roster-cron-resilience, 10z-snapshot, fence-emitter, capabilities-linter) and
+re-ranks. Eight candidates; three earn slices.
+
+### Ranked — build in this order
+
+1. **Volatile-field drift check in `verify_routine_state.py`** (fence-emitter
+   card 💡) · **S** — diff the fence's informational `next_run_at`/`last_fired`
+   against the export's record for the claimed failsafe id (INFO/WARN, with the
+   capture-lag honesty note). **Why top:** this very cycle the fence sat stale
+   (claimed last_fired 08:32:09Z vs export 12:32:22Z — two firings behind) and
+   was only fixed because a snapshot slice happened to bump it; the read-side
+   verifier said `OK` throughout. The exact staleness the emitter prevents on
+   the write side is still invisible on the read side; a WARN would surface it
+   at every check run. Contained edit to a verified checker.
+2. **I8 reads the owning lane's `routine-claims` fence** (i8-provenance card
+   💡) · **M** — when I8 finds a duplicate group, fetch the owning repo's
+   `control/status*.md` fence (the same shallow-git path `gen_roster.py` uses)
+   and, when exactly one duplicate id matches the fence's claim, name the
+   keeper outright. **Why 2:** the SBW pair is in its second escalation cycle;
+   today's remedy still ends in "verify live, human decides". SBW's own
+   heartbeat fence claiming its current failsafe id would collapse the remedy
+   to a definite delete recommendation. Cross-repo read, hence M.
+3. **`check_label_hygiene.py`** (morning-records card 💡) · **S/M** — sweep
+   fleet repos for parking-class labels: flag any OPEN PR carrying one (loud —
+   directive violation) and any repo where the definition persists/re-appears
+   (the websites `host-automerge-extras.yml` re-creation trap). **Why 3:**
+   mechanizes the owner's 2026-07-19 nothing-stuck directive, which today was a
+   one-off hand sweep; pairs with the open `OQ-LABEL-DEFS-DELETE` hub item.
+
+### Dropped / parked — honestly not earning a slice now
+
+- **`covers:` machine-readable seat coverage** (lane-liveness card 💡) — real
+  gap (Game Lab constituents unattributable) but an enhancement to a checker
+  that just shipped and is advisory; let liveness run a few days first.
+- **Regen `--probe-runs` run-history prober** (regen-skip card 💡) — parked:
+  #344's odd-hour second cron just landed and is observably firing (gen #104/
+  #105); the disjunction the probe resolves matters mainly when drops recur.
+  Re-rank if the skip detector WARNs again post-#344.
+- **Registry-growth trendline / purge-forecast** (10z-snapshot card 💡) —
+  telemetry nicety; the per-capture delta note covers the need while growth is
+  linear (~60/4h). Revisit if capture pagination cost becomes a friction.
+- **Kit-graduation of the CAPABILITIES checker pair** (capabilities-linter card
+  💡) — routed, not fm work: it is a substrate-kit lane change; propose via the
+  kit's channel when its next wave opens.
+- **`gen_hub_queue_baton.py`** (roster-cron card 💡, re-recorded) — stays
+  PARKED per the 07:26Z groom reasoning (inputs not uniformly produced yet).
+
+### Standing queue (mirrors the status.md baton)
+
+1. volatile-field drift check in `verify_routine_state.py` — **NEXT SLICE**
+2. I8-reads-lane-fence (definite-keeper remedy)
+3. `check_label_hygiene.py` (nothing-stuck mechanized)
