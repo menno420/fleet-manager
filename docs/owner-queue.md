@@ -22,20 +22,8 @@ launch that seeded the earliest queue items: [`launch-readiness-2026-07-10.md`](
 ### (A) GitHub merges — one click each
 **EMPTY (this repo)** — 0 open PRs in fleet-manager. Any remaining fleet-wide merges/ready-flips
 live in [owner-actions-2026-07-17.md](owner-actions-2026-07-17.md), not here. The open cross-repo
-dispositions are the two workflow carve-outs:
+disposition is the one remaining workflow carve-out:
 
-- **`OQ-POKEMON-98-WORKFLOW-MERGE` — pokemon-mod-lab: merge #98 (workflow-touching carve-out).**
-  WHAT: merge [pokemon-mod-lab #98](https://github.com/menno420/pokemon-mod-lab/pull/98)
-  "Reconcile QoL patch count to 16 + add CI drift guard" (squash).
-  WHERE: https://github.com/menno420/pokemon-mod-lab/pull/98 → "Merge pull request".
-  WHY: the diff touches `.github/workflows/rom-builds.yml`, and `merge-on-green.yml` skips
-  workflow-file diffs (its GITHUB_TOKEN can't merge `.github/workflows/**` changes), so the PR
-  does **not** auto-land — landing needs an owner merge click (or an agent MCP/REST merge). Not
-  an agent-capability wall; a carve-out of the one landing workflow.
-  UNBLOCKS: the QoL-count CI drift guard (reds any PR whose living docs disagree with `qol.h`).
-  VERIFY: PR is green (`mergeable_state: clean`, verified live 2026-07-18) + touches
-  `.github/workflows/rom-builds.yml`.
-  RISK: ✅ reversible. Provenance: hub PR sweep 2026-07-18. RECORD-ONLY — do not close.
 - **`OQ-FORGE-29-WORKFLOW-MERGE` — product-forge: merge #29 (workflow-touching carve-out).**
   WHAT: merge [product-forge #29](https://github.com/menno420/product-forge/pull/29)
   "phone-controller: Gradle CI lane for the Android verdict port" (squash).
@@ -242,6 +230,17 @@ These once-active items are moot; ids retained so nothing is lost, full bodies i
   resolved; flapping-quota mitigation only).
 
 ---
+
+## Resolved 2026-07-19 (03:0xZ night wake, fm PR #343 — state read live via the GitHub MCP at the 02:33Z stall-catch, Q-0120)
+
+- **`OQ-POKEMON-98-WORKFLOW-MERGE` ✅ RESOLVED 2026-07-19 (overtaken by events — no owner click
+  needed)** — [pokemon-mod-lab #98](https://github.com/menno420/pokemon-mod-lab/pull/98) was
+  **CLOSED unmerged 2026-07-18T23:18:04Z as superseded by
+  [#107](https://github.com/menno420/pokemon-mod-lab/pull/107)**: the QoL count-guard this row
+  existed to unblock landed there in corrected 18-flag form (closing comment on #98 records the
+  supersession). The workflow-carve-out merge click is therefore moot; the hub queue drops to
+  product-forge #29 (`OQ-FORGE-29-WORKFLOW-MERGE`, still open + green above). Evidence:
+  `control/status.md` § "02:33Z failsafe stall-catch (2026-07-19)".
 
 ## Resolved 2026-07-18 (fleet PR sweep 21:05–21:15Z — state read live via the GitHub MCP, Q-0120)
 
