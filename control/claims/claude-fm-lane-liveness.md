@@ -1,0 +1,1 @@
+- `claude/fm-lane-liveness` · **new tool: lane liveness checker** · scripts/ + docs/playbook.md + control/status.md · 2026-07-19
