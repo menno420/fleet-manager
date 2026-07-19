@@ -4,7 +4,7 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #111** · generated-at **2026-07-19T19:45Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #112** · generated-at **2026-07-19T20:25Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
@@ -190,7 +190,7 @@ RISK: ⚠️ pin-path change → must land via a `do-not-automerge` owner-review
 ### gba-homebrew — - ⚑ **OWNER/HUB asks (ender):** **merge pml #98 + product-forge #29 in the hub** — both are workflow-file PRs…
 
 - suggested-id: `OQ-GBA-HOMEBREW-HUB-ASKS-ENDER-MERGE`
-- source: gba-homebrew/control/status.md @ `01a72c5` · heartbeat `updated:` 2026-07-18T17:03:04Z (ISO-8601 UTC; coordinator ENDER close…
+- source: gba-homebrew/control/status.md @ `41a9a9f` · heartbeat `updated:` 2026-07-18T17:03:04Z (ISO-8601 UTC; coordinator ENDER close…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -225,7 +225,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### idea-engine — ⚑ needs-owner: ORDER-010(c) sim-lab kit upgrade v1.15.0→v1.18.0 PARKED on owner in-session authorization + AS…
 
 - suggested-id: `OQ-IDEA-ENGINE-ORDER-010-C-SIM`
-- source: idea-engine/control/status.md @ `fa704ff` · heartbeat `updated:` 2026-07-19T19:16:21Z · seat: VERDICT 193 mirror landed — ty…
+- source: idea-engine/control/status.md @ `72ce41e` · heartbeat `updated:` 2026-07-19T19:59:57Z · seat: coordinator heartbeat re-stamp…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
