@@ -1,0 +1,1 @@
+- `claude/fm-capabilities-linter` · **capabilities ledger format linter (check_capabilities_grammar.py)** · scripts/ + docs/ + control/status.md · 2026-07-19
