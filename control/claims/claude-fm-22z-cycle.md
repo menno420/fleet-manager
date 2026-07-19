@@ -1,1 +1,0 @@
-- `claude/fm-22z-cycle` · **22Z snapshot + heartbeat** · telemetry/ + docs/ + control/ · 2026-07-19
