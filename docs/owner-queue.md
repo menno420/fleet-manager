@@ -20,9 +20,30 @@ launch that seeded the earliest queue items: [`launch-readiness-2026-07-10.md`](
 ## Active — genuinely-open owner asks
 
 ### (A) GitHub merges — one click each
-**EMPTY (this repo)** — 0 open PRs in fleet-manager. Any remaining fleet-wide merges/ready-flips
-live in [owner-actions-2026-07-17.md](owner-actions-2026-07-17.md), not here. The open cross-repo
-disposition is the one remaining workflow carve-out:
+**1 open PR in this repo** (the workflow carve-out below). Any remaining fleet-wide
+merges/ready-flips live in [owner-actions-2026-07-17.md](owner-actions-2026-07-17.md), not here.
+
+- **`OQ-FM-ROSTER-CRON-SECOND-LINE` — fleet-manager: merge PR #344 (one-line workflow cron
+  addition; VENUE:hub).**
+  WHAT: merge [fleet-manager #344](https://github.com/menno420/fleet-manager/pull/344)
+  "ci: second roster-regen cron (odd hours) — scheduler-drop resilience" (squash). **Recommended:
+  merge on green — answerable with one click; no choices to make.**
+  WHERE: https://github.com/menno420/fleet-manager/pull/344 → "Merge pull request".
+  HOW: hub-venue merge click, or an MCP/REST merge on green (both fine; `merge-on-green.yml`
+  deliberately skips workflow-file diffs, so it will not self-land).
+  WHY: GitHub's best-effort scheduler drops `roster-regen.yml`'s scheduled windows — run objects
+  never created for 00:40Z three nights running (07-17/18/19) plus 02:40Z tonight; workflow itself
+  healthy (30/30 green, active, chronic +45–140m delay). Full diagnosis in the PR body. A second
+  cron `40 1-23/2 * * *` (odd hours) interleaves the existing even-hour line → net hourly coverage,
+  so one dropped window is covered by the adjacent hour; regen exits clean when nothing changed
+  (~30s per extra fire).
+  UNBLOCKS: roster freshness without manual stall-guard regens (the gen #86/PR #302 and
+  gen #98/PR #343 class of hand-fixes).
+  VERIFY: next dropped even-hour window is covered by the odd-hour fire — a roster generation lands
+  within ~1h of the drop, roster stays <4h stale with no manual dispatch.
+  RISK: ✅ reversible — one-line revert of the added cron line.
+
+The other open cross-repo disposition is the product-forge workflow carve-out:
 
 - **`OQ-FORGE-29-WORKFLOW-MERGE` — product-forge: merge #29 (workflow-touching carve-out).**
   WHAT: merge [product-forge #29](https://github.com/menno420/product-forge/pull/29)
@@ -134,6 +155,12 @@ disposition is the one remaining workflow carve-out:
   is an owner/hub-venue action. *(Conditional cross-ref: `OQ-FM-ROSTER-READ-PAT` is only needed if
   roster autogen is retained; a `roster-regen` retire would moot it.)*
 - **`OQ-FM-ROSTER-CRON-RELIABILITY` — watch GitHub's scheduler reliability for `roster-regen.yml`.**
+  *Verdict reached 2026-07-19: drops DO recur* — run objects never created for the 00:40Z window
+  three nights running (07-17/18/19) plus 02:40Z tonight; workflow healthy (30/30 green, active,
+  chronic +45–140m start delay). Diagnosis: fleet-manager PR #344 body. **Remedied by
+  `OQ-FM-ROSTER-CRON-SECOND-LINE` (second cron, odd hours → hourly coverage) once merged** — this
+  watch stays open until that fix lands and proves out (a dropped even-hour window covered by the
+  adjacent odd-hour fire), then moves to Resolved.
   WHAT: watch whether GitHub Actions keeps dropping `roster-regen.yml`'s scheduled cron windows; if
   drops recur (first drop observed 2026-07-18 → roster lapsed to **4.0h** stale before a
   `workflow_dispatch` fix landed Gen #86 / PR #302), migrate roster-freshness to a dedicated **CCR

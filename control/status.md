@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-19T03:07Z
+updated: 2026-07-19T03:41Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -18,7 +18,15 @@ pokemon-mod-lab #98 + product-forge #29 re-verified live GREEN, heartbeat record
 Night-watch state recorded 2026-07-18T21:32Z (records slice). 00Z snapshot
 refresh + heartbeat recorded 2026-07-19T00:14Z (records slice, PR #341). 02:33Z
 failsafe stall-catch heartbeat recorded 2026-07-19T02:35Z (PR #342). 03:0xZ
-night-wake records slice recorded 2026-07-19T03:07Z (this refresh, PR #343).
+night-wake records slice recorded 2026-07-19T03:07Z (PR #343). Roster-cron
+diagnosis + fix recorded 2026-07-19T03:41Z (this refresh, PR #344): roster-regen
+00:40Z+02:40Z skips = GitHub scheduler drops (run objects never created; workflow
+active, 0 failures in 30 runs, chronic +45–140m delay); stall-guard covered gen
+#98; fix PR #344 (second cron `40 1-23/2 * * *` → hourly coverage) parked READY
+on the workflow-diff carve-out (VENUE:hub, owner-queue item
+`OQ-FM-ROSTER-CRON-SECOND-LINE`). Baton: (1) hub — product-forge #29 + fm #344
+(both workflow carve-outs, merge on green); (2) ~06:00Z — websites ORDER-036
+escalation decision + fleet re-sweep.
 ---
 
 ## Night watch (2026-07-18, overnight)
