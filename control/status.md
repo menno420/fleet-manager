@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-19T05:46Z
+updated: 2026-07-19T06:23Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -19,7 +19,9 @@ Night-watch state recorded 2026-07-18T21:32Z (records slice). 00Z snapshot
 refresh + heartbeat recorded 2026-07-19T00:14Z (records slice, PR #341). 02:33Z
 failsafe stall-catch heartbeat recorded 2026-07-19T02:35Z (PR #342). 03:0xZ
 night-wake records slice recorded 2026-07-19T03:07Z (PR #343). ~06Z morning
-sweep recorded 2026-07-19T05:46Z (this refresh, PR #346).
+sweep recorded 2026-07-19T05:46Z (PR #346). 06:15Z triggers-snapshot refresh +
+SBW duplicate-failsafe escalation recorded 2026-07-19T06:23Z (this refresh,
+records slice, PR #347).
 ---
 
 ## Night watch (2026-07-18, overnight)
@@ -124,6 +126,27 @@ sweep recorded 2026-07-19T05:46Z (this refresh, PR #346).
   rides the coordinator's next wake. I8 SBW duplicate-pair WARN unchanged
   (routed to that seat). `verify_routine_state.py` → OK, 2 claims verified.
 
+### 06:15Z snapshot refresh + SBW duplicate-failsafe escalation (2026-07-19, PR #347)
+
+- **`telemetry/triggers-snapshot.json` refreshed** from the full 2026-07-19T06:15:10Z
+  export (**2024 records, 17 enabled**, 21 pages, cursor-to-exhaustion; +62 new / -0
+  gone vs the 00:06:22Z capture). `check_trigger_health.py` → **PASS (8/9 green,
+  1 WARN I8, exit 0)**; I6 SNAPSHOT-FRESH → PASS (0.1h at check time).
+  `verify_routine_state.py --export telemetry/triggers-snapshot.json` → **OK,
+  fence-sourced, 2 claims verified** (C1 failsafe + C3 deleted).
+- **Seat failsafe healthy in the export:** `trig_01GK4mjoKBP3yCabn9ux1MB2` enabled,
+  last_fired 2026-07-19T04:32:17Z, next 2026-07-19T06:31:48Z (export values; if
+  reading after ~06:31Z that fire will have happened and next_run re-advanced —
+  written at 06:23Z, pre-fire).
+- **SBW duplicate-pair ESCALATED — the 00:06Z tripwire FIRED:** both "SuperBot World
+  failsafe wake" crons still enabled at this second capture
+  (`trig_01XJJ88pQaQFRSpVAviCfAZe` 07-17T22:11Z · `trig_01DbcKVWxn6RJPhfyRkgTg6m`
+  07-18T17:08Z; both fired ~05:15Z, both next 07:15Z). Owner-queue item
+  **`OQ-SBW-DUP-FAILSAFE`** raised (Active, VENUE: hub) — recommendation: delete the
+  older `trig_01XJJ88pQaQFRSpVAviCfAZe`; the 07-18 one is the current seat's. Full
+  escalation record: `docs/fleet-triage.md` § "2026-07-19 · SBW duplicate-failsafe
+  ESCALATION". No trigger calls made from this venue (attribution doctrine).
+
 # Fleet Manager — status
 
 Neutral heartbeat. Facts + pointers only. This file is not live coordination state (see banner). Live status: `docs/current-state.md`; next: `docs/NEXT-TASKS.md`; sweep detail: `docs/fleet-triage.md`.
@@ -151,12 +174,12 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 ```json routine-claims
 {
   "seat": "fleet-manager (coordinator)",
-  "updated": "2026-07-19T00:14Z",
+  "updated": "2026-07-19T06:23Z",
   "failsafe": {
     "id": "trig_01GK4mjoKBP3yCabn9ux1MB2",
     "cron": "30 */2 * * *",
-    "next_run_at": "2026-07-19T00:31:48Z",
-    "last_fired": "2026-07-18T22:33:40Z",
+    "next_run_at": "2026-07-19T06:31:48Z",
+    "last_fired": "2026-07-19T04:32:17Z",
     "state": "armed"
   },
   "deleted": ["trig_01Bo7dZxM9xz2hwR36L424Z8"],
@@ -237,17 +260,19 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 4. **Owner-queue carry-forward.** Read `docs/owner-queue.md` and carry forward, paste-ready,
    any remaining genuine owner-only items (secrets, settings, money, product intent).
 
-### Next-2-tasks baton (refreshed 2026-07-19T05:46Z)
-1. **Hub lands the two green workflow carve-outs:** product-forge **#29** (clean,
-   green) + fleet-manager **#344** (odd-hour roster cron — the scheduler-drop fix;
-   drops recurred again tonight before gen #99 recovered). `merge-on-green.yml`
-   skips workflow diffs → owner click or agent MCP/REST merge.
-2. **Daytime:** watch websites **ORDER-036 follow-through** (escalation decision
-   TAKEN this sweep — `OQ-WEBSITES-036-STALL` info note stands until the lane
-   acks + rebakes; retire it on movement) **+ prove the odd-hour roster cron**
-   after #344 merges (first odd-hour window should show a run object). Also due
-   at the coordinator's next wake: triggers-snapshot refresh (I6 FAIL, 5.6h) and
-   the I8 SBW duplicate-pair re-check.
+### Next-2-tasks baton (refreshed 2026-07-19T06:23Z)
+1. **Hub executes its queue:** land the two green workflow carve-outs —
+   product-forge **#29** (clean, green) + fleet-manager **#344** (odd-hour roster
+   cron; scheduler drops recurred overnight before gen #99 recovered;
+   `merge-on-green.yml` skips workflow diffs → owner click or agent MCP/REST
+   merge) — **+ execute `OQ-SBW-DUP-FAILSAFE`** (hub chat: delete one of the two
+   SBW failsafe crons; recommended delete = older `trig_01XJJ88pQaQFRSpVAviCfAZe`;
+   paste-ready steps in `docs/owner-queue.md`).
+2. **Daytime:** watch websites **ORDER-036** (lane silent overnight —
+   `OQ-WEBSITES-036-STALL` stands until the lane acks + rebakes; retire on
+   movement) **+ prove the odd-hour roster cron** after #344 merges (first
+   odd-hour window should show a run object). I6 snapshot refresh DONE this slice
+   (06:15:10Z capture — next refresh due ~10:15Z on the 4h bar).
 
 ### Gates
 - `python3 scripts/check_trigger_health.py` → PASS (8/9 green, 1 WARN I8, exit 0).
