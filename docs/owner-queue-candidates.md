@@ -4,7 +4,7 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #101** · generated-at **2026-07-19T10:09Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #102** · generated-at **2026-07-19T10:57Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
@@ -21,7 +21,7 @@
 ### superbot-next — ⚑ needs-owner: (1) disarm the residual failsafe wake triggers via the routines UI — both enabled duplicates o…
 
 - suggested-id: `OQ-SUPERBOT-NEXT-1-DISARM-RESIDUAL-FAILSAFE`
-- source: superbot-next/control/status.md @ `140b0d3` · heartbeat `updated:` 2026-07-19T07:56:54Z
+- source: superbot-next/control/status.md @ `c7c8792` · heartbeat `updated:` 2026-07-19T07:56:54Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -31,7 +31,7 @@
 ### substrate-kit — ⚑ FOR OWNER — kit-lab daily cron: recreate or retire? (A/B)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-KIT-LAB-DAILY-CRON`
-- source: substrate-kit/control/status.md @ `4e29ef6` · heartbeat `updated:` 2026-07-19T09:46:29Z · phase: R5 SHIPPED (capability stale-…
+- source: substrate-kit/control/status.md @ `3bdb136` · heartbeat `updated:` 2026-07-19T10:53:02Z · phase: R7 SHIPPED (append-log ⇄ Wall…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -48,7 +48,7 @@
 ### substrate-kit — ⚑ v1.19.0 adopter-wave authorization
 
 - suggested-id: `OQ-SUBSTRATE-KIT-V1-19-0-ADOPTER`
-- source: substrate-kit/control/status.md @ `4e29ef6` · heartbeat `updated:` 2026-07-19T09:46:29Z · phase: R5 SHIPPED (capability stale-…
+- source: substrate-kit/control/status.md @ `3bdb136` · heartbeat `updated:` 2026-07-19T10:53:02Z · phase: R7 SHIPPED (append-log ⇄ Wall…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -66,7 +66,7 @@ RISK: ↩️ reversible, distribution-only diffs.
 ### substrate-kit — ⚑ CAPABILITIES denial-record entry (parked)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-CAPABILITIES-DENIAL-RECORD-ENTRY`
-- source: substrate-kit/control/status.md @ `4e29ef6` · heartbeat `updated:` 2026-07-19T09:46:29Z · phase: R5 SHIPPED (capability stale-…
+- source: substrate-kit/control/status.md @ `3bdb136` · heartbeat `updated:` 2026-07-19T10:53:02Z · phase: R7 SHIPPED (append-log ⇄ Wall…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -83,7 +83,7 @@ RISK: ↩️ reversible, docs-only.
 ### substrate-kit — ⚑ public-flip-or-PAT (pick one)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-PUBLIC-FLIP-PAT-PICK`
-- source: substrate-kit/control/status.md @ `4e29ef6` · heartbeat `updated:` 2026-07-19T09:46:29Z · phase: R5 SHIPPED (capability stale-…
+- source: substrate-kit/control/status.md @ `3bdb136` · heartbeat `updated:` 2026-07-19T10:53:02Z · phase: R7 SHIPPED (append-log ⇄ Wall…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -100,7 +100,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### substrate-kit — ⚑ t5-headless-guard fix (owner-gated: pin-path + cross-tree kit-lab)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-T5-HEADLESS-GUARD-FIX`
-- source: substrate-kit/control/status.md @ `4e29ef6` · heartbeat `updated:` 2026-07-19T09:46:29Z · phase: R5 SHIPPED (capability stale-…
+- source: substrate-kit/control/status.md @ `3bdb136` · heartbeat `updated:` 2026-07-19T10:53:02Z · phase: R7 SHIPPED (append-log ⇄ Wall…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -117,7 +117,7 @@ RISK: ⚠️ pin-path change → must land via a `do-not-automerge` owner-review
 ### ↳ substrate-kit — `control/status-superbot-coordinator.md` — ⚑ needs-owner: 1) verify/deliver the testing-lane wind-down — superbot-next control/status.md was still UNFLI…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-1-VERIFY-DELIVER-TESTING`
-- source: substrate-kit/control/status-superbot-coordinator.md @ `4e29ef6` · heartbeat `updated:` 2026-07-10T13:47:02Z
+- source: substrate-kit/control/status-superbot-coordinator.md @ `3bdb136` · heartbeat `updated:` 2026-07-10T13:47:02Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -225,7 +225,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### idea-engine — ⚑ needs-owner: ORDER-010(c) sim-lab kit upgrade v1.15.0→v1.18.0 PARKED on owner in-session authorization + AS…
 
 - suggested-id: `OQ-IDEA-ENGINE-ORDER-010-C-SIM`
-- source: idea-engine/control/status.md @ `a97ac1a` · heartbeat `updated:` 2026-07-19T09:48:43Z · seat: round-38 UNRELATED-slot PROPOS…
+- source: idea-engine/control/status.md @ `e6c605f` · heartbeat `updated:` 2026-07-19T10:43:39Z · seat: round-39 FLEET-slot VERDICT 17…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
