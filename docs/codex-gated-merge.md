@@ -1,9 +1,16 @@
 # Codex-gated merge — workflow-touching PRs
 
+> **Status:** `binding`
+>
+> Extends **R29** (owner never reviews PRs) to the last owner-click it left
+> standing — the `.github/workflows/**` rail. Owner direction, live 2026-07-19.
+
 **Owner direction, 2026-07-19 (live):** *"remove my review from it completely — I
 never look at it anyway, all it does is give me an extra click with 0 extra
-guards."* This supersedes the old **owner-merge-only** rail for
-`.github/workflows/**` PRs. The owner is no longer in this loop.
+guards."* Under **R29** the owner never reviews PRs; the only reason
+workflow-touching PRs still waited on an owner click was the technical
+`merge-on-green` workflow-file rail (the CI `GITHUB_TOKEN` cannot push workflow
+changes). This removes that click by replacing it with an automated Codex gate.
 
 ## The rule
 
@@ -20,6 +27,11 @@ files; the CI `GITHUB_TOKEN` cannot) **once, and only once, it carries the
    secret / dump the environment *and* make an outbound network call — a
    deterministic regex backstop that, unlike an AI reviewer, cannot be talked
    down by wording inside the PR).
+
+Codex replies stay governed by **R24** (untrusted until verified); here Codex is
+used only as a *gate*, and the direction is fail-safe — a fabricated P1 merely
+blocks a merge, and a fabricated "clean" review is backstopped by the
+exfil-shape regex.
 
 Other gate outcomes (agents must NOT merge these):
 - **`needs-human-review`** — exfil-shaped diff. Route to the owner; never
@@ -44,4 +56,5 @@ With no human anywhere in this path, **Codex's review is the last line** on
 workflow changes. An AI reviewer can in principle be manipulated by wording
 crafted to elicit approval; the exfil-shape regex covers the classic
 secret-exfiltration case deterministically, but the residual is non-zero. This
-is an accepted, owner-directed trade.
+is an accepted, owner-directed trade (destructive-tier holds under R29 are
+unchanged).
