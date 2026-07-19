@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-19T00:14Z
+updated: 2026-07-19T02:35Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -16,7 +16,8 @@ pokemon-mod-lab #98 + product-forge #29 re-verified live GREEN, heartbeat record
 (PR #332). Fleet PR sweep recorded 2026-07-18T21:15Z — 13 open PRs / 7 repos, detail in
 `docs/fleet-triage.md` § "2026-07-18 · fleet PR sweep (21:05–21:15Z)" (PR #334).
 Night-watch state recorded 2026-07-18T21:32Z (records slice). 00Z snapshot
-refresh + heartbeat recorded 2026-07-19T00:14Z (this refresh, records slice, PR #341).
+refresh + heartbeat recorded 2026-07-19T00:14Z (records slice, PR #341). 02:33Z
+failsafe stall-catch heartbeat recorded 2026-07-19T02:35Z (this refresh).
 ---
 
 ## Night watch (2026-07-18, overnight)
@@ -50,6 +51,42 @@ refresh + heartbeat recorded 2026-07-19T00:14Z (this refresh, records slice, PR 
   routed to that seat); `verify_routine_state.py` → known capture-lag DRIFT (2
   mismatches on the fm failsafe cutover ids — expected until the next snapshot
   refresh). Stale-claims cleanup: this PR (claims of merged #332/#337 retired).
+
+### 02:33Z failsafe stall-catch (2026-07-19)
+
+- **Routine state, honest:** the ~30-min pacemaker chain **lapsed** after its
+  2026-07-19T00:37Z one-shot fired — the coordinator turn that wake produced ended
+  without re-arming the next one-shot, so no pacemaker was pending from 00:37Z
+  onward. The 2-hourly failsafe cron `trig_01GK4mjoKBP3yCabn9ux1MB2` (`30 */2 * * *`)
+  **caught the stall at this wake (~02:31–02:33Z)** and the chain is **re-armed**
+  (~30-min overnight cadence resumes). This is the failsafe **working as designed —
+  its second scheduled catch-capable fire** (first fire 22:33Z arrived with the chain
+  healthy; this one did the actual catching).
+- **Roster:** `check_roster_freshness.py` → OK, generated 2026-07-18T23:31Z, 3.0h old
+  (bar 4h). Note: the 00:40Z regen window did **not** land a newer roster (gen #97 /
+  23:31Z is still current). Next window 02:40Z; if it also skips, the roster crosses
+  the 4h bar ~03:31Z and reds all `claude/*` PRs — the fix is a regen in its own PR.
+- **Owner-queue check:** CLEAN (no merged/closed citations, slugs intact); #98/#29
+  rows carried as not-measurable by the script's proxied path — measured live via
+  MCP below instead.
+- **websites / ORDER 036:** **NOT acked at HEAD** (status.md `orders:` line still
+  `acked=001-035`, updated 21:42:45Z). Progress is partial: stuck bake PR #422 is
+  terminal (closed 21:20:42Z), but **no bake/data-refresh PR has merged since 00:00Z**
+  (no commits on websites main since 21:52Z), and root-cause fix **#434 is now
+  `mergeable_state: dirty` (merge conflict)** on top of its `do-not-automerge` +
+  ASK-0008 owner gate. Disposition: websites lane needs a rebase of #434; ack +
+  rebake still outstanding → **~06:00Z escalation decision stands** (baton).
+- **Fleet PR scan (live, 02:34Z):** 5 open PRs fleet-wide, **no new PRs stuck red or
+  green-stray since 00:20Z** — superbot-next #576 (parked by design: classifier-wall
+  doc PR, owner-attended completion) · superbot-next #571 + #567 (normal lane docs
+  work, expected to self-land) · websites #434 (above) · product-forge #29 (OPEN,
+  green, hub queue). **pokemon-mod-lab #98 is TERMINAL** — closed unmerged
+  2026-07-18T23:18:04Z as **superseded by #107** (the count-guard idea landed there in
+  corrected 18-flag form; closing comment on #98 records it). Hub queue therefore
+  drops to **#29 only**; retiring the stale `OQ-POKEMON-98-WORKFLOW-MERGE` owner-queue
+  row is flagged for the next records slice (docs edit, outside this control-only diff).
+- **fleet-manager main:** no commits since `335595f`; `control/inbox.md` unchanged —
+  ORDER 049 retirement banner is the newest entry, no surprises.
 
 # Fleet Manager — status
 
@@ -90,7 +127,7 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
   "pacemaker": {
     "mode": "send_later",
     "cadence_minutes": 30,
-    "note": "overnight cadence ~30 min; exactly one pending one-shot at a time"
+    "note": "overnight cadence ~30 min; exactly one pending one-shot at a time. Lapsed after the 00:37Z fire (turn ended without re-arm); failsafe caught the stall at the 02:31Z wake and the chain was re-armed there — cadence resumed"
   }
 }
 ```
@@ -164,15 +201,18 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 4. **Owner-queue carry-forward.** Read `docs/owner-queue.md` and carry forward, paste-ready,
    any remaining genuine owner-only items (secrets, settings, money, product intent).
 
-### Next-2-tasks baton (refreshed 2026-07-19T00:14Z)
-1. Hub lands **pokemon-mod-lab #98** and **product-forge #29** — green, ready PRs touching
-   `.github/workflows/**` (`merge-on-green.yml` skips workflow diffs → owner click or
-   agent MCP/REST merge).
-2. **Morning wake:** websites **ORDER-036 ack/rebake re-check** — confirm the websites
-   lane acked and the 2026-07-18 data refresh re-lands (websites #434 owner-gated
-   BAKE_PAT wiring); **escalate ~06:00Z if untouched**. Then re-sweep: fleet open-PR
-   pass, I8 SBW duplicate-pair tripwire (owner-queue note if still duplicated at the
-   next capture), roster/snapshot freshness.
+### Next-2-tasks baton (refreshed 2026-07-19T02:35Z)
+1. Hub lands **product-forge #29** — green, ready PR touching `.github/workflows/**`
+   (`merge-on-green.yml` skips workflow diffs → owner click or agent MCP/REST merge).
+   (**pokemon-mod-lab #98 dropped from this row** — closed 23:18:04Z as superseded by
+   #107; retire its `OQ-POKEMON-98-WORKFLOW-MERGE` owner-queue row in the next records
+   slice.)
+2. **~06:00Z:** websites **ORDER-036 ack/rebake escalation decision + re-sweep** —
+   036 still unacked at HEAD and no rebake landed since 00:00Z; #434 (BAKE_PAT wiring)
+   is now conflict-dirty on top of its owner gate, so the lane needs a rebase first.
+   Then re-sweep: fleet open-PR pass, I8 SBW duplicate-pair tripwire (owner-queue note
+   if still duplicated at the next capture), roster/snapshot freshness (watch the
+   02:40Z roster regen window — 00:40Z did not land; 4h bar crossed ~03:31Z).
 
 ### Gates
 - `python3 scripts/check_trigger_health.py` → PASS (8/9 green, 1 WARN I8, exit 0).
