@@ -4,14 +4,14 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #108** · generated-at **2026-07-19T16:30Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #109** · generated-at **2026-07-19T17:34Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
 ### superbot (hub) — ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready…
 
 - suggested-id: `OQ-SUPERBOT-HUB-SIDE-RESIDUE-ONLY`
-- source: superbot/control/status.md @ `fbb45d0` · heartbeat `updated:` 2026-07-13T18:00:00Z
+- source: superbot/control/status.md @ `0b72ba1` · heartbeat `updated:` 2026-07-13T18:00:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -225,7 +225,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### idea-engine — ⚑ needs-owner: ORDER-010(c) sim-lab kit upgrade v1.15.0→v1.18.0 PARKED on owner in-session authorization + AS…
 
 - suggested-id: `OQ-IDEA-ENGINE-ORDER-010-C-SIM`
-- source: idea-engine/control/status.md @ `6dd9f3d` · heartbeat `updated:` 2026-07-19T15:56:22Z · seat: round-41 VENTURE-slot VERDICT …
+- source: idea-engine/control/status.md @ `1357da3` · heartbeat `updated:` 2026-07-19T17:13:49Z · seat: round-42 FLEET-slot PROPOSAL 1…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
