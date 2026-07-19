@@ -84,7 +84,10 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   `scripts/`-side checkers with a provenance + kill-switch header, `--selftest`, and
   ADVISORY severity (never merge-blocking, not wired into `bootstrap.py check`):
   `check_fleet_triage_staleness.py` (S3) · `check_docs_links.py` (S5) ·
-  `check_capabilities_wall_age.py` (S9).
+  `check_capabilities_wall_age.py` (S9); joined 2026-07-19 in the same advisory
+  tier by `check_lane_liveness.py` (fm #350, R27 idle detection) and
+  `check_capabilities_grammar.py` (fm #358) — format linter for the
+  CAPABILITIES.md append surfaces, giving the S9 ager firm parsing ground.
 - **Apparatus scaffolding — under sizing review.** The `control/` message-bus and
   roster/telemetry autogen are historical scaffolding; whether the smaller fleet
   revives them is the open **sizing decision** at [NEXT-TASKS.md](NEXT-TASKS.md)

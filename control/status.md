@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-19T11:02Z
+updated: 2026-07-19T11:38Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -187,7 +187,7 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 ```json routine-claims
 {
   "seat": "fleet-manager (coordinator)",
-  "updated": "2026-07-19T11:02Z",
+  "updated": "2026-07-19T11:38Z",
   "failsafe": {
     "id": "trig_01GK4mjoKBP3yCabn9ux1MB2",
     "cron": "30 */2 * * *",
@@ -426,18 +426,41 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
   telemetry/triggers-snapshot.json` → OK, fence-sourced, 2 claims verified,
   post-write.
 
-### Next-tasks baton (refreshed 2026-07-19T11:02Z)
+### ~11:4xZ build slice — capabilities-grammar linter landed (2026-07-19, PR #358)
+
+- **The LAST below-the-line slice from the PR #349 plan SHIPPED:**
+  `scripts/check_capabilities_grammar.py` — stdlib WARN-level format linter
+  for `docs/CAPABILITIES.md`'s hand-written append surfaces (`## Append log`
+  + `## Mirrored lane findings`): leading parseable UTC date, kind
+  classifiable capability|wall|UPDATE (the S9 ager's own `_kind_token`,
+  imported), venue token from the declared set (absent = note per the
+  ledger's grandfather rule), newest-first per section, supersession notes
+  dated + UPDATE bullets matching the ager's exclusion regex
+  (`RESOLVED_MARKERS[0]`), no undated bare claims, lowercase-stub
+  (`docs/capabilities.md`) divergence guard. `--strict` exits 1; default
+  exit 0; `--selftest` PASS. Q-0105 unverified header naming the neighbor
+  split (no-false-walls = prose · wall-age = staleness · this = format);
+  indexed in `docs/current-state.md`'s advisory-checker bullet.
+- **Real-file run: CLEAN** — every linted append entry matches the grammar
+  (0 flags, 0 notes), so no drift fixes were needed; two mutation probes
+  (order inversion, venue typo) confirmed the real-file path detects seeded
+  drift, exit contract intact (advisory 0 / strict 1).
+- Fence `updated` → 11:38Z written by `emit_routine_claims.py` (dogfood,
+  only `updated` changed; volatile fields honestly carry the 10:28:57Z
+  export truth — no trigger-MCP calls from this venue).
+
+### Next-tasks baton (refreshed 2026-07-19T11:38Z)
 1. **Hub-chat sitting awaited (owner):** `OQ-SBW-DUP-FAILSAFE` (delete the
    crash-orphan SBW failsafe — heartbeat check decides; hint = keep newest
    `trig_01DbcKVWxn6RJPhfyRkgTg6m`) + `OQ-LABEL-DEFS-DELETE` (9 label-definition
    deletions; paste-ready in `docs/owner-queue.md`) + the **explicit confirmation
    wording for the websites carve-out-removal dispatch** (classifier provenance
    check).
-2. **Next executable slice:** **`check_capabilities_grammar.py`** (capabilities-
-   grammar linter, last below-the-line item from the PR #349 plan) — or a fresh
-   groom on the next planning pass if it no longer earns a slice. (Write-side
-   fence emitter DONE, PR #357 — landed as a standalone script rather than an
-   `--emit-fence` flag: read tool stays read-only.)
+2. **Planned queue DRY:** `check_capabilities_grammar.py` DONE (PR #358) —
+   the PR #349 plan's below-the-line list is exhausted (fence emitter #357 ·
+   grammar linter #358). Next executable work = a fresh planning groom on the
+   next planning pass; until then the seat idles honestly on watches +
+   records (no manufactured slices).
 3. **Watches:** **next I6 snapshot refresh due ~14:30Z** (4h bar on the
    10:28:57Z capture). Websites-lane watch retired (036 acked + discharged,
    above); odd-hour proof watch retired (ACHIEVED, above).
@@ -449,7 +472,9 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
   design pre-flip).
 - `python3 scripts/verify_routine_state.py --export telemetry/triggers-snapshot.json`
   → VERDICT OK (fence-sourced, 2 claims verified; re-run 2026-07-19T10:35Z).
-- PR #332 (merged); this refresh: PR #357 (prior: #355 merged).
+- `python3 scripts/check_capabilities_grammar.py` → CLEAN (0 flags, 0 notes;
+  first run, 2026-07-19T11:38Z; selftest PASS).
+- PR #332 (merged); this refresh: PR #358 (prior: #357 merged `d65f099`).
 
 ## Pointers
 - Live status → `docs/current-state.md`
