@@ -1,6 +1,6 @@
 # 2026-07-19 · fm build slice — `check_capabilities_grammar.py` capabilities ledger format linter
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 About to happen (declared born-red): the LAST below-the-line slice from the PR #349
 plan (baton item 2 of the 11:02Z heartbeat) — `scripts/check_capabilities_grammar.py`,
