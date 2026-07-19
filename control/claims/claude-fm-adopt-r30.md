@@ -1,0 +1,1 @@
+- `claude/fm-adopt-r30` · **R30 adoption records** · docs/owner-queue.md + docs/fleet-triage.md + control/status.md · 2026-07-19
