@@ -1,1 +1,0 @@
-- `claude/fm-planning-groom` · **idea grooming + next-slices plan** · 2026-07-19
