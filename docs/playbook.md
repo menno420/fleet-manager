@@ -277,6 +277,23 @@ day) unless a later date is noted next to the rule.
     pending window if you catch it, else REST merge-on-green after the flip — and
     never retry a refused arm. A third shape (normal-CI repos, arm fails both ways)
     is documented at blueprint §1/§2 delta 1 (P4/F5).* (2026-07-10)
+30. **R30 (2026-07-19) — Workflow-touching PRs are Codex-gated, not owner-clicked**
+    (owner live 2026-07-19: "remove my review from it completely — I never look at it
+    anyway, all it does is give me an extra click with 0 extra guards"). Extends R29 to
+    the one owner-click it left standing: `.github/workflows/**` PRs waited on an owner
+    merge only because of the `merge-on-green` workflow-file rail (the CI `GITHUB_TOKEN`
+    cannot push workflow changes). Now `.github/workflows/codex-gate.yml` labels such a
+    PR `codex-cleared` iff Codex reviewed THE CURRENT head with zero P1/P2, all checks
+    are green, and the added lines are not exfil-shaped (a deterministic secret-egress
+    regex, immune to being talked down like an AI); the fleet agent path merges
+    `codex-cleared` PRs (short-lived App token — no workflow-merge PAT is ever stored as
+    a repo secret, which would itself be the exfil target). `needs-human-review`
+    (exfil-shaped) and `codex-flagged` (P1/P2) never auto-merge. Full policy +
+    residual-risk note: [`codex-gated-merge.md`](codex-gated-merge.md). *WHY: a gate the
+    owner never operates is a gate without a lock (R29); the workflow-file click was the
+    last such gate, and a never-read human review protected nothing — Codex, which
+    demonstrably catches secret-exfiltration in workflow diffs, is the real guard.*
+    (2026-07-19)
 
 ## REVIEW RELAY
 
