@@ -1,1 +1,0 @@
-- `claude/fm-14z-cycle` · **14Z snapshot + sweep + groom** · telemetry/ + docs/fleet-triage.md + docs/planning/ + control/status.md · 2026-07-19
