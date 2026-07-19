@@ -1071,3 +1071,57 @@ no trigger calls made from this venue.*
   sibling lane's trigger id — hence the hub-chat routing rather than a direct
   `delete_trigger` from this venue. I8 stays WARN (not FAIL) until the dedup
   lands; VERIFY = the next fm snapshot shows exactly one enabled SBW failsafe.
+
+## 2026-07-19 · owner "nothing-stuck" directive — morning executions (~07:40–08:10Z) — records slice
+
+*Source: fm records slice (PR #351), 2026-07-19T08:38Z. Facts from this
+morning's hub workers, merge states re-verified live via the GitHub MCP at
+record time (Q-0120). RAW DATA; no trigger-MCP calls from this venue.*
+
+- **Owner live directive, ~2026-07-19T08:00Z (verbatim, provenance record):**
+  > "There are 'do not automerge' labels in some repos and I want then gone,
+  > nothing should ever be stuck, I'm not going to look through PRs to merge
+  > them."
+- **product-forge #29 MERGED** — squash-merged directly via MCP
+  2026-07-19T07:41:57Z, merge sha `20be7493a7c4d96b3b61e1f2f023ed77ad015e27`;
+  `android-ci.yml` verified present on product-forge main. Owner-queue row
+  `OQ-FORGE-29-WORKFLOW-MERGE` → **Resolved** (hub queue's last workflow
+  carve-out cleared).
+- **websites #434 MERGED** — `do-not-automerge` label stripped, then
+  squash-merged (merged_at 2026-07-19T07:50:01Z, merge sha
+  `403a91def5c315ea75623b574df60fa42cbf8cda`). BAKE_PAT wiring is live in
+  `review-bake.yml` with the `|| GITHUB_TOKEN` fallback — degraded-not-broken
+  behavior until/unless the BAKE_PAT secret exists (the fallback reproduces
+  today's exact behavior). The 2026-07-18 data refresh itself is still
+  un-relanded — lane work.
+- **Fleet do-not-automerge label sweep (directive execution, facts):**
+  - Label **defined in 9 repos**: websites, substrate-kit, fleet-manager,
+    superbot, gba-homebrew, idea-engine, venture-lab, superbot-games,
+    superbot-next.
+  - **Only ONE open item carried it** — websites #434 (stripped + merged,
+    above). Nothing else in the fleet is label-stuck as of the sweep.
+  - **Label definitions NOT deletable from this venue**: the GitHub MCP
+    toolset has no delete-label tool; the REST path returned 401/403
+    (verbatim errors recorded by the sweep worker). Per doctrine this is a
+    venue/path state, not a wall — the deletions route to the hub queue
+    (`OQ-LABEL-DEFS-DELETE`).
+  - **websites machinery caveat:** `host-automerge-extras.yml` (from websites
+    PR #324) AUTO-RE-CREATES and auto-applies the `do-not-automerge` label on
+    workflow-touching `claude/*` PRs — so in websites, deleting the label
+    definition alone cannot satisfy the directive; the workflow behavior
+    itself needs changing (carve-out removal, below).
+- **Carve-out-removal worker dispatch BLOCKED (transient venue denial, NOT a
+  wall):** the platform auto-mode classifier's guardrail-removal provenance
+  check stopped the dispatch and asked for explicit owner confirmation
+  wording; awaiting that confirmation. Recorded per doctrine as an
+  attempt-once venue denial — do not generalize.
+- **fm #344 (odd-hour roster cron):** still OPEN, `mergeable_state: dirty`,
+  head `c2ca6b6` (re-verified live 08:39Z); **owner armed native auto-merge**
+  on it; the conflict-fix worker was stopped by the owner pre-push; relaunch
+  awaits the owner's "go". Note (drift, recorded): #344's body says it queued
+  `OQ-FM-ROSTER-CRON-SECOND-LINE` in `docs/owner-queue.md`, but that edit
+  rides the unmerged PR itself — on main the live row is
+  `OQ-FM-ROSTER-CRON-RELIABILITY` (annotated this slice).
+- **fm #350 (`check_lane_liveness.py`) merged earlier this morning** — slice 1
+  of the next-slices queue done; next executable = **regen-window skip
+  detector** (`docs/planning/2026-07-19-next-slices.md`).
