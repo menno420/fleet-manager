@@ -91,7 +91,15 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   and `check_label_hygiene.py` (fm #370) — nothing-stuck hold-label detector
   (fleet-wide `do-not-automerge`/`owner-held`/variant definitions + open
   applications; `--strict` exits 1 only on an application to an OPEN item;
-  the verification command for `OQ-LABEL-DEFS-DELETE`).
+  the verification command for `OQ-LABEL-DEFS-DELETE`),
+  and `r30_merge_check.py` (fm #372) — the R30 workflow-PR 3-point pre-merge
+  verification mechanized (`--repo owner/name --pr N`): Codex review at the
+  EXACT head SHA (inline + summary P1/P2 scan) · every check run + legacy
+  status green · whole-file secret+egress scan of the head workflows with
+  STOP on patch-less/oversized diffs; evidence per point + PASS/REVIEW/STOP
+  (exit 0/2/1), fail-safe — absent/stale Codex is REVIEW, never PASS; the
+  agent still decides and the script merges nothing
+  ([workflow-pr-merge-policy.md](workflow-pr-merge-policy.md)).
 - **Apparatus scaffolding — under sizing review.** The `control/` message-bus and
   roster/telemetry autogen are historical scaffolding; whether the smaller fleet
   revives them is the open **sizing decision** at [NEXT-TASKS.md](NEXT-TASKS.md)

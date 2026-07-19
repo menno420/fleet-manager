@@ -297,7 +297,9 @@ day) unless a later date is noted next to the rule.
     check exemptions); the merge-side agent re-checking the real head is robust where a
     CI label is not. Codex is a demonstrably strong reviewer — it tore the naive gate
     apart — but the merge decision must re-verify at the head, never trust a cached
-    signal.* (2026-07-19)
+    signal. Merge-side helper: `scripts/r30_merge_check.py` (fm #372, advisory)
+    mechanizes the 3-point check — evidence per point + PASS/REVIEW/STOP, exit
+    0/2/1; the agent still decides, the script merges nothing.* (2026-07-19)
 
 ## REVIEW RELAY
 

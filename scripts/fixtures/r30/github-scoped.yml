@@ -1,0 +1,18 @@
+# r30_merge_check selfcheck fixture — REVIEW: secrets + egress co-present,
+# but every egress target is a known GitHub API host (the merge-on-green
+# shape). Evidence is printed; the pairing judgment stays with the agent.
+name: merge-on-green
+on:
+  workflow_run:
+    workflows: ["substrate-gate"]
+    types: [completed]
+jobs:
+  land:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: merge the green PR
+        run: |
+          curl -sS -X PUT -H "Authorization: Bearer $GH_TOKEN" \
+            "https://api.github.com/repos/${{ github.repository }}/pulls/1/merge"

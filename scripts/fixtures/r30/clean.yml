@@ -1,0 +1,13 @@
+# r30_merge_check selfcheck fixture — PASS: no secret+egress pairing.
+# A workflow that reads no secrets and reaches out nowhere.
+name: docs-lint
+on:
+  pull_request:
+    paths: ["docs/**"]
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: check links
+        run: python3 scripts/check_docs_links.py --strict
