@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-19T08:38Z
+updated: 2026-07-19T08:59Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -25,7 +25,9 @@ PR #347). ~07:2xZ planning pass recorded 2026-07-19T07:28Z (planning slice,
 PR #349). Lane-liveness checker landed (build slice, PR #350). Owner
 nothing-stuck directive ~08:00Z + morning executions (forge #29 merged
 07:41:57Z, websites #434 label-stripped + merged 07:50:01Z, 9-repo label
-sweep) recorded 2026-07-19T08:38Z (this refresh, records slice, PR #351).
+sweep) recorded 2026-07-19T08:38Z (records slice, PR #351). Regen-window skip
+detector landed in `check_roster_freshness.py` (build slice, PR #352, this
+refresh).
 ---
 
 ## Night watch (2026-07-18, overnight)
@@ -327,7 +329,22 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
   directive — morning executions". Routine state untouched; no trigger-MCP
   calls from this venue.
 
-### Next-tasks baton (refreshed 2026-07-19T08:38Z)
+### ~08:5xZ build slice — regen-window skip detector landed (2026-07-19, PR #352)
+
+- **Slice 2 of the next-slices queue SHIPPED:** `scripts/check_roster_freshness.py`
+  now parses the cron line(s) out of `.github/workflows/roster-regen.yml` and
+  reports `REGEN WINDOWS: N scheduled since generated-at, M missed (grace 2h)`
+  with a WARN line per missed window — informational only, the 4h freshness bar
+  stays the ONLY exit-red; `--strict-windows` opt-in exit-1 for future CI;
+  workflow missing/unparseable degrades to "not measured". Q-0105 unverified
+  header on the block. Ground-truth run 1 (08:58Z): 1 window scheduled since
+  gen #100 (07:08Z), 0 missed (08:40Z still within grace). Synthetic replay of
+  the incident night (stamp 23:31Z read at 03:30Z): the 00:40Z drop
+  self-announces as `1 missed` while freshness is still OK at 4.0h — exactly
+  the pre-bar signal that was missing tonight. Exit contract regression-checked
+  against main (identical codes, only the informational lines added).
+
+### Next-tasks baton (refreshed 2026-07-19T08:59Z)
 1. **Awaiting owner (two items):** (a) the **"go" to relaunch the fm #344
    conflict-fix worker** (auto-merge already armed — it lands on green once the
    conflict clears); (b) the **explicit confirmation wording for the websites
@@ -335,10 +352,12 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
    queued for a hub-chat sitting: `OQ-SBW-DUP-FAILSAFE` (delete the older
    `trig_01XJJ88pQaQFRSpVAviCfAZe`) + the new `OQ-LABEL-DEFS-DELETE`
    (9 label-definition deletions; paste-ready in `docs/owner-queue.md`).
-2. **Next executable slice (planning queue, PR #349):** **regen-window skip
-   detector** (`check_roster_freshness.py`) — then the I8 provenance-ranked
-   remedy (`check_trigger_health.py`). Slice 1 (`check_lane_liveness.py`)
-   DONE, PR #350. Full queue: `docs/planning/2026-07-19-next-slices.md`.
+2. **Next executable slice (planning queue, PR #349):** **seat-provenance-aware
+   I8 remedy** (`check_trigger_health.py`) — rank duplicate-cron deletes by
+   seat provenance so the remedy line can't contradict a correct escalation
+   (the SBW pair lesson). Slice 1 (`check_lane_liveness.py`) DONE, PR #350;
+   slice 2 (regen-window skip detector) DONE, PR #352. Full queue:
+   `docs/planning/2026-07-19-next-slices.md`.
 3. **Watches:** websites lane **revival** (first movement 07:26:23Z, #436;
    `OQ-WEBSITES-036-STALL` retires when the data refresh re-lands + 036 acks)
    **+ I6 snapshot refresh due ~10:15Z** (4h bar on the 06:15:10Z capture)
