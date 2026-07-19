@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-18T22:14Z
+updated: 2026-07-19T00:14Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -15,7 +15,8 @@ triggers-snapshot refreshed from the 20:42:05Z full export (I6 PASS), carve-out 
 pokemon-mod-lab #98 + product-forge #29 re-verified live GREEN, heartbeat recorded
 (PR #332). Fleet PR sweep recorded 2026-07-18T21:15Z — 13 open PRs / 7 repos, detail in
 `docs/fleet-triage.md` § "2026-07-18 · fleet PR sweep (21:05–21:15Z)" (PR #334).
-Night-watch state recorded 2026-07-18T21:32Z (this refresh, records slice).
+Night-watch state recorded 2026-07-18T21:32Z (records slice). 00Z snapshot
+refresh + heartbeat recorded 2026-07-19T00:14Z (this refresh, records slice, PR #341).
 ---
 
 ## Night watch (2026-07-18, overnight)
@@ -64,7 +65,9 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
      humans). Shape: a ```json fence tagged `routine-claims` holding one JSON object:
        seat       string — the claiming seat
        updated    string — UTC instant these claims were (re)verified
-       failsafe   object {id, cron, next_run_at, state: "armed"} — or a list of them
+       failsafe   object {id, cron, next_run_at, state: "armed"} — or a list of
+                  them; extra informational keys (e.g. last_fired) are allowed —
+                  the verifier reads id/state/cron and ignores the rest
        deleted    [ids] — trigger ids claimed deleted / verified absent
        pacemaker  object {mode, cadence_minutes, note} — informational
      Neutral facts only, written at heartbeat time from live-verified state. To the
@@ -75,11 +78,12 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 ```json routine-claims
 {
   "seat": "fleet-manager (coordinator)",
-  "updated": "2026-07-18T22:14Z",
+  "updated": "2026-07-19T00:14Z",
   "failsafe": {
     "id": "trig_01GK4mjoKBP3yCabn9ux1MB2",
     "cron": "30 */2 * * *",
-    "next_run_at": "2026-07-18T22:33:20Z",
+    "next_run_at": "2026-07-19T00:31:48Z",
+    "last_fired": "2026-07-18T22:33:40Z",
     "state": "armed"
   },
   "deleted": ["trig_01Bo7dZxM9xz2hwR36L424Z8"],
@@ -91,9 +95,12 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 }
 ```
 
-- **Fresh seat failsafe ARMED + VERIFIED:** `trig_01GK4mjoKBP3yCabn9ux1MB2`
-  ("Fleet Manager failsafe wake", cron `30 */2 * * *`, bound to the live coordinator
-  session, created 2026-07-18T20:58:28Z, next fire 2026-07-18T22:33:20Z).
+- **Fresh seat failsafe ARMED + VERIFIED — and scheduled delivery PROVEN:**
+  `trig_01GK4mjoKBP3yCabn9ux1MB2` ("Fleet Manager failsafe wake", cron
+  `30 */2 * * *`, bound to the live coordinator session, created
+  2026-07-18T20:58:28Z). The 00:06:22Z export records **last_fired
+  2026-07-18T22:33:40Z** — the failsafe's first scheduled fire actually
+  delivered (not just armed); next fire 2026-07-19T00:31:48Z.
 - **Predecessor crash-orphan failsafe `trig_01Bo7dZxM9xz2hwR36L424Z8` DELETED** and
   verified absent via list_triggers — the BOOT 4 crash-orphan path of the v3.8 ender
   doctrine (fm PR #330). Attribution came from the predecessor heartbeat's routine block.
@@ -108,18 +115,27 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
   carve-out; STARTUP re-arms only the failsafe.
 
 ### Triggers snapshot (I6) + health
-- **`telemetry/triggers-snapshot.json` refreshed** from the full 2026-07-18T20:42:05Z
-  export (1903 records, 13 enabled, all pages, cursor-to-exhaustion). I6 SNAPSHOT-FRESH
-  → **PASS** (0.3h at check time); overall `check_trigger_health.py` verdict PASS (8/9).
-- **Capture-instant honesty:** the capture predates the cutover, so the snapshot's data
-  still contains the old failsafe record and not the new one; the two post-capture deltas
-  are recorded in the snapshot's `capture_notes` (do-not-fabricate rule). I4 therefore
-  keys green on the old id until the next refresh — live truth is the routine block above.
-- **I8 WARN (sibling lane, not this seat):** 2× enabled "superbot world failsafe wake"
-  crons (`trig_01XJJ88pQaQFRSpVAviCfAZe` 2026-07-17T22:11Z · `trig_01DbcKVWxn6RJPhfyRkgTg6m`
-  2026-07-18T17:08Z). Remedy per checker: verify each live, keep oldest, delete the rest —
-  routed to a future wake / the SuperBot World seat; this session made no trigger calls
-  against sibling lanes.
+- **`telemetry/triggers-snapshot.json` refreshed** from the full 2026-07-19T00:06:22Z
+  export (1962 records, 17 enabled, 20 pages, cursor-to-exhaustion; PR #341). I6
+  SNAPSHOT-FRESH → **PASS** (0.1h at check time); overall `check_trigger_health.py`
+  verdict PASS (8/9, exit 0); **I4 now keys green on the live failsafe
+  `trig_01GK4mjoKBP3yCabn9ux1MB2`** (capture postdates the 07-18 cutover — no
+  capture_notes caveats needed, the prior capture-lag honesty note is retired).
+- **`verify_routine_state.py` first live OK** (fence-sourced): against this snapshot
+  the verdict is **OK — 2 claims verified** (C1 failsafe present + enabled, cron
+  matches; C3 deleted `trig_01Bo7dZxM9xz2hwR36L424Z8` verified ABSENT). The known
+  capture-lag DRIFT from the 20:42Z-era snapshot is cleared.
+- **I8 WARN (sibling lane, not this seat) — PERSISTS at 00:06Z:** 2× enabled
+  "superbot world failsafe wake" crons (`trig_01XJJ88pQaQFRSpVAviCfAZe`
+  2026-07-17T22:11Z · `trig_01DbcKVWxn6RJPhfyRkgTg6m` 2026-07-18T17:08Z) — **both
+  fired ~23:15Z into different sessions** (two parallel SBW seats being woken).
+  Disposition unchanged: SuperBot World seat's own BOOT-4 cutover fix; **escalate to
+  an owner-queue note if still duplicated at the next capture**. Watch item + detail:
+  `docs/fleet-triage.md` § "2026-07-19 · trigger-registry watch items". Also NEW in
+  this capture: Venture Lab weekly-grading business cron
+  `trig_01BDrZZM5dMS6NJLevGxdZR3` (`0 9 * * 5`, created 21:02Z — ~35 min post-v3.8
+  merge; read as pre-repaste drift, fold-into-work-loop disposition, same triage
+  section). No trigger calls against sibling lanes this refresh.
 
 ### PRs
 - **#332** (this session, `claude/fm-wake-2026-07-18`) — born-red card; lands-on-green at
@@ -148,24 +164,23 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 4. **Owner-queue carry-forward.** Read `docs/owner-queue.md` and carry forward, paste-ready,
    any remaining genuine owner-only items (secrets, settings, money, product intent).
 
-### Next-2-tasks baton (refreshed 2026-07-18T21:32Z)
+### Next-2-tasks baton (refreshed 2026-07-19T00:14Z)
 1. Hub lands **pokemon-mod-lab #98** and **product-forge #29** — green, ready PRs touching
    `.github/workflows/**` (`merge-on-green.yml` skips workflow diffs → owner click or
    agent MCP/REST merge).
-2. **~22:33Z failsafe wake (`trig_01GK4mjoKBP3yCabn9ux1MB2`; or the ~22:31Z pacemaker
-   tick, whichever fires first):** watch websites #434 (owner-gated BAKE_PAT wiring —
-   once merged, confirm the 2026-07-18 data refresh actually re-lands, or a fresh bake
-   PR supersedes #422); watch the three new lane PRs land (idea-engine #600 ·
-   pokemon-mod-lab #104 · superbot-next #567); refresh `telemetry/triggers-snapshot.json`
-   at a convenient wake to clear the known capture-lag DRIFT; I8 superbot-world
-   duplicate-cron dedup stays routed to that seat's own wake
-   (`OQ-FM-ROSTER-CRON-RELIABILITY` roster watch: gen #96 arrived on time).
+2. **Morning wake:** websites **ORDER-036 ack/rebake re-check** — confirm the websites
+   lane acked and the 2026-07-18 data refresh re-lands (websites #434 owner-gated
+   BAKE_PAT wiring); **escalate ~06:00Z if untouched**. Then re-sweep: fleet open-PR
+   pass, I8 SBW duplicate-pair tripwire (owner-queue note if still duplicated at the
+   next capture), roster/snapshot freshness.
 
 ### Gates
 - `python3 scripts/check_trigger_health.py` → PASS (8/9 green, 1 WARN I8, exit 0).
 - `python3 bootstrap.py check --strict` → EXIT 0 after the card flip (born-red HOLD by
   design pre-flip).
-- PR #332.
+- `python3 scripts/verify_routine_state.py --export telemetry/triggers-snapshot.json`
+  → VERDICT OK (fence-sourced, first live OK; 2026-07-19T00:13Z, PR #341).
+- PR #332 (merged); this refresh: PR #341.
 
 ## Pointers
 - Live status → `docs/current-state.md`
