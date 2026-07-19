@@ -74,7 +74,11 @@ day) unless a later date is noted next to the rule.
     proof: `python3 scripts/verify_routine_state.py --export <export>` diffs the
     heartbeat's routine-block claims (armed failsafe id/cron, deleted predecessor ids,
     seat-named orphans) against any export — committed snapshot, page dump, or flat
-    record array — exit 0 OK / 1 DRIFT / 2 unreadable (2026-07-18, PR #335). *WHY: 2026-07-12
+    record array — exit 0 OK / 1 DRIFT / 2 unreadable (2026-07-18, PR #335). Write side:
+    `python3 scripts/emit_routine_claims.py` rewrites the heartbeat's routine-claims fence
+    from CLI args (unspecified fields carry forward; result round-trip-validated through
+    the verifier's own parser before writing) so heartbeat writers never hand-edit the
+    fence JSON (2026-07-19, PR #357). *WHY: 2026-07-12
     ~02:30–08:00Z the scheduler degraded silently — 9 dropped one-shots, wedged cron
     failsafes frozen hours in the past while still enabled, two seats dark ~6h;
     everything needed to catch it was in `list_triggers` all night and nothing was
