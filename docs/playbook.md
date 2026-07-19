@@ -73,8 +73,11 @@ day) unless a later date is noted next to the rule.
     the watchdog's record survives a CCR scheduler outage. Companion claimed-vs-actual
     proof: `python3 scripts/verify_routine_state.py --export <export>` diffs the
     heartbeat's routine-block claims (armed failsafe id/cron, deleted predecessor ids,
-    seat-named orphans) against any export — committed snapshot, page dump, or flat
-    record array — exit 0 OK / 1 DRIFT / 2 unreadable (2026-07-18, PR #335). Write side:
+    seat-named orphans, plus advisory V1 volatile-field lag — fence
+    `last_fired`/`next_run_at` vs the export's, INFO only, `--volatile-strict` to gate)
+    against any export — committed snapshot, page dump, or flat
+    record array — exit 0 OK / 1 DRIFT / 2 unreadable (2026-07-18, PR #335; V1
+    2026-07-19, PR #365). Write side:
     `python3 scripts/emit_routine_claims.py` rewrites the heartbeat's routine-claims fence
     from CLI args (unspecified fields carry forward; result round-trip-validated through
     the verifier's own parser before writing) so heartbeat writers never hand-edit the

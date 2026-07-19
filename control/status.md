@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-19T14:17Z
+updated: 2026-07-19T14:45Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -190,7 +190,7 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 ```json routine-claims
 {
   "seat": "fleet-manager (coordinator)",
-  "updated": "2026-07-19T14:13Z",
+  "updated": "2026-07-19T14:42Z",
   "failsafe": {
     "id": "trig_01GK4mjoKBP3yCabn9ux1MB2",
     "cron": "30 */2 * * *",
@@ -503,15 +503,33 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
   #350/#352/#353/#357/#358): 8 new 💡 harvested, 3 ranked —
   see `docs/planning/2026-07-19-next-slices.md` § "Re-groom — 14Z cycle".
 
-### Baton (14Z refresh)
+### ~14:4xZ build slice — volatile-field drift check landed (2026-07-19, PR #365)
+
+- **Re-groom top pick SHIPPED:** `scripts/verify_routine_state.py` now diffs the
+  fence's advisory `last_fired`/`next_run_at` against the export's values for the
+  claimed failsafe (**V1**): export newer → INFO "fence volatile fields lag export
+  by N firing(s) — refresh via `emit_routine_claims.py`" (firing count from the
+  cron period when derivable; capture-lag honesty wording); fence newer than a
+  stale export → INFO NEWER; **never a DRIFT** (C1/C3 exit contract unchanged —
+  volatile fields stay advisory per the fence contract); `--volatile-strict`
+  opt-in exits 1 on lag. `--selfcheck` extended (V1 block, incl. the founding
+  2-firing shape); indexed in `docs/playbook.md` R26.
+- **Ground-truth run 1 (14:41Z):** committed 14:05:27Z snapshot + this heartbeat →
+  **VERDICT OK, 3 claims verified** incl. `[OK] V1 … current vs export`
+  (#364's fence bump is confirmed current). Synthetic 10Z-era fence fixture
+  (last_fired 08:32:09Z / next 10:31:48Z — today's exact rot) → `[INFO] V1 …
+  lag export by 2 firing(s)`, default exit 0, `--volatile-strict` exit 1.
+- Fence `updated` → 14:42Z written by `emit_routine_claims.py` (dogfood; volatile
+  fields honestly carry the 14:05:27Z export truth — no trigger-MCP calls from
+  this venue).
+
+### Baton (14:4xZ refresh)
 1. **On the owner:** `OQ-SBW-DUP-FAILSAFE` (delete the crash-orphan SBW failsafe —
    second escalation cycle) + `OQ-LABEL-DEFS-DELETE` (9 label definitions) + the
    **carve-out yes/no** (explicit confirmation wording for the websites
    carve-out-removal dispatch). All paste-ready in `docs/owner-queue.md`.
-2. **Next slice:** volatile-field drift check in `verify_routine_state.py`
-   (re-groom top pick — the fence sat two firings stale this cycle and the
-   read side said OK; make that a WARN). Then: I8-reads-lane-fence ·
-   `check_label_hygiene.py`.
+2. **Next slice:** I8-reads-lane-fence or `check_label_hygiene.py`
+   (volatile-field drift check DONE, PR #365).
 3. **Watches:** next I6 snapshot refresh due **~18:00Z** (4h bar on the
    14:05:27Z capture); superbot-next #567/#571 CI-kick routing.
 
