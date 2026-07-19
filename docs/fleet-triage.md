@@ -1176,3 +1176,41 @@ MCP at 14:12–14:15Z (Q-0120). RAW DATA; no trigger-MCP calls from this venue.*
   this sweep (the #344 case resolved by owner hand; websites #434 landed by
   owner arm). The pending owner answer (carve-out yes/no) still gates FUTURE
   workflow-diff strays — question stands in the baton.
+
+## 2026-07-19 · R30 landed — workflow-PR merges are agent work (records slice, ~15:3xZ)
+
+*Source: fm records slice (PR #368), written 2026-07-19T15:29Z. RAW DATA; no
+trigger-MCP calls from this venue.*
+
+- **Playbook R30 is LIVE on main** — landed by a **sibling session** as fm
+  **PR #367**, merged **2026-07-19T14:41:37Z** (merge commit `234303e`,
+  head-ref `claude/agent-merge-policy`): `docs/playbook.md` R30 +
+  `docs/workflow-pr-merge-policy.md` (binding; owner-live provenance quoted
+  therein — "remove my review from it completely … agents should just merge
+  it"). Effect: workflow-touching PRs (`.github/workflows/**`) in tended repos
+  are **agent-merged** once the merge-side agent verifies, at the exact head
+  SHA: (1) Codex reviewed THAT commit, not `CHANGES_REQUESTED`, zero P1/P2
+  (inline + summary); (2) every check + commit status green; (3) whole-file
+  secret+egress scan clean (patch-less/oversized diff = STOP → owner queue).
+  The first attempt (CI `codex-cleared` label gate, fm PR #362) was **closed**
+  after Codex's own review found ~7 bypasses — the label path is dead, the
+  merge-side re-check is the rule. The owner-queue "carve-out confirmation
+  awaited" thread is **ANSWERED** by this (queue annotated this slice).
+- **Parallel-writer coordination note (no collision):** the sibling session
+  was active on this repo **12:01–14:41Z** (its #362 attempt → close → #367
+  land) while this seat's own slices landed alongside (#364 records 14:17Z ·
+  #365 build ~14:45Z). Zero merge conflicts, zero duplicated work — separate
+  branches + one-file-per-claim + distinct scopes held, exactly the layout the
+  claims README's 0%-conflict measurement predicts.
+- **Two classifier denials on manager-relayed guardrail-removal dispatches
+  (dated, factual — transient venue state per doctrine, not a wall):** twice
+  on **2026-07-19**, a manager-relayed worker dispatch to remove the websites
+  `host-automerge-extras.yml` carve-out machinery (the label auto-re-create /
+  auto-apply behavior) was stopped by the **platform auto-mode classifier's
+  guardrail-removal provenance check** — denial class both times: explicit
+  owner-confirmation wording requested for removing a guardrail (first: the
+  morning dispatch, recorded in the ~08:0xZ records slice, PR #351; second: a
+  later relay the same day, recorded at this slice). Per doctrine this is an
+  attempt-once, venue-specific classifier state — the cleanup rides the
+  owner's live venue (see `OQ-LABEL-DEFS-DELETE` caveat), and once its PR
+  exists it lands under R30.

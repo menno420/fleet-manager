@@ -68,10 +68,19 @@ launch that seeded the earliest queue items: [`launch-readiness-2026-07-10.md`](
   CAVEAT — websites needs more than the label delete: `host-automerge-extras.yml` (from
   websites PR #324) **auto-re-creates + auto-applies** the label on workflow-touching
   `claude/*` PRs — machinery, so in websites the workflow's carve-out behavior must be removed
-  too or the label just comes back. That removal is in flight: the carve-out-removal worker
-  dispatch hit the platform auto-mode classifier's guardrail-removal provenance check
-  (2026-07-19; explicit owner confirmation wording requested, awaiting) — transient venue
-  denial, retry with the confirmation.
+  too or the label just comes back.
+  *R30 UPDATE (2026-07-19, ~15:3xZ records slice):* the **policy half of this thread is
+  ANSWERED** — playbook **R30** (fm PR #367, merged 2026-07-19T14:41Z;
+  `docs/workflow-pr-merge-policy.md`, owner-live provenance quoted therein) removes the
+  owner from workflow-diff PR merges entirely: once a websites carve-out-removal PR
+  exists, it is **agent-merged** after the policy's 3-point head-SHA check — no owner
+  merge click, no confirmation-to-merge needed. What remains pending is the **cleanup
+  itself** (the websites workflow edit): a manager-relayed removal dispatch was
+  classifier-gated **twice today (2026-07-19)** by the platform auto-mode
+  guardrail-removal provenance check — a dated, transient venue state per doctrine —
+  so this cleanup currently **rides the owner's live venue** (a dispatch made with the
+  owner present/confirming, or the owner's own session), and once its PR is open it
+  lands under R30.
   VERIFY: label absent from all 9 label pages; a workflow-touching websites `claude/*` PR no
   longer gets the label auto-applied.
   RISK: ✅ reversible (labels re-creatable). Provenance: owner live directive ~2026-07-19T08:00Z
@@ -81,7 +90,12 @@ launch that seeded the earliest queue items: [`launch-readiness-2026-07-10.md`](
 ### (A) GitHub merges — one click each
 **EMPTY** — 0 open PRs in fleet-manager needing a click, and the last cross-repo workflow
 carve-out (product-forge #29) was **merged by the hub 2026-07-19T07:41:57Z** under the owner's
-nothing-stuck directive (`OQ-FORGE-29-WORKFLOW-MERGE` → Resolved below). Any remaining
+nothing-stuck directive (`OQ-FORGE-29-WORKFLOW-MERGE` → Resolved below).
+*Standing note (R30, 2026-07-19):* the workflow-diff carve-out class **no longer routes
+here at all** — playbook R30 (fm PR #367, `docs/workflow-pr-merge-policy.md`) makes
+workflow-touching PRs agent-merged after the policy's 3-point head-SHA check (Codex-clean
+at head · all checks green · whole-file secret+egress scan); only a policy **STOP**
+(e.g. a patch-less/oversized diff) routes a workflow PR to this queue. Any remaining
 fleet-wide merges/ready-flips live in
 [owner-actions-2026-07-17.md](owner-actions-2026-07-17.md), not here. fm
 [#344](https://github.com/menno420/fleet-manager/pull/344) **MERGED 2026-07-19T09:22:03Z**
@@ -177,9 +191,11 @@ fleet-wide merges/ready-flips live in
   VERIFY: after execution, the kept workflows (`merge-on-green` / `substrate-gate` /
   `roster-freshness`) still run + green; the reduced `roster-regen` fires on its slower cadence (or
   on `workflow_dispatch`) and the roster stamp stays inside `roster-freshness`'s threshold.
-  RISK: ⚠️ — EXECUTION touches `.github/workflows/**` (hub-venue / owner-side, classifier-gated for
-  agents); the **RECORD here is ✅ reversible**. Do not self-execute — the cadence edit / any retire
-  is an owner/hub-venue action. *(Conditional cross-ref: `OQ-FM-ROSTER-READ-PAT` is only needed if
+  RISK: ⚠️ — EXECUTION touches `.github/workflows/**`; the **RECORD here is ✅ reversible**. The
+  DECISION (keep vs right-size) stays an owner call. *R30 note (2026-07-19):* once decided, the
+  workflow-diff PR itself is normal agent work end-to-end — built and **agent-merged** under
+  playbook R30 (fm PR #367, `docs/workflow-pr-merge-policy.md`, 3-point head-SHA check) — no
+  owner merge click. *(Conditional cross-ref: `OQ-FM-ROSTER-READ-PAT` is only needed if
   roster autogen is retained; a `roster-regen` retire would moot it.)*
 - **`OQ-CONSOLIDATION-DELETE-VS-ARCHIVE` — delete vs archive (the repo-consolidation gate).** Two
   of your own instructions contradict ("delete no repos — they are the fleet's memory" vs "delete
