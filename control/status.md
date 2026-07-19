@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-19T18:08Z
+updated: 2026-07-19T20:20Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -51,7 +51,10 @@ tripwire for re-appearance. R30 pre-merge checker `scripts/r30_merge_check.py`
 landed (build slice, PR #372). 18Z cycle (snapshot 2159/16 @ 17:57:56Z, I6
 PASS · SBW dup pair THIRD escalation cycle · `OQ-LABEL-DEFS-DELETE` →
 Resolved-verified, residual re-scoped to `OQ-WEBSITES-LABEL-MACHINERY`)
-recorded 2026-07-19T18:08Z (records slice, PR #374).
+recorded 2026-07-19T18:08Z (records slice, PR #374). Evening re-groom (post-14Z
+💡 set ranked, 4 build-worthy / 8 parked-dropped-routed) + top pick
+`scripts/gen_idea_backlog.py` landed with generated
+`docs/planning/idea-backlog.md` (planning+tooling slice, PR #377).
 ---
 
 ## Night watch (2026-07-18, overnight)
@@ -204,7 +207,7 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 ```json routine-claims
 {
   "seat": "fleet-manager (coordinator)",
-  "updated": "2026-07-19T18:05Z",
+  "updated": "2026-07-19T20:18Z",
   "failsafe": {
     "id": "trig_01GK4mjoKBP3yCabn9ux1MB2",
     "cron": "30 */2 * * *",
@@ -704,6 +707,45 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 3. **Watches:** SBW 19:15Z double-fire (third-cycle tripwire) + the STALLED
    SBW constituent lanes; superbot-next #567/#571 CI-kick routing; websites
    label re-appearance (tripwire `check_label_hygiene.py`).
+
+## EVENING GROOM + TOP SLICE (20:2xZ, planning+tooling slice, PR #377)
+
+- **Evening re-groom** appended to `docs/planning/2026-07-19-next-slices.md`
+  ("Evening re-groom (2026-07-19T20:15Z)"): the post-14Z 💡 set ranked — 4
+  build-worthy (1 `gen_idea_backlog.py` · 2 wake-without-work detector ·
+  3 I8-reads-lane-fence · 4 `r30_merge_check --post`), 8 parked/dropped/routed
+  with honest one-liners (classifier-safe naming, park-label vocabulary,
+  `--probe-runs`, `covers:`, growth trendline, kit-graduation, hub-queue
+  baton, emitter `--from-export`).
+- **Top pick DECIDED + BUILT (decide-and-flag):** `scripts/gen_idea_backlog.py`
+  — harvests `💡` bullets from `.sessions/*.md` into generated
+  `docs/planning/idea-backlog.md` (idea · source card · groomed/ungroomed
+  pointer · ⚠ age flag). Rationale: only S-sized pick with zero
+  network/classifier surface in this venue, and meta-leverage — every future
+  groom starts from the machine-built list instead of a ~19-card hand-grep.
+  Ground truth at build: **45 idea blocks across 244 cards, 3 ungroomed (all
+  >2d, pre-2026-07-16)**; `--selfcheck` 6 assertions + determinism OK;
+  Q-0105 unverified tier, advisory, NOT wired into `bootstrap.py check`.
+- **Routine claims re-verified** against the committed 17:57:56Z snapshot at
+  20:18Z: `verify_routine_state.py` → **VERDICT OK — 3 claims verified,
+  fence-sourced**; fence `updated` bumped by `emit_routine_claims.py`
+  (dogfood, volatile fields untouched — export truth).
+- No trigger-MCP calls from this venue; RAW-DATA reporting.
+
+### Baton (20:2xZ refresh)
+1. **Owner (2 items, unchanged):** `OQ-SBW-DUP-FAILSAFE` — delete the
+   crash-orphan SBW failsafe (THIRD escalation cycle; hint = keep newest
+   `trig_01DbcKVWxn6RJPhfyRkgTg6m`, heartbeat check decides) ·
+   `OQ-WEBSITES-LABEL-MACHINERY` — websites `host-automerge-extras.yml`
+   carve-out removal (owner venue). Both paste-ready in `docs/owner-queue.md`.
+2. **Next slice:** wake-without-work detector in `check_lane_liveness.py`
+   (evening groom's #2 — cross-check STALLED lanes against the snapshot's
+   failsafe `last_fired`: `WAKES-DELIVERED-BUT-IDLE` vs `NO-WAKE`; the SBW
+   trio is the live ground truth to demo on).
+3. **Watches:** next I6 snapshot refresh due **~22:00Z** (4h bar on the
+   17:57:56Z capture); SBW double-fire tripwire + STALLED SBW constituents;
+   superbot-next #567/#571 CI-kick routing; websites label re-appearance
+   (tripwire `check_label_hygiene.py`).
 
 ## Pointers
 - Live status → `docs/current-state.md`

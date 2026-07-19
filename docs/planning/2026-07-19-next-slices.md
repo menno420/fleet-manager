@@ -160,3 +160,71 @@ re-ranks. Eight candidates; three earn slices.
 1. volatile-field drift check in `verify_routine_state.py` — **NEXT SLICE**
 2. I8-reads-lane-fence (definite-keeper remedy)
 3. `check_label_hygiene.py` (nothing-stuck mechanized)
+
+---
+
+## Evening re-groom (2026-07-19T20:15Z, PR #377)
+
+> Snapshot of its drafting moment (playbook R2): PR states + landed-script
+> claims verified at origin/main `5edd6d8`. Source: the un-landed 💡 blocks of
+> today's `.sessions/2026-07-19-*.md` cards (each dedup-checked at capture).
+> The 14Z re-groom's ranked queue is fully shipped (#365 volatile-drift ·
+> #370 label-hygiene · plus #372 r30_merge_check from the adopt-R30 card);
+> what follows re-ranks everything still standing.
+
+### Build-worthy (ranked)
+
+1. **`scripts/gen_idea_backlog.py`** (planning-groom card 💡) · **S** — harvest
+   `💡` blocks from `.sessions/*.md` into a generated
+   `docs/planning/idea-backlog.md` (idea · source card · groomed/ungroomed
+   pointer, age flag on rotting card-ideas). **DECIDED — built this session.**
+   Rationale: the only S-sized pick with zero network/classifier surface in
+   this venue, and it is meta-leverage — every future groom (including this
+   one, which again hand-grepped ~19 cards) starts from a machine-built list,
+   so it cheapens the whole idea lifecycle rather than one checker.
+2. **Wake-without-work detector** (18Z-cycle card 💡) · **S/M** — flag in
+   `check_lane_liveness.py` cross-checking each STALLED lane's attributed
+   failsafe `last_fired` from the committed snapshot:
+   `WAKES-DELIVERED-BUT-IDLE` vs `NO-WAKE`. **Why 2:** today's SBW ground
+   truth (fires all day, three lanes STALLED) is exactly the disjunction it
+   resolves; local files only; natural home already loads the snapshot.
+3. **I8-reads-lane-fence** (i8-provenance card 💡, carried from 14Z queue) ·
+   **M** — compute the definite-keeper verdict from the owning lane's
+   heartbeat fence. Still worthy (SBW pair in third escalation cycle) but
+   cross-repo reads keep it M and the SBW lane hasn't adopted the fence yet —
+   its payoff arrives when a fence exists to read.
+4. **`r30_merge_check --post`** (r30-check card 💡) · **M** — auto-comment the
+   3-point evidence block on the PR at verification time (idempotent per head
+   SHA). Real audit-trail value + the cheapest enforcing step for R30's
+   "quote the output" exhortation, but needs the direct-egress PAT path — a
+   network/classifier surface this evening venue has already seen denials on.
+
+### Parked / dropped (honest one-liners)
+
+- **Classifier-safe naming for local writer scripts** (14Z-cycle 💡) — PARK:
+  real friction, but a rename of a just-shipped, just-dogfooded tool churns
+  every doc that cites it; batch with the next emitter-touching slice.
+- **Workflow-sourced park-label vocabulary** (label-hygiene 💡) — PARK: the
+  16:15Z run measured 0 hold-definitions fleet-wide; the blind spot (novel
+  labels) is currently empty. Re-rank if the tripwire ever fires.
+- **Regen `--probe-runs`** (regen-skip 💡) — stays PARKED per 14Z: odd-hour
+  cron observably delivering (gen #111); disjunction matters only on recur.
+- **`covers:` seat-coverage field** (lane-liveness 💡) — stays PARKED: wants
+  the one-question owner ask (Game Lab constituents); liveness checker still
+  in its first days.
+- **Registry-growth trendline** (10Z-snapshot 💡) — stays PARKED per 14Z:
+  per-capture delta note covers it while growth is linear.
+- **Kit-graduation of CAPABILITIES checker pair** (capabilities-linter 💡) —
+  ROUTED, not fm work: substrate-kit lane change, propose via its channel.
+- **`gen_hub_queue_baton.py`** (roster-cron 💡) — stays PARKED per 07:26Z:
+  inputs not uniformly produced fleet-wide yet.
+- **Emitter `--from-export` + V1 paste-ready fix line** (volatile-drift 💡) —
+  PARK (close call vs #2): S-sized and zero-derivation-doctrine aligned, but
+  the V1 read side just shipped and hasn't caught a live lag yet; let one
+  real fire justify the write-side convenience.
+
+### Standing queue (mirrors the status.md baton)
+
+1. `gen_idea_backlog.py` — **DONE this PR**
+2. Wake-without-work detector in `check_lane_liveness.py` — **NEXT SLICE**
+3. I8-reads-lane-fence (definite-keeper remedy)
