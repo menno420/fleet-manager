@@ -1,0 +1,1 @@
+- `claude/fm-snapshot-00z` · **00Z snapshot refresh + heartbeat + triage notes** · telemetry/ + control/status.md + docs/fleet-triage.md · 2026-07-19
