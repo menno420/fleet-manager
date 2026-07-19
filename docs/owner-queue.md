@@ -19,6 +19,27 @@ launch that seeded the earliest queue items: [`launch-readiness-2026-07-10.md`](
 
 ## Active — genuinely-open owner asks
 
+- **`OQ-SBW-DUP-FAILSAFE` — (VENUE: hub) delete one of the two enabled "SuperBot World failsafe wake" crons.**
+  WHAT: two enabled crons with identical name + schedule (`15 1-23/2 * * *`) are waking two parallel
+  SuperBot World seats every 2h — `trig_01XJJ88pQaQFRSpVAviCfAZe` (created 2026-07-17T22:11Z) and
+  `trig_01DbcKVWxn6RJPhfyRkgTg6m` (created 2026-07-18T17:08Z); both fired ~05:15Z (~3s apart), both
+  next 07:15Z, confirmed at two consecutive snapshot captures (00:06:22Z + 06:15:10Z — the 00:06Z
+  watch item's escalation tripwire fired). **Recommendation: delete
+  `trig_01XJJ88pQaQFRSpVAviCfAZe` (the older, 07-17-created one; the 07-18 one is the current
+  seat's cutover-armed failsafe)** — one letter answers this (Y = delete the recommended id).
+  WHERE: hub chat trigger tools (`list_triggers` → `delete_trigger`).
+  HOW: paste-ready — (1) `list_triggers` and verify BOTH ids exist enabled; (2)
+  `delete_trigger trig_01XJJ88pQaQFRSpVAviCfAZe`; (3) `list_triggers` again and confirm the id is
+  absent and exactly one "SuperBot World failsafe wake" remains.
+  WHY: both fire every 2h (~2–3s apart), waking two parallel SBW sessions — double token burn plus
+  a two-writer collision risk on the SBW seat's repos/state.
+  UNBLOCKS: clean single SBW wake chain.
+  VERIFY: the next fm triggers snapshot shows exactly one enabled "SuperBot World failsafe wake"
+  (I8 WARN clears in `check_trigger_health.py`).
+  RISK: ✅ reversible (re-create from the SBW startup prompt). Honest note: fm doctrine forbids
+  this seat deleting a sibling lane's trigger id from its own venue — hence the hub routing.
+  Provenance: fm records slice 2026-07-19 (PR #347), escalation record in `docs/fleet-triage.md`.
+
 - **`OQ-WEBSITES-036-STALL` — INFO-ONLY (VENUE: none): websites lane hasn't acked ORDER 036.**
   WHAT: the websites seat has not acked ORDER 036 (unstick the stuck fleet-data bake — fix/rebake
   after #422 closed) since the ORDER landed 2026-07-18T21:19:36Z; the lane has been fully silent

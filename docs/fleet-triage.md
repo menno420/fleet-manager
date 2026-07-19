@@ -1036,3 +1036,38 @@ only: recorded here, never pushed to sibling repos. No trigger calls made.*
   coordinator's next wake (disposition, not a wall). I8 SBW duplicate-pair WARN
   unchanged (routed to that seat; tripwire re-arms at the next capture).
   `verify_routine_state.py` → OK, 2 claims verified (C1 failsafe + C3 deleted).
+
+## 2026-07-19 · SBW duplicate-failsafe ESCALATION — tripwire FIRED (06:15:10Z capture) — records slice
+
+*Source: fm records slice (PR #347), 2026-07-19. Facts read from the fresh
+2026-07-19T06:15:10Z full `list_triggers` export (2024 records, 17 enabled) now
+committed as `telemetry/triggers-snapshot.json`. Oversight-only: recorded here,
+no trigger calls made from this venue.*
+
+- **The 00:06Z watch item's escalation tripwire has FIRED.** The tripwire read:
+  *"if the pair is still duplicated at the next snapshot capture, raise an
+  owner-queue note."* At the second capture (06:15:10Z) both "SuperBot World
+  failsafe wake" crons (`15 1-23/2 * * *`) are **STILL both enabled**:
+  - `trig_01XJJ88pQaQFRSpVAviCfAZe` — created 2026-07-17T22:11:56Z, last_fired
+    2026-07-19T05:15:26Z, next 07:15:00Z.
+  - `trig_01DbcKVWxn6RJPhfyRkgTg6m` — created 2026-07-18T17:08:23Z, last_fired
+    2026-07-19T05:15:23Z, next 07:15:00Z.
+- **Two captures cited:** first at 2026-07-19T00:06:22Z (both fired ~23:15Z —
+  last_fired 23:15:21Z / 23:15:19Z, watch item above); second at
+  2026-07-19T06:15:10Z (both fired ~05:15Z, ~3s apart, next both 07:15Z). Six
+  more hours = three more double-wake windows with no seat-side dedup — past the
+  "route to the seat" threshold, exactly as the tripwire defined.
+- **Escalation executed: owner-queue item `OQ-SBW-DUP-FAILSAFE` raised (Active,
+  VENUE: hub)** — delete one of the pair from the hub chat's trigger tools.
+  **Recommendation: delete `trig_01XJJ88pQaQFRSpVAviCfAZe` (the older,
+  07-17-created one)** — the 07-18T17:08Z cron is the *current* SBW seat's own
+  cutover-armed failsafe, so it is the one whose session binding is live. Note
+  honestly: `check_trigger_health.py`'s generic I8 remedy says "keep the
+  OLDEST"; that heuristic is seat-blind — here provenance decides (the newer id
+  belongs to the seat that is actually running), so the seat-aware
+  recommendation inverts it. Either deletion is ✅ reversible (re-create from
+  the SBW startup prompt).
+- **Attribution doctrine intact:** fm doctrine forbids this seat deleting a
+  sibling lane's trigger id — hence the hub-chat routing rather than a direct
+  `delete_trigger` from this venue. I8 stays WARN (not FAIL) until the dedup
+  lands; VERIFY = the next fm snapshot shows exactly one enabled SBW failsafe.
