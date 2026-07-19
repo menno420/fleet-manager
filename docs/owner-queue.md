@@ -109,8 +109,8 @@ carve-out (product-forge #29) was **merged by the hub 2026-07-19T07:41:57Z** und
 nothing-stuck directive (`OQ-FORGE-29-WORKFLOW-MERGE` → Resolved below). Any remaining
 fleet-wide merges/ready-flips live in
 [owner-actions-2026-07-17.md](owner-actions-2026-07-17.md), not here. fm
-[#344](https://github.com/menno420/fleet-manager/pull/344) is tracked under
-`OQ-FM-ROSTER-CRON-RELIABILITY` (conflict-dirty; owner armed auto-merge; not a click item).
+[#344](https://github.com/menno420/fleet-manager/pull/344) **MERGED 2026-07-19T09:22:03Z**
+(owner resolved its conflict; `OQ-FM-ROSTER-CRON-RELIABILITY` → Resolved below).
 
 ### (B) Secrets & GitHub settings (owner-only walls)
 
@@ -206,24 +206,6 @@ fleet-wide merges/ready-flips live in
   agents); the **RECORD here is ✅ reversible**. Do not self-execute — the cadence edit / any retire
   is an owner/hub-venue action. *(Conditional cross-ref: `OQ-FM-ROSTER-READ-PAT` is only needed if
   roster autogen is retained; a `roster-regen` retire would moot it.)*
-- **`OQ-FM-ROSTER-CRON-RELIABILITY` — watch GitHub's scheduler reliability for `roster-regen.yml`.**
-  WHAT: watch whether GitHub Actions keeps dropping `roster-regen.yml`'s scheduled cron windows; if
-  drops recur (first drop observed 2026-07-18 → roster lapsed to **4.0h** stale before a
-  `workflow_dispatch` fix landed Gen #86 / PR #302), migrate roster-freshness to a dedicated **CCR
-  routine** (the workflow header documents this fallback).
-  WHERE: `.github/workflows/roster-regen.yml` cron (`40 */2`) + a possible CCR routine.
-  WHY: GitHub silently drops scheduled cron windows under load; the 2h cadence has no margin against a
-  single dropped window before the 4h staleness bar.
-  UNBLOCKS: reliable roster freshness without manual dispatch.
-  VERIFY: scheduled runs land on cadence / the roster stays <4h stale without manual intervention.
-  RISK: ✅ — watch/record only; any migration is an owner/hub-venue action.
-  *Status 2026-07-19T08:38Z (PR #351): verdict reached — drops recur; the one-line fix (second
-  odd-hour cron) is fm [#344](https://github.com/menno420/fleet-manager/pull/344), still OPEN,
-  `mergeable_state: dirty`, head `c2ca6b6` (verified live 08:39Z). **Owner armed native
-  auto-merge** on it; the conflict-fix worker was stopped by the owner pre-push — relaunch
-  awaits the owner's "go". (Note: #344 carries its own queue row `OQ-FM-ROSTER-CRON-SECOND-LINE`
-  in its diff — that slug lands here only when #344 merges; until then this row is the live
-  tracker.)*
 - **`OQ-CONSOLIDATION-DELETE-VS-ARCHIVE` — delete vs archive (the repo-consolidation gate).** Two
   of your own instructions contradict ("delete no repos — they are the fleet's memory" vs "delete
   the test repos"); one letter resolves it. **Recommended A** — harvest → archive (read-only),
@@ -310,6 +292,25 @@ These once-active items are moot; ids retained so nothing is lost, full bodies i
   resolved; flapping-quota mitigation only).
 
 ---
+
+## Resolved 2026-07-19 (roster-cron closeout ~09:2xZ — workflow read at origin/main, Q-0120; fm PR #353)
+
+- **`OQ-FM-ROSTER-CRON-RELIABILITY` ✅ RESOLVED 2026-07-19 (fix live on main — owner merged #344)** —
+  the watch's verdict was already reached (drops recur: 00:40Z 3 nights running, +02:40Z on
+  07-19); the one-line fix, fm [#344](https://github.com/menno420/fleet-manager/pull/344)
+  (second odd-hours cron), **merged 2026-07-19T09:22:03Z, merge commit `b6f01d2`** after the
+  owner resolved its conflict. Verified live at origin/main:
+  `.github/workflows/roster-regen.yml` now carries BOTH schedule lines — `cron: "40 */2 * * *"`
+  and `cron: "40 1-23/2 * * *"` (net hourly coverage; one dropped window is covered by the
+  adjacent hour). **Delivery-proof condition:** first odd-hour-window proof = a roster gen
+  stamped within ~1h of an odd :40 window. Not yet observable at close (read 09:2xZ; latest
+  regen on main is gen #100 at 07:08Z from the even-hour line; the first post-merge odd window
+  is 09:40Z) → **fix live, delivery proof pending the next odd-hour window** — tracked as a
+  baton watch in `control/status.md`, not an owner ask. The CCR-routine migration fallback
+  stays documented in the workflow header if drops persist even at hourly coverage.
+  Companion slug `OQ-FM-ROSTER-CRON-SECOND-LINE` (the queue row #344 carried in its own diff)
+  is **closed here too** — the owner's conflict resolution kept main's queue text, so that row
+  never landed; this entry is its terminal record.
 
 ## Resolved 2026-07-19 (morning executions ~07:40–08:10Z, owner nothing-stuck directive — state read live via the GitHub MCP, Q-0120; fm PR #351)
 

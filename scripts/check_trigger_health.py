@@ -44,6 +44,16 @@ Amended   : 2026-07-14 (wake 0235Z, INC-10) — I8 DUPLICATE-CRON added:
             full live enumeration 2026-07-14T03:2xZ confirmed it absent,
             so nothing was deleted this wake. The invariant catches the
             window itself next time.
+Amended   : 2026-07-19 (build slice, next-slices queue #3, PR #353) — I8
+            remedy made SEAT-PROVENANCE-AWARE: the generic "keep the
+            OLDEST-created" rule gave the WRONG answer on the live SBW
+            duplicate pair (OQ-SBW-DUP-FAILSAFE, escalated 06:15Z) —
+            there the NEWER cron was the current seat session's failsafe
+            and the OLDER was the crash-orphan to delete. The remedy now
+            says: verify each id's bound session against the owning
+            seat's live heartbeat; the id bound to the seat's CURRENT
+            session stays, others are crash-orphans (owning seat or hub
+            deletes); newest-created is printed as a hint only.
 Amended   : 2026-07-13 (heartbeat "Checker gap" + Next-2 baton item 2,
             PR #167) — I1b AMBIGUOUS-ENABLED added: I1 only looks at
             records with `enabled` == True, so a record whose `enabled`
@@ -109,10 +119,14 @@ WARN lines never affect the exit code)
                        wake window — the INC-10 class: two identical
                        "Fleet Manager failsafe wake" `30 */2` crons both
                        passed I4). WARN, not FAIL: registry `enabled`
-                       can lie (I1b caveat), so the remedy is verify BOTH
-                       live via list_triggers first, then keep the
-                       OLDEST-created id (the one docs cite) and delete
-                       the rest. Lane attribution printed per group.
+                       can lie (I1b caveat), so the remedy is verify EACH
+                       live via list_triggers first, then decide by SEAT
+                       PROVENANCE: check each id's bound session against
+                       the owning seat's live heartbeat — the id bound to
+                       the seat's CURRENT session stays; the others are
+                       crash-orphans the owning seat (or hub) deletes.
+                       Keep-oldest is NOT the rule (2026-07-19 SBW
+                       lesson). Lane attribution printed per group.
   I7 TICK-PILE-UP      no session holds >1 PENDING (enabled, unfired)
                        one-shots with same/near-identical message text
                        (timestamps, `#hex` suffixes and digits stripped
@@ -467,6 +481,24 @@ def check(records: list[dict], eval_dt: datetime, now: datetime,
                      "one-shots (distinct long-fuse deliverables exempt)"]))
 
     # I8 DUPLICATE-CRON (INC-10, 2026-07-14)
+    # ---- remedy REWRITTEN seat-provenance-aware, 2026-07-19 ------------
+    # Why changed: the original "keep the OLDEST-created" heuristic gave
+    #   the WRONG answer on the live SBW duplicate pair (2026-07-19,
+    #   OQ-SBW-DUP-FAILSAFE): the NEWER cron (trig_01DbcKVWxn6RJPhfyRkgTg6m,
+    #   created 07-18T17:08Z) was the current seat session's cutover-armed
+    #   failsafe — the keeper — while the OLDER (trig_01XJJ88pQaQFRSpVAviCfAZe,
+    #   07-17T22:11Z) was the crash-orphan to delete. The 06:15Z escalation
+    #   had to invert the checker's advice by hand; a remedy line that can
+    #   contradict a correct escalation is worse than none. Duplicates are
+    #   almost always a BOOT-4 crash-orphan class (a seat re-armed its
+    #   failsafe without its predecessor's cleanup running), so the live
+    #   session binding — not creation order — identifies the keeper.
+    #   Creation time stays printed as a HINT only (newest-created is
+    #   usually the live one), but the heartbeat check decides.
+    # Date: 2026-07-19 (build slice, next-slices queue #3, PR #353).
+    # Reliability: wording verified against the SBW pair in the committed
+    #   snapshot this session; re-confirm on the next live duplicate.
+    # --------------------------------------------------------------------
     lines = []
     for d in duplicate_cron_groups(records):
         ids = " · ".join(
@@ -478,10 +510,16 @@ def check(records: list[dict], eval_dt: datetime, now: datetime,
                      f"`{d['cron']}`, oldest→newest: {ids} · lane: "
                      + ", ".join(lanes)
                      + f" → REMEDY: verify EACH live (list_triggers — "
-                     f"registry `enabled` can lie, I1b caveat), then keep "
-                     f"the OLDEST-created `{d['crons'][0]['id']}` and "
-                     "delete the rest; record the dedup in "
-                     "control/status.md + the dispatch log")
+                     "registry `enabled` can lie, I1b caveat), then "
+                     "verify EACH id's bound session against the owning "
+                     "seat's live heartbeat; the id bound to the seat's "
+                     "CURRENT session stays, others are crash-orphans — "
+                     "the owning seat (or hub) deletes them; keep-oldest "
+                     "is NOT the rule (2026-07-19 SBW lesson: the keeper "
+                     "was the NEWEST). Hint: the newest-created "
+                     f"(`{d['crons'][-1]['id']}`) is usually the live "
+                     "one, but the heartbeat check decides; record the "
+                     "dedup in control/status.md + the dispatch log")
     results.append(("I8 DUPLICATE-CRON", "WARN" if lines else True, lines or
                     ["no two enabled standing crons share an identical "
                      "name+schedule"]))
@@ -595,8 +633,14 @@ def selfcheck() -> int:
     ok("trig_d1" in i8_text and "trig_d2" in i8_text
        and i8_text.index("trig_d1") < i8_text.index("trig_d2"),
        "I8 lists the duplicates oldest→newest")
-    ok("keep the OLDEST-created `trig_d1`" in i8_text,
-       "I8 remedy keeps the oldest-created id")
+    ok("keep the OLDEST-created" not in i8_text,
+       "I8 remedy no longer recommends keep-oldest (2026-07-19 SBW lesson)")
+    ok("bound session against the owning seat's live heartbeat" in i8_text,
+       "I8 remedy decides by seat provenance (heartbeat session binding)")
+    ok("keep-oldest is NOT the rule" in i8_text,
+       "I8 remedy states keep-oldest is NOT the rule")
+    ok("newest-created (`trig_d2`)" in i8_text,
+       "I8 remedy hints the newest-created id (hint only, heartbeat decides)")
     ok("verify EACH live" in i8_text,
        "I8 remedy verifies live before any delete (I1b caveat)")
     ok(run([dup_a, dict(dup_b, cron_expression="0 */2 * * *")])

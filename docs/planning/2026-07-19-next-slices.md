@@ -92,6 +92,9 @@ baton.
 
 ## Standing queue (mirrors the status.md baton)
 
-1. `check_lane_liveness.py` (new advisory checker)
-2. roster regen-window skip detector (edit `check_roster_freshness.py`)
-3. I8 provenance-ranked remedy (edit `check_trigger_health.py`)
+1. `check_lane_liveness.py` (new advisory checker) — **DONE, PR #350**
+2. roster regen-window skip detector (edit `check_roster_freshness.py`) — **DONE, PR #352**
+3. I8 provenance-ranked remedy (edit `check_trigger_health.py`) — **DONE, PR #353**
+
+**Queue drained 2026-07-19 (~09:3xZ).** Next = the below-the-line items (fence
+emitter · capabilities-grammar linter) or a fresh groom on the next planning pass.
