@@ -1,0 +1,1 @@
+- `claude/fm-volatile-drift` · **verifier volatile-field drift check** · scripts/verify_routine_state.py + control/status.md · 2026-07-19
