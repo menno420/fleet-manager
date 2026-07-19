@@ -1,0 +1,1 @@
+- `claude/fm-03z-records` · **roster guard + OQ row retirement** · docs/roster.md + docs/owner-queue.md + control/status.md · 2026-07-19
