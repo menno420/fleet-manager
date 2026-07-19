@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-19T20:39Z
+updated: 2026-07-19T21:44Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -207,12 +207,12 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 ```json routine-claims
 {
   "seat": "fleet-manager (coordinator)",
-  "updated": "2026-07-19T20:18Z",
+  "updated": "2026-07-19T21:40Z",
   "failsafe": {
     "id": "trig_01GK4mjoKBP3yCabn9ux1MB2",
     "cron": "30 */2 * * *",
-    "next_run_at": "2026-07-19T18:31:48Z",
-    "last_fired": "2026-07-19T16:32:24Z",
+    "next_run_at": "2026-07-19T22:31:48Z",
+    "last_fired": "2026-07-19T20:32:21Z",
     "state": "armed"
   },
   "deleted": [
@@ -777,6 +777,41 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
    double-fire tripwire + the now WAKING-IDLE-tagged SBW constituents;
    superbot-next #567/#571 CI-kick routing; websites label re-appearance
    (tripwire `check_label_hygiene.py`).
+
+## 22Z NIGHT CYCLE — SNAPSHOT + HEARTBEAT (21:4xZ, records slice, PR #381)
+
+- **`telemetry/triggers-snapshot.json` refreshed** from the full
+  2026-07-19T21:34:18Z export: **2199 records, 17 enabled** (22 pages,
+  0 cursor-overlap dups, +40 new / -0 gone vs 17:57:56Z).
+  `check_trigger_health.py` → **PASS 8/9, 1 WARN (I8), exit 0**;
+  `verify_routine_state.py --export` → **VERDICT OK, 3 claims verified**
+  (C1 + C3 + V1 volatile fields current post-bump). FM failsafe healthy:
+  last_fired 20:32:21Z, next 22:31:48Z; one FM pacemaker one-shot pending
+  (22:05Z) — chain alive.
+- **SBW duplicate pair: FOURTH escalation cycle.** Both ids still enabled;
+  the predicted 19:15Z double-fire happened, and so did 21:15Z (in-snapshot
+  21:15:27Z / 21:15:30Z, ~2.4s apart); next 23:15Z. `OQ-SBW-DUP-FAILSAFE`
+  annotated (heartbeat-decides keeper per the I8 remedy flip — likely keep
+  the newest, `trig_01DbcKVWxn6RJPhfyRkgTg6m`). Full record:
+  `docs/fleet-triage.md` § "22Z night cycle".
+- **Lane liveness (21:40Z, new snapshot):** headline `STALLED: superbot-idle
+  (Seat B) · WAKING-IDLE: superbot-idle (Seat B) · asleep: none · DARK: none`.
+  Recovered vs 20:36Z: substrate-kit, superbot-games Seat A,
+  superbot-mineverse (all LIVE again). Worsened: superbot-idle now
+  WAKING-IDLE **7 fires** since its last landed output (07:26Z, ~14h).
+- No trigger-MCP calls from this venue; RAW-DATA reporting.
+
+### Baton (21:4xZ refresh — night posture)
+1. **Owner (2 items, unchanged):** `OQ-SBW-DUP-FAILSAFE` (fourth cycle — see
+   above) · `OQ-WEBSITES-LABEL-MACHINERY` — both paste-ready in
+   `docs/owner-queue.md`.
+2. **Night posture:** idle cadence — pacemaker at ~60–90 min (not the 30-min
+   day cadence); next I6 snapshot refresh due **~02:00Z** (4h bar on the
+   21:34:18Z capture). Groom #3 (I8-reads-lane-fence) is available if a work
+   wake wants it; otherwise honest idle.
+3. **Watches (unchanged):** SBW double-fire tripwire (next 23:15Z) + the
+   WAKING-IDLE superbot-idle lane; superbot-next #567/#571 CI-kick routing;
+   websites label re-appearance (tripwire `check_label_hygiene.py`).
 
 ## Pointers
 - Live status → `docs/current-state.md`

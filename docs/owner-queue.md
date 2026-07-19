@@ -48,6 +48,16 @@ launch that seeded the earliest queue items: [`launch-readiness-2026-07-10.md`](
   `check_lane_liveness.py` (18:05Z) verdicts all three SBW-seat constituent lanes STALLED
   (superbot-games Seat A ~9h15m · superbot-idle ~10h39m · superbot-mineverse ~10h39m) —
   the duplicate wakes are burning double tokens while the lane itself lands nothing.*
+  *Status 2026-07-19T21:4xZ (22Z records slice, PR #381) — **FOURTH escalation cycle**: both ids
+  STILL enabled in the 2026-07-19T21:34:18Z capture; the predicted 19:15Z double-fire happened,
+  and so did 21:15Z (in-snapshot last_fired 21:15:27Z / 21:15:30Z, ~2.4s apart); next double-fire
+  23:15Z. Recommendation update (I8 remedy flip, 2026-07-19 SBW lesson): keep-oldest is NOT the
+  rule — verify each id's bound session against the SBW seat's live heartbeat and keep the one
+  bound to the CURRENT session (likely the newest, `trig_01DbcKVWxn6RJPhfyRkgTg6m`, i.e. delete
+  `trig_01XJJ88pQaQFRSpVAviCfAZe` — unchanged from the standing recommendation, now
+  heartbeat-verified rather than age-based). Liveness delta: games Seat A + mineverse recovered
+  to LIVE by 21:40Z; superbot-idle (Seat B) is the sole STALLED lane, WAKING-IDLE 7 fires since
+  its last landed output (07:26Z) — the double burn now concentrates on a lane landing nothing.*
 
 - **`OQ-WEBSITES-LABEL-MACHINERY` — (VENUE: owner-live) remove the websites
   `host-automerge-extras.yml` label re-creation machinery (residual of the resolved
