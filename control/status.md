@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-19T20:20Z
+updated: 2026-07-19T20:39Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -744,6 +744,37 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
    trio is the live ground truth to demo on).
 3. **Watches:** next I6 snapshot refresh due **~22:00Z** (4h bar on the
    17:57:56Z capture); SBW double-fire tripwire + STALLED SBW constituents;
+   superbot-next #567/#571 CI-kick routing; websites label re-appearance
+   (tripwire `check_label_hygiene.py`).
+
+## WAKE-WITHOUT-WORK DETECTOR (20:3xZ, build slice, PR #379)
+
+- **Groom slice #2 LANDED:** `scripts/check_lane_liveness.py` now carries a
+  **Wake (snapshot)** column — per armed lane, the committed snapshot's
+  failsafe `last_fired_at` vs the lane's newest landed signal:
+  **WAKING-IDLE** (fired ≥2 cadence windows after the last landed output —
+  wakes burning tokens with zero output) vs **asleep** (armed on paper, not
+  firing at capture) vs waking. Verdict ladder unchanged — the column
+  refines STALLED/QUIET; `--strict` exit contract regression-checked
+  (LIVE lane → 0, STALLED lane → 1). Selfcheck 10 → 24 pins; Q-0105
+  unverified tier, kill-switch in the provenance block.
+- **Ground truth (20:36Z full-fleet run, verbatim in the PR #379 body + card):**
+  all three STALLED SBW constituent lanes scored
+  `WAKING-IDLE (5 fires since last output)` — the seat failsafe kept firing
+  (last 17:15Z) hours after each lane's newest landed signal (07:26–08:50Z),
+  the exact burn state today's SBW finding named; substrate-kit additionally
+  scored `WAKING-IDLE (2 fires)` on QUIET (early-warning shape). Honest
+  caveat printed: fires after the 17:57:56Z capture are invisible.
+- No trigger-MCP calls from this venue; RAW-DATA reporting.
+
+### Baton (20:3xZ refresh)
+1. **Owner (2 items, unchanged):** `OQ-SBW-DUP-FAILSAFE` ·
+   `OQ-WEBSITES-LABEL-MACHINERY` — both paste-ready in `docs/owner-queue.md`.
+2. **Next slice:** groom #3 — I8-reads-lane-fence — or honest idle (the
+   evening-groom queue is otherwise drained).
+3. **Watches:** next I6 snapshot refresh due **~22:00Z** (4h bar on the
+   17:57:56Z capture — also refreshes the wake column's blind window); SBW
+   double-fire tripwire + the now WAKING-IDLE-tagged SBW constituents;
    superbot-next #567/#571 CI-kick routing; websites label re-appearance
    (tripwire `check_label_hygiene.py`).
 
