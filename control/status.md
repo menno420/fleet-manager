@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-19T16:20Z
+updated: 2026-07-19T17:05Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -622,6 +622,37 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 3. **Watches:** next I6 snapshot refresh due **~18:00Z** (4h bar on the
    14:05:27Z capture); superbot-next #567/#571 CI-kick routing; websites
    label re-appearance (tripwire = this slice's checker).
+
+## R30 PRE-MERGE CHECKER LANDED (17:0xZ, build slice, PR #372)
+- **`scripts/r30_merge_check.py`** — the R30 3-point workflow-PR pre-merge
+  verification mechanized (idea from the PR #368 card; policy
+  `docs/workflow-pr-merge-policy.md`, playbook R30). `--repo owner/name
+  --pr N` → evidence per point + PASS/REVIEW/STOP (exit 0/2/1): Codex
+  review bound to the EXACT head SHA (inline + summary P1/P2 badge scan,
+  Codex shapes ground-truthed on fm #362) · every check run + legacy
+  commit status green · whole-file secret+egress scan of the head
+  workflows (interpreter//dev/tcp patterns; STOP on patch-less/oversized
+  diffs, off-GitHub or same-line pairing; REVIEW when secrets+egress are
+  co-present but GitHub-API-scoped — judgment stays with the agent, never
+  a false green). Advisory tier, Q-0105 header, `--selfcheck` fixtures
+  (`scripts/fixtures/r30/`). Ground-truth runs: fm #344 (merged, retro) →
+  REVIEW exit 2 (pre-Codex-convention PR, honestly no Codex evidence;
+  points 2–3 PASS with evidence); fm #362 (the closed label-gate PR) →
+  STOP exit 1 (3 head-bound P1s detected + §3 STOP-evidence).
+- No trigger-MCP calls from this venue; no sibling repo written.
+
+### Baton (17:0xZ refresh)
+1. **Hub/owner:** unchanged from 16:1xZ — `OQ-SBW-DUP-FAILSAFE` + websites
+   label-machinery cleanup (owner venue); `OQ-LABEL-DEFS-DELETE` re-scope
+   to caveat-only awaits the records slice.
+2. **Next slice:** fresh planning groom or honest idle — next-slices queue
+   drained (label-hygiene DONE #370, R30 checker DONE this PR;
+   I8-reads-lane-fence remains the one groomed candidate).
+3. **Watches:** next I6 snapshot refresh due **~18:00Z**; superbot-next
+   #567/#571 CI-kick routing; websites label re-appearance (tripwire
+   `check_label_hygiene.py`). Future workflow-touching PRs: run
+   `r30_merge_check.py` before merging, quote its output in the merge
+   record.
 
 ## Pointers
 - Live status → `docs/current-state.md`
