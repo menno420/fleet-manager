@@ -1,0 +1,1 @@
+- `claude/fm-regen-skip-detector` · **roster regen skip detector** · scripts/check_roster_freshness.py + control/status.md · 2026-07-19
