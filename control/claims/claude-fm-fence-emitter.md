@@ -1,0 +1,1 @@
+- `claude/fm-fence-emitter` · **fence emitter tool** · scripts/ + control/status.md · 2026-07-19
