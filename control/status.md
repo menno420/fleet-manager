@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-19T06:23Z
+updated: 2026-07-19T07:28Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -20,8 +20,9 @@ refresh + heartbeat recorded 2026-07-19T00:14Z (records slice, PR #341). 02:33Z
 failsafe stall-catch heartbeat recorded 2026-07-19T02:35Z (PR #342). 03:0xZ
 night-wake records slice recorded 2026-07-19T03:07Z (PR #343). ~06Z morning
 sweep recorded 2026-07-19T05:46Z (PR #346). 06:15Z triggers-snapshot refresh +
-SBW duplicate-failsafe escalation recorded 2026-07-19T06:23Z (this refresh,
-records slice, PR #347).
+SBW duplicate-failsafe escalation recorded 2026-07-19T06:23Z (records slice,
+PR #347). ~07:2xZ planning pass recorded 2026-07-19T07:28Z (this refresh,
+planning slice, PR #349).
 ---
 
 ## Night watch (2026-07-18, overnight)
@@ -260,19 +261,41 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 4. **Owner-queue carry-forward.** Read `docs/owner-queue.md` and carry forward, paste-ready,
    any remaining genuine owner-only items (secrets, settings, money, product intent).
 
-### Next-2-tasks baton (refreshed 2026-07-19T06:23Z)
-1. **Hub executes its queue:** land the two green workflow carve-outs —
+### ~07:2xZ planning pass (2026-07-19, PR #349)
+
+- **Owner posted the universal continue prompt (~07:45Z intent):** when executable
+  work is drained, PLAN. Executed as a planning slice: the ~8 night-shift session-card
+  💡 ideas groomed into a ranked next-slices queue —
+  **`docs/planning/2026-07-19-next-slices.md`** (indexed in `docs/planning/README.md`).
+- **Top picks (the standing "next slice" queue, in order):**
+  (1) `check_lane_liveness.py` seat-chain stall detector ·
+  (2) regen-window skip detector in `check_roster_freshness.py` ·
+  (3) seat-provenance-aware I8 remedy in `check_trigger_health.py`.
+- **Dropped/routed honestly:** `post_capture_deltas` superseded by the routine-claims
+  fence; `gen_hub_queue_baton.py` parked (inputs don't exist fleet-wide yet);
+  bake auto-supersede routed to the websites lane (ORDER 036 follow-up, not fm work).
+  Reasons in the plan doc.
+- Hub items, watches, and routine state **unchanged** from the 06:23Z heartbeat;
+  no trigger-MCP calls from this venue.
+
+### Next-tasks baton (refreshed 2026-07-19T07:28Z)
+1. **Hub executes its queue (unchanged):** land the two green workflow carve-outs —
    product-forge **#29** (clean, green) + fleet-manager **#344** (odd-hour roster
    cron; scheduler drops recurred overnight before gen #99 recovered;
    `merge-on-green.yml` skips workflow diffs → owner click or agent MCP/REST
    merge) — **+ execute `OQ-SBW-DUP-FAILSAFE`** (hub chat: delete one of the two
    SBW failsafe crons; recommended delete = older `trig_01XJJ88pQaQFRSpVAviCfAZe`;
    paste-ready steps in `docs/owner-queue.md`).
-2. **Daytime:** watch websites **ORDER-036** (lane silent overnight —
+2. **Next executable slices (planning pass, PR #349):** build in order —
+   `check_lane_liveness.py` → regen-window skip detector
+   (`check_roster_freshness.py`) → I8 provenance-ranked remedy
+   (`check_trigger_health.py`). Full rationale + below-the-line queue:
+   `docs/planning/2026-07-19-next-slices.md`.
+3. **Watches (unchanged):** websites **ORDER-036** (lane silent overnight —
    `OQ-WEBSITES-036-STALL` stands until the lane acks + rebakes; retire on
    movement) **+ prove the odd-hour roster cron** after #344 merges (first
-   odd-hour window should show a run object). I6 snapshot refresh DONE this slice
-   (06:15:10Z capture — next refresh due ~10:15Z on the 4h bar).
+   odd-hour window should show a run object) **+ I6 snapshot refresh due ~10:15Z**
+   (4h bar on the 06:15:10Z capture).
 
 ### Gates
 - `python3 scripts/check_trigger_health.py` → PASS (8/9 green, 1 WARN I8, exit 0).
