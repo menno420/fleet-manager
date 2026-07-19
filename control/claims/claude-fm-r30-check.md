@@ -1,1 +1,0 @@
-- `claude/fm-r30-check` · **R30 pre-merge checker** · scripts/ + docs · 2026-07-19
