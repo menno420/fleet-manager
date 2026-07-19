@@ -1256,3 +1256,40 @@ venue.*
   (head-SHA-bound Codex evidence · checks+statuses green · secret+egress scan)
   mechanized with PASS/REVIEW/STOP exits; ground-truthed on fm #344 (REVIEW)
   and fm #362 (STOP).
+
+## 2026-07-19 · 22Z night cycle — snapshot refresh + SBW FOURTH escalation cycle (records slice)
+
+*Source: fm records slice (fm PR #381), written 2026-07-19T21:4xZ. Snapshot facts
+from the verified full 2026-07-19T21:34:18Z export (2199 records, 17 enabled,
+22 pages); lane facts from `check_lane_liveness.py` run at 21:40Z against that
+snapshot. RAW DATA; no trigger-MCP calls from this venue.*
+
+- **`telemetry/triggers-snapshot.json` refreshed** from the full
+  2026-07-19T21:34:18Z export: **2199 records, 17 enabled** (22 pages,
+  0 cursor-overlap dups, +40 new / -0 gone vs the 17:57:56Z capture).
+  `check_trigger_health.py` → **PASS 8/9, 1 WARN (I8), exit 0**; I6
+  SNAPSHOT-FRESH PASS (0.1h). `verify_routine_state.py --export` →
+  **VERDICT OK, fence-sourced, 3 claims verified** (C1 failsafe + C3 deleted +
+  V1 volatile fields current post-bump). FM failsafe nominal in the export:
+  `trig_01GK4mjoKBP3yCabn9ux1MB2` enabled, last_fired 2026-07-19T20:32:21Z,
+  next 2026-07-19T22:31:48Z; one FM pacemaker one-shot pending (22:05Z,
+  "continue the work loop") — chain alive.
+- **SBW duplicate failsafe pair PERSISTS — FOURTH escalation cycle.** Both
+  "SuperBot World failsafe wake" crons still enabled at 21:34:18Z
+  (`trig_01XJJ88pQaQFRSpVAviCfAZe` 07-17T22:11Z ·
+  `trig_01DbcKVWxn6RJPhfyRkgTg6m` 07-18T17:08Z); the 18Z entry's predicted
+  **19:15Z double-fire happened, and so did 21:15Z** — in-snapshot last_fired
+  21:15:27Z / 21:15:30Z (~2.4s apart), both next **23:15Z**. The hub delete
+  (`OQ-SBW-DUP-FAILSAFE`, VENUE: hub) has now survived FOUR capture cycles
+  unexecuted. Note the remedy flip (PR #380-era I8 text): keep-oldest is NOT
+  the rule — the seat's live heartbeat decides; the newest-created
+  (`trig_01DbcKVWxn6RJPhfyRkgTg6m`) is the likely keeper.
+- **Lane-liveness deltas vs the 20:36Z run (PR #379 detector's first full
+  read):** headline now `STALLED: superbot-idle (Seat B) · WAKING-IDLE:
+  superbot-idle (Seat B) · asleep: none · DARK: none · not measured: 0`.
+  **Recovered:** substrate-kit (was WAKING-IDLE 2-fires/QUIET → LIVE, commit
+  21:28Z) · superbot-games Seat A (was STALLED/5-fires → LIVE, commit 20:54Z) ·
+  superbot-mineverse (was STALLED/5-fires → LIVE, commit 20:36Z). **Worsened:**
+  superbot-idle (Seat B) is the sole STALLED lane, now **WAKING-IDLE (7 fires
+  since last output)**, last landed signal 07:26Z (~14h14m) — the duplicate
+  pair's double token burn concentrates entirely on a lane landing nothing.
