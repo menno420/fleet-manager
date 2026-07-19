@@ -1,0 +1,1 @@
+- `claude/fm-label-hygiene` · **label hygiene checker — scripts/check_label_hygiene.py (nothing-stuck hold-label detector, build slice 3 of docs/planning/2026-07-19-next-slices.md)** · scripts/ + docs/ + control/status.md · 2026-07-19
