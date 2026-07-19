@@ -1,1 +1,0 @@
-- `claude/fm-evening-groom` · **evening groom + top-slice build** · docs/planning/ + scripts/ + control/ · 2026-07-19

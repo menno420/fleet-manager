@@ -7,9 +7,9 @@
 > sections win. Groomed-detection is a token-overlap heuristic
 > (Q-0105 unverified tier — see the script header).
 >
-> generated-at 2026-07-19T20:17:45Z
+> generated-at 2026-07-19T20:20:08Z
 >
-> 45 idea block(s) across 244 card(s) · 4 ungroomed · 4 ungroomed older than 2d.
+> 46 idea block(s) across 244 card(s) · 4 ungroomed · 4 ungroomed older than 2d.
 
 | Card date | Source card | Idea | Groom status |
 |---|---|---|---|
@@ -17,12 +17,13 @@
 | 2026-07-19 | `2026-07-19-fm-roster-cron-resilience.md` | `scripts/gen_hub_queue_baton.py` — derive the night-watch "hub queue" baton line live inst… | groomed → `2026-07-19-next-slices.md` |
 | 2026-07-19 | `2026-07-19-fm-regen-skip-detector.md` | regen run-history probe (`--probe-runs`) to name the drop's cause | groomed → `2026-07-19-next-slices.md` |
 | 2026-07-19 | `2026-07-19-fm-r30-check.md` | `r30_merge_check --post` — write the merge record automatically | groomed → `2026-07-19-next-slices.md` |
-| 2026-07-19 | `2026-07-19-fm-planning-groom.md` | a `gen_idea_backlog.py` harvester. This planning pass had to hand-grep ~25 session cards f… | groomed → `2026-07-19-next-slices.md` |
+| 2026-07-19 | `2026-07-19-fm-planning-groom.md` | a `gen_idea_backlog.py` harvester. This planning pass had to hand-grep ~25 session cards f… | groomed → `README.md` |
 | 2026-07-19 | `2026-07-19-fm-morning-records.md` | + the 2026-07-18/19 cards'  sets (lane-liveness, tripwire-checker, idea-harvester, regen-w… | groomed → `2026-07-19-next-slices.md` |
 | 2026-07-19 | `2026-07-19-fm-lane-liveness.md` | machine-readable seat coverage (`covers:` field on registry-only LANES entries) | groomed → `2026-07-19-next-slices.md` |
 | 2026-07-19 | `2026-07-19-fm-label-hygiene.md` | workflow-sourced park-label vocabulary | groomed → `2026-07-19-next-slices.md` |
 | 2026-07-19 | `2026-07-19-fm-i8-provenance.md` | consult the owning lane's heartbeat `routine-claims` fence directly | groomed → `2026-07-19-next-slices.md` |
 | 2026-07-19 | `2026-07-19-fm-fence-emitter.md` | volatile-field drift check in `verify_routine_state.py` | groomed → `2026-07-19-next-slices.md` |
+| 2026-07-19 | `2026-07-19-fm-evening-groom.md` | teach `gen_idea_backlog.py` a `shipped → scripts/<file>` status | groomed → `2026-07-19-next-slices.md` |
 | 2026-07-19 | `2026-07-19-fm-capabilities-linter.md` | graduate the CAPABILITIES checker pair (S9 `check_capabilities_wall_age.py` + this grammar linter) into substrate-kit as kit-owned checkers | groomed → `overnight-menu-2026-07-17.md` |
 | 2026-07-19 | `2026-07-19-fm-adopt-r30.md` | `scripts/r30_merge_check.py` — mechanize the R30 3-point verification | groomed → `2026-07-19-next-slices.md` |
 | 2026-07-19 | `2026-07-19-fm-18z-cycle.md` | wake-without-work detector | groomed → `2026-07-19-next-slices.md` |
