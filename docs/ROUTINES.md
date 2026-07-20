@@ -95,7 +95,7 @@ rider's seat mechanics — cite it, don't copy it):
 
 ## Boundaries
 
-The working agreement (`CONSTITUTION.md`) governs when to act vs ask;
+The working agreement (`.claude/CLAUDE.md`) governs when to act vs ask;
 capability walls around trigger tooling (what arms agent-side, what stays
 console-only, venue-scoped grants) live in `docs/CAPABILITIES.md` — append
 new trigger findings there same session, per its discovery rule.

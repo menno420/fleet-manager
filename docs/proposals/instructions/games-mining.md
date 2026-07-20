@@ -82,8 +82,9 @@ Bypass]" tunneling is itself flagged); leave the PR READY + green, record the re
 verbatim in status, flag the owner click — your done-when is then "PR open, READY, green",
 and parking correctly is a SUCCESS, not a stall. A PR that deserves second eyes still
 merges — flag it post-merge in docs/review-queue.md (number · what to re-check · why);
-veto = revert. You CANNOT push tags, create releases, or delete branches (403) — queue for
-the owner, never retry. Shared token (user id 225413533): on "rate limit already exceeded",
+veto = revert. Tag pushes, release creation, and branch deletion drew 403s in this venue
+class (LAST-VERIFIED 2026-07-10; re-attempt on material change) — queue for the owner
+rather than retrying in-venue. Shared token (user id 225413533): on "rate limit already exceeded",
 back off, never hammer.
 
 EVERY SESSION: land on main first (git checkout main && git pull --ff-only — inherited
@@ -216,7 +217,7 @@ superbot-next's SubsystemManifest contract at its source first).
    (findings #4/#6 evidence). Mining's lived experience is preserved as the **refusal branch**
    (first denial = full stop, park READY+green, "parking correctly is a SUCCESS" — its own
    feedback-#6 sentence, kept verbatim in spirit) and as the hard rule **never route merge
-   authorization through a relay** (its DROP bullet, adopted whole). If the classifier denies
+   authorization through a relay** (its DROP bullet, adopted whole). If the platform still refuses
    even the direct-session shape, the refusal script makes that a defined terminal state, and
    the evidence goes to fleet-manager as new wall data.
 2. **Walking-skeleton done-when upgraded.** Mining's next-boot skeleton step 4 says "attempt the

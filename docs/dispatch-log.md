@@ -547,10 +547,10 @@ sub-items map to INC rows.
    - priority: P2 — doctrine drift, rated HIGH by the lane's own notes
    - do: rewrite `docs/conventions.md` rules 2–3 to the enabler doctrine —
      the `auto-merge-enabler` workflow arms `claude/*` PRs; agent-side
-     arming and direct self-merge are classifier-DENIED per the repo's own
+     arming and direct self-merge were classifier-DENIED (2026-07-14 reading, since superseded) per the repo's own
      PLATFORM-LIMITS — keeping rule 3's merge-then-flag review posture, and
      update `docs/review-queue.md`'s "self-merge grant" citation to match.
-   - why: INC-44 — binding text grants what the classifier denies;
+   - why: INC-44 — binding text grants what the classifier denied (2026-07-14, that wake);
      re-verified live this wake at venture-lab main: rule 2 still says "arm
      it at creation … THE self-merge path" while the same file's
      branch-naming preamble already documents enabler-side arming, and

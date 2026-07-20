@@ -170,7 +170,7 @@ The single densest day of the program. Per fleet-manager's own economics finding
   - *fable5 → envdrift*: a 76-minute dead boot (same requirements.txt class), then
     v0.1.0 in ~20 minutes of worker time, **zero CI fix rounds across two releases,
     byte-exact stranger-install tests on first attempt**. Release wall: tag push
-    403, releases API 403, workflow classifier-denied twice — accepted as policy
+    403, releases API 403, workflow classifier-denied twice (2026-07-09, that one-day lane) — accepted as policy
     (codetool-lab-fable5 review note).
   - *opus4.8 → mdverify*: the whole tool + 100 tests + CI in ONE PR ~90 minutes
     from seed — then **the self-unblock**: it landed `release.yml`, dispatched it
@@ -290,7 +290,7 @@ The single densest day of the program. Per fleet-manager's own economics finding
   auto-disabled triggers fleet-wide** (`auto_disabled_env_deleted`). The
   superbot-next lane self-healed via its failsafe; sibling lanes could not be
   healed from one seat (superbot-next review note §3).
-- superbot-games: five feature PRs parked on the self-merge classifier; the owner
+- superbot-games: five feature PRs parked on the self-merge classifier (2026-07-11, that night's state); the owner
   merged all five in an 18-minute click batch — the exact pain that ORDER 029
   (enabler-everywhere) later killed (superbot-games review note §4).
 

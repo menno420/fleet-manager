@@ -713,7 +713,7 @@ heartbeat-vs-commit divergence (INC-16): 6 seats read DARK/STALE on roster gen
 substrate-kit's heartbeat-verb idea (kit docs/ideas/heartbeat-verb-2026-07-09.md)
 would retire most false-DARK sweeps. (3) fm ORDER 047/048 fan-out is open: 0
 lane inboxes cite them. (4) THIN-lane dispatch and the substrate-kit exchange
-were NOT executed: agent-side lane-inbox writes are classifier-walled tonight
+were NOT executed: agent-side lane-inbox writes were classifier-walled tonight (2026-07-16)
 (see docs/CAPABILITIES.md, 2026-07-16 entry); routed to the owner queue.
 Skipped: pokemon-mod-lab (auth wall, OQ #49). No-ORDER by standing decision:
 product-forge (E#63), codetool-labs ×3 (B#41/B#42), plugin-hello (inert). No
@@ -744,7 +744,7 @@ confirmed exactly.
   head `e8f1c78`, updated 01:23:59Z). PR body records the ready-flip
   attempt rate-limited verbatim: "API rate limit already exceeded for
   user ID 225413533"; the coordinator additionally reports a later flip
-  attempt classifier-walled (LEAD). Owner one-click: mark ready.
+  attempt classifier-walled (2026-07-16, LEAD). Owner one-click: mark ready.
 - **websites #343 — VERIFIED RESOLVED:** the bake PR the coordinator
   reported green-but-blocked ~21h (next-bake 07:25Z collision risk)
   MERGED 2026-07-16T04:52:54Z by github-actions[bot], head `0d1d84b` —
@@ -753,7 +753,7 @@ confirmed exactly.
 - **superbot-next #484 / #485 — VERIFIED both open, mergeable_state
   `dirty` (merge-conflicted):** informational lane→manager outbox asks,
   both bodies explicitly "do not auto-merge / arm". Coordinator reports
-  them likely superseded and a manager close attempt classifier-denied
+  them likely superseded and a manager close attempt classifier-denied that wake (2026-07-16)
   (LEAD — denial text lives with the coordinator session). Disposition
   recommendation: close-with-reason once their outbox content is
   confirmed mirrored at HEAD.
@@ -765,7 +765,7 @@ confirmed exactly.
   adoption of the fan-out. Not re-verified per-repo this wake.
 
 **Wall class (recorded):** agent-side directive writes on relayed
-authority are classifier-denied — 6+ same-shape denials overnight per the
+authority were classifier-denied (2026-07-16) — 6+ same-shape denials overnight per the
 coordinator (7 recorded in the canonical entry); canonical record +
 verbatim sample: docs/CAPABILITIES.md, 2026-07-16 WALL entry. Unlock =
 owner-live venue.
@@ -794,10 +794,10 @@ owner-live venue.
 | pokemon-mod-lab | — | skipped | DARK/private |
 
 **Verdicts:**
-- **Wake candidates** (aged-but-active ~12–14h, not by-design frozen): superbot-next, gba-homebrew, superbot-mineverse, venture-lab. Routing a wake ORDER to these lane inboxes is cross-repo → agent-side classifier-walled on relayed authority this turn → flagged to coordinator/owner-live venue, not written here.
+- **Wake candidates** (aged-but-active ~12–14h, not by-design frozen): superbot-next, gba-homebrew, superbot-mineverse, venture-lab. Routing a wake ORDER to these lane inboxes is cross-repo → agent-side classifier-walled on relayed authority this turn (2026-07-16) → flagged to coordinator/owner-live venue, not written here.
 - **STALE-by-design (no action):** superbot-games, superbot-idle (FROZEN, EAP-ended 2026-07-14); product-forge (archived, blocked on owner OA-003).
 - **DARK:** superbot-plugin-hello (scaffold, no seat), pokemon-mod-lab (private, skip).
-- **ORDER 047 & 048 fan-out still OPEN:** 0 lane inboxes cite them (re-confirmed this sweep). Cross-repo lane-inbox appends classifier-walled → owner-live venue. ⚑ coordinator.
+- **ORDER 047 & 048 fan-out still OPEN:** 0 lane inboxes cite them (re-confirmed this sweep). Cross-repo lane-inbox appends classifier-walled (2026-07-16) → owner-live venue. ⚑ coordinator.
 - **ORDER 049:** does not exist at HEAD — a prior coordinator session was classifier-blocked before landing it; text unrecoverable from tree. ⚑ coordinator to recover.
 - **Owner-ask fan-out:** 8 seats carry `⚑ owner-ask` blocks → candidate for a consolidated owner-queue pass.
 - **Trigger health:** I6 SNAPSHOT-FRESH FAIL (triggers snapshot 8.1h stale, 06:47Z export) + I8 DUPLICATE-CRON WARN ×4 (old+new failsafe crons enabled on superbot-2.0/superbot-world/venture-lab/websites). Cutover-seat lane; coordinator session cse_01WwuStAe6JuMatMRdiA8Zsi is verifying/re-arming the FM failsafe cron this turn. ⚑ coordinator.
@@ -814,7 +814,7 @@ owner-live venue.
 
 **INCIDENT — decision-freeze ("one parked decision froze the loop").** The superbot-next seat produced zero repo output after ~23:00Z despite an awake chat. Its coordinator let the #499/#500 consent question freeze the entire work loop instead of parking only those two PRs — contrary to the standing continue-past-blockers doctrine. The loop resumed the morning of 2026-07-17 after owner contact.
 
-**INCIDENT — draft-parking.** gba-homebrew opened 10 PRs overnight, all left as unmerged drafts (classifier-denied ready-flips; auto-merge skips drafts). pokemon-mod-lab showed the same pattern (2 parked PRs, including its heartbeat). Night output exists; none landed.
+**INCIDENT — draft-parking.** gba-homebrew opened 10 PRs overnight, all left as unmerged drafts (classifier-denied ready-flips · 2026-07-17; auto-merge skips drafts). pokemon-mod-lab showed the same pattern (2 parked PRs, including its heartbeat). Night output exists; none landed.
 
 **Quiet seats.** superbot-mineverse — no wake fired since ORDER 010 landed 2026-07-16. product-forge — frozen by design.
 
@@ -881,7 +881,7 @@ owner-live venue.
 
 *Source: fm fleet-doctrine-sweep seat, 2026-07-18. Read-only, verified vs each repo's origin/main. Oversight-only: recorded here, never pushed to sibling repos. Findings are framed as records of drift — "repo X's status doc still carries the pre-#308 doctrine" — not standing capability-denial claims.*
 
-- **Purpose.** After the owner reversed the "agents can't merge" doctrine (fleet-manager #308/#309), find sibling repos whose living/binding docs still carry the pre-reversal wording.
+- **Purpose.** After the owner reversed the old "agents can't merge" doctrine (fleet-manager #308/#309), find sibling repos whose living/binding docs still carry the pre-reversal wording.
 - **Result: 10 of 14 already reconciled** (self-corrected 2026-07-18): superbot, superbot-next, superbot-games, superbot-mineverse, websites, venture-lab, idea-engine, sim-lab, trading-strategy, curious-research.
 - **STALE — needs a doc reconcile (routed to hub, cross-repo lane-doc edits):**
   - **gba-homebrew** — `control/status.md` still carries the pre-#308 doctrine (~5 lines: :19 "Agent-side arming/merging stays WALLED…", the "agent landing path" section header, and :26/:27/:60 "owner ready-click → enabler lands"). Note: its OWN `docs/CAPABILITIES.md:89` was already corrected 2026-07-18, so the status doc now contradicts the repo's own ledger. Fix → agents merge/flip/arm directly; the enabler is one path, not the only one.

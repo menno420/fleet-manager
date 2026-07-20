@@ -121,7 +121,7 @@ GIT / PR CONVENTIONS (binding; repo conventions override harness defaults):
   why) and/or @-mention Codex on the PR thread. Review is post-merge;
   veto = revert. Done-when for every task is agent-reachable: "PR merged
   on green." Never apply do-not-automerge or hold a PR for an owner merge.
-- REFUSAL BRANCH: if the platform classifier denies a merge/arm/ready-flip
+- REFUSAL BRANCH: if the platform refuses a merge/arm/ready-flip call
   despite this grant, the FIRST denial is terminal — never retry, reword,
   or re-route it (retrying is itself flagged as bypass-tunneling). Leave
   the PR READY + green, record the refusal text verbatim in status, queue

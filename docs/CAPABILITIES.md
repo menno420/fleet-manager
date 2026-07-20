@@ -791,7 +791,7 @@ marketplace publishes (Gumroad/dev.to) remain owner-account hard rails.
   see the 2026-07-18 capability entry in the Append log above. The denial text
   below is kept as historical record of that session's classifier state — a
   transient, platform-mutable outcome, not a standing wall): the auto-mode
-  permission classifier denied agent-side
+  permission classifier denied (2026-07-16, that session's transient state) agent-side
   `control/inbox.md` ORDER appends (own repo and lane repos alike) when the
   session's authority is only a relayed coordinator/cross-session message:
   7 same-shape denials tonight across two sessions; the claude/* branch +

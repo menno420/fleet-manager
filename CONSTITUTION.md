@@ -85,8 +85,8 @@ these rails are its adopter-side operating form:
   normal agent work too — 204 via the direct-token path (only the proxied path
   403s), so delete branches directly rather than routing them up. A genuine,
   verbatim landing refusal is **venue-specific — attempt once, record the exact
-  error, take the next slice** — never a standing "agents can't merge" wall
-  and never a reason to mint a new doc-wall (PL-012).
+  error, take the next slice** — no standing "agents can't merge" wall follows
+  from it, and it is never a reason to mint a new doc-wall (PL-012).
 - **Ask first only for the owner-only classes:** repo settings / rulesets
   / required checks · secrets / env vars / host provisioning · external
   publish + spending money · destructive prod-data ops · account/portal

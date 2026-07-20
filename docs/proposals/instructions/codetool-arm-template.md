@@ -30,7 +30,7 @@ three-way controlled model comparison (same template, same orders, different mod
 | `[TOOL]` | envdrift (.env drift checker) | mdverify (Markdown code-block verifier) | cfgdiff (semantic config diff/convert/validate) |
 | `[VERSION]` at handoff | 0.2.0 (`13a84e5`) | v0.2.0 (`c96318c`; Releases v0.1.0+v0.2.0 live) | 0.1.1 (`0b1eb60`) |
 | `[MODEL]` | set in Project UI — owner-maintained mapping; the agent never writes it into artifacts unless session policy allows (§2 card rule) | same | same |
-| `[RELEASE-VERDICT]` | **owner-manual** — the Actions dispatch route is classifier-DENIED in this lane (twice, second time with owner authorization: "No reason provided."). Route closed; do NOT re-probe. Release = owner tag ritual, documented in PLATFORM-LIMITS.md | **granted** — `.github/workflows/release.yml` via `actions_run_trigger` with `version=vX.Y.Z`; proven first-try twice (runs 29035224581, 29038899218) | **owner-tag → Actions → OIDC** — armed but end-to-end UNFIRED; owner pushes the tag, `release.yml` publishes via trusted publishing; zero session credentials. First firing pending |
+| `[RELEASE-VERDICT]` | **owner-manual** — the Actions dispatch route was classifier-DENIED in this lane (2026-07-09/10 window, twice — second time with owner authorization: "No reason provided."). Route closed; do NOT re-probe. Release = owner tag ritual, documented in PLATFORM-LIMITS.md | **granted** — `.github/workflows/release.yml` via `actions_run_trigger` with `version=vX.Y.Z`; proven first-try twice (runs 29035224581, 29038899218) | **owner-tag → Actions → OIDC** — armed but end-to-end UNFIRED; owner pushes the tag, `release.yml` publishes via trusted publishing; zero session credentials. First firing pending |
 | `[STANDING-QUEUE]` | `docs/succession/NEXT-BOOT.md` queue (post-0.2.0 roadmap) | NEXT-BOOT roadmap: PyPI (owner), go/rust runners, watch/`--fix`, Action listing | `docs/succession/README.md` NEXT queue (post-0.1.1) |
 
 ---
@@ -272,7 +272,7 @@ KEEP/ADD — READY-never-draft, heartbeat-before-work, walking skeleton, walls-u
 decide-and-flag, honest retros, commit-to-git-immediately, defensive setup, inbox semantics,
 P0 ping shape, heartbeat batching — is carried):
 
-1. **opus4.8's ADD #2 ("Build sessions do NOT self-merge; the coordinator merges") is
+1. **opus4.8's ADD #2 (the old "Build sessions do NOT self-merge; the coordinator merges") is
    REJECTED** — it directly contradicts the owner's merge-authority directive (blueprint §1:
    "no gen-2 lane is owner-gated on merges") and confirmed finding #19. Its underlying pain
    (classifier denial churn) is answered instead by the scripted refusal branch (ritual
@@ -306,7 +306,7 @@ P0 ping shape, heartbeat batching — is carried):
 
 1. **§2 delta 3's "sanctioned release path (Actions workflow_dispatch route, proven by
    opus4.8)" is NOT carried as a uniform instruction.** Confirmed finding #7 and fable5's
-   feedback #1: the identical route is proven-granted in opus4.8's lane and classifier-denied
+   feedback #1: the identical route is proven-granted in opus4.8's lane and classifier-denied (2026-07-09/10)
    in fable5's — even over explicit owner authorization. The template replaces it with the
    per-lane recorded `[RELEASE-VERDICT]` (granted / owner-manual / owner-tag-OIDC) plus a
    no-re-probe rule. sonnet5's first OIDC firing is the one sanctioned verification because
