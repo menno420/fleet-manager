@@ -1455,3 +1455,66 @@ at 04:10Z against that snapshot. RAW DATA; no trigger-MCP calls from this venue.
   seat, but STILL no standing failsafe cron anywhere in the export: one
   missed re-arm and nothing catches it. Watch continues; identifying/covering
   the seat is coordinator work, not this slice's.
+
+## 2026-07-20 · 11:30Z cycle — snapshot refresh + failsafe second stall-catch + SBW EIGHTH escalation cycle (records slice)
+
+> Snapshot: **2026-07-20T11:37:48Z** full `list_triggers` export (24 pages,
+> cursor-to-exhaustion): **2337 records, 16 enabled, 0 cursor-overlap
+> duplicates; +36 new / -0 gone** vs the prior 07:20:20Z capture. Committed
+> as `telemetry/triggers-snapshot.json` (fm PR #395). Coordinator facts
+> below relayed by the seat; snapshot facts verified in-export.
+
+- **10:31Z failsafe stall-catch — the FM pacemaker chain lapsed a SECOND
+  time.** No re-arm followed the 09:04Z wake; the failsafe
+  (`trig_01GK4mjoKBP3yCabn9ux1MB2`) caught the stall at its 10:31Z fire
+  (in-export last_fired **2026-07-20T10:32:26Z**, next **12:31:48Z** — I4
+  PASS) and the chain re-armed (pending 12:08Z seat one-shot
+  `trig_01WTdZGQfuHVSTgUACaTYPD3` in the capture). The dead-man design
+  worked exactly as intended, twice in one day (first lapse: after the
+  00:37Z fire, caught 02:31Z). **⚑ Q-0194 friction→guard PROPOSAL (second
+  occurrence ⇒ record prevention; NOT applied — doctrine change needing
+  owner/registry sign-off, since Q-0265 doctrine names the per-turn
+  send_later chain shape):** replace the fragile per-turn `send_later`
+  pacemaker chain with a **standing ~30-min work-loop cron bound to the
+  seat session** — a missed per-turn re-arm would then be structurally
+  impossible and the whole lapse class retires; the 2-hourly failsafe
+  stays as the outer dead-man. Staging note: `docs/owner-queue-candidates.md`
+  is generated/do-not-hand-edit, so this triage entry is the proposal's
+  home (decide-and-flag).
+- **SBW duplicate failsafe pair — EIGHTH escalation cycle.** Both crons
+  STILL enabled in the 11:37:48Z capture (`trig_01XJJ88pQaQFRSpVAviCfAZe`
+  07-17T22:11Z · `trig_01DbcKVWxn6RJPhfyRkgTg6m` 07-18T17:08Z); the
+  predicted 11:15Z window double-fired — in-snapshot last_fired
+  **11:15:40.6Z / 11:15:46.9Z** (~6.3s apart), both next **13:15Z**. Still
+  a pure burn-stop (all SBW lanes recovered without the delete, per the
+  morning entry); keeper recommendation unchanged: delete the older
+  `trig_01XJJ88pQaQFRSpVAviCfAZe` (`OQ-SBW-DUP-FAILSAFE`, annotated).
+- **I7 TICK-PILE-UP: RESOLVED (morning FAIL → PASS).** Both of the Self
+  Improvement seat's pending 07:21Z/07:36Z ticks show `run_once_fired` in
+  this capture — the pile-up self-resolved by firing (the seat did take a
+  double wake; no pending duplicates remain). `check_trigger_health.py`
+  now 8/9 green, I8 WARN only.
+- **NEW watch — Self Improvement seat's send_later chain stopped re-arming
+  after 07:53Z.** `session_01VsWWnVdwbvkGAW4kAmQzmt`'s work-loop chain
+  (85 one-shots in-export) ends at `trig_017Kr36tB7P89CEtoG95AZfK` (due
+  07:53Z, fired); **zero pending ticks** for the session at capture. The
+  seat IS covered: its failsafe cron `trig_01194PdaWChtHGNKASURxdLx`
+  ('Self Improvement failsafe wake', `2 */2 * * *`) is enabled, next fire
+  **12:02Z** — the dead-man design should catch the stall there. Watch
+  only, sibling seat's business; verify the catch at the next capture.
+  Liveness corroborates: substrate-kit LIVE→QUIET, WAKING-IDLE (2 fires
+  since its 07:45Z heartbeat).
+- **Lane liveness (11:47Z run, `--ledger --diff` vs 09:09Z): 0 recoveries,
+  5 degradations.** Headline: `STALLED: none · WAKING-IDLE: superbot-next,
+  substrate-kit, superbot-games · Seat A, superbot-idle (Seat B),
+  superbot-mineverse · asleep: none · DARK: none · not measured: 0`.
+  Transitions: gba-homebrew LIVE→QUIET · substrate-kit LIVE→QUIET +
+  waking→WAKING-IDLE · superbot-idle (Seat B) LIVE→QUIET +
+  waking→WAKING-IDLE · superbot-mineverse waking→WAKING-IDLE ·
+  superbot-next waking→WAKING-IDLE. Context: mid-morning quiet spell —
+  nothing STALLED, and the SBW/kit wake-idling overlaps the kit-wave red
+  legs (below) plus the kit-seat chain stall (above); re-check next cycle.
+- **Kit wave: fm #390 fix attempt 3 in flight.** Attempts 1–2 stalled (one
+  batch script classifier-blocked; one worker killed mid-edit); attempt 3
+  is cleaning the 39 false-wall findings on the branch. The other 7 red
+  legs remain lane/wave-session work — watch, don't duplicate.

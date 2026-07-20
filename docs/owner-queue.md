@@ -86,6 +86,11 @@ launch that seeded the earliest queue items: [`launch-readiness-2026-07-10.md`](
   — smaller urgency, same one-letter ask. Recommendation unchanged: delete the older
   `trig_01XJJ88pQaQFRSpVAviCfAZe`, keep `trig_01DbcKVWxn6RJPhfyRkgTg6m` (heartbeat-verified live
   seat binding).*
+  *Status 2026-07-20T11:5xZ (11:30Z records slice, PR #395) — **EIGHTH escalation cycle**: both
+  ids STILL enabled in the 2026-07-20T11:37:48Z capture; the predicted 11:15Z double-fire
+  happened (in-snapshot last_fired 11:15:40.6Z / 11:15:46.9Z, ~6.3s apart); both next 13:15Z.
+  Still a pure burn-stop; recommendation unchanged: delete the older
+  `trig_01XJJ88pQaQFRSpVAviCfAZe`, keep `trig_01DbcKVWxn6RJPhfyRkgTg6m`.*
 
 - **`OQ-WEBSITES-LABEL-MACHINERY` — (VENUE: owner-live) remove the websites
   `host-automerge-extras.yml` label re-creation machinery (residual of the resolved
