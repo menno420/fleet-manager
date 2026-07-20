@@ -1,1 +1,0 @@
-- `claude/fm-declared-idle` · **liveness declared-idle support** · scripts/check_lane_liveness.py + docs/owner-queue.md · 2026-07-20
