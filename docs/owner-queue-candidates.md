@@ -4,7 +4,7 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #128** · generated-at **2026-07-20T20:09Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #129** · generated-at **2026-07-20T20:50Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
@@ -194,7 +194,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### idea-engine — ⚑ needs-owner: BT-controller plan (ORDER 017, PR #481) awaits owner review (ideas/product-forge/bt-controller…
 
 - suggested-id: `OQ-IDEA-ENGINE-BT-CONTROLLER-PLAN-ORDER`
-- source: idea-engine/control/status.md @ `f6b6e67` · heartbeat `updated:` 2026-07-20T19:53:30Z · seat: round-54 GAME-slot P227 → V240…
+- source: idea-engine/control/status.md @ `0ab3080` · heartbeat `updated:` 2026-07-20T20:41:51Z · seat: round-54 UNRELATED-slot VERDIC…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -214,7 +214,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### fleet-manager (this repo) — 4. **⚑ Guard proposal recorded (awaiting owner/registry):** work-loop cron
 
 - suggested-id: `OQ-FLEET-MANAGER-4-GUARD-PROPOSAL-RECORDED`
-- source: fleet-manager/control/status.md @ `f001c06` · heartbeat `updated:` 2026-07-20T16:20Z
+- source: fleet-manager/control/status.md @ `3293561` · heartbeat `updated:` 2026-07-20T16:20Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
