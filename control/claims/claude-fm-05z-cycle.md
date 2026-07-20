@@ -1,1 +1,0 @@
-- `claude/fm-05z-cycle` · **05Z snapshot + heartbeat** · telemetry/ + docs/fleet-triage.md + docs/owner-queue.md + control/status.md · 2026-07-20
