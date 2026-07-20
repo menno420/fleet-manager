@@ -4,14 +4,14 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #125** · generated-at **2026-07-20T17:04Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #126** · generated-at **2026-07-20T18:30Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
 ### superbot (hub) — ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready…
 
 - suggested-id: `OQ-SUPERBOT-HUB-SIDE-RESIDUE-ONLY`
-- source: superbot/control/status.md @ `34c3bfa` · heartbeat `updated:` 2026-07-13T18:00:00Z
+- source: superbot/control/status.md @ `5c840b5` · heartbeat `updated:` 2026-07-13T18:00:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -194,7 +194,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### idea-engine — ⚑ needs-owner: BT-controller plan (ORDER 017, PR #481) awaits owner review (ideas/product-forge/bt-controller…
 
 - suggested-id: `OQ-IDEA-ENGINE-BT-CONTROLLER-PLAN-ORDER`
-- source: idea-engine/control/status.md @ `61c3e2e` · heartbeat `updated:` 2026-07-20T16:47Z · seat: round-52 GAME-slot P219 → V232 mi…
+- source: idea-engine/control/status.md @ `22a80a1` · heartbeat `updated:` 2026-07-20T18:06Z · seat: round-53 GAME-slot P223 → V236 mi…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -214,7 +214,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### fleet-manager (this repo) — 4. **⚑ Guard proposal recorded (awaiting owner/registry):** work-loop cron
 
 - suggested-id: `OQ-FLEET-MANAGER-4-GUARD-PROPOSAL-RECORDED`
-- source: fleet-manager/control/status.md @ `342f35d` · heartbeat `updated:` 2026-07-20T16:20Z
+- source: fleet-manager/control/status.md @ `5f76ffd` · heartbeat `updated:` 2026-07-20T16:20Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
