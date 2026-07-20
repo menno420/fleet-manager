@@ -76,6 +76,16 @@ launch that seeded the earliest queue items: [`launch-readiness-2026-07-10.md`](
   such signal. Unchanged ask: delete `trig_01XJJ88pQaQFRSpVAviCfAZe`. Liveness context:
   superbot-idle (Seat B) still the sole STALLED lane, WAKING-IDLE now 10 fires since its last
   landed output (07-19T07:26Z, ~20h43m).*
+  *Status 2026-07-20T09:1xZ (morning records slice, PR #393) — **SEVENTH escalation cycle**: both
+  ids STILL enabled in the 2026-07-20T07:20:20Z capture; the predicted 07:15Z double-fire happened
+  (in-snapshot last_fired 07:15:31.4Z / 07:15:34.8Z, ~3.4s apart); both next 09:15Z. **Context
+  change: the SBW lanes have all recovered WITHOUT this delete** — superbot-idle's stall broke
+  04:20:38Z (idle PR #174, verdict STALLED→LIVE at the 09:09Z liveness run), superbot-games landed
+  inventory-bridge #180–182, mineverse heartbeats current. The delete is therefore now a **pure
+  burn-stop** (two wakes per 2h window, ~double token burn), no longer blocking any lane recovery
+  — smaller urgency, same one-letter ask. Recommendation unchanged: delete the older
+  `trig_01XJJ88pQaQFRSpVAviCfAZe`, keep `trig_01DbcKVWxn6RJPhfyRkgTg6m` (heartbeat-verified live
+  seat binding).*
 
 - **`OQ-WEBSITES-LABEL-MACHINERY` — (VENUE: owner-live) remove the websites
   `host-automerge-extras.yml` label re-creation machinery (residual of the resolved
@@ -257,6 +267,12 @@ inherit; no owner click is blocking now.
   and cannot be auto-routed: **V011** review-service deploy · **venture-lab money-gated** items
   (×11, real accounts/keys) · **makerbench** · **trading** (owner-by-design) · **Ideas-Lab
   seat revival**. No agent click lands these — record-only until the owner acts. RISK: ✅.
+
+- **`OQ-KIT-552-BENCH-REVIEW` — (record only, no action urged) substrate-kit PR #552 is
+  `do-not-automerge` BY DESIGN.** The label is an owner-review bench pin (the deliberate-merge
+  carve-out), not a stuck PR: it waits for the owner to review at his leisure. Recorded so PR
+  sweeps stop re-flagging it as stray; no urgency, optional whenever. Provenance: 2026-07-20
+  morning sweep (fm PR #393).
 
 ### (G) Hygiene (whenever — cosmetic; branch deletes work agent-side via the direct-token path, parked here only as low-priority)
 
