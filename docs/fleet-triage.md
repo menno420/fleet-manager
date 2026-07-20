@@ -1385,3 +1385,73 @@ at 04:10Z against that snapshot. RAW DATA; no trigger-MCP calls from this venue.
   visible at 04:10Z: superbot hub (commit 04:08Z), idea-engine (04:09Z),
   sim-lab (03:53Z) all LIVE — the morning sweep should confirm the remaining
   QUIET seats wake with landed output.
+
+## 2026-07-20 · morning cycle — snapshot refresh + kit-wave sweep + SBW SEVENTH escalation cycle (records slice)
+
+> Snapshot: **2026-07-20T07:20:20Z** full `list_triggers` export (24 pages,
+> cursor-to-exhaustion): **2301 records, 19 enabled, 0 cursor-overlap
+> duplicates; +39 new / -0 gone** vs the prior 04:02:52Z capture. Committed as
+> `telemetry/triggers-snapshot.json` (fm PR #393). Sweep facts below verified
+> ~07:2xZ by a read-only sweep worker; snapshot facts verified in-export.
+
+- **8-PR substrate-kit v1.17.0→v1.20.1 upgrade wave — ALL RED on
+  substrate-gate.** A sibling session opened the wave 06:01–06:13Z:
+  idea-engine #740 · superbot-next #602 · websites #452 · trading-strategy
+  #160 · superbot-games #183 · venture-lab #282 · superbot-mineverse #138 ·
+  fleet-manager #390. Every leg red on the same required check
+  (substrate-gate); common cause under diagnosis; **fm #390 fix attempt 2 in
+  flight** (this clone's active worker, branch `claude/kit-upgrade-v1.20.1`).
+  Disposition: fm leg = hub work in flight; the other 7 legs = lane/wave-session
+  work — watch, don't duplicate; escalate to the hub only if the wave session
+  goes dark with the legs still red.
+- **SBW duplicate failsafe pair — SEVENTH escalation cycle, and the lanes
+  recovered WITHOUT it.** Both crons STILL enabled in the 07:20:20Z capture
+  (`trig_01XJJ88pQaQFRSpVAviCfAZe` 07-17T22:11Z ·
+  `trig_01DbcKVWxn6RJPhfyRkgTg6m` 07-18T17:08Z); the predicted 07:15Z window
+  double-fired — in-snapshot last_fired **07:15:31.4Z / 07:15:34.8Z** (~3.4s
+  apart), both next **09:15Z**. Meanwhile the SBW seat lanes recovered on
+  their own: superbot-idle's stall BROKE 04:20:38Z (idle PR #174),
+  superbot-games landed inventory-bridge slices #180–182, mineverse
+  heartbeats current — so the hub delete (`OQ-SBW-DUP-FAILSAFE`) is now a
+  **pure burn-stop** (double token burn every 2h), no longer a
+  stall-recovery blocker. Keeper recommendation unchanged: delete the older
+  `trig_01XJJ88pQaQFRSpVAviCfAZe`.
+- **Lane liveness (09:09Z run, ledger diff vs 04:07Z): 7 recoveries, 0
+  degradations.** Headline: `STALLED: none · WAKING-IDLE: superbot-games ·
+  Seat A · asleep: none · DARK: none · not measured: 0`. Transitions:
+  gba-homebrew QUIET→LIVE · superbot (hub) QUIET→LIVE · **superbot-idle
+  (Seat B) STALLED→LIVE** · superbot-mineverse QUIET→LIVE · superbot-next
+  QUIET→LIVE · venture-lab QUIET→LIVE · websites QUIET→LIVE. Residual watch:
+  superbot-games Seat A QUIET + WAKING-IDLE (2 fires since last landed
+  output 04:54Z) — its #180–182 merges landed pre-04:54Z, so this is
+  post-merge idling, re-check next cycle.
+- **websites — healthy but bake ~24h old (watch).** 8 merges overnight and
+  the lane is LIVE (main commit 08:59Z), but the last review-bake is #438 at
+  07-19T07:53Z — verify the review-bake cron fired today at the next sweep;
+  `host-automerge-extras.yml` auto-label logic still present at HEAD
+  (`OQ-WEBSITES-LABEL-MACHINERY` unchanged).
+- **superbot-next stuck PRs (lane-owned, record only):** #576 green except
+  the gate; #571/#567 zero check runs for ~36h. The lane is LIVE (07:48Z) —
+  leave to the seat; hub picks it up only if they age past the next sweep.
+- **substrate-kit #552:** `do-not-automerge` BY DESIGN — owner-review bench
+  pin; recorded as a small owner-queue row, no action urged.
+- **Trigger health (fresh snapshot): I7 TICK-PILE-UP FAIL (new).**
+  `session_01VsWWnVdwbvkGAW4kAmQzmt` holds 2 pending near-identical work
+  ticks ("continue the work loop…"): `trig_01XyzT1QCW2CAvR3oybsKZUP`
+  (created 07:05:46Z, due 07:21Z) → `trig_012Wgm2r2isuJqJBn4F7ARsn` (created
+  07:20:16Z, due 07:36Z) — the newer was armed ~5min before the older's due
+  time, a re-arm race. Both due instants are already past; likely transient
+  (a fired one-shot self-disables), but if BOTH fired the seat got a double
+  wake. Remedy per I7 is coordinator work (prune to newest via trigger MCP)
+  — **this records slice makes no trigger calls**; routed via the status
+  baton for the coordinator to verify at the next capture. Roster fresh
+  (I5 PASS, gen #120 08:26Z); FM failsafe healthy (I4 PASS, last_fired
+  06:31:59Z, next 08:31:48Z); verify_routine_state OK after fence bump.
+- **05Z watch item follow-up (untracked self-continuing seat): chain alive,
+  still uncovered.** The 05Z anomaly session `session_018iFisKSjZnv9YWD4ETvd8W`
+  holds a pending one-shot in this capture (`trig_011FciJxFndEBfY2RgAn4fHW`,
+  due 07:58Z) at the head of an unbroken ~20–60min self-continuation chain
+  (51 one-shots since 07-18T21:31Z, every prior tick fired) — a healthy live
+  seat, but STILL no standing failsafe cron anywhere in the export: one
+  missed re-arm and nothing catches it. Watch continues; identifying/covering
+  the seat is coordinator work, not this slice's.
