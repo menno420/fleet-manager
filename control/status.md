@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-20T04:09Z
+updated: 2026-07-20T09:15Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -63,7 +63,12 @@ SBW dup pair FIFTH escalation cycle — 23:15Z double-fire confirmed) recorded
 2026-07-20T01:22Z (records slice, PR #385). 05Z cycle (snapshot 2262/17 @
 2026-07-20T04:02:52Z, I6 PASS · SBW dup pair SIXTH escalation cycle — 03:15Z
 double-fire confirmed, next 05:15Z · untracked self-continuing-seat watch item
-recorded) recorded 2026-07-20T04:1xZ (records slice, PR #387).
+recorded) recorded 2026-07-20T04:1xZ (records slice, PR #387). Morning cycle
+(snapshot 2301/19 @ 2026-07-20T07:20:20Z, I6 PASS · SBW dup pair SEVENTH
+escalation cycle — 07:15Z double-fire confirmed, but SBW lanes recovered
+without the delete · 8-PR kit-wave v1.17.0→v1.20.1 ALL RED, fm #390 fix in
+flight · liveness 7 recoveries, STALLED: none · new I7 tick-pile-up watch)
+recorded 2026-07-20T09:1xZ (records slice, PR #393).
 ---
 
 ## Night watch (2026-07-18, overnight)
@@ -216,12 +221,12 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 ```json routine-claims
 {
   "seat": "fleet-manager (coordinator)",
-  "updated": "2026-07-20T04:09Z",
+  "updated": "2026-07-20T09:08Z",
   "failsafe": {
     "id": "trig_01GK4mjoKBP3yCabn9ux1MB2",
     "cron": "30 */2 * * *",
-    "next_run_at": "2026-07-20T04:31:48Z",
-    "last_fired": "2026-07-20T02:32:29Z",
+    "next_run_at": "2026-07-20T08:31:48Z",
+    "last_fired": "2026-07-20T06:31:59Z",
     "state": "armed"
   },
   "deleted": [
@@ -942,6 +947,65 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
    (tripwire `check_label_hygiene.py`); **new:** the untracked
    self-continuing seat `session_018iFisKSjZnv9YWD4ETvd8W` (no failsafe —
    re-arm or dark by next capture).
+
+## MORNING CYCLE — SNAPSHOT + KIT-WAVE SWEEP (09:1xZ 2026-07-20, records slice, PR #393)
+
+- **`telemetry/triggers-snapshot.json` refreshed** from the full
+  2026-07-20T07:20:20Z export: **2301 records, 19 enabled** (24 pages,
+  0 cursor-overlap dups, +39 new / -0 gone vs 04:02:52Z).
+  `check_trigger_health.py` → **FAIL 1/9 red (new I7 TICK-PILE-UP), I8 WARN
+  unchanged, exit 1**; `verify_routine_state.py --export` → **VERDICT OK,
+  3 claims verified** (C1 + C3 + V1 volatile fields current post-bump).
+  FM failsafe healthy: last_fired 2026-07-20T06:31:59Z, next 08:31:48Z.
+- **I7 TICK-PILE-UP (new, coordinator to verify):**
+  `session_01VsWWnVdwbvkGAW4kAmQzmt` held 2 pending near-identical work
+  ticks at capture (`trig_01XyzT1QCW2CAvR3oybsKZUP` due 07:21Z →
+  `trig_012Wgm2r2isuJqJBn4F7ARsn` due 07:36Z; the newer armed ~5min before
+  the older's due — re-arm race). Both instants now past; likely transient
+  self-resolution (fired one-shots self-disable), possible one double wake.
+  **Coordinator: confirm at next capture; prune to newest if still pending.**
+  This slice made no trigger calls (RAW DATA).
+- **8-PR substrate-kit v1.17.0→v1.20.1 wave ALL RED on substrate-gate**
+  (sibling session, 06:01–06:13Z): idea-engine #740 · superbot-next #602 ·
+  websites #452 · trading-strategy #160 · superbot-games #183 · venture-lab
+  #282 · superbot-mineverse #138 · fleet-manager #390. Common cause under
+  diagnosis; **fm #390 fix attempt 2 in flight** in this clone. Full
+  disposition: `docs/fleet-triage.md` § "morning cycle".
+- **SBW duplicate pair: SEVENTH escalation cycle — now a pure burn-stop.**
+  Both ids still enabled; predicted 07:15Z double-fire happened (in-snapshot
+  07:15:31.4Z / 07:15:34.8Z, ~3.4s apart); both next 09:15Z. **SBW lanes all
+  recovered WITHOUT the delete** (idle stall broke 04:20:38Z via PR #174;
+  games #180–182 merged; mineverse current) — the delete now only stops the
+  double token burn. `OQ-SBW-DUP-FAILSAFE` annotated (seventh cycle).
+- **Lane liveness (09:09Z, `--ledger --diff` vs 04:07Z): 7 recoveries, 0
+  degradations — STALLED: none.** superbot-idle (Seat B) STALLED→LIVE; hub /
+  superbot-next / mineverse / websites / venture-lab / gba QUIET→LIVE.
+  Residual: superbot-games Seat A QUIET + WAKING-IDLE (2 fires since 04:54Z).
+- **websites bake watch:** lane LIVE (8 overnight merges) but last
+  review-bake is #438 @ 07-19T07:53Z (~24h) — verify the review-bake cron
+  fired today at next sweep; label machinery still at HEAD.
+- **05Z untracked-seat watch: chain alive, still uncovered** —
+  `session_018iFisKSjZnv9YWD4ETvd8W` pending one-shot 07:58Z at the head of
+  a 51-tick unbroken chain, still no standing failsafe cron.
+- No trigger-MCP calls from this venue; RAW-DATA reporting.
+
+### Baton (09:1xZ refresh — day posture)
+1. **Owner (2 items + 1 optional):** `OQ-SBW-DUP-FAILSAFE` (SEVENTH cycle —
+   now pure burn-stop, one-letter ask) · `OQ-WEBSITES-LABEL-MACHINERY` —
+   both paste-ready in `docs/owner-queue.md`; optional whenever:
+   substrate-kit #552 bench review (`OQ-KIT-552-BENCH-REVIEW`, by design,
+   no urgency).
+2. **Kit wave:** fm #390 fix attempt 2 in flight (this clone's other
+   worker); the other 7 red legs are lane/wave-session work — **watch,
+   don't duplicate**; escalate to the hub only if the wave session goes
+   dark with legs still red. Next I6 snapshot refresh due **~11:30Z**
+   (4h bar on the 07:20:20Z capture).
+3. **Watches:** superbot-games Seat A post-merge idling (2 fires) · websites
+   review-bake cron (bake ~24h old) · superbot-next #576 gate-only red +
+   #571/#567 zero-check-runs ~36h (lane-owned) · I7 tick-pile-up session
+   (prune-to-newest if still pending next capture) · untracked
+   self-continuing seat (no failsafe) · websites label re-appearance
+   (tripwire `check_label_hygiene.py`).
 
 ## Pointers
 - Live status → `docs/current-state.md`
