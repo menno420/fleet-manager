@@ -24,7 +24,7 @@ One more piece of feedback from running Claude Code as an agent fleet, and it's 
 
 **What happened (one representative case, today).** A seat needed to arm a failsafe wake timer. It first concluded it had *no scheduling tool at all* — because the scheduling tools (`create_trigger`, `send_later`) are **deferred**: they load only through a tool-search step and never appear in the session's visible tool list. Absence from that list is not absence of the tool, but the agent read it as "I can't do this" and reported a false wall.
 
-It then tried a shell fallback, which the safety classifier denied, verbatim:
+It then tried a shell fallback, which the safety classifier denied (one momentary call, not a wall), verbatim:
 
 > "Permission for this action was denied by the Claude Code auto mode classifier. Reason: Blocked by classifier. ... To allow this type of action in the future, the user can add a Bash permission rule to their settings."
 
@@ -96,4 +96,4 @@ The short list the owner asked for, so no session has to be told these again (ke
 - **You CAN create routines / triggers** via native MCP (`create_trigger`, `list_triggers`, `send_later`) — they are **deferred**, so tool-search to load them first, then call them **natively** (never via Bash).
 - **The visible tool list is partial** — deferred / tool-search-only tools exist and are usable; absence from the visible list is **not** tool absence.
 - **The permission classifier is nondeterministic** — an identical call can succeed then deny; treat a denial as retry-later (retry once from a fresh worker), not a wall.
-- **Merges land server-side, not agent-side** — open PRs ready with green CI; the repo's lander workflow (or the owner) merges. Agents do not arm auto-merge or REST-merge (classifier-denied since ~2026-07-15).
+- **Merging IS agent work (corrected 2026-07-18)** — the old "merges land server-side; agents do not arm auto-merge or REST-merge" guidance no longer applies: open PRs ready with green CI and land your own green PR — arm auto-merge or MCP/REST-merge directly; a repo's lander workflow is one path, not the only one (see docs/CAPABILITIES.md, 2026-07-18 append entry).

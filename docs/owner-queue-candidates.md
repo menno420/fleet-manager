@@ -56,7 +56,7 @@
 WHAT: authorize the v1.20.0 adopter-upgrade wave. (v1.20.0 now supersedes v1.19.0 as the wave target — v1.19.0 was cut + verified but never distributed; retargeted at v1.20.0 on the 2026-07-20 cut.)
 WHERE: the executing seat session, one live owner turn.
 HOW: say 'run the v1.20.0 adopter wave'.
-WHY: the seat session's permission classifier denied adopter-repo writes dispatched on coordinator relay alone (denial record verbatim: PR #420 body § "Denial routing", now ledgered in docs/CAPABILITIES.md 2026-07-16 append row); owner provenance in the executing session is the unblock.
+WHY: the seat session's permission classifier denied (2026-07-16) adopter-repo writes dispatched on coordinator relay alone (denial record verbatim: PR #420 body § "Denial routing", now ledgered in docs/CAPABILITIES.md 2026-07-16 append row); owner provenance in the executing session is the unblock.
 UNBLOCKS: ~15 adopter currency PRs to v1.20.0 + the post-merge sibling-row docs/adopters.md regen (`bootstrap currency`).
 VERIFY: wave report with per-adopter PR list.
 RISK: ↩️ reversible, distribution-only diffs.

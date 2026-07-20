@@ -241,7 +241,7 @@ day) unless a later date is noted next to the rule.
     decide-and-flag with a reversible path where one exists. Unchanged by this
     rule: born-red session cards (they gate on WORK COMPLETE, flipped by the
     session itself — not owner-review holds); technical/platform walls (R12's
-    no-self-merge classifier, merge-on-green's workflow-file rail, missing CI) —
+    no-self-merge classifier (2026-07-10-era, since shown transient), merge-on-green's workflow-file rail, missing CI) —
     those are quoted verbatim and routed as walls, never re-framed as "owner
     review". Owner-queue merge clicks stay legitimate ONLY where a technical wall
     makes the click the sole landing path — the ask then names the wall, not

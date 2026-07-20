@@ -137,7 +137,7 @@ classes before the first order fires.
         authority (sonnet5 F1-2; mining's nullified output; opus4.8's
         falsely-owner-routed merges);
       - **classifier-refusal branch — scripted, first denial stops the
-        attempt** *(P3, F4+F6, 2026-07-10)*: the auto-mode classifier denies
+        attempt** *(P3, F4+F6, 2026-07-10)*: the auto-mode classifier denied (2026-07-10 evidence)
         self-merges inconsistently per seat (same repo, same day). On the
         **FIRST POLICY denial: never retry or reframe** (a retry is itself
         flagged); leave the PR **READY + CI green**; record the **refusal
@@ -146,7 +146,7 @@ classes before the first order fires.
         done-when **degrades to "PR open, READY, green"** — that terminal
         state is legal and complete. (This fixes R12's now-falsified "the
         wall blocks only the direct merge call" and the founding texts'
-        "never hold a PR" absolutism: a classifier-denied lane holding a
+        "never hold a PR" absolutism: a classifier-denied (2026-07-10) lane holding a
         READY+green PR is compliant, not stalled.)
       - **no PR ever waits for review before landing** *(owner directive
         2026-07-09; bounded by the refusal branch above)*: if a PR deserves

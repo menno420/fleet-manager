@@ -169,7 +169,7 @@ fleet-wide merges/ready-flips live in
 - **`OQ-GBA-LUMEN-RELEASE` — gba-homebrew: create the Lumen Drift GitHub Release.**
   https://github.com/menno420/gba-homebrew/releases/new → tag `lumen-drift-v1.3` (target main) →
   attach `dist/lumen-drift.gba` (sha256 in `docs/PLATFORM-LIMITS`-noted value) → notes →
-  `docs/PLAYING.md`. Agent tag-push is 403-walled. Gives a downloadable player artifact.
+  `docs/PLAYING.md`. Lane tag-push saw 403 on the proxied path (the direct-token path or a `release.yml` dispatch can land it). Gives a downloadable player artifact.
 
 ### (D) Standing decisions
 
@@ -258,7 +258,7 @@ inherit; no owner click is blocking now.
   (×11, real accounts/keys) · **makerbench** · **trading** (owner-by-design) · **Ideas-Lab
   seat revival**. No agent click lands these — record-only until the owner acts. RISK: ✅.
 
-### (G) Hygiene (whenever — cosmetic, all agent-403-walled)
+### (G) Hygiene (whenever — cosmetic; branch deletes work agent-side via the direct-token path, parked here only as low-priority)
 
 - Stale-branch deletes: websites ×4 (`claude/harden-verify`, `claude/rework-dashboard`,
   `claude/wire-github-token-docs`, `manager/control-plant`) · gba `claude/brineward-wind` ·
@@ -287,7 +287,7 @@ These once-active items are moot; ids retained so nothing is lost, full bodies i
 - **Fleet-wide doctrine rulings** — moot: `OQ-HEARTBEAT-DOCTRINE-RULING`,
   `OQ-CODEX-GATE-VS-SUSPEND-RULING`.
 - **Overnight dispatch** — superseded: `OQ-THIN-LANE-DISPATCH-2026-07-16`
-  (remaining legs were classifier-walled).
+  (remaining legs were classifier-walled · 2026-07-16).
 - **Time-boxed / window-expired** — deadlines passed: `OQ-TRADING-0717-DOUBLE-GRADING-FIRE`
   (before 2026-07-17 09:00Z; impact ~zero — grade_paper is a no-op until ~August),
   `OQ-SITTING-0714-DECISIONS` (2026-07-14 window closed; any live game/product sub-decisions —

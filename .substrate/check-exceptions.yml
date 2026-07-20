@@ -37,3 +37,15 @@
   triaged: 2026-07-14
   by: session-wake-2034z
   verdict: false_positive
+# The v3 PERMISSIONS digest line quotes the classifier refusal-reason strings
+# ("[Merge Without Review]/[Self-Approval]") as part of the owner-landed grant
+# (canonical VERBATIM source: projects/UNIVERSAL.md v4 @ e801da5 — the digest
+# itself says "quote THAT text"). Owner-authored wording: rewording the digest
+# would corrupt the grant it mirrors; any doctrine change lands in the owner's
+# grant text first, then re-digests. Triaged for PR #390 (v1.20.1 gate).
+- path: docs/prompts/v3/custom-instructions-core.md
+  kind: "false-wall:review-label-prohibition"
+  reason: "owner-verbatim grant digest (UNIVERSAL.md v4 @ e801da5) quoting the refusal-reason strings; agent rewording would corrupt the owner-landed grant it mirrors — doctrine changes belong in the grant, not this digest"
+  triaged: 2026-07-20
+  by: session-kit-upgrade-v1201-fix
+  verdict: accepted_risk

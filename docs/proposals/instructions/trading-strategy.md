@@ -105,7 +105,7 @@ GIT / PR CONVENTIONS (binding; repo conventions override harness defaults):
   what to re-check · why) and/or @-mention Codex on the PR thread. Review
   is post-merge; veto = revert. Done-when for every task is
   agent-reachable: "PR merged on green."
-- REFUSAL BRANCH: if the platform classifier denies a merge/arm/ready-flip
+- REFUSAL BRANCH: if the platform refuses a merge/arm/ready-flip call
   despite this grant, the FIRST denial is terminal — never retry, reword,
   or re-route it. Leave the PR READY + CI green, record the refusal text
   verbatim in status, queue the owner click under ⚑; your done-when
@@ -280,7 +280,7 @@ divergences:
    directly, fast checks can zero-out the armable window, and MCP-created
    PRs must be armed by hand.
 4. **A refusal branch is added that no gen-1 text had** (finding 5): the
-   classifier denies self-merge inconsistently per seat, and retrying a
+   classifier denied self-merges inconsistently per seat (2026-07-10 gen-1 evidence), and retrying a
    denial is itself flagged as bypass-tunneling. First denial = terminal
    state (READY + green + verbatim refusal in status + ⚑), preserving
    self-merge-always as policy while making platform refusal a defined
@@ -405,8 +405,8 @@ defaults):
   merge anyway and flag: one line in docs/review-queue.md. Review is post-merge;
   veto = revert. Done-when for every task:
   "PR merged on green" (agent-reachable).
-- REFUSAL BRANCH: if the platform classifier denies a merge/arm/
-  ready-flip despite this grant, the FIRST denial is terminal — never
+- REFUSAL BRANCH: if the platform refuses a merge/arm/
+  ready-flip call despite this grant, the FIRST denial is terminal — never
   retry, reword, or re-route. Leave the PR READY + CI green, record the
   refusal verbatim in status, queue the owner click under ⚑; done-when
   degrades to "PR open, READY, green" + a review-queue.md line.

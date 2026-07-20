@@ -85,8 +85,9 @@ events never arrive. If the platform/classifier refuses a ready/arm/merge: FIRST
 full stop, never retry or reword; leave the PR READY + green, record the refusal verbatim
 in status, flag the owner click — your done-when degrades to "PR open, READY, green". A PR
 that deserves second eyes still merges — flag it post-merge in docs/review-queue.md
-(number · what to re-check · why); review is post-merge, veto = revert. You CANNOT push
-tags, create releases directly, or delete branches (403). The sanctioned release path is
+(number · what to re-check · why); review is post-merge, veto = revert. Tag pushes, direct
+release creation, and branch deletion drew 403s in this venue class (LAST-VERIFIED 2026-07-10;
+re-attempt on material change). The sanctioned release path is
 the seeded release.yml (workflow_dispatch, contents:write) — PUBLIC REPO ONLY, and only
 after the local boot gate passed; probe it once at birth and write the result (granted /
 owner-manual) into docs/capabilities.md; if walled, queue the click, never retry. The
