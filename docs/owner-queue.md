@@ -67,6 +67,15 @@ launch that seeded the earliest queue items: [`launch-readiness-2026-07-10.md`](
   context: superbot-idle (Seat B) still the sole STALLED lane, WAKING-IDLE now 8 fires since its
   last landed output (07-19T07:26Z, ~17h51m) — the double burn continues on a lane landing
   nothing overnight.*
+  *Status 2026-07-20T04:1xZ (05Z records slice, PR #387) — **SIXTH escalation cycle**: both ids
+  STILL enabled in the 2026-07-20T04:02:52Z capture; the predicted 03:15Z double-fire happened
+  (in-snapshot last_fired 03:15:16.9Z / 03:15:20.8Z, ~3.9s apart); both next 05:15Z. **Keeper
+  recommendation strengthened by in-export heartbeat evidence:** the newest id
+  (`trig_01DbcKVWxn6RJPhfyRkgTg6m`) binds `session_0148fC4UXupaNEDPeYjBR3fX`, which also holds
+  a pending 05:23Z self-continuation one-shot — a live seat; the older id's session shows no
+  such signal. Unchanged ask: delete `trig_01XJJ88pQaQFRSpVAviCfAZe`. Liveness context:
+  superbot-idle (Seat B) still the sole STALLED lane, WAKING-IDLE now 10 fires since its last
+  landed output (07-19T07:26Z, ~20h43m).*
 
 - **`OQ-WEBSITES-LABEL-MACHINERY` — (VENUE: owner-live) remove the websites
   `host-automerge-extras.yml` label re-creation machinery (residual of the resolved

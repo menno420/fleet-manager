@@ -60,7 +60,10 @@ PR #379). 22Z night cycle (snapshot 2199/17 @ 21:34:18Z, I6 PASS · SBW dup
 pair FOURTH escalation cycle) recorded 2026-07-19T21:44Z (records slice,
 PR #381). 01Z night cycle (snapshot 2239/17 @ 2026-07-20T01:10:16Z, I6 PASS ·
 SBW dup pair FIFTH escalation cycle — 23:15Z double-fire confirmed) recorded
-2026-07-20T01:22Z (records slice, PR #385).
+2026-07-20T01:22Z (records slice, PR #385). 05Z cycle (snapshot 2262/17 @
+2026-07-20T04:02:52Z, I6 PASS · SBW dup pair SIXTH escalation cycle — 03:15Z
+double-fire confirmed, next 05:15Z · untracked self-continuing-seat watch item
+recorded) recorded 2026-07-20T04:1xZ (records slice, PR #387).
 ---
 
 ## Night watch (2026-07-18, overnight)
@@ -213,12 +216,12 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 ```json routine-claims
 {
   "seat": "fleet-manager (coordinator)",
-  "updated": "2026-07-20T01:17Z",
+  "updated": "2026-07-20T04:09Z",
   "failsafe": {
     "id": "trig_01GK4mjoKBP3yCabn9ux1MB2",
     "cron": "30 */2 * * *",
-    "next_run_at": "2026-07-20T02:31:48Z",
-    "last_fired": "2026-07-20T00:32:23Z",
+    "next_run_at": "2026-07-20T04:31:48Z",
+    "last_fired": "2026-07-20T02:32:29Z",
     "state": "armed"
   },
   "deleted": [
@@ -896,6 +899,49 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
    superbot-idle lane (worst burner); superbot-next #567/#571 CI-kick
    routing; websites label re-appearance (tripwire
    `check_label_hygiene.py`).
+
+## 05Z CYCLE — SNAPSHOT + HEARTBEAT (04:1xZ 2026-07-20, records slice, PR #387)
+
+- **`telemetry/triggers-snapshot.json` refreshed** from the full
+  2026-07-20T04:02:52Z export: **2262 records, 17 enabled** (23 pages,
+  0 cursor-overlap dups, +23 new / -0 gone vs 01:10:16Z).
+  `check_trigger_health.py` → **PASS 8/9, 1 WARN (I8), exit 0**;
+  `verify_routine_state.py --export` → **VERDICT OK, 3 claims verified**
+  (C1 + C3 + V1 volatile fields current post-bump). FM failsafe healthy:
+  last_fired 2026-07-20T02:32:29Z, next 04:31:48Z; one FM pacemaker one-shot
+  pending (04:44Z, bound to the coordinator session) — chain alive.
+- **SBW duplicate pair: SIXTH escalation cycle.** Both ids still enabled;
+  the predicted 03:15Z double-fire happened (in-snapshot 03:15:16.9Z /
+  03:15:20.8Z, ~3.9s apart); both next 05:15Z. New in-export heartbeat
+  evidence for the keeper: the newest id's bound session also holds a
+  pending 05:23Z self-continuation one-shot — live seat. `OQ-SBW-DUP-FAILSAFE`
+  annotated. Full record: `docs/fleet-triage.md` § "05Z cycle".
+- **Export anomaly (watch, sibling's business — record only):** a `send_later`
+  one-shot (04:24Z) targets `session_018iFisKSjZnv9YWD4ETvd8W`, which has
+  **no standing failsafe** in the export — untracked self-continuing seat;
+  nothing catches it if its turn ends without re-arm. Watch next capture.
+- **Lane liveness (04:10Z, new snapshot, committed-main checker):** headline
+  `STALLED: superbot-idle (Seat B) · WAKING-IDLE: superbot-next,
+  substrate-kit, websites, venture-lab, superbot-games · Seat A,
+  superbot-idle (Seat B), superbot-mineverse · asleep: none · DARK: none`.
+  superbot-idle still sole STALLED, now **10 fires** since last output
+  (07-19T07:26Z, ~20h43m). Morning recoveries visible: superbot hub /
+  idea-engine / sim-lab LIVE with fresh commits (03:53–04:09Z).
+- No trigger-MCP calls from this venue; RAW-DATA reporting.
+
+### Baton (04:1xZ refresh — morning posture)
+1. **Owner (2 items, unchanged):** `OQ-SBW-DUP-FAILSAFE` (SIXTH cycle —
+   keeper evidence strengthened, see above) · `OQ-WEBSITES-LABEL-MACHINERY` —
+   both paste-ready in `docs/owner-queue.md`.
+2. **Morning:** re-sweep the night's WAKING-IDLE tags (confirm QUIET seats
+   wake with landed output) + groom; next I6 snapshot refresh due **~08:00Z**
+   (4h bar on the 04:02:52Z capture).
+3. **Watches (unchanged + one new):** SBW double-fire tripwire (next window
+   05:15Z) + the WAKING-IDLE superbot-idle lane (10 fires, worst burner);
+   superbot-next #567/#571 CI-kick routing; websites label re-appearance
+   (tripwire `check_label_hygiene.py`); **new:** the untracked
+   self-continuing seat `session_018iFisKSjZnv9YWD4ETvd8W` (no failsafe —
+   re-arm or dark by next capture).
 
 ## Pointers
 - Live status → `docs/current-state.md`
