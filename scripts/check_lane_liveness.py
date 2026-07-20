@@ -97,16 +97,43 @@ WAKE COLUMN — wake-without-work refinement (2026-07-19, groom slice #2)
   every cadence window between the lane's last signal and the recorded
   fire), which the on-schedule check above supports.
 
+LEDGER + DIFF — run-to-run transition memory (2026-07-20, #381-card idea)
+  Each run's table evaporates when the session ends, so lane-state
+  transitions across runs (LIVE→STALLED onset, WAKING-IDLE recovery) are
+  invisible unless a human diffs old outputs. Two additions turn the
+  checker into a committed time series:
+
+    --ledger [PATH]   append one JSON line per run to PATH (bare --ledger
+                      uses telemetry/lane-liveness-ledger.jsonl):
+                      {evaluated_at, snapshot_captured_at,
+                       lanes: {lane: {verdict, wake_state, fires_since,
+                                      age_hours}}}
+                      Entries are one line each — no cap needed yet.
+                      Partial runs (--repos filter) never append: a
+                      filtered entry would poison the time series.
+    --diff            compare the CURRENT run against the ledger's last
+                      entry and print a TRANSITIONS block (lane ·
+                      old→new verdict/wake state) + a one-line headline
+                      (N transitions; recoveries vs degradations). With
+                      no prior entry it says so honestly. Comparison is
+                      on the *class* (LIVE/QUIET/STALLED/DARK/NOT
+                      MEASURED; —/waking/asleep?/asleep/WAKING-IDLE), so
+                      fire-count or age churn inside the same state never
+                      reads as a transition. --diff reads before --ledger
+                      appends, so one command does compare-then-record.
+
 EXIT CONTRACT (advisory-only tier, same as the S3/S5/S9 trio — this checker
 is NEVER merge-blocking):
   default    exit 0 always (table + one summary line).
   --strict   exit 1 when any lane scores STALLED (wake-procedure use).
+  (--ledger/--diff never change the exit code.)
 
 USAGE
   python3 scripts/check_lane_liveness.py                     # full fleet
   python3 scripts/check_lane_liveness.py --repos websites,fleet-manager
   python3 scripts/check_lane_liveness.py --strict            # wake gate
   python3 scripts/check_lane_liveness.py --now 2026-07-19T07:45Z
+  python3 scripts/check_lane_liveness.py --diff --ledger     # compare + record
   python3 scripts/check_lane_liveness.py --selfcheck         # pure logic
 
 No third-party deps: stdlib + the git binary via gen_roster's transport.
@@ -291,7 +318,7 @@ def measure_lane(lane: dict, records: list[dict], now: datetime,
     cadence, armed, source, last_fired = lane_cadence(lane, records)
     row = {"lane": lane["lane"], "cadence": cadence, "armed": armed,
            "source": source, "signal": None, "signal_kind": "—",
-           "age_h": None, "windows": None, "wake": "—"}
+           "age_h": None, "windows": None, "wake": "—", "fires": 0}
     if lane["disposition"] != "live":
         row["verdict"] = ("SKIP (archived — stale-by-design)"
                           if lane["disposition"] == "archived"
@@ -315,7 +342,8 @@ def measure_lane(lane: dict, records: list[dict], now: datetime,
     row.update(signal=signal.strftime("%Y-%m-%dT%H:%MZ"), signal_kind=kind,
                age_h=age_h, windows=windows,
                verdict=verdict_for(windows, armed),
-               wake=wake_state(armed, last_fired, signal, cadence, captured))
+               wake=wake_state(armed, last_fired, signal, cadence, captured),
+               fires=fires_since(last_fired, signal, cadence))
     return row
 
 
@@ -354,6 +382,155 @@ def render(rows: list[dict], now: datetime, captured_at: str) -> str:
             "landed signal (earlier fires inferred from the cron cadence): "
             "wakes are burning tokens with zero landed output. asleep = "
             "armed on paper, not firing at capture."]
+    return "\n".join(out)
+
+
+# ---------------------------------------------------------------------------
+# Ledger + transition diff (run-to-run memory)
+# ============================== PROVENANCE =================================
+# Why added : Each liveness run prints a table that evaporates with the
+#             session — lane-state transitions across runs (LIVE→STALLED
+#             onset, WAKING-IDLE onset/recovery) were invisible unless a
+#             human diffed old outputs (the 21:40Z-vs-20:36Z recovery read
+#             on 2026-07-19 was exactly that manual diff). A committed
+#             one-line-per-run JSONL ledger + a --diff mode make the
+#             checker its own time series. Idea recorded on the PR #381
+#             card; dispatched via the control/status.md baton.
+# Date      : 2026-07-20 (build-slice worker, model: fable-5, dispatched by
+#             the fleet-manager coordinator seat; PR #386)
+# Reliability: unverified — confirm its output against ground truth a few
+#             times across sessions before trusting it. Ground-truth run 1
+#             (2026-07-20, PR #386): first --diff honestly reported "no
+#             prior ledger entry"; the second run diffed against the seeded
+#             entry minutes earlier. Verbatim outputs in the PR body +
+#             session card.
+# Kill-switch: delete this block (and the --ledger/--diff wiring + the
+#             telemetry/lane-liveness-ledger.jsonl file) if it proves
+#             unreliable over multiple sessions.
+# ===========================================================================
+
+LEDGER_DEFAULT_REL = os.path.join("telemetry", "lane-liveness-ledger.jsonl")
+
+# Severity ranks for classifying a transition as recovery vs degradation.
+# NOT MEASURED / SKIP / NEW / gone rank None → "other" (a measurement or
+# roster change, never a lane health verdict — the roster UNREADABLE
+# doctrine again).
+VERDICT_RANK = {"LIVE": 0, "QUIET": 1, "STALLED": 2, "DARK": 2}
+WAKE_RANK = {"—": 0, "waking": 0, "asleep?": 1, "asleep": 1, "WAKING-IDLE": 2}
+
+
+def state_class(text: str) -> str:
+    """Collapse a verdict/wake string to its class — the diff unit.
+
+    'WAKING-IDLE (5 fires since last output)' → 'WAKING-IDLE';
+    'QUIET (no failsafe armed — may be by design)' → 'QUIET'. Diffing on
+    the class means fire-count/age churn inside a state is never a
+    transition.
+    """
+    return text.split(" (")[0].strip()
+
+
+def ledger_entry(rows: list[dict], now: datetime, captured_at: str) -> dict:
+    """One run → one JSONL ledger line (pure over its inputs)."""
+    lanes = {}
+    for r in rows:
+        lanes[r["lane"]] = {
+            "verdict": r["verdict"],
+            "wake_state": r.get("wake", "—"),
+            "fires_since": r.get("fires", 0),
+            "age_hours": (round(r["age_h"], 2)
+                          if r["age_h"] is not None else None),
+        }
+    return {"evaluated_at": now.strftime("%Y-%m-%dT%H:%MZ"),
+            "snapshot_captured_at": captured_at,
+            "lanes": lanes}
+
+
+def read_last_entry(path: str) -> dict | None:
+    """Last parseable JSON line of the ledger, else None (missing/empty)."""
+    try:
+        with open(path, encoding="utf-8") as fh:
+            lines = [ln for ln in fh.read().splitlines() if ln.strip()]
+    except OSError:
+        return None
+    for ln in reversed(lines):
+        try:
+            entry = json.loads(ln)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(entry, dict) and isinstance(entry.get("lanes"), dict):
+            return entry
+    return None
+
+
+def diff_entries(prev: dict, cur: dict,
+                 cur_lanes_only: bool = False) -> tuple[list[str], str]:
+    """(transition lines, headline) between two ledger entries. Pure.
+
+    A lane transitions when its verdict class OR wake class changed.
+    Classification: sum the rank deltas across both dimensions — net down
+    = recovery, net up = degradation, else other (incl. mixed moves,
+    NEW/gone lanes, NOT MEASURED ends). cur_lanes_only skips gone-lane
+    detection (for --repos-filtered runs).
+    """
+    pl, cl = prev.get("lanes", {}), cur.get("lanes", {})
+    names = list(cl) if cur_lanes_only else sorted(set(pl) | set(cl),
+                                                   key=str.lower)
+    lines, rec, deg, oth = [], 0, 0, 0
+    for name in names:
+        if name not in pl:
+            lines.append(f"- {name} · NEW lane (no prior state)  [other]")
+            oth += 1
+            continue
+        if name not in cl:
+            lines.append(f"- {name} · gone (not in this run)  [other]")
+            oth += 1
+            continue
+        pv, cv = state_class(pl[name]["verdict"]), state_class(cl[name]["verdict"])
+        pw, cw = (state_class(pl[name].get("wake_state", "—")),
+                  state_class(cl[name].get("wake_state", "—")))
+        if pv == cv and pw == cw:
+            continue
+        parts = []
+        if pv != cv:
+            parts.append(f"verdict {pv}→{cv}")
+        if pw != cw:
+            parts.append(f"wake {pw}→{cw}")
+        deltas = []
+        for old, new, rank in ((pv, cv, VERDICT_RANK), (pw, cw, WAKE_RANK)):
+            if old != new and old in rank and new in rank:
+                deltas.append(rank[new] - rank[old])
+        net = sum(deltas)
+        tag = ("other" if not deltas else
+               "recovery" if net < 0 else
+               "degradation" if net > 0 else "other")
+        rec += tag == "recovery"
+        deg += tag == "degradation"
+        oth += tag == "other"
+        lines.append(f"- {name} · {' · '.join(parts)}  [{tag}]")
+    n = len(lines)
+    since = prev.get("evaluated_at", "unknown")
+    if n == 0:
+        headline = (f"no transitions — all {len(names)} lanes unchanged "
+                    f"vs {since}")
+    else:
+        headline = (f"{n} transition{'s' if n != 1 else ''} vs {since}: "
+                    f"{rec} recover{'ies' if rec != 1 else 'y'} · "
+                    f"{deg} degradation{'s' if deg != 1 else ''} · "
+                    f"{oth} other")
+    return lines, headline
+
+
+def render_diff(prev: dict | None, cur: dict, ledger_path: str,
+                cur_lanes_only: bool = False) -> str:
+    out = ["", f"## Transitions (vs ledger {ledger_path})"]
+    if prev is None:
+        out.append("no prior ledger entry — nothing to diff against "
+                   "(this run seeds the baseline when --ledger is given)")
+        return "\n".join(out)
+    lines, headline = diff_entries(prev, cur, cur_lanes_only=cur_lanes_only)
+    out.extend(lines)
+    out.append(headline)
     return "\n".join(out)
 
 
@@ -412,7 +589,63 @@ def selfcheck() -> int:
     assert wake_state(True, t(12, 30), t(13), 2.0, t(13)) == "waking"
     assert wake_state(True, t(17, 15), t(7, 34), 2.0, None) == \
         "WAKING-IDLE (5 fires since last output)"        # no captured_at
-    print("selfcheck OK (24 pins)")
+    # ledger + diff (pure pins)
+    assert state_class("WAKING-IDLE (5 fires since last output)") == \
+        "WAKING-IDLE"
+    assert state_class("QUIET (no failsafe armed — may be by design)") == \
+        "QUIET"
+    assert state_class("NOT MEASURED (wall: x)") == "NOT MEASURED"
+    assert state_class("waking") == "waking" and state_class("—") == "—"
+    rows_a = [{"lane": "a", "verdict": "LIVE", "wake": "waking",
+               "fires": 0, "age_h": 0.5},
+              {"lane": "b", "verdict": "STALLED",
+               "wake": "WAKING-IDLE (5 fires since last output)",
+               "fires": 5, "age_h": 10.0}]
+    ent_a = ledger_entry(rows_a, t(10), "2026-07-19T09:00:00Z")
+    assert ent_a["evaluated_at"] == "2026-07-19T10:00Z"
+    assert ent_a["lanes"]["b"] == {"verdict": "STALLED",
+                                   "wake_state": "WAKING-IDLE (5 fires "
+                                                 "since last output)",
+                                   "fires_since": 5, "age_hours": 10.0}
+    # identical run → no transitions (fire-count churn is NOT a transition)
+    ent_a2 = ledger_entry(
+        [dict(rows_a[0]),
+         dict(rows_a[1], wake="WAKING-IDLE (7 fires since last output)",
+              fires=7)], t(12), "2026-07-19T11:00:00Z")
+    lines, head = diff_entries(ent_a, ent_a2)
+    assert lines == [] and head.startswith("no transitions — all 2 lanes")
+    assert "2026-07-19T10:00Z" in head
+    # recovery + degradation + NEW lane
+    ent_b = ledger_entry(
+        [dict(rows_a[0], verdict="STALLED",
+              wake="WAKING-IDLE (3 fires since last output)", fires=3),
+         dict(rows_a[1], verdict="LIVE", wake="waking", fires=0),
+         {"lane": "c", "verdict": "LIVE", "wake": "—", "fires": 0,
+          "age_h": None}], t(12), "2026-07-19T11:00:00Z")
+    lines, head = diff_entries(ent_a, ent_b)
+    assert lines == [
+        "- a · verdict LIVE→STALLED · wake waking→WAKING-IDLE  "
+        "[degradation]",
+        "- b · verdict STALLED→LIVE · wake WAKING-IDLE→waking  [recovery]",
+        "- c · NEW lane (no prior state)  [other]"], lines
+    assert head == ("3 transitions vs 2026-07-19T10:00Z: 1 recovery · "
+                    "1 degradation · 1 other"), head
+    # gone lane detected on full runs, skipped when cur_lanes_only
+    lines, _ = diff_entries(ent_b, ent_a)
+    assert any("c · gone" in ln for ln in lines)
+    lines, _ = diff_entries(ent_b, ent_a, cur_lanes_only=True)
+    assert not any("gone" in ln for ln in lines)
+    # NOT MEASURED end of a move is never a recovery/degradation
+    ent_c = ledger_entry(
+        [dict(rows_a[0], verdict="NOT MEASURED (wall: x)", wake="—",
+              age_h=None)], t(12), "x")
+    lines, _ = diff_entries(ent_a, ent_c, cur_lanes_only=True)
+    assert lines == ["- a · verdict LIVE→NOT MEASURED · wake waking→—  "
+                     "[other]"], lines
+    # no-prior-entry honesty + missing file
+    assert read_last_entry("/nonexistent/ledger.jsonl") is None
+    assert "no prior ledger entry" in render_diff(None, ent_a, "x.jsonl")
+    print("selfcheck OK (41 pins)")
     return 0
 
 
@@ -426,6 +659,17 @@ def main(argv=None) -> int:
     ap.add_argument("--max-fetch-attempts", type=int, default=5)
     ap.add_argument("--strict", action="store_true",
                     help="exit 1 when any lane is STALLED")
+    ap.add_argument("--ledger", nargs="?",
+                    const=os.path.join(gen_roster.repo_root(),
+                                       LEDGER_DEFAULT_REL),
+                    default=None, metavar="PATH",
+                    help="append this run as one JSON line to the ledger "
+                         "(bare --ledger = telemetry/"
+                         "lane-liveness-ledger.jsonl); skipped on "
+                         "--repos-filtered runs")
+    ap.add_argument("--diff", action="store_true",
+                    help="print transitions vs the ledger's last entry "
+                         "(reads before --ledger appends)")
     ap.add_argument("--selfcheck", action="store_true")
     args = ap.parse_args(argv)
     if args.selfcheck:
@@ -454,7 +698,27 @@ def main(argv=None) -> int:
         rows.append(measure_lane(lane, records, now,
                                  args.max_fetch_attempts,
                                  captured=captured))
-    print(render(rows, now, str(payload.get("captured_at") or "unknown")))
+    captured_str = str(payload.get("captured_at") or "unknown")
+    print(render(rows, now, captured_str))
+    if args.diff or args.ledger is not None:
+        entry = ledger_entry(rows, now, captured_str)
+        ledger_path = args.ledger or os.path.join(gen_roster.repo_root(),
+                                                  LEDGER_DEFAULT_REL)
+        if args.diff:
+            print(render_diff(read_last_entry(ledger_path), entry,
+                              os.path.relpath(ledger_path,
+                                              gen_roster.repo_root()),
+                              cur_lanes_only=wanted is not None))
+        if args.ledger is not None:
+            if wanted is not None:
+                print("\nledger append SKIPPED: --repos filter active — a "
+                      "partial run would poison the time series")
+            else:
+                with open(args.ledger, "a", encoding="utf-8") as fh:
+                    fh.write(json.dumps(entry, ensure_ascii=False,
+                                        sort_keys=True) + "\n")
+                print(f"\nledger: appended entry {entry['evaluated_at']} → "
+                      f"{os.path.relpath(args.ledger, gen_roster.repo_root())}")
     if args.strict and any(r["verdict"] == "STALLED" for r in rows):
         return 1
     return 0
