@@ -1334,3 +1334,54 @@ snapshot. RAW DATA; no trigger-MCP calls from this venue.*
   expected overnight pattern, flagged so the morning sweep can confirm they
   wake with landed output. trading-strategy / gba-homebrew / pokemon-mod-lab /
   product-forge QUIET without armed crons (unchanged).
+
+## 2026-07-20 · 05Z cycle — snapshot refresh + SBW SIXTH escalation cycle (records slice)
+
+*Source: fm records slice (fm PR #387), written 2026-07-20T04:1xZ. Snapshot facts
+from the verified full 2026-07-20T04:02:52Z export (2262 records, 17 enabled,
+23 pages); lane facts from `check_lane_liveness.py` (committed-main version) run
+at 04:10Z against that snapshot. RAW DATA; no trigger-MCP calls from this venue.*
+
+- **`telemetry/triggers-snapshot.json` refreshed** from the full
+  2026-07-20T04:02:52Z export: **2262 records, 17 enabled** (23 pages,
+  0 cursor-overlap dups, +23 new / -0 gone vs the 01:10:16Z capture).
+  `check_trigger_health.py` → **PASS 8/9, 1 WARN (I8), exit 0**; I6
+  SNAPSHOT-FRESH PASS (0.1h). `verify_routine_state.py --export` →
+  **VERDICT OK, fence-sourced, 3 claims verified** (C1 failsafe + C3 deleted +
+  V1 volatile fields current post-bump). FM failsafe healthy in the export:
+  `trig_01GK4mjoKBP3yCabn9ux1MB2` enabled, last_fired 2026-07-20T02:32:29Z,
+  next 2026-07-20T04:31:48Z; one FM pacemaker one-shot pending
+  (`trig_01VMhB7PR1ULc4BHLZGyicaR`, 04:44Z, created 03:13:03Z, bound to the
+  coordinator session) — chain alive.
+- **SBW duplicate failsafe pair PERSISTS — SIXTH escalation cycle.** Both
+  "SuperBot World failsafe wake" crons still enabled at 04:02:52Z
+  (`trig_01XJJ88pQaQFRSpVAviCfAZe` 07-17T22:11Z ·
+  `trig_01DbcKVWxn6RJPhfyRkgTg6m` 07-18T17:08Z); the 01Z entry's predicted
+  window fired — in-snapshot last_fired **03:15:16.9Z / 03:15:20.8Z**
+  (~3.9s apart), both next **05:15Z**. The hub delete (`OQ-SBW-DUP-FAILSAFE`,
+  VENUE: hub) has now survived SIX capture cycles unexecuted. **New keeper
+  evidence this capture:** the newest cron (`trig_01DbcKVWxn6RJPhfyRkgTg6m`)
+  binds `session_0148fC4UXupaNEDPeYjBR3fX`, which also holds a pending 05:23Z
+  work one-shot (created 03:22:55Z) — a live self-continuing heartbeat; the
+  older id's bound session shows no such signal in the export. Disposition
+  unchanged and strengthened: keep the newest, delete
+  `trig_01XJJ88pQaQFRSpVAviCfAZe`.
+- **Export anomaly (watch item, sibling's business — record only):** a
+  `send_later` one-shot (`trig_01WjtRV1TyHxCHWbwitBxSEK`, run_once 04:24Z,
+  created 03:23:55Z) targets `session_018iFisKSjZnv9YWD4ETvd8W`, a session
+  with **no standing failsafe cron** in the export — an untracked
+  self-continuing seat: if its turn ends without re-arm, nothing catches the
+  stall. Not this seat's trigger to touch; watch whether it re-arms or goes
+  dark at the next capture.
+- **Lane-liveness deltas vs the 01:17Z run (PR #385 card, verbatim there):**
+  headline now `STALLED: superbot-idle (Seat B) · WAKING-IDLE: superbot-next,
+  substrate-kit, websites, venture-lab, superbot-games · Seat A,
+  superbot-idle (Seat B), superbot-mineverse · asleep: none · DARK: none ·
+  not measured: 0`. **Unchanged-worst:** superbot-idle (Seat B) sole STALLED,
+  WAKING-IDLE now **10 fires** (was 8) since its last landed output
+  (07-19T07:26Z, ~20h43m). **Night-idle spread continues** (expected shape):
+  venture-lab joins the 3-fire tags (superbot-next, websites); games Seat A +
+  mineverse at 4 fires; substrate-kit 2 fires. Morning recoveries already
+  visible at 04:10Z: superbot hub (commit 04:08Z), idea-engine (04:09Z),
+  sim-lab (03:53Z) all LIVE — the morning sweep should confirm the remaining
+  QUIET seats wake with landed output.
