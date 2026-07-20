@@ -4,7 +4,7 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #119** · generated-at **2026-07-20T07:43Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #120** · generated-at **2026-07-20T08:26Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
@@ -18,31 +18,20 @@
 ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready when deploy timing suits (CodeQL resolved by code change; merge=deploy Q-0193); the fleet-wide owner queue is consolidated in docs/eap/night-review-2026-07-13.md §7 (canonical: fm docs/owner-queue.md). Manager-sweep note, NOT an owner click: fm owner-queue C#20's manager note (superbot codex-final-review invalid YAML) is RESOLVED by superbot PR #1995 (8214200) — retire that line at the next sweep.
 ```
 
-### superbot-next — ⚑ needs-owner: (1) disarm the residual failsafe wake triggers via the routines UI — both enabled duplicates o…
+### superbot-next — ⚑ needs-owner: broad orphan merged-branch cleanup remains blocked by the GitHub 403 ref-delete wall (owner/ad…
 
-- suggested-id: `OQ-SUPERBOT-NEXT-1-DISARM-RESIDUAL-FAILSAFE`
-- source: superbot-next/control/status.md @ `1cec1b8` · heartbeat `updated:` 2026-07-20T04:17:50Z
+- suggested-id: `OQ-SUPERBOT-NEXT-BROAD-ORPHAN-MERGED-BRANCH`
+- source: superbot-next/control/status.md @ `28e63ce` · heartbeat `updated:` 2026-07-20T07:30:12Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-⚑ needs-owner: (1) disarm the residual failsafe wake triggers via the routines UI — both enabled duplicates of "SuperBot 2.0 failsafe wake": trig_01E86nBnXqesQTwm6WA4mSUD + trig_01UC7wiV3n5Vgs3RpSQt4gWz (no standing wake chain in the recreated Project); (2) delete 4 orphan merged branches (blocked agent-side by the GitHub 403 ref-delete wall, recorded 2026-07-17): #385 claude/energy-slice-2, #473 claude/title-equip-write, #476 claude/curation-row72, #424 claude/wp-stack-reconcile.
-```
-
-### substrate-kit — ⚑ adopter-distribution wave — RESOLVED (2026-07-20, wave-lane PR #548)
-
-- suggested-id: `OQ-SUBSTRATE-KIT-ADOPTER-DISTRIBUTION-WAVE-RESOLVED`
-- source: substrate-kit/control/status.md @ `e33a573` · heartbeat `updated:` 2026-07-20T07:30:00Z
-- possibly-covered-by: none matched (manual dedup needed)
-
-```text
-⚑ adopter-distribution wave — RESOLVED (2026-07-20, wave-lane PR #548)
-The v1.20.1 adopter-upgrade wave ran under fm ORDER 048. Evidence: 9 vendoring adopters swept, upgrade PRs opened ready against release v1.20.1 (tag v1.20.1 → 40eb0fe, dist sha256 d6c4f81565f8877f38e2b4315968fc5f22a378c9c4dfdd89f8ed02827e7f6b39) — gba-homebrew #211 (MERGED), idea-engine #740, superbot-next #602, websites #452, trading-strategy #160, superbot-games #183, venture-lab #282, superbot-mineverse #138, fleet-manager #390. superbot = pin-only skip; pokemon-mod-lab = DARK. No owner action: each remaining PR is the resident seat's to merge; each reds only on pre-existing resident-owned false-wall/badge doc content.
+⚑ needs-owner: broad orphan merged-branch cleanup remains blocked by the GitHub 403 ref-delete wall (owner/admin). The previously-listed owner-blocker items were resolved 2026-07-18 and are dropped here: the two named residual triggers are absent from the account registry (per docs/current-state.md:67-73) and the four named orphan merged branches are absent from origin.
 ```
 
 ### substrate-kit — ⚑ FOR OWNER — kit-lab daily cron: recreate or retire? (A/B)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-KIT-LAB-DAILY-CRON`
-- source: substrate-kit/control/status.md @ `e33a573` · heartbeat `updated:` 2026-07-20T07:30:00Z
+- source: substrate-kit/control/status.md @ `0a0f8cb` · heartbeat `updated:` 2026-07-20T07:45:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -53,17 +42,17 @@ The v1.20.1 adopter-upgrade wave ran under fm ORDER 048. Evidence: 9 vendoring a
   WHY:    doctrine and reality contradict; a rebooted seat reads "armed" and trusts a loop that never runs. ORDER 024 also bars the seat from re-arming routines pending the per-seat reboot go, so it will not create the cron unilaterally.
   UNBLOCKS: honest lab-loop doctrine — either daily owner business resumes (A) or the false "armed" claim is removed (B).
   VERIFY: (A) the Schedule shows in the console trigger list and a 06:00Z run lands; (B) `grep -n "stays armed" docs/operations/lab-loop.md` returns nothing.
-  RISK: ↩️ reversible either way. RECOMMENDATION: **A — recreate** (lab-loop.md frames it as genuine daily owner business; retiring silently drops it over a transient cutover gap; re-arming is one console action gated on the reboot go). Answer: A (recreate) / B (retire).
+  RISK: ↩️ reversible either way. RECOMMENDATION: **A — recreate**. Answer: A (recreate) / B (retire).
 ```
 
-### substrate-kit — ⚑ public-flip-or-PAT (pick one)
+### substrate-kit — ⚑ FOR OWNER — public-flip-or-PAT (pick one)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-PUBLIC-FLIP-PAT-PICK`
-- source: substrate-kit/control/status.md @ `e33a573` · heartbeat `updated:` 2026-07-20T07:30:00Z
+- source: substrate-kit/control/status.md @ `0a0f8cb` · heartbeat `updated:` 2026-07-20T07:45:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-⚑ public-flip-or-PAT (pick one)
+⚑ FOR OWNER — public-flip-or-PAT (pick one)
   WHAT: Let the other fleet repos read this one — either make it public or mint a read-only token.
   WHERE: P11: Settings → General → Danger Zone → Change visibility · P13: github.com/settings/tokens → fine-grained read-only PAT scoped to this repo, then add it to the fleet environments.
   HOW: P11 is click-through; P13 is create-token + paste into environment settings.
@@ -73,28 +62,41 @@ The v1.20.1 adopter-upgrade wave ran under fm ORDER 048. Evidence: 9 vendoring a
   RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩️ P13 reversible — revoke anytime. RECOMMENDATION: **B — mint a read-only PAT** (reversible; no history exposure).
 ```
 
-### substrate-kit — ⚑ t5-headless-guard fix (owner-review: pin-path PR #552 OPEN, awaiting owner merge)
+### substrate-kit — ⚑ FOR OWNER — t5-headless-guard fix (owner-review: pin-path PR #552 OPEN, awaiting owner merge)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-T5-HEADLESS-GUARD-FIX`
-- source: substrate-kit/control/status.md @ `e33a573` · heartbeat `updated:` 2026-07-20T07:30:00Z
+- source: substrate-kit/control/status.md @ `0a0f8cb` · heartbeat `updated:` 2026-07-20T07:45:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-⚑ t5-headless-guard fix (owner-review: pin-path PR #552 OPEN, awaiting owner merge)
-  STATUS: PR opened, awaiting owner review — https://github.com/menno420/substrate-kit/pull/552 (do-not-automerge; green; the additive shape-2 guard-observability edit to bench/tasks/T5.md).
-  WHAT: fix the T5 bench probe so it produces a real in-session guard fire in the ON arm. Recommend shape 2 (check-driven guards) — needs no hook-honoring harness rebuild and the enforcement surface exists headless.
-  WHERE: substrate-kit, `bench/tasks/T5.md` (PIN PATH) + `bench/README.md` / `run_ab.py`; optional engine sliver `src/engine/checks/` for the last-card freshness anchor — verify it is not already covered by #19's `--require-session-log`.
-  HOW: shape 2 — the arm's protocol runs `check --strict` inside the session flow (or a wrapper fails the task on red) so the guard's fire/obey/repair arc is observable without the hook layer.
-  WHY: without it, T5 scores all guard items n/a — the ON arm demonstrates nothing over the unguarded baseline; the guard-probe purpose of T5 is unmet.
-  UNBLOCKS: a T5 run that scores guard fire/obey/repair met/not-met instead of n/a; closes judge report §5.5 item 2.
+⚑ FOR OWNER — t5-headless-guard fix (owner-review: pin-path PR #552 OPEN, awaiting owner merge)
+  STATUS: PR opened, awaiting owner review — https://github.com/menno420/substrate-kit/pull/552 (do-not-automerge; green; the additive shape-2 guard-observability edit to bench/tasks/T5.md). OWNER'S LANE — the agent does NOT touch it.
+  WHAT: fix the T5 bench probe so it produces a real in-session guard fire in the ON arm (shape 2 — check-driven guards; no hook-honoring harness rebuild needed).
+  WHY: without it, T5 scores all guard items n/a — the ON arm demonstrates nothing over the unguarded baseline.
   VERIFY: a T5 run produces ≥1 real in-session guard fire (or a recorded deliberate violation) in the ON arm.
-  RISK: ⚠️ pin-path oracle change → lands via a `do-not-automerge` owner-review PR (never auto-merged); landed as owner-review pin PR #552 in substrate-kit (bench/ lives here, enforced by scripts/check_bench_integrity.py), awaits owner merge. Detail home: docs/planning/2026-07-19-needs-planning-recipes.md §4.
+  RISK: ⚠️ pin-path oracle change → lands via a `do-not-automerge` owner-review PR (never auto-merged). Detail: docs/planning/2026-07-19-needs-planning-recipes.md §4.
+```
+
+### substrate-kit — ⚑ FOR OWNER — superbot pin-bump: bump nominal pin, or leave as pin-only? (question)
+
+- suggested-id: `OQ-SUBSTRATE-KIT-SUPERBOT-PIN-BUMP-BUMP`
+- source: substrate-kit/control/status.md @ `0a0f8cb` · heartbeat `updated:` 2026-07-20T07:45:00Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+⚑ FOR OWNER — superbot pin-bump: bump nominal pin, or leave as pin-only? (question)
+  WHAT: superbot adopts substrate-kit as a PIN ONLY (substrate.config pin 1.0.0; no vendored dist, no `.substrate/` state) — so the v1.20.1 dist-vendoring upgrade is genuinely N/A there; it was correctly skipped in this wave.
+  WHERE: superbot/substrate.config.json (or equivalent pin), pin `1.0.0`.
+  HOW: (A) bump the nominal pin to `1.20.1` for a truthful version label even though no dist is vendored; (B) leave pin-only and document superbot as intentionally non-vendoring (adoption = pin-nominal only).
+  WHY: the pin currently reads 1.0.0 while the fleet is on 1.20.1 — a reader can't tell "deliberately pin-only" from "stale". A one-line decision removes the ambiguity.
+  UNBLOCKS: honest fleet version truth for superbot.
+  RISK: ↩️ reversible either way. RECOMMENDATION: **B — document pin-only** (superbot genuinely vendors no dist; a bumped pin with no dist would itself mislead). Answer: A (bump pin) / B (document pin-only).
 ```
 
 ### ↳ substrate-kit — `control/status-superbot-coordinator.md` — ⚑ needs-owner: 1) verify/deliver the testing-lane wind-down — superbot-next control/status.md was still UNFLI…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-1-VERIFY-DELIVER-TESTING`
-- source: substrate-kit/control/status-superbot-coordinator.md @ `e33a573` · heartbeat `updated:` 2026-07-10T13:47:02Z
+- source: substrate-kit/control/status-superbot-coordinator.md @ `0a0f8cb` · heartbeat `updated:` 2026-07-10T13:47:02Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -192,7 +194,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### idea-engine — ⚑ needs-owner: ORDER-010(c) sim-lab kit upgrade v1.15.0→v1.18.0 PARKED on owner in-session authorization + AS…
 
 - suggested-id: `OQ-IDEA-ENGINE-ORDER-010-C-SIM`
-- source: idea-engine/control/status.md @ `a80bf08` · heartbeat `updated:` 2026-07-20T07:36:07Z · seat: round-48 FLEET-slot P201 → V21…
+- source: idea-engine/control/status.md @ `74267e8` · heartbeat `updated:` 2026-07-20T07:55:20Z · seat: round-48 VENTURE-slot P202 → V…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
