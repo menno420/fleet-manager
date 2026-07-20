@@ -1,1 +1,0 @@
-- `claude/fm-liveness-ledger` · **liveness ledger + diff** · scripts/check_lane_liveness.py + telemetry/ · 2026-07-20
