@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-20T11:52Z
+updated: 2026-07-20T16:05Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -76,7 +76,16 @@ cycle — 11:15Z double-fire confirmed, next 13:15Z · I7 tick-pile-up RESOLVED
 (both ticks fired) · NEW watch: Self Improvement seat chain stopped after
 07:53Z, its failsafe next 12:02Z should catch it · liveness 0 recoveries /
 5 degradations, STALLED: none · fm #390 fix attempt 3 in flight) recorded
-2026-07-20T11:5xZ (records slice, PR #395).
+2026-07-20T11:5xZ (records slice, PR #395). 15:30Z cycle (snapshot 2368/17 @
+2026-07-20T15:38:36Z, I6 PASS · **ANOMALY: Self Improvement seat chain DEAD
+since 07:53Z — failsafe fires (last 14:04:29.8Z) but the seat never re-arms,
+4+ cycles; NEW failure class "failsafe-fires-but-no-rearm"; substrate-kit
+QUIET→STALLED ⇒ ESCALATED `OQ-SI-CHAIN-DEAD`** · SBW dup pair NINTH
+escalation cycle — 15:15Z double-fire confirmed (15:15:38.5Z/15:15:44.3Z),
+next 17:15Z; superbot-idle (Seat B) QUIET→STALLED · FM pacemaker healthy
+(14:32:50.4Z catch-free window, pending 16:09Z tick) · Ideas Lab brief
+double-armed one-shots, note only · kit wave: zero movement on all 7 legs
+post-13:22Z ORDERs) recorded 2026-07-20T16:0xZ (records slice, PR #399).
 ---
 
 ## Night watch (2026-07-18, overnight)
@@ -229,12 +238,12 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 ```json routine-claims
 {
   "seat": "fleet-manager (coordinator)",
-  "updated": "2026-07-20T11:49Z",
+  "updated": "2026-07-20T15:47Z",
   "failsafe": {
     "id": "trig_01GK4mjoKBP3yCabn9ux1MB2",
     "cron": "30 */2 * * *",
-    "next_run_at": "2026-07-20T12:31:48Z",
-    "last_fired": "2026-07-20T10:32:26Z",
+    "next_run_at": "2026-07-20T16:31:48Z",
+    "last_fired": "2026-07-20T14:32:50Z",
     "state": "armed"
   },
   "deleted": [
@@ -243,7 +252,7 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
   "pacemaker": {
     "mode": "send_later",
     "cadence_minutes": 30,
-    "note": "cadence ~30 min; exactly one pending one-shot at a time. SECOND lapse: no re-arm after the 09:04Z wake; failsafe caught the stall at its 10:31Z fire (10:32:26Z) and re-armed the chain (pending 12:08Z one-shot at the 11:37:48Z capture). First lapse was after the 00:37Z fire (caught 02:31Z). Two lapses in one day => work-loop-cron replacement PROPOSED (see fleet-triage 11:30Z entry), not applied"
+    "note": "cadence ~30 min; exactly one pending one-shot at a time. One pending one-shot (16:09Z) at the 15:38:36Z capture — chain re-armed and healthy after the 14:31Z failsafe fire (14:32:50Z). Earlier today: two lapses (caught 02:31Z, 10:31Z) => work-loop-cron replacement PROPOSED (see fleet-triage 11:30Z entry), not applied"
   }
 }
 ```
@@ -1081,6 +1090,69 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
    `session_018iFisKSjZnv9YWD4ETvd8W` (chain alive — pending 12:04Z tick,
    55 in-session records, STILL no failsafe cron) · websites label
    re-appearance (tripwire `check_label_hygiene.py`).
+
+## 15:30Z CYCLE — SNAPSHOT + SI CHAIN-DEAD ANOMALY (16:0xZ 2026-07-20, records slice, PR #399)
+
+- **`telemetry/triggers-snapshot.json` refreshed** from the full
+  2026-07-20T15:38:36Z export: **2368 records, 17 enabled** (24 pages,
+  0 cursor-overlap dups, +31 new / -0 gone vs 11:37:48Z).
+  `check_trigger_health.py` → **PASS 8/9 green, 1 WARN (I8 SBW pair), exit
+  0**; `verify_routine_state.py --export` → **VERDICT OK, 3 claims
+  verified** (C1 + C3 + V1 volatile fields current post-bump). FM failsafe
+  healthy: last_fired 2026-07-20T14:32:50.4Z, next 16:31:48Z; exactly one
+  pending seat one-shot (16:09Z) — pacemaker re-armed, no third lapse.
+- **ANOMALY — Self Improvement seat chain DEAD since 07:53Z (NEW failure
+  class: "failsafe-fires-but-no-rearm", distinct from WAKING-IDLE).** The
+  seat's failsafe (`trig_01194PdaWChtHGNKASURxdLx`, `2 */2 * * *`) keeps
+  firing — last 14:04:29.8Z, next 16:02Z — but across 4+ wake cycles the
+  seat never re-armed its chain (zero pending ticks at both the 11:37Z and
+  15:38Z captures) nor landed output; the 11:30Z "12:02Z should catch it"
+  prediction is falsified. **Tripwire fired — substrate-kit QUIET→STALLED
+  at the 15:52Z liveness run ⇒ ESCALATED to `OQ-SI-CHAIN-DEAD`** (hub-first
+  remedy: read the seat transcript, then fire the failsafe with explicit
+  resume text; owner opens the seat if still dark next capture).
+- **SBW duplicate pair: NINTH escalation cycle.** Both ids still enabled;
+  predicted 15:15Z double-fire happened (in-snapshot 15:15:38.5Z /
+  15:15:44.3Z, ~5.7s apart); both next **17:15Z**. `OQ-SBW-DUP-FAILSAFE`
+  annotated — new signal: superbot-idle (Seat B), the pair's second lane,
+  went QUIET→STALLED (07:37Z last commit, 4 fires since) — same failure
+  shape as the SI seat; the double-wake is no longer provably harmless.
+- **Lane liveness (15:52Z, `--ledger --diff` vs 11:47Z): 4 recoveries, 2
+  degradations — STALLED: substrate-kit, superbot-idle (Seat B).**
+  Recoveries: superbot-games Seat A + trading-strategy QUIET→LIVE,
+  mineverse + superbot-next waking→normal. Ledger appended.
+- **Ideas Lab minor churn:** its seat session briefly held two pending
+  short-fuse one-shots (15:40Z + 15:54Z) — note only, verify gone next
+  capture.
+- **Kit wave (post-13:22Z-ORDER check): ZERO movement on all 7 legs** —
+  all still open/red, single commit each, no pushes since ~06:0x–06:12Z
+  creation. Reds: idea-engine #740 gate · superbot-next #602 gate+tests+
+  checkers+code-quality · websites #452 quality · trading-strategy #160
+  gate · superbot-games #183 gate+tests · venture-lab #282 gate-only ·
+  mineverse #138 gate. All resident-owned findings; watch, don't duplicate.
+- No trigger-MCP calls from this venue; RAW-DATA reporting.
+
+### Baton (16:0xZ refresh — day posture)
+1. **Owner (2 items + cron proposal):** `OQ-SBW-DUP-FAILSAFE` (NINTH cycle —
+   next double-fire 17:15Z, one-letter ask) · `OQ-WEBSITES-LABEL-MACHINERY`
+   — both paste-ready in `docs/owner-queue.md`; **⚑ work-loop-cron guard
+   proposal still awaiting owner/registry** (Q-0194, fleet-triage § 11:30Z).
+   NEW: `OQ-SI-CHAIN-DEAD` (hub-first, owner if next capture still dark).
+2. **Kit-wave leg watch:** all 7 legs zero-movement post-13:22Z ORDERs
+   (details in fleet-triage § 15:30Z); if legs are still red with no
+   resident-lane pushes at the next cycle, re-raise via inbox ORDERs or
+   hub-execute the resident false-wall cleanups. fm #390 attempt 3 still
+   the local leg.
+3. **Next snapshot ~19:30Z** (4h I6 bar on the 15:38:36Z capture). Verify
+   there: (a) `OQ-SI-CHAIN-DEAD` — did the 16:02Z fire land anything?
+   (b) FM pacemaker post-16:09Z tick; (c) SBW 17:15Z double-fire
+   (ninth→tenth); (d) Ideas Lab double-arm gone; (e) superbot-idle
+   (Seat B) STALLED→? recovery.
+4. **Watches (carried):** untracked self-continuing seat
+   `session_018iFisKSjZnv9YWD4ETvd8W` (16:18Z tick pending, still no
+   failsafe cron) · websites review-bake cron · websites label
+   re-appearance (tripwire `check_label_hygiene.py`) · superbot-next
+   lane PRs (lane-owned).
 
 ## Pointers
 - Live status → `docs/current-state.md`

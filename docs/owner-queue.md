@@ -91,6 +91,34 @@ launch that seeded the earliest queue items: [`launch-readiness-2026-07-10.md`](
   happened (in-snapshot last_fired 11:15:40.6Z / 11:15:46.9Z, ~6.3s apart); both next 13:15Z.
   Still a pure burn-stop; recommendation unchanged: delete the older
   `trig_01XJJ88pQaQFRSpVAviCfAZe`, keep `trig_01DbcKVWxn6RJPhfyRkgTg6m`.*
+  *Status 2026-07-20T15:5xZ (15:30Z records slice, PR #399) — **NINTH escalation cycle**: both
+  ids STILL enabled in the 2026-07-20T15:38:36Z capture; the predicted 15:15Z double-fire
+  happened (in-snapshot last_fired 15:15:38.5Z / 15:15:44.3Z, ~5.7s apart); both next 17:15Z.
+  Still a pure burn-stop; recommendation unchanged: delete the older
+  `trig_01XJJ88pQaQFRSpVAviCfAZe`, keep `trig_01DbcKVWxn6RJPhfyRkgTg6m`. Related new signal:
+  the pair's second seat lane, superbot-idle (Seat B), went QUIET→STALLED at this cycle's
+  liveness run (07:37Z last commit, 4 fires since) — the double-wake is no longer provably
+  harmless to that lane.*
+
+- **`OQ-SI-CHAIN-DEAD` — (VENUE: hub first, then owner) Self Improvement seat wakes but never
+  resumes — chain DEAD since 07:53Z, 4+ failsafe fires with zero landed output.** *(Escalated
+  2026-07-20T15:5xZ, 15:30Z records slice, PR #399 — the 11:30Z watch's tripwire fired:
+  substrate-kit lane verdict QUIET→STALLED at the 15:52Z liveness run.)*
+  WHAT: `session_01VsWWnVdwbvkGAW4kAmQzmt`'s work-loop chain has zero pending ticks since its
+  07:53Z one-shot fired (confirmed at BOTH the 11:37:48Z and 15:38:36Z captures); its failsafe
+  cron `trig_01194PdaWChtHGNKASURxdLx` ('Self Improvement failsafe wake', `2 */2 * * *`) IS
+  firing (in-export last_fired 14:04:29.8Z, next 16:02Z), so the seat is being woken every 2h
+  and each wake produces neither a chain re-arm nor a landed commit/heartbeat (substrate-kit
+  lane STALLED, last signal 07:45Z). NEW failure class — "failsafe-fires-but-no-rearm": the
+  dead-man's *catch* works, its *recovery leg* doesn't.
+  WHERE/HOW (recommendation first): (1) **Hub coordinator** — read the seat session's recent
+  transcript (`list_events session_01VsWWnVdwbvkGAW4kAmQzmt`) to see what the 4 wake turns
+  actually did (error? refusal? instant end?), then `fire_trigger trig_01194PdaWChtHGNKASURxdLx`
+  with an explicit resume text naming the stall. (2) **Owner**, if the next capture still shows
+  no landed output: open the Self Improvement Project seat and inspect/restart it — a seat whose
+  turns silently no-op is not recoverable by more wakes.
+  WHY: substrate-kit is the fleet's foundation lane (7 adopters) and the current kit-wave has
+  red legs pending; a dead Self Improvement seat also means nobody owns the kit-side follow-ups.
 
 - **`OQ-WEBSITES-LABEL-MACHINERY` — (VENUE: owner-live) remove the websites
   `host-automerge-extras.yml` label re-creation machinery (residual of the resolved
