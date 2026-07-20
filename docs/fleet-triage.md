@@ -1548,7 +1548,11 @@ at 04:10Z against that snapshot. RAW DATA; no trigger-MCP calls from this venue.
   **substrate-kit QUIET→STALLED** (last signal its 07:45Z heartbeat, ~8h07m
   / 4.1 windows old, WAKING-IDLE 4 fires since output). Escalated as
   **`OQ-SI-CHAIN-DEAD`** (owner-queue) with a hub-first remedy
-  recommendation; watch continues each cycle.
+  recommendation; watch continues each cycle. *Addendum 2026-07-20T16:2xZ
+  (PR #400): halt was a deliberate honest-idle the heartbeat had declared
+  ("…kit slices are drained…", updated 07:45Z); SI re-armed after the
+  ~16:1xZ nudge — the checker now scores such lanes IDLE-DECLARED, see the
+  OQ item for the retire condition.*
 - **SBW duplicate failsafe pair — NINTH escalation cycle.** Both crons
   STILL enabled in the 15:38:36Z capture (`trig_01XJJ88pQaQFRSpVAviCfAZe`
   07-17T22:11Z · `trig_01DbcKVWxn6RJPhfyRkgTg6m` 07-18T17:08Z); the

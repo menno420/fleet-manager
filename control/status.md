@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-20T16:05Z
+updated: 2026-07-20T16:20Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -1131,6 +1131,26 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
   gate · superbot-games #183 gate+tests · venture-lab #282 gate-only ·
   mineverse #138 gate. All resident-owned findings; watch, don't duplicate.
 - No trigger-MCP calls from this venue; RAW-DATA reporting.
+
+### 16:2xZ build slice — liveness checker honors declared-idle heartbeats (PR #400)
+
+- **`scripts/check_lane_liveness.py` — new `IDLE-DECLARED` verdict:** a
+  STALLED/QUIET lane whose already-fetched heartbeat carries a FRESH dated
+  idle declaration ("backlog dry" / "honest idle" / "idle-declared" /
+  "standing down" / backlog-slices-queue…"drained" — grammar grounded on
+  substrate-kit's live Baton line "Agent-buildable kit slices are drained
+  through v1.20.1 + #555", updated 07:45:00Z) converts to `IDLE-DECLARED`:
+  exit-neutral, `--strict` passes, headline bucket separate, matched line
+  quoted (truncation marked). Honesty rails: undated declaration keeps the
+  STALLED escalation hint + `--strict` failure; stale-dated (>1 cadence
+  window behind the newest signal) never converts. Selfcheck 41→69 pins;
+  Q-0105 provenance block. **Ground-truth run 16:16Z:** substrate-kit
+  scored `IDLE-DECLARED` (was STALLED at 15:52Z); superbot-idle (Seat B)
+  still honestly STALLED (`--strict` exit 1 — no declaration there).
+  Motivation: the OQ-SI-CHAIN-DEAD escalation fired on a halt the SI seat
+  had honestly declared at 07:53Z; SI re-armed after the ~16:1xZ nudge —
+  retire condition recorded on the OQ item (fresh SI one-shot at next
+  snapshot).
 
 ### Baton (16:0xZ refresh — day posture)
 1. **Owner (2 items + cron proposal):** `OQ-SBW-DUP-FAILSAFE` (NINTH cycle —
