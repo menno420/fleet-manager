@@ -4,7 +4,7 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #121** · generated-at **2026-07-20T11:24Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #122** · generated-at **2026-07-20T12:02Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
@@ -194,7 +194,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### idea-engine — ⚑ needs-owner: ORDER-010(c) sim-lab kit upgrade v1.15.0→v1.18.0 PARKED on owner in-session authorization + AS…
 
 - suggested-id: `OQ-IDEA-ENGINE-ORDER-010-C-SIM`
-- source: idea-engine/control/status.md @ `2937d0e` · heartbeat `updated:` 2026-07-20T11:15:50Z · seat: round-49 UNRELATED-slot P208 →…
+- source: idea-engine/control/status.md @ `6049555` · heartbeat `updated:` 2026-07-20T11:15:50Z · seat: round-49 UNRELATED-slot P208 →…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -211,7 +211,22 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ⚑ needs-owner: (1) delete leftover branch claude/status-heartbeat-001 (sessions 403 on ref deletes); (2) OPTIONAL PyPI publish of mdverify (needs owner token; name free as of 2026-07-09); (3) OPTIONAL Claude GitHub App connect for native tag/release
 ```
 
+### fleet-manager (this repo) — 4. **⚑ Guard proposal recorded (awaiting owner/registry):** work-loop cron
+
+- suggested-id: `OQ-FLEET-MANAGER-4-GUARD-PROPOSAL-RECORDED`
+- source: fleet-manager/control/status.md @ `d1dd451` · heartbeat `updated:` 2026-07-20T11:52Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+4. **⚑ Guard proposal recorded (awaiting owner/registry):** work-loop cron
+   to replace the FM send_later pacemaker chain (second lapse in one day;
+   Q-0194 second-occurrence rule). Details in `docs/fleet-triage.md`
+   § "11:30Z cycle".
+5. **Watches (carried):** superbot-games Seat A idling (4 fires since
+   04:54Z) · websites review-bake cron (bake age) · superbot-next
+```
+
 ---
 
-15 candidate block(s) across 11 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
+16 candidate block(s) across 12 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
 
