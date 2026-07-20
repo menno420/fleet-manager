@@ -1,0 +1,1 @@
+- `claude/fm-1530z-cycle` · **15:30Z snapshot + records** · telemetry/ + docs/fleet-triage.md + docs/owner-queue.md + control/status.md · 2026-07-20
