@@ -56,6 +56,15 @@ VERDICT LADDER
   STALLED       windows > 4 while the lane's failsafe shows ENABLED in the
                 snapshot: wakes should have fired and nothing landed. This
                 is the websites-036 signature.
+  IDLE-DECLARED a STALLED/QUIET lane whose OWN heartbeat carries a FRESH,
+                dated idle declaration ("backlog dry" / "honest idle" /
+                "standing down" / "…slices are drained…" — see the
+                DECLARED-IDLE section below): the lane said it stopped on
+                purpose. Exit-neutral (--strict never fails on it); the
+                headline lists it separately; the matched line is quoted
+                verbatim under the table. An UNDATED declaration converts
+                the label but keeps the STALLED escalation hint (and the
+                --strict failure) — honesty over comfort.
   DARK          repo readable but NO liveness signal measurable at all
                 (no parseable commit date, no parseable `updated:` stamp).
   NOT MEASURED  the repo could not be read (auth wall / non-convergent
@@ -125,7 +134,9 @@ LEDGER + DIFF — run-to-run transition memory (2026-07-20, #381-card idea)
 EXIT CONTRACT (advisory-only tier, same as the S3/S5/S9 trio — this checker
 is NEVER merge-blocking):
   default    exit 0 always (table + one summary line).
-  --strict   exit 1 when any lane scores STALLED (wake-procedure use).
+  --strict   exit 1 when any lane scores STALLED — including an
+             IDLE-DECLARED whose declaration is UNDATED (escalation hint
+             kept); a dated-fresh IDLE-DECLARED never fails --strict.
   (--ledger/--diff never change the exit code.)
 
 USAGE
@@ -144,6 +155,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import sys
 from datetime import datetime, timezone
 
@@ -285,6 +297,108 @@ def wake_state(armed: bool, last_fired: datetime | None,
     return "waking"
 
 
+# ---------------------------------------------------------------------------
+# Declared-idle detector (honest idle ≠ silent stall)
+# ============================== PROVENANCE =================================
+# Why added : 2026-07-20 — the Self Improvement seat closed its wake chain
+#             DELIBERATELY at 07:53Z per its honesty guard; its substrate-kit
+#             heartbeat's Baton said so in plain text ("Agent-buildable kit
+#             slices are drained through v1.20.1 + #555", updated 07:45:00Z)
+#             — and the 15:52Z liveness run still scored the lane STALLED,
+#             firing the OQ-SI-CHAIN-DEAD escalation + a manager nudge for a
+#             halt the lane had honestly declared. The checker read the very
+#             heartbeat containing the declaration and ignored its words.
+#             This block scans the ALREADY-FETCHED heartbeat text (zero new
+#             reads; walls unchanged → NOT MEASURED) for an idle declaration
+#             and converts a fresh, dated one into the exit-neutral
+#             IDLE-DECLARED verdict. Grammar grounded on the live
+#             substrate-kit heartbeat quoted above plus the coordinator's
+#             dispatch vocabulary ("backlog dry", "honest idle",
+#             "idle-declared", "standing down").
+# Date      : 2026-07-20 (build-slice worker, model: fable-5, dispatched by
+#             the fleet-manager coordinator seat; PR #400)
+# Reliability: unverified — confirm its output against ground truth a few
+#             times across sessions before trusting it. Ground-truth run 1
+#             (2026-07-20, PR #400): quoted verbatim in the PR body +
+#             session card.
+# Kill-switch: delete this block (and the IDLE-DECLARED wiring in
+#             measure_lane/render/main + the VERDICT_RANK entry) if it
+#             proves unreliable over multiple sessions.
+# ===========================================================================
+
+# Case-insensitive idle-declaration grammar. The last alternative keys on
+# the REAL committed grammar observed in substrate-kit's control/status.md
+# ("Agent-buildable kit slices are drained through v1.20.1 + #555") without
+# matching unrelated prose: a backlog/slice/queue/lane word followed by
+# "drained" within the same sentence fragment.
+IDLE_DECLARATION_RE = re.compile(
+    r"backlog\s+dry|honest\s+idle|idle-declared|standing\s+down"
+    r"|\b(?:backlog|slices?|queue|lanes?)\b[^\n.]{0,60}?\bdrained\b",
+    re.IGNORECASE)
+
+# A dated declaration is FRESH only while the declaring heartbeat's
+# `updated:` stamp is within this many cadence windows of the lane's newest
+# signal — a declaration superseded by later landed activity never converts.
+IDLE_FRESH_MAX_WINDOWS = 1.0
+
+
+def find_idle_declaration(
+        statuses: list[dict]) -> tuple[str, datetime | None, str] | None:
+    """(verbatim matched line, declaring heartbeat's updated stamp, path).
+
+    Scans the control/status*.md texts a read_heartbeat() already carries —
+    no extra fetch. First match wins (control/status.md is always first in
+    the statuses list — the primary heartbeat). None when no status text
+    declares idle.
+    """
+    for st in statuses or []:
+        text = st.get("text") or ""
+        m = IDLE_DECLARATION_RE.search(text)
+        if not m:
+            continue
+        start = text.rfind("\n", 0, m.start()) + 1
+        end = text.find("\n", m.end())
+        line = text[start: end if end != -1 else len(text)].strip()
+        if len(line) > 200:                     # keep the quote readable —
+            line = line[:200] + " …[truncated]"  # truncation always marked
+        stamp = gen_roster.parse_when(
+            gen_roster.parse_status(text).get("updated", ""))
+        return line, stamp, st["path"]
+    return None
+
+
+def apply_idle_declaration(
+        verdict: str,
+        decl: tuple[str, datetime | None, str] | None,
+        signal: datetime | None,
+        cadence_h: float) -> tuple[str, bool, str | None]:
+    """(final verdict, strict_stalled, quoted declaration line). Pure.
+
+    Only a STALLED/QUIET base verdict can convert — LIVE needs no excuse
+    and DARK/NOT MEASURED have no readable words to trust. Ladder:
+      dated + fresh   → IDLE-DECLARED (exit-neutral; --strict passes).
+      dated + stale   → base verdict kept, annotated (superseded claim).
+      undated         → IDLE-DECLARED (undated — <base> hint stands);
+                        a STALLED base still fails --strict (honesty:
+                        an undatable claim cannot clear an escalation).
+    """
+    base = state_class(verdict)
+    strict_stalled = base == "STALLED"
+    if decl is None or base not in ("STALLED", "QUIET"):
+        return verdict, strict_stalled, None
+    quote, stamp, _path = decl
+    if stamp is None:
+        return (f"IDLE-DECLARED (undated — {base} hint stands)",
+                strict_stalled, quote)
+    lag_h = ((signal - stamp).total_seconds() / 3600.0
+             if signal is not None else 0.0)
+    if lag_h > IDLE_FRESH_MAX_WINDOWS * cadence_h:
+        return (f"{verdict} (idle declaration stale: "
+                f"{gen_roster.age_str(lag_h)} behind newest signal)",
+                strict_stalled, quote)
+    return "IDLE-DECLARED", False, quote
+
+
 def verdict_for(windows: float | None, failsafe_enabled: bool) -> str:
     """Pure verdict ladder (see module docstring). None windows = DARK."""
     if windows is None:
@@ -318,7 +432,8 @@ def measure_lane(lane: dict, records: list[dict], now: datetime,
     cadence, armed, source, last_fired = lane_cadence(lane, records)
     row = {"lane": lane["lane"], "cadence": cadence, "armed": armed,
            "source": source, "signal": None, "signal_kind": "—",
-           "age_h": None, "windows": None, "wake": "—", "fires": 0}
+           "age_h": None, "windows": None, "wake": "—", "fires": 0,
+           "strict_stalled": False, "idle_quote": None}
     if lane["disposition"] != "live":
         row["verdict"] = ("SKIP (archived — stale-by-design)"
                           if lane["disposition"] == "archived"
@@ -339,9 +454,12 @@ def measure_lane(lane: dict, records: list[dict], now: datetime,
         return row
     age_h = (now - signal).total_seconds() / 3600.0
     windows = age_h / cadence
+    verdict, strict_stalled, idle_quote = apply_idle_declaration(
+        verdict_for(windows, armed),
+        find_idle_declaration(hb.get("statuses") or []), signal, cadence)
     row.update(signal=signal.strftime("%Y-%m-%dT%H:%MZ"), signal_kind=kind,
-               age_h=age_h, windows=windows,
-               verdict=verdict_for(windows, armed),
+               age_h=age_h, windows=windows, verdict=verdict,
+               strict_stalled=strict_stalled, idle_quote=idle_quote,
                wake=wake_state(armed, last_fired, signal, cadence, captured),
                fires=fires_since(last_fired, signal, cadence))
     return row
@@ -363,7 +481,13 @@ def render(rows: list[dict], now: datetime, captured_at: str) -> str:
             f"| {age} | {r['cadence']:g}h ({r['source']}) | {win} "
             f"| {'enabled' if r['armed'] else '—'} | {r.get('wake', '—')} "
             f"| {r['verdict']} |")
-    stalled = [r["lane"] for r in rows if r["verdict"] == "STALLED"]
+    stalled = [r["lane"] + (" (undated idle claim)"
+                            if r["verdict"].startswith("IDLE-DECLARED")
+                            else "")
+               for r in rows if r.get("strict_stalled")]
+    declared = [r["lane"] for r in rows
+                if r["verdict"].startswith("IDLE-DECLARED")
+                and not r.get("strict_stalled")]
     dark = [r["lane"] for r in rows if r["verdict"] == "DARK"]
     unmeasured = [r for r in rows if r["verdict"].startswith("NOT MEASURED")]
     idle = [r["lane"] for r in rows
@@ -371,10 +495,17 @@ def render(rows: list[dict], now: datetime, captured_at: str) -> str:
     asleep = [r["lane"] for r in rows
               if r.get("wake", "").startswith("asleep")]
     out += ["", f"STALLED: {', '.join(stalled) if stalled else 'none'} · "
+                f"IDLE-DECLARED: {', '.join(declared) if declared else 'none'}"
+                " · "
                 f"WAKING-IDLE: {', '.join(idle) if idle else 'none'} · "
                 f"asleep: {', '.join(asleep) if asleep else 'none'} · "
                 f"DARK: {', '.join(dark) if dark else 'none'} · "
-                f"not measured: {len(unmeasured)}",
+                f"not measured: {len(unmeasured)}",]
+    quotes = [r for r in rows if r.get("idle_quote")]
+    if quotes:
+        out += [""] + [f"idle declaration — {r['lane']}: "
+                       f"\"{r['idle_quote']}\"" for r in quotes]
+    out += [
             "",
             "Wake-column caveat: reads the COMMITTED snapshot only — fires "
             f"after captured_at {captured_at} are invisible (capture lag). "
@@ -415,7 +546,8 @@ LEDGER_DEFAULT_REL = os.path.join("telemetry", "lane-liveness-ledger.jsonl")
 # NOT MEASURED / SKIP / NEW / gone rank None → "other" (a measurement or
 # roster change, never a lane health verdict — the roster UNREADABLE
 # doctrine again).
-VERDICT_RANK = {"LIVE": 0, "QUIET": 1, "STALLED": 2, "DARK": 2}
+VERDICT_RANK = {"LIVE": 0, "QUIET": 1, "IDLE-DECLARED": 1, "STALLED": 2,
+                "DARK": 2}
 WAKE_RANK = {"—": 0, "waking": 0, "asleep?": 1, "asleep": 1, "WAKING-IDLE": 2}
 
 
@@ -589,6 +721,63 @@ def selfcheck() -> int:
     assert wake_state(True, t(12, 30), t(13), 2.0, t(13)) == "waking"
     assert wake_state(True, t(17, 15), t(7, 34), 2.0, None) == \
         "WAKING-IDLE (5 fires since last output)"        # no captured_at
+    # declared-idle grammar (grounded on the LIVE substrate-kit heartbeat,
+    # 2026-07-20 — the verbatim Baton line the SI seat actually wrote)
+    kit_line = ("Agent-buildable kit slices are drained through v1.20.1 + "
+                "#555. The honest next slice is: land #555 on green.")
+    assert IDLE_DECLARATION_RE.search(kit_line)
+    for s in ("backlog dry", "Backlog DRY declared", "honest idle",
+              "idle-declared this wake", "standing down until orders",
+              "queue is drained", "all lanes drained"):
+        assert IDLE_DECLARATION_RE.search(s), s
+    for s in ("the pool drained overnight",        # no backlog-word anchor
+              "drained slices",                    # wrong order
+              "backlog grew. Later it drained",    # sentence boundary
+              "busy building v1.21"):
+        assert not IDLE_DECLARATION_RE.search(s), s
+    # declaration finder over synthetic heartbeats
+    hb_txt = ("# seat heartbeat\nupdated: 2026-07-20T07:45:00Z\n"
+              "phase: waiting\n\n## Baton\n" + kit_line + "\n")
+    got = find_idle_declaration([{"path": "control/status.md",
+                                  "text": hb_txt}])
+    assert got is not None and got[0].startswith(
+        "Agent-buildable kit slices are drained")
+    assert got[1] == datetime(2026, 7, 20, 7, 45, tzinfo=timezone.utc)
+    assert got[2] == "control/status.md"
+    assert find_idle_declaration([{"path": "control/status.md",
+                                   "text": "phase: building v1.21\n"}]) \
+        is None
+    undated = find_idle_declaration([{"path": "control/status.md",
+                                      "text": "note: backlog dry\n"}])
+    assert undated is not None and undated[1] is None
+    long = find_idle_declaration(
+        [{"path": "control/status.md",
+          "text": "backlog dry " + "x" * 300 + "\n"}])
+    assert long is not None and long[0].endswith(" …[truncated]")
+    assert len(long[0]) == 200 + len(" …[truncated]")
+    # apply ladder: (verdict, strict_stalled, quote)
+    sig = datetime(2026, 7, 20, 7, 45, tzinfo=timezone.utc)
+    fresh = ("backlog dry", sig, "control/status.md")
+    assert apply_idle_declaration("STALLED", fresh, sig, 2.0) == \
+        ("IDLE-DECLARED", False, "backlog dry")
+    assert apply_idle_declaration("QUIET", fresh, sig, 2.0) == \
+        ("IDLE-DECLARED", False, "backlog dry")
+    assert apply_idle_declaration("STALLED", None, sig, 2.0) == \
+        ("STALLED", True, None)
+    assert apply_idle_declaration("LIVE", fresh, sig, 2.0) == \
+        ("LIVE", False, None)                     # LIVE needs no excuse
+    v, strict_flag, q = apply_idle_declaration(
+        "STALLED", ("backlog dry", None, "control/status.md"), sig, 2.0)
+    assert v == "IDLE-DECLARED (undated — STALLED hint stands)"
+    assert strict_flag is True and q == "backlog dry"   # escalation kept
+    stale = ("backlog dry",
+             datetime(2026, 7, 20, 1, 0, tzinfo=timezone.utc),
+             "control/status.md")                 # 6.75h behind signal
+    v, strict_flag, _ = apply_idle_declaration("STALLED", stale, sig, 2.0)
+    assert v.startswith("STALLED (idle declaration stale:") and strict_flag
+    assert state_class("IDLE-DECLARED (undated — STALLED hint stands)") == \
+        "IDLE-DECLARED"
+    assert VERDICT_RANK["IDLE-DECLARED"] < VERDICT_RANK["STALLED"]  # recovery
     # ledger + diff (pure pins)
     assert state_class("WAKING-IDLE (5 fires since last output)") == \
         "WAKING-IDLE"
@@ -645,7 +834,7 @@ def selfcheck() -> int:
     # no-prior-entry honesty + missing file
     assert read_last_entry("/nonexistent/ledger.jsonl") is None
     assert "no prior ledger entry" in render_diff(None, ent_a, "x.jsonl")
-    print("selfcheck OK (41 pins)")
+    print("selfcheck OK (69 pins)")
     return 0
 
 
@@ -719,7 +908,7 @@ def main(argv=None) -> int:
                                         sort_keys=True) + "\n")
                 print(f"\nledger: appended entry {entry['evaluated_at']} → "
                       f"{os.path.relpath(args.ledger, gen_roster.repo_root())}")
-    if args.strict and any(r["verdict"] == "STALLED" for r in rows):
+    if args.strict and any(r.get("strict_stalled") for r in rows):
         return 1
     return 0
 

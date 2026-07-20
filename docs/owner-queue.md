@@ -119,6 +119,17 @@ launch that seeded the earliest queue items: [`launch-readiness-2026-07-10.md`](
   turns silently no-op is not recoverable by more wakes.
   WHY: substrate-kit is the fleet's foundation lane (7 adopters) and the current kit-wave has
   red legs pending; a dead Self Improvement seat also means nobody owns the kit-side follow-ups.
+  *Status 2026-07-20T16:2xZ (declared-idle slice, PR #400) — **resolving: halt was a deliberate
+  honest-idle, not a dead recovery leg.** The SI seat responded to the manager's post-16:02Z
+  nudge (coordinator-reported ~16:1xZ): chain re-armed. Its own heartbeat had declared the idle
+  in plain text all along (Baton, updated 07:45:00Z: "Agent-buildable kit slices are drained
+  through v1.20.1 + #555…") — the escalation fired because the liveness checker could not read
+  a declared idle. **Process fix landed this slice (PR #400):** `check_lane_liveness.py` now
+  scores a STALLED/QUIET lane with a fresh dated idle declaration as `IDLE-DECLARED`
+  (exit-neutral; undated declarations keep the escalation hint) — ground-truth run 16:16Z
+  scored substrate-kit IDLE-DECLARED. **RETIRES once the next triggers snapshot shows a fresh
+  pending SI one-shot** (a `run_once_at` bound to `session_01VsWWnVdwbvkGAW4kAmQzmt` due after
+  16:1xZ) — verify at the next snapshot cycle, then move this item to Resolved.*
 
 - **`OQ-WEBSITES-LABEL-MACHINERY` — (VENUE: owner-live) remove the websites
   `host-automerge-extras.yml` label re-creation machinery (residual of the resolved
