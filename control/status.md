@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-20T01:22Z
+updated: 2026-07-20T04:09Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -857,6 +857,45 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
    the WAKING-IDLE superbot-idle lane (8 fires, worst burner);
    superbot-next #567/#571 CI-kick routing; websites label re-appearance
    (tripwire `check_label_hygiene.py`).
+
+## BUILD SLICE — LANE-LIVENESS LEDGER + TRANSITION DIFF (04:0xZ 2026-07-20, PR #386)
+
+- **`scripts/check_lane_liveness.py` extended** with run-to-run memory (the
+  #381-card idea, Q-0105 unverified tier, kill-switch in the provenance
+  block): `--ledger [path]` appends one JSON line per run to
+  `telemetry/lane-liveness-ledger.jsonl` (`{evaluated_at,
+  snapshot_captured_at, lanes: {lane: {verdict, wake_state, fires_since,
+  age_hours}}}`); `--diff` prints a TRANSITIONS block vs the ledger's last
+  entry (lane · old→new verdict/wake, each tagged recovery / degradation /
+  other) + a one-line headline. Diffing is on the state *class*, so
+  fire-count/age churn inside a state is never a transition; `--repos`
+  partial runs never append (poisoned-series guard, printed); exit contract
+  unchanged (`--ledger`/`--diff` never change the exit code). Selfcheck
+  24 → 41 pins.
+- **Ground truth (verbatim in the PR #386 body + card):** first
+  `--diff --ledger` run (04:07Z) honestly printed `no prior ledger entry` and
+  seeded the baseline (committed); second run minutes later printed
+  `no transitions — all 15 lanes unchanged vs 2026-07-20T04:07Z`; a
+  simulated `--now 2026-07-20T12:00Z` read-only diff showed the transition
+  grammar live (`10 transitions … 0 recoveries · 10 degradations · 0 other`).
+- **Liveness read at 04:07Z (unchanged fleet picture):** sole STALLED still
+  superbot-idle (Seat B), now 8 fires since last output (~20h40m); night-idle
+  2-fire WAKING-IDLE tags persist on superbot-next / websites / games Seat A /
+  mineverse — morning sweep to confirm they wake with landed output.
+- No trigger-MCP calls from this venue; RAW-DATA reporting.
+
+### Baton (04:0xZ refresh — night posture)
+1. **Owner (2 items, unchanged):** `OQ-SBW-DUP-FAILSAFE` (fifth cycle) ·
+   `OQ-WEBSITES-LABEL-MACHINERY` — both paste-ready in `docs/owner-queue.md`.
+2. **Next slice:** groom #3 — I8-reads-lane-fence (M) — or honest idle; next
+   I6 snapshot refresh due **~05:00Z** (4h bar on the 01:10:16Z capture; that
+   cycle may land a concurrent records PR — merge, don't clobber). Future
+   liveness runs in wake procedures should prefer `--diff --ledger` so the
+   time series accrues.
+3. **Watches (unchanged):** SBW double-fire tripwire + the WAKING-IDLE
+   superbot-idle lane (worst burner); superbot-next #567/#571 CI-kick
+   routing; websites label re-appearance (tripwire
+   `check_label_hygiene.py`).
 
 ## Pointers
 - Live status → `docs/current-state.md`

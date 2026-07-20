@@ -61,3 +61,14 @@ recipe is recorded in the header of `.github/workflows/roster-regen.yml`.
 
 Per-session model-attribution records (fleet standard, ORDER 010); one JSON
 object per line, append-only.
+
+## `lane-liveness-ledger.jsonl`
+
+Append-only run ledger for `scripts/check_lane_liveness.py` (PR #386, the
+#381-card idea). One JSON line per `--ledger` run:
+`{evaluated_at, snapshot_captured_at, lanes: {lane: {verdict, wake_state,
+fires_since, age_hours}}}` — the checker's own time series, so `--diff` can
+print lane-state transitions (LIVE→STALLED onset, WAKING-IDLE recovery)
+against the previous run instead of a table that evaporates. Partial
+(`--repos`-filtered) runs never append. Entries are one line each; no size
+cap yet — revisit if it grows past a few hundred lines.
