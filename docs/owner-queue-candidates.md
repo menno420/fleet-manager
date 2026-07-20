@@ -4,14 +4,14 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #122** · generated-at **2026-07-20T12:02Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #123** · generated-at **2026-07-20T14:51Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
 ### superbot (hub) — ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready…
 
 - suggested-id: `OQ-SUPERBOT-HUB-SIDE-RESIDUE-ONLY`
-- source: superbot/control/status.md @ `7a8021f` · heartbeat `updated:` 2026-07-13T18:00:00Z
+- source: superbot/control/status.md @ `34c3bfa` · heartbeat `updated:` 2026-07-13T18:00:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -21,7 +21,7 @@
 ### superbot-next — ⚑ needs-owner: broad orphan merged-branch cleanup remains blocked by the GitHub 403 ref-delete wall (owner/ad…
 
 - suggested-id: `OQ-SUPERBOT-NEXT-BROAD-ORPHAN-MERGED-BRANCH`
-- source: superbot-next/control/status.md @ `28e63ce` · heartbeat `updated:` 2026-07-20T07:30:12Z
+- source: superbot-next/control/status.md @ `5691aac` · heartbeat `updated:` 2026-07-20T07:30:12Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -106,7 +106,7 @@
 ### superbot-games · Seat A — ⚑ needs-owner: 4 standing decisions, none new this wake — the OWNER ACTIONS checklist (deep links + bolded re…
 
 - suggested-id: `OQ-SUPERBOT-GAMES-4-STANDING-DECISIONS-NONE`
-- source: superbot-games/control/status.md @ `9326694` · heartbeat `updated:` 2026-07-14T11:41:04Z
+- source: superbot-games/control/status.md @ `63f880d` · heartbeat `updated:` 2026-07-14T11:41:04Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -116,7 +116,7 @@
 ### ↳ superbot-games · Seat A — `control/status-exploration.md` — ⚑ needs-owner: \|
 
 - suggested-id: `OQ-SUPERBOT-GAMES-FLAG`
-- source: superbot-games/control/status-exploration.md @ `9326694` · heartbeat `updated:` 2026-07-09T20:09Z
+- source: superbot-games/control/status-exploration.md @ `63f880d` · heartbeat `updated:` 2026-07-09T20:09Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -191,14 +191,14 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
   owner can perform.
 ```
 
-### idea-engine — ⚑ needs-owner: ORDER-010(c) sim-lab kit upgrade v1.15.0→v1.18.0 PARKED on owner in-session authorization + AS…
+### idea-engine — ⚑ needs-owner: BT-controller plan (ORDER 017, PR #481) awaits owner review (ideas/product-forge/bt-controller…
 
-- suggested-id: `OQ-IDEA-ENGINE-ORDER-010-C-SIM`
-- source: idea-engine/control/status.md @ `6049555` · heartbeat `updated:` 2026-07-20T11:15:50Z · seat: round-49 UNRELATED-slot P208 →…
+- suggested-id: `OQ-IDEA-ENGINE-BT-CONTROLLER-PLAN-ORDER`
+- source: idea-engine/control/status.md @ `23d040a` · heartbeat `updated:` 2026-07-20T14:43Z · seat: round-51 GAME-slot P215 → V228 mi…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-⚑ needs-owner: ORDER-010(c) sim-lab kit upgrade v1.15.0→v1.18.0 PARKED on owner in-session authorization + ASK-005/006 (await the fleet manager) · BT-controller plan (ORDER 017, PR #481) awaits owner review (ideas/product-forge/bt-controller-plan-2026-07-17.md).
+⚑ needs-owner: BT-controller plan (ORDER 017, PR #481) awaits owner review (ideas/product-forge/bt-controller-plan-2026-07-17.md).
 ```
 
 ### codetool-lab-opus4.8 — ⚑ needs-owner: (1) delete leftover branch claude/status-heartbeat-001 (sessions 403 on ref deletes); (2) OPTI…
@@ -214,7 +214,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### fleet-manager (this repo) — 4. **⚑ Guard proposal recorded (awaiting owner/registry):** work-loop cron
 
 - suggested-id: `OQ-FLEET-MANAGER-4-GUARD-PROPOSAL-RECORDED`
-- source: fleet-manager/control/status.md @ `d1dd451` · heartbeat `updated:` 2026-07-20T11:52Z
+- source: fleet-manager/control/status.md @ `e80a4ce` · heartbeat `updated:` 2026-07-20T11:52Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
