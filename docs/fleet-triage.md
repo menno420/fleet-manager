@@ -1293,3 +1293,44 @@ snapshot. RAW DATA; no trigger-MCP calls from this venue.*
   superbot-idle (Seat B) is the sole STALLED lane, now **WAKING-IDLE (7 fires
   since last output)**, last landed signal 07:26Z (~14h14m) — the duplicate
   pair's double token burn concentrates entirely on a lane landing nothing.
+
+## 2026-07-20 · 01Z night cycle — snapshot refresh + SBW FIFTH escalation cycle (records slice)
+
+*Source: fm records slice (fm PR #385), written 2026-07-20T01:2xZ. Snapshot facts
+from the verified full 2026-07-20T01:10:16Z export (2239 records, 17 enabled,
+23 pages); lane facts from `check_lane_liveness.py` run at 01:17Z against that
+snapshot. RAW DATA; no trigger-MCP calls from this venue.*
+
+- **`telemetry/triggers-snapshot.json` refreshed** from the full
+  2026-07-20T01:10:16Z export: **2239 records, 17 enabled** (23 pages,
+  0 cursor-overlap dups, +40 new / -0 gone vs the 21:34:18Z capture).
+  `check_trigger_health.py` → **PASS 8/9, 1 WARN (I8), exit 0**; I6
+  SNAPSHOT-FRESH PASS (0.1h). `verify_routine_state.py --export` →
+  **VERDICT OK, fence-sourced, 3 claims verified** (C1 failsafe + C3 deleted +
+  V1 volatile fields current post-bump). FM failsafe healthy in the export:
+  `trig_01GK4mjoKBP3yCabn9ux1MB2` enabled, last_fired 2026-07-20T00:32:23Z,
+  next 2026-07-20T02:31:48Z; one FM pacemaker one-shot pending (01:41Z,
+  "continue the work loop", created 01:10:08Z) — chain alive.
+- **SBW duplicate failsafe pair PERSISTS — FIFTH escalation cycle.** Both
+  "SuperBot World failsafe wake" crons still enabled at 01:10:16Z
+  (`trig_01XJJ88pQaQFRSpVAviCfAZe` 07-17T22:11Z ·
+  `trig_01DbcKVWxn6RJPhfyRkgTg6m` 07-18T17:08Z); the 22Z entry's predicted
+  **23:15Z double-fire happened** — in-snapshot last_fired 23:15:27Z /
+  23:15:29Z (~1.9s apart), both next **01:15Z** (already due at capture+5min;
+  the 01:15Z window double-fires past the capture edge). The hub delete
+  (`OQ-SBW-DUP-FAILSAFE`, VENUE: hub) has now survived FIVE capture cycles
+  unexecuted. Disposition unchanged: seat live heartbeat decides the keeper
+  (likely the newest, `trig_01DbcKVWxn6RJPhfyRkgTg6m`).
+- **Lane-liveness deltas vs the 21:40Z run (PR #381 card, verbatim there):**
+  headline now `STALLED: superbot-idle (Seat B) · WAKING-IDLE: superbot-next,
+  websites, superbot-games · Seat A, superbot-idle (Seat B),
+  superbot-mineverse · asleep: none · DARK: none · not measured: 0`.
+  **Unchanged-worst:** superbot-idle (Seat B) sole STALLED, WAKING-IDLE now
+  **8 fires** (was 7) since its last landed output (07-19T07:26Z, ~17h51m).
+  **New overnight (night-idle shape, not stall):** WAKING-IDLE 2-fires tags
+  spread to superbot-next, websites, superbot-games Seat A (LIVE → QUIET,
+  last commit 20:54Z) and superbot-mineverse (LIVE → QUIET, last commit
+  20:36Z) — seats asleep for the night while their failsafes keep firing;
+  expected overnight pattern, flagged so the morning sweep can confirm they
+  wake with landed output. trading-strategy / gba-homebrew / pokemon-mod-lab /
+  product-forge QUIET without armed crons (unchanged).

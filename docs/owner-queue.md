@@ -58,6 +58,15 @@ launch that seeded the earliest queue items: [`launch-readiness-2026-07-10.md`](
   heartbeat-verified rather than age-based). Liveness delta: games Seat A + mineverse recovered
   to LIVE by 21:40Z; superbot-idle (Seat B) is the sole STALLED lane, WAKING-IDLE 7 fires since
   its last landed output (07:26Z) — the double burn now concentrates on a lane landing nothing.*
+  *Status 2026-07-20T01:2xZ (01Z records slice, PR #385) — **FIFTH escalation cycle**: both ids
+  STILL enabled in the 2026-07-20T01:10:16Z capture; the predicted 23:15Z double-fire happened
+  (in-snapshot last_fired 23:15:27Z / 23:15:29Z, ~1.9s apart); both next 01:15Z — already due at
+  capture+5min, so the 01:15Z window double-fired past the capture edge. Recommendation
+  unchanged (heartbeat decides the keeper; likely keep the newest,
+  `trig_01DbcKVWxn6RJPhfyRkgTg6m`, i.e. delete `trig_01XJJ88pQaQFRSpVAviCfAZe`). Liveness
+  context: superbot-idle (Seat B) still the sole STALLED lane, WAKING-IDLE now 8 fires since its
+  last landed output (07-19T07:26Z, ~17h51m) — the double burn continues on a lane landing
+  nothing overnight.*
 
 - **`OQ-WEBSITES-LABEL-MACHINERY` — (VENUE: owner-live) remove the websites
   `host-automerge-extras.yml` label re-creation machinery (residual of the resolved
