@@ -1518,3 +1518,80 @@ at 04:10Z against that snapshot. RAW DATA; no trigger-MCP calls from this venue.
   batch script classifier-blocked; one worker killed mid-edit); attempt 3
   is cleaning the 39 false-wall findings on the branch. The other 7 red
   legs remain lane/wave-session work — watch, don't duplicate.
+
+## 2026-07-20 · 15:30Z cycle — snapshot refresh + SI CHAIN-DEAD anomaly (NEW failure class) + SBW NINTH cycle (records slice)
+
+> Snapshot: **2026-07-20T15:38:36Z** full `list_triggers` export (24 pages,
+> cursor-to-exhaustion): **2368 records, 17 enabled, 0 cursor-overlap
+> duplicates; +31 new / -0 gone** vs the prior 11:37:48Z capture. Committed
+> as `telemetry/triggers-snapshot.json` (fm PR #399). Snapshot facts verified
+> in-export; liveness facts from this cycle's `--ledger --diff` run.
+
+- **ANOMALY — Self Improvement seat chain DEAD since 07:53Z: a NEW failure
+  class, "failsafe-fires-but-no-rearm" (distinct from WAKING-IDLE).**
+  `session_01VsWWnVdwbvkGAW4kAmQzmt` (86 in-export bound records): the
+  work-loop chain's newest one-shot was due **07:53Z** (fired); **zero
+  pending ticks** at this capture — unchanged from the 11:30Z capture. Its
+  failsafe cron `trig_01194PdaWChtHGNKASURxdLx` ('Self Improvement failsafe
+  wake', `2 */2 * * *`) keeps firing — in-export last_fired
+  **2026-07-20T14:04:29.8Z**, next **16:02Z** — i.e. **4+ failsafe cycles
+  (≥08:02, 10:02, 12:02, 14:04Z) each woke the seat and the seat never
+  re-armed its chain nor landed output**. This is NOT WAKING-IDLE's
+  "wakes burning tokens with no landed output" alone: the wake path is
+  *proven live* (fires recorded) while the seat's own self-continuation
+  never resumes — the dead-man catches the stall but the *recovery leg*
+  of the design is failing. The 11:30Z entry's "12:02Z should catch it"
+  prediction is now FALSIFIED twice over.
+- **Disposition: ESCALATED to owner-queue this cycle (the stated tripwire
+  fired).** The 11:30Z watch's escalation condition was "substrate-kit lane
+  goes STALLED or 4 more cycles pass" — this cycle's liveness run verdicts
+  **substrate-kit QUIET→STALLED** (last signal its 07:45Z heartbeat, ~8h07m
+  / 4.1 windows old, WAKING-IDLE 4 fires since output). Escalated as
+  **`OQ-SI-CHAIN-DEAD`** (owner-queue) with a hub-first remedy
+  recommendation; watch continues each cycle.
+- **SBW duplicate failsafe pair — NINTH escalation cycle.** Both crons
+  STILL enabled in the 15:38:36Z capture (`trig_01XJJ88pQaQFRSpVAviCfAZe`
+  07-17T22:11Z · `trig_01DbcKVWxn6RJPhfyRkgTg6m` 07-18T17:08Z); the
+  predicted 15:15Z window double-fired — in-snapshot last_fired
+  **15:15:38.5Z / 15:15:44.3Z** (~5.7s apart), both next **17:15Z**. Still
+  a pure burn-stop; keeper recommendation unchanged: delete the older
+  `trig_01XJJ88pQaQFRSpVAviCfAZe` (`OQ-SBW-DUP-FAILSAFE`, annotated).
+- **FM pacemaker healthy this window.** Failsafe
+  `trig_01GK4mjoKBP3yCabn9ux1MB2` fired 14:31Z window (in-export last_fired
+  **14:32:50.4Z**, next **16:31:48Z** — I4 PASS); exactly one pending seat
+  one-shot (`trig_01UCXsm3i7JVPvfkZKkRQdnp`, due **16:09Z**) at capture —
+  the chain re-armed after the 14:31Z fire. No third lapse; the ⚑ Q-0194
+  work-loop-cron guard proposal stands (11:30Z entry), awaiting
+  owner/registry.
+- **Ideas Lab minor churn — briefly double-armed one-shots.** The Ideas Lab
+  seat session (`session_01QeEaHzwYhrFM…`) holds TWO pending one-shots at
+  capture (due **15:40Z** and **15:54Z**) — transient re-arm churn, both
+  short-fuse; expected to self-resolve by firing (I7 PASS — grouping treats
+  them within grace). Note only; verify gone at next capture.
+- **Lane liveness (15:52Z run, `--ledger --diff` vs 11:47Z): 4 recoveries,
+  2 degradations.** Headline: `STALLED: substrate-kit, superbot-idle (Seat
+  B) · WAKING-IDLE: substrate-kit, superbot-idle (Seat B) · asleep: none ·
+  DARK: none · not measured: 0`. Transitions: substrate-kit QUIET→STALLED
+  · superbot-idle (Seat B) QUIET→STALLED · superbot-games Seat A
+  QUIET→LIVE (+WAKING-IDLE→waking) · trading-strategy QUIET→LIVE ·
+  mineverse + superbot-next waking recoveries. The two STALLED lanes are
+  both seats whose wake chains fire without landed output — superbot-idle
+  (Seat B) is the SBW dup pair's second seat (last main commit 07:37Z,
+  4 fires since), same failure *shape* as the SI seat; watch for the same
+  class there.
+- **Kit wave (post-13:22Z-ORDER check, read-only): zero movement on all 7
+  legs.** All 7 sibling v1.17.0→v1.20.1 upgrade PRs remain OPEN and red
+  with no new commits since their ~06:0x–06:12Z creation (single commit
+  each; the 13:22Z ORDERs have not yet produced pushes): idea-engine #740
+  (substrate-gate FAIL — resident CAPABILITIES.md:139/:149 dated-incident
+  findings) · superbot-next #602 (substrate-gate + tests + checkers +
+  code-quality FAIL — resident false-walls current-state.md:97/:114 +
+  resident test coupling) · websites #452 (quality FAIL) ·
+  trading-strategy #160 (substrate-gate FAIL, pytest green — 3 resident
+  false-walls) · superbot-games #183 (substrate-gate + tests FAIL —
+  resident test pins old kit wording) · venture-lab #282 (substrate-gate
+  FAIL only, 25 other checks green — 9 resident false-walls) ·
+  superbot-mineverse #138 (substrate-gate FAIL, pytest green — 2 resident
+  false-walls). Pattern unchanged: every red leg is resident-owned
+  false-wall/doc findings (plus two resident test couplings), exactly what
+  the ORDERs route to the resident lanes. Watch, don't duplicate.
