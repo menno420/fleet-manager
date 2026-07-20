@@ -4,7 +4,7 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #115** · generated-at **2026-07-19T23:32Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #116** · generated-at **2026-07-20T01:08Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
@@ -31,7 +31,7 @@
 ### substrate-kit — ⚑ FOR OWNER — kit-lab daily cron: recreate or retire? (A/B)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-KIT-LAB-DAILY-CRON`
-- source: substrate-kit/control/status.md @ `970a90c` · heartbeat `updated:` 2026-07-20T05:15:00Z · phase: S10 SHIPPED (`check_surface_c…
+- source: substrate-kit/control/status.md @ `0d68147` · heartbeat `updated:` 2026-07-20T01:01:42Z · phase: S17 SHIPPED (check_recipe_dis…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -48,7 +48,7 @@
 ### substrate-kit — ⚑ v1.19.0 adopter-wave authorization
 
 - suggested-id: `OQ-SUBSTRATE-KIT-V1-19-0-ADOPTER`
-- source: substrate-kit/control/status.md @ `970a90c` · heartbeat `updated:` 2026-07-20T05:15:00Z · phase: S10 SHIPPED (`check_surface_c…
+- source: substrate-kit/control/status.md @ `0d68147` · heartbeat `updated:` 2026-07-20T01:01:42Z · phase: S17 SHIPPED (check_recipe_dis…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -66,7 +66,7 @@ RISK: ↩️ reversible, distribution-only diffs.
 ### substrate-kit — ⚑ CAPABILITIES denial-record entry (parked)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-CAPABILITIES-DENIAL-RECORD-ENTRY`
-- source: substrate-kit/control/status.md @ `970a90c` · heartbeat `updated:` 2026-07-20T05:15:00Z · phase: S10 SHIPPED (`check_surface_c…
+- source: substrate-kit/control/status.md @ `0d68147` · heartbeat `updated:` 2026-07-20T01:01:42Z · phase: S17 SHIPPED (check_recipe_dis…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -83,7 +83,7 @@ RISK: ↩️ reversible, docs-only.
 ### substrate-kit — ⚑ public-flip-or-PAT (pick one)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-PUBLIC-FLIP-PAT-PICK`
-- source: substrate-kit/control/status.md @ `970a90c` · heartbeat `updated:` 2026-07-20T05:15:00Z · phase: S10 SHIPPED (`check_surface_c…
+- source: substrate-kit/control/status.md @ `0d68147` · heartbeat `updated:` 2026-07-20T01:01:42Z · phase: S17 SHIPPED (check_recipe_dis…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -100,7 +100,7 @@ RISK: ⚠️ P11 effectively irreversible (history exposed once public) · ↩�
 ### substrate-kit — ⚑ t5-headless-guard fix (owner-gated: pin-path + cross-tree kit-lab)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-T5-HEADLESS-GUARD-FIX`
-- source: substrate-kit/control/status.md @ `970a90c` · heartbeat `updated:` 2026-07-20T05:15:00Z · phase: S10 SHIPPED (`check_surface_c…
+- source: substrate-kit/control/status.md @ `0d68147` · heartbeat `updated:` 2026-07-20T01:01:42Z · phase: S17 SHIPPED (check_recipe_dis…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -117,7 +117,7 @@ RISK: ⚠️ pin-path change → must land via a `do-not-automerge` owner-review
 ### ↳ substrate-kit — `control/status-superbot-coordinator.md` — ⚑ needs-owner: 1) verify/deliver the testing-lane wind-down — superbot-next control/status.md was still UNFLI…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-1-VERIFY-DELIVER-TESTING`
-- source: substrate-kit/control/status-superbot-coordinator.md @ `970a90c` · heartbeat `updated:` 2026-07-10T13:47:02Z
+- source: substrate-kit/control/status-superbot-coordinator.md @ `0d68147` · heartbeat `updated:` 2026-07-10T13:47:02Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -215,7 +215,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### idea-engine — ⚑ needs-owner: ORDER-010(c) sim-lab kit upgrade v1.15.0→v1.18.0 PARKED on owner in-session authorization + AS…
 
 - suggested-id: `OQ-IDEA-ENGINE-ORDER-010-C-SIM`
-- source: idea-engine/control/status.md @ `0b77ba0` · heartbeat `updated:` 2026-07-19T20:59:16Z · seat: VERDICT 196 mirror landed — ro…
+- source: idea-engine/control/status.md @ `138835a` · heartbeat `updated:` 2026-07-20T00:32:32Z · seat: round-45 FLEET-slot P189 (ski-…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
