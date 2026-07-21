@@ -1,1 +1,0 @@
-- `claude/fm-0042z-cycle` · **night snapshot + deferred records** · telemetry/ + docs/ + control/status.md · 2026-07-21
