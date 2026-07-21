@@ -6,9 +6,11 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-21T16:15Z
+updated: 2026-07-21T16:54Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
+note: final-closer landed (`docs/prompts/v3/final-closer.md`, records worker,
+2026-07-21T16:54Z); program ends 2026-07-22T00:00Z; fleet close underway.
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
 failsafe armed + verified, predecessor crash-orphan failsafe deleted + verified absent),
 triggers-snapshot refreshed from the 20:42:05Z full export (I6 PASS), carve-out PRs
