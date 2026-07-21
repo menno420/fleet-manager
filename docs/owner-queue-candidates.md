@@ -4,14 +4,14 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #135** · generated-at **2026-07-21T04:51Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #136** · generated-at **2026-07-21T07:14Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
 ### superbot (hub) — ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready…
 
 - suggested-id: `OQ-SUPERBOT-HUB-SIDE-RESIDUE-ONLY`
-- source: superbot/control/status.md @ `4364ed6` · heartbeat `updated:` 2026-07-13T18:00:00Z
+- source: superbot/control/status.md @ `87e165e` · heartbeat `updated:` 2026-07-13T18:00:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -159,7 +159,7 @@
 ### gba-homebrew — - ⚑ **OWNER/HUB asks (ender):** **merge pml #98 + product-forge #29 in the hub** — both are workflow-file PRs…
 
 - suggested-id: `OQ-GBA-HOMEBREW-HUB-ASKS-ENDER-MERGE`
-- source: gba-homebrew/control/status.md @ `3cabb72` · heartbeat `updated:` 2026-07-18T17:03:04Z (ISO-8601 UTC; coordinator ENDER close…
+- source: gba-homebrew/control/status.md @ `3377319` · heartbeat `updated:` 2026-07-18T17:03:04Z (ISO-8601 UTC; coordinator ENDER close…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -194,7 +194,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### idea-engine — ⚑ needs-owner: BT-controller plan (ORDER 017, PR #481) awaits owner review (ideas/product-forge/bt-controller…
 
 - suggested-id: `OQ-IDEA-ENGINE-BT-CONTROLLER-PLAN-ORDER`
-- source: idea-engine/control/status.md @ `63cae37` · heartbeat `updated:` 2026-07-21T03:57:49Z · round VERDICT 254 landing (for an M/…
+- source: idea-engine/control/status.md @ `d0bf551` · heartbeat `updated:` 2026-07-21T06:46:02Z · round VERDICT 258 landing — P245 → V…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -214,7 +214,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### fleet-manager (this repo) — 4. **⚑ Guard proposal recorded (awaiting owner/registry):** work-loop cron
 
 - suggested-id: `OQ-FLEET-MANAGER-4-GUARD-PROPOSAL-RECORDED`
-- source: fleet-manager/control/status.md @ `6693181` · heartbeat `updated:` 2026-07-21T03:17Z
+- source: fleet-manager/control/status.md @ `d110e0b` · heartbeat `updated:` 2026-07-21T03:17Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
