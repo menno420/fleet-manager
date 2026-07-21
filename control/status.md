@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-20T16:20Z
+updated: 2026-07-21T03:17Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -85,7 +85,15 @@ escalation cycle — 15:15Z double-fire confirmed (15:15:38.5Z/15:15:44.3Z),
 next 17:15Z; superbot-idle (Seat B) QUIET→STALLED · FM pacemaker healthy
 (14:32:50.4Z catch-free window, pending 16:09Z tick) · Ideas Lab brief
 double-armed one-shots, note only · kit wave: zero movement on all 7 legs
-post-13:22Z ORDERs) recorded 2026-07-20T16:0xZ (records slice, PR #399).
+post-13:22Z ORDERs) recorded 2026-07-20T16:0xZ (records slice, PR #399). 00:42Z night cycle
+(snapshot 2442/17 @ 2026-07-21T00:42:48Z, I6 PASS · **`OQ-SI-CHAIN-DEAD`
+RETIRED** — fresh pending SI one-shot verified in-export · SBW dup pair
+TENTH escalation cycle — 23:15Z double-fire confirmed · deferred evening
+facts recorded: kit-wave 0/7, 5 seats nudged 20:1xZ, trading #160 orphan
+leg parked to morning, disk incident ~19:30–23:00Z · **worker-death root
+cause FOUND: EnterWorktree tool permission-prompt hang — guard adopted**)
+recorded 2026-07-21T03:1xZ, written ~03:1xZ from the 00:42:48Z capture
+(records slice retry #4, PR #410).
 ---
 
 ## Night watch (2026-07-18, overnight)
@@ -238,12 +246,12 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 ```json routine-claims
 {
   "seat": "fleet-manager (coordinator)",
-  "updated": "2026-07-20T15:47Z",
+  "updated": "2026-07-21T03:13Z",
   "failsafe": {
     "id": "trig_01GK4mjoKBP3yCabn9ux1MB2",
     "cron": "30 */2 * * *",
-    "next_run_at": "2026-07-20T16:31:48Z",
-    "last_fired": "2026-07-20T14:32:50Z",
+    "next_run_at": "2026-07-21T02:31:48Z",
+    "last_fired": "2026-07-21T00:32:18Z",
     "state": "armed"
   },
   "deleted": [
@@ -252,7 +260,7 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
   "pacemaker": {
     "mode": "send_later",
     "cadence_minutes": 30,
-    "note": "cadence ~30 min; exactly one pending one-shot at a time. One pending one-shot (16:09Z) at the 15:38:36Z capture — chain re-armed and healthy after the 14:31Z failsafe fire (14:32:50Z). Earlier today: two lapses (caught 02:31Z, 10:31Z) => work-loop-cron replacement PROPOSED (see fleet-triage 11:30Z entry), not applied"
+    "note": "Night cadence; fence written at ~03:13Z from the 00:42:48Z capture (last in-export fire 00:32:18Z, next scheduled 02:31:48Z) — the 02:31:48Z fire and a ~04:31Z one-shot horizon are EXPECTED to have superseded these values by write time (2h cadence); unverifiable in this no-trigger-MCP worker venue, refresh at the next capture ~04:40Z."
   }
 }
 ```
@@ -1173,6 +1181,71 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
    failsafe cron) · websites review-bake cron · websites label
    re-appearance (tripwire `check_label_hygiene.py`) · superbot-next
    lane PRs (lane-owned).
+
+## 00:42Z NIGHT CYCLE — SNAPSHOT + SI RETIRE + WORKER-DEATH ROOT CAUSE (written ~03:1xZ 2026-07-21, records slice retry #4, PR #410)
+
+- **Provenance, honest:** written ~03:1xZ from the verified 00:42:48Z
+  export — this slice is **retry #4**; the three prior records workers
+  (19:36Z, 22:06Z, 00:49Z) each died hanging on an **EnterWorktree tool
+  permission prompt unanswerable in the worker venue** (root cause found
+  via transcripts; the ~19:30–23:00Z disk-allowance incident was initially
+  blamed, wrongly). **Guard adopted:** worker prompts forbid the
+  EnterWorktree/ExitWorktree tools (plain `git worktree add` + absolute
+  paths) + df preflight + export self-clean. This run completed under the
+  guard.
+- **`telemetry/triggers-snapshot.json` refreshed** from the full
+  2026-07-21T00:42:48Z export: **2442 records, 17 enabled** (25 pages,
+  0 cursor-overlap dups, +74 new / -0 gone vs 15:38:36Z).
+  `check_trigger_health.py` → **PASS 8/9 green, 1 WARN (I8 SBW pair),
+  exit 0**; `verify_routine_state.py --export` → **VERDICT OK, 3 claims
+  verified** (C1 + C3 + V1 volatile fields current post-bump).
+- **FM failsafe healthy:** in-export last_fired 2026-07-21T00:32:18Z, next
+  02:31:48Z, armed — the 02:31:48Z fire is cadence-EXPECTED to have
+  occurred by this write but unverifiable here (no trigger-MCP calls);
+  fence bumped with that note, refresh at the next capture.
+- **`OQ-SI-CHAIN-DEAD` RETIRED to Resolved** — retire condition MET,
+  verified in-export: fresh pending SI one-shot
+  `trig_01MXe8mtyEYMsr67Dbj3gQh4` (created 23:47:45Z, run_once_at 00:48Z)
+  bound to the SI session + failsafe armed (next 02:02Z). Liveness
+  corroborates: substrate-kit STALLED→IDLE-DECLARED (PR #400 fix reading
+  its dated declaration).
+- **SBW duplicate pair: TENTH escalation cycle.** Both ids still enabled;
+  predicted 23:15Z double-fire happened (23:15:15.5Z / 23:15:19.7Z, ~4.2s
+  apart); next 01:15Z (cadence-inferred fired by write time; cycles
+  continue every odd-hour :15). `OQ-SBW-DUP-FAILSAFE` annotated.
+- **Lane liveness (03:14Z, `--ledger --diff` vs 15:52Z): 1 recovery, 6
+  degradations** — recovery: substrate-kit STALLED→IDLE-DECLARED;
+  degradations: superbot-next + websites + venture-lab LIVE→STALLED
+  (WAKING-IDLE), superbot-games Seat A + trading-strategy + mineverse
+  LIVE→QUIET. Night-window caution: overnight quiet + capture lag inflate
+  degradations; websites' idle declaration is dated but stale-flagged
+  (~4h20m behind newest signal). Ledger appended.
+- **Deferred evening facts recorded durably** (fleet-triage § 2026-07-21
+  00:42Z): kit-wave 0/7 legs moved through the evening · 5 live seats
+  nudged ~20:1xZ (Q-0264) · trading-strategy #160 orphan leg — hub fix
+  parked to the owner-attended morning · disk-allowance incident
+  ~19:30–23:00Z.
+- No trigger-MCP calls from this venue; RAW-DATA reporting.
+
+### Baton (03:1xZ refresh — night posture)
+1. **Owner (2 items + cron proposal):** `OQ-SBW-DUP-FAILSAFE` (TENTH cycle
+   — one-letter ask, next double-fire every odd-hour :15) ·
+   `OQ-WEBSITES-LABEL-MACHINERY` — both paste-ready in
+   `docs/owner-queue.md`; **⚑ work-loop-cron guard proposal still awaiting
+   owner/registry** (Q-0194, fleet-triage § 11:30Z).
+2. **Morning (owner-attended):** kit-wave leg re-check (0/7 moved through
+   the evening despite ORDERs + 20:1xZ nudges — re-raise or hub-execute
+   the resident false-wall cleanups) + **trading-strategy #160 orphan-leg
+   hub fix** (no live resident seat; adopt-or-close decision).
+3. **Night idle otherwise; next snapshot ~04:40Z** (4h I6 bar on the
+   00:42:48Z capture). Verify there: (a) FM failsafe 02:31:48Z fire landed;
+   (b) SI chain still self-continuing (post-00:48Z ticks); (c) SBW
+   01:15Z/03:15Z double-fires (tenth→eleventh); (d) superbot-next /
+   websites / venture-lab STALLED→? on morning signals.
+4. **Watches (carried):** untracked self-continuing seat
+   `session_018iFisKSjZnv9YWD4ETvd8W` (still no failsafe cron) · websites
+   review-bake cron · websites label re-appearance (tripwire
+   `check_label_hygiene.py`).
 
 ## Pointers
 - Live status → `docs/current-state.md`

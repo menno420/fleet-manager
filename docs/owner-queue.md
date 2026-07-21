@@ -99,37 +99,14 @@ launch that seeded the earliest queue items: [`launch-readiness-2026-07-10.md`](
   the pair's second seat lane, superbot-idle (Seat B), went QUIET→STALLED at this cycle's
   liveness run (07:37Z last commit, 4 fires since) — the double-wake is no longer provably
   harmless to that lane.*
-
-- **`OQ-SI-CHAIN-DEAD` — (VENUE: hub first, then owner) Self Improvement seat wakes but never
-  resumes — chain DEAD since 07:53Z, 4+ failsafe fires with zero landed output.** *(Escalated
-  2026-07-20T15:5xZ, 15:30Z records slice, PR #399 — the 11:30Z watch's tripwire fired:
-  substrate-kit lane verdict QUIET→STALLED at the 15:52Z liveness run.)*
-  WHAT: `session_01VsWWnVdwbvkGAW4kAmQzmt`'s work-loop chain has zero pending ticks since its
-  07:53Z one-shot fired (confirmed at BOTH the 11:37:48Z and 15:38:36Z captures); its failsafe
-  cron `trig_01194PdaWChtHGNKASURxdLx` ('Self Improvement failsafe wake', `2 */2 * * *`) IS
-  firing (in-export last_fired 14:04:29.8Z, next 16:02Z), so the seat is being woken every 2h
-  and each wake produces neither a chain re-arm nor a landed commit/heartbeat (substrate-kit
-  lane STALLED, last signal 07:45Z). NEW failure class — "failsafe-fires-but-no-rearm": the
-  dead-man's *catch* works, its *recovery leg* doesn't.
-  WHERE/HOW (recommendation first): (1) **Hub coordinator** — read the seat session's recent
-  transcript (`list_events session_01VsWWnVdwbvkGAW4kAmQzmt`) to see what the 4 wake turns
-  actually did (error? refusal? instant end?), then `fire_trigger trig_01194PdaWChtHGNKASURxdLx`
-  with an explicit resume text naming the stall. (2) **Owner**, if the next capture still shows
-  no landed output: open the Self Improvement Project seat and inspect/restart it — a seat whose
-  turns silently no-op is not recoverable by more wakes.
-  WHY: substrate-kit is the fleet's foundation lane (7 adopters) and the current kit-wave has
-  red legs pending; a dead Self Improvement seat also means nobody owns the kit-side follow-ups.
-  *Status 2026-07-20T16:2xZ (declared-idle slice, PR #400) — **resolving: halt was a deliberate
-  honest-idle, not a dead recovery leg.** The SI seat responded to the manager's post-16:02Z
-  nudge (coordinator-reported ~16:1xZ): chain re-armed. Its own heartbeat had declared the idle
-  in plain text all along (Baton, updated 07:45:00Z: "Agent-buildable kit slices are drained
-  through v1.20.1 + #555…") — the escalation fired because the liveness checker could not read
-  a declared idle. **Process fix landed this slice (PR #400):** `check_lane_liveness.py` now
-  scores a STALLED/QUIET lane with a fresh dated idle declaration as `IDLE-DECLARED`
-  (exit-neutral; undated declarations keep the escalation hint) — ground-truth run 16:16Z
-  scored substrate-kit IDLE-DECLARED. **RETIRES once the next triggers snapshot shows a fresh
-  pending SI one-shot** (a `run_once_at` bound to `session_01VsWWnVdwbvkGAW4kAmQzmt` due after
-  16:1xZ) — verify at the next snapshot cycle, then move this item to Resolved.*
+  *Status 2026-07-21T03:1xZ (00:42Z night records slice, PR #410) — **TENTH escalation cycle**:
+  both ids STILL enabled in the 2026-07-21T00:42:48Z capture; the predicted 23:15Z double-fire
+  happened (in-snapshot last_fired 23:15:15.5Z / 23:15:19.7Z, ~4.2s apart); both next 01:15Z —
+  by this ~03:1xZ write the 01:15Z window has cadence-inferred fired too, and 03:15Z is
+  imminent (cycles continue every odd-hour :15). Still a pure burn-stop; recommendation
+  unchanged: delete the older `trig_01XJJ88pQaQFRSpVAviCfAZe`, keep
+  `trig_01DbcKVWxn6RJPhfyRkgTg6m`. Liveness context: superbot-idle (Seat B) still STALLED
+  (last landed output 07-20T07:37Z, 8 fires since at the 03:14Z run).*
 
 - **`OQ-WEBSITES-LABEL-MACHINERY` — (VENUE: owner-live) remove the websites
   `host-automerge-extras.yml` label re-creation machinery (residual of the resolved
@@ -360,6 +337,46 @@ These once-active items are moot; ids retained so nothing is lost, full bodies i
   resolved; flapping-quota mitigation only).
 
 ---
+
+## Resolved 2026-07-21 (00:42Z night records slice — retire condition verified in the 00:42:48Z export, Q-0120; fm PR #410)
+
+- **`OQ-SI-CHAIN-DEAD` — (VENUE: hub first, then owner) Self Improvement seat wakes but never
+  resumes — chain DEAD since 07:53Z, 4+ failsafe fires with zero landed output.** *(Escalated
+  2026-07-20T15:5xZ, 15:30Z records slice, PR #399 — the 11:30Z watch's tripwire fired:
+  substrate-kit lane verdict QUIET→STALLED at the 15:52Z liveness run.)*
+  WHAT: `session_01VsWWnVdwbvkGAW4kAmQzmt`'s work-loop chain has zero pending ticks since its
+  07:53Z one-shot fired (confirmed at BOTH the 11:37:48Z and 15:38:36Z captures); its failsafe
+  cron `trig_01194PdaWChtHGNKASURxdLx` ('Self Improvement failsafe wake', `2 */2 * * *`) IS
+  firing (in-export last_fired 14:04:29.8Z, next 16:02Z), so the seat is being woken every 2h
+  and each wake produces neither a chain re-arm nor a landed commit/heartbeat (substrate-kit
+  lane STALLED, last signal 07:45Z). NEW failure class — "failsafe-fires-but-no-rearm": the
+  dead-man's *catch* works, its *recovery leg* doesn't.
+  WHERE/HOW (recommendation first): (1) **Hub coordinator** — read the seat session's recent
+  transcript (`list_events session_01VsWWnVdwbvkGAW4kAmQzmt`) to see what the 4 wake turns
+  actually did (error? refusal? instant end?), then `fire_trigger trig_01194PdaWChtHGNKASURxdLx`
+  with an explicit resume text naming the stall. (2) **Owner**, if the next capture still shows
+  no landed output: open the Self Improvement Project seat and inspect/restart it — a seat whose
+  turns silently no-op is not recoverable by more wakes.
+  WHY: substrate-kit is the fleet's foundation lane (7 adopters) and the current kit-wave has
+  red legs pending; a dead Self Improvement seat also means nobody owns the kit-side follow-ups.
+  *Status 2026-07-20T16:2xZ (declared-idle slice, PR #400) — **resolving: halt was a deliberate
+  honest-idle, not a dead recovery leg.** The SI seat responded to the manager's post-16:02Z
+  nudge (coordinator-reported ~16:1xZ): chain re-armed. Its own heartbeat had declared the idle
+  in plain text all along (Baton, updated 07:45:00Z: "Agent-buildable kit slices are drained
+  through v1.20.1 + #555…") — the escalation fired because the liveness checker could not read
+  a declared idle. **Process fix landed this slice (PR #400):** `check_lane_liveness.py` now
+  scores a STALLED/QUIET lane with a fresh dated idle declaration as `IDLE-DECLARED`
+  (exit-neutral; undated declarations keep the escalation hint) — ground-truth run 16:16Z
+  scored substrate-kit IDLE-DECLARED. **RETIRES once the next triggers snapshot shows a fresh
+  pending SI one-shot** (a `run_once_at` bound to `session_01VsWWnVdwbvkGAW4kAmQzmt` due after
+  16:1xZ) — verify at the next snapshot cycle, then move this item to Resolved.*
+  *RESOLVED 2026-07-21T03:1xZ (00:42Z night records slice, PR #410) — retire condition MET,
+  verified in-export (Q-0120): the 2026-07-21T00:42:48Z capture holds a fresh pending SI
+  one-shot `trig_01MXe8mtyEYMsr67Dbj3gQh4` (`send_later 2026-07-21T00:48Z #cbc4b3`, created
+  2026-07-20T23:47:45Z, run_once_at 00:48:00Z — pending at capture) bound to
+  `session_01VsWWnVdwbvkGAW4kAmQzmt`, plus the failsafe armed (next 02:02Z). The chain re-armed
+  after the ~16:1xZ nudge and was still self-continuing at 23:47Z; liveness now scores
+  substrate-kit IDLE-DECLARED (the PR #400 process fix reading its dated declaration).*
 
 ## Resolved 2026-07-19 (18Z records slice — verified by `check_label_hygiene.py` ground truth, Q-0120)
 
