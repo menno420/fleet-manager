@@ -114,6 +114,17 @@ launch that seeded the earliest queue items: [`launch-readiness-2026-07-10.md`](
   `trig_01XJJ88pQaQFRSpVAviCfAZe`, keep `trig_01DbcKVWxn6RJPhfyRkgTg6m`. Liveness context:
   superbot-idle (Seat B) still STALLED (last landed output 07-20T07:37Z, 12 fires since at
   the 08:28Z run); superbot-games Seat A joined it QUIET→STALLED this cycle.*
+  *Status 2026-07-21T16:1xZ (16Z records slice) — **TWELFTH escalation cycle** (the 12:21Z
+  cycle's record was lost with PR #419, closed unmerged — gate red, see triage): both ids
+  STILL enabled in the 2026-07-21T16:00:18Z capture; both next 17:15Z confirmed in-export;
+  the 15:15Z window double-fired per the coordinator's live observation (this export's
+  record shape carries no last_fired for the pair, so the in-snapshot ~seconds-apart proof
+  of prior cycles isn't available — cadence + both-enabled + shared 17:15Z next make the
+  double-fire the only consistent reading). Still a pure burn-stop; recommendation
+  unchanged: delete the older `trig_01XJJ88pQaQFRSpVAviCfAZe`, keep
+  `trig_01DbcKVWxn6RJPhfyRkgTg6m`. Liveness context (16:10Z run): superbot-idle (Seat B)
+  still STALLED (16 fires since its 07-20T07:37Z last output); superbot-next +
+  superbot-mineverse joined STALLED this cycle; venture-lab recovered STALLED→LIVE.*
 
 - **`OQ-KIT-WAVE-REMNANTS` — (VENUE: hub) land the 4 remaining kit-wave v1.17.0→v1.20.1
   upgrade legs (3/7 merged overnight).**
@@ -139,6 +150,21 @@ launch that seeded the earliest queue items: [`launch-readiness-2026-07-10.md`](
   `docs/fleet-triage.md` § 2026-07-21 08:18Z).
   VERIFY: all 7 kit-wave PRs terminal (merged/closed); sibling repos report kit 1.20.1.
   RISK: ✅ reversible (PR-lane work). Provenance: 08:18Z morning records slice.
+  *Status 2026-07-21T16:1xZ (16Z records slice) — **KIT-WAVE NOW 5/7 MERGED; remnants
+  #160 + #602 only.** Live-GH-verified midday facts (originally recorded by the 12:21Z
+  cycle whose PR #419 closed unmerged): **websites #452 MERGED 06:57:59Z** (`b2f5013`) —
+  the rebase item is DONE, drop it; **venture-lab #282 MERGED 12:51:30Z** (head `a73c4f0`,
+  hub fix worker landed it) — the classifier-wall escalation is MOOT, drop it (the
+  substrate-kit heartbeat candidate block ages out at its next update; allowlisted in
+  `.substrate/check-exceptions.yml` meanwhile). Also: **substrate-kit v1.20.2 released
+  09:44:49Z**, and both surviving remnants were re-vendored to v1.20.2:
+  (1) **trading-strategy #160** re-vendored (head `f1c5284`); red = 3 resident doc lines
+  (`current-state.md:389`, `CONSTITUTION.md:166`, `review-queue.md:8`). Honest caveat: the
+  hub-prepared local fixes at `/home/user/trading-strategy` are **stale vs the re-vendored
+  branch** — the 3 target lines are unchanged, so the prepared steps stay valid **after a
+  rebase** of that working tree onto `f1c5284`.
+  (2) **superbot-next #602** re-vendored (head `2755fdb`); 4 reds narrowed to 2 resident
+  lines (`current-state.md:101` + `:118`); stays lane-owned.*
 
 - **`OQ-WEBSITES-LABEL-MACHINERY` — (VENUE: owner-live) remove the websites
   `host-automerge-extras.yml` label re-creation machinery (residual of the resolved

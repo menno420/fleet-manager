@@ -49,3 +49,18 @@
   triaged: 2026-07-20
   by: session-kit-upgrade-v1201-fix
   verdict: accepted_risk
+# False-wall finding fired by the roster-regen owner-queue candidate feed: the
+# feed quotes substrate-kit's heartbeat verbatim (@ 62621ad, updated 11:07:21Z),
+# and that quote records a venue-specific verb-wall claim for venture-lab.
+# Quoted cross-repo evidence in a generated do-not-hand-edit file, not an fm
+# wall claim — and the claim itself is already moot: venture-lab #282 MERGED
+# 2026-07-21T12:51:30Z (hub fix worker landed it), so no wall stands. The block
+# ages out of the feed when substrate-kit's heartbeat updates. This finding
+# reddened PR #419's gate (a main-side line #419 never touched — closed,
+# superseded by the 16Z cycle PR).
+- path: docs/owner-queue-candidates.md
+  kind: "false-wall:standing-platform-wall"
+  reason: "generated feed quotes substrate-kit heartbeat verbatim (the verb-wall claim, @ 62621ad); cross-repo quoted evidence, not an fm wall — and moot since venture-lab #282 merged 2026-07-21T12:51:30Z; ages out at the next substrate-kit heartbeat update"
+  triaged: 2026-07-21
+  by: session-fm-16z-cycle
+  verdict: false_positive

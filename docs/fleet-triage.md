@@ -1716,3 +1716,69 @@ at 04:10Z against that snapshot. RAW DATA; no trigger-MCP calls from this venue.
   night-window degradations largely reversed with morning signals, as the
   00:42Z entry's caution anticipated. Ledger appended.
 - **Next snapshot:** ~12:20Z window (4h I6 bar on the 08:18:22Z capture).
+
+## 2026-07-21 · 16Z afternoon cycle — snapshot + kit-wave 5/7 + PR #419 disposition + SBW TWELFTH cycle (records slice, written ~16:2xZ)
+
+Afternoon records slice from the verified 2026-07-21T16:00:18Z full
+`list_triggers` export (26 pages, cursor-to-exhaustion). This entry also
+carries the **12:21Z cycle's undelivered facts**: its PR **#419 was CLOSED
+unmerged** (disposition below), so the midday record lands here, fresh.
+
+- **Snapshot:** `telemetry/triggers-snapshot.json` re-assembled
+  `--captured-at 2026-07-21T16:00:18Z` — **2577 records, 17 enabled, 0
+  cursor-overlap duplicates; +70 new / -0 gone vs the prior 08:18:22Z
+  capture** (the 12:21Z capture's snapshot was lost with #419; the diff
+  baseline is honestly the last MERGED capture).
+- **PR #419 disposition (12:21Z cycle, branch `claude/fm-1221z-cycle`, head
+  `491accc`) — CLOSED, superseded by this cycle's PR.** Root cause of its
+  gate red (run 29830899500 @12:38Z), diagnosed after its worker + one
+  finisher died without diagnosing: the card was already flipped `complete`;
+  the exit-1 came from an exit-affecting
+  `[false-wall:standing-platform-wall]` finding at
+  `docs/owner-queue-candidates.md:39` (the quoted verb-wall claim) — a
+  **main-side line #419 never touched** (the generated candidate feed quotes
+  substrate-kit's heartbeat @ `62621ad` verbatim). The claim is moot
+  (venture-lab #282 merged 12:51:30Z), the feed is do-not-hand-edit
+  generated, so the durable fix shipped here is a reason-carrying
+  `.substrate/check-exceptions.yml` entry (verdict: false_positive; ages out
+  when substrate-kit's heartbeat updates). No claim file for
+  `fm-1221z-cycle` existed on main or the branch — nothing orphaned.
+- **Kit-wave, live-GH-verified 12:2xZ (recorded fresh): NOW 5/7 MERGED —
+  remnants #160 + #602 only.** websites **#452 MERGED 06:57:59Z**
+  (`b2f5013`); **substrate-kit v1.20.2 released 09:44:49Z**; venture-lab
+  **#282 MERGED 12:51:30Z** (head `a73c4f0`, hub fix worker landed it);
+  trading-strategy **#160 re-vendored to v1.20.2** (head `f1c5284`, red = 3
+  resident doc lines: `current-state.md:389` · `CONSTITUTION.md:166` ·
+  `review-queue.md:8` — the hub-prepared fixes at
+  `/home/user/trading-strategy` are stale vs the re-vendored branch; the 3
+  target lines are unchanged, steps valid after a rebase); superbot-next
+  **#602 re-vendored** (head `2755fdb`, 4 reds → 2 resident lines:
+  `current-state.md:101` + `:118`, lane-owned). `OQ-KIT-WAVE-REMNANTS`
+  reconciled accordingly in `docs/owner-queue.md`.
+- **Fence + health (verbatim verdicts):** `emit_routine_claims.py` bumped
+  the routine-claims fence (last_fired 2026-07-21T14:32:30Z, next
+  16:31:48Z) — `verify_routine_state.py --export` → **"VERDICT: OK —
+  heartbeat routine claims match the export (3 claim(s) verified)."**
+  `check_trigger_health.py` → **"VERDICT: PASS — 8/9 green, 1 WARN (see the
+  WARN line(s) above for the verify-live remedy; exit stays 0)."** — the
+  WARN is the standing I8 SBW pair. FM failsafe healthy (I4 PASS, next
+  16:31Z); one FM pacemaker send_later pending (16:45Z).
+- **SBW dup pair — TWELFTH escalation cycle:** both ids STILL enabled in
+  the 16:00:18Z capture, both next **17:15Z** confirmed in-export; the
+  15:15Z window double-fired (coordinator-observed; this export's record
+  shape carries no last_fired for the pair). Owner delete still pending —
+  `OQ-SBW-DUP-FAILSAFE` annotated.
+- **Liveness (16:10Z run, `check_lane_liveness.py --ledger --diff`):
+  headline — 6 transitions vs 08:28Z: 1 recovery · 5 degradations.**
+  Recovery: venture-lab STALLED→LIVE (the #282 merge is the landed
+  signal). Degradations: superbot-next + superbot-mineverse LIVE→STALLED
+  (WAKING-IDLE) · substrate-kit LIVE→QUIET (WAKING-IDLE) · gba-homebrew +
+  pokemon-mod-lab LIVE→QUIET. Ledger appended (16:10Z entry).
+- **Owner Q&A today (durable one-liners):** (1) **GitHub "Code Quality" GA
+  research — no fleet impact:** GitHub's paid Code Quality *product* is a
+  distinct hosted offering; the fleet's "Code Quality" *workflows* (e.g.
+  superbot `code-quality.yml`) are self-hosted Actions jobs we own —
+  name-collision only, nothing to migrate or pay for. (2) **superbot fork
+  investigated — benign:** a fork-collector account, 0 changes, 0
+  interactions; no action.
+- **Next snapshot:** ~20:00Z window (4h I6 bar on the 16:00:18Z capture).
