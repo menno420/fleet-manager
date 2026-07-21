@@ -203,6 +203,13 @@ checkers, re-scope the heavier roster/telemetry autogen unless a real multi-seat
 fleet returns. Then the standing secondary task — groom `docs/ideas/` down its
 lifecycle.
 
+**Read this if you read nothing else:**
+[owner-reflection-2026-07-21.md](owner-reflection-2026-07-21.md) — the owner's
+own thesis on autonomous-agent work (the wall is *verification*, not capability),
+how he works, the "real mind" direction he wants agents to grow toward, and a
+standing instruction to **decide rather than default to asking**. Read it before
+picking up any owner-facing work.
+
 **Read next:** [owner-queue.md](owner-queue.md) (what waits on the owner) →
 [NEXT-TASKS.md](NEXT-TASKS.md) (the manager's task set) →
 [fleet-triage.md](fleet-triage.md) (keep/replace/archive register) →
