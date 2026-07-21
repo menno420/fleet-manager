@@ -17,6 +17,17 @@ launch that seeded the earliest queue items: [`launch-readiness-2026-07-10.md`](
 
 ---
 
+## Program closed — how to read this queue now (2026-07-21)
+
+The autonomous session period ended 2026-07-22T00:00Z; the seats that used to
+execute the agent-side halves of these items are gone. Every remaining item
+below is **self-contained** (WHAT/WHERE/HOW/VERIFY) and stays valid: execute
+them from the **hub chat venue or any fresh session** (plus your own clicks for
+the owner-only ones) whenever convenient — none expires. The final reconcile
+pass (this write, fm seat close PR #427) verified each Active item against live
+GitHub/the 16:00:18Z trigger snapshot; per-item close notes are appended below.
+Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3.
+
 ## Active — genuinely-open owner asks
 
 - **`OQ-SBW-DUP-FAILSAFE` — (VENUE: hub) delete one of the two enabled "SuperBot World failsafe wake" crons.**
@@ -125,6 +136,12 @@ launch that seeded the earliest queue items: [`launch-readiness-2026-07-10.md`](
   `trig_01DbcKVWxn6RJPhfyRkgTg6m`. Liveness context (16:10Z run): superbot-idle (Seat B)
   still STALLED (16 fires since its 07-20T07:37Z last output); superbot-next +
   superbot-mineverse joined STALLED this cycle; venture-lab recovered STALLED→LIVE.*
+  *Program-close note (2026-07-21 seat close): **likely MOOT after 2026-07-22** — the
+  SBW seat's own final-closer wipes both ids at its close. New check that replaces the
+  old one-letter ask: after 2026-07-22, `list_triggers` to exhaustion; if either id
+  survives, delete it (post-close, ANY surviving trigger is dead weight — the
+  keep-the-newer nuance no longer applies). Folded into the post-close trigger sweep,
+  [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §4 checklist item 1.*
 
 - **`OQ-KIT-WAVE-REMNANTS` — (VENUE: hub) land the 4 remaining kit-wave v1.17.0→v1.20.1
   upgrade legs (3/7 merged overnight).**
@@ -165,6 +182,14 @@ launch that seeded the earliest queue items: [`launch-readiness-2026-07-10.md`](
   rebase** of that working tree onto `f1c5284`.
   (2) **superbot-next #602** re-vendored (head `2755fdb`); 4 reds narrowed to 2 resident
   lines (`current-state.md:101` + `:118`); stays lane-owned.*
+  *Program-close note (2026-07-21 seat close, both PRs re-verified live OPEN/blocked at
+  ~17:07Z): the "lane-owned" routing for #602 is void — no lane seats remain. Both
+  remnants are now plain fresh-session work: clone → check out
+  `claude/kit-upgrade-v1.20.1` → fix/allowlist the named resident lines (3 in
+  trading-strategy · 2 in superbot-next) → push → merge on green. The
+  `/home/user/trading-strategy` prepared tree was container-local and is gone; the fix
+  content re-derives in minutes from the line list. Full resume recipes:
+  [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3 items 1–2.*
 
 - **`OQ-WEBSITES-LABEL-MACHINERY` — (VENUE: owner-live) remove the websites
   `host-automerge-extras.yml` label re-creation machinery (residual of the resolved
@@ -192,6 +217,9 @@ launch that seeded the earliest queue items: [`launch-readiness-2026-07-10.md`](
   RISK: ✅ reversible (workflow edit in a PR). Provenance: owner nothing-stuck
   directive ~2026-07-19T08:00Z; re-scoped out of `OQ-LABEL-DEFS-DELETE` by the 18Z
   records slice.
+  *Program-close note (2026-07-21 seat close): unchanged and still open — run the
+  removal from a fresh session with the owner present (the dispatch just needs the
+  owner-live venue); the PR lands normally once open. [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3 item 4.*
 
 ### (A) GitHub merges — one click each
 **EMPTY** — 0 open PRs in fleet-manager needing a click, and the last cross-repo workflow
@@ -303,6 +331,10 @@ fleet-wide merges/ready-flips live in
   playbook R30 (fm PR #367, `docs/workflow-pr-merge-policy.md`, 3-point head-SHA check) — no
   owner merge click. *(Conditional cross-ref: `OQ-FM-ROSTER-READ-PAT` is only needed if
   roster autogen is retained; a `roster-regen` retire would moot it.)*
+  *Program-close note (2026-07-21 seat close): the decision sharpens post-close —
+  `roster-regen.yml` keeps firing ~hourly with no seats left to report, so the
+  recommended reduce-to-daily (or disable) is now the sensible default; see
+  [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3 item 5 / §4 checklist item 2.*
 - **`OQ-CONSOLIDATION-DELETE-VS-ARCHIVE` — delete vs archive (the repo-consolidation gate).** Two
   of your own instructions contradict ("delete no repos — they are the fleet's memory" vs "delete
   the test repos"); one letter resolves it. **Recommended A** — harvest → archive (read-only),
