@@ -11,4 +11,4 @@ reconcile with a program-closed preamble, current-state pointer,
 fleet-triage close entry, claim sweep). Phase 2 (routine-wipe results +
 SEAT CLOSED heartbeat) lands on this same branch before the flip.
 
-- **📊 Model:** fable-5 · docs-only — closeout doc + records true-up
+- **📊 Model:** fable-5 · high · docs-only — seat final close (closeout doc + records true-up)

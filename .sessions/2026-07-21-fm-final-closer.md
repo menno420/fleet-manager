@@ -10,7 +10,7 @@ session becomes permanently read-only), link it from the v3 registry index
 (`docs/prompts/v3/README.md`), and stamp a one-line note in
 `control/status.md`. Docs-only; no trigger-MCP calls; no code.
 
-- **📊 Model:** fable-5 · docs-only — registry prompt + index link + heartbeat note
+- **📊 Model:** fable-5 · high · docs-only — registry prompt + index link + heartbeat note
 
 ## What shipped (PR #425)
 
