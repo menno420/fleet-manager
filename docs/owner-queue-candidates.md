@@ -4,14 +4,14 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #145** · generated-at **2026-07-21T16:58Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #146** · generated-at **2026-07-21T17:55Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
 ### superbot (hub) — ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready…
 
 - suggested-id: `OQ-SUPERBOT-HUB-SIDE-RESIDUE-ONLY`
-- source: superbot/control/status.md @ `882f70f` · heartbeat `updated:` 2026-07-13T18:00:00Z
+- source: superbot/control/status.md @ `a1d31f6` · heartbeat `updated:` 2026-07-13T18:00:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -207,14 +207,14 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
   owner can perform.
 ```
 
-### idea-engine — ⚑ needs-owner: BT-controller plan (ORDER 017, PR #481) awaits owner review (ideas/product-forge/bt-controller…
+### idea-engine — ⚑ needs-owner: none — run closing; the prior EAP-era ask is withdrawn at closeout (see docs/PROJECT-CLOSEOUT.…
 
-- suggested-id: `OQ-IDEA-ENGINE-BT-CONTROLLER-PLAN-ORDER`
-- source: idea-engine/control/status.md @ `cbd964a` · heartbeat `updated:` 2026-07-21T16:41:01Z · round VERDICT 274 landing — P261 → V…
+- suggested-id: `OQ-IDEA-ENGINE-NONE-RUN-CLOSING-PRIOR`
+- source: idea-engine/control/status.md @ `c69d85a` · heartbeat `updated:` 2026-07-21T17:17:40Z · project closeout in progress — loop …
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-⚑ needs-owner: BT-controller plan (ORDER 017, PR #481) awaits owner review (ideas/product-forge/bt-controller-plan-2026-07-17.md).
+⚑ needs-owner: none — run closing; the prior EAP-era ask is withdrawn at closeout (see docs/PROJECT-CLOSEOUT.md for the final state and continuation).
 ```
 
 ### codetool-lab-opus4.8 — ⚑ needs-owner: (1) delete leftover branch claude/status-heartbeat-001 (sessions 403 on ref deletes); (2) OPTI…
@@ -230,7 +230,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### fleet-manager (this repo) — 4. **⚑ Guard proposal recorded (awaiting owner/registry):** work-loop cron
 
 - suggested-id: `OQ-FLEET-MANAGER-4-GUARD-PROPOSAL-RECORDED`
-- source: fleet-manager/control/status.md @ `bdee045` · heartbeat `updated:` 2026-07-21T16:54Z
+- source: fleet-manager/control/status.md @ `4347658` · heartbeat `updated:` 2026-07-21T16:54Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
