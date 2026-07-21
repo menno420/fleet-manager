@@ -1782,3 +1782,34 @@ unmerged** (disposition below), so the midday record lands here, fresh.
   investigated — benign:** a fork-collector account, 0 changes, 0
   interactions; no action.
 - **Next snapshot:** ~20:00Z window (4h I6 bar on the 16:00:18Z capture).
+
+## 2026-07-21 · seat final close — program end (closeout slice, written ~17:2xZ)
+
+The autonomous session period ends 2026-07-22T00:00Z; this is the register's
+closing entry, written by the coordinator seat's final-close PR (#427, branch
+`claude/fm-seat-close`) per `docs/prompts/v3/final-closer.md`.
+
+- **Closeout document landed:** `docs/PROJECT-CLOSEOUT.md` — the hub seat's
+  handover, doubling as the fleet-level master document (accomplishments with
+  PR cites · live-verified current state · priority-ordered continuation ·
+  owner walkthrough with per-repo links · fresh-session working guide).
+- **Live verification at write (~17:0xZ):** roster gen #145 (16:58Z stamp,
+  fresh) · committed trigger snapshot 2026-07-21T16:00:18Z = 2577 records /
+  17 enabled, health PASS 8/9 + the standing I8 SBW WARN · **15 open PRs
+  fleet-wide** (GitHub search): fm #427 (this close, born-red by design) ·
+  trading-strategy #160 + superbot-next #602 (kit-wave remnants, both
+  `blocked` on resident doc lines, re-verified live) · superbot-next #576 ·
+  substrate-kit #552 (owner bench pin BY DESIGN) · superbot ×7 dependabot ·
+  websites #465 (bake) · sim-lab #344 (proposal artifact).
+- **Sibling closeouts probe (~17:06Z):** raw-fetch of
+  `docs/PROJECT-CLOSEOUT.md` across all 18 sibling repos — none landed yet;
+  every seat writes one today at the same path (pokemon-mod-lab is private,
+  probe blind there).
+- **Records true-up in the same PR:** owner-queue final reconcile (program-
+  closed preamble + per-item close notes on `OQ-SBW-DUP-FAILSAFE` /
+  `OQ-KIT-WAVE-REMNANTS` / `OQ-WEBSITES-LABEL-MACHINERY` /
+  `OQ-FM-APPARATUS-SIZING`) · current-state.md closeout pointer · claim sweep
+  (clean — only this session's own claim existed).
+- **Phase 2 (same branch, before the flip):** the seat's routine wipe to zero
+  (verified via `list_triggers` to exhaustion) + the SEAT CLOSED heartbeat in
+  `control/status.md`; results recorded there per the closer.
