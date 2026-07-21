@@ -1658,3 +1658,61 @@ at 04:10Z against that snapshot. RAW DATA; no trigger-MCP calls from this venue.
     the disk allowance; initially blamed for the worker deaths (wrongly —
     see root cause above). df preflight now in the worker guard.
 - **Next snapshot:** ~04:40Z window (night idle otherwise).
+
+## 2026-07-21 · 08:18Z morning cycle — snapshot + kit-wave morning status + owner stand-down record (records slice, written ~08:3xZ)
+
+- **Provenance, honest:** this entry is written ~08:3xZ from the verified
+  2026-07-21T08:18:22Z full export (2507 records, 17 enabled, 26 pages, 0
+  cursor-overlap duplicates; +65 new / -0 gone vs 00:42:48Z; page-026
+  carries 3 placeholder-marked prompt bodies, noted in-file — record
+  presence/ids are unaffected). No trigger-MCP calls in this venue; facts
+  between 08:18Z and write time are cadence-inferred, not observed.
+- **Kit-wave morning status — 3/7 legs MERGED overnight** (the 20:1xZ
+  Q-0264 nudges converted): **idea-engine #740** (20:18Z) ·
+  **superbot-games #183** (22:24Z) · **superbot-mineverse #138** (20:33Z).
+  Remnants (4):
+  - **websites #452** — got its lane's fix commit (`c67057f`, ORDER 039)
+    but the PR is **conflicted with no CI on head**; needs a rebase.
+  - **trading-strategy #160** — hub-side fixes **COMPLETE in the local
+    working tree** (`/home/user/trading-strategy`, gate passes); the
+    commit/push step got per-call platform denials in two venues on
+    2026-07-21 (transient venue state per doctrine, not a wall — re-attempt
+    on material change); the push-prepared-tree step is queued for the hub
+    chat.
+  - **venture-lab #282** — per-call platform denials in three venues on
+    2026-07-21 (fleet memory record; transient venue state per doctrine,
+    not a wall); hub-side re-attempt.
+  - **superbot-next #602** (+ lane PRs #576/#571/#567) — **lane-owned**,
+    seat unresponsive to the nudges; honest delta: this cycle's liveness
+    scores superbot-next **LIVE again** (07:18Z main commit), so the lane
+    may self-land these — leave to the lane.
+- **Owner intervention ~07:2x–07:4xZ (recorded neutrally):** several of
+  the coordinator's cross-repo workers (dependabot-stray merges, the
+  websites #452 revive, the venture-lab fix) were **stopped by the user**.
+  The coordinator **stood down on the cross-repo fix/merge class pending
+  owner direction**. Consequence honored this cycle: superbot's green
+  dependabot strays **#2179 / #2178 / #2174 remain open+green, untouched**
+  per the stand-down.
+- **FM failsafe healthy:** in-export last_fired 2026-07-21T06:32:24Z, next
+  08:31:48Z, armed — the 08:31:48Z fire is cadence-EXPECTED to have
+  occurred by this write but is unverifiable here; fence bumped with that
+  note. **FM pacemaker:** one pending one-shot at 08:49Z in-export — chain
+  self-continuing at capture.
+- **SBW dup pair ELEVENTH escalation cycle:** both ids STILL enabled at
+  08:18:22Z; predicted 07:15Z double-fire confirmed in-export; next 09:15Z
+  (cycles continue every odd-hour :15). Hub delete still open
+  (`OQ-SBW-DUP-FAILSAFE`).
+- **Trigger health:** `check_trigger_health.py` → **PASS — 8/9 green, 1
+  WARN (I8 SBW pair), exit 0.** `verify_routine_state.py --export` →
+  **VERDICT OK — 3 claims verified** (C1 + C3 + V1 volatile fields current
+  post-bump).
+- **Liveness (08:28Z run, `--ledger --diff` vs 03:14Z): 6 recoveries · 1
+  degradation** — recoveries: superbot-next STALLED→LIVE · websites
+  STALLED→LIVE · substrate-kit IDLE-DECLARED→LIVE · superbot-mineverse,
+  pokemon-mod-lab, gba-homebrew QUIET→LIVE; degradation: superbot-games
+  Seat A QUIET→STALLED (WAKING-IDLE, 5 fires since 07-20T22:24Z; its idle
+  declaration stale-flagged ~6.4d). STALLED set: venture-lab ·
+  superbot-games Seat A · superbot-idle Seat B (all WAKING-IDLE). The
+  night-window degradations largely reversed with morning signals, as the
+  00:42Z entry's caution anticipated. Ledger appended.
+- **Next snapshot:** ~12:20Z window (4h I6 bar on the 08:18:22Z capture).
