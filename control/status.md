@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-21T08:35Z
+updated: 2026-07-21T16:15Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -102,7 +102,13 @@ stand-down posture recorded, superbot dependabot strays #2179/#2178/#2174
 left untouched** · SBW dup pair ELEVENTH escalation cycle — 07:15Z
 double-fire confirmed, next 09:15Z · liveness 6 recoveries / 1 degradation,
 night STALLEDs largely reversed) recorded 2026-07-21T08:3xZ (records slice,
-PR #415).
+PR #415). 16Z afternoon cycle (snapshot 2577/17 @ 2026-07-21T16:00:18Z, I6
+PASS · **PR #419 (12:21Z cycle) CLOSED unmerged — gate red diagnosed as a
+main-side false-wall finding, allowlisted; facts re-recorded fresh** ·
+**kit-wave NOW 5/7 MERGED** (websites #452 06:57:59Z · venture-lab #282
+12:51:30Z; remnants #160 + #602 only, both re-vendored to v1.20.2) · SBW dup
+pair TWELFTH escalation cycle, both next 17:15Z · liveness 1 recovery
+(venture-lab) / 5 degradations) recorded 2026-07-21T16:1xZ (records slice).
 ---
 
 ## Night watch (2026-07-18, overnight)
@@ -255,12 +261,12 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 ```json routine-claims
 {
   "seat": "fleet-manager (coordinator)",
-  "updated": "2026-07-21T08:28Z",
+  "updated": "2026-07-21T16:14Z",
   "failsafe": {
     "id": "trig_01GK4mjoKBP3yCabn9ux1MB2",
     "cron": "30 */2 * * *",
-    "next_run_at": "2026-07-21T08:31:48Z",
-    "last_fired": "2026-07-21T06:32:24Z",
+    "next_run_at": "2026-07-21T16:31:48Z",
+    "last_fired": "2026-07-21T14:32:30Z",
     "state": "armed"
   },
   "deleted": [
@@ -269,7 +275,7 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
   "pacemaker": {
     "mode": "send_later",
     "cadence_minutes": 30,
-    "note": "08:31:48Z fire is cadence-expected/likely superseded by write time (~08:3xZ); unverifiable in this no-trigger-MCP venue"
+    "note": "one pacemaker send_later pending at 16:45Z; 16:31:48Z failsafe fire is cadence-expected by write time, unverifiable in this no-trigger-MCP venue"
   }
 }
 ```
@@ -1313,6 +1319,68 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
    `session_018iFisKSjZnv9YWD4ETvd8W` (still no failsafe cron) · websites
    review-bake cron · websites label re-appearance (tripwire
    `check_label_hygiene.py`).
+
+## 16Z AFTERNOON CYCLE — SNAPSHOT + KIT-WAVE 5/7 + #419 DISPOSITION (written ~16:1xZ 2026-07-21, records slice)
+
+- **Provenance, honest:** written ~16:1xZ from the verified 16:00:18Z full
+  export (26 pages, cursor-to-exhaustion). No trigger-MCP calls from this
+  venue; RAW-DATA reporting. This section also carries the **12:21Z cycle's
+  undelivered facts** — its PR #419 closed unmerged (next bullet).
+- **PR #419 disposition — CLOSED, superseded by this cycle's PR.** Its gate
+  red (run 29830899500 @12:38Z, undiagnosed by 3 dead workers) was an
+  exit-affecting `[false-wall:standing-platform-wall]` finding at
+  `docs/owner-queue-candidates.md:39` — a main-side generated-feed line #419
+  never touched, quoting substrate-kit's heartbeat verb-wall claim
+  verbatim. Moot (venture-lab #282 merged 12:51:30Z); allowlisted with a
+  reason-carrying `.substrate/check-exceptions.yml` entry. No orphaned
+  claim. Full record: `docs/fleet-triage.md` § 16Z.
+- **`telemetry/triggers-snapshot.json` refreshed** from the full
+  2026-07-21T16:00:18Z export: **2577 records, 17 enabled** (26 pages, 0
+  cursor-overlap dups, +70 new / -0 gone vs 08:18:22Z — the last MERGED
+  capture; the 12:21Z snapshot was lost with #419).
+  `check_trigger_health.py` → **PASS 8/9 green, 1 WARN (I8 SBW pair),
+  exit 0**; `verify_routine_state.py --export` → **VERDICT OK, 3 claims
+  verified** (C1 + C3 + V1 volatile fields current post-bump).
+- **FM failsafe healthy:** in-export last_fired 14:32:30Z, next 16:31:48Z,
+  armed — fence bumped by `emit_routine_claims.py`, round-trip verified.
+  **Pacemaker:** one pending send_later 16:45Z — chain self-continuing at
+  capture.
+- **Kit-wave: NOW 5/7 MERGED — remnants #160 + #602 only.** websites #452
+  MERGED 06:57:59Z (`b2f5013`) · venture-lab #282 MERGED 12:51:30Z
+  (`a73c4f0`, hub fix worker) · substrate-kit v1.20.2 released 09:44:49Z ·
+  #160 re-vendored (`f1c5284`, 3 resident lines; hub-prepared tree at
+  `/home/user/trading-strategy` stale — rebase first, steps then valid) ·
+  #602 re-vendored (`2755fdb`, 2 resident lines, lane-owned).
+  `OQ-KIT-WAVE-REMNANTS` reconciled.
+- **SBW duplicate pair: TWELFTH escalation cycle.** Both ids still enabled,
+  both next 17:15Z in-export; 15:15Z double-fire coordinator-observed (this
+  export's record shape carries no last_fired for the pair). Owner delete
+  still pending; `OQ-SBW-DUP-FAILSAFE` annotated.
+- **Lane liveness (16:10Z, `--ledger --diff` vs 08:28Z): 1 recovery, 5
+  degradations** — recovery: venture-lab STALLED→LIVE (#282 merge landed);
+  degradations: superbot-next + superbot-mineverse LIVE→STALLED ·
+  substrate-kit LIVE→QUIET · gba-homebrew + pokemon-mod-lab LIVE→QUIET.
+  Ledger appended.
+- **Owner Q&A (durable):** GitHub's paid "Code Quality" product ≠ the
+  fleet's self-hosted "Code Quality" workflows (name collision only, no
+  fleet impact) · superbot fork = benign fork-collector account (0 changes,
+  0 interactions).
+
+### Baton (16:1xZ refresh — afternoon posture)
+1. **Owner:** `OQ-SBW-DUP-FAILSAFE` (TWELFTH cycle — one-letter ask) ·
+   `OQ-WEBSITES-LABEL-MACHINERY` · **⚑ work-loop-cron guard proposal**
+   (Q-0194, fleet-triage § 11:30Z) · **`OQ-KIT-WAVE-REMNANTS`** (now only:
+   #160 rebase-then-push · #602 lane-owned) — all paste-ready in
+   `docs/owner-queue.md`.
+2. **Next snapshot ~20:00Z** (4h I6 bar on the 16:00:18Z capture). Verify
+   there: (a) FM failsafe 16:31:48Z + 18:31Z fires landed; (b) SBW 17:15Z /
+   19:15Z double-fires (twelfth→thirteenth); (c) the 5 degraded lanes
+   STALLED/QUIET→?; (d) #160/#602 terminal-state delta.
+3. **Watches (carried):** untracked self-continuing seat
+   `session_018iFisKSjZnv9YWD4ETvd8W` (still no failsafe cron) · websites
+   review-bake cron · websites label re-appearance (tripwire
+   `check_label_hygiene.py`) · substrate-kit heartbeat update (ages out the
+   allowlisted candidate-feed block).
 
 ## Pointers
 - Live status → `docs/current-state.md`
