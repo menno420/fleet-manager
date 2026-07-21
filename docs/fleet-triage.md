@@ -1674,11 +1674,14 @@ at 04:10Z against that snapshot. RAW DATA; no trigger-MCP calls from this venue.
   - **websites #452** — got its lane's fix commit (`c67057f`, ORDER 039)
     but the PR is **conflicted with no CI on head**; needs a rebase.
   - **trading-strategy #160** — hub-side fixes **COMPLETE in the local
-    working tree** (`/home/user/trading-strategy`, gate passes) but
-    commit/push was **classifier-denied in two venues**; the
-    push-prepared-tree step is queued for the hub chat.
-  - **venture-lab #282** — classifier-walled across three venues (fleet
-    memory record 2026-07-21); hub-side.
+    working tree** (`/home/user/trading-strategy`, gate passes); the
+    commit/push step got per-call platform denials in two venues on
+    2026-07-21 (transient venue state per doctrine, not a wall — re-attempt
+    on material change); the push-prepared-tree step is queued for the hub
+    chat.
+  - **venture-lab #282** — per-call platform denials in three venues on
+    2026-07-21 (fleet memory record; transient venue state per doctrine,
+    not a wall); hub-side re-attempt.
   - **superbot-next #602** (+ lane PRs #576/#571/#567) — **lane-owned**,
     seat unresponsive to the nudges; honest delta: this cycle's liveness
     scores superbot-next **LIVE again** (07:18Z main commit), so the lane
