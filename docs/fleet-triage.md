@@ -1599,3 +1599,62 @@ at 04:10Z against that snapshot. RAW DATA; no trigger-MCP calls from this venue.
   false-walls). Pattern unchanged: every red leg is resident-owned
   false-wall/doc findings (plus two resident test couplings), exactly what
   the ORDERs route to the resident lanes. Watch, don't duplicate.
+
+## 2026-07-21 · 00:42Z night cycle — snapshot + SI retire + worker-death root cause + deferred evening facts (records slice, written ~03:1xZ)
+
+- **Provenance, honest:** this entry is written ~03:1xZ from the verified
+  2026-07-21T00:42:48Z full export (2442 records, 17 enabled, 25 pages,
+  0 cursor-overlap duplicates; +74 new / -0 gone vs 15:38:36Z). It is
+  **retry #4** of the night records slice — see the worker-death root cause
+  below for why three earlier attempts died. Facts between 00:42Z and write
+  time are cadence-inferred, not observed (no trigger-MCP calls in this venue).
+- **Worker-death ROOT CAUSE FOUND (the night's three dead records workers —
+  19:36Z, 22:06Z, 00:49Z):** each worker hung at an **EnterWorktree tool
+  permission prompt that is unanswerable in the worker venue** — transcripts
+  show identical death points at the tool call. The ~19:30–23:00Z
+  disk-allowance incident was initially blamed and is real but was NOT the
+  killer. **Guard adopted (Q-0194 friction→guard):** records-worker prompts
+  now forbid the EnterWorktree/ExitWorktree tools — workers create worktrees
+  with plain `git worktree add` + `cd`/absolute paths — plus a `df` disk
+  preflight and export-dir self-clean at close. This slice ran under the
+  guard and completed.
+- **`OQ-SI-CHAIN-DEAD` RETIRED — condition MET, verified in-export:** the
+  00:42:48Z capture holds a fresh pending SI one-shot
+  `trig_01MXe8mtyEYMsr67Dbj3gQh4` (`send_later 2026-07-21T00:48Z #cbc4b3`,
+  created 2026-07-20T23:47:45Z, run_once_at 00:48:00Z — pending at capture)
+  bound to `session_01VsWWnVdwbvkGAW4kAmQzmt`, plus the failsafe armed
+  (next 02:02Z). The seat chain re-armed after the ~16:1xZ nudge and was
+  still self-continuing at 23:47Z → moved to Resolved in the owner-queue.
+  Liveness corroborates: substrate-kit scored **IDLE-DECLARED** (dated
+  declaration read; STALLED→IDLE-DECLARED recovery at the 03:14Z run).
+- **SBW dup pair TENTH escalation cycle:** both ids STILL enabled at
+  00:42:48Z; 23:15Z double-fire confirmed (last_fired 23:15:15.5Z /
+  23:15:19.7Z, ~4.2s apart), next 01:15Z — by write time the 01:15Z and
+  (imminent) 03:15Z windows continue the every-odd-hour cycle. Hub delete
+  still open (`OQ-SBW-DUP-FAILSAFE`).
+- **FM failsafe healthy:** in-export last_fired 2026-07-21T00:32:18Z, next
+  02:31:48Z, armed — the 02:31:48Z fire is EXPECTED to have occurred by this
+  write (2h cadence) but is unverifiable here; fence bumped with that note.
+- **Liveness (03:14Z run, ledger appended):** 7 transitions vs 15:52Z —
+  1 recovery (substrate-kit STALLED→IDLE-DECLARED) · 6 degradations
+  (superbot-next, websites, venture-lab LIVE→STALLED + WAKING-IDLE;
+  superbot-games Seat A + trading-strategy + mineverse LIVE→QUIET).
+  STALLED: superbot-next, websites, venture-lab, superbot-idle (Seat B).
+  Night-window caution: several degradations are overnight quiet + capture
+  lag; websites' idle declaration is dated but ~4h20m behind its newest
+  signal (stale-flagged by the checker).
+- **Deferred evening facts (2026-07-20, recorded here for durability):**
+  - **Kit wave: 0/7 legs moved through the evening** — all 7 sibling
+    v1.17.0→v1.20.1 upgrade PRs still open/red with no new commits despite
+    the 13:22Z ORDERs (idea-engine #740 · superbot-next #602 · websites
+    #452 · trading-strategy #160 · superbot-games #183 · venture-lab #282
+    · superbot-mineverse #138).
+  - **5 live seats nudged ~20:1xZ (Q-0264 nudge doctrine)** to pick up
+    their resident kit-wave legs.
+  - **trading-strategy #160 orphan leg** — the lane has no live resident
+    seat to receive the nudge; hub fix (adopt-or-close decision) **parked
+    to the owner-attended morning**, not night work.
+  - **Disk-allowance incident ~19:30–23:00Z** — hub venue ran out of/near
+    the disk allowance; initially blamed for the worker deaths (wrongly —
+    see root cause above). df preflight now in the worker guard.
+- **Next snapshot:** ~04:40Z window (night idle otherwise).
