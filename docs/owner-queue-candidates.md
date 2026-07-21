@@ -4,7 +4,7 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #138** · generated-at **2026-07-21T10:39Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #139** · generated-at **2026-07-21T11:26Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
@@ -28,10 +28,26 @@
 ⚑ needs-owner: broad orphan merged-branch cleanup remains blocked by the GitHub 403 ref-delete wall (owner/admin). The previously-listed owner-blocker items were resolved 2026-07-18 and are dropped here: the two named residual triggers are absent from the account registry (per docs/current-state.md:67-73) and the four named orphan merged branches are absent from origin.
 ```
 
+### substrate-kit — ⚑ FOR OWNER — venture-lab `upgrade`-verb classifier wall (escalated to fm owner-queue)
+
+- suggested-id: `OQ-SUBSTRATE-KIT-VENTURE-LAB-UPGRADE-VERB`
+- source: substrate-kit/control/status.md @ `62621ad` · heartbeat `updated:` 2026-07-21T11:07:21Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+⚑ FOR OWNER — venture-lab `upgrade`-verb classifier wall (escalated to fm owner-queue)
+  WHAT:   The kit `upgrade` verb is classifier-walled venture-lab-specifically, so venture-lab #282 could NOT be re-vendored to v1.20.2 this pass.
+  WHERE:  fleet-manager owner-queue (escalated) — venture-lab lane.
+  HOW:    run the re-vendor from a non-walled venue, OR add an owner permission rule that clears the verb for venture-lab; then reword-3 + allowlist-4 greens it.
+  WHY:    the wall is venue/classifier-specific, not a kit defect — the same verb succeeds in the other adopter lanes.
+  UNBLOCKS: venture-lab v1.20.2 re-vendor.
+  RISK: ↩️ reversible. RECOMMENDATION: re-run from a non-walled venue.
+```
+
 ### substrate-kit — ⚑ FOR OWNER — kit-lab daily cron: recreate or retire? (A/B)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-KIT-LAB-DAILY-CRON`
-- source: substrate-kit/control/status.md @ `4712ebf` · heartbeat `updated:` 2026-07-20T07:45:00Z
+- source: substrate-kit/control/status.md @ `62621ad` · heartbeat `updated:` 2026-07-21T11:07:21Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -48,7 +64,7 @@
 ### substrate-kit — ⚑ FOR OWNER — public-flip-or-PAT (pick one)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-PUBLIC-FLIP-PAT-PICK`
-- source: substrate-kit/control/status.md @ `4712ebf` · heartbeat `updated:` 2026-07-20T07:45:00Z
+- source: substrate-kit/control/status.md @ `62621ad` · heartbeat `updated:` 2026-07-21T11:07:21Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -65,7 +81,7 @@
 ### substrate-kit — ⚑ FOR OWNER — t5-headless-guard fix (owner-review: pin-path PR #552 OPEN, awaiting owner merge)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-T5-HEADLESS-GUARD-FIX`
-- source: substrate-kit/control/status.md @ `4712ebf` · heartbeat `updated:` 2026-07-20T07:45:00Z
+- source: substrate-kit/control/status.md @ `62621ad` · heartbeat `updated:` 2026-07-21T11:07:21Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -80,15 +96,15 @@
 ### substrate-kit — ⚑ FOR OWNER — superbot pin-bump: bump nominal pin, or leave as pin-only? (question)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-SUPERBOT-PIN-BUMP-BUMP`
-- source: substrate-kit/control/status.md @ `4712ebf` · heartbeat `updated:` 2026-07-20T07:45:00Z
+- source: substrate-kit/control/status.md @ `62621ad` · heartbeat `updated:` 2026-07-21T11:07:21Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
 ⚑ FOR OWNER — superbot pin-bump: bump nominal pin, or leave as pin-only? (question)
-  WHAT: superbot adopts substrate-kit as a PIN ONLY (substrate.config pin 1.0.0; no vendored dist, no `.substrate/` state) — so the v1.20.1 dist-vendoring upgrade is genuinely N/A there; it was correctly skipped in this wave.
+  WHAT: superbot adopts substrate-kit as a PIN ONLY (substrate.config pin 1.0.0; no vendored dist, no `.substrate/` state) — so the dist-vendoring upgrade is genuinely N/A there; it was correctly skipped in this wave.
   WHERE: superbot/substrate.config.json (or equivalent pin), pin `1.0.0`.
-  HOW: (A) bump the nominal pin to `1.20.1` for a truthful version label even though no dist is vendored; (B) leave pin-only and document superbot as intentionally non-vendoring (adoption = pin-nominal only).
-  WHY: the pin currently reads 1.0.0 while the fleet is on 1.20.1 — a reader can't tell "deliberately pin-only" from "stale". A one-line decision removes the ambiguity.
+  HOW: (A) bump the nominal pin to `1.20.2` for a truthful version label even though no dist is vendored; (B) leave pin-only and document superbot as intentionally non-vendoring (adoption = pin-nominal only).
+  WHY: the pin currently reads 1.0.0 while the fleet is on 1.20.2 — a reader can't tell "deliberately pin-only" from "stale". A one-line decision removes the ambiguity.
   UNBLOCKS: honest fleet version truth for superbot.
   RISK: ↩️ reversible either way. RECOMMENDATION: **B — document pin-only** (superbot genuinely vendors no dist; a bumped pin with no dist would itself mislead). Answer: A (bump pin) / B (document pin-only).
 ```
@@ -96,7 +112,7 @@
 ### ↳ substrate-kit — `control/status-superbot-coordinator.md` — ⚑ needs-owner: 1) verify/deliver the testing-lane wind-down — superbot-next control/status.md was still UNFLI…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-1-VERIFY-DELIVER-TESTING`
-- source: substrate-kit/control/status-superbot-coordinator.md @ `4712ebf` · heartbeat `updated:` 2026-07-10T13:47:02Z
+- source: substrate-kit/control/status-superbot-coordinator.md @ `62621ad` · heartbeat `updated:` 2026-07-10T13:47:02Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -194,7 +210,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### idea-engine — ⚑ needs-owner: BT-controller plan (ORDER 017, PR #481) awaits owner review (ideas/product-forge/bt-controller…
 
 - suggested-id: `OQ-IDEA-ENGINE-BT-CONTROLLER-PLAN-ORDER`
-- source: idea-engine/control/status.md @ `c887a16` · heartbeat `updated:` 2026-07-21T10:11:57Z · round VERDICT 263 landing — P250 -> …
+- source: idea-engine/control/status.md @ `0c2abf7` · heartbeat `updated:` 2026-07-21T11:13:24Z · round VERDICT 265 landing — P252 -> …
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -214,7 +230,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### fleet-manager (this repo) — 4. **⚑ Guard proposal recorded (awaiting owner/registry):** work-loop cron
 
 - suggested-id: `OQ-FLEET-MANAGER-4-GUARD-PROPOSAL-RECORDED`
-- source: fleet-manager/control/status.md @ `9db7362` · heartbeat `updated:` 2026-07-21T08:35Z
+- source: fleet-manager/control/status.md @ `6fdd970` · heartbeat `updated:` 2026-07-21T08:35Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -228,5 +244,5 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 
 ---
 
-16 candidate block(s) across 12 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
+17 candidate block(s) across 12 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
 
