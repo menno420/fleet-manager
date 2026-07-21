@@ -39,7 +39,12 @@
    instructions land at HEAD, or to un-stall it). The per-seat
    `<seat>-startup.md` prompts stay the cold-start artifacts; this is the
    resume, fetched live by the control-plane `/prompts` registry.
-6. Failsafe cron slots per seat: the stagger table in
+6. **FINAL CLOSER** → [`final-closer.md`](final-closer.md) is the shared
+   program-end paste — pasted once per project on the final day
+   (2026-07-21) to drive every seat's terminal close before sessions
+   become permanently read-only at 2026-07-22T00:00Z: closeout doc →
+   records true-up → routine wipe to zero → final heartbeat + recital.
+7. Failsafe cron slots per seat: the stagger table in
    [`per-project/README.md`](per-project/README.md) § "Failsafe cron stagger
    table" (the manager is the slot arbiter).
 
