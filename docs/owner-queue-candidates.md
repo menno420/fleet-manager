@@ -4,7 +4,7 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #136** · generated-at **2026-07-21T07:14Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #137** · generated-at **2026-07-21T07:56Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
@@ -21,7 +21,7 @@
 ### superbot-next — ⚑ needs-owner: broad orphan merged-branch cleanup remains blocked by the GitHub 403 ref-delete wall (owner/ad…
 
 - suggested-id: `OQ-SUPERBOT-NEXT-BROAD-ORPHAN-MERGED-BRANCH`
-- source: superbot-next/control/status.md @ `5691aac` · heartbeat `updated:` 2026-07-20T07:30:12Z
+- source: superbot-next/control/status.md @ `e5e6dfd` · heartbeat `updated:` 2026-07-20T07:30:12Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -31,7 +31,7 @@
 ### substrate-kit — ⚑ FOR OWNER — kit-lab daily cron: recreate or retire? (A/B)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-KIT-LAB-DAILY-CRON`
-- source: substrate-kit/control/status.md @ `0a0f8cb` · heartbeat `updated:` 2026-07-20T07:45:00Z
+- source: substrate-kit/control/status.md @ `8c7aa10` · heartbeat `updated:` 2026-07-20T07:45:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -48,7 +48,7 @@
 ### substrate-kit — ⚑ FOR OWNER — public-flip-or-PAT (pick one)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-PUBLIC-FLIP-PAT-PICK`
-- source: substrate-kit/control/status.md @ `0a0f8cb` · heartbeat `updated:` 2026-07-20T07:45:00Z
+- source: substrate-kit/control/status.md @ `8c7aa10` · heartbeat `updated:` 2026-07-20T07:45:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -65,7 +65,7 @@
 ### substrate-kit — ⚑ FOR OWNER — t5-headless-guard fix (owner-review: pin-path PR #552 OPEN, awaiting owner merge)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-T5-HEADLESS-GUARD-FIX`
-- source: substrate-kit/control/status.md @ `0a0f8cb` · heartbeat `updated:` 2026-07-20T07:45:00Z
+- source: substrate-kit/control/status.md @ `8c7aa10` · heartbeat `updated:` 2026-07-20T07:45:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -80,7 +80,7 @@
 ### substrate-kit — ⚑ FOR OWNER — superbot pin-bump: bump nominal pin, or leave as pin-only? (question)
 
 - suggested-id: `OQ-SUBSTRATE-KIT-SUPERBOT-PIN-BUMP-BUMP`
-- source: substrate-kit/control/status.md @ `0a0f8cb` · heartbeat `updated:` 2026-07-20T07:45:00Z
+- source: substrate-kit/control/status.md @ `8c7aa10` · heartbeat `updated:` 2026-07-20T07:45:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -96,7 +96,7 @@
 ### ↳ substrate-kit — `control/status-superbot-coordinator.md` — ⚑ needs-owner: 1) verify/deliver the testing-lane wind-down — superbot-next control/status.md was still UNFLI…
 
 - suggested-id: `OQ-SUBSTRATE-KIT-1-VERIFY-DELIVER-TESTING`
-- source: substrate-kit/control/status-superbot-coordinator.md @ `0a0f8cb` · heartbeat `updated:` 2026-07-10T13:47:02Z
+- source: substrate-kit/control/status-superbot-coordinator.md @ `8c7aa10` · heartbeat `updated:` 2026-07-10T13:47:02Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -194,7 +194,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### idea-engine — ⚑ needs-owner: BT-controller plan (ORDER 017, PR #481) awaits owner review (ideas/product-forge/bt-controller…
 
 - suggested-id: `OQ-IDEA-ENGINE-BT-CONTROLLER-PLAN-ORDER`
-- source: idea-engine/control/status.md @ `d0bf551` · heartbeat `updated:` 2026-07-21T06:46:02Z · round VERDICT 258 landing — P245 → V…
+- source: idea-engine/control/status.md @ `1c822cd` · heartbeat `updated:` 2026-07-21T07:36:19Z · round VERDICT 259 landing — P246 → V…
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -214,7 +214,7 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 ### fleet-manager (this repo) — 4. **⚑ Guard proposal recorded (awaiting owner/registry):** work-loop cron
 
 - suggested-id: `OQ-FLEET-MANAGER-4-GUARD-PROPOSAL-RECORDED`
-- source: fleet-manager/control/status.md @ `d110e0b` · heartbeat `updated:` 2026-07-21T03:17Z
+- source: fleet-manager/control/status.md @ `232e6b5` · heartbeat `updated:` 2026-07-21T03:17Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
