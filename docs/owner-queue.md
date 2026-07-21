@@ -107,6 +107,36 @@ launch that seeded the earliest queue items: [`launch-readiness-2026-07-10.md`](
   unchanged: delete the older `trig_01XJJ88pQaQFRSpVAviCfAZe`, keep
   `trig_01DbcKVWxn6RJPhfyRkgTg6m`. Liveness context: superbot-idle (Seat B) still STALLED
   (last landed output 07-20T07:37Z, 8 fires since at the 03:14Z run).*
+  *Status 2026-07-21T08:3xZ (08:18Z morning records slice) — **ELEVENTH escalation cycle**:
+  both ids STILL enabled in the 2026-07-21T08:18:22Z capture; the predicted 07:15Z
+  double-fire happened (confirmed in-export); next 09:15Z (cycles continue every odd-hour
+  :15). Still a pure burn-stop; recommendation unchanged: delete the older
+  `trig_01XJJ88pQaQFRSpVAviCfAZe`, keep `trig_01DbcKVWxn6RJPhfyRkgTg6m`. Liveness context:
+  superbot-idle (Seat B) still STALLED (last landed output 07-20T07:37Z, 12 fires since at
+  the 08:28Z run); superbot-games Seat A joined it QUIET→STALLED this cycle.*
+
+- **`OQ-KIT-WAVE-REMNANTS` — (VENUE: hub) land the 4 remaining kit-wave v1.17.0→v1.20.1
+  upgrade legs (3/7 merged overnight).**
+  WHAT: the 20:1xZ Q-0264 nudges converted 3 of 7 legs to MERGED overnight (idea-engine
+  #740 20:18Z · superbot-games #183 22:24Z · superbot-mineverse #138 20:33Z). Remnants,
+  each with its prepared next step:
+  (1) **trading-strategy #160** — hub-side fixes COMPLETE in the local working tree
+  (`/home/user/trading-strategy`, gate passes) but commit/push was classifier-denied in
+  two venues; the **push-prepared-tree step is paste-ready for the hub chat** (commit the
+  prepared tree, push to the PR branch).
+  (2) **venture-lab #282** — classifier-walled across three venues (fleet memory record
+  2026-07-21); hub-side fix.
+  (3) **websites #452** — lane fix commit landed (`c67057f`, ORDER 039) but the PR is
+  conflicted with no CI on head; needs a **rebase**.
+  (4) **superbot-next #602** — set **lane-owned** (seat scored LIVE again at 07:18Z this
+  cycle; leave to the lane, no hub action unless it re-stalls).
+  WHERE: hub chat (items 1–3); none for item 4.
+  CONTEXT, honest: the coordinator **stood down on the cross-repo fix/merge class
+  ~07:2x–07:4xZ after owner intervention** — these steps are prepared-and-parked, not
+  in-flight; they execute only on owner word (see the stand-down record in
+  `docs/fleet-triage.md` § 2026-07-21 08:18Z).
+  VERIFY: all 7 kit-wave PRs terminal (merged/closed); sibling repos report kit 1.20.1.
+  RISK: ✅ reversible (PR-lane work). Provenance: 08:18Z morning records slice.
 
 - **`OQ-WEBSITES-LABEL-MACHINERY` — (VENUE: owner-live) remove the websites
   `host-automerge-extras.yml` label re-creation machinery (residual of the resolved
