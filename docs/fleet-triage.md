@@ -1716,3 +1716,56 @@ at 04:10Z against that snapshot. RAW DATA; no trigger-MCP calls from this venue.
   night-window degradations largely reversed with morning signals, as the
   00:42Z entry's caution anticipated. Ledger appended.
 - **Next snapshot:** ~12:20Z window (4h I6 bar on the 08:18:22Z capture).
+
+## 2026-07-21 · 12:21Z midday cycle — snapshot + kit-wave reconciliation (records slice, written ~12:3xZ)
+
+- **Provenance, honest:** this entry is written ~12:3xZ from the verified
+  2026-07-21T12:21:48Z full export (2546 records, 17 enabled, 26 pages, 0
+  cursor-overlap duplicates; +39 new / -0 gone vs 08:18:22Z). No
+  trigger-MCP calls in this venue; the kit-wave facts below were
+  **live-GH verified by the coordinator 12:2xZ** and are recorded here as
+  verified, not inferred.
+- **Kit-wave reconciliation — 4/7 legs MERGED; target moved to v1.20.2:**
+  - **websites #452 MERGED 06:57:59Z** (merge `b2f5013`) — the 4th leg
+    landed; its rebase remnant step is retired.
+  - **substrate-kit v1.20.2 released 09:44:49Z** (false-wall gate
+    hardened).
+  - **trading-strategy #160** — re-vendored to v1.20.2 (head `f1c5284`);
+    red = substrate-gate only, exactly **3 resident doc lines**
+    (`docs/current-state.md:389` · `CONSTITUTION.md:166` ·
+    `docs/review-queue.md:8`). The hub-prepared local fixes for those 3
+    lines still sit **uncommitted at `/home/user/trading-strategy`** (from
+    yesterday; the branch has since advanced — a **rebase of the local
+    tree is needed before any push**).
+  - **superbot-next #602** — re-vendored to v1.20.2 (head `2755fdb`); all
+    4 reds trace to **2 resident lines** (`docs/current-state.md:101` +
+    `:118`); product suite clean (**3647 passed**).
+  - **venture-lab #282** — **STALE: the only leg not re-vendored, still
+    v1.20.1**, 9 findings.
+  - `OQ-KIT-WAVE-REMNANTS` reconciled to these facts (3 remnants, each
+    with a paste-ready hub step); stand-down on the cross-repo fix/merge
+    class **continues** — steps stay prepared-and-parked on owner word.
+- **FM failsafe healthy:** in-export last_fired 2026-07-21T10:32:27Z, next
+  12:31:48Z, armed — the 12:31:48Z fire is cadence-EXPECTED to have
+  occurred by this write but is unverifiable here; fence bumped with that
+  note. **FM pacemaker:** one pending one-shot at 12:52Z in-export
+  (`trig_016RDqi8bXPPbpmdWyr3BCRA`) — chain self-continuing at capture.
+- **SBW dup pair TWELFTH escalation cycle:** both ids STILL enabled at
+  12:21:48Z, both next 13:15:00Z; the predicted 11:15Z double-fire
+  happened (coordinator-verified; the pair's `last_fired` field is absent
+  from this export's records). Hub delete still open
+  (`OQ-SBW-DUP-FAILSAFE`).
+- **Trigger health:** `check_trigger_health.py` → **PASS — 8/9 green, 1
+  WARN (I8 SBW pair), exit 0.** `verify_routine_state.py --export` →
+  **VERDICT OK — 3 claims verified** (C1 + C3 + V1 volatile fields current
+  post-bump).
+- **Liveness (12:32Z run, `--ledger --diff` vs 08:28Z): 0 recoveries · 4
+  degradations** — gba-homebrew + pokemon-mod-lab LIVE→QUIET ·
+  superbot-mineverse + superbot-next LIVE→QUIET (both waking→WAKING-IDLE).
+  STALLED set: venture-lab · superbot-games Seat A · superbot-idle Seat B
+  (all WAKING-IDLE; Seat B now 14 fires since 07-20T07:37Z). Ledger
+  appended.
+- **`OQ-SI-CHAIN-DEAD`:** confirmed still retired (Resolved 2026-07-21
+  section); no stray active reference — remaining mentions are dated
+  history in triage/status logs.
+- **Next snapshot:** ~16:20Z window (4h I6 bar on the 12:21:48Z capture).

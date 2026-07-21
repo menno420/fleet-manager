@@ -6,7 +6,7 @@
 > (failsafe `trig_01GK4mjoKBP3yCabn9ux1MB2`, 2-hourly, coordinator-bound; pacemaker alive).
 
 ---
-updated: 2026-07-21T08:35Z
+updated: 2026-07-21T12:37Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator)
 wake: coordinator wake (fm wake 2026-07-18). Routine cutover per v3.8 doctrine (fresh
@@ -102,7 +102,14 @@ stand-down posture recorded, superbot dependabot strays #2179/#2178/#2174
 left untouched** · SBW dup pair ELEVENTH escalation cycle — 07:15Z
 double-fire confirmed, next 09:15Z · liveness 6 recoveries / 1 degradation,
 night STALLEDs largely reversed) recorded 2026-07-21T08:3xZ (records slice,
-PR #415).
+PR #415). Midday cycle (snapshot 2546/17 @ 2026-07-21T12:21:48Z, I6 PASS ·
+**kit-wave reconciled to live-GH-verified facts: websites #452 MERGED
+06:57:59Z (4/7 legs), kit v1.20.2 released 09:44:49Z, #160 + #602
+re-vendored with only resident doc lines red, #282 the sole stale v1.20.1
+leg** · SBW dup pair TWELFTH escalation cycle — 11:15Z double-fire, both
+next 13:15Z · liveness 0 recoveries / 4 degradations · stand-down on the
+cross-repo class continues) recorded 2026-07-21T12:3xZ (records slice,
+PR #419).
 ---
 
 ## Night watch (2026-07-18, overnight)
@@ -255,12 +262,12 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
 ```json routine-claims
 {
   "seat": "fleet-manager (coordinator)",
-  "updated": "2026-07-21T08:28Z",
+  "updated": "2026-07-21T12:32Z",
   "failsafe": {
     "id": "trig_01GK4mjoKBP3yCabn9ux1MB2",
     "cron": "30 */2 * * *",
-    "next_run_at": "2026-07-21T08:31:48Z",
-    "last_fired": "2026-07-21T06:32:24Z",
+    "next_run_at": "2026-07-21T12:31:48Z",
+    "last_fired": "2026-07-21T10:32:27Z",
     "state": "armed"
   },
   "deleted": [
@@ -269,7 +276,7 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
   "pacemaker": {
     "mode": "send_later",
     "cadence_minutes": 30,
-    "note": "08:31:48Z fire is cadence-expected/likely superseded by write time (~08:3xZ); unverifiable in this no-trigger-MCP venue"
+    "note": "one pending 12:52Z one-shot in the 12:21:48Z export; the 12:31:48Z failsafe fire is cadence-expected/likely superseded by write time (~12:3xZ) — unverifiable in this no-trigger-MCP venue"
   }
 }
 ```
@@ -1309,6 +1316,63 @@ Neutral heartbeat. Facts + pointers only. This file is not live coordination sta
    there: (a) FM failsafe 08:31:48Z + 10:31Z fires landed; (b) SBW
    09:15Z/11:15Z double-fires (eleventh→twelfth); (c) games Seat A + idle
    Seat B STALLED→? ; (d) kit-wave remnants terminal-state delta.
+4. **Watches (carried):** untracked self-continuing seat
+   `session_018iFisKSjZnv9YWD4ETvd8W` (still no failsafe cron) · websites
+   review-bake cron · websites label re-appearance (tripwire
+   `check_label_hygiene.py`).
+
+## 12:21Z MIDDAY CYCLE — SNAPSHOT + KIT-WAVE RECONCILIATION (written ~12:3xZ 2026-07-21, records slice, PR #419)
+
+- **Provenance, honest:** written ~12:3xZ from the verified 12:21:48Z full
+  export (26 pages, 0 cursor-overlap dups). No trigger-MCP calls from this
+  venue; RAW-DATA reporting. Kit-wave facts live-GH verified by the
+  coordinator 12:2xZ.
+- **`telemetry/triggers-snapshot.json` refreshed** from the full
+  2026-07-21T12:21:48Z export: **2546 records, 17 enabled** (+39 new /
+  -0 gone vs 08:18:22Z). `check_trigger_health.py` → **PASS 8/9 green,
+  1 WARN (I8 SBW pair), exit 0**; `verify_routine_state.py --export` →
+  **VERDICT OK, 3 claims verified** (C1 + C3 + V1 volatile fields current
+  post-bump).
+- **FM failsafe healthy:** in-export last_fired 10:32:27Z, next 12:31:48Z,
+  armed — the 12:31:48Z fire is cadence-EXPECTED by this write,
+  unverifiable here; fence bumped. **Pacemaker:** one pending one-shot
+  12:52Z in-export (`trig_016RDqi8bXPPbpmdWyr3BCRA`) — chain
+  self-continuing at capture.
+- **Kit-wave reconciled (live-GH verified 12:2xZ): 4/7 legs MERGED, target
+  v1.20.2.** websites #452 **MERGED 06:57:59Z** (merge `b2f5013`) ·
+  substrate-kit **v1.20.2 released 09:44:49Z** (false-wall gate hardened) ·
+  trading-strategy #160 re-vendored (head `f1c5284`; red = substrate-gate
+  only, 3 resident doc lines; hub-prepared local fixes still uncommitted at
+  `/home/user/trading-strategy` — branch advanced, local tree needs a
+  rebase before any push) · superbot-next #602 re-vendored (head `2755fdb`;
+  4 reds ← 2 resident lines; product suite 3647 passed) · venture-lab #282
+  **STALE, still v1.20.1**, 9 findings. `OQ-KIT-WAVE-REMNANTS` updated
+  (3 remnants, paste-ready hub steps).
+- **SBW duplicate pair: TWELFTH escalation cycle.** Both ids still enabled
+  at 12:21:48Z, both next 13:15:00Z; predicted 11:15Z double-fire happened
+  (coordinator-verified; pair's `last_fired` absent from this export's
+  records). `OQ-SBW-DUP-FAILSAFE` annotated.
+- **Lane liveness (12:32Z, `--ledger --diff` vs 08:28Z): 0 recoveries, 4
+  degradations** — gba-homebrew + pokemon-mod-lab LIVE→QUIET · mineverse +
+  superbot-next LIVE→QUIET (waking→WAKING-IDLE). STALLED set unchanged:
+  venture-lab · games Seat A · idle Seat B (all WAKING-IDLE; Seat B 14
+  fires since 07-20T07:37Z). Ledger appended.
+
+### Baton (12:3xZ refresh — midday posture)
+1. **Owner:** `OQ-SBW-DUP-FAILSAFE` (TWELFTH cycle — one-letter ask) ·
+   `OQ-WEBSITES-LABEL-MACHINERY` · **⚑ work-loop-cron guard proposal**
+   (Q-0194, fleet-triage § 11:30Z) · **`OQ-KIT-WAVE-REMNANTS`** — now 3
+   remnants, hub venue: #160 rebase-local-tree + 3-line fix + push ·
+   #602 2-line fix + push · #282 re-vendor to v1.20.2 — all paste-ready
+   in `docs/owner-queue.md`.
+2. **Posture:** **stand-down on the cross-repo fix/merge class continues**
+   (~07:2x–07:4xZ intervention) — prepared steps stay parked on owner
+   word; superbot strays #2179/#2178/#2174 stay untouched.
+3. **Next snapshot ~16:20Z** (4h I6 bar on the 12:21:48Z capture). Verify
+   there: (a) FM failsafe 12:31:48Z + 14:31Z fires landed; (b) SBW
+   13:15Z/15:15Z double-fires (twelfth→thirteenth); (c) STALLED trio
+   (venture-lab · games Seat A · idle Seat B) →?; (d) kit-wave remnant
+   terminal-state delta (esp. whether #282 re-vendors).
 4. **Watches (carried):** untracked self-continuing seat
    `session_018iFisKSjZnv9YWD4ETvd8W` (still no failsafe cron) · websites
    review-bake cron · websites label re-appearance (tripwire
