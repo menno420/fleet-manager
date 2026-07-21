@@ -1,1 +1,0 @@
-- `claude/fm-final-closer` · **land the FINAL CLOSER prompt in the v3 registry (program end 2026-07-22T00:00Z)** · docs/prompts/v3/ + control/status.md · 2026-07-21
