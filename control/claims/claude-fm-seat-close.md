@@ -1,1 +1,0 @@
-- `claude/fm-seat-close` · **seat final close** · docs/ + control/ + .sessions/ · 2026-07-21
