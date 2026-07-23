@@ -4,14 +4,14 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #187** · generated-at **2026-07-23T20:38Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #188** · generated-at **2026-07-23T21:38Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
 ### superbot (hub) — ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready…
 
 - suggested-id: `OQ-SUPERBOT-HUB-SIDE-RESIDUE-ONLY`
-- source: superbot/control/status.md @ `3be3e9b` · heartbeat `updated:` 2026-07-13T18:00:00Z
+- source: superbot/control/status.md @ `5faa39d` · heartbeat `updated:` 2026-07-13T18:00:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -91,24 +91,49 @@
 - ⚑ to manager: no longer a blocker-ask. Optional follow-up only — owner may create the standalone superbot-plugin-hello repo (still empty); exemplar is in-tree meanwhile.
 ```
 
-### product-forge — ⚑ OWNER-ACTION (OA-003, open)
+### product-forge — ⚑ OWNER-ACTION (OA-004, open) — **playtest the controller on real hardware** (the one
 
-- suggested-id: `OQ-PRODUCT-FORGE-OA-003-OPEN`
-- source: product-forge/control/status.md @ `e3fc844` · heartbeat `updated:` 2026-07-11T19:39:50Z
+- suggested-id: `OQ-PRODUCT-FORGE-OA-004-OPEN-PLAYTEST`
+- source: product-forge/control/status.md @ `e5214b7` · heartbeat `updated:` 2026-07-23T21:31:38Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
-⚑ OWNER-ACTION (OA-003, open)
-WHAT: turn on GitHub Pages for this repo.
-WHERE: repo Settings → Pages → Source → select "GitHub Actions".
-HOW: click only (no values to paste).
-WHY-IT-MATTERS: makes the games-web character-sheet preview publicly viewable.
-UNBLOCKS: the prepped deploy-pages workflow publishes games-web to
-  https://menno420.github.io/product-forge/ on its next run.
-VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
-  `actions/configure-pages` ("Get Pages site failed ... Not Found"); the site returns 404
-  (last verified ~2026-07-11T19:10Z). Enabling Pages is a repo-settings toggle only the
-  owner can perform.
+⚑ OWNER-ACTION (OA-004, open) — **playtest the controller on real hardware** (the one
+step CI cannot prove; ~5 min, two Android devices):
+1. Install the APK (Releases page, or the CI-run artifact) on the controller phone.
+2. Open it → grant Nearby devices → status shows the capability verdict.
+3. Tap Discoverable → pair from the target device → "Connected — controller is live".
+4. Open an emulator on the target; Gamepad pad should show up as a controller
+   (Keys pad = keyboard fallback). Hold a D-pad direction: movement must HOLD.
+VERIFIED-WHEN: one full session driving an emulator; report the phone model + verdict
+code (an `OEM_DISABLED` phone is the engine working as designed — try another phone).
+```
+
+### product-forge — ⚑ OWNER-ACTION (OA-005, open, optional) — **stable release signing**: store repo
+
+- suggested-id: `OQ-PRODUCT-FORGE-OA-005-OPEN-OPTIONAL`
+- source: product-forge/control/status.md @ `e5214b7` · heartbeat `updated:` 2026-07-23T21:31:38Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+⚑ OWNER-ACTION (OA-005, open, optional) — **stable release signing**: store repo
+secrets `PC_RELEASE_KEYSTORE_B64` (base64 PKCS12) + `PC_RELEASE_KEYSTORE_PASSWORD`;
+until then android-release signs each release with an ephemeral key (installs fine;
+cross-release update needs uninstall/reinstall). Any product-forge-scoped agent session
+can generate the keystore + set both secrets in one step (fleet capabilities ledger:
+secrets-create verified).
+```
+
+### product-forge — ⚑ OWNER-ACTION (OA-003, open, unchanged) — GitHub Pages toggle for games-web preview
+
+- suggested-id: `OQ-PRODUCT-FORGE-OA-003-OPEN-UNCHANGED`
+- source: product-forge/control/status.md @ `e5214b7` · heartbeat `updated:` 2026-07-23T21:31:38Z
+- possibly-covered-by: none matched (manual dedup needed)
+
+```text
+⚑ OWNER-ACTION (OA-003, open, unchanged) — GitHub Pages toggle for games-web preview
+(Settings → Pages → Source → "GitHub Actions"); deploy-pages runs 29126980391 /
+29128667052 failed at configure-pages until enabled.
 ```
 
 ### idea-engine — ⚑ needs-owner: none — run closing; the prior EAP-era ask is withdrawn at closeout (see docs/PROJECT-CLOSEOUT.…
@@ -133,5 +158,5 @@ VERIFIED-NEEDED: deploy-pages runs 29126980391 + 29128667052 both fail at
 
 ---
 
-10 candidate block(s) across 9 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
+12 candidate block(s) across 9 lane(s). Feed is additive-noise-tolerant by design: over-capture is curated out by the manager; silent stranding is the failure this feed exists to kill.
 
