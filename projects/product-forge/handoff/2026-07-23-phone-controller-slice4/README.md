@@ -1,8 +1,12 @@
 # Handoff — phone-controller Slice 4 (usable controller app + downloadable APK)
 
-> **Status:** `ready-to-land` · staged 2026-07-23 by the hub session (owner-live
-> directive: finish the controller app as a downloadable APK usable as a BT-HID input
-> device for other Android devices, e.g. driving emulators).
+> **Status:** `landed` · staged and then landed 2026-07-23 by the same hub session
+> (owner-live directive: finish the controller app as a downloadable APK usable as a
+> BT-HID input device for other Android devices, e.g. driving emulators). Mid-session
+> the owner disabled automode and `add_repo` brought product-forge into scope, so these
+> exact patches were pushed directly: product-forge PR #33 → squash `ccb1e98` → tag
+> `phone-controller-v0.4.0` → Release live with the APK + sha256. This directory stays
+> as provenance; `land.sh` is now only needed for a re-land from scratch.
 
 This directory is a **complete, verified, ready-to-push branch** for
 `menno420/product-forge`, staged hub-side as a `git format-patch` series (the hub
