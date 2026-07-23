@@ -2,7 +2,7 @@
 
 > **Status:** `complete`
 
-📊 Model: fable-5 · high · hub build/relay
+- **📊 Model:** fable-5 · high · feature build
 
 Time: 2026-07-23 · venue: owner-live hub session (fleet-manager scope) · branch
 `claude/controller-app-android-apk-j7tv10`
