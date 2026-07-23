@@ -4,7 +4,7 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #188** · generated-at **2026-07-23T21:38Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #189** · generated-at **2026-07-23T22:33Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
@@ -94,7 +94,7 @@
 ### product-forge — ⚑ OWNER-ACTION (OA-004, open) — **playtest the controller on real hardware** (the one
 
 - suggested-id: `OQ-PRODUCT-FORGE-OA-004-OPEN-PLAYTEST`
-- source: product-forge/control/status.md @ `e5214b7` · heartbeat `updated:` 2026-07-23T21:31:38Z
+- source: product-forge/control/status.md @ `dfcc68d` · heartbeat `updated:` 2026-07-23T21:31:38Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -112,7 +112,7 @@ code (an `OEM_DISABLED` phone is the engine working as designed — try another 
 ### product-forge — ⚑ OWNER-ACTION (OA-005, open, optional) — **stable release signing**: store repo
 
 - suggested-id: `OQ-PRODUCT-FORGE-OA-005-OPEN-OPTIONAL`
-- source: product-forge/control/status.md @ `e5214b7` · heartbeat `updated:` 2026-07-23T21:31:38Z
+- source: product-forge/control/status.md @ `dfcc68d` · heartbeat `updated:` 2026-07-23T21:31:38Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -127,7 +127,7 @@ secrets-create verified).
 ### product-forge — ⚑ OWNER-ACTION (OA-003, open, unchanged) — GitHub Pages toggle for games-web preview
 
 - suggested-id: `OQ-PRODUCT-FORGE-OA-003-OPEN-UNCHANGED`
-- source: product-forge/control/status.md @ `e5214b7` · heartbeat `updated:` 2026-07-23T21:31:38Z
+- source: product-forge/control/status.md @ `dfcc68d` · heartbeat `updated:` 2026-07-23T21:31:38Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
