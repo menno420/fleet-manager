@@ -30,6 +30,28 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 
 ## Active — genuinely-open owner asks
 
+- **`OQ-FORGE-SLICE4-LAND` — (VENUE: any product-forge-scoped session; ~5 min) land the
+  phone-controller Slice-4 handoff → downloadable controller-app APK.** *(added
+  2026-07-23, owner-live directive: finish the controller app as a downloadable APK
+  usable as a BT-HID input device for other Android devices / emulators)*
+  WHAT: a complete, pre-verified 4-commit branch for `menno420/product-forge` (combo
+  BT-HID controller app v0.4.0: gamepad+keyboard+media device, real controller UI,
+  CI APK artifact + tagged-release lane), staged as a `git format-patch` series at
+  [`projects/product-forge/handoff/2026-07-23-phone-controller-slice4/`](../projects/product-forge/handoff/2026-07-23-phone-controller-slice4/)
+  with README + `land.sh`. Verified at staging: Kotlin 29/29 · Python 26/26 · signed
+  APK built + apksigner-verified end-to-end. The hub session that staged it (2026-07-23)
+  ran fleet-manager-scoped, so the series lands from a product-forge-scoped venue.
+  HOW (simplest): start a Claude Code session **with product-forge in the repo scope**
+  and say: *"land the Slice-4 handoff in fleet-manager
+  projects/product-forge/handoff/2026-07-23-phone-controller-slice4/ — run land.sh,
+  merge the PR on green, tag phone-controller-v0.4.0"*. (Or run `land.sh` anywhere
+  product-forge pushes work.) Workflow-touching PR merge on green under the live
+  directive = recorded precedent (product-forge PR #29).
+  VERIFY: <https://github.com/menno420/product-forge/releases> shows **Phone
+  Controller v0.4.0** with `phone-controller-0.4.0.apk` (+ sha256) attached;
+  `android-ci` green on product-forge `main`. Then the phone-side playtest is
+  product-forge ⚑ OA-004 (owner, two devices, ~5 min).
+
 - **`OQ-SBW-DUP-FAILSAFE` — (VENUE: hub) delete one of the two enabled "SuperBot World failsafe wake" crons.**
   WHAT: two enabled crons with identical name + schedule (`15 1-23/2 * * *`) are waking two parallel
   SuperBot World seats every 2h — `trig_01XJJ88pQaQFRSpVAviCfAZe` (created 2026-07-17T22:11Z) and

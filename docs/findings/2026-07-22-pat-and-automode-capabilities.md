@@ -1,5 +1,7 @@
 # Findings — verified GitHub capability matrix + access-path mechanics (2026-07-22)
 
+> **Status:** `reference`
+>
 > **Provenance:** 2026-07-22, live owner session (model: claude-opus-4-8).
 > **Every row in a "verified" table was tested this session with a real HTTP
 > response** (reversible probes on the owner's own repos — throwaway refs, all
