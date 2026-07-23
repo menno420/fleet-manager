@@ -4,14 +4,14 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #180** · generated-at **2026-07-23T13:08Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #181** · generated-at **2026-07-23T14:51Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
 ### superbot (hub) — ⚑ needs-owner: hub-side residue only — flip the two deliberately-held mineverse FLAG drafts #2058/#2061 ready…
 
 - suggested-id: `OQ-SUPERBOT-HUB-SIDE-RESIDUE-ONLY`
-- source: superbot/control/status.md @ `b09bf7a` · heartbeat `updated:` 2026-07-13T18:00:00Z
+- source: superbot/control/status.md @ `fbf7727` · heartbeat `updated:` 2026-07-13T18:00:00Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
