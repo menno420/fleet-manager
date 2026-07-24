@@ -30,20 +30,26 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 
 ## Active — genuinely-open owner asks
 
-- **`OQ-APP-PLAN-GO` — (VENUE: hub chat) read the app plan and give go/no-go (2026-07-24).**
-  WHAT: the owner asked for a product plan from their pasted market research; the plan is
-  written — [planning/2026-07-24-app-plan-life-admin.md](planning/2026-07-24-app-plan-life-admin.md).
-  Recommendation: build **ShiftLife** (household shift-calendar; free-forever core, one-time Pro)
-  first, on a narrowly-built Personal Operations Core. Five decisions D1–D5 are pre-chewed in the
-  doc's §12 with defaults (ShiftLife-first · keep working name · €14.99 one-time Pro · owner
-  recruits 5–10 binnenvaart beta households · store accounts later with checklist).
-  WHERE: hub chat (or a comment on the plan PR).
-  HOW: read §1 TL;DR + §12 (2 minutes); reply **"go, defaults"** to start phase 0, or override any
-  D individually ("go, but D3: …"), or "no-go" with a sentence of direction.
-  WHY: everything downstream (new repo, scaffold, beta recruiting) hangs on this one answer.
-  UNBLOCKS: phase 0 (repo scaffold, design directions, pattern engine).
-  VERIFY: a follow-up session creates the `shiftlife` repo + phase-0 issues and links them here.
-  RISK: ✅ none — a plan approval; every default is reversible before phase 3 (store listing).
+- **`OQ-SHIFTLIFE-PHASE0` — (VENUE: hub chat) ShiftLife is live — pick the design (A/B/C) and start beta recruiting (2026-07-24).**
+  WHAT: the app plan got its GO (hub chat 2026-07-24) and phase 0 is EXECUTED same-day: private repo
+  [menno420/shiftlife](https://github.com/menno420/shiftlife) born at `d18aa30` — substrate-kit
+  adopted (gate green), npm monorepo, `@shiftlife/domain` rotation/overlap engine **27/27 tests
+  green** (incl. the binnenvaart 14/14 anti-phase story test), product law (`docs/PRODUCT.md`,
+  free-forever charter), `quality` CI. Two owner asks are now open: **(a) D-design** — pick
+  direction **A Stuurhuis** (dark instrument) / **B Thuishaven** (warm family) / **C Dienstlijst**
+  (paper rota); visual comparison: the claude.ai artifact "ShiftLife — design directions"
+  (in-repo: `docs/design/directions.html`); mixing allowed. **(b) D4** — recruit 5–10 binnenvaart
+  beta households (phase 0–1 window).
+  WHERE: hub chat.
+  HOW: reply e.g. **"design B"** (or "B, with A's dark mode") — one word starts phase-1 visual
+  work; for (b) just start asking around, no tooling needed yet.
+  WHY: the design pick sets the phase-1 Expo app's visual base; beta households are the phase-1
+  exit criterion (plan §7).
+  UNBLOCKS: phase 1 — app shell, household invite flow, ICS export, share page.
+  VERIFY: shiftlife `docs/current-state.md` "In flight" flips D-design to the picked direction;
+  phase-1 PRs reference it.
+  RISK: ✅ reversible until the phase-3 store listing.
+  Provenance: plan fm PR #486 (merged) → GO + build order hub chat 2026-07-24 → birth `d18aa30`.
 - **`OQ-SBW-DUP-FAILSAFE` — (VENUE: hub) delete one of the two enabled "SuperBot World failsafe wake" crons.**
   WHAT: two enabled crons with identical name + schedule (`15 1-23/2 * * *`) are waking two parallel
   SuperBot World seats every 2h — `trig_01XJJ88pQaQFRSpVAviCfAZe` (created 2026-07-17T22:11Z) and
@@ -441,6 +447,15 @@ These once-active items are moot; ids retained so nothing is lost, full bodies i
   resolved; flapping-quota mitigation only).
 
 ---
+
+## Resolved 2026-07-24 (hub chat GO — phase 0 executed same-session)
+
+- **`OQ-APP-PLAN-GO` — RESOLVED: owner GO** (hub chat 2026-07-24: "use my PAT to create a new
+  repo, seed it with the substrate-kit and then continue building this app"); defaults D1–D5
+  taken, no overrides voiced. Executed same-session: private repo `menno420/shiftlife` created
+  over the direct-PAT path and seeded (kit 1.20.1 enforcement-wired, all slots answered, strict
+  gate exit 0) + phase-0 scaffold pushed (birth commit `d18aa30`): domain engine 27/27 green,
+  product law, design directions, quality CI. Successor ask: `OQ-SHIFTLIFE-PHASE0` (Active above).
 
 ## Resolved 2026-07-21 (00:42Z night records slice — retire condition verified in the 00:42:48Z export, Q-0120; fm PR #410)
 
