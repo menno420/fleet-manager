@@ -30,26 +30,27 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 
 ## Active — genuinely-open owner asks
 
-- **`OQ-SHIFTLIFE-PHASE0` — (VENUE: hub chat) ShiftLife is live — pick the design (A/B/C) and start beta recruiting (2026-07-24).**
-  WHAT: the app plan got its GO (hub chat 2026-07-24) and phase 0 is EXECUTED same-day: private repo
-  [menno420/shiftlife](https://github.com/menno420/shiftlife) born at `d18aa30` — substrate-kit
-  adopted (gate green), npm monorepo, `@shiftlife/domain` rotation/overlap engine **27/27 tests
-  green** (incl. the binnenvaart 14/14 anti-phase story test), product law (`docs/PRODUCT.md`,
-  free-forever charter), `quality` CI. Two owner asks are now open: **(a) D-design** — pick
-  direction **A Stuurhuis** (dark instrument) / **B Thuishaven** (warm family) / **C Dienstlijst**
-  (paper rota); visual comparison: the claude.ai artifact "ShiftLife — design directions"
-  (in-repo: `docs/design/directions.html`); mixing allowed. **(b) D4** — recruit 5–10 binnenvaart
-  beta households (phase 0–1 window).
-  WHERE: hub chat.
-  HOW: reply e.g. **"design B"** (or "B, with A's dark mode") — one word starts phase-1 visual
-  work; for (b) just start asking around, no tooling needed yet.
-  WHY: the design pick sets the phase-1 Expo app's visual base; beta households are the phase-1
-  exit criterion (plan §7).
-  UNBLOCKS: phase 1 — app shell, household invite flow, ICS export, share page.
-  VERIFY: shiftlife `docs/current-state.md` "In flight" flips D-design to the picked direction;
-  phase-1 PRs reference it.
-  RISK: ✅ reversible until the phase-3 store listing.
-  Provenance: plan fm PR #486 (merged) → GO + build order hub chat 2026-07-24 → birth `d18aa30`.
+- **`OQ-SHIFTLIFE-PHASE0` — (VENUE: none — real-world action) recruit 5–10 binnenvaart beta households (2026-07-24).**
+  WHAT: the last open ShiftLife phase-0 ask. Phase 0 is otherwise DONE same-day as the GO:
+  private repo [menno420/shiftlife](https://github.com/menno420/shiftlife) born at `d18aa30`
+  (domain engine **27/27 tests green**, product law, `quality` CI), and **D-design RESOLVED**
+  2026-07-24 — owner brief ("C+B most professional/clear, A's contrast valued") with synthesis
+  delegated → the **Helder/Stuurhuis** system (Helder light default: C's ruled clarity + B's
+  warmth; Stuurhuis dark: direction A whole), tokens committed in shiftlife
+  `docs/design/tokens.json` (PR shiftlife#1). Remaining ask: **D4** — 5–10 binnenvaart
+  households willing to run the beta (phase 0–1 window; they are the phase-1 exit criterion,
+  plan §7).
+  WHERE: your own network (no tooling needed yet — a WhatsApp yes is enough).
+  HOW: ask couples/families where at least one person works a rotation (7/7, 14/14, 21/21 or
+  irregular); log names informally in hub chat when you have them — the seat turns them into
+  TestFlight/Play-track invites at phase-1 beta time.
+  WHY: real rosters and real households are the beta bar; the owner's community access is the
+  one thing the fleet cannot do itself.
+  UNBLOCKS: phase-1 exit (5+ beta households on the app for 2 weeks).
+  VERIFY: beta list noted in hub chat → mirrored into shiftlife `docs/current-state.md`.
+  RISK: ✅ none — informal asks, no commitments.
+  Provenance: plan fm PR #486 → GO hub chat 2026-07-24 → birth `d18aa30` → D-design resolved
+  same-day (shiftlife#1, Helder/Stuurhuis).
 - **`OQ-SBW-DUP-FAILSAFE` — (VENUE: hub) delete one of the two enabled "SuperBot World failsafe wake" crons.**
   WHAT: two enabled crons with identical name + schedule (`15 1-23/2 * * *`) are waking two parallel
   SuperBot World seats every 2h — `trig_01XJJ88pQaQFRSpVAviCfAZe` (created 2026-07-17T22:11Z) and
