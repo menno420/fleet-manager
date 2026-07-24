@@ -4,7 +4,7 @@
 >
 > **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
-> **Generation #203** · generated-at **2026-07-24T18:02Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
+> **Generation #204** · generated-at **2026-07-24T19:02Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >
 > Every block below is a VERBATIM `⚑ needs-owner` / `OWNER-ACTION` extraction from a lane heartbeat (`control/status*.md` at the ls-remote-verified HEAD the roster row cites). Nothing here lands in the owner queue automatically: the manager dedups, verifies (R17), and curates. `suggested-id` is a deterministic content-derived slug the manager may adopt; `possibly-covered-by` lists active queue ids citing the same PR — `none matched` means manual dedup is still needed.
 
@@ -94,7 +94,7 @@
 ### product-forge — ⚑ OWNER-ACTION (OA-004, open) — **playtest the controller on real hardware** (the one
 
 - suggested-id: `OQ-PRODUCT-FORGE-OA-004-OPEN-PLAYTEST`
-- source: product-forge/control/status.md @ `787ac85` · heartbeat `updated:` 2026-07-24T13:59:52Z
+- source: product-forge/control/status.md @ `df3ccc8` · heartbeat `updated:` 2026-07-24T18:59:14Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -112,7 +112,7 @@ code (an `OEM_DISABLED` phone is the engine working as designed — try another 
 ### product-forge — ⚑ RESOLVED 2026-07-24 (OA-005, was owner-optional; executed agent-side under the
 
 - suggested-id: `OQ-PRODUCT-FORGE-RESOLVED-2026-07-24`
-- source: product-forge/control/status.md @ `787ac85` · heartbeat `updated:` 2026-07-24T13:59:52Z
+- source: product-forge/control/status.md @ `df3ccc8` · heartbeat `updated:` 2026-07-24T18:59:14Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
@@ -128,7 +128,7 @@ ephemeral-signed ≤v0.8.0). Keystore lives ONLY in the repo secret.
 ### product-forge — ⚑ OWNER-ACTION (OA-003, open, unchanged) — GitHub Pages toggle for games-web preview
 
 - suggested-id: `OQ-PRODUCT-FORGE-OA-003-OPEN-UNCHANGED`
-- source: product-forge/control/status.md @ `787ac85` · heartbeat `updated:` 2026-07-24T13:59:52Z
+- source: product-forge/control/status.md @ `df3ccc8` · heartbeat `updated:` 2026-07-24T18:59:14Z
 - possibly-covered-by: none matched (manual dedup needed)
 
 ```text
