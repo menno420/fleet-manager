@@ -30,6 +30,20 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 
 ## Active — genuinely-open owner asks
 
+- **`OQ-APP-PLAN-GO` — (VENUE: hub chat) read the app plan and give go/no-go (2026-07-24).**
+  WHAT: the owner asked for a product plan from their pasted market research; the plan is
+  written — [planning/2026-07-24-app-plan-life-admin.md](planning/2026-07-24-app-plan-life-admin.md).
+  Recommendation: build **ShiftLife** (household shift-calendar; free-forever core, one-time Pro)
+  first, on a narrowly-built Personal Operations Core. Five decisions D1–D5 are pre-chewed in the
+  doc's §12 with defaults (ShiftLife-first · keep working name · €14.99 one-time Pro · owner
+  recruits 5–10 binnenvaart beta households · store accounts later with checklist).
+  WHERE: hub chat (or a comment on the plan PR).
+  HOW: read §1 TL;DR + §12 (2 minutes); reply **"go, defaults"** to start phase 0, or override any
+  D individually ("go, but D3: …"), or "no-go" with a sentence of direction.
+  WHY: everything downstream (new repo, scaffold, beta recruiting) hangs on this one answer.
+  UNBLOCKS: phase 0 (repo scaffold, design directions, pattern engine).
+  VERIFY: a follow-up session creates the `shiftlife` repo + phase-0 issues and links them here.
+  RISK: ✅ none — a plan approval; every default is reversible before phase 3 (store listing).
 - **`OQ-SBW-DUP-FAILSAFE` — (VENUE: hub) delete one of the two enabled "SuperBot World failsafe wake" crons.**
   WHAT: two enabled crons with identical name + schedule (`15 1-23/2 * * *`) are waking two parallel
   SuperBot World seats every 2h — `trig_01XJJ88pQaQFRSpVAviCfAZe` (created 2026-07-17T22:11Z) and

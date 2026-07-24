@@ -9,6 +9,7 @@
 
 | Date | Doc | Scope |
 |---|---|---|
+| 2026-07-24 | [App plan — Life Admin platform / ShiftLife first](2026-07-24-app-plan-life-admin.md) | Owner-requested product plan from the 2026-07-24 pasted market research: build a Personal Operations Core narrowly and ship **ShiftLife** (household shift-calendar, free-forever core + one-time Pro) as app #1; free-vs-paid charter, architecture, phased roadmap, GTM, kill criteria; owner go/no-go queued as `OQ-APP-PLAN-GO` |
 | 2026-07-19 | [Session-card idea backlog (GENERATED)](idea-backlog.md) | Machine-harvested index of every `.sessions/*.md` card 💡 idea (idea · source card · groomed/ungroomed pointer, age flag) — regenerate with `python3 scripts/gen_idea_backlog.py`; grooming passes start here instead of hand-grepping cards |
 | 2026-07-19 | [Next executable slices — night-shift idea groom](2026-07-19-next-slices.md) | Ranked queue of next fm-seat slices groomed from the ~8 night-shift session-card 💡 ideas (top 3: lane-liveness checker · regen-window skip detector · I8 provenance remedy); dropped/routed ideas recorded with reasons |
 | 2026-07-14 | [Fleet docs centralization plan](2026-07-14-central-docs-plan.md) | The 19-repo review's actionable plan making fm the single source of truth for fleet docs — 47 enumerated items in 5 classes, Slice 0 + Phases 1–5; landed here per its own §1 Self-application (moved from `docs/central-docs-plan.md`, permanent stub left) |
