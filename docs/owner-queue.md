@@ -30,13 +30,15 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 
 ## Active — genuinely-open owner asks
 
-- **`OQ-SHIFTLIFE-PHASE0` — two owner asks: beta names (real-world) + Expo account (5 min) — the product is live end-to-end (2026-07-25).**
-  WHAT: ShiftLife overnight state — working app (onboarding in 30s, day editor, Samen tab,
-  partner management, local persistence), calendar export, AND live infrastructure: the share
-  server runs Postgres-backed at `https://shiftlife-api-production.up.railway.app` (restart-
-  proven; "Maak live link" in the app publishes a real meekijkpagina + auto-updating agenda-
-  links; "Stop met delen" verified live). Eight shiftlife PRs merged green; multi-device sync
-  design decided (shiftlife `docs/design/multi-device-sync.md`). Two asks remain owner-only:
+- **`OQ-SHIFTLIFE-PHASE0` — two owner asks: beta names (real-world) + Expo account (5 min) — sync is DONE, the product is beta-ready pending on-phone QA (2026-07-25).**
+  WHAT: ShiftLife state — working app (onboarding in 30s, day editor, Samen tab, partner
+  management, local persistence), calendar export, live Postgres-backed share server at
+  `https://shiftlife-api-production.up.railway.app`, AND the **multi-device sync plan complete
+  (5/5 slices)**: partner invites work — live-proven with a two-device simulation against
+  production (A publishes → invite → B joins and edits → A sees B's edit; single-use codes;
+  "Vernieuw beveiliging" lock-change for a lost phone). Thirteen shiftlife PRs merged green,
+  every slice verified live before merge. The ONLY thing between this and a real beta is a
+  human tap-through. Two asks remain owner-only:
   **(a) D4 beta families** — 5–10 binnenvaart households where at least one person works a
   rotation (7/7, 14/14, 21/21 or irregular); a WhatsApp "yes" is enough; drop names in hub
   chat whenever.
