@@ -30,27 +30,33 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 
 ## Active — genuinely-open owner asks
 
-- **`OQ-SHIFTLIFE-PHASE0` — (VENUE: none — real-world action) recruit 5–10 binnenvaart beta households (2026-07-24).**
-  WHAT: the last open ShiftLife phase-0 ask. Phase 0 is otherwise DONE same-day as the GO:
-  private repo [menno420/shiftlife](https://github.com/menno420/shiftlife) born at `d18aa30`
-  (domain engine **27/27 tests green**, product law, `quality` CI), and **D-design RESOLVED**
-  2026-07-24 — owner brief ("C+B most professional/clear, A's contrast valued") with synthesis
-  delegated → the **Helder/Stuurhuis** system (Helder light default: C's ruled clarity + B's
-  warmth; Stuurhuis dark: direction A whole), tokens committed in shiftlife
-  `docs/design/tokens.json` (PR shiftlife#1). Remaining ask: **D4** — 5–10 binnenvaart
-  households willing to run the beta (phase 0–1 window; they are the phase-1 exit criterion,
-  plan §7).
-  WHERE: your own network (no tooling needed yet — a WhatsApp yes is enough).
-  HOW: ask couples/families where at least one person works a rotation (7/7, 14/14, 21/21 or
-  irregular); log names informally in hub chat when you have them — the seat turns them into
-  TestFlight/Play-track invites at phase-1 beta time.
-  WHY: real rosters and real households are the beta bar; the owner's community access is the
-  one thing the fleet cannot do itself.
-  UNBLOCKS: phase-1 exit (5+ beta households on the app for 2 weeks).
-  VERIFY: beta list noted in hub chat → mirrored into shiftlife `docs/current-state.md`.
-  RISK: ✅ none — informal asks, no commitments.
-  Provenance: plan fm PR #486 → GO hub chat 2026-07-24 → birth `d18aa30` → D-design resolved
-  same-day (shiftlife#1, Helder/Stuurhuis).
+- **`OQ-SHIFTLIFE-PHASE0` — two owner asks: beta names (real-world) + Expo account (5 min) — the product is live end-to-end (2026-07-25).**
+  WHAT: ShiftLife overnight state — working app (onboarding in 30s, day editor, Samen tab,
+  partner management, local persistence), calendar export, AND live infrastructure: the share
+  server runs Postgres-backed at `https://shiftlife-api-production.up.railway.app` (restart-
+  proven; "Maak live link" in the app publishes a real meekijkpagina + auto-updating agenda-
+  links; "Stop met delen" verified live). Eight shiftlife PRs merged green; multi-device sync
+  design decided (shiftlife `docs/design/multi-device-sync.md`). Two asks remain owner-only:
+  **(a) D4 beta families** — 5–10 binnenvaart households where at least one person works a
+  rotation (7/7, 14/14, 21/21 or irregular); a WhatsApp "yes" is enough; drop names in hub
+  chat whenever.
+  **(b) Expo account for on-phone QA** — the app is demo-able on your own phone: (1) install
+  the "Expo Go" app (App Store / Play Store), (2) create a free account at expo.dev, (3)
+  expo.dev → Account settings → Access tokens → create a token (name it e.g. `fleet`) and
+  paste it in hub chat — the seat then publishes the app and sends you a QR to scan; you can
+  revoke the token right after, any time.
+  WHERE: (a) your own network; (b) phone + expo.dev, ~5 minutes.
+  WHY: (a) real households are the phase-1 exit criterion (plan §7); (b) every screen so far
+  is container-verified (tests + bundles) — the first human tap-through is the QA the fleet
+  cannot do itself, and it is also simply the fun moment: your app, on your phone.
+  UNBLOCKS: (a) phase-1 exit; (b) on-phone QA + the beta build path (D5 store accounts stay
+  later, phase-2/3).
+  VERIFY: (a) names in hub chat → mirrored into shiftlife `docs/current-state.md`; (b) QR
+  sent in hub chat + first tap-through feedback recorded.
+  RISK: ✅ none — informal asks; the Expo token is revocable one click after use.
+  Provenance: plan fm PR #486 → GO 2026-07-24 → birth `d18aa30` → D-design (shiftlife#1) →
+  app shell (#2) → data entry (#3) → ICS export (#4) → api (#5) → deploy (#6) → wiring (#7)
+  → consolidation + sync design (#8).
 - **`OQ-SBW-DUP-FAILSAFE` — (VENUE: hub) delete one of the two enabled "SuperBot World failsafe wake" crons.**
   WHAT: two enabled crons with identical name + schedule (`15 1-23/2 * * *`) are waking two parallel
   SuperBot World seats every 2h — `trig_01XJJ88pQaQFRSpVAviCfAZe` (created 2026-07-17T22:11Z) and
