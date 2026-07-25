@@ -30,6 +30,23 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 
 ## Active — genuinely-open owner asks
 
+- **`OQ-SHIFTLIFE-CI` — (VENUE: 2-min click) GitHub Actions minutes for private repos are op — one click brings shiftlife CI back (2026-07-25).**
+  WHAT: shiftlife (private repo) CI degraded through the day and now fails with `startup_failure`
+  on every fresh run, while the PUBLIC fleet-manager CI ran green all day — best evidence: the
+  account's shared private-repo Actions minutes are exhausted (the billing meter is unreadable
+  with the fleet PAT, 403). The build continues under a transparent interim protocol (both
+  gates reproduced locally on the exact tree before every merge; each merge message says CI
+  could not run) — but CI is the merge gate of record and should come back.
+  WHERE: github.com, ingelogd als menno420.
+  HOW (aanbevolen — repo blijft privé): Settings (account) → **Billing and plans** → *Plans
+  and usage* → tab **Actions**: bekijk het verbruik; zet daar onder **Spending limits** een
+  klein Actions-budget (bijv. **$10/maand**). Klaar in 2 minuten.
+  ALTERNATIEF: maak `menno420/shiftlife` publiek (repo → Settings → General → Danger zone →
+  Change visibility) — Actions is dan gratis/ongemeterd; het plan zei "privé tot launch", dus
+  dit is jouw afweging (er staan geen geheimen in de repo; tokens leven op Railway).
+  VERIFY: reply "klaar" in hub chat — the seat reruns a wedged workflow; green = fixed and the
+  interim protocol retires.
+  RISK: ✅ klein bedrag met harde limiet, elk moment aanpasbaar.
 - **`OQ-SHIFTLIFE-PHASE0` — two owner asks: beta names (real-world) + Expo account (5 min) — sync is DONE, the product is beta-ready pending on-phone QA (2026-07-25).**
   WHAT: ShiftLife state — working app (onboarding in 30s, day editor, Samen tab, partner
   management, local persistence), calendar export, live Postgres-backed share server at
