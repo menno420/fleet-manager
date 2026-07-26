@@ -228,8 +228,15 @@ reversible.
 `roster-regen.yml` regenerates a roster of seats that no longer exist, ~hourly,
 forever. With the fleet at 9 repos and no autonomous seats, the roster, the
 trigger-health watchdog and the owner-queue machinery are all monitoring a
-program that ended. Reduce to daily or disable; keep `merge-on-green.yml` and
-`substrate-gate.yml`.
+program that ended.
+
+**Full CI treatment: [`2026-07-26-ci-consolidation.md`](2026-07-26-ci-consolidation.md).**
+Measured live: **97 workflow files, 397 Actions runs/24h, 46% cron** — and ~44%
+of the workflow surface is autonomous-agent merge plumbing. The important
+sequencing point is that **archiving a repo stops its scheduled workflows**, so
+W6 removes ~60 workflow files and ~175 daily cron runs *for free*. Do not
+hand-tune 97 files first; land the repo consolidation, then standardize the
+survivors on three uniform checks (`test` / `build` / `deploy`).
 
 ---
 
