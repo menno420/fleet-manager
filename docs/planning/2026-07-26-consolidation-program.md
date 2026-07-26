@@ -57,7 +57,17 @@ hasn't said) picks the next NOW from the top of any track. **Verify before
 fold** — no repo is merged or archived before its conformance/truth pass. Every
 completed step appends a row to §7 with its PR.
 
-### ➡ NOW: **D1 — refresh this repo's boot file** *(this PR — review it)*
+### ➡ NOW: **E1 — the final EAP email** *(owner-priority, ~2026-07-27: "probably
+the most important thing we can do separate from our own repo work." Plan +
+source map + seeded candidate list:
+[`2026-07-26-final-eap-email-plan.md`](2026-07-26-final-eap-email-plan.md).
+Then next: D2, fleet-manager truth pass.)*
+
+### Track E — one-off, owner-paced
+
+| Step | What | Done when |
+|---|---|---|
+| **E1** | Help the owner write and send the **final EAP review email**: fresh thread, short, Part 1 owner voice / Part 2 Claude, the numbered wish list + the good parts. Method + sources: the plan doc above. | The owner has sent it from a fresh compose; §7 row added; the unsent 07-18 draft + email-pack get a superseded note. |
 
 ### Track D — Documentation *(priority 1, OD-7)*
 
@@ -130,4 +140,5 @@ line each, never blocking.*
 |---|---|---|---|
 | 2026-07-26 | — | Program created; fleet account (read-back) reviewed by owner; OD-1..OD-9 recorded | fm #540/#541/#543/#545 + this |
 | 2026-07-26 | D1 | Hub boot file refreshed to the post-program era | fm #547 |
-| 2026-07-26 | — | §6 forks answered by owner → OD-10/11/12 recorded; Gmail layer read on owner direction (EAP thread · vendor thread), proxybench origin recorded | this PR |
+| 2026-07-26 | — | §6 forks answered by owner → OD-10/11/12 recorded; Gmail layer read on owner direction (EAP thread · vendor thread), proxybench origin recorded | fm #548 |
+| 2026-07-26 | — | **E1 planned + set as NOW** (owner: final EAP email is tomorrow's priority): plan, source map, seeded candidate list · verified the 07-18 follow-up draft was never sent (its findings are unused material) | this PR |
