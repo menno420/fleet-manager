@@ -1,21 +1,20 @@
 # Repo consolidation plan — 2026-07-12 (phase B, owner-facing)
 
-> ## ⚠ SUPERSEDED — 2026-07-26
+> **Status:** `historical`
 >
-> **Superseded by [`2026-07-26-fleet-consolidation-plan.md`](2026-07-26-fleet-consolidation-plan.md)**
+> **⚠ SUPERSEDED 2026-07-26** by
+> [`2026-07-26-fleet-consolidation-plan.md`](2026-07-26-fleet-consolidation-plan.md)
 > (owner-directed, product topology).
 >
 > This plan organized the fleet by **agent seat** — 19 → 16 repos across 8
 > seats. The autonomous program closed 2026-07-22 and those seats no longer
 > exist, so its target end-state is no longer reachable or desirable. Its §
-> "First structured choice" delete-vs-archive contradiction is also **resolved**:
-> the owner ruled archive-not-delete on 2026-07-26 (recorded as OD-3 in the
-> successor plan).
+> "First structured choice" delete-vs-archive contradiction is also
+> **resolved**: the owner ruled archive-not-delete on 2026-07-26 (recorded as
+> OD-3 in the successor plan).
 >
 > Kept for provenance: its census evidence and per-repo verdicts are still the
 > record of what each repo held on 2026-07-12.
-
-> **Status:** `superseded`
 >
 > **Proposed — awaiting owner review. Nothing here self-executes.**
 > Finalized from the phase-A census

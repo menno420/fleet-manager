@@ -33,7 +33,7 @@ superseded here rather than revived.
   proves the subtree-split + secrets recipe W2/W3 reuse).
 - **`docs/planning/README.md`** — index row for the new plan.
 - **`docs/planning/2026-07-12-repo-consolidation-plan.md`** — SUPERSEDED banner;
-  status `plan` → `superseded`. Its delete-vs-archive contradiction is recorded
+  status `plan` → `historical`. Its delete-vs-archive contradiction is recorded
   as resolved by OD-3.
 
 ## Owner decisions recorded (hub chat, 2026-07-26)
