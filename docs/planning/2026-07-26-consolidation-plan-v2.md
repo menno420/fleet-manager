@@ -1,6 +1,14 @@
 # Fleet plan v2 — verification-led consolidation
 
-> **Status:** `plan` — owner-directed, 2026-07-26.
+> **Status:** `historical`
+>
+> **⚠ SUPERSEDED same day by [`2026-07-26-consolidation-program.md`](2026-07-26-consolidation-program.md)**
+> — the owner set the definitive frame in the hub chat (evening): Projects
+> terminated, regular sessions possibly indefinitely; pace slow; documentation
+> first, websites second; CI toward one check per repo; the deliverable is a
+> step-ledger program any future session can continue. This plan's analysis
+> (review surfaces, verification-led folds, the conformance instrument) is
+> carried into that program; read the program, not this.
 >
 > **Supersedes [`2026-07-26-fleet-consolidation-plan.md`](2026-07-26-fleet-consolidation-plan.md)**
 > (v1, merged as fm #540) after the owner pushed back that the fleet's own docs
