@@ -47,6 +47,24 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   dit is jouw afweging (er staan geen geheimen in de repo; tokens leven op Railway).
   VERIFY: niets te doen — de seat bewaakt het vanzelf en meldt het als CI opnieuw wegvalt.
   RISK: ✅ klein bedrag met harde limiet, elk moment aanpasbaar. Niets doen mag ook.
+- **`OQ-SHIFTLIFE-PRO-DRIFT` — (VENUE: 1-min decision, geen haast) Een Pro-functie is per ongeluk gratis geworden — jouw plan, jouw keuze wat er nu in het plan staat (2026-07-26).**
+  WHAT: bij een controle van het product tegen het goedgekeurde plan bleek dat **verlof-advies**
+  ("vraag deze 4 dagen aan → 12 dagen samen vrij") gratis is uitgeleverd, terwijl het plan die
+  vraag onder **Pro** zet (§3, Pro-punt 4 *Deep statistics*: "als ik de 3e t/m 10e vrij neem,
+  welke overlap-weekenden blijven over?"). Tegen het charter is het een **test-3** functie
+  (gemak/inzicht), geen test-1 (de kernvraag "wanneer werk ik, en wanneer zijn we samen vrij?"
+  werd al beantwoord zonder deze functie) — dus het had achter Pro **mogen** staan.
+  **Het gevolg is onomkeerbaar in de code:** charter-regel 4 (geen regressie) zegt dat een
+  functie die gratis is uitgeleverd nooit meer achter de betaalmuur mag. De functie blijft dus
+  gratis. Dat is een prima uitkomst — het is een sterk verhaal richting gebruikers — maar het
+  was **mijn beslissing en niet de jouwe**, en het is er één over geld. Dat hoor je te weten.
+  WHERE/HOW: niets technisch te doen. Alleen: wil je dat het plan wordt bijgewerkt zodat
+  verlof-advies officieel bij de gratis kern hoort (aanbevolen — dan klopt het document weer),
+  of wil je dat het als afwijking gemarkeerd blijft staan? Eén zin in de hub-chat is genoeg.
+  WHY: het plan zegt dat elke wijziging die monetisatie raakt moet benoemen welke charter-test
+  hij doorstaat. Dat is bij die PR niet gebeurd. Het proces is hersteld (het staat nu vast in
+  `docs/current-state.md` van shiftlife); dit item bestaat zodat jij de laatste stem hebt.
+  RISK: ✅ geen. Niets doen betekent: verlof-advies blijft gratis, plan blijft afwijken.
 - **`OQ-SHIFTLIFE-PHASE0` — two owner asks: beta names (real-world) + Expo account (5 min) — sync is DONE, the product is beta-ready pending on-phone QA (2026-07-25).**
   WHAT: ShiftLife state — working app (onboarding in 30s, day editor, Samen tab, partner
   management, local persistence), calendar export, live Postgres-backed share server at
