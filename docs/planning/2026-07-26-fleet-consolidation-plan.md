@@ -1,6 +1,24 @@
-# Fleet consolidation plan — 2026-07-26 (product topology)
+# Fleet consolidation plan — 2026-07-26 (product topology) · v1
 
-> **Status:** `plan` — owner-directed, drafted 2026-07-26 from a live census of
+> **Status:** `historical`
+>
+> **⚠ SUPERSEDED same day by [`2026-07-26-consolidation-plan-v2.md`](2026-07-26-consolidation-plan-v2.md)**
+> — the owner pushed back that this repo's own docs had not been read, and he was
+> right. v1 was built on the GitHub API census alone and missed
+> `owner-reflection-2026-07-21.md` (*"the highest-value work: verification, not
+> more shipping"*), the owner's existing 8-Project grouping in `fleet-triage.md`,
+> and the standing owner-queue items that already answered two of its three
+> questions. **v2 corrects the framing** (review surfaces, not repo count) and
+> **reverses one concrete call** (websites' control-plane is the owner's review
+> surface — it stays live, it does not get archived).
+>
+> Kept for provenance: its **census evidence is still sound and is reused by v2** —
+> the 22-repo measurement, the stranded-asset table, and the `superbot-games`
+> plugin-packaging finding.
+>
+> Original header follows.
+>
+> Owner-directed, drafted 2026-07-26 from a live census of
 > all 22 repos (GitHub API at the dates below, not from the roster's derived
 > snapshot). Owner decisions taken in the hub chat 2026-07-26 are recorded
 > inline as **OD-1/2/3**.

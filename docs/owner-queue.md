@@ -413,15 +413,20 @@ fleet-wide merges/ready-flips live in
   `roster-regen.yml` keeps firing ~hourly with no seats left to report, so the
   recommended reduce-to-daily (or disable) is now the sensible default; see
   [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3 item 5 / §4 checklist item 2.*
-- **`OQ-CONSOLIDATION-DELETE-VS-ARCHIVE` — delete vs archive (the repo-consolidation gate).** Two
-  of your own instructions contradict ("delete no repos — they are the fleet's memory" vs "delete
-  the test repos"); one letter resolves it. **Recommended A** — harvest → archive (read-only),
-  delete NOTHING (reversible, honors the standing ruling, still removes repos from the active
-  roster). B — deletion, as an explicit written override, per repo, after ≥7-day cooling-off. This
-  gates the archive clicks (`OQ-CONSOLIDATION-ARCHIVE-{FORGE,SONNET5,FABLE5}`) and the release
-  decisions (`OQ-CFGDIFF-RELEASE-DECISION`, `OQ-ENVDRIFT-RELEASE-DECISION`). Plan:
-  [`planning/2026-07-12-repo-consolidation-plan.md`](planning/2026-07-12-repo-consolidation-plan.md).
-  *(Re-evaluate scope: fewer live repos may make the whole program moot.)*
+- **`OQ-CONSOLIDATION-DELETE-VS-ARCHIVE` ✅ RESOLVED 2026-07-26 — owner answered A (archive, never
+  delete).** Answered in the hub chat 2026-07-26 ("Archive, don't delete"), recorded as **OD-3** in
+  [`planning/2026-07-26-consolidation-plan-v2.md`](planning/2026-07-26-consolidation-plan-v2.md).
+  This closes the standing contradiction between the 2026-07-10 "delete no repos — they are the
+  fleet's memory" ruling and the 2026-07-12 "delete the test repos" ask: **the 2026-07-10 ruling
+  stands.** Archive is read-only, hidden from the active list, free, and reversible in one click.
+  **UNBLOCKS — and this is now time-ordered, not optional:** archiving **freezes the tag-push path
+  forever**, so `OQ-CFGDIFF-RELEASE-DECISION` (cfgdiff v0.1.1, codetool-lab-sonnet5) and
+  `OQ-ENVDRIFT-RELEASE-DECISION` (envdrift v0.1.0/v0.2.0, codetool-lab-fable5) must be
+  **tagged + Released BEFORE** their repos are archived. Both are finished, documented CLIs
+  sitting at **zero releases**. `codetool-lab-opus4.8` stays unarchived regardless (live mdverify
+  install URLs). Agent-doable via the direct-token path; no owner click needed for the releases
+  themselves. Superseding plan: v2 above (v1 = `planning/2026-07-26-fleet-consolidation-plan.md`;
+  the 2026-07-12 plan is `historical`).
 - **`OQ-RAILWAY-PROJECT-SPLIT` — websites Railway duplication.** Services exist in BOTH
   `reliable-grace` (live) and `superbot-websites` (parallel copy). Decide the canonical home; the
   Anthropic email links the reliable-grace URLs, so **keep them reachable** while that reference
