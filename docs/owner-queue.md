@@ -74,11 +74,14 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   "Vernieuw beveiliging" lock-change for a lost phone). Every shiftlife PR merged
   green, each slice verified live before merge — phase-1 polish since then added a custom
   rooster-builder, verlof/ziek incl. multi-day ranges, the 🌴 "samen vrije periodes" badge and
-  a friendly state for when a live link is revoked. **31 PRs merged as of 2026-07-26**, and the
-  free core now scores **7 of 8 items done, 1 half** against the plan — tracked per-item, with
-  the module and test behind each row, in shiftlife `docs/plan-conformance.md`. That checklist
-  found and fixed a real gap on the day it was written (plan item 1 asks for **cursusdagen**
-  and no screen could create one, though the engine had handled them for months). The ONLY
+  a friendly state for when a live link is revoked. The free core now scores **7 of 8 items
+  done, 1 half** against the plan — tracked per-item, with the module and test behind each
+  row, in shiftlife `docs/plan-conformance.md`. (Deliberately no PR count here: it goes stale
+  within a day, and the per-item scorecard is the number that actually means something.) That
+  checklist found and fixed a real gap on the day it was written — plan item 1 asks for
+  **cursusdagen** and no screen could create one, though the engine had handled them for
+  months — and the follow-ups found the same shape twice more, in code that hand-copied a list
+  of values instead of deriving it. The ONLY
   thing between this and a real beta is a human tap-through. Two asks remain owner-only —
   and **(b) is no longer only QA: it is now the single thing blocking a named plan item**,
   since reminders (item 6) is the last free-core gap and a notification cannot be proven
