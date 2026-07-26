@@ -193,6 +193,28 @@ Recorded as OD-1/2/3 in v1 and now reconciled against the standing queue:
   worth a clean sweep independent of everything else — any wake-timer left on a
   frozen session burns quota on every fire for nothing.
 
+## 7b · Addendum — owner corrections, same day (evening)
+
+Recorded from the hub chat after this plan merged; they amend §4 and §5:
+
+- **OD-4 — `idea-engine` and `sim-lab` REMAIN ACTIVE.** Not archive material:
+  the owner intends them as standing assets for future projects — the idea
+  corpus (566 idea files across 13 per-repo sections, unreviewed by the owner)
+  and the verification instrument (267 verdict dirs; the 4-gate reproduce-
+  from-scratch method). The target becomes **7 review surfaces** — the pair is
+  surface #7 (Ideas Lab), two repos / one surface, like Game Lab. §5's V4 row
+  no longer includes them; their V-cycle is a **conformance pass only**, not a
+  fold. Open sub-question routed to the owner: standing loop vs on-demand.
+- **Full-corpus read-back completed.** The owner asked for a documentation-
+  derived account he can diff against reality before consolidation proceeds:
+  [`../fleet-account-2026-07-26.md`](../fleet-account-2026-07-26.md). Facts
+  found there that bear on this plan: `superbot` has been **frozen as the
+  behavioral oracle since 2026-07-17** (the "stop landing work in old superbot"
+  goal is already policy); the recorded cutover ladder ends in a **7-day shadow
+  run** (W3's shape is already designed); venture-lab's pre-registered **T+14
+  kill-clock dates to 2026-07-26**; and consolidation itself is the planned
+  phase 2 of ruling **Q-0266** ("volume-first … consolidate later").
+
 ## 8 · What is deliberately not done
 
 - **No repo is merged before it is verified.** That inverts the point.
