@@ -1,7 +1,7 @@
 {
   "_source_of_truth": "GENERATED — the authored master is the LANES constant in scripts/gen_roster.py; regenerated with every roster generation. Do not hand-edit (central-docs-plan C3).",
-  "generation": 238,
-  "generated_at": "2026-07-26T12:41:32Z",
+  "generation": 239,
+  "generated_at": "2026-07-26T14:11:11Z",
   "lanes": [
     {
       "lane": "superbot (hub)",
@@ -225,6 +225,16 @@
       "disposition": "archived",
       "tokens": [
         "codetool-lab-sonnet5"
+      ]
+    },
+    {
+      "lane": "shiftlife",
+      "repo": "shiftlife",
+      "github": "https://github.com/menno420/shiftlife",
+      "disposition": "live",
+      "tokens": [
+        "shiftlife",
+        "app-plan-life-admin"
       ]
     },
     {
