@@ -1,0 +1,132 @@
+# The consolidation program — the working plan
+
+> **Status:** `living-ledger` — **THE plan.** The owner works this program
+> together with any future session, one step at a time. Update the step ledger
+> and the NOW pointer as steps complete; nothing else about this file should
+> churn. Supersedes [`2026-07-26-consolidation-plan-v2.md`](2026-07-26-consolidation-plan-v2.md)
+> (kept as analysis); background: [`../fleet-account-2026-07-26.md`](../fleet-account-2026-07-26.md)
+> (the full documentation-derived read-back, owner-reviewed 2026-07-26).
+
+## 0 · The goal, in the owner's sentence
+
+> "Create a plan from which I can work together with any future session to
+> consolidate the repos in a structured way, one step at a time."
+
+And the quality bar, also his: **make all the repos feel right** — a fresh
+session orients correctly and fast (this program exists partly because one
+session needed three tries), the documentation tells the truth, the websites
+reflect reality, and CI is a few checks that mean something.
+
+## 1 · Owner directives (standing — do not re-ask these)
+
+Recorded from the owner live in the hub chat; each is a durable decision.
+
+| # | Date | Directive |
+|---|---|---|
+| OD-1 | 07-26 | `superbot-next` is the bot's future; **live testing gates the cutover**. Old `superbot` is already frozen as the behavioral oracle (recorded 2026-07-17). |
+| OD-2 | 07-26 | `venture-lab` stays a live repo. |
+| OD-3 | 07-26 | **Archive, never delete.** Nothing is deleted under this program. |
+| OD-4 | 07-26 | **`idea-engine` + `sim-lab` remain active** — standing assets for future projects (566 idea files; the 4-gate verification method). |
+| OD-5 | 07-26 | **The claude.ai Projects are terminated (since 07-21).** May return ~August for general use — not a fact. Everything runs in **regular sessions**, possibly indefinitely. No return to EAP-scale parallelism — that scale existed to produce vendor feedback. |
+| OD-6 | 07-26 | **Pace: slow.** Nothing needs to happen quickly, nothing needs profit now, incremental testing and reviews. |
+| OD-7 | 07-26 | **Priorities: documentation first, websites second.** |
+| OD-8 | 07-26 | **Websites:** execute the cutover — the new `websites`-repo services replace the old `superbot`-repo sites **under the old names**; then rework the sites that don't serve their purpose, one at a time. (The cutover plan exists and is prerequisite-cleared: websites `docs/plans/site-consolidation-cutover.md`.) |
+| OD-9 | 07-26 | **CI: consolidate to a few checks — ideally ONE required check per repo** wherever possible. |
+
+## 2 · Target picture — 7 sections
+
+| Section | Repos | End state |
+|---|---|---|
+| ShiftLife | `shiftlife` | The consumer app. Healthy — untouched by this program. |
+| SuperBot | `superbot-next` absorbing games · idle · mineverse · plugin-hello (+ botsite/dashboard code); old `superbot` archived **only after** the owner-paced cutover | One bot, one repo. |
+| Phone Controller | `phone-controller` (graduated from product-forge) | Own repo, own APK releases. |
+| Game Lab | `gba-homebrew` + `pokemon-mod-lab` | Two repos forever (copyright rail), one section. |
+| Venture | `venture-lab` | Live; owner-paced publishing. |
+| Ideas Lab | `idea-engine` + `sim-lab` | **Active** (OD-4); conformance + truth pass only, no fold. |
+| Workshop | `substrate-kit` + `fleet-manager` + `websites` | The kit, the records, the owner's visible surfaces. |
+| *(archive)* | codetool ×3 (opus4.8 stays unarchived — live mdverify URLs) · product-forge remainder · trading-strategy · old superbot (post-cutover) · `curious-research` stays as-is (owner's parked gift) · `proxybench` → fold into a tools home or archive | Read-only, zero attention cost. |
+
+## 3 · The step ledger
+
+**Rules of the ledger:** steps are small (one session each), sequential within
+a track, and only ONE step is NOW at a time — the owner (or the session, if he
+hasn't said) picks the next NOW from the top of any track. **Verify before
+fold** — no repo is merged or archived before its conformance/truth pass. Every
+completed step appends a row to §7 with its PR.
+
+### ➡ NOW: **D1 — refresh this repo's boot file** *(this PR — review it)*
+
+### Track D — Documentation *(priority 1, OD-7)*
+
+| Step | What | Done when |
+|---|---|---|
+| **D1** | Refresh `.claude/CLAUDE.md` (hub boot file) to the post-program era: sessions-not-seats, this program as the entry point, live-vs-historical map. | A fresh session orients from the boot file alone, without the 3-try failure. **← this PR** |
+| **D2** | **The truth pass, one repo per session** — for each active repo: boot docs say what it is NOW; seat-era docs get an `historical` era-banner (never rewritten); its closeout + current-state are linked from the front door. Order: `fleet-manager` → `shiftlife` → `superbot-next` → `websites` → `substrate-kit` → `idea-engine`/`sim-lab` → `venture-lab` → game repos → the archive-bound. | Per repo: the fresh-session test passes (a cold session states the repo's purpose, live state, and next step correctly from ≤3 files). |
+| **D3** | Fill the empty journal guidebooks with the real recurring traps (fm's `.session-journal.md` is placeholder headings today). Seed list: exit-code-read-through-a-pipe; proxied-vs-direct GitHub paths; born-red flow; MCP PR-read staleness; badge vocabulary. | Guidebook sections non-empty in fm + each active repo, each trap citing its incident. |
+| **D4** | Retire the dead apparatus *records*: era-banner the roster/trigger/prompt-registry docs as historical; decide roster-regen cadence per `OQ-FM-APPARATUS-SIZING` (recommendation on file: daily or off, keep `workflow_dispatch`). | Roster no longer regenerates hourly against a seatless fleet; docs that describe the seat era say so at the top. |
+
+### Track W — Websites *(priority 2, OD-8)*
+
+| Step | What | Done when |
+|---|---|---|
+| **W1** | Execute the cutover, **review-site first** (lowest risk), per websites `docs/plans/site-consolidation-cutover.md`: repoint references → reclaim old names → retire the three `reliable-grace` surfaces (`review-…-f027`, `superbot-app`, `superbot-dashboard`). **HARD RAIL: never touch the `worker` service (the LIVE Discord bot) or the two Postgres DBs in that project.** The old "keep reliable-grace URLs reachable for the vendor reference" constraint has lapsed (correspondence concluded 07-21; verified 07-26). | One estate; old names serve the new sites; bot + DBs untouched. |
+| **W2** | Per-site purpose review, one site at a time (control-plane → botsite → dashboard → review): does each page show what it is, what it does, its most important features (the owner's clarity bar)? Rework what fails it. | Owner signs off per site. |
+| **W3** | Make this program visible: a control-plane page that renders §7 progress + the NOW pointer, so the owner reviews by looking, not asking. | The page exists and is current. |
+
+### Track R — Repos *(verification-led, slow)*
+
+| Step | What | Done when |
+|---|---|---|
+| **R1** | Generalize shiftlife's `plan-conformance.md` into the conformance template (claims vs code; module + test per row; wrong row > tidy table). | Template in this repo; applied first to `superbot-games` (known drift: claims plugin-shipping, has no packaging). |
+| **R2** | Graduate `phone-controller` to its own repo (subtree split, history + release workflow + signing secret carried; pointer left behind). | Clean clone builds a signed APK; CI green; product-forge remainder ready for archive queue. |
+| **R3** | Releases-before-archive: tag + Release `cfgdiff` v0.1.1 and `envdrift` v0.1.0/v0.2.0 (archiving freezes tag-push forever — this is the one time-ordered step). | Both released; their repos join the archive queue. |
+| **R4** | Bot consolidation, one sub-step per session, each behind a conformance pass: idle+plugin-hello → `plugins/` (real move, already pinned); games → plugins **after** its adapters are actually built; mineverse → `web/` keeping its fail-closed rails as CI; botsite/dashboard code per W-track outcome. | superbot-next boots with plugins loaded; 533-golden parity stays green. |
+| **R5** | Archive the emptied/parked repos per OD-3, one at a time, each verified migrated first. | Active repo list ≈ the §2 table. |
+| **R6** | Ideas-Lab truth pass (active, no fold): make the two-era reality legible from the front door (fleet-ideation corpus vs the math-verification loop); surface the 566-file idea corpus so the owner can actually browse it. | Owner can find and read the idea corpus without archaeology. |
+| **R7** | SuperBot cutover ladder, owner-paced (the ladder already exists in the record): live-test prep → test guild → wallet-race concurrency tests → 1 live drive → 7-day shadow → cutover → rename → archive old superbot. | The bot runs on superbot-next in production. |
+
+### Track C — CI *(OD-9; mostly falls out of R)*
+
+| Step | What | Done when |
+|---|---|---|
+| **C1** | The model: **one required check per repo** — the `websites` pattern (everything runs inside `bootstrap.py`/one workflow behind a single required context). Apply to each active repo as its D2/R step touches it; never retrofit archive-bound repos. | Each active repo: 1 required check (2 max where an artifact build is genuinely separate). |
+| **C2** | Delete the agent merge-plumbing class where sessions are attended (keep `merge-on-green`/enabler only where it still lands PRs — note: private repos can't use GitHub's native auto-merge on this plan, so shiftlife keeps its enabler). | No workflow exists whose only job was serving the terminated seats. |
+| **C3** | Confirm the pre-close standing failsafe crons are actually disabled (page the trigger registry to exhaustion; wipe survivors — the 07-21 snapshot showed 10 standing crons enabled; unverified since). | Registry shows zero seat-era crons enabled. |
+
+## 4 · How any session works this program
+
+1. **Boot:** hard-sync main → read `.claude/CLAUDE.md` → this file → the NOW step.
+2. **One step per session** unless the owner directs otherwise. Small PRs, kit
+   discipline (born-red card, `check --strict` green, real exit codes — never
+   `$?` after a pipe).
+3. **Verify-first:** the live surface beats any doc; each fold is preceded by
+   its conformance pass.
+4. **Initiative + the flag rule (owner-stated):** take initiative in organizing
+   and planning; **flag to the owner only the genuinely ambiguous forks** you
+   cannot resolve from the record — add them to §6, don't block on them.
+5. **Close:** update §7 + move the NOW pointer + session card. Leave the truth
+   accurate.
+
+## 5 · What this program is NOT
+
+No deadlines. No revenue pressure. No deletions (OD-3). No seat revival, no
+mass parallelism (OD-5). No merging of the two GBA repos (copyright rail). No
+production-bot changes outside R7's owner-paced ladder.
+
+## 6 · Open forks for the owner (non-blocking — answer whenever)
+
+1. **Ideas Lab mode** (OD-4 says active — in which sense?): standing loop again,
+   or **on-demand** when a project needs ideation/verification *(assumed:
+   on-demand, per OD-5)*? And: continue the math-verification cycle, or refocus
+   the loop on product ideas for the consolidated sections?
+2. **Venture T+14:** the pre-registered kill-clock packet dated 2026-07-26 says
+   pause/delist the $29 SKU absent a sale/inbound. Apply it, or let the listing
+   sit? *(No hurry per OD-6; the packet's own default is apply.)*
+3. **`proxybench`:** fold into a tools home (kit `tools/`?), or archive?
+
+## 7 · Progress ledger (append-only)
+
+| Date | Step | What landed | PR |
+|---|---|---|---|
+| 2026-07-26 | — | Program created; fleet account (read-back) reviewed by owner; OD-1..OD-9 recorded | fm #540/#541/#543/#545 + this |
+| 2026-07-26 | D1 | Hub boot file refreshed to the post-program era | this PR |
