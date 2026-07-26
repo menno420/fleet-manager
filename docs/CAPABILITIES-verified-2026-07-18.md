@@ -30,6 +30,17 @@ green PR, a stale branch, or a needed variable change "for the owner."
   read + write, **all 3 projects** (account-scoped).
 - **Land on a PR-gated `main`** — open a PR and merge it (the normal flow);
   don't try to commit straight to a protected branch.
+- **Read CI status for a PR** — two working paths, both verified 2026-07-26 on
+  `menno420/shiftlife#31`: `mcp__github__pull_request_read` with
+  `method: get_check_runs` (returns every job with `status`/`conclusion`), or
+  direct-PAT `GET /actions/runs?branch=<branch>` (returns the workflow runs).
+  Use one of those two. **Do not poll `GET /commits/<sha>/check-runs`** with the
+  fleet PAT — it answers `403 Resource not accessible by personal access token`,
+  which is the usual path quirk, and the two paths above give the same verdict.
+  **Make the poller print the raw body on an unexpected shape:** a loop that
+  treats `{"message": …}` as "not finished yet" waits forever on a green PR —
+  it cannot fail for the reason you care about, so it reports patience instead
+  of an error. (Cost the 2026-07-26 shiftlife session ten minutes of clean CI.)
 
 ## Verified CAN — evidence, tested this session with reversible probes
 
