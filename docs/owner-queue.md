@@ -71,11 +71,18 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   `https://shiftlife-api-production.up.railway.app`, AND the **multi-device sync plan complete
   (5/5 slices)**: partner invites work — live-proven with a two-device simulation against
   production (A publishes → invite → B joins and edits → A sees B's edit; single-use codes;
-  "Vernieuw beveiliging" lock-change for a lost phone). **Sixteen** shiftlife PRs merged
-  green, every slice verified live before merge — phase-1 polish since then added a custom
+  "Vernieuw beveiliging" lock-change for a lost phone). Every shiftlife PR merged
+  green, each slice verified live before merge — phase-1 polish since then added a custom
   rooster-builder, verlof/ziek incl. multi-day ranges, the 🌴 "samen vrije periodes" badge and
-  a friendly state for when a live link is revoked. The ONLY thing between this and a real
-  beta is a human tap-through. Two asks remain owner-only:
+  a friendly state for when a live link is revoked. **31 PRs merged as of 2026-07-26**, and the
+  free core now scores **7 of 8 items done, 1 half** against the plan — tracked per-item, with
+  the module and test behind each row, in shiftlife `docs/plan-conformance.md`. That checklist
+  found and fixed a real gap on the day it was written (plan item 1 asks for **cursusdagen**
+  and no screen could create one, though the engine had handled them for months). The ONLY
+  thing between this and a real beta is a human tap-through. Two asks remain owner-only —
+  and **(b) is no longer only QA: it is now the single thing blocking a named plan item**,
+  since reminders (item 6) is the last free-core gap and a notification cannot be proven
+  without a phone:
   **(a) D4 beta families** — 5–10 binnenvaart households where at least one person works a
   rotation (7/7, 14/14, 21/21 or irregular); a WhatsApp "yes" is enough; drop names in hub
   chat whenever.
@@ -88,8 +95,10 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   WHY: (a) real households are the phase-1 exit criterion (plan §7); (b) every screen so far
   is container-verified (tests + bundles) — the first human tap-through is the QA the fleet
   cannot do itself, and it is also simply the fun moment: your app, on your phone.
-  UNBLOCKS: (a) phase-1 exit; (b) on-phone QA + the beta build path (D5 store accounts stay
-  later, phase-2/3).
+  UNBLOCKS: (a) phase-1 exit; (b) on-phone QA + the beta build path + **the last free-core
+  item**: `expo-notifications`, the permission flow, and a notification actually firing —
+  the decision layer for reminders is built and 15 tests green, so the token is the only
+  remaining piece (D5 store accounts stay later, phase-2/3).
   VERIFY: (a) names in hub chat → mirrored into shiftlife `docs/current-state.md`; (b) QR
   sent in hub chat + first tap-through feedback recorded.
   RISK: ✅ none — informal asks; the Expo token is revocable one click after use.

@@ -301,6 +301,16 @@ LANES = [
      "disposition": "archived", "tokens": ["codetool-lab-opus4.8"]},
     {"lane": "codetool-lab-sonnet5", "repo": "codetool-lab-sonnet5",
      "disposition": "archived", "tokens": ["codetool-lab-sonnet5"]},
+    # Added 2026-07-26: shiftlife (app #1 on the Personal Operations Core) had
+    # been building since 2026-07-24 — 31 merged PRs, a live Railway API, its
+    # own heartbeat at control/status.md — and was absent from LANES, so every
+    # roster generation since its birth omitted it and never read its
+    # heartbeat. Its wakes are anonymous `send_later` one-shots, which is
+    # exactly the case owns_record falls back to prompt-body matching for, so
+    # the "shiftlife" token attributes them; the plan-slug token catches wakes
+    # phrased around the plan rather than the repo.
+    {"lane": "shiftlife", "repo": "shiftlife", "disposition": "live",
+     "tokens": ["shiftlife", "app-plan-life-admin"]},
     {"lane": "fleet-manager (this repo)", "repo": "fleet-manager",
      "disposition": "live", "tokens": ["fleet-manager", "fleet manager"]},
 ]
