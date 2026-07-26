@@ -32,6 +32,9 @@ Recorded from the owner live in the hub chat; each is a durable decision.
 | OD-7 | 07-26 | **Priorities: documentation first, websites second.** |
 | OD-8 | 07-26 | **Websites:** execute the cutover — the new `websites`-repo services replace the old `superbot`-repo sites **under the old names**; then rework the sites that don't serve their purpose, one at a time. (The cutover plan exists and is prerequisite-cleared: websites `docs/plans/site-consolidation-cutover.md`.) |
 | OD-9 | 07-26 | **CI: consolidate to a few checks — ideally ONE required check per repo** wherever possible. |
+| OD-10 | 07-26 | **Ideas Lab is ON-DEMAND.** No standing loop. If work runs dry, use `idea-engine` to source the next feature; when building a new feature or improving an existing one, **run it through a dedicated `sim-lab` simulation** (the 4-gate method) before/while building. |
+| OD-11 | 07-26 | **Venture: let it sit.** The live $29 listing stays as-is (owner: "I don't think anyone would ever buy it" — no kill-clock action, no delist, no publish wave). The owner will work the sellable-products angle himself, at his own pace, later. |
+| OD-12 | 07-26 | **proxybench: no action required.** Origin recorded: built with a session mostly as a joke, in response to a cold sales email from a proxy vendor about venture-lab — it is the honest benchmarking harness for exactly that vendor's claims (success rate / geo / stickiness). Stays parked as-is; disposition is open and unimportant. |
 
 ## 2 · Target picture — 7 sections
 
@@ -42,9 +45,9 @@ Recorded from the owner live in the hub chat; each is a durable decision.
 | Phone Controller | `phone-controller` (graduated from product-forge) | Own repo, own APK releases. |
 | Game Lab | `gba-homebrew` + `pokemon-mod-lab` | Two repos forever (copyright rail), one section. |
 | Venture | `venture-lab` | Live; owner-paced publishing. |
-| Ideas Lab | `idea-engine` + `sim-lab` | **Active** (OD-4); conformance + truth pass only, no fold. |
+| Ideas Lab | `idea-engine` + `sim-lab` | **Active, on-demand** (OD-4/OD-10); conformance + truth pass only, no fold. |
 | Workshop | `substrate-kit` + `fleet-manager` + `websites` | The kit, the records, the owner's visible surfaces. |
-| *(archive)* | codetool ×3 (opus4.8 stays unarchived — live mdverify URLs) · product-forge remainder · trading-strategy · old superbot (post-cutover) · `curious-research` stays as-is (owner's parked gift) · `proxybench` → fold into a tools home or archive | Read-only, zero attention cost. |
+| *(archive)* | codetool ×3 (opus4.8 stays unarchived — live mdverify URLs) · product-forge remainder · trading-strategy · old superbot (post-cutover) · `curious-research` stays as-is (owner's parked gift) · `proxybench` parked as-is (OD-12) | Read-only, zero attention cost. |
 
 ## 3 · The step ledger
 
@@ -115,18 +118,16 @@ production-bot changes outside R7's owner-paced ladder.
 
 ## 6 · Open forks for the owner (non-blocking — answer whenever)
 
-1. **Ideas Lab mode** (OD-4 says active — in which sense?): standing loop again,
-   or **on-demand** when a project needs ideation/verification *(assumed:
-   on-demand, per OD-5)*? And: continue the math-verification cycle, or refocus
-   the loop on product ideas for the consolidated sections?
-2. **Venture T+14:** the pre-registered kill-clock packet dated 2026-07-26 says
-   pause/delist the $29 SKU absent a sale/inbound. Apply it, or let the listing
-   sit? *(No hurry per OD-6; the packet's own default is apply.)*
-3. **`proxybench`:** fold into a tools home (kit `tools/`?), or archive?
+*All three founding forks were answered 2026-07-26 and promoted to OD-10 /
+OD-11 / OD-12 above. Sessions: add new genuinely-ambiguous forks here — one
+line each, never blocking.*
+
+*(none open)*
 
 ## 7 · Progress ledger (append-only)
 
 | Date | Step | What landed | PR |
 |---|---|---|---|
 | 2026-07-26 | — | Program created; fleet account (read-back) reviewed by owner; OD-1..OD-9 recorded | fm #540/#541/#543/#545 + this |
-| 2026-07-26 | D1 | Hub boot file refreshed to the post-program era | this PR |
+| 2026-07-26 | D1 | Hub boot file refreshed to the post-program era | fm #547 |
+| 2026-07-26 | — | §6 forks answered by owner → OD-10/11/12 recorded; Gmail layer read on owner direction (EAP thread · vendor thread), proxybench origin recorded | this PR |
