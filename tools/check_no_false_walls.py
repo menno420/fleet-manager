@@ -38,8 +38,12 @@ WHAT IT CHECKS (living/binding docs only — a NARROW allowlist)
     2. it names a CORE agent capability #309 declares NORMAL — merge/merging,
        draft->ready flip, branch/ref deletion, auto-merge arm. (This context
        gate is what keeps GENUINE constraints — `tag-push is 403-walled`,
-       `api.github.com` 403, secrets/rulesets owner-only, protected-main 409 —
-       from tripping the guard.) AND
+       the *proxied* `api.github.com` 403, secrets owner-only, protected-main
+       409 — from tripping the guard.) AND
+       NB (2026-07-31): the example reads "proxied" on purpose. Plain
+       `api.github.com` is NOT blocked — direct egress (`curl --noproxy '*'`)
+       answers 200 authenticated, rulesets and `/actions/*` included; see the
+       dated row in docs/CAPABILITIES.md. Only the proxied path 403s.
     3. it is NOT exempt (below).
 
   EXEMPTIONS (any one → the line is clean):
@@ -109,8 +113,8 @@ WALL_SIGNAL_RES = (
 
 # ---- CORE agent capabilities #309 declares NORMAL (the context gate) -------
 # A wall signal only counts when the line ALSO names one of these — so a
-# genuine constraint (tag-push, api.github.com, secrets, protected-main) is
-# never flagged.
+# genuine constraint (tag-push, the proxied api.github.com path, secrets,
+# protected-main) is never flagged.
 CORE_CAP_RES = (
     re.compile(r"\bmerg(?:e|es|ing)\b", re.IGNORECASE),
     re.compile(r"\bauto-merge\b", re.IGNORECASE),

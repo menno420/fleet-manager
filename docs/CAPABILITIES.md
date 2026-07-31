@@ -119,6 +119,60 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-07-31 · capability · owner-live · **Branch-ruleset and required-status-check state
+  IS readable agent-side — it is not owner-UI-only, and reading it refutes a claim in this
+  repo's own boot file.** `bootstrap.py check` emits a standing NOTE that whether
+  `substrate-gate` is required "is owner-UI state this gate cannot read (rules API;
+  403-walled to agents)". It is readable: the rules API answers 200 on the direct path.
+  · evidence: `repos/menno420/fleet-manager/rulesets` direct+auth **200** → exactly one
+  ruleset, `main-branch-protection` (id 18725475, enforcement `active`, target `branch`);
+  fetching it in full shows a single `pull_request` rule and **no
+  `required_status_checks` rule at all**. `repos/menno420/fleet-manager/branches/main/protection`
+  → **404**, so there is no classic branch protection supplying them either. Consequences,
+  both verified by reading the tree: (1) `tools/check_no_false_walls.py` appears in **no**
+  workflow — `grep -rn check_no_false_walls .github/workflows/` returns nothing — while
+  `.claude/CLAUDE.md` asserted "CI enforces this (`check_no_false_walls`, required): a PR
+  documenting an agent-capability wall cannot merge". That was false; the boot file is
+  corrected in this same change to say the discipline is self-enforced. (2) Enforcement
+  that DOES exist is workflow-side, not branch-side: `merge-on-green.yml` verifies every
+  check run on the head SHA is completed+success before it merges, so the automated path
+  is genuinely gated while a direct merge is not. · workaround: run
+  `python3 tools/check_no_false_walls.py --strict` yourself; do not rely on a required
+  check that does not exist. Worth naming plainly: this is the inverse of a false wall — a
+  **false guardrail**, a believed-in check that never runs. It is the more expensive error
+  of the two, because a false wall makes a session do less than it can while a false
+  guardrail makes it trust a safety net that is not there. The 21-day survival of the
+  `api.github.com` row below is what that costs.
+- 2026-07-31 · capability · owner-live · **`api.github.com` is reachable AND fully
+  authenticated over DIRECT egress — the seed row "`api.github.com` direct HTTP: blocked
+  → GitHub access is MCP-tools-only" (LAST-VERIFIED 2026-07-10) is false as written.**
+  Only the *proxied* path 403s; the identical URL one flag away returns 200. This is the
+  path quirk `.claude/CLAUDE.md` already describes correctly — the ledger had simply
+  drifted out of sync with the boot file. · evidence: measured this session, owner-live
+  container, same URLs back to back — `repos/menno420/spider-swing` proxied **403** /
+  direct **200** / direct+auth **200**; `/user` direct+auth **200** vs direct
+  unauthenticated **403**, so `$GITHUB_PAT` is genuinely authenticating rather than the
+  path merely serving public reads. The two paths this file elsewhere records as walled
+  even in the rescue venue also answer on the direct path:
+  `repos/menno420/spider-swing/rulesets` direct+auth **200** / proxied **403**, and
+  `.../actions/workflows` direct+auth **200** / proxied **403**. Sharpest of the three:
+  `.../branches/main/protection` returns direct+auth **404** / proxied **403** — the 404
+  is the true answer (no classic protection configured on that repo) and the proxy was
+  masking a factual "not configured" as a refusal, which is how a read-only quirk gets
+  mistaken for a permission wall. · workaround: none required — `curl --noproxy '*'`, or
+  `requests` with `trust_env=False` and `verify=/root/.ccr/ca-bundle.crt`. Left the seed
+  row untouched (kit-owned fence, refreshes at upgrade); this dated row is the correction
+  of record, per the append-never-edit rule. Stakes for leaving it unqualified: a session
+  that loses the GitHub MCP server reads "MCP-tools-only" and concludes it has no GitHub
+  access at all, when it has full authenticated access one flag away — exactly the
+  false-wall class this repo bans. **Residual gap, flagged not hidden:**
+  `docs/seat-digest.md` renders the seed fence only, so `bootstrap.py seat-digest`
+  regenerates byte-identical and line 44 of the digest still carries the stale claim into
+  any seat prompt fed from it; correcting that means either a kit-side seed refresh or a
+  digest that reads append-log corrections, neither of which is hand-editable here
+  (bootstrap.py and the digest are both generated). Sibling correction landed the same day in
+  menno420/spider-swing `docs/CAPABILITIES.md` (PR #59), where the same stale line was
+  seeded.
 - 2026-07-18 · capability · autonomous-project · **Cross-repo lane-inbox ORDER writes via
   PR work END-TO-END — zero classifier refusals** (verified 2026-07-18). The full route —
   append an ORDER to a lane repo's `control/inbox.md` on a `claude/*` branch, open the PR,
