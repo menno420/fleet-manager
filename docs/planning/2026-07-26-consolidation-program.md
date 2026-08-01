@@ -63,6 +63,19 @@ source map + seeded candidate list:
 [`2026-07-26-final-eap-email-plan.md`](2026-07-26-final-eap-email-plan.md).
 Then next: D2, fleet-manager truth pass.)*
 
+> **E1 is OWNER-RESERVED and deliberately deferred — status 2026-08-01, from the
+> owner live.** It is not stalled and it is not available to pick up. He has the
+> prework and a plan for how he wants to write it, and has declined a drafted
+> version twice: *"this is something that deserves an evening of my full
+> attention and I won't rush it. I will probably finish it within the next few
+> days."* A session must NOT draft, send, or restart this step. If you are
+> looking for work, take **D2** (fleet-manager truth pass) instead.
+>
+> Why he has deferred it: every evening since 07-26 has gone to **spider-swing**
+> — a repo created 2026-07-28 that is not in the fleet account, and the only
+> asset in the estate with a live external signal (returning players, unprompted
+> difficulty feedback). Deferring E1 for it is triage, not neglect.
+
 ### Track E — one-off, owner-paced
 
 | Step | What | Done when |
