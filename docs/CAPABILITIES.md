@@ -119,6 +119,49 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-03 · capability · owner-live · **The kit STAGES skills but never installs them —
+  `.claude/skills/` did not exist here, so none of the fourteen documented skills was
+  invocable.** `docs/SKILLS.md` names `.claude/skills/<name>/SKILL.md` as the live location
+  and `cmd_skills` writes only to `.substrate/skills/`, its docstring stating the kit
+  *"never writes a live `.claude/` tree"* — the host installs. Nobody had. · evidence:
+  `ls -a .claude/` in fleet-manager and spider-swing returned `CLAUDE.md` and
+  `settings.json` only, while `.substrate/skills/` held all fourteen; after copying the
+  tree, the fourteen appeared in the session's available-skills list and became invocable.
+  · workaround: `python3 bootstrap.py skills --build`, then copy
+  `.substrate/skills/*/SKILL.md` → `.claude/skills/*/SKILL.md` (loop in
+  [`SKILLS-local.md`](SKILLS-local.md)); re-run after a kit upgrade. **Corollary worth
+  more than the fix:** because the kit never touches `.claude/skills/`, hand-authored
+  skills there survive upgrades — so local skills are safe, they are simply invisible to
+  the generated index, which `SKILLS-local.md` now covers. — LAST-VERIFIED: 2026-08-03
+- 2026-08-03 · capability · `any` · **ChatGPT Work / Codex cloud environments DO take
+  variables — with three defaults that silently break a prompt written for a different
+  surface.** Answers the owner's question directly: yes, variables can be added there.
+  · evidence, from the vendor docs fetched this session
+  ([cloud environments](https://learn.chatgpt.com/docs/environments/cloud-environment),
+  [agent internet access](https://learn.chatgpt.com/docs/cloud/internet-access)):
+  environment variables are *"set for the full duration of the chat (including setup
+  scripts and the agent phase)"*; **secrets** are *"only available to setup scripts. For
+  security reasons, secrets are removed before the agent phase starts"*; *"Setup scripts
+  run in a separate Bash session from the agent, so commands like `export` do not persist
+  into the agent phase"*; *"Setup scripts run with internet access"* while *"Agent internet
+  access is off by default"*; container cache up to 12 h, invalidated when the setup
+  script, maintenance script, env vars or secrets change. · workaround: a credential the
+  task itself needs must be an **environment variable, not a secret**; anything needing the
+  network belongs in the **setup script**; nothing may rely on a setup-phase `export`.
+  Comparison table and the four rows that change prompt wording:
+  [`execution-surfaces.md`](execution-surfaces.md). — LAST-VERIFIED: 2026-08-03
+- 2026-08-03 · wall · owner-live · **A ChatGPT *project* URL (`/g/g-p-…/project`) is not
+  readable by the headless-browser method, and this one is a genuine bot challenge rather
+  than a path quirk.** · evidence: HTTP **403** with a Cloudflare interstitial — title
+  *"Just a moment..."*, `__cf_chl_rt_tk` appended to the final URL, `inner_text("body")`
+  empty at both 12 s and 20 s waits, with `--selector html` also empty. The `/share/`
+  route on the same host serves normally in the same session, so this is route-specific.
+  Project sharing is additionally workspace-scoped rather than a public read-only link.
+  · workaround, verified: **share the individual chat**, not the project — open a chat
+  inside it, create a `/share/` link, and read that with `tools/read_shared_chat.py`.
+  Refutation recipe: `python3 tools/read_shared_chat.py "<project url>" -o /tmp/p.txt`
+  returning more than a few hundred characters means this wall has lifted. Do not attempt
+  to defeat the challenge. — LAST-VERIFIED: 2026-08-03
 - 2026-08-03 · capability · `any` · **`$GITHUB_PAT` is ENVIRONMENT-SCOPED, not universal —
   and an environment without it is not a degraded one.** Qualifies the direct-PAT recipe in
   the entry below, which reads as though the variable is always there. It is not: some
