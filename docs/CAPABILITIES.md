@@ -119,6 +119,34 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-03 · capability · owner-live · **A shared AI chat transcript IS readable —
+  client-rendered share pages (`share.gemini.google/…`, `chatgpt.com/share/…`) yield their
+  full text through headless Chromium.** A fetcher cannot do it: `WebFetch` 301s and the
+  redirect target dies with `Parse Error: Header overflow`, and plain HTTP returns ~821 KB
+  of app shell with zero conversation in it — a false empty, not an empty page. · evidence:
+  70 426 characters of transcript extracted twice from `share.gemini.google/3MvaF0QMFGFn`,
+  spot-checked against strings known to be in the conversation; for `chatgpt.com` the
+  transport, TLS and hydration path were confirmed (route-specific rendered text returned)
+  but no live share id was available to test extraction against. · workaround: run
+  `python3 tools/read_shared_chat.py --setup` once per container, then
+  `python3 tools/read_shared_chat.py <url> -o out.txt`. Full method + failure symptoms:
+  [`conventions/reading-shared-ai-chats.md`](conventions/reading-shared-ai-chats.md).
+  — LAST-VERIFIED: 2026-08-03
+- 2026-08-03 · capability · owner-live · **Chromium's TLS trust is NOT preconfigured in
+  this container even though the proxy README says trust is — the two statements are about
+  different trust stores, and both are true.** `curl`, `requests`, Java and Node all read
+  `/root/.ccr/ca-bundle.crt`; Chromium reads an NSS database at `/root/.pki/nssdb`, which on
+  a fresh container does not exist at all. This is a missing-store problem with a clean fix,
+  never a reason to disable verification. · evidence: fresh container had no `certutil`, no
+  `/root/.pki/nssdb`, and 151 certificates in the bundle unreachable by the browser; every
+  navigation returned `ERR_CERT_AUTHORITY_INVALID` until they were imported. · workaround:
+  `apt-get install libnss3-tools`, `certutil -N -d sql:/root/.pki/nssdb --empty-password`,
+  then `certutil -A -t "C,,"` for each PEM block in the bundle (automated by
+  `tools/read_shared_chat.py --setup`). Two further Chromium-specific needs: launch with
+  `executable_path="/opt/pw-browsers/chromium"` (pip's Playwright expects its own build;
+  never run `playwright install`) and `--no-proxy-server` (the agent proxy resets the
+  browser's connections → `ERR_CONNECTION_RESET`). Fixing either alone still fails, so
+  neither fix looks like it helped on its own. — LAST-VERIFIED: 2026-08-03
 - 2026-07-31 · capability · owner-live · **Branch-ruleset and required-status-check state
   IS readable agent-side — it is not owner-UI-only, and reading it refutes a claim in this
   repo's own boot file.** `bootstrap.py check` emits a standing NOTE that whether

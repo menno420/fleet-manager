@@ -8,7 +8,7 @@ SEAT CLOSED — 2026-07-21T20:35Z
 > full heartbeat history lives in git.
 
 ---
-updated: 2026-07-21T20:35Z
+updated: 2026-08-03T21:29:58Z
 kit_version: 1.17.0
 seat: fleet-manager (coordinator) — CLOSED
 note: seat final close (PR #427). Read docs/PROJECT-CLOSEOUT.md first.
