@@ -30,6 +30,23 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 
 ## Active — genuinely-open owner asks
 
+- **`OQ-GEMINI-TIER` — (VENUE: one evening, your account) Run the one-clip test before paying for a Gemini tier (2026-08-03).**
+  WHAT: the research is done and the recommendation is conditional, so the decision needs one
+  cheap experiment first. On the free tier, with the visual-QA Gem in place, send **one clip
+  per message** for a handful of clips and check whether distance, region and run attribution
+  all come back attached to the right clip. If they do, the batch failure was a context
+  ceiling that the protocol already fixes and there is nothing to buy. If single clips still
+  drift, the ceiling is real and **AI Plus at $4.99/mo** (32k → 128k context) is the smallest
+  purchase that changes capability rather than quota.
+  WHERE: the Gemini app, your own account.
+  HOW: build the Gem from [`research/2026-08-03-gemini-visual-qa-gem.md`](research/2026-08-03-gemini-visual-qa-gem.md)
+  (three paste blocks), then run its four-point acceptance test — the fourth point, asking a
+  repository-history question mid-review, is the one that catches the expensive failure.
+  VERIFY: read your own plan page for the real prices; Google-owned pages and press coverage
+  disagreed on AI Pro's storage and AI Plus's price when this was written.
+  WHY IT IS YOURS: it is a spending decision and it needs your device and account. Full
+  reasoning + sources: [`research/2026-08-03-gemini-paid-tiers.md`](research/2026-08-03-gemini-paid-tiers.md).
+
 - **`OQ-SHIFTLIFE-CI` — (VENUE: 2-min click) DE-ESCALATED: CI came back by itself; the click is now prevention, not repair (2026-07-25).**
   WHAT: shiftlife CI failed with `startup_failure` on every fresh run through the middle of
   2026-07-25 — best evidence was exhausted private-repo Actions minutes (the billing meter is
