@@ -119,6 +119,22 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-03 · capability · `any` · **ChatGPT's agentic surface has FOUR configuration
+  defaults that silently break a prompt written elsewhere — and knowing which chat mode is
+  in play changes the answer more on this provider than on any other.** Per-provider
+  references now exist at [`providers/`](providers/README.md) so a session can look this up
+  instead of re-deriving it. · evidence, from vendor docs fetched this session
+  ([cloud environments](https://learn.chatgpt.com/docs/environments/cloud-environment),
+  [agent internet access](https://learn.chatgpt.com/docs/cloud/internet-access)):
+  environment variables persist *"for the full duration of the chat (including setup
+  scripts and the agent phase)"*; **secrets are *"removed before the agent phase starts"***;
+  *"commands like `export` do not persist into the agent phase"*; *"Agent internet access is
+  off by default"* while setup-phase internet is on. Modes: regular chat, Deep Research
+  (5–30 min autonomous, cited), Agent mode (visible browser), Canvas, Study, web search,
+  image — Deep Research and Agent mode compose. · workaround: a credential the task itself
+  needs must be an **environment variable, not a secret**; anything needing the network
+  belongs in the **setup script**; nothing may rely on a setup-phase `export`.
+  — LAST-VERIFIED: 2026-08-03
 - 2026-08-03 · capability · owner-live · **The kit STAGES skills but never installs them —
   `.claude/skills/` did not exist here, so none of the fourteen documented skills was
   invocable.** `docs/SKILLS.md` names `.claude/skills/<name>/SKILL.md` as the live location
