@@ -1,7 +1,7 @@
 {
   "_source_of_truth": "GENERATED — the authored master is the LANES constant in scripts/gen_roster.py; regenerated with every roster generation. Do not hand-edit (central-docs-plan C3).",
-  "generation": 377,
-  "generated_at": "2026-08-03T04:09:15Z",
+  "generation": 378,
+  "generated_at": "2026-08-03T05:08:07Z",
   "lanes": [
     {
       "lane": "superbot (hub)",
