@@ -130,24 +130,20 @@ Two things worth knowing:
 transcript extracted twice, once through the tool. Content spot-checked against
 strings known to be in the conversation.
 
-**ChatGPT (`chatgpt.com/share/…`) — transport and rendering verified; transcript
-extraction not yet verified.** What was confirmed: the browser reaches
-`chatgpt.com` over this path, TLS verifies against the imported store, the SPA
-hydrates, and `inner_text("body")` returns route-specific rendered text — a
-nonexistent share id rendered the logged-out app shell, and a GPT URL rendered
-`This GPT is inaccessible or not found`. Every step of the mechanism is
-therefore exercised. What was **not** confirmed is extraction from a live share
-link, because no valid public one was available to test against. Shared
-conversations are documented as viewable without an account, so the same command
-should work:
+**ChatGPT (`chatgpt.com/share/…`) — fully verified 2026-08-03.** 22 973
+characters of real transcript from a live share link, with the same command and
+no extra fixes:
 
 ```bash
 python3 tools/read_shared_chat.py "https://chatgpt.com/share/<id>" -o out.txt
 ```
 
-If it comes back with only the app shell and no conversation, raise `--wait`
-before concluding anything — a short read is far more likely to be a hydration
-race than a wall.
+The page opens with site chrome and a logged-out login prompt, then
+`This is a copy of a shared ChatGPT conversation`, then the conversation. The
+chrome is expected — do not read it as a failed load. A **nonexistent** share id
+renders the ordinary logged-out app shell with no conversation and no error, so
+"only chrome came back" means either a bad id or a hydration race; raise
+`--wait` before concluding anything.
 
 Worth trying first for ChatGPT: shared conversations are indexed by search
 engines, which suggests the page may be server-rendered enough for a plain

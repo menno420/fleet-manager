@@ -45,6 +45,34 @@ if [ -n "${BASELINE_PIP:-}" ]; then
     || log "baseline install failed (non-fatal, continuing)"
 fi
 
+# --- Block 2b: GitHub CLI — present by default, required by nothing ---------
+# NOT here because anything needs it. Every GitHub operation in this fleet is
+# already covered by git over HTTPS and the REST API on the direct-PAT path.
+# It is here because its ABSENCE has repeatedly been reported to the owner as a
+# blocker by sessions that had working GitHub access at the time — a stall with
+# no underlying wall, costing an owner turn each time. `gh` is a stock Ubuntu
+# package; installing it is cheaper than the conversation about not having it.
+if command -v gh >/dev/null 2>&1; then
+  log "gh: $(gh --version 2>/dev/null | head -1)"
+else
+  (apt-get update -qq && apt-get install -y -qq gh) >/dev/null 2>&1 \
+    || (sudo apt-get update -qq && sudo apt-get install -y -qq gh) >/dev/null 2>&1
+  if command -v gh >/dev/null 2>&1; then
+    log "gh: installed $(gh --version 2>/dev/null | head -1)"
+  else
+    log "gh: install failed — NON-FATAL and NOT a blocker. Nothing in this"
+    log "    fleet requires gh; use git over HTTPS and the REST API instead."
+  fi
+fi
+# Auth, measured 2026-08-03: the ambient GH_TOKEN over the agent proxy serves a
+# pinned subset only — `gh api user` answers, `gh api repos/{o}/{r}` returns
+# HTTP 403 "GitHub access is not enabled for this session", and `gh pr list`
+# 403s at GraphQL. That is the known proxied-REST path quirk, not a permission
+# wall: the same calls succeed on the direct-PAT path. Do not read the 403 as
+# missing access — check with the line below before recording anything.
+log "gh auth: proxied path serves a pinned subset; for the rest use"
+log "    GH_TOKEN=\"\$GITHUB_PAT\" no_proxy='*' HTTPS_PROXY= gh <command>"
+
 # --- Block 3: interpreter selection (CI-parity pin table) --------------------
 # THE 3.10-vs-3.11 wrinkle (environments/multi-repo.md #1). The pin table is
 # DATA, so every archetype that sets it carries every case — including the

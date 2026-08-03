@@ -119,6 +119,34 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-03 · capability · owner-live · **ChatGPT share links read too — the partial
+  status in the entry below is now closed.** The same command returned **22 973 characters**
+  of real transcript from a live `chatgpt.com/share/<uuid>`, opening with *"This is a copy of
+  a shared ChatGPT conversation"* followed by the full prompt and every reply. No extra fix
+  was needed beyond the three already recorded. · evidence: owner-supplied share id, read via
+  `tools/read_shared_chat.py`; content cross-checked against lines only that conversation
+  contains. · workaround: none needed. Both platforms are now verified end to end.
+  — LAST-VERIFIED: 2026-08-03
+- 2026-08-03 · capability · owner-live · **`gh` is INSTALLABLE in one command and is
+  REQUIRED BY NOTHING — this refutes the 2026-07-14 wall below.** That entry says the CLI
+  "is absent from these containers", which is true of the default image and was then read
+  by later sessions as a capability limit. It is a stock Ubuntu package: `apt-get install
+  -y gh` yields gh 2.45.0 in seconds. `environments/setup-base.sh` now installs it in every
+  archetype, so the question should stop arising. · evidence: `apt-cache policy gh` →
+  candidate `2.45.0-1ubuntu0.3`; installed and ran `gh --version` clean. **Auth is the part
+  worth writing down**, because it looks like a permission wall and is not: over the agent
+  proxy the ambient `GH_TOKEN` serves a pinned subset only — `gh api user` → `menno420`, but
+  `gh api repos/menno420/spider-swing` → HTTP 403 *"GitHub access is not enabled for this
+  session. An org admin must connect the Claude GitHub App for this organization"*, and
+  `gh pr list` → 403 at GraphQL, *"only the pinned set of PR-review operations is served"*.
+  Both succeed on the direct-PAT path. Do not record that 403 as missing access — it is the
+  known proxied-REST quirk. · workaround:
+  `GH_TOKEN="$GITHUB_PAT" no_proxy='*' HTTPS_PROXY= gh <command>` — verified with
+  `gh api user` and `gh pr list --repo menno420/spider-swing`, which returned real merged
+  PRs. **And note the framing: gh being missing has been reported to the owner as a blocker
+  by a session that, in the same message, listed the open PRs and issues it had just read.
+  The absence of gh has never blocked anything** — git over HTTPS and the REST API cover
+  every operation in this fleet. — LAST-VERIFIED: 2026-08-03
 - 2026-08-03 · capability · owner-live · **A shared AI chat transcript IS readable —
   client-rendered share pages (`share.gemini.google/…`, `chatgpt.com/share/…`) yield their
   full text through headless Chromium.** A fetcher cannot do it: `WebFetch` 301s and the
