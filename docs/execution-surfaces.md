@@ -157,6 +157,14 @@ sharing is also workspace-scoped rather than a public read-only link. **The
 workaround is per-chat:** open a chat inside the project, share it, and send the
 `/share/` link — that route is verified working.
 
+## Per-provider depth
+
+This document is the comparison — the handful of rows that change how a prompt
+must be written. For depth on one provider (model families, chat modes and what
+each one actually is, environment configuration, plan ceilings), see
+[`providers/`](providers/README.md): [Claude](providers/claude.md) ·
+[ChatGPT](providers/chatgpt.md) · [Gemini](providers/gemini.md).
+
 ## Writing a prompt against this
 
 Four skills consume this document rather than restating it —
