@@ -11,6 +11,10 @@
 
 | Date | Report | Scope |
 |---|---|---|
+| 2026-08-03 | [Gemini paid tiers for video review](2026-08-03-gemini-paid-tiers.md) | Whether a paid tier changes capability rather than quota, for gameplay-recording review: context window is the one real ceiling (32k / 128k / 1M), the token arithmetic that makes it bite on video, and a buy/don't-buy recommendation per tier |
+| 2026-08-03 | [The spider-swing visual-QA Gem](2026-08-03-gemini-visual-qa-gem.md) | Paste-ready build for a gameplay-recording reviewer: system instructions, a source-derived on-screen-facts knowledge file, the per-clip message, and a four-point acceptance test |
+| 2026-08-03 | [Verifying a Gemini report about spider-swing](2026-08-03-gemini-report-verification.md) | Claim-by-claim check of a deep-research report against the tree at `9642f50` — right about the engine and workflows, wrong about nearly every file path; plus seven errors found in the pre-existing grounding block |
+| 2026-08-03 | [Reducing invented detail](2026-08-03-reducing-invented-detail.md) | Why "1,600 commits across 400 branches" was produced for a five-day-old repository, and the five-rule prompting procedure + `[SEEN]`/`[INFERRED]`/`[UNSURE]` marking convention that targets each mechanism |
 | 2026-07-12 | [QA boot simulation](2026-07-12-qa-boot-simulation.md) | Boot simulation of the v3 startup prompt set — per-prompt verdicts + defect list |
 | 2026-07-12 | [QA question rounds](2026-07-12-qa-question-rounds.md) | Multi-direction question rounds against the prompts-v3 set (89 questions, 6 perspectives) |
 | 2026-07-12 | [QA incident replay](2026-07-12-qa-incident-replay.md) | Wave 3 replay of the shipped prompts-v3 set (`docs/prompts/v3/` @ 8056b7e) against the 80-entry incident register: 50 PREVENTED / 19 WEAKLY-PREVENTED / 3 NOT-PREVENTED / 8 NOT-PROMPTABLE, 12 contradictions, 8 duplication-drift blocks, and the v3.1 fix-priority table (BLOCKERs: I-63, I-69, I-78) |
