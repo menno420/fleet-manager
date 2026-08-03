@@ -70,8 +70,18 @@ fi
 # 403s at GraphQL. That is the known proxied-REST path quirk, not a permission
 # wall: the same calls succeed on the direct-PAT path. Do not read the 403 as
 # missing access — check with the line below before recording anything.
-log "gh auth: proxied path serves a pinned subset; for the rest use"
-log "    GH_TOKEN=\"\$GITHUB_PAT\" no_proxy='*' HTTPS_PROXY= gh <command>"
+if [ -n "${GITHUB_PAT:-}" ]; then
+  log "gh auth: proxied path serves a pinned subset; for the rest use"
+  log "    GH_TOKEN=\"\$GITHUB_PAT\" no_proxy='*' HTTPS_PROXY= gh <command>"
+else
+  # GITHUB_PAT is environment-scoped, not universal. An environment without it
+  # is NOT a degraded one — printing the direct-PAT recipe here anyway would
+  # hand the reader a command that cannot run, which is how a missing variable
+  # gets mistaken for a missing capability.
+  log "gh auth: no GITHUB_PAT in this environment — NOT a blocker. git over the"
+  log "    configured remote (clone/fetch/push/branch) and whatever GitHub access"
+  log "    this environment already provides cover every operation here."
+fi
 
 # --- Block 3: interpreter selection (CI-parity pin table) --------------------
 # THE 3.10-vs-3.11 wrinkle (environments/multi-repo.md #1). The pin table is

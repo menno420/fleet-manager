@@ -119,6 +119,23 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-03 · capability · `any` · **`$GITHUB_PAT` is ENVIRONMENT-SCOPED, not universal —
+  and an environment without it is not a degraded one.** Qualifies the direct-PAT recipe in
+  the entry below, which reads as though the variable is always there. It is not: some
+  environments in this estate carry it and some do not. · evidence: owner-confirmed
+  2026-08-03 that at least one environment working these repos has no PAT; and this
+  session's own clone, fetch and **three pushes** to two repos all succeeded over the
+  configured remote with no PAT supplied to git at any point — the token was used only for
+  direct `api.github.com` calls. · workaround: **check first, then branch.**
+  `printenv GITHUB_PAT` before reaching for the direct path. If set → the recipe below. If
+  not set → git over the configured remote does clone/fetch/push/branch, and whatever
+  GitHub access the environment already provides does the rest; that covers every operation
+  these repos perform. **Do not record a missing PAT as a wall** — a variable that is absent
+  by design in one environment and present in another is configuration, and reading it as a
+  capability limit is how the `gh` question started. The generalisation worth keeping: **a
+  recipe in this ledger should name the precondition it assumes**, or the reader whose
+  environment differs concludes they are blocked rather than that they need a different
+  line. — LAST-VERIFIED: 2026-08-03
 - 2026-08-03 · capability · owner-live · **ChatGPT share links read too — the partial
   status in the entry below is now closed.** The same command returned **22 973 characters**
   of real transcript from a live `chatgpt.com/share/<uuid>`, opening with *"This is a copy of
