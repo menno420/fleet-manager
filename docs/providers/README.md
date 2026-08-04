@@ -18,11 +18,21 @@ impossible"*, which is the confusion that repeatedly costs the owner a turn.
 
 ## The documents
 
+The set covers capabilities at **model granularity** where models differ —
+context, modality in and out, tool use, reasoning modes — because that is where
+the answers a session actually needs live. Ordered by plausible use in this
+estate:
+
 | Provider | Covers |
 |---|---|
-| [`claude.md`](claude.md) | Model family and IDs, the surfaces (Code on web/CLI/desktop, claude.ai, API), what a Code session can actually do here, and the estate-specific quirks that have produced false walls |
-| [`chatgpt.md`](chatgpt.md) | Chat modes and tools in depth — regular chat, Deep Research, Agent mode, Canvas, Study, image — plus Projects, custom GPTs, and the **Work / Codex cloud environment** with its variables, secrets and network defaults |
+| [`claude.md`](claude.md) | Model family and IDs re-derived from Anthropic's own changelog, the surfaces (Code on web/CLI/desktop, claude.ai, API), what a Code session can actually do here, and the estate-specific quirks that have produced false walls |
+| [`chatgpt.md`](chatgpt.md) | The GPT-5.6 family at model granularity, the post-consolidation modes, Projects and custom GPTs, and the **Work / Codex cloud environment** with its variables, secrets and network defaults |
 | [`gemini.md`](gemini.md) | Plans and what actually differs between them, context-window ceilings, native video and the token arithmetic that governs it, Gems and knowledge files, Deep Research |
+| [`github-copilot.md`](github-copilot.md) | The multi-provider model picker, the cloud agent and its Actions environment (firewall, secrets-reach-the-agent), AI-credits billing — the provider the estate touches without choosing it |
+| [`grok.md`](grok.md) | xAI's text models and reasoning knobs, the image/video/voice generation stack, X Search, and the silent-redirect retirement scheme |
+| [`deepseek.md`](deepseek.md) | The V4 pair, thinking modes, MIT open weights, and the pricing (including peak-hour) that makes it the cost floor of this set |
+| [`mistral.md`](mistral.md) | The per-model license mix (Apache/MIT/Premier/NC) that governs self-hosting, the specialist bench (OCR, Voxtral audio), and Vibe |
+| [`meta-llama.md`](meta-llama.md) | The open-weights Llama generations and their Community License, and the 2026 pivot to Muse that froze the open line at Llama 4 |
 
 ## How these relate to the other docs
 
