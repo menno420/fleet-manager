@@ -2,7 +2,12 @@
 
 > **Status:** `complete`
 
-- **📊 Model:** fable-5 · max · docs-only — session-output audit, skill review, three-skill family
+- **📊 Model:** fable-5 · high · docs-only — session-output audit, skill review, three-skill family
+  *(actual effort setting: `max` — recorded as `high` because the PL-004 effort
+  taxonomy (low | medium | high) predates the xhigh/max ladder; taxonomy
+  amendment flagged to the owner. The gate caught this in CI but not locally —
+  the card-grammar check is merge-base-diff-scoped, another local-green ≠
+  CI-green instance.)*
 
 Time: 2026-08-04 · venue: owner-live hub chat · branch
 `claude/provider-capability-reference-tz4fb1` (restarted from main post-#719)
