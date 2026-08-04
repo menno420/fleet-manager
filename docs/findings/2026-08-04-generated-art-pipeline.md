@@ -290,21 +290,27 @@ was nearly spent on a renderer bug.
 
 ## The reusable recipe
 
-Implemented as [`.claude/skills/image-prompt/SKILL.md`](../SKILLS-local.md).
+Implemented as the `image-prompt` skill family (indexed in
+[`../SKILLS-local.md`](../SKILLS-local.md)): the shared method in
+`image-prompt`, with per-type skills for sprites, parallax layers, and
+cover/icon art. The skills are the living copy — where this list and a skill
+disagree, the skill wins.
 
 1. **Anchor** to a specific existing asset; state what is inherited and what is
    explicitly not.
-2. **One asset per generation.** Never a sheet, never a batch, never a
-   multi-pose grid.
+2. **One asset per generation *call*** (§2 above) — never a sheet or pose grid
+   in one image; a queue is safe only on a surface that decomposes it.
 3. **Native size or larger**, then downscale. Never upscale, never crop out of a
    composite.
 4. **Flat chroma field**, magenta by default, green when the subject contains
-   magenta/pink. Record the choice in the manifest.
+   magenta/pink. Record the choice in the manifest — and **key by sampling a
+   corner pixel, never by matching the hex** (§3 above).
 5. **Standing negative list** — the project's invariants, repeated every time
    (no text, UI, watermark, frame, border, cast shadow, extra objects).
 6. **Function criterion** — what the art must let the player read, at what
    scale and speed.
-7. **Audit after downscaling**, not only after keying.
+7. **Despill at full resolution** (§3 above — the measured correction); audit
+   at source, runtime and 25% gameplay scale as a check, not a repair.
 8. **One named acceptance question** handed back to the human per delivery
    (spider-swing's was *"has no colored fringe around its edges"* — likely the
    direct cause of the 32/33 zero-fringe record).

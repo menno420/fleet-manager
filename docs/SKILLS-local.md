@@ -45,7 +45,10 @@ ones below are untouched.
 | `continuation-prompt` | A planning or working session is ending and the work continues in a fresh one. Harvests this chat's decisions, verifies state, offers to commit first, emits a paste-ready prompt. |
 | `implementation-prompt` | The shape of the work is already agreed and a session needs to build it. Contract, non-scope, the pattern to follow, acceptance, landing discipline, real traps. |
 | `decision-capture` | Decisions exist only in a conversation. Lands them in the repo so handoffs become pointers instead of payload. |
-| `image-prompt` | Any request for an image, sprite, background or key art — or a prompt to generate one. Eight sections, anchored to an existing asset, one asset per generation, chroma-keyed, with a function criterion and an acceptance question. Reverse-derived from the sessions that made spider-swing's art: [`findings/2026-08-04-generated-art-pipeline.md`](findings/2026-08-04-generated-art-pipeline.md). |
+| `image-prompt` | The **shared method** for any image-generation prompt (eight sections, hard rules, measured pipeline facts) and the router to the three type skills below. Reverse-derived from the sessions that made spider-swing's art: [`findings/2026-08-04-generated-art-pipeline.md`](findings/2026-08-04-generated-art-pipeline.md). |
+| `sprite-prompt` | A character/object sprite that must slot into an existing set — set contract first, anchor + identity exclusion, enumerated layout with a checkable total, neutral stance, chroma by palette. |
+| `parallax-prompt` | Parallax background layers and wall/rail materials — one layer per call, far layer opaque, mid/near on chroma, tiling only where the renderer needs it (measured: spider-swing mirrors alternate backdrop tiles), centre stays open. |
+| `cover-art-prompt` | Key art, app icons, banners, store assets — full-bleed, no chroma, composition brief, silhouette read at thumbnail size, one short in-image word allowed as the calibration signal, icon margin rule. |
 
 ## The idea they share
 
