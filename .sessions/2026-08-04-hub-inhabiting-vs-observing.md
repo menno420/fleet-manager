@@ -2,7 +2,7 @@
 
 > **Status:** `complete`
 
-- **📊 Model:** opus-5 · high · docs — program-law mint + consumer citation
+- **📊 Model:** opus-5 · high · docs-only — program-law mint + consumer citation
 
 Time: 2026-08-04 · venue: owner-live hub chat · branch
 `claude/provider-capability-reference-tz4fb1` (restarted from main post-#714)
