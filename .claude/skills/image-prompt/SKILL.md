@@ -69,13 +69,26 @@ zero-fringe record.
 
 ## Hard rules — these are where quality is lost
 
-- **One asset per generation.** No sprite sheets, no pose grids, no
-  multi-asset boards. A 41-asset batch in the source sessions produced
-  *"Production-ready candidates: None"* with a more detailed manifest than any
-  successful run. Sheets are also where character consistency dies.
+- **One asset per generation *call*.** No sprite sheets, no pose grids, no
+  multi-asset boards *in a single image*. Sheets are where character
+  consistency dies.
+  **The rule is decomposition, not batch size.** A queue is safe exactly when
+  the surface turns it into N separate calls: an integrated agent environment
+  (ChatGPT Work, Claude Code) decomposes and executes the parts separately; a
+  plain chat has no boundary between items and collapses a 41-item queue into
+  one composite board, then slices assets back out of it — which produced
+  *"Production-ready candidates: None"* despite a more detailed manifest than
+  any successful run. **Ask what the surface does with a queue before handing
+  it one.**
 - **Never upscale.** Generate at or above the runtime size and downscale.
   Extracting an asset from a composite sheet counts as upscaling and was named
   as a primary cause of that failed batch.
+- **Diverge cheaply, converge expensively.** A non-integrated surface still
+  earns its keep for concept exploration — the failed batch produced *"useful
+  visual concepts, not production-ready masters"* at no Work-allowance cost.
+  Explore broadly there, then take the chosen concept through the integrated
+  path for the master. Same shape as Grok Imagine's standard-then-quality
+  recipe in [`docs/CAPABILITIES.md`](../../../docs/CAPABILITIES.md).
 - **Key at full resolution, then re-check after downscaling.** Downscaling
   reintroduces chroma into partially transparent edge pixels even when the
   full-resolution key was clean. This is the single non-obvious fact in the
