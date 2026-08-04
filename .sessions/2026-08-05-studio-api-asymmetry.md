@@ -1,6 +1,6 @@
 # 2026-08-05 · hub — the Studio/API asymmetry, and who should ask what
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** opus-5 · high · docs-only — one capability asymmetry, recorded
 

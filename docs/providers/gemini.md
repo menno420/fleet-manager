@@ -183,6 +183,31 @@ that projects can be switched between paid and free tiers as needed — so payin
 for API access does not have to cost the free Studio surface, but it will if the
 paid key is linked there. Exactly what constitutes "linking" is untested here.
 
+**"Free tier" names two different products.** The AI Studio interface and the
+API share a project, a dashboard and a name, and serve different models with
+different tools. Measured from both ends on 2026-08-05:
+
+| Capability | Free **API** | Free **AI Studio** |
+|---|---|---|
+| `gemini-3.1-pro-preview` | 429, paid quota — dashboard row reads `0/0` RPM/TPM/RPD | selected and running |
+| Grounding with Google Search | 429 on a two-token prompt | toggled on, returns cited sources |
+| Flash-class models | 20/day (3.6) · 500/day (lite) | free, and not charged against API quota |
+| Temperature · thinking level · structured output · code execution · function calling | API parameters | UI controls, with a `Get code` export |
+
+So the Studio surface is strictly the more capable of the two while it stays on
+a free key — the strongest model plus live web search, at no cost and without
+touching the API budget. **The API surface is the automatable one.** That is the
+whole basis for how work should divide:
+
+- **Owner, in Studio** — open research questions, anything needing the current
+  web, anything wanting the strongest reasoning. Costs nothing here.
+- **Sessions, via API** — bulk reads over material already in the repos, where
+  the value is volume and every claim gets citation-checked
+  (`tools/gemini_delegate.py`). Twenty calls a day, so few and large.
+
+Unmeasured: whether Studio's Pro access carries its own ceiling, and whether its
+search grounding is the same implementation as the API's `google_search` tool.
+
 **Billing, for when the free tier stops being enough**
 ([billing docs](https://ai.google.dev/gemini-api/docs/billing)): Tier 1 needs a
 billing account and a $10 prepay; Tier 2 opens at $100 spent + 3 days; Tier 3
