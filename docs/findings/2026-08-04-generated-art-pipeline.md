@@ -1,6 +1,6 @@
 # How spider-swing's generated art got consistent — and why it is not a prompting story
 
-> **Status:** `finding`
+> **Status:** `reference`
 >
 > Derived 2026-08-04 from six owner-supplied ChatGPT share transcripts (read
 > with `tools/read_shared_chat.py`), spider-swing's committed source records
