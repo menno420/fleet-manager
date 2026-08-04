@@ -9,6 +9,12 @@
 > verbatim from those sources. Cross-provider claims are marked as inference
 > where they are inference.
 
+> **This finding produced program law.** Its central claim — that being
+> *subject to* a repo, not merely able to read it, is what makes its rules bind
+> — is now **[PL-013] inhabiting beats observing** in the substrate-kit
+> register. Cite the PL-ID; this document is the evidence behind it, not a
+> second copy of the ruling.
+
 ## Why this document exists
 
 On 2026-08-04 a four-surface image-generation comparison
@@ -120,7 +126,8 @@ The failures split along that line — the composite board and the upscaling are
 generation failures, while *"not keyed, tiled, collision-audited, or tested in
 Godot"* are verification failures that only integration can fix. Note also that
 it drifted off the six-visible-leg convention **while having read access to the
-committed docs that state it**: readable is not the same as binding.
+committed docs that state it**: readable is not the same as binding — the
+observation that became [PL-013].
 
 **The constructive reading — a two-tier workflow, not a cautionary tale.** The
 run produced *"useful visual concepts, not production-ready masters"*, on a
