@@ -5,6 +5,16 @@ description: "Land the session — claim, born-red card first, READY PR, batched
 
 # session-close
 
+> **Venue note (fleet-manager, 2026-08-04):** the boot file rules `control/`
+> **seat-era historical** here. Where a step below writes to `control/`, the
+> live equivalents are the session card (claims, status) and the PR
+> description (baton, records); the OWNER-ACTION field contract in
+> `control/README.md` remains valid as a *format* reference. Decided per the
+> precedence rule (the owner-set boot file outranks older skill text) and
+> ⚑ flagged for veto — conflict first recorded on the 2026-08-04 skill-family
+> card.
+
+
 Land fleet-manager's session correctly — the full landing path, claim to
 merged-on-green. Playbook-grade: a session reading this executes without
 improvising (grounded-skills plan §7.2).

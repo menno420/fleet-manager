@@ -5,6 +5,16 @@ description: "Cut + publish a substrate-kit release — version bump PR, workflo
 
 # release
 
+> **Venue note (fleet-manager, 2026-08-04):** the boot file rules `control/`
+> **seat-era historical** here. Where a step below writes to `control/`, the
+> live equivalents are the session card (claims, status) and the PR
+> description (baton, records); the OWNER-ACTION field contract in
+> `control/README.md` remains valid as a *format* reference. Decided per the
+> precedence rule (the owner-set boot file outranks older skill text) and
+> ⚑ flagged for veto — conflict first recorded on the 2026-08-04 skill-family
+> card.
+
+
 Cut and publish a substrate-kit release — the kit cut runbook, executable
 (canonical prose: `docs/operations/release-runbook.md`). Kit-repo-specific
 by nature: the commands below run in the kit repo, the source of the

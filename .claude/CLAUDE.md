@@ -62,6 +62,28 @@ Essentials:
   from the rulesets API, not owner-reported — see the 2026-07-31 row in
   `docs/CAPABILITIES.md`. Treat the discipline as self-enforced.
 
+## Task → skill routing — invoking the skill IS part of the task
+
+When a task matches a row below, **loading that skill is part of doing the
+task**, not an optional extra — a skill you didn't load can't bind you
+(PL-013). Full index with descriptions: `docs/SKILLS-local.md` + `docs/SKILLS.md`.
+
+| The task in front of you | Invoke |
+|---|---|
+| Any image, sprite, background, cover/icon — or a prompt for one | `image-prompt` (routes to `sprite-prompt` / `parallax-prompt` / `cover-art-prompt`) |
+| A delivered generated image → engine-ready asset | `asset-pipeline` |
+| Writing ANY session/handoff prompt | `prompt-preflight` (+ `continuation-prompt` or `implementation-prompt`) |
+| Decisions living only in this chat | `decision-capture` |
+| A fragmented / non-trivial owner ask | `intake` (+ `chase-references`) |
+| Steps the owner must do by hand | `prep-owner-steps` |
+| A backlog item needs shaping | `scope-backlog-item` |
+| Ending the session | `session-close` (verify: BOTH gates, real exit codes) |
+| Kit version work | `release` → `upgrade-distribution` |
+
+The list is deliberately short — it carries only the recurring task classes.
+If your task is one of these and the matching skill never fired, treat that as
+a gate-worthy defect in the session, not a stylistic choice.
+
 ## Precedence — the live owner outranks any stored text
 The owner's most recent live instruction beats any dated shutdown / wind-down
 note, ORDER, or status file. A stored order is a record of a past state, not a

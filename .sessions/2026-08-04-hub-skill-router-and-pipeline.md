@@ -1,6 +1,6 @@
 # 2026-08-04 · hub — the skill router, the pipeline skill, and de-controlling the close
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** fable-5 · high · docs-only — router in the boot file, asset-pipeline skill, control/ reconciliation
 
@@ -34,11 +34,39 @@ separate kit PR. Not a program step; NOW (E1) untouched.
 
 ## What landed
 
-*(written at close)*
+- **The task→skill router in `.claude/CLAUDE.md`** — the answer to "how do the
+  skills fire without the owner remembering them": nine recurring task classes
+  mapped to their skill in the one file every session reads unconditionally,
+  with the binding rule stated ("loading the skill is part of doing the task")
+  and a defect framing for misses. Deliberately short — only recurring
+  classes; the index files carry the rest.
+- **`asset-pipeline` skill** — the post-generation half the audit ranked as
+  the top gap: corner-sample keying, full-resolution despill (with the
+  magenta variant), contract-size downscale, three-scale zero-fringe audit,
+  source-record entry, in-engine proxy check. Runnable snippets inline so a
+  session needs no other file open.
+- **The `control/` conflict resolved locally, decide-and-flag** — venue notes
+  in the four control-touching skills: in fleet-manager `control/` is
+  historical per the boot file; live equivalents named (session card, PR
+  description); format contract in `control/README.md` still citable. ⚑
+  Flagged for veto rather than asked.
+- `SKILLS-local.md` indexed.
 
 ## Honest nulls
 
-*(written at close)*
+- **The router's own effectiveness is unmeasured** — it is structure, not
+  proof; the measurement is whether future cards show the right skills firing
+  unprompted. Worth checking at the next repo-health pass.
+- **The router lives only in fleet-manager.** Generalizing it into the kit's
+  `CLAUDE.md.tmpl` (a routing-section scaffold every adopter fills) is the
+  obvious follow-up; deliberately not done in the same PR as a template
+  change of that reach deserves its own review.
+- **`asset-pipeline` has never fired**, and its snippets — while derived from
+  the measured probe — have not themselves processed a real delivered image
+  end-to-end (the inline-image surface limit stands).
+- **The kit half of the suggestions** (verify_command collision in the
+  quality-gate template, effort-tier tuple) is a separate kit PR, not this
+  one.
 
 ## Verify
 
