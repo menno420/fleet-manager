@@ -1,6 +1,6 @@
 # 2026-08-05 · hub — delegated reads to Gemini, with a citation verifier
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** opus-5 · high · feature build — the delegation path and its
   first real job

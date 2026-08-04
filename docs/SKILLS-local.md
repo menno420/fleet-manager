@@ -52,6 +52,7 @@ ones below are untouched.
 | `asset-pipeline` | The post-generation half: key by corner sample (never the requested hex), despill at full resolution, downscale to the contract size, three-scale fringe audit (bar: zero), source-record entry, in-engine proxy check. Runnable snippets included; measured basis: `tools/chroma_spill_probe.py`. |
 | `audio-prompt` | Any audio ask, either route (procedural generator or AI generation), delivered against spider-swing's committed contract: mono 44.1kHz 16-bit WAV, sub-0dBFS + 3ms fades, mathematically continuous loops, manifested provenance. Honest about what is measured (the contract) vs transferred (the method) vs unmeasured (every AI audio provider). |
 | `capability-probe` | The discovery rule as an executable method: ledger → environment → attempt once → verbatim evidence → same-session append with venue token. Fires at the moment of thinking "I can't", not at commit time. |
+| `delegate-read` | A read-heavy sweep (every session card, every bench result, a whole doc tree) handed to free-tier Gemini via `tools/gemini_delegate.py`, with every returned claim citation-verified against the repo before it is read. Delegates the reading, never the record. |
 | `owner-brief` | The owner's status view on demand: LANDED / YOUR EYES / NEXT, plain language only, decisions as one-letter choices with bolded recommendations, under a minute to read. |
 
 ## The idea they share

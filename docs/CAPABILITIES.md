@@ -119,6 +119,22 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-05 · capability · `any` · **Gemini is callable directly from a
+  session: `GEMINI_API_KEY` + direct egress reaches `gemini-3.6-flash` (1M in /
+  65k out) at $0, so whole-corpus reads are routine work now.** The free tier
+  meters INPUT at 250,000 tokens/minute — the window and the quota are
+  different numbers — so corpora above that are chunked. · evidence:
+  `GET https://generativelanguage.googleapis.com/v1beta/models?key=$GEMINI_API_KEY`
+  returned 50 models; a 329-file / 592,887-token read of substrate-kit's
+  session cards completed in 4 batches; the ceiling is verbatim from a 429:
+  `Quota exceeded for metric:
+  generativelanguage.googleapis.com/generate_content_free_tier_input_token_count,
+  limit: 250000, model: gemini-3.6-flash`. · workaround: n/a — the proxied path
+  is untested here, direct egress (`ProxyHandler({})` / `curl --noproxy '*'`)
+  works. Delegated output is only usable through the citation verifier in
+  `tools/gemini_delegate.py` — see
+  `docs/findings/2026-08-05-gemini-delegation.md`.
+  — LAST-VERIFIED: 2026-08-05
 - 2026-08-04 · capability · owner-live · **Conversation IMAGE uploads arrive as
   inline vision only — no file lands on disk — while videos and documents
   arrive as real paths.** So an image the owner sends can be *seen* but not
