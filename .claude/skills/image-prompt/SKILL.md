@@ -89,10 +89,18 @@ zero-fringe record.
   Explore broadly there, then take the chosen concept through the integrated
   path for the master. Same shape as Grok Imagine's standard-then-quality
   recipe in [`docs/CAPABILITIES.md`](../../../docs/CAPABILITIES.md).
-- **Key at full resolution, then re-check after downscaling.** Downscaling
-  reintroduces chroma into partially transparent edge pixels even when the
-  full-resolution key was clean. This is the single non-obvious fact in the
-  whole method.
+- **Despill at full resolution — this is the step everything else depends on.**
+  Measured 2026-08-04 (`tools/chroma_spill_probe.py`): semi-transparent edge
+  pixels carry ≈+100 green excess at **every** scale including source, and
+  clamping green to `max(red, blue)` takes it to ≈0. Downscaling does *not*
+  introduce the fringe — verified, PIL and ImageMagick both return identical
+  RGB regardless of what sits under alpha 0 — it only makes the existing spill
+  proportionally larger, which is why it reads as a resize bug. Audit at
+  source, runtime and 25% gameplay scale as a **check**, not a repair step.
+- **Key by sampling, never by hex.** Generated "green" fields measured near
+  `#22C022` and `#3E8E3E` — none within tolerance 40 of `#00FF00`, so a literal
+  match keys zero pixels. Put `#00FF00` in the prompt (it anchors the model
+  toward a saturated field); sample an actual corner pixel in the pipeline.
 - **Pose changes are edits, not generations.** Novel physics poses ("gripped in
   one front leg, mid-swing") are out-of-distribution and failed on all four
   surfaces tested 2026-08-04. Generate a neutral pose, then ask for a small
