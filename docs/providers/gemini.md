@@ -183,6 +183,64 @@ that projects can be switched between paid and free tiers as needed — so payin
 for API access does not have to cost the free Studio surface, but it will if the
 paid key is linked there. Exactly what constitutes "linking" is untested here.
 
+Source material for these runs comes from the owner's public Drive folder — see
+[`../conventions/owner-drive-folder.md`](../conventions/owner-drive-folder.md) for the
+route that reads it without the Drive API.
+
+**Video generation (Veo 3.1) works on Vertex, and prompt depth is the whole
+variable** (measured 2026-08-05, four runs, same model and references):
+
+| Prompt | Result |
+|---|---|
+| ~70 words, "a spider swinging on a silk line through a forest" | photorealistic nature documentary — no game anywhere in it |
+| ~120 words naming "2D side-scrolling mobile game" | a game, but generic vector art, with an invented pause button |
+| **197-word specification** (palette by region, each parallax layer + speed, light source, brushwork, anatomy, silk behaviour, camera lock) **+ an explicit exclusion list** | recognisably the real game's art, **zero interface artefacts** |
+| **+130 words of pendulum physics** (accelerate through the low point, decelerate to the apex, release, ballistic arc, re-fire) | the actual swing mechanic |
+
+The method that produced the last one is the image-prompt method applied to
+video: hand Pro the cover art *and* a real gameplay frame, ask it for a
+**specification** describing only what a camera in that world would see, then
+hand-edit — the exclusion list and the physics paragraph are what a human adds.
+Recorded because the first result was nearly written down as "Veo can't do game
+art", which was a claim about the prompt wearing a claim about the tool.
+
+**Input shapes** (all on `veo-3.1-fast-generate-001`, `predictLongRunning` +
+`fetchPredictOperation`):
+
+- `image` — first frame. Works; the strongest single conditioner.
+- `image` + `lastFrame` — interpolates between two real frames. Works.
+- `referenceImages` with `referenceType: asset` — works, **but only at
+  `durationSeconds: 8`**; any other duration returns *"supported durations are
+  [8] for feature reference_to_video"*.
+- `referenceImages` with `referenceType: style` — **fails at every duration
+  tried**: *"Reference to video does not support this mix of references."*
+- `video` — accepted for extension; not exercised to completion here.
+
+**Model IDs differ by surface**: Vertex serves `veo-3.1-generate-001` /
+`-fast-generate-001`; AI Studio lists `veo-3.1-generate-preview`. Using the
+wrong family 404s.
+
+**Submission success is not support.** Every rejected shape was accepted by the
+API and failed only when the long-running operation resolved. Poll the
+operation before believing anything.
+
+**All Veo output carries AAC audio** — easy to discard by reflex when piping
+through ffmpeg.
+
+**The app is the weaker surface for video**, inverting the text-side asymmetry:
+it refuses video-as-reference in the EU (*"Editing uploaded videos isn't
+available in your region"*, misclassifying "use this as reference" as editing),
+and a conversational correction returned a byte-identical file after five
+minutes — no way to tell whether the instruction was received. The API's
+constraints at least arrive as verbatim errors.
+
+**What generated footage is for.** It is strong on mood — palette, light,
+atmosphere, motion — and unreliable on anything with rules. Asked for gameplay,
+the app version reproduced the HUD and put **three ATTACH buttons** in one
+frame at different sizes and opacities. Use generated video for title cards,
+key-art motion and establishing shots; use real capture for anything implying
+"this is how it plays".
+
 **Vertex AI is the credit-eligible door to the same models** (measured
 2026-08-05). Google's $300 Cloud welcome credit excludes *"Gemini API in AI
 Studio"* — a product, not a model family. Vertex AI serves the identical Gemini

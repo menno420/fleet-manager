@@ -119,6 +119,20 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-05 · capability · `any` · **A session can produce finished video:
+  read the owner's public Drive folder, generate footage with Veo 3.1 on
+  Vertex, delegate highlight selection to Gemini, and cut a trailer with
+  ffmpeg — all from inside the container.** · evidence: 30s trailer assembled
+  from ten Drive recordings plus a generated opener; Veo input shapes measured
+  (`image` ✓, `image`+`lastFrame` ✓, `referenceImages` asset ✓ **only at
+  durationSeconds 8**, style ✗); Drive read via
+  `drive.google.com/embeddedfolderview?id=<id>#list` + `drive.usercontent…
+  download?id=<id>&export=download&confirm=t`, no Drive API needed (the API is
+  blocked for keys and not enabled). · workaround: n/a. Caution: delegated
+  video review is unreliable — Gemini reported zero collisions in footage where
+  the owner found two, and this session could not resolve them either at
+  1040x480.
+  — LAST-VERIFIED: 2026-08-05
 - 2026-08-05 · capability · `any` · **Vertex AI is callable from a session with
   a service account, serving Gemini 3.1 Pro, 3.6 Flash and image generation —
   and it returns PNG where the AI Studio API returns JPEG.** Vertex is not
