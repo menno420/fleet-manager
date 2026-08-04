@@ -1,6 +1,6 @@
 # 2026-08-04 · hub — how spider-swing's art got consistent: reading the sessions that made it
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** opus-5 · high · research — transcript archaeology, findings doc + skill
 
@@ -40,11 +40,38 @@ Not a program step; NOW (E1) untouched.
 
 ## What landed
 
-*(written at close)*
+- **`docs/findings/2026-08-04-generated-art-pipeline.md`** — the five mechanisms
+  with verbatim quotes, the two corrections, and the reusable recipe.
+- **`.claude/skills/image-prompt/SKILL.md`** + a row in `SKILLS-local.md`.
+
+Two corrections worth naming, because both would have cost a future session:
+
+1. **Seamless horizontal tiling is not required for spider-swing backdrops.**
+   Measured: most shipped backdrops score 8–16× interior variance at the wrap
+   seam. `swing_lab.gd` mirrors alternate tiles, so the seam is invisible by
+   construction, and the art record says the compositions were made knowing
+   this. I had advised the owner to check tiling earlier the same day — wrong
+   advice, corrected in the finding.
+2. **#712's conclusion needed its cause restated.** "ChatGPT wins on image
+   generation" is true of cold-prompt compliance and misleading about the
+   shipped art, whose quality is a pipeline property. A session reading only
+   #712 would try to fix an art problem with a better prompt.
 
 ## Honest nulls
 
-*(written at close)*
+- **No image-generation prompts survive in the transcripts** — ChatGPT share
+  exports collapse the model's working turns. The reconstruction rests on its
+  summaries plus spider-swing's committed prompt records.
+- **The magenta-vs-green rule is inferred** from per-asset assignments and
+  confirmed only by the repo's later prose; no transcript states it.
+- **The cross-provider claim is untested** — running this pipeline on Gemini or
+  Grok Imagine would settle whether the advantage is really pipeline-not-model.
+- **`chat1` of the six was this session's own test prompt**, not a historical
+  art session; a subagent nearly filed its `#FF00FF` as owner-originated
+  convention. Caught because this session authored it — a reminder that
+  supplied evidence needs provenance, not just reading.
+- The skill has **not been invoked yet**; per `SKILLS-local.md`'s own rule,
+  skills earn their place by firing.
 
 ## Verify
 
