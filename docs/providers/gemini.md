@@ -109,6 +109,31 @@ used to improve our products"*; paid tier — *"content **not** used to improve
 our products."* On the free API tier, prompts are training data. That is a
 capability fact about what the free tier *is*, not a warning label.
 
+## Calling it from a session — measured 2026-08-05
+
+A free API key reaches **50 models**, including `gemini-3.6-flash` at
+**1,048,576 in / 65,536 out**, at no cost. That makes Gemini the estate's
+delegate for read-heavy work: see
+[`../findings/2026-08-05-gemini-delegation.md`](../findings/2026-08-05-gemini-delegation.md)
+and `tools/gemini_delegate.py`.
+
+Three ceilings, all measured rather than read off a page:
+
+- **The free tier meters input at 250,000 tokens per minute**, verbatim from a
+  429: `limit: 250000, model: gemini-3.6-flash`. The 1M window is a model
+  capability; this is the quota. They are different numbers and conflating them
+  is the trap.
+- **`gemini-3.1-pro-preview` returns 429 on a free key** — Pro is paid-quota.
+- **`gemini-2.5-flash` returns 404**: *"no longer available to new users"*. A
+  new key cannot reach it regardless of tier.
+
+**AI Studio's GitHub integration is a different surface with different rules**
+(measured the same day): it imports up to 1000 files of one repo, drops the rest
+by its own judgement, and can only push to a repo it creates. The sync is
+one-way — the workspace snapshot wins, and files it lacks are deleted from the
+target. Useful for prototyping an app over a repo; not a code path for work
+that must land accurately.
+
 ## Gems
 
 Custom assistants: a name, an instructions field, and knowledge files that load

@@ -79,6 +79,7 @@ task**, not an optional extra — a skill you didn't load can't bind you
 | A backlog item needs shaping | `scope-backlog-item` |
 | Any audio ask — a cue, a loop, a stem, or "make the audio better" | `audio-prompt` |
 | About to say "I can't" / a tool seems missing / something new worked | `capability-probe` |
+| A job means reading a whole corpus (all cards, all results, a full tree) | `delegate-read` |
 | Owner asks anything status-shaped ("where are we", "what's left") | `owner-brief` |
 | Ending the session | `session-close` (verify: BOTH gates, real exit codes) |
 | Kit version work | `release` → `upgrade-distribution` |
