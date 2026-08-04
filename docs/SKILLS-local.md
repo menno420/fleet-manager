@@ -49,6 +49,7 @@ ones below are untouched.
 | `sprite-prompt` | A character/object sprite that must slot into an existing set — set contract first, anchor + identity exclusion, enumerated layout with a checkable total, neutral stance, chroma by palette. |
 | `parallax-prompt` | Parallax background layers and wall/rail materials — one layer per call, far layer opaque, mid/near on chroma, tiling only where the renderer needs it (measured: spider-swing mirrors alternate backdrop tiles), centre stays open. |
 | `cover-art-prompt` | Key art, app icons, banners, store assets — full-bleed, no chroma, composition brief, silhouette read at thumbnail size, one short in-image word allowed as the calibration signal, icon margin rule. |
+| `asset-pipeline` | The post-generation half: key by corner sample (never the requested hex), despill at full resolution, downscale to the contract size, three-scale fringe audit (bar: zero), source-record entry, in-engine proxy check. Runnable snippets included; measured basis: `tools/chroma_spill_probe.py`. |
 
 ## The idea they share
 

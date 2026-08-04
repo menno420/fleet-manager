@@ -5,6 +5,16 @@ description: "Hand the owner finished steps, not directions — deep links, past
 
 # prep-owner-steps
 
+> **Venue note (fleet-manager, 2026-08-04):** the boot file rules `control/`
+> **seat-era historical** here. Where a step below writes to `control/`, the
+> live equivalents are the session card (claims, status) and the PR
+> description (baton, records); the OWNER-ACTION field contract in
+> `control/README.md` remains valid as a *format* reference. Decided per the
+> precedence rule (the owner-set boot file outranks older skill text) and
+> ⚑ flagged for veto — conflict first recorded on the 2026-08-04 skill-family
+> card.
+
+
 Hand fleet-manager's owner finished steps, not directions.
 
 > **Owner-directed (Q-0273, 2026-07-12).** His words: agents give him
