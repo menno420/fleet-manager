@@ -50,6 +50,9 @@ ones below are untouched.
 | `parallax-prompt` | Parallax background layers and wall/rail materials — one layer per call, far layer opaque, mid/near on chroma, tiling only where the renderer needs it (measured: spider-swing mirrors alternate backdrop tiles), centre stays open. |
 | `cover-art-prompt` | Key art, app icons, banners, store assets — full-bleed, no chroma, composition brief, silhouette read at thumbnail size, one short in-image word allowed as the calibration signal, icon margin rule. |
 | `asset-pipeline` | The post-generation half: key by corner sample (never the requested hex), despill at full resolution, downscale to the contract size, three-scale fringe audit (bar: zero), source-record entry, in-engine proxy check. Runnable snippets included; measured basis: `tools/chroma_spill_probe.py`. |
+| `audio-prompt` | Any audio ask, either route (procedural generator or AI generation), delivered against spider-swing's committed contract: mono 44.1kHz 16-bit WAV, sub-0dBFS + 3ms fades, mathematically continuous loops, manifested provenance. Honest about what is measured (the contract) vs transferred (the method) vs unmeasured (every AI audio provider). |
+| `capability-probe` | The discovery rule as an executable method: ledger → environment → attempt once → verbatim evidence → same-session append with venue token. Fires at the moment of thinking "I can't", not at commit time. |
+| `owner-brief` | The owner's status view on demand: LANDED / YOUR EYES / NEXT, plain language only, decisions as one-letter choices with bolded recommendations, under a minute to read. |
 
 ## The idea they share
 
