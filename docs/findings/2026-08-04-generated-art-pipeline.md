@@ -89,7 +89,7 @@ One asset shipped instead of five mediocre ones — a direct execution of the
 owner's only real art brief: *"it's not about speed or volume, it's about making
 sure that what we have is actually usable."*
 
-### 2. Never batch — the batch failure is total, not partial
+### 2. One asset per generation *call* — the rule is decomposition, not batch size
 
 One session attempted 41 assets at once with a **more** detailed manifest than
 anything in the successful sessions. Outcome:
@@ -100,9 +100,38 @@ anything in the successful sessions. Outcome:
 > comprehensive production board, even when given isolated asset instructions
 > and a specific reference image… several were **enlarged from board cells**."
 
-Specification did not save it; serial discipline was the missing ingredient.
-Corollary rule: **generate at or above native size and downscale only — never
-upscale, and never extract an asset from a composite sheet.**
+**The mechanism is an execution boundary, not batch size** (owner, 2026-08-04).
+That session was a regular ChatGPT chat, deliberately chosen because plain chat
+and image generation do not consume the weekly Work/Codex allowance. A regular
+chat has no boundary between queue items, so a 41-item request becomes **one**
+generation and the assets get sliced back out of a composite board. The Work
+environment — *"highly comparable to the Claude Code environment"* in the
+owner's words — decomposes a request and executes the parts separately, so the
+same queue becomes 41 generations. Claude Code's parallel subagents are the
+same capability from this side.
+
+So the rule is **one asset per generation call**, and a batch is safe exactly
+when the surface can turn it into N calls. Ask what the surface does with a
+queue before handing it one.
+
+**Do not read that session as a clean batch-versus-serial experiment.** Two
+variables differed: it was batched *and* it lacked the integrated environment.
+The failures split along that line — the composite board and the upscaling are
+generation failures, while *"not keyed, tiled, collision-audited, or tested in
+Godot"* are verification failures that only integration can fix. Note also that
+it drifted off the six-visible-leg convention **while having read access to the
+committed docs that state it**: readable is not the same as binding.
+
+**The constructive reading — a two-tier workflow, not a cautionary tale.** The
+run produced *"useful visual concepts, not production-ready masters"*, on a
+surface that costs no Work allowance. That is a real division of labour:
+**diverge cheaply, converge expensively.** It is the same shape as the Grok
+Imagine finding of the same date (explore on the standard tier, quality-pass the
+pick) — see [`../CAPABILITIES.md`](../CAPABILITIES.md).
+
+Corollary rule that survives all of the above: **generate at or above native
+size and downscale only — never upscale, and never extract an asset from a
+composite sheet.**
 
 ### 3. Key at full resolution, then re-audit *after* downscaling
 
