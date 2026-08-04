@@ -1,6 +1,6 @@
 # 2026-08-05 · hub — the real Gemini quotas, and a correction
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** opus-5 · high · research — owner-supplied dashboard + docs,
   probed against the API

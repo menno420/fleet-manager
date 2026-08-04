@@ -131,13 +131,54 @@ Three ceilings, all measured rather than read off a page:
 
 | Surface | Result |
 |---|---|
-| Multi-turn chat | works — but **stateless**: the API stores nothing, so the whole history is resent every call |
+| Multi-turn chat | works. `generateContent` is stateless (history resent each call); the newer **Interactions API** stores it server-side — see below |
 | `google_search` grounding | **429 on a two-token prompt** — not served to a free key |
 | `url_context` | works — fetched a raw GitHub URL and quoted its first heading correctly |
 | `code_execution` | works — returned fib(40) = 102334155, independently verified |
 | `function_declarations` | accepted |
 | `systemInstruction` | works |
 | Structured output (`responseSchema`) | works, lowercase JSON-schema types |
+
+**The Interactions API keeps state — `generateContent` is the legacy path.**
+`POST /v1beta/interactions` is reachable on a free key and accepts
+`previous_interaction_id`, so a conversation continues without resending its
+history. Measured A/B on `gemini-3.1-flash-lite`: turn 2 carrying the id
+answered `4712`; the same question without it answered *"You have not provided
+a number for me to remember in this conversation."* Retention is **1 day on
+free, 55 days paid** (configurable 7–55), opt-out with `store=false` — which
+also disables background execution. Server-side history additionally lets the
+implicit cache work across turns.
+
+**The real ceilings, from the owner's AI Studio rate-limit dashboard**
+(2026-08-05 — peak usage per model over 28 days):
+
+| Model | RPM | TPM | RPD |
+|---|---|---|---|
+| Gemini 3.6 Flash | 5 | 250K | **20** |
+| Gemini 3.1 / 3.5 Flash Lite | 15 | 250K | **500** |
+| Gemini 2.5 Flash | 5 | 250K | 20 |
+| Embedding 1 / 2 | 100 | 30K | 1K |
+| Live API | unlimited | 65K / 20K | unlimited |
+| Map grounding | — | — | 500 |
+| Search grounding | — | — | not served |
+
+**Twenty requests per day** on the flagship free model is the binding
+constraint — not the token meter. It makes the free tier suited to a few very
+large calls rather than many small ones, and it is why the delegation tool
+packs each batch to the token ceiling. The lite models are the volume tier at
+500/day; they are a fallback, not a downgrade to avoid.
+
+**AI Studio's interface does not spend API quota.** Verbatim from the
+dashboard: *"Usage information displayed is for the API and does not reflect AI
+Studio usage, which is offered free of charge (when no API key is selected)."*
+Dashboard counters lag: *"Usage data may take up to 15 minutes to update."*
+
+**Billing, for when the free tier stops being enough**
+([billing docs](https://ai.google.dev/gemini-api/docs/billing)): Tier 1 needs a
+billing account and a $10 prepay; Tier 2 opens at $100 spent + 3 days; Tier 3
+at $1,000 + 30 days. The data-use line is the reason to care beyond rate limits
+— on paid tiers *"prompts and responses are not used to improve Google
+products"*, which is the split already recorded above.
 
 **Two quotas, not one.** `generate_content_free_tier_input_token_count` meters
 **250k tokens per minute**; `generate_content_free_tier_requests` is a separate
