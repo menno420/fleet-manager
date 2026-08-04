@@ -119,6 +119,41 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-04 · capability · owner-live · **Image-generation instruction
+  compliance differs more BETWEEN SURFACES of one provider than between
+  providers — and Grok's Imagine quality tier fixed in one step what four
+  rounds of prompting could not.** Owner-run test: identical sprite prompts
+  (style-anchored to spider-swing's Garden Spider; enumerated leg placement;
+  `#00FF00` keyable background, no shadows) across ChatGPT, Gemini Flash, Grok
+  chat (Vraag/Expert), and Grok Imagine. · evidence, from owner screenshots +
+  screen recording read via ffmpeg frames this session: **ChatGPT** followed
+  the technical spec in 3 of 3 rounds (only surface to obey the enumerated
+  4-near/2-far leg layout); **Gemini Flash** matched the painterly style
+  closely and keyed cleanly but overrode layout instructions with its own
+  anatomy prior; **Grok chat** produced muted olive backgrounds instead of
+  `#00FF00` in 3 of 3 rounds plus stray web elements; **Grok Imagine
+  (standard)** batch-produced 8+ style-matched candidates per roll, every one
+  with a forbidden cast shadow on non-compliant green; **Grok Imagine
+  "Kwaliteit verbeteren" (quality tier)** then rendered the correct background
+  with no shadows *"nearly every time"* (owner-reported). Matches the vendor
+  fact in [`providers/grok.md`](providers/grok.md) that standard and quality
+  Imagine are different models (`grok-imagine-image` vs `-quality`). A
+  follow-up parallax-background prompt sharpened the standard-tier verdict:
+  it obeyed a harder LAYOUT spec (three separated bands with divider lines,
+  magenta-keyed foreground silhouettes, one palette across bands) on nearly
+  every candidate — its weakness is background *uniformity* (gradients,
+  shadows), not spec-following generally. A key-art round confirmed it: full
+  composition brief followed and the carved word "SWING" rendered correctly in
+  most of 8 candidates — short in-image text is reliable on this surface. All
+  surfaces failed novel physics poses ("thread gripped in one front leg,
+  mid-swing") — out-of-distribution; small-delta edits on an existing image
+  succeeded where pose-from-scratch failed. · workaround/recipe: canonical
+  spec-bound sprites → ChatGPT; variant exploration → Grok Imagine standard
+  batch, then quality pass on the pick; pose changes → edit an existing image
+  with a small delta, never text-to-image from scratch; judge a provider's
+  image capability only after testing its dedicated surface, not its chat tab.
+  — LAST-VERIFIED: 2026-08-04
+
 - 2026-08-03 · capability · `any` · **ChatGPT's agentic surface has FOUR configuration
   defaults that silently break a prompt written elsewhere — and knowing which chat mode is
   in play changes the answer more on this provider than on any other.** Per-provider
