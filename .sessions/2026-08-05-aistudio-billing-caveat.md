@@ -1,6 +1,6 @@
 # 2026-08-05 · hub — the paid-key caveat on AI Studio's free usage
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** opus-5 · high · docs-only — one conditional added to a
   recommendation
