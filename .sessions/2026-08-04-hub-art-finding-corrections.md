@@ -1,6 +1,6 @@
 # 2026-08-04 · hub — correcting the art finding: decomposition, not batch size
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** opus-5 · high · research — owner-corrected causal claim
 
@@ -42,11 +42,33 @@ Not a program step; NOW (E1) untouched.
 
 ## What landed
 
-*(written at close)*
+- **`docs/findings/2026-08-04-generated-art-pipeline.md` §2** rewritten:
+  *"One asset per generation **call** — the rule is decomposition, not batch
+  size."* Names the execution boundary as the mechanism, flags the two-variable
+  confound explicitly, and adds the two-tier reading (diverge cheaply on a
+  non-integrated surface, converge expensively on the integrated one).
+- **`.claude/skills/image-prompt/SKILL.md`** — hard rules updated to match, plus
+  a new *"diverge cheaply, converge expensively"* rule pointing at the same
+  two-tier shape as the Grok Imagine standard-then-quality recipe.
+
+One detail worth keeping: the failed batch **had read access to the committed
+docs stating the six-visible-leg convention and drifted off it anyway.**
+*Readable is not binding.* That is a sharper statement of why repo integration
+matters than "the agent can see the repo" — enforcement, not visibility, is the
+active ingredient.
 
 ## Honest nulls
 
-*(written at close)*
+- **Still one data point.** No session has run a 41-item queue *in* the
+  integrated environment, so "decomposition fixes it" is a mechanism the owner
+  states from experience, not something this estate has measured. The doc says
+  so.
+- **The cost claim is owner-reported** — that plain chat and image generation
+  do not draw down the weekly Work allowance is not verified against a vendor
+  page, and `providers/chatgpt.md` still carries plan details as
+  secondary-sourced.
+- The `image-prompt` skill **has still not fired**; it was edited before its
+  first invocation.
 
 ## Verify
 
