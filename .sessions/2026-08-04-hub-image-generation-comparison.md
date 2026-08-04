@@ -1,6 +1,6 @@
 # 2026-08-04 · hub — four-surface image-generation comparison, measured on the game's own sprites
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** fable-5 · high · research — score owner-run generation tests, record the findings
 
@@ -36,11 +36,32 @@ Not a program step; NOW (E1) untouched.
 
 ## What landed
 
-*(written at close)*
+- **`docs/CAPABILITIES.md`** — append-log entry with the full four-surface
+  result: ChatGPT 3/3 on technical specs (only surface to obey the enumerated
+  leg layout); Gemini Flash style-strong but its anatomy prior overrides
+  layout instructions; Grok chat 0/3 on the background spec; Grok Imagine
+  standard obeys *layout* specs (three-band parallax with keyed foreground,
+  correct "SWING" text) but not background *uniformity*; Imagine quality tier
+  compliant nearly every time. All surfaces fail out-of-distribution physics
+  poses; small-delta edits succeed where pose-from-scratch fails.
+- **`docs/providers/grok.md`** — first estate-measured section in the file:
+  chat tab vs Imagine split, the standard/quality recipe, weakness entry
+  reframed per the measurement.
+- Working recipes recorded: canonical sprites → ChatGPT; variant exploration →
+  Imagine standard batch + quality pass; pose changes → edit path, never
+  text-to-image.
 
 ## Honest nulls
 
-*(written at close)*
+- The quality-tier compliance rate is owner-reported ("nearly every time"),
+  not counted; no numeric denominator.
+- Horizontal tiling of the parallax bands is untested — thumbnails cannot show
+  seams; flagged to the owner as the pick-time check.
+- Gemini and ChatGPT were not re-run through their own dedicated
+  quality/upscale paths; the comparison is chat-surface vs chat-surface plus
+  Grok's Imagine — the one asymmetry in the design.
+- All scoring is against one reference sprite (Garden Spider); a different art
+  style could reorder the ranking.
 
 ## Verify
 
