@@ -7,47 +7,65 @@
 > plan and model details from secondary sources are marked as such.
 > **Not a routing table** — see [`README.md`](README.md).
 
-## Why the modes matter
+## The July 2026 consolidation — read this before anything else
 
-This is the provider where "which chat is it" changes the answer most. A regular
-chat, a Deep Research run, an Agent-mode run and a Work session are different
-execution models with different tools, different runtimes and different failure
-modes — and the same prompt sent to the wrong one produces a confidently wrong
-result rather than an error.
+**The mode taxonomy changed materially on 2026-07-09/10 and any description of a
+standalone "Agent mode" is now out of date.** OpenAI discontinued the Atlas
+browser — it stops working **2026-08-09** — and folded its agentic and
+browser-driving capability into **ChatGPT Work**, an enhanced desktop app, and a
+Chrome extension. The redesigned desktop application **combines ChatGPT, Codex
+and ChatGPT Work into one app**, with the previous standalone app renamed ChatGPT
+Classic.
 
-## The modes
+Corroborated by OpenAI's own documentation site, where **Work is documented under
+the Codex platform** rather than as a chat mode:
+[`learn.chatgpt.com/codex/get-started-with-work`](https://learn.chatgpt.com/codex/get-started-with-work),
+alongside [`/codex/environments/modes`](https://learn.chatgpt.com/docs). OpenAI's
+help centre carries *"Evolving Atlas into ChatGPT for browser-based agentic
+work"* (article 20001371) — **not directly readable from here**: `help.openai.com`
+answers HTTP 403 behind a Cloudflare interstitial to both a fetcher and headless
+Chromium, so the announcement details below come from press coverage of it.
+([ppc.land](https://ppc.land/openai-kills-atlas-browser-folds-it-into-new-chatgpt-work-agent/) ·
+[Gizmochina](https://www.gizmochina.com/2026/07/10/openai-retires-chatgpt-atlas-browser-chatgpt-desktop-app/))
 
-Six modes reach from a Tools menu in the composer. ([datastudios](https://www.datastudios.org/post/chatgpt-and-the-new-tools-interface-six-modes-to-access-agent-research-study-and-creation))
+**Practical consequence:** the agentic surface is now essentially one thing —
+Work, running on the Codex platform — rather than a chat mode you pick from a
+menu. A prompt written for "Agent mode" targets something that no longer exists
+under that name.
 
-| Mode | What it does | Runtime | Reach for it when |
-|---|---|---|---|
-| **Regular chat** | Ordinary turn-taking, plus whatever is attached | Seconds | Anything conversational; the default |
-| **Deep Research** | Runs autonomously for **5–30 minutes**, issuing many sequential web queries, reading pages and PDFs, and returning a structured cited report | Minutes | A question whose answer needs many sources synthesised. **Not** for questions about a repo it cannot see |
-| **Agent mode** | Plans a sequence of steps, picks tools, and executes — opening a **visible browser window** you can watch | Minutes | Tasks needing real interaction with a site, not just reading it |
-| **Canvas** | Turns the conversation into a live collaborative document | Interactive | Iterating on a document or a piece of code side by side |
-| **Study and learn** | Didactic structure — explains rather than answers | Interactive | Learning something, not shipping something |
-| **Web search** | Ordinary chat plus live retrieval | Seconds | A current fact, without paying for Deep Research |
-| **Create image** | Image generation in-thread | Seconds | Visual assets |
+## What is still a distinct mode
 
-**Deep Research can be combined with Agent mode**, giving the research run a
-visual browser. That is the most capable and slowest combination.
+Verified as current; the pre-consolidation Tools menu had more entries and this
+list is deliberately shorter than it was.
+
+| Mode | What it does | Runtime |
+|---|---|---|
+| **Regular chat** | Turn-taking with whatever is attached; web search available inline | Seconds |
+| **Deep Research** | Runs autonomously, issuing many sequential web queries, reading pages and PDFs, returning a structured cited report | Minutes |
+| **Canvas** | Turns the conversation into a live collaborative document | Interactive |
+| **Study and learn** | Didactic structure — explains rather than answers | Interactive |
+| **Image creation** | Image generation in-thread | Seconds |
+| **Work** | The agentic surface — see the section below | Minutes to hours |
+
+**Do not treat this table as exhaustive or settled.** It is assembled from the
+docs site plus press coverage because the primary changelog is unreachable from
+this environment; the shape moved once in July 2026 and may move again.
 
 ### The Deep Research failure mode worth knowing
 
 Deep Research is genuinely strong at synthesising public sources, and its output
 *reads* uniform — cited report prose throughout. But the citation discipline
 applies to the web sources it fetched, **not** to anything you attached or
-described. A run over an uploaded archive will produce the same authoritative
-prose about your files, with the same structure and no visible seam, and the
-parts it could not read are where invention appears.
+described. A run over an uploaded archive produces the same authoritative prose
+about your files, with the same structure and no visible seam, and the parts it
+could not read are where invention appears.
 
 Measured instance: a report on `spider-swing` was right about the engine version
 and all three CI workflows, and wrong about **every file path it named** — nine
 `scripts/`/`scenes/` paths, three `assets/runtime/*.json` manifests, four
 `.substrate/skills/*.json` files, none of which exist. The invented paths are the
 ones a project of that description *ought* to have. Full claim-by-claim check:
-[`../research/2026-08-03-gemini-report-verification.md`](../research/2026-08-03-gemini-report-verification.md)
-(same verification method, different provider — the failure class is shared).
+[`../research/2026-08-03-gemini-report-verification.md`](../research/2026-08-03-gemini-report-verification.md).
 
 **Practical rule: spot-check three of the most specific claims — a path, a count,
 a date.** Three-for-three failing settles the classification of the whole
