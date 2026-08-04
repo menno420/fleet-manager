@@ -1,6 +1,6 @@
 # 2026-08-05 · hub — the control/ resolution, owner-ratified
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** opus-5 · high · docs-only — close the ⚑ flag the owner declined
   to veto

@@ -10,9 +10,9 @@ description: "Cut + publish a substrate-kit release — version bump PR, workflo
 > live equivalents are the session card (claims, status) and the PR
 > description (baton, records); the OWNER-ACTION field contract in
 > `control/README.md` remains valid as a *format* reference. Decided per the
-> precedence rule (the owner-set boot file outranks older skill text) and
-> ⚑ flagged for veto — conflict first recorded on the 2026-08-04 skill-family
-> card.
+> precedence rule (the owner-set boot file outranks older skill text);
+> **owner-ratified 2026-08-05, veto declined** — conflict first recorded on
+> the 2026-08-04 skill-family card.
 
 
 Cut and publish a substrate-kit release — the kit cut runbook, executable
