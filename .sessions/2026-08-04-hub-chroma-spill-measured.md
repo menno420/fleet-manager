@@ -1,6 +1,6 @@
 # 2026-08-04 · hub — measuring the chroma claim instead of quoting it
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** opus-5 · high · research — synthetic chroma-pipeline probe
 
@@ -43,11 +43,40 @@ NOW (E1) untouched.
 
 ## What landed
 
-*(written at close)*
+- **`tools/chroma_spill_probe.py`** — reproducible synthetic probe: builds a
+  hairy-edged subject antialiased against a chroma field, keys it, and reports
+  green excess in semi-transparent pixels at source / runtime / gameplay scale,
+  keyed-only vs despilled.
+- **`docs/findings/2026-08-04-generated-art-pipeline.md` §3** — the measured
+  table plus three corrections to the inherited mechanism.
+- **`.claude/skills/image-prompt/SKILL.md`** — the hard rule rewritten from
+  "key then re-check after downscale" to **"despill at full resolution"**, plus
+  a new **key-by-sampling-never-by-hex** rule.
+
+The numbers: keyed-only carries **+99.9 / +108.6 / +104.3** mean green excess
+at source / runtime / gameplay; despilled carries **−0.4 / −0.5 / −1.3**. And
+directly verified: PIL LANCZOS and ImageMagick 6.9 `-resize` both return
+byte-identical RGB whether chroma or black sits under alpha 0 — the
+"bleeds-from-behind-alpha" theory is false on both.
+
+The reconciliation worth keeping: spider-swing's record says the matte was
+*"despilled **again** after resize"*. That double despill previously read as
+belt-and-braces; it now has a mechanism.
 
 ## Honest nulls
 
-*(written at close)*
+- **Synthetic, not the three real images.** My spill model is a reasonable
+  approximation of an antialiased chroma edge, but it is mine. The generated
+  outputs remain unmeasured.
+- **The reconciliation with the original session's claim is inference.** I did
+  not observe their pipeline; I observed that the plain reading of their
+  sentence does not reproduce, and offer a mechanism that does.
+- **ImageMagick 6.9 only** — older versions are widely reported to differ on
+  alpha handling and were not tested.
+- **A real surface limit found:** conversation images arrive as inline vision,
+  not files on disk, so they cannot be processed programmatically. Videos and
+  `.md` attachments do arrive as paths. The owner is checking whether another
+  upload route exists; if not, the workaround is a repo upload or a URL.
 
 ## Verify
 

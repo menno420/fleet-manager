@@ -161,6 +161,47 @@ Committed result, in `docs/visual/zones/zone-art-audit.json`: **zero chroma
 fringe pixels on 32 of 33 runtime assets** (the exception,
 `silk-hollow-floor-wall`, carries 46).
 
+#### Measured here 2026-08-04 — the causal direction is the other way round
+
+The quote above was inherited verbatim and never tested in this estate. A
+synthetic probe ([`../../tools/chroma_spill_probe.py`](../../tools/chroma_spill_probe.py),
+reproduces the table) settles it, and the plain reading is wrong:
+
+| stage | keyed only — mean green excess | despilled — mean green excess |
+|---|---|---|
+| source 1500×750 | **+99.9** (93 625 px badly spilled) | −0.4 (0 px) |
+| runtime 384×181 | **+108.6** (10 184 px) | −0.5 (1 px) |
+| gameplay 96×46 | **+104.3** (671 px) | −1.3 (0 px) |
+
+Three findings:
+
+1. **Downscaling does not introduce chroma.** Verified directly: PIL's LANCZOS
+   and ImageMagick 6.9's `-resize` both return **byte-identical** RGB whether
+   the colour under fully-transparent pixels is chroma or black. The "green
+   bleeds out from behind alpha 0" theory is false on both tools.
+2. **The spill is in semi-transparent edge pixels and is present at every
+   scale, source included.** It does not appear on resize; it was always there.
+   What resize changes is *proportion* — the same fringe occupies a far larger
+   share of a 96×46 sprite than of a 1500 px canvas, which is why it reads as
+   "introduced by downscaling."
+3. **Despill removes it completely, at any scale** — clamping green to
+   `max(red, blue)` takes the mean excess from +100 to ≈0.
+
+**So the rule changes.** Not "audit after downscale and repair", but **despill
+at full resolution as a mandatory step, then audit at all three scales as a
+check**. That is in fact what spider-swing's own record describes — *"keyed to
+alpha at its full generation resolution… The runtime matte was **despilled
+again** after resize"* — despill twice, which now has a reason rather than
+being belt-and-braces.
+
+**A second measured trap:** the key colour is never the hex you asked for.
+Generated fields sampled from this session's three outputs sit near `#22C022`
+(Grok, ChatGPT) and `#3E8E3E` (Gemini) — **none within a tolerance of 40 of
+`#00FF00`**, so an exact-hex or tight-tolerance keyer matches *zero* pixels on
+all three. Ask for `#00FF00` in the prompt (it anchors the model toward a
+saturated field), but **key by sampling an actual corner pixel**, never by
+matching the literal value.
+
 ### 4. Chroma key beats asking for transparency — and the key colour is per-asset
 
 Generators produce baked checkerboards when asked for alpha directly:
