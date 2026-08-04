@@ -127,6 +127,32 @@ Three ceilings, all measured rather than read off a page:
 - **`gemini-2.5-flash` returns 404**: *"no longer available to new users"*. A
   new key cannot reach it regardless of tier.
 
+**What a free key actually serves** (probed 2026-08-05, one call per row):
+
+| Surface | Result |
+|---|---|
+| Multi-turn chat | works — but **stateless**: the API stores nothing, so the whole history is resent every call |
+| `google_search` grounding | **429 on a two-token prompt** — not served to a free key |
+| `url_context` | works — fetched a raw GitHub URL and quoted its first heading correctly |
+| `code_execution` | works — returned fib(40) = 102334155, independently verified |
+| `function_declarations` | accepted |
+| `systemInstruction` | works |
+| Structured output (`responseSchema`) | works, lowercase JSON-schema types |
+
+**Two quotas, not one.** `generate_content_free_tier_input_token_count` meters
+**250k tokens per minute**; `generate_content_free_tier_requests` is a separate
+**per-model daily request cap**. Measured at exhaustion: `gemini-3.6-flash`
+returned 429 on the request metric while `gemini-3.5-flash-lite` and
+`gemini-3.1-flash-lite` still answered — the lite models are a real fallback,
+not a downgrade to avoid.
+
+**On code review** (n=1, `tools/gemini_delegate.py`, pre-commit): three findings,
+two real and one fabricated — and the fabrication was ranked **first at high
+severity**, asserting that lowercase schema enums break every request in code
+that had already completed three runs. The two real ones (a path traversal, a
+None-content crash) were genuine defects nobody here had noticed. Read every
+item; trust the ranking of none.
+
 **AI Studio's GitHub integration is a different surface with different rules**
 (measured the same day): it imports up to 1000 files of one repo, drops the rest
 by its own judgement, and can only push to a repo it creates. The sync is
