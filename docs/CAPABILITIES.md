@@ -119,6 +119,20 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-05 · capability · `any` · **Gemini keeps server-side conversation
+  state — CORRECTS the same-day entry below, which called the API stateless.**
+  That was true of `generateContent` only; `POST /v1beta/interactions` with
+  `previous_interaction_id` continues a conversation without resending it
+  (free-tier retention 1 day, paid 55). Free-tier ceilings, from the owner's AI
+  Studio dashboard: `gemini-3.6-flash` 5 RPM / 250K TPM / **20 RPD**;
+  flash-lite 15 RPM / 250K / **500 RPD**; Search grounding not served. AI
+  Studio's UI does not spend API quota. · evidence: A/B on
+  `gemini-3.1-flash-lite` — with the id, "4712"; without it, "You have not
+  provided a number for me to remember in this conversation." Dashboard
+  footnote, verbatim: "Usage information displayed is for the API and does not
+  reflect AI Studio usage, which is offered free of charge (when no API key is
+  selected)." · workaround: n/a — capability entry.
+  — LAST-VERIFIED: 2026-08-05
 - 2026-08-05 · capability · `any` · **Gemini is callable directly from a
   session: `GEMINI_API_KEY` + direct egress reaches `gemini-3.6-flash` (1M in /
   65k out) at $0, so whole-corpus reads are routine work now.** The free tier
