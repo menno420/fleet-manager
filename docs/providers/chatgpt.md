@@ -80,6 +80,15 @@ Model-level facts that change how you use them:
   original `gpt-5-*` snapshots and `o3` shut down **2026-12-11** (→ 5.6 family);
   the Assistants API shuts down **2026-08-26** (→ Responses/Conversations). A
   prompt pinning an old model name has a countdown on it.
+- **Self-service fine-tuning is winding down** (deprecations page, verified
+  2026-08-04): creating jobs is *"not available to organizations that have not
+  previously run fine-tuning"*, already closed for orgs with no fine-tuned
+  inference in the past 60 days, and existing customers lose new jobs
+  **2027-01-06**; inference on existing fine-tunes survives only until the
+  underlying base model retires. Also being retired: reusable prompts, the
+  Evals platform, and Agent Builder (announced 2026-06-03, shutdown
+  **2026-11-30**). Anything built on this provider tunes with prompts,
+  retrieval and tools, not weights.
 - **Which models plain consumer chat (chatgpt.com) exposes was not found** on
   the docs site — it documents Work/Codex/API surfaces. Honest null; the model
   picker on the owner's own account is the authority.

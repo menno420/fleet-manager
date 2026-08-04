@@ -88,6 +88,27 @@ attention thinning across a batch. If it is a ceiling instead, it is purchasable
 **Test before paying: one clip per message on the free tier.** If attribution
 comes back clean, the protocol already fixed it.
 
+## The API side — pricing and the data-use split
+
+*Source: [Google's Gemini API pricing page](https://ai.google.dev/gemini-api/docs/pricing),
+fetched 2026-08-04.* The app facts above are consumer-surface; the API is its
+own ladder, per 1M tokens:
+
+| Model | In | Out | Batch/Flex | Priority |
+|---|---|---|---|---|
+| `gemini-3.6-flash` | $1.50 | **$7.50** | 50% off | 1.8× |
+| `gemini-3.5-flash` | $1.50 | $9.00 | 50% off | 1.8× |
+| `gemini-3.5-flash-lite` | $0.30 | $2.50 | 50% off | 1.8× |
+| `gemini-3.1-flash-lite` | $0.25 ($0.50 audio) | $1.50 | 50% off | — |
+
+(3.1 Pro pricing was not in the fetched table — null, check the page.) Worth a
+beat: the newer 3.6 Flash is *cheaper* on output than 3.5 Flash.
+
+**The data-use split, verbatim from the pricing page:** free tier — *"content
+used to improve our products"*; paid tier — *"content **not** used to improve
+our products."* On the free API tier, prompts are training data. That is a
+capability fact about what the free tier *is*, not a warning label.
+
 ## Gems
 
 Custom assistants: a name, an instructions field, and knowledge files that load
