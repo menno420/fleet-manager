@@ -1,6 +1,6 @@
 # 2026-08-05 · hub — what the Gemini API actually offers, probed
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** opus-5 · high · research — six owner questions, answered by probe
 
