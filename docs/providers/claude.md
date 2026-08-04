@@ -100,6 +100,21 @@ NSS database at `/root/.pki/nssdb` which does not exist on a fresh container. So
 Fix by importing the bundle with `certutil` — never by disabling verification.
 `tools/read_shared_chat.py --setup` does it.
 
+## Weaknesses — relative, not absolute
+
+Graded on the distinction in [`README.md`](README.md): worse at, not incapable of.
+
+- **Image and video generation.** Weak to absent in chat. A session asked for a
+  concept sprite, a mockup or a video will not produce one the way the other two
+  providers will. **Not a limitation** — it can write the code that renders an
+  image, drive a tool that generates one, and read and critique any image it is
+  given; the gap is in-chat generation, not visual work.
+- **Speed on interactive turns.** Deliberate rather than fast — good for
+  long-horizon work, worse when the value is in rapid back-and-forth.
+- **First-party consumer integrations.** No native Gmail/Calendar/Drive
+  equivalent to Gemini's Personal Intelligence. Reaching those is connector or
+  API work rather than a built-in.
+
 ## Known failure modes of Claude sessions in this estate
 
 Written down because they are ours, they recur, and a session that knows them

@@ -36,9 +36,25 @@ impossible"*, which is the confusion that repeatedly costs the owner a turn.
 - [`../SKILLS-local.md`](../SKILLS-local.md) — the prompt/handoff skills that
   consume all of the above rather than restating them.
 
+## Weakness is not limitation
+
+The owner's distinction, and it governs every entry here. **A weakness is "worse
+at this than the alternative"; a limitation is "cannot."** Almost nothing in this
+estate is genuinely the second.
+
+Claude generating images is the worked example: weak-to-absent in chat, and that
+is a *weakness* — it says nothing about whether the outcome is reachable. Reading
+video was written down here as impossible once, and ffmpeg frame extraction
+retired it in an afternoon.
+
+So an entry that says "X is weak at Y" is a **steer**, never a stop. If a session
+reads one of these files and declines a task on the strength of it, the file has
+failed at its job.
+
 ## Keeping them honest
 
-Three rules, learned the expensive way in this estate:
+Four rules, three of them learned the expensive way and the fourth learned by
+getting it wrong in the first version of these very documents:
 
 1. **Cite or mark.** Every claim is either sourced to a vendor page, measured
    here, or explicitly labelled as inference. A confident unsourced specific is
@@ -51,3 +67,13 @@ Three rules, learned the expensive way in this estate:
    one of these models will describe its own tiers and limits confidently and
    sometimes wrongly, because the answer changed after it was trained and nothing
    told it. Read the vendor's page.
+4. **Changelog first; aggregators never, for anything volatile.** The first
+   version of these documents was assembled from a handful of searches that
+   surfaced mostly secondary sites, and it went wrong in exactly the places you
+   would predict: a mode taxonomy that a July 2026 consolidation had already
+   retired, and a Drive integration filed as a weakness when it is one of the
+   provider's strengths. **Product surfaces, mode lists and plan contents are the
+   fastest-moving facts on these platforms and the ones aggregators get most
+   wrong.** Start at the vendor's release notes — `gemini.google/release-notes/`,
+   `learn.chatgpt.com/docs`, the Claude docs changelog — and only then fill gaps,
+   marking what came from where.

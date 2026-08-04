@@ -2,10 +2,12 @@
 
 > **Status:** `living-ledger`
 >
-> Plans and what actually differs between them, the context ceilings, native
-> video and the arithmetic that governs it, Gems, and Deep Research. All vendor
-> facts fetched from Google-owned pages on 2026-08-03. **Not a routing table** —
-> see [`README.md`](README.md).
+> Plans, the context ceilings, native video and the arithmetic that governs it,
+> the agentic surfaces, Gems, and Deep Research. Vendor facts from Google-owned
+> pages; **feature coverage re-derived 2026-08-04 from the official
+> [Gemini Apps release notes](https://gemini.google/release-notes/)** after the
+> first version was found incomplete and, on Drive, backwards.
+> **Not a routing table** — see [`README.md`](README.md).
 
 ## What this provider is good at, concretely
 
@@ -32,6 +34,11 @@ and [Google AI plans](https://one.google.com/about/google-ai-plans/):
 | Storage | 15 GB | 400 GB | 5 TB | from 20 TB |
 | Models | 3.6 Flash + "varying access to 3.1 Pro" | + higher Pro access | "Higher access to Gemini 3 Pro" | "Highest access" |
 | Exclusive | — | — | — | Deep Think, Gemini Spark, Project Genie |
+
+**Gemini 3.6 Flash** went to *"all Gemini app users globally"* on **2026-07-21**,
+selectable from the model drop-down — which is why an owner-shared transcript
+carries `Created with Flash`. **Gemini 3 Deep Think** received a major upgrade
+(2026-02-19) and remains Ultra-tier.
 
 Context windows from
 [Gemini Apps limits & upgrades](https://support.google.com/gemini/answer/16275805).
@@ -104,10 +111,41 @@ Two design points from building it, both non-obvious:
   is invisible in the output, because a document-sourced claim reads exactly like
   an observation.
 
+## The agentic surfaces — missing from the first version of this document
+
+All four are from Google's own release notes and none appeared in the first
+draft, which is a straightforward coverage failure rather than a stale fact.
+
+- **Gemini Agent** (2026-04-15) — *"uses Gemini 3's advanced reasoning and tool
+  calling to break up complex tasks into smaller steps… it will use apps like
+  Gmail or Calendar, alongside many of the tools in Gemini, like deep research
+  capabilities and Canvas"*, plus live web browsing *"to research and take action
+  on the web"*.
+- **Gemini Spark** (2026-05-19, macOS app 2026-06-30) — a *"24/7 personal AI
+  agent"* that *"organizes folders, uses your local files to build documents, and
+  handles complex workflows across Google Workspace"*. **AI Ultra only**, English,
+  18+, supported countries.
+- **Personal Intelligence** (beta) — connects Gmail, Calendar and other apps you
+  authorise. *"Connecting your apps is off by default: you choose to turn it on,
+  decide exactly which apps to connect, and can turn it off anytime."* AI Pro and
+  AI Ultra, US, web/Android/iOS; not on Workspace business or education plans.
+- **Daily Brief** — a personalised daily overview built on Personal Intelligence,
+  distilling priorities from connected apps into "Top of Mind" and "Look Ahead".
+- **Scheduled actions** — AI Pro and Ultra, plus qualifying Workspace plans.
+
+Also worth knowing: **the macOS app** (2026-07-29) adds press-and-hold voice
+dictation into any window, with optional screen-context reasoning — highlight
+text to rewrite, select local files to extract from, generate images in place.
+
 ## Deep Research
 
 Available on the free tier with a limited monthly allowance; paid tiers get daily
 allowances that scale with the plan.
+
+**It takes your own files as sources** — *"you can now upload your own files and
+images to use as a source in Deep Research reports"* — and reports can be
+transformed **in Canvas** into interactive visuals and quizzes. The first version
+of this document omitted both.
 
 Same caution as elsewhere: strong on synthesising public sources, and its output
 reads uniform whether or not the underlying evidence was actually available.
@@ -120,11 +158,27 @@ Spot-check the three most specific claims.
 - **Gemini Spark, Project Genie** (Ultra only).
 - **Image generation** in-chat, and it can analyse images it generated as if you
   had uploaded them.
-- **Video generation** (Veo / Flow) is a separate product from video *analysis*.
-- **Google Drive.** A pasted Drive share link does **not** work — it is a
-  client-rendered app rather than a document a fetcher can read. Upload files
-  directly to the chat, or connect Drive as an integration. This is not
-  tier-dependent.
+- **Video generation is in-app now.** **Gemini Omni** *"helps you create and edit
+  videos as easily as having a conversation… blend any combination of text,
+  photos, and video"*, including a custom AI avatar. Separately, responses can
+  include **Video Overviews** — generated narrated 30–60 second explainers — and
+  interactive multi-layer images, on the Pro model for specific topics. The
+  earlier note here that video generation was "a separate product" (Veo/Flow) is
+  out of date.
+- **Google Drive and Workspace — a strength, not a gap.** Earlier text here
+  framed this backwards. Gemini's Drive/Workspace access is **native**: the
+  Productivity Planner Gem *"seamlessly brings together information from your
+  favorite productivity apps like Gmail, Calendar, and Drive"*; **Personal
+  Intelligence** connects apps you authorise (off by default, you pick which);
+  and **Gemini Agent** *"will use apps like Gmail or Calendar"* as part of
+  completing a task. Gems themselves are shareable, and *"sharing Gems works just
+  like sharing files in Google Drive"*.
+
+  What does **not** work is pasting a Drive **URL** into a chat and expecting it
+  to be fetched — that is a link-fetching limit, not a Drive limit, and the fix
+  is `@Google Drive` or a direct upload. Filing that under "Drive doesn't work"
+  was a framing error, and the distinction matters: this is one of the provider's
+  genuine advantages.
 
 ## Reading a Gemini chat as evidence
 
