@@ -183,6 +183,40 @@ that projects can be switched between paid and free tiers as needed — so payin
 for API access does not have to cost the free Studio surface, but it will if the
 paid key is linked there. Exactly what constitutes "linking" is untested here.
 
+**Vertex AI is the credit-eligible door to the same models** (measured
+2026-08-05). Google's $300 Cloud welcome credit excludes *"Gemini API in AI
+Studio"* — a product, not a model family. Vertex AI serves the identical Gemini
+models and is not excluded, so the credit reaches them there. Eligibility keys
+on the SKU, not the model.
+
+| | AI Studio API | Vertex AI |
+|---|---|---|
+| Auth | API key | **service account + OAuth** — API keys rejected: *"API keys are not supported by this API"* |
+| Endpoint | `generativelanguage.googleapis.com` | `aiplatform.googleapis.com` (`global` works for Gemini) |
+| Gemini 3.1 Pro | paid tier only | works |
+| Image output | **JPEG** (549 KB) | **PNG** (1.3 MB) — same model, same prompt |
+| Funding | €10 prepay | Cloud billing account (credit-eligible) |
+
+**The PNG difference is the one that matters for game art.** JPEG puts
+compression artefacts directly on the chroma edge before `asset-pipeline` runs;
+PNG is lossless, so corner-sample keying is clean. For any image destined to
+become a sprite, prefer Vertex.
+
+Setup, in order: enable the Vertex AI API · create a service account with
+**Agent Platform User** (`roles/aiplatform.user`, renamed from "Vertex AI
+User") · create a JSON key · authenticate with `google-auth`. Two traps met
+here: the org policy `iam.disableServiceAccountKeyCreation` blocks key creation
+by default under Secure-by-Default and needs a project-scoped override
+(`roles/orgpolicy.policyAdmin`, grantable only at organization scope — project
+Owner does **not** include it); and this container's system `cryptography` was
+broken until `pip install cffi`.
+
+**What cannot be verified from a session:** whether the credit or the card pays.
+The Cloud Billing API (with `roles/billing.viewer`) exposes billing *structure*
+— account, enabled state, currency, linked projects — but **no cost or credit
+balance endpoint exists**. That is console-UI or BigQuery-export only, and any
+claim about which funding source paid is inference until read there.
+
 **The paid tier is live here (2026-08-05) and it closes the asymmetry.** A
 €10 prepay on the billed project takes the model list from 50 to **58** and
 makes Pro, Google Search grounding and image generation callable from a

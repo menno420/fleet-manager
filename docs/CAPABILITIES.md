@@ -119,6 +119,19 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-05 · capability · `any` · **Vertex AI is callable from a session with
+  a service account, serving Gemini 3.1 Pro, 3.6 Flash and image generation —
+  and it returns PNG where the AI Studio API returns JPEG.** Vertex is not
+  covered by the "Gemini API in AI Studio" credit exclusion, so it is the
+  credit-eligible path to the same models. · evidence: OAuth token minted via
+  `google-auth`, `POST .../locations/global/publishers/google/models/
+  gemini-3.1-pro-preview:generateContent` → 200; image call returned a
+  1408×768 PNG, 1.3 MB, corner chroma RGB(12,248,5). API keys are refused
+  verbatim: "API keys are not supported by this API. Expected OAuth2 access
+  token". · workaround: system `cryptography` was broken (`_cffi_backend`
+  missing) until `pip install cffi` — repaired, not a wall. NOT yet usable by a
+  future session: the key exists only on one session's disk.
+  — LAST-VERIFIED: 2026-08-05
 - 2026-08-05 · capability · `any` · **Gemini PAID tier is live and sessions may
   spend it without asking (see the spend decision cited in
   `docs/providers/gemini.md`): `GEMINI_API_KEY_PAID` reaches 58 models —

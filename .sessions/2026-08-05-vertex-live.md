@@ -1,6 +1,6 @@
 # 2026-08-05 · hub — Vertex AI reachable from a session
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** opus-5 · high · research — the credit-eligible path to Gemini
 
