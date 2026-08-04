@@ -119,6 +119,23 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-04 · capability · owner-live · **Conversation IMAGE uploads arrive as
+  inline vision only — no file lands on disk — while videos and documents
+  arrive as real paths.** So an image the owner sends can be *seen* but not
+  *processed* (no Pillow, no keying, no pixel measurement), and this is a
+  surface property, not a missing tool. · evidence: owner sent three generated
+  sprites as images and, separately, screen recordings and a `.md` report;
+  the recordings and report appeared under `/root/.claude/uploads/<session>/`
+  as readable files, the images left nothing there or in `/mnt/user-data/`
+  (checked with recency-bounded `find` across `/tmp /root /home /mnt`); no
+  MCP tool reads inline attachments (ToolSearch swept). The owner searched his
+  side for an alternative upload route and found none: *"I really can't find
+  an other option than just selecting the image as it is."* · workaround: for
+  programmatic image work, receive the file another way — commit it to a repo,
+  serve it at a URL, or wrap it in a format that uploads as a file (a zip, or
+  a screen recording, which ffmpeg then frame-extracts). For judging by eye,
+  inline is fine. — LAST-VERIFIED: 2026-08-04
+
 - 2026-08-04 · capability · owner-live · **Image-generation instruction
   compliance differs more BETWEEN SURFACES of one provider than between
   providers — and Grok's Imagine quality tier fixed in one step what four
