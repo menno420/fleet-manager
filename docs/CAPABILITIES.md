@@ -154,6 +154,47 @@ findings go here, below the fence.)
   image capability only after testing its dedicated surface, not its chat tab.
   — LAST-VERIFIED: 2026-08-04
 
+- 2026-08-04 · capability · owner-live · **SCOPE CORRECTION to the entry above,
+  and the stronger finding: that ranking holds for COLD prompts only. Given a
+  structured prompt plus an anchor image, all three surfaces converged on
+  usable, spec-compliant output — including the one that had failed the
+  background spec four times running.** · evidence: the owner re-ran the same
+  brief through ChatGPT, Gemini Flash and Grok Imagine using the eight-section
+  structure from
+  [`.claude/skills/image-prompt/SKILL.md`](../.claude/skills/image-prompt/SKILL.md)
+  with spider-swing's Garden Spider attached as the reference. All three
+  returned a uniform keyable green field with no cast shadow, the enumerated
+  4-near/2-far leg layout, and the specified palette. **Grok Imagine had
+  produced a non-compliant background on all four prior cold attempts** (3 in
+  chat, 1 in Imagine) and complied here. Gemini additionally *narrated the
+  anchor/exclusion decomposition back*: *"While I maintained the specific
+  three-quarter perspective and 6-leg configuration as requested, I have
+  rendered the spider with the broader body proportions… rather than inheriting
+  the more rounded proportions of the reference garden spider"* — section 1 of
+  the skill, restated by the model. **CONFOUND, owner-flagged before writing:**
+  Grok's *Afbeelding Gen modus* was set to **Kwaliteit** (vs Snelheid) in its
+  settings panel, and whether that was pre-existing or set by the earlier
+  one-off "Kwaliteit verbeteren" press is unknown — so structure and tier both
+  moved for that surface and neither is isolated. The convergence holds; the
+  cause for Grok specifically does not. · workaround: publish comparison
+  conditions in the same sentence as the comparison — an unscoped ranking reads
+  as a model property when it may be a prompt-regime property; and reach for
+  the eight-section structure + reference before re-rolling or switching
+  provider. — LAST-VERIFIED: 2026-08-04
+
+- 2026-08-04 · capability · owner-live · **Grok Imagine exposes generation
+  settings the vendor docs do not publish** — closes two honest nulls in
+  [`providers/grok.md`](providers/grok.md). · evidence: owner screenshot of the
+  *Imagine-instellingen* panel — **video**: aspect ratio, duration **6s / 10s /
+  15s**, resolution **480p**, "video met audio" toggle, autoplay-in-feed;
+  **image**: aspect ratio, a **Snelheid ↔ Kwaliteit** generation-mode toggle
+  (persistent setting, not a per-image button), and images-per-generation
+  (observed 4). The docs page publishes per-second video pricing but no
+  duration caps; the app offers three fixed lengths. · workaround: read the
+  app's settings panel as a capability source when the vendor docs are silent —
+  and note the quality tier is a *mode*, so an earlier "quality pass" may
+  silently govern every later generation. — LAST-VERIFIED: 2026-08-04
+
 - 2026-08-03 · capability · `any` · **ChatGPT's agentic surface has FOUR configuration
   defaults that silently break a prompt written elsewhere — and knowing which chat mode is
   in play changes the answer more on this provider than on any other.** Per-provider

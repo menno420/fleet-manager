@@ -56,7 +56,8 @@ first-class API products, not add-ons:
 - **`grok-imagine-video`** $0.05/sec; **`grok-imagine-video-1.5`** $0.08/sec —
   text-to-video, image-to-video and reference-to-video *"including optional
   preset voices"*, native 1080p (release notes, July 2026). No duration caps
-  published — null.
+  published in the docs, but the app offers **6s / 10s / 15s at 480p** —
+  measured below.
 - **Voice:** `grok-voice-think-fast-1.0` ($3/hr) and `-2.0` ($4.80/hr;
   `grok-voice-latest` routes here from **2026-08-05**); speech-to-text $0.10/hr
   (REST), 25 languages; text-to-speech $15/1M characters.
@@ -103,8 +104,23 @@ spider-swing's own reference art; full entry in
 - **Imagine quality tier ("Kwaliteit verbeteren") fixed compliance in one
   step** — correct background, no shadows, nearly every time. Consistent with
   the vendor fact above that standard and quality are different models.
+- **Quality is a persistent *mode*, not a per-image button.** The
+  *Imagine-instellingen* panel carries a **Snelheid ↔ Kwaliteit** image
+  generation mode; once set it governs later generations, so a single "quality
+  pass" can silently become the default. Worth checking before attributing a
+  result to prompt changes.
+- **Structure converges it with the other providers.** Given the eight-section
+  prompt plus an anchor image, Imagine produced a compliant uniform background
+  after failing that spec on all four prior cold attempts — see
+  [`../CAPABILITIES.md`](../CAPABILITIES.md) for the entry and its confound.
 - Working recipe: batch-explore on standard, quality-pass the pick. Judge this
   provider's image capability only from Imagine, never from the chat tab.
+
+**App settings publish what the docs do not** (measured 2026-08-04, owner
+screenshot): video duration is **6s / 10s / 15s** at **480p**, with an audio
+toggle and configurable aspect ratio; images generate in batches (observed 4)
+at a settable aspect ratio. This closes the "no duration caps published" null
+below — the docs price video per second but never state the available lengths.
 
 ## Weaknesses — relative, not absolute
 
