@@ -17,3 +17,39 @@
   discipline let agents work correctly with little steering; adopting the
   kit starts fleet-manager governed instead of accreting rules ad hoc.
 - provenance: substrate-kit adoption interview
+
+## [D-0011] The Gemini paid key is free for sessions to spend, capped at its balance
+
+- status: decided
+- date: 2026-08-05
+- verdict: Any session may spend `GEMINI_API_KEY_PAID` without asking — Pro-model
+  review, image generation, live-search grounding, or any other paid Gemini call
+  that serves the work in front of it. No approval step, no per-call budget.
+- why: The owner funded it precisely so sessions would use it, and capped the
+  downside himself: a €10 prepay with **auto-reload off**, on a project that can
+  only spend on the Gemini API. The worst case is the balance reaching zero,
+  which costs nothing beyond the €10 already spent and degrades gracefully to
+  the free key. Against that, a session that stops to ask spends the scarcer
+  resource — his attention — on a call he has already made. When the balance
+  runs out the calls simply 429; that is the signal to tell him, not a failure.
+  Measured reference points for sizing a call: ≈$0.086 per 1408×768 image on
+  `gemini-3.1-flash-image`, ≈$0.134 on Nano Banana Pro.
+- provenance: owner, 2026-08-05 hub chat — "whenever a session wants a review
+  from a pro model or create an image they are free to use untill the money runs
+  out"; the €10 top-up and billing linkage were completed the same evening.
+
+## [D-0012] Publication default: public unless it exposes a key
+
+- status: decided
+- date: 2026-08-05
+- verdict: Assume anything this estate produces may be public. The single
+  exception is credential material — API keys, tokens, secrets — which never
+  enters a repo, a transcript, or an artifact. No other category needs the
+  owner's permission before being written down.
+- why: Sessions were hesitating on a class of judgement the owner had already
+  settled, and asking cost him more than publishing ever would. Naming the one
+  real boundary removes the hesitation without weakening it: the rule is not
+  "publish carelessly" but "the only thing worth withholding is the thing that
+  grants access."
+- provenance: owner, 2026-08-05 hub chat — "You can assume that everything we do
+  can be made public aslong as it doesn't show any sensitive API keys."

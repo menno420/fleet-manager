@@ -1,6 +1,6 @@
 # 2026-08-05 · hub — Gemini paid tier live, and two standing owner decisions
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** opus-5 · high · docs-only — capture two policies and the
   measured paid-tier facts
