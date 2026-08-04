@@ -1,6 +1,6 @@
 # 2026-08-05 · hub — video generation, end to end
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** opus-5 · high · feature build — a working trailer pipeline and
   the Veo constraints behind it
