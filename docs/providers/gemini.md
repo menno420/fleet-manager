@@ -168,10 +168,20 @@ large calls rather than many small ones, and it is why the delegation tool
 packs each batch to the token ceiling. The lite models are the volume tier at
 500/day; they are a fallback, not a downgrade to avoid.
 
-**AI Studio's interface does not spend API quota.** Verbatim from the
-dashboard: *"Usage information displayed is for the API and does not reflect AI
-Studio usage, which is offered free of charge (when no API key is selected)."*
-Dashboard counters lag: *"Usage data may take up to 15 minutes to update."*
+**AI Studio's interface does not spend API quota — while the key stays free.**
+Verbatim from the dashboard: *"Usage information displayed is for the API and
+does not reflect AI Studio usage, which is offered free of charge (when no API
+key is selected)."* Dashboard counters lag: *"Usage data may take up to 15
+minutes to update."*
+
+The condition is load-bearing once billing exists. From
+[Google's billing FAQ](https://ai.google.dev/gemini-api/docs/billing): *"AI
+Studio usage remains free of charge unless users link a paid API key for access
+to paid features. Once you link a paid API key as part of a paid project in AI
+Studio, you will be charged for AI Studio usage for that key."* The FAQ adds
+that projects can be switched between paid and free tiers as needed — so paying
+for API access does not have to cost the free Studio surface, but it will if the
+paid key is linked there. Exactly what constitutes "linking" is untested here.
 
 **Billing, for when the free tier stops being enough**
 ([billing docs](https://ai.google.dev/gemini-api/docs/billing)): Tier 1 needs a
