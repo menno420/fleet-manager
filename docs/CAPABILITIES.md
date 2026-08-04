@@ -119,6 +119,22 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-05 · capability · `any` · **Gemini PAID tier is live and sessions may
+  spend it without asking (see the spend decision cited in
+  `docs/providers/gemini.md`): `GEMINI_API_KEY_PAID` reaches 58 models —
+  Pro, Google Search grounding and image generation, none of which the free key
+  serves.** Image generation returns base64 `inlineData` decoded straight to
+  disk (no URL step), so a generated image is a real file on arrival. ·
+  evidence: first paid call, `gemini-3.1-flash-image` → 1408×768 JPEG, 549 KB,
+  corner chroma RGB(6,250,5), usage 69 in / 1,120 image out ≈ $0.086 at
+  $60/1M output tokens. Three prerequisites, each invisible API-side: keys left
+  unrestricted stopped working 2026-06-19 (`API_KEY_INVALID`, never
+  `SERVICE_DISABLED`); the Cloud $300 welcome credit excludes the Gemini API
+  verbatim; and enabling Cloud billing does not fund the project — until a
+  prepay balance exists calls return "Your prepayment credits are depleted". ·
+  workaround: n/a — capability entry. Balance is capped (auto-reload off); when
+  it empties, calls 429 and the free key still serves.
+  — LAST-VERIFIED: 2026-08-05
 - 2026-08-05 · capability · `any` · **Gemini keeps server-side conversation
   state — CORRECTS the same-day entry below, which called the API stateless.**
   That was true of `generateContent` only; `POST /v1beta/interactions` with

@@ -183,6 +183,47 @@ that projects can be switched between paid and free tiers as needed — so payin
 for API access does not have to cost the free Studio surface, but it will if the
 paid key is linked there. Exactly what constitutes "linking" is untested here.
 
+**The paid tier is live here (2026-08-05) and it closes the asymmetry.** A
+€10 prepay on the billed project takes the model list from 50 to **58** and
+makes Pro, Google Search grounding and image generation callable from a
+session — the three things the free key refuses. Sessions may spend it without
+asking ([D-0011]).
+
+Getting there took three separate fixes, each invisible from the API side and
+each legible only on the owner's screen, which is worth knowing before
+diagnosing a key that "does not work":
+
+1. **Unrestricted keys stopped working on 2026-06-19.** A key created before
+   that date, left unrestricted, returns `API_KEY_INVALID` — never
+   `SERVICE_DISABLED`, so it reads like a bad key rather than a policy change.
+   Securing the key restores it.
+2. **The Google Cloud $300 welcome credit excludes the Gemini API**, verbatim
+   from the billing dialog: *"Any remaining $300 welcome credit can still be
+   used on eligible Google Cloud products (excluding Gemini API) until it
+   expires."* Cloud trial credit will never fund this.
+3. **Enabling Cloud billing is not the same as funding the project.** Until a
+   prepay balance exists, calls return *"Your prepayment credits are
+   depleted"* — and models with no free-tier allowance (Pro, every image model)
+   report plain free-tier quota exhaustion instead, which looks like a
+   different fault entirely.
+
+**Image generation, measured on the first paid call:**
+
+| | |
+|---|---|
+| Model | `gemini-3.1-flash-image` |
+| Delivery | base64 `inlineData` in the JSON response — decoded straight to disk, no URL or download step |
+| Output | 1408×768 **JPEG**, 549 KB |
+| Chroma at corner | RGB(6,250,5) — corner-sample keying viable |
+| Tokens | 69 in · 1,120 image out |
+| Cost | **≈ $0.086** (at $60/1M output tokens); Nano Banana Pro ≈ $0.134 |
+
+Two caveats for game art specifically: it returns **JPEG, not PNG**, so
+compression artefacts sit on the chroma edge before `asset-pipeline` ever runs;
+and a first attempt rendered the far-side legs as pale translucent shapes rather
+than solid limbs. Both are prompt-and-pipeline problems — `sprite-prompt` already
+carries the leg-count contract — but neither is fixed yet.
+
 **"Free tier" names two different products.** The AI Studio interface and the
 API share a project, a dashboard and a name, and serve different models with
 different tools. Measured from both ends on 2026-08-05:
