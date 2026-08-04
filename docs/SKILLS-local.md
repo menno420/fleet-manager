@@ -45,6 +45,7 @@ ones below are untouched.
 | `continuation-prompt` | A planning or working session is ending and the work continues in a fresh one. Harvests this chat's decisions, verifies state, offers to commit first, emits a paste-ready prompt. |
 | `implementation-prompt` | The shape of the work is already agreed and a session needs to build it. Contract, non-scope, the pattern to follow, acceptance, landing discipline, real traps. |
 | `decision-capture` | Decisions exist only in a conversation. Lands them in the repo so handoffs become pointers instead of payload. |
+| `image-prompt` | Any request for an image, sprite, background or key art — or a prompt to generate one. Eight sections, anchored to an existing asset, one asset per generation, chroma-keyed, with a function criterion and an acceptance question. Reverse-derived from the sessions that made spider-swing's art: [`findings/2026-08-04-generated-art-pipeline.md`](findings/2026-08-04-generated-art-pipeline.md). |
 
 ## The idea they share
 
