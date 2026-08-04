@@ -235,9 +235,11 @@ def generate(model: str, task: str, bundle: str) -> tuple[dict, dict]:
     if not candidates:
         sys.exit(f"no candidate returned: {json.dumps(response)[:400]}")
     candidate = candidates[0]
-    text = "".join(
-        part.get("text", "") for part in candidate.get("content", {}).get("parts", [])
-    )
+    # `.get("content", {})` returns None when the key is present and null, which
+    # is what a safety block or a non-STOP finish actually sends — so the `or {}`
+    # is load-bearing, not belt-and-braces. Same review.
+    content = candidate.get("content") or {}
+    text = "".join(part.get("text", "") for part in content.get("parts") or [])
     if candidate.get("finishReason") not in (None, "STOP"):
         # Truncation is a real outcome, not a detail to swallow: a MAX_TOKENS
         # cut yields invalid JSON and the run must be re-scoped, not retried.
@@ -279,7 +281,13 @@ def verify_citation(repo: pathlib.Path, citation: dict, window: int = 4) -> dict
     evidence, while one that invents the text has not. The QUOTE is the
     load-bearing half — an off-by-one is a slip, a wrong quote is a fabrication.
     """
-    path = repo / citation.get("file", "")
+    # The path comes from the model, so it is untrusted input: pathlib discards
+    # the left operand when the right is absolute (`repo / "/etc/passwd"` IS
+    # "/etc/passwd"), and `../` climbs out. Resolve, then confine to the repo.
+    # Found by Gemini reviewing this file, 2026-08-05.
+    path = (repo / citation.get("file", "")).resolve()
+    if not path.is_relative_to(repo.resolve()):
+        return {"ok": False, "reason": "path escapes the repository root"}
     if not path.is_file():
         return {"ok": False, "reason": "file does not exist"}
     try:
