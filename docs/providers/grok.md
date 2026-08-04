@@ -88,6 +88,24 @@ redirecting to `grok-4.3` (at its pricing, with mapped effort),
 retired slug keeps working while quietly running a different model — worth
 knowing before comparing any pre/post-May outputs.
 
+## Measured here — the chat tab and Imagine are different capabilities
+
+*Source: measured 2026-08-04, owner-run sprite tests scored against
+spider-swing's own reference art; full entry in
+[`../CAPABILITIES.md`](../CAPABILITIES.md).*
+
+- **Grok chat (Vraag) is the wrong surface for image work**: three rounds,
+  three misses on the one hard technical spec (a `#00FF00` keyable
+  background), plus invented elements.
+- **Imagine standard tier**: excellent painterly style match and 8+ candidates
+  per roll — but every candidate carried a forbidden cast shadow on
+  non-compliant green.
+- **Imagine quality tier ("Kwaliteit verbeteren") fixed compliance in one
+  step** — correct background, no shadows, nearly every time. Consistent with
+  the vendor fact above that standard and quality are different models.
+- Working recipe: batch-explore on standard, quality-pass the pick. Judge this
+  provider's image capability only from Imagine, never from the chat tab.
+
 ## Weaknesses — relative, not absolute
 
 Graded per [`README.md`](README.md): worse at, not incapable of.
@@ -97,6 +115,9 @@ Graded per [`README.md`](README.md): worse at, not incapable of.
   limitation — measure with a probe call.
 - **grok-4.5's 500k context is the smallest current-flagship window in this
   set** (others are 1M+). Steer: `grok-4.3` on the same API carries 1M.
+- **Chat-surface image requests** (measured above): weak instruction
+  compliance. Not a limitation — the same subscription's Imagine quality tier
+  complies; use that surface.
 
 ## Honest nulls
 
