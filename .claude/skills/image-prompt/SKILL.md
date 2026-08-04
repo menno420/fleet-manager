@@ -98,7 +98,7 @@ zero-fringe record.
   surfaces tested 2026-08-04. Generate a neutral pose, then ask for a small
   delta from the existing image, or rotate in-engine.
 - **Do not ask for seamless horizontal tiling unless the renderer needs it.**
-  Check first: spider-swing mirrors alternate tiles (`swing_lab.gd`), so
+  Check first: spider-swing's swing-lab view mirrors alternate tiles, so
   backdrops need no edge match and requiring one costs composition for nothing.
   Its purpose-built rail tiles do need it.
 

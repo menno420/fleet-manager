@@ -205,7 +205,8 @@ vocabulary it invented and reused: **false-anchor**, **false-route**,
 **1. Seamless horizontal tiling is NOT required for spider-swing backdrops.**
 Measured here: most shipped backdrops do not tile (`web-city-backdrop` scores
 16× its interior variance; `bramble-backdrop-mid` 15×). This is not a defect.
-`swing_lab.gd` draws every second tile mirrored —
+spider-swing's `game/presentation/scripts/swing_lab.gd` draws every second tile
+mirrored —
 
 ```gdscript
 var mirrored := posmod(tile_index, 2) == 1
