@@ -33,6 +33,7 @@ estate:
 | [`deepseek.md`](deepseek.md) | The V4 pair, thinking modes, MIT open weights, and the pricing (including peak-hour) that makes it the cost floor of this set |
 | [`mistral.md`](mistral.md) | The per-model license mix (Apache/MIT/Premier/NC) that governs self-hosting, the specialist bench (OCR, Voxtral audio), and Vibe |
 | [`meta-llama.md`](meta-llama.md) | The open-weights Llama generations and their Community License, and the 2026 pivot to Muse that froze the open line at Llama 4 |
+| [`cohere.md`](cohere.md) | The retrieval specialist: Command A+ (Apache 2.0 open weights), the context-vs-output trade inside the Command line, and first-party Embed/Rerank |
 
 ## How these relate to the other docs
 
