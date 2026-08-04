@@ -2,9 +2,11 @@
 
 > **Status:** `living-ledger`
 >
-> The chat modes and what each one actually is, Projects and custom GPTs, and the
-> Work / Codex cloud environment in depth. Vendor-page facts fetched 2026-08-03;
-> plan and model details from secondary sources are marked as such.
+> The models at model granularity, the chat modes and what each one actually is,
+> Projects and custom GPTs, and the Work / Codex cloud environment in depth.
+> Vendor-page facts fetched 2026-08-03; **model facts re-derived 2026-08-04 from
+> OpenAI's own docs** (`learn.chatgpt.com` and `developers.openai.com`). Plan
+> details from secondary sources are marked as such.
 > **Not a routing table** — see [`README.md`](README.md).
 
 ## The July 2026 consolidation — read this before anything else
@@ -32,6 +34,55 @@ Chromium, so the announcement details below come from press coverage of it.
 Work, running on the Codex platform — rather than a chat mode you pick from a
 menu. A prompt written for "Agent mode" targets something that no longer exists
 under that name.
+
+## Models
+
+*Source: OpenAI's own docs — [`learn.chatgpt.com/docs/models.md`](https://learn.chatgpt.com/docs/models.md)
+and [`developers.openai.com/api/docs/models`](https://developers.openai.com/api/docs/models),
+fetched 2026-08-04. A reachability finding first: **`platform.openai.com/docs`
+301-redirects to `developers.openai.com`** — OpenAI's API docs moved, and the
+new host answers cleanly from this environment even though `help.openai.com`
+does not.*
+
+The current family is **GPT-5.6**, three sizes, released the week of
+2026-07-06/10:
+
+| | gpt-5.6-sol | gpt-5.6-terra | gpt-5.6-luna |
+|---|---|---|---|
+| Role (vendor wording) | *"Strongest capability for complex coding, computer use, research, and cybersecurity"* | *"Balanced GPT-5.6 model for everyday work"* | *"Strong capability at the lowest cost in the family"* |
+| Context window | **1,050,000** (922,000 max input) | 1.05M | 1.05M |
+| Max output | 128,000 | 128k | 128k |
+| Modalities | in: text, image · out: **text only** | same | same |
+| Knowledge cutoff | Feb 16, 2026 | Feb 16, 2026 | Feb 16, 2026 |
+| API price /1M | $5 in · $0.50 cached · $30 out; prompts **>272k tokens bill 2× in / 1.5× out** | *"costs 20% less"* (2026-07-27 week) | *"costs 80% less"* (2026-07-27 week) |
+| Codex cloud | yes | **no** — desktop/web/CLI/IDE only | no |
+
+Per-model figures above are verbatim from sol's own page; terra/luna figures are
+from the family table and were not verified on per-model pages. Also current:
+**gpt-5.5** (previous flagship, still served), and **gpt-5.3-codex-spark** — a
+text-only research preview *"optimized for near-instant, real-time coding
+iteration"*, Pro users, desktop/CLI/IDE only.
+
+Model-level facts that change how you use them:
+
+- **Reasoning effort is a five-level ladder** in Codex (`low`, `medium`, `high`,
+  `xhigh`/`max`, `ultra`), set via `model_reasoning_effort` in
+  `.codex/config.toml`; the Work UI exposes it as an "intelligence level" in the
+  composer. Vendor default: *"start with the default Power setting, which uses
+  `gpt-5.6-sol` with medium reasoning."*
+- **Audio and video are separate model lines, not 5.6 features.** The 5.6 family
+  is text/image-in, text-out. Voice runs on **GPT-Live**; image generation on
+  **`gpt-image-2`**; realtime/transcription on the GPT-Realtime family. No
+  vendor mention of video input was found on any fetched page (honest null).
+- **Retirements are scheduled, with named replacements**
+  ([deprecations page](https://developers.openai.com/api/docs/deprecations)):
+  `gpt-5.4` / `gpt-5.4-mini` leave Codex **2026-08-31** (→ terra / luna); the
+  original `gpt-5-*` snapshots and `o3` shut down **2026-12-11** (→ 5.6 family);
+  the Assistants API shuts down **2026-08-26** (→ Responses/Conversations). A
+  prompt pinning an old model name has a countdown on it.
+- **Which models plain consumer chat (chatgpt.com) exposes was not found** on
+  the docs site — it documents Work/Codex/API surfaces. Honest null; the model
+  picker on the owner's own account is the authority.
 
 ## What is still a distinct mode
 
@@ -144,11 +195,12 @@ exist on this surface — so spider-swing's `scripts/env-setup.sh` § 5 may not
 reach the task phase even when setup ran correctly. **No run has been observed.**
 Highest-value next check on this provider.
 
-## Plans and models
+## Plans
 
-Marked separately because the primary pages were not reachable this session —
-these come from secondary sources and should be confirmed on your own account
-page before anything depends on them.
+*Source: secondary — marked as such.* The model facts above are now
+vendor-sourced; the **plan tiers and prices below are not**. They come from
+secondary sources and should be confirmed on your own account page before
+anything depends on them.
 
 Seven tiers: Free, Go (~$8/mo), Plus (~$20/mo), two Pro tiers (~$100 and
 ~$200/mo), Business (~$25/seat/mo), Enterprise. Free runs the standard model with
