@@ -53,6 +53,14 @@ Essentials:
   (`GIT_CONFIG_GLOBAL=/dev/null` + `https://x-access-token:$GITHUB_PAT@github.com/…`).
 - The *proxied* GitHub REST path 403s. That is a path quirk — switch to direct
   egress — **not a wall.**
+- **Gemini: default to Vertex, not the AI Studio key** (owner directive
+  2026-08-05, "at least this month"). The AI Studio key spends the owner's card;
+  Vertex spends a **€251.37 credit balance already paid for**. Same models. The
+  service account is not in your environment — pull `GEMINI_VERTEX_SA_JSON` from
+  Railway (`reliable-grace` / `worker` / `production`) with `$RAILWAY_API_KEY`,
+  then OAuth to `aiplatform.googleapis.com`. Grounding is `googleSearch`
+  (camelCase) on Vertex. Verified end to end 2026-08-05 — full recipe and the
+  billing chain: `docs/conventions/vertex-first-for-gemini.md`.
 - **Never write down a limitation.** A refused call is transient classifier
   state — route around it and leave no wall behind. The guard is
   `tools/check_no_false_walls.py` — **run it yourself** (`--strict`), because
