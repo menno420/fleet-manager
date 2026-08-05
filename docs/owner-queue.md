@@ -30,20 +30,9 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 
 ## Active — genuinely-open owner asks
 
-- **`OQ-PLAY-ACCOUNT` — (VENUE: 30 min + $25, your identity documents) Create the Play developer account — this starts the clock on everything else (2026-08-05).**
-  WHAT: register a Google Play developer account. **US$25, one-time, not a subscription.**
-  You will need a **government photo ID and a credit card, both in your legal name**.
-  Prepaid cards are rejected, and if the details are judged invalid **the $25 is not
-  refunded** — so use a card and ID that already match.
-  WHERE: [play.google.com/console/signup](https://play.google.com/console/signup).
-  WHY IT IS FIRST: `OQ-PLAY-CLOSED-TEST` below is a **three-week minimum** and cannot
-  start until this account exists. Nothing else on this list is on the critical path;
-  this is.
-  VERIFY: the Console shows your account as verified. Verification can take a few days,
-  so doing it early costs nothing and doing it late costs weeks.
-  WHY IT IS YOURS: payment, legal identity, and acceptance of the Play policies.
-  SOURCE: [answer/6112435](https://support.google.com/googleplay/android-developer/answer/6112435),
-  fetched 2026-08-05.
+- **`OQ-PLAY-ACCOUNT` — ✅ DONE (owner-confirmed 2026-08-05). Developer account created, verified and paid.**
+  Kept here rather than archived because the four items below all depend on it and the
+  dependency reads wrong without it. Nothing further is needed on this one.
 
 - **`OQ-PLAY-CLOSED-TEST` — (VENUE: recruiting 12 people, then 14 days of waiting) The requirement that actually sets the launch date (2026-08-05).**
   WHAT: because your account will be a **personal** account created after 2023-11-13,
@@ -61,8 +50,19 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   WHY IT IS YOURS: recruiting people and managing the tester list. Everything technical
   for this is already built — the debug APK path exists today and the bundle path
   landed in PR #162.
-  SOURCE: [answer/14151465](https://support.google.com/googleplay/android-developer/answer/14151465),
-  fetched 2026-08-05.
+  **CORRECTED 2026-08-05 (second pass):** two things this entry originally got wrong.
+  (1) **Internal testing does NOT count** — verified verbatim: *"You must run a closed
+  test before you can apply to publish your app to production."* Internal testing is
+  faster and reviewless but buys zero progress on the clock; use it only to check the
+  bundle installs. (2) **The store listing blocks this.** A release cannot roll out to a
+  closed track until the store listing, App content page and pricing are all complete,
+  so `OQ-PLAY-LISTING` is now **on the critical path, ahead of this**, not after it.
+  ALSO: the number is **12**, not 20. A separate model answer confidently said 20 while
+  claiming to quote the page — 20 was the old requirement. See
+  [`findings/2026-08-05-gemini-url-accuracy-benchmark.md`](findings/2026-08-05-gemini-url-accuracy-benchmark.md).
+  SOURCE: [answer/14151465](https://support.google.com/googleplay/android-developer/answer/14151465)
+  and [answer/9859348](https://support.google.com/googleplay/android-developer/answer/9859348),
+  both fetched 2026-08-05.
 
 - **`OQ-PLAY-APP-ID` — (VENUE: five minutes, one permanent decision) Choose the application ID — it can never be changed (2026-08-05).**
   WHAT: pick the app's internal identifier, e.g. `com.menno420.swingyspider`. Once
@@ -122,7 +122,17 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   and [answer/9859655](https://support.google.com/googleplay/android-developer/answer/9859655),
   fetched 2026-08-05.
 
-- **`OQ-PLAY-LISTING` — (VENUE: an hour, mostly capture) Store listing text and images (2026-08-05).**
+- **`OQ-PLAY-LISTING` — ⬆ PROMOTED TO CRITICAL PATH (VENUE: an hour, mostly capture) Store listing text and images (2026-08-05).**
+  **Re-ordered 2026-08-05:** this was filed as a late item and that was wrong. A release
+  cannot roll out to a **closed** testing track until the store listing, App content page
+  and pricing are complete — so the icon, feature graphic and screenshots block the
+  12-tester clock rather than following it. Do this before recruiting testers, not after.
+  **Copy is drafted for you** — app name, three short-description options and a full
+  description, all measured against the real limits, in spider-swing
+  `docs/product/play-store-listing.md`. What remains genuinely yours is the images:
+  screenshots must be **real capture** on a device (the `android-debug` workflow already
+  builds an installable APK on every push to `main`), because generated imagery invents
+  interface and physics.
   WHAT: the listing needs, with exact limits verified 2026-08-05 — app name **30
   characters**, short description **80**, full description **4,000**; app icon
   **512×512** 32-bit PNG **with** alpha, ≤1024 KB; feature graphic **1024×500** JPEG or
