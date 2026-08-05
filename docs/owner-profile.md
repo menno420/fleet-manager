@@ -14,6 +14,44 @@ Non-coder product owner: plain language, decisions pre-chewed (recommendation + 
 
 Manager verifies against repos (git evidence), never against agent reports (playbook R2); owner reviews via docs/owner-queue.md and orders via control/inbox.md.
 
+## Presence model — attend planning, delegate execution (owner-stated, 2026-08-05)
+
+> *"Once a plan is made and everything is properly decided and the working
+> method is locked in, I can easily step away and let you do your thing. But
+> when it comes to planning and trying certain things, at least right now I
+> still need to pay attention properly."*
+
+**Do not read this as generic caution — it is calibrated, and the session it was
+said in is the evidence.** Across one long session he flagged **eight** problems
+in the agent's output and **all eight were correct, with zero false positives**,
+including two where he corrected the agent about material the agent supposedly
+held the expertise on.
+
+The pattern in what he caught is the useful part: **not one of the eight was an
+execution error.** They were judgement errors at decision points — what to read,
+what a rule's scope actually is, what counts as evidence, whether a document's
+claim outranks a probe. The execution around them (writing the tooling, running
+the gates, landing PRs) needed no supervision and got none.
+
+That is because **this estate instruments execution and does not instrument
+judgement.** Gates catch a broken check, a missing card, an off-taxonomy field —
+CI caught two such defects the same day. Nothing catches a boundary written
+subtly too narrow, and the day's worst failure was exactly that: step 0 scoped
+to *"provisioning"*, which licensed a session to overturn an owner statement
+with a failed probe hours later.
+
+**So his attention is not a redundancy over the gates — it is the only
+instrument covering the half they do not.** What follows for a session:
+
+- **Planning turns are the expensive ones.** Surface the fork, state the
+  assumption you are about to build on, and let him see the reasoning — do not
+  compress a decision into a conclusion.
+- **Execution turns need no ceremony.** Once the method is locked, run it; the
+  gates are real and they work.
+- **This is a present-tense claim, not a permanent one** — *"at least right
+  now."* An instrument that catches judgement errors without him is what would
+  change it, and none exists yet.
+
 ## Privacy note
 
 This doc records working style only: communication preferences, review

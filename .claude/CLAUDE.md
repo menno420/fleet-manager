@@ -10,7 +10,17 @@
 ## Boot triad — know yourself first (every session)
 1. **What model you are** — from your own config, family-level.
 2. **Where you're running** — owner-live hub chat · scheduled wake · subagent;
-   remote container.
+   remote container. **And what loaded**: Claude Code reads settings, hooks and
+   skills from `<root>/.claude/`, where root is the session's working directory.
+   One source at boot → root is the repo and everything loads. Several sources
+   → root is the bare clone parent `/home/user`, which has no `.claude/`, so
+   **every repo's settings, hooks, skills and boot file go quiet at once with no
+   error** (measured 2026-08-05; superbot's hard-fail `Stop` gate is among the
+   casualties). The owner boots one source per session for exactly this reason —
+   that choice is his, not yours. Yours: `add_repo` **mid-session is safe** (root
+   is fixed at boot and does not move), and if `ls /root/.claude/projects/` ever
+   shows a bare `-home-user` entry, run `python3 tools/install_root_hooks.py
+   --apply` before trusting any gate.
 3. **What you can do** — the capabilities ledger below. Default posture:
    **you have full capability — act.**
 
@@ -84,19 +94,35 @@ Essentials:
   then OAuth to `aiplatform.googleapis.com`. Grounding is `googleSearch`
   (camelCase) on Vertex. Verified end to end 2026-08-05 — full recipe and the
   billing chain: `docs/conventions/vertex-first-for-gemini.md`.
-- **When the owner states a provisioning fact, it is already verified — act on
-  it.** *"The token is account-scoped." · "You have access to my test bot
-  token." · "Use Vertex."* He built the environment and knows what he enabled;
-  each of those cost him real time to make true. Do not probe to check whether
-  he is right, and do not reply with questions about what a credential can do —
-  **do the thing.** Working *is* the verification. Failing gives you a real
-  error to report instead of a hypothetical doubt. This is not an exception to
-  verify-first: that doctrine guards against stale *records* and your own
-  *inferences*, and he is neither. Measured 2026-08-05 — seven corrections from
-  him in one session, **all seven right, zero false positives.** The boundary,
-  and it is the whole boundary: he is authoritative on *provisioning*; the
-  *response to a specific call* is still read every time. Full rationale:
-  `docs/CAPABILITIES.md` § DISCOVERY RULE step 0.
+- **When the owner states something about this estate, it is source truth — act
+  on it.** *"The token is account-scoped." · "You have access to my test bot
+  token." · "Use Vertex." · "The Interactions API works fully turn based."* He
+  built this and each of those cost him real time to make true. Do not probe to
+  check whether he is right, and do not reply with questions about what a
+  credential or an API can do — **do the thing.** Working *is* the verification;
+  failing gives you a real error to report instead of a hypothetical doubt. Not
+  an exception to verify-first: that doctrine guards against stale *records* and
+  your own *inferences*, and he is neither. Measured 2026-08-05 — seven
+  corrections from him in one session, **all seven right, zero false positives.**
+  **The boundary is not "provisioning versus behaviour."** That narrower version
+  was written on 2026-08-05 and licensed a violation the same day: he stated the
+  Interactions API keeps turn-based history, a probe of the *Vertex* path
+  returned `RESOURCE_PROJECT_INVALID`, and "unavailable" went into the ledger —
+  filed as a behaviour claim the probe was free to overturn. It works on the AI
+  Studio surface exactly as he said. **A probe establishes only what that one
+  call did. A failure means you took the wrong path, not that he was wrong** —
+  so go find the other path instead of writing a wall. Full rationale:
+  `docs/CAPABILITIES.md` § THE DISCOVERY RULE step 0.
+- **Before probing a vendor API, check `docs/providers/` and
+  `docs/conventions/`.** A `PreToolUse` hook now surfaces the matching doc
+  automatically — `.claude/hooks/route_docs.py`, 19 routes, silent unless one
+  matches, never blocks. It is a **net, not a substitute for looking**: it fires
+  once per route per session and only on triggers someone thought to add. It
+  exists because on 2026-08-05 a session probed a discovery document, found no
+  `interactions` endpoint and recorded "unavailable" while
+  `docs/providers/gemini.md` held the working recipe — having authored the rule
+  against that three hours earlier. Add a route when you find a doc that would
+  have saved you: `.claude/hooks/README.md`.
 - **Never write down a limitation.** A refused call is transient classifier
   state — route around it and leave no wall behind. The guard is
   `tools/check_no_false_walls.py` — **run it yourself** (`--strict`), because

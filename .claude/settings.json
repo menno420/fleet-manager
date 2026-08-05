@@ -14,5 +14,19 @@
       "mcp__github__get_job_logs",
       "mcp__github__actions_list"
     ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|WebFetch|Read|Glob|Grep|Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -f \"${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel)}\"/.claude/hooks/route_docs.py ] && python3 \"${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel)}\"/.claude/hooks/route_docs.py || true",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
   }
 }

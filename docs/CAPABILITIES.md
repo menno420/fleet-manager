@@ -43,8 +43,44 @@ seat while never prompting in a Routine-spawned one (fleet night review,
 Before declaring anything impossible, and before assuming a tool or
 credential is missing:
 
+0. **If the owner stated it, it is source truth — act on it.** *"The token is
+   account-scoped." · "You have access to my test bot token." · "Talk to Gemini
+   through Vertex." · "The Interactions API works fully turn based and stores
+   session history."* He built this estate and each of those cost him real time
+   to make true. Do not open with a probe to check whether he is right, and do
+   not answer with questions about what a credential or an API can do — **do the
+   thing.** Working *is* the verification; failing gives you a real error to
+   report instead of a hypothetical doubt. Measured 2026-08-05: seven owner
+   corrections in one session, **all seven right, zero false positives.**
+
+   **The boundary is narrower than it looks, and getting it wrong is how this
+   rule gets broken.** It is *not* "provisioning versus behaviour" — that
+   version was written here on 2026-08-05 and it licensed a violation within
+   hours. A probe establishes exactly one thing: **what that one call did.** It
+   never refutes his statement. **A failed call means you took the wrong path,
+   not that he was wrong**, and the next move is to find the other path — not
+   to write a wall.
+
+   **The worked example, same day, from this file's own history.** He wrote that
+   the Gemini Interactions API *"works fully turn based and stored session
+   history for a short time."* A session probed the Vertex surface, got
+   `RESOURCE_PROJECT_INVALID`, searched a discovery document that omits the
+   endpoint, and recorded **"unavailable"** in this ledger — filing his claim as
+   *behaviour*, which the narrow boundary made overturnable. It works, on the
+   AI Studio surface, on a free key, exactly as he described. Two of the three
+   rules broken that day were broken by the session that wrote them.
+
+   Full rationale: § "Why step 0 is not an exception to verify-first" near the
+   end of this file.
 1. **Check this file** — the capability or wall may already be recorded for
-   your venue.
+   your venue. **Also check the estate's own docs before probing a vendor
+   API**: `docs/providers/`, `docs/conventions/`. Measured 2026-08-05 — a
+   session probed `generativelanguage`'s discovery document, found no
+   `interactions` endpoint and wrote "unavailable" into this ledger, while
+   `docs/providers/gemini.md` carried the working recipe. **A spec that omits
+   an endpoint is not evidence the endpoint is absent.** The `PreToolUse` hook
+   in `.claude/hooks/route_docs.py` now surfaces the matching doc
+   automatically; it is a net, not a substitute for looking.
 2. **Check the environment** — `printenv` / list the available tools BEFORE
    assuming no credentials exist (provisioned env tokens are routinely
    forgotten, not absent).
@@ -119,6 +155,53 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-05 · capability · `owner-live` · **A session can install its own
+  `PreToolUse` hook and have it inject context into the running conversation.**
+  `.claude/hooks/route_docs.py` matches a tool call against
+  `.claude/hooks/doc-routes.json` (19 routes) and returns
+  `hookSpecificOutput.additionalContext`, which arrives as a `system-reminder`
+  in the model's context on the same call. · evidence: registered via
+  `tools/install_root_hooks.py --apply`, `jq -e` on the matcher exit 0, then a
+  live `Bash` call mentioning `ai.meta.com` produced the injected block naming
+  `docs/providers/meta-llama.md`; per-session dedupe verified silent on the
+  third mention with `/tmp/claude-doc-routes/<session-id>.json` intact. ·
+  workaround: n/a. Ordering gotcha — the hook runs **before** the command, so a
+  command that deletes the hook's own state directory looks like broken dedupe.
+  — LAST-VERIFIED: 2026-08-05
+- 2026-08-05 · capability · `any` · **Settings, hooks and skills load from
+  `<root>/.claude/`, and root is the session's working directory — which is the
+  repo only when the session was booted with a single source.** With several
+  sources at boot, root is the bare clone parent `/home/user`: not a git repo,
+  no `.claude/` directory, so every repo's settings, hooks, skills and
+  auto-loaded `CLAUDE.md` are absent at once **with no error** — superbot's
+  seven hooks, including its hard-fail `Stop` gate, among them. · evidence:
+  `pwd` → `/home/user/fleet-manager`; `/root/.claude/projects/` holds exactly
+  one entry, `-home-user-fleet-manager` (cwd with `/`→`-`), across all 17 of
+  today's sessions; `git -C /home/user rev-parse` → "not a git repository";
+  `/home/user/.claude` does not exist. A multi-repo session would show a bare
+  `-home-user` project dir — that is the signature to look for. · workaround:
+  `python3 tools/install_root_hooks.py --apply` writes the registration to
+  whichever root is live. **`add_repo` mid-session is safe** — root is fixed at
+  boot and does not move: substrate-kit, superbot and superbot-next were all
+  added to `/home/user/` today and root never left the repo. Boot-source
+  selection is the owner's, not a session's.
+  — LAST-VERIFIED: 2026-08-05
+- 2026-08-05 · capability · `any` · **The only hooks running in a fleet-manager
+  session come from the harness, not from the estate.**
+  `/root/.claude/launcher-settings.json` registers `SessionStart` →
+  `~/.claude/session-start-git-identity.sh` and `Stop` →
+  `~/.claude/stop-hook-git-check.sh`. Two further scripts in `~/.claude/`
+  (`stop-hook-reply-gate.py`, `user-prompt-submit-reply-reminder.py`) are
+  Slack-origin only — their own docstrings say they are registered solely when
+  `CCR_REPLY_STOP_HOOK_REASON` / `CCR_OPUS_REMINDER_HOOK_BODY` are set. ·
+  evidence: 34 `"hook_event_name":"SessionStart"` records across today's
+  `/tmp/claude-code-*.diag.log`, zero of any other event; `.claude/settings.json`
+  had no `hooks` key at all before this session, and
+  `.substrate/hooks/settings.template.json` stages four kit hooks that were
+  never merged in. · workaround: the kit's four remain uninstalled — a deliberate
+  choice to make, not an oversight to fix blindly (kit `PreToolUse` uses matcher
+  `"*"` and runs on every call).
+  — LAST-VERIFIED: 2026-08-05
 - 2026-08-05 · capability · `any` · **A session can produce finished video:
   read the owner's public Drive folder, generate footage with Veo 3.1 on
   Vertex, delegate highlight selection to Gemini, and cut a trailer with
@@ -1250,23 +1333,19 @@ marketplace publishes (Gumroad/dev.to) remain owner-account hard rails.
   factual records (triage, capabilities, owner-queue asks, session cards,
   claims) pass. Re-verify >14d.
 
-## DISCOVERY RULE
+## DISCOVERY RULE — the rationale (the rule itself is at the top of this file)
 
-Before declaring anything impossible:
-
-0. **If the owner stated it, it is already verified. Act on it.**
-   *"The token is account-scoped." · "You have access to my test bot token." ·
-   "Talk to Gemini through Vertex." · "Boot the bot with the token in your
-   environment."* These are not claims awaiting confirmation. **He provisioned
-   the environment**, he knows what he enabled, and he has spent hours making
-   each one true. Do not open with a probe to see whether he is right, and do
-   not answer with questions about what a credential can or cannot do. **Do the
-   thing.** If it works, you verified it by doing it — which is what step 3 has
-   always asked for. If it fails, you now have a real error to report instead
-   of a hypothetical doubt.
-1. **Check this file.**
-2. **Check `printenv`** (presence-grep above — the capability may be a provisioned credential).
-3. **Attempt it once and capture the exact error** — verbatim, not paraphrased.
+> **Corrected 2026-08-05.** This file carried the rule twice: the canonical
+> numbered version under **§ THE DISCOVERY RULE** near the top, and a second,
+> shorter copy here — which is where step 0 was first written. A session
+> reading top-down met steps 1–5 and never saw step 0, while the boot file
+> pointed at "§ DISCOVERY RULE step 0" as if it were one place. **Step 0 now
+> lives in the canonical rule at the top**; the four steps that were here are
+> folded into it, and what remains below is the long-form rationale, which was
+> always the part worth keeping separate.
+>
+> Found by `tools/check_doc_routes.py` while validating the doc-routing hook —
+> the first thing that instrument caught was this file disagreeing with itself.
 
 A new capability or wall discovered = **append it here (or your repo's copy) the same
 session.** An unrecorded discovery is a reminder the owner will have to give again.
