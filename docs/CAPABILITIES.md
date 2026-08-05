@@ -417,6 +417,37 @@ findings go here, below the fence.)
   never run `playwright install`) and `--no-proxy-server` (the agent proxy resets the
   browser's connections → `ERR_CONNECTION_RESET`). Fixing either alone still fails, so
   neither fix looks like it helped on its own. — LAST-VERIFIED: 2026-08-03
+- 2026-08-05 · capability · owner-live · **A whole-corpus Gemini read runs end to end on
+  Vertex credit from a container holding no Google credential — 2.48M input tokens across
+  two corpora, zero card spend.** The 2026-08-05 Vertex-first directive is satisfiable by
+  tooling, not just by hand: `tools/gemini_delegate.py --vertex-sa <file>` now OAuths a
+  service account and targets `aiplatform.googleapis.com`. Two traps, both cheap once
+  known. (1) **Railway's GraphQL API 403s through `urllib` even with an empty
+  `ProxyHandler({})`** — that does not bypass the agent proxy for this host; `curl --noproxy
+  '*' --cacert /root/.ccr/ca-bundle.crt` returns 200 for the identical query. Same
+  proxied-vs-direct shape as the `api.github.com` row below, in a second tool. (2) **Vertex
+  requires an explicit `role` on `contents[]`** — the Studio path defaults it, Vertex
+  rejects the payload with `400 "Please use a valid role: user, model."` Sending
+  `{"role": "user", …}` is valid on both paths. · evidence: measured this session —
+  superbot's 967 session cards (1,843,098 input tokens, 60 findings verified / 4 rejected)
+  and superbot-next's 334 (641,442 tokens, 22 / 2), both `RUN_EXIT=0`; the SA pulled from
+  `reliable-grace` / `worker` / `production` matches `docs/conventions/vertex-first-for-gemini.md`
+  byte-for-byte (2,420 chars, same `client_email`, same project). Also re-confirms the
+  direct-PAT GitHub path: ~15 authenticated `api.github.com` calls over `--noproxy '*'`,
+  all 200. — LAST-VERIFIED: 2026-08-05
+- 2026-08-05 · capability · owner-live · **Both bot repositories can be made EXECUTABLE
+  in-container, not just readable — and that is the difference between measuring and
+  inferring.** `superbot` builds on `python3.10 -m venv` + `requirements.txt` and then runs
+  its own checkers; `superbot-next` builds on `python3.11` + `pip install --require-hashes
+  -r requirements.lock` and its panel tree can be imported and enumerated without Discord
+  or Postgres. Neither needs a token for the offline half. · evidence: measured this
+  session — `scripts/check_command_reachability.py` run at superbot HEAD returned **exit 0**
+  with `242 prefix commands (95 reachable, 147 exempt, 0 GAP)`, and
+  `sb.app.main.load_live_manifests()` + `sb.domain.help.service.build_help_panels()`
+  enumerated 314 panels / 66 help panels directly, which is what corrected the 48% dead-end
+  figure to 37%. The dependency chain fails progressively (`discord` → `asyncpg` →
+  `dotenv`), so install the full requirements file rather than chasing imports one at a
+  time. — LAST-VERIFIED: 2026-08-05
 - 2026-07-31 · capability · owner-live · **Branch-ruleset and required-status-check state
   IS readable agent-side — it is not owner-UI-only, and reading it refutes a claim in this
   repo's own boot file.** `bootstrap.py check` emits a standing NOTE that whether

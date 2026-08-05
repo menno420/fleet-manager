@@ -266,6 +266,16 @@ guild that has never run the full setup wizard.
 
 ## 6. The recommendation
 
+> **SUPERSEDED the same day (2026-08-05) — the owner overrode this section.**
+> His reason: superbot carries architectural debt and is not fit to improve
+> further, so "use the live bot instead" is not the path. The rebuild target is
+> a **server bot first, with no game features**. Steps 1–3 below remain sound as
+> *server* advice (they need no bot at all, or only configuration); it is the
+> headline verdict that no longer stands. Do not re-propose it. The measured
+> follow-ups are
+> [`2026-08-05-superbot-next-live-audit.md`](2026-08-05-superbot-next-live-audit.md)
+> and [`2026-08-05-three-repo-state-audit.md`](2026-08-05-three-repo-state-audit.md).
+
 **Use the live `superbot`. Do not deploy `superbot-next` for this.** One is
 running and multi-guild; the other has never met a real server, and a tester
 recruitment drive is the wrong place to find out what breaks.
