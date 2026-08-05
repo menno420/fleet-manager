@@ -1215,9 +1215,64 @@ marketplace publishes (Gumroad/dev.to) remain owner-account hard rails.
 
 Before declaring anything impossible:
 
+0. **If the owner stated it, it is already verified. Act on it.**
+   *"The token is account-scoped." · "You have access to my test bot token." ·
+   "Talk to Gemini through Vertex." · "Boot the bot with the token in your
+   environment."* These are not claims awaiting confirmation. **He provisioned
+   the environment**, he knows what he enabled, and he has spent hours making
+   each one true. Do not open with a probe to see whether he is right, and do
+   not answer with questions about what a credential can or cannot do. **Do the
+   thing.** If it works, you verified it by doing it — which is what step 3 has
+   always asked for. If it fails, you now have a real error to report instead
+   of a hypothetical doubt.
 1. **Check this file.**
 2. **Check `printenv`** (presence-grep above — the capability may be a provisioned credential).
 3. **Attempt it once and capture the exact error** — verbatim, not paraphrased.
 
 A new capability or wall discovered = **append it here (or your repo's copy) the same
 session.** An unrecorded discovery is a reminder the owner will have to give again.
+
+### Why step 0 is not an exception to verify-first
+
+It is verify-first, in the right order. This estate's evidence doctrine —
+probe-not-record, the tree beats a self-report, a green check that fights the
+evidence is a bug in the check — was built against two specific things:
+**stale records** and **an agent's own inferences**. The owner is neither. He is
+not a document that aged; he is the source the document would be describing.
+Probing his statement before acting is checking a source against its own output,
+and it inverts step 3: verify-then-attempt instead of attempt-then-record.
+
+**The base rate, measured 2026-08-05.** Across one long working session the
+owner flagged seven errors in this session's output — a skipped reading pass, a
+dismissal of nine open PRs, an unkept commitment, a rule the session wrote and
+then failed to follow, and two wrong claims about his own writing. **Every one
+was correct. Zero false positives**, including two where he corrected the agent
+about material the agent supposedly held the expertise on. He also supplied a
+quantitative prior the session could not read about itself (context consumed,
+~300k against ~400k expected) and it was accurate. His statements about this
+estate are better evidence than most of the automated checks in it.
+
+**The cost of ignoring this is measured too**, in his words: *"multiple turns
+across multiple sessions, where an agent first spends multiple minutes trying to
+verify certain claims or pushes back with questions about what the certain tokens
+can or can't do."* Owner attention is the scarcest resource here. Spending it on
+re-confirming something he already confirmed is the most expensive possible way
+to be careful.
+
+**What still gets verified, and this is the whole boundary:**
+
+| Question | Who answers it |
+|---|---|
+| *Do I have access / is it set up / which path should I use?* | **The owner. Settled. Do not re-litigate.** |
+| *Did this specific call just succeed?* | **The response.** Always read it. |
+
+He is authoritative on **provisioning**. He is not claiming a given HTTP request
+will return 200 — a call can still fail on a proxy path, a stale ref, a
+rate limit, a typo of yours. Read every response, report every real error
+verbatim, and append what you learn. That is the discipline, and it is
+untouched. What step 0 removes is only the pre-flight doubt: the minutes spent
+establishing that a credential he handed you is real before you use it.
+
+**And a one-off refusal is still not a wall** (see above). If the attempt fails,
+you have an error to route around — not evidence that he was wrong about his own
+environment.
