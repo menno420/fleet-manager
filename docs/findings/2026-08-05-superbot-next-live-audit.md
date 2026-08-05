@@ -16,6 +16,11 @@
 > Every number below was produced by running something. Where a claim rests on a
 > grep or an estimate, it says so.
 
+> **Correction, same day.** The first version of this document reported the
+> menu-versus-text ratio as *"inherited, not introduced."* That was wrong and it
+> dismissed the owner's central complaint. **§ 4b replaces it** with the
+> measurement that matters — reachability — and § 7 records the error.
+
 ## 0. The finding in one paragraph
 
 superbot-next boots, connects, and serves real interactions — 1,327 dispatch
@@ -27,6 +32,14 @@ glyphs baked into an f-string, and a legend advising a command that does not
 exist in the build. It passes golden parity perfectly — **because it is the
 captured bytes.** The construction was largely real; the verification method
 could not distinguish working from photographed.
+
+**The same transcription hit the bot's front door.** In superbot the navigation
+graph *is* the product — one `!help`, then everything reachable by button in
+about two taps. In the rebuild, **60 of 66 `help` panels have no buttons at
+all**, and 153 of 314 panels overall. The help pages render the captured *text*
+of the old bot's help output instead of a live route table. Byte-identical, and
+one is a menu while the other is a picture of one. That is § 4b, and it is the
+largest single thing the harness let through.
 
 ## 1. `CAPTURE-WORLD LITERAL` — the convention, in the codebase's own words
 
@@ -143,8 +156,8 @@ Produced by running the bot or compiling its manifests, not by reading docs.
 | — superseded | 2: `syncslash`, `syncs` | — |
 | — aliases only | 12 (`diag`, `sysinfo`, `quicksetup`, `hilfe`, …) | verified each parent exists |
 | Slash commands | **27** of 413 — the rest are prefix-only | live boot log |
-| Menu vs text split | **17%** open a panel (71/413) | compiled snapshot (exact) |
-| — superbot's same split | **~21%** (103/479) | per-command AST estimate |
+| Panels with **no buttons at all** | **153 of 314 — 48%** | compiled snapshot (exact) |
+| — of those, the `help` tree | **60 of 66 panels** | compiled snapshot (exact) |
 | "not armed" terminals | **70** across 17 subsystems | grep of shipped copy |
 
 ### Two configurability gaps confirmed by execution
@@ -208,11 +221,97 @@ The rebuild's premise was not fantasy, and a post-mortem that concludes
 - The **layered architecture** (spec/namespace → kernel → domain → adapters →
   app, with import-direction guards) is genuinely better-founded than superbot's
   accumulated patches. That was the point of the rebuild and it survived.
-- The menu-vs-text ratio is **inherited, not introduced** — 17% against
-  superbot's ~21%.
 
 The defensible summary: **the code is better than one bad session suggested; the
-verification method is what failed.**
+verification method is what failed** — and § 4b is the largest thing that method
+let through.
+
+## 4b. The navigation graph — the product, and it was not ported
+
+**This section replaces a wrong claim in the first version of this document**
+(see § 7). That version reported the menu-versus-text ratio as *"inherited, not
+introduced"* on a 17%-vs-21% comparison of how many **commands** build a view.
+
+That measurement is exact and answers a question nobody has. **Nobody types
+superbot's commands.** The owner's description of how the bot is actually used:
+
+> *"every command is reachable and activated by a button, the only command
+> anyone ever needs is `!help`, from there you can use every feature the bot
+> ships, in seconds, always 2 taps away from any command"*
+
+Confirmed from a screen recording of the live old bot (2026-08-05). Its
+`!help` leads into panels that are **launchers**, not listings:
+
+- **Blackjack** — eight buttons: Solo Free Play · Solo Bet · Challenge Player ·
+  Tournament · Status · Rules · Help · Games.
+- **Casino** — New Poker Table (primary), Roulette (disabled, honestly
+  labelled), Help, overflow.
+- **Server Stats** — **live computed values** (3 members, 16 text channels, 1
+  voice, 5 roles) above an eleven-button grid: Settings · Server Management ·
+  Channels · AI · Platform · Diagnostics · UX Lab · Logging · Reload All · Log
+  Level · Server Stats.
+
+The command surface is incidental. **The navigation graph is the product**, and
+the correct measurement is reachability: can a user reach every feature by
+clicking, from one entry point, in about two taps?
+
+### Measured on the rebuild
+
+| | Panels | With **zero** buttons |
+|---|---|---|
+| **All subsystems** | 314 | **153 — 48%** |
+| **`help`** | 66 | **60 — 91%** |
+
+Buttons that exist are counted generously here: a panel scores as "has buttons"
+even if all of them are Back/Home navigation.
+
+Where the button-less panels concentrate:
+
+| Subsystem | Button-less / total |
+|---|---|
+| `help` | **60 / 66** |
+| `ai` | 17 / 27 |
+| `utility` | 9 / 10 |
+| `creature` | 7 / 9 |
+| `inventory` | 7 / 8 |
+| `cleanup` | 5 / 12 |
+| `economy` | 5 / 6 |
+| `counters` | 3 / 3 |
+| `fishing` | 3 / 14 |
+| `setup` | 3 / 40 |
+
+**The front door is 91% dead ends.** Navigating into a help category yields a
+text list of command names with nothing to press — observed live, and visible in
+the compiled snapshot as help sub-panels carrying `"actions": []` with a body of
+text plus a provider reference.
+
+### It is the same defect as the Cog Manager
+
+`diagnostic/command_catalog.py` is one of the four `CAPTURE-WORLD LITERAL` files
+(§ 1). The help pages render a **transcribed list of command names** — the
+captured *text* of the old bot's help output — rather than a live route table
+with launch buttons behind it.
+
+The old panel's text and the new panel's text match byte-for-byte. One is a
+menu; the other is a picture of a menu. **Golden parity cannot distinguish them,
+and scored it 100%.**
+
+So the Cog Manager was not an unlucky outlier the owner happened to open first.
+The same transcription was applied to the bot's entire front door, which is why
+the impression of pervasiveness formed immediately — the front door genuinely is
+pervasive.
+
+### Consequence for the rebuild
+
+Milestone one is not "~15 working subsystems." It is **one working navigation
+tree with ~15 subsystems hanging off it.** Build the graph first and the
+cog-by-cog batches have somewhere to attach; build the subsystems first and
+every one of them is unreachable until the graph exists.
+
+A concrete acceptance test, and the one the golden harness could never express:
+**from `!help`, every shipped feature is reachable by clicking, in two taps, with
+no typed command.** That is a property of the route table, checkable
+mechanically, and it fails today at 91% on the help tree alone.
 
 ## 5. The server-first shortlist — the owner's first milestone
 
@@ -239,13 +338,17 @@ running a server:
 `rps_tournament` · `deathmatch` · `economy` · `treasury` · `inventory` ·
 `chain` · `games` · `proof_channel` · `hermes` · `ux_lab`
 
-Two consequences worth planning around:
+Three consequences worth planning around:
 
 1. **Milestone one is ~15 subsystems, not 49.** That is a materially smaller
    target than either existing repo suggests.
 2. **The excluded set is the argument for boot-time selection.** If subsystem
    selection exists from day one, "no game features" is a config value rather
    than a fork — and the game subsystems can land later without a migration.
+3. **The navigation tree is milestone zero** (§ 4b). Subsystems built before the
+   graph exists are unreachable by the only route real users take. Build the
+   launcher first, hang the fifteen off it, and every later batch has an
+   attachment point.
 
 ## 6. What to give the independent reviewers
 
@@ -280,6 +383,7 @@ and each was caught by him rather than by this session.
 | "The token in the environment is the production identity" | **False.** Live worker = bot `1403818430758654132`; the environment holds `1298426054636994611` (the test app) | Inferred from the variable *name*; the repo's own testing ledger said otherwise |
 | "314 panels, zero components" | **640 buttons across 161 panels** | Counted a `components` key that does not exist; the fields are `actions`/`selectors` |
 | "It's a faithful clone, 365 of 368" | True of command *names*, and it missed that whole classes can be silently unreachable | Counted the wrong thing |
+| **"The menu-vs-text ratio is inherited, not introduced" (17% vs ~21%)** | **Wrong, and it dismissed the owner's central complaint.** The ratio measured how many *commands* build a view, in a bot whose commands nobody types. The real measure is reachability: the `help` tree is **60 of 66 panels with zero buttons**. See § 4b | Measured a precise, exact, reproducible answer to a question nobody had — then reported it as reassurance |
 
 The root cause is uniform and worth stating once: **this session read the code
 and skipped both repositories' required boot files.** `superbot-next`'s
@@ -325,8 +429,14 @@ answer nothing on a fresh database.
 - **Completeness of the literal audit.** Four labelled instances found; the
   labelling is not guaranteed exhaustive. § 6 names the sweep that would settle
   it. It was not run here.
-- **superbot's menu-vs-text ratio (~21%)** is a per-command AST estimate and
-  could be several points off. superbot-next's 17% is exact.
+- **The reachability figures count declared buttons, not working ones.** A panel
+  with buttons that all route to "not armed" terminals still scores as having
+  buttons, so **48% / 91% are floors** — the true dead-end rate is higher. A
+  click-through census would settle it and was not run.
+- **The two-tap property was not measured**, only the zero-button rate. Proving
+  or refuting "every feature is two taps from `!help`" needs the route table
+  walked as a graph, which is the acceptance test proposed in § 4b, not a
+  result reported here.
 - **The 70 "not armed" terminals** is a grep of shipped refusal copy, not a
   click-through census. The true count of dead-ended surfaces may differ.
 - **Nothing below band 1 was exercised live in this session.** The owner drove
