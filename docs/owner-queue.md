@@ -30,6 +30,119 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 
 ## Active — genuinely-open owner asks
 
+- **`OQ-PLAY-ACCOUNT` — (VENUE: 30 min + $25, your identity documents) Create the Play developer account — this starts the clock on everything else (2026-08-05).**
+  WHAT: register a Google Play developer account. **US$25, one-time, not a subscription.**
+  You will need a **government photo ID and a credit card, both in your legal name**.
+  Prepaid cards are rejected, and if the details are judged invalid **the $25 is not
+  refunded** — so use a card and ID that already match.
+  WHERE: [play.google.com/console/signup](https://play.google.com/console/signup).
+  WHY IT IS FIRST: `OQ-PLAY-CLOSED-TEST` below is a **three-week minimum** and cannot
+  start until this account exists. Nothing else on this list is on the critical path;
+  this is.
+  VERIFY: the Console shows your account as verified. Verification can take a few days,
+  so doing it early costs nothing and doing it late costs weeks.
+  WHY IT IS YOURS: payment, legal identity, and acceptance of the Play policies.
+  SOURCE: [answer/6112435](https://support.google.com/googleplay/android-developer/answer/6112435),
+  fetched 2026-08-05.
+
+- **`OQ-PLAY-CLOSED-TEST` — (VENUE: recruiting 12 people, then 14 days of waiting) The requirement that actually sets the launch date (2026-08-05).**
+  WHAT: because your account will be a **personal** account created after 2023-11-13,
+  Google requires a **closed test with at least 12 testers opted in continuously for
+  14 days** before you may even *apply* for production access. The application is then
+  reviewed in **about 7 days**. That is a **three-week floor**, and having the game
+  finished does not shorten it.
+  THE TRAP: the 14 days must be **consecutive**. A tester who opts out and back in
+  resets — time does not accumulate. All 12 must still be opted in at the moment you
+  apply. Recruit **more than 12** so one person leaving does not restart the clock.
+  WHERE: Play Console → Testing → Closed testing; testers join by Google account email
+  or a Google Group.
+  HOW: 12 real Google accounts — friends, family, a Discord, anyone with an Android
+  device. They must accept the invite; they do not have to play.
+  WHY IT IS YOURS: recruiting people and managing the tester list. Everything technical
+  for this is already built — the debug APK path exists today and the bundle path
+  landed in PR #162.
+  SOURCE: [answer/14151465](https://support.google.com/googleplay/android-developer/answer/14151465),
+  fetched 2026-08-05.
+
+- **`OQ-PLAY-APP-ID` — (VENUE: five minutes, one permanent decision) Choose the application ID — it can never be changed (2026-08-05).**
+  WHAT: pick the app's internal identifier, e.g. `com.menno420.swingyspider`. Once
+  published it **can never be changed or reused**: Google treats a changed ID as an
+  entirely different app, and the old one is burned forever. It is invisible to
+  players — it does **not** have to match the store name.
+  WHERE: set it as repository variables in `spider-swing` → Settings → Secrets and
+  variables → Actions → Variables: `RELEASE_PACKAGE_ID` (the identifier) and
+  `RELEASE_APP_NAME` (the store-visible label, **max 30 characters**).
+  HOW: rules are at least two dot-separated segments, each starting with a letter,
+  only letters/digits/underscore. The repository currently ships a deliberate
+  placeholder and the release build **refuses to run** until you set both — that
+  refusal is the design, not a bug.
+  DEPENDS ON: `OQ-SWINGY-NAME` if you want the ID to echo the final name. It does not
+  have to — pick the ID independently if the name is still open.
+  WHY IT IS YOURS: permanent and irreversible, so no agent should choose it.
+  SOURCE: [developer.android.com/build/configure-app-module](https://developer.android.com/build/configure-app-module),
+  fetched 2026-08-05.
+
+- **`OQ-PLAY-UPLOAD-KEY` — (VENUE: 15 minutes at a computer) Generate the upload key and store it as secrets (2026-08-05).**
+  WHAT: create the keystore that signs bundles for upload. Two keys exist and they are
+  **not** the same thing: **you** hold the *upload key*; **Google** holds the *app
+  signing key* that signs what players install. New apps are enrolled automatically and
+  cannot opt out.
+  REASSURANCE, because the internet is alarming about this: **losing the upload key is
+  recoverable.** Play Console → Protected with Play → Play Store protection → Manage
+  Play app signing → request a reset. It is not the "lose it and the app dies forever"
+  key — that one is Google's, and Google keeps it.
+  HOW: one command, `keytool -genkeypair -v -keystore upload-keystore.jks -alias upload
+  -keyalg RSA -keysize 2048 -validity 10000`. Then store base64 of the file as the
+  secret `RELEASE_KEYSTORE_BASE64`, plus `RELEASE_KEYSTORE_USER` and
+  `RELEASE_KEYSTORE_PASSWORD`. Back the file up somewhere that is not this repository
+  and not only your laptop.
+  NOTE: RSA ≥2048 is Google's stated minimum; the `-validity 10000` figure is
+  conventional and **not** stated on Google's signing page — it is not a requirement.
+  WHY IT IS YOURS: it is a credential. The repository refuses keystores by design, and
+  until the secrets exist CI builds an **unsigned** bundle that Play will reject —
+  which is deliberate and clearly labelled.
+  SOURCE: [answer/9842756](https://support.google.com/googleplay/android-developer/answer/9842756),
+  fetched 2026-08-05.
+
+- **`OQ-PLAY-PRIVACY-POLICY` — (VENUE: 20 minutes) Publish a privacy policy URL — required even though the game collects nothing (2026-08-05).**
+  WHAT: Play requires a **live, public privacy policy URL for every app**, and the
+  "we collect nothing" case is **not** an exemption. Verbatim from Google: *"Even
+  developers with apps that do not collect any user data must complete this form and
+  provide a link to their privacy policy."* You must also complete the **Data safety
+  form** — for this game the honest answer to every question is "no data collected"
+  — and the **content rating (IARC) questionnaire** and **target audience
+  declaration**, both mandatory.
+  WHERE: any public URL. GitHub Pages on a repository you own is free and sufficient.
+  HOW: a short honest page — the game stores progress only on the device, sends
+  nothing anywhere, has no accounts, no ads, and no analytics. Say that plainly and
+  give a contact email.
+  WHY IT IS YOURS: it is a legal statement published under your name, and it needs
+  hosting you control. A session can draft the text if you want — ask.
+  SOURCE: [answer/10787469](https://support.google.com/googleplay/android-developer/answer/10787469)
+  and [answer/9859655](https://support.google.com/googleplay/android-developer/answer/9859655),
+  fetched 2026-08-05.
+
+- **`OQ-PLAY-LISTING` — (VENUE: an hour, mostly capture) Store listing text and images (2026-08-05).**
+  WHAT: the listing needs, with exact limits verified 2026-08-05 — app name **30
+  characters**, short description **80**, full description **4,000**; app icon
+  **512×512** 32-bit PNG **with** alpha, ≤1024 KB; feature graphic **1024×500** JPEG or
+  24-bit PNG **without** alpha; **at least 2** screenshots to publish, at most 8 per
+  device type.
+  THE GAME-SPECIFIC ONE: to be eligible for Play's recommendation surfaces a game needs
+  **at least three 16:9 landscape screenshots at 1920×1080 or larger**. Spider Swing is
+  natively 16:9 landscape, so these are straight captures at a larger window — no
+  redesign, no cropping.
+  HARD RULE: screenshots must be **real capture**. Generated imagery invents UI and
+  physics — one generated clip in this estate put three ATTACH buttons in a single
+  frame. Generated art is fine for the feature graphic; never for anything implying
+  "this is how it plays".
+  WHY IT IS YOURS: the copy is product voice and the screenshots need runs worth
+  showing. A session can produce the captures and draft the copy once you confirm the
+  name — ask, and say which moments you want on screen.
+  SOURCE: [answer/9866151](https://support.google.com/googleplay/android-developer/answer/9866151)
+  and [answer/9859152](https://support.google.com/googleplay/android-developer/answer/9859152),
+  fetched 2026-08-05.
+
 - **`OQ-SWINGY-NAME` — (VENUE: ten minutes, your accounts) Confirm "Swingy Spider" is available before it hardens (2026-08-05).**
   WHAT: the working name **Spider Swing** is already taken, and you named
   **"Swingy Spider"** as the likely publishing name. Nothing is committed to it yet
