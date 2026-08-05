@@ -1,6 +1,6 @@
 # 2026-08-05 · hub — it was retrieval, not reading
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** opus-5 · high · research
 
@@ -62,4 +62,15 @@ Vertex-first directive — noted, not urgent.
 
 ## Verification
 
-[[fill: verification]]
+- `python3 tools/check_no_false_walls.py --strict` → **exit 0**.
+- `python3 bootstrap.py check --strict` → **exit 0**, run post-commit (the
+  grammar check reads committed cards, so a pre-commit pass proves nothing —
+  learned the hard way earlier today on spider-swing #163).
+- Every figure is a live HTTP response from this session, not a re-reading of a
+  prior doc. The new arms ran on Vertex, so the correction was credit-funded.
+- `gemini_delegate.py`'s inline transport was read in source, not inferred.
+
+**Honest nulls:** the inline arm covers 4 of the 10 cases, not all 10 — enough to
+settle causation, not a full head-to-head. `googleSearch` on Vertex was scored on
+the discriminating subset. n=1 platform-pair, one model, one day; no claim beyond
+these hosts and these questions.
