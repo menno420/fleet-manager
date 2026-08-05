@@ -21,11 +21,18 @@ Manager verifies against repos (git evidence), never against agent reports (play
 > when it comes to planning and trying certain things, at least right now I
 > still need to pay attention properly."*
 
-**Do not read this as generic caution — it is calibrated, and the session it was
-said in is the evidence.** Across one long session he flagged **eight** problems
-in the agent's output and **all eight were correct, with zero false positives**,
-including two where he corrected the agent about material the agent supposedly
-held the expertise on.
+**Do not read this as generic caution — it is calibrated, and three independent
+sessions are the evidence.** Each counted its own transcript; each landed near
+90–100 % on his unhedged claims; the single plain error was self-caught before
+the agent acted on it. Counts and caveats:
+[`findings/2026-08-05-owner-calibration-three-sessions.md`](findings/2026-08-05-owner-calibration-three-sessions.md).
+
+**The property that matters is the hedge, not the accuracy.** He asserts where he
+has direct observation and marks uncertainty where he does not — *"I'm not
+exactly sure what the number was"* — and the hedged ones are where the errors
+live. So an agent can read the signal and split the work: verify a hedged
+number, act on an unhedged provisioning statement. That is what makes
+delegating to his word safe rather than merely deferential.
 
 The pattern in what he caught is the useful part: **not one of the eight was an
 execution error.** They were judgement errors at decision points — what to read,

@@ -182,12 +182,26 @@ this section alone.
    unchanged on the branch. **Resume:** clone the repo, check out
    `claude/kit-upgrade-v1.20.1`, fix/allowlist the 3 lines (reason-carrying
    entries), push, merge on green.
-2. **superbot-next #602 — kit upgrade, 2 lines from green (lane-owned).**
-   Head `2755fdb` (v1.20.2). Fix is entirely `docs/current-state.md:101`
-   (date-stamp/repudiate the momentary-refusal record in place, or
-   allowlist) and `:118` (collapse the two-line quote to one line). That
-   greens all four red checks at once. **Resume:** same recipe as #160, in
-   superbot-next, per the PR body's STEP-2 analysis.
+2. ~~**superbot-next #602 — kit upgrade, 2 lines from green (lane-owned).**~~
+   ✅ **DONE 2026-08-05** — `menno420/superbot-next#602` merged as `704aba39`;
+   branch deleted; **that repo now has zero open PRs.** This thread's diagnosis
+   was correct and held for 15 days: the two lines were
+   `docs/current-state.md:97` and `:114` (renumbered from 101/118), fixed by
+   dating and repudiating the momentary-refusal record **in place** rather than
+   allowlisting it — an allowlist entry would have hidden a real record. Both
+   greened together as predicted. Two things the thread could not have known:
+   the branch had gone `dirty` against main (merged, union-resolving the
+   append-only `guard-fires.jsonl`), and `pip-audit` — a **required** check —
+   had since gone red on `aiohttp 3.14.1` (PYSEC-2026-3545/3546/3547),
+   independently of this PR and red on every PR in the repo. Bumped to 3.14.3
+   via a targeted `pip-compile --upgrade-package`, one pin moved of 34.
+   Verified: full suite **3648 passed / 44 skipped / 0 failures**, both
+   `check_lockfile_fresh` legs OK, **all 15 checks green** before merge.
+   *Original text, for the record:* Head `2755fdb` (v1.20.2). Fix is entirely
+   `docs/current-state.md:101` (date-stamp/repudiate the momentary-refusal
+   record in place, or allowlist) and `:118` (collapse the two-line quote to one
+   line). That greens all four red checks at once. **Resume:** same recipe as
+   #160, in superbot-next, per the PR body's STEP-2 analysis.
 3. **`OQ-SBW-DUP-FAILSAFE` — duplicate "SuperBot World failsafe wake" crons.**
    Two enabled crons, same name + schedule (`15 1-23/2 * * *`):
    `trig_01XJJ88pQaQFRSpVAviCfAZe` (older) + `trig_01DbcKVWxn6RJPhfyRkgTg6m`
