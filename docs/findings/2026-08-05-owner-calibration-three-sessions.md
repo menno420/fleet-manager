@@ -31,10 +31,38 @@ because it is the same discipline the counts are evidence for.
 
 **Do not add these into one figure.** Session B's own report says the
 pre-compaction stretch cannot be counted reliably, and inventing a total across
-that boundary is exactly the failure mode the estate is trying to remove. The
-defensible statement is: **three independent counts, each landing near
-90–100 % on unhedged claims, with the single plain error self-caught and the
-single question-form error costing nothing.**
+that boundary is exactly the failure mode the estate is trying to remove.
+
+### The "not fully right" column is softer than it looks — checked, not taken on trust
+
+The owner's own reading, 2026-08-05: *"None of those mistakes were actually
+mistakes, mostly they were framed as questions or possibilities, not stated as
+if I was sure."* That is a strong claim about his own record, and this document
+is the evidence base for a rule telling agents **not** to verify him — so it was
+checked against the texts rather than recorded on his word.
+
+| Scored "not fully right" | Actual form | Source |
+|---|---|---|
+| *"Owner would be good too right"* | **question** | session B's own note: *"you phrased it as a question, so it cost nothing"* |
+| *"is there any frame where the distance went down or remained the same"* | **question** | its literal form |
+| *"moves you backwards a little bit, **or at least stalls**"* | **hedged** | session B: *"your hedge carried it"* |
+| *"something like 652"* · *"or something close to that"* | **hedged** | session C, verbatim |
+| *"in one of the other servers the access was properly set up and I can use commands"* | **asserted as fact** | session A |
+
+**He is right, and it checks out.** Across three sessions there is exactly
+**one** statement asserted as fact that was wrong: he was testing the bot a
+session had just brought online, got a reply in another server, and reported it
+without checking *which* bot had answered — it was his production bot. He caught
+it himself **within a minute, before the agent acted on it.**
+
+So the defensible statement is stronger than the table alone suggests:
+
+> **One asserted-as-fact error across three sessions, self-caught before it
+> propagated.** Everything else scored against him was a question, a hedge, or
+> right in mechanism.
+
+This is also why § 2 matters more than the hit rate: the errors do not merely
+happen to be rare, they **land inside the hedged class by construction.**
 
 ## 2 · The property that matters is not accuracy — it is calibration
 
