@@ -180,14 +180,20 @@ That base rate is why `CAPABILITIES.md` DISCOVERY RULE now opens at **step 0**.
 ## 7 · Honest nulls
 
 - **The false-negative rate is unmeasurable** (§ 2). It can only be shrunk.
-- **The Gemini Interaction API could not be used.** `MEASURED`: it exists only on
-  Vertex `v1beta1` (`interactions:create`, chained by `previousInteractionId`
-  with `store: true` — schema recorded in `CAPABILITIES.md`), and this project is
-  rejected `RESOURCE_PROJECT_INVALID` on both project ID and number across four
-  locations. The AI Studio surface has no such method at `v1beta` or `v1alpha`.
-  Almost certainly a preview allowlist → **`NOT-VERIFIABLE` without an owner
-  console action.** The review below ran multi-turn with client-side history
-  instead, which is behaviourally identical and only costs tokens.
+- **CORRECTED, same session — the Gemini Interactions API works.** This bullet
+  first said it was Vertex-only and effectively unavailable. That was **wrong**,
+  and it was a false wall written into the ledger. `MEASURED`: `POST
+  https://generativelanguage.googleapis.com/v1beta/interactions` on a **free
+  key**, flat body `{"model", "input", "previous_interaction_id"}`, reply text at
+  `steps[] → type == "model_output" → content[].text`. A/B: with the id →
+  `8891`; without → *"You haven't asked me to remember a number yet."*
+  The probe failed because the `generativelanguage` **discovery document omits
+  the endpoint** (fetched at `v1beta` and `v1alpha`, both 200, zero hits), so a
+  spec-driven search concluded absence — while `docs/providers/gemini.md:151`
+  had the working recipe all along. Vertex's `interactions:create` does return
+  `RESOURCE_PROJECT_INVALID` here, which is real but irrelevant: the working path
+  is the other surface. **Next session: use it.** Full write-up:
+  `.sessions/2026-08-05-interactions-api-correction.md`.
 - **The review is one model, four turns.** It corrected me twice and was itself
   wrong once (it believed the dependabot deadlock was unfixed; it was fixed hours
   earlier). Treat it as a second opinion, not an oracle.

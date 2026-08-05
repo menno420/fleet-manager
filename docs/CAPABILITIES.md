@@ -436,6 +436,25 @@ findings go here, below the fence.)
   ("204 via the direct-token path — only the proxied path 403s"); the three rows above
   are the stale half of a contradiction between two binding documents.
   — LAST-VERIFIED: 2026-08-05
+- 2026-08-05 · capability · owner-live · **REPUDIATES the entry immediately below,
+  written by this same session three hours earlier. The Gemini Interactions API WORKS,
+  on a free key, and is NOT Vertex-only.** That entry called it preview-gated and
+  effectively unavailable; it is false as written and the recipe here supersedes it.
+  Working call:
+  `POST https://generativelanguage.googleapis.com/v1beta/interactions?key=$GEMINI_API_KEY`
+  with a **flat** body `{"model": "gemini-3.1-flash-lite", "input": "…",
+  "previous_interaction_id": "<id from the prior turn>"}` — snake_case, no project or
+  location in the path. Reply text lives at **`steps[] → type == "model_output" →
+  content[].text`**, not `outputs[]`. · evidence: A/B measured this session — turn 1
+  "Remember the number 8891" → `noted.`; turn 2 **with** the id → **`8891`**; the same
+  turn 2 **without** it → *"You haven't asked me to remember a number yet."* All three
+  HTTP 200. · **Why the earlier entry got it wrong, because the mechanism matters:**
+  the `generativelanguage` **discovery document does not list this endpoint** —
+  fetched at `v1beta` and `v1alpha`, both 200, zero methods matching "interaction" —
+  so a spec-driven probe concludes the surface has no such method. **Absence from a
+  machine-readable spec is not absence from the API.** `docs/providers/gemini.md` had
+  the correct recipe the whole time. Grep the estate before probing a vendor.
+  — LAST-VERIFIED: 2026-08-05
 - 2026-08-05 · capability · owner-live · **The Gemini Interaction API — the turn-based
   endpoint that stores conversation state server-side — exists ONLY on Vertex `v1beta1`,
   and this project is not enrolled.** Recorded as a *shape*, not a wall: the request
