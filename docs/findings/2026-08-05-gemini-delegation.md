@@ -106,6 +106,30 @@ against the tree.
 **This is groom INPUT, not a groom.** Nothing here is routed into the backlog,
 deduped against `docs/ideas/`, or sized. That is the kit-side pass this unblocks.
 
+## A third reject shape, and a path the free-tier caveat does not cover
+
+Measured 2026-08-05, two runs on the superbot / superbot-next card corpora
+(1,843,098 and 641,442 input tokens; 82 findings verified, 6 rejected):
+
+**Every one of the 6 rejects carried no citation at all** — `file`, `line` and
+`quote` all absent, not a mismatched or reconstructed quote. That is a third
+shape alongside the marker mismatch (93%+ coverage) and the fabrication
+(59–70%) recorded above, and it is the benign one: the verifier drops a
+citationless claim without needing a coverage judgement at all.
+
+It is also weak evidence on the open question below. The short-quote rule was
+in force for both runs, and **no fabrication appeared** — but neither did a
+marker mismatch, so the runs cannot separate "short quotes prevent
+reconstruction" from "this task shape produced no reconstruction". n is still
+too small; the rule stays unmeasured.
+
+**These runs went through Vertex, not the free tier.** The training-data
+caveat below applies to free-tier AI Studio submissions; the Vertex path is
+governed by the Cloud terms attached to the owner's billing account. That is
+why two public bot repositories could be delegated without the public-repo
+rule being the binding constraint — the rule still holds for the free key.
+Recipe: [`../conventions/vertex-first-for-gemini.md`](../conventions/vertex-first-for-gemini.md).
+
 ## What is not established
 
 - **One job class has run.** Bench-evidence summarisation and provenance sweeps

@@ -94,6 +94,19 @@ uneven: local `bootstrap.py check --strict` and CI have disagreed at least once
 state a limit it has not tested — twice today, both caught by the owner rather
 than by a guard.
 
+**Update 2026-08-05 — the same weakness, twice more, same day.** The line
+above ("twice today, both caught by the owner rather than by a guard") repeated
+in a session that was itself reading these documents. It dismissed nine open
+dependabot PRs as "noted, not touched" because a status doc said the open-PR
+surface was dependabot — six of the nine could not affect runtime at all, and
+three were the security scanner going stale on a live bot. Earlier the same
+session treated a four-path `READ FIRST` list as the boundary of a
+comprehension task and skipped the document its repo calls *"read this if you
+read nothing else."* **Four instances in three days, every one owner-caught,
+none guard-caught.** In both cases the stopping force was not a measurement but
+a document that had already concluded — inheriting a conclusion rather than
+deriving one.
+
 ### ChatGPT Work / Codex cloud
 
 **Observed strengths.** Long unattended runs producing finished, reviewable
@@ -174,6 +187,14 @@ prompt), `continuation-prompt` (carry a planning session into a fresh one),
 `decision-capture` (commit the decisions so the prompt can point instead of
 carry). Each reads the surface rows above and adjusts only what actually
 differs — network, credentials, tooling, setup-phase exports.
+
+**Known gap, 2026-08-05.** `continuation-prompt` was promoted into substrate-kit
+so it reaches every adopter, but **this document was not** — so the kit copy
+carries surface-adaptation guidance with no surface data behind it. The content
+here is estate-specific (this proxy's path-dependence, spider-swing's setup
+exports) while the *structure* is general, so the fix is the shape the kit
+already uses for `CAPABILITIES.md`: ship the general rows as a template and let
+each adopter fill in its own measurements.
 
 ## Keeping this honest
 
