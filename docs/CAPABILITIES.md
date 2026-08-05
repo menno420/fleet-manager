@@ -417,6 +417,25 @@ findings go here, below the fence.)
   never run `playwright install`) and `--no-proxy-server` (the agent proxy resets the
   browser's connections → `ERR_CONNECTION_RESET`). Fixing either alone still fails, so
   neither fix looks like it helped on its own. — LAST-VERIFIED: 2026-08-03
+- 2026-08-05 · capability · owner-live · **Tag creation, GitHub Release creation and
+  branch deletion ALL SUCCEED on the direct-PAT path — the three "Walls — verified
+  blocked" rows above are false as written, and the "genuinely-still-true walls"
+  endorsement that cites branch deletion is void.** The WALLED section's own note said
+  *"re-probe once a direct-PAT session is live"*; every session since 2026-07-22 has
+  been one, and the probe takes ninety seconds. · evidence: measured this session
+  against `menno420/fleet-manager`, reversible, each ref deleted after and its absence
+  confirmed — `POST git/refs` tag → **201**; `POST releases` → **201**; `POST git/refs`
+  branch → **201**; `DELETE git/refs/heads/…` → **204**; cleanup `DELETE` release →
+  204, tag → 204; both refs then `GET` → 404. A merged branch was also deleted in
+  `menno420/substrate-kit` the same session → **204**. · **Owner statement, live
+  2026-08-05:** *"the github PAT has full scope and --noproxy removes any 403"*, and
+  *"both the github and railway tokens are full unrestricted account scoped tokens."*
+  So **"the token lacks scope" is never the explanation here** — for either service.
+  A 403 in this estate means the request went through the agent proxy, not that a
+  permission boundary was reached. `CONSTITUTION.md` already states this correctly
+  ("204 via the direct-token path — only the proxied path 403s"); the three rows above
+  are the stale half of a contradiction between two binding documents.
+  — LAST-VERIFIED: 2026-08-05
 - 2026-08-05 · capability · owner-live · **A whole-corpus Gemini read runs end to end on
   Vertex credit from a container holding no Google credential — 2.48M input tokens across
   two corpora, zero card spend.** The 2026-08-05 Vertex-first directive is satisfiable by
