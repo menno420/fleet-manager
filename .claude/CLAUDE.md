@@ -15,14 +15,37 @@
    **you have full capability — act.**
 
 ## The read path (in order — this is the fix for slow orientation)
-1. **The program:** `docs/planning/2026-07-26-consolidation-program.md` —
-   THE working plan: owner directives OD-1..OD-9, the step ledger, the **NOW**
+0. **How the owner thinks:** `docs/owner-reflection-2026-07-21.md` — his own
+   thesis (**the wall is verification, not capability**), how he works, the
+   "real mind" direction, and the standing instruction to **decide rather than
+   default to asking**. `docs/current-state.md` introduces it as *"read this if
+   you read nothing else… before picking up any owner-facing work"* — so it is
+   first here, not buried two hops away. **This entry exists because a session
+   skipped it** (2026-08-05): the list below used to start at the program, and a
+   session that followed it exactly never learned the reflection existed.
+1. **What is true now:** `docs/current-state.md` — the living ledger, and a
+   declared boot-readpath doc in its own header. Source and merged PRs win over
+   it; read it before task-specific docs so you don't act on stale state.
+2. **The program:** `docs/planning/2026-07-26-consolidation-program.md` —
+   THE working plan: owner directives OD-1..OD-12, the step ledger, the **NOW**
    pointer, and how a session works a step. Your work almost certainly lives here.
-2. **The story & state:** `docs/fleet-account-2026-07-26.md` — what happened
+3. **The story & state:** `docs/fleet-account-2026-07-26.md` — what happened
    (2025-08 → now) and each repo's terminal state, owner-reviewed. Read once;
-   don't re-derive the history.
-3. **Owner-only items:** `docs/owner-queue.md` — the consolidated queue of
-   genuinely owner-only asks (stable `OQ-` slugs).
+   don't re-derive the history — it already distils `eap-story`,
+   `eap-retrospective`, `dispatch-log` and the rest.
+4. **Owner-only items:** `docs/owner-queue.md` — the consolidated queue of
+   genuinely owner-only asks (stable `OQ-` slugs). **Read it whole** — it is
+   ~1,100 lines and the active asks do not all sit at the top.
+5. **The handover:** `docs/PROJECT-CLOSEOUT.md` §3 — the priority-ordered
+   continuation threads, each self-contained. Two were still open 15 days after
+   the close because no one re-read them.
+
+**This list is a floor, not a ceiling.** A session whose job is to *understand*
+this repo reads past it — `CONSTITUTION.md`, `MISSION.md`, `docs/playbook.md`
+(the R-series), `docs/owner-profile.md`, `docs/NEXT-TASKS.md`,
+`docs/fleet-triage.md`. A handoff prompt that names a short read list is naming
+the minimum to act, never the boundary of what is worth reading (`CONSTITUTION.md`
+§ "Session prompts are guidance, not orders").
 
 **Live vs historical:** `docs/roster.md`, `control/`, `telemetry/`,
 `docs/prompts/` are **seat-era apparatus — historical record**, not current

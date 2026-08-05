@@ -69,7 +69,9 @@ preflight. If something is believed but unverified, say "believed, confirm".>
 
 READ FIRST
 <2–4 paths, most specific first. Not a reading list — the minimum to act
-correctly. If one doc supersedes the others, say which wins.>
+correctly. If one doc supersedes the others, say which wins. Say explicitly
+that this is a floor, not a boundary, so the list cannot be read as
+sufficient. UNLESS the owner asked for comprehension — then see below.>
 
 DECIDED (do not re-litigate)
 <each decision, one line, with its reason clause>
@@ -90,6 +92,41 @@ DONE WHEN
 OUT OF SCOPE
 <what not to touch. Always present; this is the cheapest correction available.>
 ```
+
+### 4b · The comprehension exception — when reading IS the job
+
+**Default `READ FIRST` to the minimum. Invert it when the owner asked for
+understanding rather than for an outcome.**
+
+The tell is in his words, not yours: *"fully understand"*, *"read all the
+required reading order files **and more**"*, *"everything it should know is
+documented there"*, *"assert the proper baseline"*, *"and only after it has
+fully read and understood…"*. When any of those appear, a short `READ FIRST`
+block does not compress the ask — it **contradicts** it, and the operational
+list is what the next session executes.
+
+This is not hypothetical. On 2026-08-05 an owner asked for exactly that, the
+prompt carried the goal correctly in its job section and a four-path
+`READ FIRST` list, and the session read the four paths. It skipped
+`docs/current-state.md` and `docs/owner-reflection-2026-07-21.md` — the second
+of which its own repo introduces as *"read this if you read nothing else."*
+
+When the exception fires:
+
+- **Name the corpus, not a file list.** *"Read every doc in `docs/` — the
+  ~30 top-level files, not a curated subset"* beats seven paths, because seven
+  paths read as complete and a corpus reads as a floor.
+- **Do not delegate completeness to the boot file.** The trap below says a fresh
+  session reads the boot file itself. That assumes the boot file is complete —
+  and the incident above happened *because it was not*. Under this exception,
+  **check the boot file's read path yourself against the repo** and either name
+  what it omits or fix it.
+- **Give the reading an acceptance test.** *"Done when you can state the repo's
+  purpose, live state and next step from its own docs"* — otherwise "understood"
+  has no floor and the next session decides its own depth, which is the failure
+  mode this exception exists to prevent.
+- **Budget it as work.** Comprehension of a large repo is most of a session. If
+  the prompt also carries a build task, say which yields when they compete.
 
 ### 5 · Adapt to the target surface
 
@@ -129,6 +166,14 @@ what you could not. Do not annotate the block itself — annotations get pasted 
 - **Do not restate the project.** A fresh session in the repo reads the boot file
   itself. Every line spent re-describing the architecture is a line not spent on
   what only this chat knows, and it goes stale the moment the repo moves.
+  **The assumption inside that trap is that the boot file is complete — verify
+  it before leaning on it.** fleet-manager's own read path omitted the document
+  it calls *"read this if you read nothing else"* until 2026-08-05, and a
+  handoff that trusted it inherited the hole (§ 4b).
+- **Never let the operational list contradict the goal.** If `READ FIRST` says
+  four paths and the job section says *"understand the repo completely"*, the
+  next session executes the four paths — an imperative beats an aspiration every
+  time. Reconcile them in the prompt, or the narrower one silently wins.
 - **Do not invent a next step to sound complete.** If the work genuinely stopped
   at a decision point, the first step is *"confirm the state below, then ask the
   owner which branch to take"*. That is a real instruction.
