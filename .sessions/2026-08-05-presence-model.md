@@ -1,6 +1,6 @@
 # 2026-08-05 · hub — what the eight catches were actually made of
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** opus-5 · high · research
 
