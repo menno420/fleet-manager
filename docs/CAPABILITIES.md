@@ -436,6 +436,26 @@ findings go here, below the fence.)
   ("204 via the direct-token path — only the proxied path 403s"); the three rows above
   are the stale half of a contradiction between two binding documents.
   — LAST-VERIFIED: 2026-08-05
+- 2026-08-05 · capability · owner-live · **The Gemini Interaction API — the turn-based
+  endpoint that stores conversation state server-side — exists ONLY on Vertex `v1beta1`,
+  and this project is not enrolled.** Recorded as a *shape*, not a wall: the request
+  schema is now known, so whoever gets the project allowlisted can use it immediately.
+  `POST https://aiplatform.googleapis.com/v1beta1/projects/{p}/locations/{loc}/interactions:create`
+  with body `{"store": true, "interaction": {"stringContent": …, "modelInteraction":
+  {"model": …}}}`; the next turn chains by setting `previousInteractionId` to the returned
+  `id`, so a multi-turn review does not resend its transcript. `:createStream` is the SSE
+  twin. · evidence: read from the API's own discovery document
+  (`aiplatform.googleapis.com/$discovery/rest?version=v1beta1` → HTTP 200), not from docs
+  or memory — v1 has no such method, and `generativelanguage` has none at `v1beta` or
+  `v1alpha` (both fetched, both 200, zero interaction methods), so **this is not an AI
+  Studio feature**. Calls fail `400 RESOURCE_PROJECT_INVALID` for
+  `project-a8d37219-aa51-4350-90d` **and** its project number `785901392159`, across
+  `global`, `us-central1`, `us-east4`, `europe-west4` — the uniformity across both
+  identifiers and four regions is what makes a preview allowlist the reading rather than a
+  malformed request. **Enabling it is an owner console action; nothing agent-side is
+  missing.** Workaround, used the same session with no loss of function: carry the
+  transcript client-side in `contents` on `:generateContent` — identical behaviour, costs
+  tokens rather than capability. — LAST-VERIFIED: 2026-08-05
 - 2026-08-05 · capability · owner-live · **A whole-corpus Gemini read runs end to end on
   Vertex credit from a container holding no Google credential — 2.48M input tokens across
   two corpora, zero card spend.** The 2026-08-05 Vertex-first directive is satisfiable by
