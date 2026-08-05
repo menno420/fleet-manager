@@ -1,6 +1,6 @@
 # 2026-08-05 · hub — a mechanism instead of a fourth rule
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** opus-5 · max · docs + tooling
 
