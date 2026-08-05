@@ -1,5 +1,13 @@
 # Gemini — provider capability reference
 
+> ⚠️ **Before you call Gemini at all, read
+> [`../conventions/vertex-first-for-gemini.md`](../conventions/vertex-first-for-gemini.md).**
+> **Owner directive 2026-08-05: default to Vertex, at least this month.** The AI
+> Studio API key spends the owner's card; Vertex spends a €251.37 credit balance
+> that is already paid for. Same models, same prompts. The Railway → service
+> account → OAuth → Vertex route is verified end to end, including
+> `googleSearch` grounding (camelCase on Vertex).
+
 > **Status:** `living-ledger`
 >
 > Plans, the context ceilings, native video and the arithmetic that governs it,
@@ -274,11 +282,20 @@ by default under Secure-by-Default and needs a project-scoped override
 Owner does **not** include it); and this container's system `cryptography` was
 broken until `pip install cffi`.
 
-**What cannot be verified from a session:** whether the credit or the card pays.
-The Cloud Billing API (with `roles/billing.viewer`) exposes billing *structure*
-— account, enabled state, currency, linked projects — but **no cost or credit
-balance endpoint exists**. That is console-UI or BigQuery-export only, and any
-claim about which funding source paid is inference until read there.
+**What cannot be verified from a session:** the *amounts*. The Cloud Billing API
+(with `roles/billing.viewer`) exposes billing *structure* — account, enabled
+state, currency, linked projects — but **no cost or credit balance endpoint
+exists**. That stays console-UI or BigQuery-export only.
+
+**But the funding question itself is now closed** (owner console screenshots,
+2026-08-05): **€251.37 of €256.52 credit remaining, €5.15 credit consumed, and
+€0.49 of real money** month-to-date. The split fell exactly along the documented
+line — Vertex work (Veo, Vertex image generation) drew the credit; AI Studio API
+calls drew the card. The service-account chain was verified the same day:
+`vertex-sessions-83@…` → project `project-a8d37219-aa51-4350-90d` → billing
+account `01161F-0357D6-33069D` ("My Billing Account", EUR), the credit-bearing
+one. Recipe and directive:
+[`../conventions/vertex-first-for-gemini.md`](../conventions/vertex-first-for-gemini.md).
 
 **The paid tier is live here (2026-08-05) and it closes the asymmetry.** A
 €10 prepay on the billed project takes the model list from 50 to **58** and
