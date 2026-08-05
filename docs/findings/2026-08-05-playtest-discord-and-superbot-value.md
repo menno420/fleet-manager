@@ -1,6 +1,6 @@
 # A playtest Discord for Slingy Spider — what it needs, and which bot parts serve it
 
-> **Status:** `findings`
+> **Status:** `reference`
 >
 > Written 2026-08-05 in answer to a direct owner question: what does a good
 > Discord game server need — especially one meant for testing — and which parts
