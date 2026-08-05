@@ -1,6 +1,6 @@
 # 2026-08-05 · hub — sync the queue to the decided name
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** opus-5 · high · docs-only
 
@@ -31,8 +31,23 @@ the provenance recorded. The hub's queue had not caught up.
 
 ## Measured
 
-[[fill: measured]]
+**The drift, found by grep rather than by memory:** two live references to
+`com.menno420.swingyspider` in the owner queue, plus an `OQ-SWINGY-NAME` entry
+still phrased as an open question. The same sweep in spider-swing found two more
+in the closed-test runbook, fixed in that repo's PR.
+
+A stale identifier is a different class of error from a stale note. The owner was
+mid-way through the Play Console **Create app** form when this was caught, and
+the package name on that form is permanent and non-reusable. A recommendation
+carrying the ruled-out name would have been typed into the one field that cannot
+be undone.
 
 ## Verification
 
-[[fill: verification]]
+- `python3 tools/check_no_false_walls.py --strict` → **exit 0**.
+- `python3 bootstrap.py check --strict` → **exit 0**, run **post-commit**.
+- Drift located by `grep -rn "swingyspider"` across both repositories rather than
+  by recalling where the name had been written.
+
+**Honest null:** the trademark step (BOIP, EUIPO, Nice 9/41) is untouched and
+remains the only open item on the name.
