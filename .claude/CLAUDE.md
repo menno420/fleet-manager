@@ -10,7 +10,17 @@
 ## Boot triad — know yourself first (every session)
 1. **What model you are** — from your own config, family-level.
 2. **Where you're running** — owner-live hub chat · scheduled wake · subagent;
-   remote container.
+   remote container. **And what loaded**: Claude Code reads settings, hooks and
+   skills from `<root>/.claude/`, where root is the session's working directory.
+   One source at boot → root is the repo and everything loads. Several sources
+   → root is the bare clone parent `/home/user`, which has no `.claude/`, so
+   **every repo's settings, hooks, skills and boot file go quiet at once with no
+   error** (measured 2026-08-05; superbot's hard-fail `Stop` gate is among the
+   casualties). The owner boots one source per session for exactly this reason —
+   that choice is his, not yours. Yours: `add_repo` **mid-session is safe** (root
+   is fixed at boot and does not move), and if `ls /root/.claude/projects/` ever
+   shows a bare `-home-user` entry, run `python3 tools/install_root_hooks.py
+   --apply` before trusting any gate.
 3. **What you can do** — the capabilities ledger below. Default posture:
    **you have full capability — act.**
 
@@ -97,6 +107,16 @@ Essentials:
   and it is the whole boundary: he is authoritative on *provisioning*; the
   *response to a specific call* is still read every time. Full rationale:
   `docs/CAPABILITIES.md` § DISCOVERY RULE step 0.
+- **Before probing a vendor API, check `docs/providers/` and
+  `docs/conventions/`.** A `PreToolUse` hook now surfaces the matching doc
+  automatically — `.claude/hooks/route_docs.py`, 19 routes, silent unless one
+  matches, never blocks. It is a **net, not a substitute for looking**: it fires
+  once per route per session and only on triggers someone thought to add. It
+  exists because on 2026-08-05 a session probed a discovery document, found no
+  `interactions` endpoint and recorded "unavailable" while
+  `docs/providers/gemini.md` held the working recipe — having authored the rule
+  against that three hours earlier. Add a route when you find a doc that would
+  have saved you: `.claude/hooks/README.md`.
 - **Never write down a limitation.** A refused call is transient classifier
   state — route around it and leave no wall behind. The guard is
   `tools/check_no_false_walls.py` — **run it yourself** (`--strict`), because

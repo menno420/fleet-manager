@@ -45,10 +45,10 @@
   },
   "review_log": [],
   "session_anchor": {
-    "branch": "claude/kit-upgrade-v1.9.0",
-    "epoch": 1783745133.814148,
-    "head": "e135c28d5132956e9189c092bc9656c5190eef0c",
-    "ts": "2026-07-11T04:45:33+00:00"
+    "branch": "claude/fleet-superbot-state-audit-24ra4p",
+    "epoch": 1785968407.088295,
+    "head": "5369de7b7d7fc29ae78dcd4bd542dd828b493869",
+    "ts": "2026-08-05T22:20:07+00:00"
   },
   "session_count": 0,
   "slot_values": {
