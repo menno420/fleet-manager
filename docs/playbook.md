@@ -156,6 +156,18 @@ day) unless a later date is noted next to the rule.
       resolve it in-repo (the ORDER 019 → superbot-next failure, INC-15).
       Write `fleet-manager docs/owner-queue.md@SHA` (or the target repo's own
       path) — same rule as evidence citations.
+    - **Repo-qualify every PR and issue number too — `owner/repo#N`, never bare
+      `#N`** (added 2026-08-05). This is the sharpest form of the rule because
+      the failure is **silent and actively misleading**: GitHub auto-links a
+      bare `#N` to whatever repo the text is rendered in, so a correct statement
+      about `menno420/superbot-next#602` becomes a working link to
+      `menno420/fleet-manager#602` — a different, *merged* PR. Measured
+      2026-08-05: the owner clicked exactly that and reasonably concluded the
+      work was already done. Bare `#N` is fine only inside the repo it belongs
+      to. In fleet-manager — the hub, which talks about every repo — treat
+      `owner/repo#N` as the default and bare `#N` as the exception. The same
+      applies to a full URL: paste the real one, never construct it from a
+      number and the repo you happen to be standing in.
     - **Never ask a lane to "ack in your inbox thread."** Inboxes are
       one-writer (manager) and the kit's inbox-order-grammar gate REJECTS
       non-ORDER lane appends (verified live: idle PR #104; mineverse ORDER 006
