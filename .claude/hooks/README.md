@@ -59,6 +59,23 @@ could plausibly conclude "unavailable" about something that works.** That is the
 whole population worth catching. A route that merely adds background reading is
 noise, and noise is what makes the useful ones invisible.
 
+### Two kinds of route
+
+| | fires on | matched against | suppression |
+|---|---|---|---|
+| **probe route** (default) | `Bash` `WebFetch` `Read` `Glob` `Grep` | command, url, path, pattern | silent if the session is already opening that doc |
+| **content route** (`"tools": ["Edit","Write"]`) | only the tools it names | **what is being written** — `new_string` / `content` | none — firing on an edit to its own doc is the point |
+
+`recording-a-wall` is the content route: it fires when limitation-shaped prose
+enters any doc and asks the two questions that would have prevented the
+2026-08-05 Interactions-API wall — *did the owner already say otherwise*, and
+*has the estate already measured this*. Declaring `tools` is what keeps content
+routes off ordinary tool calls; without it a route joins the probe set.
+
+**Known false-positive class:** writing *about* a wall is wall-shaped, so
+documenting this mechanism trips it. One advisory line, once per session, never
+blocking — cheap enough to accept rather than weaken the pattern.
+
 Then:
 
 ```bash

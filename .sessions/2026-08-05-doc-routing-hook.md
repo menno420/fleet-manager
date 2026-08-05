@@ -2,7 +2,7 @@
 
 > **Status:** `complete`
 
-- **📊 Model:** opus-5 · max · docs + tooling
+- **📊 Model:** opus-5 · high · feature build
 
 Time: 2026-08-05 · venue: owner-live hub chat · branch
 `claude/fleet-superbot-state-audit-24ra4p`
@@ -110,6 +110,52 @@ Same reason the validator splits tiers: deterministic defects are `--strict`
 fatal; *"should this doc have a route?"* prints as a note and never fails,
 because a judgement call wired to a hard gate produces an agent inventing routes
 to make a number go green.
+
+## The owner's fourth catch, and the route it produced
+
+Late in the session he named the failure this session had **mis-recorded**:
+
+> *"That one of my requests or statements should not be seen as only plausible
+> but as source truth. You broke that rule by writing down the wall about the
+> Interactions API without searching for any documents about it."*
+
+The earlier card blamed a skipped document. That is the second-order failure.
+The first-order one: **his task message had already said the Interactions API
+"works fully turn based and stored session history"** — and a probe of the
+Vertex surface was allowed to overturn it.
+
+The cause was the boundary this session wrote into step 0 that morning:
+*"authoritative on provisioning"*. That scoping filed *"the Interactions API
+keeps turn-based history"* as a **behaviour** claim, and behaviour claims looked
+overturnable by measurement. Corrected in `docs/CAPABILITIES.md` and
+`.claude/CLAUDE.md`: **a probe establishes only what that one call did; a
+failure means you took the wrong path, not that he was wrong.**
+
+And the mechanism, because prose has now failed four times in one day —
+route **`recording-a-wall`** (`Edit|Write` only) fires on limitation-shaped
+prose entering any doc and carries the worked example with it. This required
+teaching the hook two new things: content routes match what is being *written*
+(`new_string` / `content`, not the path), and the already-opening-that-doc
+suppression is skipped for them, since firing on an edit to its own doc is the
+entire point.
+
+Verified: fires on an `Edit` writing `· wall ·` into `docs/CAPABILITIES.md`;
+silent on an `Edit` that merely quotes a hostname; silent on a `Bash` call
+containing the same words, since it is Edit/Write-scoped.
+
+**Honest characteristic:** it fired on the commit that documents it — prose
+*about* walls is wall-shaped. Once per session and non-blocking, so the cost is
+one advisory line, but it is a real false-positive class and not a hypothetical.
+
+## CI caught two defects the local gate did not
+
+`substrate-gate` failed on PR #780 for two off-taxonomy fields on this card —
+task class `docs + tooling` (not one of the nine PL-004 classes) and effort
+`max` (tiers are low/medium/high). Both fixed. Worth noting that
+`python3 bootstrap.py check --strict` passed locally on the same card: CI runs
+it with `--simulate-added-card`, which the local invocation does not, so the
+added-card grammar checks only fire in CI. **The local gate is not a superset of
+the remote one.**
 
 ## Honest nulls
 

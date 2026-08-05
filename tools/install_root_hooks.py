@@ -34,7 +34,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 HOOK = REPO / ".claude/hooks/route_docs.py"
-MATCHER = "Bash|WebFetch|Read|Glob|Grep"
+MATCHER = "Bash|WebFetch|Read|Glob|Grep|Edit|Write"
 
 
 def command_for(root: Path) -> str:
@@ -47,20 +47,23 @@ def command_for(root: Path) -> str:
 
 
 def merge(settings: dict, command: str) -> tuple[dict, bool]:
+    """Find our own registration by the script it runs, not by the matcher.
+
+    Keying on the matcher would append a duplicate every time the matcher
+    changes — which it does whenever a new tool becomes routable.
+    """
     hooks = settings.setdefault("hooks", {})
     pre = hooks.setdefault("PreToolUse", [])
     for entry in pre:
-        if entry.get("matcher") != MATCHER:
-            continue
-        inner = entry.setdefault("hooks", [])
+        inner = entry.get("hooks") or []
         for h in inner:
-            if "route_docs.py" in h.get("command", ""):
-                if h["command"] == command:
-                    return settings, False
-                h["command"] = command
-                return settings, True
-        inner.append({"type": "command", "command": command, "timeout": 10})
-        return settings, True
+            if "route_docs.py" not in h.get("command", ""):
+                continue
+            if h.get("command") == command and entry.get("matcher") == MATCHER:
+                return settings, False
+            h["command"] = command
+            entry["matcher"] = MATCHER
+            return settings, True
     pre.append(
         {
             "matcher": MATCHER,

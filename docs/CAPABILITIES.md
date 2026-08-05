@@ -43,17 +43,35 @@ seat while never prompting in a Routine-spawned one (fleet night review,
 Before declaring anything impossible, and before assuming a tool or
 credential is missing:
 
-0. **If the owner stated it, it is already verified — act on it.** *"The token
-   is account-scoped." · "You have access to my test bot token." · "Talk to
-   Gemini through Vertex."* He provisioned this environment and each of those
-   cost him real time to make true. Do not open with a probe to check whether
-   he is right, and do not answer with questions about what a credential can
-   do — **do the thing.** Working *is* the verification, and failing gives you
-   a real error to report instead of a hypothetical doubt. Measured 2026-08-05:
-   seven owner corrections in one session, **all seven right, zero false
-   positives.** The whole boundary — he is authoritative on *provisioning*; the
-   response to a *specific call* is still read every time. Full rationale:
-   § "Why step 0 is not an exception to verify-first" near the end of this file.
+0. **If the owner stated it, it is source truth — act on it.** *"The token is
+   account-scoped." · "You have access to my test bot token." · "Talk to Gemini
+   through Vertex." · "The Interactions API works fully turn based and stores
+   session history."* He built this estate and each of those cost him real time
+   to make true. Do not open with a probe to check whether he is right, and do
+   not answer with questions about what a credential or an API can do — **do the
+   thing.** Working *is* the verification; failing gives you a real error to
+   report instead of a hypothetical doubt. Measured 2026-08-05: seven owner
+   corrections in one session, **all seven right, zero false positives.**
+
+   **The boundary is narrower than it looks, and getting it wrong is how this
+   rule gets broken.** It is *not* "provisioning versus behaviour" — that
+   version was written here on 2026-08-05 and it licensed a violation within
+   hours. A probe establishes exactly one thing: **what that one call did.** It
+   never refutes his statement. **A failed call means you took the wrong path,
+   not that he was wrong**, and the next move is to find the other path — not
+   to write a wall.
+
+   **The worked example, same day, from this file's own history.** He wrote that
+   the Gemini Interactions API *"works fully turn based and stored session
+   history for a short time."* A session probed the Vertex surface, got
+   `RESOURCE_PROJECT_INVALID`, searched a discovery document that omits the
+   endpoint, and recorded **"unavailable"** in this ledger — filing his claim as
+   *behaviour*, which the narrow boundary made overturnable. It works, on the
+   AI Studio surface, on a free key, exactly as he described. Two of the three
+   rules broken that day were broken by the session that wrote them.
+
+   Full rationale: § "Why step 0 is not an exception to verify-first" near the
+   end of this file.
 1. **Check this file** — the capability or wall may already be recorded for
    your venue. **Also check the estate's own docs before probing a vendor
    API**: `docs/providers/`, `docs/conventions/`. Measured 2026-08-05 — a

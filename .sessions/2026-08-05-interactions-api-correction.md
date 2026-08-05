@@ -91,6 +91,37 @@ correct, recent, and authored by me. **A rule does not bind its author any more
 than it binds a stranger**, which is the strongest argument yet that the estate's
 prose-versus-mechanism split is the thing that matters.
 
+## ⚠ Correction, appended later the same day — this card names the wrong root cause
+
+The owner read the account above and pointed out what it misses. The four
+reasons below are all true and all **second-order**. The first-order failure is
+not in the list:
+
+> *"That one of my requests or statements should not be seen as only plausible
+> but as source truth. You broke that rule by writing down the wall about the
+> Interactions API without searching for any documents about it."*
+
+**He had already told me it works — in the task message that started the
+work:** *"the new 'createinteraction/interaction API' works fully turn based and
+stored session history for a short time."* The wall was written after that, and
+it contradicted him directly. The doc I skipped would have caught it, but I
+should not have needed the doc.
+
+Reason 4 below — *"I never read `docs/providers/gemini.md`"* — is therefore the
+**recovery** that failed, not the cause. The cause is that a probe of one
+surface was allowed to overturn a statement from the person who built the
+estate. And the version of step 0 written earlier that same day is what
+permitted it: it scoped his authority to *provisioning*, so *"the Interactions
+API keeps turn-based history"* filed as a behaviour claim, and behaviour claims
+looked overturnable by measurement.
+
+Fixed 2026-08-05 in `docs/CAPABILITIES.md` § THE DISCOVERY RULE step 0 and in
+`.claude/CLAUDE.md`: the boundary is **not** provisioning-versus-behaviour. A
+probe establishes only what that one call did; **a failure means you took the
+wrong path, not that he was wrong.** The `recording-a-wall` route in
+`.claude/hooks/doc-routes.json` now fires on any edit that writes limitation-
+shaped prose, carrying this example with it.
+
 ## 💡 Session idea
 
 **Grep the estate before probing an API.** Every failed probe tonight was

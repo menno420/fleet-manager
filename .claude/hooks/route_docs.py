@@ -46,11 +46,19 @@ FIELDS = {
     "Bash": ("command",),
     "WebFetch": ("url", "prompt"),
     "Read": ("file_path",),
-    "Write": ("file_path",),
-    "Edit": ("file_path",),
     "Glob": ("pattern", "path"),
     "Grep": ("pattern", "path", "glob"),
+    # Write/Edit match on what is being WRITTEN, not on the path — the route
+    # that matters here is "you are recording a wall", and that lives in the
+    # prose. Kept off the default tool set below so a doc edit that merely
+    # quotes a hostname does not trip every probe route.
+    "Write": ("file_path", "content"),
+    "Edit": ("file_path", "new_string"),
 }
+
+# A route with no `tools` key is a probe route: it fires when a session is
+# about to go ask a vendor something. Content routes opt in explicitly.
+DEFAULT_TOOLS = ("Bash", "WebFetch", "Read", "Glob", "Grep")
 
 
 def haystack(tool: str, payload: dict) -> str:
@@ -81,7 +89,8 @@ def main() -> int:
     except Exception:
         return 0
 
-    text = haystack(event.get("tool_name", ""), event.get("tool_input") or {})
+    tool = event.get("tool_name", "")
+    text = haystack(tool, event.get("tool_input") or {})
     if not text.strip():
         return 0
 
@@ -98,11 +107,15 @@ def main() -> int:
         rid = route.get("id", "")
         if rid in fired:
             continue
+        if tool not in tuple(route.get("tools") or DEFAULT_TOOLS):
+            continue
         docs = [d for d in route.get("docs", []) if (REPO / d).is_file()]
         if not docs:
             continue
         # Already opening one of these docs? Then the hook has nothing to add.
-        if any(d in text for d in docs):
+        # Probe routes only: a content route fires ON the edit to its own doc,
+        # which is the entire point of the wall-recording route below.
+        if not route.get("tools") and any(d in text for d in docs):
             fired.add(rid)
             continue
         try:

@@ -13,6 +13,21 @@
   ],
   "routes": [
     {
+      "id": "recording-a-wall",
+      "tools": ["Edit", "Write"],
+      "when": [
+        "·\\s*wall\\s*·",
+        "\\b(is|are|was|were)\\s+not\\s+(available|supported|reachable|possible|enabled)",
+        "\\bunavailable\\b",
+        "\\bcannot be (used|called|reached|enabled)",
+        "\\bnot possible\\b",
+        "preview-gated",
+        "\\bwalled\\b"
+      ],
+      "docs": ["docs/CAPABILITIES.md"],
+      "says": "STOP — you are about to write a limitation down. Two checks first, in this order. (1) DID THE OWNER SAY OTHERWISE? His statements about this estate are source truth, not a hypothesis your probe gets to overturn — a failed call means you used the wrong path, not that he was wrong. This exact failure is on the record: 2026-08-05 he wrote that the Interactions API 'works fully turn based and stored session history', a probe of the Vertex path returned RESOURCE_PROJECT_INVALID, and 'unavailable' went into the ledger anyway. It works, on the other surface, exactly as he said. (2) Has the estate already measured it? grep docs/providers/ and docs/conventions/ before recording anything. See THE DISCOVERY RULE step 0."
+    },
+    {
       "id": "discovery-probe",
       "when": [
         "\\$discovery",

@@ -94,19 +94,25 @@ Essentials:
   then OAuth to `aiplatform.googleapis.com`. Grounding is `googleSearch`
   (camelCase) on Vertex. Verified end to end 2026-08-05 — full recipe and the
   billing chain: `docs/conventions/vertex-first-for-gemini.md`.
-- **When the owner states a provisioning fact, it is already verified — act on
-  it.** *"The token is account-scoped." · "You have access to my test bot
-  token." · "Use Vertex."* He built the environment and knows what he enabled;
-  each of those cost him real time to make true. Do not probe to check whether
-  he is right, and do not reply with questions about what a credential can do —
-  **do the thing.** Working *is* the verification. Failing gives you a real
-  error to report instead of a hypothetical doubt. This is not an exception to
-  verify-first: that doctrine guards against stale *records* and your own
-  *inferences*, and he is neither. Measured 2026-08-05 — seven corrections from
-  him in one session, **all seven right, zero false positives.** The boundary,
-  and it is the whole boundary: he is authoritative on *provisioning*; the
-  *response to a specific call* is still read every time. Full rationale:
-  `docs/CAPABILITIES.md` § DISCOVERY RULE step 0.
+- **When the owner states something about this estate, it is source truth — act
+  on it.** *"The token is account-scoped." · "You have access to my test bot
+  token." · "Use Vertex." · "The Interactions API works fully turn based."* He
+  built this and each of those cost him real time to make true. Do not probe to
+  check whether he is right, and do not reply with questions about what a
+  credential or an API can do — **do the thing.** Working *is* the verification;
+  failing gives you a real error to report instead of a hypothetical doubt. Not
+  an exception to verify-first: that doctrine guards against stale *records* and
+  your own *inferences*, and he is neither. Measured 2026-08-05 — seven
+  corrections from him in one session, **all seven right, zero false positives.**
+  **The boundary is not "provisioning versus behaviour."** That narrower version
+  was written on 2026-08-05 and licensed a violation the same day: he stated the
+  Interactions API keeps turn-based history, a probe of the *Vertex* path
+  returned `RESOURCE_PROJECT_INVALID`, and "unavailable" went into the ledger —
+  filed as a behaviour claim the probe was free to overturn. It works on the AI
+  Studio surface exactly as he said. **A probe establishes only what that one
+  call did. A failure means you took the wrong path, not that he was wrong** —
+  so go find the other path instead of writing a wall. Full rationale:
+  `docs/CAPABILITIES.md` § THE DISCOVERY RULE step 0.
 - **Before probing a vendor API, check `docs/providers/` and
   `docs/conventions/`.** A `PreToolUse` hook now surfaces the matching doc
   automatically — `.claude/hooks/route_docs.py`, 19 routes, silent unless one
