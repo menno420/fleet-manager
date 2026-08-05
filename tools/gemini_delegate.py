@@ -57,6 +57,19 @@ import urllib.request
 API_ROOT = "https://generativelanguage.googleapis.com/v1beta"
 DEFAULT_MODEL = "gemini-3.6-flash"
 
+# --- Vertex ------------------------------------------------------------------
+# Owner directive 2026-08-05 (`docs/conventions/vertex-first-for-gemini.md`,
+# binding): Gemini goes through Vertex, which spends a pre-paid credit balance,
+# not the AI Studio key, which spends the owner's card. Vertex is therefore the
+# DEFAULT here; `--studio` is the opt-out and must be justified in the session
+# card. The service account is not in the environment — it lives in Railway
+# (`reliable-grace` / `worker` / `production`, `GEMINI_VERTEX_SA_JSON`), so this
+# tool takes an already-extracted file rather than reaching for Railway itself.
+VERTEX_ROOT = "https://aiplatform.googleapis.com/v1"
+VERTEX_LOCATION = "global"
+CA_BUNDLE = "/root/.ccr/ca-bundle.crt"
+_VERTEX: dict[str, str] = {}  # populated by init_vertex(): token + project
+
 # The citation contract, enforced structurally rather than asked for politely.
 # Every finding must carry at least one citation; every citation must name a
 # file, a line, and the text as it appears there.
@@ -129,12 +142,53 @@ def _key() -> str:
     return key
 
 
+def init_vertex(sa_path: str) -> None:
+    """OAuth to Vertex from a service-account file, recording token + project.
+
+    Vertex rejects API keys outright (*"API keys are not supported by this
+    API"*) — it is OAuth or nothing. `google-auth` is not installed by default;
+    `pip install google-auth cffi` first (the container's `cryptography` needs
+    `cffi`). Verification pins to the CA bundle because the call goes over
+    DIRECT egress: the proxied path 403s for this host.
+    """
+    try:
+        from google.auth.transport.requests import Request as GRequest
+        from google.oauth2 import service_account
+    except ImportError:  # pragma: no cover - environment-dependent
+        sys.exit("vertex needs google-auth: pip install google-auth cffi")
+    import requests
+
+    info = json.loads(pathlib.Path(sa_path).read_text(encoding="utf-8"))
+    creds = service_account.Credentials.from_service_account_info(
+        info, scopes=["https://www.googleapis.com/auth/cloud-platform"]
+    )
+    session = requests.Session()
+    session.trust_env = False  # ignore HTTPS_PROXY — direct egress
+    session.verify = CA_BUNDLE
+    creds.refresh(GRequest(session=session))
+    _VERTEX["token"] = creds.token
+    _VERTEX["project"] = info["project_id"]
+
+
+def _url(model: str, verb: str) -> str:
+    """The endpoint for `verb` on `model`, on whichever path is active."""
+    if _VERTEX:
+        return (
+            f"{VERTEX_ROOT}/projects/{_VERTEX['project']}/locations/"
+            f"{VERTEX_LOCATION}/publishers/google/models/{model}:{verb}"
+        )
+    return f"{API_ROOT}/models/{model}:{verb}?key={_key()}"
+
+
 def _post(url: str, payload: dict, retries: int = 3) -> dict:
     """POST JSON over direct egress — the proxied path 403s for this host."""
+    headers = {"Content-Type": "application/json"}
+    if _VERTEX:
+        headers["Authorization"] = f"Bearer {_VERTEX['token']}"
     request = urllib.request.Request(
         url,
         data=json.dumps(payload).encode(),
-        headers={"Content-Type": "application/json"},
+        headers=headers,
         method="POST",
     )
     # Empty ProxyHandler = ignore HTTPS_PROXY/HTTP_PROXY from the environment.
@@ -179,9 +233,11 @@ def build_bundle(repo: pathlib.Path, paths: list[pathlib.Path]) -> str:
 
 
 def count_tokens(model: str, text: str) -> int:
-    url = f"{API_ROOT}/models/{model}:countTokens?key={_key()}"
-    payload = {"contents": [{"parts": [{"text": text}]}]}
-    return _post(url, payload).get("totalTokens", -1)
+    # `role` is optional on the Studio path and REQUIRED on Vertex, which
+    # rejects the payload with 400 "Please use a valid role: user, model."
+    # Sending it always is valid on both.
+    payload = {"contents": [{"role": "user", "parts": [{"text": text}]}]}
+    return _post(_url(model, "countTokens"), payload).get("totalTokens", -1)
 
 
 def chunk_paths(
@@ -219,9 +275,11 @@ def chunk_paths(
 
 
 def generate(model: str, task: str, bundle: str) -> tuple[dict, dict]:
-    url = f"{API_ROOT}/models/{model}:generateContent?key={_key()}"
+    url = _url(model, "generateContent")
     payload = {
-        "contents": [{"parts": [{"text": f"{CONTRACT}\n\n{task}\n\n{bundle}"}]}],
+        "contents": [
+            {"role": "user", "parts": [{"text": f"{CONTRACT}\n\n{task}\n\n{bundle}"}]}
+        ],
         "generationConfig": {
             "temperature": 0,  # deterministic: this is extraction, not writing
             "maxOutputTokens": 65536,
@@ -354,7 +412,22 @@ def main() -> int:
         default=200_000,
         help="per-call input budget (free tier meters 250k/min; stay under)",
     )
+    parser.add_argument(
+        "--vertex-sa",
+        help="path to the Vertex service-account JSON (mode 600, outside the "
+        "tree). Pull it from Railway per docs/conventions/vertex-first-for-"
+        "gemini.md; Vertex spends pre-paid credit, the Studio key spends card.",
+    )
+    parser.add_argument(
+        "--studio",
+        action="store_true",
+        help="opt out of Vertex and use GEMINI_API_KEY. The owner directive of "
+        "2026-08-05 makes Vertex the default; say why in the session card.",
+    )
     args = parser.parse_args()
+
+    if args.vertex_sa and not args.studio:
+        init_vertex(args.vertex_sa)
 
     repo = pathlib.Path(args.repo).resolve()
 
