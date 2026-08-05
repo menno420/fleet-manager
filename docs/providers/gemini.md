@@ -133,7 +133,7 @@ Three ceilings, all measured rather than read off a page:
 |---|---|
 | Multi-turn chat | works. `generateContent` is stateless (history resent each call); the newer **Interactions API** stores it server-side — see below |
 | `google_search` grounding | **429 on a two-token prompt** — not served to a free key |
-| `url_context` | works — fetched a raw GitHub URL and quoted its first heading correctly |
+| `url_context` | works — fetched a raw GitHub URL and quoted its first heading correctly. **But host-dependent, measured 2026-08-05: 0/8 on `support.google.com`, 2/2 on `developer.android.com`** — and a failed retrieval is answered from training data anyway, in page-sourced phrasing. Read `urlContextMetadata.urlMetadata[].urlRetrievalStatus` and discard on `ERROR`: [`../findings/2026-08-05-gemini-url-accuracy-benchmark.md`](../findings/2026-08-05-gemini-url-accuracy-benchmark.md) |
 | `code_execution` | works — returned fib(40) = 102334155, independently verified |
 | `function_declarations` | accepted |
 | `systemInstruction` | works |
