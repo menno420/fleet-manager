@@ -69,6 +69,51 @@ him** — which is exactly what the reachability checker is, and why item 1 lead
 what nothing detected. It can only be shrunk by adding instruments, never
 measured directly.
 
+### Correction, appended the same day — this section is too pessimistic in one direction
+
+`MEASURED`. The claim above is that his signals are exterior — elapsed time,
+context consumed, a missing category of output — and therefore catch only agents
+that fail loudly. **That holds for when he is away. It is wrong for when he is
+present, and the difference matters more than the original point.**
+
+By the end of the session he had flagged **eight** problems, all eight correct,
+zero false positives. Two of the last three were not loud at all:
+
+- **A boundary written one word too narrow.** Step 0 was scoped to *"the owner
+  is authoritative on provisioning"*. Nothing measured that as wrong; it passed
+  every gate, read as careful, and licensed a session to overturn an owner
+  statement with a failed probe hours later. He caught it by reading the
+  reasoning, not by noticing a symptom.
+- **A mis-recorded root cause.** The session's own card blamed a skipped
+  document for the Interactions-API wall. True, and second-order — his statement
+  had already settled it. Nothing exterior distinguishes a correct post-mortem
+  from a plausible one.
+
+**And not one of the eight was an execution error.** Every one was a judgement
+call at a decision point. Meanwhile CI caught two off-taxonomy fields on a
+session card the same day, which is exactly the kind of thing gates are good at.
+
+So the split is sharper than § 2 states, and it is the owner's own model,
+arrived at independently (`OWNER`, 2026-08-05): *"once a plan is made and the
+working method is locked in, I can easily step away… but when it comes to
+planning and trying certain things, I still need to pay attention."*
+
+> **This estate instruments execution. It does not instrument judgement.**
+
+That reframes item 1 and item 2 of § 1. A reachability checker and a
+transcript-plus-state gate are real instruments and worth building — **and both
+of them cover execution**, which is the half already covered. Nothing on the
+list covers *"is this the right thing to decide"*, and that is where every
+failure of 2026-08-05 lived. His attention is not redundancy over the gates; it
+is the sole instrument on the uncovered half, which is why his presence is
+cheap to spend on planning and wasted on execution.
+
+`REASONED`: the honest consequence is that automating him out of the planning
+loop is a *harder* problem than § 1 implies, not a nearer one — and any claim to
+have done it should be met with the question of what, specifically, would have
+caught step 0 being scoped one word too narrow. Full profile entry:
+[`../owner-profile.md`](../owner-profile.md) § Presence model.
+
 ## 3 · The purpose ledger — proposed, attacked, and salvaged in a narrower form
 
 `REVIEWED`. Earlier today I proposed a "purpose ledger": one paragraph per repo
