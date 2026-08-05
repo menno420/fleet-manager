@@ -4,3 +4,9 @@ __pycache__/
 .DS_Store
 *.log
 tmp-triggers.json
+
+# substrate-kit regenerates this at every session boot and its own header says
+# "untracked by design — read it, never commit or edit it". Without this line it
+# is untracked-but-not-ignored, so every session-end git check flags it as work
+# left uncommitted (2026-08-05).
+HANDOFF.md
