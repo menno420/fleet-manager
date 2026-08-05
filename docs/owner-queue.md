@@ -65,7 +65,7 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   both fetched 2026-08-05.
 
 - **`OQ-PLAY-APP-ID` — (VENUE: five minutes, one permanent decision) Choose the application ID — it can never be changed (2026-08-05).**
-  WHAT: pick the app's internal identifier, e.g. `com.menno420.swingyspider`. Once
+  WHAT: pick the app's internal identifier. **Recommended: `com.menno420.slingyspider`.** Once
   published it **can never be changed or reused**: Google treats a changed ID as an
   entirely different app, and the old one is burned forever. It is invisible to
   players — it does **not** have to match the store name.
@@ -76,8 +76,10 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   only letters/digits/underscore. The repository currently ships a deliberate
   placeholder and the release build **refuses to run** until you set both — that
   refusal is the design, not a bug.
-  DEPENDS ON: `OQ-SWINGY-NAME` if you want the ID to echo the final name. It does not
-  have to — pick the ID independently if the name is still open.
+  NAME IS DECIDED: **Slingy Spider** (2026-08-05), so the ID no longer waits on anything.
+  NOTE: newer Play Console asks for the package name on the **Create app** form, not at
+  first upload — so it is set the moment the app is created, alongside the equally
+  permanent free-vs-paid choice.
   WHY IT IS YOURS: permanent and irreversible, so no agent should choose it.
   SOURCE: [developer.android.com/build/configure-app-module](https://developer.android.com/build/configure-app-module),
   fetched 2026-08-05.
@@ -153,7 +155,16 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   and [answer/9859152](https://support.google.com/googleplay/android-developer/answer/9859152),
   fetched 2026-08-05.
 
-- **`OQ-SWINGY-NAME` — (VENUE: ten minutes, your accounts) Confirm "Swingy Spider" is available before it hardens (2026-08-05).**
+- **`OQ-SWINGY-NAME` — ✅ RESOLVED 2026-08-05. The name is **Slingy Spider**.**
+  "Swingy Spider" was checked and is **taken** by two same-genre products (itch.io by
+  Garrett Goodwin; Amazon Appstore by Tim Mendez) — ruled out. "Slingy Spider" is free
+  on Google Play by exact-phrase search, was generated unprompted by a friend watching
+  gameplay on 2026-07-30, and endorsed by a second on 2026-08-03. Full evidence and the
+  three retracted objections: spider-swing `docs/product/name-status.md`.
+  **STILL OPEN — trademark only:** BOIP (Benelux, your home registry) and EUIPO, Nice
+  Class 9 (software) and Class 41 (entertainment). Unrelated to store availability.
+  Superseded original ask below, kept for the record:
+  **(VENUE: ten minutes, your accounts) Confirm "Swingy Spider" is available before it hardens (2026-08-05).**
   WHAT: the working name **Spider Swing** is already taken, and you named
   **"Swingy Spider"** as the likely publishing name. Nothing is committed to it yet
   beyond a trailer title card, which is the cheapest possible moment to change course.
