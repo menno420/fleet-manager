@@ -1,6 +1,6 @@
 # 2026-08-05 · hub — the HUD was the instrument
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** opus-5 · high · research — turn a judgement call into arithmetic
 

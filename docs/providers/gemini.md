@@ -234,6 +234,11 @@ and a conversational correction returned a byte-identical file after five
 minutes — no way to tell whether the instruction was received. The API's
 constraints at least arrive as verbatim errors.
 
+**Verifying video output** — asking the model to *judge* whether footage contains
+collisions returned a false null; asking it to *read* the game's own HUD telemetry
+located the event exactly. Method and the quorum caveat:
+[`../findings/2026-08-05-hud-telemetry-verification.md`](../findings/2026-08-05-hud-telemetry-verification.md).
+
 **What generated footage is for.** It is strong on mood — palette, light,
 atmosphere, motion — and unreliable on anything with rules. Asked for gameplay,
 the app version reproduced the HUD and put **three ATTACH buttons** in one
