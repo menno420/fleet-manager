@@ -63,6 +63,20 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   SOURCE: [answer/14151465](https://support.google.com/googleplay/android-developer/answer/14151465)
   and [answer/9859348](https://support.google.com/googleplay/android-developer/answer/9859348),
   both fetched 2026-08-05.
+  **RECRUITING ROUTE, verified 2026-08-05 (third pass):** you do **not** have to
+  collect email addresses. Closed testing accepts a **Google Group**, and a Google
+  Group can be set so *"Anyone can join"* — a person adds themselves from the open
+  web with no invitation and no approval from you. Point that group at the closed
+  track and the flow becomes: share one link → they join → they install. Internal
+  testing cannot do this (it takes email lists only), which is why the track you
+  published to today still needs addresses typed in by hand.
+  **AND OPEN TESTING IS NOT AN ALTERNATIVE:** *"Open testing is available when you
+  have production access"* — production access is what the closed test unlocks, so
+  the open track cannot come first. The Google Group route is the **only** way to
+  get a self-serve link before production.
+  SOURCE: [answer/9845334](https://support.google.com/googleplay/android-developer/answer/9845334)
+  and [groups/answer/2464926](https://support.google.com/groups/answer/2464926),
+  both fetched 2026-08-05.
 
 - **`OQ-PLAY-APP-ID` — (VENUE: five minutes, one permanent decision) Choose the application ID — it can never be changed (2026-08-05).**
   WHAT: pick the app's internal identifier. **Recommended: `com.menno420.slingyspider`.** Once

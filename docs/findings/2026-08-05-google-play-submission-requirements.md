@@ -188,6 +188,42 @@ and [answer/14151465](https://support.google.com/googleplay/android-developer/an
 Gemini cited `answer/13628312`, which was not fetched. Not applicable to a
 personal account.
 
+### 8b. How testers join — added 2026-08-05, second pass
+
+*Source, fetched: [answer/9845334](https://support.google.com/googleplay/android-developer/answer/9845334)*
+
+The first pass left tester mechanics as an honest null. Fetching the page
+settles it, and overturns the intuitive workaround.
+
+| Track | Admission | Ceiling |
+|---|---|---|
+| Internal | email list only — *"You can create a list of internal testers by email address."* | 100 |
+| Closed | email lists **or Google Groups** — *"you can add testers via email or Google Groups"* | 200 lists × 2,000 |
+| Open | *"anyone can join your testing program"* | unlimited (or ≥1,000 cap) |
+
+Three consequences worth carrying to any other app in this estate:
+
+1. **The opt-in link is an enrolment page, not an invitation.** Permission comes
+   first: *"If you're running a closed test with a Google Group, users need to
+   join the group before opting into your test."* Sharing the link with someone
+   who is not admitted does nothing.
+2. **Open testing is not a shortcut past the closed test.** *"Open testing is
+   available when you have production access."* Production access is what the
+   closed test is a precondition for, so the ordering is fixed: closed →
+   production access → open. The obvious optimisation is unavailable by
+   construction.
+3. **Google Groups is the only self-serve admission path.** Groups' *"Who can
+   join group"* setting offers *"Anyone can join"* — self-add from the open web,
+   no approval ([groups/answer/2464926](https://support.google.com/groups/answer/2464926),
+   fetched 2026-08-05). Pointed at a closed track, that produces a genuine
+   press-a-link-and-enrol flow **on the same track that satisfies the 12 × 14
+   requirement**. Internal testing cannot do this — it takes no groups.
+
+**Still NULL:** the closed-track opt-in URL format. This estate's app shows an
+internal link shaped `/apps/internaltest/<numeric-track-id>`, so the commonly
+repeated `/apps/testing/<package-name>` cannot be assumed to be the closed shape.
+Console prints the real link; that is the only source worth trusting.
+
 ## 9. Policy gates — all of them apply to an offline game with no data
 
 *Sources, fetched: [answer/10787469](https://support.google.com/googleplay/android-developer/answer/10787469),
