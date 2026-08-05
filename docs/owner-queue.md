@@ -30,6 +30,20 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 
 ## Active — genuinely-open owner asks
 
+- **`OQ-SWINGY-NAME` — (VENUE: ten minutes, your accounts) Confirm "Swingy Spider" is available before it hardens (2026-08-05).**
+  WHAT: the working name **Spider Swing** is already taken, and you named
+  **"Swingy Spider"** as the likely publishing name. Nothing is committed to it yet
+  beyond a trailer title card, which is the cheapest possible moment to change course.
+  WHERE: Google Play console search, the Apple App Store, and a domain registrar.
+  HOW: search both stores for the exact phrase and near-misses; check
+  `swingyspider.com` and `.app`. If it survives all three, say so and it lands in
+  `docs/decisions.md` as a decision rather than staying a chat aside.
+  WHY IT IS YOURS: it is a naming and branding call, and the store searches need
+  your accounts. The repo name `spider-swing` can stay either way — internal and
+  store names diverging is normal.
+  UNBLOCKS: store listing prep, cover art lettering, and any marketing artefact
+  that carries the name.
+
 - **`OQ-GEMINI-TIER` — (VENUE: one evening, your account) Run the one-clip test before paying for a Gemini tier (2026-08-03).**
   WHAT: the research is done and the recommendation is conditional, so the decision needs one
   cheap experiment first. On the free tier, with the visual-QA Gem in place, send **one clip
