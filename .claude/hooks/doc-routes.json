@@ -97,8 +97,8 @@
         "\\bffprobe\\b",
         "\\.(mp4|webm|mov|mkv|mp3|wav|m4a|ogg)\\b"
       ],
-      "docs": ["docs/CAPABILITIES.md"],
-      "says": "Reading video and audio was written down as impossible here once and it is not: extract frames with ffmpeg and read them, and pull audio to a supported container. See § CAN — View video / audio files for the exact recipe before concluding a media file is unreadable."
+      "docs": ["docs/conventions/reading-screen-recordings.md", "docs/CAPABILITIES.md"],
+      "says": "Video is readable — but sampling rate, not legibility, decides how much you actually read. Gemini samples at 1 fps by DEFAULT, so a 6.6s fast scroll arrives as 7 stills and ~37% of it never reaches the model, with nothing in the reply looking wrong. Set videoMetadata.fps to 8 on Vertex (measured: 63% → 100% coverage for +2.7k tokens) and ask the model to report its own coverage. ffmpeg is not installed here; `pip install imageio-ffmpeg` provides it without root."
     },
     {
       "id": "youtube",
