@@ -80,11 +80,29 @@ point:
 real-money line grew sixteen-fold — it forecasts *additional* cost, not the
 total already accrued.
 
-Credit movement is expected: that is Vertex work. **Real-money movement can only
-be the AI Studio SKU on `GEMINI_API_KEY_PAID`**, since Vertex draws credit and
+Credit movement is expected: that is Vertex work. Real-money movement can only
+be the AI Studio SKU on `GEMINI_API_KEY_PAID`, since Vertex draws credit and
 `GEMINI_API_KEY` draws nothing. Attribution by SKU is not readable from a
 session — console or a BigQuery billing export only — so a session that suspects
 it caused spend should say what it ran, not guess at a figure.
+
+**That +€7.39 was correct spend, not a routing mistake.** Owner, 2026-08-06: it
+came from **Deep Research**, which **is not available through Vertex at all and
+is not served on the free key either.** So the paid AI Studio key was the only
+path in existence for it. Recorded because the obvious inference from a
+real-money jump — "a session took the expensive route again" — is wrong here,
+and would have a future session hunting a habit that does not exist.
+
+### The documented exception
+
+| task | why the paid key is the only option |
+|---|---|
+| **Deep Research** | not on Vertex, not on the free tier — owner-verified 2026-08-06 |
+
+The rule below says reach for `GEMINI_API_KEY_PAID` *"only when Vertex has
+actually failed."* Deep Research is not a failure case: **Vertex was never an
+option.** Use the paid key without hesitation, note it in the session card, and
+do not spend a turn looking for a Vertex route that does not exist.
 
 The €256.52 is the $300 Google Cloud welcome credit denominated in EUR. It
 **excludes "Gemini API in AI Studio"** — verbatim from the billing dialog — and
