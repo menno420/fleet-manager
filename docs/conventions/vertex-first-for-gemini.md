@@ -3,24 +3,88 @@
 > **Status:** `binding`
 >
 > **Owner directive, 2026-08-05: every session defaults to Vertex AI for Gemini
-> calls — at least for the rest of this month.** Not a preference. The AI Studio
-> API key spends the owner's card; Vertex spends a credit balance that is already
-> paid for and expires unused.
+> calls — at least for the rest of this month.** Not a preference. Vertex spends
+> a credit balance already paid for that expires unused, while the **paid** AI
+> Studio key spends the owner's card. Note "the AI Studio key" is two keys —
+> `GEMINI_API_KEY` is free tier and costs nothing; see the next section, which
+> exists because this header used to say it in the singular.
 >
 > The whole route was verified end to end in the session that wrote this, from a
 > container with no Google credentials in its environment.
 
-## Why — the two paths are funded differently
+## Two identities, three billing outcomes (corrected 2026-08-06)
 
-Measured from the owner's Cloud console, 2026-08-05 (this is console-UI-only
-data no session can read; it is recorded here because he supplied it):
+This document originally described "two paths" and named only the paid AI Studio
+key. The environment carries **two distinct AI Studio keys**, and collapsing them
+cost real reach: a session reading either this doc or the boot file learned only
+*"AI Studio spends the owner's card"* and avoided the whole surface — **including
+the free one.**
 
-| | |
-|---|---|
-| Credit remaining | **€251.37 of €256.52** |
-| Credit consumed this month | **€5.15** (Vertex — Veo video, Vertex image generation) |
-| **Real money spent this month** | **€0.49** (AI Studio API) |
-| Forecast end-of-month | €0.00 |
+**It is two identities, and the paid one has two routes that bill differently.**
+That is the part worth internalising — *the route decides who pays, not the key.*
+
+| identity | route | who pays | binding constraint |
+|---|---|---|---|
+| **`GEMINI_API_KEY`** — free tier | AI Studio (`generativelanguage`) | **nobody** | hard **requests-per-day** caps: ~20/day flagship Flash, 500/day Flash Lite ([`../providers/gemini.md`](../providers/gemini.md)) |
+| **the paid GCP project** — SA from Railway | **Vertex** (`aiplatform`) | the **prepaid credit**, €245.23 left (2026-08-06) | no RPD cliff; **no server-side conversation history** |
+| **the paid GCP project** — `GEMINI_API_KEY_PAID` | AI Studio (`generativelanguage`) | **the owner's card** | none — and that is the problem |
+
+Rows 2 and 3 are the **same billing project**. The credit
+[excludes the "Gemini API in AI Studio" SKU](#why--the-paths-are-funded-differently)
+and does not exclude Vertex, so the identical project is credit-funded on one
+host and card-funded on the other. Owner, 2026-08-06:
+
+> *"Vertex is only available on the paid key, which uses the $300 of free
+> credits when routed through Vertex. But uses my own personal credit when
+> directly invoking the Gemini API."*
+
+Measured 2026-08-06: the two env vars are genuinely different values (53 vs 39
+chars), not one key under two names.
+
+**So `generativelanguage` is not one thing.** Hitting it with
+`GEMINI_API_KEY` costs nothing; hitting it with `GEMINI_API_KEY_PAID` bills the
+card. Any AI Studio call — the Interactions API included — should carry the
+**free** key unless its daily cap is genuinely in the way.
+
+**What this changes in practice.** The free key is not merely "the cheap
+option" — it is the only path that serves the **Interactions API**
+(`POST /v1beta/interactions` + `previous_interaction_id`, server-side history,
+verified on it). Vertex's `interactions:create` returned
+`RESOURCE_PROJECT_INVALID` for this project, so Vertex conversations carry their
+transcript client-side and resend it every turn — token cost that grows
+quadratically with turns.
+
+So for a **long** multi-turn exchange the free key is both cheaper *and* more
+token-efficient than Vertex, bounded only by requests-per-day. For **volume,
+image or video work**, Vertex, because 20 requests/day is the real ceiling on
+the free tier and it is the binding one — not the token meter.
+
+## Why — the paths are funded differently
+
+**Read the console's vocabulary literally** (owner, 2026-08-06): **"cost"
+means his actual money. "Credits" means the free-trial balance.** They are
+separate lines in the billing view and only one of them is a bill.
+
+Measured from the owner's Cloud console — console-UI-only data no session can
+read, recorded because he supplied it. Two dates, because the trend is the
+point:
+
+| | 2026-08-05 | 2026-08-06 | delta |
+|---|---|---|---|
+| **Cost — real money, month to date** | **€0.49** | **€7.88** | **+€7.39 (~16×)** |
+| Credit consumed this month | €5.15 | €11.29 | +€6.14 |
+| Credit remaining | €251.37 | €245.23 | of €256.52 |
+| Forecast end-of-month cost | €0.00 | €0.00 | unchanged |
+
+**The forecast is not reassurance.** It read €0.00 on both days while the
+real-money line grew sixteen-fold — it forecasts *additional* cost, not the
+total already accrued.
+
+Credit movement is expected: that is Vertex work. **Real-money movement can only
+be the AI Studio SKU on `GEMINI_API_KEY_PAID`**, since Vertex draws credit and
+`GEMINI_API_KEY` draws nothing. Attribution by SKU is not readable from a
+session — console or a BigQuery billing export only — so a session that suspects
+it caused spend should say what it ran, not guess at a figure.
 
 The €256.52 is the $300 Google Cloud welcome credit denominated in EUR. It
 **excludes "Gemini API in AI Studio"** — verbatim from the billing dialog — and
