@@ -100,6 +100,15 @@ planning and trying certain things, I still need to pay attention."*
 
 > **This estate instruments execution. It does not instrument judgement.**
 
+**The first attempt at the second thing** — a mandatory adversarial review built
+on provenance questions rather than correctness judgements — is drafted at
+[`../conventions/adversarial-review.md`](../conventions/adversarial-review.md).
+It is a **proposal with a verification record, not ratified policy**: a second
+session is building the mechanism, and that document was itself run through the
+review it proposes (four turns, eight changes, zero invented objections). Read it
+before proposing anything in this space, so the next attempt starts from what
+already survived contact.
+
 That reframes item 1 and item 2 of § 1. A reachability checker and a
 transcript-plus-state gate are real instruments and worth building — **and both
 of them cover execution**, which is the half already covered. Nothing on the
