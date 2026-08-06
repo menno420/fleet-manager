@@ -220,6 +220,17 @@ the boot-path audit of both repos. Until 2026-08-06 neither was referenced from
 any read-path doc — they were reachable only by being handed a prompt that named
 them.
 
+**The provenance mechanism — measured, and it reverses the design:**
+[findings/2026-08-06-provenance-mechanism-measured.md](findings/2026-08-06-provenance-mechanism-measured.md)
+— three controlled Vertex calls establish that **an unframed reviewer endorses
+whatever it is shown**, including a design this estate had already superseded,
+whose specific defect it praised as the best part. The same model, same input,
+with the owner-stand-in system prompt returned three real objections and one
+defect three deep-research reports had missed. Also lands the **11-item failure
+corpus** — which every score quoted in either repo had been measured against
+while it existed only in a chat transcript — and the correction PL-015 needs in
+substrate-kit's register. Read it before touching `substrate-kit#580`.
+
 **Read this if you read nothing else:**
 [owner-reflection-2026-07-21.md](owner-reflection-2026-07-21.md) — the owner's
 own thesis on autonomous-agent work (the wall is *verification*, not capability),
