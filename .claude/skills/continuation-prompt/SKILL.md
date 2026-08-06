@@ -63,6 +63,13 @@ padding it.
 ```text
 CONTINUE: <one line — what this session is picking up>
 
+BEFORE YOUR FIRST TOOL CALL — state back what you think this task is.
+Inline in your first reply, not as a question, in a few sentences: the goal in
+your own words, the specs and constraints it implies, the scope you take it to
+cover, and the follow-on the owner probably wants but did not spell out. Then
+begin. This is the owner's one cheap chance to correct your aim; a first reply
+that only announces your first action spends it.
+
 WHERE THINGS STAND
 <verified state: branch, PR, CI, what landed. Each item checked at HEAD in
 preflight. If something is believed but unverified, say "believed, confirm".>
@@ -92,6 +99,44 @@ DONE WHEN
 OUT OF SCOPE
 <what not to touch. Always present; this is the cheapest correction available.>
 ```
+
+### 4a · The restate block is not optional, and it goes in the PROMPT
+
+**Every prompt you emit carries the `BEFORE YOUR FIRST TOOL CALL` block above,
+verbatim or close to it.** Not a link to it. Not a mention of `intake`. The
+receiving session reads the prompt; it does not read the skill index before
+acting.
+
+The requirement itself is old — [`intake` § RESTATE step 2](../intake/SKILL.md)
+has always said to *"state back, inline in your first substantive response
+(never as a separate blocking question), the fuller picture you built from the
+ask: the implied specs, the surrounding constraints, the likely intended scope,
+and the follow-on the owner probably wants but didn't spell out."* Read it once;
+that is the definition this block compresses.
+
+**It was documented and it still did not happen.** Measured 2026-08-06: a
+session opened from one of these prompts and its entire first substantive
+response was *"I'll start by getting oriented — checking the environment, then
+landing #602 as instructed."* That is a statement of first **action**, not of
+**understanding** — nothing in it the owner could have corrected. The session
+that wrote that prompt had skipped the same step itself the day before, while
+`intake` sat in its own repo saying otherwise.
+
+So the fix is placement, not emphasis: **`intake` binds a session that invokes
+`intake`.** A continuation prompt is consumed by a session that has invoked
+nothing yet, so the instruction has to travel inside the artifact it will
+actually read. Same reasoning as `docs/CAPABILITIES.md` DISCOVERY RULE step 1 —
+a rule the reader never opens is not a rule.
+
+Two traps when writing the block:
+
+- **Do not let it become a summary of the prompt.** *"I'll verify state, read
+  the four docs, then classify the checkers"* is a plan, not an understanding.
+  What is wanted is the part the prompt did **not** say: what the goal implies,
+  what it probably extends to, what the owner would want next.
+- **Do not turn it into a question.** It is stated inline and the session
+  proceeds. Blocking on approval spends the owner's attention rather than
+  saving it, which inverts the point.
 
 ### 4b · The comprehension exception — when reading IS the job
 

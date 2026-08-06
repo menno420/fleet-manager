@@ -51,8 +51,22 @@ one of the most common failure modes in agent-written prompts.
 
 ### 4 · Write the prompt
 
+**The `BEFORE YOUR FIRST TOOL CALL` block is mandatory and travels inside the
+prompt** — not as a link, not as a mention of `intake`. The receiving session
+reads the prompt; it has invoked nothing yet, so a rule living in a skill it
+never loads cannot bind it. Rationale, the measured incident, and the two traps
+when writing the block:
+[`continuation-prompt` § 4a](../continuation-prompt/SKILL.md).
+
 ```text
 BUILD: <one line — the observable change>
+
+BEFORE YOUR FIRST TOOL CALL — state back what you think this task is.
+Inline in your first reply, not as a question, in a few sentences: the goal in
+your own words, the specs and constraints it implies, the scope you take it to
+cover, and the follow-on the owner probably wants but did not spell out. Then
+begin. This is the owner's one cheap chance to correct your aim; a first reply
+that only announces your first action spends it.
 
 CONTEXT
 <the minimum to act correctly. Paths, not prose. If a doc explains why, link it
