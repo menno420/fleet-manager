@@ -210,6 +210,16 @@ checkers, re-scope the heavier roster/telemetry autogen unless a real multi-seat
 fleet returns. Then the standing secondary task — groom `docs/ideas/` down its
 lifecycle.
 
+**What supersedes this ledger's next-action:**
+[findings/2026-08-05-foundation-continuation.md](findings/2026-08-05-foundation-continuation.md)
+— the revised order of work (foundation before rebuild) and the **certainty
+legend** that governs how to read every dated claim in this repo. Its follow-on,
+[findings/2026-08-06-checker-classification.md](findings/2026-08-06-checker-classification.md),
+carries the kit's checker classification, the measured gate-noise figures, and
+the boot-path audit of both repos. Until 2026-08-06 neither was referenced from
+any read-path doc — they were reachable only by being handed a prompt that named
+them.
+
 **Read this if you read nothing else:**
 [owner-reflection-2026-07-21.md](owner-reflection-2026-07-21.md) — the owner's
 own thesis on autonomous-agent work (the wall is *verification*, not capability),
