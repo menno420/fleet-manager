@@ -64,7 +64,11 @@
         "docs/conventions/vertex-first-for-gemini.md",
         "docs/providers/gemini.md"
       ],
+<<<<<<< HEAD
       "says": "TWO identities, and the paid one bills differently per route \u2014 THE ROUTE DECIDES WHO PAYS, NOT THE KEY. GEMINI_API_KEY is free tier on AI Studio: costs nothing, capped ~20 req/day flagship Flash and 500/day Flash Lite, and it serves the Interactions API (POST /v1beta/interactions + previous_interaction_id, server-side history). The paid GCP project has two routes on the SAME billing account: via Vertex it draws the prepaid credit (no daily cliff, but NO server-side history, so conversations resend their whole transcript each turn), while GEMINI_API_KEY_PAID against generativelanguage bills the OWNER'S CARD \u2014 the credit excludes the AI Studio SKU and does not exclude Vertex. So: Vertex for volume, image and video; the FREE key for any AI Studio call including long multi-turn; the paid key only when Vertex has actually failed, and say so in the session card. Pull GEMINI_VERTEX_SA_JSON from Railway; grounding is `googleSearch` (camelCase) on Vertex. tools/gemini_delegate.py implements both."
+=======
+      "says": "Default to Vertex, not the AI Studio key (owner directive 2026-08-05): the AI Studio key spends the owner's card, Vertex spends a credit balance already paid for. Pull GEMINI_VERTEX_SA_JSON from Railway, then OAuth to aiplatform.googleapis.com. Grounding is `googleSearch` (camelCase) on Vertex. For multi-turn work use the Interactions API \u2014 POST /v1beta/interactions with previous_interaction_id keeps history server-side; generateContent is the stateless legacy path. tools/gemini_delegate.py already implements both."
+>>>>>>> origin/main
     },
     {
       "id": "github-api",

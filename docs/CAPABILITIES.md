@@ -164,6 +164,7 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+<<<<<<< HEAD
 - 2026-08-06 · capability · `any` · **Gemini is TWO identities, and the paid
   one bills differently per route — the route decides who pays, not the key.
   The boot file collapsed all of it into one line.**
@@ -191,6 +192,8 @@ findings go here, below the fence.)
   multi-turn exchange, being both free and more token-efficient. Full model:
   [`conventions/vertex-first-for-gemini.md`](conventions/vertex-first-for-gemini.md).
   — LAST-VERIFIED: 2026-08-06
+=======
+>>>>>>> origin/main
 - 2026-08-06 · capability · `any` · **A session can read a screen recording
   end to end — but sampling rate, not legibility, decides how much it actually
   reads.** Gemini does not watch video; it samples at **1 fps by default**, so a
