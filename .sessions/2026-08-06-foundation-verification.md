@@ -1,6 +1,6 @@
 # 2026-08-06 · Verify the foundation — classify the kit's checkers, fix two boot paths
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** opus-5 · high · foundation-verification
 
@@ -42,4 +42,32 @@ meta-test, census-routed advisory emission, `check --advisories`,
 
 ## Verification
 
-Filled at close. Born red: this card declares `in-progress`.
+Post-commit, exit codes read directly — never `$?` after a pipe.
+
+- `python3 tools/check_no_false_walls.py --strict` → **exit 0**
+- `python3 bootstrap.py check --strict` → **exit 0**
+- substrate-kit side: `pytest` 2124 passed → exit 0 · `ruff check src/engine/`
+  → exit 0 · `tools/check_no_false_walls.py` → exit 0 · `dist/bootstrap.py
+  check --strict` → exit 0.
+
+⚠ **A trap worth the journal.** The kit's `tools/check_no_false_walls.py`
+takes **no `--strict` flag** — only fleet-manager's variant does. Running the
+kit's copy with `--strict` exits **2**, an argparse usage error that reads
+exactly like a real finding if the exit code is trusted without the output.
+The kit's own CI invokes it bare. Two same-named tools, two different
+signatures, one shared verification ritual.
+
+The gate earned its keep on this PR: it caught an orphaned findings doc and a
+`D-0011` id collision with the existing decision in `providers/gemini.md` —
+both real, both introduced by this session, both in the deterministic tier.
+
+**Honest nulls.**
+
+- **The deterministic promotion was not made** — see the findings doc § 4.
+  Two trees is not evidence for ~22 adopters; `check --gate-preview` turns it
+  into a sweep, and that sweep is the next slice.
+- **The 21 heuristic checkers were classified, not repaired.**
+- **No scheduled owner report** of the suppressed advisory tail was built,
+  which is what § 5 of the continuation doc actually asked for.
+- **fleet-manager still vendors kit 1.20.1** while the kit is at 1.20.2; this
+  session did not run an upgrade wave.
