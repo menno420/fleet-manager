@@ -50,20 +50,21 @@
     {
       "id": "gemini",
       "when": [
-        "generativelanguage\\.googleapis\\.com",
-        "aiplatform\\.googleapis\\.com",
-        "GEMINI_API_KEY",
-        "GEMINI_VERTEX_SA",
-        "gemini-[0-9]",
         ":generateContent",
-        "interactions:create",
-        "gemini_delegate"
+        "GEMINI_API_KEY",
+        "GEMINI_API_KEY_PAID",
+        "GEMINI_VERTEX_SA",
+        "aiplatform\\.googleapis\\.com",
+        "gemini-[0-9]",
+        "gemini_delegate",
+        "generativelanguage\\.googleapis\\.com",
+        "interactions:create"
       ],
       "docs": [
         "docs/conventions/vertex-first-for-gemini.md",
         "docs/providers/gemini.md"
       ],
-      "says": "Default to Vertex, not the AI Studio key (owner directive 2026-08-05): the AI Studio key spends the owner's card, Vertex spends a credit balance already paid for. Pull GEMINI_VERTEX_SA_JSON from Railway, then OAuth to aiplatform.googleapis.com. Grounding is `googleSearch` (camelCase) on Vertex. For multi-turn work use the Interactions API \u2014 POST /v1beta/interactions with previous_interaction_id keeps history server-side; generateContent is the stateless legacy path. tools/gemini_delegate.py already implements both."
+      "says": "THREE funded paths, not two \u2014 know which you are on. GEMINI_API_KEY is FREE TIER (caps ~20 req/day flagship Flash, 500/day Flash Lite) and is the only path serving the Interactions API (POST /v1beta/interactions + previous_interaction_id, server-side history). Vertex spends a prepaid credit balance \u2014 no daily cliff, but NO server-side history, so conversations resend their whole transcript each turn (quadratic token cost). GEMINI_API_KEY_PAID spends the OWNER'S CARD \u2014 only when Vertex has actually failed, and say so in the session card. Default to Vertex for volume, image and video work (owner directive 2026-08-05); use the free key for a long multi-turn exchange, where it is both free and more token-efficient. Pull GEMINI_VERTEX_SA_JSON from Railway; grounding is `googleSearch` (camelCase) on Vertex. tools/gemini_delegate.py implements both."
     },
     {
       "id": "github-api",

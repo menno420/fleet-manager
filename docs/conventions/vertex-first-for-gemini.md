@@ -10,7 +10,36 @@
 > The whole route was verified end to end in the session that wrote this, from a
 > container with no Google credentials in its environment.
 
-## Why — the two paths are funded differently
+## There are THREE paths, not two (corrected 2026-08-06)
+
+This document originally described two. The environment carries **two distinct
+AI Studio keys**, and collapsing them cost real reach: a session reading either
+this doc or the boot file learned only *"AI Studio spends the owner's card"* and
+avoided the whole surface — **including the free one.**
+
+| env var | funded by | binding constraint |
+|---|---|---|
+| **`GEMINI_API_KEY`** | **nothing — free tier** | hard **requests-per-day** caps: 20/day on flagship Flash, 500/day on Flash Lite ([`../providers/gemini.md`](../providers/gemini.md)) |
+| **Vertex** (SA from Railway) | the **prepaid credit** — €251.37 remaining | no RPD cliff; **no server-side conversation history** |
+| `GEMINI_API_KEY_PAID` | **the owner's card** | none — and that is the problem |
+
+Measured 2026-08-06: the two keys are genuinely different values (53 vs 39
+chars), not one key under two names.
+
+**What this changes in practice.** The free key is not merely "the cheap
+option" — it is the only path that serves the **Interactions API**
+(`POST /v1beta/interactions` + `previous_interaction_id`, server-side history,
+verified on it). Vertex's `interactions:create` returned
+`RESOURCE_PROJECT_INVALID` for this project, so Vertex conversations carry their
+transcript client-side and resend it every turn — token cost that grows
+quadratically with turns.
+
+So for a **long** multi-turn exchange the free key is both cheaper *and* more
+token-efficient than Vertex, bounded only by requests-per-day. For **volume,
+image or video work**, Vertex, because 20 requests/day is the real ceiling on
+the free tier and it is the binding one — not the token meter.
+
+## Why — the paths are funded differently
 
 Measured from the owner's Cloud console, 2026-08-05 (this is console-UI-only
 data no session can read; it is recorded here because he supplied it):

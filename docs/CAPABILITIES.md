@@ -164,6 +164,26 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-06 · capability · `any` · **Gemini has THREE separately-funded paths
+  in this environment, and the boot file collapsed them into one.**
+  `GEMINI_API_KEY` (53 chars) is **free tier** — no cost, hard requests-per-day
+  caps (~20/day flagship Flash, 500/day Flash Lite), and it is the **only** path
+  serving the Interactions API for server-side history. **Vertex** (SA from
+  Railway) spends the prepaid credit — no daily cliff, but `interactions:create`
+  returns `RESOURCE_PROJECT_INVALID` for this project, so its conversations
+  resend the whole transcript each turn (quadratic token cost).
+  `GEMINI_API_KEY_PAID` (39 chars) spends **the owner's card.** · evidence: both
+  env vars present and **genuinely distinct values**, confirmed by length and
+  digest without printing either; Railway `reliable-grace`/`worker`/`production`
+  holds 35 variables of which only `GEMINI_VERTEX_SA_JSON` is Gemini-related;
+  free/paid assignment **owner-confirmed 2026-08-06**. · workaround: n/a. The
+  practical consequence — `.claude/CLAUDE.md` said *"the AI Studio key spends
+  the owner's card"*, singular, which hid a **free** key behind a paid one and
+  would push a session onto the credit balance for work that costs nothing.
+  Default stays Vertex for volume/image/video; the free key wins for a long
+  multi-turn exchange, being both free and more token-efficient. Full model:
+  [`conventions/vertex-first-for-gemini.md`](conventions/vertex-first-for-gemini.md).
+  — LAST-VERIFIED: 2026-08-06
 - 2026-08-06 · capability · `any` · **A session can read a screen recording
   end to end — but sampling rate, not legibility, decides how much it actually
   reads.** Gemini does not watch video; it samples at **1 fps by default**, so a
