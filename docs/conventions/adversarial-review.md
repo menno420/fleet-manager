@@ -20,10 +20,15 @@ judgement. This is an attempt at the second.
 
 **A reviewer asked *"is this right?"* must form a domain opinion, and will
 invent one if it has no basis.** A reviewer asked *"what is this based on?"*
-needs no domain knowledge at all — it only has to notice whether an answer
-exists. That single distinction is what stops the review manufacturing
-objections, which is the failure mode that makes mandatory review worse than
-none.
+needs **far less** — mostly it has to notice whether an answer exists. That
+distinction is what stops the review manufacturing objections, which is the
+failure mode that makes mandatory review worse than none.
+
+**Corrected 2026-08-06:** this originally said *"needs no domain knowledge at
+all"*, which overstates it. **The split is by layer.** The automated gate needs
+none — it checks presence and resolution. The *reviewer* needs some, because
+telling a genuine source from a confident restatement of the claim is still
+semantic judgement. Conceded to Gemini on `substrate-kit#580`.
 
 It also exploits a real asymmetry: **stating a claim is cheap; stating its
 provenance is not.** "Vertex doesn't support X" takes four words. Answering
@@ -85,20 +90,46 @@ line can refute nothing, and checking relevance is prose inference. But *"don't
 gate at all"* skips the option that fits. Gate on this and nothing more:
 
 - The provenance section **exists and is non-empty**.
-- Every **`path:line` citation resolves** — file exists, has at least that many
+- **At least one `path:line` citation is present** — see the correction below;
+  this clause is load-bearing and was missing in the first version.
+- **Every** `path:line` citation resolves — file exists, has at least that many
   lines. Pure fact extraction, no prose inference. Same trick
   [`tools/check_doc_routes.py`](../../tools/check_doc_routes.py) already uses:
   verify the pointer resolves, never judge the prose.
+- **Layer 2 must be recorded as having OCCURRED.** Gate on occurrence, never on
+  the result. Without this a triggered change merges with the reviewer never
+  having run and nothing noticing.
 - **Commands and error strings are recorded but NOT gated.** Re-executing them
   in CI is unsafe — stateful, possibly destructive — and regex-matching their
   shape proves only that they look like commands, which is theatre by the same
   argument that kills word-count.
 
 **Be honest about what that buys: it catches an ABSENT answer, not an unsound
-one.** *"I based this on general knowledge"* cannot produce a resolving
-citation. Soundness is read by the owner. That is the same division session
-cards already use — the checker verifies the card exists and is complete, the
-owner judges whether it is any good, and nobody calls that theatre.
+one.** Soundness is read by the owner. That is the same division session cards
+already use — the checker verifies the card exists and is complete, the owner
+judges whether it is any good, and nobody calls that theatre.
+
+> ### ⚠ Correction, 2026-08-06 — the first version of this gate passed vacuously
+>
+> This section originally read *"the section is non-empty AND every citation
+> resolves"*, and claimed **"'I based this on general knowledge' cannot produce
+> a resolving citation."** That claim is **false of the gate as written**:
+> **zero citations satisfies "every citation resolves" vacuously**, so the
+> document's own worked example of a *failing* answer would have **passed the
+> document's own gate.**
+>
+> Found by **Codex** on `menno420/substrate-kit#580`. Neither the author nor a
+> four-turn Gemini review saw it — it is a logic hole in the single load-bearing
+> claim of the mechanism, and it invalidated the gate entirely until the
+> minimum-count clause above was added.
+>
+> Two further overstatements from the same author, corrected in place:
+> **"needs no domain knowledge at all"** overstates it — distinguishing a
+> genuine source from a confident restatement is still semantic judgement (see
+> § *Why provenance rather than correctness*). And `path:line` resolution is
+> **not** more gaming-resistant than quote-matching; it is **cheaper to fake**.
+> The gate never claimed to catch unsound answers, only absent ones — that
+> mechanism stands, the framing around it did not.
 
 ## Two practices that came out of testing this
 
@@ -127,6 +158,13 @@ coverage and was caught only by independent measurement.
 **Agreement is nearly worthless as evidence; the objections are the product.**
 If a review raises nothing, say so plainly — that is a result, not a pass.
 
+**Use a record format that makes the tally countable**, not a reading:
+`[survived]` / `[conceded]` / `[partial]` per objection. First full run,
+`substrate-kit#580`, across Gemini **and** Codex: **13 objections — 10
+conceded, 2 partial, 1 refuted.** That is a distribution, not the
+all-conceded pattern that prompted this section, and it only reads as one
+because the format forces each objection to be dispositioned individually.
+
 ## Routing
 
 **Vertex**, per [`vertex-first-for-gemini.md`](vertex-first-for-gemini.md) —
@@ -145,8 +183,25 @@ review is redundancy; four different **instruments** is coverage.
 |---|---|---|
 | agent self-answer | provenance recall | absent sources, unread docs, untried paths |
 | reviewer (Gemini, Vertex) | reasoning distance | unsupported and over-confident claims |
-| Codex on the PR | code + diff | implementation defects nobody reasoned about |
+| Codex on the PR | code + diff | **implementability** — specs that read fine and cannot be built |
 | the owner | ground truth | his screen, his thumb, his console |
+
+**The third rung's real specialty, measured 2026-08-06 and not what was
+predicted here.** This table originally said Codex catches "implementation
+defects nobody reasoned about." The actual result on `substrate-kit#580` was
+sharper: **three of its five P1 findings were about a specification that read
+correctly as prose and was not implementable.**
+
+- the gate that **passed vacuously** on zero citations (§ 5 correction above)
+- a known-bad reviewer test that required data the reviewer never receives
+- a trigger that required **inferring intent from prose**
+
+That is a distinct failure class from anything the first two rungs caught, and
+it is not about judgement at all — it is the **gap between prose and
+mechanism**. A sentence can be true, well-sourced, and un-buildable.
+
+**So Codex belongs at the spec→code boundary, not only at decision points.**
+When a mechanism described here gets built, it should look again at the build.
 
 **Codex is the rung closest to the two hardest catches of 2026-08-06** — a test
 suite seeing `staged_regen` fire on the cold-adoption arc, and a bench catching
