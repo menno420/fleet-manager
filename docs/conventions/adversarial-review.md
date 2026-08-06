@@ -267,6 +267,57 @@ balance. What it changed:
 nothing** — which is the argument for recording what survived rather than a
 boolean.
 
+## Growth under review is a measurement, not a cost — and this is the finding
+
+`OWNER`, 2026-08-06. The document grew **+50 % in one day** (1 595 → 2 391
+words, three commits) and substrate-kit's copy roughly doubled across two Codex
+rounds. A session flagged that as a proportionality risk. **The owner's read is
+better and it inverts the conclusion:**
+
+> *"We should not consider this as a fault in our plan, but exactly the plan
+> working as intended."*
+
+He is right. **Eighteen findings, every one verified correct, means the spec
+contained eighteen real defects.** Had the reviews found nothing, the document
+would be the size it started — *and still broken*. The growth is the visible
+trace of the input's defect density. It measures how wrong the thing was, not
+how expensive the process is.
+
+**The near-error is worth recording too.** The proposed response was a
+subtraction pass targeting half the length — which would have **deleted
+verified-correct content on the theory that length is itself a defect.** That is
+the same species as writing a false wall: taking a signal and reading it as a
+limitation.
+
+### What does survive: the file is two artifacts under one name
+
+| | constraint | may grow? |
+|---|---|---|
+| the **record** — what was found, what survived, what was refuted | as long as the evidence demands | **yes, and it should** |
+| the **instruction** — what a session does at a decision surface | must fit working attention *in the moment* | **no** |
+
+Growth is correct for the first and corrosive for the second, and while they
+share a file the record's legitimate expansion silently degrades the
+instruction. The estate already separates them: `docs/findings/` for evidence,
+`docs/conventions/` for the rule, and the `says` field in
+[`.claude/hooks/doc-routes.json`](../../.claude/hooks/doc-routes.json) for the
+one sentence that actually reaches a session at the moment it matters.
+
+**So the fix is a split, not a cut, and it costs no correct content.** Deferred
+until substrate-kit's spec lands — restructuring both copies mid-review creates
+divergence that has to be reconciled twice, which is the same proportionality
+judgement applied to itself.
+
+### The general form, which outlives this document
+
+**When a reviewed artifact grows, ask what the growth measures before treating
+it as a problem.** Under a review that finds only real defects, size is a
+readout of the input. The instinct to trim is an instinct to hide the readout —
+and every local reviewer in the ladder can only ever add, because each asks a
+local question. **Nothing in the design asks "is the whole thing worth its
+weight?"** That question belongs to the owner, and it is a different question
+from "is each clause correct."
+
 ## Honest nulls
 
 - **Unratified.** The owner has not adopted this; a second session is building
