@@ -140,6 +140,23 @@ number, not an error. One known-bad input would have exposed it. When you
 introduce a measurement tool, feed it a case you know it cannot handle and
 confirm it fails **loudly**.
 
+**And verify what the instrument is POINTED AT, not only that it runs.**
+Corrected 2026-08-06 after round 5 on `substrate-kit#580`. A session built a
+validator specifically to stop verifying its provenance record by re-reading —
+the right response — **and pointed it at the wrong artifact.** The spec's § 8
+says CI grades the **session card**; the script checked a standalone
+`docs/reviews/` file. Both failed, and the green script said nothing about
+either.
+
+> **"Verify by script, not by eye" is incomplete. The script's TARGET is itself
+> a claim, and it is the one most likely to be assumed rather than checked.**
+
+This is the inspection failure recurring one level up, and it is worse than the
+original because a passing script *feels* like mechanical verification. Ask of
+any checker: **which artifact does the rule name, and is that the artifact this
+script opens?** Derive the target from the rule text, never from memory of what
+the rule meant.
+
 **Flag owner-dependent claims explicitly.** Five of thirteen owner corrections
 on 2026-08-06 came from ground truth only he has — his screen, his thumb, his
 console, his billing page. An agent cannot self-diagnose missing tacit
@@ -317,6 +334,35 @@ and every local reviewer in the ladder can only ever add, because each asks a
 local question. **Nothing in the design asks "is the whole thing worth its
 weight?"** That question belongs to the owner, and it is a different question
 from "is each clause correct."
+
+## Round 5 falsified the convergence reading — and the stop-condition fired
+
+`MEASURED-PRIOR`, `substrate-kit#580`. The hub session predicted convergence
+from the finding curve **9 → 9 → 8 → 2** and set a stop-condition: *stop if the
+next round finds a NEW defect class, not more of the same one.*
+
+**Round 5 returned 6.** The convergence claim is falsified. "Not converging" is
+not established either — five points with a bounce is not a trend — but **five
+rounds and 34 findings without stopping** is the fact that matters.
+
+**And the stop-condition fired, on its own terms.** The round-5 cluster is a
+different diagnosis, not a fifth form of the gate defect:
+
+- the distribution-wave trigger has **no observable event**
+- per-adopter rollback state has **no source**
+- `adopters.md` is generated agent-side, **cannot refresh in CI, and is 16 days
+  stale**
+- the impact mapping has no catch-all
+
+That is not prose failing to describe a mechanism. **It is a specification
+written over data the estate does not have** — and the stale generated file
+settles the exporter question without any argument about proportionality.
+
+**Two sessions converged independently** on the same three conclusions — ship
+Layers 1–2 un-gated, drop the gate from v1, scope the exporter to facts it can
+source — one from a failure corpus, the other from round-5 evidence, neither
+having seen the other. Same shape as the three-session convergence behind
+DISCOVERY RULE step 0.
 
 ## Honest nulls
 
