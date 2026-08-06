@@ -13,51 +13,60 @@ There is frame extraction — it just happens server-side, at 1 fps, invisibly.
 That is the whole finding: **the failure mode is not an error, it is a confident
 transcription of the 63 % that arrived.**
 
-## The measurement
+## The measurement — corrected twice, the second time by the owner
 
-A 6.65 s / 119.73 fps / 480×1040 phone capture, 3.9 MB. The scroll **doubles
-back** — 11 466 px travelled but only 6 256 px covered — so unique content spans
-**11 viewport-heights**, not the 20 the travel distance implies.
+A 6.65 s / 119.73 fps / 480×1040 phone capture, 3.9 MB. **Gaps counted properly:
+pairs of consecutive frames that share no content at all.**
 
-| sampling | frames | content seen |
-|---|---|---|
-| **1 fps — Gemini's default** | 7 | **63 %** |
-| 2 fps | 14 | 83 % |
-| 4 fps | 27 | 98 % |
-| **8 fps — `videoMetadata.fps`** | 53 | **100 %** |
+| sampling | frames | pairs | pairs with **no shared content** |
+|---|---|---|---|
+| **1 fps — Gemini's default** | 7 | 6 | **5** |
+| 2 fps | 14 | 13 | 11 |
+| 4 fps | 27 | 26 | 15 |
+| 8 fps | 53 | 52 | 5 |
+| **16 fps** | 106 | 105 | **0 — complete** |
 
-Cost of the override: **518 → 3 273 prompt tokens.** Not worth optimising.
+Tokens: 518 / 3 273 / 6 462 at 1 / 8 / 16 fps.
 
-Method: extract at 8 fps, measure per-pair vertical displacement by row-profile
-correlation, chain the signed positions, then take the union of
-`[position, position+viewport]` intervals per sampling rate.
+**Two of my measurements were wrong, and one of them was published.**
 
-## The best result was Gemini's honesty, not its coverage
+1. **A correlation search cannot report a shift larger than its window.** Given
+   1 fps samples that had jumped far past it, it returned a bounded, plausible
+   `369 px` — not an error, a *measurement*. Caught by arithmetic.
+2. **Row-profile correlation aliases on repetitive UI.** A Claude Code
+   transcript is wall-to-wall near-identical rows, and the estimator locked onto
+   the wrong period, **inventing 2 890 px of reverse scrolling that never
+   happened** — plus a "100 % coverage at 8 fps" claim that is false (8 fps has
+   5 gaps). Both reached a pushed commit and an open PR.
 
-Asked at default sampling to state what it had seen, it volunteered the gap
-without being led:
+**The owner caught the second one**, from knowing what his own thumb had done:
+*"I did not move the text back in the opposite direction at any time."* No check
+in this estate would have. Re-measured on his word first, per DISCOVERY RULE
+step 0 — and he was right: every resolvable shift is one-directional, and
+Gemini at 16 fps independently reports *"one-directional (downwards) throughout
+the entire video. It never reversed."*
+
+The diagnostic worth keeping: at 8 fps only **9 of 52** pairs yielded a
+confident displacement, and all nine were moments the scroll had **paused**. An
+estimator that only works when nothing is moving still emits numbers while
+everything is.
+
+**The method that works asks a different question** — *do two consecutive frames
+share any content?* Several text bands from frame N, searched across the whole
+of frame N+1, one strong normalized match required. A pair with no match **is**
+a gap. No displacement estimate, nothing to alias.
+
+## Gemini's honesty is the reusable finding
+
+At default sampling, unled, it volunteered the gap:
 
 > *"I observed 7 distinct scroll positions… there are clear gaps in the
 > narrative and context between each frame… I believe I only saw samples of the
 > conversation, not the whole thing."*
 
-At `fps=8` it claimed 13 distinct positions, overlapping, no gaps — **and that
-checks out**: 13 ≥ the 11 viewport-heights the content actually spans. So the
-convention now says to end every recording prompt with a coverage question. It
-converts a silent 63 % into a stated 63 %.
-
-## A wrong measurement I nearly reported
-
-The first pass concluded *"no gaps even at 1 fps."* False. Row-profile
-correlation **cannot detect a displacement larger than the band it compares** —
-given 1 fps samples that had jumped ~2 500 px, a 570 px band returned a bounded,
-plausible 369 px. Not an error. A *measurement*, and a wrong one.
-
-It was caught because the number contradicted both Gemini's own report and the
-arithmetic (13 positions × 570 px cannot span 20 screens — which is what forced
-the net-range calculation that resolved everything). **Same species as
-concluding from one probe:** an instrument that silently clamps looks exactly
-like an instrument that found something.
+At `fps: 16` it reported **14 positions, continuous, no gaps, one-directional** —
+all three independently confirmed. So the convention says to end every recording
+prompt with a coverage question. It converts a silent gap into a stated one.
 
 ## What landed
 
@@ -65,7 +74,7 @@ like an instrument that found something.
 |---|---|
 | `docs/conventions/reading-screen-recordings.md` | new — the recipe, the coverage table, the coverage question, the clamping trap |
 | `tools/read_screen_recording.py` | the script, hardcoded scratchpad path replaced with `$VERTEX_SA` |
-| `.claude/hooks/doc-routes.json` | the `video-audio` route now leads with the new convention and carries the 1 fps warning in its `says` |
+| `.claude/hooks/doc-routes.json` | the `video-audio` route leads with the new convention and warns that the default sees almost nothing |
 | `docs/CAPABILITIES.md` | append-log entry with the full measurement |
 
 The route change matters more than the doc: the trigger already fired on

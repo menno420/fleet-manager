@@ -165,21 +165,24 @@ kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
 - 2026-08-06 · capability · `any` · **A session can read a screen recording
-  end to end — but the sampling rate, not legibility, decides how much of it it
-  actually reads.** Gemini does not watch video; it samples frames at **1 fps by
-  default**, so a fast scroll arrives as a handful of stills and the rest never
-  reaches the model, with nothing in the reply looking wrong. Vertex accepts a
-  per-part override — `videoMetadata: {"fps": 8}` alongside `inlineData`. ·
-  evidence: 6.65 s / 119.73 fps / 480×1040 phone capture, 3.9 MB inline, unique
-  content spanning 11 viewport-heights (the scroll doubles back — 11 466 px
-  travelled, 6 256 px covered). Coverage measured by chaining per-frame
-  displacement: **1 fps → 63 %** (7 frames), 2 fps → 83 %, 4 fps → 98 %,
-  **8 fps → 100 %** (53 frames); 518 → 3 273 prompt tokens. Gemini reported its
-  own gap unprompted at default — *"I believe I only saw samples of the
-  conversation, not the whole thing"* — and its fps=8 claim of 13 overlapping
-  positions checks out against the 11 required. · workaround: n/a. `ffmpeg` is
-  **not** installed in-container; `pip install imageio-ffmpeg` supplies it with
-  no root. Recipe and the measurement trap:
+  end to end — but sampling rate, not legibility, decides how much it actually
+  reads.** Gemini does not watch video; it samples at **1 fps by default**, so a
+  fast scroll arrives as disconnected stills and the reply reads as a clean
+  transcript regardless. Vertex takes a per-part override —
+  `videoMetadata: {"fps": 16}` beside `inlineData`. · evidence: 6.65 s /
+  119.73 fps / 480x1040 phone capture, 3.9 MB inline. Gaps counted as pairs of
+  consecutive frames sharing **no** content: **1 fps → 5 of 6 pairs**, 2 fps →
+  11/13, 4 fps → 15/26, 8 fps → 5/52, **16 fps → 0 of 105 (complete)**. Tokens
+  518 / 3 273 / 6 462 at 1 / 8 / 16 fps. Gemini stated its own gap unprompted at
+  default (*"I believe I only saw samples… not the whole thing"*) and at 16 fps
+  reported 14 positions, continuous, one-directional — all three confirmed. ·
+  workaround: n/a. `ffmpeg` is **not** in-container; `pip install
+  imageio-ffmpeg` supplies it without root. **Do not measure displacement to
+  check coverage** — a correlation search cannot report a shift larger than its
+  window, and row-profile correlation aliases on repetitive UI rows; that
+  combination fabricated 2 890 px of reverse scrolling that never occurred and
+  reached a published doc, caught by the owner. Ask instead whether consecutive
+  frames share any content. Recipe and both traps:
   [`conventions/reading-screen-recordings.md`](conventions/reading-screen-recordings.md),
   tool: `tools/read_screen_recording.py`.
   — LAST-VERIFIED: 2026-08-06
