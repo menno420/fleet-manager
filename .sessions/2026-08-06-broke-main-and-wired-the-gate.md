@@ -82,9 +82,26 @@ it.
 - **`bootstrap.py check --strict` passing on a tree containing conflict markers
   is not investigated here.** It is a kit-side observation, worth a look, and
   nothing in this change addresses it.
-- **Whether `substrate-gate` is a *required* check on `main` is still unread** —
-  the rules API is owner-UI state. Wiring a step into the workflow does not make
-  it blocking if the check is not required.
+- ~~**Whether `substrate-gate` is a *required* check on `main` is still
+  unread**~~ — **RESOLVED the same session, and the null was itself a false
+  wall.** I wrote that the rules API is "owner-UI state", repeating the kit's
+  `check --strict` NOTE (*"403-walled to agents"*) as fact **without testing
+  it**. `GET /rules/branches/main` returns **200**. `main` carried a
+  `pull_request` rule and **zero** required checks — so the CI step I had just
+  added was red-but-not-blocking, exactly as feared. On the owner's decision,
+  `PUT /rulesets/18725475` (read-modify-write, preserving the `pull_request`
+  rule and empty `bypass_actors`) added `substrate-gate` as a required check;
+  **200**, re-verified from the independent effective-rules endpoint. Red now
+  blocks the merge.
+
+  Worth sitting with: the last sentence of the session was a wall I had not
+  tested, on the day whose whole lesson was that suppressed and untested
+  failures look like success. **The doctrine binds its author no better than a
+  stranger** — third demonstration in two days.
+
+- **The kit still ships that false wall.** `bootstrap.py check --strict` prints
+  the `403-walled to agents` NOTE on every run in every adopter repo. Correcting
+  it is a substrate-kit change and is **not** done here.
 
 ## ⟲ Previous-session review
 

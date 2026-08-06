@@ -150,12 +150,19 @@ Essentials:
   have saved you: `.claude/hooks/README.md`.
 - **Never write down a limitation.** A refused call is transient classifier
   state — route around it and leave no wall behind. The guard is
-  `tools/check_no_false_walls.py` — **run it yourself** (`--strict`), because
-  as of 2026-07-31 nothing runs it for you: it appears in no workflow, and
-  `main`'s only ruleset (`main-branch-protection`, active) carries a
-  `pull_request` rule but **zero required status checks**. Read agent-side
-  from the rulesets API, not owner-reported — see the 2026-07-31 row in
-  `docs/CAPABILITIES.md`. Treat the discipline as self-enforced.
+  `tools/check_no_false_walls.py`, and **as of 2026-08-06 it is enforced for
+  you**: it runs in `substrate-gate` alongside `tools/check_doc_routes.py`, and
+  `substrate-gate` is now a **required status check** on `main`
+  (`main-branch-protection`, active) — so a red gate blocks the merge instead
+  of decorating it. Both halves of this bullet were true and stale: until
+  2026-08-06 neither checker ran in any workflow and the ruleset carried **zero**
+  required checks, which is how conflict markers reached `main` and silently
+  disabled the doc-routing hook. **The rulesets API is readable AND writable
+  agent-side** — `GET`/`PUT /repos/{o}/{r}/rulesets/{id}` over direct egress,
+  both 200, re-verified from the effective-rules endpoint after the write. The
+  kit's `check --strict` emits an `enforcement-required-unverified` NOTE
+  claiming this is unreadable by agents; **it reads fine — measured 2026-08-06.
+  Read the endpoint, never quote that NOTE.**
 
 ## Task → skill routing — invoking the skill IS part of the task
 
