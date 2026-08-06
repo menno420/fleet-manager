@@ -2,7 +2,7 @@
 
 > **Status:** `complete`
 
-- **📊 Model:** opus-5 · high · foundation-verification
+- **📊 Model:** opus-5 · high · review/verify
 
 💡 Session idea: **a document that only exists in a handoff prompt is not in
 the repo.** `docs/findings/2026-08-05-foundation-continuation.md` calls itself
