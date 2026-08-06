@@ -153,6 +153,36 @@ suite seeing `staged_regen` fire on the cold-adoption arc, and a bench catching
 a lazy import that works in the source layout and dies in the built dist
 adopters actually run. Neither was reachable by reasoning about prose.
 
+### First evidence, 2026-08-06 — and read the diff comments, not the summary
+
+`MEASURED-PRIOR` (reported by the session that ran it, not re-derived here). On
+`menno420/substrate-kit#580`, a plan **Gemini had already reviewed**, Codex
+returned **9 findings — 5×P1, 4×P2.**
+
+That is the ladder claim surviving contact. A third *opinion* would overlap with
+the second; a different *instrument* returns orthogonal findings, and it did.
+The clearest one is a claim about what code does rather than what prose says:
+`currency.py` fetches four file paths, not trees, **so `adopters.md` cannot
+establish absence of alternate linkage.** No prose review reaches that.
+
+> **THE TRAP, and it is expensive: the Codex review summary body is
+> BOILERPLATE. The findings are inline comments on the diff.** A session that
+> reads only the summary concludes Codex found nothing — a silent, plausible
+> null, which is the failure shape this whole document exists to catch. Fetch
+> the review *comments*, and if a fetch returns an empty list, say so explicitly
+> rather than reporting "no findings".
+
+The session also did, unprompted, both things this document asks for: it
+**verified Codex's checkable claims before responding to any of them** (both
+held — including two `.gitmodules` cases it had itself missed), and it recorded
+what was objected to rather than that a review had occurred.
+
+**One caution on the comparison.** "Materially sharper than Gemini's" was that
+session's own judgement, on one PR, about a review of its own work. Suggestive,
+not measured — and the ladder argument does not need it. The claim that matters
+is that different instruments find *different* things, which 9 orthogonal
+findings support on their own.
+
 Two rules carry over to it: **record what it objected to, not that it
 approved**, and **state a fallback for silence** —
 `menno420/superbot-next#602` sat open fifteen days because a correct diagnosis
@@ -190,6 +220,8 @@ boolean.
   been run in CI.
 - **One review, one model, one subject.** The eight-changes figure is this
   document reviewing itself. Nothing establishes the rate on other material.
+- **The Codex rung has one data point** (`substrate-kit#580`), reported by the
+  session under review rather than measured independently.
 - **The metric is proposed, not measured**: the ratio of corrections arriving
   from an instrument or reviewer versus from an agent re-reading its own work.
   If the practice works that ratio moves; if it does not move, this is ritual.
