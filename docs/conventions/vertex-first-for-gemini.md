@@ -17,14 +17,31 @@ AI Studio keys**, and collapsing them cost real reach: a session reading either
 this doc or the boot file learned only *"AI Studio spends the owner's card"* and
 avoided the whole surface — **including the free one.**
 
-| env var | funded by | binding constraint |
-|---|---|---|
-| **`GEMINI_API_KEY`** | **nothing — free tier** | hard **requests-per-day** caps: 20/day on flagship Flash, 500/day on Flash Lite ([`../providers/gemini.md`](../providers/gemini.md)) |
-| **Vertex** (SA from Railway) | the **prepaid credit** — €251.37 remaining | no RPD cliff; **no server-side conversation history** |
-| `GEMINI_API_KEY_PAID` | **the owner's card** | none — and that is the problem |
+**It is two identities, and the paid one has two routes that bill differently.**
+That is the part worth internalising — *the route decides who pays, not the key.*
 
-Measured 2026-08-06: the two keys are genuinely different values (53 vs 39
+| identity | route | who pays | binding constraint |
+|---|---|---|---|
+| **`GEMINI_API_KEY`** — free tier | AI Studio (`generativelanguage`) | **nobody** | hard **requests-per-day** caps: ~20/day flagship Flash, 500/day Flash Lite ([`../providers/gemini.md`](../providers/gemini.md)) |
+| **the paid GCP project** — SA from Railway | **Vertex** (`aiplatform`) | the **prepaid credit**, €251.37 left | no RPD cliff; **no server-side conversation history** |
+| **the paid GCP project** — `GEMINI_API_KEY_PAID` | AI Studio (`generativelanguage`) | **the owner's card** | none — and that is the problem |
+
+Rows 2 and 3 are the **same billing project**. The credit
+[excludes the "Gemini API in AI Studio" SKU](#why--the-paths-are-funded-differently)
+and does not exclude Vertex, so the identical project is credit-funded on one
+host and card-funded on the other. Owner, 2026-08-06:
+
+> *"Vertex is only available on the paid key, which uses the $300 of free
+> credits when routed through Vertex. But uses my own personal credit when
+> directly invoking the Gemini API."*
+
+Measured 2026-08-06: the two env vars are genuinely different values (53 vs 39
 chars), not one key under two names.
+
+**So `generativelanguage` is not one thing.** Hitting it with
+`GEMINI_API_KEY` costs nothing; hitting it with `GEMINI_API_KEY_PAID` bills the
+card. Any AI Studio call — the Interactions API included — should carry the
+**free** key unless its daily cap is genuinely in the way.
 
 **What this changes in practice.** The free key is not merely "the cheap
 option" — it is the only path that serves the **Interactions API**

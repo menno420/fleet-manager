@@ -98,18 +98,22 @@ Essentials:
   (`GIT_CONFIG_GLOBAL=/dev/null` + `https://x-access-token:$GITHUB_PAT@github.com/…`).
 - The *proxied* GitHub REST path 403s. That is a path quirk — switch to direct
   egress — **not a wall.**
-- **Gemini: three funded paths, not two — know which one you are on.**
-  `GEMINI_API_KEY` is **free tier** (hard caps: ~20 requests/day flagship Flash,
-  500/day Flash Lite, and it is the only path serving the **Interactions API**
-  for server-side history). **Vertex** spends a **€251.37 credit balance already
-  paid for** — no daily cliff, but no server-side history, so conversations
-  resend their transcript every turn. `GEMINI_API_KEY_PAID` spends **the owner's
-  card** — reach for it only when Vertex has actually failed, and say so in the
-  card. **Default to Vertex** for volume, image and video work (owner directive
-  2026-08-05, "at least this month"); the free key is right for a long
-  multi-turn exchange, where it is both free and more token-efficient. This
-  bullet used to say "the AI Studio key spends the owner's card" — singular,
-  which hid the free key behind the paid one. Same models on all three. The
+- **Gemini: two identities, and the paid one bills differently per route — the
+  route decides who pays, not the key.** `GEMINI_API_KEY` is **free tier** on
+  AI Studio: costs nothing, capped at ~20 requests/day flagship Flash and 500/day
+  Flash Lite, and it serves the **Interactions API** (server-side history). The
+  **paid GCP project** has two routes and they are *the same billing account*:
+  via **Vertex** it draws the **€251.37 prepaid credit** (no daily cliff, but no
+  server-side history — conversations resend their transcript every turn), while
+  `GEMINI_API_KEY_PAID` against `generativelanguage` bills **the owner's card**,
+  because the credit excludes the AI Studio SKU and does not exclude Vertex.
+  **Default to Vertex** for volume, image and video (owner directive 2026-08-05,
+  "at least this month"); use the **free** key for any AI Studio call, including
+  a long multi-turn exchange where it is both free and more token-efficient;
+  reach for `GEMINI_API_KEY_PAID` only when Vertex has actually failed, and say
+  so in the session card. This bullet used to say "the AI Studio key spends the
+  owner's card" — singular, which hid the free key behind the paid one. Same
+  models everywhere. The
   service account is not in your environment — pull `GEMINI_VERTEX_SA_JSON` from
   Railway (`reliable-grace` / `worker` / `production`) with `$RAILWAY_API_KEY`,
   then OAuth to `aiplatform.googleapis.com`. Grounding is `googleSearch`

@@ -1,4 +1,4 @@
-# 2026-08-06 · hub — a free key hidden behind a paid one
+# 2026-08-06 · hub — a free key hidden behind a paid one, and the route that decides who pays
 
 > **Status:** `complete`
 
@@ -25,11 +25,26 @@ the half every session reads first.
 
 ## The corrected model
 
-| env var | funded by | binding constraint |
-|---|---|---|
-| **`GEMINI_API_KEY`** | **nothing — free tier** | ~20 req/day flagship Flash, 500/day Flash Lite. **Only path serving the Interactions API** (server-side history) |
-| **Vertex** (SA from Railway) | prepaid credit, €251.37 left | no daily cliff; **no server-side history** — `interactions:create` → `RESOURCE_PROJECT_INVALID` here, so transcripts resend every turn |
-| `GEMINI_API_KEY_PAID` | **the owner's card** | none, which is the problem |
+**Two identities, and the paid one has two routes that bill differently.** The
+first draft of this card called it "three paths", which implied three separate
+credentials. The owner corrected the framing, and his version is the one that
+predicts behaviour:
+
+> *"Vertex is only available on the paid key, which uses the $300 of free
+> credits when routed through Vertex. But uses my own personal credit when
+> directly invoking the Gemini API."*
+
+| identity | route | who pays | constraint |
+|---|---|---|---|
+| **`GEMINI_API_KEY`** — free tier | AI Studio | **nobody** | ~20 req/day flagship Flash, 500/day Flash Lite. **Serves the Interactions API** (server-side history) |
+| **paid GCP project** — SA | **Vertex** | prepaid credit, €251.37 left | no daily cliff; **no server-side history** — `interactions:create` → `RESOURCE_PROJECT_INVALID` here, so transcripts resend every turn |
+| **paid GCP project** — `GEMINI_API_KEY_PAID` | AI Studio | **the owner's card** | none, which is the problem |
+
+Rows 2 and 3 are the **same billing account**. The credit excludes the "Gemini
+API in AI Studio" SKU and does not exclude Vertex, so one project is
+credit-funded on one host and card-funded on the other. **The route decides who
+pays, not the key** — and it follows that `generativelanguage` is not one thing:
+free on one key, billed on the other.
 
 The non-obvious consequence: **for a long multi-turn exchange the free key beats
 Vertex on both axes** — free, and server-side history means linear rather than
@@ -60,8 +75,9 @@ and step 0 exists precisely so that asking beats probing when he is present.
 
 - `.claude/CLAUDE.md` — the Gemini bullet now carries all three paths and says
   outright that it used to hide the free one.
-- `docs/conventions/vertex-first-for-gemini.md` — new lead section, *"There are
-  THREE paths, not two"*; the old heading said two.
+- `docs/conventions/vertex-first-for-gemini.md` — new lead section carrying the
+  identity/route split and the owner's own statement of it; the old heading said
+  "the two paths" and never mentioned the free key.
 - `.claude/hooks/doc-routes.json` — the `gemini` route carries the three-path
   model and now also triggers on `GEMINI_API_KEY_PAID`, so reaching for the card
   surfaces the free alternative.
