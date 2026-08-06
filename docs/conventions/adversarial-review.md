@@ -364,6 +364,62 @@ source — one from a failure corpus, the other from round-5 evidence, neither
 having seen the other. Same shape as the three-session convergence behind
 DISCOVERY RULE step 0.
 
+## The permanent false positive: a checker cannot tell use from mention
+
+`MEASURED`, three instances on 2026-08-06, in three different documents by two
+authors:
+
+| what tripped it | author |
+|---|---|
+| the `recording-a-wall` route firing on the commit documenting it | hub |
+| a boot-file line refuting the kit's NOTE about the rules API — which returns 200 | hub |
+| PL-015's example table of walls, in `substrate-kit#580` | the kit session |
+
+One cause, and it has a precise name: **a checker over prose cannot distinguish
+use from mention.** That is sharper than *"never mechanise meaning"* because it
+says *which* meaning is out of reach. **A repo whose doctrine is "never write a
+wall" will always contain documents that discuss walls, and its checker will
+always flag them.** Permanent, predictable, and not a bug.
+
+**Do not carve out an exemption.** The false positive has been **productive all
+three times** — every instance forced the same fix, putting the repudiation in
+the same clause as the phrase, and every time that produced *better* prose. An
+ambiguous *"this is a wall"* became an unambiguous *"this was claimed and is
+false."* The cost is a rewrite that improves the document; exemptions get gamed
+and this noise is earning its place.
+
+**The general form:** when a deterministic checker matches a *token*, it is
+mechanising a token and not meaning — which is correct and gateable. Its false
+positives land exactly where the token is **quoted rather than asserted**, and
+that is a writing problem with a cheap fix, not a checker defect.
+
+### Refinement, from instance four — which fired on this very section
+
+Writing the paragraph above tripped it again. The table row for instance two
+had quoted the offending token directly, with the word *refuting* beside it, and
+the checker flagged it anyway. **A table cell is its own clause scope** — too
+small to carry both a token and the sentence that repudiates it, because the
+surrounding prose is out of scope.
+
+**Then instance five fired on the fix.** The first draft of this very paragraph
+*quoted the flagged row* in order to explain it — which reproduces the token one
+more time. **Documenting a mention creates another mention**, so the incident
+report has to be written without the trigger: **describe the claim, never quote
+it.** That is where the recursion terminates, and only there.
+
+So the workaround has a boundary worth knowing:
+
+- **In prose**, put the refutation in the same sentence as the token. Works.
+- **In a table cell, a heading, or a list item**, it often does not — the scope
+  is too small to carry both. **Describe the claim instead of quoting the
+  token.** The row now reads *"the kit's NOTE about the rules API — which
+  returns 200"*, which is clearer anyway.
+
+Two checkers also disagreed on it: fleet-manager's `check_no_false_walls.py`
+returned **0** while the kit's `bootstrap.py check --strict` flagged it. Same
+doctrine, different sensitivity — **so "the gate is green" is a claim about
+*which* gate**, and running one is not evidence about the other.
+
 ## Honest nulls
 
 - **Unratified.** The owner has not adopted this; a second session is building
