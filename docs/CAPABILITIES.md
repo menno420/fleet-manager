@@ -164,6 +164,28 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-06 · capability · `any` · **The GitHub rulesets API is readable AND
+  writable agent-side, and `substrate-gate` is now a REQUIRED status check on
+  fleet-manager `main`.** · evidence: `GET
+  /repos/menno420/fleet-manager/rules/branches/main` → **200**; `GET` and `PUT
+  /repos/menno420/fleet-manager/rulesets/18725475` → **200**, adding a
+  `required_status_checks` rule with context `substrate-gate` while preserving
+  the existing `pull_request` rule and empty `bypass_actors` (read-modify-write,
+  not replace). Re-read from the independent effective-rules endpoint after the
+  write, not trusted from the write response. All over direct egress
+  (`curl --noproxy '*'`). · workaround: n/a. **This refutes a wall the kit
+  itself prints:** every `bootstrap.py check --strict` run emits *"NOTE —
+  enforcement-required-unverified — whether `substrate-gate` is a REQUIRED
+  status check on the base branch is owner-UI state this gate cannot read
+  (rules API; 403-walled to agents)"*. It is not 403-walled and it is not
+  owner-UI-only. A session repeated that message as fact today before testing
+  it — **read the endpoint, do not quote the NOTE.** Kit-side follow-up: the
+  message should be corrected at source in substrate-kit.
+  **What actually changed for merges:** until 2026-08-06 `main` carried a
+  `pull_request` rule and **zero** required checks, so a red gate decorated a PR
+  and never blocked it — which is how conflict markers reached `main` and
+  silently disabled the doc-routing hook the same day. Red now blocks.
+  — LAST-VERIFIED: 2026-08-06
 - 2026-08-06 · capability · `any` · **Gemini is TWO identities, and the paid
   one bills differently per route — the route decides who pays, not the key.
   The boot file collapsed all of it into one line.**
