@@ -1,11 +1,11 @@
 {
   "_comment": [
-    "Route table for .claude/hooks/route_docs.py — see .claude/hooks/README.md.",
+    "Route table for .claude/hooks/route_docs.py \u2014 see .claude/hooks/README.md.",
     "A route fires when one of its `when` regexes matches the tool input, and",
     "surfaces `says` plus the `docs` paths as additionalContext. Once per route",
     "per session. Validated by tools/check_doc_routes.py, which requires that at",
     "least one `when` pattern actually occurs in at least one of the route's docs",
-    "— so a doc that stops covering its trigger fails the check instead of",
+    "\u2014 so a doc that stops covering its trigger fails the check instead of",
     "quietly routing a session to the wrong page.",
     "Adding a route is cheap and reversible. The bar: a session that skipped this",
     "doc would probe blind and could conclude 'unavailable' about something that",
@@ -14,9 +14,12 @@
   "routes": [
     {
       "id": "recording-a-wall",
-      "tools": ["Edit", "Write"],
+      "tools": [
+        "Edit",
+        "Write"
+      ],
       "when": [
-        "·\\s*wall\\s*·",
+        "\u00b7\\s*wall\\s*\u00b7",
         "\\b(is|are|was|were)\\s+not\\s+(available|supported|reachable|possible|enabled)",
         "\\bunavailable\\b",
         "\\bcannot be (used|called|reached|enabled)",
@@ -24,8 +27,10 @@
         "preview-gated",
         "\\bwalled\\b"
       ],
-      "docs": ["docs/CAPABILITIES.md"],
-      "says": "STOP — you are about to write a limitation down. Two checks first, in this order. (1) DID THE OWNER SAY OTHERWISE? His statements about this estate are source truth, not a hypothesis your probe gets to overturn — a failed call means you used the wrong path, not that he was wrong. This exact failure is on the record: 2026-08-05 he wrote that the Interactions API 'works fully turn based and stored session history', a probe of the Vertex path returned RESOURCE_PROJECT_INVALID, and 'unavailable' went into the ledger anyway. It works, on the other surface, exactly as he said. (2) Has the estate already measured it? grep docs/providers/ and docs/conventions/ before recording anything. See THE DISCOVERY RULE step 0."
+      "docs": [
+        "docs/CAPABILITIES.md"
+      ],
+      "says": "STOP \u2014 you are about to write a limitation down. Two checks first, in this order. (1) DID THE OWNER SAY OTHERWISE? His statements about this estate are source truth, not a hypothesis your probe gets to overturn \u2014 a failed call means you used the wrong path, not that he was wrong. This exact failure is on the record: 2026-08-05 he wrote that the Interactions API 'works fully turn based and stored session history', a probe of the Vertex path returned RESOURCE_PROJECT_INVALID, and 'unavailable' went into the ledger anyway. It works, on the other surface, exactly as he said. (2) Has the estate already measured it? grep docs/providers/ and docs/conventions/ before recording anything. See THE DISCOVERY RULE step 0."
     },
     {
       "id": "discovery-probe",
@@ -37,8 +42,10 @@
         "openapi\\.json",
         "/\\$metadata"
       ],
-      "docs": ["docs/CAPABILITIES.md"],
-      "says": "You are about to infer an API's shape from its own spec. A discovery document that omits an endpoint is NOT evidence the endpoint is absent — measured 2026-08-05: generativelanguage's discovery doc (v1beta and v1alpha, both 200) has zero hits for `interactions`, and the endpoint works. Check the estate's own provider doc before concluding anything is unavailable, and see THE DISCOVERY RULE."
+      "docs": [
+        "docs/CAPABILITIES.md"
+      ],
+      "says": "You are about to infer an API's shape from its own spec. A discovery document that omits an endpoint is NOT evidence the endpoint is absent \u2014 measured 2026-08-05: generativelanguage's discovery doc (v1beta and v1alpha, both 200) has zero hits for `interactions`, and the endpoint works. Check the estate's own provider doc before concluding anything is unavailable, and see THE DISCOVERY RULE."
     },
     {
       "id": "gemini",
@@ -56,7 +63,7 @@
         "docs/conventions/vertex-first-for-gemini.md",
         "docs/providers/gemini.md"
       ],
-      "says": "Default to Vertex, not the AI Studio key (owner directive 2026-08-05): the AI Studio key spends the owner's card, Vertex spends a credit balance already paid for. Pull GEMINI_VERTEX_SA_JSON from Railway, then OAuth to aiplatform.googleapis.com. Grounding is `googleSearch` (camelCase) on Vertex. For multi-turn work use the Interactions API — POST /v1beta/interactions with previous_interaction_id keeps history server-side; generateContent is the stateless legacy path. tools/gemini_delegate.py already implements both."
+      "says": "Default to Vertex, not the AI Studio key (owner directive 2026-08-05): the AI Studio key spends the owner's card, Vertex spends a credit balance already paid for. Pull GEMINI_VERTEX_SA_JSON from Railway, then OAuth to aiplatform.googleapis.com. Grounding is `googleSearch` (camelCase) on Vertex. For multi-turn work use the Interactions API \u2014 POST /v1beta/interactions with previous_interaction_id keeps history server-side; generateContent is the stateless legacy path. tools/gemini_delegate.py already implements both."
     },
     {
       "id": "github-api",
@@ -66,8 +73,10 @@
         "GITHUB_PAT",
         "uploads\\.github\\.com"
       ],
-      "docs": ["docs/CAPABILITIES.md"],
-      "says": "The token is a full, account-scoped PAT — admin plus push on every repo. Use direct egress: `curl --noproxy '*'`, or requests with trust_env=False and verify=/root/.ccr/ca-bundle.crt. The PROXIED REST path 403s; that is a path quirk, not a permission boundary, and not a wall. Merging PRs, deleting branches, editing rulesets, creating releases and tags are all normal agent work."
+      "docs": [
+        "docs/CAPABILITIES.md"
+      ],
+      "says": "The token is a full, account-scoped PAT \u2014 admin plus push on every repo. Use direct egress: `curl --noproxy '*'`, or requests with trust_env=False and verify=/root/.ccr/ca-bundle.crt. The PROXIED REST path 403s; that is a path quirk, not a permission boundary, and not a wall. Merging PRs, deleting branches, editing rulesets, creating releases and tags are all normal agent work."
     },
     {
       "id": "railway",
@@ -76,8 +85,10 @@
         "RAILWAY_API_KEY",
         "\\brailway\\s+(variables|run|up|link|logs)\\b"
       ],
-      "docs": ["docs/conventions/vertex-first-for-gemini.md"],
-      "says": "The Railway token is account-scoped and unrestricted. § 1 of this doc has the working GraphQL call for reading a service's environment variables (project / service / environment triple), which is how secrets that are not in your container get retrieved."
+      "docs": [
+        "docs/conventions/vertex-first-for-gemini.md"
+      ],
+      "says": "The Railway token is account-scoped and unrestricted. \u00a7 1 of this doc has the working GraphQL call for reading a service's environment variables (project / service / environment triple), which is how secrets that are not in your container get retrieved."
     },
     {
       "id": "provisioned-secrets",
@@ -87,8 +98,10 @@
         "printenv\\s*\\|\\s*grep",
         "\\bBOT_TOKEN\\b"
       ],
-      "docs": ["docs/CAPABILITIES.md"],
-      "says": "Secrets are provisioned in the environment — sessions routinely forget they exist and declare a task blocked. Check with `printenv | grep -iE 'token|key|railway|discord'`. Confirm PRESENCE only (names, never values) and use them via the env var. See § CAN — Use provisioned secrets."
+      "docs": [
+        "docs/CAPABILITIES.md"
+      ],
+      "says": "Secrets are provisioned in the environment \u2014 sessions routinely forget they exist and declare a task blocked. Check with `printenv | grep -iE 'token|key|railway|discord'`. Confirm PRESENCE only (names, never values) and use them via the env var. See \u00a7 CAN \u2014 Use provisioned secrets."
     },
     {
       "id": "video-audio",
@@ -97,8 +110,11 @@
         "\\bffprobe\\b",
         "\\.(mp4|webm|mov|mkv|mp3|wav|m4a|ogg)\\b"
       ],
-      "docs": ["docs/CAPABILITIES.md"],
-      "says": "Reading video and audio was written down as impossible here once and it is not: extract frames with ffmpeg and read them, and pull audio to a supported container. See § CAN — View video / audio files for the exact recipe before concluding a media file is unreadable."
+      "docs": [
+        "docs/conventions/reading-screen-recordings.md",
+        "docs/CAPABILITIES.md"
+      ],
+      "says": "Video is readable \u2014 but sampling rate, not legibility, decides how much you actually read. Gemini samples at 1 fps by DEFAULT: measured on a 6.6s phone scroll, 5 of 6 consecutive-frame pairs shared NO content, and the reply still reads as a clean transcript. Set videoMetadata.fps to 16 on Vertex (0 gaps of 105 pairs; 8 fps still had 5) and ask the model to report its own coverage. Do NOT verify coverage by measuring displacement \u2014 it aliases on repetitive UI and fabricates motion. ffmpeg is not installed here; `pip install imageio-ffmpeg` supplies it without root."
     },
     {
       "id": "youtube",
@@ -108,8 +124,10 @@
         "youtu\\.be/",
         "\\byt-dlp\\b"
       ],
-      "docs": ["docs/CAPABILITIES.md"],
-      "says": "youtube_transcript_api is IP-blocked from datacenter addresses, so sessions conclude transcripts are impossible. They are not: `yt-dlp --skip-download --write-auto-sub <url>` works via its android-vr endpoint, then parse the .vtt. See § CAN — YouTube transcripts."
+      "docs": [
+        "docs/CAPABILITIES.md"
+      ],
+      "says": "youtube_transcript_api is IP-blocked from datacenter addresses, so sessions conclude transcripts are impossible. They are not: `yt-dlp --skip-download --write-auto-sub <url>` works via its android-vr endpoint, then parse the .vtt. See \u00a7 CAN \u2014 YouTube transcripts."
     },
     {
       "id": "shared-ai-chat",
@@ -120,74 +138,138 @@
         "gemini\\.google\\.com/share",
         "read_shared_chat"
       ],
-      "docs": ["docs/conventions/reading-shared-ai-chats.md"],
+      "docs": [
+        "docs/conventions/reading-shared-ai-chats.md"
+      ],
       "says": "Shared-chat links do not render usefully through a plain fetch. tools/read_shared_chat.py handles the per-provider extraction; this doc records which providers work and what each returns."
     },
     {
       "id": "openai",
-      "when": ["api\\.openai\\.com", "OPENAI_API_KEY", "\\bcodex\\b"],
-      "docs": ["docs/providers/chatgpt.md"],
-      "says": "Model family, the post-consolidation modes, and the Work / Codex cloud environment with its variables, secrets and network defaults are recorded here — including which surfaces have network during which phase."
+      "when": [
+        "api\\.openai\\.com",
+        "OPENAI_API_KEY",
+        "\\bcodex\\b"
+      ],
+      "docs": [
+        "docs/providers/chatgpt.md"
+      ],
+      "says": "Model family, the post-consolidation modes, and the Work / Codex cloud environment with its variables, secrets and network defaults are recorded here \u2014 including which surfaces have network during which phase."
     },
     {
       "id": "anthropic",
-      "when": ["api\\.anthropic\\.com", "ANTHROPIC_API_KEY", "platform\\.claude\\.com"],
-      "docs": ["docs/providers/claude.md"],
+      "when": [
+        "api\\.anthropic\\.com",
+        "ANTHROPIC_API_KEY",
+        "platform\\.claude\\.com"
+      ],
+      "docs": [
+        "docs/providers/claude.md"
+      ],
       "says": "Model IDs re-derived from Anthropic's own changelog, the surfaces, what a Code session can actually do here, and the estate-specific quirks that have previously produced false walls."
     },
     {
       "id": "deepseek",
-      "when": ["api\\.deepseek\\.com", "DEEPSEEK_API_KEY", "deepseek-(chat|reasoner|v[0-9])"],
-      "docs": ["docs/providers/deepseek.md"],
+      "when": [
+        "api\\.deepseek\\.com",
+        "DEEPSEEK_API_KEY",
+        "deepseek-(chat|reasoner|v[0-9])"
+      ],
+      "docs": [
+        "docs/providers/deepseek.md"
+      ],
       "says": "The V4 pair, the thinking modes, the MIT open weights, and the pricing (including the peak-hour band) that makes this the cost floor of the provider set."
     },
     {
       "id": "grok",
-      "when": ["api\\.x\\.ai", "XAI_API_KEY", "\\bgrok-[0-9]"],
-      "docs": ["docs/providers/grok.md"],
-      "says": "xAI's text models and reasoning knobs, the image/video/voice stack, X Search — and the silent-redirect retirement scheme, which is why a model ID that still answers is not proof the model you asked for ran."
+      "when": [
+        "api\\.x\\.ai",
+        "XAI_API_KEY",
+        "\\bgrok-[0-9]"
+      ],
+      "docs": [
+        "docs/providers/grok.md"
+      ],
+      "says": "xAI's text models and reasoning knobs, the image/video/voice stack, X Search \u2014 and the silent-redirect retirement scheme, which is why a model ID that still answers is not proof the model you asked for ran."
     },
     {
       "id": "mistral",
-      "when": ["api\\.mistral\\.ai", "MISTRAL_API_KEY", "mistral-(large|small|medium)"],
-      "docs": ["docs/providers/mistral.md"],
-      "says": "The per-model licence mix (Apache / MIT / Premier / NC) governs whether you may self-host a given model, plus the specialist bench — OCR, Voxtral audio."
+      "when": [
+        "api\\.mistral\\.ai",
+        "MISTRAL_API_KEY",
+        "mistral-(large|small|medium)"
+      ],
+      "docs": [
+        "docs/providers/mistral.md"
+      ],
+      "says": "The per-model licence mix (Apache / MIT / Premier / NC) governs whether you may self-host a given model, plus the specialist bench \u2014 OCR, Voxtral audio."
     },
     {
       "id": "cohere",
-      "when": ["api\\.cohere", "COHERE_API_KEY", "command-a"],
-      "docs": ["docs/providers/cohere.md"],
+      "when": [
+        "api\\.cohere",
+        "COHERE_API_KEY",
+        "command-a"
+      ],
+      "docs": [
+        "docs/providers/cohere.md"
+      ],
       "says": "The retrieval specialist: Command A+ under Apache 2.0, the context-vs-output trade inside the Command line, and first-party Embed/Rerank."
     },
     {
       "id": "copilot",
-      "when": ["\\bcopilot\\b", "githubcopilot\\.com"],
-      "docs": ["docs/providers/github-copilot.md"],
-      "says": "The provider this estate touches without choosing it. Covers the cloud agent's Actions environment — firewall behaviour and which secrets actually reach the agent — plus AI-credits billing."
+      "when": [
+        "\\bcopilot\\b",
+        "githubcopilot\\.com"
+      ],
+      "docs": [
+        "docs/providers/github-copilot.md"
+      ],
+      "says": "The provider this estate touches without choosing it. Covers the cloud agent's Actions environment \u2014 firewall behaviour and which secrets actually reach the agent \u2014 plus AI-credits billing."
     },
     {
       "id": "llama",
-      "when": ["ai\\.meta\\.com", "\\bllama-?[34]\\b", "llama\\.cpp"],
-      "docs": ["docs/providers/meta-llama.md"],
+      "when": [
+        "ai\\.meta\\.com",
+        "\\bllama-?[34]\\b",
+        "llama\\.cpp"
+      ],
+      "docs": [
+        "docs/providers/meta-llama.md"
+      ],
       "says": "The open-weights generations and their Community License terms, and the 2026 pivot to Muse that froze the open line at Llama 4."
     },
     {
       "id": "owner-drive",
-      "when": ["drive\\.google\\.com", "drive\\.usercontent\\.google\\.com", "GOOGLE_DRIVE"],
-      "docs": ["docs/conventions/owner-drive-folder.md"],
+      "when": [
+        "drive\\.google\\.com",
+        "drive\\.usercontent\\.google\\.com",
+        "GOOGLE_DRIVE"
+      ],
+      "docs": [
+        "docs/conventions/owner-drive-folder.md"
+      ],
       "says": "The owner's shared Drive folder has a fixed convention for where things land and how they are named. Read it before writing anything there, so a delivery does not go somewhere he will not look."
     },
     {
       "id": "outbox",
-      "when": ["\\boutbox\\b"],
-      "docs": ["docs/conventions/outbox-rollover.md"],
-      "says": "The outbox has a rollover convention — how it is emptied and what happens to items that were never collected. Follow it rather than inventing a scheme."
+      "when": [
+        "\\boutbox\\b"
+      ],
+      "docs": [
+        "docs/conventions/outbox-rollover.md"
+      ],
+      "says": "The outbox has a rollover convention \u2014 how it is emptied and what happens to items that were never collected. Follow it rather than inventing a scheme."
     },
     {
       "id": "empty-repo-first-commit",
-      "when": ["git push.*--set-upstream.*\\bmain\\b.*\\bempty\\b", "create_or_update_file"],
-      "docs": ["docs/CAPABILITIES.md"],
-      "says": "git push to a genuinely empty repo fails through the proxy tooling. Make the first commit via the Contents API (create_or_update_file / push_files) — that creates main, and normal git works from then on. Playbook R13."
+      "when": [
+        "git push.*--set-upstream.*\\bmain\\b.*\\bempty\\b",
+        "create_or_update_file"
+      ],
+      "docs": [
+        "docs/CAPABILITIES.md"
+      ],
+      "says": "git push to a genuinely empty repo fails through the proxy tooling. Make the first commit via the Contents API (create_or_update_file / push_files) \u2014 that creates main, and normal git works from then on. Playbook R13."
     }
   ]
 }
