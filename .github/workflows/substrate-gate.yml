@@ -81,6 +81,20 @@ jobs:
         if: steps.lane.outputs.control_only != 'true'
         with:
           python-version: "3.x"
+      - name: repo checkers (doc routes + no false walls)
+        if: steps.lane.outputs.control_only != 'true'
+        # Wired 2026-08-06 after a merge landed conflict markers on main:
+        # doc-routes.json stopped parsing, route_docs.py took its fail-open
+        # path, and the doc-routing hook went SILENT for every session with
+        # nothing red anywhere. check_doc_routes.py --strict exits 1 on
+        # unparseable JSON and would have caught it — it was simply wired into
+        # no workflow, which docs/CAPABILITIES.md had already recorded as
+        # self-enforced discipline. Self-enforced meant unenforced.
+        # Cheap, deterministic, no judgement — exactly the tier that belongs on
+        # a hard gate (findings/2026-08-05-foundation-continuation.md § 5).
+        run: |
+          python3 tools/check_doc_routes.py --strict
+          python3 tools/check_no_false_walls.py --strict
       - name: substrate gate (docs + session-log required)
         if: steps.lane.outputs.control_only != 'true'
         # Gate on the session cards THIS PR/push touches (CI flattens

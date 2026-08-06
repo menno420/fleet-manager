@@ -55,6 +55,7 @@
         "GEMINI_API_KEY_PAID",
         "GEMINI_VERTEX_SA",
         "aiplatform\\.googleapis\\.com",
+        "deep[-_ ]?research",
         "gemini-[0-9]",
         "gemini_delegate",
         "generativelanguage\\.googleapis\\.com",
@@ -64,7 +65,7 @@
         "docs/conventions/vertex-first-for-gemini.md",
         "docs/providers/gemini.md"
       ],
-      "says": "TWO identities, and the paid one bills differently per route \u2014 THE ROUTE DECIDES WHO PAYS, NOT THE KEY. GEMINI_API_KEY is free tier on AI Studio: costs nothing, capped ~20 req/day flagship Flash and 500/day Flash Lite, and it serves the Interactions API (POST /v1beta/interactions + previous_interaction_id, server-side history). The paid GCP project has two routes on the SAME billing account: via Vertex it draws the prepaid credit (no daily cliff, but NO server-side history, so conversations resend their whole transcript each turn), while GEMINI_API_KEY_PAID against generativelanguage bills the OWNER'S CARD \u2014 the credit excludes the AI Studio SKU and does not exclude Vertex. So: Vertex for volume, image and video; the FREE key for any AI Studio call including long multi-turn; the paid key only when Vertex has actually failed, and say so in the session card. Pull GEMINI_VERTEX_SA_JSON from Railway; grounding is `googleSearch` (camelCase) on Vertex. tools/gemini_delegate.py implements both."
+      "says": "TWO identities, and the paid one bills differently per route \u2014 THE ROUTE DECIDES WHO PAYS, NOT THE KEY. GEMINI_API_KEY is free tier on AI Studio: costs nothing, capped ~20 req/day flagship Flash and 500/day Flash Lite, and it serves the Interactions API (POST /v1beta/interactions + previous_interaction_id, server-side history). The paid GCP project has two routes on the SAME billing account: via Vertex it draws the prepaid credit (no daily cliff, but NO server-side history, so conversations resend their whole transcript each turn), while GEMINI_API_KEY_PAID against generativelanguage bills the OWNER'S CARD \u2014 the credit excludes the AI Studio SKU and does not exclude Vertex. So: Vertex for volume, image and video; the FREE key for any AI Studio call including long multi-turn; the paid key only when Vertex has actually failed OR for DEEP RESEARCH, which is not on Vertex at all and not on the free tier either \u2014 that is the one documented exception, so use the paid key for it without hunting for a Vertex route that does not exist. Say so in the session card either way. Pull GEMINI_VERTEX_SA_JSON from Railway; grounding is `googleSearch` (camelCase) on Vertex. tools/gemini_delegate.py implements both."
     },
     {
       "id": "github-api",
