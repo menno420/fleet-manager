@@ -104,6 +104,31 @@ gate at all"* skips the option that fits. Gate on this and nothing more:
   shape proves only that they look like commands, which is theatre by the same
   argument that kills word-count.
 
+> ### ⚠ Scope, not just cost — added 2026-08-06 after round 6
+>
+> **Two of the clauses above look free and are not, and the difference is
+> scope.** The kit's session-card marker mechanism is a `{label, needle}`
+> substring list driven by config rather than code, so *"presence"* and
+> *"Layer 2 occurred"* cost nothing to add. But `missing_markers` scans **every
+> configured needle against every completed card**, and `check_added_card` calls
+> it on any added card. **There is no conditional form.**
+>
+> So routing those clauses through session markers does **not** implement a
+> conditional trigger set — it silently implements **gate-every-card, in every
+> adopter that upgrades**, reddening work that never touched a decision surface.
+>
+> **Free on cost. Global in scope.** The hub session verified what the mechanism
+> *does* and assumed what it *applies to* — PL-015's second corollary (*point
+> the script at the artifact that will actually be graded*) applied to a claim
+> rather than a script. Found by Codex on `substrate-kit#580` round 6, verified
+> in the tree by the kit session rather than taken on the hub's word.
+>
+> **Consequence for the design:** either all four clauses move into a
+> conditional checker — at which point "mostly free" is false and the cheap
+> version is not cheap — or gate-every-card is accepted and **stated plainly**
+> rather than described as conditional. **Do not describe a trigger set the
+> mechanism cannot deliver.**
+
 **Be honest about what that buys: it catches an ABSENT answer, not an unsound
 one.** Soundness is read by the owner. That is the same division session cards
 already use — the checker verifies the card exists and is complete, the owner
@@ -419,6 +444,23 @@ Two checkers also disagreed on it: fleet-manager's `check_no_false_walls.py`
 returned **0** while the kit's `bootstrap.py check --strict` flagged it. Same
 doctrine, different sensitivity — **so "the gate is green" is a claim about
 *which* gate**, and running one is not evidence about the other.
+
+## The hook's line needs an acceptance test, not just a length limit
+
+Added 2026-08-06 after round 6, and it corrects a gap the hub left. The hook's
+injected instruction was specified as **"one line"** — a *cost* constraint with
+no *content* requirement. **Any one-liner satisfies that while preventing none
+of the 11 corpus failures.**
+
+The fix is the acceptance test already proposed for the skill, applied to the
+hook itself:
+
+> **A candidate line is admissible only if you can name which corpus failures it
+> would have surfaced.** A line that scores zero does not go in.
+
+That is deterministic, it uses evidence the estate already has, and it stops the
+line being decorative — which is the same failure the gate work spent six rounds
+demonstrating.
 
 ## Honest nulls
 
