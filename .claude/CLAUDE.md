@@ -39,6 +39,18 @@
 2. **The program:** `docs/planning/2026-07-26-consolidation-program.md` —
    THE working plan: owner directives OD-1..OD-12, the step ledger, the **NOW**
    pointer, and how a session works a step. Your work almost certainly lives here.
+   **Its NOW pointer is not the whole answer** — read entry 2b before acting on it.
+2b. **What supersedes the plan's next-actions:**
+   `docs/findings/2026-08-05-foundation-continuation.md` — the revised order of
+   work (foundation before rebuild), and a **certainty legend that governs how to
+   read every dated claim in this repo**: `MEASURED` / `MEASURED-PRIOR` / `OWNER` /
+   `REASONED` / `REVIEWED` / `UNVERIFIED` / `NOT-VERIFIABLE`. Its follow-on,
+   `docs/findings/2026-08-06-checker-classification.md`, carries the kit's checker
+   classification and the boot-path audit. **This entry exists for the same reason
+   entry 0 does** (2026-08-06): the doc calls itself the one that "supersedes
+   everything else about what to do next", and on the day it was written *nothing*
+   in this read path referenced it — it was reachable only by being handed a prompt
+   that named it. A document that lives only in a handoff prompt is not in the repo.
 3. **The story & state:** `docs/fleet-account-2026-07-26.md` — what happened
    (2025-08 → now) and each repo's terminal state, owner-reviewed. Read once;
    don't re-derive the history — it already distils `eap-story`,
