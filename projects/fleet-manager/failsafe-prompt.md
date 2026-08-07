@@ -1,12 +1,12 @@
-<!-- v9 · 2026-07-18 · fleet-manager projects registry — GENERATED COPY, do not edit
+<!-- v10 · 2026-07-18 · fleet-manager projects registry — GENERATED COPY, do not edit
      (regenerate: docs/prompts/v3/tools/regen_b_files.py --write-registry; drift guard: --check-registry) -->
-<!-- generated from docs/prompts/v3 @ f3554d8d3ce5cba14f8d48f78bbf42f9e260b965 (prompts v3.8, opening-block addition 2026-07-18) -->
+<!-- generated from docs/prompts/v3 @ 4fcc60e643a4696ab697142491db45b2f3499d98 (prompts v3.8, opening-block addition 2026-07-18) -->
 # Fleet Manager — failsafe cron text (registry copy, prompts v3.8)
 
 > **GENERATED COPY — NOT SOURCE OF TRUTH.** This registry copy is GENERATED FROM
 > the v3 home: **docs/prompts/v3/ is the source of truth** (generation v3.8,
 > stateless, D-9). Edit the v3 sources and regenerate — never this file.
-> Version lineage: v9 (2026-07-18) supersedes the prior registry sync copy.
+> Version lineage: v10 (2026-07-18) supersedes the prior registry sync copy.
 > Body below the marker wraps the seat's BOOT step-3a FAILSAFE WAKE text
 > (extracted from the seat's v3.8 startup — D-2 single source) with the seat
 > name + D-7 stagger-table cron.

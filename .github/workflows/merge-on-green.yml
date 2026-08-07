@@ -114,6 +114,14 @@ jobs:
           repo = os.environ["GITHUB_REPOSITORY"]
           PARK_LABELS = {"do-not-automerge", "owner-held"}
           SELF_CHECK_NAMES = {"merge-on-green"}  # see SELF-EXEMPTION header note
+          # Checks retired while PRs were open — see the note at the filter below.
+          # TIME-SCOPED on purpose: roster-freshness keeps workflow_dispatch and its
+          # job is now unconditionally BLOCKING, so a NEW on-demand run that goes red
+          # is a real signal and must still block. Only runs recorded BEFORE the
+          # retirement are ignored — those can never be replaced by a green run,
+          # because the trigger that produced them is gone.
+          RETIRED_CHECK_NAMES = {"freshness", "roster-freshness"}  # retired 2026-08-07
+          RETIRED_BEFORE = "2026-08-07T14:30:00Z"
 
           def gh(*args, ok_fail=False):
               # argv-only (never a shell string): PR-controlled values
@@ -207,9 +215,28 @@ jobs:
               _, out, _ = gh("api",
                              f"repos/{repo}/commits/{head_sha}/check-runs"
                              "?filter=latest&per_page=100", "--paginate",
-                             "--jq", '.check_runs[] | {name, status, conclusion} | @json')
+                             "--jq", '.check_runs[] | {name, status, conclusion, started_at} | @json')
+              # RETIRED_CHECK_NAMES: a check that no longer runs can still be
+              # recorded FAILED on an already-open PR's head, and the generic
+              # rule below would then reject that PR forever — the retirement
+              # removed the trigger, so no successful replacement run can ever
+              # overwrite it, and only a fresh commit would clear it. Ignoring
+              # the retired name by hand is the only way out. Caught by Codex on
+              # PR #812; latent rather than live at the time (0 open PRs), which
+              # is exactly the kind of thing that bites three weeks later.
+              def _retired_stale(cr):
+                  # Ignore ONLY a run of a retired check that is PROVABLY
+                  # pre-retirement. A queued run has no started_at, and an
+                  # empty string sorts before the cutoff — which would drop a
+                  # freshly dispatched (still queued) freshness check and let
+                  # the sweep merge before it reports. Absent timestamp =>
+                  # NOT exempt, so an unproven run keeps blocking. Fail safe.
+                  started = cr.get("started_at")
+                  return (cr["name"] in RETIRED_CHECK_NAMES
+                          and bool(started) and started < RETIRED_BEFORE)
               runs = {cr["name"]: cr for cr in parse_lines(out)
-                      if cr["name"] not in SELF_CHECK_NAMES}
+                      if cr["name"] not in SELF_CHECK_NAMES
+                      and not _retired_stale(cr)}
               if not runs:
                   skipped.append((n, "no check runs on head SHA — "
                                      "nothing verified")); continue

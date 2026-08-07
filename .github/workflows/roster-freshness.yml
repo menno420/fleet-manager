@@ -45,15 +45,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - name: roster freshness (blocking on claude/*, advisory elsewhere)
+      - name: roster freshness (on-demand — always BLOCKING)
+        # The old body branched on `github.head_ref`, which is populated for
+        # pull_request events and EMPTY on workflow_dispatch. After the retirement
+        # left only the dispatch trigger, every manual run would have fallen into
+        # the `*)` advisory branch and exited 0 on a stale roster — an on-demand
+        # check that cannot report the thing it exists to report. Caught by Codex
+        # on PR #812.
+        #
+        # A dispatch is now unconditionally blocking: you only run this by hand,
+        # deliberately, after regenerating the roster, and a silent pass would make
+        # the run pointless. `--advisory` is still available by running
+        # scripts/check_roster_freshness.py directly.
         run: |
-          case "${{ github.head_ref }}" in
-            claude/*)
-              echo "manager-authored branch — freshness is BLOCKING"
-              python3 scripts/check_roster_freshness.py
-              ;;
-            *)
-              echo "non-manager branch — freshness is ADVISORY (never exit-affecting)"
-              python3 scripts/check_roster_freshness.py --advisory
-              ;;
-          esac
+          echo "on-demand roster freshness (ref: ${{ github.ref_name }}) — BLOCKING"
+          python3 scripts/check_roster_freshness.py
