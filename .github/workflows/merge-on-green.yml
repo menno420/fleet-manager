@@ -114,6 +114,8 @@ jobs:
           repo = os.environ["GITHUB_REPOSITORY"]
           PARK_LABELS = {"do-not-automerge", "owner-held"}
           SELF_CHECK_NAMES = {"merge-on-green"}  # see SELF-EXEMPTION header note
+          # Checks retired while PRs were open — see the note at the filter below.
+          RETIRED_CHECK_NAMES = {"freshness", "roster-freshness"}  # retired 2026-08-07
 
           def gh(*args, ok_fail=False):
               # argv-only (never a shell string): PR-controlled values
@@ -208,8 +210,17 @@ jobs:
                              f"repos/{repo}/commits/{head_sha}/check-runs"
                              "?filter=latest&per_page=100", "--paginate",
                              "--jq", '.check_runs[] | {name, status, conclusion} | @json')
+              # RETIRED_CHECK_NAMES: a check that no longer runs can still be
+              # recorded FAILED on an already-open PR's head, and the generic
+              # rule below would then reject that PR forever — the retirement
+              # removed the trigger, so no successful replacement run can ever
+              # overwrite it, and only a fresh commit would clear it. Ignoring
+              # the retired name by hand is the only way out. Caught by Codex on
+              # PR #812; latent rather than live at the time (0 open PRs), which
+              # is exactly the kind of thing that bites three weeks later.
               runs = {cr["name"]: cr for cr in parse_lines(out)
-                      if cr["name"] not in SELF_CHECK_NAMES}
+                      if cr["name"] not in SELF_CHECK_NAMES
+                      and cr["name"] not in RETIRED_CHECK_NAMES}
               if not runs:
                   skipped.append((n, "no check runs on head SHA — "
                                      "nothing verified")); continue

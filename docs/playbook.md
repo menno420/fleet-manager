@@ -51,9 +51,18 @@ day) unless a later date is noted next to the rule.
 11. **R11 — Orders carry done-when; owner asks carry click-level instructions AND stay
     valid until acted on.** *WHY: the manager once issued a click-list that expired in
     an hour — an ask the owner can't act on tomorrow is not an ask.* (2026-07-09)
-25. **R25 (2026-07-10) — Every manager wake regenerates `docs/roster.md` from the lane
+25. ~~**R25 (2026-07-10)**~~ **— RETIRED 2026-08-07 with the roster itself** (owner:
+    *"Yes retire the roster, I don't need it"*; fm PR #812). **Do NOT regenerate the
+    roster on a wake.** Disabling the crons alone would not have stopped the churn —
+    this rule and the rendered `projects/fleet-manager/coordinator-prompt.md` copy both
+    still ordered a session to regenerate a stale roster in its own PR, which would have
+    rebuilt the very deadlock the retirement removed. Caught by Codex review on #812,
+    not by the session that wrote the retirement. `docs/roster.md` is `historical`;
+    `scripts/gen_roster.py` and `workflow_dispatch` on `roster-regen.yml` remain for a
+    future multi-seat fleet. Original text, superseded:
+    *Every manager wake regenerates `docs/roster.md` from the lane
     heartbeats + live `list_triggers` (commit only on change); a roster stale >24h is
-    dead — trust the heartbeats directly** (ORDER 009, per
+    dead — trust the heartbeats directly* (ORDER 009, per
     `docs/proposals/generated-roster-from-heartbeats.md`). *WHY: the hand-stamped
     manifest froze stale twice in 30 hours; regeneration from the sources the freshness
     checker already reads kills the staleness class structurally.* (2026-07-10)

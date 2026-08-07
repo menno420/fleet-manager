@@ -10,9 +10,19 @@
 > still works on both, per **OD-3, archive never delete**.
 >
 > **Do not read the rows below as the state of anything.** They are frozen at
-> **Generation #430**, and every verdict in them says `DARK` or `UNREADABLE` because
-> the seats they measured were terminated **2026-07-21**. The instrument was working;
-> the question stopped existing. `fleet-account-2026-07-26.md` § 6 records this as
+> **Generation #430**, taken after the seats they measured were terminated
+> **2026-07-21**. The one thing worth reading off them: **not a single row is `LIVE`.**
+> The actual distribution is **18 `DARK` · 10 `n/a` (registry-only seats, no repo) ·
+> 3 `STALE-BY-DESIGN`**.
+>
+> *(An earlier version of this banner said "21 `DARK` / 3 `UNREADABLE`". That was
+> wrong, and wrong in an instructive way: it came from grepping the whole file for a
+> fixed list of verdict words, which counted the header prose where `UNREADABLE` is
+> **explained** as though it were a verdict **used**. There are zero `UNREADABLE` rows.
+> Caught by Codex on PR #812 — see `findings/2026-08-06-provenance-mechanism-measured.md`
+> and the use-vs-mention finding for the same failure in a checker.)*
+>
+> The instrument was working; the question stopped existing. `fleet-account-2026-07-26.md` § 6 records this as
 > contradiction #1 — *"the roster measures a program that ended; its regen keeps
 > running."*
 >
