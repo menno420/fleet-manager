@@ -547,7 +547,29 @@ fleet-wide merges/ready-flips live in
 
 ### (D) Standing decisions
 
-- **`OQ-FM-APPARATUS-SIZING` — right-size fleet-manager's own apparatus (NEXT-TASKS item 3).**
+- **`OQ-FM-APPARATUS-SIZING` ✅ RESOLVED 2026-08-07 — the owner answered: retire the roster.**
+  Verbatim, in the hub chat: *"Yes retire the roster, I don't need it."* Executed the same
+  session, and it went **further than the recommendation on file**, which was reduce-to-daily.
+  What landed: both `roster-regen.yml` cron lines removed and `roster-freshness.yml`'s
+  `pull_request` trigger removed (both keep `workflow_dispatch`, OD-3); `docs/roster.md`
+  era-bannered `historical` with what it was for kept in view; the dead `roster-freshness`
+  entry dropped from `merge-on-green.yml`'s `workflow_run` list; PR #808 closed unmerged with
+  its cause recorded.
+  **What forced the decision beyond noise:** the regen had *deadlocked*. It opened its PR with
+  `github.token`, GitHub suppresses workflow runs for that actor, `substrate-gate` therefore
+  never reported, and `main` requires it — 18 consecutive failed runs, a permanently
+  unmergeable PR, and a red `freshness` on every `claude/*` PR. The workflow's own header knew
+  the token behaviour and compensated by parking the PR for *"the next manager wake"*; that
+  wake was the autonomous fleet, which closed 2026-07-21. The last generation read **21 DARK /
+  3 UNREADABLE / 0 LIVE** — the instrument working perfectly, reporting hourly that nobody is
+  home.
+  **The other verdicts in this item stand and are unchanged:** KEEP `merge-on-green.yml`, KEEP
+  `substrate-gate.yml`, KEEP the S3/S5/S9 advisory checkers, HOLD `control/` + `telemetry/` as
+  history. `scripts/gen_roster.py` and `scripts/check_roster_freshness.py` are untouched and
+  still runnable. **Moots `OQ-FM-ROSTER-READ-PAT`** — that secret was conditional on retaining
+  roster autogen. Original body below, for the record.
+
+- **`OQ-FM-APPARATUS-SIZING` (superseded body) — right-size fleet-manager's own apparatus (NEXT-TASKS item 3).**
   WHAT: Decide which fleet-manager self-apparatus workflows/docs to **KEEP** vs **RETIRE/right-size**
   now that the fleet is a smaller set — a right-sizing pass on the self-apparatus.
   WHERE: `.github/workflows/**` (`merge-on-green.yml`, `substrate-gate.yml`, `roster-freshness.yml`,

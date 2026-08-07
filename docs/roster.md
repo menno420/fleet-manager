@@ -1,8 +1,36 @@
-# Fleet roster — GENERATED
+# Fleet roster — GENERATED · **HISTORICAL**
 
-> **Status:** `living-ledger`
+> ## ⛔ RETIRED 2026-08-07 — this file is a record, not current truth
 >
-> **GENERATED — do not hand-edit; regenerated each manager wake (`scripts/gen_roster.py`, R25).**
+> **Status:** `historical`
+>
+> The owner retired the roster on 2026-08-07: *"Yes retire the roster, I don't need
+> it."* Both `roster-regen.yml` cron lines are removed and `roster-freshness.yml` no
+> longer runs on pull requests. Neither workflow is deleted — `workflow_dispatch`
+> still works on both, per **OD-3, archive never delete**.
+>
+> **Do not read the rows below as the state of anything.** They are frozen at
+> **Generation #430**, and every verdict in them says `DARK` or `UNREADABLE` because
+> the seats they measured were terminated **2026-07-21**. The instrument was working;
+> the question stopped existing. `fleet-account-2026-07-26.md` § 6 records this as
+> contradiction #1 — *"the roster measures a program that ended; its regen keeps
+> running."*
+>
+> **What it was for, so the record is not lost:** during the autonomous program, 8–10
+> parallel seats ran mostly unattended across ~20 repos, and the hard question was
+> which lane had silently died. Each seat wrote a heartbeat; this file collected them
+> into one table. It replaced a **hand-kept** manifest that had been measured ~33.5h
+> stale with **9 of its 10 rows wrong** — which is why it was generated, why it had a
+> 4-hour freshness bar, and why `UNREADABLE` is a separate verdict from `DARK` (a repo
+> it could not fetch was never printed as a dead lane). That care was real and worth
+> keeping in view; it is simply aimed at a fleet that no longer exists.
+>
+> **If a multi-seat fleet ever returns**, `scripts/gen_roster.py` is untouched and
+> `workflow_dispatch` on `roster-regen` will regenerate this file.
+>
+> ---
+>
+> **GENERATED — do not hand-edit (`scripts/gen_roster.py`, R25). No longer regenerated on a schedule.**
 >
 > **Generation #430** · generated-at **2026-08-06T14:57Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81) · machine generation (`scripts/gen_roster.py`)
 >

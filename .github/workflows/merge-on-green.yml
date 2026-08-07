@@ -77,7 +77,10 @@ on:
   pull_request:
     types: [ready_for_review, synchronize, labeled, unlabeled]
   workflow_run:
-    workflows: [substrate-gate, roster-freshness]
+    # roster-freshness dropped 2026-08-07: it no longer runs on pull_request
+    # (retired with the roster), so listing it here is a trigger that can never
+    # fire. substrate-gate is the sole required check and the real signal.
+    workflows: [substrate-gate]
     types: [completed]
   schedule:
     # The reliable backstop lane (websites sweep shape): check_suite /
