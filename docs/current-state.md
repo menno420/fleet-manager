@@ -120,6 +120,21 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 
 ## Recently shipped (newest first)
 
+- **The roster is RETIRED** (2026-08-07, owner directive — *"Yes retire the roster, I don't
+  need it"*). Both `roster-regen.yml` cron lines and `roster-freshness.yml`'s `pull_request`
+  trigger are removed; both keep `workflow_dispatch` and neither file is deleted (OD-3).
+  [roster.md](roster.md) is era-bannered `historical` with its purpose preserved, PR #808 is
+  closed, `OQ-FM-APPARATUS-SIZING` is resolved and `OQ-FM-ROSTER-READ-PAT` is mooted.
+  **It had also deadlocked**, which is the part worth carrying: the regen opened its PR with
+  `github.token`, GitHub suppresses workflow runs for that actor, so `substrate-gate` never
+  reported on a branch whose base *requires* it — 18 consecutive failed runs and a permanently
+  unmergeable PR. The workflow's own header knew the token behaviour and compensated by parking
+  the PR for *"the next manager wake"*. That wake was the fleet, which closed 07-21: a design
+  that degraded gracefully then failed permanently. **Same root cause hit `curious-research`**,
+  where auto-merge landing PRs as `GITHUB_TOKEN` meant the site silently stopped publishing —
+  fixed there without a new credential, because a merge attributed to a real user is not
+  suppressed.
+
 - **External-review prompt for `curious-research`** (2026-08-07):
   [prompts/2026-08-07-curious-research-external-review.md](prompts/2026-08-07-curious-research-external-review.md)
   — paste-ready, for the owner's plan to have ChatGPT and Grok review the gift repo. Exists

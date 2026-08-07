@@ -20,9 +20,26 @@
 #   (that is the plan's "make regen a required, verified wake step" given
 #   teeth). ADVISORY (warn, exit 0) on every other branch — a lane/owner
 #   PR is never jammed by the manager's stale roster.
+# ===================== RETIRED 2026-08-07 (owner directive) =====================
+# Retired with the roster it guarded — the owner: "Yes retire the roster, I
+# don't need it." A freshness gate on a file nothing regenerates any more is a
+# check that can only ever go red.
+#
+# It had become pure noise with teeth: because the regen job deadlocked
+# (see roster-regen.yml's header), the roster froze, and this workflow then
+# failed on EVERY claude/* PR for reasons that had nothing to do with the PR's
+# contents. It never blocked a merge — substrate-gate is the sole required check
+# on main, verified from the rulesets API — but a red X that always means
+# "ignore me" is worse than no check, because it teaches you to ignore red.
+#
+# The `pull_request` trigger is removed; workflow_dispatch is kept so the
+# freshness of a hand-regenerated roster can still be checked on demand.
+# scripts/check_roster_freshness.py is untouched and still runnable directly.
+# Nothing deleted — OD-3.
+# ================================================================================
 name: roster-freshness
 on:
-  pull_request:
+  workflow_dispatch:
 jobs:
   freshness:
     runs-on: ubuntu-latest
