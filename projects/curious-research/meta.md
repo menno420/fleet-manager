@@ -1,8 +1,15 @@
 <!-- v3.7 · 2026-07-18 · fleet-manager projects registry -->
 # Curious Research — seat meta
 
-> **Status:** `living` — seat state summary; the generated prompt copies in
-> this dir are the paste artifacts (source of truth: `docs/prompts/v3/`).
+> **Status:** `historical` as of 2026-08-07 — the seat is gone and the repo has
+> moved on. The archetype line below is now WRONG: there is no substrate-kit in
+> curious-research, no `control/` lane and no heartbeat. The kit machinery was
+> removed 2026-08-07 (−41,399 lines) and the repo is being handed to its reader
+> as a finished gift. **Read
+> [`docs/findings/2026-08-07-curious-research-handover.md`](../../docs/findings/2026-08-07-curious-research-handover.md)
+> before acting on anything in this directory.** Left in place rather than
+> rewritten: the prompt copies here are GENERATED and regenerating or retiring
+> them belongs to consolidation step D4.
 
 - **Seat:** Curious Research (seat 9, owner-created 2026-07-13 ~03:05 —
   the fleet's teaching-and-research seat; a GIFT REPO for the owner's friend).

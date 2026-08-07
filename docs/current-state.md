@@ -120,6 +120,15 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 
 ## Recently shipped (newest first)
 
+- **curious-research handed over — the seat is gone and the repo moved on** (2026-08-07):
+  [findings/2026-08-07-curious-research-handover.md](findings/2026-08-07-curious-research-handover.md)
+  — the gift repo shed all substrate-kit machinery (−41,399 lines), kept `substrate-gate`
+  as a required name over new contents, and gained a live website. **Its registry entry
+  in `projects/curious-research/` is now stale** (badged `historical`; the generated
+  prompt copies belong to consolidation step D4). Carries two ledger-worthy findings —
+  a workflow token cannot *create* a GitHub Pages site, and merges there fired no
+  push-triggered workflow runs — plus a correction pattern worth reading: **two inferences
+  stated as fact, both flattering the asserting party.**
 - **S3 — fleet-triage staleness flagger** (fm #299, `2126344`): `scripts/check_fleet_triage_staleness.py` — advisory re-verify prompt for register rows whose evidence pin (freshest of in-row date / register seed / dated sweep-note naming the repo) has aged past the window; excludes frozen-by-design verdicts. **Completes the S3/S5/S9 advisory-checker trio.**
 - **S9 — CAPABILITIES wall-age flagger** (fm #296, `53cc540`): `scripts/check_capabilities_wall_age.py` — flags `docs/CAPABILITIES.md` "verified wall" findings older than N days so a lifted wall (e.g. a classifier change) doesn't stay recorded as permanent.
 - **Anthropic email pack — capability self-knowledge section** (fm #295, `2ca6b3d`): new [anthropic-email-pack.md](anthropic-email-pack.md) — paste-ready follow-up email folding in the four routines-platform bugs (runs not inspectable · Runs/Routines panel disagreement · arming seat-inconsistency · model attribution), for the existing Gmail EAP thread.

@@ -164,6 +164,78 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-07 · wall · `any` · **CONFIRMED, and it is currently deadlocking fleet-manager:
+  a PR opened by `GITHUB_TOKEN` gets ZERO check runs, so any required status check can never
+  report and the PR can never merge.** `roster-regen.yml` regenerates `docs/roster.md`, pushes
+  to `bot/roster-regen`, opens a PR with `github.token` and tries to squash-merge it in the
+  same run. The merge is refused — `Pull request #808 is not mergeable: the base branch policy
+  prohibits the merge` — because `main` requires `substrate-gate` and **`substrate-gate` never
+  ran**. · evidence: `GET` check runs for PR #808 → `total_count: 0`. The regen workflow has
+  failed on EVERY scheduled run since **2026-08-06T08:02Z** (last success); ~20 consecutive
+  cron fires, each parking the PR and exiting 1. `roster-freshness` then goes RED on **every**
+  PR in the repo, because the roster is 19.9h past its 4h threshold. The workflow's own header
+  comment (line 52) already states *"GITHUB_TOKEN-created PRs never trigger"* — the behaviour
+  was known; what changed is that the design depends on *"the next manager wake"* landing the
+  parked PR, **and the fleet that provided those wakes no longer exists.** · workaround:
+  owner-side, pick one — (a) add `ROUTINE_PAT` and use it in `roster-regen.yml`, which makes
+  the PR trigger checks normally and self-land; (b) let the regen job commit straight to `main`
+  and drop the PR dance; (c) admin-merge #808 once and accept a recurring manual land; or
+  (d) retire the roster + its freshness gate, since `docs/roster.md` is seat-era apparatus and
+  step D4 already contemplates that. **Until one is chosen, every PR to this repo carries a
+  red `freshness` check that has nothing to do with its own contents.** — LAST-VERIFIED: 2026-08-07
+- 2026-08-07 · wall · `owner-live` · **The agent proxy blocks GitHub API PATHS by
+  allowlist, and the block is a JSON body from the proxy — not from GitHub.** Reads
+  of `/repos/{owner}/{repo}/pages` returned `403 {"message":"Access to this GitHub
+  API path is not permitted through this proxy.","documentation_url":"https://docs.
+  anthropic.com/en/docs/claude-code/github-actions"}` on all three of `$GITHUB_PAT`,
+  `$GH_TOKEN` and `$GITHUB_TOKEN`. All three authenticate fine — `GET /user` → 200,
+  login `menno420` — so this is a PATH allowlist, not a token-scope problem. ·
+  evidence: measured this session while trying to enable Pages on
+  `menno420/curious-research`. `$HTTPS_PROXY/__agentproxy/status` reports
+  `selective:false`, `toolScoped:false`, and no relay failures, so the denial is the
+  API-path policy rather than a host block. · workaround: **the GitHub MCP tools
+  served every operation needed** — opening and merging PRs, dispatching workflows,
+  reading job logs, listing runs — over a sanctioned channel, for a full day of work
+  across 13 PRs. **This session did NOT test `--noproxy '*'`** and so cannot
+  re-verify the direct-egress rows above; that is a deliberate abstention, not a
+  measurement, and should not be read as evidence either way. Recording the MCP path
+  because a session that declines the bypass currently finds no documented
+  alternative here and may wrongly conclude it is stuck. — LAST-VERIFIED: 2026-08-07
+- 2026-08-07 · wall · `owner-live` · **A workflow's `GITHUB_TOKEN` can DEPLOY to an
+  existing GitHub Pages site but cannot CREATE one — this is a real permission
+  boundary, not a proxy artefact.** `actions/configure-pages@v5` with
+  `enablement: true` fails with `Create Pages site failed. Error: Resource not
+  accessible by integration`; site creation needs repo-admin rights, which a
+  workflow token does not carry however the YAML is written. · evidence: measured
+  in `menno420/curious-research` this session — run `31161900393` (the enablement
+  attempt, build job red on that exact message) versus run `31162287194` (after
+  reverting: build green, only the deploy job failing with `Failed to create
+  deployment (status: 404) ... Ensure GitHub Pages has been enabled`). Owner then
+  flipped Settings → Pages → Source = GitHub Actions by hand and the next run
+  published. · workaround: none agent-side — the one-time switch is a human
+  action. Do NOT retry `enablement: true`: the failing step sits in the BUILD job,
+  so it converts a clean "not enabled yet" deploy failure into a hard build
+  failure. **Distinguish this class from a proxy 403** — a GitHub `Resource not
+  accessible by integration` is a genuine boundary and should not be routed around
+  like a path quirk. — LAST-VERIFIED: 2026-08-07
+- 2026-08-07 · wall · `owner-live` · **MEASURED: PRs merging on `menno420/curious-research`
+  fired NO push-triggered workflow runs, so the publishing workflow silently never ran.**
+  Five PRs merged in sequence (#53-#62); `pages` run count for `event=push`: **zero**. The
+  live site sat ~half a day stale while every check reported green. Cross-check in the same
+  repo: `substrate-gate` has push-triggered runs on `main` from 2026-07-13, when merges were
+  done by hand, and **none** afterwards. This also re-verifies the auto-merge surface itself
+  as still working: `auto-merge-enabler` ran and concluded `success`, and all 13 PRs opened
+  this session merged. · **BEST-FIT EXPLANATION, NOT MEASURED:** GitHub suppresses workflow
+  runs for events triggered by `GITHUB_TOKEN`, and the kit enabler falls back to it via
+  `secrets.ROUTINE_PAT || secrets.GITHUB_TOKEN`. This session did NOT confirm that
+  `ROUTINE_PAT` is absent, nor inspect which actor performed each merge. When written this was best-fit; it is
+  **now CONFIRMED in fleet-manager itself, same session** — see the entry directly below. · workaround: add a `ROUTINE_PAT` secret (Contents +
+  Pull requests write) if the explanation holds; regardless of cause, a `schedule` on the
+  publishing workflow makes the artefact catch up on its own (applied there, two-hourly).
+  **NOT a wall on merging** - arming and merging both worked; the observed gap is narrow and
+  downstream, in workflows that would have been triggered BY the merge. **The failure mode is
+  the danger, not the delay** - no error anywhere, green checks, stale published artefact.
+  - LAST-VERIFIED: 2026-08-07
 - 2026-08-06 · capability · `any` · **The GitHub rulesets API is readable AND
   writable agent-side, and `substrate-gate` is now a REQUIRED status check on
   fleet-manager `main`.** · evidence: `GET
