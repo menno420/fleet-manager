@@ -120,6 +120,17 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 
 ## Recently shipped (newest first)
 
+- **What the substrate caught, and what only the owner could — one session, counted**
+  (2026-08-07): [findings/2026-08-07-what-the-substrate-caught.md](findings/2026-08-07-what-the-substrate-caught.md)
+  — the owner's claim that the enforcing checks exist so he does not have to correct every
+  session, turned into an enumerated number. **11 instrument catches to 1 owner catch** — and
+  the one he caught is the one no gate could have: *"you did not wait long enough"* has no
+  checker. Confirms
+  [findings/2026-08-05-foundation-continuation.md](findings/2026-08-05-foundation-continuation.md)
+  § 2 with a ratio: this estate instruments execution, not judgement. Also measures the
+  gates' ceiling — **four wrong numbers passed every checker in the repo**, because a
+  checker validates form and all four were well-formed; only adversarial review caught them.
+
 - **The roster is RETIRED** (2026-08-07, owner directive — *"Yes retire the roster, I don't
   need it"*). Both `roster-regen.yml` cron lines and `roster-freshness.yml`'s `pull_request`
   trigger are removed; both keep `workflow_dispatch` and neither file is deleted (OD-3).
