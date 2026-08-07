@@ -164,6 +164,25 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-07 · capability · `any` · **`@codex review` on a PR works and answers in about
+  5.5 minutes — do not conclude it is unavailable on a shorter window.** · evidence: measured
+  on fleet-manager #812 — request `13:46:59Z`, review posted `13:52:34Z` on the exact head SHA
+  = **335 seconds**. The reviewer is `chatgpt-codex-connector[bot]`; findings arrive as
+  **inline review comments**, not in the review body, so a summary that looks empty is not an
+  empty review — read `/pulls/{n}/comments`. Reviews trigger on PR open, draft→ready, and the
+  literal comment `@codex review`. Across #812/#813 it produced **13 findings over 5 rounds**,
+  several of which proved a PR did not do what its own title claimed. · **How this entry came
+  to exist:** a session waited **150 seconds**, wrote *"no review appeared"* into a public PR
+  comment as if it were evidence about the relay, and merged the PR three minutes after asking
+  for the review — which arrived 3 minutes later with four real findings. The owner corrected
+  it: *"If you mention @codex in a PR codex will review it and answer."* He was right. **That
+  is a probe window chosen too short being recorded as a property of the tool** — the exact
+  pattern DISCOVERY RULE step 0 exists to prevent, committed by the session that had written
+  the step-0 correction that same morning. · workaround: none needed — wait ≥6 minutes, poll
+  `/pulls/{n}/reviews` for a review whose `commit_id` matches your head, and **never merge a PR
+  you have asked Codex to review before it answers.** Note that `docs/providers/chatgpt.md`
+  correctly records Codex **cloud** as desktop/web/CLI/IDE-only; that is a different surface
+  from this GitHub relay (playbook R24) and does not bear on it. — LAST-VERIFIED: 2026-08-07
 - 2026-08-07 · capability · `any` · **The boot source silently decides how capable a
   session is, and a session booted on a satellite repo cannot tell it is impaired.**
   The 2026-08-05 entry below established that root is the session's cwd and that

@@ -225,9 +225,15 @@ jobs:
               # PR #812; latent rather than live at the time (0 open PRs), which
               # is exactly the kind of thing that bites three weeks later.
               def _retired_stale(cr):
-                  # ignore ONLY a pre-retirement run of a retired check
+                  # Ignore ONLY a run of a retired check that is PROVABLY
+                  # pre-retirement. A queued run has no started_at, and an
+                  # empty string sorts before the cutoff — which would drop a
+                  # freshly dispatched (still queued) freshness check and let
+                  # the sweep merge before it reports. Absent timestamp =>
+                  # NOT exempt, so an unproven run keeps blocking. Fail safe.
+                  started = cr.get("started_at")
                   return (cr["name"] in RETIRED_CHECK_NAMES
-                          and (cr.get("started_at") or "") < RETIRED_BEFORE)
+                          and bool(started) and started < RETIRED_BEFORE)
               runs = {cr["name"]: cr for cr in parse_lines(out)
                       if cr["name"] not in SELF_CHECK_NAMES
                       and not _retired_stale(cr)}

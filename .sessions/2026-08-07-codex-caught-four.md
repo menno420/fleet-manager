@@ -22,8 +22,9 @@ seconds** (13:46:59Z → 13:52:34Z), on head `673c66dd`. My probe window was 150
 missed it by 185s.
 
 This is the estate's base rate holding again: every time he has corrected a claim
-about his own estate, he has been right. Recorded in `CAPABILITIES.md` as a
-capability with its real latency, so the next session waits long enough.
+about his own estate, he has been right. Recorded in `CAPABILITIES.md` as a capability
+with its real latency, so the next session waits long enough — the entry is in this PR;
+the claim was false until Codex pointed out the file was unchanged.
 
 ## What Codex found that I missed
 
@@ -46,10 +47,15 @@ never land again: the trigger is gone, so no successful run can overwrite it. Ze
 open PRs at the time, which is precisely how this kind of thing surfaces three weeks
 later.
 
-**P3 — my banner was factually wrong.** I wrote "21 `DARK` / 3 `UNREADABLE`". The
-real distribution is **18 `DARK` · 10 `n/a` · 3 `STALE-BY-DESIGN` · 0 `LIVE`**, with
-**zero `UNREADABLE`**. My number came from grepping the whole file for a fixed list of
-verdict words, which counted the header prose where `UNREADABLE` is *explained*.
+**P3 — my banner was factually wrong**, and so was my first correction of it. I wrote
+"21 `DARK` / 3 `UNREADABLE`", then "18 `DARK` / 10 `n/a` / zero `UNREADABLE`". Both were
+computed by pattern and both were wrong. **The real distribution, read from the file's own
+generated verdict summary: 18 `DARK` · 7 `n/a` · 3 `STALE-BY-DESIGN` · 1 `STALE` ·
+1 `PRIVATE` · 1 `UNREADABLE` (shiftlife) · 0 `LIVE`.** The first count read the header
+prose where `UNREADABLE` is *explained*; the second parsed rows left-to-right and stopped
+at the first match, so the two rows whose **age** column reads `n/a` lost their verdicts.
+Corrected here on Codex's third pass — leaving the wrong numbers in durable session
+history would reproduce the exact error this card documents.
 
 ## The same error, twice in one day
 
