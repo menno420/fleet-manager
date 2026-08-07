@@ -1,6 +1,6 @@
 # 2026-08-07 · hub — the boot source decides how capable a session is
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** opus-5 · high · records correction
 
