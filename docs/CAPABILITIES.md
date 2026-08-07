@@ -164,6 +164,25 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-07 · wall · `any` · **CONFIRMED, and it is currently deadlocking fleet-manager:
+  a PR opened by `GITHUB_TOKEN` gets ZERO check runs, so any required status check can never
+  report and the PR can never merge.** `roster-regen.yml` regenerates `docs/roster.md`, pushes
+  to `bot/roster-regen`, opens a PR with `github.token` and tries to squash-merge it in the
+  same run. The merge is refused — `Pull request #808 is not mergeable: the base branch policy
+  prohibits the merge` — because `main` requires `substrate-gate` and **`substrate-gate` never
+  ran**. · evidence: `GET` check runs for PR #808 → `total_count: 0`. The regen workflow has
+  failed on EVERY scheduled run since **2026-08-06T08:02Z** (last success); ~20 consecutive
+  cron fires, each parking the PR and exiting 1. `roster-freshness` then goes RED on **every**
+  PR in the repo, because the roster is 19.9h past its 4h threshold. The workflow's own header
+  comment (line 52) already states *"GITHUB_TOKEN-created PRs never trigger"* — the behaviour
+  was known; what changed is that the design depends on *"the next manager wake"* landing the
+  parked PR, **and the fleet that provided those wakes no longer exists.** · workaround:
+  owner-side, pick one — (a) add `ROUTINE_PAT` and use it in `roster-regen.yml`, which makes
+  the PR trigger checks normally and self-land; (b) let the regen job commit straight to `main`
+  and drop the PR dance; (c) admin-merge #808 once and accept a recurring manual land; or
+  (d) retire the roster + its freshness gate, since `docs/roster.md` is seat-era apparatus and
+  step D4 already contemplates that. **Until one is chosen, every PR to this repo carries a
+  red `freshness` check that has nothing to do with its own contents.** — LAST-VERIFIED: 2026-08-07
 - 2026-08-07 · wall · `owner-live` · **The agent proxy blocks GitHub API PATHS by
   allowlist, and the block is a JSON body from the proxy — not from GitHub.** Reads
   of `/repos/{owner}/{repo}/pages` returned `403 {"message":"Access to this GitHub
@@ -209,9 +228,8 @@ findings go here, below the fence.)
   this session merged. · **BEST-FIT EXPLANATION, NOT MEASURED:** GitHub suppresses workflow
   runs for events triggered by `GITHUB_TOKEN`, and the kit enabler falls back to it via
   `secrets.ROUTINE_PAT || secrets.GITHUB_TOKEN`. This session did NOT confirm that
-  `ROUTINE_PAT` is absent, nor inspect which actor performed each merge. Treat the EFFECT as
-  fact and the MECHANISM as strongly indicated; anyone re-verifying should check the secret's
-  presence and the merge actor directly. · workaround: add a `ROUTINE_PAT` secret (Contents +
+  `ROUTINE_PAT` is absent, nor inspect which actor performed each merge. When written this was best-fit; it is
+  **now CONFIRMED in fleet-manager itself, same session** — see the entry directly below. · workaround: add a `ROUTINE_PAT` secret (Contents +
   Pull requests write) if the explanation holds; regardless of cause, a `schedule` on the
   publishing workflow makes the artefact catch up on its own (applied there, two-hourly).
   **NOT a wall on merging** - arming and merging both worked; the observed gap is narrow and
