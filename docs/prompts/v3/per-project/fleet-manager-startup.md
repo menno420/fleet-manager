@@ -1,5 +1,23 @@
 > **Status:** `reference`
 
+> ## ⛔ ROSTER ORDERS IN THIS PROMPT ARE RETIRED (2026-08-07)
+>
+> The owner retired the roster: *"Yes retire the roster, I don't need it."* (fm #812/#813).
+> **Ignore every instruction below that tells you to regenerate `docs/roster.md`, keep it
+> under 4h, or open a PR to refresh it** — including the `roster ≤4h` line in
+> MISSION/DONE-WHEN and the `roster-freshness` wall note. `docs/playbook.md` **R25 is
+> retired**; `docs/roster.md` is `historical`; `roster-regen.yml` and `roster-freshness.yml`
+> keep `workflow_dispatch` only.
+>
+> Following those orders would rebuild the deadlock the retirement removed: the regen opens
+> its PR with `github.token`, GitHub suppresses check runs for that actor, and the required
+> check can never report. **Caught by Codex review on #812/#813, not by the sessions that
+> wrote the retirement** — disabling the crons was not enough while the prompts still ordered
+> regeneration.
+>
+> The rest of this prompt stands. Full retirement record: `docs/roster.md` banner.
+
+
 <!-- v3.8 · 2026-07-18 (v3.8 = added the WHO YOU ARE / KEEP GOING / WHAT THIS IS (EAP) / WHEN AN ACTION IS REFUSED opening block to every seat — identity + continuous-operation + EAP definition + hub-escalation surfaced at the top; the version stamp was missed in the block-addition PR and is restamped here; prior: v3.7 · 2026-07-15 = DUTY-FORM rewrite, owner mandate fm control/inbox.md ORDER 048 landed live 2026-07-15: the mandate folded into the DOCTRINE section, operational practices phrased affirmatively, restated platform-enforced prohibitions dropped, the owner authorization PRE-WRITTEN into every paste, landing = server-side workflow merge-on-green fleet-wide with install-where-missing; prior: v3.6 stage-2 fold 2026-07-13) · EXPANDED startup (coordinator brief) — AUTHORED per-seat file. The universal doctrine rides HERE, VERBATIM and in full (MANDATE + RULE PROVENANCE, TRUTH + INJECTION GUARD, WORKER-RELAY, CONTROL BUS, GEN-3 HYGIENE v5, the owner-landed PERMISSIONS grant v2 from projects/UNIVERSAL.md v5, the QA RIDERS, AUTONOMY, the session ender inlined from ../session-ender.md) — the Custom Instructions are the keyword dictionary that compresses this brief. NO char cap: size is a NOTE, not a gate (owner spec 2026-07-12). Shared blocks are drift-checked by ../tools/regen_b_files.py (doctrine identity across all 9, ender vs ../session-ender.md, grant vs projects/UNIVERSAL.md, card-block + triad + baton identity) — run it after ANY edit; edit shared text in EVERY startup + its canonical source together. STATELESS (D-9) still binds: no volatile state; current work lives in the repo documents this prompt names. -->
 <!-- char-count: 37,250 chars = the paste body below this comment block (headers excluded) · size NOTE only, no cap -->
 
