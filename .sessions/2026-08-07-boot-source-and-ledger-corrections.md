@@ -2,7 +2,7 @@
 
 > **Status:** `complete`
 
-- **📊 Model:** opus-5 · high · records correction
+- **📊 Model:** opus-5 · high · docs-only
 
 Time: 2026-08-07 · venue: owner-live hub chat (fleet-manager boot, curious-research
 attached mid-session) · branch `claude/fleet-manager-orientation-env9da`
