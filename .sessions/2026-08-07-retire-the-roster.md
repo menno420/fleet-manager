@@ -1,6 +1,6 @@
 # 2026-08-07 · hub — the roster is retired, and it had already stopped working
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** opus-5 · high · docs-only
 
