@@ -120,6 +120,15 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 
 ## Recently shipped (newest first)
 
+- **External-review prompt for `curious-research`** (2026-08-07):
+  [prompts/2026-08-07-curious-research-external-review.md](prompts/2026-08-07-curious-research-external-review.md)
+  — paste-ready, for the owner's plan to have ChatGPT and Grok review the gift repo. Exists
+  because that plan has a **measured** failure mode: an unframed reviewer endorses whatever it
+  is shown ([findings/2026-08-06-provenance-mechanism-measured.md](findings/2026-08-06-provenance-mechanism-measured.md)).
+  Two parts — a comprehension test that must run **unprimed**, then a gap hunt after the reader
+  is described — plus the `[survived]`/`[conceded]`/`[partial]` disposition format from
+  [conventions/adversarial-review.md](conventions/adversarial-review.md).
+
 - **curious-research handed over — the seat is gone and the repo moved on** (2026-08-07):
   [findings/2026-08-07-curious-research-handover.md](findings/2026-08-07-curious-research-handover.md)
   — the gift repo shed all substrate-kit machinery (−41,399 lines), kept `substrate-gate`
