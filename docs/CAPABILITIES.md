@@ -164,16 +164,52 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-07 · capability · `any` · **The boot source silently decides how capable a
+  session is, and a session booted on a satellite repo cannot tell it is impaired.**
+  The 2026-08-05 entry below established that root is the session's cwd and that
+  *several* sources leave root at `/home/user` with no `.claude/` at all. It did not
+  cover the case that actually costs the most: **one source that is not the hub.**
+  Then root is that repo, its `.claude/` loads normally, and the estate's apparatus is
+  absent with no error and no gap the session can feel. · evidence: measured this
+  session against both trees — `fleet-manager/.claude/` carries **27 skills** plus the
+  `route_docs.py` `PreToolUse` hook (19 routes) and the hub read path;
+  `curious-research/.claude/` carries **1 skill** (`visual-explainers`), **zero
+  hooks**, and a boot file that is excellent about its own reader and says nothing
+  about this estate. `/root/.claude/projects/` holds exactly one entry per container,
+  named for the boot cwd — `-home-user-fleet-manager` here. **Owner-stated cause,
+  2026-08-07:** *"the previous session booted directly on curious-research and that
+  caused a few problems; it didn't fully understand the way I work directly. Which is
+  why I normally boot a session always from the fleet-manager."* The prior session's
+  own card corroborates it verbatim — venue recorded as *"curious-research session,
+  fleet-manager attached mid-session"* — and that session wrote two inferences as fact
+  about a person's workshop, both caught by the owner rather than by any check.
+  `capability-probe`, the skill whose whole job is the entry it was writing, was not
+  loadable in it. · workaround: **boot on fleet-manager, attach outward.**
+  `add_repo` mid-session attaches *files*, not apparatus — root is fixed at boot, so
+  pulling the hub in later gives you the boot file to read and loads none of the hooks
+  or skills it routes to. A session that finds itself in that position should walk the
+  read path by hand and invoke skills by name. Not a wall in either direction — a
+  configuration whose failure mode is silent, which is the reason to write it down.
+  — LAST-VERIFIED: 2026-08-07
 - 2026-08-07 · wall · `any` · **CONFIRMED, and it is currently deadlocking fleet-manager:
   a PR opened by `GITHUB_TOKEN` gets ZERO check runs, so any required status check can never
   report and the PR can never merge.** `roster-regen.yml` regenerates `docs/roster.md`, pushes
   to `bot/roster-regen`, opens a PR with `github.token` and tries to squash-merge it in the
   same run. The merge is refused — `Pull request #808 is not mergeable: the base branch policy
   prohibits the merge` — because `main` requires `substrate-gate` and **`substrate-gate` never
-  ran**. · evidence: `GET` check runs for PR #808 → `total_count: 0`. The regen workflow has
-  failed on EVERY scheduled run since **2026-08-06T08:02Z** (last success); ~20 consecutive
-  cron fires, each parking the PR and exiting 1. `roster-freshness` then goes RED on **every**
-  PR in the repo, because the roster is 19.9h past its 4h threshold. The workflow's own header
+  ran**. · evidence: `GET` check runs for PR #808 → `total_count: 0`. **Re-measured
+  2026-08-07 by the next session, which also ruled out the competing explanation: this is
+  not a branch filter — `substrate-gate.yml` triggers on bare `pull_request` with no branch
+  restriction, so token suppression is the only reading left.** `ROUTINE_PAT` is confirmed
+  absent: `GET /repos/menno420/fleet-manager/actions/secrets` returns an **empty** secret
+  list. The regen workflow has failed on EVERY scheduled run since **2026-08-06T08:02:58Z**
+  (last success); **CORRECTED — 16 consecutive failures, not ~20** (counted from the runs
+  API, `roster-regen.yml` runs page). Each parks the PR and exits 1. **CORRECTED — the
+  freshness red is NOT repo-wide.** `roster-freshness.yml` is blocking only on `claude/*`
+  head branches; every other branch runs `check_roster_freshness.py --advisory` and exits 0,
+  and a `GITHUB_TOKEN`-opened PR like #808 gets no check runs at all, so it is blank rather
+  than red. The scope is **manager-authored PRs**, which is a lane, not the repo. The
+  workflow's own header
   comment (line 52) already states *"GITHUB_TOKEN-created PRs never trigger"* — the behaviour
   was known; what changed is that the design depends on *"the next manager wake"* landing the
   parked PR, **and the fleet that provided those wakes no longer exists.** · workaround:
@@ -181,8 +217,12 @@ findings go here, below the fence.)
   the PR trigger checks normally and self-land; (b) let the regen job commit straight to `main`
   and drop the PR dance; (c) admin-merge #808 once and accept a recurring manual land; or
   (d) retire the roster + its freshness gate, since `docs/roster.md` is seat-era apparatus and
-  step D4 already contemplates that. **Until one is chosen, every PR to this repo carries a
-  red `freshness` check that has nothing to do with its own contents.** — LAST-VERIFIED: 2026-08-07
+  step D4 already contemplates that. **Until one is chosen, every `claude/*` PR to this repo
+  carries a red `freshness` check that has nothing to do with its own contents — and nothing
+  is actually blocked by it**, because `substrate-gate` is the sole required check on `main`
+  (rulesets API, re-read 2026-08-07). Recommendation on file: **(d)**, since the roster
+  measures a fleet of seats that no longer exists and OD-9 wants one required check per repo.
+  — LAST-VERIFIED: 2026-08-07
 - 2026-08-07 · wall · `owner-live` · **The agent proxy blocks GitHub API PATHS by
   allowlist, and the block is a JSON body from the proxy — not from GitHub.** Reads
   of `/repos/{owner}/{repo}/pages` returned `403 {"message":"Access to this GitHub
@@ -1553,12 +1593,26 @@ to be careful.
 | *Do I have access / is it set up / which path should I use?* | **The owner. Settled. Do not re-litigate.** |
 | *Did this specific call just succeed?* | **The response.** Always read it. |
 
-He is authoritative on **provisioning**. He is not claiming a given HTTP request
-will return 200 — a call can still fail on a proxy path, a stale ref, a
-rate limit, a typo of yours. Read every response, report every real error
-verbatim, and append what you learn. That is the discipline, and it is
-untouched. What step 0 removes is only the pre-flight doubt: the minutes spent
-establishing that a credential he handed you is real before you use it.
+**CORRECTED 2026-08-07 — this paragraph used to read "He is authoritative on
+*provisioning*", and that is the exact wording the canonical rule at the top of
+this file repudiates by name.** Step 0 was moved up on 2026-08-05 and this
+rationale section was left carrying the sentence the move was made to retire, so
+the file asserted the narrow boundary here and denied it there. A session
+arriving at this section — which the boot file points to — got the version that
+licensed the Interactions-API false wall. Same defect as the one this section's
+own header note records finding: the file disagreeing with itself, patched in
+one place.
+
+The boundary, stated once, in the form that survived: **a probe establishes
+exactly one thing — what that one call did.** It never refutes his statement. He
+is not claiming a given HTTP request will return 200; a call can still fail on a
+proxy path, a stale ref, a rate limit, a typo of yours. So read every response,
+report every real error verbatim, and append what you learn — that discipline is
+untouched. What changes is the reading of a failure: **it means you took the
+wrong path, and the next move is to go find the other one.** Not to write a wall,
+and not to reclassify his statement as a "behaviour" claim your probe outranks.
+What step 0 removes is only the pre-flight doubt: the minutes spent establishing
+that a credential he handed you is real before you use it.
 
 **And a one-off refusal is still not a wall** (see above). If the attempt fails,
 you have an error to route around — not evidence that he was wrong about his own

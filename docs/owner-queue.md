@@ -611,8 +611,17 @@ fleet-wide merges/ready-flips live in
   Anthropic email links the reliable-grace URLs, so **keep them reachable** while that reference
   stands, then consolidate into `superbot-websites` and retire the duplicates. A drift hazard
   while both deploy.
-- **`OQ-CR-SLICER-ANSWER` — curious-research: which slicer do you use?** One word (Cura /
-  PrusaSlicer / OrcaSlicer / Bambu Studio). Unblocks that seat's menu-clicks follow-up guide.
+- **`OQ-CR-SLICER-ANSWER` ✅ RESOLVED 2026-08-07 — the answer is **Bambu Studio**, and it
+  arrived without the ask ever being put.** The question (one word: Cura / PrusaSlicer /
+  OrcaSlicer / Bambu Studio) was open from 2026-07-15. It is answered by the hardware:
+  the maker runs a **Bambu Lab A1 mini** and an **A1 with AMS Lite**, relayed by the owner
+  and recorded in `curious-research/CLAUDE.md` (*"So his slicer is **Bambu Studio** — name
+  its real menus, not 'your slicer'"*), with `guides/bambu-studio/` shipped 2026-08-07
+  (curious-research PR #61). The follow-up guide this item was blocking therefore already
+  exists. Kept as a closed entry rather than deleted, per the queue's ids-are-stable rule.
+  **Worth noting as a queue-hygiene datapoint:** it stayed open ~23 days after the fact that
+  closes it landed in another repo — an owner ask can be resolved by work that never looks
+  at the queue, so a truth pass should sweep for this class rather than wait to be told.
 
 ### (E) Objection-only / parked (no click unless vetoing)
 

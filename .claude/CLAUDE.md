@@ -12,15 +12,32 @@
 2. **Where you're running** — owner-live hub chat · scheduled wake · subagent;
    remote container. **And what loaded**: Claude Code reads settings, hooks and
    skills from `<root>/.claude/`, where root is the session's working directory.
-   One source at boot → root is the repo and everything loads. Several sources
-   → root is the bare clone parent `/home/user`, which has no `.claude/`, so
-   **every repo's settings, hooks, skills and boot file go quiet at once with no
-   error** (measured 2026-08-05; superbot's hard-fail `Stop` gate is among the
-   casualties). The owner boots one source per session for exactly this reason —
-   that choice is his, not yours. Yours: `add_repo` **mid-session is safe** (root
-   is fixed at boot and does not move), and if `ls /root/.claude/projects/` ever
-   shows a bare `-home-user` entry, run `python3 tools/install_root_hooks.py
-   --apply` before trusting any gate.
+   Three cases, and only the first is the one you want:
+   - **One source, and it is fleet-manager** → root is this repo; the read path
+     below, the 27 skills and the doc-routing hook all load. **This is why the
+     owner boots here** and then attaches whatever the work needs.
+   - **One source, and it is a satellite repo** → root is *that* repo. Everything
+     here goes quiet — with no error, and with the satellite's own `.claude/`
+     loading in its place, so the session feels fully equipped. Measured
+     2026-08-07 booting on `curious-research`: **1 skill instead of 27, zero
+     hooks, and no estate read path at all.** The routing table below cannot bind
+     a session that never loaded it (PL-013), so `capability-probe`,
+     `owner-brief` and `session-close` simply do not exist for that session.
+   - **Several sources** → root is the bare clone parent `/home/user`, which has
+     no `.claude/`, so **every repo's settings, hooks, skills and boot file go
+     quiet at once with no error** (measured 2026-08-05; superbot's hard-fail
+     `Stop` gate is among the casualties).
+
+   **`add_repo` mid-session attaches files, not apparatus.** Root is fixed at
+   boot and does not move — which is what makes `add_repo` *safe* (you never lose
+   what you loaded) and equally what makes it **insufficient**: attaching
+   fleet-manager from a satellite session gives you this file to *read*, and
+   loads none of the hooks or skills it routes to. If you are reading this
+   because someone attached the hub mid-session, you are in case two — walk the
+   read path by hand and invoke skills by name; nothing will do it for you.
+   Diagnostic: `ls /root/.claude/projects/` names the root as cwd with `/`→`-`. A
+   bare `-home-user` entry means case three — run `python3
+   tools/install_root_hooks.py --apply` before trusting any gate.
 3. **What you can do** — the capabilities ledger below. Default posture:
    **you have full capability — act.**
 
