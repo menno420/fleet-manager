@@ -1,6 +1,6 @@
 <!-- v7 · 2026-07-18 · fleet-manager projects registry — GENERATED COPY, do not edit
      (regenerate: docs/prompts/v3/tools/regen_b_files.py --write-registry; drift guard: --check-registry) -->
-<!-- generated from docs/prompts/v3 @ a0c486f46479234c4249a30d0b6073e109fb5c82 (prompts v3.8, opening-block addition 2026-07-18) -->
+<!-- generated from docs/prompts/v3 @ 8d209e36708d1237cd1f9d42448e18cf10fd0cc7 (prompts v3.8, opening-block addition 2026-07-18) -->
 # Ideas Lab — failsafe cron text (registry copy, prompts v3.8)
 
 > **GENERATED COPY — NOT SOURCE OF TRUTH.** This registry copy is GENERATED FROM

@@ -122,7 +122,11 @@ CI_AIM = 7500
 SEATS = [
     dict(name="Fleet Manager", startup="fleet-manager-startup.md",
          ci="fleet-manager-custom-instructions.md", reg="fleet-manager",
-         versions={"coordinator": "v10", "instructions": "v9", "failsafe": "v9"}),
+         # bumped 2026-08-07 with the roster retirement: DRIFT CHECK tells a stale
+         # paste from a fresh one by comparing these stamps, so changing the paste
+         # bodies without bumping would leave an already-pasted prompt (still
+         # carrying the roster orders) indistinguishable from the corrected copy.
+         versions={"coordinator": "v11", "instructions": "v10", "failsafe": "v10"}),
     dict(name="SuperBot 2.0", startup="superbot-startup.md",
          ci="superbot-custom-instructions.md", reg="superbot-2.0",
          versions={"coordinator": "v8", "instructions": "v7", "failsafe": "v7"}),
