@@ -74,21 +74,44 @@ the question is deeper. A doc-route for a repo points at `README.md`, never at
 the folder.
 
 The design named `current-state` / `capabilities` / `goals` / `records` as a
-**starting shape**, not a template to stamp out. Each repo earns its files, and
-**a file that is deferred is recorded as deferred with its reason** — silently
-omitting one is what makes the next session re-derive the same decision.
+**starting shape** and asked the first folder to earn its files. That question is
+**now settled** (owner, 2026-08-08): the earned set — `README.md` +
+`capabilities.md` + `records.md` + `working-here.md`, with `current-state.md` and
+`goals.md` deferred — **is the shape every folder replicates.** Start from it
+rather than re-deriving it.
+
+What survives from "each repo earns its files" is narrower and still true: **a
+folder may add a file its repo genuinely needs, and any departure from the shape
+is recorded with its reason** — silently omitting or adding one is what makes the
+next session re-derive a decision that has already been made.
 
 See [`spider-swing/README.md`](spider-swing/README.md) § "Why this folder has
-the files it has" for the first worked example.
+the files it has" for the worked example the shape came from.
 
 ## Coverage — honest, and mostly not yet built
 
 | tier | repos | state |
 |---|---|---|
-| **1** | `spider-swing` | ✅ **built** 2026-08-08 — the reference shape |
-| **1** | `superbot` + `superbot-next` (paired) · `substrate-kit` · `venture-lab` | ⬜ not built — awaiting owner sign-off on the shape |
-| **1** | `fleet-manager` (itself — today's work is otherwise a standing exception) | ⬜ not built |
-| **2** | the remaining ~19 | ⬜ not built — planned as `README.md` only, honestly stubbed; depth **deferred, not skipped** |
+| **1** | `spider-swing` | ✅ **built** 2026-08-08 — the reference shape, **ratified 2026-08-08** |
+| **1** | `superbot` + `superbot-next` (paired) · `substrate-kit` · `venture-lab` | ⬜ not built — **cleared to build**; the shape is settled |
+| **1** | `fleet-manager` (itself — today's work is otherwise a standing exception) | ⬜ not built — **not one of the four**; it is a fifth, and its intent already lives at [`../intent.md`](../intent.md) |
+| **2** | the remaining ~19 | ⬜ **on demand** — built when work goes there, not pre-stubbed (owner, 2026-08-08) |
+
+**The shape is settled — owner, 2026-08-08.** The three questions the spider-swing
+folder left open are answered: it replicates **as built** (`README.md` +
+`capabilities.md` + `records.md` + `working-here.md`); `working-here.md` **earns
+its place as a distinct file** because gates, verify commands and traps are what a
+session needs *before* attaching, and they are neither state nor goals;
+`current-state.md` and `goals.md` **stay deferred**. Coverage is **the four Tier-1
+repos now, the rest on demand** — deliberately not 24 stubs, because a stub that
+is never filled is the failure mode this directory's own coverage table exists to
+make visible. Provenance: [`../intent.md`](../intent.md) § 8.
+
+**One addition to the shape, not yet built:** a folder should point at the repo's
+**external workspaces** — its Drive folder, its ChatGPT workspace, its Gemini
+notebook — as pointers, never copies (owner, 2026-08-08). Design:
+[`../planning/2026-08-08-agent-operating-environment-roadmap.md`](../planning/2026-08-08-agent-operating-environment-roadmap.md)
+§ 5.7. The next folder built carries it; spider-swing's gets it retroactively.
 
 **A blank row above means "not written yet", never "nothing is happening
 there."** Until a row is built, that repo's truth lives where it always did:
