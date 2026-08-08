@@ -238,9 +238,25 @@ of which would have made it useless in a different direction:
 `tools/install_root_hooks.py` is now table-driven over both hooks rather than
 hardcoded to one, so the case-three rescue path installs the whole apparatus.
 
-**Honest null:** the hook has not fired in a live session — only against piped
-payloads. It was registered mid-session, and hooks load at boot, so its first
-real firing will be a later session.
+**Correction, same session:** the card and PR #820 first said *"the hook has not
+fired in a live session — only against piped payloads,"* reasoning that hooks
+load at boot and this one was registered mid-session. **That was wrong, and it
+was an inference stated as a fact — the exact failure this hook exists to catch,
+committed in the paragraph describing the hook.** Checked instead of assumed:
+`/tmp/claude-read-set/<session>.json` exists for this session, written at
+11:50:37 against a registration at 11:44:27, holding **30 recorded paths.**
+**Hooks do reload mid-session** in this environment; the boot-triad claim covers
+which `.claude/` tree is *found*, not whether a live edit to it takes effect.
+
+So the accurate statement: it is **live and recording**, and it has **reported
+zero times** — it has had no cause, because every file described since it went
+live had been opened. Its first real *firing* is still ahead.
+
+**And the thing it has never done, by construction: block.** The script has no
+`permissionDecision` path anywhere in it; every branch returns 0 with at most an
+`additionalContext` note. The `PreToolUse` schema in the shipped binary does
+carry `permissionDecision` + `permissionDecisionReason`, so hard-denying a Write
+is available and deliberately unused — see the owner question below.
 
 ## Open owner questions
 
