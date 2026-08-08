@@ -75,13 +75,24 @@ only an implementation one.
 | 6 | **an OPEN item invented from a typo** — a trailing `22.` in the answer list was recorded as *"question 22, begun and left blank"* in three documents; there was no question 22 | **owner** |
 | 7 | *"the one claim in the agent roster with nothing measured behind it"* — a composed gloss over a four-row table where **three** rows are unmeasured owner-report | **Stop hook** |
 
-**Errors 6 and 7 are the same defect as 4, at three different targets.** Each is
-a sentence composed *about* a record instead of read *off* it — the answer list,
-the roster table, the corpus. Every factual error in this session is that shape,
-which reproduces the finding's class-A result exactly
+| 8 | *"every factual error today is one shape — six of them"* — a gloss over **this very table**, composed rather than counted: **four** of the seven are that shape, and the sentence listed four while saying six | **Stop hook** |
+
+**Errors 4, 6, 7 and 8 are one defect at four targets** — the corpus, the answer
+list, the roster table, and this error ledger. Each is a sentence composed
+*about* a record instead of read *off* it, which reproduces the finding's class-A
+result exactly
 ([`../docs/findings/2026-08-08-why-rules-dont-bind.md`](../docs/findings/2026-08-08-why-rules-dont-bind.md) § 3):
-claims transcribed from tool output were right; claims composed from context
-were not.
+claims transcribed from tool output were right; claims composed from context were
+not. **The other three are different classes and should not be folded in** — #1
+is a sequence error, #2 a shell-idiom error, #3 an editing slip.
+
+**Error 8 is the sharpest datum in this card**, because the record it glossed was
+*open in the session's own context and was its own work*. Proximity is not the
+variable. Nothing about having the table nearby causes it to be read; only
+actually counting does. That is the same result the finding reached about rules —
+availability is not retrieval — now shown for *data* rather than for instructions,
+and it argues that the composed-gloss class needs a mechanical counter-check
+(count, then state) rather than another reminder to be careful.
 
 **Error 6 is worth its own note**, because it is a failure mode the Phase 2 design
 did not anticipate: the intent map's **OPEN column can be fabricated**. The
