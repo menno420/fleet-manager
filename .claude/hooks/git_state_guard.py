@@ -44,6 +44,16 @@ GIT_CMD_RE = re.compile(r"\bgit\b[^|;&]*\b(push|commit)\b")
 FORCE_RE = re.compile(r"\bgit\b[^|;&]*\bpush\b[^|;&]*(--force|-f\b)")
 RESET_HARD_RE = re.compile(r"\bgit\b[^|;&]*\breset\b[^|;&]*--hard")
 
+# A commit message or doc that DISCUSSES `git reset --hard` is not a reset.
+# Found live on this hook's own first commit: the message narrated incident
+# #23 and the regex matched the narration inside the heredoc. Strip heredoc
+# bodies before matching — the command is what runs, not what it quotes.
+HEREDOC_RE = re.compile(r"<<-?\s*'?([A-Za-z_][\w]*)'?\n.*?\n\1(?=\s|$)", re.S)
+
+
+def executable_text(cmd: str) -> str:
+    return HEREDOC_RE.sub("<<HEREDOC-BODY-STRIPPED", cmd)
+
 
 def git(*argv: str) -> str:
     p = subprocess.run(["git", *argv], cwd=REPO, capture_output=True,
@@ -162,7 +172,7 @@ def main() -> int:
         return 0
     if event.get("tool_name") != "Bash":
         return 0
-    cmd = str((event.get("tool_input") or {}).get("command", ""))
+    cmd = executable_text(str((event.get("tool_input") or {}).get("command", "")))
 
     session = str(event.get("session_id") or "nosession")
     notes = []
