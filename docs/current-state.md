@@ -120,6 +120,16 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 
 ## Recently shipped (newest first)
 
+- **fleet-manager as the index — the two-layer restructure, designed** (2026-08-08):
+  [planning/2026-08-08-fleet-manager-as-index.md](planning/2026-08-08-fleet-manager-as-index.md)
+  — owner-live design decisions for the next build session. Layer 1 (general, light) +
+  Layer 2 (`docs/repos/<name>/`, one folder per repo, `README.md` as the standalone
+  entry). Tier 1 filled: spider-swing · superbot+superbot-next · substrate-kit ·
+  venture-lab; the rest stubbed. Each folder is a **handoff, not an encyclopedia** —
+  thread-scoped, dated, pointers with one line of context. Maintained by a
+  `session-close` step with an explicit null, **deliberately not a gate**. Two
+  owner-stated acceptance tests, and two measured Layer-1 gaps: `SKILLS-local.md`
+  covers 13 of 27 skills, and `@codex` is absent from the boot file.
 - **The owner-review Stop hook — the measured mechanism, built and live** (2026-08-07):
   [`.claude/hooks/owner_review.py`](../.claude/hooks/owner_review.py) — run 4's untried
   path made real: the hook runs the review *itself* (transcript → owner-stand-in reviewer
