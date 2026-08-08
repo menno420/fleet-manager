@@ -101,6 +101,26 @@ on a single line and nothing else — this is a normal, expected outcome, not a 
 Otherwise output 1-3 questions, most load-bearing first. No preamble, no summary of the
 reply, no verdict — just the questions."""
 
+# The mechanism itself — no model, no network, no credentials, no failure mode.
+# findings § 8, MEASURED: both questions are CONTENT-INDEPENDENT. The owner
+# composed Q1 *before* the output it was fired at existed, pre-committed to
+# firing it regardless of content, and screenshotted the pre-commitment — it
+# landed anyway. That falsified the claim that per-turn selection carries the
+# payload: **no selector is required.** The same section rates the options —
+# "fixed-and-always-on and blended-into-conversation both avoid the test-signal;
+# SELECTIVE FIRING IS THE WORST OF THE THREE" — and a reviewer that returns
+# NO QUESTIONS on some turns *is* selective firing. So the fixed question is the
+# hook, and the model is an optional enrichment that can never be load-bearing.
+FIXED = """1. What made you draw that conclusion? Name the load-bearing claim in the reply
+above and what you actually ran, read or measured to establish it — a command, a path and
+line, an exact error. If you only inferred it, say so in the reply.
+
+2. ONLY IF that surfaced a weak link: can you simplify the mistake? A sound derivation
+reduces to one sentence; a confabulated one either drops the load-bearing part under
+compression or grows a new one, and the compression must be derivable from the expansion.
+If question 1 came back clean, say so in one line and skip this — the pair is a check, not
+a quota, and question 2 has no referent when nothing was surfaced."""
+
 REASON = """OWNER-REVIEW — automatic, one round, fail-open (design record:
 docs/findings/2026-08-06-provenance-mechanism-measured.md § 8). A stand-in
 reviewer read the reply you were about to deliver. Address each point below IN
@@ -406,25 +426,27 @@ def main():
     text = _final_turn(tp)
     if not text or len(text) < MIN_CHARS:
         return rec(skip="reply-too-short", reply_chars=len(text or ""))
+    # The model is BEST-EFFORT and strictly additive. Whatever happens here —
+    # missing key, quota, network, a native panic — the fixed question below
+    # still fires, so the mechanism has no dependency that can disable it.
+    out, um, err = "", {}, None
     try:
         got = _review(text)
+        if got:
+            out, um = got
     except (KeyboardInterrupt, SystemExit):
         raise                                      # termination is not a defect
     except BaseException as exc:                   # creds, network, parse, timeout, native panic
-        return rec(skip="review-failed", reply_chars=len(text),
-                   error=f"{type(exc).__name__}: {exc}"[:300])
-    if not got:
-        return rec(skip="review-empty", reply_chars=len(text))
+        err = f"{type(exc).__name__}: {exc}"[:300]
 
-    out, um = got
-    null = out.upper().startswith("NO QUESTIONS")
-    rec(reply_chars=len(text), null=null, route=um.get("route"),
+    specifics = "" if out.upper().startswith("NO QUESTIONS") else out.strip()
+    rec(reply_chars=len(text), route=um.get("route"), enriched=bool(specifics),
         prompt_tokens=um.get("promptTokenCount"),
         out_tokens=um.get("candidatesTokenCount"),
-        finish=um.get("finishReason"))
-    if null:
-        return  # the null path is a normal outcome
-    print(json.dumps({"decision": "block", "reason": REASON.format(q=out)}))
+        finish=um.get("finishReason"), error=err)
+
+    q = FIXED + ("\n\nAnd specifically:\n\n" + specifics if specifics else "")
+    print(json.dumps({"decision": "block", "reason": REASON.format(q=q)}))
 
 
 if __name__ == "__main__":

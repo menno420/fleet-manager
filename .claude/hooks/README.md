@@ -256,6 +256,37 @@ none of those, and the cap is the one real risk, which is what the fallback is
 for. Which route answered is now recorded per firing (`"route":"free"`).
 Honest null: n=1 input, one run per model — not a model comparison.
 
+**2026-08-08, final — the model is not the mechanism.** Owner: *"for the hook we
+don't even need gemini at all right? The hook itself should ask 'what made you
+draw this conclusion?' and that does not require gemini."* Correct, and the
+findings already said so — § 8 measured both questions **content-independent**
+(he composed Q1 before the output existed, pre-committed to firing it regardless
+of content, screenshotted the pre-commitment; it landed anyway), and rated the
+options: *"fixed-and-always-on and blended-into-conversation both avoid the
+test-signal; **selective firing is the worst of the three**."* A reviewer that
+returns `NO QUESTIONS` on some turns **is** selective firing. The hook had been
+built as the worst of the three, on top of the only component that could break.
+
+So it inverts: **the fixed question IS the hook** — no model, no network, no
+credentials, no quota, no failure mode. The model is strictly **additive
+enrichment** appended under *"And specifically:"* when it happens to answer.
+Question 2 stays explicitly conditional on question 1 surfacing something, per
+§ 8's ordering — it has no referent otherwise, and the pair is a check, not a
+quota.
+
+Measured both ways 2026-08-08: with `GEMINI_API_KEY` and `RAILWAY_API_KEY`
+stripped from the environment it still blocks (`route:null, enriched:false`,
+exit 0); with the free key present it blocks with two real specifics appended
+(`route:"free", enriched:true, out_tokens:76`).
+
+**And the answer to why Vertex ever needed Google auth**, since it is structural
+rather than a choice we made: Vertex refuses API keys outright —
+`401 UNAUTHENTICATED: "API keys are not supported by this API. Expected OAuth2
+access token or other authentication credentials"` (measured directly against
+`aiplatform.googleapis.com`). Credit-funded ⇒ Vertex ⇒ OAuth ⇒ service account ⇒
+Railway ⇒ signed JWT. Every link forced; the only exit was not using Vertex on
+the critical path, which is what this change does.
+
 Scope: **this repo only** until a week of telemetry says otherwise — the
 no-fleet-rollout decision stands.
 
