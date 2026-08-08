@@ -92,50 +92,60 @@ Structure, the thread convention and honest coverage: `docs/repos/README.md`.
 listed as not-yet-written rather than silently absent.
 
 **This list is a floor, not a ceiling.** A session whose job is to *understand*
-this repo reads past it — `CONSTITUTION.md`, `MISSION.md`, `docs/playbook.md`
-(the R-series), `docs/owner-profile.md`, `docs/NEXT-TASKS.md`,
-`docs/fleet-triage.md`. A handoff prompt that names a short read list is naming
+this repo reads past it — `CONSTITUTION.md` and `docs/owner-profile.md` (live),
+`docs/playbook.md` (mixed era — R1/R2/R16/R17/R22/R24/R29/R30 still bind, the
+dispatch and relay rules do not), and `MISSION.md`, `docs/NEXT-TASKS.md`,
+`docs/fleet-triage.md` **as history** — each describes a seat-era fleet that no
+longer exists, and each now says so at the top. A handoff prompt that names a short read list is naming
 the minimum to act, never the boundary of what is worth reading (`CONSTITUTION.md`
 § "Session prompts are guidance, not orders").
 
 **Live vs historical:** `docs/roster.md`, `control/`, `telemetry/`,
 `docs/prompts/` are **seat-era apparatus — historical record**, not current
-truth (the seats no longer exist; the roster still regenerates until program
-step D4 lands). Per-repo truth lives in each repo's `docs/PROJECT-CLOSEOUT.md`
-+ `docs/current-state.md`. The live surface always beats any doc.
+truth (the seats no longer exist; the roster was retired 2026-08-07 and no
+longer regenerates). Per-repo truth lives in each repo's
+`docs/PROJECT-CLOSEOUT.md` + `docs/current-state.md`. The live surface always
+beats any doc.
+
+**Where a decision lives, so you cite the right record:** `docs/decisions.md` —
+this repo's `[D-NNNN]` entries (D-0011 the paid Gemini key is free to spend ·
+D-0012 publish by default, credentials never) · the program's OD table — owner
+directives · `docs/planning/2026-08-08-fleet-manager-as-index.md` — the Layer 2
+decisions and their rejected alternatives · substrate-kit's PL register —
+program law binding every repo.
 
 ## The working style (owner-set, 2026-07-26)
 - **Slow and structured.** One program step per session unless directed;
   small PRs; nothing needs to be fast, nothing is deleted (OD-3/OD-6).
 - **Verify before fold; verify with real exit codes** (never `$?` after a
-  pipe). Kit discipline: born-red session card, `python3 bootstrap.py check
-  --strict` green, session close updates the program's progress ledger.
+  pipe). Kit discipline: born-red session card, session close updates the
+  program's progress ledger, and **one command is the local gate** — `python3
+  bootstrap.py check --strict`, which fans out through `scripts/preflight.py`
+  to the added-card lane and both checkers. **The check list lives in that
+  script, not in prose here** — every written enumeration of it has gone stale
+  (the `session-close` skill named two of three until 2026-08-08).
+- **The Stop hook reviews the reply you are about to send, and blocks once.**
+  That is normal operation, not a fault: answer its questions **in** the reply
+  the owner reads — fix what it exposes, and where your reasoning holds, keep
+  it and say why in one line marked `[survived]`. Same disposition vocabulary
+  for any adversarial review: `[survived]` / `[conceded]` / `[partial]`, so the
+  tally is countable rather than a reading (`docs/conventions/adversarial-review.md`).
+  A **firing** instrument is information; a quiet one is no evidence at all.
+  What each hook does: `.claude/hooks/README.md`.
 - **Initiative, with one flag rule:** organize and plan on your own judgment;
   route to the owner only the genuinely ambiguous forks — add them to the
   program's §6, don't block on them. His attention is the scarcest resource.
-- **Do not write about a file you have not opened.** If you are going to say
-  what a file *is* — a one-line gloss in an index, a row in a boot-path table, a
-  claim about what it covers — read it first, well enough to know what is in it
-  and why it is there. A filename plus this estate's conventions is enough to
-  produce a confident sentence and not enough to make it true. **MEASURED
-  2026-08-08** on this repo's own transcript: of eight such one-line
-  descriptions, the **3 written after reading the file were all correct**; of
-  the **5 written without reading, 3 were wrong** — one of them telling a later
-  session there was a single binding contract where there are two.
-  **The reason this needs a rule and not just care: an unread description reads
-  exactly like a read one.** There is no hedge, no uncertainty marker, nothing a
-  reviewer could catch without opening the file themselves — so it survives
-  every downstream check and hardens into the record. Same defect class as a
-  wall that reads as measured, one level down.
-  **If you genuinely cannot open it, say the line is inferred** — an honest
-  "inferred from the filename, unverified" costs one clause and is worth more
-  than a clean sentence nobody can check. Existence and status badge are one
-  cheap fetch; spend it.
-  Advisory net: `.claude/hooks/read_before_write.py` records what the session
-  reads and flags prose about files it never opened. It checks the **fact**
-  (was this path fetched), never the judgement (was it understood) — so treat a
-  quiet hook as no evidence at all, and a firing hook as a question rather than
-  a verdict.
+- **Do not write about a file you have not opened.** Saying what a file *is* —
+  an index gloss, a row in a table — is a claim, and a filename plus this
+  estate's conventions produces a confident sentence without making it true.
+  **MEASURED 2026-08-08** on this repo's own transcript: of eight such one-line
+  descriptions, the **3 written after reading were all correct**; of the **5
+  written without, 3 were wrong**, one of them telling a later session there was
+  a single binding contract where there are two. If you genuinely cannot open
+  it, **say the line is inferred** — that clause is worth more than a clean
+  sentence nobody can check. `read_before_write.py` raises this at write time
+  and shows you the claim it means; it checks whether the path was fetched,
+  never whether you understood it.
 
 ## Capabilities — record capabilities, never limitations
 Full verified matrix: **`docs/CAPABILITIES-verified-2026-07-18.md`** (+
@@ -162,27 +172,16 @@ Essentials:
   and merged three minutes before four real findings landed. Quota refusals are
   retry-later, never a property of the tool. (Codex *cloud* is a different
   surface — `docs/providers/chatgpt.md` — and does not bear on this relay.)
-- **Gemini: two identities, and the paid one bills differently per route — the
-  route decides who pays, not the key.** `GEMINI_API_KEY` is **free tier** on
-  AI Studio: costs nothing, capped at ~20 requests/day flagship Flash and 500/day
-  Flash Lite, and it serves the **Interactions API** (server-side history). The
-  **paid GCP project** has two routes and they are *the same billing account*:
-  via **Vertex** it draws the **€251.37 prepaid credit** (no daily cliff, but no
-  server-side history — conversations resend their transcript every turn), while
-  `GEMINI_API_KEY_PAID` against `generativelanguage` bills **the owner's card**,
-  because the credit excludes the AI Studio SKU and does not exclude Vertex.
-  **Default to Vertex** for volume, image and video (owner directive 2026-08-05,
-  "at least this month"); use the **free** key for any AI Studio call, including
-  a long multi-turn exchange where it is both free and more token-efficient;
-  reach for `GEMINI_API_KEY_PAID` only when Vertex has actually failed, and say
-  so in the session card. This bullet used to say "the AI Studio key spends the
-  owner's card" — singular, which hid the free key behind the paid one. Same
-  models everywhere. The
-  service account is not in your environment — pull `GEMINI_VERTEX_SA_JSON` from
-  Railway (`reliable-grace` / `worker` / `production`) with `$RAILWAY_API_KEY`,
-  then OAuth to `aiplatform.googleapis.com`. Grounding is `googleSearch`
-  (camelCase) on Vertex. Verified end to end 2026-08-05 — full recipe and the
-  billing chain: `docs/conventions/vertex-first-for-gemini.md`.
+- **Gemini: two identities, and the route decides who pays, not the key.**
+  `GEMINI_API_KEY` is **free tier** (AI Studio, daily request caps, and the only
+  path serving the Interactions API); the paid project draws the **prepaid
+  credit via Vertex** but bills **the owner's card** on `generativelanguage`.
+  Default to Vertex for volume, image and video; free key for AI Studio work;
+  `GEMINI_API_KEY_PAID` only when Vertex actually failed, said out loud in the
+  card. The caps, the credit balance, the Railway service-account recipe and the
+  billing chain are all in `docs/conventions/vertex-first-for-gemini.md`, and the
+  doc-routing hook puts them in front of you the moment you make a Gemini call —
+  which is why they are not restated here.
 - **When the owner states something about this estate, it is source truth — act
   on it.** *"The token is account-scoped." · "You have access to my test bot
   token." · "Use Vertex." · "The Interactions API works fully turn based."* He
@@ -204,8 +203,8 @@ Essentials:
   `docs/CAPABILITIES.md` § THE DISCOVERY RULE step 0.
 - **Before probing a vendor API, check `docs/providers/` and
   `docs/conventions/`.** A `PreToolUse` hook now surfaces the matching doc
-  automatically — `.claude/hooks/route_docs.py`, 19 routes, silent unless one
-  matches, never blocks. It is a **net, not a substitute for looking**: it fires
+  automatically — `.claude/hooks/route_docs.py`, silent unless one matches,
+  never blocks. It is a **net, not a substitute for looking**: it fires
   once per route per session and only on triggers someone thought to add. It
   exists because on 2026-08-05 a session probed a discovery document, found no
   `interactions` endpoint and recorded "unavailable" while

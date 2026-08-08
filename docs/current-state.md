@@ -120,6 +120,38 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 
 ## Recently shipped (newest first)
 
+- **The agent operating environment — the three-phase roadmap, and Phase 1 built**
+  (2026-08-08):
+  [planning/2026-08-08-agent-operating-environment-roadmap.md](planning/2026-08-08-agent-operating-environment-roadmap.md)
+  — the owner's architecture review, recorded: the goal is a **model-independent**
+  environment where any capable agent starts from an imperfect message and
+  reconstructs the intended outcome, because **the bottleneck is upstream of
+  code** (understanding intent, retrieving intent that already exists, selecting
+  the procedure, carrying intent through to review). Phase 2 specifies the
+  **intent map** (EXPLICIT / ESTABLISHED / DERIVED / OPEN — never collapsed into
+  one paragraph), LOW/MEDIUM/**HIGH** ambiguity with *no silent resolution of
+  HIGH*, the `RESOLVED` / `NEEDS OWNER` seam before planning, **ephemeral maps
+  kept separate from durable intent**, and the invariant that every active repo
+  has *one discoverable canonical intent source* — not necessarily a file named
+  `intent.md`. Phase 3: `/documentation`, hook moments as INTENT/ACTION/CLAIM,
+  kit inheritance instead of copying, structured traps, review tracing back to
+  intent, the procedure registry, and the external workspace topology (Drive =
+  persistent **non-code supporting material**; the mapping is optional and
+  many-to-many, never 1:1 per repo).
+  **Phase 1 shipped here:** the boot file corrected at **net-zero words** (−31,
+  paying for four additions by cutting what the doc-routing hook already delivers
+  at the action moment), `session-close` finally carrying the **Layer 2 handoff
+  step** two committed docs had promised it, one prompt route under a written
+  admission bar (replayed against **12 real owner utterances — 0 false fires**),
+  and the seat-era routers — `NEXT-TASKS`, `RESUME`, `reading-path`,
+  `PROJECT-CLOSEOUT` §5, `AGENT_ORIENTATION`, `MISSION` — now stating which era
+  they describe instead of reading as current instructions. Also corrected: a
+  check-exceptions entry that had been suppressing one decision-stamp finding
+  under a *different* decision's rationale (caught by Codex on this PR, verified
+  against `apply_allowlist`'s exact path+kind matching before acting — and
+  demonstrated again minutes later, when naming those ids in prose here moved the
+  finding's path and unmatched the entry), plus `preflight.py` reporting a red
+  against the leg that had *passed*.
 - **Why the rules don't bind — the session's own errors, counted, and three
   injection mechanisms** (2026-08-08):
   [findings/2026-08-08-why-rules-dont-bind.md](findings/2026-08-08-why-rules-dont-bind.md)

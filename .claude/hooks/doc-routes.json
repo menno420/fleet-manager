@@ -9,7 +9,27 @@
     "quietly routing a session to the wrong page.",
     "Adding a route is cheap and reversible. The bar: a session that skipped this",
     "doc would probe blind and could conclude 'unavailable' about something that",
-    "works."
+    "works.",
+    "",
+    "PROMPT ROUTES (\"tools\": [\"UserPromptSubmit\"]) fire on the owner's message",
+    "instead of a tool call, and they need a STRICTER bar because conversational",
+    "vocabulary has unbounded paraphrase where a hostname does not:",
+    "  1. Name the wrong ACTION a session would take without the doc — not the",
+    "     background it would lack. 'Adds useful context' is noise.",
+    "  2. Distinctive multi-word patterns only. A single common word ('plan',",
+    "     'next', 'review') fires at prompt 1 of nearly every session, and the",
+    "     once-per-session dedup then BURNS the route before the moment it was",
+    "     written for — false-fire converts into false-silence exactly when it",
+    "     matters.",
+    "  3. Inject the METHOD, never an interpretation of what the owner means.",
+    "     'Resolve existing intent before planning' is a method; 'the owner wants",
+    "     X' is a guess the session will act on.",
+    "  4. UserPromptSubmit ONLY — do not copy a repo route's tool list. Listing",
+    "     Bash/Read/Grep lets any command or grep pattern containing the trigger",
+    "     word consume the route before a prompt ever does.",
+    "Recall is deliberately traded away for precision here: a route that misses a",
+    "phrasing costs one un-hinted session, while a route that cries wolf costs the",
+    "silence every other route depends on."
   ],
   "routes": [
     {
@@ -309,6 +329,22 @@
         "docs/repos/spider-swing/README.md"
       ],
       "says": "Layer 2 entry point — read it BEFORE attaching the repo. It answers what the repo is, where it stands and whether you need to attach at all (it is PUBLIC, so read-only work needs raw fetch, not add_repo). Two live threads: core feel & difficulty is the owner's north star (2026-08-02 — tune until excellent play reaches 25k+; the game is still 'too difficult and moves too quickly', and unlocks/Campaign/monetisation are DEFERRED by directive), and the Google Play release, which is owner-gated on OQ-PLAY-APP-ID / OQ-PLAY-UPLOAD-KEY / OQ-PLAY-LISTING and carries a hard three-week floor (12 testers x 14 continuous days, then ~7 days review). Depth in the same folder: working-here.md (main requires BOTH substrate-gate AND game-quality — different from fleet-manager), capabilities.md (access paths, the @codex relay), records.md (28 dated files here). The repo's own docs/current-state.md wins over all of it."
+    },
+    {
+      "id": "error-review",
+      "tools": [
+        "UserPromptSubmit"
+      ],
+      "when": [
+        "caus[a-z]*\\s+(all\\s+)?these\\s+mistakes",
+        "mistakes\\s+don'?t\\s+happen",
+        "follow the rules and guides",
+        "why the rules don'?t bind"
+      ],
+      "docs": [
+        "docs/findings/2026-08-08-why-rules-dont-bind.md"
+      ],
+      "says": "You are asking why sessions keep repeating mistakes, or asking for a session to be reviewed for them. That question already has a MEASURED answer here, and it changes the method rather than adding to it: 16 incidents in one session, catchers owner 5 · Stop-hook 4 · gate/CI 3 · own tests 2 · after-the-fact 2 · documentation recalled at the right moment ZERO — against 116 committed statements of the verify-first rule across 66 files. So the thing NOT to produce is a 117th statement: a rule binds only if it ARRIVES at the moment of the action, and the actions that need one do not announce themselves. Read § 3 for the four failure classes before classifying anything, and § 4 for which delivery mechanism fits each (deterministic gate > moment-of-action injection > post-turn review). Count from observable events — owner corrections, hook firings, gate and CI reds — and attribute each to its catcher, because prevented errors are invisible and an uncounted claim about frequency is the thing this file exists to stop."
     }
   ]
 }

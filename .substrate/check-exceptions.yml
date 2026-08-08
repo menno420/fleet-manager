@@ -11,17 +11,26 @@
   triaged: 2026-07-14
   by: session-central-docs-review
   verdict: false_positive
-- path: central-docs-plan.md
-  kind: stamp
-  reason: "D-0002 here is substrate-kit's program-law anti-copy ID, load-bearing in the centralization plan and quoted in the inconsistency ledger — foreign-ledger citation, not an fm stamp"
-  triaged: 2026-07-14
-  by: session-central-docs-review
-  verdict: false_positive
+# CORRECTED 2026-08-08 (Codex P2 on fm #826, verified from source before acting).
+# `apply_allowlist` matches on EXACT path + kind and nothing else, so at most one
+# entry per (path, kind) can ever fire — a second entry for the same pair is
+# unreachable, and the one that wins suppresses every finding at that pair
+# regardless of which decision ID its reason discusses.
+#
+# What was wrong: the D-0002 stamp finding surfaces under path
+# `findings/retro-synthesis-2026-07-09.md` (measured — the guard-fire ledger
+# records `message: "D-0002 cited from 4 docs…"` against
+# `reason: "D-0008 collision…"`), while the entry written for it named
+# `central-docs-plan.md` — a path that finding never carries, so that entry was
+# INERT and D-0002 was being suppressed by D-0008's evidence. A suppression
+# standing on a rationale that does not discuss it is a false guardrail: it reads
+# as triaged and was not. Both IDs are now named in the one entry that fires, and
+# the inert entry is folded into it rather than left to look load-bearing.
 - path: findings/retro-synthesis-2026-07-09.md
   kind: stamp
-  reason: "D-0008 collision is sim-lab's ledger ID quoted as INC-49 evidence in fleet-inconsistencies-2026-07-13.md against the pre-existing retro-synthesis citation — cross-repo quote, not a second fm stamp home"
+  reason: "covers BOTH cross-repo stamp collisions at this path (path+kind is the whole matching key): D-0002 is substrate-kit's program-law anti-copy ID, load-bearing in the centralization plan and quoted in the inconsistency ledger; D-0008 is sim-lab's ledger ID quoted as INC-49 evidence against the pre-existing retro-synthesis citation. Both are foreign-ledger citations quoted as evidence, not second fm stamp homes — rewording them would destroy the evidence they carry"
   triaged: 2026-07-14
-  by: session-central-docs-review
+  by: session-central-docs-review (re-triaged 2026-08-08, fm #826)
   verdict: false_positive
 # Link finding fired by the roster-regen owner-queue candidate feed: the feed
 # quotes pokemon-mod-lab lane content VERBATIM inside a ```text fence, and that

@@ -1,6 +1,20 @@
 # RESUME — start here, next coordinator
 
-> **Status:** `reference`
+> ## ⛔ SEAT-ERA DOOR — do not boot from this file
+>
+> **Status:** `historical` · era-banner added 2026-08-08
+>
+> This is the revival door for the **coordinator seat**, and that seat no longer
+> exists (the autonomous program closed 2026-07-21). Its boot path, its wake-chain
+> re-arming instructions and its "fleet is LIVE" state are all seat-era: following
+> them would arm triggers for sessions nobody runs. **A fresh session boots from
+> `.claude/CLAUDE.md`**, which loads automatically and carries the current read
+> path.
+>
+> Kept because it is the clearest surviving description of how the seat worked
+> (OD-3, archive never delete).
+>
+> *Original header follows.*
 >
 > The handoff door for the fleet-manager coordinator seat. Rewritten
 > 2026-07-15T10:21Z as the live coordinator chat archived (session-ender

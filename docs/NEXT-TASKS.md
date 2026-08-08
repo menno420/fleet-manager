@@ -1,6 +1,27 @@
 # NEXT-TASKS — the fleet-manager's task set
 
-> **Status:** `living-ledger`. A clean, prioritized task set for the manager Project,
+> ## ⛔ SUPERSEDED — this is a seat-era task set, not current work
+>
+> **Status:** `historical` · era-banner added 2026-08-08
+>
+> Every item below was written for the **manager seat** of the autonomous fleet,
+> which closed 2026-07-21. The loop it describes ("the coordinator↔manager reply
+> bounce", the armed wake chain, the failsafe trigger id) has no live counterpart,
+> and its three headline items are all resolved: the S3/S5/S9 checker trio shipped
+> 2026-07-18/19, and the apparatus-sizing decision was **answered by the owner on
+> 2026-08-07** — *"Yes retire the roster, I don't need it"* — which retired the
+> roster autogen this file recommends right-sizing.
+>
+> **Current work lives in
+> [`planning/2026-07-26-consolidation-program.md`](planning/2026-07-26-consolidation-program.md)**
+> (the step ledger and the NOW pointer), with
+> [`findings/2026-08-05-foundation-continuation.md`](findings/2026-08-05-foundation-continuation.md)
+> revising the order of work. Read this file as a record of what the seat era was
+> doing, never as a queue to pick from.
+>
+> *Original header follows.*
+>
+> A clean, prioritized task set for the manager Project,
 > distilled from the overnight planning menu ([`planning/overnight-menu-2026-07-17.md`](planning/overnight-menu-2026-07-17.md),
 > 25 proposals) and the fleet-wide recon. Durable open owner asks live in
 > [owner-queue.md](owner-queue.md); the immediate paste-ready action list is

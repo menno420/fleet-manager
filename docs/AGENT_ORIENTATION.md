@@ -7,9 +7,16 @@
 
 ## Start every session
 
-1. `.claude/CLAUDE.md` — the working agreement.
+1. `.claude/CLAUDE.md` — the working agreement. **It carries the current read
+   path and it auto-loads at boot; follow its order, not this page's.** The
+   sections below were planted for the seat era and route into apparatus that
+   closed 2026-07-21 (`docs/RESUME.md`, the prompt registry, the worker
+   templates, the control bus) — each of those now says so at its own top.
+   Era map, live vs historical: the boot file's *Live vs historical* section.
 2. `docs/current-state.md` — the living status ledger.
-3. This file — task-specific reading routes.
+3. This file — task-specific reading routes, **for the doc set it planted**
+   (architecture · ownership · runtime contracts · helper policy · routines ·
+   reading path). That half is still accurate and is what this router is for.
 
 ## Binding contracts
 

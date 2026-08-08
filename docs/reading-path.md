@@ -28,6 +28,20 @@ this repo — do not burn turns re-deriving whether you may look.
 
 ## 1 · The one command
 
+> **CORRECTED 2026-08-08 — the roster is retired and the command below is dead.**
+> The owner retired it 2026-08-07 (*"Yes retire the roster, I don't need it"*):
+> both `roster-regen.yml` cron lines are removed, so `docs/roster.md` no longer
+> regenerates and its last generation was taken **after** the seats it measured
+> were terminated — every row reads `DARK`, none reads `LIVE`. It is a record,
+> not a fleet view.
+>
+> **What answers "what is the fleet doing?" now:** each repo's own
+> `docs/current-state.md` and `docs/PROJECT-CLOSEOUT.md`, indexed per repo from
+> [`repos/README.md`](repos/README.md) (Layer 2 — read the folder before
+> attaching the repo), plus [`owner-queue.md`](owner-queue.md) for what waits on
+> the owner. The read authorization and the mechanics in §0 and §§2–4 below are
+> unchanged and still correct.
+
 Orient on the whole fleet in one step before asking "what is the fleet
 doing?" — it covers Tiers 1–2 below:
 

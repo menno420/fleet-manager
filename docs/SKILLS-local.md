@@ -101,6 +101,14 @@ done
 Re-run it after a kit upgrade. It only overwrites kit-named skills; the local
 ones below are untouched.
 
+⚠ **That cuts both ways: local amendments to a kit-named skill are overwritten
+by the same copy.** `session-close` carries fleet-manager-specific steps — the
+live-venue rewrite (2026-08-04, owner-ratified 2026-08-05) and the Layer 2
+handoff line (2026-08-08) — so **re-apply them after every upgrade** and check
+the diff before assuming the install was clean. The durable fix is upstream:
+propose the generalisable half to the kit so it ships to every adopter instead
+of living as a local patch that each upgrade silently reverts.
+
 ## The local skills
 
 | Skill | When to reach for it |
