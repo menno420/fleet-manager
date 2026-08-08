@@ -181,6 +181,15 @@ now; they are advisory, and the measured reason to heed them is this ledger.
 
 ## Honest nulls
 
+- **The hook's catch count is a floor, and one catch is missing from the
+  ledger entirely.** The same reviewer firing that produced rows 14–15 also
+  asked whether the free→Vertex fallback had been tested on a real 429. It had
+  not, and it still has not: the Vertex chain was verified cold end-to-end
+  (7.5 s), which exercises the fallback's components, but the 429→fallthrough
+  *transition* has never been observed. That catch never became a ledger row —
+  found during the audit of "six defects" (this file's third self-correction),
+  and left here as a row-shaped gap rather than renumbering a merged table.
+
 - **n = 1 session, self-audited**, with the classification done by the party
   being classified (albeit on a different model). The catcher attribution is
   checkable against the transcript; the class assignments are judgement.
