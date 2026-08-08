@@ -113,6 +113,29 @@ step D4 lands). Per-repo truth lives in each repo's `docs/PROJECT-CLOSEOUT.md`
 - **Initiative, with one flag rule:** organize and plan on your own judgment;
   route to the owner only the genuinely ambiguous forks — add them to the
   program's §6, don't block on them. His attention is the scarcest resource.
+- **Do not write about a file you have not opened.** If you are going to say
+  what a file *is* — a one-line gloss in an index, a row in a boot-path table, a
+  claim about what it covers — read it first, well enough to know what is in it
+  and why it is there. A filename plus this estate's conventions is enough to
+  produce a confident sentence and not enough to make it true. **MEASURED
+  2026-08-08** on this repo's own transcript: of eight such one-line
+  descriptions, the **3 written after reading the file were all correct**; of
+  the **5 written without reading, 3 were wrong** — one of them telling a later
+  session there was a single binding contract where there are two.
+  **The reason this needs a rule and not just care: an unread description reads
+  exactly like a read one.** There is no hedge, no uncertainty marker, nothing a
+  reviewer could catch without opening the file themselves — so it survives
+  every downstream check and hardens into the record. Same defect class as a
+  wall that reads as measured, one level down.
+  **If you genuinely cannot open it, say the line is inferred** — an honest
+  "inferred from the filename, unverified" costs one clause and is worth more
+  than a clean sentence nobody can check. Existence and status badge are one
+  cheap fetch; spend it.
+  Advisory net: `.claude/hooks/read_before_write.py` records what the session
+  reads and flags prose about files it never opened. It checks the **fact**
+  (was this path fetched), never the judgement (was it understood) — so treat a
+  quiet hook as no evidence at all, and a firing hook as a question rather than
+  a verdict.
 
 ## Capabilities — record capabilities, never limitations
 Full verified matrix: **`docs/CAPABILITIES-verified-2026-07-18.md`** (+
