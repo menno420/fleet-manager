@@ -123,9 +123,9 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 - **Why the rules don't bind — the session's own errors, counted, and three
   injection mechanisms** (2026-08-08):
   [findings/2026-08-08-why-rules-dont-bind.md](findings/2026-08-08-why-rules-dont-bind.md)
-  — owner-directed root-cause review of the index-restructure session. **17
-  incidents; catchers: owner 5 · Stop-hook 4 · CI 2 · own tests 3 ·
-  documentation 0** (vs 116 committed statements of the verify-first rule). One
+  — owner-directed root-cause review of the index-restructure session. **16
+  incidents; catchers: owner 5 · Stop-hook 4 · gate 1 · CI 2 · own tests 2 ·
+  after-the-fact 2 · documentation 0** (vs 116 committed statements of the verify-first rule). One
   root: rules bind at the moment of action only if they *arrive* there — so the
   fix is injection, not more prose. Shipped: `scripts/preflight.py` (the
   ORDER-018 local↔CI parity list, finally planted — today's CI-only red now

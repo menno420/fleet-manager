@@ -265,7 +265,7 @@ the analysis turn: *"review this session thoroughly and find out what exactly
 causes all these mistakes… each session should reliably know and follow the
 rules."* The full answer is
 [findings/2026-08-08-why-rules-dont-bind.md](../docs/findings/2026-08-08-why-rules-dont-bind.md):
-**17 incidents, catcher-attributed** (owner 5 · Stop-hook 4 · CI 2 · own tests
+**16 incidents, catcher-attributed** (owner 5 · Stop-hook 4 · CI 2 · own tests
 3 · **documentation recalled at the right moment 0**, against 116 committed
 statements of the rule), four mechanism classes, one root — **rules stored in
 documents bind only when retrieved at the action moment, and the actions never

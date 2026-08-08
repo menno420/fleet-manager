@@ -8,6 +8,11 @@
 > often. Each session should reliably know and follow the rules and guides we
 > have created."*
 >
+> Method: the incidents were enumerated MANUALLY from the conversation and
+> cross-checked against artifacts where they exist (hook telemetry for #12,
+> the PR record for #19–20, the branch reflog for #21–22, this file's own
+> git history for #23) — not derived mechanically from the transcript, so
+> the COUNT is `REASONED`; the per-row facts cite their evidence inline.
 > Sources: this session's transcript (1,112 events, 3.4 MB at analysis time),
 > the two hook telemetry files, the PR/CI record for fm#818–#822, and the
 > conversation itself. The error list and catcher attribution are `MEASURED`
@@ -19,7 +24,7 @@
 
 ## 1 · The error ledger
 
-Seventeen, in one session — a session that was *building the estate's
+Sixteen distinct incidents (23 numbered instances), in one session — a session that was *building the estate's
 verification instruments*, which is what makes it a fair sample: nothing here
 was rushed, and the rules were not merely available but actively being written.
 
@@ -42,22 +47,52 @@ was rushed, and the rules were not merely available but actively being written.
 | 22 | telemetry commit pushed with **no PR opened** | self, next turn, by checking |
 | 23 | `git reset --hard` with a dirty tree — destroyed three tested, uncommitted hook edits while cleaning up a one-commit probe | hook reminder, after the loss |
 
-*(Numbering compresses to 17 distinct incidents; 1–3 and 4–9 are single acts
-with multiple instances.)*
+*(Numbering: 23 instances compressing to **16 distinct incidents** — 1–3 and
+4–9 are single acts with multiple instances. The first published version of
+this file said "seventeen", a composed headline over its own table; the
+Stop-hook reviewer's demand for per-row evidence exposed it — incident #24,
+if you are counting, and the same class as #17: a gloss composed over a
+correct table instead of computed from it.)*
 
 ## 2 · Who caught what — the central measurement
 
-| catcher | incidents |
-|---|---|
-| **the owner, asking a question** | 5 |
-| **the Stop-hook reviewer** (the ~5 turns it was alive) | 4 |
-| **CI / GitHub state** | 2 |
-| **own test runs** | 3 |
-| **documentation being recalled at the right moment** | **0** |
+| catcher | incidents | rows |
+|---|---|---|
+| **the owner, asking a question** | 5 | 1–3, 11, 12, 16, 20 |
+| **the Stop-hook reviewer** (the turns it was alive) | 4 | 14, 15, 17, 18 |
+| **the local gate** (after the files were already written) | 1 | 4–9 |
+| **CI / GitHub state** | 2 | 10, 19 |
+| **own test runs** | 2 | 13, 22 |
+| **after the fact only** — self or instrument, once the cost was paid | 2 | 21, 23 |
+| **documentation being recalled at the right moment** | **0** | — |
+
+*(Sums to 16. The first published version listed four catcher lines summing to
+14 under a headline of 17 — neither number matched the table. Recomputed from
+the rows, and the rows column exists so the next audit is a diff, not a
+recount.)*
 
 Against that zero: this repo carries **116 statements of the verify-first rule
-across 66 files** (tight count — instructions, not vocabulary), including all
-three binding docs. Several errors above violate a rule *written or corrected
+across 66 files**, including all three binding docs — reproducible:
+
+```python
+# python3, repo root — counts INSTRUCTIONS, not certainty vocabulary
+import pathlib, re
+rule = re.compile(r"(verify (before|every|each|your)"
+                  r"|never (assert|claim|state) .{0,40}without"
+                  r"|do not write about a file you have not opened"
+                  r"|re-verify .{0,30}before|a claim, not a fact"
+                  r"|stated more confidently than the evidence)", re.I)
+docs = [p for p in pathlib.Path('.').rglob('*.md')
+        if 'node_modules' not in str(p) and '.git/' not in str(p)]
+hits = {p: n for p in docs if (n := len(rule.findall(p.read_text(errors='replace'))))}
+print(len(hits), sum(hits.values()))   # -> 66 116
+```
+
+The pattern is a judgement about what counts as "stating the rule" — a
+different pattern gives a different number (the same session's first attempt
+matched certainty *vocabulary* and got 2,203, incident #17). The number is
+reproducible; the boundary is not neutral. Top hits include seat-era
+`coordinator-prompt.md` copies — historical apparatus nobody boots. Several errors above violate a rule *written or corrected
 by this same session, the same day* — #11 is an unverified inference in the
 paragraph describing the hook built to catch unverified inferences, and #23
 violated "before deleting or overwriting, look at the target" while its author
