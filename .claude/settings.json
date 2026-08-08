@@ -26,6 +26,16 @@
             "timeout": 10
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -f \"${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel)}\"/.claude/hooks/read_before_write.py ] && python3 \"${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel)}\"/.claude/hooks/read_before_write.py || true",
+            "timeout": 10
+          }
+        ],
+        "matcher": "Bash|WebFetch|Read|Glob|Grep|Edit|Write"
       }
     ],
     "Stop": [

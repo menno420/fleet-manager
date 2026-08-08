@@ -200,6 +200,64 @@ like a fact. The folder now carries a § "How much of the repo this was built
 from" stating its own basis, so the next reader can weight the pointer lines
 differently from the state lines.
 
+## The rule, and the hook the owner asked for
+
+`OWNER`, 2026-08-08: the read-before-you-describe lesson belongs in
+fleet-manager's own working explanation, *"something we should probably enforce
+with a hook."*
+
+**The doctrine** is now a bullet in `.claude/CLAUDE.md` § working style, carrying
+the measurement rather than just the instruction — 0/3 wrong when read, 3/5
+wrong when not, and the reason it needs a mechanism: an unread description reads
+exactly like a read one, so it survives every downstream check.
+
+**The hook** is `.claude/hooks/read_before_write.py`, advisory and fail-open,
+registered `PreToolUse`. It records the paths a session fetches and flags prose
+describing paths it never fetched.
+
+**The split that keeps it honest.** The owner's rule has two halves — *read* and
+*understood*. Only the first is a fact and only the first is mechanised. The
+second is a judgement, and this estate has withdrawn two gates for trying to
+mechanise meaning. So the hook never blocks, and **a quiet hook is not evidence
+of anything**; only a firing one carries information. That asymmetry is written
+into both the hook's output and the boot-file bullet, because an advisory that
+reads as an all-clear is worse than none.
+
+**Two defects found by testing against real files rather than fixtures**, both
+of which would have made it useless in a different direction:
+
+1. Matching on tool *results* let a directory listing launder a filename into
+   "read" — `ls docs/` made the hook believe `decisions.md` had been opened,
+   which is precisely the file it needed to catch. Fixed: record tool **inputs**
+   only, and the 3/3 detection above is measured under that rule.
+2. It went **silent on `records.md`'s 25 described paths**, because markdown
+   link syntax hid the path from the describing pattern. For an advisory, a
+   silent miss is the worst available outcome. Fixed by collapsing `[x](y)` to
+   its label first; output stays bounded at 5 + a count.
+
+`tools/install_root_hooks.py` is now table-driven over both hooks rather than
+hardcoded to one, so the case-three rescue path installs the whole apparatus.
+
+**Correction, same session:** the card and PR #820 first said *"the hook has not
+fired in a live session — only against piped payloads,"* reasoning that hooks
+load at boot and this one was registered mid-session. **That was wrong, and it
+was an inference stated as a fact — the exact failure this hook exists to catch,
+committed in the paragraph describing the hook.** Checked instead of assumed:
+`/tmp/claude-read-set/<session>.json` exists for this session, written at
+11:50:37 against a registration at 11:44:27, holding **30 recorded paths.**
+**Hooks do reload mid-session** in this environment; the boot-triad claim covers
+which `.claude/` tree is *found*, not whether a live edit to it takes effect.
+
+So the accurate statement: it is **live and recording**, and it has **reported
+zero times** — it has had no cause, because every file described since it went
+live had been opened. Its first real *firing* is still ahead.
+
+**And the thing it has never done, by construction: block.** The script has no
+`permissionDecision` path anywhere in it; every branch returns 0 with at most an
+`additionalContext` note. The `PreToolUse` schema in the shipped binary does
+carry `permissionDecision` + `permissionDecisionReason`, so hard-denying a Write
+is available and deliberately unused — see the owner question below.
+
 ## Open owner questions
 
 Three, none blocking — the folder stands either way.

@@ -206,3 +206,58 @@ echo '{"session_id":"t","transcript_path":"<some .jsonl>"}' | python3 .claude/ho
 # registration
 jq -e '.hooks.Stop[].hooks[].command' .claude/settings.json
 ```
+
+---
+
+## `read_before_write.py` — prose about a file nobody opened
+
+`PreToolUse`, advisory, fail-open. Records the paths a session actually fetches
+(read-tool inputs), and when the session writes prose *describing* a path it
+never fetched, says so.
+
+**Why it exists — MEASURED 2026-08-08 on this repo's own transcript.** A session
+built `docs/repos/spider-swing/` and wrote a boot-path table glossing eight of
+that repo's files in one line each. Split by whether it had fetched the file
+before writing the line:
+
+| | wrong |
+|---|---|
+| fetched first (3 files) | **0 / 3** |
+| not fetched (5 files) | **3 / 5** |
+
+The three errors were plausible and none was catchable downstream:
+`AGENT_ORIENTATION.md` called an instruction set when it is a reading-*router*,
+`decisions.md` called an ADR log when it cites `[D-NNNN]` ids, and
+`architecture.md` listed as ordinary reference when its badge is `binding` — so
+a later session would have been told there was one binding contract where there
+are two. **An unread description reads exactly like a read one**, which is why
+this is a mechanism rather than a line of advice.
+
+**What it checks, and the boundary that matters.** It checks a *fact* — was this
+path named in a read tool's input before the prose was written. It does **not**
+check whether the file was understood; that is a judgement, and this estate has
+twice withdrawn a gate that tried to mechanise meaning (the provenance gate, and
+"attached a repo ⇒ touched its folder"). So it never blocks, and a **quiet hook
+is not evidence of anything** — only a firing one carries information.
+
+Deliberately narrow, to keep the channel worth reading: a path counts as
+*described* only when prose follows it on the same line (a table cell, an
+em-dash gloss, a colon). Bare links, imports and paths inside commands are
+pointers and are ignored. Reported once per path per session, capped at 5.
+
+Two behaviours found by testing it against real files rather than fixtures:
+markdown-link table rows (`[`docs/x.md`](../docs/x.md) | what it is`) hid the
+path from the first version, so links are collapsed to their label before
+matching — it had gone silent on 25 described paths, and for an advisory a
+silent miss is the worst outcome available. And a *directory listing* must not
+count as having read a file: matching on returned text let `ls` output launder
+a filename into "read", which is why only tool **inputs** are recorded.
+
+```bash
+# fires: describing files never opened
+echo '{"session_id":"t","hook_event_name":"PreToolUse","tool_name":"Write","tool_input":{"file_path":"r.md","content":"| `docs/decisions.md` | the decision ledger (ADRs) |"}}' | python3 .claude/hooks/read_before_write.py
+# quiet: a pure link list is a pointer, not a description
+echo '{"session_id":"u","hook_event_name":"PreToolUse","tool_name":"Write","tool_input":{"file_path":"x.md","content":"See [a](docs/a.md) and [b](docs/b.md)."}}' | python3 .claude/hooks/read_before_write.py
+# registration (both hooks, all events)
+python3 tools/install_root_hooks.py
+```
