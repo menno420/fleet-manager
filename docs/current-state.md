@@ -120,6 +120,15 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 
 ## Recently shipped (newest first)
 
+- **The owner-review Stop hook — the measured mechanism, built and live** (2026-08-07):
+  [`.claude/hooks/owner_review.py`](../.claude/hooks/owner_review.py) — run 4's untried
+  path made real: the hook runs the review *itself* (transcript → owner-stand-in reviewer
+  on Vertex → questions as the block reason), zero agent initiative, fail-open on every
+  path, the `NO QUESTIONS` null a normal outcome. First live chain test re-caught the
+  previous day's rulesets false wall from a cold synthetic reproduction (*"did you try
+  the classic Branch Protection API?"*). This repo only, per the no-fleet-rollout
+  decision; telemetry at `/tmp/claude-owner-review/log.jsonl`; design record:
+  [findings/2026-08-06-provenance-mechanism-measured.md](findings/2026-08-06-provenance-mechanism-measured.md).
 - **What the substrate caught, and what only the owner could — one session, counted**
   (2026-08-07): [findings/2026-08-07-what-the-substrate-caught.md](findings/2026-08-07-what-the-substrate-caught.md)
   — the owner's claim that the enforcing checks exist so he does not have to correct every
