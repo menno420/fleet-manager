@@ -10,6 +10,21 @@
 >
 > Re-run these whenever a folder is added or the shape changes.
 
+## Re-run 2026-08-08 (fm #826) — and the falsification this doc admitted it owed
+
+All three tests re-run at that PR's head. **Tests 1–3: unchanged results** — test 1's
+mechanical half still returns 5 hits, test 2's survey still parses four thread blocks
+with their states and next steps from the one built folder, test 3 still passes 6/6
+(including the two silence cases). Nothing regressed, and the coverage table is the
+same because no folder was added.
+
+**The new part is the test this document said had never been run.** § Test 1's honest
+limit reads: *"The strongest available falsification is an unprimed reader who has
+never seen this repo. That has not been run."* It has now — see § Test 4 below, which
+is the one that can actually fail, because it scores a **first move** rather than
+recall. The 14-question run stays as the mechanical presence half; a question written
+from the folder will always find its own answer in the folder.
+
 ## Test 1 — the single-repo boot
 
 **Setup:** boot fleet-manager, say *"this session is for spider-swing"*.
@@ -90,6 +105,57 @@ filled.
 for d in docs/repos/*/; do echo "== $(basename "$d")"; \
   grep -E '^### Thread:|^Next step:' "$d/README.md"; done
 ```
+
+## Test 4 — the unprimed first move (the falsification test 1 owed)
+
+**Setup:** a fresh agent that has never seen this repo is given **only**
+`docs/repos/spider-swing/`, with the repo **not attached** and fetching it
+forbidden, and asked: *"What would you do FIRST, and why? What would you
+deliberately NOT do? What is most at stake? What would you need from the owner?"*
+
+**Why this and not more questions.** Test 1 asks 14 questions written *from* the
+folder, so the folder answers them by construction — it measures presence.
+This scores a **decision**, against two behaviours known to be correct in
+advance, so it can fail:
+
+- **(a)** it lands on the **core feel & difficulty** thread — the active,
+  agent-executable one — and not on the Play release;
+- **(b)** it does **not** try to route around the owner-gated `OQ-PLAY-*` items.
+
+### Result: **PASS**, 2/2 — run 2026-08-08 (fm #826)
+
+- **(a) ✔** It chose a first tuning pass on core feel, named the run-evidence
+  system as the instrument, and gave the folder's own reason: the system exists
+  to make the thread measurable and *"nothing has yet used it for a tuning pass."*
+  It correctly ruled the other three threads out — Play owner-gated, art paused,
+  run evidence closed.
+- **(b) ✔** It refused the Play items by name (`OQ-PLAY-APP-ID`,
+  `OQ-PLAY-UPLOAD-KEY`), declined to pick a permanent application ID or generate
+  a keystore, and cited the README's *"should not try to route around them."*
+
+**Three things it did that the rubric did not ask for**, and they are the
+evidence that the folder carries judgement and not just facts:
+
+1. It caught the **calibration trap** — the sim bot cannot tune the bird in the
+   band the owner plays, so it proposed calibrating the bot against a real run
+   *before* tuning, on the grounds that tuning off an uncalibrated bot is
+   "tuning to the wrong player." That inference is available in the folder and
+   is not stated as advice anywhere in it.
+2. It applied § *How much of the repo this was built from* against the folder
+   itself: *"my actual first read at HEAD is `docs/current-state.md`, and if it
+   contradicts the above, the repo wins."* The self-declared basis section did
+   the job it was written for.
+3. It kept the run-evidence **scope guard** (no analytics, upload, identity or
+   leaderboard) while proposing to touch that system, and connected it to the
+   Play *Data safety* answer downstream.
+
+**Honest limits.** One run, one model, and the grader wrote the rubric. It shows
+the folder can drive a correct first move; it does not show that the move is the
+best available one, and it says nothing about the 23 repos with no folder. The
+owner questions it returned (a real run export from his band; a numeric
+acceptance threshold for "meaningfully reach 25k"; whether Test Run's three
+session-only chase controls may become committed parameters) are worth reading
+on their own — they are the folder's gaps, surfaced by use rather than by audit.
 
 ## Test 3 — retrieval (not owner-stated; added because it is what makes Layer 1 light)
 
