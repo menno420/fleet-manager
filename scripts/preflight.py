@@ -41,8 +41,12 @@ GUARD = "FM_PREFLIGHT_ACTIVE"
 
 def run(label: str, argv: list[str], env: dict | None = None) -> int:
     p = subprocess.run(argv, cwd=REPO, env=env, capture_output=True, text=True)
-    tail = (p.stdout + p.stderr).strip().splitlines()[-1:] or [""]
-    print(f"preflight: {label} -> exit {p.returncode}  ({tail[0][:120]})")
+    lines = (p.stdout + p.stderr).strip().splitlines()
+    # Prefer the line that states the verdict over the literal last line: a
+    # failing `check` ends on the guard-fires telemetry note, so the tail
+    # describes bookkeeping while the finding sits above it.
+    tail = next((l for l in reversed(lines) if "finding(s)" in l), lines[-1] if lines else "")
+    print(f"preflight: {label} -> exit {p.returncode}  ({tail.strip()[:120]})")
     return p.returncode
 
 
@@ -73,21 +77,35 @@ def main() -> int:
 
     inner = dict(os.environ, **{GUARD: "1"})
     failed = 0
+    failing: list[str] = []
 
     for card in added_cards():
-        failed |= run(
+        rc = run(
             f"added-card lane ({card})",
             [sys.executable, "bootstrap.py", "check", "--strict",
              "--session-log", ".sessions/__born-red-card-added__.md",
              "--added-card", card],
-            env=inner) != 0
+            env=inner)
+        if rc != 0:
+            failing.append(f"added-card lane ({card}) — born-red HOLD if the "
+                           "card is still in-progress; a real finding otherwise")
+        failed |= rc != 0
 
     for label, argv in (
         ("doc routes", [sys.executable, "tools/check_doc_routes.py", "--strict"]),
         ("false walls", [sys.executable, "tools/check_no_false_walls.py", "--strict"]),
     ):
-        failed |= run(label, argv) != 0
+        rc = run(label, argv)
+        if rc != 0:
+            failing.append(label)
+        failed |= rc != 0
 
+    # The LAST line must name the cause: bootstrap surfaces only this line in
+    # its `[preflight-script]` finding, and on 2026-08-08 that made a born-red
+    # hold read as a failure of `false walls`, the leg that had just passed.
+    # An instrument that attributes a red to the wrong leg is worse than none.
+    if failing:
+        print("preflight: FAILED — " + " · ".join(failing))
     return 1 if failed else 0
 
 

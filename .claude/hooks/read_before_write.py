@@ -128,10 +128,18 @@ def _vkey(v: str) -> str:
     return hashlib.sha1(v.encode()).hexdigest()[:12]
 
 
-def vocab_violations(content: str) -> list[str]:
+def vocab_violations(content: str, target: str = "") -> list[str]:
     out = []
     badges = _allowed_badges()
-    if badges:
+    # Session cards carry a DIFFERENT closed vocabulary from docs: bootstrap's
+    # IN_PROGRESS_TOKENS ("in-progress", "wip", "hold", "drafted") and the
+    # completed value "complete" — none of which are docs badge tokens. Checking
+    # a card against the docs taxonomy therefore fired on EVERY born-red card and
+    # again on every flip, twice per session forever, which is the one thing an
+    # advisory channel cannot afford (README design rule 2: silence is the
+    # default, and a channel that cries wolf makes the useful lines invisible).
+    # Measured 2026-08-08 on this session's own first and last commits.
+    if badges and "/.sessions/" not in f"/{target}":
         for tok in BADGE_RE.findall(content):
             if tok not in badges:
                 out.append(
@@ -229,7 +237,7 @@ def main() -> int:
 
     # Closed-vocabulary fields first — independent of the read-set, reported
     # once per violation text per session.
-    vocab = [v for v in vocab_violations(content)
+    vocab = [v for v in vocab_violations(content, target)
              if f"!vocab:{_vkey(v)}" not in seen]
     if vocab:
         save(session, seen | {f"!vocab:{_vkey(v)}" for v in vocab})

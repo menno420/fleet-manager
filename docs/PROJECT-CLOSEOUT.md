@@ -352,6 +352,14 @@ closeout is the authority on its products.
 
 ## 5 · Working this repo with a fresh session
 
+> **Superseded 2026-08-08 — boot from `.claude/CLAUDE.md` instead.** The route
+> below was correct at the close; two of its four stops have since gone
+> historical (`control/status.md` is the seat's frozen last heartbeat, and
+> `docs/roster.md` was retired 2026-08-07). The boot file auto-loads, carries the
+> current read path, and marks what is live versus historical. Everything else in
+> this section — the verify command, the landing mechanics, the four gotchas —
+> is still accurate and worth reading.
+
 - **Boot route (in order):** `CONSTITUTION.md` (the working agreement) →
   `control/status.md` (the seat's last heartbeat — first line says SEAT
   CLOSED) → `docs/roster.md` + `docs/owner-queue.md` + `docs/playbook.md`
