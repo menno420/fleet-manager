@@ -246,8 +246,18 @@ Pro on the free key 429s, as the convention says it will.
 
 That is § 1 restated: **the system prompt is the load-bearing component, not the
 model.** The Railway → service-account → OAuth → JWT → openssl chain was buying
-a bigger model for a job the small one does, and it was the only part that ever
-broke — three distinct ways in one hour. So the routing inverts: **free AI Studio
+a bigger model for a job the small one does.
+
+**Correction — "the only part that ever broke" was an overstatement, and it made
+a working capability sound broken.** Google authentication was never absent; the
+`google-auth` *library* was. Verified cold 2026-08-08 with the credential cache
+deleted: Railway SA **0.8 s** → self-signed JWT access token **0.1 s** → Vertex
+`generateContent` **HTTP 200 in 6.7 s**, **7.5 s end to end**. Of the three
+"breakages", one was the missing library (fixed in ten minutes), one was the
+uncountable-skip *logging* defect — not auth at all — and one was self-inflicted
+by the first repair reaching for `cryptography`. Free-first is right because it
+is free, needs one header, and § 8 says the model is not load-bearing — **not**
+because the credit-funded path is unreliable. So the routing inverts: **free AI Studio
 key first, Vertex underneath for exactly one failure, the requests-per-day
 cliff.** Consistent with `docs/conventions/vertex-first-for-gemini.md`, which
 reserves the Vertex default for volume/image/video and otherwise says *"free key

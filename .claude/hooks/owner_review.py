@@ -351,9 +351,21 @@ def _free_review(text):
     That is what findings § 1 already said and nobody had acted on: **the
     system prompt is the load-bearing component, not the model.** So the whole
     Railway → service-account → OAuth → JWT → openssl chain was buying a bigger
-    model for a job the small one does, and it was the only part that ever broke
-    (three distinct ways in one hour: missing google-auth, uncountable skips, a
-    Rust PanicException that escaped `except Exception`).
+    model for a job the small one does.
+
+    **Do not read that as "Vertex is fragile" — it is not, and the first version
+    of this docstring implied it.** What was missing was the `google-auth`
+    convenience LIBRARY, never the authentication: the service account, the
+    OAuth token endpoint and Vertex itself were all present throughout.
+    Re-measured cold 2026-08-08 with the credential cache deleted — Railway SA
+    0.8 s, self-signed JWT → access token 0.1 s, Vertex `generateContent`
+    HTTP 200 in 6.7 s, **7.5 s end to end**. Of the "three breakages" first
+    claimed here, one was that missing library (a ten-minute fix), one was the
+    uncountable-skip LOGGING defect which has nothing to do with auth, and one
+    was self-inflicted by the first repair attempt reaching for `cryptography`.
+    The free-first routing stands on its own merits — free, one header, and § 8
+    says the model is not load-bearing at all — not on any unreliability of the
+    credit-funded path.
 
     Consistent with docs/conventions/vertex-first-for-gemini.md, which reads
     "**free** key unless its daily cap is genuinely in the way" and reserves the
