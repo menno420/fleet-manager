@@ -9,10 +9,14 @@
 > `README.md`, is an **open question for the owner**. Judge the shape, not just
 > the contents.
 >
-> **Canonical for nothing.** spider-swing's `CONSTITUTION.md` is the binding
-> working agreement and its `docs/AGENT_ORIENTATION.md` is the real instruction
-> set; both win over this file. What is here is the operational subset worth
-> knowing *before* you attach, plus the traps that have actually bitten.
+> **Canonical for nothing.** spider-swing's **binding** contracts are
+> `CONSTITUTION.md` (working agreement + autonomy rails) **and
+> `docs/architecture.md`** (layering, invariants, decomposition rules) — both
+> carry the `binding` badge and both win over this file.
+> `docs/AGENT_ORIENTATION.md` is a **reading-router**, not the instruction set:
+> it tells you which docs a given task needs. What is here is the operational
+> subset worth knowing *before* you attach, plus the traps that have actually
+> bitten.
 
 ## The gates — `MEASURED` 2026-08-08 against the rulesets API
 

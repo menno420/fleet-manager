@@ -170,6 +170,36 @@ to the `finding(s):` header, not the tail.
 - **Only one repo's folder was built, by instruction.** The other four Tier-1
   repos and ~19 Tier-2 stubs are untouched.
 
+## Post-merge correction — the owner asked how much of the repo I actually read
+
+`MEASURED` 2026-08-08, after #818 merged. The honest answer is **three files,
+partially — about 180 lines** of a **732-file** repo (305 markdown / 2.12 MB,
+120 under `game/`, 76 GDScript, 207 assets, 142 session cards): its
+`docs/current-state.md`, `docs/reading-path.md` and the newest session card,
+plus complete structural metadata from the API and 28 files read properly *here*.
+
+Asking the question was worth more than the answer, because checking it found
+**three wrong claims** in the shipped folder — all of the same kind: a one-line
+description of a file this session never opened.
+
+| claim as shipped | what the file actually says |
+|---|---|
+| `docs/AGENT_ORIENTATION.md` "how an agent is expected to work in it", and in `working-here.md` "the real instruction set" | it is the **task reading-router** — it tells you which docs a task needs. It routes; it does not instruct |
+| `docs/decisions.md` "the decision ledger (ADRs)" | append-only ledger citing bare **`[D-NNNN]`** ids |
+| `docs/architecture.md` listed as ordinary reference | badge is **`binding`** — a second binding contract, which `working-here.md` had omitted from the pair that outranks it |
+
+Two claims that *were* second-hand held up on check: `posmod(tile_index, 2) == 1`
+is real at `game/presentation/scripts/swing_lab.gd:420` (quoted here from a
+fleet-manager finding, never from the file until now), and `tools/verify.py`
+exists (HTTP 200) though its behaviour is still described from spider-swing's
+prose rather than from the script.
+
+**The generalisable bit:** existence and badge are cheap to verify and were not
+verified; *"what it is"* for an unopened file is an inference that reads exactly
+like a fact. The folder now carries a § "How much of the repo this was built
+from" stating its own basis, so the next reader can weight the pointer lines
+differently from the state lines.
+
 ## Open owner questions
 
 Three, none blocking — the folder stands either way.

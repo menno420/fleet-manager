@@ -152,20 +152,55 @@ Attach when you intend to **write**, or when the job needs a real tree (running
 spider-swing ships its own orientation, and it is better than anything this
 folder could restate. Read in this order:
 
-| file (in spider-swing) | what it is |
-|---|---|
-| `CONSTITUTION.md` | its working agreement — the binding one |
-| `docs/current-state.md` | the living ledger: north star, stability baseline, current build |
-| `docs/AGENT_ORIENTATION.md` | how an agent is expected to work in it |
-| `docs/architecture.md` | the ownership seams (domain / application / adapter / presentation / bootstrap) |
-| `docs/repo-navigation-map.md` | where things are |
-| `docs/decisions.md` | the decision ledger (ADRs) |
-| `docs/CAPABILITIES.md` | **its** capability ledger — different file, different scope from ours |
-| `docs/reading-path.md` | its cross-repo read rules — note its standing rule that **writes stay in that repo** |
+**It is a substrate-kit adopter with the standard doc set** — every file below
+carries the kit's generated header, so the shape is the same one you already know
+from this repo. Badges below are each file's own `Status:`, checked 2026-08-08.
+
+| file (in spider-swing) | badge | what it is |
+|---|---|---|
+| `CONSTITUTION.md` | `binding` | the working agreement + autonomy rails |
+| `docs/architecture.md` | `binding` | layering, invariants and decomposition rules — **the second binding contract, and easy to miss** |
+| `docs/current-state.md` | `living-ledger` | north star, stability baseline, current build. **Start here** |
+| `docs/AGENT_ORIENTATION.md` | `reference` | the **task reading-router** — start here to find which docs a given task needs. It routes; it is not itself the instruction set |
+| `docs/repo-navigation-map.md` | `reference` | where things live; where new code goes |
+| `docs/decisions.md` | `living-ledger` | append-only decision ledger; rule docs cite entries as bare **`[D-NNNN]`** ids, superseded never deleted |
+| `docs/CAPABILITIES.md` | `living-ledger` | **its** capability ledger — different file, different scope from ours |
+| `docs/reading-path.md` | `reference` | its cross-repo read rules — note its standing rule that **writes stay in that repo** |
 
 For how to work *on* it — gates, verify commands, the traps — see
 [`working-here.md`](working-here.md) in this folder, which is the part you want
 **before** attaching.
+
+## How much of the repo this was built from — `MEASURED` 2026-08-08
+
+Stated because a handoff that hides its own basis invites over-trust, and
+because the answer is **"very little of the repo, most of the records."**
+
+spider-swing is **732 files** — 305 markdown (2.12 MB), 120 under `game/`, 76
+GDScript, 207 assets, 142 session cards. This folder was built from:
+
+- **Three files, partially read** (~180 lines total): `docs/current-state.md`,
+  `docs/reading-path.md`, and the newest session card
+  `.sessions/2026-08-06-run-evidence.md`.
+- **Structural metadata, complete**: the full tree, both directory listings,
+  every workflow, the rulesets and effective branch rules, open issues and PRs,
+  the last 12 merged PRs, and repo metadata — all live from the API.
+- **28 files in fleet-manager**, read properly. That is where most of the
+  narrative here comes from, and it is the half this repo is canonical for.
+
+**What that means for how to read this folder.** The *state* claims are
+strong — they come from spider-swing's own ledger and from live API reads. The
+*pointer* claims were checked for existence and badge, but *"what it is"* for a
+file this session did not open is a one-line inference from its header. Three
+were wrong on first writing and were corrected on 2026-08-08 after checking:
+`AGENT_ORIENTATION.md` is a reading-*router* rather than an instruction set,
+`docs/decisions.md` cites `[D-NNNN]` ids rather than ADRs, and
+**`docs/architecture.md` is a second `binding` contract** that the first draft
+listed as ordinary reference.
+
+Nothing under `game/`, `assets/`, `tests/`, `tools/` or `docs/product/` has been
+read from here. **The repo always wins** — that is the rule at the top of this
+file, and this section is what makes it concrete rather than polite.
 
 ## Why this folder has the files it has
 
