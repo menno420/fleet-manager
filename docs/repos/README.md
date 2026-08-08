@@ -1,0 +1,123 @@
+# `docs/repos/` — Layer 2, one folder per repo
+
+> **Status:** `living-ledger`
+>
+> The estate's per-repo entry points. Layer 1 (the boot file and the read path)
+> carries what is true **regardless of which repo a session is working on**;
+> this directory carries the part that is specific to one.
+>
+> Design and the reasons behind every decision here:
+> [`../planning/2026-08-08-fleet-manager-as-index.md`](../planning/2026-08-08-fleet-manager-as-index.md).
+> Certainty tags per
+> [`../findings/2026-08-05-foundation-continuation.md`](../findings/2026-08-05-foundation-continuation.md).
+
+## The working model this exists to serve
+
+fleet-manager is **always the boot repo and never the subject repo** — the sole
+exception being work on fleet-manager itself. So a session:
+
+1. boots here (single source, so this repo's `.claude/` actually loads),
+2. **orients from the repo's folder below — before attaching anything**,
+3. attaches the working repo (`add_repo`),
+4. works there,
+5. at close, updates that repo's folder here.
+
+Because step 5 happens while the session is still inside fleet-manager, **no
+cross-repo write is involved anywhere in this loop.**
+
+## What a folder IS — a handoff, not an encyclopedia
+
+The test that defines "enough": **a session must be able to answer basic
+questions about the repo without the repo attached, and decide whether to attach
+it at all.**
+
+A folder is *where the last session left off and where the next one should
+look* — a persistent continuation prompt for that repo. It is deliberately
+**not** documentation about the repo, because that would compete with the
+repo's own docs and lose.
+
+### Three tiers of ownership — conflating any two is the drift risk
+
+| | lives | canonical for |
+|---|---|---|
+| the repo's own docs | in that repo | **its internal state** — architecture, its capabilities, how to work in it |
+| fleet-manager's dated records | here (`docs/`, `.sessions/`) | **what happened in sessions run from here** |
+| a Layer 2 folder | here | **nothing** — it is an entry point and a handoff |
+
+A folder file summarises and points; it never becomes the source. The rule
+survives only under a stamp, so **every file here states what it summarises,
+which document is canonical, and the date it was true.** The moment a file
+starts explaining the repo's architecture it has become a copy and will drift.
+
+## Threads — the unit of replacement
+
+A folder holds **one block per active thread**, and a session replaces *its
+own* block only — never the whole file. That is what keeps paused and parallel
+work alive across a session that never touched it.
+
+```
+## Thread: <name> — active, updated YYYY-MM-DD
+   where it stands · pointers · next step
+## Thread: <name> — paused YYYY-MM-DD
+   where it stopped · pointers · what would resume it
+```
+
+Threads are **closed explicitly** by the session that finishes them, so the file
+keeps answering "what matters now" instead of growing into a changelog. Being
+dated is the folder's nature, not its decay: staleness is meant to be *visible*.
+
+## The files, and how a repo earns them
+
+`README.md` is the entry and **stands alone** — one read answers the basic
+questions and carries the thread blocks. Everything else is depth, opened when
+the question is deeper. A doc-route for a repo points at `README.md`, never at
+the folder.
+
+The design named `current-state` / `capabilities` / `goals` / `records` as a
+**starting shape**, not a template to stamp out. Each repo earns its files, and
+**a file that is deferred is recorded as deferred with its reason** — silently
+omitting one is what makes the next session re-derive the same decision.
+
+See [`spider-swing/README.md`](spider-swing/README.md) § "Why this folder has
+the files it has" for the first worked example.
+
+## Coverage — honest, and mostly not yet built
+
+| tier | repos | state |
+|---|---|---|
+| **1** | `spider-swing` | ✅ **built** 2026-08-08 — the reference shape |
+| **1** | `superbot` + `superbot-next` (paired) · `substrate-kit` · `venture-lab` | ⬜ not built — awaiting owner sign-off on the shape |
+| **1** | `fleet-manager` (itself — today's work is otherwise a standing exception) | ⬜ not built |
+| **2** | the remaining ~19 | ⬜ not built — planned as `README.md` only, honestly stubbed; depth **deferred, not skipped** |
+
+**A blank row above means "not written yet", never "nothing is happening
+there."** Until a row is built, that repo's truth lives where it always did:
+in its own `docs/current-state.md` and `docs/PROJECT-CLOSEOUT.md`, plus this
+repo's dated records. Tier 2 repos are still important — a session must be able
+to find them and know what they are — they are simply not where work happens
+most weeks.
+
+## This is not `projects/`
+
+`../../projects/<name>/` is **seat-era apparatus and historical record**: the
+console package (Custom Instructions, startup prompts) for the autonomous
+Projects that closed 2026-07-21, generated from `docs/prompts/v3/`. It is
+per-*seat*, not per-*repo*, several of its dirs are merged-source pointer stubs,
+and it is not on any boot read path.
+
+`docs/repos/` is per-repo, current, and hand-written. The two do not overlap and
+neither supersedes the other. If you are looking for what a repo is doing now,
+you are in the right directory.
+
+## Maintenance — a session-close step, deliberately NOT a gate
+
+A gate on *"attached a repo ⇒ touched its folder"* was proposed and **withdrawn
+before implementation**. `Did the session attach a repo` is a fact; **`did the
+handoff state change` is a judgement**, and a typo fix is indistinguishable from
+a direction change to a script. Mechanise facts, never meaning — a gate here
+would redden legitimate read-only work, which is the same defect that killed the
+provenance gate a day earlier.
+
+So it is a step in `session-close`, **with an explicit null**: if nothing about
+the handoff changed, record that and move on. The null path is what stops the
+check becoming ritual.

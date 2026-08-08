@@ -164,6 +164,26 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-08 · capability · `any` · **A hook payload field the public docs do not publish is
+  readable straight out of the shipped Claude Code binary — `UserPromptSubmit` delivers the
+  user's message as a TOP-LEVEL `prompt` key, not under `tool_input`.** So `route_docs.py`
+  can run on `UserPromptSubmit` as well as `PreToolUse`, which is what lets naming a repo
+  pull its `docs/repos/<name>/README.md` in *before* the session starts working. · evidence:
+  `/opt/claude-code/bin/claude` is a 297 MB ELF and **not stripped**;
+  `strings -n 100 | grep -o -E '.{0,250}hook_event_name:"UserPromptSubmit".{0,250}'` returns
+  the payload builder verbatim —
+  `let s={...mh(t),hook_event_name:"UserPromptSubmit",prompt:e,...,session_title:jT(Ft())}`.
+  The same binary carries the output schema
+  (`Se({hookEventName:xt("UserPromptSubmit"),additionalContext:...,sessionTitle:...,suppressOriginalPrompt:...})`),
+  confirming `hookSpecificOutput.hookEventName` must name the event actually handled — it is a
+  discriminated union, so echoing `"PreToolUse"` from a prompt hook is wrong. Six payloads piped
+  into the hook behaved as designed, including **silence when only `cwd`/`transcript_path`
+  contained the trigger string**. · why it is worth a row: the docs page lists the common
+  fields and stops, and a WebFetch of it returned *"the documentation does not explicitly list
+  the complete UserPromptSubmit schema"*. **Absence from the docs is not absence of the fact** —
+  the artefact that implements the behaviour was sitting in the container. Before recording any
+  hook or CLI behaviour as undocumented, grep the binary. · workaround: none needed. —
+  LAST-VERIFIED: 2026-08-08
 - 2026-08-07 · capability · `any` · **`@codex review` on a PR works and answers in about
   5.5 minutes — do not conclude it is unavailable on a shorter window.** · evidence: measured
   on fleet-manager #812 — request `13:46:59Z`, review posted `13:52:34Z` on the exact head SHA

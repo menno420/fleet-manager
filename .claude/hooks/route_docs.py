@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""PreToolUse hook: surface the estate's own doc before a session probes blind.
+"""PreToolUse + UserPromptSubmit hook: surface the estate's own doc before a
+session probes blind — or before it starts work on a repo it has a folder for.
 
 The failure this exists to stop, measured 2026-08-05: a session wanted a
 multi-turn Gemini conversation, fetched the `generativelanguage` discovery
@@ -22,6 +23,20 @@ Design constraints, in priority order:
    usually empty is the only kind worth writing to.
 3. **No repo writes.** Session state lives in /tmp, keyed by session id, so
    running the hook never dirties the tree the session is trying to keep clean.
+
+The second event exists for a different failure, added 2026-08-08. On
+`PreToolUse` the hook reads TOOL INPUT ONLY, so saying "this session is for
+spider-swing" routes nothing until the session itself happens to grep that
+string — the retrieval fires after orientation instead of before it. On
+`UserPromptSubmit` naming a repo pulls its Layer 2 `docs/repos/<name>/README.md`
+in directly, which is what lets Layer 1 stay light: the boot file need not
+describe each repo, because naming one fetches it.
+
+Prompt routing is **opt-in per route** (`"tools": ["UserPromptSubmit", ...]`).
+Adding the event to DEFAULT_TOOLS instead would have switched all 21 existing
+probe routes onto the owner's prose at once — patterns written to match a shell
+command or a URL, now matching conversation. Silence is the default here, and a
+blast radius of "every route, immediately" is not how to keep it.
 
 Wired by tools/install_root_hooks.py, which installs into whichever directory
 is actually the session root — see .claude/hooks/README.md for why that is not
@@ -58,14 +73,49 @@ FIELDS = {
 
 # A route with no `tools` key is a probe route: it fires when a session is
 # about to go ask a vendor something. Content routes opt in explicitly.
+# UserPromptSubmit is deliberately NOT here — see the module docstring.
 DEFAULT_TOOLS = ("Bash", "WebFetch", "Read", "Glob", "Grep")
 
+PROMPT_EVENT = "UserPromptSubmit"
 
-def haystack(tool: str, payload: dict) -> str:
+# Session plumbing, never content. Only used by the defensive fallback below —
+# without this, a `cwd` or a `transcript_path` could trip a route on its own.
+EVENT_NOISE = {
+    "session_id", "transcript_path", "cwd", "permission_mode",
+    "hook_event_name", "prompt_id", "tool_use_id", "session_title",
+}
+
+
+def haystack(event: dict) -> tuple[str, str]:
+    """Return (route-matching key, text to match against).
+
+    The key is the tool name for PreToolUse and the literal event name for
+    UserPromptSubmit, so both share one `tools` opt-in list on a route.
+
+    MEASURED 2026-08-08: UserPromptSubmit carries no `tool_input` at all — the
+    message arrives as a TOP-LEVEL `prompt` key, sibling to `hook_event_name`.
+    Read out of the shipped binary (`/opt/claude-code/bin/claude`, not
+    stripped), which builds the payload as
+    `{...,hook_event_name:"UserPromptSubmit",prompt:e,...}`. The public hooks
+    reference does not publish this field, so it was verified rather than
+    assumed — and the fallback below means a future rename degrades to
+    slightly-noisier matching instead of silence.
+    """
+    if (event.get("hook_event_name") or "") == PROMPT_EVENT:
+        text = event.get("prompt")
+        if isinstance(text, str) and text.strip():
+            return PROMPT_EVENT, text
+        return PROMPT_EVENT, "\n".join(
+            v for k, v in event.items()
+            if k not in EVENT_NOISE and isinstance(v, str)
+        )[:4000]
+
+    tool = event.get("tool_name", "")
+    payload = event.get("tool_input") or {}
     keys = FIELDS.get(tool)
     if keys:
-        return "\n".join(str(payload.get(k, "")) for k in keys)
-    return json.dumps(payload)[:4000]
+        return tool, "\n".join(str(payload.get(k, "")) for k in keys)
+    return tool, json.dumps(payload)[:4000]
 
 
 def already_fired(session: str) -> set[str]:
@@ -89,8 +139,7 @@ def main() -> int:
     except Exception:
         return 0
 
-    tool = event.get("tool_name", "")
-    text = haystack(tool, event.get("tool_input") or {})
+    tool, text = haystack(event)
     if not text.strip():
         return 0
 
@@ -130,11 +179,18 @@ def main() -> int:
         return 0
     remember(session, fired)
 
-    lines = [
-        "This estate has already written down how this works. Read the "
-        "doc before deriving the behaviour from a probe — a probe that fails "
-        "tells you about one call, not about what is possible."
-    ]
+    if tool == PROMPT_EVENT:
+        lines = [
+            "You named something this estate keeps its own record for. Read "
+            "the entry point below BEFORE attaching the repo or searching for "
+            "it — it exists so orientation costs one read instead of a sweep."
+        ]
+    else:
+        lines = [
+            "This estate has already written down how this works. Read the "
+            "doc before deriving the behaviour from a probe — a probe that fails "
+            "tells you about one call, not about what is possible."
+        ]
     for docs, says in hits:
         lines.append("")
         lines.append("· " + " + ".join(f"`{d}`" for d in docs))
@@ -143,8 +199,10 @@ def main() -> int:
 
     json.dump(
         {
+            # Must be the event actually being handled — the host validates
+            # hookSpecificOutput against a schema discriminated on this field.
             "hookSpecificOutput": {
-                "hookEventName": "PreToolUse",
+                "hookEventName": PROMPT_EVENT if tool == PROMPT_EVENT else "PreToolUse",
                 "additionalContext": "\n".join(lines),
             },
             "suppressOutput": True,

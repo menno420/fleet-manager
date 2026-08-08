@@ -79,6 +79,18 @@
    continuation threads, each self-contained. Two were still open 15 days after
    the close because no one re-read them.
 
+**Then the one for the repo you are actually working on:** `docs/repos/<name>/README.md`
+— **Layer 2**, one folder per repo, and the entry point stands alone. This list
+above is Layer 1: it carries what is true *regardless* of which repo a session
+is on, and it deliberately does **not** explain any single repo. Read the folder
+**before** attaching the repo — it answers what the repo is, where the last
+session left off, and whether attaching is even needed. Naming a repo in your
+message now pulls its README in automatically (`route_docs.py` runs on
+`UserPromptSubmit` as well as `PreToolUse`), so this is a net, not a chore.
+Structure, the thread convention and honest coverage: `docs/repos/README.md`.
+**Coverage is partial and says so** — `spider-swing` is built; the rest are
+listed as not-yet-written rather than silently absent.
+
 **This list is a floor, not a ceiling.** A session whose job is to *understand*
 this repo reads past it — `CONSTITUTION.md`, `MISSION.md`, `docs/playbook.md`
 (the R-series), `docs/owner-profile.md`, `docs/NEXT-TASKS.md`,
@@ -115,6 +127,18 @@ Essentials:
   (`GIT_CONFIG_GLOBAL=/dev/null` + `https://x-access-token:$GITHUB_PAT@github.com/…`).
 - The *proxied* GitHub REST path 403s. That is a path quirk — switch to direct
   egress — **not a wall.**
+- **`@codex` reviews your PRs, and it answers in about 5.5 minutes — wait for
+  it.** Trigger: PR open, draft→ready, or the literal comment `@codex review`.
+  Measured 2026-08-07 on fm #812: request `13:46:59Z` → review `13:52:34Z` on
+  the exact head SHA = **335 s**; 13 findings over 5 rounds across #812/#813,
+  several proving a PR did not do what its own title claimed. Findings arrive as
+  **inline review comments**, not in the review body, so a summary that looks
+  empty is not an empty review — read `/pulls/{n}/comments`. **Never merge a PR
+  you have asked Codex to review before it answers**: a session once waited 150 s,
+  wrote *"no review appeared"* into a public comment as if that were evidence,
+  and merged three minutes before four real findings landed. Quota refusals are
+  retry-later, never a property of the tool. (Codex *cloud* is a different
+  surface — `docs/providers/chatgpt.md` — and does not bear on this relay.)
 - **Gemini: two identities, and the paid one bills differently per route — the
   route decides who pays, not the key.** `GEMINI_API_KEY` is **free tier** on
   AI Studio: costs nothing, capped at ~20 requests/day flagship Flash and 500/day
@@ -185,7 +209,11 @@ Essentials:
 
 When a task matches a row below, **loading that skill is part of doing the
 task**, not an optional extra — a skill you didn't load can't bind you
-(PL-013). Full index with descriptions: `docs/SKILLS-local.md` + `docs/SKILLS.md`.
+(PL-013). **All 27 with one line each: `docs/SKILLS-local.md` § "All 27 — the
+roster"** — one read answers *"what can I do here"*. (`docs/SKILLS.md` is the
+kit's generated half and covers 10 of them; until 2026-08-08 neither file said
+so, and two installed skills — `rationalize`, `scope-backlog-item` — appeared in
+neither.)
 
 | The task in front of you | Invoke |
 |---|---|

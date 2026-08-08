@@ -120,6 +120,22 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 
 ## Recently shipped (newest first)
 
+- **Layer 2 exists — one folder, built to be judged before it is copied** (2026-08-08):
+  [repos/spider-swing/](repos/spider-swing/README.md) — the first per-repo folder, and
+  the reference shape for the rest. `README.md` is the standalone entry and carries the
+  **thread blocks** (core feel & difficulty · Play release · run evidence, closed · art
+  pipeline, paused); depth in `capabilities.md`, `records.md` and a proposed
+  `working-here.md`. `current-state.md` and `goals.md` were **deferred with their reasons
+  recorded** — the threads already are the current state, and a third copy of an objective
+  is a third thing to keep in sync. Structure and honest coverage:
+  [repos/README.md](repos/README.md); the two owner-stated acceptance tests and what they
+  actually returned: [repos/ACCEPTANCE-TESTS.md](repos/ACCEPTANCE-TESTS.md).
+  **Stopped deliberately at one folder** — a wrong shape copied five times is expensive
+  and shown once is free. Also: `route_docs.py` now runs on `UserPromptSubmit`, so naming
+  a repo pulls its README in before the work starts (payload key **verified from the
+  shipped binary**, not assumed); `docs/SKILLS-local.md` gained a **27-skill roster**
+  after two installed skills turned out to be in no index at all; and `@codex` reached the
+  boot file, where it had appeared **zero** times.
 - **fleet-manager as the index — the two-layer restructure, designed** (2026-08-08):
   [planning/2026-08-08-fleet-manager-as-index.md](planning/2026-08-08-fleet-manager-as-index.md)
   — owner-live design decisions for the next build session. Layer 1 (general, light) +

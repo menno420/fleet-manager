@@ -1,11 +1,11 @@
 {
   "_comment": [
-    "Route table for .claude/hooks/route_docs.py \u2014 see .claude/hooks/README.md.",
+    "Route table for .claude/hooks/route_docs.py — see .claude/hooks/README.md.",
     "A route fires when one of its `when` regexes matches the tool input, and",
     "surfaces `says` plus the `docs` paths as additionalContext. Once per route",
     "per session. Validated by tools/check_doc_routes.py, which requires that at",
     "least one `when` pattern actually occurs in at least one of the route's docs",
-    "\u2014 so a doc that stops covering its trigger fails the check instead of",
+    "— so a doc that stops covering its trigger fails the check instead of",
     "quietly routing a session to the wrong page.",
     "Adding a route is cheap and reversible. The bar: a session that skipped this",
     "doc would probe blind and could conclude 'unavailable' about something that",
@@ -19,7 +19,7 @@
         "Write"
       ],
       "when": [
-        "\u00b7\\s*wall\\s*\u00b7",
+        "·\\s*wall\\s*·",
         "\\b(is|are|was|were)\\s+not\\s+(available|supported|reachable|possible|enabled)",
         "\\bunavailable\\b",
         "\\bcannot be (used|called|reached|enabled)",
@@ -30,7 +30,7 @@
       "docs": [
         "docs/CAPABILITIES.md"
       ],
-      "says": "STOP \u2014 you are about to write a limitation down. Two checks first, in this order. (1) DID THE OWNER SAY OTHERWISE? His statements about this estate are source truth, not a hypothesis your probe gets to overturn \u2014 a failed call means you used the wrong path, not that he was wrong. This exact failure is on the record: 2026-08-05 he wrote that the Interactions API 'works fully turn based and stored session history', a probe of the Vertex path returned RESOURCE_PROJECT_INVALID, and 'unavailable' went into the ledger anyway. It works, on the other surface, exactly as he said. (2) Has the estate already measured it? grep docs/providers/ and docs/conventions/ before recording anything. See THE DISCOVERY RULE step 0."
+      "says": "STOP — you are about to write a limitation down. Two checks first, in this order. (1) DID THE OWNER SAY OTHERWISE? His statements about this estate are source truth, not a hypothesis your probe gets to overturn — a failed call means you used the wrong path, not that he was wrong. This exact failure is on the record: 2026-08-05 he wrote that the Interactions API 'works fully turn based and stored session history', a probe of the Vertex path returned RESOURCE_PROJECT_INVALID, and 'unavailable' went into the ledger anyway. It works, on the other surface, exactly as he said. (2) Has the estate already measured it? grep docs/providers/ and docs/conventions/ before recording anything. See THE DISCOVERY RULE step 0."
     },
     {
       "id": "discovery-probe",
@@ -45,7 +45,7 @@
       "docs": [
         "docs/CAPABILITIES.md"
       ],
-      "says": "You are about to infer an API's shape from its own spec. A discovery document that omits an endpoint is NOT evidence the endpoint is absent \u2014 measured 2026-08-05: generativelanguage's discovery doc (v1beta and v1alpha, both 200) has zero hits for `interactions`, and the endpoint works. Check the estate's own provider doc before concluding anything is unavailable, and see THE DISCOVERY RULE."
+      "says": "You are about to infer an API's shape from its own spec. A discovery document that omits an endpoint is NOT evidence the endpoint is absent — measured 2026-08-05: generativelanguage's discovery doc (v1beta and v1alpha, both 200) has zero hits for `interactions`, and the endpoint works. Check the estate's own provider doc before concluding anything is unavailable, and see THE DISCOVERY RULE."
     },
     {
       "id": "adversarial-review",
@@ -82,7 +82,7 @@
         "docs/conventions/vertex-first-for-gemini.md",
         "docs/providers/gemini.md"
       ],
-      "says": "TWO identities, and the paid one bills differently per route \u2014 THE ROUTE DECIDES WHO PAYS, NOT THE KEY. GEMINI_API_KEY is free tier on AI Studio: costs nothing, capped ~20 req/day flagship Flash and 500/day Flash Lite, and it serves the Interactions API (POST /v1beta/interactions + previous_interaction_id, server-side history). The paid GCP project has two routes on the SAME billing account: via Vertex it draws the prepaid credit (no daily cliff, but NO server-side history, so conversations resend their whole transcript each turn), while GEMINI_API_KEY_PAID against generativelanguage bills the OWNER'S CARD \u2014 the credit excludes the AI Studio SKU and does not exclude Vertex. So: Vertex for volume, image and video; the FREE key for any AI Studio call including long multi-turn; the paid key only when Vertex has actually failed OR for DEEP RESEARCH, which is not on Vertex at all and not on the free tier either \u2014 that is the one documented exception, so use the paid key for it without hunting for a Vertex route that does not exist. Say so in the session card either way. Pull GEMINI_VERTEX_SA_JSON from Railway; grounding is `googleSearch` (camelCase) on Vertex. tools/gemini_delegate.py implements both."
+      "says": "TWO identities, and the paid one bills differently per route — THE ROUTE DECIDES WHO PAYS, NOT THE KEY. GEMINI_API_KEY is free tier on AI Studio: costs nothing, capped ~20 req/day flagship Flash and 500/day Flash Lite, and it serves the Interactions API (POST /v1beta/interactions + previous_interaction_id, server-side history). The paid GCP project has two routes on the SAME billing account: via Vertex it draws the prepaid credit (no daily cliff, but NO server-side history, so conversations resend their whole transcript each turn), while GEMINI_API_KEY_PAID against generativelanguage bills the OWNER'S CARD — the credit excludes the AI Studio SKU and does not exclude Vertex. So: Vertex for volume, image and video; the FREE key for any AI Studio call including long multi-turn; the paid key only when Vertex has actually failed OR for DEEP RESEARCH, which is not on Vertex at all and not on the free tier either — that is the one documented exception, so use the paid key for it without hunting for a Vertex route that does not exist. Say so in the session card either way. Pull GEMINI_VERTEX_SA_JSON from Railway; grounding is `googleSearch` (camelCase) on Vertex. tools/gemini_delegate.py implements both."
     },
     {
       "id": "github-api",
@@ -95,7 +95,7 @@
       "docs": [
         "docs/CAPABILITIES.md"
       ],
-      "says": "The token is a full, account-scoped PAT \u2014 admin plus push on every repo. Use direct egress: `curl --noproxy '*'`, or requests with trust_env=False and verify=/root/.ccr/ca-bundle.crt. The PROXIED REST path 403s; that is a path quirk, not a permission boundary, and not a wall. Merging PRs, deleting branches, editing rulesets, creating releases and tags are all normal agent work."
+      "says": "The token is a full, account-scoped PAT — admin plus push on every repo. Use direct egress: `curl --noproxy '*'`, or requests with trust_env=False and verify=/root/.ccr/ca-bundle.crt. The PROXIED REST path 403s; that is a path quirk, not a permission boundary, and not a wall. Merging PRs, deleting branches, editing rulesets, creating releases and tags are all normal agent work."
     },
     {
       "id": "railway",
@@ -107,7 +107,7 @@
       "docs": [
         "docs/conventions/vertex-first-for-gemini.md"
       ],
-      "says": "The Railway token is account-scoped and unrestricted. \u00a7 1 of this doc has the working GraphQL call for reading a service's environment variables (project / service / environment triple), which is how secrets that are not in your container get retrieved."
+      "says": "The Railway token is account-scoped and unrestricted. § 1 of this doc has the working GraphQL call for reading a service's environment variables (project / service / environment triple), which is how secrets that are not in your container get retrieved."
     },
     {
       "id": "provisioned-secrets",
@@ -120,7 +120,7 @@
       "docs": [
         "docs/CAPABILITIES.md"
       ],
-      "says": "Secrets are provisioned in the environment \u2014 sessions routinely forget they exist and declare a task blocked. Check with `printenv | grep -iE 'token|key|railway|discord'`. Confirm PRESENCE only (names, never values) and use them via the env var. See \u00a7 CAN \u2014 Use provisioned secrets."
+      "says": "Secrets are provisioned in the environment — sessions routinely forget they exist and declare a task blocked. Check with `printenv | grep -iE 'token|key|railway|discord'`. Confirm PRESENCE only (names, never values) and use them via the env var. See § CAN — Use provisioned secrets."
     },
     {
       "id": "video-audio",
@@ -133,7 +133,7 @@
         "docs/conventions/reading-screen-recordings.md",
         "docs/CAPABILITIES.md"
       ],
-      "says": "Video is readable \u2014 but sampling rate, not legibility, decides how much you actually read. Gemini samples at 1 fps by DEFAULT: measured on a 6.6s phone scroll, 5 of 6 consecutive-frame pairs shared NO content, and the reply still reads as a clean transcript. Set videoMetadata.fps to 16 on Vertex (0 gaps of 105 pairs; 8 fps still had 5) and ask the model to report its own coverage. Do NOT verify coverage by measuring displacement \u2014 it aliases on repetitive UI and fabricates motion. ffmpeg is not installed here; `pip install imageio-ffmpeg` supplies it without root."
+      "says": "Video is readable — but sampling rate, not legibility, decides how much you actually read. Gemini samples at 1 fps by DEFAULT: measured on a 6.6s phone scroll, 5 of 6 consecutive-frame pairs shared NO content, and the reply still reads as a clean transcript. Set videoMetadata.fps to 16 on Vertex (0 gaps of 105 pairs; 8 fps still had 5) and ask the model to report its own coverage. Do NOT verify coverage by measuring displacement — it aliases on repetitive UI and fabricates motion. ffmpeg is not installed here; `pip install imageio-ffmpeg` supplies it without root."
     },
     {
       "id": "youtube",
@@ -146,7 +146,7 @@
       "docs": [
         "docs/CAPABILITIES.md"
       ],
-      "says": "youtube_transcript_api is IP-blocked from datacenter addresses, so sessions conclude transcripts are impossible. They are not: `yt-dlp --skip-download --write-auto-sub <url>` works via its android-vr endpoint, then parse the .vtt. See \u00a7 CAN \u2014 YouTube transcripts."
+      "says": "youtube_transcript_api is IP-blocked from datacenter addresses, so sessions conclude transcripts are impossible. They are not: `yt-dlp --skip-download --write-auto-sub <url>` works via its android-vr endpoint, then parse the .vtt. See § CAN — YouTube transcripts."
     },
     {
       "id": "shared-ai-chat",
@@ -172,7 +172,7 @@
       "docs": [
         "docs/providers/chatgpt.md"
       ],
-      "says": "Model family, the post-consolidation modes, and the Work / Codex cloud environment with its variables, secrets and network defaults are recorded here \u2014 including which surfaces have network during which phase."
+      "says": "Model family, the post-consolidation modes, and the Work / Codex cloud environment with its variables, secrets and network defaults are recorded here — including which surfaces have network during which phase."
     },
     {
       "id": "anthropic",
@@ -208,7 +208,7 @@
       "docs": [
         "docs/providers/grok.md"
       ],
-      "says": "xAI's text models and reasoning knobs, the image/video/voice stack, X Search \u2014 and the silent-redirect retirement scheme, which is why a model ID that still answers is not proof the model you asked for ran."
+      "says": "xAI's text models and reasoning knobs, the image/video/voice stack, X Search — and the silent-redirect retirement scheme, which is why a model ID that still answers is not proof the model you asked for ran."
     },
     {
       "id": "mistral",
@@ -220,7 +220,7 @@
       "docs": [
         "docs/providers/mistral.md"
       ],
-      "says": "The per-model licence mix (Apache / MIT / Premier / NC) governs whether you may self-host a given model, plus the specialist bench \u2014 OCR, Voxtral audio."
+      "says": "The per-model licence mix (Apache / MIT / Premier / NC) governs whether you may self-host a given model, plus the specialist bench — OCR, Voxtral audio."
     },
     {
       "id": "cohere",
@@ -243,7 +243,7 @@
       "docs": [
         "docs/providers/github-copilot.md"
       ],
-      "says": "The provider this estate touches without choosing it. Covers the cloud agent's Actions environment \u2014 firewall behaviour and which secrets actually reach the agent \u2014 plus AI-credits billing."
+      "says": "The provider this estate touches without choosing it. Covers the cloud agent's Actions environment — firewall behaviour and which secrets actually reach the agent — plus AI-credits billing."
     },
     {
       "id": "llama",
@@ -277,7 +277,7 @@
       "docs": [
         "docs/conventions/outbox-rollover.md"
       ],
-      "says": "The outbox has a rollover convention \u2014 how it is emptied and what happens to items that were never collected. Follow it rather than inventing a scheme."
+      "says": "The outbox has a rollover convention — how it is emptied and what happens to items that were never collected. Follow it rather than inventing a scheme."
     },
     {
       "id": "empty-repo-first-commit",
@@ -288,7 +288,27 @@
       "docs": [
         "docs/CAPABILITIES.md"
       ],
-      "says": "git push to a genuinely empty repo fails through the proxy tooling. Make the first commit via the Contents API (create_or_update_file / push_files) \u2014 that creates main, and normal git works from then on. Playbook R13."
+      "says": "git push to a genuinely empty repo fails through the proxy tooling. Make the first commit via the Contents API (create_or_update_file / push_files) — that creates main, and normal git works from then on. Playbook R13."
+    },
+    {
+      "id": "repo-spider-swing",
+      "tools": [
+        "UserPromptSubmit",
+        "Bash",
+        "WebFetch",
+        "Read",
+        "Glob",
+        "Grep"
+      ],
+      "when": [
+        "\\bspider[- ]swing\\b",
+        "\\bslingy spider\\b",
+        "menno420/spider-swing"
+      ],
+      "docs": [
+        "docs/repos/spider-swing/README.md"
+      ],
+      "says": "Layer 2 entry point — read it BEFORE attaching the repo. It answers what the repo is, where it stands and whether you need to attach at all (it is PUBLIC, so read-only work needs raw fetch, not add_repo). Two live threads: core feel & difficulty is the owner's north star (2026-08-02 — tune until excellent play reaches 25k+; the game is still 'too difficult and moves too quickly', and unlocks/Campaign/monetisation are DEFERRED by directive), and the Google Play release, which is owner-gated on OQ-PLAY-APP-ID / OQ-PLAY-UPLOAD-KEY / OQ-PLAY-LISTING and carries a hard three-week floor (12 testers x 14 continuous days, then ~7 days review). Depth in the same folder: working-here.md (main requires BOTH substrate-gate AND game-quality — different from fleet-manager), capabilities.md (access paths, the @codex relay), records.md (28 dated files here). The repo's own docs/current-state.md wins over all of it."
     }
   ]
 }
