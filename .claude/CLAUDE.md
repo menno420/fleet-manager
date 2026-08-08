@@ -54,7 +54,7 @@
    declared boot-readpath doc in its own header. Source and merged PRs win over
    it; read it before task-specific docs so you don't act on stale state.
 2. **The program:** `docs/planning/2026-07-26-consolidation-program.md` —
-   THE working plan: owner directives OD-1..OD-12, the step ledger, the **NOW**
+   THE working plan: the owner-directive (OD) table, the step ledger, the **NOW**
    pointer, and how a session works a step. Your work almost certainly lives here.
    **Its NOW pointer is not the whole answer** — read entry 2b before acting on it.
 2b. **What supersedes the plan's next-actions:**
@@ -107,6 +107,12 @@ longer regenerates). Per-repo truth lives in each repo's
 `docs/PROJECT-CLOSEOUT.md` + `docs/current-state.md`. The live surface always
 beats any doc.
 
+**Why, before what:** `docs/intent.md` — what this repo is **for**, what counts
+as working, the non-goals, how to decide without him, and **who does what across
+Claude / ChatGPT / Gemini / Grok / Codex**. Owner-stated 2026-08-09; it is what a
+plan is checked against when a rule and the situation disagree. Read it before
+asking him anything.
+
 **Where a decision lives, so you cite the right record:** `docs/decisions.md` —
 this repo's `[D-NNNN]` entries (D-0011 the paid Gemini key is free to spend ·
 D-0012 publish by default, credentials never) · the program's OD table — owner
@@ -114,9 +120,13 @@ directives · `docs/planning/2026-08-08-fleet-manager-as-index.md` — the Layer
 decisions and their rejected alternatives · substrate-kit's PL register —
 program law binding every repo.
 
-## The working style (owner-set, 2026-07-26)
-- **Slow and structured.** One program step per session unless directed;
-  small PRs; nothing needs to be fast, nothing is deleted (OD-3/OD-6).
+## The working style (owner-set, 2026-07-26; restated 2026-08-09)
+- **One thing at a time, finished properly** — not slow for its own sake, and
+  not a licence to stop short (OD-6 as he restated it). Small PRs. Cleanup of
+  spent docs/repos is allowed and wanted, with a stated reason (OD-3 amended).
+- **Records may grow; instructions may not.** The fix for an unfollowed rule is
+  a mechanism that delivers it at the right moment, never another statement of
+  it (`docs/intent.md` § 4).
 - **Verify before fold; verify with real exit codes** (never `$?` after a
   pipe). Kit discipline: born-red session card, session close updates the
   program's progress ledger, and **one command is the local gate** — `python3
@@ -132,20 +142,19 @@ program law binding every repo.
   tally is countable rather than a reading (`docs/conventions/adversarial-review.md`).
   A **firing** instrument is information; a quiet one is no evidence at all.
   What each hook does: `.claude/hooks/README.md`.
-- **Initiative, with one flag rule:** organize and plan on your own judgment;
-  route to the owner only the genuinely ambiguous forks — add them to the
-  program's §6, don't block on them. His attention is the scarcest resource.
-- **Do not write about a file you have not opened.** Saying what a file *is* —
-  an index gloss, a row in a table — is a claim, and a filename plus this
-  estate's conventions produces a confident sentence without making it true.
-  **MEASURED 2026-08-08** on this repo's own transcript: of eight such one-line
-  descriptions, the **3 written after reading were all correct**; of the **5
-  written without, 3 were wrong**, one of them telling a later session there was
-  a single binding contract where there are two. If you genuinely cannot open
-  it, **say the line is inferred** — that clause is worth more than a clean
-  sentence nobody can check. `read_before_write.py` raises this at write time
-  and shows you the claim it means; it checks whether the path was fetched,
-  never whether you understood it.
+- **Ask immediately; stop almost never.** Organize and plan on your own
+  judgment, and when a genuine fork appears, put it to him **and keep working** —
+  stop only when no next step exists without the answer. *"I'd rather have an
+  agent ask me something so I can clarify than that they misunderstand the
+  goal"* (owner, 2026-08-09): unnecessary asks are the waste, asking is not.
+  He is away during implementation and checks in roughly every 30 minutes.
+- **Do not write about a file you have not opened.** Saying what a file *is* is
+  a claim, and a filename plus this estate's conventions produces a confident
+  sentence without making it true. If you genuinely cannot open it, **say the
+  line is inferred** — worth more than a clean sentence nobody can check.
+  `read_before_write.py` raises this at write time with the measurement and the
+  claim it means; it checks whether the path was fetched, never whether you
+  understood it.
 
 ## Capabilities — record capabilities, never limitations
 Full verified matrix: **`docs/CAPABILITIES-verified-2026-07-18.md`** (+

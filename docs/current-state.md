@@ -120,6 +120,28 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 
 ## Recently shipped (newest first)
 
+- **The owner's intent, asked and recorded — and two standing directives changed
+  by his answers** (2026-08-09): [intent.md](intent.md) — fleet-manager's durable
+  intent surface, the first instance of the roadmap's § 4.6 invariant. Purpose
+  (**router and records home**; the primary reader is the next *agent*, not the
+  owner), the three success criteria he actually picked, the non-goals, the
+  decision heuristics, and **who does what across Claude / ChatGPT / Gemini /
+  Grok / Codex** — a roster nothing in this repo had recorded. His words are
+  labelled `OWNER` and quoted; every inference is labelled `DERIVED` and kept
+  separate. **It was produced by asking, not by deriving from the decision
+  record, and that is the finding:** 21 questions, none of them already answered
+  by the corpus, and **two answers amended standing directives** — `OD-3`
+  (archive-never-delete → cleanup of spent docs and repos is wanted, with a
+  stated reason) and `OD-6` (*"pace: slow"* → **one thing at a time, finished
+  properly**, which he says is what he meant all along). New: **`OD-13`** —
+  method and enforcement work, plus settling the multi-provider agent mix, comes
+  **before** high-value product work; **`OD-14`** — intent is what a plan gets
+  checked against. Also corrected, in the boot file and
+  [owner-profile.md](owner-profile.md): *"his attention is the scarcest
+  resource"* was doing the wrong work — *"I'd rather have an agent ask me
+  something so I can clarify than that they misunderstand the goal."* **Ask
+  immediately, keep working, stop only when genuinely blocked.**
+
 - **The agent operating environment — the three-phase roadmap, and Phase 1 built**
   (2026-08-08):
   [planning/2026-08-08-agent-operating-environment-roadmap.md](planning/2026-08-08-agent-operating-environment-roadmap.md)
