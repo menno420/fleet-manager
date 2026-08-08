@@ -236,6 +236,26 @@ repair, and is true whatever openssl does. Credential *acquisition* is untouched
 established — or as unestablished — as it was before this change; the Railway
 reachability path has never been verified outside this container either.
 
+**2026-08-08, later — the auth chain was never needed.** Asked *"why do we need
+Google auth?"*, the measured answer is that we do not. Given the same system
+prompt and the same reply, **free-tier `gemini-flash-latest` returned the same
+two findings** the Vertex/Pro reviewer had produced on the previous turn — the
+`BaseException`-swallows-`SIGINT` defect, and an unfounded *"openssl is present
+in all our environments"* claim — in **7.1 s, 70 output tokens, at no cost**.
+Pro on the free key 429s, as the convention says it will.
+
+That is § 1 restated: **the system prompt is the load-bearing component, not the
+model.** The Railway → service-account → OAuth → JWT → openssl chain was buying
+a bigger model for a job the small one does, and it was the only part that ever
+broke — three distinct ways in one hour. So the routing inverts: **free AI Studio
+key first, Vertex underneath for exactly one failure, the requests-per-day
+cliff.** Consistent with `docs/conventions/vertex-first-for-gemini.md`, which
+reserves the Vertex default for volume/image/video and otherwise says *"free key
+unless its daily cap is genuinely in the way"* — one ~1 k-token call per turn is
+none of those, and the cap is the one real risk, which is what the fallback is
+for. Which route answered is now recorded per firing (`"route":"free"`).
+Honest null: n=1 input, one run per model — not a model comparison.
+
 Scope: **this repo only** until a week of telemetry says otherwise — the
 no-fleet-rollout decision stands.
 

@@ -25,9 +25,18 @@ BLOCKING failure here would halt every turn in the repo, which is the one cost
 strictly worse). Telemetry of every firing goes to /tmp/claude-owner-review/log.jsonl
 so silent-skip is still countable.
 
-Routing: Vertex per docs/conventions/vertex-first-for-gemini.md — credit, not
-card. The SA comes from env, then the /tmp cache, then Railway (the doc's
-recipe); a fresh container self-provisions on first fire.
+Routing, revised 2026-08-08: **free AI Studio key first, Vertex as fallback.**
+Asked why this hook needed Google auth at all, the measured answer was that it
+did not — free-tier gemini-flash-latest, given the same system prompt, returned
+the SAME two findings the Vertex/Pro reviewer had produced on the previous turn,
+in 7.1s and 70 output tokens at no cost. That is § 1 restated: the system prompt
+is the load-bearing component, not the model. The auth chain was buying a bigger
+model for a job the small one does, and it was the only part that ever broke.
+The free tier's requests-per-day cap is the real risk for a per-turn hook, so
+Vertex stays wired underneath for exactly that (429 → fall through), per
+docs/conventions/vertex-first-for-gemini.md, which reserves the Vertex default
+for volume/image/video and otherwise says "free key unless its daily cap is
+genuinely in the way". Which route answered is recorded per firing.
 """
 import base64
 import json
@@ -41,7 +50,8 @@ import urllib.parse
 import urllib.request
 
 CA = "/root/.ccr/ca-bundle.crt"
-MODEL = "gemini-3.1-pro-preview"
+MODEL = "gemini-3.1-pro-preview"   # Vertex fallback
+FREE_MODEL = "gemini-flash-latest"  # AI Studio primary — free tier, no auth chain
 CACHE_DIR = "/tmp/claude-owner-review"
 SA_CACHE = os.path.join(CACHE_DIR, "sa.json")
 LOG = os.path.join(CACHE_DIR, "log.jsonl")
@@ -285,14 +295,18 @@ def _access_token(info):
     return json.loads(op.open(req, timeout=NET_TIMEOUT).read())["access_token"]
 
 
-def _review(text):
-    info = _sa()
-    if not info:
-        return None
-    token = _access_token(info)
-    url = ("https://aiplatform.googleapis.com/v1/projects/" + info["project_id"]
-           + "/locations/global/publishers/google/models/" + MODEL + ":generateContent")
-    payload = {
+def _extract(r, route):
+    cand = (r.get("candidates") or [{}])[0]
+    out = "".join(p.get("text", "")
+                  for p in (cand.get("content") or {}).get("parts", []))
+    um = dict(r.get("usageMetadata", {}))
+    um["finishReason"] = cand.get("finishReason")  # truncation is countable
+    um["route"] = route                            # which path answered, per firing
+    return out.strip(), um
+
+
+def _payload(text):
+    return {
         "contents": [{"role": "user", "parts": [{"text":
             "The agent's reply to the owner, about to be delivered:\n\n" + text
             + "\n\nAsk your questions about it, or output exactly NO QUESTIONS."}]}],
@@ -302,14 +316,62 @@ def _review(text):
         # question truncated mid-sentence at out_tokens=47.
         "generationConfig": {"temperature": 0.3, "maxOutputTokens": 4000},
     }
-    r = _http(url, payload, {"Authorization": "Bearer " + token,
-                             "Content-Type": "application/json"})
-    cand = (r.get("candidates") or [{}])[0]
-    out = "".join(p.get("text", "")
-                  for p in (cand.get("content") or {}).get("parts", []))
-    um = r.get("usageMetadata", {})
-    um["finishReason"] = cand.get("finishReason")  # truncation is countable
-    return out.strip(), um
+
+
+def _free_review(text):
+    """AI Studio on the FREE key — the primary route, and it needs no auth chain.
+
+    MEASURED 2026-08-08. Asked why this hook needed Google auth at all, the
+    answer turned out to be "it does not". Given the same system prompt and the
+    same reply, free-tier `gemini-flash-latest` returned **the same two findings**
+    the Vertex/Pro reviewer had produced on the previous turn — the
+    BaseException-swallows-SIGINT defect and an unfounded "openssl is present in
+    all our environments" claim — in 7.1 s and 70 output tokens, at no cost.
+
+    That is what findings § 1 already said and nobody had acted on: **the
+    system prompt is the load-bearing component, not the model.** So the whole
+    Railway → service-account → OAuth → JWT → openssl chain was buying a bigger
+    model for a job the small one does, and it was the only part that ever broke
+    (three distinct ways in one hour: missing google-auth, uncountable skips, a
+    Rust PanicException that escaped `except Exception`).
+
+    Consistent with docs/conventions/vertex-first-for-gemini.md, which reads
+    "**free** key unless its daily cap is genuinely in the way" and reserves the
+    Vertex default for volume, image and video work. One ~1 k-token call per turn
+    is none of those. The daily cap IS the real risk for a per-turn hook, which
+    is exactly why Vertex stays wired as the fallback below.
+    Honest null: n=1 input, one run per model. Not a model comparison.
+    """
+    key = os.environ.get("GEMINI_API_KEY")
+    if not key:
+        return None
+    r = _http("https://generativelanguage.googleapis.com/v1beta/models/"
+              + FREE_MODEL + ":generateContent", _payload(text),
+              {"x-goog-api-key": key, "Content-Type": "application/json"})
+    return _extract(r, "free")
+
+
+def _review(text):
+    # Free first: no credentials to fetch, no key material, no subprocess. Vertex
+    # is the fallback for exactly one failure — the requests-per-day cliff (429).
+    try:
+        got = _free_review(text)
+        if got and got[0]:
+            return got
+    except (KeyboardInterrupt, SystemExit):
+        raise
+    except BaseException:
+        pass  # quota, network, shape — fall through to the credit-funded route
+
+    info = _sa()
+    if not info:
+        return None
+    token = _access_token(info)
+    url = ("https://aiplatform.googleapis.com/v1/projects/" + info["project_id"]
+           + "/locations/global/publishers/google/models/" + MODEL + ":generateContent")
+    r = _http(url, _payload(text), {"Authorization": "Bearer " + token,
+                                    "Content-Type": "application/json"})
+    return _extract(r, "vertex")
 
 
 def _log(rec):
@@ -356,7 +418,7 @@ def main():
 
     out, um = got
     null = out.upper().startswith("NO QUESTIONS")
-    rec(reply_chars=len(text), null=null,
+    rec(reply_chars=len(text), null=null, route=um.get("route"),
         prompt_tokens=um.get("promptTokenCount"),
         out_tokens=um.get("candidatesTokenCount"),
         finish=um.get("finishReason"))
