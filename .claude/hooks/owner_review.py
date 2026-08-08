@@ -346,6 +346,8 @@ def main():
         return rec(skip="reply-too-short", reply_chars=len(text or ""))
     try:
         got = _review(text)
+    except (KeyboardInterrupt, SystemExit):
+        raise                                      # termination is not a defect
     except BaseException as exc:                   # creds, network, parse, timeout, native panic
         return rec(skip="review-failed", reply_chars=len(text),
                    error=f"{type(exc).__name__}: {exc}"[:300])
@@ -366,11 +368,17 @@ def main():
 if __name__ == "__main__":
     try:
         main()
+    except (KeyboardInterrupt, SystemExit):
+        # Deliberate termination is NOT a defect. Swallowing it would make this
+        # hook ignore the signals that shut a container down — fail-open is a
+        # promise about bugs, not a licence to outlive the process that owns us.
+        raise
     except BaseException:
-        # BaseException, not Exception. MEASURED 2026-08-08: cryptography's Rust
-        # layer raises PanicException, which subclasses BaseException — so the
-        # narrower catch let a native failure escape and the hook exited 1,
-        # trapping the turn. "Any defect exits 0" is only true if it catches
-        # everything a defect can raise.
+        # BaseException rather than Exception, because MEASURED 2026-08-08 the
+        # `cryptography` Rust layer raises PanicException whose MRO is
+        # PanicException -> BaseException -> object. The narrower catch let it
+        # escape and the hook exited 1, trapping the turn. "Any defect exits 0"
+        # is only true if the catch covers everything a defect can raise — and
+        # only safe if the two non-defects above are re-raised first.
         pass  # FAIL-OPEN: a review hook must never trap a session
     sys.exit(0)

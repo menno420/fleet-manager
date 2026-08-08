@@ -216,14 +216,25 @@ credential cache and **zero log lines**. Three faults, each hiding the next:
    worse than no hook.
 
 Fixed: sign the service-account JWT with the **openssl binary** (a missing
-binary is a `FileNotFoundError`, not a panic inside our interpreter), catch
-**`BaseException`** at both levels, and log **every** exit with a `skip` reason.
+binary is a `FileNotFoundError`, not a panic inside our interpreter); catch
+`BaseException` **after re-raising `KeyboardInterrupt` and `SystemExit`**, since
+deliberate termination is not a defect and fail-open must not mean outliving the
+process that owns us; and log **every** exit with a `skip` reason.
 Re-verified live 2026-08-08 — exit 0, empty stderr, one telemetry line
-(`reply_chars=1804, null=false, out_tokens=154, finish=STOP`), and three real
-provenance questions returned on first firing. Credential *acquisition* is
-unchanged (env → /tmp cache → Railway); only the signing moved, so the new
-dependency is `openssl`, verified present here and degrading to a logged
-`skip=review-failed` when absent.
+(`reply_chars=1804, null=false, out_tokens=154, finish=STOP`), three real
+provenance questions on first firing, defect path exit 0 and `SIGINT` exit 1.
+
+**What is actually established about the `openssl` dependency, stated narrowly
+because the first version of this paragraph was not.** It was measured in
+**one container, once** (`command -v openssl` → `/usr/bin/openssl`). That is not
+"reliably present in all target environments", and nothing here establishes
+that. Two things make it acceptable anyway: the hook is **scoped to this repo**,
+so "all environments" is currently one image; and absence now degrades to a
+**logged** `skip=review-failed` rather than to silence — which is the whole
+repair, and is true whatever openssl does. Credential *acquisition* is untouched
+(env → /tmp cache → Railway), so the key-material question is exactly as
+established — or as unestablished — as it was before this change; the Railway
+reachability path has never been verified outside this container either.
 
 Scope: **this repo only** until a week of telemetry says otherwise — the
 no-fleet-rollout decision stands.
