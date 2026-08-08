@@ -253,8 +253,19 @@ not additive-only and needs a reconciliation step, which Phase 2's procedure mus
 name; (3) his own verdict on the format — a large lettered batch was right *"for
 this task"* because the subject was the method itself, and the per-task version
 should instead be sized to *"the remaining ambiguous items"*, with **no minimum or
-maximum**. Question 22 was begun and left blank; it is recorded as open rather
-than guessed at.
+maximum**.
+
+**A fourth result, and it is about the interviewer rather than the interview.**
+The session recorded a *"question 22, begun and left blank"* as an open item, in
+three documents. **There was no question 22** — the batch had 21, and a trailing
+`22.` in the answer list was read as an abandoned question (owner-corrected the
+same day). Nothing was lost, but an **invented OPEN item is a distinct failure
+mode from a missed one**: a missing question leaves a gap that the next
+conversation closes, while a fabricated one sends future sessions hunting for
+intent that never existed, and it carries the same provenance labelling as the
+real entries. **So the OPEN column needs the same discipline as the others** —
+an entry there is a claim that the owner left something unresolved, and it
+requires the same evidence as a claim about what he said.
 
 ## 5 · Phase 3 — the common operating protocol
 

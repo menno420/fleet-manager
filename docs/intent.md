@@ -139,6 +139,14 @@ ambiguity that remains, and no more.
 
 `OWNER`, 2026-08-08, and nothing in this repo recorded it before.
 
+**Read the whole table as owner-report, with exactly one exception.** Only the
+Codex row carries a measurement (the ~5.5 min relay, fm #812, 2026-08-07); the
+Claude, ChatGPT and Gemini/Grok rows are his assessment, not anything this estate
+has benchmarked. That is not a weakness — under `CAPABILITIES.md` DISCOVERY RULE
+step 0 an owner statement about his own estate is source truth to act on, not a
+hypothesis to probe. It matters only when someone wants to *cite* a row as
+evidence: cite it as his judgement, and do not describe the table as measured.
+
 | Agent | Role in this estate |
 |---|---|
 | **Claude** | The main agent. Planning, implementation, GitHub settings/Actions, documentation — *"Claude does everything"*. It holds the full credential set, so it has the widest capability and the most freedom. Preferred for important documentation work. |
@@ -210,8 +218,11 @@ actually needs. Where it and §§ 1–8 differ, the quoted `OWNER` text wins.
   intent source* per active repo rather than a file of this name everywhere.
 - **Whether ChatGPT can carry documentation work to this standard** — the owner
   wants it tested; nothing has been run.
-- The owner began a question 22 and left it empty. Whatever it was, it is not
-  captured here.
+*(A "question 22" was recorded here as an open item. **There was no question 22**
+— the batch had 21, and a trailing `22.` in the answer list was read as a
+started-and-abandoned question. Owner-corrected 2026-08-08; removed rather than
+left, because an invented open thread sends the next session looking for
+something that never existed.)*
 
 ## How to use this file
 

@@ -125,7 +125,11 @@ Real exit codes, each command run on its own — never `$?` after a pipe:
   against § 2 and fails.
 - **The agent roster is his report, not this session's measurement.** No run of
   ChatGPT-on-documentation exists; he named it as the thing to test.
-- **Question 22 was begun and left blank.** Recorded as open in `intent.md` § 9
-  rather than guessed at.
+- ~~**Question 22 was begun and left blank.**~~ **WRONG — owner-corrected
+  2026-08-08: there was no question 22.** The batch had 21; a trailing `22.` in
+  the answer list was read as an abandoned question and written into three
+  documents as an OPEN item. Removed everywhere. An invented open thread is
+  worse than a missed one — it sends the next session looking for intent that
+  never existed, wearing the same provenance label as the real entries.
 - **`docs/intent.md` is fleet-manager's only.** No other repo has one, and the
   roadmap deliberately does not require a file of that name everywhere.

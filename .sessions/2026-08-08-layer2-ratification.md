@@ -72,6 +72,25 @@ a **second provider did**, reading the plan with no stake in it. That is a real
 argument for the roster in `docs/intent.md` § 7 being a *review* asset and not
 only an implementation one.
 
+| 6 | **an OPEN item invented from a typo** — a trailing `22.` in the answer list was recorded as *"question 22, begun and left blank"* in three documents; there was no question 22 | **owner** |
+| 7 | *"the one claim in the agent roster with nothing measured behind it"* — a composed gloss over a four-row table where **three** rows are unmeasured owner-report | **Stop hook** |
+
+**Errors 6 and 7 are the same defect as 4, at three different targets.** Each is
+a sentence composed *about* a record instead of read *off* it — the answer list,
+the roster table, the corpus. Every factual error in this session is that shape,
+which reproduces the finding's class-A result exactly
+([`../docs/findings/2026-08-08-why-rules-dont-bind.md`](../docs/findings/2026-08-08-why-rules-dont-bind.md) § 3):
+claims transcribed from tool output were right; claims composed from context
+were not.
+
+**Error 6 is worth its own note**, because it is a failure mode the Phase 2 design
+did not anticipate: the intent map's **OPEN column can be fabricated**. The
+EXPLICIT / ESTABLISHED / DERIVED columns all describe things that exist and can be
+checked against a source; OPEN describes an *absence*, and an invented absence
+looks identical to a real one while wearing the same provenance label. Recorded in
+the roadmap § 4.8 — **an OPEN entry is a claim about the owner and needs the same
+evidence as any other.**
+
 ## Codex review — dispositions
 
 Five findings on #827, **all five verified against the tree before being acted
