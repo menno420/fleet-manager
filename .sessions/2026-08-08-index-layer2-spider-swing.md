@@ -2,7 +2,7 @@
 
 > **Status:** `complete`
 
-- **📊 Model:** opus-5 · high · build — the index restructure, one repo
+- **📊 Model:** opus-5 · high · feature build — the index restructure, one repo
 
 Time: 2026-08-08 · venue: owner-live hub chat · branch
 `claude/fleet-manager-index-gq7lfw`
@@ -113,9 +113,42 @@ Real exit codes, each command run on its own — never `$?` after a pipe:
 - `python3 tools/check_no_false_walls.py --selftest` → **PASS**.
 - `python3 tools/install_root_hooks.py --apply` → idempotent on re-run
   ("already installed — nothing to do"); the `Stop` hook is untouched.
+- **The two invocations CI actually runs**, after the first red:
+  `check --strict --session-log .sessions/__born-red-card-added__.md --added-card <card>`
+  → **exit 0**, and `check --strict --require-session-log --session-log <card>`
+  → **exit 0**.
 - Acceptance test 1 → **14/14** answerable from the folder with the repo
   unattached. Acceptance test 2 → **partial**, correct on the one folder that
   exists. Both recorded at `docs/repos/ACCEPTANCE-TESTS.md`.
+
+## The one red, and why local green did not predict it
+
+`MEASURED` this session. `substrate-gate` failed on PR #818 while all three
+gates were green locally. Cause: the card's `📊 Model:` line read
+`... · build — ...`, and **`build` prefix-matches none of the 9 PL-004 task
+classes** — the taxonomy word is `feature build`.
+
+The part worth carrying is *why local was green*. **`bootstrap.py check
+--strict` does not run the card-grammar check; only the added-card gate does**,
+and CI reaches it through an invocation a session never types by hand:
+
+```bash
+python3 bootstrap.py check --strict \
+  --session-log .sessions/__born-red-card-added__.md --added-card <card>
+```
+
+So the local ritual and the CI gate were checking different things, and the
+local one is the weaker. The gate's own output says so in passing — a NOTE that
+`scripts/preflight.py` is absent, *"plant one to converge the local ritual and
+the CI gate on one check list"*. Nothing was built for that here (it is a gate
+change and out of scope), but the divergence is now written down with the exact
+command that reproduces CI, which is the cheap half.
+
+Also worth noting for the next reader: the failing line was **`check: 1
+finding(s):`** sitting above ~80 lines of never-exit-affecting `[stale-wall]`
+and `[dateless-wall]` advisories. A 60-line log tail showed only advisories and
+`exit code 1`, which reads like the advisories caused it. They did not. Read up
+to the `finding(s):` header, not the tail.
 
 ## Honest nulls
 
