@@ -186,6 +186,15 @@ create a file merely because the global architecture named one.** For a small
 repo the intent may already be perfectly represented in an existing canonical
 document. If a dedicated file earns itself, create it.
 
+**The first one exists: [`../intent.md`](../intent.md), 2026-08-09.** It earned a
+dedicated file because no existing document answered any of it — twelve OD rows,
+two `[D-NNNN]` entries and a PL register all record *what was decided*, and
+nothing recorded what the repo is *for* or what would count as working. It was
+produced by **asking**, not by deriving from the decision record, and two of the
+21 answers immediately amended standing directives (OD-3, OD-6) — which is the
+argument for the surface: intent that is never asked for drifts out of agreement
+with the rules written under it, silently, because nothing compares them.
+
 ### 4.7 Intent-time routing
 
 `OWNER` on the intent classes, `REASONED` on the mechanism. A **small** set of
@@ -210,6 +219,19 @@ moment it was written for.
 record — not synthetic examples. A fresh agent's map is scored on whether it puts
 each claim in the right column (explicit / established / derived / open), and on
 whether it left any HIGH ambiguity silently resolved.
+
+**First live run, 2026-08-09 — the interview half, not the map half.** A 21-question
+intent batch was put to the owner and fully answered. Three results worth carrying
+into the design: (1) the questions were filtered against the repo first, and none
+of the 21 turned out to be already answered — the *"never ask what the repo
+answers"* rule cost nothing here because the corpus genuinely had no intent layer;
+(2) **two answers contradicted standing directives**, so the interview's output is
+not additive-only and needs a reconciliation step, which Phase 2's procedure must
+name; (3) his own verdict on the format — a large lettered batch was right *"for
+this task"* because the subject was the method itself, and the per-task version
+should instead be sized to *"the remaining ambiguous items"*, with **no minimum or
+maximum**. Question 22 was begun and left blank; it is recorded as open rather
+than guessed at.
 
 ## 5 · Phase 3 — the common operating protocol
 

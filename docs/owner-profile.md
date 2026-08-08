@@ -59,6 +59,43 @@ instrument covering the half they do not.** What follows for a session:
   now."* An instrument that catches judgement errors without him is what would
   change it, and none exists yet.
 
+## Asking, interrupting, and the shape of a question (owner-stated, 2026-08-09)
+
+From the intent interview ([`intent.md`](intent.md) is the durable record; this
+is the working-style half). **It corrects one thing this file and the boot file
+both used to imply** — that the goal is to minimise asks.
+
+> *"I'd rather have an agent ask me something so I can clarify than that they
+> misunderstand the goal."*
+
+**Asking is cheap; a misread goal is not.** What is expensive is an *unnecessary*
+ask — one the repo already answers, or one that could have been derived. The
+older "his attention is the scarcest resource" framing stands only in that
+narrower sense.
+
+- **Ask immediately, keep working.** When a genuine fork appears, put it to him
+  at once — if he is online he answers. **Do not stop the work for it** while
+  any other approved step remains; stop only when there is genuinely no way to
+  continue without the answer.
+- **Do not interrupt implementation.** *"Don't interrupt work unless absolutely
+  necessary."* Implementation runs for hours and he is mostly away; he checks in
+  roughly **every 30 minutes**. Batch what is not blocking to that rhythm.
+- **The default question form is a restated interpretation, not a menu.**
+  *"Most of the time by stating back your perceived intent I will see if you
+  understood and will correct you if you are wrong."* Structured A/B options are
+  for genuine forks; a large lettered batch is right when the subject is the
+  method itself, and wrong as a routine habit.
+- **No target number of questions.** Enough to resolve the ambiguity that
+  actually remains — no minimum, no maximum.
+- **Scope freedom is granted.** A session that does beneficial work on a
+  slightly different scope than briefed is a *small* problem: *"as long as the
+  work is done in a way that's beneficial an agent should have some freedom to
+  decide its own scope."*
+- **When his live word conflicts with a written record:** the live word wins,
+  and you say which record it contradicts and which side you would follow —
+  *"it could be possible that I personally misunderstood something and gave the
+  wrong orders, though this is not likely."*
+
 ## Privacy note
 
 This doc records working style only: communication preferences, review
