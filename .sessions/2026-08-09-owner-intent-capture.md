@@ -65,8 +65,23 @@ false now, so it points at the roster instead of contradicting it; the roadmap's
 
 **The corpus had no intent layer, and that is the result worth keeping.** Every
 one of the 21 questions was filtered against the repo before being asked, per the
-*never ask what the repo already answers* rule — **none of the 21 was already
-answered.** Twelve OD rows, two `[D-NNNN]` entries, a PL register, a 280-line
+*never ask what the repo already answers* rule — **20 of the 21 were unanswered;
+question 1 was partially answered and this card first claimed 21/21.**
+
+> **CORRECTED 2026-08-09, by Codex review on this PR** *(the card is dated, so
+> the error stays visible rather than being rewritten)*. Two claims below were
+> wrong. **(a)** `docs/fleet-account-2026-07-26.md:148` and
+> `docs/audits/eap-project-audit-2026-07-14.md:23` both already labelled
+> fleet-manager *"hub + records custodian"* — a partial answer to the purpose
+> question. What was genuinely absent is the rest of it: who the primary reader
+> is, the boundary between what this repo explains and what each repo owns, and
+> any success criterion at all. **(b)** `docs/decisions.md` held **three**
+> `[D-NNNN]` entries (D-0001, D-0011, D-0012), not two — and this session had
+> read that file in full before miscounting it. Both are composed-gloss errors
+> of exactly the class this estate measures, committed inside the paragraph
+> claiming the corpus had been checked.
+
+Twelve OD rows, three `[D-NNNN]` entries, a PL register, a 280-line
 fleet account and a 1,146-line owner queue all record *what was decided*; nothing
 recorded what the repo is **for**.
 

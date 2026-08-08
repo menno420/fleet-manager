@@ -188,7 +188,7 @@ document. If a dedicated file earns itself, create it.
 
 **The first one exists: [`../intent.md`](../intent.md), 2026-08-09.** It earned a
 dedicated file because no existing document answered any of it — twelve OD rows,
-two `[D-NNNN]` entries and a PL register all record *what was decided*, and
+three `[D-NNNN]` entries and a PL register all record *what was decided*, and
 nothing recorded what the repo is *for* or what would count as working. It was
 produced by **asking**, not by deriving from the decision record, and two of the
 21 answers immediately amended standing directives (OD-3, OD-6) — which is the
@@ -222,9 +222,14 @@ whether it left any HIGH ambiguity silently resolved.
 
 **First live run, 2026-08-09 — the interview half, not the map half.** A 21-question
 intent batch was put to the owner and fully answered. Three results worth carrying
-into the design: (1) the questions were filtered against the repo first, and none
-of the 21 turned out to be already answered — the *"never ask what the repo
-answers"* rule cost nothing here because the corpus genuinely had no intent layer;
+into the design: (1) the questions were filtered against the repo first, and **20
+of 21 were genuinely unanswered** — the *"never ask what the repo answers"* rule
+cost almost nothing here because the corpus had no intent layer. **The exception
+is the instructive part:** the purpose question *was* partially answered — two
+records already called this repo *"hub + records custodian"* — and the filtering
+pass missed it, which is a **`MEASURED` false-negative rate of 1 in 21 for
+human-eye filtering** and the argument for making the ESTABLISHED column a
+retrieval step rather than a recall step;
 (2) **two answers contradicted standing directives**, so the interview's output is
 not additive-only and needs a reconciliation step, which Phase 2's procedure must
 name; (3) his own verdict on the format — a large lettered batch was right *"for

@@ -20,17 +20,13 @@ impossible"*, which is the confusion that has repeatedly cost the owner a turn.
 Use it for two things only: writing a prompt that will actually run where it is
 sent, and diagnosing a failure before recording it as a wall.
 
-**Roles now exist elsewhere, and that does not change this document's scope.**
-The owner assigned per-agent roles on 2026-08-09 — Claude for planning,
-implementation, GitHub work and important documentation; the **ChatGPT *Work*
-environment for real implementation** (it is doing a lot of it in `spider-swing`
-today and he rates it *"very reliable"*); Gemini and Grok for extra review,
-brainstorming and planning. That roster lives in
-[`intent.md`](intent.md) § 7 because it is intent, not capability. This file
-still answers only *what a surface can do* — read both when writing a prompt for
-a surface that is not this one, and note his portability rule: **do not assume
-every method works on every agent**, but write for the fact that more than one
-agent works these repos.
+**Roles now exist — and they live somewhere else, deliberately.** The owner
+assigned per-agent roles on 2026-08-09. The canonical roster is
+[`intent.md`](intent.md) § 7, because who *should* do what is intent, not
+capability; **this file does not restate it**, so it cannot drift from it. Read
+both when writing a prompt for a surface that is not this one, and note his
+portability rule: **do not assume every method works on every agent**, but write
+for the fact that more than one agent works these repos.
 
 ## The comparison
 

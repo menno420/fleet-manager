@@ -26,7 +26,11 @@
 
 ## Routing work to the owner
 
-The owner is the scarcest resource in the program. An ask reaches the owner
+**This gate governs ACTION asks only** — a click, a credential, a purchase.
+**Intent asks are not gated** and should be put immediately while the work
+continues ([D-0013]; `CONSTITUTION.md` § Autonomy rails; `../docs/intent.md` § 3).
+
+An **action** ask reaches the owner
 only when the agent has **attempted the action itself** or can name the
 **exact wall** (error text, permission denial) proving only the owner can do
 it — assumption-based asks are banned. Every ask uses the OWNER-ACTION

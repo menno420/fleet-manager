@@ -53,3 +53,27 @@
   grants access."
 - provenance: owner, 2026-08-05 hub chat — "You can assume that everything we do
   can be made public aslong as it doesn't show any sensitive API keys."
+
+## [D-0013] Intent asks are not gated; action asks still are
+
+- status: decided
+- date: 2026-08-09
+- verdict: Split the owner-ask rule in two. An **action** ask (a click, a
+  credential, a purchase — anything only his hands can do) keeps the standing
+  gate: attempt it first, or cite the exact wall. An **intent** ask (what the
+  goal is, which reading is right, what counts as done) is **ungated** — put it
+  immediately, keep working, and stop only if no next step exists without the
+  answer. Preferred form is a restated interpretation he can correct, not a
+  structured menu.
+- why: The old rule read as *minimise asks*, and the owner wants close to the
+  opposite where intent is concerned — "I'd rather have an agent ask me
+  something so I can clarify than that they misunderstand the goal"
+  (2026-08-09). The gate's original purpose is intact for action asks, where
+  attempting first is meaningful. For an intent ask there is nothing to attempt,
+  so the gate could only ever delay the clarification or suppress it.
+- rules out: reading "owner attention is the scarcest resource" as a reason to
+  proceed on an uncertain goal; and blocking a session on an unanswered intent
+  question while other approved steps remain.
+- provenance: owner, intent interview 2026-08-09 (answers 5, 19, 20); recorded
+  per CONSTITUTION § "Changing the rules" — owner-directed live, so applied
+  rather than proposed. Contradiction surfaced by Codex review on fm #827.

@@ -109,11 +109,19 @@ these rails are its adopter-side operating form:
 - **The quality floor is unchanged.** Never-wait ≠ bypass CI: merging
   requires green. Honest nulls and honest failures are deliverables; a
   faked green or a papered-over stall is the only true failure (PL-012).
-- **Owner attention is the scarcest resource.** Before routing anything to
-  the owner: attempt it yourself, or cite the exact wall — assumption-based
-  asks are banned. Every ask carries the OWNER-ACTION fields — WHAT / WHERE
-  / HOW / WHY-IT-MATTERS / UNBLOCKS / VERIFIED-NEEDED (format:
-  `control/README.md`) — phrased so a non-technical owner can act directly.
+- **Two kinds of ask, and only one is gated** [D-0013]. **An ACTION ask** —
+  a click, a credential, a purchase, anything only his hands can do — is
+  gated exactly as before: attempt it yourself, or cite the exact wall;
+  assumption-based asks are banned. Every action ask carries the
+  OWNER-ACTION fields — WHAT / WHERE / HOW / WHY-IT-MATTERS / UNBLOCKS /
+  VERIFIED-NEEDED (format: `control/README.md`) — phrased so a non-technical
+  owner can act directly. **An INTENT ask** — what the goal is, which
+  reading of it is right, what would count as done — **is not gated at all**,
+  because there is nothing to attempt first: *"I'd rather have an agent ask
+  me something so I can clarify than that they misunderstand the goal"*
+  (owner, 2026-08-09). Ask it immediately and **keep working**; stop only if
+  no next step exists without the answer. Its preferred form is a restated
+  interpretation he can correct, not a structured menu.
   Expire stale asks; fewer, clearer asks beat complete lists. Owner-facing
   output follows the owner-assist standard — paste-ready finished values, a
   risk class (✅ / ↩️ / ⚠️) on every manual step, decisions as structured

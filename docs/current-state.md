@@ -129,8 +129,11 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   Grok / Codex** — a roster nothing in this repo had recorded. His words are
   labelled `OWNER` and quoted; every inference is labelled `DERIVED` and kept
   separate. **It was produced by asking, not by deriving from the decision
-  record, and that is the finding:** 21 questions, none of them already answered
-  by the corpus, and **two answers amended standing directives** — `OD-3`
+  record, and that is the finding:** 21 questions, **20 of them unanswered** by
+  the corpus (the purpose question was partially answered — two records already
+  called this repo *"hub + records custodian"*; the reader, the boundary and any
+  success criterion were absent), and **two answers amended standing directives**
+  — `OD-3`
   (archive-never-delete → cleanup of spent docs and repos is wanted, with a
   stated reason) and `OD-6` (*"pace: slow"* → **one thing at a time, finished
   properly**, which he says is what he meant all along). New: **`OD-13`** —

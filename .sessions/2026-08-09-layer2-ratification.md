@@ -40,6 +40,57 @@ Verification at close: `python3 bootstrap.py check --strict`, plus both checkers
 directly, real exit codes — and **Codex review requested while this card is still
 born-red**, which is the corrected order.
 
+## This session's errors, counted the way the baseline counts them
+
+Axis 1 of the two-axis protocol (`docs/planning/2026-08-08-agent-operating-environment-roadmap.md`),
+catcher-attributed exactly like the 16-incident table in
+[`../docs/findings/2026-08-08-why-rules-dont-bind.md`](../docs/findings/2026-08-08-why-rules-dont-bind.md):
+
+| # | error | caught by |
+|---|---|---|
+| 1 | **flip-before-review** — the card was flipped, then the review requested; the lander merged 22 s later and a subsequent commit missed `main` entirely | self, post-hoc (probing PR state instead of trusting the close) |
+| 2 | `$?` read **after a pipe** on three consecutive `git push` calls, reporting `tail`'s status — one push had genuinely not landed and read as success | an **assertion** comparing local `rev-parse` to `ls-remote`, not vigilance |
+| 3 | OD-13/OD-14 inserted **above** OD-12, breaking the table's ordering | self, immediately, on read-back |
+| 4 | **the corpus measurement was overstated** — *"none of the 21 questions was already answered"* (it was 20 of 21) and *"two `[D-NNNN]` entries"* (there are three), repeated across five documents and stated to the owner | **Codex**, on fm #827 |
+
+## Codex review — dispositions
+
+Five findings on #827, **all five verified against the tree before being acted
+on** (never obey a review, verify it), and all five real:
+
+| # | finding | disposition |
+|---|---|---|
+| P1 | §5 still read *"No deletions (OD-3)"* against the amended OD-3 | **[conceded]** — §5 now reads *no **undirected** deletions*, with the per-item bar |
+| P1 | `CONSTITUTION.md:112` + `collaboration-model.md:29` still gate every ask behind attempt-or-exact-wall | **[conceded]**, and it sharpened the fix: the gate was never wrong for **action** asks — it is meaningless for **intent** asks, where there is nothing to attempt. Both docs now carry that split, recorded as **[D-0013]** |
+| P2 | the corpus measurement was wrong | **[conceded]** — corrected in all five places, and the miss is now a `MEASURED` datum in its own right (see below) |
+| P2 | `execution-surfaces.md` restated the roster it had just declared out of scope | **[conceded]** — reduced to a pointer, so it cannot drift |
+| P2 | `docs/repos/README.md` still said *"not a template to stamp out, each repo earns its files"* and listed a fifth Tier-1 row | **[conceded]** — the earned set is now stated as the shape to replicate, with the narrower true remainder kept (departures are recorded with reasons); the fleet-manager row says explicitly that it is not one of the four |
+
+**Zero refuted, and the P1 pair is the interesting result:** both were *the same
+class of defect this whole session is about* — a directive changed in one place
+while the surfaces a session actually consults kept the old rule. The session
+that spent the day fixing stale routers created two new ones inside four hours,
+and did not notice.
+
+**The corpus miss is worth keeping as a number.** The questions were filtered
+against the repo by reading, and **1 of 21 slipped through** — the purpose
+question, already partially answered in two places. That is a measured
+false-negative rate for eye-filtering, and it is the argument for making Phase
+2's ESTABLISHED column a **retrieval** step rather than a recall step.
+
+**Instruments that fired:** `git_state_guard`'s force-push tree check (correct —
+answered with a tree comparison, three files byte-identical); the born-red hold,
+twice, by design; `read_before_write` **once, falsely** — the session id rotated
+across a usage-limit pause and split its `/tmp` read-set, which is the
+false-positive class already named in the plan. Count catches, never firings.
+
+**Error 2 is the one worth the ink**, because it is the estate's own most-repeated
+rule (*"never `$?` after a pipe"*) broken by a session that had read that rule in
+three separate documents the same day — and it was caught by a **mechanical
+comparison**, which is the whole thesis: the rule did not bind at the moment of
+action; a check did. It also proves the point negatively — the two pushes that
+*did* succeed would have hidden a failure just as effectively.
+
 ## The incident — flip-before-review, `MEASURED` on fm #827
 
 | time | event |
@@ -53,6 +104,20 @@ boot file says *"never merge a PR you have asked Codex to review before it
 answers"*, and nothing did. What happened is one step earlier: **the card had
 already been flipped to `complete`**, and the flip is what makes a PR
 merge-eligible. `merge-on-green` then did exactly its job.
+
+**The mechanical link, read from the lander rather than inferred from the
+timing** — [`.github/workflows/merge-on-green.yml`](../.github/workflows/merge-on-green.yml):
+
+- **`:77-78`** — it triggers on `pull_request: types: [ready_for_review,
+  synchronize, …]`, so **the flip commit's own push is the trigger**; also
+  `workflow_run` (`:79`) and a `7,37 * * * *` cron (`:90`).
+- **`:196-209`** — the sweep reads every in-diff `.sessions/*.md`, parses
+  `**Status:** \`<token>\``, and **skips the PR while any card reads
+  `in-progress`** — *"even if every check is green"* (`:47-48`).
+
+So the born-red card is a **merge interlock**, not merely a completeness
+signal, and flipping it is the act that releases the interlock **and** fires the
+sweep in the same push. The 22-second interval is exactly that path.
 
 The mistake is a **sequence** error, and its root is that every written
 description of the close treats the flip as end-of-session bookkeeping.

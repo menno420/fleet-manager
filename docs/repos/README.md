@@ -74,12 +74,19 @@ the question is deeper. A doc-route for a repo points at `README.md`, never at
 the folder.
 
 The design named `current-state` / `capabilities` / `goals` / `records` as a
-**starting shape**, not a template to stamp out. Each repo earns its files, and
-**a file that is deferred is recorded as deferred with its reason** — silently
-omitting one is what makes the next session re-derive the same decision.
+**starting shape** and asked the first folder to earn its files. That question is
+**now settled** (owner, 2026-08-09): the earned set — `README.md` +
+`capabilities.md` + `records.md` + `working-here.md`, with `current-state.md` and
+`goals.md` deferred — **is the shape every folder replicates.** Start from it
+rather than re-deriving it.
+
+What survives from "each repo earns its files" is narrower and still true: **a
+folder may add a file its repo genuinely needs, and any departure from the shape
+is recorded with its reason** — silently omitting or adding one is what makes the
+next session re-derive a decision that has already been made.
 
 See [`spider-swing/README.md`](spider-swing/README.md) § "Why this folder has
-the files it has" for the first worked example.
+the files it has" for the worked example the shape came from.
 
 ## Coverage — honest, and mostly not yet built
 
@@ -87,7 +94,7 @@ the files it has" for the first worked example.
 |---|---|---|
 | **1** | `spider-swing` | ✅ **built** 2026-08-08 — the reference shape, **ratified 2026-08-09** |
 | **1** | `superbot` + `superbot-next` (paired) · `substrate-kit` · `venture-lab` | ⬜ not built — **cleared to build**; the shape is settled |
-| **1** | `fleet-manager` (itself — today's work is otherwise a standing exception) | ⬜ not built |
+| **1** | `fleet-manager` (itself — today's work is otherwise a standing exception) | ⬜ not built — **not one of the four**; it is a fifth, and its intent already lives at [`../intent.md`](../intent.md) |
 | **2** | the remaining ~19 | ⬜ **on demand** — built when work goes there, not pre-stubbed (owner, 2026-08-09) |
 
 **The shape is settled — owner, 2026-08-09.** The three questions the spider-swing
