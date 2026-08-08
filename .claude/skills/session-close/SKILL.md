@@ -95,10 +95,26 @@ steps.
    and move the NOW pointer; if you changed an owner ask, update
    `docs/owner-queue.md`; if you verified a new capability, append it to the
    ledger (never a wall).
+6c. **Anything you still owe this PR happens BEFORE the flip — Codex review
+   above all.** The born-red hold is not only a completeness gate; it is the
+   only thing keeping `merge-on-green` off the PR. **The flip is the
+   merge-eligibility event**, so a review requested after it is a race you will
+   lose. Request the review while the card still reads `in-progress`, wait for
+   it (**≥6 minutes**; ~335 s measured), read the **inline** comments rather
+   than the summary body, then flip.
+
+   `MEASURED` 2026-08-08 on fm #827: review requested `19:06:39Z`, the enabler
+   merged the PR at **`19:07:01Z` — 22 seconds later**, and a commit pushed 55 s
+   after that never reached `main` at all. No session merged anything early;
+   the close sequence itself was wrong, and this skill's step 7 described the
+   flip as bookkeeping when it is the irreversible act.
 7. Flip as the deliberate LAST step — flip the card badge to `complete`,
    delete your own claim file, push. Green then merges server-side; a
    flipped-early card merges a partial PR (the failure the gate exists
-   for), and an unpushed flip leaves the PR red forever.
+   for), and an unpushed flip leaves the PR red forever. **After the flip,
+   treat the PR as gone:** the lander can take it within seconds, so a
+   follow-up correction is a new branch off the new `main`, never another
+   push to this one.
 
 ## Report format (card close-out)
 

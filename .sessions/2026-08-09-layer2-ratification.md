@@ -39,3 +39,43 @@ Two things:
 Verification at close: `python3 bootstrap.py check --strict`, plus both checkers
 directly, real exit codes — and **Codex review requested while this card is still
 born-red**, which is the corrected order.
+
+## The incident — flip-before-review, `MEASURED` on fm #827
+
+| time | event |
+|---|---|
+| `19:06:39Z` | `@codex review` requested on #827 |
+| `19:07:01Z` | **`merge-on-green` merged it — 22 seconds later**, actor `github-actions[bot]`, at head `a0bac75` |
+| `19:07:55Z` | the Layer-2 ratification commit pushed — to a branch whose PR was already merged; it never reached `main` |
+
+**No session merged anything early, and no rule was broken as written.** The
+boot file says *"never merge a PR you have asked Codex to review before it
+answers"*, and nothing did. What happened is one step earlier: **the card had
+already been flipped to `complete`**, and the flip is what makes a PR
+merge-eligible. `merge-on-green` then did exactly its job.
+
+The mistake is a **sequence** error, and its root is that every written
+description of the close treats the flip as end-of-session bookkeeping.
+`session-close` step 7 said *"flip … green then merges server-side"* — accurate
+and incomplete: it never said that the born-red hold is the only thing keeping
+the automatic lander away, so anything still owed to the PR must precede the
+flip. Committing a review request *after* the flip is racing a server-side
+process, and 22 seconds is the size of the window.
+
+**Fixed in the procedure, not in prose:** `session-close` gains step **6c** —
+everything owed to the PR happens before the flip, review included, with the
+measured timing above as its reason — and step 7 now ends with *"after the flip,
+treat the PR as gone."* This PR runs the corrected order as its own first test.
+
+**Two second-order facts worth keeping:**
+
+- **The PR API read was stale and would have hidden this.** `GET /pulls/827`
+  returned head `a0bac75` and `mergeable_state: unknown` *after* the push to
+  `ff0a16d` had succeeded; `git ls-remote` returned `ff0a16d` immediately. The
+  merged state only surfaced because the read was cross-checked against the ref
+  — which is the `CONSTITUTION` rule about staleness-sensitive reads, earning
+  itself again.
+- **`git_state_guard` fired correctly on the recovery force-push** and named all
+  four at-risk files. The answer was a tree comparison, not reassurance: three
+  doc files byte-identical between the discarded head and the new one, so the
+  content survived the restart.
