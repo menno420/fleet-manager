@@ -195,6 +195,108 @@ API, or did you stop at Rulesets?"* — which is the acceptance shape: the
 untried path, named. One transport quirk is load-bearing: Railway's edge 403s
 the default Python-urllib User-Agent; any explicit UA passes.
 
+**2026-08-08 — and then it had never fired.** The verification above was real
+and it was container-specific. Asked directly whether the hook had fired this
+session, the answer was **no, not once**: `/tmp/claude-owner-review/` held the
+credential cache and **zero log lines**. Three faults, each hiding the next:
+
+1. **`google.auth` is absent from this container**, so `_review` raised
+   `ModuleNotFoundError` at every Stop. The lazy import carried a comment
+   reading *"absence of google-auth in some container = silent skip"* — the
+   failure was anticipated and answered with silence.
+2. **`_log` sat downstream of every failure**, so the header's promise that
+   *"silent-skip is still countable"* was false exactly when it mattered. A
+   mechanism whose absence is invisible is indistinguishable from a working one
+   — the **false guardrail** this estate rates as costlier than a false wall.
+3. Replacing google-auth with the `cryptography` package made it **worse**:
+   that package's Rust layer raises **`PanicException`, whose MRO is
+   `PanicException → BaseException → object`** — *not* an `Exception` — so
+   `except Exception` did not catch it and the hook **exited 1**. A Stop hook
+   exiting non-zero traps the turn, the one cost this design calls strictly
+   worse than no hook.
+
+Fixed: sign the service-account JWT with the **openssl binary** (a missing
+binary is a `FileNotFoundError`, not a panic inside our interpreter); catch
+`BaseException` **after re-raising `KeyboardInterrupt` and `SystemExit`**, since
+deliberate termination is not a defect and fail-open must not mean outliving the
+process that owns us; and log **every** exit with a `skip` reason.
+Re-verified live 2026-08-08 — exit 0, empty stderr, one telemetry line
+(`reply_chars=1804, null=false, out_tokens=154, finish=STOP`), three real
+provenance questions on first firing, defect path exit 0 and `SIGINT` exit 1.
+
+**What is actually established about the `openssl` dependency, stated narrowly
+because the first version of this paragraph was not.** It was measured in
+**one container, once** (`command -v openssl` → `/usr/bin/openssl`). That is not
+"reliably present in all target environments", and nothing here establishes
+that. Two things make it acceptable anyway: the hook is **scoped to this repo**,
+so "all environments" is currently one image; and absence now degrades to a
+**logged** `skip=review-failed` rather than to silence — which is the whole
+repair, and is true whatever openssl does. Credential *acquisition* is untouched
+(env → /tmp cache → Railway), so the key-material question is exactly as
+established — or as unestablished — as it was before this change; the Railway
+reachability path has never been verified outside this container either.
+
+**2026-08-08, later — the auth chain was never needed.** Asked *"why do we need
+Google auth?"*, the measured answer is that we do not. Given the same system
+prompt and the same reply, **free-tier `gemini-flash-latest` returned the same
+two findings** the Vertex/Pro reviewer had produced on the previous turn — the
+`BaseException`-swallows-`SIGINT` defect, and an unfounded *"openssl is present
+in all our environments"* claim — in **7.1 s, 70 output tokens, at no cost**.
+Pro on the free key 429s, as the convention says it will.
+
+That is § 1 restated: **the system prompt is the load-bearing component, not the
+model.** The Railway → service-account → OAuth → JWT → openssl chain was buying
+a bigger model for a job the small one does.
+
+**Correction — "the only part that ever broke" was an overstatement, and it made
+a working capability sound broken.** Google authentication was never absent; the
+`google-auth` *library* was. Verified cold 2026-08-08 with the credential cache
+deleted: Railway SA **0.8 s** → self-signed JWT access token **0.1 s** → Vertex
+`generateContent` **HTTP 200 in 6.7 s**, **7.5 s end to end**. Of the three
+"breakages", one was the missing library (fixed in ten minutes), one was the
+uncountable-skip *logging* defect — not auth at all — and one was self-inflicted
+by the first repair reaching for `cryptography`. Free-first is right because it
+is free, needs one header, and § 8 says the model is not load-bearing — **not**
+because the credit-funded path is unreliable. So the routing inverts: **free AI Studio
+key first, Vertex underneath for exactly one failure, the requests-per-day
+cliff.** Consistent with `docs/conventions/vertex-first-for-gemini.md`, which
+reserves the Vertex default for volume/image/video and otherwise says *"free key
+unless its daily cap is genuinely in the way"* — one ~1 k-token call per turn is
+none of those, and the cap is the one real risk, which is what the fallback is
+for. Which route answered is now recorded per firing (`"route":"free"`).
+Honest null: n=1 input, one run per model — not a model comparison.
+
+**2026-08-08, final — the model is not the mechanism.** Owner: *"for the hook we
+don't even need gemini at all right? The hook itself should ask 'what made you
+draw this conclusion?' and that does not require gemini."* Correct, and the
+findings already said so — § 8 measured both questions **content-independent**
+(he composed Q1 before the output existed, pre-committed to firing it regardless
+of content, screenshotted the pre-commitment; it landed anyway), and rated the
+options: *"fixed-and-always-on and blended-into-conversation both avoid the
+test-signal; **selective firing is the worst of the three**."* A reviewer that
+returns `NO QUESTIONS` on some turns **is** selective firing. The hook had been
+built as the worst of the three, on top of the only component that could break.
+
+So it inverts: **the fixed question IS the hook** — no model, no network, no
+credentials, no quota, no failure mode. The model is strictly **additive
+enrichment** appended under *"And specifically:"* when it happens to answer.
+Question 2 stays explicitly conditional on question 1 surfacing something, per
+§ 8's ordering — it has no referent otherwise, and the pair is a check, not a
+quota.
+
+Measured both ways 2026-08-08: with `GEMINI_API_KEY` and `RAILWAY_API_KEY`
+stripped from the environment it still blocks (`route:null, enriched:false`,
+exit 0); with the free key present it blocks with two real specifics appended
+(`route:"free", enriched:true, out_tokens:76`).
+
+**And the answer to why Vertex ever needed Google auth**, since it is structural
+rather than a choice we made: Vertex refuses API keys outright —
+`401 UNAUTHENTICATED: "API keys are not supported by this API. Expected OAuth2
+access token or other authentication credentials"` (measured directly against
+`aiplatform.googleapis.com`). Credit-funded ⇒ Vertex ⇒ OAuth ⇒ service account ⇒
+Railway ⇒ signed JWT. Every link forced; the only exit was not using Vertex on
+the critical path, which is what this change does.
+
 Scope: **this repo only** until a week of telemetry says otherwise — the
 no-fleet-rollout decision stands.
 
