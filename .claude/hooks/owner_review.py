@@ -29,11 +29,15 @@ Routing: Vertex per docs/conventions/vertex-first-for-gemini.md — credit, not
 card. The SA comes from env, then the /tmp cache, then Railway (the doc's
 recipe); a fresh container self-provisions on first fire.
 """
+import base64
 import json
 import os
 import ssl
+import subprocess
 import sys
+import tempfile
 import time
+import urllib.parse
 import urllib.request
 
 CA = "/root/.ccr/ca-bundle.crt"
@@ -203,20 +207,89 @@ def _sa():
     return info
 
 
+def _access_token(info):
+    """Service-account OAuth with no google-auth dependency.
+
+    This used to be `from google.oauth2 import service_account`, guarded by a
+    comment reading *"absence of google-auth in some container = silent skip"* —
+    the failure was anticipated and answered with silence. MEASURED 2026-08-08:
+    `google.auth` is **absent from this container**, so every Stop since the hook
+    landed raised ModuleNotFoundError inside `_review`, got swallowed by the
+    fail-open wrapper, and exited 0. The hook was believed live and had never
+    once run. A false guardrail, which this estate already rates as costlier
+    than a false wall.
+
+    The self-signed-JWT flow needs only `cryptography` (present) plus stdlib, so
+    the whole class of failure goes away rather than being caught more loudly.
+    google-auth is still preferred when it happens to be installed.
+    """
+    scope = "https://www.googleapis.com/auth/cloud-platform"
+    try:  # if the library is here, use it — it handles more edge cases than we do
+        from google.auth.transport.requests import Request as GR
+        from google.oauth2 import service_account
+        import requests
+        cred = service_account.Credentials.from_service_account_info(info, scopes=[scope])
+        s = requests.Session()
+        s.trust_env = False
+        s.verify = CA if os.path.exists(CA) else True
+        cred.refresh(GR(session=s))
+        return cred.token
+    except ImportError:
+        pass
+
+    # Sign with the openssl BINARY, not the `cryptography` package. MEASURED
+    # 2026-08-08: `import cryptography...` in this container fails on a missing
+    # `_cffi_backend` and its Rust layer raises **PanicException, which
+    # subclasses BaseException** — so `except Exception` does not catch it and
+    # the hook exits 1. A Stop hook exiting non-zero TRAPS THE SESSION, the one
+    # cost this file's header calls strictly worse than no hook. A subprocess
+    # cannot do that: a broken openssl is a non-zero return code, not a panic
+    # inside our own interpreter.
+    def b64(raw):
+        return base64.urlsafe_b64encode(raw).rstrip(b"=")
+
+    now = int(time.time())
+    aud = info.get("token_uri", "https://oauth2.googleapis.com/token")
+    seg = b64(json.dumps({"alg": "RS256", "typ": "JWT"}).encode()) + b"." + b64(
+        json.dumps({"iss": info["client_email"], "scope": scope, "aud": aud,
+                    "iat": now, "exp": now + 3600}).encode())
+    kd = tempfile.mkdtemp()
+    kp = os.path.join(kd, "k.pem")
+    try:
+        fd = os.open(kp, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
+        with os.fdopen(fd, "w") as f:
+            f.write(info["private_key"])
+        p = subprocess.run(["openssl", "dgst", "-sha256", "-sign", kp],
+                           input=seg, capture_output=True, timeout=15)
+        if p.returncode != 0 or not p.stdout:
+            raise RuntimeError("openssl sign failed: " + p.stderr.decode()[:200])
+        assertion = seg + b"." + b64(p.stdout)
+    finally:
+        try:
+            os.remove(kp)
+            os.rmdir(kd)
+        except OSError:
+            pass
+
+    body = urllib.parse.urlencode({
+        "grant_type": "urn:ietf:params:oauth:grant-type:jwt-bearer",
+        "assertion": assertion.decode(),
+    }).encode()
+    req = urllib.request.Request(aud, data=body, method="POST", headers={
+        "Content-Type": "application/x-www-form-urlencoded",
+        "User-Agent": "fleet-manager-owner-review-hook/1.0"})
+    ctx = (ssl.create_default_context(cafile=CA) if os.path.exists(CA)
+           else ssl.create_default_context())
+    op = urllib.request.build_opener(
+        urllib.request.ProxyHandler({}), urllib.request.HTTPSHandler(context=ctx))
+    return json.loads(op.open(req, timeout=NET_TIMEOUT).read())["access_token"]
+
+
 def _review(text):
     info = _sa()
     if not info:
         return None
-    # Lazy imports: absence of google-auth in some container = silent skip.
-    from google.auth.transport.requests import Request as GR
-    from google.oauth2 import service_account
-    import requests
-    cred = service_account.Credentials.from_service_account_info(
-        info, scopes=["https://www.googleapis.com/auth/cloud-platform"])
-    s = requests.Session()
-    s.trust_env = False
-    s.verify = CA if os.path.exists(CA) else True
-    cred.refresh(GR(session=s))
+    token = _access_token(info)
     url = ("https://aiplatform.googleapis.com/v1/projects/" + info["project_id"]
            + "/locations/global/publishers/google/models/" + MODEL + ":generateContent")
     payload = {
@@ -229,7 +302,7 @@ def _review(text):
         # question truncated mid-sentence at out_tokens=47.
         "generationConfig": {"temperature": 0.3, "maxOutputTokens": 4000},
     }
-    r = _http(url, payload, {"Authorization": "Bearer " + cred.token,
+    r = _http(url, payload, {"Authorization": "Bearer " + token,
                              "Content-Type": "application/json"})
     cand = (r.get("candidates") or [{}])[0]
     out = "".join(p.get("text", "")
@@ -251,23 +324,40 @@ def _log(rec):
 def main():
     data = json.load(sys.stdin)
     if data.get("stop_hook_active"):
-        return  # one round per turn, ever — the loop guard
+        return  # one round per turn, ever — the loop guard. The only unlogged
+                # exit, because it only happens on a pass that already logged.
+
+    def rec(**kw):
+        _log({"ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+              "session": data.get("session_id"), **kw})
+
+    # EVERY other exit logs. The file header promised "silent-skip is still
+    # countable" and it was not: _log sat downstream of every failure, so the
+    # skips that mattered wrote nothing at all. MEASURED 2026-08-08 — the hook
+    # had raised ModuleNotFoundError on google-auth at every single Stop since
+    # it landed, and the telemetry directory held a credentials cache and not
+    # one log line. A mechanism whose absence is invisible is indistinguishable
+    # from one that is working.
     tp = data.get("transcript_path") or ""
     if not tp or not os.path.exists(tp):
-        return
+        return rec(skip="no-transcript")
     text = _final_turn(tp)
     if not text or len(text) < MIN_CHARS:
-        return
-    got = _review(text)
+        return rec(skip="reply-too-short", reply_chars=len(text or ""))
+    try:
+        got = _review(text)
+    except BaseException as exc:                   # creds, network, parse, timeout, native panic
+        return rec(skip="review-failed", reply_chars=len(text),
+                   error=f"{type(exc).__name__}: {exc}"[:300])
     if not got:
-        return
+        return rec(skip="review-empty", reply_chars=len(text))
+
     out, um = got
     null = out.upper().startswith("NO QUESTIONS")
-    _log({"ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-          "session": data.get("session_id"), "reply_chars": len(text),
-          "null": null, "prompt_tokens": um.get("promptTokenCount"),
-          "out_tokens": um.get("candidatesTokenCount"),
-          "finish": um.get("finishReason")})
+    rec(reply_chars=len(text), null=null,
+        prompt_tokens=um.get("promptTokenCount"),
+        out_tokens=um.get("candidatesTokenCount"),
+        finish=um.get("finishReason"))
     if null:
         return  # the null path is a normal outcome
     print(json.dumps({"decision": "block", "reason": REASON.format(q=out)}))
@@ -276,6 +366,11 @@ def main():
 if __name__ == "__main__":
     try:
         main()
-    except Exception:
+    except BaseException:
+        # BaseException, not Exception. MEASURED 2026-08-08: cryptography's Rust
+        # layer raises PanicException, which subclasses BaseException — so the
+        # narrower catch let a native failure escape and the hook exited 1,
+        # trapping the turn. "Any defect exits 0" is only true if it catches
+        # everything a defect can raise.
         pass  # FAIL-OPEN: a review hook must never trap a session
     sys.exit(0)

@@ -99,9 +99,17 @@ def save(session: str, seen: set[str]) -> None:
 MD_LINK_RE = re.compile(r"\[([^\]]+)\]\([^)]*\)")
 
 
-def described(text: str) -> set[str]:
-    """Paths this content is making a claim ABOUT, not merely linking to."""
-    out = set()
+def described(text: str) -> dict[str, str]:
+    """Paths this content is making a claim ABOUT -> the claim it is making.
+
+    Returns the gloss, not just the path, because the gloss is what makes the
+    warning actionable: the session has to decide whether *this particular
+    assertion* is worth a fetch, and it cannot weigh that from a bare filename.
+    Owner-directed 2026-08-08 — the hook stays advisory "as long as it tells a
+    session about what it's about to do, so that session can decide whether or
+    not the files are worth opening."
+    """
+    out: dict[str, str] = {}
     for line in (text or "").splitlines():
         line = MD_LINK_RE.sub(r"\1", line)
         for path, gloss in DESCRIBED_RE.findall(line):
@@ -109,7 +117,7 @@ def described(text: str) -> set[str]:
             if gloss.count("/") > 3 or gloss.startswith(("http", "(")):
                 continue
             if PATH_RE.fullmatch(path) or "." in path:
-                out.add(path)
+                out.setdefault(path, " ".join(gloss.split())[:110].rstrip(" |"))
     return out
 
 
@@ -173,13 +181,17 @@ def main() -> int:
         "line is inferred from the filename:",
         "",
     ]
-    lines += [f"  · {p}" for p in shown]
+    for p in shown:
+        lines.append(f"  · {p}")
+        if claims.get(p):
+            lines.append(f'      you are about to say: "{claims[p]}"')
     if more:
         lines.append(f"  · … and {more} more")
     lines += [
         "",
-        "Not a blocker, and not a claim that you are wrong — only that nothing "
-        "here establishes that you are right.",
+        "Weigh each claim on its own — some are worth a fetch and some plainly "
+        "are not. Not a blocker, and not a claim that you are wrong: only that "
+        "nothing here establishes that you are right.",
     ]
 
     json.dump(

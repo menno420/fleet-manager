@@ -195,6 +195,36 @@ API, or did you stop at Rulesets?"* — which is the acceptance shape: the
 untried path, named. One transport quirk is load-bearing: Railway's edge 403s
 the default Python-urllib User-Agent; any explicit UA passes.
 
+**2026-08-08 — and then it had never fired.** The verification above was real
+and it was container-specific. Asked directly whether the hook had fired this
+session, the answer was **no, not once**: `/tmp/claude-owner-review/` held the
+credential cache and **zero log lines**. Three faults, each hiding the next:
+
+1. **`google.auth` is absent from this container**, so `_review` raised
+   `ModuleNotFoundError` at every Stop. The lazy import carried a comment
+   reading *"absence of google-auth in some container = silent skip"* — the
+   failure was anticipated and answered with silence.
+2. **`_log` sat downstream of every failure**, so the header's promise that
+   *"silent-skip is still countable"* was false exactly when it mattered. A
+   mechanism whose absence is invisible is indistinguishable from a working one
+   — the **false guardrail** this estate rates as costlier than a false wall.
+3. Replacing google-auth with the `cryptography` package made it **worse**:
+   that package's Rust layer raises **`PanicException`, whose MRO is
+   `PanicException → BaseException → object`** — *not* an `Exception` — so
+   `except Exception` did not catch it and the hook **exited 1**. A Stop hook
+   exiting non-zero traps the turn, the one cost this design calls strictly
+   worse than no hook.
+
+Fixed: sign the service-account JWT with the **openssl binary** (a missing
+binary is a `FileNotFoundError`, not a panic inside our interpreter), catch
+**`BaseException`** at both levels, and log **every** exit with a `skip` reason.
+Re-verified live 2026-08-08 — exit 0, empty stderr, one telemetry line
+(`reply_chars=1804, null=false, out_tokens=154, finish=STOP`), and three real
+provenance questions returned on first firing. Credential *acquisition* is
+unchanged (env → /tmp cache → Railway); only the signing moved, so the new
+dependency is `openssl`, verified present here and degrading to a logged
+`skip=review-failed` when absent.
+
 Scope: **this repo only** until a week of telemetry says otherwise — the
 no-fleet-rollout decision stands.
 
