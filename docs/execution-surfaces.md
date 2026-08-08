@@ -21,7 +21,7 @@ Use it for two things only: writing a prompt that will actually run where it is
 sent, and diagnosing a failure before recording it as a wall.
 
 **Roles now exist — and they live somewhere else, deliberately.** The owner
-assigned per-agent roles on 2026-08-09. The canonical roster is
+assigned per-agent roles on 2026-08-08. The canonical roster is
 [`intent.md`](intent.md) § 7, because who *should* do what is intent, not
 capability; **this file does not restate it**, so it cannot drift from it. Read
 both when writing a prompt for a surface that is not this one, and note his

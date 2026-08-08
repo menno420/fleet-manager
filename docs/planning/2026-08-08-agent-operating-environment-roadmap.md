@@ -15,13 +15,22 @@
 
 ## 1 · The goal, in one paragraph
 
-`OWNER`. Build a **model-independent agent operating environment**: Claude,
-GPT/Codex, Gemini or any other capable agent starts from an imperfect owner
-message, reconstructs the intended outcome from existing project knowledge,
-exposes only the consequential uncertainty, plans correctly, executes with the
-repo's known methods and traps, reviews back against the original intent, and
-leaves better-structured context for the next agent — **without the owner having
-to restate how he works.**
+`OWNER`. Build an agent operating environment where Claude, GPT/Codex, Gemini or
+any other capable agent starts from an imperfect owner message, reconstructs the
+intended outcome from existing project knowledge, exposes only the consequential
+uncertainty, plans correctly, executes with the repo's known methods and traps,
+reviews back against the original intent, and leaves better-structured context
+for the next agent — **without the owner having to restate how he works.**
+
+**"Model-independent" is the wrong phrase for it, and the precise one is
+`provider-aware, model-portable`** (sharpened 2026-08-08 against the owner's
+agent roster). **The reasoning and the method must transfer; execution
+capabilities do not have to be equalised.** Claude holds the broadest credential
+and tooling reach here, so a method that depends on a Claude-specific capability
+is **not defective — provided the dependency is declared** rather than hidden.
+What must stay portable is the *concepts*: intent resolution, the procedure, the
+verification, the record. The target is therefore a **common operating protocol
+with provider-specific adapters**, never an identical workflow everywhere.
 
 **The bottleneck is not code quality.** `OWNER`: once a good plan exists,
 implementation is usually strong. The recurrent failures happen earlier —
@@ -99,12 +108,21 @@ owner request
   → retrieve relevant decisions / current context
   → build the intent map
   → resolve from evidence wherever possible
-  → if HIGH ambiguity remains: ask 1–3 targeted questions
+  → if HIGH ambiguity remains: ask the minimum sufficient set of questions
   → update the map
   → only then plan
 ```
 
 **Never ask what the repo already answers.**
+
+**There is no question budget — corrected 2026-08-08, `OWNER`.** This step read
+*"ask 1–3 targeted questions"*, and a fixed range is wrong in both directions:
+*"there should not be a maximum or minimum amount of questions. It should make
+sure that based on the questions, you are able to fully understand the remaining
+ambiguous items."* Often the answer is **zero** — a structured restatement is
+enough and he corrects it. Sometimes it is ten. **The stopping condition is
+§ 4.4's sufficiency test, never a count**, and any number written here would be
+optimised toward instead of the thing it stands in for.
 
 ### 4.3 Ambiguity classes
 
@@ -186,7 +204,7 @@ create a file merely because the global architecture named one.** For a small
 repo the intent may already be perfectly represented in an existing canonical
 document. If a dedicated file earns itself, create it.
 
-**The first one exists: [`../intent.md`](../intent.md), 2026-08-09.** It earned a
+**The first one exists: [`../intent.md`](../intent.md), 2026-08-08.** It earned a
 dedicated file because no existing document answered any of it — twelve OD rows,
 three `[D-NNNN]` entries and a PL register all record *what was decided*, and
 nothing recorded what the repo is *for* or what would count as working. It was
@@ -220,7 +238,7 @@ record — not synthetic examples. A fresh agent's map is scored on whether it p
 each claim in the right column (explicit / established / derived / open), and on
 whether it left any HIGH ambiguity silently resolved.
 
-**First live run, 2026-08-09 — the interview half, not the map half.** A 21-question
+**First live run, 2026-08-08 — the interview half, not the map half.** A 21-question
 intent batch was put to the owner and fully answered. Three results worth carrying
 into the design: (1) the questions were filtered against the repo first, and **20
 of 21 were genuinely unanswered** — the *"never ask what the repo answers"* rule
@@ -355,6 +373,51 @@ gemini:
 
 Null and multiple values are both normal. Forcing symmetry would make the
 topology tidy and untrue.
+
+**Why the owner is building the Drive half by hand, in his words** (`OWNER`,
+2026-08-08). He is creating a **Drive folder per repo** and making them public so
+an agent can open them on request, then filling them with images, recordings and
+documents. Three reasons, and the second is a concrete constraint no document
+here had recorded:
+
+1. **Persistent storage deliberately unrelated to GitHub** — the material is
+   supporting context, not technical truth, so it does not belong in a repo.
+2. **It routes around the five-attachments-per-message limit.** Uploading to a
+   folder lets him hand over a whole set at once instead of dribbling files
+   across messages.
+3. **Labelling is the point, not tidiness:** *"preferably properly labeled so
+   Claude and any other AI with Drive access can easily discover and use the
+   relevant files."* A folder an agent cannot navigate unaided fails its purpose.
+
+He also treats **cleaning up the noise** — the Drive layout, the ChatGPT
+projects — as the highest-value thing he can personally do right now, which is
+the same judgement that produced the OD-3 cleanup amendment: **noise reduction is
+a feature, not tidying.**
+
+Reading recipe for the folder, already measured and committed:
+[`../conventions/owner-drive-folder.md`](../conventions/owner-drive-folder.md).
+
+### 5.8 Two instrument defects the Phase-1 run exposed — named, not yet built
+
+`MEASURED` in this session, `REASONED` on the fix. Both are hook-observability
+problems, and the second is the more serious.
+
+1. **The closed-vocabulary check does not know which vocabulary applies to which
+   artifact.** `in-progress` is a **valid** session-card Status and an **invalid**
+   documentation badge, and the check treats one closed list as global — so it
+   fires on a correct card. The artifact type is mechanically derivable from the
+   write target's path, so this is narrowable rather than inherent.
+2. **A lost read-set reads exactly like "you never read this."** The usage-limit
+   pause rotated the session id, `/tmp/claude-read-set/<id>.json` started empty,
+   and `read_before_write` warned about files that had been read in full. The
+   estate already has the governing principle and the hook does not implement it:
+   **absence of telemetry must not masquerade as negative evidence.** The fix is
+   not necessarily persistence — it is that the hook must be able to say *"I have
+   no record for this session"* differently from *"I have a record and this path
+   is not in it."*
+
+Both belong to the promotion rule below: observed, recorded, and **not** built
+into anything until they have earned it.
 
 ## 6 · The promotion rule that governs all of it
 

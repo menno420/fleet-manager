@@ -59,7 +59,7 @@ instrument covering the half they do not.** What follows for a session:
   now."* An instrument that catches judgement errors without him is what would
   change it, and none exists yet.
 
-## Asking, interrupting, and the shape of a question (owner-stated, 2026-08-09)
+## Asking, interrupting, and the shape of a question (owner-stated, 2026-08-08)
 
 From the intent interview ([`intent.md`](intent.md) is the durable record; this
 is the working-style half). **It corrects one thing this file and the boot file

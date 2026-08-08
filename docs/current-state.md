@@ -121,7 +121,7 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 ## Recently shipped (newest first)
 
 - **The owner's intent, asked and recorded — and two standing directives changed
-  by his answers** (2026-08-09): [intent.md](intent.md) — fleet-manager's durable
+  by his answers** (2026-08-08): [intent.md](intent.md) — fleet-manager's durable
   intent surface, the first instance of the roadmap's § 4.6 invariant. Purpose
   (**router and records home**; the primary reader is the next *agent*, not the
   owner), the three success criteria he actually picked, the non-goals, the

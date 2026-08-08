@@ -1,10 +1,10 @@
-# 2026-08-09 · hub — the owner's intent, asked and captured
+# 2026-08-08 · hub — the owner's intent, asked and captured
 
 > **Status:** `complete`
 
 - **📊 Model:** opus-5 · high · docs-only — capture 21 owner intent answers; reconcile the directives they change
 
-Time: 2026-08-09 · venue: owner-live hub chat · branch
+Time: 2026-08-08 · venue: owner-live hub chat · branch
 `claude/fleet-manager-rules-enforcement-18o8t1` (restarted from `f53d7ea` —
 Phase 1 merged as fm #826, so the prior commits are already-merged history)
 
@@ -68,7 +68,7 @@ one of the 21 questions was filtered against the repo before being asked, per th
 *never ask what the repo already answers* rule — **20 of the 21 were unanswered;
 question 1 was partially answered and this card first claimed 21/21.**
 
-> **CORRECTED 2026-08-09, by Codex review on this PR** *(the card is dated, so
+> **CORRECTED 2026-08-08, by Codex review on this PR** *(the card is dated, so
 > the error stays visible rather than being rewritten)*. Two claims below were
 > wrong. **(a)** `docs/fleet-account-2026-07-26.md:148` and
 > `docs/audits/eap-project-audit-2026-07-14.md:23` both already labelled

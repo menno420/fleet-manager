@@ -1,10 +1,10 @@
-# 2026-08-09 · hub — Layer-2 ratification, and the flip-before-review incident
+# 2026-08-08 · hub — Layer-2 ratification, and the flip-before-review incident
 
 > **Status:** `in-progress`
 
 - **📊 Model:** opus-5 · high · docs-only — land the Layer-2 ratification; record the auto-merge incident
 
-Time: 2026-08-09 · venue: owner-live hub chat · branch
+Time: 2026-08-08 · venue: owner-live hub chat · branch
 `claude/fleet-manager-rules-enforcement-18o8t1` (restarted from `4e6a05a` after
 fm #827 merged)
 
@@ -52,6 +52,25 @@ catcher-attributed exactly like the 16-incident table in
 | 2 | `$?` read **after a pipe** on three consecutive `git push` calls, reporting `tail`'s status — one push had genuinely not landed and read as success | an **assertion** comparing local `rev-parse` to `ls-remote`, not vigilance |
 | 3 | OD-13/OD-14 inserted **above** OD-12, breaking the table's ordering | self, immediately, on read-back |
 | 4 | **the corpus measurement was overstated** — *"none of the 21 questions was already answered"* (it was 20 of 21) and *"two `[D-NNNN]` entries"* (there are three), repeated across five documents and stated to the owner | **Codex**, on fm #827 |
+| 5 | **every new record stamped `2026-08-09` when it is `2026-08-08`** — 35 occurrences across 17 files, including two owner-directive rows, a `[D-NNNN]` entry, and both session-card filenames | **ChatGPT**, via the owner |
+
+**Error 5 is the one that should not have been possible.** The date was in this
+session's own opening context, `date -u` was one command away — and the Phase 1
+card had **already recorded this exact error** the same day
+([`2026-08-08-rules-enforcement-phase1.md:112`](2026-08-08-rules-enforcement-phase1.md):
+*"dated the roadmap `2026-08-09` without checking; `date -u` says 08-08 —
+composed, not transcribed, in the provenance line of a document about
+provenance"*). A session read that card, wrote a follow-up to it, and reproduced
+the error it documents — **in owner-attributed directive rows**, which is the
+worst place for it, because an OD row's date is what a future session uses to
+decide which directive is current. Corrected everywhere except the three
+legitimate references (two Atlas-retirement dates and the Phase 1 record itself,
+which must keep the wrong date it is reporting).
+
+**Catcher attribution matters here:** neither gate, hook, nor Codex caught it —
+a **second provider did**, reading the plan with no stake in it. That is a real
+argument for the roster in `docs/intent.md` § 7 being a *review* asset and not
+only an implementation one.
 
 ## Codex review — dispositions
 

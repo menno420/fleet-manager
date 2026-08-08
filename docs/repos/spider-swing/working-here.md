@@ -2,7 +2,7 @@
 
 > **Status:** `reference` · true as of **2026-08-08**
 >
-> **RATIFIED 2026-08-09.** This file began as a proposal — the design's starting
+> **RATIFIED 2026-08-08.** This file began as a proposal — the design's starting
 > shape had no "how to work here" file. It exists because gates, verify commands
 > and landing discipline are what a session needs **before** attaching, and they
 > are neither state nor goals. The owner kept it as a **distinct file**, so it is

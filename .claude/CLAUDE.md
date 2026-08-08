@@ -109,7 +109,7 @@ beats any doc.
 
 **Why, before what:** `docs/intent.md` — what this repo is **for**, what counts
 as working, the non-goals, how to decide without him, and **who does what across
-Claude / ChatGPT / Gemini / Grok / Codex**. Owner-stated 2026-08-09; it is what a
+Claude / ChatGPT / Gemini / Grok / Codex**. Owner-stated 2026-08-08; it is what a
 plan is checked against when a rule and the situation disagree. Read it before
 asking him anything.
 
@@ -120,7 +120,7 @@ directives · `docs/planning/2026-08-08-fleet-manager-as-index.md` — the Layer
 decisions and their rejected alternatives · substrate-kit's PL register —
 program law binding every repo.
 
-## The working style (owner-set, 2026-07-26; restated 2026-08-09)
+## The working style (owner-set, 2026-07-26; restated 2026-08-08)
 - **One thing at a time, finished properly** — not slow for its own sake, and
   not a licence to stop short (OD-6 as he restated it). Small PRs. Cleanup of
   spent docs/repos is allowed and wanted, with a stated reason (OD-3 amended).
@@ -146,7 +146,7 @@ program law binding every repo.
   judgment, and when a genuine fork appears, put it to him **and keep working** —
   stop only when no next step exists without the answer. *"I'd rather have an
   agent ask me something so I can clarify than that they misunderstand the
-  goal"* (owner, 2026-08-09): unnecessary asks are the waste, asking is not.
+  goal"* (owner, 2026-08-08): unnecessary asks are the waste, asking is not.
   He is away during implementation and checks in roughly every 30 minutes.
 - **Do not write about a file you have not opened.** Saying what a file *is* is
   a claim, and a filename plus this estate's conventions produces a confident

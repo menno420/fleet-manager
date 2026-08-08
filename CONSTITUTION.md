@@ -119,7 +119,7 @@ these rails are its adopter-side operating form:
   reading of it is right, what would count as done — **is not gated at all**,
   because there is nothing to attempt first: *"I'd rather have an agent ask
   me something so I can clarify than that they misunderstand the goal"*
-  (owner, 2026-08-09). Ask it immediately and **keep working**; stop only if
+  (owner, 2026-08-08). Ask it immediately and **keep working**; stop only if
   no next step exists without the answer. Its preferred form is a restated
   interpretation he can correct, not a structured menu.
   Expire stale asks; fewer, clearer asks beat complete lists. Owner-facing

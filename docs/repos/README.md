@@ -75,7 +75,7 @@ the folder.
 
 The design named `current-state` / `capabilities` / `goals` / `records` as a
 **starting shape** and asked the first folder to earn its files. That question is
-**now settled** (owner, 2026-08-09): the earned set — `README.md` +
+**now settled** (owner, 2026-08-08): the earned set — `README.md` +
 `capabilities.md` + `records.md` + `working-here.md`, with `current-state.md` and
 `goals.md` deferred — **is the shape every folder replicates.** Start from it
 rather than re-deriving it.
@@ -92,12 +92,12 @@ the files it has" for the worked example the shape came from.
 
 | tier | repos | state |
 |---|---|---|
-| **1** | `spider-swing` | ✅ **built** 2026-08-08 — the reference shape, **ratified 2026-08-09** |
+| **1** | `spider-swing` | ✅ **built** 2026-08-08 — the reference shape, **ratified 2026-08-08** |
 | **1** | `superbot` + `superbot-next` (paired) · `substrate-kit` · `venture-lab` | ⬜ not built — **cleared to build**; the shape is settled |
 | **1** | `fleet-manager` (itself — today's work is otherwise a standing exception) | ⬜ not built — **not one of the four**; it is a fifth, and its intent already lives at [`../intent.md`](../intent.md) |
-| **2** | the remaining ~19 | ⬜ **on demand** — built when work goes there, not pre-stubbed (owner, 2026-08-09) |
+| **2** | the remaining ~19 | ⬜ **on demand** — built when work goes there, not pre-stubbed (owner, 2026-08-08) |
 
-**The shape is settled — owner, 2026-08-09.** The three questions the spider-swing
+**The shape is settled — owner, 2026-08-08.** The three questions the spider-swing
 folder left open are answered: it replicates **as built** (`README.md` +
 `capabilities.md` + `records.md` + `working-here.md`); `working-here.md` **earns
 its place as a distinct file** because gates, verify commands and traps are what a
@@ -109,7 +109,7 @@ make visible. Provenance: [`../intent.md`](../intent.md) § 8.
 
 **One addition to the shape, not yet built:** a folder should point at the repo's
 **external workspaces** — its Drive folder, its ChatGPT workspace, its Gemini
-notebook — as pointers, never copies (owner, 2026-08-09). Design:
+notebook — as pointers, never copies (owner, 2026-08-08). Design:
 [`../planning/2026-08-08-agent-operating-environment-roadmap.md`](../planning/2026-08-08-agent-operating-environment-roadmap.md)
 § 5.7. The next folder built carries it; spider-swing's gets it retroactively.
 
