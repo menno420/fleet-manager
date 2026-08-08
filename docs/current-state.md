@@ -120,6 +120,23 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 
 ## Recently shipped (newest first)
 
+- **Why the rules don't bind — the session's own errors, counted, and three
+  injection mechanisms** (2026-08-08):
+  [findings/2026-08-08-why-rules-dont-bind.md](findings/2026-08-08-why-rules-dont-bind.md)
+  — owner-directed root-cause review of the index-restructure session. **17
+  incidents; catchers: owner 5 · Stop-hook 4 · CI 2 · own tests 3 ·
+  documentation 0** (vs 116 committed statements of the verify-first rule). One
+  root: rules bind at the moment of action only if they *arrive* there — so the
+  fix is injection, not more prose. Shipped: `scripts/preflight.py` (the
+  ORDER-018 local↔CI parity list, finally planted — today's CI-only red now
+  reds locally), a **closed-vocabulary check** in `read_before_write.py`
+  (badges + task classes, parsed live from the gate's own source), and
+  [`.claude/hooks/git_state_guard.py`](../.claude/hooks/git_state_guard.py)
+  (squash-stacked branches · force-push tree comparison · `reset --hard`
+  dirty-tree listing — all three fired live during their own build). Residue
+  stated, not hidden: momentum-over-evidence and composed glosses have no
+  mechanical catcher and stay with the Stop hook and the owner.
+
 - **Layer 2 exists — one folder, built to be judged before it is copied** (2026-08-08):
   [repos/spider-swing/](repos/spider-swing/README.md) — the first per-repo folder, and
   the reference shape for the rest. `README.md` is the standalone entry and carries the

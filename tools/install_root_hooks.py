@@ -41,10 +41,15 @@ HOOKS = {
     # doc routing: probe-time on tool input, and prompt-time so naming a repo
     # pulls its Layer 2 README before the work starts.
     "route_docs.py": (("PreToolUse", MATCHER), ("UserPromptSubmit", None)),
-    # read-before-write: records reads and flags prose about unopened files.
+    # read-before-write: records reads and flags prose about unopened files,
+    # plus the closed-vocabulary fields (Status badges, Model-line task class).
     # One event; the same matcher covers both halves (read tools record,
     # Edit/Write check).
     "read_before_write.py": (("PreToolUse", MATCHER),),
+    # git-state guard: squash-stacked branch, force-push tree comparison, and
+    # reset --hard over a dirty tree — the facts the 2026-08-08 git failures
+    # were missing at the moment of the command.
+    "git_state_guard.py": (("PreToolUse", MATCHER),),
 }
 
 

@@ -258,6 +258,35 @@ live had been opened. Its first real *firing* is still ahead.
 carry `permissionDecision` + `permissionDecisionReason`, so hard-denying a Write
 is available and deliberately unused — see the owner question below.
 
+## The owner's root-cause ask — answered with a ledger and three mechanisms
+
+`OWNER`, end of session, after switching this session's model to fable-5 for
+the analysis turn: *"review this session thoroughly and find out what exactly
+causes all these mistakes… each session should reliably know and follow the
+rules."* The full answer is
+[findings/2026-08-08-why-rules-dont-bind.md](../docs/findings/2026-08-08-why-rules-dont-bind.md):
+**17 incidents, catcher-attributed** (owner 5 · Stop-hook 4 · CI 2 · own tests
+3 · **documentation recalled at the right moment 0**, against 116 committed
+statements of the rule), four mechanism classes, one root — **rules stored in
+documents bind only when retrieved at the action moment, and the actions never
+announce themselves.** So the fix moves rules from recall to injection:
+
+- `scripts/preflight.py` — the ORDER-018 parity list, finally planted; local
+  `check --strict` now runs CI's added-card lane (today's CI-only red, replayed
+  locally on a synthetic card → exit 1).
+- `read_before_write.py` gains the **closed-vocabulary check** — Status badges
+  and Model-line task classes parsed live from bootstrap/config, surfaced at
+  write time (today: 6 invented badges + 1 bad class).
+- `.claude/hooks/git_state_guard.py` — squash-stacked-branch detection,
+  force-push **tree** comparison, and `reset --hard` dirty-tree listing. All
+  three fired live into this session during their own build.
+
+**Error #23 happened mid-analysis and is the exhibit:** a `git reset --hard`
+cleaning up a one-commit probe destroyed three tested, uncommitted hook edits —
+the destructive-action-without-looking class, reproduced by the session writing
+its taxonomy. Rebuilt from context; the reset warning now lists the exact files
+at risk and was verified against the incident's own shape.
+
 ## Open owner questions
 
 Three, none blocking — the folder stands either way.
