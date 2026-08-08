@@ -67,6 +67,29 @@ everything owed to the PR happens before the flip, review included, with the
 measured timing above as its reason — and step 7 now ends with *"after the flip,
 treat the PR as gone."* This PR runs the corrected order as its own first test.
 
+## What shipped
+
+- **The Layer-2 ratification** — `docs/repos/README.md` (coverage table now
+  records the shape as settled, and changes tier-2 from *pre-stubbed* to **on
+  demand**), `docs/repos/spider-swing/working-here.md` (PROPOSAL → **RATIFIED**),
+  and the earned-files row that called it an open question. Plus the one part of
+  the shape not yet built, written down so the next folder carries it: **external
+  workspace pointers** per repo (Drive · ChatGPT · Gemini notebook).
+- **`session-close` step 6c and an amended step 7** — the mechanism fix for the
+  incident below.
+- **The §7 ledger row** for both this PR and the trap.
+
+## Verification
+
+Real exit codes, each command run on its own — never `$?` after a pipe:
+
+- `python3 bootstrap.py check --strict` → **exit 1 while born-red** (sole
+  finding: this card, via the added-card lane), **exit 0** on the flip.
+- `python3 tools/check_doc_routes.py --strict` → **exit 0**.
+- `python3 tools/check_no_false_walls.py --strict` → **exit 0**.
+- Force-push safety established by **tree comparison**, not by assertion: three
+  doc files byte-identical between the discarded head and the restarted branch.
+
 **Two second-order facts worth keeping:**
 
 - **The PR API read was stale and would have hidden this.** `GET /pulls/827`
