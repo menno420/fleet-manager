@@ -224,14 +224,19 @@ def _review(text):
             "The agent's reply to the owner, about to be delivered:\n\n" + text
             + "\n\nAsk your questions about it, or output exactly NO QUESTIONS."}]}],
         "systemInstruction": {"parts": [{"text": SYSTEM}]},
-        "generationConfig": {"temperature": 0.3, "maxOutputTokens": 1200},
+        # 4000, not 1200: on a thinking model the reasoning tokens draw from
+        # the same budget, and the first live firing (2026-08-07) had its
+        # question truncated mid-sentence at out_tokens=47.
+        "generationConfig": {"temperature": 0.3, "maxOutputTokens": 4000},
     }
     r = _http(url, payload, {"Authorization": "Bearer " + cred.token,
                              "Content-Type": "application/json"})
     cand = (r.get("candidates") or [{}])[0]
     out = "".join(p.get("text", "")
                   for p in (cand.get("content") or {}).get("parts", []))
-    return out.strip(), r.get("usageMetadata", {})
+    um = r.get("usageMetadata", {})
+    um["finishReason"] = cand.get("finishReason")  # truncation is countable
+    return out.strip(), um
 
 
 def _log(rec):
@@ -261,7 +266,8 @@ def main():
     _log({"ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
           "session": data.get("session_id"), "reply_chars": len(text),
           "null": null, "prompt_tokens": um.get("promptTokenCount"),
-          "out_tokens": um.get("candidatesTokenCount")})
+          "out_tokens": um.get("candidatesTokenCount"),
+          "finish": um.get("finishReason")})
     if null:
         return  # the null path is a normal outcome
     print(json.dumps({"decision": "block", "reason": REASON.format(q=out)}))
