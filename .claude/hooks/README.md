@@ -158,3 +158,51 @@ cat /tmp/claude-doc-routes/*.json     # the route id appears once it has fired
 same route, delete the state file first — and note the ordering: the hook runs
 *before* the command, so a command that itself deletes the state directory will
 look like the dedupe failed when it did not.
+
+## The owner-review Stop hook — `owner_review.py`
+
+> added 2026-08-07 · design record:
+> [`docs/findings/2026-08-06-provenance-mechanism-measured.md`](../../docs/findings/2026-08-06-provenance-mechanism-measured.md)
+
+The second hook here, and a different species: it fires at `Stop` (turn end),
+reads the final reply from the transcript, sends it to the owner-stand-in
+reviewer on Vertex, and — only when the reviewer returns questions — blocks
+**once** so the agent addresses them in the reply the owner actually reads.
+`stop_hook_active` guards the second pass: one round per turn, ever.
+
+Everything load-bearing in it is measured, not designed:
+
+- **The system prompt is the mechanism.** The same model, unframed, endorsed a
+  known-wrong design and praised its specific defect (findings § 1). The
+  owner-stand-in framing is committed verbatim in findings § 7 and inlined here.
+- **`Stop` is the only viable event** — at `UserPromptSubmit` no claim exists
+  yet to ask about (findings § 2).
+- **The hook runs the review itself** — run 4's untried path, named by the
+  reviewer: no skill invocation, no agent initiative anywhere in the loop
+  (findings § 1 addendum).
+- **The null path is normal.** The reviewer outputs `NO QUESTIONS` and the turn
+  ends untouched. A review that must always find something is ritual.
+- **Fail-open is a hard contract.** Any defect — creds, network, parse, timeout
+  — exits 0 silently, and the firing (or its absence) is countable at
+  `/tmp/claude-owner-review/log.jsonl`.
+
+Verified 2026-08-07: guards by pipe-test (`stop_hook_active`, missing
+transcript, sub-400-char reply — all exit 0, empty); the full cold chain
+(Railway → service account → OAuth → Vertex → verdict) live at ~12 s, ~7 s
+warm. Its first verdict re-caught the previous day's real rulesets false wall
+from a synthetic reproduction — *"did you try the classic Branch Protection
+API, or did you stop at Rulesets?"* — which is the acceptance shape: the
+untried path, named. One transport quirk is load-bearing: Railway's edge 403s
+the default Python-urllib User-Agent; any explicit UA passes.
+
+Scope: **this repo only** until a week of telemetry says otherwise — the
+no-fleet-rollout decision stands.
+
+```bash
+# guards (exit 0, no output)
+echo '{"stop_hook_active":true}' | python3 .claude/hooks/owner_review.py
+# full chain against a claim-bearing transcript
+echo '{"session_id":"t","transcript_path":"<some .jsonl>"}' | python3 .claude/hooks/owner_review.py
+# registration
+jq -e '.hooks.Stop[].hooks[].command' .claude/settings.json
+```
