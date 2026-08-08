@@ -66,6 +66,42 @@ endorsement alongside targeted objection, with no manufactured balance.
 Cost: run 3 was **1,389 prompt / 430 output tokens**, one call, seconds. A prior estimate in
 this chat of 30–60 s for a three-turn exchange was wrong by roughly an order of magnitude.
 
+### Addendum 2026-08-07 — run 4 closes the matrix, and catches its own author
+
+`MEASURED`. The missing cell — the **sound** run-1 explanation under the **owner
+stand-in** prompt — was the control every reviewer asked for and nobody had run.
+1,354 prompt / 465 output tokens, one call.
+
+| run | system prompt | input | outcome |
+|---|---|---|---|
+| 4 | owner stand-in | the sound derivation from run 1 | 2 plain endorsements · **0 unfounded objections** · 4 probes, all legitimate |
+
+It endorsed the two best-grounded parts in plain terms — payload-is-procedure, and
+the 0-fires-vs-4+-fires comparison (*"exactly the right way to use the estate's
+data"*) — manufactured no balance, demanded nothing, claimed no authority.
+
+**And its first probe found a real defect in the input labeled sound.** The
+explanation asserted flatly that *"a Stop hook cannot execute a skill"* — stated
+without hedge, never verified against the hook pipeline. The reviewer asked what
+that was based on and **named the untried path**: the hook can run the review
+*itself* — read the transcript, extract the final turn, make the reviewer call,
+return the questions as the block reason — which would remove agent initiative
+from the loop entirely rather than merely relocating it. `UNVERIFIED` as a
+mechanism; recorded here as the design candidate to test before building the
+agent-invoked variant, because if it holds, § 3's residual gap dissolves.
+
+Two further probes caught real overstatements in the same input (*"cannot be
+computed"* — the honest hedge is *not comparably*; *"precisely because it is read
+rarely"* — causality asserted, never measured). The fourth was a fair
+consequences question about the marker-loop's token cost.
+
+**What this settles, and what it cannot.** The false-positive question is
+answered only in this form: on input its author believed sound, the framed
+reviewer raised **nothing unfounded**. It cannot demonstrate a zero
+false-positive rate, because every objection it raised was legitimate — which
+also means the "sound" label was generous, and the honest reading is that the
+instrument outperformed its test.
+
 ---
 
 ## 2 · `UserPromptSubmit` is refuted on mechanical grounds
@@ -240,6 +276,21 @@ both halves:**
   (3, 4); a command ran and its failure was suppressed (5); a checker ran and passed
   vacuously (6); a probe ran against too small a surface (1).
 
+> **⚠ Corrected 2026-08-07 — caught by the kit session, verified here against both refs.**
+> Two claims in this subsection were wrong. **PL-015 is not committed**:
+> `docs/program/rulings.md` on substrate-kit `main` contains **zero** occurrences
+> (measured 2026-08-07); the ruling exists only on the frozen `#580` branch, binds
+> nothing yet, and cannot be corrected independently of that PR. And **"refutes both
+> halves" overstates it**: the ruling's own verdict already names *an external
+> reviewer* and *the owner* — both readers — as valid verifiers, and its corollary 1
+> already demands the full contract be re-asserted after any fix. What the corpus
+> genuinely refutes is narrower: the **title**, which reads as "reading doesn't
+> count" and is the part that gets cited, and the verifier list's implication that a
+> clean-exit command suffices — items 3, 4, 5 and 6 are executions that looked clean
+> and verified nothing. The fix is the title plus one clause, landing in the same
+> push that merges `#580`, not a rewrite. The claim below this box stands as the
+> replacement axis.
+
 The axis the data actually supports is **independence** — does something other than the
 author's own assumption get a chance to falsify? — and **contract completeness** — does the
 check cover the whole claimed contract or a sub-surface? That reformulation explains all
@@ -347,8 +398,9 @@ that does not hold the verdict is a different act from being audited by the part
   sequence.
 - **The success metric changes** from agent self-correction to cost-to-falsify (§ 4). § 9 of
   the spec measures the wrong ratio.
-- **PL-015 needs correcting in the register** (§ 6) — it is committed and wrong as absolutely
-  stated.
+- **PL-015 needs correcting before `#580` merges** (§ 6) — *corrected 2026-08-07: it is
+  **not** committed; zero occurrences on the kit's `main`, branch-only.* The needed fix is
+  the title plus one clause, in the same push as the merge.
 - **The gate remains dropped.** Nothing here revives it.
 
 ---
@@ -366,9 +418,10 @@ that does not hold the verdict is a different act from being audited by the part
 - **The neutral system prompt may have cast the model as the owner.** It names an estate
   maintained "for a single owner", and both unframed runs adopted owner voice. The approval
   and the authority-claim are separable; only the first is the finding.
-- **Framed runs have not been tested for false positives on a sound input.** Run 3 used the
-  flawed text. The 0-invented-objections figure comes from the morning's document review, a
-  different kind of input.
+- ~~**Framed runs have not been tested for false positives on a sound input.**~~ **Resolved
+  2026-08-07** — run 4 (§ 1 addendum): nothing unfounded raised, two plain endorsements, and
+  a real defect found in the input instead. The narrower residue: a zero false-positive
+  *rate* is still unestablished, because no input has yet survived the instrument unmarked.
 - **The corpus cause-classification is inspection** (§ 6) and is the softest claim in this
   file.
 - **Whether any of this reduces failures is unmeasured**, and cannot be measured before

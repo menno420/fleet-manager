@@ -48,6 +48,23 @@
       "says": "You are about to infer an API's shape from its own spec. A discovery document that omits an endpoint is NOT evidence the endpoint is absent \u2014 measured 2026-08-05: generativelanguage's discovery doc (v1beta and v1alpha, both 200) has zero hits for `interactions`, and the endpoint works. Check the estate's own provider doc before concluding anything is unavailable, and see THE DISCOVERY RULE."
     },
     {
+      "id": "adversarial-review",
+      "when": [
+        "adversarial[- ]review",
+        "provenance-review",
+        "provenance-mechanism",
+        "owner stand-in",
+        "ownerreview",
+        "what made you draw",
+        "review mandate"
+      ],
+      "docs": [
+        "docs/findings/2026-08-06-provenance-mechanism-measured.md",
+        "docs/conventions/adversarial-review.md"
+      ],
+      "says": "The review mechanics are MEASURED, not argued (4 controlled runs, 2026-08-06/07): an UNFRAMED reviewer endorses whatever it is shown — including a known-wrong design, whose specific defect it praised — so 'explain it to Gemini' verifies nothing by itself; the owner-stand-in system prompt is the load-bearing component (committed verbatim in the findings doc § 7). Stop is the only viable hook event — UserPromptSubmit fires before any claim exists to ask about. The two questions, in order: 'What made you draw that conclusion?' (expand), then 'Can you simplify the mistake?' (compress — only after the first surfaces something). Read the findings doc before touching substrate-kit#580 or building any review hook."
+    },
+    {
       "id": "gemini",
       "when": [
         ":generateContent",
