@@ -46,31 +46,48 @@ def command_for(root: Path) -> str:
     return f"[ -f {base} ] && python3 {base} || true"
 
 
-def merge(settings: dict, command: str) -> tuple[dict, bool]:
-    """Find our own registration by the script it runs, not by the matcher.
+def merge_event(settings: dict, command: str, event: str, matcher: str | None) -> bool:
+    """Register the hook on one event. Returns True if anything changed.
 
+    Find our own registration by the script it runs, not by the matcher.
     Keying on the matcher would append a duplicate every time the matcher
     changes — which it does whenever a new tool becomes routable.
+
+    `matcher=None` is the no-matcher form (UserPromptSubmit has no tool to
+    match on), and an existing entry's stale matcher is cleared rather than
+    left behind.
     """
-    hooks = settings.setdefault("hooks", {})
-    pre = hooks.setdefault("PreToolUse", [])
-    for entry in pre:
-        inner = entry.get("hooks") or []
-        for h in inner:
+    entries = settings.setdefault("hooks", {}).setdefault(event, [])
+    for entry in entries:
+        for h in entry.get("hooks") or []:
             if "route_docs.py" not in h.get("command", ""):
                 continue
-            if h.get("command") == command and entry.get("matcher") == MATCHER:
-                return settings, False
+            if h.get("command") == command and entry.get("matcher") == matcher:
+                return False
             h["command"] = command
-            entry["matcher"] = MATCHER
-            return settings, True
-    pre.append(
-        {
-            "matcher": MATCHER,
-            "hooks": [{"type": "command", "command": command, "timeout": 10}],
-        }
-    )
-    return settings, True
+            if matcher is None:
+                entry.pop("matcher", None)
+            else:
+                entry["matcher"] = matcher
+            return True
+    entry = {"hooks": [{"type": "command", "command": command, "timeout": 10}]}
+    if matcher is not None:
+        entry["matcher"] = matcher
+    entries.append(entry)
+    return True
+
+
+def merge(settings: dict, command: str) -> tuple[dict, bool]:
+    """Register on both events the hook serves.
+
+    UserPromptSubmit is what makes naming a repo pull its Layer 2 README in
+    before the session starts working (route_docs.py docstring). Installing
+    only PreToolUse here would leave the rescue path — the case-three
+    `--apply` run — silently carrying half the retrieval.
+    """
+    changed = merge_event(settings, command, "PreToolUse", MATCHER)
+    changed |= merge_event(settings, command, "UserPromptSubmit", None)
+    return settings, changed
 
 
 def main() -> int:
@@ -101,7 +118,8 @@ def main() -> int:
 
     if not apply:
         print("\nwould write (re-run with --apply):\n")
-        print(json.dumps(settings.get("hooks", {}).get("PreToolUse", []), indent=2))
+        hooks = settings.get("hooks", {})
+        print(json.dumps({e: hooks.get(e, []) for e in ("PreToolUse", "UserPromptSubmit")}, indent=2))
         return 0
 
     target.parent.mkdir(parents=True, exist_ok=True)
