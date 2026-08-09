@@ -106,6 +106,34 @@ Real exit codes, each command on its own line — never `$?` after a pipe.
 - Five CI reds on fm #830, each checked against the job log rather than assumed:
   all five the designed born-red hold, checkers `0 errors · 0 notes`.
 
+## Owner decisions, taken live 2026-08-09
+
+Three forks were put to him during this session. All three answered:
+
+1. **Kit-upgrade sequencing → `A`, upgrade first.** `OWNER`. The
+   `upgrade-distribution` run precedes further Phase 2 work. It does **not**
+   precede landing fm #830, which was already built and in review when he
+   answered — the sequencing question was Phase-2-vs-upgrade, not
+   finish-vs-abandon. **Caveat now attached to that decision** (see § Review
+   record and the § 7 ledger): the upgrade's payload is `UNVERIFIED` — this
+   session measured `ADVISORY_CENSUS` absent *here* and never opened
+   substrate-kit, so the first step of the upgrade is checking that a released
+   version actually carries it.
+2. **The § 4.9 presence check → explanation requested, not yet decided.** He
+   read it as "another CI check that prevents merging" and asked what it
+   actually checks. It is one more condition inside the gate that already runs,
+   not a new check. **Recommendation revised to `hold`** — see § 4.9's own
+   argument: adoption is 4 of 4 with zero observed failures, and adding a gate
+   condition against a rule nothing has yet broken is exactly the *"good idea →
+   mandatory infrastructure"* move the promotion rule rejects.
+3. **Skills → get them into the Claude account.** `OWNER`, and it decides
+   between the three routes recorded in `docs/SKILLS-local.md`: **route 1
+   (account upload), not route 3 (plugin)** — *"the goal should be to get the
+   skills in the claude account, I believe that's the best way to ensure they
+   are all visible and loading correctly."* Not urgent — *"for now they are
+   already doing their job."* The blocker stands and is measured: 15 of 27
+   descriptions exceed the 200-character upload cap.
+
 ## Review record
 
 **Round 1 — head `562faac`, seven inline findings, all P2. Every one verified
