@@ -124,13 +124,38 @@ cleanest possible demonstration that anchors work: the mechanism caught a
 propagation it had no way to recognise by wording, in the document arguing that
 such a mechanism does not exist. The id is now described rather than stamped.
 
-**So the shape of the gap is different from what was reported.** It is not that
-propagation is un-mechanizable; it is that the mechanism requires **anchored
-claims**, and this repo anchors only decisions (`[D-NNNN]`). A measurement, a
-tally or a provenance statement has no id, so nothing can follow it. Whether to
-anchor those too is a design question worth its own session — and a real one,
-because it converts the session's most-repeated defect from "watch for it" into
-"the checker follows the id."
+**Read precisely, it is not the check this paragraph first called it — and the
+difference points somewhere better.** `check_stamp_discipline` lives at
+`bootstrap.py:9307`; the line cited above is its docstring. It walks
+`config.docs_root`, skips the ledger, matches `_LED_ID_RE = re.compile(r"\bD-\d{3,}\b")`
+(`:9043` — **decision ids only**, verified rather than inferred), and flags any id
+appearing in **more than one** document.
+
+That makes it a **duplication** check, not a **divergence** check. It does not
+notice when two copies of a claim drift apart; it forbids the second copy from
+existing. Its own rationale says so: *"a second citation is drift risk — when the
+decision changes, one of the two goes stale."*
+
+**Two strategies, and the estate already picked the stronger one:**
+
+| | how it works | cost |
+|---|---|---|
+| **detect** | allow copies, notice when they diverge | needs to compare meaning — the thing text matching cannot do |
+| **prevent** | allow exactly one home, so there is nothing to diverge from | needs an id, and a rule that copies cite rather than restate |
+
+**So the recommendation changes.** The fix for paraphrased propagation is
+probably not a cleverer matcher — it is **denying the second home**, which is
+cheap, decidable, and already proven here for decisions. What this repo lacks is
+not the mechanism but the **anchors**: it stamps decisions (`D-NNN`) and nothing
+else, so a measurement, a tally or a provenance statement has no id to cite, and
+every restatement is necessarily a retyping that can drift. Every propagation
+failure in fm #830 was a retyped *measurement*.
+
+Anchoring measurements the way decisions are anchored is the design question
+worth its own session. **Filed as error #16** — the first version of this
+paragraph called the stamp check *"exactly the paraphrase-proof propagation check
+declared impossible above"*, which overstated it in the direction of the point
+being made.
 
 **Filed as this session's error #14**, and it is the same shape as the rest:
 evaluating one family of solutions and concluding about the space.

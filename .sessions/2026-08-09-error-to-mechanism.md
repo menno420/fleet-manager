@@ -58,6 +58,7 @@ Continuing fm #830's numbering, because it is the same day and the same author.
 |---|---|---|
 | 14 | **evaluated one family of mechanism and concluded about the space** — declared paraphrased propagation *"has no mechanical catcher"* having tried only text matching (whole-line, then shingles). **Anchors were never considered, and `bootstrap.py:9308` already runs one** — it flags a decision id cited from more than one doc, is paraphrase-proof by construction, and **fired on this very session** (the Gemini paid-key decision, in the same command output being read while the claim was written) — **and fired again on the paragraph documenting it**, because naming the id made the finding a second citation site | **the owner-review Stop hook**, asking whether anything but text matching had been evaluated |
 | 15 | **registered a hook on every file change without measuring its latency** — `PreToolUse` on `Write\|Edit\|MultiEdit` and `PostToolUse` on `Edit\|MultiEdit` is the hot path, and the cost was not measured until asked for | **the owner-review Stop hook**, same round |
+| 16 | **overstated the counter-example in the direction of the point** — called `check_stamp_discipline` *"exactly the paraphrase-proof propagation check declared impossible above"*, having read its **docstring** (`:9308`) and not its body (`:9307`). It is a **duplication** check: it forbids a decision id from having a second home, rather than detecting divergence between two copies. The correction is an improvement — *prevent* beats *detect*, and the estate already chose it | **the owner-review Stop hook**, fourth round, asking what exact check lives at that line |
 
 **#14 is the sharpest error of the two days**, because it is the session's own
 subject turned on itself. The whole file argues that *availability is not
@@ -65,6 +66,15 @@ retrieval*; the counter-example to its central claim was **in the output of the
 command being read at the time**, and was not retrieved. It also produced a
 *worse* recommendation than the evidence supported: "un-mechanizable" closes a
 question that is actually open and promising.
+
+**#14 and #16 are one arc, and it is the useful one.** #14 was a claim made
+without evaluating a whole family of solutions; #16 was the correction to it,
+overstated in the direction of the point being made. Both were caught by the same
+instrument asking the same question — *what did you actually read?* — and the
+second answer is better than the first: the estate does not detect propagation
+drift, it **prevents second homes**, and the gap is that only decisions carry an
+id to cite. Every propagation failure in fm #830 was a retyped **measurement**,
+and measurements have no anchor.
 
 **#15 measured out fine** — ~41 ms for the `PreToolUse` checks, ~82 ms median /
 137 ms max for the `PostToolUse` grep path, and ~41 ms of every figure is Python
