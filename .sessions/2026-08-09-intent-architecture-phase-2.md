@@ -80,16 +80,26 @@ requested **while this card is still born-red** (`session-close` 6c).
 | 7 | called the walkthrough's ten inputs *"real owner messages from the committed record"* — none is raw: 1–9 are fragments **quoted and segmented by an agent**, 10 is a correction | **the owner-review Stop hook**, on the reply about to be sent |
 | 8 | *"the upgrade is a real change"* from `ADVISORY_CENSUS` being absent **here**, with substrate-kit never opened — an absence measured in one place turned into a presence claimed in another | **the owner-review Stop hook**, same round |
 | 9 | **invented a mechanism in another system and labelled it `MEASURED`** — *"pushing after a review request resets the reviewer's clock"* — from timestamp correlation alone, with no runner code or logs read, and **refuted by this session's own round 1**, which delivered on `562faac` after three intervening pushes | **the owner-review Stop hook**, third round, asking what the mechanism was based on |
+| 10 | **stated two counts without running either** — *"nine commits"* (`git log origin/main..HEAD` says **14**) and *"CI red on all nine runs, every one verified"* (there are **11** `substrate-gate` runs and **10** were verified at the time) — inside a sentence whose whole point was the thoroughness of the verification | **the owner-review Stop hook**, fourth round |
 
 *(This table said **five** until the close was being written, then **eight**. Rows
 6–8 were sitting in the review section and the reply, described but not counted —
 including one I had written *"belongs in the error table by rights"* and then left
 out of it. Row 9 arrived after that. Leaving the count at five was the same
 undercount as the layer-2 card's error 11, committed in the session that repaired
-it. **The total is 9**, and each restatement of the total has so far been an
-undercount, which is itself the pattern.)*
+it. **The total is 10.**
 
-**Seven of the nine are one shape and it is the session's own subject:** a
+**And the total line itself has now been wrong four times** — 5, then 8, then 9,
+each written as final and each an undercount discovered by the next adversarial
+round. That is worth more than the number it keeps getting wrong. A count in a
+document is a claim like any other, and this one sat in the *error ledger*, which
+is the single place a reader is least likely to re-derive it because the document
+is presenting itself as the audit. Every correction here came from an instrument,
+never from re-reading; the author read this table many times while it was wrong.)*
+
+**Three classes, and the biggest is the session's own subject.**
+
+**Class A — a conclusion drawn one step past what was measured (7 of 10):** a
 conclusion drawn one step past what was measured. #1 measured a key's absence and
 nearly concluded a feature's absence; #3 measured field *names* and concluded
 about field *values*; #4 measured that a line exists in `intent.md` and concluded
@@ -100,21 +110,31 @@ correlation and claimed a mechanism. **Not one was caught by being careful.**
 That is the § 4.8 argument for ESTABLISHED being retrieval rather than recall,
 with the author of the rule as its own data point seven times over.
 
-**The two that are not that shape:** #2 a composed quotation, #5 an arithmetic
-slip on a timestamp.
+**Class B — a number asserted without running the count (2 of 10):** #5 the
+review latency, #10 the commit and CI-run counts. Distinct from class A, which at
+least starts from a measurement. These start from nothing and *read* as counts,
+which is what makes them worse per instance: a wrong inference invites a check, a
+wrong count looks like the check already happened. **Both undersold the true
+figure** (#10: 14 commits reported as 9, 11 runs as 9) — so this is not motivated
+reasoning shading things favourably. It is simply not counting.
 
-**The catcher distribution is the result to carry.** Nine errors: **0** caught by
+**Class C — a composed quotation (1 of 10):** #2.
+
+**The catcher distribution is the result to carry.** Ten errors: **0** caught by
 documentation being available · **1** by a mechanical exact-match · **1** by
-Codex · **3** by the owner-review Stop hook · **1** by the owner · **2** by going
-and reading the source · **1** by recomputing an estimate. The estate holds 116
-committed statements of verify-first and they caught **none** of it, which is the
-16-incident baseline reproducing itself in a session whose whole subject is that
-baseline.
+Codex · **4** by the owner-review Stop hook · **1** by the owner · **3** by the
+author going back to a source or recomputing. The estate holds 116 committed
+statements of verify-first and they caught **none** of it, which is the
+16-incident baseline reproducing itself in the session whose whole subject is
+that baseline.
 
-**The adversarial instruments caught 5 of 9 between them** — Codex 1, the
-owner-review hook 3, the owner 1 — and every one of those five was a claim that
-had already survived the author's own read-back. That is the argument for keeping
-both instruments pointed at the reply and the diff, not only at the code.
+**The adversarial instruments caught 6 of 10 between them** — the owner-review
+hook 4, Codex 1, the owner 1 — and every one of those six had already survived
+the author's own read-back. **That is the strongest argument this session
+produced for Phase 3's review ladder**, and it points somewhere the current
+`review` skill does not: five of those six were defects in *prose and claims*,
+not in code. A review ladder that starts at implementation correctness would have
+found one of them.
 
 **Error 2 is the mechanical one and worth the most.** No care was involved: an
 exact-match requirement rejected a composed quotation the instant it was
