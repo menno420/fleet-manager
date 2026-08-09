@@ -437,8 +437,11 @@ error the finding names, committed while writing the roadmap that names it.
 **A second agent's observation is dated evidence about the moment it was made,
 not a statement about the tree now.**
 
-Both belong to the promotion rule below: observed, recorded, and **not** built
-into anything until they have earned it.
+**Only the open one belongs to the promotion rule below** — observed, recorded,
+and not built into anything until it has earned it. The scoping fix is *shipped*,
+and this sentence said "both" until Codex caught it: a correction that fixes the
+body and leaves its own conclusion standing is the same defect one paragraph
+down.
 
 ## 6 · The promotion rule that governs all of it
 

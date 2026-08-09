@@ -93,9 +93,14 @@ them — which is the honest argument for Codex as a distinct instrument: it rea
 the diff against the tree, and neither a gate nor a hook nor the author can see
 a contradiction that spans two files.
 
-| 8 | *"every factual error today is one shape — six of them"* — a gloss over **this very table**, composed rather than counted: **four** of the seven are that shape, and the sentence listed four while saying six | **Stop hook** |
+| 11 | *"every factual error today is one shape — six of them"* — a gloss over **this very table**, composed rather than counted: **four** of the seven were that shape, and the sentence listed four while saying six | **Stop hook** |
 
-**Errors 4, 6, 7 and 8 are one defect at four targets** — the corpus, the answer
+*(This row was appended as a second `8`, colliding with the row above. Caught by
+Codex on #828 round 2 — a duplicate id in the one ledger whose whole purpose is
+to be **countable** makes "errors 4, 6, 7 and 8" ambiguous and leaves the total
+unresolvable between ten and eleven. Renumbered to 11; **the total is 11**.)*
+
+**Errors 4, 6, 7 and 11 are one defect at four targets** — the corpus, the answer
 list, the roster table, and this error ledger. Each is a sentence composed
 *about* a record instead of read *off* it, which reproduces the finding's class-A
 result exactly

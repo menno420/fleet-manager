@@ -77,10 +77,25 @@ points at `README.md`, never at the folder.
 | tier | repos | treatment |
 |---|---|---|
 | **1** | `spider-swing` · `superbot` + `superbot-next` (paired) · `substrate-kit` · `venture-lab` | full folder, filled |
-| **2** | the remaining ~19 | present as orientation points; `README.md` only, honestly stubbed; depth **deferred, not skipped** |
+| **2** | the remaining ~19 | ~~present as orientation points; `README.md` only, honestly stubbed~~ **SUPERSEDED — see below**; depth **deferred, not skipped** |
 
 Tier 2 repos are *"still important but less so for actually working on"*. A
 session must be able to find them and know what they are.
+
+> **⚑ Tier 2 SUPERSEDED — owner, 2026-08-08 intent interview (answer 17).**
+> **Do not pre-stub the remaining ~19.** Folders are built **on demand**, when
+> work actually goes to that repo; the four Tier-1 folders are cleared to build
+> now. Both this row and the replacement are `OWNER`, and the later statement
+> wins — recorded here rather than only in the newer document, because a session
+> arriving at this table by grep or by the read path would otherwise follow a
+> superseded directive that still reads as current and carries the same
+> provenance label.
+>
+> The reason is the one this design already argued for Layer 2 generally: **a
+> stub that is never filled is precisely what the coverage table exists to make
+> visible**, and 19 of them would make absence invisible by making it uniform.
+> Live decision and its provenance: [`../intent.md`](../intent.md) § 8 ·
+> coverage state: [`../repos/README.md`](../repos/README.md).
 
 **fleet-manager gets its own folder too.** Today's work on it is otherwise a
 standing exception, and an exception that recurs is a rule with a gap.
