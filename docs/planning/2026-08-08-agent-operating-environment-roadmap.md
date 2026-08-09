@@ -528,9 +528,16 @@ is where proven methods become **reusable infrastructure**.
 - **Phase 1's own effect is measured on n=1 session** and only against the
   orientation failure class. It cannot move the classes the landed injection
   mechanisms already cover, and the roadmap should not be read as claiming it does.
-- **The intent-map schema has never been run against a real owner message.** Its
-  first test is its first use, and the test corpus (real historical messages)
-  exists but has not been assembled.
+- ~~**The intent-map schema has never been run against a real owner message.**~~
+  **Superseded 2026-08-09.** The corpus is assembled and the schema replayed
+  against ten real messages —
+  [`../findings/2026-08-09-intent-map-replay.md`](../findings/2026-08-09-intent-map-replay.md):
+  **1 catch · 1 partial · 8 correct silences · 0 false alarms**, with the
+  procedure landed in the `intake` skill rather than as a new one. Read § 4 of
+  that file before citing the tally — the replay is retrospective and its author
+  knew the outcomes, and **the HIGH branch of the ambiguity classifier is
+  untested by it**, because every case was resolvable from the record and none
+  produced `INTENT STATUS: NEEDS OWNER`.
 - **Whether a durable intent surface stays distinct from Layer 2 in practice is
   unverified** — the two could collapse into each other under normal maintenance,
   which is the specific drift to watch for when the first one is written.

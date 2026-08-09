@@ -179,14 +179,38 @@ place the project-scope boundary shows.
 
 ### Three routes, and what each one costs
 
-1. **Enable/upload per skill to the account** — the `Add` control on the settings
-   page. Reaches claude.ai, Cowork and Routines. **No frontmatter work is
-   needed:** all 27 use only `name` and `description`, and both are inside the
-   six fields uploads accept (`name`, `description`, `license`, `compatibility`,
-   `metadata`, `allowed-tools`) — a seventh field is a hard upload error, not a
-   warning. Cost: a manual copy that drifts from git the moment either side
-   changes, and an account-level skill competes for match in **every** session
-   everywhere.
+1. **Upload per skill to the account** — **Customize → Skills → `Add`**, taking a
+   ZIP whose root is the skill folder: `<name>.zip` → `<name>/` → `skill.md`
+   ([owner-supplied support article](https://support.claude.com/en/articles/12512198-how-to-create-custom-skills),
+   2026-08-09). Reaches claude.ai, Cowork and Routines. Supported on all plans
+   and requires code execution enabled.
+
+   **The blocker is the description length, and it is measured.** Uploads cap
+   `name` at 64 characters and `description` at **200**. All 27 use only `name`
+   and `description` — inside the six fields uploads accept (`name`,
+   `description`, `license`, `compatibility`, `metadata`, `allowed-tools`), where
+   a seventh field is a hard error rather than a warning — but **15 of the 27
+   descriptions are over 200 characters** (`MEASURED` 2026-08-09; worst:
+   `delegate-read` 384, `owner-brief` 300, `capability-probe` 300). Names are all
+   within 64.
+
+   *(An earlier version of this section said no frontmatter work was needed. That
+   checked which **fields** were present and inferred eligibility without
+   checking the limits on their **values** — a conclusion drawn one step past the
+   measurement, which is the class this repo keeps cataloguing. Corrected the
+   same day.)*
+
+   **Do not shorten the sources to fit.** The description is what a session
+   matches against when deciding whether a skill applies, and Claude Code imposes
+   no limit — trimming 15 of them would degrade the surface that works today for
+   one that has not been adopted yet. If route 1 is taken, the shortening belongs
+   in a packaging step that emits an upload-safe variant. `UNVERIFIED`: whether
+   `package_skill.py` does this itself or simply rejects, and whether the
+   uploader accepts our `SKILL.md` where the article writes `skill.md`.
+
+   Cost of the route overall: a manual copy that drifts from git the moment
+   either side changes, and an account-level skill competes for match in **every**
+   session everywhere.
 2. **The Skills API / `package_skill.py`** from `anthropics/skills` — the
    scriptable form of route 1. Not attempted here; no Anthropic API key is
    present in this container (`ANTHROPIC_BASE_URL` is set, no key), so the
@@ -202,9 +226,19 @@ place the project-scope boundary shows.
 repo-coupled ones would misfire: `session-close` drives this repo's §7 ledger and
 NOW pointer, `release` and `upgrade-distribution` are substrate-kit procedures,
 `repo-health` runs this bootstrap. The portable ones are the *method* skills that
-describe how to work rather than where — `capability-probe`, `intake`,
-`chase-references`, `prompt-preflight`, `decision-capture`, `prep-owner-steps`,
-`rationalize`, `delegate-read`.
+describe how to work rather than where — and five of the eight need an
+upload-safe description before they can go anywhere:
+
+| portable candidate | description chars | upload-ready? |
+|---|---|---|
+| `chase-references` | 174 | ✅ |
+| `prep-owner-steps` | 171 | ✅ |
+| `rationalize` | 158 | ✅ |
+| `decision-capture` | 226 | ✂ needs trim |
+| `intake` | 262 | ✂ needs trim |
+| `prompt-preflight` | 286 | ✂ needs trim |
+| `capability-probe` | 300 | ✂ needs trim |
+| `delegate-read` | 384 | ✂ needs trim |
 
 **Route 3 is the one that fixes the estate's actual defect**, because case two is
 about satellite *repos*, not about claude.ai — and a plugin declared in a
