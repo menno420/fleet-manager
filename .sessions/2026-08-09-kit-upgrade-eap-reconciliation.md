@@ -58,7 +58,7 @@ times was about **this exact symbol**.
 |---|---|---|
 | released asset — v1.20.2 `bootstrap.py` (1,345,814 B, sha256 `48ecd478…`) | **0** occurrences of `ADVISORY_CENSUS` | 32 occurrences of `KIT_VERSION` in the same file |
 | released asset — v1.20.1 `bootstrap.py` (1,326,908 B, sha256 `d6c4f815…`) | **0** occurrences | 32 occurrences of `KIT_VERSION` |
-| tag containment — introduced by `b505d13` (substrate-kit #577, 2026-08-06) | `git tag --contains b505d13` → **empty** | the same command on v1.20.1's commit returns `v1.20.1`, `v1.20.2` |
+| tag containment — introduced by `b505d13` (substrate-kit #577, 2026-08-06) | `git tag --contains b505d13` → **empty**, over a **complete** tag set (see below) | the same command on v1.20.1's commit returns `v1.20.1`, `v1.20.2` |
 | changelog section | the entry is at `CHANGELOG.md:75`, under `## [Unreleased]`, above `## [1.20.2] - 2026-07-21` | section boundaries computed, not eyeballed |
 
 **The asset leg is the one that decides it**, and it is the one a changelog read
@@ -66,6 +66,17 @@ would have skipped: adopters vendor the published `bootstrap.py`, so what that
 file contains *is* the payload. The other three legs agree with it, which is why
 they are worth recording — three methods agreeing is what makes this a settled
 question rather than one more `UNVERIFIED` row.
+
+**The tag leg needed its own completeness check, and it did not have one when
+first written.** `git tag --contains` reports only the tags *in the local clone*,
+so an empty result is equally consistent with "no release contains it" and "the
+clone is missing tags" — and the clone started life as `--depth 1`. Codex raised
+exactly this on fm #833 (P2). The gap was in the record, not the fact:
+`git fetch --unshallow --tags` had already run (exit 0), `git rev-parse
+--is-shallow-repository` returns `false`, and the tag set is **complete by
+enumeration — 26 tags locally, 26 from the GitHub tags API, same newest five.**
+Recorded here because a leg whose completeness is assumed is not independent
+evidence, and this file claimed three independent legs.
 
 **Also measured, and it removes the risk that made this fork look heavy.**
 fleet-manager's vendored `bootstrap.py` is **byte-identical** to the released
@@ -91,8 +102,8 @@ session and relayed through a prompt**, which is a provenance the estate has
 been burned by before (fm #830 error #7: agent-quoted fragments called "owner
 messages"). Committing them unchecked would have made a chat transcript into a
 repo record without adding any verification — so each was re-measured against
-Gmail. **Most held exactly. Four did not, and one of those is a fact that
-appears not to exist.**
+Gmail. **Most held exactly. Three were wrong, and a fourth is uncorroborated —
+a different verdict, kept different everywhere it is restated.**
 
 Full record and the four corrections:
 [`../docs/findings/2026-08-09-eap-correspondence-record.md`](../docs/findings/2026-08-09-eap-correspondence-record.md).

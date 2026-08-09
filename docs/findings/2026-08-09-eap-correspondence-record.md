@@ -20,11 +20,29 @@
 > tree ([`../pre-reboot-review-2026-07-15.md`](../pre-reboot-review-2026-07-15.md)
 > § EAP extension): **reference metadata only for the vendor's messages — dates,
 > subjects, message ids, and their substance in our own words — with bodies
-> unreproduced.** The owner's *own* words are quoted verbatim: they are his, and
+> unreproduced.** The owner's *own* words are quoted verbatim, with the one
+> personal name in them redacted. The gift-code redemption link is a personal
+> credential and is **not recorded here at all**.
+>
+> **⚠ Two committed conventions conflict here, and this file cannot settle it —
+> the owner has to.** An earlier draft cited
 > [`../owner-reflection-2026-07-21.md`](../owner-reflection-2026-07-21.md)
-> § Confidentiality is explicit that his ideas are not the confidential part.
-> The gift-code redemption link is a personal credential and is **not recorded
-> here at all**.
+> § Confidentiality as authority for quoting him verbatim. **That citation was
+> wrong and is withdrawn.** That doc's rule is stricter than this file follows:
+> it *"names no company, product, contact, or unreleased feature"* and says the
+> program's specifics *"stay out of the repo"*. Its carve-out covers his
+> **ideas**, not program identifiers. This file — like
+> `pre-reboot-review-2026-07-15.md` and
+> `findings/ultracode-verification-2026-07-10.md` before it — **does** record the
+> thread subject, message ids and timestamps, and names the vendor. So the repo
+> holds two incompatible practices, and the looser one is the more common.
+>
+> **Recorded as an open ruling, not resolved by fiat** (`OWNER` needed): either
+> the strict rule governs and three existing docs need redaction, or the working
+> practice governs and the strict rule needs narrowing to what it actually
+> protects. Caught by Codex review on fm #833 as P1 — correctly, because the
+> defect was not the practice but **claiming a permission the cited rule does
+> not grant**.
 
 ## 1 · The shape of the correspondence
 
@@ -85,8 +103,11 @@ At 18:28:47 —
 
 At 20:07:32 —
 
-> I've just completed Matt's interview and will still send my final review later
-> on like I said
+> I've just completed [the UX researcher]'s interview and will still send my
+> final review later on like I said
+
+*(One personal name redacted from that quote per the confidentiality note above;
+the rest is verbatim.)*
 
 **Two promises to a named person, 19 days old as of this file.** The second also
 confirms he completed the second research interview. A third quote from the same
@@ -116,8 +137,12 @@ thank-you and nothing else" is true of thread A and false of the whole.
 The handoff that commissioned this file supplied these facts as settled. They
 were derived by a prior session and **relayed through a prompt** — a provenance
 this estate has already been burned by (fm #830 error #7 called agent-quoted
-fragments "owner messages"). Re-querying found most of them exact and four
-wrong. Recorded because the corrections are cheap here and expensive in a sent
+fragments "owner messages"). Re-querying found most of them exact, **three
+wrong, and a fourth uncorroborated — which is not the same verdict and must not
+be collapsed into it.** Corrections 1–3 are established errors; correction 4 is
+an *absence of evidence in one lane*, and it stays that way in every place this
+file, the session card, or a summary restates it. Recorded because the
+corrections are cheap here and expensive in a sent
 email.
 
 | # | the relayed claim | what the mailbox says |

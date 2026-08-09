@@ -42,7 +42,11 @@ statement — readable by anyone on the team in minutes with zero context.
   scale-up report (1→15 repos) · 07-14 team ack · 07-16 ×2 the
   classifier-crisis pair · 07-16 21:42 attachment resend. Separately: the
   program-end "power user" thank-you thread (07-21, gift box, warm close) and
-  a UX-research interview invite (07-21, unanswered as of this writing).
+  a UX-research interview invite. **Both halves of that last clause were wrong
+  and are corrected by the 2026-08-09 record above:** there were **two**
+  invitations (07-10 and 07-21, the second explicitly *"again"*), and the owner
+  **completed** the second — he says so in the 07-21 20:07 message. Do not
+  write "unanswered" into the mail.
 - **The 2026-07-18 follow-up draft was NEVER sent** (verified in sent mail):
   its net-new findings — the venue-scoped guard, agent-memory wall
   propagation + the CI antidote, stale-text-outranks-live-instruction, the
