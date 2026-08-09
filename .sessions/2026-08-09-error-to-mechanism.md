@@ -83,6 +83,23 @@ ordering was still wrong**, and "it turned out fine" is not the same as "it was
 checked": a hook on every edit earns a measurement before registration, not after
 a reviewer asks.
 
+## A process note — do not promise a frozen head
+
+Told Codex at `1428cd4`: *"final, no further pushes until you answer."* Then
+pushed twice, because the owner-review hook surfaced errors #16 and the arc note
+in the replies that followed.
+
+**The promise was unkeepable when it was made, and predictably so.** The
+owner-review hook fires on *every* reply; a session that is still talking to the
+owner is still generating changes. Promising a frozen head while an adversarial
+reviewer of your prose is running is promising that reviewer will find nothing.
+
+fm #830 recorded the opposite trap — pushing *after* requesting a review — and
+this is its overcorrection. **The honest form of the commitment is "I will
+re-request after any further push," which is a thing a session controls.** No new
+mechanism proposed; the fix is to stop writing a sentence that is not true when
+written.
+
 ## Close-out
 
 **Built:** `.claude/hooks/change_guard.py` (checks A, B, C), `capability-probe`
