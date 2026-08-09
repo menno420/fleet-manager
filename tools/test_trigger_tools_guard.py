@@ -28,12 +28,12 @@ passed = failed = 0
 
 def run(event: dict, *, allow: bool = False, session: str | None = None) -> dict:
     env = dict(os.environ)
-    env["CLAUDE_SESSION_ID"] = session or f"test-{uuid.uuid4()}"
     env["TMPDIR"] = TMP
     if allow:
         env["FM_ALLOW_TRIGGER_DELETE"] = "1"
     else:
         env.pop("FM_ALLOW_TRIGGER_DELETE", None)
+    event = {**event, "session_id": session or f"test-{uuid.uuid4()}"}
     p = subprocess.run(
         [sys.executable, str(HOOK)], input=json.dumps(event),
         capture_output=True, text=True, env=env, timeout=20,
@@ -188,6 +188,30 @@ check("real delete AFTER an unrelated heredoc still warns",
 print("== fail-open: malformed input must never trap the session ==")
 for bad in ({}, {"tool_name": None}, {"tool_name": "Bash", "tool_input": "notadict"}):
     check(f"malformed {str(bad)[:34]} silent", decision(run(bad)), "silent")
+
+print("== Codex round 1 on #834 — regressions pinned ==")
+check("curl --request DELETE is caught (long-form flag)", decision(run({
+    "tool_name": "Bash",
+    "tool_input": {"command": "curl --request DELETE https://api.x/v1/triggers/trig_1"}})), "warn")
+check("bash <<EOF that EXECUTES a deletion is not stripped", decision(run({
+    "tool_name": "Bash",
+    "tool_input": {"command": "bash <<'EOF'\ncurl -X DELETE $B/triggers/trig_1\nEOF\n"}})), "warn")
+check("piping a heredoc into sh is not stripped", decision(run({
+    "tool_name": "Bash",
+    "tool_input": {"command": "cat <<'EOF' | sh\ncurl -X DELETE $B/triggers/t\nEOF\n"}})), "warn")
+check("python3 <<EOF that executes is not stripped", decision(run({
+    "tool_name": "Bash",
+    "tool_input": {"command": "python3 <<'EOF'\nimport requests; requests.delete(u+'/triggers/'+t)\nEOF\n"}})), "warn")
+# ...and the inert case must STILL be silent, or the fix is just a revert.
+check("cat > file <<EOF (inert) is still silent", decision(run({
+    "tool_name": "Bash",
+    "tool_input": {"command": "cat > d.md <<'EOF'\ncurl -X DELETE $B/triggers/t1\nEOF\n"}})), "silent")
+check("state is per-session via the EVENT, not an env var", decision(run({
+    "tool_name": "mcp__Claude_Code_Remote__send_later", "tool_input": {}},
+    session="codex-a")), "warn")
+check("  ...a DIFFERENT session still gets its own warning", decision(run({
+    "tool_name": "mcp__Claude_Code_Remote__send_later", "tool_input": {}},
+    session="codex-b")), "warn")
 
 print()
 print(f"{passed}/{passed + failed} passed")

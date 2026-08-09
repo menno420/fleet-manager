@@ -438,9 +438,15 @@ for a deletion directly. A guard with no escape becomes a wall someone edits out
 **Why `send_later` only warns.** It has a real use, so denying it would be the
 mandatory-infrastructure-everywhere move the promotion rule rejects. But it was
 the wrong tool for the job it kept getting used for — **polling a PR**.
-`subscribe_pr_activity` already wakes the session on CI results, reviews and
-merges: push instead of poll, free while idle, and it never arms a trigger that
-a later session feels obliged to clean up. **fm #833 armed five `send_later`
+`subscribe_pr_activity` is the owner's stated preference: push rather than poll,
+free while idle, and it never arms a trigger that a later session feels obliged
+to clean up. **It does not deliver CI-success or new-push events** —
+`docs/CAPABILITIES.md` records that as a MEASURED wall (2026-07-14), and the
+harness's own subscription notice says the same. So it answers *"did something
+happen"*, never *"is it green yet"*; re-check the PR when you next act. An
+earlier version of this section claimed it wakes on "CI results, reviews and
+merges", which was wrong in the direction that could strand a session waiting
+for an event that never arrives — caught by Codex on fm #834. **fm #833 armed five `send_later`
 check-ins to watch one PR and then deleted one at close** — the cleanup that
 stalls him was created by the polling that was not needed. That is the whole
 causal chain, and cutting it at the `send_later` end is cheaper than cutting it

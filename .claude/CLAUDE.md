@@ -160,10 +160,15 @@ program law binding every repo.
   screen in automode** — the session then **stalls until he is physically back**,
   and cannot see that it is waiting. Every other call here succeeds, fails loudly
   or is denied in writing; all three leave you working. A fired one-shot trigger
-  is inert and costs nothing to leave. If a recurring one must go, **say so in
-  your reply** — he removes it in seconds. To watch a PR use
-  `subscribe_pr_activity`, which wakes you on CI, reviews and merges without
-  arming anything that later looks like it needs cleaning up. Enforced by
+  is inert and costs nothing to leave. **If one is actually misbehaving — firing
+  repeatedly, misconfigured — DISABLE it: `update_trigger` with `enabled: false`.
+  That is the emergency stop; deleting never is.** It stops the firing, raises no
+  prompt, and is reversible. Only if it then needs *removing* rather than
+  silencing, say so in your reply — he removes it in seconds. To watch a PR use
+  `subscribe_pr_activity`; note it delivers comments, reviews and CI **failures**
+  but **not** CI-success or new-push (`CAPABILITIES.md`, MEASURED 2026-07-14), so
+  re-check the PR when you next act rather than waiting for a green that never
+  arrives. Enforced by
   `.claude/hooks/trigger_tools_guard.py` — the estate's **only denying hook**,
   because this is the one rule with no judgement in it.
 

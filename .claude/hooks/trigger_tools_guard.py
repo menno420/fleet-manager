@@ -26,9 +26,11 @@ Two behaviours, and the split is deliberate:
   external that will not notify), so denying it would be the mandatory-
   infrastructure-everywhere move the promotion rule rejects. But it was the wrong
   tool for the job it kept getting used for: **polling a PR.**
-  `subscribe_pr_activity` already wakes the session on PR events — push instead
-  of poll, free while idle, and it never arms a trigger that later needs
-  deleting. fm #833 armed five `send_later` check-ins to watch one PR and then
+  `subscribe_pr_activity` is the owner's stated preference — push rather than
+  poll, free while idle, and it never arms a trigger that later needs deleting.
+  It does NOT deliver CI-success or new-push events, though (`CAPABILITIES.md`,
+  MEASURED 2026-07-14), so it answers "did something happen" and never "is it
+  green yet" — re-check the PR when you next act instead of waiting. fm #833 armed five `send_later` check-ins to watch one PR and then
   had to delete one, which is the whole failure in miniature: **the cleanup that
   stalls him was created by the polling that was not needed.**
 
@@ -80,10 +82,13 @@ SEND_LATER_RE = re.compile(r"^mcp__.*__send_later$", re.I)
 
 # The route around the tools. Requires BOTH a delete verb and a trigger path, so
 # an ordinary `curl` to any other endpoint stays silent.
+_DELETE_VERB = (
+    r"(?:-X\s*DELETE|--request[= ]\s*DELETE|\.delete\s*\(|"
+    r"method\s*=\s*[\"']DELETE[\"'])"
+)
 API_DELETE_RE = re.compile(
-    r"(-X\s*DELETE|\.delete\s*\(|method\s*=\s*[\"']DELETE[\"'])"
-    r"[\s\S]{0,400}?/triggers?/|"
-    r"/triggers?/[\s\S]{0,400}?(-X\s*DELETE|\.delete\s*\()",
+    _DELETE_VERB + r"[\s\S]{0,400}?/triggers?/|"
+    r"/triggers?/[\s\S]{0,400}?" + _DELETE_VERB,
     re.I,
 )
 
@@ -115,24 +120,39 @@ DENY_MSG = (
 )
 
 WARN_MSG = (
-    "`send_later` is usually not the tool you want. If you are waiting on a PR, "
-    "`subscribe_pr_activity` already wakes this session on CI results, reviews "
-    "and merges — push instead of poll, free while idle, and it never arms a "
-    "trigger that someone later has to delete. Owner, 2026-08-09: \"send later "
-    "is also not necessary, if you want to check in on a PR you can subscribe to "
-    "them.\"\n"
+    "`send_later` is usually not the tool you want. If you are watching a PR, "
+    "`subscribe_pr_activity` is the owner's stated preference — 2026-08-09: "
+    "\"send later is also not necessary, if you want to check in on a PR you can "
+    "subscribe to them.\" It is push rather than poll, free while idle, and it "
+    "never arms a trigger that a later session feels tempted to clean up — and "
+    "that cleanup is the call that stalls him.\n"
     "\n"
-    "It is still right for a genuinely external wait that will not notify you "
-    "(a deploy, a quota window, a human elsewhere). Not blocked — just rarely "
-    "the answer. NOTE: every trigger armed here is one a future session may feel "
-    "tempted to clean up, and that cleanup is the call that stalls him."
+    "KNOW WHAT IT DELIVERS, THOUGH. `docs/CAPABILITIES.md` records a MEASURED "
+    "limit (2026-07-14): PR subscriptions deliver comments, reviews and CI "
+    "FAILURES, but **not CI-success or new-push events**. So a subscription will "
+    "not wake you to tell you the PR went green. Do not sit waiting for a "
+    "success event that is not coming — RE-CHECK THE PR STATE the next time you "
+    "act, which costs one API call and arms nothing.\n"
+    "\n"
+    "`send_later` is still right for a genuinely external wait that will not "
+    "notify you at all (a deploy, a quota window, a human elsewhere). Not "
+    "blocked — just rarely the answer, and never the answer for \"is it green "
+    "yet\"."
 )
 
 
-def once(key: str) -> bool:
-    """True the first time `key` is seen this session."""
+def once(key: str, session: str = "nosession") -> bool:
+    """True the first time `key` is seen this session.
+
+    The id comes from the EVENT (`session_id`), which the hook protocol always
+    supplies and every other hook here already uses (`git_state_guard.py:177`).
+    An earlier version read `CLAUDE_SESSION_ID` from the environment, which the
+    host does not export: every session would have shared one `nosession.json`,
+    so the first session to see a warning would have silenced it for all the
+    rest. The suite hid this by manufacturing the variable itself — a test
+    encoding the bug it should have caught. Codex, fm #834 (P2).
+    """
     try:
-        session = os.environ.get("CLAUDE_SESSION_ID", "nosession")
         f = STATE_DIR / f"{session}.json"
         seen = set(json.loads(f.read_text())) if f.exists() else set()
         if key in seen:
@@ -158,9 +178,29 @@ def once(key: str) -> bool:
 _HEREDOC_RE = re.compile(r"<<-?\s*(['\"]?)([A-Za-z_][A-Za-z0-9_]*)\1[\s\S]*?^\2$",
                          re.M)
 
+# A heredoc is only inert if its CONSUMER writes it somewhere. `bash <<'EOF'`,
+# `sh <<EOF`, `python3 <<EOF` all EXECUTE the body, so stripping those would turn
+# the guard off for the most obvious hiding place there is. Codex caught this on
+# fm #834 (P2) — the first version stripped every heredoc, and the suite pinned
+# that behaviour as correct, which is a test encoding a bug.
+_HEREDOC_EXECUTOR_RE = re.compile(
+    r"\b(?:ba|z|k|da)?sh\b[^\n<]*<<|"
+    r"\b(?:python3?|perl|ruby|node|deno)\b[^\n<]*<<|"
+    r"\|\s*(?:ba|z)?sh\b",
+    re.I,
+)
+
 
 def _strip_written_content(cmd: str) -> str:
-    """Remove heredoc bodies — text being authored, not executed."""
+    """Remove heredoc bodies — but ONLY when nothing executes them.
+
+    Writing a doc that quotes a deletion must stay silent; piping the same text
+    into a shell must not. When any interpreter-fed heredoc appears in the
+    command, nothing is stripped — the safe direction, since over-matching here
+    costs one advisory line and under-matching costs the whole guard.
+    """
+    if _HEREDOC_EXECUTOR_RE.search(cmd):
+        return cmd
     return _HEREDOC_RE.sub(" ", cmd)
 
 
@@ -210,6 +250,7 @@ def main() -> int:
         return 0
 
     tool = str(event.get("tool_name") or "")
+    session = str(event.get("session_id") or "nosession")
     allowed = os.environ.get("FM_ALLOW_TRIGGER_DELETE") == "1"
 
     if DELETE_TOOL_RE.match(tool):
@@ -218,7 +259,7 @@ def main() -> int:
         return deny(DENY_MSG)
 
     if SEND_LATER_RE.match(tool):
-        return note(WARN_MSG) if once("send_later") else 0
+        return note(WARN_MSG) if once("send_later", session) else 0
 
     # The route around the tools, via direct egress. WARNS, does not deny — see
     # the module docstring's § "Why the Bash leg only warns".
@@ -233,7 +274,7 @@ def main() -> int:
             "If you are merely WRITING ABOUT the pattern — documentation, a PR "
             "comment, a test fixture — carry on; this warning cannot tell the two "
             "apart, which is exactly why it does not block."
-        ) if once("api_delete") else 0
+        ) if once("api_delete", session) else 0
 
     return 0
 
