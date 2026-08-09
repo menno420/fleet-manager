@@ -108,6 +108,31 @@ steps.
    after that never reached `main` at all. No session merged anything early;
    the close sequence itself was wrong, and this skill's step 7 described the
    flip as bookkeeping when it is the irreversible act.
+
+   **A review binds the SHA it was run on, so acting on findings invalidates
+   it.** Applying the fixes and flipping straight away merges correction commits
+   that no reviewer has seen — and this repo's own policy rates a stale review
+   `REVIEW`, never `PASS` (`docs/workflow-pr-merge-policy.md`). So the step is a
+   **loop, not a line**:
+
+   ```
+   request review on the current head
+     → wait, read the inline comments
+     → verify each finding against source before acting on it
+     → if you changed anything a reviewer would have an opinion about:
+         push, re-request on the NEW head, and wait again
+     → flip only when the outstanding review covers the head you are flipping
+   ```
+
+   **It terminates on a round that yields nothing new**, not on patience. The
+   one exemption is the flip commit itself — a badge flip plus the card's own
+   close-out text changes nothing reviewable — and taking that exemption means
+   **saying so in the card**, naming the reviewed SHA and what came after it.
+
+   **The failure this prevents was committed four times while writing it:**
+   this session requested a review, then pushed again before it landed, four
+   consecutive times, each push silently superseding the request it was waiting
+   on. Requesting a review and then continuing to push is not waiting.
 7. Flip as the deliberate LAST step — flip the card badge to `complete`,
    delete your own claim file, push. Green then merges server-side; a
    flipped-early card merges a partial PR (the failure the gate exists

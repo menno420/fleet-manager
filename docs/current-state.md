@@ -148,11 +148,14 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 - **The agent operating environment — the three-phase roadmap, and Phase 1 built**
   (2026-08-08):
   [planning/2026-08-08-agent-operating-environment-roadmap.md](planning/2026-08-08-agent-operating-environment-roadmap.md)
-  — the owner's architecture review, recorded: the goal is a **model-independent**
-  environment where any capable agent starts from an imperfect message and
-  reconstructs the intended outcome, because **the bottleneck is upstream of
-  code** (understanding intent, retrieving intent that already exists, selecting
-  the procedure, carrying intent through to review). Phase 2 specifies the
+  — the owner's architecture review, recorded: the goal is a **provider-aware,
+  model-portable** environment where any capable agent starts from an imperfect
+  message and reconstructs the intended outcome, because **the bottleneck is
+  upstream of code** (understanding intent, retrieving intent that already
+  exists, selecting the procedure, carrying intent through to review). *"Model-
+  independent" was the original phrasing and is retired* — the reasoning and the
+  method must transfer, execution capability need not be equalised, and a
+  Claude-specific dependency is fine **when declared**. Phase 2 specifies the
   **intent map** (EXPLICIT / ESTABLISHED / DERIVED / OPEN — never collapsed into
   one paragraph), LOW/MEDIUM/**HIGH** ambiguity with *no silent resolution of
   HIGH*, the `RESOLVED` / `NEEDS OWNER` seam before planning, **ephemeral maps

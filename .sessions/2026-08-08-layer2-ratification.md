@@ -74,6 +74,24 @@ only an implementation one.
 
 | 6 | **an OPEN item invented from a typo** — a trailing `22.` in the answer list was recorded as *"question 22, begun and left blank"* in three documents; there was no question 22 | **owner** |
 | 7 | *"the one claim in the agent roster with nothing measured behind it"* — a composed gloss over a four-row table where **three** rows are unmeasured owner-report | **Stop hook** |
+| 8 | **an already-fixed defect recorded as unbuilt** — roadmap § 5.8 listed the closed-vocabulary artifact scoping as open, while `read_before_write.py:142` has implemented it since Phase 1 | **Codex**, on #828 |
+| 9 | **three internal contradictions left by my own corrections** — `current-state.md` still said *model-independent* after the roadmap retired the phrase, and the roadmap's § 4.6 still said *nothing* answered the intent questions after § 4.8 had been corrected to *20 of 21* | **Codex**, on #828 |
+| 10 | **the review loop had no re-review step** — step 6c said *review, then flip*, so acting on findings would merge correction commits no reviewer had seen; this repo's own policy rates a stale review `REVIEW`, never `PASS` | **Codex**, on #828 |
+
+**Error 8 is error 4's shape at one more remove.** A parallel ChatGPT session
+described the *pre-fix* recording; that description was folded into the roadmap
+as current state without opening the file. **A second agent's observation is
+dated evidence about the moment it was made — not a statement about the tree
+now** — and it needs the same re-verification as any other record before it is
+written down as fact.
+
+**Errors 9 and 10 are the cost of correcting in place.** Every fix this session
+made was correct *locally* and left a contradiction *globally*, because the
+corrected claim also lived somewhere upstream of it. That is the same class as
+the stale routers Phase 1 was built to remove, produced by the session removing
+them — which is the honest argument for Codex as a distinct instrument: it reads
+the diff against the tree, and neither a gate nor a hook nor the author can see
+a contradiction that spans two files.
 
 | 8 | *"every factual error today is one shape — six of them"* — a gloss over **this very table**, composed rather than counted: **four** of the seven are that shape, and the sentence listed four while saying six | **Stop hook** |
 

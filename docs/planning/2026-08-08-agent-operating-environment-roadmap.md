@@ -205,9 +205,13 @@ repo the intent may already be perfectly represented in an existing canonical
 document. If a dedicated file earns itself, create it.
 
 **The first one exists: [`../intent.md`](../intent.md), 2026-08-08.** It earned a
-dedicated file because no existing document answered any of it — twelve OD rows,
-three `[D-NNNN]` entries and a PL register all record *what was decided*, and
-nothing recorded what the repo is *for* or what would count as working. It was
+dedicated file because the corpus answered almost none of it — twelve OD rows,
+three `[D-NNNN]` entries and a PL register all record *what was decided*, while
+**20 of the 21 intent questions were genuinely unanswered** anywhere. The
+exception matters and is measured in § 4.8: the *purpose* question was partially
+answered by two existing records, and the filtering pass missed it. So the honest
+claim is **not** that nothing recorded what this repo is for — it is that the
+record was scattered, partial, and silent on what would count as working. It was
 produced by **asking**, not by deriving from the decision record, and two of the
 21 answers immediately amended standing directives (OD-3, OD-6) — which is the
 argument for the surface: intent that is never asked for drifts out of agreement
@@ -408,24 +412,30 @@ a feature, not tidying.**
 Reading recipe for the folder, already measured and committed:
 [`../conventions/owner-drive-folder.md`](../conventions/owner-drive-folder.md).
 
-### 5.8 Two instrument defects the Phase-1 run exposed — named, not yet built
+### 5.8 One instrument defect still open — and one already fixed
 
-`MEASURED` in this session, `REASONED` on the fix. Both are hook-observability
-problems, and the second is the more serious.
+`MEASURED` in this session, `REASONED` on the fix.
 
-1. **The closed-vocabulary check does not know which vocabulary applies to which
-   artifact.** `in-progress` is a **valid** session-card Status and an **invalid**
-   documentation badge, and the check treats one closed list as global — so it
-   fires on a correct card. The artifact type is mechanically derivable from the
-   write target's path, so this is narrowable rather than inherent.
-2. **A lost read-set reads exactly like "you never read this."** The usage-limit
-   pause rotated the session id, `/tmp/claude-read-set/<id>.json` started empty,
-   and `read_before_write` warned about files that had been read in full. The
-   estate already has the governing principle and the hook does not implement it:
-   **absence of telemetry must not masquerade as negative evidence.** The fix is
-   not necessarily persistence — it is that the hook must be able to say *"I have
-   no record for this session"* differently from *"I have a record and this path
-   is not in it."*
+**Still open — a lost read-set reads exactly like "you never read this."** The
+usage-limit pause rotated the session id, `/tmp/claude-read-set/<id>.json`
+started empty, and `read_before_write` warned about files that had been read in
+full. The estate already holds the governing principle and the hook does not
+implement it: **absence of telemetry must not masquerade as negative evidence.**
+The fix is not necessarily persistence — it is that the hook must be able to say
+*"I have no record for this session"* differently from *"I have a record and this
+path is not in it."*
+
+**Already fixed, and this entry was wrong to list it — corrected 2026-08-08
+after Codex.** The closed-vocabulary check scoping by artifact type
+(`in-progress` being a valid session-card Status and an invalid documentation
+badge) **is implemented**: `.claude/hooks/read_before_write.py:142` guards the
+badge check with `"/.sessions/" not in target`, landed in Phase 1 with the
+measurement in its own comment. It was recorded here as unbuilt because a
+parallel ChatGPT session described the **pre-fix** recording and that description
+was folded in without opening the file — the same compose-instead-of-transcribe
+error the finding names, committed while writing the roadmap that names it.
+**A second agent's observation is dated evidence about the moment it was made,
+not a statement about the tree now.**
 
 Both belong to the promotion rule below: observed, recorded, and **not** built
 into anything until they have earned it.
