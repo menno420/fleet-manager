@@ -143,16 +143,32 @@ inline findings. Both survived direct reproduction and were conceded:
 | P2 · causal `since` was not a negation boundary | `does not reproduce since agents cannot merge` returned clear; `given that` did too | added `since` and `given [the fact] that`; pinned both plus the valid `not as if …` control so bare `as` does not overcorrect |
 | P3 · `eval|source` matched filenames anywhere before `<<` | inert writes to `source.md` and `eval.md` warned, while `note.md` stayed silent | anchored those executors to shell command positions; pinned both filenames and a `&& source … <<` execution control |
 
-The post-review trigger suite is **61/61**: nine assertions beyond the 52-case
-baseline. Because both findings changed reviewable code, the corrected head is
-sent through one re-review round before the born-red flip.
+The post-first-review trigger suite was **61/61**: nine assertions beyond the
+52-case baseline. Because both findings changed reviewable code, the corrected
+head was sent through a re-review round before the born-red flip.
+
+That re-review covered `0027cb0e24185cf1bf4b7543055eb14961ec497e` and
+returned four P2s. All four survived direct probes and were conceded:
+
+| finding | reproduction | disposition |
+|---|---|---|
+| `not as if` exception assumed one space | two spaces and an indented hard-wrap both flagged | boundary attachment now recognizes variable whitespace; both forms are self-tests |
+| causal `as` / `seeing as` remained transparent | both payloads returned clear | `as` is now a boundary except in direct `as if/though` repudiations |
+| `not (a) given that` was over-corrected | both direct repudiations flagged | a `given that` boundary immediately governed by a negation stays attached; causal use still splits |
+| valid shell prefixes hid executing heredocs | indented `eval`, assignment-prefixed `source`, and `command source` were silent | one command-position matcher now covers assignments/builtin prefixes and every known interpreter; inert `python3.md` / `bash.md` filename controls extend the P3 fix consistently |
+
+The post-second-review suite is **66/66**, fourteen assertions beyond baseline.
+These changes receive the second and final re-review round allowed by
+`session-close`; any remaining finding is dispositioned rather than creating an
+unbounded review loop.
 
 ## Result and residual work
 
 - The local defect-7 analogue is fixed and acceptance-tested.
 - The seven-defect A/B instrument now matches its own coverage claim.
 - Trigger enforcement remains exact on the tool name and advisory on command
-  text, with nine more regression assertions and corrected operational guidance.
+  text, with fourteen more regression assertions and corrected operational
+  guidance.
 - The local occurrence-attachment analogue of kit defect 2 still exists. It is
   recorded here and in the canonical kit finding; it was not folded into the
   owner's line-284 acceptance scope.

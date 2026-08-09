@@ -235,6 +235,15 @@ check("source of a quoted heredoc is not stripped", decision(run({
 check("source heredoc after a shell separator is not stripped", decision(run({
     "tool_name": "Bash",
     "tool_input": {"command": "true && source /dev/stdin <<'EOF'\ncurl -X DELETE $B/triggers/t\nEOF\n"}})), "warn")
+check("assignment-prefixed source heredoc is not stripped", decision(run({
+    "tool_name": "Bash",
+    "tool_input": {"command": "X=1 source /dev/stdin <<'EOF'\ncurl -X DELETE $B/triggers/t\nEOF\n"}})), "warn")
+check("command-prefixed source heredoc is not stripped", decision(run({
+    "tool_name": "Bash",
+    "tool_input": {"command": "command source /dev/stdin <<'EOF'\ncurl -X DELETE $B/triggers/t\nEOF\n"}})), "warn")
+check("indented eval heredoc is not stripped", decision(run({
+    "tool_name": "Bash",
+    "tool_input": {"command": "  eval \"$(cat <<'EOF'\ncurl -X DELETE $B/triggers/t\nEOF\n)\""}})), "warn")
 # ...and the inert case must STILL be silent, or the fix is just a revert.
 check("cat > file <<EOF (inert) is still silent", decision(run({
     "tool_name": "Bash",
@@ -245,6 +254,12 @@ check("source.md filename does not become a source executor", decision(run({
 check("eval.md filename does not become an eval executor", decision(run({
     "tool_name": "Bash",
     "tool_input": {"command": "cat > eval.md <<'EOF'\ncurl -X DELETE $B/triggers/t1\nEOF\n"}})), "silent")
+check("python3.md filename does not become an interpreter", decision(run({
+    "tool_name": "Bash",
+    "tool_input": {"command": "cat > python3.md <<'EOF'\ncurl -X DELETE $B/triggers/t1\nEOF\n"}})), "silent")
+check("bash.md filename does not become an interpreter", decision(run({
+    "tool_name": "Bash",
+    "tool_input": {"command": "cat > bash.md <<'EOF'\ncurl -X DELETE $B/triggers/t1\nEOF\n"}})), "silent")
 check("state is per-session via the EVENT, not an env var", decision(run({
     "tool_name": "mcp__Claude_Code_Remote__send_later", "tool_input": {}},
     session="codex-a")), "warn")

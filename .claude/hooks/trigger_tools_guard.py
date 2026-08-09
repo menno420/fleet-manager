@@ -216,12 +216,19 @@ _HEREDOC_RE = re.compile(r"<<-?\s*(['\"]?)([A-Za-z_][A-Za-z0-9_]*)\1[\s\S]*?^\2$
 # the guard off for the most obvious hiding place there is. Codex caught this on
 # fm #834 (P2) — the first version stripped every heredoc, and the suite pinned
 # that behaviour as correct, which is a test encoding a bug.
+_SHELL_COMMAND_START = r"(?:^\s*|[;&|()]\s*|\b(?:then|do|else)\s+)"
+_SHELL_PREFIX_TOKEN = (
+    r"(?:[A-Za-z_][A-Za-z0-9_]*=(?:\"[^\"\n]*\"|'[^'\n]*'|[^\s;&|()]+)|"
+    r"command|builtin|env|time|!|--?[A-Za-z0-9_-]+)"
+)
+_HEREDOC_EXECUTOR_WORD = (
+    r"(?:(?:ba|z|k|da)?sh|python3?|perl|ruby|node|deno|eval|source)(?=[\s<])"
+)
 _HEREDOC_EXECUTOR_RE = re.compile(
-    r"\b(?:ba|z|k|da)?sh\b[^\n<]*<<|"
-    r"\b(?:python3?|perl|ruby|node|deno)\b[^\n<]*<<|"
-    r"(?:^|[;&|()]\s*|\b(?:then|do|else)\s+)(?:eval|source)\b[^\n<]*<<|"
-    r"(?:^|[;&|]\s*)\.\s+[^\n<]*<<|"
-    r"\|\s*(?:ba|z)?sh\b",
+    _SHELL_COMMAND_START
+    + rf"(?:{_SHELL_PREFIX_TOKEN}\s+)*(?:{_HEREDOC_EXECUTOR_WORD}|\.(?=\s))"
+    + r"[^\n<]*<<|"
+    + r"\|\s*(?:ba|z)?sh(?=\s|$)",
     re.I | re.M,
 )
 

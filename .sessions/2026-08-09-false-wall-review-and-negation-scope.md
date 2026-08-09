@@ -70,7 +70,8 @@ silently discarded.
 - `.claude/hooks/trigger_tools_guard.py` plus
   `tools/test_trigger_tools_guard.py` cover two literal direct-API forms and two
   executing-heredoc forms the 52-case baseline missed. Codex landing review
-  added command-position controls for `eval|source`; the suite is 61 cases.
+  added command-position controls for `eval|source`, and re-review extended the
+  same rule to all known interpreters and shell prefixes; the suite is 66 cases.
   The tool-name denial remains exact and command-text matching remains advisory.
 - `docs/findings/2026-08-09-independent-guard-review.md` is the requested claim →
   command → verdict record. Canonical boot/current-state/decision/hook docs and
@@ -100,7 +101,7 @@ silently discarded.
   one exit-affecting finding — this card's designed born-red hold.
 - Pre-flip standalone gates: doc routes **0** (`24 routes · 19 docs routed · 0
   errors · 0 notes`); local false-wall strict check **0**; change guard **0**
-  (`16/16`); trigger guard **0** (`61/61` after review fixes).
+  (`16/16`); trigger guard **0** (`66/66` after review fixes).
 - Targeted: Python compilation **0**; `git diff --check` **0**; local false-wall
   self-test **0**; seven-defect A/B instrument **0**.
 - Final all-green exits and the reviewed SHA are recorded in the flip commit;
@@ -119,6 +120,17 @@ silently discarded.
   case red.
 - Those are reviewable code changes, so the corrected head receives one
   re-review round before this card flips.
+- Re-review of `0027cb0e24185cf1bf4b7543055eb14961ec497e` returned four P2s:
+  variable whitespace/hard-wraps in `not as if`; causal `as`; direct
+  `not (a) given that`; and assignment/builtin/indent prefixes before heredoc
+  executors. Direct probes reproduced all four, so all are `[conceded]`.
+- Boundary attachment now distinguishes causal `as` from `as if/though` and
+  causal `given that` from an immediately negated complement. One shell-command
+  matcher covers prefixes plus all known interpreters; `python3.md` and
+  `bash.md` silence controls prevent the filename regression moving sideways.
+- This correction receives the second and final re-review round permitted by
+  `session-close`; any remaining finding is dispositioned, not allowed to make
+  the loop unbounded.
 
 ### Handoff and backlog
 

@@ -234,8 +234,10 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   `source` heredoc execution, or the warning text that contradicted D-0015 by
   recommending a PR-CI self-wake. Codex landing review then caught a causal
   `since` gap in the local false-wall fix and an `eval|source` filename false
-  positive in inert heredocs; both reproduced and were pinned. The corrected
-  trigger suite passes **61/61**. A
+  positive in inert heredocs; both reproduced and were pinned. Re-review then
+  found variable-whitespace / causal-`as` / direct-`given that` attachment cases
+  and valid shell prefixes on heredoc executors; all four reproduced and were
+  pinned. The corrected trigger suite passes **66/66**. A
   data-flow form such as a shell variable holding `DELETE` remains outside the
   regex by design; that leg warns rather than denies, while
   `mcp__*__delete_trigger` remains an exact denial. The same review corrected

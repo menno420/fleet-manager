@@ -161,9 +161,8 @@ NEG_TOKEN_RE = re.compile(
 # token 48 chars away did not.
 NEG_SCOPE_BOUNDARY_RE = re.compile(
     r"[,;:.!?]|[—–]|"
-    r"\b(?:and|or|but|because|unless|when|while|whereas|although|though|"
+    r"\b(?:and|or|but|because|as|if|unless|when|while|whereas|although|though|"
     r"however|yet|so|since)\b|"
-    r"(?<!as )\bif\b|"
     r"\bgiven(?:\s+the\s+fact)?\s+that\b",
     re.IGNORECASE,
 )
@@ -265,6 +264,30 @@ def _is_quoted(line: str, span) -> bool:
     return len(before) % 2 == 1 and len(after) >= 1
 
 
+def _is_scope_boundary(prefix: str, boundary: "re.Match[str]") -> bool:
+    """Whether this syntactic boundary actually separates the negation.
+
+    Two ordinary repudiation idioms contain tokens that are otherwise clause
+    boundaries: ``not as if/though ...`` and ``not (a) given that ...``. Keep
+    their governing negation attached, including across variable Markdown
+    whitespace, without making causal ``as`` / ``given that`` transparent.
+    """
+    token = boundary.group(0).strip().lower()
+    before = prefix[:boundary.start()]
+    after = prefix[boundary.end():]
+    if token == "as" and re.match(r"\s+(?:if|though)\b", after, re.IGNORECASE):
+        return False
+    if token in ("if", "though") and re.search(r"\bas\s*$", before, re.IGNORECASE):
+        return False
+    if token.startswith("given") and re.search(
+        r"(?:\bnot|\bnever|\bno|\b\w+n['’]t)\s+(?:a\s+)?$",
+        before,
+        re.IGNORECASE,
+    ):
+        return False
+    return True
+
+
 def _negation_lead(window: str, sig_start: int) -> str:
     """Return the bounded part of the wall's own clause before its signal.
 
@@ -276,7 +299,8 @@ def _negation_lead(window: str, sig_start: int) -> str:
     prefix = window[:sig_start]
     clause_start = 0
     for boundary in NEG_SCOPE_BOUNDARY_RE.finditer(prefix):
-        clause_start = boundary.end()
+        if _is_scope_boundary(prefix, boundary):
+            clause_start = boundary.end()
     return prefix[max(clause_start, len(prefix) - 48):]
 
 
@@ -397,9 +421,18 @@ _OTHER_PREDICATE_SINCE = (
 _OTHER_PREDICATE_GIVEN = (
     "The failure does not reproduce given that agents cannot merge pull requests."
 )
+_OTHER_PREDICATE_AS = (
+    "The failure does not reproduce as agents cannot merge pull requests."
+)
+_OTHER_PREDICATE_SEEING_AS = (
+    "The failure does not reproduce seeing as agents cannot merge pull requests."
+)
 # A negation that directly qualifies the wall claim must remain a valid clear.
 _DIRECT_NEGATION = "This does not mean agents cannot merge pull requests."
 _DIRECT_AS_IF = "It is not as if agents cannot merge pull requests."
+_DIRECT_AS_IF_SPACED = "It is not as  if agents cannot merge pull requests."
+_DIRECT_GIVEN = "It is not a given that agents cannot merge pull requests."
+_DIRECT_GIVEN_BARE = "It is not given that agents cannot merge pull requests."
 
 
 def selftest() -> int:
@@ -434,11 +467,22 @@ def selftest() -> int:
     if not flagged(_OTHER_PREDICATE_GIVEN):
         fails.append("a negation attached to another predicate must NOT clear "
                      "a wall after 'given that'")
+    if not flagged(_OTHER_PREDICATE_AS):
+        fails.append("a negation attached to another predicate must NOT clear "
+                     "a wall after causal 'as'")
+    if not flagged(_OTHER_PREDICATE_SEEING_AS):
+        fails.append("a negation attached to another predicate must NOT clear "
+                     "a wall after 'seeing as'")
     if flagged(_DIRECT_NEGATION):
         fails.append("a negation directly qualifying the wall must clear it")
     if flagged(_DIRECT_AS_IF):
         fails.append("bare 'as' must not become a boundary in direct 'not as if' "
                      "repudiation prose")
+    if flagged(_DIRECT_AS_IF_SPACED):
+        fails.append("variable whitespace in 'not as if' must retain the direct "
+                     "repudiation")
+    if flagged(_DIRECT_GIVEN) or flagged(_DIRECT_GIVEN_BARE):
+        fails.append("direct 'not (a) given that' repudiation must stay clear")
 
     # The same attachment distinction must survive Markdown hard-wrapping.
     wrapped_direct: list[str] = []
@@ -449,6 +493,14 @@ def selftest() -> int:
     )
     if wrapped_direct:
         fails.append("a directly-negated wall may wrap across one physical line")
+    wrapped_as_if: list[str] = []
+    check_text(
+        "fixture.md",
+        "# fixture\n\nIt is not as\n  if agents cannot merge pull requests.\n",
+        wrapped_as_if,
+    )
+    if wrapped_as_if:
+        fails.append("a direct 'not as if' repudiation may hard-wrap before 'if'")
     wrapped_other: list[str] = []
     check_text(
         "fixture.md",
