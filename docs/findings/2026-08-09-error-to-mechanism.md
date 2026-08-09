@@ -73,6 +73,14 @@ not built · 1 with no moment · 1 open design question** (#6 — see § 4b; thi
 read *"measured un-mechanizable"* until owner-review asked what had actually been
 evaluated).
 
+**Read across the rows rather than down them: 8 of 13 have a machine-decidable
+moment** — the 4 already watched, the 2 built here, and the 2 buildable-but-unbuilt,
+because *buildable* means the moment exists and only the building was declined.
+3 need a human procedure, 1 has no moment, 1 is an open design question. **Do not
+compress this to "six"** — a reply did, by counting only the rows with a
+mechanism *shipped*, which silently reclassifies a deliberate trade-off as an
+impossibility.
+
 ## 4 · The one that was built, tested, and failed — keep this
 
 Propagation (#6) was the obvious candidate: a `PostToolUse` hook that takes the
