@@ -133,7 +133,10 @@
 - status: decided
 - date: 2026-08-09
 - verdict: **A session must never call `delete_trigger`**, by the tool or by the
-  equivalent direct-API call. It is the one tool that raises an approval prompt
+  equivalent direct-API call. The **tool** is denied outright by the hook; the
+  **direct-API route warns rather than blocks**, because command text cannot be
+  judged by regex — the guard blocked its own documentation twice before that
+  was downgraded (see the note below). It is the one tool that raises an approval prompt
   on the owner's screen in automode, and the session **stalls until he is
   physically back to click it**. A stale one-shot trigger is inert
   (`ended_reason: run_once_fired`) and costs nothing to leave; if a recurring one
@@ -158,11 +161,19 @@
 - provenance: owner, live hub chat 2026-08-09, correcting a `delete_trigger` call
   this session had just made at the close of fm #833. Recorded per CONSTITUTION
   § "Changing the rules" — owner-directed live, so applied rather than proposed.
-- note (`MEASURED`, and it is the useful half): **the guard's first version
-  blocked the commit that documents it.** The README section carries a worked
-  example containing `curl -X DELETE …/triggers/…`, and the hook fired on its own
-  documentation. Heredoc bodies and file contents are now excluded from matching,
-  with the bypass case (a real deletion *after* a heredoc) pinned in the suite.
-  The suite had a case for *grepping* the string and none for *writing* it —
-  tested against the motivating case rather than the traffic it sits in, which is
-  the same defect fm #831 recorded and the third time it has appeared.
+- note (`MEASURED`, and it is the useful half): **the guard blocked its own
+  authorship twice within one hour.** First the README section carrying a worked
+  `curl -X DELETE …/triggers/…` example; heredoc bodies and file contents were
+  excluded, which fixed that. Then **the PR comment asking a reviewer to check
+  that very regex** — the text necessarily contained both halves of the pattern,
+  this time inside a `python3 -c "…"` string, which heredoc stripping does not
+  reach. **2 false positives, 0 true positives**, so the Bash leg was downgraded
+  from deny to warn rather than chasing a third quoting context. The problem is
+  undecidable by regex: `python3 -c "requests.delete(u+'/triggers/'+t)"` must
+  fire and `python3 -c "print('curl -X DELETE /triggers/x')"` must not, and they
+  differ only in whether a string is executed or printed. **The split is now the
+  design** — no judgement needed on a tool name, so it denies; a great deal
+  needed on command text, so it warns. The suite had a case for *grepping* the
+  string and none for *writing* it: tested against the motivating case rather
+  than the traffic it sits in, which is the defect fm #831 recorded and the third
+  time it has appeared.

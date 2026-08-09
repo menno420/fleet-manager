@@ -428,7 +428,7 @@ of the session.
 | subject | behaviour | why |
 |---|---|---|
 | `mcp__*__delete_trigger` | **deny** | no legitimate agent use; the stall is total and invisible |
-| a `DELETE …/triggers/…` call in `Bash` | **deny** | the direct-egress route around the tool produces the identical prompt |
+| a `DELETE …/triggers/…` call in `Bash` | **warn**, once per session | same prompt, same stall — but command text needs judgement this hook does not have (below) |
 | `mcp__*__send_later` | **warn**, once per session | legitimate for a genuinely external wait; wrong for polling a PR |
 | everything else | silent | including `create_trigger`, `list_triggers`, `update_trigger`, `fire_trigger` |
 
@@ -451,15 +451,31 @@ at the deletion end.
 trigger genuinely must go, say so in the reply — he removes it in seconds
 without a stalled session.
 
-**Writing about the pattern is not doing it.** Heredoc bodies are stripped
-before matching, and `content` / `new_string` are never matched at all, because
-a doc that explains the rule has to be writable or the rule cannot be recorded.
-**This was not foresight — the first version of this guard blocked the commit
-that documents it**, firing on the worked example inside this very section. The
-suite had a case for grepping the string and none for writing it: tested against
-the motivating case, not the traffic it sits in, which is fm #831's lesson
-arriving a third time. Stripping is not a bypass — a real deletion *after* a
-heredoc is still denied, and that case is pinned in the suite.
+**Writing about the pattern is not doing it — and this hook learned that the
+hard way, twice, within one hour.**
+
+1. The **first version blocked the commit that documents it**, firing on the
+   worked `curl -X DELETE …/triggers/…` example inside this very section.
+   Heredoc bodies are now stripped before matching, and `content` /
+   `new_string` are never matched at all — a doc that explains the rule has to
+   be writable or the rule cannot be recorded.
+2. **Then it blocked the PR comment asking a reviewer to check that regex**,
+   whose text necessarily contained both halves of the pattern — this time
+   inside a `python3 -c "…"` string, which heredoc stripping does not touch.
+
+**So the Bash leg was downgraded from deny to warn, on the measurement: 2 false
+positives, 0 true positives.** The general problem is undecidable by regex —
+`python3 -c "requests.delete(u+'/triggers/'+t)"` must fire and `python3 -c
+"print('curl -X DELETE /triggers/x')"` must not, and they differ only in whether
+a string is *executed* or *printed*. Chasing a third quoting context would have
+been the fourth instance of the same mistake.
+
+**That split is the design, not a retreat.** The tool name needs no judgement —
+an exact string, a stated rule — so it **denies**. The command text needs a great
+deal — so it **warns**, puts the rule in front of the session at the moment of
+the call, and leaves the decision where the judgement is. A guard that blocks its
+own documentation twice has measured its own false-positive rate, and the
+promotion rule says that number decides.
 
 Suite: `python3 tools/test_trigger_tools_guard.py` — **31 cases, and the silence
 cases outnumber the fire cases on purpose.** A `PreToolUse` guard sits in every

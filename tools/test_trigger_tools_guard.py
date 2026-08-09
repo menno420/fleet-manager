@@ -91,16 +91,31 @@ check("send_later warns ONCE per session",
       decision(run({"tool_name": "mcp__Claude_Code_Remote__send_later",
                     "tool_input": {}}, session=sess)), "silent")
 
-print("== the route around the tools ==")
-check("curl -X DELETE .../triggers/<id> denied", decision(run({
+print("== the route around the tools — WARNS, deliberately not deny ==")
+# Downgraded from deny on measurement: 2 false positives, 0 true positives, both
+# of them this hook blocking its own authorship. Command text cannot be judged by
+# regex — `python3 -c "requests.delete(u+'/triggers/'+t)"` must fire and
+# `python3 -c "print('curl -X DELETE /triggers/x')"` must not, and they differ
+# only in whether a string is executed or printed.
+check("curl -X DELETE .../triggers/<id> warns", decision(run({
     "tool_name": "Bash",
-    "tool_input": {"command": "curl -X DELETE https://api.example.com/v1/triggers/trig_01AB"}})), "deny")
-check("python requests.delete on a trigger denied", decision(run({
+    "tool_input": {"command": "curl -X DELETE https://api.example.com/v1/triggers/trig_01AB"}})), "warn")
+check("python requests.delete on a trigger warns", decision(run({
     "tool_name": "Bash",
-    "tool_input": {"command": "python3 -c \"import requests; requests.delete(url + '/triggers/' + tid)\""}})), "deny")
-check("path-then-verb ordering also denied", decision(run({
+    "tool_input": {"command": "python3 -c \"import requests; requests.delete(url + '/triggers/' + tid)\""}})), "warn")
+check("path-then-verb ordering also warns", decision(run({
     "tool_name": "Bash",
-    "tool_input": {"command": "TID=/triggers/trig_9; curl -X DELETE \"$BASE$TID\""}})), "deny")
+    "tool_input": {"command": "TID=/triggers/trig_9; curl -X DELETE \"$BASE$TID\""}})), "warn")
+check("the API warning fires ONCE per session", decision(run({
+    "tool_name": "Bash",
+    "tool_input": {"command": "curl -X DELETE $B/triggers/t2"}},
+    session=(_s := f"test-{uuid.uuid4()}"))), "warn")
+check("  ...and is silent the second time", decision(run({
+    "tool_name": "Bash",
+    "tool_input": {"command": "curl -X DELETE $B/triggers/t3"}}, session=_s)), "silent")
+check("REAL PR-comment text that false-fired mid-session no longer denies", decision(run({
+    "tool_name": "Bash",
+    "tool_input": {"command": "python3 -c \"print('does --request DELETE or -X DELETE hit the /triggers/ path?')\""}})), "warn")
 
 print("== SILENCE on the traffic this hook actually sits in ==")
 SILENT_TOOLS = [
@@ -152,9 +167,9 @@ check("Write of a doc containing the pattern is silent",
           "content": "never run: curl -X DELETE /triggers/trig_1"}})), "silent")
 # ...and the real thing must still be caught AFTER a heredoc elsewhere in the
 # same command, or stripping would become a bypass.
-check("real delete AFTER an unrelated heredoc still denied",
+check("real delete AFTER an unrelated heredoc still warns",
       decision(run({"tool_name": "Bash", "tool_input": {"command":
-          "cat > note.md <<'EOF'\nhello\nEOF\ncurl -X DELETE $B/triggers/trig_1\n"}})), "deny")
+          "cat > note.md <<'EOF'\nhello\nEOF\ncurl -X DELETE $B/triggers/trig_1\n"}})), "warn")
 
 print("== fail-open: malformed input must never trap the session ==")
 for bad in ({}, {"tool_name": None}, {"tool_name": "Bash", "tool_input": "notadict"}):

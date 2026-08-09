@@ -37,6 +37,26 @@ to `DELETE .../triggers/...`. A guard that only knows tool names is one `curl`
 away from irrelevant, and this repo reaches GitHub and the CCR API over direct
 egress constantly, so that route is not hypothetical.
 
+**Why the Bash leg only warns, when the tool leg denies.** It was written as a
+deny and downgraded the same hour, on evidence: **2 false positives, 0 true
+positives.** Both false positives were this hook blocking its own authorship —
+first the README section carrying a worked `curl -X DELETE .../triggers/...`
+example, then the PR comment *asking a reviewer to check that very regex*, whose
+text necessarily contained both halves of the pattern. Heredoc stripping fixed
+the first and not the second, because the second sat inside a `python3 -c "..."`
+string.
+
+The general problem is undecidable by regex: `python3 -c "requests.delete(u +
+'/triggers/' + t)"` must fire and `python3 -c "print('curl -X DELETE
+/triggers/x')"` must not, and the two differ only in whether a string is
+*executed* or *printed*. So the two legs are split by how much judgement they
+need: **the tool name needs none** — it is an exact string with a stated rule, so
+it denies. **The command text needs a lot** — so it warns, puts the rule in front
+of the session at the moment of the call, and leaves the decision where the
+judgement is. A guard that blocks its own documentation twice in one hour has
+demonstrated its false-positive rate, and the promotion rule says that is the
+number that decides.
+
 Contract, as with every hook here: exits 0 on every path *except* the deliberate
 deny, is silent unless it matches, and warns once per session per subject. It
 matches on names and command text only — it never inspects intent.
@@ -190,15 +210,20 @@ def main() -> int:
     if SEND_LATER_RE.match(tool):
         return note(WARN_MSG) if once("send_later") else 0
 
-    # The route around the tools, via direct egress.
+    # The route around the tools, via direct egress. WARNS, does not deny — see
+    # the module docstring's § "Why the Bash leg only warns".
     if tool in ("Bash", "BashOutput") and API_DELETE_RE.search(_command_text(event)):
         if allowed:
             return 0
-        return deny(
-            "BLOCKED — this looks like a trigger deletion over the direct API, "
-            "which produces the same owner approval prompt and the same stall as "
-            "the `delete_trigger` tool.\n\n" + DENY_MSG
-        )
+        return note(
+            "This command matches the shape of a trigger deletion over the direct "
+            "API, which would produce the same owner approval prompt and the same "
+            "stall as the `delete_trigger` tool.\n\n"
+            "If that is what it does: **don't**. " + DENY_MSG + "\n\n"
+            "If you are merely WRITING ABOUT the pattern — documentation, a PR "
+            "comment, a test fixture — carry on; this warning cannot tell the two "
+            "apart, which is exactly why it does not block."
+        ) if once("api_delete") else 0
 
     return 0
 
