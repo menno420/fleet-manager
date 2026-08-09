@@ -79,38 +79,48 @@ requested **while this card is still born-red** (`session-close` 6c).
 | 6 | **the fake-precision correction was fixed in the roadmap and not propagated** — the program's § 7 copy still carried *"a 1-in-21 false-negative rate"* | **Codex**, round 1 on #830 |
 | 7 | called the walkthrough's ten inputs *"real owner messages from the committed record"* — none is raw: 1–9 are fragments **quoted and segmented by an agent**, 10 is a correction | **the owner-review Stop hook**, on the reply about to be sent |
 | 8 | *"the upgrade is a real change"* from `ADVISORY_CENSUS` being absent **here**, with substrate-kit never opened — an absence measured in one place turned into a presence claimed in another | **the owner-review Stop hook**, same round |
+| 9 | **invented a mechanism in another system and labelled it `MEASURED`** — *"pushing after a review request resets the reviewer's clock"* — from timestamp correlation alone, with no runner code or logs read, and **refuted by this session's own round 1**, which delivered on `562faac` after three intervening pushes | **the owner-review Stop hook**, third round, asking what the mechanism was based on |
 
-*(This table said **five** until the close was being written. Rows 6–8 were sitting
-in the review section and the reply, described but not counted — including one I
-had written *"belongs in the error table by rights"* and then left out of it.
-Leaving the count at five is the same undercount as the layer-2 card's error 11,
-committed in the session that repaired it. **The total is 8.**)*
+*(This table said **five** until the close was being written, then **eight**. Rows
+6–8 were sitting in the review section and the reply, described but not counted —
+including one I had written *"belongs in the error table by rights"* and then left
+out of it. Row 9 arrived after that. Leaving the count at five was the same
+undercount as the layer-2 card's error 11, committed in the session that repaired
+it. **The total is 9**, and each restatement of the total has so far been an
+undercount, which is itself the pattern.)*
 
-**Six of the eight are one shape and it is the session's own subject:** a
+**Seven of the nine are one shape and it is the session's own subject:** a
 conclusion drawn one step past what was measured. #1 measured a key's absence and
 nearly concluded a feature's absence; #3 measured field *names* and concluded
 about field *values*; #4 measured that a line exists in `intent.md` and concluded
 whose words it was; #6 measured a correction landing in one file and assumed the
 claim was retired; #7 measured that text is quoted and concluded it was source;
-#8 measured an absence here and claimed a presence there. **Not one was caught by
-being careful** — three by going to the source, one by Codex, two by the
-owner-review hook. That is the § 4.8 argument for ESTABLISHED being retrieval
-rather than recall, with the author of the rule as its own data point six times
-over.
+#8 measured an absence here and claimed a presence there; #9 measured a
+correlation and claimed a mechanism. **Not one was caught by being careful.**
+That is the § 4.8 argument for ESTABLISHED being retrieval rather than recall,
+with the author of the rule as its own data point seven times over.
 
 **The two that are not that shape:** #2 a composed quotation, #5 an arithmetic
 slip on a timestamp.
+
+**The catcher distribution is the result to carry.** Nine errors: **0** caught by
+documentation being available · **1** by a mechanical exact-match · **1** by
+Codex · **3** by the owner-review Stop hook · **1** by the owner · **2** by going
+and reading the source · **1** by recomputing an estimate. The estate holds 116
+committed statements of verify-first and they caught **none** of it, which is the
+16-incident baseline reproducing itself in a session whose whole subject is that
+baseline.
+
+**The adversarial instruments caught 5 of 9 between them** — Codex 1, the
+owner-review hook 3, the owner 1 — and every one of those five was a claim that
+had already survived the author's own read-back. That is the argument for keeping
+both instruments pointed at the reply and the diff, not only at the code.
 
 **Error 2 is the mechanical one and worth the most.** No care was involved: an
 exact-match requirement rejected a composed quotation the instant it was
 submitted. That is the injection thesis in its cheapest possible form — not a
 reminder to transcribe, a tool that cannot accept a paraphrase.
 
-**And the catcher distribution is the result to carry.** Eight errors: **0**
-caught by documentation being available, **1** by a mechanical exact-match, **1**
-by Codex, **2** by the owner-review hook, **3** by going and reading the source,
-**1** by recomputing. The estate has 116 committed statements of verify-first.
-None of them caught anything today either.
 
 **Error 2 is the mechanical one and worth the most.** No care was involved: an
 exact-match requirement rejected a composed quotation the instant it was
@@ -192,24 +202,44 @@ silences"* to **0 clean catches**, and the prescribed test went from *"done"* to
 own procedure drifted optimistic in exactly the two places where the evidence was
 thinnest, and neither gate nor hook could have seen either.
 
-### A second timing trap, measured here — pushing after a review request resets it
+### A mechanism claimed, then refuted by data this session already had
 
-`MEASURED` 2026-08-09. Round 2 was requested at `07:32:23Z`. Two further commits
-were then pushed — `07:35:27Z` and `07:37:02Z` — each a `synchronize` event that
-re-anchors the review against a new head. At `07:43Z`, 423 s after the request
-and past the 335 s baseline, no round-2 review had appeared, and **the cause was
-this session's own pushes**, not the reviewer.
+**Retracted 2026-08-09, and the retraction is the entry.** This section briefly
+read: *"`MEASURED` — pushing after a review request re-anchors the review and
+resets its clock"*, offered as a generalisation of the flip-before-review trap.
+**It is false, and the counter-evidence was already in this session's own
+history when it was written.**
 
-**This is the flip-before-review trap generalised.** That one said: do everything
-owed to the PR *before* the flip, because the flip releases the lander. The wider
-rule it is an instance of: **after you ask for a review, anything you do to the
-PR races the reviewer.** The flip races the merge; a push races the review
-itself. `session-close` 6c covers the first and says nothing about the second.
+| | |
+|---|---|
+| round 1 requested | `07:19:11Z` |
+| pushes during the wait | `b7f5db1` 07:21:18 · `b6da413` 07:22:38 · `9424899` 07:24:25 — **three** |
+| round 1 delivered | `07:26:39Z`, **on `562faac`** — the head at request time |
 
-**The fix is a sequencing habit, not a mechanism:** batch every intended change,
-push once, *then* request — and if something must change after the request,
-expect to have spent that round. Not proposed as a gate; it is a one-line
-addition to how a close is ordered, and it costs nothing to follow.
+Codex reviewed the commit it was asked about and **ignored three intervening
+pushes entirely**. Whatever delayed round 2, it was not that. The elapsed-time
+observation was real; the mechanism attached to it was invented to explain it.
+
+**What was actually established:** a correlation between two pushes and one
+absent review, with **n=1** and a confounder (this diff is several times larger
+than round 1's) never ruled out. **What was claimed:** a causal mechanism in
+another system's runner, labelled `MEASURED` — the strongest tag in the legend —
+with **no runner code and no runner logs read**, because none is reachable from
+this container.
+
+**The correct latency figure for this PR is also not 335 s.** That number is one
+measurement from fm #812. Round 1 here took **448 s**, and the *"past the
+baseline"* reasoning leaned on the smaller external number rather than this PR's
+own.
+
+**Two consequences worth keeping.** The practical one: the "hold still and stop
+pushing" discipline this session adopted rested on a false premise and can be
+dropped. The one that matters more: **this is the same defect as #1, #3, #4, #6,
+#7 and #8 — a conclusion one step past the measurement — and it is the only one
+that reached the committed record wearing a `MEASURED` badge.** The certainty
+legend is not a decoration; a wrong claim labelled `REASONED` invites a future
+session to check it, and the same claim labelled `MEASURED` tells it not to
+bother.
 
 **Round 2 requested on the fixed head.** Cap is two rounds
 (`session-close` 6c); if round 2 returns findings that cannot be closed inside
