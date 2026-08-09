@@ -62,6 +62,7 @@ Continuing fm #830's numbering, because it is the same day and the same author.
 | 17 | **generalised over a set never enumerated** — *"every propagation failure today was a retyped measurement."* Audited afterwards: three instances, **one measurement and two provenance claims**, and only one of the sixteen numbered errors is a propagation failure at all. The correction widens the anchor argument rather than narrowing it | **the owner-review Stop hook**, fifth round, asking for the breakdown |
 | 19 | **"substantially inert" for a defect never quantified** — check C's cross-line shingles were called *"most could never match"* from mechanism alone. **Measured after being asked: 52.2%** (1098 shingles, 400 real paragraphs). Half-blind, not mostly-blind — and the overstatement ran *toward* the drama of the finding | **the owner-review Stop hook**, asking for the percentage |
 | 20 | **attributed a reviewer split to reading style without controlling for input** — claimed the hook and Codex "see different things", when `owner_review.py:4-5` shows the hook is *given* only the reply. Half the split is forced by input scope, and the confound was one `grep` away | **the owner-review Stop hook**, asking whether both saw the same artifacts |
+| 21 | **declared a coverage gap without surveying the instruments — third time** — told the owner doc-vs-code contradictions are *"invisible to both instruments."* Wrong twice over: Codex's diff carries the docs **and** the code, and it caught a cross-document contradiction on this very PR (its P1, § 7 vs § 3); and `check_doc_routes.py:118-121` already implements the claim-vs-artifact shape, failing a route whose trigger no longer appears in the doc it points at. **What survives is narrower: the *reply* is in no reviewer's scope** | **the owner-review Stop hook**, asking which instruments had been evaluated |
 | 18 | **compressed a six-way table into a three-way sentence and lost two rows** — told the owner *"six had a moment… four already watching, two now guarded, and the rest need a person or a habit."* The documented breakdown is **4 already caught · 2 built · 3 skill steps · 2 buildable-not-built · 1 no moment · 1 open design question.** Buildable means the moment exists, so **eight** have a machine-decidable moment, not six; and #4/#9 do not "need a person" — they need a checker I chose not to build, for stated trade-offs | **the owner-review Stop hook**, sixth round, asking how the breakdown was derived |
 
 **#14 is the sharpest error of the two days**, because it is the session's own
@@ -151,12 +152,17 @@ record is *forced by its input*, not evidence of a different reading style. Code
 had the whole diff, prose and code together, and still skewed **7 of 9 to code** —
 that half of the contrast is genuine.
 
-**What it actually exposes: nothing in this estate reads the reply and the diff
-together.** The reply is where six defects lived and where Codex never looks; the
-code is where seven lived and where the Stop hook cannot look. The coverage was
-not designed as complementary, it is two partial views that happen not to overlap,
-and a defect visible only in the *relationship* between a claim and the diff
-backing it is currently invisible to both.
+**What it exposes, stated at the width the evidence supports** (narrowed under
+#21, after a first version overreached): **the reply is in no reviewer's scope.**
+Codex reads the diff and never the chat; the Stop hook reads the chat and never
+the diff. A claim made to the owner *only in a reply*, and contradicted by the
+code, is seen by neither.
+
+**Doc-vs-code inside the diff is NOT the gap** — that was the overreach. Codex has
+both artifacts and demonstrated the capability on this PR, and
+`check_doc_routes.py:118-121` already runs a claim-vs-artifact check of exactly
+that shape for routes. The estate is better covered here than the first version of
+this paragraph claimed.
 
 ## Close-out
 
