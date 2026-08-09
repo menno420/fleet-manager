@@ -192,12 +192,16 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   budget), and the ephemeral-vs-durable split. Replayed against **ten real owner
   messages** from the committed record —
   [findings/2026-08-09-intent-map-replay.md](findings/2026-08-09-intent-map-replay.md)
-  — **1 catch · 1 partial · 8 correct silences · 0 false alarms.** Read its § 4
-  before citing that: the scoring is retrospective by the procedure's own author,
-  and the classifier's **HIGH branch is untested** because no case needed the
-  owner. **The partial is the result that matters** — in the one ask that went
-  wrong, intent was already understood correctly and lost downstream anyway, so
-  an intent map does not protect intent past itself.
+  — **0 clean catches · 1 partial · 1 correction-handled · 1 HIGH surfaced · 7
+  correct silences · 0 false alarms.** **That is an author walkthrough, not the
+  § 4.8 test**, which requires a *fresh* agent to score the maps; the prescribed
+  test is outstanding, and Codex established on fm #830 that disclosing the bias
+  does not substitute for it. **The partial is the result that matters** — in the
+  one ask that went wrong, intent was already understood correctly and lost
+  downstream anyway, so an intent map does not protect intent past itself. Also
+  worth carrying: the estate's clearest misread (`Pace: slow.`) **cannot be
+  replayed at all**, because the owner message that produced it was never
+  preserved — the compression destroyed the evidence needed to audit it.
 - **Why the rules don't bind — the session's own errors, counted, and three
   injection mechanisms** (2026-08-08):
   [findings/2026-08-08-why-rules-dont-bind.md](findings/2026-08-08-why-rules-dont-bind.md)

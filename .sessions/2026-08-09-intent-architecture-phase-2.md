@@ -108,6 +108,35 @@ Real exit codes, each command on its own line — never `$?` after a pipe.
 
 ## Review record
 
-*(pending — Codex review requested at `07:19:11Z` while this card is born-red,
-per `session-close` 6c. The card does not flip until the inline comments are read
-and each finding verified against source.)*
+**Round 1 — head `562faac`, seven inline findings, all P2. Every one verified
+against source before acting; `[conceded]` × 7, `[survived]` × 0.**
+
+| # | finding | disposition |
+|---|---|---|
+| 1 | **Case B is circular** — the replay fed the map the owner's *correction*, which already contradicts `Pace: slow.`, so it shows only that the procedure reconciles a correction against stale text, not that the map would have prevented the original inference | **[conceded]** — rescored `CORRECTION-HANDLED`, removed from the catch tally, and the reason it *cannot* be tested is now recorded as a finding of its own (§ 2.2) |
+| 2 | **case 7 scored two ways at once** — a correct silence *and* an unresolved HIGH; under the procedure an undefined "better" necessarily yields `INTENT STATUS: NEEDS OWNER` | **[conceded]** — scored through the HIGH branch, with the actual `NEEDS OWNER` block written out |
+| 3 | **the walkthrough is not § 4.8's test**, which prescribes a *fresh* agent scorer; disclosing the bias does not satisfy the protocol, yet the result was presented as the schema's completed first test | **[conceded]** — retitled *walkthrough*, and the roadmap null now reads "the prescribed test has not been run" |
+| 4 | the skill advertised **six** corpus messages against the replay's **ten** | **[conceded]** — a count written while planning and never re-read after the corpus grew |
+| 5 | the roadmap still marked Phase 2 `next` and opened § 8 with *"Phases 2 and 3 are unbuilt"* | **[conceded]** — both amended, with the phase row distinguishing the landed slice from the outstanding test |
+| 6 | the fake-precision correction was **not propagated** — `consolidation-program.md:179` still carried *"a 1-in-21 false-negative rate"* | **[conceded]** — and see below |
+| 7 | changing `intake`'s frontmatter left the **`SKILLS-local.md` roster row** advertising the superseded fuller-picture procedure, on the page that exists so sessions need not open 27 bodies | **[conceded]** |
+
+**Finding 6 is the one that stings, and it belongs in the error table above by
+rights.** This session opened by repairing error 9 of the previous card —
+*"correcting in place and leaving the upstream copy contradicting it"* — wrote a
+paragraph about it, and then did exactly that: fixed the rate in the roadmap and
+left the program's § 7 copy standing. **Reading a defect's description is not a
+defence against it**, which is the finding this whole thread rests on, now with
+one more instance.
+
+**Findings 1 and 2 are the ones that improved the result rather than tidying
+it.** Both *lowered* the score — the tally went from *"1 catch · 1 partial · 8
+silences"* to **0 clean catches**, and the prescribed test went from *"done"* to
+*"outstanding."* That is the review doing its actual job: an author scoring his
+own procedure drifted optimistic in exactly the two places where the evidence was
+thinnest, and neither gate nor hook could have seen either.
+
+**Round 2 requested on the fixed head.** Cap is two rounds
+(`session-close` 6c); if round 2 returns findings that cannot be closed inside
+it, they get named in the PR and land open rather than driving an unbounded loop
+— `substrate-kit#580` ran five rounds and 34 findings without converging.

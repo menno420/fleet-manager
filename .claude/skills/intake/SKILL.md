@@ -151,8 +151,15 @@ decision records).
 
 ## Replayed against real owner messages
 
-`MEASURED` 2026-08-09 — six real, messy owner messages harvested from the
-committed record, never synthetic:
-[`docs/findings/2026-08-09-intent-map-replay.md`](../../../docs/findings/2026-08-09-intent-map-replay.md).
-Read it before changing this procedure: it records which cases the map catches,
-and the one class it demonstrably does **not**.
+Walked through **ten** real owner messages from the committed record, never
+synthetic:
+[`docs/findings/2026-08-09-intent-map-replay.md`](../../../docs/findings/2026-08-09-intent-map-replay.md)
+— **0 clean catches · 1 partial · 1 correction-handled · 1 HIGH surfaced · 7
+correct silences · 0 false alarms.**
+
+**That is an author walkthrough, not the prescribed test.** Roadmap § 4.8
+requires a **fresh agent** to produce and score the maps; the walkthrough's author
+wrote this procedure and knew every outcome, so the real test is still
+outstanding. Read § 4 of that file before citing any of it — and § 2.2 for the
+case that cannot be run at all, because the owner message that produced the
+estate's clearest misread was never preserved.

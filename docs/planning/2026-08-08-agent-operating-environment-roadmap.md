@@ -61,7 +61,7 @@ the wrong answer look checked.
 | Phase | What it establishes | Status |
 |---|---|---|
 | **1** | Trustworthy retrieval + orientation | landed, fm #826 |
-| **2** | Intent resolution | next |
+| **2** | Intent resolution | **first slice landed, fm #830** — the map runs in `intake`; § 4.8's fresh-agent test still outstanding |
 | **3** | Common operating protocol | after |
 
 ## 3 · Phase 1 — trustworthy retrieval and orientation *(landed, fm #826)*
@@ -523,21 +523,31 @@ is where proven methods become **reusable infrastructure**.
 
 ## 8 · Honest nulls
 
-- **Phases 2 and 3 are unbuilt and uncosted.** Nothing here has been tested; the
-  mechanism claims are `REASONED` until something runs.
+- **Phase 3 is unbuilt and uncosted, and Phase 2 has one slice landed and
+  untested by its own protocol** (amended 2026-08-09; this bullet said *"Phases 2
+  and 3 are unbuilt"* and outlived that by one PR). Everything in § 5 is still
+  `REASONED` with nothing running. Phase 2's map runs in `intake` as of fm #830 —
+  but § 4.8's test requires **a fresh agent** to score it, and what exists is the
+  author's own walkthrough, so the mechanism claim is **not** yet earned.
 - **Phase 1's own effect is measured on n=1 session** and only against the
   orientation failure class. It cannot move the classes the landed injection
   mechanisms already cover, and the roadmap should not be read as claiming it does.
-- ~~**The intent-map schema has never been run against a real owner message.**~~
-  **Superseded 2026-08-09.** The corpus is assembled and the schema replayed
-  against ten real messages —
-  [`../findings/2026-08-09-intent-map-replay.md`](../findings/2026-08-09-intent-map-replay.md):
-  **1 catch · 1 partial · 8 correct silences · 0 false alarms**, with the
-  procedure landed in the `intake` skill rather than as a new one. Read § 4 of
-  that file before citing the tally — the replay is retrospective and its author
-  knew the outcomes, and **the HIGH branch of the ambiguity classifier is
-  untested by it**, because every case was resolvable from the record and none
-  produced `INTENT STATUS: NEEDS OWNER`.
+- **The corpus is assembled; the § 4.8 test is still outstanding.** Half of this
+  null is discharged and half is not, and the halves must not be conflated. The
+  ten-message corpus exists and the schema runs end-to-end on it —
+  [`../findings/2026-08-09-intent-map-replay.md`](../findings/2026-08-09-intent-map-replay.md),
+  **0 clean catches · 1 partial · 1 correction-handled · 1 HIGH surfaced · 7
+  correct silences · 0 false alarms.** But § 4.8 prescribes that **a fresh
+  agent's map is scored**, and that walkthrough was written and scored by the
+  procedure's own author against outcomes he had already read. *Disclosing the
+  bias does not satisfy the protocol* — Codex, fm #830. **The prescribed test has
+  not been run.**
+
+  Two sub-nulls worth keeping visible: the HIGH branch is exercised by exactly
+  **one** case (#7), and **the single most informative case cannot be run at
+  all** — the owner message that produced the estate's clearest misread
+  (`Pace: slow.`) was never preserved, so the compression destroyed the evidence
+  needed to audit the compression.
 - **Whether a durable intent surface stays distinct from Layer 2 in practice is
   unverified** — the two could collapse into each other under normal maintenance,
   which is the specific drift to watch for when the first one is written.
