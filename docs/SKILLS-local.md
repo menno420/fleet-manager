@@ -36,7 +36,7 @@ capabilities and exact grounds commands.
 | `delegate-read` | local | Hand a read-heavy job to Gemini instead of burning session context, and get back claims citation-verified against the repo before you read them. |
 | `image-prompt` | local | The shared method for **any** image-generation prompt — eight sections, anchored to an existing asset, one asset per call, chroma-keyed, function criterion, acceptance question. Routes to the three type skills. |
 | `implementation-prompt` | local | Direct a session to build a defined thing — scope and non-scope, the contract, where the patterns live, the verify command, landing discipline, the traps that actually bit. |
-| `intake` | kit | Turn a fragmented owner ask into main ideas, a restated fuller picture, a skill-index map, and structured-choice owner questions — before building. |
+| `intake` | kit, **fm-extended 2026-08-09** | Turn a fragmented owner ask into a provenance-separated **intent map** — what he said · what the repo already decided · what you inferred · what is genuinely open — plus goal, non-goals, success test and an `INTENT STATUS` verdict, before planning. The old single "fuller picture" paragraph is gone: fusing those four is the failure it now prevents. |
 | `owner-brief` | local | The owner's status brief on demand — what landed, what needs his eyes, what happens next — plain language, zero technical vocabulary, decisions as one-letter choices. |
 | `parallax-prompt` | local | Parallax background layers and wall/rail materials — one layer per call, far layer opaque, mid/near on chroma, tiling only where the renderer needs it. Loads on top of `image-prompt`. |
 | `prep-owner-steps` | kit | Hand the owner finished steps, not directions — deep links, paste-ready blobs, his path walked once, one batched sitting, payoff + verification stated. |
@@ -102,12 +102,31 @@ Re-run it after a kit upgrade. It only overwrites kit-named skills; the local
 ones below are untouched.
 
 ⚠ **That cuts both ways: local amendments to a kit-named skill are overwritten
-by the same copy.** `session-close` carries fleet-manager-specific steps — the
-live-venue rewrite (2026-08-04, owner-ratified 2026-08-05) and the Layer 2
-handoff line (2026-08-08) — so **re-apply them after every upgrade** and check
-the diff before assuming the install was clean. The durable fix is upstream:
-propose the generalisable half to the kit so it ships to every adopter instead
-of living as a local patch that each upgrade silently reverts.
+by the same copy.** **Two kit-named skills now carry fleet-manager amendments, and
+both are reverted by that loop** — so **re-apply them after every upgrade** and
+diff before assuming the install was clean:
+
+| kit-named skill | local amendment at risk | added |
+|---|---|---|
+| `session-close` | the live-venue rewrite (2026-08-04, owner-ratified 08-05) and the Layer 2 handoff line (2026-08-08) | — |
+| **`intake`** | **the entire Phase 2 intent map** — the seven-part provenance separation, the retrieval step, the LOW/MEDIUM/HIGH classes and `INTENT STATUS`. The staged copy at `.substrate/skills/intake/SKILL.md` still contains the superseded `FULLER PICTURE` body, **verified 2026-08-09**, so the copy loop reverts Phase 2 in one command | 2026-08-09 |
+
+⚠⚠ **This bites on the very next session**, because the owner's live decision is
+*upgrade the kit first*. Anyone running that upgrade must re-apply `intake`
+afterwards, or the roadmap and both ledgers will go on claiming a procedure the
+tree no longer contains.
+
+**How this was found is the argument for the warning existing at all:** Codex
+caught it on fm #830 (P1). This section's author had read this very paragraph
+while adding a section 60 lines above it, and still shipped a kit-named skill
+amendment without adding it here. *A warning in the file you are editing is not
+self-applying.*
+
+The durable fix is upstream: propose the generalisable half to the kit so it
+ships to every adopter instead of living as a local patch that each upgrade
+silently reverts. For `intake` that is explicitly roadmap § 7's allocation —
+substrate-kit owns *generalised intent resolution*, so the map belongs there once
+it has earned promotion.
 
 ## The local skills
 
@@ -146,6 +165,110 @@ A local skill that proves itself here is a candidate for the kit's `SKILLS` list
 which would reach every adopter. That is a change in the kit repo, not here.
 Until then it lives in this file and in `.claude/skills/`, which is enough to use
 it and enough to find it.
+
+## Where these 27 are visible — and where they are not
+
+**The owner asked why the skills we built here do not appear in the claude.ai
+Skills settings list** (2026-08-09, with a screenshot showing only `morning` and
+`skill-creator`, both Anthropic-authored). The answer is that there are **two
+registries**, and committing a skill to a repo does not upload anything.
+
+| scope | where it lives | what reads it |
+|---|---|---|
+| **project** — all 27 of these | `<repo>/.claude/skills/<name>/SKILL.md`, in git | Claude Code sessions whose **root** is that repo, and cloud sessions on the cloned repo |
+| **personal** | `~/.claude/skills/<name>/SKILL.md` on one machine | that machine's Claude Code, all projects |
+| **account** | uploaded to the claude.ai account | claude.ai chat, Cowork (interactive **and** scheduled), Routines — and this is the list the settings page shows |
+
+Scope rows are from
+[the skills doc](https://code.claude.com/docs/en/skills); the rest of this
+section is `MEASURED` on this container, 2026-08-09.
+
+**What is actually here.** `CLAUDE_CODE_SYNC_SKILLS=1` syncs the account set into
+`/root/.claude/skills/`, which holds **8** entries whose `manifest.json` tags
+each `"source": "anthropic"` or `"anthropic-example"` — the two `-example` ones
+are exactly the two rows on his settings page. Probed directly: `intake`,
+`capability-probe`, `session-close`, `owner-brief` and `image-prompt` are all
+**absent** from that tree. They are not hidden or filtered; they were never
+uploaded.
+
+**This is the boot triad's case two wearing different clothes.** The boot file
+already records that a session rooted on a satellite repo gets *1 skill instead
+of 27* — same cause, different venue. The account registry is simply a third
+place the project-scope boundary shows.
+
+### Three routes, and what each one costs
+
+1. **Upload per skill to the account** — **Customize → Skills → `Add`**, taking a
+   ZIP whose root is the skill folder: `<name>.zip` → `<name>/` → `skill.md`
+   ([owner-supplied support article](https://support.claude.com/en/articles/12512198-how-to-create-custom-skills),
+   2026-08-09). Reaches claude.ai, Cowork and Routines. Supported on all plans
+   and requires code execution enabled.
+
+   **The blocker is the description length, and it is measured.** Uploads cap
+   `name` at 64 characters and `description` at **200**. All 27 use only `name`
+   and `description` — inside the six fields uploads accept (`name`,
+   `description`, `license`, `compatibility`, `metadata`, `allowed-tools`), where
+   a seventh field is a hard error rather than a warning — but **15 of the 27
+   descriptions are over 200 characters** (`MEASURED` 2026-08-09; worst:
+   `delegate-read` 384, `owner-brief` 300, `capability-probe` 300). Names are all
+   within 64.
+
+   *(An earlier version of this section said no frontmatter work was needed. That
+   checked which **fields** were present and inferred eligibility without
+   checking the limits on their **values** — a conclusion drawn one step past the
+   measurement, which is the class this repo keeps cataloguing. Corrected the
+   same day.)*
+
+   **Do not shorten the sources to fit.** The description is what a session
+   matches against when deciding whether a skill applies, and Claude Code imposes
+   no limit — trimming 15 of them would degrade the surface that works today for
+   one that has not been adopted yet. If route 1 is taken, the shortening belongs
+   in a packaging step that emits an upload-safe variant. `UNVERIFIED`: whether
+   `package_skill.py` does this itself or simply rejects, and whether the
+   uploader accepts our `SKILL.md` where the article writes `skill.md`.
+
+   Cost of the route overall: a manual copy that drifts from git the moment
+   either side changes, and an account-level skill competes for match in **every**
+   session everywhere.
+2. **The Skills API / `package_skill.py`** from `anthropics/skills` — the
+   scriptable form of route 1. Not attempted here; no Anthropic API key is
+   present in this container (`ANTHROPIC_BASE_URL` is set, no key), so the
+   credential path is `UNVERIFIED` rather than known-absent.
+3. **Ship them in a plugin declared in each repo's `.claude/settings.json`** —
+   the docs state repo-declared plugins install at session start, while plugins
+   enabled only in user settings do not transfer. Git-native, versioned,
+   reviewable, no manual drift.
+
+### The recommendation, and what is still the owner's call
+
+**Not all 27 should travel.** An account-level skill loads everywhere, so the
+repo-coupled ones would misfire: `session-close` drives this repo's §7 ledger and
+NOW pointer, `release` and `upgrade-distribution` are substrate-kit procedures,
+`repo-health` runs this bootstrap. The portable ones are the *method* skills that
+describe how to work rather than where — and five of the eight need an
+upload-safe description before they can go anywhere:
+
+| portable candidate | description chars | upload-ready? |
+|---|---|---|
+| `chase-references` | 174 | ✅ |
+| `prep-owner-steps` | 171 | ✅ |
+| `rationalize` | 158 | ✅ |
+| `decision-capture` | 226 | ✂ needs trim |
+| `intake` | 262 | ✂ needs trim |
+| `prompt-preflight` | 286 | ✂ needs trim |
+| `capability-probe` | 300 | ✂ needs trim |
+| `delegate-read` | 384 | ✂ needs trim |
+
+**Route 3 is the one that fixes the estate's actual defect**, because case two is
+about satellite *repos*, not about claude.ai — and a plugin declared in a
+satellite's settings is the only one of the three that follows the repo. Route 1
+is the right answer to the narrower question he asked, and the two are not
+exclusive.
+
+**Open, and his to decide:** whether to build the plugin, and which skills go in
+it. Recorded rather than built — a plugin is new apparatus, and § 5 of
+[`intent.md`](intent.md) names "an apparatus that needs maintenance sessions of
+its own" as a non-goal, so this one needs a yes rather than an inference.
 
 ## Adding one
 

@@ -53,6 +53,19 @@ catcher-attributed exactly like the 16-incident table in
 | 3 | OD-13/OD-14 inserted **above** OD-12, breaking the table's ordering | self, immediately, on read-back |
 | 4 | **the corpus measurement was overstated** — *"none of the 21 questions was already answered"* (it was 20 of 21) and *"two `[D-NNNN]` entries"* (there are three), repeated across five documents and stated to the owner | **Codex**, on fm #827 |
 | 5 | **every new record stamped `2026-08-09` when it is `2026-08-08`** — 35 occurrences across 17 files, including two owner-directive rows, a `[D-NNNN]` entry, and both session-card filenames | **ChatGPT**, via the owner |
+| 6 | **an OPEN item invented from a typo** — a trailing `22.` in the answer list was recorded as *"question 22, begun and left blank"* in three documents; there was no question 22 | **owner** |
+| 7 | *"the one claim in the agent roster with nothing measured behind it"* — a composed gloss over a four-row table where **three** rows are unmeasured owner-report | **Stop hook** |
+| 8 | **an already-fixed defect recorded as unbuilt** — roadmap § 5.8 listed the closed-vocabulary artifact scoping as open, while `read_before_write.py:142` has implemented it since Phase 1 | **Codex**, on #828 |
+| 9 | **three internal contradictions left by my own corrections** — `current-state.md` still said *model-independent* after the roadmap retired the phrase, and the roadmap's § 4.6 still said *nothing* answered the intent questions after § 4.8 had been corrected to *20 of 21* | **Codex**, on #828 |
+| 10 | **the review loop had no re-review step** — step 6c said *review, then flip*, so acting on findings would merge correction commits no reviewer had seen; this repo's own policy rates a stale review `REVIEW`, never `PASS` | **Codex**, on #828 |
+| 11 | *"every factual error today is one shape — six of them"* — a gloss over **this very table**, composed rather than counted: **four** of the seven rows then present were that shape, and the sentence listed four while saying six | **Stop hook** |
+
+**The table above is the ledger; everything below it is commentary on rows in
+it.** Until 2026-08-09 rows 6–11 sat *below* their commentary with no header or
+delimiter above them, so GitHub rendered six of the eleven as literal
+pipe-delimited text rather than table rows — in the one document whose whole
+purpose is to be countable, and whose row 11 exists because an ambiguous id
+already left the total unresolvable once. Rows moved, wording untouched.
 
 **Error 5 is the one that should not have been possible.** The date was in this
 session's own opening context, `date -u` was one command away — and the Phase 1
@@ -72,12 +85,6 @@ a **second provider did**, reading the plan with no stake in it. That is a real
 argument for the roster in `docs/intent.md` § 7 being a *review* asset and not
 only an implementation one.
 
-| 6 | **an OPEN item invented from a typo** — a trailing `22.` in the answer list was recorded as *"question 22, begun and left blank"* in three documents; there was no question 22 | **owner** |
-| 7 | *"the one claim in the agent roster with nothing measured behind it"* — a composed gloss over a four-row table where **three** rows are unmeasured owner-report | **Stop hook** |
-| 8 | **an already-fixed defect recorded as unbuilt** — roadmap § 5.8 listed the closed-vocabulary artifact scoping as open, while `read_before_write.py:142` has implemented it since Phase 1 | **Codex**, on #828 |
-| 9 | **three internal contradictions left by my own corrections** — `current-state.md` still said *model-independent* after the roadmap retired the phrase, and the roadmap's § 4.6 still said *nothing* answered the intent questions after § 4.8 had been corrected to *20 of 21* | **Codex**, on #828 |
-| 10 | **the review loop had no re-review step** — step 6c said *review, then flip*, so acting on findings would merge correction commits no reviewer had seen; this repo's own policy rates a stale review `REVIEW`, never `PASS` | **Codex**, on #828 |
-
 **Error 8 is error 4's shape at one more remove.** A parallel ChatGPT session
 described the *pre-fix* recording; that description was folded into the roadmap
 as current state without opening the file. **A second agent's observation is
@@ -93,21 +100,46 @@ them — which is the honest argument for Codex as a distinct instrument: it rea
 the diff against the tree, and neither a gate nor a hook nor the author can see
 a contradiction that spans two files.
 
-| 11 | *"every factual error today is one shape — six of them"* — a gloss over **this very table**, composed rather than counted: **four** of the seven were that shape, and the sentence listed four while saying six | **Stop hook** |
-
-*(This row was appended as a second `8`, colliding with the row above. Caught by
+*(Row 11 was appended as a second `8`, colliding with the row above. Caught by
 Codex on #828 round 2 — a duplicate id in the one ledger whose whole purpose is
 to be **countable** makes "errors 4, 6, 7 and 8" ambiguous and leaves the total
 unresolvable between ten and eleven. Renumbered to 11; **the total is 11**.)*
 
-**Errors 4, 6, 7 and 11 are one defect at four targets** — the corpus, the answer
-list, the roster table, and this error ledger. Each is a sentence composed
-*about* a record instead of read *off* it, which reproduces the finding's class-A
-result exactly
+**Six of the eleven are instances of one class — `REASONED`, and revised
+2026-08-09.** This paragraph read *"errors 4, 6, 7 and 11 are one defect at four
+targets"*, which was wrong twice over: they are **separate** instances that share
+a shape, not one defect wearing four faces, and the membership was undercounted
+by reading the table's most recent rows rather than all of it — the same
+composed-not-counted move the class is named for, committed in the sentence
+naming it.
+
+The class is **a claim composed *about* a source instead of read *off* it**,
+which reproduces the finding's class-A result exactly
 ([`../docs/findings/2026-08-08-why-rules-dont-bind.md`](../docs/findings/2026-08-08-why-rules-dont-bind.md) § 3):
 claims transcribed from tool output were right; claims composed from context were
-not. **The other three are different classes and should not be folded in** — #1
-is a sequence error, #2 a shell-idiom error, #3 an editing slip.
+not. Membership, each supported by text already in this card:
+
+| # | the source it was composed about instead of read off |
+|---|---|
+| 4 | the corpus — stated across five documents without counting the answers |
+| 5 | the date — the Phase 1 card records this same error as *"composed, not transcribed"* ([`2026-08-08-rules-enforcement-phase1.md:112`](2026-08-08-rules-enforcement-phase1.md)) |
+| 6 | the answer list — an OPEN item read off a stray `22.` rather than the questions |
+| 7 | the roster table — a gloss over four rows |
+| 8 | the tree — a second agent's dated observation folded in as current state without opening the file; *"error 4's shape at one more remove"*, above |
+| 11 | this ledger — a gloss over the table it sits in |
+
+**The other five are different classes and should not be folded in:** #1 a
+sequence error, #2 a shell-idiom error, #3 an editing slip, #9 correcting in
+place and leaving the upstream copy contradicting it, #10 a missing procedure
+step. Six plus five is eleven, which is the arithmetic this paragraph previously
+failed.
+
+**This is a classification, not a measurement** — one reader sorting one
+session's errors, and #8 and #9 are the two a different reader could reasonably
+place on the other side (#8 has a second-hand source rather than a nearby
+record; #9 is arguably composition failing to *propagate* rather than failing to
+read). The number is worth less than the boundary being stated where someone can
+disagree with it.
 
 **Error 8 is the sharpest datum in this card**, because the record it glossed was
 *open in the session's own context and was its own work*. Proximity is not the
