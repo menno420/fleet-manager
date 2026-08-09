@@ -34,6 +34,18 @@ capabilities, never limitations"); this skill is the executable form.
 3. **Attempt once, for real.** Not a thought experiment — the actual call.
    Capture the **verbatim** error text or the proof it worked. No verbatim
    error = no wall = do it (PL-012 item 4).
+3b. **An empty result proves your query ran — not that the thing is absent. Run
+   the positive control.** Before recording *any* absence, make the same query
+   find something you know **is** present. If it cannot, the query is wrong, not
+   the world. Two lines of shell, and it converts *"I found nothing"* into
+   *"nothing is there"* — which are different sentences that were treated as the
+   same one **twice in one session** (fm #830, 2026-08-09): a probe for a
+   `prompt_routes` key returned `0` and came one sentence from recording that
+   Phase 1's prompt route was missing — it exists, keyed differently; and
+   `ADVISORY_CENSUS` being absent *here* became a claim about substrate-kit,
+   which was never opened. **This was already in this skill as a trap** ("absence
+   of evidence read as evidence of absence") and it did not bind as prose — which
+   is why it is now a step with a command in it.
 4. **One refusal is not a wall.** A denied call can be transient classifier
    state or a path quirk — retry once from a spawned worker, or via the
    documented alternate path (the proxied-vs-direct GitHub split is the
