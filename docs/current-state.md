@@ -210,8 +210,8 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   — sites, line numbers, reproductions and a committed A/B harness. **No
   released kit carries `ADVISORY_CENSUS`**; it sits under `## [Unreleased]` on
   substrate-kit `main`, so the owner ruled **"both, in order"** — v1.20.2
-  adopted here, v1.21.0 cut in a dedicated session. **Four of the seven are in
-  the kit's own false-wall scanner**, which `substrate-gate` runs as a required
+  adopted here, v1.21.0 cut in a dedicated session. **Every one but the `SKILLS-index`
+  template defect is in the kit's own false-wall scanner**, which `substrate-gate` runs as a required
   check, and **two are regressions v1.20.2 introduced** — one false positive
   (valid repudiation prose rejected) and one **false negative** (a genuine wall
   passes the gate after `because`), the latter being the one to fix first

@@ -22,7 +22,8 @@ rounds on fm #833 — it was in the diff because that PR upgraded the dist, so t
 kit's own code got read by something other than its author, probably for the
 first time since it shipped.
 
-**Four of them are in the kit's own false-wall scanner** — the checker the
+**Every one but the `SKILLS-index` template defect is in the kit's own
+false-wall scanner** — the checker the
 boot file calls load-bearing and that `substrate-gate` runs as a required status
 check. That is the number to weigh when planning the session: **v1.21.0 should
 budget review time, not just a version bump.** It is the same result as fm #831,
