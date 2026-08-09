@@ -1,4 +1,4 @@
-# The intent map, walked through ten real owner messages
+# The intent map, walked through ten owner asks as the record preserved them
 
 > **Status:** `reference` · 2026-08-09
 >
@@ -18,7 +18,9 @@
 >
 > Certainty tags per
 > [`2026-08-05-foundation-continuation.md`](2026-08-05-foundation-continuation.md).
-> The corpus is `MEASURED` (verbatim, cited). The scoring is `REASONED`.
+> The corpus is `MEASURED` as *quoted text at a cited path* — see § 1.1, which is
+> the provenance caveat this file needed and did not have until it was asked for.
+> The scoring is `REASONED`.
 
 ## 1 · The corpus, and why these ten
 
@@ -31,6 +33,33 @@ because the outcomes are known and owner-confirmed.
 The tenth is OD-6, the estate's clearest documented intent *misread* —
 **`Pace: slow.`** — corrected by the owner 13 days later
 ([`../planning/2026-07-26-consolidation-program.md:31`](../planning/2026-07-26-consolidation-program.md)).
+
+### 1.1 · None of these ten is a raw owner message, and § 2.2 is only the worst case
+
+Added 2026-08-09 after review asked which inputs were raw owner text and which
+were agent compressions. **The honest answer is that none is raw**, and the title
+of this file said "owner messages" without qualifying it:
+
+| | what is actually preserved | fidelity |
+|---|---|---|
+| asks **1–9** | verbatim fragments **quoted by an agent** inside `2026-08-05-handoff-fidelity-and-boot-path.md:25-33`, and **segmented into nine by that agent** — the decomposition is its analysis, not his structure | high on wording, agent-mediated on scope and boundaries |
+| ask **10** (OD-6) | his **correction**, not the message that caused the error | § 2.2 — cannot test the claim it was chosen for |
+
+The original instruction exists nowhere in this repo as its own artifact; what
+exists is one agent's reading of it, arranged into a table. **So § 2.2's lesson is
+not special to OD-6 — it is the general condition of this corpus**, and OD-6 is
+merely where the loss is total rather than partial. A replay drawn from records
+*about* owner messages inherits every compression those records made, silently,
+because quoted text looks like source text.
+
+**What this costs the results:** an ask the quoting agent dropped entirely cannot
+appear as a missed EXPLICIT here, and a boundary it drew wrongly is inherited as
+if the owner drew it. The tally in § 3 should be read as *the map against one
+agent's transcription*, which is strictly weaker than *the map against the owner*.
+
+**What would fix it:** a corpus of owner messages captured verbatim at the time,
+which the estate does not keep. That is a standing recommendation, not a finding
+about this replay.
 
 ## 2 · The two instructive cases
 
