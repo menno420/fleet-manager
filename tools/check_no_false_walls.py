@@ -52,8 +52,10 @@ WHAT IT CHECKS (living/binding docs only — a NARROW allowlist)
     - QUOTED: the wall signal sits inside `"..."`, or the line says
       `verbatim` / `Reason:` (a verbatim platform-refusal quote).
     - NEGATED / anti-wall: a negation (`not`/`never`/`no`/`n't`/`isn't`/
-      `without`/`≠`/`NOT`) precedes the wall signal, or the line says
-      `not a wall` / `never a … wall` / `no longer` / `is not`.
+      `without`/`≠`/`NOT`) precedes the wall signal in the SAME clause, or the
+      line says `not a wall` / `never a … wall` / `no longer` / `is not`.
+      A negation attached to an earlier predicate — for example, `does not
+      reproduce because agents cannot merge` — does not clear the wall.
     - META / discovery-discipline: the line is ABOUT declaring/recording walls,
       not asserting one — `declare`, `discover`, `cite`, `mint`, `invent`,
       `imagine`, `document(s)`, `record`, `re-verify`, `false wall`, `doc-wall`,
@@ -152,6 +154,17 @@ NONCAP_RE = re.compile(
 # the apostrophe (`n't`) — a bare `nt` would falsely match "age-nt", "curre-nt".
 NEG_TOKEN_RE = re.compile(
     r"\bnot\b|\bnever\b|\bno\b|n't\b|\bwithout\b|\banti\b|≠", re.IGNORECASE)
+# A bounded negation is still unsafe when it belongs to another predicate. Stop
+# the lookback at the last punctuation / conjunction / subordinator that starts
+# a new clause. This replaces the accidental character-count attachment exposed
+# by the 2026-08-09 sweep: a `not` 44 chars away cleared the wall, while the same
+# token 48 chars away did not.
+NEG_SCOPE_BOUNDARY_RE = re.compile(
+    r"[,;:.!?]|[—–]|"
+    r"\b(?:and|or|but|because|if|unless|when|while|whereas|although|though|"
+    r"however|yet|so)\b",
+    re.IGNORECASE,
+)
 ANTIWALL_LINE_RE = re.compile(
     r"not a wall|never a[^.\n]{0,40}wall|no longer[^.\n]{0,30}wall|"
     r"≠[^.\n]{0,20}wall|isn'?t a[^.\n]{0,20}wall|is not a[^.\n]{0,20}wall",
@@ -250,6 +263,21 @@ def _is_quoted(line: str, span) -> bool:
     return len(before) % 2 == 1 and len(after) >= 1
 
 
+def _negation_lead(window: str, sig_start: int) -> str:
+    """Return the bounded part of the wall's own clause before its signal.
+
+    Physical hard-wraps deliberately remain transparent: ``prev`` and ``line``
+    are joined with a space, so a direct correction may wrap across a line. A
+    real clause boundary is not transparent, because a negation before it may
+    describe a different subject entirely.
+    """
+    prefix = window[:sig_start]
+    clause_start = 0
+    for boundary in NEG_SCOPE_BOUNDARY_RE.finditer(prefix):
+        clause_start = boundary.end()
+    return prefix[max(clause_start, len(prefix) - 48):]
+
+
 def line_is_false_wall(line: str, prev: str = "") -> bool:
     """Line-level test (dated-block exemption is applied by the caller).
 
@@ -257,9 +285,10 @@ def line_is_false_wall(line: str, prev: str = "") -> bool:
     a governing qualifier (``documents``, ``check_no_false_walls``, a negation,
     an opening quote) frequently sits on the previous line while the wall
     signal lands on this one. META / anti-wall / quote exemptions are evaluated
-    over the ``prev + line`` window; the NEGATION lead stays bounded to the ~48
-    chars immediately before the signal (measured across the window) so an
-    earlier-in-the-bullet ``never`` cannot over-exempt a genuine standing wall.
+    over the ``prev + line`` window; the NEGATION lead stays in the wall's own
+    clause and is then bounded to ~48 chars (measured across the window), so an
+    earlier predicate or earlier-in-the-bullet ``never`` cannot over-exempt a
+    genuine standing wall.
     """
     span = _wall_signal_span(line)
     if span is None:
@@ -281,9 +310,9 @@ def line_is_false_wall(line: str, prev: str = "") -> bool:
     if _is_quoted(window, (len(prev) + 1 + span[0], len(prev) + 1 + span[1])
                   if prev else span):
         return False
-    # Negation in the ~48 chars before the wall signal (across the window).
+    # Negation in the wall's own clause, at most ~48 chars before the signal.
     sig_start = (len(prev) + 1 + span[0]) if prev else span[0]
-    lead = window[max(0, sig_start - 48):sig_start]
+    lead = _negation_lead(window, sig_start)
     if NEG_TOKEN_RE.search(lead):
         return False
     return True
@@ -356,6 +385,12 @@ _GENUINE = "- Agent tag-push is 403-walled; use the workflow_dispatch path."
 # A META line about the guard itself (NOT flagged).
 _META = ("- CI enforces this: a PR that documents an agent-capability wall "
          "goes red and cannot merge.")
+# An unrelated negation before a subordinate clause must NOT clear its wall.
+_OTHER_PREDICATE_NEGATION = (
+    "The failure does not reproduce because agents cannot merge pull requests."
+)
+# A negation that directly qualifies the wall claim must remain a valid clear.
+_DIRECT_NEGATION = "This does not mean agents cannot merge pull requests."
 
 
 def selftest() -> int:
@@ -381,6 +416,30 @@ def selftest() -> int:
                      "be flagged")
     if flagged(_META):
         fails.append("a meta line describing the guard must NOT be flagged")
+    if not flagged(_OTHER_PREDICATE_NEGATION):
+        fails.append("a negation attached to another predicate must NOT clear "
+                     "a wall after 'because'")
+    if flagged(_DIRECT_NEGATION):
+        fails.append("a negation directly qualifying the wall must clear it")
+
+    # The same attachment distinction must survive Markdown hard-wrapping.
+    wrapped_direct: list[str] = []
+    check_text(
+        "fixture.md",
+        "# fixture\n\nThis does not mean\nagents cannot merge pull requests.\n",
+        wrapped_direct,
+    )
+    if wrapped_direct:
+        fails.append("a directly-negated wall may wrap across one physical line")
+    wrapped_other: list[str] = []
+    check_text(
+        "fixture.md",
+        "# fixture\n\nThe failure does not reproduce because\n"
+        "agents cannot merge pull requests.\n",
+        wrapped_other,
+    )
+    if not wrapped_other:
+        fails.append("a cross-clause wall must stay flagged when hard-wrapped")
 
     # Dated-BLOCK exemption: a standing-shaped wall line inside a bullet whose
     # body carries a LAST-VERIFIED date is exempt (the ledger's legit home).

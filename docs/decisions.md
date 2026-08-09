@@ -144,9 +144,12 @@
   `.claude/hooks/trigger_tools_guard.py`, which **denies** rather than warns —
   the only denying hook in the estate — with `FM_ALLOW_TRIGGER_DELETE=1` as the
   deliberate override for when he asks directly. Secondly, **`send_later` is not
-  the tool for watching a PR**: `subscribe_pr_activity` wakes the session on CI
-  results, reviews and merges without arming anything. `send_later` warns rather
-  than denies, because a genuinely external un-notified wait is still a real use.
+  the tool for watching a PR**: `subscribe_pr_activity` wakes the session on
+  comments, reviews and CI **failures**, but not CI success or a new push. A
+  session waiting to land on green therefore polls to a terminal state inside
+  the turn, or reports the PR as still pending; it does not arm a self-wake.
+  `send_later` warns rather than denies because a genuinely external,
+  un-notified wait is still a real use.
 - why: Owner, live 2026-08-09 — *"Delete triggers are the only thing that gives
   me an approval prompt in automode, this will stall your session untill I get
   back. Always prevent using them."* and *"send later is also not necessary, if
@@ -180,10 +183,12 @@
 - amendment (2026-08-09, same day): **the emergency stop is `update_trigger`, not
   deletion.** The first version of this rule left an unattended session facing a
   runaway recurring trigger with no move — deletion denied, the override needing
-  the owner it was protecting. `update_trigger` with `enabled: false` stops a
-  routine firing immediately, raises no approval prompt, is unblocked by the
-  guard, and is reversible. It is the better answer even where deletion is
-  available, because it preserves the record. The deny message now names it, and
-  the suite pins both that the path is open and that the message says so — a
-  path nobody is told about is not a path. Raised by the owner-review hook asking
-  what an agent does about a misconfigured trigger under this rule.
+  the owner it was protecting. `update_trigger` with `enabled: false` prevents
+  future firings, raises no approval prompt, is unblocked by the guard, and is
+  reversible. Whether it cancels a run already in flight is unverified. It is
+  the better answer even where deletion is available, because it preserves the
+  record. The deny message now names it, and the suite pins both that the path is
+  open and that the message says so — a path nobody is told about is not a path.
+  Raised by the owner-review hook asking what an agent does about a misconfigured
+  trigger under this rule; the in-flight bound was corrected by Codex on fm #834
+  and propagated here by the independent fm #835 review.

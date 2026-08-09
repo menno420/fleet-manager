@@ -79,9 +79,10 @@ for tool in (
 print("== the emergency stop must stay open ==")
 # A denied delete with no alternative is a trap: an unattended session facing a
 # runaway recurring trigger could neither stop it nor reach the owner. The answer
-# is `update_trigger(enabled=false)` — stops firing at once, no approval prompt,
-# reversible. These two cases pin that the escape exists AND that the deny
-# message names it, because a path nobody is told about is not a path.
+# is `update_trigger(enabled=false)` — prevents future firings, raises no
+# approval prompt, and is reversible. Whether it cancels a run already in flight
+# is unverified. These cases pin that the escape exists AND that the deny message
+# states its bound, because a path nobody is told about is not a path.
 check("update_trigger (the disable path) is never blocked",
       decision(run({"tool_name": "mcp__Claude_Code_Remote__update_trigger",
                     "tool_input": {"trigger_id": "t", "enabled": False}})), "silent")
@@ -96,9 +97,16 @@ check("FM_ALLOW_TRIGGER_DELETE=1 lets it through",
                     "tool_input": {}}, allow=True)), "silent")
 
 print("== send_later warns, does not block ==")
-check("send_later warns",
-      decision(run({"tool_name": "mcp__Claude_Code_Remote__send_later",
-                    "tool_input": {"message": "x"}})), "warn")
+_send = run({"tool_name": "mcp__Claude_Code_Remote__send_later",
+             "tool_input": {"message": "x"}})
+check("send_later warns", decision(_send), "warn")
+_send_msg = (_send.get("hookSpecificOutput") or {}).get("additionalContext", "")
+check("send_later warning says subscriptions miss CI success",
+      "yes" if ("not CI-success" in _send_msg or "not CI-success" in _send_msg.lower()) else "no",
+      "yes")
+check("send_later warning does not recommend a PR-CI self-wake",
+      "yes" if ("fall back to `send_later`" not in _send_msg
+                and "IS IT GREEN YET" not in _send_msg) else "no", "yes")
 sess = f"test-{uuid.uuid4()}"
 run({"tool_name": "mcp__Claude_Code_Remote__send_later", "tool_input": {}}, session=sess)
 check("send_later warns ONCE per session",
@@ -117,6 +125,12 @@ check("curl -X DELETE .../triggers/<id> warns", decision(run({
 check("python requests.delete on a trigger warns", decision(run({
     "tool_name": "Bash",
     "tool_input": {"command": "python3 -c \"import requests; requests.delete(url + '/triggers/' + tid)\""}})), "warn")
+check("python requests.request positional DELETE warns", decision(run({
+    "tool_name": "Bash",
+    "tool_input": {"command": "python3 -c \"import requests; requests.request('DELETE', url + '/triggers/' + tid)\""}})), "warn")
+check("JavaScript fetch method-colon DELETE warns", decision(run({
+    "tool_name": "Bash",
+    "tool_input": {"command": "node -e \"fetch(url + '/triggers/' + tid, {method: 'DELETE'})\""}})), "warn")
 check("path-then-verb ordering also warns", decision(run({
     "tool_name": "Bash",
     "tool_input": {"command": "TID=/triggers/trig_9; curl -X DELETE \"$BASE$TID\""}})), "warn")
@@ -212,6 +226,12 @@ check("piping a heredoc into sh is not stripped", decision(run({
 check("python3 <<EOF that executes is not stripped", decision(run({
     "tool_name": "Bash",
     "tool_input": {"command": "python3 <<'EOF'\nimport requests; requests.delete(u+'/triggers/'+t)\nEOF\n"}})), "warn")
+check("eval of a quoted heredoc is not stripped", decision(run({
+    "tool_name": "Bash",
+    "tool_input": {"command": "eval \"$(cat <<'EOF'\ncurl -X DELETE $B/triggers/t\nEOF\n)\""}})), "warn")
+check("source of a quoted heredoc is not stripped", decision(run({
+    "tool_name": "Bash",
+    "tool_input": {"command": "source /dev/stdin <<'EOF'\ncurl -X DELETE $B/triggers/t\nEOF\n"}})), "warn")
 # ...and the inert case must STILL be silent, or the fix is just a revert.
 check("cat > file <<EOF (inert) is still silent", decision(run({
     "tool_name": "Bash",

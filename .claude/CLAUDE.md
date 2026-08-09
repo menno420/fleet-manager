@@ -162,9 +162,10 @@ program law binding every repo.
   or is denied in writing; all three leave you working. A fired one-shot trigger
   is inert and costs nothing to leave. **If one is actually misbehaving — firing
   repeatedly, misconfigured — DISABLE it: `update_trigger` with `enabled: false`.
-  That is the emergency stop; deleting never is.** It stops the firing, raises no
-  prompt, and is reversible. Only if it then needs *removing* rather than
-  silencing, say so in your reply — he removes it in seconds. To watch a PR use
+  That is the emergency stop; deleting never is.** It prevents future firings,
+  raises no prompt, and is reversible; whether it cancels a run already in flight
+  is unverified. Only if it then needs *removing* rather than silencing, say so
+  in your reply — he removes it in seconds. To watch a PR use
   `subscribe_pr_activity`; note it delivers comments, reviews and CI **failures**
   but **not** CI-success or new-push (`CAPABILITIES.md`, MEASURED 2026-07-14).
   **So nothing will ever wake you to say a PR went green — do not end a turn

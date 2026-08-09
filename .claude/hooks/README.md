@@ -428,7 +428,7 @@ of the session.
 | subject | behaviour | why |
 |---|---|---|
 | `mcp__*__delete_trigger` | **deny** | no legitimate agent use; the stall is total and invisible |
-| a `DELETE …/triggers/…` call in `Bash` | **warn**, once per session | same prompt, same stall — but command text needs judgement this hook does not have (below) |
+| a `DELETE …/triggers/…` call in `Bash` | **warn**, once per distinct command | same prompt, same stall — but command text needs judgement this hook does not have (below); per-command dedup stops a prose false-positive silencing a later real call |
 | `mcp__*__send_later` | **warn**, once per session | legitimate for a genuinely external wait; wrong for polling a PR |
 | everything else | silent | including `create_trigger`, `list_triggers`, `update_trigger`, `fire_trigger` |
 
@@ -456,12 +456,13 @@ at the deletion end.
 no alternative would be a trap: an unattended session facing a runaway or
 misconfigured recurring trigger could neither stop it nor reach the owner. So the
 guard leaves `update_trigger` untouched, and the deny message names it —
-`enabled: false` stops a routine firing **immediately**, raises **no approval
-prompt**, and is **reversible** (it stays stored). That is better than deletion
-even where deletion is available, because it preserves the record. **Deleting is
-never the emergency stop; disabling is.** Both facts are pinned in the suite: that
-`update_trigger` is never blocked, and that the deny text actually names it — a
-path nobody is told about is not a path.
+`enabled: false` prevents **future firings**, raises **no approval prompt**, and
+is **reversible** (it stays stored). Whether it cancels a run already in flight
+is unverified, as the next paragraph records. That is better than deletion even
+where deletion is available, because it preserves the record. **Deleting is
+never the emergency stop; disabling is.** Both facts are pinned in the suite:
+that `update_trigger` is never blocked, and that the deny text actually names it
+— a path nobody is told about is not a path.
 
 **Provenance and its limit, stated because the difference matters.** The
 `enabled` field is read from the live `mcp__Claude_Code_Remote__update_trigger`
@@ -506,7 +507,8 @@ the call, and leaves the decision where the judgement is. A guard that blocks it
 own documentation twice has measured its own false-positive rate, and the
 promotion rule says that number decides.
 
-Suite: `python3 tools/test_trigger_tools_guard.py` — **31 cases, and the silence
-cases outnumber the fire cases on purpose.** A `PreToolUse` guard sits in every
-tool call the session makes, and a guard that denies a legitimate call is worse
-than no guard when the owner is away to wave it through.
+Suite: `python3 tools/test_trigger_tools_guard.py` — the executable prints its
+own current case count; do not maintain a second number here. The silence cases
+outnumber the fire cases on purpose. A `PreToolUse` guard sits in every tool call
+the session makes, and a guard that denies a legitimate call is worse than no
+guard when the owner is away to wave it through.

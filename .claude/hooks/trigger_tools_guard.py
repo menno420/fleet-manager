@@ -59,9 +59,12 @@ judgement is. A guard that blocks its own documentation twice in one hour has
 demonstrated its false-positive rate, and the promotion rule says that is the
 number that decides.
 
-Contract, as with every hook here: exits 0 on every path *except* the deliberate
-deny, is silent unless it matches, and warns once per session per subject. It
-matches on names and command text only — it never inspects intent.
+Contract, as with every hook here: the process exits 0 on every path; a
+deliberate deny is carried by ``permissionDecision: deny`` in the hook JSON. It
+is silent unless it matches. ``send_later`` warns once per session, while each
+distinct direct-API command gets its own warning slot so an earlier false
+positive cannot silence a later real deletion. It matches on names and command
+text only — it never inspects intent.
 """
 
 from __future__ import annotations
@@ -85,7 +88,8 @@ SEND_LATER_RE = re.compile(r"^mcp__.*__send_later$", re.I)
 # an ordinary `curl` to any other endpoint stays silent.
 _DELETE_VERB = (
     r"(?:-X\s*DELETE|--request[= ]\s*DELETE|\.delete\s*\(|"
-    r"method\s*=\s*[\"']DELETE[\"'])"
+    r"\.request\s*\(\s*[\"']DELETE[\"']|"
+    r"method\s*[:=]\s*[\"']DELETE[\"'])"
 )
 API_DELETE_RE = re.compile(
     _DELETE_VERB + r"[\s\S]{0,400}?/triggers?/|"
@@ -153,17 +157,9 @@ WARN_MSG = (
     "said plainly that the PR is still pending and why.\n"
     "\n"
     "`send_later` is still right for a genuinely external wait that will not "
-    "notify you at all (a deploy, a quota window, a human elsewhere). Not "
-    "blocked — just rarely the first answer.\n"
-    "\n"
-    "AND IT IS NOT FORBIDDEN FOR \"IS IT GREEN YET\". An earlier version of this "
-    "text said it was never the answer, which was one overcorrection too far: "
-    "`docs/research/2026-07-12-platform-capabilities.md` names polling OR a "
-    "`send_later` self-wake as the two alternatives, and if CI outlasts what you "
-    "can reasonably poll inside a turn, a self-wake beats abandoning the PR. "
-    "**Prefer in-turn polling; fall back to `send_later` when polling cannot "
-    "reach a terminal state** — and if you do arm one, say so in your reply so "
-    "the next session is not surprised by it."
+    "notify you at all (a deploy, a quota window, a human elsewhere). It is NOT "
+    "the fallback for PR CI: if bounded in-turn polling cannot reach a terminal "
+    "state, end the turn saying plainly that the PR is still pending and why."
 )
 
 
@@ -223,8 +219,10 @@ _HEREDOC_RE = re.compile(r"<<-?\s*(['\"]?)([A-Za-z_][A-Za-z0-9_]*)\1[\s\S]*?^\2$
 _HEREDOC_EXECUTOR_RE = re.compile(
     r"\b(?:ba|z|k|da)?sh\b[^\n<]*<<|"
     r"\b(?:python3?|perl|ruby|node|deno)\b[^\n<]*<<|"
+    r"\b(?:eval|source)\b[^\n<]*<<|"
+    r"(?:^|[;&|]\s*)\.\s+[^\n<]*<<|"
     r"\|\s*(?:ba|z)?sh\b",
-    re.I,
+    re.I | re.M,
 )
 
 

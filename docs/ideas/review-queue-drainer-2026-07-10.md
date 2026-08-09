@@ -1,10 +1,10 @@
 ---
-state: captured
+state: historical
 origin: lab
 shipped_pr: null
 shipped_repo: null
 merged_date: null
-outcome: open
+outcome: rejected
 ---
 
 # Review-queue drainer — a standing owner for post-merge review
@@ -37,4 +37,10 @@ policy quote verbatim-accurate; no drain rule anywhere in R1–R21, the
 standing rituals, or any founding text; the independent 2026-07-10 doctrine
 review missed this gap). Synthesis:
 [`../findings/fable5-review-2026-07-09.md`](../findings/fable5-review-2026-07-09.md).
-**Status:** captured (not approved).
+**Outcome (groomed 2026-08-09): rejected as superseded.** The premise no longer
+matches the live landing contract: `session-close` step 6c now gives every
+session an owner for pre-merge Codex review, requires inline-comment
+disposition, and prevents the born-red badge from flipping until that review
+covers the current head. Building a second post-merge drainer would duplicate
+the mechanism that replaced the gap. Re-open only on measured undrained queue
+traffic, not on this historical absence.
