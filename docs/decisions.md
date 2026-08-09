@@ -127,3 +127,42 @@
   the review thread already carried the material, and a redaction after the fact
   would have been incomplete (history and PR text both persist). The ruling here
   happened to go the way that made it moot. That was luck, not process.
+
+## [D-0015] Never delete a trigger; prefer PR subscription over self-scheduling
+
+- status: decided
+- date: 2026-08-09
+- verdict: **A session must never call `delete_trigger`**, by the tool or by the
+  equivalent direct-API call. It is the one tool that raises an approval prompt
+  on the owner's screen in automode, and the session **stalls until he is
+  physically back to click it**. A stale one-shot trigger is inert
+  (`ended_reason: run_once_fired`) and costs nothing to leave; if a recurring one
+  must go, say so in the reply and he removes it in seconds. Enforced by
+  `.claude/hooks/trigger_tools_guard.py`, which **denies** rather than warns —
+  the only denying hook in the estate — with `FM_ALLOW_TRIGGER_DELETE=1` as the
+  deliberate override for when he asks directly. Secondly, **`send_later` is not
+  the tool for watching a PR**: `subscribe_pr_activity` wakes the session on CI
+  results, reviews and merges without arming anything. `send_later` warns rather
+  than denies, because a genuinely external un-notified wait is still a real use.
+- why: Owner, live 2026-08-09 — *"Delete triggers are the only thing that gives
+  me an approval prompt in automode, this will stall your session untill I get
+  back. Always prevent using them."* and *"send later is also not necessary, if
+  you want to check in on a PR you can subscribe to them."* The two halves are
+  one causal chain: fm #833 armed **five** `send_later` check-ins to poll one PR
+  and then deleted one at close, so **the cleanup that stalls him was created by
+  the polling that was never needed.** Cutting it at the `send_later` end is
+  cheaper than cutting it at the deletion end.
+- rules out: "tidying up" fired triggers at session close — the tidiness is worth
+  less than the stall; and treating a denial from this guard as a bug to route
+  around.
+- provenance: owner, live hub chat 2026-08-09, correcting a `delete_trigger` call
+  this session had just made at the close of fm #833. Recorded per CONSTITUTION
+  § "Changing the rules" — owner-directed live, so applied rather than proposed.
+- note (`MEASURED`, and it is the useful half): **the guard's first version
+  blocked the commit that documents it.** The README section carries a worked
+  example containing `curl -X DELETE …/triggers/…`, and the hook fired on its own
+  documentation. Heredoc bodies and file contents are now excluded from matching,
+  with the bypass case (a real deletion *after* a heredoc) pinned in the suite.
+  The suite had a case for *grepping* the string and none for *writing* it —
+  tested against the motivating case rather than the traffic it sits in, which is
+  the same defect fm #831 recorded and the third time it has appeared.

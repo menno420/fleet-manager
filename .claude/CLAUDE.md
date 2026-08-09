@@ -155,6 +155,17 @@ program law binding every repo.
   `read_before_write.py` raises this at write time with the measurement and the
   claim it means; it checks whether the path was fetched, never whether you
   understood it.
+- **Never delete a trigger, and don't `send_later` to watch a PR** (`[D-0015]`).
+  `delete_trigger` is **the one call that raises an approval prompt on his
+  screen in automode** — the session then **stalls until he is physically back**,
+  and cannot see that it is waiting. Every other call here succeeds, fails loudly
+  or is denied in writing; all three leave you working. A fired one-shot trigger
+  is inert and costs nothing to leave. If a recurring one must go, **say so in
+  your reply** — he removes it in seconds. To watch a PR use
+  `subscribe_pr_activity`, which wakes you on CI, reviews and merges without
+  arming anything that later looks like it needs cleaning up. Enforced by
+  `.claude/hooks/trigger_tools_guard.py` — the estate's **only denying hook**,
+  because this is the one rule with no judgement in it.
 
 ## Capabilities — record capabilities, never limitations
 Full verified matrix: **`docs/CAPABILITIES-verified-2026-07-18.md`** (+

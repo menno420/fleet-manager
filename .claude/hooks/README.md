@@ -405,3 +405,63 @@ printf '%s' '{"hook_event_name":"PreToolUse","tool_name":"Write","tool_input":{"
 Check B was pointed at the layer-2 card as it stood at `d7287ea` and reported
 exactly its six orphan rows; check C was pointed at its two real cases and missed
 both. Only one of those facts was discoverable from a synthetic test.
+
+## The trigger-tools guard — `trigger_tools_guard.py`
+
+**The only hook here that DENIES.** Everything else in this directory is
+advisory, because everything else involves judgement — is this text a wall, is
+this claim propagated, is this table malformed. This one involves none: a tool
+name is an exact string, and the owner has stated there is no legitimate
+agent-side use.
+
+**Owner, live, 2026-08-09:** *"Delete triggers are the only thing that gives me
+an approval prompt in automode, this will stall your session untill I get back.
+Always prevent using them."*
+
+That property makes `delete_trigger` categorically different from every other
+call this estate makes. A success returns, a failure raises, and a denial is
+written down — **all three leave the session working.** `delete_trigger` pauses
+and waits for a human, and the session cannot see that it is waiting. He is away
+by design during implementation, so the cost is not one prompt; it is the rest
+of the session.
+
+| subject | behaviour | why |
+|---|---|---|
+| `mcp__*__delete_trigger` | **deny** | no legitimate agent use; the stall is total and invisible |
+| a `DELETE …/triggers/…` call in `Bash` | **deny** | the direct-egress route around the tool produces the identical prompt |
+| `mcp__*__send_later` | **warn**, once per session | legitimate for a genuinely external wait; wrong for polling a PR |
+| everything else | silent | including `create_trigger`, `list_triggers`, `update_trigger`, `fire_trigger` |
+
+**Deliberate override:** `FM_ALLOW_TRIGGER_DELETE=1`, for the case where he asks
+for a deletion directly. A guard with no escape becomes a wall someone edits out.
+
+**Why `send_later` only warns.** It has a real use, so denying it would be the
+mandatory-infrastructure-everywhere move the promotion rule rejects. But it was
+the wrong tool for the job it kept getting used for — **polling a PR**.
+`subscribe_pr_activity` already wakes the session on CI results, reviews and
+merges: push instead of poll, free while idle, and it never arms a trigger that
+a later session feels obliged to clean up. **fm #833 armed five `send_later`
+check-ins to watch one PR and then deleted one at close** — the cleanup that
+stalls him was created by the polling that was not needed. That is the whole
+causal chain, and cutting it at the `send_later` end is cheaper than cutting it
+at the deletion end.
+
+**A stale trigger costs nothing.** A fired one-shot reports
+`ended_reason: run_once_fired` and never runs again. Leave it. If a recurring
+trigger genuinely must go, say so in the reply — he removes it in seconds
+without a stalled session.
+
+**Writing about the pattern is not doing it.** Heredoc bodies are stripped
+before matching, and `content` / `new_string` are never matched at all, because
+a doc that explains the rule has to be writable or the rule cannot be recorded.
+**This was not foresight — the first version of this guard blocked the commit
+that documents it**, firing on the worked example inside this very section. The
+suite had a case for grepping the string and none for writing it: tested against
+the motivating case, not the traffic it sits in, which is fm #831's lesson
+arriving a third time. Stripping is not a bypass — a real deletion *after* a
+heredoc is still denied, and that case is pinned in the suite.
+
+Suite: `python3 tools/test_trigger_tools_guard.py` — **31 cases, and the silence
+cases outnumber the fire cases on purpose.** A `PreToolUse` guard sits in every
+tool call the session makes, and a guard that denies a legitimate call is worse
+than no guard when the owner is away to wave it through.

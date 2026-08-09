@@ -1,0 +1,212 @@
+#!/usr/bin/env python3
+"""PreToolUse guard for the one tool class that can stall a session outright.
+
+**Owner-stated, 2026-08-09 (live):** *"Delete triggers are the only thing that
+gives me an approval prompt in automode, this will stall your session untill I
+get back. Always prevent using them."*
+
+That makes `delete_trigger` categorically different from every other call this
+estate makes. A successful call returns, a failed one raises, and a denied one
+says so in writing — all three leave the session working. `delete_trigger`
+**pauses and waits for a human**, and the session cannot see that it is waiting.
+The owner is away by design during implementation, so the cost is not one prompt,
+it is the remainder of the session.
+
+Two behaviours, and the split is deliberate:
+
+* **`delete_trigger` → DENY.** Every other advisory in this directory is advisory
+  because it involves judgement — is this text a wall, is this claim propagated,
+  is this table malformed. This one involves none: a tool name is an exact
+  string, and the owner has stated there is no legitimate agent use. That is the
+  shape `findings/2026-08-09-error-to-mechanism.md` § 2 calls ideal — the Edit
+  tool's exact-match, which cannot be argued with — rather than a checker whose
+  false positives have to be traded off. Escape hatch for the case where he asks
+  for one directly: `FM_ALLOW_TRIGGER_DELETE=1`.
+* **`send_later` → WARN.** It has a legitimate use (waiting on something genuinely
+  external that will not notify), so denying it would be the mandatory-
+  infrastructure-everywhere move the promotion rule rejects. But it was the wrong
+  tool for the job it kept getting used for: **polling a PR.**
+  `subscribe_pr_activity` already wakes the session on PR events — push instead
+  of poll, free while idle, and it never arms a trigger that later needs
+  deleting. fm #833 armed five `send_later` check-ins to watch one PR and then
+  had to delete one, which is the whole failure in miniature: **the cleanup that
+  stalls him was created by the polling that was not needed.**
+
+Also covers the **direct-API route around the tools** — a `curl`/`requests` call
+to `DELETE .../triggers/...`. A guard that only knows tool names is one `curl`
+away from irrelevant, and this repo reaches GitHub and the CCR API over direct
+egress constantly, so that route is not hypothetical.
+
+Contract, as with every hook here: exits 0 on every path *except* the deliberate
+deny, is silent unless it matches, and warns once per session per subject. It
+matches on names and command text only — it never inspects intent.
+"""
+
+from __future__ import annotations
+
+import json
+import os
+import re
+import sys
+from pathlib import Path
+
+STATE_DIR = Path(os.environ.get("TMPDIR", "/tmp")) / "claude-trigger-guard"
+
+# Server prefix is deliberately loose: the same tool is exposed as
+# `mcp__Claude_Code_Remote__…` here and `mcp__claude-code-remote__…` elsewhere,
+# and a guard keyed to one spelling is silent for the other.
+DELETE_TOOL_RE = re.compile(r"^mcp__.*__delete_trigger$", re.I)
+SEND_LATER_RE = re.compile(r"^mcp__.*__send_later$", re.I)
+
+# The route around the tools. Requires BOTH a delete verb and a trigger path, so
+# an ordinary `curl` to any other endpoint stays silent.
+API_DELETE_RE = re.compile(
+    r"(-X\s*DELETE|\.delete\s*\(|method\s*=\s*[\"']DELETE[\"'])"
+    r"[\s\S]{0,400}?/triggers?/|"
+    r"/triggers?/[\s\S]{0,400}?(-X\s*DELETE|\.delete\s*\()",
+    re.I,
+)
+
+DENY_MSG = (
+    "BLOCKED — `delete_trigger` raises an approval prompt on the owner's screen "
+    "in automode, and the session STALLS until he is physically back to click it. "
+    "He stated this live on 2026-08-09 and asked that it always be prevented: "
+    "\"Delete triggers are the only thing that gives me an approval prompt in "
+    "automode, this will stall your session untill I get back.\"\n"
+    "\n"
+    "There is no agent-side reason to delete a trigger. A stale one-shot trigger "
+    "has already fired and is inert (`ended_reason: run_once_fired`); leaving it "
+    "costs nothing. If a recurring one genuinely must go, leave it and SAY SO in "
+    "your reply — he removes it himself in seconds, without a stalled session.\n"
+    "\n"
+    "Do NOT route around this with a direct API call — that produces the same "
+    "prompt and the same stall. If he has explicitly asked you to delete one in "
+    "this conversation, re-run with FM_ALLOW_TRIGGER_DELETE=1 set."
+)
+
+WARN_MSG = (
+    "`send_later` is usually not the tool you want. If you are waiting on a PR, "
+    "`subscribe_pr_activity` already wakes this session on CI results, reviews "
+    "and merges — push instead of poll, free while idle, and it never arms a "
+    "trigger that someone later has to delete. Owner, 2026-08-09: \"send later "
+    "is also not necessary, if you want to check in on a PR you can subscribe to "
+    "them.\"\n"
+    "\n"
+    "It is still right for a genuinely external wait that will not notify you "
+    "(a deploy, a quota window, a human elsewhere). Not blocked — just rarely "
+    "the answer. NOTE: every trigger armed here is one a future session may feel "
+    "tempted to clean up, and that cleanup is the call that stalls him."
+)
+
+
+def once(key: str) -> bool:
+    """True the first time `key` is seen this session."""
+    try:
+        session = os.environ.get("CLAUDE_SESSION_ID", "nosession")
+        f = STATE_DIR / f"{session}.json"
+        seen = set(json.loads(f.read_text())) if f.exists() else set()
+        if key in seen:
+            return False
+        STATE_DIR.mkdir(parents=True, exist_ok=True)
+        f.write_text(json.dumps(sorted(seen | {key})))
+        return True
+    except Exception:
+        return True  # losing state costs a duplicate line, never a silence
+
+
+# A heredoc body is CONTENT being written, not a command being run. Stripping it
+# before matching is what separates "delete a trigger" from "document that you
+# must not delete a trigger" — and the two are otherwise byte-identical.
+#
+# This is not hypothetical: the first version of this guard BLOCKED THE COMMIT
+# THAT DOCUMENTS IT. The README append below was a `cat >> … <<'MDEOF'` heredoc
+# containing the worked example `curl -X DELETE $B/triggers/trig_1`, and the
+# guard fired on its own documentation. The suite had a case for grepping the
+# string and none for writing it — tested against the motivating case, not
+# against the traffic the hook actually sits in, which is fm #831's lesson
+# arriving for the third time.
+_HEREDOC_RE = re.compile(r"<<-?\s*(['\"]?)([A-Za-z_][A-Za-z0-9_]*)\1[\s\S]*?^\2$",
+                         re.M)
+
+
+def _strip_written_content(cmd: str) -> str:
+    """Remove heredoc bodies — text being authored, not executed."""
+    return _HEREDOC_RE.sub(" ", cmd)
+
+
+def _command_text(event: dict) -> str:
+    ti = event.get("tool_input") or {}
+    if not isinstance(ti, dict):
+        return ""
+    cmd = _strip_written_content(str(ti.get("command", "")))
+    # `content` / `new_string` are file bodies by definition — never executed, so
+    # they are excluded entirely rather than stripped. A doc that explains the
+    # rule must be writable, or the rule cannot be recorded.
+    return " ".join([cmd, str(ti.get("code", ""))])
+
+
+def deny(reason: str) -> int:
+    json.dump(
+        {
+            "hookSpecificOutput": {
+                "hookEventName": "PreToolUse",
+                "permissionDecision": "deny",
+                "permissionDecisionReason": reason,
+            }
+        },
+        sys.stdout,
+    )
+    return 0
+
+
+def note(text: str) -> int:
+    json.dump(
+        {
+            "hookSpecificOutput": {
+                "hookEventName": "PreToolUse",
+                "additionalContext": text,
+            },
+            "suppressOutput": True,
+        },
+        sys.stdout,
+    )
+    return 0
+
+
+def main() -> int:
+    try:
+        event = json.loads(sys.stdin.read() or "{}")
+    except Exception:
+        return 0
+
+    tool = str(event.get("tool_name") or "")
+    allowed = os.environ.get("FM_ALLOW_TRIGGER_DELETE") == "1"
+
+    if DELETE_TOOL_RE.match(tool):
+        if allowed:
+            return 0
+        return deny(DENY_MSG)
+
+    if SEND_LATER_RE.match(tool):
+        return note(WARN_MSG) if once("send_later") else 0
+
+    # The route around the tools, via direct egress.
+    if tool in ("Bash", "BashOutput") and API_DELETE_RE.search(_command_text(event)):
+        if allowed:
+            return 0
+        return deny(
+            "BLOCKED — this looks like a trigger deletion over the direct API, "
+            "which produces the same owner approval prompt and the same stall as "
+            "the `delete_trigger` tool.\n\n" + DENY_MSG
+        )
+
+    return 0
+
+
+if __name__ == "__main__":
+    try:
+        sys.exit(main())
+    except (KeyboardInterrupt, SystemExit):
+        raise
+    except BaseException:
+        sys.exit(0)  # fail open, always — a guard must never trap the session
