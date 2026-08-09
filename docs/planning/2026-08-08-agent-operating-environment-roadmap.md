@@ -60,11 +60,11 @@ the wrong answer look checked.
 
 | Phase | What it establishes | Status |
 |---|---|---|
-| **1** | Trustworthy retrieval + orientation | this PR |
+| **1** | Trustworthy retrieval + orientation | landed, fm #826 |
 | **2** | Intent resolution | next |
 | **3** | Common operating protocol | after |
 
-## 3 · Phase 1 — trustworthy retrieval and orientation *(this PR)*
+## 3 · Phase 1 — trustworthy retrieval and orientation *(landed, fm #826)*
 
 Boot file corrected at net-zero words; `session-close` carrying the Layer 2 step
 it was decided to carry; one prompt route under a stated admission bar; the
@@ -249,8 +249,11 @@ of 21 were genuinely unanswered** — the *"never ask what the repo answers"* ru
 cost almost nothing here because the corpus had no intent layer. **The exception
 is the instructive part:** the purpose question *was* partially answered — two
 records already called this repo *"hub + records custodian"* — and the filtering
-pass missed it, which is a **`MEASURED` false-negative rate of 1 in 21 for
-human-eye filtering** and the argument for making the ESTABLISHED column a
+pass missed it: **`MEASURED`, 1 miss out of 21 on one occasion.** Stated as *"a
+false-negative rate of 1 in 21"* until 2026-08-09, which is the fake precision
+§ 4.4 rejects two sections earlier — a single sample supports a count, not a
+rate, and the next batch could as easily be 0 or 4. The datum survives the
+rewording, and so does what it argues for: making the ESTABLISHED column a
 retrieval step rather than a recall step;
 (2) **two answers contradicted standing directives**, so the interview's output is
 not additive-only and needs a reconciliation step, which Phase 2's procedure must
@@ -270,6 +273,48 @@ intent that never existed, and it carries the same provenance labelling as the
 real entries. **So the OPEN column needs the same discipline as the others** —
 an entry there is a claim that the owner left something unresolved, and it
 requires the same evidence as a claim about what he said.
+
+### 4.9 The Layer-2 handoff line — a presence check held for the owner's word
+
+`MEASURED` on adoption, `REASONED` on the mechanism, **`OWNER` needed to adopt**.
+Written 2026-08-09 because a handoff cited a *"§ 4.9 / Layer-2 card marker"* that
+existed nowhere in this repo — an OPEN item pointing at nothing, which is
+§ 4.8's error-6 failure mode one level up. The underlying question is real, so it
+is recorded here rather than retired.
+
+[`session-close`](../../.claude/skills/session-close/SKILL.md) step 5b requires
+one line on every card:
+
+```
+Layer-2 handoff: docs/repos/<name>/README.md — <thread> updated
+Layer-2 handoff: null (<why — e.g. no repo attached; fleet-manager itself>)
+```
+
+**Its rationale is § 5.8's, arrived at independently:** *"a missing line and a
+deliberate null are indistinguishable otherwise."* That is the same
+absence-is-not-evidence principle the lost-read-set defect violates — and here
+the estate got it right by construction, by requiring the null to be *written*
+rather than inferred from silence.
+
+**Adoption so far — `MEASURED` 2026-08-09.** Present on **4 of 4** cards written
+since fm #826 added the step, all four `null`. The one card in `.sessions/`
+without it, `2026-08-08-index-layer2-spider-swing.md`, predates the rule (fm
+#818) and is not a miss. Four is also too few and too self-selected to conclude
+anything: every one was authored by a session that had just read the skill.
+
+**The open question is whether the added-card lane should enforce presence**,
+making a missing line red. Two things make it worth asking rather than assuming:
+
+- It is a **presence check, not a judgement call** — the line is in the card or
+  it is not. Both gates this estate has withdrawn were *judgement* gates, so
+  that history does not argue against this one.
+- It is still **a new red condition inside an existing gate**, and adding one is
+  the owner's call, not a session's.
+
+Held, not built. Re-evaluate when enough cards exist for the adoption number to
+mean something — and note that if the instruction turns out to bind unaided,
+that is itself a result worth having, because § 2 measures instructions at 0
+catches in 16 and a counter-example would bound that finding.
 
 ## 5 · Phase 3 — the common operating protocol
 
@@ -458,7 +503,7 @@ observe failure → prototype procedure → test against real cases → measure 
 good idea → mandatory infrastructure everywhere
 ```
 
-The worked example is in this PR: the close-time telemetry snapshot was demoted
+The worked example is in fm #826: the close-time telemetry snapshot was demoted
 from a permanent `session-close` step to an experiment, to be adopted only if
 about three sessions show the data is actually used. The estate's standing
 tendency is to turn every useful observation into permanent apparatus; measuring
