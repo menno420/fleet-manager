@@ -75,6 +75,12 @@ print("== F6 telemetry ledger is not a survivor ==")
 # C reports that as an un-propagated survivor: a guaranteed false positive on
 # every correction the gate itself prompted (fired twice in five minutes on
 # fm #833). Built at runtime for the same reason as F2.
+# Two sources, deliberately: a first version of this fix excluded only the
+# telemetry ledger and left .substrate/backup/ — 16 whole banked dists — still
+# searchable, so any edit to text that ever shipped in the kit matched every
+# bank at once. Measured on fm #833: 20 .substrate hits with the narrow
+# exclusion, 0 with the directory excluded. Test the CLASS, not the instance.
+BACKUP = os.path.join(REPO, ".substrate", "backup", "_probe_bank.py")
 LEDGER = os.path.join(REPO, ".substrate", "guard-fires.jsonl")
 # TEN words, deliberately: check C shingles at 9, so an 8-word fixture is silent
 # because it never produces a fragment — which made the first version of the
@@ -87,6 +93,10 @@ try:
         fh.write('{"probe": "' + telem + '"}\n')
     check("fragment surviving ONLY in the telemetry ledger is silent",
           run(post("docs/other.md", old_string=telem, new_string="z")), False)
+    open(BACKUP, "w").write("# " + telem + "\n")
+    check("fragment surviving ONLY in a banked dist is silent",
+          run(post("docs/other.md", old_string=telem, new_string="z")), False)
+    os.remove(BACKUP)
     # Positive control: the same fragment in an ordinary file must still fire,
     # so the silence above is the exclusion working and not the grep failing.
     open(os.path.join(REPO, "_probe_telem.md"), "w").write(telem + "\n")

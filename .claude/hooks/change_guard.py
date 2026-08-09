@@ -272,18 +272,35 @@ def unpropagated(old: str, target: str, new: str = "") -> str | None:
                 # -e is mandatory: a Markdown bullet fragment starts with "-",
                 # which git grep parses as an option and exits 129 — silently
                 # disabling the check for every bulleted claim (measured).
-                # Exclude the guard-fire telemetry ledger. `check --strict`
-                # appends its FINDING MESSAGES there, and a finding message
-                # quotes the offending text — so the moment a session fixes
-                # something the gate flagged, the old wording still sits in the
-                # ledger and check C reports it as an un-propagated survivor.
-                # Guaranteed false positive on every gate-driven correction;
-                # measured twice in five minutes on fm #833 while fixing a
-                # ledger-grammar finding. The ledger is append-only machine
-                # telemetry ("do not revert"), never a copy of a claim, so
-                # nothing true is lost by not searching it.
+                # Exclude the kit state dir wholesale. It is machine-managed —
+                # telemetry, archives, staged trees, generated reports — and
+                # never authored prose, so a hit inside it is never a claim a
+                # correction should have propagated to.
+                #
+                # Three independent false-positive sources live there, and a
+                # first version of this fix excluded only the first:
+                #   · guard-fires.jsonl — `check --strict` appends its FINDING
+                #     MESSAGES, and a finding message QUOTES the offending text,
+                #     so every gate-driven correction leaves the old wording
+                #     behind (fired twice in five minutes on fm #833).
+                #   · backup/bootstrap-*.py — whole vendored dists banked at each
+                #     upgrade (16 of them here, 452 KB–1.3 MB, spanning v1.4.0
+                #     to v1.20.1 — a SUBSET of the 26 released tags, not all of
+                #     them). Any edit to text that ever appeared in the dist
+                #     matches every bank carrying it, at once.
+                #   · staged skills/agents + upgrade-report.md — the kit's own
+                #     copies, which are SUPPOSED to differ from the live tree.
+                # Measured on fm #833 with the fragment "One writer per file":
+                # 20 hits under .substrate/ with only the ledger excluded, 0
+                # with the whole dir excluded.
+                #
+                # Deliberate non-goal: the staged-vs-live skill divergence
+                # (the `intake` hazard) is NOT check C's job — check A owns it,
+                # at edit time, with the re-apply table. Flagging it here would
+                # fire on every staged skill for every edit, which is the noise
+                # that gets a hook ignored.
                 ["git", "grep", "-l", "--untracked", "--fixed-strings", "-e", f,
-                 "--", ":!.substrate/guard-fires.jsonl"],
+                 "--", ":!.substrate/"],
                 cwd=root, capture_output=True, text=True, timeout=10, check=False,
             ).stdout
         except Exception:
