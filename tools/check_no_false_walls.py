@@ -52,8 +52,10 @@ WHAT IT CHECKS (living/binding docs only — a NARROW allowlist)
     - QUOTED: the wall signal sits inside `"..."`, or the line says
       `verbatim` / `Reason:` (a verbatim platform-refusal quote).
     - NEGATED / anti-wall: a negation (`not`/`never`/`no`/`n't`/`isn't`/
-      `without`/`≠`/`NOT`) precedes the wall signal, or the line says
-      `not a wall` / `never a … wall` / `no longer` / `is not`.
+      `without`/`≠`/`NOT`) precedes the wall signal in the SAME clause, or the
+      line says `not a wall` / `never a … wall` / `no longer` / `is not`.
+      A negation attached to an earlier predicate — for example, `does not
+      reproduce because agents cannot merge` — does not clear the wall.
     - META / discovery-discipline: the line is ABOUT declaring/recording walls,
       not asserting one — `declare`, `discover`, `cite`, `mint`, `invent`,
       `imagine`, `document(s)`, `record`, `re-verify`, `false wall`, `doc-wall`,
@@ -152,6 +154,37 @@ NONCAP_RE = re.compile(
 # the apostrophe (`n't`) — a bare `nt` would falsely match "age-nt", "curre-nt".
 NEG_TOKEN_RE = re.compile(
     r"\bnot\b|\bnever\b|\bno\b|n't\b|\bwithout\b|\banti\b|≠", re.IGNORECASE)
+# A bounded negation is still unsafe when it belongs to another predicate. Stop
+# the lookback at the last punctuation / conjunction / subordinator that starts
+# a new clause. This replaces the accidental character-count attachment exposed
+# by the 2026-08-09 sweep: a `not` 44 chars away cleared the wall, while the same
+# token 48 chars away did not.
+NEG_SCOPE_BOUNDARY_RE = re.compile(
+    r"[,;:.!?]|[—–]|"
+    r"\b(?:and|or|but|because|as|if|unless|when|while|whereas|although|though|"
+    r"however|yet|so|since)\b|"
+    r"\bgiven(?:\s+the\s+fact)?\s+that\b",
+    re.IGNORECASE,
+)
+NEGATED_GIVEN_PREFIX_RE = re.compile(
+    r"(?:\b(?:not|never|no)\b|\b\w+n['’]t)\s+"
+    r"(?:(?:necessarily|really|actually|simply|generally|always|quite|"
+    r"entirely|automatically|self-evidently|at\s+all)\s+)*(?:a\s+)?$",
+    re.IGNORECASE,
+)
+NEGATED_AS_COMPLEMENT_RE = re.compile(
+    r"(?:\b(?:not|never|no)\b|\b\w+n['’]t)\s+[^.;:!?]{0,32}"
+    r"\b(?:frame|describe|read|treat|present|portray|interpret|label|"
+    r"characteri[sz]e|view|regard|see|count)\b[^.;:!?]{0,20}$",
+    re.IGNORECASE,
+)
+DIRECT_REPUDIATION_PREDICATE_RE = re.compile(
+    r"\s*(?:mean|imply|show|establish|prove|indicate|suggest|say|frame|"
+    r"describe|read|treat|present|portray|interpret|label|characteri[sz]e|"
+    r"view|regard|see|count)\b",
+    re.IGNORECASE,
+)
+PARENTHETICAL_COMMAS_RE = re.compile(r",[^,\n]{1,40},")
 ANTIWALL_LINE_RE = re.compile(
     r"not a wall|never a[^.\n]{0,40}wall|no longer[^.\n]{0,30}wall|"
     r"≠[^.\n]{0,20}wall|isn'?t a[^.\n]{0,20}wall|is not a[^.\n]{0,20}wall",
@@ -250,6 +283,62 @@ def _is_quoted(line: str, span) -> bool:
     return len(before) % 2 == 1 and len(after) >= 1
 
 
+def _is_scope_boundary(prefix: str, boundary: "re.Match[str]") -> bool:
+    """Whether this syntactic boundary actually separates the negation.
+
+    Two ordinary repudiation idioms contain tokens that are otherwise clause
+    boundaries: ``not as if/though ...`` and ``not (a) given that ...``. Keep
+    their governing negation attached, including across variable Markdown
+    whitespace, without making causal ``as`` / ``given that`` transparent.
+    """
+    token = boundary.group(0).strip().lower()
+    before = prefix[:boundary.start()]
+    after = prefix[boundary.end():]
+    if token == "as" and re.match(r"\s+(?:if|though)\b", after, re.IGNORECASE):
+        return False
+    if token == "as" and NEGATED_AS_COMPLEMENT_RE.search(before):
+        return False
+    if token in ("if", "though") and re.search(r"\bas\s*$", before, re.IGNORECASE):
+        return False
+    if token.startswith("given") and NEGATED_GIVEN_PREFIX_RE.search(before):
+        return False
+    return True
+
+
+def _mask_direct_parentheticals(prefix: str) -> str:
+    """Blank paired-comma asides that interrupt a direct repudiation.
+
+    The mask preserves string offsets. It is deliberately conditional on a
+    nearby negation before the aside and a known repudiation predicate after it;
+    arbitrary comma-separated clauses remain real boundaries.
+    """
+    masked = list(prefix)
+    for aside in PARENTHETICAL_COMMAS_RE.finditer(prefix):
+        before = prefix[:aside.start()]
+        after = prefix[aside.end():]
+        if (NEG_TOKEN_RE.search(before[-48:])
+                and DIRECT_REPUDIATION_PREDICATE_RE.match(after)):
+            masked[aside.start():aside.end()] = " " * (aside.end() - aside.start())
+    return "".join(masked)
+
+
+def _negation_lead(window: str, sig_start: int) -> str:
+    """Return the bounded part of the wall's own clause before its signal.
+
+    Physical hard-wraps deliberately remain transparent: ``prev`` and ``line``
+    are joined with a space, so a direct correction may wrap across a line. A
+    real clause boundary is not transparent, because a negation before it may
+    describe a different subject entirely.
+    """
+    prefix = window[:sig_start]
+    scope_prefix = _mask_direct_parentheticals(prefix)
+    clause_start = 0
+    for boundary in NEG_SCOPE_BOUNDARY_RE.finditer(scope_prefix):
+        if _is_scope_boundary(scope_prefix, boundary):
+            clause_start = boundary.end()
+    return prefix[max(clause_start, len(prefix) - 48):]
+
+
 def line_is_false_wall(line: str, prev: str = "") -> bool:
     """Line-level test (dated-block exemption is applied by the caller).
 
@@ -257,9 +346,10 @@ def line_is_false_wall(line: str, prev: str = "") -> bool:
     a governing qualifier (``documents``, ``check_no_false_walls``, a negation,
     an opening quote) frequently sits on the previous line while the wall
     signal lands on this one. META / anti-wall / quote exemptions are evaluated
-    over the ``prev + line`` window; the NEGATION lead stays bounded to the ~48
-    chars immediately before the signal (measured across the window) so an
-    earlier-in-the-bullet ``never`` cannot over-exempt a genuine standing wall.
+    over the ``prev + line`` window; the NEGATION lead stays in the wall's own
+    clause and is then bounded to ~48 chars (measured across the window), so an
+    earlier predicate or earlier-in-the-bullet ``never`` cannot over-exempt a
+    genuine standing wall.
     """
     span = _wall_signal_span(line)
     if span is None:
@@ -281,9 +371,9 @@ def line_is_false_wall(line: str, prev: str = "") -> bool:
     if _is_quoted(window, (len(prev) + 1 + span[0], len(prev) + 1 + span[1])
                   if prev else span):
         return False
-    # Negation in the ~48 chars before the wall signal (across the window).
+    # Negation in the wall's own clause, at most ~48 chars before the signal.
     sig_start = (len(prev) + 1 + span[0]) if prev else span[0]
-    lead = window[max(0, sig_start - 48):sig_start]
+    lead = _negation_lead(window, sig_start)
     if NEG_TOKEN_RE.search(lead):
         return False
     return True
@@ -356,6 +446,41 @@ _GENUINE = "- Agent tag-push is 403-walled; use the workflow_dispatch path."
 # A META line about the guard itself (NOT flagged).
 _META = ("- CI enforces this: a PR that documents an agent-capability wall "
          "goes red and cannot merge.")
+# An unrelated negation before a subordinate clause must NOT clear its wall.
+_OTHER_PREDICATE_NEGATION = (
+    "The failure does not reproduce because agents cannot merge pull requests."
+)
+_OTHER_PREDICATE_SINCE = (
+    "The failure does not reproduce since agents cannot merge pull requests."
+)
+_OTHER_PREDICATE_GIVEN = (
+    "The failure does not reproduce given that agents cannot merge pull requests."
+)
+_OTHER_PREDICATE_AS = (
+    "The failure does not reproduce as agents cannot merge pull requests."
+)
+_OTHER_PREDICATE_SEEING_AS = (
+    "The failure does not reproduce seeing as agents cannot merge pull requests."
+)
+# A negation that directly qualifies the wall claim must remain a valid clear.
+_DIRECT_NEGATION = "This does not mean agents cannot merge pull requests."
+_DIRECT_AS_IF = "It is not as if agents cannot merge pull requests."
+_DIRECT_AS_IF_SPACED = "It is not as  if agents cannot merge pull requests."
+_DIRECT_GIVEN = "It is not a given that agents cannot merge pull requests."
+_DIRECT_GIVEN_BARE = "It is not given that agents cannot merge pull requests."
+_DIRECT_GIVEN_MODIFIED = (
+    "It is not necessarily a given that agents cannot merge pull requests."
+)
+_DIRECT_GIVEN_CONTRACTION = (
+    "It isn't really given that agents cannot merge pull requests."
+)
+_DIRECT_FRAME_AS = "Do not frame this as agents cannot merge pull requests."
+_DIRECT_READ_AS = (
+    "This should never be read as agents cannot merge pull requests."
+)
+_DIRECT_PARENTHETICAL = (
+    "It does not, in fact, mean agents cannot merge pull requests."
+)
 
 
 def selftest() -> int:
@@ -381,6 +506,66 @@ def selftest() -> int:
                      "be flagged")
     if flagged(_META):
         fails.append("a meta line describing the guard must NOT be flagged")
+    if not flagged(_OTHER_PREDICATE_NEGATION):
+        fails.append("a negation attached to another predicate must NOT clear "
+                     "a wall after 'because'")
+    if not flagged(_OTHER_PREDICATE_SINCE):
+        fails.append("a negation attached to another predicate must NOT clear "
+                     "a wall after causal 'since'")
+    if not flagged(_OTHER_PREDICATE_GIVEN):
+        fails.append("a negation attached to another predicate must NOT clear "
+                     "a wall after 'given that'")
+    if not flagged(_OTHER_PREDICATE_AS):
+        fails.append("a negation attached to another predicate must NOT clear "
+                     "a wall after causal 'as'")
+    if not flagged(_OTHER_PREDICATE_SEEING_AS):
+        fails.append("a negation attached to another predicate must NOT clear "
+                     "a wall after 'seeing as'")
+    if flagged(_DIRECT_NEGATION):
+        fails.append("a negation directly qualifying the wall must clear it")
+    if flagged(_DIRECT_AS_IF):
+        fails.append("bare 'as' must not become a boundary in direct 'not as if' "
+                     "repudiation prose")
+    if flagged(_DIRECT_AS_IF_SPACED):
+        fails.append("variable whitespace in 'not as if' must retain the direct "
+                     "repudiation")
+    if flagged(_DIRECT_GIVEN) or flagged(_DIRECT_GIVEN_BARE):
+        fails.append("direct 'not (a) given that' repudiation must stay clear")
+    if flagged(_DIRECT_GIVEN_MODIFIED) or flagged(_DIRECT_GIVEN_CONTRACTION):
+        fails.append("modifiers between negation and 'given that' must retain "
+                     "the direct repudiation")
+    if flagged(_DIRECT_FRAME_AS) or flagged(_DIRECT_READ_AS):
+        fails.append("negated frame/read complements must not make 'as' causal")
+    if flagged(_DIRECT_PARENTHETICAL):
+        fails.append("paired-comma parentheticals must not detach a direct "
+                     "negation from its predicate")
+
+    # The same attachment distinction must survive Markdown hard-wrapping.
+    wrapped_direct: list[str] = []
+    check_text(
+        "fixture.md",
+        "# fixture\n\nThis does not mean\nagents cannot merge pull requests.\n",
+        wrapped_direct,
+    )
+    if wrapped_direct:
+        fails.append("a directly-negated wall may wrap across one physical line")
+    wrapped_as_if: list[str] = []
+    check_text(
+        "fixture.md",
+        "# fixture\n\nIt is not as\n  if agents cannot merge pull requests.\n",
+        wrapped_as_if,
+    )
+    if wrapped_as_if:
+        fails.append("a direct 'not as if' repudiation may hard-wrap before 'if'")
+    wrapped_other: list[str] = []
+    check_text(
+        "fixture.md",
+        "# fixture\n\nThe failure does not reproduce because\n"
+        "agents cannot merge pull requests.\n",
+        wrapped_other,
+    )
+    if not wrapped_other:
+        fails.append("a cross-clause wall must stay flagged when hard-wrapped")
 
     # Dated-BLOCK exemption: a standing-shaped wall line inside a bullet whose
     # body carries a LAST-VERIFIED date is exempt (the ledger's legit home).

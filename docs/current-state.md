@@ -211,21 +211,41 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   released kit carries `ADVISORY_CENSUS`**; it sits under `## [Unreleased]` on
   substrate-kit `main`, so the owner ruled **"both, in order"** — v1.20.2
   adopted here, v1.21.0 cut in a dedicated session. **Every one but the `SKILLS-index`
-  template defect is in the kit's own false-wall scanner**, which `substrate-gate` runs as a required
-  check, and **two are regressions v1.20.2 introduced** — one false positive
-  (valid repudiation prose rejected) and one **false negative** (a genuine wall
-  passes the gate after `because`), the latter being the one to fix first
-  because nothing announces it. **Two of those holes are fleet-manager's own,
-  not only the kit's** — measured 2026-08-09 with a passing bare-wall control:
-  `tools/check_no_false_walls.py` also clears a genuine wall after
-  *"does not reproduce because …"* and clears a second assertion following a
-  repudiated quote. **So a real standing wall can be committed to a read-path
-  doc today and no gate in this repo will catch it.** An earlier note claiming
-  fm's checker did not share these generalised from the one defect actually
-  tested. The upgrade also **silently dropped the gate's
+  template defect is in the kit's own false-wall scanner**, which `substrate-gate`
+  runs as a required check. Independent fm #835 review corrected the age and
+  coverage claims: **five behaviours are new in v1.20.2** (defects 1, 2, 4, 6,
+  7), **two are long-standing** (3, 5), and the old A/B command itself exercised
+  only four defect rows. The harness now runs all seven. Defect 2's old red was
+  also right for the wrong reason — v1.20.1 rejects the valid quote-only control
+  — so its line-level regression does not prove occurrence-level attachment.
+  **Two holes were fleet-manager's own, not only the kit's.** fm #835 fixes the
+  `does not reproduce because …` negation-scope hole with a clause-boundary
+  regression test; the second-assertion-after-a-quote hole remains explicitly
+  recorded. Full claim → command → verdict record:
+  [findings/2026-08-09-independent-guard-review.md](findings/2026-08-09-independent-guard-review.md).
+  The upgrade also **silently dropped the gate's
   `repo checkers` step**; it is re-applied and every kit upgrade must re-apply
   it until the durable fix lands ([SKILLS-local.md](SKILLS-local.md) §
   "Generated-file corrections to re-apply").
+- **The trigger-deletion guard is exact on the tool name and advisory on command
+  text; fm #835 independently reran and extended it** (2026-08-09, fm #834 →
+  #835). The untouched suite passed **52/52**, but did not cover
+  `requests.request('DELETE', …)`, JavaScript `method: 'DELETE'`, `eval` /
+  `source` heredoc execution, or the warning text that contradicted D-0015 by
+  recommending a PR-CI self-wake. Codex landing review then caught a causal
+  `since` gap in the local false-wall fix and an `eval|source` filename false
+  positive in inert heredocs; both reproduced and were pinned. Re-review then
+  found variable-whitespace / causal-`as` / direct-`given that` attachment cases
+  and valid shell prefixes on heredoc executors; all four reproduced and were
+  pinned. The final allowed re-review found path-qualified interpreters,
+  modifiers before `given that`, negated complement `as`, and paired
+  parenthetical commas; all four reproduced and were dispositioned after the
+  review-loop cap. The corrected trigger suite passes **69/69**. A
+  data-flow form such as a shell variable holding `DELETE` remains outside the
+  regex by design; that leg warns rather than denies, while
+  `mcp__*__delete_trigger` remains an exact denial. The same review corrected
+  stale claims about subscription events, in-flight trigger cancellation, API
+  warning deduplication, and the README's duplicated suite count.
 - **The EAP correspondence is a committed record, verified against the mailbox**
   (2026-08-09, fm #833):
   [findings/2026-08-09-eap-correspondence-record.md](findings/2026-08-09-eap-correspondence-record.md)

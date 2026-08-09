@@ -434,8 +434,8 @@ discover.
 
 ## Upstream kit defects found here — moved to a findable home
 
-**Six defects in substrate-kit v1.20.2**, all found by Codex reviewing the
-vendored dist across six rounds on this PR, with line numbers, reproductions and
+**Seven defects in substrate-kit v1.20.2**, all found by Codex reviewing the
+vendored dist across seven rounds on this PR, with line numbers, reproductions and
 a committed A/B harness:
 [`../docs/findings/2026-08-09-substrate-kit-defects.md`](../docs/findings/2026-08-09-substrate-kit-defects.md).
 
@@ -447,11 +447,15 @@ lives only in a handoff prompt is not in the repo."* **A worklist nobody can
 find is a false-done waiting to be reported** — the very class this session's
 other half is about. One home now, in `docs/findings/`, not two.
 
-**The headline, so this card is not silent on it:** four of the six live in the
-kit's own false-wall scanner — the checker `substrate-gate` runs as a required
-status check — and one is a **regression in v1.20.2 itself**, proven by loading
-both dists and asking the same function the same question. That is the argument
-for the v1.21.0 session budgeting review time rather than a version bump.
+**Independent correction, fm #835:** six of the seven live in the kit's own
+false-wall scanner — the checker `substrate-gate` runs as a required status
+check — and the completed A/B bank now classifies **five behaviours as new in
+v1.20.2** (defects 1, 2, 4, 6, 7) and **two as long-standing** (3, 5). Defect 2's
+old red is right for the wrong reason because the valid quote-only control also
+reds on v1.20.1. The original one-regression headline and six-defect count were
+stale even though the canonical finding had grown to seven. That strengthens,
+rather than weakens, the argument for the v1.21.0 session budgeting review time
+rather than a version bump.
 
 
 **Left for the owner:**

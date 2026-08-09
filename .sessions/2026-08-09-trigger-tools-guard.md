@@ -30,11 +30,13 @@ He corrected it live and asked for three things: **do not use them, document it,
 and build the hook that warns.**
 
 **The correction also removes a habit this session leaned on.** Five `send_later`
-check-ins were armed across fm #833 to poll a PR. He points out they were never
-needed — `subscribe_pr_activity` already wakes the session on PR events, which
-is push rather than poll, costs nothing while idle, and cannot arm a trigger that
-later needs deleting. **The deletions this session had to clean up were created
-by the polling it chose.**
+check-ins were armed across fm #833 to poll a PR. `subscribe_pr_activity` wakes
+the session on comments, reviews, and CI failures, but **not** CI success or a
+new push; bounded in-turn polling or reporting the PR pending covers that gap
+without arming a trigger that later needs deleting. **The deletions this session
+had to clean up were created by the polling it chose.** The broader phrase "PR
+events" above was narrowed by the independent fm #835 review to match the
+measured capability record.
 
 ## What is about to happen
 
@@ -67,4 +69,7 @@ born-red.
 
 ## Close-out
 
-*(to be completed before the Status flips)*
+- Independent follow-up: fm #835 reran the 52-case suite, extended it to 58
+  cases, corrected two literal direct-API gaps and two executing-heredoc gaps,
+  and aligned the warning/docs with D-0015. Full claim → command → verdict
+  record: [`../docs/findings/2026-08-09-independent-guard-review.md`](../docs/findings/2026-08-09-independent-guard-review.md).

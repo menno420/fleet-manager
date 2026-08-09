@@ -44,6 +44,13 @@ frontmatter keeps the score.
 
 (Captured ideas, each with a state and a next destination — none left at `raw`.)
 
+### 2026-08-09 cohort — independent guard review
+
+- [Checker contract bank — semantic controls for kit upgrades](checker-contract-bank-2026-08-09.md) —
+  `captured` · structured-plan candidate for the dedicated substrate-kit
+  v1.21.0 session; machine-readable positive/negative controls plus non-scanner
+  command contracts
+
 ### 2026-07-11 cohort — archive-prep closeout
 
 - [Roster advisory: ARCHIVE-READY lanes with zero retro notes](archive-ready-retro-gap-advisory-2026-07-11.md) —
@@ -66,7 +73,8 @@ capture (review synthesis:
 **none approved** — captured for routing.
 
 - [Review-queue drainer (post-merge review needs an owner)](review-queue-drainer-2026-07-10.md) —
-  `captured` · quick-win candidate (wake-routine step) or reviewer-lane → structured plan
+  `historical` · **rejected as superseded 2026-08-09** — live `session-close`
+  now owns pre-merge Codex review and inline disposition before the born-red flip
 - [Lane-seeder automation (one run lands the full §1 seed state)](lane-seeder-automation-2026-07-10.md) —
   `captured` · structured plan (kit-verb half routes to substrate-kit's backlog)
 - [Fleet economics ledger (cost line + cadence re-derivation before 07-14)](fleet-economics-ledger-2026-07-10.md) —

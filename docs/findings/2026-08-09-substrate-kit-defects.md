@@ -50,13 +50,20 @@ Line numbers are against **vendored v1.20.2**.
 
 | # | site | defect | reproduction |
 |---|---|---|---|
-| 1 | `bootstrap.py:5458-5459` | the render-marker early return exempts the **whole** `seat-digest.md`, so authored prose outside the generated fences escapes the scan. Its docstring justifies the exemption by *"the render's SOURCE docs are independently scanned"* — which does not cover hand-added text | append `Agents cannot merge` outside the fences with `is_render_path=True` → no hit; the same text elsewhere is flagged |
-| 2 | `bootstrap.py:5274` | a repudiation cue is searched clause-wide, so it clears **every** occurrence of the capability on the line, not the one it characterises. **A false-negative REGRESSION** — v1.20.1 caught this, v1.20.2 does not | `scan_text('"agents cannot merge" was superseded, agents cannot merge')` → no findings; the second, genuine assertion escapes |
-| 3 | `bootstrap.py:5034` | `\bre?deploy(?:s\|ed\|ing\|ment)?\b` — the `re` is *`r` plus optional `e`*, so it matches `redeploy`/`rdeploy` but **not `deploy` or `deploying`**. Intended: `(?:re)?deploy`. Verified: `deploy` → False, `deploying` → False, `redeploy` → True | `scan_text('Merging is not walled, agents cannot deploy')` → no finding: the deploy wall has no family, so an unrelated merge repudiation clears it |
-| 4 | `bootstrap.py:5374-5378` | the lookforward stop set is `_HEADING` / `_DATED_BULLET` / `_NEW_BULLET` / `_CONTRAST_START` — **no fence, no blockquote** — so a cue inside a separate block attaches to a wall above it | `scan_text('The rule is "agents cannot merge"\n```\nThis example was superseded\n```')` → no finding |
-| 5 | the `SKILLS-index` template — read as the **embedded constant inside the vendored `bootstrap.py`**, not as a standalone `.tmpl` | teaches *"install with `python3 bootstrap.py skills --build`"* (verbatim, one occurrence in the dist), which only **stages**. No kit command writes `.claude/skills/`. **Every new adopter is told an install step that installs nothing** | any fresh adopt: run it, then `ls .claude/skills/` |
+| 1 | `bootstrap.py:5458-5459` | the render-marker early return exempts the **whole** `seat-digest.md`, so authored prose outside the generated fences escapes the scan. Its docstring justifies the exemption by *"the render's SOURCE docs are independently scanned"* — which does not cover hand-added text. **REGRESSION:** old=1, new=0 | append `Agents cannot merge` outside the fences with `is_render_path=True` → no hit; the same text elsewhere is flagged |
+| 2 | `bootstrap.py:5274` | a repudiation cue is searched clause-wide, so it clears **every** occurrence of the capability on the line, not the one it characterises. **A false-negative REGRESSION** — old=1, new=0. Caveat: v1.20.1 rejects the quote-only control too, so its red is right for the wrong reason and does not prove it isolated the second assertion | `scan_text('"agents cannot merge" was superseded, agents cannot merge')` → no findings; the second, genuine assertion escapes |
+| 3 | `bootstrap.py:5034` | `\bre?deploy(?:s\|ed\|ing\|ment)?\b` — the `re` is *`r` plus optional `e`*, so it matches `redeploy`/`rdeploy` but **not `deploy` or `deploying`**. Intended: `(?:re)?deploy`. **Long-standing:** old=0, new=0 | `scan_text('Merging is not walled, agents cannot deploy')` → no finding: the deploy wall has no family, so an unrelated merge repudiation clears it |
+| 4 | `bootstrap.py:5374-5378` | the lookforward stop set is `_HEADING` / `_DATED_BULLET` / `_NEW_BULLET` / `_CONTRAST_START` — **no fence, no blockquote** — so a cue inside a separate block attaches to a wall above it. **REGRESSION:** old=1, new=0 | `scan_text('The rule is "agents cannot merge"\n```\nThis example was superseded\n```')` → no finding |
+| 5 | the `SKILLS-index` template — read as the **embedded constant inside the vendored `bootstrap.py`**, not as a standalone `.tmpl` | teaches *"install with `python3 bootstrap.py skills --build`"* (verbatim, one occurrence in each dist), which only **stages**. No kit command writes `.claude/skills/`. **Long-standing:** both commands exit 0 with 14 staged and 0 live skills | any fresh adopt: run it, then `ls .claude/skills/` |
 | 6 | `bootstrap.py:5078` | the conjunction clause-splitter separates a repudiation from the wall it qualifies when the cue follows `and` in the **same predicate**, so ordinary correction prose is flagged. A **false positive** regression — the only one of the three that announces itself | `scan_text('The "agents cannot merge" rule is false and no longer applies.')` → **1 hit** on v1.20.2, **0** on v1.20.1 |
 | **7** | `bootstrap.py:4969` | a `does not reproduce` cue describing **another subject** clears a genuine wall in a following subordinate clause, because `because` / `when` / `unless` are not clause boundaries. A **false negative** regression — **the most serious defect here** | `scan_text('The failure does not reproduce because agents cannot merge pull requests.')` → **0 hits** on v1.20.2, **1 hit** on v1.20.1 |
+
+**Independent classification, fm #835:** five defect behaviours are new in
+v1.20.2 (**1, 2, 4, 6, 7**) and two are long-standing (**3, 5**). The harness
+originally printed only defects 2, 3, 6, and 7; defect 1 and 4 were established
+with one-off probes and defect 5 only in prose. That did not satisfy the claim
+that one command reran all seven. `tools/ab_kit_scan.py` now runs the six scanner
+cases and the fresh-adopter command/template contract in one invocation.
 
 ## Defect 7 is the one to fix first — a false NEGATIVE on a required gate
 
@@ -78,19 +85,15 @@ the wall as fact.
 That is precisely the failure the whole apparatus exists to prevent — the boot
 file's *"never write down a limitation"* rule, the checker enforcing it, and its
 required-check status all assume the scanner catches a wall when it sees one.
-**Three of the five clearing relaxations v1.20.2 shipped are now measured to
-mis-fire** — defects 2, 6 and 7 — and **two of the three are false negatives**
-(2 and 7), so most of the damage is silent. **Wider than that, and an earlier
-line here said "2 and 7 are the silent ones" without checking the rest:**
-defect 3 is silent too — measured `old=0 new=0` where it should flag — and
-defects 1 and 4 are false negatives by construction, so a wall escapes there as
-well. **Defect 6 is the only loud one in the set**; everything else either loses
-a wall or, for defect 5, teaches a step that does nothing. An earlier version of this line said
-*two*, and catalogued defect 2 as a long-standing hole; running
-`tools/ab_kit_scan.py` showed v1.20.1 catching it and v1.20.2 not, which makes
-it a regression. **The mistake was assuming a defect's age from its
-description instead of measuring it**, which is the whole reason the harness
-exists.
+**Five defect behaviours are new in v1.20.2** — defects 1, 2, 4, 6 and 7 —
+while defects 3 and 5 are long-standing. **Defect 6 is the only loud one in the
+set**; everything else either loses a wall or, for defect 5, teaches a step that
+does nothing. Defect 2 needs a narrower statement than the first review gave it:
+v1.20.1 returns one hit and v1.20.2 returns zero, so the line-level behaviour is
+a regression, but the old scanner also returns one hit on the valid quote-only
+control. It was red because it rejected the repudiated quote, not because the
+harness proved it isolated the genuine second assertion. Raw hit counts require
+semantic controls; they are not their own interpretation.
 
 ## Defect 6 is a measured regression — and the release is not simply worse
 
@@ -124,12 +127,17 @@ python3 tools/ab_kit_scan.py --case "…" # add an ad-hoc string
 Exit 0 always — an instrument, not a gate. Current output against v1.20.1:
 
 ```
-bare wall (control)                          old=1 new=1            want=flag
-wall after 'because' (defect 7)              old=1 new=0  DIFFERS   want=flag
-second assertion after repudiated quote (d2) old=1 new=0  DIFFERS   want=flag
-valid repudiation, conjunction (defect 6)    old=0 new=1  DIFFERS   want=clear
-valid repudiation, same line                 old=1 new=0  DIFFERS   want=clear
-deploy wall (defect 3)                       old=0 new=0            want=flag
+bare wall (control)                                  old=1 new=1            want=flag
+authored prose in render file (kit defect 1)         old=1 new=0  DIFFERS   want=flag
+wall after 'because' (kit defect 7)                  old=1 new=0  DIFFERS   want=flag
+second assertion after repudiated quote (defect 2)   old=1 new=0  DIFFERS   want=flag
+valid repudiation, conjunction (kit defect 6)        old=0 new=1  DIFFERS   want=clear
+valid repudiation, same line                         old=1 new=0  DIFFERS   want=clear
+deploy wall (kit defect 3 — family never matches)    old=0 new=0            want=flag
+cue across a fence (kit defect 4)                    old=1 new=0  DIFFERS   want=flag
+skills install contract (kit defect 5):
+  old: claim=1,init=0,build=0,staged=14,live=0
+  new: claim=1,init=0,build=0,staged=14,live=0
 ```
 
 **It was a fenced code block in this file until owner-review asked which path
@@ -155,67 +163,38 @@ opposed to a long-standing hole.
 
 ## What was checked and came back clean — do not redo these
 
-- **fm's own `tools/check_no_false_walls.py` shares two of these — corrected 2026-08-09, and the first version of this line was the error.** It said *"does not share defects 1–4 … nothing in fleet-manager needs patching"*, generalising from the **one** defect actually tested (defect 3 — fm carries no `deploy` family, still true). **Measured properly**, by appending each payload to `docs/current-state.md` and running the checker, control first:
+- **fm's own `tools/check_no_false_walls.py` shared defects 2 and 7 at the fm
+  #833 baseline; fm #835 closes defect 7 locally and leaves defect 2 explicit.**
+  The first version of this record said *"does not share defects 1–4 … nothing
+  in fleet-manager needs patching"*, generalising from the one defect actually
+  tested. The independent review ran a positive control and each payload before
+  changing the checker, then reran the acceptance fixtures after it:
 
-  | shape appended to `docs/current-state.md` | fm's checker | verdict |
-  |---|---|---|
-  | `Agents cannot merge pull requests.` — **control** | exit **1**, `FLAG [false-wall] …:482` | caught, so the test is valid |
-  | defect **7** — `The failure does not reproduce because agents cannot merge pull requests.` | exit **0** | **shares the hole** |
-  | defect **2** — `"agents cannot merge" was superseded, agents cannot merge` | exit **0** | **shares the hole** |
-  | defect **6** — `The "agents cannot merge" rule is false and no longer applies.` | exit **0** | **correct** — this is valid repudiation prose; fm is right and kit v1.20.2 is wrong |
+  | shape in a scanned `docs/current-state.md` fixture | before fm #835 | after fm #835 | verdict |
+  |---|---:|---:|---|
+  | bare wall — control | exit **1** | exit **1** | still caught |
+  | defect **7** — `does not reproduce because agents cannot merge` | exit **0** | exit **1** | local hole fixed |
+  | direct correction — `does not mean agents cannot merge` | exit **0** | exit **0** | valid prose remains clear |
+  | defect **2** — repudiated quote, then a second assertion | exit **0** | exit **0** | still a separate local hole; outside fm #835's accepted scope |
 
-  **The mechanism in fm's checker, located and confirmed by prediction —
-  so the fix is specific rather than "add a test".** `tools/check_no_false_walls.py:284-288`
-  clears a wall if a negation token appears anywhere in the **fixed 48
-  characters before the wall signal**, with **no clause boundary**:
+  **The confirmed mechanism** was the old fixed lookback: any negation token in
+  the 48 characters before a wall signal cleared it, even if a clause boundary
+  such as `because` put that negation on another predicate. A sweep of the old
+  source found the exact token-end cliff: distance 44 and 45 cleared; 46 through
+  48 flagged; the bare-wall control flagged. The coarse fixture requested by the
+  owner therefore also reproduces: 44 clears and 48 flags.
 
-  ```python
-  # Negation in the ~48 chars before the wall signal (across the window).
-  lead = window[max(0, sig_start - 48):sig_start]
-  if NEG_TOKEN_RE.search(lead):
-      return False
-  ```
+  fm #835 preserves the 48-character bound for a direct correction that hard-
+  wraps, but starts it after the last punctuation, conjunction, or subordinator.
+  `because`, `when`, `unless`, and a comma now prevent an earlier predicate's
+  negation from attaching to the wall. The permanent self-test covers the bare
+  wall, the `does not reproduce because` failure, the direct-negation control,
+  and hard-wrapped versions of both attachment directions.
 
-  In the payload, that lead is `The failure does not reproduce because ` — the
-  `not` belongs to *"reproduce"* and clears a wall it does not negate.
-  **Predicted and confirmed:** pushing the same negation past the 48-character
-  window (`…does not reproduce in any of the very many long scenarios we tried,
-  because agents cannot merge…`) makes the checker **catch** it (exit 1), while
-  the short form passes (exit 0) and a bare wall is caught. **The boundary is
-  literally a character count.**
-
-  **The cliff, swept rather than argued** (`MEASURED` 2026-08-09 — appended to
-  `docs/current-state.md`, checker run per row, file restored after):
-
-  | negation distance before the wall | `--strict` exit |
-  |---|---|
-  | *(bare wall — control)* | **1** caught |
-  | 4 chars | 0 — passes |
-  | 24 chars | 0 — passes |
-  | 44 chars | 0 — passes |
-  | 48 chars | **1** caught |
-  | 52 / 64 / 84 chars | **1** caught |
-
-  So the cliff falls between **44 and 48**, matching the literal `sig_start - 48`
-  above exactly. Recorded because the earlier wording — *"predicted and
-  confirmed"* — described the mechanism without pinning where it breaks, and the
-  next session needs the number to write a regression test against.
-
-  **This is not "silent by construction" and an earlier note wrongly said so** —
-  that was a claim about the implementation, written before the implementation
-  was read. It is a bounded heuristic missing a clause boundary: fixable by
-  stopping the lookback at `because` / `when` / a comma, or by requiring the
-  negation to attach to the wall's own subject. It is **the same class of bug as
-  the kit's defect 7, reached independently in a separate implementation** —
-  which is the more interesting fact, and the reason the two are not redundant.
-
-  **So there is no redundancy where it matters most.** Defect 7 passes *both*
-  implementations end-to-end: with the payload in a scanned doc,
-  `check_no_false_walls.py --strict` exits 0 and `check --strict` reports zero
-  false-wall findings, while the same file with a bare wall reds. **A genuine
-  standing wall can be committed to a read-path doc today and no gate in this
-  repo will notice.** That makes defects 2 and 7 fleet-manager's own bugs as
-  well as the kit's, not merely upstream ones to file.
+  **The two scanners are now redundant for defect 7 where they were jointly
+  blind before.** The vendored v1.20.2 scanner still misses the payload, but the
+  fleet-manager checker makes the combined gate red. Defect 2 remains jointly
+  blind and is recorded rather than silently broadened into this narrow fix.
 
 - **An earlier attempt at this test was invalid and is recorded rather than discarded.** The payload was first appended to `docs/CAPABILITIES.md`, where **the bare-wall control also passed** — because that file is the capability ledger and `tools/check_no_false_walls.py:296` special-cases it. The run proved nothing in either direction. **It was the positive control that exposed it**, which is the whole reason `capability-probe` step 3b requires one before recording an absence.
 - **Both scanners run in `substrate-gate`**, which is worth knowing before assuming a single fix point: fm's at the `repo checkers` step, the kit's via `bootstrap.py check --strict` → `check_no_false_walls` (`:5596`) → `scan_text` (`:5628`).
