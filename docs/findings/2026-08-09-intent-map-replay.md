@@ -75,7 +75,7 @@ downstream of itself.**
 | **OPEN** | none |
 | **GOAL** | completion discipline — finish one thing before starting the next |
 | **NON-GOALS** | **deliberately working slowly**; treating unhurriedness as a virtue in itself |
-| **SUCCESS** | *"three hours because the task needs three hours is right; three hours because a rule says do not move quickly is not"* |
+| **SUCCESS** | work is judged finished-or-not, never fast-or-slow — *"three hours because the task needs three hours is right; three hours because a rule says do not move quickly is not"* (`REVIEWED`, [`../intent.md:205`](../intent.md) § 8b — a ChatGPT distillation the section states is **not his verbatim words**, unlike every other cell in this table) |
 
 **Verdict: `CATCHES`.** The original defect was an *inference* — "slow" — promoted
 into an owner-attributed directive row. Under the map that inference can only sit
@@ -114,6 +114,15 @@ about to run before every non-trivial ask.
   was resolvable from the record, so no run produced `INTENT STATUS: NEEDS OWNER`.
   The classifier's HIGH branch is **untested by this replay** — its first real
   exercise is its first live use.
+- **The map caught a provenance error in this file, which is the only unbiased
+  datum here.** Case B's SUCCESS cell first carried the "three hours" line as a
+  bare quote alongside owner-verbatim cells. It is `intent.md:205`, inside § 8b —
+  a **`REVIEWED` ChatGPT distillation the section explicitly calls "not his
+  verbatim words."** Nothing about writing the map surfaced that; **going to
+  fetch the citation the ESTABLISHED rule demands** did. That is a small but real
+  instance of the § 4.8 thesis — retrieval catches what recall does not — and it
+  happened to the author of the rule, one screen after writing it.
+
 - **Case #7 exposes the weakest cell.** *"Which parts are genuinely better built"*
   has no definition of "better", and the SUCCESS row I wrote for it is a
   restatement rather than a test. The map made the weakness visible and did not
