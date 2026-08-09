@@ -112,11 +112,17 @@ follows the id rather than the prose.
 
 **The estate already runs one, and it fired on this very session.**
 `bootstrap.py:9308` flags *"a decision id cited from more than one doc outside
-the ledger — stamp each decision at one home"*, and at flip time it caught
-`D-0011` cited from this file and `providers/gemini.md`. That is exactly the
-paraphrase-proof propagation check declared impossible three paragraphs above,
-running in the same command whose output was being read while the claim was
-written.
+the ledger — stamp each decision at one home"*, and it caught the Gemini
+paid-key decision cited from both this file and `providers/gemini.md`. That is
+exactly the paraphrase-proof propagation check declared impossible three
+paragraphs above, running in the same command whose output was being read while
+the claim was written.
+
+**And it fired again on this very paragraph.** Naming the decision id as evidence
+made this file a second citation site, so the check reported it — which is the
+cleanest possible demonstration that anchors work: the mechanism caught a
+propagation it had no way to recognise by wording, in the document arguing that
+such a mechanism does not exist. The id is now described rather than stamped.
 
 **So the shape of the gap is different from what was reported.** It is not that
 propagation is un-mechanizable; it is that the mechanism requires **anchored
