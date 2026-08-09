@@ -1,8 +1,8 @@
 # 2026-08-09 · hub — independently review the day's guards, then close the false-wall hole
 
-> **Status:** in-progress
+> **Status:** complete
 
-- **📊 Model:** GPT-5 · ChatGPT Work · adversarial review plus one narrow checker fix
+- **📊 Model:** GPT-5 · high · review/verify plus narrow runtime bugfix
 
 Time: 2026-08-09 · venue: ChatGPT Work · branch
 `agent/fix-false-wall-negation-scope` (from `0ab4d07` = `origin/main`)
@@ -78,7 +78,9 @@ silently discarded.
   command → verdict record. Canonical boot/current-state/decision/hook docs and
   both reviewed session records carry the corrections rather than leaving stale
   counts or operational advice behind.
-- Substantive GitHub commit: `d4aac5d5890b96d8f5f8f690fb4b4104bd40de8a`.
+- Initial substantive GitHub commit: `d4aac5d5890b96d8f5f8f690fb4b4104bd40de8a`.
+  Final reviewed SHA: `322430462d0582b601278cb04b693b3408c9522b`.
+  Capped post-review fixes: `c9694f217b3ffe9f424706adcbd3e9d63ed631f6`.
 
 ### Verdict
 
@@ -105,9 +107,13 @@ silently discarded.
   (`16/16`); trigger guard **0** (`69/69` after review fixes).
 - Targeted: Python compilation **0**; `git diff --check` **0**; local false-wall
   self-test **0**; seven-defect A/B instrument **0**.
-- Final all-green exits and the reviewed SHA are recorded in the flip commit;
-  the review request happens after this close-out is published and before that
-  flip.
+- Completed-card working tree, run immediately before the flip commit: the five
+  requested commands exit **0 / 0 / 0 / 0 / 0**; trigger suite tail is `69/69
+  passed`, change suite tail is `16/16 passed`, routes report `0 errors · 0
+  notes`, and the local false-wall checker reports clean.
+- Pre-flip GitHub `substrate-gate` run 1534 failed only at step 9 on this card's
+  born-red hold; its `repo checkers` step passed. The flip commit is exempt from
+  re-review under `session-close`: badge/close-out plus generated telemetry only.
 
 ### Review
 
@@ -153,4 +159,5 @@ silently discarded.
   `checker-contract-bank-2026-08-09.md` for the later kit session; not approved
   or implemented here.
 - Layer-2 handoff: null (fleet-manager itself).
-- PR: #835, READY and held born-red pending Codex review.
+- PR: #835, READY; reviews complete through the bounded cap, born-red hold
+  verified in CI, final flip is the only remaining commit.
