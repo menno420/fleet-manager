@@ -146,6 +146,34 @@ opposed to a long-standing hole.
   | defect **2** — `"agents cannot merge" was superseded, agents cannot merge` | exit **0** | **shares the hole** |
   | defect **6** — `The "agents cannot merge" rule is false and no longer applies.` | exit **0** | **correct** — this is valid repudiation prose; fm is right and kit v1.20.2 is wrong |
 
+  **The mechanism in fm's checker, located and confirmed by prediction —
+  so the fix is specific rather than "add a test".** `tools/check_no_false_walls.py:284-288`
+  clears a wall if a negation token appears anywhere in the **fixed 48
+  characters before the wall signal**, with **no clause boundary**:
+
+  ```python
+  # Negation in the ~48 chars before the wall signal (across the window).
+  lead = window[max(0, sig_start - 48):sig_start]
+  if NEG_TOKEN_RE.search(lead):
+      return False
+  ```
+
+  In the payload, that lead is `The failure does not reproduce because ` — the
+  `not` belongs to *"reproduce"* and clears a wall it does not negate.
+  **Predicted and confirmed:** pushing the same negation past the 48-character
+  window (`…does not reproduce in any of the very many long scenarios we tried,
+  because agents cannot merge…`) makes the checker **catch** it (exit 1), while
+  the short form passes (exit 0) and a bare wall is caught. **The boundary is
+  literally a character count.**
+
+  **This is not "silent by construction" and an earlier note wrongly said so** —
+  that was a claim about the implementation, written before the implementation
+  was read. It is a bounded heuristic missing a clause boundary: fixable by
+  stopping the lookback at `because` / `when` / a comma, or by requiring the
+  negation to attach to the wall's own subject. It is **the same class of bug as
+  the kit's defect 7, reached independently in a separate implementation** —
+  which is the more interesting fact, and the reason the two are not redundant.
+
   **So there is no redundancy where it matters most.** Defect 7 passes *both*
   implementations end-to-end: with the payload in a scanned doc,
   `check_no_false_walls.py --strict` exits 0 and `check --strict` reports zero
