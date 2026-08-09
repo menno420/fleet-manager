@@ -51,11 +51,11 @@ Line numbers are against **vendored v1.20.2**.
 | # | site | defect | reproduction |
 |---|---|---|---|
 | 1 | `bootstrap.py:5458-5459` | the render-marker early return exempts the **whole** `seat-digest.md`, so authored prose outside the generated fences escapes the scan. Its docstring justifies the exemption by *"the render's SOURCE docs are independently scanned"* — which does not cover hand-added text | append `Agents cannot merge` outside the fences with `is_render_path=True` → no hit; the same text elsewhere is flagged |
-| 2 | `bootstrap.py:5274` | a repudiation cue is searched clause-wide, so it clears **every** occurrence of the capability on the line, not the one it characterises | `scan_text('"agents cannot merge" was superseded, agents cannot merge')` → no findings; the second, genuine assertion escapes |
+| 2 | `bootstrap.py:5274` | a repudiation cue is searched clause-wide, so it clears **every** occurrence of the capability on the line, not the one it characterises. **A false-negative REGRESSION** — v1.20.1 caught this, v1.20.2 does not | `scan_text('"agents cannot merge" was superseded, agents cannot merge')` → no findings; the second, genuine assertion escapes |
 | 3 | `bootstrap.py:5034` | `\bre?deploy(?:s\|ed\|ing\|ment)?\b` — the `re` is *`r` plus optional `e`*, so it matches `redeploy`/`rdeploy` but **not `deploy` or `deploying`**. Intended: `(?:re)?deploy`. Verified: `deploy` → False, `deploying` → False, `redeploy` → True | `scan_text('Merging is not walled, agents cannot deploy')` → no finding: the deploy wall has no family, so an unrelated merge repudiation clears it |
 | 4 | `bootstrap.py:5374-5378` | the lookforward stop set is `_HEADING` / `_DATED_BULLET` / `_NEW_BULLET` / `_CONTRAST_START` — **no fence, no blockquote** — so a cue inside a separate block attaches to a wall above it | `scan_text('The rule is "agents cannot merge"\n```\nThis example was superseded\n```')` → no finding |
 | 5 | the `SKILLS-index` template — read as the **embedded constant inside the vendored `bootstrap.py`**, not as a standalone `.tmpl` | teaches *"install with `python3 bootstrap.py skills --build`"* (verbatim, one occurrence in the dist), which only **stages**. No kit command writes `.claude/skills/`. **Every new adopter is told an install step that installs nothing** | any fresh adopt: run it, then `ls .claude/skills/` |
-| 6 | `bootstrap.py:5078` | the conjunction clause-splitter separates a repudiation from the wall it qualifies when the cue follows `and` in the **same predicate**, so ordinary correction prose is flagged. A **false positive** regression | `scan_text('The "agents cannot merge" rule is false and no longer applies.')` → **1 hit** on v1.20.2, **0** on v1.20.1 |
+| 6 | `bootstrap.py:5078` | the conjunction clause-splitter separates a repudiation from the wall it qualifies when the cue follows `and` in the **same predicate**, so ordinary correction prose is flagged. A **false positive** regression — the only one of the three that announces itself | `scan_text('The "agents cannot merge" rule is false and no longer applies.')` → **1 hit** on v1.20.2, **0** on v1.20.1 |
 | **7** | `bootstrap.py:4969` | a `does not reproduce` cue describing **another subject** clears a genuine wall in a following subordinate clause, because `because` / `when` / `unless` are not clause boundaries. A **false negative** regression — **the most serious defect here** | `scan_text('The failure does not reproduce because agents cannot merge pull requests.')` → **0 hits** on v1.20.2, **1 hit** on v1.20.1 |
 
 ## Defect 7 is the one to fix first — a false NEGATIVE on a required gate
@@ -78,8 +78,14 @@ the wall as fact.
 That is precisely the failure the whole apparatus exists to prevent — the boot
 file's *"never write down a limitation"* rule, the checker enforcing it, and its
 required-check status all assume the scanner catches a wall when it sees one.
-**Two of the five clearing relaxations v1.20.2 shipped are now measured to
-mis-fire**, one in each direction, and only one of them is loud.
+**Three of the five clearing relaxations v1.20.2 shipped are now measured to
+mis-fire** — defects 2, 6 and 7 — and **two of the three are false negatives**
+(2 and 7), so most of the damage is silent. An earlier version of this line said
+*two*, and catalogued defect 2 as a long-standing hole; running
+`tools/ab_kit_scan.py` showed v1.20.1 catching it and v1.20.2 not, which makes
+it a regression. **The mistake was assuming a defect's age from its
+description instead of measuring it**, which is the whole reason the harness
+exists.
 
 ## Defect 6 is a measured regression — and the release is not simply worse
 
@@ -102,32 +108,39 @@ Row 1 is the price, evidently unmeasured against the `X is false and no longer
 applies` shape. **Adopting v1.20.2 was still right**: one false-positive class
 traded for another, plus four other fixes.
 
-### The harness — committed, because a reproduction in prose is not runnable
+### The harness — `tools/ab_kit_scan.py`, runnable
 
-The original A/B run lived in an ephemeral scratchpad and would have vanished
-with the container. Save as a file and run from the repo root with a banked
-`bootstrap-<old>.py` present:
-
-```python
-import importlib.util, sys
-
-def load(path, name):
-    spec = importlib.util.spec_from_file_location(name, path)
-    m = importlib.util.module_from_spec(spec); sys.modules[name] = m
-    spec.loader.exec_module(m); return m
-
-CASES = [
-    ('valid repudiation', 'The "agents cannot merge" rule is false and no longer applies.'),
-    ('real wall (MUST stay red)', 'Agents cannot merge pull requests.'),
-    ('same-line quoted repudiation', 'The "agents cannot merge" rule was superseded.'),
-]
-for label, path in (('old', '.substrate/backup/bootstrap-1.20.1.py'),
-                    ('new', 'bootstrap.py')):
-    m = load(path, 'kit_' + label)
-    print('---', label, path, '---')
-    for name, txt in CASES:
-        print(f'   {name:32} -> {len(m.scan_text(txt))} hit(s)')
 ```
+python3 tools/ab_kit_scan.py            # newest bank vs the live dist
+python3 tools/ab_kit_scan.py --old <p>  # pin an older bank
+python3 tools/ab_kit_scan.py --case "…" # add an ad-hoc string
+```
+
+Exit 0 always — an instrument, not a gate. Current output against v1.20.1:
+
+```
+bare wall (control)                          old=1 new=1            want=flag
+wall after 'because' (defect 7)              old=1 new=0  DIFFERS   want=flag
+second assertion after repudiated quote (d2) old=1 new=0  DIFFERS   want=flag
+valid repudiation, conjunction (defect 6)    old=0 new=1  DIFFERS   want=clear
+valid repudiation, same line                 old=1 new=0  DIFFERS   want=clear
+deploy wall (defect 3)                       old=0 new=0            want=flag
+```
+
+**It was a fenced code block in this file until owner-review asked which path
+held it.** That question was the point: a reproduction you must copy-paste is
+not a harness. Making it a file found two bugs in it within one run —
+
+1. it picked `bootstrap-1.9.0.py` over `bootstrap-1.20.1.py`, because
+   `sorted()` is lexicographic and `"1.9.0" > "1.20.1"` as strings; that version
+   predates `scan_text`, so every case errored. **A version sort that is really
+   a string sort is wrong for about one release in twenty — the worst frequency
+   for noticing.** Now sorted by parsed semver.
+2. a dist without `scan_text` produced six identical stack-trace rows, reading
+   like six failures rather than one wrong input. Now one plain line.
+
+**Neither would have been found by re-reading the code block**, which is the
+same lesson the defects below teach about the kit.
 
 **Generalise it rather than treating it as one-off.** Any kit upgrade can be
 A/B'd this way, because the banked previous dist is right there — the upgrade
