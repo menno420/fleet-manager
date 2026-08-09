@@ -60,6 +60,8 @@ Continuing fm #830's numbering, because it is the same day and the same author.
 | 15 | **registered a hook on every file change without measuring its latency** — `PreToolUse` on `Write\|Edit\|MultiEdit` and `PostToolUse` on `Edit\|MultiEdit` is the hot path, and the cost was not measured until asked for | **the owner-review Stop hook**, same round |
 | 16 | **overstated the counter-example in the direction of the point** — called `check_stamp_discipline` *"exactly the paraphrase-proof propagation check declared impossible above"*, having read its **docstring** (`:9308`) and not its body (`:9307`). It is a **duplication** check: it forbids a decision id from having a second home, rather than detecting divergence between two copies. The correction is an improvement — *prevent* beats *detect*, and the estate already chose it | **the owner-review Stop hook**, fourth round, asking what exact check lives at that line |
 | 17 | **generalised over a set never enumerated** — *"every propagation failure today was a retyped measurement."* Audited afterwards: three instances, **one measurement and two provenance claims**, and only one of the sixteen numbered errors is a propagation failure at all. The correction widens the anchor argument rather than narrowing it | **the owner-review Stop hook**, fifth round, asking for the breakdown |
+| 19 | **"substantially inert" for a defect never quantified** — check C's cross-line shingles were called *"most could never match"* from mechanism alone. **Measured after being asked: 52.2%** (1098 shingles, 400 real paragraphs). Half-blind, not mostly-blind — and the overstatement ran *toward* the drama of the finding | **the owner-review Stop hook**, asking for the percentage |
+| 20 | **attributed a reviewer split to reading style without controlling for input** — claimed the hook and Codex "see different things", when `owner_review.py:4-5` shows the hook is *given* only the reply. Half the split is forced by input scope, and the confound was one `grep` away | **the owner-review Stop hook**, asking whether both saw the same artifacts |
 | 18 | **compressed a six-way table into a three-way sentence and lost two rows** — told the owner *"six had a moment… four already watching, two now guarded, and the rest need a person or a habit."* The documented breakdown is **4 already caught · 2 built · 3 skill steps · 2 buildable-not-built · 1 no moment · 1 open design question.** Buildable means the moment exists, so **eight** have a machine-decidable moment, not six; and #4/#9 do not "need a person" — they need a checker I chose not to build, for stated trade-offs | **the owner-review Stop hook**, sixth round, asking how the breakdown was derived |
 
 **#14 is the sharpest error of the two days**, because it is the session's own
@@ -123,7 +125,7 @@ came out clean, while the code had not been read by anything but its author.
 | 5 | check C excluded the target file, but post-edit a remaining hit there is a survivor | **[partial]** — see below |
 | 6 | check C's `git grep` omitted `--untracked`, missing documents written this session | **[conceded]** |
 | 7 | `MAX_HITS` applied to the union, so one idiomatic shingle suppressed a distinctive one | **[conceded]** — now capped per fragment |
-| 8 | `_fragments` joined shingles across newlines, then `git grep -F` matched line-by-line — most could **never** match | **[conceded]**, and the worst of the eight: it means check C was substantially inert, not merely narrow |
+| 8 | `_fragments` joined shingles across newlines, then `git grep -F` matched line-by-line, so a fragment spanning a wrap point could never match | **[conceded]** — and now **`MEASURED` at 52.2%** unmatchable (1098 shingles from 400 real multi-line paragraphs). Half-blind, not inert; see error #19 |
 
 **Finding 5 is the partial, and the hook proved it itself.** Codex reasoned that
 the replaced occurrence is gone by `PostToolUse`, so any remaining hit in the
@@ -142,10 +144,19 @@ is the entire risk surface, and a check that cries wolf on a table-cell
 correction is ignored inside one session. *Two-directional is not the same as
 representative.*
 
-**And the split is the argument for keeping both reviewers.** The owner-review
-hook read these replies four times and found six real defects, every one in a
-**claim**. Codex read the diff once and found nine, seven in **code**. Neither
-saw the other's set.
+**The split is real but half of it is trivial, and the trivial half is the
+finding.** `owner_review.py:4-5` reads *"the final assistant reply from the
+transcript"* — **only the reply, never the diff.** So its six-for-six claim-defect
+record is *forced by its input*, not evidence of a different reading style. Codex
+had the whole diff, prose and code together, and still skewed **7 of 9 to code** —
+that half of the contrast is genuine.
+
+**What it actually exposes: nothing in this estate reads the reply and the diff
+together.** The reply is where six defects lived and where Codex never looks; the
+code is where seven lived and where the Stop hook cannot look. The coverage was
+not designed as complementary, it is two partial views that happen not to overlap,
+and a defect visible only in the *relationship* between a claim and the diff
+backing it is currently invisible to both.
 
 ## Close-out
 
