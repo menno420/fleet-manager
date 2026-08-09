@@ -446,6 +446,17 @@ stalls him was created by the polling that was not needed. That is the whole
 causal chain, and cutting it at the `send_later` end is cheaper than cutting it
 at the deletion end.
 
+**The emergency stop is `update_trigger`, not deletion.** A denied delete with
+no alternative would be a trap: an unattended session facing a runaway or
+misconfigured recurring trigger could neither stop it nor reach the owner. So the
+guard leaves `update_trigger` untouched, and the deny message names it —
+`enabled: false` stops a routine firing **immediately**, raises **no approval
+prompt**, and is **reversible** (it stays stored). That is better than deletion
+even where deletion is available, because it preserves the record. **Deleting is
+never the emergency stop; disabling is.** Both facts are pinned in the suite: that
+`update_trigger` is never blocked, and that the deny text actually names it — a
+path nobody is told about is not a path.
+
 **A stale trigger costs nothing.** A fired one-shot reports
 `ended_reason: run_once_fired` and never runs again. Leave it. If a recurring
 trigger genuinely must go, say so in the reply — he removes it in seconds

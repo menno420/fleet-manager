@@ -177,3 +177,13 @@
   string and none for *writing* it: tested against the motivating case rather
   than the traffic it sits in, which is the defect fm #831 recorded and the third
   time it has appeared.
+- amendment (2026-08-09, same day): **the emergency stop is `update_trigger`, not
+  deletion.** The first version of this rule left an unattended session facing a
+  runaway recurring trigger with no move — deletion denied, the override needing
+  the owner it was protecting. `update_trigger` with `enabled: false` stops a
+  routine firing immediately, raises no approval prompt, is unblocked by the
+  guard, and is reversible. It is the better answer even where deletion is
+  available, because it preserves the record. The deny message now names it, and
+  the suite pins both that the path is open and that the message says so — a
+  path nobody is told about is not a path. Raised by the owner-review hook asking
+  what an agent does about a misconfigured trigger under this rule.

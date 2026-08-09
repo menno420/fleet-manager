@@ -76,6 +76,20 @@ for tool in (
 ):
     check(f"{tool} denied", decision(run({"tool_name": tool, "tool_input": {}})), "deny")
 
+print("== the emergency stop must stay open ==")
+# A denied delete with no alternative is a trap: an unattended session facing a
+# runaway recurring trigger could neither stop it nor reach the owner. The answer
+# is `update_trigger(enabled=false)` — stops firing at once, no approval prompt,
+# reversible. These two cases pin that the escape exists AND that the deny
+# message names it, because a path nobody is told about is not a path.
+check("update_trigger (the disable path) is never blocked",
+      decision(run({"tool_name": "mcp__Claude_Code_Remote__update_trigger",
+                    "tool_input": {"trigger_id": "t", "enabled": False}})), "silent")
+_deny = run({"tool_name": "mcp__Claude_Code_Remote__delete_trigger", "tool_input": {}})
+_msg = (_deny.get("hookSpecificOutput") or {}).get("permissionDecisionReason", "")
+check("the deny message names the disable path",
+      "yes" if ("update_trigger" in _msg and "enabled" in _msg) else "no", "yes")
+
 print("== the deliberate override ==")
 check("FM_ALLOW_TRIGGER_DELETE=1 lets it through",
       decision(run({"tool_name": "mcp__Claude_Code_Remote__delete_trigger",
