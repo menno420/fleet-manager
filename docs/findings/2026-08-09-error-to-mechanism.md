@@ -315,9 +315,27 @@ it against `analysis`. The check now scopes to the ⚠ re-apply region.
 
 **Score the moment, not the mistake.** A recurring error is not automatically a
 mechanism; it becomes one when a moment exists where a machine sees the defect
-and the author does not. Of thirteen errors, six had such a moment, four already
-had a mechanism watching it, and three did not.
+and the author does not. **Of thirteen errors, 8 have such a moment** — 4 already
+watched, 2 built here, 2 buildable and declined — while 3 need a human procedure,
+1 has no moment, and 1 is an open design question.
+
+*(This sentence said "six" until Codex flagged it P1 on fm #831, one section after
+§ 3 had been corrected to 8. A summary that outlives the table it summarises is
+the whole propagation defect in miniature — and it landed in the **conclusion**,
+which is the part a reader who skips the table still gets.)*
 
 And the corollary, learned the hard way in § 4: **replay a new mechanism against
 the history that motivated it before believing it.** Two of the three checks here
 pass that test. The third does not, and says so.
+
+**A third corollary, added after Codex reviewed the code rather than the prose.**
+Nine findings came back, seven of them real defects *in the checks themselves* —
+check B fired on shell pipes inside code fences and on every ordinary single-row
+table edit; check C joined shingles across newlines and then grepped line-by-line,
+so most could never match. **All were shipped after testing that I called
+two-directional.** The tests were real and the defects were real at the same time:
+I tested the cases the checks were designed for, and none of the cases they would
+actually meet. **"Tested in both directions" means the intended defect and its
+absence — not the routine traffic the mechanism will sit in.** For a hook on every
+file edit, that traffic *is* the risk, and a hook that cries wolf on a table-cell
+correction would have been ignored inside one session.

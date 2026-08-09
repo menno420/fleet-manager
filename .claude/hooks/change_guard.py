@@ -125,17 +125,25 @@ def orphan_table_rows(content: str) -> str | None:
     """
     lines = content.split("\n")
     in_table = False
+    in_fence = False
     orphans: list[int] = []
     for i, line in enumerate(lines):
-        is_row = line.lstrip().startswith("|")
-        if is_row and not in_table:
-            nxt = lines[i + 1] if i + 1 < len(lines) else ""
-            if re.match(r"^\s*\|[\s:|-]+\|", nxt):
+        stripped = line.strip()
+        if stripped.startswith("```") or stripped.startswith("~~~"):
+            in_fence = not in_fence
+            in_table = False
+            continue
+        if in_fence:
+            continue                              # shell pipes are not table rows
+        if not stripped.startswith("|"):
+            in_table = False                      # GFM ends a table at ANY non-row line
+            continue
+        if not in_table:
+            nxt = lines[i + 1].strip() if i + 1 < len(lines) else ""
+            if re.match(r"^\|[\s:|-]+\|", nxt):
                 in_table = True
             else:
                 orphans.append(i + 1)
-        elif not is_row and not line.strip():
-            in_table = False
     if not orphans:
         return None
     where = ", ".join(f"L{n}" for n in orphans[:6])
@@ -183,20 +191,21 @@ def _fragments(old: str) -> list[str]:
     **anchors**, not mechanism — only decisions carry an id, so every other
     repeated claim is a retyping. See § 4b of the finding.
     """
-    words = re.sub(r"\s+", " ", re.sub(r"[`*_|>#]", "", old)).strip().split(" ")
-    words = [w for w in words if w]
-    if len(words) < SHINGLE:
-        return []
-    spans = [0, max(0, (len(words) - SHINGLE) // 2), max(0, len(words) - SHINGLE)]
     out: list[str] = []
-    for s in dict.fromkeys(spans):                     # dedupe, keep order
-        frag = " ".join(words[s: s + SHINGLE])
-        if len(frag) >= MIN_FRAGMENT and frag not in out:
-            out.append(frag)
-    return out[:3]
+    for raw in old.split("\n"):            # never join across lines: `git grep -F`
+        line = raw.strip().strip("|").strip()   # matches within a single source line
+        words = [w for w in line.split(" ") if w]
+        if len(words) < SHINGLE:
+            continue
+        spans = [0, max(0, (len(words) - SHINGLE) // 2), max(0, len(words) - SHINGLE)]
+        for st in dict.fromkeys(spans):
+            frag = " ".join(words[st: st + SHINGLE])
+            if len(frag) >= MIN_FRAGMENT and frag not in out:
+                out.append(frag)
+    return out[:6]
 
 
-def unpropagated(old: str, target: str) -> str | None:
+def unpropagated(old: str, target: str, new: str = "") -> str | None:
     """The text you just replaced still exists somewhere else.
 
     fm #830's most repeated defect, three times in one session: a claim was
@@ -207,24 +216,39 @@ def unpropagated(old: str, target: str) -> str | None:
     Only knowable *after* the edit: before it, the string is still in the target.
     """
     frags = _fragments(old)
+    # Only hunt fragments the edit actually REMOVED. An edit that rewrites a
+    # paragraph while keeping its opening sentence leaves that sentence in the
+    # file legitimately — and the first version of this check reported it as a
+    # survivor, on its own next edit. Codex's finding (do not exclude the target,
+    # because the replaced occurrence is gone) is right only for text the
+    # replacement did not carry forward.
+    frags = [f for f in frags if f not in " ".join(new.split())]
     if not frags:
         return None
-    tgt = os.path.relpath(target, REPO) if os.path.isabs(target) else target
     hits: list[str] = []
     frag = frags[0]
     for f in frags:
         try:
             out = subprocess.run(
-                ["git", "grep", "-l", "--fixed-strings", f],
+                # --untracked: a doc written this session is not in the index yet,
+                # and is exactly where a fresh copy of the old claim would live.
+                ["git", "grep", "-l", "--untracked", "--fixed-strings", f],
                 cwd=REPO, capture_output=True, text=True, timeout=10, check=False,
             ).stdout
         except Exception:
             continue
-        found = [h.strip() for h in out.split("\n") if h.strip() and h.strip() != tgt]
-        if found:
+        found = [h.strip() for h in out.split("\n") if h.strip()]
+        # Cap PER FRAGMENT, not on the union: one idiomatic shingle must not
+        # suppress a distinctive one that found a single real survivor.
+        if not found or len(found) > MAX_HITS:
+            continue
+        # The target is NOT excluded. Post-edit, the replaced occurrence is gone,
+        # so a remaining hit in the same file is a second copy the edit missed —
+        # which is the defect, not noise.
+        if not hits:
             frag = f
-            hits = sorted(set(hits) | set(found))
-    if not hits or len(hits) > MAX_HITS:
+        hits = sorted(set(hits) | set(found))
+    if not hits:
         return None
     shown = "\n".join(f"  · {h}" for h in hits[:MAX_HITS])
     return (
@@ -236,6 +260,32 @@ def unpropagated(old: str, target: str) -> str | None:
         f"the copies is this repo's most-repeated defect — three times in fm #830 "
         f"alone, once inside the fix for the previous instance."
     )
+
+
+def _resulting_content(tool: str, inp: dict, target: str) -> str | None:
+    """The file as it will look AFTER this call — never the fragment.
+
+    Checking `new_string` alone made check B fire on every ordinary single-row
+    table edit, because the delimiter row lives outside the replacement. It also
+    missed edits that *remove* a delimiter without adding rows. Both measured
+    2026-08-09; a hook that cries wolf on routine work is the failure mode this
+    file's header names as the enemy.
+    """
+    if tool == "Write":
+        return inp.get("content")
+    path = REPO / target if not os.path.isabs(target) else Path(target)
+    try:
+        base = path.read_text(errors="replace")
+    except Exception:
+        return None                                   # new file — nothing to rebuild
+    edits = inp.get("edits") or ([inp] if inp.get("old_string") else [])
+    for e in edits:                                   # MultiEdit nests them here
+        old, new = e.get("old_string"), e.get("new_string")
+        if not old:
+            continue
+        base = base.replace(old, new or "") if e.get("replace_all") else \
+            base.replace(old, new or "", 1)
+    return base
 
 
 # ---------------------------------------------------------------- driver
@@ -268,7 +318,7 @@ def main() -> int:
             if hit:
                 notes.append(hit)
         if target.endswith(".md"):
-            body = inp.get("content") or inp.get("new_string") or ""
+            body = _resulting_content(tool, inp, target)
             if body:
                 hit = orphan_table_rows(body)
                 if hit:
@@ -279,7 +329,7 @@ def main() -> int:
         for e in edits[:5]:
             old = e.get("old_string") or ""
             if old:
-                hit = unpropagated(old, target)
+                hit = unpropagated(old, target, e.get("new_string") or "")
                 if hit:
                     notes.append(hit)
                     break  # one is enough to make the point

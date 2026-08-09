@@ -59,8 +59,8 @@ Continuing fm #830's numbering, because it is the same day and the same author.
 | 14 | **evaluated one family of mechanism and concluded about the space** — declared paraphrased propagation *"has no mechanical catcher"* having tried only text matching (whole-line, then shingles). **Anchors were never considered, and `bootstrap.py:9308` already runs one** — it flags a decision id cited from more than one doc, is paraphrase-proof by construction, and **fired on this very session** (the Gemini paid-key decision, in the same command output being read while the claim was written) — **and fired again on the paragraph documenting it**, because naming the id made the finding a second citation site | **the owner-review Stop hook**, asking whether anything but text matching had been evaluated |
 | 15 | **registered a hook on every file change without measuring its latency** — `PreToolUse` on `Write\|Edit\|MultiEdit` and `PostToolUse` on `Edit\|MultiEdit` is the hot path, and the cost was not measured until asked for | **the owner-review Stop hook**, same round |
 | 16 | **overstated the counter-example in the direction of the point** — called `check_stamp_discipline` *"exactly the paraphrase-proof propagation check declared impossible above"*, having read its **docstring** (`:9308`) and not its body (`:9307`). It is a **duplication** check: it forbids a decision id from having a second home, rather than detecting divergence between two copies. The correction is an improvement — *prevent* beats *detect*, and the estate already chose it | **the owner-review Stop hook**, fourth round, asking what exact check lives at that line |
-| 18 | **compressed a six-way table into a three-way sentence and lost two rows** — told the owner *"six had a moment… four already watching, two now guarded, and the rest need a person or a habit."* The documented breakdown is **4 already caught · 2 built · 3 skill steps · 2 buildable-not-built · 1 no moment · 1 open design question.** Buildable means the moment exists, so **eight** have a machine-decidable moment, not six; and #4/#9 do not "need a person" — they need a checker I chose not to build, for stated trade-offs | **the owner-review Stop hook**, sixth round, asking how the breakdown was derived |
 | 17 | **generalised over a set never enumerated** — *"every propagation failure today was a retyped measurement."* Audited afterwards: three instances, **one measurement and two provenance claims**, and only one of the sixteen numbered errors is a propagation failure at all. The correction widens the anchor argument rather than narrowing it | **the owner-review Stop hook**, fifth round, asking for the breakdown |
+| 18 | **compressed a six-way table into a three-way sentence and lost two rows** — told the owner *"six had a moment… four already watching, two now guarded, and the rest need a person or a habit."* The documented breakdown is **4 already caught · 2 built · 3 skill steps · 2 buildable-not-built · 1 no moment · 1 open design question.** Buildable means the moment exists, so **eight** have a machine-decidable moment, not six; and #4/#9 do not "need a person" — they need a checker I chose not to build, for stated trade-offs | **the owner-review Stop hook**, sixth round, asking how the breakdown was derived |
 
 **#14 is the sharpest error of the two days**, because it is the session's own
 subject turned on itself. The whole file argues that *availability is not
@@ -105,6 +105,47 @@ this is its overcorrection. **The honest form of the commitment is "I will
 re-request after any further push," which is a thing a session controls.** No new
 mechanism proposed; the fix is to stop writing a sentence that is not true when
 written.
+
+## Codex review — round 1, nine findings
+
+**1 P1 · 8 P2 · all nine verified against source before acting · 8 conceded ·
+1 partial. Seven were real defects in the checks themselves**, which is the
+result that matters: the prose was reviewed twice by the owner-review hook and
+came out clean, while the code had not been read by anything but its author.
+
+| # | finding | disposition |
+|---|---|---|
+| P1 | § 7's conclusion still said **six** one section after § 3 was corrected to **8** | **[conceded]** — and it landed in the conclusion, which is what a reader who skips the table takes away |
+| 1 | check B treated `\|`-leading lines inside ```` ``` ```` fences as table rows | **[conceded]** — verified on the hooks README itself, which false-positived at exactly the L147/L151 Codex predicted |
+| 2 | check B only ended table state on a **blank** line, so prose with no blank line before it let the real defect through | **[conceded]** — GFM ends a table at any non-row line |
+| 3 | check B judged `new_string` alone, so **every ordinary single-row table edit** looked like an orphan | **[conceded]** — now reconstructs the resulting file |
+| 4 | `MultiEdit` nests payloads in `tool_input.edits`; check B read only top-level keys, so it was silent for every markdown MultiEdit **that the matcher had just been registered for** | **[conceded]** |
+| 5 | check C excluded the target file, but post-edit a remaining hit there is a survivor | **[partial]** — see below |
+| 6 | check C's `git grep` omitted `--untracked`, missing documents written this session | **[conceded]** |
+| 7 | `MAX_HITS` applied to the union, so one idiomatic shingle suppressed a distinctive one | **[conceded]** — now capped per fragment |
+| 8 | `_fragments` joined shingles across newlines, then `git grep -F` matched line-by-line — most could **never** match | **[conceded]**, and the worst of the eight: it means check C was substantially inert, not merely narrow |
+
+**Finding 5 is the partial, and the hook proved it itself.** Codex reasoned that
+the replaced occurrence is gone by `PostToolUse`, so any remaining hit in the
+target is a survivor. True only for text the replacement did not carry forward —
+and the very next edit rewrote a paragraph while keeping its opening sentence,
+so the newly-unexcluded target fired a **false positive on the fix for the
+finding**. Now scoped to fragments present in `old_string` and absent from
+`new_string`; both directions re-tested.
+
+**What this round actually taught, and it is not "test more".** All seven code
+defects shipped *after* testing I had called two-directional. The tests were real;
+they covered the defect each check was designed for and its absence. **They did
+not cover the traffic the check would sit in** — fenced code, single-row edits,
+MultiEdit payloads, wrapped prose. For a hook on every file change, that traffic
+is the entire risk surface, and a check that cries wolf on a table-cell
+correction is ignored inside one session. *Two-directional is not the same as
+representative.*
+
+**And the split is the argument for keeping both reviewers.** The owner-review
+hook read these replies four times and found six real defects, every one in a
+**claim**. Codex read the diff once and found nine, seven in **code**. Neither
+saw the other's set.
 
 ## Close-out
 
