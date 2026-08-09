@@ -1,6 +1,6 @@
 # 2026-08-09 · hub — turn the error ledger into mechanisms that fire at the moment
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** opus-5 · high · feature build — score fm #830's 13 errors against
   "could a hook or skill have caught this at the moment?", then build the ones
