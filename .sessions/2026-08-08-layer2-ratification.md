@@ -1,6 +1,6 @@
 # 2026-08-08 · hub — Layer-2 ratification, and the flip-before-review incident
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** opus-5 · high · docs-only — land the Layer-2 ratification; record the auto-merge incident
 
@@ -215,6 +215,28 @@ treat the PR as gone."* This PR runs the corrected order as its own first test.
 - **`session-close` step 6c and an amended step 7** — the mechanism fix for the
   incident below.
 - **The §7 ledger row** for both this PR and the trap.
+
+## Review record — two rounds, and what landed after the last reviewed head
+
+| round | head | result |
+|---|---|---|
+| 1 | `2108c3f` | 1×P1, 3×P2 — all four verified against source, all four real, all four fixed |
+| 2 | `64966db` | 5 comments: **3 real** (roadmap conclusion still saying "both unbuilt"; duplicate id `8` in this ledger; the index plan still directing tier-2 pre-stubbing), **2 re-posts** of round-1 findings already fixed at that head — `current-state.md:152` reads `model-portable` and the 6c loop exists at `64966db:116`, both checked in the tree rather than assumed |
+
+**Landed at the two-round cap, and this is the disclosure the cap requires.**
+The reviewed head is `64966db`; `429f4ef` carries the three round-2 fixes plus
+the loop's own termination guarantee and **has not been reviewed**. No finding is
+known-open. The cap is not impatience — `substrate-gate` and both checkers are
+green on the final head, and `substrate-kit#580` measured five rounds and 34
+findings without converging, so *"review until it stops finding things"* is not a
+termination guarantee and an unbounded loop hands the merge decision to the
+reviewer.
+
+**The two re-posts are worth recording as an instrument property, not a
+complaint:** a re-anchored comment on a new head is indistinguishable from a live
+finding, so *"Codex said it again"* is not evidence the defect survived. Both
+were resolved by reading the file. Same rule as everywhere else here — the tree
+wins over the report about the tree.
 
 ## Verification
 
