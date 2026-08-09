@@ -321,20 +321,28 @@ Count the rows if you need it.
 | a local dist patch is erased on upgrade | quoted `cmd_upgrade`'s **docstring** (`:26887`) as if it were the implementation | true, and I had **watched** it happen — the banked `bootstrap-1.20.1.py` was created while `bootstrap.py` became 1.20.2 | owner-review |
 | the v1.20.2 regression has no live impact | inferred from a green gate — *"green, so nothing in the tree has the shape"* | true, but **the gate never opens `.sessions/`**; searched the corpus instead, 0 real occurrences | owner-review |
 
-**Count it precisely, because a first version of this paragraph did not.**
-**5 claims, 6 findings** — the confidentiality claim was caught **twice** (Codex
-P1 in two consecutive rounds), which is why the two numbers differ. By
-instrument: **Codex 4 findings across 3 claims**; **owner-review 2 findings
-across 2 claims**. A **sixth, separate defect** — the quote attributed to
-`SKILLS-local.md` that actually came from `CAPABILITIES.md:645` — was caught by
-`read_before_write` and is **not** one of the five; it is listed apart rather
-than folded in. The first draft of this paragraph read *"Codex ×3, `Stop` ×2,
-`read_before_write` ×1"*, counting **claims** for one instrument and **findings**
-for the others and absorbing an out-of-set defect — fm #830's error #22 (four
-different totals for one set) reproduced in the paragraph tallying this
-session's errors. Caught by owner-review asking which claim was caught twice.
+**Read the counts off the table; this paragraph deliberately states none.**
+Three separate versions of it carried numbers and all three went stale as the
+table grew — *"Codex ×3, `Stop` ×2"* (mixing **claims** for one instrument with
+**findings** for another), then *"5 claims, 6 findings"*, then a headline
+*"Seven"* against eight rows. Codex flagged the last one on fm #833: *"leaving
+both tallies in this session record recreates the stale-summary contradiction
+this edit says it fixes."* It was right, and the fourth attempt is to stop
+writing the number rather than to get it right once more.
 
-**The pattern under all five is one move:** answering from the nearest artifact
+**Two things the table alone will not tell you, which is why they are here:**
+
+- **Claims and findings are not the same count.** The confidentiality claim was
+  caught **twice**, by Codex P1 in two consecutive rounds, so any instrument
+  tally is larger than the row count. Mixing the two produced fm #830's error
+  #22 — four different totals for one set — reproduced here in the paragraph
+  tallying this session's errors.
+- **One defect is out of set and stays listed apart:** the quote attributed to
+  `SKILLS-local.md` that actually came from `CAPABILITIES.md:645`, caught by
+  `read_before_write`. It is a sourcing defect, not one of the claim rows, and
+  folding it in was how an earlier draft inflated its own total.
+
+**The pattern under every row is one move:** answering from the nearest artifact
 rather than the authoritative one — a changelog instead of the release asset, a
 reporting function instead of the writer, a tail of output instead of the set,
 an instruction instead of the code. **Availability is not retrieval**, which is
@@ -344,8 +352,7 @@ times while working on it.
 **What that says about the instruments, and it is the useful half:** the
 adversarial layer is doing the work the author cannot. Codex caught what was
 wrong in the *tree*; the `Stop` hook caught what was wrong in the *reply*;
-`read_before_write` caught a quote attributed to a file never opened. **None of
-the five was caught by re-reading my own text** — consistent with the
+`read_before_write` caught a quote attributed to a file never opened. **Not one was caught by re-reading my own text** — consistent with the
 four-session-old result that no mechanism depending on the author noticing has
 ever worked here.
 
@@ -415,78 +422,27 @@ exercise of that step will be the merge commit on `main`**, which is precisely
 the run the fix exists to protect. Stated rather than left for someone to
 discover.
 
-## Upstream kit defects found here — the v1.21.0 session's actual worklist
+## Upstream kit defects found here — moved to a findable home
 
-Codex reviewed the **vendored dist** because this PR changed it, and found six
-defects in kit code. **None is patched here**: `cmd_upgrade` *"archives before it
-overwrites"*, so a local patch is erased at the next upgrade — a fix that
-evaporates while giving false confidence, with no hash gate to notice either
-way. All six belong upstream, where they reach twelve adopters instead of one.
+**Six defects in substrate-kit v1.20.2**, all found by Codex reviewing the
+vendored dist across six rounds on this PR, with line numbers, reproductions and
+a committed A/B harness:
+[`../docs/findings/2026-08-09-substrate-kit-defects.md`](../docs/findings/2026-08-09-substrate-kit-defects.md).
 
-**Written with line numbers and reproductions so the next session does not have
-to re-derive them** — "filed upstream" as a phrase has no referent; this is the
-referent. Line numbers are against vendored **v1.20.2**.
+**They were written here first, and that was the wrong home** — raised by
+owner-review. A session card is a *record of a past session*; the session that
+cuts v1.21.0 walks the read path and would never open a dated card it was not
+told about. The boot file already records this exact failure: *"a document that
+lives only in a handoff prompt is not in the repo."* **A worklist nobody can
+find is a false-done waiting to be reported** — the very class this session's
+other half is about. One home now, in `docs/findings/`, not two.
 
-| # | site | defect | reproduction |
-|---|---|---|---|
-| 1 | `bootstrap.py:5458-5459` | the render-marker early return exempts the **whole** `seat-digest.md`, so authored prose outside the generated fences escapes the scan. Its own docstring justifies the exemption by "the render's SOURCE docs are independently scanned" — which does not cover hand-added text | append `Agents cannot merge` outside the fences with `is_render_path=True` → no hit; the same text elsewhere is flagged |
-| 2 | `bootstrap.py:5274` | a repudiation cue is searched clause-wide, so it clears **every** occurrence of the capability on the line, not the one it characterises | `scan_text('"agents cannot merge" was superseded, agents cannot merge')` → no findings; the second, genuine assertion escapes |
-| 3 | `bootstrap.py:5034` | `\bre?deploy(?:s\|ed\|ing\|ment)?\b` — the `re` is *`r` plus optional `e`*, so it matches `redeploy` and `rdeploy` but **not `deploy` or `deploying`**. The intended form is `(?:re)?deploy`. **Verified here:** `deploy` → False, `deploying` → False, `redeploy` → True | `scan_text('Merging is not walled, agents cannot deploy')` → no finding: the deploy wall has no family, so an unrelated merge repudiation clears it |
-| 4 | `bootstrap.py:5374-5378` | the lookforward stop set is `_HEADING` / `_DATED_BULLET` / `_NEW_BULLET` / `_CONTRAST_START` — **no fence, no blockquote** — so a cue inside a separate block attaches to a wall above it | `scan_text('The rule is "agents cannot merge"\n```\nThis example was superseded\n```')` → no finding |
-| 5 | `SKILLS-index.md.tmpl` — read as the **embedded template constant inside the vendored `bootstrap.py`**, not as a standalone file in the kit repo | teaches *"install with `python3 bootstrap.py skills --build`"* (verbatim, one occurrence in the dist), which only stages. **Every new adopter is told an install step that installs nothing** — the false-done class, shipped by the template | any fresh adopt: run it, then `ls .claude/skills/` |
-| 6 | `bootstrap.py:5078` | the conjunction clause-splitter separates a repudiation from the wall it qualifies when the cue follows `and` in the **same predicate**, so ordinary correction prose is flagged. **A regression against v1.20.1**, and the only one here that is | `scan_text('The "agents cannot merge" rule is false and no longer applies.')` → **1 hit** on v1.20.2, **0** on v1.20.1 |
+**The headline, so this card is not silent on it:** four of the six live in the
+kit's own false-wall scanner — the checker `substrate-gate` runs as a required
+status check — and one is a **regression in v1.20.2 itself**, proven by loading
+both dists and asking the same function the same question. That is the argument
+for the v1.21.0 session budgeting review time rather than a version bump.
 
-### Defect 6 is a measured regression — and the release is not simply worse
-
-`MEASURED` 2026-08-09, by loading **both dists** (the vendored v1.20.2 and the
-banked `bootstrap-1.20.1.py`) and running `scan_text` on the same three inputs.
-This is the strongest evidence in the table: not a reading of code, but the same
-function answering differently in two released versions.
-
-| input | v1.20.1 | v1.20.2 | reading |
-|---|---|---|---|
-| `The "agents cannot merge" rule is false and no longer applies.` | 0 hits | **1 hit** | **regression** — valid repudiation prose now rejected |
-| `Agents cannot merge pull requests.` | 1 hit | 1 hit | correct in both; the real wall still reds |
-| `The "agents cannot merge" rule was superseded.` | **1 hit** | 0 hits | **improvement** — v1.20.1 false-positived on an ordinary correction |
-
-**Report it as a trade, because that is what it is.** v1.20.2's entire changelog
-entry is *"`check_no_false_walls` clearing gains five attachment-based
-relaxations"*, and row 3 is one of those relaxations working. The clause-splitter
-that causes row 1 was added deliberately — the changelog says a mid-line
-conjunction *"is now a clause boundary"* so a cue cannot bleed across it and
-blind a genuine wall. **Row 1 is the price of that, and it was evidently not
-measured against the `X is false and no longer applies` shape.** Upgrading was
-still right: one false-positive class traded for another, plus four other fixes.
-
-**No live impact on this repo today** — but the first version of this paragraph
-proved that the wrong way, and the correction matters more than the conclusion.
-
-It said *"`check --strict` is green, so nothing in the tree is written in the
-affected shape."* **That inference does not hold**, for a reason visible in the
-same run: the kit's scanner walks `iter_adopter_files(...)` (`:5617`), not the
-tree, and `.sessions/` is outside it — **this very card contains the affected
-shape four times and the gate is green anyway.** A green gate proves nothing
-about files it never opens.
-
-**Searched instead of inferred** (`MEASURED` 2026-08-09):
-`git grep -n -i -E "(is|was) false and (no longer|never)|and no longer applies|and (was|is) superseded" -- '*.md'` returns the four repro strings in this card and one unrelated hit (`docs/prompts/v3/per-project/README.md:742`, *"is superseded by"*, carrying no wall phrase). Positive control: `no longer applies` matches 4 files, so the pattern finds what is there.
-
-**So the conclusion stands and its grounds changed** — no live impact, established
-by searching the corpus rather than by reading a green exit code. It bites
-whoever next writes a repudiation as *"… is false and no longer applies"*, which
-is ordinary English and therefore likely.
-
-**Defects 1–4 all live in the kit's own false-wall scanner**, which is the
-mechanism the boot file calls load-bearing and which `substrate-gate` runs as a
-required check. **Four holes in one checker, found in one afternoon, by pointing
-a reviewer at code that had been read only by its author.** That is the same
-result as fm #831 — where 14 of 15 findings were in the checks themselves — and
-it is the argument for the v1.21.0 session budgeting review time, not just a
-version bump.
-
-**fm's own `tools/check_no_false_walls.py` does NOT share these** — checked; it
-carries no `deploy` family and is a separate implementation. Nothing in this
-repo needs patching for 1–4.
 
 **Left for the owner:**
 
