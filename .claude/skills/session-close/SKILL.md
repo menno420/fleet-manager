@@ -124,8 +124,29 @@ steps.
      → flip only when the outstanding review covers the head you are flipping
    ```
 
-   **It terminates on a round that yields nothing new**, not on patience. The
-   one exemption is the flip commit itself — a badge flip plus the card's own
+   **The loop advances on changes you MAKE, not findings you receive** — that is
+   the termination condition, and it is the reason this cannot spin. A finding
+   you verify and decline does not start a round; it gets its disposition in the
+   PR thread (`[survived]` / `[conceded]` / `[partial]`) and the loop ends.
+   Concretely:
+
+   | severity | what it costs |
+   |---|---|
+   | **P1 · P2** | must be dispositioned — fixed, or refuted in the thread with the evidence. A fix means another round. |
+   | **P3 · advisory · nits** | acknowledge and land. **These do not earn a round of their own**; batch them into the next session's work. |
+
+   **Cap it at two re-review rounds, then land with the open findings named** in
+   the card and the PR body. This is not impatience — it is `MEASURED`:
+   `substrate-kit#580` ran **five rounds and 34 findings without converging**,
+   and the convergence predicted from its own curve (9 → 9 → 8 → 2) was falsified
+   when round 5 returned 6
+   ([`../../docs/conventions/adversarial-review.md`](../../docs/conventions/adversarial-review.md)
+   § *Round 5 falsified the convergence reading*). A reviewer that always finds
+   something is not a reason to never land; **an unbounded loop hands the merge
+   decision to the reviewer**, which is the same defect as a gate the owner never
+   operates.
+
+   The one exemption is the flip commit itself — a badge flip plus the card's own
    close-out text changes nothing reviewable — and taking that exemption means
    **saying so in the card**, naming the reviewed SHA and what came after it.
 
