@@ -457,6 +457,18 @@ never the emergency stop; disabling is.** Both facts are pinned in the suite: th
 `update_trigger` is never blocked, and that the deny text actually names it — a
 path nobody is told about is not a path.
 
+**Provenance and its limit, stated because the difference matters.** The
+`enabled` field is read from the live `mcp__Claude_Code_Remote__update_trigger`
+tool schema — `"enabled": {"type": "boolean", "description": "Enable or disable
+the Routine. Disabled Routines stay stored but never fire."}` — not from a
+convention or an inference. **But "never fire" is a claim about future firings
+and says nothing about a run already in flight**, and this has **not been
+executed** here, only read. So the stop is `MEASURED` as *available and
+unblocked*, and `UNVERIFIED` as *instantaneous*. If disabling turns out not to
+halt an in-flight run, the deny becomes a trap again for the one case it most
+needs to handle — which is why it is an open question on fm #834 rather than a
+settled line in this file.
+
 **A stale trigger costs nothing.** A fired one-shot reports
 `ended_reason: run_once_fired` and never runs again. Leave it. If a recurring
 trigger genuinely must go, say so in the reply — he removes it in seconds
