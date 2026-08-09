@@ -132,8 +132,9 @@ difference points somewhere better.** `check_stamp_discipline` lives at
 appearing in **more than one** document.
 
 That makes it a **duplication** check, not a **divergence** check. It does not
-notice when two copies of a claim drift apart; it forbids the second copy from
-existing. Its own rationale says so: *"a second citation is drift risk — when the
+notice when two copies of a claim drift apart; it caps how many may exist —
+**one citing document is permitted, the second is flagged.** Its own rationale
+says so: *"a second citation is drift risk — when the
 decision changes, one of the two goes stale."*
 
 **Two strategies, and the estate already picked the stronger one:**
@@ -166,6 +167,22 @@ without auditing.** Three propagation instances exist across the two PRs:
 | fm #830 error #6 | *"a 1-in-21 false-negative rate"* | **measurement** |
 | fm #830 Codex round-2 #2 | *"ten real owner messages"* — and the wrong part was *"real owner messages"*, not the count | **provenance claim** |
 | the miss inside that fix | the same provenance claim, in the ledger row's opening sentence | **provenance claim** |
+
+**A fourth instance, found by sweeping rather than by an instrument — and it is a
+third kind.** After writing the row above, a `git grep` for every withdrawn
+phrasing in this PR found the retired *"un-mechanizable"* verdict still standing
+in **three** places: `docs/current-state.md` (a read-path doc), this file's § 4b,
+and — worst — the shipped `change_guard.py` docstring, where the code's own
+documentation still asserted the claim the code's own testing had retired.
+
+So the propagated items across four events are a **measurement**, a **provenance
+claim** (×2 events), and a **verdict**. Three different kinds, none of them
+anchored, which is the argument: it is not measurements that need ids, it is
+*any claim restated in a second document*.
+
+**This one was caught by the author, and that is the only time that happened
+today** — not by re-reading, but by running a grep for each retired phrasing. The
+sweep took one command. Six re-readings of the same files had not surfaced it.
 
 **One measurement and two provenance claims — not "every one a measurement",
 which is what this file said.** The correction widens the argument rather than

@@ -173,9 +173,15 @@ def _fragments(old: str) -> list[str]:
     9-word shingles across the repo's markdown at the time of writing — so it
     earns its place on a different class than the one that prompted it.
 
-    **A clean run is therefore not evidence that a correction propagated.** The
-    paraphrase class currently has no mechanical catcher; Codex found both, by
-    reading for meaning rather than for strings.
+    **A clean run is therefore not evidence that a correction propagated.** Codex
+    found both, by reading for meaning rather than for strings.
+
+    **No *text-matching* catcher reaches the paraphrase class — but do not read
+    that as "no catcher exists."** `check_stamp_discipline` (`bootstrap.py:9307`)
+    handles it for decision ids by a different route entirely: it caps how many
+    documents may cite an id, so divergence has nowhere to occur. The gap here is
+    **anchors**, not mechanism — only decisions carry an id, so every other
+    repeated claim is a retyping. See § 4b of the finding.
     """
     words = re.sub(r"\s+", " ", re.sub(r"[`*_|>#]", "", old)).strip().split(" ")
     words = [w for w in words if w]

@@ -212,7 +212,8 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   attention, so this is already a good example of the system working."* Of the
   thirteen: **4 already had a mechanism watching · 2 built here · 3 became a
   skill step · 2 buildable and deliberately not built · 1 has no decidable
-  moment · 1 measured un-mechanizable.** The new hook is
+  moment · 1 open design question** (propagation — *not* un-mechanizable, which
+  is what this line said until the anchor family was checked). The new hook is
   [`.claude/hooks/change_guard.py`](../.claude/hooks/change_guard.py) — kit-named
   skill amendments (which the upgrade reverts), broken markdown tables, and
   verbatim un-propagated edits — and it is **the estate's first `PostToolUse`
