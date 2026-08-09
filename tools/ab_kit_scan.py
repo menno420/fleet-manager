@@ -34,9 +34,10 @@ from __future__ import annotations
 
 import argparse
 import glob
-import re
-import importlib.util
+import json
 import os
+import re
+import subprocess
 import sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -59,14 +60,40 @@ CASES: list[tuple[str, str, bool]] = [
 ]
 
 
-def load(path: str, name: str):
-    spec = importlib.util.spec_from_file_location(name, path)
-    if spec is None or spec.loader is None:
-        raise RuntimeError(f"cannot load {path}")
-    mod = importlib.util.module_from_spec(spec)
-    sys.modules[name] = mod
-    spec.loader.exec_module(mod)
-    return mod
+# Each dist runs in its OWN SUBPROCESS. The first version loaded both into one
+# process under different sys.modules names, which was inherited from an ad-hoc
+# scratchpad probe rather than chosen -- and `exec_module` runs a dist's entire
+# module body, so any global side effect from one could silently corrupt the
+# other's numbers. Every row here would still print, just meaninglessly. The
+# risk was never measured, so it is designed out instead: one dist per process
+# cannot share state by construction. Verified equal to the in-process results
+# before the switch, so the published numbers are unaffected.
+_CHILD = r"""
+import importlib.util, json, sys
+path, cases = sys.argv[1], json.loads(sys.argv[2])
+spec = importlib.util.spec_from_file_location("kit_under_test", path)
+mod = importlib.util.module_from_spec(spec)
+sys.modules["kit_under_test"] = mod
+spec.loader.exec_module(mod)
+if not hasattr(mod, "scan_text"):
+    print(json.dumps({"missing": True})); raise SystemExit(0)
+print(json.dumps({"hits": [len(mod.scan_text(t)) for t in cases]}))
+"""
+
+
+def scan_in_subprocess(path: str, texts: list[str]) -> dict:
+    """Run `scan_text` over `texts` inside a fresh interpreter. Never raises."""
+    try:
+        out = subprocess.run([sys.executable, "-c", _CHILD, path, json.dumps(texts)],
+                             capture_output=True, text=True, timeout=120)
+    except Exception as exc:  # noqa: BLE001 — an instrument never breaks a session
+        return {"error": f"{type(exc).__name__}: {exc}"}
+    if out.returncode != 0:
+        return {"error": (out.stderr or "").strip().split("\n")[-1][:160] or f"exit {out.returncode}"}
+    try:
+        return json.loads(out.stdout.strip().split("\n")[-1])
+    except Exception:  # noqa: BLE001
+        return {"error": "unparseable child output"}
 
 
 def _vkey(path: str) -> tuple:
@@ -106,30 +133,22 @@ def main(argv=None) -> int:
     print(f"old: {os.path.relpath(old, REPO)}")
     print(f"new: {os.path.relpath(args.new, REPO)}\n")
 
-    try:
-        mo = load(old, "kit_old")
-        mn = load(args.new, "kit_new")
-    except Exception as exc:  # noqa: BLE001 — an instrument never breaks a session
-        print(f"could not load both dists: {type(exc).__name__}: {exc}")
-        return 0
+    texts = [t for _, t, _ in cases]
+    res_old = scan_in_subprocess(old, texts)
+    res_new = scan_in_subprocess(args.new, texts)
 
-    # A bank old enough to predate the function is a real and boring case: say so
-    # once, plainly, instead of erroring per case (the first version did the
-    # latter, which read like six failures rather than one wrong input).
-    missing = [n for n, m in (("old", mo), ("new", mn)) if not hasattr(m, "scan_text")]
-    if missing:
-        print(f"`scan_text` is absent from the {' and '.join(missing)} dist — "
-              f"that version predates the function; pick a newer bank with --old.")
-        return 0
+    for who, res in (("old", res_old), ("new", res_new)):
+        if res.get("error"):
+            print(f"{who} dist failed to scan: {res['error']}")
+            return 0
+        if res.get("missing"):
+            print(f"`scan_text` is absent from the {who} dist — that version "
+                  f"predates the function; pick a newer bank with --old.")
+            return 0
 
     differs = 0
-    for label, text, expected in cases:
-        try:
-            a = len(mo.scan_text(text))
-            b = len(mn.scan_text(text))
-        except Exception as exc:  # noqa: BLE001
-            print(f"  {label:<52} ERROR {type(exc).__name__}: {exc}")
-            continue
+    for i, (label, text, expected) in enumerate(cases):
+        a, b = res_old["hits"][i], res_new["hits"][i]
         flag = "DIFFERS" if a != b else ""
         if a != b:
             differs += 1
