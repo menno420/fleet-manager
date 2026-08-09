@@ -59,4 +59,63 @@ silently discarded.
 
 ## Close-out
 
-*(to be completed before the Status flips)*
+### Shipped
+
+- `tools/check_no_false_walls.py` scopes its bounded negation exemption to the
+  wall's own clause and pins the bare-wall, unrelated-negation, direct-negation,
+  and hard-wrap directions in the offline self-test.
+- `tools/ab_kit_scan.py` now runs all seven recorded kit defects — six scanner
+  cases plus the fresh-adopter `skills --build` command/template contract — and
+  preserves semantic `want=` controls alongside old/new counts.
+- `.claude/hooks/trigger_tools_guard.py` plus
+  `tools/test_trigger_tools_guard.py` cover two literal direct-API forms and two
+  executing-heredoc forms the 52-case baseline missed; the suite is 58 cases.
+  The tool-name denial remains exact and command-text matching remains advisory.
+- `docs/findings/2026-08-09-independent-guard-review.md` is the requested claim →
+  command → verdict record. Canonical boot/current-state/decision/hook docs and
+  both reviewed session records carry the corrections rather than leaving stale
+  counts or operational advice behind.
+- Substantive GitHub commit: `d4aac5d5890b96d8f5f8f690fb4b4104bd40de8a`.
+
+### Verdict
+
+- Kit classifications: **five v1.20.2 behaviour changes** (defects 1, 2, 4, 6,
+  7) and **two long-standing defects** (3, 5). Defect 2's old red is right for
+  the wrong reason because v1.20.1 rejects its valid quote-only control too.
+- The local negation cliff is confirmed: token-end distances 44/45 clear while
+  46/47/48 flag in the old source. After the fix, the bare wall and the same
+  wall behind `does not reproduce because` both exit 1; a direct negation exits
+  0.
+- No baseline trigger-suite case required the opposite expectation. The passing
+  52-case suite instead had coverage and contract-assertion gaps. Literal forms
+  now warn; a data-flow form such as a variable holding `DELETE` remains silent
+  by design because that regex leg is not enforcement.
+
+### Verify
+
+- Untouched `main`: the five owner-requested commands exited **0 / 0 / 0 / 0 /
+  0** independently.
+- Pre-flip head: `python3 bootstrap.py check --strict` exits **1** with exactly
+  one exit-affecting finding — this card's designed born-red hold.
+- Pre-flip standalone gates: doc routes **0** (`24 routes · 19 docs routed · 0
+  errors · 0 notes`); local false-wall strict check **0**; change guard **0**
+  (`16/16`); trigger guard **0** (`58/58`).
+- Targeted: Python compilation **0**; `git diff --check` **0**; local false-wall
+  self-test **0**; seven-defect A/B instrument **0**.
+- Final all-green exits and the reviewed SHA are recorded in the flip commit;
+  the review request happens after this close-out is published and before that
+  flip.
+
+### Handoff and backlog
+
+- Capability delta: none — this session measured repository code behaviour, not
+  a new platform capability. No owner decision or owner-queue mutation is needed.
+- Residual: the local second-assertion-after-a-repudiated-quote hole remains
+  recorded; it is separate from the owner's line-284 acceptance. Substrate-kit
+  v1.21.0 remains its own owner-gated release session.
+- Groomed `review-queue-drainer-2026-07-10.md` to historical/rejected because
+  live `session-close` now owns pre-merge review. Captured
+  `checker-contract-bank-2026-08-09.md` for the later kit session; not approved
+  or implemented here.
+- Layer-2 handoff: null (fleet-manager itself).
+- PR: #835, READY and held born-red pending Codex review.
