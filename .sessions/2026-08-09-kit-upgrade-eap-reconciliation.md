@@ -156,6 +156,20 @@ and auto-merged card-less — the #451 race), and a **verify-suite step** driven
 by the interview's confirmed `verify_command` instead of hardcoded pytest. Both
 kept; the checker step re-applied by hand alongside them.
 
+**Is there a persistent carve-out convention? Checked, and no — for workflows.**
+Asked by owner-review, and it should have been checked before the claim was
+made rather than after. The kit *does* run a preserve mechanism, but its scope
+is digest blocks, not workflow files: `bootstrap.py:17031-17045` defines
+`<!-- substrate-kit:*-digest BEGIN/END -->` fences whose *"bytes between a
+BEGIN/END pair are the canonical block"* and which regens preserve — for
+`seat-digest.md` and the capability ledger. For the gate, `gate_carveouts()`
+(`:19436-19457`) *"Returns one human-readable line per host-added job and per
+host-added step"* — it **detects and reports; it does not preserve**. The
+byte-for-byte guarantee at `:18617` covers *planted* docs, which are
+skip-if-exists; the gate is kit-owned and regenerated from template. **So the
+"next upgrade drops it again" cost is real** — but it was asserted from the
+upgrade's own advice message before it was read out of the generator.
+
 **Why by hand, and why not the kit's advised fix.** The kit says host carve-outs
 belong in a separate workflow. That is right in general and wrong here *today*:
 `substrate-gate` is the **required** status check, so a separate `host-ci.yml`
@@ -169,19 +183,57 @@ a thing to take unilaterally.
 ### `intake` survived — and that corrects a belief this session inherited
 
 The handoff was explicit: *"After the upgrade, RE-APPLY the intake amendment…
-the upgrade is what destroys it."* **Measured, it did not.** `intake`'s
-`SKILL.md` is byte-identical across the upgrade (sha256 `00d13424…`, 8,929
-bytes, all 8 Phase-2 markers). `upgrade` **staged** six kit skills into
-`.substrate/skills/` and copied none of them into `.claude/skills/`.
+the upgrade is what destroys it."* **Measured, `upgrade` did not.** `intake`'s
+live `SKILL.md` is byte-identical across it (sha256 `00d13424…`, 8,929 bytes,
+all 8 Phase-2 markers).
 
-**The hazard is real but mis-located, and the distinction matters** — filed
-rather than smoothed over. `.substrate/skills/intake/SKILL.md` still holds the
-**superseded 3,745-byte body**, still differs from the live 8,929-byte one, and
-is still the source some step copies from. So the P1 that produced
-`change_guard` check A is not withdrawn; what is withdrawn is *"the upgrade is
-what destroys it"*. **`upgrade` is not the destroying step**, and a session that
-re-applied `intake` here on faith would have "fixed" nothing and reported it as
-done — a false-done of exactly the kind the owner named this morning.
+**But the destroying step exists, it is named, and this upgrade re-armed it.**
+The mechanism, read out of the ledger rather than inferred:
+**no kit command ever writes `.claude/skills/`.** `upgrade` stages, and
+`skills --build` *also* only stages — `cmd_skills`' own docstring
+(`bootstrap.py:24405-24412`) says the kit *"never writes a live `.claude/`
+tree"*. `docs/CAPABILITIES.md:635-648` records this as a measured capability, names the
+real installer — **a hand-run copy loop**, `.substrate/skills/*/SKILL.md` →
+`.claude/skills/*/SKILL.md` — and instructs *"re-run after a kit upgrade"*
+(`:645`). The loop itself is a bash `cp` over `.substrate/skills/*/` at
+`docs/SKILLS-local.md:95-97`, whose own ⚠ at `:104-106` states the consequence:
+*"local amendments to a kit-named skill are overwritten … re-apply them after
+every upgrade."*
+
+This upgrade staged **14** skills including `intake` (`.substrate/skills/intake/`
+mtime `Aug 9 10:28`) — the same 14 the handoff named — refreshing the
+**superseded 3,745-byte body** against the live 8,929-byte one.
+
+**So the hazard is live, and its trigger is a documented instruction.** Both
+docs tell the next session to re-run the loop after an upgrade; doing so reverts
+Phase 2. `docs/SKILLS-local.md:111-112` already carries the ⚠ re-apply table with
+`session-close` and **`intake`**, and `intake`'s row had recorded the staged
+superseded body as *"verified 2026-08-09 … the copy loop reverts Phase 2 in one
+command"* **before this session started** — with a `⚠⚠` at `:114-115` warning it
+*"bites on the very next session"*. This was that session. The warning was
+correct in substance and **wrong only in which command fires it**: the upgrade
+alone did not.
+
+So nothing is withdrawn — only the *attribution* moves, from `upgrade` to **the
+hand-run loop**. **`intake` needs no re-apply here** because the loop was not
+run; it needs one the moment it is.
+
+**And the corollary is the reassuring half, worth keeping in view:** because no
+kit command touches `.claude/skills/`, **hand-authored local skills survive
+upgrades outright** — they are only invisible to the generated index.
+
+**This claim took three passes to get right, which is the finding.** Draft 1:
+*"staged six kit skills and copied none"* — read off `tail -25` of the upgrade
+output and stated as a count over the full set (six was the visible tail,
+fourteen was the set). That is fm #830's error #17, **generalising over a set
+never enumerated**, committed inside the write-up arguing against it. Draft 2
+named `skills --build` as the installer — contradicted by its own docstring one
+read later. Only draft 3 is measured. Both bad drafts came from the same move:
+**answering a mechanism question from the nearest artifact instead of the
+authoritative one**, when `docs/CAPABILITIES.md` had the whole answer, dated and
+evidenced, the entire time. Surfaced by owner-review asking what evidence
+established that staging was the complete operation — a question with no answer,
+because nothing had been read about the install path.
 
 ## The fork put to the owner
 
