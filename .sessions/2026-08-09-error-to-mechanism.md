@@ -50,6 +50,45 @@ and, where the defect is historical, **replayed against the real pre-fix state
 from git** rather than a synthetic fixture. Codex review requested while this
 card is born-red.
 
+## This session's errors, catcher-attributed
+
+Continuing fm #830's numbering, because it is the same day and the same author.
+
+| # | error | caught by |
+|---|---|---|
+| 14 | **evaluated one family of mechanism and concluded about the space** — declared paraphrased propagation *"has no mechanical catcher"* having tried only text matching (whole-line, then shingles). **Anchors were never considered, and `bootstrap.py:9308` already runs one** — it flags a decision id cited from more than one doc, is paraphrase-proof by construction, and **fired on this very session** (`D-0011`, at flip time, in the same command output being read while the claim was written) | **the owner-review Stop hook**, asking whether anything but text matching had been evaluated |
+| 15 | **registered a hook on every file change without measuring its latency** — `PreToolUse` on `Write\|Edit\|MultiEdit` and `PostToolUse` on `Edit\|MultiEdit` is the hot path, and the cost was not measured until asked for | **the owner-review Stop hook**, same round |
+
+**#14 is the sharpest error of the two days**, because it is the session's own
+subject turned on itself. The whole file argues that *availability is not
+retrieval*; the counter-example to its central claim was **in the output of the
+command being read at the time**, and was not retrieved. It also produced a
+*worse* recommendation than the evidence supported: "un-mechanizable" closes a
+question that is actually open and promising.
+
+**#15 measured out fine** — ~41 ms for the `PreToolUse` checks, ~82 ms median /
+137 ms max for the `PostToolUse` grep path, and ~41 ms of every figure is Python
+interpreter startup, identical in the case that does no work. Acceptable. **The
+ordering was still wrong**, and "it turned out fine" is not the same as "it was
+checked": a hook on every edit earns a measurement before registration, not after
+a reviewer asks.
+
 ## Close-out
 
-*(pending)*
+**Built:** `.claude/hooks/change_guard.py` (checks A, B, C), `capability-probe`
+step 3b, and the thirteen-error scoring in
+[`../docs/findings/2026-08-09-error-to-mechanism.md`](../docs/findings/2026-08-09-error-to-mechanism.md).
+
+**The honest scoreboard for the mechanisms this session shipped:** two verified
+against the real history that motivated them (A, B), one that **fails its own
+motivating case and says so** (C), and one design direction that was wrongly
+closed and is now reopened (anchored claims, § 4b).
+
+**Verification** — real exit codes, each command on its own line, never `$?`
+after a pipe. Every check tested in both directions; where the defect is
+historical, replayed against the real pre-fix state from git rather than a
+fixture. Latency measured, 10 runs per path.
+
+**Left for the owner, unchanged from fm #830:** the kit upgrade is next by his
+decision A — and check A now warns whoever runs it that `intake` must be
+re-applied afterwards, which is the P1 turned into a guard.

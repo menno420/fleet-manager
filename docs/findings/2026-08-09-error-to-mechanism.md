@@ -15,6 +15,10 @@
 > [`2026-08-05-foundation-continuation.md`](2026-08-05-foundation-continuation.md).
 > Verdicts are `REASONED`; the two built checks and the one **failed** check are
 > `MEASURED`, each replayed against the real pre-fix state from git.
+>
+> **§ 4b is a correction to § 4 and should be read with it** — the "un-mechanizable"
+> verdict was reached by evaluating one family of mechanism and concluding about
+> the space, while the counter-example was running in the same command.
 
 ## 1 · The test a mechanism has to pass
 
@@ -55,7 +59,7 @@ and has never once come out the other way.
 | 3 | checked a spec's field *names*, concluded about field *values* | **no moment** — nothing tells a machine which dimensions of a spec matter |
 | 4 | quoted a `REVIEWED` distillation as owner-verbatim | **buildable, not built** — a checker could resolve owner-attributed quotes against `OWNER`-labelled sections; narrow and repo-specific |
 | 5 | stated an elapsed time from the wrong start point | **skill step** — never state a duration you did not compute |
-| 6 | corrected a claim in one file, left the copy in another | **NOT mechanizable — measured, § 4** |
+| 6 | corrected a claim in one file, left the copy in another | **no text-matching catcher** — measured, § 4. But the **anchor** family was never evaluated and this repo already runs one (§ 4b), so this is an open design question, not a wall |
 | 7 | called agent-quoted fragments "owner messages" | **already caught** — `Stop` hook |
 | 8 | measured an absence here, claimed a presence there | **skill step** — positive control (§ 5) |
 | 9 | tagged an invented mechanism `MEASURED` | **buildable, not built** — require a command/path/output near a `MEASURED` tag. False-positive risk is real, and it would be a new red condition, which is the owner's call |
@@ -65,7 +69,9 @@ and has never once come out the other way.
 | 13 | amended a kit-named skill that the next upgrade reverts | **BUILT** — check A, § 6 |
 
 **4 already caught · 2 built here · 3 skill steps · 2 buildable and deliberately
-not built · 1 with no moment · 1 measured un-mechanizable.**
+not built · 1 with no moment · 1 open design question** (#6 — see § 4b; this row
+read *"measured un-mechanizable"* until owner-review asked what had actually been
+evaluated).
 
 ## 4 · The one that was built, tested, and failed — keep this
 
@@ -92,6 +98,36 @@ error is to build a checker for it; here the checker was built, aimed at its own
 motivating case, and missed — and the only reason that is known is that it was
 replayed against history instead of a fixture. **A mechanism that has not been
 run against the error it was built for is a hypothesis.**
+
+### 4b · The conclusion above was overstated, and this repo already holds the counter-example
+
+**Corrected 2026-08-09 after owner-review asked whether anything but text
+matching had been evaluated. It had not.** This file said paraphrased propagation
+*"has no mechanical catcher."* The honest claim is narrower: **no
+text-matching catcher — and one whole family of mechanism was never considered.**
+
+Anchors. Give a claim a stable id, cite the id wherever the claim is repeated,
+and propagation becomes decidable **regardless of wording**, because the checker
+follows the id rather than the prose.
+
+**The estate already runs one, and it fired on this very session.**
+`bootstrap.py:9308` flags *"a decision id cited from more than one doc outside
+the ledger — stamp each decision at one home"*, and at flip time it caught
+`D-0011` cited from this file and `providers/gemini.md`. That is exactly the
+paraphrase-proof propagation check declared impossible three paragraphs above,
+running in the same command whose output was being read while the claim was
+written.
+
+**So the shape of the gap is different from what was reported.** It is not that
+propagation is un-mechanizable; it is that the mechanism requires **anchored
+claims**, and this repo anchors only decisions (`[D-NNNN]`). A measurement, a
+tally or a provenance statement has no id, so nothing can follow it. Whether to
+anchor those too is a design question worth its own session — and a real one,
+because it converts the session's most-repeated defect from "watch for it" into
+"the checker follows the id."
+
+**Filed as this session's error #14**, and it is the same shape as the rest:
+evaluating one family of solutions and concluding about the space.
 
 ## 5 · The skill steps — one rule, two errors
 
@@ -133,6 +169,25 @@ hooks, one `Stop`, one `UserPromptSubmit`, and **nothing after a successful
 action** — so no mechanism could say *"that worked, and here is what it implies."*
 Propagation is only knowable after the edit lands; before it, the old text is
 still in the target by definition.
+
+**Triggers and cost, `MEASURED` 2026-08-09** — asked for by owner-review, and it
+should have been measured before shipping rather than after. Registered on
+`PreToolUse` for `Write|Edit|MultiEdit` and `PostToolUse` for `Edit|MultiEdit`,
+so it runs on **every file change a session makes**:
+
+| invocation | median | max |
+|---|---|---|
+| `PreToolUse`, markdown write (A+B) | 41.6 ms | 50.2 ms |
+| `PreToolUse`, kit-named skill edit (A) | 40.4 ms | 42.0 ms |
+| `PostToolUse`, edit large enough for the shingle greps (C) | 81.9 ms | 137.2 ms |
+| `PostToolUse`, edit below the shingle floor | 41.7 ms | 47.8 ms |
+
+**~41 ms of every figure is Python interpreter startup** — the floor is identical
+across all four, including the case that does no work. So the checks themselves
+cost ~0 ms, ~0 ms, and ~40 ms; only C's `git grep` calls are measurable, and only
+on edits big enough to shingle. Acceptable on the hot path, but **the ordering
+was wrong: a hook on every edit should have its latency measured before it is
+registered, not after someone asks.**
 
 A detail that generalises: **check A's first version was wrong in a way only a
 test showed.** It asked whether the skill was named anywhere in
