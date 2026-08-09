@@ -285,4 +285,54 @@ ruling went the way that made it moot; that was luck, not process.
 
 ## Close-out
 
-*(to be completed before the Status flips)*
+**Landed:** the payload question settled three ways · the vendored kit at
+**v1.20.2** with the dropped checker carve-out re-applied and **verified running
+in CI** (gate step 8 success across four consecutive SHAs) ·
+[`../docs/findings/2026-08-09-eap-correspondence-record.md`](../docs/findings/2026-08-09-eap-correspondence-record.md)
+committed and linked from the E1 plan § 2 · the confidentiality ruling (ledger
+entry + `owner-reflection` narrowed) · the §7 progress-ledger row.
+
+**`intake` is present and needs no re-apply** — live `SKILL.md` unchanged across
+the upgrade, 8 Phase-2 markers, sha256 `00d13424…`. The handoff's re-apply step
+was **correctly motivated and wrongly triggered**: the destroying action is the
+hand-run copy loop, not `upgrade`, and the loop was not run.
+
+**The honest scoreboard for this session's claims.** Five were asserted before
+they were established, and every one was caught by an instrument rather than by
+re-reading:
+
+| claim | first stated as | ended as | caught by |
+|---|---|---|---|
+| no released kit carries `ADVISORY_CENSUS` | three legs, one silently incomplete | complete by tag enumeration (26 = 26) | Codex P2 |
+| the confidentiality carve-out permits this file | cited `owner-reflection` | citation withdrawn; owner ruling obtained | Codex P1 ×2 |
+| correction 4 | *"four did not"* / *"appears not to exist"* | uncorroborated, not disproved | Codex P2 |
+| `upgrade` reverts `intake` | *"staged six, copied none"*, then `skills --build` | the hand-run loop; measured 0 markers vs 8 | owner-review ×1, then source |
+| the carve-out will be dropped again | from the upgrade's advice message | read out of the writer at `:20048` | owner-review |
+
+**The pattern under all five is one move:** answering from the nearest artifact
+rather than the authoritative one — a changelog instead of the release asset, a
+reporting function instead of the writer, a tail of output instead of the set,
+an instruction instead of the code. **Availability is not retrieval**, which is
+the finding this repo already holds and which this session re-demonstrated five
+times while working on it.
+
+**What that says about the instruments, and it is the useful half:** the
+adversarial layer is doing the work the author cannot. Codex caught what was
+wrong in the *tree*; the `Stop` hook caught what was wrong in the *reply*;
+`read_before_write` caught a quote attributed to a file never opened. **Zero of
+the five were caught by re-reading my own text** — consistent with the
+four-session-old result that no mechanism depending on the author noticing has
+ever worked here.
+
+**Left for the owner:**
+
+1. **v1.21.0** — cut from substrate-kit `main` in a dedicated session (his
+   *"both, in order"*). That session owns a **release**, not an upgrade: twelve
+   adopters, and a batch promoting six checkers to exit-affecting. It should
+   re-run `--gate-preview` across the adopter trees rather than trust this
+   repo's measured zero.
+2. **The carve-out treadmill** — the durable fix is `host-ci.yml` plus a
+   required-check ruleset edit. Deliberately not taken: it is a policy change.
+   Until then, **every kit upgrade must re-apply the checker step**, and
+   `:20048` guarantees it will need to.
+3. **E1 itself** — still owner-reserved and now fully sourced.
