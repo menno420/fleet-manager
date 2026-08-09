@@ -205,7 +205,7 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   replayed at all**, because the owner message that produced it was never
   preserved — the compression destroyed the evidence needed to audit it.
 - **Thirteen errors scored against "could a machine have caught this at the
-  moment?" — and three hooks built from the answer** (2026-08-09):
+  moment?" — and three hooks built from the answer** (2026-08-09, fm #831):
   [findings/2026-08-09-error-to-mechanism.md](findings/2026-08-09-error-to-mechanism.md)
   — the owner's follow-on to fm #830's error ledger, after he read it and drew
   the right conclusion: *"nearly all of them have been caught without my
