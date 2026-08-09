@@ -143,13 +143,38 @@ decision changes, one of the two goes stale."*
 | **detect** | allow copies, notice when they diverge | needs to compare meaning — the thing text matching cannot do |
 | **prevent** | allow exactly one home, so there is nothing to diverge from | needs an id, and a rule that copies cite rather than restate |
 
+**Precisely, and it matters for what an anchor rule would have to say:** the
+ledger is excluded by path (`:9317` resolves it, `:9319-9320` skips it), each
+document's mentions collapse via `set()` (`:9326`), and the flag fires at
+`:9330` only when **two or more non-ledger docs** cite the same id. So it *does*
+separate the canonical definition from citations, and it does **not** reject a
+second occurrence — it permits **exactly one** citing document and flags the
+second.
+
 **So the recommendation changes.** The fix for paraphrased propagation is
-probably not a cleverer matcher — it is **denying the second home**, which is
+probably not a cleverer matcher — it is **capping the number of homes**, which is
 cheap, decidable, and already proven here for decisions. What this repo lacks is
 not the mechanism but the **anchors**: it stamps decisions (`D-NNN`) and nothing
-else, so a measurement, a tally or a provenance statement has no id to cite, and
-every restatement is necessarily a retyping that can drift. Every propagation
-failure in fm #830 was a retyped *measurement*.
+else, so anything else restated in a second document is a retyping that can
+drift.
+
+**What was actually retyped — audited, 2026-08-09, after this file asserted it
+without auditing.** Three propagation instances exist across the two PRs:
+
+| instance | what was propagated | kind |
+|---|---|---|
+| fm #830 error #6 | *"a 1-in-21 false-negative rate"* | **measurement** |
+| fm #830 Codex round-2 #2 | *"ten real owner messages"* — and the wrong part was *"real owner messages"*, not the count | **provenance claim** |
+| the miss inside that fix | the same provenance claim, in the ledger row's opening sentence | **provenance claim** |
+
+**One measurement and two provenance claims — not "every one a measurement",
+which is what this file said.** The correction widens the argument rather than
+narrowing it: the class that needs anchors is **any unanchored claim repeated
+across documents**, and provenance statements turn out to be the more common
+half. Note also that only **one of the sixteen numbered errors** is a propagation
+failure; the other two were Codex findings recorded as dispositions, so "every
+propagation failure today" was a generalisation over a set that had never been
+enumerated. **Filed as error #17.**
 
 Anchoring measurements the way decisions are anchored is the design question
 worth its own session. **Filed as error #16** — the first version of this
