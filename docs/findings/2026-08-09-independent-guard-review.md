@@ -162,12 +162,29 @@ These changes receive the second and final re-review round allowed by
 `session-close`; any remaining finding is dispositioned rather than creating an
 unbounded review loop.
 
+The final re-review covered `322430462d0582b601278cb04b693b3408c9522b` and
+returned four further P2s. The loop cap was now reached, so each was reproduced
+and fixed with an explicit post-review disposition; no third review was
+requested:
+
+| finding | reproduction | post-review disposition |
+|---|---|---|
+| path-qualified interpreters were stripped as inert | `/bin/bash` and `/usr/bin/python3` heredocs were silent | `[conceded]` — allow a path prefix on interpreters and `env`; pin both plus `/usr/bin/env python3` |
+| modifiers before `given that` detached negation | `not necessarily a given that` and `isn't really given that` flagged | `[conceded]` — allow a bounded modifier vocabulary while causal `does not reproduce given that` stays red |
+| complement `as` was mistaken for causal `as` | `do not frame this as` and `never be read as` flagged | `[conceded]` — keep `as` attached after a bounded set of negated complement verbs; causal `as` / `seeing as` remain red |
+| paired parenthetical commas detached direct negation | `does not, in fact, mean` flagged | `[conceded]` — mask a short paired-comma aside only when a nearby negation precedes it and a known repudiation predicate follows |
+
+The terminal trigger suite is **69/69**, seventeen assertions beyond the
+52-case baseline. This final post-review commit is intentionally named in the
+session card and PR body as not separately re-reviewed: that is the bounded-loop
+trade required by `session-close`, not an inference that silence means approval.
+
 ## Result and residual work
 
 - The local defect-7 analogue is fixed and acceptance-tested.
 - The seven-defect A/B instrument now matches its own coverage claim.
 - Trigger enforcement remains exact on the tool name and advisory on command
-  text, with fourteen more regression assertions and corrected operational
+  text, with seventeen more regression assertions and corrected operational
   guidance.
 - The local occurrence-attachment analogue of kit defect 2 still exists. It is
   recorded here and in the canonical kit finding; it was not folded into the

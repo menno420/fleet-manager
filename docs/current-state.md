@@ -237,7 +237,10 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   positive in inert heredocs; both reproduced and were pinned. Re-review then
   found variable-whitespace / causal-`as` / direct-`given that` attachment cases
   and valid shell prefixes on heredoc executors; all four reproduced and were
-  pinned. The corrected trigger suite passes **66/66**. A
+  pinned. The final allowed re-review found path-qualified interpreters,
+  modifiers before `given that`, negated complement `as`, and paired
+  parenthetical commas; all four reproduced and were dispositioned after the
+  review-loop cap. The corrected trigger suite passes **69/69**. A
   data-flow form such as a shell variable holding `DELETE` remains outside the
   regex by design; that leg warns rather than denies, while
   `mcp__*__delete_trigger` remains an exact denial. The same review corrected

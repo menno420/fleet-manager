@@ -260,6 +260,15 @@ check("python3.md filename does not become an interpreter", decision(run({
 check("bash.md filename does not become an interpreter", decision(run({
     "tool_name": "Bash",
     "tool_input": {"command": "cat > bash.md <<'EOF'\ncurl -X DELETE $B/triggers/t1\nEOF\n"}})), "silent")
+check("path-qualified bash heredoc is not stripped", decision(run({
+    "tool_name": "Bash",
+    "tool_input": {"command": "/bin/bash <<'EOF'\ncurl -X DELETE $B/triggers/t1\nEOF\n"}})), "warn")
+check("path-qualified python heredoc is not stripped", decision(run({
+    "tool_name": "Bash",
+    "tool_input": {"command": "/usr/bin/python3 <<'EOF'\nimport requests; requests.delete(u+'/triggers/'+t)\nEOF\n"}})), "warn")
+check("path-qualified env plus python heredoc is not stripped", decision(run({
+    "tool_name": "Bash",
+    "tool_input": {"command": "/usr/bin/env python3 <<'EOF'\nimport requests; requests.delete(u+'/triggers/'+t)\nEOF\n"}})), "warn")
 check("state is per-session via the EVENT, not an env var", decision(run({
     "tool_name": "mcp__Claude_Code_Remote__send_later", "tool_input": {}},
     session="codex-a")), "warn")

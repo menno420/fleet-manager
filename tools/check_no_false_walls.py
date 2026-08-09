@@ -166,6 +166,25 @@ NEG_SCOPE_BOUNDARY_RE = re.compile(
     r"\bgiven(?:\s+the\s+fact)?\s+that\b",
     re.IGNORECASE,
 )
+NEGATED_GIVEN_PREFIX_RE = re.compile(
+    r"(?:\b(?:not|never|no)\b|\b\w+n['’]t)\s+"
+    r"(?:(?:necessarily|really|actually|simply|generally|always|quite|"
+    r"entirely|automatically|self-evidently|at\s+all)\s+)*(?:a\s+)?$",
+    re.IGNORECASE,
+)
+NEGATED_AS_COMPLEMENT_RE = re.compile(
+    r"(?:\b(?:not|never|no)\b|\b\w+n['’]t)\s+[^.;:!?]{0,32}"
+    r"\b(?:frame|describe|read|treat|present|portray|interpret|label|"
+    r"characteri[sz]e|view|regard|see|count)\b[^.;:!?]{0,20}$",
+    re.IGNORECASE,
+)
+DIRECT_REPUDIATION_PREDICATE_RE = re.compile(
+    r"\s*(?:mean|imply|show|establish|prove|indicate|suggest|say|frame|"
+    r"describe|read|treat|present|portray|interpret|label|characteri[sz]e|"
+    r"view|regard|see|count)\b",
+    re.IGNORECASE,
+)
+PARENTHETICAL_COMMAS_RE = re.compile(r",[^,\n]{1,40},")
 ANTIWALL_LINE_RE = re.compile(
     r"not a wall|never a[^.\n]{0,40}wall|no longer[^.\n]{0,30}wall|"
     r"≠[^.\n]{0,20}wall|isn'?t a[^.\n]{0,20}wall|is not a[^.\n]{0,20}wall",
@@ -277,15 +296,30 @@ def _is_scope_boundary(prefix: str, boundary: "re.Match[str]") -> bool:
     after = prefix[boundary.end():]
     if token == "as" and re.match(r"\s+(?:if|though)\b", after, re.IGNORECASE):
         return False
+    if token == "as" and NEGATED_AS_COMPLEMENT_RE.search(before):
+        return False
     if token in ("if", "though") and re.search(r"\bas\s*$", before, re.IGNORECASE):
         return False
-    if token.startswith("given") and re.search(
-        r"(?:\bnot|\bnever|\bno|\b\w+n['’]t)\s+(?:a\s+)?$",
-        before,
-        re.IGNORECASE,
-    ):
+    if token.startswith("given") and NEGATED_GIVEN_PREFIX_RE.search(before):
         return False
     return True
+
+
+def _mask_direct_parentheticals(prefix: str) -> str:
+    """Blank paired-comma asides that interrupt a direct repudiation.
+
+    The mask preserves string offsets. It is deliberately conditional on a
+    nearby negation before the aside and a known repudiation predicate after it;
+    arbitrary comma-separated clauses remain real boundaries.
+    """
+    masked = list(prefix)
+    for aside in PARENTHETICAL_COMMAS_RE.finditer(prefix):
+        before = prefix[:aside.start()]
+        after = prefix[aside.end():]
+        if (NEG_TOKEN_RE.search(before[-48:])
+                and DIRECT_REPUDIATION_PREDICATE_RE.match(after)):
+            masked[aside.start():aside.end()] = " " * (aside.end() - aside.start())
+    return "".join(masked)
 
 
 def _negation_lead(window: str, sig_start: int) -> str:
@@ -297,9 +331,10 @@ def _negation_lead(window: str, sig_start: int) -> str:
     describe a different subject entirely.
     """
     prefix = window[:sig_start]
+    scope_prefix = _mask_direct_parentheticals(prefix)
     clause_start = 0
-    for boundary in NEG_SCOPE_BOUNDARY_RE.finditer(prefix):
-        if _is_scope_boundary(prefix, boundary):
+    for boundary in NEG_SCOPE_BOUNDARY_RE.finditer(scope_prefix):
+        if _is_scope_boundary(scope_prefix, boundary):
             clause_start = boundary.end()
     return prefix[max(clause_start, len(prefix) - 48):]
 
@@ -433,6 +468,19 @@ _DIRECT_AS_IF = "It is not as if agents cannot merge pull requests."
 _DIRECT_AS_IF_SPACED = "It is not as  if agents cannot merge pull requests."
 _DIRECT_GIVEN = "It is not a given that agents cannot merge pull requests."
 _DIRECT_GIVEN_BARE = "It is not given that agents cannot merge pull requests."
+_DIRECT_GIVEN_MODIFIED = (
+    "It is not necessarily a given that agents cannot merge pull requests."
+)
+_DIRECT_GIVEN_CONTRACTION = (
+    "It isn't really given that agents cannot merge pull requests."
+)
+_DIRECT_FRAME_AS = "Do not frame this as agents cannot merge pull requests."
+_DIRECT_READ_AS = (
+    "This should never be read as agents cannot merge pull requests."
+)
+_DIRECT_PARENTHETICAL = (
+    "It does not, in fact, mean agents cannot merge pull requests."
+)
 
 
 def selftest() -> int:
@@ -483,6 +531,14 @@ def selftest() -> int:
                      "repudiation")
     if flagged(_DIRECT_GIVEN) or flagged(_DIRECT_GIVEN_BARE):
         fails.append("direct 'not (a) given that' repudiation must stay clear")
+    if flagged(_DIRECT_GIVEN_MODIFIED) or flagged(_DIRECT_GIVEN_CONTRACTION):
+        fails.append("modifiers between negation and 'given that' must retain "
+                     "the direct repudiation")
+    if flagged(_DIRECT_FRAME_AS) or flagged(_DIRECT_READ_AS):
+        fails.append("negated frame/read complements must not make 'as' causal")
+    if flagged(_DIRECT_PARENTHETICAL):
+        fails.append("paired-comma parentheticals must not detach a direct "
+                     "negation from its predicate")
 
     # The same attachment distinction must survive Markdown hard-wrapping.
     wrapped_direct: list[str] = []

@@ -217,16 +217,19 @@ _HEREDOC_RE = re.compile(r"<<-?\s*(['\"]?)([A-Za-z_][A-Za-z0-9_]*)\1[\s\S]*?^\2$
 # fm #834 (P2) — the first version stripped every heredoc, and the suite pinned
 # that behaviour as correct, which is a test encoding a bug.
 _SHELL_COMMAND_START = r"(?:^\s*|[;&|()]\s*|\b(?:then|do|else)\s+)"
+_SHELL_PATH_PREFIX = r"(?:[^\s;&|()]*/)?"
 _SHELL_PREFIX_TOKEN = (
     r"(?:[A-Za-z_][A-Za-z0-9_]*=(?:\"[^\"\n]*\"|'[^'\n]*'|[^\s;&|()]+)|"
-    r"command|builtin|env|time|!|--?[A-Za-z0-9_-]+)"
+    r"command|builtin|" + _SHELL_PATH_PREFIX
+    + r"env|time|!|--?[A-Za-z0-9_-]+)"
 )
 _HEREDOC_EXECUTOR_WORD = (
     r"(?:(?:ba|z|k|da)?sh|python3?|perl|ruby|node|deno|eval|source)(?=[\s<])"
 )
 _HEREDOC_EXECUTOR_RE = re.compile(
     _SHELL_COMMAND_START
-    + rf"(?:{_SHELL_PREFIX_TOKEN}\s+)*(?:{_HEREDOC_EXECUTOR_WORD}|\.(?=\s))"
+    + rf"(?:{_SHELL_PREFIX_TOKEN}\s+)*{_SHELL_PATH_PREFIX}"
+    + rf"(?:{_HEREDOC_EXECUTOR_WORD}|\.(?=\s))"
     + r"[^\n<]*<<|"
     + r"\|\s*(?:ba|z)?sh(?=\s|$)",
     re.I | re.M,

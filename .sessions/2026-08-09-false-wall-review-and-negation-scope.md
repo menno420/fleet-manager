@@ -71,7 +71,8 @@ silently discarded.
   `tools/test_trigger_tools_guard.py` cover two literal direct-API forms and two
   executing-heredoc forms the 52-case baseline missed. Codex landing review
   added command-position controls for `eval|source`, and re-review extended the
-  same rule to all known interpreters and shell prefixes; the suite is 66 cases.
+  same rule to all known interpreters, shell prefixes, and path-qualified
+  executors; the suite is 69 cases.
   The tool-name denial remains exact and command-text matching remains advisory.
 - `docs/findings/2026-08-09-independent-guard-review.md` is the requested claim →
   command → verdict record. Canonical boot/current-state/decision/hook docs and
@@ -101,7 +102,7 @@ silently discarded.
   one exit-affecting finding — this card's designed born-red hold.
 - Pre-flip standalone gates: doc routes **0** (`24 routes · 19 docs routed · 0
   errors · 0 notes`); local false-wall strict check **0**; change guard **0**
-  (`16/16`); trigger guard **0** (`66/66` after review fixes).
+  (`16/16`); trigger guard **0** (`69/69` after review fixes).
 - Targeted: Python compilation **0**; `git diff --check` **0**; local false-wall
   self-test **0**; seven-defect A/B instrument **0**.
 - Final all-green exits and the reviewed SHA are recorded in the flip commit;
@@ -131,6 +132,14 @@ silently discarded.
 - This correction receives the second and final re-review round permitted by
   `session-close`; any remaining finding is dispositioned, not allowed to make
   the loop unbounded.
+- Final re-review of `322430462d0582b601278cb04b693b3408c9522b` returned four
+  P2s: path-qualified interpreters; modifiers in direct `given that`
+  repudiations; negated complement `as`; and paired-comma parentheticals. All
+  four reproduced and are `[conceded]` with regression controls.
+- The review-loop cap is reached. Those P2 fixes are applied and named in the PR
+  threads, but deliberately receive no third review. The terminal trade is
+  explicit: land after full gates with the post-review commit identified rather
+  than hand the merge decision to an unbounded reviewer loop.
 
 ### Handoff and backlog
 
