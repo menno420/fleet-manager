@@ -46,9 +46,13 @@ deriving the procedure from scratch.
   runs `skills --build` alone and believes it installed has changed nothing.
   **That loop overwrites local amendments to kit-named skills** — see
   `SKILLS-local.md`'s ⚠ re-apply table before running it.
-  *(Host correction, fm #833. This file is kit-generated and regenerates at
-  adopt/upgrade, so this note is on the re-apply list; the durable fix is
-  upstream in the kit's `SKILLS-index.md.tmpl`.)*
+  *(Host correction, fm #833. **This note survives upgrades** — despite the
+  header above, a touched planted doc is classified `consumer-edited` and
+  `apply_doc_improvements()` writes only `consumer-untouched` files; this
+  upgrade's report confirms it at `.substrate/upgrade-report.md:23`. So do
+  **not** re-apply it after an upgrade — check first. The durable fix is
+  upstream in the kit's `SKILLS-index.md.tmpl`, which still teaches the wrong
+  install step to every new adopter.)*
 - **Precedence:** a skill's declared capability **wins over the ambient
   stance** (an invoked `session-close` may write the session log even under
   a `review` stance); stances stay advisory for anything a skill has not

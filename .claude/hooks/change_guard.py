@@ -272,7 +272,18 @@ def unpropagated(old: str, target: str, new: str = "") -> str | None:
                 # -e is mandatory: a Markdown bullet fragment starts with "-",
                 # which git grep parses as an option and exits 129 — silently
                 # disabling the check for every bulleted claim (measured).
-                ["git", "grep", "-l", "--untracked", "--fixed-strings", "-e", f],
+                # Exclude the guard-fire telemetry ledger. `check --strict`
+                # appends its FINDING MESSAGES there, and a finding message
+                # quotes the offending text — so the moment a session fixes
+                # something the gate flagged, the old wording still sits in the
+                # ledger and check C reports it as an un-propagated survivor.
+                # Guaranteed false positive on every gate-driven correction;
+                # measured twice in five minutes on fm #833 while fixing a
+                # ledger-grammar finding. The ledger is append-only machine
+                # telemetry ("do not revert"), never a copy of a claim, so
+                # nothing true is lost by not searching it.
+                ["git", "grep", "-l", "--untracked", "--fixed-strings", "-e", f,
+                 "--", ":!.substrate/guard-fires.jsonl"],
                 cwd=root, capture_output=True, text=True, timeout=10, check=False,
             ).stdout
         except Exception:

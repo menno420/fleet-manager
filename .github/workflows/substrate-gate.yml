@@ -94,16 +94,34 @@ jobs:
         # (its real work + its session card) is on the FULL lane, so
         # it never reaches this step — by construction this fires
         # only on the pure-claim `claude/*` diff it exists to reject.
+        #
+        # HOST CARVE-OUT (2026-08-09, fm #833) — the `env:` block below is
+        # host-added; the kit template interpolates `${{ github.head_ref }}`
+        # straight into the shell program. A branch name is chosen by the PR
+        # AUTHOR, this repo is public, and git accepts names containing shell
+        # metacharacters — so a head like `claude/";exit${IFS}0;#` closes the
+        # assignment and runs an early successful `exit 0`, making this very
+        # guard pass and re-opening the card-less auto-merge hole (#451) it
+        # exists to close. GitHub expands `${{ }}` BEFORE bash parses the
+        # script, so quoting inside the script cannot help; the value has to
+        # arrive as an environment variable, which bash never re-parses.
+        # Found by Codex on fm #833 (P1). Re-apply after every kit upgrade —
+        # `bootstrap.py:20048` overwrites this file.
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+          BASE_REF: ${{ github.base_ref }}
+          EVENT_BEFORE: ${{ github.event.before }}
+          EVENT_SHA: ${{ github.sha }}
         run: |
-          head_ref="${{ github.head_ref }}"
+          head_ref="$HEAD_REF"
           case "$head_ref" in
             claude/*) ;;
             *) echo "guard N/A — head '$head_ref' is not a claude/* branch (claim/* and others ride the fast lane card-less by design)."; exit 0 ;;
           esac
-          if [ -n "${{ github.base_ref }}" ]; then
-            range="origin/${{ github.base_ref }}...HEAD"
+          if [ -n "$BASE_REF" ]; then
+            range="origin/$BASE_REF...HEAD"
           else
-            range="${{ github.event.before }}..${{ github.sha }}"
+            range="$EVENT_BEFORE..$EVENT_SHA"
           fi
           changed="$(git diff --name-only "$range" 2>/dev/null || true)"
           if [ -z "$changed" ]; then

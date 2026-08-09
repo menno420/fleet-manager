@@ -41,6 +41,14 @@
 ## [D-0012] Publication default: public unless it exposes a key
 
 - status: decided
+- superseded-by: D-0014
+- amendment: **The "single exception" below is now three.** D-0014 (2026-08-09)
+  adds unreleased feature specifics the owner has not himself published, and
+  third-party personal contact details. **Only the exception list changes** —
+  the publish-by-default posture and its rationale stand unchanged. Flagged by
+  Codex on fm #833 (P1): D-0014 was written as an addition and left this entry
+  reading as though credentials were still the only boundary, so a session
+  reading only this row could publish exactly what D-0014 protects.
 - date: 2026-08-05
 - verdict: Assume anything this estate produces may be public. The single
   exception is credential material — API keys, tokens, secrets — which never
@@ -81,6 +89,14 @@
 ## [D-0014] Confidentiality: the narrow rule is unreleased specifics, contacts and credentials
 
 - status: decided
+- supersedes: D-0012
+- scope-of-supersession: **partial — the exception list only.** D-0012 said
+  credential material was *"the single exception"* and that *"no other category
+  needs the owner's permission"*; this entry adds two more protected categories,
+  so the withhold list is now **three**: credentials, unreleased feature
+  specifics the owner has not himself published, and third-party personal
+  contact details. **The publish-by-default posture is unchanged and still
+  governs everything else.**
 - date: 2026-08-09
 - verdict: The estate-wide confidentiality rule is **narrowed to what it
   actually needs to protect**: unreleased feature specifics the owner has not

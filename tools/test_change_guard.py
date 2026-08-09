@@ -68,6 +68,36 @@ check("later-line fix still searched when earlier lines are preserved",
       run(post("docs/other.md", old_string=keep+"\n"+fix, new_string=keep+"\nsomething else entirely now")), True)
 os.remove(os.path.join(REPO, "_probe_later.md"))
 
+print("== F6 telemetry ledger is not a survivor ==")
+# `check --strict` appends its FINDING MESSAGES to .substrate/guard-fires.jsonl,
+# and a finding message quotes the offending text — so after any gate-driven fix
+# the old wording still sits in the ledger. Without the pathspec exclusion, check
+# C reports that as an un-propagated survivor: a guaranteed false positive on
+# every correction the gate itself prompted (fired twice in five minutes on
+# fm #833). Built at runtime for the same reason as F2.
+LEDGER = os.path.join(REPO, ".substrate", "guard-fires.jsonl")
+# TEN words, deliberately: check C shingles at 9, so an 8-word fixture is silent
+# because it never produces a fragment — which made the first version of the
+# exclusion case pass for the wrong reason until the positive control caught it.
+telem = "zzt" + " zzt".join(
+    "quebec romeo sierra tango uniform victor whiskey xray yankee zulu".split())
+_orig = open(LEDGER, "rb").read() if os.path.exists(LEDGER) else None
+try:
+    with open(LEDGER, "a") as fh:
+        fh.write('{"probe": "' + telem + '"}\n')
+    check("fragment surviving ONLY in the telemetry ledger is silent",
+          run(post("docs/other.md", old_string=telem, new_string="z")), False)
+    # Positive control: the same fragment in an ordinary file must still fire,
+    # so the silence above is the exclusion working and not the grep failing.
+    open(os.path.join(REPO, "_probe_telem.md"), "w").write(telem + "\n")
+    check("same fragment in a normal file still FIRES (positive control)",
+          run(post("docs/other.md", old_string=telem, new_string="z")), True)
+finally:
+    if os.path.exists(os.path.join(REPO, "_probe_telem.md")):
+        os.remove(os.path.join(REPO, "_probe_telem.md"))
+    if _orig is not None:
+        open(LEDGER, "wb").write(_orig)
+
 print("== regressions ==")
 old = subprocess.run(["git","show","d7287ea:.sessions/2026-08-08-layer2-ratification.md"],
                      capture_output=True, text=True, cwd=REPO).stdout
