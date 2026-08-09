@@ -215,7 +215,14 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   check, and **two are regressions v1.20.2 introduced** — one false positive
   (valid repudiation prose rejected) and one **false negative** (a genuine wall
   passes the gate after `because`), the latter being the one to fix first
-  because nothing announces it. The upgrade also **silently dropped the gate's
+  because nothing announces it. **Two of those holes are fleet-manager's own,
+  not only the kit's** — measured 2026-08-09 with a passing bare-wall control:
+  `tools/check_no_false_walls.py` also clears a genuine wall after
+  *"does not reproduce because …"* and clears a second assertion following a
+  repudiated quote. **So a real standing wall can be committed to a read-path
+  doc today and no gate in this repo will catch it.** An earlier note claiming
+  fm's checker did not share these generalised from the one defect actually
+  tested. The upgrade also **silently dropped the gate's
   `repo checkers` step**; it is re-applied and every kit upgrade must re-apply
   it until the durable fix lands ([SKILLS-local.md](SKILLS-local.md) §
   "Generated-file corrections to re-apply").

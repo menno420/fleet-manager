@@ -137,7 +137,24 @@ opposed to a long-standing hole.
 
 ## What was checked and came back clean — do not redo these
 
-- **fm's own `tools/check_no_false_walls.py` does not share defects 1–4.** It carries no `deploy` family and is a **separate implementation**. Nothing in fleet-manager needs patching for them.
+- **fm's own `tools/check_no_false_walls.py` shares two of these — corrected 2026-08-09, and the first version of this line was the error.** It said *"does not share defects 1–4 … nothing in fleet-manager needs patching"*, generalising from the **one** defect actually tested (defect 3 — fm carries no `deploy` family, still true). **Measured properly**, by appending each payload to `docs/current-state.md` and running the checker, control first:
+
+  | shape appended to `docs/current-state.md` | fm's checker | verdict |
+  |---|---|---|
+  | `Agents cannot merge pull requests.` — **control** | exit **1**, `FLAG [false-wall] …:482` | caught, so the test is valid |
+  | defect **7** — `The failure does not reproduce because agents cannot merge pull requests.` | exit **0** | **shares the hole** |
+  | defect **2** — `"agents cannot merge" was superseded, agents cannot merge` | exit **0** | **shares the hole** |
+  | defect **6** — `The "agents cannot merge" rule is false and no longer applies.` | exit **0** | **correct** — this is valid repudiation prose; fm is right and kit v1.20.2 is wrong |
+
+  **So there is no redundancy where it matters most.** Defect 7 passes *both*
+  implementations end-to-end: with the payload in a scanned doc,
+  `check_no_false_walls.py --strict` exits 0 and `check --strict` reports zero
+  false-wall findings, while the same file with a bare wall reds. **A genuine
+  standing wall can be committed to a read-path doc today and no gate in this
+  repo will notice.** That makes defects 2 and 7 fleet-manager's own bugs as
+  well as the kit's, not merely upstream ones to file.
+
+- **An earlier attempt at this test was invalid and is recorded rather than discarded.** The payload was first appended to `docs/CAPABILITIES.md`, where **the bare-wall control also passed** — because that file is the capability ledger and `tools/check_no_false_walls.py:296` special-cases it. The run proved nothing in either direction. **It was the positive control that exposed it**, which is the whole reason `capability-probe` step 3b requires one before recording an absence.
 - **Both scanners run in `substrate-gate`**, which is worth knowing before assuming a single fix point: fm's at the `repo checkers` step, the kit's via `bootstrap.py check --strict` → `check_no_false_walls` (`:5596`) → `scan_text` (`:5628`).
 - **Defect 6 has no live impact on fleet-manager.** Searched, not inferred: `git grep -n -i -E "(is|was) false and (no longer|never)|and no longer applies|and (was|is) superseded" -- '*.md'` returns only documentation of the repro itself plus one unrelated hit. Positive control: `no longer applies` matches 4 files.
 - **A green gate does not establish this**, and an earlier draft wrongly said it did: the kit's scanner walks `iter_adopter_files(...)` (`:5617`), not the tree, so `.sessions/` is outside it entirely.
