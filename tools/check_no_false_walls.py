@@ -161,8 +161,10 @@ NEG_TOKEN_RE = re.compile(
 # token 48 chars away did not.
 NEG_SCOPE_BOUNDARY_RE = re.compile(
     r"[,;:.!?]|[—–]|"
-    r"\b(?:and|or|but|because|if|unless|when|while|whereas|although|though|"
-    r"however|yet|so)\b",
+    r"\b(?:and|or|but|because|unless|when|while|whereas|although|though|"
+    r"however|yet|so|since)\b|"
+    r"(?<!as )\bif\b|"
+    r"\bgiven(?:\s+the\s+fact)?\s+that\b",
     re.IGNORECASE,
 )
 ANTIWALL_LINE_RE = re.compile(
@@ -389,8 +391,15 @@ _META = ("- CI enforces this: a PR that documents an agent-capability wall "
 _OTHER_PREDICATE_NEGATION = (
     "The failure does not reproduce because agents cannot merge pull requests."
 )
+_OTHER_PREDICATE_SINCE = (
+    "The failure does not reproduce since agents cannot merge pull requests."
+)
+_OTHER_PREDICATE_GIVEN = (
+    "The failure does not reproduce given that agents cannot merge pull requests."
+)
 # A negation that directly qualifies the wall claim must remain a valid clear.
 _DIRECT_NEGATION = "This does not mean agents cannot merge pull requests."
+_DIRECT_AS_IF = "It is not as if agents cannot merge pull requests."
 
 
 def selftest() -> int:
@@ -419,8 +428,17 @@ def selftest() -> int:
     if not flagged(_OTHER_PREDICATE_NEGATION):
         fails.append("a negation attached to another predicate must NOT clear "
                      "a wall after 'because'")
+    if not flagged(_OTHER_PREDICATE_SINCE):
+        fails.append("a negation attached to another predicate must NOT clear "
+                     "a wall after causal 'since'")
+    if not flagged(_OTHER_PREDICATE_GIVEN):
+        fails.append("a negation attached to another predicate must NOT clear "
+                     "a wall after 'given that'")
     if flagged(_DIRECT_NEGATION):
         fails.append("a negation directly qualifying the wall must clear it")
+    if flagged(_DIRECT_AS_IF):
+        fails.append("bare 'as' must not become a boundary in direct 'not as if' "
+                     "repudiation prose")
 
     # The same attachment distinction must survive Markdown hard-wrapping.
     wrapped_direct: list[str] = []

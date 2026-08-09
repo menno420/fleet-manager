@@ -232,10 +232,19 @@ check("eval of a quoted heredoc is not stripped", decision(run({
 check("source of a quoted heredoc is not stripped", decision(run({
     "tool_name": "Bash",
     "tool_input": {"command": "source /dev/stdin <<'EOF'\ncurl -X DELETE $B/triggers/t\nEOF\n"}})), "warn")
+check("source heredoc after a shell separator is not stripped", decision(run({
+    "tool_name": "Bash",
+    "tool_input": {"command": "true && source /dev/stdin <<'EOF'\ncurl -X DELETE $B/triggers/t\nEOF\n"}})), "warn")
 # ...and the inert case must STILL be silent, or the fix is just a revert.
 check("cat > file <<EOF (inert) is still silent", decision(run({
     "tool_name": "Bash",
     "tool_input": {"command": "cat > d.md <<'EOF'\ncurl -X DELETE $B/triggers/t1\nEOF\n"}})), "silent")
+check("source.md filename does not become a source executor", decision(run({
+    "tool_name": "Bash",
+    "tool_input": {"command": "cat > source.md <<'EOF'\ncurl -X DELETE $B/triggers/t1\nEOF\n"}})), "silent")
+check("eval.md filename does not become an eval executor", decision(run({
+    "tool_name": "Bash",
+    "tool_input": {"command": "cat > eval.md <<'EOF'\ncurl -X DELETE $B/triggers/t1\nEOF\n"}})), "silent")
 check("state is per-session via the EVENT, not an env var", decision(run({
     "tool_name": "mcp__Claude_Code_Remote__send_later", "tool_input": {}},
     session="codex-a")), "warn")

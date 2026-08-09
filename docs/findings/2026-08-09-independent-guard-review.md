@@ -108,7 +108,7 @@ the accepted failure class and the observed boundary forms are now pinned.
   `Bash|mcp__.*__delete_trigger|mcp__.*__send_later` and needed no repair.
 - Independent subprocess traffic probes for exact tool names, literal Python /
   JavaScript API forms, executing and inert heredocs, and a data-flow command.
-- Expanded suite after corrections: exit 0, **58/58 passed**.
+- Expanded suite after the independent audit: exit 0, **58/58 passed**.
 
 ### Verdicts
 
@@ -129,16 +129,30 @@ the accepted failure class and the observed boundary forms are now pinned.
 No one of the baseline 52 cases was found to require the opposite expected
 outcome. The remaining defects were **coverage and contract-assertion gaps**:
 the suite passed while literal API forms, two executing heredocs, and the
-warning's prohibited recommendation went untested. The six added assertions
-make those gaps executable without pretending the regex can understand dynamic
-shell data flow.
+warning's prohibited recommendation went untested. The first six added
+assertions made those gaps executable without pretending the regex can
+understand dynamic shell data flow.
+
+### Codex landing review on fm #835
+
+Codex reviewed `6388db4c1fec89e7ae84be80ad6e883ee38b225d` and returned two
+inline findings. Both survived direct reproduction and were conceded:
+
+| finding | reproduction | disposition |
+|---|---|---|
+| P2 · causal `since` was not a negation boundary | `does not reproduce since agents cannot merge` returned clear; `given that` did too | added `since` and `given [the fact] that`; pinned both plus the valid `not as if …` control so bare `as` does not overcorrect |
+| P3 · `eval|source` matched filenames anywhere before `<<` | inert writes to `source.md` and `eval.md` warned, while `note.md` stayed silent | anchored those executors to shell command positions; pinned both filenames and a `&& source … <<` execution control |
+
+The post-review trigger suite is **61/61**: nine assertions beyond the 52-case
+baseline. Because both findings changed reviewable code, the corrected head is
+sent through one re-review round before the born-red flip.
 
 ## Result and residual work
 
 - The local defect-7 analogue is fixed and acceptance-tested.
 - The seven-defect A/B instrument now matches its own coverage claim.
 - Trigger enforcement remains exact on the tool name and advisory on command
-  text, with six more regression assertions and corrected operational guidance.
+  text, with nine more regression assertions and corrected operational guidance.
 - The local occurrence-attachment analogue of kit defect 2 still exists. It is
   recorded here and in the canonical kit finding; it was not folded into the
   owner's line-284 acceptance scope.

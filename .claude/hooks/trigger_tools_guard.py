@@ -219,7 +219,7 @@ _HEREDOC_RE = re.compile(r"<<-?\s*(['\"]?)([A-Za-z_][A-Za-z0-9_]*)\1[\s\S]*?^\2$
 _HEREDOC_EXECUTOR_RE = re.compile(
     r"\b(?:ba|z|k|da)?sh\b[^\n<]*<<|"
     r"\b(?:python3?|perl|ruby|node|deno)\b[^\n<]*<<|"
-    r"\b(?:eval|source)\b[^\n<]*<<|"
+    r"(?:^|[;&|()]\s*|\b(?:then|do|else)\s+)(?:eval|source)\b[^\n<]*<<|"
     r"(?:^|[;&|]\s*)\.\s+[^\n<]*<<|"
     r"\|\s*(?:ba|z)?sh\b",
     re.I | re.M,

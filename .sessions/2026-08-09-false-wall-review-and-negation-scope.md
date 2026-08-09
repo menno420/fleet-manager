@@ -69,7 +69,8 @@ silently discarded.
   preserves semantic `want=` controls alongside old/new counts.
 - `.claude/hooks/trigger_tools_guard.py` plus
   `tools/test_trigger_tools_guard.py` cover two literal direct-API forms and two
-  executing-heredoc forms the 52-case baseline missed; the suite is 58 cases.
+  executing-heredoc forms the 52-case baseline missed. Codex landing review
+  added command-position controls for `eval|source`; the suite is 61 cases.
   The tool-name denial remains exact and command-text matching remains advisory.
 - `docs/findings/2026-08-09-independent-guard-review.md` is the requested claim →
   command → verdict record. Canonical boot/current-state/decision/hook docs and
@@ -99,12 +100,25 @@ silently discarded.
   one exit-affecting finding — this card's designed born-red hold.
 - Pre-flip standalone gates: doc routes **0** (`24 routes · 19 docs routed · 0
   errors · 0 notes`); local false-wall strict check **0**; change guard **0**
-  (`16/16`); trigger guard **0** (`58/58`).
+  (`16/16`); trigger guard **0** (`61/61` after review fixes).
 - Targeted: Python compilation **0**; `git diff --check` **0**; local false-wall
   self-test **0**; seven-defect A/B instrument **0**.
 - Final all-green exits and the reviewed SHA are recorded in the flip commit;
   the review request happens after this close-out is published and before that
   flip.
+
+### Review
+
+- Codex reviewed `6388db4c1fec89e7ae84be80ad6e883ee38b225d` and returned two
+  threads: P2 causal `since` remained jointly attached to the earlier negation;
+  P3 inert `source.md` / `eval.md` writes were mistaken for executors. Direct
+  probes reproduced both, so both are `[conceded]` and fixed with controls.
+- The P2 correction also covers `given that`, while a `not as if …` control
+  prevents over-broadening bare `as`. The P3 correction recognizes
+  `eval|source` only at shell command positions and keeps a separator execution
+  case red.
+- Those are reviewable code changes, so the corrected head receives one
+  re-review round before this card flips.
 
 ### Handoff and backlog
 
