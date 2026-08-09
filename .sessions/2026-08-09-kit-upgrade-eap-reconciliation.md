@@ -297,9 +297,12 @@ the upgrade, 8 Phase-2 markers, sha256 `00d13424…`. The handoff's re-apply ste
 was **correctly motivated and wrongly triggered**: the destroying action is the
 hand-run copy loop, not `upgrade`, and the loop was not run.
 
-**The honest scoreboard for this session's claims.** Five were asserted before
-they were established, and every one was caught by an instrument rather than by
-re-reading:
+**The honest scoreboard for this session's claims.** **Seven** were asserted
+before they were established, and every one was caught by an instrument rather
+than by re-reading. **The count is the table's row count and nothing else** —
+stated that way deliberately, because the first version of this paragraph said
+*"five"* and was already stale by two rows within the hour, which is the exact
+summary-outlives-its-table defect recorded three sections above:
 
 | claim | first stated as | ended as | caught by |
 |---|---|---|---|
@@ -308,6 +311,8 @@ re-reading:
 | correction 4 | *"four did not"* / *"appears not to exist"* | uncorroborated, not disproved | Codex P2 |
 | `upgrade` reverts `intake` | *"staged six, copied none"*, then `skills --build` | the hand-run loop; measured 0 markers vs 8 | owner-review ×1, then source |
 | the carve-out will be dropped again | from the upgrade's advice message | read out of the writer at `:20048` | owner-review |
+| `substrate-gate` runs "the" false-wall scanner | as though one existed | **both** run — fm's at `:170`, the kit's via `check --strict` → `:5596` → `:5628` | owner-review |
+| a local dist patch is erased on upgrade | quoted `cmd_upgrade`'s **docstring** (`:26887`) as if it were the implementation | true, and I had **watched** it happen — the banked `bootstrap-1.20.1.py` was created while `bootstrap.py` became 1.20.2 | owner-review |
 
 **Count it precisely, because a first version of this paragraph did not.**
 **5 claims, 6 findings** — the confidentiality claim was caught **twice** (Codex
@@ -405,11 +410,11 @@ discover.
 
 ## Upstream kit defects found here — the v1.21.0 session's actual worklist
 
-Codex reviewed the **vendored dist** because this PR changed it, and found five
+Codex reviewed the **vendored dist** because this PR changed it, and found six
 defects in kit code. **None is patched here**: `cmd_upgrade` *"archives before it
 overwrites"*, so a local patch is erased at the next upgrade — a fix that
 evaporates while giving false confidence, with no hash gate to notice either
-way. All five belong upstream, where they reach twelve adopters instead of one.
+way. All six belong upstream, where they reach twelve adopters instead of one.
 
 **Written with line numbers and reproductions so the next session does not have
 to re-derive them** — "filed upstream" as a phrase has no referent; this is the
@@ -422,6 +427,34 @@ referent. Line numbers are against vendored **v1.20.2**.
 | 3 | `bootstrap.py:5034` | `\bre?deploy(?:s\|ed\|ing\|ment)?\b` — the `re` is *`r` plus optional `e`*, so it matches `redeploy` and `rdeploy` but **not `deploy` or `deploying`**. The intended form is `(?:re)?deploy`. **Verified here:** `deploy` → False, `deploying` → False, `redeploy` → True | `scan_text('Merging is not walled, agents cannot deploy')` → no finding: the deploy wall has no family, so an unrelated merge repudiation clears it |
 | 4 | `bootstrap.py:5374-5378` | the lookforward stop set is `_HEADING` / `_DATED_BULLET` / `_NEW_BULLET` / `_CONTRAST_START` — **no fence, no blockquote** — so a cue inside a separate block attaches to a wall above it | `scan_text('The rule is "agents cannot merge"\n```\nThis example was superseded\n```')` → no finding |
 | 5 | `SKILLS-index.md.tmpl` — read as the **embedded template constant inside the vendored `bootstrap.py`**, not as a standalone file in the kit repo | teaches *"install with `python3 bootstrap.py skills --build`"* (verbatim, one occurrence in the dist), which only stages. **Every new adopter is told an install step that installs nothing** — the false-done class, shipped by the template | any fresh adopt: run it, then `ls .claude/skills/` |
+| 6 | `bootstrap.py:5078` | the conjunction clause-splitter separates a repudiation from the wall it qualifies when the cue follows `and` in the **same predicate**, so ordinary correction prose is flagged. **A regression against v1.20.1**, and the only one here that is | `scan_text('The "agents cannot merge" rule is false and no longer applies.')` → **1 hit** on v1.20.2, **0** on v1.20.1 |
+
+### Defect 6 is a measured regression — and the release is not simply worse
+
+`MEASURED` 2026-08-09, by loading **both dists** (the vendored v1.20.2 and the
+banked `bootstrap-1.20.1.py`) and running `scan_text` on the same three inputs.
+This is the strongest evidence in the table: not a reading of code, but the same
+function answering differently in two released versions.
+
+| input | v1.20.1 | v1.20.2 | reading |
+|---|---|---|---|
+| `The "agents cannot merge" rule is false and no longer applies.` | 0 hits | **1 hit** | **regression** — valid repudiation prose now rejected |
+| `Agents cannot merge pull requests.` | 1 hit | 1 hit | correct in both; the real wall still reds |
+| `The "agents cannot merge" rule was superseded.` | **1 hit** | 0 hits | **improvement** — v1.20.1 false-positived on an ordinary correction |
+
+**Report it as a trade, because that is what it is.** v1.20.2's entire changelog
+entry is *"`check_no_false_walls` clearing gains five attachment-based
+relaxations"*, and row 3 is one of those relaxations working. The clause-splitter
+that causes row 1 was added deliberately — the changelog says a mid-line
+conjunction *"is now a clause boundary"* so a cue cannot bleed across it and
+blind a genuine wall. **Row 1 is the price of that, and it was evidently not
+measured against the `X is false and no longer applies` shape.** Upgrading was
+still right: one false-positive class traded for another, plus four other fixes.
+
+**No live impact on this repo today** — `check --strict` is green apart from the
+born-red hold, so nothing in the tree is written in the affected shape. It bites
+whoever next writes a repudiation as *"… is false and no longer applies"*, which
+is ordinary English and therefore likely.
 
 **Defects 1–4 all live in the kit's own false-wall scanner**, which is the
 mechanism the boot file calls load-bearing and which `substrate-gate` runs as a
