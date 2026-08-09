@@ -353,6 +353,56 @@ instrument, so it is checkable in `git log` on this branch. It is **not** an
 independent audit, and a defect no instrument caught and I never noticed would
 be invisible to it by construction.
 
+## Two safeguards that are weaker than they read — measured, after being asked
+
+Owner-review asked what *enforces* each. Neither answer was what I had implied.
+
+**1 · The four-way sha256 match is a procedure, not a gate.**
+`grep -rn "sha256" tools/*.py scripts/*.py .github/workflows/*.yml` returns
+**nothing** (positive control: `sha256` appears 32× in `bootstrap.py`, so the
+token is findable). **No standing check verifies that the vendored
+`bootstrap.py` still matches any published release.** The four-way compare
+happens **once**, by hand, at upgrade time — it is the `upgrade-distribution`
+skill's step 3, not an invariant.
+
+I described declining to patch the vendored dist as protecting "this upgrade's
+integrity property", which implies enforcement. **It is a convention verified
+once.** The decision stands and is arguably *more* justified this way — a local
+patch would fork the kit silently and permanently, with nothing to detect it —
+but the reason is the absence of a gate, not the presence of one.
+
+**2 · The new re-apply table is prose sitting inside an enforced-looking
+structure**, which is worse than plain prose. `docs/SKILLS-local.md` **is**
+machine-read — `change_guard.py:57` sets `RE_APPLY_DOC` to it and scopes its
+lookup to the **⚠ region** (`:78-107`), and `check_doc_routes.py:43` lists it as
+a route referrer. But check A fires on **editing one of the 14 kit-named
+skills**. It knows nothing about `docs/SKILLS.md` or `substrate-gate.yml`, so
+the *"Generated-file corrections to re-apply"* rows I just added are **read by
+nothing**. The skills half of that document is enforced; the half I added is
+not, and they sit under the same warning glyph.
+
+**That is this repo's own central failure re-committed**: 116 committed
+statements caught 0 of 16, and the fix for an unfollowed rule is a mechanism,
+never another statement of it. I have written another statement of it.
+
+**Not building the mechanism here, and the reason is not scope alone.** The
+decidable moment exists and is check A's exact shape — a `PreToolUse` warning
+when a session edits a kit-**regenerated file** rather than a kit-named skill.
+But the promotion rule wants a demonstrated failure first, and there is now
+exactly one: the checkers step, dropped this session and caught only because the
+kit's own scanner printed it. One instance, one catch, zero misses. **Filed as
+the obvious next mechanism with its motivating case already in hand** — the
+owner's call whether one instance clears the bar.
+
+**Also honest about the fix itself: the sentinel has never run in CI.** The
+verify-suite step is `skipped` on every run so far, because step 9 carries the
+born-red hold and later steps do not execute. Its behaviour was verified
+**locally** — the sentinel reports *"does not exist (advisory — not a
+failure)"* and the residual red is the card hold — but **the first real
+exercise of that step will be the merge commit on `main`**, which is precisely
+the run the fix exists to protect. Stated rather than left for someone to
+discover.
+
 **Left for the owner:**
 
 1. **v1.21.0** — cut from substrate-kit `main` in a dedicated session (his
