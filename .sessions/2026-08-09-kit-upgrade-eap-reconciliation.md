@@ -297,12 +297,18 @@ the upgrade, 8 Phase-2 markers, sha256 `00d13424…`. The handoff's re-apply ste
 was **correctly motivated and wrongly triggered**: the destroying action is the
 hand-run copy loop, not `upgrade`, and the loop was not run.
 
-**The honest scoreboard for this session's claims.** **Seven** were asserted
-before they were established, and every one was caught by an instrument rather
-than by re-reading. **The count is the table's row count and nothing else** —
-stated that way deliberately, because the first version of this paragraph said
-*"five"* and was already stale by two rows within the hour, which is the exact
-summary-outlives-its-table defect recorded three sections above:
+**The honest scoreboard for this session's claims.** Each row below was asserted
+before it was established, and every one was caught by an instrument rather than
+by re-reading.
+
+**There is deliberately no count in this sentence.** It said *"five"*, then
+*"seven"*, and both went stale — the second within minutes, because the table
+kept growing as owner-review kept finding things. **Three drifts of the same
+tally in one file, in the document that records the summary-outlives-its-table
+defect.** Bumping the number a third time would have been treating the symptom:
+a hand-maintained count adjacent to a growing table is a stale claim waiting to
+happen, and the fix is to let the table be the only place the number exists.
+Count the rows if you need it.
 
 | claim | first stated as | ended as | caught by |
 |---|---|---|---|
@@ -313,6 +319,7 @@ summary-outlives-its-table defect recorded three sections above:
 | the carve-out will be dropped again | from the upgrade's advice message | read out of the writer at `:20048` | owner-review |
 | `substrate-gate` runs "the" false-wall scanner | as though one existed | **both** run — fm's at `:170`, the kit's via `check --strict` → `:5596` → `:5628` | owner-review |
 | a local dist patch is erased on upgrade | quoted `cmd_upgrade`'s **docstring** (`:26887`) as if it were the implementation | true, and I had **watched** it happen — the banked `bootstrap-1.20.1.py` was created while `bootstrap.py` became 1.20.2 | owner-review |
+| the v1.20.2 regression has no live impact | inferred from a green gate — *"green, so nothing in the tree has the shape"* | true, but **the gate never opens `.sessions/`**; searched the corpus instead, 0 real occurrences | owner-review |
 
 **Count it precisely, because a first version of this paragraph did not.**
 **5 claims, 6 findings** — the confidentiality claim was caught **twice** (Codex
@@ -451,8 +458,21 @@ blind a genuine wall. **Row 1 is the price of that, and it was evidently not
 measured against the `X is false and no longer applies` shape.** Upgrading was
 still right: one false-positive class traded for another, plus four other fixes.
 
-**No live impact on this repo today** — `check --strict` is green apart from the
-born-red hold, so nothing in the tree is written in the affected shape. It bites
+**No live impact on this repo today** — but the first version of this paragraph
+proved that the wrong way, and the correction matters more than the conclusion.
+
+It said *"`check --strict` is green, so nothing in the tree is written in the
+affected shape."* **That inference does not hold**, for a reason visible in the
+same run: the kit's scanner walks `iter_adopter_files(...)` (`:5617`), not the
+tree, and `.sessions/` is outside it — **this very card contains the affected
+shape four times and the gate is green anyway.** A green gate proves nothing
+about files it never opens.
+
+**Searched instead of inferred** (`MEASURED` 2026-08-09):
+`git grep -n -i -E "(is|was) false and (no longer|never)|and no longer applies|and (was|is) superseded" -- '*.md'` returns the four repro strings in this card and one unrelated hit (`docs/prompts/v3/per-project/README.md:742`, *"is superseded by"*, carrying no wall phrase). Positive control: `no longer applies` matches 4 files, so the pattern finds what is there.
+
+**So the conclusion stands and its grounds changed** — no live impact, established
+by searching the corpus rather than by reading a green exit code. It bites
 whoever next writes a repudiation as *"… is false and no longer applies"*, which
 is ordinary English and therefore likely.
 
