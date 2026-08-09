@@ -71,6 +71,25 @@ def main() -> int:
         if not (route.get("says") or "").strip():
             errors.append(f"{rid}: empty `says` — a bare path teaches nothing")
 
+        # PROMPT ROUTES admission bar, rule 4 (doc-routes.json § _comment).
+        # A prompt route must list UserPromptSubmit and nothing else. Mixing in
+        # tool events lets any Bash/Grep/Read carrying the trigger word spend the
+        # once-per-session budget before the owner's message can — measured
+        # 2026-08-09, when a `grep repo-spider-swing` consumed this exact route.
+        tools = route.get("tools") or []
+        if "UserPromptSubmit" in tools and len(tools) > 1:
+            others = ", ".join(t for t in tools if t != "UserPromptSubmit")
+            base = rid[: -len("-prompt")] if rid.endswith("-prompt") else rid
+            errors.append(
+                f"{rid}: PROMPT-ROUTE BAR 4 — `tools` mixes UserPromptSubmit with "
+                f"{others}. A tool call carrying the trigger word then burns the "
+                f"once-per-session dedup before a prompt ever fires, converting a "
+                f"false fire into false silence exactly when the route matters. "
+                f"Split into two routes with distinct ids (`{base}` for the tool "
+                f"events, `{base}-prompt` for UserPromptSubmit) so the dedup "
+                f"counters are independent."
+            )
+
         patterns = route.get("when") or []
         if not patterns:
             errors.append(f"{rid}: no `when` patterns")

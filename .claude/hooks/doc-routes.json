@@ -27,6 +27,11 @@
     "  4. UserPromptSubmit ONLY — do not copy a repo route's tool list. Listing",
     "     Bash/Read/Grep lets any command or grep pattern containing the trigger",
     "     word consume the route before a prompt ever does.",
+    "     ENFORCED since 2026-08-09 by tools/check_doc_routes.py, after a grep",
+    "     containing 'repo-spider-swing' was measured consuming that very route.",
+    "     To cover both events, ship TWO routes with distinct ids — `<id>` for",
+    "     the tool list and `<id>-prompt` for UserPromptSubmit — so the",
+    "     once-per-session counters are independent. See repo-spider-swing.",
     "Recall is deliberately traded away for precision here: a route that misses a",
     "phrasing costs one un-hinted session, while a route that cries wolf costs the",
     "silence every other route depends on."
@@ -313,7 +318,6 @@
     {
       "id": "repo-spider-swing",
       "tools": [
-        "UserPromptSubmit",
         "Bash",
         "WebFetch",
         "Read",
@@ -329,6 +333,21 @@
         "docs/repos/spider-swing/README.md"
       ],
       "says": "Layer 2 entry point — read it BEFORE attaching the repo. It answers what the repo is, where it stands and whether you need to attach at all (it is PUBLIC, so read-only work needs raw fetch, not add_repo). Two live threads: core feel & difficulty is the owner's north star (2026-08-02 — tune until excellent play reaches 25k+; the game is still 'too difficult and moves too quickly', and unlocks/Campaign/monetisation are DEFERRED by directive), and the Google Play release, which is owner-gated on OQ-PLAY-APP-ID / OQ-PLAY-UPLOAD-KEY / OQ-PLAY-LISTING and carries a hard three-week floor (12 testers x 14 continuous days, then ~7 days review). Depth in the same folder: working-here.md (main requires BOTH substrate-gate AND game-quality — different from fleet-manager), capabilities.md (access paths, the @codex relay), records.md (28 dated files here). The repo's own docs/current-state.md wins over all of it."
+    },
+    {
+      "id": "repo-spider-swing-prompt",
+      "tools": [
+        "UserPromptSubmit"
+      ],
+      "when": [
+        "\\bspider[- ]swing\\b",
+        "\\bslingy spider\\b",
+        "menno420/spider-swing"
+      ],
+      "docs": [
+        "docs/repos/spider-swing/README.md"
+      ],
+      "says": "You named spider-swing. Read docs/repos/spider-swing/README.md BEFORE attaching the repo — attaching is often unnecessary (it is PUBLIC, so read-only work needs a raw fetch, not add_repo), and the folder tells you what the repo is, where the last session left off, and which of the two live threads you are touching: core feel & difficulty (the owner's north star) or the Google Play release (owner-gated, hard three-week floor). Depth in the same folder: working-here.md, capabilities.md, records.md. The repo's own docs/current-state.md wins over all of it. Paired with the `repo-spider-swing` tool route so a Bash or Grep carrying the name cannot spend this route's once-per-session budget before your message does."
     },
     {
       "id": "error-review",
