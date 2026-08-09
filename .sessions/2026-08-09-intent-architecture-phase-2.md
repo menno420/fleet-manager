@@ -61,7 +61,8 @@ requested **while this card is still born-red** (`session-close` 6c).
 - **Prompt-route admission bar rule 4 enforced** in `check_doc_routes.py`, and
   `repo-spider-swing` split so the dedup counters are independent.
 - **Phase 2's first slice** — the intent map, inside `intake` rather than as a
-  new skill, replayed against ten real owner messages:
+  new skill, walked through ten owner asks **as the record preserved them** —
+  none raw; nine agent-quoted fragments, one a correction:
   [`../docs/findings/2026-08-09-intent-map-replay.md`](../docs/findings/2026-08-09-intent-map-replay.md).
 - **The owner's skills question answered durably** in `docs/SKILLS-local.md`,
   with the measured blocker: 15 of 27 descriptions exceed the 200-char cap.
@@ -75,21 +76,23 @@ requested **while this card is still born-red** (`session-close` 6c).
 | 3 | inferred upload-eligibility from **field names** without checking limits on their **values**: *"no frontmatter work is needed"* while 15 of 27 descriptions exceed the 200-char cap | **the owner**, by sending the support article |
 | 4 | presented a `REVIEWED` ChatGPT distillation (`intent.md:205`, § 8b) as an owner-verbatim quote, in the SUCCESS cell of a provenance-separation table | **self, by fetching the citation** the ESTABLISHED rule demands |
 | 5 | called the Codex review *"overdue at ~8 min"* having counted from PR-open rather than from the request; 223 s had passed against a 335 s baseline | **self**, on computing the actual delta instead of estimating it |
-
 | 6 | **the fake-precision correction was fixed in the roadmap and not propagated** — the program's § 7 copy still carried *"a 1-in-21 false-negative rate"* | **Codex**, round 1 on #830 |
 | 7 | called the walkthrough's ten inputs *"real owner messages from the committed record"* — none is raw: 1–9 are fragments **quoted and segmented by an agent**, 10 is a correction | **the owner-review Stop hook**, on the reply about to be sent |
 | 8 | *"the upgrade is a real change"* from `ADVISORY_CENSUS` being absent **here**, with substrate-kit never opened — an absence measured in one place turned into a presence claimed in another | **the owner-review Stop hook**, same round |
 | 9 | **invented a mechanism in another system and labelled it `MEASURED`** — *"pushing after a review request resets the reviewer's clock"* — from timestamp correlation alone, with no runner code or logs read, and **refuted by this session's own round 1**, which delivered on `562faac` after three intervening pushes | **the owner-review Stop hook**, third round, asking what the mechanism was based on |
 | 10 | **stated two counts without running either** — *"nine commits"* (`git log origin/main..HEAD` says **14**) and *"CI red on all nine runs, every one verified"* (there are **11** `substrate-gate` runs and **10** were verified at the time) — inside a sentence whose whole point was the thoroughness of the verification | **the owner-review Stop hook**, fourth round |
+| 11 | **described the `review` skill without opening it** — claimed it "would have found one of the six" from roadmap § 5.5's *characterisation* of the skill, never naming which one; the boot file's own rule is *"do not write about a file you have not opened"* | **the owner-review Stop hook**, fifth round, asking which definition was evaluated and which error matched |
+| 12 | **broke this very table the same way** — a stray blank line before row 6 terminated the GFM table, so **six rows** rendered as literal pipe text: the identical defect, at the identical count, in the card written by the session that repaired it in `2026-08-08-layer2-ratification.md` four hours earlier | **the throwaway orphan-row detector** written for that repair, re-run on a hunch — **and Codex round 2, independently, within the same minute** |
+| 13 | **amended a kit-named skill and did not add it to the re-apply list in the file I was editing** — `intake` is kit-shipped, the documented copy loop overwrites kit-named skills from `.substrate/skills/`, and the staged copy still holds the superseded `FULLER PICTURE` body. **The next kit upgrade silently reverts all of Phase 2** — and the owner had just chosen *upgrade first*. `docs/SKILLS-local.md` already carried the ⚠ warning, naming `session-close` as precedent, 60 lines below a section I had just written into that same file | **Codex**, round 2, the session's only **P1** |
 
 *(This table said **five** until the close was being written, then **eight**. Rows
 6–8 were sitting in the review section and the reply, described but not counted —
 including one I had written *"belongs in the error table by rights"* and then left
 out of it. Row 9 arrived after that. Leaving the count at five was the same
 undercount as the layer-2 card's error 11, committed in the session that repaired
-it. **The total is 10.**
+it. **The total is 13.**
 
-**And the total line itself has now been wrong four times** — 5, then 8, then 9,
+**And the total line itself has now been wrong six times** — 5, 8, 9, 10, then 11,
 each written as final and each an undercount discovered by the next adversarial
 round. That is worth more than the number it keeps getting wrong. A count in a
 document is a claim like any other, and this one sat in the *error ledger*, which
@@ -97,20 +100,20 @@ is the single place a reader is least likely to re-derive it because the documen
 is presenting itself as the audit. Every correction here came from an instrument,
 never from re-reading; the author read this table many times while it was wrong.)*
 
-**Three classes, and the biggest is the session's own subject.**
+**Four classes, and the biggest is the session's own subject.**
 
-**Class A — a conclusion drawn one step past what was measured (7 of 10):** a
-conclusion drawn one step past what was measured. #1 measured a key's absence and
+**Class A — a conclusion drawn one step past what was measured (8 of 13).** #1 measured a key's absence and
 nearly concluded a feature's absence; #3 measured field *names* and concluded
 about field *values*; #4 measured that a line exists in `intent.md` and concluded
 whose words it was; #6 measured a correction landing in one file and assumed the
 claim was retired; #7 measured that text is quoted and concluded it was source;
 #8 measured an absence here and claimed a presence there; #9 measured a
-correlation and claimed a mechanism. **Not one was caught by being careful.**
+correlation and claimed a mechanism; #11 read a *description* of a skill and
+concluded about the skill. **Not one was caught by being careful.**
 That is the § 4.8 argument for ESTABLISHED being retrieval rather than recall,
 with the author of the rule as its own data point seven times over.
 
-**Class B — a number asserted without running the count (2 of 10):** #5 the
+**Class B — a number asserted without running the count (2 of 13):** #5 the
 review latency, #10 the commit and CI-run counts. Distinct from class A, which at
 least starts from a measurement. These start from nothing and *read* as counts,
 which is what makes them worse per instance: a wrong inference invites a check, a
@@ -118,23 +121,53 @@ wrong count looks like the check already happened. **Both undersold the true
 figure** (#10: 14 commits reported as 9, 11 runs as 9) — so this is not motivated
 reasoning shading things favourably. It is simply not counting.
 
-**Class C — a composed quotation (1 of 10):** #2.
+**Class C — a composed quotation (1 of 13):** #2.
 
-**The catcher distribution is the result to carry.** Ten errors: **0** caught by
-documentation being available · **1** by a mechanical exact-match · **1** by
-Codex · **4** by the owner-review Stop hook · **1** by the owner · **3** by the
-author going back to a source or recomputing. The estate holds 116 committed
+**Class D — the information was present and was not applied (2 of 13): #12, #13.**
+This is the one that matters, because it is the injection thesis stated as a
+symptom rather than a theory. #12 reproduced a rendering defect **four hours after
+repairing it in another file and writing three paragraphs about it**. #13 shipped
+a kit-named skill amendment without adding it to a ⚠ re-apply list sitting **60
+lines below a section I had just written into that same file**. In neither case
+was the knowledge missing, stale, hard to find, or more than one screen away.
+**Availability is not retrieval** — the finding this whole thread rests on, now
+demonstrated twice in the session that rests on it. And note what caught #12: not
+memory, but *re-running the ten-line detector written for the first repair*. The
+script generalised; the author did not.
+
+**The catcher distribution is the result to carry.** Thirteen errors: **0** caught
+by documentation being available · **1** by a mechanical exact-match · **3** by
+Codex · **5** by the owner-review Stop hook · **1** by the owner · **3** by the
+author going back to a source, recomputing, or re-running a script (#12 was found
+by the script and by Codex within the same minute — genuine convergence, counted
+once here and credited to both). The estate holds 116 committed
 statements of verify-first and they caught **none** of it, which is the
 16-incident baseline reproducing itself in the session whose whole subject is
 that baseline.
 
-**The adversarial instruments caught 6 of 10 between them** — the owner-review
-hook 4, Codex 1, the owner 1 — and every one of those six had already survived
-the author's own read-back. **That is the strongest argument this session
-produced for Phase 3's review ladder**, and it points somewhere the current
-`review` skill does not: five of those six were defects in *prose and claims*,
-not in code. A review ladder that starts at implementation correctness would have
-found one of them.
+**The adversarial instruments caught 9 of 13 between them** — the owner-review
+hook 5, Codex 3, the owner 1 — and every one of those six had already survived
+the author's own read-back.
+
+**Scored against the actual `review` skill, not against a description of it.**
+[`.claude/skills/review/SKILL.md`](../.claude/skills/review/SKILL.md) is 14 lines:
+read the contracts, then check the **branch diff** for *layer boundaries,
+mutation ownership, and the project's invariants*, and produce a verdict. Walking
+the six through it:
+
+| error | would `review` catch it? | why |
+|---|---|---|
+| #9 MEASURED tag with no measurement | **plausibly** | the certainty legend is arguably one of "the project's invariants", so a reviewer checking invariants could flag it |
+| #6 correction not propagated | **marginal** | it is a cross-file consistency defect, but the stale copy was in a file **not in the diff**; Codex found it by grepping outward, which this skill never instructs |
+| #3, #7, #8 wrong factual/provenance claims | **no** | none is a layer, ownership or invariant question, and the skill has no step for checking a claim against its source |
+| #10 counts asserted without counting | **cannot** | it was in the **reply to the owner**, never in the diff — structurally invisible to a diff-scoped review |
+
+So: **one plausible, one marginal, four out of reach** — and #10 is the sharpest,
+because no improvement to a diff review reaches it. **The review surface has to
+include the reply, not only the artifact.** That is precisely what the
+owner-review Stop hook does, and it is why that one instrument caught 4 of the
+10 while the diff reviewer caught 1. § 5.5's ladder is scoped to the artifact;
+this session's evidence says the ladder is aimed one surface short.
 
 **Error 2 is the mechanical one and worth the most.** No care was involved: an
 exact-match requirement rejected a composed quotation the instant it was
@@ -260,6 +293,23 @@ that reached the committed record wearing a `MEASURED` badge.** The certainty
 legend is not a decoration; a wrong claim labelled `REASONED` invites a future
 session to check it, and the same claim labelled `MEASURED` tells it not to
 bother.
+
+### Round 2 — head `28ecc2c`, three findings, `[conceded]` × 3, `[survived]` × 0
+
+| # | finding | disposition |
+|---|---|---|
+| 1 | **P1 — the next kit upgrade silently reverts Phase 2.** `intake` is kit-named; the documented copy loop overwrites kit-named skills from `.substrate/skills/`, whose staged `intake` still holds the `FULLER PICTURE` body | **[conceded]** — verified in full: staged copy has `FULLER PICTURE`, zero occurrences of the intent map, and differs from live. `intake` added to the ⚠ re-apply table in `docs/SKILLS-local.md` alongside `session-close`, flagged as biting on the *very next* session because the owner chose upgrade-first |
+| 2 | the weaker § 1.1 provenance was **not propagated** — the skill, `current-state.md`, this card and the § 7 ledger still said *"ten real owner messages"* | **[conceded]** — all four qualified. **Third propagation failure of the session** (with #6 and the tally), which is now its own recurring shape rather than three incidents |
+| 3 | a blank line before row 6 broke this error table; six rows rendered as literal pipe text | **[conceded]** — and found independently by re-running the detector written for the identical repair four hours earlier, within the same minute as this comment |
+
+**The P1 is the finding of the session, and not because it was hard to see.** It
+was written down. `docs/SKILLS-local.md` carried a ⚠ warning that local
+amendments to kit-named skills are reverted by the copy loop, naming
+`session-close` as the precedent — and I added a whole new section to that file,
+60 lines above the warning, without applying it to the kit-named skill I had
+amended an hour before. **Codex reads the tree; it does not read what the author
+believed while editing it**, which is exactly the property that makes it catch
+this class and the author not.
 
 **Round 2 requested on the fixed head.** Cap is two rounds
 (`session-close` 6c); if round 2 returns findings that cannot be closed inside

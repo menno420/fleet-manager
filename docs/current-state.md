@@ -189,8 +189,10 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   gone, replaced by **EXPLICIT / ESTABLISHED / DERIVED / OPEN kept separate** plus
   GOAL / NON-GOALS / SUCCESS, with ESTABLISHED as a *retrieval* step, the
   LOW/MEDIUM/HIGH classes, a categorical `INTENT STATUS` (no score, no question
-  budget), and the ephemeral-vs-durable split. Replayed against **ten real owner
-  messages** from the committed record —
+  budget), and the ephemeral-vs-durable split. Walked through **ten owner asks as
+  the record preserved them — none of them raw**: nine are fragments *quoted and
+  segmented by an agent*, the tenth is a correction rather than the message that
+  caused the error —
   [findings/2026-08-09-intent-map-replay.md](findings/2026-08-09-intent-map-replay.md)
   — **0 clean catches · 1 partial · 1 correction-handled · 1 HIGH surfaced · 7
   correct silences · 0 false alarms.** **That is an author walkthrough, not the

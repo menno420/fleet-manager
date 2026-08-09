@@ -151,8 +151,10 @@ decision records).
 
 ## Replayed against real owner messages
 
-Walked through **ten** real owner messages from the committed record, never
-synthetic:
+Walked through **ten owner asks as the committed record preserved them** — real,
+never synthetic, but **none of them raw**: nine are verbatim fragments *quoted and
+segmented by an agent*, and the tenth is a correction rather than the message that
+caused the error (§ 1.1 and § 2.2 of the walkthrough):
 [`docs/findings/2026-08-09-intent-map-replay.md`](../../../docs/findings/2026-08-09-intent-map-replay.md)
 — **0 clean catches · 1 partial · 1 correction-handled · 1 HIGH surfaced · 7
 correct silences · 0 false alarms.**

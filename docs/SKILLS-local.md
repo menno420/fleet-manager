@@ -102,12 +102,31 @@ Re-run it after a kit upgrade. It only overwrites kit-named skills; the local
 ones below are untouched.
 
 ⚠ **That cuts both ways: local amendments to a kit-named skill are overwritten
-by the same copy.** `session-close` carries fleet-manager-specific steps — the
-live-venue rewrite (2026-08-04, owner-ratified 2026-08-05) and the Layer 2
-handoff line (2026-08-08) — so **re-apply them after every upgrade** and check
-the diff before assuming the install was clean. The durable fix is upstream:
-propose the generalisable half to the kit so it ships to every adopter instead
-of living as a local patch that each upgrade silently reverts.
+by the same copy.** **Two kit-named skills now carry fleet-manager amendments, and
+both are reverted by that loop** — so **re-apply them after every upgrade** and
+diff before assuming the install was clean:
+
+| kit-named skill | local amendment at risk | added |
+|---|---|---|
+| `session-close` | the live-venue rewrite (2026-08-04, owner-ratified 08-05) and the Layer 2 handoff line (2026-08-08) | — |
+| **`intake`** | **the entire Phase 2 intent map** — the seven-part provenance separation, the retrieval step, the LOW/MEDIUM/HIGH classes and `INTENT STATUS`. The staged copy at `.substrate/skills/intake/SKILL.md` still contains the superseded `FULLER PICTURE` body, **verified 2026-08-09**, so the copy loop reverts Phase 2 in one command | 2026-08-09 |
+
+⚠⚠ **This bites on the very next session**, because the owner's live decision is
+*upgrade the kit first*. Anyone running that upgrade must re-apply `intake`
+afterwards, or the roadmap and both ledgers will go on claiming a procedure the
+tree no longer contains.
+
+**How this was found is the argument for the warning existing at all:** Codex
+caught it on fm #830 (P1). This section's author had read this very paragraph
+while adding a section 60 lines above it, and still shipped a kit-named skill
+amendment without adding it here. *A warning in the file you are editing is not
+self-applying.*
+
+The durable fix is upstream: propose the generalisable half to the kit so it
+ships to every adopter instead of living as a local patch that each upgrade
+silently reverts. For `intake` that is explicitly roadmap § 7's allocation —
+substrate-kit owns *generalised intent resolution*, so the map belongs there once
+it has earned promotion.
 
 ## The local skills
 
