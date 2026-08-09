@@ -80,7 +80,12 @@ file's *"never write down a limitation"* rule, the checker enforcing it, and its
 required-check status all assume the scanner catches a wall when it sees one.
 **Three of the five clearing relaxations v1.20.2 shipped are now measured to
 mis-fire** — defects 2, 6 and 7 — and **two of the three are false negatives**
-(2 and 7), so most of the damage is silent. An earlier version of this line said
+(2 and 7), so most of the damage is silent. **Wider than that, and an earlier
+line here said "2 and 7 are the silent ones" without checking the rest:**
+defect 3 is silent too — measured `old=0 new=0` where it should flag — and
+defects 1 and 4 are false negatives by construction, so a wall escapes there as
+well. **Defect 6 is the only loud one in the set**; everything else either loses
+a wall or, for defect 5, teaches a step that does nothing. An earlier version of this line said
 *two*, and catalogued defect 2 as a long-standing hole; running
 `tools/ab_kit_scan.py` showed v1.20.1 catching it and v1.20.2 not, which makes
 it a regression. **The mistake was assuming a defect's age from its

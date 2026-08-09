@@ -287,7 +287,17 @@ ruling went the way that made it moot; that was luck, not process.
 
 **Landed:** the payload question settled three ways · the vendored kit at
 **v1.20.2** with the dropped checker carve-out re-applied and **verified running
-in CI** (gate step 8 success across four consecutive SHAs) ·
+in CI** — but **only one of the three**, and the distinction is a false-done I
+had to be asked about. Step 8 (`repo checkers`) succeeds on every SHA. The other
+two carve-outs have **never executed in CI**: the verify-suite sentinel is step
+10, skipped on every run because step 9's born-red hold fails first, and the
+claims-only `env:` fix is step 6, skipped because this PR is not a control-only
+diff. Both are verified **locally instead**, which is weaker and is said so:
+the sentinel command emits **0** mtime-fallback lines, and the injection fix was
+tested **by exploit** — with head `claude/";exit 0;#` the old interpolated form
+exits 0 having never reached the guard body (silent bypass, reproduced), while
+the `env:` form reaches it. They first run in CI on the merge commit and on the
+next claims-only PR respectively ·
 [`../docs/findings/2026-08-09-eap-correspondence-record.md`](../docs/findings/2026-08-09-eap-correspondence-record.md)
 committed and linked from the E1 plan § 2 · the confidentiality ruling (ledger
 entry + `owner-reflection` narrowed) · the §7 progress-ledger row.
