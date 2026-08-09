@@ -166,9 +166,12 @@ program law binding every repo.
   prompt, and is reversible. Only if it then needs *removing* rather than
   silencing, say so in your reply — he removes it in seconds. To watch a PR use
   `subscribe_pr_activity`; note it delivers comments, reviews and CI **failures**
-  but **not** CI-success or new-push (`CAPABILITIES.md`, MEASURED 2026-07-14), so
-  re-check the PR when you next act rather than waiting for a green that never
-  arrives. Enforced by
+  but **not** CI-success or new-push (`CAPABILITIES.md`, MEASURED 2026-07-14).
+  **So nothing will ever wake you to say a PR went green — do not end a turn
+  waiting for that. Poll to a terminal state inside the turn** (loop on
+  `commits/{sha}/check-runs` until every run is `completed`; measured on fm #833,
+  green on the 2nd of 12 × 15 s iterations), or end the turn saying plainly that
+  it is still pending. Enforced by
   `.claude/hooks/trigger_tools_guard.py` — the estate's **only denying hook**,
   because this is the one rule with no judgement in it.
 
