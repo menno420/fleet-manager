@@ -162,13 +162,22 @@ made rather than after. The kit *does* run a preserve mechanism, but its scope
 is digest blocks, not workflow files: `bootstrap.py:17031-17045` defines
 `<!-- substrate-kit:*-digest BEGIN/END -->` fences whose *"bytes between a
 BEGIN/END pair are the canonical block"* and which regens preserve — for
-`seat-digest.md` and the capability ledger. For the gate, `gate_carveouts()`
-(`:19436-19457`) *"Returns one human-readable line per host-added job and per
-host-added step"* — it **detects and reports; it does not preserve**. The
-byte-for-byte guarantee at `:18617` covers *planted* docs, which are
-skip-if-exists; the gate is kit-owned and regenerated from template. **So the
-"next upgrade drops it again" cost is real** — but it was asserted from the
-upgrade's own advice message before it was read out of the generator.
+`seat-digest.md` and the capability ledger. The byte-for-byte guarantee at
+`:18617` covers *planted* docs, which are skip-if-exists.
+
+**The gate has no such path, and the writer says so unambiguously.** Read at
+`bootstrap.py:19996-20053`: the carve-out branch at `:20030-20047` computes the
+host additions, **banks** the live file to `.substrate/backup/…pre-regen-<digest>.yml`
+and **reports** each one — and then, at **`:20048`**,
+`atomic_write_text(live_path, expected_text)` runs **unconditionally**, outside
+that branch. Nothing merges the banked additions back into `expected_text`.
+`gate_carveouts()` (`:19433`) is a **detector**, not a preserver.
+
+**So "the next upgrade drops it again" is now read out of the writer**, not
+taken from the upgrade's advice message as it was when first asserted. The
+three-way fast path at `:19979-19995` confirms the treadmill from the other
+side: it skips banking only when the live file matches the previous template
+**byte-for-byte**, which the re-applied step guarantees it will not.
 
 **Why by hand, and why not the kit's advised fix.** The kit says host carve-outs
 belong in a separate workflow. That is right in general and wrong here *today*:
@@ -203,6 +212,17 @@ every upgrade."*
 This upgrade staged **14** skills including `intake` (`.substrate/skills/intake/`
 mtime `Aug 9 10:28`) — the same 14 the handoff named — refreshing the
 **superseded 3,745-byte body** against the live 8,929-byte one.
+
+**The revert is measured on both operands and the operation, not deduced from
+the instruction text.** The loop at `docs/SKILLS-local.md:92-100` is an
+unconditional `cp "$d/SKILL.md" ".claude/skills/$n/SKILL.md"` over every staged
+directory — no comparison, no skip-if-newer. And the two bodies differ in
+exactly the way that matters: the **staged** copy contains **0** occurrences of
+the Phase-2 markers (`EXPLICIT`/`ESTABLISHED`/`DERIVED`/`INTENT STATUS`) while
+the **live** copy contains **8**. So the loop copies a zero-marker body over an
+eight-marker one. *(Both copies contain the string `FULLER PICTURE` once — the
+live one only in the note explaining that the old body is gone — so that token
+alone does not distinguish them, and the marker count is what does.)*
 
 **So the hazard is live, and its trigger is a documented instruction.** Both
 docs tell the next session to re-run the loop after an upgrade; doing so reverts
