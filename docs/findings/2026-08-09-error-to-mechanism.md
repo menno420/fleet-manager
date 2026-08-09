@@ -137,6 +137,13 @@ notice when two copies of a claim drift apart; it caps how many may exist —
 says so: *"a second citation is drift risk — when the
 decision changes, one of the two goes stale."*
 
+**And its reach is one tree of three.** `:9318` walks `docs_root.rglob("*.md")`,
+called at `:24282` with `config.docs_root`, which defaults to `"docs"` (`:349`).
+Citations in `.claude/` and `.sessions/` are **invisible to it** — the Gemini
+paid-key id currently appears in `.claude/CLAUDE.md` and four session cards that
+the check never scans. So the existing anchor mechanism is narrower than "one
+home per decision": it is *one home per decision, within `docs/`*.
+
 **Two strategies, and the estate already picked the stronger one:**
 
 | | how it works | cost |
@@ -192,6 +199,34 @@ half. Note also that only **one of the sixteen numbered errors** is a propagatio
 failure; the other two were Codex findings recorded as dispositions, so "every
 propagation failure today" was a generalisation over a set that had never been
 enumerated. **Filed as error #17.**
+
+### 4c · What would have to be anchored — the boundary this file did not define
+
+`REASONED`, and **added only after owner-review asked for it.** § 4b argued that
+*"any claim restated in a second document"* needs an id, which is unactionable as
+written: taken literally it anchors every sentence, which is the
+mandatory-infrastructure-everywhere move the promotion rule exists to reject.
+
+The four instances suggest a boundary that is decidable in practice:
+
+> **Anchor a claim if re-deriving it means redoing work.**
+
+| anchor | do not anchor |
+|---|---|
+| a measurement (*"1 miss in 21"*, *"94 advisory lines"*, *"448 s"*) | operational state — the head SHA, whether CI is green, what a file currently contains |
+| a count over a corpus (*"13 errors"*, *"14 kit-named skills"*) | anything the **live surface** answers directly |
+| a verdict from a test (*"check C is silent on both cases"*) | narrative, argument, commentary |
+| a provenance characterisation (*"agent-quoted fragments, not owner messages"*) | a pointer to where a claim lives |
+
+**The line is cost of re-derivation, and it falls out of a rule the estate
+already has.** Operational state does not need an anchor because *the live
+surface always beats any doc* — a stale copy of it is self-correcting the moment
+someone looks. A measurement has no live surface: nothing re-runs the count, so a
+stale copy stands until a reader happens to doubt it, which today took four
+adversarial rounds.
+
+**Untested.** No anchor scheme has been designed, and the existing one covers
+only `docs/` (above). This is the shape of the question, not the answer to it.
 
 Anchoring measurements the way decisions are anchored is the design question
 worth its own session. **Filed as error #16** — the first version of this
