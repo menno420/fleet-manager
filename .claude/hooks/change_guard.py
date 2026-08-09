@@ -111,6 +111,21 @@ def kit_skill_amendment(target: str) -> str | None:
 
 
 # ---------------------------------------------------------------- check B
+def _is_delimiter_row(line: str) -> bool:
+    """GFM delimiter: every cell is optional colons around **at least one** dash.
+
+    `| | |` was accepted before, because the old pattern allowed whitespace and
+    pipes with no hyphen at all and was unanchored, so `in_table` went true on a
+    fragment GFM does not parse as a table — and the rows under it went unwarned.
+    """
+    if not (line.startswith("|") and line.endswith("|")) or len(line) < 3:
+        return False
+    cells = line[1:-1].split("|")
+    return bool(cells) and all(
+        re.fullmatch(r"\s*:?-+:?\s*", c) for c in cells
+    )
+
+
 def orphan_table_rows(content: str) -> str | None:
     """Table rows with no delimiter row above them render as literal pipe text.
 
@@ -125,22 +140,27 @@ def orphan_table_rows(content: str) -> str | None:
     """
     lines = content.split("\n")
     in_table = False
-    in_fence = False
+    fence: tuple[str, int] | None = None          # (marker char, run length)
     orphans: list[int] = []
     for i, line in enumerate(lines):
         stripped = line.strip()
-        if stripped.startswith("```") or stripped.startswith("~~~"):
-            in_fence = not in_fence
+        m = re.match(r"^(`{3,}|~{3,})", stripped)
+        if m:
+            char, run = m.group(1)[0], len(m.group(1))
+            if fence is None:
+                fence = (char, run)               # opener
+            elif char == fence[0] and run >= fence[1]:
+                fence = None                      # only a compatible marker closes it
             in_table = False
             continue
-        if in_fence:
+        if fence is not None:
             continue                              # shell pipes are not table rows
         if not stripped.startswith("|"):
             in_table = False                      # GFM ends a table at ANY non-row line
             continue
         if not in_table:
             nxt = lines[i + 1].strip() if i + 1 < len(lines) else ""
-            if re.match(r"^\|[\s:|-]+\|", nxt):
+            if _is_delimiter_row(nxt):
                 in_table = True
             else:
                 orphans.append(i + 1)
@@ -202,7 +222,20 @@ def _fragments(old: str) -> list[str]:
             frag = " ".join(words[st: st + SHINGLE])
             if len(frag) >= MIN_FRAGMENT and frag not in out:
                 out.append(frag)
-    return out[:6]
+    return out            # NOT capped here — unpropagated() caps after filtering
+
+
+
+def _git_root_of(target: str) -> Path | None:
+    path = Path(target) if os.path.isabs(target) else (REPO / target)
+    try:
+        out = subprocess.run(
+            ["git", "-C", str(path.parent), "rev-parse", "--show-toplevel"],
+            capture_output=True, text=True, timeout=5, check=False,
+        ).stdout.strip()
+        return Path(out) if out else None
+    except Exception:
+        return None
 
 
 def unpropagated(old: str, target: str, new: str = "") -> str | None:
@@ -222,9 +255,13 @@ def unpropagated(old: str, target: str, new: str = "") -> str | None:
     # survivor, on its own next edit. Codex's finding (do not exclude the target,
     # because the replaced occurrence is gone) is right only for text the
     # replacement did not carry forward.
-    frags = [f for f in frags if f not in " ".join(new.split())]
-    if not frags:
-        return None
+    kept = " ".join(new.split())
+    frags = [f for f in frags if f not in kept][:6]   # cap AFTER the filter, so
+    if not frags:                                     # unchanged leading lines
+        return None                                   # cannot crowd out the fix
+    # Hooks stay rooted in fleet-manager while an Edit may target an attached
+    # repo (README § add_repo). Search the tree the file actually lives in.
+    root = _git_root_of(target) or REPO
     hits: list[str] = []
     frag = frags[0]
     for f in frags:
@@ -232,8 +269,11 @@ def unpropagated(old: str, target: str, new: str = "") -> str | None:
             out = subprocess.run(
                 # --untracked: a doc written this session is not in the index yet,
                 # and is exactly where a fresh copy of the old claim would live.
-                ["git", "grep", "-l", "--untracked", "--fixed-strings", f],
-                cwd=REPO, capture_output=True, text=True, timeout=10, check=False,
+                # -e is mandatory: a Markdown bullet fragment starts with "-",
+                # which git grep parses as an option and exits 129 — silently
+                # disabling the check for every bulleted claim (measured).
+                ["git", "grep", "-l", "--untracked", "--fixed-strings", "-e", f],
+                cwd=root, capture_output=True, text=True, timeout=10, check=False,
             ).stdout
         except Exception:
             continue
@@ -326,7 +366,7 @@ def main() -> int:
 
     elif name == "PostToolUse" and tool in {"Edit", "MultiEdit"}:
         edits = inp.get("edits") or [inp]
-        for e in edits[:5]:
+        for e in edits:
             old = e.get("old_string") or ""
             if old:
                 hit = unpropagated(old, target, e.get("new_string") or "")
