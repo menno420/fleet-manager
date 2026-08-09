@@ -309,6 +309,19 @@ re-reading:
 | `upgrade` reverts `intake` | *"staged six, copied none"*, then `skills --build` | the hand-run loop; measured 0 markers vs 8 | owner-review ×1, then source |
 | the carve-out will be dropped again | from the upgrade's advice message | read out of the writer at `:20048` | owner-review |
 
+**Count it precisely, because a first version of this paragraph did not.**
+**5 claims, 6 findings** — the confidentiality claim was caught **twice** (Codex
+P1 in two consecutive rounds), which is why the two numbers differ. By
+instrument: **Codex 4 findings across 3 claims**; **owner-review 2 findings
+across 2 claims**. A **sixth, separate defect** — the quote attributed to
+`SKILLS-local.md` that actually came from `CAPABILITIES.md:645` — was caught by
+`read_before_write` and is **not** one of the five; it is listed apart rather
+than folded in. The first draft of this paragraph read *"Codex ×3, `Stop` ×2,
+`read_before_write` ×1"*, counting **claims** for one instrument and **findings**
+for the others and absorbing an out-of-set defect — fm #830's error #22 (four
+different totals for one set) reproduced in the paragraph tallying this
+session's errors. Caught by owner-review asking which claim was caught twice.
+
 **The pattern under all five is one move:** answering from the nearest artifact
 rather than the authoritative one — a changelog instead of the release asset, a
 reporting function instead of the writer, a tail of output instead of the set,
@@ -319,10 +332,26 @@ times while working on it.
 **What that says about the instruments, and it is the useful half:** the
 adversarial layer is doing the work the author cannot. Codex caught what was
 wrong in the *tree*; the `Stop` hook caught what was wrong in the *reply*;
-`read_before_write` caught a quote attributed to a file never opened. **Zero of
-the five were caught by re-reading my own text** — consistent with the
+`read_before_write` caught a quote attributed to a file never opened. **None of
+the five was caught by re-reading my own text** — consistent with the
 four-session-old result that no mechanism depending on the author noticing has
 ever worked here.
+
+**One genuine self-catch exists elsewhere in the session, and suppressing it
+would overstate the case.** `check --strict` exited 1 while
+`grep -c "HOLD (by design)"` returned **0** — the two disagreed, so the red might
+not have been the born-red hold. Investigating found the hold intact under
+changed wording (card selection had switched to the merge-base diff once the
+branch had an origin counterpart). **That was caught by a disagreement between
+two measurements, not by re-reading** — which is the same property the working
+instruments share, and the reason it is worth separating from "self-review".
+
+**Provenance of this scoreboard, stated because it is a claim about my own
+work:** it is reconstructed from this session's sequence — each correction is
+immediately preceded by an instrument firing, and each commit message names the
+instrument, so it is checkable in `git log` on this branch. It is **not** an
+independent audit, and a defect no instrument caught and I never noticed would
+be invisible to it by construction.
 
 **Left for the owner:**
 
