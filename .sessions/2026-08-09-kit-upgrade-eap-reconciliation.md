@@ -1,6 +1,6 @@
 # 2026-08-09 · hub — the kit upgrade's payload question, settled; and the EAP correspondence committed
 
-> **Status:** in-progress
+> **Status:** complete
 
 - **📊 Model:** opus-5 · high · feature build — work OD-13 (kit upgrade first),
   carrying the EAP reconciliation as a live secondary thread
