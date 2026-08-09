@@ -1,6 +1,6 @@
 # 2026-08-09 · hub — stop sessions stalling the owner with trigger deletions
 
-> **Status:** in-progress
+> **Status:** complete
 
 - **📊 Model:** opus-5 · high · feature build — owner-stated: `delete_trigger`
   is the one call that raises an approval prompt in automode, so a session that

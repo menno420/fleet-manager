@@ -42,6 +42,7 @@ for the fact that more than one agent works these repos.
 | **GitHub access** | MCP GitHub tools + git over the configured remote; `$GITHUB_PAT` in *some* environments | Platform-native GitHub connection; **no `$GITHUB_PAT`** |
 | **`gh` CLI** | Not in the base image; installed by `setup-base.sh` Block 2b | Not present by default; nothing requires it |
 | **Reads `AGENTS.md`** | Yes | Yes |
+| **What actually auto-loads in THIS repo** | `.claude/CLAUDE.md` + 27 skills + 5 hooks | **nothing — there is no `AGENTS.md` here** (measured 2026-08-09) |
 
 Sources: [Cloud environments](https://learn.chatgpt.com/docs/environments/cloud-environment) ·
 [Agent internet access](https://learn.chatgpt.com/docs/cloud/internet-access) ·
@@ -73,6 +74,28 @@ The `~/.bashrc` half only reaches a shell that sources it, and `CLAUDE_ENV_FILE`
 does not exist on the Codex side — so an agent-phase step there may not see them
 even though setup ran correctly. **Unverified on that surface** (no run observed);
 flagged as the highest-value thing to check next.
+
+**4b. A ChatGPT Work session boots BLIND in this repo, and the row above is why.**
+`MEASURED` 2026-08-09: `ls AGENTS.md .github/AGENTS.md` → neither exists. The
+table says both surfaces read `AGENTS.md`, which is true and is not the point —
+**fleet-manager does not have one.** Claude Code loads `.claude/CLAUDE.md`
+automatically; ChatGPT Work does not read that path, so it starts with **no boot
+file, no read path, no skills, and none of the five hooks.**
+
+That last part is the one that changes an outcome rather than a convenience. On
+2026-08-09 those hooks — the reply-reviewer, the propagation checker, the
+unread-file checker, the doc router — caught **every single wrong claim a Claude
+session made that day, and the author caught none of them by re-reading.** A
+ChatGPT session doing the same work has none of that watching it. The **gates**
+(`bootstrap.py check --strict` and the `tools/` checkers) are plain `python3`
+and DO run there; only the moment-of-action hooks are absent.
+
+**So a prompt aimed at that surface has to carry what the boot file would have
+given for free**, and should say plainly that nothing will catch a mistake
+except the gates and the session itself. Adding an `AGENTS.md` that points at
+the same read path would close the orientation half — deliberately **not** done
+here, because it was found while writing the first ChatGPT Work handoff and
+adding it mid-test would change what that test measures. Owner's call.
 
 **4. `$GITHUB_PAT` is not universal.** Some environments here carry it, and the
 Codex side does not. Any recipe that names it must branch on

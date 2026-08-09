@@ -184,6 +184,23 @@ opposed to a long-standing hole.
   the short form passes (exit 0) and a bare wall is caught. **The boundary is
   literally a character count.**
 
+  **The cliff, swept rather than argued** (`MEASURED` 2026-08-09 — appended to
+  `docs/current-state.md`, checker run per row, file restored after):
+
+  | negation distance before the wall | `--strict` exit |
+  |---|---|
+  | *(bare wall — control)* | **1** caught |
+  | 4 chars | 0 — passes |
+  | 24 chars | 0 — passes |
+  | 44 chars | 0 — passes |
+  | 48 chars | **1** caught |
+  | 52 / 64 / 84 chars | **1** caught |
+
+  So the cliff falls between **44 and 48**, matching the literal `sig_start - 48`
+  above exactly. Recorded because the earlier wording — *"predicted and
+  confirmed"* — described the mechanism without pinning where it breaks, and the
+  next session needs the number to write a regression test against.
+
   **This is not "silent by construction" and an earlier note wrongly said so** —
   that was a claim about the implementation, written before the implementation
   was read. It is a bounded heuristic missing a clause boundary: fixable by
