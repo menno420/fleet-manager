@@ -204,6 +204,24 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   worth carrying: the estate's clearest misread (`Pace: slow.`) **cannot be
   replayed at all**, because the owner message that produced it was never
   preserved — the compression destroyed the evidence needed to audit it.
+- **Thirteen errors scored against "could a machine have caught this at the
+  moment?" — and three hooks built from the answer** (2026-08-09, fm #831):
+  [findings/2026-08-09-error-to-mechanism.md](findings/2026-08-09-error-to-mechanism.md)
+  — the owner's follow-on to fm #830's error ledger, after he read it and drew
+  the right conclusion: *"nearly all of them have been caught without my
+  attention, so this is already a good example of the system working."* Of the
+  thirteen: **4 already had a mechanism watching · 2 built here · 3 became a
+  skill step · 2 buildable and deliberately not built · 1 has no decidable
+  moment · 1 open design question** (propagation — *not* un-mechanizable, which
+  is what this line said until the anchor family was checked). The new hook is
+  [`.claude/hooks/change_guard.py`](../.claude/hooks/change_guard.py) — kit-named
+  skill amendments (which the upgrade reverts), broken markdown tables, and
+  verbatim un-propagated edits — and it is **the estate's first `PostToolUse`
+  hook**, closing a structural gap: nothing could previously say *"that worked,
+  and here is what it implies."* **Its third check fails the case it was built
+  for and says so** — both real propagation failures were paraphrases, replayed
+  from git, both silent — which is the file's most useful result: *a mechanism
+  that has not been run against the error it was built for is a hypothesis.*
 - **Why the rules don't bind — the session's own errors, counted, and three
   injection mechanisms** (2026-08-08):
   [findings/2026-08-08-why-rules-dont-bind.md](findings/2026-08-08-why-rules-dont-bind.md)

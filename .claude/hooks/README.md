@@ -363,3 +363,45 @@ echo '{"session_id":"u","hook_event_name":"PreToolUse","tool_name":"Write","tool
 # registration (both hooks, all events)
 python3 tools/install_root_hooks.py
 ```
+
+## `change_guard.py` — three checks at the moment a change lands
+
+Built 2026-08-09 from fm #830's thirteen-error ledger, scored error-by-error in
+[`../../docs/findings/2026-08-09-error-to-mechanism.md`](../../docs/findings/2026-08-09-error-to-mechanism.md).
+Of thirteen errors, **zero** were caught by documentation being available; the
+three checks here cover the ones with a decidable moment.
+
+| | event | catches |
+|---|---|---|
+| **A** | `PreToolUse` Write/Edit | amending one of the **14 kit-named skills** — the documented copy loop in `docs/SKILLS-local.md` reverts them at the next upgrade, so the amendment vanishes while the record still claims it |
+| **B** | `PreToolUse` Write/Edit | markdown rows with no delimiter row above them, which GFM renders as literal pipe text |
+| **C** | `PostToolUse` Edit | verbatim survivors of the text an edit just replaced |
+
+**This is the estate's first `PostToolUse` hook, and the gap was structural.**
+Three `PreToolUse`, one `Stop`, one `UserPromptSubmit` — nothing could say *"that
+worked, and here is what it implies."* Propagation is only knowable once the edit
+lands; before it, the old text is still in the target by definition.
+
+**Check C does not catch the case it was built for, and says so in its own
+docstring.** Both of fm #830's propagation failures were paraphrases, not copies,
+and were replayed against it from git: both **silent**. It ships on the narrower
+verbatim class (441 duplicated 9-word shingles in the repo's markdown) and **a
+clean run is not evidence that a correction propagated**.
+
+Advisory, fail-open, silent unless it has something — `check --strict` already
+prints 94 advisory lines with the verdict at line 92, and these earn their place
+by staying quiet.
+
+```bash
+# A fires: kit-named skill, not in the re-apply table
+echo '{"hook_event_name":"PreToolUse","tool_name":"Edit","tool_input":{"file_path":".claude/skills/analysis/SKILL.md","new_string":"x"}}' | python3 .claude/hooks/change_guard.py
+# A quiet: fm-local skill, nothing reverts it
+echo '{"hook_event_name":"PreToolUse","tool_name":"Edit","tool_input":{"file_path":".claude/skills/owner-brief/SKILL.md","new_string":"x"}}' | python3 .claude/hooks/change_guard.py
+# B fires: a row with no delimiter above it
+printf '%s' '{"hook_event_name":"PreToolUse","tool_name":"Write","tool_input":{"file_path":"x.md","content":"| a | b |\n|---|---|\n| 1 | 2 |\n\nprose\n\n| 3 | 4 |\n"}}' | python3 .claude/hooks/change_guard.py
+```
+
+**Test a new check by replaying the history that motivated it, not a fixture.**
+Check B was pointed at the layer-2 card as it stood at `d7287ea` and reported
+exactly its six orphan rows; check C was pointed at its two real cases and missed
+both. Only one of those facts was discoverable from a synthetic test.
