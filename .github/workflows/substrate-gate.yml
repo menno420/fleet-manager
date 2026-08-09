@@ -267,8 +267,32 @@ jobs:
         # via `bootstrap.py answer verify_command "..."` and the
         # next adopt/upgrade regen. Full lane only: control/**
         # heartbeat PRs never pay the suite.
+        #
+        # HOST CARVE-OUT (2026-08-09, fm #833) — the `--session-log` sentinel
+        # below is host-added; the kit template runs this command bare.
+        # Without it, on a `push` run for `main` HEAD equals origin/main, so
+        # `_derive_diff_session_cards()` finds no differing card and falls back
+        # to `latest_session_log()`, which selects purely by CHECKOUT MTIME.
+        # CI checkout mtimes are effectively arbitrary, and this repo still
+        # carries `.sessions/2026-07-10-universal-permissions-block.md` with an
+        # `in-progress` Status — so that historical card can be selected and
+        # redden an otherwise valid main push. Observed live: this session's
+        # first local run printed "HEAD is origin/main and no card differs (not
+        # a PR context); using newest-by-mtime".
+        #
+        # The sentinel is the SAME idiom the session-gate section above already
+        # uses for its no-card lane (`.sessions/__no-card-in-diff__.md`): a
+        # non-existent path is advisory, not a failure. Card gating is not lost
+        # — the session-gate step does it with EXPLICIT diff-based selection.
+        # This step's job is the verify_command, so making it card-independent
+        # is the correct division, not a weakening.
+        #
+        # Found by Codex on fm #833 (P2). Like the checkers step above, this is
+        # a hand edit to a kit-owned generated file and `bootstrap.py:20048`
+        # will overwrite it at the next upgrade — re-apply both.
         run: |
           if [ -f requirements.txt ]; then
             python3 -m pip install --quiet -r requirements.txt
           fi
-          python3 bootstrap.py check --strict
+          python3 bootstrap.py check --strict \
+            --session-log .sessions/__no-card-in-diff__.md

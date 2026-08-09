@@ -116,6 +116,30 @@ diff before assuming the install was clean:
 afterwards, or the roadmap and both ledgers will go on claiming a procedure the
 tree no longer contains.
 
+**Amended 2026-08-09 (fm #833) — right in substance, wrong about the trigger.**
+The upgrade ran, and `intake` **survived it byte-for-byte**. `upgrade` only
+re-stages `.substrate/skills/` (14 skills, `intake` among them); **no kit command
+writes `.claude/skills/` at all** — `skills --build` also only stages, per
+`cmd_skills`' docstring. **The destroying action is the `cp` loop above, run by
+hand.** So the warning stands and its urgency is unchanged — the staged body
+carries **0** of the Phase-2 markers against **8** in the live one — but it fires
+on *running the loop*, not on *running the upgrade*. A session that upgrades and
+then re-applies `intake` "to be safe" is re-applying over an unchanged file and
+reporting a fix that fixed nothing.
+
+## Generated-file corrections to re-apply (kit-owned, clobbered at upgrade)
+
+These live in files the kit regenerates, so they are lost at the next upgrade
+and belong on this list beside the skills above.
+
+| file | correction | why |
+|---|---|---|
+| `docs/SKILLS.md` | the ⚠ under "Where the bodies live" — `skills --build` does **not** install; the host `cp` loop does | the generated text told sessions to install with `skills --build`, which changes nothing — a false-done in the boot-routed index (Codex, fm #833) |
+| `.github/workflows/substrate-gate.yml` | the `repo checkers` step, and the `--session-log` sentinel on the verify-suite step | the regeneration drops both; without the first, neither checker runs in CI, and without the second a `main` push can select a historical `in-progress` card by mtime and go falsely red |
+
+**The durable fix for all of these is upstream in the kit**, not here — filed for
+the v1.21.0 session.
+
 **How this was found is the argument for the warning existing at all:** Codex
 caught it on fm #830 (P1). This section's author had read this very paragraph
 while adding a section 60 lines above it, and still shipped a kit-named skill
