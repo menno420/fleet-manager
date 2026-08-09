@@ -1,6 +1,6 @@
 # 2026-08-09 · hub — review the intent-architecture thread, then Phase 2
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** opus-5 · high · review/verify — audit what the intent-architecture
   thread landed, fix what the audit finds, then build the Phase 2 slice
@@ -311,7 +311,22 @@ amended an hour before. **Codex reads the tree; it does not read what the author
 believed while editing it**, which is exactly the property that makes it catch
 this class and the author not.
 
-**Round 2 requested on the fixed head.** Cap is two rounds
-(`session-close` 6c); if round 2 returns findings that cannot be closed inside
-it, they get named in the PR and land open rather than driving an unbounded loop
-— `substrate-kit#580` ran five rounds and 34 findings without converging.
+### Landing at the two-round cap — the disclosure the cap requires
+
+**Ten findings across two rounds: 7 + 3. All ten `[conceded]`, zero refuted, zero
+known-open.** Each was verified against the tree before being acted on.
+
+**The reviewed heads are `562faac` (round 1) and `28ecc2c` (round 2).** The
+round-2 fixes — the `intake` re-apply warning, the provenance propagation, the
+table repair, and errors 12–13 — landed after `28ecc2c` and **have not been
+reviewed.** That is the cap operating as designed, not impatience:
+`substrate-kit#580` ran five rounds and 34 findings without converging, so
+*"review until it stops finding things"* is not a termination guarantee and an
+unbounded loop hands the merge decision to the reviewer. All three gates are
+green on the final head.
+
+**What I would want a third round to look at, if one ever runs:** the round-2
+fixes are disproportionately *propagation* work, and propagation is this
+session's most-repeated failure (errors #6, round-2 #2, and the miss inside that
+very fix). The class most likely to have survived is another copy of a corrected
+claim somewhere I did not grep.

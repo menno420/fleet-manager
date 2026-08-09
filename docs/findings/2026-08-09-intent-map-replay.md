@@ -134,7 +134,7 @@ verbatim input is what makes the audit possible later.
 | 3 | *"all files… a fair share of the session journals"* | faithful | correct silence |
 | 4 | *"how the help system works… assert the proper baseline… use its own judgements"* | near-verbatim | correct silence |
 | 5 | *"games should remain out of scope for now"* | faithful | correct silence |
-| 6 | *"gemini for reviews… preferably through vertex… my own paid credits"* | faithful | correct silence, **but** ESTABLISHED now cites `conventions/vertex-first-for-gemini.md` and `[D-0011]`, which the original restatement did not |
+| 6 | *"gemini for reviews… preferably through vertex… my own paid credits"* | faithful | correct silence, **but** ESTABLISHED now cites `conventions/vertex-first-for-gemini.md` and the paid-key spending decision it records, which the original restatement did not |
 | 7 | *"which parts are genuinely better built"* | faithful | **`INTENT STATUS: NEEDS OWNER`** — see below |
 | 8 | *"should not be the final planning session… verify things that aren't sure"* | faithful, improved | correct silence |
 | 9 | *"a comprehensive document… and a summary in the chat"* | faithful | correct silence |
