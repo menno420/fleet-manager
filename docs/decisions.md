@@ -127,3 +127,63 @@
   the review thread already carried the material, and a redaction after the fact
   would have been incomplete (history and PR text both persist). The ruling here
   happened to go the way that made it moot. That was luck, not process.
+
+## [D-0015] Never delete a trigger; prefer PR subscription over self-scheduling
+
+- status: decided
+- date: 2026-08-09
+- verdict: **A session must never call `delete_trigger`**, by the tool or by the
+  equivalent direct-API call. The **tool** is denied outright by the hook; the
+  **direct-API route warns rather than blocks**, because command text cannot be
+  judged by regex — the guard blocked its own documentation twice before that
+  was downgraded (see the note below). It is the one tool that raises an approval prompt
+  on the owner's screen in automode, and the session **stalls until he is
+  physically back to click it**. A stale one-shot trigger is inert
+  (`ended_reason: run_once_fired`) and costs nothing to leave; if a recurring one
+  must go, say so in the reply and he removes it in seconds. Enforced by
+  `.claude/hooks/trigger_tools_guard.py`, which **denies** rather than warns —
+  the only denying hook in the estate — with `FM_ALLOW_TRIGGER_DELETE=1` as the
+  deliberate override for when he asks directly. Secondly, **`send_later` is not
+  the tool for watching a PR**: `subscribe_pr_activity` wakes the session on CI
+  results, reviews and merges without arming anything. `send_later` warns rather
+  than denies, because a genuinely external un-notified wait is still a real use.
+- why: Owner, live 2026-08-09 — *"Delete triggers are the only thing that gives
+  me an approval prompt in automode, this will stall your session untill I get
+  back. Always prevent using them."* and *"send later is also not necessary, if
+  you want to check in on a PR you can subscribe to them."* The two halves are
+  one causal chain: fm #833 armed **five** `send_later` check-ins to poll one PR
+  and then deleted one at close, so **the cleanup that stalls him was created by
+  the polling that was never needed.** Cutting it at the `send_later` end is
+  cheaper than cutting it at the deletion end.
+- rules out: "tidying up" fired triggers at session close — the tidiness is worth
+  less than the stall; and treating a denial from this guard as a bug to route
+  around.
+- provenance: owner, live hub chat 2026-08-09, correcting a `delete_trigger` call
+  this session had just made at the close of fm #833. Recorded per CONSTITUTION
+  § "Changing the rules" — owner-directed live, so applied rather than proposed.
+- note (`MEASURED`, and it is the useful half): **the guard blocked its own
+  authorship twice within one hour.** First the README section carrying a worked
+  `curl -X DELETE …/triggers/…` example; heredoc bodies and file contents were
+  excluded, which fixed that. Then **the PR comment asking a reviewer to check
+  that very regex** — the text necessarily contained both halves of the pattern,
+  this time inside a `python3 -c "…"` string, which heredoc stripping does not
+  reach. **2 false positives, 0 true positives**, so the Bash leg was downgraded
+  from deny to warn rather than chasing a third quoting context. The problem is
+  undecidable by regex: `python3 -c "requests.delete(u+'/triggers/'+t)"` must
+  fire and `python3 -c "print('curl -X DELETE /triggers/x')"` must not, and they
+  differ only in whether a string is executed or printed. **The split is now the
+  design** — no judgement needed on a tool name, so it denies; a great deal
+  needed on command text, so it warns. The suite had a case for *grepping* the
+  string and none for *writing* it: tested against the motivating case rather
+  than the traffic it sits in, which is the defect fm #831 recorded and the third
+  time it has appeared.
+- amendment (2026-08-09, same day): **the emergency stop is `update_trigger`, not
+  deletion.** The first version of this rule left an unattended session facing a
+  runaway recurring trigger with no move — deletion denied, the override needing
+  the owner it was protecting. `update_trigger` with `enabled: false` stops a
+  routine firing immediately, raises no approval prompt, is unblocked by the
+  guard, and is reversible. It is the better answer even where deletion is
+  available, because it preserves the record. The deny message now names it, and
+  the suite pins both that the path is open and that the message says so — a
+  path nobody is told about is not a path. Raised by the owner-review hook asking
+  what an agent does about a misconfigured trigger under this rule.

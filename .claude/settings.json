@@ -55,6 +55,16 @@
             "command": "[ -f \"${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel)}\"/.claude/hooks/change_guard.py ] && python3 \"${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel)}\"/.claude/hooks/change_guard.py || true"
           }
         ]
+      },
+      {
+        "matcher": "Bash|mcp__.*__delete_trigger|mcp__.*__send_later",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -f \"${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel)}\"/.claude/hooks/trigger_tools_guard.py ] && python3 \"${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel)}\"/.claude/hooks/trigger_tools_guard.py || true",
+            "timeout": 10
+          }
+        ]
       }
     ],
     "Stop": [

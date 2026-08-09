@@ -50,6 +50,17 @@ HOOKS = {
     # reset --hard over a dirty tree — the facts the 2026-08-08 git failures
     # were missing at the moment of the command.
     "git_state_guard.py": (("PreToolUse", MATCHER),),
+    # trigger-tools guard: the ONLY denying hook, and the one whose absence is
+    # silently expensive. A multi-root session that loses this can call
+    # `delete_trigger`, raise an approval prompt on the owner's screen, and stall
+    # until he is physically back — the exact failure the guard exists to stop,
+    # in the exact environment where nobody is watching. Its own matcher, because
+    # MATCHER covers only the built-in tools and this must also see the MCP
+    # trigger tools by name. Codex, fm #834 (P1) — this table was written without
+    # it, which left the rescue path rescuing three hooks out of four.
+    "trigger_tools_guard.py": (
+        ("PreToolUse", "Bash|mcp__.*__delete_trigger|mcp__.*__send_later"),
+    ),
 }
 
 

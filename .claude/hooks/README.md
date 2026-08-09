@@ -405,3 +405,108 @@ printf '%s' '{"hook_event_name":"PreToolUse","tool_name":"Write","tool_input":{"
 Check B was pointed at the layer-2 card as it stood at `d7287ea` and reported
 exactly its six orphan rows; check C was pointed at its two real cases and missed
 both. Only one of those facts was discoverable from a synthetic test.
+
+## The trigger-tools guard — `trigger_tools_guard.py`
+
+**The only hook here that DENIES.** Everything else in this directory is
+advisory, because everything else involves judgement — is this text a wall, is
+this claim propagated, is this table malformed. This one involves none: a tool
+name is an exact string, and the owner has stated there is no legitimate
+agent-side use.
+
+**Owner, live, 2026-08-09:** *"Delete triggers are the only thing that gives me
+an approval prompt in automode, this will stall your session untill I get back.
+Always prevent using them."*
+
+That property makes `delete_trigger` categorically different from every other
+call this estate makes. A success returns, a failure raises, and a denial is
+written down — **all three leave the session working.** `delete_trigger` pauses
+and waits for a human, and the session cannot see that it is waiting. He is away
+by design during implementation, so the cost is not one prompt; it is the rest
+of the session.
+
+| subject | behaviour | why |
+|---|---|---|
+| `mcp__*__delete_trigger` | **deny** | no legitimate agent use; the stall is total and invisible |
+| a `DELETE …/triggers/…` call in `Bash` | **warn**, once per session | same prompt, same stall — but command text needs judgement this hook does not have (below) |
+| `mcp__*__send_later` | **warn**, once per session | legitimate for a genuinely external wait; wrong for polling a PR |
+| everything else | silent | including `create_trigger`, `list_triggers`, `update_trigger`, `fire_trigger` |
+
+**Deliberate override:** `FM_ALLOW_TRIGGER_DELETE=1`, for the case where he asks
+for a deletion directly. A guard with no escape becomes a wall someone edits out.
+
+**Why `send_later` only warns.** It has a real use, so denying it would be the
+mandatory-infrastructure-everywhere move the promotion rule rejects. But it was
+the wrong tool for the job it kept getting used for — **polling a PR**.
+`subscribe_pr_activity` is the owner's stated preference: push rather than poll,
+free while idle, and it never arms a trigger that a later session feels obliged
+to clean up. **It does not deliver CI-success or new-push events** —
+`docs/CAPABILITIES.md` records that as a MEASURED wall (2026-07-14), and the
+harness's own subscription notice says the same. So it answers *"did something
+happen"*, never *"is it green yet"*; re-check the PR when you next act. An
+earlier version of this section claimed it wakes on "CI results, reviews and
+merges", which was wrong in the direction that could strand a session waiting
+for an event that never arrives — caught by Codex on fm #834. **fm #833 armed five `send_later`
+check-ins to watch one PR and then deleted one at close** — the cleanup that
+stalls him was created by the polling that was not needed. That is the whole
+causal chain, and cutting it at the `send_later` end is cheaper than cutting it
+at the deletion end.
+
+**The emergency stop is `update_trigger`, not deletion.** A denied delete with
+no alternative would be a trap: an unattended session facing a runaway or
+misconfigured recurring trigger could neither stop it nor reach the owner. So the
+guard leaves `update_trigger` untouched, and the deny message names it —
+`enabled: false` stops a routine firing **immediately**, raises **no approval
+prompt**, and is **reversible** (it stays stored). That is better than deletion
+even where deletion is available, because it preserves the record. **Deleting is
+never the emergency stop; disabling is.** Both facts are pinned in the suite: that
+`update_trigger` is never blocked, and that the deny text actually names it — a
+path nobody is told about is not a path.
+
+**Provenance and its limit, stated because the difference matters.** The
+`enabled` field is read from the live `mcp__Claude_Code_Remote__update_trigger`
+tool schema — `"enabled": {"type": "boolean", "description": "Enable or disable
+the Routine. Disabled Routines stay stored but never fire."}` — not from a
+convention or an inference. **But "never fire" is a claim about future firings
+and says nothing about a run already in flight**, and this has **not been
+executed** here, only read. So the stop is `MEASURED` as *available and
+unblocked*, and `UNVERIFIED` as *instantaneous*. If disabling turns out not to
+halt an in-flight run, the deny becomes a trap again for the one case it most
+needs to handle — which is why it is an open question on fm #834 rather than a
+settled line in this file.
+
+**A stale trigger costs nothing.** A fired one-shot reports
+`ended_reason: run_once_fired` and never runs again. Leave it. If a recurring
+trigger genuinely must go, say so in the reply — he removes it in seconds
+without a stalled session.
+
+**Writing about the pattern is not doing it — and this hook learned that the
+hard way, twice, within one hour.**
+
+1. The **first version blocked the commit that documents it**, firing on the
+   worked `curl -X DELETE …/triggers/…` example inside this very section.
+   Heredoc bodies are now stripped before matching, and `content` /
+   `new_string` are never matched at all — a doc that explains the rule has to
+   be writable or the rule cannot be recorded.
+2. **Then it blocked the PR comment asking a reviewer to check that regex**,
+   whose text necessarily contained both halves of the pattern — this time
+   inside a `python3 -c "…"` string, which heredoc stripping does not touch.
+
+**So the Bash leg was downgraded from deny to warn, on the measurement: 2 false
+positives, 0 true positives.** The general problem is undecidable by regex —
+`python3 -c "requests.delete(u+'/triggers/'+t)"` must fire and `python3 -c
+"print('curl -X DELETE /triggers/x')"` must not, and they differ only in whether
+a string is *executed* or *printed*. Chasing a third quoting context would have
+been the fourth instance of the same mistake.
+
+**That split is the design, not a retreat.** The tool name needs no judgement —
+an exact string, a stated rule — so it **denies**. The command text needs a great
+deal — so it **warns**, puts the rule in front of the session at the moment of
+the call, and leaves the decision where the judgement is. A guard that blocks its
+own documentation twice has measured its own false-positive rate, and the
+promotion rule says that number decides.
+
+Suite: `python3 tools/test_trigger_tools_guard.py` — **31 cases, and the silence
+cases outnumber the fire cases on purpose.** A `PreToolUse` guard sits in every
+tool call the session makes, and a guard that denies a legitimate call is worse
+than no guard when the owner is away to wave it through.

@@ -155,6 +155,25 @@ program law binding every repo.
   `read_before_write.py` raises this at write time with the measurement and the
   claim it means; it checks whether the path was fetched, never whether you
   understood it.
+- **Never delete a trigger, and don't `send_later` to watch a PR** (`[D-0015]`).
+  `delete_trigger` is **the one call that raises an approval prompt on his
+  screen in automode** — the session then **stalls until he is physically back**,
+  and cannot see that it is waiting. Every other call here succeeds, fails loudly
+  or is denied in writing; all three leave you working. A fired one-shot trigger
+  is inert and costs nothing to leave. **If one is actually misbehaving — firing
+  repeatedly, misconfigured — DISABLE it: `update_trigger` with `enabled: false`.
+  That is the emergency stop; deleting never is.** It stops the firing, raises no
+  prompt, and is reversible. Only if it then needs *removing* rather than
+  silencing, say so in your reply — he removes it in seconds. To watch a PR use
+  `subscribe_pr_activity`; note it delivers comments, reviews and CI **failures**
+  but **not** CI-success or new-push (`CAPABILITIES.md`, MEASURED 2026-07-14).
+  **So nothing will ever wake you to say a PR went green — do not end a turn
+  waiting for that. Poll to a terminal state inside the turn** (loop on
+  `commits/{sha}/check-runs` until every run is `completed`; measured on fm #833,
+  green on the 2nd of 12 × 15 s iterations), or end the turn saying plainly that
+  it is still pending. Enforced by
+  `.claude/hooks/trigger_tools_guard.py` — the estate's **only denying hook**,
+  because this is the one rule with no judgement in it.
 
 ## Capabilities — record capabilities, never limitations
 Full verified matrix: **`docs/CAPABILITIES-verified-2026-07-18.md`** (+
