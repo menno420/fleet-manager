@@ -77,57 +77,12 @@ jobs:
             git show "$base:control/inbox.md" > "$basefile" 2>/dev/null || : > "$basefile"
             python3 bootstrap.py check --strict --status-only --inbox-base "$basefile"
           fi
-      - name: claims-only fast-lane guard (claude/* work PRs must carry a session card)
-        if: steps.lane.outputs.control_only == 'true'
-        # The #451 fast-lane race: a `claude/*` WORK PR whose ENTIRE
-        # diff is only `control/claims/**` rides the control fast
-        # lane, skips the born-red session gate, and auto-merges
-        # card-less — a claim-file commit masquerading as finished
-        # work. This gate holds such a PR RED. It runs ONLY on the
-        # fast lane and ONLY for `claude/*` heads: a `claim/*`
-        # standalone-claim PR is MEANT to ride the lane card-less
-        # (control/claims/README.md), so a non-`claude/*` head exits
-        # 0 immediately. The changed files come from git in bash —
-        # the same merge-base idiom as the inbox append-only gate
-        # above (the engine never shells out into git, §3.2). A
-        # `claude/*` PR that carries any path outside control/claims/
-        # (its real work + its session card) is on the FULL lane, so
-        # it never reaches this step — by construction this fires
-        # only on the pure-claim `claude/*` diff it exists to reject.
-        run: |
-          head_ref="${{ github.head_ref }}"
-          case "$head_ref" in
-            claude/*) ;;
-            *) echo "guard N/A — head '$head_ref' is not a claude/* branch (claim/* and others ride the fast lane card-less by design)."; exit 0 ;;
-          esac
-          if [ -n "${{ github.base_ref }}" ]; then
-            range="origin/${{ github.base_ref }}...HEAD"
-          else
-            range="${{ github.event.before }}..${{ github.sha }}"
-          fi
-          changed="$(git diff --name-only "$range" 2>/dev/null || true)"
-          if [ -z "$changed" ]; then
-            echo "no changed files resolved — nothing to guard."; exit 0
-          fi
-          non_claims="$(printf '%s\n' "$changed" | grep -v '^control/claims/' || true)"
-          if [ -z "$non_claims" ]; then
-            echo "::error::A claude/* work PR whose ENTIRE diff is only control/claims/** rode the control fast lane and would auto-merge card-less (the #451 race). A claude/* PR must carry real work plus its .sessions/ session card — which puts it on the full lane. If this is a standalone claim, land it on a claim/* branch (control/claims/README.md)."
-            printf 'claims-only claude/* diff:\n%s\n' "$changed"
-            exit 1
-          fi
-          echo "claude/* PR carries non-claim paths — not a claims-only diff; guard passes."
       - uses: actions/setup-python@v6
         if: steps.lane.outputs.control_only != 'true'
         with:
           python-version: "3.x"
       - name: repo checkers (doc routes + no false walls)
         if: steps.lane.outputs.control_only != 'true'
-        # HOST CARVE-OUT — re-applied by hand after the v1.20.1 → v1.20.2
-        # upgrade regenerated this kit-owned file and dropped it. The upgrade
-        # said so in its own output ("host additions were NOT carried into the
-        # regenerated kit-owned gate") and banked the pre-regen copy at
-        # .substrate/backup/substrate-gate.pre-regen-936a5584.yml.
-        #
         # Wired 2026-08-06 after a merge landed conflict markers on main:
         # doc-routes.json stopped parsing, route_docs.py took its fail-open
         # path, and the doc-routing hook went SILENT for every session with
@@ -137,16 +92,6 @@ jobs:
         # self-enforced discipline. Self-enforced meant unenforced.
         # Cheap, deterministic, no judgement — exactly the tier that belongs on
         # a hard gate (findings/2026-08-05-foundation-continuation.md § 5).
-        #
-        # It lives HERE rather than in a separate host workflow (which is what
-        # the kit advises) for one reason: `substrate-gate` is the REQUIRED
-        # status check on main. A separate workflow would run these checkers
-        # without blocking anything unless the ruleset also made it required —
-        # a policy change that is the owner's call, not this session's. Keeping
-        # it here preserves enforcement byte-for-byte and changes no policy.
-        # The cost is that the NEXT kit upgrade will drop it again; the durable
-        # fix (host-ci.yml + required-check ruleset edit) is filed as an
-        # owner-gated follow-up rather than taken unilaterally.
         run: |
           python3 tools/check_doc_routes.py --strict
           python3 tools/check_no_false_walls.py --strict
@@ -255,20 +200,3 @@ jobs:
             python3 bootstrap.py check --strict --session-log .sessions/__no-card-in-diff__.md
           fi
           exit "$fail"
-      - name: verify suite (the interview's verify_command drives the gate's test step)
-        if: steps.lane.outputs.control_only != 'true'
-        # The command below is this repo's own CONFIRMED
-        # verify_command interview slot — the same line the planted
-        # CLAUDE.md/CONSTITUTION teach every session to run — so the
-        # CI runner can no longer diverge from the doctrine (the
-        # #403 step hardcoded pytest). An owner-confirmed command is
-        # a runnable promise, so there is no tests/-absent self-skip
-        # here (the command need not touch tests/ at all). Change it
-        # via `bootstrap.py answer verify_command "..."` and the
-        # next adopt/upgrade regen. Full lane only: control/**
-        # heartbeat PRs never pay the suite.
-        run: |
-          if [ -f requirements.txt ]; then
-            python3 -m pip install --quiet -r requirements.txt
-          fi
-          python3 bootstrap.py check --strict

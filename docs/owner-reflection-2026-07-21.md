@@ -11,12 +11,20 @@
 > `owner-queue.md`.
 >
 > **Confidentiality:** the external early-access program that prompted this
-> period is covered by a confidentiality agreement. This file therefore
-> describes everything generically ("the vendor", "the autonomous-projects
-> program", "the platform") and names no company, product, contact, or
-> unreleased feature. The *ideas* below are the owner's own and are not
-> confidential; only the program's specifics are, and those stay out of the
-> repo.
+> period is covered by a confidentiality agreement. **This file** describes
+> everything generically ("the vendor", "the autonomous-projects program",
+> "the platform") and names no company, product, contact, or unreleased
+> feature. The *ideas* below are the owner's own and are not confidential.
+>
+> **That generic style is this file's editorial choice, not a rule binding the
+> repo** — narrowed by owner ruling 2026-08-09 (`[D-0014]`), because the
+> sentence that once followed here ("only the program's specifics are, and
+> those stay out of the repo") was read as an estate-wide prohibition it was
+> never able to be: three other committed docs record thread subjects,
+> contacts, message ids and dates, and the owner published a probe report
+> publicly and linked it to the vendor in his own mail. **What actually stays
+> out of the repo is narrower:** unreleased feature specifics he has not
+> himself published, third-party personal contact details, and credentials.
 
 ---
 

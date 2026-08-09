@@ -116,12 +116,100 @@ this is a real absence in the sent-mail lane, not a broken query. It is recorded
 as **uncorroborated with the query that failed to find it**, never as "did not
 happen" — it may live on a surface Gmail does not hold.
 
+## The upgrade — v1.20.1 → v1.20.2, landed
+
+Owner ruling 2026-08-09 on the fork below: **"both, in order"** — take the
+released tip now, cut v1.21.0 in a dedicated session. This is the first half.
+
+**sha256 agreed four ways** (the skill demands three): the downloaded asset, the
+published `bootstrap.py.sha256` companion, `release.json`'s `sha256` field, and
+the kit repo's committed `dist/bootstrap.py` at tag `v1.20.2` — all
+`48ecd478…`. Contract: `breaking=false`, `requires_state_migration=false`,
+`min_upgrade_from=1.0.0`. Rollback banked at
+`.substrate/backup/bootstrap-1.20.1.py` (1,326,908 B). Vendored file now matches
+the released v1.20.2 asset byte-for-byte.
+
+### The carve-out the upgrade dropped — caught because the kit said so
+
+`upgrade` regenerated the kit-owned `.github/workflows/substrate-gate.yml` and
+**removed the host-added `repo checkers (doc routes + no false walls)` step** —
+the one wired 2026-08-06 after conflict markers reached `main` and silently
+disabled the doc-routing hook. Measured: **0** checker references in the
+regenerated file, **3** in the banked pre-regen copy.
+
+**This is the single most dangerous thing in the upgrade**, and it would have
+been invisible in a diff skim: the gate still exists, still runs, still goes
+green — while no longer running either checker. The comment the step carries is
+its own epitaph: *"Self-enforced meant unenforced."* An upgrade that silently
+un-enforces a gate is the same failure one layer up.
+
+**It was not invisible, though** — `upgrade` printed the carve-out, named the
+step, and banked the pre-regen file. Credit where due: the kit's carve-out
+scanner is exactly the *"a machine sees the defect at the moment"* shape
+[`../docs/findings/2026-08-09-error-to-mechanism.md`](../docs/findings/2026-08-09-error-to-mechanism.md)
+argues for, and it worked with no prompting.
+
+**The regeneration is not all loss** — it also ADDS two real guards, which is
+why reverting it wholesale was wrong: a **claims-only fast-lane guard** (a
+`claude/*` work PR whose entire diff is `control/claims/**` rode the fast lane
+and auto-merged card-less — the #451 race), and a **verify-suite step** driven
+by the interview's confirmed `verify_command` instead of hardcoded pytest. Both
+kept; the checker step re-applied by hand alongside them.
+
+**Why by hand, and why not the kit's advised fix.** The kit says host carve-outs
+belong in a separate workflow. That is right in general and wrong here *today*:
+`substrate-gate` is the **required** status check, so a separate `host-ci.yml`
+would run the checkers without blocking anything until the ruleset also made it
+required — a policy change that is the owner's call. Re-applying in place
+preserves enforcement byte-for-byte and changes no policy. **The cost is real
+and stated: the next kit upgrade drops it again.** The durable fix
+(`host-ci.yml` + a required-check ruleset edit) is an owner-gated follow-up, not
+a thing to take unilaterally.
+
+### `intake` survived — and that corrects a belief this session inherited
+
+The handoff was explicit: *"After the upgrade, RE-APPLY the intake amendment…
+the upgrade is what destroys it."* **Measured, it did not.** `intake`'s
+`SKILL.md` is byte-identical across the upgrade (sha256 `00d13424…`, 8,929
+bytes, all 8 Phase-2 markers). `upgrade` **staged** six kit skills into
+`.substrate/skills/` and copied none of them into `.claude/skills/`.
+
+**The hazard is real but mis-located, and the distinction matters** — filed
+rather than smoothed over. `.substrate/skills/intake/SKILL.md` still holds the
+**superseded 3,745-byte body**, still differs from the live 8,929-byte one, and
+is still the source some step copies from. So the P1 that produced
+`change_guard` check A is not withdrawn; what is withdrawn is *"the upgrade is
+what destroys it"*. **`upgrade` is not the destroying step**, and a session that
+re-applied `intake` here on faith would have "fixed" nothing and reported it as
+done — a false-done of exactly the kind the owner named this morning.
+
 ## The fork put to the owner
 
 Not re-litigating the decided part: he chose **A, kit upgrade first**, and that
 stands. What changed is the route, because the destination turned out not to
 exist yet. Stated with the measurement, and work continued on the EAP thread
-while it is open rather than stopping on it.
+while it was open rather than stopping on it.
+
+**Both answered 2026-08-09.**
+
+1. **Kit route → "both, in order."** v1.20.2 now (done, above); v1.21.0 cut from
+   substrate-kit `main` in a dedicated session. That second session owns a
+   *release*, not an upgrade — outward-facing, twelve adopters, and a batch that
+   promotes six checkers to exit-affecting. It should re-run the `--gate-preview`
+   sweep across the adopter trees rather than trusting this repo's zero.
+2. **Confidentiality → "narrow the strict rule."** Recorded as the ledger's
+   confidentiality decision, with `owner-reflection` § Confidentiality amended so
+   its generic style is that file's editorial choice rather than an estate-wide
+   prohibition. What stays out: unreleased specifics he has not himself
+   published, third-party contact details, credentials.
+
+**The process lesson from how that second one was reached is worth more than the
+ruling.** Codex raised it twice; its second point was that leaving it as an open
+ruling *"does not mitigate the disclosure"*, because the repo is public and the
+push had already happened — **the born-red gate holds the merge and does nothing
+about disclosure.** True, and previously unstated anywhere here. For a public
+repo a confidentiality question has to be settled **before the first push**. The
+ruling went the way that made it moot; that was luck, not process.
 
 ## Close-out
 

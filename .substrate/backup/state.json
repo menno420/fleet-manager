@@ -7,7 +7,7 @@
     "soft_target_sessions": 50
   },
   "graduation_proposed": false,
-  "kit_version": "1.17.0",
+  "kit_version": "1.20.1",
   "last_compaction_session": 0,
   "mode": "guided",
   "mode_history": [],
@@ -18,7 +18,7 @@
     "control/claims/README.md": "1f8cb9cf506506977b3d0592138536f667edbceab5d5f45b4acff0ca247d8fa0",
     "docs/AGENT_ORIENTATION.md": "575f0f385f6239d4676a7c12eb0a6217ed80af66a24483d597c33aee6e5e7001",
     "docs/CAPABILITIES.md": "41d555a7971042c43a4fede58b7b46ec34872e85bf5c53a4d4ab5e1c1e1fb8e8",
-    "docs/ROUTINES.md": "d43bf3676b4602bd7d9f332267e94fc4b4c85776ef50421798a4bccae9e82b4b",
+    "docs/ROUTINES.md": "719255adc2e035a9c25e246349059893485fd1d61306338563ce3b919d731f5b",
     "docs/SKILLS.md": "798e25e797fc277973dfc0bd06fb72697ef9f666ac1e7587261736a0b4aeed43",
     "docs/ai-project-workflow.md": "1a21ebe0cdc72e3e1f4d48804a065e689c164bf1e56dae6464247574c24f28cd",
     "docs/architecture.md": "13d5aed1149917d45be24eab41567315dfe7ffa5280a95db63c5bf64d6a46934",
@@ -33,7 +33,7 @@
     "docs/reading-path.md": "a9808cb898cf7bed4362e01893dfd76ce215d1ee89f8394b223add7a725d7d9b",
     "docs/repo-navigation-map.md": "61f30b0f4befcdc1e71c8587df3914710d5d58637a4883786cf45007366d2c00",
     "docs/runtime_contracts.md": "14452bfd36b1f6afc725bc39a15e069f5b0ef5e273f21ffecba20cbadf3e57ad",
-    "docs/seat-digest.md": "55ca4382afe87c757c0e86928556a6336a41f68d98d5e0f994d6a9de545f3fea",
+    "docs/seat-digest.md": "c489cfb1fd29b172747f43e11bf33e7989f166a50f3dcc11da135898bd748a9b",
     "scripts/env-setup.sh": "cd2145129fcba288ff9399ad44146a09017d85813e282c16bcba22340b613a2c"
   },
   "project_id": "7976f2aa96d9",
@@ -45,10 +45,10 @@
   },
   "review_log": [],
   "session_anchor": {
-    "branch": "claude/kit-upgrade-v1.9.0",
-    "epoch": 1783745133.814148,
-    "head": "e135c28d5132956e9189c092bc9656c5190eef0c",
-    "ts": "2026-07-11T04:45:33+00:00"
+    "branch": "claude/fleet-superbot-state-audit-24ra4p",
+    "epoch": 1785968407.088295,
+    "head": "5369de7b7d7fc29ae78dcd4bd542dd828b493869",
+    "ts": "2026-08-05T22:20:07+00:00"
   },
   "session_count": 0,
   "slot_values": {

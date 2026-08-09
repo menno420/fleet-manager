@@ -24,8 +24,16 @@
 > personal name in them redacted. The gift-code redemption link is a personal
 > credential and is **not recorded here at all**.
 >
-> **⚠ Two committed conventions conflict here, and this file cannot settle it —
-> the owner has to.** An earlier draft cited
+> **✅ Settled by owner ruling, 2026-08-09** (`OWNER`; the decision's one home is
+> the ledger's confidentiality entry, and `owner-reflection` § Confidentiality
+> now carries the narrowed rule). **What stays out of the repo is narrower than
+> the old wording implied:** unreleased feature specifics the owner has not
+> himself published, third-party personal contact details, and credentials.
+> Thread subjects, message ids, timestamps, the vendor's identity and his own
+> words are **not** withheld — so this file stands as recorded.
+>
+> **The history below is kept because the process lesson outlives the ruling.**
+> An earlier draft cited
 > [`../owner-reflection-2026-07-21.md`](../owner-reflection-2026-07-21.md)
 > § Confidentiality as authority for quoting him verbatim. **That citation was
 > wrong and is withdrawn.** That doc's rule is stricter than this file follows:
@@ -37,12 +45,19 @@
 > thread subject, message ids and timestamps, and names the vendor. So the repo
 > holds two incompatible practices, and the looser one is the more common.
 >
-> **Recorded as an open ruling, not resolved by fiat** (`OWNER` needed): either
-> the strict rule governs and three existing docs need redaction, or the working
-> practice governs and the strict rule needs narrowing to what it actually
-> protects. Caught by Codex review on fm #833 as P1 — correctly, because the
-> defect was not the practice but **claiming a permission the cited rule does
-> not grant**.
+> Caught by Codex review on fm #833 as P1 — correctly, because the defect was
+> not the practice but **claiming a permission the cited rule does not grant**.
+>
+> **Codex raised it a second time, and its second point is the one to keep:**
+> leaving it as an open ruling *"does not mitigate the disclosure"*, because the
+> repository is public and **the pushed commit and PR already exposed the
+> material while the born-red gate only prevented merging.** That is exactly
+> right and it is a mechanism this estate had not stated anywhere: **the
+> born-red gate holds the merge and does nothing about disclosure.** For a
+> public repo, a confidentiality question has to be settled **before the first
+> push**, not before the merge — after it, redaction is incomplete, because the
+> commit history and the PR text both persist. The ruling here went the way that
+> made it moot; that was luck, not process.
 
 ## 1 · The shape of the correspondence
 
