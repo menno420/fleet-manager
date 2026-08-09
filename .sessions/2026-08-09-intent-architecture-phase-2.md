@@ -76,13 +76,41 @@ requested **while this card is still born-red** (`session-close` 6c).
 | 4 | presented a `REVIEWED` ChatGPT distillation (`intent.md:205`, § 8b) as an owner-verbatim quote, in the SUCCESS cell of a provenance-separation table | **self, by fetching the citation** the ESTABLISHED rule demands |
 | 5 | called the Codex review *"overdue at ~8 min"* having counted from PR-open rather than from the request; 223 s had passed against a 335 s baseline | **self**, on computing the actual delta instead of estimating it |
 
-**Errors 1, 3 and 4 are one shape and it is the session's own subject:** a
+| 6 | **the fake-precision correction was fixed in the roadmap and not propagated** — the program's § 7 copy still carried *"a 1-in-21 false-negative rate"* | **Codex**, round 1 on #830 |
+| 7 | called the walkthrough's ten inputs *"real owner messages from the committed record"* — none is raw: 1–9 are fragments **quoted and segmented by an agent**, 10 is a correction | **the owner-review Stop hook**, on the reply about to be sent |
+| 8 | *"the upgrade is a real change"* from `ADVISORY_CENSUS` being absent **here**, with substrate-kit never opened — an absence measured in one place turned into a presence claimed in another | **the owner-review Stop hook**, same round |
+
+*(This table said **five** until the close was being written. Rows 6–8 were sitting
+in the review section and the reply, described but not counted — including one I
+had written *"belongs in the error table by rights"* and then left out of it.
+Leaving the count at five is the same undercount as the layer-2 card's error 11,
+committed in the session that repaired it. **The total is 8.**)*
+
+**Six of the eight are one shape and it is the session's own subject:** a
 conclusion drawn one step past what was measured. #1 measured a key's absence and
 nearly concluded a feature's absence; #3 measured field *names* and concluded
 about field *values*; #4 measured that a line exists in `intent.md` and concluded
-whose words it was. **All three were caught by going to the source** — none by
-being careful, which is the § 4.8 argument for ESTABLISHED being retrieval rather
-than recall, now with the author of that rule as its own data point.
+whose words it was; #6 measured a correction landing in one file and assumed the
+claim was retired; #7 measured that text is quoted and concluded it was source;
+#8 measured an absence here and claimed a presence there. **Not one was caught by
+being careful** — three by going to the source, one by Codex, two by the
+owner-review hook. That is the § 4.8 argument for ESTABLISHED being retrieval
+rather than recall, with the author of the rule as its own data point six times
+over.
+
+**The two that are not that shape:** #2 a composed quotation, #5 an arithmetic
+slip on a timestamp.
+
+**Error 2 is the mechanical one and worth the most.** No care was involved: an
+exact-match requirement rejected a composed quotation the instant it was
+submitted. That is the injection thesis in its cheapest possible form — not a
+reminder to transcribe, a tool that cannot accept a paraphrase.
+
+**And the catcher distribution is the result to carry.** Eight errors: **0**
+caught by documentation being available, **1** by a mechanical exact-match, **1**
+by Codex, **2** by the owner-review hook, **3** by going and reading the source,
+**1** by recomputing. The estate has 116 committed statements of verify-first.
+None of them caught anything today either.
 
 **Error 2 is the mechanical one and worth the most.** No care was involved: an
 exact-match requirement rejected a composed quotation the instant it was
@@ -163,6 +191,25 @@ silences"* to **0 clean catches**, and the prescribed test went from *"done"* to
 *"outstanding."* That is the review doing its actual job: an author scoring his
 own procedure drifted optimistic in exactly the two places where the evidence was
 thinnest, and neither gate nor hook could have seen either.
+
+### A second timing trap, measured here — pushing after a review request resets it
+
+`MEASURED` 2026-08-09. Round 2 was requested at `07:32:23Z`. Two further commits
+were then pushed — `07:35:27Z` and `07:37:02Z` — each a `synchronize` event that
+re-anchors the review against a new head. At `07:43Z`, 423 s after the request
+and past the 335 s baseline, no round-2 review had appeared, and **the cause was
+this session's own pushes**, not the reviewer.
+
+**This is the flip-before-review trap generalised.** That one said: do everything
+owed to the PR *before* the flip, because the flip releases the lander. The wider
+rule it is an instance of: **after you ask for a review, anything you do to the
+PR races the reviewer.** The flip races the merge; a push races the review
+itself. `session-close` 6c covers the first and says nothing about the second.
+
+**The fix is a sequencing habit, not a mechanism:** batch every intended change,
+push once, *then* request — and if something must change after the request,
+expect to have spent that round. Not proposed as a gate; it is a one-line
+addition to how a close is ordered, and it costs nothing to follow.
 
 **Round 2 requested on the fixed head.** Cap is two rounds
 (`session-close` 6c); if round 2 returns findings that cannot be closed inside
