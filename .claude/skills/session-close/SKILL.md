@@ -95,10 +95,72 @@ steps.
    and move the NOW pointer; if you changed an owner ask, update
    `docs/owner-queue.md`; if you verified a new capability, append it to the
    ledger (never a wall).
+6c. **Anything you still owe this PR happens BEFORE the flip — Codex review
+   above all.** The born-red hold is not only a completeness gate; it is the
+   only thing keeping `merge-on-green` off the PR. **The flip is the
+   merge-eligibility event**, so a review requested after it is a race you will
+   lose. Request the review while the card still reads `in-progress`, wait for
+   it (**≥6 minutes**; ~335 s measured), read the **inline** comments rather
+   than the summary body, then flip.
+
+   `MEASURED` 2026-08-08 on fm #827: review requested `19:06:39Z`, the enabler
+   merged the PR at **`19:07:01Z` — 22 seconds later**, and a commit pushed 55 s
+   after that never reached `main` at all. No session merged anything early;
+   the close sequence itself was wrong, and this skill's step 7 described the
+   flip as bookkeeping when it is the irreversible act.
+
+   **A review binds the SHA it was run on, so acting on findings invalidates
+   it.** Applying the fixes and flipping straight away merges correction commits
+   that no reviewer has seen — and this repo's own policy rates a stale review
+   `REVIEW`, never `PASS` (`docs/workflow-pr-merge-policy.md`). So the step is a
+   **loop, not a line**:
+
+   ```
+   request review on the current head
+     → wait, read the inline comments
+     → verify each finding against source before acting on it
+     → if you changed anything a reviewer would have an opinion about:
+         push, re-request on the NEW head, and wait again
+     → flip only when the outstanding review covers the head you are flipping
+   ```
+
+   **The loop advances on changes you MAKE, not findings you receive** — that is
+   the termination condition, and it is the reason this cannot spin. A finding
+   you verify and decline does not start a round; it gets its disposition in the
+   PR thread (`[survived]` / `[conceded]` / `[partial]`) and the loop ends.
+   Concretely:
+
+   | severity | what it costs |
+   |---|---|
+   | **P1 · P2** | must be dispositioned — fixed, or refuted in the thread with the evidence. A fix means another round. |
+   | **P3 · advisory · nits** | acknowledge and land. **These do not earn a round of their own**; batch them into the next session's work. |
+
+   **Cap it at two re-review rounds, then land with the open findings named** in
+   the card and the PR body. This is not impatience — it is `MEASURED`:
+   `substrate-kit#580` ran **five rounds and 34 findings without converging**,
+   and the convergence predicted from its own curve (9 → 9 → 8 → 2) was falsified
+   when round 5 returned 6
+   ([`../../docs/conventions/adversarial-review.md`](../../docs/conventions/adversarial-review.md)
+   § *Round 5 falsified the convergence reading*). A reviewer that always finds
+   something is not a reason to never land; **an unbounded loop hands the merge
+   decision to the reviewer**, which is the same defect as a gate the owner never
+   operates.
+
+   The one exemption is the flip commit itself — a badge flip plus the card's own
+   close-out text changes nothing reviewable — and taking that exemption means
+   **saying so in the card**, naming the reviewed SHA and what came after it.
+
+   **The failure this prevents was committed four times while writing it:**
+   this session requested a review, then pushed again before it landed, four
+   consecutive times, each push silently superseding the request it was waiting
+   on. Requesting a review and then continuing to push is not waiting.
 7. Flip as the deliberate LAST step — flip the card badge to `complete`,
    delete your own claim file, push. Green then merges server-side; a
    flipped-early card merges a partial PR (the failure the gate exists
-   for), and an unpushed flip leaves the PR red forever.
+   for), and an unpushed flip leaves the PR red forever. **After the flip,
+   treat the PR as gone:** the lander can take it within seconds, so a
+   follow-up correction is a new branch off the new `main`, never another
+   push to this one.
 
 ## Report format (card close-out)
 

@@ -14,7 +14,7 @@
 > describing what is true *now*, it has drifted into the wrong job.
 >
 > **Provenance is labelled per entry and never merged.** `OWNER` = his words,
-> quoted or closely paraphrased, from the intent interview of **2026-08-09**
+> quoted or closely paraphrased, from the intent interview of **2026-08-08**
 > (21 questions, all answered). `DERIVED` = my inference from those answers —
 > revisable, and explicitly not his statement. Certainty legend:
 > [`findings/2026-08-05-foundation-continuation.md`](findings/2026-08-05-foundation-continuation.md).
@@ -137,7 +137,15 @@ ambiguity that remains, and no more.
 
 ## 7 · Who does what — the agent roster
 
-`OWNER`, 2026-08-09, and nothing in this repo recorded it before.
+`OWNER`, 2026-08-08, and nothing in this repo recorded it before.
+
+**Read the whole table as owner-report, with exactly one exception.** Only the
+Codex row carries a measurement (the ~5.5 min relay, fm #812, 2026-08-07); the
+Claude, ChatGPT and Gemini/Grok rows are his assessment, not anything this estate
+has benchmarked. That is not a weakness — under `CAPABILITIES.md` DISCOVERY RULE
+step 0 an owner statement about his own estate is source truth to act on, not a
+hypothesis to probe. It matters only when someone wants to *cite* a row as
+evidence: cite it as his judgement, and do not describe the table as measured.
 
 | Agent | Role in this estate |
 |---|---|
@@ -155,7 +163,7 @@ Surface differences that change how a prompt must be written:
 
 ## 8 · Structural answers that were open
 
-`OWNER`, 2026-08-09, closing the three questions the spider-swing folder left
+`OWNER`, 2026-08-08, closing the three questions the spider-swing folder left
 open plus the workspace question:
 
 - **The Layer-2 folder shape replicates as built** — README + `capabilities.md` +
@@ -169,6 +177,40 @@ Detail and the rejected alternatives:
 [`repos/README.md`](repos/README.md) ·
 [`planning/2026-08-08-fleet-manager-as-index.md`](planning/2026-08-08-fleet-manager-as-index.md).
 
+## 8b · The heuristics underneath the answers
+
+`REVIEWED` — distilled by a **ChatGPT session** the owner ran in parallel on the
+same 21 answers, then shared here. Not his verbatim words and not a second
+authority; it is a second reading of the same source, and it earns its place
+because it names the *rules under* the choices, which is what a future agent
+actually needs. Where it and §§ 1–8 differ, the quoted `OWNER` text wins.
+
+- **The estate exists to make useful work easier and more reliable — not to
+  preserve infrastructure or history for its own sake.** That single sentence is
+  what generates the OD-3 cleanup amendment, the growth rule, and the non-goals.
+- **The document lifecycle that follows from it:** live → superseded → *evaluate
+  residual value* → archive if useful → **delete if genuinely valueless.** The
+  evaluation step is the new part; archiving is no longer automatic.
+- **Autonomy, in one rule that beats any ladder rung:** *continue approved or
+  derivable work; never invent product intent.* If a plan, a directive, a decided
+  next step, or a conclusion fully derivable without changing owner intent
+  exists — proceed. Do not manufacture work to stay busy, and do not stop merely
+  because he is absent.
+- **Resolve goal ambiguity, not every implementation possibility.** This is what
+  stops intent-mapping becoming micromanagement, and it dissolves the apparent
+  tension in § 3: *misunderstanding the outcome* is the expensive failure;
+  *exercising judgement over scope while understanding the outcome* is explicitly
+  fine.
+- **"Focused and complete", not "slow".** Three hours because the task needs
+  three hours is right; three hours because a rule says do not move quickly is
+  not.
+- **The measures that matter are behavioural** — first-action correctness,
+  repeated-error rate, unnecessary owner interruptions, retrieval failures — and
+  **not** document counts, rule coverage, or completeness of archive.
+- **Owner-word-wins has a duty attached.** Precedence is real, but the agent owes
+  him the contradiction: name it, give both sides, recommend one, then follow the
+  live word. Precedence is not licence to suppress the conflicting evidence.
+
 ## 9 · Still open
 
 - **Where the durable intent surface lives for *other* repos** — this file is
@@ -176,8 +218,11 @@ Detail and the rejected alternatives:
   intent source* per active repo rather than a file of this name everywhere.
 - **Whether ChatGPT can carry documentation work to this standard** — the owner
   wants it tested; nothing has been run.
-- The owner began a question 22 and left it empty. Whatever it was, it is not
-  captured here.
+*(A "question 22" was recorded here as an open item. **There was no question 22**
+— the batch had 21, and a trailing `22.` in the answer list was read as a
+started-and-abandoned question. Owner-corrected 2026-08-08; removed rather than
+left, because an invented open thread sends the next session looking for
+something that never existed.)*
 
 ## How to use this file
 

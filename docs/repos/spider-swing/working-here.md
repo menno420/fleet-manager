@@ -2,12 +2,12 @@
 
 > **Status:** `reference` · true as of **2026-08-08**
 >
-> **⚑ This file is a PROPOSAL.** The design's starting shape had no
-> "how to work here" file. It exists because gates, verify commands and landing
-> discipline are what a session needs **before** attaching, and they are neither
-> state nor goals — but whether that earns a distinct file, or folds into
-> `README.md`, is an **open question for the owner**. Judge the shape, not just
-> the contents.
+> **RATIFIED 2026-08-08.** This file began as a proposal — the design's starting
+> shape had no "how to work here" file. It exists because gates, verify commands
+> and landing discipline are what a session needs **before** attaching, and they
+> are neither state nor goals. The owner kept it as a **distinct file**, so it is
+> part of the shape every folder replicates ([`../intent.md`](../../intent.md)
+> § 8).
 >
 > **Canonical for nothing.** spider-swing's **binding** contracts are
 > `CONSTITUTION.md` (working agreement + autonomy rails) **and

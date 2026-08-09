@@ -121,7 +121,7 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 ## Recently shipped (newest first)
 
 - **The owner's intent, asked and recorded — and two standing directives changed
-  by his answers** (2026-08-09): [intent.md](intent.md) — fleet-manager's durable
+  by his answers** (2026-08-08): [intent.md](intent.md) — fleet-manager's durable
   intent surface, the first instance of the roadmap's § 4.6 invariant. Purpose
   (**router and records home**; the primary reader is the next *agent*, not the
   owner), the three success criteria he actually picked, the non-goals, the
@@ -129,8 +129,11 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   Grok / Codex** — a roster nothing in this repo had recorded. His words are
   labelled `OWNER` and quoted; every inference is labelled `DERIVED` and kept
   separate. **It was produced by asking, not by deriving from the decision
-  record, and that is the finding:** 21 questions, none of them already answered
-  by the corpus, and **two answers amended standing directives** — `OD-3`
+  record, and that is the finding:** 21 questions, **20 of them unanswered** by
+  the corpus (the purpose question was partially answered — two records already
+  called this repo *"hub + records custodian"*; the reader, the boundary and any
+  success criterion were absent), and **two answers amended standing directives**
+  — `OD-3`
   (archive-never-delete → cleanup of spent docs and repos is wanted, with a
   stated reason) and `OD-6` (*"pace: slow"* → **one thing at a time, finished
   properly**, which he says is what he meant all along). New: **`OD-13`** —
@@ -145,11 +148,14 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 - **The agent operating environment — the three-phase roadmap, and Phase 1 built**
   (2026-08-08):
   [planning/2026-08-08-agent-operating-environment-roadmap.md](planning/2026-08-08-agent-operating-environment-roadmap.md)
-  — the owner's architecture review, recorded: the goal is a **model-independent**
-  environment where any capable agent starts from an imperfect message and
-  reconstructs the intended outcome, because **the bottleneck is upstream of
-  code** (understanding intent, retrieving intent that already exists, selecting
-  the procedure, carrying intent through to review). Phase 2 specifies the
+  — the owner's architecture review, recorded: the goal is a **provider-aware,
+  model-portable** environment where any capable agent starts from an imperfect
+  message and reconstructs the intended outcome, because **the bottleneck is
+  upstream of code** (understanding intent, retrieving intent that already
+  exists, selecting the procedure, carrying intent through to review). *"Model-
+  independent" was the original phrasing and is retired* — the reasoning and the
+  method must transfer, execution capability need not be equalised, and a
+  Claude-specific dependency is fine **when declared**. Phase 2 specifies the
   **intent map** (EXPLICIT / ESTABLISHED / DERIVED / OPEN — never collapsed into
   one paragraph), LOW/MEDIUM/**HIGH** ambiguity with *no silent resolution of
   HIGH*, the `RESOLVED` / `NEEDS OWNER` seam before planning, **ephemeral maps

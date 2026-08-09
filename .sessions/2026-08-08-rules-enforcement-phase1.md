@@ -30,7 +30,9 @@ rules bind only when they arrive — which is why almost nothing here is new pro
 **The roadmap that reframes the work** —
 [`docs/planning/2026-08-08-agent-operating-environment-roadmap.md`](../docs/planning/2026-08-08-agent-operating-environment-roadmap.md),
 recording the owner's architecture review: the goal is a **model-independent agent
-operating environment**, and the bottleneck is **upstream of code** — understanding
+operating environment** *[phrase superseded later the same day — the precise one is
+**provider-aware, model-portable**; kept as written because dated cards are not
+silently rewritten]*, and the bottleneck is **upstream of code** — understanding
 intent, retrieving intent that already exists, selecting the procedure, carrying it
 through to review. Phase 2 specifies the intent map (EXPLICIT / ESTABLISHED /
 DERIVED / OPEN, never collapsed), LOW/MEDIUM/**HIGH** ambiguity with *no silent
