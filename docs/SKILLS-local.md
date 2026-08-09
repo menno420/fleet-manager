@@ -147,6 +147,76 @@ which would reach every adopter. That is a change in the kit repo, not here.
 Until then it lives in this file and in `.claude/skills/`, which is enough to use
 it and enough to find it.
 
+## Where these 27 are visible — and where they are not
+
+**The owner asked why the skills we built here do not appear in the claude.ai
+Skills settings list** (2026-08-09, with a screenshot showing only `morning` and
+`skill-creator`, both Anthropic-authored). The answer is that there are **two
+registries**, and committing a skill to a repo does not upload anything.
+
+| scope | where it lives | what reads it |
+|---|---|---|
+| **project** — all 27 of these | `<repo>/.claude/skills/<name>/SKILL.md`, in git | Claude Code sessions whose **root** is that repo, and cloud sessions on the cloned repo |
+| **personal** | `~/.claude/skills/<name>/SKILL.md` on one machine | that machine's Claude Code, all projects |
+| **account** | uploaded to the claude.ai account | claude.ai chat, Cowork (interactive **and** scheduled), Routines — and this is the list the settings page shows |
+
+Scope rows are from
+[the skills doc](https://code.claude.com/docs/en/skills); the rest of this
+section is `MEASURED` on this container, 2026-08-09.
+
+**What is actually here.** `CLAUDE_CODE_SYNC_SKILLS=1` syncs the account set into
+`/root/.claude/skills/`, which holds **8** entries whose `manifest.json` tags
+each `"source": "anthropic"` or `"anthropic-example"` — the two `-example` ones
+are exactly the two rows on his settings page. Probed directly: `intake`,
+`capability-probe`, `session-close`, `owner-brief` and `image-prompt` are all
+**absent** from that tree. They are not hidden or filtered; they were never
+uploaded.
+
+**This is the boot triad's case two wearing different clothes.** The boot file
+already records that a session rooted on a satellite repo gets *1 skill instead
+of 27* — same cause, different venue. The account registry is simply a third
+place the project-scope boundary shows.
+
+### Three routes, and what each one costs
+
+1. **Enable/upload per skill to the account** — the `Add` control on the settings
+   page. Reaches claude.ai, Cowork and Routines. **No frontmatter work is
+   needed:** all 27 use only `name` and `description`, and both are inside the
+   six fields uploads accept (`name`, `description`, `license`, `compatibility`,
+   `metadata`, `allowed-tools`) — a seventh field is a hard upload error, not a
+   warning. Cost: a manual copy that drifts from git the moment either side
+   changes, and an account-level skill competes for match in **every** session
+   everywhere.
+2. **The Skills API / `package_skill.py`** from `anthropics/skills` — the
+   scriptable form of route 1. Not attempted here; no Anthropic API key is
+   present in this container (`ANTHROPIC_BASE_URL` is set, no key), so the
+   credential path is `UNVERIFIED` rather than known-absent.
+3. **Ship them in a plugin declared in each repo's `.claude/settings.json`** —
+   the docs state repo-declared plugins install at session start, while plugins
+   enabled only in user settings do not transfer. Git-native, versioned,
+   reviewable, no manual drift.
+
+### The recommendation, and what is still the owner's call
+
+**Not all 27 should travel.** An account-level skill loads everywhere, so the
+repo-coupled ones would misfire: `session-close` drives this repo's §7 ledger and
+NOW pointer, `release` and `upgrade-distribution` are substrate-kit procedures,
+`repo-health` runs this bootstrap. The portable ones are the *method* skills that
+describe how to work rather than where — `capability-probe`, `intake`,
+`chase-references`, `prompt-preflight`, `decision-capture`, `prep-owner-steps`,
+`rationalize`, `delegate-read`.
+
+**Route 3 is the one that fixes the estate's actual defect**, because case two is
+about satellite *repos*, not about claude.ai — and a plugin declared in a
+satellite's settings is the only one of the three that follows the repo. Route 1
+is the right answer to the narrower question he asked, and the two are not
+exclusive.
+
+**Open, and his to decide:** whether to build the plugin, and which skills go in
+it. Recorded rather than built — a plugin is new apparatus, and § 5 of
+[`intent.md`](intent.md) names "an apparatus that needs maintenance sessions of
+its own" as a non-goal, so this one needs a yes rather than an inference.
+
 ## Adding one
 
 1. Write `.claude/skills/<name>/SKILL.md` with frontmatter (`name`,
