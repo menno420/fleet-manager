@@ -63,6 +63,8 @@ Continuing fm #830's numbering, because it is the same day and the same author.
 | 19 | **"substantially inert" for a defect never quantified** — check C's cross-line shingles were called *"most could never match"* from mechanism alone. **Measured after being asked: 52.2%** (1098 shingles, 400 real paragraphs). Half-blind, not mostly-blind — and the overstatement ran *toward* the drama of the finding | **the owner-review Stop hook**, asking for the percentage |
 | 20 | **attributed a reviewer split to reading style without controlling for input** — claimed the hook and Codex "see different things", when `owner_review.py:4-5` shows the hook is *given* only the reply. Half the split is forced by input scope, and the confound was one `grep` away | **the owner-review Stop hook**, asking whether both saw the same artifacts |
 | 21 | **declared a coverage gap without surveying the instruments — third time** — told the owner doc-vs-code contradictions are *"invisible to both instruments."* Wrong twice over: Codex's diff carries the docs **and** the code, and it caught a cross-document contradiction on this very PR (its P1, § 7 vs § 3); and `check_doc_routes.py:118-121` already implements the claim-vs-artifact shape, failing a route whose trigger no longer appears in the doc it points at. **What survives is narrower: the *reply* is in no reviewer's scope** | **the owner-review Stop hook**, asking which instruments had been evaluated |
+| 22 | **four different totals for the same set, in one reply** — *"three confirmed"*, *"six more"*, *"13 real defects"*, *"Codex caught 15"*, with per-PR and cross-PR scopes never distinguished. Counted from the API afterwards: **#830 = 10 findings, all in docs; #831 = 15, of which 14 code; 25 total.** The *"13"* was simply wrong | **the owner-review Stop hook**, asking for the breakdown |
+| 23 | **conflated two different gaps into one recommendation** — *"reading claims against code is a much smaller job because the mechanism already exists."* `check_stamp_discipline` walks `docs_root.rglob("*.md")` (`bootstrap.py:9318`) and **never reads code**. Anchors address doc↔doc propagation; doc↔code contradiction is a separate, unsolved problem with no mechanism behind it | **the owner-review Stop hook**, same round |
 | 18 | **compressed a six-way table into a three-way sentence and lost two rows** — told the owner *"six had a moment… four already watching, two now guarded, and the rest need a person or a habit."* The documented breakdown is **4 already caught · 2 built · 3 skill steps · 2 buildable-not-built · 1 no moment · 1 open design question.** Buildable means the moment exists, so **eight** have a machine-decidable moment, not six; and #4/#9 do not "need a person" — they need a checker I chose not to build, for stated trade-offs | **the owner-review Stop hook**, sixth round, asking how the breakdown was derived |
 
 **#14 is the sharpest error of the two days**, because it is the session's own
@@ -91,6 +93,15 @@ interpreter startup, identical in the case that does no work. Acceptable. **The
 ordering was still wrong**, and "it turned out fine" is not the same as "it was
 checked": a hook on every edit earns a measurement before registration, not after
 a reviewer asks.
+
+**#22 and #23 are class B and class A respectively, and both landed in the same
+reply — the one summarising a PR about exactly these classes.** #22 is a count
+asserted four ways without counting; #23 is a conclusion one step past the
+measurement, merging *anchors solve doc↔doc propagation* (true, and the estate
+runs one) with *doc↔code contradiction is nearly solved* (false — nothing reads
+code against the claims about it). **The corrected recommendation is worse news
+and more useful:** doc↔code is not a small job riding on existing machinery, it
+is an unbuilt one, and it is where 14 of this PR's 15 findings lived.
 
 ## A process note — do not promise a frozen head
 
