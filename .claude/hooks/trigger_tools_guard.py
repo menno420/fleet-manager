@@ -66,6 +66,7 @@ matches on names and command text only — it never inspects intent.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import re
@@ -105,11 +106,17 @@ DENY_MSG = (
     "\n"
     "**IF A TRIGGER IS ACTUALLY MISBEHAVING — firing repeatedly, misconfigured, "
     "burning quota — DISABLE IT, do not delete it:** call `update_trigger` with "
-    "`enabled: false`. It stops firing immediately, it is NOT blocked by this "
-    "guard, it raises NO approval prompt, and it is reversible — the routine "
-    "stays stored and can be re-enabled. That is strictly better than deletion "
-    "even when deletion is available, because it leaves the record intact. "
-    "Deleting is never the emergency stop; disabling is.\n"
+    "`enabled: false`. It is NOT blocked by this guard, it raises NO approval "
+    "prompt, and it is reversible — the routine stays stored and can be "
+    "re-enabled. Deleting is never the emergency stop; disabling is.\n"
+    "\n"
+    "STATE THE BOUND HONESTLY WHEN YOU REPORT IT. What is established is that "
+    "**FUTURE firings stop** — the schema says 'Disabled Routines stay stored "
+    "but never fire'. Whether it cancels a run ALREADY IN FLIGHT is UNVERIFIED "
+    "here. So report 'further firings disabled', never 'the incident is "
+    "contained', unless you have watched the in-flight run end. Deleting would "
+    "not have given you that guarantee either — it would have given you a "
+    "stalled session on top of the runaway.\n"
     "\n"
     "If it then genuinely needs removing rather than silencing, say so in your "
     "reply — he removes it in seconds, without a stalled session.\n"
@@ -147,9 +154,28 @@ WARN_MSG = (
     "\n"
     "`send_later` is still right for a genuinely external wait that will not "
     "notify you at all (a deploy, a quota window, a human elsewhere). Not "
-    "blocked — just rarely the answer, and never the answer for \"is it green "
-    "yet\"."
+    "blocked — just rarely the first answer.\n"
+    "\n"
+    "AND IT IS NOT FORBIDDEN FOR \"IS IT GREEN YET\". An earlier version of this "
+    "text said it was never the answer, which was one overcorrection too far: "
+    "`docs/research/2026-07-12-platform-capabilities.md` names polling OR a "
+    "`send_later` self-wake as the two alternatives, and if CI outlasts what you "
+    "can reasonably poll inside a turn, a self-wake beats abandoning the PR. "
+    "**Prefer in-turn polling; fall back to `send_later` when polling cannot "
+    "reach a terminal state** — and if you do arm one, say so in your reply so "
+    "the next session is not surprised by it."
 )
+
+
+def _fingerprint(text: str) -> str:
+    """Short stable digest, so each distinct command gets its own dedup slot.
+
+    The Bash leg is KNOWN to false-fire on prose that merely quotes the pattern.
+    Keying dedup on a constant let the first such false positive consume the
+    session's single warning, leaving a later REAL deletion silent at exactly
+    the moment the warning matters. Codex, fm #834 (P2).
+    """
+    return hashlib.sha256(text.encode("utf-8", "replace")).hexdigest()[:12]
 
 
 def once(key: str, session: str = "nosession") -> bool:
@@ -212,7 +238,18 @@ def _strip_written_content(cmd: str) -> str:
     """
     if _HEREDOC_EXECUTOR_RE.search(cmd):
         return cmd
-    return _HEREDOC_RE.sub(" ", cmd)
+    return _HEREDOC_RE.sub(_strip_if_quoted, cmd)
+
+
+def _strip_if_quoted(m: "re.Match[str]") -> str:
+    """Strip only heredocs whose delimiter is QUOTED — those alone are literal.
+
+    `cat > f <<EOF` expands `$(curl ...)` and backticks BEFORE writing, so an
+    unquoted body is executable regardless of how inert the consumer looks.
+    Only `<<'EOF'` / `<<"EOF"` guarantee the text is never interpreted. Codex,
+    fm #834 (P2), on the tree that had already "fixed" heredocs once.
+    """
+    return " " if m.group(1) else m.group(0)
 
 
 def _command_text(event: dict) -> str:
@@ -285,7 +322,7 @@ def main() -> int:
             "If you are merely WRITING ABOUT the pattern — documentation, a PR "
             "comment, a test fixture — carry on; this warning cannot tell the two "
             "apart, which is exactly why it does not block."
-        ) if once("api_delete", session) else 0
+        ) if once(f"api_delete:{_fingerprint(_command_text(event))}", session) else 0
 
     return 0
 

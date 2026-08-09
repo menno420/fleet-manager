@@ -120,13 +120,20 @@ check("python requests.delete on a trigger warns", decision(run({
 check("path-then-verb ordering also warns", decision(run({
     "tool_name": "Bash",
     "tool_input": {"command": "TID=/triggers/trig_9; curl -X DELETE \"$BASE$TID\""}})), "warn")
-check("the API warning fires ONCE per session", decision(run({
+check("the API warning fires on a first match", decision(run({
     "tool_name": "Bash",
     "tool_input": {"command": "curl -X DELETE $B/triggers/t2"}},
     session=(_s := f"test-{uuid.uuid4()}"))), "warn")
-check("  ...and is silent the second time", decision(run({
+# Dedup is per-COMMAND, not per-session: a DIFFERENT command must warn again.
+# This assertion used to demand silence here, which is precisely the defect
+# Codex found — one false positive would consume the session's only warning and
+# a later real deletion would pass unremarked.
+check("  ...a DIFFERENT command warns again (dedup is per-command)", decision(run({
     "tool_name": "Bash",
-    "tool_input": {"command": "curl -X DELETE $B/triggers/t3"}}, session=_s)), "silent")
+    "tool_input": {"command": "curl -X DELETE $B/triggers/t3"}}, session=_s)), "warn")
+check("  ...the SAME command repeated is deduped", decision(run({
+    "tool_name": "Bash",
+    "tool_input": {"command": "curl -X DELETE $B/triggers/t2"}}, session=_s)), "silent")
 check("REAL PR-comment text that false-fired mid-session no longer denies", decision(run({
     "tool_name": "Bash",
     "tool_input": {"command": "python3 -c \"print('does --request DELETE or -X DELETE hit the /triggers/ path?')\""}})), "warn")
@@ -172,9 +179,12 @@ HEREDOC = (
 )
 check("heredoc documenting the pattern is silent",
       decision(run({"tool_name": "Bash", "tool_input": {"command": HEREDOC}})), "silent")
-check("unquoted heredoc delimiter also stripped",
+# This case used to expect silence — encoding the bug. An UNQUOTED delimiter
+# expands $() and backticks before the file is written, so the body is not
+# guaranteed inert and must stay inspectable. Only <<'EOF' is literal.
+check("unquoted heredoc is NOT treated as inert",
       decision(run({"tool_name": "Bash", "tool_input": {"command":
-          "cat > d.md <<EOF\ncurl -X DELETE $B/triggers/t1\nEOF\n"}})), "silent")
+          "cat > d.md <<EOF\ncurl -X DELETE $B/triggers/t1\nEOF\n"}})), "warn")
 check("Write of a doc containing the pattern is silent",
       decision(run({"tool_name": "Write", "tool_input": {
           "file_path": "docs/x.md",
@@ -212,6 +222,42 @@ check("state is per-session via the EVENT, not an env var", decision(run({
 check("  ...a DIFFERENT session still gets its own warning", decision(run({
     "tool_name": "mcp__Claude_Code_Remote__send_later", "tool_input": {}},
     session="codex-b")), "warn")
+
+print()
+print("== Codex round 2 on #834 — regressions pinned ==")
+# P2a: only a QUOTED delimiter is literal. `<<EOF` expands $() before writing.
+check("unquoted heredoc with $(...) is NOT stripped", decision(run({
+    "tool_name": "Bash",
+    "tool_input": {"command": "cat > note <<EOF\n$(curl --request DELETE $B/triggers/t)\nEOF\n"}})), "warn")
+check("unquoted heredoc with backticks is NOT stripped", decision(run({
+    "tool_name": "Bash",
+    "tool_input": {"command": "cat > note <<EOF\n`curl -X DELETE $B/triggers/t`\nEOF\n"}})), "warn")
+check("QUOTED heredoc (literal) is still silent", decision(run({
+    "tool_name": "Bash",
+    "tool_input": {"command": "cat > d.md <<'EOF'\ncurl -X DELETE $B/triggers/t1\nEOF\n"}})), "silent")
+
+# P2d: a known false positive must not consume the session's only warning.
+_s2 = f"test-{uuid.uuid4()}"
+check("a false-positive doc command warns first", decision(run({
+    "tool_name": "Bash",
+    "tool_input": {"command": "python3 -c \"print('curl -X DELETE /triggers/x is banned')\""}},
+    session=_s2)), "warn")
+check("  ...and a LATER REAL deletion still warns (dedup not burned)", decision(run({
+    "tool_name": "Bash",
+    "tool_input": {"command": "curl -X DELETE https://api.x/v1/triggers/trig_real"}},
+    session=_s2)), "warn")
+check("  ...but the SAME command twice is still deduped", decision(run({
+    "tool_name": "Bash",
+    "tool_input": {"command": "curl -X DELETE https://api.x/v1/triggers/trig_real"}},
+    session=_s2)), "silent")
+
+# P2c: the deny must not promise more than is established.
+_d = run({"tool_name": "mcp__Claude_Code_Remote__delete_trigger", "tool_input": {}})
+_m = (_d.get("hookSpecificOutput") or {}).get("permissionDecisionReason", "")
+check("deny states the in-flight bound rather than promising immediacy",
+      "yes" if ("UNVERIFIED" in _m and "IN FLIGHT" in _m) else "no", "yes")
+check("deny no longer claims it stops firing immediately",
+      "yes" if "stops firing immediately" not in _m else "no", "yes")
 
 print()
 print(f"{passed}/{passed + failed} passed")
