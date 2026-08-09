@@ -41,6 +41,14 @@
 ## [D-0012] Publication default: public unless it exposes a key
 
 - status: decided
+- superseded-by: D-0014
+- amendment: **The "single exception" below is now three.** D-0014 (2026-08-09)
+  adds unreleased feature specifics the owner has not himself published, and
+  third-party personal contact details. **Only the exception list changes** —
+  the publish-by-default posture and its rationale stand unchanged. Flagged by
+  Codex on fm #833 (P1): D-0014 was written as an addition and left this entry
+  reading as though credentials were still the only boundary, so a session
+  reading only this row could publish exactly what D-0014 protects.
 - date: 2026-08-05
 - verdict: Assume anything this estate produces may be public. The single
   exception is credential material — API keys, tokens, secrets — which never
@@ -77,3 +85,45 @@
 - provenance: owner, intent interview 2026-08-08 (answers 5, 19, 20); recorded
   per CONSTITUTION § "Changing the rules" — owner-directed live, so applied
   rather than proposed. Contradiction surfaced by Codex review on fm #827.
+
+## [D-0014] Confidentiality: the narrow rule is unreleased specifics, contacts and credentials
+
+- status: decided
+- supersedes: D-0012
+- scope-of-supersession: **partial — the exception list only.** D-0012 said
+  credential material was *"the single exception"* and that *"no other category
+  needs the owner's permission"*; this entry adds two more protected categories,
+  so the withhold list is now **three**: credentials, unreleased feature
+  specifics the owner has not himself published, and third-party personal
+  contact details. **The publish-by-default posture is unchanged and still
+  governs everything else.**
+- date: 2026-08-09
+- verdict: The estate-wide confidentiality rule is **narrowed to what it
+  actually needs to protect**: unreleased feature specifics the owner has not
+  himself published, third-party personal contact details, and credentials.
+  Thread subjects, message ids, timestamps, the vendor's identity and the
+  owner's own words are **not** withheld. `owner-reflection-2026-07-21.md`'s
+  fully-generic style stays as that file's own editorial choice, not as a rule
+  binding the repo.
+- why: The repo already held two incompatible practices and the looser one was
+  the more common — `pre-reboot-review-2026-07-15.md`,
+  `findings/ultracode-verification-2026-07-10.md` and
+  `eap-final-email-draft-2026-07-14.md` all record subjects, contacts and ids,
+  while `owner-reflection` forbids all four. The owner himself published a probe
+  report publicly and linked it to the vendor in his own mail, so the strict
+  reading did not describe his actual intent. Owner-ruled 2026-08-09 when the
+  conflict was put to him as a fork.
+- rules out: citing `owner-reflection` § Confidentiality as a general
+  prohibition on naming the vendor, a thread or a date; and treating the three
+  existing docs as violations needing redaction.
+- provenance: owner, live ruling 2026-08-09, on a fork raised by Codex review
+  (P1, twice) on fm #833. The first Codex round was right that the file cited a
+  permission the rule did not grant; the second was right that a public push
+  discloses at push time, not merge time — see the process note below.
+- process note (`MEASURED`, and it outlives this decision): **for a public repo
+  a confidentiality question must be settled BEFORE the first push, not before
+  the merge.** The born-red gate holds the merge and does nothing about
+  disclosure; by the time the ruling was obtained the commit, the PR body and
+  the review thread already carried the material, and a redaction after the fact
+  would have been incomplete (history and PR text both persist). The ruling here
+  happened to go the way that made it moot. That was luck, not process.

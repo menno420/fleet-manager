@@ -204,6 +204,35 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   worth carrying: the estate's clearest misread (`Pace: slow.`) **cannot be
   replayed at all**, because the owner message that produced it was never
   preserved — the compression destroyed the evidence needed to audit it.
+- **The kit is at v1.20.2, and seven defects in it are written up for the
+  v1.21.0 session** (2026-08-09, fm #833):
+  [findings/2026-08-09-substrate-kit-defects.md](findings/2026-08-09-substrate-kit-defects.md)
+  — sites, line numbers, reproductions and a committed A/B harness. **No
+  released kit carries `ADVISORY_CENSUS`**; it sits under `## [Unreleased]` on
+  substrate-kit `main`, so the owner ruled **"both, in order"** — v1.20.2
+  adopted here, v1.21.0 cut in a dedicated session. **Every one but the `SKILLS-index`
+  template defect is in the kit's own false-wall scanner**, which `substrate-gate` runs as a required
+  check, and **two are regressions v1.20.2 introduced** — one false positive
+  (valid repudiation prose rejected) and one **false negative** (a genuine wall
+  passes the gate after `because`), the latter being the one to fix first
+  because nothing announces it. **Two of those holes are fleet-manager's own,
+  not only the kit's** — measured 2026-08-09 with a passing bare-wall control:
+  `tools/check_no_false_walls.py` also clears a genuine wall after
+  *"does not reproduce because …"* and clears a second assertion following a
+  repudiated quote. **So a real standing wall can be committed to a read-path
+  doc today and no gate in this repo will catch it.** An earlier note claiming
+  fm's checker did not share these generalised from the one defect actually
+  tested. The upgrade also **silently dropped the gate's
+  `repo checkers` step**; it is re-applied and every kit upgrade must re-apply
+  it until the durable fix lands ([SKILLS-local.md](SKILLS-local.md) §
+  "Generated-file corrections to re-apply").
+- **The EAP correspondence is a committed record, verified against the mailbox**
+  (2026-08-09, fm #833):
+  [findings/2026-08-09-eap-correspondence-record.md](findings/2026-08-09-eap-correspondence-record.md)
+  — the evidence base for step **E1**, linked from its plan's § 2. Four direct
+  questions **never answered** against a 205-character reply; **two verbatim
+  promises** of a final review; **no vendor agenda ever arrived**, so the mail's
+  content is entirely the owner's call.
 - **Thirteen errors scored against "could a machine have caught this at the
   moment?" — and three hooks built from the answer** (2026-08-09, fm #831):
   [findings/2026-08-09-error-to-mechanism.md](findings/2026-08-09-error-to-mechanism.md)

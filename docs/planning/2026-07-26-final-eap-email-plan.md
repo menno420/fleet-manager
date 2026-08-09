@@ -26,12 +26,27 @@ statement — readable by anyone on the team in minutes with zero context.
 
 ## 2 · Facts the writing session needs (verified 2026-07-26)
 
+> **The correspondence is now a committed record, re-verified against the
+> mailbox 2026-08-09:**
+> [`../findings/2026-08-09-eap-correspondence-record.md`](../findings/2026-08-09-eap-correspondence-record.md).
+> Read it instead of re-deriving the threads — it carries the message-level
+> metadata, the **four direct questions that were never answered**, the two
+> verbatim promises that make this mail an outstanding commitment, and the fact
+> that **no vendor-supplied agenda ever arrived**, so this mail's content is
+> entirely the owner's call. It also **corrects four claims** that had been
+> circulating in handoff prompts, and adds the owner's 2026-08-09 outcome axis
+> (FORGETTING and FALSE-DONE), which § 4's platform-only list does not cover.
+
 - **The correspondence so far** (thread "Claude Code Projects Review",
    2026-07-08 → 07-16, plus announcements): 07-08 intro review · 07-12
   scale-up report (1→15 repos) · 07-14 team ack · 07-16 ×2 the
   classifier-crisis pair · 07-16 21:42 attachment resend. Separately: the
   program-end "power user" thank-you thread (07-21, gift box, warm close) and
-  a UX-research interview invite (07-21, unanswered as of this writing).
+  a UX-research interview invite. **Both halves of that last clause were wrong
+  and are corrected by the 2026-08-09 record above:** there were **two**
+  invitations (07-10 and 07-21, the second explicitly *"again"*), and the owner
+  **completed** the second — he says so in the 07-21 20:07 message. Do not
+  write "unanswered" into the mail.
 - **The 2026-07-18 follow-up draft was NEVER sent** (verified in sent mail):
   its net-new findings — the venue-scoped guard, agent-memory wall
   propagation + the CI antidote, stale-text-outranks-live-instruction, the

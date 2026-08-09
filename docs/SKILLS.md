@@ -35,8 +35,24 @@ deriving the procedure from scratch.
 - **Installed (live):** `.claude/skills/<name>/SKILL.md` — invoke as
   `/<name>`.
 - **Staged (regenerated at every adopt/upgrade):** the kit state dir's
-  `skills/` tree (default `.substrate/skills/`); install with
+  `skills/` tree (default `.substrate/skills/`); refresh the staged tree with
   `python3 bootstrap.py skills --build`.
+- **⚠ `skills --build` does NOT install.** It writes only to
+  `.substrate/skills/`; `cmd_skills`' own docstring states the kit *"never
+  writes a live `.claude/` tree"*. **No kit command ever writes
+  `.claude/skills/`.** Installing is a HOST step — the `cp` loop in
+  [`SKILLS-local.md`](SKILLS-local.md) (§ "Installing"), which copies
+  `.substrate/skills/*/SKILL.md` → `.claude/skills/*/SKILL.md`. A session that
+  runs `skills --build` alone and believes it installed has changed nothing.
+  **That loop overwrites local amendments to kit-named skills** — see
+  `SKILLS-local.md`'s ⚠ re-apply table before running it.
+  *(Host correction, fm #833. **This note survives upgrades** — despite the
+  header above, a touched planted doc is classified `consumer-edited` and
+  `apply_doc_improvements()` writes only `consumer-untouched` files; this
+  upgrade's report confirms it at `.substrate/upgrade-report.md:23`. So do
+  **not** re-apply it after an upgrade — check first. The durable fix is
+  upstream in the kit's `SKILLS-index.md.tmpl`, which still teaches the wrong
+  install step to every new adopter.)*
 - **Precedence:** a skill's declared capability **wins over the ambient
   stance** (an invoked `session-close` may write the session log even under
   a `review` stance); stances stay advisory for anything a skill has not
