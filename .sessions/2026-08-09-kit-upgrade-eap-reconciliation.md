@@ -403,6 +403,38 @@ exercise of that step will be the merge commit on `main`**, which is precisely
 the run the fix exists to protect. Stated rather than left for someone to
 discover.
 
+## Upstream kit defects found here — the v1.21.0 session's actual worklist
+
+Codex reviewed the **vendored dist** because this PR changed it, and found five
+defects in kit code. **None is patched here**: `cmd_upgrade` *"archives before it
+overwrites"*, so a local patch is erased at the next upgrade — a fix that
+evaporates while giving false confidence, with no hash gate to notice either
+way. All five belong upstream, where they reach twelve adopters instead of one.
+
+**Written with line numbers and reproductions so the next session does not have
+to re-derive them** — "filed upstream" as a phrase has no referent; this is the
+referent. Line numbers are against vendored **v1.20.2**.
+
+| # | site | defect | reproduction |
+|---|---|---|---|
+| 1 | `bootstrap.py:5458-5459` | the render-marker early return exempts the **whole** `seat-digest.md`, so authored prose outside the generated fences escapes the scan. Its own docstring justifies the exemption by "the render's SOURCE docs are independently scanned" — which does not cover hand-added text | append `Agents cannot merge` outside the fences with `is_render_path=True` → no hit; the same text elsewhere is flagged |
+| 2 | `bootstrap.py:5274` | a repudiation cue is searched clause-wide, so it clears **every** occurrence of the capability on the line, not the one it characterises | `scan_text('"agents cannot merge" was superseded, agents cannot merge')` → no findings; the second, genuine assertion escapes |
+| 3 | `bootstrap.py:5034` | `\bre?deploy(?:s\|ed\|ing\|ment)?\b` — the `re` is *`r` plus optional `e`*, so it matches `redeploy` and `rdeploy` but **not `deploy` or `deploying`**. The intended form is `(?:re)?deploy`. **Verified here:** `deploy` → False, `deploying` → False, `redeploy` → True | `scan_text('Merging is not walled, agents cannot deploy')` → no finding: the deploy wall has no family, so an unrelated merge repudiation clears it |
+| 4 | `bootstrap.py:5374-5378` | the lookforward stop set is `_HEADING` / `_DATED_BULLET` / `_NEW_BULLET` / `_CONTRAST_START` — **no fence, no blockquote** — so a cue inside a separate block attaches to a wall above it | `scan_text('The rule is "agents cannot merge"\n```\nThis example was superseded\n```')` → no finding |
+| 5 | `SKILLS-index.md.tmpl` — read as the **embedded template constant inside the vendored `bootstrap.py`**, not as a standalone file in the kit repo | teaches *"install with `python3 bootstrap.py skills --build`"* (verbatim, one occurrence in the dist), which only stages. **Every new adopter is told an install step that installs nothing** — the false-done class, shipped by the template | any fresh adopt: run it, then `ls .claude/skills/` |
+
+**Defects 1–4 all live in the kit's own false-wall scanner**, which is the
+mechanism the boot file calls load-bearing and which `substrate-gate` runs as a
+required check. **Four holes in one checker, found in one afternoon, by pointing
+a reviewer at code that had been read only by its author.** That is the same
+result as fm #831 — where 14 of 15 findings were in the checks themselves — and
+it is the argument for the v1.21.0 session budgeting review time, not just a
+version bump.
+
+**fm's own `tools/check_no_false_walls.py` does NOT share these** — checked; it
+carries no `deploy` family and is a separate implementation. Nothing in this
+repo needs patching for 1–4.
+
 **Left for the owner:**
 
 1. **v1.21.0** — cut from substrate-kit `main` in a dedicated session (his
