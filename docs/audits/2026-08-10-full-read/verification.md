@@ -43,8 +43,17 @@ The evidence that the files were actually read is separate and is the part worth
 weighing: every agent also returned a one-line **gist** of each file's content, and the
 345 findings carry verbatim quotes with line numbers that were independently re-resolved
 against the tree by a second agent. A `wc`-and-`head` pass cannot produce either. The
-fingerprint's job is narrower — it makes *silent omission* impossible, because a path
-with no reproducing fingerprint cannot be counted.
+The fingerprint's job is narrower still, and it is worth being exact about which
+mechanism does what, because they are easy to conflate:
+
+- **The enumeration diff catches omission.** A path present in `enumeration.tsv` and
+  absent from the returns is written `NO-RETURN`; it cannot be silently dropped. The
+  fingerprint plays no part here — an omitted path has nothing to fingerprint.
+- **The fingerprint catches the opposite failure**: a path *listed* in a return whose
+  content the agent never held. It stops a path being counted without being opened.
+- **Neither catches a file missing from the enumeration itself.** That rests entirely
+  on `git ls-files` at `4b59e9b`, and on nothing else. The enumeration is committed
+  unmodified so that assumption is inspectable rather than implicit.
 
 So the honest claim is: **every enumerated path was opened by a named agent that returned
 content-derived values reproducing against the tree, plus a description of its contents.**
