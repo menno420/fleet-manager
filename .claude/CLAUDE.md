@@ -54,6 +54,11 @@ files alone. If this boot file did not auto-load, start at `README.md`; it point
 to the same two ledgers and is the surface-neutral first file. Do not hide a
 failed orientation by hunting through a fourth document.
 
+**The surface-neutral mandatory order (six reads, each with what it gives you)
+lives in `README.md`, and the one-line-per-area map with tiers
+(CORE / TASK / RECORD) is `docs/MAP.md`** — the router for everything not on a
+path here. Owner directive + design: `docs/planning/2026-08-10-repo-navigation-plan.md`.
+
 ## Deep read path (in order — for comprehension and task-specific work)
 
 The cold triad above is enough to orient. The path below adds the owner's
