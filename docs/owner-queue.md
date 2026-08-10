@@ -42,7 +42,7 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   actually is, and whether spider-swing enters the program at all.
   **WHERE:** [`planning/2026-07-26-consolidation-program.md`](planning/2026-07-26-consolidation-program.md)
   `:62` (the NOW pointer), `:102` (D2's order), `:45` (§2's target picture), plus the
-  three echoes at [`current-state.md`](current-state.md) `:40`, `:176`, `:517`.
+  three echoes at [`current-state.md`](current-state.md) `:40`, `:193`, `:534`.
   **WHY IT MATTERS:** the pointer reads `D2 — shiftlife truth pass`, and you said
   live on 2026-08-10 that shiftlife is not active and that spider-swing and the
   superbot repos are the important ones. **That statement exists nowhere in this

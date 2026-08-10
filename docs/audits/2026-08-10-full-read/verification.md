@@ -60,15 +60,22 @@ content-derived values reproducing against the tree, plus a description of its c
 Not: every file was understood.
 
 The returned `head60`/`tail60` are kept in the ledger precisely so this is checkable by
-someone who does not trust it — recompute them and diff.
+someone who does not trust it — recompute them and diff. The rest of the raw record is
+committed under [`raw/`](raw/): `gists.tsv` (the per-file reading evidence) and
+`adjudication.jsonl` (every finding with its refuter's verdict, reason and commands).
 
-**The threshold is not doing the work — measured.** Of the 832 non-append-only paths,
-**830 matched all three checks exactly**. Exactly two matched 2 of 3:
-`docs/current-state.md` and `docs/owner-queue.md` — both files *this session edited*
-after the agents read them, which moves the line count and the last line. Nothing
-matched fewer than two. So 2-of-3 accommodates the audit's own later edits and
-nothing else; it is not absorbing sloppy returns, and the stricter 3-of-3 figure is
-the honest headline: **830 exact, 2 explained, 1 append-only.**
+**The threshold, measured — corrected 2026-08-10 after merge (Codex round 2).** Under a
+byte-exact comparison of all three stored values, **829 of 832 non-append-only paths
+match exactly** and three do not: `docs/current-state.md` and `docs/owner-queue.md`,
+which this session edited after the agents read them, and
+`.sessions/2026-07-12-order-014-v31-crosscheck.md`, where the read agent dropped one
+word from a 60-character tail (`nclude "one` vs `nclude a "one`) — a genuine
+transcription slip, visible only because the returned values are persisted in the
+ledger. An earlier revision of this paragraph said 830/2 and that the threshold
+absorbed "this audit's own edits and nothing else"; that clause was **false** and is
+retracted, not reworded. The 830/2 figure was true under the comparator's 40-character
+windows and became the headline as if it were byte-exact — the same
+inherited-not-derived slip this audit reports. Nothing matched fewer than two checks.
 
 ## Structural reads, and why they are recorded separately
 
@@ -96,13 +103,16 @@ predicted this failure mode before it occurred, in its return for batch b22.
 ## Files this session authored
 
 The frozen denominator is the pre-audit tree. These paths are tracked now but were not in
-it, because this session created them (6):
+it, because this session created them (9):
 
+- `.sessions/2026-08-10-audit-record-and-corrections.md`
 - `.sessions/2026-08-10-full-read-audit.md`
 - `docs/audits/2026-08-10-full-read/README.md`
 - `docs/audits/2026-08-10-full-read/coverage-ledger.tsv`
 - `docs/audits/2026-08-10-full-read/enumeration.tsv`
 - `docs/audits/2026-08-10-full-read/findings.md`
+- `docs/audits/2026-08-10-full-read/raw/adjudication.jsonl`
+- `docs/audits/2026-08-10-full-read/raw/gists.tsv`
 - `docs/audits/2026-08-10-full-read/verification.md`
 
 They are listed rather than silently folded into the coverage number.

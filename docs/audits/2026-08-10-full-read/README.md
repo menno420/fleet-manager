@@ -22,6 +22,8 @@ file 100%"*.
 | `coverage-ledger.tsv` | One row per enumerated path, assembled from read-agent **returns**. Starts fully `PENDING` so that a silent sample is impossible to mistake for a full pass. |
 | [`verification.md`](verification.md) | The mechanical result: the ledger diffed against the enumeration, how a row earned `READ`, and the one file whose fingerprint provably could not reproduce. |
 | [`findings.md`](findings.md) | What is wrong with the repository, split into defect and stale-but-harmless, each item with `path:line`. |
+| [`raw/gists.tsv`](raw/gists.tsv) | The one-line description each read agent returned per file — the evidence of *reading* (a `wc`/`head` pass cannot produce it). |
+| [`raw/adjudication.jsonl`](raw/adjudication.jsonl) | All 345 findings with each refuter's verdict, reason and the commands it ran — the refutation record, reproducible by a third party. |
 
 ## The method, and what makes the coverage claim checkable
 
@@ -50,3 +52,15 @@ opened and read for structure, provenance, banner, schema and anomalies rather
 than line by line, and the ledger says `structural` against each with the reason.
 Recording that honestly is the point: a ledger claiming a token-by-token read of
 a 5.5 MB append log would be the exact defect this audit exists to find.
+
+## Post-merge corrections (2026-08-10, fm #840)
+
+fm #839 merged while Codex's round-2 review was in flight; its seven findings were
+real and are closed in fm #840: the raw record above was committed (both P1s — the
+evidence of reading and the refutation record existed only in the session
+container); the byte-exact fingerprint count was corrected to **829/3** and the
+false "nothing else" clause retracted (`verification.md` § The threshold,
+measured); remaining same-site duplicates were merged (16 total); the retired-ORDER
+reference returned to harmless; all evidence commands were made
+checkout-independent; and stale line anchors were re-resolved. The defect/harmless
+split at that point: **101 / 205**.
