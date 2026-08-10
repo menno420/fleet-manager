@@ -9,10 +9,9 @@
 > The registry body is preserved rather than regenerated into a topology that
 > no longer exists.
 >
-> One dir per former Project, each holding the complete console package for that
-> seat. Assembled 2026-07-10 (package-centralization dispatch) from the
-> three-sweep inventory by parallel builders; committed verbatim by the
-> assembler.
+> One dir per Project, each holding the complete console package for that seat.
+> Assembled 2026-07-10 (package-centralization dispatch) from the three-sweep
+> inventory by three parallel builders; committed verbatim by the assembler.
 
 > **⚠ RESTRUCTURED 2026-07-11 (owner directive — 8 standing Projects, slice 1).**
 > The fleet's standing seats are now: **Venture Lab** (`venture-lab/` — folds
