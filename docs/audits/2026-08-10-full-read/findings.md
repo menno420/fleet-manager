@@ -12,9 +12,9 @@ it against the tree and to default to refuted when uncertain.
 | findings raised | 345 |
 | **survived refutation** | **322** |
 | refuted and dropped | 23 |
-| — of survivors: defect | 110 |
-| — of survivors: stale but harmless | 206 |
-| — merged as duplicates of a row above | 6 |
+| — of survivors: defect | 101 |
+| — of survivors: stale but harmless | 205 |
+| — merged as duplicates of a row above | 16 |
 
 The three survivor rows sum to 322. Duplicates arise where two agents
 raised the same defect at the same `path:line` from different batches; where one judged
@@ -139,7 +139,7 @@ sitting in the same file.
 
 **Actually:** README.md:55-57 gives a DIFFERENT four-item set for the same concept — docs/roster.md, control/, telemetry/, projects/ — omitting docs/prompts/ where CLAUDE.md omits projects/. Both are live surfaces, each internally coherent, and neither set is complete. The asymmetry matters because .claude/CLAUDE.md is the auto-loaded boot file (README.md is only the fallback for a session where it did not load), so the normal session is never told that projects/ is historical. projects/ is 30 directories holding 27 generated seat packages whose bodies are imperative standing orders (arm a failsafe cron, keep a send_later pacemaker, delete every routine at session end) — the largest body of seat-era instruction text in the repo, and the only historical tree whose contents read as commands rather than as records. The fence exists only inside projects/README.md, one hop below where a booting session looks.
 
-**Check it:** `cd /home/user/fleet-manager && grep -n -A4 'Live vs historical' .claude/CLAUDE.md && sed -n '55,57p' README.md && ls projects/ | wc -l`
+**Check it:** `cd . && grep -n -A4 'Live vs historical' .claude/CLAUDE.md && sed -n '55,57p' README.md && ls projects/ | wc -l`
 
 **Refuter's correction:** The "both sets are incomplete, symmetrically" framing is wrong. README.md:47-49 names "Its generated roster, `control/` bus, committed trigger telemetry, project packages, and prompt registry" as records of that era — so README covers all five (docs/prompts/ in prose even though the bullet at :55-57 links only four). The asymmetry is one-way: only .claude/CLAUDE.md omits projects/. Two mitigations the finding understates: projects/README.md opens with "> **Status:** `historical`" and "must not be used to boot a session", and the single most dangerous imperative is neutralized independently — .claude/hooks/trigger_tools_guard.py hard-DENIES `delete_trigger` via permissionDecision: deny. The unguarded residue is the rest (arming failsafe crons, send_later pacemakers, account-wide list_triggers sweeps).
 
@@ -151,7 +151,7 @@ sitting in the same file.
 
 **Actually:** .sessions/2026-08-05-calibration-and-602.md (this batch, lines 21-22 and 26) records that this exact number 'was wrong by roughly a factor of six' and that it was replaced in docs/CAPABILITIES.md § step 0 and docs/owner-profile.md with three independently-counted sessions. Both of those landed: CAPABILITIES.md:53-54 now reads 'The evidence base is three independent sessions... landing near 90-100 % on unhedged claims' and owner-profile.md:27-29 matches. .claude/CLAUDE.md is the ONLY file outside .sessions/ still carrying the old figure, and it is the one file every session reads unconditionally at boot. A session boots on the weaker n=1 number, and the boot file contradicts the ledger it points at. It also drops the hedge-reading rule (read the hedge; an unhedged provisioning statement is not worth checking) that the correction added and that is the operative part.
 
-**Check it:** `cd /home/user/fleet-manager && grep -rlzP --include=*.md 'seven\s+corrections' . | tr '\0' '\n'; sed -n '241,242p' .claude/CLAUDE.md; sed -n '52,58p' docs/CAPABILITIES.md; sed -n '27,31p' docs/owner-profile.md`
+**Check it:** `cd . && grep -rlzP --include=*.md 'seven\s+corrections' . | tr '\0' '\n'; sed -n '241,242p' .claude/CLAUDE.md; sed -n '52,58p' docs/CAPABILITIES.md; sed -n '27,31p' docs/owner-profile.md`
 
 **Refuter's correction:** The sentence is not false on its own terms — that one session genuinely had seven catches, seven correct. The accurate defect is narrower: the boot file cites the superseded n=1 figure as the evidence base for the owner-authority rule while the two ledgers it routes to carry the three-session base, and it omits the operative half the correction added (read the hedge; a hedged number is worth checking, an unhedged provisioning statement is not). Impact is on the strength of the evidence and the missing hedge rule, not on the rule's direction.
 
@@ -164,7 +164,7 @@ dispatch and relay rules do not)
 
 **Actually:** R28 is titled 'ORDER/relay composition + ack-sweep hygiene' (docs/playbook.md:170), so it falls squarely inside 'the dispatch and relay rules do not [bind]'. But docs/playbook.md:177-185 carries a bullet added 2026-08-05 by the session in this batch (.sessions/2026-08-05-calibration-and-602.md:23, 48-58): repo-qualify every PR and issue number as owner/repo#N, because GitHub silently re-resolves a bare #N to the rendering repo — measured that day when the owner clicked a bare #602 and concluded merged work was done. That rule is not seat-era and applies to fleet-manager above all ('the hub, which talks about every repo'). The enumeration is also internally inconsistent: R24 is itself a relay rule ('@codex review relay', playbook.md:336) and is listed as binding, so 'the relay rules do not bind' is a one-day snapshot of which rules someone had triaged, not a property of the class. Net effect: a fix placed in the playbook to stop a recurring owner-facing failure sits in a section the boot file tells every session to skip.
 
-**Check it:** `cd /home/user/fleet-manager && sed -n '115,116p' .claude/CLAUDE.md; sed -n '170,171p;177,179p;336p' docs/playbook.md`
+**Check it:** `cd . && sed -n '115,116p' .claude/CLAUDE.md; sed -n '170,171p;177,179p;336p' docs/playbook.md`
 
 **Refuter's correction:** The same omission exists in docs/playbook.md's own mixed-era banner (lines 6-12), which enumerates R1/R2, R16/R17, R22/R24, R29/R30 as remaining useful and likewise omits R28 — so the fix is two-file, not one, and the boot file is echoing the playbook rather than diverging from it. Strength is medium: the rule is genuinely live but the mis-classification is by omission from an enumeration plus a loose category word, not an explicit 'R28 is historical'.
 
@@ -176,7 +176,7 @@ dispatch and relay rules do not)
 
 **Actually:** Ground truth for this audit records the owner stating live on 2026-08-10 that shiftlife is NOT active, and that spider-swing and the superbot repos are the important ones. Per .claude/CLAUDE.md § Precedence the live owner outranks any stored text, so the NOW pointer and its three echoes in current-state.md are a stored ordering that one day's state froze — exactly the ranking-encodes-a-snapshot class already found once in this repo (D2's 2026-07-26 repo ordering). A session booting the read path today would open shiftlife and work a repository the owner has said is not active. I verified the repo half only (the four in-tree claims); I could not independently verify the owner's live statement from the tree — I am taking it from the audit's ground truth.
 
-**Check it:** `cd /home/user/fleet-manager && grep -rn 'shiftlife' docs/current-state.md docs/planning/2026-07-26-consolidation-program.md | head -6`
+**Check it:** `cd . && grep -rn 'shiftlife' docs/current-state.md docs/planning/2026-07-26-consolidation-program.md | head -6`
 
 **Refuter's correction:** The finding's stated uncertainty can be discharged: the owner statement is not hearsay for this audit — it is the last-but-one line of the GROUND_TRUTH block the audit harness itself pins (fm-read-r3.js:31). Scope should also include the program's line 102 D2 row, which both fixes the order and asserts D2 covers 'each active repo' — that row, not just the NOW header, is what makes shiftlife read as active.
 
@@ -200,7 +200,7 @@ dispatch and relay rules do not)
 
 **Actually:** That distribution was computed by pattern-matching and is wrong; docs/roster.md:17-19 now carries the corrected figures read off the file's own generated verdict summary — 31 rows: 18 DARK · 7 n/a · 3 STALE-BY-DESIGN · 1 STALE · 1 PRIVATE · 1 UNREADABLE · 0 LIVE — and roster.md:21-22 names "21 `DARK` / 3 `UNREADABLE`" explicitly as one of two earlier banners that got it wrong. The correcting session card (.sessions/2026-08-07-codex-caught-four.md:57) states outright that "leaving the wrong numbers in durable session history would reproduce the exact error this card documents" — yet the wrong pair survives here on a live surface. Only the 0 LIVE half is right.
 
-**Check it:** `cd /home/user/fleet-manager && grep -rn '21 DARK\|21 `DARK`\|18 `DARK`' docs/owner-queue.md docs/roster.md .sessions/2026-08-07-retire-the-roster.md .sessions/2026-08-07-codex-caught-four.md`
+**Check it:** `cd . && grep -rn '21 DARK\|21 `DARK`\|18 `DARK`' docs/owner-queue.md docs/roster.md .sessions/2026-08-07-retire-the-roster.md .sessions/2026-08-07-codex-caught-four.md`
 
 **Refuter's correction:** Accurate as filed. Worth adding for whoever fixes it: the wrong pair sits inside a ✅ RESOLVED queue entry (OQ-FM-APPARATUS-SIZING, lines 588-608), so the fix is a one-line replacement with roster.md's generated summary — 18 DARK · 7 n/a · 3 STALE-BY-DESIGN · 1 STALE · 1 PRIVATE · 1 UNREADABLE · 0 LIVE — not a re-litigation of the entry. Note the neighbouring '18 consecutive failed runs' in the same entry is CORRECT (API-verified) and must not be 'fixed' alongside it.
 
@@ -213,7 +213,7 @@ dispatch and relay rules do not)
 
 **Actually:** [D‑0015] (decided 2026-08-09) states a session must NEVER call delete_trigger — it is the one call that raises an owner approval prompt in automode and stalls the session. `.claude/hooks/trigger_tools_guard.py` DENIES the tool outright (DELETE_TOOL_RE + permissionDecision: deny) — the estate's only denying hook. The owner queue is read-path entry 4 and a live `living-ledger`, so a session sweeping its active items today meets a paste-ready instruction the hook will refuse and the boot file forbids. The correct remedy under current doctrine is `update_trigger enabled:false`, which this item never mentions.
 
-**Check it:** `grep -n "delete_trigger" /home/user/fleet-manager/docs/owner-queue.md; grep -n "DELETE_TOOL_RE\|permissionDecision" /home/user/fleet-manager/.claude/hooks/trigger_tools_guard.py; grep -n "D[-]0015" -A 15 /home/user/fleet-manager/docs/decisions.md`
+**Check it:** `grep -n "delete_trigger" docs/owner-queue.md; grep -n "DELETE_TOOL_RE\|permissionDecision" .claude/hooks/trigger_tools_guard.py; grep -n "D[-]0015" -A 15 docs/decisions.md`
 
 **Refuter's correction:** Two corrections, one narrowing and one widening. NARROWER: the item is NOT in a 'current owner decisions' section — it sits under `## Inherited cross-repo owner asks — status as recorded` (line 65), whose banner at 67-69 says 'These entries preserve their last recorded status and instructions… Re-check the owning surface before acting', and the item's own note already calls itself 'likely MOOT after 2026-07-22'. Because the hook DENIES rather than prompts, the realistic failure mode is a denied tool call and a wasted turn, not the owner-prompt stall D‑0015 guards against. WIDER: the same instruction is not confined to owner-queue.md — docs/PROJECT-CLOSEOUT.md, read-path entry 5, repeats it twice with no banner at all: §3 item 3 (line 217, 'if either id survives, delete it') and §4 Owner checklist item 1 (line 342, 'Delete any survivor'). That is the higher-value fix target.
 
@@ -226,7 +226,7 @@ dispatch and relay rules do not)
 
 **Actually:** Two contradictions inside this same live file. (1) Line 607, in the resolved OQ-FM-APPARATUS-SIZING entry, says the 2026-08-07 owner ruling "**Moots `OQ-FM-ROSTER-READ-PAT`** — that secret was conditional on retaining roster autogen"; the roster was retired and both roster-regen cron lines removed, so the ask is dead, not conditional. (2) The pointer to NEXT-TASKS.md contradicts this file's own §Context line 14-15: "`owner-actions-2026-07-17.md` and `NEXT-TASKS.md` are seat-era records and must not be used as live action lists." A session sweeping section (B) for owner asks would surface a mooted PAT request and route the owner to a document the same file forbids.
 
-**Check it:** `grep -n "OQ-FM-ROSTER-READ-PAT\|NEXT-TASKS.md" /home/user/fleet-manager/docs/owner-queue.md; grep -n "on:" -A 3 /home/user/fleet-manager/.github/workflows/roster-regen.yml`
+**Check it:** `grep -n "OQ-FM-ROSTER-READ-PAT\|NEXT-TASKS.md" docs/owner-queue.md; grep -n "on:" -A 3 .github/workflows/roster-regen.yml`
 
 **Refuter's correction:** Partial mitigation the finding omits: section (B) falls under the `## Inherited cross-repo owner asks — status as recorded` heading (line 65) whose banner says these preserve last-recorded status and must be re-checked before acting. That does not clear it — OQ-FM-ROSTER-READ-PAT is a fleet-manager secret, not a cross-repo one, so it is mis-filed under a banner that does not honestly describe it, and the moot ruling lives 66 lines below in the same file with no back-pointer.
 
@@ -264,7 +264,7 @@ dispatch and relay rules do not)
 
 **Actually:** The same file's append log, line 775, says verbatim: 'Tag creation, GitHub Release creation and branch deletion ALL SUCCEED on the direct-PAT path — the three "Walls — verified blocked" rows above are FALSE AS WRITTEN' (2026-08-05, owner-live, 201/201/204 measured). The correction was appended but never applied to the rows it names, and the rows sit ABOVE the append log — i.e. in the region a session reads first, and the only region tools/check_no_false_walls.py scans. It survives the checker because its DATED exemption ('LAST-VERIFIED: 2026-07-10') clears exactly the rows that are false. The `api.github.com` row is independently refuted by tools/check_no_false_walls.py's own NB ('Plain api.github.com is NOT blocked — direct egress answers 200 authenticated, rulesets and /actions/* included') and by .claude/CLAUDE.md's direct-PAT path. Note the rows live inside a kit-managed seed block, so a naive edit may be regenerated away — the fix has to survive `upgrade`. Out of batch b24's file list; surfaced by this batch's `check --strict` run (33 stale-wall advisories, all against this file) and verified directly.
 
-**Check it:** `cd /home/user/fleet-manager && sed -n '122,133p' docs/CAPABILITIES.md; echo '--- its own refutation ---'; sed -n '775,781p' docs/CAPABILITIES.md; grep -n 'capability-seed END\|^## Append log' docs/CAPABILITIES.md`
+**Check it:** `cd . && sed -n '122,133p' docs/CAPABILITIES.md; echo '--- its own refutation ---'; sed -n '775,781p' docs/CAPABILITIES.md; grep -n 'capability-seed END\|^## Append log' docs/CAPABILITIES.md`
 
 **Refuter's correction:** One quotation detail: the finding renders line 777 as 'FALSE AS WRITTEN' in caps and calls it verbatim; the file has 'false as written' lowercase. Content unaffected. Also the cited checker NB is paraphrased — the file reads 'Plain `api.github.com` is NOT blocked — direct egress (`curl --noproxy '*'`) answers 200 authenticated, rulesets and `/actions/*` included' (lines 43-46).
 
@@ -298,7 +298,7 @@ dispatch and relay rules do not)
 
 **Actually:** Seven of the 14 staged kit skills now diverge from their live `.claude/skills/` copies, and in every case the extra text is on the LIVE side — i.e. it is a local amendment at risk. Five are undocumented: `prep-owner-steps`, `release` and `scope-backlog-item` each carry the 2026-08-04 owner-ratified 'Venue note' block (10 lines apiece) that the staged copies lack, and `quality-gate` and `upgrade-distribution` each carry a local correction naming `tools/check_no_false_walls.py` where the staged copy names `bootstrap.py check --strict` twice. A session that follows this table verbatim after an upgrade re-applies two skills, silently reverts five, and reports a clean install. This is a live surface: the boot file routes kit-version work to `upgrade-distribution`, whose step 5-7 sequence lands on this loop, and `.claude/hooks/change_guard.py` check A explicitly points the author at this table as the place the amendment must be registered.
 
-**Check it:** `cd /home/user/fleet-manager && for d in .substrate/skills/*/; do n=$(basename "$d"); [ -f ".claude/skills/$n/SKILL.md" ] && ! diff -q ".claude/skills/$n/SKILL.md" ".substrate/skills/$n/SKILL.md" >/dev/null && echo "DIVERGES: $n"; done; grep -n 'Two kit-named skills now carry' docs/SKILLS-local.md`
+**Check it:** `cd . && for d in .substrate/skills/*/; do n=$(basename "$d"); [ -f ".claude/skills/$n/SKILL.md" ] && ! diff -q ".claude/skills/$n/SKILL.md" ".substrate/skills/$n/SKILL.md" >/dev/null && echo "DIVERGES: $n"; done; grep -n 'Two kit-named skills now carry' docs/SKILLS-local.md`
 
 **Refuter's correction:** One supporting detail is overstated: the `cp` loop is NOT a step inside upgrade-distribution. I read that skill's live body — its eight steps are download / sha256 three-way / born-red PR / `bootstrap.py.new upgrade` / carve-out scan / verify+flip / verify merged main, and none of them mentions `.claude/skills/` or the copy loop. The exposure is one hop further out: the loop lives in docs/SKILLS-local.md:92-99 under the standing instruction at line 101, 'Re-run it after a kit upgrade' — so it is this document, not the skill, that tells a post-upgrade session to run the reverting command and then tells it only two skills need re-applying. Everything else in the finding reproduces exactly.
 
@@ -310,7 +310,7 @@ dispatch and relay rules do not)
 
 **Actually:** All five of those rows describe skills whose live `.claude/` body has been locally edited away from the kit's staged body, so the column understates provenance for five of the six diverging kit skills. `quality-gate` is the sharpest case: the live copy's step 2 is `python3 tools/check_no_false_walls.py --strict` with the note '(nothing in CI runs it for you)', while the staged copy it would be overwritten from lists `python3 bootstrap.py check --strict` twice — step 1 mislabelled as 'the project's full verification (tests + lint/types)'. Reverting it deletes the skill's only pointer to the false-wall checker, which the boot file names as the guard for the estate's central rule.
 
-**Check it:** `cd /home/user/fleet-manager && diff .claude/skills/quality-gate/SKILL.md .substrate/skills/quality-gate/SKILL.md; grep -n '^| `\(prep-owner-steps\|quality-gate\|release\|scope-backlog-item\|upgrade-distribution\|intake\)`' docs/SKILLS-local.md | cut -c1-90`
+**Check it:** `cd . && diff .claude/skills/quality-gate/SKILL.md .substrate/skills/quality-gate/SKILL.md; grep -n '^| `\(prep-owner-steps\|quality-gate\|release\|scope-backlog-item\|upgrade-distribution\|intake\)`' docs/SKILLS-local.md | cut -c1-90`
 
 **Refuter's correction:** Two precision fixes. (1) The column is headed 'body', not 'provenance' — the finding's substance survives because row 39 uses that same column to record 'fm-extended', but the label should be quoted correctly. (2) The understated rows number six, not five: `session-close` at line 51 is also a bare `kit` in that column despite being the file's flagship documented amendment. It is covered by the ⚠ re-apply table at line 111, so a session reading the whole file is not misled about it — but if the claim is about the column specifically, session-close belongs in the list.
 
@@ -380,19 +380,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** The whole of step 2 is now redundant, not just its parenthetical — bootstrap.py check --strict fans out through scripts/preflight.py, which runs check_doc_routes.py --strict and check_no_false_walls.py --strict on the full lane. This is precisely the failure class CLAUDE.md flags: 'The check list lives in that script, not in prose here — every written enumeration of it has gone stale.'
 
-### D22. `.claude/skills/quality-gate/SKILL.md:11` — stale-fact
-
-> 2. Run `python3 tools/check_no_false_walls.py --strict` — the false-wall guard (nothing in CI runs it for you).
-
-**Claims:** The installed quality-gate skill states that no CI job runs the false-wall guard.
-
-**Actually:** substrate-gate.yml line 170 runs exactly `python3 tools/check_no_false_walls.py --strict` in its 'repo checkers (doc routes + no false walls)' step, and substrate-gate is the required status check on main. .claude/CLAUDE.md:264 says so directly — "as of 2026-08-06 it is enforced for you: it runs in `substrate-gate` alongside `tools/check_doc_routes.py`". Two live surfaces disagree; the skill body is the stale one. Reached via my batch: the staged .substrate/skills/quality-gate/SKILL.md is the pre-fix render of this same skill (its steps 1 and 2 are the identical `bootstrap.py check --strict` command), so the parenthetical was added by hand at the same time the duplication was fixed and was already false on the day it was written.
-
-**Check it:** `sed -n '10,11p' .claude/skills/quality-gate/SKILL.md; grep -n 'check_no_false_walls' .github/workflows/substrate-gate.yml; sed -n '262,266p' .claude/CLAUDE.md`
-
-**Refuter's correction:** Accurate, but the practical blast radius is narrower than the finding implies: the skill's own step 2 still tells the session to run the checker locally and step 4 says 'Do NOT push on red', so the behaviour it prescribes is unchanged — the false part is only the parenthetical's claim about CI coverage, and it errs toward under-claiming enforcement. It is also directly contradicted by .claude/CLAUDE.md:264-266, which auto-loads at boot in this repo. The '(nothing in CI runs it for you)' clause should simply be struck.
-
-### D23. `.claude/skills/scope-backlog-item/SKILL.md:77` — snapshot-as-instruction
+### D22. `.claude/skills/scope-backlog-item/SKILL.md:77` — snapshot-as-instruction
 
 > 5. RETARGET THE BATON. Update the coordinator's Next-2 baton in `control/status.md` so the next
 
@@ -402,7 +390,7 @@ dispatch and relay rules do not)
 
 **Check it:** `sed -n '77,79p' .claude/skills/scope-backlog-item/SKILL.md; head -2 control/README.md; head -1 control/status.md`
 
-### D24. `tools/check_no_false_walls.py:80` — stale-fact
+### D23. `tools/check_no_false_walls.py:80` — stale-fact
 
 > wired into `bootstrap.py check`, so it can never jam the substrate-gate).
 
@@ -412,7 +400,7 @@ dispatch and relay rules do not)
 
 **Check it:** `grep -n 'never jam the substrate-gate\|advisory only, never' tools/check_no_false_walls.py && grep -n 'check_no_false_walls\|REQUIRED' .github/workflows/substrate-gate.yml`
 
-### D25. `tools/check_no_false_walls.py:80` — contradiction
+### D24. `tools/check_no_false_walls.py:80` — contradiction
 
 > wired into `bootstrap.py check`, so it can never jam the substrate-gate).
 
@@ -420,23 +408,11 @@ dispatch and relay rules do not)
 
 **Actually:** It was promoted on 2026-08-06 and the file never learned. .github/workflows/substrate-gate.yml:170 runs `python3 tools/check_no_false_walls.py --strict` in the 'repo checkers' step, and substrate-gate is THE required status check on main — the workflow's own comment at line 160 says so ('`substrate-gate` is the REQUIRED status check on main'), and .claude/CLAUDE.md confirms the promotion. So a false flag from this heuristic DOES block a merge today. Both readings are internally coherent, which is why it survived: a session hitting a red from this checker and reading its header would conclude the red is advisory and land anyway (it cannot), or would skip fixing a heuristic false positive believing it is harmless (it is not). Found while establishing why the bootstrap.py wall above is unguarded. Out of batch b24's file list, but verified directly.
 
-**Check it:** `cd /home/user/fleet-manager && sed -n '26,29p;78,81p' tools/check_no_false_walls.py; grep -n 'check_no_false_walls' .github/workflows/substrate-gate.yml; sed -n '159,161p' .github/workflows/substrate-gate.yml`
+**Check it:** `cd . && sed -n '26,29p;78,81p' tools/check_no_false_walls.py; grep -n 'check_no_false_walls' .github/workflows/substrate-gate.yml; sed -n '159,161p' .github/workflows/substrate-gate.yml`
 
 **Refuter's correction:** Understated, not overstated. The finding names only substrate-gate.yml:170; the header is falsified on three independent paths — substrate-gate.yml:170 (required check), scripts/preflight.py:96 (the local `check --strict` fan-out), and bootstrap.py:24677 (engine port run inside `bootstrap.py check`). So the clause 'NOT wired into `bootstrap.py check`' is false too, not merely its consequent.
 
-### D26. `tools/check_no_false_walls.py:80` — stale-fact
-
-> wired into `bootstrap.py check`, so it can never jam the substrate-gate).
-
-**Claims:** The false-walls guard is advisory-only and structurally incapable of blocking the required substrate-gate check.
-
-**Actually:** Found while establishing why the wall text inside these banked dists is out of scope (line 73 excludes `.substrate/**`). The exclusion claim holds, but the severity claim beside it does not: substrate-gate.yml line 170 runs `python3 tools/check_no_false_walls.py --strict`, and the same docstring says --strict exits 1 on any finding — so a finding jams the required check on main. The escape hatch 'NOT wired into bootstrap.py check' is still literally true and is what makes the sentence internally coherent, which is exactly why nobody revisited it when the checker was wired directly into the workflow on 2026-08-06. A session reading this header to decide how urgently to treat a finding is misled about whether its merge is blocked.
-
-**Check it:** `grep -n "never jam" tools/check_no_false_walls.py; grep -n "check_no_false_walls" .github/workflows/substrate-gate.yml scripts/preflight.py`
-
-**Refuter's correction:** The finding concedes too much: it says "The escape hatch 'NOT wired into bootstrap.py check' is still literally true and is what makes the sentence internally coherent." It is not true. `bootstrap.py check` reaches this checker on TWO paths — the engine port called at bootstrap.py:24677, and scripts/preflight.py (bootstrap.py:294 makes it the default preflight script) which runs `tools/check_no_false_walls.py --strict` at preflight.py:96, whose own docstring says "bootstrap rides any non-zero into its strict finding loop, so `check --strict` now goes red locally on everything CI would red on." So BOTH clauses of the docstring sentence are stale, not just the consequence — the whole SEVERITY CONTRACT paragraph needs rewriting, not just its parenthetical.
-
-### D27. `tools/check_no_false_walls.py:27` — stale-fact
+### D25. `tools/check_no_false_walls.py:27` — stale-fact
 
 > wired into a blocking gate, so a miss or a false flag never blocks a
 
@@ -446,19 +422,7 @@ dispatch and relay rules do not)
 
 **Check it:** `sed -n '26,29p' tools/check_no_false_walls.py; grep -n 'check_no_false_walls' .github/workflows/substrate-gate.yml; grep -n 'REQUIRED status check on main' .github/workflows/substrate-gate.yml`
 
-### D28. `tools/check_no_false_walls.py:80` — stale-fact
-
-> wired into `bootstrap.py check`, so it can never jam the substrate-gate).
-
-**Claims:** SEVERITY CONTRACT: because the checker is not wired into `bootstrap.py check`, 'it can never jam the substrate-gate'.
-
-**Actually:** The premise is still true and the conclusion is false: substrate-gate.yml invokes the checker directly at line 170 with --strict, bypassing bootstrap.py entirely. The inference 'not in bootstrap.py check' -> 'cannot jam substrate-gate' was correct on 2026-07-18 and was silently invalidated on 2026-08-06 when the workflow step was added. It is a separate sentence from the line-27 claim and needs its own correction.
-
-**Check it:** `sed -n '78,81p' tools/check_no_false_walls.py; sed -n '168,171p' .github/workflows/substrate-gate.yml`
-
-**Refuter's correction:** The finding says "the premise is still true" — it is not. As of the preflight plant (2026-08-08) `bootstrap.py check` reaches this exact script via scripts/preflight.py:96, and bootstrap.py:24677 additionally runs an engine port of the same leg. So both the premise (not wired into bootstrap.py check) and the conclusion (can never jam substrate-gate) are stale, not just the conclusion.
-
-### D29. `tools/gemini_delegate.py:63` — contradiction
+### D26. `tools/gemini_delegate.py:63` — contradiction
 
 > # not the AI Studio key, which spends the owner's card. Vertex is therefore the
 
@@ -470,7 +434,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** The repeated wording is in the --vertex-sa help at line 419, not the --studio help at 424-426. Mitigating context the finding omits: line 4 of the same docstring already calls GEMINI_API_KEY "free-tier", so the file contradicts itself rather than being uniformly wrong.
 
-### D30. `tools/gemini_delegate.py:64` — contradiction
+### D27. `tools/gemini_delegate.py:64` — contradiction
 
 > # DEFAULT here; `--studio` is the opt-out and must be justified in the session
 
@@ -482,7 +446,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** The billing consequence is smaller than the finding implies: silently landing on generativelanguage with GEMINI_API_KEY costs nobody anything (the free key). The real harm is a session believing it is on Vertex when it is on the free tier — wrong session-card record, and it hits the ~20/day RPD cliff with no explanation.
 
-### D31. `tools/install_root_hooks.py:60` — stale-count
+### D28. `tools/install_root_hooks.py:60` — stale-count
 
 > # it, which left the rescue path rescuing three hooks out of four.
 
@@ -494,7 +458,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** 'registers all six across 5 event/matcher slots' is imprecise — .claude/settings.json holds 8 hook registrations across 4 event types (PreToolUse ×5 for route_docs/read_before_write/git_state_guard/change_guard/trigger_tools_guard, Stop ×1 owner_review, UserPromptSubmit ×1 route_docs, PostToolUse ×1 change_guard). The substance is unchanged: the rescue table restores 4 of 6 scripts and 6 of 8 registrations, silently.
 
-### D32. `scripts/check_docs_links.py:99` — other
+### D29. `scripts/check_docs_links.py:99` — other
 
 > SCAN_DIRS = ("docs", "projects", "environments", "registry", "templates")
 
@@ -506,7 +470,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** The causal sentence is overstated. `check_docs_links.py` is advisory and standalone - its own docstring says "not wired into `bootstrap.py check`", and grep confirms it appears in no workflow (`substrate-gate.yml`'s repo-checkers step runs only `tools/check_doc_routes.py --strict` and `tools/check_no_false_walls.py --strict`; the only YAML hit is a test fixture). So adding `.claude` to SCAN_DIRS would not by itself have red-flagged the session-close link in CI - the gap is two-part: no `.claude` coverage AND no CI wiring. Also, `.claude/` currently holds no real dead links.
 
-### D33. `scripts/check_owner_queue.py:156` — stale-fact
+### D30. `scripts/check_owner_queue.py:156` — stale-fact
 
 > active = line.lower().startswith("## active")
 
@@ -514,11 +478,11 @@ dispatch and relay rules do not)
 
 **Actually:** docs/owner-queue.md has had no `## Active` heading since the 2026-07-21 program-closed restructure — its headings are `## Context`, `## Program closed…`, `## Current owner decisions…`, `## Inherited cross-repo owner asks…`, then dated `## Resolved …` sections. The parser therefore never enters an active region, parses ZERO items, and the checker fires its own `FLAG [no-items] … format drift or wrong file` and exits 1. Every one of its four checks (merged-citation drift, slug discipline, dirty-parked PR, satisfied required-check ask) is dead against the real queue while the script still presents itself as the queue's guard. The ~100 OQ- slugs in the live file are unchecked.
 
-**Check it:** `cd /home/user/fleet-manager && grep -n '^## ' docs/owner-queue.md | head -5; python3 scripts/check_owner_queue.py --skip-positional-lint; echo "REAL_EXIT=$?"`
+**Check it:** `cd . && grep -n '^## ' docs/owner-queue.md | head -5; python3 scripts/check_owner_queue.py --skip-positional-lint; echo "REAL_EXIT=$?"`
 
 **Refuter's correction:** '~100 OQ- slugs' is 94 unique slugs by enumeration. One blast-radius nuance the finding omits: the only automated caller is .github/workflows/roster-regen.yml:171 (`python3 scripts/check_owner_queue.py --advisory`), and that workflow lost both cron lines on 2026-08-07, so the dead parser is not currently failing any scheduled run — it misleads a human or session who invokes it directly, or who reads projects/fleet-manager/coordinator-prompt.md:38 naming it as the queue's verify step.
 
-### D34. `scripts/check_owner_queue.py:67` — stale-fact
+### D31. `scripts/check_owner_queue.py:67` — stale-fact
 
 > In agent sessions api.github.com is proxy-walled (403) and there is no HTML fallback for rules — the probe degrades honestly to NOT MEASURED; the Actions regen run is the reliable venue for this check.
 
@@ -526,11 +490,11 @@ dispatch and relay rules do not)
 
 **Actually:** Two halves, both stale. (a) The exact endpoint this paragraph declares unreachable — GET /repos/menno420/<repo>/rules/branches/main — returns HTTP 200 from this session over direct egress with $GITHUB_PAT (`curl --noproxy '*'`), the path .claude/CLAUDE.md documents as MEASURED. The 403 is a proxy-path quirk, not a wall, and the script writes the wall down instead of routing around it (urllib honours the proxy env by default). (b) The named "reliable venue" no longer runs unattended: roster-regen.yml was retired 2026-08-07 with BOTH cron lines removed, leaving only workflow_dispatch — so nothing fires this check on a schedule any more. A session reading this defers a probe it can run in one command to a workflow that never wakes.
 
-**Check it:** `cd /home/user/fleet-manager && curl -s --noproxy '*' -o /dev/null -w 'direct_egress_rules_api=%{http_code}\n' -H "Authorization: Bearer $GITHUB_PAT" -H 'Accept: application/vnd.github+json' https://api.github.com/repos/menno420/fleet-manager/rules/branches/main; grep -c 'cron:' .github/workflows/roster-regen.yml; grep -n 'RETIRED 2026-08-07' .github/workflows/roster-regen.yml`
+**Check it:** `cd . && curl -s --noproxy '*' -o /dev/null -w 'direct_egress_rules_api=%{http_code}\n' -H "Authorization: Bearer $GITHUB_PAT" -H 'Accept: application/vnd.github+json' https://api.github.com/repos/menno420/fleet-manager/rules/branches/main; grep -c 'cron:' .github/workflows/roster-regen.yml; grep -n 'RETIRED 2026-08-07' .github/workflows/roster-regen.yml`
 
 **Refuter's correction:** The line anchor is off by one: the quoted paragraph begins at line 67 ('In agent sessions api.github.com is proxy-walled (403) and there is no'), not line 66 — line 66 is 'menno420/<repo> reference in the item, else note-skip (never guessed).' Everything else in the finding holds verbatim across lines 67-69.
 
-### D35. `scripts/check_roster_freshness.py:38` — contradiction
+### D32. `scripts/check_roster_freshness.py:38` — contradiction
 
 > - roster-freshness workflow (PRs): BLOCKING on manager-authored (claude/*) branches, ADVISORY elsewhere — a lane/owner PR must never be jammed by the manager's own stale roster. The workflow passes --advisory for the non-blocking lane
 
@@ -538,11 +502,11 @@ dispatch and relay rules do not)
 
 **Actually:** Both consumers were retired 2026-08-07 and the workflow files say so, so the two documents are each internally coherent and disagree. .github/workflows/roster-freshness.yml now carries a `RETIRED 2026-08-07 (owner directive)` banner, its `on:` block is `workflow_dispatch:` only (the `pull_request` trigger is gone), and its single run step invokes `python3 scripts/check_roster_freshness.py` with NO `--advisory` and no branch conditional — deliberately unconditionally blocking, the inverse of the contract quoted here. roster-regen.yml is likewise workflow_dispatch-only. A session reading this script believes a PR gate exists that does not, and believes an advisory lane exists that was removed.
 
-**Check it:** `cd /home/user/fleet-manager && grep -n 'RETIRED\|^on:\|workflow_dispatch\|pull_request\|advisory\|check_roster_freshness' .github/workflows/roster-freshness.yml`
+**Check it:** `cd . && grep -n 'RETIRED\|^on:\|workflow_dispatch\|pull_request\|advisory\|check_roster_freshness' .github/workflows/roster-freshness.yml`
 
 **Refuter's correction:** Impact is narrower than "a session believes a PR gate exists" implies: the workflow files themselves carry loud retirement banners, so anyone who opens the workflow learns the truth within one hop. The defect is the asymmetry — the two workflows were bannered on 2026-08-07 and the script's SEVERITY CONTRACT prose describing them was not.
 
-### D36. `scripts/check_roster_freshness.py:360` — stale-fact
+### D33. `scripts/check_roster_freshness.py:360` — stale-fact
 
 > "Fix: check .github/workflows/roster-regen.yml runs (cron " "40 */2 * * *) — a dead cron here is the single-point-of-" "freshness failing; regenerate via scripts/gen_roster.py
 
@@ -550,11 +514,11 @@ dispatch and relay rules do not)
 
 **Actually:** The cron was removed on purpose by owner directive on 2026-08-07 ("Yes retire the roster, I don't need it"), and docs/roster.md itself now opens with `⛔ RETIRED 2026-08-07 … Do not read the rows below as the state of anything.` The checker is therefore permanently RED (real exit 1, roster 100.6h old at audit time) and sends the reader hunting a scheduler fault that is actually a deliberate retirement. The same single run contradicts itself: three lines above the remedy it prints `REGEN WINDOWS: not measured — no \`- cron:\` schedule line found in .github/workflows/roster-regen.yml`, i.e. the script observes the cron is gone and then blames it for dying.
 
-**Check it:** `cd /home/user/fleet-manager && python3 scripts/check_roster_freshness.py; echo "REAL_EXIT=$?"; head -3 docs/roster.md`
+**Check it:** `cd . && python3 scripts/check_roster_freshness.py; echo "REAL_EXIT=$?"; head -3 docs/roster.md`
 
 **Refuter's correction:** Two details to tighten. (a) The age is 100.8h at my run, not 100.6h — it grows, and the generated-at stamp is 2026-08-06T14:57Z (the day before retirement), not the retirement date. (b) The blast radius is smaller than "permanently RED" suggests operationally: the script is NOT in the local gate — `scripts/preflight.py` contains no reference to 'roster' at all, so `bootstrap.py check --strict` is unaffected. It reds only on a hand run or a `workflow_dispatch`. The instruction that sends you to run it (telemetry/README.md:52, "must exit 0") lives in telemetry/, which the boot file already classifies as seat-era historical.
 
-### D37. `scripts/check_trigger_health.py:476` — contradiction
+### D34. `scripts/check_trigger_health.py:476` — contradiction
 
 > f"(keep `{p['ticks'][-1]['id']}`, delete the rest); "
 
@@ -566,7 +530,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Two details need tightening. The consequence is milder than stated: the MCP tool call is denied outright by the hook (trigger_tools_guard.py:84 DELETE_TOOL_RE, :315 return deny), so a session following the remedy is blocked, not stalled — only the direct-API route warns rather than blocks, and that is the sole stall path. Second, no live surface routes to this script: its referrers are docs/playbook.md:83/112 (R26, which the playbook's own 2026-08-10 banner consigns to the historical column), telemetry/README.md:46, control/inbox.md, and projects/fleet-manager/coordinator-prompt.md — all bannered or boot-file-classified historical. That lowers the exposure but does not remove it, since the script itself carries no banner and sits in scripts/ beside checkers preflight.py does use.
 
-### D38. `scripts/check_trigger_health.py:150` — snapshot-as-instruction
+### D35. `scripts/check_trigger_health.py:150` — snapshot-as-instruction
 
 > WAKE PROCEDURE (playbook R26): export list_triggers (ALL pages) → telemetry/triggers-snapshot.json with top-level `captured_at` → run this script → act on FAILs same wake
 
@@ -574,9 +538,9 @@ dispatch and relay rules do not)
 
 **Actually:** There are no manager wakes: the autonomous-Projects program closed 2026-07-21 and the fleet-manager coordinator seat closed with it (control/status.md line 1: `SEAT CLOSED — 2026-07-21T20:35Z`). The rule it cites is also not live — .claude/CLAUDE.md enumerates the playbook rules that still bind as R1/R2/R16/R17/R22/R24/R29/R30, and R26 is not among them. Concretely the instruction is now unfollowable and self-defeating: run today the checker evaluates a snapshot frozen at 2026-07-21T16:00Z, reports I5 ROSTER-FRESH FAIL and I6 SNAPSHOT-FRESH FAIL (483.6h stale), exits 1, and prints `VERDICT: FAIL — 2/9 invariant(s) red. Act SAME WAKE…` plus an I8 WARN about a July seat duplicate. Unlike docs/roster.md and control/, this script carries no historical banner, so it reads as live tooling.
 
-**Check it:** `cd /home/user/fleet-manager && timeout 120 python3 scripts/check_trigger_health.py > /tmp/th.txt 2>&1; echo "REAL_EXIT=$?"; grep -n 'I5 ROSTER-FRESH\|I6 SNAPSHOT-FRESH\|VERDICT' /tmp/th.txt; grep -n 'R1/R2/R16' .claude/CLAUDE.md; head -1 control/status.md`
+**Check it:** `cd . && timeout 120 python3 scripts/check_trigger_health.py > /tmp/th.txt 2>&1; echo "REAL_EXIT=$?"; grep -n 'I5 ROSTER-FRESH\|I6 SNAPSHOT-FRESH\|VERDICT' /tmp/th.txt; grep -n 'R1/R2/R16' .claude/CLAUDE.md; head -1 control/status.md`
 
-### D39. `scripts/gen_idea_backlog.py:66` — other
+### D36. `scripts/gen_idea_backlog.py:66` — other
 
 > BULLET_RE = re.compile(r"^- (?:\*\*)?" + MARKER)
 
@@ -584,23 +548,11 @@ dispatch and relay rules do not)
 
 **Actually:** BULLET_RE only matches a 💡 at the start of a top-level list item ('- 💡' / '- **💡'). Across .sessions/, 116 cards use the '## …💡' HEADING form and only 57 use the bullet form the regex accepts. The docstring discloses that 'Inline 💡 mentions mid-prose are NOT harvested' but never says the heading form — the majority convention — is also invisible, so the generated '4 ungroomed' figure reads as a measurement of the corpus when it is a measurement of one minority formatting style.
 
-**Check it:** `cd /home/user/fleet-manager && sed -n '66p' scripts/gen_idea_backlog.py && echo -n 'heading-form cards: ' && grep -l '^#\{1,4\} .*💡' .sessions/*.md | wc -l && echo -n 'bullet-form cards: ' && grep -lE '^\s*-\s+(\*\*)?💡' .sessions/*.md | wc -l`
+**Check it:** `cd . && sed -n '66p' scripts/gen_idea_backlog.py && echo -n 'heading-form cards: ' && grep -l '^#\{1,4\} .*💡' .sessions/*.md | wc -l && echo -n 'bullet-form cards: ' && grep -lE '^\s*-\s+(\*\*)?💡' .sessions/*.md | wc -l`
 
 **Refuter's correction:** The docstring is less silent than the finding allows — lines 39-41 do say 'top-level bullets' and give the two accepted forms, which by exclusion covers the heading case. The defect is better stated as a mismatch between the script's honest narrow contract and the two surfaces that advertise it as complete: docs/planning/README.md:18 ('every `.sessions/*.md` card 💡 idea', 'grooming passes start here') and the generated file's own '57 idea block(s) across 345 card(s)' summary line. Also add the paragraph-start form to the tally: 115 cards are heading-only and 170 more are paragraph-start-only, for 285 structured idea markers missed versus 57 harvested.
 
-### D40. `scripts/gen_idea_backlog.py:66` — other
-
-> BULLET_RE = re.compile(r"^- (?:\*\*)?" + MARKER)
-
-**Claims:** The harvester behind docs/planning/idea-backlog.md finds every session-card 💡 idea, making the backlog the machine-built candidate list every groom starts from (the script's own PROVENANCE header) and letting an ungroomed idea 'announce itself'.
-
-**Actually:** BULLET_RE only matches a 💡 at the start of a top-level list item ('- 💡' / '- **💡'). Across .sessions/, 116 cards write their idea as a '## 💡 Session idea' HEADING and only 57 use the bullet form the regex accepts; further cards use a bare '💡 **Session idea:**' paragraph start (e.g. .sessions/2026-07-10-order-003-007-review-queue.md, 2026-07-10-order-013-games-conformed.md). 15 of the 26 cards in this batch use the heading form and are invisible to it. The docstring discloses that 'Inline 💡 mentions mid-prose are NOT harvested' but never says the heading form — the majority convention — is also skipped, so the generated '4 ungroomed' figure reads as a measurement of the corpus when it is a measurement of one minority formatting style. Concrete failure: a planning session opens the backlog, sees '4 ungroomed', and concludes there is no unfinished idea backlog.
-
-**Check it:** `cd /home/user/fleet-manager && sed -n '66p' scripts/gen_idea_backlog.py && echo -n 'heading-form cards: ' && grep -l '^#\{1,4\} .*💡' .sessions/*.md | wc -l && echo -n 'bullet-form cards: ' && grep -lE '^\s*-\s+(\*\*)?💡' .sessions/*.md | wc -l`
-
-**Refuter's correction:** Same correction as index 114: the docstring does disclose 'top-level bullets' and the two accepted forms, so the script's own contract is honest. Restate the defect as the gap between that narrow contract and the completeness claimed by docs/planning/README.md:18 and by the generated file's summary line. Extend the tally to include the paragraph-start form: 115 heading-only plus 170 paragraph-start-only equals 285 missed against 57 harvested.
-
-### D41. `scripts/gen_kit_versions.py:131` — snapshot-as-instruction
+### D37. `scripts/gen_kit_versions.py:131` — snapshot-as-instruction
 
 > " INC-42 / central-docs-plan C4). Regenerate with every manager wake"
 
@@ -608,9 +560,9 @@ dispatch and relay rules do not)
 
 **Actually:** Manager wakes ended with the program on 2026-07-21, so the sole stated regeneration trigger can never fire again and nothing else invokes this script (it is not in scripts/preflight.py, bootstrap check, or any of the four workflows). The consequence is live on disk: registry/kit-versions.md still carries the `living-ledger` badge while stamped `generated-at **2026-07-14T04:49Z**`, declares "newest fleet tree version measured: **v1.15.0**", and rates fleet-manager `v1.15.0 … CURRENT (= newest fleet tree)` — but substrate.config.json and .substrate/state.json both read kit_version 1.20.2. Its own >7d kill-switch has been blown by 27 days without anyone tripping it, so a session consulting the ledger for fleet kit state is told v1.15.0 is current.
 
-**Check it:** `cd /home/user/fleet-manager && sed -n '3,7p' registry/kit-versions.md; grep -n 'fleet-manager |' registry/kit-versions.md; python3 -c "import json;print('config',json.load(open('substrate.config.json'))['kit_version'],'state',json.load(open('.substrate/state.json'))['kit_version'])"; grep -rn 'gen_kit_versions' scripts/preflight.py .github/workflows/ | wc -l`
+**Check it:** `cd . && sed -n '3,7p' registry/kit-versions.md; grep -n 'fleet-manager |' registry/kit-versions.md; python3 -c "import json;print('config',json.load(open('substrate.config.json'))['kit_version'],'state',json.load(open('.substrate/state.json'))['kit_version'])"; grep -rn 'gen_kit_versions' scripts/preflight.py .github/workflows/ | wc -l`
 
-### D42. `scripts/gen_roster.py:155` — snapshot-as-instruction
+### D38. `scripts/gen_roster.py:155` — snapshot-as-instruction
 
 > scripts/check_roster_freshness.py is a REQUIRED wake step, not a commit-only-on-change option.
 
@@ -622,7 +574,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Two details to tighten: the quote spans lines 155-156, not line 155 alone. And the finding understates the consequence — because ROSTER_REL is docs/roster.md and gen_roster regenerates the file, obeying the imperative would overwrite the ⛔ RETIRED banner, not merely waste a step. The script is also still named as live in project.index.json's `verification` list (`python3 scripts/gen_roster.py --selfcheck`) and in registry/README.md as the source of truth for registry/lanes.json, so it is genuinely reachable.
 
-### D43. `.github/workflows/merge-on-green.yml:40` — contradiction
+### D39. `.github/workflows/merge-on-green.yml:40` — contradiction
 
 > # required-check enforcement state is unverified (the rules API
 
@@ -634,7 +586,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Only the stated rationale is stale, not the design: generic head-SHA check verification ('trusts what actually ran, never a rules count') remains correct and should not be changed — the fix is to re-date or replace the 'enforcement state is unverified' clause, not to make the workflow read the rules count. Note also that the same header carries a second present-tense limitation at lines 7-8, 'This repo CANNOT use GitHub-native auto-merge (toggle unavailable on the private repo/plan)', which is the same class and was not flagged.
 
-### D44. `.sessions/2026-07-10-universal-permissions-block.md:3` — contradiction
+### D40. `.sessions/2026-07-10-universal-permissions-block.md:3` — contradiction
 
 > > **Status:** `in-progress`
 
@@ -642,21 +594,9 @@ dispatch and relay rules do not)
 
 **Actually:** The card's own line 22 closure note ('superseded by PR #76 … this card merged stuck at in-progress via #47 and is grandfathered') says the session is closed, so the badge contradicts the body. It is the only one of 344 cards carrying a non-terminal Status. 'Grandfathered' was a 2026-07-11 judgement that every session since has inherited rather than re-derived, and by 2026-08-09 it had cost a hand carve-out in the repo's required status check — a standing re-apply obligation on a kit-owned generated file, where flipping one token on an inert historical card would remove the cause.
 
-**Check it:** `cd /home/user/fleet-manager && grep -rl '^> \*\*Status:\*\* `in-progress`' .sessions/ && sed -n '3p;22p' .sessions/2026-07-10-universal-permissions-block.md && grep -n 'universal-permissions-block\|__no-card-in-diff__' .github/workflows/substrate-gate.yml`
+**Check it:** `cd . && grep -rl '^> \*\*Status:\*\* `in-progress`' .sessions/ && sed -n '3p;22p' .sessions/2026-07-10-universal-permissions-block.md && grep -n 'universal-permissions-block\|__no-card-in-diff__' .github/workflows/substrate-gate.yml`
 
-### D45. `.sessions/2026-07-10-universal-permissions-block.md:3` — contradiction
-
-> > **Status:** `in-progress`
-
-**Claims:** This session card declares itself in-progress — an unfinished, in-flight session.
-
-**Actually:** The card's own line 22 closure note ('superseded by PR #76 … this card merged stuck at in-progress via #47 and is grandfathered') says the session is closed, so the badge contradicts the body; it is the only one of 344 cards carrying a non-terminal Status. The consequence is live: on a push to main, bootstrap.py card selection falls back to latest_session_log() (newest by CHECKOUT MTIME, arbitrary in CI), can pick this historical card, and redden a valid main push. .github/workflows/substrate-gate.yml lines 289-311 therefore carry a hand-added '--session-log .sessions/__no-card-in-diff__.md' sentinel (added 2026-08-09, fm #833, found by Codex) whose stated sole cause is this card, and whose own comment says bootstrap.py:20048 will overwrite the edit at the next kit upgrade and it must be re-applied. 'Grandfathered' was a 2026-07-11 judgement every session since has inherited rather than re-derived; flipping one token on an inert historical card would remove the cause of a standing re-apply obligation on the required status check.
-
-**Check it:** `cd /home/user/fleet-manager && grep -rl '^> \*\*Status:\*\* `in-progress`' .sessions/ && sed -n '3p;22p' .sessions/2026-07-10-universal-permissions-block.md && grep -n 'universal-permissions-block\|__no-card-in-diff__' .github/workflows/substrate-gate.yml`
-
-**Refuter's correction:** One mechanical nuance: the workflow uses the `.sessions/__no-card-in-diff__.md` sentinel in two places, but only the second (line 316, in the 'verify suite' step) is the host carve-out this card caused; the first (line 273, in the session-gate step) is the kit's own no-card lane and would exist regardless. The re-apply obligation therefore attaches to the verify-suite step, and the comment block's 're-apply both' refers to it plus the separate checkers-step carve-out.
-
-### D46. `.substrate/agents/architect.md:12` — snapshot-as-instruction
+### D41. `.substrate/agents/architect.md:12` — snapshot-as-instruction
 
 > docs/ (playbook, owner-queue, dispatch-log — manager working memory) + templates/ (worker preamble blocks) + control/ (protocol heartbeat: owner-written inbox.md, manager-written status.md)
 
@@ -668,7 +608,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** The persona file is a symptom, not the source, and the finding understates reach. The text is rendered verbatim from .substrate/state.json slot_values Q-004 `architecture_layers` and Q-009 `mutation_seam` (bootstrap.py cmd_agents renders persona bodies from those slots), so `bootstrap.py agents --build` regenerates the same stale text — fixing only the .md leaves the defect armed. More importantly the identical seat-era sentences are already planted in LIVE docs that carry '> **Status:** `binding`' and no era banner: docs/architecture.md (Layers section) and docs/ownership.md:15. Those are far more reachable than the staged persona, and are where the defect should be fixed. The 'touched only by roster-regen since 2026-08-06' claim is weakened by the clone being shallow (57 commits, .git/shallow present, floor commit dfccceb 2026-08-06) — the correct statement is 'no commit touches control/ after the shallow floor'.
 
-### D47. `.substrate/agents/architect.md:12` — contradiction
+### D42. `.substrate/agents/architect.md:12` — contradiction
 
 > Program record lives in menno420/superbot docs/eap/, never here.
 
@@ -680,7 +620,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** The count is wrong: there are SEVEN top-level docs/eap-*.md files, not nine (`ls docs/eap-*.md | wc -l` -> 7). Nine is the right total only if the two nested ones (docs/findings/2026-08-09-eap-correspondence-record.md and docs/planning/2026-07-26-final-eap-email-plan.md) are counted with them, which the finding lists separately. Also note this is a *stale* absolute, not a wrong one: the seat-era sentence was written when the program record lived in superbot; the records were consolidated here afterwards. Same root as 94/95 — the sentence comes from state.json slot Q-004 and is also planted, unbannered, in docs/architecture.md under '> **Status:** `binding`'.
 
-### D48. `.substrate/agents/reviewer.md:11` — stale-fact
+### D43. `.substrate/agents/reviewer.md:11` — stale-fact
 
 > Shared-repo protocol surfaces follow docs/playbook.md R9-R10.
 
@@ -692,7 +632,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Same root as index 94: the sentence is rendered from .substrate/state.json slot Q-006 `ownership_model`, so a persona rebuild reproduces it. The reachable instance is docs/ownership.md:15, which carries the identical 'Shared-repo protocol surfaces follow docs/playbook.md R9-R10' under '> **Status:** `binding`' with no era banner, and docs/AGENT_ORIENTATION.md:31 (which at least has a mixed-era banner). Fixing the staged persona alone leaves the binding doc wrong.
 
-### D49. `bootstrap.py:21020` — stale-fact
+### D44. `bootstrap.py:21020` — stale-fact
 
 > whether {named} is a REQUIRED status check on the base branch is owner-UI state this gate cannot read (rules API; 403-walled to agents)
 
@@ -700,21 +640,9 @@ dispatch and relay rules do not)
 
 **Actually:** Refuted MEASURED 2026-08-06 and recorded in docs/CAPABILITIES.md (~line 353): GET /repos/menno420/fleet-manager/rules/branches/main and GET+PUT /repos/menno420/fleet-manager/rulesets/18725475 all returned 200 over direct egress, and substrate-gate was MADE a required check that way. This is a false wall printed at runtime by the one command CLAUDE.md names as the local gate, so a session that ran the gate without having loaded .claude/CLAUDE.md (boot case two/three: satellite root, or bare-clone parent /home/user) meets the wall and never meets the correction. Two aggravators: the file is GENERATED/DO-NOT-EDIT so the fix must land upstream in substrate-kit (CAPABILITIES.md already logs this as 'Kit-side follow-up' and it has not landed as of v1.20.2), and tools/check_no_false_walls.py line 73 explicitly excludes bootstrap.py, so the estate's own false-wall checker structurally cannot catch it. Mitigated but not fixed: .claude/CLAUDE.md:274 and docs/CAPABILITIES.md both counter-instruct ('read the endpoint, never quote that NOTE').
 
-**Check it:** `cd /home/user/fleet-manager && python3 bootstrap.py check --strict 2>&1 | grep -n 'enforcement-required-unverified'   # prints: check: NOTE — enforcement-required-unverified — whether `substrate-gate` is a REQUIRED status check on the base branch is owner-UI state this gate cannot read (rules API; 403-walled to agents) …`
+**Check it:** `cd . && python3 bootstrap.py check --strict 2>&1 | grep -n 'enforcement-required-unverified'   # prints: check: NOTE — enforcement-required-unverified — whether `substrate-gate` is a REQUIRED status check on the base branch is owner-UI state this gate cannot read (rules API; 403-walled to agents) …`
 
-### D50. `bootstrap.py:21020` — stale-fact
-
-> "read (rules API; 403-walled to agents) — owner glance: Settings → "
-
-**Claims:** The `enforcement-required-unverified` NOTE tells every session that whether a check is REQUIRED on the base branch is 'owner-UI state this gate cannot read (rules API; 403-walled to agents)'.
-
-**Actually:** The rulesets API is readable AND writable agent-side — GET/PUT /repos/{o}/{r}/rulesets/{id} over direct egress both 200, measured 2026-08-06 and recorded in .claude/CLAUDE.md ('it reads fine — measured 2026-08-06. Read the endpoint, never quote that NOTE'). This is not inert prose: it is emitted as LINE 1 of every `bootstrap.py check --strict` run — the estate's designated local gate, run at every session close — so it is the most-read false wall in the repo. It survives structurally because tools/check_no_false_walls.py excludes bootstrap.py by design (its own SCAN SET: 'EXCLUDED by design: … bootstrap.py'), i.e. the one surface that emits a false wall to every session is the one the false-wall checker never looks at. The boot file's warning is a workaround, not a fix, and only binds sessions that loaded the boot file (case-two/case-three boots do not). Fix belongs upstream in substrate-kit src/engine (the file is GENERATED, DO NOT EDIT).
-
-**Check it:** `cd /home/user/fleet-manager && python3 bootstrap.py check --strict 2>&1 | head -1; grep -n 'EXCLUDED by design' -A2 tools/check_no_false_walls.py`
-
-**Refuter's correction:** Accurate as written. One addition: `403-walled to agents` also appears at bootstrap.py:20987 in a different (issue-#36) context, so a fix must target the `enforcement-required-unverified` message builder specifically, not the string globally.
-
-### D51. `bootstrap.py:19783` — stale-fact
+### D45. `bootstrap.py:19783` — stale-fact
 
 > "# historically 403-walled in fleet sessions (capability ledger\n"
 
@@ -722,11 +650,11 @@ dispatch and relay rules do not)
 
 **Actually:** This is the canonical false wall the estate has already refuted twice. docs/CAPABILITIES.md's own 2026-08-05 owner-live entry: 'branch deletion ALL SUCCEED on the direct-PAT path'; tools/check_no_false_walls.py's provenance names this exact claim as the wall it was built to catch ('branch deletion is a normal capability, 204 via the direct-token path; only the proxied path 403s'); .claude/CLAUDE.md lists 'delete branches' as normal agent work. 'classifier + proxy deny EVERY delete path' is a present-tense absolute that is false. Secondary defect in the same block: the citation 'capability ledger OA-10' does not resolve — OA-10 appears 0 times in docs/CAPABILITIES.md (only in seat-era prompts and 2026-07 research docs). Lower blast radius than the NOTE above because no branch-sweep workflow is currently rendered here (.github/workflows has only merge-on-green, roster-freshness, roster-regen, substrate-gate), but this is live generator text, not a dated record, and bootstrap.py is excluded from the false-walls checker so nothing catches it.
 
-**Check it:** `cd /home/user/fleet-manager && sed -n '19782,19786p' bootstrap.py; echo "OA-10 in ledger: $(grep -c 'OA-10' docs/CAPABILITIES.md)"; ls .github/workflows/`
+**Check it:** `cd . && sed -n '19782,19786p' bootstrap.py; echo "OA-10 in ledger: $(grep -c 'OA-10' docs/CAPABILITIES.md)"; ls .github/workflows/`
 
 **Refuter's correction:** Directionally right, but rank it below findings 130/132/133. Two softeners the finding understates: the sentence is hedged with 'historically', and nothing in this repo renders the branch-sweep workflow today, so no adopter file currently carries the text. The present-tense parenthetical 'classifier + proxy deny every delete path' is the actually-false part and is the minimal fix target — upstream in substrate-kit src/engine, since bootstrap.py is GENERATED, DO NOT EDIT.
 
-### D52. `control/claims/README.md:3` — contradiction
+### D46. `control/claims/README.md:3` — contradiction
 
 > > **Status:** `binding`
 
@@ -734,21 +662,11 @@ dispatch and relay rules do not)
 
 **Actually:** Its own parent, control/README.md:2-4, names `claims/` in the retired set — 'The control/ message-bus (inbox.md, outbox.md, status.md, claims/) and the roster/telemetry autogen are retired with the EAP wind-down ... do not ... treat these files as live state'. control/inbox.md is closed by ORDER 049 and control/outbox.md carries the same RETIRED banner; this is the only file in control/ that carries no banner and instead asserts the opposite. The two documents are each internally coherent and disagree, so a session that lands here (e.g. told to claim before building) follows a protocol whose surrounding apparatus — the control fast lane it tells you to land the claim on, and the sibling heartbeat it defers ORDER claims to — no longer exists. control/claims/ holds only this README at HEAD.
 
-**Check it:** `cd /home/user/fleet-manager && sed -n '1,10p' control/claims/README.md && sed -n '1,6p' control/README.md && ls -a control/claims/`
+**Check it:** `cd . && sed -n '1,10p' control/claims/README.md && sed -n '1,6p' control/README.md && ls -a control/claims/`
 
 **Refuter's correction:** The finding assumes `binding` is the wrong side of the contradiction. That is not established: bootstrap.py:197 still pins DEFAULT_CLAIMS_DIR to control/claims and bootstrap.py:25183 still calls check_claims, so the claim ledger is live kit apparatus while the ORDER-relay it sits next to is not. The accurate statement is 'control/README.md's retirement banner sweeps `claims/` in with the message bus, and the claims README says the opposite; one of the two is over-broad and neither says which' — and the claim checker is advisory-only regardless.
 
-### D53. `control/claims/README.md:8` — broken-ref
-
-> > your heartbeat — see `control/README.md` § "Claiming an order".
-
-**Claims:** control/README.md contains a section titled 'Claiming an order' that defines the ORDER-claim carve-out.
-
-**Actually:** No such section exists. control/README.md is 79 lines with exactly seven headings: 'Fleet coordination protocol — control/', 'The two files', 'The one rule that keeps it conflict-free', 'Multi-Project repos — per-lane heartbeats', 'Per-session ritual', '`status.md` format', '`inbox.md` order format', 'Manager variant'. The reference is made twice (line 8 and again at lines 80-82 under 'Not for inbox ORDERS'), so the carve-out that tells a reader where ORDER claims DO live points at nothing in both places. Harmless only because the surrounding apparatus is retired.
-
-**Check it:** `cd /home/user/fleet-manager && grep -n 'Claiming an order' control/claims/README.md && grep -n '^#' control/README.md`
-
-### D54. `control/status.md:11` — contradiction
+### D47. `control/status.md:11` — contradiction
 
 > updated: 2026-08-03T21:29:58Z
 
@@ -756,11 +674,11 @@ dispatch and relay rules do not)
 
 **Actually:** control/README.md:2-6 declares the control/ bus retired and says 'do NOT ... treat these files as live state', yet substrate.config.json still lists control/status.md in heartbeat_files, so `python3 bootstrap.py check` (the gate CLAUDE.md names as THE local gate) emits: '[status-stale] control/status.md: heartbeat is ~165h old (> 72h) — the manager treats a stale status as a DARK Project; overwrite control/status.md this session (mechanical restamp: `python3 bootstrap.py heartbeat`)'. A session that obeys the checker writes a fresh liveness date onto a record of a seat that closed 2026-07-21 — which is exactly what already happened: the 2026-08-03 stamp was written by automated roster-regen commit dfccceb (2026-08-06). Six live scripts (gen_roster.py, check_lane_liveness.py, check_trigger_health.py, verify_routine_state.py, check_owner_queue.py, check_label_hygiene.py) read this file's `updated:` value.
 
-**Check it:** `cd /home/user/fleet-manager && sed -n '1,14p' control/status.md && python3 bootstrap.py check 2>&1 | grep status-stale && grep -n heartbeat substrate.config.json && git log -p --format='COMMIT %h %ad' --date=short -1 -- control/status.md | grep -E '^COMMIT|^\+updated:'`
+**Check it:** `cd . && sed -n '1,14p' control/status.md && python3 bootstrap.py check 2>&1 | grep status-stale && grep -n heartbeat substrate.config.json && git log -p --format='COMMIT %h %ad' --date=short -1 -- control/status.md | grep -E '^COMMIT|^\+updated:'`
 
 **Refuter's correction:** Two overstatements to fix. (1) status-stale is NOT exit-affecting — the strict run groups it under 'check: 1 control-status advisory warning(s) (never exit-affecting)'; the exit-1 came from [preflight-script] on the born-red session card. It still instructs a restamp, but it does not red the gate. (2) 'Six live scripts read this file's `updated:` value' is too strong: only scripts/gen_roster.py, scripts/check_lane_liveness.py, scripts/check_trigger_health.py and scripts/verify_routine_state.py actually parse an `updated:` stamp; scripts/check_owner_queue.py and scripts/check_label_hygiene.py only mention control/status.md in docstring prose. Also the age is now ~166h, not ~165h.
 
-### D55. `docs/AGENT_ORIENTATION.md:30` — stale-fact
+### D48. `docs/AGENT_ORIENTATION.md:30` — stale-fact
 
 > Flat docs repo, no code layers: docs/ (playbook, owner-queue, dispatch-log — manager working memory) + templates/ (worker preamble blocks) + control/ (protocol heartbeat...). Program record lives in menno420/superbot docs/eap/, never here.
 
@@ -768,11 +686,11 @@ dispatch and relay rules do not)
 
 **Actually:** There are 27 tracked .py files under scripts/ (20 entries) and tools/ (11 entries), plus bootstrap.py and six .claude/hooks/ scripts — the checkers and hooks that gate every PR live in exactly the 'code layers' this bullet says do not exist, and the enumerated dir list omits scripts/, tools/, .claude/, projects/, .sessions/. The program record also now lives here: docs/fleet-account-2026-07-26.md (the owner-reviewed 2025-08→now account, read-path entry 3) and docs/PROJECT-CLOSEOUT.md. This is the half the file's own banner blesses — line 25-26 says 'That half is still accurate and is what this router is for.'
 
-**Check it:** `cd /home/user/fleet-manager && sed -n '24,30p' docs/AGENT_ORIENTATION.md && ls scripts/*.py tools/*.py | wc -l && ls .claude/hooks/*.py && ls docs/fleet-account-2026-07-26.md docs/PROJECT-CLOSEOUT.md`
+**Check it:** `cd . && sed -n '24,30p' docs/AGENT_ORIENTATION.md && ls scripts/*.py tools/*.py | wc -l && ls .claude/hooks/*.py && ls docs/fleet-account-2026-07-26.md docs/PROJECT-CLOSEOUT.md`
 
 **Refuter's correction:** Two details to fix. (1) The directory-entry counts are slightly off: `ls scripts` = 20 entries and `ls tools` = 12 (not 11); the .py count of 27 is right by `ls`, 28 by `git ls-files`. (2) More important: AGENT_ORIENTATION.md:30 is not the source. The identical string is the substrate-kit 'architecture' state value stored at .substrate/state.json:58 and mirrored verbatim into docs/architecture.md:10, .substrate/agents/architect.md:12, .substrate/agents/reviewer.md:11 and .substrate/claude/CLAUDE.md:49. Editing AGENT_ORIENTATION alone leaves five other copies and the generated text will come back at the next kit regen — the fix is the state value.
 
-### D56. `docs/CAPABILITIES-verified-2026-07-18.md:37` — stale-fact
+### D49. `docs/CAPABILITIES-verified-2026-07-18.md:37` — stale-fact
 
 > **Do not poll `GET /commits/<sha>/check-runs`** with the fleet PAT — it answers `403 Resource not accessible by personal access token`
 
@@ -784,7 +702,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** The finding reports total_count 9; I measured 16 at that SHA and 2 at HEAD — the count varies with time, the HTTP 200 is the load-bearing part and reproduces on both.
 
-### D57. `docs/PROJECT-CLOSEOUT.md:7` — contradiction
+### D50. `docs/PROJECT-CLOSEOUT.md:7` — contradiction
 
 > is preserved as evidence, not a current queue. Live state and next action are
 
@@ -796,7 +714,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** The banner (added in PR #837, 'D2: make fleet-manager's front door tell the truth') overshot its target. The consolidation program §7 records the era-bannering pass as flagging `PROJECT-CLOSEOUT` §5, and §5 indeed carries its own precise, scoped banner at line 361. The top-of-file banner's separate sentence 'Its continuation list is preserved as evidence, not a current queue' disclaims §3, which is NOT stale: item 1 (trading-strategy #160) is verified OPEN today and its only resume recipe in the repo is that section, pointed to by both .claude/CLAUDE.md:97-99 and docs/owner-queue.md:487. The fix is to scope the top banner the way §5's is scoped — the historical claim applies to the §2 state snapshot and §5 boot route, not to §3.
 
-### D58. `docs/ROUTINES.md:33` — snapshot-as-instruction
+### D51. `docs/ROUTINES.md:33` — snapshot-as-instruction
 
 > Record every trigger create/delete call **verbatim** — id, cron, binding,
 
@@ -808,7 +726,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Two details to narrow. (1) ROUTINES.md never *instructs* deletion — line 33 instructs recording, and line 46 is an observation; it presupposes deletion as ordinary rather than directing it, and the actual delete call is hard-denied by trigger_tools_guard.py, so that half of the harm is contained. The uncontained half is the seat-era end-of-turn invariant at lines 90-94, which under a live `binding` badge tells a session to re-stamp `control/status.md` (retired apparatus) and to keep exactly one tick armed every turn or suffer a 'seat-killing bug' — nothing gates that. (2) Reachability is narrower than the finding implies: .claude/CLAUDE.md, docs/current-state.md, docs/reading-path.md and README.md contain zero references to ROUTINES.md; the only live router is AGENT_ORIENTATION.md — but that router explicitly certifies the routines route as still-accurate at its lines 25-26, which makes the defect worse, not better.
 
-### D59. `docs/SKILLS.md:89` — stale-fact
+### D52. `docs/SKILLS.md:89` — stale-fact
 
 > Two owner-directed seed methods (superbot Q-0273, 2026-07-12) are **installed as reference implementations in superbot**, canonical there until the kit generalizes them into the shipped skill set
 
@@ -818,7 +736,7 @@ dispatch and relay rules do not)
 
 **Check it:** `ls -la .claude/skills/chase-references/ .claude/skills/prep-owner-steps/ ; sed -n '87,104p' docs/SKILLS.md ; grep -n 'chase-references\|prep-owner-steps' docs/SKILLS-local.md`
 
-### D60. `docs/architecture.md:10` — stale-fact
+### D53. `docs/architecture.md:10` — stale-fact
 
 > control/ (protocol heartbeat: owner-written inbox.md, manager-written status.md). Program record lives in menno420/superbot docs/eap/, never here.
 
@@ -830,7 +748,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** 'Every clause describes the closed autonomous-Projects era' is overstated — two of the four survive. `ls templates/` shows worker-preamble.md still exists, and `ls docs/dispatch-log*` shows docs/dispatch-log.md still exists, so the docs/ and templates/ clauses are stale in tone, not in fact. 'Program record lives in menno420/superbot docs/eap/, never here' is scope-correct: it refers to the EAP autonomous-Projects program, whose record does live there; the *consolidation* program is a different program and lives here. The genuinely stale, misleading clause is the single one about `control/` being a live protocol heartbeat with an owner-written inbox.md and manager-written status.md, in a `binding`, un-bannered doc.
 
-### D61. `docs/collaboration-model.md:43` — unreachable-authority
+### D54. `docs/collaboration-model.md:43` — unreachable-authority
 
 > standard (canonical: `control/README.md` § "Owner-assist output standard"):
 
@@ -840,7 +758,7 @@ dispatch and relay rules do not)
 
 **Check it:** `grep -ni "owner.action\|owner-assist\|WHY-IT-MATTERS\|UNBLOCKS" control/README.md; head -8 control/README.md; grep -rln "WHY-IT-MATTERS" --include=*.md .`
 
-### D62. `docs/collaboration-model.md:85` — stale-fact
+### D55. `docs/collaboration-model.md:85` — stale-fact
 
 > Staleness review cadence: control/status.md is refreshed every working session (its updated: line is the heartbeat)
 
@@ -852,7 +770,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** The secondary half of the finding is weak and should be dropped. It says the same line 'calls docs/playbook.md living' in conflict with the boot file — but `head -8 docs/playbook.md` shows playbook.md declares itself 'Status: `living-ledger`' and already carries a '**Mixed-era banner, 2026-08-10:**' naming exactly which rules still apply and which (dispatch, control-bus, roster, wake-chain, seat-liveness) do not. Calling it living is correct. The defect is only the control/status.md clause.
 
-### D63. `docs/evidence-index.md:5` — stale-fact
+### D56. `docs/evidence-index.md:5` — stale-fact
 
 > **GENERATED — NOT SOURCE OF TRUTH.** Do not hand-edit; regenerated with `docs/roster.md` on every regen (`scripts/gen_roster.py`, P3 — centralization plan §3c).
 
@@ -860,11 +778,11 @@ dispatch and relay rules do not)
 
 **Actually:** The roster was retired 2026-08-07 by PR #812, which removed BOTH cron lines from roster-regen.yml (`on:` is now `workflow_dispatch:` only) and stamped docs/roster.md with a "⛔ RETIRED 2026-08-07 — this file is a record, not current truth" banner and `Status: historical`. That same PR never touched docs/evidence-index.md: its last commit is still the automated `Roster regen (automated, Generation #430)`. So the two halves of one generator now disagree — roster.md says the mechanism is dead, evidence-index.md still says it runs every two hours — and evidence-index.md keeps the `living-ledger` marker with no banner. This matters because docs/current-state.md:102 (boot read-path entry 1) still lists it as live apparatus: "**Evidence index**: `docs/evidence-index.md` (generated with the roster)". A session following the read path meets a frozen 2026-08-06 snapshot labelled current and auto-maintained, with pinned HEADs (e.g. fleet-manager @ `837bfe8`) that are now hundreds of commits stale.
 
-**Check it:** `cd /home/user/fleet-manager && sed -n '1,8p' docs/evidence-index.md && sed -n '/^on:/,/^jobs:/p' .github/workflows/roster-regen.yml && sed -n '1,6p' docs/roster.md && git log --oneline -2 -- docs/evidence-index.md && grep -n 'Evidence index' docs/current-state.md`
+**Check it:** `cd . && sed -n '1,8p' docs/evidence-index.md && sed -n '/^on:/,/^jobs:/p' .github/workflows/roster-regen.yml && sed -n '1,6p' docs/roster.md && git log --oneline -2 -- docs/evidence-index.md && grep -n 'Evidence index' docs/current-state.md`
 
 **Refuter's correction:** Two details are overstated. (1) Reachability: the finding says "docs/current-state.md:102 (boot read-path entry 1) still lists it as live apparatus." It does not — line 102 sits under "## Historical seat-era baseline — preserved, not current" (line 61) → "### Seat-era stability baseline" (line 78), an explicitly bannered historical section. A repo-wide grep for live references finds none outside that section and the dated July planning/closeout records, so the doc is reachable mainly by direct opening or hygiene work, not by walking the read path. (2) Staleness magnitude: git rev-list --count 837bfe8..HEAD = 39, not "hundreds of commits stale" for the fleet-manager pin. Worth adding: roster-regen.yml:159 still hard-codes --dispatched-by "cron 40 */2 * * * ...", so any manual workflow_dispatch would re-stamp the now-false cron claim into the regenerated header.
 
-### D64. `docs/evidence-index.md:3` — snapshot-as-instruction
+### D57. `docs/evidence-index.md:3` — snapshot-as-instruction
 
 > > **Status:** `living-ledger`
 
@@ -872,11 +790,11 @@ dispatch and relay rules do not)
 
 **Actually:** The roster was retired 2026-08-07 (PR #812) and BOTH roster-regen cron lines were removed; roster-regen.yml now carries only `workflow_dispatch` (line 107: "Both cron lines removed"). The file's own last write is Generation #430, generated-at 2026-08-06T14:57Z — it has not regenerated since and cannot. Its sibling from the SAME generator, docs/roster.md, got a `⛔ RETIRED 2026-08-07 … Status: historical` banner in that commit; evidence-index.md was left behind still badged live. A session opening it today reads four-day-frozen HEAD pins as current fleet truth and is told a cron is keeping them fresh.
 
-**Check it:** `cd /home/user/fleet-manager && sed -n '1,7p' docs/evidence-index.md && head -6 docs/roster.md && grep -n 'cron lines removed' .github/workflows/roster-regen.yml && git log --oneline -2 -- docs/evidence-index.md`
+**Check it:** `cd . && sed -n '1,7p' docs/evidence-index.md && head -6 docs/roster.md && grep -n 'cron lines removed' .github/workflows/roster-regen.yml && git log --oneline -2 -- docs/evidence-index.md`
 
 **Refuter's correction:** 'it has not regenerated since and cannot' is overstated on the second half: PR #812 removed only the two cron lines and deliberately KEPT `workflow_dispatch:` (roster-regen.yml line 107 comment: 'workflow_dispatch KEPT, so the roster can still be generated on demand'). The file cannot refresh on a schedule; an on-demand dispatch is still available. Also worth noting for whoever fixes it: docs/current-state.md's mention of the evidence index (line 102) already sits inside the '## Historical seat-era baseline — preserved, not current' section (line 61), so only the file's own header needs the banner.
 
-### D65. `docs/findings/2026-08-05-foundation-continuation.md:34` — snapshot-as-instruction
+### D58. `docs/findings/2026-08-05-foundation-continuation.md:34` — snapshot-as-instruction
 
 > Revised, in order:
 
@@ -884,11 +802,11 @@ dispatch and relay rules do not)
 
 **Actually:** It is a 2026-08-05 snapshot written in the imperative, and two live surfaces now route sessions to it as the superseding next-action authority: .claude/CLAUDE.md:79 ('the revised order of work — foundation before rebuild') and consolidation-program:70-75 ('Before acting on this pointer, read ... it revises the order of work'). Five days and roughly fifteen PRs later none of items 1, 2, 4 or 5 has landed, the work went to OD-13 / intent layer / Layer 2 / the kit upgrade instead, and the strings 'reachability checker', 'Golden Transcript' and 'CAPTURE-WORLD LITERAL sweep' appear nowhere in current-state.md, the program, or intent.md — so the ordering has no live status row anywhere while still being cited as what to do next. What I could not establish: whether the owner regards the ordering as void, only that no live ledger tracks it and the program's NOW points elsewhere (D2).
 
-**Check it:** `cd /home/user/fleet-manager && sed -n '70,76p' docs/planning/2026-07-26-consolidation-program.md && grep -n 'the revised order of' .claude/CLAUDE.md && grep -rn 'reachability checker\|Golden Transcript\|CAPTURE-WORLD LITERAL sweep' docs/current-state.md docs/planning/2026-07-26-consolidation-program.md docs/intent.md; echo "exit=$?  (1 = zero hits)"`
+**Check it:** `cd . && sed -n '70,76p' docs/planning/2026-07-26-consolidation-program.md && grep -n 'the revised order of' .claude/CLAUDE.md && grep -rn 'reachability checker\|Golden Transcript\|CAPTURE-WORLD LITERAL sweep' docs/current-state.md docs/planning/2026-07-26-consolidation-program.md docs/intent.md; echo "exit=$?  (1 = zero hits)"`
 
 **Refuter's correction:** Line is 34, not 35 — "Revised, in order:" is at line 34 and the table runs 36-42 (line 35 is blank). Item 3 (bifurcate the kit's checkers) was at least partly discharged by the 2026-08-06 checker-classification doc + substrate-kit #577; items 1, 2, 4, 5 are all superbot-next-scoped and have no row in the program's step ledger, so the accurate statement is that the ordering has no live tracking surface, not that the owner voided it.
 
-### D66. `docs/findings/2026-08-05-google-play-submission-requirements.md:146` — stale-fact
+### D59. `docs/findings/2026-08-05-google-play-submission-requirements.md:146` — stale-fact
 
 > Limits apply identically to full-width and half-width characters. "Swingy
 Spider" is 14 — comfortable.
@@ -897,11 +815,11 @@ Spider" is 14 — comfortable.
 
 **Actually:** Two errors in one sentence. (a) "Swingy Spider" was ruled out on 2026-08-05 — docs/owner-queue.md:210 records `OQ-SWINGY-NAME` as RESOLVED with the name **Slingy Spider**, because Swingy Spider is taken by two same-genre products. The title line 1 carries the same dead name ('verified for Swingy Spider'). (b) 'Swingy Spider' is 13 characters, not 14. This is the document a session preparing the Play listing will work from, and its §6 store-listing budget is computed against a rejected identifier.
 
-**Check it:** `cd /home/user/fleet-manager && grep -n 'Swingy' docs/findings/2026-08-05-google-play-submission-requirements.md && sed -n '210,214p' docs/owner-queue.md && python3 -c "print(len('Swingy Spider'))"`
+**Check it:** `cd . && grep -n 'Swingy' docs/findings/2026-08-05-google-play-submission-requirements.md && sed -n '210,214p' docs/owner-queue.md && python3 -c "print(len('Swingy Spider'))"`
 
 **Refuter's correction:** The character arithmetic is wrong but immaterial in effect — "Slingy Spider" is also 13, and either is far under the 30-char App name limit, so the §6 limits table itself is sound. The substantive error is the rejected product name in the title (line 1) and in the §6 example, with no superseded note, in a doc that the live Layer-2 README (docs/repos/spider-swing/README.md:97) hands a session for exactly this work.
 
-### D67. `docs/findings/2026-08-09-substrate-kit-defects.md:199` — broken-ref
+### D60. `docs/findings/2026-08-09-substrate-kit-defects.md:199` — broken-ref
 
 > because that file is the capability ledger and `tools/check_no_false_walls.py:296` special-cases it
 
@@ -911,7 +829,7 @@ Spider" is 14 — comfortable.
 
 **Check it:** `sed -n '296p' tools/check_no_false_walls.py; grep -n 'CAPABILITIES.md' tools/check_no_false_walls.py`
 
-### D68. `docs/findings/README.md:10` — unreachable-authority
+### D61. `docs/findings/README.md:10` — unreachable-authority
 
 > ## Index (2026-07-09, evening — succession set)
 
@@ -919,11 +837,11 @@ Spider" is 14 — comfortable.
 
 **Actually:** The estate treats an index row as the anti-orphan mechanism — two cards in this batch state it explicitly ('docs/findings/README.md — index row, so the finding is not an orphan', .sessions/2026-08-05-discord-test-server-and-bot-value.md:27 and .sessions/2026-08-05-superbot-next-live-audit.md:27). 16 findings break it, including docs/findings/2026-08-05-owner-calibration-three-sessions.md (the doc that supersedes the 'seven corrections' figure), 2026-08-05-gemini-delegation.md, 2026-08-05-hud-telemetry-verification.md, 2026-08-06-provenance-mechanism-measured.md, 2026-08-08-why-rules-dont-bind.md and the whole 2026-08-09 set. A session that opens the index to find what has been established meets 26 of 42 documents and cannot tell the other 16 exist. The heading's own scope stamp ('2026-07-09, evening — succession set') is a snapshot that the file has long since outgrown, which is how the drift went unnoticed.
 
-**Check it:** `cd /home/user/fleet-manager && for f in $(ls docs/findings/*.md | grep -v README); do b=$(basename $f); grep -q "$b" docs/findings/README.md || echo "ORPHAN $b"; done | wc -l; ls docs/findings/*.md | grep -vc README`
+**Check it:** `cd . && for f in $(ls docs/findings/*.md | grep -v README); do b=$(basename $f); grep -q "$b" docs/findings/README.md || echo "ORPHAN $b"; done | wc -l; ls docs/findings/*.md | grep -vc README`
 
 **Refuter's correction:** The count is 17 orphans of 42, not 16 of 42. 2026-08-06-checker-classification.md is also among them — notable because .claude/CLAUDE.md read-path entry 2b names that file directly, so it is reachable from the boot file even though the findings index does not list it. Reachability is therefore partial for a handful of docs; the index-completeness breach itself is confirmed.
 
-### D69. `docs/findings/README.md:10` — stale-count
+### D62. `docs/findings/README.md:10` — stale-count
 
 > ## Index (2026-07-09, evening — succession set)
 
@@ -935,7 +853,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** Two details are wrong. (1) The index does NOT 'stop in July': it carries eight August rows, including six 2026-08-05 docs and the 2026-08-10 cold-read row at line 38. Only the *heading* is frozen at 2026-07-09; the table has been appended to selectively. (2) There are five 2026-08-09 findings, not six (`ls docs/findings/ | grep -c 2026-08-09` = 5). The accurate statement: a `living-ledger` index claiming one row per committed finding lists 25 of 42, silently omitting 17 — the whole 2026-08-06 → 2026-08-09 research block, 2026-08-04-generated-art-pipeline.md, three further 2026-08-05 docs, 2026-08-10-fm835-verification.md, and two July docs.
 
-### D70. `docs/findings/ultracode-verification-2026-07-10.md:193` — stale-fact
+### D63. `docs/findings/ultracode-verification-2026-07-10.md:193` — stale-fact
 
 > - ⚑ **fleet-manager's own `docs/findings/ping-test-2026-07-09.md` is wrong
 
@@ -943,9 +861,9 @@ Spider" is 14 — comfortable.
 
 **Actually:** The correction landed the same day: docs/findings/ping-test-2026-07-09.md:96 now reads '✅ ACK (late) — corrected 2026-07-10; the ❌ NO ACK previously recorded here was FALSE' and the file carries a dedicated '### Correction (2026-07-10) — the websites row was FALSE' section with the re-derived 1h38m54s latency. The flag is an already-satisfied ask (the INC-06 class). Inert: it sits in a dated `reference` verification record whose flags are explicitly scoped to 'owner's morning' 2026-07-10, and no live surface routes to it.
 
-**Check it:** `cd /home/user/fleet-manager && sed -n '193,197p' docs/findings/ultracode-verification-2026-07-10.md && sed -n '96p;104,110p' docs/findings/ping-test-2026-07-09.md`
+**Check it:** `cd . && sed -n '193,197p' docs/findings/ultracode-verification-2026-07-10.md && sed -n '96p;104,110p' docs/findings/ping-test-2026-07-09.md`
 
-### D71. `docs/fleet-inconsistencies-2026-07-13.md:3` — snapshot-as-instruction
+### D64. `docs/fleet-inconsistencies-2026-07-13.md:3` — snapshot-as-instruction
 
 > > **Status:** `living-ledger`
 
@@ -953,11 +871,11 @@ Spider" is 14 — comfortable.
 
 **Actually:** 65 of the 82 items are still unretired, and the machinery they are routed through no longer exists: the control bus was retired as live machinery at program close 2026-07-21 (docs/fleet-account-2026-07-26.md line 130: 'Retired as live machinery at close; historical record now'; .claude/CLAUDE.md 'Live vs historical' lists control/ as seat-era apparatus). Every peer register produced by the same 2026-07-13/14 fleet review has since been re-banner'd `historical` — docs/fleet-triage.md ('this register closed with the autonomous seat on 2026-07-21'), docs/roster.md ('RETIRED 2026-08-07'), docs/reading-path.md, docs/NEXT-TASKS.md, docs/RESUME.md ('era-banner added 2026-08-08') — but this file was missed by that sweep and is the only seat-era ledger still self-declaring `living-ledger`. It is reachable from a live surface (docs/current-state.md:483 links it) and from scripts/gen_roster.py:388. A session opening it today reads ~65 open items whose stated next action is to dispatch ORDERs down a bus that was dismantled. Its §12 self-defence ('verify a row's citation against HEAD') covers per-row staleness only — not the status header or the disposition column.
 
-**Check it:** `cd /home/user/fleet-manager && grep -n '^> \*\*Status:\*\*' docs/fleet-inconsistencies-2026-07-13.md docs/fleet-triage.md docs/roster.md docs/reading-path.md && grep -c 'ORDER-to-lane' docs/fleet-inconsistencies-2026-07-13.md && grep -o 'INC-[0-9]\+' docs/fleet-inconsistencies-2026-07-13.md | sort -u | wc -l && grep -o '~~INC-[0-9]\+~~' docs/fleet-inconsistencies-2026-07-13.md | sort -u | wc -l && grep -n 'Retired as live machinery' docs/fleet-account-2026-07-26.md && grep -n 'fleet-inconsistencies' docs/current-state.md`
+**Check it:** `cd . && grep -n '^> \*\*Status:\*\*' docs/fleet-inconsistencies-2026-07-13.md docs/fleet-triage.md docs/roster.md docs/reading-path.md && grep -c 'ORDER-to-lane' docs/fleet-inconsistencies-2026-07-13.md && grep -o 'INC-[0-9]\+' docs/fleet-inconsistencies-2026-07-13.md | sort -u | wc -l && grep -o '~~INC-[0-9]\+~~' docs/fleet-inconsistencies-2026-07-13.md | sort -u | wc -l && grep -n 'Retired as live machinery' docs/fleet-account-2026-07-26.md && grep -n 'fleet-inconsistencies' docs/current-state.md`
 
 **Refuter's correction:** Two details to tighten. (a) The '44 rows dispositioned ORDER-to-lane' is 44 *matching lines*, one of which is the legend at line 53 ('`ORDER-to-lane(<repo>)` = route via the control bus') — so ~43 rows; the file's own §1 summary says '~40'. (b) Reachability is thinner than 'reachable from a live surface' suggests: current-state.md:483 sits under '## Recently shipped (newest first)' as a dated 2026-07-13/14 deliverable, and the file is named nowhere in .claude/CLAUDE.md, README.md, docs/README.md or the consolidation program. The fix is the same either way — add the `historical` era banner the 2026-08-08 sweep gave every peer register.
 
-### D72. `docs/gen2-blueprint.md:3` — snapshot-as-instruction
+### D65. `docs/gen2-blueprint.md:3` — snapshot-as-instruction
 
 > > **Status:** `binding`
 
@@ -965,9 +883,9 @@ Spider" is 14 — comfortable.
 
 **Actually:** It is the seat-era launch standard for the autonomous-Projects program that CLOSED 2026-07-21. Every sibling doc of the same era got an explicit era banner in the 2026-08-08/2026-08-10 front-door sweeps — MISSION.md keeps `binding` but adds a 15-line 'Era note, 2026-08-08' explaining the done-when is unmeasurable today; docs/NEXT-TASKS.md was flipped to `historical` with 'era-banner added 2026-08-08'; docs/fleet-triage.md was flipped to `historical`. gen2-blueprint.md was missed: `grep -ci 'era note|historical|seat-era'` returns 0 for the whole 513-line file. It is also unreachable from every Layer-1 live surface (0 hits for 'gen2-blueprint' in .claude/CLAUDE.md, README.md, docs/current-state.md, the consolidation program, docs/intent.md, docs/decisions.md), so nothing a session walking the read path ever warns it that this `binding` badge describes dead apparatus — a session that finds it by grep or via docs/prompts/README.md takes §1's checklist and §3's owner click list as current procedure. Note the file WAS swept for false walls (classifier-denial sentences carry inline date stamps like 'classifier denied (2026-07-10)'), so the omission is specifically the era sweep, not neglect.
 
-**Check it:** `cd /home/user/fleet-manager && grep -n '^> \*\*Status:\*\*' docs/gen2-blueprint.md MISSION.md docs/NEXT-TASKS.md docs/fleet-triage.md; grep -ci 'era note\|historical\|seat-era' docs/gen2-blueprint.md; grep -c gen2-blueprint .claude/CLAUDE.md README.md docs/current-state.md docs/planning/2026-07-26-consolidation-program.md docs/intent.md docs/decisions.md`
+**Check it:** `cd . && grep -n '^> \*\*Status:\*\*' docs/gen2-blueprint.md MISSION.md docs/NEXT-TASKS.md docs/fleet-triage.md; grep -ci 'era note\|historical\|seat-era' docs/gen2-blueprint.md; grep -c gen2-blueprint .claude/CLAUDE.md README.md docs/current-state.md docs/planning/2026-07-26-consolidation-program.md docs/intent.md docs/decisions.md`
 
-### D73. `docs/gen2-blueprint.md:373` — contradiction
+### D66. `docs/gen2-blueprint.md:373` — contradiction
 
 > - Landing path: REST merge-on-green (R21 primary on this shape).
 
@@ -975,9 +893,9 @@ Spider" is 14 — comfortable.
 
 **Actually:** R21 is dead twice over, and this `binding` doc cites it as law in EIGHT places (lines 22, 117, 212, 224, 371, 373, 401, 425). docs/playbook.md:285 reads '**R21 (2026-07-09) — SUPERSEDED 2026-07-11 by the corrected UNIVERSAL v4 §2.4 merge clause** … agents never REST-merge or arm their OWN PRs' — so the blueprint's own citation was already stale one day after it was written. And that superseding clause was itself reversed on 2026-07-18/19 (fm #308/#309, playbook R30), leaving today's live rule in .claude/CLAUDE.md: 'You hold admin + push on every repo … Merge PRs, delete branches … all normal agent work.' A session that trusts the `binding` badge and follows R21 adopts a landing doctrine two revisions behind live capability. playbook.md carries a 2026-08-10 mixed-era banner naming R1/R2, R16/R17, R22/R24, R29/R30 as still useful — R21 is pointedly not on that list.
 
-**Check it:** `cd /home/user/fleet-manager && grep -n 'R21' docs/gen2-blueprint.md && sed -n '283,292p' docs/playbook.md && sed -n '1,12p' docs/playbook.md`
+**Check it:** `cd . && grep -n 'R21' docs/gen2-blueprint.md && sed -n '283,292p' docs/playbook.md && sed -n '1,12p' docs/playbook.md`
 
-### D74. `docs/handoff-2026-07-10.md:13` — contradiction
+### D67. `docs/handoff-2026-07-10.md:13` — contradiction
 
 > 1. `playbook.md` — **R1–R23, all binding** (R22 visibility guard
 
@@ -989,7 +907,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** Scope is understated in one direction and overstated in another. Understated: docs/handoff-2026-07-09.md has the identical problem — same `owner-guidance` status, same 'The successor session's first-read' framing, no era banner — so the fix is a two-file class, not one. Overstated: reachability is thin. Nothing in .claude/CLAUDE.md, README.md, docs/current-state.md or the consolidation program links to handoff-2026-07-10.md; the only inbound references are docs/launch-readiness-2026-07-10.md:124 and docs/dispatch-log.md:307, both themselves seat-era. A session reaches it by grep or file-tree browsing, not by walking the read path.
 
-### D75. `docs/ideas/archive-ready-retro-gap-advisory-2026-07-11.md:38` — stale-fact
+### D68. `docs/ideas/archive-ready-retro-gap-advisory-2026-07-11.md:38` — stale-fact
 
 > Quick-win, fleet-manager-side (`scripts/gen_roster.py`), no lane
 
@@ -1001,7 +919,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** 'gen_roster.py no longer runs on any schedule and the advisory would never be emitted' is half overstated. scripts/gen_roster.py still exists (110 KB) and roster-regen.yml still carries `workflow_dispatch:`, which docs/roster.md itself preserves deliberately ('Neither workflow is deleted — workflow_dispatch still works on both, per OD-3'). So the advisory could be emitted on a manual dispatch. The accurate statement is narrower and still damning: it never fires unattended (both cron lines removed 2026-08-07), and it would write into a file whose own header says 'Do not read the rows below as the state of anything.'
 
-### D76. `docs/launch-readiness-2026-07-10.md:86` — stale-fact
+### D69. `docs/launch-readiness-2026-07-10.md:86` — stale-fact
 
 > **owner-eyes-only** — agents can neither read nor write those surfaces
 
@@ -1013,7 +931,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** One mitigation the finding omits: the only live inbound link is docs/owner-queue.md:23, and it introduces the doc as 'Historical lineage of the gen-2 launch that seeded the earliest queue items', so a reader arriving by the read path is already told it is history. The other references are projects/venture-lab/meta.md (a projects/ file the boot file classifies as historical). That lowers the odds of the wall being believed but does not remove it — the doc's own words are 'a standing finding', present tense, with no date qualifier.
 
-### D77. `docs/owner-actions-2026-07-17.md:9` — snapshot-as-instruction
+### D70. `docs/owner-actions-2026-07-17.md:9` — snapshot-as-instruction
 
 > > `claude/owner-actions-0717` (PR #279). Hand this to an owner-live hub session
 
@@ -1025,7 +943,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** The 'owner-queue.md contradicts itself' half does not hold up and should be dropped. Line 528-529 is not a second live assertion: a heading scan shows it sits under '## Inherited cross-repo owner asks — status as recorded' (line 65), whose own banner reads 'These entries preserve their last recorded status and instructions. They are not a 2026-08-10 verification of another repository or external account. Re-check the owning surface before acting.' The sentence is further wrapped in a dated '*Standing note (R30, 2026-07-19):*' — a preserved record quoting the then-routing, not the queue claiming the doc is authoritative today. The surviving defect is the simple one: docs/owner-actions-2026-07-17.md is an unbannered file that presents ~266 open proposals and 9 console items as a live paste-ready owner list, and only owner-queue.md:14 — a different file — says otherwise.
 
-### D78. `docs/owner-queue-candidates.md:7` — stale-fact
+### D71. `docs/owner-queue-candidates.md:7` — stale-fact
 
 > > **Generation #430** · generated-at **2026-08-06T14:57Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 
@@ -1033,11 +951,11 @@ Spider" is 14 — comfortable.
 
 **Actually:** The roster was retired 2026-08-07 and BOTH roster-regen cron lines were removed — .github/workflows/roster-regen.yml now has only `workflow_dispatch` (its own header at line 107 says "Both cron lines removed; workflow_dispatch KEPT"). Nothing regenerates this file on a schedule, so it is frozen at Generation #430 forever, and every block in it is a verbatim extraction from a seat heartbeat dated 2026-07-09 to 2026-07-24 — seats terminated 2026-07-21. docs/roster.md received an explicit "⛔ RETIRED 2026-08-07 — this file is a record, not current truth" banner in that same pass; this companion generated feed (and docs/evidence-index.md, which carries the identical false cron line) did not, so the retirement is only partly landed and this file still presents itself as live.
 
-**Check it:** `head -9 /home/user/fleet-manager/docs/owner-queue-candidates.md; sed -n '105,120p' /home/user/fleet-manager/.github/workflows/roster-regen.yml; head -12 /home/user/fleet-manager/docs/roster.md; head -8 /home/user/fleet-manager/docs/evidence-index.md`
+**Check it:** `head -9 docs/owner-queue-candidates.md; sed -n '105,120p' .github/workflows/roster-regen.yml; head -12 docs/roster.md; head -8 docs/evidence-index.md`
 
 **Refuter's correction:** Accurate as written, including the 12-block count and the identical defect in docs/evidence-index.md:7. Worth noting the fix is one banner applied to both files, matching docs/roster.md's, since they are generated by the same `scripts/gen_roster.py` run.
 
-### D79. `docs/owner-queue-candidates.md:3` — snapshot-as-instruction
+### D72. `docs/owner-queue-candidates.md:3` — snapshot-as-instruction
 
 > > **Status:** `living-ledger`
 
@@ -1045,11 +963,11 @@ Spider" is 14 — comfortable.
 
 **Actually:** Same defect as evidence-index.md and the same root commit: the roster retirement (2026-08-07, PR #812) removed both roster-regen cron lines, so this feed is frozen at 2026-08-06T14:57Z with no path to refresh. docs/roster.md received the historical banner; this second same-generator output did not. A session grooming the owner queue would treat a stale extraction of seat-era heartbeats (from repos whose seats no longer exist) as a live candidate feed.
 
-**Check it:** `cd /home/user/fleet-manager && sed -n '1,7p' docs/owner-queue-candidates.md && grep -n 'workflow_dispatch:\|cron lines removed' .github/workflows/roster-regen.yml && git log --oneline -1 -- docs/owner-queue-candidates.md`
+**Check it:** `cd . && sed -n '1,7p' docs/owner-queue-candidates.md && grep -n 'workflow_dispatch:\|cron lines removed' .github/workflows/roster-regen.yml && git log --oneline -1 -- docs/owner-queue-candidates.md`
 
 **Refuter's correction:** Two details need softening. (1) 'no path to refresh' — `workflow_dispatch:` is retained in roster-regen.yml (line 117); only the schedule was removed. (2) The supporting citation to docs/current-state.md is weaker than stated: the phrase 'fed by the generated docs/owner-queue-candidates.md' is at line 99, which falls inside the section opened at line 61, '## Historical seat-era baseline — preserved, not current' — already bannered. The live defect is entirely in this file's own unbannered `living-ledger` header.
 
-### D80. `docs/owner-steps-2026-07-18.md:3` — contradiction
+### D73. `docs/owner-steps-2026-07-18.md:3` — contradiction
 
 > > **Status:** `audit`
 
@@ -1057,11 +975,11 @@ Spider" is 14 — comfortable.
 
 **Actually:** docs/owner-queue.md:3 declares itself "the ONE deduplicated list of things waiting on the owner", and its §Context explicitly demotes the sibling seat-era lists (owner-actions-2026-07-17.md, NEXT-TASKS.md) — but never mentions owner-steps-2026-07-18.md, which current-state.md (read-path entry 1) still advertises as current. Two live surfaces therefore each name a different document as the owner's action list. Comparable seat-era docs (docs/roster.md, control/README.md, docs/playbook.md) all received explicit RETIRED/mixed-era banners; this one was missed, so nothing tells a session its contents are three weeks stale.
 
-**Check it:** `grep -rn "owner-steps-2026-07-18" --include=*.md /home/user/fleet-manager | grep -v '/.sessions/'; head -20 /home/user/fleet-manager/docs/owner-steps-2026-07-18.md; head -10 /home/user/fleet-manager/control/README.md`
+**Check it:** `grep -rn "owner-steps-2026-07-18" --include=*.md . | grep -v '/.sessions/'; head -20 docs/owner-steps-2026-07-18.md; head -10 control/README.md`
 
 **Refuter's correction:** 'Two live surfaces each name a different document as the owner's action list' is overstated. current-state.md:438 sits inside `## Recently shipped (newest first)` (heading at line 166) — a dated changelog whose neighbours are 2026-07-16..07-18 entries, not a live index; the present-tense 'the current…' is that entry's wording as of its ship date. The real defect is narrower and still real: the doc itself carries no era banner while every comparable seat-era doc got one in the 2026-08-10 pass, and owner-queue.md's §Context demotes its siblings owner-actions-2026-07-17.md and NEXT-TASKS.md by name but never this file. Fix = add the banner to the file (and/or name it in owner-queue.md:14-15), not rewrite current-state.md's changelog.
 
-### D81. `docs/owner-steps-2026-07-18.md:167` — stale-fact
+### D74. `docs/owner-steps-2026-07-18.md:167` — stale-fact
 
 > - **Approve the apparatus-sizing recommendation** (OQ-FM-APPARATUS-SIZING). Keep
   merge-on-green / substrate-gate / roster-freshness + the S3/S5/S9 checkers; slow
@@ -1071,11 +989,11 @@ Spider" is 14 — comfortable.
 
 **Actually:** All three are answered and the first was answered differently from what this list asks for. docs/owner-queue.md:588 records OQ-FM-APPARATUS-SIZING RESOLVED 2026-08-07 — the owner said "Yes retire the roster, I don't need it", both roster-regen cron lines were removed (not slowed to daily) and roster-freshness.yml's pull_request trigger was removed. docs/owner-queue.md:674 records OQ-CR-SLICER-ANSWER RESOLVED 2026-08-07 (Bambu Studio). Delete-vs-archive was ruled 2026-07-26 as OD-3. Because the file carries no era banner and current-state.md calls it current, a session preparing owner steps would re-put three settled questions to the owner, and the apparatus one in a form the owner already overruled.
 
-**Check it:** `sed -n '162,170p' /home/user/fleet-manager/docs/owner-steps-2026-07-18.md; grep -n "OQ-FM-APPARATUS-SIZING\` .RESOLVED\|OQ-CR-SLICER-ANSWER" /home/user/fleet-manager/docs/owner-queue.md; grep -n "on:" -A 3 /home/user/fleet-manager/.github/workflows/roster-regen.yml`
+**Check it:** `sed -n '162,170p' docs/owner-steps-2026-07-18.md; grep -n "OQ-FM-APPARATUS-SIZING\` .RESOLVED\|OQ-CR-SLICER-ANSWER" docs/owner-queue.md; grep -n "on:" -A 3 .github/workflows/roster-regen.yml`
 
 **Refuter's correction:** Line numbers slightly off for two of the three: the slicer ask spans 186-187 and delete-vs-archive is at 164-166 (the finding cites 186 and 164 as the anchors, which is fine). A fourth stale item sits in the same unbannered file at 157-160 — the `ROSTER_READ_TOKEN` conditional PAT, the same ask finding 135 shows was mooted on 2026-08-07 — so the count of settled questions this file would re-put to the owner is four, not three.
 
-### D82. `docs/ownership.md:15` — stale-fact
+### D75. `docs/ownership.md:15` — stale-fact
 
 > One writer per file: the owner writes control/inbox.md; the manager writes everything else (docs/, templates/, control/status.md). Shared-repo protocol surfaces follow docs/playbook.md R9-R10.
 
@@ -1083,11 +1001,11 @@ Spider" is 14 — comfortable.
 
 **Actually:** Both halves describe machinery that no longer exists and that other live surfaces mark historical. control/README.md opens "**RETIRED 2026-07-17 — autonomous apparatus wound down; historical only** … do not resume the ORDER-relay or treat these files as live state"; the boot file lists control/ as seat-era historical. There is no "manager" seat: the autonomous-Projects program closed 2026-07-21 and work now runs in regular sessions. docs/playbook.md's own 2026-08-10 mixed-era banner names R1/R2, R16/R17, R22/R24, R29/R30 as still useful and classes the control-bus rules as historical — R9 ("One writer per file; appends only on inboxes") and R10 (arbitration precedent) are in the historical class. ownership.md is in the kit's planted doc set and is reached from docs/AGENT_ORIENTATION.md as a binding contract, so a session routed there is handed a retired ownership model as binding law. Its ownership table is also still the unfilled template placeholder "(one row per owned area)".
 
-**Check it:** `cat /home/user/fleet-manager/docs/ownership.md; head -10 /home/user/fleet-manager/control/README.md; sed -n '1,15p;54,58p' /home/user/fleet-manager/docs/playbook.md; grep -n "ownership" /home/user/fleet-manager/docs/AGENT_ORIENTATION.md`
+**Check it:** `cat docs/ownership.md; head -10 control/README.md; sed -n '1,15p;54,58p' docs/playbook.md; grep -n "ownership" docs/AGENT_ORIENTATION.md`
 
 **Refuter's correction:** Understated on one point: AGENT_ORIENTATION.md does not merely reach ownership.md, it affirmatively vouches for it. Its 2026-08-10 mixed-era banner (lines 5-10) sends the manager-seat routes to history but lines 24-26 explicitly keep the planted doc set — naming 'ownership' — and assert 'That half is still accurate.' So the 2026-08-10 banner pass actively certified this file while its body still describes the retired control bus and a nonexistent manager seat.
 
-### D83. `docs/planning/2026-07-14-central-docs-plan.md:3` — snapshot-as-instruction
+### D76. `docs/planning/2026-07-14-central-docs-plan.md:3` — snapshot-as-instruction
 
 > > **Status:** `plan`
 
@@ -1099,7 +1017,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** "Every mechanism it instructs a session to use is retired" is overstated. The doc's goal (fm as the docs SSOT) is still the live direction, and its class-C conventions remain cited as authority by live generated files — registry/README.md line 5 ("central-docs-plan §4 class C") and registry/kit-versions.md line 5 ("INC-42 / central-docs-plan C4"). The accurate finding is the missing `historical` era-banner over the seat-era EXECUTION mechanics (inbox ORDERs, lanes, roster regen), not that the whole document is dead.
 
-### D84. `docs/planning/2026-07-24-app-plan-life-admin.md:3` — stale-fact
+### D77. `docs/planning/2026-07-24-app-plan-life-admin.md:3` — stale-fact
 
 > > **Status:** `plan` — awaiting owner go/no-go (see Decisions below; queued as `OQ-APP-PLAN-GO`).
 
@@ -1109,7 +1027,7 @@ Spider" is 14 — comfortable.
 
 **Check it:** `sed -n '3p' docs/planning/2026-07-24-app-plan-life-admin.md; grep -n 'OQ-APP-PLAN-GO' docs/owner-queue.md docs/planning/README.md`
 
-### D85. `docs/planning/2026-07-26-ci-consolidation.md:118` — contradiction
+### D78. `docs/planning/2026-07-26-ci-consolidation.md:118` — contradiction
 
 > `merge-on-green`, `auto-merge-disarm`, `automerge-card-guard`,
 
@@ -1121,7 +1039,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** Slightly overstated on blast radius: the program's C2 (line 131) already carries the corrected rule, so the risk materialises only for a session that works the CI cleanup from this companion doc without reading the program's C-track row. The heading the quote sits under is line 115, not 118 (118 is the list line itself, which is where the quote was taken from and is correct).
 
-### D86. `docs/planning/2026-07-26-final-eap-email-plan.md:1` — unreachable-authority
+### D79. `docs/planning/2026-07-26-final-eap-email-plan.md:1` — unreachable-authority
 
 > > **Status:** `plan` - owner-directed 2026-07-26 ... Program step **E1** (the program's NOW).
 
@@ -1133,7 +1051,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** Measured depth is 4 hops from README.md, not 5 (README -> docs/intent.md -> planning/2026-08-08-fleet-manager-as-index.md -> planning/README.md -> plan). The staleness also propagates: docs/planning/README.md's own table row calls it "Program step **E1** (the NOW)". Mitigation worth noting: the program's own E1 block loudly says OWNER-RESERVED and points at D2, so a session that read the mandatory files first is unlikely to be misled by the plan's header alone.
 
-### D87. `docs/planning/2026-07-26-final-eap-email-plan.md:6` — contradiction
+### D80. `docs/planning/2026-07-26-final-eap-email-plan.md:6` — contradiction
 
 > Program step **E1** (the program's NOW).
 
@@ -1143,7 +1061,7 @@ Spider" is 14 — comfortable.
 
 **Check it:** `grep -n "program's NOW" docs/planning/2026-07-26-final-eap-email-plan.md; sed -n '62,84p' docs/planning/2026-07-26-consolidation-program.md; sed -n '12p' docs/planning/README.md`
 
-### D88. `docs/planning/README.md:5` — stale-count
+### D81. `docs/planning/README.md:5` — stale-count
 
 > > Index of `docs/planning/` — dated plans and launch/follow-up records. Each
 
@@ -1153,7 +1071,7 @@ Spider" is 14 — comfortable.
 
 **Check it:** `ls -1 docs/planning/; grep -c '^| 20' docs/planning/README.md; grep -n '2026-08-08' docs/planning/README.md`
 
-### D89. `docs/planning/idea-backlog.md:12` — stale-count
+### D82. `docs/planning/idea-backlog.md:12` — stale-count
 
 > > 46 idea block(s) across 244 card(s) · 4 ungroomed · 4 ungroomed older than 2d.
 
@@ -1161,11 +1079,11 @@ Spider" is 14 — comfortable.
 
 **Actually:** The tree now holds 344 session cards (345 .md files minus README.md), and 342 of them carry a 💡 idea block — so the file's own scope line is ~100 cards stale and its harvest total is off by roughly 7x. Derived from this batch: 25 of my 26 cards (all dated 2026-07-10/11, well inside the 244 the file claims to have scanned) carry a 💡 Session idea block, yet exactly ONE (2026-07-10-registry-gap-closure.md) appears in the backlog table. A planning session that reads '4 ungroomed' concludes grooming is essentially finished; the true ungroomed population is in the hundreds. The file's 'NOT SOURCE OF TRUTH' and 'generated-at 2026-07-19' banners disclose staleness but not the undercount, which is a harvest defect inside the window it did scan.
 
-**Check it:** `cd /home/user/fleet-manager && sed -n '10,12p' docs/planning/idea-backlog.md && ls .sessions/*.md | wc -l && grep -l '💡' .sessions/*.md | wc -l && for f in $(tail -n +3 docs/audits/2026-08-10-full-read/enumeration.tsv | cut -f2 | sed -n '69,94p'); do grep -qF "$(basename $f)" docs/planning/idea-backlog.md && echo "listed: $(basename $f)"; done`
+**Check it:** `cd . && sed -n '10,12p' docs/planning/idea-backlog.md && ls .sessions/*.md | wc -l && grep -l '💡' .sessions/*.md | wc -l && for f in $(tail -n +3 docs/audits/2026-08-10-full-read/enumeration.tsv | cut -f2 | sed -n '69,94p'); do grep -qF "$(basename $f)" docs/planning/idea-backlog.md && echo "listed: $(basename $f)"; done`
 
 **Refuter's correction:** Two details wrong, one of them load-bearing. (1) '~100 cards stale' mischaracterizes the scope line: 244 was accurate for the 2026-07-19 generation date (245 cards existed dated on/before it), and the drift to 344 is ordinary snapshot aging that the 'generated-at' stamp discloses. Drop that half. (2) 'off by roughly 7x' uses the wrong denominator; within the window the harvester found 46 of 243 idea-carrying cards, ~5.3x. The surviving, sharper statement: the harvester misses ~81% of in-window idea-carrying cards, and regenerating the file today still reports '4 ungroomed', so the misleading figure is structural and cannot be fixed by re-running the generator.
 
-### D90. `docs/project-recreation-runbook.md:78` — contradiction
+### D83. `docs/project-recreation-runbook.md:78` — contradiction
 
 > 3. **Delete only ids attributed to stopped seats** — the failsafe id (and its I8 dup) for each Project the owner stopped.
 
@@ -1177,7 +1095,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** Two overstatements worth fixing. (1) 'linked plainly from the live docs/current-state.md:442' — the link is real but sits inside the '## Recently shipped (newest first)' log whose heading is at docs/current-state.md:166, i.e. a chronological record of what landed, not an active pointer. (2) The §2 reference is step 2 (line 31: 'so a post-stop sweeper session (§5) can find and delete them'), not an instruction to delete. Mitigation the finding omits: the MCP route is now hard-denied by trigger_tools_guard.py, so following the runbook costs a blocked call rather than an actual deletion — the exposure is the warn-only direct-API route and the wasted cycle.
 
-### D91. `docs/prompts/chatgpt-project-instructions.md:3` — contradiction
+### D84. `docs/prompts/chatgpt-project-instructions.md:3` — contradiction
 
 > > **Status:** `owner-guidance` · rewritten 2026-08-10 after the first measured run
 
@@ -1189,7 +1107,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** Scope is slightly wider than stated: docs/prompts/README.md is also non-historical ('Status: `living-ledger`'), so three files in the directory contradict the blanket label, not two. Note also that the label is defensible for the bulk of the directory (baseline-2026-07-11/, v3/, gen1-winddown-universal.md, universal-wakeup.md etc. are genuinely seat-era) — the fix is a carve-out sentence, not deleting the classification.
 
-### D92. `docs/prompts/init-prompt-universal.md:24` — contradiction
+### D85. `docs/prompts/init-prompt-universal.md:24` — contradiction
 
 > At seat cutover: the NEW seat re-arms its own trigger FIRST, then `delete_trigger` the old one (F-1 rule).
 
@@ -1199,7 +1117,7 @@ Spider" is 14 — comfortable.
 
 **Check it:** `grep -n "delete_trigger" docs/prompts/init-prompt-universal.md`
 
-### D93. `docs/providers/grok.md:146` — contradiction
+### D86. `docs/providers/grok.md:146` — contradiction
 
 > - Nothing here is measured in this estate yet.
 
@@ -1207,9 +1125,9 @@ Spider" is 14 — comfortable.
 
 **Actually:** The same file carries a whole section headed '## Measured here — the chat tab and Imagine are different capabilities' at line 92, with owner-run sprite tests dated 2026-08-04 scored against spider-swing's reference art, plus an app-settings measurement at line 119 that the doc itself says 'closes' one of its own nulls. The boilerplate honest-null line is correct in cohere.md, deepseek.md, meta-llama.md and mistral.md and was copied into grok.md without re-deriving it. A session reading the nulls section concludes nothing has been tried here and re-runs measurements that exist — and docs/repos/spider-swing/records.md points at this very file for 'per-provider rows measured on this repo's art work'.
 
-**Check it:** `cd /home/user/fleet-manager && grep -n 'Measured here\|Nothing here is measured\|measured 2026-08-04' docs/providers/grok.md && grep -rn 'Nothing here is measured in this estate yet' docs/providers/`
+**Check it:** `cd . && grep -n 'Measured here\|Nothing here is measured\|measured 2026-08-04' docs/providers/grok.md && grep -rn 'Nothing here is measured in this estate yet' docs/providers/`
 
-### D94. `docs/q-index.md:1` — unreachable-authority
+### D87. `docs/q-index.md:1` — unreachable-authority
 
 > # Q-index — repo-qualified owner-decision register (INDEX)
 
@@ -1217,11 +1135,11 @@ Spider" is 14 — comfortable.
 
 **Actually:** Nothing a session reads today reaches it. Outside .sessions/, .substrate/ and this audit's own files, docs/q-index.md is referenced only by four seat-era documents all dated 2026-07-11..2026-07-14 (dispatch-log.md, findings/manifest-parallel-run-2026-07-11.md, fleet-inconsistencies-2026-07-13.md, planning/2026-07-14-central-docs-plan.md). It is absent from .claude/CLAUDE.md, README.md, docs/AGENT_ORIENTATION.md, docs/decisions.md, docs/intent.md and docs/playbook.md. Critically, CLAUDE.md's § 'Where a decision lives, so you cite the right record' enumerates docs/decisions.md, the program OD table, the Layer-2 planning doc and substrate-kit's PL register — and omits the one register for cross-repo Q-IDs. So a session about to cite a Q-number has no route to the index built to stop it mislabelling one, while the file still wears a `living-ledger` badge implying someone maintains it.
 
-**Check it:** `cd /home/user/fleet-manager && git grep -lI 'q-index' -- . | grep -v '^\.sessions/' | grep -v '^\.substrate/' | grep -v '^docs/q-index.md' && grep -c 'q-index' .claude/CLAUDE.md docs/decisions.md README.md`
+**Check it:** `cd . && git grep -lI 'q-index' -- . | grep -v '^\.sessions/' | grep -v '^\.substrate/' | grep -v '^docs/q-index.md' && grep -c 'q-index' .claude/CLAUDE.md docs/decisions.md README.md`
 
 **Refuter's correction:** Two referrers are not bannered historical — docs/dispatch-log.md and docs/fleet-inconsistencies-2026-07-13.md both carry `Status: living-ledger`, and docs/planning/2026-07-14-central-docs-plan.md carries `Status: plan`. They are nonetheless all seat-era 2026-07-11..07-14 documents outside every current read path, so the reachability conclusion is unaffected.
 
-### D95. `docs/reading-path.md:24` — stale-fact
+### D88. `docs/reading-path.md:24` — stale-fact
 
 > all fleet siblings are public and readable read-only EXCEPT pokemon-mod-lab (PRIVATE — raw/clone hits an auth wall; roster marks it NOT MEASURED; never raw-fetch or guess about it)
 
@@ -1229,9 +1147,9 @@ Spider" is 14 — comfortable.
 
 **Actually:** There are two private repos, not one: GET /user/repos?affiliation=owner returns pokemon-mod-lab AND shiftlife as private (24 owned repos total). shiftlife was created 2026-07-24 — before the 2026-08-08 correction block in this same file, which re-blesses this section verbatim: 'The read authorization and the mechanics in §0 and §§2–4 below are unchanged and still correct.' The corrector inherited §0 rather than re-deriving it. The historical banner at the top does not cover §0, because §1 explicitly exempts §0 from it. A session following this treats shiftlife as public and guessable — and the owner stated live on 2026-08-10 that shiftlife is not active, so guessing about it is exactly the wrong move.
 
-**Check it:** `curl -sS --noproxy '*' -H "Authorization: Bearer $GITHUB_PAT" 'https://api.github.com/user/repos?per_page=100&affiliation=owner' | python3 -c "import sys,json;d=json.load(sys.stdin);print('owned',len(d));print('private',[r['name'] for r in d if r['private']])" && sed -n '24p;49,50p' /home/user/fleet-manager/docs/reading-path.md`
+**Check it:** `curl -sS --noproxy '*' -H "Authorization: Bearer $GITHUB_PAT" 'https://api.github.com/user/repos?per_page=100&affiliation=owner' | python3 -c "import sys,json;d=json.load(sys.stdin);print('owned',len(d));print('private',[r['name'] for r in d if r['private']])" && sed -n '24p;49,50p' docs/reading-path.md`
 
-### D96. `docs/research/2026-07-12-platform-capabilities.md:24` — stale-fact
+### D89. `docs/research/2026-07-12-platform-capabilities.md:24` — stale-fact
 
 > 9. GitHub is **MCP-only** (no `gh` CLI, REST 403 via proxy incl. stub-200 bodies); tags/releases via `workflow_dispatch`; Actions runners face GH013 + a PR-create permission toggle (§5).
 
@@ -1239,9 +1157,9 @@ Spider" is 14 — comfortable.
 
 **Actually:** All three sub-claims are refuted at HEAD. `command -v gh` returns /usr/bin/gh. The estate's live capability record says the opposite: .claude/CLAUDE.md holds 'admin + push on every repo via the direct-PAT path ... Merge PRs, delete branches, change settings/rulesets, create releases/secrets/tags' and docs/CAPABILITIES.md:776 records tag/release/branch-delete 'ALL SUCCEED on the direct-PAT path'. Only the *proxied* REST path 403s. This matters because the doc is not inert: docs/AGENT_ORIENTATION.md:47 links it in present tense as 'the verified platform capability/limitation ledger (what claude.ai Projects/sessions CAN and CANNOT do)', and that file's 2026-08-10 era banner explicitly keeps the document-set routes as live 'reference material' while retiring only the manager-seat routes. The same wall is restated at line 344. tools/check_no_false_walls.py cannot catch it: its scan set is a narrow allowlist (CONSTITUTION, current-state, owner-queue, .claude/CLAUDE.md, active CAPABILITIES) that excludes docs/research/.
 
-**Check it:** `cd /home/user/fleet-manager && command -v gh; grep -n 'MCP-only' docs/research/2026-07-12-platform-capabilities.md; grep -n 'research/2026-07-12-platform-capabilities' docs/AGENT_ORIENTATION.md; sed -n '5,8p' docs/AGENT_ORIENTATION.md; grep -n 'releases/secrets/tags' .claude/CLAUDE.md; sed -n '776,779p' docs/CAPABILITIES.md`
+**Check it:** `cd . && command -v gh; grep -n 'MCP-only' docs/research/2026-07-12-platform-capabilities.md; grep -n 'research/2026-07-12-platform-capabilities' docs/AGENT_ORIENTATION.md; sed -n '5,8p' docs/AGENT_ORIENTATION.md; grep -n 'releases/secrets/tags' .claude/CLAUDE.md; sed -n '776,779p' docs/CAPABILITIES.md`
 
-### D97. `docs/research/README.md:8` — unreachable-authority
+### D90. `docs/research/README.md:8` — unreachable-authority
 
 > Each entry gets a link line below when it merges; reports on unmerged branches are not listed (no dangling links).
 
@@ -1249,9 +1167,9 @@ Spider" is 14 — comfortable.
 
 **Actually:** Three merged, tracked reports are absent from the table: docs/research/2026-07-12-platform-capabilities.md, docs/research/2026-07-12-problem-census-satellites.md, and docs/research/2026-07-12-prompt-architecture.md. Two of the three are in this batch. The platform-capabilities ledger is the most-cited artifact of that night (docs/CAPABILITIES.md:963 and docs/AGENT_ORIENTATION.md:47 both point at it), and the satellites census is the one that carries the correct historical banner — yet neither is discoverable from its own index, so a session browsing docs/research/ concludes they do not exist. The index also carries the only staleness rider these docs get ('a snapshot of its census moment: verify claims against the repos'), which the unlisted files therefore never receive.
 
-**Check it:** `cd /home/user/fleet-manager && for f in $(git ls-files 'docs/research/*.md' | grep -v README); do b=$(basename "$f"); grep -q "($b)" docs/research/README.md || echo "MISSING FROM INDEX: $f"; done`
+**Check it:** `cd . && for f in $(git ls-files 'docs/research/*.md' | grep -v README); do b=$(basename "$f"); grep -q "($b)" docs/research/README.md || echo "MISSING FROM INDEX: $f"; done`
 
-### D98. `docs/research/README.md:8` — stale-count
+### D91. `docs/research/README.md:8` — stale-count
 
 > > the repos before acting on them (playbook R2). Each entry gets a link line
 
@@ -1261,17 +1179,7 @@ Spider" is 14 — comfortable.
 
 **Check it:** `ls docs/research/*.md | wc -l; grep -c '^| 2026' docs/research/README.md; for f in 2026-07-12-platform-capabilities.md 2026-07-12-problem-census-satellites.md 2026-07-12-prompt-architecture.md; do git ls-files --error-unmatch "docs/research/$f" >/dev/null && printf '%s tracked, in README: ' "$f" && grep -c "$f" docs/research/README.md; done`
 
-### D99. `docs/research/README.md:8` — stale-count
-
-> Each entry gets a link line
-
-**Claims:** The index promises a link line for every report as it merges ("reports on unmerged branches are not listed (no dangling links)") and then enumerates 12 reports.
-
-**Actually:** docs/research/ holds 15 merged reports at HEAD. Three tracked-at-HEAD reports have no row: 2026-07-12-platform-capabilities.md (the claude.ai Projects platform capability & limitation ledger, which docs/AGENT_ORIENTATION.md:47 links as an orientation doc), 2026-07-12-problem-census-satellites.md, and 2026-07-12-prompt-architecture.md (cited by docs/current-state.md:478). Because the header explains the only reason a report would be absent as "still on a branch", the omission reads as "these do not exist" rather than "these are pending" — a session using the folder's own living-ledger as the research inventory silently misses a fifth of it, including the capability ledger.
-
-**Check it:** `for f in $(ls -1 docs/research/*.md | xargs -n1 basename | grep -v '^README.md$'); do grep -q "($f)" docs/research/README.md || echo "UNLISTED: $f"; done; git ls-files docs/research/ | wc -l`
-
-### D100. `docs/review-queue.md:11` — snapshot-as-instruction
+### D92. `docs/review-queue.md:11` — snapshot-as-instruction
 
 > > **BINDING — auto-append rule (ORDER 003, 2026-07-10, program-review §5.2):**
 
@@ -1283,7 +1191,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** One scope detail is overstated: docs/workflow-pr-merge-policy.md governs `.github/workflows` PRs specifically, not every PR, so its conflict with 'no PR ever waits for review before landing' is narrower than the finding implies. The .claude/CLAUDE.md conflict (line 218, never merge a PR you asked Codex to review before it answers) is exact and unqualified. Everything else in the finding checks out.
 
-### D101. `docs/runtime_contracts.md:25` — stale-fact
+### D93. `docs/runtime_contracts.md:25` — stale-fact
 
 > All changes land as forward-only git commits through READY PRs to main (ruleset: PR required); control/inbox.md is append-only and owner-written; control/status.md is overwritten by the manager each working session.
 
@@ -1295,7 +1203,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** One sub-claim is wrong on its date: control/README.md was NOT first bannered in the 2026-08-10 D2 pass — it already carried 'RETIRED 2026-07-17' before commit 4b59e9b (which only touched it, per `git log`). The staleness of docs/runtime_contracts.md:25 relative to that banner is therefore ~3 weeks older than the finding suggests, which strengthens rather than weakens it.
 
-### D102. `docs/seat-digest.md:44` — stale-fact
+### D94. `docs/seat-digest.md:44` — stale-fact
 
 > - `any` · **`api.github.com` direct HTTP**: blocked → GitHub access is MCP-tools-only.
 
@@ -1307,19 +1215,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** Accurate, but it is a registered gap rather than a discovery: docs/CAPABILITIES.md:910-917 and the 2026-07-31 session card both name this exact line as the known unfixed residual, with the reason (the digest is a derived render of the kit-owned seed fence, so `bootstrap.py seat-digest` regenerates it byte-identical). Note also that lines 42 and 43 carry the same two false walls as line 44 — the defect is three rows in the digest, not one.
 
-### D103. `docs/seat-digest.md:44` — stale-fact
-
-> - `any` · **`api.github.com` direct HTTP**: blocked → GitHub access is MCP-tools-only.
-
-**Claims:** The walls digest presents three capability denials (tag push/release create, branch deletion, direct api.github.com) as this repo's current 'venue-relevant verified walls', in a block explicitly built to be pasted instead of reading the full ledger.
-
-**Actually:** docs/CAPABILITIES.md has since overturned all three by measurement: line 776 'Tag creation, GitHub Release creation and branch deletion ALL SUCCEED on the direct-PAT path — the three "Walls — verified blocked" rows above are false as written', and line 890 the api.github.com row 'is false as written'. The digest renders only the top-of-ledger seed rows and drops the later rebuttals, so the one file designed to be read in place of the ledger is exactly the file that carries the false walls. .claude/CLAUDE.md's 'Never write down a limitation' guard does not catch this: tools/check_no_false_walls.py scans only 5 living/binding docs and seat-digest.md is badged `reference`. Line 48 compounds it with a present-tense 'it is currently deadlocking fleet-manager' claim while PRs #833/#837 merged normally on 2026-08-09/10.
-
-**Check it:** `sed -n '42,49p' docs/seat-digest.md; grep -n 'rows above are false as written\|is false as written' docs/CAPABILITIES.md; python3 tools/check_no_false_walls.py`
-
-**Refuter's correction:** The line-48 sub-claim is weaker than stated. That row derives from a real, still-present CAPABILITIES.md entry (line 257, 2026-08-07) whose scope is PRs opened by `GITHUB_TOKEN` — bot-authored PRs get zero check runs — which does not contradict #833/#837 merging normally, since those are agent/PAT PRs. What IS stale about it is the resolution: option (d) of that entry was taken (docs/roster.md carries "⛔ RETIRED 2026-08-07", roster-regen.yml and roster-freshness.yml are both `on: workflow_dispatch:` only), so "currently deadlocking fleet-manager" no longer holds — and the digest renders it undated, stripping the ledger's date context.
-
-### D104. `docs/seat-digest.md:36` — contradiction
+### D95. `docs/seat-digest.md:36` — contradiction
 
 > Full index (grounds + capabilities): `docs/SKILLS.md` — the source this block derives from.
 
@@ -1331,7 +1227,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** Overstated: only TWO of the four (`rationalize`, `scope-backlog-item`) are absent from SKILLS.md entirely. `chase-references` and `prep-owner-steps` DO appear, at lines 87-100 under "## Fleet seed skills — pointer (not kit-shipped yet)", which wrongly says their bodies live in superbot — stale rather than missing. The finding's backticked grep returned 0 for all four because that section writes them bold, not backticked. Also already-known: docs/SKILLS-local.md § "What this roster fixed" (MEASURED 2026-08-08) documents both defects and declares itself the true list until a regen clears them, and .claude/CLAUDE.md routes sessions to SKILLS-local.md for the installed roster — so a boot-path-following session is not misled.
 
-### D105. `docs/trigger-health-spec.md:3` — snapshot-as-instruction
+### D96. `docs/trigger-health-spec.md:3` — snapshot-as-instruction
 
 > > **Status:** `binding`
 
@@ -1343,7 +1239,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** One detail is overstated: docs/prompts/README.md is badged 'living-ledger', not historical, so 'every other explicitly seat-era surface carries a banner' is not quite exact. The sharper precedent is MISSION.md, which keeps 'Status: `binding`' but adds '**Era note, 2026-08-08 — the mission below is seat-era and its done-when is not measurable today**' — exactly the treatment this spec is missing.
 
-### D106. `docs/trigger-health-spec.md:35` — snapshot-as-instruction
+### D97. `docs/trigger-health-spec.md:35` — snapshot-as-instruction
 
 > Each manager wake:
 
@@ -1355,7 +1251,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** docs/reading-path.md (named in the finding's evidence_cmd) does not exist in the tree; the reachability result is unchanged — the grep across CLAUDE.md, README.md, current-state.md and the consolidation program returns nothing.
 
-### D107. `project.index.json:9` — stale-fact
+### D98. `project.index.json:9` — stale-fact
 
 > "MISSION.md",
 
@@ -1367,7 +1263,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** The 'generated pack instructs an agent' impact is latent, not realised: `ls .substrate/contextpacks/` returns 'No such file or directory' — no context pack has ever been generated in this repo, so the misdirection only fires if someone runs `bootstrap.py contextpack`. The file-level staleness is nonetheless real and unbannered, and the second area (`control-bus`, folio control/README.md, source_roots control/inbox.md + control/status.md + control/claims) is equally stale — the finding understates the scope by naming only records-custody.
 
-### D108. `projects/UNIVERSAL.md:4` — contradiction
+### D99. `projects/UNIVERSAL.md:4` — contradiction
 
 > > **Status:** `living` — v5 · 2026-07-15. **Edit-registry-first:** this file is
 
@@ -1375,11 +1271,11 @@ Spider" is 14 — comfortable.
 
 **Actually:** It sits inside `projects/`, which projects/README.md (lines 3-9) badges `historical` and says "must not be used to boot a session", and which README.md line 56 calls "explicitly historical". A `living` badge plus "this grant is standing owner authority; it survives session restarts" reads as current truth, and it is the route target of two files in this batch (projects/self-improvement/instructions.md line 61 `UNIV=fm:projects/UNIVERSAL.md`; projects/product-forge/instructions.md line 73). Its content is not inert: line 61 and line 120 both grant "MANAGE YOUR OWN WAKE MECHANICS: create/delete/re-arm your seat's triggers", which contradicts the live `[D‑0015]` rule in .claude/CLAUDE.md ("Never delete a trigger") that .claude/hooks/trigger_tools_guard.py enforces with the estate's only `permissionDecision: deny`.
 
-**Check it:** `cd /home/user/fleet-manager && sed -n '1,6p' projects/UNIVERSAL.md && sed -n '3,9p' projects/README.md && grep -n "delete/re-arm" projects/UNIVERSAL.md && grep -n 'permissionDecision' .claude/hooks/trigger_tools_guard.py`
+**Check it:** `cd . && sed -n '1,6p' projects/UNIVERSAL.md && sed -n '3,9p' projects/README.md && grep -n "delete/re-arm" projects/UNIVERSAL.md && grep -n 'permissionDecision' .claude/hooks/trigger_tools_guard.py`
 
 **Refuter's correction:** Ten instructions.md files route to it, not two (ideas-lab, game-lab, self-improvement, fleet-manager, superbot-world, websites, venture-lab, curious-research, superbot-2.0 all carry `UNIV=fm:projects/UNIVERSAL.md (grant v2 + MANDATE)` on line 60/61). Practical harm from the delete-trigger clause specifically is capped by trigger_tools_guard.py's deny; the live-badge-inside-a-dead-tree problem is what makes it a defect.
 
-### D109. `registry/README.md:11` — stale-fact
+### D100. `registry/README.md:11` — stale-fact
 
 > `scripts/gen_roster.py` (regenerated with every roster generation)
 
@@ -1391,7 +1287,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** Accurate as written. One nuance worth carrying: the sentence is not literally false (a manual `workflow_dispatch` run would still regenerate lanes.json) — the defect is the omission, i.e. registry/README.md records a writer that no longer fires on any schedule and carries no retirement note, while `registry/` is the only surviving gen_roster.py output not classified historical anywhere.
 
-### D110. `registry/kit-versions.md:7` — stale-fact
+### D101. `registry/kit-versions.md:7` — stale-fact
 
 > generated-at **2026-07-14T04:49Z** · newest fleet tree version measured: **v1.15.0**
 
@@ -1419,7 +1315,6 @@ defects. Nothing here needs fixing; several are historical records that are
 | `docs/CAPABILITIES.md:238` | stale-count | The doc-routing hook carries 19 routes. Stated twice - also at line 433. |
 | `docs/repos/spider-swing/records.md:10` | stale-count | Exactly 28 files in fleet-manager mention spider-swing, and this index covers them. |
 | `docs/repos/spider-swing/records.md:63` | stale-count | docs/CAPABILITIES.md is 1,638 lines. |
-| `docs/repos/spider-swing/records.md:10` | stale-count | The Layer-2 spider-swing index states that 28 files in fleet-manager mention spider-swing, and offers that number as the reason the index exists. |
 | `docs/repos/spider-swing/records.md:23` | other | The Layer-2 spider-swing folder's "Research — the Gemini/visual-QA line" table lists three of the four 2026-08-03 Gemini research documents and omits  |
 | `docs/repos/spider-swing/working-here.md:9` | broken-ref | The intent doc that ratified this file's shape lives at ../intent.md. |
 | `.claude/hooks/README.md:381` | stale-count | The estate's hook inventory is three PreToolUse hooks, one Stop and one UserPromptSubmit (five registrations, five scripts). |
@@ -1473,7 +1368,6 @@ defects. Nothing here needs fixing; several are historical records that are
 | `.substrate/ci/branch-sweep.yml:22` | stale-fact | Agent-side branch deletion is 403-walled; the workflow is 'the sanctioned path around that wall'. |
 | `.substrate/claude/CLAUDE.md:41` | stale-count | The vendored dist is about 12,000 generated lines, and .substrate/ holds kit state plus a byte backup of the previous dist (singular). |
 | `.substrate/claude/CLAUDE.md:28` | contradiction | A `binding`-badged working agreement declaring the whole boot set to be three items (this file, HANDOFF.md, docs/current-state.md), with the architect |
-| `.substrate/claude/CLAUDE.md:41` | stale-count | bootstrap.py is about 12,000 generated lines and .substrate/ holds a byte backup of the previous dist (singular). |
 | `.substrate/episodic_index.json:16` | stale-fact | The episodic index holds one episode - the 2026-07-09 seed-home-repo session, summarised as in-progress. |
 | `.substrate/guard-fires.jsonl:9811` | other | This file has a stable content fingerprint that can be recomputed and compared like the other 837 tracked files. |
 | `.substrate/guard-fires.jsonl:9806` | other | Raw guard-fire volume in this ledger reflects where the estate's defects actually are (top guards: stale-wall 2,431, stamp 2,351, dateless-wall 1,884) |
@@ -1485,6 +1379,7 @@ defects. Nothing here needs fixing; several are historical records that are
 | `CONSTITUTION.md:154` | stale-count | The constitution instructs that the file be kept under 150 lines. |
 | `bootstrap.py:19782` | stale-fact | Agent sessions are 403-walled from deleting remote branches on every path (capability-ledger row OA-10), so a scheduled workflow is the only sanctione |
 | `bootstrap.py:17725` | stale-count | WORKFLOW_JOB_CENSUS is the complete, ground-truth-read census of every job in every .github/workflows/*.yml, and EXPECTED_CENSUS_GATES = 1 pins 'exact |
+| `control/claims/README.md:8` | broken-ref | control/README.md contains a section titled 'Claiming an order' that defines the ORDER-claim carve-out. |
 | `control/outbox.md:6` | contradiction | The retirement banner routes a reader's 'next steps' to docs/NEXT-TASKS.md. |
 | `docs/AGENT_ORIENTATION.md:39` | stale-count | The playbook is advertised as containing rules R1 through R19. |
 | `docs/AGENT_ORIENTATION.md:72` | unreachable-authority | This router reaches every live doc in the repo. |

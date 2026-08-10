@@ -42,12 +42,14 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   actually is, and whether spider-swing enters the program at all.
   **WHERE:** [`planning/2026-07-26-consolidation-program.md`](planning/2026-07-26-consolidation-program.md)
   `:62` (the NOW pointer), `:102` (D2's order), `:45` (§2's target picture), plus the
-  three echoes at [`current-state.md`](current-state.md) `:40`, `:176`, `:517`.
-  **WHY IT MATTERS:** the pointer reads `D2 — shiftlife truth pass`, and you said
+  three echoes at [`current-state.md`](current-state.md) `:40`, `:193`, `:534`.
+  **WHY IT MATTERS:** the pointer read `D2 — shiftlife truth pass`, and you said
   live on 2026-08-10 that shiftlife is not active and that spider-swing and the
-  superbot repos are the important ones. **That statement exists nowhere in this
-  repository**, so every document agrees with every other one and all of them route
-  the next session to a dormant repo. Independently of your statement: spider-swing
+  superbot repos are the important ones. That statement is **now recorded as
+  OD-15** and the NOW pointer is marked superseded (fm #840) — at the time the
+  audit ran it existed nowhere in the repository, which is why every document
+  agreed and all of them routed the next session to a dormant repo. What remains
+  open is only the choice below. Independently of your statement: spider-swing
   is in **none** of §2's eight target rows and nowhere in D2's order, while `:86` of
   the same file records that every evening since 07-26 has gone to it — the order
   encodes 2026-07-26 activity and the repo was created 2026-07-28, so advancing the

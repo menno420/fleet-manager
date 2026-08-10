@@ -36,9 +36,12 @@ copy product architecture or internal product state. Canonical intent:
 
 - **E1 remains owner-reserved.** The final EAP email is written and sent by the
   owner; a session does not draft or send it.
-- **D2 is the actionable program step.** fleet-manager's truth pass is complete;
-  **shiftlife is next** in the repository order. The consolidation program's
-  NOW pointer is authoritative.
+- **D2 is the actionable program step.** fleet-manager's truth pass is complete.
+  The old "shiftlife is next" target is **SUPERSEDED** — owner, live, 2026-08-10:
+  shiftlife is not active; spider-swing and the superbot repos are the important
+  ones (OD-15; re-target pending at `OQ-FM-D2-TARGET`). Until he names the next
+  repository, the standing answer to "what should a session pick up" is **OD-13**:
+  methods/enforcement (the roadmap's Phases 2–3) and the multi-provider mix.
 - fleet-manager vendors substrate-kit v1.20.2. The dedicated v1.21.0 release
   session and its recorded upstream defects are separate from D2.
 - Whether a root `AGENTS.md` should make the neutral front door auto-load is an
@@ -165,18 +168,38 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 
 ## Recently shipped (newest first)
 
+- **The audit's raw record persisted; Codex round 2 closed; the browsable-repo
+  plan committed** (2026-08-10, fm #840): the per-file gists and full
+  candidate→refuter adjudication now live at
+  [`audits/2026-08-10-full-read/raw/`](audits/2026-08-10-full-read/README.md) —
+  they existed only in the session container. Fingerprint headline corrected to
+  **829/3 byte-exact** with the false clause retracted, duplicates merged
+  (**101 defect / 205 harmless**), evidence commands made checkout-independent.
+  **OD-15 recorded** (shiftlife not active — the owner statement the audit found
+  missing from the tree) and the NOW pointer marked superseded pending
+  `OQ-FM-D2-TARGET`. Verified: **no 1-PR limit exists anywhere in this repo**.
+  The owner's browsable-repo directive is designed in
+  [the navigation plan](planning/2026-08-10-repo-navigation-plan.md) — mandatory
+  reading order, tier labels, per-area "you are here" contract — execution
+  following in its §4 order.
+
 - **Every tracked file read, with the coverage proved rather than claimed**
   (2026-08-10, fm #839): [the full-read audit](audits/2026-08-10-full-read/README.md)
   — all **833** tracked files, ledger built from what 57 read agents *returned*
   (line count plus first and last non-empty line per path, each recomputed from the
   tree), **0 fingerprint mismatches, 0 unclaimed**. 345 findings raised, each handed
   to an independent refuter told to default to refuted: **322 survived · 23 refuted ·
-  0 unadjudicated**, split **110 defect / 206 stale-but-harmless** (6 merged as
-  duplicate sites).
+  0 unadjudicated** — final split after the fm #840 corrections above: **101
+  defect / 205 stale-but-harmless / 16 merged**, byte-exact fingerprints **829/3**
+  (this sentence originally carried the pre-correction totals; superseded in
+  place rather than left to disagree with the entry above).
   [findings.md](audits/2026-08-10-full-read/findings.md) leads with the seven that
-  cost the most. **The reported-fixed "Tier 1 filled" and D2-repo-order defects are
-  both still live** (`current-state.md:373` summarises the *superseded* half of the
-  design doc it links; the NOW pointer still names shiftlife). The shared mechanism:
+  cost the most. Of the two reported-fixed defects the audit found still live,
+  **the D2-repo-order defect is now CLOSED** (OD-15 + the superseded NOW pointer,
+  fm #840 — only the choice of next repository remains open at
+  `OQ-FM-D2-TARGET`); **"Tier 1 filled" remains live** at `current-state.md:390`,
+  which summarises the *superseded* half of the design doc it links. The shared
+  mechanism:
   **an appended correction does not retract what it corrects** — `CAPABILITIES.md`
   lists three walls at `:125` that the same file refutes at `:775`/`:888`, and the
   gate reports them only as *stale*. This session read and reported; the edit pass is
@@ -190,7 +213,7 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   rewritten. The cold failure, every hunt it caused, and the repaired-route
   proof are recorded in
   [the D2 finding](findings/2026-08-10-fleet-manager-cold-read.md). E1 remains
-  owner-reserved; D2 advances to **shiftlife**.
+  owner-reserved; D2's next-repo target is owner-pending (OD-15 superseded shiftlife).
 
 - **The owner's intent, asked and recorded — and two standing directives changed
   by his answers** (2026-08-08): [intent.md](intent.md) — fleet-manager's durable
@@ -531,8 +554,8 @@ by the successor's 23:50Z heartbeat, PR #97):
 **Current:** the authoritative next action is the consolidation program's NOW
 pointer in
 [`planning/2026-07-26-consolidation-program.md`](planning/2026-07-26-consolidation-program.md).
-E1 remains owner-reserved; D2 is the available track, with **shiftlife next** in
-its repository order.
+E1 remains owner-reserved; D2 is the available track; its next-repo target awaits
+the owner (OD-15 superseded shiftlife, 2026-08-10).
 
 Use
 [`findings/2026-08-05-foundation-continuation.md`](findings/2026-08-05-foundation-continuation.md)

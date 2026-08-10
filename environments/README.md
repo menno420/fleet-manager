@@ -3,6 +3,14 @@
 > **Status:** `living-ledger` — the fleet's registry of Claude Code **environment
 > specs** + **reusable templates**. Agents keep it current; the owner reads it when
 > creating or editing an environment in claude.ai.
+>
+> **Tier: TASK ·mixed** ([map](../docs/MAP.md)) — this index, `setup-base.sh`
+> and the spec/template files are **live** (`docs/execution-surfaces.md` routes
+> Claude Code environments through `setup-base.sh`, which carries post-close
+> fixes, e.g. the fleet-wide `gh` install 2026-08-03). The archetype scripts are
+> the **live provisioning configs** (thin wrappers sourcing `setup-base.sh`;
+> [`archetypes.md`](archetypes.md) is a `living-ledger`) — only entries that
+> `archetypes.md` itself marks retired are records.
 
 ## HARD RULE — no secret values, ever
 

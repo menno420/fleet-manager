@@ -37,6 +37,7 @@ Recorded from the owner live in the hub chat; each is a durable decision.
 | OD-12 | 07-26 | **proxybench: no action required.** Origin recorded: built with a session mostly as a joke, in response to a cold sales email from a proxy vendor about venture-lab — it is the honest benchmarking harness for exactly that vendor's claims (success rate / geo / stickiness). Stays parked as-is; disposition is open and unimportant. |
 | OD-13 | **08-08** | **Method and enforcement work comes before high-value product work.** Owner, intent interview: *"Before we can reliably focus on product work, we should make sure to further improve the methods and the rule enforcement. Product work is not explicitly blocked, but my advice is to first improve the workflow and further define the right mix of AI agents across different providers before we actually continue high value product work."* Two prerequisites, both named by him: **the methods/enforcement layer** (the roadmap's Phases 2–3) and **the multi-provider agent mix** ([`../intent.md`](../intent.md) § 7). Product work is not forbidden — it is deprioritised against these until they are further along. This is the standing answer to *"what should a session pick up"*. |
 | OD-14 | **08-08** | **fleet-manager's intent is recorded, and it is the thing plans are checked against.** [`../intent.md`](../intent.md) — purpose, success criteria, non-goals, decision heuristics, the agent roster, and the growth rule (**records may grow, instructions may not**). Owner-stated content is labelled `OWNER` and is not revisable by a session; anything labelled `DERIVED` is. |
+| OD-15 | **08-10** | **shiftlife is not active; spider-swing and the superbot repos are the important ones.** Owner, live, during the full-read audit session. This supersedes the D2 order’s `shiftlife` target (recorded at the NOW pointer below) and is the statement the audit found missing from the tree — every document agreed on shiftlife precisely because nothing recorded this. Concrete re-target: `OQ-FM-D2-TARGET`. |
 
 ## 2 · Target picture — 7 sections
 
@@ -59,12 +60,24 @@ hasn't said) picks the next NOW from the top of any track. **Verify before
 fold** — no repo is merged or archived before its conformance/truth pass. Every
 completed step appends a row to §7 with its PR.
 
-### ➡ NOW: **D2 — shiftlife truth pass**
+### ➡ NOW: **D2 — next repository awaits the owner's target (shiftlife SUPERSEDED)**
 
-The fleet-manager pass completed the first repository in D2's order. The next
-actionable repository is **shiftlife**. Apply the same fresh-session test there:
-purpose, live state and next step from no more than three files. Evidence for
-the fleet-manager pass:
+> **Target correction — OWNER, live, 2026-08-10 (recorded by the full-read audit
+> session, fm #839/#840):** *shiftlife is **not** active; spider-swing and the
+> superbot repos are the important ones.* The order below encodes 2026-07-26
+> activity and predates spider-swing (created 2026-07-28), which appears in
+> none of §2's target rows — so advancing this pointer could never reach the
+> repo he actually works on every evening (see the E1 deferral note above).
+> **Do not pick up shiftlife on this pointer.** Until he re-targets D2
+> (`OQ-FM-D2-TARGET` in [`../owner-queue.md`](../owner-queue.md)), the standing
+> answer to "what should a session pick up" is **OD-13**: the methods/enforcement
+> layer ([roadmap](2026-08-08-agent-operating-environment-roadmap.md) Phases 2–3)
+> and the multi-provider mix — not high-value product work.
+
+The fleet-manager pass completed the first repository in D2's order. Apply the
+same fresh-session test to whichever repository the owner names next: purpose,
+live state and next step from no more than three files. Evidence for the
+fleet-manager pass:
 [`../findings/2026-08-10-fleet-manager-cold-read.md`](../findings/2026-08-10-fleet-manager-cold-read.md).
 
 > **Before acting on this pointer, read

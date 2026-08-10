@@ -1,5 +1,13 @@
 # Deployed prompts — verbatim ledger
 
+> **Two files here are LIVE, not part of the historical ledger below:**
+> [`chatgpt-project-instructions.md`](chatgpt-project-instructions.md) — the
+> standing Instructions for the owner's ChatGPT "Fleet Manager" project,
+> rewritten 2026-08-10 — and
+> [`2026-08-07-curious-research-external-review.md`](2026-08-07-curious-research-external-review.md),
+> a usable owner deliverable. Everything else is the deployed seat-prompt
+> record (gen-1 → v3.8) for the terminated seats.
+
 > **Status:** `living-ledger`
 >
 > Verbatim record of every Custom Instructions block and startup/coordination

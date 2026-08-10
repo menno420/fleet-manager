@@ -4,8 +4,9 @@
 > and records home** of the owner's repository estate. The autonomous-Projects program
 > that built most of it **closed 2026-07-21**; everything now runs in **regular
 > sessions like yours**, working the consolidation program with the owner, one
-> step at a time. This file plus the two live ledgers named below is the cold
-> orientation contract.
+> step at a time. The cold-orientation contract is
+> **README.md's six-read mandatory order** (§ Cold orientation below); this file
+> is its Claude-side half.
 
 ## Boot triad — know yourself first (every session)
 1. **What model you are** — from your own config, family-level.
@@ -41,22 +42,27 @@
 3. **What you can do** — the capabilities ledger below. Default posture:
    **you have full capability — act.**
 
-## Cold orientation — three files or the front door failed
+## Cold orientation — the six mandatory reads (owner directive, 2026-08-10)
 
-For a Claude Code session, this already-loaded file is file one. Read:
+**On every cold start, follow `README.md`'s numbered six-read order** — this
+file counts as read one's Claude-side half; the others are `docs/intent.md`,
+`docs/current-state.md`, the consolidation program,
+`docs/fleet-account-2026-07-26.md` and `docs/owner-reflection-2026-07-21.md`,
+each annotated there with what it gives you. Then state the repo's **purpose,
+era, what the owner is working on and why, and the next step**. If this boot
+file did not auto-load, `README.md` alone carries the whole order — it is the
+surface-neutral front door. Do not hide a failed orientation by hunting through
+extra documents; record the missing fact instead.
 
-1. `docs/current-state.md` — the live hub state;
-2. `docs/planning/2026-07-26-consolidation-program.md` — the NOW pointer and
-   next actionable step.
-
-Then state the repo's **purpose, live state, and next step** from those three
-files alone. If this boot file did not auto-load, start at `README.md`; it points
-to the same two ledgers and is the surface-neutral first file. Do not hide a
-failed orientation by hunting through a fourth document.
+The quick mid-task re-check (not a substitute for the six on a cold start) is
+`docs/current-state.md` + the program's NOW pointer. **The one-line-per-area map
+with tiers (CORE / TASK / RECORD) is `docs/MAP.md`** — the router for everything
+not on a path here. Owner directive + design:
+`docs/planning/2026-08-10-repo-navigation-plan.md`.
 
 ## Deep read path (in order — for comprehension and task-specific work)
 
-The cold triad above is enough to orient. The path below adds the owner's
+The six reads above orient you. The path below adds the owner's
 working principles, provenance, history, and owner-only queue when the task
 requires full comprehension. It is deliberately deeper than the acceptance
 test; do not confuse the two.
@@ -120,7 +126,9 @@ the minimum to act, never the boundary of what is worth reading (`CONSTITUTION.m
 § "Session prompts are guidance, not orders").
 
 **Live vs historical:** `docs/roster.md`, `control/`, `telemetry/`,
-`docs/prompts/` are **seat-era apparatus — historical record**, not current
+`docs/prompts/` are **seat-era apparatus — historical record** (exceptions:
+`docs/prompts/chatgpt-project-instructions.md` + the curious-research review
+prompt are live; `control/claims/` is contested — the kit still wires it), not current
 truth (the seats no longer exist; the roster was retired 2026-08-07 and no
 longer regenerates). Per-repo truth lives in each repo's
 `docs/PROJECT-CLOSEOUT.md` + `docs/current-state.md`. The live surface always
