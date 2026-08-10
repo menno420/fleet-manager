@@ -2,7 +2,7 @@
 
 > **Status:** complete
 
-- **📊 Model:** opus-5 family · ultracode workflows · review/verify
+- **📊 Model:** opus-5 family · high · review/verify
 - Time: 2026-08-10 · venue: Claude Code remote container, owner-live hub chat ·
   branch `claude/fleet-manager-full-audit-lty31q`
 
