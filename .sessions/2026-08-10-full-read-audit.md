@@ -104,6 +104,25 @@ makes "did you actually read it" a mechanical question. `docs/ideas/` already ca
 `derive-dont-state-counts`; the larger class this found is **an appended correction
 does not retract what it corrects** — worth its own idea file next session.
 
+💡 **A passing check proves nothing until you have counted its input.** This session
+reported "identical" three times from a comparison that had not run on real data: a
+`diff` of the ledger against the enumeration executed from the wrong directory, so
+both sides were empty and it passed; a `tr -d '`- '` that died on
+`range-endpoints … in reverse collating sequence order`, leaving an empty stream that
+again diffed clean; and the same shape once more before it was caught. Each was
+noticed by a reviewer, not by the command. The mechanism is small and mechanical —
+**a comparison should assert its operand count before asserting equality** — and it
+is the executable form of this audit's central finding: a green result inherited
+rather than derived. Cheap to add to `quality-gate`, or as a shell habit
+(`[ "$(wc -l < a)" -gt 0 ]` before `diff a b`).
+
+### Post-review commits
+
+Two commits land after the round-2 review request and are named rather than folded
+in: `681e5f5` corrects which mechanism catches omission in `verification.md` (wording,
+no number or finding changed), and this card's close-out. Round 1's eight findings are
+all dispositioned — seven `[conceded]`, one `[partial]`, none declined.
+
 ### ⟲ Previous-session review
 
 fm #837 rebuilt the cold front door and proved the three-file route works for a reader
