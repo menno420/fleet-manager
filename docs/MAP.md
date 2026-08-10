@@ -13,10 +13,11 @@
 |---|---|---|
 | **CORE** | mandatory orientation | read on every cold start — the numbered order in [`README.md`](../README.md) |
 | **TASK** | live surfaces | read when your task touches them; routed from here and the boot table |
-| **RECORD** | the estate's memory | never required for orientation; true *of their date*, not of today |
+| **RECORD** | the estate's memory | never required for orientation; preserved and dated — provenance, **not certified accuracy** (this audit found record-tier claims false when written) |
 
 A `RECORD` area is not unimportant — it is why the estate can prove what
-happened. It is simply never the answer to "what should I do now?"
+happened. It is simply never the answer to "what should I do now?", and a claim
+inside one is evidence *about* its date, to verify like any other claim.
 
 ## Root files
 
@@ -35,7 +36,7 @@ happened. It is simply never the answer to "what should I do now?"
 |---|---|---|
 | [`.claude/`](../.claude/CLAUDE.md) | TASK | What a Claude Code session loads at boot: the boot file, six hooks ([hook README](../.claude/hooks/README.md)), 27 skills. |
 | [`docs/`](#docs-areas) | mixed | The records home — every subdirectory mapped below. |
-| [`.sessions/`](../.sessions/README.md) | RECORD | One card per session, born-red → complete. The estate's finest-grained memory (340+ cards). |
+| [`.sessions/`](../.sessions/README.md) | TASK | The live session-card protocol — your born-red card is the in-flight claim parallel sessions see, and it flips complete last. Completed cards are records. |
 | [`.substrate/`](../.substrate/hooks/README.md) | TASK | Kit state, staged skill copies, the guard-fire telemetry ledger, banked rollback dists. Kit-owned. |
 | [`scripts/`](../scripts/README.md) | TASK | Repo-side checkers and generators; `scripts/preflight.py` is what CI's gate actually runs. |
 | [`tools/`](../tools/README.md) | TASK | Estate tooling: the false-wall and doc-route checkers (required-check inputs), gemini delegation, guard tests. |
@@ -44,7 +45,7 @@ happened. It is simply never the answer to "what should I do now?"
 | [`telemetry/`](../telemetry/README.md) | RECORD | Committed trigger snapshots for the retired roster machinery. |
 | [`projects/`](../projects/README.md) | RECORD | Console packages (instructions/prompts) for the terminated autonomous seats. |
 | [`registry/`](../registry/README.md) | RECORD | Generated lane registry, frozen at generation #430 (2026-08-06). |
-| [`environments/`](../environments/README.md) | RECORD | Per-seat environment setup scripts from the autonomous era. |
+| [`environments/`](../environments/README.md) | TASK ·mixed | The environment registry (no-secret-values hard rule) — `setup-base.sh` + specs live, routed from [`execution-surfaces.md`](execution-surfaces.md); per-seat scripts are records. |
 | [`templates/`](../templates/README.md) | RECORD | The seat-era worker preamble template. |
 
 ## docs/ areas
@@ -60,10 +61,10 @@ happened. It is simply never the answer to "what should I do now?"
 | [`providers/`](providers/README.md) | TASK | Per-provider capability references (Claude, ChatGPT, Gemini, Grok, …). |
 | [`conventions/`](conventions/README.md) | TASK | Working conventions: adversarial review, Vertex-first Gemini routing, outbox rollover. |
 | [`planning/`](planning/README.md) | TASK | Plans, the program, the roadmap, this map's design. Index inside distinguishes live from superseded. |
-| [`audits/`](audits/README.md) | RECORD | Dated audits. The [full-read audit](audits/2026-08-10-full-read/README.md)'s `findings.md` is the live edit-pass worklist. |
-| [`findings/`](findings/README.md) | RECORD | Dated findings — measurements and their evidence. Two are read-path entries (foundation-continuation, checker-classification). |
+| [`audits/`](audits/README.md) | RECORD ·mixed | Dated audits — except the [full-read audit](audits/2026-08-10-full-read/README.md)'s `findings.md`, which is **TASK**: the live edit-pass worklist. |
+| [`findings/`](findings/README.md) | RECORD ·mixed | Dated findings — except the two ★ read-path entries (foundation-continuation, checker-classification), which are **TASK**: read before acting on the program's next-actions. |
 | [`ideas/`](ideas/README.md) | TASK | The idea backlog and its lifecycle. |
-| [`prompts/`](prompts/README.md) | RECORD | The deployed seat-prompt corpus (gen-1 → v3.8) for the terminated seats. |
+| [`prompts/`](prompts/README.md) | RECORD ·mixed | The retired seat-prompt corpus — except [`chatgpt-project-instructions.md`](prompts/chatgpt-project-instructions.md) (live standing instructions, rewritten 2026-08-10) and the [curious-research review prompt](prompts/2026-08-07-curious-research-external-review.md) (usable owner deliverable), both **TASK**. |
 | [`experiments/`](experiments/README.md) · [`research/`](research/README.md) · [`proposals/`](proposals/README.md) · [`retro/`](retro/README.md) · [`succession/`](succession/README.md) | RECORD | Pre-registered experiments · 2026-07-12 research corpus · seat-era proposals · retros · handoffs. |
 | `eap-*` · `handoff-*` · `owner-actions-*` · other dated root files | RECORD | Dated snapshots of the EAP era; each carries (or is gaining) its era banner. |
 

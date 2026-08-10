@@ -189,8 +189,10 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   (line count plus first and last non-empty line per path, each recomputed from the
   tree), **0 fingerprint mismatches, 0 unclaimed**. 345 findings raised, each handed
   to an independent refuter told to default to refuted: **322 survived · 23 refuted ·
-  0 unadjudicated**, split **110 defect / 206 stale-but-harmless** (6 merged as
-  duplicate sites).
+  0 unadjudicated** — final split after the fm #840 corrections above: **101
+  defect / 205 stale-but-harmless / 16 merged**, byte-exact fingerprints **829/3**
+  (this sentence originally carried the pre-correction totals; superseded in
+  place rather than left to disagree with the entry above).
   [findings.md](audits/2026-08-10-full-read/findings.md) leads with the seven that
   cost the most. **The reported-fixed "Tier 1 filled" and D2-repo-order defects are
   both still live** (`current-state.md:390` summarises the *superseded* half of the

@@ -23,7 +23,7 @@ file 100%"*.
 | [`verification.md`](verification.md) | The mechanical result: the ledger diffed against the enumeration, how a row earned `READ`, and the one file whose fingerprint provably could not reproduce. |
 | [`findings.md`](findings.md) | What is wrong with the repository, split into defect and stale-but-harmless, each item with `path:line`. |
 | [`raw/gists.tsv`](raw/gists.tsv) | The one-line description each read agent returned per file — the evidence of *reading* (a `wc`/`head` pass cannot produce it). |
-| [`raw/adjudication.jsonl`](raw/adjudication.jsonl) | All 345 findings with each refuter's verdict, reason and the commands it ran — the refutation record, reproducible by a third party. |
+| [`raw/adjudication.jsonl`](raw/adjudication.jsonl) | All 345 findings with each refuter's verdict and reason; 336 carry the refuter's commands, **9 returned none and say so** (`commands_note`). Both the refuter's severity and the published severity are recorded per row, and the **one editorial override** (control/claims' binding badge) carries its rationale in `editorial_override`. |
 
 ## The method, and what makes the coverage claim checkable
 

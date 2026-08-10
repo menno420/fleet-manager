@@ -41,27 +41,27 @@
 3. **What you can do** — the capabilities ledger below. Default posture:
    **you have full capability — act.**
 
-## Cold orientation — three files or the front door failed
+## Cold orientation — the six mandatory reads (owner directive, 2026-08-10)
 
-For a Claude Code session, this already-loaded file is file one. Read:
+**On every cold start, follow `README.md`'s numbered six-read order** — this
+file counts as read one's Claude-side half; the others are `docs/intent.md`,
+`docs/current-state.md`, the consolidation program,
+`docs/fleet-account-2026-07-26.md` and `docs/owner-reflection-2026-07-21.md`,
+each annotated there with what it gives you. Then state the repo's **purpose,
+era, what the owner is working on and why, and the next step**. If this boot
+file did not auto-load, `README.md` alone carries the whole order — it is the
+surface-neutral front door. Do not hide a failed orientation by hunting through
+extra documents; record the missing fact instead.
 
-1. `docs/current-state.md` — the live hub state;
-2. `docs/planning/2026-07-26-consolidation-program.md` — the NOW pointer and
-   next actionable step.
-
-Then state the repo's **purpose, live state, and next step** from those three
-files alone. If this boot file did not auto-load, start at `README.md`; it points
-to the same two ledgers and is the surface-neutral first file. Do not hide a
-failed orientation by hunting through a fourth document.
-
-**The surface-neutral mandatory order (six reads, each with what it gives you)
-lives in `README.md`, and the one-line-per-area map with tiers
-(CORE / TASK / RECORD) is `docs/MAP.md`** — the router for everything not on a
-path here. Owner directive + design: `docs/planning/2026-08-10-repo-navigation-plan.md`.
+The quick mid-task re-check (not a substitute for the six on a cold start) is
+`docs/current-state.md` + the program's NOW pointer. **The one-line-per-area map
+with tiers (CORE / TASK / RECORD) is `docs/MAP.md`** — the router for everything
+not on a path here. Owner directive + design:
+`docs/planning/2026-08-10-repo-navigation-plan.md`.
 
 ## Deep read path (in order — for comprehension and task-specific work)
 
-The cold triad above is enough to orient. The path below adds the owner's
+The six reads above orient you. The path below adds the owner's
 working principles, provenance, history, and owner-only queue when the task
 requires full comprehension. It is deliberately deeper than the acceptance
 test; do not confuse the two.

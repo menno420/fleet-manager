@@ -11,12 +11,12 @@ The full map of everything here, one line per area: [`docs/MAP.md`](docs/MAP.md)
 ## The story in 60 seconds — why this repo exists
 
 The owner runs a personal estate of ~20 repositories (games, a Discord bot,
-websites, tooling). Through July 2026 an **autonomous-Projects program** built
-most of it: parallel Claude "seats", each owning a repo, coordinated from here —
-which is why this repo is full of rosters, prompts, ORDERs and telemetry. That
-program ran on Claude Code's **Early Access Program (EAP)**, and both ended: the
-EAP concluded and **the program closed on 2026-07-21**. The seats no longer
-exist. One owner task survives from that era: **E1**, his own final EAP review
+websites, tooling), built up since **2025-08** — that pre-history is most of the
+estate's life. In **July 2026** (07-07 → 07-21) it ran at full intensity as an
+**autonomous-Projects program** on Claude Code's **Early Access Program (EAP)**:
+parallel Claude "seats", each owning a repo, coordinated from here — which is why
+this repo is full of rosters, prompts, ORDERs and telemetry. The EAP concluded
+and **the program closed on 2026-07-21**. The seats no longer exist. One owner task survives from that era: **E1**, his own final EAP review
 email — owner-reserved, no session touches it.
 
 Since then everything runs in **regular owner-directed sessions, one finished
