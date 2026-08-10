@@ -223,6 +223,13 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   regression test; the second-assertion-after-a-quote hole remains explicitly
   recorded. Full claim → command → verdict record:
   [findings/2026-08-09-independent-guard-review.md](findings/2026-08-09-independent-guard-review.md).
+  **Independently verified in fm #836** — gates `0/0/0/0/0`, the fix reproduces
+  against both checker versions, and the negation lookback is now *provably*
+  one-directional: it can only flag more, measured as **0 monotonicity
+  violations across 88,923 markdown lines**. A 24-case battery aimed at #835's
+  unreviewed final commit scores it **23/24** against the old checker's 9/24;
+  the one residual is a bounded over-exemption, recorded not patched:
+  [findings/2026-08-10-fm835-verification.md](findings/2026-08-10-fm835-verification.md).
   The upgrade also **silently dropped the gate's
   `repo checkers` step**; it is re-applied and every kit upgrade must re-apply
   it until the durable fix lands ([SKILLS-local.md](SKILLS-local.md) §

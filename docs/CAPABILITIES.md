@@ -164,6 +164,19 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-10 · capability · `any` · **On ChatGPT Work the GitHub connector is a complete
+  publishing route — including Actions job logs, the one operation this estate's docs still
+  describe as needing `gh`.** Measured across fm #835's whole landing: it created the branch,
+  commits, a READY PR, review replies, resolved threads, read check runs, and returned the
+  full log for job `93304504161`. · evidence: `command -v gh` → exit 1, `gh --version` → 127,
+  `printenv GITHUB_PAT` → exit 1, authenticated local `git push` → exit 128
+  (`could not read Username for 'https://github.com'`), and every remote operation above
+  still completed through the connector; repo metadata returned `admin: true, push: true`.
+  · workaround: none needed — **local git for the working tree, connector for the remote.**
+  Do not probe for `gh` or `$GITHUB_PAT` on that surface; their absence blocked nothing.
+  Recorded as a capability because the previous record of this surface was a session
+  declaring itself *blocked* on the missing `gh` while listing PRs it had just read.
+
 - 2026-08-08 · capability · `any` · **A hook payload field the public docs do not publish is
   readable straight out of the shipped Claude Code binary — `UserPromptSubmit` delivers the
   user's message as a TOP-LEVEL `prompt` key, not under `tool_input`.** So `route_docs.py`
