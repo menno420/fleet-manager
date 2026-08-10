@@ -194,9 +194,12 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   (this sentence originally carried the pre-correction totals; superseded in
   place rather than left to disagree with the entry above).
   [findings.md](audits/2026-08-10-full-read/findings.md) leads with the seven that
-  cost the most. **The reported-fixed "Tier 1 filled" and D2-repo-order defects are
-  both still live** (`current-state.md:390` summarises the *superseded* half of the
-  design doc it links; the NOW pointer still names shiftlife). The shared mechanism:
+  cost the most. Of the two reported-fixed defects the audit found still live,
+  **the D2-repo-order defect is now CLOSED** (OD-15 + the superseded NOW pointer,
+  fm #840 — only the choice of next repository remains open at
+  `OQ-FM-D2-TARGET`); **"Tier 1 filled" remains live** at `current-state.md:390`,
+  which summarises the *superseded* half of the design doc it links. The shared
+  mechanism:
   **an appended correction does not retract what it corrects** — `CAPABILITIES.md`
   lists three walls at `:125` that the same file refutes at `:775`/`:888`, and the
   gate reports them only as *stale*. This session read and reported; the edit pass is

@@ -41,7 +41,7 @@ inside one is evidence *about* its date, to verify like any other claim.
 | [`scripts/`](../scripts/README.md) | TASK | Repo-side checkers and generators; `scripts/preflight.py` is what CI's gate actually runs. |
 | [`tools/`](../tools/README.md) | TASK | Estate tooling: the false-wall and doc-route checkers (required-check inputs), gemini delegation, guard tests. |
 | [`.github/workflows/`](../.github/workflows) | TASK | Four workflows; `substrate-gate.yml` is THE required check; the roster pair is retired (banners inside). |
-| [`control/`](../control/README.md) | RECORD | The seat-era ORDER/status message bus — retired 2026-07-17/21. Never a live channel. |
+| [`control/`](../control/README.md) | RECORD ·mixed | The retired seat-era ORDER/status bus — **except [`control/claims/`](../control/claims/README.md)**, which the kit still wires (`claims_dir`, `check_claims`, a gate fast-lane) and whose README is badged `binding`; contested — see the audit's control/claims finding. The claim signal sessions actually use is the born-red card + open PR. |
 | [`telemetry/`](../telemetry/README.md) | RECORD | Committed trigger snapshots for the retired roster machinery. |
 | [`projects/`](../projects/README.md) | RECORD | Console packages (instructions/prompts) for the terminated autonomous seats. |
 | [`registry/`](../registry/README.md) | RECORD | Generated lane registry, frozen at generation #430 (2026-08-06). |

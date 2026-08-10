@@ -4,8 +4,9 @@
 > and records home** of the owner's repository estate. The autonomous-Projects program
 > that built most of it **closed 2026-07-21**; everything now runs in **regular
 > sessions like yours**, working the consolidation program with the owner, one
-> step at a time. This file plus the two live ledgers named below is the cold
-> orientation contract.
+> step at a time. The cold-orientation contract is
+> **README.md's six-read mandatory order** (§ Cold orientation below); this file
+> is its Claude-side half.
 
 ## Boot triad — know yourself first (every session)
 1. **What model you are** — from your own config, family-level.
@@ -125,7 +126,9 @@ the minimum to act, never the boundary of what is worth reading (`CONSTITUTION.m
 § "Session prompts are guidance, not orders").
 
 **Live vs historical:** `docs/roster.md`, `control/`, `telemetry/`,
-`docs/prompts/` are **seat-era apparatus — historical record**, not current
+`docs/prompts/` are **seat-era apparatus — historical record** (exceptions:
+`docs/prompts/chatgpt-project-instructions.md` + the curious-research review
+prompt are live; `control/claims/` is contested — the kit still wires it), not current
 truth (the seats no longer exist; the roster was retired 2026-08-07 and no
 longer regenerates). Per-repo truth lives in each repo's
 `docs/PROJECT-CLOSEOUT.md` + `docs/current-state.md`. The live surface always

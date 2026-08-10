@@ -2,7 +2,7 @@
 
 > **Status:** `reference`
 >
-> **Tier: RECORD** — historical record; true of its date, never the answer to what is happening now.
+> **Tier: RECORD** — historical record — dated evidence, provenance not certified accuracy; never the answer to what is happening now.
 > Where you are in the estate: [the map](../docs/MAP.md).
 
 One file; the block every dispatched worker prompt carried. Historical.

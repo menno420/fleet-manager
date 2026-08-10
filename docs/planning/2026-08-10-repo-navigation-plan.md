@@ -44,7 +44,7 @@ agreeing with each other and all wrong. Reachability ≠ being met: the E1 plan 
 |---|---|---|
 | **CORE** | mandatory orientation — the numbered reading order | read on every cold start; small enough that skipping is inexcusable |
 | **TASK** | live surfaces read when the task touches them | routed by the boot table, the map, and doc-routes — never required for orientation |
-| **RECORD** | historical/dated — the estate's memory | never required; explains provenance; a claim inside one is true *of its date* |
+| **RECORD** | historical/dated — the estate's memory | never required; provenance, **not certified accuracy** — a claim inside one is dated evidence to verify, and this audit found record-tier claims false when written |
 
 Tiers live in **the map** (§3.2) and in each area's README — not as 833 per-file
 edits, which would go stale the way every frozen count has. Per-file `Status:`
@@ -85,9 +85,12 @@ carries the surface-neutral copy (ChatGPT Work loads no boot file — measured).
 
 Every directory a session can land in gets a README ≤15 lines stating: what this
 area is · tier · live or historical · 3–5 key files · one link up (MAP). Areas
-missing one today: `scripts/`, `tools/`, `environments/`, `templates/`,
-`docs/conventions/`, `docs/retro/`, `docs/succession/`, `docs/audits/`.
-Existing area READMEs get a tier line only — no rewrites of good content.
+missing one at origin/main: `scripts/`, `tools/`, `templates/`,
+`docs/conventions/`, `docs/retro/`, `docs/succession/`, `docs/audits/` —
+**not** `environments/`, whose pre-existing registry README the first execution
+pass wrongly overwrote (caught by review, restored from history with a tier
+banner only). Existing area READMEs get a tier line only — no rewrites of good
+content; that rule now has a measured violation behind it.
 
 ### 3.5 Repairs folded in (from the audit's defect list)
 

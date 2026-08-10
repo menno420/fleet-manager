@@ -17,7 +17,8 @@ narrowed to whatever happened to get covered.
 | | count |
 |---|---|
 | paths enumerated | 833 |
-| **READ** — returned and fingerprint reproduced | **833** |
+| **READ** — returned and fingerprint reproduced (≥2 of 3 checks) | **832** |
+| READ, head-only — the append-only telemetry file, counted separately (below) | 1 |
 | UNVERIFIED — returned but fingerprint did not reproduce | 0 |
 | NO-RETURN — no agent returned this path | 0 |
 
@@ -94,7 +95,10 @@ this audit was commissioned to find.
 every `bootstrap.py check --strict` run — including the runs this audit itself made. It
 grew from 9,811 to 9,820+ lines while the audit was in progress, so its line count and
 last non-empty line provably cannot reproduce. Only its head is stable, so only its head
-was checked, and its ledger row says `structural`.
+was checked, and its ledger row says `structural`. **It is counted separately in
+the Result table above** — one check of three is below this document's own
+2-of-3 bar, so folding it into the verified total would overstate the claim by
+exactly the kind of rounding this audit reports.
 
 This is stated rather than quietly tolerated. A moving target must not be scored as an
 unread file, and it must not be scored as a clean verification either. A read agent

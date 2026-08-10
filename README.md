@@ -82,7 +82,10 @@ The autonomous program's apparatus is preserved, era-bannered, and never a live
 channel: [`docs/PROJECT-CLOSEOUT.md`](docs/PROJECT-CLOSEOUT.md) (the hub
 closeout) · [`docs/roster.md`](docs/roster.md) · [`control/`](control/README.md) ·
 [`telemetry/`](telemetry/README.md) · [`projects/`](projects/README.md) ·
-[`docs/prompts/`](docs/prompts/README.md). Never use them to answer "what is
+[`docs/prompts/`](docs/prompts/README.md) *(mixed — two live exceptions:
+[the ChatGPT standing instructions](docs/prompts/chatgpt-project-instructions.md)
+and [the curious-research review prompt](docs/prompts/2026-08-07-curious-research-external-review.md))*.
+Never use the historical parts to answer "what is
 happening now?" — the [map](docs/MAP.md) lists every RECORD area.
 
 The current files above always win over a dated snapshot. Source and merged
