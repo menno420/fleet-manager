@@ -165,6 +165,22 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 
 ## Recently shipped (newest first)
 
+- **Every tracked file read, with the coverage proved rather than claimed**
+  (2026-08-10, fm #839): [the full-read audit](audits/2026-08-10-full-read/README.md)
+  — all **833** tracked files, ledger built from what 57 read agents *returned*
+  (line count plus first and last non-empty line per path, each recomputed from the
+  tree), **0 fingerprint mismatches, 0 unclaimed**. 320 findings raised, each handed
+  to an independent refuter told to default to refuted: **300 survived · 20 refuted ·
+  25 unadjudicated**, split **105 defect / 193 stale-but-harmless**.
+  [findings.md](audits/2026-08-10-full-read/findings.md) leads with the seven that
+  cost the most. **The reported-fixed "Tier 1 filled" and D2-repo-order defects are
+  both still live** (`current-state.md:373` summarises the *superseded* half of the
+  design doc it links; the NOW pointer still names shiftlife). The shared mechanism:
+  **an appended correction does not retract what it corrects** — `CAPABILITIES.md`
+  lists three walls at `:125` that the same file refutes at `:775`/`:888`, and the
+  gate reports them only as *stale*. This session read and reported; the edit pass is
+  the owner's call.
+
 - **fleet-manager's D2 truth pass makes the no-boot-file front door truthful**
   (2026-08-10, fm #837): exactly [the root README](../README.md), this living
   ledger, and the [consolidation program](planning/2026-07-26-consolidation-program.md)

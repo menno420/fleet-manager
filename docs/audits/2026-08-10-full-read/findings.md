@@ -9,11 +9,11 @@ it against the tree and to default to refuted when uncertain.
 
 | | count |
 |---|---|
-| findings raised | 320 |
-| **survived refutation** | **300** |
-| refuted and dropped | 20 |
-| — of survivors: defect | 105 |
-| — of survivors: stale but harmless | 193 |
+| findings raised | 345 |
+| **survived refutation** | **322** |
+| refuted and dropped | 23 |
+| — of survivors: defect | 108 |
+| — of survivors: stale but harmless | 212 |
 
 Decision ids in this file are written with a non-breaking hyphen (`D‑0015`) so that
 quoting them as evidence does not register a second *home* under the gate's stamp
@@ -173,7 +173,19 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** The finding's stated uncertainty can be discharged: the owner statement is not hearsay for this audit — it is the last-but-one line of the GROUND_TRUTH block the audit harness itself pins (fm-read-r3.js:31). Scope should also include the program's line 102 D2 row, which both fixes the order and asserts D2 covers 'each active repo' — that row, not just the NOW header, is what makes shiftlife read as active.
 
-### D5. `docs/owner-queue.md:601` — stale-count
+### D5. `docs/planning/2026-07-26-consolidation-program.md:95` — broken-ref
+
+> Method + sources: the plan doc above.
+
+**Claims:** E1's method and source material are described in a plan document appearing earlier on this page.
+
+**Actually:** There is no plan doc above, and no plan doc anywhere on the page. `grep -c 'final-eap-email-plan'` on the program returns 0, the phrase 'plan doc' occurs exactly once (this line), and the program contains ZERO markdown links of any kind before line 95 - the only link in the preceding block points at findings/2026-08-05-foundation-continuation.md, which is a finding, not a plan. The real plan is docs/planning/2026-07-26-final-eap-email-plan.md, which the program never names.
+
+**Check it:** `grep -c 'final-eap-email-plan' docs/planning/2026-07-26-consolidation-program.md; head -95 docs/planning/2026-07-26-consolidation-program.md | grep -c ']('`
+
+**Refuter's correction:** The claim "the program contains ZERO markdown links of any kind before line 95" is wrong - there are six link-carrying lines (6, 7, 38, 39, 68, 71), including one to `2026-07-26-consolidation-plan-v2.md`. The accurate statement: none of them is the EAP email plan, and no plan doc is named anywhere above the E1 row, so "the plan doc above" resolves to nothing. Same dangling reference recurs at §7 line 186 ("linked from the plan's § 2").
+
+### D6. `docs/owner-queue.md:601` — stale-count
 
 > wake was the autonomous fleet, which closed 2026-07-21. The last generation read **21 DARK /
 
@@ -185,7 +197,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Accurate as filed. Worth adding for whoever fixes it: the wrong pair sits inside a ✅ RESOLVED queue entry (OQ-FM-APPARATUS-SIZING, lines 588-608), so the fix is a one-line replacement with roster.md's generated summary — 18 DARK · 7 n/a · 3 STALE-BY-DESIGN · 1 STALE · 1 PRIVATE · 1 UNREADABLE · 0 LIVE — not a re-litigation of the entry. Note the neighbouring '18 consecutive failed runs' in the same entry is CORRECT (API-verified) and must not be 'fixed' alongside it.
 
-### D6. `docs/owner-queue.md:338` — contradiction
+### D7. `docs/owner-queue.md:338` — contradiction
 
 > HOW: paste-ready — (1) `list_triggers` and verify BOTH ids exist enabled; (2)
   `delete_trigger trig_01XJJ88pQaQFRSpVAviCfAZe`; (3) `list_triggers` again
@@ -198,7 +210,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Two corrections, one narrowing and one widening. NARROWER: the item is NOT in a 'current owner decisions' section — it sits under `## Inherited cross-repo owner asks — status as recorded` (line 65), whose banner at 67-69 says 'These entries preserve their last recorded status and instructions… Re-check the owning surface before acting', and the item's own note already calls itself 'likely MOOT after 2026-07-22'. Because the hook DENIES rather than prompts, the realistic failure mode is a denied tool call and a wasted turn, not the owner-prompt stall D‑0015 guards against. WIDER: the same instruction is not confined to owner-queue.md — docs/PROJECT-CLOSEOUT.md, read-path entry 5, repeats it twice with no banner at all: §3 item 3 (line 217, 'if either id survives, delete it') and §4 Owner checklist item 1 (line 342, 'Delete any survivor'). That is the higher-value fix target.
 
-### D7. `docs/owner-queue.md:541` — contradiction
+### D8. `docs/owner-queue.md:541` — contradiction
 
 > **Conditional** — only needed **if roster autogen is retained** (currently under the sizing
   review; see NEXT-TASKS.md).
@@ -211,7 +223,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Partial mitigation the finding omits: section (B) falls under the `## Inherited cross-repo owner asks — status as recorded` heading (line 65) whose banner says these preserve last-recorded status and must be re-checked before acting. That does not clear it — OQ-FM-ROSTER-READ-PAT is a fleet-manager secret, not a cross-repo one, so it is mis-filed under a banner that does not honestly describe it, and the moot ruling lives 66 lines below in the same file with no back-pointer.
 
-### D8. `docs/decisions.md:25` — contradiction
+### D9. `docs/decisions.md:25` — contradiction
 
 > verdict: Any session may spend `GEMINI_API_KEY_PAID` without asking — Pro-model
 
@@ -223,7 +235,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** The finding understates the reach. It says 'the boot file follows the convention, not the ledger' — the boot file does BOTH: line 228 carries the Vertex-first rule and line 136 separately advertises 'D‑0011 the paid Gemini key is free to spend' with no caveat. And docs/providers/gemini.md:304 (a live provider doc, the one the doc-routing hook fires on for Gemini calls) restates 'Sessions may spend it without asking ([D‑0011])'. So the un-amended record propagates to three live surfaces, not one.
 
-### D9. `docs/CAPABILITIES.md:125` — contradiction
+### D10. `docs/CAPABILITIES.md:125` — contradiction
 
 > - `any` · **Tag push / release create via git**: HTTP 403 from the
   environment's git proxy → use the workflow_dispatch release path.
@@ -237,7 +249,7 @@ dispatch and relay rules do not)
 
 **Check it:** `sed -n '123,133p' docs/CAPABILITIES.md; sed -n '775,784p' docs/CAPABILITIES.md; grep -n 'delete branches' .claude/CLAUDE.md docs/CAPABILITIES-verified-2026-07-18.md`
 
-### D10. `docs/CAPABILITIES.md:128` — contradiction
+### D11. `docs/CAPABILITIES.md:128` — contradiction
 
 > - `any` · **Branch deletion**: 403 on every path (git push `:branch` and
 
@@ -249,7 +261,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** One quotation detail: the finding renders line 777 as 'FALSE AS WRITTEN' in caps and calls it verbatim; the file has 'false as written' lowercase. Content unaffected. Also the cited checker NB is paraphrased — the file reads 'Plain `api.github.com` is NOT blocked — direct egress (`curl --noproxy '*'`) answers 200 authenticated, rulesets and `/actions/*` included' (lines 43-46).
 
-### D11. `docs/SKILLS-local.md:66` — contradiction
+### D12. `docs/SKILLS-local.md:66` — contradiction
 
 > It is generated, so **it is not corrected by hand**; it will clear at the next adopt/upgrade, and this roster is the true list until then.
 
@@ -259,7 +271,7 @@ dispatch and relay rules do not)
 
 **Check it:** `grep -n 'docs/SKILLS.md' .substrate/upgrade-report.md ; sed -n '55,70p;139,150p' docs/SKILLS-local.md ; sed -n '87,92p' docs/SKILLS.md`
 
-### D12. `docs/SKILLS-local.md:69` — stale-fact
+### D13. `docs/SKILLS-local.md:69` — stale-fact
 
 > **Neither file stated its own scope**, so a session reading one had no signal that the other half existed. Both headers now say so.
 
@@ -271,7 +283,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Directionally right; the detail to soften is that SKILLS.md is not scope-silent by accident — its '## What this is' line does say 'kit-shipped procedure' — but that is inherited template text, not an added scope declaration, and the header names no counterpart file. Low blast radius: the boot file separately points at docs/SKILLS-local.md as 'the installed roster with one line per skill', so a booted session still reaches the full list. The defect is the false self-report that the fix landed on both files.
 
-### D13. `docs/SKILLS-local.md:105` — stale-count
+### D14. `docs/SKILLS-local.md:105` — stale-count
 
 > **Two kit-named skills now carry fleet-manager amendments, and both are reverted by that loop** — so **re-apply them after every upgrade**
 
@@ -283,7 +295,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** One supporting detail is overstated: the `cp` loop is NOT a step inside upgrade-distribution. I read that skill's live body — its eight steps are download / sha256 three-way / born-red PR / `bootstrap.py.new upgrade` / carve-out scan / verify+flip / verify merged main, and none of them mentions `.claude/skills/` or the copy loop. The exposure is one hop further out: the loop lives in docs/SKILLS-local.md:92-99 under the standing instruction at line 101, 'Re-run it after a kit upgrade' — so it is this document, not the skill, that tells a post-upgrade session to run the reverting command and then tells it only two skills need re-applying. Everything else in the finding reproduces exactly.
 
-### D14. `docs/SKILLS-local.md:44` — stale-fact
+### D15. `docs/SKILLS-local.md:44` — stale-fact
 
 > | `quality-gate` | kit | Run the project's full verification before pushing and report what must be fixed. |
 
@@ -295,7 +307,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Two precision fixes. (1) The column is headed 'body', not 'provenance' — the finding's substance survives because row 39 uses that same column to record 'fm-extended', but the label should be quoted correctly. (2) The understated rows number six, not five: `session-close` at line 51 is also a bare `kit` in that column despite being the file's flagship documented amendment. It is covered by the ⚠ re-apply table at line 111, so a session reading the whole file is not misled about it — but if the claim is about the column specifically, session-close belongs in the list.
 
-### D15. `.claude/hooks/README.md:150` — broken-ref
+### D16. `.claude/hooks/README.md:150` — broken-ref
 
 > jq -e '.hooks.PreToolUse[] | select(.matcher == "Bash|WebFetch|Read|Glob|Grep")
 
@@ -305,7 +317,7 @@ dispatch and relay rules do not)
 
 **Check it:** `jq -e '.hooks.PreToolUse[] | select(.matcher == "Bash|WebFetch|Read|Glob|Grep") | .hooks[] | select(.type == "command") | .command' .claude/settings.json; echo "exit=$?"; jq -r '.hooks.PreToolUse[].matcher' .claude/settings.json`
 
-### D16. `.claude/hooks/README.md:1` — unreachable-authority
+### D17. `.claude/hooks/README.md:1` — unreachable-authority
 
 > # Hooks — the doc-routing net
 
@@ -317,7 +329,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Accurate that the routed reference omits git_state_guard.py, but 'has no way to know the sixth exists' is overstated: docs/current-state.md:347-349 names it, links it, and gives a one-line description of all three of its checks (squash-stacked branches, force-push tree comparison, reset --hard dirty-tree listing), and docs/findings/2026-08-08-why-rules-dont-bind.md covers the incidents it was built from. The gap is specifically in .claude/hooks/README.md, the file CLAUDE.md:163 names as the hook reference.
 
-### D17. `.claude/hooks/owner_review.py:5` — contradiction
+### D18. `.claude/hooks/owner_review.py:5` — contradiction
 
 > transcript, sends it to the owner-stand-in reviewer on Vertex, and — only when
 
@@ -329,7 +341,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Also stale in the same clause: 'sends it to the owner-stand-in reviewer on Vertex' — routing was inverted 2026-08-08 to free AI Studio key first with Vertex only as the 429 fallback, which the same docstring says 27 lines further down (line 27: 'Routing, revised 2026-08-08: **free AI Studio key first, Vertex as fallback.**'). Two independent un-propagated corrections in one sentence.
 
-### D18. `.claude/hooks/owner_review.py:34` — contradiction
+### D19. `.claude/hooks/owner_review.py:34` — contradiction
 
 > model for a job the small one does, and it was the only part that ever broke.
 
@@ -339,7 +351,7 @@ dispatch and relay rules do not)
 
 **Check it:** `git grep -n 'only part that ever broke'; grep -n 'was an overstatement' .claude/hooks/README.md; sed -n '355,368p' .claude/hooks/owner_review.py`
 
-### D19. `.claude/skills/capability-probe/SKILL.md:80` — stale-fact
+### D20. `.claude/skills/capability-probe/SKILL.md:80` — stale-fact
 
 > phrasing in living docs — run it yourself; nothing in CI runs it for you. A
 
@@ -349,7 +361,7 @@ dispatch and relay rules do not)
 
 **Check it:** `grep -n 'check_no_false_walls' .github/workflows/substrate-gate.yml .claude/skills/capability-probe/SKILL.md .claude/CLAUDE.md`
 
-### D20. `.claude/skills/quality-gate/SKILL.md:11` — stale-fact
+### D21. `.claude/skills/quality-gate/SKILL.md:11` — stale-fact
 
 > 2. Run `python3 tools/check_no_false_walls.py --strict` — the false-wall guard (nothing in CI runs it for you).
 
@@ -361,7 +373,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** The whole of step 2 is now redundant, not just its parenthetical — bootstrap.py check --strict fans out through scripts/preflight.py, which runs check_doc_routes.py --strict and check_no_false_walls.py --strict on the full lane. This is precisely the failure class CLAUDE.md flags: 'The check list lives in that script, not in prose here — every written enumeration of it has gone stale.'
 
-### D21. `.claude/skills/quality-gate/SKILL.md:11` — stale-fact
+### D22. `.claude/skills/quality-gate/SKILL.md:11` — stale-fact
 
 > 2. Run `python3 tools/check_no_false_walls.py --strict` — the false-wall guard (nothing in CI runs it for you).
 
@@ -373,7 +385,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Accurate, but the practical blast radius is narrower than the finding implies: the skill's own step 2 still tells the session to run the checker locally and step 4 says 'Do NOT push on red', so the behaviour it prescribes is unchanged — the false part is only the parenthetical's claim about CI coverage, and it errs toward under-claiming enforcement. It is also directly contradicted by .claude/CLAUDE.md:264-266, which auto-loads at boot in this repo. The '(nothing in CI runs it for you)' clause should simply be struck.
 
-### D22. `.claude/skills/scope-backlog-item/SKILL.md:77` — snapshot-as-instruction
+### D23. `.claude/skills/scope-backlog-item/SKILL.md:77` — snapshot-as-instruction
 
 > 5. RETARGET THE BATON. Update the coordinator's Next-2 baton in `control/status.md` so the next
 
@@ -383,7 +395,7 @@ dispatch and relay rules do not)
 
 **Check it:** `sed -n '77,79p' .claude/skills/scope-backlog-item/SKILL.md; head -2 control/README.md; head -1 control/status.md`
 
-### D23. `tools/check_no_false_walls.py:80` — stale-fact
+### D24. `tools/check_no_false_walls.py:80` — stale-fact
 
 > wired into `bootstrap.py check`, so it can never jam the substrate-gate).
 
@@ -393,7 +405,7 @@ dispatch and relay rules do not)
 
 **Check it:** `grep -n 'never jam the substrate-gate\|advisory only, never' tools/check_no_false_walls.py && grep -n 'check_no_false_walls\|REQUIRED' .github/workflows/substrate-gate.yml`
 
-### D24. `tools/check_no_false_walls.py:80` — contradiction
+### D25. `tools/check_no_false_walls.py:80` — contradiction
 
 > wired into `bootstrap.py check`, so it can never jam the substrate-gate).
 
@@ -405,7 +417,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Understated, not overstated. The finding names only substrate-gate.yml:170; the header is falsified on three independent paths — substrate-gate.yml:170 (required check), scripts/preflight.py:96 (the local `check --strict` fan-out), and bootstrap.py:24677 (engine port run inside `bootstrap.py check`). So the clause 'NOT wired into `bootstrap.py check`' is false too, not merely its consequent.
 
-### D25. `tools/check_no_false_walls.py:80` — stale-fact
+### D26. `tools/check_no_false_walls.py:80` — stale-fact
 
 > wired into `bootstrap.py check`, so it can never jam the substrate-gate).
 
@@ -417,7 +429,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** The finding concedes too much: it says "The escape hatch 'NOT wired into bootstrap.py check' is still literally true and is what makes the sentence internally coherent." It is not true. `bootstrap.py check` reaches this checker on TWO paths — the engine port called at bootstrap.py:24677, and scripts/preflight.py (bootstrap.py:294 makes it the default preflight script) which runs `tools/check_no_false_walls.py --strict` at preflight.py:96, whose own docstring says "bootstrap rides any non-zero into its strict finding loop, so `check --strict` now goes red locally on everything CI would red on." So BOTH clauses of the docstring sentence are stale, not just the consequence — the whole SEVERITY CONTRACT paragraph needs rewriting, not just its parenthetical.
 
-### D26. `tools/check_no_false_walls.py:27` — stale-fact
+### D27. `tools/check_no_false_walls.py:27` — stale-fact
 
 > wired into a blocking gate, so a miss or a false flag never blocks a
 
@@ -427,7 +439,7 @@ dispatch and relay rules do not)
 
 **Check it:** `sed -n '26,29p' tools/check_no_false_walls.py; grep -n 'check_no_false_walls' .github/workflows/substrate-gate.yml; grep -n 'REQUIRED status check on main' .github/workflows/substrate-gate.yml`
 
-### D27. `tools/check_no_false_walls.py:80` — stale-fact
+### D28. `tools/check_no_false_walls.py:80` — stale-fact
 
 > wired into `bootstrap.py check`, so it can never jam the substrate-gate).
 
@@ -439,7 +451,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** The finding says "the premise is still true" — it is not. As of the preflight plant (2026-08-08) `bootstrap.py check` reaches this exact script via scripts/preflight.py:96, and bootstrap.py:24677 additionally runs an engine port of the same leg. So both the premise (not wired into bootstrap.py check) and the conclusion (can never jam substrate-gate) are stale, not just the conclusion.
 
-### D28. `tools/gemini_delegate.py:63` — contradiction
+### D29. `tools/gemini_delegate.py:63` — contradiction
 
 > # not the AI Studio key, which spends the owner's card. Vertex is therefore the
 
@@ -451,7 +463,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** The repeated wording is in the --vertex-sa help at line 419, not the --studio help at 424-426. Mitigating context the finding omits: line 4 of the same docstring already calls GEMINI_API_KEY "free-tier", so the file contradicts itself rather than being uniformly wrong.
 
-### D29. `tools/gemini_delegate.py:64` — contradiction
+### D30. `tools/gemini_delegate.py:64` — contradiction
 
 > # DEFAULT here; `--studio` is the opt-out and must be justified in the session
 
@@ -463,7 +475,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** The billing consequence is smaller than the finding implies: silently landing on generativelanguage with GEMINI_API_KEY costs nobody anything (the free key). The real harm is a session believing it is on Vertex when it is on the free tier — wrong session-card record, and it hits the ~20/day RPD cliff with no explanation.
 
-### D30. `tools/install_root_hooks.py:60` — stale-count
+### D31. `tools/install_root_hooks.py:60` — stale-count
 
 > # it, which left the rescue path rescuing three hooks out of four.
 
@@ -475,7 +487,19 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** 'registers all six across 5 event/matcher slots' is imprecise — .claude/settings.json holds 8 hook registrations across 4 event types (PreToolUse ×5 for route_docs/read_before_write/git_state_guard/change_guard/trigger_tools_guard, Stop ×1 owner_review, UserPromptSubmit ×1 route_docs, PostToolUse ×1 change_guard). The substance is unchanged: the rescue table restores 4 of 6 scripts and 6 of 8 registrations, silently.
 
-### D31. `scripts/check_owner_queue.py:156` — stale-fact
+### D32. `scripts/check_docs_links.py:99` — other
+
+> SCAN_DIRS = ("docs", "projects", "environments", "registry", "templates")
+
+**Claims:** The S5 link-drift checker sweeps the repo's living markdown surfaces for dead intra-repo links.
+
+**Actually:** Its scan set is docs/ + projects/ + environments/ + registry/ + templates/ + root *.md + control/README.md. It never scans .claude/ - so neither the boot file .claude/CLAUDE.md nor any of the 27 installed skills is link-checked, and those are the surfaces that actually bind a session at the moment of action. This is why the session-close broken link above survived; the checker exits 0 with it present. The mechanism gap, not the single link, is the finding.
+
+**Check it:** `grep -n 'SCAN_DIRS\|CONTROL_FILES' scripts/check_docs_links.py; python3 scripts/check_docs_links.py --list`
+
+**Refuter's correction:** The causal sentence is overstated. `check_docs_links.py` is advisory and standalone - its own docstring says "not wired into `bootstrap.py check`", and grep confirms it appears in no workflow (`substrate-gate.yml`'s repo-checkers step runs only `tools/check_doc_routes.py --strict` and `tools/check_no_false_walls.py --strict`; the only YAML hit is a test fixture). So adding `.claude` to SCAN_DIRS would not by itself have red-flagged the session-close link in CI - the gap is two-part: no `.claude` coverage AND no CI wiring. Also, `.claude/` currently holds no real dead links.
+
+### D33. `scripts/check_owner_queue.py:156` — stale-fact
 
 > active = line.lower().startswith("## active")
 
@@ -487,7 +511,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** '~100 OQ- slugs' is 94 unique slugs by enumeration. One blast-radius nuance the finding omits: the only automated caller is .github/workflows/roster-regen.yml:171 (`python3 scripts/check_owner_queue.py --advisory`), and that workflow lost both cron lines on 2026-08-07, so the dead parser is not currently failing any scheduled run — it misleads a human or session who invokes it directly, or who reads projects/fleet-manager/coordinator-prompt.md:38 naming it as the queue's verify step.
 
-### D32. `scripts/check_owner_queue.py:66` — stale-fact
+### D34. `scripts/check_owner_queue.py:66` — stale-fact
 
 > In agent sessions api.github.com is proxy-walled (403) and there is no HTML fallback for rules — the probe degrades honestly to NOT MEASURED; the Actions regen run is the reliable venue for this check.
 
@@ -499,7 +523,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** The line anchor is off by one: the quoted paragraph begins at line 67 ('In agent sessions api.github.com is proxy-walled (403) and there is no'), not line 66 — line 66 is 'menno420/<repo> reference in the item, else note-skip (never guessed).' Everything else in the finding holds verbatim across lines 67-69.
 
-### D33. `scripts/check_roster_freshness.py:38` — contradiction
+### D35. `scripts/check_roster_freshness.py:38` — contradiction
 
 > - roster-freshness workflow (PRs): BLOCKING on manager-authored (claude/*) branches, ADVISORY elsewhere — a lane/owner PR must never be jammed by the manager's own stale roster. The workflow passes --advisory for the non-blocking lane
 
@@ -511,7 +535,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Impact is narrower than "a session believes a PR gate exists" implies: the workflow files themselves carry loud retirement banners, so anyone who opens the workflow learns the truth within one hop. The defect is the asymmetry — the two workflows were bannered on 2026-08-07 and the script's SEVERITY CONTRACT prose describing them was not.
 
-### D34. `scripts/check_roster_freshness.py:360` — stale-fact
+### D36. `scripts/check_roster_freshness.py:360` — stale-fact
 
 > "Fix: check .github/workflows/roster-regen.yml runs (cron " "40 */2 * * *) — a dead cron here is the single-point-of-" "freshness failing; regenerate via scripts/gen_roster.py
 
@@ -523,7 +547,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Two details to tighten. (a) The age is 100.8h at my run, not 100.6h — it grows, and the generated-at stamp is 2026-08-06T14:57Z (the day before retirement), not the retirement date. (b) The blast radius is smaller than "permanently RED" suggests operationally: the script is NOT in the local gate — `scripts/preflight.py` contains no reference to 'roster' at all, so `bootstrap.py check --strict` is unaffected. It reds only on a hand run or a `workflow_dispatch`. The instruction that sends you to run it (telemetry/README.md:52, "must exit 0") lives in telemetry/, which the boot file already classifies as seat-era historical.
 
-### D35. `scripts/check_trigger_health.py:476` — contradiction
+### D37. `scripts/check_trigger_health.py:476` — contradiction
 
 > f"(keep `{p['ticks'][-1]['id']}`, delete the rest); "
 
@@ -535,7 +559,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Two details need tightening. The consequence is milder than stated: the MCP tool call is denied outright by the hook (trigger_tools_guard.py:84 DELETE_TOOL_RE, :315 return deny), so a session following the remedy is blocked, not stalled — only the direct-API route warns rather than blocks, and that is the sole stall path. Second, no live surface routes to this script: its referrers are docs/playbook.md:83/112 (R26, which the playbook's own 2026-08-10 banner consigns to the historical column), telemetry/README.md:46, control/inbox.md, and projects/fleet-manager/coordinator-prompt.md — all bannered or boot-file-classified historical. That lowers the exposure but does not remove it, since the script itself carries no banner and sits in scripts/ beside checkers preflight.py does use.
 
-### D36. `scripts/check_trigger_health.py:150` — snapshot-as-instruction
+### D38. `scripts/check_trigger_health.py:150` — snapshot-as-instruction
 
 > WAKE PROCEDURE (playbook R26): export list_triggers (ALL pages) → telemetry/triggers-snapshot.json with top-level `captured_at` → run this script → act on FAILs same wake
 
@@ -545,7 +569,7 @@ dispatch and relay rules do not)
 
 **Check it:** `cd /home/user/fleet-manager && timeout 120 python3 scripts/check_trigger_health.py > /tmp/th.txt 2>&1; echo "REAL_EXIT=$?"; grep -n 'I5 ROSTER-FRESH\|I6 SNAPSHOT-FRESH\|VERDICT' /tmp/th.txt; grep -n 'R1/R2/R16' .claude/CLAUDE.md; head -1 control/status.md`
 
-### D37. `scripts/gen_idea_backlog.py:66` — other
+### D39. `scripts/gen_idea_backlog.py:66` — other
 
 > BULLET_RE = re.compile(r"^- (?:\*\*)?" + MARKER)
 
@@ -557,7 +581,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** The docstring is less silent than the finding allows — lines 39-41 do say 'top-level bullets' and give the two accepted forms, which by exclusion covers the heading case. The defect is better stated as a mismatch between the script's honest narrow contract and the two surfaces that advertise it as complete: docs/planning/README.md:18 ('every `.sessions/*.md` card 💡 idea', 'grooming passes start here') and the generated file's own '57 idea block(s) across 345 card(s)' summary line. Also add the paragraph-start form to the tally: 115 cards are heading-only and 170 more are paragraph-start-only, for 285 structured idea markers missed versus 57 harvested.
 
-### D38. `scripts/gen_idea_backlog.py:66` — other
+### D40. `scripts/gen_idea_backlog.py:66` — other
 
 > BULLET_RE = re.compile(r"^- (?:\*\*)?" + MARKER)
 
@@ -569,7 +593,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Same correction as index 114: the docstring does disclose 'top-level bullets' and the two accepted forms, so the script's own contract is honest. Restate the defect as the gap between that narrow contract and the completeness claimed by docs/planning/README.md:18 and by the generated file's summary line. Extend the tally to include the paragraph-start form: 115 heading-only plus 170 paragraph-start-only equals 285 missed against 57 harvested.
 
-### D39. `scripts/gen_kit_versions.py:131` — snapshot-as-instruction
+### D41. `scripts/gen_kit_versions.py:131` — snapshot-as-instruction
 
 > " INC-42 / central-docs-plan C4). Regenerate with every manager wake"
 
@@ -579,7 +603,7 @@ dispatch and relay rules do not)
 
 **Check it:** `cd /home/user/fleet-manager && sed -n '3,7p' registry/kit-versions.md; grep -n 'fleet-manager |' registry/kit-versions.md; python3 -c "import json;print('config',json.load(open('substrate.config.json'))['kit_version'],'state',json.load(open('.substrate/state.json'))['kit_version'])"; grep -rn 'gen_kit_versions' scripts/preflight.py .github/workflows/ | wc -l`
 
-### D40. `scripts/gen_roster.py:155` — snapshot-as-instruction
+### D42. `scripts/gen_roster.py:155` — snapshot-as-instruction
 
 > scripts/check_roster_freshness.py is a REQUIRED wake step, not a commit-only-on-change option.
 
@@ -591,7 +615,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Two details to tighten: the quote spans lines 155-156, not line 155 alone. And the finding understates the consequence — because ROSTER_REL is docs/roster.md and gen_roster regenerates the file, obeying the imperative would overwrite the ⛔ RETIRED banner, not merely waste a step. The script is also still named as live in project.index.json's `verification` list (`python3 scripts/gen_roster.py --selfcheck`) and in registry/README.md as the source of truth for registry/lanes.json, so it is genuinely reachable.
 
-### D41. `.github/workflows/merge-on-green.yml:40` — contradiction
+### D43. `.github/workflows/merge-on-green.yml:40` — contradiction
 
 > # required-check enforcement state is unverified (the rules API
 
@@ -603,7 +627,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Only the stated rationale is stale, not the design: generic head-SHA check verification ('trusts what actually ran, never a rules count') remains correct and should not be changed — the fix is to re-date or replace the 'enforcement state is unverified' clause, not to make the workflow read the rules count. Note also that the same header carries a second present-tense limitation at lines 7-8, 'This repo CANNOT use GitHub-native auto-merge (toggle unavailable on the private repo/plan)', which is the same class and was not flagged.
 
-### D42. `.sessions/2026-07-10-universal-permissions-block.md:3` — contradiction
+### D44. `.sessions/2026-07-10-universal-permissions-block.md:3` — contradiction
 
 > > **Status:** `in-progress`
 
@@ -613,7 +637,7 @@ dispatch and relay rules do not)
 
 **Check it:** `cd /home/user/fleet-manager && grep -rl '^> \*\*Status:\*\* `in-progress`' .sessions/ && sed -n '3p;22p' .sessions/2026-07-10-universal-permissions-block.md && grep -n 'universal-permissions-block\|__no-card-in-diff__' .github/workflows/substrate-gate.yml`
 
-### D43. `.sessions/2026-07-10-universal-permissions-block.md:3` — contradiction
+### D45. `.sessions/2026-07-10-universal-permissions-block.md:3` — contradiction
 
 > > **Status:** `in-progress`
 
@@ -625,7 +649,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** One mechanical nuance: the workflow uses the `.sessions/__no-card-in-diff__.md` sentinel in two places, but only the second (line 316, in the 'verify suite' step) is the host carve-out this card caused; the first (line 273, in the session-gate step) is the kit's own no-card lane and would exist regardless. The re-apply obligation therefore attaches to the verify-suite step, and the comment block's 're-apply both' refers to it plus the separate checkers-step carve-out.
 
-### D44. `.substrate/agents/architect.md:12` — snapshot-as-instruction
+### D46. `.substrate/agents/architect.md:12` — snapshot-as-instruction
 
 > docs/ (playbook, owner-queue, dispatch-log — manager working memory) + templates/ (worker preamble blocks) + control/ (protocol heartbeat: owner-written inbox.md, manager-written status.md)
 
@@ -637,7 +661,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** The persona file is a symptom, not the source, and the finding understates reach. The text is rendered verbatim from .substrate/state.json slot_values Q-004 `architecture_layers` and Q-009 `mutation_seam` (bootstrap.py cmd_agents renders persona bodies from those slots), so `bootstrap.py agents --build` regenerates the same stale text — fixing only the .md leaves the defect armed. More importantly the identical seat-era sentences are already planted in LIVE docs that carry '> **Status:** `binding`' and no era banner: docs/architecture.md (Layers section) and docs/ownership.md:15. Those are far more reachable than the staged persona, and are where the defect should be fixed. The 'touched only by roster-regen since 2026-08-06' claim is weakened by the clone being shallow (57 commits, .git/shallow present, floor commit dfccceb 2026-08-06) — the correct statement is 'no commit touches control/ after the shallow floor'.
 
-### D45. `.substrate/agents/architect.md:12` — contradiction
+### D47. `.substrate/agents/architect.md:12` — contradiction
 
 > Program record lives in menno420/superbot docs/eap/, never here.
 
@@ -649,7 +673,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** The count is wrong: there are SEVEN top-level docs/eap-*.md files, not nine (`ls docs/eap-*.md | wc -l` -> 7). Nine is the right total only if the two nested ones (docs/findings/2026-08-09-eap-correspondence-record.md and docs/planning/2026-07-26-final-eap-email-plan.md) are counted with them, which the finding lists separately. Also note this is a *stale* absolute, not a wrong one: the seat-era sentence was written when the program record lived in superbot; the records were consolidated here afterwards. Same root as 94/95 — the sentence comes from state.json slot Q-004 and is also planted, unbannered, in docs/architecture.md under '> **Status:** `binding`'.
 
-### D46. `.substrate/agents/reviewer.md:11` — stale-fact
+### D48. `.substrate/agents/reviewer.md:11` — stale-fact
 
 > Shared-repo protocol surfaces follow docs/playbook.md R9-R10.
 
@@ -661,7 +685,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Same root as index 94: the sentence is rendered from .substrate/state.json slot Q-006 `ownership_model`, so a persona rebuild reproduces it. The reachable instance is docs/ownership.md:15, which carries the identical 'Shared-repo protocol surfaces follow docs/playbook.md R9-R10' under '> **Status:** `binding`' with no era banner, and docs/AGENT_ORIENTATION.md:31 (which at least has a mixed-era banner). Fixing the staged persona alone leaves the binding doc wrong.
 
-### D47. `bootstrap.py:21020` — stale-fact
+### D49. `bootstrap.py:21020` — stale-fact
 
 > whether {named} is a REQUIRED status check on the base branch is owner-UI state this gate cannot read (rules API; 403-walled to agents)
 
@@ -671,7 +695,7 @@ dispatch and relay rules do not)
 
 **Check it:** `cd /home/user/fleet-manager && python3 bootstrap.py check --strict 2>&1 | grep -n 'enforcement-required-unverified'   # prints: check: NOTE — enforcement-required-unverified — whether `substrate-gate` is a REQUIRED status check on the base branch is owner-UI state this gate cannot read (rules API; 403-walled to agents) …`
 
-### D48. `bootstrap.py:21020` — stale-fact
+### D50. `bootstrap.py:21020` — stale-fact
 
 > "read (rules API; 403-walled to agents) — owner glance: Settings → "
 
@@ -683,7 +707,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Accurate as written. One addition: `403-walled to agents` also appears at bootstrap.py:20987 in a different (issue-#36) context, so a fix must target the `enforcement-required-unverified` message builder specifically, not the string globally.
 
-### D49. `bootstrap.py:19783` — stale-fact
+### D51. `bootstrap.py:19783` — stale-fact
 
 > "# historically 403-walled in fleet sessions (capability ledger\n"
 
@@ -695,7 +719,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Directionally right, but rank it below findings 130/132/133. Two softeners the finding understates: the sentence is hedged with 'historically', and nothing in this repo renders the branch-sweep workflow today, so no adopter file currently carries the text. The present-tense parenthetical 'classifier + proxy deny every delete path' is the actually-false part and is the minimal fix target — upstream in substrate-kit src/engine, since bootstrap.py is GENERATED, DO NOT EDIT.
 
-### D50. `control/status.md:11` — contradiction
+### D52. `control/status.md:11` — contradiction
 
 > updated: 2026-08-03T21:29:58Z
 
@@ -707,7 +731,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Two overstatements to fix. (1) status-stale is NOT exit-affecting — the strict run groups it under 'check: 1 control-status advisory warning(s) (never exit-affecting)'; the exit-1 came from [preflight-script] on the born-red session card. It still instructs a restamp, but it does not red the gate. (2) 'Six live scripts read this file's `updated:` value' is too strong: only scripts/gen_roster.py, scripts/check_lane_liveness.py, scripts/check_trigger_health.py and scripts/verify_routine_state.py actually parse an `updated:` stamp; scripts/check_owner_queue.py and scripts/check_label_hygiene.py only mention control/status.md in docstring prose. Also the age is now ~166h, not ~165h.
 
-### D51. `docs/AGENT_ORIENTATION.md:30` — stale-fact
+### D53. `docs/AGENT_ORIENTATION.md:30` — stale-fact
 
 > Flat docs repo, no code layers: docs/ (playbook, owner-queue, dispatch-log — manager working memory) + templates/ (worker preamble blocks) + control/ (protocol heartbeat...). Program record lives in menno420/superbot docs/eap/, never here.
 
@@ -719,7 +743,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Two details to fix. (1) The directory-entry counts are slightly off: `ls scripts` = 20 entries and `ls tools` = 12 (not 11); the .py count of 27 is right by `ls`, 28 by `git ls-files`. (2) More important: AGENT_ORIENTATION.md:30 is not the source. The identical string is the substrate-kit 'architecture' state value stored at .substrate/state.json:58 and mirrored verbatim into docs/architecture.md:10, .substrate/agents/architect.md:12, .substrate/agents/reviewer.md:11 and .substrate/claude/CLAUDE.md:49. Editing AGENT_ORIENTATION alone leaves five other copies and the generated text will come back at the next kit regen — the fix is the state value.
 
-### D52. `docs/CAPABILITIES-verified-2026-07-18.md:37` — stale-fact
+### D54. `docs/CAPABILITIES-verified-2026-07-18.md:37` — stale-fact
 
 > **Do not poll `GET /commits/<sha>/check-runs`** with the fleet PAT — it answers `403 Resource not accessible by personal access token`
 
@@ -731,7 +755,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** The finding reports total_count 9; I measured 16 at that SHA and 2 at HEAD — the count varies with time, the HTTP 200 is the load-bearing part and reproduces on both.
 
-### D53. `docs/PROJECT-CLOSEOUT.md:7` — contradiction
+### D55. `docs/PROJECT-CLOSEOUT.md:7` — contradiction
 
 > is preserved as evidence, not a current queue. Live state and next action are
 
@@ -743,7 +767,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** The banner (added in PR #837, 'D2: make fleet-manager's front door tell the truth') overshot its target. The consolidation program §7 records the era-bannering pass as flagging `PROJECT-CLOSEOUT` §5, and §5 indeed carries its own precise, scoped banner at line 361. The top-of-file banner's separate sentence 'Its continuation list is preserved as evidence, not a current queue' disclaims §3, which is NOT stale: item 1 (trading-strategy #160) is verified OPEN today and its only resume recipe in the repo is that section, pointed to by both .claude/CLAUDE.md:97-99 and docs/owner-queue.md:487. The fix is to scope the top banner the way §5's is scoped — the historical claim applies to the §2 state snapshot and §5 boot route, not to §3.
 
-### D54. `docs/ROUTINES.md:33` — snapshot-as-instruction
+### D56. `docs/ROUTINES.md:33` — snapshot-as-instruction
 
 > Record every trigger create/delete call **verbatim** — id, cron, binding,
 
@@ -755,7 +779,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Two details to narrow. (1) ROUTINES.md never *instructs* deletion — line 33 instructs recording, and line 46 is an observation; it presupposes deletion as ordinary rather than directing it, and the actual delete call is hard-denied by trigger_tools_guard.py, so that half of the harm is contained. The uncontained half is the seat-era end-of-turn invariant at lines 90-94, which under a live `binding` badge tells a session to re-stamp `control/status.md` (retired apparatus) and to keep exactly one tick armed every turn or suffer a 'seat-killing bug' — nothing gates that. (2) Reachability is narrower than the finding implies: .claude/CLAUDE.md, docs/current-state.md, docs/reading-path.md and README.md contain zero references to ROUTINES.md; the only live router is AGENT_ORIENTATION.md — but that router explicitly certifies the routines route as still-accurate at its lines 25-26, which makes the defect worse, not better.
 
-### D55. `docs/SKILLS.md:89` — stale-fact
+### D57. `docs/SKILLS.md:89` — stale-fact
 
 > Two owner-directed seed methods (superbot Q-0273, 2026-07-12) are **installed as reference implementations in superbot**, canonical there until the kit generalizes them into the shipped skill set
 
@@ -765,7 +789,7 @@ dispatch and relay rules do not)
 
 **Check it:** `ls -la .claude/skills/chase-references/ .claude/skills/prep-owner-steps/ ; sed -n '87,104p' docs/SKILLS.md ; grep -n 'chase-references\|prep-owner-steps' docs/SKILLS-local.md`
 
-### D56. `docs/architecture.md:10` — stale-fact
+### D58. `docs/architecture.md:10` — stale-fact
 
 > control/ (protocol heartbeat: owner-written inbox.md, manager-written status.md). Program record lives in menno420/superbot docs/eap/, never here.
 
@@ -777,7 +801,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** 'Every clause describes the closed autonomous-Projects era' is overstated — two of the four survive. `ls templates/` shows worker-preamble.md still exists, and `ls docs/dispatch-log*` shows docs/dispatch-log.md still exists, so the docs/ and templates/ clauses are stale in tone, not in fact. 'Program record lives in menno420/superbot docs/eap/, never here' is scope-correct: it refers to the EAP autonomous-Projects program, whose record does live there; the *consolidation* program is a different program and lives here. The genuinely stale, misleading clause is the single one about `control/` being a live protocol heartbeat with an owner-written inbox.md and manager-written status.md, in a `binding`, un-bannered doc.
 
-### D57. `docs/collaboration-model.md:43` — unreachable-authority
+### D59. `docs/collaboration-model.md:43` — unreachable-authority
 
 > standard (canonical: `control/README.md` § "Owner-assist output standard"):
 
@@ -787,7 +811,7 @@ dispatch and relay rules do not)
 
 **Check it:** `grep -ni "owner.action\|owner-assist\|WHY-IT-MATTERS\|UNBLOCKS" control/README.md; head -8 control/README.md; grep -rln "WHY-IT-MATTERS" --include=*.md .`
 
-### D58. `docs/collaboration-model.md:85` — stale-fact
+### D60. `docs/collaboration-model.md:85` — stale-fact
 
 > Staleness review cadence: control/status.md is refreshed every working session (its updated: line is the heartbeat)
 
@@ -799,7 +823,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** The secondary half of the finding is weak and should be dropped. It says the same line 'calls docs/playbook.md living' in conflict with the boot file — but `head -8 docs/playbook.md` shows playbook.md declares itself 'Status: `living-ledger`' and already carries a '**Mixed-era banner, 2026-08-10:**' naming exactly which rules still apply and which (dispatch, control-bus, roster, wake-chain, seat-liveness) do not. Calling it living is correct. The defect is only the control/status.md clause.
 
-### D59. `docs/evidence-index.md:5` — stale-fact
+### D61. `docs/evidence-index.md:5` — stale-fact
 
 > **GENERATED — NOT SOURCE OF TRUTH.** Do not hand-edit; regenerated with `docs/roster.md` on every regen (`scripts/gen_roster.py`, P3 — centralization plan §3c).
 
@@ -811,7 +835,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Two details are overstated. (1) Reachability: the finding says "docs/current-state.md:102 (boot read-path entry 1) still lists it as live apparatus." It does not — line 102 sits under "## Historical seat-era baseline — preserved, not current" (line 61) → "### Seat-era stability baseline" (line 78), an explicitly bannered historical section. A repo-wide grep for live references finds none outside that section and the dated July planning/closeout records, so the doc is reachable mainly by direct opening or hygiene work, not by walking the read path. (2) Staleness magnitude: git rev-list --count 837bfe8..HEAD = 39, not "hundreds of commits stale" for the fleet-manager pin. Worth adding: roster-regen.yml:159 still hard-codes --dispatched-by "cron 40 */2 * * * ...", so any manual workflow_dispatch would re-stamp the now-false cron claim into the regenerated header.
 
-### D60. `docs/evidence-index.md:3` — snapshot-as-instruction
+### D62. `docs/evidence-index.md:3` — snapshot-as-instruction
 
 > > **Status:** `living-ledger`
 
@@ -823,7 +847,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** 'it has not regenerated since and cannot' is overstated on the second half: PR #812 removed only the two cron lines and deliberately KEPT `workflow_dispatch:` (roster-regen.yml line 107 comment: 'workflow_dispatch KEPT, so the roster can still be generated on demand'). The file cannot refresh on a schedule; an on-demand dispatch is still available. Also worth noting for whoever fixes it: docs/current-state.md's mention of the evidence index (line 102) already sits inside the '## Historical seat-era baseline — preserved, not current' section (line 61), so only the file's own header needs the banner.
 
-### D61. `docs/findings/2026-08-05-foundation-continuation.md:35` — snapshot-as-instruction
+### D63. `docs/findings/2026-08-05-foundation-continuation.md:35` — snapshot-as-instruction
 
 > Revised, in order:
 
@@ -835,7 +859,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Line is 34, not 35 — "Revised, in order:" is at line 34 and the table runs 36-42 (line 35 is blank). Item 3 (bifurcate the kit's checkers) was at least partly discharged by the 2026-08-06 checker-classification doc + substrate-kit #577; items 1, 2, 4, 5 are all superbot-next-scoped and have no row in the program's step ledger, so the accurate statement is that the ordering has no live tracking surface, not that the owner voided it.
 
-### D62. `docs/findings/2026-08-05-google-play-submission-requirements.md:146` — stale-fact
+### D64. `docs/findings/2026-08-05-google-play-submission-requirements.md:146` — stale-fact
 
 > Limits apply identically to full-width and half-width characters. "Swingy
 Spider" is 14 — comfortable.
@@ -848,7 +872,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** The character arithmetic is wrong but immaterial in effect — "Slingy Spider" is also 13, and either is far under the 30-char App name limit, so the §6 limits table itself is sound. The substantive error is the rejected product name in the title (line 1) and in the §6 example, with no superseded note, in a doc that the live Layer-2 README (docs/repos/spider-swing/README.md:97) hands a session for exactly this work.
 
-### D63. `docs/findings/2026-08-09-substrate-kit-defects.md:199` — broken-ref
+### D65. `docs/findings/2026-08-09-substrate-kit-defects.md:199` — broken-ref
 
 > because that file is the capability ledger and `tools/check_no_false_walls.py:296` special-cases it
 
@@ -858,7 +882,7 @@ Spider" is 14 — comfortable.
 
 **Check it:** `sed -n '296p' tools/check_no_false_walls.py; grep -n 'CAPABILITIES.md' tools/check_no_false_walls.py`
 
-### D64. `docs/findings/README.md:10` — unreachable-authority
+### D66. `docs/findings/README.md:10` — unreachable-authority
 
 > ## Index (2026-07-09, evening — succession set)
 
@@ -870,7 +894,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** The count is 17 orphans of 42, not 16 of 42. 2026-08-06-checker-classification.md is also among them — notable because .claude/CLAUDE.md read-path entry 2b names that file directly, so it is reachable from the boot file even though the findings index does not list it. Reachability is therefore partial for a handful of docs; the index-completeness breach itself is confirmed.
 
-### D65. `docs/findings/README.md:10` — stale-count
+### D67. `docs/findings/README.md:10` — stale-count
 
 > ## Index (2026-07-09, evening — succession set)
 
@@ -882,7 +906,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** Two details are wrong. (1) The index does NOT 'stop in July': it carries eight August rows, including six 2026-08-05 docs and the 2026-08-10 cold-read row at line 38. Only the *heading* is frozen at 2026-07-09; the table has been appended to selectively. (2) There are five 2026-08-09 findings, not six (`ls docs/findings/ | grep -c 2026-08-09` = 5). The accurate statement: a `living-ledger` index claiming one row per committed finding lists 25 of 42, silently omitting 17 — the whole 2026-08-06 → 2026-08-09 research block, 2026-08-04-generated-art-pipeline.md, three further 2026-08-05 docs, 2026-08-10-fm835-verification.md, and two July docs.
 
-### D66. `docs/findings/ultracode-verification-2026-07-10.md:193` — stale-fact
+### D68. `docs/findings/ultracode-verification-2026-07-10.md:193` — stale-fact
 
 > - ⚑ **fleet-manager's own `docs/findings/ping-test-2026-07-09.md` is wrong
 
@@ -892,7 +916,7 @@ Spider" is 14 — comfortable.
 
 **Check it:** `cd /home/user/fleet-manager && sed -n '193,197p' docs/findings/ultracode-verification-2026-07-10.md && sed -n '96p;104,110p' docs/findings/ping-test-2026-07-09.md`
 
-### D67. `docs/fleet-inconsistencies-2026-07-13.md:3` — snapshot-as-instruction
+### D69. `docs/fleet-inconsistencies-2026-07-13.md:3` — snapshot-as-instruction
 
 > > **Status:** `living-ledger`
 
@@ -904,7 +928,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** Two details to tighten. (a) The '44 rows dispositioned ORDER-to-lane' is 44 *matching lines*, one of which is the legend at line 53 ('`ORDER-to-lane(<repo>)` = route via the control bus') — so ~43 rows; the file's own §1 summary says '~40'. (b) Reachability is thinner than 'reachable from a live surface' suggests: current-state.md:483 sits under '## Recently shipped (newest first)' as a dated 2026-07-13/14 deliverable, and the file is named nowhere in .claude/CLAUDE.md, README.md, docs/README.md or the consolidation program. The fix is the same either way — add the `historical` era banner the 2026-08-08 sweep gave every peer register.
 
-### D68. `docs/gen2-blueprint.md:3` — snapshot-as-instruction
+### D70. `docs/gen2-blueprint.md:3` — snapshot-as-instruction
 
 > > **Status:** `binding`
 
@@ -914,7 +938,7 @@ Spider" is 14 — comfortable.
 
 **Check it:** `cd /home/user/fleet-manager && grep -n '^> \*\*Status:\*\*' docs/gen2-blueprint.md MISSION.md docs/NEXT-TASKS.md docs/fleet-triage.md; grep -ci 'era note\|historical\|seat-era' docs/gen2-blueprint.md; grep -c gen2-blueprint .claude/CLAUDE.md README.md docs/current-state.md docs/planning/2026-07-26-consolidation-program.md docs/intent.md docs/decisions.md`
 
-### D69. `docs/gen2-blueprint.md:373` — contradiction
+### D71. `docs/gen2-blueprint.md:373` — contradiction
 
 > - Landing path: REST merge-on-green (R21 primary on this shape).
 
@@ -924,7 +948,7 @@ Spider" is 14 — comfortable.
 
 **Check it:** `cd /home/user/fleet-manager && grep -n 'R21' docs/gen2-blueprint.md && sed -n '283,292p' docs/playbook.md && sed -n '1,12p' docs/playbook.md`
 
-### D70. `docs/handoff-2026-07-10.md:13` — contradiction
+### D72. `docs/handoff-2026-07-10.md:13` — contradiction
 
 > 1. `playbook.md` — **R1–R23, all binding** (R22 visibility guard
 
@@ -936,7 +960,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** Scope is understated in one direction and overstated in another. Understated: docs/handoff-2026-07-09.md has the identical problem — same `owner-guidance` status, same 'The successor session's first-read' framing, no era banner — so the fix is a two-file class, not one. Overstated: reachability is thin. Nothing in .claude/CLAUDE.md, README.md, docs/current-state.md or the consolidation program links to handoff-2026-07-10.md; the only inbound references are docs/launch-readiness-2026-07-10.md:124 and docs/dispatch-log.md:307, both themselves seat-era. A session reaches it by grep or file-tree browsing, not by walking the read path.
 
-### D71. `docs/ideas/archive-ready-retro-gap-advisory-2026-07-11.md:38` — stale-fact
+### D73. `docs/ideas/archive-ready-retro-gap-advisory-2026-07-11.md:38` — stale-fact
 
 > Quick-win, fleet-manager-side (`scripts/gen_roster.py`), no lane
 
@@ -948,7 +972,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** 'gen_roster.py no longer runs on any schedule and the advisory would never be emitted' is half overstated. scripts/gen_roster.py still exists (110 KB) and roster-regen.yml still carries `workflow_dispatch:`, which docs/roster.md itself preserves deliberately ('Neither workflow is deleted — workflow_dispatch still works on both, per OD-3'). So the advisory could be emitted on a manual dispatch. The accurate statement is narrower and still damning: it never fires unattended (both cron lines removed 2026-08-07), and it would write into a file whose own header says 'Do not read the rows below as the state of anything.'
 
-### D72. `docs/launch-readiness-2026-07-10.md:86` — stale-fact
+### D74. `docs/launch-readiness-2026-07-10.md:86` — stale-fact
 
 > **owner-eyes-only** — agents can neither read nor write those surfaces
 
@@ -960,7 +984,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** One mitigation the finding omits: the only live inbound link is docs/owner-queue.md:23, and it introduces the doc as 'Historical lineage of the gen-2 launch that seeded the earliest queue items', so a reader arriving by the read path is already told it is history. The other references are projects/venture-lab/meta.md (a projects/ file the boot file classifies as historical). That lowers the odds of the wall being believed but does not remove it — the doc's own words are 'a standing finding', present tense, with no date qualifier.
 
-### D73. `docs/owner-actions-2026-07-17.md:9` — snapshot-as-instruction
+### D75. `docs/owner-actions-2026-07-17.md:9` — snapshot-as-instruction
 
 > > `claude/owner-actions-0717` (PR #279). Hand this to an owner-live hub session
 
@@ -972,7 +996,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** The 'owner-queue.md contradicts itself' half does not hold up and should be dropped. Line 528-529 is not a second live assertion: a heading scan shows it sits under '## Inherited cross-repo owner asks — status as recorded' (line 65), whose own banner reads 'These entries preserve their last recorded status and instructions. They are not a 2026-08-10 verification of another repository or external account. Re-check the owning surface before acting.' The sentence is further wrapped in a dated '*Standing note (R30, 2026-07-19):*' — a preserved record quoting the then-routing, not the queue claiming the doc is authoritative today. The surviving defect is the simple one: docs/owner-actions-2026-07-17.md is an unbannered file that presents ~266 open proposals and 9 console items as a live paste-ready owner list, and only owner-queue.md:14 — a different file — says otherwise.
 
-### D74. `docs/owner-queue-candidates.md:7` — stale-fact
+### D76. `docs/owner-queue-candidates.md:7` — stale-fact
 
 > > **Generation #430** · generated-at **2026-08-06T14:57Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 
@@ -984,7 +1008,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** Accurate as written, including the 12-block count and the identical defect in docs/evidence-index.md:7. Worth noting the fix is one banner applied to both files, matching docs/roster.md's, since they are generated by the same `scripts/gen_roster.py` run.
 
-### D75. `docs/owner-queue-candidates.md:3` — snapshot-as-instruction
+### D77. `docs/owner-queue-candidates.md:3` — snapshot-as-instruction
 
 > > **Status:** `living-ledger`
 
@@ -996,7 +1020,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** Two details need softening. (1) 'no path to refresh' — `workflow_dispatch:` is retained in roster-regen.yml (line 117); only the schedule was removed. (2) The supporting citation to docs/current-state.md is weaker than stated: the phrase 'fed by the generated docs/owner-queue-candidates.md' is at line 99, which falls inside the section opened at line 61, '## Historical seat-era baseline — preserved, not current' — already bannered. The live defect is entirely in this file's own unbannered `living-ledger` header.
 
-### D76. `docs/owner-steps-2026-07-18.md:3` — contradiction
+### D78. `docs/owner-steps-2026-07-18.md:3` — contradiction
 
 > > **Status:** `audit`
 
@@ -1008,7 +1032,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** 'Two live surfaces each name a different document as the owner's action list' is overstated. current-state.md:438 sits inside `## Recently shipped (newest first)` (heading at line 166) — a dated changelog whose neighbours are 2026-07-16..07-18 entries, not a live index; the present-tense 'the current…' is that entry's wording as of its ship date. The real defect is narrower and still real: the doc itself carries no era banner while every comparable seat-era doc got one in the 2026-08-10 pass, and owner-queue.md's §Context demotes its siblings owner-actions-2026-07-17.md and NEXT-TASKS.md by name but never this file. Fix = add the banner to the file (and/or name it in owner-queue.md:14-15), not rewrite current-state.md's changelog.
 
-### D77. `docs/owner-steps-2026-07-18.md:167` — stale-fact
+### D79. `docs/owner-steps-2026-07-18.md:167` — stale-fact
 
 > - **Approve the apparatus-sizing recommendation** (OQ-FM-APPARATUS-SIZING). Keep
   merge-on-green / substrate-gate / roster-freshness + the S3/S5/S9 checkers; slow
@@ -1022,7 +1046,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** Line numbers slightly off for two of the three: the slicer ask spans 186-187 and delete-vs-archive is at 164-166 (the finding cites 186 and 164 as the anchors, which is fine). A fourth stale item sits in the same unbannered file at 157-160 — the `ROSTER_READ_TOKEN` conditional PAT, the same ask finding 135 shows was mooted on 2026-08-07 — so the count of settled questions this file would re-put to the owner is four, not three.
 
-### D78. `docs/ownership.md:15` — stale-fact
+### D80. `docs/ownership.md:15` — stale-fact
 
 > One writer per file: the owner writes control/inbox.md; the manager writes everything else (docs/, templates/, control/status.md). Shared-repo protocol surfaces follow docs/playbook.md R9-R10.
 
@@ -1034,7 +1058,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** Understated on one point: AGENT_ORIENTATION.md does not merely reach ownership.md, it affirmatively vouches for it. Its 2026-08-10 mixed-era banner (lines 5-10) sends the manager-seat routes to history but lines 24-26 explicitly keep the planted doc set — naming 'ownership' — and assert 'That half is still accurate.' So the 2026-08-10 banner pass actively certified this file while its body still describes the retired control bus and a nonexistent manager seat.
 
-### D79. `docs/planning/2026-07-14-central-docs-plan.md:3` — snapshot-as-instruction
+### D81. `docs/planning/2026-07-14-central-docs-plan.md:3` — snapshot-as-instruction
 
 > > **Status:** `plan`
 
@@ -1046,7 +1070,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** "Every mechanism it instructs a session to use is retired" is overstated. The doc's goal (fm as the docs SSOT) is still the live direction, and its class-C conventions remain cited as authority by live generated files — registry/README.md line 5 ("central-docs-plan §4 class C") and registry/kit-versions.md line 5 ("INC-42 / central-docs-plan C4"). The accurate finding is the missing `historical` era-banner over the seat-era EXECUTION mechanics (inbox ORDERs, lanes, roster regen), not that the whole document is dead.
 
-### D80. `docs/planning/2026-07-24-app-plan-life-admin.md:3` — stale-fact
+### D82. `docs/planning/2026-07-24-app-plan-life-admin.md:3` — stale-fact
 
 > > **Status:** `plan` — awaiting owner go/no-go (see Decisions below; queued as `OQ-APP-PLAN-GO`).
 
@@ -1056,7 +1080,7 @@ Spider" is 14 — comfortable.
 
 **Check it:** `sed -n '3p' docs/planning/2026-07-24-app-plan-life-admin.md; grep -n 'OQ-APP-PLAN-GO' docs/owner-queue.md docs/planning/README.md`
 
-### D81. `docs/planning/2026-07-26-ci-consolidation.md:118` — contradiction
+### D83. `docs/planning/2026-07-26-ci-consolidation.md:118` — contradiction
 
 > `merge-on-green`, `auto-merge-disarm`, `automerge-card-guard`,
 
@@ -1068,7 +1092,19 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** Slightly overstated on blast radius: the program's C2 (line 131) already carries the corrected rule, so the risk materialises only for a session that works the CI cleanup from this companion doc without reading the program's C-track row. The heading the quote sits under is line 115, not 118 (118 is the list line itself, which is where the quote was taken from and is correct).
 
-### D82. `docs/planning/2026-07-26-final-eap-email-plan.md:6` — contradiction
+### D84. `docs/planning/2026-07-26-final-eap-email-plan.md:1` — unreachable-authority
+
+> > **Status:** `plan` - owner-directed 2026-07-26 ... Program step **E1** (the program's NOW).
+
+**Claims:** This is the live plan for program step E1, the owner's own reserved step.
+
+**Actually:** It is referenced from exactly one file in the entire repository - docs/planning/README.md - which is itself 4 hops from the front door, putting the plan at depth 5. Neither the boot file, the README, current-state.md, nor the consolidation program names it. A session picking up E1, or the owner asking where his material is, never meets it. Its own header also still declares E1 'the program's NOW', which stopped being true on 2026-08-01 when E1 became owner-reserved and D2 became the actionable step.
+
+**Check it:** `grep -rln 'final-eap-email-plan' --include=*.md . | grep -v '^./.sessions/'`
+
+**Refuter's correction:** Measured depth is 4 hops from README.md, not 5 (README -> docs/intent.md -> planning/2026-08-08-fleet-manager-as-index.md -> planning/README.md -> plan). The staleness also propagates: docs/planning/README.md's own table row calls it "Program step **E1** (the NOW)". Mitigation worth noting: the program's own E1 block loudly says OWNER-RESERVED and points at D2, so a session that read the mandatory files first is unlikely to be misled by the plan's header alone.
+
+### D85. `docs/planning/2026-07-26-final-eap-email-plan.md:6` — contradiction
 
 > Program step **E1** (the program's NOW).
 
@@ -1078,7 +1114,7 @@ Spider" is 14 — comfortable.
 
 **Check it:** `grep -n "program's NOW" docs/planning/2026-07-26-final-eap-email-plan.md; sed -n '62,84p' docs/planning/2026-07-26-consolidation-program.md; sed -n '12p' docs/planning/README.md`
 
-### D83. `docs/planning/README.md:5` — stale-count
+### D86. `docs/planning/README.md:5` — stale-count
 
 > > Index of `docs/planning/` — dated plans and launch/follow-up records. Each
 
@@ -1088,7 +1124,7 @@ Spider" is 14 — comfortable.
 
 **Check it:** `ls -1 docs/planning/; grep -c '^| 20' docs/planning/README.md; grep -n '2026-08-08' docs/planning/README.md`
 
-### D84. `docs/planning/idea-backlog.md:12` — stale-count
+### D87. `docs/planning/idea-backlog.md:12` — stale-count
 
 > > 46 idea block(s) across 244 card(s) · 4 ungroomed · 4 ungroomed older than 2d.
 
@@ -1100,7 +1136,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** Two details wrong, one of them load-bearing. (1) '~100 cards stale' mischaracterizes the scope line: 244 was accurate for the 2026-07-19 generation date (245 cards existed dated on/before it), and the drift to 344 is ordinary snapshot aging that the 'generated-at' stamp discloses. Drop that half. (2) 'off by roughly 7x' uses the wrong denominator; within the window the harvester found 46 of 243 idea-carrying cards, ~5.3x. The surviving, sharper statement: the harvester misses ~81% of in-window idea-carrying cards, and regenerating the file today still reports '4 ungroomed', so the misleading figure is structural and cannot be fixed by re-running the generator.
 
-### D85. `docs/project-recreation-runbook.md:78` — contradiction
+### D88. `docs/project-recreation-runbook.md:78` — contradiction
 
 > 3. **Delete only ids attributed to stopped seats** — the failsafe id (and its I8 dup) for each Project the owner stopped.
 
@@ -1112,7 +1148,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** Two overstatements worth fixing. (1) 'linked plainly from the live docs/current-state.md:442' — the link is real but sits inside the '## Recently shipped (newest first)' log whose heading is at docs/current-state.md:166, i.e. a chronological record of what landed, not an active pointer. (2) The §2 reference is step 2 (line 31: 'so a post-stop sweeper session (§5) can find and delete them'), not an instruction to delete. Mitigation the finding omits: the MCP route is now hard-denied by trigger_tools_guard.py, so following the runbook costs a blocked call rather than an actual deletion — the exposure is the warn-only direct-API route and the wasted cycle.
 
-### D86. `docs/prompts/chatgpt-project-instructions.md:3` — contradiction
+### D89. `docs/prompts/chatgpt-project-instructions.md:3` — contradiction
 
 > > **Status:** `owner-guidance` · rewritten 2026-08-10 after the first measured run
 
@@ -1124,7 +1160,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** Scope is slightly wider than stated: docs/prompts/README.md is also non-historical ('Status: `living-ledger`'), so three files in the directory contradict the blanket label, not two. Note also that the label is defensible for the bulk of the directory (baseline-2026-07-11/, v3/, gen1-winddown-universal.md, universal-wakeup.md etc. are genuinely seat-era) — the fix is a carve-out sentence, not deleting the classification.
 
-### D87. `docs/prompts/init-prompt-universal.md:24` — contradiction
+### D90. `docs/prompts/init-prompt-universal.md:24` — contradiction
 
 > At seat cutover: the NEW seat re-arms its own trigger FIRST, then `delete_trigger` the old one (F-1 rule).
 
@@ -1134,7 +1170,7 @@ Spider" is 14 — comfortable.
 
 **Check it:** `grep -n "delete_trigger" docs/prompts/init-prompt-universal.md`
 
-### D88. `docs/providers/grok.md:146` — contradiction
+### D91. `docs/providers/grok.md:146` — contradiction
 
 > - Nothing here is measured in this estate yet.
 
@@ -1144,7 +1180,7 @@ Spider" is 14 — comfortable.
 
 **Check it:** `cd /home/user/fleet-manager && grep -n 'Measured here\|Nothing here is measured\|measured 2026-08-04' docs/providers/grok.md && grep -rn 'Nothing here is measured in this estate yet' docs/providers/`
 
-### D89. `docs/q-index.md:1` — unreachable-authority
+### D92. `docs/q-index.md:1` — unreachable-authority
 
 > # Q-index — repo-qualified owner-decision register (INDEX)
 
@@ -1156,7 +1192,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** Two referrers are not bannered historical — docs/dispatch-log.md and docs/fleet-inconsistencies-2026-07-13.md both carry `Status: living-ledger`, and docs/planning/2026-07-14-central-docs-plan.md carries `Status: plan`. They are nonetheless all seat-era 2026-07-11..07-14 documents outside every current read path, so the reachability conclusion is unaffected.
 
-### D90. `docs/reading-path.md:24` — stale-fact
+### D93. `docs/reading-path.md:24` — stale-fact
 
 > all fleet siblings are public and readable read-only EXCEPT pokemon-mod-lab (PRIVATE — raw/clone hits an auth wall; roster marks it NOT MEASURED; never raw-fetch or guess about it)
 
@@ -1166,7 +1202,7 @@ Spider" is 14 — comfortable.
 
 **Check it:** `curl -sS --noproxy '*' -H "Authorization: Bearer $GITHUB_PAT" 'https://api.github.com/user/repos?per_page=100&affiliation=owner' | python3 -c "import sys,json;d=json.load(sys.stdin);print('owned',len(d));print('private',[r['name'] for r in d if r['private']])" && sed -n '24p;49,50p' /home/user/fleet-manager/docs/reading-path.md`
 
-### D91. `docs/research/2026-07-12-platform-capabilities.md:24` — stale-fact
+### D94. `docs/research/2026-07-12-platform-capabilities.md:24` — stale-fact
 
 > 9. GitHub is **MCP-only** (no `gh` CLI, REST 403 via proxy incl. stub-200 bodies); tags/releases via `workflow_dispatch`; Actions runners face GH013 + a PR-create permission toggle (§5).
 
@@ -1176,7 +1212,7 @@ Spider" is 14 — comfortable.
 
 **Check it:** `cd /home/user/fleet-manager && command -v gh; grep -n 'MCP-only' docs/research/2026-07-12-platform-capabilities.md; grep -n 'research/2026-07-12-platform-capabilities' docs/AGENT_ORIENTATION.md; sed -n '5,8p' docs/AGENT_ORIENTATION.md; grep -n 'releases/secrets/tags' .claude/CLAUDE.md; sed -n '776,779p' docs/CAPABILITIES.md`
 
-### D92. `docs/research/README.md:8` — unreachable-authority
+### D95. `docs/research/README.md:8` — unreachable-authority
 
 > Each entry gets a link line below when it merges; reports on unmerged branches are not listed (no dangling links).
 
@@ -1186,7 +1222,7 @@ Spider" is 14 — comfortable.
 
 **Check it:** `cd /home/user/fleet-manager && for f in $(git ls-files 'docs/research/*.md' | grep -v README); do b=$(basename "$f"); grep -q "($b)" docs/research/README.md || echo "MISSING FROM INDEX: $f"; done`
 
-### D93. `docs/research/README.md:8` — stale-count
+### D96. `docs/research/README.md:8` — stale-count
 
 > > the repos before acting on them (playbook R2). Each entry gets a link line
 
@@ -1196,7 +1232,7 @@ Spider" is 14 — comfortable.
 
 **Check it:** `ls docs/research/*.md | wc -l; grep -c '^| 2026' docs/research/README.md; for f in 2026-07-12-platform-capabilities.md 2026-07-12-problem-census-satellites.md 2026-07-12-prompt-architecture.md; do git ls-files --error-unmatch "docs/research/$f" >/dev/null && printf '%s tracked, in README: ' "$f" && grep -c "$f" docs/research/README.md; done`
 
-### D94. `docs/research/README.md:8` — stale-count
+### D97. `docs/research/README.md:8` — stale-count
 
 > Each entry gets a link line
 
@@ -1206,7 +1242,7 @@ Spider" is 14 — comfortable.
 
 **Check it:** `for f in $(ls -1 docs/research/*.md | xargs -n1 basename | grep -v '^README.md$'); do grep -q "($f)" docs/research/README.md || echo "UNLISTED: $f"; done; git ls-files docs/research/ | wc -l`
 
-### D95. `docs/review-queue.md:11` — snapshot-as-instruction
+### D98. `docs/review-queue.md:11` — snapshot-as-instruction
 
 > > **BINDING — auto-append rule (ORDER 003, 2026-07-10, program-review §5.2):**
 
@@ -1218,7 +1254,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** One scope detail is overstated: docs/workflow-pr-merge-policy.md governs `.github/workflows` PRs specifically, not every PR, so its conflict with 'no PR ever waits for review before landing' is narrower than the finding implies. The .claude/CLAUDE.md conflict (line 218, never merge a PR you asked Codex to review before it answers) is exact and unqualified. Everything else in the finding checks out.
 
-### D96. `docs/runtime_contracts.md:25` — stale-fact
+### D99. `docs/runtime_contracts.md:25` — stale-fact
 
 > All changes land as forward-only git commits through READY PRs to main (ruleset: PR required); control/inbox.md is append-only and owner-written; control/status.md is overwritten by the manager each working session.
 
@@ -1230,7 +1266,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** One sub-claim is wrong on its date: control/README.md was NOT first bannered in the 2026-08-10 D2 pass — it already carried 'RETIRED 2026-07-17' before commit 4b59e9b (which only touched it, per `git log`). The staleness of docs/runtime_contracts.md:25 relative to that banner is therefore ~3 weeks older than the finding suggests, which strengthens rather than weakens it.
 
-### D97. `docs/seat-digest.md:44` — stale-fact
+### D100. `docs/seat-digest.md:44` — stale-fact
 
 > - `any` · **`api.github.com` direct HTTP**: blocked → GitHub access is MCP-tools-only.
 
@@ -1242,7 +1278,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** Accurate, but it is a registered gap rather than a discovery: docs/CAPABILITIES.md:910-917 and the 2026-07-31 session card both name this exact line as the known unfixed residual, with the reason (the digest is a derived render of the kit-owned seed fence, so `bootstrap.py seat-digest` regenerates it byte-identical). Note also that lines 42 and 43 carry the same two false walls as line 44 — the defect is three rows in the digest, not one.
 
-### D98. `docs/seat-digest.md:44` — stale-fact
+### D101. `docs/seat-digest.md:44` — stale-fact
 
 > - `any` · **`api.github.com` direct HTTP**: blocked → GitHub access is MCP-tools-only.
 
@@ -1254,7 +1290,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** The line-48 sub-claim is weaker than stated. That row derives from a real, still-present CAPABILITIES.md entry (line 257, 2026-08-07) whose scope is PRs opened by `GITHUB_TOKEN` — bot-authored PRs get zero check runs — which does not contradict #833/#837 merging normally, since those are agent/PAT PRs. What IS stale about it is the resolution: option (d) of that entry was taken (docs/roster.md carries "⛔ RETIRED 2026-08-07", roster-regen.yml and roster-freshness.yml are both `on: workflow_dispatch:` only), so "currently deadlocking fleet-manager" no longer holds — and the digest renders it undated, stripping the ledger's date context.
 
-### D99. `docs/seat-digest.md:36` — contradiction
+### D102. `docs/seat-digest.md:36` — contradiction
 
 > Full index (grounds + capabilities): `docs/SKILLS.md` — the source this block derives from.
 
@@ -1266,7 +1302,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** Overstated: only TWO of the four (`rationalize`, `scope-backlog-item`) are absent from SKILLS.md entirely. `chase-references` and `prep-owner-steps` DO appear, at lines 87-100 under "## Fleet seed skills — pointer (not kit-shipped yet)", which wrongly says their bodies live in superbot — stale rather than missing. The finding's backticked grep returned 0 for all four because that section writes them bold, not backticked. Also already-known: docs/SKILLS-local.md § "What this roster fixed" (MEASURED 2026-08-08) documents both defects and declares itself the true list until a regen clears them, and .claude/CLAUDE.md routes sessions to SKILLS-local.md for the installed roster — so a boot-path-following session is not misled.
 
-### D100. `docs/trigger-health-spec.md:3` — snapshot-as-instruction
+### D103. `docs/trigger-health-spec.md:3` — snapshot-as-instruction
 
 > > **Status:** `binding`
 
@@ -1278,7 +1314,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** One detail is overstated: docs/prompts/README.md is badged 'living-ledger', not historical, so 'every other explicitly seat-era surface carries a banner' is not quite exact. The sharper precedent is MISSION.md, which keeps 'Status: `binding`' but adds '**Era note, 2026-08-08 — the mission below is seat-era and its done-when is not measurable today**' — exactly the treatment this spec is missing.
 
-### D101. `docs/trigger-health-spec.md:35` — snapshot-as-instruction
+### D104. `docs/trigger-health-spec.md:35` — snapshot-as-instruction
 
 > Each manager wake:
 
@@ -1290,7 +1326,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** docs/reading-path.md (named in the finding's evidence_cmd) does not exist in the tree; the reachability result is unchanged — the grep across CLAUDE.md, README.md, current-state.md and the consolidation program returns nothing.
 
-### D102. `project.index.json:9` — stale-fact
+### D105. `project.index.json:9` — stale-fact
 
 > "MISSION.md",
 
@@ -1302,7 +1338,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** The 'generated pack instructs an agent' impact is latent, not realised: `ls .substrate/contextpacks/` returns 'No such file or directory' — no context pack has ever been generated in this repo, so the misdirection only fires if someone runs `bootstrap.py contextpack`. The file-level staleness is nonetheless real and unbannered, and the second area (`control-bus`, folio control/README.md, source_roots control/inbox.md + control/status.md + control/claims) is equally stale — the finding understates the scope by naming only records-custody.
 
-### D103. `projects/UNIVERSAL.md:4` — contradiction
+### D106. `projects/UNIVERSAL.md:4` — contradiction
 
 > > **Status:** `living` — v5 · 2026-07-15. **Edit-registry-first:** this file is
 
@@ -1314,7 +1350,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** Ten instructions.md files route to it, not two (ideas-lab, game-lab, self-improvement, fleet-manager, superbot-world, websites, venture-lab, curious-research, superbot-2.0 all carry `UNIV=fm:projects/UNIVERSAL.md (grant v2 + MANDATE)` on line 60/61). Practical harm from the delete-trigger clause specifically is capped by trigger_tools_guard.py's deny; the live-badge-inside-a-dead-tree problem is what makes it a defect.
 
-### D104. `registry/README.md:11` — stale-fact
+### D107. `registry/README.md:11` — stale-fact
 
 > `scripts/gen_roster.py` (regenerated with every roster generation)
 
@@ -1326,7 +1362,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** Accurate as written. One nuance worth carrying: the sentence is not literally false (a manual `workflow_dispatch` run would still regenerate lanes.json) — the defect is the omission, i.e. registry/README.md records a writer that no longer fires on any schedule and carries no retirement note, while `registry/` is the only surviving gen_roster.py output not classified historical anywhere.
 
-### D105. `registry/kit-versions.md:7` — stale-fact
+### D108. `registry/kit-versions.md:7` — stale-fact
 
 > generated-at **2026-07-14T04:49Z** · newest fleet tree version measured: **v1.15.0**
 
@@ -1348,8 +1384,11 @@ defects. Nothing here needs fixing; several are historical records that are
 
 | path:line | kind | what |
 |---|---|---|
+| `docs/current-state.md:373` | known-example | Layer-2 Tier 1 has been filled with four repo folders, and the remaining repos are present as stubs. |
 | `docs/planning/2026-07-26-consolidation-program.md:62` | known-example | The program's live NOW pointer directs the next session to run D2's truth pass on shiftlife, and D2's repository order at line 102 reads `fleet-manage |
+| `docs/owner-queue.md:1062` | contradiction | Under '## Parked (valid, no rush)': the owner's next Anthropic email is the capability self-knowledge pack, to be sent on the existing Gmail thread. |
 | `docs/CAPABILITIES.md:1495` | contradiction | In the folded 2026-07-12 fleet manifest: the GitHub /actions/* admin and /rulesets API paths are walled even in the owner-live credentialed venue, so  |
+| `docs/CAPABILITIES.md:238` | stale-count | The doc-routing hook carries 19 routes. Stated twice - also at line 433. |
 | `docs/repos/spider-swing/records.md:10` | stale-count | Exactly 28 files in fleet-manager mention spider-swing, and this index covers them. |
 | `docs/repos/spider-swing/records.md:63` | stale-count | docs/CAPABILITIES.md is 1,638 lines. |
 | `docs/repos/spider-swing/records.md:10` | stale-count | The Layer-2 spider-swing index states that 28 files in fleet-manager mention spider-swing, and offers that number as the reason the index exists. |
@@ -1398,9 +1437,16 @@ defects. Nothing here needs fixing; several are historical records that are
 | `.substrate/backup/bootstrap-1.12.1.py:1` | other | Retained as kit rollback state under the upgrade-distribution skill's "banked rollback" step (SKILL.md line 35: "It banks the OLD dist to `.substrate/ |
 | `.substrate/backup/bootstrap-1.15.0.py:17829` | stale-fact | The kit's planted CAPABILITIES seed records standing walls — branch deletion 403 on every path, and `api.github.com` direct HTTP blocked so "GitHub ac |
 | `.substrate/backup/bootstrap-1.7.0.py:1` | other | These archived dists are the kit's rollback bank — the copies `bootstrap upgrade --rollback` restores. |
+| `.substrate/backup/state.json:83` | stale-fact | The fleet_status_command slot answers 'what is the fleet doing?' with 'open docs/roster.md', a roster regenerated roughly every two hours. |
 | `.substrate/check-exceptions.yml:70` | snapshot-as-instruction | These (path, kind) carve-outs on the live `check --strict` gate are still needed to suppress false positives. |
 | `.substrate/check-exceptions.yml:45` | contradiction | The link suppression at owner-queue-candidates.md is triaged as covering the quoted pokemon-mod-lab link ../docs/play/README.md. |
+| `.substrate/check-exceptions.yml:72` | stale-fact | The false-wall suppression on docs/owner-queue-candidates.md is temporary - the offending quoted block will age out of the generated feed at the next  |
+| `.substrate/ci/auto-merge-enabler.yml:97` | broken-ref | docs/operations/auto-merge-guards.md documents the fallback landing path. |
+| `.substrate/ci/branch-sweep.yml:22` | stale-fact | Agent-side branch deletion is 403-walled; the workflow is 'the sanctioned path around that wall'. |
 | `.substrate/claude/CLAUDE.md:41` | stale-count | The vendored dist is about 12,000 generated lines, and .substrate/ holds kit state plus a byte backup of the previous dist (singular). |
+| `.substrate/claude/CLAUDE.md:28` | contradiction | A `binding`-badged working agreement declaring the whole boot set to be three items (this file, HANDOFF.md, docs/current-state.md), with the architect |
+| `.substrate/claude/CLAUDE.md:41` | stale-count | bootstrap.py is about 12,000 generated lines and .substrate/ holds a byte backup of the previous dist (singular). |
+| `.substrate/episodic_index.json:16` | stale-fact | The episodic index holds one episode - the 2026-07-09 seed-home-repo session, summarised as in-progress. |
 | `.substrate/guard-fires.jsonl:9811` | other | This file has a stable content fingerprint that can be recomputed and compared like the other 837 tracked files. |
 | `.substrate/guard-fires.jsonl:9806` | other | Raw guard-fire volume in this ledger reflects where the estate's defects actually are (top guards: stale-wall 2,431, stamp 2,351, dateless-wall 1,884) |
 | `.substrate/guard-fires.jsonl:1` | other | This ledger is the estate's guard telemetry, fed by both of the kit's guard-fire choke points — `check` and the hook dispatch. |
@@ -1418,6 +1464,7 @@ defects. Nothing here needs fixing; several are historical records that are
 | `docs/AGENT_ORIENTATION.md:72` | unreachable-authority | This router reaches every live doc in the repo. |
 | `docs/CAPABILITIES-verified-2026-07-18.md:22` | stale-count | The PAT's coverage is admin+push on all 20 repos in the estate (repeated verbatim at line 51: 'Coverage: **admin+push on all 20 repos.**'). |
 | `docs/PROJECT-CLOSEOUT.md:228` | stale-fact | §3 item 5, the continuation thread 'Post-close apparatus decision': roster-regen.yml keeps firing ~hourly on dual crons forever and should be reduced  |
+| `docs/ROUTINES.md:2` | stale-fact | The wake-chain / routines doctrine binds current sessions. |
 | `docs/SKILLS.md:26` | contradiction | The generated skill index lists quality-gate's two commands as the same command twice. |
 | `docs/architecture.md:14` | other | A `binding` doc ships the kit template's unfilled placeholders: the layer/import table has one instruction-text row and no layers, and the Invariants  |
 | `docs/audits/eap-project-audit-2026-07-14.md:54` | stale-fact | The §3 'Tooling walled or missing' table records, among others, that repo settings/branch-protection/rulesets are unreadable to agents and that direct |
@@ -1471,6 +1518,7 @@ defects. Nothing here needs fixing; several are historical records that are
 | `docs/planning/2026-07-26-ci-consolidation.md:55` | contradiction | The doc dates the end of the autonomous program to 2026-07-22, twice (line 55 and the pull-quote at line 72: 'roughly 175 serve a program that ended o |
 | `docs/planning/2026-08-08-fleet-manager-as-index.md:193` | stale-fact | SKILLS-local.md covers only 13 of the 27 installed skills, omitting session-close, release, review, intake, quality-gate, deep-research, rationalize,  |
 | `docs/planning/2026-08-08-fleet-manager-as-index.md:200` | stale-fact | The boot file carries no mention of the @codex review path, so a session's own orientation never surfaces it; stated as a standing owner requirement. |
+| `docs/planning/2026-08-08-fleet-manager-as-index.md:86` | other | Recording the supersession in place protects a session from acting on the superseded Tier-2 directive. |
 | `docs/planning/README.md:18` | stale-fact | The generated idea backlog indexes every session card's 💡 idea, and grooming passes should start from it. |
 | `docs/planning/idea-backlog.md:12` | stale-count | The card corpus is 244 cards and yields 46 idea blocks, 4 of them ungroomed. |
 | `docs/planning/overnight-menu-2026-07-17.md:3` | snapshot-as-instruction | A standing 'veto-ready menu' of 25 fleet-manager proposals for the owner's filter pass, carrying no era marker, linked from the live docs/current-stat |
@@ -1533,6 +1581,13 @@ defects. Nothing here needs fixing; several are historical records that are
 | `projects/product-forge/instructions.md:73` | stale-fact | The permissions block quoted below this line is the current fleet-canonical grant, verbatim from projects/UNIVERSAL.md. |
 | `projects/product-forge/meta.md:27` | stale-fact | fleet-manager's environments/ registry has no entry for product-forge, so a spec is still owed. |
 | `projects/self-improvement/coordinator-prompt.md:150` | snapshot-as-instruction | A session ending its work must call delete_trigger on every routine it created, and confirm zero routines remain. |
+| `projects/self-improvement/meta.md:6` | contradiction | Nothing of this seat package is deployed and its instructions.md is still the never-pasted v1 authored during the 2026-07-11 restructure. |
+| `projects/superbot-2.0/coordinator-prompt.md:151` | contradiction | A session ending its work must call delete_trigger on every routine it created — the failsafe cron, the pending send_later pacemaker, every business c |
+| `projects/superbot-2.0/instructions.md:21` | snapshot-as-instruction | These seat packages are standing, owner-signed instructions that survive restarts and outrank any rule lacking owner provenance. |
+| `projects/superbot-retro/meta.md:7` | stale-fact | The retired Retro-Games seat's failsafe trig_01Y99uDKNtKTz2EtRYPWZkGY and hourly child wakes trig_0137SkvhXEJvwepX8aVNkcSn / trig_01BTJjkMVMKtWPjuYe76 |
+| `projects/superbot-world/meta.md:16` | stale-fact | Three named old-seat failsafe triggers (games trig_019ZgWyL78Rx1sr6LhvL8NE3, idle trig_01TWKGFW8RUsMvxUMt2ndzqA, mineverse trig_01K8xmAKYS5S2HLy1HPANM |
+| `projects/venture-lab/meta.md:24` | contradiction | The package's setup-script.sh is the probe variant of the python-lab archetype for the console env field, probing STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SE |
+| `projects/venture-lab/meta.md:5` | snapshot-as-instruction | venture-lab is live but clockless, its heartbeat stale, three ORDERs unexecuted at control/inbox.md, and it is the sharpest state-risk in the fleet re |
 | `projects/websites/coordinator-prompt.md:151` | snapshot-as-instruction | The session ender orders wholesale trigger deletion (pacemaker, wake triggers, the failsafe cron, business crons) and BOOT step 4 describes a delete-b |
 | `projects/websites/meta.md:54` | contradiction | meta.md's header stamp and its whole 2026-07-18 Deployed-state table record all three parts (instructions / coordinator-prompt / failsafe-prompt) as v |
 | `substrate.config.json:71` | contradiction | docs/AGENT_ORIENTATION.md is one of exactly two declared boot read-path roots, used by bootstrap.py's check_reachable to certify that 'Every live doc  |
@@ -1541,40 +1596,4 @@ defects. Nothing here needs fixing; several are historical records that are
 | `telemetry/README.md:59` | stale-count | An enumeration of everything a trigger record in the snapshot holds: ids, crons, timestamps, session ids, and stored wake prompts. |
 | `telemetry/README.md:23` | stale-fact | The roster-regen cron runs every 2h at minute 40 off the committed snapshot, and the six-step 'Dump recipe (manager wake, REQUIRED + verified)' plus t |
 | `templates/worker-preamble.md:3` | unreachable-authority | These preamble blocks are a living ledger to be pasted verbatim into every worker prompt. |
-
----
-
-## Not adjudicated
-
-25 raised findings did not receive a refutation verdict before this
-session closed. They are neither confirmed nor dropped, and are recorded as such
-rather than being promoted on the strength of the raising agent alone.
-
-| path:line | kind | claim |
-|---|---|---|
-| `docs/planning/2026-07-26-consolidation-program.md:95` | broken-ref | E1's method and source material are described in a plan document appearing earlier on this page. |
-| `docs/planning/2026-07-26-final-eap-email-plan.md:1` | unreachable-authority | This is the live plan for program step E1, the owner's own reserved step. |
-| `.claude/skills/session-close/SKILL.md:143` | broken-ref | Links to the adversarial-review convention that defines the [survived]/[conceded]/[partial] vocabulary. |
-| `scripts/check_docs_links.py:99` | other | The S5 link-drift checker sweeps the repo's living markdown surfaces for dead intra-repo links. |
-| `docs/ROUTINES.md:2` | stale-fact | The wake-chain / routines doctrine binds current sessions. |
-| `docs/current-state.md:373` | known-example | Layer-2 Tier 1 has been filled with four repo folders, and the remaining repos are present as stubs. |
-| `docs/planning/2026-08-08-fleet-manager-as-index.md:86` | other | Recording the supersession in place protects a session from acting on the superseded Tier-2 directive. |
-| `docs/CAPABILITIES.md:238` | stale-count | The doc-routing hook carries 19 routes. Stated twice - also at line 433. |
-| `docs/owner-queue.md:1062` | contradiction | Under '## Parked (valid, no rush)': the owner's next Anthropic email is the capability self-knowledge pack, to be sent on the exis |
-| `.substrate/claude/CLAUDE.md:28` | contradiction | A `binding`-badged working agreement declaring the whole boot set to be three items (this file, HANDOFF.md, docs/current-state.md) |
-| `.substrate/check-exceptions.yml:2` | stale-count | There are three stamp entries in the block this comment introduces. |
-| `.substrate/check-exceptions.yml:72` | stale-fact | The false-wall suppression on docs/owner-queue-candidates.md is temporary - the offending quoted block will age out of the generat |
-| `.substrate/claude/CLAUDE.md:41` | stale-count | bootstrap.py is about 12,000 generated lines and .substrate/ holds a byte backup of the previous dist (singular). |
-| `.substrate/ci/branch-sweep.yml:22` | stale-fact | Agent-side branch deletion is 403-walled; the workflow is 'the sanctioned path around that wall'. |
-| `.substrate/episodic_index.json:16` | stale-fact | The episodic index holds one episode - the 2026-07-09 seed-home-repo session, summarised as in-progress. |
-| `.substrate/ci/auto-merge-enabler.yml:97` | broken-ref | docs/operations/auto-merge-guards.md documents the fallback landing path. |
-| `.substrate/backup/state.json:83` | stale-fact | The fleet_status_command slot answers 'what is the fleet doing?' with 'open docs/roster.md', a roster regenerated roughly every tw |
-| `projects/superbot-2.0/coordinator-prompt.md:151` | contradiction | A session ending its work must call delete_trigger on every routine it created — the failsafe cron, the pending send_later pacemak |
-| `projects/superbot-2.0/instructions.md:21` | snapshot-as-instruction | These seat packages are standing, owner-signed instructions that survive restarts and outrank any rule lacking owner provenance. |
-| `projects/superbot-world/meta.md:16` | stale-fact | Three named old-seat failsafe triggers (games trig_019ZgWyL78Rx1sr6LhvL8NE3, idle trig_01TWKGFW8RUsMvxUMt2ndzqA, mineverse trig_01 |
-| `projects/superbot-retro/meta.md:7` | stale-fact | The retired Retro-Games seat's failsafe trig_01Y99uDKNtKTz2EtRYPWZkGY and hourly child wakes trig_0137SkvhXEJvwepX8aVNkcSn / trig_ |
-| `projects/venture-lab/meta.md:24` | contradiction | The package's setup-script.sh is the probe variant of the python-lab archetype for the console env field, probing STRIPE_SECRET_KE |
-| `projects/superbot-2.0/meta.md:24` | stale-fact | The package's instructions.md is at version v3.7 and is registry-current as of 2026-07-18. |
-| `projects/self-improvement/meta.md:6` | contradiction | Nothing of this seat package is deployed and its instructions.md is still the never-pasted v1 authored during the 2026-07-11 restr |
-| `projects/venture-lab/meta.md:5` | snapshot-as-instruction | venture-lab is live but clockless, its heartbeat stale, three ORDERs unexecuted at control/inbox.md, and it is the sharpest state- |
 
