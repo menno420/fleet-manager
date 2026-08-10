@@ -36,6 +36,14 @@ This is the part that makes the coverage claim checkable rather than assertable.
 that skipped a file could still list its path; it could not produce that file's last
 non-empty line.
 
+**The threshold is not doing the work — measured.** Of the 832 non-append-only paths,
+**830 matched all three checks exactly**. Exactly two matched 2 of 3:
+`docs/current-state.md` and `docs/owner-queue.md` — both files *this session edited*
+after the agents read them, which moves the line count and the last line. Nothing
+matched fewer than two. So 2-of-3 accommodates the audit's own later edits and
+nothing else; it is not absorbing sloppy returns, and the stricter 3-of-3 figure is
+the honest headline: **830 exact, 2 explained, 1 append-only.**
+
 ## Structural reads, and why they are recorded separately
 
 Nineteen files hold 22,073,427 of the 30,006,142 bytes and are vendored or machine-
@@ -62,12 +70,14 @@ predicted this failure mode before it occurred, in its return for batch b22.
 ## Files this session authored
 
 The frozen denominator is the pre-audit tree. These paths are tracked now but were not in
-it, because this session created them (5):
+it, because this session created them (7):
 
 - `.claude/settings.local.json`
 - `.sessions/2026-08-10-full-read-audit.md`
 - `docs/audits/2026-08-10-full-read/README.md`
 - `docs/audits/2026-08-10-full-read/coverage-ledger.tsv`
 - `docs/audits/2026-08-10-full-read/enumeration.tsv`
+- `docs/audits/2026-08-10-full-read/findings.md`
+- `docs/audits/2026-08-10-full-read/verification.md`
 
 They are listed rather than silently folded into the coverage number.

@@ -15,10 +15,11 @@ it against the tree and to default to refuted when uncertain.
 | — of survivors: defect | 108 |
 | — of survivors: stale but harmless | 212 |
 
-Decision ids in this file are written with a non-breaking hyphen (`D‑0015`) so that
-quoting them as evidence does not register a second *home* under the gate's stamp
-discipline — the estate's own fix, per `scripts/gen_roster.py:1029`. Retype them with an
-ASCII hyphen when running the commands below.
+Decision ids are neutralised so that quoting them as evidence does not register a
+second *home* under the gate's stamp discipline. In prose they use a non-breaking
+hyphen (the estate's own fix, `scripts/gen_roster.py:1029`); in the **Check it**
+commands they use a regex character class (`D[-]0015`), which runs verbatim in any
+quoting style — a command a reader cannot paste is not evidence.
 
 **The split is the point.** *Defect* means a live surface a session could act on
 today and be misled. *Stale but harmless* means accurate-but-inert: a dated session
@@ -206,7 +207,7 @@ dispatch and relay rules do not)
 
 **Actually:** [D‑0015] (decided 2026-08-09) states a session must NEVER call delete_trigger — it is the one call that raises an owner approval prompt in automode and stalls the session. `.claude/hooks/trigger_tools_guard.py` DENIES the tool outright (DELETE_TOOL_RE + permissionDecision: deny) — the estate's only denying hook. The owner queue is read-path entry 4 and a live `living-ledger`, so a session sweeping its active items today meets a paste-ready instruction the hook will refuse and the boot file forbids. The correct remedy under current doctrine is `update_trigger enabled:false`, which this item never mentions.
 
-**Check it:** `grep -n "delete_trigger" /home/user/fleet-manager/docs/owner-queue.md; grep -n "DELETE_TOOL_RE\|permissionDecision" /home/user/fleet-manager/.claude/hooks/trigger_tools_guard.py; grep -n "D‑0015" -A 15 /home/user/fleet-manager/docs/decisions.md`
+**Check it:** `grep -n "delete_trigger" /home/user/fleet-manager/docs/owner-queue.md; grep -n "DELETE_TOOL_RE\|permissionDecision" /home/user/fleet-manager/.claude/hooks/trigger_tools_guard.py; grep -n "D[-]0015" -A 15 /home/user/fleet-manager/docs/decisions.md`
 
 **Refuter's correction:** Two corrections, one narrowing and one widening. NARROWER: the item is NOT in a 'current owner decisions' section — it sits under `## Inherited cross-repo owner asks — status as recorded` (line 65), whose banner at 67-69 says 'These entries preserve their last recorded status and instructions… Re-check the owning surface before acting', and the item's own note already calls itself 'likely MOOT after 2026-07-22'. Because the hook DENIES rather than prompts, the realistic failure mode is a denied tool call and a wasted turn, not the owner-prompt stall D‑0015 guards against. WIDER: the same instruction is not confined to owner-queue.md — docs/PROJECT-CLOSEOUT.md, read-path entry 5, repeats it twice with no banner at all: §3 item 3 (line 217, 'if either id survives, delete it') and §4 Owner checklist item 1 (line 342, 'Delete any survivor'). That is the higher-value fix target.
 
@@ -555,7 +556,7 @@ dispatch and relay rules do not)
 
 **Actually:** D‑0015 (docs/decisions.md:131, dated 2026-08-09, status decided) is the live rule that 'A session must never call `delete_trigger`', and .claude/hooks/trigger_tools_guard.py DENIES the tool outright — the estate's only denying hook. The emergency stop is `update_trigger` with `enabled: false`. The script is in scripts/ (a live 20-entry directory), carries no historical banner, contains no reference to D‑0015 or to disabling, and its remedy text is the exact instruction the hook exists to block. A session that runs it and follows the printed remedy either trips the deny or routes to the direct-API path (which only warns) and stalls the owner on an approval prompt. This is the seat-era prune-list doctrine (visible verbatim in .sessions/2026-07-13-night-watchdog-1/2/3.md) still baked into a live executable.
 
-**Check it:** `grep -n 'delete the rest\|deletes them' scripts/check_trigger_health.py; grep -n 'D‑0015\|update_trigger\|enabled: false' scripts/check_trigger_health.py; sed -n '131,136p' docs/decisions.md; grep -n 'delete_trigger.*DENY\|permissionDecision' .claude/hooks/trigger_tools_guard.py`
+**Check it:** `grep -n 'delete the rest\|deletes them' scripts/check_trigger_health.py; grep -n 'D[-]0015\|update_trigger\|enabled: false' scripts/check_trigger_health.py; sed -n '131,136p' docs/decisions.md; grep -n 'delete_trigger.*DENY\|permissionDecision' .claude/hooks/trigger_tools_guard.py`
 
 **Refuter's correction:** Two details need tightening. The consequence is milder than stated: the MCP tool call is denied outright by the hook (trigger_tools_guard.py:84 DELETE_TOOL_RE, :315 return deny), so a session following the remedy is blocked, not stalled — only the direct-API route warns rather than blocks, and that is the sole stall path. Second, no live surface routes to this script: its referrers are docs/playbook.md:83/112 (R26, which the playbook's own 2026-08-10 banner consigns to the historical column), telemetry/README.md:46, control/inbox.md, and projects/fleet-manager/coordinator-prompt.md — all bannered or boot-file-classified historical. That lowers the exposure but does not remove it, since the script itself carries no banner and sits in scripts/ beside checkers preflight.py does use.
 
@@ -775,7 +776,7 @@ dispatch and relay rules do not)
 
 **Actually:** This is seat-era doctrine carrying a live `binding` badge and no era banner, while every sibling seat-era doc got one (RESUME.md and NEXT-TASKS.md on 2026-08-08, reading-path.md and AGENT_ORIENTATION.md on 2026-08-08/08-10). It is actively routed to: docs/AGENT_ORIENTATION.md:87 names it as the doc to 'read it before touching the trigger registry'. Yet it contains zero mentions of D‑0015 (docs/decisions.md:131, decided 2026-08-09: 'A session must never call delete_trigger'), zero mention of .claude/hooks/trigger_tools_guard.py — the estate's only denying hook — and zero mention of the `update_trigger enabled:false` emergency stop that replaced deletion. Its end-of-turn invariant also directs a session to re-stamp control/status.md, which is retired seat-era apparatus. A session routed here before touching triggers gets doctrine that normalises the one call the estate bans.
 
-**Check it:** `grep -c 'D‑0015' docs/ROUTINES.md ; grep -n -i 'delete\|update_trigger\|enabled: false' docs/ROUTINES.md ; grep -n 'ROUTINES.md' docs/AGENT_ORIENTATION.md ; grep -n -A6 'D‑0015' docs/decisions.md`
+**Check it:** `grep -c 'D[-]0015' docs/ROUTINES.md ; grep -n -i 'delete\|update_trigger\|enabled: false' docs/ROUTINES.md ; grep -n 'ROUTINES.md' docs/AGENT_ORIENTATION.md ; grep -n -A6 'D[-]0015' docs/decisions.md`
 
 **Refuter's correction:** Two details to narrow. (1) ROUTINES.md never *instructs* deletion — line 33 instructs recording, and line 46 is an observation; it presupposes deletion as ordinary rather than directing it, and the actual delete call is hard-denied by trigger_tools_guard.py, so that half of the harm is contained. The uncontained half is the seat-era end-of-turn invariant at lines 90-94, which under a live `binding` badge tells a session to re-stamp `control/status.md` (retired apparatus) and to keep exactly one tick armed every turn or suffer a 'seat-killing bug' — nothing gates that. (2) Reachability is narrower than the finding implies: .claude/CLAUDE.md, docs/current-state.md, docs/reading-path.md and README.md contain zero references to ROUTINES.md; the only live router is AGENT_ORIENTATION.md — but that router explicitly certifies the routines route as still-accurate at its lines 25-26, which makes the defect worse, not better.
 
