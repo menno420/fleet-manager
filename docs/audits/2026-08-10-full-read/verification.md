@@ -32,9 +32,26 @@ needed at least two of the three to match before its row was written `READ`. The
 count alone is not sufficient and the head slice alone is not sufficient, because either
 could be produced by a `wc -l` or a `head` without opening the file.
 
-This is the part that makes the coverage claim checkable rather than assertable. An agent
-that skipped a file could still list its path; it could not produce that file's last
-non-empty line.
+### What this does and does not establish
+
+**It does not prove comprehension, and it does not by itself prove a read.** A worker
+could produce all three values with `wc -l`, `head` and `awk` without inspecting the
+content. Anyone auditing this should treat the fingerprint as proving *file identity and
+access* — that the agent held the real file at the real path — and nothing stronger.
+
+The evidence that the files were actually read is separate and is the part worth
+weighing: every agent also returned a one-line **gist** of each file's content, and the
+345 findings carry verbatim quotes with line numbers that were independently re-resolved
+against the tree by a second agent. A `wc`-and-`head` pass cannot produce either. The
+fingerprint's job is narrower — it makes *silent omission* impossible, because a path
+with no reproducing fingerprint cannot be counted.
+
+So the honest claim is: **every enumerated path was opened by a named agent that returned
+content-derived values reproducing against the tree, plus a description of its contents.**
+Not: every file was understood.
+
+The returned `head60`/`tail60` are kept in the ledger precisely so this is checkable by
+someone who does not trust it — recompute them and diff.
 
 **The threshold is not doing the work — measured.** Of the 832 non-append-only paths,
 **830 matched all three checks exactly**. Exactly two matched 2 of 3:
@@ -70,9 +87,8 @@ predicted this failure mode before it occurred, in its return for batch b22.
 ## Files this session authored
 
 The frozen denominator is the pre-audit tree. These paths are tracked now but were not in
-it, because this session created them (7):
+it, because this session created them (6):
 
-- `.claude/settings.local.json`
 - `.sessions/2026-08-10-full-read-audit.md`
 - `docs/audits/2026-08-10-full-read/README.md`
 - `docs/audits/2026-08-10-full-read/coverage-ledger.tsv`

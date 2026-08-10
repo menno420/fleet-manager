@@ -169,9 +169,10 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   (2026-08-10, fm #839): [the full-read audit](audits/2026-08-10-full-read/README.md)
   — all **833** tracked files, ledger built from what 57 read agents *returned*
   (line count plus first and last non-empty line per path, each recomputed from the
-  tree), **0 fingerprint mismatches, 0 unclaimed**. 320 findings raised, each handed
-  to an independent refuter told to default to refuted: **300 survived · 20 refuted ·
-  25 unadjudicated**, split **105 defect / 193 stale-but-harmless**.
+  tree), **0 fingerprint mismatches, 0 unclaimed**. 345 findings raised, each handed
+  to an independent refuter told to default to refuted: **322 survived · 23 refuted ·
+  0 unadjudicated**, split **110 defect / 206 stale-but-harmless** (6 merged as
+  duplicate sites).
   [findings.md](audits/2026-08-10-full-read/findings.md) leads with the seven that
   cost the most. **The reported-fixed "Tier 1 filled" and D2-repo-order defects are
   both still live** (`current-state.md:373` summarises the *superseded* half of the
