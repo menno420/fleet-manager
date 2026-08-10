@@ -1,6 +1,6 @@
 # 2026-08-10 · hub — full-read audit of fleet-manager (100% of tracked files)
 
-> **Status:** in-progress
+> **Status:** complete
 
 - **📊 Model:** opus-5 family · ultracode workflows · review/verify
 - Time: 2026-08-10 · venue: Claude Code remote container, owner-live hub chat ·
@@ -116,12 +116,30 @@ is the executable form of this audit's central finding: a green result inherited
 rather than derived. Cheap to add to `quality-gate`, or as a shell habit
 (`[ "$(wc -l < a)" -gt 0 ]` before `diff a b`).
 
-### Post-review commits
+### Review
 
-Two commits land after the round-2 review request and are named rather than folded
-in: `681e5f5` corrects which mechanism catches omission in `verification.md` (wording,
-no number or finding changed), and this card's close-out. Round 1's eight findings are
-all dispositioned — seven `[conceded]`, one `[partial]`, none declined.
+**Round 1 — answered, 8 findings (2 P1, 6 P2), all dispositioned: 7 `[conceded]`, 1
+`[partial]`, 0 declined.** Reviewed head `fac0b5012b`, submitted 20:04:36Z. The P1
+that mattered: fingerprints were presented as proof of *reading* when they establish
+only file identity and access, and the ledger did not persist the returned values, so
+the comparison was not reproducible. Both halves fixed. Two others were the audit
+committing the defect it reports — a site listed as both defect and "nothing needs
+fixing" (5 such sites), and this session's own owner-queue insertion shifting the
+`path:line` anchors the audit advertises (22 re-anchored).
+
+**Round 2 — requested on `f8ed15b` at ~20:06Z, never answered.** Polled to 20:24Z:
+one review total, zero inline comments newer than round 1, against a measured ~335 s
+latency. Not treated as approval — a silent non-answer is recorded as a non-answer.
+Landing per the two-round cap with the state named.
+
+**What round 2 would not have covered anyway:** `git diff --stat f8ed15b..HEAD` is 3
+files / 46 insertions — this card, the guard-fire telemetry, and `verification.md`'s
+omission-mechanism wording. Any finding naming a file outside that set applies to
+`HEAD` unchanged, because the reviewed bytes are identical.
+
+**Flip exemption taken:** this final commit is the badge flip plus this card's own
+close-out text and the strict-gate telemetry — nothing reviewable. Reviewed SHA
+`fac0b5012b`; what came after it is the list above.
 
 ### ⟲ Previous-session review
 
