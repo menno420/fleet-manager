@@ -108,7 +108,7 @@ diff before assuming the install was clean:
 
 | kit-named skill | local amendment at risk | added |
 |---|---|---|
-| `session-close` | the live-venue rewrite (2026-08-04, owner-ratified 08-05) and the Layer 2 handoff line (2026-08-08) | — |
+| `session-close` | the live-venue rewrite (2026-08-04, owner-ratified 08-05), the Layer 2 handoff line (2026-08-08), and the `adversarial-review.md` link depth fix (2026-08-10 — `../../` resolved to `.claude/docs/`, one level short; no checker covers `.claude/`, so a revert is silent) | — |
 | **`intake`** | **the entire Phase 2 intent map** — the seven-part provenance separation, the retrieval step, the LOW/MEDIUM/HIGH classes and `INTENT STATUS`. The staged copy at `.substrate/skills/intake/SKILL.md` still contains the superseded `FULLER PICTURE` body, **verified 2026-08-09**, so the copy loop reverts Phase 2 in one command | 2026-08-09 |
 
 ⚠⚠ **This bites on the very next session**, because the owner's live decision is
