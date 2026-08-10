@@ -1,8 +1,8 @@
 # 2026-08-10 · hub — D2 fleet-manager truth pass
 
-> **Status:** in-progress
+> **Status:** complete
 
-- **📊 Model:** GPT-5 family · high · documentation truth pass
+- **📊 Model:** GPT-5 family · high · docs-only
 - Time: 2026-08-10 · venue: ChatGPT Work owner-live chat · branch
   `claude/d2-fleet-manager-truth-pass`
 
@@ -21,7 +21,7 @@ session was the unresolved documentation question: the surface had proved it
 could review and fix code, but had not yet carried fleet-manager's documentation
 method from a cold start.
 
-## What is about to happen
+## Scope executed
 
 Audit the repository as a genuinely cold no-boot-file session, correct
 fleet-manager's documentation front door so its purpose, live state, and next
@@ -60,6 +60,9 @@ pointer, and land the docs-only result through the full review loop.
   strict runs. No application code, checker, hook, workflow, or generated kit
   source changed.
 
+Documentation batch: `3f19ac929f37`; historical-body preservation follow-up:
+`bf6317472635`.
+
 ### Verify — real exit codes
 
 Baseline on merged `main` (`2a0f16f8dfa20f132a1fe10bd89613275955984b`), each
@@ -80,9 +83,20 @@ python3 bootstrap.py check --strict             → 1
 ```
 
 Its sole finding is the designed born-red hold on this in-progress card. The
-gate appended its telemetry and named no documentation defect. The final `0`
-is owed after exact-head review, when this badge is the last substantive state
-change. Independently, `scripts/check_docs_links.py --no-anchors` exited `0`
+gate appended its telemetry and named no documentation defect.
+
+The first completion attempt also exited `1`: the outer gate read this
+working-tree badge as complete, while `scripts/preflight.py` deliberately
+selects added cards from `origin/main..HEAD`, whose published head still held
+the reviewed in-progress card. Staging alone cannot change that predicate. A
+local final-only commit made the completed card visible at `HEAD`; rerunning the
+same command then supplied the required terminal result:
+
+```
+python3 bootstrap.py check --strict             → 0
+```
+
+Independently, `scripts/check_docs_links.py --no-anchors` exited `0`
 with every scanned intra-repo link resolving, and `git diff --check` exited `0`.
 
 ### Cold proof — only the accepted route
@@ -101,8 +115,16 @@ No fourth repository file is required.
 
 ### Review
 
-Pending Codex review of the exact published head. Any finding will be reproduced
-and dispositioned before the completion flip.
+Codex reviewed exact head `bf63174726352325ad4d726d084712870410c942` and
+reported that it found no major issues. After the required wait, the PR still
+had no inline review threads and no later finding. No reviewable file changed
+after that head: this completion commit contains only this card close-out/status
+and strict-gate telemetry, the `session-close` exemption.
+
+The one pre-review self-correction restored the Projects guide's historical
+description verbatim after the session noticed its first draft had modernized
+the body under a “never rewrite” banner. It moved the head before review and is
+therefore inside the reviewed tree.
 
 ### Capability delta
 
@@ -127,5 +149,5 @@ its proposed checker remains captured and unbuilt because code is outside D2.
 
 ### PR
 
-#837 — READY on `claude/d2-fleet-manager-truth-pass`; completion and merge
-pending exact-head review and green CI.
+#837 — READY on `claude/d2-fleet-manager-truth-pass`; merged on green after the
+reviewed completion flip, then verified from merged `main`.
