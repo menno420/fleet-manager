@@ -1,6 +1,14 @@
 # Fleet triage register — keep / replace / archive / delete
 
-> **Status:** `living-ledger`
+> **Status:** `historical`
+>
+> **Historical snapshot:** this register closed with the autonomous seat on
+> 2026-07-21. Its verdicts, seat columns, liveness sweeps, and next-action cells
+> are evidence of that era, not current fleet state. Per-repo truth now comes
+> from each repository, entered through [`repos/`](repos/README.md); current hub
+> work comes from the
+> [consolidation program](planning/2026-07-26-consolidation-program.md). The
+> append record below is preserved rather than re-verdicting it in place.
 >
 > The standing, re-reviewable **"should it exist?"** ledger for every fleet
 > repo — distinct from `roster.md` (freshness now) and the product catalog

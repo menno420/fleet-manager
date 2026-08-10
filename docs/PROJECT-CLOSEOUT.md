@@ -1,6 +1,12 @@
 # fleet-manager — project closeout (fleet master document)
 
-> **Status:** `audit`
+> **Status:** `historical`
+>
+> **Historical snapshot:** this is the autonomous hub seat's final handover,
+> accurate to its stated 2026-07-21 verification point. Its continuation list
+> is preserved as evidence, not a current queue. Live state and next action are
+> [`current-state.md`](current-state.md) and the
+> [consolidation program](planning/2026-07-26-consolidation-program.md).
 >
 > Written 2026-07-21 at the close of the autonomous session period (sessions
 > became read-only 2026-07-22T00:00Z). This is the fleet-manager (hub) seat's

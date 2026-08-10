@@ -102,14 +102,18 @@ reviewer, fixed in fm #836 ([findings/2026-08-10-fm835-verification.md](findings
 **So a prompt aimed at that surface has to carry what the boot file would have
 given for free**, and should say plainly that nothing will catch a mistake
 except the gates and the session itself. Adding an `AGENTS.md` that points at
-the same read path would close the orientation half — deliberately **not** done
-here, because it was found while writing the first ChatGPT Work handoff and
-adding it mid-test would change what that test measures. Owner's call.
+the same read path would close the orientation half. It was deliberately absent
+for the D2 cold-read test, and remains absent after the test so the owner can
+make that surface-wide choice explicitly. The evidence and recommendation are
+recorded in `docs/findings/2026-08-10-fleet-manager-cold-read.md`; the action is
+`OQ-FM-AGENTS-BOOT`.
 
 **4. `$GITHUB_PAT` is not universal.** Some environments here carry it, and the
 Codex side does not. Any recipe that names it must branch on
 `printenv GITHUB_PAT` rather than assume it — see the 2026-08-03 ledger entry.
-Git over the configured remote does clone/fetch/push/branch without it.
+On the measured Work surface, read-only clone/fetch works without it; remote
+branches, commits and pull requests use the GitHub connector. An authenticated
+local push returned the error recorded in the ChatGPT section below.
 
 ## Strengths and weaknesses, as measured here
 
@@ -194,6 +198,18 @@ Three surface facts came out of it, each of which had cost a turn to guess:
 **The cost, stated honestly:** ten review findings over three rounds means Codex
 did a lot of the correcting, and the loop hit its two-round cap with four fixes
 to a required-CI checker still unexamined. It converged, and not cheaply.
+
+**Update 2026-08-10 — the deliberate documentation test (fm #837).** A Work
+session began with an empty directory and no repository file loaded, then ran
+fleet-manager's D2 truth pass under the repo's own procedure. The cold route
+failed before the edit: purpose required a fourth file, the living ledger led
+with seat-era state, and two next-action pointers had to be negated. The repaired
+README → current-state → consolidation-program route now states purpose, live
+era and next action within D2's limit. The full observation, including the
+things this surface had to hunt for, is
+[`findings/2026-08-10-fleet-manager-cold-read.md`](findings/2026-08-10-fleet-manager-cold-read.md).
+This resolves the documentation-work question in `intent.md` for one real,
+landed pass; it does not remove the need for exact-head review.
 
 ### The pattern both share
 

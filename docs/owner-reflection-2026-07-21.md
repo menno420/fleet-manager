@@ -2,6 +2,15 @@
 
 > **Status:** `reference`
 >
+> **Mixed-era banner, 2026-08-10:** the dated program account, email guidance,
+> and open-thread list below are historical. The owner's verification thesis,
+> working style, and standing instructions remain live. Current state and work
+> come from [`current-state.md`](current-state.md) and the
+> [consolidation program](planning/2026-07-26-consolidation-program.md), not the
+> old open threads. The preserved introduction below also names `roster.md` as
+> live state; that clause is historical and superseded by this banner. The
+> original body is preserved rather than rewritten.
+>
 > Hand-authored by a directing session on 2026-07-21, at the owner's request,
 > as a durable home for a line of thinking that formed over the course of an
 > intensive autonomous-agent run. **Two readers:** the owner (to remember what

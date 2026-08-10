@@ -1,33 +1,60 @@
-# fleet-manager — the manager Project's home
+# fleet-manager — the estate router and records home
 
-This repo is the fleet's **records custodian** (Option A custodian-primary —
-owner decision 2026-07-11) and the fleet manager's working memory: its
-playbook, worker templates, owner queue, dispatch log, and its own protocol
-heartbeat.
+fleet-manager is the owner’s **router and records home**. It helps a fresh
+session find the right repository, learn where the last session left off, and
+locate the estate-wide records that genuinely belong here. Product truth stays
+in each product repository; this repo points to it instead of copying it.
 
-**Fleet state is canonical HERE**: the generated roster (`docs/roster.md`)
-superseded the hand-kept superbot `docs/eap/fleet-manifest.md` on 2026-07-11
-and is the fleet-state source of truth, alongside the owner queue, evidence
-index, triage register, and triggers snapshot. The **program-narrative corpus**
-(the story of the program) stays in **menno420/superbot** (`docs/eap/`) —
-indexed from here (`docs/evidence-index.md`), never copied.
+Canonical purpose and boundaries: [`docs/intent.md`](docs/intent.md).
 
-**Design rule:** program-narrative truth → superbot `docs/eap/`; fleet-state
-records custody + manager-internal memory → here.
+## Cold orientation — three files, then state the answer
 
-## Map
+Read these in order:
 
-| Where | What |
+1. **This README** — purpose, boundary, and the live-versus-historical map.
+2. **[`docs/current-state.md`](docs/current-state.md)** — what is true in the
+   hub now.
+3. **[The consolidation program](docs/planning/2026-07-26-consolidation-program.md)**
+   — the authoritative NOW pointer and the next repository in the active step.
+
+After those reads, a cold session must be able to state, without guessing:
+
+- what fleet-manager is for;
+- what operating era and work state it is in;
+- what the next actionable step is.
+
+If it cannot, the front door is defective. Do not compensate by searching more
+files and calling the orientation successful; record the missing fact or
+contradiction.
+
+Claude Code also auto-loads [`.claude/CLAUDE.md`](.claude/CLAUDE.md). Other
+surfaces may not. The three-file route above is deliberately surface-neutral.
+
+## Live map
+
+| Need | Canonical place |
 |---|---|
-| [`docs/playbook.md`](docs/playbook.md) | The manager's operating memory — dated, numbered rules (orientation, dispatch, protocol, platform walls, owner interface). |
-| [`docs/owner-queue.md`](docs/owner-queue.md) | The one deduplicated queue of things waiting on the owner. |
-| [`docs/dispatch-log.md`](docs/dispatch-log.md) | Dated log of what the manager dispatched and shipped. |
-| [Central docs plan](docs/planning/2026-07-14-central-docs-plan.md) | Fleet documentation centralization plan — what moves where, migration order (landed at its §1 home 2026-07-14; stub at the old path). |
-| [`docs/trigger-health-spec.md`](docs/trigger-health-spec.md) | The per-wake trigger-health spec (R26 / ORDER 020) — canonical here since 2026-07-14 (plan A2). |
-| [`docs/q-index.md`](docs/q-index.md) | Repo-qualified Q→pointer table for cross-repo-cited owner decisions (superbot router stays canonical). |
-| [`docs/conventions/outbox-rollover.md`](docs/conventions/outbox-rollover.md) | The append-only outbox rollover/archival convention (plan A10 — answers idea-engine ASK 004). |
-| [Fleet inconsistencies (2026-07-13)](docs/fleet-inconsistencies-2026-07-13.md) | 19-repo review ledger of cross-fleet inconsistencies — fix-now items + ORDER-to-lane rest. |
-| [Agent capabilities — verified snapshot (2026-07-18)](docs/CAPABILITIES-verified-2026-07-18.md) | Dated verified-capabilities snapshot + owner grant; the living ledger is [`docs/CAPABILITIES.md`](docs/CAPABILITIES.md). |
-| [`docs/evidence-index.md`](docs/evidence-index.md) | Per-lane evidence index — including the archived program history and retrospectives. |
-| [`templates/`](templates/) | Standard preamble blocks pasted into every worker prompt. |
-| [`control/`](control/) | Protocol heartbeat — `inbox.md` (owner → manager orders), `status.md` (manager heartbeat). |
+| Why this repo exists and how to decide | [`docs/intent.md`](docs/intent.md) |
+| Live hub state | [`docs/current-state.md`](docs/current-state.md) |
+| Program progress and next action | [Consolidation program](docs/planning/2026-07-26-consolidation-program.md) |
+| Owner-only decisions and manual actions | [`docs/owner-queue.md`](docs/owner-queue.md) |
+| Per-repo entry points and handoffs | [`docs/repos/`](docs/repos/README.md) |
+| Verified capabilities and route facts | [`docs/CAPABILITIES.md`](docs/CAPABILITIES.md) |
+| Session landing procedure | [`.claude/skills/session-close/SKILL.md`](.claude/skills/session-close/SKILL.md) |
+
+## Historical map
+
+The autonomous Projects program closed in July 2026. Its generated roster,
+`control/` bus, committed trigger telemetry, project packages, and prompt
+registry are records of that era, not current state.
+
+- [`docs/PROJECT-CLOSEOUT.md`](docs/PROJECT-CLOSEOUT.md) is the historical hub
+  closeout and preserves the state and continuation advice known at closure.
+- [`docs/fleet-account-2026-07-26.md`](docs/fleet-account-2026-07-26.md) is the
+  owner-reviewed account of what the program produced.
+- [`docs/roster.md`](docs/roster.md), [`control/`](control/README.md),
+  [`telemetry/`](telemetry/README.md), and [`projects/`](projects/README.md) are
+  explicitly historical. Never use them to answer “what is happening now?”
+
+The current files above always win over a dated snapshot. Source and merged
+repository state win over every document.

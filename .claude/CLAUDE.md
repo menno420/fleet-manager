@@ -1,11 +1,11 @@
 # fleet-manager — hub · agent boot file
 
-> Auto-loaded when a session boots in this repo. **fleet-manager is the hub and
-> records home** of the owner's ~22-repo estate. The autonomous-Projects program
+> Auto-loaded when a session boots in this repo. **fleet-manager is the router
+> and records home** of the owner's repository estate. The autonomous-Projects program
 > that built most of it **closed 2026-07-21**; everything now runs in **regular
 > sessions like yours**, working the consolidation program with the owner, one
-> step at a time. This file is your orientation — the whole picture is two more
-> reads away.
+> step at a time. This file plus the two live ledgers named below is the cold
+> orientation contract.
 
 ## Boot triad — know yourself first (every session)
 1. **What model you are** — from your own config, family-level.
@@ -14,13 +14,13 @@
    skills from `<root>/.claude/`, where root is the session's working directory.
    Three cases, and only the first is the one you want:
    - **One source, and it is fleet-manager** → root is this repo; the read path
-     below, the 27 skills and the doc-routing hook all load. **This is why the
+     below, the installed skills and the doc-routing hook all load. **This is why the
      owner boots here** and then attaches whatever the work needs.
    - **One source, and it is a satellite repo** → root is *that* repo. Everything
      here goes quiet — with no error, and with the satellite's own `.claude/`
      loading in its place, so the session feels fully equipped. Measured
-     2026-08-07 booting on `curious-research`: **1 skill instead of 27, zero
-     hooks, and no estate read path at all.** The routing table below cannot bind
+     2026-08-07 booting on `curious-research`: **only that repo's own skill set,
+     no hub hooks, and no estate read path at all.** The routing table below cannot bind
      a session that never loaded it (PL-013), so `capability-probe`,
      `owner-brief` and `session-close` simply do not exist for that session.
    - **Several sources** → root is the bare clone parent `/home/user`, which has
@@ -41,7 +41,25 @@
 3. **What you can do** — the capabilities ledger below. Default posture:
    **you have full capability — act.**
 
-## The read path (in order — this is the fix for slow orientation)
+## Cold orientation — three files or the front door failed
+
+For a Claude Code session, this already-loaded file is file one. Read:
+
+1. `docs/current-state.md` — the live hub state;
+2. `docs/planning/2026-07-26-consolidation-program.md` — the NOW pointer and
+   next actionable step.
+
+Then state the repo's **purpose, live state, and next step** from those three
+files alone. If this boot file did not auto-load, start at `README.md`; it points
+to the same two ledgers and is the surface-neutral first file. Do not hide a
+failed orientation by hunting through a fourth document.
+
+## Deep read path (in order — for comprehension and task-specific work)
+
+The cold triad above is enough to orient. The path below adds the owner's
+working principles, provenance, history, and owner-only queue when the task
+requires full comprehension. It is deliberately deeper than the acceptance
+test; do not confuse the two.
 0. **How the owner thinks:** `docs/owner-reflection-2026-07-21.md` — his own
    thesis (**the wall is verification, not capability**), how he works, the
    "real mind" direction, and the standing instruction to **decide rather than
@@ -73,8 +91,9 @@
    don't re-derive the history — it already distils `eap-story`,
    `eap-retrospective`, `dispatch-log` and the rest.
 4. **Owner-only items:** `docs/owner-queue.md` — the consolidated queue of
-   genuinely owner-only asks (stable `OQ-` slugs). **Read it whole** — it is
-   ~1,100 lines and the active asks do not all sit at the top.
+   genuinely owner-only asks (stable `OQ-` slugs). **Read it whole** when the
+   task involves owner actions; active and historical material are distributed
+   through the file.
 5. **The handover:** `docs/PROJECT-CLOSEOUT.md` §3 — the priority-ordered
    continuation threads, each self-contained. Two were still open 15 days after
    the close because no one re-read them.
@@ -260,11 +279,10 @@ Essentials:
 
 When a task matches a row below, **loading that skill is part of doing the
 task**, not an optional extra — a skill you didn't load can't bind you
-(PL-013). **All 27 with one line each: `docs/SKILLS-local.md` § "All 27 — the
-roster"** — one read answers *"what can I do here"*. (`docs/SKILLS.md` is the
-kit's generated half and covers 10 of them; until 2026-08-08 neither file said
-so, and two installed skills — `rationalize`, `scope-backlog-item` — appeared in
-neither.)
+(PL-013). **The installed roster with one line per skill lives in
+`docs/SKILLS-local.md`** — derive the set from that registry and the skill tree
+rather than freezing a count in prose. `docs/SKILLS.md` is the kit-generated
+half; the local file explains the split.
 
 | The task in front of you | Invoke |
 |---|---|
@@ -279,7 +297,7 @@ neither.)
 | About to say "I can't" / a tool seems missing / something new worked | `capability-probe` |
 | A job means reading a whole corpus (all cards, all results, a full tree) | `delegate-read` |
 | Owner asks anything status-shaped ("where are we", "what's left") | `owner-brief` |
-| Ending the session | `session-close` (verify: BOTH gates, real exit codes) |
+| Ending the session | `session-close` (run the one strict command and read its real exit code) |
 | Kit version work | `release` → `upgrade-distribution` |
 
 The list is deliberately short — it carries only the recurring task classes.

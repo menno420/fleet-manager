@@ -164,6 +164,17 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-10 · capability · `any` · **ChatGPT Work can carry fleet-manager's
+  documentation truth-pass method from a genuinely cold start.** The session
+  began with no checkout and no repository file loaded, discovered and recorded
+  where the old front door forced extra hunting, corrected the live/historical
+  boundaries, and produced a three-file orientation that directly states
+  purpose, live state and next action. · evidence: fm #837 and
+  [`findings/2026-08-10-fleet-manager-cold-read.md`](findings/2026-08-10-fleet-manager-cold-read.md);
+  the exact route is `README.md` → `docs/current-state.md` → the consolidation
+  program. · limit: this proves one documentation pass under the repository's
+  gates and review method, not unattended correctness for every future task.
+
 - 2026-08-10 · capability · `any` · **On ChatGPT Work the GitHub connector is a complete
   publishing route — including Actions job logs, the one operation this estate's docs still
   describe as needing `gh`.** Measured across fm #835's whole landing: it created the branch,

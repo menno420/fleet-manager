@@ -1,6 +1,12 @@
 # The fleet, as the record tells it — 2026-07-26
 
-> **Status:** `reference`
+> **Status:** `historical`
+>
+> **Historical snapshot:** this is the owner-reviewed account as of 2026-07-26.
+> It is read once for history and is never a source for live repo state, current
+> owner asks, or the next action. Use [`current-state.md`](current-state.md) and
+> the [consolidation program](planning/2026-07-26-consolidation-program.md) for
+> those. The dated body is preserved rather than rewritten.
 >
 > **Purpose:** the owner asked for a full read-back of what the repositories'
 > documentation says happened over the program, so he can diff it against what

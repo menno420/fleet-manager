@@ -2,6 +2,15 @@
 
 > **Status:** `living-ledger` — the manager's operating memory; update the day a lesson is
 > learned (friction → rule, same session).
+>
+> **Mixed-era banner, 2026-08-10:** the orientation, owner-interface,
+> visibility, review, and landing rules still apply where their mechanism still
+> exists. The dispatch, control-bus, roster, wake-chain, and seat-liveness rules
+> describe the closed autonomous program and are historical. In particular,
+> R1/R2, R16/R17, R22/R24, and R29/R30 remain useful; do not revive the relay
+> machinery around them. The numbered record is preserved rather than
+> rewritten; current procedure comes from `.claude/CLAUDE.md` and
+> `.claude/skills/session-close/SKILL.md`.
 
 Numbered rules, each with the WHY that earned it. All dated 2026-07-09 (gen-1 baseline
 day) unless a later date is noted next to the rule.

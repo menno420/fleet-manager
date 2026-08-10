@@ -150,7 +150,7 @@ evidence: cite it as his judgement, and do not describe the table as measured.
 | Agent | Role in this estate |
 |---|---|
 | **Claude** | The main agent. Planning, implementation, GitHub settings/Actions, documentation — *"Claude does everything"*. It holds the full credential set, so it has the widest capability and the most freedom. Preferred for important documentation work. |
-| **ChatGPT** (the *Work* environment) | Real implementation, currently doing a lot of it in `spider-swing`. Comparable to Claude Code, installs the same kinds of packages, and **has proven very reliable**. Documentation work there is worth a deliberate test — untried, and the owner wants to know if it understands the method. |
+| **ChatGPT** (the *Work* environment) | Real implementation, currently doing a lot of it in `spider-swing`. Comparable to Claude Code, installs the same kinds of packages, and **has proven very reliable**. The deliberate documentation test completed in fleet-manager's D2 pass (fm #837): the surface carried a cold truth audit, correction, verification, exact-head review and landing under the repository's own method. Evidence: [`findings/2026-08-10-fleet-manager-cold-read.md`](findings/2026-08-10-fleet-manager-cold-read.md). |
 | **Gemini** · **Grok** | Routed to **extra review, brainstorming and planning**. Implementation is not their lane in this estate. |
 | **Codex** | Independent PR review (the GitHub relay, ~5.5 min). |
 
@@ -216,8 +216,11 @@ actually needs. Where it and §§ 1–8 differ, the quoted `OWNER` text wins.
 - **Where the durable intent surface lives for *other* repos** — this file is
   fleet-manager's. The roadmap deliberately requires *one discoverable canonical
   intent source* per active repo rather than a file of this name everywhere.
-- **Whether ChatGPT can carry documentation work to this standard** — the owner
-  wants it tested; nothing has been run.
+
+**Resolved 2026-08-10:** ChatGPT Work can carry a fleet-manager documentation
+truth pass to this repository's standard (fm #837). This is evidence for this
+method and surface, not a claim that every future documentation task will be
+correct without review.
 *(A "question 22" was recorded here as an open item. **There was no question 22**
 — the batch had 21, and a trailing `22.` in the answer list was read as a
 started-and-abandoned question. Owner-corrected 2026-08-08; removed rather than

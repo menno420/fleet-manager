@@ -53,10 +53,14 @@ NOTHING FROM THE REPO LOADS AUTOMATICALLY HERE.
 Claude Code auto-loads .claude/CLAUDE.md; you do not, and there is no AGENTS.md.
 A Work project chat also starts with NO checkout — the working directory is
 empty (Codex cloud is a different surface and does check one out). So: clone or
-read via the GitHub connector, then read .claude/CLAUDE.md yourself before
-answering anything about this estate. It is the orientation and it points at the
-rest. If you have no repo access in a given chat, say so plainly and answer from
-what is in front of you, labelled as such.
+read via the GitHub connector. The cold orientation contract is exactly:
+README.md → docs/current-state.md →
+docs/planning/2026-07-26-consolidation-program.md. From those files, state the
+repo's purpose, live state and next step before hunting anywhere else. Then read
+.claude/CLAUDE.md yourself before acting on estate work; it carries the deeper
+read path and Claude-specific apparatus, none of which loaded for you. If you
+have no repo access in a given chat, say so plainly and answer from what is in
+front of you, labelled as such.
 
 GITHUB: USE THE CONNECTOR. Do not probe for `gh` or $GITHUB_PAT — neither is
 present and neither is needed. Local git handles the working tree (clone, fetch,
@@ -128,5 +132,6 @@ Note the auto-merge lane only sweeps branches named claude/* .
 
 Whether a short `AGENTS.md` at the repo root would beat these instructions for
 orientation. It would be read natively by that surface. Deliberately not added
-yet, because it changes what the surface test measures —
-`docs/execution-surfaces.md` § 4b carries the reasoning. Owner's call.
+yet: the no-boot-file D2 test is now preserved as evidence, and the remaining
+choice is whether native auto-orientation is worth adding. The owner ask lives at
+`OQ-FM-AGENTS-BOOT`; `docs/execution-surfaces.md` § 4b carries the reasoning.
