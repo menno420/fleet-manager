@@ -140,7 +140,7 @@ steps.
    `substrate-kit#580` ran **five rounds and 34 findings without converging**,
    and the convergence predicted from its own curve (9 → 9 → 8 → 2) was falsified
    when round 5 returned 6
-   ([`../../docs/conventions/adversarial-review.md`](../../docs/conventions/adversarial-review.md)
+   ([`docs/conventions/adversarial-review.md`](../../../docs/conventions/adversarial-review.md)
    § *Round 5 falsified the convergence reading*). A reviewer that always finds
    something is not a reason to never land; **an unbounded loop hands the merge
    decision to the reviewer**, which is the same defect as a gate the owner never

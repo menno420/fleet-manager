@@ -37,6 +37,26 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 
 ## Current owner decisions — verified from fleet-manager on 2026-08-10
 
+- **`OQ-FM-D2-TARGET` — Retarget D2's repository order; the NOW pointer names a
+  repository you have deprioritised.** **WHAT:** decide what D2's next repository
+  actually is, and whether spider-swing enters the program at all.
+  **WHERE:** [`planning/2026-07-26-consolidation-program.md`](planning/2026-07-26-consolidation-program.md)
+  `:62` (the NOW pointer), `:102` (D2's order), `:45` (§2's target picture), plus the
+  three echoes at [`current-state.md`](current-state.md) `:40`, `:176`, `:517`.
+  **WHY IT MATTERS:** the pointer reads `D2 — shiftlife truth pass`, and you said
+  live on 2026-08-10 that shiftlife is not active and that spider-swing and the
+  superbot repos are the important ones. **That statement exists nowhere in this
+  repository**, so every document agrees with every other one and all of them route
+  the next session to a dormant repo. Independently of your statement: spider-swing
+  is in **none** of §2's eight target rows and nowhere in D2's order, while `:86` of
+  the same file records that every evening since 07-26 has gone to it — the order
+  encodes 2026-07-26 activity and the repo was created 2026-07-28, so advancing the
+  pointer can never reach it. **UNBLOCKS:** the next session picking real work.
+  **VERIFIED-NEEDED:** owner only — a session cannot derive the target from the tree,
+  which is the whole finding. Evidence:
+  [`audits/2026-08-10-full-read/findings.md`](audits/2026-08-10-full-read/findings.md)
+  § "Start here", item 1.
+
 - **`OQ-FM-AGENTS-BOOT` — Decide whether to add a minimal root `AGENTS.md`.**
   **WHAT:** now that the no-boot-file D2 test is preserved, decide whether a
   native instruction file should point non-Claude surfaces at the same
