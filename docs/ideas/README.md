@@ -44,6 +44,14 @@ frontmatter keeps the score.
 
 (Captured ideas, each with a state and a next destination — none left at `raw`.)
 
+### 2026-08-10 cohort — third-party verification
+
+- [Derive, don't state — a checker for counts about the repo's own contents](derive-dont-state-counts-2026-08-10.md) —
+  `captured` · advisory-first `tools/` lint for stale enumerable counts in
+  read-path prose ("5 hooks" when there were six, "31 cases" when the suite ran
+  52); carries its own argument against itself, because the false-positive
+  surface is the whole question
+
 ### 2026-08-09 cohort — independent guard review
 
 - [Checker contract bank — semantic controls for kit upgrades](checker-contract-bank-2026-08-09.md) —
