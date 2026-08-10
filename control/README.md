@@ -3,7 +3,7 @@
 > roster/telemetry autogen are retired with the EAP wind-down (read-only 2026-07-21;
 > Projects to be recreated fresh). Kept for history — do **not** resume the ORDER-relay or
 > treat these files as live state. Live status: `docs/current-state.md`; next steps:
-> `docs/NEXT-TASKS.md`.
+> `docs/planning/2026-07-26-consolidation-program.md`.
 
 # Fleet coordination protocol — `control/`
 

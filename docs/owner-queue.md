@@ -9,11 +9,18 @@
 
 ## Context
 
-The paste-ready immediate action list is
-[owner-actions-2026-07-17.md](owner-actions-2026-07-17.md), and the manager's task set is
-[NEXT-TASKS.md](NEXT-TASKS.md). Full prior detail for any item below lives in git history
-(pre-cleanup owner-queue) and in each item's original body. Historical lineage of the gen-2
-launch that seeded the earliest queue items: [`launch-readiness-2026-07-10.md`](launch-readiness-2026-07-10.md).
+This is the current surface for decisions and manual actions that genuinely
+require the owner. The consolidation program's NOW pointer, not this queue,
+chooses session work. `owner-actions-2026-07-17.md` and `NEXT-TASKS.md` are
+seat-era records and must not be used as live action lists.
+
+The fleet-manager D2 pass verified the local asks at the top of this file. It
+did **not** re-verify the inherited cross-repo entries or their external
+services; that would exceed this repo-only pass. Verify any inherited item in
+its owning repository or live service immediately before acting. Full prior
+detail lives in git history and in each item's original body. Historical
+lineage of the gen-2 launch that seeded the earliest queue items:
+[`launch-readiness-2026-07-10.md`](launch-readiness-2026-07-10.md).
 
 ---
 
@@ -28,7 +35,38 @@ pass (this write, fm seat close PR #427) verified each Active item against live
 GitHub/the 16:00:18Z trigger snapshot; per-item close notes are appended below.
 Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3.
 
-## Active — genuinely-open owner asks
+## Current owner decisions — verified from fleet-manager on 2026-08-10
+
+- **`OQ-FM-AGENTS-BOOT` — Decide whether to add a minimal root `AGENTS.md`.**
+  **WHAT:** now that the no-boot-file D2 test is preserved, decide whether a
+  native instruction file should point non-Claude surfaces at the same
+  surface-neutral cold route: `README.md` → `docs/current-state.md` → the
+  consolidation program. **RECOMMENDATION: ADD**, but only as a short pointer;
+  do not duplicate the boot file or its rules. **WHY:** the measured ChatGPT
+  Work session loaded no repository instructions and had to discover the route
+  manually. A native pointer would remove that avoidable first hunt without
+  changing the three-file acceptance contract. **WHERE:** repository root.
+  **VERIFY:** a new no-context session reports the same purpose, live state and
+  next action without being told which file to open. **NOT DONE HERE:** adding
+  it during the measurement would have changed the surface being tested, and
+  the owner explicitly reserved the choice.
+
+- **`OQ-KIT-V1-21-RELEASE` — Open the dedicated substrate-kit v1.21.0 release
+  session when ready.** The owner has already chosen the sequence: adopt
+  v1.20.2 here, then cut v1.21.0 separately. The first half is complete. The
+  release has its own outward-facing scope and recorded defect set; D2 neither
+  starts it nor edits substrate-kit. **OWNER ACTION:** explicitly start that
+  release session when he wants it run. **WHERE TO BEGIN:**
+  [`findings/2026-08-09-substrate-kit-defects.md`](findings/2026-08-09-substrate-kit-defects.md)
+  and the release procedure in substrate-kit. **VERIFY:** that session owns its
+  release evidence and adopter preview; no fleet-manager D2 claim substitutes
+  for it.
+
+## Inherited cross-repo owner asks — status as recorded
+
+> These entries preserve their last recorded status and instructions. They are
+> not a 2026-08-10 verification of another repository or external account.
+> Re-check the owning surface before acting.
 
 - **`OQ-PLAY-ACCOUNT` — ✅ DONE (owner-confirmed 2026-08-05). Developer account created, verified and paid.**
   Kept here rather than archived because the four items below all depend on it and the

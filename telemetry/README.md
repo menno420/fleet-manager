@@ -1,6 +1,12 @@
 # `telemetry/` — committed machine-readable fleet telemetry
 
-> **Status:** `binding` (conventions) / `living-data` (the files)
+> **Status:** `historical`
+>
+> **Historical apparatus:** the trigger snapshot and lane-liveness files below
+> were produced by the autonomous manager seat. That seat and its roster regen
+> closed; these files no longer refresh and their recipes are not current work.
+> They remain committed evidence. Live state is
+> [`../docs/current-state.md`](../docs/current-state.md).
 
 ## `triggers-snapshot.json` — the committed trigger-registry export
 

@@ -12,7 +12,10 @@ Non-coder product owner: plain language, decisions pre-chewed (recommendation + 
 
 ## Review ritual
 
-Manager verifies against repos (git evidence), never against agent reports (playbook R2); owner reviews via docs/owner-queue.md and orders via control/inbox.md.
+Sessions verify against repositories (git evidence), never against agent
+reports (playbook R2). The owner directs live work in the current chat and uses
+`docs/owner-queue.md` for decisions or manual actions that are genuinely his.
+`control/inbox.md` is a historical seat-era record, not an order channel.
 
 ## Presence model — attend planning, delegate execution (owner-stated, 2026-08-05)
 

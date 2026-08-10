@@ -94,18 +94,19 @@ the files it has" for the worked example the shape came from.
 |---|---|---|
 | **1** | `spider-swing` | ✅ **built** 2026-08-08 — the reference shape, **ratified 2026-08-08** |
 | **1** | `superbot` + `superbot-next` (paired) · `substrate-kit` · `venture-lab` | ⬜ not built — **cleared to build**; the shape is settled |
-| **1** | `fleet-manager` (itself — today's work is otherwise a standing exception) | ⬜ not built — **not one of the four**; it is a fifth, and its intent already lives at [`../intent.md`](../intent.md) |
-| **2** | the remaining ~19 | ⬜ **on demand** — built when work goes there, not pre-stubbed (owner, 2026-08-08) |
+| **1** | `fleet-manager` (itself — today's work is otherwise a standing exception) | ⬜ not built — outside the owner-ratified build-now set; its intent already lives at [`../intent.md`](../intent.md) |
+| **2** | all other repos | ⬜ **on demand** — built when work goes there, not pre-stubbed (owner, 2026-08-08) |
 
 **The shape is settled — owner, 2026-08-08.** The three questions the spider-swing
 folder left open are answered: it replicates **as built** (`README.md` +
 `capabilities.md` + `records.md` + `working-here.md`); `working-here.md` **earns
 its place as a distinct file** because gates, verify commands and traps are what a
 session needs *before* attaching, and they are neither state nor goals;
-`current-state.md` and `goals.md` **stay deferred**. Coverage is **the four Tier-1
-repos now, the rest on demand** — deliberately not 24 stubs, because a stub that
-is never filled is the failure mode this directory's own coverage table exists to
-make visible. Provenance: [`../intent.md`](../intent.md) § 8.
+`current-state.md` and `goals.md` **stay deferred**. Coverage is **the named
+Tier-1 build-now set above; all other repos are on demand** — deliberately not a
+prebuilt folder for every repo, because a stub that is never filled is the
+failure mode this directory's own coverage table exists to make visible.
+Provenance: [`../intent.md`](../intent.md) § 8.
 
 **One addition to the shape, not yet built:** a folder should point at the repo's
 **external workspaces** — its Drive folder, its ChatGPT workspace, its Gemini

@@ -1,9 +1,17 @@
 # projects/ — the fleet's Project package registry
 
-> **Status:** `living-registry` — one dir per Project, each holding the complete
-> console package for that seat. Assembled 2026-07-10 (package-centralization
-> dispatch) from the three-sweep inventory by three parallel builders; committed
-> verbatim by the assembler.
+> **Status:** `historical`
+>
+> **Historical apparatus:** these are console packages for autonomous Projects
+> that closed in July 2026. They do not describe the current estate and must not
+> be used to boot a session. Current orientation starts at [`../README.md`](../README.md)
+> and per-repo handoffs live under [`../docs/repos/`](../docs/repos/README.md).
+> The registry body is preserved rather than regenerated into a topology that
+> no longer exists.
+>
+> One dir per Project, each holding the complete console package for that seat.
+> Assembled 2026-07-10 (package-centralization dispatch) from the three-sweep
+> inventory by three parallel builders; committed verbatim by the assembler.
 
 > **⚠ RESTRUCTURED 2026-07-11 (owner directive — 8 standing Projects, slice 1).**
 > The fleet's standing seats are now: **Venture Lab** (`venture-lab/` — folds
