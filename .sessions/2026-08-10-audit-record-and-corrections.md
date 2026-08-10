@@ -1,6 +1,6 @@
 # 2026-08-10 · hub — persist the audit's raw record; close Codex round 2
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** fable-5 family · high · review/verify
 - Time: 2026-08-10 · venue: owner-live hub chat (same session as fm #839, model
@@ -85,6 +85,24 @@ the mechanism working end to end.
 💡 Groomed forward: `derive-dont-state-counts` — the area READMEs deliberately
 carry no file counts, only links, so they cannot go stale the way every frozen
 count has.
+
+### Review record
+
+Codex, two rounds on this PR, both answered on exact heads. Round 1
+(`f591dc4fec`): ten findings, ten conceded — including the generator having
+**clobbered the pre-existing environments registry README** (restored from
+history; the no-secret-values rule was in it) and the P1 that the boot file
+pointed at the six-read order without requiring it. Round 2 (`d4be97dbdc`):
+seven findings, seven conceded — the sharpest being this PR reproducing the
+audit's own appended-correction failure (current-state still said "the pointer
+still names shiftlife" after this PR fixed the pointer), plus the head-only
+telemetry row counted inside the verified 833 (now 832 + 1 documented
+exception). Landed at the two-round cap with all dispositions in the PR thread;
+zero findings declined across both rounds.
+
+Measured cost of the six-read mandatory order, recorded for the trade-off
+question: ~35k tokens per cold start vs ~23k for the old triad (+~12k). The
+failure it buys out of — five sessions mis-orienting — cost more per incident.
 
 ### ⟲ Previous-session review
 
