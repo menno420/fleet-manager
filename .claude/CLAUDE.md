@@ -71,7 +71,19 @@ test; do not confuse the two.
 1. **What is true now:** `docs/current-state.md` — the living ledger, and a
    declared boot-readpath doc in its own header. Source and merged PRs win over
    it; read it before task-specific docs so you don't act on stale state.
-2. **The program:** `docs/planning/2026-07-26-consolidation-program.md` —
+1b. **The owner's CURRENT plan — read this before the program below:**
+   `docs/planning/2026-08-08-agent-operating-environment-roadmap.md` — his
+   architecture decisions taken live 2026-08-08, three phases: retrieval +
+   orientation (landed, fm #826) · intent resolution (first slice landed,
+   fm #830; § 4.8's fresh-agent test outstanding) · the common operating
+   protocol (not started). **This entry exists because the roadmap was in
+   neither this file nor `README.md` until 2026-08-10**, and `current-state.md`
+   carried it *below* its own "preserved, not current" banner — so a session
+   walking this path met a plan from 2026-07-26 and never learned the owner had
+   set a newer direction two weeks later. Third instance of the same defect this
+   read path already records twice (entries 0 and 2b).
+2. **The consolidation program — a parallel, older track:**
+   `docs/planning/2026-07-26-consolidation-program.md` —
    THE working plan: the owner-directive (OD) table, the step ledger, the **NOW**
    pointer, and how a session works a step. Your work almost certainly lives here.
    **Its NOW pointer is not the whole answer** — read entry 2b before acting on it.

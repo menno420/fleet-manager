@@ -36,7 +36,8 @@ surfaces may not. The three-file route above is deliberately surface-neutral.
 |---|---|
 | Why this repo exists and how to decide | [`docs/intent.md`](docs/intent.md) |
 | Live hub state | [`docs/current-state.md`](docs/current-state.md) |
-| Program progress and next action | [Consolidation program](docs/planning/2026-07-26-consolidation-program.md) |
+| **The owner's current plan** | [Agent operating environment roadmap](docs/planning/2026-08-08-agent-operating-environment-roadmap.md) — three phases, set live 2026-08-08 |
+| Program progress and next action | [Consolidation program](docs/planning/2026-07-26-consolidation-program.md) — the older, parallel repo-consolidation track |
 | Owner-only decisions and manual actions | [`docs/owner-queue.md`](docs/owner-queue.md) |
 | Per-repo entry points and handoffs | [`docs/repos/`](docs/repos/README.md) |
 | Verified capabilities and route facts | [`docs/CAPABILITIES.md`](docs/CAPABILITIES.md) |

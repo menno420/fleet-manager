@@ -36,9 +36,26 @@ copy product architecture or internal product state. Canonical intent:
 
 - **E1 remains owner-reserved.** The final EAP email is written and sent by the
   owner; a session does not draft or send it.
-- **D2 is the actionable program step.** fleet-manager's truth pass is complete;
-  **shiftlife is next** in the repository order. The consolidation program's
-  NOW pointer is authoritative.
+- **The owner's current plan is the three-phase agent-operating-environment
+  roadmap** (`OWNER`, 2026-08-08):
+  [planning/2026-08-08-agent-operating-environment-roadmap.md](planning/2026-08-08-agent-operating-environment-roadmap.md).
+  Phase 1 (retrieval + orientation) landed, fm #826. Phase 2 (intent resolution)
+  has its first slice landed, fm #830, with § 4.8's fresh-agent test still
+  outstanding. Phase 3 (the common operating protocol) is not started. **Read
+  this before the consolidation program** — until 2026-08-10 the roadmap was
+  absent from the boot file and the README, and its only mention here sat below
+  the *"preserved, not current"* banner, so the front door answered *"what is
+  next?"* from a July list while the owner's actual plan was unreachable.
+- **D2 is the actionable step of the older consolidation program.** Whether that
+  program is still live alongside the roadmap or is superseded by it is **an
+  open owner question, raised 2026-08-10 and not yet answered** — `REASONED`
+  that they are parallel tracks because their subjects differ (repo
+  consolidation vs the agent operating environment), which is a reading, not his
+  word. fleet-manager's truth
+  pass is complete; **spider-swing is next**, per the owner live 2026-08-10.
+  **D2's written order is a 2026-07-26 snapshot, not a ranking** — it predates
+  `spider-swing` (created 2026-07-28) entirely, so re-check it against the owner
+  before taking a repo from it.
 - fleet-manager vendors substrate-kit v1.20.2. The dedicated v1.21.0 release
   session and its recorded upstream defects are separate from D2.
 - Whether a root `AGENTS.md` should make the neutral front door auto-load is an
@@ -173,7 +190,7 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   rewritten. The cold failure, every hunt it caused, and the repaired-route
   proof are recorded in
   [the D2 finding](findings/2026-08-10-fleet-manager-cold-read.md). E1 remains
-  owner-reserved; D2 advances to **shiftlife**.
+  owner-reserved; D2 advances to **spider-swing** (owner live 2026-08-10; the written order is a 2026-07-26 snapshot).
 
 - **The owner's intent, asked and recorded — and two standing directives changed
   by his answers** (2026-08-08): [intent.md](intent.md) — fleet-manager's durable
@@ -370,7 +387,7 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   [planning/2026-08-08-fleet-manager-as-index.md](planning/2026-08-08-fleet-manager-as-index.md)
   — owner-live design decisions for the next build session. Layer 1 (general, light) +
   Layer 2 (`docs/repos/<name>/`, one folder per repo, `README.md` as the standalone
-  entry). Tier 1 filled: spider-swing · superbot+superbot-next · substrate-kit ·
+  entry). Tier 1 *designated*: spider-swing · superbot+superbot-next · substrate-kit ·
   venture-lab; the rest stubbed. Each folder is a **handoff, not an encyclopedia** —
   thread-scoped, dated, pointers with one line of context. Maintained by a
   `session-close` step with an explicit null, **deliberately not a gate**. Two
@@ -514,7 +531,7 @@ by the successor's 23:50Z heartbeat, PR #97):
 **Current:** the authoritative next action is the consolidation program's NOW
 pointer in
 [`planning/2026-07-26-consolidation-program.md`](planning/2026-07-26-consolidation-program.md).
-E1 remains owner-reserved; D2 is the available track, with **shiftlife next** in
+E1 remains owner-reserved; D2 is the available track, with **spider-swing next** in
 its repository order.
 
 Use

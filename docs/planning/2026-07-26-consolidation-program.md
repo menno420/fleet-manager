@@ -59,13 +59,32 @@ hasn't said) picks the next NOW from the top of any track. **Verify before
 fold** — no repo is merged or archived before its conformance/truth pass. Every
 completed step appends a row to §7 with its PR.
 
-### ➡ NOW: **D2 — shiftlife truth pass**
+### ➡ NOW: **D2 — spider-swing truth pass**
 
-The fleet-manager pass completed the first repository in D2's order. The next
-actionable repository is **shiftlife**. Apply the same fresh-session test there:
-purpose, live state and next step from no more than three files. Evidence for
-the fleet-manager pass:
+The fleet-manager pass is complete. The next actionable repository is
+**spider-swing**. Apply the same fresh-session test there: purpose, live state
+and next step from no more than three files. Evidence for the fleet-manager
+pass:
 [`../findings/2026-08-10-fleet-manager-cold-read.md`](../findings/2026-08-10-fleet-manager-cold-read.md).
+Read [`../repos/spider-swing/README.md`](../repos/spider-swing/README.md) and
+its `working-here.md` **before** attaching — that repo's gates differ from this
+one's (it requires **both** `substrate-gate` and `game-quality`, and verifies
+with **two** commands).
+
+> **⚠ The order below is a dated snapshot, not a ranking — re-check it against
+> the owner before taking the next repo from it.** It was written 2026-07-26 and
+> ordered by which repos were committing that week:
+> [`../fleet-account-2026-07-26.md`](../fleet-account-2026-07-26.md) records
+> *"shiftlife has an active working session today"* on that very date, which is
+> why shiftlife sat second. **`spider-swing` was created 2026-07-28 — two days
+> after the order was written — so it appears nowhere in it**, while this same
+> page records that every owner evening since 07-26 has gone to it. On
+> 2026-08-10 a session took the pointer literally and proposed shiftlife; the
+> owner corrected it live: *"I never really did much in that repo and currently
+> it's not active. spider swing and the superbot repos are the important ones."*
+> The order is now led by his statement. **Nothing ages a list written in the
+> imperative** — it stayed internally consistent with every document around it,
+> which is exactly why the fleet-manager truth pass could not catch it.
 
 > **Before acting on this pointer, read
 > [`../findings/2026-08-05-foundation-continuation.md`](../findings/2026-08-05-foundation-continuation.md)** —
