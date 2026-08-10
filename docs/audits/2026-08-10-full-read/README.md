@@ -1,5 +1,7 @@
 # Full-read audit — fleet-manager, 2026-08-10
 
+> **Status:** `audit`
+
 Every tracked file in this repository, read and accounted for. Not a sample, not
 the read path, not "the important ones".
 
