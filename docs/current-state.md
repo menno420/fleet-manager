@@ -46,13 +46,18 @@ copy product architecture or internal product state. Canonical intent:
   absent from the boot file and the README, and its only mention here sat below
   the *"preserved, not current"* banner, so the front door answered *"what is
   next?"* from a July list while the owner's actual plan was unreachable.
-- **D2 is the actionable step of the older consolidation program.** Whether that
-  program is still live alongside the roadmap or is superseded by it is **an
-  open owner question, raised 2026-08-10 and not yet answered** — `REASONED`
-  that they are parallel tracks because their subjects differ (repo
-  consolidation vs the agent operating environment), which is a reading, not his
-  word. fleet-manager's truth
-  pass is complete; **spider-swing is next**, per the owner live 2026-08-10.
+- **What a session should pick up is already answered, and it is not D2.**
+  `OWNER`, 2026-08-08, **OD-13** in the consolidation program's own directive
+  table (`planning/2026-07-26-consolidation-program.md:38`): *"first improve the
+  workflow and further define the right mix of AI agents across different
+  providers before we actually continue high value product work"* — naming two
+  prerequisites, **the roadmap's Phases 2–3** and **the multi-provider agent
+  mix** ([`intent.md`](intent.md) § 7), and calling itself *"the standing answer
+  to what should a session pick up."* So the program is **not a parallel peer of
+  the roadmap; it defers to it.** Product work is deprioritised, not forbidden.
+- **D2 is the consolidation program's actionable step, and it sits behind
+  OD-13.** fleet-manager's truth pass is complete; **spider-swing is the next
+  repo if D2 is taken up**, per the owner live 2026-08-10.
   **D2's written order is a 2026-07-26 snapshot, not a ranking** — it predates
   `spider-swing` (created 2026-07-28) entirely, so re-check it against the owner
   before taking a repo from it.

@@ -82,11 +82,17 @@ test; do not confuse the two.
    walking this path met a plan from 2026-07-26 and never learned the owner had
    set a newer direction two weeks later. Third instance of the same defect this
    read path already records twice (entries 0 and 2b).
-2. **The consolidation program — a parallel, older track:**
-   `docs/planning/2026-07-26-consolidation-program.md` —
-   THE working plan: the owner-directive (OD) table, the step ledger, the **NOW**
-   pointer, and how a session works a step. Your work almost certainly lives here.
-   **Its NOW pointer is not the whole answer** — read entry 2b before acting on it.
+2. **The consolidation program:** `docs/planning/2026-07-26-consolidation-program.md`
+   — the owner-directive (OD) table, the step ledger, the **NOW** pointer, and how
+   a session works a step. **Read its OD table before its NOW pointer**: `OD-13`
+   (`:38`, owner 2026-08-08) names the roadmap's Phases 2–3 and the
+   multi-provider agent mix as what comes *first*, and calls itself *"the
+   standing answer to what should a session pick up."* So the lettered steps sit
+   **behind** that directive, and this page is the older track rather than the
+   current plan. Two further reasons its NOW pointer is not the whole answer:
+   read entry 2b, and treat **D2's repo order as a dated snapshot, not a
+   ranking** — it was written 2026-07-26 and does not contain `spider-swing`,
+   which was created two days later.
 2b. **What supersedes the plan's next-actions:**
    `docs/findings/2026-08-05-foundation-continuation.md` — the revised order of
    work (foundation before rebuild), and a **certainty legend that governs how to
