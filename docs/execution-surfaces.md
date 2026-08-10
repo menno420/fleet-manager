@@ -42,7 +42,8 @@ for the fact that more than one agent works these repos.
 | **GitHub access** | MCP GitHub tools + git over the configured remote; `$GITHUB_PAT` in *some* environments | Platform-native GitHub connection; **no `$GITHUB_PAT`** |
 | **`gh` CLI** | Not in the base image; installed by `setup-base.sh` Block 2b | Not present by default; nothing requires it |
 | **Reads `AGENTS.md`** | Yes | Yes |
-| **What actually auto-loads in THIS repo** | `.claude/CLAUDE.md` + 27 skills + 5 hooks | **nothing — there is no `AGENTS.md` here** (measured 2026-08-09) |
+| **What actually auto-loads in THIS repo** | `.claude/CLAUDE.md`, plus the skills in `.claude/skills/` and the hooks registered in `.claude/settings.json` — **derive the counts, never quote them** (see below) | **nothing — there is no `AGENTS.md` here** (measured 2026-08-09) |
+| **`delete_trigger` stalls on owner approval** | Yes — the reason for the deny-hook and its decision | **No.** No equivalent tool, and nothing there has ever waited on owner approval (owner, 2026-08-10) |
 
 Sources: [Cloud environments](https://learn.chatgpt.com/docs/environments/cloud-environment) ·
 [Agent internet access](https://learn.chatgpt.com/docs/cloud/internet-access) ·
@@ -80,7 +81,7 @@ flagged as the highest-value thing to check next.
 table says both surfaces read `AGENTS.md`, which is true and is not the point —
 **fleet-manager does not have one.** Claude Code loads `.claude/CLAUDE.md`
 automatically; ChatGPT Work does not read that path, so it starts with **no boot
-file, no read path, no skills, and none of the five hooks.**
+file, no read path, no skills, and none of the hooks.**
 
 That last part is the one that changes an outcome rather than a convenience. On
 2026-08-09 those hooks — the reply-reviewer, the propagation checker, the
@@ -89,6 +90,14 @@ session made that day, and the author caught none of them by re-reading.** A
 ChatGPT session doing the same work has none of that watching it. The **gates**
 (`bootstrap.py check --strict` and the `tools/` checkers) are plain `python3`
 and DO run there; only the moment-of-action hooks are absent.
+
+**Do not write the hook or skill count down here — derive it.** This line said
+*"none of the five hooks"* from 2026-08-09 to 2026-08-10 while there were six,
+because the sentence was committed in `e9214c5` **after** `a02a4b1` added the
+sixth hook in the same session. `ls .claude/hooks/*.py` and the `hooks` block of
+`.claude/settings.json` are the answer and cannot go stale; a number in prose
+goes stale the moment the thing it counts changes. Found by the fm #835
+reviewer, fixed in fm #836 ([findings/2026-08-10-fm835-verification.md](findings/2026-08-10-fm835-verification.md)).
 
 **So a prompt aimed at that surface has to carry what the boot file would have
 given for free**, and should say plainly that nothing will catch a mistake
@@ -152,6 +161,39 @@ One recorded instance: a session reported itself **blocked** on a missing `gh` C
 while, in the same message, listing the open PRs and the open issue it had just
 successfully read — a false blocker that cost the owner a turn. That is the same
 failure class as this side's false walls, arriving through a different door.
+
+**Update 2026-08-10 — measured on a real review task (fm #835), and it went
+well.** Given fm #833/#834 to attack, a Work session reran both instruments
+offline, corrected the defect classification, found that a script advertised as
+a seven-case harness ran four, fixed the local false-wall hole, and took ten
+Codex findings across three exact-head reviews with a reproduction and a
+`[conceded]` disposition on every one. Verified independently in fm #836: gates
+`0/0/0/0/0`, the fix reproduces, and an adversarial battery written elsewhere
+scores it 23/24 against the old checker's 9/24
+([findings/2026-08-10-fm835-verification.md](findings/2026-08-10-fm835-verification.md)).
+
+Three surface facts came out of it, each of which had cost a turn to guess:
+
+- **The GitHub connector is the publishing route, not `gh` and not
+  `$GITHUB_PAT`.** `command -v gh` → 1, `printenv GITHUB_PAT` → 1, and an
+  authenticated local `git push` → 128 (`could not read Username`). The
+  connector did branches, commits, ready PRs, review replies, thread
+  resolution, **and Actions job logs** — the last being the one operation this
+  estate's docs still describe as needing `gh`. Read-only `git clone` / `fetch`
+  worked fine, so the shape is: **local git for the tree, connector for the
+  remote.**
+- **The repo checked itself out — it did not arrive.** The initial working
+  directory was empty and `.claude/CLAUDE.md` returned *No such file or
+  directory*. Codex *cloud* checks out a selected repo automatically; a **Work
+  project chat does not**. Treat them as two surfaces, not one.
+- **`merge-on-green` only sweeps `claude/*`.** Its branch filter is literal
+  (`merge-on-green.yml:162`), so an `agent/*` head is skipped and must be merged
+  directly. Any prompt aimed at this surface should either name a `claude/*`
+  branch or say the landing is manual.
+
+**The cost, stated honestly:** ten review findings over three rounds means Codex
+did a lot of the correcting, and the loop hit its two-round cap with four fixes
+to a required-CI checker still unexamined. It converged, and not cheaply.
 
 ### The pattern both share
 
@@ -218,6 +260,12 @@ prompt), `continuation-prompt` (carry a planning session into a fresh one),
 `decision-capture` (commit the decisions so the prompt can point instead of
 carry). Each reads the surface rows above and adjusts only what actually
 differs — network, credentials, tooling, setup-phase exports.
+
+**The ChatGPT project's standing instructions are a file, not a chat artifact:**
+[`prompts/chatgpt-project-instructions.md`](prompts/chatgpt-project-instructions.md).
+A brief aimed at that surface should point at it rather than restate it — and
+should not re-add the `delete_trigger` rule, which is Claude-Code-specific
+(owner, 2026-08-10; see the surface table).
 
 **Known gap, 2026-08-05.** `continuation-prompt` was promoted into substrate-kit
 so it reaches every adopter, but **this document was not** — so the kit copy
