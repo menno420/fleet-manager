@@ -37,14 +37,14 @@ import subprocess
 import sys
 from pathlib import Path
 
-REPO = Path(
-    os.environ.get("CLAUDE_PROJECT_DIR")
-    or subprocess.run(
-        ["git", "rev-parse", "--show-toplevel"],
-        capture_output=True, text=True, check=False,
-    ).stdout.strip()
-    or "."
-)
+# Derive the owning repo from this file's own location, never from
+# CLAUDE_PROJECT_DIR (2026-08-11, Codex on fm #846): in the multi-root rescue
+# case the env var points at the parent session root, which silently mis-rooted
+# `.substrate/skills` lookups and every repo-relative check — disabling check A
+# in exactly the environment `install_root_hooks.py` rescues. The file lives at
+# <repo>/.claude/hooks/, so parents[2] is right in both the ordinary and the
+# rescued case (same pattern as git_state_guard.py).
+REPO = Path(__file__).resolve().parents[2]
 
 # A change smaller than this is not worth a propagation grep — short strings are
 # common substrings and the check would fire on everything.

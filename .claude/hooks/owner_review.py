@@ -19,8 +19,11 @@ Design provenance (all MEASURED, docs/findings/2026-08-06-provenance-mechanism-m
        below is the load-bearing component, not the questions or the sequence
   § 2  Stop is the only viable event (UserPromptSubmit fires before any claim
        exists to ask about)
-  § 8  the null path is a normal outcome — reviewer says NO QUESTIONS, turn
-       ends untouched; a review that must always find something is ritual
+  § 8  the reviewer's null is a normal outcome — NO QUESTIONS simply adds no
+       specifics. (§ 8's original reading, "turn ends untouched", described the
+       v1 design; the 2026-08-08 inversion above superseded it — the block is
+       unconditional, and only the ENRICHMENT is nullable. A review that must
+       always find something is ritual; a fixed question is not a finding.)
 
 FAIL-OPEN IS A HARD CONTRACT. Any defect — no transcript, no creds, no
 network, bad JSON, timeout — exits 0 silently. A review hook that can trap a

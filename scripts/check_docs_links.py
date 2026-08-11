@@ -85,6 +85,10 @@ REF_DEF_RE = re.compile(r"^\s{0,3}\[[^\]]+\]:\s+(\S+)")
 # Fenced code blocks (``` or ~~~) are skipped line-by-line so a link inside a
 # code sample is never treated as a live link.
 FENCE_RE = re.compile(r"^\s*(```|~~~)")
+# Inline code spans, run-aware per CommonMark: an opening run of N backticks
+# closes only on an equal-length run, so both `x` and ``[x](y)`` are spans.
+# The backreference keeps a longer closing run from matching short.
+CODE_SPAN_RE = re.compile(r"(`+)(.+?)\1")
 # Anchor sources inside a target file: markdown headings, plus explicit HTML
 # anchors and `{#custom-id}` heading suffixes.
 HEADING_RE = re.compile(r"^\s{0,3}(#{1,6})\s+(.*?)\s*#*\s*$")
@@ -161,7 +165,11 @@ def iter_links(text: str):
 
     Inline code spans are stripped first (2026-08-11): a `[x](y)` inside
     backticks renders as literal text, not a link — the first `.claude/` scan
-    flagged a worked example in the hooks README as a dead link.
+    flagged a worked example in the hooks README as a dead link. The span
+    matcher is run-aware (Codex, fm #846): an N-backtick delimiter closes only
+    on an equal run, so ``…`` spans — the very form used to quote
+    single-backtick examples — are stripped too, instead of leaking their
+    content to the link parser.
     """
     in_fence = False
     for lineno, line in enumerate(text.splitlines(), 1):
@@ -170,7 +178,7 @@ def iter_links(text: str):
             continue
         if in_fence:
             continue
-        line = re.sub(r"`[^`]*`", "``", line)
+        line = CODE_SPAN_RE.sub("", line)
         for m in INLINE_LINK_RE.finditer(line):
             yield lineno, m.group(1)
         rm = REF_DEF_RE.match(line)
@@ -310,6 +318,7 @@ _GOOD_FIXTURE = {
     "docs/a.md": "# Title A\n\nSee [b](b.md) and [sec](b.md#a-heading).\n"
                  "Root link: [home](/README.md).\n"
                  "An example in code is not a link: `[x](gone-nowhere.md)`.\n"
+                 "Nor in a double-backtick span: ``[y](also-gone.md)``.\n"
                  "Em-dash anchors, GitHub-true and collapsed alias:\n"
                  "[dd](b.md#part-2--errors) and [dc](b.md#part-2-errors).\n",
     "docs/b.md": "# B\n\n## A Heading\n\ntext\n\n## Part 2 — Errors\n\nx\n",

@@ -104,6 +104,34 @@ bad re-check commands were honestly recorded, and the anchor-drift paragraph's
 "derive, don't list" rule held up exactly as written (the planning-README
 missing set had already grown from 3 to 4 by today).
 
+**Codex round 1 (head `bbfc513`): 7 inline P2 findings — 7 `[conceded]`, all
+verified against source before acting, all fixed:**
+
+1. Code-span stripping leaked ``…``-delimited spans → run-aware
+   `CODE_SPAN_RE` with a backreference + selftest case.
+2. D1's recorded proof carried bash-escaped backticks GNU grep reads as a
+   buffer anchor — the recorded command was not the executed command →
+   re-recorded as the `-F` form, run verbatim.
+3. D7's proof still grepped ASCII `D-0015` after the stamp pass converted the
+   annotations to U+2011 → proof re-recorded with the real spelling.
+4. D9's proof lagged the gate-driven amendment-grammar respelling → `-F` form
+   matching the finalized field.
+5. `owner_review.py`'s § 8 provenance line still said "turn ends untouched" —
+   the exact residue class D18 fixed one paragraph up → amended.
+6. **Real code defect:** the rescued `change_guard.py` mis-rooted `REPO` from
+   `CLAUDE_PROJECT_DIR` in the multi-root case the rescue exists for →
+   `__file__`-derived (git_state_guard's pattern); probed under a foreign
+   `CLAUDE_PROJECT_DIR` → resolves to this repo; suite 16/16.
+7. The `session-close` re-apply row's "no checker covers `.claude/`" went
+   stale the moment this PR extended the scan set → row updated (advisory
+   hand-run coverage, still nothing in CI).
+
+Findings 2–4 sharpen the 💡 above into its final form: **the recorded command
+must BE the executed string, and the whole battery must re-run after the last
+edit of the session** — two proofs were invalidated by later same-session
+fixes to the very files they proved. Full battery re-run after round 1:
+**39/39 PASS**.
+
 Layer-2 handoff: null (fleet-manager itself; no satellite repo attached)
 
 PR: menno420/fleet-manager#846 — ready, born-red hold until this badge flips.
