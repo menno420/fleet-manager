@@ -2,15 +2,19 @@
 
 > **Status:** `binding`
 >
-> **Contested-status note, 2026-08-11 (audit D46):** the parent
-> `control/README.md` banner sweeps `claims/` in with the retired message
-> bus; that sweep is over-broad for this directory and now says so. The
-> claim mechanism itself remains **kit-wired and live** — `bootstrap.py`
-> pins `claims_dir` here, its claims check runs (advisory), and the
-> `session-close` skill's claim step writes here — so this README keeps its
-> `binding` badge. What IS retired is the bus around it: the "control fast
-> lane" landing path and the heartbeat/ORDER references in the body below
-> are seat-era record, not procedure.
+> **Contested-status note, 2026-08-11 (audit D46; sharpened by Codex round 1
+> on fm #849):** the parent `control/README.md` banner sweeps `claims/` in
+> with the retired message bus; that sweep is over-broad in exactly one
+> narrow sense, and this note says which. The mechanism remains
+> **kit-wired** — `bootstrap.py` pins `claims_dir` here and its claims
+> check runs (advisory) — which is why this README keeps its `binding`
+> badge as the kit convention's record. But **in fleet-manager the claim is
+> the born-red session card plus the open PR, NOT a file here**: the
+> installed `session-close` skill says so explicitly (step 1 — `control/`
+> is seat-era historical), so do not create claim files in this directory;
+> a file here would be a second signal the actual close workflow never
+> consults. The bus around it — the "control fast lane" landing path and
+> the heartbeat/ORDER references below — is seat-era record, not procedure.
 >
 > Local copy for fleet-manager. The kit-owned work-claim convention
 > (EAP program review 2026-07-10 §6.4 — the fleet's forked claim mechanisms

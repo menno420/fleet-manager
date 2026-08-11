@@ -5,8 +5,10 @@
 > treat these files as live state. Live status: `docs/current-state.md`; next steps:
 > the consolidation program (`docs/planning/2026-07-26-consolidation-program.md`;
 > this pointer said `docs/NEXT-TASKS.md`, itself retired — updated 2026-08-11).
-> **Carve-out (2026-08-11, audit D46): `claims/` is NOT retired** — the kit
-> still wires it; see `claims/README.md`'s contested-status note.
+> **Carve-out (2026-08-11, audit D46): `claims/` is NOT retired as kit
+> apparatus** — the kit still wires it, though the claim signal in this repo
+> is the born-red card + open PR, never a file there (the installed
+> `session-close` skill); see `claims/README.md`'s contested-status note.
 
 # fleet-manager outbox (manager → owner lane)
 

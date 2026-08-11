@@ -110,7 +110,27 @@ with one countable defect — the open-set enumeration (66 ids for "67
 open"), which its own 101−34 derivation exposes; recorded in D4's closure
 rather than by editing the historical card.
 
-**Codex:** round 1 (head `TBD`) — *(filled after review)*.
+**Codex round 1 (head `fab701e`; the draft→ready flip did not trigger a
+review — 13 minutes of three-surface polling, zero events — so the literal
+`@codex review` comment fired it): 2 inline P2 findings — 2 `[conceded]`,
+both verified against source before acting, both fixed:**
+
+1. The D46 claims note asserted "the `session-close` skill's claim step
+   writes here" — **false**: the installed skill's step 1 says the claim is
+   the born-red card + open PR, *not* a `control/claims/` file. Written
+   from the skill's one-line description without opening its body — the
+   exact unread-description class `read_before_write` exists for. All three
+   carve-out sites and the D46 closure now carry the operative rule.
+2. The slot fix stopped one short of its own principle: three MORE
+   `.substrate/state.json` slots still fed corrected renders with seat-era
+   text (`new_area_ownership`, `staleness_review`, `fleet_dark_repos`), so
+   a `render` would have re-emitted the retracted doctrine. Verified, then
+   **derived the full set instead of trusting the named three** — the sweep
+   found six (`fleet_siblings`, `fleet_status_command`, `review_ritual`
+   besides Codex's three); all six corrected via `bootstrap.py answer`,
+   residual stale-live-clause sweep returns NONE.
+
+Battery re-run after the round-1 fixes: **88/88 PASS**.
 
 PR: menno420/fleet-manager#849 — ready, born-red hold until this badge flips.
 
