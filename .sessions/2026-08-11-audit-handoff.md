@@ -1,6 +1,6 @@
 # 2026-08-11 · hub — commit what only the chat holds, then hand the audit over
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** identity withheld by session policy · high · docs-only
 - Time: 2026-08-11 · venue: owner-live hub chat · branch
@@ -88,6 +88,31 @@ Every session that appends a Recently-shipped entry moves the `CORE` read closer
 to a cliff nobody has budgeted for, and the entries nearest the top are the ones
 a fresh session most needs. Trimming it is a real task, not a drive-by — logged
 for the edit pass.
+
+### Review
+
+Codex, two rounds, both on exact heads. Round 1 (`9753508`): 8 findings, **8
+conceded**. Round 2 (`3344068`): 6 findings, **6 conceded**. 14 findings, 14
+conceded, 0 declined; landed at the two-round cap with nothing open.
+
+**Three of round 2's six were failures of round 1's fixes**, which is the part
+worth keeping. Row 1's re-check command was wrong twice — first an unscoped
+sweep that exits 0 on this audit's own record, then a `git`-only pathspec handed
+to GNU `grep`, which reads it as a filename and exits 2. And fixing `[D-0016]`'s
+false universal introduced the same error the neighbouring row 3 was about:
+promoting a seat-era cap to a live rule on the strength of a `binding` badge in a
+closed-era document.
+
+The sharpest single finding was a premise, not a detail: the idea file claimed no
+rule requires reading the open-PR signal, and `control/claims/README.md` is badged
+`binding` and requires exactly that in its step 1. The gap is delivery, not law —
+a better problem, and a different build.
+
+And the one this session should be judged on: **`1 closed, 2 partial, 4 open`
+survived in two summaries after `findings.md` had moved to `1 closed, 6 open`.** A
+PR written to document that an appended correction does not retract what it
+corrects, committing that defect inside itself, in the same PR. The mechanism does
+not care that you know about it.
 
 ### ⚑ Owner-facing
 
