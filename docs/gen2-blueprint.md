@@ -2,6 +2,18 @@
 
 > **Status:** `binding`
 >
+> **Era note, 2026-08-11 (audit D65/D66):** seat-era launch standard for the
+> autonomous-Projects program that closed 2026-07-21 — the seat births,
+> Project creations, Custom-Instruction pastes and wake routines below are
+> record, not procedure; no session executes them (the 2026-08-08/10 banner
+> sweeps missed this file). Its **eight citations of playbook R21 are doubly
+> dead**: R21 was SUPERSEDED 2026-07-11 by the UNIVERSAL v4 §2.4 merge
+> clause, and that clause was itself reversed 2026-07-18/19 (fm #308/#309,
+> R30) — the live landing doctrine is the boot file's (merging is normal
+> agent work). The max-one-*status*-PR rule in here is one of the two
+> narrow PR-count caps `[D‑0016]` records as still live; the body is
+> otherwise preserved verbatim.
+>
 > Drafted 2026-07-09 at succession, synthesized from the fleet's own retros
 > ([`findings/retro-synthesis-2026-07-09.md`](findings/retro-synthesis-2026-07-09.md)
 > — especially the 13 cross-patterns and the lanes' F1/F4 prescriptions), the

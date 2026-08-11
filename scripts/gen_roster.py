@@ -1,6 +1,16 @@
 #!/usr/bin/env python3
 """gen_roster.py — mechanized R25 fleet-roster generation.
 
+ERA NOTE (2026-08-11, audit D38): the roster this script generates was
+RETIRED 2026-08-07 by owner directive — both roster-regen.yml cron lines
+removed, docs/roster.md bannered "⛔ RETIRED". Nothing runs this script on a
+schedule any more; only a manual workflow_dispatch or hand run can. **A regen
+OVERWRITES the hand-applied RETIRED banners** on docs/roster.md,
+docs/evidence-index.md and docs/owner-queue-candidates.md with the seat-era
+living-ledger headers this script still emits — do not run it casually. The
+"REQUIRED wake step" imperative below is preserved as seat-era record; the
+wakes it binds to ended with the program on 2026-07-21.
+
 ================================ PROVENANCE ================================
 Why added : Roster generations #1-#4 (fleet-manager PRs #38/#44/#53/#59) were
             each executed BY HAND as a wake procedure; ORDER 009 and the
@@ -152,7 +162,9 @@ SNAPSHOT CONVENTION (P1 FRESHNESS, centralization plan §3a, fm PR #81):
   `40 */2 * * *`) consumes the committed snapshot and re-fetches heartbeats
   live, so the roster stays fresh between wakes; its TRIGGER columns are
   only as fresh as the last committed snapshot. Regen + a green
-  scripts/check_roster_freshness.py is a REQUIRED wake step, not a
+  scripts/check_roster_freshness.py WAS a REQUIRED wake step in the seat
+  era (retired 2026-08-07 — see the ERA NOTE at top; no wakes exist, and a
+  regen overwrites the RETIRED banners), not a
   commit-only-on-change option. An ad-hoc uncommitted export
   (tmp-triggers.json, gitignored) remains fine for one-off runs.
 

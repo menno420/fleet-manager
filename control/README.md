@@ -1,9 +1,14 @@
 > **RETIRED 2026-07-17 — autonomous apparatus wound down; historical only.**
-> The `control/` message-bus (`inbox.md`, `outbox.md`, `status.md`, `claims/`) and the
+> The `control/` message-bus (`inbox.md`, `outbox.md`, `status.md`) and the
 > roster/telemetry autogen are retired with the EAP wind-down (read-only 2026-07-21;
 > Projects to be recreated fresh). Kept for history — do **not** resume the ORDER-relay or
 > treat these files as live state. Live status: `docs/current-state.md`; next steps:
 > `docs/planning/2026-07-26-consolidation-program.md`.
+> **Carve-out (2026-08-11, audit D46): `claims/` is NOT retired** — the kit
+> still wires it (`claims_dir` in substrate.config.json, an advisory claims
+> check, the `session-close` claim step); this banner's original sweep
+> included it and was over-broad. See `claims/README.md`'s contested-status
+> note.
 
 # Fleet coordination protocol — `control/`
 

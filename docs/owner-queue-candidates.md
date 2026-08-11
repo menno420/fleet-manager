@@ -1,8 +1,15 @@
-# Owner-queue candidate feed — GENERATED
+# Owner-queue candidate feed — GENERATED · **HISTORICAL**
 
-> **Status:** `living-ledger`
+> ## ⛔ RETIRED with the roster, 2026-08-07 — this file is a record, not current truth
 >
-> **GENERATED — NOT SOURCE OF TRUTH; the manager curates `docs/owner-queue.md` from it.** Do not hand-edit; regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
+> **Status:** `historical` *(banner hand-applied 2026-08-11, audit D71/D72 —
+> the 2026-08-07 roster retirement removed both regen cron lines but left
+> this second output of the same generator still badged `living-ledger`.
+> Frozen at Generation #430, 2026-08-06T14:57Z; every block below is an
+> extraction from a seat heartbeat of seats that closed 2026-07-21. Do not
+> curate the owner queue from it.)*
+>
+> **GENERATED — NOT SOURCE OF TRUTH; the manager curated `docs/owner-queue.md` from it.** The hand-applied banner above is the roster-retirement exception, per docs/roster.md's own treatment; otherwise do not hand-edit. Was regenerated with the roster on every regen (`scripts/gen_roster.py`, P2 — centralization plan §3b).
 >
 > **Generation #430** · generated-at **2026-08-06T14:57Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >

@@ -36,10 +36,14 @@
 # each, verify EVERY check run on the head SHA is completed+success
 # (pending or missing = NOT ready — skip this round, a later event or
 # the next cron re-sweeps); then squash-merge directly with
-# GITHUB_TOKEN. Check verification is GENERIC on purpose: this repo's
-# required-check enforcement state is unverified (the rules API
-# reported ZERO required contexts live — PR #146 run 29214147939), so
-# the workflow trusts what actually ran, never a rules count.
+# GITHUB_TOKEN. Check verification is GENERIC on purpose: the
+# workflow trusts what actually ran, never a rules count. (Rationale
+# re-dated 2026-08-11, audit D39 — this comment said enforcement was
+# "unverified: the rules API reported ZERO required contexts", a
+# 2026-07-12 probe; since 2026-08-06 substrate-gate IS a required
+# check under the active main-branch-protection ruleset, MEASURED
+# agent-side via the rulesets API. The generic design stays: it is
+# correct whatever the rules count says.)
 #
 # WHY NOTHING CAN LAND EARLY: (1) the `substrate-gate` check is
 # born-red by design — red until the PR's in-diff session card flips

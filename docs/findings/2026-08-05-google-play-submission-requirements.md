@@ -1,4 +1,4 @@
-# Google Play submission requirements — verified for Swingy Spider
+# Google Play submission requirements — verified for **Slingy Spider** *(title corrected 2026-08-11, audit D59 — "Swingy Spider" was ruled out 2026-08-05, `OQ-SWINGY-NAME` RESOLVED: taken by two same-genre products)*
 
 > **Status:** `reference`
 >
@@ -143,8 +143,12 @@ positive integer, max 2,100,000,000, cannot be reused, cannot decrease.
 | Short description | **80 characters** |
 | Full description | **4,000 characters** |
 
-Limits apply identically to full-width and half-width characters. "Swingy
-Spider" is 14 — comfortable.
+Limits apply identically to full-width and half-width characters. "Slingy
+Spider" — the name `OQ-SWINGY-NAME` resolved to on 2026-08-05 — is 13
+characters against the 30-character App-name limit: comfortable. *(Corrected
+2026-08-11, audit D59: this example budgeted the rejected name "Swingy
+Spider" and miscounted it as 14; it is 13, as is the real name, so the §6
+limits table itself was and remains sound.)*
 
 ## 7. Store listing assets
 

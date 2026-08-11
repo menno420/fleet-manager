@@ -1,6 +1,13 @@
 # App plan — the Life Admin platform, first app: **ShiftLife** (working title)
 
-> **Status:** `plan` — awaiting owner go/no-go (see [Decisions](#12-owner-decisions--one-letter-answerable) below; queued as `OQ-APP-PLAN-GO`).
+> **Status:** `plan` — **GO taken 2026-07-24, same day** *(header corrected
+> 2026-08-11, audit D77: this read "awaiting owner go/no-go" for 18 days
+> after `OQ-APP-PLAN-GO` was RESOLVED — owner GO in the hub chat, defaults
+> D1–D5 with no overrides; `menno420/shiftlife` created and the phase-0
+> scaffold pushed the same session, per docs/owner-queue.md's entry. The
+> [Decisions](#12-owner-decisions--one-letter-answerable) table below is the
+> record of the choice as offered, not an open ask — do not re-put it to the
+> owner.)*
 >
 > Drafted 2026-07-24 from the owner's pasted market research (ChatGPT deep-research
 > summary, provided in the hub chat 2026-07-24) plus this seat's own assessment.

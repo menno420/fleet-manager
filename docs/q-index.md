@@ -1,6 +1,13 @@
 # Q-index — repo-qualified owner-decision register (INDEX)
 
-> **Status:** `living-ledger`
+> **Status:** `reference` *(re-badged from `living-ledger` 2026-08-11, audit
+> D87 — nothing has maintained this since its 2026-07-14 seed, and until
+> today no current surface routed here: its only referrers were four
+> seat-era docs. It remains the right lookup when citing a cross-repo
+> Q-number — the canonical register stays superbot's router — and
+> `docs/decisions.md`'s header now points here, so the citing moment
+> reaches it. Rows are the 2026-07-14 seed; verify against the superbot
+> router before leaning on one.)*
 >
 > **INDEX, not a copy** (central-docs-plan C6, class C source-of-truth rule):
 > the canonical write surface is superbot

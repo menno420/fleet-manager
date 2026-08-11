@@ -1,8 +1,18 @@
-# Cross-repo evidence index — GENERATED
+# Cross-repo evidence index — GENERATED · **HISTORICAL**
 
-> **Status:** `living-ledger`
+> ## ⛔ RETIRED with the roster, 2026-08-07 — this file is a record, not current truth
 >
-> **GENERATED — NOT SOURCE OF TRUTH.** Do not hand-edit; regenerated with `docs/roster.md` on every regen (`scripts/gen_roster.py`, P3 — centralization plan §3c). Each repo stays canonical for its OWN internal state (plan §4): this index LINKS evidence homes, it never copies them (copies drift).
+> **Status:** `historical` *(banner hand-applied 2026-08-11, audit D56/D57 —
+> the same 2026-08-07 retirement that bannered `docs/roster.md` removed both
+> roster-regen cron lines but left this sibling output of the same generator
+> still badged `living-ledger`. Frozen at Generation #430, 2026-08-06T14:57Z;
+> its HEAD pins are that moment's, not today's. `workflow_dispatch` still
+> exists on roster-regen.yml, so a manual run could regenerate it — nothing
+> does so on any schedule.)*
+>
+> **GENERATED — NOT SOURCE OF TRUTH.** The hand-applied banner above is the
+> roster-retirement exception, per docs/roster.md's own treatment; otherwise
+> do not hand-edit. Was regenerated with `docs/roster.md` on every regen (`scripts/gen_roster.py`, P3 — centralization plan §3c). Each repo stays canonical for its OWN internal state (plan §4): this index LINKS evidence homes, it never copies them (copies drift).
 >
 > **Generation #430** · generated-at **2026-08-06T14:57Z** · by roster-regen workflow (GitHub Actions, headless), dispatched by cron 40 */2 * * * (.github/workflows/roster-regen.yml, fleet-manager PR #81)
 >

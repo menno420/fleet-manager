@@ -2,6 +2,19 @@
 
 > **Status:** `audit`
 >
+> **Era banner, 2026-08-11 (audit D73/D74):** seat-era record — not the live
+> owner list; that is `docs/owner-queue.md`, whose § Context demotes this
+> file's siblings by name and now this one too. At least **four asks below
+> are settled**, one of them differently from what this list proposes:
+> apparatus-sizing (§ Product) asked to *slow* roster-regen to daily — the
+> owner instead **retired the roster outright** (2026-08-07,
+> `OQ-FM-APPARATUS-SIZING` RESOLVED); the `ROSTER_READ_TOKEN` conditional
+> PAT is **mooted** by the same ruling; the curious-research slicer question
+> is answered (**Bambu Studio**, `OQ-CR-SLICER-ANSWER` RESOLVED 2026-08-07);
+> delete-vs-archive was ruled **OD-3** on 2026-07-26 (and amended 2026-08-08
+> to allow reasoned cleanup). Re-putting any of these to the owner is the
+> exact waste this banner exists to stop.
+>
 > The consolidated fleet-wide step list, **re-sorted to the corrected doctrine**
 > (owner #308/#309/#311). Yesterday's version over-routed agent-doable work —
 > merges, ready-flips, settings changes, releases, branch-deletes — to the owner.

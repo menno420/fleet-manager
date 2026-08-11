@@ -1,6 +1,16 @@
 #!/usr/bin/env python3
 """check_trigger_health.py — per-wake seat wake-health invariants (ORDER 020).
 
+ERA NOTE (2026-08-11, audit D34/D35): seat-era tooling, kept as record. The
+manager wakes its procedure binds to ended with the autonomous program
+(2026-07-21; playbook R26 sits in the historical class per the playbook's
+2026-08-10 banner), and the committed snapshot is frozen at 2026-07-21T16:00Z
+— a run today FAILs I5/I6 against that frozen snapshot by design, not because
+a scheduler broke. Remedy strings are amended for [D‑0015] (docs/decisions.md,
+2026-08-09): a session DISABLES a misbehaving trigger (`update_trigger
+enabled:false`) and never calls `delete_trigger` — the guard hook denies it;
+removal is the owner's, from the console.
+
 ================================ PROVENANCE ================================
 Why added : ORDER 020 (control/inbox.md, 2026-07-12T16:10Z, P1 reliability;
             canonical spec: docs/trigger-health-spec.md — moved into fm
@@ -132,9 +142,10 @@ WARN lines never affect the exit code)
                        (timestamps, `#hex` suffixes and digits stripped
                        before comparing). Long-fuse DISTINCT scheduled
                        deliverables (different normalized text) are NOT
-                       pile-up. Remedy: prune to the NEWEST tick; record
-                       the prune in the roster health column +
-                       control/status.md. (ORDER 020 amendment
+                       pile-up. Remedy: keep the NEWEST tick, DISABLE the
+                       rest ([D‑0015] — update_trigger enabled:false,
+                       never delete_trigger); record the prune in the
+                       session card. (ORDER 020 amendment
                        2026-07-12T19:20Z — pacemaker discipline: re-arm
                        ONLY after consuming the prior tick; ONE
                        outstanding tick per session, ever.)
@@ -147,7 +158,8 @@ gen_roster.snapshot_eval_time's ladder: `captured_at` in the export → git
 commit time of the snapshot → newest record stamp (labeled conservative).
 `--now` overrides everything (replays and tests).
 
-WAKE PROCEDURE (playbook R26): export list_triggers (ALL pages) →
+WAKE PROCEDURE (playbook R26 — HISTORICAL, see the era note at top; there
+are no manager wakes): export list_triggers (ALL pages) →
 telemetry/triggers-snapshot.json with top-level `captured_at` → run this
 script → act on FAILs same wake (send_message recovery / re-arm / owner
 queue) → commit snapshot + record the verdict in control/status.md. The
@@ -472,10 +484,12 @@ def check(records: list[dict], eval_dt: datetime, now: datetime,
                      f"near-identical ticks, oldest→newest: {ids} · lane: "
                      + ", ".join(lanes)
                      + f" · text: {p['norm'][:60]!r}"
-                     + f" → REMEDY: prune to the NEWEST tick "
-                     f"(keep `{p['ticks'][-1]['id']}`, delete the rest); "
-                     "record the prune in the roster health column + "
-                     "control/status.md")
+                     + f" → REMEDY: keep the NEWEST tick "
+                     f"(`{p['ticks'][-1]['id']}`) and DISABLE the rest "
+                     "(update_trigger enabled:false per [D‑0015] — a "
+                     "session never calls delete_trigger; removal is "
+                     "owner-console work); record the prune in the "
+                     "session card")
     results.append(("I7 TICK-PILE-UP", not lines, lines or
                     ["no session holds >1 pending near-identical work-loop "
                      "one-shots (distinct long-fuse deliverables exempt)"]))
@@ -514,12 +528,13 @@ def check(records: list[dict], eval_dt: datetime, now: datetime,
                      "verify EACH id's bound session against the owning "
                      "seat's live heartbeat; the id bound to the seat's "
                      "CURRENT session stays, others are crash-orphans — "
-                     "the owning seat (or hub) deletes them; keep-oldest "
+                     "DISABLE them (update_trigger enabled:false per "
+                     "[D‑0015]; deleting is owner-console work); keep-oldest "
                      "is NOT the rule (2026-07-19 SBW lesson: the keeper "
                      "was the NEWEST). Hint: the newest-created "
                      f"(`{d['crons'][-1]['id']}`) is usually the live "
                      "one, but the heartbeat check decides; record the "
-                     "dedup in control/status.md + the dispatch log")
+                     "dedup in the session card")
     results.append(("I8 DUPLICATE-CRON", "WARN" if lines else True, lines or
                     ["no two enabled standing crons share an identical "
                      "name+schedule"]))
@@ -597,8 +612,9 @@ def selfcheck() -> int:
     ok("trig_p1" in i7_text and "trig_p2" in i7_text
        and i7_text.index("trig_p1") < i7_text.index("trig_p2"),
        "I7 names the ticks oldest→newest")
-    ok("keep `trig_p2`" in i7_text and "prune" in i7_text,
-       "I7 remedy prunes to the NEWEST tick")
+    ok("(`trig_p2`)" in i7_text and "DISABLE the rest" in i7_text
+       and "enabled:false" in i7_text,
+       "I7 remedy keeps the NEWEST tick and disables per D‑0015")
     fuse_a = {"id": "trig_f1", "name": "send_later 2026-07-19T16:37Z #c1",
               "created_at": "t", "enabled": True,
               "run_once_at": "2026-07-19T16:37:00Z",

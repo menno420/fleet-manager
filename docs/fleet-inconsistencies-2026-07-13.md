@@ -1,6 +1,16 @@
 # Fleet inconsistency ledger
 
-> **Status:** `living-ledger`
+> **Status:** `historical`
+>
+> **Era banner, 2026-08-11 (audit D64):** the 2026-07-13/14 fleet review's
+> register, preserved as record — re-badged from `living-ledger`, the last
+> seat-era ledger still self-declaring live after the 2026-08-08/10 sweeps
+> bannered every peer (fleet-triage, roster, reading-path, NEXT-TASKS,
+> RESUME). ~65 of its 82 items were never retired, and their stated
+> disposition — dispatch an ORDER down the control bus to a lane seat — is
+> machinery that closed with the program on 2026-07-21. Read rows as dated
+> findings about that fleet, never as a work queue; anything still worth
+> fixing enters today's channels (the audit's findings.md, the program).
 >
 > Generated 2026-07-13 by the fleet review (owner directive). Live re-verification of
 > individual items extended into 2026-07-14 (noted inline where it matters). Derived

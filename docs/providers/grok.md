@@ -143,4 +143,9 @@ Graded per [`README.md`](README.md): worse at, not incapable of.
   give months only, and `grok-4.3`'s release date appears nowhere fetched).
 - Voice model pages state modalities *"text → text"* for speech-to-speech
   models — recorded verbatim, likely a docs artifact.
-- Nothing here is measured in this estate yet.
+- The API surface (text models, tool use, live search) is unmeasured in this
+  estate — the 2026-08-04 measurements in § "Measured here" above cover the
+  chat tab and the Imagine image surface only. *(2026-08-11, audit D86: this
+  line said "Nothing here is measured in this estate yet" — boilerplate
+  copied from the unmeasured provider docs, contradicted by this file's own
+  measured section.)*

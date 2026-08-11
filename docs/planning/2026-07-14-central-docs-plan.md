@@ -1,6 +1,14 @@
 # Fleet docs centralization plan
 
-> **Status:** `plan`
+> **Status:** `plan` — **mixed era, banner added 2026-08-11 (audit D76):**
+> the *goal* (fleet-manager as the docs SSOT) is the live direction, and its
+> class-C conventions are still cited as authority by `registry/README.md`
+> and `registry/kit-versions.md` — but every *execution mechanic* below
+> (inbox ORDERs, per-lane dispatch, the roster regen, `control/` outboxes,
+> the 19-repo lane fleet) is the closed program's; the sibling
+> `2026-07-12-repo-consolidation-plan.md` got its `historical` badge in the
+> era sweeps and this file was missed. Do not dispatch anything from it; the
+> live plan is the consolidation program.
 >
 > Generated 2026-07-14 by the fleet review (owner directive); fact-checked and revised
 > same day. The actionable plan to

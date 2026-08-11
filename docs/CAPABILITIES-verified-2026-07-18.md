@@ -34,9 +34,15 @@ green PR, a stale branch, or a needed variable change "for the owner."
   `menno420/shiftlife#31`: `mcp__github__pull_request_read` with
   `method: get_check_runs` (returns every job with `status`/`conclusion`), or
   direct-PAT `GET /actions/runs?branch=<branch>` (returns the workflow runs).
-  Use one of those two. **Do not poll `GET /commits/<sha>/check-runs`** with the
-  fleet PAT — it answers `403 Resource not accessible by personal access token`,
-  which is the usual path quirk, and the two paths above give the same verdict.
+  Use any of the three. ~~Do not poll `GET /commits/<sha>/check-runs` with the
+  fleet PAT — it answers `403 Resource not accessible by personal access token`~~
+  **RETRACTED 2026-08-11 (audit D49):** that endpoint answers **200** with the
+  full check-runs body over direct egress with the PAT (re-measured today at
+  HEAD), and the boot file's standing instruction is to poll exactly it to a
+  terminal state (measured green on fm #833). The 403 was the proxied-path
+  quirk this file already names, not a property of the endpoint — and the
+  struck sentence was a written-down limitation in the one file whose own
+  header forbids them.
   **Make the poller print the raw body on an unexpected shape:** a loop that
   treats `{"message": …}` as "not finished yet" waits forever on a green PR —
   it cannot fail for the reason you care about, so it reports patience instead

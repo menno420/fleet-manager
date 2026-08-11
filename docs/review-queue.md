@@ -1,6 +1,16 @@
 # Review queue — needs-second-review ledger (post-merge)
 
-> **Status:** `living-ledger`
+> **Status:** `historical`
+>
+> **Era banner, 2026-08-11 (audit D92):** seat-era apparatus, re-badged from
+> `living-ledger` — the manager, the failsafe-wake drain batches and the
+> 12-repo active fleet this queue routed to closed with the program on
+> 2026-07-21, and its two standing rules are dead against live doctrine:
+> the "no PR ever waits for review before landing" policy is contradicted by
+> the boot file's **"Never merge a PR you have asked Codex to review before
+> it answers"**, and the BINDING auto-append rule below is enforced by
+> nothing (`check --strict` never touches this file; `session-close` does
+> not mention it). Preserved verbatim as the record of that policy.
 >
 > Created by owner directive 2026-07-09, as part of the gen-2
 > merge-authority policy ([`gen2-blueprint.md`](gen2-blueprint.md) §1/§2):

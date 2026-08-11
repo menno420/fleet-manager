@@ -2,6 +2,16 @@
 
 > **Status:** `binding`
 >
+> **Contested-status note, 2026-08-11 (audit D46):** the parent
+> `control/README.md` banner sweeps `claims/` in with the retired message
+> bus; that sweep is over-broad for this directory and now says so. The
+> claim mechanism itself remains **kit-wired and live** — `bootstrap.py`
+> pins `claims_dir` here, its claims check runs (advisory), and the
+> `session-close` skill's claim step writes here — so this README keeps its
+> `binding` badge. What IS retired is the bus around it: the "control fast
+> lane" landing path and the heartbeat/ORDER references in the body below
+> are seat-era record, not procedure.
+>
 > Local copy for fleet-manager. The kit-owned work-claim convention
 > (EAP program review 2026-07-10 §6.4 — the fleet's forked claim mechanisms
 > unified on the measured winner). Order claims are different and stay on

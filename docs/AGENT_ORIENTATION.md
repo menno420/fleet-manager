@@ -23,13 +23,27 @@
 2. `docs/current-state.md` — the living status ledger.
 3. This file — task-specific reading routes, **for the doc set it planted**
    (architecture · ownership · runtime contracts · helper policy · routines ·
-   reading path). That half is still accurate and is what this router is for.
+   reading path). The *routing* half — which doc answers which task — is what
+   this page is for. **Do not read the inline contract summaries below as
+   current** (2026-08-11, audit D48/D51/D75): the earlier form of this note
+   certified "that half is still accurate" while the summaries and two routed
+   docs still described the seat era; the planted docs now carry their own
+   dated corrections, and the doc always beats this page's summary of it.
 
 ## Binding contracts
 
-- **Architecture / layering:** Flat docs repo, no code layers: docs/ (playbook, owner-queue, dispatch-log — manager working memory) + templates/ (worker preamble blocks) + control/ (protocol heartbeat: owner-written inbox.md, manager-written status.md). Program record lives in menno420/superbot docs/eap/, never here.
-- **Ownership** (who owns each write path): One writer per file: the owner writes control/inbox.md; the manager writes everything else (docs/, templates/, control/status.md). Shared-repo protocol surfaces follow docs/playbook.md R9-R10.
-- **Mutation seam** (how writes are gated): All changes land as forward-only git commits through READY PRs to main (ruleset: PR required); control/inbox.md is append-only and owner-written; control/status.md is overwritten by the manager each working session.
+- **Architecture / layering:** see [`docs/architecture.md`](architecture.md) —
+  corrected 2026-08-11. This bullet carried the seat-era "flat docs repo, no
+  code layers" render; the repo holds 27 tracked checker/hook `.py` files and
+  is the estate's records home.
+- **Ownership** (who owns each write path): see
+  [`docs/ownership.md`](ownership.md) — corrected 2026-08-11. The seat-era
+  one-writer-per-file model (owner writes control/inbox.md, manager the rest,
+  playbook R9-R10) is historical.
+- **Mutation seam** (how writes are gated): see
+  [`docs/runtime_contracts.md`](runtime_contracts.md) — corrected 2026-08-11.
+  Live clause: forward-only commits through READY PRs to main, substrate-gate
+  the sole required check; the control/-bus clauses are historical.
 
 ## Manager working memory (this repo's own docs)
 
@@ -45,9 +59,10 @@
 - **[`docs/capabilities.md`](capabilities.md)** — the capability manifest:
   read before declaring anything impossible (R18).
 - **[`docs/research/2026-07-12-platform-capabilities.md`](research/2026-07-12-platform-capabilities.md)**
-  — the verified platform capability/limitation ledger (what claude.ai
-  Projects/sessions CAN and CANNOT do; seat variance, merge classifier,
-  triggers, webhook gaps, unknowns + safe probes).
+  — the 2026-07-12 platform capability snapshot. *(2026-08-11, audit D89: a
+  dated seat-era record, no longer "the verified ledger" — several of its
+  walls are since refuted. Current capabilities: `.claude/CLAUDE.md` §
+  Capabilities and `docs/CAPABILITIES.md`; read those first.)*
 - **[`docs/prompts/README.md`](prompts/README.md)** — verbatim ledger of every
   deployed fleet prompt (gen-1 texts + the venture-lab draft).
 - **[`docs/findings/README.md`](findings/README.md)** — committed
@@ -83,10 +98,12 @@ Recurring action? **`docs/SKILLS.md`** — the skill index — names every
 kit-shipped skill and when to reach for it; check it before improvising a
 procedure.
 
-Arming, deleting, or auditing a scheduled trigger/routine/wake chain?
-**`docs/ROUTINES.md`** — binding choice, delivery verification,
-probe-not-record, scheduler-health signatures, pacing — read it before
-touching the trigger registry.
+Arming or auditing a scheduled trigger/routine/wake chain?
+**`docs/ROUTINES.md`** — seat-era trigger doctrine, era-noted 2026-08-11:
+its verification and pacing method still reads well, but the live rule is
+[D‑0015] — a session never calls `delete_trigger` (the guard hook denies it;
+`update_trigger enabled:false` is the emergency stop), and its end-of-turn
+tick/heartbeat invariant died with the seats.
 
 Reading or acting across sibling repos in a fleet? **`docs/reading-path.md`**
 — the standing read authorization, the one-command fleet orient, the

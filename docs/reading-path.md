@@ -21,7 +21,15 @@ Read-only cross-repo access is standing-authorized for every session in
 this repo — do not burn turns re-deriving whether you may look.
 
 - Readable siblings, and the private/dark exceptions (never read, never
-  guess about a dark repo): all fleet siblings are public and readable read-only EXCEPT pokemon-mod-lab (PRIVATE — raw/clone hits an auth wall; roster marks it NOT MEASURED; never raw-fetch or guess about it). Live list of lanes: docs/roster.md (generated)
+  guess about a dark repo): all fleet siblings are public and readable
+  read-only EXCEPT **two PRIVATE repos** — pokemon-mod-lab (raw/clone hits an
+  auth wall; never raw-fetch or guess about it) and **shiftlife** (private
+  since its 2026-07-24 creation, re-measured 2026-08-11 via
+  `/user/repos?affiliation=owner`: exactly those two are private of 24
+  owned). *(Corrected 2026-08-11, audit D88 — this line named only
+  pokemon-mod-lab, and the 2026-08-08 correction block re-blessed it with
+  shiftlife already three weeks old.)* The lane list this bullet pointed at,
+  docs/roster.md, is RETIRED 2026-08-07 — a record, not a live list.
 - Sanctioned read mechanics for a public sibling (no attach step needed):
   raw-content fetch
   (`https://raw.githubusercontent.com/<owner>/<repo>/<branch>/<path>`) ·

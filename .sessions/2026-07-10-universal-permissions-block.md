@@ -1,6 +1,15 @@
 # 2026-07-10 — owner directive: canonical PERMISSIONS & AUTHORITY block into UNIVERSAL.md (v3)
 
-> **Status:** `in-progress`
+> **Status:** `complete`
+>
+> *(Badge flipped `in-progress` → `complete` 2026-08-11, audit D40 — the only
+> non-terminal Status among 344 cards, contradicted by this card's own
+> closure note below: the session's payload landed superseded via PR #76 and
+> the card "merged stuck at in-progress via #47", then stayed grandfathered
+> for a month. The stuck token was the reason the required gate needed its
+> `--session-log` sentinel carve-out — a main-push run selecting cards by
+> checkout mtime could pick this card and go falsely red. The sentinel stays
+> as defense-in-depth; the cause is now gone.)*
 
 📊 Model: fable family (worker, coordinator-dispatched) · start 2026-07-10T22:40Z (`date -u`)
 

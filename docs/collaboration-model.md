@@ -35,12 +35,18 @@ only when the agent has **attempted the action itself** or can name the
 **exact wall** (error text, permission denial) proving only the owner can do
 it — assumption-based asks are banned. Every ask uses the OWNER-ACTION
 format — WHAT / WHERE / HOW / WHY-IT-MATTERS / UNBLOCKS / VERIFIED-NEEDED
-(canonical: `control/README.md`) — phrased so a non-technical owner can act
+(canonical: `CONSTITUTION.md` § the OWNER-ACTION fields, and
+`.claude/skills/session-close/SKILL.md`; repointed 2026-08-11, audit D54 —
+this cited `control/README.md`, a RETIRED file that does not contain the
+format) — phrased so a non-technical owner can act
 directly: one plain sentence, an exact click path, paste-ready text.
 Withdraw asks that have gone stale; fewer, clearer asks beat complete lists.
 
 Every owner-facing OUTPUT — not just asks — follows the owner-assist output
-standard (canonical: `control/README.md` § "Owner-assist output standard"):
+standard (canonical: `.claude/skills/prep-owner-steps/SKILL.md` and the
+OWNER-ACTION fields in `CONSTITUTION.md`; repointed 2026-08-11, audit D54 —
+this cited a `control/README.md` § "Owner-assist output standard" that has
+never existed in that retired file):
 values arrive finished and paste-ready, with the exact link to where each
 one goes (a full file in one copyable block — never a recipe the owner must
 derive); every manual step carries a risk class (✅ safe / ↩️ reversible /
@@ -82,4 +88,4 @@ PL-013 inhabiting-beats-observing) and
 ## Drift & staleness
 
 - When a doc and a source file disagree: Source files and merged PRs win over any doc; when the playbook and reality disagree, fix the playbook the same session (friction -> rule, R-series).
-- Staleness review cadence: control/status.md is refreshed every working session (its updated: line is the heartbeat); docs/playbook.md and docs/owner-queue.md are living and updated the day a lesson lands or an ask resolves.
+- Staleness review cadence: docs/owner-queue.md is living and updated the day an ask resolves; docs/playbook.md is a living ledger whose 2026-08-10 mixed-era banner says which rules still bind. *(Corrected 2026-08-11, audit D55 — this line stated "control/status.md is refreshed every working session (its updated: line is the heartbeat)": the control/ bus is retired and its status file reads SEAT CLOSED 2026-07-21; no session refreshes it.)*
