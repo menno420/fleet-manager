@@ -44,6 +44,14 @@ frontmatter keeps the score.
 
 (Captured ideas, each with a state and a next destination — none left at `raw`.)
 
+### 2026-08-11 cohort — full-read audit close-out
+
+- [Make a session read the open-PR signal, not just raise one](consume-the-open-pr-signal-2026-08-11.md) —
+  `captured` · `UserPromptSubmit` hook beside `route_docs.py`, advisory, silent
+  unless an open PR's changed paths intersect this session's; the estate mandates
+  *emitting* the claim signal and nobody *consuming* it, which is how fm #838 was
+  left stranded while a second session fixed the same defect
+
 ### 2026-08-10 cohort — third-party verification
 
 - [Derive, don't state — a checker for counts about the repo's own contents](derive-dont-state-counts-2026-08-10.md) —

@@ -127,6 +127,35 @@ the larger class: **an appended correction does not retract what it corrects.** 
 checker that ages claims cannot notice a retracted one, and the retraction is usually
 sitting in the same file.
 
+### Where the seven stand now — re-measured against the tree, 2026-08-11
+
+The audit read the tree at `4b59e9b`. The session that produced it then landed
+fm #839/#840/#842, which moved three of these seven. **Each row below was re-run
+against the working tree rather than inferred from what a PR claimed**, so the next
+session neither re-fixes what is closed nor assumes the rest decayed with it.
+**1 closed · 2 partial · 4 open.**
+
+| # | the finding, short | status | re-check it |
+|---|---|---|---|
+| 1 | NOW pointer routes to a deprioritised repo | **CLOSED** (fm #840) | `grep -rn 'shiftlife truth pass' docs/` → no hits; the pointer now reads *"D2 — next repository awaits the owner's target (shiftlife SUPERSEDED)"* with the owner's live statement quoted beneath it, and OD-15 is in the directive table. **The defect is closed; the decision it exposed is not** — which repository D2 targets is open at `OQ-FM-D2-TARGET`. |
+| 2 | The capability ledger opens with three walls it later retracts | **OPEN** | `grep -n 'Walls — verified blocked' docs/CAPABILITIES.md` — the section and all three rows are unchanged. Left deliberately: `CAPABILITIES.md` is append-only below its seed fence, so retracting a wall row is an edit-pass decision, not a drive-by. |
+| 3 | Live deployment text orders the one call the estate denies | **OPEN** | `grep -n 'delete_trigger' docs/prompts/init-prompt-universal.md` — the ⚠ line and the WAKE-CADENCE line that says *"then `delete_trigger` the old one (F-1 rule)"* still both stand, in one `living-ledger` file. |
+| 4 | E1's reserved step points at nothing and is absent from the queue | **OPEN** | `grep -n 'Method + sources' docs/planning/2026-07-26-consolidation-program.md` (the row, still linkless) and `grep -c 'E1' docs/owner-queue.md` → **0**. The nearby *"take the repository named by D2's NOW pointer"* blockquote is not a fix — `git log -S` puts it in fm #837, which is inside the audited tree. |
+| 5 | The kit re-apply table names two of seven skills at risk | **PARTIAL** (fm #840) | `session-close`'s row gained the link-depth amendment; the table's headline still reads *"Two kit-named skills"*. Re-derived 2026-08-11 by diffing every installed skill against its staged copy: **7 diverge** — `intake`, `prep-owner-steps`, `quality-gate`, `release`, `scope-backlog-item`, `session-close`, `upgrade-distribution`. Five remain undocumented and are silently reverted by the copy loop. |
+| 6 | The false-wall checker calls itself advisory; it is a required check | **OPEN** | `grep -n 'advisory only' tools/check_no_false_walls.py` against `.github/workflows/substrate-gate.yml`. Out of scope for the read-and-report session by instruction (no checker code changes); it is a two-line docstring fix for whoever takes the edit pass. |
+| 7 | The link checker cannot see the surfaces that bind a session | **PARTIAL** (fm #840) | The one broken link it had let through (`session-close/SKILL.md:143`) is fixed. `grep -n 'SCAN_DIRS' scripts/check_docs_links.py` shows `.claude` still absent, so the boot file and all 27 skills remain unchecked — the *reason* that link survived is untouched. |
+
+**Anchor drift — read this before quoting a `path:line` below.** The entries are
+anchored against `4b59e9b`. This session's PRs edited `docs/current-state.md`,
+`docs/owner-queue.md`, `.claude/CLAUDE.md`,
+`docs/planning/2026-07-26-consolidation-program.md`,
+`docs/prompts/chatgpt-project-instructions.md` and
+`.claude/skills/session-close/SKILL.md`, so line numbers into those six have moved.
+**Every entry carries the quoted text as well as the line** — resolve by the quote
+and treat the number as a hint. A quote that no longer appears anywhere in its file
+is the interesting case: the site was rewritten, so the finding needs re-judging
+rather than re-applying.
+
 ---
 
 ## Defects — a session could act on these today and be misled

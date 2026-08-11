@@ -168,6 +168,33 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 
 ## Recently shipped (newest first)
 
+- **The chat-only residue of the audit session committed** (2026-08-11, fm #845):
+  three things that existed nowhere in the tree. **`[D-0016]`** — the owner's
+  directive that work is sized by what is properly done, never by pull-request
+  count (*"It does not matter if it happens in 1 PR or 100"*); the grep result was
+  already noted below, the directive was not, so every handoff was re-carrying it.
+  **A measured status block on the audit's headline seven** at
+  [findings.md](audits/2026-08-10-full-read/findings.md) — **1 closed, 2 partial,
+  4 open**, each re-run against the tree rather than inferred from what a PR
+  claimed, plus the anchor-drift warning for the six files this session edited.
+  And [the open-PR signal idea](ideas/consume-the-open-pr-signal-2026-08-11.md),
+  which had been announced only inside a session card and a closed PR comment —
+  both `RECORD` tier, where a commitment is read as history and never actioned.
+
+- **fm #838's residue salvaged and the PR closed as superseded** (2026-08-10,
+  fm #842; telemetry deltas fm #841/#843/#844): a parallel session's PR had been
+  left un-mergeable by this session's overlapping work. Measured before deciding:
+  D2 was already repointed and the roadmap already reachable from `README.md`,
+  but **the boot file carried zero mentions of the roadmap** — so the surface
+  Claude Code actually auto-loads still could not reach the owner's current plan.
+  Read-path entry **1b** added, `README.md` read 4 became the program **paired
+  with** the roadmap, and the ChatGPT Work surface's own cold contract now defers
+  to README's numbered order instead of naming three files. Codex: two rounds,
+  6 findings, 6 conceded — including one this session introduced while fixing
+  round 1. The asymmetry it exposed (the estate mandates *raising* the open-PR
+  claim signal and mandates nobody *reading* it) is now captured as an idea
+  rather than left in the card.
+
 - **The audit's raw record persisted; Codex round 2 closed; the browsable-repo
   plan committed** (2026-08-10, fm #840): the per-file gists and full
   candidate→refuter adjudication now live at
