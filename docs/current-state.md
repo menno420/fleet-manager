@@ -171,8 +171,14 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 - **The chat-only residue of the audit session committed** (2026-08-11, fm #845):
   three things that existed nowhere in the tree. **`[D-0016]`** — the owner's
   directive that work is sized by what is properly done, never by pull-request
-  count (*"It does not matter if it happens in 1 PR or 100"*); the grep result was
-  already noted below, the directive was not, so every handoff was re-carrying it.
+  count (*"It does not matter if it happens in 1 PR or 100"*) — the directive
+  itself was nowhere in the tree, so every handoff had to re-carry it. **It also
+  corrects the entry below**, which claimed *"no 1-PR limit exists anywhere in
+  this repo"*: Codex refuted that on review from the same tree — two narrower,
+  still-live rules do cap PR counts (`gen2-blueprint.md`'s max-one-*status*-PR,
+  and the Copilot provider fact), and the grep that "proved" the universal missed
+  one inside its own scope and never recursed into `docs/providers/`. The
+  directive stands; the universal did not.
   **A measured status block on the audit's headline seven** at
   [findings.md](audits/2026-08-10-full-read/findings.md) — **1 closed, 2 partial,
   4 open**, each re-run against the tree rather than inferred from what a PR
@@ -204,7 +210,10 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   (**101 defect / 205 harmless**), evidence commands made checkout-independent.
   **OD-15 recorded** (shiftlife not active — the owner statement the audit found
   missing from the tree) and the NOW pointer marked superseded pending
-  `OQ-FM-D2-TARGET`. Verified: **no 1-PR limit exists anywhere in this repo**.
+  `OQ-FM-D2-TARGET`. ~~Verified: **no 1-PR limit exists anywhere in this repo**.~~
+  **Retracted 2026-08-11 (fm #845)** — the grep behind that sentence was narrower
+  than the claim; see `[D-0016]` for what is actually true and what still caps PR
+  counts.
   The owner's browsable-repo directive is designed in
   [the navigation plan](planning/2026-08-10-repo-navigation-plan.md) — mandatory
   reading order, tier labels, per-area "you are here" contract — execution

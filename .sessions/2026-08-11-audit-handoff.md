@@ -32,6 +32,16 @@ carried inline — which is the failure mode that skill exists to prevent:
    fm #842's card**, both `RECORD` tier. A planned mechanism recorded only in
    records is a planned mechanism nobody builds.
 
+**And the review changed what two of those three say.** Codex refuted the
+diagnosis behind (3) — a `binding` rule already requires the scan
+(`control/claims/README.md` step 1); it just lives where every orientation
+surface teaches sessions not to look, which makes this a delivery failure rather
+than a missing rule. It also refuted the universal in (1): two narrower PR-count
+rules are live, and the grep that "proved" otherwise missed one **inside its own
+scope**. Both corrections are in the shipped artifacts, and the wrong versions
+are recorded beside them rather than quietly replaced — this session's whole
+subject is that an appended correction which does not retract is worthless.
+
 ## Previous-session review
 
 ⟲ fm #842 salvaged fm #838's residue and named the open-PR asymmetry in its
@@ -61,7 +71,18 @@ This card exists partly to correct that.
 
 ### Verify — real exit codes
 
-Recorded on the flip commit, not predicted here.
+```
+python3 bootstrap.py check --strict   → 1  (sole finding: this card's designed born-red hold)
+added-card lane, run direct           → session-card-hold only, no masked finding
+```
+
+**One advisory is worth acting on and is not this card's to fix:**
+`[orientation-headroom] boot-read set at 6736/7000 words — 264 of headroom`,
+`docs/current-state.md` carrying 6,036 of them. This PR's edits pushed it there.
+Every session that appends a Recently-shipped entry moves the `CORE` read closer
+to a cliff nobody has budgeted for, and the entries nearest the top are the ones
+a fresh session most needs. Trimming it is a real task, not a drive-by — logged
+for the edit pass.
 
 ### ⚑ Owner-facing
 
