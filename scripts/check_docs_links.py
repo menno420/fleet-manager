@@ -44,7 +44,9 @@ WHAT IT CHECKS
 
 SCAN SET (living surfaces only — see --list)
   docs/**  +  control/README.md  +  root *.md  +  projects/**  +
-  environments/**  +  registry/**  +  templates/**  (committed *.md).
+  environments/**  +  registry/**  +  templates/**  +  .claude/**
+  (committed *.md — .claude/ added 2026-08-11 so the boot file and the
+  installed skills, the surfaces that bind a session, are link-checked too).
   EXCLUDED: .substrate/ (kit machinery), scripts/fixtures/ (deliberately
   broken test fixtures), .sessions/ + .session-journal*.md (append-only
   historical byte records — the same OUT-of-scope discipline
@@ -83,6 +85,13 @@ REF_DEF_RE = re.compile(r"^\s{0,3}\[[^\]]+\]:\s+(\S+)")
 # Fenced code blocks (``` or ~~~) are skipped line-by-line so a link inside a
 # code sample is never treated as a live link.
 FENCE_RE = re.compile(r"^\s*(```|~~~)")
+# Inline code spans, run-aware per CommonMark: an opening run of N backticks
+# closes only on an EXACTLY equal run, so both `x` and ``[x](y)`` are spans.
+# The lookarounds pin whole delimiter runs (Codex round 2, fm #846): without
+# them the engine backtracks a 3-backtick opener to its last 2 backticks and
+# "closes" on a 2-run — stripping a link that CommonMark leaves live, so a
+# real dead target passes unnoticed.
+CODE_SPAN_RE = re.compile(r"(?<!`)(`+)(?!`)(.+?)(?<!`)\1(?!`)")
 # Anchor sources inside a target file: markdown headings, plus explicit HTML
 # anchors and `{#custom-id}` heading suffixes.
 HEADING_RE = re.compile(r"^\s{0,3}(#{1,6})\s+(.*?)\s*#*\s*$")
@@ -95,8 +104,12 @@ MD_LINK_TEXT_RE = re.compile(r"\[([^\]]*)\]\([^)]*\)")
 EXTERNAL_PREFIXES = ("http://", "https://", "mailto:", "tel:", "ftp://",
                      "ftps://", "//")
 
-# Directories whose *.md are living config surfaces (scanned).
-SCAN_DIRS = ("docs", "projects", "environments", "registry", "templates")
+# Directories whose *.md are living config surfaces (scanned). `.claude` was
+# absent until 2026-08-11 (the full-read audit's headline finding 7): neither
+# the boot file nor any installed skill was link-checked, which is how a broken
+# link in session-close survived with this checker exiting 0.
+SCAN_DIRS = ("docs", "projects", "environments", "registry", "templates",
+             ".claude")
 # Root-level living docs that carry cross-doc links.
 ROOT_FILES = ("README.md", "CONSTITUTION.md", "MISSION.md")
 # control/README.md is the one control/ file named by S5; the rest of
@@ -151,7 +164,16 @@ def _clean_target(raw: str) -> str:
 
 
 def iter_links(text: str):
-    """Yield (lineno, raw_target) for every link outside code fences."""
+    """Yield (lineno, raw_target) for every link outside code fences.
+
+    Inline code spans are stripped first (2026-08-11): a `[x](y)` inside
+    backticks renders as literal text, not a link — the first `.claude/` scan
+    flagged a worked example in the hooks README as a dead link. The span
+    matcher is run-aware (Codex, fm #846): an N-backtick delimiter closes only
+    on an equal run, so ``…`` spans — the very form used to quote
+    single-backtick examples — are stripped too, instead of leaking their
+    content to the link parser.
+    """
     in_fence = False
     for lineno, line in enumerate(text.splitlines(), 1):
         if FENCE_RE.match(line):
@@ -159,6 +181,7 @@ def iter_links(text: str):
             continue
         if in_fence:
             continue
+        line = CODE_SPAN_RE.sub("", line)
         for m in INLINE_LINK_RE.finditer(line):
             yield lineno, m.group(1)
         rm = REF_DEF_RE.match(line)
@@ -183,7 +206,14 @@ def is_intra_repo(target: str) -> bool:
 # ------------------------------------------------------------- anchors -----
 
 def slugify(heading_text: str) -> str:
-    """Approximate GitHub's heading-anchor slug algorithm."""
+    """Approximate GitHub's heading-anchor slug algorithm.
+
+    Consecutive hyphens are KEPT (2026-08-11): GitHub does not collapse them —
+    a `## Part 2 — errors` heading really anchors as `#part-2--errors`, and the
+    old `-{2,}` collapse made that correct link read as dead. anchors_of()
+    still admits the collapsed form as a lenient alias for links written
+    against the old approximation.
+    """
     text = MD_LINK_TEXT_RE.sub(r"\1", heading_text)  # [t](u) -> t
     text = CUSTOM_ID_RE.sub("", text).strip()
     text = text.lower()
@@ -195,7 +225,6 @@ def slugify(heading_text: str) -> str:
             out.append(ch)
     slug = "".join(out).strip()
     slug = slug.replace(" ", "-")
-    slug = re.sub(r"-{2,}", "-", slug)
     return slug
 
 
@@ -225,6 +254,9 @@ def anchors_of(path: str) -> set[str] | None:
                 continue
             n = counts.get(base, 0)
             anchors.add(base if n == 0 else f"{base}-{n}")
+            collapsed = re.sub(r"-{2,}", "-", base)
+            if collapsed != base:  # lenient alias for pre-2026-08-11 links
+                anchors.add(collapsed if n == 0 else f"{collapsed}-{n}")
             counts[base] = n + 1
         for am in HTML_ANCHOR_RE.finditer(line):
             anchors.add(am.group(1).lower())
@@ -287,8 +319,12 @@ def check_files(files: list[str], root: str, check_anchors: bool,
 
 _GOOD_FIXTURE = {
     "docs/a.md": "# Title A\n\nSee [b](b.md) and [sec](b.md#a-heading).\n"
-                 "Root link: [home](/README.md).\n",
-    "docs/b.md": "# B\n\n## A Heading\n\ntext\n",
+                 "Root link: [home](/README.md).\n"
+                 "An example in code is not a link: `[x](gone-nowhere.md)`.\n"
+                 "Nor in a double-backtick span: ``[y](also-gone.md)``.\n"
+                 "Em-dash anchors, GitHub-true and collapsed alias:\n"
+                 "[dd](b.md#part-2--errors) and [dc](b.md#part-2-errors).\n",
+    "docs/b.md": "# B\n\n## A Heading\n\ntext\n\n## Part 2 — Errors\n\nx\n",
     "README.md": "# Repo\n\nlink [a](docs/a.md)\n",
     "control/README.md": "# Control\n\nsee [a](../docs/a.md)\n",
 }
@@ -297,6 +333,8 @@ _BAD_FIXTURE = {
                  "[bad anchor](b.md#no-such-heading)\n"
                  "```\n[fenced](should-not-count.md)\n```\n"
                  "[ext](https://example.com/x.md) is skipped\n"
+                 "Mismatched runs (3 open, 2 close) form no span, so the "
+                 "link is live: ```[unbalanced](../docs/unbalanced-target.md)``\n"
                  "[ref-style][r]\n\n[r]: ./deleted-ref-target.md\n",
     "docs/b.md": "# B\n\n## A Heading\n",
     "control/README.md": "# Control\n\n[dead](./nope.md)\n",
@@ -331,6 +369,9 @@ def selftest() -> int:
             ("[dead-anchor]", "no-such-heading"),
             ("[dead-link]", "deleted-ref-target.md"),
             ("[dead-link]", "nope.md"),
+            # 3-open/2-close is NOT a code span (CommonMark) — the dead link
+            # inside it must still be seen (Codex round 2, fm #846).
+            ("[dead-link]", "unbalanced-target.md"),
         ]
         for kind, needle in want:
             if not any(kind in ln and needle in ln for ln in bad_out):

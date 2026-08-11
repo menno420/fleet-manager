@@ -37,6 +37,23 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 
 ## Current owner decisions — verified from fleet-manager on 2026-08-10
 
+- **`OQ-E1-FINAL-EAP-EMAIL` — write and send the final EAP review email
+  (owner-reserved, your pace).** **WHAT:** program step E1 — the one clear
+  review of the whole EAP plus the numbered wish list, written by you and sent
+  from a **fresh compose**, not the existing Gmail thread. **WHERE:** method +
+  sources: [`planning/2026-07-26-final-eap-email-plan.md`](planning/2026-07-26-final-eap-email-plan.md);
+  evidence base:
+  [`findings/2026-08-09-eap-correspondence-record.md`](findings/2026-08-09-eap-correspondence-record.md).
+  **HOW:** your own evening — you declined drafts twice (*"this is something
+  that deserves an evening of my full attention and I won't rush it"*,
+  2026-08-01); no session drafts, sends, or restarts it. **WHY-IT-MATTERS:**
+  two verbatim promises of a final review are on the record and no vendor
+  agenda ever arrived, so the content is entirely yours. **UNBLOCKS:** closing
+  track E; once sent, the parked capability-pack email (below, which targets
+  the **old** thread) gets its superseded note per the program's E1 done-when.
+  **VERIFIED-NEEDED:** owner-only by your own ruling. *(Added 2026-08-11: the
+  audit found E1 in the program but absent from this queue entirely.)*
+
 - **`OQ-FM-D2-TARGET` — Retarget D2's repository order; the NOW pointer names a
   repository you have deprioritised.** **WHAT:** decide what D2's next repository
   actually is, and whether spider-swing enters the program at all.
@@ -355,10 +372,13 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   watch item's escalation tripwire fired). **Recommendation: delete
   `trig_01XJJ88pQaQFRSpVAviCfAZe` (the older, 07-17-created one; the 07-18 one is the current
   seat's cutover-armed failsafe)** — one letter answers this (Y = delete the recommended id).
-  WHERE: hub chat trigger tools (`list_triggers` → `delete_trigger`).
-  HOW: paste-ready — (1) `list_triggers` and verify BOTH ids exist enabled; (2)
-  `delete_trigger trig_01XJJ88pQaQFRSpVAviCfAZe`; (3) `list_triggers` again and confirm the id is
-  absent and exactly one "SuperBot World failsafe wake" remains.
+  WHERE: hub chat trigger tools (`list_triggers` → *silence the duplicate*).
+  HOW *(rewritten 2026-08-11 under `[D‑0015]` — a **session** must never call `delete_trigger`;
+  the hook denies it, and the recorded steps here predated that rule)*: paste-ready —
+  (1) `list_triggers` and verify BOTH ids exist enabled; (2) a session runs
+  `update_trigger trig_01XJJ88pQaQFRSpVAviCfAZe enabled:false` (the D‑0015 stop — no prompt,
+  reversible), OR you delete that id yourself from the console; (3) `list_triggers` again and
+  confirm exactly one **enabled** "SuperBot World failsafe wake" remains.
   WHY: both fire every 2h (~2–3s apart), waking two parallel SBW sessions — double token burn plus
   a two-writer collision risk on the SBW seat's repos/state.
   UNBLOCKS: clean single SBW wake chain.
@@ -554,14 +574,15 @@ fleet-wide merges/ready-flips live in
 
 ### (B) Secrets & GitHub settings (owner-only walls)
 
-- **`OQ-FM-ROSTER-READ-PAT` — `ROSTER_READ_TOKEN` secret.** Create a fine-grained READ-ONLY PAT
-  (repo access: **pokemon-mod-lab only**, Contents:read) at
-  https://github.com/settings/personal-access-tokens/new, save it as a fleet-manager Actions
-  secret `ROSTER_READ_TOKEN` (https://github.com/menno420/fleet-manager/settings/secrets/actions).
-  UNBLOCKS: honest pokemon-mod-lab roster rows. ✅ read-only, revocable.
-  **Conditional** — only needed **if roster autogen is retained** (currently under the sizing
-  review; see NEXT-TASKS.md). Until created, the private lane row degrades honestly to
-  UNREADABLE (never false-DEAD).
+- **`OQ-FM-ROSTER-READ-PAT` — `ROSTER_READ_TOKEN` secret. ☠ MOOT 2026-08-07 — do not create.**
+  The ask was **conditional on retaining roster autogen**, and the sizing ruling went the other
+  way: *"Yes retire the roster"* (`OQ-FM-APPARATUS-SIZING`, ✅ RESOLVED below — its close-out
+  names this slug mooted). Both roster-regen cron lines are removed, so nothing would ever read
+  the secret. *(Until 2026-08-11 this entry still read "currently under the sizing review; see
+  NEXT-TASKS.md" — a review resolved 66 lines below in this same file, and a pointer at a doc
+  this file's own §Context forbids using as a live list.)* Original ask preserved: a
+  fine-grained READ-ONLY PAT (pokemon-mod-lab only, Contents:read) as a fleet-manager Actions
+  secret, so the private lane's roster row could read honestly instead of UNREADABLE.
 - **`BAKE_PAT` (websites repo — cross-repo).** A `menno420/websites` Actions secret whose absence
   blocks the websites nightly fleet-data bake / #380-class auto-merge. **Not a fleet-manager
   secret** — listed here only because owner-actions-2026-07-17 §6/D4 references it. Provision on
@@ -620,9 +641,13 @@ fleet-wide merges/ready-flips live in
   never reported, and `main` requires it — 18 consecutive failed runs, a permanently
   unmergeable PR, and a red `freshness` on every `claude/*` PR. The workflow's own header knew
   the token behaviour and compensated by parking the PR for *"the next manager wake"*; that
-  wake was the autonomous fleet, which closed 2026-07-21. The last generation read **21 DARK /
-  3 UNREADABLE / 0 LIVE** — the instrument working perfectly, reporting hourly that nobody is
-  home.
+  wake was the autonomous fleet, which closed 2026-07-21. The last generation's own verdict
+  summary read **31 rows: 18 DARK · 7 n/a · 3 STALE-BY-DESIGN · 1 STALE · 1 PRIVATE ·
+  1 UNREADABLE · 0 LIVE** *(this line said "21 DARK / 3 UNREADABLE" until 2026-08-11 — a
+  pattern-matched distribution `roster.md:21-22` had already named as wrong; corrected from
+  the file's generated summary, the fix `.sessions/2026-08-07-codex-caught-four.md` said
+  durable history must not re-carry)* — the instrument working perfectly, reporting hourly
+  that nobody is home.
   **The other verdicts in this item stand and are unchanged:** KEEP `merge-on-green.yml`, KEEP
   `substrate-gate.yml`, KEEP the S3/S5/S9 advisory checkers, HOLD `control/` + `telemetry/` as
   history. `scripts/gen_roster.py` and `scripts/check_roster_freshness.py` are untouched and

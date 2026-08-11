@@ -19,14 +19,22 @@ Why added : The owner's #309 doctrine ("evidence-backed verified capabilities
             the two split the labor.
 Date      : 2026-07-18 (lane worker, model: Opus 4.8, dispatched by the
             fleet-manager coordinator; fleet-manager PR #316)
-Reliability: unverified — confirm its output against ground truth a few times
-            across sessions before trusting it. Detection is best-effort text
-            heuristics over hand-written prose (seed term + core-capability
-            context + present-tense standing shape, minus dated/quoted/negated/
-            meta exemptions), not a parser; it fails SAFE — advisory only, never
-            wired into a blocking gate, so a miss or a false flag never blocks a
-            merge. PROMOTE to a required check once it stays clean across a few
-            sessions. DELETE this if it proves unreliable over multiple sessions.
+Reliability: PROMOTED 2026-08-06 — this checker now runs `--strict` inside
+            `substrate-gate`, the REQUIRED status check on main, and locally
+            via `scripts/preflight.py` under `bootstrap.py check` (an engine
+            port also runs inside the vendored bootstrap). **A finding here
+            BLOCKS the merge.** Detection is still best-effort text heuristics
+            over hand-written prose (seed term + core-capability context +
+            present-tense standing shape, minus dated/quoted/negated/meta
+            exemptions), not a parser — so a false flag now costs a red
+            required check: fix the phrasing or extend the exemptions; never
+            bypass the gate. Do NOT delete this script — main's required check
+            invokes it. (This header said "advisory only, never wired into a
+            blocking gate … PROMOTE once it stays clean … DELETE if unreliable"
+            until 2026-08-11: the promotion it deferred to the future happened
+            on 2026-08-06 and the file never learned — the audit's headline
+            finding 6, the un-propagated-correction class this checker itself
+            polices.)
 =============================================================================
 
 WHAT IT CHECKS (living/binding docs only — a NARROW allowlist)
@@ -73,12 +81,15 @@ SCAN SET (living/binding surfaces only — see --list)
   bootstrap.py, .substrate/**, fixtures, and — explicitly, meta-risk —
   THIS guard's own file (its inline fixtures carry every seed term).
 
-SEVERITY CONTRACT (sibling-parity: check_owner_queue / check_docs_links /
-check_capabilities_wall_age / check_fleet_triage_staleness)
-  Default DIRECT run prints findings + a summary and exits 0 (ADVISORY — #309
-  named this a required check, but it ships advisory-first, standalone, NOT
-  wired into `bootstrap.py check`, so it can never jam the substrate-gate).
-  `--strict` exits 1 on any finding (opt-in, for promotion to required later).
+SEVERITY CONTRACT (revised 2026-08-11 to match the 2026-08-06 promotion)
+  Default DIRECT run prints findings + a summary and exits 0 (a report venue).
+  `--strict` exits 1 on any finding — and `--strict` is how every enforced
+  venue runs it: `.github/workflows/substrate-gate.yml` (the REQUIRED check on
+  main), `scripts/preflight.py` (the `bootstrap.py check` fan-out), and the
+  engine port inside the vendored bootstrap. A finding therefore reds the
+  local gate AND blocks the merge. (The prior text — "NOT wired into
+  `bootstrap.py check`, so it can never jam the substrate-gate" — was false on
+  all three paths by 2026-08-08 and stood until 2026-08-11.)
 
 USAGE
   python3 tools/check_no_false_walls.py                 # advisory, exit 0

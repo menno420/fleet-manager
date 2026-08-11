@@ -1,13 +1,21 @@
 # init-prompt-universal — per-project fleet-protocol init prompt
 
-> **Status:** `living-ledger`
+> **Status:** `historical`
+>
+> **Era banner, 2026-08-11:** this is the seat-era founding-prompt record. The
+> autonomous-Projects program closed 2026-07-21; nothing deploys this text any
+> more, and the *"use the current text for every new deployment"* sentence
+> this header used to carry is itself part of the record, not an instruction.
+> The `delete_trigger` step inside the block below predates `[D‑0015]`
+> (**never** delete a trigger; `update_trigger` with `enabled: false` is the
+> stop) and must not be followed; the ⚠ line above it, added 2026-08-09, is
+> the live rule. Kept verbatim below per this file's own convention.
 >
 > Gen-1 text deployed 2026-07-09; **superseded 2026-07-10** by the dated
 > successor below (ORDER 001 / drift-fix D5, fable5-review F21: the deployed
 > text asserted "a routine will wake you" as fact, but no routine existed for
 > 7 of 9 lanes — the owner's next prompt was the de-facto wake). Convention:
 > verbatim deployed texts are never edited; dated successors are appended.
-> **Use the current text for every new deployment.**
 
 ## Current text (2026-07-10 successor — the one to deploy)
 

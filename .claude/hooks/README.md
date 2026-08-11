@@ -146,8 +146,10 @@ ordinary single-source case, so nothing is needed there.
 echo '{"session_id":"T","tool_name":"Bash","tool_input":{"command":"curl https://generativelanguage.googleapis.com/v1beta/models"}}' \
   | python3 .claude/hooks/route_docs.py
 
-# 2 · schema-validate the registration
-jq -e '.hooks.PreToolUse[] | select(.matcher == "Bash|WebFetch|Read|Glob|Grep")
+# 2 · schema-validate the registration (matcher updated 2026-08-11 — the
+#     Edit|Write suffix landed with content routes, and the old string here
+#     made a correctly-registered hook look unregistered: jq -e exited 4)
+jq -e '.hooks.PreToolUse[] | select(.matcher == "Bash|WebFetch|Read|Glob|Grep|Edit|Write")
        | .hooks[] | select(.type == "command") | .command' .claude/settings.json
 
 # 3 · prove it fires — run any command mentioning a trigger, then:
@@ -165,10 +167,15 @@ look like the dedupe failed when it did not.
 > [`docs/findings/2026-08-06-provenance-mechanism-measured.md`](../../docs/findings/2026-08-06-provenance-mechanism-measured.md)
 
 The second hook here, and a different species: it fires at `Stop` (turn end),
-reads the final reply from the transcript, sends it to the owner-stand-in
-reviewer on Vertex, and — only when the reviewer returns questions — blocks
-**once** so the agent addresses them in the reply the owner actually reads.
+reads the final reply from the transcript, and **blocks once,
+unconditionally**, with the fixed question — the reviewer model (free AI
+Studio key first, Vertex as the 429 fallback) is strictly additive enrichment.
 `stop_hook_active` guards the second pass: one round per turn, ever.
+*(Opening corrected 2026-08-11 — it described the v1 design, "sends it to the
+reviewer on Vertex and blocks only when questions return", while this same
+section's 2026-08-08 paragraphs below record the inversion; a reader stopped
+here with two incompatible explanations. The paragraphs below are the design
+history that produced the current shape.)*
 
 Everything load-bearing in it is measured, not designed:
 
@@ -180,8 +187,10 @@ Everything load-bearing in it is measured, not designed:
 - **The hook runs the review itself** — run 4's untried path, named by the
   reviewer: no skill invocation, no agent initiative anywhere in the loop
   (findings § 1 addendum).
-- **The null path is normal.** The reviewer outputs `NO QUESTIONS` and the turn
-  ends untouched. A review that must always find something is ritual.
+- **The reviewer's null is normal.** `NO QUESTIONS` appends no specifics — the
+  fixed-question block still happens (see the 2026-08-08 inversion below; this
+  bullet's original "turn ends untouched" described v1). A review that must
+  always find something is ritual; a fixed question is not a finding.
 - **Fail-open is a hard contract.** Any defect — creds, network, parse, timeout
   — exits 0 silently, and the firing (or its absence) is countable at
   `/tmp/claude-owner-review/log.jsonl`.
@@ -363,6 +372,35 @@ echo '{"session_id":"u","hook_event_name":"PreToolUse","tool_name":"Write","tool
 # registration (both hooks, all events)
 python3 tools/install_root_hooks.py
 ```
+
+## `git_state_guard.py` — the git facts, computed before the command
+
+*(Section added 2026-08-11 — this registered, live `PreToolUse` hook was the
+one of six with no section here, so an advisory arriving before a `git push`
+had no authority a reader could resolve it against; the audit's D17.)*
+
+A `PreToolUse` advisory on Bash git commands, built from the two 2026-08-08
+failures where the repo state carried the answer and the session acted from
+the plan instead:
+
+1. **Continuing a branch whose PR already squash-merged** — the branch's own
+   commits stop being ancestors of `main` while their *content* is fully
+   merged, so more commits guarantee a conflict (fm #820/#822). Detection: a
+   local-only commit whose subject reappears in `origin/main`'s recent history
+   suffixed ` (#N)`.
+2. **Force-pushing over evidence** — the safe pre-force-push check is a TREE
+   comparison against `origin/main`, not a commit listing (`git log --not
+   origin/main` lists squash-merged work as "unmerged" by SHA). The hook runs
+   the right comparison and injects the numbers.
+3. **`git reset --hard` over a dirty tree** — lists what would be destroyed
+   before it is.
+
+Contract: never blocks, exits 0 on every path, silent by default, each
+distinct warning once per session. It computes **facts**; the decision stays
+with the session — a subject match can be legitimate, and the message says so.
+Heredoc bodies are stripped before matching, so a commit message *discussing*
+`git reset --hard` does not fire it. Full provenance: the module docstring and
+`docs/findings/2026-08-08-why-rules-dont-bind.md`.
 
 ## `change_guard.py` — three checks at the moment a change lands
 

@@ -61,7 +61,27 @@ HOOKS = {
     "trigger_tools_guard.py": (
         ("PreToolUse", "Bash|mcp__.*__delete_trigger|mcp__.*__send_later"),
     ),
+    # change guard: kit-named skill amendments, broken tables, un-propagated
+    # edits — before the write AND after it lands (propagation is only knowable
+    # post-edit). Absent from this table until 2026-08-11 (the full-read
+    # audit's D28): the same three-of-four class fm #834 fixed, recurring — the
+    # rescue path silently restored 4 of 6 hooks and printed a clean install.
+    "change_guard.py": (
+        ("PreToolUse", "Write|Edit|MultiEdit"),
+        ("PostToolUse", "Edit|MultiEdit"),
+    ),
+    # owner-review Stop hook: reviews the reply the owner reads, blocks once.
+    # Also absent until 2026-08-11 — losing it silently removes the estate's
+    # CLAIM-layer instrument. Stop has no tool to match on.
+    "owner_review.py": (("Stop", None),),
 }
+
+# Per-hook timeout for NEW registrations (seconds; merge_event leaves existing
+# entries' timeouts alone). owner_review calls a model and the repo-local
+# registration gives it 120s — installing it with the 10s default would kill
+# the review mid-flight while still reporting "installed".
+TIMEOUTS = {"owner_review.py": 120}
+DEFAULT_TIMEOUT = 10
 
 
 def command_for(root: Path, script: str) -> str:
@@ -99,7 +119,9 @@ def merge_event(settings: dict, command: str, event: str, matcher: str | None,
             else:
                 entry["matcher"] = matcher
             return True
-    entry = {"hooks": [{"type": "command", "command": command, "timeout": 10}]}
+    timeout = TIMEOUTS.get(script, DEFAULT_TIMEOUT)
+    entry = {"hooks": [{"type": "command", "command": command,
+                        "timeout": timeout}]}
     if matcher is not None:
         entry["matcher"] = matcher
     entries.append(entry)

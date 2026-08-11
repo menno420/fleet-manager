@@ -2,10 +2,15 @@
 """owner-review Stop hook — the measured review mechanism, zero agent initiative.
 
 Fires when a session's turn ends. Reads the final assistant reply from the
-transcript, sends it to the owner-stand-in reviewer on Vertex, and — only when
-the reviewer returns questions — blocks ONCE so the agent addresses them in the
-reply the owner actually reads. `stop_hook_active` guards the second pass: one
-round, ever, per turn.
+transcript and **blocks ONCE, unconditionally**, with the fixed question — "what
+made you draw this conclusion?" needs no model (docstring corrected 2026-08-11;
+it described the v1 design until then, while main() had inverted it). The
+reviewer model (free AI Studio key first, Vertex as the 429 fallback — see the
+routing note below) is strictly ADDITIVE enrichment: when it returns specifics
+they are appended under "And specifically:", and NO QUESTIONS simply appends
+nothing — the block still happens, because selective firing measured as the
+worst of the three designs (README § "the fixed question IS the hook").
+`stop_hook_active` guards the second pass: one round, ever, per turn.
 
 This is run 4's untried path, named by the reviewer itself: the hook runs the
 review — no skill invocation, no agent initiative anywhere in the loop.
@@ -14,8 +19,11 @@ Design provenance (all MEASURED, docs/findings/2026-08-06-provenance-mechanism-m
        below is the load-bearing component, not the questions or the sequence
   § 2  Stop is the only viable event (UserPromptSubmit fires before any claim
        exists to ask about)
-  § 8  the null path is a normal outcome — reviewer says NO QUESTIONS, turn
-       ends untouched; a review that must always find something is ritual
+  § 8  the reviewer's null is a normal outcome — NO QUESTIONS simply adds no
+       specifics. (§ 8's original reading, "turn ends untouched", described the
+       v1 design; the 2026-08-08 inversion above superseded it — the block is
+       unconditional, and only the ENRICHMENT is nullable. A review that must
+       always find something is ritual; a fixed question is not a finding.)
 
 FAIL-OPEN IS A HARD CONTRACT. Any defect — no transcript, no creds, no
 network, bad JSON, timeout — exits 0 silently. A review hook that can trap a
@@ -31,7 +39,11 @@ did not — free-tier gemini-flash-latest, given the same system prompt, returne
 the SAME two findings the Vertex/Pro reviewer had produced on the previous turn,
 in 7.1s and 70 output tokens at no cost. That is § 1 restated: the system prompt
 is the load-bearing component, not the model. The auth chain was buying a bigger
-model for a job the small one does, and it was the only part that ever broke.
+model for a job the small one does. (An earlier version of this sentence added
+"and it was the only part that ever broke" — an overstatement the estate logged
+as an owner-caught incident: Vertex itself never broke, the google-auth LIBRARY
+was absent once and a logging defect was misfiled as auth; the cold re-measure
+is 7.5s end to end. See _free_review's docstring and README § Correction.)
 The free tier's requests-per-day cap is the real risk for a per-turn hook, so
 Vertex stays wired underneath for exactly that (429 → fall through), per
 docs/conventions/vertex-first-for-gemini.md, which reserves the Vertex default

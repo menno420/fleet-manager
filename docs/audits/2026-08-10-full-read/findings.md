@@ -133,7 +133,13 @@ The audit read the tree at `4b59e9b`. The session that produced it then landed
 fm #839/#840/#842, which moved three of these seven. **Each row below was re-run
 against the working tree rather than inferred from what a PR claimed**, so the next
 session neither re-fixes what is closed nor assumes the rest decayed with it.
-**1 closed · 6 open.**
+~~**1 closed · 6 open.**~~
+
+**Re-verified and then worked, 2026-08-11 (fm #846) — 7 closed.** All seven
+re-check commands were executed *before* any edit and every verdict reproduced
+(1 closed / 6 open; no third bad command — the two earlier bad versions stay
+recorded in row 1). The edit pass then closed the six at their sites. Each
+row's command below was run **after** its fix and proves the closed state.
 
 **A `PARTIAL` here would be a lie of the useful kind**, so there are none. Rows 5
 and 7 were first published `PARTIAL` on the strength of edits that touched the
@@ -148,12 +154,12 @@ says so and still reads `OPEN`.
 | # | the finding, short | status | re-check it |
 |---|---|---|---|
 | 1 | NOW pointer routes to a deprioritised repo | **CLOSED** (fm #840) | `git grep -n 'shiftlife truth pass' -- docs/planning/2026-07-26-consolidation-program.md docs/current-state.md` → **exit 1, no hits**. **Name the two routing files; do not sweep a directory.** An unscoped sweep exits 0 on this audit's own record, on `raw/adjudication.jsonl` and on `owner-queue.md:46` — all hits on the *description* of the defect, not the *pointer*. Two earlier versions of this cell shipped a command that did not reproduce: the first swept `docs/`, the second used a `git`-only pathspec against GNU `grep` (which reads it as a filename and exits 2) and still matched the owner queue. The pointer now reads *"D2 — next repository awaits the owner's target (shiftlife SUPERSEDED)"* with the owner's live statement quoted beneath it, and OD-15 is in the directive table. **The defect is closed; the decision it exposed is not** — which repository D2 targets is open at `OQ-FM-D2-TARGET`. |
-| 2 | The capability ledger opens with three walls it later retracts | **OPEN** | `grep -n 'Walls — verified blocked' docs/CAPABILITIES.md` — the section and all three rows are unchanged. Left deliberately: `CAPABILITIES.md` is append-only below its seed fence, so retracting a wall row is an edit-pass decision, not a drive-by. |
-| 3 | Live deployment text orders the one call the estate denies | **OPEN — and re-judged 2026-08-11; the fix is not the one the finding asks for** | The two contradicting lines are unchanged (`grep -n 'delete_trigger' docs/prompts/init-prompt-universal.md`). But *"live deployment text"* was inferred from the file's `living-ledger` badge and its *"use the current text for every new deployment"* sentence — and **both are contradicted twice over**. `docs/MAP.md:67` and `.claude/CLAUDE.md:152` classify `docs/prompts/` as retired seat-era record with exactly two live exceptions, and this is neither; the file's **own header, five lines under the badge, says `superseded 2026-07-10`**. Codex raised this on fm #845 review and it is right: the live-surface premise does not hold. What remains is real and is a different defect — **a file that declares itself superseded while wearing a `living-ledger` badge and instructing the reader to deploy it**. Fix the badge and the deploy sentence; the `delete_trigger` contradiction then resolves as record, not as a live order. |
-| 4 | E1's reserved step points at nothing and is absent from the queue | **OPEN** | `grep -n 'Method + sources' docs/planning/2026-07-26-consolidation-program.md` (the row, still linkless) and `grep -c 'E1' docs/owner-queue.md` → **0**. The nearby *"take the repository named by D2's NOW pointer"* blockquote is not a fix — `git log -S` puts it in fm #837, which is inside the audited tree. |
-| 5 | The kit re-apply table names two of seven skills at risk | **OPEN** | Re-derived 2026-08-11 by diffing every installed skill against its staged copy: **7 diverge** — `intake`, `prep-owner-steps`, `quality-gate`, `release`, `scope-backlog-item`, `session-close`, `upgrade-distribution`. The table still names two and still reads *"Two kit-named skills"*. fm #840 added an amendment to the `session-close` row, which was already one of the two; it documented none of the five omitted skills and reduced the copy-loop risk by nothing. |
-| 6 | The false-wall checker calls itself advisory; it is a required check | **OPEN** | `grep -n 'advisory only' tools/check_no_false_walls.py` against `.github/workflows/substrate-gate.yml`. Out of scope for the read-and-report session by instruction (no checker code changes); it is a two-line docstring fix for whoever takes the edit pass. |
-| 7 | The link checker cannot see the surfaces that bind a session | **OPEN** | `grep -n 'SCAN_DIRS' scripts/check_docs_links.py` — `.claude` is still absent, so the boot file and all 27 skills remain unchecked. The single broken link this gap let through was fixed in fm #840, but the finding as originally written already recorded that fix and named the scan set as the outstanding part; re-crediting it here would count the same repair twice. |
+| 2 | The capability ledger opens with three walls it later retracts | **CLOSED** (fm #846) | `sed -n '123,146p' docs/CAPABILITIES.md \| grep -c RETRACTED` → **3**. All three rows struck in place, each pointing at its append-log refutation and re-dated to its real last verification (2026-08-05 / 2026-07-31); `docs/seat-digest.md`'s derived render carries the same strike. The rows sit **inside the kit's `capability-seed` fence**, so the correction is registered in `docs/SKILLS-local.md` § Generated-file corrections — an upgrade may restore the false rows, and the durable fix is the kit seed (v1.21.0 track). |
+| 3 | Live deployment text orders the one call the estate denies | **CLOSED** (fm #846), per the fm #845 re-judgement | `sed -n '3p' docs/prompts/init-prompt-universal.md` → `` `historical` ``, and the header's deploy sentence is gone (`grep -c 'Use the current text for every new deployment' docs/prompts/init-prompt-universal.md` → **0**). The re-judged defect was the badge + deploy sentence — *"live deployment text"* had been inferred from a `living-ledger` badge on a file whose own header says `superseded 2026-07-10` and which `docs/MAP.md:67` / the boot file classify as retired record. An **Era banner (2026-08-11)** now names `[D‑0015]` and rules the `:24` `delete_trigger` step must not be followed; the block itself stays verbatim per the file's own convention, as record. |
+| 4 | E1's reserved step points at nothing and is absent from the queue | **CLOSED** (fm #846) | `grep -c 'final-eap-email-plan' docs/planning/2026-07-26-consolidation-program.md` → **2** (the E1 row and the §7 fm #833 row both link the real plan) and `grep -c 'OQ-E1-FINAL-EAP-EMAIL' docs/owner-queue.md` → **1** (the queue entry, owner-reserved, fresh-compose noted, cross-linked to the email-pack it supersedes). The plan's own header no longer claims *"the program's NOW"* — it states OWNER-RESERVED, as does its `planning/README.md` row (which also gained the four missing index rows, D81). |
+| 5 | The kit re-apply table names two of seven skills at risk | **CLOSED** (fm #846) | `grep -n 'SEVEN kit-named skills' docs/SKILLS-local.md` → hit; the ⚠ table now carries **all seven** rows with per-skill amendment descriptions derived from `diff` (not recalled), the derivation one-liner is committed beside the prose so the set is re-derivable, and the six understated roster rows read `kit, fm-amended` (D15). Note the divergence *set* grew inside this same PR — `quality-gate` and `scope-backlog-item` gained further amendments (D21/D22) and their table rows say so. |
+| 6 | The false-wall checker calls itself advisory; it is a required check | **CLOSED** (fm #846) | `grep -c 'PROMOTED 2026-08-06' tools/check_no_false_walls.py` → **1** and `grep -c 'BLOCKS the merge' tools/check_no_false_walls.py` → **1** — the Reliability header states the promotion and names all three enforcement paths (required `substrate-gate` · `scripts/preflight.py` · the engine port — D24's refuter set); the "DELETE this if unreliable" licence is replaced with the opposite instruction. The old wording survives only inside quoted retraction parentheticals, which is the correct shape. Docstring-only; `--selftest` still passes. |
+| 7 | The link checker cannot see the surfaces that bind a session | **CLOSED** (fm #846) | `python3 scripts/check_docs_links.py --list \| grep -c '^\.claude/'` → **29** files now scanned, and the full run prints `CLEAN — every intra-repo link in 369 file(s) resolves`, exit **0**. The first `.claude` scan immediately surfaced two checker defects — a link inside an *inline code span* flagged as dead (code spans do not render as links), and `slugify` collapsing the `--` GitHub really produces for em-dash headings, which made a *correct* anchor read dead — both fixed with selftest cases pinning them. |
 
 **Anchor drift — read this before quoting a `path:line` below.** The entries are
 anchored against `4b59e9b`. **Do not trust a list of the files that moved — derive
@@ -193,6 +199,8 @@ rather than re-applying.
 
 **Refuter's correction:** The "both sets are incomplete, symmetrically" framing is wrong. README.md:47-49 names "Its generated roster, `control/` bus, committed trigger telemetry, project packages, and prompt registry" as records of that era — so README covers all five (docs/prompts/ in prose even though the bullet at :55-57 links only four). The asymmetry is one-way: only .claude/CLAUDE.md omits projects/. Two mitigations the finding understates: projects/README.md opens with "> **Status:** `historical`" and "must not be used to boot a session", and the single most dangerous imperative is neutralized independently — .claude/hooks/trigger_tools_guard.py hard-DENIES `delete_trigger` via permissionDecision: deny. The unguarded residue is the rest (arming failsafe crons, send_later pacemakers, account-wide list_triggers sweeps).
 
+**Closed 2026-08-11 (fm #846):** `projects/` added to the boot file's Live-vs-historical set, aligning it with `README.md`'s historical map. Prove: ``grep -cF 'projects/`, `docs/prompts/`' .claude/CLAUDE.md`` → **1**. *(The first recorded form escaped the backticks for the bash that ran it — GNU grep reads `\`` as a buffer anchor and returns 0; Codex caught the recorded-vs-executed gap on review. The command now IS the executed string.)*
+
 ### D2. `.claude/CLAUDE.md:241` — stale-count
 
 > Measured 2026-08-05 — seven corrections from him in one session, **all seven right, zero false positives.**
@@ -204,6 +212,8 @@ rather than re-applying.
 **Check it:** `cd . && grep -rlzP --include=*.md 'seven\s+corrections' . | tr '\0' '\n'; sed -n '241,242p' .claude/CLAUDE.md; sed -n '52,58p' docs/CAPABILITIES.md; sed -n '27,31p' docs/owner-profile.md`
 
 **Refuter's correction:** The sentence is not false on its own terms — that one session genuinely had seven catches, seven correct. The accurate defect is narrower: the boot file cites the superseded n=1 figure as the evidence base for the owner-authority rule while the two ledgers it routes to carry the three-session base, and it omits the operative half the correction added (read the hedge; a hedged number is worth checking, an unhedged provisioning statement is not). Impact is on the strength of the evidence and the missing hedge rule, not on the rule's direction.
+
+**Closed 2026-08-11 (fm #846):** the boot file now carries the three-session evidence base and the hedge-reading rule the correction added. Prove: `grep -c 'seven corrections' .claude/CLAUDE.md` → **0** · `grep -c 'hedged number is worth checking' .claude/CLAUDE.md` → **1**. *(A first version of this command grepped a phrase the fix wraps across two lines — caught by running it, which is the whole point of the column.)*
 
 ### D3. `.claude/CLAUDE.md:115` — contradiction
 
@@ -217,6 +227,8 @@ dispatch and relay rules do not)
 **Check it:** `cd . && sed -n '115,116p' .claude/CLAUDE.md; sed -n '170,171p;177,179p;336p' docs/playbook.md`
 
 **Refuter's correction:** The same omission exists in docs/playbook.md's own mixed-era banner (lines 6-12), which enumerates R1/R2, R16/R17, R22/R24, R29/R30 as remaining useful and likewise omits R28 — so the fix is two-file, not one, and the boot file is echoing the playbook rather than diverging from it. Strength is medium: the rule is genuinely live but the mis-classification is by omission from an enumeration plus a loose category word, not an explicit 'R28 is historical'.
+
+**Closed 2026-08-11 (fm #846):** R28 added to both enumerations (the refuter's two-file fix — boot file and the playbook's own banner), with the category phrase narrowed to the seat-era *mechanics*. Prove: `grep -c 'R28' .claude/CLAUDE.md` → **2** (the rule list and its inline gloss) · `grep -c 'R28' docs/playbook.md` ≥ **2**.
 
 ### D4. `docs/planning/2026-07-26-consolidation-program.md:62` — contradiction
 
@@ -242,6 +254,8 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** The claim "the program contains ZERO markdown links of any kind before line 95" is wrong - there are six link-carrying lines (6, 7, 38, 39, 68, 71), including one to `2026-07-26-consolidation-plan-v2.md`. The accurate statement: none of them is the EAP email plan, and no plan doc is named anywhere above the E1 row, so "the plan doc above" resolves to nothing. Same dangling reference recurs at §7 line 186 ("linked from the plan's § 2").
 
+**Closed 2026-08-11 (fm #846):** the E1 row and the §7 fm #833 row both link the real plan. Prove: `grep -c 'final-eap-email-plan' docs/planning/2026-07-26-consolidation-program.md` → **2**.
+
 ### D6. `docs/owner-queue.md:621` — stale-count
 
 > wake was the autonomous fleet, which closed 2026-07-21. The last generation read **21 DARK /
@@ -253,6 +267,8 @@ dispatch and relay rules do not)
 **Check it:** `cd . && grep -rn '21 DARK\|21 `DARK`\|18 `DARK`' docs/owner-queue.md docs/roster.md .sessions/2026-08-07-retire-the-roster.md .sessions/2026-08-07-codex-caught-four.md`
 
 **Refuter's correction:** Accurate as filed. Worth adding for whoever fixes it: the wrong pair sits inside a ✅ RESOLVED queue entry (OQ-FM-APPARATUS-SIZING, lines 588-608), so the fix is a one-line replacement with roster.md's generated summary — 18 DARK · 7 n/a · 3 STALE-BY-DESIGN · 1 STALE · 1 PRIVATE · 1 UNREADABLE · 0 LIVE — not a re-litigation of the entry. Note the neighbouring '18 consecutive failed runs' in the same entry is CORRECT (API-verified) and must not be 'fixed' alongside it.
+
+**Closed 2026-08-11 (fm #846):** the site now carries the generated verdict summary's distribution, with the wrong pair quoted as retracted rather than silently replaced; the correct '18 consecutive failed runs' beside it untouched, per the refuter. Prove: `grep -c '18 DARK · 7 n/a' docs/owner-queue.md` → **1**.
 
 ### D7. `docs/owner-queue.md:357` — contradiction
 
@@ -267,6 +283,8 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Two corrections, one narrowing and one widening. NARROWER: the item is NOT in a 'current owner decisions' section — it sits under `## Inherited cross-repo owner asks — status as recorded` (line 65), whose banner at 67-69 says 'These entries preserve their last recorded status and instructions… Re-check the owning surface before acting', and the item's own note already calls itself 'likely MOOT after 2026-07-22'. Because the hook DENIES rather than prompts, the realistic failure mode is a denied tool call and a wasted turn, not the owner-prompt stall D‑0015 guards against. WIDER: the same instruction is not confined to owner-queue.md — docs/PROJECT-CLOSEOUT.md, read-path entry 5, repeats it twice with no banner at all: §3 item 3 (line 217, 'if either id survives, delete it') and §4 Owner checklist item 1 (line 342, 'Delete any survivor'). That is the higher-value fix target.
 
+**Closed 2026-08-11 (fm #846):** the HOW is rewritten under [D‑0015] — a session disables with `update_trigger enabled:false`; deleting is the owner's, from the console — and the refuter's higher-value targets, the two `PROJECT-CLOSEOUT.md` repetitions (§3 item 3, §4 checklist item 1), carry dated D‑0015 annotations with the records preserved. Prove: `grep -c 'delete_trigger trig' docs/owner-queue.md` → **0** · `grep -c 'D‑0015' docs/PROJECT-CLOSEOUT.md` → **2** — the pattern carries the non-breaking hyphen (U+2011) the annotations actually use, since the stamp-discipline pass converted them after this proof was first written (Codex caught the stale ASCII form on review).
+
 ### D8. `docs/owner-queue.md:560` — contradiction
 
 > **Conditional** — only needed **if roster autogen is retained** (currently under the sizing
@@ -280,6 +298,8 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Partial mitigation the finding omits: section (B) falls under the `## Inherited cross-repo owner asks — status as recorded` heading (line 65) whose banner says these preserve last-recorded status and must be re-checked before acting. That does not clear it — OQ-FM-ROSTER-READ-PAT is a fleet-manager secret, not a cross-repo one, so it is mis-filed under a banner that does not honestly describe it, and the moot ruling lives 66 lines below in the same file with no back-pointer.
 
+**Closed 2026-08-11 (fm #846):** the entry is marked ☠ MOOT with the 2026-08-07 ruling cited at the site, and the forbidden NEXT-TASKS.md pointer is gone. Prove: `grep -c 'MOOT 2026-08-07 — do not create' docs/owner-queue.md` → **1**.
+
 ### D9. `docs/decisions.md:25` — contradiction
 
 > verdict: Any session may spend `GEMINI_API_KEY_PAID` without asking — Pro-model
@@ -291,6 +311,8 @@ dispatch and relay rules do not)
 **Check it:** `sed -n '21,39p' docs/decisions.md; sed -n '26,31p;119,122p' docs/conventions/vertex-first-for-gemini.md; grep -n GEMINI_API_KEY_PAID .claude/CLAUDE.md`
 
 **Refuter's correction:** The finding understates the reach. It says 'the boot file follows the convention, not the ledger' — the boot file does BOTH: line 228 carries the Vertex-first rule and line 136 separately advertises 'D‑0011 the paid Gemini key is free to spend' with no caveat. And docs/providers/gemini.md:304 (a live provider doc, the one the doc-routing hook fires on for Gemini calls) restates 'Sessions may spend it without asking ([D‑0011])'. So the un-amended record propagates to three live surfaces, not one.
+
+**Closed 2026-08-11 (fm #846):** D‑0011 gained an amendment field naming the Vertex-first convention as the *route* authority (budget vs route split), and both propagated surfaces — the boot file's decision-records line and `providers/gemini.md:304` — carry the caveat. Prove: `grep -cF 'amendment: **(2026-08-11)' docs/decisions.md` → **1** · `grep -c 'Vertex-first' docs/providers/gemini.md` ≥ **1**. *(The field was re-spelled to the ledger grammar after this proof was first written — the gate rejected `- amendment (date):` — and the proof lagged one edit behind; Codex caught it on review.)*
 
 ### D10. `docs/CAPABILITIES.md:125` — contradiction
 
@@ -306,6 +328,8 @@ dispatch and relay rules do not)
 
 **Check it:** `sed -n '123,133p' docs/CAPABILITIES.md; sed -n '775,784p' docs/CAPABILITIES.md; grep -n 'delete branches' .claude/CLAUDE.md docs/CAPABILITIES-verified-2026-07-18.md`
 
+**Closed 2026-08-11 (fm #846):** see the headline table, row 2. Prove: `sed -n '123,146p' docs/CAPABILITIES.md | grep -c RETRACTED` → **3**. The seed-fence hazard is registered in `docs/SKILLS-local.md` § Generated-file corrections.
+
 ### D11. `docs/CAPABILITIES.md:128` — contradiction
 
 > - `any` · **Branch deletion**: 403 on every path (git push `:branch` and
@@ -318,6 +342,8 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** One quotation detail: the finding renders line 777 as 'FALSE AS WRITTEN' in caps and calls it verbatim; the file has 'false as written' lowercase. Content unaffected. Also the cited checker NB is paraphrased — the file reads 'Plain `api.github.com` is NOT blocked — direct egress (`curl --noproxy '*'`) answers 200 authenticated, rulesets and `/actions/*` included' (lines 43-46).
 
+**Closed 2026-08-11 (fm #846):** same fix as D10 — and this finding's upgrade warning is honoured by the re-apply registration rather than ignored. Prove: `sed -n '123,146p' docs/CAPABILITIES.md | grep -c RETRACTED` → **3**.
+
 ### D12. `docs/SKILLS-local.md:66` — contradiction
 
 > It is generated, so **it is not corrected by hand**; it will clear at the next adopt/upgrade, and this roster is the true list until then.
@@ -327,6 +353,8 @@ dispatch and relay rules do not)
 **Actually:** The next upgrade already ran (v1.20.1 -> v1.20.2, 2026-08-09, fm #833) and did not clear it — the section is still at docs/SKILLS.md:87-104 today. The upgrade's own report says why: '.substrate/upgrade-report.md' classifies `docs/SKILLS.md | consumer-edited | template unchanged — consumer-owned, nothing to apply'. This same file establishes that mechanism 73 lines later (lines 139-149: 'docs/SKILLS.md is NOT on this list ... apply_doc_improvements() writes only consumer-untouched ones'), so the file now contains both the correct mechanism and the prediction that mechanism falsifies. The practical cost is that the defect is parked forever waiting on an event that can never fire.
 
 **Check it:** `grep -n 'docs/SKILLS.md' .substrate/upgrade-report.md ; sed -n '55,70p;139,150p' docs/SKILLS-local.md ; sed -n '87,92p' docs/SKILLS.md`
+
+**Closed 2026-08-11 (fm #846):** the sentence now records that the promised regen can never fire (consumer-edited; `apply_doc_improvements()` writes only consumer-untouched docs) and that the section was fixed by hand. Prove: `grep -c 'Corrected by hand 2026-08-11' docs/SKILLS-local.md` → **1**.
 
 ### D13. `docs/SKILLS-local.md:68` — stale-fact
 
@@ -340,6 +368,8 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Directionally right; the detail to soften is that SKILLS.md is not scope-silent by accident — its '## What this is' line does say 'kit-shipped procedure' — but that is inherited template text, not an added scope declaration, and the header names no counterpart file. Low blast radius: the boot file separately points at docs/SKILLS-local.md as 'the installed roster with one line per skill', so a booted session still reaches the full list. The defect is the false self-report that the fix landed on both files.
 
+**Closed 2026-08-11 (fm #846):** `SKILLS.md`'s header now states its scope (the kit half, 10 rows) and names `SKILLS-local.md` as the complete roster — and the false 'cannot hand-drift' claim is corrected in the same block. Prove: `grep -c 'Scope: this file covers only the' docs/SKILLS.md` → **1**.
+
 ### D14. `docs/SKILLS-local.md:105` — stale-count
 
 > **Two kit-named skills now carry fleet-manager amendments, and both are reverted by that loop** — so **re-apply them after every upgrade**
@@ -351,6 +381,8 @@ dispatch and relay rules do not)
 **Check it:** `cd . && for d in .substrate/skills/*/; do n=$(basename "$d"); [ -f ".claude/skills/$n/SKILL.md" ] && ! diff -q ".claude/skills/$n/SKILL.md" ".substrate/skills/$n/SKILL.md" >/dev/null && echo "DIVERGES: $n"; done; grep -n 'Two kit-named skills now carry' docs/SKILLS-local.md`
 
 **Refuter's correction:** One supporting detail is overstated: the `cp` loop is NOT a step inside upgrade-distribution. I read that skill's live body — its eight steps are download / sha256 three-way / born-red PR / `bootstrap.py.new upgrade` / carve-out scan / verify+flip / verify merged main, and none of them mentions `.claude/skills/` or the copy loop. The exposure is one hop further out: the loop lives in docs/SKILLS-local.md:92-99 under the standing instruction at line 101, 'Re-run it after a kit upgrade' — so it is this document, not the skill, that tells a post-upgrade session to run the reverting command and then tells it only two skills need re-applying. Everything else in the finding reproduces exactly.
+
+**Closed 2026-08-11 (fm #846):** see the headline table, row 5. Prove: `grep -c 'SEVEN kit-named skills' docs/SKILLS-local.md` → **1**.
 
 ### D15. `docs/SKILLS-local.md:44` — stale-fact
 
@@ -364,6 +396,8 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Two precision fixes. (1) The column is headed 'body', not 'provenance' — the finding's substance survives because row 39 uses that same column to record 'fm-extended', but the label should be quoted correctly. (2) The understated rows number six, not five: `session-close` at line 51 is also a bare `kit` in that column despite being the file's flagship documented amendment. It is covered by the ⚠ re-apply table at line 111, so a session reading the whole file is not misled about it — but if the claim is about the column specifically, session-close belongs in the list.
 
+**Closed 2026-08-11 (fm #846):** all six understated rows in the body column now read `kit, fm-amended` (the refuter's set, session-close included). Prove: `grep -c 'kit, \*\*fm-amended\*\*' docs/SKILLS-local.md` → **6**.
+
 ### D16. `.claude/hooks/README.md:150` — broken-ref
 
 > jq -e '.hooks.PreToolUse[] | select(.matcher == "Bash|WebFetch|Read|Glob|Grep")
@@ -373,6 +407,8 @@ dispatch and relay rules do not)
 **Actually:** No PreToolUse block in .claude/settings.json carries the matcher "Bash|WebFetch|Read|Glob|Grep" — all three read-tool blocks now use "Bash|WebFetch|Read|Glob|Grep|Edit|Write" (the Edit|Write suffix was added when content routes landed). The command produces no output and `jq -e` exits 4, so a session running the documented verification of its own hook wiring gets a failure that looks like the hook is unregistered when it is correctly registered. This is a live how-to-verify recipe, not narrative.
 
 **Check it:** `jq -e '.hooks.PreToolUse[] | select(.matcher == "Bash|WebFetch|Read|Glob|Grep") | .hooks[] | select(.type == "command") | .command' .claude/settings.json; echo "exit=$?"; jq -r '.hooks.PreToolUse[].matcher' .claude/settings.json`
+
+**Closed 2026-08-11 (fm #846):** the recipe's matcher updated to the registered `Bash|WebFetch|Read|Glob|Grep|Edit|Write`, with the failure mode noted inline; the corrected command was run and exits 0 returning three registrations. Prove: run the README's step-2 jq → exit **0**.
 
 ### D17. `.claude/hooks/README.md:1` — unreachable-authority
 
@@ -386,6 +422,8 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Accurate that the routed reference omits git_state_guard.py, but 'has no way to know the sixth exists' is overstated: docs/current-state.md:347-349 names it, links it, and gives a one-line description of all three of its checks (squash-stacked branches, force-push tree comparison, reset --hard dirty-tree listing), and docs/findings/2026-08-08-why-rules-dont-bind.md covers the incidents it was built from. The gap is specifically in .claude/hooks/README.md, the file CLAUDE.md:163 names as the hook reference.
 
+**Closed 2026-08-11 (fm #846):** `git_state_guard.py` has its own section, written from the hook's docstring (its three checks, the advisory contract, the heredoc exclusion). Prove: `grep -c '^## .git_state_guard' .claude/hooks/README.md` → **1** — the section heading exists (the whole file had **0** mentions before).
+
 ### D18. `.claude/hooks/owner_review.py:5` — contradiction
 
 > transcript, sends it to the owner-stand-in reviewer on Vertex, and — only when
@@ -398,6 +436,8 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Also stale in the same clause: 'sends it to the owner-stand-in reviewer on Vertex' — routing was inverted 2026-08-08 to free AI Studio key first with Vertex only as the 429 fallback, which the same docstring says 27 lines further down (line 27: 'Routing, revised 2026-08-08: **free AI Studio key first, Vertex as fallback.**'). Two independent un-propagated corrections in one sentence.
 
+**Closed 2026-08-11 (fm #846):** the module docstring now states the inversion — blocks once unconditionally, the model strictly additive, NO QUESTIONS appends nothing — matching main() and the README. Prove: `grep -c 'blocks ONCE, unconditionally' .claude/hooks/owner_review.py` → **1**.
+
 ### D19. `.claude/hooks/owner_review.py:34` — contradiction
 
 > model for a job the small one does, and it was the only part that ever broke.
@@ -408,6 +448,8 @@ dispatch and relay rules do not)
 
 **Check it:** `git grep -n 'only part that ever broke'; grep -n 'was an overstatement' .claude/hooks/README.md; sed -n '355,368p' .claude/hooks/owner_review.py`
 
+**Closed 2026-08-11 (fm #846):** the overstatement is replaced by the correction with pointers to `_free_review`'s docstring and the README's Correction section (the second stale clause in the same sentence — 'reviewer on Vertex' — fell to the D18 rewrite). Prove: `grep -c 'an overstatement the estate logged' .claude/hooks/owner_review.py` → **1**.
+
 ### D20. `.claude/skills/capability-probe/SKILL.md:80` — stale-fact
 
 > phrasing in living docs — run it yourself; nothing in CI runs it for you. A
@@ -417,6 +459,8 @@ dispatch and relay rules do not)
 **Actually:** substrate-gate.yml line 170 runs `python3 tools/check_no_false_walls.py --strict`, and substrate-gate is a required status check on main. The boot file (.claude/CLAUDE.md:262-267) states the opposite explicitly and dates the change to 2026-08-06 — the skill inherited the pre-2026-08-06 conclusion and was never updated. A session reading this skill (which fires exactly when it is about to write a limitation) is told the gate will not catch it, so it may push wall-shaped prose expecting only a local advisory and get a red required check instead.
 
 **Check it:** `grep -n 'check_no_false_walls' .github/workflows/substrate-gate.yml .claude/skills/capability-probe/SKILL.md .claude/CLAUDE.md`
+
+**Closed 2026-08-11 (fm #846):** the skill now states the 2026-08-06 enforcement (required gate + local fan-out) and keeps the true residue — chat passes every guard. Prove: `grep -c 'nothing in CI runs it for you' .claude/skills/capability-probe/SKILL.md` → **0**.
 
 ### D21. `.claude/skills/quality-gate/SKILL.md:11` — stale-fact
 
@@ -430,6 +474,8 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** The whole of step 2 is now redundant, not just its parenthetical — bootstrap.py check --strict fans out through scripts/preflight.py, which runs check_doc_routes.py --strict and check_no_false_walls.py --strict on the full lane. This is precisely the failure class CLAUDE.md flags: 'The check list lives in that script, not in prose here — every written enumeration of it has gone stale.'
 
+**Closed 2026-08-11 (fm #846):** step 2 keeps the direct run as a findings-reader and corrects the coverage claim (runs in step 1's preflight fan-out AND CI's required gate). Kit-named — registered in the ⚠ re-apply table. Prove: `grep -c 'nothing in CI runs it for you' .claude/skills/quality-gate/SKILL.md` → **0**.
+
 ### D22. `.claude/skills/scope-backlog-item/SKILL.md:77` — snapshot-as-instruction
 
 > 5. RETARGET THE BATON. Update the coordinator's Next-2 baton in `control/status.md` so the next
@@ -440,6 +486,8 @@ dispatch and relay rules do not)
 
 **Check it:** `sed -n '77,79p' .claude/skills/scope-backlog-item/SKILL.md; head -2 control/README.md; head -1 control/status.md`
 
+**Closed 2026-08-11 (fm #846):** step 5 retargets the baton to the live venues (card close-out + PR description, per the skill's own 2026-08-04 venue note) and names `control/status.md` retired at the step itself. Kit-named — registered in the ⚠ re-apply table. Prove: `grep -c 'retired seat-era' .claude/skills/scope-backlog-item/SKILL.md` → **1**.
+
 ### D23. `tools/check_no_false_walls.py:80` — stale-fact
 
 > wired into `bootstrap.py check`, so it can never jam the substrate-gate).
@@ -449,6 +497,8 @@ dispatch and relay rules do not)
 **Actually:** It is already promoted. .github/workflows/substrate-gate.yml line 170 runs `python3 tools/check_no_false_walls.py --strict` inside the substrate-gate job, and the workflow's own comment eight lines above says 'substrate-gate is the REQUIRED status check on main'. --strict exits 1 on any finding, so a false positive from these best-effort text heuristics turns the required check red and blocks the merge. A session that hits a red gate and reads this docstring to triage it will conclude this checker cannot be the cause; a session weighing whether to fix a flagged line will believe it is advisory. The docstring also still describes its own reliability as 'unverified — PROMOTE once it stays clean', i.e. the promotion decision it documents as pending was taken on 2026-08-06 without updating the file.
 
 **Check it:** `grep -n 'never jam the substrate-gate\|advisory only, never' tools/check_no_false_walls.py && grep -n 'check_no_false_walls\|REQUIRED' .github/workflows/substrate-gate.yml`
+
+**Closed 2026-08-11 (fm #846):** see the headline table, row 6. Prove: `grep -c 'PROMOTED 2026-08-06' tools/check_no_false_walls.py` → **1** · `grep -c 'BLOCKS the merge' tools/check_no_false_walls.py` → **1**. The old wording survives only *inside quoted retractions* (`grep -n 'advisory only\|never jam' tools/check_no_false_walls.py` → 2 hits, both in "(This header said …)" / "(The prior text …)" parentheticals) — which is the correct shape: the retraction at the site, the claim gone.
 
 ### D24. `tools/check_no_false_walls.py:80` — contradiction
 
@@ -462,6 +512,8 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Understated, not overstated. The finding names only substrate-gate.yml:170; the header is falsified on three independent paths — substrate-gate.yml:170 (required check), scripts/preflight.py:96 (the local `check --strict` fan-out), and bootstrap.py:24677 (engine port run inside `bootstrap.py check`). So the clause 'NOT wired into `bootstrap.py check`' is false too, not merely its consequent.
 
+**Closed 2026-08-11 (fm #846):** the rewritten SEVERITY CONTRACT names all three enforcement paths this finding's refuter enumerated (gate · preflight · engine port). Prove: `grep -c 'scripts/preflight.py' tools/check_no_false_walls.py` ≥ **1**.
+
 ### D25. `tools/check_no_false_walls.py:27` — stale-fact
 
 > wired into a blocking gate, so a miss or a false flag never blocks a
@@ -471,6 +523,8 @@ dispatch and relay rules do not)
 **Actually:** .github/workflows/substrate-gate.yml:170 runs `python3 tools/check_no_false_walls.py --strict`, and the surrounding comment in that same workflow states '`substrate-gate` is the REQUIRED status check on main'. .claude/CLAUDE.md says the same ('as of 2026-08-06 it is enforced for you'). The promotion the header defers to the future already happened, so a false flag DOES block a merge today. A session or reviewer trusting this header would (a) believe a red from this checker is advisory noise and (b) read 'DELETE this if it proves unreliable' (line 29) as licence to remove a script that main's required gate now invokes.
 
 **Check it:** `sed -n '26,29p' tools/check_no_false_walls.py; grep -n 'check_no_false_walls' .github/workflows/substrate-gate.yml; grep -n 'REQUIRED status check on main' .github/workflows/substrate-gate.yml`
+
+**Closed 2026-08-11 (fm #846):** the 'DELETE this if unreliable' licence is replaced with 'Do NOT delete this script — main's required check invokes it'. Prove: `grep -c 'Do NOT delete this script' tools/check_no_false_walls.py` → **1**.
 
 ### D26. `tools/gemini_delegate.py:63` — contradiction
 
@@ -484,6 +538,8 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** The repeated wording is in the --vertex-sa help at line 419, not the --studio help at 424-426. Mitigating context the finding omits: line 4 of the same docstring already calls GEMINI_API_KEY "free-tier", so the file contradicts itself rather than being uniformly wrong.
 
+**Closed 2026-08-11 (fm #846):** header and `--vertex-sa` help now carry the two-key truth — `GEMINI_API_KEY` is the free tier; only `GEMINI_API_KEY_PAID` bills the card, and this tool never reads it. Prove: `grep -c 'AI Studio key, which spends' tools/gemini_delegate.py` → **0**.
+
 ### D27. `tools/gemini_delegate.py:64` — contradiction
 
 > # DEFAULT here; `--studio` is the opt-out and must be justified in the session
@@ -495,6 +551,8 @@ dispatch and relay rules do not)
 **Check it:** `grep -n 'if args.vertex_sa' tools/gemini_delegate.py; GEMINI_API_KEY=DUMMY python3 -c "import importlib.util;spec=importlib.util.spec_from_file_location('gd','tools/gemini_delegate.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);print(m._url('gemini-3.6-flash','generateContent'));print('_VERTEX empty?',m._VERTEX=={})"`
 
 **Refuter's correction:** The billing consequence is smaller than the finding implies: silently landing on generativelanguage with GEMINI_API_KEY costs nobody anything (the free key). The real harm is a session believing it is on Vertex when it is on the free tier — wrong session-card record, and it hits the ~20/day RPD cliff with no explanation.
+
+**Closed 2026-08-11 (fm #846) — doc matched to code, deliberately not code to doc:** the header and both help strings now state the real no-flag default (free Studio path; Vertex only with `--vertex-sa`; `--studio` alone a no-op). Silently flipping the default instead would change callers' billing route unasked — the wrong-direction fix for a description defect. Prove: `grep -c 'no-flag default is the free Studio path' tools/gemini_delegate.py` → **1**.
 
 ### D28. `tools/install_root_hooks.py:60` — stale-count
 
@@ -508,6 +566,8 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** 'registers all six across 5 event/matcher slots' is imprecise — .claude/settings.json holds 8 hook registrations across 4 event types (PreToolUse ×5 for route_docs/read_before_write/git_state_guard/change_guard/trigger_tools_guard, Stop ×1 owner_review, UserPromptSubmit ×1 route_docs, PostToolUse ×1 change_guard). The substance is unchanged: the rescue table restores 4 of 6 scripts and 6 of 8 registrations, silently.
 
+**Closed 2026-08-11 (fm #846):** `change_guard.py` (PreToolUse Write|Edit|MultiEdit + PostToolUse Edit|MultiEdit) and `owner_review.py` (Stop) added to the HOOKS table, with per-hook timeouts so the rescued Stop hook keeps its 120s instead of dying at the 10s default; dry-run verified in a scratch root — 6 hooks, 8 registrations. Prove: this finding's own Check-it diff → empty, exit **0**.
+
 ### D29. `scripts/check_docs_links.py:99` — other
 
 > SCAN_DIRS = ("docs", "projects", "environments", "registry", "templates")
@@ -519,6 +579,8 @@ dispatch and relay rules do not)
 **Check it:** `grep -n 'SCAN_DIRS\|CONTROL_FILES' scripts/check_docs_links.py; python3 scripts/check_docs_links.py --list`
 
 **Refuter's correction:** The causal sentence is overstated. `check_docs_links.py` is advisory and standalone - its own docstring says "not wired into `bootstrap.py check`", and grep confirms it appears in no workflow (`substrate-gate.yml`'s repo-checkers step runs only `tools/check_doc_routes.py --strict` and `tools/check_no_false_walls.py --strict`; the only YAML hit is a test fixture). So adding `.claude` to SCAN_DIRS would not by itself have red-flagged the session-close link in CI - the gap is two-part: no `.claude` coverage AND no CI wiring. Also, `.claude/` currently holds no real dead links.
+
+**Closed 2026-08-11 (fm #846):** see the headline table, row 7 — `.claude` scanned (29 files), two checker defects the new surface exposed fixed with selftest cases, full run CLEAN exit 0. The refuter's CI-wiring half is recorded as still open: the checker remains advisory + standalone by its spec; wiring it into a gate is a policy change nobody has asked for.
 
 ### D30. `scripts/check_owner_queue.py:156` — stale-fact
 
@@ -764,6 +826,8 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** The banner (added in PR #837, 'D2: make fleet-manager's front door tell the truth') overshot its target. The consolidation program §7 records the era-bannering pass as flagging `PROJECT-CLOSEOUT` §5, and §5 indeed carries its own precise, scoped banner at line 361. The top-of-file banner's separate sentence 'Its continuation list is preserved as evidence, not a current queue' disclaims §3, which is NOT stale: item 1 (trading-strategy #160) is verified OPEN today and its only resume recipe in the repo is that section, pointed to by both .claude/CLAUDE.md:97-99 and docs/owner-queue.md:487. The fix is to scope the top banner the way §5's is scoped — the historical claim applies to the §2 state snapshot and §5 boot route, not to §3.
 
+**Closed 2026-08-11 (fm #846):** the banner is scoped per the refuter — §2/§5 historical, §3 named as the live handover record the boot file routes to, with the overshoot dated. Prove: `grep -c 'still the live handover record' docs/PROJECT-CLOSEOUT.md` → **1**.
+
 ### D51. `docs/ROUTINES.md:33` — snapshot-as-instruction
 
 > Record every trigger create/delete call **verbatim** — id, cron, binding,
@@ -785,6 +849,8 @@ dispatch and relay rules do not)
 **Actually:** Both skills are installed here and invocable — .claude/skills/chase-references/SKILL.md (3263 bytes) and .claude/skills/prep-owner-steps/SKILL.md (3957 bytes) — and docs/SKILLS-local.md classifies both as body='kit', i.e. the kit does ship them. A session that reaches for chase-references (a boot-file routing-table skill, via `intake`) and reads this section is sent to another repo for a body sitting in its own tree. SKILLS.md is a live index the boot file's routing table depends on.
 
 **Check it:** `ls -la .claude/skills/chase-references/ .claude/skills/prep-owner-steps/ ; sed -n '87,104p' docs/SKILLS.md ; grep -n 'chase-references\|prep-owner-steps' docs/SKILLS-local.md`
+
+**Closed 2026-08-11 (fm #846):** the section now states both skills are kit-shipped and installed in this tree, bodies at their real paths, with the stale superbot pointer quoted as record. Prove: `grep -c 'installed in this repo' docs/SKILLS.md` ≥ **1**.
 
 ### D53. `docs/architecture.md:10` — stale-fact
 
@@ -1101,6 +1167,8 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** Measured depth is 4 hops from README.md, not 5 (README -> docs/intent.md -> planning/2026-08-08-fleet-manager-as-index.md -> planning/README.md -> plan). The staleness also propagates: docs/planning/README.md's own table row calls it "Program step **E1** (the NOW)". Mitigation worth noting: the program's own E1 block loudly says OWNER-RESERVED and points at D2, so a session that read the mandatory files first is unlikely to be misled by the plan's header alone.
 
+**Closed 2026-08-11 (fm #846):** the plan is now linked from the program (×2), the owner queue's new E1 entry and `planning/README.md` — no longer a depth-4 orphan — and its header states OWNER-RESERVED. Prove: `grep -rln 'final-eap-email-plan' docs/planning/2026-07-26-consolidation-program.md docs/owner-queue.md docs/planning/README.md` → **3 files**.
+
 ### D80. `docs/planning/2026-07-26-final-eap-email-plan.md:6` — contradiction
 
 > Program step **E1** (the program's NOW).
@@ -1111,6 +1179,8 @@ Spider" is 14 — comfortable.
 
 **Check it:** `grep -n "program's NOW" docs/planning/2026-07-26-final-eap-email-plan.md; sed -n '62,84p' docs/planning/2026-07-26-consolidation-program.md; sed -n '12p' docs/planning/README.md`
 
+**Closed 2026-08-11 (fm #846):** the header and the `planning/README.md` row both state OWNER-RESERVED / not the NOW. Prove: `grep -c 'OWNER-RESERVED and' docs/planning/2026-07-26-final-eap-email-plan.md` → **1**.
+
 ### D81. `docs/planning/README.md:5` — stale-count
 
 > > Index of `docs/planning/` — dated plans and launch/follow-up records. Each
@@ -1120,6 +1190,8 @@ Spider" is 14 — comfortable.
 **Actually:** docs/planning/ holds 15 documents plus this README; the table lists 12. Missing are overnight-menu-2026-07-17.md and — far more consequentially — BOTH live 2026-08-08 architecture records: 2026-08-08-agent-operating-environment-roadmap.md (the owner's three-phase roadmap) and 2026-08-08-fleet-manager-as-index.md (the Layer 1/Layer 2 design that .claude/CLAUDE.md cites as canonical for Layer 2 decisions). A session opening the directory's own index to answer 'what plans exist' concludes the newest plan is the 2026-07-26 consolidation program and never meets either 2026-08-08 document.
 
 **Check it:** `ls -1 docs/planning/; grep -c '^| 20' docs/planning/README.md; grep -n '2026-08-08' docs/planning/README.md`
+
+**Closed 2026-08-11 (fm #846):** four rows added — the two 2026-08-08 architecture records, the 2026-08-10 navigation plan (which had joined the missing set since the audit; the set grows, as predicted) and the overnight menu. Prove: the derivation loop over `docs/planning/*.md` → **0 MISSING** (README itself excepted).
 
 ### D82. `docs/planning/idea-backlog.md:12` — stale-count
 
@@ -1166,6 +1238,8 @@ Spider" is 14 — comfortable.
 **Actually:** Two lines earlier, in the SAME verbatim block, a 2026-08-09 amendment says '⚠ NEVER `delete_trigger`' and justifies itself with 'This prompt founds sessions in repos that do NOT load fleet-manager's guard hook, so this line is the only protection they get.' The amendment (commit 0ab4d07, PR #834) added the warning but never swept the block it was warning about, so the one artifact designated as the sole protection for hook-less repos still hands them the forbidden call. This is a live surface by its own header: Status `living-ledger` + 'Use the current text for every new deployment.' The live rule is [D‑0015] (docs/decisions.md:131) and .claude/hooks/trigger_tools_guard.py DENYs the call.
 
 **Check it:** `grep -n "delete_trigger" docs/prompts/init-prompt-universal.md`
+
+**Closed 2026-08-11 (fm #846):** see the headline table, row 3 — the badge and deploy sentence were the re-judged defect; the block stays verbatim as record under an era banner naming the live rule. Prove: `sed -n '3p' docs/prompts/init-prompt-universal.md` → `historical`.
 
 ### D86. `docs/providers/grok.md:146` — contradiction
 

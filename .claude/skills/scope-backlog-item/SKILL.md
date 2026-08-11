@@ -74,9 +74,11 @@ Then it retargets the baton so the next session lands on the freshly-scoped slic
        the reachable leg, unless it is badged historical or archive.
      - docs-gate — run the kit gate before pushing; it catches both of the above plus dead links.
 
-5. RETARGET THE BATON. Update the coordinator's Next-2 baton in `control/status.md` so the next
-   session's first slice is this freshly-scoped item, naming the recipe (or its planning-doc path).
-   Leave the baton pointing at real, cold-startable work — that is the whole output.
+5. RETARGET THE BATON *(fm venue, amended 2026-08-11: `control/status.md` is retired seat-era
+   apparatus — per the venue note above, the live baton venues are the session card close-out
+   and the PR description)*. Record where the next session starts: name the recipe (or its
+   planning-doc path) so the next first slice is this freshly-scoped item. Leave the baton
+   pointing at real, cold-startable work — that is the whole output.
 
 ## Report format
 

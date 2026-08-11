@@ -142,15 +142,16 @@ listed as not-yet-written rather than silently absent.
 
 **This list is a floor, not a ceiling.** A session whose job is to *understand*
 this repo reads past it — `CONSTITUTION.md` and `docs/owner-profile.md` (live),
-`docs/playbook.md` (mixed era — R1/R2/R16/R17/R22/R24/R29/R30 still bind, the
-dispatch and relay rules do not), and `MISSION.md`, `docs/NEXT-TASKS.md`,
+`docs/playbook.md` (mixed era — R1/R2/R16/R17/R22/R24/R28/R29/R30 still bind
+— R28's repo-qualify-every-`owner/repo#N` rule is live and estate-general —
+the seat-era dispatch/relay *mechanics* do not), and `MISSION.md`, `docs/NEXT-TASKS.md`,
 `docs/fleet-triage.md` **as history** — each describes a seat-era fleet that no
 longer exists, and each now says so at the top. A handoff prompt that names a short read list is naming
 the minimum to act, never the boundary of what is worth reading (`CONSTITUTION.md`
 § "Session prompts are guidance, not orders").
 
 **Live vs historical:** `docs/roster.md`, `control/`, `telemetry/`,
-`docs/prompts/` are **seat-era apparatus — historical record** (exceptions:
+`projects/`, `docs/prompts/` are **seat-era apparatus — historical record** (exceptions:
 `docs/prompts/chatgpt-project-instructions.md` + the curious-research review
 prompt are live; `control/claims/` is contested — the kit still wires it), not current
 truth (the seats no longer exist; the roster was retired 2026-08-07 and no
@@ -165,7 +166,8 @@ plan is checked against when a rule and the situation disagree. Read it before
 asking him anything.
 
 **Where a decision lives, so you cite the right record:** `docs/decisions.md` —
-this repo's `[D-NNNN]` entries (D-0011 the paid Gemini key is free to spend ·
+this repo's `[D-NNNN]` entries (D-0011 the paid Gemini key is free to spend —
+budget only; the Vertex-first convention still decides the *route* ·
 D-0012 publish by default, credentials never) · the program's OD table — owner
 directives · `docs/planning/2026-08-08-fleet-manager-as-index.md` — the Layer 2
 decisions and their rejected alternatives · substrate-kit's PL register —
@@ -270,8 +272,12 @@ Essentials:
   credential or an API can do — **do the thing.** Working *is* the verification;
   failing gives you a real error to report instead of a hypothetical doubt. Not
   an exception to verify-first: that doctrine guards against stale *records* and
-  your own *inferences*, and he is neither. Measured 2026-08-05 — seven
-  corrections from him in one session, **all seven right, zero false positives.**
+  your own *inferences*, and he is neither. The evidence base is **three
+  independent sessions, each counted against its own transcript, landing near
+  90–100 % on unhedged claims** (`docs/CAPABILITIES.md` § step 0) — and **read
+  the hedge**: he asserts where he has direct observation and hedges where he
+  does not, so a hedged number is worth checking; an unhedged provisioning
+  statement is not.
   **The boundary is not "provisioning versus behaviour."** That narrower version
   was written on 2026-08-05 and licensed a violation the same day: he stated the
   Interactions API keeps turn-based history, a probe of the *Vertex* path
