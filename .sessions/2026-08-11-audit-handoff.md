@@ -24,10 +24,10 @@ carried inline — which is the failure mode that skill exists to prevent:
    if it happens in 1 PR or 100."* `docs/current-state.md:180` records the grep
    result; nothing records the **directive**, so the next prompt would have had
    to re-carry it and the one after that would have drifted it.
-2. **Four of the audit's headline seven have moved since `findings.md` was
-   written** — this session's own PRs closed one and part-closed two. A session
-   handed that list re-fixes what already landed and concludes the audit was
-   wrong about the rest.
+2. **The audit's headline seven have moved since `findings.md` was written** —
+   this session's own PRs closed one of them. A session handed that list
+   unchanged re-fixes what already landed and concludes the audit was wrong
+   about the rest.
 3. **The open-PR read gap has no home outside a closed PR's comment thread and
    fm #842's card**, both `RECORD` tier. A planned mechanism recorded only in
    records is a planned mechanism nobody builds.
@@ -54,18 +54,23 @@ This card exists partly to correct that.
 ### Shipped
 
 - `docs/decisions.md` — **`[D-0016]`**, the owner-directive that work is sized by
-  what is properly done rather than by pull-request count, with the measured
-  grep (zero rules anywhere in `.claude/skills/`, `.claude/CLAUDE.md` or
-  `docs/*.md`) as its evidence and the CONSTITUTION's "prompts are guidance, not
-  orders" as what it rules out.
+  what is properly done rather than by pull-request count, with the
+  CONSTITUTION's "prompts are guidance, not orders" as what it rules out, and —
+  after review — the two narrower PR-count rules that do exist, plus a note
+  recording that the grep behind the first version's universal was weaker than it
+  read.
 - `docs/audits/2026-08-10-full-read/findings.md` — a **status block on the seven**,
-  measured against the tree on 2026-08-11 rather than asserted: 1 closed,
-  2 partial, 4 open, each with the command that re-checks it. Plus the
-  **anchor-drift warning**: this session edited four of the files the defect
-  entries cite, so `path:line` anchors in those entries are re-resolved by quote,
-  not trusted.
-- `docs/ideas/consume-the-open-pr-signal-2026-08-11.md` — the one-directional
-  protocol, captured with its honest counter-argument and route.
+  measured against the tree on 2026-08-11 rather than asserted: **1 closed,
+  6 open**, each with the command that re-checks it. No `PARTIAL` survived review
+  — twice a same-file edit had been credited as progress on the defect that
+  produced it. Row 3 was re-judged outright: its "live deployment surface" premise
+  fails against the tier map and against the file's own superseded header. Plus
+  the **anchor-drift warning**, which names the derivation command rather than a
+  file list, because the list written from memory was 6 and the derivation
+  returns 24.
+- `docs/ideas/consume-the-open-pr-signal-2026-08-11.md` — the delivery failure
+  behind fm #838, with the binding rule that already covers it, the route that
+  survived two rounds of refutation, and the trust boundary an implementer needs.
 - `docs/current-state.md` — the fm #842/#844 recently-shipped entry that was
   missing, so the `CORE` read reflects what landed.
 

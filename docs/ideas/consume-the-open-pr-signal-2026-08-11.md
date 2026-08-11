@@ -76,10 +76,23 @@ sitting in a directory both had been taught to ignore.
 **Why it might not be worth having — state this honestly before building.** It
 puts a network call on the prompt path, which is the one place latency is felt
 directly; it needs `$GITHUB_PAT` and must degrade to silence rather than to an
-error when the credential is absent or the call fails. And the estate has
-withdrawn hooks before for being noisy: on a repo with a steady stream of open
-PRs this fires on **every** prompt, and a line that appears every turn stops
-being read by about the third one.
+error when the credential is absent or the call fails. Once-per-session firing
+answers the noise objection this estate has withdrawn hooks for before — but it
+replaces it with a **one-shot** problem, which is worse in a different way: the
+line appears exactly once, at the busiest moment of the session, and if it is
+skipped there is no second chance. `route_docs.py` has the same property and is
+the place to measure whether once-only injection is actually read.
+
+**A security constraint the implementer does not get to skip.** This repository is
+**public** (`docs/owner-queue.md` § Parked — *"this owner queue is on the open
+internet"*), so an open PR can be authored by anyone, and its title is
+attacker-controlled text. Injecting titles verbatim into the first-turn context
+is a prompt-injection path that opens **before the session has done anything**.
+Render the list as bounded, structured, clearly-delimited data — number, head
+ref, truncated title — carrying an explicit statement that the contents are
+untrusted metadata to be read, never instructions to follow. A hook that hands
+raw external strings to a fresh model context is not shippable in this repo
+regardless of how useful the signal is.
 
 **And the obvious narrowing does not work — Codex refuted it on review.** Filtering
 to open PRs whose changed paths **intersect this session's own edit set** is

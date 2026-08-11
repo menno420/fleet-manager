@@ -202,15 +202,22 @@
   a hundred. The constraints on shape are the ones already written: a born-red
   card before the first commit, one thing at a time finished properly (OD-6), a
   ready PR rather than a draft, and every PR driven to a terminal state before the
-  session ends. **Two narrower PR-count rules survive this and are not
-  overridden**, because neither is about the work: `docs/gen2-blueprint.md:278`
-  (`binding`) caps *status/heartbeat* PRs at **max one per session** — a
-  seat-era anti-churn rule whose whole point is that heartbeats ride inside
-  substantive PRs rather than consuming their own; and
-  `docs/providers/github-copilot.md:81` records that GitHub's cloud agent *"can
-  open exactly one pull request to address each task"* — a provider fact to size
-  a delegated task against, not a rule this estate imposes. A budget on
-  ceremony is not a budget on work.
+  session ends. **Two narrower PR-count rules exist in the tree and this entry
+  does not touch either**, because neither is about substantive work — they are
+  named here only so that "no rule constrains PR count" is never restated as a
+  universal:
+  - `docs/gen2-blueprint.md:278` caps *status/heartbeat* PRs at **max one per
+    session** — an anti-churn rule whose point is that heartbeats ride inside
+    substantive PRs rather than consuming their own. **Whether it still binds is
+    unadjudicated and its badge is not the answer.** It is `binding` in a
+    document that seeds Gen-2 *Project seats*, and the seats no longer exist
+    (`README.md` § the story); nothing in the live read path carries the cap
+    forward, and this estate's own rule is that a badge on a closed-era document
+    is provenance, not authority (`docs/MAP.md` § the three tiers). Adjudicate it
+    before citing it; do not treat this bullet as having adjudicated it.
+  - `docs/providers/github-copilot.md:81` records that GitHub's cloud agent *"can
+    open exactly one pull request to address each task"* — a **provider fact** for
+    sizing a delegated task, not a rule this estate imposes on its own sessions.
 - why: Owner, live 2026-08-11 — *"The 1 PR instruction wasn't mine, that's
   probably something the previous session invented… the most important thing is
   that everything is properly done. It does not matter if it happens in 1 PR or

@@ -180,9 +180,9 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   one inside its own scope and never recursed into `docs/providers/`. The
   directive stands; the universal did not.
   **A measured status block on the audit's headline seven** at
-  [findings.md](audits/2026-08-10-full-read/findings.md) — **1 closed, 2 partial,
-  4 open**, each re-run against the tree rather than inferred from what a PR
-  claimed, plus the anchor-drift warning for the six files this session edited.
+  [findings.md](audits/2026-08-10-full-read/findings.md) — **1 closed, 6 open**,
+  each re-run against the tree rather than inferred from what a PR claimed, plus
+  the anchor-drift warning and the command that derives it.
   And [the open-PR signal idea](ideas/consume-the-open-pr-signal-2026-08-11.md),
   which had been announced only inside a session card and a closed PR comment —
   both `RECORD` tier, where a commitment is read as history and never actioned.
