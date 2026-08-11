@@ -90,11 +90,14 @@ These four are kept because each changes what you do at a specific moment:
    returned X; there may be another" and go find the other. Writing down a wall
    that isn't real is the most expensive mistake here, because the next session
    believes it and stops looking.
-   DO NOT RELY ON CI FOR THIS. A checker exists, but it reads only a short
-   allowlist of documents and fires on a short list of capabilities — run
-   `python3 tools/check_no_false_walls.py --list` to see exactly which.
-   Everywhere else, nothing is watching. That makes the rule yours to keep,
-   not the machine's.
+   DO NOT RELY ON CI FOR THIS. Two guards exist and neither covers everything:
+   the standalone `tools/check_no_false_walls.py` reads a short allowlist (run
+   it with `--list` to see it), while the engine guard inside
+   `python3 bootstrap.py check --strict` scans the wider forward-binding set
+   (live `docs/**/*.md` plus `.claude/**/*.md`, minus historical corpora and
+   dated records). Both fire only on a short list of capability phrasings, so a
+   novel wording passes either way. That makes the rule yours to keep, not the
+   machine's.
 
 4. HONEST NULLS AND FAILURES ARE DELIVERABLES. "I tried, it didn't work, here
    is the output" is a good answer. A smooth summary hiding a doubt is a defect.

@@ -46,9 +46,12 @@
 
 **On every cold start, follow `README.md`'s numbered six-read order** — this
 file counts as read one's Claude-side half; the others are `docs/intent.md`,
-`docs/current-state.md`, the consolidation program,
-`docs/fleet-account-2026-07-26.md` and `docs/owner-reflection-2026-07-21.md`,
-each annotated there with what it gives you. Then state the repo's **purpose,
+`docs/current-state.md`, the consolidation program **paired with
+`docs/planning/2026-08-08-agent-operating-environment-roadmap.md`** (read 4 is
+both — `OD-13` makes the roadmap the current plan and the program the older
+track), `docs/fleet-account-2026-07-26.md` and
+`docs/owner-reflection-2026-07-21.md`, each annotated there with what it gives
+you. Then state the repo's **purpose,
 era, what the owner is working on and why, and the next step**. If this boot
 file did not auto-load, `README.md` alone carries the whole order — it is the
 surface-neutral front door. Do not hide a failed orientation by hunting through
@@ -91,11 +94,13 @@ test; do not confuse the two.
 2. **The program:** `docs/planning/2026-07-26-consolidation-program.md` —
    THE working plan: the owner-directive (OD) table, the step ledger, the **NOW**
    pointer, and how a session works a step. Your work almost certainly lives here.
-   **Read its OD table before its NOW pointer:** `OD-13` names the roadmap's
-   Phases 2–3 and the multi-provider mix as what comes *first* and calls itself
-   *"the standing answer to what should a session pick up"*, and `OD-15` (owner,
-   live 2026-08-10) supersedes D2's `shiftlife` target — the lettered steps sit
-   **behind** those directives.
+   **How its OD table and NOW pointer reconcile — as of 2026-08-10, not forever:**
+   `OD-13` puts the roadmap's Phases 2–3 and the multi-provider mix first *until
+   those prerequisites are further along*, and `OD-15` supersedes D2's `shiftlife`
+   target *until the owner re-targets it* (`OQ-FM-D2-TARGET`). Both are
+   conditions with expiries, so read the NOW pointer for the current state rather
+   than assuming the OD table outranks it permanently — when either condition
+   lifts, the lettered step is the work.
    **Its NOW pointer is not the whole answer** — read entry 2b before acting on it.
 2b. **What supersedes the plan's next-actions:**
    `docs/findings/2026-08-05-foundation-continuation.md` — the revised order of
