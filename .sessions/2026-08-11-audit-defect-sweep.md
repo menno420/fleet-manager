@@ -1,6 +1,14 @@
 # 2026-08-11 · hub — close the full-read audit's remaining open defects
 
-> **Status:** `in-progress`
+> **Status:** `complete`
+
+*(Flip note, per the review-exemption clause: Codex round 2 reviewed
+`2403b4b`; `b0fd622` carries the four conceded and one partial round-2
+fixes under the two-round cap, dispositions posted on the PR; this flip
+commit changes this badge, the flip note, telemetry — and two dated
+null-recording grammar lines on the D40 card, which the gate began grading
+the moment this card went terminal and which predates the 💡/⟲ conventions;
+D40's closure records it. Nothing else.)*
 
 - **📊 Model:** fable-5 · high · mechanical refactor — sweep the 67 defects the
   verify-and-edit session left OPEN: record the already-discharged closures,

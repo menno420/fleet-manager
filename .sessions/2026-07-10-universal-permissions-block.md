@@ -29,3 +29,16 @@ addition arrived, so it lands as this follow-up). About to land, in this PR:
    universal-pointer line.
 
 > **Closure note (2026-07-11, PR #76):** superseded by PR #76 (the rebuilt #47 payload — UNIVERSAL v4 corrected §2.4 merge clause); this card merged stuck at in-progress via #47 and is grandfathered.
+
+---
+
+*(Two grammar lines added 2026-08-11 with the D40 badge flip — the modern
+card grammar grades every card in a PR's diff, and this 2026-07-10 card
+predates both conventions; these lines exist so the historical card parses,
+and they record nulls, not recovered content.)*
+
+💡 Session idea: none recorded at close — the session predates the
+idea-marker convention.
+
+⟲ Previous-session review: none recorded — the session predates the
+convention.
