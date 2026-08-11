@@ -25,8 +25,8 @@ Substantive changes, each with the reason:
   in standing text are the estate's most reliable source of stale claims — the
   same error is corrected in `docs/execution-surfaces.md`.
 - **The CI claim was an overclaim and is now scoped.** The draft said *"There is
-  a CI check that fails builds for this"* about false walls. `--list` returns
-  **five files**, and the checker fires only on a short capability list. A
+  a CI check that fails builds for this"* about false walls. `--list` returns a
+  short allowlist, and the checker fires only on a short capability list. A
   session that believes the machine has its back everywhere is worse off than
   one told plainly that it does not.
 - **`gh` and `$GITHUB_PAT` are out.** Both are absent on that surface, and the
@@ -90,9 +90,11 @@ These four are kept because each changes what you do at a specific moment:
    returned X; there may be another" and go find the other. Writing down a wall
    that isn't real is the most expensive mistake here, because the next session
    believes it and stops looking.
-   DO NOT RELY ON CI FOR THIS. A checker exists, but it reads five documents
-   only and fires on a short list of capabilities. Everywhere else, nothing is
-   watching. That makes the rule yours to keep, not the machine's.
+   DO NOT RELY ON CI FOR THIS. A checker exists, but it reads only a short
+   allowlist of documents and fires on a short list of capabilities — run
+   `python3 tools/check_no_false_walls.py --list` to see exactly which.
+   Everywhere else, nothing is watching. That makes the rule yours to keep,
+   not the machine's.
 
 4. HONEST NULLS AND FAILURES ARE DELIVERABLES. "I tried, it didn't work, here
    is the output" is a good answer. A smooth summary hiding a doubt is a defect.

@@ -77,9 +77,25 @@ test; do not confuse the two.
 1. **What is true now:** `docs/current-state.md` — the living ledger, and a
    declared boot-readpath doc in its own header. Source and merged PRs win over
    it; read it before task-specific docs so you don't act on stale state.
+1b. **The owner's CURRENT plan — read before the program below:**
+   `docs/planning/2026-08-08-agent-operating-environment-roadmap.md` — his
+   architecture decisions taken live 2026-08-08, in three phases: retrieval +
+   orientation (landed, fm #826) · intent resolution (first slice landed, fm #830;
+   § 4.8's fresh-agent test outstanding) · the common operating protocol (not
+   started). **This entry exists because the roadmap appeared in neither this file
+   nor `README.md` until 2026-08-10**, while `current-state.md` carried it *below*
+   its own "preserved, not current" banner — so a session walking this path met a
+   plan from 2026-07-26 and never learned a newer direction had been set two weeks
+   later. Third instance of the defect entries 0 and 2b already record. Salvaged
+   from fm #838 (superseded by fm #839/#840, this entry excepted).
 2. **The program:** `docs/planning/2026-07-26-consolidation-program.md` —
    THE working plan: the owner-directive (OD) table, the step ledger, the **NOW**
    pointer, and how a session works a step. Your work almost certainly lives here.
+   **Read its OD table before its NOW pointer:** `OD-13` names the roadmap's
+   Phases 2–3 and the multi-provider mix as what comes *first* and calls itself
+   *"the standing answer to what should a session pick up"*, and `OD-15` (owner,
+   live 2026-08-10) supersedes D2's `shiftlife` target — the lettered steps sit
+   **behind** those directives.
    **Its NOW pointer is not the whole answer** — read entry 2b before acting on it.
 2b. **What supersedes the plan's next-actions:**
    `docs/findings/2026-08-05-foundation-continuation.md` — the revised order of
