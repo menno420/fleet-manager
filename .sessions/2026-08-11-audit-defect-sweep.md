@@ -40,6 +40,71 @@ derivation (101 headers − 34 closure paragraphs) surfaced.
 
 ## Close-out
 
-*(born-red — filled at close)*
+**Shipped (PR #849): 65 of the 67 remaining defects closed — 99 of 101
+audit entries now carry closure paragraphs; D44/D45 stay honestly OPEN**
+(`bootstrap.py` is GENERATED; kit-side, v1.21.0 track).
+
+- **59 fixed at their sites:** the `.substrate/state.json` slot family
+  corrected through the kit's own API and the personas regenerated, never
+  hand-edited (D41–D43 + the planted docs D48/D53/D75/D93); the [D‑0015]
+  family's remedies now disable instead of delete, with the trigger-health
+  selfcheck assertion updated to pin the new remedy (D34/D35, D51, D83,
+  D99); six false walls struck with fresh measurements run this session
+  (D31, D39, D49, D69, D88, D89); roster-style ⛔ banners on the three
+  frozen generator outputs and era banners on ten missed seat-era docs; the
+  research index completed; both generators' emitted headers made honest and
+  `idea-backlog.md` regenerated from the corrected source (D36/D82); the
+  one non-terminal card badge flipped (D40); claims/ contested status stated
+  on both sides (D46); `heartbeat_files` emptied (D47);
+  `project.index.json`'s stale area values corrected (D98).
+- **Six recorded as already discharged:** D4 + D84 (fm #840 — D4 surfaced by
+  this session's derivation after the previous card's open-set enumeration
+  listed 66 ids for "67 open"), D61/D62 (the findings index regenerated
+  complete 2026-08-10), D94/D95 (fm #846's seat-digest regen and SKILLS.md
+  re-scope) — each verified against the tree before recording.
+
+**Verify (run this session, tails verbatim):**
+
+- closure battery (86 assertions, one row per proving command, the same
+  table that generated the recorded text): `86/86 PASS` — re-run after the
+  session's last content edit
+- `python3 scripts/check_trigger_health.py --selfcheck` →
+  `selfcheck: PASS (0 failure(s))`
+- `python3 scripts/gen_idea_backlog.py --selfcheck` →
+  `selfcheck: OK — 6 harvest/format assertions + determinism`
+- `python3 scripts/check_docs_links.py` →
+  `CLEAN — every intra-repo link in 369 file(s) resolves`, exit 0
+- `python3 scripts/preflight.py` → only red is this card's born-red hold;
+  doc routes 0 errors; false walls CLEAN
+- `python3 bootstrap.py check --strict` → exit 0 at close, after the flip
+
+⚑ Two corrected strings still live in kit templates inside `bootstrap.py`
+(the collaboration-model canonical pointer; the D44/D45 branch-sweep/rules
+walls) — GENERATED file, so the durable fix is the v1.21.0 kit session's,
+alongside the capability-seed rows already registered in SKILLS-local.md.
+⚑ The gate's `--session-log` sentinel carve-out keeps a comment clause
+("this repo still carries … an in-progress Status") that D40's flip made
+historical; the sentinel itself stays correct and stays needed. Kit-side
+absorb when the carve-out lands upstream.
+⚑ `docs/current-state.md` deliberately untouched again (word budget) — the
+session's record lives in findings.md and this card, same choice as fm #846.
+
+💡 Session idea: **one table should drive both the execution and the record
+of every proving command.** This session's battery holds (id, command,
+expected) rows; the closure generator pulls commands from the same table, so
+recorded-vs-executed gaps are impossible by construction — the class Codex
+caught three times in fm #846 and the first battery run caught here again
+(a grep re-matching its own retraction quote, two line-vs-occurrence count
+errors). Candidate: promote the pattern into the audit conventions or a
+small checker that re-runs recorded `Prove:` commands.
+
+⟲ Previous-session review: fm #846/#847's card was accurate to the tree
+with one countable defect — the open-set enumeration (66 ids for "67
+open"), which its own 101−34 derivation exposes; recorded in D4's closure
+rather than by editing the historical card.
+
+**Codex:** round 1 (head `TBD`) — *(filled after review)*.
+
+PR: menno420/fleet-manager#849 — ready, born-red hold until this badge flips.
 
 Layer-2 handoff: null (fleet-manager itself; no satellite repo attached)
