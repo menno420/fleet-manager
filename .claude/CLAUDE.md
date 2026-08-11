@@ -99,8 +99,11 @@ test; do not confuse the two.
    those prerequisites are further along*, and `OD-15` supersedes D2's `shiftlife`
    target *until the owner re-targets it* (`OQ-FM-D2-TARGET`). Both are
    conditions with expiries, so read the NOW pointer for the current state rather
-   than assuming the OD table outranks it permanently — when either condition
-   lifts, the lettered step is the work.
+   than assuming the OD table outranks it permanently. **When either condition
+   changes, re-read the NOW pointer — do not infer that the lettered step is now
+   the work:** the two expire independently, so OD-13 lifting still leaves D2
+   without a target until `OQ-FM-D2-TARGET` is answered, and D2 being retargeted
+   still leaves OD-13 prioritising methods over that product work.
    **Its NOW pointer is not the whole answer** — read entry 2b before acting on it.
 2b. **What supersedes the plan's next-actions:**
    `docs/findings/2026-08-05-foundation-continuation.md` — the revised order of

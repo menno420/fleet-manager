@@ -44,11 +44,14 @@ you, so skipping is a decision rather than an accident. A fresh session should
    live state, work state, what shipped recently.
 4. **[The consolidation program](docs/planning/2026-07-26-consolidation-program.md)**
    — *the goals and the plan*: the owner-directive table (OD-1…OD-15), the step
-   tracks, the NOW pointer and its standing corrections. **Read it together with
-   [the agent-operating-environment roadmap](docs/planning/2026-08-08-agent-operating-environment-roadmap.md)**,
-   which `OD-13` names as what comes first — the program is the older track, and
-   a session that reads only the program gets a July plan while the owner's
-   direction was set two weeks later.
+   tracks, the NOW pointer and its standing corrections. It is a `living-ledger`
+   and **the** plan — OD-13/14/15 are dated 2026-08-08/10 and the actionable work
+   derives from its NOW pointer. **Read it together with
+   [the agent-operating-environment roadmap](docs/planning/2026-08-08-agent-operating-environment-roadmap.md)**:
+   the roadmap is the methods-and-enforcement subplan that `OD-13` prioritises
+   *ahead of* the lettered product steps — not a replacement for the program. A
+   session that reads only the program learns the steps but not that OD-13 puts
+   the roadmap's phases first.
 5. **[`docs/fleet-account-2026-07-26.md`](docs/fleet-account-2026-07-26.md)** —
    *how it came to existence*: the EAP story from 2025-08 to the close,
    owner-reviewed. Read once; do not re-derive the history.
