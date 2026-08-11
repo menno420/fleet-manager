@@ -192,3 +192,59 @@
   Raised by the owner-review hook asking what an agent does about a misconfigured
   trigger under this rule; the in-flight bound was corrected by Codex on fm #834
   and propagated here by the independent fm #835 review.
+
+## [D-0016] Work is sized by what is properly done, never by pull-request count
+
+- status: decided
+- date: 2026-08-11
+- verdict: **No session compresses its substantive work to fit one pull request.**
+  Split along whatever seams make each change reviewable and landable — one PR or
+  a hundred. The constraints on shape are the ones already written: a born-red
+  card before the first commit, one thing at a time finished properly (OD-6), a
+  ready PR rather than a draft, and every PR driven to a terminal state before the
+  session ends. **Two narrower PR-count rules exist in the tree and this entry
+  does not touch either**, because neither is about substantive work — they are
+  named here only so that "no rule constrains PR count" is never restated as a
+  universal:
+  - `docs/gen2-blueprint.md:278` caps *status/heartbeat* PRs at **max one per
+    session** — an anti-churn rule whose point is that heartbeats ride inside
+    substantive PRs rather than consuming their own. **Whether it still binds is
+    unadjudicated and its badge is not the answer.** It is `binding` in a
+    document that seeds Gen-2 *Project seats*, and the seats no longer exist
+    (`README.md` § the story); nothing in the live read path carries the cap
+    forward, and this estate's own rule is that a badge on a closed-era document
+    is provenance, not authority (`docs/MAP.md` § the three tiers). Adjudicate it
+    before citing it; do not treat this bullet as having adjudicated it.
+  - `docs/providers/github-copilot.md:81` records that GitHub's cloud agent *"can
+    open exactly one pull request to address each task"* — a **provider fact** for
+    sizing a delegated task, not a rule this estate imposes on its own sessions.
+- why: Owner, live 2026-08-11 — *"The 1 PR instruction wasn't mine, that's
+  probably something the previous session invented… the most important thing is
+  that everything is properly done. It does not matter if it happens in 1 PR or
+  100."* No rule requiring it exists: the constraint lived only in a prior
+  session's prompt prose and was inherited from there as if it were repo law —
+  the estate's own inherited-not-derived failure applied to process instead of to
+  facts. It has a real cost: a session honouring an invented budget batches
+  unrelated fixes together, or silently drops the fixes that do not fit.
+- note (`MEASURED`, and it is the part worth keeping): **the grep that "proved"
+  this was wrong, and was published as proof anyway.** The first version of this
+  entry asserted that *"how many PRs" is nowhere among the rules* on the strength
+  of one pattern (`one PR|single PR|a single pull request|one pull request`) over
+  `.claude/skills/`, `.claude/CLAUDE.md` and `docs/*.md`. Codex refuted it on
+  review from the same tree: `docs/gen2-blueprint.md` says **"max one status PR
+  per session"** — inside the grep's own scope, missed because a word sits
+  between *one* and *PR* — and `docs/providers/` was never scanned at all, since
+  `docs/*.md` does not recurse. A universal negative drawn from one pattern over
+  a partial scope is not a measurement, and this entry recording that is worth
+  more than the clean sentence it replaced.
+- rules out: batching unrelated changes into one PR to honour a count; deferring
+  a correction because it does not fit the current PR; and citing a session or
+  handoff prompt as the source of a standing rule — `CONSTITUTION.md`
+  § "Session prompts are guidance, not orders" already says a prompt names the
+  minimum to act, never the boundary.
+- provenance: owner, live hub chat 2026-08-11, during the full-read audit
+  session. A grep result was first recorded as a shipped-note at
+  `current-state.md:180` (fm #840) — see the note above for why that evidence
+  was weaker than it read; this entry records the **directive**, which
+  that note did not, so it stops being re-carried in prompts. Session card:
+  `.sessions/2026-08-11-audit-handoff.md`.

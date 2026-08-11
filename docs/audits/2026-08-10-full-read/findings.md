@@ -127,6 +127,56 @@ the larger class: **an appended correction does not retract what it corrects.** 
 checker that ages claims cannot notice a retracted one, and the retraction is usually
 sitting in the same file.
 
+### Where the seven stand now — re-measured against the tree, 2026-08-11
+
+The audit read the tree at `4b59e9b`. The session that produced it then landed
+fm #839/#840/#842, which moved three of these seven. **Each row below was re-run
+against the working tree rather than inferred from what a PR claimed**, so the next
+session neither re-fixes what is closed nor assumes the rest decayed with it.
+**1 closed · 6 open.**
+
+**A `PARTIAL` here would be a lie of the useful kind**, so there are none. Rows 5
+and 7 were first published `PARTIAL` on the strength of edits that touched the
+same *file* — and Codex refused both on review: fm #840 added an amendment to the
+`session-close` row that was already listed, documenting none of the five omitted
+skills, and it fixed one link that had escaped the checker without touching the
+checker's scan set. **Repairing an instance is not progress on the defect that
+produced it**, and crediting it as progress is how an edit pass concludes that
+half the work is already discharged. Where a same-file edit happened, the row
+says so and still reads `OPEN`.
+
+| # | the finding, short | status | re-check it |
+|---|---|---|---|
+| 1 | NOW pointer routes to a deprioritised repo | **CLOSED** (fm #840) | `git grep -n 'shiftlife truth pass' -- docs/planning/2026-07-26-consolidation-program.md docs/current-state.md` → **exit 1, no hits**. **Name the two routing files; do not sweep a directory.** An unscoped sweep exits 0 on this audit's own record, on `raw/adjudication.jsonl` and on `owner-queue.md:46` — all hits on the *description* of the defect, not the *pointer*. Two earlier versions of this cell shipped a command that did not reproduce: the first swept `docs/`, the second used a `git`-only pathspec against GNU `grep` (which reads it as a filename and exits 2) and still matched the owner queue. The pointer now reads *"D2 — next repository awaits the owner's target (shiftlife SUPERSEDED)"* with the owner's live statement quoted beneath it, and OD-15 is in the directive table. **The defect is closed; the decision it exposed is not** — which repository D2 targets is open at `OQ-FM-D2-TARGET`. |
+| 2 | The capability ledger opens with three walls it later retracts | **OPEN** | `grep -n 'Walls — verified blocked' docs/CAPABILITIES.md` — the section and all three rows are unchanged. Left deliberately: `CAPABILITIES.md` is append-only below its seed fence, so retracting a wall row is an edit-pass decision, not a drive-by. |
+| 3 | Live deployment text orders the one call the estate denies | **OPEN — and re-judged 2026-08-11; the fix is not the one the finding asks for** | The two contradicting lines are unchanged (`grep -n 'delete_trigger' docs/prompts/init-prompt-universal.md`). But *"live deployment text"* was inferred from the file's `living-ledger` badge and its *"use the current text for every new deployment"* sentence — and **both are contradicted twice over**. `docs/MAP.md:67` and `.claude/CLAUDE.md:152` classify `docs/prompts/` as retired seat-era record with exactly two live exceptions, and this is neither; the file's **own header, five lines under the badge, says `superseded 2026-07-10`**. Codex raised this on fm #845 review and it is right: the live-surface premise does not hold. What remains is real and is a different defect — **a file that declares itself superseded while wearing a `living-ledger` badge and instructing the reader to deploy it**. Fix the badge and the deploy sentence; the `delete_trigger` contradiction then resolves as record, not as a live order. |
+| 4 | E1's reserved step points at nothing and is absent from the queue | **OPEN** | `grep -n 'Method + sources' docs/planning/2026-07-26-consolidation-program.md` (the row, still linkless) and `grep -c 'E1' docs/owner-queue.md` → **0**. The nearby *"take the repository named by D2's NOW pointer"* blockquote is not a fix — `git log -S` puts it in fm #837, which is inside the audited tree. |
+| 5 | The kit re-apply table names two of seven skills at risk | **OPEN** | Re-derived 2026-08-11 by diffing every installed skill against its staged copy: **7 diverge** — `intake`, `prep-owner-steps`, `quality-gate`, `release`, `scope-backlog-item`, `session-close`, `upgrade-distribution`. The table still names two and still reads *"Two kit-named skills"*. fm #840 added an amendment to the `session-close` row, which was already one of the two; it documented none of the five omitted skills and reduced the copy-loop risk by nothing. |
+| 6 | The false-wall checker calls itself advisory; it is a required check | **OPEN** | `grep -n 'advisory only' tools/check_no_false_walls.py` against `.github/workflows/substrate-gate.yml`. Out of scope for the read-and-report session by instruction (no checker code changes); it is a two-line docstring fix for whoever takes the edit pass. |
+| 7 | The link checker cannot see the surfaces that bind a session | **OPEN** | `grep -n 'SCAN_DIRS' scripts/check_docs_links.py` — `.claude` is still absent, so the boot file and all 27 skills remain unchecked. The single broken link this gap let through was fixed in fm #840, but the finding as originally written already recorded that fix and named the scan set as the outstanding part; re-crediting it here would count the same repair twice. |
+
+**Anchor drift — read this before quoting a `path:line` below.** The entries are
+anchored against `4b59e9b`. **Do not trust a list of the files that moved — derive
+it**, because the set grows with every PR that lands and a written list is stale on
+arrival. The first version of this paragraph named six files from what the session
+remembered editing; the derivation below returned **24**, and Codex caught the gap
+on review:
+
+```bash
+git diff --name-only 4b59e9b..HEAD          # everything that moved since the audit
+```
+
+Intersect that with the paths an entry cites. As of fm #845 it covers the whole
+front door — `README.md`, `.claude/CLAUDE.md`, `docs/current-state.md`,
+`docs/owner-queue.md`, `docs/decisions.md`, `docs/SKILLS-local.md`, the program,
+the ChatGPT instructions, `session-close/SKILL.md` and every area `README.md` the
+navigation work touched.
+
+**Every entry carries the quoted text as well as the line** — resolve by the quote
+and treat the number as a hint. A quote that no longer appears anywhere in its file
+is the interesting case: the site was rewritten, so the finding needs re-judging
+rather than re-applying.
+
 ---
 
 ## Defects — a session could act on these today and be misled
