@@ -1,6 +1,11 @@
 # 2026-08-11 · hub — verify the full-read audit's verdicts, then work its defect list
 
-> **Status:** `in-progress`
+> **Status:** `complete`
+
+*(Flip note, per the review-exemption clause: Codex round 2 reviewed
+`0012910`; `9340435` carries the four conceded round-2 fixes under the
+two-round cap, and this flip commit changes only this badge, the flip note,
+and telemetry — nothing reviewable.)*
 
 - **📊 Model:** fable-5 · high · review/verify — re-run the headline-seven status
   table, then fix the verified live-surface defects at their sites and record
