@@ -46,9 +46,12 @@
 
 **On every cold start, follow `README.md`'s numbered six-read order** — this
 file counts as read one's Claude-side half; the others are `docs/intent.md`,
-`docs/current-state.md`, the consolidation program,
-`docs/fleet-account-2026-07-26.md` and `docs/owner-reflection-2026-07-21.md`,
-each annotated there with what it gives you. Then state the repo's **purpose,
+`docs/current-state.md`, the consolidation program **paired with
+`docs/planning/2026-08-08-agent-operating-environment-roadmap.md`** (read 4 is
+both — `OD-13` makes the roadmap the current plan and the program the older
+track), `docs/fleet-account-2026-07-26.md` and
+`docs/owner-reflection-2026-07-21.md`, each annotated there with what it gives
+you. Then state the repo's **purpose,
 era, what the owner is working on and why, and the next step**. If this boot
 file did not auto-load, `README.md` alone carries the whole order — it is the
 surface-neutral front door. Do not hide a failed orientation by hunting through
@@ -77,9 +80,30 @@ test; do not confuse the two.
 1. **What is true now:** `docs/current-state.md` — the living ledger, and a
    declared boot-readpath doc in its own header. Source and merged PRs win over
    it; read it before task-specific docs so you don't act on stale state.
+1b. **The owner's CURRENT plan — read before the program below:**
+   `docs/planning/2026-08-08-agent-operating-environment-roadmap.md` — his
+   architecture decisions taken live 2026-08-08, in three phases: retrieval +
+   orientation (landed, fm #826) · intent resolution (first slice landed, fm #830;
+   § 4.8's fresh-agent test outstanding) · the common operating protocol (not
+   started). **This entry exists because the roadmap appeared in neither this file
+   nor `README.md` until 2026-08-10**, while `current-state.md` carried it *below*
+   its own "preserved, not current" banner — so a session walking this path met a
+   plan from 2026-07-26 and never learned a newer direction had been set two weeks
+   later. Third instance of the defect entries 0 and 2b already record. Salvaged
+   from fm #838 (superseded by fm #839/#840, this entry excepted).
 2. **The program:** `docs/planning/2026-07-26-consolidation-program.md` —
    THE working plan: the owner-directive (OD) table, the step ledger, the **NOW**
    pointer, and how a session works a step. Your work almost certainly lives here.
+   **How its OD table and NOW pointer reconcile — as of 2026-08-10, not forever:**
+   `OD-13` puts the roadmap's Phases 2–3 and the multi-provider mix first *until
+   those prerequisites are further along*, and `OD-15` supersedes D2's `shiftlife`
+   target *until the owner re-targets it* (`OQ-FM-D2-TARGET`). Both are
+   conditions with expiries, so read the NOW pointer for the current state rather
+   than assuming the OD table outranks it permanently. **When either condition
+   changes, re-read the NOW pointer — do not infer that the lettered step is now
+   the work:** the two expire independently, so OD-13 lifting still leaves D2
+   without a target until `OQ-FM-D2-TARGET` is answered, and D2 being retargeted
+   still leaves OD-13 prioritising methods over that product work.
    **Its NOW pointer is not the whole answer** — read entry 2b before acting on it.
 2b. **What supersedes the plan's next-actions:**
    `docs/findings/2026-08-05-foundation-continuation.md` — the revised order of

@@ -25,8 +25,8 @@ Substantive changes, each with the reason:
   in standing text are the estate's most reliable source of stale claims — the
   same error is corrected in `docs/execution-surfaces.md`.
 - **The CI claim was an overclaim and is now scoped.** The draft said *"There is
-  a CI check that fails builds for this"* about false walls. `--list` returns
-  **five files**, and the checker fires only on a short capability list. A
+  a CI check that fails builds for this"* about false walls. `--list` returns a
+  short allowlist, and the checker fires only on a short capability list. A
   session that believes the machine has its back everywhere is worse off than
   one told plainly that it does not.
 - **`gh` and `$GITHUB_PAT` are out.** Both are absent on that surface, and the
@@ -53,10 +53,16 @@ NOTHING FROM THE REPO LOADS AUTOMATICALLY HERE.
 Claude Code auto-loads .claude/CLAUDE.md; you do not, and there is no AGENTS.md.
 A Work project chat also starts with NO checkout — the working directory is
 empty (Codex cloud is a different surface and does check one out). So: clone or
-read via the GitHub connector. The cold orientation contract is exactly:
-README.md → docs/current-state.md →
-docs/planning/2026-07-26-consolidation-program.md. From those files, state the
-repo's purpose, live state and next step before hunting anywhere else. Then read
+read via the GitHub connector. The cold orientation contract is **README.md's
+numbered six-read order** — start there and follow it; do not substitute a
+shorter route. As of 2026-08-10 that is: README.md → docs/intent.md →
+docs/current-state.md → docs/planning/2026-07-26-consolidation-program.md
+**paired with** docs/planning/2026-08-08-agent-operating-environment-roadmap.md
+(OD-13 makes the roadmap the prioritised methods subplan) →
+docs/fleet-account-2026-07-26.md → docs/owner-reflection-2026-07-21.md. README
+is authoritative if that list and this paste ever disagree — it is maintained,
+this paste is a snapshot. From those reads, state the repo's purpose, era, what
+the owner is working on and why, and the next step before hunting anywhere else. Then read
 .claude/CLAUDE.md yourself before acting on estate work; it carries the deeper
 read path and Claude-specific apparatus, none of which loaded for you. If you
 have no repo access in a given chat, say so plainly and answer from what is in
@@ -90,9 +96,14 @@ These four are kept because each changes what you do at a specific moment:
    returned X; there may be another" and go find the other. Writing down a wall
    that isn't real is the most expensive mistake here, because the next session
    believes it and stops looking.
-   DO NOT RELY ON CI FOR THIS. A checker exists, but it reads five documents
-   only and fires on a short list of capabilities. Everywhere else, nothing is
-   watching. That makes the rule yours to keep, not the machine's.
+   DO NOT RELY ON CI FOR THIS. Two guards exist and neither covers everything:
+   the standalone `tools/check_no_false_walls.py` reads a short allowlist (run
+   it with `--list` to see it), while the engine guard inside
+   `python3 bootstrap.py check --strict` scans the wider forward-binding set
+   (live `docs/**/*.md` plus `.claude/**/*.md`, minus historical corpora and
+   dated records). Both fire only on a short list of capability phrasings, so a
+   novel wording passes either way. That makes the rule yours to keep, not the
+   machine's.
 
 4. HONEST NULLS AND FAILURES ARE DELIVERABLES. "I tried, it didn't work, here
    is the output" is a good answer. A smooth summary hiding a doubt is a defect.
