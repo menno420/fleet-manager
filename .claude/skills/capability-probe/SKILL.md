@@ -77,9 +77,11 @@ Rules that trip sessions:
 
 **Never write down a limitation in a living doc without the full probe behind
 it.** `tools/check_no_false_walls.py --strict` catches present-tense denial
-phrasing in living docs — run it yourself; nothing in CI runs it for you. A
-false wall stated in *chat* passes the guard clean, which is why this skill
-fires at the moment of *thinking* "I can't", not at commit time.
+phrasing in living docs — and since 2026-08-06 it is **enforced**: it runs in
+CI's required `substrate-gate` and in the local `check --strict` fan-out, so a
+wall-shaped sentence reds the merge, not just an advisory. A false wall stated
+in *chat* still passes every guard clean, which is why this skill fires at the
+moment of *thinking* "I can't", not at commit time.
 
 ## Traps — each one has cost this estate a real session
 

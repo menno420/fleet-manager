@@ -59,12 +59,19 @@ DEFAULT_MODEL = "gemini-3.6-flash"
 
 # --- Vertex ------------------------------------------------------------------
 # Owner directive 2026-08-05 (`docs/conventions/vertex-first-for-gemini.md`,
-# binding): Gemini goes through Vertex, which spends a pre-paid credit balance,
-# not the AI Studio key, which spends the owner's card. Vertex is therefore the
-# DEFAULT here; `--studio` is the opt-out and must be justified in the session
-# card. The service account is not in the environment — it lives in Railway
-# (`reliable-grace` / `worker` / `production`, `GEMINI_VERTEX_SA_JSON`), so this
-# tool takes an already-extracted file rather than reaching for Railway itself.
+# binding, corrected 2026-08-06): the ROUTE decides who pays, not the key.
+# Vertex spends the pre-paid credit; `GEMINI_API_KEY` (which this tool reads)
+# is the FREE AI Studio tier and costs nothing — only `GEMINI_API_KEY_PAID`
+# bills the owner's card, and this tool never reads that one. Comment corrected
+# 2026-08-11 (audit D26/D27): it said "the AI Studio key spends the card"
+# (false for the free key) and called Vertex "the DEFAULT here" — in CODE the
+# no-flag default is the free Studio path, and Vertex engages only when
+# `--vertex-sa` is passed; `--studio` alone changes nothing. Callers honour
+# Vertex-first for volume/image/video by passing `--vertex-sa`, and say the
+# route in the session card. The service account is not in the environment — it
+# lives in Railway (`reliable-grace` / `worker` / `production`,
+# `GEMINI_VERTEX_SA_JSON`), so this tool takes an already-extracted file rather
+# than reaching for Railway itself.
 VERTEX_ROOT = "https://aiplatform.googleapis.com/v1"
 VERTEX_LOCATION = "global"
 CA_BUNDLE = "/root/.ccr/ca-bundle.crt"
@@ -416,13 +423,18 @@ def main() -> int:
         "--vertex-sa",
         help="path to the Vertex service-account JSON (mode 600, outside the "
         "tree). Pull it from Railway per docs/conventions/vertex-first-for-"
-        "gemini.md; Vertex spends pre-paid credit, the Studio key spends card.",
+        "gemini.md; Vertex spends pre-paid credit. Without this flag the tool "
+        "runs on the FREE AI Studio key (GEMINI_API_KEY — costs nothing, daily "
+        "caps); only GEMINI_API_KEY_PAID bills the card and this tool never "
+        "reads it.",
     )
     parser.add_argument(
         "--studio",
         action="store_true",
-        help="opt out of Vertex and use GEMINI_API_KEY. The owner directive of "
-        "2026-08-05 makes Vertex the default; say why in the session card.",
+        help="force the free AI Studio key even when --vertex-sa is supplied. "
+        "Without --vertex-sa the free key is already the code path, so this "
+        "flag alone changes nothing. The Vertex-first directive is honoured by "
+        "passing --vertex-sa for volume/image/video; say the route in the card.",
     )
     args = parser.parse_args()
 

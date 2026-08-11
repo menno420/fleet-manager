@@ -122,14 +122,21 @@ credential is missing:
 
 ## Walls — verified blocked (use the workaround; don't rediscover)
 
-- `any` · **Tag push / release create via git**: HTTP 403 from the
-  environment's git proxy → use the workflow_dispatch release path.
-  — LAST-VERIFIED: 2026-07-12
-- `any` · **Branch deletion**: 403 on every path (git push `:branch` and
-  API) → owner deletes by hand / enables "Automatically delete head
-  branches". — LAST-VERIFIED: 2026-07-10
-- `any` · **`api.github.com` direct HTTP**: blocked → GitHub access is
-  MCP-tools-only. — LAST-VERIFIED: 2026-07-10
+- `any` · **Tag push / release create**: ~~HTTP 403 from the environment's
+  git proxy → use the workflow_dispatch release path~~ **RETRACTED
+  2026-08-05** — tag create **201** and release create **201** on the
+  direct-PAT path (dated entry in the append log below); only the *proxied*
+  path 403s. `workflow_dispatch` remains a working alternative, not the only
+  path. — LAST-VERIFIED: 2026-08-05
+- `any` · **Branch deletion**: ~~403 on every path (git push `:branch` and
+  API)~~ **RETRACTED 2026-08-05** — `DELETE git/refs/heads/…` **204** on the
+  direct-PAT path (dated entry in the append log below); normal agent work
+  per the boot file. Only the *proxied* path 403s. — LAST-VERIFIED: 2026-08-05
+- `any` · **`api.github.com` direct HTTP**: ~~blocked → GitHub access is
+  MCP-tools-only~~ **RETRACTED 2026-07-31** — direct egress
+  (`curl --noproxy '*'`) answers **200** authenticated, rulesets and
+  `/actions/*` included (dated entry in the append log below). Only the
+  *proxied* path 403s. — LAST-VERIFIED: 2026-07-31
 - `any` · **Environment / Project creation**: owner-click actions in the
   console — queue them as structured owner asks, never wait silently.
   Routine/schedule creation is NO LONGER a blanket wall: `create_trigger`

@@ -22,6 +22,15 @@
 
 - status: decided
 - date: 2026-08-05
+- amendment (2026-08-11): **this entry sizes the budget; the *route* is decided
+  by [`conventions/vertex-first-for-gemini.md`](conventions/vertex-first-for-gemini.md)**
+  (`binding`, same date, corrected 2026-08-06): default to Vertex (prepaid
+  credit), free key for AI Studio work, and reach for `GEMINI_API_KEY_PAID` —
+  which bills the owner's card on `generativelanguage`, measured €0.49 → €7.88
+  month-to-date — only when Vertex actually failed, said out loud in the card.
+  "Without asking" stands; "without routing" never did. Recorded because the
+  full-read audit found this entry, the boot file and `providers/gemini.md` all
+  advertising the un-routed version while the convention ruled the opposite.
 - verdict: Any session may spend `GEMINI_API_KEY_PAID` without asking — Pro-model
   review, image generation, live-search grounding, or any other paid Gemini call
   that serves the work in front of it. No approval step, no per-call budget.

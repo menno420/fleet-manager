@@ -301,7 +301,9 @@ one. Recipe and directive:
 €10 prepay on the billed project takes the model list from 50 to **58** and
 makes Pro, Google Search grounding and image generation callable from a
 session — the three things the free key refuses. Sessions may spend it without
-asking ([D-0011]).
+asking ([D-0011] — the *budget*; the *route* is still Vertex-first per
+[`../conventions/vertex-first-for-gemini.md`](../conventions/vertex-first-for-gemini.md):
+reach for the paid key only when Vertex actually failed, said in the card).
 
 Getting there took three separate fixes, each invisible from the API side and
 each legible only on the owner's screen, which is worth knowing before

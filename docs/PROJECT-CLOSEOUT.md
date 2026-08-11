@@ -3,8 +3,13 @@
 > **Status:** `historical`
 >
 > **Historical snapshot:** this is the autonomous hub seat's final handover,
-> accurate to its stated 2026-07-21 verification point. Its continuation list
-> is preserved as evidence, not a current queue. Live state and next action are
+> accurate to its stated 2026-07-21 verification point. The §2 state snapshot
+> and §5 boot route are historical (§5 carries its own superseded banner) —
+> but **§3's continuation threads are still the live handover record**: the
+> boot file routes every session there (read-path entry 5), and its items stay
+> open until each is verifiably closed. *(This banner disclaimed §3 too until
+> 2026-08-11; that overshoot taught sessions to skip exactly the list the boot
+> file sent them to work.)* Live state and next action are
 > [`current-state.md`](current-state.md) and the
 > [consolidation program](planning/2026-07-26-consolidation-program.md).
 >
@@ -216,6 +221,10 @@ this section alone.
    **Check:** run `list_triggers` (paginate to exhaustion) after 2026-07-22;
    if either id survives, delete it — post-close, *any* surviving trigger is
    dead weight, so the old keep-the-newer nuance no longer applies.
+   *(2026-08-11: superseded by `[D-0015]` — a session never calls
+   `delete_trigger`; it disables with `update_trigger enabled:false`, or the
+   owner deletes from the console. The check step stands; the delete step is
+   his.)*
 4. **`OQ-WEBSITES-LABEL-MACHINERY` — remove the websites label re-creator.**
    `\.github/workflows/host-automerge-extras.yml` on websites main still
    auto-re-creates + auto-applies the retired `do-not-automerge` label on
@@ -341,7 +350,9 @@ closeout is the authority on its products.
    `list_triggers` in the hub chat, paginated to exhaustion. Expect zero
    enabled seat triggers (every closer wipes its own). Delete any survivor —
    they can only wake dead sessions. This also settles the old
-   `OQ-SBW-DUP-FAILSAFE` pair for free.
+   `OQ-SBW-DUP-FAILSAFE` pair for free. *(2026-08-11: deleting is yours alone
+   under `[D-0015]` — a session offering to help disables with
+   `update_trigger enabled:false` instead.)*
 2. **Slow or stop `roster-regen.yml` (~2 min).** It keeps firing ~hourly on
    GitHub's dime with no seats left to report. Repo → Actions →
    roster-regen → disable, or edit the two cron lines to `40 6 * * *`.

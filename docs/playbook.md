@@ -7,8 +7,10 @@
 > visibility, review, and landing rules still apply where their mechanism still
 > exists. The dispatch, control-bus, roster, wake-chain, and seat-liveness rules
 > describe the closed autonomous program and are historical. In particular,
-> R1/R2, R16/R17, R22/R24, and R29/R30 remain useful; do not revive the relay
-> machinery around them. The numbered record is preserved rather than
+> R1/R2, R16/R17, R22/R24, R28, and R29/R30 remain useful — R28's
+> repo-qualify rule (`owner/repo#N`, never bare `#N`; added 2026-08-05) is
+> live and estate-general even though the ORDER/relay mechanics around it are
+> not — do not revive the relay machinery around them. The numbered record is preserved rather than
 > rewritten; current procedure comes from `.claude/CLAUDE.md` and
 > `.claude/skills/session-close/SKILL.md`.
 

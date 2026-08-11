@@ -39,9 +39,9 @@ Full index (grounds + capabilities): `docs/SKILLS.md` — the source this block 
 <!-- substrate-kit:walls-digest BEGIN venues=autonomous-project,any — derived render, kit-generated; regenerate with `python3 bootstrap.py seat-digest`, never edit. -->
 ## Walls digest (venues: autonomous-project, any)
 
-- `any` · **Tag push / release create via git**: HTTP 403 from the environment's git proxy → use the workflow_dispatch release path.
-- `any` · **Branch deletion**: 403 on every path (git push `:branch` and API) → owner deletes by hand / enables "Automatically delete head branches".
-- `any` · **`api.github.com` direct HTTP**: blocked → GitHub access is MCP-tools-only.
+- `any` · **Tag push / release create via git**: ~~HTTP 403~~ **RETRACTED 2026-08-05** — 201/201 on the direct-PAT path; only the *proxied* path 403s (`CAPABILITIES.md` append log).
+- `any` · **Branch deletion**: ~~403 on every path~~ **RETRACTED 2026-08-05** — 204 on the direct-PAT path; only the *proxied* path 403s (`CAPABILITIES.md` append log).
+- `any` · **`api.github.com` direct HTTP**: ~~blocked → MCP-tools-only~~ **RETRACTED 2026-07-31** — direct egress answers 200 authenticated; only the *proxied* path 403s (`CAPABILITIES.md` append log).
 - `any` · **Environment / Project creation**: owner-click actions in the console — queue them as structured owner asks, never wait silently. Routine/schedule creation…
 - `any` · **Merging own PRs is normal agent work**: agents merge their own (and sibling) green PRs directly (MCP/REST `merge_pull_request`), flip draft→ready, and arm…
 - `any` · **GraphQL API quota**: tight — batch queries and prefer the REST-backed MCP tools for bulk reads.

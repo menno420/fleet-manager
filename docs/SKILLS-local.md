@@ -39,18 +39,18 @@ capabilities and exact grounds commands.
 | `intake` | kit, **fm-extended 2026-08-09** | Turn a fragmented owner ask into a provenance-separated **intent map** — what he said · what the repo already decided · what you inferred · what is genuinely open — plus goal, non-goals, success test and an `INTENT STATUS` verdict, before planning. The old single "fuller picture" paragraph is gone: fusing those four is the failure it now prevents. |
 | `owner-brief` | local | The owner's status brief on demand — what landed, what needs his eyes, what happens next — plain language, zero technical vocabulary, decisions as one-letter choices. |
 | `parallax-prompt` | local | Parallax background layers and wall/rail materials — one layer per call, far layer opaque, mid/near on chroma, tiling only where the renderer needs it. Loads on top of `image-prompt`. |
-| `prep-owner-steps` | kit | Hand the owner finished steps, not directions — deep links, paste-ready blobs, his path walked once, one batched sitting, payoff + verification stated. |
+| `prep-owner-steps` | kit, **fm-amended** | Hand the owner finished steps, not directions — deep links, paste-ready blobs, his path walked once, one batched sitting, payoff + verification stated. |
 | `prompt-preflight` | local | The checks to run before writing **any** session prompt — verify state at HEAD, split repo-held from chat-held, read the target surface's constraints. |
-| `quality-gate` | kit | Run the project's full verification before pushing and report what must be fixed. |
+| `quality-gate` | kit, **fm-amended** | Run the project's full verification before pushing and report what must be fixed. |
 | `question` | kit | Answer a direct question concisely from memory and source; make no changes. |
 | `rationalize` | kit | The checkpoint at natural pauses — should this action also be executed? does this lesson deserve a permanent home shippable NOW? |
-| `release` | kit | Cut + publish a substrate-kit release — version bump PR, `workflow_dispatch` publish, three-way asset verification, adopter distribution wave. |
+| `release` | kit, **fm-amended** | Cut + publish a substrate-kit release — version bump PR, `workflow_dispatch` publish, three-way asset verification, adopter distribution wave. |
 | `repo-health` | kit | Audit doc + session-log hygiene (bootstrap check) and summarize drift. |
 | `review` | kit | Review the branch diff against the binding contracts; comment with a verdict and fixes, no edits. |
-| `scope-backlog-item` | kit | Turn a raw backlog item into a turnkey recipe or an owner ask — chase its origin, classify buildable/owner-gated/dead, write the sized recipe with acceptance + traps. |
-| `session-close` | kit | Land the session — claim, born-red card first, READY PR, batched work, close-out docs, flip complete last; land on green. |
+| `scope-backlog-item` | kit, **fm-amended** | Turn a raw backlog item into a turnkey recipe or an owner ask — chase its origin, classify buildable/owner-gated/dead, write the sized recipe with acceptance + traps. |
+| `session-close` | kit, **fm-amended** | Land the session — claim, born-red card first, READY PR, batched work, close-out docs, flip complete last; land on green. |
 | `sprite-prompt` | local | A character/object sprite that must slot into an existing set — canonical camera and layout, enumerated body parts, chroma field, runtime dimensions. Loads on top of `image-prompt`. |
-| `upgrade-distribution` | kit | Roll a kit release out to one adopter repo — download, sha256 three-way, banked rollback, carve-out scan, born-red PR, tree-verified merge. |
+| `upgrade-distribution` | kit, **fm-amended** | Roll a kit release out to one adopter repo — download, sha256 three-way, banked rollback, carve-out scan, born-red PR, tree-verified merge. |
 
 ### What this roster fixed — `MEASURED` 2026-08-08
 
@@ -60,11 +60,16 @@ found by listing `.claude/skills/` and diffing it against both indexes.
 1. **`rationalize` and `scope-backlog-item` appeared in NO index** — installed,
    invocable, and undiscoverable except by listing the directory.
 2. **`chase-references` and `prep-owner-steps` were indexed as living somewhere
-   else.** `SKILLS.md` carries a "Fleet seed skills — pointer (not kit-shipped
+   else.** `SKILLS.md` carried a "Fleet seed skills — pointer (not kit-shipped
    yet)" section saying their bodies live in **superbot**. They are installed
-   *here*, and that section is stale — it predates the kit shipping them. It is
-   generated, so **it is not corrected by hand**; it will clear at the next
-   adopt/upgrade, and this roster is the true list until then.
+   *here*, and that section was stale — it predates the kit shipping them.
+   *(Corrected by hand 2026-08-11. This bullet used to say "it is generated, so
+   it is not corrected by hand; it will clear at the next adopt/upgrade" — the
+   2026-08-09 upgrade then ran and cleared nothing, because `SKILLS.md` is
+   `consumer-edited` and `apply_doc_improvements()` writes only
+   consumer-untouched docs — the mechanism §"Generated-file corrections" below
+   already stated while this line promised the opposite. A defect parked on an
+   event that can never fire waits forever; hand-fixing was always the path.)*
 3. **Neither file stated its own scope**, so a session reading one had no signal
    that the other half existed. Both headers now say so.
 
@@ -102,14 +107,25 @@ Re-run it after a kit upgrade. It only overwrites kit-named skills; the local
 ones below are untouched.
 
 ⚠ **That cuts both ways: local amendments to a kit-named skill are overwritten
-by the same copy.** **Two kit-named skills now carry fleet-manager amendments, and
-both are reverted by that loop** — so **re-apply them after every upgrade** and
-diff before assuming the install was clean:
+by the same copy.** **SEVEN kit-named skills now carry fleet-manager amendments,
+and all seven are reverted by that loop** — so **re-apply them after every
+upgrade** and diff before assuming the install was clean. *(This table named two
+of the seven until 2026-08-11 — the full-read audit's headline finding 5: a
+session following it after an upgrade re-applied two, silently reverted five,
+and reported a clean install. The set below is derived by diffing every
+installed skill against its staged copy — re-derive it the same way rather than
+trusting this prose:
+`for d in .substrate/skills/*/; do n=$(basename "$d"); diff -q ".claude/skills/$n/SKILL.md" "$d/SKILL.md" >/dev/null || echo "$n"; done`.)*
 
 | kit-named skill | local amendment at risk | added |
 |---|---|---|
 | `session-close` | the live-venue rewrite (2026-08-04, owner-ratified 08-05), the Layer 2 handoff line (2026-08-08), and the `adversarial-review.md` link depth fix (2026-08-10 — `../../` resolved to `.claude/docs/`, one level short; no checker covers `.claude/`, so a revert is silent) | — |
 | **`intake`** | **the entire Phase 2 intent map** — the seven-part provenance separation, the retrieval step, the LOW/MEDIUM/HIGH classes and `INTENT STATUS`. The staged copy at `.substrate/skills/intake/SKILL.md` still contains the superseded `FULLER PICTURE` body, **verified 2026-08-09**, so the copy loop reverts Phase 2 in one command | 2026-08-09 |
+| `prep-owner-steps` | the 10-line **Venue note** (`control/` is seat-era historical here; card + PR description are the live venues; owner-ratified 2026-08-05) | 2026-08-04 |
+| `release` | the same 10-line Venue note | 2026-08-04 |
+| `scope-backlog-item` | the same 10-line Venue note, **plus** step 5's baton retarget to the live venues (2026-08-11 — the staged step writes the baton into retired `control/status.md` and calls that the whole output) | 2026-08-04 |
+| `quality-gate` | step 1/2 split corrected (staged copy names `bootstrap.py check --strict` twice and never mentions the false-wall guard) **plus** the 2026-08-11 coverage note — reverting deletes the skill's only pointer to `tools/check_no_false_walls.py` | — |
+| `upgrade-distribution` | step 7 verifies `tools/check_no_false_walls.py --strict` explicitly beside the gate (staged copy names the gate twice) | — |
 
 ⚠⚠ **This bites on the very next session**, because the owner's live decision is
 *upgrade the kit first*. Anyone running that upgrade must re-apply `intake`
@@ -135,6 +151,7 @@ and belong on this list beside the skills above.
 | file | correction | why |
 |---|---|---|
 | `.github/workflows/substrate-gate.yml` | the `repo checkers` step · the `--session-log` sentinel on the verify-suite step · the `env:` block on the claims-only guard | `bootstrap.py:20048` rewrites this file unconditionally. Without the first, neither checker runs in CI; without the second, a `main` push can select a historical `in-progress` card by mtime and go falsely red; without the third, a PR-author-chosen branch name is interpolated into shell and can `exit 0` past the guard (all three: Codex, fm #833) |
+| `docs/CAPABILITIES.md` (inside the `capability-seed` fence) | the three **RETRACTED** wall rows — tag push/release create, branch deletion, `api.github.com` (2026-08-11, the audit's headline finding 2) | the rows sit **inside** the kit-owned seed fence, which "refreshes at upgrade between the fence markers" per the fence's own note — an upgrade may restore the false walls the append log at `:775`/`:888` refutes. If restored: re-strike them, or verify the kit seed itself was fixed (the durable fix, filed for v1.21.0). `docs/seat-digest.md`'s walls digest is a derived render of the same seed — `bootstrap.py seat-digest` regenerates it with the same stale rows; its copy carries the same 2026-08-11 correction |
 
 **`docs/SKILLS.md` is NOT on this list, and the reason corrects an error of
 mine.** A first version of this table listed it as upgrade-clobbered, reasoning
