@@ -22,7 +22,7 @@
 
 - status: decided
 - date: 2026-08-05
-- amendment (2026-08-11): **this entry sizes the budget; the *route* is decided
+- amendment: **(2026-08-11) this entry sizes the budget; the *route* is decided
   by [`conventions/vertex-first-for-gemini.md`](conventions/vertex-first-for-gemini.md)**
   (`binding`, same date, corrected 2026-08-06): default to Vertex (prepaid
   credit), free key for AI Studio work, and reach for `GEMINI_API_KEY_PAID` —

@@ -6,7 +6,7 @@
 > autonomous-Projects program closed 2026-07-21; nothing deploys this text any
 > more, and the *"use the current text for every new deployment"* sentence
 > this header used to carry is itself part of the record, not an instruction.
-> The `delete_trigger` step inside the block below predates `[D-0015]`
+> The `delete_trigger` step inside the block below predates `[D‑0015]`
 > (**never** delete a trigger; `update_trigger` with `enabled: false` is the
 > stop) and must not be followed; the ⚠ line above it, added 2026-08-09, is
 > the live rule. Kept verbatim below per this file's own convention.

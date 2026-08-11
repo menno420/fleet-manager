@@ -373,10 +373,10 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   `trig_01XJJ88pQaQFRSpVAviCfAZe` (the older, 07-17-created one; the 07-18 one is the current
   seat's cutover-armed failsafe)** — one letter answers this (Y = delete the recommended id).
   WHERE: hub chat trigger tools (`list_triggers` → *silence the duplicate*).
-  HOW *(rewritten 2026-08-11 under `[D-0015]` — a **session** must never call `delete_trigger`;
+  HOW *(rewritten 2026-08-11 under `[D‑0015]` — a **session** must never call `delete_trigger`;
   the hook denies it, and the recorded steps here predated that rule)*: paste-ready —
   (1) `list_triggers` and verify BOTH ids exist enabled; (2) a session runs
-  `update_trigger trig_01XJJ88pQaQFRSpVAviCfAZe enabled:false` (the D-0015 stop — no prompt,
+  `update_trigger trig_01XJJ88pQaQFRSpVAviCfAZe enabled:false` (the D‑0015 stop — no prompt,
   reversible), OR you delete that id yourself from the console; (3) `list_triggers` again and
   confirm exactly one **enabled** "SuperBot World failsafe wake" remains.
   WHY: both fire every 2h (~2–3s apart), waking two parallel SBW sessions — double token burn plus

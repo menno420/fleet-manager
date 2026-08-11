@@ -221,7 +221,7 @@ this section alone.
    **Check:** run `list_triggers` (paginate to exhaustion) after 2026-07-22;
    if either id survives, delete it — post-close, *any* surviving trigger is
    dead weight, so the old keep-the-newer nuance no longer applies.
-   *(2026-08-11: superseded by `[D-0015]` — a session never calls
+   *(2026-08-11: superseded by `[D‑0015]` — a session never calls
    `delete_trigger`; it disables with `update_trigger enabled:false`, or the
    owner deletes from the console. The check step stands; the delete step is
    his.)*
@@ -351,7 +351,7 @@ closeout is the authority on its products.
    enabled seat triggers (every closer wipes its own). Delete any survivor —
    they can only wake dead sessions. This also settles the old
    `OQ-SBW-DUP-FAILSAFE` pair for free. *(2026-08-11: deleting is yours alone
-   under `[D-0015]` — a session offering to help disables with
+   under `[D‑0015]` — a session offering to help disables with
    `update_trigger enabled:false` instead.)*
 2. **Slow or stop `roster-regen.yml` (~2 min).** It keeps firing ~hourly on
    GitHub's dime with no seats left to report. Repo → Actions →
