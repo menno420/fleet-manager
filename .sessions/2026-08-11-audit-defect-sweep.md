@@ -55,7 +55,11 @@ audit entries now carry closure paragraphs; D44/D45 stay honestly OPEN**
   research index completed; both generators' emitted headers made honest and
   `idea-backlog.md` regenerated from the corrected source (D36/D82); the
   one non-terminal card badge flipped (D40); claims/ contested status stated
-  on both sides (D46); `heartbeat_files` emptied (D47);
+  on both sides (D46); a do-not-restamp note planted at `control/status.md`
+  after the config route proved a designed no-op — the kit falls back on an
+  empty `heartbeat_files` and the allowlist never reaches the advisory
+  stream, so the first version of that fix overclaimed and CI re-fired the
+  advisory against it; caught, reverted, re-scoped (D47);
   `project.index.json`'s stale area values corrected (D98).
 - **Six recorded as already discharged:** D4 + D84 (fm #840 — D4 surfaced by
   this session's derivation after the previous card's open-set enumeration
@@ -78,10 +82,13 @@ audit entries now carry closure paragraphs; D44/D45 stay honestly OPEN**
   doc routes 0 errors; false walls CLEAN
 - `python3 bootstrap.py check --strict` → exit 0 at close, after the flip
 
-⚑ Two corrected strings still live in kit templates inside `bootstrap.py`
-(the collaboration-model canonical pointer; the D44/D45 branch-sweep/rules
-walls) — GENERATED file, so the durable fix is the v1.21.0 kit session's,
-alongside the capability-seed rows already registered in SKILLS-local.md.
+⚑ Three items route to the v1.21.0 kit session: two corrected strings still
+live in kit templates inside `bootstrap.py` (the collaboration-model
+canonical pointer; the D44/D45 branch-sweep/rules walls — GENERATED file),
+and the `[status-stale]` advisory needs a kit-side off-switch for a retired
+control bus (D47: fallback-on-empty is deliberate and the allowlist does not
+reach the advisory stream, so no host-side disable exists) — alongside the
+capability-seed rows already registered in SKILLS-local.md.
 ⚑ The gate's `--session-log` sentinel carve-out keeps a comment clause
 ("this repo still carries … an in-progress Status") that D40's flip made
 historical; the sentinel itself stays correct and stays needed. Kit-side

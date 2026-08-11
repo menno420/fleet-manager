@@ -45,8 +45,9 @@ Withdraw asks that have gone stale; fewer, clearer asks beat complete lists.
 Every owner-facing OUTPUT — not just asks — follows the owner-assist output
 standard (canonical: `.claude/skills/prep-owner-steps/SKILL.md` and the
 OWNER-ACTION fields in `CONSTITUTION.md`; repointed 2026-08-11, audit D54 —
-this cited a `control/README.md` § "Owner-assist output standard" that has
-never existed in that retired file):
+this cited a `control/README.md` § "Owner-assist output standard" that the
+retired file does not contain; the section exists in the KIT's newer
+control-README template, which this repo's older planted copy predates):
 values arrive finished and paste-ready, with the exact link to where each
 one goes (a full file in one copyable block — never a recipe the owner must
 derive); every manual step carries a risk class (✅ safe / ↩️ reversible /
