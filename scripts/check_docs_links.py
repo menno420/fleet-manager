@@ -86,9 +86,12 @@ REF_DEF_RE = re.compile(r"^\s{0,3}\[[^\]]+\]:\s+(\S+)")
 # code sample is never treated as a live link.
 FENCE_RE = re.compile(r"^\s*(```|~~~)")
 # Inline code spans, run-aware per CommonMark: an opening run of N backticks
-# closes only on an equal-length run, so both `x` and ``[x](y)`` are spans.
-# The backreference keeps a longer closing run from matching short.
-CODE_SPAN_RE = re.compile(r"(`+)(.+?)\1")
+# closes only on an EXACTLY equal run, so both `x` and ``[x](y)`` are spans.
+# The lookarounds pin whole delimiter runs (Codex round 2, fm #846): without
+# them the engine backtracks a 3-backtick opener to its last 2 backticks and
+# "closes" on a 2-run — stripping a link that CommonMark leaves live, so a
+# real dead target passes unnoticed.
+CODE_SPAN_RE = re.compile(r"(?<!`)(`+)(?!`)(.+?)(?<!`)\1(?!`)")
 # Anchor sources inside a target file: markdown headings, plus explicit HTML
 # anchors and `{#custom-id}` heading suffixes.
 HEADING_RE = re.compile(r"^\s{0,3}(#{1,6})\s+(.*?)\s*#*\s*$")
@@ -330,6 +333,8 @@ _BAD_FIXTURE = {
                  "[bad anchor](b.md#no-such-heading)\n"
                  "```\n[fenced](should-not-count.md)\n```\n"
                  "[ext](https://example.com/x.md) is skipped\n"
+                 "Mismatched runs (3 open, 2 close) form no span, so the "
+                 "link is live: ```[unbalanced](../docs/unbalanced-target.md)``\n"
                  "[ref-style][r]\n\n[r]: ./deleted-ref-target.md\n",
     "docs/b.md": "# B\n\n## A Heading\n",
     "control/README.md": "# Control\n\n[dead](./nope.md)\n",
@@ -364,6 +369,9 @@ def selftest() -> int:
             ("[dead-anchor]", "no-such-heading"),
             ("[dead-link]", "deleted-ref-target.md"),
             ("[dead-link]", "nope.md"),
+            # 3-open/2-close is NOT a code span (CommonMark) — the dead link
+            # inside it must still be seen (Codex round 2, fm #846).
+            ("[dead-link]", "unbalanced-target.md"),
         ]
         for kind, needle in want:
             if not any(kind in ln and needle in ln for ln in bad_out):

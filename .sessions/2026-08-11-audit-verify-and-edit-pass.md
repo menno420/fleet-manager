@@ -132,6 +132,29 @@ edit of the session** — two proofs were invalidated by later same-session
 fixes to the very files they proved. Full battery re-run after round 1:
 **39/39 PASS**.
 
+**Codex round 2 (head `0012910`): 4 inline P2 findings — 4 `[conceded]`, all
+verified, all fixed. This is the capped final round, so these fixes land
+without a third review, per the close skill's two-round cap; each is named
+here and in the PR:**
+
+1. The round-1 code-span regex backtracked a 3-backtick opener onto a 2-run
+   closer, stripping a link CommonMark leaves live — a real dead link would
+   pass unseen → delimiter runs pinned with lookarounds; selftest case added
+   for the exact counter-example (must FLAG).
+2. `SKILLS.md`'s new scope line called 10 rows "the kit half" — the kit ships
+   **14**, and the 4 missing rows are exactly D95's set → re-scoped as a
+   partial legacy render naming the four absent skills.
+3. `owner_review`'s correction had not reached `.claude/hooks/README.md`'s own
+   section *opening* (still v1: Vertex, block-only-on-questions) → opening and
+   null-path bullet corrected with the dated note; the section's later
+   paragraphs were already right.
+4. My hand-edit of `docs/seat-digest.md` violated its "derived render — never
+   edit" contract and blew the 1500-char budget → regenerated with
+   `bootstrap.py seat-digest` from the corrected ledger: the retractions
+   render through, the budget truncation returns, and both `seat-digest-*`
+   gate advisories cleared. The regen also *proves* the CAPABILITIES fix
+   propagates through the derived pipeline.
+
 Layer-2 handoff: null (fleet-manager itself; no satellite repo attached)
 
 PR: menno420/fleet-manager#846 — ready, born-red hold until this badge flips.

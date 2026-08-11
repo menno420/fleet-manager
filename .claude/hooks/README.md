@@ -167,10 +167,15 @@ look like the dedupe failed when it did not.
 > [`docs/findings/2026-08-06-provenance-mechanism-measured.md`](../../docs/findings/2026-08-06-provenance-mechanism-measured.md)
 
 The second hook here, and a different species: it fires at `Stop` (turn end),
-reads the final reply from the transcript, sends it to the owner-stand-in
-reviewer on Vertex, and — only when the reviewer returns questions — blocks
-**once** so the agent addresses them in the reply the owner actually reads.
+reads the final reply from the transcript, and **blocks once,
+unconditionally**, with the fixed question — the reviewer model (free AI
+Studio key first, Vertex as the 429 fallback) is strictly additive enrichment.
 `stop_hook_active` guards the second pass: one round per turn, ever.
+*(Opening corrected 2026-08-11 — it described the v1 design, "sends it to the
+reviewer on Vertex and blocks only when questions return", while this same
+section's 2026-08-08 paragraphs below record the inversion; a reader stopped
+here with two incompatible explanations. The paragraphs below are the design
+history that produced the current shape.)*
 
 Everything load-bearing in it is measured, not designed:
 
@@ -182,8 +187,10 @@ Everything load-bearing in it is measured, not designed:
 - **The hook runs the review itself** — run 4's untried path, named by the
   reviewer: no skill invocation, no agent initiative anywhere in the loop
   (findings § 1 addendum).
-- **The null path is normal.** The reviewer outputs `NO QUESTIONS` and the turn
-  ends untouched. A review that must always find something is ritual.
+- **The reviewer's null is normal.** `NO QUESTIONS` appends no specifics — the
+  fixed-question block still happens (see the 2026-08-08 inversion below; this
+  bullet's original "turn ends untouched" described v1). A review that must
+  always find something is ritual; a fixed question is not a finding.
 - **Fail-open is a hard contract.** Any defect — creds, network, parse, timeout
   — exits 0 silently, and the firing (or its absence) is countable at
   `/tmp/claude-owner-review/log.jsonl`.
