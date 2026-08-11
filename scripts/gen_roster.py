@@ -1,6 +1,18 @@
 #!/usr/bin/env python3
 """gen_roster.py — mechanized R25 fleet-roster generation.
 
+ERA NOTE (2026-08-11, audit D38): the roster this script generates was
+RETIRED 2026-08-07 by owner directive — both roster-regen.yml cron lines
+removed, docs/roster.md bannered "⛔ RETIRED". Nothing runs this script on a
+schedule any more; only a manual workflow_dispatch or hand run can. As of
+2026-08-11 (Codex round 2, fm #849) **all three emitted headers are
+retirement-aware** — a regen still overwrites the hand-applied banners, but
+now with equivalent ⛔ `historical` headers instead of the seat-era
+living-ledger ones, so a manual dispatch can no longer republish the outputs
+as live. The
+"REQUIRED wake step" imperative below is preserved as seat-era record; the
+wakes it binds to ended with the program on 2026-07-21.
+
 ================================ PROVENANCE ================================
 Why added : Roster generations #1-#4 (fleet-manager PRs #38/#44/#53/#59) were
             each executed BY HAND as a wake procedure; ORDER 009 and the
@@ -152,7 +164,9 @@ SNAPSHOT CONVENTION (P1 FRESHNESS, centralization plan §3a, fm PR #81):
   `40 */2 * * *`) consumes the committed snapshot and re-fetches heartbeats
   live, so the roster stays fresh between wakes; its TRIGGER columns are
   only as fresh as the last committed snapshot. Regen + a green
-  scripts/check_roster_freshness.py is a REQUIRED wake step, not a
+  scripts/check_roster_freshness.py WAS a REQUIRED wake step in the seat
+  era (retired 2026-08-07 — see the ERA NOTE at top; no wakes exist, and a
+  regen overwrites the RETIRED banners), not a
   commit-only-on-change option. An ad-hoc uncommitted export
   (tmp-triggers.json, gitignored) remains fine for one-off runs.
 
@@ -1045,10 +1059,16 @@ def render_candidates(rows: list[dict], generation: int, now: datetime,
     stamp = now.strftime("%Y-%m-%dT%H:%MZ")
     out = []
     out.append("# Owner-queue candidate feed — GENERATED\n")
-    # `living-ledger` is the kit-allowed badge closest to this file's nature
-    # (docs/roster.md precedent — machine-regenerated living state); the kit
-    # badge vocabulary has no `generated` token (check finding, PR #85).
-    out.append("> **Status:** `living-ledger`\n>")
+    # Badge was `living-ledger` (docs/roster.md precedent) until the roster's
+    # 2026-08-07 retirement; `historical` is likewise in the kit badge set.
+    out.append("> ## ⛔ RETIRED with the roster, 2026-08-07 — this regeneration is a "
+               "record, not current truth\n>")
+    out.append("> **Status:** `historical`\n>")
+    out.append("> (Header made retirement-aware 2026-08-11, Codex round 2 on fm #849: "
+               "the owner retired the roster on 2026-08-07 — both cron lines removed, "
+               "workflow_dispatch kept per OD-3 — so any run producing this file is a "
+               "manual dispatch over a closed fleet. Rows reflect seats that closed "
+               "2026-07-21; do not read them as the state of anything.)\n>")
     out.append("> **GENERATED — NOT SOURCE OF TRUTH; the manager curates "
                "`docs/owner-queue.md` from it.** Do not hand-edit; "
                "regenerated with the roster on every regen "
@@ -1131,7 +1151,14 @@ def render_evidence_index(rows: list[dict], generation: int, now: datetime,
     stamp = now.strftime("%Y-%m-%dT%H:%MZ")
     out = []
     out.append("# Cross-repo evidence index — GENERATED\n")
-    out.append("> **Status:** `living-ledger`\n>")
+    out.append("> ## ⛔ RETIRED with the roster, 2026-08-07 — this regeneration is a "
+               "record, not current truth\n>")
+    out.append("> **Status:** `historical`\n>")
+    out.append("> (Header made retirement-aware 2026-08-11, Codex round 2 on fm #849: "
+               "the owner retired the roster on 2026-08-07 — both cron lines removed, "
+               "workflow_dispatch kept per OD-3 — so any run producing this file is a "
+               "manual dispatch over a closed fleet. Rows reflect seats that closed "
+               "2026-07-21; do not read them as the state of anything.)\n>")
     out.append("> **GENERATED — NOT SOURCE OF TRUTH.** Do not hand-edit; "
                "regenerated with `docs/roster.md` on every regen "
                "(`scripts/gen_roster.py`, P3 — centralization plan §3c). "
@@ -1488,7 +1515,14 @@ def render(rows: list[dict], records: list[dict], generation: int,
 
     out = []
     out.append("# Fleet roster — GENERATED\n")
-    out.append("> **Status:** `living-ledger`\n>")
+    out.append("> ## ⛔ RETIRED with the roster, 2026-08-07 — this regeneration is a "
+               "record, not current truth\n>")
+    out.append("> **Status:** `historical`\n>")
+    out.append("> (Header made retirement-aware 2026-08-11, Codex round 2 on fm #849: "
+               "the owner retired the roster on 2026-08-07 — both cron lines removed, "
+               "workflow_dispatch kept per OD-3 — so any run producing this file is a "
+               "manual dispatch over a closed fleet. Rows reflect seats that closed "
+               "2026-07-21; do not read them as the state of anything.)\n>")
     out.append("> **GENERATED — do not hand-edit; regenerated each manager "
                "wake (`scripts/gen_roster.py`, R25).**\n>")
     out.append(f"> **Generation #{generation}** · generated-at **{stamp}** · "

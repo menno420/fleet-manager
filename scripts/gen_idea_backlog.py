@@ -36,7 +36,11 @@ WHAT IT DOES
 
   1. Scans `.sessions/*.md` for top-level bullets carrying the 💡 marker
      (`- 💡 …` / `- **💡 …`), capturing each bullet plus its indented
-     continuation lines. Inline 💡 mentions mid-prose are NOT harvested.
+     continuation lines. Inline 💡 mentions mid-prose are NOT harvested —
+     and neither are the `## … 💡 Session idea` HEADING form or
+     paragraph-start 💡 blocks, which most cards use (audit D36,
+     2026-08-11): the harvest is a floor over the bullet style only, and
+     the emitted header now says so.
   2. Extracts an idea title: the first bold span that is not the
      "Session idea (dedup-checked …)" header; falls back to the block's
      first ~90 characters.
@@ -179,6 +183,13 @@ def build_backlog(sessions_dir: Path, planning_dir: Path, out_name: str,
         "> source cards (`.sessions/*.md`) and the planning docs' groom",
         "> sections win. Groomed-detection is a token-overlap heuristic",
         "> (Q-0105 unverified tier — see the script header).",
+        ">",
+        "> **Harvest scope is the BULLET form only** (`- 💡` / `- **💡`):",
+        "> the majority conventions — `## … 💡 Session idea` headings and",
+        "> paragraph-start 💡 blocks — are NOT harvested (disclosed",
+        "> 2026-08-11, audit D36: most idea-carrying cards use only",
+        "> unharvested forms), so the counts below are a floor over one",
+        "> formatting style, never a measurement of the corpus.",
         ">",
         GENERATED_AT_PREFIX + _dt.datetime.now(_dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         ">",

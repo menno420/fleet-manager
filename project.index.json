@@ -1,62 +1,60 @@
 {
-  "_comment": "AgentContextPack index (design-spec 2.10). Each `areas` entry feeds one generated <state_dir>/contextpacks/<name>.context.md: `name` (the area; slugified into the pack filename), `folio` (the canonical entry-point doc for the area), `binding_docs` (authoritative contracts to read first), `source_roots` (key files/dirs; existence-checked at generation, missing ones flagged), `do_not_create` (existing systems an agent must not duplicate), `gates` (currently active expansion conditions), `verification` (commands to run before pushing). The generator also accepts a manifest snapshot ({\"subsystems\": [...]}) instead of this file. Filled 2026-07-11 (P3, fm PR #86) — was the example-area template stub (centralization plan gap 5).",
-  "project": "fleet-manager",
-  "areas": [
-    {
-      "name": "records-custody",
-      "folio": "docs/current-state.md",
-      "binding_docs": [
-        "MISSION.md",
-        "docs/playbook.md",
-        "docs/architecture.md"
-      ],
-      "source_roots": [
-        "scripts/gen_roster.py",
-        "scripts/check_roster_freshness.py",
-        "scripts/check_owner_queue.py",
-        ".github/workflows/roster-regen.yml",
-        ".github/workflows/roster-freshness.yml",
-        "telemetry/triggers-snapshot.json",
-        "docs/roster.md",
-        "docs/owner-queue.md",
-        "docs/owner-queue-candidates.md",
-        "docs/evidence-index.md",
-        "docs/fleet-triage.md"
-      ],
-      "do_not_create": [
-        "a second fleet roster/manifest — docs/roster.md is canonical (superbot docs/eap/fleet-manifest.md was superseded 2026-07-11)",
-        "a second owner queue — docs/owner-queue.md is the ONE deduplicated queue; the candidate feed is generated intake, never a queue",
-        "hand-edits to generated files (docs/roster.md, docs/owner-queue-candidates.md, docs/evidence-index.md) — edit the generator"
-      ],
-      "gates": [],
-      "verification": [
-        "python3 scripts/gen_roster.py --selfcheck",
-        "python3 scripts/check_owner_queue.py --selftest",
-        "python3 scripts/check_roster_freshness.py --advisory",
-        "python3 bootstrap.py check --strict"
-      ]
-    },
-    {
-      "name": "control-bus",
-      "folio": "control/README.md",
-      "binding_docs": [
-        "control/README.md",
-        "docs/playbook.md"
-      ],
-      "source_roots": [
-        "control/inbox.md",
-        "control/status.md",
-        "control/claims",
-        ".github/workflows/substrate-gate.yml"
-      ],
-      "do_not_create": [
-        "a second order channel — control/inbox.md is one-writer/append-only",
-        "a shared claims list — control/claims/ is one-file-per-claim (0% conflict, measured)"
-      ],
-      "gates": [],
-      "verification": [
-        "python3 bootstrap.py check --strict --status-only"
-      ]
-    }
-  ]
+    "_comment": "AgentContextPack index (design-spec 2.10). Each `areas` entry feeds one generated <state_dir>/contextpacks/<name>.context.md: `name` (the area; slugified into the pack filename), `folio` (the canonical entry-point doc for the area), `binding_docs` (authoritative contracts to read first), `source_roots` (key files/dirs; existence-checked at generation, missing ones flagged), `do_not_create` (existing systems an agent must not duplicate), `gates` (currently active expansion conditions), `verification` (commands to run before pushing). The generator also accepts a manifest snapshot ({\"subsystems\": [...]}) instead of this file. Filled 2026-07-11 (P3, fm PR #86) \u2014 was the example-area template stub (centralization plan gap 5). Era correction 2026-08-11 (audit D98): the two areas below described the seat era \u2014 binding_docs led with the era-noted seat MISSION, do_not_create called the RETIRED roster canonical, and verification invoked retired roster apparatus; values updated to current truth, entries themselves preserved where still factual.",
+    "project": "fleet-manager",
+    "areas": [
+        {
+            "name": "records-custody",
+            "folio": "docs/current-state.md",
+            "binding_docs": [
+                "docs/intent.md",
+                "docs/playbook.md",
+                "docs/architecture.md"
+            ],
+            "source_roots": [
+                "scripts/gen_roster.py",
+                "scripts/check_roster_freshness.py",
+                "scripts/check_owner_queue.py",
+                ".github/workflows/roster-regen.yml",
+                ".github/workflows/roster-freshness.yml",
+                "telemetry/triggers-snapshot.json",
+                "docs/roster.md",
+                "docs/owner-queue.md",
+                "docs/owner-queue-candidates.md",
+                "docs/evidence-index.md",
+                "docs/fleet-triage.md"
+            ],
+            "do_not_create": [
+                "a second fleet roster/manifest \u2014 and do not revive the retired one: docs/roster.md was RETIRED 2026-08-07 by owner directive and is a record, not canonical state (superbot docs/eap/fleet-manifest.md was superseded 2026-07-11; era corrected 2026-08-11, audit D98)",
+                "a second owner queue \u2014 docs/owner-queue.md is the ONE deduplicated queue; the candidate feed is generated intake, never a queue",
+                "hand-edits to generated files (docs/roster.md, docs/owner-queue-candidates.md, docs/evidence-index.md) \u2014 edit the generator"
+            ],
+            "gates": [],
+            "verification": [
+                "python3 scripts/preflight.py",
+                "python3 bootstrap.py check --strict"
+            ]
+        },
+        {
+            "name": "control-bus",
+            "folio": "control/README.md",
+            "binding_docs": [
+                "control/README.md",
+                "docs/playbook.md"
+            ],
+            "source_roots": [
+                "control/inbox.md",
+                "control/status.md",
+                "control/claims",
+                ".github/workflows/substrate-gate.yml"
+            ],
+            "do_not_create": [
+                "a second order channel \u2014 the control/ bus is RETIRED 2026-07-17; do not resume the ORDER-relay (control/inbox.md was one-writer/append-only; era corrected 2026-08-11, audit D98)",
+                "a claims file under control/claims/ \u2014 the seat-era one-file-per-claim mechanism stays kit-wired as record, but it is NOT this repo's claim signal: sessions claim via the born-red session card + the open PR (session-close skill, step 1); do not create claim files (corrected 2026-08-11, Codex round 2 on fm #849; was: 'a shared claims list \u2014 control/claims/ is one-file-per-claim, 0% conflict, measured')"
+            ],
+            "gates": [],
+            "verification": [
+                "python3 bootstrap.py check --strict --status-only"
+            ]
+        }
+    ]
 }

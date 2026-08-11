@@ -12,7 +12,18 @@
 
 ## Ownership model
 
-One writer per file: the owner writes control/inbox.md; the manager writes everything else (docs/, templates/, control/status.md). Shared-repo protocol surfaces follow docs/playbook.md R9-R10.
+Sessions write through READY PRs; there is no manager seat (the autonomous
+program closed 2026-07-21) and the control/ bus is retired. Owner-only asks
+live in docs/owner-queue.md; owner decisions in docs/decisions.md and the
+program's OD table.
+
+*(Corrected 2026-08-11, audit D75 — this section carried the seat-era model:
+"One writer per file: the owner writes control/inbox.md; the manager writes
+everything else (docs/, templates/, control/status.md). Shared-repo protocol
+surfaces follow docs/playbook.md R9-R10." control/README.md has said RETIRED
+since 2026-07-17, and playbook's 2026-08-10 mixed-era banner classes R9/R10
+with the historical control-bus rules. The source slot in
+`.substrate/state.json` is corrected too.)*
 
 ## Ownership table
 
@@ -22,4 +33,4 @@ One writer per file: the owner writes control/inbox.md; the manager writes every
 
 ## New areas
 
-New areas default to the manager as sole writer; anything the owner must act on goes into docs/owner-queue.md, never a new scattered surface.
+New areas are session-written through PRs like everything else; anything the owner must act on goes into docs/owner-queue.md, never a new scattered surface. *(2026-08-11: "default to the manager as sole writer" updated — no manager seat exists.)*

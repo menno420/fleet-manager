@@ -2,6 +2,14 @@
 
 > **Status:** `audit`
 >
+> **Era banner, 2026-08-11 (audit D70):** seat-era record — do NOT hand this
+> to any session as a live action list. `docs/owner-queue.md` § Context has
+> said so since the program closed ("owner-actions-2026-07-17.md …
+> must not be used as live action lists"); this file itself never did until
+> now. Its ~266 open proposals and 9 console items are the 2026-07-17
+> snapshot of a fleet that closed 2026-07-21; the one deduplicated live
+> queue is `docs/owner-queue.md`.
+>
 > Single verified, paste-ready list of everything the owner personally needs to
 > do across the whole superbot fleet, as of 2026-07-17. Every item was checked
 > against **live GitHub** (per-PR `get_pull_request` + live check-runs), not

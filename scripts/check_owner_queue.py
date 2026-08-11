@@ -64,9 +64,14 @@ WHAT IT CHECKS (docs/owner-queue.md, or --queue PATH)
      clicked it) rots silently because no PR citation exists to catch.
      Repo attribution follows the check-1 discipline: exactly one
      menno420/<repo> reference in the item, else note-skip (never guessed).
-     In agent sessions api.github.com is proxy-walled (403) and there is no
-     HTML fallback for rules — the probe degrades honestly to NOT MEASURED;
-     the Actions regen run is the reliable venue for this check.
+     Corrected 2026-08-11 (audit D31): the PROXIED api.github.com path 403s
+     in agent sessions, but direct egress with $GITHUB_PAT answers 200
+     (curl --noproxy '*' — the boot file's MEASURED path), so the probe is
+     runnable agent-side in one command; this paragraph used to call the API
+     walled outright. urllib honours the proxy env by default, so THIS
+     script's probe still degrades to NOT MEASURED unless run with direct
+     egress. The "reliable venue" it deferred to — the Actions regen run —
+     lost both cron lines on 2026-08-07 and never wakes on its own.
 
 API ACCESS
   Plain REST via urllib (stdlib only) — the same access class the
@@ -108,6 +113,15 @@ BARE_PR_RE = re.compile(r"\bPR\s*#(\d+)\b")
 # Active items are now bullets carrying an inline `OQ-…` slug (2026-07-17
 # wind-down slim), grouped under ### (A)–(G); the old numbered `N.` + separate
 # `- id:` line format is retired.
+# STALE PARSER (recorded 2026-08-11, audit D30): docs/owner-queue.md lost its
+# `## Active…` heading in the 2026-07-21 program-close restructure — today's
+# headings are `## Context` / `## Current owner decisions…` / `## Inherited
+# cross-repo owner asks…`. This parser therefore enters no active region,
+# parses ZERO items, and a run exits via its own `[no-items]` FLAG ("format
+# drift or wrong file" — which is exactly what happened). All four checks are
+# dead against the current queue until the parser is rebuilt for the current
+# headings; that rebuild is open work, deliberately not claimed by the
+# comment above.
 ITEM_START_RE = re.compile(r"^[-*]\s+(.*)$")
 SLUG_INLINE_RE = re.compile(r"`(OQ-[A-Z0-9-]+)`")
 MERGE_ACTION_RE = re.compile(r"\bMERGE\b|RESOLVED-PENDING-MERGE|"

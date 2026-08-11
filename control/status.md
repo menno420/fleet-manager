@@ -1,5 +1,16 @@
 SEAT CLOSED — 2026-07-21T20:35Z
 
+> **Do not restamp this heartbeat (2026-08-11, audit D47).** The gate's
+> `[status-stale]` advisory asks every session to overwrite this file's
+> `updated:` line — obeying it writes a fresh liveness date onto a closed
+> seat's record, which is exactly what an automated regen once did (the
+> 2026-08-03 stamp below). The advisory is warn-only and kit-emitted, and
+> the host cannot switch it off: `heartbeat_files: []` deliberately falls
+> back to this file (bootstrap's fail-safe), and the check-exceptions
+> allowlist does not reach the advisory stream (both verified in the
+> vendored source). The off-switch for a retired bus is a kit-side change —
+> filed with the v1.21.0 defect set.
+
 > The autonomous session period ended 2026-07-22T00:00Z; the fleet-manager
 > coordinator seat closed per `docs/prompts/v3/final-closer.md`. Nothing
 > in-session survives — everything that matters is committed. **The handover

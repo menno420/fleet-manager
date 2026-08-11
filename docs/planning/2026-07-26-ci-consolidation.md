@@ -114,6 +114,14 @@ catches a class of bug nothing else does:
 
 ### What gets deleted outright
 
+*(Superseded for fleet-manager itself — 2026-08-11, audit D78. The program's
+C2 row carries the corrected rule: keep `merge-on-green`/enabler **wherever
+it still lands PRs** — and here it does; it is the workflow that lands this
+repo's PRs (§7 records it merging fm #827), and this repo CANNOT use
+GitHub-native auto-merge (toggle unavailable on the private-repo plan, per
+merge-on-green.yml's own header). Work the C track from the program's C2,
+not from this list.)*
+
 The entire **agent merge-plumbing class**: `auto-merge-enabler`,
 `merge-on-green`, `auto-merge-disarm`, `automerge-card-guard`,
 `host-automerge-extras`, `ci-rerun-watchdog`, `pr-auto-update`,

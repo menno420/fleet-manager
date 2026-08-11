@@ -72,9 +72,11 @@ frontmatter keeps the score.
 ### 2026-07-11 cohort — archive-prep closeout
 
 - [Roster advisory: ARCHIVE-READY lanes with zero retro notes](archive-ready-retro-gap-advisory-2026-07-11.md) —
-  `captured` · quick-win in `scripts/gen_roster.py` (advisory section, ~15
-  lines + selfcheck pin); promoted from the P3 session card's 💡 (grooming
-  step, PR #87)
+  `historical` · outcome `rejected` (2026-08-11, audit D68: the route died
+  with the 2026-08-07 roster retirement — the advisory would write into a
+  file whose banner disclaims it, on a cron that no longer exists); was a
+  quick-win in `scripts/gen_roster.py`, promoted from the P3 session card's
+  💡 (grooming step, PR #87). Do not pull forward.
 
 ### 2026-07-10 cohort — morning consolidation
 

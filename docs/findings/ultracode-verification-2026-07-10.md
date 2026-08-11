@@ -190,11 +190,15 @@ The experiment package is real, complete, and internally consistent at HEAD: eve
 - ⚑ **Follow-up correction in superbot** (small, any session): the merged
   #1911 grand review says parity rows exist for all 8 missing subsystems;
   **starboard and paragon have no rows** in superbot-next `parity/parity.yml`.
-- ⚑ **fleet-manager's own `docs/findings/ping-test-2026-07-09.md` is wrong
-  about websites** ("NO ACK") — websites acked 1h39m late via its PR #44,
-  independently re-verified tonight. Not corrected in this PR (kept to the
-  declared scope; #1913 recommends the same fix) — cheap follow-up for the
-  next fleet-manager session.
+- ⚑ ~~**fleet-manager's own `docs/findings/ping-test-2026-07-09.md` is wrong
+  about websites** ("NO ACK")~~ **SATISFIED same day** *(noted 2026-08-11,
+  audit D63: the correction landed 2026-07-10 — ping-test's websites row now
+  reads "✅ ACK (late) — corrected 2026-07-10; the ❌ NO ACK previously
+  recorded here was FALSE" with its own § Correction section, so this flag
+  is a completed ask, not an open one)* — websites acked 1h39m late via its
+  PR #44, independently re-verified tonight. (Original disposition: "not
+  corrected in this PR — cheap follow-up for the next fleet-manager
+  session.")
 - ⚑ **venture-lab access wall (resolved, worth knowing):** the GitHub MCP
   initially denied `menno420/venture-lab` ("not configured for this
   session"); `claude-code-remote add_repo` succeeded and the sweep covered it

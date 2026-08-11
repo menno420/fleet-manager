@@ -3,6 +3,15 @@
 > **Status:** `audit`
 > **Owner:** menno420 · **Scope:** whole fleet (all Projects) · **Author:** fleet-manager seat
 > **Created:** 2026-07-16 · **Trigger:** Anthropic EAP wind-down (owner email 2026-07-16)
+>
+> **Era note, 2026-08-11 (audit D83):** historical record of the 2026-07-16
+> wind-down — the program closed 2026-07-21 and none of these procedures is to
+> be executed now. Its trigger-deletion steps (§2 step 2, §5 steps 3/5, the §5
+> Safety note) predate **[D‑0015]** (docs/decisions.md, 2026-08-09): a session
+> never calls `delete_trigger` — `.claude/hooks/trigger_tools_guard.py` denies
+> it; a misbehaving trigger is DISABLED (`update_trigger enabled:false`) and
+> removal is the owner's, from the console. A fired one-shot is inert and
+> costs nothing to leave. The body below is preserved verbatim as record.
 
 Neutral operational runbook for stopping and recreating fleet Projects inside the EAP wind-down window. Seat state lives in each repo (stateless, D-9), so recreation loses nothing that has been pushed. This is a records/oversight artifact — the manager seat writes it; the owner and each seat's coordinator execute it.
 
@@ -71,6 +80,9 @@ With 1–2 Projects kept unchanged as controls, compare against the recreated on
 Record observations in a new dated `docs/experiments/` file so the comparison is a durable artifact, not chat-only.
 
 ## 5. ORPHAN SWEEP procedure (after Projects are stopped)
+
+*(2026-08-11: steps 3 and 5 predate [D‑0015] — read "delete" as "disable
+(`update_trigger enabled:false`)"; deleting is owner-console work.)*
 
 Once the owner has stopped Projects, a sweeper session (any live seat with trigger tools) reconciles:
 1. **`list_triggers`, paginating fully** (the last export was 21 pages / 2033 records — do not stop at page 1).

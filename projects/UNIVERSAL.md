@@ -1,8 +1,17 @@
 <!-- v5 · 2026-07-15 · universal WAKE prompt + Permissions & authority (owner-landed, grant v2 DUTY-FORM) + Custom Instructions flow — edit-registry-first; the manager is this file's steward (this v5 landing: owner-directed live in the hub working session 2026-07-15 — the same turn that landed fm control/inbox.md ORDER 048 and directed the v3.7 duty-form registry rewrite; that ORDER is this edit's durable owner provenance) -->
 # UNIVERSAL.md — the owner's universal wake prompt (+ permissions grant + Custom Instructions flow)
 
-> **Status:** `living` — v5 · 2026-07-15. **Edit-registry-first:** this file is
-> the source of truth; every console/chat paste of these blocks is a copy.
+> **Status:** `historical` — v5 · 2026-07-15 *(re-badged 2026-08-11, audit
+> D99: this read `living` while its parent `projects/README.md` badges the
+> whole tree historical — the seats this grant founded closed 2026-07-21, and
+> no session boots from it)*. **Edit-registry-first** was this file's rule
+> while live; the blocks below are preserved verbatim as record.
+>
+> **[D‑0015] note (2026-08-11):** the grant's "MANAGE YOUR OWN WAKE
+> MECHANICS: create/delete/re-arm your seat's triggers" lines predate the
+> 2026-08-09 rule — a session never calls `delete_trigger` (the guard hook
+> denies it); a misbehaving trigger is disabled with `update_trigger
+> enabled:false`, and removal is the owner's, from the console.
 
 > **v5 PROVENANCE (2026-07-15):** owner-directed, live, in the hub working
 > session that landed **fm control/inbox.md ORDER 048** (the standing

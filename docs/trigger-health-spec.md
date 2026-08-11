@@ -2,6 +2,19 @@
 
 > **Status:** `binding`
 >
+> **Era note, 2026-08-11 (audit D96/D97) — the ritual below is seat-era and
+> its done-when is not executable today** (the MISSION.md treatment: badge
+> kept, era declared). There are no manager wakes — the program closed
+> 2026-07-21 — and its operating rule, playbook **R26, sits in the
+> historical class** of the playbook's 2026-08-10 mixed-era banner ("the
+> dispatch, control-bus, roster, wake-chain, and seat-liveness rules …
+> are historical"); its "record of record", docs/roster.md, was RETIRED
+> 2026-08-07 and is frozen by design, so §6's staleness flag would fire
+> forever. The detection *signatures* (wedge, manual-fire trap) remain
+> sound method — `scripts/check_trigger_health.py` carries them with its
+> own matching era note. Trigger work today: [D‑0015] — disable, never
+> delete.
+>
 > **Canonical home since 2026-07-14** (central-docs-plan A2, Slice 0 item 4):
 > MOVED here from superbot `docs/owner/trigger-health-order-2026-07-12.md`
 > (authored 2026-07-12 at the owner's direction; source pinned @ superbot

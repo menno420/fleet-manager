@@ -2,6 +2,15 @@
 
 > **Status:** `reference`
 >
+> **Era note, 2026-08-11 (audit D89):** a dated 2026-07-12 snapshot of the
+> seat-era platform — NOT the live capability ledger; that is
+> `docs/CAPABILITIES.md` and `.claude/CLAUDE.md` § Capabilities, and they win
+> wherever this file disagrees. Refuted since it was written: **"GitHub is
+> MCP-only"** (headline row 9 and § 5) — `gh` is present in this container
+> (`command -v gh` → `/usr/bin/gh`), the direct-PAT REST path succeeds
+> (proxied 403 is a path quirk), and tags/releases/branch-deletes all succeed
+> via the API (MEASURED 2026-08-05/06). Body preserved verbatim below.
+>
 > **Date:** 2026-07-12
 > **Author:** fleet-manager research session (`claude/research-platform`)
 > Verified ledger — every claim cited (file@sha, PR#, memory path, or
@@ -21,7 +30,7 @@
 6. **Direct push to main is branch-protection-walled (GH013)** in protected repos; working landing paths: enabler workflow (3/13 repos), non-author two-party merge, genuine owner turn (§2.6–2.7).
 7. Triggers: cron min-interval hourly; `run_once_at` self-disables; `send_later` binds to the CALLING session; **no model parameter exists anywhere** (§3). `list_triggers` pagination beyond 100 **works via cursor — probed live this session** (§3, §7).
 8. PR subscriptions deliver comments + CI **failures** only — no CI-success, merge, push, or conflict events; poll or `send_later` to detect green (§4).
-9. GitHub is **MCP-only** (no `gh` CLI, REST 403 via proxy incl. stub-200 bodies); tags/releases via `workflow_dispatch`; Actions runners face GH013 + a PR-create permission toggle (§5).
+9. GitHub is **MCP-only** (no `gh` CLI, REST 403 via proxy incl. stub-200 bodies); tags/releases via `workflow_dispatch`; Actions runners face GH013 + a PR-create permission toggle (§5). **[REFUTED 2026-08-11 — see the era note at top]**
 10. Codex "committed X / created PR Y" claims describe its **phantom sandbox** unless a human pressed create-PR (§5).
 
 ---

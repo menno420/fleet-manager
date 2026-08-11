@@ -33,6 +33,19 @@ would verify the bot did not exist**, and they assumed a reviewer who reads code
 
 Revised, in order:
 
+*(Status note, 2026-08-11 — audit D58. This table is the 2026-08-05 snapshot
+of an order of work, and two live surfaces route here as the superseding
+next-action authority while no live ledger tracks the items: as of today
+item 3 is partially discharged — the checker classification landed 2026-08-06
+(`2026-08-06-checker-classification.md`, kit #577) with the promotion wiring
+deliberately deferred — and items 1, 2, 4, 5 are superbot-next-scoped and
+unstarted, with the estate's work since routed to OD-13 (the roadmap's
+phases), the intent layer, Layer 2 and the kit upgrade instead. The owner
+has not voided this ordering; it simply has no live tracking row. What
+remains authoritative here regardless: the certainty legend and the
+foundation-before-rebuild principle. For the current next action read the
+program's NOW pointer, which since 2026-08-10 answers OD-13.)*
+
 | # | Work | Why here | Certainty |
 |---|---|---|---|
 | **1** | **Port the reachability checker to superbot-next**, adapted to manifests. | It gates everything after it. Deterministic — a command is reachable or it is not — so it is safe as a hard gate for an agent. Building UI *before* the gate lets an agent create new dead ends silently. | `REVIEWED` |

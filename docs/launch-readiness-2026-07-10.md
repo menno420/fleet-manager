@@ -1,6 +1,14 @@
 # Launch readiness — Q-0261 finalize-first relaunch (2026-07-10)
 
 > **Status:** `reference` · compiled 2026-07-10 ~15:5xZ from the 5-worker sweep
+>
+> **Era note, 2026-08-11 (audit D69):** historical launch checklist for the
+> program that closed 2026-07-21 — body preserved verbatim. Its
+> **settings-API wall is REFUTED**: caveat 2 and § "The settings-API wall"
+> below record a 2026-07-10 seat-venue error, and the rulesets/settings API
+> is readable AND writable agent-side over direct egress with the PAT —
+> MEASURED 2026-08-06 (`.claude/CLAUDE.md` § Capabilities;
+> `docs/CAPABILITIES.md`). Do not inherit the wall.
 > **Purpose:** the ONE committed checklist of everything to answer / click / fix /
 > dispatch before each Project relaunches under the Q-0261 finalize-first order
 > (manager → substrate-kit → superbot-next → Idea Engine → Product Forge → sixth
@@ -80,6 +88,9 @@ repo's own next boot/session** — no owner action anywhere in this table.
 | substrate-kit | 1.7.0 | current | it IS the kit; `kit: v1.7.0 released` (status @bc468ac) |
 
 ### The settings-API wall
+
+*(REFUTED — see the 2026-08-11 era note at top: the rulesets/settings API was
+measured readable and writable agent-side on 2026-08-06.)*
 
 Caveat 2 above, restated as a standing finding: any repo-settings sweep
 (auto-merge toggles, required checks, up-to-date rules, branch auto-delete) is

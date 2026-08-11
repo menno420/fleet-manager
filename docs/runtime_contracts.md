@@ -22,7 +22,14 @@ queue bounds, cache coherence.)
 
 ## Mutation seam
 
-All changes land as forward-only git commits through READY PRs to main (ruleset: PR required); control/inbox.md is append-only and owner-written; control/status.md is overwritten by the manager each working session.
+All changes land as forward-only git commits through READY PRs to main (ruleset: PR required; substrate-gate is the sole required check).
+
+*(Corrected 2026-08-11, audit D93 — this section also carried two seat-era
+clauses: "control/inbox.md is append-only and owner-written; control/status.md
+is overwritten by the manager each working session." The control/ bus is
+retired (its README, 2026-07-17) and no manager seat exists; only the
+READY-PRs clause was still true. The source slot in `.substrate/state.json`
+is corrected too.)*
 
 ## Failure modes
 

@@ -125,11 +125,14 @@ def render(rows: list[dict], date: str) -> str:
     out = [
         "# Fleet kit-version table — GENERATED",
         "",
-        "> **Status:** `living-ledger`",
+        "> **Status:** `reference` — a dated generated snapshot",
         ">",
         "> **GENERATED — do not hand-edit** (`scripts/gen_kit_versions.py`;"
-        " INC-42 / central-docs-plan C4). Regenerate with every manager wake"
-        " that touches kit state; kit `docs/adopters.md` stays sole-writer"
+        " INC-42 / central-docs-plan C4). Regenerate on demand — the"
+        " seat-era trigger this header used to name (\"every manager wake"
+        " that touches kit state\") ended with the program on 2026-07-21"
+        " (re-worded 2026-08-11, audit D37);"
+        " kit `docs/adopters.md` stays sole-writer"
         " kit-lab — this table is derived from TREES"
         " (`substrate.config.json` + `.substrate/state.json` at verified"
         " HEADs), never from heartbeat prose (INC-40) and never from the"

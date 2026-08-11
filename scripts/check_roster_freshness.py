@@ -34,6 +34,13 @@ WHAT IT CHECKS
   roster's own in-file kill-switch stays the 24h hard line).
 
 SEVERITY CONTRACT (who treats this as blocking)
+  RETIRED CONSUMERS (2026-08-11, audit D32): both workflows were retired
+  2026-08-07 by owner directive — roster-regen.yml lost both cron lines and
+  roster-freshness.yml its pull_request trigger (workflow_dispatch kept on
+  each, OD-3). No PR gate runs this checker any more, no --advisory lane is
+  passed anywhere, and a hand run is unconditionally blocking; RED is the
+  DESIGNED state against the retired roster (frozen at generation #430).
+  The seat-era contract, preserved as record:
   - roster-regen workflow: BLOCKING self-check after each regeneration.
   - roster-freshness workflow (PRs): BLOCKING on manager-authored (claude/*)
     branches, ADVISORY elsewhere — a lane/owner PR must never be jammed by
@@ -357,11 +364,14 @@ def main(argv=None) -> int:
             "regen cadence).\n"
             "THE ROSTER IS STALE: do NOT act on its rows — trust the lane "
             "heartbeats directly (the roster's own kill-switch rule).\n"
-            "Fix: check .github/workflows/roster-regen.yml runs (cron "
-            "40 */2 * * *) — a dead cron here is the single-point-of-"
-            "freshness failing; regenerate via scripts/gen_roster.py "
-            "--triggers telemetry/triggers-snapshot.json, and refresh the "
-            "snapshot at the next manager wake (list_triggers is MCP-only).\n"
+            "Context (2026-08-11, audit D33): the roster was RETIRED "
+            "2026-08-07 by owner directive — both regen cron lines are "
+            "deliberately gone, and this RED is the designed permanent "
+            "state, not a scheduler fault. Do NOT regenerate: a regen "
+            "overwrites docs/roster.md's RETIRED banner. (Seat-era fix "
+            "text, preserved: check roster-regen.yml cron 40 */2 * * *; "
+            "regenerate via scripts/gen_roster.py --triggers "
+            "telemetry/triggers-snapshot.json.)\n"
             "Why loud: roster gen #6 found 9 lane failsafes auto-disabled "
             "(auto_disabled_env_deleted) — that silent-dark class hides "
             "behind exactly this staleness.\n" + "=" * 72)

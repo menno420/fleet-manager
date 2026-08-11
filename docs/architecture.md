@@ -7,7 +7,17 @@
 
 ## Layers & import rules
 
-Flat docs repo, no code layers: docs/ (playbook, owner-queue, dispatch-log — manager working memory) + templates/ (worker preamble blocks) + control/ (protocol heartbeat: owner-written inbox.md, manager-written status.md). Program record lives in menno420/superbot docs/eap/, never here.
+Records-and-checkers repo, post-program era: docs/ (orientation, the consolidation program, findings, per-repo Layer 2 — the records home) + scripts/ and tools/ (the checkers substrate-gate and preflight run) + .claude/ (boot file, hooks, installed skills) + vendored bootstrap.py (substrate-kit). Seat-era trees (control/, templates/, projects/, telemetry/) are retained as historical record, not live layers. Program records live HERE (docs/fleet-account-2026-07-26.md, docs/PROJECT-CLOSEOUT.md); superbot docs/eap/ holds only the EAP-era record.
+
+*(Corrected 2026-08-11, audit D53/D48 — this section carried the seat-era
+render: "Flat docs repo, no code layers: docs/ … + templates/ … + control/
+(protocol heartbeat: owner-written inbox.md, manager-written status.md).
+Program record lives in menno420/superbot docs/eap/, never here." Every clause
+of that described the program that closed 2026-07-21; the `control/` bus is
+retired per its own README, 27 tracked `.py` checkers exist under `scripts/`
+and `tools/`, and this repo is the estate's records home. The source slot in
+`.substrate/state.json` is corrected too, so a persona rebuild renders the
+current text.)*
 
 | Layer | May import | Must NOT import |
 |---|---|---|

@@ -1,6 +1,15 @@
 # 2026-07-10 — owner directive: canonical PERMISSIONS & AUTHORITY block into UNIVERSAL.md (v3)
 
-> **Status:** `in-progress`
+> **Status:** `complete`
+>
+> *(Badge flipped `in-progress` → `complete` 2026-08-11, audit D40 — the only
+> non-terminal Status among 344 cards, contradicted by this card's own
+> closure note below: the session's payload landed superseded via PR #76 and
+> the card "merged stuck at in-progress via #47", then stayed grandfathered
+> for a month. The stuck token was the reason the required gate needed its
+> `--session-log` sentinel carve-out — a main-push run selecting cards by
+> checkout mtime could pick this card and go falsely red. The sentinel stays
+> as defense-in-depth; the cause is now gone.)*
 
 📊 Model: fable family (worker, coordinator-dispatched) · start 2026-07-10T22:40Z (`date -u`)
 
@@ -20,3 +29,16 @@ addition arrived, so it lands as this follow-up). About to land, in this PR:
    universal-pointer line.
 
 > **Closure note (2026-07-11, PR #76):** superseded by PR #76 (the rebuilt #47 payload — UNIVERSAL v4 corrected §2.4 merge clause); this card merged stuck at in-progress via #47 and is grandfathered.
+
+---
+
+*(Two grammar lines added 2026-08-11 with the D40 badge flip — the modern
+card grammar grades every card in a PR's diff, and this 2026-07-10 card
+predates both conventions; these lines exist so the historical card parses,
+and they record nulls, not recovered content.)*
+
+💡 Session idea: none recorded at close — the session predates the
+idea-marker convention.
+
+⟲ Previous-session review: none recorded — the session predates the
+convention.

@@ -1,8 +1,18 @@
-# Fleet kit-version table — GENERATED
+# Fleet kit-version table — GENERATED · **HISTORICAL**
 
-> **Status:** `living-ledger`
+> ## ⛔ Frozen 2026-07-14 snapshot — every verdict below is stale
 >
-> **GENERATED — do not hand-edit** (`scripts/gen_kit_versions.py`; INC-42 / central-docs-plan C4). Regenerate with every manager wake that touches kit state; kit `docs/adopters.md` stays sole-writer kit-lab — this table is derived from TREES (`substrate.config.json` + `.substrate/state.json` at verified HEADs), never from heartbeat prose (INC-40) and never from the adopters doc.
+> **Status:** `historical` *(re-badged by hand 2026-08-11, audit D101 — this
+> read `living-ledger` while its own >7d kill-switch had been blown for
+> weeks: its sole stated regen trigger was "every manager wake", and manager
+> wakes ended with the program on 2026-07-21. The self-contradiction any
+> session can check in one command: the table below asserts fleet-manager is
+> at v1.15.0 and CURRENT; this same checkout's `.substrate/state.json` reads
+> kit_version **1.20.2**. To refresh: `python3 scripts/gen_kit_versions.py`
+> — its emitted header is corrected as of 2026-08-11; until someone runs it,
+> read nothing below as a current verdict.)*
+>
+> **GENERATED — do not hand-edit** (`scripts/gen_kit_versions.py`; INC-42 / central-docs-plan C4; the banner above is the hand-applied retirement exception, per docs/roster.md's treatment). Seat-era regen trigger, preserved as record: "Regenerate with every manager wake that touches kit state"; kit `docs/adopters.md` stays sole-writer kit-lab — this table is derived from TREES (`substrate.config.json` + `.substrate/state.json` at verified HEADs), never from heartbeat prose (INC-40) and never from the adopters doc.
 >
 > generated-at **2026-07-14T04:49Z** · newest fleet tree version measured: **v1.15.0** (proxy for current release — the kit's own release ledger is kit-owned; this column is measured, not asserted). Kill-switch: if generated-at goes stale >7d, re-derive from trees before trusting a row.
 
