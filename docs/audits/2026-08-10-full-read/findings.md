@@ -141,17 +141,19 @@ re-check commands were executed *before* any edit and every verdict reproduced
 recorded in row 1). The edit pass then closed the six at their sites. Each
 row's command below was run **after** its fix and proves the closed state.
 
-**The sweep, 2026-08-11 (fm #849) — 99 of 101 entries now closed; 2 open,
-both kit-side.** The 67 the edit pass left were taken by the sweep session:
-59 fixed at their sites, six recorded as already discharged (D4 and D84 by
+**The sweep, 2026-08-11 (fm #849) — 98 of 101 entries closed; 3 open, all
+kit-side.** The 67 the edit pass left were taken by the sweep session:
+58 fixed at their sites (D47's two attempts re-scoped to OPEN with mitigations), six recorded as already discharged (D4 and D84 by
 fm #840, D61/D62 by the 2026-08-10 index regeneration, D94/D95 by fm #846),
-and **D44/D45 left honestly OPEN** — `bootstrap.py` is GENERATED, so their
-fix is substrate-kit's (v1.21.0 track). Derive the counts rather than
+and **D44/D45/D47 left honestly OPEN** — D44/D45 because `bootstrap.py` is
+GENERATED, and D47 re-opened in Codex round 2 (the status-stale advisory has
+no host-side off-switch; mitigations recorded at the entry) — all three on
+substrate-kit's v1.21.0 track. Derive the counts rather than
 quoting them: `grep -c '^\*\*Closed 2026-08-11' docs/audits/2026-08-10-full-read/findings.md`
-→ **99** closure paragraphs against
+→ **98** closure paragraphs against
 `grep -cE '^### D[0-9]+\.' docs/audits/2026-08-10-full-read/findings.md`
 → **101** entries. Every closure carries its exact executed proving command;
-the 86-assertion battery re-ran green after the session's last edit.
+the closure battery (93 rows by the final run) re-ran green after the session's last edit.
 
 **A `PARTIAL` here would be a lie of the useful kind**, so there are none. Rows 5
 and 7 were first published `PARTIAL` on the strength of edits that touched the
@@ -608,7 +610,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** '~100 OQ- slugs' is 94 unique slugs by enumeration. One blast-radius nuance the finding omits: the only automated caller is .github/workflows/roster-regen.yml:171 (`python3 scripts/check_owner_queue.py --advisory`), and that workflow lost both cron lines on 2026-08-07, so the dead parser is not currently failing any scheduled run — it misleads a human or session who invokes it directly, or who reads projects/fleet-manager/coordinator-prompt.md:38 naming it as the queue's verify step.
 
-**Closed 2026-08-11 (fm #849):** the module comment now states the parser is dead against the current queue — the `## Active…` heading died in the 2026-07-21 restructure, zero items parse, and the `[no-items]` FLAG is the format mismatch announcing itself — and names the parser rebuild as open work, deliberately not claimed. Prove: `grep -c 'STALE PARSER (recorded 2026-08-11' scripts/check_owner_queue.py` → **1**.
+**Closed 2026-08-11 (fm #849):** the module comment now states the parser is dead against the current queue — the `## Active…` heading died in the 2026-07-21 restructure, zero items parse, and the `[no-items]` FLAG is the format mismatch announcing itself — and names the parser rebuild as open work, deliberately not claimed. Prove: `grep -c 'STALE PARSER (recorded 2026-08-11' scripts/check_owner_queue.py` → **1**. Round-2 addendum (Codex, fm #849, capped round): a source comment alone leaves the *advertisers* live — so the one live entry point, `scripts/README.md`'s row, now states the checker is DEAD with the same derivation (`grep -c 'DEAD against the current queue' scripts/README.md` → **1**), while the other advertiser (`projects/fleet-manager/coordinator-prompt.md`) sits in the `projects/` tree both its own README and the boot file class as bannered historical record. The parser rebuild stays named open work — a feature task, not a sweep item; disposition `[partial]`: advertisers conceded and fixed, the closure held.
 
 ### D31. `scripts/check_owner_queue.py:67` — stale-fact
 
@@ -716,7 +718,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Two details to tighten: the quote spans lines 155-156, not line 155 alone. And the finding understates the consequence — because ROSTER_REL is docs/roster.md and gen_roster regenerates the file, obeying the imperative would overwrite the ⛔ RETIRED banner, not merely waste a step. The script is also still named as live in project.index.json's `verification` list (`python3 scripts/gen_roster.py --selfcheck`) and in registry/README.md as the source of truth for registry/lanes.json, so it is genuinely reachable.
 
-**Closed 2026-08-11 (fm #849):** docstring ERA NOTE added — roster retired 2026-08-07, nothing schedules this script, and (the refuter's point) **a regen overwrites the hand-applied RETIRED banners** on all three outputs; the "REQUIRED wake step" imperative is re-tensed to seat-era record at its site. Prove: `grep -c 'ERA NOTE (2026-08-11, audit D38)' scripts/gen_roster.py` → **1**.
+**Closed 2026-08-11 (fm #849):** docstring ERA NOTE added — roster retired 2026-08-07, nothing schedules this script, and (the refuter's point) **a regen overwrites the hand-applied RETIRED banners** on all three outputs; the "REQUIRED wake step" imperative is re-tensed to seat-era record at its site. Round-2 addendum (Codex, fm #849): a warning in the source could not stop a manual `workflow_dispatch` from republishing the outputs as live — so **all three emitted headers are now retirement-aware** (⛔ + `historical` + a dispatched-over-a-closed-fleet notice), making the overwrite hazard self-healing instead of documented. Prove: `grep -c 'ERA NOTE (2026-08-11, audit D38)' scripts/gen_roster.py` → **1** · `grep -c '⛔ RETIRED with the roster, 2026-08-07 — this regeneration' scripts/gen_roster.py` → **3** · `python3 scripts/gen_roster.py --selfcheck` → exit **0**.
 
 ### D39. `.github/workflows/merge-on-green.yml:40` — contradiction
 
@@ -756,7 +758,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** The persona file is a symptom, not the source, and the finding understates reach. The text is rendered verbatim from .substrate/state.json slot_values Q-004 `architecture_layers` and Q-009 `mutation_seam` (bootstrap.py cmd_agents renders persona bodies from those slots), so `bootstrap.py agents --build` regenerates the same stale text — fixing only the .md leaves the defect armed. More importantly the identical seat-era sentences are already planted in LIVE docs that carry '> **Status:** `binding`' and no era banner: docs/architecture.md (Layers section) and docs/ownership.md:15. Those are far more reachable than the staged persona, and are where the defect should be fixed. The 'touched only by roster-regen since 2026-08-06' claim is weakened by the clone being shallow (57 commits, .git/shallow present, floor commit dfccceb 2026-08-06) — the correct statement is 'no commit touches control/ after the shallow floor'.
 
-**Closed 2026-08-11 (fm #849):** fixed at the root the refuter named — the `architecture_layers` slot corrected via `bootstrap.py answer` and the personas regenerated with `bootstrap.py agents --build` (derived renders are never hand-edited), so a rebuild now reproduces the current text, not the seat era. Prove: `grep -c 'Flat docs repo' .substrate/agents/architect.md` → **0** · `grep -c 'post-program era' .substrate/agents/architect.md` → **1**.
+**Closed 2026-08-11 (fm #849):** fixed at the root the refuter named — the `architecture_layers` slot corrected via `bootstrap.py answer` and the personas regenerated with `bootstrap.py agents --build` (derived renders are never hand-edited), so a rebuild now reproduces the current text, not the seat era. Round-2 addendum (Codex, fm #849): the refuter's fifth mirror, the staged `.substrate/claude/CLAUDE.md`, still carried the old value — regenerated via `bootstrap.py render` from the corrected slots and installed at the staged path (single-hunk diff, the slot sentence only). Prove: `grep -c 'Flat docs repo' .substrate/agents/architect.md` → **0** · `grep -c 'post-program era' .substrate/agents/architect.md` → **1** · `grep -c 'Flat docs repo' .substrate/claude/CLAUDE.md` → **0**.
 
 ### D42. `.substrate/agents/architect.md:12` — contradiction
 
@@ -834,7 +836,7 @@ dispatch and relay rules do not)
 
 **Refuter's correction:** Two overstatements to fix. (1) status-stale is NOT exit-affecting — the strict run groups it under 'check: 1 control-status advisory warning(s) (never exit-affecting)'; the exit-1 came from [preflight-script] on the born-red session card. It still instructs a restamp, but it does not red the gate. (2) 'Six live scripts read this file's `updated:` value' is too strong: only scripts/gen_roster.py, scripts/check_lane_liveness.py, scripts/check_trigger_health.py and scripts/verify_routine_state.py actually parse an `updated:` stamp; scripts/check_owner_queue.py and scripts/check_label_hygiene.py only mention control/status.md in docstring prose. Also the age is now ~166h, not ~165h.
 
-**Closed 2026-08-11 (fm #849) — at the reachable site; the off-switch is the kit's:** a first version of this closure emptied `heartbeat_files` and claimed the advisory gone — **it was not**: the kit's `heartbeat_relpaths` deliberately falls back to `control/status.md` on an empty list ("misconfiguration never silently disables the gate", the template's own words), and the check-exceptions allowlist is applied to `doc_findings` only, never to the advisory stream — both verified in the vendored source, and the advisory re-fired in CI against the "fixed" config. So the config is restored to the kit default, and the fix lands where a misled session actually arrives: `control/status.md` now opens with a **do-not-restamp note** under its SEAT CLOSED line, naming the advisory, the forged-liveness failure (the 2026-08-03 automated restamp this entry records), and the kit-side switch filed for v1.21.0. Prove: `sed -n '3p' control/status.md` → contains `Do not restamp this heartbeat (2026-08-11, audit D47)` · `python3 -c "import json;print(json.load(open('substrate.config.json'))['heartbeat_files'])"` → **['control/status.md']** (the default, deliberately).
+**OPEN — re-scoped 2026-08-11 (fm #849, Codex round 2); the fix is the kit's, the mitigation is recorded:** two closure attempts failed honestly. The first emptied `heartbeat_files` and claimed the advisory gone — **it was not**: the kit's `heartbeat_relpaths` deliberately falls back to `control/status.md` on an empty list ("misconfiguration never silently disables the gate", the template's own words), the check-exceptions allowlist is applied to `doc_findings` only, never to the advisory stream (both verified in the vendored source), and CI re-fired the advisory against the "fixed" config. The second planted a **do-not-restamp note** under `control/status.md`'s SEAT CLOSED line — real mitigation for a session that opens the file, and Codex round 2 correctly ruled it insufficient for the harm channel this entry actually names: a session acting on the **check output** still receives the restamp instruction verbatim. No host-side disable exists, so the entry stays OPEN on the kit track beside D44/D45 (v1.21.0: an off-switch or retired-bus awareness for the status advisory). Mitigations in place, provable: `sed -n '3p' control/status.md` → contains `Do not restamp this heartbeat (2026-08-11, audit D47)` · `python3 -c "import json;print(json.load(open('substrate.config.json'))['heartbeat_files'])"` → **['control/status.md']** (the kit default, deliberately — an empty list is documented misconfiguration).
 
 ### D48. `docs/AGENT_ORIENTATION.md:30` — stale-fact
 
@@ -1521,7 +1523,7 @@ Spider" is 14 — comfortable.
 
 **Refuter's correction:** The 'generated pack instructs an agent' impact is latent, not realised: `ls .substrate/contextpacks/` returns 'No such file or directory' — no context pack has ever been generated in this repo, so the misdirection only fires if someone runs `bootstrap.py contextpack`. The file-level staleness is nonetheless real and unbannered, and the second area (`control-bus`, folio control/README.md, source_roots control/inbox.md + control/status.md + control/claims) is equally stale — the finding understates the scope by naming only records-custody.
 
-**Closed 2026-08-11 (fm #849):** the stale values are corrected in place — binding_docs leads with `docs/intent.md` instead of the era-noted seat MISSION, do_not_create now says the roster is RETIRED rather than canonical (and the control-bus area says the bus is retired), verification swaps the three retired roster commands for `scripts/preflight.py` + the strict gate — with the top _comment carrying the dated era-correction note and the JSON re-validated. The contextpack consumer remains never-run (the refuter's latency point), so this closes the misdirection before it ever fires. Prove: `python3 -c "import json;d=json.load(open('project.index.json'));a=d['areas'][0];print(a['binding_docs'][0], 'RETIRED 2026-08-07' in a['do_not_create'][0], a['verification'][0])"` → `docs/intent.md True python3 scripts/preflight.py`.
+**Closed 2026-08-11 (fm #849):** the stale values are corrected in place — binding_docs leads with `docs/intent.md` instead of the era-noted seat MISSION, do_not_create now says the roster is RETIRED rather than canonical (and the control-bus area says the bus is retired), verification swaps the three retired roster commands for `scripts/preflight.py` + the strict gate — with the top _comment carrying the dated era-correction note and the JSON re-validated. The contextpack consumer remains never-run (the refuter's latency point), so this closes the misdirection before it ever fires. Round-2 addendum (Codex, fm #849): the control-bus area's second do_not_create entry still taught the seat-era one-file-per-claim mechanism — corrected to the installed close workflow's rule (claim = born-red card + open PR; never a claims file). Prove: `python3 -c "import json;d=json.load(open('project.index.json'));a=d['areas'][0];print(a['binding_docs'][0], 'RETIRED 2026-08-07' in a['do_not_create'][0], a['verification'][0])"` → `docs/intent.md True python3 scripts/preflight.py`.
 
 ### D99. `projects/UNIVERSAL.md:4` — contradiction
 

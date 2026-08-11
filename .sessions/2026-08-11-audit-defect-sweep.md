@@ -40,11 +40,14 @@ derivation (101 headers − 34 closure paragraphs) surfaced.
 
 ## Close-out
 
-**Shipped (PR #849): 65 of the 67 remaining defects closed — 99 of 101
-audit entries now carry closure paragraphs; D44/D45 stay honestly OPEN**
-(`bootstrap.py` is GENERATED; kit-side, v1.21.0 track).
+**Shipped (PR #849): 64 of the 67 remaining defects closed — 98 of 101
+audit entries carry closure paragraphs; D44/D45/D47 stay honestly OPEN, all
+three kit-side** (D44/D45: `bootstrap.py` is GENERATED; D47: re-opened in
+Codex round 2 — no host-side off-switch for the status advisory exists;
+mitigations recorded at the entry; v1.21.0 track).
 
-- **59 fixed at their sites:** the `.substrate/state.json` slot family
+- **58 fixed at their sites** (+ D47's two attempts re-scoped to OPEN with
+  mitigations recorded): the `.substrate/state.json` slot family
   corrected through the kit's own API and the personas regenerated, never
   hand-edited (D41–D43 + the planted docs D48/D53/D75/D93); the [D‑0015]
   family's remedies now disable instead of delete, with the trigger-health
@@ -69,9 +72,9 @@ audit entries now carry closure paragraphs; D44/D45 stay honestly OPEN**
 
 **Verify (run this session, tails verbatim):**
 
-- closure battery (86 assertions, one row per proving command, the same
-  table that generated the recorded text): `86/86 PASS` — re-run after the
-  session's last content edit
+- closure battery (one row per proving command, the same table that
+  generated the recorded text; grew 86 → 93 rows across the two Codex
+  rounds): `93/93 PASS` — re-run after the session's last content edit
 - `python3 scripts/check_trigger_health.py --selfcheck` →
   `selfcheck: PASS (0 failure(s))`
 - `python3 scripts/gen_idea_backlog.py --selfcheck` →
@@ -131,6 +134,36 @@ both verified against source before acting, both fixed:**
    residual stale-live-clause sweep returns NONE.
 
 Battery re-run after the round-1 fixes: **88/88 PASS**.
+
+**Codex round 2 (head `2403b4b`): 5 inline P2 findings — 4 `[conceded]`,
+1 `[partial]`, all verified against source; this is the capped final round,
+so these fixes land with dispositions named and no third review:**
+
+1. `[partial]` D30 — a source comment leaves the advertisers live: conceded
+   and fixed the one live entry point (`scripts/README.md`'s row now says
+   DEAD with the derivation); the other advertiser sits in the
+   bannered-historical `projects/` tree. The closure holds with the
+   addendum; the parser rebuild stays named open work, not sweep cargo.
+2. `[conceded]` — `project.index.json`'s control-bus area still taught
+   one-file-per-claim; corrected to the installed close workflow's rule.
+3. `[conceded]` D47 — **re-opened**: the do-not-restamp note protects a
+   file-reader but not a session acting on the check output, and no
+   host-side disable exists (fallback-on-empty + allowlist scope, both
+   verified in the vendored source). OPEN beside D44/D45 on the v1.21.0
+   kit track; mitigations recorded at the entry. Tally: **98 of 101
+   closed, 3 open, all kit-side.**
+4. `[conceded]` — the staged `.substrate/claude/CLAUDE.md` still carried
+   the seat-era architecture value; regenerated via `bootstrap.py render`
+   from the corrected slots (single-hunk diff) and installed at the staged
+   path. My round-1 "residual sweep clean" covered slot values, not
+   committed renders — Codex was right that the claim overreached.
+5. `[conceded]` — a manual `workflow_dispatch` would have republished the
+   three roster outputs as `living-ledger` over the hand-applied banners;
+   all three emitted headers in `gen_roster.py` are now retirement-aware
+   (⛔ + `historical` + dispatch notice), selfcheck PASS.
+
+Battery re-run after the round-2 fixes (the session's last content edit):
+**93/93 PASS**.
 
 PR: menno420/fleet-manager#849 — ready, born-red hold until this badge flips.
 
