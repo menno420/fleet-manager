@@ -61,7 +61,7 @@ the wrong answer look checked.
 | Phase | What it establishes | Status |
 |---|---|---|
 | **1** | Trustworthy retrieval + orientation | landed, fm #826 |
-| **2** | Intent resolution | **first slice landed, fm #830; § 4.8's fresh-agent test run 2026-08-12** (fm #851, verdict PARTIAL near-PASS) — [the test finding](../findings/2026-08-12-intent-map-fresh-agent-test.md) |
+| **2** | Intent resolution | **first slice landed, fm #830; § 4.8's producer half run 2026-08-12** (fm #851, verdict PARTIAL) — [the test finding](../findings/2026-08-12-intent-map-fresh-agent-test.md); the fresh-**scorer** half is still outstanding |
 | **3** | Common operating protocol | after |
 
 ## 3 · Phase 1 — trustworthy retrieval and orientation *(landed, fm #826)*
@@ -262,18 +262,21 @@ this task"* because the subject was the method itself, and the per-task version
 should instead be sized to *"the remaining ambiguous items"*, with **no minimum or
 maximum**.
 
-**Second live run, 2026-08-12 — the map half, in the prescribed form** (fm
-#851). Five fresh agents — three on the nine-fragment instruction, two on the
-OD-6 correction — produced maps against `git archive` snapshots pinned to the
-ask-time trees (`7fbc065`, `f53d7ea`), scored against a rubric committed before
-any output was read: **221/222 ESTABLISHED citations substance-correct · 0
-invented OPEN entries · 0 silently resolved HIGHs · 0 false alarms**; verdict
-**PARTIAL** on one citation-overreach plus six line-attribution imprecisions.
-The headline divergence: the corpus's one expected HIGH (*"genuinely better
-built"*) **dissolved under retrieval** — the ask-time tree already carried
-operational content for it, and all three fresh agents retrieved what the
-author walkthrough said did not exist. Design, tally, honest nulls and the raw
-maps: [`../findings/2026-08-12-intent-map-fresh-agent-test.md`](../findings/2026-08-12-intent-map-fresh-agent-test.md).
+**Second live run, 2026-08-12 — the producer half of the map test** (fm #851;
+the recorded bar is a fresh agent that produces **and scores**, so the
+fresh-scorer half remains outstanding). Five fresh agents — three on the
+nine-fragment instruction, two on the OD-6 correction — produced maps against
+`git archive` snapshots pinned to the ask-time trees (`7fbc065`, `f53d7ea`),
+scored by the running session against a rubric committed before any output was
+read: **221/222 checked citations substance-correct (ESTABLISHED subset
+187/188) · 0 invented OPEN entries · 0 silently resolved HIGHs · 0 false
+alarms**; verdict **PARTIAL** on one citation-overreach, one ESTABLISHED
+miscount, and eleven exact-range attribution imprecisions. The headline
+divergence: the corpus's one expected HIGH (*"genuinely better built"*)
+**dissolved under retrieval** — the ask-time tree already carried operational
+content for it, and all three fresh agents retrieved what the author
+walkthrough said did not exist. Design, tally, honest nulls and the raw maps:
+[`../findings/2026-08-12-intent-map-fresh-agent-test.md`](../findings/2026-08-12-intent-map-fresh-agent-test.md).
 
 **A fourth result, and it is about the interviewer rather than the interview.**
 The session recorded a *"question 22, begun and left blank"* as an open item, in
@@ -537,13 +540,15 @@ is where proven methods become **reusable infrastructure**.
 ## 8 · Honest nulls
 
 - **Phase 3 is unbuilt and uncosted; Phase 2 has one slice landed and, as of
-  2026-08-12, one run of its own test** (amended 2026-08-09 and again
-  2026-08-12; this bullet said *"Phases 2 and 3 are unbuilt"*, then *"untested
-  by its own protocol"*, and outlived each by one PR). Everything in § 5 is
-  still `REASONED` with nothing running. Phase 2's map runs in `intake` as of
-  fm #830, and § 4.8's producer-side test ran 2026-08-12 (fm #851, PARTIAL
-  near-PASS) — the mechanism claim is now **earned in that form**; the stronger
-  form with an independent scorer has not run.
+  2026-08-12, the producer half of its own test run** (amended 2026-08-09 and
+  again 2026-08-12; this bullet said *"Phases 2 and 3 are unbuilt"*, then
+  *"untested by its own protocol"*, and outlived each by one PR). Everything
+  in § 5 is still `REASONED` with nothing running. Phase 2's map runs in
+  `intake` as of fm #830; § 4.8's producer half ran 2026-08-12 (fm #851,
+  PARTIAL) — fresh agents produced the maps, but the recorded bar is a fresh
+  agent that produces **and scores** (the replay finding § 4; the fm #830
+  disposition), so the mechanism claim is earned **producer-side only** and
+  the fresh-scorer half is still open.
 - **Phase 1's own effect is measured on n=1 session** and only against the
   orientation failure class. It cannot move the classes the landed injection
   mechanisms already cover, and the roadmap should not be read as claiming it does.

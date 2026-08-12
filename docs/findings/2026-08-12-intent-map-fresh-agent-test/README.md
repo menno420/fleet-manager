@@ -42,13 +42,52 @@ agent errors**, and are separated as such:
 | B1 `program 3-6 "…should churn"` | **PASS on inspection** — verbatim at lines 3-6; the blockquote `>` prefixes broke the join. Harness artifact. |
 | B1 · B2 `CONSTITUTION 123-128 "live in-session"` | **substance PASS · 1 attribution imprecision each** — the quoted exception clause lives in the 37-42 region (both agents also cited it there, PASS); 123-128 is the propose-don't-apply section without the clause. Doubled range, one half wrong. |
 
-Specials: `pinA` has **no** "All 27" section in `SKILLS-local.md` (A1/A2/A3's
-negative claim PASS) and **27** installed skill directories (A1/A2 said 27
-PASS; A3 said 26 — one miscount). `pinB/docs/decisions.md` carries no pace
-entry (B1/B2's negative claim PASS). `docs/execution-surfaces.md` **exists**
-in pinA — the scorer suspected this citation was fabricated and was wrong
-(recorded in the finding § 3.1 as a scorer false alarm).
+Specials: `pinA`'s `SKILLS-local.md` **exists** (87 lines) and has **no**
+"All 27" section (A1/A2/A3's negative claim PASS — and the finding's first
+push wrongly described the whole file as absent; Codex round 1, fixed).
+`pinA` has **27** installed skill directories (A1/A2 said 27 PASS; A3 said
+26 — counted as an ESTABLISHED factual miscount per round 1).
+`pinB/docs/decisions.md` carries no pace entry (B1/B2's negative claim PASS).
+`docs/execution-surfaces.md` **exists** in pinA — the scorer suspected this
+citation was fabricated and was wrong (recorded in the finding § 3.1 as a
+scorer false alarm).
 
-Final tally used by the finding: **222 rows · 221 substance-correct · 6
-line-attribution imprecisions · 1 citation-overreach · 0 fabricated facts ·
-0 invented OPEN entries.**
+## Round-1 additions: the exact-range pass and the column-set partition
+
+**Exact-range attribution pass** (Codex round 1: ±3 tolerance must not blur
+attribution): `verify_citations.py --exact` scores each row against the cited
+range with no tolerance. Rows that pass ±3 substance but fail exact — i.e.
+content one-to-four lines away from where the agent said:
+`A1 fleet-account:23-26` (at `:22`) · `A2 CAPABILITIES:884-887` (at
+`:881-882`) · `A2 playtest:172-176` (at `:171`) ·
+`B1 decision-capture:34-35` (at `:36`) · `B1 CONSTITUTION:17-18` (starts
+`:16`). Exact totals: A1 46/51 · A2 51/55 · A3 50/54 · B 57/62. These five
+plus the six substance-pass adjudications = the finding's **11 attribution
+imprecisions**.
+
+**Column-set partition** (Codex round 1: the TSVs encode citations from the
+whole reports, not only ESTABLISHED — so the metric must say so). Rows whose
+citation appears outside the agent's ESTABLISHED section, derived from each
+report's own structure:
+
+- **A1 (7):** `SKILLS.md 25` · `SKILLS.md 31` · `SKILLS-local 55` ·
+  `SKILLS-local 56` · `SKILLS-local 44-46` · `CONSTITUTION 24-27` (all
+  MAP TO METHOD) · `playtest 267-271` (NON-GOALS) → ESTABLISHED 44
+- **A2 (5):** `audit 12-14` (NON-GOALS) · `audit 69-70`, `playtest 201-239`
+  (DERIVED) · `program 90`, `program 106` (MAP TO METHOD) → ESTABLISHED 50
+- **A3 (8):** `program 136-140`, `program 28`, `CLAUDE 21-23` (NON-GOALS) ·
+  `audit 356-360`, `program 90`, `program 106`, `gemini-delegation 111`,
+  `execution-surfaces 1-21` (MAP TO METHOD); `SKILLS-local 42-56` is kept
+  ESTABLISHED (it anchors the recorded-absences inventory attached there)
+  → ESTABLISHED 46
+- **B1 (8):** `SKILLS-local 34`, `SKILLS-local 51`, `intake SKILL 66`,
+  `roadmap 372-374`, `CLAUDE 154-160` (MAP TO METHOD) · `program 170`,
+  `owner-reflection 28-31` (DERIVED) · `roadmap 107` (OPEN) → ESTABLISHED 24
+- **B2 (6):** `SKILLS-local 39`, `SKILLS-local 34`, `CLAUDE 154-160`,
+  `program 151-152` (MAP TO METHOD) · `program 172`, `program 173`
+  (DECISIONS FLAGGED) → ESTABLISHED 24
+
+Final tally used by the finding: **222 rows (188 ESTABLISHED · 34 other) ·
+221 substance-correct (ESTABLISHED subset 187/188) · 11 exact-range
+attribution imprecisions · 1 citation-overreach · 1 ESTABLISHED factual
+miscount · 0 fabricated facts · 0 invented OPEN entries.**

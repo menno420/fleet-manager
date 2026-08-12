@@ -165,12 +165,15 @@ this procedure and knew every outcome. Read § 4 of that file before citing any
 of it — and § 2.2 for the case that cannot be run at all, because the owner
 message that produced the estate's clearest misread was never preserved.
 
-**The prescribed test ran 2026-08-12** (fm #851): five fresh agents over the
-same corpus against ask-time snapshot trees, scored on a pre-registered rubric —
+**The producer half of that test ran 2026-08-12** (fm #851): five fresh agents
+over the same corpus against ask-time snapshot trees, scored by the running
+session on a pre-registered rubric — the fresh-**scorer** half the record
+requires is still outstanding —
 [`docs/findings/2026-08-12-intent-map-fresh-agent-test.md`](../../../docs/findings/2026-08-12-intent-map-fresh-agent-test.md)
-— **221/222 citations substance-correct · 0 invented OPEN · 0 silent HIGHs · 0
-false alarms · verdict PARTIAL** (one citation-overreach, six line-attribution
-imprecisions). The walkthrough's one HIGH dissolved under fresh retrieval, so
-the HIGH-ask branch is currently demonstrated by no committed case; the
-residual defect class is imprecise ESTABLISHED line-cites — when you cite,
-open the range and check it carries the words.
+— **221/222 checked citations substance-correct · 0 invented OPEN · 0 silent
+HIGHs · 0 false alarms · verdict PARTIAL** (one citation-overreach, one
+ESTABLISHED miscount, eleven exact-range attribution imprecisions). The
+walkthrough's one HIGH dissolved under fresh retrieval, so the HIGH-ask branch
+is currently demonstrated by no committed case; the dominant defect class is
+imprecise line-cites — when you cite, open the exact range and check it
+carries the words.

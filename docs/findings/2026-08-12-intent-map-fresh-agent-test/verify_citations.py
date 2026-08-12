@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
-"""Verify agent ESTABLISHED citations against a pinned snapshot tree.
+"""Verify agent report citations against a pinned snapshot tree.
 
 Input TSV rows: agent<TAB>file<TAB>start-end<TAB>needle
-PASS if needle (case-insensitive) occurs within [start-3, end+3] of file.
-MISSING-FILE / OUT-OF-RANGE / NO-MATCH otherwise, with the searched window echoed.
+Two modes (Codex round-1 finding: tolerance must not blur attribution):
+  default   — substance: PASS if needle occurs within [start-3, end+3]
+  --exact   — attribution: PASS only if needle occurs within [start, end]
+MISSING-FILE / NO-MATCH otherwise.
 """
 import sys, pathlib
+
+TOL = 0 if "--exact" in sys.argv else 3
 
 def main(root, tsv):
     root = pathlib.Path(root)
@@ -27,7 +31,7 @@ def main(root, tsv):
             a, b = rng.split("-")
         else:
             a = b = rng
-        a, b = max(1, int(a) - 3), min(len(lines), int(b) + 3)
+        a, b = max(1, int(a) - TOL), min(len(lines), int(b) + TOL)
         window = " ".join(" ".join(lines[a - 1 : b]).split())
         if " ".join(needle.split()).lower() in window.lower():
             print(f"PASS\t{agent}\t{rel}\t{rng}\t{needle[:50]}")

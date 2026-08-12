@@ -9,8 +9,10 @@
 > ambiguity silently resolved."* The author walkthrough
 > ([`2026-08-09-intent-map-replay.md`](2026-08-09-intent-map-replay.md)) does
 > not satisfy that — its author wrote the procedure and knew every outcome
-> (Codex, fm #830) — so this file exists to run the prescribed form: **maps
-> produced by fresh agents that had no access to the outcomes.**
+> (Codex, fm #830) — so this file exists to run what could be run of the
+> prescribed form: **maps produced by fresh agents that had no access to the
+> outcomes.** That is the producer half; the recorded bar also requires a
+> fresh **scorer**, which this run does not have (§ 1.5).
 >
 > Certainty tags per
 > [`2026-08-05-foundation-continuation.md`](2026-08-05-foundation-continuation.md).
@@ -53,7 +55,7 @@ Each agent retrieves ESTABLISHED from a `git archive` **directory snapshot**
 
 | case | pin | what that tree is |
 |---|---|---|
-| A | `7fbc065` (parent of fm #761) | main immediately before the receiving session's first landed PR, 2026-08-05 — the pre-repair read path, no `intent.md`, no `SKILLS-local.md` |
+| A | `7fbc065` (parent of fm #761) | main immediately before the receiving session's first landed PR, 2026-08-05 — the pre-repair read path, no `intent.md`; `SKILLS-local.md` exists (87 lines) but has no "All 27" roster section *(this cell originally said the file was absent — wrong, Codex round 1; the agents themselves had it right)* |
 | B | `f53d7ea` (parent of fm #827) | main immediately before the intent interview landed, 2026-08-08 — OD-6 still reads `Pace: slow.` |
 
 Both snapshots were probed for the answer key before any agent ran: case A's
@@ -80,17 +82,26 @@ theatre. All five run the same model family as this session's
 Agents are instructed to stay inside their snapshot, change nothing, and return
 only the report. The full prompt templates are in § 6.
 
-### 1.5 Known divergence from § 4.8, stated up front
+### 1.5 This is the producer half of § 4.8, not the whole test
 
-§ 4.8 says a fresh agent's map **is scored** — it does not say by whom. Here the
-maps are fresh-produced; the **scoring is performed by this session**, which has
-read the outcomes. That is the residual bias channel, and three things bound it:
-the rubric below was committed before any output was read; the two § 4.8
-dimensions are largely mechanical (a citation exists in the pinned tree and says
-what the entry claims, or it does not; an INTENT STATUS line reads `NEEDS OWNER`
-or it does not); and the scoring itself ships for adversarial review on this PR.
-A fully fresh *scorer* would be the next hardening step, not a reason to leave
-the prescribed producer-side test unrun.
+The roadmap's § 4.8 sentence says a fresh agent's map **is scored** without
+naming the scorer — but the estate's own acceptance record is explicit:
+*"A fresh agent must produce **and score** the maps"*
+([`2026-08-09-intent-map-replay.md:166`](2026-08-09-intent-map-replay.md)), and
+the fm #830 review disposition likewise requires a fresh-agent **scorer**
+(`.sessions/2026-08-09-intent-architecture-phase-2.md`, round-1 row 3). Here
+the maps are fresh-produced and the **scoring is performed by this session**,
+which had read the outcomes — so this run discharges the **producer half only**,
+and the **scorer half remains outstanding**. (The first push of this finding
+claimed "the prescribed producer-side form" as if that were the prescribed
+test; Codex round 1 refuted it from the two records above — conceded.)
+Three things bound the scorer bias in the half that did run: the rubric below
+was committed before any output was read; the checks are largely mechanical (a
+citation is in the pinned tree carrying the claimed words, or it is not; an
+INTENT STATUS line reads `NEEDS OWNER` or it does not); and the scoring ships
+for adversarial review on this PR. § 3 records where scorer judgement still
+leaked in anyway — and every leak found so far ran in the *scorer's* error
+direction, not the agents'.
 
 ## 2 · The rubric — registered before any output was read
 
@@ -147,11 +158,12 @@ false alarm — reported **per agent**, plus inter-agent agreement per case.
 
 With n = 3 + 2 these are **counts, not rates** (§ 4.4's fake-precision rule).
 
-**Also recorded, unscored:** procedure robustness observations — the pinned
-trees lack documents the procedure names (`intent.md`, `SKILLS-local.md` at pin
-A), which mirrors the real ask-time condition (20 of 21 intent questions were
-unanswered by that corpus), so how each agent handles the missing references is
-data, not a defect.
+**Also recorded, unscored:** procedure robustness observations — pin A lacks
+`intent.md` outright and its `SKILLS-local.md` predates the "All 27" roster
+section the procedure names *(this sentence originally listed `SKILLS-local.md`
+as missing too — wrong, Codex round 1)*, which mirrors the real ask-time
+condition (20 of 21 intent questions were unanswered by that corpus), so how
+each agent handles the missing or older references is data, not a defect.
 
 ## 3 · Results
 
@@ -162,39 +174,77 @@ Runs took 8–12 minutes and 98k–166k subagent tokens each (~655k total).
 
 ### 3.1 D1 — column placement, measured
 
-Every ESTABLISHED row in every map was re-checked against that agent's pinned
-snapshot by a whitespace-normalised needle search over the cited range ±3
-lines (the evidence folder's `verify_citations.py` + `citations-*.tsv`), and
-every non-matching row was adjudicated by opening the region:
+Every citation encoded from the five reports was re-checked against that
+agent's pinned snapshot by a whitespace-normalised needle search (the evidence
+folder's `verify_citations.py` + `citations-*.tsv`), in **two passes** — a
+±3-line **substance** pass, and an exact-range **attribution** pass added in
+Codex round 1, which had refuted the first push's single-pass tally: a ±3
+tolerance converts small wrong ranges into machine-PASSes that then never
+reach adjudication. Every row failing either pass was adjudicated by opening
+the region. Two corrections from the same round: the checked rows span the
+whole reports (ESTABLISHED plus DERIVED / NON-GOALS / MAP-TO-METHOD
+citations), so the metric is reported per column-set rather than mislabelled
+"ESTABLISHED citations" as first pushed; and A3's skills miscount is counted
+as an ESTABLISHED factual error, not a footnote.
 
-| agent | rows checked | substance-correct | line-attribution imprecisions | worse |
-|---|---|---|---|---|
-| A1 | 51 (+2 negative/count checks) | 51 | 1 (an owner quote verbatim at `vertex-first:144`, attributed to `:3-8`) | — |
-| A2 | 55 | 55 | 1 (`googleSearch` is at `vertex-first:106-109`, cited `:142-146`) | — |
-| A3 | 54 (+2) | 53 | 2 (same `googleSearch` range; a label 2 lines outside its cited range) | **1 citation-overreach** (below) |
-| B1 | 32 (+1 negative) | 32 | 1 (a clause cited to two ranges; only one carries it) | — |
-| B2 | 30 (+1 negative) | 30 | 1 (same doubled range as B1) | — |
-| **total** | **222** | **221** | **6** | **1** |
+| agent | rows | of which ESTABLISHED | substance-correct | attribution-imprecise (exact-range) | worse |
+|---|---|---|---|---|---|
+| A1 | 51 (+2 negative/count checks) | 44 | 51 | 2 | — |
+| A2 | 55 | 50 | 55 | 3 | — |
+| A3 | 54 (+2) | 46 | 53 | 2 | **1 citation-overreach + 1 factual miscount** (below) |
+| B1 | 32 (+1 negative) | 24 | 32 | 3 | — |
+| B2 | 30 (+1 negative) | 24 | 30 | 1 | — |
+| **total** | **222** | **188** | **221** | **11** | **2** |
 
-The one row worse than imprecise: A3's E16 states a true fact (Gemini once
-returned 18 fabricated "decisions"), cites it correctly to
-`findings/2026-08-05-gemini-delegation.md:34-48` (verified: `:37-41`), **and
-appends a second citation — `docs/CAPABILITIES.md:179-194` — that does not
-carry the incident** (that range is the free-tier corpus-read capability
-entry). The fact is real and once-cited; the supplementary citation is wrong.
-Classified as the worst member of the attribution-imprecision family rather
-than fabrication — nothing was invented — with the raw data kept so a reviewer
-can re-adjudicate.
+So: **all-report citations 221/222 substance-correct; the ESTABLISHED subset
+is 187/188** (the overreach is an ESTABLISHED row), plus one non-row
+ESTABLISHED factual error; the 34 non-ESTABLISHED rows are 34/34. The eleven
+attribution imprecisions (all in ESTABLISHED rows): the six adjudicated from
+the substance pass — an owner quote verbatim at `vertex-first:144` attributed
+to `:3-8` (A1); `googleSearch` at `vertex-first:106-109` cited `:142-146` (A2
+and A3 — same wrong range independently); a label two lines outside its cited
+range (A3); a clause cited to two ranges of which one doesn't carry it (B1 and
+B2, same doubled range) — plus the five the exact pass exposed: claims at
+`fleet-account:22`, `CAPABILITIES:881-882`, `playtest:171`,
+`decision-capture:36`, `CONSTITUTION:16`, each cited one-to-four lines away.
+The per-agent partition of rows into column-sets is derived in the evidence
+folder's README, from each report's own section structure.
 
-Also mechanical: **0 invented OPEN entries** (every OPEN row in all five maps
-quotes the words that leave it open — the "question 22" class did not occur);
+The two entries worse than imprecise, both A3's, both in ESTABLISHED:
+
+- **The citation-overreach.** A3's E16 states a true fact (Gemini once
+  returned 18 fabricated "decisions"), cites it correctly to
+  `findings/2026-08-05-gemini-delegation.md:34-48` (verified: `:37-41`), **and
+  appends a second citation — `docs/CAPABILITIES.md:179-194` — that does not
+  carry the incident** (that range is the free-tier corpus-read capability
+  entry). The fact is real and once-cited; the supplementary citation is
+  wrong. Classified as the worst member of the attribution family rather than
+  fabrication — nothing was invented — raw data kept for re-adjudication.
+- **The factual miscount.** A3's ESTABLISHED inventory says the snapshot has
+  "26 installed entries" under `.claude/skills/`; it has 27. First pushed as a
+  footnote outside the tally; Codex round 1 was right that a wrong count in
+  ESTABLISHED is an ESTABLISHED defect — counted.
+
+Also mechanical: **0 invented OPEN entries** — scoped precisely: every OPEN
+row in all five maps quotes real words that leave something open, so the
+"question 22" class (an OPEN entry pointing at nothing) did not occur.
+**Column discipline inside OPEN is a different question and the rubric did
+not score it** — Codex round 1 named the gap, and counting it: the procedure
+defines OPEN as *outcome-changing questions that cannot safely be derived*,
+yet three of the five maps also parked self-classified LOW/decided items
+there (A1 ×2, A2 ×3, A3 ×3; B2's two OPEN rows carry MEDIUM dispositions
+inline; B1 modeled the strict form — `OPEN: none`, candidates examined and
+closed). Two readings coexist: those entries violate § 4.1's column
+definition, or they follow the procedure's own step 4, which says *"every
+unresolved item gets a class"* without saying where classified-and-decided
+items are reported. That ambiguity is a **procedure defect surfaced by the
+test**, recorded in § 4; the instances are counted here either way.
 **0 inferences dressed as EXPLICIT or ESTABLISHED** (EXPLICIT sections quote
-the handed fragments; every inference sits in DERIVED, labelled); one
-countable miscount (A3: "26 installed entries" under `.claude/skills/`; the
-snapshot has 27). A suspected fabrication that wasn't: A3 cites
-`docs/execution-surfaces.md`, which I believed post-dated pin A — it exists in
-the pinned tree. The checker was wrong, not the agent; kept here because a
-scorer's false alarm is data about scoring too.
+the handed fragments; every inference sits in DERIVED, labelled). A suspected
+fabrication that wasn't: A3 cites `docs/execution-surfaces.md`, which I
+believed post-dated pin A — it exists in the pinned tree. The checker was
+wrong, not the agent; kept because a scorer's false alarm is data about
+scoring too.
 
 ### 3.2 D2 — HIGH discipline, and the headline divergence
 
@@ -254,38 +304,60 @@ and on case B's conflict and repair; the MEDIUM sets overlap heavily.
 
 ## 4 · Verdict
 
-**PARTIAL, by the pre-registered bands — and near the PASS edge.** What
-separates it from PASS: one citation-overreach (§ 3.1) plus six attribution
-imprecisions — isolated ESTABLISHED-discipline defects, the band's "isolated
-column misplacements". What separates it from FAIL: everything else — 0
-silently resolved HIGHs, 0 invented facts or OPEN entries, 221/222 citation
-substance, 0 false alarms, high inter-agent stability.
+**PARTIAL, by the pre-registered bands** — and after Codex round 1 recounted
+it, less near the PASS edge than first pushed. What separates it from PASS:
+one citation-overreach, one ESTABLISHED factual miscount, and eleven
+exact-range attribution imprecisions (§ 3.1) — isolated ESTABLISHED-discipline
+defects, the band's "isolated column misplacements" — plus the OPEN-column
+discipline question § 3.1 counts. What separates it from FAIL: 0 silently
+resolved HIGHs, 0 invented facts or OPEN entries, 221/222 all-report and
+187/188 ESTABLISHED citation substance, 0 false alarms, high inter-agent
+stability.
 
-What the test establishes that the walkthrough could not:
+**And the verdict's scope is the producer half.** The estate's recorded bar
+for § 4.8 is a fresh agent that produces **and scores**
+(`2026-08-09-intent-map-replay.md:166`; the fm #830 disposition) — this run
+discharges the producing half and leaves the scoring half open, so nothing
+here marks the prescribed test complete (§ 1.5; Codex round 1, conceded).
+
+What the producer half establishes that the walkthrough could not:
 
 1. **The map's provenance separation survives fresh hands.** Five agents who
    never saw the outcomes kept EXPLICIT / ESTABLISHED / DERIVED / OPEN
-   distinguishable, under citation discipline that checks out at 221/222.
+   distinguishable — with the one countable softness being where
+   decided-LOW/MEDIUM items are parked (§ 3.1), which traces to an ambiguity
+   in the procedure's own step 4 as much as to the maps.
 2. **Retrieval-based resolution outperformed the author's own map once** —
    fragment 7's HIGH dissolves under the retrieval the procedure itself
    mandates. The § 4.8 fear (a fresh agent silently resolving what the author
-   knew to ask) did not materialise; the observed failure direction is the
-   *scorer's*, not the agent's (§ 3.1's false fabrication alarm, § 3.3's
-   hindsight anchor).
-3. **The residual defect class is mechanically checkable.** All seven D1
-   defects are of one kind — a citation range that does not carry the quoted
-   content — which is exactly what `tools/gemini_delegate.py` already verifies
-   for delegated reads. A cite-check pass over a map's ESTABLISHED rows would
-   have caught 7/7. Recorded as a candidate mechanism under the promotion
-   rule (§ 6 of the roadmap): observed and measured here; **not built** — one
-   run is not "test against real cases" for the checker itself.
+   knew to ask) did not materialise; the observed failure direction is
+   consistently the *scorer's* (§ 3.1's false fabrication alarm and mislabeled
+   metric, § 1.3's wrong pin inventory, § 3.3's hindsight anchor — three of
+   the four found by the adversarial reviewer, one by the checker's positive
+   control).
+3. **The residual defect class is mechanically checkable.** Twelve of the
+   thirteen D1 defects are one kind — a citation range that does not carry
+   the claimed content — exactly what `tools/gemini_delegate.py` already
+   verifies for delegated reads; a cite-check pass over a map's rows would
+   have caught 12/12 of them (not the miscount). Recorded as a candidate
+   mechanism under the promotion rule (§ 6 of the roadmap): observed and
+   measured here; **not built** — one run is not "test against real cases"
+   for the checker itself.
+4. **One procedure defect:** step 4 classifies "every unresolved item" but
+   the report format gives decided items no column, so agents park them in
+   OPEN (§ 3.1). A one-line clarification in `intake` (decided LOW/MEDIUM
+   report under DECISIONS FLAGGED, never OPEN) would close it; left for the
+   round that amends the skill, since this PR already touches its replay
+   note.
 
 ## 5 · Honest nulls
 
-- **The scorer is not fresh** (§ 1.5). Bounded by the pre-registered rubric
-  (commit order proves it), mechanical checks, committed raw outputs, and
-  Codex review of this PR — but a § 4.8 run with an independent scorer remains
-  the stronger form.
+- **The scorer half of § 4.8 has not run** (§ 1.5) — the estate's recorded bar
+  is produce **and** score, and this session's scoring, however bounded
+  (pre-registered rubric with commit-order proof, mechanical checks, committed
+  raw outputs, adversarial review on this PR), is not a fresh agent's. Codex
+  round 1 demonstrated the residue concretely: four scorer-side errors in the
+  first push of this very file.
 - **The HIGH-ask branch is now untested by this corpus at all.** The
   walkthrough had one HIGH case; § 3.2 dissolves it. No case in the committed
   record currently exercises "HIGH survives retrieval → agent must ask". That
