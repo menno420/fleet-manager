@@ -68,14 +68,15 @@ Codex round 1 refuted both halves from the record — conceded, reframed.)*
 - The evidence folder beside it: five verbatim agent reports, both prompt
   templates, the citation checker + four TSVs, and the adjudication of every
   non-PASS row (`docs/findings/2026-08-12-intent-map-fresh-agent-test/`).
-- Measured (post-round-1 recount): **222 checked citations (188 ESTABLISHED ·
-  34 other) · 221 substance-correct (ESTABLISHED subset 187/188) · 11
-  exact-range attribution imprecisions · 1 citation-overreach · 1 ESTABLISHED
-  miscount · 0 fabricated facts · 0 invented OPEN · 0 silent HIGHs · 0 false
-  alarms**; the walkthrough's one HIGH dissolved under fresh retrieval (the
-  ask-time tree already carried operational content for *"genuinely better
-  built"*); both case-B agents converged on the actual fm #827 repair
-  sight-unseen.
+- Measured (post-round-1 recount + round-2 addition): **222 checked citations
+  (188 ESTABLISHED · 34 other) · 221 substance-correct (ESTABLISHED subset
+  187/188) · 11 exact-range attribution imprecisions · 1 citation-overreach ·
+  1 ESTABLISHED miscount · 1 unenumerable cross-repo citation (adjudicated
+  non-defect — its pinned source carries the pointer verbatim) · 0 fabricated
+  facts · 0 invented OPEN · 0 silent HIGHs · 0 false alarms**; the
+  walkthrough's one HIGH dissolved under fresh retrieval (the ask-time tree
+  already carried operational content for *"genuinely better built"*); both
+  case-B agents converged on the actual fm #827 repair sight-unseen.
 - Surfaces updated so nothing keeps calling the test outstanding: roadmap § 2
   row + § 4.8 second-live-run paragraph + § 8 bullets 1 and 3 (amendment
   trail preserved); boot file entry 1b; `intake` replay section (kit-named —
@@ -110,10 +111,15 @@ receiving session's first landed PR (exact boot minute unknowable); the one
 citation-overreach adjudicated as attribution-family, not fabrication (raw
 data committed for re-adjudication); scale 3+2 agents (counts, not rates).
 ⚑ Owner-queue: unchanged — no owner ask touched (OQ-FM-D2-TARGET stands).
-💡 Session idea: **a cite-check pass for intent maps** — all 7 D1 defects are
-one class (a cited range not carrying the quoted content), the exact class
-`tools/gemini_delegate.py` already verifies for delegated reads; measured need
-7/222. Promotion-rule gated: flagged, deliberately not built after one run.
+💡 Session idea: **a cite-check pass for intent maps** — 12 of the 13 D1
+defects after the round-1 recount (11 attribution imprecisions + 1
+citation-overreach) are one class, a cited range not carrying the claimed
+content, which `tools/gemini_delegate.py` already verifies for delegated
+reads; the 13th (the factual miscount) is outside a cite-checker's reach, and
+round 2's cross-repo citation shows the checker also needs a
+flag-for-adjudication lane for paths outside the tree. Measured need 12/222
+catchable + 1 flaggable. Promotion-rule gated: flagged, deliberately not
+built after one run.
 ⟲ Previous-session review: in the header section above — fm #849/#850's card
 checked against `main`, accurate, nothing to repair.
 
@@ -147,6 +153,31 @@ checked against `main`, accurate, nothing to repair.
    ("every unresolved item gets a class" with no home for decided items) —
    recorded as a procedure defect in § 4, with the one-line `intake` fix
    deliberately left to the round that next amends the skill.
+
+**Codex round 2 (head `fc19ea4`; the capped final round): 5 inline comments —
+2 are verbatim re-posts of round-1 findings whose dispositions stand, 3 are
+new (1 P1 · 2 P2): 2 `[conceded]` · 1 `[partial]`, each verified against
+source; fixes land with dispositions named and no third review, per the
+two-round cap:**
+
+1. `[conceded]` P2 — `verify_citations.py` broke with `--exact` before the
+   positional args (`IsADirectoryError`, reproduced verbatim). Argv parsing
+   made order-independent; all eight pass totals re-run identical.
+2. `[partial]` P1 — A1's ESTABLISHED cites `disbot/config.py:111`, absent
+   from the snapshot and omitted from the TSVs. Conceded: the enumeration was
+   scorer-chosen and missed it — coverage caveat now in § 3.1 and the tally.
+   Declined the A3 equivalence with evidence: the pinned source A1 cites
+   carries that exact pointer at `playtest…:120` (verified), so A1 reproduced
+   its source's own cross-repo reference; A3 appended a range its source does
+   not carry. Adjudicated non-defect with the reason recorded; substance
+   totals unchanged.
+3. `[conceded]` P2 — the 💡 mechanism sizing still said 7/222 after the
+   round-1 recount; now 12/222 catchable + 1 flaggable, miscount excluded.
+4. Re-post of round-1 #2 (ESTABLISHED denominator): the offered relabel
+   remedy is what landed in `fc19ea4`; the quoted "advertised 221/222
+   ESTABLISHED" no longer exists at that head. Disposition stands.
+5. Re-post of round-1 #6 (OPEN discipline): instances counted in § 3.1, the
+   procedure ambiguity recorded in § 4, `[partial]` disposition stands.
 
 Layer-2 handoff: null (fleet-manager itself; no satellite repo attached)
 

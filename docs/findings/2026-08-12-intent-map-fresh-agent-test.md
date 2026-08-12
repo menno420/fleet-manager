@@ -210,6 +210,18 @@ B2, same doubled range) — plus the five the exact pass exposed: claims at
 The per-agent partition of rows into column-sets is derived in the evidence
 folder's README, from each report's own section structure.
 
+**Enumeration coverage, named after round 2 caught its limit:** the TSV rows
+are scorer-enumerated from each report, not mechanically exhaustive, and Codex
+round 2 found one citation the enumeration omitted — A1's ESTABLISHED quotes
+`disbot/config.py:111`, a superbot-repo path that cannot resolve inside the
+fleet-manager snapshot. Adjudicated **non-defect with the reason recorded**:
+the pinned source A1 cites carries that exact pointer verbatim
+(`playtest…:120` — *"| Extensions | **61 loaded** (`disbot/config.py:111`) |"*),
+so A1 reproduced its cited source's own cross-repo reference — materially
+unlike A3's overreach, where the appended range does not carry the fact. The
+row is enumerated in the evidence folder with that adjudication; a
+fully-mechanical row extractor is part of the cite-check candidate in § 4.
+
 The two entries worse than imprecise, both A3's, both in ESTABLISHED:
 
 - **The citation-overreach.** A3's E16 states a true fact (Gemini once

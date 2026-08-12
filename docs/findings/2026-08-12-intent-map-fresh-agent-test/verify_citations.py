@@ -10,6 +10,7 @@ MISSING-FILE / NO-MATCH otherwise.
 import sys, pathlib
 
 TOL = 0 if "--exact" in sys.argv else 3
+ARGS = [a for a in sys.argv[1:] if a != "--exact"]
 
 def main(root, tsv):
     root = pathlib.Path(root)
@@ -41,4 +42,4 @@ def main(root, tsv):
     print(f"== {npass}/{len(rows)} PASS")
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2])
+    main(ARGS[0], ARGS[1])

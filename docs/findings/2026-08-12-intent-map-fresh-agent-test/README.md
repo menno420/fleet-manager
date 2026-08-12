@@ -87,7 +87,21 @@ report's own structure:
   `program 151-152` (MAP TO METHOD) · `program 172`, `program 173`
   (DECISIONS FLAGGED) → ESTABLISHED 24
 
+**Round-2 addition — one citation the enumeration omitted** (Codex): A1's
+ESTABLISHED quotes `disbot/config.py:111` inside the "61 loaded extensions"
+claim. The path is a superbot-repo location and does not exist in the pinned
+fleet-manager snapshot — but the pinned source A1 cites carries the pointer
+verbatim (`2026-08-05-playtest-discord-and-superbot-value.md:120`), so this is
+the agent reproducing its source's own cross-repo reference, not appending
+support the source lacks (the A3 condition). Adjudicated non-defect with this
+reason; counted as an enumeration-coverage caveat, and the row is not addable
+to the TSVs as a checkable range because its file is outside the snapshot by
+construction. `verify_citations.py` also gained order-independent argument
+parsing in round 2 (`--exact` first previously raised `IsADirectoryError`);
+all eight pass totals re-run identical after the fix.
+
 Final tally used by the finding: **222 rows (188 ESTABLISHED · 34 other) ·
 221 substance-correct (ESTABLISHED subset 187/188) · 11 exact-range
 attribution imprecisions · 1 citation-overreach · 1 ESTABLISHED factual
-miscount · 0 fabricated facts · 0 invented OPEN entries.**
+miscount · 1 unenumerable cross-repo citation (adjudicated non-defect) ·
+0 fabricated facts · 0 invented OPEN entries.**
