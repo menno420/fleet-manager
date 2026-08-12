@@ -1,0 +1,55 @@
+A2	docs/findings/2026-08-05-superbot-next-live-audit.md	8-14	cog by cog
+A2	docs/findings/README.md	33	review
+A2	docs/planning/2026-07-26-consolidation-program.md	26	live testing gates the cutover
+A2	.claude/CLAUDE.md	99-103	live
+A2	docs/fleet-account-2026-07-26.md	146	behavioral oracle
+A2	docs/findings/2026-08-05-playtest-discord-and-superbot-value.md	125-143	archived
+A2	docs/findings/2026-08-05-superbot-next-live-audit.md	316-351	no game features
+A2	docs/findings/2026-08-05-playtest-discord-and-superbot-value.md	172-176	noise
+A2	docs/findings/2026-08-05-superbot-next-live-audit.md	209-227	genuinely better-founded
+A2	docs/findings/2026-08-05-superbot-next-live-audit.md	144-161	327
+A2	docs/findings/2026-08-05-superbot-next-live-audit.md	44-58	CAPTURE-WORLD
+A2	docs/findings/2026-08-05-superbot-next-live-audit.md	120-138	golden
+A2	docs/findings/2026-08-05-superbot-next-live-audit.md	229-314	navigation graph
+A2	docs/findings/2026-08-05-superbot-next-live-audit.md	238-241	taps
+A2	docs/findings/2026-08-05-superbot-next-live-audit.md	353-372	harness
+A2	docs/findings/2026-08-05-superbot-next-live-audit.md	402-425	recipe
+A2	docs/findings/2026-08-05-superbot-next-live-audit.md	374-400	skipped
+A2	.sessions/2026-08-05-superbot-next-live-audit.md	15-20	architectural debt
+A2	.sessions/2026-08-05-superbot-next-live-audit.md	74-88	wrong claims
+A2	docs/conventions/vertex-first-for-gemini.md	3-8	rest of this month
+A2	docs/conventions/vertex-first-for-gemini.md	39-45	session card
+A2	docs/conventions/vertex-first-for-gemini.md	47-115	aiplatform
+A2	docs/conventions/vertex-first-for-gemini.md	142-146	googleSearch
+A2	.claude/CLAUDE.md	56-63	Vertex
+A2	docs/decisions.md	21-39	without asking
+A2	docs/decisions.md	41-55	credential
+A2	docs/findings/2026-08-05-gemini-delegation.md	18-48	250
+A2	docs/findings/2026-08-05-gemini-delegation.md	120-122	train
+A2	docs/reading-path.md	17	pokemon-mod-lab
+A2	docs/providers/gemini.md	443-455	Deep Research
+A2	.claude/CLAUDE.md	17-31	owner-queue
+A2	docs/current-state.md	213-218	read this if you read nothing else
+A2	docs/reading-path.md	11-27	attach
+A2	docs/CAPABILITIES.md	884-887	launched for
+A2	docs/CAPABILITIES.md	695-700	wake
+A2	docs/findings/2026-08-05-playtest-discord-and-superbot-value.md	114	clone
+A2	.claude/CLAUDE.md	36-38	real exit codes
+A2	docs/planning/2026-07-26-consolidation-program.md	128-129	live surface beats
+A2	docs/owner-profile.md	11	non-coder
+A2	docs/owner-profile.md	15	agent reports
+A2	docs/owner-reflection-2026-07-21.md	130	Decide, don
+A2	README.md	3-6	records
+A2	docs/findings/README.md	1-8	archivable
+A2	.claude/CLAUDE.md	83	prompt-preflight
+A2	docs/SKILLS-local.md	44-46	prompt
+A2	docs/planning/2026-07-26-consolidation-program.md	28	never delete
+A2	docs/planning/2026-07-26-consolidation-program.md	31	Pace: slow
+A2	docs/planning/2026-07-26-consolidation-program.md	98	worker
+A2	docs/planning/2026-07-26-consolidation-program.md	139-140	production-bot
+A2	docs/planning/2026-07-26-consolidation-program.md	66-72	owner-reserved
+A2	docs/findings/2026-08-05-superbot-next-live-audit.md	69-70	no cogs at all
+A2	docs/findings/2026-08-05-playtest-discord-and-superbot-value.md	201-239	command_routing
+A2	docs/findings/2026-08-05-superbot-next-live-audit.md	12-14	re-deriv
+A2	docs/planning/2026-07-26-consolidation-program.md	90	fresh-session
+A2	docs/planning/2026-07-26-consolidation-program.md	106	conformance
