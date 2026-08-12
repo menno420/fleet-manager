@@ -168,6 +168,18 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 
 ## Recently shipped (newest first)
 
+- **Roadmap § 4.8's producer half ran — the fresh-scorer half stays open**
+  (2026-08-12, fm #851):
+  [the test finding](findings/2026-08-12-intent-map-fresh-agent-test.md) — five
+  fresh agents, ask-time snapshot trees, rubric committed before any output was
+  read, scored by the running session (the recorded bar is produce **and**
+  score). **221/222 checked citations substance-correct · 0 invented OPEN · 0
+  silent HIGHs · 0 false alarms · verdict PARTIAL** (one citation-overreach,
+  one miscount, eleven exact-range imprecise line-cites). The walkthrough's one
+  HIGH dissolved under fresh retrieval — the ask-time tree already answered
+  it — so the HIGH-ask branch is now demonstrated by no committed case, and
+  the dominant defect class (imprecise cites) is mechanically checkable.
+
 - **The chat-only residue of the audit session committed** (2026-08-11, fm #845):
   three things that existed nowhere in the tree. **`[D-0016]`** — the owner's
   directive that work is sized by what is properly done, never by pull-request
@@ -327,9 +339,10 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   [findings/2026-08-09-intent-map-replay.md](findings/2026-08-09-intent-map-replay.md)
   — **0 clean catches · 1 partial · 1 correction-handled · 1 HIGH surfaced · 7
   correct silences · 0 false alarms.** **That is an author walkthrough, not the
-  § 4.8 test**, which requires a *fresh* agent to score the maps; the prescribed
-  test is outstanding, and Codex established on fm #830 that disclosing the bias
-  does not substitute for it. **The partial is the result that matters** — in the
+  § 4.8 test**, which requires a *fresh* agent to score the maps; the test's
+  producer half ran 2026-08-12 (fm #851 — entry above), its fresh-scorer half
+  remains outstanding, and Codex established on fm #830 that disclosing the
+  bias does not substitute for it. **The partial is the result that matters** — in the
   one ask that went wrong, intent was already understood correctly and lost
   downstream anyway, so an intent map does not protect intent past itself. Also
   worth carrying: the estate's clearest misread (`Pace: slow.`) **cannot be

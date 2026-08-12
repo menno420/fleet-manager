@@ -73,3 +73,33 @@
   triaged: 2026-07-21
   by: session-fm-16z-cycle
   verdict: false_positive
+# Three findings fired by the § 4.8 fresh-agent test's raw evidence folder
+# (fm #851): the five agent reports are VERBATIM records of what fresh
+# subagents returned — the finding they evidence scores those reports, so
+# rewording them would corrupt the measurement (same class as the quoted
+# heartbeat/lane evidence above). D-0011/D-0012 appear in them as citations
+# the agents made to docs/decisions.md (mention as scored evidence, not new
+# fm stamp homes); fm's stamps stay at docs/decisions.md.
+- path: findings/2026-08-12-intent-map-fresh-agent-test/agent-A1.md
+  kind: stamp
+  reason: "D-0011 here is a fresh test agent's citation of docs/decisions.md, quoted verbatim as scored evidence for the § 4.8 finding — not a second fm stamp home; rewording the raw report would corrupt the measurement it evidences"
+  triaged: 2026-08-12
+  by: session-intent-map-fresh-agent-test
+  verdict: false_positive
+- path: findings/2026-08-12-intent-map-fresh-agent-test/README.md
+  kind: stamp
+  reason: "D-0012 appears in the adjudication table quoting agent A1's citation of docs/decisions.md and in the verbatim agent reports this folder preserves — scored evidence for the § 4.8 finding, not a second fm stamp home"
+  triaged: 2026-08-12
+  by: session-intent-map-fresh-agent-test
+  verdict: false_positive
+# Agent A2's report quotes the pinned 2026-08-05 tree's CAPABILITIES row about
+# the wake-venue add_repo classifier denial ("classifier-denied ~1-in-2") as
+# retrieved ESTABLISHED evidence. That is the historical snapshot's own text,
+# quoted; not a wall this session is recording. The live ledger's treatment of
+# that row is unchanged by this folder.
+- path: docs/findings/2026-08-12-intent-map-fresh-agent-test/agent-A2.md
+  kind: "false-wall:classifier-denied-standing"
+  reason: "verbatim fresh-agent report quoting the pinned 2026-08-05 tree's CAPABILITIES wording as retrieved evidence (the § 4.8 test scores exactly this text); a quoted historical snapshot row, not a new wall claim — the live CAPABILITIES ledger is untouched"
+  triaged: 2026-08-12
+  by: session-intent-map-fresh-agent-test
+  verdict: false_positive
