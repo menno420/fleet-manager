@@ -1,6 +1,11 @@
 # 2026-08-12 · hub — run roadmap § 4.8's fresh-agent test of the Phase 2 intent map
 
-> **Status:** `in-progress`
+> **Status:** `complete`
+
+*(Flip note, per the review-exemption clause: Codex round 2 — the capped
+final round — reviewed `fc19ea4`; `368bfca` carries the two conceded and one
+partial round-2 fixes with dispositions posted on the PR; this flip commit
+changes this badge, this note, and the telemetry delta. Nothing else.)*
 
 - **📊 Model:** fable-5 · high · review/verify — run the prescribed § 4.8
   fresh-agent test of the Phase 2 intent map: fresh subagents produce maps over
