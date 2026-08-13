@@ -77,6 +77,12 @@ below keeps them apart. A fluent paragraph is not the goal and never was.
    - **HIGH** — changes product intent, scope, ownership, irreversibility, or the
      definition of success. **Ask.** Never resolve a HIGH silently.
 
+   **A decided LOW or MEDIUM item reports under DECISIONS FLAGGED (or the run
+   report), never under OPEN** — OPEN holds only what cannot safely be derived.
+   Measured 2026-08-12 (§ 4.8 test, fm #851 § 4): three of five fresh maps
+   parked decided items in OPEN because this step classified "every unresolved
+   item" without saying where decided ones report.
+
    Then answer the sufficiency test out loud — *can I state the outcome, the
    relevant existing intent, the constraints, the non-goals and the definition of
    success, without silently resolving any HIGH?* — and print one of:
