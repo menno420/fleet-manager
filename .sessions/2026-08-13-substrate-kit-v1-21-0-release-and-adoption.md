@@ -88,7 +88,21 @@ and the program §7 / current-state ledger updates.
       designed born-red hold (preflight added-card lane, new dist) ·
       `tools/check_no_false_walls.py --strict` exit 0 ·
       `bash scripts/repo_checks.sh` exit 0
-- [ ] Codex review at the exact head; dispositions recorded here
+- [x] Codex at head `daf5b7c` — **5 inline P2s, every one against the
+      VENDORED v1.21.0 dist, none against the adoption's own changes**: the
+      sentinel anchor misses interpreter options (new, degrades to the old
+      behaviour); the advisory-promotion posture contradiction, the
+      `check_claim_provenance` docs_root hard-code and the `check_boot_path`
+      router-inference gap (all three pre-existing on kit main since
+      #565/#579 — first non-author read happened here); and the
+      subordinator-severed quoted-repudiation FP class (new, the defect-7
+      fix's price, self-announcing, 0 live corpus hits). **Disposition: the
+      fm #833 doctrine — nothing patched in the vendored copy** (a local
+      patch forks the adopter and evaporates at the next upgrade); all five
+      + this session's own kit-test-regex residue are recorded as the next
+      kit session's worklist:
+      `docs/findings/2026-08-13-substrate-kit-v1210-followups.md`. None
+      regresses v1.21.0 below v1.20.2 for fm; the adoption stands.
 
 ## Flagged, not done (structural follow-up)
 
