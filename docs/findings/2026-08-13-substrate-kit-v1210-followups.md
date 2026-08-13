@@ -22,6 +22,24 @@
 | 4 | `bootstrap.py:4533` (`check_boot_path`, #579) | infers the agreement via `agreement_home()` file-existence instead of parsing the router's committed pointer — a stale pointer at a missing `.claude/CLAUDE.md` passes when `CONSTITUTION.md` happens to have a boot section, the exact original failure class | **pre-existing since #579** | advisory and deliberately un-gated (its own changelog entry: 11/11 adopters red, hand-edit fix) |
 | 5 | `bootstrap.py:5485` (`_CLAUSE_SEP` subordinators + mention region) | a subordinated repudiation ABOUT a quoted mention is severed from it: `The "agents cannot merge" rule is not a wall because it was superseded` stays clear (cue precedes the subordinator), but a predicate carried INSIDE the subordinate clause (`…rule because it is superseded`) now reds where v1.20.2 cleared | **new in v1.21.0** (the defect-7 fix's price) | a false POSITIVE — self-announcing, the cheap direction by the checker's own doctrine; corpus A/B measured 0 newly-flagged lines across both repos' live docs |
 
+## Two more, from the phase-3 wave (Codex, websites #499 R1, 2026-08-13)
+
+The same mechanism ran a third time — Codex reading the vendored v1.21.0 in
+an adoption diff — and returned five findings on websites #499: rows 3 and 4
+above **re-found independently** (cross-adopter confirmation, same sites),
+one adopter-local divergence (seat-digest listing `continuation-prompt` while
+the consumer-untouched `docs/SKILLS.md` predated it — resolved on websites
+the kit-sanctioned way, `upgrade --apply-docs`), and two NEW dist defects,
+recorded here per the same doctrine (nothing patched in a vendored copy):
+
+| # | site (vendored v1.21.0) | defect | provenance | why the adoptions stand |
+|---|---|---|---|---|
+| 6 | `bootstrap.py:18946` (`_promote_gate_ready`) | **P1** — folds `check_enforcement_strength`'s `strength_advisories` into the exit-affecting promoted set, while that checker's own contract and remediation text promise advisory-only; an adopter deliberately keeping a simpler hand-rolled gate would red every `check --strict` after upgrading | **new in v1.21.0** (the promotion batch) | did not bite websites — its hand-rolled `quality` gate ran `check --strict` to exactly the designed born-red hold this session (`MEASURED`); the fresh 12-adopter sweep measured 0 promoted-site findings |
+| 7 | `bootstrap.py:5736` (`_mention_region`) | region boundary taken from the blocklist-match span rather than the enclosing quote — a separator INSIDE the quote (`"…cannot merge when checks fail"`, `"…cannot merge and deploy"`) ends the region early, severing the attached repudiation and redding valid prose | **new in v1.21.0** (the defect-6/7 region logic's second price, beside row 5) | false-POSITIVE direction, self-announcing; corpus A/B measured 0 newly-flagged live lines on both phase-2 repos and websites' tree reds nothing |
+
+Row 6 joins row 2 at the top of the fix order — same family (promotion
+contradicting the advisory contract), and the only exit-affecting class here.
+
 ## Residue this session found itself (not Codex)
 
 - **The kit's `tests/test_skills_index_install_contract.py` guard regex is
