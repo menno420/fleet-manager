@@ -40,6 +40,21 @@ recorded here per the same doctrine (nothing patched in a vendored copy):
 Row 6 joins row 2 at the top of the fix order — same family (promotion
 contradicting the advisory contract), and the only exit-affecting class here.
 
+**Round 2 on the same PR returned six more (websites #499, head `86a9554`,
+all P2, all in the dist, none in the round's own diff):**
+
+| # | site (vendored v1.21.0) | defect | provenance |
+|---|---|---|---|
+| 8 | `bootstrap.py:18945` + `:18948` | two more promoted families violating their checkers' own contracts — `template_sync_advisories` (the checker explicitly allows deliberate divergence with no machine-readable acceptance) and `fastlane_symmetry_advisories` (the checker's documented version-skew tolerance calls a required-check red in that window a fleet bomb) — same class as row 6; the promoted-set membership needs a contract review as one unit | new in v1.21.0 (the promotion batch) |
+| 9 | `bootstrap.py:27710` | the designed-hold predicate evaluates PRE-promotion `doc_findings`, so an in-progress card plus any gate-ready advisory prints "nothing to investigate" and then reds for the promoted finding — a directly contradictory CI diagnosis; same family as row 2 (`:27733`) | new in v1.21.0 |
+| 10 | `bootstrap.py:27708` | `--gate-preview` combined with `--strict` falls through to the ordinary strict return path and exits 1 on any existing violation, contradicting the CLI contract that the preview "always exits 0" — fleet-sweep automation stops on the first non-clean adopter | new in v1.21.0 |
+| 11 | `bootstrap.py:4560` | `check_boot_path`'s agreement `read_text` is unguarded — an existing-but-unreadable agreement raises `OSError` and crashes the whole `check` invocation instead of failing open like the sibling checker | pre-existing since #579 |
+| 12 | `bootstrap.py:4500` | boot-entry anchor fragments (`docs/current-state.md#recently-shipped`) are captured as part of the filename, so an anchored existing doc emits `boot-path-unresolved`; anchored ROOT docs are not captured at all — strip and validate `#fragment` separately | pre-existing since #579 |
+
+Rows 8–12 carry the websites #499 Codex threads verbatim; the two-round cap
+was reached there with zero adopter-side changes owed (the only round-2-scoped
+change had already landed as the `--apply-docs` refresh).
+
 ## Residue this session found itself (not Codex)
 
 - **The kit's `tests/test_skills_index_install_contract.py` guard regex is
