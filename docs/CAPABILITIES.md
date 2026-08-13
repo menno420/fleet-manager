@@ -171,6 +171,24 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-13 · capability · `owner-live` · **The remote-container egress layer
+  scopes PRIVATE repos to the session's added set — and `add_repo` with read
+  access lifts it in one call; public repos flow on every path with no add at
+  all.** Even DIRECT (NO_PROXY) traffic to `api.github.com` is intercepted:
+  a private repo outside the set returns HTTP 403 with body *"GitHub access
+  to this repository is not enabled for this session. Use add_repo to request
+  access."* — a scoping response, not a credential or classifier wall, and not
+  the older proxied-REST 403 quirk (that one names the proxy). Consequence for
+  `currency` runs: every private adopter must be in the session's repo set or
+  its row writes `unreadable`. · evidence: this session — pokemon-mod-lab (the
+  estate's one private adopter) 403'd on all four transports with
+  `GITHUB_TOKEN` set and `NO_PROXY=api.github.com,…` exported (replayed via
+  urllib, body captured verbatim); after `add_repo` read, the same `currency`
+  invocation read it clean (`v1.15.0` row, stamp `2026-08-13T19:23:46Z`).
+  Every PUBLIC repo probed all session (superbot, superbot-next, websites
+  pre-add, blocksds/sdk) answered without being in the set. · workaround:
+  `add_repo` each private target before regen — read access suffices for
+  registry work. — LAST-VERIFIED: 2026-08-13
 - 2026-08-13 · capability · `owner-live` · **Harness subagents receive the project
   boot file as a snapshot captured at session start — a working-tree edit to
   `.claude/CLAUDE.md` mid-session does NOT change what a later-spawned subagent
