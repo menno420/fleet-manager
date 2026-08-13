@@ -42,8 +42,7 @@ copy product architecture or internal product state. Canonical intent:
   ones (OD-15; re-target pending at `OQ-FM-D2-TARGET`). Until he names the next
   repository, the standing answer to "what should a session pick up" is **OD-13**:
   methods/enforcement (the roadmap's Phases 2–3) and the multi-provider mix.
-- fleet-manager vendors substrate-kit v1.20.2. The dedicated v1.21.0 release
-  session and its recorded upstream defects are separate from D2.
+- fleet-manager vendors substrate-kit v1.21.0 (fm #853)
 - Whether a root `AGENTS.md` should make the neutral front door auto-load is an
   owner decision. D2 measures the no-`AGENTS.md` path; this session does not add
   one.
@@ -168,13 +167,16 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 
 ## Recently shipped (newest first)
 
-- **§ 4.8's fresh-scorer half ran — blind scorers confirm PARTIAL**
-  (2026-08-13, fm #852):
-  [the finding](findings/2026-08-13-intent-map-fresh-scorer.md) — the
-  produce-**and**-score bar is met. Two blind scorers returned **PARTIAL ×2:
-  0 fabrications · 0 invented OPEN · 0 silent HIGHs · 0 false alarms**, four
-  named bends and one miss in the prior scoring, imprecision counts
-  scorer-relative (4–11).
+- **substrate-kit v1.21.0 — cut, published, adopted** (2026-08-13, kit #581
+  + fm #853): seven-defect worklist closed, re-apply tax ended. Record:
+  program §7 + session card.
+
+
+- **§ 4.8's fresh-scorer half ran — blind scorers confirm PARTIAL ×2, the
+  produce-and-score bar is met** (2026-08-13, fm #852):
+  [the finding](findings/2026-08-13-intent-map-fresh-scorer.md) carries the
+  scorer-independent zeros, the four named bends in the prior scoring, and
+  the scorer-relative imprecision counts.
 
 - **Roadmap § 4.8's producer half ran — the scorer half followed, fm #852**
   (2026-08-12, fm #851):

@@ -150,8 +150,29 @@ def probe_skills_install_contract(path: str) -> dict:
             )
             staged = glob.glob(os.path.join(target, ".substrate", "skills", "*", "SKILL.md"))
             live = glob.glob(os.path.join(target, ".claude", "skills", "*", "SKILL.md"))
+        # `claim` counts INSTALL-CLAIM contexts, not raw command occurrences.
+        # The raw count stopped discriminating in v1.21.0: the corrected
+        # template legitimately shows the command as step one of the honest
+        # copy-loop recipe, so `dist_text.count("python3 bootstrap.py skills
+        # --build")` returns 1 on a FIXED dist too. The defect was never the
+        # command's presence — it was the sentence calling that command the
+        # install ("install with `python3 bootstrap.py skills --build`").
+        # Same pattern the kit's own contract test pins
+        # (tests/test_skills_index_install_contract.py).
         return {
-            "claim": dist_text.count("python3 bootstrap.py skills --build"),
+            # NOT `[^.]` in the gap: the period in "bootstrap.py" sits
+            # between "install with" and "skills --build" in the very defect
+            # text this counts, so a dot-excluding gap can never match it —
+            # measured claim=0 on the v1.20.2 dist that HAS the claim. The
+            # 100-char budget keeps the pairing local instead.
+            "claim": len(
+                re.findall(
+                    r"install\s+with[\s\S]{0,100}?skills\s+--build",
+                    dist_text,
+                    re.I,
+                )
+            ),
+            "cmd_mentions": dist_text.count("python3 bootstrap.py skills --build"),
             "init": init.returncode,
             "build": build.returncode,
             "staged": len(staged),
@@ -164,7 +185,8 @@ def probe_skills_install_contract(path: str) -> dict:
 def _skills_result(result: dict) -> str:
     if result.get("error"):
         return f"ERROR({result['error'][:60]})"
-    return (f"claim={result['claim']},init={result['init']},build={result['build']},"
+    return (f"claim={result['claim']},cmd_mentions={result.get('cmd_mentions', '?')},"
+            f"init={result['init']},build={result['build']},"
             f"staged={result['staged']},live={result['live']}")
 
 
@@ -219,7 +241,9 @@ def main(argv=None) -> int:
     print("  skills install contract (kit defect 5)")
     print(f"    old: {_skills_result(skills_old)}")
     print(f"    new: {_skills_result(skills_new)}")
-    print("    want: command exits 0 AND live>0; claim should not describe staging as install")
+    print("    want: claim=0 (no sentence calls `skills --build` the install) while the")
+    print("    staging behaviour itself is unchanged by design (build exits 0, staged>0,")
+    print("    live=0 — no kit command writes .claude/; the documented install is the host copy loop)")
 
     print(f"\n{differs} scanner behaviour change(s) between the two dists.")
     print("Seven defect probes ran: six scanner defects plus one command/template contract.")

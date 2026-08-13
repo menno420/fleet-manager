@@ -145,13 +145,28 @@ reporting a fix that fixed nothing.
 
 ## Generated-file corrections to re-apply (kit-owned, clobbered at upgrade)
 
-These live in files the kit regenerates, so they are lost at the next upgrade
-and belong on this list beside the skills above.
+**This table is EMPTY as of v1.21.0 (2026-08-13) — both rows it carried are
+durably fixed and were verified against the regenerated files, not assumed:**
+
+- **The three `substrate-gate.yml` corrections ship in the kit's generator
+  now** (kit #581): the regenerated workflow was diffed after the v1.21.0
+  upgrade and carries the `env:` block on the claims-only guard, the
+  `--session-log` sentinel on the verify-suite step, and a planted
+  `repo checkers` extension step that runs the host-owned
+  `scripts/repo_checks.sh` (this repo's two checkers live THERE now — the
+  kit never writes `scripts/`, so no upgrade can drop the wiring again).
+- **The capability-seed retraction is upstream** (kit #581 rewrote the three
+  route-quirk wall rows as direct-credential route facts), and the v1.21.0
+  upgrade additionally MEASURED that fm's fence was never at risk the way
+  the old row feared: `docs/CAPABILITIES.md` classifies `consumer-edited`
+  (it is heavily locally edited), and `apply_doc_improvements()` writes only
+  consumer-untouched docs — so the upgrade left fm's hand-struck RETRACTED
+  rows byte-intact. The kit-side fix matters for FRESH adopts and
+  consumer-untouched trees; fm's own fence keeps its local corrections.
 
 | file | correction | why |
 |---|---|---|
-| `.github/workflows/substrate-gate.yml` | the `repo checkers` step · the `--session-log` sentinel on the verify-suite step · the `env:` block on the claims-only guard | `bootstrap.py:20048` rewrites this file unconditionally. Without the first, neither checker runs in CI; without the second, a `main` push can select a historical `in-progress` card by mtime and go falsely red; without the third, a PR-author-chosen branch name is interpolated into shell and can `exit 0` past the guard (all three: Codex, fm #833) |
-| `docs/CAPABILITIES.md` (inside the `capability-seed` fence) | the three **RETRACTED** wall rows — tag push/release create, branch deletion, `api.github.com` (2026-08-11, the audit's headline finding 2) | the rows sit **inside** the kit-owned seed fence, which "refreshes at upgrade between the fence markers" per the fence's own note — an upgrade may restore the false walls the append log at `:775`/`:888` refutes. If restored: re-strike them, or verify the kit seed itself was fixed (the durable fix, filed for v1.21.0). `docs/seat-digest.md`'s walls digest is a derived render of the same rows — regenerated 2026-08-11 from the corrected ledger, so it carries the retractions; if an upgrade reverts the seed rows, a `seat-digest` regen re-propagates the stale rows there too, so re-check both |
+| *(none)* | — | — |
 
 **`docs/SKILLS.md` is NOT on this list, and the reason corrects an error of
 mine.** A first version of this table listed it as upgrade-clobbered, reasoning
@@ -169,8 +184,8 @@ path, and conflating the two is what put SKILLS.md here.
 "re-applying" a correction that was never lost, then reporting it done. Caught by
 Codex (fm #833, P2), inside the very table built to prevent that class.
 
-**The durable fix for the workflow rows is upstream in the kit**, not here —
-filed for the v1.21.0 session.
+**The durable fix for the workflow rows landed upstream in v1.21.0**
+(kit #581, adopted here 2026-08-13) — which is what emptied the table above.
 
 **How this was found is the argument for the warning existing at all:** Codex
 caught it on fm #830 (P1). This section's author had read this very paragraph
