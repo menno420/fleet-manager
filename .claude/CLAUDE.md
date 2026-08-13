@@ -84,8 +84,8 @@ test; do not confuse the two.
    `docs/planning/2026-08-08-agent-operating-environment-roadmap.md` — his
    architecture decisions taken live 2026-08-08, in three phases: retrieval +
    orientation (landed, fm #826) · intent resolution (first slice landed, fm #830;
-   § 4.8's producer half run 2026-08-12, fm #851 — PARTIAL; the fresh-scorer
-   half still outstanding) · the common operating protocol (not started). **This entry exists because the roadmap appeared in neither this file
+   § 4.8 run in full — producer half fm #851, blind-scorer half fm #852,
+   PARTIAL confirmed 3/3 scorings) · the common operating protocol (not started). **This entry exists because the roadmap appeared in neither this file
    nor `README.md` until 2026-08-10**, while `current-state.md` carried it *below*
    its own "preserved, not current" banner — so a session walking this path met a
    plan from 2026-07-26 and never learned a newer direction had been set two weeks

@@ -1,0 +1,67 @@
+# A3 citation rows — built by scorer from inputs/maps/agent-A3.md; pin = pins/pinA
+A3-EST	.claude/CLAUDE.md	17-31	docs/owner-queue.md
+A3-EST	docs/findings/2026-08-05-superbot-next-live-audit.md	8-14	disbanding or rebuilding the project and plans multiple independent reviews
+A3-EST	docs/planning/2026-07-26-consolidation-program.md	26	behavioral oracle
+A3-EST	docs/fleet-account-2026-07-26.md	146	frozen
+A3-EST	docs/planning/2026-07-26-consolidation-program.md	109	adapters are actually built
+A3-EST	docs/findings/2026-08-05-superbot-next-live-audit.md	333-339	casino
+A3-EST	docs/findings/2026-08-05-playtest-discord-and-superbot-value.md	116-143	reliable-grace
+A3-EST	docs/findings/2026-08-05-playtest-discord-and-superbot-value.md	116-143	84
+A3-EST	docs/findings/2026-08-05-playtest-discord-and-superbot-value.md	116-143	archived=false
+A3-EST	docs/findings/2026-08-05-superbot-next-live-audit.md	64-91	compiled manifests
+A3-EST	docs/findings/2026-08-05-superbot-next-live-audit.md	64-91	58
+A3-EST	docs/findings/2026-08-05-superbot-next-live-audit.md	229-264	navigation graph
+A3-EST	docs/findings/2026-08-05-superbot-next-live-audit.md	229-264	zero buttons
+A3-EST	docs/findings/2026-08-05-superbot-next-live-audit.md	121-138	measured the wrong property
+A3-EST	docs/findings/2026-08-05-superbot-next-live-audit.md	209-227	genuinely better-founded
+A3-EST	docs/findings/2026-08-05-superbot-next-live-audit.md	353-372	harness question
+A3-EST	docs/findings/2026-08-05-superbot-next-live-audit.md	402-425	recipe
+A3-EST	docs/findings/2026-08-05-superbot-next-live-audit.md	374-394	required boot files
+A3-EST	.sessions/2026-08-05-superbot-next-live-audit.md	72-88	minutes
+A3-EST	.sessions/2026-08-05-superbot-next-live-audit.md	15-20	architectural debt
+A3-EST	docs/conventions/vertex-first-for-gemini.md	1-8	251.37
+A3-EST	docs/conventions/vertex-first-for-gemini.md	1-8	at least for the rest of this month
+A3-EST	docs/conventions/vertex-first-for-gemini.md	37-45	GEMINI_API_KEY_PAID
+A3-EST	docs/conventions/vertex-first-for-gemini.md	142-146	card
+A3-EST	docs/decisions.md	21-39	capped
+A3-EST	docs/CAPABILITIES.md	136-148	Vertex
+A3-EST	docs/CAPABILITIES.md	136-148	3.1
+A3-EST	docs/conventions/vertex-first-for-gemini.md	47-115	aiplatform.googleapis.com
+A3-EST	docs/findings/2026-08-05-gemini-delegation.md	34-48	delegate the reading, never the record
+A3-EST	docs/CAPABILITIES.md	179-194	gemini_delegate
+A3-EST	docs/findings/2026-08-05-gemini-delegation.md	34-48	18
+A3-EST	docs/findings/2026-08-05-gemini-delegation.md	120-123	train
+A3-EST	docs/findings/2026-08-05-gemini-delegation.md	120-123	support.google.com
+A3-EST	docs/findings/README.md	30	URL
+A3-EST	docs/providers/gemini.md	443-455	Deep Research
+A3-EST	docs/owner-reflection-2026-07-21.md	35-49	the wall is verification, not capability
+A3-EST	docs/owner-reflection-2026-07-21.md	125-141	Decide
+A3-EST	docs/owner-reflection-2026-07-21.md	214-218	verification, not more shipping
+A3-EST	docs/fleet-account-2026-07-26.md	5-12	agent-written distortions
+A3-EST	CONSTITUTION.md	49-60	A record is a claim
+A3-EST	docs/reading-path.md	11-27	pokemon-mod-lab
+A3-EST	docs/reading-path.md	11-27	attach + clone
+A3-EST	.claude/CLAUDE.md	3-4	hub and records home
+A3-EST	docs/findings/README.md	1-8	dated
+A3-EST	docs/fleet-account-2026-07-26.md	40-46	278
+A3-EST	.claude/CLAUDE.md	99-103	live owner outranks
+A3-EST	docs/planning/2026-07-26-consolidation-program.md	60-72	E1
+A3-EST	docs/owner-profile.md	11	non-coder
+A3-EST	docs/owner-reflection-2026-07-21.md	186-199	default
+A3-EST	docs/decisions.md	41-55	publish
+A3-EST	docs/fleet-account-2026-07-26.md	152-158	OWNER-DECISIONS-2026-07-18
+A3-EST	docs/fleet-account-2026-07-26.md	152-158	602
+A3-EST	docs/owner-queue.md	516-518	OQ-NEXT-MERGE-QUEUE
+A3-EST	docs/owner-queue.md	634-635	OQ-NEXT-CURATION-RATIFICATIONS
+A3-DER	docs/findings/2026-08-05-playtest-discord-and-superbot-value.md	196-243	command_routing
+A3-NG	docs/planning/2026-07-26-consolidation-program.md	136-140	No production-bot changes outside R7
+A3-NG	docs/planning/2026-07-26-consolidation-program.md	28	Archive, never delete
+A3-NG	.claude/CLAUDE.md	21-23	re-derive
+A3-MTM	.claude/CLAUDE.md	85	intake
+A3-MTM	docs/findings/2026-08-05-superbot-next-live-audit.md	356-360	boot
+A3-MTM	docs/planning/2026-07-26-consolidation-program.md	90	truth pass
+A3-MTM	docs/planning/2026-07-26-consolidation-program.md	106	conformance
+A3-MTM	docs/SKILLS-local.md	42-56	delegate-read
+A3-MTM	docs/findings/2026-08-05-gemini-delegation.md	111	corpus
+A3-MTM	docs/execution-surfaces.md	1-21	surface
+A3-MTM	docs/findings/README.md	1-8	index

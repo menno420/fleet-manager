@@ -1,0 +1,64 @@
+# Agent A3 — pin pinA. Section tags: E=ESTABLISHED (E1..E27), D=DERIVED, N=NON-GOALS, M=MAP TO METHOD/DECISIONS
+A3-E1	.claude/CLAUDE.md	17-31	owner-queue
+A3-E2	docs/findings/2026-08-05-superbot-next-live-audit.md	8-14	disbanding or rebuilding
+A3-E3	docs/planning/2026-07-26-consolidation-program.md	26	behavioral oracle
+A3-E3	docs/fleet-account-2026-07-26.md	146	FROZEN
+A3-E4	docs/planning/2026-07-26-consolidation-program.md	109	adapters are actually built
+A3-E4	docs/findings/2026-08-05-superbot-next-live-audit.md	333-339	casino
+A3-E5	docs/findings/2026-08-05-playtest-discord-and-superbot-value.md	116-143	reliable-grace
+A3-E5	docs/findings/2026-08-05-playtest-discord-and-superbot-value.md	116-143	84 cog
+A3-E5	docs/findings/2026-08-05-playtest-discord-and-superbot-value.md	116-143	archived=false
+A3-E6	docs/findings/2026-08-05-superbot-next-live-audit.md	64-91	no cogs at all
+A3-E6	docs/findings/2026-08-05-superbot-next-live-audit.md	64-91	58
+A3-E7	docs/findings/2026-08-05-superbot-next-live-audit.md	229-264	navigation graph
+A3-E7	docs/findings/2026-08-05-superbot-next-live-audit.md	229-264	taps
+A3-E8	docs/findings/2026-08-05-superbot-next-live-audit.md	121-138	533/533
+A3-E8	docs/findings/2026-08-05-superbot-next-live-audit.md	121-138	measured the wrong property
+A3-E9	docs/findings/2026-08-05-superbot-next-live-audit.md	209-227	genuinely better-founded
+A3-E9	docs/findings/2026-08-05-superbot-next-live-audit.md	209-227	640
+A3-E10	docs/findings/2026-08-05-superbot-next-live-audit.md	353-372	harness question
+A3-E10	docs/findings/2026-08-05-superbot-next-live-audit.md	402-425	recipe
+A3-E11	docs/findings/2026-08-05-superbot-next-live-audit.md	374-394	boot files
+A3-E11	.sessions/2026-08-05-superbot-next-live-audit.md	72-88	minutes
+A3-E12	.sessions/2026-08-05-superbot-next-live-audit.md	15-20	architectural debt
+A3-E13	docs/conventions/vertex-first-for-gemini.md	1-8	rest of this month
+A3-E13	docs/conventions/vertex-first-for-gemini.md	37-45	GEMINI_API_KEY_PAID
+A3-E13	docs/conventions/vertex-first-for-gemini.md	142-146	card
+A3-E14	docs/decisions.md	21-39	capped
+A3-E15	docs/CAPABILITIES.md	136-148	Vertex
+A3-E15	docs/conventions/vertex-first-for-gemini.md	47-115	googleSearch
+A3-E16	docs/findings/2026-08-05-gemini-delegation.md	34-48	delegate the reading
+A3-E16	docs/CAPABILITIES.md	179-194	gemini_delegate
+A3-E17	docs/findings/2026-08-05-gemini-delegation.md	120-123	train
+A3-E17	docs/findings/README.md	30	URL
+A3-E18	docs/providers/gemini.md	443-455	Deep Research
+A3-E19	docs/owner-reflection-2026-07-21.md	35-49	verification
+A3-E19	docs/owner-reflection-2026-07-21.md	125-141	Decide
+A3-E19	docs/owner-reflection-2026-07-21.md	214-218	not more shipping
+A3-E20	docs/fleet-account-2026-07-26.md	5-12	distortions
+A3-E20	CONSTITUTION.md	49-60	record is a claim
+A3-E21	docs/reading-path.md	11-27	attach + clone
+A3-E21	docs/reading-path.md	11-27	writes stay in this repo
+A3-E22	.claude/CLAUDE.md	3-4	hub
+A3-E22	docs/findings/README.md	1-8	archivable chat
+A3-E23	docs/fleet-account-2026-07-26.md	40-46	278
+A3-E23	docs/fleet-account-2026-07-26.md	40-46	invented
+A3-E24	.claude/CLAUDE.md	99-103	live
+A3-E24	docs/planning/2026-07-26-consolidation-program.md	60-72	NOW
+A3-E25	docs/owner-profile.md	11	non-coder
+A3-E25	docs/owner-reflection-2026-07-21.md	186-199	recommendation
+A3-E26	docs/decisions.md	41-55	credentials
+A3-E27	docs/fleet-account-2026-07-26.md	152-158	602
+A3-E27	docs/owner-queue.md	516-518	OQ-NEXT-MERGE-QUEUE
+A3-E27	docs/owner-queue.md	634-635	OQ-NEXT-CURATION-RATIFICATIONS
+A3-D	docs/findings/2026-08-05-playtest-discord-and-superbot-value.md	196-243	command_routing
+A3-N	docs/planning/2026-07-26-consolidation-program.md	136-140	R7
+A3-N	docs/planning/2026-07-26-consolidation-program.md	28	Archive
+A3-N	.claude/CLAUDE.md	21-23	re-derive
+A3-M	.claude/CLAUDE.md	85	intake
+A3-M	docs/SKILLS-local.md	42-56	delegate-read
+A3-M	docs/findings/2026-08-05-superbot-next-live-audit.md	356-360	boot recipe
+A3-M	docs/planning/2026-07-26-consolidation-program.md	90	truth
+A3-M	docs/planning/2026-07-26-consolidation-program.md	106	conformance
+A3-M	docs/findings/2026-08-05-gemini-delegation.md	111	corpus
+A3-M	docs/execution-surfaces.md	1-21	surface

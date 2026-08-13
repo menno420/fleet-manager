@@ -5,7 +5,9 @@
 > **This is the one thing fleet-manager is genuinely canonical for:** what
 > happened in sessions run from here. Every file below stays exactly where it
 > sits — nothing was moved, renamed or rewritten to build this index, by design
-> (`OD-3`/`OD-6`: nothing is deleted).
+> (`OD-3` as it stood at build time: nothing is deleted; the citation read
+> `OD-3`/`OD-6` until 2026-08-13 — no-delete was never OD-6's content, a
+> mis-cite surfaced by the § 4.8 fresh-agent test, agent B2).
 >
 > **28 files in this repo mention spider-swing** and until now nothing indexed
 > them, so finding the art-pipeline finding meant already knowing it existed.

@@ -77,6 +77,12 @@ below keeps them apart. A fluent paragraph is not the goal and never was.
    - **HIGH** — changes product intent, scope, ownership, irreversibility, or the
      definition of success. **Ask.** Never resolve a HIGH silently.
 
+   **A decided LOW or MEDIUM item reports under DECISIONS FLAGGED (or the run
+   report), never under OPEN** — OPEN holds only what cannot safely be derived.
+   Measured 2026-08-12 (§ 4.8 test, fm #851 § 4): three of five fresh maps
+   parked decided items in OPEN because this step classified "every unresolved
+   item" without saying where decided ones report.
+
    Then answer the sufficiency test out loud — *can I state the outcome, the
    relevant existing intent, the constraints, the non-goals and the definition of
    success, without silently resolving any HIGH?* — and print one of:
@@ -165,10 +171,13 @@ this procedure and knew every outcome. Read § 4 of that file before citing any
 of it — and § 2.2 for the case that cannot be run at all, because the owner
 message that produced the estate's clearest misread was never preserved.
 
-**The producer half of that test ran 2026-08-12** (fm #851): five fresh agents
+**The test has now run in full — producer half 2026-08-12 (fm #851), blind
+fresh-scorer half 2026-08-13 (fm #852,
+[`docs/findings/2026-08-13-intent-map-fresh-scorer.md`](../../../docs/findings/2026-08-13-intent-map-fresh-scorer.md):
+two blind scorers confirm PARTIAL 3/3 scorings and measure the prior scorer's
+bias).** The producer half: five fresh agents
 over the same corpus against ask-time snapshot trees, scored by the running
-session on a pre-registered rubric — the fresh-**scorer** half the record
-requires is still outstanding —
+session on a pre-registered rubric —
 [`docs/findings/2026-08-12-intent-map-fresh-agent-test.md`](../../../docs/findings/2026-08-12-intent-map-fresh-agent-test.md)
 — **221/222 checked citations substance-correct · 0 invented OPEN · 0 silent
 HIGHs · 0 false alarms · verdict PARTIAL** (one citation-overreach, one

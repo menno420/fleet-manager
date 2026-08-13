@@ -1,0 +1,63 @@
+# Agent A1 — pin pinA. Section tags in agent column: E=ESTABLISHED, O=OPEN, N=NON-GOALS, M=MAP TO METHOD/DECISIONS
+A1-E	docs/planning/2026-07-26-consolidation-program.md	26	behavioral oracle
+A1-E	docs/planning/2026-07-26-consolidation-program.md	26	live testing gates the cutover
+A1-E	docs/planning/2026-07-26-consolidation-program.md	44	one bot
+A1-E	docs/planning/2026-07-26-consolidation-program.md	109	R4
+A1-E	docs/planning/2026-07-26-consolidation-program.md	112	R7
+A1-E	docs/findings/2026-08-05-superbot-next-live-audit.md	8-14	disbanding or rebuilding
+A1-E	docs/findings/2026-08-05-superbot-next-live-audit.md	8-14	several sessions, several AI models, both repositories
+A1-E	docs/findings/2026-08-05-superbot-next-live-audit.md	8-14	server bot carrying no game features
+A1-E	docs/findings/2026-08-05-superbot-next-live-audit.md	316-351	game
+A1-E	docs/findings/2026-08-05-playtest-discord-and-superbot-value.md	171-180	noise
+A1-E	docs/findings/2026-08-05-superbot-next-live-audit.md	209-227	genuinely better-founded
+A1-E	docs/findings/2026-08-05-superbot-next-live-audit.md	209-227	640
+A1-E	docs/findings/2026-08-05-superbot-next-live-audit.md	44-115	CAPTURE-WORLD LITERAL
+A1-E	docs/findings/2026-08-05-superbot-next-live-audit.md	44-115	static data presented as live system state
+A1-E	docs/findings/2026-08-05-superbot-next-live-audit.md	119-138	parity
+A1-E	docs/findings/2026-08-05-superbot-next-live-audit.md	229-314	navigation graph
+A1-E	docs/findings/2026-08-05-superbot-next-live-audit.md	229-314	zero buttons
+A1-E	docs/findings/2026-08-05-superbot-next-live-audit.md	374-394	required boot files
+A1-E	docs/findings/2026-08-05-superbot-next-live-audit.md	353-372	harness
+A1-E	docs/findings/2026-08-05-superbot-next-live-audit.md	402-425	recipe
+A1-E	.claude/CLAUDE.md	17-25	owner-queue
+A1-E	.claude/CLAUDE.md	27-31	historical
+A1-E	docs/AGENT_ORIENTATION.md	8-12	current-state
+A1-E	docs/current-state.md	213-218	if you read nothing else
+A1-E	docs/reading-path.md	11-27	attach + clone remains the path
+A1-E	docs/CAPABILITIES.md	879-887	Nothing restricts a session to the repo it was launched for
+A1-E	docs/CAPABILITIES.md	695-700	wake
+A1-E	docs/findings/2026-08-05-playtest-discord-and-superbot-value.md	116-129	reliable-grace
+A1-E	docs/findings/2026-08-05-playtest-discord-and-superbot-value.md	116-129	disbot/config.py
+A1-E	docs/findings/2026-08-05-playtest-discord-and-superbot-value.md	116-129	never
+A1-E	docs/findings/2026-08-05-playtest-discord-and-superbot-value.md	135-143	archived=false
+A1-E	docs/findings/2026-08-05-playtest-discord-and-superbot-value.md	196-229	routing
+A1-E	docs/fleet-account-2026-07-26.md	40-46	journal
+A1-E	docs/fleet-account-2026-07-26.md	23-26	maintainer-question-router
+A1-E	docs/conventions/vertex-first-for-gemini.md	3-8	owner directive
+A1-E	docs/conventions/vertex-first-for-gemini.md	37-45	GEMINI_API_KEY_PAID
+A1-E	docs/conventions/vertex-first-for-gemini.md	47-115	aiplatform
+A1-E	docs/decisions.md	21-39	capped
+A1-E	docs/decisions.md	21-39	Pro-model review
+A1-E	docs/findings/2026-08-05-gemini-delegation.md	34-48	verbatim quote
+A1-E	docs/findings/2026-08-05-gemini-delegation.md	18-24	250
+A1-E	docs/findings/2026-08-05-gemini-delegation.md	18-24	gemini-3.1-pro-preview
+A1-E	docs/providers/gemini.md	443-455	Deep Research
+A1-E	docs/findings/README.md	30	URL
+A1-E	CONSTITUTION.md	49-60	record is a claim
+A1-E	docs/fleet-account-2026-07-26.md	8-12	distortions
+A1-E	docs/owner-reflection-2026-07-21.md	215-230	verification
+A1-E	docs/owner-reflection-2026-07-21.md	125-139	Decide, don't default to asking
+A1-E	CONSTITUTION.md	63-98	flag
+A1-E	README.md	3-6	record
+A1-E	docs/findings/README.md	1-8	archivable chat
+A1-E	docs/decisions.md	41-55	credentials
+A1-E	CONSTITUTION.md	18-23	fragment
+A1-O	docs/providers/gemini.md	443-446	Deep Research
+A1-N	docs/findings/2026-08-05-playtest-discord-and-superbot-value.md	267-271	Do not deploy superbot-next
+A1-N	.claude/CLAUDE.md	22-23	re-deriv
+A1-M	docs/SKILLS.md	31	analysis
+A1-M	docs/SKILLS-local.md	55	delegate-read
+A1-M	CONSTITUTION.md	24-27	capabilit
+A1-M	docs/SKILLS-local.md	56	owner-brief
+A1-M	docs/SKILLS-local.md	44-46	prompt-preflight
+A1-M	docs/SKILLS.md	25	intake

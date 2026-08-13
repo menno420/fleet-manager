@@ -1,0 +1,36 @@
+# Agent B1 — pin pinB. Section tags: E=ESTABLISHED, D=DERIVED, O=OPEN, M=MAP TO METHOD/DECISIONS
+B1-E	docs/planning/2026-07-26-consolidation-program.md	31	Pace: slow
+B1-E	docs/planning/2026-07-26-consolidation-program.md	31	incremental testing and reviews
+B1-E	docs/planning/2026-07-26-consolidation-program.md	20-22	do not re-ask
+B1-E	docs/planning/2026-07-26-consolidation-program.md	20-22	Recorded from the owner live in the hub chat
+B1-E	docs/planning/2026-07-26-consolidation-program.md	163	OD-10
+B1-E	docs/planning/2026-07-26-consolidation-program.md	3-6	churn
+B1-E	docs/planning/2026-07-26-consolidation-program.md	12-13	one step at a time
+B1-E	docs/planning/2026-07-26-consolidation-plan-v2.md	149	one thing at a time
+B1-E	docs/planning/2026-07-26-consolidation-program.md	53-55	ONE step is NOW
+B1-E	docs/planning/2026-07-26-consolidation-program.md	132	One step per session
+B1-E	CONSTITUTION.md	12-13	The goal comes first
+B1-E	CONSTITUTION.md	17-18	finish it in the same session
+B1-E	docs/collaboration-model.md	10-11	goal
+B1-E	docs/planning/2026-07-26-consolidation-program.md	145	No deadlines
+B1-E	docs/planning/2026-07-26-consolidation-program.md	76-78	I won't rush it
+B1-E	.claude/CLAUDE.md	117-119	Slow and structured
+B1-E	.claude/CLAUDE.md	117-119	nothing needs to be fast
+B1-E	docs/repos/spider-swing/records.md	8	OD-6
+B1-E	.claude/CLAUDE.md	260-264	beats any dated
+B1-E	.claude/CLAUDE.md	185-188	source truth
+B1-E	docs/findings/2026-08-05-foundation-continuation.md	21	Do not probe first
+B1-E	CONSTITUTION.md	37-42	unless the owner directs the change live in-session
+B1-E	CONSTITUTION.md	123-128	provenance
+B1-E	.claude/skills/decision-capture/SKILL.md	34-35	Label which
+B1-E	.claude/CLAUDE.md	245	decision-capture
+B1-E	docs/planning/2026-08-08-agent-operating-environment-roadmap.md	165-171	an invariant, not a filename
+B1-D	docs/owner-reflection-2026-07-21.md	28-31	durable position
+B1-D	docs/planning/2026-07-26-consolidation-program.md	170	Deliberately stopped at one folder
+B1-O	docs/planning/2026-08-08-agent-operating-environment-roadmap.md	107	Never ask what the repo already answers
+B1-M	docs/SKILLS-local.md	34	decision-capture
+B1-M	docs/SKILLS-local.md	51	session-close
+B1-M	.claude/skills/intake/SKILL.md	66	FULLER PICTURE
+B1-M	docs/planning/2026-08-08-agent-operating-environment-roadmap.md	372-374	never been run against a real owner message
+B1-M	.claude/CLAUDE.md	154-160	PR
+B1-M	.claude/CLAUDE.md	118-119	nothing needs to be fast

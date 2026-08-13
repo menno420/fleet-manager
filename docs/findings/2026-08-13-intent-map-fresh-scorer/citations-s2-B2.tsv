@@ -1,0 +1,33 @@
+# Agent B2 — pin pinB. Section tags: E=ESTABLISHED (numbered 1..12), D=DERIVED, O=OPEN, M=MAP TO METHOD/DECISIONS
+B2-E1	docs/planning/2026-07-26-consolidation-program.md	31	Pace: slow
+B2-E1	docs/planning/2026-07-26-consolidation-program.md	20	do not re-ask
+B2-E1	docs/planning/2026-07-26-consolidation-program.md	22	durable decision
+B2-E2	docs/planning/2026-07-26-consolidation-program.md	12-13	one step at a time
+B2-E2	docs/planning/2026-07-26-consolidation-plan-v2.md	149	one thing at a time
+B2-E3	docs/planning/2026-07-26-consolidation-program.md	54-56	ONE step is NOW
+B2-E3	docs/planning/2026-07-26-consolidation-program.md	132	One step per session
+B2-E4	CONSTITUTION.md	12-13	The goal comes first
+B2-E4	CONSTITUTION.md	16-17	finish it in the same session
+B2-E5	.claude/CLAUDE.md	117-119	Slow and structured
+B2-E5	.claude/CLAUDE.md	117-119	nothing needs to be fast
+B2-E6	docs/planning/2026-07-26-consolidation-program.md	145	No deadlines
+B2-E6	docs/planning/2026-07-26-consolidation-program.md	76-78	I won't rush it
+B2-E7	.claude/CLAUDE.md	110-115	OD table
+B2-E8	CONSTITUTION.md	37-42	unless the owner directs the change live in-session
+B2-E8	CONSTITUTION.md	123-128	Changing the rules
+B2-E8	.claude/CLAUDE.md	260-264	outranks
+B2-E9	docs/owner-reflection-2026-07-21.md	130-132	Decide, don't default to asking
+B2-E9	docs/owner-profile.md	18-22	step away
+B2-E10	docs/planning/2026-08-08-agent-operating-environment-roadmap.md	72-90	EXPLICIT
+B2-E10	docs/planning/2026-08-08-agent-operating-environment-roadmap.md	149-163	ephemeral
+B2-E10	docs/planning/2026-08-08-agent-operating-environment-roadmap.md	165-175	invariant
+B2-E11	docs/planning/2026-08-08-agent-operating-environment-roadmap.md	184-187	create
+B2-E12	docs/repos/spider-swing/records.md	8	OD-6
+B2-E12	.sessions/2026-08-05-doc-routing-hook.md	63	OD-6
+B2-O	docs/planning/2026-07-26-consolidation-program.md	170	Deliberately stopped at one folder
+B2-M	docs/SKILLS-local.md	39	restated fuller picture
+B2-M	docs/SKILLS-local.md	34	decision-capture
+B2-M	docs/planning/2026-07-26-consolidation-program.md	151-152	OD-10
+B2-M	docs/planning/2026-07-26-consolidation-program.md	170-173	net-zero
+B2-M	.claude/CLAUDE.md	154-160	PR
+B2-M	docs/planning/2026-07-26-consolidation-program.md	4-5	churn

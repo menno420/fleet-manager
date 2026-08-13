@@ -168,7 +168,15 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 
 ## Recently shipped (newest first)
 
-- **Roadmap § 4.8's producer half ran — the fresh-scorer half stays open**
+- **§ 4.8's fresh-scorer half ran — blind scorers confirm PARTIAL**
+  (2026-08-13, fm #852):
+  [the finding](findings/2026-08-13-intent-map-fresh-scorer.md) — the
+  produce-**and**-score bar is met. Two blind scorers returned **PARTIAL ×2:
+  0 fabrications · 0 invented OPEN · 0 silent HIGHs · 0 false alarms**, four
+  named bends and one miss in the prior scoring, imprecision counts
+  scorer-relative (4–11).
+
+- **Roadmap § 4.8's producer half ran — the scorer half followed, fm #852**
   (2026-08-12, fm #851):
   [the test finding](findings/2026-08-12-intent-map-fresh-agent-test.md) — five
   fresh agents, ask-time snapshot trees, rubric committed before any output was
@@ -340,9 +348,9 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   — **0 clean catches · 1 partial · 1 correction-handled · 1 HIGH surfaced · 7
   correct silences · 0 false alarms.** **That is an author walkthrough, not the
   § 4.8 test**, which requires a *fresh* agent to score the maps; the test's
-  producer half ran 2026-08-12 (fm #851 — entry above), its fresh-scorer half
-  remains outstanding, and Codex established on fm #830 that disclosing the
-  bias does not substitute for it. **The partial is the result that matters** — in the
+  producer half ran 2026-08-12 (fm #851) and its fresh-scorer half 2026-08-13
+  (fm #852 — both entries above); Codex established on fm #830 that disclosing
+  the bias does not substitute for it. **The partial is the result that matters** — in the
   one ask that went wrong, intent was already understood correctly and lost
   downstream anyway, so an intent map does not protect intent past itself. Also
   worth carrying: the estate's clearest misread (`Pace: slow.`) **cannot be
