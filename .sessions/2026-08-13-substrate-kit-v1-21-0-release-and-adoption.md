@@ -1,6 +1,6 @@
 # 2026-08-13 · substrate-kit v1.21.0 — the cut, and fleet-manager's adoption
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** fable-5 · high · mechanical refactor
 - ⚑ Self-initiated: no — the owner's 2026-08-09 *"both, in order"* ruling,
