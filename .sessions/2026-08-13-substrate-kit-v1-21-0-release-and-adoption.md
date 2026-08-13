@@ -73,13 +73,21 @@ and the program §7 / current-state ledger updates.
       (0→1 each, defect 7's row green), defect 6 clears (1→0) with the
       quote-only improvement kept (0→0), defect 5 claim 1→0 with staging
       behaviour unchanged (build 0, staged 14→15, live 0 by design)
-- [ ] `python3 bootstrap.py.new upgrade` — bank verified
-- [ ] carve-out scan (`.substrate/upgrade-report.md`) — listed in PR body
-- [ ] regenerated substrate-gate carries the three upstreamed fixes (env
-      block · repo-checkers step · sentinel) — diffed, not assumed
-- [ ] capability-seed fence carries the retraction rows after refresh
-- [ ] `python3 bootstrap.py check --strict` exit 0 (designed hold excepted)
-      + `python3 tools/check_no_false_walls.py --strict` exit 0
+- [x] `python3 bootstrap.py.new upgrade` — exit 0; rollback bank verified at
+      `.substrate/backup/bootstrap-1.20.2.py`
+- [x] carve-out scan — ONE carve-out (the old hand-added repo-checkers step,
+      superseded by the planted extension + `scripts/repo_checks.sh`;
+      pre-regen gate banked); 14 consumer-edited docs untouched, 5 diverged
+      left for manual merge as designed — listed in the PR body
+- [x] regenerated substrate-gate carries the three upstreamed fixes — DIFFED:
+      `env:` block at :110, repo-checkers step at :140, sentinel at :259
+- [x] capability-seed fence — the upgrade left fm's consumer-edited
+      `CAPABILITIES.md` byte-intact (measured: the fence's hand-struck
+      RETRACTED rows survive; the kit-side seed fix protects fresh adopts)
+- [x] `python3 bootstrap.py check --strict` — only red is THIS card's
+      designed born-red hold (preflight added-card lane, new dist) ·
+      `tools/check_no_false_walls.py --strict` exit 0 ·
+      `bash scripts/repo_checks.sh` exit 0
 - [ ] Codex review at the exact head; dispositions recorded here
 
 Layer-2 handoff: null (fleet-manager itself; substrate-kit has no Layer-2
