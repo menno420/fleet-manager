@@ -1,7 +1,7 @@
 {
-  "archived_dist": ".substrate/backup/bootstrap-1.20.1.py",
-  "date": "2026-08-09",
-  "from_version": "1.20.1",
-  "to_version": "1.20.2",
+  "archived_dist": ".substrate/backup/bootstrap-1.20.2.py",
+  "date": "2026-08-13",
+  "from_version": "1.20.2",
+  "to_version": "1.21.0",
   "vendored": "bootstrap.py"
 }

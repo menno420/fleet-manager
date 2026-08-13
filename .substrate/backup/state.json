@@ -7,7 +7,7 @@
     "soft_target_sessions": 50
   },
   "graduation_proposed": false,
-  "kit_version": "1.20.1",
+  "kit_version": "1.20.2",
   "last_compaction_session": 0,
   "mode": "guided",
   "mode_history": [],
@@ -33,7 +33,7 @@
     "docs/reading-path.md": "a9808cb898cf7bed4362e01893dfd76ce215d1ee89f8394b223add7a725d7d9b",
     "docs/repo-navigation-map.md": "61f30b0f4befcdc1e71c8587df3914710d5d58637a4883786cf45007366d2c00",
     "docs/runtime_contracts.md": "14452bfd36b1f6afc725bc39a15e069f5b0ef5e273f21ffecba20cbadf3e57ad",
-    "docs/seat-digest.md": "c489cfb1fd29b172747f43e11bf33e7989f166a50f3dcc11da135898bd748a9b",
+    "docs/seat-digest.md": "723218a4f20e99b04fee4bc0b2f35ba42cea59f101ef0fd18e6c17e0f055740c",
     "scripts/env-setup.sh": "cd2145129fcba288ff9399ad44146a09017d85813e282c16bcba22340b613a2c"
   },
   "project_id": "7976f2aa96d9",
@@ -55,7 +55,7 @@
     "architecture_layers": {
       "question_id": "Q-004",
       "source": "user",
-      "value": "Flat docs repo, no code layers: docs/ (playbook, owner-queue, dispatch-log \u2014 manager working memory) + templates/ (worker preamble blocks) + control/ (protocol heartbeat: owner-written inbox.md, manager-written status.md). Program record lives in menno420/superbot docs/eap/, never here."
+      "value": "Records-and-checkers repo, post-program era: docs/ (orientation, the consolidation program, findings, per-repo Layer 2 \u2014 the records home) + scripts/ and tools/ (the checkers substrate-gate and preflight run) + .claude/ (boot file, hooks, installed skills) + vendored bootstrap.py (substrate-kit). Seat-era trees (control/, templates/, projects/, telemetry/) are retained as historical record, not live layers. Program records live HERE (docs/fleet-account-2026-07-26.md, docs/PROJECT-CLOSEOUT.md); superbot docs/eap/ holds only the EAP-era record."
     },
     "doc_roots": {
       "question_id": "Q-007",
@@ -70,17 +70,17 @@
     "fleet_dark_repos": {
       "question_id": "Q-016",
       "source": "user",
-      "value": "all fleet siblings are public and readable read-only EXCEPT pokemon-mod-lab (PRIVATE \u2014 raw/clone hits an auth wall; roster marks it NOT MEASURED; never raw-fetch or guess about it). Live list of lanes: docs/roster.md (generated)"
+      "value": "all fleet siblings are public and readable read-only EXCEPT two PRIVATE repos \u2014 pokemon-mod-lab (raw/clone hits an auth wall; never raw-fetch or guess about it) and shiftlife (private since its 2026-07-24 creation; re-measured 2026-08-11 via /user/repos?affiliation=owner \u2014 exactly those two of 24 owned). The retired roster (docs/roster.md, RETIRED 2026-08-07) is a record, not a live lane list."
     },
     "fleet_siblings": {
       "question_id": "Q-015",
       "source": "user",
-      "value": "docs/roster.md is the generated sibling map \u2014 one row per lane: repo \u00b7 seat/role \u00b7 heartbeat verdict \u00b7 kit version \u00b7 triggers \u00b7 HEAD evidence. Each sibling's truth files are its control/status*.md heartbeat(s) plus its docs/CAPABILITIES.md; regenerate-don't-restate \u2014 never hand-copy roster rows here"
+      "value": "Per-repo truth lives in each repo's docs/PROJECT-CLOSEOUT.md + docs/current-state.md, indexed from docs/repos/README.md (Layer 2 \u2014 read the folder before attaching the repo). The generated roster (docs/roster.md) was RETIRED 2026-08-07 and its rows are frozen record; sibling control/status*.md heartbeats stopped with the seats on 2026-07-21 \u2014 never hand-copy roster rows anywhere."
     },
     "fleet_status_command": {
       "question_id": "Q-014",
       "source": "user",
-      "value": "open docs/roster.md \u2014 the generated fleet roster (regenerated ~2-hourly by .github/workflows/roster-regen.yml via scripts/gen_roster.py; if its generated-at is >24h stale, trust the lane heartbeats directly per its kill-switch note)"
+      "value": "read docs/current-state.md plus the consolidation program's NOW pointer (docs/planning/2026-07-26-consolidation-program.md). (The seat-era command \u2014 open docs/roster.md, regenerated ~2-hourly \u2014 describes the roster RETIRED 2026-08-07; do not read its rows as the state of anything.)"
     },
     "integration_mode": {
       "question_id": "Q-001",
@@ -90,12 +90,12 @@
     "mutation_seam": {
       "question_id": "Q-009",
       "source": "user",
-      "value": "All changes land as forward-only git commits through READY PRs to main (ruleset: PR required); control/inbox.md is append-only and owner-written; control/status.md is overwritten by the manager each working session."
+      "value": "All changes land as forward-only git commits through READY PRs to main (ruleset: PR required; substrate-gate is the sole required check). The retired control/ bus clauses (inbox.md append-only owner-written; status.md overwritten by the manager each session) are seat-era history, not a live seam."
     },
     "new_area_ownership": {
       "question_id": "Q-013",
       "source": "user",
-      "value": "New areas default to the manager as sole writer; anything the owner must act on goes into docs/owner-queue.md, never a new scattered surface."
+      "value": "New areas are session-written through PRs like everything else; anything the owner must act on goes into docs/owner-queue.md, never a new scattered surface. (The seat-era default \u2014 the manager as sole writer \u2014 ended with the program on 2026-07-21.)"
     },
     "owner_profile": {
       "question_id": "Q-008",
@@ -105,7 +105,7 @@
     "ownership_model": {
       "question_id": "Q-006",
       "source": "user",
-      "value": "One writer per file: the owner writes control/inbox.md; the manager writes everything else (docs/, templates/, control/status.md). Shared-repo protocol surfaces follow docs/playbook.md R9-R10."
+      "value": "Sessions write through READY PRs; there is no manager seat (the autonomous program closed 2026-07-21) and the control/ bus is retired. Owner-only asks live in docs/owner-queue.md; owner decisions in docs/decisions.md and the program's OD table. The seat-era model \u2014 owner writes control/inbox.md, manager writes the rest, playbook R9-R10 arbitration \u2014 is historical (playbook's 2026-08-10 banner)."
     },
     "primary_language": {
       "question_id": "Q-003",
@@ -120,12 +120,12 @@
     "review_ritual": {
       "question_id": "Q-010",
       "source": "user",
-      "value": "Manager verifies against repos (git evidence), never against agent reports (playbook R2); owner reviews via docs/owner-queue.md and orders via control/inbox.md."
+      "value": "Sessions verify against repository state, never against an agent summary alone (playbook R2); the owner directs work in the live chat and acts on genuinely owner-only entries in docs/owner-queue.md. (The seat-era ritual \u2014 manager verification, orders via control/inbox.md \u2014 ended with the program; the retired inbox is not an order channel.)"
     },
     "staleness_review": {
       "question_id": "Q-012",
       "source": "user",
-      "value": "control/status.md is refreshed every working session (its updated: line is the heartbeat); docs/playbook.md and docs/owner-queue.md are living and updated the day a lesson lands or an ask resolves."
+      "value": "docs/owner-queue.md is living and updated the day an ask resolves; docs/playbook.md is a living ledger whose 2026-08-10 mixed-era banner says which rules still bind. (The seat-era cadence \u2014 control/status.md refreshed every working session \u2014 ended with the bus's retirement; do not restamp the closed seat's heartbeat.)"
     },
     "verify_command": {
       "question_id": "Q-005",
