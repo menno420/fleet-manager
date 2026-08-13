@@ -55,6 +55,24 @@ Rows 8–12 carry the websites #499 Codex threads verbatim; the two-round cap
 was reached there with zero adopter-side changes owed (the only round-2-scoped
 change had already landed as the `--apply-docs` refresh).
 
+**Rounds on gba-homebrew #215, venture-lab #289, idea-engine #899 and
+superbot-mineverse #144 added three more and sharpened row 9** (all P2 unless
+marked; every one dist-routed, zero adopter-side changes owed):
+
+| # | site (vendored v1.21.0) | defect | provenance |
+|---|---|---|---|
+| 13 | `bootstrap.py:5873` | **P1** — a qualified reassertion after a repudiation is cleared: `The "agents cannot merge" rule is false in staging but true in production` exits at `rule is false` and emits nothing, where v1.20.2 flagged it — a false **NEGATIVE** (a standing wall stays green), the expensive direction by the checker's own doctrine | new in v1.21.0 (gba #215 R1) |
+| 14 | `substrate-gate.yml` template `:278` (pytest step) | the always-planted pytest step keys on `tests/` EXISTENCE; a native/fixture `tests/` dir with no Python tests makes pytest collect nothing and exit 5 → the gate reds permanently on non-Python repos that add one (measured non-bite on gba: no `tests/` dir at all) | new in v1.21.0 (gba #215 R1) |
+| 15 | `bootstrap.py:4872` (`check_fastlane_symmetry`) | looks exclusively for `.github/workflows/ci.yml`, but the kit generates the claims-only guard into `substrate-gate.yml` (`LIVE_CI_RELPATH`) — standard adopters hit the early return and the symmetry checker NEVER runs, silently missing the card-less auto-merge hole it exists to catch | new in v1.21.0 (venture-lab #289 R1) |
+
+Row 9 sharpened twice on re-finds: promoted findings are appended AFTER
+`load_allowlist()`/`apply_allowlist()` — so a reason-carrying exception
+**cannot suppress a promoted finding** (an accepted custom-gate divergence
+reds `--strict` permanently), and the fire is recorded `posture="advisory"`
+while the exit goes red (telemetry corruption; gba/venture-lab reads).
+Cross-adopter re-find tally: row 3 sighted on 4 trees, row 4 on 4 trees —
+independent confirmation, same sites, every wave PR.
+
 ## Residue this session found itself (not Codex)
 
 - **The kit's `tests/test_skills_index_install_contract.py` guard regex is
