@@ -1,10 +1,10 @@
 # Session — v1.21.0 rollout: phase-2 review settled, then phase 3 (owner-paced)
 
-> **Status:** `in-progress`
->
-> Born-red: this card was the sole FIRST commit on the branch; the review
-> finding, the worklist rows, the phase-2-card corrections and the §7 row land
-> in the work commits; the `complete` flip is the deliberate LAST commit.
+> **Status:** `complete` — branch `claude/v1-21-0-phase-3-1pgmoi`, PR #855.
+> This flip releases the born-red hold. Reviewed heads: `8003881c8` (R1, four
+> findings fixed) and `26f1ac02c` (R2, one real + two measured-stale); after
+> the reviewed head came only the one-token fix the R2 dispositions name and
+> this flip (the session-close exemption, taken and named).
 
 - **📊 Model:** fable-5 · high · review/verify
 
