@@ -84,6 +84,16 @@ independent confirmation, same sites, every wave PR.
 | 20 | `bootstrap.py:4492` | the boot-path checker does not recognise the kit's OWN generated `.claude/CLAUDE.md` heading (`## Orientation — read first, in order`) → false `boot-section-missing` on kit-standard repos — observed live on idea-engine's tree this session | pre-existing since #579 (idea-engine #899 R1) |
 | 21 | `bootstrap.py:4587` | boot entries the template marks `when present` (`HANDOFF.md`, untracked) are treated as mandatory → false `boot-path-unresolved` on healthy generated agreements | pre-existing since #579 (idea-engine #899 R1) |
 
+| 22 | `substrate-gate.yml` template `:135` (claims-only guard) | **P1** — a `claude/*` PR whose diff is a claim PLUS any other `control/**` file (e.g. `control/status.md`) keeps the control-only lane while `non_claims` is non-empty, so the guard passes and the PR can auto-merge card-less — the exact race the step exists to close. Not a regression on adopters (pre-v1.21.0 gates had no claims guard at all), but the new protection has a hole | new in v1.21.0 (idea-engine #899 R2) |
+
+Round-2 sighting updates: row 5 sharpened with the quoted-conditional class
+(`The phrase "agents cannot merge when CI is green" is not a wall.` now reds —
+idea-engine `:5485`); row 10's second site is the `cmd_check` return
+(`:29522`); row 12 re-found at `:4586`; row 3 reached five sightings and
+row 20 two. Also adopter-side and NOT the kit's to fix: mineverse's
+capability-seed fence differs from kit form, so the v1.21.0 seed's wall
+retractions did not refresh there — its card carries the follow-up.
+
 Fix-order restated after the wave: **the false negatives first (13, 17, 18)**
 — they are the checker failing at its one job — then the exit-affecting
 promotion family as one contract-review unit (2, 6, 8, 9, 10), then the
