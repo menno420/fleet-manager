@@ -32,6 +32,13 @@
   needs the same one-line fix. Found by running the harness's positive
   control against the dist that HAS the claim (claim=0 where 1 was true).
 
+## Post-release review pointer (2026-08-13, fm #855)
+
+The phase-2 rollout review re-verified this worklist's currency citation
+against the tree (`:398-402` right, `:90` wrong — the kit #583 comment stands)
+and measured the superbot-next gate failure in the real venue:
+[`2026-08-13-v1210-phase2-review.md`](2026-08-13-v1210-phase2-review.md).
+
 ## How to use this
 
 The next kit session takes this file the way this session took the
