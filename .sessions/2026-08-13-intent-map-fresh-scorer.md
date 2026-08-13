@@ -118,5 +118,52 @@ are exactly this session's scope. Nothing to repair.
 
 ## Close-out
 
-*(fills at close: shipped · verify tails · ⚑/💡/⟲ · PR terminal state ·
-Layer-2 handoff line · capability delta)*
+**Shipped:**
+- `docs/findings/2026-08-13-intent-map-fresh-scorer.md` — design, results,
+  the ten-row divergence table, verdict; + evidence folder (handed rubric,
+  scorer prompt, leak-probe record, both raw scorer reports, both scorers'
+  TSVs).
+- **Result: PARTIAL / PARTIAL from two blind scorers — the committed band
+  confirmed 3/3 scorings; the § 4.8 produce-AND-score bar is met.** The
+  failure surface (fabrications · invented OPEN · silent HIGHs · false
+  alarms) is 0 scorer-independent; the prior outcome-aware scoring bent in
+  four named places and missed one count error; imprecision counts are
+  scorer-relative (4–11).
+- Isolation as planned, with one measured upgrade: probes found the default
+  subagent path leaks the prior verdict (boot-file snapshot cached at session
+  start; working-tree edit demonstrably cannot redact it), so scorers ran as
+  sandbox-rooted headless `claude -p` sessions, probed clean. Two
+  classifier-escalated launch approvals by the owner, live.
+- Surfaces: roadmap § 2/§ 4.8/§ 8 · boot file 1b · planning README ·
+  current-state (new entry + two supersede notes) · program § 7 row ·
+  findings README (row + #851-row clause) · intake replay note ·
+  SKILLS-local re-apply row · 2026-08-12 finding §§ 1.5/5 pointer notes.
+- Bundled: intake step-4 decided-items line (fm #851 § 4 point 4) ·
+  spider-swing `records.md:8` OD-6→OD-3 (agent B2's find) · owner-directed
+  permissions allowlist (his live instruction, automode off — 22 rules,
+  `delete_trigger` stays hook-denied per D-0015).
+
+**Capability delta:** two appended to `docs/CAPABILITIES.md` (2026-08-13):
+subagent boot-file snapshot semantics; nested headless `claude -p` runs +
+the two permission facts (classifier escalates scoped nested-session grants;
+an agent cannot widen its own allowlist).
+
+**Design calls made and stated before launch (card §§ 2–4):** two scorers ×
+all five maps, structure-matched to § 3; OPEN-parking criterion withheld as
+post-hoc — vindicated: S2 independently re-found its clearest instance, S1
+none, so its full salience was review-round-specific.
+
+**⚑ decide-and-flag:** the permissions allowlist is deliberately broad at the
+owner's explicit instruction ("everything that could prompt"); `mcp__Gmail`
+at server level includes write ops (trash/label) — trim in the PR diff if
+unwanted. · **💡 idea:** the scorer-relativity of citation-imprecision counts
+(4–11 on identical maps) suggests any future cite-checker promotion should
+pin the needle-construction rule, not just the range rule — it is the
+uncontrolled variable. · **⟲ previous-session review:** in the header above.
+
+**Layer-2 handoff:** null (fleet-manager itself; the one satellite touch is
+the `docs/repos/spider-swing/records.md` citation fix — no thread state
+changed).
+
+**PR:** #852 — READY, born-red until this badge flips; Codex review before
+the flip; merge on green.

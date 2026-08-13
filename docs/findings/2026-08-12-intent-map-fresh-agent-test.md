@@ -92,7 +92,10 @@ the fm #830 review disposition likewise requires a fresh-agent **scorer**
 (`.sessions/2026-08-09-intent-architecture-phase-2.md`, round-1 row 3). Here
 the maps are fresh-produced and the **scoring is performed by this session**,
 which had read the outcomes — so this run discharges the **producer half only**,
-and the **scorer half remains outstanding**. (The first push of this finding
+and the **scorer half remains outstanding** *(it ran 2026-08-13 — two blind
+scorers, PARTIAL confirmed:
+[`2026-08-13-intent-map-fresh-scorer.md`](2026-08-13-intent-map-fresh-scorer.md))*.
+(The first push of this finding
 claimed "the prescribed producer-side form" as if that were the prescribed
 test; Codex round 1 refuted it from the two records above — conceded.)
 Three things bound the scorer bias in the half that did run: the rubric below
@@ -364,7 +367,10 @@ What the producer half establishes that the walkthrough could not:
 
 ## 5 · Honest nulls
 
-- **The scorer half of § 4.8 has not run** (§ 1.5) — the estate's recorded bar
+- **The scorer half of § 4.8 has not run** (§ 1.5) *(closed 2026-08-13: it ran
+  blind ×2 and confirmed the band —
+  [`2026-08-13-intent-map-fresh-scorer.md`](2026-08-13-intent-map-fresh-scorer.md))*
+  — the estate's recorded bar
   is produce **and** score, and this session's scoring, however bounded
   (pre-registered rubric with commit-order proof, mechanical checks, committed
   raw outputs, adversarial review on this PR), is not a fresh agent's. Codex

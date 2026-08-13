@@ -1,0 +1,67 @@
+# Agent A2 — pin pinA. Section tags: E=ESTABLISHED (E1..E18 kept), D=DERIVED, N=NON-GOALS, M=MAP TO METHOD/DECISIONS
+A2-E1	docs/findings/2026-08-05-superbot-next-live-audit.md	8-14	disbanding or rebuilding
+A2-E1	docs/findings/README.md	33	disbanding
+A2-E2	docs/planning/2026-07-26-consolidation-program.md	26	behavioral oracle
+A2-E2	.claude/CLAUDE.md	99-103	live
+A2-E3	docs/fleet-account-2026-07-26.md	146	FROZEN
+A2-E3	docs/findings/2026-08-05-playtest-discord-and-superbot-value.md	125-143	reliable-grace
+A2-E3	docs/findings/2026-08-05-playtest-discord-and-superbot-value.md	125-143	never been deployed
+A2-E3	docs/findings/2026-08-05-playtest-discord-and-superbot-value.md	125-143	archived=false
+A2-E4	docs/findings/2026-08-05-superbot-next-live-audit.md	316-351	no game features
+A2-E4	docs/findings/2026-08-05-playtest-discord-and-superbot-value.md	172-176	noise
+A2-E5	docs/findings/2026-08-05-superbot-next-live-audit.md	209-227	genuinely better-founded
+A2-E5	docs/findings/2026-08-05-superbot-next-live-audit.md	209-227	640
+A2-E5	docs/findings/2026-08-05-superbot-next-live-audit.md	144-161	1,327
+A2-E6	docs/findings/2026-08-05-superbot-next-live-audit.md	44-58	CAPTURE-WORLD LITERAL
+A2-E6	docs/findings/2026-08-05-superbot-next-live-audit.md	44-58	58
+A2-E6	docs/findings/2026-08-05-superbot-next-live-audit.md	120-138	533/533
+A2-E6	docs/findings/2026-08-05-superbot-next-live-audit.md	229-314	navigation graph is the product
+A2-E6	docs/findings/2026-08-05-superbot-next-live-audit.md	238-241	2 taps
+A2-E7	docs/findings/2026-08-05-superbot-next-live-audit.md	353-372	fail to notice
+A2-E7	docs/findings/2026-08-05-superbot-next-live-audit.md	402-425	recipe
+A2-E8	docs/findings/2026-08-05-superbot-next-live-audit.md	374-400	boot files
+A2-E8	.sessions/2026-08-05-superbot-next-live-audit.md	15-20	architectural debt
+A2-E8	.sessions/2026-08-05-superbot-next-live-audit.md	74-88	run it
+A2-E9	docs/conventions/vertex-first-for-gemini.md	3-8	at least for the rest of this month
+A2-E9	docs/conventions/vertex-first-for-gemini.md	39-45	actually failed
+A2-E9	docs/conventions/vertex-first-for-gemini.md	47-115	aiplatform
+A2-E9	docs/conventions/vertex-first-for-gemini.md	142-146	gemini-3.1-pro-preview
+A2-E9	.claude/CLAUDE.md	56-63	Vertex
+A2-E10	docs/decisions.md	21-39	free for sessions to spend
+A2-E10	docs/decisions.md	41-55	credentials
+A2-E11	docs/findings/2026-08-05-gemini-delegation.md	18-48	delegate the reading, never the record
+A2-E11	docs/findings/2026-08-05-gemini-delegation.md	18-48	250
+A2-E11	docs/findings/2026-08-05-gemini-delegation.md	120-122	train
+A2-E11	docs/reading-path.md	17	pokemon-mod-lab
+A2-E12	docs/providers/gemini.md	443-455	Deep Research
+A2-E13	.claude/CLAUDE.md	17-31	owner-queue
+A2-E13	docs/current-state.md	213-218	if you read nothing else
+A2-E14	docs/reading-path.md	11-27	attach + clone remains the path
+A2-E14	docs/CAPABILITIES.md	884-887	Nothing restricts
+A2-E14	docs/CAPABILITIES.md	695-700	wake
+A2-E14	docs/findings/2026-08-05-playtest-discord-and-superbot-value.md	114	clone
+A2-E15	.claude/CLAUDE.md	36-38	Verify before fold
+A2-E15	docs/planning/2026-07-26-consolidation-program.md	128-129	live surface
+A2-E15	docs/owner-profile.md	11-15	git evidence
+A2-E15	docs/owner-reflection-2026-07-21.md	130	Decide, don't default to asking
+A2-E16	README.md	3-6	record
+A2-E16	docs/findings/README.md	1-8	archivable chat
+A2-E16	docs/owner-profile.md	11	non-coder
+A2-E17	.claude/CLAUDE.md	83	prompt-preflight
+A2-E17	docs/SKILLS-local.md	44-46	prompt-preflight
+A2-E18	docs/planning/2026-07-26-consolidation-program.md	28	Archive
+A2-E18	docs/planning/2026-07-26-consolidation-program.md	31	Pace: slow
+A2-E18	docs/planning/2026-07-26-consolidation-program.md	98	worker
+A2-E18	docs/planning/2026-07-26-consolidation-program.md	139-140	R7
+A2-E18	docs/planning/2026-07-26-consolidation-program.md	66-72	E1
+A2-D	docs/findings/2026-08-05-superbot-next-live-audit.md	69-70	no cogs at all
+A2-D	docs/findings/2026-08-05-playtest-discord-and-superbot-value.md	201-239	command_routing
+A2-N	docs/findings/2026-08-05-superbot-next-live-audit.md	12-14	re-deriving
+A2-M	.claude/CLAUDE.md	85	chase-references
+A2-M	docs/SKILLS-local.md	55	delegate-read
+A2-M	.claude/CLAUDE.md	89	capability-probe
+A2-M	docs/planning/2026-07-26-consolidation-program.md	90	D2
+A2-M	docs/planning/2026-07-26-consolidation-program.md	106	R1
+A2-M	.claude/CLAUDE.md	84	decision-capture
+A2-M	.claude/CLAUDE.md	92	session-close
+A2-M	docs/reading-path.md	24-25	writes stay in this repo

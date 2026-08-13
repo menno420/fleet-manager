@@ -61,7 +61,7 @@ the wrong answer look checked.
 | Phase | What it establishes | Status |
 |---|---|---|
 | **1** | Trustworthy retrieval + orientation | landed, fm #826 |
-| **2** | Intent resolution | **first slice landed, fm #830; § 4.8's producer half run 2026-08-12** (fm #851, verdict PARTIAL) — [the test finding](../findings/2026-08-12-intent-map-fresh-agent-test.md); the fresh-**scorer** half is still outstanding |
+| **2** | Intent resolution | **first slice landed, fm #830; § 4.8 run in full** — producer half 2026-08-12 (fm #851, [finding](../findings/2026-08-12-intent-map-fresh-agent-test.md)); fresh-scorer half 2026-08-13 (fm #852, [finding](../findings/2026-08-13-intent-map-fresh-scorer.md)): two blind scorers **confirm PARTIAL** and measure the prior scorer's bias |
 | **3** | Common operating protocol | after |
 
 ## 3 · Phase 1 — trustworthy retrieval and orientation *(landed, fm #826)*
@@ -277,6 +277,23 @@ divergence: the corpus's one expected HIGH (*"genuinely better built"*)
 content for it, and all three fresh agents retrieved what the author
 walkthrough said did not exist. Design, tally, honest nulls and the raw maps:
 [`../findings/2026-08-12-intent-map-fresh-agent-test.md`](../findings/2026-08-12-intent-map-fresh-agent-test.md).
+
+**Third live run, 2026-08-13 — the fresh-scorer half, closing the § 4.8 bar**
+(fm #852). Two blind scorers — no conversation context, no adjudications,
+run as sandbox-rooted headless sessions after the default subagent path was
+measured leaking the prior verdict via a session-start boot-file snapshot —
+re-scored the five committed maps against the pre-registered rubric:
+**both returned PARTIAL, confirming the committed band 3/3 scorings**, with
+0 fabrications · 0 invented OPEN · 0 silent HIGHs · 0 false alarms
+scorer-independent. The divergence measurement the re-score was for: the
+outcome-aware scorer had under-scored the registered fragment-7 anchor
+(unmet 3/3, non-silent — both blind scorers independently re-derived the
+premise-contradiction from the pin), overstated the agents' residual
+flagging, scored one D1(b) zero too clean, graded its own worst-defect row
+harsher than the pinned text supports, and missed one count error; citation
+imprecision counts proved scorer-relative (4–11 for the same maps). Full
+comparison:
+[`../findings/2026-08-13-intent-map-fresh-scorer.md`](../findings/2026-08-13-intent-map-fresh-scorer.md).
 
 **A fourth result, and it is about the interviewer rather than the interview.**
 The session recorded a *"question 22, begun and left blank"* as an open item, in
@@ -540,30 +557,32 @@ is where proven methods become **reusable infrastructure**.
 ## 8 · Honest nulls
 
 - **Phase 3 is unbuilt and uncosted; Phase 2 has one slice landed and, as of
-  2026-08-12, the producer half of its own test run** (amended 2026-08-09 and
-  again 2026-08-12; this bullet said *"Phases 2 and 3 are unbuilt"*, then
-  *"untested by its own protocol"*, and outlived each by one PR). Everything
-  in § 5 is still `REASONED` with nothing running. Phase 2's map runs in
-  `intake` as of fm #830; § 4.8's producer half ran 2026-08-12 (fm #851,
-  PARTIAL) — fresh agents produced the maps, but the recorded bar is a fresh
-  agent that produces **and scores** (the replay finding § 4; the fm #830
-  disposition), so the mechanism claim is earned **producer-side only** and
-  the fresh-scorer half is still open.
+  2026-08-13, its own test run in full** (amended 2026-08-09, 2026-08-12 and
+  again 2026-08-13; this bullet said *"Phases 2 and 3 are unbuilt"*, then
+  *"untested by its own protocol"*, then *"producer-side only"*, and outlived
+  each by one PR). Everything in § 5 is still `REASONED` with nothing running.
+  Phase 2's map runs in `intake` as of fm #830; § 4.8's producer half ran
+  2026-08-12 (fm #851, PARTIAL) and its fresh-scorer half 2026-08-13 (fm #852
+  — two blind scorers, PARTIAL confirmed 3/3 scorings), so the recorded bar —
+  a fresh agent that produces **and scores** — is met, with the prior
+  scorer's bias measured in the comparison rather than assumed away.
 - **Phase 1's own effect is measured on n=1 session** and only against the
   orientation failure class. It cannot move the classes the landed injection
   mechanisms already cover, and the roadmap should not be read as claiming it does.
-- **The § 4.8 test has now run in its prescribed producer-side form — and the
-  null this bullet carried moves rather than closes** (rewritten 2026-08-12;
-  until then it read *"the prescribed test has not been run"*). The author
-  walkthrough
+- **The § 4.8 test has now run in its prescribed form on both halves — and
+  one null this bullet carried still moves rather than closes** (rewritten
+  2026-08-12 and 2026-08-13; earlier readings: *"the prescribed test has not
+  been run"*, then *"producer-side form"* only). The author walkthrough
   ([`../findings/2026-08-09-intent-map-replay.md`](../findings/2026-08-09-intent-map-replay.md),
   **0 clean catches · 1 partial · 1 correction-handled · 1 HIGH surfaced · 7
   correct silences · 0 false alarms**) remains inadmissible as validation —
   Codex, fm #830. The fresh-agent run (fm #851,
   [`../findings/2026-08-12-intent-map-fresh-agent-test.md`](../findings/2026-08-12-intent-map-fresh-agent-test.md))
-  is admissible on the producer side; its own § 1.5 names the residual bias:
-  the maps were fresh-produced, the **scoring** was done by a session that knew
-  the outcomes, bounded by a pre-registered rubric and mechanical checks.
+  is admissible on the producer side; its own § 1.5 named the residual bias —
+  the scoring was done by a session that knew the outcomes — and that residual
+  is now **measured rather than assumed**: the 2026-08-13 blind re-score
+  (fm #852) confirms the band and names four places the outcome-aware scoring
+  bent ([`../findings/2026-08-13-intent-map-fresh-scorer.md`](../findings/2026-08-13-intent-map-fresh-scorer.md) § 3).
 
   Two sub-nulls, one of them *wider* after the test: the HIGH branch is now
   exercised by **zero** live cases — the walkthrough's one HIGH (#7) dissolved
