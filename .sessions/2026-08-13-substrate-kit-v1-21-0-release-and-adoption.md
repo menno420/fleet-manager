@@ -90,5 +90,15 @@ and the program §7 / current-state ledger updates.
       `bash scripts/repo_checks.sh` exit 0
 - [ ] Codex review at the exact head; dispositions recorded here
 
+## Flagged, not done (structural follow-up)
+
+`docs/current-state.md` now sits AT the 7000-word orientation budget — this
+session's one-paragraph ledger entry tipped it over and had to be cut to a
+bare pointer, twice. The next session that appends ANY entry hits the same
+wall. The structural fix (move the pre-2026-08 "Recently shipped" history
+out of the boot-read set, pointing at program §7 which already carries every
+row) is a deliberate scope decision for the owner or a docs session — not
+smuggled into an adoption PR.
+
 Layer-2 handoff: null (fleet-manager itself; substrate-kit has no Layer-2
 folder — `docs/repos/` coverage note stands)

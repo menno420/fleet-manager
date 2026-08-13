@@ -42,11 +42,7 @@ copy product architecture or internal product state. Canonical intent:
   ones (OD-15; re-target pending at `OQ-FM-D2-TARGET`). Until he names the next
   repository, the standing answer to "what should a session pick up" is **OD-13**:
   methods/enforcement (the roadmap's Phases 2–3) and the multi-provider mix.
-- fleet-manager vendors substrate-kit v1.21.0 (adopted 2026-08-13 — the
-  release this estate cut the same day, closing the seven recorded upstream
-  defects; the re-apply table in [SKILLS-local.md](SKILLS-local.md) is empty
-  for generated files, and this repo's CI checkers live in the host-owned
-  `scripts/repo_checks.sh`).
+- fleet-manager vendors substrate-kit v1.21.0 (fm #853)
 - Whether a root `AGENTS.md` should make the neutral front door auto-load is an
   owner decision. D2 measures the no-`AGENTS.md` path; this session does not add
   one.
@@ -171,36 +167,16 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 
 ## Recently shipped (newest first)
 
-- **substrate-kit v1.21.0 — cut, published, and adopted; the seven-defect
-  worklist is closed** (2026-08-13, kit #581 + the adoption PR): the owner's
-  2026-08-09 *"both, in order"* ruling completes.
-  [The worklist](findings/2026-08-09-substrate-kit-defects.md) is fixed
-  upstream in its own order — defect 7's false NEGATIVE on the required gate
-  first (subordinators are clause boundaries now), then the quoted-mention
-  false positive (6), occurrence-level attachment (2), the `(?:re)?deploy`
-  family regex (3), fence/blockquote bridge stops (4), the fence-scoped
-  render exemption (1), and the SKILLS-index install teaching (5). The three
-  fm #833 gate carve-outs ship in the kit's generator — the regenerated
-  `substrate-gate.yml` was diffed carrying all three, this repo's checkers
-  moved to host-owned `scripts/repo_checks.sh`, and the SKILLS-local
-  generated-file re-apply table is EMPTY. The capability-seed's three
-  route-quirk walls are retracted upstream; the upgrade measurably left fm's
-  consumer-edited `CAPABILITIES.md` fence untouched. Verified in layers:
-  four-way sha256 on the published asset (`8807a00e…`), a fresh 12-adopter
-  `--gate-preview` sweep (six promoted sites: 0 findings on 12/12 trees),
-  and `tools/ab_kit_scan.py` against the PUBLISHED asset — all seven rows in
-  the wanted direction. Codex: two rounds kit-side (6 + 3 findings, every
-  one reproduced before disposition). The intake graduation is deferred with
-  reasons on the card; the ~11-adopter wave is owner-called.
+- **substrate-kit v1.21.0 — cut, published, adopted** (2026-08-13, kit #581
+  + fm #853): seven-defect worklist closed, re-apply tax ended. Record:
+  program §7 + session card.
 
 
-- **§ 4.8's fresh-scorer half ran — blind scorers confirm PARTIAL**
-  (2026-08-13, fm #852):
-  [the finding](findings/2026-08-13-intent-map-fresh-scorer.md) — the
-  produce-**and**-score bar is met. Two blind scorers returned **PARTIAL ×2:
-  0 fabrications · 0 invented OPEN · 0 silent HIGHs · 0 false alarms**, four
-  named bends and one miss in the prior scoring, imprecision counts
-  scorer-relative (4–11).
+- **§ 4.8's fresh-scorer half ran — blind scorers confirm PARTIAL ×2, the
+  produce-and-score bar is met** (2026-08-13, fm #852):
+  [the finding](findings/2026-08-13-intent-map-fresh-scorer.md) carries the
+  scorer-independent zeros, the four named bends in the prior scoring, and
+  the scorer-relative imprecision counts.
 
 - **Roadmap § 4.8's producer half ran — the scorer half followed, fm #852**
   (2026-08-12, fm #851):
