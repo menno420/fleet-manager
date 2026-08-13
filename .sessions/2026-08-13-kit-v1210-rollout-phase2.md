@@ -1,6 +1,6 @@
 # Session — substrate-kit v1.21.0 rollout, phase 2 (both superbot repos)
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 >
 > Born-red: this card is the sole FIRST commit on the branch; the program §7 row
 > and the ledger entry land in the following commits; the `in-progress` →
@@ -39,7 +39,7 @@ entry.
 |---|---|---|---|---|
 | superbot-next | v1.20.2 → v1.21.0 | sbn #606 | `d5f66dc` | ✔ dist sha256 + pin |
 | superbot | (pin v1.0.0, no dist) → v1.21.0 | sb #2436 | `6067b2d2` | ✔ dist sha256 + pin + 10 allowlist entries + card complete |
-| substrate-kit | registry regen | kit #583 | open | — |
+| substrate-kit | registry regen | kit #583 | merged | ✔ |
 
 `sha256 8807a00e…9cc7356` agreed **five ways** on both adoptions (released asset ·
 `release.json` field · sidecar · kit's committed `dist/bootstrap.py` at the release
@@ -123,6 +123,27 @@ safe and was fail-*open*, because a red non-required job blocks nothing.
   `orientation-budget` (17,664 words against a 7,000 budget — a records restructure,
   the same call reserved for fleet-manager's identical finding). **Flagged, not
   allowlisted** — suppressing either would buy green by hiding a true finding.
+
+## `current-state.md` got no entry, and that is a measured cost
+
+The wave normally earns a "Recently shipped" line. It did not get one, because
+**this repo's boot-read budget has no headroom left**: `docs/current-state.md`
+(6,253 words) plus `docs/AGENT_ORIENTATION.md` (788) sits at ~6,996 of a 7,000-word
+budget. Measured, not guessed — with a 180-word entry the gate read **7,330**, a
+150-word one **7,146**, a 45-word one **7,041**, and with the entry removed
+`check --strict` exits **0**. Stashing the edit and re-running confirmed the finding
+was **introduced by this session**, not pre-existing.
+
+So any real ledger entry reds the gate, and the restructure that would create room is
+explicitly **out of scope for this session** (the owner's own decision, flagged on the
+2026-08-13 card). Buying green by allowlisting my own finding would be the false-green
+defect. The record lives in the program's **§7 row** — canonical, and outside the boot
+budget — and in this card.
+
+**The budget is now effectively a freeze on the living ledger**: at ~4 words of
+headroom, the next session that ships anything faces the same choice. That is the
+concrete cost of deferring the restructure, and it is worth the owner knowing it has
+already started biting.
 
 ## 💡 Session idea
 
