@@ -69,7 +69,15 @@ more did not survive contact with the trees:
    exit 1, tree untouched) and `adopt` over-corrects into **21 paths**, planting a
    `docs/decisions.md` beside superbot's existing `docs/decisions/` directory and
    regenerating its enabler. The working path is undocumented: **vendor the dist,
-   bump the pin**, which runs `check --strict` in full.
+   bump the pin**, which runs `check --strict` in full. **[Narrowed 2026-08-13,
+   fm #855: both refusals said *"run init first"* and `init` was never run.
+   Measured on a throwaway pre-#2436 clone: `init` succeeds (one path,
+   `.substrate/state.json`) and unlocks `upgrade`, which then plants 20 paths —
+   `docs/decisions.md` beside `docs/decisions/`, enabler regen included — and
+   still vendors no dist. So a documented sequence exists; what does not exist
+   is a kit path producing the minimal docs-only change this repo needed.
+   Vendor+pin stands, now measured:
+   `docs/findings/2026-08-13-v1210-phase2-review.md` § 2.]**
 
 ### The one I got wrong, and what it costs the rest of the wave
 
@@ -118,6 +126,15 @@ safe and was fail-*open*, because a red non-required job blocks nothing.
   `main`**; reproduced under 3.11 by deleting `ast.Num`, which yields the CI error
   string verbatim. Not mine and not fixed — the real question is whether to delete the
   dead branch or pin the gate to the interpreter the product ships on.
+  **[Settled MEASURED 2026-08-13, fm #855: the gate failed 3/3 real-venue runs on
+  the PR head whose tree is hash-identical to the merged `main` (CPython 3.14.6,
+  `test_parse_message_shapes`, 1 failed/3672 passed), and the merge fired no run
+  because bot-armed auto-merge pushes create none — the push actor is
+  `github-actions[bot]`. Required-check enforcement is unaffected (it reads
+  `pull_request` runs). One boundary in this bullet also narrows: `ast.Num`
+  is removed in **3.14**, not 3.12 (deprecated since 3.8; 3.12/3.13 still
+  carry it — Codex-measured under 3.12.13 on fm #855):
+  `docs/findings/2026-08-13-v1210-phase2-review.md` § 1.]**
 - **superbot's gate is honestly red at 2**, not green: `enforcement-unwired` (wiring a
   gate changes how a frozen repo lands PRs, and it would be red from day one) and
   `orientation-budget` (17,664 words against a 7,000 budget — a records restructure,
