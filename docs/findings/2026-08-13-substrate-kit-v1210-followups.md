@@ -73,6 +73,23 @@ while the exit goes red (telemetry corruption; gba/venture-lab reads).
 Cross-adopter re-find tally: row 3 sighted on 4 trees, row 4 on 4 trees —
 independent confirmation, same sites, every wave PR.
 
+**The idea-engine #899 / superbot-mineverse #144 rounds added six more:**
+
+| # | site (vendored v1.21.0) | defect | provenance |
+|---|---|---|---|
+| 16 | `substrate-gate.yml` template `:278` (pytest step) | **P1** — the step installs only `requirements.txt`; a repo keeping deps in `requirements-dev.txt` (mineverse, deliberately) collect-fails on imports and the REQUIRED gate stays red past the flip — bit live on mineverse #144, fixed there by reverting the regen | new in v1.21.0 (row 14's sibling — the step's second wrong assumption) |
+| 17 | `bootstrap.py:5780` | the occurrence mask is applied to `_REPUDIATION_CUES` but not `_DATED_LINE`/`_FALSE_LABEL`, so `FALSE "agents cannot merge", agents cannot merge` and the dated-supersession variant pass strict — false **NEGATIVE**, joins row 13 at the top | new in v1.21.0 (mineverse #144 R1) |
+| 18 | `bootstrap.py:6036` | a digest `BEGIN` fence with no `END` (merge conflict, hand edit, forged marker) exempts every remaining line of `docs/seat-digest.md` from the strict false-wall scan — fails open; the drift check that would notice is advisory-only | new in v1.21.0 (two independent sightings: idea-engine #899 `:6036`, mineverse #144 `:6038`) |
+| 19 | `bootstrap.py:3010` | provenance finding paths are computed relative to `docs_root` (`measurements/x.md`, not `docs/measurements/x.md`) — reports point at the wrong artifact and an exception written with the real path can never match | pre-existing since #565 (idea-engine #899 R1) |
+| 20 | `bootstrap.py:4492` | the boot-path checker does not recognise the kit's OWN generated `.claude/CLAUDE.md` heading (`## Orientation — read first, in order`) → false `boot-section-missing` on kit-standard repos — observed live on idea-engine's tree this session | pre-existing since #579 (idea-engine #899 R1) |
+| 21 | `bootstrap.py:4587` | boot entries the template marks `when present` (`HANDOFF.md`, untracked) are treated as mandatory → false `boot-path-unresolved` on healthy generated agreements | pre-existing since #579 (idea-engine #899 R1) |
+
+Fix-order restated after the wave: **the false negatives first (13, 17, 18)**
+— they are the checker failing at its one job — then the exit-affecting
+promotion family as one contract-review unit (2, 6, 8, 9, 10), then the
+adopter-facing template defects (14, 16, 15), then the boot-path family
+(4, 11, 12, 20, 21), then the rest (1, 3, 5, 7, 19).
+
 ## Residue this session found itself (not Codex)
 
 - **The kit's `tests/test_skills_index_install_contract.py` guard regex is
