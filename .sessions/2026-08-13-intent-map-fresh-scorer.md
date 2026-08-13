@@ -1,6 +1,11 @@
 # 2026-08-13 · hub — run the fresh-SCORER half of roadmap § 4.8
 
-> **Status:** `in-progress`
+> **Status:** `complete`
+
+*(Flip note, per the review-exemption clause: Codex reviewed the exact head
+`3d2a74b` — summary "Didn't find any major issues", inline threads checked
+directly: zero (`get_review_comments` → totalCount 0). This flip commit
+changes this badge, this note, and the telemetry delta. Nothing else.)*
 
 - **📊 Model:** fable-5 · high · review/verify — run the fresh-scorer half of
   roadmap § 4.8: scorer subagents that have seen neither this conversation nor
