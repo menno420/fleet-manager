@@ -83,8 +83,8 @@ independent confirmation, same sites, every wave PR.
 | 19 | `bootstrap.py:3010` | provenance finding paths are computed relative to `docs_root` (`measurements/x.md`, not `docs/measurements/x.md`) — reports point at the wrong artifact and an exception written with the real path can never match | pre-existing since #565 (idea-engine #899 R1) |
 | 20 | `bootstrap.py:4492` | the boot-path checker does not recognise the kit's OWN generated `.claude/CLAUDE.md` heading (`## Orientation — read first, in order`) → false `boot-section-missing` on kit-standard repos — observed live on idea-engine's tree this session | pre-existing since #579 (idea-engine #899 R1) |
 | 21 | `bootstrap.py:4587` | boot entries the template marks `when present` (`HANDOFF.md`, untracked) are treated as mandatory → false `boot-path-unresolved` on healthy generated agreements | pre-existing since #579 (idea-engine #899 R1) |
-
 | 22 | `substrate-gate.yml` template `:135` (claims-only guard) | **P1** — a `claude/*` PR whose diff is a claim PLUS any other `control/**` file (e.g. `control/status.md`) keeps the control-only lane while `non_claims` is non-empty, so the guard passes and the PR can auto-merge card-less — the exact race the step exists to close. Not a regression on adopters (pre-v1.21.0 gates had no claims guard at all), but the new protection has a hole | new in v1.21.0 (idea-engine #899 R2) |
+
 
 Round-2 sighting updates: row 5 sharpened with the quoted-conditional class
 (`The phrase "agents cannot merge when CI is green" is not a wall.` now reds —
@@ -120,9 +120,10 @@ and measured the superbot-next gate failure in the real venue:
 ## How to use this
 
 The next kit session takes this file the way this session took the
-seven-defect worklist: fix upstream in this order (2 and 5 first — 2 is a
-telemetry/exit contradiction on the required gate's own output, 5 is the only
-adopter-facing behaviour regression class), with reproductions before
+seven-defect worklist: fix upstream in the **restated order above**
+(superseded 2026-08-13, fm #855 — this line originally said "2 and 5 first",
+written when the list had five rows; the wave grew it to 22 and the false
+negatives now lead), with reproductions before
 dispositions, and verify against the published asset, not the changelog.
 Rows 1 and 5 carry the fm #853 Codex thread verbatim; rows 2–4 predate the
 release and simply had their first non-author read here.

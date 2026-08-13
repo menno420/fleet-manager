@@ -136,5 +136,5 @@ Codex re-found the same dist defects independently on up to five trees
 (row 3: five sightings) while each tree also surfaced unique ones — the
 next kit session should treat per-adopter Codex rounds as a standing part of
 release verification, not an adoption formality: eight rounds turned a
-5-row worklist into 22 rows, including three P1s no single-tree pass had
-found.
+5-row worklist into 22 rows, including four P1 rows (6, 13, 16, 22) no
+single-tree pass had found.
