@@ -1,3 +1,13 @@
+# The scorer prompt template — verbatim below the rule
+
+> **Status:** `reference`
+>
+> Below the horizontal rule: the prompt each scorer received, byte-identical
+> except that the per-sandbox absolute path is generalised to `{SANDBOX}`
+> (this header block is the committed copy's provenance wrapper).
+
+---
+
 # Task: independently score five intent maps against a pre-registered rubric
 
 You are an independent scorer. Five agents each produced an "intent map" over an

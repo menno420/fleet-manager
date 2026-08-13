@@ -1,3 +1,13 @@
+# The rubric as handed to both scorers — verbatim below the rule
+
+> **Status:** `reference`
+>
+> Everything below the horizontal rule is byte-identical to the `rubric.md`
+> placed in both scorer sandboxes (this header block is the committed copy's
+> provenance wrapper, not part of the handed text).
+
+---
+
 # The fresh-agent test of the intent map — design and pre-registered rubric
 
 > This document describes how five intent maps were produced (§ 1) and the

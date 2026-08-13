@@ -171,6 +171,36 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-13 · capability · `owner-live` · **Harness subagents receive the project
+  boot file as a snapshot captured at session start — a working-tree edit to
+  `.claude/CLAUDE.md` mid-session does NOT change what a later-spawned subagent
+  sees.** Consequence for any blind/fresh-agent design: whatever the boot file
+  said when the session booted is in every subagent's context for the whole
+  session, unredactable from inside it. · evidence: measured twice in the § 4.8
+  scorer session — a no-tool probe subagent quoted deep-read-path entry 1b
+  verbatim (prior verdict included); the line was then neutralized in the
+  working tree (`grep` confirmed on disk) and a second probe **still quoted the
+  original**; file restored via `git checkout` before any commit. · workaround,
+  measured clean the same hour: run the blind agent as a **separate headless
+  `claude -p` session rooted in a sandbox directory** — that surface carried no
+  fleet-manager context at all (and loads no fleet-manager hooks, since its cwd
+  has no `.claude/`). — LAST-VERIFIED: 2026-08-13
+- 2026-08-13 · capability · `owner-live` · **Nested headless Claude Code runs
+  (`claude -p`) work from inside a session's container — same account, model
+  selectable (`--model claude-fable-5`), scoped tool grants via
+  `--allowedTools`.** Two permission facts measured on the way: (1)
+  `--dangerously-skip-permissions` is auto-denied by the automode classifier;
+  the scoped `--allowedTools` form instead **escalates to the owner's screen**
+  (one Allow per launch) — privilege-granting to a nested session is
+  classifier-escalated, not silently approved. (2) **An agent cannot widen its
+  own `permissions.allow`** — the settings-file edit was hard-blocked as
+  self-privilege-escalation even though the owner had asked for it in the
+  transcript; it landed only after he turned automode off and re-directed the
+  edit live. · evidence: this session — two scorer launches approved and run to
+  completion; the denied Edit and the landed one are both in the transcript;
+  the resulting allowlist is committed in `.claude/settings.json` (fm #852).
+  — LAST-VERIFIED: 2026-08-13
+
 - 2026-08-10 · capability · `any` · **ChatGPT Work can carry fleet-manager's
   documentation truth-pass method from a genuinely cold start.** The session
   began with no checkout and no repository file loaded, discovered and recorded
