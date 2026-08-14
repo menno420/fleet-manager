@@ -173,9 +173,9 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   4 projects all running 24/7; the Aug 13 bill is $30.73 pure usage (memory
   $15.43 + ~234 GB egress $11.74 + vCPU $3.29); the three duplicate web
   surfaces are exactly the cutover plan's retire set (W1/OD-8); and the
-  frozen `superbot` repo's 2-hourly `dashboard-data-refresh` was measured
-  restarting the production bot ~11×/day (344 deploys in the billed cycle —
-  `worker` has no Railway watch filter). Attribution headline: **two
+  pushes to the frozen `superbot` repo were measured restarting the
+  production bot 344× in the billed cycle (~11×/day, ~293 of them the
+  2-hourly `dashboard-data-refresh` — `worker` has no Railway watch filter). Attribution headline: **two
   services carry 75 %** — websites `control-plane` ($11.62: 92 % of estate
   CPU + 149 GB egress, tripled in early August) and the bot's Postgres
   ($11.35: 831 MB resident + ~59 GB egress matching the daily `pg_dump`

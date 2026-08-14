@@ -57,11 +57,15 @@ close. Railway numbers cross-foot against the receipt totals in the finding's
 
 **⚑ decide-and-flag:**
 - Flagged (owner): `postgres-botsite` disposition after W1 (dump-then-delete
-  vs keep-stopped) — the cutover plan's "never touch the two Postgres DBs"
-  protected the bot's infra; this third DB serves only a retire target.
+  vs keep-stopped) — it is **one of the two Postgres DBs W1's hard rail
+  protects** (Codex P1, conceded); its only consumer is the old botsite, so
+  post-W1 it is protected-but-functionally-orphaned. Any disposition is an
+  explicit owner amendment to the rail.
 - Flagged (owner): whether to disable `dashboard-data-refresh.yml` outright
   or drop it to daily until the old dashboard retires; and whether to give
-  `worker` a `disbot/**` watch filter (both recommended in the finding § 5).
+  `worker` a watch filter covering **every build/runtime input** (source dir
+  + root `requirements*`/build config — Codex P1 narrowed the original
+  `disbot/**`-only suggestion; finding § 5.3).
 
 **💡 idea:** W3 (make the program visible) could include a monthly
 Railway-usage snapshot on the control-plane — the usage API grouped by

@@ -14,9 +14,11 @@
 ## 0 · The answer in five sentences
 
 The August 13 bill is **$30.73 (~€30), all of it usage**: the billed cycle
-(Jul 13 → Aug 13) was the **first full month the whole EAP-era estate ran
-24/7** — 14 always-on services across 4 projects, where the June cycle
-($7.75) had only ~half of them for part of the month. The per-service
+(Jul 13 → Aug 13) was the **first cycle with (nearly) the whole EAP-era
+estate running 24/7** — 12 of the 14 services predate the cycle start, while
+the new botsite Postgres (07-19) and both shiftlife services (07-25) joined
+mid-cycle, so the full-estate run-rate is slightly *above* $30.73, where the
+June cycle ($7.75) had only ~half the estate for part of the month. The per-service
 attribution (§ 3) shows it is **not** "many small websites": **two services
 carry 75 % of the bill** — the websites **`control-plane`** ($11.62: 92 % of
 all vCPU plus **149 GB of egress** serving its readiness board, half of that
@@ -25,11 +27,13 @@ Postgres** ($11.35: **831 MB resident RAM** around the clock plus **~59 GB of
 egress that matches the daily off-platform `pg_dump` backup**). The three
 duplicate/old sites the cutover plan already retires cost **~$1.6/cycle** —
 worth retiring, but hygiene rather than the main lever. A separate
-**operational** defect found on the way: the frozen `superbot` repo's
-2-hourly `dashboard-data-refresh` pushed `main` ~344 times in the cycle,
-**rebuilding and restarting the LIVE Discord bot ~11×/day** — nearly free in
-dollars (the worker totals $1.03) but it bounces the production bot for the
-sake of a site that is itself a retire target. Fixes in § 5, ordered by
+**operational** defect found on the way: the unfiltered `worker` service was
+rebuilt and **the LIVE Discord bot restarted 344 times in the cycle
+(~11×/day)** by pushes to the frozen `superbot` repo — ~293 of them the
+2-hourly `dashboard-data-refresh` commits (the dashboard-filter-matched
+subset), the rest other pushes. Nearly free in dollars (the worker totals
+$1.03), but it bounces the production bot mostly for the sake of a site that
+is itself a retire target. Fixes in § 5, ordered by
 measured impact; at control-plane's current rate the **next bill will not be
 smaller without action**.
 
@@ -46,7 +50,7 @@ Nine answer HTTP (all probed live this session); five are infrastructure.
 | | **botsite** | `superbot-app.up.railway.app` | **OLD** SuperBot site ("SuperBot — interactive prototype", title fetched live), deploys `menno420/superbot` — superseded by the new botsite. Retire target. |
 | | **dashboard** | `superbot-dashboard.up.railway.app` | **OLD** developer dashboard ("SuperBot — developer dashboard", fetched live), deploys `menno420/superbot` — superseded. Retire target. |
 | | **review** | `review-production-f027.up.railway.app` | **DUPLICATE** of the new review site — Railway reports the same source repo (`menno420/websites`) for both, and both serve the identical "Program Review" page (titles fetched live). Retire target. |
-| | **postgres-botsite** | *(internal)* | Postgres serving ONLY the old botsite (`DATABASE_URL` host verified = `postgres-botsite.railway.internal`). Orphan once old botsite retires. |
+| | **postgres-botsite** | *(internal)* | Postgres serving ONLY the old botsite (`DATABASE_URL` host verified = `postgres-botsite.railway.internal`). It is one of the **two `reliable-grace` Postgres DBs W1's hard rail protects** — it merely becomes *functionally* orphaned once the old botsite retires; any disposition is an explicit owner amendment to that rail (§ 5.5). |
 | `superbot-websites` (created 07-09) | **control-plane** | `control-plane-production-abb0…` | Fleet readiness board + journal browser over the estate's repos, live from the GitHub API. |
 | | **botsite** | `botsite-production-cfd7…` | **Canonical** SuperBot marketing/reference site + `/submit` idea intake + `/testing` tester program (Postgres-backed). |
 | | **dashboard** | `dashboard-production-a91b…` | **Canonical** read-only bot-inventory dashboard (+ Discord-gated `/admin`). |
@@ -56,8 +60,9 @@ Nine answer HTTP (all probed live this session); five are infrastructure.
 | `shiftlife` (created 07-25) | **shiftlife-api** | `shiftlife-api-production…` | The ShiftLife app's sync/share server. |
 | | **Postgres** | *(internal)* | ShiftLife's database. |
 
-All nine web surfaces returned 200 on `/healthz` (mineverse serves its app on
-`/`; it has no `/healthz` route). The gba-homebrew arcade is GitHub Pages —
+Eight web surfaces returned 200 on `/healthz`; mineverse has no `/healthz`
+route and returned its app with 200 on `/` — nine reachable, eight of them
+via health checks. The gba-homebrew arcade is GitHub Pages —
 free, not part of this bill.
 
 **The duplicates, precisely:** `review` ×2 (identical `menno420/websites`
@@ -87,12 +92,13 @@ estate's cost was still **accelerating** at cycle close. § 3's bucketed data
 attributes the acceleration: control-plane's egress and CPU roughly tripled
 in early August and were still at that rate when this audit ran.
 
-Why the 4× jump from June's cycle: `superbot-websites` (5 services) was
-created 07-09, `superbot-mineverse` 07-12, the second review copy 07-12, the
-new botsite Postgres 07-19, and `shiftlife` 07-25 — the June cycle billed a
-half-built estate for part of a month; the July cycle billed all 14 services
-for a full month. **The €30 is the run-rate of the estate as built, not a
-one-off spike.**
+Why the 4× jump from June's cycle: `superbot-websites` (4 of its 5 services)
+was created 07-09, `superbot-mineverse` 07-12, the second review copy 07-12 —
+so the June cycle billed a half-built estate for part of a month, while the
+July cycle billed 12 of the 14 services for the whole month. Two joined
+mid-cycle (the new botsite Postgres 07-19, both `shiftlife` services 07-25),
+which means **the €30 slightly understates the full-estate run-rate — it is
+the run-rate of the estate as built, not a one-off spike.**
 
 ## 3 · Where it goes, per service (`MEASURED` — Railway usage API, billed cycle)
 
@@ -102,10 +108,11 @@ Method: `usage(workspaceId, measurements, groupBy: [SERVICE_ID])` for
 last bucket and under-reported 4× — kept here as the trap it is). Dollars
 computed at Railway's receipt unit prices ($10/GB-mo memory ·
 $20/vCPU-mo · $0.05/GB egress). **Cross-foot against the receipt: memory
-$14.99 vs $15.43 · vCPU $3.06 vs $3.29 · egress 212 GB vs ~234 GB — 93–97 %
-recovered**; the residue is window-boundary (midnight-UTC query bounds vs the
-receipt's mid-day cycle boundary) plus rounding, and two deleted services
-report zero.
+$14.99 vs $15.43 (97 %) · vCPU $3.06 vs $3.29 (93 %) · egress 212 GB vs
+~234 GB (~91 % — ~22 GB / ~$1.10 unattributed)**; the residue is
+window-boundary (midnight-UTC query bounds vs the receipt's mid-day cycle
+boundary) plus rounding, two deleted services report zero, and the egress gap
+is the largest single uncertainty this attribution carries.
 
 | Service | avg RAM | mem $ | vCPU-min | cpu $ | egress GB | net $ | **total $** |
 |---|--:|--:|--:|--:|--:|--:|--:|
@@ -138,15 +145,18 @@ What the numbers say:
   is not determinable from the usage API — Railway's HTTP logs are the next
   step (crawler traffic and the cross-service fleet-nav fetches are the
   candidates).
-- **The bot's Postgres egress ≈ 1.9 GB/day matches the daily 02:00 `pg_dump`
-  backup** (superbot `backup-db.yml`, over the public proxy — the only route
-  a GitHub runner can reach) almost exactly: ~59 GB over 31 days. Its 831 MB
-  resident RAM is the estate's largest memory line; the dump size implies the
-  dataset itself is in the GB range and growing.
+- **The bot's Postgres transmitted 58.8 GB; attributing it to the daily
+  02:00 `pg_dump` backup is `REASONED`, not measured** — the usage API groups
+  egress by service, not by request, so the near-exact fit (~59 GB ÷ 31 days
+  ≈ 1.9 GB/day against a daily dump over the public proxy, the only route a
+  GitHub runner can reach) is strong but inferential. One observation closes
+  it: the backup workflow's artifact/transfer size for a single run. Its
+  831 MB resident RAM is the estate's largest memory line either way.
 - **The bot itself is cheap** ($1.03) — the 344-restart churn (§ 4) is an
   operational defect, not a cost driver.
-- The three retire-target sites total **$1.61**; the four keep sites total
-  $2.65 of runtime beyond control-plane; every idle Postgres runs ~$0.26–0.30.
+- The three retire-target sites total **$1.61**; beyond control-plane, the
+  three canonical site services total $1.92 and all keep web services
+  (+ mineverse + shiftlife-api) $2.24; every idle Postgres runs ~$0.26–0.30.
 
 ## 4 · The churn defect: the frozen repo redeploys the production bot 11×/day
 
@@ -156,7 +166,7 @@ a deployment that built, went live, and was later replaced — i.e. a restart.
 
 | Service | Real deployments in cycle | Since Aug 1 | Watch filter |
 |---|---|---|---|
-| reliable-grace/**worker** (the live bot) | **344** | 148 (~11/day, ongoing) | **none** (`watchPatterns: []` — rebuilds on every push) |
+| reliable-grace/**worker** (the live bot) | **344** — every push; **~293 of them refresh-driven** (the dashboard-filter-matched subset below), the rest other pushes to the frozen repo | 148 (~11/day, ongoing) | **none** (`watchPatterns: []` — rebuilds on every push) |
 | reliable-grace/dashboard (old) | 293 (+50 skipped) | 135 | `dashboard/**` — matched by every 2-hourly data-refresh commit |
 | reliable-grace/botsite (old) | 17 (+326 skipped) | 6 | `botsite/**` — its filter works; not churning |
 | reliable-grace/review (dup) | 253 | 15 | none — rebuilds on every `websites` push |
@@ -197,32 +207,45 @@ measured attribution — which reorders the work. By impact:
    still runs on the anonymous 60 req/h tier — `OQ-WEBSITES-PAT` (wiring a
    read-only PAT) would cut the retry churn that anonymous rate-limiting
    produces. This is investigation-then-fix, one session.
-2. **Tame the bot-DB backup egress** (~$2.9/cycle, and the clearest single
-   number in the audit): the daily 02:00 `pg_dump` over the public proxy
-   moves ~1.9 GB/day. Cheapest fix: daily → weekly full (keep the monthly
-   long-retention tier) ≈ −$2.5/cycle; the durable fix is asking why a
-   Discord bot's dataset dumps at ~2 GB and pruning what grew (server
+2. **Tame the bot-DB backup egress** (~$2.9/cycle if the `REASONED`
+   attribution in § 3 holds): the bot's Postgres transmitted 58.8 GB, a
+   near-exact fit to the daily 02:00 `pg_dump` at ~1.9 GB/day. **Verify
+   before weakening dailies** — read one backup run's transfer/artifact size
+   from the workflow logs; if it confirms, daily → weekly full (keep the
+   monthly long-retention tier) ≈ −$2.5/cycle. The durable fix is asking why
+   a Discord bot's dataset dumps at ~2 GB and pruning what grew (server
    logging / XP history are the candidates). The 831 MB resident RAM
    ($8.39/cycle) follows the dataset — pruning shrinks both.
 3. **Stop the bot-restart churn** (operational, ~free in dollars). Two
    independent, reversible levers: (a) disable `dashboard-data-refresh.yml`
    in `superbot` — its only consumer is the old dashboard site, a retire
-   target; (b) give `worker` a watch filter (`watchPatterns: ['disbot/**']`
-   via `serviceInstanceUpdate`) so pushes that don't touch bot code stop
-   restarting the bot — the mechanism the old botsite already uses
-   successfully. Doing both is cheap and correct.
-4. **Execute W1 as written** (−$1.61/cycle + the drift hazard gone) — per
-   service, stop → watch → owner's explicit go → delete: `review-f027`,
-   then `superbot-app` (old botsite), then `superbot-dashboard` (old
-   dashboard). The `f027` EAP-link constraint has lapsed. Never touch
-   `worker` or the bot's `Postgres` (per plan; operate by exact service id,
-   never project-level).
-5. **Decide `postgres-botsite`** (−$0.30/cycle; this audit's addition — the
-   plan's "never retire the two Postgres databases" protected the bot's
-   infra; this third DB serves only the old botsite). After the old botsite
-   is gone: dump it to a backup artifact, then stop/delete — or keep it
-   stopped if the old `/submit` data should stay warm. Owner call, flagged
-   not decided.
+   target; (b) give `worker` a watch filter via `serviceInstanceUpdate` —
+   the mechanism the old botsite already uses successfully — **covering
+   every build/runtime input, not just the source directory**: at minimum
+   `disbot/**` plus the root deployment inputs the build consumes
+   (`requirements*.txt`, the Dockerfile/build config — enumerate from the
+   repo root before setting it). A source-only filter would let a dependency
+   bump merge while the live bot silently keeps its old environment. Doing
+   both is cheap and correct.
+4. **Execute W1 as the cutover plan writes it** (−$1.61/cycle + the drift
+   hazard gone) — the full three-step sequence per service, not delete
+   alone: **Step 1 repoint references** (old → keep domains, including the
+   `superbot` repo/bot-config audit the plan names) → **Step 2 reclaim the
+   freed pretty names onto the keep services** (OD-8: the new services
+   replace the old sites **under the old names** — `superbot-app` /
+   `superbot-dashboard` should end up serving the canonical replacements,
+   not go dead) → **Step 3 stop → watch → owner's explicit per-service go →
+   delete**, in the order `review-f027` → `superbot-app` →
+   `superbot-dashboard`. The `f027` EAP-link constraint has lapsed. Never
+   touch `worker` or either `reliable-grace` Postgres (the plan's hard
+   rail; operate by exact service id, never project-level).
+5. **`postgres-botsite` — an owner amendment, not cleanup** (−$0.30/cycle
+   if taken). It is one of the two Postgres DBs W1's hard rail explicitly
+   protects; what this audit adds is the wiring fact that its only consumer
+   is the old botsite, so after W1 it is protected-but-functionally-orphaned.
+   Any disposition (dump to a backup artifact then stop/delete, or keep it
+   stopped so the old `/submit` data stays warm) requires the owner to
+   explicitly amend the rail for this one service. Flagged, not decided.
 6. **Enable App Sleep on the low-traffic keep sites** (review-fc91,
    dashboard, botsite ≈ $1.9/cycle combined runtime; savings scale with how
    sporadic their traffic really is). Cold-start of ~seconds on first hit;
