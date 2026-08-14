@@ -39,6 +39,13 @@ smaller without action**.
 
 ## 1 · What is live on Railway — the full inventory (`MEASURED` 2026-08-14)
 
+> **Snapshot boundary:** §§ 1–4 are the **audit-time picture (morning
+> 2026-08-14, pre-execution)** — they are the evidence the decisions were
+> made on and are preserved as taken. The same-day execution changed it:
+> the three duplicate surfaces below are now **deleted**, their names serve
+> the canonical services, and App Sleep is on for three keep sites — § 7 is
+> the post-execution record.
+
 One workspace, **4 projects, 14 services**, all with a `SUCCESS` latest
 deployment, **none using App Sleep** (`sleepApplication: false` on all 14).
 Nine answer HTTP (all probed live this session); five are infrastructure.

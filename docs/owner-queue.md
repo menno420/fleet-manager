@@ -776,9 +776,11 @@ fleet-wide merges/ready-flips live in
   WHAT: `reliable-grace/postgres-botsite` served ONLY the old botsite (wiring verified), which
   is deleted; the DB idles at ~$0.30/cycle. It is one of the two Postgres DBs W1's hard rail
   protects, so its disposition needs your explicit word — the blanket "execute the plan" go was
-  deliberately not read as covering it. OPTIONS: **A) dump its contents to a GitHub artifact,
-  then delete the service (recommended — data preserved, cost gone)** · B) leave it running
-  as-is. HOW: one letter in the hub chat; a session executes either in minutes.
+  deliberately not read as covering it. OPTIONS: **A) dump its contents to a DURABLE home —
+  a GitHub Release asset on `superbot` (never expires), not a plain Actions artifact (those
+  expire; 90-day default) — verify the dump restores, then delete the service (recommended —
+  data preserved durably, cost gone)** · B) leave it running as-is. HOW: one letter in the
+  hub chat; a session executes either in minutes.
   WHY-IT-MATTERS: last loose end of the Railway consolidation; UNBLOCKS: nothing else — purely
   cost/hygiene. (2026-08-14, fm #863)
 - **`OQ-CR-SLICER-ANSWER` ✅ RESOLVED 2026-08-07 — the answer is **Bambu Studio**, and it

@@ -56,4 +56,4 @@ service id, never project-level.
 
 **Layer-2 handoff:** null (no `docs/repos/` folder exists for `websites` or `superbot` — Tier 2 on-demand; both repos' changes are recorded in their own PRs and this repo's finding § 7).
 
-**PR:** fm #863 — <terminal state at flip>. Companions: sb #2446 MERGED · websites #501 auto-merge armed on green.
+**PR:** fm #863 — <terminal state at flip>. Companions: sb #2446 **MERGED** · websites #501 **MERGED**, and the deployed effect verified live — `/robots.txt` probed 200 with `Disallow: /` on all three ops services at 12:47Z after the redeploy.
