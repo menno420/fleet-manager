@@ -95,6 +95,7 @@ the files it has" for the worked example the shape came from.
 | **1** | `spider-swing` | ✅ **built** 2026-08-08 — the reference shape, **ratified 2026-08-08** |
 | **1** | `superbot` + `superbot-next` (paired) · `substrate-kit` · `venture-lab` | ⬜ not built — **cleared to build**; the shape is settled |
 | **1** | `fleet-manager` (itself — today's work is otherwise a standing exception) | ⬜ not built — outside the owner-ratified build-now set; its intent already lives at [`../intent.md`](../intent.md) |
+| **2** | `product-forge` | ◐ **entry point built** 2026-08-14 (on-demand, the Slice-18 session) — `README.md` only; `capabilities.md` / `records.md` / `working-here.md` deliberately not yet written, reasons in its header. Carries the § 5.7 external-workspaces section (all null today) |
 | **2** | all other repos | ⬜ **on demand** — built when work goes there, not pre-stubbed (owner, 2026-08-08) |
 
 **The shape is settled — owner, 2026-08-08.** The three questions the spider-swing
@@ -108,11 +109,12 @@ prebuilt folder for every repo, because a stub that is never filled is the
 failure mode this directory's own coverage table exists to make visible.
 Provenance: [`../intent.md`](../intent.md) § 8.
 
-**One addition to the shape, not yet built:** a folder should point at the repo's
-**external workspaces** — its Drive folder, its ChatGPT workspace, its Gemini
-notebook — as pointers, never copies (owner, 2026-08-08). Design:
+**One addition to the shape — first carried 2026-08-14:** a folder should point
+at the repo's **external workspaces** — its Drive folder, its ChatGPT workspace,
+its Gemini notebook — as pointers, never copies (owner, 2026-08-08). Design:
 [`../planning/2026-08-08-agent-operating-environment-roadmap.md`](../planning/2026-08-08-agent-operating-environment-roadmap.md)
-§ 5.7. The next folder built carries it; spider-swing's gets it retroactively.
+§ 5.7. `product-forge/README.md` carries it (with honest nulls — the mapping is
+optional and many-to-many); spider-swing's gets it retroactively.
 
 **A blank row above means "not written yet", never "nothing is happening
 there."** Until a row is built, that repo's truth lives where it always did:

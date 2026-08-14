@@ -99,7 +99,19 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   [`findings/2026-08-09-substrate-kit-defects.md`](findings/2026-08-09-substrate-kit-defects.md)
   and the release procedure in substrate-kit. **VERIFY:** that session owns its
   release evidence and adopter preview; no fleet-manager D2 claim substitutes
-  for it.
+  for it. *(Superseded in part 2026-08-13: v1.21.0 was cut, published and
+  adopted — program §7. Left to you is only any wider rollout pacing.)*
+
+*(An `OQ-FORGE-CODEX-INSTALL` entry existed here for ~40 minutes on 2026-08-14
+and was removed the same session, before ever reaching you: the Codex app IS
+active on product-forge — its first-ever review there simply took ~9.6 min
+against fm's measured 335 s, and the session mistook never-used for
+not-installed. Removed rather than kept because a queued ask you can't act on
+sends you hunting for a settings change that is already true; the full
+correction record is in product-forge #49's card and `review-queue.md`. One
+real residue for R2: when the app graduates to a fresh `phone-controller`
+repo, THAT repo will genuinely need adding to the Codex app's repository
+access — the graduation session must flag it then.)*
 
 ## Inherited cross-repo owner asks — status as recorded
 
