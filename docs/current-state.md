@@ -167,20 +167,13 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 
 ## Recently shipped (newest first)
 
-- **The Railway estate audited — the €30 bill explained per service, the
-  duplicates confirmed, the bot-restart churn found** (2026-08-14, fm #861):
-  [the audit](findings/2026-08-14-railway-websites-audit.md) — 14 services /
-  4 projects all running 24/7; the Aug 13 bill is $30.73 pure usage (memory
-  $15.43 + ~234 GB egress $11.74 + vCPU $3.29); the three duplicate web
-  surfaces are exactly the cutover plan's retire set (W1/OD-8); and the
-  pushes to the frozen `superbot` repo were measured restarting the
-  production bot 344× in the billed cycle (~11×/day, ~293 of them the
-  2-hourly `dashboard-data-refresh` — `worker` has no Railway watch filter). Attribution headline: **two
-  services carry 75 %** — websites `control-plane` ($11.62: 92 % of estate
-  CPU + 149 GB egress, tripled in early August) and the bot's Postgres
-  ($11.35: 831 MB resident + ~59 GB egress matching the daily `pg_dump`
-  backup); the three duplicate sites total ~$1.61. `OQ-RAILWAY-PROJECT-SPLIT`
-  now carries the decision packet; no Railway mutation was made.
+- **Railway estate audited — the €30 bill attributed per service**
+  (2026-08-14, fm #861):
+  [the audit](findings/2026-08-14-railway-websites-audit.md) — two hotspots
+  carry 75 % (control-plane egress+CPU; bot-Postgres memory+backup egress);
+  the duplicate sites are W1's retire set; pushes to the frozen repo restart
+  the live bot ~11×/day. Packet: `OQ-RAILWAY-PROJECT-SPLIT`. No Railway
+  mutation made.
 
 - **phone-controller Slice 18 (v0.18.0) shipped** (2026-08-14, pf #49):
   §7 row + [`repos/product-forge/README.md`](repos/product-forge/README.md).
@@ -227,18 +220,10 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   both `RECORD` tier, where a commitment is read as history and never actioned.
 
 - **fm #838's residue salvaged and the PR closed as superseded** (2026-08-10,
-  fm #842; telemetry deltas fm #841/#843/#844): a parallel session's PR had been
-  left un-mergeable by this session's overlapping work. Measured before deciding:
-  D2 was already repointed and the roadmap already reachable from `README.md`,
-  but **the boot file carried zero mentions of the roadmap** — so the surface
-  Claude Code actually auto-loads still could not reach the owner's current plan.
-  Read-path entry **1b** added, `README.md` read 4 became the program **paired
-  with** the roadmap, and the ChatGPT Work surface's own cold contract now defers
-  to README's numbered order instead of naming three files. Codex: two rounds,
-  6 findings, 6 conceded — including one this session introduced while fixing
-  round 1. The asymmetry it exposed (the estate mandates *raising* the open-PR
-  claim signal and mandates nobody *reading* it) is now captured as an idea
-  rather than left in the card.
+  fm #842; telemetry fm #841/#843/#844): boot file gained read-path entry
+  **1b** (the roadmap was unreachable from the auto-loaded surface);
+  `README.md` read 4 became the program **paired with** the roadmap. Codex 2
+  rounds, 6/6 conceded. Detail: program §7 + the fm #842 card.
 
 - **The audit's raw record persisted; Codex round 2 closed; the browsable-repo
   plan committed** (2026-08-10, fm #840): the per-file gists and full

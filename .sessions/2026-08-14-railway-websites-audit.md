@@ -1,6 +1,17 @@
 # 2026-08-14 · hub — Railway websites audit: what is live, duplicates, the €30 bill
 
-> **Status:** `in-progress`
+> **Status:** `complete`
+
+*(Flip note, per the review-exemption clause: Codex ran two rounds — round 1
+on `25f6d5a` (9 findings, 9 conceded, fixed in `4670a61`), round 2 on the
+exact head `4670a61` (3 findings, 3 conceded, fixed in `19471fd`). Under the
+two-round cap, `19471fd` carries only the three round-2 concessions and is
+dispositioned on the PR rather than re-reviewed; this flip commit changes
+this badge, this note, the Verify/PR close-out lines below, the telemetry
+delta, and two orientation-budget trims the flip-time gate demanded — this
+session's own current-state entry compressed to a pointer, and the fm #842
+entry compressed per the in-file precedent (boot-read set was 49 words over
+after the parallel-session merge). Nothing else.)*
 
 - **📊 Model:** fable-5 · high · research — owner-directed audit: enumerate the
   live Railway estate, say what each site does, name the duplicates, explain
@@ -50,10 +61,12 @@ and the consolidation recommendation anchored on the existing cutover plan
 variable write, no trigger change). W1 execution is owner-gated and its own
 session.
 
-**Verify:** `python3 bootstrap.py check --strict` → 1 finding = the designed
-born-red hold on this card (added-card lane); exit read without a pipe at
-close. Railway numbers cross-foot against the receipt totals in the finding's
-§ 3.
+**Verify:** `python3 bootstrap.py check --strict` — pre-flip: real exit 1,
+findings exactly the designed born-red hold on this card; post-flip: real
+exit recorded green before push. Railway numbers cross-foot against the
+receipt in the finding's § 3 (memory 97 % · vCPU 93 % · egress ~91 %
+recovered). Codex: 12 findings over two rounds, **12/12 `[conceded]`** and
+fixed (`4670a61`, `19471fd`).
 
 **⚑ decide-and-flag:**
 - Flagged (owner): `postgres-botsite` disposition after W1 (dump-then-delete
@@ -79,4 +92,5 @@ of as a surprise receipt. Routed to `docs/ideas/` grooming when W3 starts.
 lives in their own repos' docs, which this audit read directly. The audit
 finding + OQ update are the durable pointers.)
 
-**PR:** fm #861 — <terminal state recorded at flip>.
+**PR:** fm #861 — flipped complete on top of `19471fd`; landing on green
+(direct merge after required checks complete, per the landing order).
