@@ -2,7 +2,7 @@
 
 > **Status:** `complete`
 
-📊 Model: fable-5 · high · product work under live owner directive
+📊 Model: fable-5 · high · feature build
 
 Time: 2026-08-14 · venue: hub chat (booted in fleet-manager, product-forge
 attached mid-session — the Slice-4 precedent) · designated branch:
@@ -51,14 +51,19 @@ threads created
 
 ## Honest flag — orientation budget
 
-`orientation-budget` fires at **7042/7000 words** on this branch (exit-neutral).
-Baseline at HEAD was ~6980 — the ledger's preserved tail, not this session,
-holds the budget hostage: my Recently-shipped entry is 62 words and the file
-carries ~4400 words of pre-2026-07-19 seat-era entries below its own
-"preserved, not current" banner. Left flagged, not contorted around and not
-suppressed: the durable fix is an OD-3-amended archive pass over that tail
-(move to a dated archive file, pointer left behind) — a records cleanup that
-deserves its own decided-and-flagged pass, not a rider on a product slice.
+The boot-read set sits **within a handful of words of the 7000-word orientation
+budget**, and this session's ledger entry passes only as a bare two-line pointer
+(three successive trims, −6 words the last — plus a matching pointer-trim of the
+adjacent v1.21.0 entry whose facts §7 carries verbatim). First
+measured here as a real blocker: the budget finding is **exit-affecting in the
+added-card lane** (`scripts/preflight.py` → CI substrate-gate), not the
+advisory warn a plain `check --strict` run suggests — a 62-word entry redded
+the lane. Baseline at HEAD was ~6980; the weight is the ledger's preserved
+tail (~4400 words of pre-2026-07-19 seat-era entries below its own "preserved,
+not current" banner), so the **next session that ships anything cannot write a
+ledger entry at all** without the cleanup. Durable fix, proposed as its own
+decided-and-flagged pass under amended OD-3: archive the pre-07-19
+Recently-shipped tail to a dated file with a pointer left behind.
 
 ## Result
 

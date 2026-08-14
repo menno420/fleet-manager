@@ -167,16 +167,11 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 
 ## Recently shipped (newest first)
 
-- **phone-controller Slice 18 (v0.18.0) shipped; repo question answered; R2
-  prepped** (2026-08-14, product-forge #49): deeper customization + backup/
-  restore-everything; feature work stays in product-forge, graduation is R2's
-  own next step. Full record: the §7 row +
-  [`repos/product-forge/README.md`](repos/product-forge/README.md) (new
-  Layer-2 entry — carries R2's measured keystore edge).
+- **phone-controller Slice 18 (v0.18.0) shipped** (2026-08-14, pf #49):
+  §7 row + [`repos/product-forge/README.md`](repos/product-forge/README.md).
 
 - **substrate-kit v1.21.0 — cut, published, adopted** (2026-08-13, kit #581
-  + fm #853): seven-defect worklist closed, re-apply tax ended. Record:
-  program §7 + session card.
+  + fm #853): program §7.
 
 
 - **§ 4.8's fresh-scorer half ran — blind scorers confirm PARTIAL ×2, the
