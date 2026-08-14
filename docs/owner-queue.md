@@ -767,6 +767,22 @@ fleet-wide merges/ready-flips live in
   [`findings/2026-08-14-railway-websites-audit.md`](findings/2026-08-14-railway-websites-audit.md):
   the duplicates are a measured share of the $30.73 Aug bill. What remains owner-side is W1's
   per-service retirement go (stop → watch → delete), per the cutover plan's execution gate.
+  **✅ EXECUTED 2026-08-14 (owner go, live; fm #863).** All three duplicates deleted
+  (`review-f027` · `superbot-app` old botsite · `superbot-dashboard` old dashboard), the freed
+  names reclaimed onto the canonical `superbot-websites` services (both old URLs now serve the
+  new sites, verified live), `reliable-grace` reduced to `worker` + its two Postgres. Execution
+  record: [findings/2026-08-14-railway-websites-audit.md](findings/2026-08-14-railway-websites-audit.md) § 7.
+- **`OQ-RG-POSTGRES-BOTSITE` — ⚑ one-letter call: the now-orphaned old-botsite database.**
+  WHAT: `reliable-grace/postgres-botsite` served ONLY the old botsite (wiring verified), which
+  is deleted; the DB idles at ~$0.30/cycle. It is one of the two Postgres DBs W1's hard rail
+  protects, so its disposition needs your explicit word — the blanket "execute the plan" go was
+  deliberately not read as covering it. OPTIONS: **A) dump its contents to a DURABLE home —
+  a GitHub Release asset on `superbot` (never expires), not a plain Actions artifact (those
+  expire; 90-day default) — verify the dump restores, then delete the service (recommended —
+  data preserved durably, cost gone)** · B) leave it running as-is. HOW: one letter in the
+  hub chat; a session executes either in minutes.
+  WHY-IT-MATTERS: last loose end of the Railway consolidation; UNBLOCKS: nothing else — purely
+  cost/hygiene. (2026-08-14, fm #863)
 - **`OQ-CR-SLICER-ANSWER` ✅ RESOLVED 2026-08-07 — the answer is **Bambu Studio**, and it
   arrived without the ask ever being put.** The question (one word: Cura / PrusaSlicer /
   OrcaSlicer / Bambu Studio) was open from 2026-07-15. It is answered by the hardware:

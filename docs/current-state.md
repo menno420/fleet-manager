@@ -167,13 +167,13 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 
 ## Recently shipped (newest first)
 
-- **Railway estate audited — the €30 bill attributed per service**
-  (2026-08-14, fm #861):
-  [the audit](findings/2026-08-14-railway-websites-audit.md) — two hotspots
-  carry 75 % (control-plane egress+CPU; bot-Postgres memory+backup egress);
-  the duplicate sites are W1's retire set; pushes to the frozen repo restart
-  the live bot ~11×/day. Packet: `OQ-RAILWAY-PROJECT-SPLIT`. No Railway
-  mutation made.
+- **Railway estate audited, then consolidated the same day — the €30 bill
+  attributed and the plan executed** (2026-08-14, fm #861 → #863):
+  [audit + execution record](findings/2026-08-14-railway-websites-audit.md)
+  — the three duplicate sites are **deleted** with their old names reclaimed
+  onto the canonical services (W1 done), the bot-restart churn is **stopped**
+  (worker watch filter + sb #2446), backups weekly, robots.txt live on the
+  ops sites (websites #501), App Sleep on. Open: `OQ-RG-POSTGRES-BOTSITE`.
 
 - **phone-controller Slice 18 (v0.18.0) shipped** (2026-08-14, pf #49):
   §7 row + [`repos/product-forge/README.md`](repos/product-forge/README.md).
