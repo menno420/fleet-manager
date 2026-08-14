@@ -49,8 +49,11 @@ steps.
    auto-merge-enabler land it; either is fine. A `do-not-automerge` label
    holds the lander off while a flagged fork is put to the owner — **within
    the session only**: under `[D-0017]` nothing waits in an open PR across
-   sessions, so if the session must end unanswered, close the PR (the branch
-   survives) and the ask rides the card. Read a red on a born-red head as the
+   sessions. If the session must end unanswered, close the work PR (the
+   branch survives) and land the handoff where `main` can see it — the card
+   in its terminal state and the owner ask ride a records-only PR that CAN
+   merge (the fm #856 / gba #216 precedent), never only the closed PR's
+   branch. Read a red on a born-red head as the
    designed hold, not a CI failure: verify any red against the job log
    before diagnosing — alias/mirror jobs echo the required check without
    running anything (kit repo example: the two legacy jobs mirroring

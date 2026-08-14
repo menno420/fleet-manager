@@ -103,7 +103,8 @@ retractions did not refresh there — its card carries the follow-up.
 Fix-order restated after the wave: **the false negatives first (13, 17, 18)**
 — they are the checker failing at its one job — then the exit-affecting
 promotion family as one contract-review unit (2, 6, 8, 9, 10), then the
-adopter-facing template defects (14, 16, 22, 15), then the boot-path family
+adopter-facing template defects (14, 16, 22, 15, 23 — 23 added 2026-08-14,
+fm #858), then the boot-path family
 (4, 11, 12, 20, 21), then the rest (1, 3, 5, 7, 19).
 
 ## Residue this session found itself (not Codex)

@@ -757,11 +757,17 @@ inherit; no owner click is blocking now.
   (×11, real accounts/keys) · **makerbench** · **trading** (owner-by-design) · **Ideas-Lab
   seat revival**. No agent click lands these — record-only until the owner acts. RISK: ✅.
 
-- **`OQ-KIT-552-BENCH-REVIEW` — (record only, no action urged) substrate-kit PR #552 is
-  `do-not-automerge` BY DESIGN.** The label is an owner-review bench pin (the deliberate-merge
-  carve-out), not a stuck PR: it waits for the owner to review at his leisure. Recorded so PR
-  sweeps stop re-flagging it as stray; no urgency, optional whenever. Provenance: 2026-07-20
-  morning sweep (fm PR #393).
+- **`OQ-KIT-552-BENCH-REVIEW` — ✅ RESOLVED (PR merged 2026-08-04; entry closed 2026-08-14).**
+  kit #552 was squash-merged 2026-08-04T16:56:54Z (API-verified; the label sits inert on the
+  closed PR), so the bench pin this entry described is terminal and sweeps have nothing to
+  skip. **The exemption class it recorded — a `do-not-automerge` PR waiting for owner review
+  indefinitely — is retired under the owner's 2026-08-14 nothing-waits-in-an-open-PR ruling
+  (decisions ledger, cited from the program's §7 review row):** an owner-wait lives inside a
+  session; an unanswered fork closes the PR with its branch retained and the ask landed where
+  `main` can see it. Original body, for the record: *(record only, no action urged)
+  substrate-kit PR #552 is `do-not-automerge` BY DESIGN — an owner-review bench pin (the
+  deliberate-merge carve-out), not a stuck PR; recorded so PR sweeps stop re-flagging it as
+  stray. Provenance: 2026-07-20 morning sweep (fm PR #393).*
 
 ### (G) Hygiene (whenever — cosmetic; branch deletes work agent-side via the direct-token path, parked here only as low-priority)
 
