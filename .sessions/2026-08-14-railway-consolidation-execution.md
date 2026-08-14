@@ -1,6 +1,14 @@
 # 2026-08-14 · hub — Railway consolidation executed: churn stopped, duplicates retired, W1 done
 
-> **Status:** `in-progress`
+> **Status:** `complete`
+
+*(Flip note, per the review-exemption clause: Codex ran two rounds — round 1
+on `ecc1d84` (4 findings, 4 conceded, fixed in `64b7e16`), round 2 on the
+exact head `64b7e16` (5 findings, 5 conceded, fixed in `228340e`). Under the
+two-round cap, `228340e` carries only the five round-2 concessions and is
+dispositioned on the PR rather than re-reviewed. This flip commit changes
+this badge, this note, the two close-out lines below, and the telemetry
+delta. Nothing else.)*
 
 - **📊 Model:** fable-5 · high · feature build — the owner's live go on fm #861's
   recommendation: *"You can execute the recommended plan, retire the restarts
@@ -44,7 +52,11 @@ service id, never project-level.
 
 **Deliberately NOT done:** `postgres-botsite` untouched (hard-rail protected; the blanket go is not the per-service amendment — asked as `OQ-RG-POSTGRES-BOTSITE`); `OQ-WEBSITES-PAT` stays owner-side (console mint; wiring the full account PAT into a public service would violate the env-grant blast-radius rule); no change to control-plane's public/auth posture ([D-0011] stands).
 
-**Verify:** each mutation's readback + live probe inline above; strict gate run pre-flip with real exit code (recorded at flip).
+**Verify:** each mutation's readback + live probe inline above. Strict gate
+pre-flip: real exit 1, the single finding being the designed born-red hold on
+this card (`gate7.out`); post-flip green recorded before push. Codex: 9
+findings over two rounds, **9/9 `[conceded]`** and fixed (`64b7e16`,
+`228340e`).
 
 **⚑ decide-and-flag:**
 - `OQ-RG-POSTGRES-BOTSITE` — A) dump-to-artifact then delete (recommended) · B) leave running (~$0.30/cycle). One letter.
@@ -56,4 +68,8 @@ service id, never project-level.
 
 **Layer-2 handoff:** null (no `docs/repos/` folder exists for `websites` or `superbot` — Tier 2 on-demand; both repos' changes are recorded in their own PRs and this repo's finding § 7).
 
-**PR:** fm #863 — <terminal state at flip>. Companions: sb #2446 **MERGED** · websites #501 **MERGED**, and the deployed effect verified live — `/robots.txt` probed 200 with `Disallow: /` on all three ops services at 12:47Z after the redeploy.
+**PR:** fm #863 — flipped complete on top of `228340e`; landing on green
+(direct merge after required checks). Companions: sb #2446 **MERGED** ·
+websites #501 **MERGED**, and the deployed effect verified live —
+`/robots.txt` probed 200 with `Disallow: /` on all three ops services at
+12:47Z after the redeploy.
