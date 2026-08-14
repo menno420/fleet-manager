@@ -46,6 +46,15 @@ owner-paced; superbot-games and pokemon-mod-lab wait for his word), and
 
 **Account-wide open `claude/*` PRs: 0** — the state `[D-0017]` names as
 normal, for the first time since the July parks were created.
+**⟲ Corrected minutes after merge (same session): that flat "0" was wrong
+at write time.** fm #859 — a parallel owner-live controller-app session's
+records PR — was created 10:18:59Z, ten minutes before this card's commit,
+and the "0" was composed from the 09:2xZ sweep plus the two landings rather
+than re-measured. The precise truth: **0 PARKED `claude/*` PRs** (the class
+the ask and the ruling are about) and **1 in flight by a live session** —
+which is exactly the open state `[D-0017]` licenses. Same defect class the
+estate's own audits name: a gloss composed over a stale measurement instead
+of computed fresh.
 
 Venue notes (facts about paths, not walls): the currency tool's API probes
 403 through the session proxy — the known proxied-REST quirk; direct egress
