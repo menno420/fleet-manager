@@ -101,6 +101,24 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   release evidence and adopter preview; no fleet-manager D2 claim substitutes
   for it.
 
+- **`OQ-JULY-PARKED-PRS` — Land or close the two July-parked `claude/*` PRs
+  (one letter each, 2026-08-14).** **WHAT:** the account's only open `claude/*`
+  PRs (24-repo sweep, 2026-08-14) are July parks that now sit against your
+  nothing-waits-in-an-open-PR ruling (decisions ledger, same date):
+  **sim-lab #344** — the P246 Gordon-growth reproduction mirror; the fleet
+  account's own row already says *"a lagging mirror to land or close"* —
+  and **trading-strategy #160** — the kit v1.17.0→v1.20.1 upgrade parked on
+  3 resident governance lines (resume recipe at `OQ-KIT-WAVE-REMNANTS` below;
+  note a landed #160 still leaves the repo one release behind, and you skipped
+  trading-strategy for v1.21.0 until its archive decision). **HOW:** one
+  letter per PR — **L** (a session lands it: #344 merge on green; #160 rebase
+  + fix the 3 lines + merge) or **C** (close-unmerged, branch retained,
+  records already on `main`). **RECOMMENDATION:** #344 **L** (finished work,
+  lagging mirror); #160 **C** if the archive decision is near, else L.
+  **VERIFY:** the next sweep reads 0 open `claude/*` PRs account-wide.
+  *(Asked live 2026-08-14, fm #858; recorded here so the ask survives the
+  session per session-close step 5.)*
+
 ## Inherited cross-repo owner asks — status as recorded
 
 > These entries preserve their last recorded status and instructions. They are
@@ -490,6 +508,9 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   denials in two venues on 2026-07-21 (transient venue state per doctrine, not a wall);
   the **push-prepared-tree step is paste-ready for the hub chat** (commit the prepared
   tree, push to the PR branch).
+  *Status 2026-08-14: the DISPOSITION question (land vs close under the
+  nothing-waits-in-an-open-PR ruling) now lives at `OQ-JULY-PARKED-PRS` above — the
+  resume recipe below stays valid only if the answer is L.*
   (2) **venture-lab #282** — per-call platform denials in three venues on 2026-07-21
   (fleet memory record; transient venue state per doctrine, not a wall); hub-side
   re-attempt.

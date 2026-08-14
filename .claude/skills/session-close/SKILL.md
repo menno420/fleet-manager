@@ -49,11 +49,9 @@ steps.
    auto-merge-enabler land it; either is fine. A `do-not-automerge` label
    holds the lander off while a flagged fork is put to the owner — **within
    the session only**: under `[D-0017]` nothing waits in an open PR across
-   sessions. If the session must end unanswered, close the work PR (the
-   branch survives) and land the handoff where `main` can see it — the card
-   in its terminal state and the owner ask ride a records-only PR that CAN
-   merge (the fm #856 / gba #216 precedent), never only the closed PR's
-   branch. Read a red on a born-red head as the
+   sessions. If the fork is still unanswered when the session must end,
+   **step 7b is the exit — close nothing from here**; the close-out and the
+   ask have not been written yet at this step. Read a red on a born-red head as the
    designed hold, not a CI failure: verify any red against the job log
    before diagnosing — alias/mirror jobs echo the required check without
    running anything (kit repo example: the two legacy jobs mirroring
@@ -167,6 +165,17 @@ steps.
    treat the PR as gone:** the lander can take it within seconds, so a
    follow-up correction is a new branch off the new `main`, never another
    push to this one.
+7b. **Unanswered fork at close — the `[D-0017]` exit.** If a
+   `do-not-automerge` work PR still waits on the owner when the session must
+   end: (1) branch a **records-only PR off `main`** carrying the outcome —
+   a card **born in its terminal state** recording the fork and the measured
+   verdict (the fm #856 / kit #584 precedent), the owner ask in
+   `docs/owner-queue.md`, and any §7/ledger rows — and (2) land it green
+   through the normal steps above; (3) only then close the work PR with a
+   comment linking the landed record — the branch survives for whoever picks
+   the fork up. `main` now carries the handoff; the closed PR carries only
+   the work. Closing before the records PR lands strands the ask on a
+   non-default branch no session reads.
 
 ## Report format (card close-out)
 
