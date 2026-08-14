@@ -101,23 +101,25 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   release evidence and adopter preview; no fleet-manager D2 claim substitutes
   for it.
 
-- **`OQ-JULY-PARKED-PRS` — Land or close the two July-parked `claude/*` PRs
-  (one letter each, 2026-08-14).** **WHAT:** the account's only open `claude/*`
-  PRs (24-repo sweep, 2026-08-14) are July parks that now sit against your
-  nothing-waits-in-an-open-PR ruling (decisions ledger, same date):
-  **sim-lab #344** — the P246 Gordon-growth reproduction mirror; the fleet
-  account's own row already says *"a lagging mirror to land or close"* —
-  and **trading-strategy #160** — the kit v1.17.0→v1.20.1 upgrade parked on
-  3 resident governance lines (resume recipe at `OQ-KIT-WAVE-REMNANTS` below;
-  note a landed #160 still leaves the repo one release behind, and you skipped
-  trading-strategy for v1.21.0 until its archive decision). **HOW:** one
-  letter per PR — **L** (a session lands it: #344 merge on green; #160 rebase
-  + fix the 3 lines + merge) or **C** (close-unmerged, branch retained,
-  records already on `main`). **RECOMMENDATION:** #344 **L** (finished work,
-  lagging mirror); #160 **C** if the archive decision is near, else L.
-  **VERIFY:** the next sweep reads 0 open `claude/*` PRs account-wide.
-  *(Asked live 2026-08-14, fm #858; recorded here so the ask survives the
-  session per session-close step 5.)*
+- **`OQ-JULY-PARKED-PRS` — ✅ RESOLVED same day (owner answered live
+  2026-08-14: L for both; both landed and tree-verified).**
+  **sim-lab #344** squash-merged @ `f54ec219` — its required gate was
+  already green; `main` is the squash, 0 open PRs there.
+  **trading-strategy #160** squash-merged @ `6cf2e93` after the three
+  resident capability overclaims holding its gate red were narrowed in
+  place on the branch (`current-state.md:389` · `CONSTITUTION.md:166` ·
+  `review-queue.md:8`), gate + pytest green by their real conclusions; the
+  heartbeat `kit:` line was reconciled at source the same hour (#163 @
+  `b5eba03` — landing #160 had created a fresh tree-vs-self-report DRIFT)
+  and the kit registry regenerated (kit #586): the row reads v1.20.2 three
+  ways, honestly stale vs v1.21.0, still owner-skipped until the archive
+  decision. **VERIFIED:** the account-wide open `claude/*` PR count is 0.
+  He also answered the paired adopter question: **neither superbot-games nor
+  pokemon-mod-lab yet** — the v1.21.0 rollout stays owner-paced.
+  *Original ask, for the record: land-or-close on the two July parks, one
+  letter each, raised because they sat against the nothing-waits-in-an-open-PR
+  ruling; recommendation was #344 L / #160 C-or-L (asked live 2026-08-14,
+  fm #858).*
 
 ## Inherited cross-repo owner asks — status as recorded
 
