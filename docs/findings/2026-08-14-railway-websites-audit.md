@@ -45,7 +45,7 @@ Nine answer HTTP (all probed live this session); five are infrastructure.
 
 | Project | Service | Serves | What it is |
 |---|---|---|---|
-| `reliable-grace` (created 05-13) | **worker** | *(no domain)* | **The LIVE production Discord bot** (`menno420/superbot`, `disbot/bot1.py`). HARD RAIL: never touch. |
+| `reliable-grace` (created 05-13) | **worker** | *(no domain)* | **The LIVE production Discord bot** (`menno420/superbot`, `disbot/bot1.py`). HARD RAIL (cutover plan, Step 3): never stop, scale, disconnect, or delete. |
 | | **Postgres** | *(internal)* | The bot's production database. Never touch. |
 | | **botsite** | `superbot-app.up.railway.app` | **OLD** SuperBot site ("SuperBot — interactive prototype", title fetched live), deploys `menno420/superbot` — superseded by the new botsite. Retire target. |
 | | **dashboard** | `superbot-dashboard.up.railway.app` | **OLD** developer dashboard ("SuperBot — developer dashboard", fetched live), deploys `menno420/superbot` — superseded. Retire target. |
@@ -302,7 +302,9 @@ one-letter call (`docs/owner-queue.md`, `OQ-RG-POSTGRES-BOTSITE`).
 console action, and wiring the full account PAT into a public-facing service
 would violate the env-grant policy's blast-radius rule.
 
-**Expected next cycle** (same § 5 arithmetic, now with items 3–6 landed and
-item 1's cheap layer in): duplicates −$1.61, backup −~$2.5, sleep −up to
-~$1.5, and control-plane's ~$10 line now dependent on how much of the
-crawler traffic honors `robots.txt` — measure at the Sep 13 receipt.
+**Expected next cycle** (same § 5 arithmetic, now with items 3, 4 and 6
+landed, item 2's cadence half landed (the dataset-pruning half stays open),
+and item 1's cheap layer in — **item 5 is NOT landed**, it awaits the
+owner's amendment): duplicates −$1.61, backup −~$2.5, sleep −up to ~$1.5,
+and control-plane's ~$10 line now dependent on how much of the crawler
+traffic honors `robots.txt` — measure at the Sep 13 receipt.

@@ -935,8 +935,11 @@ findings go here, below the fence.)
   surgery are fully agent-side — measured executing the W1 cutover.** `httpLogs(
   deploymentId, afterDate, beforeDate, beforeLimit)` returns per-request `txBytes` /
   `path` / `clientUa` / `srcIp` (the date args are `String`, not `DateTime` — the
-  schema's own type name fails validation), which is what attributed 70 % of the
-  estate's egress to Meta-range crawlers on one 620 KB page. `serviceDomainCreate`
+  schema's own type name fails validation). The usage API attributed 70 % of the
+  estate's billed egress to the control-plane *service*; a 69-second live
+  `httpLogs` sample then showed ~100 % of that service's transmitted bytes in the
+  window going to Meta-range crawlers on one 620 KB page — the month-wide
+  crawler share is that sample extrapolated, not a measured total. `serviceDomainCreate`
   (random subdomain) + `serviceDomainUpdate` reclaims a freed `*.up.railway.app`
   prefix onto another service — **`domain` must be the full FQDN**: the bare prefix
   returns `serviceDomainUpdate: true` without applying (silent no-op, measured; the

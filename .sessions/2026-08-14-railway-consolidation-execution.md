@@ -8,9 +8,12 @@
   three `reliable-grace` duplicate sites, reclaim the old names), stop the
   bot-restart churn (refresh schedule + worker watch filter), reduce backup
   cadence (verified first), App Sleep on the quiet keep sites, and investigate
-  control-plane's egress. HARD RAIL unchanged: never touch `worker` or either
-  protected Postgres; `postgres-botsite` is NOT deleted (needs an explicit
-  owner amendment — asked, not assumed).
+  control-plane's egress. HARD RAIL unchanged, stated at its real scope
+  (cutover plan, Step 3): never **stop, scale, disconnect, or delete**
+  `worker` or either protected Postgres — the worker's watch-filter is a
+  config-only `serviceInstanceUpdate` under the owner's explicit restart-fix
+  directive, outside that prohibited class; `postgres-botsite` is NOT
+  deleted (needs an explicit owner amendment — asked, not assumed).
 
 Time: 2026-08-14 · venue: owner-live hub chat (remote session) · branch
 `claude/railway-websites-audit-gp7nc7` restarted from `main` @ `76642e2`
