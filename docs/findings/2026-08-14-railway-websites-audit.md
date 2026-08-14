@@ -271,9 +271,38 @@ lands around the high-$20s — the arithmetic saves ~$5–6 but leaves the
 single largest, still-growing line untouched, and its projected growth
 erodes those savings cycle over cycle.
 
-## 6 · What this session did NOT do
+## 6 · What the audit session did NOT do
 
-No Railway mutation of any kind was made — no service stopped, no variable
-touched, no trigger changed. The bot, both its databases, and all nine web
-surfaces are exactly as found. Retirement remains owner-gated per the
-cutover plan's execution gate, and W1 execution is its own session.
+No Railway mutation of any kind was made by the audit session — no service
+stopped, no variable touched, no trigger changed. Retirement remained gated
+on the owner's explicit go — which he then gave, and § 7 below records the
+execution.
+
+## 7 · Execution record (2026-08-14, the owner's go — fm #863)
+
+Owner, live, same day: *"You can execute the recommended plan, retire the
+restarts etc and remove the duplicate websites in superbot."* Executed by the
+follow-on session, every step verified live as it landed:
+
+| Action | Evidence |
+|---|---|
+| **Worker watch filter set** — `['disbot/**', 'requirements.txt', 'requirements-dev.txt', 'pyproject.toml', 'Procfile']` (every build input; `disbot` imports nothing outside its tree, measured by grep) | `serviceInstanceUpdate` → readback exact; **first live test passed the same hour**: superbot #2446's workflows-only merge produced a `SKIPPED` worker deployment — the bot did not restart |
+| **`dashboard-data-refresh` schedule retired** + **backup daily → weekly** (monthly tier kept) | superbot **#2446**, auto-merged on green; cadence reduction verified first — daily artifacts 171–180 MB gz (≈1.5–2.2 GB/dump on the wire), confirming § 3's `REASONED` attribution by an independent observable |
+| **W1 retired all three duplicates**, in plan order | `review-f027` deleted (probes: f027 404 ×3, fc91 keep 200) · old botsite deleted · old dashboard deleted; `reliable-grace` now holds exactly `worker` + `Postgres` + `postgres-botsite` (service list re-read) |
+| **Old names reclaimed onto the canonical services** (OD-8 "under the old names") | `superbot-app.up.railway.app` → 200, title "SuperBot — 485 commands…" (the NEW botsite) · `superbot-dashboard.up.railway.app` → 200, "Overview — SuperBot dashboard" (the NEW dashboard) · both hashed keep-domains still 200 · `/reviews` + `/games` redirects re-verified → keep services. Mechanics note: `serviceDomainUpdate` needs the **full FQDN** in `domain`; the bare prefix returns `true` without applying |
+| **App Sleep enabled** on review-fc91, dashboard, botsite | `sleepApplication: true` read back on all three; all still serve 200 |
+| **Egress root cause measured, then fixed at the cheap layer** | Railway `httpLogs` on control-plane's live deployment: **122 of 123 requests = `/orders`** (a ~620 KB seat-era page), 14.4 MB in ~69 s, from **Meta-range IPs (57.141.2.x)** under spoofed desktop UAs + `facebookexternalhit`; `robots.txt` 404'd on every service. Fix: websites **#501** — Disallow-all `robots.txt` on the three ops surfaces; botsite (public marketing) deliberately stays crawlable. Honest expectation: the compliant share stops; the spoofed share may not — next cycle measures it, and app-side IP/UA limits or gating the seat-era heavy pages are the flagged follow-ups |
+| **One delete timed out at the read stage and was NOT blindly retried** | state re-read first; the delete had executed (the trap and the pattern: verify-then-retry on mutation timeouts) |
+
+**Not executed, deliberately:** `postgres-botsite` — protected by W1's hard
+rail (§ 5.5); the blanket go is not read as the explicit per-service
+amendment that rail requires. It idles at ~$0.30/cycle pending the owner's
+one-letter call (`docs/owner-queue.md`, `OQ-RG-POSTGRES-BOTSITE`).
+`OQ-WEBSITES-PAT` also stays owner-side: minting a fine-grained PAT is a
+console action, and wiring the full account PAT into a public-facing service
+would violate the env-grant policy's blast-radius rule.
+
+**Expected next cycle** (same § 5 arithmetic, now with items 3–6 landed and
+item 1's cheap layer in): duplicates −$1.61, backup −~$2.5, sleep −up to
+~$1.5, and control-plane's ~$10 line now dependent on how much of the
+crawler traffic honors `robots.txt` — measure at the Sep 13 receipt.

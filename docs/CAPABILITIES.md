@@ -931,6 +931,22 @@ findings go here, below the fence.)
   figure to 37%. The dependency chain fails progressively (`discord` → `asyncpg` →
   `dotenv`), so install the full requirements file rather than chasing imports one at a
   time. — LAST-VERIFIED: 2026-08-05
+- 2026-08-14 · capability · owner-live · **Railway per-request observability and domain
+  surgery are fully agent-side — measured executing the W1 cutover.** `httpLogs(
+  deploymentId, afterDate, beforeDate, beforeLimit)` returns per-request `txBytes` /
+  `path` / `clientUa` / `srcIp` (the date args are `String`, not `DateTime` — the
+  schema's own type name fails validation), which is what attributed 70 % of the
+  estate's egress to Meta-range crawlers on one 620 KB page. `serviceDomainCreate`
+  (random subdomain) + `serviceDomainUpdate` reclaims a freed `*.up.railway.app`
+  prefix onto another service — **`domain` must be the full FQDN**: the bare prefix
+  returns `serviceDomainUpdate: true` without applying (silent no-op, measured; the
+  FQDN form applied and served within seconds). Two traps with one pattern:
+  `serviceDelete` **timed out at the read stage while executing server-side** — on any
+  mutation timeout, re-read state before retrying; the delete had landed. `usage(...)`
+  grouped by `SERVICE_ID` returns **time-bucketed rows** — sum them per service; a dict
+  assignment keeps only the last bucket and under-reports 4× (caught by cross-footing
+  against the Stripe receipt). Rate limit: 16 concurrent usage queries per client,
+  server-side pool, drains in minutes. — LAST-VERIFIED: 2026-08-14
 - 2026-07-31 · capability · owner-live · **Branch-ruleset and required-status-check state
   IS readable agent-side — it is not owner-UI-only, and reading it refutes a claim in this
   repo's own boot file.** `bootstrap.py check` emits a standing NOTE that whether

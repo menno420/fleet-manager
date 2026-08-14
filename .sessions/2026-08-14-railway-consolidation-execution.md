@@ -31,4 +31,26 @@ service id, never project-level.
 
 ## Close-out
 
-*(flips with the badge)*
+**Shipped (every mutation verified live after it landed):**
+- **Worker watch filter** `['disbot/**', 'requirements.txt', 'requirements-dev.txt', 'pyproject.toml', 'Procfile']` — readback exact; first live test same hour: sb #2446's workflows-only merge → worker deployment `SKIPPED`, no bot restart.
+- **superbot #2446** (auto-merged): `dashboard-data-refresh` schedule retired (workflow_dispatch kept, OD-3), backups daily → weekly (verified first — artifacts 171–180 MB gz/dump ≈ 1.5–2.2 GB on the wire).
+- **W1 executed**: `review-f027` + old botsite + old dashboard **deleted** (per exact id; probes: f027 404 / keeps 200); `superbot-app` + `superbot-dashboard` **reclaimed** onto the canonical services (titles verified; redirects intact); `reliable-grace` = worker + 2 Postgres only.
+- **App Sleep** on review-fc91 / dashboard / botsite (readback true ×3; all 200).
+- **Egress root cause measured**: Meta-range crawlers (57.141.2.x, spoofed UAs) on control-plane's 620 KB `/orders`; robots.txt 404'd → **websites #501** adds Disallow-all robots.txt to the three ops surfaces (botsite stays crawlable); its `quality` red was the repo's own nav/clarity registries wanting the new route classified — five registry entries added, all six affected test files green locally (26 passed).
+- Records: audit finding § 7 (execution record) · §7 W1-EXECUTED ledger row · `OQ-RAILWAY-PROJECT-SPLIT` marked executed · new `OQ-RG-POSTGRES-BOTSITE` one-letter ask · CAPABILITIES entry (httpLogs / FQDN domain trap / mutation-timeout pattern / bucketed-usage trap).
+
+**Deliberately NOT done:** `postgres-botsite` untouched (hard-rail protected; the blanket go is not the per-service amendment — asked as `OQ-RG-POSTGRES-BOTSITE`); `OQ-WEBSITES-PAT` stays owner-side (console mint; wiring the full account PAT into a public service would violate the env-grant blast-radius rule); no change to control-plane's public/auth posture ([D-0011] stands).
+
+**Verify:** each mutation's readback + live probe inline above; strict gate run pre-flip with real exit code (recorded at flip).
+
+**⚑ decide-and-flag:**
+- `OQ-RG-POSTGRES-BOTSITE` — A) dump-to-artifact then delete (recommended) · B) leave running (~$0.30/cycle). One letter.
+- If the Sep 13 receipt still shows heavy control-plane egress, the spoofed-UA share ignored robots.txt → next levers are app-side IP/UA limits or gating the seat-era `/orders` page (a W2 purpose question).
+
+**💡 idea:** the smoke-crawl/healthcheck workflows could log per-service `txBytes` from `httpLogs` weekly — a one-query early-warning line the bake could append to the control-plane board (folds into the W3 usage-snapshot idea from fm #861).
+
+**⟲ previous-session review:** in the header above.
+
+**Layer-2 handoff:** null (no `docs/repos/` folder exists for `websites` or `superbot` — Tier 2 on-demand; both repos' changes are recorded in their own PRs and this repo's finding § 7).
+
+**PR:** fm #863 — <terminal state at flip>. Companions: sb #2446 MERGED · websites #501 auto-merge armed on green.
