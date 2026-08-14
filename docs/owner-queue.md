@@ -101,6 +101,24 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   release evidence and adopter preview; no fleet-manager D2 claim substitutes
   for it.
 
+- **`OQ-JULY-PARKED-PRS` — Land or close the two July-parked `claude/*` PRs
+  (one letter each, 2026-08-14).** **WHAT:** the account's only open `claude/*`
+  PRs (24-repo sweep, 2026-08-14) are July parks that now sit against your
+  nothing-waits-in-an-open-PR ruling (decisions ledger, same date):
+  **sim-lab #344** — the P246 Gordon-growth reproduction mirror; the fleet
+  account's own row already says *"a lagging mirror to land or close"* —
+  and **trading-strategy #160** — the kit v1.17.0→v1.20.1 upgrade parked on
+  3 resident governance lines (resume recipe at `OQ-KIT-WAVE-REMNANTS` below;
+  note a landed #160 still leaves the repo one release behind, and you skipped
+  trading-strategy for v1.21.0 until its archive decision). **HOW:** one
+  letter per PR — **L** (a session lands it: #344 merge on green; #160 rebase
+  + fix the 3 lines + merge) or **C** (close-unmerged, branch retained,
+  records already on `main`). **RECOMMENDATION:** #344 **L** (finished work,
+  lagging mirror); #160 **C** if the archive decision is near, else L.
+  **VERIFY:** the next sweep reads 0 open `claude/*` PRs account-wide.
+  *(Asked live 2026-08-14, fm #858; recorded here so the ask survives the
+  session per session-close step 5.)*
+
 ## Inherited cross-repo owner asks — status as recorded
 
 > These entries preserve their last recorded status and instructions. They are
@@ -490,6 +508,9 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   denials in two venues on 2026-07-21 (transient venue state per doctrine, not a wall);
   the **push-prepared-tree step is paste-ready for the hub chat** (commit the prepared
   tree, push to the PR branch).
+  *Status 2026-08-14: the DISPOSITION question (land vs close under the
+  nothing-waits-in-an-open-PR ruling) now lives at `OQ-JULY-PARKED-PRS` above — the
+  resume recipe below stays valid only if the answer is L.*
   (2) **venture-lab #282** — per-call platform denials in three venues on 2026-07-21
   (fleet memory record; transient venue state per doctrine, not a wall); hub-side
   re-attempt.
@@ -757,11 +778,17 @@ inherit; no owner click is blocking now.
   (×11, real accounts/keys) · **makerbench** · **trading** (owner-by-design) · **Ideas-Lab
   seat revival**. No agent click lands these — record-only until the owner acts. RISK: ✅.
 
-- **`OQ-KIT-552-BENCH-REVIEW` — (record only, no action urged) substrate-kit PR #552 is
-  `do-not-automerge` BY DESIGN.** The label is an owner-review bench pin (the deliberate-merge
-  carve-out), not a stuck PR: it waits for the owner to review at his leisure. Recorded so PR
-  sweeps stop re-flagging it as stray; no urgency, optional whenever. Provenance: 2026-07-20
-  morning sweep (fm PR #393).
+- **`OQ-KIT-552-BENCH-REVIEW` — ✅ RESOLVED (PR merged 2026-08-04; entry closed 2026-08-14).**
+  kit #552 was squash-merged 2026-08-04T16:56:54Z (API-verified; the label sits inert on the
+  closed PR), so the bench pin this entry described is terminal and sweeps have nothing to
+  skip. **The exemption class it recorded — a `do-not-automerge` PR waiting for owner review
+  indefinitely — is retired under the owner's 2026-08-14 nothing-waits-in-an-open-PR ruling
+  (decisions ledger, cited from the program's §7 review row):** an owner-wait lives inside a
+  session; an unanswered fork closes the PR with its branch retained and the ask landed where
+  `main` can see it. Original body, for the record: *(record only, no action urged)
+  substrate-kit PR #552 is `do-not-automerge` BY DESIGN — an owner-review bench pin (the
+  deliberate-merge carve-out), not a stuck PR; recorded so PR sweeps stop re-flagging it as
+  stray. Provenance: 2026-07-20 morning sweep (fm PR #393).*
 
 ### (G) Hygiene (whenever — cosmetic; branch deletes work agent-side via the direct-token path, parked here only as low-priority)
 

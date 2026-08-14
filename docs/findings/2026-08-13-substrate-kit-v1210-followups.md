@@ -86,6 +86,12 @@ independent confirmation, same sites, every wave PR.
 | 22 | `substrate-gate.yml` template `:135` (claims-only guard) | **P1** — a `claude/*` PR whose diff is a claim PLUS any other `control/**` file (e.g. `control/status.md`) keeps the control-only lane while `non_claims` is non-empty, so the guard passes and the PR can auto-merge card-less — the exact race the step exists to close. Not a regression on adopters (pre-v1.21.0 gates had no claims guard at all), but the new protection has a hole | new in v1.21.0 (idea-engine #899 R2) |
 
 
+**One more from the phase-3 review PR (Codex, fm #858 R1, 2026-08-14):**
+
+| # | site (vendored v1.21.0) | defect | provenance |
+|---|---|---|---|
+| 23 | `session-close` skill template (staged `.substrate/skills/session-close/SKILL.md`, step 3; same sentence embedded in `bootstrap.py`) | the template licenses a `do-not-automerge` PR to "wait for the owner" with **no session bound** — contradicting the owner's nothing-waits-in-an-open-PR ruling (fm decisions ledger, 2026-08-14). The fix has **two halves, both required**: the within-session bound in step 3, and an unanswered-fork exit step that lands the handoff on `main` — the terminal card + the owner ask ride a **mergeable records-only PR** before the work PR closes (branch retained) — otherwise the ask strands on a non-default branch no session reads. fm's live skill carries both (re-apply table); the upstream fix takes effect **on the next hand-run copy/install, not on upgrade itself** — upgrades only re-stage `.substrate/skills/`, and the documented `cp` loop is what overwrites the live file (fm SKILLS-local's measured install contract) | template text, pre-existing (predates v1.21.0; surfaced by the ruling, not by a code change) |
+
 Round-2 sighting updates: row 5 sharpened with the quoted-conditional class
 (`The phrase "agents cannot merge when CI is green" is not a wall.` now reds —
 idea-engine `:5485`); row 10's second site is the `cmd_check` return
@@ -97,7 +103,8 @@ retractions did not refresh there — its card carries the follow-up.
 Fix-order restated after the wave: **the false negatives first (13, 17, 18)**
 — they are the checker failing at its one job — then the exit-affecting
 promotion family as one contract-review unit (2, 6, 8, 9, 10), then the
-adopter-facing template defects (14, 16, 22, 15), then the boot-path family
+adopter-facing template defects (14, 16, 22, 15, 23 — 23 added 2026-08-14,
+fm #858), then the boot-path family
 (4, 11, 12, 20, 21), then the rest (1, 3, 5, 7, 19).
 
 ## Residue this session found itself (not Codex)
