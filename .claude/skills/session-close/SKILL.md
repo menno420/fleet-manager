@@ -46,8 +46,11 @@ steps.
    parallel sessions collide without.
 3. Land your own green PR — merging is normal agent work. Once the required
    checks are green, merge it directly (MCP/REST), or let the server-side
-   auto-merge-enabler land it; either is fine. Only a `do-not-automerge`-
-   labelled PR waits for the owner. Read a red on a born-red head as the
+   auto-merge-enabler land it; either is fine. A `do-not-automerge` label
+   holds the lander off while a flagged fork is put to the owner — **within
+   the session only**: under `[D-0017]` nothing waits in an open PR across
+   sessions, so if the session must end unanswered, close the PR (the branch
+   survives) and the ask rides the card. Read a red on a born-red head as the
    designed hold, not a CI failure: verify any red against the job log
    before diagnosing — alias/mirror jobs echo the required check without
    running anything (kit repo example: the two legacy jobs mirroring
