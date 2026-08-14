@@ -113,7 +113,12 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   `b5eba03` — landing #160 had created a fresh tree-vs-self-report DRIFT)
   and the kit registry regenerated (kit #586): the row reads v1.20.2 three
   ways, honestly stale vs v1.21.0, still owner-skipped until the archive
-  decision. **VERIFIED:** the account-wide open `claude/*` PR count is 0.
+  decision. **VERIFIED:** 0 **parked** `claude/*` PRs account-wide
+  *(corrected same hour: this line first read "count is 0" off the 09:2xZ
+  sweep, wrong at write time — fm #859, a parallel owner-live session's
+  in-flight records PR, was already open; in-flight-by-a-live-session is
+  the state the ruling licenses, and the parked count this ask was about
+  is 0)*.
   He also answered the paired adopter question: **neither superbot-games nor
   pokemon-mod-lab yet** — the v1.21.0 rollout stays owner-paced.
   *Original ask, for the record: land-or-close on the two July parks, one
