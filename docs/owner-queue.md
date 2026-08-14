@@ -760,7 +760,13 @@ fleet-wide merges/ready-flips live in
   `reliable-grace` (live) and `superbot-websites` (parallel copy). Decide the canonical home; the
   Anthropic email links the reliable-grace URLs, so **keep them reachable** while that reference
   stands, then consolidate into `superbot-websites` and retire the duplicates. A drift hazard
-  while both deploy.
+  while both deploy. **UPDATE 2026-08-14:** the reachability constraint **lapsed 07-21**
+  (correspondence concluded; program W1 note, verified 07-26), the canonical home is already
+  decided (**`superbot-websites`** — websites #407 + the cutover plan), and the full cost/usage
+  decision packet is now
+  [`findings/2026-08-14-railway-websites-audit.md`](findings/2026-08-14-railway-websites-audit.md):
+  the duplicates are a measured share of the $30.73 Aug bill. What remains owner-side is W1's
+  per-service retirement go (stop → watch → delete), per the cutover plan's execution gate.
 - **`OQ-CR-SLICER-ANSWER` ✅ RESOLVED 2026-08-07 — the answer is **Bambu Studio**, and it
   arrived without the ask ever being put.** The question (one word: Cura / PrusaSlicer /
   OrcaSlicer / Bambu Studio) was open from 2026-07-15. It is answered by the hardware:
