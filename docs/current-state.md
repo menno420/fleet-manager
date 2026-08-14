@@ -167,6 +167,17 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 
 ## Recently shipped (newest first)
 
+- **The Railway estate audited — the €30 bill explained per service, the
+  duplicates confirmed, the bot-restart churn found** (2026-08-14, fm #861):
+  [the audit](findings/2026-08-14-railway-websites-audit.md) — 14 services /
+  4 projects all running 24/7; the Aug 13 bill is $30.73 pure usage (memory
+  $15.43 + ~234 GB egress $11.74 + vCPU $3.29); the three duplicate web
+  surfaces are exactly the cutover plan's retire set (W1/OD-8); and the
+  frozen `superbot` repo's 2-hourly `dashboard-data-refresh` was measured
+  restarting the production bot ~11×/day (344 deploys in the billed cycle —
+  `worker` has no Railway watch filter). `OQ-RAILWAY-PROJECT-SPLIT` now
+  carries the decision packet; no Railway mutation was made.
+
 - **substrate-kit v1.21.0 — cut, published, adopted** (2026-08-13, kit #581
   + fm #853): seven-defect worklist closed, re-apply tax ended. Record:
   program §7 + session card.
