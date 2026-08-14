@@ -175,8 +175,12 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   surfaces are exactly the cutover plan's retire set (W1/OD-8); and the
   frozen `superbot` repo's 2-hourly `dashboard-data-refresh` was measured
   restarting the production bot ~11×/day (344 deploys in the billed cycle —
-  `worker` has no Railway watch filter). `OQ-RAILWAY-PROJECT-SPLIT` now
-  carries the decision packet; no Railway mutation was made.
+  `worker` has no Railway watch filter). Attribution headline: **two
+  services carry 75 %** — websites `control-plane` ($11.62: 92 % of estate
+  CPU + 149 GB egress, tripled in early August) and the bot's Postgres
+  ($11.35: 831 MB resident + ~59 GB egress matching the daily `pg_dump`
+  backup); the three duplicate sites total ~$1.61. `OQ-RAILWAY-PROJECT-SPLIT`
+  now carries the decision packet; no Railway mutation was made.
 
 - **substrate-kit v1.21.0 — cut, published, adopted** (2026-08-13, kit #581
   + fm #853): seven-defect worklist closed, re-apply tax ended. Record:
