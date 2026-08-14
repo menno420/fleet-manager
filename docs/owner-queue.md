@@ -90,16 +90,31 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   it during the measurement would have changed the surface being tested, and
   the owner explicitly reserved the choice.
 
-- **`OQ-KIT-V1-21-RELEASE` — Open the dedicated substrate-kit v1.21.0 release
-  session when ready.** The owner has already chosen the sequence: adopt
-  v1.20.2 here, then cut v1.21.0 separately. The first half is complete. The
-  release has its own outward-facing scope and recorded defect set; D2 neither
-  starts it nor edits substrate-kit. **OWNER ACTION:** explicitly start that
-  release session when he wants it run. **WHERE TO BEGIN:**
-  [`findings/2026-08-09-substrate-kit-defects.md`](findings/2026-08-09-substrate-kit-defects.md)
-  and the release procedure in substrate-kit. **VERIFY:** that session owns its
-  release evidence and adopter preview; no fleet-manager D2 claim substitutes
-  for it.
+- **`OQ-KIT-V1-21-RELEASE` — Call the remaining v1.21.0 rollout targets, at
+  your pace.** *(Rewritten 2026-08-14: this entry's original action — open the
+  dedicated release session — was completed 2026-08-13: v1.21.0 cut, published,
+  and adopted here plus the seven repos you named in phases 2–3; record at
+  program §7. The slug stays for continuity; only the genuinely open half
+  remains below.)* **WHAT:** decide when (and whether) the remaining adopters
+  get the v1.21.0 hop — per the phase-3 record: `trading-strategy` (you skipped
+  it pending its archive decision), `pokemon-mod-lab`, `superbot-games`, and
+  any other registry row still marked stale. **WHERE:** the adopter registry in
+  substrate-kit (latest regen kit #586, after the trading-strategy heartbeat
+  reconcile — the parallel 2026-08-14 session's `OQ-JULY-PARKED-PRS` entry
+  below) and the `upgrade-distribution` skill, one repo per run. **HOW:** name a repo in any
+  session — each hop is one skill invocation on the recorded pattern.
+  **VERIFY:** the registry regen after each hop shows the row current.
+
+*(An `OQ-FORGE-CODEX-INSTALL` entry existed here for ~40 minutes on 2026-08-14
+and was removed the same session, before ever reaching you: the Codex app IS
+active on product-forge — its first-ever review there answered in 416 s
+request→review against fm's 335 s baseline, and the session mistook never-used
+for not-installed. Removed rather than kept because a queued ask you can't act on
+sends you hunting for a settings change that is already true; the full
+correction record is in product-forge #49's card and `review-queue.md`. One
+real residue for R2: when the app graduates to a fresh `phone-controller`
+repo, THAT repo will genuinely need adding to the Codex app's repository
+access — the graduation session must flag it then.)*
 
 - **`OQ-JULY-PARKED-PRS` — ✅ RESOLVED same day (owner answered live
   2026-08-14: L for both; both landed and tree-verified).**
