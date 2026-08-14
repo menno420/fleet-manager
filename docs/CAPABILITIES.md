@@ -171,7 +171,19 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
-- 2026-08-13 · capability · `owner-live` · **The remote-container egress layer
+- 2026-08-14 · capability · `owner-live` · **The @codex relay works in
+  product-forge — and a repo's FIRST-EVER review can take ~2× the measured
+  335 s; plan waits against "answered", never against the number.** On
+  product-forge #49 the review landed **~9m37s** after PR-open (open
+  ~10:00:20Z, explicit `@codex review` comment 10:03:01Z, review submitted
+  10:09:57Z on the exact head `395e15ba00`, 5 inline findings) — the first
+  codex activity that repo has ever had (`is:pull-request
+  commenter:chatgpt-codex-connector[bot]` → 37 PRs in fleet-manager, 0 in
+  product-forge before #49). The session mis-read the silence at T+10min as
+  "app not installed"; the review's own body says the repo is set up.
+  **Workaround/rule:** 0-historical-use is not not-installed; hold the PR
+  (label-park) and wait for an answer or a refusal — silence at T+2× the
+  measured latency is still not evidence of absence.
   scopes PRIVATE repos to the session's added set — and `add_repo` with read
   access lifts it in one call; public repos flow on every path with no add at
   all.** Even DIRECT (NO_PROXY) traffic to `api.github.com` is intercepted:

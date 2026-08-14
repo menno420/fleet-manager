@@ -1,6 +1,6 @@
 # Session — controller app: repo question answered + Slice 18 built in product-forge
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 📊 Model: fable-5 · high · product work under live owner directive
 
@@ -62,4 +62,42 @@ deserves its own decided-and-flagged pass, not a rider on a product slice.
 
 ## Result
 
-*(fill at close: PR #49 terminal state, release link, records landed)*
+- **product-forge #49 MERGED** — squash `6c33382`, all 5 checks green on the
+  reviewed-and-fixed head `8849814`. Codex: 5 findings (1×P1, 4×P2),
+  **[conceded] ×5**, fixed pre-merge, tally in the PR thread. First-ever Codex
+  review in that repo answered at ~9.6 min (vs fm's 335 s) — the session's
+  interim "app not installed" inference was wrong, corrected in place (card ·
+  status.md · review-queue.md · this repo's records); the `do-not-automerge`
+  park held the PR unmerged through the whole wrong-belief window.
+- **Release VERIFIED live:** tag `phone-controller-v0.18.0` at merge SHA
+  `6c33382` (REST refs path) → android-release run completed:success →
+  release "Phone Controller v0.18.0" carries `phone-controller-0.18.0.apk`
+  (2,457,961 bytes) + `.sha256`, and the job log prints **"signing: stable
+  repo keystore"** — installs in place over v0.17.0, no re-pair (no HID
+  descriptor change).
+- **fleet-manager records** (this PR): current-state pointer entry · §7 row ·
+  owner-queue corrections · Layer-2 `docs/repos/product-forge/` built.
+- **The repo answer delivered:** both, in order — features in product-forge,
+  graduation as R2's own step (recipe + keystore constraint recorded in the
+  Layer-2 entry).
+
+⚑ Orientation-budget overage flagged (see § Honest flag) — archive pass on the
+Recently-shipped tail proposed as its own session.
+💡 Session idea: `compile-check.sh`'s stand-in-R pattern generalizes to any
+Android repo in the estate without an SDK-bearing container — worth folding
+into the kit if a second Android product appears (deliberately not done now;
+one adopter is not a pattern).
+⟲ Previous-session review: in the card body above (§ Previous-session review).
+
+## Review dispositions (fm #859)
+
+Codex round 1 (10:22:49Z, on `2a8482f`): **1 finding, [conceded]** — the pushed
+card carried an in-progress badge + placeholder Result beside a §7 row saying
+shipped. This commit is the fix: Result filled with the verified terminal facts
+(pf #49 merged `6c33382`; release + stable signing verified), badge flipped.
+**Flip-exemption accounting, per session-close 6c:** after reviewed SHA
+`2a8482f`, this head adds (a) the card close-out + badge flip (the exempt
+class), and (b) one `docs/CAPABILITIES.md` append (the codex cold-repo latency
+datum) — (b) is reviewable, so a round-2 review is requested on this head
+rather than taking the exemption alone; the `do-not-automerge` park stays on
+until that answers. Round cap 2 per the skill; this is round 2.
