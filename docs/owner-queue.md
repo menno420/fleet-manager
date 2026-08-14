@@ -90,34 +90,56 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   it during the measurement would have changed the surface being tested, and
   the owner explicitly reserved the choice.
 
-- **`OQ-KIT-V1-21-RELEASE` — Open the dedicated substrate-kit v1.21.0 release
-  session when ready.** The owner has already chosen the sequence: adopt
-  v1.20.2 here, then cut v1.21.0 separately. The first half is complete. The
-  release has its own outward-facing scope and recorded defect set; D2 neither
-  starts it nor edits substrate-kit. **OWNER ACTION:** explicitly start that
-  release session when he wants it run. **WHERE TO BEGIN:**
-  [`findings/2026-08-09-substrate-kit-defects.md`](findings/2026-08-09-substrate-kit-defects.md)
-  and the release procedure in substrate-kit. **VERIFY:** that session owns its
-  release evidence and adopter preview; no fleet-manager D2 claim substitutes
-  for it.
+- **`OQ-KIT-V1-21-RELEASE` — Call the remaining v1.21.0 rollout targets, at
+  your pace.** *(Rewritten 2026-08-14: this entry's original action — open the
+  dedicated release session — was completed 2026-08-13: v1.21.0 cut, published,
+  and adopted here plus the seven repos you named in phases 2–3; record at
+  program §7. The slug stays for continuity; only the genuinely open half
+  remains below.)* **WHAT:** decide when (and whether) the remaining adopters
+  get the v1.21.0 hop — per the phase-3 record: `trading-strategy` (you skipped
+  it pending its archive decision), `pokemon-mod-lab`, `superbot-games`, and
+  any other registry row still marked stale. **WHERE:** the adopter registry in
+  substrate-kit (latest regen kit #586, after the trading-strategy heartbeat
+  reconcile — the parallel 2026-08-14 session's `OQ-JULY-PARKED-PRS` entry
+  below) and the `upgrade-distribution` skill, one repo per run. **HOW:** name a repo in any
+  session — each hop is one skill invocation on the recorded pattern.
+  **VERIFY:** the registry regen after each hop shows the row current.
 
-- **`OQ-JULY-PARKED-PRS` — Land or close the two July-parked `claude/*` PRs
-  (one letter each, 2026-08-14).** **WHAT:** the account's only open `claude/*`
-  PRs (24-repo sweep, 2026-08-14) are July parks that now sit against your
-  nothing-waits-in-an-open-PR ruling (decisions ledger, same date):
-  **sim-lab #344** — the P246 Gordon-growth reproduction mirror; the fleet
-  account's own row already says *"a lagging mirror to land or close"* —
-  and **trading-strategy #160** — the kit v1.17.0→v1.20.1 upgrade parked on
-  3 resident governance lines (resume recipe at `OQ-KIT-WAVE-REMNANTS` below;
-  note a landed #160 still leaves the repo one release behind, and you skipped
-  trading-strategy for v1.21.0 until its archive decision). **HOW:** one
-  letter per PR — **L** (a session lands it: #344 merge on green; #160 rebase
-  + fix the 3 lines + merge) or **C** (close-unmerged, branch retained,
-  records already on `main`). **RECOMMENDATION:** #344 **L** (finished work,
-  lagging mirror); #160 **C** if the archive decision is near, else L.
-  **VERIFY:** the next sweep reads 0 open `claude/*` PRs account-wide.
-  *(Asked live 2026-08-14, fm #858; recorded here so the ask survives the
-  session per session-close step 5.)*
+*(An `OQ-FORGE-CODEX-INSTALL` entry existed here for ~40 minutes on 2026-08-14
+and was removed the same session, before ever reaching you: the Codex app IS
+active on product-forge — its first-ever review there answered in 416 s
+request→review against fm's 335 s baseline, and the session mistook never-used
+for not-installed. Removed rather than kept because a queued ask you can't act on
+sends you hunting for a settings change that is already true; the full
+correction record is in product-forge #49's card and `review-queue.md`. One
+real residue for R2: when the app graduates to a fresh `phone-controller`
+repo, THAT repo will genuinely need adding to the Codex app's repository
+access — the graduation session must flag it then.)*
+
+- **`OQ-JULY-PARKED-PRS` — ✅ RESOLVED same day (owner answered live
+  2026-08-14: L for both; both landed and tree-verified).**
+  **sim-lab #344** squash-merged @ `f54ec219` — its required gate was
+  already green; `main` is the squash, 0 open PRs there.
+  **trading-strategy #160** squash-merged @ `6cf2e93` after the three
+  resident capability overclaims holding its gate red were narrowed in
+  place on the branch (`current-state.md:389` · `CONSTITUTION.md:166` ·
+  `review-queue.md:8`), gate + pytest green by their real conclusions; the
+  heartbeat `kit:` line was reconciled at source the same hour (#163 @
+  `b5eba03` — landing #160 had created a fresh tree-vs-self-report DRIFT)
+  and the kit registry regenerated (kit #586): the row reads v1.20.2 three
+  ways, honestly stale vs v1.21.0, still owner-skipped until the archive
+  decision. **VERIFIED:** 0 **parked** `claude/*` PRs account-wide
+  *(corrected same hour: this line first read "count is 0" off the 09:2xZ
+  sweep, wrong at write time — fm #859, a parallel owner-live session's
+  in-flight records PR, was already open; in-flight-by-a-live-session is
+  the state the ruling licenses, and the parked count this ask was about
+  is 0)*.
+  He also answered the paired adopter question: **neither superbot-games nor
+  pokemon-mod-lab yet** — the v1.21.0 rollout stays owner-paced.
+  *Original ask, for the record: land-or-close on the two July parks, one
+  letter each, raised because they sat against the nothing-waits-in-an-open-PR
+  ruling; recommendation was #344 L / #160 C-or-L (asked live 2026-08-14,
+  fm #858).*
 
 ## Inherited cross-repo owner asks — status as recorded
 
