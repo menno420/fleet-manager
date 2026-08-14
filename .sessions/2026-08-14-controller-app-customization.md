@@ -122,3 +122,11 @@ compile-check pointer lacked its `products/phone-controller/` prefix (fixed).
 **The two-round cap is reached: the fix commit lands dispositioned under the
 cap, stated not inferred** (kit #581 precedent) — its changes are the four
 fixes above plus this accounting text; nothing else rides it.
+
+Post-cap, forced by main moving (three parallel-session PRs #858/#860/#862):
+one merge commit (guard-fires union — pure appends both sides, asserted in the
+resolving script; all doc files auto-merged) plus two line-corrections the
+merge itself made necessary — the registry citation kit #585→#586 (the
+parallel session regenerated it) and the removal-note latency rephrased to the
+same-basis 416 s figure round 2 established. Named here per the cap's own
+rule: land with the post-review changes stated.
