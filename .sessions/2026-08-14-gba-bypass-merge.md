@@ -22,6 +22,14 @@ regression). The correction is on gba #216.
 - gba #216: mirror release + re-pin to 1.22.3; migration verdict measured
   (Underroot half-rate, slope 0.5; +1 boot-frame on the other two); holds
   open, carded and `do-not-automerge`, as the migration vehicle.
+  **⟲ Superseded ~25 minutes after this card merged (owner, live,
+  2026-08-14):** *"Why would any PR need to be open? I can't use the things
+  that are in an open PR."* #216 was **closed unmerged at 06:41:13Z** — an
+  open PR is never a vehicle; future work lives in records and branches. The
+  branch `claude/nds-toolchain-1-22-3` is retained with the re-pin, the card
+  and the measured verdict. Ruling captured as `[D-0017]`
+  (`docs/decisions.md`); review evidence:
+  `docs/findings/2026-08-14-v1210-phase3-review.md`.
 - gba #215: merged `7a4977bb0` under the owner's one-time bypass — window
   05:58:13Z→05:58:16Z, `ROM builds` honored green first, ruleset restored
   and verified; tree-verified at main (dist `8807a00e…`, pin 1.21.0).

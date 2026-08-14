@@ -115,6 +115,31 @@ real residue for R2: when the app graduates to a fresh `phone-controller`
 repo, THAT repo will genuinely need adding to the Codex app's repository
 access — the graduation session must flag it then.)*
 
+- **`OQ-JULY-PARKED-PRS` — ✅ RESOLVED same day (owner answered live
+  2026-08-14: L for both; both landed and tree-verified).**
+  **sim-lab #344** squash-merged @ `f54ec219` — its required gate was
+  already green; `main` is the squash, 0 open PRs there.
+  **trading-strategy #160** squash-merged @ `6cf2e93` after the three
+  resident capability overclaims holding its gate red were narrowed in
+  place on the branch (`current-state.md:389` · `CONSTITUTION.md:166` ·
+  `review-queue.md:8`), gate + pytest green by their real conclusions; the
+  heartbeat `kit:` line was reconciled at source the same hour (#163 @
+  `b5eba03` — landing #160 had created a fresh tree-vs-self-report DRIFT)
+  and the kit registry regenerated (kit #586): the row reads v1.20.2 three
+  ways, honestly stale vs v1.21.0, still owner-skipped until the archive
+  decision. **VERIFIED:** 0 **parked** `claude/*` PRs account-wide
+  *(corrected same hour: this line first read "count is 0" off the 09:2xZ
+  sweep, wrong at write time — fm #859, a parallel owner-live session's
+  in-flight records PR, was already open; in-flight-by-a-live-session is
+  the state the ruling licenses, and the parked count this ask was about
+  is 0)*.
+  He also answered the paired adopter question: **neither superbot-games nor
+  pokemon-mod-lab yet** — the v1.21.0 rollout stays owner-paced.
+  *Original ask, for the record: land-or-close on the two July parks, one
+  letter each, raised because they sat against the nothing-waits-in-an-open-PR
+  ruling; recommendation was #344 L / #160 C-or-L (asked live 2026-08-14,
+  fm #858).*
+
 ## Inherited cross-repo owner asks — status as recorded
 
 > These entries preserve their last recorded status and instructions. They are
@@ -504,6 +529,9 @@ access — the graduation session must flag it then.)*
   denials in two venues on 2026-07-21 (transient venue state per doctrine, not a wall);
   the **push-prepared-tree step is paste-ready for the hub chat** (commit the prepared
   tree, push to the PR branch).
+  *Status 2026-08-14: the DISPOSITION question (land vs close under the
+  nothing-waits-in-an-open-PR ruling) now lives at `OQ-JULY-PARKED-PRS` above — the
+  resume recipe below stays valid only if the answer is L.*
   (2) **venture-lab #282** — per-call platform denials in three venues on 2026-07-21
   (fleet memory record; transient venue state per doctrine, not a wall); hub-side
   re-attempt.
@@ -771,11 +799,17 @@ inherit; no owner click is blocking now.
   (×11, real accounts/keys) · **makerbench** · **trading** (owner-by-design) · **Ideas-Lab
   seat revival**. No agent click lands these — record-only until the owner acts. RISK: ✅.
 
-- **`OQ-KIT-552-BENCH-REVIEW` — (record only, no action urged) substrate-kit PR #552 is
-  `do-not-automerge` BY DESIGN.** The label is an owner-review bench pin (the deliberate-merge
-  carve-out), not a stuck PR: it waits for the owner to review at his leisure. Recorded so PR
-  sweeps stop re-flagging it as stray; no urgency, optional whenever. Provenance: 2026-07-20
-  morning sweep (fm PR #393).
+- **`OQ-KIT-552-BENCH-REVIEW` — ✅ RESOLVED (PR merged 2026-08-04; entry closed 2026-08-14).**
+  kit #552 was squash-merged 2026-08-04T16:56:54Z (API-verified; the label sits inert on the
+  closed PR), so the bench pin this entry described is terminal and sweeps have nothing to
+  skip. **The exemption class it recorded — a `do-not-automerge` PR waiting for owner review
+  indefinitely — is retired under the owner's 2026-08-14 nothing-waits-in-an-open-PR ruling
+  (decisions ledger, cited from the program's §7 review row):** an owner-wait lives inside a
+  session; an unanswered fork closes the PR with its branch retained and the ask landed where
+  `main` can see it. Original body, for the record: *(record only, no action urged)
+  substrate-kit PR #552 is `do-not-automerge` BY DESIGN — an owner-review bench pin (the
+  deliberate-merge carve-out), not a stuck PR; recorded so PR sweeps stop re-flagging it as
+  stray. Provenance: 2026-07-20 morning sweep (fm PR #393).*
 
 ### (G) Hygiene (whenever — cosmetic; branch deletes work agent-side via the direct-token path, parked here only as low-priority)
 

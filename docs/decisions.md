@@ -263,3 +263,40 @@
   was weaker than it read; this entry records the **directive**, which
   that note did not, so it stops being re-carried in prompts. Session card:
   `.sessions/2026-08-11-audit-handoff.md`.
+
+## [D-0017] Nothing waits in an open pull request — open means being driven now
+
+- status: decided
+- date: 2026-08-14
+- verdict: **A session leaves no pull request open across sessions** — not as a
+  placeholder, not for visibility, not as a "vehicle" for future work. An open
+  PR means exactly one thing: it is actively being driven to a terminal state
+  (merged or closed) right now. Future work lives in **records and branches** —
+  closing a PR does not delete its branch, and a retained branch reopens or
+  restarts in seconds when something can actually land. The born-red claim
+  convention is unaffected: a running session's open PR *is* the driving-now
+  state, and it still terminates before the session ends.
+- why: Owner, live, hub chat 2026-08-14, ruling on whether gba #216 should stay
+  open as the 1.22.3 "migration vehicle": *"Why would any PR need to be open? I
+  can't use the things that are in an open PR."* An open PR delivers nothing —
+  everything usable from that work had already shipped elsewhere (the mirror
+  release lives on the repo independent of any PR, gba reached v1.21.0 via #215,
+  the migration findings live in the program ledger and the PR thread) — while
+  the open state costs review surface, sweep noise, and a standing invitation to
+  stack on an unmergeable head. Executed the same session: #216 closed-unmerged
+  at 06:41:13Z, branch `claude/nds-toolchain-1-22-3` retained with the re-pin,
+  the card and the measured verdict.
+- rules out: opening a PR before something can land; reopening a closed
+  placeholder to "track" work; and reading July's parked PRs (sim-lab #344,
+  trading-strategy #160) as exempt — the principle puts their disposition to the
+  owner as land-or-close, which this entry flags and deliberately does not
+  decide. It does **not** govern third-party automation surfaces (dependabot,
+  superbot's `bot/dashboard-refresh`): those PRs are not session work and keep
+  their own disposition rules.
+- provenance: owner, live hub chat during the v1.21.0 phase-3 / gba-bypass
+  session. Until this entry the ruling existed only in that chat and in the
+  gba #216 close comment (2026-08-14T06:41:13Z) — the class of record
+  `decision-capture` exists to fix. Captured on the follow-on session's
+  continuation prompt, which carried it as a DECIDED item; recorded per
+  CONSTITUTION § "Changing the rules" — owner-directed live, so applied rather
+  than proposed. Session card: `.sessions/2026-08-14-v1210-phase3-review.md`.
