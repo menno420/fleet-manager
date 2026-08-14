@@ -74,6 +74,9 @@ Recently-shipped tail to a dated file with a pointer left behind.
   interim "app not installed" inference was wrong, corrected in place (card ·
   status.md · review-queue.md · this repo's records); the `do-not-automerge`
   park held the PR unmerged through the whole wrong-belief window.
+  *(Latency basis corrected in round 2: same-basis request→review is 416 s —
+  +24 % on fm #812's 335 s — not the "~2×" an open→review comparison implied;
+  ~9 m 37 s is the open-trigger figure.)*
 - **Release VERIFIED live:** tag `phone-controller-v0.18.0` at merge SHA
   `6c33382` (REST refs path) → android-release run completed:success →
   release "Phone Controller v0.18.0" carries `phone-controller-0.18.0.apk`
@@ -106,3 +109,16 @@ class), and (b) one `docs/CAPABILITIES.md` append (the codex cold-repo latency
 datum) — (b) is reviewable, so a round-2 review is requested on this head
 rather than taking the exemption alone; the `do-not-automerge` park stays on
 until that answers. Round cap 2 per the skill; this is round 2.
+
+Codex round 2 (10:33:32Z, on `12ae48d`): **4 findings, [conceded] ×4** — (1) the
+CAPABILITIES append had **destroyed the 2026-08-13 entry's header line**, leaving
+its body dangling under the new entry (header restored); (2) the "~2× the 335 s"
+latency claim compared across bases — same-basis request→review is **416 s,
++24 %** (entry rewritten with both figures, correction noted in place; card + §7
+propagations fixed); (3) the rewritten `OQ-KIT-V1-21-RELEASE` note still led
+with the completed action — now rewritten around the genuinely open half (the
+remaining rollout targets) with WHAT/WHERE/HOW/VERIFY; (4) the Layer-2
+compile-check pointer lacked its `products/phone-controller/` prefix (fixed).
+**The two-round cap is reached: the fix commit lands dispositioned under the
+cap, stated not inferred** (kit #581 precedent) — its changes are the four
+fixes above plus this accounting text; nothing else rides it.

@@ -52,8 +52,8 @@ is groundwork-only (Slice 9, fairness promise committed in the README).
 
 Pointers (all in product-forge): `products/phone-controller/README.md` (the app,
 honest state) · `.sessions/2026-08-14-phone-controller-slice18-customization.md`
-(this session) · `android/compile-check.sh` (app-module compile proof, no SDK
-needed) · `control/status.md` (heartbeat).
+(this session) · `products/phone-controller/android/compile-check.sh`
+(app-module compile proof, no SDK needed) · `control/status.md` (heartbeat).
 
 ### Thread: graduation to `phone-controller` (program step R2) — **next, not started**
 
