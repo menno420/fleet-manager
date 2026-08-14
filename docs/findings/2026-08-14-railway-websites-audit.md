@@ -15,10 +15,10 @@
 
 The August 13 bill is **$30.73 (~€30), all of it usage**: the billed cycle
 (Jul 13 → Aug 13) was the **first cycle with (nearly) the whole EAP-era
-estate running 24/7** — 12 of the 14 services predate the cycle start, while
-the new botsite Postgres (07-19) and both shiftlife services (07-25) joined
-mid-cycle, so the full-estate run-rate is slightly *above* $30.73, where the
-June cycle ($7.75) had only ~half the estate for part of the month. The per-service
+estate running 24/7** — 11 of the 14 services predate the cycle start, while
+three joined mid-cycle (the new botsite Postgres 07-19; shiftlife-api and
+its Postgres 07-25), so the full-estate run-rate is slightly *above* $30.73,
+where the June cycle ($7.75) had only ~half the estate for part of the month. The per-service
 attribution (§ 3) shows it is **not** "many small websites": **two services
 carry 75 % of the bill** — the websites **`control-plane`** ($11.62: 92 % of
 all vCPU plus **149 GB of egress** serving its readiness board, half of that
@@ -95,10 +95,10 @@ in early August and were still at that rate when this audit ran.
 Why the 4× jump from June's cycle: `superbot-websites` (4 of its 5 services)
 was created 07-09, `superbot-mineverse` 07-12, the second review copy 07-12 —
 so the June cycle billed a half-built estate for part of a month, while the
-July cycle billed 12 of the 14 services for the whole month. Two joined
-mid-cycle (the new botsite Postgres 07-19, both `shiftlife` services 07-25),
-which means **the €30 slightly understates the full-estate run-rate — it is
-the run-rate of the estate as built, not a one-off spike.**
+July cycle billed 11 of the 14 services for the whole month. Three joined
+mid-cycle (the new botsite Postgres 07-19; shiftlife-api and its Postgres
+07-25), which means **the €30 slightly understates the full-estate run-rate —
+it is the run-rate of the estate as built, not a one-off spike.**
 
 ## 3 · Where it goes, per service (`MEASURED` — Railway usage API, billed cycle)
 
@@ -259,13 +259,17 @@ measured attribution — which reorders the work. By impact:
    (W2's per-site purpose review), not part of W1.
 
 **What the estate would cost after items 1–6** (from § 3's measured
-numbers): the mechanical items alone — W1's three services, the orphan DB,
-weekly backups, sleep on three sites — remove **~$5–6/cycle**. The dominant
-lever is item 1: control-plane's egress+CPU is ~$10 and *rising*, so the
-landing zone is **roughly $12–18/cycle** depending on what its HTTP logs
-show and how far the fix goes, with the remaining floor set by the bot DB's
-831 MB working set (item 2's pruning is what moves that). Doing everything
-except item 1 leaves the next bill at or above this one.
+numbers): the mechanical items alone — W1's three services, the
+`postgres-botsite` amendment if taken, weekly backups, sleep on three
+sites — remove **~$5–6/cycle**. The dominant lever is item 1:
+control-plane's egress+CPU is ~$10 and *rising* (the new cycle's projection
+adds roughly another $2 of growth), so the landing zone is **roughly
+$12–18/cycle** depending on what its HTTP logs show and how far the fix
+goes, with the remaining floor set by the bot DB's 831 MB working set
+(item 2's pruning is what moves that). Doing everything *except* item 1
+lands around the high-$20s — the arithmetic saves ~$5–6 but leaves the
+single largest, still-growing line untouched, and its projected growth
+erodes those savings cycle over cycle.
 
 ## 6 · What this session did NOT do
 
