@@ -1,8 +1,8 @@
 # Session — controller app follow-up: PS2 (DualShock) preset (Slice 19)
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
-📊 Model: fable-5 · high · product work under live owner directive
+📊 Model: fable-5 · high · feature build
 
 Time: 2026-08-15 · venue: hub chat (same conversation as the Slice-18 session;
 designated branch restarted from `main` per the merged-branch rule — #859 is
@@ -51,4 +51,22 @@ flip.
 
 ## Result
 
-*(fill at close: pf #50 terminal state, release verification, §7 row)*
+- **pf #50 MERGED** — squash `3c462a6`; Codex two rounds, **4 findings,
+  [conceded] ×4** (focus-chip collision · CIRCLE-as-oval, fixed app-wide with
+  the inscribed-circle ButtonStyler change — the one flagged behavior change,
+  hit-areas untouched · D-pad/stick overlap, geometry re-cut with all 13 rects
+  proven pairwise disjoint by a one-off session script (NOT a committed test —
+  binds the committed numbers only) · the overlay call site the "app-wide"
+  claim missed, surfaced independently by the estate's owner-review hook and
+  by Codex round 2, fixed in the flip commit under the stated two-round cap).
+- **Release VERIFIED live:** tag `phone-controller-v0.19.0` at `3c462a6` →
+  android-release completed:success → `phone-controller-0.19.0.apk`
+  (2,459,817 bytes) + `.sha256` attached, job log prints **"signing: stable
+  repo keystore"** at 05:09:57Z — installs in place over v0.18.0, no re-pair
+  (no HID descriptor change).
+- **§7 row appended** (chronological order restored after an insertion slip —
+  caught and moved before commit); Layer-2 app thread at v0.19.0;
+  current-state pointer widened to both slices.
+
+⟲ Previous-session review: in the card body (§ Previous-session review).
+Layer-2 handoff: docs/repos/product-forge/README.md — app thread updated
