@@ -38,21 +38,26 @@ executed mid-feature-session (OD-6: one thing at a time, finished properly).
 
 ## Threads
 
-### Thread: the app (customization era) — **active**, updated 2026-08-14
+### Thread: the app (customization era) — **active**, updated 2026-08-15
 
-Where it stands: **Slice 18 / v0.18.0** — per-widget behavior config (per-stick
-deadzone + invert-Y, D-pad 4/8-way, per-touchpad speed + pen mode), long-press
-alternate actions, fine position sliders, **backup/restore-everything**
-(insurance for any reinstall or signature change). Slices 10–17 before it:
-share/import, macros, voice, overlay play-on-this-phone, recorded gestures, gyro
-targets, placeable widgets, true multi-touch, editor polish. The one recorded
-candidate still open: **BLE-HOGP fallback transport** for `BLE_HOGP_FALLBACK`
--verdict devices. A future Play-Store listing with a ~€1 cosmetic supporter pack
-is groundwork-only (Slice 9, fairness promise committed in the README).
+Where it stands: **Slice 19 / v0.19.0** — the **PS2 (DualShock) preset**
+(glyph-colored round diamond, dual sticks, four digital shoulders; no HID
+descriptor change, so it installed in place — L3/R3 stick-clicks deliberately
+deferred because they need a descriptor revision = fleet-wide re-pair). Slice 18
+the same day: per-widget behavior config (per-stick deadzone + invert-Y, D-pad
+4/8-way, per-touchpad speed + pen mode), long-press alternate actions, fine
+position sliders, **backup/restore-everything** (insurance for any reinstall or
+signature change). Slices 10–17 before them: share/import, macros, voice,
+overlay play-on-this-phone, recorded gestures, gyro targets, placeable widgets,
+true multi-touch, editor polish. Recorded candidates still open: **BLE-HOGP
+fallback transport**, and the L3/R3 descriptor revision if asked for. A future
+Play-Store listing with a ~€1 cosmetic supporter pack is groundwork-only
+(Slice 9, fairness promise committed in the README).
 
 Pointers (all in product-forge): `products/phone-controller/README.md` (the app,
-honest state) · `.sessions/2026-08-14-phone-controller-slice18-customization.md`
-(this session) · `products/phone-controller/android/compile-check.sh`
+honest state) · `.sessions/2026-08-15-phone-controller-slice19-ps2-preset.md` +
+`.sessions/2026-08-14-phone-controller-slice18-customization.md` (the two
+slices) · `products/phone-controller/android/compile-check.sh`
 (app-module compile proof, no SDK needed) · `control/status.md` (heartbeat).
 
 ### Thread: graduation to `phone-controller` (program step R2) — **next, not started**
