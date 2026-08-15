@@ -167,6 +167,9 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 
 ## Recently shipped (newest first)
 
+- **phone-controller Slices 18–19 (v0.19.0) shipped** (2026-08-14/15, pf #49
+  + #50): §7 rows + [`repos/product-forge/README.md`](repos/product-forge/README.md).
+
 - **Railway estate audited, then consolidated the same day — the €30 bill
   attributed and the plan executed** (2026-08-14, fm #861 → #863):
   [audit + execution record](findings/2026-08-14-railway-websites-audit.md)
@@ -175,8 +178,6 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   (worker watch filter + sb #2446), backups weekly, robots.txt live on the
   ops sites (websites #501), App Sleep on. Open: `OQ-RG-POSTGRES-BOTSITE`.
 
-- **phone-controller Slice 18 (v0.18.0) shipped** (2026-08-14, pf #49):
-  §7 row + [`repos/product-forge/README.md`](repos/product-forge/README.md).
 
 - **substrate-kit v1.21.0 — cut, published, adopted** (2026-08-13, kit #581
   + fm #853): program §7.

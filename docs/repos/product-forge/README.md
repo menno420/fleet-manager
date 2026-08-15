@@ -1,6 +1,6 @@
 # product-forge / phone-controller — the entry point
 
-> **Status:** `living-ledger` · true as of **2026-08-14**
+> **Status:** `living-ledger` · true as of **2026-08-15**
 >
 > **What this is:** fleet-manager's entry point for `menno420/product-forge` —
 > where the last session left off and where the next one should look.
@@ -20,7 +20,7 @@
 **phone-controller**: a real, shipped Android app that turns a phone into a
 customizable Bluetooth-HID controller (keyboard / gamepad / mouse / media / DS-style
 touch) for any other device, with no software on the target. `MEASURED`
-2026-08-14: stable-signed APK releases v0.4.0 → v0.18.0 on the repo's releases
+2026-08-14: stable-signed APK releases v0.4.0 → v0.19.0 on the repo's releases
 page, owner-playtested and field-driven (the Slice 15–17 features all came from
 his device feedback). Everything else in the repo — `products/games-web/`, the
 control bus, the seat docs — is history or migration stock, and the consolidation
@@ -38,21 +38,32 @@ executed mid-feature-session (OD-6: one thing at a time, finished properly).
 
 ## Threads
 
-### Thread: the app (customization era) — **active**, updated 2026-08-14
+### Thread: the app (customization era) — **active**, updated 2026-08-15
 
-Where it stands: **Slice 18 / v0.18.0** — per-widget behavior config (per-stick
+Where it stands: **Slice 19 / v0.19.0** — the **PS2 (DualShock) preset**
+(glyph-colored round diamond, dual sticks, four digital shoulders; no HID
+descriptor change, so it installed in place — L3/R3 stick-clicks deferred as
+scope. **Premise corrected 2026-08-15, Codex on fm #864:** the live descriptor
+already declares **16 button bits** — `ComboHidDescriptor.kt`'s own header,
+"Gamepad = 16 buttons" — with the enum stopping at bit 11, so L3/R3 would be an
+**enum-only addition on already-transmitted bits: no descriptor change, no
+re-pair**. The merged pf #50 card and product README still carry the wrong
+re-pair premise; carry this correction into the next product-forge touch).
+Slice 18 the prior day (2026-08-14): per-widget behavior config (per-stick
 deadzone + invert-Y, D-pad 4/8-way, per-touchpad speed + pen mode), long-press
 alternate actions, fine position sliders, **backup/restore-everything**
-(insurance for any reinstall or signature change). Slices 10–17 before it:
-share/import, macros, voice, overlay play-on-this-phone, recorded gestures, gyro
-targets, placeable widgets, true multi-touch, editor polish. The one recorded
-candidate still open: **BLE-HOGP fallback transport** for `BLE_HOGP_FALLBACK`
--verdict devices. A future Play-Store listing with a ~€1 cosmetic supporter pack
-is groundwork-only (Slice 9, fairness promise committed in the README).
+(insurance for any reinstall or signature change). Slices 10–17 before them:
+share/import, macros, voice, overlay play-on-this-phone, recorded gestures,
+gyro targets, placeable widgets, true multi-touch, editor polish. Recorded
+candidates still open: **BLE-HOGP fallback transport**, and L3/R3 (enum-only,
+near-zero cost) if asked for. A future
+Play-Store listing with a ~€1 cosmetic supporter pack is groundwork-only
+(Slice 9, fairness promise committed in the README).
 
 Pointers (all in product-forge): `products/phone-controller/README.md` (the app,
-honest state) · `.sessions/2026-08-14-phone-controller-slice18-customization.md`
-(this session) · `products/phone-controller/android/compile-check.sh`
+honest state) · `.sessions/2026-08-15-phone-controller-slice19-ps2-preset.md` +
+`.sessions/2026-08-14-phone-controller-slice18-customization.md` (the two
+slices) · `products/phone-controller/android/compile-check.sh`
 (app-module compile proof, no SDK needed) · `control/status.md` (heartbeat).
 
 ### Thread: graduation to `phone-controller` (program step R2) — **next, not started**
