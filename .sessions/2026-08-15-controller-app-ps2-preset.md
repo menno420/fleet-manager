@@ -68,5 +68,20 @@ flip.
   caught and moved before commit); Layer-2 app thread at v0.19.0;
   current-state pointer widened to both slices.
 
+Codex on this PR (reviewed `a375178`): **4 findings, [conceded] ×4** — newest
+entry not first in a newest-first list (moved) · Layer-2 header/summary left at
+2026-08-14/v0.18.0 while the thread advanced (refreshed) · "Slice 18 the same
+day" against a thread now dated 08-15 (now "the prior day") · and the sharp one:
+**the L3/R3 re-pair premise was WRONG** — the live `ComboHidDescriptor.kt`
+declares 16 button bits ("Gamepad = 16 buttons", two full bytes on the wire)
+with the enum stopping at bit 11, so stick-clicks are an enum-only addition, no
+descriptor change, no re-pair. Verified against the live file before conceding
+(Codex cited the archived Slice-4 patch in `projects/`; the live descriptor
+agrees). Corrections applied to every copy in THIS PR (this card, the §7 row,
+the Layer-2 thread); the merged pf #50 card + product README still carry the
+wrong premise — flagged in the Layer-2 thread for the next product-forge touch.
+Landed on the owner's live "finish the PR" after the fixes (the re-review loop
+cut short by his direction, stated here rather than inferred).
+
 ⟲ Previous-session review: in the card body (§ Previous-session review).
 Layer-2 handoff: docs/repos/product-forge/README.md — app thread updated
