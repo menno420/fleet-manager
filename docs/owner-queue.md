@@ -661,9 +661,24 @@ fleet-wide merges/ready-flips live in
   validation clock candidates #4/#5 wait on.
 - **`OQ-WEBSITES-RAILWAY-POSTGRES` — websites: add Railway PostgreSQL** to project
   superbot-websites, copy `DATABASE_URL` into service **botsite**. Unblocks public `/submit`.
-- **`OQ-WEBSITES-PAT` — websites: fine-grained PAT** (contents+actions read; actions:write) as
-  `GITHUB_TOKEN` on railway.app → superbot-websites → control-plane → Variables. Lifts the 60/h
-  anonymous rate limit across every fleet surface.
+- **`OQ-WEBSITES-PAT` — websites: a token for control-plane, one recipe, two tiers.** STILL OPEN
+  (the mint is yours; wiring is a session's). Purpose: lift the 60/h anonymous GitHub rate limit
+  on the readiness board's polling. **Minting is UI-only — measured 2026-08-16** on your ask
+  (*"use my account pat to mint one? Please try that"*): `POST /user/personal-access-tokens` →
+  404, `GET` same path → 404, legacy `POST /authorizations` → 404, against positive controls
+  same token/minute (`GET /user` → 200, `POST /user/repos` → 201); GitHub's own docs describe
+  creation as Settings-UI steps only. **The path:**
+  `https://github.com/settings/personal-access-tokens/new` → name `control-plane-readiness-poller`
+  → expiration 1 year → then PICK ONE TIER (this entry used to prescribe both at once —
+  corrected):
+  **Tier 1, recommended now — rate limit only:** Repository access **"Public repositories
+  (read-only)"**, zero permission boxes. Blast radius if leaked: public-data reads. The `/owner`
+  re-run-CI button stays inert (it needs actions:write and can wait).
+  **Tier 2, only if you want the `/owner` re-run button live:** All repositories (or the fleet
+  set) + Contents:read, Actions:read+write — the scope the original 07-15 entry named. Bigger
+  token; only worth it when that button matters.
+  Paste the `github_pat_…` in the hub chat; a session wires it into Railway (`variableUpsert`
+  on control-plane) and redeploys.
 - **`OQ-GBA-LUMEN-RELEASE` — gba-homebrew: create the Lumen Drift GitHub Release.**
   https://github.com/menno420/gba-homebrew/releases/new → tag `lumen-drift-v1.3` (target main) →
   attach `dist/lumen-drift.gba` (sha256 in `docs/PLATFORM-LIMITS`-noted value) → notes →
@@ -788,6 +803,23 @@ fleet-wide merges/ready-flips live in
   and the DB has NO public TCP proxy — it is unreachable from outside `reliable-grace`.
   WHY-IT-MATTERS: last loose end of the Railway consolidation; UNBLOCKS: nothing else — purely
   cost/hygiene. (2026-08-14, fm #863)
+  **✅ EXECUTED 2026-08-16 — owner ruled A, live.** Dumped over a temporary TCP proxy from a
+  GitHub Actions runner (this container's egress is web-ports-only — 80/443 connect, Railway's
+  high-port proxies don't; measured, ledger entry), the
+  dump **restore-verified in-run** (full `pg_restore` into a scratch postgres:16 + row-count
+  diff), archived as a Release on the new PRIVATE `menno420/estate-backups`
+  (`postgres-botsite-final-2026-08-16`; sha256 `da3207d7…` / `7ad3e90a…`), then the temp proxy,
+  the service, and the one-shot `PGB_DSN` secret all deleted; `reliable-grace` now holds exactly
+  `Postgres` + `worker` (listing re-read). **The database was empty AT DUMP TIME — established
+  from the dump's COMPLETE content, not a statement sample**: the archived plain dump re-read
+  from the release asset (sha256-matched) is 26 lines, and every one of its 12 non-comment
+  lines is pg_dump session-setup (`SET` / `set_config` / the restrict wrapper) — **zero
+  statements of any other kind** (0 CREATE/ALTER/COPY/GRANT/COMMENT/INSERT), and pg_dump emits
+  a CREATE for every object it dumps, so the snapshot held no tables, views, sequences,
+  functions, types, or extensions in any schema. The live pre-delete count loop (zero `public`
+  tables) agrees. Whether anything was *ever* written between 07-12 and the dump is
+  `REASONED`-only (no consumer existed; a written-then-dropped past is not excludable from a
+  snapshot). The archive preserves the empty state for the record.
 - **`OQ-SB-BACKUP-ARTIFACT-VISIBILITY` — ⚑ the production bot-DB backups sit on a PUBLIC repo.**
   WHAT: the daily/weekly `backup-db.yml` dumps upload as GitHub Actions **artifacts on
   `menno420/superbot`, which is public** (`"private": false`, measured 2026-08-14) — and GitHub
@@ -799,6 +831,8 @@ fleet-wide merges/ready-flips live in
   private repo's artifacts/releases, or Railway-side once the plan allows) · B) make `superbot`
   private (bigger call — public URLs, the oracle role) · C) accept as-is, recorded. WHY-IT-MATTERS:
   quiet data exposure compounding daily; UNBLOCKS: nothing — risk hygiene. (2026-08-14)
+  **✅ RULED 2026-08-16 — owner, live: "Accept" (option C).** Recorded as accepted; no pipeline
+  change. Re-open only if the repo's visibility or the data's sensitivity changes.
 - **`OQ-CR-SLICER-ANSWER` ✅ RESOLVED 2026-08-07 — the answer is **Bambu Studio**, and it
   arrived without the ask ever being put.** The question (one word: Cura / PrusaSlicer /
   OrcaSlicer / Bambu Studio) was open from 2026-07-15. It is answered by the hardware:

@@ -176,7 +176,9 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   — the three duplicate sites are **deleted** with their old names reclaimed
   onto the canonical services (W1 done), the bot-restart churn is **stopped**
   (worker watch filter + sb #2446), backups weekly, robots.txt live on the
-  ops sites (websites #501), App Sleep on. Open: `OQ-RG-POSTGRES-BOTSITE`.
+  ops sites (websites #501), App Sleep on. 2026-08-16 (fm #867): orphan DB
+  dumped (empty), archived privately, deleted; backup acceptance recorded.
+  **Open: `OQ-WEBSITES-PAT`** (you mint; a session wires).
 
 
 - **substrate-kit v1.21.0 — cut, published, adopted** (2026-08-13, kit #581
