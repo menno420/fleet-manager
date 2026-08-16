@@ -1,6 +1,13 @@
 # 2026-08-16 · hub — the owner's three answers executed: orphan DB dumped+deleted, acceptance recorded, PAT-mint probed
 
-> **Status:** `in-progress`
+> **Status:** `complete`
+
+*(Flip note, per the review-exemption clause: Codex ran two rounds — round 1
+on `b7af71a` (4 findings, 4 conceded, fixed in `60dd6ae`), round 2 on the
+exact head `60dd6ae` (2 findings, 2 conceded, fixed in `8407172`). Under the
+two-round cap, `8407172` carries only the two round-2 concessions and is
+dispositioned on the PR rather than re-reviewed. This flip commit changes
+this badge, this note, the PR line, and the telemetry delta. Nothing else.)*
 
 - **📊 Model:** fable-5 · high · feature build — owner, live: **A** on
   `OQ-RG-POSTGRES-BOTSITE` (dump to a durable PRIVATE home, verify restore,
@@ -70,4 +77,4 @@ in-run restore-verify → release) is reusable as-is.
 **Layer-2 handoff:** null (no `docs/repos/` folder for the touched repos;
 `estate-backups` is a records vault, not a work repo).
 
-**PR:** fm #867 — <terminal state at flip>.
+**PR:** fm #867 — flipped complete on top of `8407172`; landing on green (direct merge after required checks). Codex: 6 findings over two rounds, **6/6 `[conceded]`** and fixed.
