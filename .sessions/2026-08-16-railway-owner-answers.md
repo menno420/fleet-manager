@@ -28,4 +28,43 @@ integrity is verified and the archive is durably stored.
 
 ## Close-out
 
-*(flips with the badge)*
+**Shipped (every step verified as it landed):**
+- **A executed** — `postgres-botsite`: temp TCP proxy created → this container
+  measured unable to reach ANY non-443 TCP (bot-DB proxy + fresh proxy both
+  timeout; `github.com:443` connects — new ledger wall) → routed to GitHub
+  Actions: private repo `menno420/estate-backups` created (201, doubling as
+  the probe's positive POST control), one-shot `dump.yml` with the DSN as a
+  sealed secret (named-target PUT passed; the same write in an opaque script
+  was classifier-denied — the documented shape), run `31935189177` SUCCESS:
+  dump both formats, **full restore into scratch postgres:16, `RESTORE
+  VERIFIED: counts identical`**, release `postgres-botsite-final-2026-08-16`
+  with sha256 manifest. Then service deleted (`serviceDelete: true`; proxy +
+  credential died with it), `PGB_DSN` secret deleted (204), and
+  `reliable-grace` re-read = `['Postgres', 'worker']` exactly. **Finding: the
+  DB was EMPTY — zero public tables**; provisioned 07-12, never written.
+- **Accept recorded** on `OQ-SB-BACKUP-ARTIFACT-VISIBILITY`.
+- **PAT-mint probed** per the owner's ask (capability-probe skill, full
+  method): three creation endpoints 404 vs `GET /user` 200 + `POST
+  /user/repos` 201 positive controls, same token — **no API exists;
+  fine-grained PATs are UI-mint-only**. Ledger entries appended (this wall +
+  the non-443 egress wall, both with used workarounds); `OQ-WEBSITES-PAT` now
+  carries the prepped one-minute UI recipe, wire-up promised on paste.
+- Records: OQ ✅ entries · §7 row (fm #867) · current-state follow-up line.
+
+**Verify:** run log greps (`RESTORE VERIFIED`), release asset listing +
+manifest download, service listing re-read, strict gate at flip (real exit).
+
+**⚑ decide-and-flag:** none new — all three of the owner's answers executed
+or recorded; the only remaining owner motion is pasting the UI-minted PAT
+when he feels like it.
+
+**💡 idea:** `estate-backups` (private) now exists as the durable home for
+any future pre-deletion archive — the dump.yml pattern (sealed DSN → dump →
+in-run restore-verify → release) is reusable as-is.
+
+**⟲ previous-session review:** in the header above.
+
+**Layer-2 handoff:** null (no `docs/repos/` folder for the touched repos;
+`estate-backups` is a records vault, not a work repo).
+
+**PR:** fm #867 — <terminal state at flip>.

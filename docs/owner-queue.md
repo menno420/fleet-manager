@@ -664,6 +664,16 @@ fleet-wide merges/ready-flips live in
 - **`OQ-WEBSITES-PAT` — websites: fine-grained PAT** (contents+actions read; actions:write) as
   `GITHUB_TOKEN` on railway.app → superbot-websites → control-plane → Variables. Lifts the 60/h
   anonymous rate limit across every fleet surface.
+  **ATTEMPTED AGENT-SIDE 2026-08-16 (owner: "use my account pat to mint one? Please try that") —
+  measured: there is no API to mint a PAT.** `POST /user/personal-access-tokens` → 404,
+  `GET` same path → 404 (resource family absent), legacy `POST /authorizations` → 404; positive
+  controls same token/session: `GET /user` → 200, `POST /user/repos` → 201. Fine-grained PATs are
+  UI-mint-only. **Your one-minute path, prepped:** open
+  `https://github.com/settings/personal-access-tokens/new` → name `control-plane-readiness-poller`
+  → expiration 1 year → Repository access: **Public repositories (read-only)** → zero permission
+  boxes (rate-limit relief needs no grants) → Generate → paste the `github_pat_…` in the hub chat.
+  A session then wires it into Railway (`variableUpsert` on control-plane) and redeploys — the
+  token's blast radius if leaked is public-data reads only.
 - **`OQ-GBA-LUMEN-RELEASE` — gba-homebrew: create the Lumen Drift GitHub Release.**
   https://github.com/menno420/gba-homebrew/releases/new → tag `lumen-drift-v1.3` (target main) →
   attach `dist/lumen-drift.gba` (sha256 in `docs/PLATFORM-LIMITS`-noted value) → notes →
@@ -788,6 +798,16 @@ fleet-wide merges/ready-flips live in
   and the DB has NO public TCP proxy — it is unreachable from outside `reliable-grace`.
   WHY-IT-MATTERS: last loose end of the Railway consolidation; UNBLOCKS: nothing else — purely
   cost/hygiene. (2026-08-14, fm #863)
+  **✅ EXECUTED 2026-08-16 — owner ruled A, live.** Dumped over a temporary TCP proxy from a
+  GitHub Actions runner (this container cannot open non-443 TCP — measured, ledger entry), the
+  dump **restore-verified in-run** (full `pg_restore` into a scratch postgres:16 + row-count
+  diff), archived as a Release on the new PRIVATE `menno420/estate-backups`
+  (`postgres-botsite-final-2026-08-16`; sha256 `da3207d7…` / `7ad3e90a…`), then the temp proxy,
+  the service, and the one-shot `PGB_DSN` secret all deleted; `reliable-grace` now holds exactly
+  `Postgres` + `worker` (listing re-read). **The database was EMPTY — zero public tables**:
+  provisioned 07-12 for the old botsite and never written to (the Postgres-backed `/submit` work
+  happened in the new `websites` estate; the old site evidently stayed on SQLite). Nothing was
+  at risk; the archive preserves the empty schema for the record.
 - **`OQ-SB-BACKUP-ARTIFACT-VISIBILITY` — ⚑ the production bot-DB backups sit on a PUBLIC repo.**
   WHAT: the daily/weekly `backup-db.yml` dumps upload as GitHub Actions **artifacts on
   `menno420/superbot`, which is public** (`"private": false`, measured 2026-08-14) — and GitHub
@@ -799,6 +819,8 @@ fleet-wide merges/ready-flips live in
   private repo's artifacts/releases, or Railway-side once the plan allows) · B) make `superbot`
   private (bigger call — public URLs, the oracle role) · C) accept as-is, recorded. WHY-IT-MATTERS:
   quiet data exposure compounding daily; UNBLOCKS: nothing — risk hygiene. (2026-08-14)
+  **✅ RULED 2026-08-16 — owner, live: "Accept" (option C).** Recorded as accepted; no pipeline
+  change. Re-open only if the repo's visibility or the data's sensitivity changes.
 - **`OQ-CR-SLICER-ANSWER` ✅ RESOLVED 2026-08-07 — the answer is **Bambu Studio**, and it
   arrived without the ask ever being put.** The question (one word: Cura / PrusaSlicer /
   OrcaSlicer / Bambu Studio) was open from 2026-07-15. It is answered by the hardware:

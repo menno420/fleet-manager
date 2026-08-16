@@ -931,6 +931,28 @@ findings go here, below the fence.)
   figure to 37%. The dependency chain fails progressively (`discord` → `asyncpg` →
   `dotenv`), so install the full requirements file rather than chasing imports one at a
   time. — LAST-VERIFIED: 2026-08-05
+- 2026-08-16 · wall · `owner-live` (remote CCR container) · **Outbound TCP to non-443 ports
+  does not connect from this container** — Railway TCP proxies are unreachable in-session.
+  · evidence: raw socket connect `yamanote.proxy.rlwy.net:32970` (the bot DB's long-standing
+  public proxy, reached nightly by GitHub runners) → `TimeoutError timed out`; fresh proxy
+  `altaria.proxy.rlwy.net:21521` → same; control `github.com:443` → connects. · workaround,
+  used the same session end-to-end: run TCP-dependent work in **GitHub Actions** — a one-shot
+  `workflow_dispatch` workflow in a private repo pg_dumped the Railway DB over its proxy,
+  **restore-verified in-run** (scratch `postgres:16` service container + row-count diff), and
+  attached the artifacts to a Release; the DSN traveled as a sealed repo secret created
+  agent-side (sealed-box PUT with a named target passes; the same write inside an opaque
+  script was classifier-denied — the documented "unnamed target" shape). — LAST-VERIFIED: 2026-08-16
+- 2026-08-16 · wall · `owner-live` · **GitHub PATs cannot be minted via the REST API — fine-grained
+  PAT creation is UI-only** (probed on the owner's direct ask: *"use my account pat to mint
+  one? Please try that"*). · evidence: `POST /user/personal-access-tokens` → 404
+  `{"message": "Not Found"}`; `GET` same path → 404 (the resource family is absent, not just
+  the method); legacy `POST /authorizations` → 404 (API removed 2020). Positive controls, same
+  token, same minute: `GET /user` → 200 `menno420`; `POST /user/repos` → **201** (created
+  `menno420/estate-backups`) — the token creates resources wherever endpoints exist, so the
+  404s are API shape, not auth. · workaround: the one-minute UI mint
+  (`github.com/settings/personal-access-tokens/new`, **Public repositories (read-only)**, zero
+  permission grants — rate-limit relief needs none), prepped in `OQ-WEBSITES-PAT`; a session
+  wires the pasted token into Railway and redeploys. — LAST-VERIFIED: 2026-08-16
 - 2026-08-14 · capability · owner-live · **Railway per-request observability and domain
   surgery are fully agent-side — measured executing the W1 cutover.** `httpLogs(
   deploymentId, afterDate, beforeDate, beforeLimit)` returns per-request `txBytes` /
