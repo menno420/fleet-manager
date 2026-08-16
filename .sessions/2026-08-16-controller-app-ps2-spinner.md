@@ -43,4 +43,14 @@ Layer-2 handoff: docs/repos/product-forge/README.md — app thread updated
 
 ## Result
 
-*(fill at close: release verification + PR terminal state)*
+- **pf #51 MERGED** squash `d5a412f`; tag `phone-controller-v0.20.0` at that
+  SHA; **release VERIFIED live**: android-release completed:success,
+  `phone-controller-0.20.0.apk` (2,461,913 bytes) + `.sha256` attached, and the
+  **signer certificate parsed from the v2 APK Signing Block is byte-identical
+  to v0.19.0's** (sha256 `7bda3340…` both) — in-place install measured at the
+  certificate level, the same check as v0.19.0.
+- Pre-tag sweep run both sides of the merge: the tag range holds exactly the
+  #51 squash.
+- Records in this PR per § Records; the force-push restart of this designated
+  branch was tree-verified against the git-state guard's three flagged paths
+  (all IDENTICAL to origin/main — the discarded tip was fully squash-merged).
