@@ -41,7 +41,10 @@ integrity is verified and the archive is durably stored.
   with sha256 manifest. Then service deleted (`serviceDelete: true`; proxy +
   credential died with it), `PGB_DSN` secret deleted (204), and
   `reliable-grace` re-read = `['Postgres', 'worker']` exactly. **Finding: the
-  DB was EMPTY — zero public tables**; provisioned 07-12, never written.
+  DB was empty at dump time across ALL schemas** — live count loop (zero
+  `public` tables) + the archived dump re-read from the release asset
+  (0 CREATE TABLE / 0 CREATE SCHEMA / 0 COPY, sha256-matched); a
+  never-written history is `REASONED` only.
 - **Accept recorded** on `OQ-SB-BACKUP-ARTIFACT-VISIBILITY`.
 - **PAT-mint probed** per the owner's ask (capability-probe skill, full
   method): three creation endpoints 404 vs `GET /user` 200 + `POST

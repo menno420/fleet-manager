@@ -176,9 +176,11 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   — the three duplicate sites are **deleted** with their old names reclaimed
   onto the canonical services (W1 done), the bot-restart churn is **stopped**
   (worker watch filter + sb #2446), backups weekly, robots.txt live on the
-  ops sites (websites #501), App Sleep on. Follow-ups closed 2026-08-16
-  (fm #867): the orphan DB dumped (empty — zero tables), archived privately,
-  deleted; backup visibility accepted; PAT mint probed — UI-only.
+  ops sites (websites #501), App Sleep on. 2026-08-16 (fm #867): two of the
+  three follow-ups closed — the orphan DB dumped (empty at dump time, all
+  schemas), archived privately, deleted; backup visibility accepted.
+  **Still open: `OQ-WEBSITES-PAT`** — mint is UI-only (measured); owner
+  mints, a session wires on paste.
 
 
 - **substrate-kit v1.21.0 — cut, published, adopted** (2026-08-13, kit #581

@@ -661,19 +661,24 @@ fleet-wide merges/ready-flips live in
   validation clock candidates #4/#5 wait on.
 - **`OQ-WEBSITES-RAILWAY-POSTGRES` — websites: add Railway PostgreSQL** to project
   superbot-websites, copy `DATABASE_URL` into service **botsite**. Unblocks public `/submit`.
-- **`OQ-WEBSITES-PAT` — websites: fine-grained PAT** (contents+actions read; actions:write) as
-  `GITHUB_TOKEN` on railway.app → superbot-websites → control-plane → Variables. Lifts the 60/h
-  anonymous rate limit across every fleet surface.
-  **ATTEMPTED AGENT-SIDE 2026-08-16 (owner: "use my account pat to mint one? Please try that") —
-  measured: there is no API to mint a PAT.** `POST /user/personal-access-tokens` → 404,
-  `GET` same path → 404 (resource family absent), legacy `POST /authorizations` → 404; positive
-  controls same token/session: `GET /user` → 200, `POST /user/repos` → 201. Fine-grained PATs are
-  UI-mint-only. **Your one-minute path, prepped:** open
+- **`OQ-WEBSITES-PAT` — websites: a token for control-plane, one recipe, two tiers.** STILL OPEN
+  (the mint is yours; wiring is a session's). Purpose: lift the 60/h anonymous GitHub rate limit
+  on the readiness board's polling. **Minting is UI-only — measured 2026-08-16** on your ask
+  (*"use my account pat to mint one? Please try that"*): `POST /user/personal-access-tokens` →
+  404, `GET` same path → 404, legacy `POST /authorizations` → 404, against positive controls
+  same token/minute (`GET /user` → 200, `POST /user/repos` → 201); GitHub's own docs describe
+  creation as Settings-UI steps only. **The path:**
   `https://github.com/settings/personal-access-tokens/new` → name `control-plane-readiness-poller`
-  → expiration 1 year → Repository access: **Public repositories (read-only)** → zero permission
-  boxes (rate-limit relief needs no grants) → Generate → paste the `github_pat_…` in the hub chat.
-  A session then wires it into Railway (`variableUpsert` on control-plane) and redeploys — the
-  token's blast radius if leaked is public-data reads only.
+  → expiration 1 year → then PICK ONE TIER (this entry used to prescribe both at once —
+  corrected):
+  **Tier 1, recommended now — rate limit only:** Repository access **"Public repositories
+  (read-only)"**, zero permission boxes. Blast radius if leaked: public-data reads. The `/owner`
+  re-run-CI button stays inert (it needs actions:write and can wait).
+  **Tier 2, only if you want the `/owner` re-run button live:** All repositories (or the fleet
+  set) + Contents:read, Actions:read+write — the scope the original 07-15 entry named. Bigger
+  token; only worth it when that button matters.
+  Paste the `github_pat_…` in the hub chat; a session wires it into Railway (`variableUpsert`
+  on control-plane) and redeploys.
 - **`OQ-GBA-LUMEN-RELEASE` — gba-homebrew: create the Lumen Drift GitHub Release.**
   https://github.com/menno420/gba-homebrew/releases/new → tag `lumen-drift-v1.3` (target main) →
   attach `dist/lumen-drift.gba` (sha256 in `docs/PLATFORM-LIMITS`-noted value) → notes →
@@ -804,10 +809,13 @@ fleet-wide merges/ready-flips live in
   diff), archived as a Release on the new PRIVATE `menno420/estate-backups`
   (`postgres-botsite-final-2026-08-16`; sha256 `da3207d7…` / `7ad3e90a…`), then the temp proxy,
   the service, and the one-shot `PGB_DSN` secret all deleted; `reliable-grace` now holds exactly
-  `Postgres` + `worker` (listing re-read). **The database was EMPTY — zero public tables**:
-  provisioned 07-12 for the old botsite and never written to (the Postgres-backed `/submit` work
-  happened in the new `websites` estate; the old site evidently stayed on SQLite). Nothing was
-  at risk; the archive preserves the empty schema for the record.
+  `Postgres` + `worker` (listing re-read). **The database was empty AT DUMP TIME, across all
+  schemas — measured twice**: the live pre-delete count loop found zero `public` tables, and the
+  archived plain dump re-read from the release asset (sha256-matched) contains **0 CREATE TABLE,
+  0 CREATE SCHEMA, 0 COPY** — no objects, no data, any schema. Whether anything was *ever*
+  written between 07-12 and the dump is `REASONED`-only (no consumer existed and the Postgres-
+  backed `/submit` work happened in the new `websites` estate — but a written-then-dropped past
+  is not excludable from a snapshot). The archive preserves the empty state for the record.
 - **`OQ-SB-BACKUP-ARTIFACT-VISIBILITY` — ⚑ the production bot-DB backups sit on a PUBLIC repo.**
   WHAT: the daily/weekly `backup-db.yml` dumps upload as GitHub Actions **artifacts on
   `menno420/superbot`, which is public** (`"private": false`, measured 2026-08-14) — and GitHub

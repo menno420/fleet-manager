@@ -931,11 +931,15 @@ findings go here, below the fence.)
   figure to 37%. The dependency chain fails progressively (`discord` → `asyncpg` →
   `dotenv`), so install the full requirements file rather than chasing imports one at a
   time. — LAST-VERIFIED: 2026-08-05
-- 2026-08-16 · wall · `owner-live` (remote CCR container) · **Outbound TCP to non-443 ports
-  does not connect from this container** — Railway TCP proxies are unreachable in-session.
-  · evidence: raw socket connect `yamanote.proxy.rlwy.net:32970` (the bot DB's long-standing
-  public proxy, reached nightly by GitHub runners) → `TimeoutError timed out`; fresh proxy
-  `altaria.proxy.rlwy.net:21521` → same; control `github.com:443` → connects. · workaround,
+- 2026-08-16 · wall · `owner-live` (remote CCR container) · **Outbound TCP is limited to web
+  ports — 80 and 443 connect, arbitrary other ports do not** — so Railway TCP proxies (random
+  high ports) are unreachable in-session. · evidence (raw socket connects, no proxy env
+  involved): `google.com:80` → OK, `github.com:443` → OK, `api.github.com:443` → OK;
+  `github.com:22` → `TimeoutError`, `1.1.1.1:53` → `TimeoutError`,
+  `yamanote.proxy.rlwy.net:32970` (the bot DB's long-standing proxy, reached nightly by GitHub
+  runners) → `TimeoutError`, fresh proxy `altaria.proxy.rlwy.net:21521` → `TimeoutError`.
+  First recorded as "non-443 blocked" from a two-host test; the widened matrix (Codex round-1
+  catch on fm #867) shows port-scoped filtering, not destination-scoped. · workaround,
   used the same session end-to-end: run TCP-dependent work in **GitHub Actions** — a one-shot
   `workflow_dispatch` workflow in a private repo pg_dumped the Railway DB over its proxy,
   **restore-verified in-run** (scratch `postgres:16` service container + row-count diff), and
