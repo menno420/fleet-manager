@@ -167,8 +167,8 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 
 ## Recently shipped (newest first)
 
-- **phone-controller Slices 18–19 (v0.19.0) shipped** (2026-08-14/15, pf #49
-  + #50): §7 rows + [`repos/product-forge/README.md`](repos/product-forge/README.md).
+- **phone-controller Slices 18–20 (v0.20.0) shipped** (2026-08-14→16, pf #49
+  + #50 + #51): §7 rows + [`repos/product-forge/README.md`](repos/product-forge/README.md).
 
 - **Railway estate audited, then consolidated the same day — the €30 bill
   attributed and the plan executed** (2026-08-14, fm #861 → #863):
