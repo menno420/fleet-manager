@@ -1,6 +1,6 @@
 # product-forge / phone-controller — the entry point
 
-> **Status:** `living-ledger` · true as of **2026-08-15**
+> **Status:** `living-ledger` · true as of **2026-08-16**
 >
 > **What this is:** fleet-manager's entry point for `menno420/product-forge` —
 > where the last session left off and where the next one should look.
@@ -20,7 +20,7 @@
 **phone-controller**: a real, shipped Android app that turns a phone into a
 customizable Bluetooth-HID controller (keyboard / gamepad / mouse / media / DS-style
 touch) for any other device, with no software on the target. `MEASURED`
-2026-08-14: stable-signed APK releases v0.4.0 → v0.19.0 on the repo's releases
+2026-08-16: stable-signed APK releases v0.4.0 → v0.20.0 on the repo's releases
 page, owner-playtested and field-driven (the Slice 15–17 features all came from
 his device feedback). Everything else in the repo — `products/games-web/`, the
 control bus, the seat docs — is history or migration stock, and the consolidation
@@ -38,9 +38,17 @@ executed mid-feature-session (OD-6: one thing at a time, finished properly).
 
 ## Threads
 
-### Thread: the app (customization era) — **active**, updated 2026-08-15
+### Thread: the app (customization era) — **active**, updated 2026-08-16
 
-Where it stands: **Slice 19 / v0.19.0** — the **PS2 (DualShock) preset**
+Where it stands: **Slice 20 / v0.20.0** — the **PS2 pad is a directly
+selectable spinner entry** (owner screenshot feedback: a New-layout-only
+preset was invisible where pads are chosen; new `t:<kind>` key class renders
+straight from the template, spliced after NDS, per-host memory unchanged).
+**First item for the next slice, recorded not chatted:** replace the
+Settings-close refresh condition (now enumerating `b:ANALOG`/`c:`/`t:`) with an
+unconditional refresh — the enumeration bug recurred once already (#49 → #51),
+and no input is ever held while a dialog is up. Slice 19 before it: the
+**PS2 (DualShock) preset** itself
 (glyph-colored round diamond, dual sticks, four digital shoulders; no HID
 descriptor change, so it installed in place — L3/R3 stick-clicks deferred as
 scope. **Premise corrected 2026-08-15, Codex on fm #864:** the live descriptor
@@ -61,8 +69,9 @@ Play-Store listing with a ~€1 cosmetic supporter pack is groundwork-only
 (Slice 9, fairness promise committed in the README).
 
 Pointers (all in product-forge): `products/phone-controller/README.md` (the app,
-honest state) · `.sessions/2026-08-15-phone-controller-slice19-ps2-preset.md` +
-`.sessions/2026-08-14-phone-controller-slice18-customization.md` (the two
+honest state) · `.sessions/2026-08-16-phone-controller-slice20-ps2-spinner.md` +
+`.sessions/2026-08-15-phone-controller-slice19-ps2-preset.md` +
+`.sessions/2026-08-14-phone-controller-slice18-customization.md` (the three
 slices) · `products/phone-controller/android/compile-check.sh`
 (app-module compile proof, no SDK needed) · `control/status.md` (heartbeat).
 
