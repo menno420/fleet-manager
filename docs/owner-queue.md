@@ -776,13 +776,29 @@ fleet-wide merges/ready-flips live in
   WHAT: `reliable-grace/postgres-botsite` served ONLY the old botsite (wiring verified), which
   is deleted; the DB idles at ~$0.30/cycle. It is one of the two Postgres DBs W1's hard rail
   protects, so its disposition needs your explicit word — the blanket "execute the plan" go was
-  deliberately not read as covering it. OPTIONS: **A) dump its contents to a DURABLE home —
-  a GitHub Release asset on `superbot` (never expires), not a plain Actions artifact (those
-  expire; 90-day default) — verify the dump restores, then delete the service (recommended —
-  data preserved durably, cost gone)** · B) leave it running as-is. HOW: one letter in the
-  hub chat; a session executes either in minutes.
+  deliberately not read as covering it. OPTIONS: **A) dump its contents to a durable
+  PRIVATE home — a Release asset on a PRIVATE repo, or a dump handed to you directly —
+  verify the dump restores, then delete the service (recommended — data preserved durably,
+  cost gone)** · B) leave it running as-is. HOW: one letter in the hub chat; a session
+  executes either in minutes. **CORRECTED 2026-08-14 (second pass, measured):** this entry
+  first said "a Release asset on `superbot`" — wrong, because `superbot` is PUBLIC
+  (`GET /repos/menno420/superbot` → `"private": false`) and a public repo's release assets
+  are world-downloadable; user-submitted data must not land there. Also measured closing
+  the orphan chain: worker's 32 variable values contain zero `postgres-botsite` references,
+  and the DB has NO public TCP proxy — it is unreachable from outside `reliable-grace`.
   WHY-IT-MATTERS: last loose end of the Railway consolidation; UNBLOCKS: nothing else — purely
   cost/hygiene. (2026-08-14, fm #863)
+- **`OQ-SB-BACKUP-ARTIFACT-VISIBILITY` — ⚑ the production bot-DB backups sit on a PUBLIC repo.**
+  WHAT: the daily/weekly `backup-db.yml` dumps upload as GitHub Actions **artifacts on
+  `menno420/superbot`, which is public** (`"private": false`, measured 2026-08-14) — and GitHub
+  serves a public repo's workflow artifacts to **any logged-in GitHub user** (platform-documented
+  read-access rule; not independently probed from a second account). The full production
+  database — user data included — has been downloadable that way since the workflow's June
+  creation. Pre-existing, NOT introduced by the consolidation; surfaced by the owner-review
+  hook's question about dump visibility. OPTIONS: **A) move backups to a private home** (a
+  private repo's artifacts/releases, or Railway-side once the plan allows) · B) make `superbot`
+  private (bigger call — public URLs, the oracle role) · C) accept as-is, recorded. WHY-IT-MATTERS:
+  quiet data exposure compounding daily; UNBLOCKS: nothing — risk hygiene. (2026-08-14)
 - **`OQ-CR-SLICER-ANSWER` ✅ RESOLVED 2026-08-07 — the answer is **Bambu Studio**, and it
   arrived without the ask ever being put.** The question (one word: Cura / PrusaSlicer /
   OrcaSlicer / Bambu Studio) was open from 2026-07-15. It is answered by the hardware:
