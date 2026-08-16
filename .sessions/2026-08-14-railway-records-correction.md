@@ -1,6 +1,12 @@
 # 2026-08-14 · hub — records correction: durable-dump home + backup-artifact visibility
 
-> **Status:** `in-progress`
+> **Status:** `complete`
+
+*(Flip note: Codex reviewed `c20560d` — zero findings ("Didn't find any major
+issues"). The one commit after the reviewed SHA, `65d8c34`, is the guard-fire
+telemetry JSONL append the pre-flip gate run produced — nothing reviewable.
+This flip commit changes this badge, this note, the PR line, and any new
+telemetry delta. Nothing else.)*
 
 - **📊 Model:** fable-5 · high · docs-only — correct `OQ-RG-POSTGRES-BOTSITE`
   option A (a Release asset on `superbot` is NOT a safe durable home — the repo
@@ -33,4 +39,4 @@ behavior), which the daily production-DB dumps have relied on unflagged.
 durable+private home; new ⚑ `OQ-SB-BACKUP-ARTIFACT-VISIBILITY`.
 **Verify:** strict gate green pre-flip (real exit code, no pipe).
 **Layer-2 handoff:** null (records-only, fleet-manager itself).
-**PR:** <filled at flip>.
+**PR:** fm #865 — flipped complete on top of `65d8c34`; landing on green (direct merge after required checks).
