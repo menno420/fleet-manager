@@ -804,18 +804,22 @@ fleet-wide merges/ready-flips live in
   WHY-IT-MATTERS: last loose end of the Railway consolidation; UNBLOCKS: nothing else — purely
   cost/hygiene. (2026-08-14, fm #863)
   **✅ EXECUTED 2026-08-16 — owner ruled A, live.** Dumped over a temporary TCP proxy from a
-  GitHub Actions runner (this container cannot open non-443 TCP — measured, ledger entry), the
+  GitHub Actions runner (this container's egress is web-ports-only — 80/443 connect, Railway's
+  high-port proxies don't; measured, ledger entry), the
   dump **restore-verified in-run** (full `pg_restore` into a scratch postgres:16 + row-count
   diff), archived as a Release on the new PRIVATE `menno420/estate-backups`
   (`postgres-botsite-final-2026-08-16`; sha256 `da3207d7…` / `7ad3e90a…`), then the temp proxy,
   the service, and the one-shot `PGB_DSN` secret all deleted; `reliable-grace` now holds exactly
-  `Postgres` + `worker` (listing re-read). **The database was empty AT DUMP TIME, across all
-  schemas — measured twice**: the live pre-delete count loop found zero `public` tables, and the
-  archived plain dump re-read from the release asset (sha256-matched) contains **0 CREATE TABLE,
-  0 CREATE SCHEMA, 0 COPY** — no objects, no data, any schema. Whether anything was *ever*
-  written between 07-12 and the dump is `REASONED`-only (no consumer existed and the Postgres-
-  backed `/submit` work happened in the new `websites` estate — but a written-then-dropped past
-  is not excludable from a snapshot). The archive preserves the empty state for the record.
+  `Postgres` + `worker` (listing re-read). **The database was empty AT DUMP TIME — established
+  from the dump's COMPLETE content, not a statement sample**: the archived plain dump re-read
+  from the release asset (sha256-matched) is 26 lines, and every one of its 12 non-comment
+  lines is pg_dump session-setup (`SET` / `set_config` / the restrict wrapper) — **zero
+  statements of any other kind** (0 CREATE/ALTER/COPY/GRANT/COMMENT/INSERT), and pg_dump emits
+  a CREATE for every object it dumps, so the snapshot held no tables, views, sequences,
+  functions, types, or extensions in any schema. The live pre-delete count loop (zero `public`
+  tables) agrees. Whether anything was *ever* written between 07-12 and the dump is
+  `REASONED`-only (no consumer existed; a written-then-dropped past is not excludable from a
+  snapshot). The archive preserves the empty state for the record.
 - **`OQ-SB-BACKUP-ARTIFACT-VISIBILITY` — ⚑ the production bot-DB backups sit on a PUBLIC repo.**
   WHAT: the daily/weekly `backup-db.yml` dumps upload as GitHub Actions **artifacts on
   `menno420/superbot`, which is public** (`"private": false`, measured 2026-08-14) — and GitHub
