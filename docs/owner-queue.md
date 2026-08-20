@@ -686,6 +686,16 @@ fleet-wide merges/ready-flips live in
 
 ### (D) Standing decisions
 
+- **`OQ-CL-LICENSE` — couch-legend: pick a license, or say "none on purpose".** OPEN
+  (2026-08-20, the adoption session). WHAT: the new public repo `menno420/couch-legend`
+  ships without a LICENSE file, so it defaults to all-rights-reserved — nobody may legally
+  reuse the code, which may or may not be what you want (D-0012 governs *disclosure*, not
+  reuse rights, so publish-by-default does not answer this). HOW: one word in the hub chat —
+  e.g. **"MIT"** (recommended for the code; the art and story stay yours and a session
+  records that split in the README) or **"no license on purpose"** — and a session commits
+  it same-day. UNBLOCKS: nothing technical; legal clarity only. VERIFIED-NEEDED: not
+  attempted — licensing is ownership, not an agent call.
+
 - **`OQ-FM-APPARATUS-SIZING` ✅ RESOLVED 2026-08-07 — the owner answered: retire the roster.**
   Verbatim, in the hub chat: *"Yes retire the roster, I don't need it."* Executed the same
   session, and it went **further than the recommendation on file**, which was reduce-to-daily.

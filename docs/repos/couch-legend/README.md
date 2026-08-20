@@ -49,7 +49,21 @@ read before changing any number) · `docs/ORIGIN.md` (provenance + the
 reconstruction method) · `README.md` (player-facing + dev commands) ·
 `tests/engine.test.ts` (the pins).
 
-### Thread: the Android shell — **next, not started**
+### Thread: life-story design + simulator — **NEXT (owner directive, 2026-08-20)**
+
+The owner's live directive, recorded verbatim in couch-legend
+`docs/planning/2026-08-20-life-story-direction.md` (committed `e4b168b`):
+many stages telling a whole story (~18, cigarettes → weed → onward), an
+endless-feeling loop with **fair upgrades**, and a **simulator built before
+any stage content** — the next Claude session focuses on planning and
+testing; afterwards the owner fine-tunes looks with ChatGPT Work, then Claude
+sessions improve freely. The brief carries the decided/open split, the
+spider-swing lessons (north-star sentence · instrument-before-tune ·
+validate-the-simulator · fair-upgrades corroboration · plateau difficulty ·
+defer-by-directive) and the simulator sketch. Done-when is its § 7; the
+design session amends DESIGN.md with what it decides.
+
+### Thread: the Android shell — **after the design work** (re-sequenced 2026-08-20)
 
 The step (DESIGN.md § 7, decided): add `android/` via Capacitor bundling the
 web `dist/`, sign and release APKs from CI on the phone-controller pattern
@@ -58,13 +72,13 @@ fresh-keystore recommendation). Until then the PWA manifest already gives
 install-to-home-screen on Android. Post-shell extras recorded as OPEN in
 DESIGN.md § 8: haptics, local notifications, cloud save, a Clarity-spend shop.
 
-### Thread: balance pass — **open, needs play evidence**
+### Thread: balance pass — **folds into the simulator thread**
 
 Tuning is the prototype's, kept faithfully; early hours feel right
 (`REASONED` from the model + a short live playtest), late game
-(Orbital Garden → Mythic Canopy) is unplaytested. Tune only with play data;
-every change goes through DESIGN.md + the content tables + the tests in one
-commit.
+(Orbital Garden → Mythic Canopy) is unplaytested. The life-story session's
+simulator is the instrument this thread was waiting for; every change goes
+through DESIGN.md + the content tables + the tests in one commit.
 
 ## External workspaces (roadmap § 5.7 — pointers, never copies)
 

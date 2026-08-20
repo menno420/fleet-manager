@@ -45,6 +45,19 @@ the template.
   next · balance pass open) · `docs/current-state.md` shipped-entry · program
   §7 row (appended at ledger end).
 
+**Shipped (this PR — the mid-session extension, owner-live 2026-08-20):** the
+owner's phase-2 directive (life-story stages from ~18 · endless loop · fair
+upgrades · simulator-first next session · then his ChatGPT-Work looks pass ·
+then free Claude improvement) captured as couch-legend
+`docs/planning/2026-08-20-life-story-direction.md` (`e4b168b`, with DESIGN.md
+§ 9 pointing at it) after a spider-swing review (Layer-2 folder +
+`docs/current-state.md` + the upgrade-and-difficulty research, raw at main —
+six transferable lessons recorded in the brief § 5); the Layer-2 folder here
+re-threaded (life-story design + simulator = NEXT; Android after; balance
+folds into the simulator); `OQ-CL-LICENSE` added to `docs/owner-queue.md`
+(D); the paste-ready continuation prompt delivered in the hub chat (chat is
+its venue; the brief is its durable half).
+
 **Shipped (outside this PR, verified live):**
 - `menno420/couch-legend` — created via the PAT path (repo, description,
   homepage), source pushed as `142cd14` (45 files): pure engine + content
@@ -71,7 +84,8 @@ public visibility (D-0012 publish-by-default; the owner had already published
 the prototype + share link) · GitHub Pages over Railway (static SPA, zero
 cost, the Railway estate was just consolidated down) · no required status
 check day one (revisit when a second session works there) · no LICENSE file
-yet (owner call; this card is the flag's home).
+yet (owner call — routed to `docs/owner-queue.md` as **`OQ-CL-LICENSE`**;
+Codex round 2 rightly moved it off this card).
 
 **Layer-2 handoff:** docs/repos/couch-legend/README.md — created (entry point
 + three threads).
