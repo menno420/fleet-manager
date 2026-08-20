@@ -9,6 +9,7 @@
 
 | Date | Doc | Scope |
 |---|---|---|
+| 2026-08-20 | [Railway keep-bot-only worklist](2026-08-20-railway-keep-bot-only-worklist.md) | The owner's 2026-08-20 direction executed as a handoff: mineverse off Railway, keep only bot-related surfaces, the crawler-DoS fix route-scoped (never an IP-range block — unfurling survives), review → static + retire, frozen-repo pollers retired, bot-DB sizing read-only; the one HIGH (`OQ-RAILWAY-SHIFTLIFE-SCOPE`) posed, not resolved. Seven ordered slices with done-whens |
 | 2026-08-10 | [Repo navigation plan](2026-08-10-repo-navigation-plan.md) | The owner's browsable-repo directive, designed: the mandatory six-read order, the CORE/TASK/RECORD tier labels, `docs/MAP.md`, and the per-area "you are here" contract |
 | 2026-08-08 | [**The agent-operating-environment roadmap**](2026-08-08-agent-operating-environment-roadmap.md) | **The owner's CURRENT plan** (OD-13 puts its Phases 2–3 ahead of the lettered product steps): three phases — retrieval + orientation (landed, fm #826) · intent resolution (first slice landed, fm #830; the § 4.8 test run in full, fm #851 + fm #852, PARTIAL confirmed by blind re-score) · the common operating protocol (not started) |
 | 2026-08-08 | [fleet-manager as the index — two-layer restructure](2026-08-08-fleet-manager-as-index.md) | Owner-live design decisions for Layer 1 (general, light) + Layer 2 (`docs/repos/<name>/`, per-repo handoff folders); the boot file cites it as canonical for the Layer 2 decisions |
