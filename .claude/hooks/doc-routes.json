@@ -350,6 +350,40 @@
       "says": "You named spider-swing. Read docs/repos/spider-swing/README.md BEFORE attaching the repo — attaching is often unnecessary (it is PUBLIC, so read-only work needs a raw fetch, not add_repo), and the folder tells you what the repo is, where the last session left off, and which of the two live threads you are touching: core feel & difficulty (the owner's north star) or the Google Play release (owner-gated, hard three-week floor). Depth in the same folder: working-here.md, capabilities.md, records.md. The repo's own docs/current-state.md wins over all of it. Paired with the `repo-spider-swing` tool route so a Bash or Grep carrying the name cannot spend this route's once-per-session budget before your message does."
     },
     {
+      "id": "repo-couch-legend",
+      "tools": [
+        "Bash",
+        "WebFetch",
+        "Read",
+        "Glob",
+        "Grep"
+      ],
+      "when": [
+        "\\bcouch[- ]legend\\b",
+        "\\bidle[- ]stoner\\b",
+        "menno420/couch-legend"
+      ],
+      "docs": [
+        "docs/repos/couch-legend/README.md"
+      ],
+      "says": "Layer 2 entry point — read it BEFORE attaching the repo. couch-legend is the Grok one-prompt idle game (Couch Legend) adopted 2026-08-20: PUBLIC repo, live at menno420.github.io/couch-legend, so read-only work needs raw fetch, not add_repo. The repo's docs/DESIGN.md is the binding mechanics map — read it before changing any number; tuning changes need play evidence and go through the content tables + tests in one commit. Three threads: mechanics base (landed) · Android shell via Capacitor (next, DESIGN.md § 7) · balance pass (open). The repo's own tree wins over all of it."
+    },
+    {
+      "id": "repo-couch-legend-prompt",
+      "tools": [
+        "UserPromptSubmit"
+      ],
+      "when": [
+        "\\bcouch[- ]legend\\b",
+        "\\bidle[- ]stoner\\b",
+        "menno420/couch-legend"
+      ],
+      "docs": [
+        "docs/repos/couch-legend/README.md"
+      ],
+      "says": "You named couch-legend (the Couch Legend idle game). Read docs/repos/couch-legend/README.md BEFORE attaching the repo — it is PUBLIC (raw fetch suffices for read-only work) and the folder says where the last session left off and which thread you are touching: mechanics base (landed), the Capacitor Android shell (next), or the balance pass (open — needs play evidence). The repo's docs/DESIGN.md is the binding mechanics map. Paired with the `repo-couch-legend` tool route so a Bash or Grep carrying the name cannot spend this route's once-per-session budget before your message does."
+    },
+    {
       "id": "error-review",
       "tools": [
         "UserPromptSubmit"

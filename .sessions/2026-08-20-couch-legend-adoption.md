@@ -2,7 +2,7 @@
 
 > **Status:** `in-progress`
 
-- **📊 Model:** fable-5 · product work, owner-live directive — the owner asked
+- **📊 Model:** fable-5 · high · feature build — owner-live directive: he asked
   the session to orient, open the Grok-built app at `idle-stoner.grok.me`, see
   if it can be improved, create a new repo for it with his PAT, and state back
   how the goal is perceived; mid-session he added the durable frame: *"Eventually
