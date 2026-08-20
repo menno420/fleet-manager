@@ -1,6 +1,17 @@
 # 2026-08-20 · hub — the Grok one-prompt game adopted: couch-legend created, rebuilt, live
 
-> **Status:** `in-progress`
+> **Status:** `complete`
+
+*(Flip note: Codex R1 on `9462486` — 3 findings, 3 [conceded], fixed in
+`935ca51`; R2 on `935ca51` — 1 finding [conceded] (`OQ-CL-LICENSE`), fixed in
+`5546c70` alongside the owner's mid-session phase-2 extension; R3 on
+`5546c70` — 1 finding [conceded] (both couch-legend route `says` strings
+still carried the pre-directive Android-next sequence), fixed in `3ccdf4b`.
+The two-re-review-round cap is reached at R3; the `3ccdf4b` fix transcribes
+the already-reviewed Layer-2 thread text into the route strings — taking the
+skill's exemption, named here: reviewed SHA `5546c70`, after it only
+`3ccdf4b` (the transcription) and this flip commit, which changes this badge,
+this note, the PR line, and the telemetry delta. Nothing else.)*
 
 - **📊 Model:** fable-5 · high · feature build — owner-live directive: he asked
   the session to orient, open the Grok-built app at `idle-stoner.grok.me`, see
@@ -90,4 +101,5 @@ Codex round 2 rightly moved it off this card).
 **Layer-2 handoff:** docs/repos/couch-legend/README.md — created (entry point
 + three threads).
 
-**PR:** fm #870 — terminal state recorded at flip.
+**PR:** fm #870 — flipped `complete` on this commit; merging on green
+directly after (gate goes green with this flip; state probed, not assumed).
