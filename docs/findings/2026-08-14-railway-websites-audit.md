@@ -315,3 +315,60 @@ and item 1's cheap layer in — **item 5 is NOT landed**, it awaits the
 owner's amendment): duplicates −$1.61, backup −~$2.5, sleep −up to ~$1.5,
 and control-plane's ~$10 line now dependent on how much of the crawler
 traffic honors `robots.txt` — measure at the Sep 13 receipt.
+
+## 8 · Execution addendum — the 2026-08-20 keep-bot-only worklist run
+
+> Executed by the follow-on session against
+> [`../planning/2026-08-20-railway-keep-bot-only-worklist.md`](../planning/2026-08-20-railway-keep-bot-only-worklist.md)
+> (owner direction § 0), slices in § 6 order, each verified live as it
+> landed — § 7's evidence style. `MEASURED` this session unless tagged.
+
+**State re-verified before acting** (the handoff's own instruction): 10
+services across 4 projects (list re-read, ids exact) · review `sleep=true` ·
+mineverse project volumes **NONE** · external `GET /healthz` on
+control-plane timed out **3×30 s** (21:39Z) — and the crawl had worsened
+past the morning numbers: a 17:30–18:00Z `httpLogs` sample hit the query
+cap at **2,001 requests — 1,997 Meta-range, 1,947 on `/orders`, every one
+HTTP 499** (the crawler hung up before the render finished), with the app's
+runtime log silent from 17:47:12Z (~4 h; two reads at different limits both
+end on that line). The board was effectively down, serving nobody.
+
+| Slice | Action | Evidence |
+|---|---|---|
+| 1 — crawler DoS | **websites #508** (merged `74410ff`): `/orders` (608 KB measured render) + `/orders.json` (775 KB) + `/prompts` (513 KB) gated IN PLACE behind the [D-0012] owner overlay (websites **D-0036**) — route-scoped per § 3.1 of the worklist, never an IP-range 403. Size audit ran every route live before choosing the set; next-heaviest are live-tier and stay public (`/fleet` 211 KB · `/queue` 150 KB — the OTHER faceted page, flagged as the likeliest next target, gate-ready in one line on the owner's word). Codex on the exact head `74c4015`: **0 findings**. | Post-deploy external probes, minutes after merge: healthz **5×200 ≤ 0.62 s** (from 3×30 s timeouts) · anonymous `/orders` + facet URLs **42 B ~0.2 s** (from ~620 KB) · owner Basic **200 at 620,461 B** — byte-exact the § 7 measured page · `/` 200 61 KB · `/queue` 200 unchanged |
+| 2 — mineverse | `serviceDelete(5cabd73c-3edf-49ef-b204-e8adfe49bc4c)` → `true` · `projectDelete(d6e6dc20-f3a7-45e2-bc01-1ab57f15a31b)` → `true` (project emptied; volumes verified NONE first) | Project list re-read: **3 projects / 9 services, `superbot-mineverse` absent** · old URL `web-production-97636…` → 404 in 0.3 s · the REPO verified untouched (exists, unarchived) |
+| 3 — review → static | **Preflight settled the old wall**: `GET /repos/menno420/websites/pages` 404 → `POST` (`build_type: workflow`) → **201 over the direct PAT** — the 2026-08-07 finding was workflow-token-scoped. Venue created: https://menno420.github.io/websites/. **websites #509** lands the mechanism (`review/gen_static.py` — 35 routes exported offline, exit 1 on any non-200; `review-pages.yml` deploy workflow; `review-bake` schedule retired, dispatch kept; websites **D-0037** names the losses, incl. the live `/ask/api` AI path whose `ANTHROPIC_API_KEY` copy dies with the service). | Exporter verified twice (working venv + review-pins-only venv): 35 routes + static/, **zero leftover root-relative URLs** tree-wide. Cutover (nav ×4 + `web_presence.json` + `serviceDelete 511fd9eb…`) held until the Pages deploy is verified serving — § 6.3's never-delete-first rule |
+| 4 — pollers | **superbot #2450**: `ci-rerun-watchdog` cron `*/12` out (dispatch kept) · `pr-conflict-guard` 30-min sweep out (event triggers + pre-existing dispatch kept) — ~170 no-op runs/day; sb #2446 pattern, notes in headers. The repo's enabler armed auto-merge at open; **disabled by the session** so green CI cannot race the exact-head review. | Both files `yaml.safe_load` clean; triggers read back `[workflow_dispatch]` and `[push, pull_request, workflow_dispatch]` |
+| 5 — bot-DB sizing | Read-only catalog job `sizing.yml` on PRIVATE `estate-backups` (`c1439ab`, the fm #867 venue: agent-side sealed-box one-shot `BOT_DB_DSN`, PUT 201 → dispatch 204 → run success → secret DELETE 204). SELECTs + COUNT(*) + min/max of date columns only — size metadata, never row contents. | Results below |
+| 6 — PAT | Nothing — `OQ-WEBSITES-PAT` still owner-gated (UI mint; wire on paste). | — |
+
+**Slice 5's answer — § 5.2's `REASONED` suspects are refuted.** The database
+is **949 MB** (994,875,071 B), 939 MB of it `public`, and **97.5 % of that
+is three `btd6_*` ingestion tables**:
+
+| Relation | total | table | indexes | toast | rows (exact) | span |
+|---|--:|--:|--:|--:|--:|---|
+| `btd6_source_snapshots` | **668 MB** | 245 MB | 22 MB | 401 MB | 286,489 | 2026-05-27 → **2026-08-20 22:08Z** |
+| `btd6_ingestion_runs` | **135 MB** | 80 MB | 55 MB | — | 289,944 | same span |
+| `btd6_facts` | **122 MB** | 41 MB | 22 MB | 59 MB | 102,879 | same span |
+| `ai_decision_audit` | 8.4 MB | | | | 21,201 | 2026-05-25 → 22:17Z |
+| *everything else combined* | ~2 MB | | | | | XP/server-log tables are **64–80 kB each** |
+
+The last snapshot landed **27 minutes before the sizing run** — the bot's
+BTD6 ingestion loop is live and continuous: 289,944 runs over ~86 days ≈
+**one every ~26 seconds, around the clock**. That loop's history — not XP,
+not server logging — is the dataset, the ~2 GB dumps, and the DB's 831 MB
+resident RAM (§ 3). The prune proposal and the loop-cadence question are
+one-letter asks in [`../owner-queue.md`](../owner-queue.md)
+(`OQ-BOT-DB-BTD6-PRUNE`); **nothing was deleted and the ingestion loop was
+not touched** — worker + Postgres hard rail intact (the sizing job's only
+contact was catalog SELECTs over the same public proxy the nightly backup
+uses).
+
+**New observation, flagged not acted on:** `reliable-grace` still holds
+**4 volumes for its 1 Postgres** — `postgres-botsite-volume` (its service
+dumped + deleted 08-16) plus two suffixed strays (`postgres-volume-OMuK`,
+`postgres-volume-700u`) beside the live `postgres-volume`. Orphaned volumes
+survive service deletion. Disk is $0.27/cycle estate-wide, so this is
+hygiene, not cost; hard-rail adjacency says owner's call
+(`OQ-RG-ORPHAN-VOLUMES`).

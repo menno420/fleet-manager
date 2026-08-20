@@ -36,16 +36,12 @@ copy product architecture or internal product state. Canonical intent:
 
 - **E1 remains owner-reserved.** The final EAP email is written and sent by the
   owner; a session does not draft or send it.
-- **D2 is the actionable program step.** fleet-manager's truth pass is complete.
-  The old "shiftlife is next" target is **SUPERSEDED** — owner, live, 2026-08-10:
-  shiftlife is not active; spider-swing and the superbot repos are the important
-  ones (OD-15; re-target pending at `OQ-FM-D2-TARGET`). Until he names the next
-  repository, the standing answer to "what should a session pick up" is **OD-13**:
-  methods/enforcement (the roadmap's Phases 2–3) and the multi-provider mix.
+- **D2 is the actionable program step**; its shiftlife target is SUPERSEDED
+  (OD-15; re-target pending at `OQ-FM-D2-TARGET`). Until the owner names the
+  next repository, the standing answer to "what should a session pick up" is
+  **OD-13** — the program's NOW pointer carries the detail.
 - fleet-manager vendors substrate-kit v1.21.0 (fm #853)
-- Whether a root `AGENTS.md` should make the neutral front door auto-load is an
-  owner decision. D2 measures the no-`AGENTS.md` path; this session does not add
-  one.
+- A root `AGENTS.md` remains an owner decision (`OQ-FM-AGENTS-BOOT`).
 
 ### Live operating mechanisms
 
@@ -166,6 +162,13 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   fleet-wide action list).
 
 ## Recently shipped (newest first)
+
+- **The Railway keep-bot-only worklist EXECUTED** (2026-08-20; fm #868 → this):
+  crawler DoS ended, mineverse off Railway, review's Pages venue built,
+  pollers retired, bot DB sized — 97.5 % `btd6_*` ingestion history
+  (`OQ-BOT-DB-BTD6-PRUNE`). Evidence:
+  [audit § 8 addendum](findings/2026-08-14-railway-websites-audit.md).
+  Open: `OQ-RAILWAY-SHIFTLIFE-SCOPE` · `OQ-WEBSITES-PAT` · `OQ-RG-ORPHAN-VOLUMES`.
 
 - **phone-controller Slices 18–22 (v0.22.0) shipped** (2026-08-14→20,
   pf #49–#53; 21/22 = the owner's keyboard+foldable ask, design-first):
