@@ -787,6 +787,17 @@ fleet-wide merges/ready-flips live in
   names reclaimed onto the canonical `superbot-websites` services (both old URLs now serve the
   new sites, verified live), `reliable-grace` reduced to `worker` + its two Postgres. Execution
   record: [findings/2026-08-14-railway-websites-audit.md](findings/2026-08-14-railway-websites-audit.md) § 7.
+- **`OQ-RAILWAY-SHIFTLIFE-SCOPE` — ⚑ one-letter call: does "keep only bot things" cover shiftlife?**
+  WHAT: your 2026-08-20 direction (*"the only things we should keep is the things that are
+  actually related to the bot etc"*) named mineverse for removal; shiftlife (your app's live
+  sync API + its database, real data) is the one surface where the reading is genuinely
+  ambiguous, so no session touches it on inference. OPTIONS: **A) keep shiftlife
+  (recommended — it is a product, not bot-web estate; removal takes the app's sync offline)**
+  · B) remove it too, after a restore-verified dump to `menno420/estate-backups` (the fm #867
+  pattern). HOW: one letter. WHY-IT-MATTERS: prevents a silent HIGH resolution either way;
+  UNBLOCKS: the last scoping line of
+  [planning/2026-08-20-railway-keep-bot-only-worklist.md](planning/2026-08-20-railway-keep-bot-only-worklist.md).
+  (2026-08-20)
 - **`OQ-RG-POSTGRES-BOTSITE` — ⚑ one-letter call: the now-orphaned old-botsite database.**
   WHAT: `reliable-grace/postgres-botsite` served ONLY the old botsite (wiring verified), which
   is deleted; the DB idles at ~$0.30/cycle. It is one of the two Postgres DBs W1's hard rail
