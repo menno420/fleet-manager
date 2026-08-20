@@ -1,6 +1,6 @@
 # product-forge / phone-controller — the entry point
 
-> **Status:** `living-ledger` · true as of **2026-08-16**
+> **Status:** `living-ledger` · true as of **2026-08-20**
 >
 > **What this is:** fleet-manager's entry point for `menno420/product-forge` —
 > where the last session left off and where the next one should look.
@@ -20,8 +20,9 @@
 **phone-controller**: a real, shipped Android app that turns a phone into a
 customizable Bluetooth-HID controller (keyboard / gamepad / mouse / media / DS-style
 touch) for any other device, with no software on the target. `MEASURED`
-2026-08-16: stable-signed APK releases v0.4.0 → v0.20.0 on the repo's releases
-page, owner-playtested and field-driven (the Slice 15–17 features all came from
+2026-08-20: stable-signed APK releases v0.4.0 → v0.22.0 on the repo's releases
+page (signer cert byte-identical v0.18.0 → v0.22.0, v2 signing-block parse),
+owner-playtested and field-driven (the Slice 15–17 features all came from
 his device feedback). Everything else in the repo — `products/games-web/`, the
 control bus, the seat docs — is history or migration stock, and the consolidation
 program's §2 marks the post-graduation remainder **archive-bound**.
@@ -38,16 +39,54 @@ executed mid-feature-session (OD-6: one thing at a time, finished properly).
 
 ## Threads
 
-### Thread: the app (customization era) — **active**, updated 2026-08-16
+### Thread: the app (customization era) — **active**, updated 2026-08-20
 
-Where it stands: **Slice 20 / v0.20.0** — the **PS2 pad is a directly
-selectable spinner entry** (owner screenshot feedback: a New-layout-only
-preset was invisible where pads are chosen; new `t:<kind>` key class renders
-straight from the template, spliced after NDS, per-host memory unchanged).
-**First item for the next slice, recorded not chatted:** replace the
-Settings-close refresh condition (now enumerating `b:ANALOG`/`c:`/`t:`) with an
-unconditional refresh — the enumeration bug recurred once already (#49 → #51),
-and no input is ever held while a dialog is up. Slice 19 before it: the
+Where it stands: **Slices 21+22 / v0.22.0** — the owner's 2026-08-16 ask
+(*"recognize keyboards … use the keyboard as input/controls or just as a way
+to write. There should also be some extra support for foldable phones"*),
+designed first (options · choice · reasons on the pf Slice-21 card § Design)
+and shipped as two finished slices:
+
+- **Slice 21 (pf #52, v0.21.0) — physical keyboards.** Detection
+  (InputManager, external-alphabetic), capture via `dispatchKeyEvent` under
+  an explicit policy (never volume/system keys; dialogs self-exempt), **TYPE
+  mode** (live keycode→HID type-through — hid-core `KeyEventMap`, both-side
+  modifiers, media keys) and **PAD mode** (key→action bindings through the
+  shared `resolveRaw` vocabulary, VoiceStore-pattern store, optional defaults
+  behind a confirm), ⌨ toggle visible exactly while a keyboard is attached,
+  bindings+mode in backup (additive `pcb`-v1 key), and the `keyboard`
+  configChange (hot-plug used to RECREATE and drop the connection). **The
+  queued refresh item is CONSUMED**: the Settings-close enumeration is now an
+  unconditional refresh guarded only by the open editor. Codex 2 rounds, 6
+  findings ([conceded]×4 · [partial]×1 · [survived]×1): the load-bearing fix
+  is `HeldKeyLedger` (hid-core) — (device, key)-keyed, reference-counted by
+  action identity, per-device release, stateless taps uncounted — built for
+  the two round-1 findings and pinned by 8 unit tests.
+- **Slice 22 (pf #53, v0.22.0) — foldables.** `smallestScreenSize|density`
+  join `configChanges` (a fold used to recreate the activity and drop the
+  live HID connection — the manifest's rotation rationale, third instance)
+  plus **per-screen layout memory** (sw600 bucket, rotation-invariant:
+  compact pad on the cover screen, full pad inside, automatic; connect
+  applies host memory, fold applies screen memory, last event wins). AndroidX
+  WindowManager postures REJECTED explicitly — the Slice-3 AndroidX-free
+  choice stands, recorded not silently skipped. Codex round 1 [conceded]×2
+  (onCreate bucket restore · pending flip through the editor), round 2 clean.
+- **The L3/R3 premise correction is carried**: the product README no longer
+  claims a descriptor revision/re-pair — enum-only on already-transmitted
+  bits (fm #864). Device-venue honesty: capture semantics and both
+  recreation fixes are REASONED from the platform contract; the owner device
+  steps are on both pf cards (§ Verification plan).
+
+**Recorded candidates from the Codex rounds** (neither queued — surface if
+the owner asks): hardware-key **macro bindings** (needs a binding-specific
+picker; the macro builder is coupled to `PadButtonSpec`), and a
+**producer-wide hold-ownership model** (on-screen pads + keyboard + voice
+sharing transport state ref-counted — would have to exempt turbo's
+deliberate same-bit pulsing; today's last-writer-wins is the app's standing
+model, pre-dating the keyboard).
+
+Slice 20 before them: the **PS2 pad as a directly selectable spinner entry**
+(owner screenshot feedback; `t:<kind>` key class). Slice 19: the
 **PS2 (DualShock) preset** itself
 (glyph-colored round diamond, dual sticks, four digital shoulders; no HID
 descriptor change, so it installed in place — L3/R3 stick-clicks deferred as
@@ -55,8 +94,7 @@ scope. **Premise corrected 2026-08-15, Codex on fm #864:** the live descriptor
 already declares **16 button bits** — `ComboHidDescriptor.kt`'s own header,
 "Gamepad = 16 buttons" — with the enum stopping at bit 11, so L3/R3 would be an
 **enum-only addition on already-transmitted bits: no descriptor change, no
-re-pair**. The merged pf #50 card and product README still carry the wrong
-re-pair premise; carry this correction into the next product-forge touch).
+re-pair**).
 Slice 18 the prior day (2026-08-14): per-widget behavior config (per-stick
 deadzone + invert-Y, D-pad 4/8-way, per-touchpad speed + pen mode), long-press
 alternate actions, fine position sliders, **backup/restore-everything**
@@ -69,9 +107,13 @@ Play-Store listing with a ~€1 cosmetic supporter pack is groundwork-only
 (Slice 9, fairness promise committed in the README).
 
 Pointers (all in product-forge): `products/phone-controller/README.md` (the app,
-honest state) · `.sessions/2026-08-16-phone-controller-slice20-ps2-spinner.md` +
+honest state) ·
+`.sessions/2026-08-20-phone-controller-slice21-hardware-keyboard.md` (carries
+the full keyboard+foldable DESIGN section, § D1–D6) +
+`.sessions/2026-08-20-phone-controller-slice22-foldables.md` +
+`.sessions/2026-08-16-phone-controller-slice20-ps2-spinner.md` +
 `.sessions/2026-08-15-phone-controller-slice19-ps2-preset.md` +
-`.sessions/2026-08-14-phone-controller-slice18-customization.md` (the three
+`.sessions/2026-08-14-phone-controller-slice18-customization.md` (the five
 slices) · `products/phone-controller/android/compile-check.sh`
 (app-module compile proof, no SDK needed) · `control/status.md` (heartbeat).
 

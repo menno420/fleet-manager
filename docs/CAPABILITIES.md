@@ -931,6 +931,21 @@ findings go here, below the fence.)
   figure to 37%. The dependency chain fails progressively (`discord` → `asyncpg` →
   `dotenv`), so install the full requirements file rather than chasing imports one at a
   time. — LAST-VERIFIED: 2026-08-05
+- 2026-08-20 · capability · `owner-live` (remote CCR container) · **Git tags are creatable via
+  `POST /repos/{o}/{r}/git/refs` over direct PAT — and that is the route to prefer, because the
+  local `git push origin <tag>` through the session git proxy can silently no-op.** · evidence
+  (same minute, same repo): `git push origin phone-controller-v0.21.0` printed `Everything
+  up-to-date` while `git ls-remote origin refs/tags/phone-controller-v0.21.0` returned EMPTY —
+  no remote ref, no error, and no release workflow fired; the REST create then returned the ref
+  object, `ls-remote` showed the tag, and `android-release` fired and completed success. Branch
+  pushes through the same proxy worked all session, so the quirk is tag-refspec-scoped, not
+  auth. Used twice end-to-end (v0.21.0, v0.22.0 — both releases verified: assets + sha256 +
+  stable-keystore log line + signer-cert match `7bda3340…`). The REST tag route itself is old
+  news (the `:852` entry confirmed `POST git/refs` tag → 201 in 2026-07; the seat-era failure
+  shape was a 403) — what is NEW here is the silent-success failure shape: `Everything
+  up-to-date` with no remote ref and no error. Rule of thumb: after ANY tag push, verify with
+  `ls-remote` before trusting the workflow will fire; on silence, use the REST
+  route. — LAST-VERIFIED: 2026-08-20
 - 2026-08-16 · wall · `owner-live` (remote CCR container) · **Outbound TCP is limited to web
   ports — 80 and 443 connect, arbitrary other ports do not** — so Railway TCP proxies (random
   high ports) are unreachable in-session. · evidence (raw socket connects, no proxy env
