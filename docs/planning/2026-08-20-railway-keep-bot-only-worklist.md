@@ -20,10 +20,14 @@ problem below.
 - **The crawler fleet ignored robots.txt and is now effectively DoS-ing
   control-plane.** Fresh `httpLogs` on the live deployment: 5,001 requests in a
   40-minute window, **100 % from Meta's 57.141.x range**, 4,938 of them on the
-  ~620 KB seat-era `/orders` page (~295 MB / 40 min ≈ $0.4+/day egress at that
-  rate); UA breakdown of the most recent 3,001 requests: 2,986+ spoofed desktop
-  browser UAs, **zero `/robots.txt` fetches**, and exactly 4 hits from the
-  genuine `facebookexternalhit` unfurler (all on `/`). Meanwhile
+  seat-era `/orders` page — **294.8 MB of measured `txBytes` in the window,
+  i.e. ~60 KB on the wire per response (compressed); the page is ~620 KB
+  uncompressed** (a direct curl measured 620,461 bytes), so the app renders
+  ~3 GB of HTML per 40 min to serve it. Wire-rate extrapolation: ~10 GB/day ≈
+  $0.4+/day egress; the CPU cost of rendering is on top. UA breakdown of the
+  most recent 3,001 requests: 2,986+ spoofed desktop browser UAs, **zero
+  `/robots.txt` fetches**, and exactly 4 hits from the genuine
+  `facebookexternalhit` unfurler (all on `/`). Meanwhile
   `GET /healthz` from outside timed out **3 × 30 s consecutively** — a route
   that answered in milliseconds on 08-14. The board is intermittently
   unreachable for humans while it serves bots.
@@ -114,11 +118,19 @@ flagged where it is a judgement:
    `99d4ec0a…`), then the empty project (`projectDelete` if the API allows;
    else the service alone and note it). Stateless — no dump needed (verify
    no volume exists before deleting; expected none, disk metered 0).
-3. **websites — review to static + retire**: export the review site's rendered
-   pages to GitHub Pages (content is committed data; generators in
-   `review/gen_*.py`), verify the Pages URL serves, then `serviceDelete`
-   the `review` service (id `511fd9eb…`) and retire the `review-bake` schedule
-   (keep `workflow_dispatch`). Update the fleet-nav strip if it links review.
+3. **websites — review to static + retire**: **preflight Pages first** —
+   `GET /repos/menno420/websites/pages` over the direct PAT; if absent,
+   attempt `POST /repos/menno420/websites/pages` ONCE via the direct PAT (the
+   measured wall — fm `current-state.md` 2026-08-07, curious-research — was a
+   **workflow token** failing to *create* a Pages site; the admin-PAT create
+   path is untested → probe, don't assume either way), and if that is refused
+   too, queue the one-click owner enablement (Settings → Pages) and hold this
+   slice — do not delete the service before the export venue exists. Then:
+   export the review site's rendered pages (content is committed data;
+   generators in `review/gen_*.py`), verify the Pages URL serves, then
+   `serviceDelete` the `review` service (id `511fd9eb…`) and retire the
+   `review-bake` schedule (keep `workflow_dispatch`). Update the fleet-nav
+   strip if it links review.
 4. **superbot PR — retire the pollers**: schedules out of
    `ci-rerun-watchdog.yml` + `pr-conflict-guard.yml`, `workflow_dispatch` kept,
    header notes per the sb #2446 pattern.
@@ -140,5 +152,9 @@ flagged where it is a judgement:
   owner directive).
 - The mineverse **repo**, the superbot repo's code (workflow triggers only),
   and any change to control-plane's public/auth posture beyond gating the
-  named seat-era routes ([D-0011] stands).
+  named seat-era routes — the governing ruling is **the websites repo's
+  `[D-0012]`** (its `docs/decisions.md`: main site stays public; the
+  password-gated `/owner` overlay is the sanctioned gating mechanism, and it
+  supersedes websites' D-0011). Not fleet-manager's D-0011, which is a Gemini
+  budget ruling.
 - E1 and everything else owner-reserved in the program.
