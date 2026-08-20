@@ -167,6 +167,20 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 
 ## Recently shipped (newest first)
 
+- **couch-legend created — the Grok one-prompt game adopted as an owned,
+  tested repo, live on Pages** (2026-08-20, fm #870): the owner's ask (open
+  `idle-stoner.grok.me`, improve it, new repo on his PAT; then live:
+  *"Eventually I want this to be a fully working android game. What I need is
+  a solid base for the mechanics."*) executed end to end —
+  `menno420/couch-legend` created via PAT, the game reconstructed from its
+  deployed bundles (no exported source exists) into a pure tested engine +
+  web UI with the tuning kept faithful, additive improvements (save
+  export/import, revelations, offline report, prestige preview, a11y/PWA),
+  and **`docs/DESIGN.md` as the decided mechanics map** with the Android path
+  chosen (Capacitor shell; phone-controller release rails as the pattern).
+  Live at <https://menno420.github.io/couch-legend/>, both workflows green.
+  Entry point: [`repos/couch-legend/README.md`](repos/couch-legend/README.md).
+
 - **phone-controller Slices 18–22 (v0.22.0) shipped** (2026-08-14→20,
   pf #49–#53; 21/22 = the owner's keyboard+foldable ask, design-first):
   §7 rows + [`repos/product-forge/README.md`](repos/product-forge/README.md).
