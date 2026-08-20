@@ -366,7 +366,7 @@
       "docs": [
         "docs/repos/couch-legend/README.md"
       ],
-      "says": "Layer 2 entry point — read it BEFORE attaching the repo. couch-legend is the Grok one-prompt idle game (Couch Legend) adopted 2026-08-20: PUBLIC repo, live at menno420.github.io/couch-legend, so read-only work needs raw fetch, not add_repo. The repo's docs/DESIGN.md is the binding mechanics map — read it before changing any number; tuning changes need play evidence and go through the content tables + tests in one commit. Three threads: mechanics base (landed) · Android shell via Capacitor (next, DESIGN.md § 7) · balance pass (open). The repo's own tree wins over all of it."
+      "says": "Layer 2 entry point — read it BEFORE attaching the repo. couch-legend is the Grok one-prompt idle game (Couch Legend) adopted 2026-08-20: PUBLIC repo, live at menno420.github.io/couch-legend, so read-only work needs raw fetch, not add_repo. The repo's docs/DESIGN.md is the binding mechanics map, and its docs/planning/2026-08-20-life-story-direction.md carries the owner's phase-2 directive. Threads: mechanics base (landed) · life-story design + simulator (NEXT, owner directive 2026-08-20 — simulate before any stage content or tuning) · Android shell via Capacitor (after the design work). The repo's own tree wins over all of it."
     },
     {
       "id": "repo-couch-legend-prompt",
@@ -381,7 +381,7 @@
       "docs": [
         "docs/repos/couch-legend/README.md"
       ],
-      "says": "You named couch-legend (the Couch Legend idle game). Read docs/repos/couch-legend/README.md BEFORE attaching the repo — it is PUBLIC (raw fetch suffices for read-only work) and the folder says where the last session left off and which thread you are touching: mechanics base (landed), the Capacitor Android shell (next), or the balance pass (open — needs play evidence). The repo's docs/DESIGN.md is the binding mechanics map. Paired with the `repo-couch-legend` tool route so a Bash or Grep carrying the name cannot spend this route's once-per-session budget before your message does."
+      "says": "You named couch-legend (the Couch Legend idle game). Read docs/repos/couch-legend/README.md BEFORE attaching the repo — it is PUBLIC (raw fetch suffices for read-only work) and the folder says where the last session left off and which thread you are touching: mechanics base (landed), life-story design + simulator (NEXT — owner directive 2026-08-20, brief at couch-legend docs/planning/2026-08-20-life-story-direction.md; simulate before any stage content or tuning), or the Capacitor Android shell (after the design work). The repo's docs/DESIGN.md is the binding mechanics map. Paired with the `repo-couch-legend` tool route so a Bash or Grep carrying the name cannot spend this route's once-per-session budget before your message does."
     },
     {
       "id": "error-review",
