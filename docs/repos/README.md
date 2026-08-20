@@ -96,6 +96,7 @@ the files it has" for the worked example the shape came from.
 | **1** | `superbot` + `superbot-next` (paired) · `substrate-kit` · `venture-lab` | ⬜ not built — **cleared to build**; the shape is settled |
 | **1** | `fleet-manager` (itself — today's work is otherwise a standing exception) | ⬜ not built — outside the owner-ratified build-now set; its intent already lives at [`../intent.md`](../intent.md) |
 | **2** | `product-forge` | ◐ **entry point built** 2026-08-14 (on-demand, the Slice-18 session) — `README.md` only; `capabilities.md` / `records.md` / `working-here.md` deliberately not yet written, reasons in its header. Carries the § 5.7 external-workspaces section (all null today) |
+| **2** | `couch-legend` | ◐ **entry point built** 2026-08-20 (on-demand, the adoption session) — `README.md` only; depth files not yet written, reasons in its header. Carries the § 5.7 section (Grok provenance pointers live; Drive/ChatGPT/Gemini null) |
 | **2** | all other repos | ⬜ **on demand** — built when work goes there, not pre-stubbed (owner, 2026-08-08) |
 
 **The shape is settled — owner, 2026-08-08.** The three questions the spider-swing
