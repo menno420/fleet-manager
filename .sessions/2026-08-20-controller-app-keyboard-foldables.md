@@ -1,6 +1,6 @@
 # Session — controller app Slices 21+22: physical keyboards + foldables (records)
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 📊 Model: fable-5 · high · feature build
 
@@ -88,4 +88,12 @@ Layer-2 handoff: docs/repos/product-forge/README.md — app thread updated
   both tags live · both releases verified (assets · sha256 · signing line ·
   signer-cert match) — the DONE-WHEN chain for the product half is closed.
 - Records in this PR per § Records; `python3 bootstrap.py check --strict`
-  run with its REAL exit code before the ready-flip.
+  run with its REAL exit code before the ready-flip — its first run also
+  red-flagged this PR's own current-state wording over the 7000-word
+  orientation budget (7017 → trimmed under in two passes; the budget red
+  cleared before push).
+- Codex on this PR: **zero findings** ("Didn't find any major issues",
+  reviewed `93d9336` — the head this flip rides on; the flip commit is the
+  exempt class: badge + this close-out text). CI red on `93d9336` verified
+  against the job log as exactly the two-finding born-red HOLD, the
+  designed state.
