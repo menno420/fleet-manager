@@ -193,7 +193,11 @@ findings go here, below the fence.)
   "e974d272-…", afterDate: "…T09:43:20.000Z", beforeDate: "…T21:43:20.000Z", beforeLimit:
   5000)` → `{"data": {"httpLogs": []}}` while `afterDate: "…T17:30:00Z", beforeDate:
   "…T18:00:00Z"` on the same id → 2,001 entries, 1,997 of them Meta-range 499s. ·
-  workaround: page the range in ≤ 1 h windows. — LAST-VERIFIED: 2026-08-20
+  workaround: page the range in ≤ 1 h windows — and even then treat empty as unreadable
+  until a positive control passes: the same session's post-deploy check put a fresh 200
+  through the service and it had NOT appeared in a valid 10-min-window query 20 s later
+  (new-deployment indexing lag), so "0 rows" from this API never means "no traffic" on its
+  own. — LAST-VERIFIED: 2026-08-20
 - 2026-08-14 · capability · `owner-live` · **The @codex relay works in
   product-forge; plan waits against "answered", never against a number.** On
   product-forge #49 — the first codex activity that repo has ever had
