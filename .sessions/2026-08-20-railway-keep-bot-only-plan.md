@@ -1,6 +1,12 @@
 # 2026-08-20 · hub — the keep-bot-only direction captured; the DoS measured; the handoff built
 
-> **Status:** `in-progress`
+> **Status:** `complete`
+
+*(Flip note: Codex round 1 on `2cb613d` — 4 findings, 4 conceded, fixed in
+`b937487`; round 2 on the exact head `b937487` — zero findings. The only
+commit between the rounds was the telemetry JSONL append `4d8ce63`, the
+nothing-reviewable class. This flip commit changes this badge, this note, the
+PR line, and the telemetry delta. Nothing else.)*
 
 - **📊 Model:** fable-5 · high · idea/planning — the owner asked for a
   continuation prompt so the next session executes the improvement list, and
@@ -58,4 +64,4 @@ executing session's discretion.
 **Layer-2 handoff:** null (no `docs/repos/` folder for the touched repos; the
 worklist doc is the handoff).
 
-**PR:** fm #<n> — <terminal state at flip>.
+**PR:** fm #868 — flipped complete on top of `b937487`; landing on green. Codex: 4 findings round 1, 4/4 `[conceded]`; round 2 clean.
