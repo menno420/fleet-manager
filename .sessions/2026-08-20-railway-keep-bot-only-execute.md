@@ -126,6 +126,15 @@ gate. Nothing in the handoff contradicted the tree.
   shiftlife untouched, both services verified present and running) ·
   CAPABILITIES ledger entries (Pages-create capability; httpLogs window
   quirk).
+- Layer-2 handoff: `docs/repos/websites/README.md` — **created on demand**
+  (couch-legend precedent) at session close; carries the keep-bot-only
+  landed thread, the measured traps (GITHUB_TOKEN push-suppression /
+  exporter exit-0 ≠ link integrity / the owner-gate throttle leak), and
+  the open follow-ups.
+- Layer-2 handoff: null for superbot (poller retirement is in sb #2450's
+  own tree + this card; no fm folder exists and the frozen repo earns none)
+  and estate-backups (single-workflow venue; the § 8 addendum is its
+  record).
 
 ## Deliberately not done
 

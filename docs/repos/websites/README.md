@@ -1,0 +1,81 @@
+# websites — the entry point
+
+> **Status:** `living-ledger` · true as of **2026-08-21**
+>
+> **What this is:** fleet-manager's entry point for `menno420/websites` —
+> where the last session left off and where the next one should look.
+> **Canonical for nothing.** The repo's own `docs/decisions.md` wins on its
+> decisions (the two 2026-08-20 entries — the route gate and the export
+> losses — are this era's; ids stamped in the audit § 8 addendum), its
+> `.sessions/` cards on session history, and the live tree wins over both. Depth files are **not
+> yet written** — this folder was created on demand (the keep-bot-only
+> execution session's close) and carries only the entry point so far.
+>
+> Certainty tags per
+> [`../../findings/2026-08-05-foundation-continuation.md`](../../findings/2026-08-05-foundation-continuation.md).
+
+## The one-paragraph answer
+
+`websites` is the estate's four-service web repo: **control-plane** (the
+owner's readiness board + journal browser), **botsite** (the SuperBot
+marketing/testing site), **dashboard** (read-only bot inventory) — all three
+on Railway in the `superbot-websites` project — and **review** (the EAP
+program-review record), which since **2026-08-20 is a GitHub Pages static
+export** at <https://menno420.github.io/websites/> with **no Railway service
+behind it** (`MEASURED`: the service was deleted after the venue was probed
+serving; the old `review-production-fc91` URL 404s). One committed data
+layer (`app/data/*.json`) feeds the owner surfaces; the repo's own
+`bootstrap.py check --strict` + the four pytest suites are the local gate,
+and `quality` (with the born-red session-card hold) is the required CI
+check. Codex reviews every PR on the bare literal `@codex review`.
+
+## Threads
+
+### Thread: keep-bot-only execution — **LANDED**, 2026-08-20/21
+
+The owner's "keep only bot things" direction, executed in three PRs
+(fleet-manager card:
+[`.sessions/2026-08-20-railway-keep-bot-only-execute.md`](../../../.sessions/2026-08-20-railway-keep-bot-only-execute.md);
+evidence table:
+[audit § 8 addendum](../../findings/2026-08-14-railway-websites-audit.md)):
+
+- **#508** (`74410ff`) — the crawler DoS ended at the route layer:
+  `/orders` + `/orders.json` + `/prompts` gated in place behind the
+  [D-0012] owner overlay (websites' decisions ledger carries the entry);
+  route-scoped, never an IP-range 403 (facebookexternalhit shares Meta's
+  ranges).
+- **#509** (`b596b70`) — the static-export mechanism: `review/gen_static.py`
+  (TestClient walk, pretty URLs, base-path + idempotent host-root rewrite),
+  `review-pages.yml` deploy workflow, `review-bake` schedule retired; the
+  export-losses decision in websites' ledger names what dies with the
+  process (the live `/ask/api` AI path; seeded answers survive as static
+  pages).
+- **#510** (`f0e5bd3`) — the consumer cutover: nav strips ×4 → Pages, both
+  registries shed the mineverse group and the last duplicate rows,
+  dashboard `/reviews` → the Pages index, and the retirement semantics
+  (`retired`/`static-venue` states in `app/envdrift.py`/`app/envhub.py`)
+  keep `/owner/environments` and the hub honest about a deleted service
+  whose CODE still documents its env reads. Then the `serviceDelete`.
+
+**Traps this work measured, worth knowing before touching the repo:**
+pushes/merges attributed to `GITHUB_TOKEN` fire **no** push-event workflows
+on this repo (zero push-event runs exist on main) — the Pages rebuild after
+a merge needs an explicit `review-pages.yml` dispatch; the exporter's
+"exit 0" proves all routes rendered 200, **not** link integrity (the
+double-prefix P1 shipped through it — grep the tree, don't trust the exit);
+and the owner-gate throttle (`app/owner.py`, 10/60 s) leaks across test
+files run back-to-back — the envhub-family files carry the autouse
+`reset_rate_limits` fixture for exactly that.
+
+### Thread: open follow-ups — **PAUSED (owner-gated or next-touch)**
+
+- `/queue` (150 KB, the other faceted page) is left public deliberately —
+  likeliest next crawler target; the gate is one line behind
+  `require_owner_page` on the owner's word.
+- `/owner/environments` honestly reports **48 documented-with-defaults
+  names unset live + 1 undocumented live name** across the three Railway
+  services (`MEASURED` 2026-08-21, post-cutover; the drift computation's
+  inputs were proven unchanged by the cutover). Old config debt the page
+  exists to surface — an owner read, not a defect.
+- `OQ-WEBSITES-PAT` (fleet-manager owner queue): the repo-scoped PAT for
+  control-plane's writeback still waits on the owner's UI mint.
