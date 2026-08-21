@@ -79,8 +79,12 @@ All are non-blocking during planning; defaults are recorded in the root plan.
   changes the canonical home and must be confirmed before creation.
 - **GCB-2 (HIGH at execution):** which Discord application/token is the test
   identity. A production identity is never inferred from an environment name.
-- **GCB-3 (HIGH at execution):** provider credentials and spend ceiling. The
-  architecture is provider-neutral; enabling paid traffic requires the owner.
+- **GCB-3 (HIGH at execution):** provider credentials, spend ceiling, and the
+  Discord-data policy: allowed source/data classes, staff/private exclusions,
+  provider retention/training terms, guild/user disclosure and consent, and
+  deletion/export propagation. The architecture is provider-neutral; no
+  Discord-derived content reaches a non-deterministic provider until the owner
+  approves the full gate.
 - **GCB-4 (HIGH policy):** whether any medium-risk operation may become
   confirmation-free after test-guild evidence. Default remains confirmation.
 - **GCB-6 (HIGH migration):** whether a real production guild needs legacy data
