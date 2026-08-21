@@ -158,14 +158,44 @@ couch-legend is **invisible to the kit's adopter registry** until the
 `fleet-repos.txt` roster hole is fixed kit-side (recorded on the
 substrate-kit entry point).
 
-### Thread: the Android shell — **NEXT** (unblocked 2026-08-21; the implementation session landed)
+### Thread: the Android shell — **MILESTONE A LANDED 2026-08-21** (couch-legend #11); B is owner-gated
 
-The step (DESIGN.md § 7, decided): add `android/` via Capacitor bundling the
-web `dist/`, sign and release APKs from CI on the phone-controller pattern
-(its Layer-2 folder documents the keystore mechanics, including the
-fresh-keystore recommendation). Until then the PWA manifest already gives
-install-to-home-screen on Android. Post-shell extras recorded as OPEN in
-DESIGN.md § 8: haptics, local notifications, cloud save, a Clarity-spend shop.
+**A — the sideloadable APK: done.** Capacitor 8 wraps the same web build
+(`capacitor.config.ts`, app id **`com.menno420.couchlegend`**, the generated
+`android/` Gradle project committed), and `.github/workflows/android.yml`
+assembles a **debug-signed** APK as a run artifact — 5.26 MB, APK Signature
+Scheme v2, 27 bundled web assets, `versionName` read from `package.json`.
+`[D-0002]` chose sideload-before-store; `[D-0003]` put the build in CI because
+the agent container has JDK 21 and Gradle but **no Android SDK**. Deliberately
+NOT done: Play anything, release keystore/secrets, and DESIGN § 7's WORKING
+ANDROID HANDOFF list. Zero game changes (`src/`, `tests/`, `public/` untouched).
+The workflow builds **twice on a PR on purpose** — the head, so a phone result
+maps to a real commit, and the merge revision, because `ci` (only `pnpm check`)
+and `substrate-gate` (repo hygiene) compile no Android at all.
+
+**B is blocked on the owner, not on code.** The APK was handed to him
+2026-08-21 with a six-item checklist (offline cold launch · crossfade and
+particle smoothness · **save survives a force-stop** · the launch colour · the
+icon under his device's mask · anything wrong at phone size). Nothing in the
+estate can answer those: there is no SDK, emulator or device in any agent
+container, so real Android System WebView behaviour is **UNMEASURED** — the
+in-session smoke (14/14, zero off-origin requests) is desktop Chromium at a
+phone viewport, which is not the WebView. His answers are milestone B's inputs;
+writing that list before they arrive is guesswork.
+
+**Reusable beyond this repo:** `tools/check-shell-assets.ts` is the pattern for
+asserting a *shipped bundle* is self-contained — it catches the base-path bug
+that opens the app black with nothing on screen to say why, and it was proven
+to fire against that exact mistake rather than merely staying quiet. Three
+findings from this session are in couch-legend's `docs/CAPABILITIES.md`,
+including how to prove an APK is signed with no SDK (read the `APK Sig Block 42`
+signing block — modern AGP emits no `META-INF/*.RSA`, so a missing JAR
+signature is not evidence of an unsigned APK).
+
+Release signing on the phone-controller pattern (its Layer-2 folder documents
+the keystore mechanics, including the fresh-keystore recommendation) belongs
+with the first real release. Post-shell extras recorded as OPEN in DESIGN.md
+§ 8: haptics, local notifications, cloud save, a Clarity-spend shop.
 
 ### Thread: balance pass — **CLOSED into the life-story thread (2026-08-20/21)**
 
