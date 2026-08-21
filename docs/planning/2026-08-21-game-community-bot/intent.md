@@ -85,8 +85,14 @@ All are non-blocking during planning; defaults are recorded in the root plan.
   deletion/export propagation. The architecture is provider-neutral; no
   Discord-derived content reaches a non-deterministic provider until the owner
   approves the full gate.
-- **GCB-4 (HIGH policy):** whether any medium-risk operation may become
-  confirmation-free after test-guild evidence. Default remains confirmation.
+- **GCB-4 (HIGH policy):** initial AI Act autonomy. Recommended default is
+  low-risk reversible tools auto-act, medium-risk exact-plan confirmation, and
+  high-risk/destructive denial. Confirm before enabling Act in the test guild;
+  any later confirmation-free medium-risk expansion is a new explicit policy
+  decision after evidence.
+- **GCB-5 (HIGH profile):** first real game profile. Recommended default is
+  `spider-swing`; confirm before seeding the first real server. The core remains
+  multi-game whichever profile is selected.
 - **GCB-6 (HIGH migration):** whether a real production guild needs legacy data
   imported. Default is no import.
 
