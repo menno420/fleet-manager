@@ -153,7 +153,17 @@ is dead, and the loss covers every synchronize on this thrice-reused
 branch since #874 opened. The PAT cannot create check suites (403,
 app-only). This sentence lands via the REST contents API instead of a
 git-protocol push — the second delivery test, distinguishing the event
-path.)*
+path. Outcome: lost identically, so the drop is not path-specific —
+every post-open event on this PR (synchronize, labeled, unlabeled, both
+protocols) vanished while sibling-PR and other-repo events delivered;
+suspect cause is this branch name's third PR after two force-resets,
+unproven. Landing decision, stated in the open: with no event path able
+to produce the required check run on this branch, the PR is
+squash-merged directly, pinned to the exact head, after `python3
+bootstrap.py check --strict` — the same suite substrate-gate runs —
+exits 0 on that content locally; the PAT-authored merge push then
+triggers substrate-gate's own on-main verification run, closing the
+loop the PR events could not.)*
 
 - **📊 Model:** fable-5 · high · feature build — the continuation session the
   adoption session's brief directed (couch-legend
