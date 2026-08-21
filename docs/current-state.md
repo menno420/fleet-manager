@@ -176,9 +176,9 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   [audit § 8 addendum](findings/2026-08-14-railway-websites-audit.md).
   Open: `OQ-RAILWAY-SHIFTLIFE-SCOPE` · `OQ-WEBSITES-PAT` · `OQ-RG-ORPHAN-VOLUMES`.
 
-- **couch-legend — adopted (fm #870); phase 2: stage system decided,
-  simulator validated, runaway measured + fix proposed, game untouched**
-  (2026-08-20/21, couch-legend #1): §7 +
+- **couch-legend — adopted (fm #870); phase 2 (#1); looks pass (#3 Lucid
+  Chronicle, #4); kit-seeded v1.21.0 (#5, fm #879); implementation next**
+  (2026-08-20/21): §7 +
   [`repos/couch-legend/README.md`](repos/couch-legend/README.md).
 
 - **phone-controller Slices 18–22 (v0.22.0) shipped** (2026-08-14→20,

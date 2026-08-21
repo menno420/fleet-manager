@@ -38,7 +38,7 @@
 |---|---|---|---|---|
 | `fleet-manager` | this hub — the estate's router and records home | active | `README.md` six-read order | — (its intent: [`intent.md`](intent.md)) |
 | `spider-swing` | **Slingy Spider** — Android 2D physics swing game, Godot 4.7.1. The owner's evening product | **active** — build 0.45.0 vc66; signed vc64 sits on Play's internal testing track (2026-08-05); core-feel tuning is the north star | `docs/current-state.md` | [`repos/spider-swing/`](repos/spider-swing/README.md) |
-| `couch-legend` | **Couch Legend** — idle stoner sim, the first Grok-prototype graduation; live on Pages | **active** — life-story design + simulator landed 2026-08-20/21; next: owner looks pass → implementation session | `docs/DESIGN.md` (binding) | [`repos/couch-legend/`](repos/couch-legend/README.md) |
+| `couch-legend` | **Couch Legend** — idle stoner sim, the first Grok-prototype graduation; live on Pages · "the Lucid Chronicle" = its looks contract (#3), not a rename | **active** — looks pass landed 2026-08-21 (#3 Lucid Chronicle + #4 first Arc-1 scenes, dormant); kit-seeded v1.21.0 (#5: required checks `ci` + `substrate-gate`, land-it-yourself); next: Claude implementation session (balance doc § 7) | `docs/DESIGN.md` (binding) | [`repos/couch-legend/`](repos/couch-legend/README.md) |
 | `websites` | estate web surfaces: control-plane · botsite · dashboard (Railway) + review (Pages static since 2026-08-20/21) | **active** — keep-bot-only cutover landed 2026-08-20/21 | `docs/decisions.md` + `.sessions/` | [`repos/websites/`](repos/websites/README.md) |
 | `product-forge` | seat-era shell whose living asset is **phone-controller** — shipped Android Bluetooth-HID controller app, v0.22.0 signed releases | **active** (app thread); graduation to own repo = program step R2, next | `products/phone-controller/README.md` | [`repos/product-forge/`](repos/product-forge/README.md) |
 | `superbot` | the **FROZEN** repo behind the **LIVE production Discord bot** (Railway `reliable-grace` `worker`). No root README — its entry is `docs/AGENT_ORIENTATION.md`. Hard rail: never touch worker/Postgres uninvited | **frozen oracle** — maintenance class only (schedule retirements, runbook truing, owner-directed DB work) | `docs/AGENT_ORIENTATION.md` → `docs/current-state.md` | [`repos/superbot/`](repos/superbot/README.md) |
@@ -109,8 +109,9 @@
 - `spider-swing` + `couch-legend` → this repo's `image-prompt` /
   `asset-pipeline` / `audio-prompt` skills carry the art/audio method.
 - `substrate-kit` → every adopter (registry `docs/adopters.md`, GENERATED);
-  its scan roster misses `sim-lab` and `superbot-idle`, so registry-driven
-  rollouts cannot see them.
+  its scan roster misses `sim-lab`, `superbot-idle`, `product-forge`,
+  `spider-swing` and `couch-legend` (the last two measured 2026-08-21), so
+  registry-driven rollouts cannot see them.
 - `shiftlife`'s product plan lives HERE
   (`planning/2026-07-24-app-plan-life-admin.md`); its Railway scope question is
   `OQ-RAILWAY-SHIFTLIFE-SCOPE`.

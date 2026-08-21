@@ -715,20 +715,31 @@ fleet-wide merges/ready-flips live in
   owner's word.
 ### (C) Product / external (cross-repo, owner-only — real accounts/keys)
 
-- **`OQ-CL-LOOKS-PASS` — couch-legend: your ChatGPT-Work looks pass, the next step in your own sequence.** OPEN
-  (2026-08-21, the phase-2 session). WHAT: you said the order yourself — after the
-  planning/testing session *"I will fine-tune the looks with chat GPT work, but the next
-  claude session can work on improving the game as much as it sees fit"* — so the looks pass
-  is the step between the landed design/simulator work and the Claude implementation session
-  (stage schema + tuning adoption + arc-1 content; the checklist is couch-legend
-  `docs/sim/2026-08-20-life-story-balance.md` § 7). WHERE/HOW: the repo is public
-  (`menno420/couch-legend`, live at menno420.github.io/couch-legend); point ChatGPT Work at
-  it — `pnpm install && pnpm dev` runs it locally there — with `docs/DESIGN.md` § 9.7 as the
-  visual-plan context (18 stage scenes are *planned*, none produced yet; the current two art
-  files are the style anchor). UNBLOCKS: the implementation session, per your stated order —
-  or say the word here that Claude may implement first and this stops blocking anything.
-  VERIFIED-NEEDED: your word (or any ChatGPT-Work commit landing) — a session then re-threads
-  the Layer-2 folder and proceeds.
+- **`OQ-CL-LOOKS-PASS` — ✅ RESOLVED (done by you; verified from the tree 2026-08-21, the
+  kit-seed session).** The looks pass this entry waited on landed the morning of 2026-08-21
+  as couch-legend **#3** ("Style Couch Legend as the Lucid Chronicle" — its contract doc
+  declares the direction owner-approved and the treatment *finalized by this looks pass*)
+  plus **#4** (the first three Arc-1 scene packages, owner-approved, deliberately dormant
+  until the stage schema lands). That is exactly this entry's VERIFIED-NEEDED condition
+  ("any ChatGPT-Work commit landing"). The Layer-2 folder is re-threaded
+  ([`repos/couch-legend/README.md`](repos/couch-legend/README.md)) and the **Claude
+  implementation session is UNBLOCKED** (stage schema + tuning adoption + arc-1 content;
+  checklist: couch-legend `docs/sim/2026-08-20-life-story-balance.md` § 7 + #4's handoff
+  notes). No click needed.
+
+- **`OQ-CL-CHATGPT-REPASTE` — couch-legend: one paste refresh of the ChatGPT project
+  instructions.** OPEN (2026-08-21, the kit-seed session). WHAT: the kit seed
+  (couch-legend #5) made three lines of the pasted instructions stale — "no kit
+  apparatus", "the one gate", "after green ci" — and the committed fence is already
+  corrected. WHERE: the "Couch Legend" ChatGPT project → Instructions field. HOW:
+  replace the whole field with the current fence from
+  [`prompts/chatgpt-couch-legend-project-instructions.md`](prompts/chatgpt-couch-legend-project-instructions.md)
+  (one copy-paste). WHY-IT-MATTERS: a ChatGPT session told the repo has no kit will
+  meet bootstrap.py/CONSTITUTION.md and may "clean them up" or distrust its own
+  instructions. UNBLOCKS: nothing hard — the gate passes card-less PRs, so ChatGPT
+  work lands fine meanwhile; this closes a truth gap, not a block. ↩️ reversible.
+  VERIFIED-NEEDED: your word that the field is refreshed (agents cannot read ChatGPT
+  project settings).
 
 - **`OQ-VENTURE-STRIPE-KEYS` — venture-lab: Stripe TEST keys.** Paste `sk_test_…`
   (`STRIPE_SECRET_KEY`) + `whsec_…` (`STRIPE_WEBHOOK_SECRET`) into

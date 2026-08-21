@@ -361,12 +361,13 @@
       "when": [
         "\\bcouch[- ]legend\\b",
         "\\bidle[- ]stoner\\b",
+        "\\blucid[- ]chronicle\\b",
         "menno420/couch-legend"
       ],
       "docs": [
         "docs/repos/couch-legend/README.md"
       ],
-      "says": "Layer 2 entry point — read it BEFORE attaching the repo. couch-legend is the Grok one-prompt idle game (Couch Legend) adopted 2026-08-20: PUBLIC repo, live at menno420.github.io/couch-legend, so read-only work needs raw fetch, not add_repo. The repo's docs/DESIGN.md is the binding mechanics map (§ 9 = the decided life-story stage system), and docs/sim/2026-08-20-life-story-balance.md carries the balance evidence. Threads: mechanics base (landed) · life-story design + simulator (LANDED 2026-08-20/21 — prototype tuning measured runaway, tested fix proposed, live game untouched) · NEXT: the owner's ChatGPT-Work looks pass, then a Claude implementation session (results doc § 7 is the checklist) · Android shell via Capacitor after that. No tuning change without sim evidence. The repo's own tree wins over all of it."
+      "says": "Layer 2 entry point — read it BEFORE attaching the repo. couch-legend is the Grok one-prompt idle game (Couch Legend; \"the Lucid Chronicle\" names its looks contract, #3, not a rename) adopted 2026-08-20: PUBLIC repo, live at menno420.github.io/couch-legend, so read-only work needs raw fetch, not add_repo — but pushes need add_repo. Since 2026-08-21 it is a substrate-kit adopter (v1.21.0, #5): born-red cards, check --strict, required checks ci + substrate-gate, land-it-yourself (no enabler). docs/DESIGN.md is the binding mechanics map (§ 9 = the decided life-story stage system); docs/sim/2026-08-20-life-story-balance.md carries the balance evidence. Threads: mechanics base (landed) · life-story design + simulator (LANDED) · looks pass (LANDED 2026-08-21, #3 Lucid Chronicle + #4 first Arc-1 scenes, dormant) · NEXT: the Claude implementation session (results doc § 7 is the checklist) · Android shell via Capacitor after. No tuning change without sim evidence. The repo's own tree wins over all of it."
     },
     {
       "id": "repo-couch-legend-prompt",
@@ -376,12 +377,13 @@
       "when": [
         "\\bcouch[- ]legend\\b",
         "\\bidle[- ]stoner\\b",
+        "\\blucid[- ]chronicle\\b",
         "menno420/couch-legend"
       ],
       "docs": [
         "docs/repos/couch-legend/README.md"
       ],
-      "says": "You named couch-legend (the Couch Legend idle game). Read docs/repos/couch-legend/README.md BEFORE attaching the repo — it is PUBLIC (raw fetch suffices for read-only work) and the folder says where the last session left off and which thread you are touching: mechanics base (landed), life-story design + simulator (LANDED 2026-08-20/21 — stage system decided in DESIGN.md § 9, simulator validated, prototype runaway measured with a tested fix proposed; live game untouched), NEXT = the owner's ChatGPT-Work looks pass then a Claude implementation session (couch-legend docs/sim/2026-08-20-life-story-balance.md § 7 is the checklist), Android shell after. No tuning change without sim evidence. The repo's docs/DESIGN.md is the binding mechanics map. Paired with the `repo-couch-legend` tool route so a Bash or Grep carrying the name cannot spend this route's once-per-session budget before your message does."
+      "says": "You named couch-legend (the Couch Legend idle game; \"the Lucid Chronicle\" names its looks contract, not a rename). Read docs/repos/couch-legend/README.md BEFORE attaching the repo — it is PUBLIC (raw fetch suffices for read-only work; pushes need add_repo) and the folder says where the last session left off and which thread you are touching: mechanics base (landed), life-story design + simulator (LANDED — stage system decided in DESIGN.md § 9, prototype runaway measured, tested fix proposed, live game untouched), looks pass (LANDED 2026-08-21 — #3 the Lucid Chronicle contract + #4 first three Arc-1 scene packages, dormant until the stage schema), substrate-kit adoption (LANDED 2026-08-21, v1.21.0 — born-red cards, required checks ci + substrate-gate, land-it-yourself), NEXT = the Claude implementation session (couch-legend docs/sim/2026-08-20-life-story-balance.md § 7 is the checklist), Android shell after. No tuning change without sim evidence. The repo's docs/DESIGN.md is the binding mechanics map. Paired with the `repo-couch-legend` tool route so a Bash or Grep carrying the name cannot spend this route's once-per-session budget before your message does."
     },
     {
       "id": "error-review",

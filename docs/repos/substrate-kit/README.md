@@ -34,13 +34,14 @@ v1.20.2; trust `control/status.md` + the tree.
 
 The kit's next worklist is fleet-manager's
 [`../../findings/2026-08-13-substrate-kit-v1210-followups.md`](../../findings/2026-08-13-substrate-kit-v1210-followups.md)
-— Codex findings on the vendored v1.21.0, grown to **23 rows** (as of
-2026-08-14, fm #858 — count from the file, not from here), fix order
-restated at its tail ("the false negatives now lead"). `MEASURED` 2026-08-21:
+— Codex findings on the vendored v1.21.0, grown to **34 rows** (as of
+2026-08-21, fm #879 — count from the file, not from here), fix order
+restated at its tail (the false negatives lead; the couch-legend seed's
+work-destroyers follow). `MEASURED` 2026-08-21:
 the kit's own tree references it **nowhere** — a session booting on the kit
 alone cannot find its own worklist. Start any kit session from that finding.
 
-### Thread: adopter currency — **3 stale rows + 3 invisible adopters** (owner-paced)
+### Thread: adopter currency — **3 stale rows + 5 invisible adopters** (owner-paced)
 
 Registry at its 2026-08-14 regen: 9 of 12 rows current at v1.21.0; stale:
 `superbot-games` v1.20.1 (⚠ DRIFT ×3 self-report rows — the hop is
@@ -48,8 +49,13 @@ Registry at its 2026-08-14 regen: 9 of 12 rows current at v1.21.0; stale:
 pending its archive decision), `pokemon-mod-lab` v1.15.0 (owner-held).
 **Adopters are invisible to the registry** where the scan roster
 `docs/fleet-repos.txt` omits them: `sim-lab` (kit v1.15.0), `superbot-idle`
-(v1.16.0), and `product-forge` (v1.7.0 — the actual oldest, archive-bound
-post-R2) — a registry-driven rollout can never find them.
+(v1.16.0), `product-forge` (v1.7.0 — the actual oldest, archive-bound
+post-R2), and — `MEASURED` 2026-08-21, the couch-legend seed session —
+**`spider-swing` (v1.20.2) and `couch-legend` (v1.21.0, seeded that day)**
+too: neither is in the roster nor in the registry's 12 rows — a
+registry-driven rollout can never find any of the five. The roster fix is
+kit-side (this thread already carries it); until then the registry
+undercounts the estate's adopters.
 Rollout ask: `OQ-KIT-V1-21-RELEASE` in [`../../owner-queue.md`](../../owner-queue.md).
 
 ### Thread: the provenance mandate — **kit-side open plan** (paused)
