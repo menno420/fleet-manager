@@ -37,7 +37,7 @@ expected number, read zero comments through the mis-set filters, recorded
 findings; they were read after close.
 
 All five verified against source and dispositioned [conceded], fixed in
-**couch-legend #2** + this PR:
+**couch-legend #2** + **fm #873**:
 - CL-P1 *minimum-start boundary*: "one hit is enough" was false — 1–3 hits
   freeze a save forever (High < 4, nugs < 10, neither replenishes); 4–9
   open only the jobs half; 10 open the full game. Pinned by engine tests;
@@ -56,15 +56,47 @@ All five verified against source and dispositioned [conceded], fixed in
   qualified in place.
 
 Also verified: the Codex *cloud task* comment on fm #872 (00:05Z) describes
-a commit `d73e867` that exists nowhere in the repository — its work stayed
-in the task sandbox; nothing foreign reached the branch (the PR merged on
-`de85e23`).
+a commit `d73e867` whose work never reached the branch. The argument is
+content-bearing, not object-absence (Codex round 1 on this PR rightly
+rejected "the SHA doesn't exist" as proof — rebases and cherry-picks
+preserve work under new ids): every commit on the PR branch was authored
+in this session's container, and the merged head `de85e23` is SHA-identical
+to the locally-built commit — identical SHA means identical tree, so no
+foreign patch can be present in what merged. (fm #873's own review binding got the
+same treatment and a plainer answer: Codex's "reviewed commit" `4c7ae9f`
+is simply that PR's squash-merge on `main` — merge-on-green landed it at
+`01:06:27Z`, thirteen minutes before the review (`01:19:26Z`), because
+the card it edits was already `complete`, leaving no born-red hold to
+stop the sweep. Tree `93b9e0b…` equals branch-head `b8b42bd`'s — a
+squash of a single commit guarantees it — so the review covered exactly
+this content, post-merge. A first draft of this paragraph guessed
+"sandbox application"; the merge fact was checked only after.)
 
-**The lesson, sized for a mechanism:** "review count reached N" plus "zero
-comments since T" is only evidence when T precedes the Nth review's submit
-time — derive `since` from the review object's own `submitted_at`, never
-from the wall clock of the check. Candidate for the estate's trap list;
-not built into a checker this session.
+**The lesson, sized for a mechanism (and corrected once itself in review):**
+"review count reached N" plus "zero comments since T" is not evidence for
+ANY choice of T — this correction's first version prescribed deriving
+`since` from the review's `submitted_at`, and Codex pointed out that
+reproduces the same false-clean: inline comments are created while the
+review is pending, so their timestamps can precede submission, and the
+API's `since` filters on `updated_at` regardless. The robust form
+correlates by identity, never by time: fetch
+`GET /pulls/{n}/reviews/{review_id}/comments` for the new review's own id.
+Candidate for the estate's trap list; not built into a checker this
+session.
+
+**The race, recorded (and its round dispositioned):** fm #873 needed no
+flip — the card it edits was already `complete` — so merge-on-green's
+sweep landed it the minute ci went green, while the requested review sat
+in Codex's ~5.5-minute queue. Same failure class as the query-window miss
+(a merge outrunning its asked review), different mechanism (a correction
+PR carries no born-red hold). Its round answered post-merge with two
+findings, both [conceded] and fixed here: the lesson above rewritten to
+review-ID correlation (its first form prescribed `since=submitted_at`,
+which reproduces the same false-clean), and the `d73e867` paragraph
+rebuilt on the content-bearing argument (its first form used the
+object-absence reasoning the same review rejected). This correction rides
+a successor PR parked `do-not-automerge` — the sweep's designed hold —
+until its own round answers, then unparks.
 
 - **📊 Model:** fable-5 · high · feature build — the continuation session the
   adoption session's brief directed (couch-legend
