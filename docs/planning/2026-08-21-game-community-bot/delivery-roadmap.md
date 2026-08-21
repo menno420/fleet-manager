@@ -206,6 +206,8 @@ Slices:
 4. Add Bug Reports and Feedback Forum bindings, structured intake/tags/status,
    assignment, missing-information prompts, duplicate links, corrective-build
    linkage, reporter notification, retest/reopen/close, and privacy split.
+   Content-dependent work uses the feedback modal or explicit native-post adopt
+   action; ambient guild message bodies are not an MVP dependency.
 5. Add run/clip/replay sharing metadata and session/result linkage without
    copying large media into the database.
 6. Add AI read/draft/triage/summary tools for builds, sessions, and feedback;
