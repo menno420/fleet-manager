@@ -276,8 +276,11 @@ access — the graduation session must flag it then.)*
 - **`OQ-PLAY-UPLOAD-KEY` — ✅ RESOLVED 2026-08-05 (recorded here 2026-08-21,
   fleet review fm #878).** The upload keystore exists and works: the vc64
   bundle that reached the internal track was **signed** by
-  `android-release.yml`, which refuses to run without the keystore secrets —
-  so the secrets are set (same ledger evidence as `OQ-PLAY-APP-ID`).
+  `android-release.yml`, and that workflow signs only when the keystore
+  secrets exist (without them it builds an UNSIGNED bundle and says so) —
+  so the secrets are set (same ledger evidence as `OQ-PLAY-APP-ID`; the
+  refuse-to-run gate is on the `RELEASE_PACKAGE_ID`/`RELEASE_APP_NAME`
+  variables, also satisfied).
   Still yours, standing: keep the keystore backed up somewhere that is not
   the repository (loss is recoverable via Play app signing reset, but the
   reset costs days). *(Original how-to body removed per amended OD-3 — the

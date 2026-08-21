@@ -42,11 +42,11 @@ against the actual estate, not against its own description of it.
    substrate-kit's **verbatim** (a partial v1.20.2 snapshot under a one-shot
    Gemini dashboard experiment), so everything inside it misidentifies it.
 2. **The freshest coverage inverted importance.** The frozen repo (superbot)
-   had a same-day Layer-2 entry; the repos the owner named important (OD-15)
-   had none — superbot-next's live truth was scattered across a stale RECORD
-   (fleet-account still carrying a dead #602 "owner hold"; both carried PRs
-   resolved), three program-ledger rows, and one findings file no route
-   reached.
+   had a same-day Layer-2 entry; the successor half of OD-15's "superbot
+   repos" — `superbot-next` — had none: its live truth was scattered across a
+   stale RECORD (fleet-account still carrying a dead #602 "owner hold"; both
+   carried PRs resolved), a handful of program-ledger rows, and one findings
+   file no route reached.
 3. **The reference exemplar had gone stale.** `repos/spider-swing/README.md`
    (stamped 2026-08-08) said *"nothing in this thread is agent-executable
    until the owner completes OQ-PLAY-APP-ID and OQ-PLAY-UPLOAD-KEY"* — both
@@ -58,16 +58,19 @@ against the actual estate, not against its own description of it.
    PR #171) had also drifted.
 4. **Owner asks lived outside the queue.** Two genuinely owner-only asks
    existed only inside satellite closeouts — gba's A1/A3 pick + playtest
-   verdicts, pml's B/A/Q letter — while the queue held two asks done for a
-   month (`OQ-GBA-ROM-RULESET`: ruleset active with two contexts, verified
-   live; `OQ-GBA-LUMEN-RELEASE`: published 2026-07-18, verified live).
+   verdicts, pml's B/A/Q letter — while the queue held two overtaken asks
+   (`OQ-GBA-LUMEN-RELEASE`: published 2026-07-18 — 34 days done;
+   `OQ-GBA-ROM-RULESET`: ruleset active with two required contexts, verified
+   live — required since at least 2026-08-13 by the program ledger; when the
+   contexts were added is not agent-datable).
 5. **Routing lagged coverage.** 5 of 6 built folders had doc-routes;
    product-forge (built 2026-08-14) had none — "naming a repo pulls its
    README in" was silently false for the estate's most active product repo.
 6. **Registry blind spots:** the kit's scan roster (`docs/fleet-repos.txt`)
-   omits `sim-lab` (kit v1.15.0) and `superbot-idle` (v1.16.0) — the two
-   oldest kits in the estate are invisible to any registry-driven rollout,
-   including the one `OQ-KIT-V1-21-RELEASE` describes.
+   omits `sim-lab` (kit v1.15.0), `superbot-idle` (v1.16.0) and
+   `product-forge` (v1.7.0 — the actual oldest adopter, archive-bound
+   post-R2) — old kits invisible to any registry-driven rollout, including
+   the one `OQ-KIT-V1-21-RELEASE` describes.
 7. **Booby traps in satellite docs:** mineverse's coordinator baton tells a
    successor to *delete a trigger* (D‑0015 forbids exactly that) and its
    go-live checklist targets a Railway host deleted 2026-08-20/21;
@@ -95,6 +98,33 @@ or narrowed before they reached a surface:
   only — internal testing buys **zero** progress on the 12-tester closed-test
   clock, so the listing (`OQ-PLAY-LISTING`) remains the critical path; the
   refreshed thread says exactly that rather than "released".
+
+**Round 2 — the drafted surfaces themselves, attacked.** After the edits were
+written, four independent refuters re-verified every load-bearing claim in
+the new/changed surfaces against the clones, the harvest and the live API:
+**116 claims checked — 106 CONFIRMED · 9 PARTIAL · 1 REFUTED**, every PARTIAL
+and the REFUTED corrected in place before landing (worklist row count 22→23;
+the games hop quote trued to the card's verbatim *"no adopter yet"*; the
+upload-key resolution's mechanism restated — the workflow builds *unsigned*
+without secrets rather than refusing; "two oldest kits" widened to include
+product-forge v1.7.0, the actual oldest, also roster-invisible; the
+superbot-next config-seam line gained its ledgered parity-boot exception and
+the pytest caveat; venture-lab's "19 rows gated on the proofread" corrected
+to ~21 gated, 11 on the proofread).
+
+**Acceptance: 10 cold-start routing tests, 10/10.** Fresh agents with no
+estate knowledge, booted on this repo with only an owner-style message
+("check the bot" · "continue Couch Legend" · "look at the old rebuild" ·
+"review my research tooling" · "check backups" · "work on the GBA project" ·
+"the idle game needs balancing" · "publish the books" · "fix the review
+site" · "can you release envdrift"), each produced the correct owning
+repo(s), the genuine blockers (including OD-11 surfacing as a conflict on
+"publish the books", and both venues on "check backups"), the working
+contract, and — where the ask was ambiguous — said so instead of guessing.
+The answers consistently named `ESTATE.md` as the resolving surface. One
+harness note: the envdrift agent's *simulated answer* proposed release
+actions and drew a security flag; it performed none (verified live:
+0 tags, 0 releases on the lab repo).
 
 ## 4 · What changed in fleet-manager, by problem
 

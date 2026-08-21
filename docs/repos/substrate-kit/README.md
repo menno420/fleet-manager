@@ -34,7 +34,8 @@ v1.20.2; trust `control/status.md` + the tree.
 
 The kit's next worklist is fleet-manager's
 [`../../findings/2026-08-13-substrate-kit-v1210-followups.md`](../../findings/2026-08-13-substrate-kit-v1210-followups.md)
-— Codex findings on the vendored v1.21.0, grown to **22 rows**, fix order
+— Codex findings on the vendored v1.21.0, grown to **23 rows** (as of
+2026-08-14, fm #858 — count from the file, not from here), fix order
 restated at its tail ("the false negatives now lead"). `MEASURED` 2026-08-21:
 the kit's own tree references it **nowhere** — a session booting on the kit
 alone cannot find its own worklist. Start any kit session from that finding.
@@ -43,11 +44,12 @@ alone cannot find its own worklist. Start any kit session from that finding.
 
 Registry at its 2026-08-14 regen: 9 of 12 rows current at v1.21.0; stale:
 `superbot-games` v1.20.1 (⚠ DRIFT ×3 self-report rows — the hop is
-**owner-paced**, "not yet", 2026-08-14), `trading-strategy` v1.20.2 (skipped
+**owner-paced** — "no adopter yet", owner 2026-08-14), `trading-strategy` v1.20.2 (skipped
 pending its archive decision), `pokemon-mod-lab` v1.15.0 (owner-held).
-**Two adopters are invisible to the registry** because the scan roster
-`docs/fleet-repos.txt` omits them: `sim-lab` (kit v1.15.0) and `superbot-idle`
-(v1.16.0) — a registry-driven rollout can never find the estate's oldest kits.
+**Adopters are invisible to the registry** where the scan roster
+`docs/fleet-repos.txt` omits them: `sim-lab` (kit v1.15.0), `superbot-idle`
+(v1.16.0), and `product-forge` (v1.7.0 — the actual oldest, archive-bound
+post-R2) — a registry-driven rollout can never find them.
 Rollout ask: `OQ-KIT-V1-21-RELEASE` in [`../../owner-queue.md`](../../owner-queue.md).
 
 ### Thread: the provenance mandate — **kit-side open plan** (paused)

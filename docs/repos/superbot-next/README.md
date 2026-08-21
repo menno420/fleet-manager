@@ -73,11 +73,13 @@ plan he confirms. His 13-row decision agenda:
 - **Auto-merge enabler arms at PR open AND synchronize** — same trap as
   superbot's, wider trigger set.
 - Config-accessor seam is machine-enforced (no `os.getenv` outside
-  `sb/kernel/config/**`); the plugin lockfile pins `superbot-idle-plugin` and
+  `sb/kernel/config/**`, plus one ledgered parity-boot exception — sb
+  D-0028); the plugin lockfile pins `superbot-idle-plugin` and
   `superbot-plugin-hello` by manifest hash — a plugin-side manifest edit is a
   two-repo change.
-- Kit v1.21.0, full config. Verify: `python3 -m pytest` (excludes
-  `examples/`) + the seven checks; deploy shape (`railway.json`,
+- Kit v1.21.0, full config. Verify: the closeout's canonical pytest run
+  (its § 2 — the bare `python3 -m pytest` does NOT exclude `examples/` by
+  itself) + the seven checks; deploy shape (`railway.json`,
   `python3 -m sb`) has **never fired in production** — CUT-3 unfired.
 
 ## External workspaces

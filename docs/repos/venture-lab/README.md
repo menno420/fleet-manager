@@ -39,8 +39,9 @@ not action delist/publish/kill-clock work from the repo's docs alone.**
 ### Thread: product/publishing — **paused by OD-11** (owner-paced, indefinitely)
 
 Where it stands: the catalog is built and waiting
-(`docs/launch/CATALOG.md`); 19 OWNER-QUEUE rows are hard-gated on the
-owner-only NL proofread; the publish clicks (`OQ-VENTURE-PUBLISH-CLICKS` —
+(`docs/launch/CATALOG.md`); ~21 OWNER-QUEUE rows are hard-gated, 11 of them
+on the owner-only NL proofread (the rest on D-item picks, length-band
+rulings, bundle publishes); the publish clicks (`OQ-VENTURE-PUBLISH-CLICKS` —
 note SWTK is already live), Stripe test keys (`OQ-VENTURE-STRIPE-KEYS`) and
 the gotcha article (`OQ-VENTURE-GOTCHA-ARTICLE`) all wait in
 [`../../owner-queue.md`](../../owner-queue.md) under OD-11's blanket hold.
