@@ -54,6 +54,7 @@ inside one is evidence *about* its date, to verify like any other claim.
 |---|---|---|
 | [`intent.md`](intent.md) · [`current-state.md`](current-state.md) · [the program](planning/2026-07-26-consolidation-program.md) · [`fleet-account-2026-07-26.md`](fleet-account-2026-07-26.md) · [`owner-reflection-2026-07-21.md`](owner-reflection-2026-07-21.md) | **CORE** | The mandatory reads — see [`README.md`](../README.md) for the order and what each gives you. |
 | [`owner-queue.md`](owner-queue.md) | TASK | The consolidated queue of genuinely owner-only asks (`OQ-` slugs). |
+| [`owner-steps-2026-08-21-laptop-setup.md`](owner-steps-2026-08-21-laptop-setup.md) | TASK | The owner's local-machine setup: installing Claude Desktop + Claude Code on his Windows laptop (x64), and what a local session reaches that a cloud container cannot. |
 | [`decisions.md`](decisions.md) | TASK | The `[D-NNNN]` decision ledger (append-only). |
 | [`CAPABILITIES.md`](CAPABILITIES.md) | TASK | The verified capability/wall ledger + THE DISCOVERY RULE. Append-only below the seed fence. |
 | [`SKILLS-local.md`](SKILLS-local.md) · [`SKILLS.md`](SKILLS.md) | TASK | The 27-skill roster and the ⚠ re-apply table for kit upgrades. |
