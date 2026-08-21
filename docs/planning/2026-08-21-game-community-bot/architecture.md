@@ -255,7 +255,11 @@ requirements fail startup.
 ## Security and privacy boundaries
 
 - Least-privilege Discord intents and OAuth scopes; message-content intent is
-  optional and off unless a proven feature requires it.
+  off for the MVP. Native Forum events are metadata/resource signals only;
+  structured intake and AI content enter through explicit interactions (modal
+  or adopt/context action) with re-authorization and disclosure. Any later
+  ambient-content feature requires a separate privileged-intent, privacy,
+  deployment, degraded-mode, and test-guild decision.
 - Owner bootstrap uses Discord ownership and an auditable recovery path; a bad
   guild rule cannot lock the owner out.
 - Component/modal IDs are signed or server-resolved, short-lived where needed,
