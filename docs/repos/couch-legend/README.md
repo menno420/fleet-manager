@@ -108,7 +108,9 @@ DESIGN + tests in one commit, inside the § 9.6 fairness rails.
 drive:
   folder: null        # none known for this repo, 2026-08-20
 chatgpt:
-  workspaces: []      # none named for this repo in the record
+  workspaces:
+    - name: "Couch Legend"   # owner-created 2026-08-21 for the looks pass
+      instructions: ../../prompts/chatgpt-couch-legend-project-instructions.md
 gemini:
   notebooks: []       # empty until a corpus earns one
 grok:
