@@ -1,12 +1,17 @@
 # 2026-08-21 — Seed couch-legend with substrate-kit; true up the hub surfaces
 
-> **Status:** `in-progress` — branch `claude/seed-couch-legend-substrate-26dssz`.
-> About to happen: couch-legend (verified unseeded at `4759e90`) gets the kit at
-> v1.21.0 per the kit's own adopt procedure (sha256 verified four ways before
-> anything is committed), substrate-gate lands as a second required check beside
-> `ci` on the spider-swing precedent, and this repo's couch-legend surfaces
-> (Layer-2 folder · ESTATE.md row · `OQ-CL-LOOKS-PASS` · route says-texts) are
-> trued to what couch-legend #3/#4 actually landed.
+> **Status:** `complete` — branch `claude/seed-couch-legend-substrate-26dssz`,
+> fm #879. couch-legend seeded at v1.21.0 and MERGED (couch-legend #5
+> `1e8c685`, two required checks live); this repo's surfaces trued. Full
+> close-out below.
+>
+> **fm Codex trail:** R1 on `0bc090c` — 4 findings, 3 [conceded] fixed in
+> `1c50f82`, 1 [survived] (the designed pre-flip hold itself). R2 on
+> `1c50f82` — 1 [conceded], fixed in `dc7c7d4`. R3 on `dc7c7d4` — 1
+> [conceded]: the card's own shipped-range line, fixed **in this flip
+> commit** under the skill's flip-commit exemption (close-out text only;
+> the cap's two re-review rounds are spent). Reviewed SHA `dc7c7d4`;
+> after it: this flip commit only.
 
 - **📊 Model:** fable-5 · high · feature build
 
@@ -39,9 +44,11 @@ re-cut (looks pass LANDED — #3 the Lucid Chronicle contract + #4 first
 Arc-1 scene packages, dormant; kit-adoption thread; two-check gate text) ·
 ESTATE.md row + kit-roster edge · `OQ-CL-LOOKS-PASS` resolved from the tree
 · `OQ-CL-CHATGPT-REPASTE` added · doc-routes couch-legend says-texts re-cut
-+ `lucid-chronicle` pattern · kit worklist rows **24–25** added + row 14
-**first live bite** + rows 20/21 sightings · ChatGPT couch-legend
-instructions fence trued · current-state entry extended in place
++ `lucid-chronicle` pattern · kit worklist rows **24–34** added (rows 33–34
+= the two round-3 P1 upgrade defects: root-collision download + the stale
+sidecar) + row 14 **first live bite** + rows 20/21/26/29
+sightings/widenings + the authoritative fix order restated · ChatGPT
+couch-legend instructions fence trued · current-state entry extended in place
 (orientation budget re-balanced to ≤7000) · substrate-kit Layer-2
 adopter-invisibility set widened (spider-swing + couch-legend, measured).
 
