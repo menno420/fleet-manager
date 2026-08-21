@@ -171,6 +171,33 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-20 · capability · `owner-live` (remote CCR container) · **GitHub Pages sites ARE
+  creatable agent-side over the direct PAT — the 2026-08-07 "workflow token cannot create a
+  Pages site" finding was token-scoped, never a platform wall.** Probed while executing the
+  keep-bot-only worklist slice 3 (the worklist prescribed exactly this probe-don't-assume).
+  · evidence: `GET /repos/menno420/websites/pages` → 404 `{"message": "Not Found"}` (no site,
+  the negative baseline), then `POST /repos/menno420/websites/pages` with
+  `{"build_type":"workflow"}` over `curl --noproxy '*'` + `Authorization: Bearer $GITHUB_PAT`
+  → **HTTP 201** with the full site object (`"html_url": "https://menno420.github.io/websites/",
+  "build_type": "workflow"`). The curious-research 2026-08-07 handover's wall stands for ITS
+  token class (a workflow `GITHUB_TOKEN`); the admin-PAT path creates fine. · workaround:
+  n/a — capability. — LAST-VERIFIED: 2026-08-20
+- 2026-08-20 · capability · `owner-live` (remote CCR container) · **Railway `httpLogs` serves
+  per-request data reliably ONLY for narrow date windows — a wide window returns `[]`
+  silently, which reads exactly like "no traffic" and is not.** Same deployment id, same
+  minute, three windows: 10 min → 0 rows (app wedged — plausibly genuine) · **12 h → 0 rows**
+  (provably wrong: the 30-min window INSIDE it returns data) · 30 min (17:30–18:00Z) →
+  **2,001 rows** (the `beforeLimit` cap). The positive control is what exposed it — run one
+  before reading any empty `httpLogs` result as quiet traffic (this session nearly recorded
+  "the crawl stopped" off the 12 h empty). · evidence: `httpLogs(deploymentId:
+  "e974d272-…", afterDate: "…T09:43:20.000Z", beforeDate: "…T21:43:20.000Z", beforeLimit:
+  5000)` → `{"data": {"httpLogs": []}}` while `afterDate: "…T17:30:00Z", beforeDate:
+  "…T18:00:00Z"` on the same id → 2,001 entries, 1,997 of them Meta-range 499s. ·
+  workaround: page the range in ≤ 1 h windows — and even then treat empty as unreadable
+  until a positive control passes: the same session's post-deploy check put a fresh 200
+  through the service and it had NOT appeared in a valid 10-min-window query 20 s later
+  (new-deployment indexing lag), so "0 rows" from this API never means "no traffic" on its
+  own. — LAST-VERIFIED: 2026-08-20
 - 2026-08-14 · capability · `owner-live` · **The @codex relay works in
   product-forge; plan waits against "answered", never against a number.** On
   product-forge #49 — the first codex activity that repo has ever had
