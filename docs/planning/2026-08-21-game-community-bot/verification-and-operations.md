@@ -28,11 +28,13 @@ command that reproduces the required source gate as closely as practical.
 - domain rules for games, builds, cohorts, playtests, feedback, moderation;
 - typed config parsing, precedence, secret redaction, invalid/unknown settings;
 - registries: duplicate IDs, missing targets, dependency cycles, incomplete
-  features, event/tool/schema compatibility;
-- route reachability and rendered target graph for each actor/profile/state;
+  features, event/tool/schema compatibility, featured-action/component budgets;
+- route reachability, pagination/selection limits, and rendered target graph
+  for each actor/profile/state;
 - table-driven Discord × bot-role × guild-feature × channel/game access;
 - operation preview, confirmation hashing, re-authorization, idempotency,
-  optimistic concurrency, compensation metadata;
+  expected-state fingerprint drift, optimistic concurrency, compensation
+  metadata;
 - AI structured plan parsing, scope intersection, risk handling, maximum steps,
   budgets, redaction, memory visibility/expiry/forget, deterministic fallback;
 - no live-state/capture literals in stateful panels.
@@ -51,6 +53,10 @@ command that reproduces the required source gate as closely as practical.
   refusals, circuit breaker, failover, budget exhaustion, and kill switch;
 - prompt injection in messages/Forum/tool results, oversized/malicious content,
   cross-guild/private-source exfiltration attempts, memory poisoning/correction;
+- provider data-class allow/deny, disclosure/consent, retention, and deletion/
+  export propagation under the approved GCB-3 policy;
+- member-intent absent/present readiness, guild removal authority revocation,
+  retention/purge, and safe reinstall;
 - backup and restore of a representative database into an isolated target.
 
 Network/provider tests use controlled fakes in the required gate. A small
@@ -62,15 +68,23 @@ making ordinary merges depend on paid or unstable external traffic.
 Automated adapters cover at least:
 
 1. owner bootstraps and reruns/repairs a fresh server;
-2. member accepts rules and enrolls as a game tester;
+2. member accepts rules, completes external test opt-in/access, obtains and
+   installs the build, and confirms launch—or reaches a tested blocked/support
+   state;
 3. developer publishes/replaces a build and all projections/reminders update;
 4. staff schedules/runs/closes a playtest and a tester joins/leaves/waitlists;
-5. tester reports feedback and staff triages/links/updates/exports it;
-6. moderator handles a case with evidence, notice, Discord effect, and audit;
-7. AI reads, proposes, obtains exact confirmation, acts, verifies, and explains;
+5. tester reports feedback; staff/developer triage, link the corrective build,
+   notify, retest/reopen, and close it; export is asserted only when the
+   optional external integration is enabled;
+6. moderator handles a case with evidence, notice, Discord effect, and audit,
+   then both an in-guild and guild-removed appellant complete private review;
+7. AI reads, proposes, obtains exact state-bound confirmation, acts, verifies,
+   and explains; free-form public model content always requires confirmation;
 8. provider/AI disabled follows the equivalent deterministic route;
 9. unauthorized/stale/cross-guild actions fail without side effects;
-10. a second synthetic game profile completes the generic flow.
+10. guild removal revokes jobs/integrations/AI, retention/purge is idempotent,
+    and reinstall starts without stale authority;
+11. a second synthetic game profile completes the generic flow.
 
 Each test asserts the visible response, stored read model, external effect or
 adapter receipt, audit, post-commit event, and retry behavior—not only a string.
