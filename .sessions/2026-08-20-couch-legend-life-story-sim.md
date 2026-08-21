@@ -37,7 +37,7 @@ expected number, read zero comments through the mis-set filters, recorded
 findings; they were read after close.
 
 All five verified against source and dispositioned [conceded], fixed in
-**couch-legend #2** + this PR:
+**couch-legend #2** + **fm #873**:
 - CL-P1 *minimum-start boundary*: "one hit is enough" was false — 1–3 hits
   freeze a save forever (High < 4, nugs < 10, neither replenishes); 4–9
   open only the jobs half; 10 open the full game. Pinned by engine tests;
@@ -55,16 +55,115 @@ All five verified against source and dispositioned [conceded], fixed in
   "9 permanent lore lines" against this card's own defect record —
   qualified in place.
 
-Also verified: the Codex *cloud task* comment on fm #872 (00:05Z) describes
-a commit `d73e867` that exists nowhere in the repository — its work stayed
-in the task sandbox; nothing foreign reached the branch (the PR merged on
-`de85e23`).
+Also verified — with the conclusion sized to the evidence, per its own
+review round: the Codex *cloud task* comment on fm #872 (00:05:28Z)
+describes a commit `d73e867` whose described snapshot never merged
+unchanged. Two of
+this claim's earlier arguments died in review — "the SHA doesn't exist"
+(object-absence; rebases and cherry-picks preserve work under new ids)
+and "locally authored + SHA-identical merge head" (that proves *which
+tree* merged, not where its changes originated — a copied patch would
+look the same). The argument that stands is a comparison of the actual
+content, made checkable by a surprise: the comment's blob links resolve
+HTTP 200 because they point at `e117177` — **this session's own born-red
+commit** (reflog `@{8}`, authored in this container 00:00:21Z, parent
+#870's merge), the branch tip the cloud viewer could see — and at that
+state the card is still born-red, so the links don't even show the
+"completed card" the comment describes. The cloud's own commit appears
+nowhere checkable: not among this session's local objects (which keep
+even unreachable commits), no commit subject "Complete couch-legend
+phase 2 records" anywhere in merged history, and its described PR
+("Complete couch-legend phase 2 planning and testing records") never
+opened. Decisively, the merged records postdate it: the merged card
+cites `5edac9a` (committed 00:27:59Z) and the round-2 fixes — facts
+created ~23 minutes *after* the cloud comment, which its 00:05 state
+could not contain — and the merged §7 row lacks the "PR #1 remains open"
+note the comment describes. What this establishes, and no more: the
+merged tree is the one this session built, and the cloud-described
+snapshot did not merge unchanged. Whether any individual cloud sentence
+was copied in cannot be checked from the record — the patch itself is
+unavailable to compare (the links expose only the pre-task state) — so
+the claim stops there. (fm #873's own review binding got the
+same treatment and a plainer answer: Codex's "reviewed commit" `4c7ae9f`
+is simply that PR's squash-merge on `main` — merge-on-green landed it at
+`01:06:27Z`, thirteen minutes before the review (`01:19:26Z`), because
+the card it edits was already `complete`, leaving no born-red hold to
+stop the sweep. Tree `93b9e0b…` equals branch-head `b8b42bd`'s — a
+squash of a single commit guarantees it — so the review covered exactly
+this content, post-merge. A first draft of this paragraph guessed
+"sandbox application"; the merge fact was checked only after.)
 
-**The lesson, sized for a mechanism:** "review count reached N" plus "zero
-comments since T" is only evidence when T precedes the Nth review's submit
-time — derive `since` from the review object's own `submitted_at`, never
-from the wall clock of the check. Candidate for the estate's trap list;
-not built into a checker this session.
+**The lesson, sized for a mechanism (and corrected twice itself in
+review):** "review count reached N" plus "zero comments since T" is not
+evidence for any T at or after the point comments could exist — this
+correction's first version prescribed deriving `since` from the review's
+`submitted_at`, and Codex pointed out that reproduces the same
+false-clean: inline comments are created while the review is pending, so
+their timestamps can precede submission, and the API's `since` filters
+on `updated_at` regardless. (Its second version overcorrected to "not
+evidence for ANY choice of T" — also wrong: a T provably before the PR
+existed is valid, since every comment's `updated_at` postdates it; it is
+just never the T a mid-review freshness check reaches for.) The robust
+form correlates by identity, never by time: fetch
+`GET /pulls/{n}/reviews/{review_id}/comments` for the new review's own id.
+Candidate for the estate's trap list; not built into a checker this
+session.
+
+**The race, recorded (and its round dispositioned):** fm #873 needed no
+flip — the card it edits was already `complete` — so merge-on-green's
+sweep landed it the minute ci went green, while the requested review sat
+in Codex's ~5.5-minute queue. Same failure class as the query-window miss
+(a merge outrunning its asked review), different mechanism (a correction
+PR carries no born-red hold). Its round answered post-merge with two
+findings, both [conceded] and fixed here: the lesson above rewritten to
+review-ID correlation (its first form prescribed `since=submitted_at`,
+which reproduces the same false-clean), and the `d73e867` paragraph
+rebuilt on the content-bearing argument (its first form used the
+object-absence reasoning the same review rejected). This correction rides
+a successor PR parked `do-not-automerge` — the sweep's designed hold —
+until its own round answers, then unparks. That round answered with two
+more P2s, both [conceded] and folded into the paragraphs above: the
+rebuilt provenance argument still only proved *which tree* merged, not
+where its changes originated — replaced by the actual content comparison
+(which also surfaced that the comment's links resolve to this session's
+own `e117177`, not cloud content) — and the lesson's "ANY choice of T"
+overcorrection narrowed (a T provably before the PR existed is valid
+evidence; identity correlation is still the form that avoids the class).
+Its final round narrowed the provenance conclusion once more — the
+comparison proves the described snapshot did not merge *unchanged*, not
+that no cloud text was incorporated, since the patch itself is
+unavailable to compare — [conceded], folded in above, and the
+two-re-review cap reached: fixed, dispositioned here, landed without a
+further ask.
+
+**Trap observed while landing (recorded, cause unproven):** the successor
+PR's two mid-park pushes produced **no github-actions check suite at
+all** on their heads — `/commits/{sha}/check-suites` listed only
+third-party apps, `/actions/runs?branch=` showed nothing after the
+PR-open event — while the sibling PR #876's synchronize events delivered
+normally, couch-legend's pushes delivered normally, and githubstatus read
+all-operational. Both lost pushes happened while the PR carried
+`do-not-automerge`; this commit is the first push after unparking and
+doubles as the test — if its suite appears, the label correlation
+survives; either way the repair for a head with no check runs is a real
+(never empty) commit, and the sweep's nothing-verified rule held exactly
+as designed, refusing to land an unverified head. *(Outcome: the
+post-unpark git push lost its suite identically — the label correlation
+is dead, and the loss covers every synchronize on this thrice-reused
+branch since #874 opened. The PAT cannot create check suites (403,
+app-only). This sentence lands via the REST contents API instead of a
+git-protocol push — the second delivery test, distinguishing the event
+path. Outcome: lost identically, so the drop is not path-specific —
+every post-open event on this PR (synchronize, labeled, unlabeled, both
+protocols) vanished while sibling-PR and other-repo events delivered;
+suspect cause is this branch name's third PR after two force-resets,
+unproven. Landing decision, stated in the open: with no event path able
+to produce the required check run on this branch, the PR is
+squash-merged directly, pinned to the exact head, after `python3
+bootstrap.py check --strict` — the same suite substrate-gate runs —
+exits 0 on that content locally; the PAT-authored merge push then
+triggers substrate-gate's own on-main verification run, closing the
+loop the PR events could not.)*
 
 - **📊 Model:** fable-5 · high · feature build — the continuation session the
   adoption session's brief directed (couch-legend
