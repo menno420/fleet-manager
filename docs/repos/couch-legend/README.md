@@ -128,15 +128,17 @@ above and on the seed card (couch-legend
 ([`../../findings/2026-08-13-substrate-kit-v1210-followups.md`](../../findings/2026-08-13-substrate-kit-v1210-followups.md)):
 row 14's **first live bite** (the gate's pytest step keys on `tests/`
 existing, and this `tests/` is vitest-TypeScript — worked around in-repo by
-`tests/test_kit_pin.py`), **new rows 24–32** (inbox seed vs its own grammar
+`tests/test_kit_pin.py`), **new rows 24–34** (inbox seed vs its own grammar
 checker; the free-prose verify slot rendered as final text and as bash
 command spans; reset-before-inspect preflight ordering — the Codex P1 —
 and the session-anchor write that makes every boot tree dirty; absolute
 hook interpreter; green-by-default seed heartbeat; dual boot lists under
 `--include-claude`; the session-close template's enabler promise; skill
-capability declarations narrower than their own steps), and fresh
-sightings of rows 20–21 (boot-heading + `HANDOFF.md` boot-path false
-alarms, both pre-empted in-repo). Like spider-swing,
+capability declarations narrower than their own steps; the upgrade skill's
+root-collision download and the stale sidecar the upgrade flow never
+replaces — the pair that would red `test_kit_pin` on every future upgrade
+PR), and fresh sightings of rows 20–21 (boot-heading + `HANDOFF.md`
+boot-path false alarms, both pre-empted in-repo). Like spider-swing,
 couch-legend is **invisible to the kit's adopter registry** until the
 `fleet-repos.txt` roster hole is fixed kit-side (recorded on the
 substrate-kit entry point).
