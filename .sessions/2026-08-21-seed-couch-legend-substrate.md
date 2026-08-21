@@ -95,8 +95,35 @@ Layer-2 handoff: docs/repos/substrate-kit/README.md — adopter-currency thread 
 
 ## Codex review trail (exact heads)
 
-*(filled at close)*
+**couch-legend #5 — three rounds, 18 findings (6 P1), 18 [conceded] and
+fixed, 0 [survived]; the two-re-review cap reached at round 3** (full
+per-round detail on the couch-legend seed card):
 
-## PR
+- R1 on `01627d7`: 7 findings → fixed in `9d957a2` (env-setup pnpm; npm-test
+  sweep; status-before-reset P1; PATH interpreter; skills installed + spans
+  split; honest heartbeat).
+- R2 on `9d957a2`: 6 findings → fixed in `60aa8d6` (staged copies synced;
+  pyc untracked; anchor boot exception + re-stamp; one boot list;
+  land-it-yourself session-close; capability declarations).
+- R3 on `60aa8d6`: 5 P1s → fixed in `b3497dd` (upgrade-skill preflight,
+  temp-dir download, sidecar-with-dist; stranded-commits leg +
+  `checkout -B` primary; HANDOFF gitignored). Cap reached — landed without
+  a round 4, trail as the record (fm #878 precedent). After the reviewed
+  SHA: the R3 fix commit and the flip commit (badge + close-out +
+  heartbeat only).
 
-fm #879 (this) · couch-legend #5 — terminal states recorded at close.
+**fm #879 (this PR):** review trail appended below before the flip.
+
+## PR terminal states
+
+- **couch-legend #5 — MERGED**, squash `1e8c685`, merged by the session
+  (no enabler there). Tree-verified at origin/main: kit_version 1.21.0,
+  dist header v1.21.0, dist sha256 = `8807a00e…` (byte-identical to the
+  release), workflows = ci + pages + substrate-gate exactly. Post-merge
+  runs on `1e8c685`: substrate-gate ✅ · ci ✅ · pages ✅ (one superseded
+  pages run cancelled by concurrency — normal); live page 200.
+  **Required checks on main now `ci` + `substrate-gate`** — ruleset
+  21117825 updated via PUT and re-read from
+  `GET /repos/menno420/couch-legend/rules/branches/main`:
+  `['ci', 'substrate-gate']`, active.
+- **fm #879 (this)** — landed on green after the trail above.

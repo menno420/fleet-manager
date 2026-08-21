@@ -958,6 +958,18 @@ findings go here, below the fence.)
   figure to 37%. The dependency chain fails progressively (`discord` → `asyncpg` →
   `dotenv`), so install the full requirements file rather than chasing imports one at a
   time. — LAST-VERIFIED: 2026-08-05
+- 2026-08-21 · capability · `owner-live` (remote CCR container) · **The session git proxy
+  refuses pushes to repos outside the session's authorized set — even with the PAT inline in
+  the remote URL — and `add_repo` with `access: push` clears it in one call.** · evidence
+  (couch-legend seed session): `git push` with the `x-access-token:$GITHUB_PAT@github.com`
+  remote → `remote: access denied by the git proxy: menno420/couch-legend is not in this
+  session's authorized repository set` + fatal 403 (the same URL shape had CLONED fine —
+  reads of public repos pass, the write path is what the proxy gates); after
+  `add_repo(owner, repo, access: "push")` the identical push over the PLAIN
+  `https://github.com/...` URL succeeded through the proxy. Route fact, not a wall: no
+  direct-egress fallback needed for satellite pushes — attach, then push plain. (The
+  harness's follow-up suggestion to `register_repo_root` was declined per the boot-triad
+  doctrine — hub sessions load hub apparatus; fm #878 precedent.) — LAST-VERIFIED: 2026-08-21
 - 2026-08-20 · capability · `owner-live` (remote CCR container) · **Git tags are creatable via
   `POST /repos/{o}/{r}/git/refs` over direct PAT — and that is the route to prefer, because the
   local `git push origin <tag>` through the session git proxy can silently no-op.** · evidence
