@@ -167,6 +167,12 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 
 ## Recently shipped (newest first)
 
+- **couch-legend phase 2 — the life-story stage system decided, the balance
+  simulator built and validated against real play, the prototype tuning
+  measured running away with a tested fix proposed (live game untouched)**
+  (2026-08-20/21, couch-legend #1): §7 row +
+  [`repos/couch-legend/README.md`](repos/couch-legend/README.md).
+
 - **couch-legend — the Grok one-prompt game adopted, live on Pages**
   (2026-08-20, fm #870; owned repo, tested engine, decided mechanics map,
   Android path chosen): §7 row +
