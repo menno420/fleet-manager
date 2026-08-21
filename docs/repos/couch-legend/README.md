@@ -1,6 +1,6 @@
 # couch-legend — the entry point
 
-> **Status:** `living-ledger` · true as of **2026-08-20**
+> **Status:** `living-ledger` · true as of **2026-08-21**
 >
 > **What this is:** fleet-manager's entry point for `menno420/couch-legend` —
 > where the last session left off and where the next one should look.
@@ -24,11 +24,12 @@ on the deploy SHA, page + assets probed 200, played end-to-end in Chromium).
 The owner's durable frame, stated live during adoption: *"Eventually I want
 this to be a fully working android game. What I need is a solid base for the
 mechanics. The main idea should be clearly mapped and decided."* That base is
-the repo's shape: a pure platform-neutral engine + content tables pinned by a
-32-test suite, a web UI as the current adapter, and **`docs/DESIGN.md` as the
-binding mechanics map** (every resource, loop, formula and table decided;
-Android path decided as a Capacitor shell over this exact build, alternatives
-recorded).
+the repo's shape: a pure platform-neutral engine + content tables pinned by
+the test suite (62 tests as of the phase-2 session — engine pins, action-layer
+pins, simulator determinism, replay parity against real play), a web UI as the
+current adapter, and **`docs/DESIGN.md` as the binding mechanics map** (every
+resource, loop, formula and table decided; Android path decided as a Capacitor
+shell over this exact build, alternatives recorded).
 
 ## Threads
 
@@ -39,31 +40,50 @@ additive and identity-preserving — portable save codes (export/import with
 validation), per-mood revelations (9 permanent lore lines, toast on first
 reach), itemized offline report, prestige preview (current → post-prestige
 Clarity multiplier), tab affordability dots, keyboard hits + reduced-motion,
-PWA manifest/icons. `pnpm check` (typecheck + 32 tests + build) is CI and the
-local gate — one check, per the estate's one-check convention (OD-9); it is
-**not yet a required status check** (deliberate day-one choice: no ruleset
-until the workflow settles — flag, revisit when a second session works there).
+PWA manifest/icons. `pnpm check` (typecheck + 62 tests + build) is CI and the
+local gate — one check, per the estate's one-check convention (OD-9), and
+since 2026-08-21 **`ci` is a REQUIRED status check on `main`** (ruleset
+`main-branch-protection`, id 21117825, created by the phase-2 session —
+the adoption card's "revisit when a second session works there" trigger
+fired and this was that session; verified from the effective-rules
+endpoint).
 
 Pointers (all in couch-legend): `docs/DESIGN.md` (the decided mechanics map —
 read before changing any number) · `docs/ORIGIN.md` (provenance + the
 reconstruction method) · `README.md` (player-facing + dev commands) ·
 `tests/engine.test.ts` (the pins).
 
-### Thread: life-story design + simulator — **NEXT (owner directive, 2026-08-20)**
+### Thread: life-story design + simulator — **LANDED (2026-08-20/21 session; owner's looks pass is NEXT)**
 
-The owner's live directive, recorded verbatim in couch-legend
-`docs/planning/2026-08-20-life-story-direction.md` (committed `e4b168b`):
-many stages telling a whole story (~18, cigarettes → weed → onward), an
-endless-feeling loop with **fair upgrades**, and a **simulator built before
-any stage content** — the next Claude session focuses on planning and
-testing; afterwards the owner fine-tunes looks with ChatGPT Work, then Claude
-sessions improve freely. The brief carries the decided/open split, the
-spider-swing lessons (north-star sentence · instrument-before-tune ·
-validate-the-simulator · fair-upgrades corroboration · plateau difficulty ·
-defer-by-directive) and the simulator sketch. Done-when is its § 7; the
-design session amends DESIGN.md with what it decides.
+The brief's done-when is met (couch-legend PR #1): **DESIGN.md § 9** now
+carries the decided stage system — the `lifeHigh` story axis (prestige
+resets an afternoon, never the story; the "One afternoon, forever" pillar
+reconciled as *"No afternoon ever fails"*), 18 stages in three arcs with
+sim-fitted thresholds (`src/lib/sim/stage-proposal.ts`), the validated
+north star (~12–15 days to close the authored story), six numeric fairness
+rails, the endless-tail answer, and the per-stage visual plan (18 scenes,
+image-prompt/asset-pipeline route, produced later). The **simulator** is
+committed (`src/lib/sim/`, `pnpm sim …`), seeded/deterministic, and
+validated against two real hand-played Chromium sessions (replay parity in
+CI; worst field error 0.24 %). **The headline finding:** the prototype
+tuning runs away — Clarity ~9×10⁷ and lifeHigh ~10¹⁷ by simulated day 14,
+six orders past authored content — and a tested knee+cap fix is proposed
+with first-2-hours invariance measured; the live game is deliberately
+untouched. Evidence + verdicts (sim-lab vocabulary):
+couch-legend `docs/sim/2026-08-20-life-story-balance.md`.
 
-### Thread: the Android shell — **after the design work** (re-sequenced 2026-08-20)
+**Next, in the owner's stated order:** (1) his ChatGPT-Work looks pass;
+(2) a Claude implementation session — adopt the tuning (one-line default
+flip + pin updates), add the stage schema (save v2 `lifeHigh`, stage table
+into `content.ts`, era framing for existing items with real gates only on
+new additive content — the rule Codex review corrected — and revelations
+re-keyed, fixing the Lore-permanence defect DESIGN § 9.2 records), author
+arc-1 prologue content and per-stage beats; the results doc § 7 is the
+checklist. Also found: the
+Lore tab's "revelations survive Wake & Bake" is false today (keys on
+`peakHigh`) — fix rides the stage schema.
+
+### Thread: the Android shell — **after the looks pass + implementation session** (re-sequenced 2026-08-21)
 
 The step (DESIGN.md § 7, decided): add `android/` via Capacitor bundling the
 web `dist/`, sign and release APKs from CI on the phone-controller pattern
@@ -72,13 +92,13 @@ fresh-keystore recommendation). Until then the PWA manifest already gives
 install-to-home-screen on Android. Post-shell extras recorded as OPEN in
 DESIGN.md § 8: haptics, local notifications, cloud save, a Clarity-spend shop.
 
-### Thread: balance pass — **folds into the simulator thread**
+### Thread: balance pass — **CLOSED into the life-story thread (2026-08-20/21)**
 
-Tuning is the prototype's, kept faithfully; early hours feel right
-(`REASONED` from the model + a short live playtest), late game
-(Orbital Garden → Mythic Canopy) is unplaytested. The life-story session's
-simulator is the instrument this thread was waiting for; every change goes
-through DESIGN.md + the content tables + the tests in one commit.
+The instrument this thread was waiting for exists and has ruled: the early
+hours are untouched, and the unplaytested late game is measured **broken**
+(runaway — see the thread above). The tested fix ships with the stage
+implementation; any future tuning change goes through the simulator +
+DESIGN + tests in one commit, inside the § 9.6 fairness rails.
 
 ## External workspaces (roadmap § 5.7 — pointers, never copies)
 
