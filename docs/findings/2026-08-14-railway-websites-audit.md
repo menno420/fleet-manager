@@ -354,11 +354,15 @@ is three `btd6_*` ingestion tables**:
 | `ai_decision_audit` | 8.4 MB | | | | 21,201 | 2026-05-25 → 22:17Z |
 | *everything else combined* | ~2 MB | | | | | XP/server-log tables are **64–80 kB each** |
 
-The last snapshot landed **27 minutes before the sizing run** — the bot's
-BTD6 ingestion loop is live and continuous: 289,944 runs over ~86 days ≈
-**one every ~26 seconds, around the clock**. That loop's history — not XP,
-not server logging — is the dataset, the ~2 GB dumps, and the DB's 831 MB
-resident RAM (§ 3). The prune proposal and the loop-cadence question are
+The last snapshot landed **27 minutes before the sizing run** — the loop
+is live NOW; that much is measured. The cadence is a **derived average**:
+289,944 rows over the ~86-day min→max span ≈ one per ~26 s **if steady**
+— count + endpoints cannot distinguish steady ticking from bursts or
+backfill (the timestamp interval distribution was not read; a
+`percentile_disc` over `started_at` deltas would settle it, queued with
+the owner ask). Either way that table's history — not XP, not server
+logging — is the dataset, the ~2 GB dumps, and the DB's 831 MB resident
+RAM (§ 3). The prune proposal and the loop-cadence question are
 one-letter asks in [`../owner-queue.md`](../owner-queue.md)
 (`OQ-BOT-DB-BTD6-PRUNE`); **nothing was deleted and the ingestion loop was
 not touched** — worker + Postgres hard rail intact (the sizing job's only

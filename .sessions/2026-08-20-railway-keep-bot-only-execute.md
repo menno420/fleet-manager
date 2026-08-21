@@ -8,6 +8,30 @@
 
 - **📊 Model:** fable-5 · high · mechanical refactor
 
+## Correction (2026-08-21, post-merge — Codex #871 round 2)
+
+`merge-on-green` landed #871 before the round-2 review I had requested at
+the merge-conflict head could answer — the sb #2450 disarm-first step was
+skipped here; sequencing miss, mine. The verdict arrived post-merge with
+**2 P2 findings, both real, both [conceded] and fixed forward** in the
+follow-up PR:
+
+- **An UNRESOLVED conflict block reached main** in
+  `.substrate/guard-fires.jsonl` (markers at lines 14422/14610/15058).
+  Mechanism: the merge output was read through `tail -5`, which truncated
+  the conflict list to the two doc files, and the marker grep then checked
+  only those two; the gate's conflict checkers scan docs, not the
+  telemetry ledger, so nothing else could catch it. Fixed: markers
+  dropped, BOTH sessions' telemetry blocks kept, all 15,167 remaining
+  lines re-validated as parseable JSON. **Trap, sized for a mechanism:**
+  never read a merge's conflict list through a truncating pipe — `git
+  status --porcelain` after the merge names every unmerged path.
+- **"One ingestion run every ~26 s around the clock" overstated the
+  evidence**: COUNT ÷ (max−min) is an average; min/max + count cannot
+  distinguish steady ticking from bursts or backfill. Reworded in the
+  audit § 8 addendum, the program § 7 row, and `OQ-BOT-DB-BTD6-PRUNE`.
+  What IS measured: the loop was live 27 minutes before the probe.
+
 ## previous-session review
 
 The previous card (2026-08-20, keep-bot-only **plan**, fm #868) handed off a
