@@ -68,11 +68,14 @@ doc-route `says` strings updated to the post-session sequence (the exact
 staleness class Codex R3 caught on fm #870 — not repeated) · program §7 row
 · current-state shipped entry.
 
-**Verify:** couch-legend `pnpm check` → exit 0 (typecheck + 60/60 vitest
-incl. replay parity + build), run after every change set; `ci` check-run
-`completed success` on PR #1 head `3902e77`; every sim experiment
-reproducible via `pnpm sim <cmd>` (docs/sim results doc § 0). fm strict gate
-at flip (below).
+**Verify:** couch-legend `pnpm check` → exit 0 (typecheck + 61/61 vitest
+incl. replay parity + the strategy-envelope gate + build), run after every
+change set; `ci` check-run `completed success` on PR #1 heads (`3902e77`,
+re-verified on the round-1 head before merge); every sim experiment
+reproducible via `pnpm sim <cmd>` (docs/sim results doc § 0). couch-legend
+`main` now REQUIRES `ci` (ruleset id 21117825, created this session on the
+adoption card's second-session trigger; effective-rules endpoint read back).
+fm strict gate at flip (below).
 
 **⚑ decide-and-flag (MEDIUMs, all reversible):**
 - "Numbers in the content tables" delivered as the typed
@@ -90,10 +93,23 @@ at flip (below).
   through the degraded window.
 - Card dated 2026-08-20 (session start ~22:40Z), work spans into 08-21.
 
-**Owner queue:** unchanged — no new owner-only asks (Codex answers on
-couch-legend: eyes-ack measured on PR #1; the tuning-adoption call is the
-implementation session's under his stated division of labor, with the trade
-recorded in DESIGN § 9.5 for his veto). `OQ-CL-LICENSE` stands.
+**Owner queue:** **`OQ-CL-LOOKS-PASS` added** (§ C) — the owner's
+ChatGPT-Work looks pass is the step his own sequence puts between this
+session and the implementation session, so it is a genuine blocking owner
+action the queue must carry (Codex round 1 caught the close-out calling it
+"no new asks"; conceded). `OQ-CL-LICENSE` stands. The tuning-adoption call
+itself stays the implementation session's, under his stated division of
+labor, with the trade recorded in DESIGN § 9.5 for his veto.
+
+**Deferred-fix guard recipe (revelations permanence):** seam =
+`src/components/LoreTab.tsx` (`revealed = MOODS.filter(m => peakHigh >=
+m.minHigh)` + the "revelations survive Wake & Bake" caption) and
+`collectMoodChange` in `src/lib/store.ts` (toasts key on `peakHigh`
+crossings). Fix = save v2 `lifeHigh` field (migration
+`lifeHigh = max(high, peakHigh)`), re-key both sites to it; test target =
+extend `tests/save.test.ts` (migration) + pin a pure
+`revealedMoods(lifeHigh)` helper in the engine suite so the promise is
+mechanical, not UI-read.
 
 **Capability delta:** none new — the Codex relay confirmed working on the
 day-old repo (ack reaction on couch-legend #1; already the recorded
