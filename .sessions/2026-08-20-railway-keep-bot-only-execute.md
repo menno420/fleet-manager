@@ -1,10 +1,10 @@
 # 2026-08-20 — Railway keep-bot-only worklist EXECUTED (slices 1–5)
 
-> **Status:** `in-progress` — branch `claude/railway-keep-bot-only-oxyxa3`.
-> Born red; flips `complete` after review at the exact head and the landing
-> checks. Executes
+> **Status:** `complete` — branch `claude/railway-keep-bot-only-oxyxa3`,
+> fm #871. Executes
 > [`docs/planning/2026-08-20-railway-keep-bot-only-worklist.md`](../docs/planning/2026-08-20-railway-keep-bot-only-worklist.md)
-> in its § 6 order, one landing at a time.
+> in its § 6 order, one landing at a time — all five actionable slices
+> terminal, every mutation live-verified.
 
 - **📊 Model:** fable-5 · high · mechanical refactor
 
@@ -130,8 +130,12 @@ gate. Nothing in the handoff contradicted the tree.
   dashboard 130 · arcade 65 — green, real exit codes (separate un-piped
   runs); websites `check --strict` red ONLY on its designed born-red hold
   until the flip.
-- (flip commit adds: fm gate `python3 bootstrap.py check --strict` real
-  exit code on this records PR + Codex at its exact head.)
+- fm #871: Codex at the exact head `6dc2ae8` — clean ("Didn't find any
+  major issues"), and the inline-comments endpoint read back **0** (a
+  clean summary alone is not evidence — the R28-era lesson). fm gate
+  `python3 bootstrap.py check --strict` run un-piped before the flip:
+  exit 1 with the ONLY red the designed born-red hold on this card; the
+  post-flip run's real exit code is in the PR conversation.
 
 ## Session idea
 
