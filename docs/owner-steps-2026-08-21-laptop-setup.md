@@ -13,10 +13,29 @@
 
 ## The machine decides the installer — yours is x64
 
-The **Galaxy Book6 Pro** runs an **Intel Core Ultra X7 358H** (Panther Lake).
-That is an **x64** processor, so you want the **x64** installer, not the ARM64
-one. Both are offered on the same download page and picking the wrong one is the
-most likely way this goes wrong — the links below are already the right one.
+The **Galaxy Book6 Pro** runs an **Intel Core Ultra** processor (the owner's is
+a Core Ultra 5, confirmed by him 2026-08-21; Samsung ships the line in several
+tiers). The tier does not matter here — **every Intel chip is x64**, so you want
+the **x64** installer, not the ARM64 one. ARM64 laptops are the Qualcomm
+Snapdragon ones; Intel does not make an ARM processor.
+
+Both installers sit behind the same button on the download page, and picking the
+wrong one is the most likely way this goes wrong — the link below is already the
+right build. To confirm on the machine itself, in PowerShell:
+
+```powershell
+echo $env:PROCESSOR_ARCHITECTURE
+```
+
+`AMD64` → x64, use the link below. **`AMD64` does not mean you have an AMD
+processor** — it is the industry's name for 64-bit x86, which is what Intel
+chips are. `ARM64` would mean the other installer:
+<https://claude.ai/api/desktop/win32/arm64/setup/latest/redirect>.
+
+*(Earlier drafts of this file named a specific chip — an Intel Core Ultra X7
+358H, inferred from a spec search on the model name rather than read off the
+machine. The owner corrected it. The x64 conclusion never depended on the SKU,
+which is why it survived the correction.)*
 
 Claude Code needs a **Pro, Max, Team, Enterprise or Console** plan. You already
 have one (it is what you are using right now), so there is nothing to buy.
@@ -27,8 +46,29 @@ Do these in order. Step 1 before step 2 saves you an app restart.
 
 ### 1 · Git for Windows — required, do it first
 
-The Code tab **will not start a local session without Git**. It also powers
-session isolation, so this is not optional on Windows.
+**What Git actually is**, since you never have to touch it directly: Git is the
+system that records every change to a project as a numbered snapshot, so any
+version can be recovered and two people (or two sessions) can work without
+overwriting each other. GitHub is the website that stores those histories
+online — every repo in the estate lives there as a Git project. When a session
+says it *branched*, *committed*, *pushed* and opened a *PR*, all four of those
+are Git.
+
+**Three specific things it does for Claude Code on Windows:**
+
+1. **The Code tab will not start a local session without it.** Not a
+   recommendation — the tab reports "Git is required" and stops.
+2. **It powers session isolation.** Each parallel session gets its own private
+   copy of the project (a *worktree*, a Git feature), which is why two sessions
+   cannot tread on each other's edits.
+3. **It gives Claude a better shell.** Git for Windows ships **Git Bash**, and
+   Claude Code uses it for the Bash tool. Without it Claude falls back to
+   PowerShell — workable, but most instructions in this estate assume Bash.
+
+You install it and then forget it exists; Claude drives it. *(For the terminal
+CLI alone, the vendor docs call Git "optional" — it only changes which shell
+Claude uses. For the desktop Code tab it is required. Both are true; they are
+different surfaces.)*
 
 Download: **<https://git-scm.com/downloads/win>** — take the **64-bit standalone
 installer**, and click through with every default. Nothing on those screens needs
