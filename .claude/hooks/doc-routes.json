@@ -445,14 +445,14 @@
         "Grep"
       ],
       "when": [
-        "menno420/superbot\\b",
+        "menno420/superbot(?![\\w-])",
         "\\bsuperbot repo\\b",
         "\\bworker service\\b"
       ],
       "docs": [
         "docs/repos/superbot/README.md"
       ],
-      "says": "Layer 2 entry point — read it BEFORE touching the repo. superbot is the FROZEN repo behind the LIVE production Discord bot (reliable-grace worker — the estate's hardest rail: never stop/scale/disconnect/delete). Pushes rebuild the worker, so schedule retirements are the recurring work class (sb #2446/#2450 pattern: cron out, dispatch kept, header note). Traps measured on #2450: the auto-merge enabler ARMS AT OPEN — disable before requesting review; the docs/operations runbook rows go stale silently. The repo's own tree wins."
+      "says": "Layer 2 entry point — read it BEFORE touching the repo. superbot is the FROZEN repo behind the LIVE production Discord bot (reliable-grace worker — the estate's hardest rail: never stop/scale/disconnect/delete). Since W1 (2026-08-14) the worker has a watch filter (disbot/** + root build inputs): workflow/runbook-only merges produce SKIPPED deployments (live-tested on sb #2446 — the bot did not restart), while a push touching disbot/** or a build input still restarts it. Schedule retirements are the recurring work class (sb #2446/#2450 pattern: cron out, dispatch kept, header note) — they burn Actions runs, not the bot. Traps measured on #2450: the auto-merge enabler ARMS AT OPEN — disable before requesting review; the docs/operations runbook rows go stale silently. The repo's own tree wins."
     },
     {
       "id": "repo-superbot-prompt",
@@ -460,14 +460,14 @@
         "UserPromptSubmit"
       ],
       "when": [
-        "menno420/superbot\\b",
+        "menno420/superbot(?![\\w-])",
         "\\bsuperbot repo\\b",
         "\\bworker service\\b"
       ],
       "docs": [
         "docs/repos/superbot/README.md"
       ],
-      "says": "You named superbot (the frozen repo behind the LIVE production bot). Read docs/repos/superbot/README.md BEFORE touching it — the hard rail, the poller-retirement pattern, and the auto-merge-enabler trap live there."
+      "says": "You named superbot (the frozen repo behind the LIVE production bot). Read docs/repos/superbot/README.md BEFORE touching it — the hard rail, the W1 watch-filter rebuild semantics, the poller-retirement pattern, and the auto-merge-enabler trap live there."
     },
     {
       "id": "repo-estate-backups",
@@ -485,7 +485,7 @@
       "docs": [
         "docs/repos/estate-backups/README.md"
       ],
-      "says": "Layer 2 entry point — read it BEFORE working the repo. estate-backups is the PRIVATE Actions venue for bot-DB work the container's 80/443-only egress cannot reach (dump.yml = restore-verified pg_dump; sizing.yml = read-only catalog sizing). The credential pattern IS the venue: one-shot sealed-box secret (PUT without printing → dispatch → read log → DELETE). Read-only unless the owner directs otherwise — the worker/Postgres hard rail applies."
+      "says": "Layer 2 entry point — read it BEFORE working the repo. estate-backups is the PRIVATE Actions venue for Railway-Postgres work the container's 80/443-only egress cannot reach. Two one-shot workflows, each with its own sealed secret: dump.yml = the restore-verified PRE-DELETION archive of postgres-botsite (PGB_DSN, ran 2026-08-16); sizing.yml = read-only catalog sizing (BOT_DB_DSN). The recurring bot backup is a superbot workflow (weekly since sb #2446), NOT here. The credential pattern IS the venue: one-shot sealed-box secret (PUT without printing → dispatch → read log → DELETE). Read-only unless the owner directs otherwise — the worker/Postgres hard rail applies."
     },
     {
       "id": "repo-estate-backups-prompt",

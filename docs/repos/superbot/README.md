@@ -19,11 +19,16 @@
 the `reliable-grace` Railway `worker` service deploys it (`disbot/bot1.py`),
 and the estate's hardest rail protects that service and its Postgres —
 never stop, scale, disconnect, delete, or change config without the owner's
-explicit directive. The repo is frozen as a codebase but its **workflows
-still matter**: pushes to it rebuild the worker (the audit measured 344
-production-bot restarts in one billing cycle from exactly this), so
-schedule retirements — not code changes — are the recurring work class.
-The successor codebase is `superbot-next` (paired Tier-1 row).
+explicit directive. **Rebuild behavior changed 2026-08-14**: before W1 the
+worker had `watchPatterns: []`, so EVERY push rebuilt it (344 production-bot
+restarts measured in one billing cycle); W1 installed the watch filter
+`['disbot/**', 'requirements.txt', 'requirements-dev.txt', 'pyproject.toml',
+'Procfile']`, live-tested the same hour — sb #2446's workflows-only merge
+produced a **SKIPPED** worker deployment, the bot did not restart. So
+workflow/runbook-only maintenance is now rebuild-safe; a push touching
+`disbot/**` or a root build input still restarts the bot. Schedule
+retirements remain the recurring work class (they burn Actions runs, not
+the bot). The successor codebase is `superbot-next` (paired Tier-1 row).
 
 ## Threads
 

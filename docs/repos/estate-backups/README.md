@@ -14,17 +14,21 @@
 ## The one-paragraph answer
 
 `estate-backups` is the **PRIVATE Actions venue** for work the session
-container's 80/443-only egress cannot do directly against the bot's
-Postgres: its workflows run on GitHub's runners, which CAN reach the
-database's public proxy. Two workflows exist — `dump.yml` (the fm #867
-restore-verified `pg_dump` path; the nightly backup consumer) and
-`sizing.yml` (`c1439ab`, 2026-08-20: read-only catalog SELECTs +
-`COUNT(*)` + min/max of date columns — size metadata, never row contents).
-The credential pattern is the venue's whole point: a **one-shot sealed-box
-secret** (`BOT_DB_DSN` PUT via the API without the value ever printing →
-dispatch → read the log → DELETE the secret), so nothing durable holds the
-DSN. Work here is read-only unless the owner directs otherwise — the
-worker/Postgres hard rail applies to everything this venue touches.
+container's 80/443-only egress cannot do directly against Railway
+Postgres: its workflows run on GitHub's runners, which CAN reach a
+database's public proxy. Two workflows exist, each a one-shot with its own
+sealed secret — `dump.yml` (fm #867: the **one-shot, restore-verified
+pre-deletion archive of `postgres-botsite`**, secret `PGB_DSN`; the proxy,
+credential and source service were deleted minutes after its 2026-08-16
+run) and `sizing.yml` (`c1439ab`, 2026-08-20: read-only catalog SELECTs +
+`COUNT(*)` + min/max of date columns over secret `BOT_DB_DSN` — size
+metadata, never row contents). **The recurring bot backup does NOT live
+here** — it is a `superbot` workflow, daily → weekly since sb #2446. The
+credential pattern is the venue's whole point: a **one-shot sealed-box
+secret** (PUT via the API without the value ever printing → dispatch →
+read the log → DELETE the secret), so nothing durable holds a DSN. Work
+here is read-only unless the owner directs otherwise — the worker/Postgres
+hard rail applies to everything this venue touches.
 
 ## Threads
 
