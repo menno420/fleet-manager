@@ -39,23 +39,32 @@ gate. Nothing in the handoff contradicted the tree.
   (the emptied project). Re-read:
   **3 projects / 9 services, superbot-mineverse absent**; old URL → 404 in
   0.3 s; the REPO untouched (exists, unarchived — verified).
-- **Slice 3a — websites #509 (open at write time): the static-export
+- **Slice 3a — websites #509 MERGED (`b596b70`): the static-export
   mechanism.** Pages preflight GET 404 → POST (`build_type: workflow`) →
   **201** — venue https://menno420.github.io/websites/ created agent-side.
-  `review/gen_static.py` (35 routes exported, exit 0, zero leftover
-  root-relative URLs; runs on review's own pins) + `review-pages.yml`
-  deploy workflow + `review-bake` schedule retired (sb #2446 pattern) +
-  websites D-0037 naming the losses (the live `/ask/api` AI path — the
-  service holds a working `ANTHROPIC_API_KEY` — dies with the process;
-  seeded answers survive statically). **3b (nav cutover ×4 + web_presence
-  rows + `serviceDelete` review `511fd9eb…`) runs only after the Pages
-  deploy is verified serving.**
-- **Slice 4 — superbot #2450 (open at write time): the frozen-repo pollers.**
+  `review/gen_static.py` + `review-pages.yml` + `review-bake` schedule
+  retired (sb #2446 pattern) + websites D-0037 naming the losses (the live
+  `/ask/api` AI path dies with the process; seeded answers survive).
+  **Codex two rounds under the cap: R1 6/6 + R2 3/3 conceded and fixed** —
+  among them three worth carrying: the bake's GITHUB_TOKEN pushes fire no
+  workflows (measured: ZERO push-event runs exist on websites main at all —
+  every landing is auto-merge/bot; explicit dispatch added), frozen
+  relative ages on static pages (export-anchor banner added), and the
+  origin-root robots.txt gap (per-page `noindex, nofollow` in static mode).
+  **First deploy dispatched + verified: six route classes 200** (home,
+  faceted list, editions, static /ask, Atom feed, the dotted-lane
+  directory index). **3b (websites #510, the consumer cutover) opened once
+  Pages verifiably served; `serviceDelete` only after it lands.**
+- **Slice 4 — superbot #2450 MERGED (`5e3a667b`): the frozen-repo pollers.**
   `ci-rerun-watchdog` cron `*/12` out (dispatch kept) · `pr-conflict-guard`
   30-min sweep cron out (event triggers + pre-existing dispatch kept) —
   ~170 no-op runs/day gone; sb #2446 pattern, notes in headers. The repo's
-  auto-merge-enabler armed the PR at open; **auto-merge disabled by this
-  session** so the R30 exact-head Codex point cannot be raced by green CI.
+  enabler armed auto-merge at open; **disabled by this session** so green CI
+  could not race the R30 exact-head review — and it would have (all checks
+  green ~10 min before Codex answered). Codex R1: 1 P2, [conceded] — three
+  stale runbook rows fixed, including one #2446 itself left; R2 at the exact
+  head `23f0975`: clean. Post-merge tree read-back: triggers
+  `[workflow_dispatch]` and `[push, pull_request, workflow_dispatch]`.
 - **Slice 5 — bot-DB sizing, read-only.** `sizing.yml` pushed to
   `menno420/estate-backups` main (`c1439ab`, fm #867 venue pattern):
   catalog SELECTs + COUNT(*) + min/max of date-typed columns only — size
