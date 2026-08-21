@@ -136,6 +136,19 @@ unavailable to compare — [conceded], folded in above, and the
 two-re-review cap reached: fixed, dispositioned here, landed without a
 further ask.
 
+**Trap observed while landing (recorded, cause unproven):** the successor
+PR's two mid-park pushes produced **no github-actions check suite at
+all** on their heads — `/commits/{sha}/check-suites` listed only
+third-party apps, `/actions/runs?branch=` showed nothing after the
+PR-open event — while the sibling PR #876's synchronize events delivered
+normally, couch-legend's pushes delivered normally, and githubstatus read
+all-operational. Both lost pushes happened while the PR carried
+`do-not-automerge`; this commit is the first push after unparking and
+doubles as the test — if its suite appears, the label correlation
+survives; either way the repair for a head with no check runs is a real
+(never empty) commit, and the sweep's nothing-verified rule held exactly
+as designed, refusing to land an unverified head.
+
 - **📊 Model:** fable-5 · high · feature build — the continuation session the
   adoption session's brief directed (couch-legend
   `docs/planning/2026-08-20-life-story-direction.md`, owner-directive):
