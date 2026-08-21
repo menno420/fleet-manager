@@ -70,7 +70,7 @@
   (`session-card-hold`, "designed hold, not a defect"). Stamp findings and
   the orientation-budget red raised mid-session were fixed before landing.
 - `python3 tools/check_doc_routes.py` → 54 routes · 0 errors · exit 0.
-- `python3 scripts/check_estate_index.py` → 0 findings; `--selftest` 12/12.
+- `python3 scripts/check_estate_index.py` → 0 findings; `--selftest` 13/13.
 - `python3 scripts/check_docs_links.py` → CLEAN, 401 files, exit 0.
 
 ## Deliberate boundaries (recorded, not silent)

@@ -449,7 +449,7 @@
         "menno420/superbot(?![\\w-])",
         "\\bsuperbot repo\\b",
         "\\bworker service\\b",
-        "\\bsuperbot\\b(?![\\w-])"
+        "\\bsuperbot\\b(?![\\w-])(?! ?(next|idle|games|mineverse|world|plugin))"
       ],
       "docs": [
         "docs/repos/superbot/README.md"
@@ -465,7 +465,7 @@
         "menno420/superbot(?![\\w-])",
         "\\bsuperbot repo\\b",
         "\\bworker service\\b",
-        "\\bsuperbot\\b(?![\\w-])"
+        "\\bsuperbot\\b(?![\\w-])(?! ?(next|idle|games|mineverse|world|plugin))"
       ],
       "docs": [
         "docs/repos/superbot/README.md"

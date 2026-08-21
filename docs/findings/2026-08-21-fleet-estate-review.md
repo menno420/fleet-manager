@@ -134,7 +134,7 @@ actions and drew a security flag; it performed none (verified live:
 | important repos unroutable | Layer-2 entry points for `superbot-next`, `substrate-kit`, `venture-lab` (the owner-cleared Tier-1 set) + route pairs; every satellite without a folder routes to its ESTATE.md row (11 new route pairs total) |
 | stale exemplar + queue | spider-swing folder refreshed; 4 OQ entries resolved-as-overtaken (each verified live first), 2 added, 2 annotated |
 | routes lag folders | rule recorded in `repos/README.md` (a built folder ships with its route pair) + the product-forge route added |
-| index drift | `scripts/check_estate_index.py` (advisory, selftest 12/12): folder↔row↔route-pair consistency, row↔folder identity, a declared row-count baseline, and a visible verified-stamp requirement |
+| index drift | `scripts/check_estate_index.py` (advisory, selftest 13/13): folder↔row↔route-pair consistency, row↔folder identity, a declared row-count baseline, and a visible verified-stamp requirement |
 
 ## 5 · Honest nulls and boundaries
 

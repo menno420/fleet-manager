@@ -10,6 +10,22 @@
 >
 > Re-run these whenever a folder is added or the shape changes.
 
+## Re-run 2026-08-21 (fm #878) — three folders added, the estate index built
+
+The fleet review added three Tier-1 folders (superbot-next · substrate-kit ·
+venture-lab), refreshed five entries, and built [`../ESTATE.md`](../ESTATE.md).
+Rather than re-running the folder-scoped tests below verbatim, the review ran
+the stronger unprimed form at estate scale: **10 fresh agents, each given only
+the front door and one owner-style message** ("check the bot" · "publish the
+books" · "can you release envdrift" · …), graded on owning repo(s), blockers,
+working contract, and declared ambiguity — **10/10**, with `ESTATE.md` the
+surface the answers consistently resolved through. Full prompts, grading and
+the harness note:
+[`../findings/2026-08-21-fleet-estate-review.md`](../findings/2026-08-21-fleet-estate-review.md)
+§ Acceptance. Test 3's retrieval half is now also enforced mechanically:
+`scripts/check_estate_index.py` reds when a built folder lacks either half of
+its route pair.
+
 ## Re-run 2026-08-08 (fm #826) — and the falsification this doc admitted it owed
 
 All three tests re-run at that PR's head. **Tests 1–3: unchanged results** — test 1's

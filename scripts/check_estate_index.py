@@ -33,9 +33,14 @@ WHAT IT CHECKS
      has an ESTATE row (the index is the superset).
   5. folder-without-route-pair — every built docs/repos/<name>/ folder has
      BOTH halves of its doc-route pair (tool events + UserPromptSubmit),
-     the repos/README.md § The-files rule.
+     the repos/README.md § The-files rule; route-pair-id-mismatch — the
+     halves form one <id>/<id>-prompt pair; route-pair-unnamed — EACH half
+     is recognisably the repo's own (a when-pattern matching the folder
+     name, or the base id carrying it).
   6. missing-baseline — the index header carries at least one
-     "verified YYYY-MM-DD" stamp (staleness must be visible, not absent).
+     "verified YYYY-MM-DD" stamp; missing-declared-count /
+     row-count-mismatch — the header's "all <N> repositories" matches the
+     row count, so a silently dropped folderless row reds.
 
 SEVERITY CONTRACT (sibling-parity: check_docs_links.py)
   Direct run exits 1 when anything is inconsistent, 0 when clean.
@@ -191,12 +196,15 @@ def check(root: str):
                 # pattern matches the folder name, or the pair's base id
                 # carries it (deliberately-precise patterns like
                 # `menno420/superbot(?![\w-])` are legitimate and must pass).
+                # Tracked PER HALF — a tool half naming the repo must not
+                # certify a prompt half that never does (Codex, fm #878 r3).
+                named_key = "named_prompt" if is_prompt else "named_tool"
                 if folder in base:
-                    half["named"] = True
+                    half[named_key] = True
                 try:
                     if any(re.search(p, folder, re.I)
                            for p in route.get("when", [])):
-                        half["named"] = True
+                        half[named_key] = True
                 except re.error:
                     pass
 
@@ -224,11 +232,14 @@ def check(root: str):
                                  f"docs/repos/{entry}/'s routes are not one "
                                  f"<id>/<id>-prompt pair (ids: "
                                  f"{sorted(halves.get('ids', set()))})"))
-            if not halves.get("named"):
+            unnamed = [h for h in ("tool", "prompt")
+                       if not halves.get(f"named_{h}")]
+            if unnamed:
                 findings.append(("route-pair-unnamed",
-                                 f"docs/repos/{entry}/'s routes never match "
-                                 f"the repo's own name — naming the repo "
-                                 f"would route nothing"))
+                                 f"docs/repos/{entry}/'s "
+                                 f"{' and '.join(unnamed)} route half never "
+                                 f"matches the repo's own name — naming the "
+                                 f"repo would route nothing on that event"))
     return findings
 
 
@@ -305,6 +316,19 @@ def selftest() -> int:
         if "route-pair-unnamed" not in kinds:
             failures.append("missed route-pair-unnamed")
 
+    # negative: only ONE half names the repo (per-half coverage — a naming
+    # tool half must not certify a prompt half that matches something else)
+    with tempfile.TemporaryDirectory() as tmp:
+        lopsided = [{"id": "zz", "when": ["alpha"],
+                     "docs": ["docs/repos/alpha/README.md"]},
+                    {"id": "zz-prompt", "tools": ["UserPromptSubmit"],
+                     "when": ["omega"],
+                     "docs": ["docs/repos/alpha/README.md"]}]
+        build(tmp, clean, folders=["alpha"], routes=lopsided)
+        kinds = [k for k, _ in check(tmp)]
+        if "route-pair-unnamed" not in kinds:
+            failures.append("missed per-half route-pair-unnamed")
+
     # negative: routes table missing entirely
     with tempfile.TemporaryDirectory() as tmp:
         build(tmp, clean, folders=["alpha"], routes_file=False)
@@ -361,7 +385,7 @@ def selftest() -> int:
         for f in failures:
             print(f"SELFTEST FAIL: {f}")
         return 1
-    print("selftest: 12/12 cases pass")
+    print("selftest: 13/13 cases pass")
     return 0
 
 
