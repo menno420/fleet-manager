@@ -37,6 +37,44 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 
 ## Current owner decisions — verified from fleet-manager on 2026-08-10
 
+- **`OQ-BOT-DB-BTD6-PRUNE` — ⚑ the bot DB is 97.5 % accumulated BTD6
+  ingestion history (last activity 27 min before the probe) — prune
+  approval + the loop question (2026-08-20).**
+  **WHAT:** the keep-bot-only worklist's slice-5 sizing (read-only, measured —
+  [`findings/2026-08-14-railway-websites-audit.md`](findings/2026-08-14-railway-websites-audit.md)
+  § 8) refuted the "XP / server-logging" suspects: the 949 MB database is
+  **three `btd6_*` tables (~925 MB)** — `btd6_source_snapshots` 668 MB /
+  286,489 rows · `btd6_ingestion_runs` 135 MB / 289,944 rows · `btd6_facts`
+  122 MB — **averaging one run per ~26 s over the 2026-05-27→08-20 span**
+  (count ÷ endpoints; steady-vs-burst unmeasured); **newest row stamped
+  27 min before the sizing run** (last observed activity). All bot user
+  data combined is
+  ~10 MB. This history is the ~2 GB dumps, most of the DB's 831 MB resident
+  RAM ($8.39/cycle), and the weekly backup's wire weight. **OPTIONS (pick per
+  line):** **(P) prune history** — keep the most recent N days of
+  `btd6_source_snapshots` + `btd6_ingestion_runs` (recommend N=30; facts
+  kept), after a fm #867-style restore-verified dump to `estate-backups`;
+  a session executes on your letter + N. · **(L) the loop** — should the bot
+  still be ingesting BTD6 sources at this volume at all? A cadence/stop change
+  is a `worker` config/code change, which the hard rail reserves for your
+  explicit directive — nothing was touched. **HOW:** e.g. "P 30" and/or an L
+  answer, in the hub chat. **RISK:** P is preceded by a verified dump;
+  L is reversible config. **UNBLOCKS:** the last cost line the audit left
+  standing (§ 5.2's durable half). (2026-08-20)
+
+- **`OQ-RG-ORPHAN-VOLUMES` — 🧹 reliable-grace holds 4 volumes for its 1
+  Postgres (2026-08-20).** **WHAT:** `postgres-botsite-volume` survived its
+  service's 08-16 dump-and-delete, and two suffixed strays
+  (`postgres-volume-OMuK`, `postgres-volume-700u`) sit beside the live
+  `postgres-volume` — orphaned volumes outlive `serviceDelete`. Hygiene, not
+  cost (estate disk is $0.27/cycle). Hard-rail adjacency (the project is the
+  bot's home) is why no session deletes these on inference. **OPTIONS:**
+  **A) delete the three orphans** (the botsite one's contents are already
+  archived restore-verified on `estate-backups`; the strays predate the
+  audit and mount nothing) · B) leave as-is. **HOW:** one letter; a session
+  runs `volumeDelete` by exact id, live `postgres-volume` untouched either
+  way. (2026-08-20)
+
 - **`OQ-E1-FINAL-EAP-EMAIL` — write and send the final EAP review email
   (owner-reserved, your pace).** **WHAT:** program step E1 — the one clear
   review of the whole EAP plus the numbered wish list, written by you and sent
