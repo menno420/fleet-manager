@@ -34,13 +34,14 @@ v1.20.2; trust `control/status.md` + the tree.
 
 The kit's next worklist is fleet-manager's
 [`../../findings/2026-08-13-substrate-kit-v1210-followups.md`](../../findings/2026-08-13-substrate-kit-v1210-followups.md)
-— Codex findings on the vendored v1.21.0, grown to **23 rows** (as of
-2026-08-14, fm #858 — count from the file, not from here), fix order
-restated at its tail ("the false negatives now lead"). `MEASURED` 2026-08-21:
+— Codex findings on the vendored v1.21.0, grown to **34 rows** (as of
+2026-08-21, fm #879 — count from the file, not from here), fix order
+restated at its tail (the false negatives lead; the couch-legend seed's
+work-destroyers follow). `MEASURED` 2026-08-21:
 the kit's own tree references it **nowhere** — a session booting on the kit
 alone cannot find its own worklist. Start any kit session from that finding.
 
-### Thread: adopter currency — **3 stale rows + 3 invisible adopters** (owner-paced)
+### Thread: adopter currency — **3 stale rows + 5 invisible adopters** (owner-paced)
 
 Registry at its 2026-08-14 regen: 9 of 12 rows current at v1.21.0; stale:
 `superbot-games` v1.20.1 (⚠ DRIFT ×3 self-report rows — the hop is

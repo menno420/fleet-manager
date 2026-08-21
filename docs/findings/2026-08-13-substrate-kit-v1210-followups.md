@@ -135,6 +135,13 @@ head `9d957a2`) added four more template/design rows:**
 | 30 | `CONSTITUTION.md.tmpl` + `CLAUDE.md.tmpl` boot sections under `--include-claude` | BOTH templates render a "## Boot read path" claiming to be "the one list", and the two lists disagree out of the box (one names `docs/CAPABILITIES.md`, the other repo docs) — two canonical boot lists by construction on any adopter that installs the claude tree; one should render as a pointer (couch-legend #5 R2; fixed in-repo by making CONSTITUTION's section the pointer) | pre-existing |
 | 31 | `session-close` skill template (three sites) | promises "let the server-side auto-merge-enabler land it" / "Green then merges server-side" unconditionally, but adopt stages the enabler WITHOUT installing it and cannot flip the repo's Allow-auto-merge setting — an agent following the advertised path deletes its claim, pushes, and ends with the PR open forever; needs an installed-enabler conditional (row 23's sibling) | template, pre-existing (couch-legend #5 R2) |
 | 32 | skill templates' `Declared capabilities` lines | three skills declare narrower capabilities than their own mandatory steps — `scope-backlog-item` (edits the status heartbeat; declares read-only), `repo-health` (step 3 fixes docs; declares run), `intake` (may append to the question router; declares read) — and SKILLS.md § Precedence makes declarations the thing that overrides stance, so these skills cannot authorize their own required writes (couch-legend #5 R2; fixed in-repo, both trees + index rows) | template, pre-existing |
+
+**Codex round 3 on the same PR (5 findings, all P1, all conceded + fixed
+in-repo, head `b3497dd` fixes; reviewed head `60aa8d6`) added the final two
+rows:**
+
+| # | site (vendored v1.21.0) | defect | provenance |
+|---|---|---|---|
 | 33 | `upgrade-distribution` skill template, step 2 | downloads release assets into the REPO ROOT — but every adopted target already holds `bootstrap.py` + `bootstrap.py.sha256`, and `gh release download` refuses same-name files without `--clobber`, so the documented upgrade flow stops on a collision at its second step on every adopter; download to a temp dir + move (couch-legend #5 R3; fm's own live copy of this skill carries the identical text — same fix due there when the template lands) | template, pre-existing (P1) |
 | 34 | `run_upgrade` + the sidecar convention | the upgrade replaces only `bootstrap.py`, never the committed `bootstrap.py.sha256` sidecar the same adoption convention plants (spider-swing and couch-legend both commit one) — every upgrade silently leaves a stale sidecar; on couch-legend, where `tests/test_kit_pin.py` enforces dist==sidecar in the required gate, that reds every future upgrade PR until the skill installs the new sidecar with the dist (couch-legend #5 R3; skill step 5b added in-repo, rollback covers both files) | pre-existing (P1 where a pin test exists) |
 
@@ -172,12 +179,21 @@ row 20 two. Also adopter-side and NOT the kit's to fix: mineverse's
 capability-seed fence differs from kit form, so the v1.21.0 seed's wall
 retractions did not refresh there — its card carries the follow-up.
 
-Fix-order restated after the wave: **the false negatives first (13, 17, 18)**
-— they are the checker failing at its one job — then the exit-affecting
-promotion family as one contract-review unit (2, 6, 8, 9, 10), then the
-adopter-facing template defects (14, 16, 22, 15, 23 — 23 added 2026-08-14,
-fm #858), then the boot-path family
-(4, 11, 12, 20, 21), then the rest (1, 3, 5, 7, 19).
+Fix-order restated after the couch-legend seed (2026-08-21, fm #879 — this
+supersedes the post-wave order, which is preserved struck-through below):
+**the false negatives first (13, 17, 18)** — they are the checker failing at
+its one job — then the work-destroyers and flow-stoppers from the seed round
+(**26, 29, 33** — the reset-ordering family destroys work, 29 makes 26's own
+safeguard fire on every healthy boot, 33 stops the documented upgrade flow
+at its second step; **34** rides with 33 as the same skill's other half),
+then the exit-affecting promotion family as one contract-review unit
+(2, 6, 8, 9, 10), then the remaining adopter-facing template defects
+(14, 16, 22, 15, 23, **24, 25, 27, 28, 31, 32**), then the boot-path family
+(4, 11, 12, 20, 21, **30**), then the rest (1, 3, 5, 7, 19).
+~~Fix-order restated after the wave: the false negatives first (13, 17, 18),
+then the promotion family (2, 6, 8, 9, 10), then the adopter-facing template
+defects (14, 16, 22, 15, 23 — 23 added 2026-08-14, fm #858), then the
+boot-path family (4, 11, 12, 20, 21), then the rest (1, 3, 5, 7, 19).~~
 
 ## Residue this session found itself (not Codex)
 
