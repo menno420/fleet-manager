@@ -147,7 +147,13 @@ all-operational. Both lost pushes happened while the PR carried
 doubles as the test — if its suite appears, the label correlation
 survives; either way the repair for a head with no check runs is a real
 (never empty) commit, and the sweep's nothing-verified rule held exactly
-as designed, refusing to land an unverified head.
+as designed, refusing to land an unverified head. *(Outcome: the
+post-unpark git push lost its suite identically — the label correlation
+is dead, and the loss covers every synchronize on this thrice-reused
+branch since #874 opened. The PAT cannot create check suites (403,
+app-only). This sentence lands via the REST contents API instead of a
+git-protocol push — the second delivery test, distinguishing the event
+path.)*
 
 - **📊 Model:** fable-5 · high · feature build — the continuation session the
   adoption session's brief directed (couch-legend
