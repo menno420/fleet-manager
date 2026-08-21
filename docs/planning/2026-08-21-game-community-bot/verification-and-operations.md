@@ -47,6 +47,9 @@ command that reproduces the required source gate as closely as practical.
   retry/dead-letter/replay, scheduler restart;
 - Discord adapter commands/components/modals/events, stale interaction,
   rate-limit/retry classification, partial external effect and reconciliation;
+- native Forum events with Message Content off: no ambient body/attachment
+  claim, explicit modal/adopt intake, disclosure, authorization, edits, and
+  deterministic metadata-only degraded behavior;
 - setup inspect/plan/apply/verify/rerun/repair with adoption, conflicts,
   hierarchy failure, permission loss, and interruption;
 - provider adapters with recorded contract fixtures, timeouts, invalid schemas,
