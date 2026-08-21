@@ -53,8 +53,26 @@ gate. Nothing in the handoff contradicted the tree.
   origin-root robots.txt gap (per-page `noindex, nofollow` in static mode).
   **First deploy dispatched + verified: six route classes 200** (home,
   faceted list, editions, static /ask, Atom feed, the dotted-lane
-  directory index). **3b (websites #510, the consumer cutover) opened once
-  Pages verifiably served; `serviceDelete` only after it lands.**
+  directory index).
+- **Slice 3b — websites #510 MERGED (`f0e5bd3`, 2026-08-21): the consumer
+  cutover, then the delete.** Nav strips ×4 → Pages; both registries shed
+  the mineverse group + every remaining dup row (`DUPLICATE_IDS` now the
+  empty contract set); dashboard `/reviews` → the Pages index; retirement
+  semantics through envdrift/envhub (`retired` / `static-venue` states +
+  `services_retired` / `static_count` accounting) so `/owner/environments`
+  and the hub stay honest about the deleted service while its CODE's env
+  reads stay documented. **Codex R1 8/8 + R2 5/5 — all [conceded] and
+  fixed under the two-round cap**; R2's P1 was real and mine: the
+  exporter's host-root rewrite double-prefixed the hardcoded self-link to
+  `/websites/websites/` in ALL 30 exported pages (my "export exit 0"
+  proved 200s, not link integrity) — link made root-relative, rewrite made
+  idempotent, both pinned. Bundled: the six envhub-family test files
+  gained the sibling autouse throttle-reset (a latent cross-file 429).
+  Then, § 6.3 order held — Pages re-verified serving the FIXED export +
+  dashboard redirect live BEFORE the delete —
+  `serviceDelete(511fd9eb-a389-47d7-ba66-4e42fb556e9b)` → `true` (id
+  re-verified → name `review`; volumes re-read: review volume-less).
+  Estate now **3 projects / 8 services**.
 - **Slice 4 — superbot #2450 MERGED (`5e3a667b`): the frozen-repo pollers.**
   `ci-rerun-watchdog` cron `*/12` out (dispatch kept) · `pr-conflict-guard`
   30-min sweep cron out (event triggers + pre-existing dispatch kept) —
@@ -98,9 +116,22 @@ gate. Nothing in the handoff contradicted the tree.
 
 ## Verify
 
-- (filled at close: per-slice live probes above; fm gate
-  `python3 bootstrap.py check --strict` real exit code; Codex on the exact
-  head of this records PR.)
+- **Per-slice live probes, all external and post-mutation** (each detailed
+  in the audit § 8 addendum): slice 1 healthz 5×200 ≤ 0.62 s + anonymous
+  `/orders` 42 B + owner Basic byte-exact · slice 2 project re-read +
+  old-URL 404 · slice 3 Pages home 200 in 0.4 s with ZERO
+  `websites/websites` occurrences live, `/reviews/` + `story.json` +
+  `feed.xml` 200, dashboard `/reviews` 302 → the Pages index, THEN
+  post-delete: review absent from the project re-read, old `fc91` URL 404
+  in 0.48 s, gated `/owner/environments` 200 with the `+1 retired` chip +
+  "retired: 2026-08-20" note and no lifecycle-drift warning · slice 4
+  post-merge trigger read-back · slice 5 run success + secret deleted.
+- websites suites at #510's final head: tests/ 1077 · review 296 ·
+  dashboard 130 · arcade 65 — green, real exit codes (separate un-piped
+  runs); websites `check --strict` red ONLY on its designed born-red hold
+  until the flip.
+- (flip commit adds: fm gate `python3 bootstrap.py check --strict` real
+  exit code on this records PR + Codex at its exact head.)
 
 ## Session idea
 
