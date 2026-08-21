@@ -17,9 +17,14 @@
 - **The six-read cold-orientation order** — that is fleet-manager's contract.
   couch-legend orients from its own `README.md` and two docs; listing more
   would be padding, and padding reads as complete.
-- **Session cards / born-red / `bootstrap.py`** — kit apparatus; couch-legend
-  has none of it. Its whole landing discipline is: green `pnpm check`, ready
-  PR, Codex answered, manual merge.
+- **Session cards / born-red / `bootstrap.py`** — ~~kit apparatus; couch-legend
+  has none of it~~ **superseded 2026-08-21: couch-legend is a substrate-kit
+  adopter since #5** (v1.21.0). The fence now names the kit's presence and the
+  second required check, but deliberately does NOT port the full kit ritual to
+  this surface: the gate passes a card-less PR (the added-card hold binds only
+  PRs that *add* a card), so the ChatGPT landing flow stays green `pnpm
+  check`, ready PR, Codex answered, manual merge. **The owner must re-paste
+  the fence into the ChatGPT project once** (`OQ-CL-CHATGPT-REPASTE`).
 - **Counts** (test totals, generator counts, stage numbers) — the measured
   lesson from the first fleet-manager run: volatile numbers in standing text
   are the most reliable source of stale claims. The fence below names where
@@ -75,8 +80,9 @@ THE FOUR RULES THAT ACTUALLY MATTER:
    file you have not opened. Do not write counts into documents; derive them
    when asked.
 3. NEVER RECORD A LIMITATION AS A FACT. A failed attempt establishes what
-   that one attempt did, not that a thing is impossible. This repo has NO
-   checker watching for false walls — the rule is entirely yours to keep.
+   that one attempt did, not that a thing is impossible. Since 2026-08-21 the
+   substrate-gate check also scans docs for recorded "walls" — but the rule
+   is yours to keep, not the checker's to catch.
 4. HONEST NULLS AND FAILURES ARE DELIVERABLES. "I tried, it didn't work,
    here is the output" is a good answer. A green test suite is evidence
    about its own assertions only — check what it pins before trusting it.
@@ -89,9 +95,17 @@ authenticated local `git push` does not work here; that is a route fact, not
 a blocker.
 
 RUN AND VERIFY. `pnpm install && pnpm dev` runs the game locally;
-`pnpm check` (typecheck + tests + production build) is the one gate and is
-exactly what the required `ci` check on main runs. Report real exit codes,
+`pnpm check` (typecheck + tests + production build) is the product gate and
+is exactly what the required `ci` check on main runs. Report real exit codes,
 each command on its own line — never $? after a pipe.
+
+THE KIT (since 2026-08-21). The repo carries substrate-kit apparatus:
+bootstrap.py (a large GENERATED file — never edit it), CONSTITUTION.md,
+docs skeletons, .sessions/ session cards. For looks work you can ignore all
+of it; do not delete or "clean up" any of it. Main has a SECOND required
+check, `substrate-gate` — it passes a normal PR untouched (a PR that adds a
+.sessions/ card holds red until that card's Status says complete; you are
+not required to add one).
 
 LANDING. Open PRs READY, not draft. Codex reviews this repo (on PR open,
 draft→ready, or a literal "@codex review" comment); its findings arrive as
@@ -100,8 +114,9 @@ id, never judge from the summary body or a timestamp window — and a
 no-findings answer can arrive as a 👍 reaction OR a plain "no major issues"
 comment, so check reviews, reactions, and new bot comments before concluding
 it has not answered. Never merge a PR whose requested review has not
-answered. There is no auto-merge in this repo: after green ci and the review,
-merge via the connector. Deploys follow main automatically.
+answered. There is no auto-merge in this repo: after green required checks
+(ci + substrate-gate) and the review, merge via the connector. Deploys
+follow main automatically.
 
 HOW HE WORKS: ask immediately when a genuine fork appears, put it to him,
 and keep working — stop only when no next step exists without the answer.

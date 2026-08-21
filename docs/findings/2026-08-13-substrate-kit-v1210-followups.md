@@ -92,6 +92,78 @@ independent confirmation, same sites, every wave PR.
 |---|---|---|---|
 | 23 | `session-close` skill template (staged `.substrate/skills/session-close/SKILL.md`, step 3; same sentence embedded in `bootstrap.py`) | the template licenses a `do-not-automerge` PR to "wait for the owner" with **no session bound** — contradicting the owner's nothing-waits-in-an-open-PR ruling (fm decisions ledger, 2026-08-14). The fix has **two halves, both required**: the within-session bound in step 3, and an unanswered-fork exit step that lands the handoff on `main` — the terminal card + the owner ask ride a **mergeable records-only PR** before the work PR closes (branch retained) — otherwise the ask strands on a non-default branch no session reads. fm's live skill carries both (re-apply table); the upstream fix takes effect **on the next hand-run copy/install, not on upgrade itself** — upgrades only re-stage `.substrate/skills/`, and the documented `cp` loop is what overwrites the live file (fm SKILLS-local's measured install contract) | template text, pre-existing (predates v1.21.0; surfaced by the ruling, not by a code change) |
 
+**The couch-legend seed round (2026-08-21, couch-legend #5 — a FRESH v1.21.0
+`adopt --wire-enforcement` on a TypeScript/vitest repo) added two rows and
+the first live bite of row 14:**
+
+| # | site (vendored v1.21.0) | defect | provenance |
+|---|---|---|---|
+| 24 | `bootstrap.py:29710` (`control-inbox.md.tmpl`) vs `:8271` (inbox-order-grammar) | **adopt's own planted `control/inbox.md` seed fails the kit's own strict inbox check**: the template's closing line `*(no orders yet — …)*` is neither the file header nor a `## ORDER` block, so the very first `check --strict` after a clean adopt reds `[inbox-order-grammar]` on kit-planted bytes — fixed on couch-legend by deleting the placeholder line; the upstream fix is a grammar-conforming seed (or a checker carve-out for it), one or the other, not both | seed template predates v1.21.0; first measured live on the couch-legend seed |
+| 25 | `bootstrap.py:17061` (`detect_verify_command`) + the adopt-time render seam | two halves, one wrong doc: (a) the derive returns **`npm test`** for any `package.json` with a real test script — it never reads `pnpm-lock.yaml`/`packageManager` (wrong toolchain in a pnpm repo) and prefers `test` over the repo's fuller gate script (`check` = tsc + vitest + build on couch-legend), so the working agreement's "Verifying a change" under-verifies; (b) the provisional derived value **renders into the planted docs as final text at adopt time**, so a later corrected `answer verify_command …` has no `${verify_command}` token left to fill — `render --live` reports 0 unfilled placeholders while the doc still says `npm test`; hand-editing the rendered doc is the only cure. Related paper cut, same slot: the gate-safety NOTE's suggested "runnable rewrite" strips only parentheticals, so it offered `pnpm check; kit discipline: python3 …` — a line that fails at `kit` if pasted | pre-existing (derive + render seam predate v1.21.0); measured on the couch-legend seed |
+
+**Codex round 1 on the seed PR itself (7 findings, 7 conceded + fixed
+in-repo) added three more dist/template rows:**
+
+| # | site (vendored v1.21.0) | defect | provenance |
+|---|---|---|---|
+| 26 | `.claude/CLAUDE.md` + `AGENT_ORIENTATION.md` templates (preflight step) | **P1 on the adopter** — the unconditional `git fetch && git reset --hard origin/main` is ordered BEFORE the dirty-tree safeguard prose, so a warm session holding uncommitted foreign work destroys it before ever reaching "stop and report" — fixed on couch-legend by ordering `git status --short` first in both surfaces | template, pre-existing (Codex R1, couch-legend #5) |
+| 27 | adopt/`hooks --build` interpreter recording | writes `sys.executable` as an ABSOLUTE path (`/usr/local/bin/python3`) into all four `.claude/settings.json` hook commands and the config `interpreter` — exit 127 in pyenv-style environments, silently disabling every hook; PATH-resolved `python3` works in both venues — fixed on couch-legend in config + template + live settings | pre-existing (Codex R1, couch-legend #5) |
+| 28 | adopt heartbeat seed + `heartbeat --full` defaults | the seed and the mechanical writer default `check: green · engaged: yes` while the SAME adopt run prints a 12-item NOT-ENGAGED hold list and `check --strict` exits 1 — fleet readers see a fresh adopter as green before its first gate has ever passed; the writer also offers only `--kit-check {green,red}` while the control contract's own vocabulary includes `red-by-design` (health line) — fixed on couch-legend by writing the honest mid-PR heartbeat by hand | pre-existing (Codex R1, couch-legend #5) |
+
+Row 25 widened by the same round — **three more consumers treat the
+free-prose `verify_command` slot as a runnable**: skill templates embed it
+in a bash command span (an annotated value renders quality-gate's step 1
+unexecutable — bash rejects the `(`), `docs/SKILLS.md` grounds print the
+DERIVE-time value (`npm test` survived the corrected answer), and the
+working-agreement/architecture/workflow verify sections rendered the derived
+value as final text across FOUR docs, not one. The slot's own gate-safety
+NOTE proves the kit knows the value may be prose; the render layer doesn't.
+(Round 2 sharpened the blast radius: fixing only the INSTALLED skill copies
+is not enough — `docs/SKILLS.md`'s documented staged→live copy loop restores
+the broken commands from the staged tree, so both trees need the fix until
+the template does. Also row 14's third wrong assumption, same round: the
+pytest step writes `tests/__pycache__/` into adopters whose planted
+search-hygiene appends never cover Python bytecode — a version-specific
+`.pyc` then dirties every differently-versioned session's boot tree.)
+
+**Codex round 2 on the same PR (6 findings, 6 conceded + fixed in-repo,
+head `9d957a2`) added four more template/design rows:**
+
+| # | site (vendored v1.21.0) | defect | provenance |
+|---|---|---|---|
+| 29 | SessionStart hook (`record_session_anchor`) vs the preflight contract | the hook stamps `session_anchor` into TRACKED `.substrate/state.json` before the agent can look, so the template's own "check `git status` first" boot step meets a dirty tree on EVERY session — and the mandated `git reset --hard` then erases the anchor session-close needs for commit attribution; the anchor either belongs in untracked state or must be re-stamped post-reset by contract (couch-legend #5 R2; fixed in-repo by teaching both preflight surfaces the anchor-only exception + a post-reset `session-start` re-stamp) | pre-existing |
+| 30 | `CONSTITUTION.md.tmpl` + `CLAUDE.md.tmpl` boot sections under `--include-claude` | BOTH templates render a "## Boot read path" claiming to be "the one list", and the two lists disagree out of the box (one names `docs/CAPABILITIES.md`, the other repo docs) — two canonical boot lists by construction on any adopter that installs the claude tree; one should render as a pointer (couch-legend #5 R2; fixed in-repo by making CONSTITUTION's section the pointer) | pre-existing |
+| 31 | `session-close` skill template (three sites) | promises "let the server-side auto-merge-enabler land it" / "Green then merges server-side" unconditionally, but adopt stages the enabler WITHOUT installing it and cannot flip the repo's Allow-auto-merge setting — an agent following the advertised path deletes its claim, pushes, and ends with the PR open forever; needs an installed-enabler conditional (row 23's sibling) | template, pre-existing (couch-legend #5 R2) |
+| 32 | skill templates' `Declared capabilities` lines | three skills declare narrower capabilities than their own mandatory steps — `scope-backlog-item` (edits the status heartbeat; declares read-only), `repo-health` (step 3 fixes docs; declares run), `intake` (may append to the question router; declares read) — and SKILLS.md § Precedence makes declarations the thing that overrides stance, so these skills cannot authorize their own required writes (couch-legend #5 R2; fixed in-repo, both trees + index rows) | template, pre-existing |
+| 33 | `upgrade-distribution` skill template, step 2 | downloads release assets into the REPO ROOT — but every adopted target already holds `bootstrap.py` + `bootstrap.py.sha256`, and `gh release download` refuses same-name files without `--clobber`, so the documented upgrade flow stops on a collision at its second step on every adopter; download to a temp dir + move (couch-legend #5 R3; fm's own live copy of this skill carries the identical text — same fix due there when the template lands) | template, pre-existing (P1) |
+| 34 | `run_upgrade` + the sidecar convention | the upgrade replaces only `bootstrap.py`, never the committed `bootstrap.py.sha256` sidecar the same adoption convention plants (spider-swing and couch-legend both commit one) — every upgrade silently leaves a stale sidecar; on couch-legend, where `tests/test_kit_pin.py` enforces dist==sidecar in the required gate, that reds every future upgrade PR until the skill installs the new sidecar with the dist (couch-legend #5 R3; skill step 5b added in-repo, rollback covers both files) | pre-existing (P1 where a pin test exists) |
+
+Round 3 also widened two rows in place: **row 26** has a third site — the
+`upgrade-distribution` skill template's step 1 opens with the same
+unconditional `git fetch && git reset --hard` (fixed in-repo with the
+status-first + checkout-B form; the boot templates additionally learned the
+local-commits leg — `git status` alone passes on a clean feature branch
+whose commits a reset would strand). **Row 29** has a sibling artifact — the
+SessionStart hook also writes root `HANDOFF.md`, untracked and NOT in the
+planted ignore appends, so the boot contract's own "clean tree" expectation
+breaks on every boot with a session card present (fixed in-repo by
+gitignoring the pointer, matching its never-commit design).
+
+Sighting updates from the same round: **row 14 bit live for the first time**
+— couch-legend's `tests/` is vitest-TypeScript, so the planted gate's pytest
+step would red on "collected 0 items"; worked around in-repo the productive
+way (`tests/test_kit_pin.py`, stdlib Python pinning the vendored dist to its
+sha256 sidecar and the config pin to the dist header — the step now verifies
+something real). **Rows 20 and 21 sighted on a fresh v1.21.0 adopt**: the
+kit's own generated `.claude/CLAUDE.md` heading drew `boot-section-missing`
+(fixed in-repo by renaming the heading to `## Boot read path …`), and the
+generated agreement's own `HANDOFF.md` "when present" list line would draw
+`boot-path-unresolved` (pre-empted in-repo by moving it to prose). Rows
+24–34 join the adopter-facing template family in the fix order (with 14, 16,
+22, 15, 23) — 26, 29 and 33 first among them: the reset-ordering family
+destroys work, 29 makes 26's own safeguard fire on every healthy boot, and
+33 stops the documented upgrade flow at its second step on every adopter.
+
 Round-2 sighting updates: row 5 sharpened with the quoted-conditional class
 (`The phrase "agents cannot merge when CI is green" is not a wall.` now reds —
 idea-engine `:5485`); row 10's second site is the `cmd_check` return

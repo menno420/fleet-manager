@@ -24,4 +24,79 @@
 
 ## Close-out
 
-*(written at close — this card is the born-red hold until then)*
+**Shipped, couch-legend side (PR #5):** the full v1.21.0 seed — vendored
+dist + sidecar (sha256 four-way agreement
+`8807a00e0e7f14f61f37f2afb48bcb38e4b7247b10741761ff99630bf9cc7356`:
+release asset = sidecar asset = release.json = this repo's committed dist),
+`adopt --wire-enforcement`, 16 slots answered from measured facts,
+`render --live` 0 unfilled, substrate-gate.yml live (enabler + branch-sweep
+deliberately staged-only), `tests/test_kit_pin.py`, `scripts/preflight.py`
+(3 self-skips), badges + orientation links for the game docs, born-red card.
+Zero game changes; `pnpm check` untouched, exit 0.
+
+**Shipped, fleet-manager side (this PR):** Layer-2 couch-legend threads
+re-cut (looks pass LANDED — #3 the Lucid Chronicle contract + #4 first
+Arc-1 scene packages, dormant; kit-adoption thread; two-check gate text) ·
+ESTATE.md row + kit-roster edge · `OQ-CL-LOOKS-PASS` resolved from the tree
+· `OQ-CL-CHATGPT-REPASTE` added · doc-routes couch-legend says-texts re-cut
++ `lucid-chronicle` pattern · kit worklist rows **24–25** added + row 14
+**first live bite** + rows 20/21 sightings · ChatGPT couch-legend
+instructions fence trued · current-state entry extended in place
+(orientation budget re-balanced to ≤7000) · substrate-kit Layer-2
+adopter-invisibility set widened (spider-swing + couch-legend, measured).
+
+**Verify (real exit codes, no pipes):**
+- fm `python3 bootstrap.py check --strict` → exit 1, exactly the designed
+  born-red hold on this card (orientation budget green after trim).
+- `python3 tools/check_doc_routes.py` → 54 routes · 0 errors · exit 0.
+- `python3 scripts/check_estate_index.py` → 0 findings · exit 0.
+- couch-legend: `pnpm check` exit 0 · `pytest tests/ -q` 2 passed ·
+  `check --strict` exit 1 = designed hold; CI gate red verified from the
+  job log as the same hold (run 32480690043).
+
+**⚑ decide-and-flag:**
+- substrate-gate as a SECOND required check beside `ci` on couch-legend
+  (spider-swing precedent) vs OD-9's one-check preference — wired at
+  landing, reversible in seconds in the ruleset UI.
+- Enabler + branch-sweep staged, not live, on couch-legend (deviates from
+  spider-swing parity; that repo's land-it-yourself convention stands;
+  `allow_auto_merge` is OFF repo-side).
+- Harness suggested `register_repo_root` after `add_repo`; declined per the
+  boot-triad doctrine and the fm #878 precedent (hub session loads hub
+  apparatus only) — walked the satellite by hand instead. `[survived]`
+
+**Capability delta:** the session git proxy refuses pushes to repos outside
+the session's authorized set even with the PAT inline in the remote URL
+(measured: couch-legend push 403 "not in this session's authorized
+repository set"); `add_repo` with `access: push` attaches the repo and the
+same push then succeeds over the plain URL through the proxy. Route fact,
+not a wall — appended to the ledger.
+
+**💡 Session idea:** the kit's adopt could self-test its own seed — run
+`check --strict` at the end of `adopt` and report the delta between
+kit-planted findings (rows 14/20/21/24-class: the kit disagreeing with
+itself) and host-state findings (real work). The couch-legend seed spent
+most of its fix effort separating exactly those two classes by hand.
+
+**⟲ previous-session review:** fm #878 (the estate review) held up in use:
+ESTATE.md routed this task's every surface first try; the couch-legend row
+and Layer-2 folder were accurate to the tree at read time (the "not an
+adopter" paragraph was true when written and dated); check_estate_index
+came back 0 findings on the first post-edit run. One gap it could not have
+caught: the fleet-repos.txt roster hole it recorded named three repos —
+spider-swing was also missing and unrecorded until this session measured it.
+
+## Layer-2 handoff
+
+```
+Layer-2 handoff: docs/repos/couch-legend/README.md — all threads re-cut (looks pass landed · kit adoption added · Android re-sequenced · gate text trued)
+Layer-2 handoff: docs/repos/substrate-kit/README.md — adopter-currency thread updated (roster-invisible set widened, measured)
+```
+
+## Codex review trail (exact heads)
+
+*(filled at close)*
+
+## PR
+
+fm #879 (this) · couch-legend #5 — terminal states recorded at close.

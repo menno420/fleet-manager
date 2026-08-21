@@ -21,6 +21,10 @@ prompt (`idle-stoner.grok.me`), then reconstructed 2026-08-20 from its deployed
 bundles into an owned, tested codebase and deployed to
 **<https://menno420.github.io/couch-legend/>** (`MEASURED`: both workflows green
 on the deploy SHA, page + assets probed 200, played end-to-end in Chromium).
+Since 2026-08-21 it is styled as **the Lucid Chronicle** — that name is the
+owner-approved *looks contract* (#3, `docs/design/2026-08-21-looks-pass.md`),
+not a product rename: the game stays Couch Legend everywhere
+(`MEASURED`: index.html title, README, og tags).
 The owner's durable frame, stated live during adoption: *"Eventually I want
 this to be a fully working android game. What I need is a solid base for the
 mechanics. The main idea should be clearly mapped and decided."* That base is
@@ -43,30 +47,36 @@ its `lifeHigh` fix path are in the life-story thread below), itemized
 offline report, prestige preview (current → post-prestige
 Clarity multiplier), tab affordability dots, keyboard hits + reduced-motion,
 PWA manifest/icons. `pnpm check` (typecheck + the full vitest suite + build)
-is CI and the
-local gate — one check, per the estate's one-check convention (OD-9; count the
+is the PRODUCT gate (count the
 tests with `pnpm test`, never from prose — this line carried a frozen "62"
-that PR #2 outgrew within a day), and
-since 2026-08-21 **`ci` is a REQUIRED status check on `main`** (ruleset
-`main-branch-protection`, id 21117825, created by the phase-2 session —
-the adoption card's "revisit when a second session works there" trigger
-fired and this was that session; verified from the effective-rules
-endpoint).
+that PR #2 outgrew within a day). Required checks on `main` (ruleset
+`main-branch-protection`, id 21117825): **`ci`** since 2026-08-21 early
+(the phase-2 session), joined by **`substrate-gate`** the same day at the
+kit seed — the two-check shape and its OD-9 trade are in the kit paragraph
+below; verify from the effective-rules endpoint, never this prose.
 
 Pointers (all in couch-legend): `docs/DESIGN.md` (the decided mechanics map —
 read before changing any number) · `docs/ORIGIN.md` (provenance + the
 reconstruction method) · `README.md` (player-facing + dev commands) ·
 `tests/engine.test.ts` (the pins).
 
-**How working here differs from the rest of the estate:** couch-legend is
-deliberately **not a substrate-kit adopter** — no `.claude/`, no
-`bootstrap.py`, no born-red session cards, no `substrate.config.json`
-(`MEASURED` 2026-08-21). The whole gate is `pnpm check`; handoff state lives
-in this folder, not in-repo. Do not go looking for kit apparatus there, and do
-not carry this repo's kit rituals in. A session booted with couch-legend as
-its root loads zero agent apparatus (boot-triad case two).
+**How working here differs from the rest of the estate:** since 2026-08-21
+couch-legend is a **substrate-kit adopter at v1.21.0** (couch-legend #5 — the
+owner's "properly seed the new couch life repo" directive; dist sha256
+verified four ways at seed). Full kit discipline applies: born-red session
+cards in its `.sessions/`, `python3 bootstrap.py check --strict` as the local
+kit gate, and **two required checks on `main`** — `ci` (`pnpm check`, the
+product gate) + `substrate-gate` (ruleset id 21117825; the spider-swing
+two-check precedent, OD-9 trade flagged on the seed card). Deliberate
+differences from spider-swing: **no live auto-merge enabler and no
+branch-sweep cron** (both staged under `.substrate/ci/`; the landing
+convention stays *land it yourself* — nothing self-merges there). A session
+booted with couch-legend as its root now loads that repo's kit apparatus
+(hooks + rendered working agreement), not the hub's. Handoff state lives in
+BOTH places: in-repo cards for what a session did, this folder for the
+cross-session thread state.
 
-### Thread: life-story design + simulator — **LANDED (2026-08-20/21 session; owner's looks pass is NEXT)**
+### Thread: life-story design + simulator — **LANDED; looks pass LANDED 2026-08-21 — the implementation session is NEXT**
 
 The brief's done-when is met (couch-legend PR #1): **DESIGN.md § 9** now
 carries the decided stage system — the `lifeHigh` story axis (prestige
@@ -85,18 +95,53 @@ with first-2-hours invariance measured; the live game is deliberately
 untouched. Evidence + verdicts (sim-lab vocabulary):
 couch-legend `docs/sim/2026-08-20-life-story-balance.md`.
 
-**Next, in the owner's stated order:** (1) his ChatGPT-Work looks pass;
-(2) a Claude implementation session — adopt the tuning (one-line default
-flip + pin updates), add the stage schema (save v2 `lifeHigh`, stage table
-into `content.ts`, era framing for existing items with real gates only on
-new additive content — the rule Codex review corrected — and revelations
-re-keyed, fixing the Lore-permanence defect DESIGN § 9.2 records), author
-arc-1 prologue content and per-stage beats; the results doc § 7 is the
-checklist. Also found: the
+**The looks pass is DONE** (`MEASURED` 2026-08-21 from the tree): the owner
+ran it on ChatGPT-Work and landed **#3 — the Lucid Chronicle** (the
+owner-approved visual/narrative treatment contract,
+`docs/design/2026-08-21-looks-pass.md`; Lore tab → *Chronicle*; presentation
+only, zero mechanics) and **#4 — the first three Arc-1 scene packages**
+(First Light · Corner Store Nights · Somebody's Cousin's Couch: six 900×1200
+lucid/baked JPEGs + a reusable `SceneMotion` layer + CI tests;
+**deliberately dormant** until the `lifeHigh` stage schema and
+`STAGE_PRESENTATION` registry land — 15 of the planned 18 scenes remain for
+later art sessions). `OQ-CL-LOOKS-PASS` is resolved.
+
+**NEXT: the Claude implementation session** (unblocked, per the owner's
+stated order) — adopt the tuning (one-line default flip + pin updates), add
+the stage schema (save v2 `lifeHigh`, stage table into `content.ts`, era
+framing for existing items with real gates only on new additive content —
+the rule Codex review corrected — and revelations re-keyed, fixing the
+Lore-permanence defect DESIGN § 9.2 records; #4's scene packages activate
+here), author arc-1 prologue content and per-stage beats; the results doc
+§ 7 is the checklist, and #4's handoff notes
+(`docs/design/2026-08-21-arc-1-scene-packages.md`) join it. Also found: the
 Lore tab's "revelations survive Wake & Bake" is false today (keys on
 `peakHigh`) — fix rides the stage schema.
 
-### Thread: the Android shell — **after the looks pass + implementation session** (re-sequenced 2026-08-21)
+### Thread: substrate-kit adoption — **landed 2026-08-21** (couch-legend #5)
+
+Seeded at v1.21.0 by the kit's own `adopt --wire-enforcement`, slots filled
+from measured facts, zero game changes; the shape and its two deliberate
+deviations (enabler + branch-sweep staged, not live) are in the paragraph
+above and on the seed card (couch-legend
+`.sessions/2026-08-21-substrate-kit-seed.md`). The seed fed fleet-manager's kit worklist
+([`../../findings/2026-08-13-substrate-kit-v1210-followups.md`](../../findings/2026-08-13-substrate-kit-v1210-followups.md)):
+row 14's **first live bite** (the gate's pytest step keys on `tests/`
+existing, and this `tests/` is vitest-TypeScript — worked around in-repo by
+`tests/test_kit_pin.py`), **new rows 24–32** (inbox seed vs its own grammar
+checker; the free-prose verify slot rendered as final text and as bash
+command spans; reset-before-inspect preflight ordering — the Codex P1 —
+and the session-anchor write that makes every boot tree dirty; absolute
+hook interpreter; green-by-default seed heartbeat; dual boot lists under
+`--include-claude`; the session-close template's enabler promise; skill
+capability declarations narrower than their own steps), and fresh
+sightings of rows 20–21 (boot-heading + `HANDOFF.md` boot-path false
+alarms, both pre-empted in-repo). Like spider-swing,
+couch-legend is **invisible to the kit's adopter registry** until the
+`fleet-repos.txt` roster hole is fixed kit-side (recorded on the
+substrate-kit entry point).
+
+### Thread: the Android shell — **after the implementation session** (looks pass done 2026-08-21)
 
 The step (DESIGN.md § 7, decided): add `android/` via Capacitor bundling the
 web `dist/`, sign and release APKs from CI on the phone-controller pattern

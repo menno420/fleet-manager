@@ -48,8 +48,13 @@ Registry at its 2026-08-14 regen: 9 of 12 rows current at v1.21.0; stale:
 pending its archive decision), `pokemon-mod-lab` v1.15.0 (owner-held).
 **Adopters are invisible to the registry** where the scan roster
 `docs/fleet-repos.txt` omits them: `sim-lab` (kit v1.15.0), `superbot-idle`
-(v1.16.0), and `product-forge` (v1.7.0 — the actual oldest, archive-bound
-post-R2) — a registry-driven rollout can never find them.
+(v1.16.0), `product-forge` (v1.7.0 — the actual oldest, archive-bound
+post-R2), and — `MEASURED` 2026-08-21, the couch-legend seed session —
+**`spider-swing` (v1.20.2) and `couch-legend` (v1.21.0, seeded that day)**
+too: neither is in the roster nor in the registry's 12 rows — a
+registry-driven rollout can never find any of the five. The roster fix is
+kit-side (this thread already carries it); until then the registry
+undercounts the estate's adopters.
 Rollout ask: `OQ-KIT-V1-21-RELEASE` in [`../../owner-queue.md`](../../owner-queue.md).
 
 ### Thread: the provenance mandate — **kit-side open plan** (paused)
