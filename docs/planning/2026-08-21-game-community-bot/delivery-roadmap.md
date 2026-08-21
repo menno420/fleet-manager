@@ -57,8 +57,9 @@ Slices:
 1. Implement typed config, Postgres repositories, migration checksums, guild
    scoping, transaction helper, and test database fixtures.
 2. Implement minimal multi-game ownership first: games, platforms, developer
-   assignments, build/cohort identifiers, per-game destinations, and a generic
-   profile contract. Setup and onboarding consume this contract directly.
+   assignments, build/cohort identifiers, per-game destinations and role
+   bindings, and a generic profile contract. Setup and onboarding consume this
+   contract directly.
 3. Implement actor/context, central admission, feature/channel policy, owner
    bootstrap/recovery, and a table-driven permission matrix.
 4. Implement service principals and purpose-limited delegation for scheduled,
@@ -72,9 +73,13 @@ Slices:
    tests.
 7. Add provider-neutral AI gateway, deterministic adapter, task/tool registries,
    Observe/Assist/Act policy, budget/kill-switch state, structured trace, and
-   invalid/provider-down fallback. Paid adapters and Discord-derived provider
-   data remain disabled until the full GCB-3 decision.
-8. Add durable scoped memory records, retrieval permission checks, retention,
+   invalid/provider-down fallback. AI Act remains disabled in the test guild
+   until GCB-4 confirms the initial autonomy policy.
+8. Implement OpenAI and Anthropic adapters with request/structured-response,
+   usage, timeout, retry/error, and circuit-breaker contract tests against
+   controlled fixtures. Adapters stay disabled and receive no Discord-derived
+   content or paid traffic until the full GCB-3 decision.
+9. Add durable scoped memory records, retrieval permission checks, retention,
    inspect/forget controls, and no raw-transcript default.
 
 Exit gates:
@@ -85,6 +90,8 @@ Exit gates:
 - retries and duplicate interactions produce one logical effect;
 - provider failure and global AI disable leave Home and deterministic writes
   operational;
+- paid-provider adapters pass controlled contract tests while remaining
+  disabled until GCB-3, and test-guild Act remains disabled until GCB-4;
 - audit links caller, plan, operation, effect verification, and response.
 
 ## Phase 2 — Home, discovery, and access
@@ -129,8 +136,9 @@ Slices:
 5. Register AI setup read tools and the bounded “design/improve this setup”
    task. AI may propose copy/order/approved operations; medium-risk application
    requires owner confirmation.
-6. Seed the first `spider-swing` game profile through the generic game contract;
-   keep profile data outside the core.
+6. After GCB-5 confirmation, seed the selected first game profile through the
+   generic game contract (recommended: `spider-swing`); keep profile data
+   outside the core.
 7. If Community mode or another manual Forum prerequisite is absent, block
    apply with exact owner steps and re-inspect; drive eligible and ineligible
    fresh-guild paths.
@@ -143,6 +151,9 @@ Exit gates:
 - rerun is a no-op and interrupted work resumes without duplication;
 - adopted resources are tracked by ID and ownership/rollback limits are clear;
 - AI cannot smuggle a tool or changed argument outside the confirmed plan;
+- a non-deterministic provider drive occurs only after GCB-3, and AI Act occurs
+  only after GCB-4; deterministic evidence alone does not complete the AI
+  milestone;
 - a test-guild evidence bundle proves setup, verify, repair, and owner recovery.
 
 ## Phase 4 — community and safety core
@@ -195,7 +206,7 @@ turn Forum discussion into usable feedback.
 
 Slices:
 
-1. Extend the Phase-1 game contract with game roles and tester access states:
+1. Extend the Phase-1 game contract with tester access states:
    external opt-in requested/granted, downloaded, installed, launched, blocked,
    private support route, and aggregate funnel read model.
 2. Add build lifecycle: validate, draft, pending publication, publish/current,
