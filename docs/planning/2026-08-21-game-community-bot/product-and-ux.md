@@ -78,7 +78,11 @@ the configured start channel and offered after setup. Buttons/selects cover:
 The route registry filters unavailable actions and explains disabled ones.
 Every enabled feature must be reachable from Home in at most two interactions.
 The same registry generates slash-command discovery, permission metadata, help,
-and reachability tests so those surfaces cannot drift.
+and reachability tests so those surfaces cannot drift. Routes declare explicit
+featured-action rank; Home/help curate from that rank instead of dumping the
+complete inventory. Boot validation enforces Discord component/select-option
+budgets, and paginated/filtered layouts must still meet the two-interaction
+contract.
 
 Slash commands are shortcuts, not the only usable interface. The initial
 top-level vocabulary is intentionally small:
@@ -117,14 +121,21 @@ compatibility decision, not an MVP dependency.
 7. A rerun proposes no duplicate resources. Repair can resume a partial run.
 8. Home is pinned or linked; an owner recovery route always remains available.
 
-### 2. Join as a tester
+### 2. Become an active tester and launch the game
 
 1. A member sees rules and the server guide.
-2. They accept required rules, select game interests, and opt into Tester.
-3. The bot shows the current build, access instructions, test focus, known
+2. They accept required rules, select game interests, opt into the external
+   test program where one exists, and opt into the Discord Tester role.
+3. The bot shows the current build, platform-specific access/redeem/download
+   instructions, minimum version/device requirements, test focus, known
    issues, next session, and feedback destinations.
-4. Role changes and completion are visible and reversible. No AI call is
-   required.
+4. The tester records a privacy-minimal access state: requested, granted,
+   downloaded, installed, launched, or blocked. The bot never claims success
+   from role assignment alone and gives a private support route for a blocked
+   access step.
+5. Launch confirmation unlocks the active-testing checklist and may enroll the
+   tester in a build cohort. Staff can see aggregate funnel drop-off and the
+   tester can remove their role/state. No AI call is required.
 
 ### 3. Publish a build
 
@@ -132,8 +143,11 @@ compatibility decision, not an MVP dependency.
    change summary, test focus, known issues, and expiry/replacement.
 2. Validation checks the game, required fields, destinations, and caller.
 3. Staff previews an announcement and affected cohorts.
-4. Publish atomically marks the current build, posts the announcement, updates
-   Home, and schedules optional reminders.
+4. Publish creates a pending publication, marks the build current only under
+   an expected-version precondition, and attempts the approved Discord post.
+   Home/reminders expose pending or partial state until the post receipt is
+   verified; retry/reconciliation completes it, while cancellation or a
+   compensating operation restores the prior current build when safe.
 5. AI can draft and tailor the summary, but the stored build record and final
    approved message are the source of truth.
 
@@ -156,8 +170,13 @@ compatibility decision, not an MVP dependency.
    and a summary. Suggestions remain attributable.
 4. Staff assigns, changes status, links duplicates, requests information, or
    exports to an external tracker.
-5. Status changes update the Forum record and audit trail. The reporter can
-   follow progress without seeing staff-only notes.
+5. A developer responds and, when fixed, links the corrective build and a
+   plain-language resolution. The reporter is notified and can confirm the fix
+   on that build or reopen with new evidence.
+6. Retest success closes the report; status/build/retest changes update the
+   Forum record and audit trail. The reporter can follow progress without
+   seeing staff-only notes. External export appears only when that optional
+   integration is enabled.
 
 ### 6. Ask the AI operator to act
 
@@ -181,8 +200,28 @@ compatibility decision, not an MVP dependency.
 3. A human confirms consequential actions. Timeouts may later become eligible
    for policy-approved automation; bans, mass actions, and destructive cleanup
    are never default autonomous tools.
-4. The member-facing notice, private staff record, appeal information, and
-   Discord effect remain consistent.
+4. The member-facing notice, private staff record, Discord effect, and private
+   appeal link/reference remain consistent.
+5. An in-guild member appeals through a private modal; a timed-out, kicked, or
+   banned member can use the application DM appeal route tied to guild and case
+   reference. Intake reveals only member-visible evidence and status.
+6. An uninvolved authorized reviewer accepts, requests information, changes or
+   upholds the action, records reasoning, and notifies the appellant privately.
+   Tests cover in-guild, DM-only, expired/invalid reference, privacy, and
+   outcome effects.
+
+### 8. Remove and reinstall the bot
+
+1. A guild-removal event immediately tombstones the guild and revokes active
+   service-principal grants, scheduled jobs, integration deliveries, AI work,
+   and outbound retries.
+2. Discord resource bindings remain inert evidence; no cleanup assumes the bot
+   can still mutate the guild.
+3. Configured retention decides which audit/legal records remain and when
+   member data, memories, schedules, and integration credentials are purged.
+4. Purge is idempotent and visible to the operator. Reinstall starts in a safe
+   unconfigured/recovery state and may re-adopt retained resources only after
+   fresh owner authorization.
 
 ## Scope by release boundary
 
@@ -216,6 +255,8 @@ migration are not dormant MVP flags; they are outside the product boundary.
 
 - A feature is not “present” until a permitted user can reach it, complete its
   effect, see the result, and recover from failure.
+- A tester funnel is not successful until the external opt-in/access/install/
+  launch transition is evidenced or a concrete blocked state is routed.
 - No panel describes captured or assumed live state; all stateful content is
   rendered from a read model at interaction time.
 - Disabled features do not advertise dead commands or buttons.
