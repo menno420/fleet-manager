@@ -55,8 +55,10 @@ All five verified against source and dispositioned [conceded], fixed in
   "9 permanent lore lines" against this card's own defect record —
   qualified in place.
 
-Also verified: the Codex *cloud task* comment on fm #872 (00:05:28Z)
-describes a commit `d73e867` whose work never reached the branch. Two of
+Also verified — with the conclusion sized to the evidence, per its own
+review round: the Codex *cloud task* comment on fm #872 (00:05:28Z)
+describes a commit `d73e867` whose described snapshot never merged
+unchanged. Two of
 this claim's earlier arguments died in review — "the SHA doesn't exist"
 (object-absence; rebases and cherry-picks preserve work under new ids)
 and "locally authored + SHA-identical merge head" (that proves *which
@@ -76,8 +78,12 @@ opened. Decisively, the merged records postdate it: the merged card
 cites `5edac9a` (committed 00:27:59Z) and the round-2 fixes — facts
 created ~23 minutes *after* the cloud comment, which its 00:05 state
 could not contain — and the merged §7 row lacks the "PR #1 remains open"
-note the comment describes. The merged records are this session's late
-versions, not the cloud's. (fm #873's own review binding got the
+note the comment describes. What this establishes, and no more: the
+merged tree is the one this session built, and the cloud-described
+snapshot did not merge unchanged. Whether any individual cloud sentence
+was copied in cannot be checked from the record — the patch itself is
+unavailable to compare (the links expose only the pre-task state) — so
+the claim stops there. (fm #873's own review binding got the
 same treatment and a plainer answer: Codex's "reviewed commit" `4c7ae9f`
 is simply that PR's squash-merge on `main` — merge-on-green landed it at
 `01:06:27Z`, thirteen minutes before the review (`01:19:26Z`), because
@@ -123,6 +129,12 @@ where its changes originated — replaced by the actual content comparison
 own `e117177`, not cloud content) — and the lesson's "ANY choice of T"
 overcorrection narrowed (a T provably before the PR existed is valid
 evidence; identity correlation is still the form that avoids the class).
+Its final round narrowed the provenance conclusion once more — the
+comparison proves the described snapshot did not merge *unchanged*, not
+that no cloud text was incorporated, since the patch itself is
+unavailable to compare — [conceded], folded in above, and the
+two-re-review cap reached: fixed, dispositioned here, landed without a
+further ask.
 
 - **📊 Model:** fable-5 · high · feature build — the continuation session the
   adoption session's brief directed (couch-legend
