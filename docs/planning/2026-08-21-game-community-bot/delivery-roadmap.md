@@ -56,16 +56,25 @@ Slices:
 
 1. Implement typed config, Postgres repositories, migration checksums, guild
    scoping, transaction helper, and test database fixtures.
-2. Implement actor/context, central admission, feature/channel policy, owner
+2. Implement minimal multi-game ownership first: games, platforms, developer
+   assignments, build/cohort identifiers, per-game destinations, and a generic
+   profile contract. Setup and onboarding consume this contract directly.
+3. Implement actor/context, central admission, feature/channel policy, owner
    bootstrap/recovery, and a table-driven permission matrix.
-3. Implement operation/workflow contracts, idempotency, confirmation binding,
-   audit, transactional outbox, retries/dead letters, and effect receipts.
-4. Add feature/route/setup/operation/event registries plus boot validation and
-   import-direction tests.
-5. Add provider-neutral AI gateway, deterministic adapter, task/tool registries,
+4. Implement service principals and purpose-limited delegation for scheduled,
+   retry, integration, and autonomous work, with initiator, operation/
+   destination scope, expiry, policy recheck, and revocation.
+5. Implement operation/workflow contracts, expected-state preconditions,
+   idempotency, confirmation binding, audit, transactional outbox, retries/dead
+   letters, and effect receipts.
+6. Add feature/route/setup/operation/event registries plus featured-action and
+   Discord component-budget metadata, boot validation, and import-direction
+   tests.
+7. Add provider-neutral AI gateway, deterministic adapter, task/tool registries,
    Observe/Assist/Act policy, budget/kill-switch state, structured trace, and
-   invalid/provider-down fallback. Paid adapters remain disabled until GCB-3.
-6. Add durable scoped memory records, retrieval permission checks, retention,
+   invalid/provider-down fallback. Paid adapters and Discord-derived provider
+   data remain disabled until the full GCB-3 decision.
+8. Add durable scoped memory records, retrieval permission checks, retention,
    inspect/forget controls, and no raw-transcript default.
 
 Exit gates:
@@ -109,7 +118,8 @@ freedom demonstrated through the real control path.
 Slices:
 
 1. Add read-only guild inspection for roles, channels/categories, permissions,
-   AutoMod, events, bot hierarchy, resource bindings, and adoption candidates.
+   AutoMod, events, guild features including Community/Forum eligibility, bot
+   hierarchy, resource bindings, and adoption candidates.
 2. Define the Game Testing server profile and deterministic desired-state
    planner for categories/channels/Forums/roles/permissions/log destinations.
 3. Implement typed adopt/create/update operations, exact preview, concurrency,
@@ -119,7 +129,12 @@ Slices:
 5. Register AI setup read tools and the bounded “design/improve this setup”
    task. AI may propose copy/order/approved operations; medium-risk application
    requires owner confirmation.
-6. Drive fresh, partially configured, conflicting-name, insufficient-hierarchy,
+6. Seed the first `spider-swing` game profile through the generic game contract;
+   keep profile data outside the core.
+7. If Community mode or another manual Forum prerequisite is absent, block
+   apply with exact owner steps and re-inspect; drive eligible and ineligible
+   fresh-guild paths.
+8. Drive fresh, partially configured, conflicting-name, insufficient-hierarchy,
    interrupted, and rerun cases in the real test guild.
 
 Exit gates:
@@ -137,23 +152,38 @@ automation grows.
 
 Slices:
 
-1. Implement server guide, rules acknowledgement, entry/member/tester roles,
+1. Before join/leave work, add the least-privilege Guild Members privileged
+   intent to application config, portal/deployment verification, readiness and
+   support reports; define truthful degraded behavior when it is unavailable.
+2. Implement server guide, rules acknowledgement, entry/member/tester roles,
    game-role selection, join/leave behavior, and onboarding completion.
-2. Implement logging destinations, structured member/config/resource events,
+3. Implement logging destinations, structured member/config/resource events,
    privacy/redaction, retention, and staff-visible audit lookup.
-3. Implement moderation cases/evidence, warnings/timeouts, member notices,
+4. Implement moderation cases/evidence, warnings/timeouts, member notices,
    appeal/status fields, and deterministic permission/hierarchy validation.
-4. Configure native AutoMod where possible; add narrowly justified bot rules,
+5. Implement private in-guild and application-DM appeals for removed/timed-out
+   members, case-reference authorization, limited evidence view, independent
+   staff review, outcome notification, and reopen/escalation.
+6. Configure native AutoMod where possible; add narrowly justified bot rules,
    rate limits, media/link controls, escalation, and kill switches.
-5. Add polls, personal/staff reminders, scheduling leases, delivery retries, and
+7. Add polls, personal/staff reminders, scheduling leases, delivery retries, and
    user cancellation.
-6. Add AI moderation/context summaries and welcome/announcement drafting as
+8. Add guild removal/reinstall handling: tombstone immediately, revoke jobs/
+   delegations/integrations/AI, apply retention then idempotent purge, and
+   restart safely on rejoin.
+9. Add AI moderation/context summaries and welcome/announcement drafting as
    advisory tasks; keep consequential moderation human-confirmed.
 
 Exit gates:
 
 - join → rules → game/tester role → Home works without staff or AI;
+- the required member intent is visible/healthy, and its absence degrades
+  truthfully instead of silently missing joins;
 - moderator actions produce one Discord effect, case, notice, and audit link;
+- both in-guild and guild-removed appeal journeys preserve privacy and produce
+  a reviewed outcome notification;
+- guild removal stops all later outbound work and reinstall cannot resurrect
+  stale authority or schedules;
 - bot hierarchy/permission failures are explained before action where possible;
 - native/bot moderation ownership is documented with no duplicate enforcement;
 - privacy and retention tests cover public, staff, and AI surfaces.
@@ -165,14 +195,17 @@ turn Forum discussion into usable feedback.
 
 Slices:
 
-1. Add multi-game records, game roles/destinations, platforms, developer
-   assignments, and the first `spider-swing` profile.
-2. Add build lifecycle: validate, draft, publish/current, replace/retire,
+1. Extend the Phase-1 game contract with game roles and tester access states:
+   external opt-in requested/granted, downloaded, installed, launched, blocked,
+   private support route, and aggregate funnel read model.
+2. Add build lifecycle: validate, draft, pending publication, publish/current,
+   verified Discord receipt, partial/reconcile/compensate, replace/retire,
    announcement preview, cohort routing, and Home projection.
 3. Add playtest sessions, Discord Scheduled Event binding, enrollment/capacity/
    waitlist, cohort eligibility, reminders, attendance, and close-out.
 4. Add Bug Reports and Feedback Forum bindings, structured intake/tags/status,
-   assignment, missing-information prompts, duplicate links, and privacy split.
+   assignment, missing-information prompts, duplicate links, corrective-build
+   linkage, reporter notification, retest/reopen/close, and privacy split.
 5. Add run/clip/replay sharing metadata and session/result linkage without
    copying large media into the database.
 6. Add AI read/draft/triage/summary tools for builds, sessions, and feedback;
@@ -183,6 +216,8 @@ Slices:
 Exit gates:
 
 - a tester can self-serve current build, session, and feedback flows from Home;
+- the first real tester journey proves external opt-in, access/download,
+  install and launch (or a routed blocked state), not Discord role assignment;
 - staff can publish and replace a build without stale Home/reminder content;
 - Forum remains the human conversation source; structured state survives edits
   and duplicate/status changes;
