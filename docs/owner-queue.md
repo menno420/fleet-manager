@@ -727,6 +727,19 @@ fleet-wide merges/ready-flips live in
   checklist: couch-legend `docs/sim/2026-08-20-life-story-balance.md` § 7 + #4's handoff
   notes). No click needed.
 
+- **`OQ-CL-FEEL-PASS` — couch-legend: play the life story and feel-check the tuned late
+  game.** OPEN (2026-08-21, the implementation session). WHAT: the § 7 implementation landed
+  (couch-legend #7 — adopted tuning, 18 chapters, the first three painted scenes, chapter
+  turns); every number is sim-evidenced but no human has felt the adopted curve. WHERE:
+  <https://menno420.github.io/couch-legend/>. HOW: just play — the opening three chapters
+  arrive inside the first half hour; take one Wake & Bake; for the late game, import a late
+  save code if you want to skip ahead. WHY-IT-MATTERS: DESIGN § 9.5's trade (late cycles pay
+  in story cadence, not compounding speed) is yours to veto, and the sim's closest rail is
+  the arc-3 post-reset warm-up (44.8 m of the 45 m bound) — exactly where drag would be felt
+  first. UNBLOCKS: arc-3 content sizing; whether the Clarity spend shop (§ 8.1) gets
+  designed. ↩️ reversible (tuning is one constant + pins, with the sim as the instrument).
+  VERIFIED-NEEDED: your verdict on (a) the chapter-turn moment, (b) late-game rebuild feel.
+
 - **`OQ-CL-CHATGPT-REPASTE` — couch-legend: one paste refresh of the ChatGPT project
   instructions.** OPEN (2026-08-21, the kit-seed session). WHAT: the kit seed
   (couch-legend #5) made three lines of the pasted instructions stale — "no kit

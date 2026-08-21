@@ -171,6 +171,19 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-21 · capability · `owner-live` (remote CCR container) · **Headless browser
+  end-to-end testing of a satellite repo's production web build works from a
+  fleet-manager-booted session** — `pnpm preview` on the satellite's `dist/`, npm-install
+  `playwright-core` in the session scratchpad (no browser download), launch with
+  `executablePath: '/opt/pw-browsers/chromium'`, seed `localStorage` saves via
+  `page.addInitScript` before first navigation. · evidence: couch-legend `claude/lifehigh-arc1`
+  head — 22/22 assertions (boot art, save v1→v2 migration, one offline chapter turn, a
+  stage-gated purchase persisting, reduced-motion variant) + 4 screenshots delivered to the
+  owner; recipe + flush-timing gotcha appended to couch-legend `docs/CAPABILITIES.md` the same
+  session. · workaround notes: assertions on persisted state must wait past the app's save
+  flush; Playwright's `isVisible` passes at any opacity, so animation-phase claims need
+  screenshots, not visibility checks.
+
 - 2026-08-20 · capability · `owner-live` (remote CCR container) · **GitHub Pages sites ARE
   creatable agent-side over the direct PAT — the 2026-08-07 "workflow token cannot create a
   Pages site" finding was token-scoped, never a platform wall.** Probed while executing the
