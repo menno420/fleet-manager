@@ -1,1 +1,0 @@
-- `claude/couch-legend-lifehigh-arc1-y8qaln` · **hub close-out of the couch-legend life-story implementation: Layer-2 re-thread + estate surfaces trued** · docs/repos/couch-legend + docs/ESTATE.md + docs/current-state.md · 2026-08-21
