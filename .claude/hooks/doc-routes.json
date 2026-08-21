@@ -500,6 +500,354 @@
         "docs/repos/estate-backups/README.md"
       ],
       "says": "You named estate-backups (the private Actions venue for bot-DB work). Read docs/repos/estate-backups/README.md first — the sealed-box secret pattern and the read-only posture live there."
+    },
+    {
+      "id": "repo-product-forge",
+      "tools": [
+        "Bash",
+        "WebFetch",
+        "Read",
+        "Glob",
+        "Grep"
+      ],
+      "when": [
+        "\\bproduct[- ]forge\\b",
+        "\\bphone[- ]controller\\b",
+        "\\bcontroller app\\b",
+        "menno420/product-forge"
+      ],
+      "docs": [
+        "docs/repos/product-forge/README.md"
+      ],
+      "says": "Layer 2 entry point — read it BEFORE attaching the repo. product-forge is the seat-era shell whose living asset is phone-controller: a shipped Android Bluetooth-HID controller app (signed releases v0.4.0 → v0.22.0). The active thread is the app's customization era; graduation to its own repo is program step R2 (the keystore edge and the fresh-keystore recommendation are in the entry point). The repo's own products/phone-controller/README.md wins on the app."
+    },
+    {
+      "id": "repo-product-forge-prompt",
+      "tools": [
+        "UserPromptSubmit"
+      ],
+      "when": [
+        "\\bproduct[- ]forge\\b",
+        "\\bphone[- ]controller\\b",
+        "\\bcontroller app\\b",
+        "menno420/product-forge"
+      ],
+      "docs": [
+        "docs/repos/product-forge/README.md"
+      ],
+      "says": "You named product-forge / the phone-controller app. Read docs/repos/product-forge/README.md BEFORE attaching — it carries the app's slice state, the R2 graduation plan, and the signing-keystore edge (the one sharp edge of the graduation). Paired with the `repo-product-forge` tool route so a Bash or Grep carrying the name cannot spend this route's once-per-session budget before your message does."
+    },
+    {
+      "id": "repo-superbot-next",
+      "tools": [
+        "Bash",
+        "WebFetch",
+        "Read",
+        "Glob",
+        "Grep"
+      ],
+      "when": [
+        "\\bsuperbot[- ]next\\b",
+        "\\bsuperbot 2\\.0\\b",
+        "menno420/superbot-next"
+      ],
+      "docs": [
+        "docs/repos/superbot-next/README.md"
+      ],
+      "says": "Layer 2 entry point — read it BEFORE touching the repo. superbot-next is the complete-parked bot rebuild: 533/533 golden parity green, but parity is NOT porting (capture-world literals; 60/66 help panels button-less — the 2026-08-05 live audit). Two competing plans are on record (cutover ladder vs server-first rebuild) and the entry point states that fork. Traps: substrate-gate is NOT required there and reds on a pre-existing break; the closeout's 'read-only 2026-07-22' claim is false at face value; control/ deletion is owner-sequenced (D6)."
+    },
+    {
+      "id": "repo-superbot-next-prompt",
+      "tools": [
+        "UserPromptSubmit"
+      ],
+      "when": [
+        "\\bsuperbot[- ]next\\b",
+        "\\bsuperbot 2\\.0\\b",
+        "\\bthe old rebuild\\b",
+        "menno420/superbot-next"
+      ],
+      "docs": [
+        "docs/repos/superbot-next/README.md"
+      ],
+      "says": "You named superbot-next (the bot rebuild). Read docs/repos/superbot-next/README.md BEFORE touching it — golden-parity green must not be read as ported (capture-literal caveat), two competing direction plans are on record, and the gate/closeout traps live there. Paired with the `repo-superbot-next` tool route so a Bash or Grep carrying the name cannot spend this route's once-per-session budget before your message does."
+    },
+    {
+      "id": "repo-substrate-kit",
+      "tools": [
+        "Bash",
+        "WebFetch",
+        "Read",
+        "Glob",
+        "Grep"
+      ],
+      "when": [
+        "\\bsubstrate[- ]kit\\b(?![- ]app)",
+        "menno420/substrate-kit(?![\\w-])"
+      ],
+      "docs": [
+        "docs/repos/substrate-kit/README.md"
+      ],
+      "says": "Layer 2 entry point — read it BEFORE working the kit. The kit's next worklist (22 rows) lives in fleet-manager's findings, NOT in the kit's own tree; releases go ONLY via workflow_dispatch; dist/bootstrap.py is GENERATED from src/engine (never edit the dist); docs/adopters.md is GENERATED and its scan roster misses sim-lab and superbot-idle. The similarly named Substrate-kit-app is a frozen dashboard experiment, not the kit."
+    },
+    {
+      "id": "repo-substrate-kit-prompt",
+      "tools": [
+        "UserPromptSubmit"
+      ],
+      "when": [
+        "\\bsubstrate[- ]kit\\b(?![- ]app)",
+        "\\bkit release\\b",
+        "menno420/substrate-kit(?![\\w-])"
+      ],
+      "docs": [
+        "docs/repos/substrate-kit/README.md"
+      ],
+      "says": "You named substrate-kit. Read docs/repos/substrate-kit/README.md BEFORE working it — the 22-row v1.21.0 follow-up worklist lives on the fleet-manager side and is unreachable from the kit's own tree; the release, generated-file and registry traps are in the entry point. Paired with the `repo-substrate-kit` tool route so a Bash or Grep carrying the name cannot spend this route's once-per-session budget before your message does."
+    },
+    {
+      "id": "repo-venture-lab",
+      "tools": [
+        "Bash",
+        "WebFetch",
+        "Read",
+        "Glob",
+        "Grep"
+      ],
+      "when": [
+        "\\bventure[- ]lab\\b",
+        "\\bstripe webhook test kit\\b",
+        "\\bnight kiln\\b",
+        "menno420/venture-lab"
+      ],
+      "docs": [
+        "docs/repos/venture-lab/README.md"
+      ],
+      "says": "Layer 2 entry point — read it BEFORE acting on anything in venture-lab. The governing fact: OD-11 ('let it sit', 2026-07-26) SUPERSEDES the repo's own top closeout threads — the T+14 kill-clock call and the publish wave read as live in the repo and are not. Do not action delist/publish from repo docs alone. Hard rails: no spend, no account creation, no publishing without explicit owner action."
+    },
+    {
+      "id": "repo-venture-lab-prompt",
+      "tools": [
+        "UserPromptSubmit"
+      ],
+      "when": [
+        "\\bventure[- ]lab\\b",
+        "\\bstripe webhook test kit\\b",
+        "\\bnight kiln\\b",
+        "menno420/venture-lab"
+      ],
+      "docs": [
+        "docs/repos/venture-lab/README.md"
+      ],
+      "says": "You named venture-lab (or one of its products). Read docs/repos/venture-lab/README.md BEFORE acting — OD-11 supersedes the repo's own kill-clock/publish threads, and the entry point carries what is actually live (1 SKU), what waits (19 SKUs, 12 books), and the hard rails. Paired with the `repo-venture-lab` tool route so a Bash or Grep carrying the name cannot spend this route's once-per-session budget before your message does."
+    },
+    {
+      "id": "estate-superbot-world",
+      "tools": [
+        "Bash",
+        "WebFetch",
+        "Read",
+        "Glob",
+        "Grep"
+      ],
+      "when": [
+        "\\bsuperbot[- ](games|idle|mineverse)\\b",
+        "\\bmineverse\\b",
+        "\\bsuperbot world\\b"
+      ],
+      "docs": [
+        "docs/ESTATE.md"
+      ],
+      "says": "You touched one of the SuperBot-World satellites (superbot-games · superbot-idle · superbot-mineverse) — all complete-parked, no Layer-2 folder yet. Their rows in docs/ESTATE.md carry the load-bearing facts: mineverse is OFF Railway since 2026-08-20/21 and its own go-live checklist is moot (and its coordinator baton tells you to delete a trigger — [D-0015] forbids that); games' kit hop is owner-paced ('not yet'); idle's plugin is pinned in superbot-next's lockfile and its kit version is invisible to the adopter registry. mineverse's closeout is the family MASTER."
+    },
+    {
+      "id": "estate-superbot-world-prompt",
+      "tools": [
+        "UserPromptSubmit"
+      ],
+      "when": [
+        "\\bsuperbot[- ](games|idle|mineverse)\\b",
+        "\\bmineverse\\b",
+        "\\bsuperbot world\\b"
+      ],
+      "docs": [
+        "docs/ESTATE.md"
+      ],
+      "says": "You named a SuperBot-World satellite. Read its row in docs/ESTATE.md first — the family is complete-parked, every continuation is owner-gated, and the mineverse row carries two booby-trap warnings (moot go-live docs; a [D-0015]-violating trigger baton). Paired with the `estate-superbot-world` tool route so a Bash or Grep carrying a name cannot spend this route's once-per-session budget before your message does."
+    },
+    {
+      "id": "estate-codetools",
+      "tools": [
+        "Bash",
+        "WebFetch",
+        "Read",
+        "Glob",
+        "Grep"
+      ],
+      "when": [
+        "\\bcodetool[- ]lab\\b",
+        "\\bmdverify\\b",
+        "\\benvdrift\\b",
+        "\\bcfgdiff\\b"
+      ],
+      "docs": [
+        "docs/ESTATE.md"
+      ],
+      "says": "You touched the codetool labs (mdverify / envdrift / cfgdiff — repo names codetool-lab-*). Their docs/ESTATE.md rows carry the R3 release mechanics that differ per repo and live only satellite-side: opus4.8 already released (never archive while install URLs pin it); sonnet5's release tag is v0.1.1@0b1eb60 — v0.1.0 predates release.yml and fires NOTHING; fable5 has NO release workflow at all (API-created Releases needed). Their in-repo 'agents policy-blocked on tags' notes are stale seat walls — the direct-PAT path works."
+    },
+    {
+      "id": "estate-codetools-prompt",
+      "tools": [
+        "UserPromptSubmit"
+      ],
+      "when": [
+        "\\bcodetool[- ]lab\\b",
+        "\\bmdverify\\b",
+        "\\benvdrift\\b",
+        "\\bcfgdiff\\b"
+      ],
+      "docs": [
+        "docs/ESTATE.md"
+      ],
+      "says": "You named a codetool lab or its product (mdverify / envdrift / cfgdiff). Read the docs/ESTATE.md rows first — the per-repo R3 release traps (which tag, which SHA, which repo has no release workflow) are there, and the labs' own tag-push walls are stale. Paired with the `estate-codetools` tool route."
+    },
+    {
+      "id": "estate-shiftlife",
+      "tools": [
+        "Bash",
+        "WebFetch",
+        "Read",
+        "Glob",
+        "Grep"
+      ],
+      "when": [
+        "\\bshiftlife\\b",
+        "menno420/shiftlife"
+      ],
+      "docs": [
+        "docs/ESTATE.md"
+      ],
+      "says": "You touched shiftlife. It is PAUSED by owner word (OD-15, 2026-08-10: not active — do not pick it up on the old D2 pointer). Its docs/ESTATE.md row carries the stop state: free core 7/8 with reminders DELIVERY unbuilt, a standing apps/api code-vs-live deploy gap, and the open owner asks (OQ-SHIFTLIFE-PHASE0, OQ-RAILWAY-SHIFTLIFE-SCOPE). Its own docs/current-state.md + docs/plan-conformance.md are the repo-side truth; PRODUCT.md is binding product law there."
+    },
+    {
+      "id": "estate-shiftlife-prompt",
+      "tools": [
+        "UserPromptSubmit"
+      ],
+      "when": [
+        "\\bshiftlife\\b",
+        "\\bshift calendar\\b",
+        "menno420/shiftlife"
+      ],
+      "docs": [
+        "docs/ESTATE.md"
+      ],
+      "says": "You named shiftlife. It is paused by OD-15 (not active); read its docs/ESTATE.md row before doing anything — the stop state, the deploy gap, and the owner asks that would resume it are there. Paired with the `estate-shiftlife` tool route."
+    },
+    {
+      "id": "estate-gba-pokemon",
+      "tools": [
+        "Bash",
+        "WebFetch",
+        "Read",
+        "Glob",
+        "Grep"
+      ],
+      "when": [
+        "\\bgba[- ]homebrew\\b",
+        "\\bpokemon[- ]mod[- ]lab\\b",
+        "\\blumen[- ]drift\\b"
+      ],
+      "docs": [
+        "docs/ESTATE.md"
+      ],
+      "says": "You touched the game-lab pair (gba-homebrew / pokemon-mod-lab). Their docs/ESTATE.md rows carry the traps: gba's required 'NDS ROM build' check reds on every cold-cache PR (BlocksDS 1.21.1 pin unrecoverable; the 1.22.3 migration branch is retained, its PR closed per [D-0017]) — do not 'fix' the ruleset; pml is PRIVATE with a source-only rail (R22) and one owner letter (OQ-PML-EMERALD-LETTER) unblocks it. Both repos' best cold-start doc is their own docs/PROJECT-CLOSEOUT.md, better than their READMEs."
+    },
+    {
+      "id": "estate-gba-pokemon-prompt",
+      "tools": [
+        "UserPromptSubmit"
+      ],
+      "when": [
+        "\\bgba[- ]homebrew\\b",
+        "\\bpokemon[- ]mod[- ]lab\\b",
+        "\\bgba (project|game|games|rom|roms)\\b",
+        "\\bpokemon (mod|hack)\\b",
+        "\\blumen[- ]drift\\b"
+      ],
+      "docs": [
+        "docs/ESTATE.md"
+      ],
+      "says": "You named the GBA project or the pokemon mod lab. Read their docs/ESTATE.md rows first — the gba cold-cache CI trap and the pml private/source-only rails are there, and both repos' real entry point is their own PROJECT-CLOSEOUT.md. Paired with the `estate-gba-pokemon` tool route."
+    },
+    {
+      "id": "estate-research",
+      "tools": [
+        "Bash",
+        "WebFetch",
+        "Read",
+        "Glob",
+        "Grep"
+      ],
+      "when": [
+        "\\bidea[- ]engine\\b",
+        "\\bsim[- ]lab\\b",
+        "\\btrading[- ]strategy\\b",
+        "\\bcurious[- ]research\\b"
+      ],
+      "docs": [
+        "docs/ESTATE.md"
+      ],
+      "says": "You touched the research family (idea-engine · sim-lab · trading-strategy · curious-research). Their docs/ESTATE.md rows carry the routing facts: the Ideas Lab pair is on-demand (OD-4/OD-10), at rest, resume recipe in idea-engine's PROJECT-CLOSEOUT.md §3 (HANDOFF.md is the older layer); 'sim-lab' can now also mean the 4-gate METHOD run inside a target repo, not commits to the sim-lab repo; trading-strategy is closed (0 promoted, holdout SPENT) with only the archive decision open; curious-research is the parked gift notebook."
+    },
+    {
+      "id": "estate-research-prompt",
+      "tools": [
+        "UserPromptSubmit"
+      ],
+      "when": [
+        "\\bidea[- ]engine\\b",
+        "\\bsim[- ]lab\\b",
+        "\\btrading[- ]strategy\\b",
+        "\\bcurious[- ]research\\b",
+        "\\bideas lab\\b"
+      ],
+      "docs": [
+        "docs/ESTATE.md"
+      ],
+      "says": "You named a research-family repo (or the Ideas Lab). Read its docs/ESTATE.md row first — the pair's on-demand doctrine, the resume recipe, the sim-lab vocabulary drift, and trading-strategy's closed verdict are there. Paired with the `estate-research` tool route."
+    },
+    {
+      "id": "estate-kit-app",
+      "tools": [
+        "Bash",
+        "WebFetch",
+        "Read",
+        "Glob",
+        "Grep"
+      ],
+      "when": [
+        "\\bsubstrate[- ]kit[- ]app\\b",
+        "\\bkit dashboard\\b"
+      ],
+      "docs": [
+        "docs/ESTATE.md"
+      ],
+      "says": "You touched Substrate-kit-app. It is NOT the kit: a frozen one-shot Gemini (AI Studio) dashboard experiment committed onto a partial v1.20.2 kit snapshot — its README, CONSTITUTION and docs tree are substrate-kit's VERBATIM, so every in-repo surface misidentifies it, and its copied CI reds by construction. The only honest self-descriptions are metadata.json and package.json. The kit itself is menno420/substrate-kit; its entry point is docs/repos/substrate-kit/README.md."
+    },
+    {
+      "id": "estate-kit-app-prompt",
+      "tools": [
+        "UserPromptSubmit"
+      ],
+      "when": [
+        "\\bsubstrate[- ]kit[- ]app\\b",
+        "\\bkit dashboard\\b"
+      ],
+      "docs": [
+        "docs/ESTATE.md"
+      ],
+      "says": "You named Substrate-kit-app (or the kit dashboard). It is NOT the kit — a frozen Gemini dashboard experiment whose in-repo docs are the kit's verbatim, so everything inside it misidentifies itself. Its docs/ESTATE.md row is the honest description; the real kit's entry point is docs/repos/substrate-kit/README.md. Paired with the `estate-kit-app` tool route."
     }
   ]
 }

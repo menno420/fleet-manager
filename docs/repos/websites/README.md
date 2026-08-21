@@ -68,6 +68,13 @@ and the owner-gate throttle (`app/owner.py`, 10/60 s) leaks across test
 files run back-to-back — the envhub-family files carry the autouse
 `reset_rate_limits` fixture for exactly that.
 
+**One satellite-side staleness to carry** (`MEASURED` 2026-08-21): websites'
+own `docs/current-state.md` — a declared readpath doc there — still asserts
+the pre-cutover world (review live on Railway, scheduled bake, kit v1.20.1).
+A session booting in websites (boot-triad case two, where this entry never
+loads) or trusting that ledger gets the dead URL; the tree and this entry are
+right, and a restamp there is a next-touch item.
+
 ### Thread: open follow-ups — **PAUSED (owner-gated or next-touch)**
 
 - `/queue` (150 KB, the other faceted page) is left public deliberately —

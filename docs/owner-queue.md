@@ -37,6 +37,33 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 
 ## Current owner decisions — verified from fleet-manager on 2026-08-10
 
+- **`OQ-GBA-NEXT-PICKS` — 🎮 gba-homebrew: the letter pick + playtest verdicts
+  that would resume the game lab (added 2026-08-21, fleet review fm #878).**
+  **WHAT:** gba's own closeout (`docs/PROJECT-CLOSEOUT.md` § c–d) leaves two
+  genuinely owner-only items that were in no live `OQ-` entry until now: the
+  **A1/A3 next-game letter pick** (the Tinderhand / Starloom pre-plans are
+  complete slice ladders, ready to execute on your letter) and the **four
+  playtest verdicts** on shipped games. **WHY-IT-MATTERS:** the repo is one
+  letter away from having real agent-executable work; nothing multi-session
+  moves without it. **NOTE for the executing session:** the required
+  `NDS ROM build` check reds on cold-cache PRs (BlocksDS 1.21.1 pin
+  unrecoverable; migration branch `claude/nds-toolchain-1-22-3` retained) —
+  fixing or re-scoping that is the real first technical step of any resume.
+  **HOW:** letters in the hub chat. **VERIFIED-NEEDED:** owner-only —
+  product/creative picks.
+
+- **`OQ-PML-EMERALD-LETTER` — 🎮 pokemon-mod-lab: the B/A/Q letter — the one
+  ask that unblocks the whole repo (added 2026-08-21, fleet review fm #878).**
+  **WHAT:** pml's closeout (§ c, Priority 1) gates everything multi-session on
+  one letter: **B** = keep deepening the QoL+ preset · **A** = start the
+  Emerald Hard slices · **Q** = playtest first (the Q1–Q3 feel-patch verdicts
+  are the secondary ask). *"Nothing multi-session moves until the owner
+  picks."* This ask existed only inside the private repo's closeout — a
+  session answering "what waits on the owner" from this queue alone would
+  have missed it. **HOW:** one letter in the hub chat. **VERIFIED-NEEDED:**
+  owner-only — product direction. *(The kit hop for pml stays owner-paced
+  per `OQ-KIT-V1-21-RELEASE`.)*
+
 - **`OQ-BOT-DB-BTD6-PRUNE` — ⚑ the bot DB is 97.5 % accumulated BTD6
   ingestion history (last activity 27 min before the probe) — prune
   approval + the loop question (2026-08-20).**
@@ -233,47 +260,28 @@ access — the graduation session must flag it then.)*
   and [groups/answer/2464926](https://support.google.com/groups/answer/2464926),
   both fetched 2026-08-05.
 
-- **`OQ-PLAY-APP-ID` — (VENUE: five minutes, one permanent decision) Choose the application ID — it can never be changed (2026-08-05).**
-  WHAT: pick the app's internal identifier. **Recommended: `com.menno420.slingyspider`.** Once
-  published it **can never be changed or reused**: Google treats a changed ID as an
-  entirely different app, and the old one is burned forever. It is invisible to
-  players — it does **not** have to match the store name.
-  WHERE: set it as repository variables in `spider-swing` → Settings → Secrets and
-  variables → Actions → Variables: `RELEASE_PACKAGE_ID` (the identifier) and
-  `RELEASE_APP_NAME` (the store-visible label, **max 30 characters**).
-  HOW: rules are at least two dot-separated segments, each starting with a letter,
-  only letters/digits/underscore. The repository currently ships a deliberate
-  placeholder and the release build **refuses to run** until you set both — that
-  refusal is the design, not a bug.
-  NAME IS DECIDED: **Slingy Spider** (2026-08-05), so the ID no longer waits on anything.
-  NOTE: newer Play Console asks for the package name on the **Create app** form, not at
-  first upload — so it is set the moment the app is created, alongside the equally
-  permanent free-vs-paid choice.
-  WHY IT IS YOURS: permanent and irreversible, so no agent should choose it.
-  SOURCE: [developer.android.com/build/configure-app-module](https://developer.android.com/build/configure-app-module),
-  fetched 2026-08-05.
+- **`OQ-PLAY-APP-ID` — ✅ RESOLVED 2026-08-05 (recorded here 2026-08-21, fleet
+  review fm #878 — this entry sat open for 16 days after you completed it).**
+  The ID is **`com.menno420.slingyspider`** — chosen, set, and burned in: a
+  signed AAB (version code 64) built by `android-release.yml` was published by
+  you under that ID on Play's **internal testing** track on 2026-08-05
+  (spider-swing `docs/current-state.md` § "What measurement has settled").
+  Internal testing needs no listing and buys **zero** progress on the
+  12-tester clock — the open Play asks are now `OQ-PLAY-LISTING` (critical
+  path) and `OQ-PLAY-PRIVACY-POLICY`, then the closed test. *(Original body —
+  ID rules, Console form notes — removed per amended OD-3: the decision it
+  guided is made and irreversible; sources remain in
+  [`findings/2026-08-05-google-play-submission-requirements.md`](findings/2026-08-05-google-play-submission-requirements.md).)*
 
-- **`OQ-PLAY-UPLOAD-KEY` — (VENUE: 15 minutes at a computer) Generate the upload key and store it as secrets (2026-08-05).**
-  WHAT: create the keystore that signs bundles for upload. Two keys exist and they are
-  **not** the same thing: **you** hold the *upload key*; **Google** holds the *app
-  signing key* that signs what players install. New apps are enrolled automatically and
-  cannot opt out.
-  REASSURANCE, because the internet is alarming about this: **losing the upload key is
-  recoverable.** Play Console → Protected with Play → Play Store protection → Manage
-  Play app signing → request a reset. It is not the "lose it and the app dies forever"
-  key — that one is Google's, and Google keeps it.
-  HOW: one command, `keytool -genkeypair -v -keystore upload-keystore.jks -alias upload
-  -keyalg RSA -keysize 2048 -validity 10000`. Then store base64 of the file as the
-  secret `RELEASE_KEYSTORE_BASE64`, plus `RELEASE_KEYSTORE_USER` and
-  `RELEASE_KEYSTORE_PASSWORD`. Back the file up somewhere that is not this repository
-  and not only your laptop.
-  NOTE: RSA ≥2048 is Google's stated minimum; the `-validity 10000` figure is
-  conventional and **not** stated on Google's signing page — it is not a requirement.
-  WHY IT IS YOURS: it is a credential. The repository refuses keystores by design, and
-  until the secrets exist CI builds an **unsigned** bundle that Play will reject —
-  which is deliberate and clearly labelled.
-  SOURCE: [answer/9842756](https://support.google.com/googleplay/android-developer/answer/9842756),
-  fetched 2026-08-05.
+- **`OQ-PLAY-UPLOAD-KEY` — ✅ RESOLVED 2026-08-05 (recorded here 2026-08-21,
+  fleet review fm #878).** The upload keystore exists and works: the vc64
+  bundle that reached the internal track was **signed** by
+  `android-release.yml`, which refuses to run without the keystore secrets —
+  so the secrets are set (same ledger evidence as `OQ-PLAY-APP-ID`).
+  Still yours, standing: keep the keystore backed up somewhere that is not
+  the repository (loss is recoverable via Play app signing reset, but the
+  reset costs days). *(Original how-to body removed per amended OD-3 — the
+  key exists; keytool instructions for a key that exists are noise.)*
 
 - **`OQ-PLAY-PRIVACY-POLICY` — (VENUE: 20 minutes) Publish a privacy policy URL — required even though the game collects nothing (2026-08-05).**
   WHAT: Play requires a **live, public privacy policy URL for every app**, and the
@@ -672,19 +680,36 @@ fleet-wide merges/ready-flips live in
   https://github.com/menno420/pokemon-mod-lab/settings/rules → main ruleset → Require status
   checks → add context `ROM builds` (keep substrate-gate). Closes a live gate hole (a red ROM
   build can merge today). Pair with the protect-main item below.
+  **⚠ CONFLICTING EVIDENCE, unresolved (2026-08-21, fleet review fm #878):**
+  pml's own 2026-07-21 records claim protection is already live (`rom-builds` +
+  `substrate-gate` required; "direct push to main is ruleset-blocked", closeout § e),
+  but the API refuses to read it — `GET /repos/menno420/pokemon-mod-lab/rules/branches/main`
+  and `/branches/main/protection` both return **403 "Upgrade to GitHub Pro or make this
+  repository public to enable this feature"** — branch protection/rulesets are
+  plan-gated on free-plan **private** repos. If that gate applies, the repo-side claim
+  cannot currently be true. One owner look at the Settings UI settles it; neither
+  record was rewritten on inference.
 - **`OQ-POKEMON-PROTECT-MAIN` — protect pokemon-mod-lab `main`** (the fleet's only unprotected
   default branch). Settings → Rules → Rulesets → new ruleset on `main` (match what websites has).
   ↩️ reversible. Do at the same sitting as the ROM required-check.
+  **⚠ Same plan-gate caveat as the entry above (2026-08-21):** the API says the feature
+  needs Pro or a public repo, so this may be un-doable as written while pml stays
+  private on the current plan — the UI check that settles the entry above settles
+  this one too.
 - **`OQ-NEXT-MERGE-QUEUE` — superbot-next: enable merge queue OR drop require-up-to-date** for
   `docs/**` + `control/**`. https://github.com/menno420/superbot-next/settings/rules → main
   ruleset. Kills the update-branch dance on the 6-check ruleset. Not-blocking; chronic time sink.
 - **`OQ-KIT-P10-REQUIRED-CHECKS` — substrate-kit: swap required checks to `kit-quality`,
   up-to-date OFF.** Settings → Rules → main ruleset: remove "Kit test suite" + "Cold-adoption
   smoke", add `kit-quality`; set "Require branches up to date" OFF. Retires the legacy alias jobs.
-- **`OQ-GBA-ROM-RULESET` — gba-homebrew: make `ROM builds` a required check via a RULESET on
-  `main`** (rulesets are token-readable; classic protection reads 403 for GITHUB_TOKEN, so the
-  enabler can't see the context otherwise). Settings → Rules → Rulesets → target `main` → require
-  `ROM builds`. Lets gba PRs self-land.
+- **`OQ-GBA-ROM-RULESET` — ✅ RESOLVED (overtaken; verified live 2026-08-21, fleet review
+  fm #878).** The ruleset exists and is **active**: `main-branch-protection` (id 18745286)
+  on gba `main`, requiring **two** contexts — `NDS ROM build` and `ROM builds`
+  (`GET /repos/menno420/gba-homebrew/rules/branches/main`, direct-PAT). Done work; no
+  click needed. **The residue is a trap, not an ask:** the required `NDS ROM build`
+  check reds on every cold-cache PR (BlocksDS 1.21.1 pin unrecoverable) — see
+  `OQ-GBA-NEXT-PICKS` § NOTE. Do not "fix" that by touching the ruleset without the
+  owner's word.
 ### (C) Product / external (cross-repo, owner-only — real accounts/keys)
 
 - **`OQ-CL-LOOKS-PASS` — couch-legend: your ChatGPT-Work looks pass, the next step in your own sequence.** OPEN
@@ -706,9 +731,12 @@ fleet-wide merges/ready-flips live in
   (`STRIPE_SECRET_KEY`) + `whsec_…` (`STRIPE_WEBHOOK_SECRET`) into
   `candidates/membership-kit/server/.env` (never committed). Unblocks the only unverified leg of
   the payment path for all 3 products.
-- **`OQ-VENTURE-PUBLISH-CLICKS` — venture-lab: publish 3 products** (membership-kit $49 ·
-  template-packs $19 PWYW · stripe-webhook-test-kit $29) on gumroad.com; per-product scripts in
-  `docs/launch/**/owner-actions.md`. Unblocks the first-revenue path.
+- **`OQ-VENTURE-PUBLISH-CLICKS` — venture-lab: publish products on gumroad.com** — per-product
+  scripts in `docs/launch/**/owner-actions.md`. **Two corrections (2026-08-21, fleet review
+  fm #878):** stripe-webhook-test-kit $29 — listed here among "3 to publish" — went **LIVE
+  2026-07-12** and has been the estate's one live SKU ever since (venture-lab
+  `docs/current-state.md`); and the whole publish wave is **suspended by OD-11**
+  ("let it sit", 2026-07-26) — this entry is inert until you lift that, not a pending click.
 - **`OQ-VENTURE-GOTCHA-ARTICLE` — venture-lab: publish the Stripe-webhook gotcha article**
   (`docs/launch/stripe-webhook-test-kit/gotcha-article.md`) on Dev.to/Hashnode. Starts the 14-day
   validation clock candidates #4/#5 wait on.
@@ -732,10 +760,10 @@ fleet-wide merges/ready-flips live in
   token; only worth it when that button matters.
   Paste the `github_pat_…` in the hub chat; a session wires it into Railway (`variableUpsert`
   on control-plane) and redeploys.
-- **`OQ-GBA-LUMEN-RELEASE` — gba-homebrew: create the Lumen Drift GitHub Release.**
-  https://github.com/menno420/gba-homebrew/releases/new → tag `lumen-drift-v1.3` (target main) →
-  attach `dist/lumen-drift.gba` (sha256 in `docs/PLATFORM-LIMITS`-noted value) → notes →
-  `docs/PLAYING.md`. Lane tag-push saw 403 on the proxied path (the direct-token path or a `release.yml` dispatch can land it). Gives a downloadable player artifact.
+- **`OQ-GBA-LUMEN-RELEASE` — ✅ RESOLVED (overtaken; verified live 2026-08-21, fleet review
+  fm #878).** The Release exists: tag `lumen-drift-v1.3`, **published 2026-07-18T20:07Z**
+  (`GET /repos/menno420/gba-homebrew/releases`, direct-PAT; gba's own closeout § b records
+  the same). This entry asked for work that had been done for a month.
 
 ### (D) Standing decisions
 

@@ -57,7 +57,8 @@ inside one is evidence *about* its date, to verify like any other claim.
 | [`decisions.md`](decisions.md) | TASK | The `[D-NNNN]` decision ledger (append-only). |
 | [`CAPABILITIES.md`](CAPABILITIES.md) | TASK | The verified capability/wall ledger + THE DISCOVERY RULE. Append-only below the seed fence. |
 | [`SKILLS-local.md`](SKILLS-local.md) · [`SKILLS.md`](SKILLS.md) | TASK | The 27-skill roster and the ⚠ re-apply table for kit upgrades. |
-| [`repos/`](repos/README.md) | TASK | Layer 2 — per-repo entry points and handoffs (spider-swing built; rest on demand). |
+| [`ESTATE.md`](ESTATE.md) | TASK | The estate index — every repository the account holds, one line each: what it is, state, aliases, canonical entry, Layer-2 link. The "which repo owns this?" router. |
+| [`repos/`](repos/README.md) | TASK | Layer 2 — per-repo entry points and handoffs (coverage table inside; unbuilt repos are on demand, each with an ESTATE.md row). |
 | [`providers/`](providers/README.md) | TASK | Per-provider capability references (Claude, ChatGPT, Gemini, Grok, …). |
 | [`conventions/`](conventions/README.md) | TASK | Working conventions: adversarial review, Vertex-first Gemini routing, outbox rollover. |
 | [`planning/`](planning/README.md) | TASK | Plans, the program, the roadmap, this map's design. Index inside distinguishes live from superseded. |
