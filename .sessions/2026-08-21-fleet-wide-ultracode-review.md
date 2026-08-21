@@ -1,6 +1,6 @@
 # 2026-08-21 — Fleet-wide estate review → Fleet Manager improvement
 
-> **Status:** `in-progress` — branch `claude/fleet-wide-ultracode-review-q2sj7n`,
+> **Status:** `complete` — branch `claude/fleet-wide-ultracode-review-q2sj7n`,
 > fm #878. Owner-directed fleet-wide review: every accessible repository read
 > from source, the estate map adversarially verified, and the justified
 > fleet-manager routing improvements implemented in this PR. Satellite repos
@@ -129,7 +129,30 @@ Layer-2 handoff: docs/repos/{couch-legend,superbot,websites,estate-backups}/READ
 Layer-2 handoff: docs/ESTATE.md — baseline 2026-08-21 for all repos without folders
 ```
 
+## Codex review trail (exact heads)
+
+- Round 1 on `f7e56fd`: 7 findings (5 P2 · 2 P3) — all [conceded], fixed in
+  `2705cc6` (checker row↔folder identity + route-pair enforcement; hook
+  own-doc suppression for read routes; envdrift tool-route lookahead;
+  counts/quotes trued).
+- Round 2 on `2705cc6`: 6 new findings — all [conceded], fixed in `ef1e4ba`
+  (prompt-half lookahead; pair-identity + declared-row-count + missing-table
+  checks; plugin-hello + proxybench routed). Three further inline comments on
+  that head were round-1 items re-anchored by GitHub — already fixed.
+- Round 3 on `ef1e4ba`: 2 new findings (both P2) — all [conceded], fixed in
+  `7f7c7a9` (spaced-satellite lookahead so "superbot idle" no longer also
+  fires the base superbot route — verified by payload; per-half route-naming
+  in the checker, selftest 13/13). **The session-close two-re-review cap is
+  reached here**: the round-3 fixes land without a fourth round, as the cap
+  prescribes, with this trail as the named record. Reviewed SHA `ef1e4ba`;
+  after it: `7f7c7a9` (the round-3 fixes) and this flip commit (badge +
+  close-out text only).
+
+Score across rounds: 15 findings, 15 [conceded] and fixed, 0 [survived]
+disputes — every finding was verified against source before acting, none was
+refuted.
+
 ## PR
 
-fm #878 — born-red held until this card flips; exact-head Codex review before
-the flip per the session-close loop.
+fm #878 — born-red held until this card flipped; landed on green after the
+review trail above.
