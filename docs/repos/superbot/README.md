@@ -28,8 +28,11 @@ produced a **SKIPPED** worker deployment, the bot did not restart. So
 workflow/runbook-only maintenance is now rebuild-safe; a push touching
 `disbot/**` or a root build input still restarts the bot. Schedule
 retirements remain the recurring work class (they burn Actions runs, not
-the bot). The successor codebase is `superbot-next`
-([paired Tier-1 folder](../superbot-next/README.md)).
+the bot). A clean game-community successor is now the planned direction; `superbot-next`
+is its architecture donor rather than the deployment target
+([paired Tier-1 folder](../superbot-next/README.md)). The authoritative
+pre-repository plan is
+[`docs/planning/2026-08-21-game-community-bot/`](../../planning/2026-08-21-game-community-bot/README.md).
 
 Three facts a fresh session needs that the repo will not volunteer
 (`MEASURED` 2026-08-21, fm #878 review):
@@ -51,6 +54,20 @@ Three facts a fresh session needs that the repo will not volunteer
   which are dated venue records, 11 of them deliberately allowlisted.
 
 ## Threads
+
+### Thread: game-community successor plan — **written, owner confirmation gates remain** (2026-08-21)
+
+The owner asked for a basic game-testing/general game-server bot that keeps the
+best of both bots and gives AI more freedom from the start. The resulting
+[authoritative pre-repository plan](../../planning/2026-08-21-game-community-bot/README.md)
+chooses a clean multi-game repository: this live bot is the behavior/UX oracle,
+`superbot-next` is the kernel-pattern donor, and neither existing bot is changed
+or used as the development deployment. The server/playtest core comes first;
+casino/economy/BTD6 and unrelated content do not transfer.
+
+Next step: confirm the new repository name and create the isolated canonical
+home (plan GCB-1/Phase 0). Until then, this thread is only a cross-repo handoff;
+the plan owns the pre-build decision and this file owns no product architecture.
 
 ### Thread: scheduled-workflow retirement — **landed through #2450**, 2026-08-20
 
