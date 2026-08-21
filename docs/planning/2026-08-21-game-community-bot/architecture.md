@@ -67,7 +67,7 @@ ready. A partially registered feature is a startup failure, not a dead button.
 | Registry | Owns | Derived evidence |
 |---|---|---|
 | Feature manifest | feature ID, dependencies, config schema, routes, operations, events, stores | boot profile, config docs, dependency graph |
-| Route registry | command/component/modal route, renderer, authority, feature, destination rules | Home/help, Discord command sync, reachability graph |
+| Route registry | command/component/modal route, renderer, authority, feature, destination rules, featured rank, component cost | Curated Home/help, Discord command sync, reachability and pagination graph |
 | Setup registry | inspect/plan/apply/verify/repair sections and resource ownership | setup diff, rerun/repair tests |
 | Operation registry | input/result schema, risk, permission, idempotency, preview/verify/compensation | deterministic UI actions and AI tools |
 | Event registry | event schema, producer, consumer, retry/dead-letter policy | outbox dispatch and compatibility tests |
@@ -82,8 +82,11 @@ operation has tests, and every main journey reaches an observable effect.
 Every entry point follows one route:
 
 1. The adapter converts the Discord event, scheduled job, integration event,
-   or AI proposal into a typed request with actor, guild, channel, correlation
-   ID, and idempotency key.
+   or AI proposal into a typed request with actor or service principal, guild,
+   channel, correlation ID, and idempotency key. Non-interactive work uses a
+   purpose-limited delegation record containing its initiating actor, allowed
+   operation/destination, guild/game scope, expiry, and revocation state; it
+   never borrows ambient owner or bot authority.
 2. Central admission intersects Discord authority, bot role, guild feature
    profile, game assignment, channel policy, rate limit, and operation risk.
 3. A read request uses an application query/read model. A write request enters
@@ -113,6 +116,8 @@ Every side-effecting operation declares:
 - required caller scope and permitted destinations;
 - risk class and confirmation rule;
 - preview/diff support and irreversible effects;
+- resource IDs plus expected database versions/Discord-state fingerprints as
+  execution preconditions; drift invalidates the plan and requires re-preview;
 - idempotency identity and concurrency key;
 - execute and effect-verification behavior;
 - compensation or explicit “manual recovery only” instructions;
@@ -140,21 +145,23 @@ credentials.
 
 For each tool call, effective authority is the intersection of:
 
-`registered tool scope × caller authority × guild feature policy × game and
-channel scope × task profile × risk/confirmation policy × rate/spend limits`.
+`registered tool scope × caller/delegation authority × guild feature policy ×
+game and channel scope × task profile × risk/confirmation policy × rate/spend
+limits`.
 
-Every profile may narrow that result and none may widen it. Authorization is
-checked when planning and again immediately before execution. Confirmation is
-bound to the canonical plan hash, caller, guild, and expiry; changing arguments
-invalidates it.
+Every profile may narrow that result and none may widen it. Authorization and
+delegation validity are checked when planning and again immediately before
+execution. Confirmation is bound to the canonical plan hash, caller, guild,
+expiry, resource IDs, and expected versions/fingerprints; changed arguments or
+resource drift invalidates it and produces a fresh preview.
 
 ### Risk classes
 
 | Class | Examples | Default AI behavior |
 |---|---|---|
 | Read | inspect resources/config/builds/feedback/health/audit summaries | Execute if the caller may read the source; redact private fields |
-| Low/reversible | create personal reminder, tag/assign permitted feedback, enroll caller, prepare draft, post in pre-approved bot destination | May execute and explain; rate limited and audited |
-| Medium/structural | create/adopt channels or roles, change permissions, publish build announcement, create scheduled event, change cohort roles/config | Preview exact diff and require an authorized confirmation |
+| Low/reversible | create personal reminder, tag/assign permitted feedback, enroll caller, prepare draft, publish owner-approved template/content, or post free-form content only to a private review destination | May execute and explain; rate limited and audited |
+| Medium/structural or public | create/adopt channels or roles, change permissions, publish any model-authored free-form public content/build announcement, create scheduled event, change cohort roles/config | Preview exact diff/content and require an authorized confirmation |
 | High/destructive | delete resources, mass role changes, bans/kicks, rotate secrets, deploy, migrate/erase data, weaken AI policy | No general AI tool in MVP; use explicit deterministic owner workflow or refuse |
 
 Moderation recommendations may use AI, but consequential enforcement remains a
@@ -180,6 +187,12 @@ route → adapter, with OpenAI, Anthropic, and deterministic adapters initially.
 Add per-task timeouts, retry classification, circuit breakers, concurrency,
 token/cost budgets, daily/monthly guild rails, and an owner kill switch.
 Provider/model changes are configuration with audit, not domain code changes.
+No Discord-derived content reaches a non-deterministic provider until GCB-3
+records the provider data-flow decision: allowed source/data classes,
+staff/private exclusions, retention/training terms, guild/user disclosure and
+consent, regional/contract constraints where relevant, and deletion/export
+propagation tests. A task policy identifies each allowed source class; redaction
+cannot silently expand it.
 
 Structured outputs are schema validated. Prompts are versioned. Stored traces
 contain provider/model, task/tool versions, usage/cost, latency, result class,
@@ -221,7 +234,9 @@ The conceptual model begins small:
 Rows carry guild ownership and timestamps; mutable records use optimistic
 versioning. Discord resources are bound by stable guild/resource IDs, never by
 name alone. Domain repositories expose intentional methods rather than generic
-table access.
+table access. Guild lifecycle state includes active, removed/tombstoned,
+retention-hold, and purged; removal revokes service-principal grants, jobs,
+integrations, and AI work before any later retention/purge job can run.
 
 ## Configuration hierarchy
 
@@ -245,6 +260,9 @@ requirements fail startup.
   guild rule cannot lock the owner out.
 - Component/modal IDs are signed or server-resolved, short-lived where needed,
   and re-authorized on interaction.
+- Home/help renderers enforce Discord component/select-option limits at boot
+  and runtime; featured actions are curated and pagination/filter tests retain
+  the promised two-interaction reachability.
 - External content, attachments, Forum text, and tool results are untrusted;
   apply size/type limits, escaping, malware/media controls where relevant, and
   prompt-injection isolation.
