@@ -29,7 +29,7 @@
 - The owner rejected further feature work on the live bot because its
   architectural debt makes it the wrong improvement surface. The replacement
   direction is **server bot first, no game features**. Evidence:
-  [`2026-08-05-playtest-discord-and-superbot-value.md` §6](../../../findings/2026-08-05-playtest-discord-and-superbot-value.md)
+  [`2026-08-05-playtest-discord-and-superbot-value.md` §6](../../findings/2026-08-05-playtest-discord-and-superbot-value.md)
   and the live-audit purpose line.
 - `superbot` is the live production bot and is frozen; merges touching bot
   sources can restart production. Its server-management behavior is valuable,
