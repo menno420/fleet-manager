@@ -44,9 +44,10 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   § 8) refuted the "XP / server-logging" suspects: the 949 MB database is
   **three `btd6_*` tables (~925 MB)** — `btd6_source_snapshots` 668 MB /
   286,489 rows · `btd6_ingestion_runs` 135 MB / 289,944 rows · `btd6_facts`
-  122 MB — **averaging one run per ~26 s over the 2026-05-27→now span**
-  (count ÷ endpoints; steady-vs-burst unmeasured) and **live 27 min before
-  the sizing run**. All bot user data combined is
+  122 MB — **averaging one run per ~26 s over the 2026-05-27→08-20 span**
+  (count ÷ endpoints; steady-vs-burst unmeasured); **newest row stamped
+  27 min before the sizing run** (last observed activity). All bot user
+  data combined is
   ~10 MB. This history is the ~2 GB dumps, most of the DB's 831 MB resident
   RAM ($8.39/cycle), and the weekly backup's wire weight. **OPTIONS (pick per
   line):** **(P) prune history** — keep the most recent N days of

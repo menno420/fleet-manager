@@ -30,7 +30,10 @@ follow-up PR:
   evidence**: COUNT ÷ (max−min) is an average; min/max + count cannot
   distinguish steady ticking from bursts or backfill. Reworded in the
   audit § 8 addendum, the program § 7 row, and `OQ-BOT-DB-BTD6-PRUNE`.
-  What IS measured: the loop was live 27 minutes before the probe.
+  What IS measured: the newest row is stamped 27 minutes before the
+  probe — last observed activity, not liveness at probe time (#875 R1
+  caught "live NOW" repeating the same over-claim one level down;
+  [conceded], all four surfaces reworded to last-observed).
 
 ## previous-session review
 

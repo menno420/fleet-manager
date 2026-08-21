@@ -354,8 +354,10 @@ is three `btd6_*` ingestion tables**:
 | `ai_decision_audit` | 8.4 MB | | | | 21,201 | 2026-05-25 → 22:17Z |
 | *everything else combined* | ~2 MB | | | | | XP/server-log tables are **64–80 kB each** |
 
-The last snapshot landed **27 minutes before the sizing run** — the loop
-is live NOW; that much is measured. The cadence is a **derived average**:
+The newest snapshot is stamped **27 minutes before the sizing run** —
+the last observed ingestion event; liveness *at* probe time is not
+directly measured (an event then does not prove one now). The cadence is
+a **derived average**:
 289,944 rows over the ~86-day min→max span ≈ one per ~26 s **if steady**
 — count + endpoints cannot distinguish steady ticking from bursts or
 backfill (the timestamp interval distribution was not read; a
