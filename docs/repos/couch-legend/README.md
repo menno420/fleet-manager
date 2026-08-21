@@ -37,8 +37,10 @@ shell over this exact build, alternatives recorded).
 
 Where it stands: reconstruction faithful (no tuning changed), improvements
 additive and identity-preserving — portable save codes (export/import with
-validation), per-mood revelations (9 permanent lore lines, toast on first
-reach), itemized offline report, prestige preview (current → post-prestige
+validation), per-mood revelations (9 lore lines, toast on first reach —
+*meant* to be permanent, actually lost on Wake & Bake today; the defect and
+its `lifeHigh` fix path are in the life-story thread below), itemized
+offline report, prestige preview (current → post-prestige
 Clarity multiplier), tab affordability dots, keyboard hits + reduced-motion,
 PWA manifest/icons. `pnpm check` (typecheck + 62 tests + build) is CI and the
 local gate — one check, per the estate's one-check convention (OD-9), and
