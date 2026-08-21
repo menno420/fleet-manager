@@ -684,6 +684,21 @@ fleet-wide merges/ready-flips live in
   `ROM builds`. Lets gba PRs self-land.
 ### (C) Product / external (cross-repo, owner-only — real accounts/keys)
 
+- **`OQ-CL-LOOKS-PASS` — couch-legend: your ChatGPT-Work looks pass, the next step in your own sequence.** OPEN
+  (2026-08-21, the phase-2 session). WHAT: you said the order yourself — after the
+  planning/testing session *"I will fine-tune the looks with chat GPT work, but the next
+  claude session can work on improving the game as much as it sees fit"* — so the looks pass
+  is the step between the landed design/simulator work and the Claude implementation session
+  (stage schema + tuning adoption + arc-1 content; the checklist is couch-legend
+  `docs/sim/2026-08-20-life-story-balance.md` § 7). WHERE/HOW: the repo is public
+  (`menno420/couch-legend`, live at menno420.github.io/couch-legend); point ChatGPT Work at
+  it — `pnpm install && pnpm dev` runs it locally there — with `docs/DESIGN.md` § 9.7 as the
+  visual-plan context (18 stage scenes are *planned*, none produced yet; the current two art
+  files are the style anchor). UNBLOCKS: the implementation session, per your stated order —
+  or say the word here that Claude may implement first and this stops blocking anything.
+  VERIFIED-NEEDED: your word (or any ChatGPT-Work commit landing) — a session then re-threads
+  the Layer-2 folder and proceeds.
+
 - **`OQ-VENTURE-STRIPE-KEYS` — venture-lab: Stripe TEST keys.** Paste `sk_test_…`
   (`STRIPE_SECRET_KEY`) + `whsec_…` (`STRIPE_WEBHOOK_SECRET`) into
   `candidates/membership-kit/server/.env` (never committed). Unblocks the only unverified leg of
@@ -720,6 +735,16 @@ fleet-wide merges/ready-flips live in
   `docs/PLAYING.md`. Lane tag-push saw 403 on the proxied path (the direct-token path or a `release.yml` dispatch can land it). Gives a downloadable player artifact.
 
 ### (D) Standing decisions
+
+- **`OQ-CL-LICENSE` — couch-legend: pick a license, or say "none on purpose".** OPEN
+  (2026-08-20, the adoption session). WHAT: the new public repo `menno420/couch-legend`
+  ships without a LICENSE file, so it defaults to all-rights-reserved — nobody may legally
+  reuse the code, which may or may not be what you want (D-0012 governs *disclosure*, not
+  reuse rights, so publish-by-default does not answer this). HOW: one word in the hub chat —
+  e.g. **"MIT"** (recommended for the code; the art and story stay yours and a session
+  records that split in the README) or **"no license on purpose"** — and a session commits
+  it same-day. UNBLOCKS: nothing technical; legal clarity only. VERIFIED-NEEDED: not
+  attempted — licensing is ownership, not an agent call.
 
 - **`OQ-FM-APPARATUS-SIZING` ✅ RESOLVED 2026-08-07 — the owner answered: retire the roster.**
   Verbatim, in the hub chat: *"Yes retire the roster, I don't need it."* Executed the same

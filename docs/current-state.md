@@ -163,26 +163,32 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 
 ## Recently shipped (newest first)
 
-- **The Railway keep-bot-only worklist EXECUTED** (2026-08-20; fm #868 → this):
-  crawler DoS ended, mineverse off Railway, review's Pages venue built,
-  pollers retired, bot DB sized — 97.5 % `btd6_*` ingestion history
+- **The Railway keep-bot-only worklist EXECUTED, all slices terminal**
+  (2026-08-20/21; fm #868 → this): crawler DoS ended; mineverse + review
+  off Railway (Pages export serves; estate 3 projects / 8 services);
+  pollers retired; bot DB sized — 97.5 % `btd6_*` ingestion history
   (`OQ-BOT-DB-BTD6-PRUNE`). Evidence:
   [audit § 8 addendum](findings/2026-08-14-railway-websites-audit.md).
   Open: `OQ-RAILWAY-SHIFTLIFE-SCOPE` · `OQ-WEBSITES-PAT` · `OQ-RG-ORPHAN-VOLUMES`.
+
+- **couch-legend phase 2 — stage system decided; simulator validated;
+  prototype runaway measured, fix proposed (game untouched)**
+  (2026-08-20/21, couch-legend #1): §7 row +
+  [`repos/couch-legend/README.md`](repos/couch-legend/README.md).
+
+- **couch-legend — the Grok one-prompt game adopted, live on Pages**
+  (2026-08-20, fm #870; owned repo, tested engine, decided mechanics map,
+  Android path chosen): §7 row +
+  [`repos/couch-legend/README.md`](repos/couch-legend/README.md).
 
 - **phone-controller Slices 18–22 (v0.22.0) shipped** (2026-08-14→20,
   pf #49–#53; 21/22 = the owner's keyboard+foldable ask, design-first):
   §7 rows + [`repos/product-forge/README.md`](repos/product-forge/README.md).
 
-- **Railway estate audited, then consolidated the same day — the €30 bill
-  attributed and the plan executed** (2026-08-14, fm #861 → #863):
-  [audit + execution record](findings/2026-08-14-railway-websites-audit.md)
-  — the three duplicate sites are **deleted** with their old names reclaimed
-  onto the canonical services (W1 done), the bot-restart churn is **stopped**
-  (worker watch filter + sb #2446), backups weekly, robots.txt live on the
-  ops sites (websites #501), App Sleep on. 2026-08-16 (fm #867): orphan DB
-  dumped (empty), archived privately, deleted; backup acceptance recorded.
-  **Open: `OQ-WEBSITES-PAT`** (you mint; a session wires).
+- **Railway estate audited + consolidated — €30 bill attributed, W1 executed,
+  churn stopped, orphan DB archived+deleted** (2026-08-14→16, fm #861→#863,
+  #867; open: `OQ-WEBSITES-PAT`):
+  [audit + execution record](findings/2026-08-14-railway-websites-audit.md).
 
 
 - **substrate-kit v1.21.0 — cut, published, adopted** (2026-08-13, kit #581
