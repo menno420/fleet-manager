@@ -37,8 +37,9 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 
 ## Current owner decisions — verified from fleet-manager on 2026-08-10
 
-- **`OQ-BOT-DB-BTD6-PRUNE` — ⚑ the bot DB is 97.5 % BTD6 ingestion history,
-  still growing — prune approval + the loop question (2026-08-20).**
+- **`OQ-BOT-DB-BTD6-PRUNE` — ⚑ the bot DB is 97.5 % accumulated BTD6
+  ingestion history (last activity 27 min before the probe) — prune
+  approval + the loop question (2026-08-20).**
   **WHAT:** the keep-bot-only worklist's slice-5 sizing (read-only, measured —
   [`findings/2026-08-14-railway-websites-audit.md`](findings/2026-08-14-railway-websites-audit.md)
   § 8) refuted the "XP / server-logging" suspects: the 949 MB database is

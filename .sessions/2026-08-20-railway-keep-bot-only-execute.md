@@ -32,8 +32,10 @@ follow-up PR:
   audit § 8 addendum, the program § 7 row, and `OQ-BOT-DB-BTD6-PRUNE`.
   What IS measured: the newest row is stamped 27 minutes before the
   probe — last observed activity, not liveness at probe time (#875 R1
-  caught "live NOW" repeating the same over-claim one level down;
-  [conceded], all four surfaces reworded to last-observed).
+  caught "live NOW" repeating the same over-claim one level down, and R2
+  caught the OQ heading's residual "still growing" the R1 sweep missed —
+  both [conceded]; all four surfaces now on last-observed/accumulated
+  framing).
 
 ## previous-session review
 
