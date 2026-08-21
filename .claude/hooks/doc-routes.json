@@ -588,7 +588,7 @@
       "docs": [
         "docs/repos/substrate-kit/README.md"
       ],
-      "says": "Layer 2 entry point — read it BEFORE working the kit. The kit's next worklist (22 rows) lives in fleet-manager's findings, NOT in the kit's own tree; releases go ONLY via workflow_dispatch; dist/bootstrap.py is GENERATED from src/engine (never edit the dist); docs/adopters.md is GENERATED and its scan roster misses sim-lab and superbot-idle. The similarly named Substrate-kit-app is a frozen dashboard experiment, not the kit."
+      "says": "Layer 2 entry point — read it BEFORE working the kit. The kit's next worklist (23 rows as of 2026-08-14 — count from the finding, not from here) lives in fleet-manager's findings, NOT in the kit's own tree; releases go ONLY via workflow_dispatch; dist/bootstrap.py is GENERATED from src/engine (never edit the dist); docs/adopters.md is GENERATED and its scan roster misses sim-lab, superbot-idle and product-forge (v1.7.0, the actual oldest adopter). The similarly named Substrate-kit-app is a frozen dashboard experiment, not the kit."
     },
     {
       "id": "repo-substrate-kit-prompt",
@@ -603,7 +603,7 @@
       "docs": [
         "docs/repos/substrate-kit/README.md"
       ],
-      "says": "You named substrate-kit. Read docs/repos/substrate-kit/README.md BEFORE working it — the 22-row v1.21.0 follow-up worklist lives on the fleet-manager side and is unreachable from the kit's own tree; the release, generated-file and registry traps are in the entry point. Paired with the `repo-substrate-kit` tool route so a Bash or Grep carrying the name cannot spend this route's once-per-session budget before your message does."
+      "says": "You named substrate-kit. Read docs/repos/substrate-kit/README.md BEFORE working it — the v1.21.0 follow-up worklist (23 rows as of 2026-08-14) lives on the fleet-manager side and is unreachable from the kit's own tree; the release, generated-file and registry traps are in the entry point. Paired with the `repo-substrate-kit` tool route so a Bash or Grep carrying the name cannot spend this route's once-per-session budget before your message does."
     },
     {
       "id": "repo-venture-lab",
@@ -687,7 +687,7 @@
       "when": [
         "\\bcodetool[- ]lab\\b",
         "\\bmdverify\\b",
-        "\\benvdrift\\b",
+        "\\benvdrift\\b(?!\\.py)",
         "\\bcfgdiff\\b"
       ],
       "docs": [

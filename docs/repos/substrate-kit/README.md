@@ -40,7 +40,7 @@ restated at its tail ("the false negatives now lead"). `MEASURED` 2026-08-21:
 the kit's own tree references it **nowhere** — a session booting on the kit
 alone cannot find its own worklist. Start any kit session from that finding.
 
-### Thread: adopter currency — **3 stale rows + 2 invisible adopters** (owner-paced)
+### Thread: adopter currency — **3 stale rows + 3 invisible adopters** (owner-paced)
 
 Registry at its 2026-08-14 regen: 9 of 12 rows current at v1.21.0; stale:
 `superbot-games` v1.20.1 (⚠ DRIFT ×3 self-report rows — the hop is

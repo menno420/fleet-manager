@@ -164,7 +164,7 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 ## Recently shipped (newest first)
 
 - **Fleet-wide estate review — [`ESTATE.md`](ESTATE.md) built** (2026-08-21,
-  fm #878): 26 repos read from source; three Tier-1 entry points, 11
+  fm #878): 26 repos read from source; three Tier-1 entry points, 10
   route pairs, owner-queue corrections;
   [the finding](findings/2026-08-21-fleet-estate-review.md).
 

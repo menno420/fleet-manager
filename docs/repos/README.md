@@ -99,7 +99,7 @@ the files it has" for the worked example the shape came from.
 | **1** | `spider-swing` | ✅ **built** 2026-08-08 — the reference shape, **ratified 2026-08-08** |
 | **1** | `superbot` | ◐ **entry point built** 2026-08-21 (on-demand, the keep-bot-only close) — `README.md` only; depth files not yet written, reasons in its header. Carries the § 5.7 section (all null) |
 | **1** | `superbot-next` (superbot's pair) | ◐ **entry point built** 2026-08-21 (the fleet review, fm #878) — `README.md` only; depth files not yet written, reasons in its header. Carries the § 5.7 section (all null) |
-| **1** | `substrate-kit` | ◐ **entry point built** 2026-08-21 (same review) — `README.md` only; carries the FM-resident 22-row worklist pointer. § 5.7 section all null |
+| **1** | `substrate-kit` | ◐ **entry point built** 2026-08-21 (same review) — `README.md` only; carries the FM-resident follow-up-worklist pointer. § 5.7 section all null |
 | **1** | `venture-lab` | ◐ **entry point built** 2026-08-21 (same review) — `README.md` only; carries the OD-11 supersession the repo's own docs lack. § 5.7 section all null |
 | **1** | `fleet-manager` (itself — today's work is otherwise a standing exception) | ⬜ not built — outside the owner-ratified build-now set; its intent already lives at [`../intent.md`](../intent.md) |
 | **2** | `product-forge` | ◐ **entry point built** 2026-08-14 (on-demand, the Slice-18 session) — `README.md` only; `capabilities.md` / `records.md` / `working-here.md` deliberately not yet written, reasons in its header. Carries the § 5.7 external-workspaces section (all null today) |

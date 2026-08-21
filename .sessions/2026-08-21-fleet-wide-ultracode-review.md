@@ -39,7 +39,7 @@
   dependabot disposition, working contract + stale-walls caveat),
   `websites` (satellite-ledger staleness warning), `estate-backups`
   (archive Release tag named).
-- `.claude/hooks/doc-routes.json` — 11 route pairs (+1 singleton pair-split):
+- `.claude/hooks/doc-routes.json` — 10 route pairs (20 route records):
   folder routes for product-forge, superbot-next, substrate-kit, venture-lab;
   ESTATE.md routes for the SuperBot-World satellites, codetools, shiftlife,
   gba/pokemon, research family, Substrate-kit-app. `check_doc_routes` 0 errors.

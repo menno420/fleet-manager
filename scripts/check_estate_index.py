@@ -23,13 +23,18 @@ WHAT IT CHECKS
   1. folder-without-row  — every directory under docs/repos/ has a row in
      docs/ESTATE.md whose Layer-2 cell links into that folder.
   2. row-links-missing-folder — every `repos/<name>/` link in an ESTATE row
-     resolves to an existing docs/repos/<name>/README.md.
+     resolves to an existing docs/repos/<name>/README.md; and
+     row-links-foreign-folder — the linked folder belongs to that row's repo
+     (a swapped pair of links passes every existence check otherwise).
   3. duplicate-row — no repo name appears in two rows.
   4. route-target-missing — every route in .claude/hooks/doc-routes.json
      whose docs[] names docs/ESTATE.md or a docs/repos/<name>/README.md has
      an existing target file; and for docs/repos targets, the folder's repo
      has an ESTATE row (the index is the superset).
-  5. missing-baseline — the index header carries at least one
+  5. folder-without-route-pair — every built docs/repos/<name>/ folder has
+     BOTH halves of its doc-route pair (tool events + UserPromptSubmit),
+     the repos/README.md § The-files rule.
+  6. missing-baseline — the index header carries at least one
      "verified YYYY-MM-DD" stamp (staleness must be visible, not absent).
 
 SEVERITY CONTRACT (sibling-parity: check_docs_links.py)
@@ -111,7 +116,9 @@ def check(root: str):
                                  f"docs/repos/{entry}/ exists but no ESTATE.md row "
                                  f"links it — the index no longer covers the estate"))
 
-    # 2. every folder link in a row resolves
+    # 2. every folder link in a row resolves — and belongs to that row.
+    #    A swapped pair of links would leave every existence check green while
+    #    routing two repos into each other's folders (Codex, fm #878).
     for name, cell in rows.items():
         for m in REPO_LINK_RE.finditer(cell):
             folder = m.group(1)
@@ -120,8 +127,14 @@ def check(root: str):
                 findings.append(("row-links-missing-folder",
                                  f"row `{name}` links repos/{folder}/ but "
                                  f"docs/repos/{folder}/README.md does not exist"))
+            if folder != name:
+                findings.append(("row-links-foreign-folder",
+                                 f"row `{name}`'s Layer-2 cell links "
+                                 f"repos/{folder}/ — a row links its own "
+                                 f"folder, never another repo's"))
 
     # 4. routes that target the index or a Layer-2 README
+    routed = {}  # folder -> {"tool": bool, "prompt": bool}
     if os.path.isfile(routes_path):
         try:
             routes = json.load(open(routes_path, encoding="utf-8")).get("routes", [])
@@ -129,6 +142,8 @@ def check(root: str):
             findings.append(("routes-unreadable", f"doc-routes.json: {exc}"))
             routes = []
         for route in routes:
+            tools = route.get("tools") or ["Bash", "WebFetch", "Read", "Glob", "Grep"]
+            is_prompt = tools == ["UserPromptSubmit"]
             for doc in route.get("docs", []):
                 if doc == "docs/ESTATE.md" or (
                         doc.startswith("docs/repos/") and doc.endswith("README.md")):
@@ -143,6 +158,25 @@ def check(root: str):
                                          f"route `{route.get('id')}` targets "
                                          f"docs/repos/{folder}/ which has no "
                                          f"ESTATE.md row linking it"))
+                    half = routed.setdefault(folder, {"tool": False, "prompt": False})
+                    half["prompt" if is_prompt else "tool"] = True
+
+        # 5. every built folder ships with its route PAIR (docs/repos/README.md
+        #    § The files: "a built folder ships with its doc-route pair" — the
+        #    product-forge week-long routeless gap is the measured failure;
+        #    Codex on fm #878: the checker must enforce the reverse invariant).
+        if os.path.isdir(repos_dir):
+            for entry in sorted(os.listdir(repos_dir)):
+                if not os.path.isdir(os.path.join(repos_dir, entry)):
+                    continue
+                halves = routed.get(entry, {"tool": False, "prompt": False})
+                missing = [k for k, v in halves.items() if not v]
+                if missing:
+                    findings.append(("folder-without-route-pair",
+                                     f"docs/repos/{entry}/ has no "
+                                     f"{' or '.join(missing)} route half in "
+                                     f"doc-routes.json — a built folder ships "
+                                     f"with its route pair"))
     return findings
 
 
@@ -165,22 +199,41 @@ def selftest() -> int:
     clean = ("# index\nverified 2026-08-21 baseline\n"
              "| `alpha` | thing | [entry](repos/alpha/README.md) |\n"
              "| `beta` | thing | on demand |\n")
+    pair = [{"id": "r2", "docs": ["docs/repos/alpha/README.md"]},
+            {"id": "r2-prompt", "tools": ["UserPromptSubmit"],
+             "docs": ["docs/repos/alpha/README.md"]}]
 
-    # positive: clean tree
+    # positive: clean tree (folder + row + full route pair)
     with tempfile.TemporaryDirectory() as tmp:
         build(tmp, clean, folders=["alpha"],
-              routes=[{"id": "r1", "docs": ["docs/ESTATE.md"]},
-                      {"id": "r2", "docs": ["docs/repos/alpha/README.md"]}])
+              routes=[{"id": "r1", "docs": ["docs/ESTATE.md"]}] + pair)
         got = check(tmp)
         if got:
             failures.append(f"clean tree flagged: {got}")
 
     # negative: folder without a row
     with tempfile.TemporaryDirectory() as tmp:
-        build(tmp, clean, folders=["alpha", "gamma"])
+        build(tmp, clean, folders=["alpha", "gamma"], routes=pair)
         kinds = [k for k, _ in check(tmp)]
         if "folder-without-row" not in kinds:
             failures.append("missed folder-without-row")
+
+    # negative: swapped/foreign folder link (row `beta` links alpha's folder)
+    with tempfile.TemporaryDirectory() as tmp:
+        swapped = ("# index\nverified 2026-08-21 baseline\n"
+                   "| `alpha` | thing | [entry](repos/alpha/README.md) |\n"
+                   "| `beta` | thing | [entry](repos/alpha/README.md) |\n")
+        build(tmp, swapped, folders=["alpha"], routes=pair)
+        kinds = [k for k, _ in check(tmp)]
+        if "row-links-foreign-folder" not in kinds:
+            failures.append("missed row-links-foreign-folder")
+
+    # negative: built folder missing one half of its route pair
+    with tempfile.TemporaryDirectory() as tmp:
+        build(tmp, clean, folders=["alpha"], routes=[pair[0]])  # tool half only
+        kinds = [k for k, _ in check(tmp)]
+        if "folder-without-route-pair" not in kinds:
+            failures.append("missed folder-without-route-pair")
 
     # negative: row links a missing folder
     with tempfile.TemporaryDirectory() as tmp:
@@ -222,7 +275,7 @@ def selftest() -> int:
         for f in failures:
             print(f"SELFTEST FAIL: {f}")
         return 1
-    print("selftest: 7/7 cases pass")
+    print("selftest: 9/9 cases pass")
     return 0
 
 
