@@ -23,7 +23,7 @@ Recorded from the owner live in the hub chat; each is a durable decision.
 
 | # | Date | Directive |
 |---|---|---|
-| OD-1 | 07-26 | `superbot-next` is the bot's future; **live testing gates the cutover**. Old `superbot` is already frozen as the behavioral oracle (recorded 2026-07-17). |
+| OD-1 | 07-26 | ~~`superbot-next` is the bot's future; live testing gates the cutover.~~ **SUPERSEDED 2026-08-21 by OD-16.** Old `superbot` remains frozen as the behavioral oracle; the former `superbot-next` production target/cutover ladder is historical, not executable. |
 | OD-2 | 07-26 | `venture-lab` stays a live repo. |
 | OD-3 | 07-26 | **Archive, never delete.** Nothing is deleted under this program. **AMENDED 2026-08-08 (owner, intent interview):** cleanup is now allowed and wanted. *"Stale docs, and eventually repos, could be deleted if they do not have any value. The goal is not a perfect archive, but rather an efficient workflow. Any doc or repo that has served its purpose and could not be of value anymore will only be noise and it's probably better to clean them up every once in a while."* The bar moves from **never** to **has it served its purpose and can it still be of value** — a judgement, so it is decided-and-flagged per repo/doc, not swept. Archive remains the default for anything still arguably useful; deletion needs a stated reason. |
 | OD-4 | 07-26 | **`idea-engine` + `sim-lab` remain active** — standing assets for future projects (566 idea files; the 4-gate verification method). |
@@ -38,13 +38,14 @@ Recorded from the owner live in the hub chat; each is a durable decision.
 | OD-13 | **08-08** | **Method and enforcement work comes before high-value product work.** Owner, intent interview: *"Before we can reliably focus on product work, we should make sure to further improve the methods and the rule enforcement. Product work is not explicitly blocked, but my advice is to first improve the workflow and further define the right mix of AI agents across different providers before we actually continue high value product work."* Two prerequisites, both named by him: **the methods/enforcement layer** (the roadmap's Phases 2–3) and **the multi-provider agent mix** ([`../intent.md`](../intent.md) § 7). Product work is not forbidden — it is deprioritised against these until they are further along. This is the standing answer to *"what should a session pick up"*. |
 | OD-14 | **08-08** | **fleet-manager's intent is recorded, and it is the thing plans are checked against.** [`../intent.md`](../intent.md) — purpose, success criteria, non-goals, decision heuristics, the agent roster, and the growth rule (**records may grow, instructions may not**). Owner-stated content is labelled `OWNER` and is not revisable by a session; anything labelled `DERIVED` is. |
 | OD-15 | **08-10** | **shiftlife is not active; spider-swing and the superbot repos are the important ones.** Owner, live, during the full-read audit session. This supersedes the D2 order’s `shiftlife` target (recorded at the NOW pointer below) and is the statement the audit found missing from the tree — every document agreed on shiftlife precisely because nothing recorded this. Concrete re-target: `OQ-FM-D2-TARGET`. |
+| OD-16 | **08-21** | **The next Discord bot is server-first:** basic game-testing + general game-community operation, retaining the best of both bots and giving AI more freedom from the start. The [authoritative pre-repository plan](2026-08-21-game-community-bot/README.md) uses live `superbot` as behavior/UX oracle and `superbot-next` as architecture donor; its clean-repository recommendation remains owner-confirmed at GCB-1 before creation. This supersedes OD-1's `superbot-next` production target and the old R4/R7 execution route. |
 
 ## 2 · Target picture — 7 sections
 
 | Section | Repos | End state |
 |---|---|---|
 | ShiftLife | `shiftlife` | The consumer app. Healthy — untouched by this program. |
-| SuperBot | `superbot-next` absorbing games · idle · mineverse · plugin-hello (+ botsite/dashboard code); old `superbot` archived **only after** the owner-paced cutover | One bot, one repo. |
+| SuperBot | live `superbot` frozen as behavior oracle · `superbot-next` parked as architecture donor · clean game-community bot repository planned after GCB-1 | One focused server/playtest bot; any live responsibility transfer is separately evidenced and owner-approved. |
 | Phone Controller | `phone-controller` (graduated from product-forge) | Own repo, own APK releases. |
 | Game Lab | `gba-homebrew` + `pokemon-mod-lab` | Two repos forever (copyright rail), one section. |
 | Venture | `venture-lab` | Live; owner-paced publishing. |
@@ -131,10 +132,10 @@ fleet-manager pass:
 | **R1** | Generalize shiftlife's `plan-conformance.md` into the conformance template (claims vs code; module + test per row; wrong row > tidy table). | Template in this repo; applied first to `superbot-games` (known drift: claims plugin-shipping, has no packaging). |
 | **R2** | Graduate `phone-controller` to its own repo (subtree split, history + release workflow + signing secret carried; pointer left behind). | Clean clone builds a signed APK; CI green; product-forge remainder ready for archive queue. |
 | **R3** | Releases-before-archive: tag + Release `cfgdiff` v0.1.1 and `envdrift` v0.1.0/v0.2.0 (archiving freezes tag-push forever — this is the one time-ordered step). **Mechanics differ per lab and live in each lab's `control/status.md`** (verified 2026-08-21, fm #878): cfgdiff's release tag is **v0.1.1 @ `0b1eb60`** — tagging v0.1.0 @ `0260aae` predates its `release.yml` and fires nothing; envdrift has **no release workflow at all** — tag v0.1.0 @ `73ef38d` + v0.2.0 @ `13a84e5` AND create the Releases via the API; the labs' own "agents policy-blocked on tags" notes are stale seat walls (direct-PAT works). | Both released; their repos join the archive queue. |
-| **R4** | Bot consolidation, one sub-step per session, each behind a conformance pass: idle+plugin-hello → `plugins/` (real move, already pinned); games → plugins **after** its adapters are actually built; mineverse → `web/` keeping its fail-closed rails as CI; botsite/dashboard code per W-track outcome. | superbot-next boots with plugins loaded; 533-golden parity stays green. |
+| **R4** | ~~Fold bot games/sites/plugins into `superbot-next`.~~ **SUPERSEDED by OD-16 (2026-08-21).** Do not execute this fold as the successor route. The clean game-community plan's Phase 0 creates the canonical home; source harvesting is per pinned extraction ledger, and unrelated game/economy scope stays out. | The new repo exists only after GCB-1, owns the transplanted plan, and neither source repo was modified. |
 | **R5** | Archive the emptied/parked repos per OD-3, one at a time, each verified migrated first. | Active repo list ≈ the §2 table. |
 | **R6** | Ideas-Lab truth pass (active, no fold): make the two-era reality legible from the front door (fleet-ideation corpus vs the math-verification loop); surface the 566-file idea corpus so the owner can actually browse it. | Owner can find and read the idea corpus without archaeology. |
-| **R7** | SuperBot cutover ladder, owner-paced (the ladder already exists in the record): live-test prep → test guild → wallet-race concurrency tests → 1 live drive → 7-day shadow → cutover → rename → archive old superbot. | The bot runs on superbot-next in production. |
+| **R7** | ~~Cut over production to `superbot-next`.~~ **SUPERSEDED by OD-16 (2026-08-21).** Use the [game-community bot plan](2026-08-21-game-community-bot/README.md) Phases 0–8: isolated app/guild/DB, journey/effect evidence, canary, then a separate owner-approved responsibility/data cutover only if replacement is still desired. | No production target is inferred from parity; live `superbot` remains untouched until a later exact cutover decision. |
 
 ### Track C — CI *(OD-9; mostly falls out of R)*
 
@@ -164,8 +165,7 @@ No deadlines. No revenue pressure. **No *undirected* deletions** — OD-3 as
 amended 2026-08-08 allows cleanup of docs and repos that have served their
 purpose, per item and with a stated reason; what stays forbidden is sweeping
 deletion and deleting anything still arguably useful. No seat revival, no
-mass parallelism (OD-5). No merging of the two GBA repos (copyright rail). No
-production-bot changes outside R7's owner-paced ladder.
+mass parallelism (OD-5). No merging of the two GBA repos (copyright rail). No production-bot changes outside a later exact, owner-approved cutover under the 2026-08-21 game-community bot plan.
 
 ## 6 · Open forks for the owner (non-blocking — answer whenever)
 
