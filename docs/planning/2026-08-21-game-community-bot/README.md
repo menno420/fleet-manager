@@ -36,7 +36,7 @@ general game server.
   new bot fork.
 
 This resolves the direction fork recorded in
-[`docs/repos/superbot-next/README.md`](../../../repos/superbot-next/README.md):
+[`docs/repos/superbot-next/README.md`](../../repos/superbot-next/README.md):
 the old cutover ladder is not the build plan, and the 2026-08-05 server-first
 direction is retained and upgraded into an implementation-ready plan.
 
@@ -84,11 +84,11 @@ can never move.
 
 Primary fleet evidence:
 
-- [Playtest Discord and bot value finding](../../../findings/2026-08-05-playtest-discord-and-superbot-value.md)
-- [`superbot-next` live audit](../../../findings/2026-08-05-superbot-next-live-audit.md)
-- [Three-repo state audit](../../../findings/2026-08-05-three-repo-state-audit.md)
-- [`superbot` Layer-2 entry](../../../repos/superbot/README.md)
-- [`superbot-next` Layer-2 entry](../../../repos/superbot-next/README.md)
+- [Playtest Discord and bot value finding](../../findings/2026-08-05-playtest-discord-and-superbot-value.md)
+- [`superbot-next` live audit](../../findings/2026-08-05-superbot-next-live-audit.md)
+- [Three-repo state audit](../../findings/2026-08-05-three-repo-state-audit.md)
+- [`superbot` Layer-2 entry](../../repos/superbot/README.md)
+- [`superbot-next` Layer-2 entry](../../repos/superbot-next/README.md)
 
 ## Product success in one screen
 
