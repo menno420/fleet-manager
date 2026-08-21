@@ -29,22 +29,27 @@ The owner's durable frame, stated live during adoption: *"Eventually I want
 this to be a fully working android game. What I need is a solid base for the
 mechanics. The main idea should be clearly mapped and decided."* That base is
 the repo's shape: a pure platform-neutral engine + content tables pinned by
-the test suite (62 tests as of the phase-2 session — engine pins, action-layer
-pins, simulator determinism, replay parity against real play), a web UI as the
+the test suite (89 tests as of the implementation session — engine pins,
+action-layer pins, simulator determinism, replay parity against real play,
+stage-table + presentation-registry pins), a web UI as the
 current adapter, and **`docs/DESIGN.md` as the binding mechanics map** (every
 resource, loop, formula and table decided; Android path decided as a Capacitor
-shell over this exact build, alternatives recorded).
+shell over this exact build, alternatives recorded). Since 2026-08-21 the
+engine's default tuning is the **adopted** sim-tested knee+cap curve and the
+game is a **life story**: save v2 `lifeHigh`, 18 chapters, the first three
+painted scene pairs live.
 
 ## Threads
 
 ### Thread: the mechanics base — **landed**, 2026-08-20
 
-Where it stands: reconstruction faithful (no tuning changed), improvements
+Where it stands: reconstruction faithful (no tuning changed at
+reconstruction; the deliberate, sim-evidenced adoption came 2026-08-21 with
+#7 — the life-story thread below), improvements
 additive and identity-preserving — portable save codes (export/import with
 validation), per-mood revelations (9 lore lines, toast on first reach —
-*meant* to be permanent, actually lost on Wake & Bake today; the defect and
-its `lifeHigh` fix path are in the life-story thread below), itemized
-offline report, prestige preview (current → post-prestige
+permanent through Wake & Bake since #7 re-keyed them to `lifeHigh`),
+itemized offline report, prestige preview (current → post-prestige
 Clarity multiplier), tab affordability dots, keyboard hits + reduced-motion,
 PWA manifest/icons. `pnpm check` (typecheck + the full vitest suite + build)
 is the PRODUCT gate (count the
@@ -76,7 +81,7 @@ booted with couch-legend as its root now loads that repo's kit apparatus
 BOTH places: in-repo cards for what a session did, this folder for the
 cross-session thread state.
 
-### Thread: life-story design + simulator — **LANDED; looks pass LANDED 2026-08-21 — the implementation session is NEXT**
+### Thread: the life story — **LANDED IN FULL 2026-08-21** (design #1/#2 · looks #3/#4 · implementation #7)
 
 The brief's done-when is met (couch-legend PR #1): **DESIGN.md § 9** now
 carries the decided stage system — the `lifeHigh` story axis (prestige
@@ -106,17 +111,27 @@ lucid/baked JPEGs + a reusable `SceneMotion` layer + CI tests;
 `STAGE_PRESENTATION` registry land — 15 of the planned 18 scenes remain for
 later art sessions). `OQ-CL-LOOKS-PASS` is resolved.
 
-**NEXT: the Claude implementation session** (unblocked, per the owner's
-stated order) — adopt the tuning (one-line default flip + pin updates), add
-the stage schema (save v2 `lifeHigh`, stage table into `content.ts`, era
-framing for existing items with real gates only on new additive content —
-the rule Codex review corrected — and revelations re-keyed, fixing the
-Lore-permanence defect DESIGN § 9.2 records; #4's scene packages activate
-here), author arc-1 prologue content and per-stage beats; the results doc
-§ 7 is the checklist, and #4's handoff notes
-(`docs/design/2026-08-21-arc-1-scene-packages.md`) join it. Also found: the
-Lore tab's "revelations survive Wake & Bake" is false today (keys on
-`peakHigh`) — fix rides the stage schema.
+**The implementation session LANDED it all** (couch-legend #7, 2026-08-21 —
+this thread's terminal state): the tested tuning is the engine **default**
+(knee 80 · exp 0.5 · cap 6; `PROTO_TUNING` kept for the replay fixtures +
+baseline dataset, pins updated); save **v2 `lifeHigh`** with migration
+(`max(high, peakHigh)` floor); `STAGES` + era framing + per-stage beats in
+`content.ts` (one implementation — the sim proposal is a re-export shim);
+revelations re-keyed to `lifeHigh` — **the Lore-permanence defect is
+closed, verified on screen** (a zeroed-afternoon save keeps its
+revelations); arc-1 prologue at the § 7 floor (Cousin's Pinch · Borrowed
+Grinder · Corner Store Shift · The Green Lighter — stage-gated additive
+rows behind one shared `stageUnlocked` rule); the `STAGE_PRESENTATION`
+registry activating #4's three scene packages (15 explicit placeholders on
+the anchor pair) + the chapter-turn shell with reduced-motion fallback.
+Evidence: `docs/sim/2026-08-21-adoption-check.md` — a fresh 24-run 14-day
+`adopted-*` dataset (the `tuned-*` evidence stays frozen); **all six § 9.6
+rails hold**, prologue effect measured 0–12 % faster reach and never
+slower, closest bound arc-3 attended dead time 44.8 m of 45 m; plus a
+22/22 headless-Chromium smoke of the production build (boot on First
+Light, v1→v2 migration, one offline chapter turn, a stage-gated purchase,
+reduced-motion). The owner's feel pass on the tuned late game is the open
+follow-up (couch-legend DESIGN § 8.2; the card's OWNER-ACTION ask).
 
 ### Thread: substrate-kit adoption — **landed 2026-08-21** (couch-legend #5)
 
@@ -143,7 +158,7 @@ couch-legend is **invisible to the kit's adopter registry** until the
 `fleet-repos.txt` roster hole is fixed kit-side (recorded on the
 substrate-kit entry point).
 
-### Thread: the Android shell — **after the implementation session** (looks pass done 2026-08-21)
+### Thread: the Android shell — **NEXT** (unblocked 2026-08-21; the implementation session landed)
 
 The step (DESIGN.md § 7, decided): add `android/` via Capacitor bundling the
 web `dist/`, sign and release APKs from CI on the phone-controller pattern
@@ -155,9 +170,10 @@ DESIGN.md § 8: haptics, local notifications, cloud save, a Clarity-spend shop.
 ### Thread: balance pass — **CLOSED into the life-story thread (2026-08-20/21)**
 
 The instrument this thread was waiting for exists and has ruled: the early
-hours are untouched, and the unplaytested late game is measured **broken**
-(runaway — see the thread above). The tested fix ships with the stage
-implementation; any future tuning change goes through the simulator +
+hours are untouched, and the unplaytested late game was measured **broken**
+(runaway — see the thread above). The tested fix **shipped with the stage
+implementation** (#7, 2026-08-21 — adopted default, rails re-checked on the
+live content); any future tuning change goes through the simulator +
 DESIGN + tests in one commit, inside the § 9.6 fairness rails.
 
 ## External workspaces (roadmap § 5.7 — pointers, never copies)
