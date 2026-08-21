@@ -131,10 +131,13 @@ gate. Nothing in the handoff contradicted the tree.
   landed thread, the measured traps (GITHUB_TOKEN push-suppression /
   exporter exit-0 ≠ link integrity / the owner-gate throttle leak), and
   the open follow-ups.
-- Layer-2 handoff: null for superbot (poller retirement is in sb #2450's
-  own tree + this card; no fm folder exists and the frozen repo earns none)
-  and estate-backups (single-workflow venue; the § 8 addendum is its
-  record).
+- Layer-2 handoff: `docs/repos/superbot/README.md` +
+  `docs/repos/estate-backups/README.md` — also created at close. The
+  first draft recorded these as nulls ("the frozen repo earns none");
+  Codex #876 R1 held that against the coverage policy's actual trigger —
+  built **when work goes there**, and work went to both — [conceded]:
+  the invented earns-none criterion is not in the policy. Coverage table
+  + doc-routes wired for all three.
 
 ## Deliberately not done
 

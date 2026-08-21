@@ -20,10 +20,11 @@
 owner's readiness board + journal browser), **botsite** (the SuperBot
 marketing/testing site), **dashboard** (read-only bot inventory) — all three
 on Railway in the `superbot-websites` project — and **review** (the EAP
-program-review record), which since **2026-08-20 is a GitHub Pages static
-export** at <https://menno420.github.io/websites/> with **no Railway service
-behind it** (`MEASURED`: the service was deleted after the venue was probed
-serving; the old `review-production-fc91` URL 404s). One committed data
+program-review record), which since the **2026-08-20/21 cutover is a GitHub
+Pages static export** at <https://menno420.github.io/websites/> with **no
+Railway service behind it** (`MEASURED`: the venue was created + probed
+serving 08-20, the consumers repointed and the service deleted 08-21; the
+old `review-production-fc91` URL 404s). One committed data
 layer (`app/data/*.json`) feeds the owner surfaces; the repo's own
 `bootstrap.py check --strict` + the four pytest suites are the local gate,
 and `quality` (with the born-red session-card hold) is the required CI
@@ -77,5 +78,15 @@ files run back-to-back — the envhub-family files carry the autouse
   services (`MEASURED` 2026-08-21, post-cutover; the drift computation's
   inputs were proven unchanged by the cutover). Old config debt the page
   exists to surface — an owner read, not a defect.
-- `OQ-WEBSITES-PAT` (fleet-manager owner queue): the repo-scoped PAT for
-  control-plane's writeback still waits on the owner's UI mint.
+- `OQ-WEBSITES-PAT` (fleet-manager owner queue): the **rate-limit token**
+  for control-plane's readiness polling — Tier 1 recommended: public-repo
+  **read-only, zero permission boxes** (Tier 2's actions:write is optional
+  and only for the `/owner` re-run button). Still waits on the owner's UI
+  mint (mint is UI-only, `MEASURED` 2026-08-16); wire-on-paste stands.
+
+## External workspaces
+
+Pointers, never copies (the § 5.7 shape) — all **null today**: no Drive
+folder, ChatGPT workspace, or Gemini notebook is mapped to `websites` in
+any record this session read. A deliberate null, so the next session can
+tell it from an incomplete handoff; add the pointer here when one exists.
