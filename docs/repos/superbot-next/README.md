@@ -36,25 +36,22 @@ dispatch targets, real handlers, real DB writes — "not a shell").
 
 ## Threads
 
-### Thread: direction — **two plans on record; the owner decides which** (paused, owner-gated)
+### Thread: game-community successor direction — **resolved for planning** (2026-08-21)
 
-The record carries both, and they are not the same plan — do not adopt
-whichever you meet first:
+The owner's current request resolves the former two-plan fork in favor of a
+server-first, game-testing/community bot with substantially stronger AI. The
+[authoritative pre-repository plan](../../planning/2026-08-21-game-community-bot/README.md)
+chooses a **clean multi-game repository**, not a cut-down or deployed
+`superbot-next`: this repo donates its layered kernel, registries, workflow,
+audit, provider-neutral AI, and scope-narrowing patterns; live `superbot`
+donates proven behavior and operator UX. The 49-subsystem/golden-parity target,
+BTD6 tools, and captured-state panels are explicitly rejected.
 
-1. **The cutover ladder** (program R7; superbot `docs/owner/fleet-grounding.md`
-   § 3): parity green → wallet-race concurrency tests → 1 live drive → 7-day
-   shadow → CUT-3 → rename → archive old superbot.
-2. **The server-first rebuild** (the 2026-08-05 live audit § 5): the owner
-   *"disbanding or rebuilding the project"*, with a server bot carrying **no
-   game features** (~15 of 49 subsystems) as the first milestone.
-
-OD-15 names the superbot repos the important ones; OD-13 holds product work
-behind the roadmap's Phases 2–3. Near-term agent-executable work is therefore
-the kit lane, the owner-sequenced D6 apparatus removal
-(`docs/current-state.md` § D6), and review/planning sessions feeding whichever
-plan he confirms. His 13-row decision agenda:
-`docs/design/OWNER-DECISIONS-2026-07-18.md`; estate-side:
-`OQ-NEXT-MERGE-QUEUE` in [`../../owner-queue.md`](../../owner-queue.md).
+This is planning truth, not a modification order for this parked repo. Next
+step is plan GCB-1/Phase 0: owner confirms the new repository name, then the plan
+moves there and implementation starts from a minimal substrate. `superbot-next`
+remains untouched and never becomes a test deployment merely because it is the
+architecture donor.
 
 ## Before you attach / modify — the traps, measured
 
