@@ -2,7 +2,7 @@
 
 > **Status:** `complete`
 
-- **📊 Model:** gpt-5.6 · high · planning/architecture
+- **📊 Model:** gpt-5.6 · high · idea/planning
 - **Venue:** ChatGPT Work, owner-live request
 - **Branch:** `codex/game-community-bot-plan-2026-08-21`
 - **Pull request:** [fm #882](https://github.com/menno420/fleet-manager/pull/882)
