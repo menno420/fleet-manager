@@ -78,6 +78,10 @@ adoption card's second-session trigger; effective-rules endpoint read back).
 fm strict gate at flip (below).
 
 **⚑ decide-and-flag (MEDIUMs, all reversible):**
+- The boot-read orientation budget sits near its cliff (measured 6989/7000
+  words after this session's trims; the entry first landed at 7,005 —
+  Codex round 2 caught it): the next `current-state.md` entry pays the
+  toll — trim or demote an old entry when adding one.
 - "Numbers in the content tables" delivered as the typed
   `stage-proposal.ts` module + results doc, with live `content.ts`
   untouched — the brief scopes this session to planning/testing and the

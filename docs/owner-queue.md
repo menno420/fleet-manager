@@ -663,6 +663,8 @@ fleet-wide merges/ready-flips live in
   or say the word here that Claude may implement first and this stops blocking anything.
   VERIFIED-NEEDED: your word (or any ChatGPT-Work commit landing) — a session then re-threads
   the Layer-2 folder and proceeds.
+
+- **`OQ-VENTURE-STRIPE-KEYS` — venture-lab: Stripe TEST keys.** Paste `sk_test_…`
   (`STRIPE_SECRET_KEY`) + `whsec_…` (`STRIPE_WEBHOOK_SECRET`) into
   `candidates/membership-kit/server/.env` (never committed). Unblocks the only unverified leg of
   the payment path for all 3 products.

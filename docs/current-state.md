@@ -167,9 +167,8 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 
 ## Recently shipped (newest first)
 
-- **couch-legend phase 2 — the life-story stage system decided, the balance
-  simulator built and validated against real play, the prototype tuning
-  measured running away with a tested fix proposed (live game untouched)**
+- **couch-legend phase 2 — stage system decided; simulator validated;
+  prototype runaway measured, fix proposed (game untouched)**
   (2026-08-20/21, couch-legend #1): §7 row +
   [`repos/couch-legend/README.md`](repos/couch-legend/README.md).
 
