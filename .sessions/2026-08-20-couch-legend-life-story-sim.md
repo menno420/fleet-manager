@@ -55,14 +55,29 @@ All five verified against source and dispositioned [conceded], fixed in
   "9 permanent lore lines" against this card's own defect record —
   qualified in place.
 
-Also verified: the Codex *cloud task* comment on fm #872 (00:05Z) describes
-a commit `d73e867` whose work never reached the branch. The argument is
-content-bearing, not object-absence (Codex round 1 on this PR rightly
-rejected "the SHA doesn't exist" as proof — rebases and cherry-picks
-preserve work under new ids): every commit on the PR branch was authored
-in this session's container, and the merged head `de85e23` is SHA-identical
-to the locally-built commit — identical SHA means identical tree, so no
-foreign patch can be present in what merged. (fm #873's own review binding got the
+Also verified: the Codex *cloud task* comment on fm #872 (00:05:28Z)
+describes a commit `d73e867` whose work never reached the branch. Two of
+this claim's earlier arguments died in review — "the SHA doesn't exist"
+(object-absence; rebases and cherry-picks preserve work under new ids)
+and "locally authored + SHA-identical merge head" (that proves *which
+tree* merged, not where its changes originated — a copied patch would
+look the same). The argument that stands is a comparison of the actual
+content, made checkable by a surprise: the comment's blob links resolve
+HTTP 200 because they point at `e117177` — **this session's own born-red
+commit** (reflog `@{8}`, authored in this container 00:00:21Z, parent
+#870's merge), the branch tip the cloud viewer could see — and at that
+state the card is still born-red, so the links don't even show the
+"completed card" the comment describes. The cloud's own commit appears
+nowhere checkable: not among this session's local objects (which keep
+even unreachable commits), no commit subject "Complete couch-legend
+phase 2 records" anywhere in merged history, and its described PR
+("Complete couch-legend phase 2 planning and testing records") never
+opened. Decisively, the merged records postdate it: the merged card
+cites `5edac9a` (committed 00:27:59Z) and the round-2 fixes — facts
+created ~23 minutes *after* the cloud comment, which its 00:05 state
+could not contain — and the merged §7 row lacks the "PR #1 remains open"
+note the comment describes. The merged records are this session's late
+versions, not the cloud's. (fm #873's own review binding got the
 same treatment and a plainer answer: Codex's "reviewed commit" `4c7ae9f`
 is simply that PR's squash-merge on `main` — merge-on-green landed it at
 `01:06:27Z`, thirteen minutes before the review (`01:19:26Z`), because
@@ -72,14 +87,18 @@ squash of a single commit guarantees it — so the review covered exactly
 this content, post-merge. A first draft of this paragraph guessed
 "sandbox application"; the merge fact was checked only after.)
 
-**The lesson, sized for a mechanism (and corrected once itself in review):**
-"review count reached N" plus "zero comments since T" is not evidence for
-ANY choice of T — this correction's first version prescribed deriving
-`since` from the review's `submitted_at`, and Codex pointed out that
-reproduces the same false-clean: inline comments are created while the
-review is pending, so their timestamps can precede submission, and the
-API's `since` filters on `updated_at` regardless. The robust form
-correlates by identity, never by time: fetch
+**The lesson, sized for a mechanism (and corrected twice itself in
+review):** "review count reached N" plus "zero comments since T" is not
+evidence for any T at or after the point comments could exist — this
+correction's first version prescribed deriving `since` from the review's
+`submitted_at`, and Codex pointed out that reproduces the same
+false-clean: inline comments are created while the review is pending, so
+their timestamps can precede submission, and the API's `since` filters
+on `updated_at` regardless. (Its second version overcorrected to "not
+evidence for ANY choice of T" — also wrong: a T provably before the PR
+existed is valid, since every comment's `updated_at` postdates it; it is
+just never the T a mid-review freshness check reaches for.) The robust
+form correlates by identity, never by time: fetch
 `GET /pulls/{n}/reviews/{review_id}/comments` for the new review's own id.
 Candidate for the estate's trap list; not built into a checker this
 session.
@@ -96,7 +115,14 @@ which reproduces the same false-clean), and the `d73e867` paragraph
 rebuilt on the content-bearing argument (its first form used the
 object-absence reasoning the same review rejected). This correction rides
 a successor PR parked `do-not-automerge` — the sweep's designed hold —
-until its own round answers, then unparks.
+until its own round answers, then unparks. That round answered with two
+more P2s, both [conceded] and folded into the paragraphs above: the
+rebuilt provenance argument still only proved *which tree* merged, not
+where its changes originated — replaced by the actual content comparison
+(which also surfaced that the comment's links resolve to this session's
+own `e117177`, not cloud content) — and the lesson's "ANY choice of T"
+overcorrection narrowed (a T provably before the PR existed is valid
+evidence; identity correlation is still the form that avoids the class).
 
 - **📊 Model:** fable-5 · high · feature build — the continuation session the
   adoption session's brief directed (couch-legend
