@@ -24,7 +24,7 @@ directories by default.
 
 | Evidence | Result that affects this plan |
 |---|---|
-| `superbot` `5e3a667b` | Live production source; 61 configured extensions; mature setup, role, welcome, moderation, logging, ticket, utility, AI, and help surfaces |
+| `superbot` `5e3a667b` | Live production source; 59 `INITIAL_EXTENSIONS` entries; mature setup, role, welcome, moderation, logging, ticket, utility, AI, and help surfaces |
 | `superbot-next` `d5f66dc2` | 49 subsystems + kernel, 3,660 tests, 533 goldens; layered manifests/workflow/audit architecture; never deployed in production |
 | live audit 2026-08-05 | 1,327 targets, 314 panels, 640 buttons; 153/314 panels button-less; help 60/66 button-less; capture-world literals presented old state as live state |
 | playtest finding 2026-08-05 | setup/welcome/roles/reminders/polls/logging/moderation are high-value; native Forums beat tickets for public QA; both bots fail to enforce their feature-routing policy |
