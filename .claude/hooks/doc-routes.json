@@ -428,7 +428,8 @@
         "menno420/websites",
         "\\bwebsites repo\\b",
         "\\bcontrol-plane\\b",
-        "\\bbotsite\\b"
+        "\\bbotsite\\b",
+        "\\b(the|my) websites\\b"
       ],
       "docs": [
         "docs/repos/websites/README.md"
@@ -447,7 +448,8 @@
       "when": [
         "menno420/superbot(?![\\w-])",
         "\\bsuperbot repo\\b",
-        "\\bworker service\\b"
+        "\\bworker service\\b",
+        "\\bsuperbot\\b(?![\\w-])"
       ],
       "docs": [
         "docs/repos/superbot/README.md"
@@ -462,7 +464,8 @@
       "when": [
         "menno420/superbot(?![\\w-])",
         "\\bsuperbot repo\\b",
-        "\\bworker service\\b"
+        "\\bworker service\\b",
+        "\\bsuperbot\\b(?![\\w-])"
       ],
       "docs": [
         "docs/repos/superbot/README.md"
@@ -653,12 +656,14 @@
       "when": [
         "\\bsuperbot[- ](games|idle|mineverse)\\b",
         "\\bmineverse\\b",
-        "\\bsuperbot world\\b"
+        "\\bsuperbot world\\b",
+        "\\bsuperbot[- ]plugin[- ]hello\\b",
+        "\\bplugin[- ]hello\\b"
       ],
       "docs": [
         "docs/ESTATE.md"
       ],
-      "says": "You touched one of the SuperBot-World satellites (superbot-games · superbot-idle · superbot-mineverse) — all complete-parked, no Layer-2 folder yet. Their rows in docs/ESTATE.md carry the load-bearing facts: mineverse is OFF Railway since 2026-08-20/21 and its own go-live checklist is moot (and its coordinator baton tells you to delete a trigger — [D-0015] forbids that); games' kit hop is owner-paced ('not yet'); idle's plugin is pinned in superbot-next's lockfile and its kit version is invisible to the adopter registry. mineverse's closeout is the family MASTER."
+      "says": "You touched one of the SuperBot-World satellites (superbot-games · superbot-idle · superbot-mineverse) — all complete-parked, no Layer-2 folder yet. Their rows in docs/ESTATE.md carry the load-bearing facts: mineverse is OFF Railway since 2026-08-20/21 and its own go-live checklist is moot (and its coordinator baton tells you to delete a trigger — [D-0015] forbids that); games' kit hop is owner-paced ('no adopter yet', owner 2026-08-14); idle's plugin is pinned in superbot-next's lockfile and its kit version is invisible to the adopter registry. mineverse's closeout is the family MASTER. superbot-plugin-hello (the contract exemplar, never archived) is the fourth name here: a manifest edit there is a TWO-REPO change — the host pin in superbot-next must re-land or the host boots FAILED_STARTUP."
     },
     {
       "id": "estate-superbot-world-prompt",
@@ -668,12 +673,14 @@
       "when": [
         "\\bsuperbot[- ](games|idle|mineverse)\\b",
         "\\bmineverse\\b",
-        "\\bsuperbot world\\b"
+        "\\bsuperbot world\\b",
+        "\\bsuperbot[- ]plugin[- ]hello\\b",
+        "\\bplugin[- ]hello\\b"
       ],
       "docs": [
         "docs/ESTATE.md"
       ],
-      "says": "You named a SuperBot-World satellite. Read its row in docs/ESTATE.md first — the family is complete-parked, every continuation is owner-gated, and the mineverse row carries two booby-trap warnings (moot go-live docs; a [D-0015]-violating trigger baton). Paired with the `estate-superbot-world` tool route so a Bash or Grep carrying a name cannot spend this route's once-per-session budget before your message does."
+      "says": "You named a SuperBot-World satellite. Read its row in docs/ESTATE.md first — the family is complete-parked, every continuation is owner-gated, and the mineverse row carries two booby-trap warnings (moot go-live docs; a [D-0015]-violating trigger baton). For superbot-plugin-hello: a manifest edit is a two-repo change (host pin re-land or FAILED_STARTUP). Paired with the `estate-superbot-world` tool route so a Bash or Grep carrying a name cannot spend this route's once-per-session budget before your message does."
     },
     {
       "id": "estate-codetools",
@@ -703,7 +710,7 @@
       "when": [
         "\\bcodetool[- ]lab\\b",
         "\\bmdverify\\b",
-        "\\benvdrift\\b",
+        "\\benvdrift\\b(?!\\.py)",
         "\\bcfgdiff\\b"
       ],
       "docs": [
@@ -848,6 +855,36 @@
         "docs/ESTATE.md"
       ],
       "says": "You named Substrate-kit-app (or the kit dashboard). It is NOT the kit — a frozen Gemini dashboard experiment whose in-repo docs are the kit's verbatim, so everything inside it misidentifies itself. Its docs/ESTATE.md row is the honest description; the real kit's entry point is docs/repos/substrate-kit/README.md. Paired with the `estate-kit-app` tool route."
+    },
+    {
+      "id": "estate-proxybench",
+      "tools": [
+        "Bash",
+        "WebFetch",
+        "Read",
+        "Glob",
+        "Grep"
+      ],
+      "when": [
+        "\\bproxybench\\b"
+      ],
+      "docs": [
+        "docs/ESTATE.md"
+      ],
+      "says": "You touched proxybench. Its docs/ESTATE.md row is the whole story: a single-file proxy benchmark built mostly as a joke; OD-12 parks it — no action required, disposition open and unimportant. Do not invest a session in it without the owner asking."
+    },
+    {
+      "id": "estate-proxybench-prompt",
+      "tools": [
+        "UserPromptSubmit"
+      ],
+      "when": [
+        "\\bproxybench\\b"
+      ],
+      "docs": [
+        "docs/ESTATE.md"
+      ],
+      "says": "You named proxybench. Read its docs/ESTATE.md row — OD-12 parks it (no action required). Paired with the `estate-proxybench` tool route."
     }
   ]
 }

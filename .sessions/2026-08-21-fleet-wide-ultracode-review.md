@@ -39,10 +39,11 @@
   dependabot disposition, working contract + stale-walls caveat),
   `websites` (satellite-ledger staleness warning), `estate-backups`
   (archive Release tag named).
-- `.claude/hooks/doc-routes.json` — 10 route pairs (20 route records):
+- `.claude/hooks/doc-routes.json` — 11 route pairs (22 route records):
   folder routes for product-forge, superbot-next, substrate-kit, venture-lab;
-  ESTATE.md routes for the SuperBot-World satellites, codetools, shiftlife,
-  gba/pokemon, research family, Substrate-kit-app. `check_doc_routes` 0 errors.
+  ESTATE.md routes for the SuperBot-World satellites (plugin-hello included),
+  codetools, shiftlife, gba/pokemon, research family, Substrate-kit-app and
+  proxybench. `check_doc_routes` 0 errors.
 - `docs/owner-queue.md` — OQ-PLAY-APP-ID · OQ-PLAY-UPLOAD-KEY ·
   OQ-GBA-ROM-RULESET · OQ-GBA-LUMEN-RELEASE resolved as overtaken (each
   verified live first); OQ-GBA-NEXT-PICKS + OQ-PML-EMERALD-LETTER added
@@ -68,8 +69,8 @@
   lane). CI substrate-gate red confirmed as the same hold from the job log
   (`session-card-hold`, "designed hold, not a defect"). Stamp findings and
   the orientation-budget red raised mid-session were fixed before landing.
-- `python3 tools/check_doc_routes.py` → 52 routes · 0 errors · exit 0.
-- `python3 scripts/check_estate_index.py` → 0 findings; `--selftest` 7/7.
+- `python3 tools/check_doc_routes.py` → 54 routes · 0 errors · exit 0.
+- `python3 scripts/check_estate_index.py` → 0 findings; `--selftest` 12/12.
 - `python3 scripts/check_docs_links.py` → CLEAN, 401 files, exit 0.
 
 ## Deliberate boundaries (recorded, not silent)
