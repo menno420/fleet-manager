@@ -8,20 +8,63 @@ with mechanism · dead-span bucketing · the strategy-envelope gate built); R2
 on `a4ed51f` — 3 findings, 3 [conceded], fixed in `f8869c3` (zero-click wall
 lane + pinned boundary · F5 two-tier visibility, measured displayed floor
 4.0 % · StatsPanel Clarity display routed through `clarityMultiplier`); R3 on
-`f8869c3` — clean, zero inline findings; squash-merged `6e61f1d`, main
-ci+build+deploy all green. One retry review-request was posted when R3's ack
-lagged ~25 min (list-endpoint staleness — R3 had already reviewed the exact
-head); if that retry draws a late extra review, its findings are the next
-session's worklist per the two-round cap. fm #872: R1 — 5 findings, 5
-[conceded] (ci made REQUIRED on couch-legend main, ruleset 21117825 ·
-OQ-CL-LOOKS-PASS queued · Android thread resequenced · counts · the Lore
-guard recipe); R2 — 2 findings, 1 [conceded] (the swallowed
-OQ-VENTURE-STRIPE-KEYS heading restored) + 1 [partial→fixed] (boot-read
-budget 7,005 → measured 6989/7000); R3 on `5edac9a` — clean. This flip
-commit changes: this badge, this note, the PR line, and the test-count
+`f8869c3` — **3 findings, read only after the merge** (originally recorded
+here as "clean, zero inline findings" — false; § Correction below carries
+the mechanism); squash-merged `6e61f1d`, main ci+build+deploy all green.
+One retry review-request was posted when R3's ack lagged ~25 min
+(list-endpoint staleness — R3 had already reviewed the exact head). fm
+#872: R1 — 5 findings, 5 [conceded] (ci made REQUIRED on couch-legend main,
+ruleset 21117825 · OQ-CL-LOOKS-PASS queued · Android thread resequenced ·
+counts · the Lore guard recipe); R2 — 2 findings, 1 [conceded] (the
+swallowed OQ-VENTURE-STRIPE-KEYS heading restored) + 1 [partial→fixed]
+(boot-read budget 7,005 → measured 6989/7000); R3 on `5edac9a` — **2
+findings, read only after the merge** (also originally "clean" here). This
+flip commit changes: this badge, this note, the PR line, and the test-count
 currency sync 61→62 across the card Verify, the §7 row and the Layer-2
 entry (the suite grew by the zero-click pin after fm's R3; named here per
 the flip exemption — reviewed head `5edac9a`, after it only this commit).)*
+
+## Correction (2026-08-21, same session — after both merges)
+
+**Both "R3 clean" claims above were false, and the cause was my own query
+windows.** The round-3 reviews landed at `00:53:19Z` (couch-legend #1,
+3 findings) and `00:32:51Z` (fm #872, 2 findings); my "any new inline
+comments?" checks filtered `since=01:05` and `since=00:35` — both cut
+*after* the actual submit times, so each query structurally excluded
+exactly what it was checking for. I saw review-object counts reach the
+expected number, read zero comments through the mis-set filters, recorded
+"clean", and merged. The queued PR-activity notifications carried all five
+findings; they were read after close.
+
+All five verified against source and dispositioned [conceded], fixed in
+**couch-legend #2** + this PR:
+- CL-P1 *minimum-start boundary*: "one hit is enough" was false — 1–3 hits
+  freeze a save forever (High < 4, nugs < 10, neither replenishes); 4–9
+  open only the jobs half; 10 open the full game. Pinned by engine tests;
+  DESIGN § 9.6.1 + results F1 restated.
+- CL-P2 *taken-prestige is a move*: the dead/check-in classifiers ran after
+  the reset, so an eager prestige that bought nothing counted as no move —
+  `didPrestige` now feeds both.
+- CL-P2 *unrecovered rebuilds*: a second prestige before regaining the
+  previous peak silently overwrote the pending measurement, a survivorship
+  bias in exactly the statistic F6 watches — now closed as `unrecovered`
+  and counted.
+- FM-P2 *shipped head*: the Shipped line below named `3902e77`; the merged
+  head was `f8869c3` (corrected in place).
+- FM-P2 *permanent lore lines*: the Layer-2 mechanics paragraph still sold
+  "9 permanent lore lines" against this card's own defect record —
+  qualified in place.
+
+Also verified: the Codex *cloud task* comment on fm #872 (00:05Z) describes
+a commit `d73e867` that exists nowhere in the repository — its work stayed
+in the task sandbox; nothing foreign reached the branch (the PR merged on
+`de85e23`).
+
+**The lesson, sized for a mechanism:** "review count reached N" plus "zero
+comments since T" is only evidence when T precedes the Nth review's submit
+time — derive `since` from the review object's own `submitted_at`, never
+from the wall clock of the check. Candidate for the estate's trap list;
+not built into a checker this session.
 
 - **📊 Model:** fable-5 · high · feature build — the continuation session the
   adoption session's brief directed (couch-legend
@@ -64,7 +107,8 @@ user — its A/B harness could grow the same seam instead of forking configs.
 
 ## Close-out
 
-**Shipped (couch-legend PR #1, head `3902e77`, three commits):**
+**Shipped (couch-legend PR #1, merged head `f8869c3` — five commits; the
+initial three plus two review-round fix commits):**
 - `src/lib/actions.ts` (+ store rewire, `tests/actions.test.ts`): the pure
   action layer — hit, three purchases, Wake & Bake — extracted with exact
   store semantics so the simulator and the UI run one implementation.
