@@ -1,15 +1,17 @@
 # Deployed prompts — verbatim ledger
 
-> **Two files here are LIVE, not part of the historical ledger below:**
+> **Status:** `living-ledger`
+
+> **Three files here are LIVE, not part of the historical ledger below:**
 > [`chatgpt-project-instructions.md`](chatgpt-project-instructions.md) — the
 > standing Instructions for the owner's ChatGPT "Fleet Manager" project,
-> rewritten 2026-08-10 — and
+> rewritten 2026-08-10 —
+> [`chatgpt-couch-legend-project-instructions.md`](chatgpt-couch-legend-project-instructions.md)
+> — the same for his "Couch Legend" project, written 2026-08-21 — and
 > [`2026-08-07-curious-research-external-review.md`](2026-08-07-curious-research-external-review.md),
 > a usable owner deliverable. Everything else is the deployed seat-prompt
 > record (gen-1 → v3.8) for the terminated seats.
 
-> **Status:** `living-ledger`
->
 > Verbatim record of every Custom Instructions block and startup/coordination
 > prompt deployed to the fleet, 2026-07-09. These are the gen-1 texts — the
 > gen-2 blueprint revises them; never edit history here, add dated successors.

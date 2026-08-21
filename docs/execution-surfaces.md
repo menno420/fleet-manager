@@ -277,9 +277,14 @@ prompt), `continuation-prompt` (carry a planning session into a fresh one),
 carry). Each reads the surface rows above and adjusts only what actually
 differs — network, credentials, tooling, setup-phase exports.
 
-**The ChatGPT project's standing instructions are a file, not a chat artifact:**
-[`prompts/chatgpt-project-instructions.md`](prompts/chatgpt-project-instructions.md).
-A brief aimed at that surface should point at it rather than restate it — and
+**A ChatGPT project's standing instructions are a file, not a chat artifact** —
+one per project:
+[`prompts/chatgpt-project-instructions.md`](prompts/chatgpt-project-instructions.md)
+(Fleet Manager) ·
+[`prompts/chatgpt-couch-legend-project-instructions.md`](prompts/chatgpt-couch-legend-project-instructions.md)
+(Couch Legend, 2026-08-21).
+A brief aimed at that surface should point at the right project's file rather
+than restate it — and
 should not re-add the `delete_trigger` rule, which is Claude-Code-specific
 (owner, 2026-08-10; see the surface table).
 

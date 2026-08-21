@@ -152,7 +152,9 @@ the minimum to act, never the boundary of what is worth reading (`CONSTITUTION.m
 
 **Live vs historical:** `docs/roster.md`, `control/`, `telemetry/`,
 `projects/`, `docs/prompts/` are **seat-era apparatus — historical record** (exceptions:
-`docs/prompts/chatgpt-project-instructions.md` + the curious-research review
+`docs/prompts/chatgpt-project-instructions.md`,
+`docs/prompts/chatgpt-couch-legend-project-instructions.md` + the
+curious-research review
 prompt are live; `control/claims/` is contested — the kit still wires it), not current
 truth (the seats no longer exist; the roster was retired 2026-08-07 and no
 longer regenerates). Per-repo truth lives in each repo's

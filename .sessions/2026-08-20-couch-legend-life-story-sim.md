@@ -292,3 +292,16 @@ balance-pass thread closed into it.
 **PR:** couch-legend #1 **MERGED** `6e61f1d` (squash; main ci+build+deploy
 green, polled to terminal) · fm #872 flips complete on this commit and lands
 on green.
+
+## Addendum (2026-08-21, owner-live, after the correction wave landed)
+
+The owner set up a ChatGPT project for couch-legend and asked for its custom
+instructions. Committed as
+`docs/prompts/chatgpt-couch-legend-project-instructions.md` — modeled on the
+measured fleet-manager version beside it, couch-legend-scoped (three-read
+orientation, looks-vs-measurement division of labor, tone guard, the
+connector-not-push surface facts, the answer-can-be-a-comment review lesson
+this session paid for), with the fence carrying no volatile counts. The
+looks-pass continuation prompt itself was delivered in-chat the same turn
+(session prompts are consumables, not apparatus — only the standing
+instructions earn a committed home).
