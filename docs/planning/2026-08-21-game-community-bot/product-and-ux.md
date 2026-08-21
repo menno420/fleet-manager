@@ -163,7 +163,11 @@ compatibility decision, not an MVP dependency.
 
 ### 5. Report and triage feedback
 
-1. A tester opens a Forum post through a short modal or native Forum workflow.
+1. A tester uses the short feedback modal, which creates/binds a Forum post. An
+   already-native Forum post remains valid human conversation and can be
+   adopted through an explicit `/feedback adopt`/context action that collects
+   the structured fields and exact content the user or staff chooses to submit;
+   the bot does not ambiently read guild message bodies.
 2. The bot validates game/build, type, reproduction fields, privacy, and
    attachments; it adds structured tags without replacing the human post.
 3. AI may suggest a title, missing questions, duplicate candidates, severity,
