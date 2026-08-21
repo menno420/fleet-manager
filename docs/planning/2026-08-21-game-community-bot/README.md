@@ -120,7 +120,7 @@ step.
 | GCB-1 | Repository name | `superbot-community` | creating the repository |
 | GCB-2 | Discord application | use a separate test application/token | first live guild drive |
 | GCB-3 | Initial providers, Discord-data policy, and monthly spend rail | approve allowed source classes and private/staff exclusions, provider retention/training terms, guild/user disclosure and consent, deletion/export propagation, then enable the already-supported OpenAI + Anthropic adapters with a hard budget and per-task routing | sending any Discord-derived content to a non-deterministic provider in the test guild |
-| GCB-4 | AI autonomy default | auto-act only on low-risk reversible tools; preview + owner confirmation for medium-risk; deny high-risk/destructive tools | first write-capable AI tool |
+| GCB-4 | Initial AI autonomy policy | auto-act only on low-risk reversible tools; preview + owner confirmation for medium-risk; deny high-risk/destructive tools; any later confirmation-free medium-risk expansion is a new explicit decision | enabling AI Act in the test guild |
 | GCB-5 | First game profile | `spider-swing`; keep the core multi-game | seeding the first real server |
 | GCB-6 | Legacy production data | import nothing for MVP; add a dry-run migrator only if a real guild needs continuity | any production cutover |
 
