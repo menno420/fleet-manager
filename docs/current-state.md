@@ -163,6 +163,11 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
 
 ## Recently shipped (newest first)
 
+- **Fleet-wide estate review — [`ESTATE.md`](ESTATE.md) built** (2026-08-21,
+  fm #878): 26 repos read from source; three Tier-1 entry points, 11
+  route pairs, owner-queue corrections;
+  [the finding](findings/2026-08-21-fleet-estate-review.md).
+
 - **The Railway keep-bot-only worklist EXECUTED, all slices terminal**
   (2026-08-20/21; fm #868 → this): crawler DoS ended; mineverse + review
   off Railway (Pages export serves; estate 3 projects / 8 services);
@@ -171,14 +176,9 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   [audit § 8 addendum](findings/2026-08-14-railway-websites-audit.md).
   Open: `OQ-RAILWAY-SHIFTLIFE-SCOPE` · `OQ-WEBSITES-PAT` · `OQ-RG-ORPHAN-VOLUMES`.
 
-- **couch-legend phase 2 — stage system decided; simulator validated;
-  prototype runaway measured, fix proposed (game untouched)**
-  (2026-08-20/21, couch-legend #1): §7 row +
-  [`repos/couch-legend/README.md`](repos/couch-legend/README.md).
-
-- **couch-legend — the Grok one-prompt game adopted, live on Pages**
-  (2026-08-20, fm #870; owned repo, tested engine, decided mechanics map,
-  Android path chosen): §7 row +
+- **couch-legend — adopted (fm #870); phase 2: stage system decided,
+  simulator validated, runaway measured + fix proposed, game untouched**
+  (2026-08-20/21, couch-legend #1): §7 +
   [`repos/couch-legend/README.md`](repos/couch-legend/README.md).
 
 - **phone-controller Slices 18–22 (v0.22.0) shipped** (2026-08-14→20,

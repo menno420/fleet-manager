@@ -137,8 +137,10 @@ session left off, and whether attaching is even needed. Naming a repo in your
 message now pulls its README in automatically (`route_docs.py` runs on
 `UserPromptSubmit` as well as `PreToolUse`), so this is a net, not a chore.
 Structure, the thread convention and honest coverage: `docs/repos/README.md`.
-**Coverage is partial and says so** — `spider-swing` is built; the rest are
-listed as not-yet-written rather than silently absent.
+**No folder ≠ invisible: `docs/ESTATE.md` is the estate index** — every
+repository the account holds, one line each (what it is, state, owner
+vocabulary, canonical entry, Layer-2 link). When the target repo has no
+folder, or the owner's words name a product rather than a repo, start there.
 
 **This list is a floor, not a ceiling.** A session whose job is to *understand*
 this repo reads past it — `CONSTITUTION.md` and `docs/owner-profile.md` (live),

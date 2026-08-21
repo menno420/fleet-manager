@@ -162,9 +162,14 @@ def main() -> int:
         if not docs:
             continue
         # Already opening one of these docs? Then the hook has nothing to add.
-        # Probe routes only: a content route fires ON the edit to its own doc,
-        # which is the entire point of the wall-recording route below.
-        if not route.get("tools") and any(d in text for d in docs):
+        # Applies to probe routes AND to explicit read-event routes (Codex on
+        # fm #878: a folder route re-fired on the very Read its prompt half had
+        # just directed, repeating "read this file" onto the read itself).
+        # Content routes (Edit/Write) still fire ON their own doc — that is
+        # the entire point of the wall-recording route; prompt routes are
+        # untouched (a prompt naming a doc path is not an open of it).
+        if any(d in text for d in docs) and (
+                not route.get("tools") or tool in DEFAULT_TOOLS):
             fired.add(rid)
             continue
         try:

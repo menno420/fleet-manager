@@ -34,6 +34,11 @@ hard rail applies to everything this venue touches.
 
 ### Thread: bot-DB sizing — **landed**, 2026-08-20
 
+The one archive this venue has produced so far lives on the repo's Releases
+page as tag **`postgres-botsite-final-2026-08-16`** (`MEASURED` 2026-08-21) —
+the restore-verified pre-deletion dump of `postgres-botsite`. "Where is the
+old botsite data?" is answered by that tag, not by re-deriving from `dump.yml`.
+
 Where it stands: the sizing run answered the ~2 GB-dump question — 949 MB
 database, 97.5 % of it three `btd6_*` ingestion tables; full results and
 the prune proposal live in the fm audit

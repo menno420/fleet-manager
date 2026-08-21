@@ -28,7 +28,27 @@ produced a **SKIPPED** worker deployment, the bot did not restart. So
 workflow/runbook-only maintenance is now rebuild-safe; a push touching
 `disbot/**` or a root build input still restarts the bot. Schedule
 retirements remain the recurring work class (they burn Actions runs, not
-the bot). The successor codebase is `superbot-next` (paired Tier-1 row).
+the bot). The successor codebase is `superbot-next`
+([paired Tier-1 folder](../superbot-next/README.md)).
+
+Three facts a fresh session needs that the repo will not volunteer
+(`MEASURED` 2026-08-21, fm #878 review):
+
+- **There is no root README.** The repo's real entry is
+  `docs/AGENT_ORIENTATION.md` (its own reading router), then
+  `docs/current-state.md`. "The live tree wins" starts there.
+- **8 open PRs are all dependabot, parked by doctrine** — D‑0017 explicitly
+  exempts third-party automation (`../../decisions.md` § D‑0017); do not start
+  dispositioning them as abandoned session work.
+- **Working contract:** required check on `main` is `Code Quality`; the kit
+  gate (`python3 bootstrap.py check --strict`) runs **honestly red at 2**
+  (orientation-budget, enforcement-unwired) — expected, never "fixed" by
+  suppression; kit updates go vendor-dist + bump-pin, never `adopt`/`upgrade`
+  (both over-correct here — program §7, 2026-08-13). And its own
+  `docs/current-state.md` still records seat-era 403 walls (ref deletion,
+  tag-push, raw api.github.com) that the estate has since refuted — in this
+  one repo, "the tree wins" carries the caveat *except its recorded walls*,
+  which are dated venue records, 11 of them deliberately allowlisted.
 
 ## Threads
 

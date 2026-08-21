@@ -71,7 +71,11 @@ dated is the folder's nature, not its decay: staleness is meant to be *visible*.
 `README.md` is the entry and **stands alone** — one read answers the basic
 questions and carries the thread blocks. Everything else is depth, opened when
 the question is deeper. A doc-route for a repo points at `README.md`, never at
-the folder.
+the folder — and **a built folder ships with its doc-route pair in the same
+PR** (`<id>` for tool events + `<id>-prompt` for UserPromptSubmit): the
+product-forge folder went routeless for a week because the route was treated
+as a separate chore (measured, fleet review 2026-08-21), which silently
+falsified the boot file's "naming a repo pulls its README in".
 
 The design named `current-state` / `capabilities` / `goals` / `records` as a
 **starting shape** and asked the first folder to earn its files. That question is
@@ -94,13 +98,15 @@ the files it has" for the worked example the shape came from.
 |---|---|---|
 | **1** | `spider-swing` | ✅ **built** 2026-08-08 — the reference shape, **ratified 2026-08-08** |
 | **1** | `superbot` | ◐ **entry point built** 2026-08-21 (on-demand, the keep-bot-only close) — `README.md` only; depth files not yet written, reasons in its header. Carries the § 5.7 section (all null) |
-| **1** | `superbot-next` (superbot's pair) · `substrate-kit` · `venture-lab` | ⬜ not built — **cleared to build**; the shape is settled |
+| **1** | `superbot-next` (superbot's pair) | ◐ **entry point built** 2026-08-21 (the fleet review, fm #878) — `README.md` only; depth files not yet written, reasons in its header. Carries the § 5.7 section (all null) |
+| **1** | `substrate-kit` | ◐ **entry point built** 2026-08-21 (same review) — `README.md` only; carries the FM-resident follow-up-worklist pointer. § 5.7 section all null |
+| **1** | `venture-lab` | ◐ **entry point built** 2026-08-21 (same review) — `README.md` only; carries the OD-11 supersession the repo's own docs lack. § 5.7 section all null |
 | **1** | `fleet-manager` (itself — today's work is otherwise a standing exception) | ⬜ not built — outside the owner-ratified build-now set; its intent already lives at [`../intent.md`](../intent.md) |
 | **2** | `product-forge` | ◐ **entry point built** 2026-08-14 (on-demand, the Slice-18 session) — `README.md` only; `capabilities.md` / `records.md` / `working-here.md` deliberately not yet written, reasons in its header. Carries the § 5.7 external-workspaces section (all null today) |
 | **2** | `couch-legend` | ◐ **entry point built** 2026-08-20 (on-demand, the adoption session) — `README.md` only; depth files not yet written, reasons in its header. Carries the § 5.7 section (Grok provenance pointers live; ChatGPT: the owner's "Couch Legend" project, 2026-08-21, instructions at [`../prompts/chatgpt-couch-legend-project-instructions.md`](../prompts/chatgpt-couch-legend-project-instructions.md); Drive/Gemini null) |
 | **2** | `websites` | ◐ **entry point built** 2026-08-21 (on-demand, the keep-bot-only close) — `README.md` only; depth files not yet written, reasons in its header. Carries the § 5.7 section (all null) |
 | **2** | `estate-backups` | ◐ **entry point built** 2026-08-21 (on-demand, same close) — `README.md` only; the private Actions venue for bot-DB work. Carries the § 5.7 section (all null) |
-| **2** | all other repos | ⬜ **on demand** — built when work goes there, not pre-stubbed (owner, 2026-08-08) |
+| **2** | all other repos | ⬜ **on demand** — built when work goes there, not pre-stubbed (owner, 2026-08-08). **Every repo without a folder has a routing row in [`../ESTATE.md`](../ESTATE.md)** — the estate index (one line per repository: what it is, state, aliases, canonical entry), added 2026-08-21 so "no folder" never again means "invisible" |
 
 **The shape is settled — owner, 2026-08-08.** The three questions the spider-swing
 folder left open are answered: it replicates **as built** (`README.md` +

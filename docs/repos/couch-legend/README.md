@@ -42,8 +42,11 @@ validation), per-mood revelations (9 lore lines, toast on first reach —
 its `lifeHigh` fix path are in the life-story thread below), itemized
 offline report, prestige preview (current → post-prestige
 Clarity multiplier), tab affordability dots, keyboard hits + reduced-motion,
-PWA manifest/icons. `pnpm check` (typecheck + 62 tests + build) is CI and the
-local gate — one check, per the estate's one-check convention (OD-9), and
+PWA manifest/icons. `pnpm check` (typecheck + the full vitest suite + build)
+is CI and the
+local gate — one check, per the estate's one-check convention (OD-9; count the
+tests with `pnpm test`, never from prose — this line carried a frozen "62"
+that PR #2 outgrew within a day), and
 since 2026-08-21 **`ci` is a REQUIRED status check on `main`** (ruleset
 `main-branch-protection`, id 21117825, created by the phase-2 session —
 the adoption card's "revisit when a second session works there" trigger
@@ -54,6 +57,14 @@ Pointers (all in couch-legend): `docs/DESIGN.md` (the decided mechanics map —
 read before changing any number) · `docs/ORIGIN.md` (provenance + the
 reconstruction method) · `README.md` (player-facing + dev commands) ·
 `tests/engine.test.ts` (the pins).
+
+**How working here differs from the rest of the estate:** couch-legend is
+deliberately **not a substrate-kit adopter** — no `.claude/`, no
+`bootstrap.py`, no born-red session cards, no `substrate.config.json`
+(`MEASURED` 2026-08-21). The whole gate is `pnpm check`; handoff state lives
+in this folder, not in-repo. Do not go looking for kit apparatus there, and do
+not carry this repo's kit rituals in. A session booted with couch-legend as
+its root loads zero agent apparatus (boot-triad case two).
 
 ### Thread: life-story design + simulator — **LANDED (2026-08-20/21 session; owner's looks pass is NEXT)**
 
