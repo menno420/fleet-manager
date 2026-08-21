@@ -81,7 +81,8 @@ bundle records:
 Drive denied and failure paths as deliberately as happy paths: insufficient bot
 hierarchy, removed caller role, deleted/adopted resource, duplicate interaction,
 provider timeout, database interruption, stale component, partial setup, budget
-exhaustion, and kill switch.
+exhaustion, missing Community or privileged-intent prerequisite, guild removal,
+reinstall, and kill switch.
 
 ## Data migration posture
 
@@ -106,6 +107,11 @@ migration plan with:
 Discord messages, tickets, economy/game content, process-local AI memory, and
 uncertain legacy config are excluded by default. “Import everything” is not an
 acceptable requirement.
+
+Guild removal is not a data-migration event. It immediately tombstones the
+guild and revokes scheduled/integration/AI authority; configured retention and
+legal/audit holds then decide an idempotent purge. Reinstall never silently
+reactivates old jobs, delegations, credentials, or member memory.
 
 ## Release and promotion ladder
 
