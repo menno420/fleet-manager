@@ -1,0 +1,139 @@
+# Game Community Bot — authoritative pre-repository plan
+
+> **Status:** `plan` · 2026-08-21 · owner-directed
+>
+> **Authoritative for:** the intended outcome, scope, architecture, delivery
+> order, migration route, and evidence gates for the new Discord bot **until
+> its own repository exists**.
+>
+> **Not authoritative for:** the internal state of `superbot` or
+> `superbot-next`, live Discord/Railway state, provider prices, or the future
+> bot's post-creation implementation truth. The source repositories and live
+> services always win. When the new repository is created, this plan is copied
+> into that repo, reconciled against its first commit, and this folder becomes
+> a dated pointer rather than a second product source of truth.
+
+## Decision headline
+
+Build a **clean, multi-game Discord bot repository** whose first real job is
+running a game-testing community and whose second job is remaining useful as a
+general game server.
+
+- Use `superbot-next` as an **architecture and kernel-pattern donor**, not as a
+  codebase to trim and not as a parity target.
+- Use live `superbot` as the **behavior, operator-UX, and feature oracle**, not
+  as the new foundation.
+- Keep both existing repositories and the live production bot untouched during
+  the build.
+- Make AI a first-class operating layer from the first vertical slice. The AI
+  may act with meaningful freedom, but every side effect passes through the
+  same typed, permissioned, auditable service operations used by buttons and
+  commands.
+- Ship a small server-management and playtest core first. Do not carry over the
+  casino/economy/game-content surface merely because it exists.
+- Make the bot multi-game by data model and configuration. `spider-swing` is
+  the intended first playtest consumer; adding another game must not require a
+  new bot fork.
+
+This resolves the direction fork recorded in
+[`docs/repos/superbot-next/README.md`](../../../repos/superbot-next/README.md):
+the old cutover ladder is not the build plan, and the 2026-08-05 server-first
+direction is retained and upgraded into an implementation-ready plan.
+
+## Why a new repository is the default
+
+`superbot` is live, frozen, tightly coupled, and a merge can restart production.
+`superbot-next` has a cleaner layered kernel, but it also carries 49 subsystems,
+a 2.3 MB generated manifest, a parity corpus that certified captured text as
+working behavior, and no production deployment history. Starting clean is the
+lowest-risk way to preserve the good boundaries without inheriting either
+repository's accidental product scope.
+
+This is a **reversible planning decision**. The owner confirms the repository
+name and creation immediately before Phase 0; nothing in this planning PR
+creates a repository, bot application, secret, server, or deployment.
+
+## Read this section in order
+
+1. [`intent.md`](intent.md) — what the owner said, what was already decided,
+   what is inferred, and the remaining owner calls.
+2. [`source-review.md`](source-review.md) — the evidence-backed comparison and
+   the keep/rebuild/drop disposition.
+3. [`product-and-ux.md`](product-and-ux.md) — actors, server shape, workflows,
+   commands, and feature boundaries.
+4. [`architecture.md`](architecture.md) — modules, ownership boundaries,
+   deterministic event flow, AI autonomy model, persistence, and deployment.
+5. [`delivery-roadmap.md`](delivery-roadmap.md) — dependency-ordered phases,
+   issue-sized slices, and done-before-next gates.
+6. [`migration-and-rollout.md`](migration-and-rollout.md) — how the two existing
+   bots are used safely, live-guild validation, cutover, and rollback.
+7. [`verification-and-operations.md`](verification-and-operations.md) — CI,
+   tests, observability, security, runbooks, and release evidence.
+
+## Source baseline
+
+The plan was derived from current `main` plus the measured 2026-08-05 live
+audit. Pins make the evidence reproducible; they are not claims that the repos
+can never move.
+
+| Source | Pin reviewed | What it contributes |
+|---|---|---|
+| `menno420/fleet-manager` | `9f8eb079` | Current intent, Layer-2 handoffs, server-first findings, operating standards |
+| `menno420/superbot` | `5e3a667b` | Live behavior, setup/navigation UX, server operations, AI platform, production traps |
+| `menno420/superbot-next` | `d5f66dc2` | Layered kernel, manifests, workflow/audit seams, tests, and the measured parity/reachability failure |
+
+Primary fleet evidence:
+
+- [Playtest Discord and bot value finding](../../../findings/2026-08-05-playtest-discord-and-superbot-value.md)
+- [`superbot-next` live audit](../../../findings/2026-08-05-superbot-next-live-audit.md)
+- [Three-repo state audit](../../../findings/2026-08-05-three-repo-state-audit.md)
+- [`superbot` Layer-2 entry](../../../repos/superbot/README.md)
+- [`superbot-next` Layer-2 entry](../../../repos/superbot-next/README.md)
+
+## Product success in one screen
+
+The MVP is successful when a fresh game-server owner can invite the test bot,
+run one setup flow, preview and approve a plan, and receive a usable server with:
+
+- a clear Home panel from which every enabled feature is reachable in at most
+  two interactions;
+- safe roles, channels, permissions, welcome, logs, moderation, and recovery;
+- native Discord Forum channels for bugs and feedback, enhanced rather than
+  replaced by the bot;
+- build announcements, tester onboarding, playtest sessions, reminders, polls,
+  and feedback triage;
+- an AI operator that can inspect the guild, propose a typed plan, execute the
+  owner-approved operations, verify their effects, and explain exactly what it
+  did;
+- no casino, economy, BTD6, or unrelated content loaded;
+- a provider outage, AI disable switch, or failed AI request that never makes
+  the deterministic server-management features unavailable.
+
+## Owner calls before implementation
+
+These do not block this plan. Defaults are chosen so the next session can
+prepare everything else; the owner confirms them before the named irreversible
+step.
+
+| ID | Call | Recommended default | Needed before |
+|---|---|---|---|
+| GCB-1 | Repository name | `superbot-community` | creating the repository |
+| GCB-2 | Discord application | use a separate test application/token | first live guild drive |
+| GCB-3 | Initial providers and monthly spend rail | enable the already-supported OpenAI + Anthropic adapters; hard budget and per-task model routing | enabling non-deterministic AI in the test guild |
+| GCB-4 | AI autonomy default | auto-act only on low-risk reversible tools; preview + owner confirmation for medium-risk; deny high-risk/destructive tools | first write-capable AI tool |
+| GCB-5 | First game profile | `spider-swing`; keep the core multi-game | seeding the first real server |
+| GCB-6 | Legacy production data | import nothing for MVP; add a dry-run migrator only if a real guild needs continuity | any production cutover |
+
+## Explicit non-actions
+
+This plan does **not** invite a bot, create a Discord application, create or
+rename a GitHub repository, touch Railway, move production data, alter either
+existing bot, or promise a production cutover. Those are later, separately
+verified phases.
+
+## Next executable action
+
+Confirm GCB-1 and create the new repository from a minimal substrate-kit seed.
+Then execute Phase 0 of the roadmap: transplant this plan, add the architecture
+decision record, establish one required CI check, and land an empty but
+observable Discord process before any feature module is ported.
