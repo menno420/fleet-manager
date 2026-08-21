@@ -25,7 +25,7 @@ The owner's durable frame, stated live during adoption: *"Eventually I want
 this to be a fully working android game. What I need is a solid base for the
 mechanics. The main idea should be clearly mapped and decided."* That base is
 the repo's shape: a pure platform-neutral engine + content tables pinned by
-the test suite (61 tests as of the phase-2 session — engine pins, action-layer
+the test suite (62 tests as of the phase-2 session — engine pins, action-layer
 pins, simulator determinism, replay parity against real play), a web UI as the
 current adapter, and **`docs/DESIGN.md` as the binding mechanics map** (every
 resource, loop, formula and table decided; Android path decided as a Capacitor
@@ -40,7 +40,7 @@ additive and identity-preserving — portable save codes (export/import with
 validation), per-mood revelations (9 permanent lore lines, toast on first
 reach), itemized offline report, prestige preview (current → post-prestige
 Clarity multiplier), tab affordability dots, keyboard hits + reduced-motion,
-PWA manifest/icons. `pnpm check` (typecheck + 61 tests + build) is CI and the
+PWA manifest/icons. `pnpm check` (typecheck + 62 tests + build) is CI and the
 local gate — one check, per the estate's one-check convention (OD-9), and
 since 2026-08-21 **`ci` is a REQUIRED status check on `main`** (ruleset
 `main-branch-protection`, id 21117825, created by the phase-2 session —
@@ -75,9 +75,11 @@ couch-legend `docs/sim/2026-08-20-life-story-balance.md`.
 **Next, in the owner's stated order:** (1) his ChatGPT-Work looks pass;
 (2) a Claude implementation session — adopt the tuning (one-line default
 flip + pin updates), add the stage schema (save v2 `lifeHigh`, stage table
-into `content.ts`, two-key gating, revelations re-keyed — fixing the
-Lore-permanence defect DESIGN § 9.2 records), author arc-1 prologue content
-and per-stage beats; the results doc § 7 is the checklist. Also found: the
+into `content.ts`, era framing for existing items with real gates only on
+new additive content — the rule Codex review corrected — and revelations
+re-keyed, fixing the Lore-permanence defect DESIGN § 9.2 records), author
+arc-1 prologue content and per-stage beats; the results doc § 7 is the
+checklist. Also found: the
 Lore tab's "revelations survive Wake & Bake" is false today (keys on
 `peakHigh`) — fix rides the stage schema.
 

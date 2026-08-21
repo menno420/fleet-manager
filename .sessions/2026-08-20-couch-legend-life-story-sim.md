@@ -1,6 +1,27 @@
 # 2026-08-20 · hub — couch-legend phase 2: the life-story design decided, the simulator built, the runaway measured
 
-> **Status:** `in-progress`
+> **Status:** `complete`
+
+*(Flip note — the loop record. couch-legend #1: R1 on `3902e77` — 4 findings,
+4 [conceded], fixed in `a4ed51f` (era-framing gate correction · F6 rail scoped
+with mechanism · dead-span bucketing · the strategy-envelope gate built); R2
+on `a4ed51f` — 3 findings, 3 [conceded], fixed in `f8869c3` (zero-click wall
+lane + pinned boundary · F5 two-tier visibility, measured displayed floor
+4.0 % · StatsPanel Clarity display routed through `clarityMultiplier`); R3 on
+`f8869c3` — clean, zero inline findings; squash-merged `6e61f1d`, main
+ci+build+deploy all green. One retry review-request was posted when R3's ack
+lagged ~25 min (list-endpoint staleness — R3 had already reviewed the exact
+head); if that retry draws a late extra review, its findings are the next
+session's worklist per the two-round cap. fm #872: R1 — 5 findings, 5
+[conceded] (ci made REQUIRED on couch-legend main, ruleset 21117825 ·
+OQ-CL-LOOKS-PASS queued · Android thread resequenced · counts · the Lore
+guard recipe); R2 — 2 findings, 1 [conceded] (the swallowed
+OQ-VENTURE-STRIPE-KEYS heading restored) + 1 [partial→fixed] (boot-read
+budget 7,005 → measured 6989/7000); R3 on `5edac9a` — clean. This flip
+commit changes: this badge, this note, the PR line, and the test-count
+currency sync 61→62 across the card Verify, the §7 row and the Layer-2
+entry (the suite grew by the zero-click pin after fm's R3; named here per
+the flip exemption — reviewed head `5edac9a`, after it only this commit).)*
 
 - **📊 Model:** fable-5 · high · feature build — the continuation session the
   adoption session's brief directed (couch-legend
@@ -68,14 +89,16 @@ doc-route `says` strings updated to the post-session sequence (the exact
 staleness class Codex R3 caught on fm #870 — not repeated) · program §7 row
 · current-state shipped entry.
 
-**Verify:** couch-legend `pnpm check` → exit 0 (typecheck + 61/61 vitest
+**Verify:** couch-legend `pnpm check` → exit 0 (typecheck + 62/62 vitest
 incl. replay parity + the strategy-envelope gate + build), run after every
-change set; `ci` check-run `completed success` on PR #1 heads (`3902e77`,
-re-verified on the round-1 head before merge); every sim experiment
+change set; `ci` check-run `completed success` on every PR #1 head
+(`3902e77` · `a4ed51f` · `f8869c3`) and on merged `main` `6e61f1d`
+(ci + build + deploy all green, polled to terminal); every sim experiment
 reproducible via `pnpm sim <cmd>` (docs/sim results doc § 0). couch-legend
 `main` now REQUIRES `ci` (ruleset id 21117825, created this session on the
 adoption card's second-session trigger; effective-rules endpoint read back).
-fm strict gate at flip (below).
+fm strict gate at flip: 0 findings beyond the born-red hold this commit
+releases.
 
 **⚑ decide-and-flag (MEDIUMs, all reversible):**
 - The boot-read orientation budget sits near its cliff (measured 6989/7000
@@ -123,5 +146,6 @@ account-wide behavior, so no ledger append).
 simulator thread updated (landed; next = owner looks pass → implementation),
 balance-pass thread closed into it.
 
-**PR:** fm #872 — born-red until this card flips; couch-legend #1 driven to
-terminal state in-session (Codex loop below).
+**PR:** couch-legend #1 **MERGED** `6e61f1d` (squash; main ci+build+deploy
+green, polled to terminal) · fm #872 flips complete on this commit and lands
+on green.
