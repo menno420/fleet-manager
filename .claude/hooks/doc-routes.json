@@ -398,6 +398,108 @@
         "docs/findings/2026-08-08-why-rules-dont-bind.md"
       ],
       "says": "You are asking why sessions keep repeating mistakes, or asking for a session to be reviewed for them. That question already has a MEASURED answer here, and it changes the method rather than adding to it: 16 incidents in one session, catchers owner 5 · Stop-hook 4 · gate/CI 3 · own tests 2 · after-the-fact 2 · documentation recalled at the right moment ZERO — against 116 committed statements of the verify-first rule across 66 files. So the thing NOT to produce is a 117th statement: a rule binds only if it ARRIVES at the moment of the action, and the actions that need one do not announce themselves. Read § 3 for the four failure classes before classifying anything, and § 4 for which delivery mechanism fits each (deterministic gate > moment-of-action injection > post-turn review). Count from observable events — owner corrections, hook firings, gate and CI reds — and attribute each to its catcher, because prevented errors are invisible and an uncounted claim about frequency is the thing this file exists to stop."
+    },
+    {
+      "id": "repo-websites",
+      "tools": [
+        "Bash",
+        "WebFetch",
+        "Read",
+        "Glob",
+        "Grep"
+      ],
+      "when": [
+        "menno420/websites",
+        "\\bwebsites repo\\b",
+        "\\bcontrol-plane\\b",
+        "\\bbotsite\\b"
+      ],
+      "docs": [
+        "docs/repos/websites/README.md"
+      ],
+      "says": "Layer 2 entry point — read it BEFORE attaching the repo. websites is the four-service estate repo (control-plane · botsite · dashboard on Railway; review is a GitHub Pages static export since the 2026-08-20/21 cutover — NO Railway service behind it). Threads: keep-bot-only execution (LANDED — #508 crawler gate, #509 exporter, #510 cutover + serviceDelete) · open follow-ups (/queue gate-ready on the owner's word; OQ-WEBSITES-PAT = the Tier-1 READ-ONLY rate-limit token). Measured traps in the entry point: GITHUB_TOKEN pushes fire no push-event workflows (dispatch review-pages.yml explicitly); exporter exit 0 proves 200s, not link integrity; the owner-gate throttle leaks across test files. The repo's own tree wins over all of it."
+    },
+    {
+      "id": "repo-websites-prompt",
+      "tools": [
+        "UserPromptSubmit"
+      ],
+      "when": [
+        "menno420/websites",
+        "\\bwebsites repo\\b",
+        "\\bcontrol-plane\\b",
+        "\\bbotsite\\b"
+      ],
+      "docs": [
+        "docs/repos/websites/README.md"
+      ],
+      "says": "You named websites (the estate's four-service web repo). Read docs/repos/websites/README.md BEFORE attaching the repo — it carries the landed keep-bot-only thread, the measured traps, and the open follow-ups."
+    },
+    {
+      "id": "repo-superbot",
+      "tools": [
+        "Bash",
+        "WebFetch",
+        "Read",
+        "Glob",
+        "Grep"
+      ],
+      "when": [
+        "menno420/superbot(?![\\w-])",
+        "\\bsuperbot repo\\b",
+        "\\bworker service\\b"
+      ],
+      "docs": [
+        "docs/repos/superbot/README.md"
+      ],
+      "says": "Layer 2 entry point — read it BEFORE touching the repo. superbot is the FROZEN repo behind the LIVE production Discord bot (reliable-grace worker — the estate's hardest rail: never stop/scale/disconnect/delete). Since W1 (2026-08-14) the worker has a watch filter (disbot/** + root build inputs): workflow/runbook-only merges produce SKIPPED deployments (live-tested on sb #2446 — the bot did not restart), while a push touching disbot/** or a build input still restarts it. Schedule retirements are the recurring work class (sb #2446/#2450 pattern: cron out, dispatch kept, header note) — they burn Actions runs, not the bot. Traps measured on #2450: the auto-merge enabler ARMS AT OPEN — disable before requesting review; the docs/operations runbook rows go stale silently. The repo's own tree wins."
+    },
+    {
+      "id": "repo-superbot-prompt",
+      "tools": [
+        "UserPromptSubmit"
+      ],
+      "when": [
+        "menno420/superbot(?![\\w-])",
+        "\\bsuperbot repo\\b",
+        "\\bworker service\\b"
+      ],
+      "docs": [
+        "docs/repos/superbot/README.md"
+      ],
+      "says": "You named superbot (the frozen repo behind the LIVE production bot). Read docs/repos/superbot/README.md BEFORE touching it — the hard rail, the W1 watch-filter rebuild semantics, the poller-retirement pattern, and the auto-merge-enabler trap live there."
+    },
+    {
+      "id": "repo-estate-backups",
+      "tools": [
+        "Bash",
+        "WebFetch",
+        "Read",
+        "Glob",
+        "Grep"
+      ],
+      "when": [
+        "menno420/estate-backups",
+        "\\bestate[- ]backups\\b"
+      ],
+      "docs": [
+        "docs/repos/estate-backups/README.md"
+      ],
+      "says": "Layer 2 entry point — read it BEFORE working the repo. estate-backups is the PRIVATE Actions venue for Railway-Postgres work the container's 80/443-only egress cannot reach. Two one-shot workflows, each with its own sealed secret: dump.yml = the restore-verified PRE-DELETION archive of postgres-botsite (PGB_DSN, ran 2026-08-16); sizing.yml = read-only catalog sizing (BOT_DB_DSN). The recurring bot backup is a superbot workflow (weekly since sb #2446), NOT here. The credential pattern IS the venue: one-shot sealed-box secret (PUT without printing → dispatch → read log → DELETE). Read-only unless the owner directs otherwise — the worker/Postgres hard rail applies."
+    },
+    {
+      "id": "repo-estate-backups-prompt",
+      "tools": [
+        "UserPromptSubmit"
+      ],
+      "when": [
+        "menno420/estate-backups",
+        "\\bestate[- ]backups\\b"
+      ],
+      "docs": [
+        "docs/repos/estate-backups/README.md"
+      ],
+      "says": "You named estate-backups (the private Actions venue for bot-DB work). Read docs/repos/estate-backups/README.md first — the sealed-box secret pattern and the read-only posture live there."
     }
   ]
 }

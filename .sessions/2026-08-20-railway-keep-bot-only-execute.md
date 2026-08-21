@@ -126,6 +126,18 @@ gate. Nothing in the handoff contradicted the tree.
   shiftlife untouched, both services verified present and running) ·
   CAPABILITIES ledger entries (Pages-create capability; httpLogs window
   quirk).
+- Layer-2 handoff: `docs/repos/websites/README.md` — **created on demand**
+  (couch-legend precedent) at session close; carries the keep-bot-only
+  landed thread, the measured traps (GITHUB_TOKEN push-suppression /
+  exporter exit-0 ≠ link integrity / the owner-gate throttle leak), and
+  the open follow-ups.
+- Layer-2 handoff: `docs/repos/superbot/README.md` +
+  `docs/repos/estate-backups/README.md` — also created at close. The
+  first draft recorded these as nulls ("the frozen repo earns none");
+  Codex #876 R1 held that against the coverage policy's actual trigger —
+  built **when work goes there**, and work went to both — [conceded]:
+  the invented earns-none criterion is not in the policy. Coverage table
+  + doc-routes wired for all three.
 
 ## Deliberately not done
 
