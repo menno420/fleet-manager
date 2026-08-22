@@ -87,6 +87,16 @@ mdverify are 404 on PyPI, and the `envdrift` name belongs to someone else).
 - **Archiving keeps every one of those installs working** — an archived
   repository stays public and clonable; only writes stop. This is the general
   rule for the whole estate: *archiving blocks writes, never reads.*
+  **Sourced 2026-08-22** to GitHub's own documentation
+  ([archiving-repositories](https://docs.github.com/en/repositories/archiving-a-github-repository/archiving-repositories)),
+  which states that an archived repo's *"issues, pull requests, code, labels,
+  milestones, projects, wiki, releases, commits, tags, branches, reactions,
+  code scanning alerts, comments and permissions become read-only"* while it
+  stays publicly visible, forkable and searchable. **Honest edge:** the docs do
+  not name `git`-URL installs. That those keep working follows from the code
+  staying readable — sound, but an inference, and no install has been run
+  against an archived repo to prove it. If that matters for a given repo,
+  archive it and re-run the install once.
 - **Deleting breaks them**, silently and for anyone who has the command.
 
 So a lab that has served its purpose is an **archive** candidate on the R3
