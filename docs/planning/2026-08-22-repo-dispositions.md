@@ -127,10 +127,17 @@ tested for this pass, and both moved.
   actually resolves the plugin. That was checked separately, and it is the
   answer: **`superbot-next` vendors the plugin in-tree** at
   `examples/superbot-plugin-hello/`, with its own `pyproject.toml` and
-  `manifest.py`. Resolution runs through an installed distribution's
-  `sb.plugins` entry point against that in-tree source, so the standalone repo
-  is an exemplar publication, not a build input. The prohibition rests on a
-  dependency that is not there. *Not checked, and not needed:* whether the
+  `manifest.py`. **Strengthened 2026-08-22 by reading the host's own boot
+  proof** rather than inferring from the files' presence — a vendored copy
+  proves nothing unless the host actually loads it.
+  `superbot-next/tests/unit/app/test_plugin_boot_real_exemplar.py` sets
+  `_EXEMPLAR_ROOT = _REPO_ROOT / "examples" / "superbot-plugin-hello"` and puts
+  that package root on `sys.path` because *"the exemplars live in-tree but are
+  NOT installed dists"*, then verifies the committed pin against **that**
+  manifest by hash. So the load path is the in-tree copy and the pin is a hash
+  comparison; neither is a fetch, and the standalone repo is an exemplar
+  publication rather than a build input. The prohibition rests on a dependency
+  that is not there. *Not checked, and not needed:* whether the
   vendored manifest still hashes to the pinned value — archiving changes
   neither side of that comparison.
 
