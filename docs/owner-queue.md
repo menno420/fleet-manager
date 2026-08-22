@@ -38,12 +38,12 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 ## Current owner decisions — verified from fleet-manager on 2026-08-10
 
 - **`OQ-ESTATE-ARCHIVE-LIST` ✅ ANSWERED 2026-08-22 — the owner gave the
-  go-ahead; R5 is unblocked for the eight ungated rows** (added 2026-08-22,
+  go-ahead; R5 is unblocked for the nine ungated rows** (added 2026-08-22,
   OD-18 table fm #906; answered live the same day).
   **HIS WORDS, verbatim:** *"use the continuation prompt skill so the next
   session can execute the archive."*
   **THE READING, stated so it can be checked rather than assumed:** that is
-  taken as approval of the **eight ungated repositories** below. The other
+  taken as approval of the **nine ungated repositories** below. The other
   three are gated on **conditions, not on his preference** — `superbot-next`
   and `superbot-plugin-hello` on GCB-1, `product-forge` on R2 — so this
   approval does **not** release them; they move when their gate opens, not
@@ -58,7 +58,7 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   `superbot-next` and `superbot-plugin-hello` **only after GCB-1** (the new bot's
   repo is confirmed and the architecture donor is no longer being harvested), and
   `product-forge` **only after R2** (phone-controller has graduated). A yes to
-  this entry is a yes to the eight ungated ones and to the three *when their gate
+  this entry is a yes to the nine ungated ones and to the three *when their gate
   opens* — it does not release them early. Deletion is recommended for
   **nothing**. **WHY-IT-MATTERS:** the archive step
   has been described since 2026-07-26 and has never run on any repository —
