@@ -45,8 +45,20 @@ file — and it now shadows the document it points to. Under `OD-3` as amended
 (cleanup allowed with a stated reason) this is the "served its purpose, no
 longer of value" case.
 
-`docs/MAP.md` and the boot file already route to the uppercase path only; a
-tree-wide grep for the lowercase spelling finds no inbound reference.
+`docs/MAP.md` and the boot file already route to the uppercase path only.
+
+**Correction (2026-08-22, second pass):** this card first claimed "a tree-wide
+grep for the lowercase spelling finds no inbound reference." That was wrong,
+and wrong for the same reason the bug exists. Two markdown links did point at
+the stub — `docs/AGENT_ORIENTATION.md:59` and `docs/gen2-blueprint.md:350`,
+both the relative form `](capabilities.md)`. On this Windows checkout they
+resolve *even after the delete*, because NTFS answers `capabilities.md` with
+`CAPABILITIES.md`. On Linux CI they are dead links. A case-insensitive
+filesystem cannot audit case-sensitive link integrity — the verification has
+to be the tracked path list (`git ls-files`), never the working tree. Both
+links now point at `CAPABILITIES.md`. (`docs/repos/spider-swing/README.md:224`
+also links to a lowercase `capabilities.md`, but that file is genuinely
+tracked at that path — left alone.)
 
 ## Verification
 
@@ -55,6 +67,21 @@ tree-wide grep for the lowercase spelling finds no inbound reference.
 - `python3 scripts/preflight.py` → `doc routes -> exit 0`; `false walls -> exit 0`.
 - `docs/CAPABILITIES.md` restored to its real 1,865 lines; `git status` no longer
   reports it modified.
+- `git ls-files | grep -i 'capabilities.md$'` → `docs/CAPABILITIES.md` tracked,
+  `docs/capabilities.md` gone; the two repointed links resolve against that list.
+
+### What the red actually was (and what it was not)
+
+The first pass read `substrate-gate`'s failure as a self-referential quirk:
+the only visible finding was `[preflight-script] scripts/preflight.py: exit 1`,
+which looks like the gate failing on itself. It is not. That line is only
+bootstrap's *rendering* of preflight's exit code — the real findings sit one
+level in, behind the inner `check --strict --added-card` invocation. Running
+that invocation directly surfaced them. There is no added-card circularity;
+a PR that adds its own card is gated normally. Two genuine defects hid behind
+that reading: a missing `💡` grammar marker, and the two Linux-only dead links
+above. **Rule earned: when a wrapper reports its own exit code as the finding,
+re-run the wrapped command directly before believing the wrapper is the bug.**
 
 ## Residue
 
