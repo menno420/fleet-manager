@@ -19,7 +19,11 @@
 > material leaves the read path and keeps its home.
 >
 > **Nothing was deleted.** The move was word-conserved and checked: 6,212 words
-> in, 853 left in `current-state.md`, 5,389 moved here.
+> in, 853 left in `current-state.md`, 5,389 moved here. And the trim was tested
+> rather than assumed — a fresh reader given only the three front-door files
+> answered purpose, state and next step correctly from the trimmed version and
+> reported no gaps, against a control arm on the untrimmed one:
+> [`findings/2026-08-22-boot-trim-cold-read.md`](findings/2026-08-22-boot-trim-cold-read.md).
 >
 > **What this file is NOT.** It is not current state, not a next-action source,
 > and not something a cold session must read. It is provenance — dated, and

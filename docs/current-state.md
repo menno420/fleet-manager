@@ -132,8 +132,9 @@ worklist is a dated finding, not a competing NOW pointer. For the owner's
 working principles, read
 [`owner-reflection-2026-07-21.md`](owner-reflection-2026-07-21.md).
 
-Do not use `NEXT-TASKS.md`, `fleet-triage.md`, the roster, or `control/` to pick
-current work. They describe the seat era and are bannered accordingly.
+Do not use `NEXT-TASKS.md`, `fleet-triage.md`, `RESUME.md`, the roster, or
+`control/` to pick current work. They describe the seat era and are bannered
+accordingly.
 
 ## Review rhythm
 
