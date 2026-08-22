@@ -84,6 +84,22 @@ All three labs are installed **by git URL**, not from a package index —
 READMEs; none of the three is published under its own name — cfgdiff and
 mdverify are 404 on PyPI, and the `envdrift` name belongs to someone else).
 
+**The 2026-08-22 releases are NOT on that install path** — added after the fact,
+because the row above ("archivable — R3 satisfied") invites the opposite
+reading. A bare `git+https://…` URL with no `@ref` resolves to the default
+branch HEAD, so the sdists and wheels R3 produced sit *beside* the documented
+install command rather than serving it. `REASONED` from pip's documented ref
+handling; not tested against these repos. Two consequences worth carrying:
+
+- **R3's real value is narrower than "the tools are now released" suggests.** It
+  makes each finished tool **citable and installable at a fixed version**, which
+  is better memory than an untagged branch — and memory is what the no-delete
+  instinct protects. It does **not** change how anyone actually installs them.
+- **A release published immediately before an archive over-signals support.** A
+  release reads as distribution; an archive reads as abandonment. If these are
+  archived, each README wants one line saying the tool is finished and
+  unmaintained, so a fresh version number does not imply active upkeep.
+
 - **Archiving keeps every one of those installs working** — an archived
   repository stays public and clonable; only writes stop. This is the general
   rule for the whole estate: *archiving blocks writes, never reads.*
