@@ -141,7 +141,9 @@ This is R3's lesson generalized. R3 ran first because releases must be cut
 before the archive; the same shape applies to text:
 
 1. **`superbot-mineverse`** — its `current-state.md` baton instructs the next
-   session to **delete a trigger**, which `[D-0015]` forbids. Archiving seals a
+   session to **delete a trigger**, which [this estate's trigger decision](../decisions.md)
+   forbids outright — a misbehaving trigger is *disabled* via `update_trigger`,
+   never deleted. Archiving seals a
    live trap into the family's MASTER closeout. Correct the baton first.
 2. **The three code labs** — one line in each README saying the tool is
    finished and unmaintained. A release cut days before an archive over-signals

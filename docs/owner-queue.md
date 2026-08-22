@@ -37,6 +37,27 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 
 ## Current owner decisions — verified from fleet-manager on 2026-08-10
 
+- **`OQ-ESTATE-ARCHIVE-LIST` — 📦 one yes covers twelve repositories (added
+  2026-08-22, OD-18 table fm #906).**
+  **WHAT:** approve (or edit) the twelve-repo archive list in
+  [`planning/2026-08-22-repo-dispositions.md`](planning/2026-08-22-repo-dispositions.md)
+  § 2: `superbot-next`, `superbot-games`, `superbot-idle`, `superbot-mineverse`,
+  `superbot-plugin-hello`, `trading-strategy`, the three `codetool-lab-*` repos,
+  `Substrate-kit-app`, `proxybench`, and `product-forge` **after R2 only**.
+  Deletion is recommended for **nothing**. **WHY-IT-MATTERS:** the archive step
+  has been described since 2026-07-26 and has never run on any repository —
+  measured again on 2026-08-22, 26 repos and zero archived — so every parked
+  repo is still structurally identical to an active one, which is exactly the
+  noise OD-17 names. Approving this takes the active estate from 26 to 14.
+  **WHY IT IS SAFE:** archiving blocks writes only; reads, clones, `pipx install
+  git+https://…` URLs and releases all keep working, and archiving is reversible
+  per GitHub's documentation — so a wrong row is undone, not paid for. **WHAT
+  HAPPENS THEN:** an agent runs R5, doing the § 4 pre-archive writes first (they
+  need the repo writable) and archiving one at a time. **WHAT IS NOT ASKED:**
+  nothing about your five keeps that are yours — `venture-lab`, `shiftlife`,
+  `gba-homebrew`, `pokemon-mod-lab`, `curious-research` all stay as they are.
+  **HOW:** reply with a yes, or name the rows you want moved.
+
 - **`OQ-GBA-NEXT-PICKS` — 🎮 gba-homebrew: the letter pick + playtest verdicts
   that would resume the game lab (added 2026-08-21, fleet review fm #878).**
   **WHAT:** gba's own closeout (`docs/PROJECT-CLOSEOUT.md` § c–d) leaves two

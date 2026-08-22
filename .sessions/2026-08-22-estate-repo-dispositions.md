@@ -7,7 +7,7 @@
 
 - **📊 Model:** opus-5 · high · docs-only
 
-## Session idea
+## 💡 Session idea
 
 OD-18 asks for the thing the R-track never produced: **a verdict per
 repository**, not a policy. Keep / archive / delete, and for every keep, whether
