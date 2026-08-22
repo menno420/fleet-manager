@@ -196,8 +196,10 @@ CI's own word by downloading the artifact and parsing it here. The checker was
 proven to FIRE — exit 1 against all three pre-change APKs and against a
 signing-block-stripped one. ⚠ **Anyone holding a pre-2026-08-22 build pays a
 one-time uninstall, and must export the in-game save code first** (the portable
-`exportCode` — DESIGN § 7's "manual bridge"); after that, builds install over
-one another and saves survive.
+`exportCode` — DESIGN § 7's "manual bridge"); after that, builds are
+**signature-compatible**, i.e. the mismatch that forced the uninstall is gone.
+Whether an install-over-the-top then succeeds, and whether the save survives it,
+is unobserved — there is no device here, and that is milestone B's test.
 
 **The REST of B is blocked on the owner, not on code.** The APK was handed to him
 2026-08-21 with a six-item checklist (offline cold launch · crossfade and
