@@ -383,7 +383,7 @@
       "docs": [
         "docs/repos/couch-legend/README.md"
       ],
-      "says": "You named couch-legend (the Couch Legend idle game; \"the Lucid Chronicle\" names its looks contract, not a rename). Read docs/repos/couch-legend/README.md BEFORE attaching the repo — it is PUBLIC (raw fetch suffices for read-only work; pushes need add_repo) and the folder says where the last session left off and which thread you are touching: mechanics base (landed), life-story design + simulator (LANDED — stage system decided in DESIGN.md § 9, prototype runaway measured, tested fix proposed; the fix then SHIPPED as the engine default in #7, so the live game is no longer untouched), looks pass (LANDED 2026-08-21 — #3 the Lucid Chronicle contract + #4 first three Arc-1 scene packages, ACTIVE since #7 landed the stage schema and the STAGE_PRESENTATION registry), substrate-kit adoption (LANDED 2026-08-21, v1.21.0 — born-red cards, required checks ci + substrate-gate, land-it-yourself), Android shell MILESTONE A LANDED 2026-08-21 (#11 — Capacitor 8 over this exact build, app id com.menno420.couchlegend, debug-signed APK assembled in CI; no Play, no release keystore, no DESIGN § 7 handoff list — that is milestone B). The one milestone-B slice that needed no device LANDED 2026-08-22 (#14): a committed debug keystore + a CI assertion that every APK carries it, after FOUR CI runs were measured to mint four different signing keys \u2014 before it, successive builds were signature-INCOMPATIBLE, so replacing an installed build would need an uninstall first, which clears the save. Four certificates were measured; nothing has been installed on any device, so the refusal and the lost save are inferences, not observations. Anyone holding a pre-2026-08-22 build must export the in-game save code before the one-time uninstall that transition needs. NEXT = the REST of milestone B (DESIGN \u00a7 7's handoff list), still OWNER-GATED, not code-gated: it waits on him installing the APK and reporting force-stop save survival, crossfade/particle smoothness and offline cold launch. No agent container has an SDK, emulator or device, so real Android System WebView behaviour is UNMEASURED and cannot be closed from here — do not plan milestone B as though it can. No tuning change without sim evidence. The repo's docs/DESIGN.md is the binding mechanics map. Paired with the `repo-couch-legend` tool route so a Bash or Grep carrying the name cannot spend this route's once-per-session budget before your message does."
+      "says": "You named couch-legend (the Couch Legend idle game; \"the Lucid Chronicle\" names its looks contract, not a rename). Read docs/repos/couch-legend/README.md BEFORE attaching the repo — it is PUBLIC (raw fetch suffices for read-only work; pushes need add_repo) and the folder says where the last session left off and which thread you are touching: mechanics base (landed), life-story design + simulator (LANDED — stage system decided in DESIGN.md § 9, prototype runaway measured, tested fix proposed; the fix then SHIPPED as the engine default in #7, so the live game is no longer untouched), looks pass (LANDED 2026-08-21 — #3 the Lucid Chronicle contract + #4 first three Arc-1 scene packages, ACTIVE since #7 landed the stage schema and the STAGE_PRESENTATION registry), substrate-kit adoption (LANDED 2026-08-21, v1.21.0 — born-red cards, required checks ci + substrate-gate, land-it-yourself), Android shell MILESTONE A LANDED 2026-08-21 (#11 — Capacitor 8 over this exact build, app id com.menno420.couchlegend, debug-signed APK assembled in CI; no Play, no release keystore, no DESIGN § 7 handoff list — that is milestone B). The one milestone-B slice that needed no device LANDED 2026-08-22 (#14): a committed debug keystore + a CI assertion that every APK carries it, after FOUR CI runs were measured to mint four different signing keys — before it, successive builds were signature-INCOMPATIBLE, so replacing an installed build would need an uninstall first, which clears the save. Four certificates were measured; nothing has been installed on any device, so the refusal and the lost save are inferences, not observations. Anyone holding a pre-2026-08-22 build must export the in-game save code before the one-time uninstall that transition needs. NEXT = the REST of milestone B (DESIGN § 7's handoff list), still OWNER-GATED, not code-gated: it waits on him installing the APK and reporting force-stop save survival, crossfade/particle smoothness and offline cold launch. No agent container has an SDK, emulator or device, so real Android System WebView behaviour is UNMEASURED and cannot be closed from here — do not plan milestone B as though it can. No tuning change without sim evidence. The repo's docs/DESIGN.md is the binding mechanics map. Paired with the `repo-couch-legend` tool route so a Bash or Grep carrying the name cannot spend this route's once-per-session budget before your message does."
     },
     {
       "id": "error-review",
@@ -887,6 +887,28 @@
         "docs/ESTATE.md"
       ],
       "says": "You named proxybench. Read its docs/ESTATE.md row — OD-12 parks it (no action required). Paired with the `estate-proxybench` tool route."
+    },
+    {
+      "id": "repo-disposition-2026-08-22",
+      "tools": [
+        "Edit",
+        "Write"
+      ],
+      "when": [
+        "\\barchive (this|the|a) repo\\b",
+        "\\bdispositions?\\b",
+        "\\bstart fresh\\b",
+        "\\brework\\b",
+        "\\bwhich repos to keep\\b",
+        "\\bOD-18\\b",
+        "\\bOD-17\\b"
+      ],
+      "docs": [
+        "docs/findings/2026-08-22-owner-direction.md",
+        "docs/planning/2026-07-26-consolidation-program.md",
+        "docs/ESTATE.md"
+      ],
+      "says": "You are working the repo-disposition question (OD-18, owner 2026-08-22). His verbatim words and the three asks that are NOT directives are in docs/findings/2026-08-22-owner-direction.md. Two things that change the answer: archiving is REVERSIBLE and blocks writes only, so archive is a cheap undoable call and DELETE is the only one needing certainty; and the estate has TWO start-fresh precedents, not one — the 2026-08-21 game-community plan AND superbot-next, which reached 533/533 parity and still ended parked as a donor rather than a replacement. Read the pair, not the success story alone. Deliverable is a table with a reason per row."
     }
   ]
 }
