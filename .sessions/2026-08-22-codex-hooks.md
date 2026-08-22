@@ -1,9 +1,10 @@
 # 2026-08-22 — Codex hooks on the owner laptop
 
-> **Status:** `in-progress` — implementation and live verification are complete
-> on PR #908; the required Codex review and deliberate final flip remain.
+> **Status:** `complete` — PR #908 reviewed on head `aa0de05`; this final
+> card-and-telemetry commit is the session-close exemption recorded below and
+> makes the PR eligible for Fleet Manager's green lander.
 
-- **📊 Model:** gpt-5.6-sol · high · implementation
+- **📊 Model:** gpt-5.6-sol · high · feature build
 - **Venue:** owner-live, Codex desktop on the owner's Galaxy Book6 Pro.
 
 ## 💡 Session idea
@@ -29,8 +30,11 @@ claim that Codex itself ran the hooks; an installed-CLI turn was required.
 - `f5414c4` — `.codex/hooks.json`; the prompt-router and owner-review adapters;
   their reference; the executable 21-contract suite; tools index; guard-fire
   telemetry from the strict check.
-- Current close-out batch — the verified capability entry, worktree caveat,
-  and this evidence record. The commit SHA will be added before the flip.
+- `abc0622` — verified capability entry, worktree caveat, and evidence record.
+- `aa0de05` — conceded P2 portability correction: the contract suite exercises
+  `commandWindows` through PowerShell or the POSIX `command` through Bash.
+- Final flip commit — this badge, reviewed-head record and final strict-check
+  telemetry only; no implementation changes after review.
 
 The document router calls the existing `.claude/hooks/route_docs.py` and
 `doc-routes.json`, replacing only the POSIX temp fallback and removing Codex's
@@ -72,6 +76,10 @@ in the hook reference and capability ledger; it is not an adapter failure.
   status; doc routes and false walls passed. Guard telemetry was retained.
 - Installed Codex CLI read-only smoke turn → exit 0; route state + Stop
   telemetry above; two-message continuation observed in the JSON event stream.
+- Exact POSIX registration through Git Bash → exit 0 and injected
+  `docs/repos/spider-swing/README.md`.
+- Final `python bootstrap.py check --strict` after the badge flip → exit 0;
+  this is the same predicate CI evaluates.
 
 ## Review
 
@@ -79,8 +87,13 @@ Codex review on `abc0622` found one P2: the contract suite unconditionally
 launched PowerShell, so its documented repository-wide command would crash on
 Linux before reporting a result. **[conceded]** The fixture now tests
 `commandWindows` when PowerShell is installed and otherwise tests the POSIX
-`command` through Bash, both from the nested `docs/` directory. This correction
-requires a new review on the new head before the flip.
+`command` through Bash, both from the nested `docs/` directory.
+
+Fresh Codex review on `aa0de053e8` returned **“Didn't find any major issues”**
+at 2026-08-22T19:33:23Z. The reviewed SHA is the implementation head being
+flipped. What follows it is only this card's terminal badge, close-out evidence
+and strict-check telemetry — the explicit session-close exemption for a flip
+commit, with no code or behavior change.
 
 ## Close-out
 
@@ -94,4 +107,4 @@ infrastructure.
 
 Layer-2 handoff: null (fleet-manager itself)
 
-PR: #908 · READY and born-red; implementation complete, review and flip pending.
+PR: #908 · READY, reviewed on `aa0de05`, final flip pushed for merge-on-green.
