@@ -24,7 +24,7 @@ explicitly rather than smuggled in, and the prompt points at the record instead
 of carrying the authority itself.
 
 **The reading, stated so it can be checked:** *"execute the archive"* is taken as
-approval of the **eight ungated rows**. The other three are gated on
+approval of the **nine ungated rows**. The other three are gated on
 **conditions, not on his preference** — `superbot-next` and
 `superbot-plugin-hello` on GCB-1, `product-forge` on R2 — so approval does not
 release them and they stay where they are.
