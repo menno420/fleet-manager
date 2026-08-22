@@ -895,13 +895,13 @@
         "Write"
       ],
       "when": [
-        "\\barchive (this|the|a) repo\\b",
+        "\\barchiv(e|ed|ing)\\b",
         "\\bdispositions?\\b",
-        "\\bstart fresh\\b",
-        "\\brework\\b",
+        "\\bstart(ing)? fresh\\b",
+        "\\brework(ed|ing)?\\b",
         "\\bwhich repos to keep\\b",
-        "\\bOD-18\\b",
-        "\\bOD-17\\b"
+        "\\bkeep[- ]?vs[- ]?archive\\b",
+        "\\bOD-1[78]\\b"
       ],
       "docs": [
         "docs/findings/2026-08-22-owner-direction.md",
