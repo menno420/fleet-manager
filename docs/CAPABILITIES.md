@@ -171,6 +171,25 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-22 · capability · `owner-live` (Codex desktop/CLI 0.149.0-alpha.4.1,
+  Windows) · **Repo-local Codex command hooks run end to end on this laptop at
+  `UserPromptSubmit` and `Stop`, after both the project and the exact hook
+  definitions are trusted.** · evidence: PR #908 commit `f5414c4`, loaded from
+  a disposable ordinary clone, showed 1 installed / 1 active handler for each
+  event in `/hooks`. A read-only prompt naming `spider-swing` produced a first
+  answer grounded in injected `docs/repos/spider-swing/README.md` context, then
+  a second answer after Stop review that named the load-bearing claim and marked
+  it `[survived]`; temp records for session
+  `01a02add-0f5e-7741-b59b-ed25bef69174` show the route id and
+  `reply_chars:545, blocked:true, enriched:false`. The definition uses
+  `commandWindows`, resolves the Git root, writes only temp state, reuses the
+  canonical Claude route table/fixed questions, and makes no credential or
+  network call. · workaround/setup boundary: trust the project once, then
+  review changed definitions in `/hooks` (trust is exact-hash-bound). For an
+  **unmerged** definition, use an ordinary clone for the live smoke test:
+  linked-worktree trust canonicalized to the primary checkout
+  `C:\dev\fleet-manager`, whose branch did not yet contain the hook layer.
+
 - 2026-08-22 · capability · `any` · **fleet-manager AUTO-MERGES its own agent PRs within seconds of green — a born-red session card is the only lever that holds one open for review.** · evidence: PR #887 was merged by `github-actions[bot]` at `11:29:23Z`, **17 s** after `substrate-gate` reported success and **7 minutes before** the requested Codex review answered; both of that review's findings were therefore correct *and* unmerged, and had to land as a separate follow-up (#888). The mechanism is `.github/workflows/merge-on-green.yml` — verify-then-direct-squash-merge for READY `claude/*` PRs, added by owner directive 2026-07-12 because this repo cannot use GitHub-native auto-merge. This is the hub behaving as designed; it is **not** the couch-legend/spider-swing convention, where the enabler is deliberately staged and unlanded and sessions merge by hand. Do not carry a product repo's "never merge before Codex answers" habit here and assume waiting will work — the PR merges itself while you wait. · workaround, and it is in the workflow's own provenance header: merge-on-green **SKIPS a PR whose session card is still in-progress** (born-red = "more commits are coming"). So on this repo a born-red card is not only kit hygiene, it is the review window. A hub card written `complete` in its first commit — the shape the 2026-08-21 milestone-A hub card set, and the shape this session copied — makes the PR eligible the moment the gate goes green. Two other rails worth knowing: `.github/workflows/**` diffs are owner-merge-only, and a fresh `do-not-automerge` label is re-read at merge time.
 
 - 2026-08-21 · capability · `owner-live` (remote CCR container) · **Headless browser

@@ -1,0 +1,28 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -c \"import pathlib,runpy,subprocess; root=pathlib.Path(subprocess.check_output(['git','rev-parse','--show-toplevel'], text=True).strip()); runpy.run_path(str(root/'.codex/hooks/route_docs.py'), run_name='__main__')\"",
+            "commandWindows": "python -c \"import pathlib,runpy,subprocess; root=pathlib.Path(subprocess.check_output(['git','rev-parse','--show-toplevel'], text=True).strip()); runpy.run_path(str(root/'.codex/hooks/route_docs.py'), run_name='__main__')\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -c \"import pathlib,runpy,subprocess; root=pathlib.Path(subprocess.check_output(['git','rev-parse','--show-toplevel'], text=True).strip()); runpy.run_path(str(root/'.codex/hooks/owner_review.py'), run_name='__main__')\"",
+            "commandWindows": "python -c \"import pathlib,runpy,subprocess; root=pathlib.Path(subprocess.check_output(['git','rev-parse','--show-toplevel'], text=True).strip()); runpy.run_path(str(root/'.codex/hooks/owner_review.py'), run_name='__main__')\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
