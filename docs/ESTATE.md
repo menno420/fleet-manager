@@ -101,9 +101,22 @@ mdverify are 404 on PyPI, and the `envdrift` name belongs to someone else).
 
 So a lab that has served its purpose is an **archive** candidate on the R3
 evidence; deletion is a separate, stronger call that costs the install path.
-The reverse holds for `Substrate-kit-app`, which nothing installs and whose
-in-repo surfaces misidentify it as the kit — there, archiving *freezes* the
-defect and deletion removes it.
+`Substrate-kit-app` looks like the reverse — nothing found installs it, and its
+in-repo surfaces misidentify it as the kit, so archiving *freezes* that defect
+where deletion removes it. **But the delete recommendation does not follow from
+the evidence, corrected 2026-08-22.** "Nothing installs it" rests on the same
+four-repo search that this very note says is too narrow to justify a deletion;
+recommending one on it contradicted the limit in the paragraph below. **Archive
+it too**, and treat deletion as a separate call once a wider dependency check
+has actually run. The misidentification is already mitigated by this index and
+by the two doc-routes that fire on its name — mitigation an archived repo keeps,
+since those live here, not there.
+
+**And archiving is reversible**, which removes the urgency from all of this:
+GitHub's documentation states *"You can also unarchive repositories that have
+been archived"*, with no stated time limit or condition. An archive that turns
+out wrong is undone, so the archive/delete asymmetry is the whole decision —
+archiving is a reversible tidy, deletion is not.
 
 **Scope of this check:** the four repositories attached to that session
 (`fleet-manager`, `websites`, and the two labs). No account-wide dependency
