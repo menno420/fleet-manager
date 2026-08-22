@@ -68,10 +68,37 @@
 |---|---|---|---|---|
 | `superbot-plugin-hello` | the plugin-contract hello-world, hash-pinned in superbot-next's lockfile — **never archive**; trap: a manifest edit is a two-repo change (host pin re-land or FAILED_STARTUP) | complete-parked | `README.md` | on demand |
 | `codetool-lab-opus4.8` | **mdverify** — released CLI (v0.1.0 + v0.2.0 live, re-verified 2026-08-22). **Keep-unarchived is a records decision, not a technical dependency** — corrected 2026-08-22 (twice). The row first read *"stays unarchived while install URLs pin it"*, which is not a reason: an archived repo stays readable and its URLs keep resolving. The replacement then called it *"a standing OWNER ruling (2026-07-10)"*, which over-reads the source. Traced: the owner's 2026-07-10 ruling is quoted at [`planning/2026-07-12-repo-consolidation-plan.md`](planning/2026-07-12-repo-consolidation-plan.md) `:46` as **_"delete no repos (they are the fleet's memory)"_** — about **deletion**, not archiving, and **since AMENDED by OD-3 (2026-08-08)** to allow cleanup with a stated reason. The *keep-unarchived* verdict is that plan's own reconciliation (`:92`, *"Agree — standing 2026-07-10 ruling + live mdverify releases"*), carried into [`fleet-triage.md`](fleet-triage.md) `:61` via INC-03. So archiving this repo is an open call, resting on a plan verdict rather than an unamended owner instruction | complete-parked, **keep unarchived (owner ruling)** | `README.md` + `control/status.md` | on demand |
-| `codetool-lab-fable5` | **envdrift** — finished CLI; **R3 DONE 2026-08-22**: v0.1.0@`73ef38d` + v0.2.0@`13a84e5` tagged and released (2 assets each). It had no release workflow at all, so fable5 #20 added one (`workflow_dispatch` + tag input, no PyPI job — no publisher registered) | **archivable** — R3 satisfied | `control/status.md` | on demand |
-| `codetool-lab-sonnet5` | **cfgdiff** — finished CLI; **R3 DONE 2026-08-22**: v0.1.1@`0b1eb60` tagged, its own `release.yml` published the Release (2 assets). Trap: its `publish-pypi` job fails on every run (no trusted publisher), so the **run reads red while the Release is intact** | **archivable** — R3 satisfied | `control/status.md` | on demand |
+| `codetool-lab-fable5` | **envdrift** — finished CLI; **R3 DONE 2026-08-22**: v0.1.0@`73ef38d` + v0.2.0@`13a84e5` tagged and released (2 assets each). It had no release workflow at all, so fable5 #20 added one (`workflow_dispatch` + tag input, no PyPI job). **The PyPI name is TAKEN and not ours** — `pypi.org/pypi/envdrift` is `jainal09/envdrift` v11.0.4, a different tool (MEASURED 2026-08-22, HTTP 200). Any record saying PyPI is "one owner click away" for this repo is wrong; publishing would need a new name | **archivable** — R3 satisfied; see the install-path note below | `control/status.md` | on demand |
+| `codetool-lab-sonnet5` | **cfgdiff** — finished CLI; **R3 DONE 2026-08-22**: v0.1.1@`0b1eb60` tagged, its own `release.yml` published the Release (2 assets). Trap: its `publish-pypi` job fails on every run (no trusted publisher), so the **run reads red while the Release is intact**. `pypi.org/pypi/cfgdiff` is 404 — unpublished, name free (MEASURED 2026-08-22) | **archivable** — R3 satisfied; see the install-path note below | `control/status.md` | on demand |
 | `Substrate-kit-app` | a one-shot Gemini (AI Studio) experiment: "Substrate Kit Dashboard" React frontend over hardcoded demo data, committed onto a **partial v1.20.2 kit snapshot** — its README, CONSTITUTION and docs are the kit's **verbatim**, so every in-repo surface misidentifies it; copied CI reds by construction | frozen one-shot (2026-08-04, untouched since) | `metadata.json` + `package.json` (the only honest self-descriptions) | on demand |
 | `proxybench` | single-file proxy benchmark, built mostly as a joke (OD-12: parked, no action) | parked | `README.md` | none needed |
+
+## Archive vs delete — they are NOT interchangeable for the code-tool labs
+
+`MEASURED` 2026-08-22, and it separates two dispositions this index had been
+treating as one call.
+
+All three labs are installed **by git URL**, not from a package index —
+`pipx install git+https://github.com/menno420/codetool-lab-sonnet5`, and
+`envdrift @ git+https://github.com/menno420/codetool-lab-fable5` (their own
+READMEs; none of the three is published under its own name — cfgdiff and
+mdverify are 404 on PyPI, and the `envdrift` name belongs to someone else).
+
+- **Archiving keeps every one of those installs working** — an archived
+  repository stays public and clonable; only writes stop. This is the general
+  rule for the whole estate: *archiving blocks writes, never reads.*
+- **Deleting breaks them**, silently and for anyone who has the command.
+
+So a lab that has served its purpose is an **archive** candidate on the R3
+evidence; deletion is a separate, stronger call that costs the install path.
+The reverse holds for `Substrate-kit-app`, which nothing installs and whose
+in-repo surfaces misidentify it as the kit — there, archiving *freezes* the
+defect and deletion removes it.
+
+**Scope of this check:** the four repositories attached to that session
+(`fleet-manager`, `websites`, and the two labs). No account-wide dependency
+scan was run, so "nothing depends on these" is established for those four
+only.
 
 ## When the owner's words don't name a repo
 
