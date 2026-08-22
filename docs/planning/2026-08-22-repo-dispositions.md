@@ -95,7 +95,7 @@ Reversible, blocks writes only, keeps every read path and install URL working.
 | `codetool-lab-opus4.8` (mdverify) | The keep-unarchived verdict traces to a 2026-07-12 **plan reconciliation**, not an owner ruling, and its stated reason (live install URLs) is not a reason — archiving keeps those resolving. Released, finished, unowned by any current task. **One write first.** |
 | `Substrate-kit-app` | **The wider dependency check has now run** (§ 3): account-wide code search returns 5 references, all of them in `fleet-manager`, none in any other repository. Archive rather than delete, because its residual value is real — it is the estate's evidence of what one Gemini one-shot produced, which the multi-provider question (OD-13) cares about. |
 | `proxybench` | OD-12 parks it: built mostly as a joke, answering one vendor's sales claims, and it did that. One file, zero dependents. One stray probe issue to close first. |
-| `product-forge` | **After R2 only.** Its own `docs/current-state.md` is still the unfilled kit template — every content section is the generated placeholder, `MEASURED` — so the shell is empty. The living asset is `phone-controller` (19 releases through v0.22.0, signed), which R2 graduates by subtree split with history carried. The asset is reworked in a fresh home; the emptied shell is what gets archived. |
+| `product-forge` | **After R2 only.** Its own `docs/current-state.md` is still the unfilled kit template — every content section is the generated placeholder, `MEASURED` — so the shell is empty. The living asset is `phone-controller` (19 releases through v0.22.0, signed), which R2 graduates by subtree split with history carried. The asset is reworked in a fresh home; the emptied shell is what gets archived. **Check its Pages site before sealing it** — `MEASURED` 2026-08-22, it is the only archive-bound repo serving Pages (<https://menno420.github.io/product-forge/>, HTTP 200, source `main`, `build_type: workflow`), so it is where the open Actions question below actually bites. |
 
 ### Delete (0)
 
@@ -168,6 +168,16 @@ that cron is measured still firing daily, a month after the repo's last commit.
 If archiving does stop it, the archive list is also the estate's cron cleanup;
 if it does not, that is separate work. Cheap to settle: archive one repo with a
 cron and look at the next scheduled window.
+
+The same unknown has one place where it could cost something rather than save
+it. `MEASURED` 2026-08-22: exactly one archive-bound repo publishes GitHub
+Pages — `product-forge`, live and returning HTTP 200, with `build_type:
+workflow`. An already-published site should keep serving, since serving is a
+read; a **rebuild** is not, and the docs do not say. So `product-forge` is the
+one row where the archive should be done last and the site re-checked after,
+which its own R2 gate already sequences. Every other archive-bound repo has
+`has_pages: false`, checked, so this is a single row's caveat rather than a
+class of risk.
 
 ## 5 · What is his, and what he actually has to answer
 
