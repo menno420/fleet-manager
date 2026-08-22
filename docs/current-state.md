@@ -224,7 +224,7 @@ slice; if it persists, hand it to the hub chat, never to the owner-queue.
   one inside its own scope and never recursed into `docs/providers/`. The
   directive stands; the universal did not.
   **A measured status block on the audit's headline seven** at
-  [findings.md](audits/2026-08-10-full-read/findings.md) — **1 closed, 6 open**,
+  [findings.md](audits/2026-08-10-full-read/findings.md) — **7 closed, 0 open** (2026-08-22),
   each re-run against the tree rather than inferred from what a PR claimed, plus
   the anchor-drift warning and the command that derives it.
   And [the open-PR signal idea](ideas/consume-the-open-pr-signal-2026-08-11.md),
