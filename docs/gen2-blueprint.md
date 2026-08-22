@@ -347,7 +347,7 @@ Rules that ride the cadence table:
 > cadence above is now **agent-executable** — Project sessions CAN self-arm
 > their own in-Project routines (the "walled on both sides" reading was wrong
 > for Project surfaces; correction + remaining non-Project walls in
-> [`capabilities.md`](capabilities.md)). **Mechanism VERIFIED:** the
+> [`CAPABILITIES.md`](CAPABILITIES.md)). **Mechanism VERIFIED:** the
 > claude-code-remote scheduling tools (`create_trigger` / `send_later`
 > family) — **SEAT-DEPENDENT**, the same per-seat inconsistency class as the
 > merge classifier: the identical tool family that is absent/refused on some

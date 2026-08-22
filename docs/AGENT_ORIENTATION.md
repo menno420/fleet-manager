@@ -56,7 +56,7 @@
 - **[`docs/owner-queue.md`](owner-queue.md)** — the one deduplicated queue of
   things waiting on the owner.
 - **[`docs/dispatch-log.md`](dispatch-log.md)** — dated log of dispatches.
-- **[`docs/capabilities.md`](capabilities.md)** — the capability manifest:
+- **[`docs/CAPABILITIES.md`](CAPABILITIES.md)** — the capability manifest:
   read before declaring anything impossible (R18).
 - **[`docs/research/2026-07-12-platform-capabilities.md`](research/2026-07-12-platform-capabilities.md)**
   — the 2026-07-12 platform capability snapshot. *(2026-08-11, audit D89: a
