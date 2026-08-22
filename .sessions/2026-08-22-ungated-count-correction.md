@@ -1,8 +1,9 @@
 # 2026-08-22 — the archive approval said "eight ungated"; it is nine
 
-> **Status:** `in-progress` — branch `claude/estate-repo-dispositions-spa3i0`,
-> restarted from `origin/main` at `0f13368` (#910). Flips to `complete` after
-> `python3 bootstrap.py check --strict` returns a real exit 0.
+> **Status:** `complete` — branch `claude/estate-repo-dispositions-spa3i0`,
+> restarted from `origin/main` at `0f13368` (#910), landed as fm **#911**.
+> Flipped after `python3 bootstrap.py check --strict` returned a real exit 0 on
+> this tree, read directly and never after a pipe.
 
 - **📊 Model:** opus-5 · high · docs-only
 
@@ -35,7 +36,29 @@ inside it. The instinct was right and the arithmetic was not checked, which is
 the same shape as this session's earlier miss: *the instrument was never run,
 the conclusion just felt safe.*
 
-## What this will carry when it flips
+## What landed
 
-- every occurrence corrected, found by grep rather than by memory
-- the count re-derived mechanically, not re-read
+Five occurrences corrected — three in the owner-queue approval, one in the R5
+row, one in #910's card — located by `grep -rn "eight ungated"` rather than by
+recalling where I had written it. The count was re-derived mechanically from the
+row set (12 total, 3 gated, 9 remaining) rather than re-read from prose.
+
+**The nine, enumerated:** `superbot-games` · `superbot-idle` ·
+`superbot-mineverse` · `trading-strategy` · `codetool-lab-sonnet5` ·
+`codetool-lab-fable5` · `codetool-lab-opus4.8` · `Substrate-kit-app` ·
+`proxybench`. **The three gated, unchanged:** `superbot-next` +
+`superbot-plugin-hello` (GCB-1), `product-forge` (R2).
+
+## The guard recipe
+
+A count and the list it counts are two claims, and only one of them gets read
+carefully. Cheap check, and it is machine-decidable: **anywhere a document
+states a tally beside an enumeration, the tally must be derivable from the
+enumeration.** `scripts/check_estate_index.py` already walks the same twelve
+names and would be the natural home — flagged here rather than built, because
+the correction was the urgent half and a new checker is a separate change.
+
+## Verify
+
+`python3 bootstrap.py check --strict` → **exit 0**, read directly. Before the
+flip it returned 1 on the designed born-red hold alone.
