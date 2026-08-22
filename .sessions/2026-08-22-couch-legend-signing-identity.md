@@ -26,8 +26,11 @@ important question, *does a save survive a force-stop*, cannot be asked twice.
 
 - `docs/repos/couch-legend/README.md` — the Android thread heading flips to
   record B's signing slice as landed alongside A, and the body carries the
-  four-certificate measurement, what it cost, how the fix was proven (nine
-  independent CI builds across five runs, one identity), and the one-time
+  four-certificate measurement, what it cost, how the fix was proven (**15
+  successful APK builds over 8 workflow runs**, the signer certificate read
+  directly on 5 of them — four job logs plus main's artifact parsed locally —
+  and inferred from a green assertion on the other 10, which reddens the job on
+  a mismatch), and the one-time
   uninstall anyone holding an older build must pay — **export the in-game save
   code first**.
 - `.claude/hooks/doc-routes.json` — **both** couch-legend routes were stale in
