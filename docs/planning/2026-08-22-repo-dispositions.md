@@ -56,7 +56,7 @@ never executed on anything. All 26 names reconcile exactly against
 | `couch-legend` | **rework** | Active, live on Pages, kit-seeded 2026-08-21 — and its mechanics base was *already* reconstructed clean on 2026-08-20, so the fresh-start question was asked and spent four days before OD-18. |
 | `websites` | **rework** | Serves the bot's live public surfaces; the keep-bot-only cutover (2026-08-20/21) already performed the narrowing a fresh start would buy, by rework, and it worked. |
 | `superbot` | **fresh successor, this repo unchanged** | Must stay writable: the LIVE Railway worker deploys from it, and a security patch needs a merge an archived repo would block. Its replacement is a clean repo (OD-16); this one is kept as live host and behavior oracle and is never reworked into the successor. |
-| `substrate-kit` | **rework** | The method kit — 27 releases, the one local gate every repo in the estate runs. Infrastructure, not a candidate. |
+| `substrate-kit` | **rework** | The method kit — 27 releases, and the source of the one local gate (`check --strict`) its adopters run, this repo included. Infrastructure, not a candidate. |
 | `estate-backups` | **rework** | 5 KB private Actions venue that is the only path from a container to Railway-Postgres; kept as a *capability*, and its dormancy between owner asks is the design, not decay. |
 
 ### Keep — standing assets by directive (2)
@@ -93,7 +93,7 @@ Reversible, blocks writes only, keeps every read path and install URL working.
 | `codetool-lab-opus4.8` (mdverify) | The keep-unarchived verdict traces to a 2026-07-12 **plan reconciliation**, not an owner ruling, and its stated reason (live install URLs) is not a reason — archiving keeps those resolving. Released, finished, unowned by any current task. **One write first.** |
 | `Substrate-kit-app` | **The wider dependency check has now run** (§ 3): account-wide code search returns 5 references, all of them in `fleet-manager`, none in any other repository. Archive rather than delete, because its residual value is real — it is the estate's evidence of what one Gemini one-shot produced, which the multi-provider question (OD-13) cares about. |
 | `proxybench` | OD-12 parks it: built mostly as a joke, answering one vendor's sales claims, and it did that. One file, zero dependents. One stray probe issue to close first. |
-| `product-forge` | **After R2 only.** Its own `docs/current-state.md` is still the unfilled kit template — every content section is the generated placeholder, `MEASURED` — so the shell is empty. The living asset is `phone-controller` (19 signed releases), which R2 graduates by subtree split with history carried. The asset is reworked in a fresh home; the emptied shell is what gets archived. |
+| `product-forge` | **After R2 only.** Its own `docs/current-state.md` is still the unfilled kit template — every content section is the generated placeholder, `MEASURED` — so the shell is empty. The living asset is `phone-controller` (19 releases through v0.22.0, signed), which R2 graduates by subtree split with history carried. The asset is reworked in a fresh home; the emptied shell is what gets archived. |
 
 ### Delete (0)
 
