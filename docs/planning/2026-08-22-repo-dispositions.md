@@ -88,7 +88,7 @@ Reversible, blocks writes only, keeps every read path and install URL working.
 | `superbot-games` | The successor plan explicitly rejects its casino/economy/game-content scope; it claims plugin-shipping and has no packaging (the R1 drift), and it has no live consumer. |
 | `superbot-idle` | A parked idle engine whose only consumer is a parked repo. Pinned in `superbot-next/plugins.lock.json` by `manifest_hash` — `sha256:48bf953d…`, read directly — and a hash is a verification value, not a fetch, so the pin survives. It is also the estate's clearest case of parked-but-noisy: `MEASURED` 2026-08-22, its `host-main-advisory` cron has fired **every day** (05:4xZ, five consecutive days sampled, 1,185 runs total) on a repo whose last commit is 2026-07-21. |
 | `superbot-mineverse` | Off Railway since 2026-08-20/21, service and project deleted. Its remaining value is being the SuperBot-World MASTER closeout, which archiving keeps readable. **One write first** — see § 4. |
-| `superbot-plugin-hello` | ESTATE.md's *"never archive"* over-reads the lockfile. The pin is `sha256:ff75b9eb…`, measured — archiving cannot break it; it blocks *editing* the manifest, which was always a two-repo change. Archive it together with `superbot-next`, as one pair. |
+| `superbot-plugin-hello` | ESTATE.md's *"never archive"* does not hold, and the reason is stronger than the lockfile: **`superbot-next` carries its own copy of the plugin in-tree** at `examples/superbot-plugin-hello/` (`pyproject.toml`, `manifest.py`, `superbot_plugin_hello/__init__.py` — `MEASURED` 2026-08-22 by code search inside that repo). The host resolves an *installed distribution* via its `sb.plugins` entry point and checks the `manifest_hash` pin against that manifest; it never reaches this standalone repo. So this is a published exemplar, not a build input, and archiving it cannot affect the host's boot. Archive it with `superbot-next`, as one pair. |
 | `trading-strategy` | The research concluded: 11 rounds, 5,940 configs, **0 promoted**, holdout SPENT. The null result *is* the deliverable, and archiving preserves it readable while ending the pretence that a session might pick it up. |
 | `codetool-lab-sonnet5` (cfgdiff) | R3 done — v0.1.1 released. A finished CLI whose documented `pipx install git+https://…` path is unaffected by archiving. **One write first.** |
 | `codetool-lab-fable5` (envdrift) | R3 done — v0.1.0 + v0.2.0 released. Same install path; and the PyPI name `envdrift` belongs to a different project, so there is no publishing future being closed off. **One write first.** |
@@ -120,10 +120,19 @@ tested for this pass, and both moved.
   **5 hits, all in `fleet-manager`** — this repo's own index and doc-routes.
   Nothing in the other 25 repositories references it. *Honest edge:* code search
   indexes default branches and text; it would not see a consumer outside GitHub.
-- **`superbot-plugin-hello`'s "never archive".** Read directly from
-  `superbot-next/plugins.lock.json`: both plugins are pinned by
-  `manifest_hash` (`sha256:…`), not by a fetchable ref. The row's absolute
-  prohibition does not follow from the pin, and the row should be corrected.
+- **`superbot-plugin-hello`'s "never archive".** Two reads, and the second is
+  the deciding one. `superbot-next/plugins.lock.json` pins both plugins by
+  `manifest_hash` (`sha256:…`) rather than by a fetchable ref — which shows the
+  lockfile does not *point* at the repo, but says nothing yet about how the host
+  actually resolves the plugin. That was checked separately, and it is the
+  answer: **`superbot-next` vendors the plugin in-tree** at
+  `examples/superbot-plugin-hello/`, with its own `pyproject.toml` and
+  `manifest.py`. Resolution runs through an installed distribution's
+  `sb.plugins` entry point against that in-tree source, so the standalone repo
+  is an exemplar publication, not a build input. The prohibition rests on a
+  dependency that is not there. *Not checked, and not needed:* whether the
+  vendored manifest still hashes to the pinned value — archiving changes
+  neither side of that comparison.
 
 Also measured, and it settles how much of `Substrate-kit-app` is really its own:
 its `README.md` and `docs/PROJECT-CLOSEOUT.md` are **byte-identical** to
@@ -135,9 +144,15 @@ misidentification the index warns about is total, not partial.
 GitHub's own documentation says it, sourced 2026-08-22 from
 [archiving-repositories](https://docs.github.com/en/repositories/archiving-a-github-repository/archiving-repositories):
 *"We recommend that you close all issues and pull requests, as well as update
-the README file and description, before you archive a repository."* An archived
-repo is read-only, so anything that should be **written** into one of these
-twelve has exactly one window.
+the README file and description, before you archive a repository."*
+
+**Read that quote for exactly what it covers**, because the list below is wider
+than it. GitHub recommends two things: close issues/PRs, and update the
+README/description — items 3 and 4. Items 1 and 2 are **this estate's
+extension**, derived from the read-only property rather than recommended by
+GitHub: an archived repo cannot be written to, so any correction a repo still
+needs has exactly one window. GitHub's docs say nothing about stale in-repo
+instructions, batons, or triggers.
 
 This is R3's lesson generalized. R3 ran first because releases must be cut
 before the archive; the same shape applies to text:
@@ -208,6 +223,19 @@ standing assets need no decision at all.
   is worth carrying. `MEASURED` 2026-08-22, the files each PR touches, against
   the W1 watch filter (`disbot/**` + root build inputs; workflow- and
   runbook-only merges deploy SKIPPED):
+
+  Method, stated because the two halves have different provenance: the file
+  lists are **mine, measured** — `GET /repos/menno420/superbot/pulls/{n}/files`
+  over the direct-PAT path for each of the eight, reading `filename`. The
+  **filter semantics are inherited**, not re-measured: they come from
+  [`../repos/superbot/README.md`](../repos/superbot/README.md), which records
+  them as live-tested on sb #2446. They are not readable from the tree — the
+  repo root has a `Procfile` and no `railway.json`/`railway.toml`, so the watch
+  filter is a Railway **service setting**, and confirming it first-hand would
+  mean reading the live service, which the hard rail puts out of scope here.
+  What the tree does settle is which files count as root build inputs:
+  `pyproject.toml`, `requirements.txt`, `requirements-dev.txt` (root listing,
+  measured) — which is why #2449 is treated as a restart.
 
   | PRs | touches | effect on the live worker |
   |---|---|---|
