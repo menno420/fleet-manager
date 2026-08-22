@@ -37,8 +37,19 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 
 ## Current owner decisions — verified from fleet-manager on 2026-08-10
 
-- **`OQ-ESTATE-ARCHIVE-LIST` — 📦 one yes covers twelve repositories (added
-  2026-08-22, OD-18 table fm #906).**
+- **`OQ-ESTATE-ARCHIVE-LIST` ✅ ANSWERED 2026-08-22 — the owner gave the
+  go-ahead; R5 is unblocked for the eight ungated rows** (added 2026-08-22,
+  OD-18 table fm #906; answered live the same day).
+  **HIS WORDS, verbatim:** *"use the continuation prompt skill so the next
+  session can execute the archive."*
+  **THE READING, stated so it can be checked rather than assumed:** that is
+  taken as approval of the **eight ungated repositories** below. The other
+  three are gated on **conditions, not on his preference** — `superbot-next`
+  and `superbot-plugin-hello` on GCB-1, `product-forge` on R2 — so this
+  approval does **not** release them; they move when their gate opens, not
+  before. If the reading is wrong he says so and it is undone: archiving is
+  reversible, which is the whole reason this was safe to answer in one line.
+  **Original ask, kept for provenance:**
   **WHAT:** approve (or edit) the twelve-repo archive list in
   [`planning/2026-08-22-repo-dispositions.md`](planning/2026-08-22-repo-dispositions.md)
   § 2: `superbot-games`, `superbot-idle`, `superbot-mineverse`,
