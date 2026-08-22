@@ -202,7 +202,20 @@ standing assets need no decision at all.
   pass*; this is a disposition pass. What this does supply is the order — D2
   should run over the 7 active keeps and skip the 12 archive-bound, which is
   most of the reason the question felt hard.
-- **`superbot`'s 8 open dependabot PRs** stay out of scope. It is a keep, so no
-  archive sequencing applies, and merging them restarts the live bot — a
-  deliberate window, not a tidy-up.
+- **`superbot`'s 8 open dependabot PRs** stay out of scope — it is a keep, so no
+  archive sequencing applies. But the usual framing (*"merging them restarts the
+  live bot, so batch them into a window"*) is **too broad**, and the difference
+  is worth carrying. `MEASURED` 2026-08-22, the files each PR touches, against
+  the W1 watch filter (`disbot/**` + root build inputs; workflow- and
+  runbook-only merges deploy SKIPPED):
+
+  | PRs | touches | effect on the live worker |
+  |---|---|---|
+  | #2398 #2399 #2400 #2401 | root `requirements.txt` | **restart** |
+  | #2449 | root `requirements-dev.txt` + `botsite/` + `dashboard/` | **treat as a restart** — a root build input, though a dev-only one |
+  | #2448 #2447 #2402 | `botsite/` only · `dashboard/` only · `.github/workflows/codeql.yml` only | no restart (SKIPPED) |
+
+  **None of the eight touches `disbot/**`.** So three of them can be merged at
+  any time with no live effect, and only five need the deliberate window. That
+  is a smaller owner ask than the one on record.
 - **Nothing here is executed.** R5 executes it, after his yes.
