@@ -19,7 +19,12 @@
 > material leaves the read path and keeps its home.
 >
 > **Nothing was deleted.** The move was word-conserved and checked: 6,212 words
-> in, 853 left in `current-state.md`, 5,389 moved here. And the trim was tested
+> of old content in — **853 retained**, **5,389 moved here**, the +30 residual
+> being new pointer text. **853 is retained old content, not `current-state.md`'s
+> final size**: with this trim notice, the pointers, and the four ledger rows
+> backfilled the same day, that file measures **1,207** on the kit's word
+> instrument (the one the orientation budget gates; `wc -w` reads lower, 1,167).
+> Stating 853 as the final size was corrected on review. And the trim was tested
 > rather than assumed — a fresh reader given only the three front-door files
 > answered purpose, state and next step correctly from the trimmed version and
 > reported no gaps, against a control arm on the untrimmed one:
@@ -437,9 +442,14 @@ These continue directly below the eight most recent entries, which stay in
 
 ## Historical seat-era baseline — preserved, not current
 
-> The sections below through **Recently shipped** preserve the ledger's
-> original seat-era baseline and dated append log. They explain how the hub got
-> here; they must not override the live state above.
+> **Relocated 2026-08-22 — this marker was rewritten for the archive layout.**
+> In `current-state.md` it read *"the sections below through Recently shipped …
+> must not override the live state above"*, which no longer resolves: the
+> shipped log now sits **above** this block, and the live state is in a
+> different file entirely. What it means here: everything in this file — this
+> seat-era baseline and the shipped log alike — is provenance. It explains how
+> the hub got here and **must not override**
+> [`current-state.md`](current-state.md), which is the live state.
 
 ### What this repo was
 

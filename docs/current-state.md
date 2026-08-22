@@ -9,7 +9,11 @@
 > [`PROJECT-CLOSEOUT.md`](PROJECT-CLOSEOUT.md), but it is no longer a boot
 > instruction or a current-state source.
 >
-> **Trimmed 2026-08-22 under OD-17, 6,212 → 853 words.** The merge log's older
+> **Trimmed 2026-08-22 under OD-17: 6,212 words of old content down to 853, and
+> the file itself now ~1207** (the kit's word instrument, which is what the
+> orientation budget gates; `wc -w` reads lower). The gap between the two is new
+> prose — this notice, the archive pointers, and the backfilled entries — so
+> *853* is retained old content, not the final size. The merge log's older
 > entries and the seat-era sections this file already carried as *preserved, not
 > current* now live in
 > [`current-state-shipped-log.md`](current-state-shipped-log.md) — moved, not
@@ -65,6 +69,29 @@ copy product architecture or internal product state. Canonical intent:
 
 ## Recently shipped (newest first)
 
+- **Every repository has a disposition — keep 14 · archive 12 · delete 0**
+  (2026-08-22, fm #906):
+  [the table](planning/2026-08-22-repo-dispositions.md). All 26 re-derived from
+  each repo's own state; 13 of 14 keeps are reworks, `superbot` neither
+  (frozen, fresh successor). **Not executed — the archive list is the owner's**
+  (`OQ-ESTATE-ARCHIVE-LIST`; `superbot-next`/`superbot-plugin-hello` gated on
+  GCB-1, `product-forge` on R2).
+
+- **The first pre-archive write executed** (2026-08-22, fm #907 + mineverse
+  #145 `fc7c349`): the SuperBot-World MASTER told the next session to delete a
+  trigger — forbidden, and the trigger no longer existed. Corrected in place;
+  siblings searched, zero other instances. Also withdrawn here: the dependabot
+  merge recommendation, whose deploy filter was never read.
+
+- **R3 ✅ releases-before-archive — all three code-tool labs archivable**
+  (2026-08-22): cfgdiff v0.1.1, envdrift v0.1.0/v0.2.0 tagged + released;
+  program §7.
+
+- **The verification half of the repo pass — a dead quality gate fixed on
+  `websites`, eight of nine kept repos green** (2026-08-22, websites #511
+  `d2bba01`): program §7. The fix's dispatch path is **not yet verified** —
+  it only runs when main HEAD carries zero `quality` runs.
+
 - **Fleet-wide estate review — [`ESTATE.md`](ESTATE.md) built** (2026-08-21,
   fm #878): 26 repos read from source; three Tier-1 entry points, 11
   route pairs, owner-queue corrections;
@@ -115,7 +142,12 @@ copy product architecture or internal product state. Canonical intent:
 **Older entries — the full log, 37 more reaching back to the first roster
 generations — moved off the boot path 2026-08-22 (OD-17) and preserved in
 [`current-state-shipped-log.md`](current-state-shipped-log.md). Nothing was
-deleted.**
+deleted.** The list above was also **backfilled** the same day: four 2026-08-22
+rows already in the program's §7 ledger had never reached this file, two of them
+recorded as omitted *because the boot set was at 7000/7000*. Creating headroom
+and leaving them out would have preserved the exact gap the trim was for.
+The program's §7 ledger remains the fuller record; this section is the recent
+window.
 
 ## Next action / where to read next
 

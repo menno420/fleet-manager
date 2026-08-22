@@ -17,7 +17,9 @@
 
 - **BEFORE** — `README.md` + `docs/AGENT_ORIENTATION.md` + `current-state.md`
   **at `origin/main`** (5,972 words as extracted).
-- **AFTER** — the same two files + the **trimmed** `current-state.md` (853 words).
+- **AFTER** — the same two files + the **trimmed** `current-state.md` (853 words of retained old content — the
+file measures more once the trim notice and the backfilled ledger rows are
+counted; see fm #909's correction).
 
 `temperature: 0.0`, no other context, instructed to answer only from the files.
 Question 4 asked explicitly for **gaps** — anything needed and not findable —
