@@ -86,7 +86,7 @@ Reversible, blocks writes only, keeps every read path and install URL working.
 |---|---|
 | `superbot-next` | OD-16 already declined it as the successor's base. It donates architecture by being **read**, and archiving blocks only writes — so its donor role survives the archive intact. Sequence it after GCB-1 so the patterns are not sealed mid-harvest. |
 | `superbot-games` | The successor plan explicitly rejects its casino/economy/game-content scope; it claims plugin-shipping and has no packaging (the R1 drift), and it has no live consumer. |
-| `superbot-idle` | A parked idle engine whose only consumer is a parked repo. Pinned in `superbot-next/plugins.lock.json` by `manifest_hash` — `sha256:48bf953d…`, read directly — and a hash is a verification value, not a fetch, so the pin survives. It is also the estate's clearest case of parked-but-noisy: `MEASURED` 2026-08-22, its `host-main-advisory` cron has fired **every day** (05:4xZ, five consecutive days sampled, 1,185 runs total) on a repo whose last commit is 2026-07-21. |
+| `superbot-idle` | A parked idle engine whose only consumer is a parked repo. Pinned in `superbot-next/plugins.lock.json` by `manifest_hash` — `sha256:48bf953d…`, read directly — and a hash is a verification value, not a fetch, so the pin survives. It is also the estate's clearest case of parked-but-noisy: `MEASURED` 2026-08-22 over the workflow's **complete** scheduled-run history, not a sample — `host-main-advisory` has **40 scheduled runs across 40 distinct days with no gap**, 2026-07-14 → 2026-08-22, of which **32 consecutive days fall after the repo's last commit** (2026-07-21). (An earlier draft said *1,185 runs*; that is the repo's all-workflow total, not this cron's.) |
 | `superbot-mineverse` | Off Railway since 2026-08-20/21, service and project deleted. Its remaining value is being the SuperBot-World MASTER closeout, which archiving keeps readable. **One write first** — see § 4. |
 | `superbot-plugin-hello` | ESTATE.md's *"never archive"* does not hold, and the reason is stronger than the lockfile: **`superbot-next` carries its own copy of the plugin in-tree** at `examples/superbot-plugin-hello/` (`pyproject.toml`, `manifest.py`, `superbot_plugin_hello/__init__.py` — `MEASURED` 2026-08-22 by code search inside that repo). The host resolves an *installed distribution* via its `sb.plugins` entry point and checks the `manifest_hash` pin against that manifest; it never reaches this standalone repo. So this is a published exemplar, not a build input, and archiving it cannot affect the host's boot. Archive it with `superbot-next`, as one pair. |
 | `trading-strategy` | The research concluded: 11 rounds, 5,940 configs, **0 promoted**, holdout SPENT. The null result *is* the deliverable, and archiving preserves it readable while ending the pretence that a session might pick it up. |
@@ -150,9 +150,16 @@ the README file and description, before you archive a repository."*
 than it. GitHub recommends two things: close issues/PRs, and update the
 README/description — items 3 and 4. Items 1 and 2 are **this estate's
 extension**, derived from the read-only property rather than recommended by
-GitHub: an archived repo cannot be written to, so any correction a repo still
-needs has exactly one window. GitHub's docs say nothing about stale in-repo
-instructions, batons, or triggers.
+GitHub, which says nothing about stale in-repo instructions, batons or triggers.
+
+**And this is sequencing, not a deadline.** An earlier draft of this section said
+a needed write has *"exactly one window"* — which contradicts this document's own
+argument two sections up, that archiving is reversible. A write discovered after
+R5 costs an unarchive → write → re-archive cycle, which is cheap and undramatic.
+So the list below is the order that avoids that cycle, **not a precondition that
+should block the archive**: if item 2 is not written, archive anyway and fix it
+later. The one item worth actually holding for is item 1, because it seals a
+wrong instruction into a document other repos route to.
 
 This is R3's lesson generalized. R3 ran first because releases must be cut
 before the archive; the same shape applies to text:

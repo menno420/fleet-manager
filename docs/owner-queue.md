@@ -41,17 +41,28 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   2026-08-22, OD-18 table fm #906).**
   **WHAT:** approve (or edit) the twelve-repo archive list in
   [`planning/2026-08-22-repo-dispositions.md`](planning/2026-08-22-repo-dispositions.md)
-  § 2: `superbot-next`, `superbot-games`, `superbot-idle`, `superbot-mineverse`,
-  `superbot-plugin-hello`, `trading-strategy`, the three `codetool-lab-*` repos,
-  `Substrate-kit-app`, `proxybench`, and `product-forge` **after R2 only**.
-  Deletion is recommended for **nothing**. **WHY-IT-MATTERS:** the archive step
+  § 2: `superbot-games`, `superbot-idle`, `superbot-mineverse`,
+  `trading-strategy`, the three `codetool-lab-*` repos, `Substrate-kit-app` and
+  `proxybench` — plus **three that are gated, not free-running**:
+  `superbot-next` and `superbot-plugin-hello` **only after GCB-1** (the new bot's
+  repo is confirmed and the architecture donor is no longer being harvested), and
+  `product-forge` **only after R2** (phone-controller has graduated). A yes to
+  this entry is a yes to the eight ungated ones and to the three *when their gate
+  opens* — it does not release them early. Deletion is recommended for
+  **nothing**. **WHY-IT-MATTERS:** the archive step
   has been described since 2026-07-26 and has never run on any repository —
   measured again on 2026-08-22, 26 repos and zero archived — so every parked
   repo is still structurally identical to an active one, which is exactly the
   noise OD-17 names. Approving this takes the active estate from 26 to 14.
-  **WHY IT IS SAFE:** archiving blocks writes only; reads, clones, `pipx install
-  git+https://…` URLs and releases all keep working, and archiving is reversible
-  per GitHub's documentation — so a wrong row is undone, not paid for. **WHAT
+  **WHY IT IS SAFE — with the certainty each half actually has:** archiving makes
+  a repo read-only while it stays public, and it is reversible — both **stated in
+  GitHub's documentation**, so a wrong row is undone rather than paid for. That
+  the `pipx install git+https://…` paths keep working is **`REASONED`** from the
+  code staying readable, not stated by GitHub and never tested against an
+  archived repo (`ESTATE.md` says so too); the first archive settles it in one
+  command. And whether archiving stops **scheduled Actions** is **`UNVERIFIED`** —
+  the docs do not say, so do not count the crons as cleaned up until one archive
+  has proved it either way. **WHAT
   HAPPENS THEN:** an agent runs R5, doing the § 4 pre-archive writes first (they
   need the repo writable) and archiving one at a time. **WHAT IS NOT ASKED:**
   nothing about your five keeps that are yours — `venture-lab`, `shiftlife`,

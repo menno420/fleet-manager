@@ -40,7 +40,7 @@ Recorded from the owner live in the hub chat; each is a durable decision.
 | OD-15 | **08-10** | **shiftlife is not active; spider-swing and the superbot repos are the important ones.** Owner, live, during the full-read audit session. This supersedes the D2 order’s `shiftlife` target (recorded at the NOW pointer below) and is the statement the audit found missing from the tree — every document agreed on shiftlife precisely because nothing recorded this. Concrete re-target: `OQ-FM-D2-TARGET`. |
 | OD-16 | **08-21** | **The next Discord bot is server-first:** basic game-testing + general game-community operation, retaining the best of both bots and giving AI more freedom from the start. The [authoritative pre-repository plan](2026-08-21-game-community-bot/README.md) uses live `superbot` as behavior/UX oracle and `superbot-next` as architecture donor; its clean-repository recommendation remains owner-confirmed at GCB-1 before creation. This supersedes OD-1's `superbot-next` production target and the old R4/R7 execution route. |
 | OD-17 | **08-22** | **Cleanup is the priority, and the bar is agent legibility — not tidiness.** Owner, live: *"we should really focus on cleaning up excessive repos and documentation where possible while still making it easy for an agent to understand work."* Both halves bind together: a cut that shrinks the estate but makes a session slower to orient has failed the directive. The tier vocabulary in [`../MAP.md`](../MAP.md) (CORE / TASK / RECORD) is the instrument — cut RECORD-tier bulk out of read paths, never CORE-tier detail. Paired with OD-18 below; this one says *why*, that one says *what the output is*. Both quoted verbatim with the rest of his 2026-08-22 direction at [`../findings/2026-08-22-owner-direction.md`](../findings/2026-08-22-owner-direction.md), which also carries the three asks from that session that are NOT directives and have no home yet. |
-| OD-18 | **08-22** | **Every remaining repo gets a disposition, and the disposition has a THIRD axis the program never had.** Owner, live: *"review the remaining repos to finalize the plan, which set of repos to keep eventually and should they start fresh or just be reworked etc."* The existing R-track only ever asked keep-vs-archive. This adds, for each repo that is kept: **rework it, or start it fresh.** That is a real question here — the estate has already answered it once, in favour of fresh, for the Discord bot (OD-16), and the reasoning there (live coupling, accidental product scope, parity ≠ ported) is the precedent to test each repo against rather than a rule to apply. **Deliverable: a per-repo disposition table with a stated reason per row**, not a sorted list. **DELIVERED 2026-08-22:** [`2026-08-22-repo-dispositions.md`](2026-08-22-repo-dispositions.md) — keep 14 · archive 12 · delete 0, every keep a rework, and the two genuine start-fresh cases (the bot's code, phone-controller's home) both already decided elsewhere. It is a **recommendation**; R5 executes it after the owner's yes. His wording and the derivation are at [`../findings/2026-08-22-owner-direction.md`](../findings/2026-08-22-owner-direction.md) § 1. |
+| OD-18 | **08-22** | **Every remaining repo gets a disposition, and the disposition has a THIRD axis the program never had.** Owner, live: *"review the remaining repos to finalize the plan, which set of repos to keep eventually and should they start fresh or just be reworked etc."* The existing R-track only ever asked keep-vs-archive. This adds, for each repo that is kept: **rework it, or start it fresh.** That is a real question here — the estate has already answered it once, in favour of fresh, for the Discord bot (OD-16), and the reasoning there (live coupling, accidental product scope, parity ≠ ported) is the precedent to test each repo against rather than a rule to apply. **Deliverable: a per-repo disposition table with a stated reason per row**, not a sorted list. **DELIVERED 2026-08-22:** [`2026-08-22-repo-dispositions.md`](2026-08-22-repo-dispositions.md) — keep 14 · archive 12 · delete 0; **13 of the 14 keeps are reworks** and the fourteenth (`superbot`) is neither — it stays frozen while its successor starts fresh — and the two genuine start-fresh cases (the bot's code, phone-controller's home) were both already decided elsewhere. It is a **recommendation**; R5 executes it after the owner's yes. His wording and the derivation are at [`../findings/2026-08-22-owner-direction.md`](../findings/2026-08-22-owner-direction.md) § 1. |
 
 ## 2 · Target picture — 7 sections
 
@@ -83,13 +83,23 @@ live state and next step from no more than three files.
 
 > **The candidate set is now much smaller — 2026-08-22, OD-18.** D2's order was
 > written when the estate had 26 undifferentiated repositories. The
-> [disposition table](2026-08-22-repo-dispositions.md) cuts that to **7 active
-> keeps** worth a truth pass (`fleet-manager` ✅ · `spider-swing` ·
+> [disposition table](2026-08-22-repo-dispositions.md) puts **7 active keeps**
+> at the front of the queue (`fleet-manager` ✅ · `spider-swing` ·
 > `couch-legend` · `websites` · `superbot` · `substrate-kit` ·
-> `estate-backups`); the 12 archive-bound repos should be skipped, since a truth
-> pass on a repo about to go read-only is work nobody reads. **This does not
-> answer `OQ-FM-D2-TARGET`** — which of the seven is his call, and OD-13 still
-> orders methods ahead of product work regardless.
+> `estate-backups`) — those are where a future session will actually work, which
+> is what a truth pass buys.
+>
+> **Archive-bound does not mean skip.** Sort the remaining twelve by whether the
+> repo stays a **reference**, not by its disposition: several are archived
+> precisely *because* they keep being read — `superbot-next` as the architecture
+> donor, `superbot-mineverse` as the SuperBot-World MASTER closeout, the three
+> labs as install documentation — and a stale front door frozen read-only is
+> worse than one that can still be fixed. Those want a front-door pass **before**
+> R5, which is the same window the disposition table's § 4 already describes. The
+> ones with no future reader (`proxybench`, `Substrate-kit-app`) need nothing.
+>
+> **This does not answer `OQ-FM-D2-TARGET`** — which repo is his call, and OD-13
+> still orders methods ahead of product work regardless.
 
 Evidence for the fleet-manager pass:
 [`../findings/2026-08-10-fleet-manager-cold-read.md`](../findings/2026-08-10-fleet-manager-cold-read.md).
