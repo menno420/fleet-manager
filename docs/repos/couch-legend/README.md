@@ -179,12 +179,14 @@ what that costs, and this session re-verified it independently and extended the
 series: **four CI runs produced four distinct signer certificates**
 (`f815828465d6ce40…` 21:25:54Z · `387c7df1bc805a04…` 21:52:14Z ·
 `d7f4a2dd77798044…` 22:15:59Z · `04a12834c0c942ad…` 22:42:51Z), so the per-run
-key is a property of the pipeline, not a three-sample coincidence. Every APK
-therefore refused to install over every other one, and the only way through was
-an uninstall — **which clears the save.** That is a milestone-B blocker rather
-than a footnote: B's device matrix means putting *several* builds on one phone,
-and at one lost save per build the checklist's most important question, *does a
-save survive a force-stop*, cannot be asked twice. Fixed by committing a
+key is a property of the pipeline, not a three-sample coincidence. That makes
+successive APKs **signature-incompatible**: replacing an installed build would
+require an uninstall first, **which clears the save.** Stated as the inference it
+is — four certificates were measured; nothing was installed, so no build was ever
+actually refused and no save was actually lost. That is still a milestone-B
+blocker rather than a footnote: B's device matrix means putting *several* builds
+on one phone, and if each replacement costs the save, the checklist's most
+important question — *does a save survive a force-stop* — cannot be asked twice. Fixed by committing a
 conventional debug keystore (`android/keystore/debug.keystore`; password public
 by convention, so not a secret, and not a Play upload key — it forecloses
 nothing about release signing) and by turning the CAPABILITIES sig-block recipe

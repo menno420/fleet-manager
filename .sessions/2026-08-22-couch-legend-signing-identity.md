@@ -51,6 +51,32 @@ on real hardware, and **does a save survive a force-stop**. A fourth is cheap to
 settle now: whether he wants the application id changed from
 `com.menno420.couchlegend` — it costs a reinstall after an install exists.
 
+## Codex trail (hub PR #887)
+
+**Round 1, 2 findings, both conceded** — and both are the *same defect class the
+product repo's review had already caught*, which is the point worth keeping.
+
+- `[conceded]` **P2 — "Stop reporting inferred uninstalls as measured events."**
+  The routes said every build "refused to install over the last and cost an
+  uninstall, and therefore the save". Four certificates were measured; nothing
+  was ever installed, so no build actually refused and no save was actually lost.
+  Corrected in both routes and in the entry point: successive builds are
+  **signature-incompatible**, and the refusal and the lost save are stated as the
+  inferences they are. **This is the third venue the same overstatement reached**
+  — couch-legend's `android/README.md`, then its `CAPABILITIES` entry, then here.
+  Qualifying a claim in the doc you are editing does not qualify the copies you
+  wrote of it elsewhere, and route `says` strings are the copy nobody greps.
+- `[conceded]` **P2 — "Remove the stale dormant life-story state."** Inherited
+  rather than introduced, and I trued the Android thread without re-reading the
+  rest: both routes still called #4's Arc-1 scene packages *dormant* and the live
+  game *untouched*, when #7 landed the stage schema that activates them and
+  shipped the tuned curve as the engine default. Corrected.
+
+Together they sharpen this card's `💡`: the previous-session review below faults
+milestone A for truing one route of a pair, and round 1 caught **this** session
+doing the same thing one layer down — truing the thread it came for while leaving
+neighbouring claims in the same string stale.
+
 ## ⟲ Previous-session review
 
 The milestone-A hub card set the shape this one follows, and its judgement to
