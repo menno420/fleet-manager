@@ -25,8 +25,10 @@ to 14, and the set that is unconditionally *worked in* is **7** — five of the
 other keeps are kept because the owner said so or because one letter unblocks
 them.
 
-**And the start-fresh axis has almost no takers.** Of the 14 keeps, **14 are
-rework**. That is not a dodge, it is the finding: OD-16's grounds for starting
+**And the start-fresh axis has almost no takers.** Of the 14 keeps, **13 are
+rework**; the fourteenth is `superbot`, which is neither — it stays frozen and
+maintained while its *successor* starts fresh. That is not a dodge, it is the
+finding: OD-16's grounds for starting
 the Discord bot fresh — live production coupling, accidental product scope, and
 parity that was never porting — are properties of *the bot*, and no other repo
 in the estate carries all three. Two things in the estate genuinely start over,
