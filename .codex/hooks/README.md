@@ -69,7 +69,8 @@ python3 tools/test_codex_hooks.py
 
 It covers prompt routing, once-per-session deduplication, removal of the
 unsupported field, Stop blocking, the one-round guard, fail-open inputs, and
-the exact Windows registration command from a nested directory.
+the exact active-platform registration command from a nested directory
+(`commandWindows` through PowerShell, or `command` through Bash).
 
 Then verify discovery in a real Codex session:
 

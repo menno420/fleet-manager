@@ -73,6 +73,15 @@ in the hook reference and capability ledger; it is not an adapter failure.
 - Installed Codex CLI read-only smoke turn → exit 0; route state + Stop
   telemetry above; two-message continuation observed in the JSON event stream.
 
+## Review
+
+Codex review on `abc0622` found one P2: the contract suite unconditionally
+launched PowerShell, so its documented repository-wide command would crash on
+Linux before reporting a result. **[conceded]** The fixture now tests
+`commandWindows` when PowerShell is installed and otherwise tests the POSIX
+`command` through Bash, both from the nested `docs/` directory. This correction
+requires a new review on the new head before the flip.
+
 ## Close-out
 
 Capability delta: Codex repo-local Windows hooks are proven live at prompt and

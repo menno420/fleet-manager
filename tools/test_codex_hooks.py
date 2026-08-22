@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -123,14 +124,20 @@ check("all registrations are command hooks", len(commands) == 2 and all(h.get("t
 check("all registrations include Windows commands", all(h.get("commandWindows") for h in commands))
 check("registration contains no machine-specific repo path", all("C:\\\\dev" not in json.dumps(h) for h in commands))
 
-windows_command = hooks["UserPromptSubmit"][0]["hooks"][0]["commandWindows"]
+prompt_hook = hooks["UserPromptSubmit"][0]["hooks"][0]
+if shutil.which("powershell"):
+    platform_command = ["powershell", "-NoProfile", "-Command", prompt_hook["commandWindows"]]
+    platform_name = "Windows"
+else:
+    platform_command = ["bash", "-lc", prompt_hook["command"]]
+    platform_name = "POSIX"
 nested_event = {
     "session_id": "nested-" + uuid.uuid4().hex,
     "hook_event_name": "UserPromptSubmit",
     "prompt": "Please inspect spider-swing.",
 }
 nested = subprocess.run(
-    ["powershell", "-NoProfile", "-Command", windows_command],
+    platform_command,
     input=json.dumps(nested_event),
     text=True,
     capture_output=True,
@@ -140,7 +147,11 @@ nested = subprocess.run(
 )
 nested_json = decoded(nested)
 nested_context = (nested_json.get("hookSpecificOutput") or {}).get("additionalContext", "")
-check("exact Windows command resolves a nested worktree", nested.returncode == 0 and "spider-swing/README.md" in nested_context, nested.stderr.strip())
+check(
+    f"exact {platform_name} command resolves a nested worktree",
+    nested.returncode == 0 and "spider-swing/README.md" in nested_context,
+    nested.stderr.strip(),
+)
 
 print()
 if failures:
