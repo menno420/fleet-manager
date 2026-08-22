@@ -6,7 +6,7 @@
 - **Venue:** owner-live, local Claude Code on the owner's new Galaxy Book6 Pro
   (Windows 11, NTFS case-insensitive) — the estate's first local Windows session.
 
-## Session idea
+## 💡 Session idea
 
 `docs/CAPABILITIES.md` (1,865 lines — the capability ledger and THE DISCOVERY
 RULE) and `docs/capabilities.md` (a 9-line "MOVED" pointer stub) are **both
