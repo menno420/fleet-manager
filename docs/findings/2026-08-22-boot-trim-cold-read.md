@@ -46,7 +46,20 @@ acting on: `RESUME.md` is now named in the live line, which is where it always
 belonged.
 
 **Honest limits.** One reader, one model, one temperature, n=1 per arm — this
-demonstrates the trimmed file *can* be oriented from, not a rate. And a fresh
+demonstrates the trimmed file *can* be oriented from, not a rate.
+
+**The producer was fresh; the scorer was not.** Both transcripts were graded by
+the session that made the cut, which is precisely the bias this estate has
+already measured and named: roadmap § 4.8's recorded bar is a fresh agent that
+**produces and scores**, and fm #851 earned its mechanism claim producer-side
+only for exactly this reason. The grading here is close to mechanical for
+questions 1–3 (the expected answers are single named facts — *router and records
+home*, *E1 is owner-reserved*, *D2 awaits a target*), so the bias has little room
+to operate there. It has the most room on question 4, where accepting `NONE` at
+face value is the reading the author of the trim wants to be true. Read the
+matched `NONE` accordingly: as one fresh reader failing to miss anything, scored
+by an interested party, with the BEFORE arm as the check that the question could
+surface a difference at all. And a fresh
 model reporting `NONE` is weaker evidence than a fresh model finding something:
 the null is only as good as its willingness to complain, which is why question 4
 demanded bluntness and why the BEFORE arm was run at all — an arm that found a
