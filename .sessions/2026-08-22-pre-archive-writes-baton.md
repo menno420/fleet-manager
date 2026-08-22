@@ -1,8 +1,9 @@
 # 2026-08-22 — the first pre-archive write executed, and the record now says so
 
-> **Status:** `in-progress` — branch `claude/estate-repo-dispositions-spa3i0`,
-> restarted from `origin/main` at `0e461ff` after fm #906 merged. Flips to
-> `complete` after `python3 bootstrap.py check --strict` returns a real exit 0.
+> **Status:** `complete` — branch `claude/estate-repo-dispositions-spa3i0`,
+> restarted from `origin/main` at `0e461ff` after fm #906 merged, landed as
+> fm **#907**. Flipped after `python3 bootstrap.py check --strict` returned a
+> real exit 0 on this tree, read directly and never after a pipe.
 
 - **📊 Model:** opus-5 · high · docs-only
 
@@ -37,8 +38,41 @@ it was wrong: it stated the dependabot conclusion at a confidence its evidence
 did not carry, which the owner-review hook caught after the merge; the fix is
 below rather than argued away.
 
-## What this will carry when it flips
+## What landed
 
-- item 1 marked done with its evidence, and the sibling check that bounds it
-- the § 6 provenance qualifier, and the exact read that would settle it
-- the verify line with its real exit code
+**The write itself, in the repo it belonged to** — superbot-mineverse #145,
+merged `fc7c349`, verified by re-reading that repo's `main`. Corrected in place
+with the bullet struck through, header re-badged HISTORICAL, so the historical
+handoff survives beside the correction. Bounded by a sibling search that
+returned **zero hits**, so the family had exactly one instance and no follow-on
+is owed.
+
+**Then the three record repairs here**: § 4 item 1 marked done so R5 does not
+redo merged work; § 6's merge recommendation withdrawn to the confidence its
+evidence actually carries; and the plugin-hello justification upgraded from
+"the files are there" to the host's own boot proof.
+
+## The correction worth carrying
+
+**I judged a change safe against a rule I had never read.** The file lists for
+`superbot`'s eight open updates were measured here; the watch filter deciding
+what they *do* is Railway service configuration, and `watchPatterns` has zero
+hits in that repo — there was nothing in the tree to have read. The estate's
+account of the filter is real but second-hand. Stating a merge-safety conclusion
+on it was the error; the table's own `MEASURED` tag was already scoped correctly
+to the file lists, and only the concluding sentence outran it — which is exactly
+the half a later session would have acted on.
+
+Same shape as the plugin-hello miss earlier in this thread: a vendored copy in
+`examples/` was cited as proof the host does not fetch the standalone repo,
+before anything confirmed the host *loads* that copy. Both were fixed by going
+and reading the resolution path. Guard recipe for a later session: when a
+disposition turns on "X cannot affect Y", the check is the thing that decides
+it — the deploy config, the loader, the entry point — not the artifact's
+presence. Anchors: `docs/planning/2026-08-22-repo-dispositions.md` § 6 and its
+`superbot-plugin-hello` row.
+
+## Verify
+
+`python3 bootstrap.py check --strict` → **exit 0**, read directly. Before the
+flip it returned 1 on the designed born-red hold alone.
