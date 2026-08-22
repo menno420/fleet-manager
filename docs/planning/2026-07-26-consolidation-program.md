@@ -79,8 +79,19 @@ completed step appends a row to §7 with its PR.
 
 The fleet-manager pass completed the first repository in D2's order. Apply the
 same fresh-session test to whichever repository the owner names next: purpose,
-live state and next step from no more than three files. Evidence for the
-fleet-manager pass:
+live state and next step from no more than three files.
+
+> **The candidate set is now much smaller — 2026-08-22, OD-18.** D2's order was
+> written when the estate had 26 undifferentiated repositories. The
+> [disposition table](2026-08-22-repo-dispositions.md) cuts that to **7 active
+> keeps** worth a truth pass (`fleet-manager` ✅ · `spider-swing` ·
+> `couch-legend` · `websites` · `superbot` · `substrate-kit` ·
+> `estate-backups`); the 12 archive-bound repos should be skipped, since a truth
+> pass on a repo about to go read-only is work nobody reads. **This does not
+> answer `OQ-FM-D2-TARGET`** — which of the seven is his call, and OD-13 still
+> orders methods ahead of product work regardless.
+
+Evidence for the fleet-manager pass:
 [`../findings/2026-08-10-fleet-manager-cold-read.md`](../findings/2026-08-10-fleet-manager-cold-read.md).
 
 > **Before acting on this pointer, read
