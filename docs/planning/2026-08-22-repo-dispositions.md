@@ -86,7 +86,7 @@ Reversible, blocks writes only, keeps every read path and install URL working.
 |---|---|
 | `superbot-next` | OD-16 already declined it as the successor's base. It donates architecture by being **read**, and archiving blocks only writes — so its donor role survives the archive intact. Sequence it after GCB-1 so the patterns are not sealed mid-harvest. |
 | `superbot-games` | The successor plan explicitly rejects its casino/economy/game-content scope; it claims plugin-shipping and has no packaging (the R1 drift), and it has no live consumer. |
-| `superbot-idle` | A parked idle engine whose only consumer is a parked repo. Pinned in `superbot-next/plugins.lock.json` by `manifest_hash` — `sha256:48bf953d…`, read directly — and a hash is a verification value, not a fetch, so the pin survives. |
+| `superbot-idle` | A parked idle engine whose only consumer is a parked repo. Pinned in `superbot-next/plugins.lock.json` by `manifest_hash` — `sha256:48bf953d…`, read directly — and a hash is a verification value, not a fetch, so the pin survives. It is also the estate's clearest case of parked-but-noisy: `MEASURED` 2026-08-22, its `host-main-advisory` cron has fired **every day** (05:4xZ, five consecutive days sampled, 1,185 runs total) on a repo whose last commit is 2026-07-21. |
 | `superbot-mineverse` | Off Railway since 2026-08-20/21, service and project deleted. Its remaining value is being the SuperBot-World MASTER closeout, which archiving keeps readable. **One write first** — see § 4. |
 | `superbot-plugin-hello` | ESTATE.md's *"never archive"* over-reads the lockfile. The pin is `sha256:ff75b9eb…`, measured — archiving cannot break it; it blocks *editing* the manifest, which was always a two-repo change. Archive it together with `superbot-next`, as one pair. |
 | `trading-strategy` | The research concluded: 11 rounds, 5,940 configs, **0 promoted**, holdout SPENT. The null result *is* the deliverable, and archiving preserves it readable while ending the pretence that a session might pick it up. |
@@ -142,11 +142,17 @@ twelve has exactly one window.
 This is R3's lesson generalized. R3 ran first because releases must be cut
 before the archive; the same shape applies to text:
 
-1. **`superbot-mineverse`** — its `current-state.md` baton instructs the next
-   session to **delete a trigger**, which [this estate's trigger decision](../decisions.md)
-   forbids outright — a misbehaving trigger is *disabled* via `update_trigger`,
-   never deleted. Archiving seals a
-   live trap into the family's MASTER closeout. Correct the baton first.
+1. **`superbot-mineverse`** — its `current-state.md:53-55` tells the successor
+   to *"rebind-then-delete"* a named trigger, which
+   [this estate's trigger decision](../decisions.md) forbids outright: a
+   misbehaving trigger is **disabled** via `update_trigger`, never deleted.
+   Archiving would seal that instruction, read-only, into the family's MASTER
+   closeout. It is wrong twice over: `MEASURED` 2026-08-22, the trigger it names
+   (`trig_01XJJ88…`, *"SuperBot World failsafe wake"*, cron `15 1-23/2 * * *`)
+   **no longer exists** — the account holds three Routines and none is it, and a
+   cron Routine is not one of the kinds a default listing hides. So the baton
+   directs a forbidden action against a vanished target. Correct it first;
+   nothing was disabled or deleted to establish this.
 2. **The three code labs** — one line in each README saying the tool is
    finished and unmaintained. A release cut days before an archive over-signals
    support; `ESTATE.md` already asks for this and it has not been written.
@@ -154,11 +160,14 @@ before the archive; the same shape applies to text:
    a capability-probe artifact).
 4. **All twelve** — README/description line per GitHub's recommendation above.
 
-`UNVERIFIED`, and worth knowing before the first archive: **whether archiving
-stops scheduled Actions.** The archiving docs enumerate what becomes read-only
-and say nothing about workflow runs, so the claim that archiving silences
-`superbot-idle`'s still-firing daily `host-main-advisory` cron is *not*
-established. It is cheap to settle — archive one repo with a cron and look.
+`UNVERIFIED`, and this pass made it worth answering rather than noting:
+**whether archiving stops scheduled Actions.** The archiving docs enumerate what
+becomes read-only and say nothing about workflow runs, so the appealing claim
+that archiving silences `superbot-idle`'s daily cron is *not* established — and
+that cron is measured still firing daily, a month after the repo's last commit.
+If archiving does stop it, the archive list is also the estate's cron cleanup;
+if it does not, that is separate work. Cheap to settle: archive one repo with a
+cron and look at the next scheduled window.
 
 ## 5 · What is his, and what he actually has to answer
 
