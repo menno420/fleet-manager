@@ -1653,12 +1653,20 @@ The ledger already says findings arrive as **inline review comments**, so an
 empty review *body* is not an empty review. The other half was missing and cost
 a session ten minutes today:
 
-**When Codex has no findings it posts a plain issue comment** —
-`Codex Review: Didn't find any major issues. Hooray!` with
-`**Reviewed commit:** <sha>` — and creates **no review object at all**. A poll
-of `/pulls/{n}/reviews` filtered to the Codex bot therefore returns the
-*previous* round forever, and the session concludes the review is overdue while
-the verdict is already sitting in `/issues/{n}/comments`.
+**OBSERVED ONCE (n=1) — do not read this as a structural rule.** On this PR a
+no-findings round posted a plain issue comment — `Codex Review: Didn't find any
+major issues. Hooray!` with `**Reviewed commit:** <sha>` — and created **no
+review object**. A poll of `/pulls/{n}/reviews` filtered to the Codex bot
+therefore returned the *previous* round, and the session reported the review
+overdue while the verdict sat in `/issues/{n}/comments`.
+
+**And the vendor's own text disagrees with the observation, which is why this
+stays n=1.** The About-Codex block inside its review body says: *"If Codex has
+suggestions, it will comment; otherwise it will react with 👍."* That describes
+the clean case as a **reaction**, not an issue comment. What was seen here was
+an issue comment. Either the blurb is stale, or the behaviour varies by
+configuration — **unresolved, and not worth guessing.** The actionable half
+does not depend on which: check both surfaces.
 
 Measured on websites #511: round 2 requested 13:54:20Z, verdict posted
 **13:56:19Z (~2 min)**, and a 10-minute poll of `/reviews` never saw it.
