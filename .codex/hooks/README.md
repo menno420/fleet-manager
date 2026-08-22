@@ -49,7 +49,15 @@ the repository is the project, but a new or changed non-managed hook definition
 must be reviewed once in `/hooks`; trust is tied to the exact definition hash.
 The registration includes both `command` and `commandWindows`. Each resolves
 the active Git worktree root first, so it works from a nested directory and
-does not hard-code `C:\\dev\\fleet-manager`.
+does not hard-code `C:\dev\fleet-manager`.
+
+**Pre-merge worktree caveat, measured on Codex CLI 0.149.0-alpha.4.1 for
+Windows:** Codex's project-trust prompt canonicalized a linked worktree to its
+primary checkout. An unmerged `.codex/hooks.json` present only in the linked
+worktree therefore did not become active there. A disposable ordinary clone of
+the PR branch loaded, reviewed and ran both hooks. Use that shape for a live
+pre-merge smoke test; once the definition is on the primary checkout's branch,
+the caveat no longer applies.
 
 ## Verification
 

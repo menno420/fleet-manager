@@ -16,4 +16,4 @@ The two checkers at the top run inside the REQUIRED `substrate-gate` check with 
 | `test_change_guard.py` | Regression suite for the change_guard hook covering malformed table delimiters, fence identity, dash-prefixed grep fragments, .substrate …. |
 | `test_trigger_tools_guard.py` | Both-directions suite for the trigger_tools_guard hook: deny/warn/silent expectations across MCP tool spellings, Bash route-arounds, here…. |
 | `test_codex_hooks.py` | Contract suite for the repo-local Codex prompt-router and Stop adapters, including exact Windows registration commands from a nested directory. |
-| *…4 more* | see the files themselves — each gist is in [the audit's raw record](../docs/audits/2026-08-10-full-read/raw/gists.tsv). |
+| *…5 more* | see the files themselves — each gist is in [the audit's raw record](../docs/audits/2026-08-10-full-read/raw/gists.tsv). |
