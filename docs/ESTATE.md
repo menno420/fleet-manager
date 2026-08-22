@@ -15,6 +15,13 @@
 > were last verified; a dated row is *visible* staleness, which is the design
 > (`repos/README.md` § Threads).
 >
+> **Every row now has a disposition.** Keep / archive / delete, and
+> rework-vs-fresh for each keep, with a stated reason per repo:
+> [`planning/2026-08-22-repo-dispositions.md`](planning/2026-08-22-repo-dispositions.md)
+> (OD-18, 2026-08-22 — **keep 14 · archive 12 · delete 0**). It is a
+> recommendation awaiting the owner; **nothing has been archived**, and the
+> live sweep that produced it re-confirmed 26 repositories, zero archived.
+>
 > **Baseline:** all 26 repositories verified against the live account and
 > their own trees on **2026-08-21** by the fleet-wide review (fm #878, method
 > and evidence: [`findings/2026-08-21-fleet-estate-review.md`](findings/2026-08-21-fleet-estate-review.md)).
@@ -66,8 +73,8 @@
 
 | repo | what it is · aliases | state (verified 2026-08-21) | read first | Layer 2 |
 |---|---|---|---|---|
-| `superbot-plugin-hello` | the plugin-contract hello-world, hash-pinned in superbot-next's lockfile — **never archive**; trap: a manifest edit is a two-repo change (host pin re-land or FAILED_STARTUP) | complete-parked | `README.md` | on demand |
-| `codetool-lab-opus4.8` | **mdverify** — released CLI (v0.1.0 + v0.2.0 live, re-verified 2026-08-22). **Keep-unarchived is a records decision, not a technical dependency** — corrected 2026-08-22 (twice). The row first read *"stays unarchived while install URLs pin it"*, which is not a reason: an archived repo stays readable and its URLs keep resolving. The replacement then called it *"a standing OWNER ruling (2026-07-10)"*, which over-reads the source. Traced: the owner's 2026-07-10 ruling is quoted at [`planning/2026-07-12-repo-consolidation-plan.md`](planning/2026-07-12-repo-consolidation-plan.md) `:46` as **_"delete no repos (they are the fleet's memory)"_** — about **deletion**, not archiving, and **since AMENDED by OD-3 (2026-08-08)** to allow cleanup with a stated reason. The *keep-unarchived* verdict is that plan's own reconciliation (`:92`, *"Agree — standing 2026-07-10 ruling + live mdverify releases"*), carried into [`fleet-triage.md`](fleet-triage.md) `:61` via INC-03. So archiving this repo is an open call, resting on a plan verdict rather than an unamended owner instruction | complete-parked, **keep unarchived (owner ruling)** | `README.md` + `control/status.md` | on demand |
+| `superbot-plugin-hello` | the plugin-contract hello-world, hash-pinned in superbot-next's lockfile. **The former "never archive" is CORRECTED 2026-08-22** — and the deciding fact is not the pin but the tree: **`superbot-next` vendors its own copy of this plugin** at `examples/superbot-plugin-hello/` (own `pyproject.toml` + `manifest.py`, measured), resolving it through an installed distribution's `sb.plugins` entry point, so the host never reaches this repo. The lockfile pin is a `manifest_hash`, not a fetchable ref, which is consistent with that. What archiving blocks is *editing* the manifest — still a two-repo change (host pin re-land or FAILED_STARTUP). Disposition: **archive, paired with `superbot-next`** | complete-parked | `README.md` | on demand |
+| `codetool-lab-opus4.8` | **mdverify** — released CLI (v0.1.0 + v0.2.0 live, re-verified 2026-08-22). **Keep-unarchived is a records decision, not a technical dependency** — corrected 2026-08-22 (twice). The row first read *"stays unarchived while install URLs pin it"*, which is not a reason: an archived repo stays readable and its URLs keep resolving. The replacement then called it *"a standing OWNER ruling (2026-07-10)"*, which over-reads the source. Traced: the owner's 2026-07-10 ruling is quoted at [`planning/2026-07-12-repo-consolidation-plan.md`](planning/2026-07-12-repo-consolidation-plan.md) `:46` as **_"delete no repos (they are the fleet's memory)"_** — about **deletion**, not archiving, and **since AMENDED by OD-3 (2026-08-08)** to allow cleanup with a stated reason. The *keep-unarchived* verdict is that plan's own reconciliation (`:92`, *"Agree — standing 2026-07-10 ruling + live mdverify releases"*), carried into [`fleet-triage.md`](fleet-triage.md) `:61` via INC-03. So archiving this repo is an open call, resting on a plan verdict rather than an unamended owner instruction | complete-parked — **archive** per the [OD-18 table](planning/2026-08-22-repo-dispositions.md); the *keep-unarchived* line below is the traced history of that open call, now closed | `README.md` + `control/status.md` | on demand |
 | `codetool-lab-fable5` | **envdrift** — finished CLI; **R3 DONE 2026-08-22**: v0.1.0@`73ef38d` + v0.2.0@`13a84e5` tagged and released (2 assets each). It had no release workflow at all, so fable5 #20 added one (`workflow_dispatch` + tag input, no PyPI job). **The PyPI name is TAKEN and not ours** — `pypi.org/pypi/envdrift` is `jainal09/envdrift` v11.0.4, a different tool (MEASURED 2026-08-22, HTTP 200). Any record saying PyPI is "one owner click away" for this repo is wrong; publishing would need a new name | **archivable** — R3 satisfied; see the install-path note below | `control/status.md` | on demand |
 | `codetool-lab-sonnet5` | **cfgdiff** — finished CLI; **R3 DONE 2026-08-22**: v0.1.1@`0b1eb60` tagged, its own `release.yml` published the Release (2 assets). Trap: its `publish-pypi` job fails on every run (no trusted publisher), so the **run reads red while the Release is intact**. `pypi.org/pypi/cfgdiff` is 404 — unpublished, name free (MEASURED 2026-08-22) | **archivable** — R3 satisfied; see the install-path note below | `control/status.md` | on demand |
 | `Substrate-kit-app` | a one-shot Gemini (AI Studio) experiment: "Substrate Kit Dashboard" React frontend over hardcoded demo data, committed onto a **partial v1.20.2 kit snapshot** — its README, CONSTITUTION and docs are the kit's **verbatim**, so every in-repo surface misidentifies it; copied CI reds by construction | frozen one-shot (2026-08-04, untouched since) | `metadata.json` + `package.json` (the only honest self-descriptions) | on demand |
@@ -137,7 +144,14 @@ archiving is a reversible tidy, deletion is not.
 **Scope of this check:** the four repositories attached to that session
 (`fleet-manager`, `websites`, and the two labs). No account-wide dependency
 scan was run, so "nothing depends on these" is established for those four
-only.
+only. **UPDATE 2026-08-22 — the account-wide scan has now run** for
+`Substrate-kit-app`: `search/code?q=Substrate-kit-app+user:menno420` returns
+**5 hits, all in `fleet-manager`** (this index and its doc-routes), none in
+the other 25 repositories. That widens the check from 4 repos to 26 and
+removes the stated blocker on the deletion question — which the
+[OD-18 table](planning/2026-08-22-repo-dispositions.md) still answers
+**archive**, on value rather than on dependencies. Honest edge: code search
+indexes default-branch text, so a consumer outside GitHub would not appear.
 
 ## When the owner's words don't name a repo
 
