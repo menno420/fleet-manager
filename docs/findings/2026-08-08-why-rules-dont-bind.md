@@ -102,6 +102,50 @@ was mid-way through writing this very analysis.
 work this table cannot see. What it does establish is the marginal value of
 *adding* a 117th statement: today it was zero five separate times.
 
+## 2b · A second count, 2026-08-22 — and a class the first four missed
+
+`MEASURED` over one long owner-directed session (R3, the websites sweep, the
+disposition work). **Eleven corrections**, counted from the session's own
+record rather than glossed — the count in the first version of this paragraph
+was asserted as "nine" and was wrong, which is § 2's parenthetical repeating
+itself.
+
+| catcher | incidents |
+|---|---|
+| **the Stop-hook owner-review reviewer** | 8 |
+| **Codex, on a PR** | 1 |
+| **own re-read while checking something else** | 1 |
+| **GitHub state arriving as an event** | 1 |
+| **documentation being recalled at the right moment** | **0** |
+
+The zero holds a second time, across a different session, a different task mix
+and a much larger instruction corpus than existed on 2026-08-08.
+
+**The new class — a correction that binds the record and not the summary.**
+Three of the eleven were not fresh errors. They were **restatements of claims
+already corrected in the tree by this same session**: the sweep's *"never
+dispatched"* universal was conceded to Codex, fixed in the workflow comment,
+fixed in the PR body, fixed in the session card — and then said again, twice,
+in conversation. The record was right the whole time.
+
+That is not the four classes in § 3. Those describe a rule failing to reach the
+moment of action. This is a **correction failing to reach the next paraphrase of
+itself**, because the summary is written from what the author remembers writing,
+not from what the author actually committed. It is invisible to every
+tree-side instrument — the gate, the checkers, CI and Codex all read the
+corrected file and pass.
+
+**Only a reply-time reviewer can see it**, which is what caught all three. That
+is the strongest available evidence for the Stop hook's design: it is the one
+instrument positioned where the defect lives. The implication for Phase 3's
+review ladder is narrow and concrete — **when a session concedes a claim, the
+conceded wording is a live trap for the rest of that session**, and the check
+is not "is the file correct" but "does this sentence match the file."
+
+**Honest limit:** eleven instances, one session, one model, one task mix. The
+catcher table is a count of what was caught, and cannot measure what nothing
+caught — the same blind spot § 2 carries.
+
 ## 3 · The mechanism — four classes, one root
 
 **A. Composed, not transcribed** (#1–3, 11, 14, 16, 17, 18). Every factual
