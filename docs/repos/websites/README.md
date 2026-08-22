@@ -85,6 +85,23 @@ right, and a restamp there is a next-touch item.
   services (`MEASURED` 2026-08-21, post-cutover; the drift computation's
   inputs were proven unchanged by the cutover). Old config debt the page
   exists to surface — an owner read, not a defect.
+- **Three dead links on the live control-plane — `smoke-crawl` has been
+  reporting them and the run reads as noise** (`MEASURED` 2026-08-22, both by
+  the crawler and by an independent fetch). `smoke-crawl` is **not broken**;
+  it is red *because these are real*, and its last runs are 2 failures / 0
+  successes. Unrelated to any archiving — nothing in the estate is archived.
+  - `/journal/product-forge` → **404**
+  - `/projects/_inventory` → **404**
+  - the `/fleet` page links to `pokemon-mod-lab/blob/main/docs/current-state.md`,
+    which returns **403** to an unauthenticated visitor because that repo is
+    **private**. The crawler logs this one as 404; the independent fetch says
+    403, so its status codes are not verbatim reliable — the brokenness is.
+  **Why this is a follow-up and not a fix already:** the first two are content
+  calls (create the page, or remove the link?) and the third is a design call
+  (should the public fleet page link into private repos at all?). Recorded here
+  rather than only in the program's §7 row, because §7 is append-only history
+  and this repo has already measured that a commitment left in RECORD tier is
+  read as history and never actioned.
 - `OQ-WEBSITES-PAT` (fleet-manager owner queue): the **rate-limit token**
   for control-plane's readiness polling — Tier 1 recommended: public-repo
   **read-only, zero permission boxes** (Tier 2's actions:write is optional
