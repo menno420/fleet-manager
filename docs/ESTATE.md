@@ -67,9 +67,9 @@
 | repo | what it is · aliases | state (verified 2026-08-21) | read first | Layer 2 |
 |---|---|---|---|---|
 | `superbot-plugin-hello` | the plugin-contract hello-world, hash-pinned in superbot-next's lockfile — **never archive**; trap: a manifest edit is a two-repo change (host pin re-land or FAILED_STARTUP) | complete-parked | `README.md` | on demand |
-| `codetool-lab-opus4.8` | **mdverify** — released CLI (2 releases live); stays unarchived while install URLs pin it | complete-parked | `README.md` + `control/status.md` | on demand |
-| `codetool-lab-fable5` | **envdrift** — finished CLI, **zero releases and NO release workflow**: R3 must tag v0.1.0@`73ef38d` + v0.2.0@`13a84e5` and create Releases via the API | frozen until R3 | `control/status.md` | on demand |
-| `codetool-lab-sonnet5` | **cfgdiff** — finished CLI, zero releases; R3 tag is **v0.1.1@`0b1eb60`** (v0.1.0 predates `release.yml` and fires nothing) | frozen until R3 | `control/status.md` | on demand |
+| `codetool-lab-opus4.8` | **mdverify** — released CLI (v0.1.0 + v0.2.0 live, re-verified 2026-08-22); **stays unarchived while install URLs pin it** — this is the one lab R3 does not make archivable | complete-parked, **keep unarchived** | `README.md` + `control/status.md` | on demand |
+| `codetool-lab-fable5` | **envdrift** — finished CLI; **R3 DONE 2026-08-22**: v0.1.0@`73ef38d` + v0.2.0@`13a84e5` tagged and released (2 assets each). It had no release workflow at all, so fable5 #20 added one (`workflow_dispatch` + tag input, no PyPI job — no publisher registered) | **archivable** — R3 satisfied | `control/status.md` | on demand |
+| `codetool-lab-sonnet5` | **cfgdiff** — finished CLI; **R3 DONE 2026-08-22**: v0.1.1@`0b1eb60` tagged, its own `release.yml` published the Release (2 assets). Trap: its `publish-pypi` job fails on every run (no trusted publisher), so the **run reads red while the Release is intact** | **archivable** — R3 satisfied | `control/status.md` | on demand |
 | `Substrate-kit-app` | a one-shot Gemini (AI Studio) experiment: "Substrate Kit Dashboard" React frontend over hardcoded demo data, committed onto a **partial v1.20.2 kit snapshot** — its README, CONSTITUTION and docs are the kit's **verbatim**, so every in-repo surface misidentifies it; copied CI reds by construction | frozen one-shot (2026-08-04, untouched since) | `metadata.json` + `package.json` (the only honest self-descriptions) | on demand |
 | `proxybench` | single-file proxy benchmark, built mostly as a joke (OD-12: parked, no action) | parked | `README.md` | none needed |
 
