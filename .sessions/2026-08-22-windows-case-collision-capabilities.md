@@ -1,6 +1,6 @@
 # 2026-08-22 — the Windows case collision that shadows CAPABILITIES.md
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** fable-5 · medium · docs-only
 - **Venue:** owner-live, local Claude Code on the owner's new Galaxy Book6 Pro
@@ -63,3 +63,9 @@ gate runs, retained per `current-state.md` § Live operating mechanisms.
 
 The four `unrouted:` NOTEs in the doc-route checker are pre-existing and
 untouched by this change.
+
+## Landed
+
+PR [#886](https://github.com/menno420/fleet-manager/pull/886), opened from the
+owner's laptop 2026-08-22 — the first PR this estate has raised from a local
+Windows machine.
