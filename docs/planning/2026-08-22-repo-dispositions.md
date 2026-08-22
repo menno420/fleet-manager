@@ -127,10 +127,17 @@ tested for this pass, and both moved.
   actually resolves the plugin. That was checked separately, and it is the
   answer: **`superbot-next` vendors the plugin in-tree** at
   `examples/superbot-plugin-hello/`, with its own `pyproject.toml` and
-  `manifest.py`. Resolution runs through an installed distribution's
-  `sb.plugins` entry point against that in-tree source, so the standalone repo
-  is an exemplar publication, not a build input. The prohibition rests on a
-  dependency that is not there. *Not checked, and not needed:* whether the
+  `manifest.py`. **Strengthened 2026-08-22 by reading the host's own boot
+  proof** rather than inferring from the files' presence — a vendored copy
+  proves nothing unless the host actually loads it.
+  `superbot-next/tests/unit/app/test_plugin_boot_real_exemplar.py` sets
+  `_EXEMPLAR_ROOT = _REPO_ROOT / "examples" / "superbot-plugin-hello"` and puts
+  that package root on `sys.path` because *"the exemplars live in-tree but are
+  NOT installed dists"*, then verifies the committed pin against **that**
+  manifest by hash. So the load path is the in-tree copy and the pin is a hash
+  comparison; neither is a fetch, and the standalone repo is an exemplar
+  publication rather than a build input. The prohibition rests on a dependency
+  that is not there. *Not checked, and not needed:* whether the
   vendored manifest still hashes to the pinned value — archiving changes
   neither side of that comparison.
 
@@ -173,8 +180,16 @@ before the archive; the same shape applies to text:
    (`trig_01XJJ88…`, *"SuperBot World failsafe wake"*, cron `15 1-23/2 * * *`)
    **no longer exists** — the account holds three Routines and none is it, and a
    cron Routine is not one of the kinds a default listing hides. So the baton
-   directs a forbidden action against a vanished target. Correct it first;
-   nothing was disabled or deleted to establish this.
+   directs a forbidden action against a vanished target. Nothing was disabled or
+   deleted to establish this.
+   **✅ DONE 2026-08-22 — superbot-mineverse #145, merged `fc7c349`, verified
+   live on that repo's `main`.** The bullet is struck through and corrected in
+   place (era-banner convention: the historical handoff survives beside the
+   correction), and the block header now reads HISTORICAL. **Bounded, not
+   assumed:** both siblings (`superbot-games`, `superbot-idle`) were searched in
+   their `current-state.md` and `PROJECT-CLOSEOUT.md` for the same instruction —
+   **zero hits**, so this was the family's only instance and no follow-on is
+   owed. This repo is now clear to archive on this item's account.
 2. **The three code labs** — one line in each README saying the tool is
    finished and unmaintained. A release cut days before an archive over-signals
    support; `ESTATE.md` already asks for this and it has not been written.
@@ -250,7 +265,19 @@ standing assets need no decision at all.
   | #2449 | root `requirements-dev.txt` + `botsite/` + `dashboard/` | **treat as a restart** — a root build input, though a dev-only one |
   | #2448 #2447 #2402 | `botsite/` only · `dashboard/` only · `.github/workflows/codeql.yml` only | no restart (SKIPPED) |
 
-  **None of the eight touches `disbot/**`.** So three of them can be merged at
-  any time with no live effect, and only five need the deliberate window. That
-  is a smaller owner ask than the one on record.
+  **None of the eight touches `disbot/**`.** On that filter, three of the eight
+  would have no live effect and only five need the deliberate window — a smaller
+  owner ask than the one on record.
+
+  **Read the provenance before acting on that, corrected 2026-08-22.** The file
+  lists above are `MEASURED` here. **The filter they are judged against is
+  not.** `watchPatterns` returns **zero hits** in `superbot` and the repo has no
+  `railway.json`, so the watch rule is *Railway service configuration* that this
+  pass never read; the estate's account of it is `MEASURED-PRIOR` (a merge was
+  observed producing a SKIPPED worker deployment, recorded at
+  [`../repos/superbot/README.md`](../repos/superbot/README.md)) but second-hand.
+  That is not a sufficient basis to merge anything onto the live bot's repo, so
+  **no merge is recommended here.** One read of the worker's watch-path setting
+  on Railway settles it — a read, nothing touched — and it is the cheap next
+  step whenever that ask is picked up.
 - **Nothing here is executed.** R5 executes it, after his yes.
