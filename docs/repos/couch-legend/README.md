@@ -1,6 +1,6 @@
 # couch-legend — the entry point
 
-> **Status:** `living-ledger` · true as of **2026-08-21**
+> **Status:** `living-ledger` · true as of **2026-08-22**
 >
 > **What this is:** fleet-manager's entry point for `menno420/couch-legend` —
 > where the last session left off and where the next one should look.
@@ -158,7 +158,7 @@ couch-legend is **invisible to the kit's adopter registry** until the
 `fleet-repos.txt` roster hole is fixed kit-side (recorded on the
 substrate-kit entry point).
 
-### Thread: the Android shell — **MILESTONE A LANDED 2026-08-21** (couch-legend #11); B is owner-gated
+### Thread: the Android shell — **A LANDED 2026-08-21** (#11) · **B's signing slice LANDED 2026-08-22** (#14) · the rest of B is owner-gated
 
 **A — the sideloadable APK: done.** Capacitor 8 wraps the same web build
 (`capacitor.config.ts`, app id **`com.menno420.couchlegend`**, the generated
@@ -173,7 +173,33 @@ The workflow builds **twice on a PR on purpose** — the head, so a phone result
 maps to a real commit, and the merge revision, because `ci` (only `pnpm check`)
 and `substrate-gate` (repo hygiene) compile no Android at all.
 
-**B is blocked on the owner, not on code.** The APK was handed to him
+**B's one device-free slice is done — a stable signing identity** (#14,
+2026-08-22). Milestone A skipped key management by design; #13 then measured
+what that costs, and this session re-verified it independently and extended the
+series: **four CI runs produced four distinct signer certificates**
+(`f815828465d6ce40…` 21:25:54Z · `387c7df1bc805a04…` 21:52:14Z ·
+`d7f4a2dd77798044…` 22:15:59Z · `04a12834c0c942ad…` 22:42:51Z), so the per-run
+key is a property of the pipeline, not a three-sample coincidence. Every APK
+therefore refused to install over every other one, and the only way through was
+an uninstall — **which clears the save.** That is a milestone-B blocker rather
+than a footnote: B's device matrix means putting *several* builds on one phone,
+and at one lost save per build the checklist's most important question, *does a
+save survive a force-stop*, cannot be asked twice. Fixed by committing a
+conventional debug keystore (`android/keystore/debug.keystore`; password public
+by convention, so not a secret, and not a Play upload key — it forecloses
+nothing about release signing) and by turning the CAPABILITIES sig-block recipe
+into `tools/check-apk-signer.ts`, an **assertion** both android jobs run on the
+APK they just assembled. Proof, since "stable" observed once is a fact about
+yesterday: two independent CI builds on the same run (PR head + merge revision)
+emitted the *same* certificate as the committed keystore, confirmed again off
+CI's own word by downloading the artifact and parsing it here. The checker was
+proven to FIRE — exit 1 against all three pre-change APKs and against a
+signing-block-stripped one. ⚠ **Anyone holding a pre-2026-08-22 build pays a
+one-time uninstall, and must export the in-game save code first** (the portable
+`exportCode` — DESIGN § 7's "manual bridge"); after that, builds install over
+one another and saves survive.
+
+**The REST of B is blocked on the owner, not on code.** The APK was handed to him
 2026-08-21 with a six-item checklist (offline cold launch · crossfade and
 particle smoothness · **save survives a force-stop** · the launch colour · the
 icon under his device's mask · anything wrong at phone size). Nothing in the
@@ -181,7 +207,9 @@ estate can answer those: there is no SDK, emulator or device in any agent
 container, so real Android System WebView behaviour is **UNMEASURED** — the
 in-session smoke (14/14, zero off-origin requests) is desktop Chromium at a
 phone viewport, which is not the WebView. His answers are milestone B's inputs;
-writing that list before they arrive is guesswork.
+writing that list before they arrive is guesswork. As of 2026-08-22 no report
+of any kind exists on the repo — checked, not assumed — so the gate is still
+shut, and he has now been asked the three questions directly.
 
 **Reusable beyond this repo:** `tools/check-shell-assets.ts` is the pattern for
 asserting a *shipped bundle* is self-contained — it catches the base-path bug
