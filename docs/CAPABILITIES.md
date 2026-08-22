@@ -1649,6 +1649,19 @@ refusal as a Codex wall.
 
 ### Cut a GitHub Release from a container session — via Actions, not the API (MEASURED 2026-08-22, program step R3)
 
+> **Novelty correction, same day, before anyone could act on the overclaim:**
+> the *route* below is not new to this estate and this entry first implied it
+> was. [`eap-story.md`](eap-story.md) `:493` already records it as a solved
+> failure class — *"Release wall (tag push 403) | `release.yml` +
+> workflow_dispatch | proven first-try twice on mdverify; used by every kit
+> release since v1.0.0."* What is genuinely new here is narrower and still
+> worth keeping: the **verbatim 2026 refusal text**, that it names the
+> *session type* rather than the token, and the four-attempt proxy measurement.
+> The useful lesson is therefore not "we discovered the workflow route" but
+> **"a 2026-08-21 plan step prescribed the API when this repo had recorded the
+> working route since the EAP"** — a retrieval failure, which is exactly the
+> class the roadmap's Phase 1 exists to fix.
+
 **The capability: a repository's own workflow creates Releases, and a session
 can fire it.** Both halves verified on the two code-tool labs today.
 
