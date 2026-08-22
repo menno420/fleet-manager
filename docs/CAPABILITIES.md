@@ -1647,6 +1647,36 @@ ORDER 003 drain record, and `projects/fleet-manager/meta.md` — all corrected).
 never a wall**. Re-ask after the quota window resets; never record a quota
 refusal as a Codex wall.
 
+### Codex's CLEAN verdict is an issue comment, not a review — polling `/reviews` never sees it (MEASURED 2026-08-22, websites #511)
+
+The ledger already says findings arrive as **inline review comments**, so an
+empty review *body* is not an empty review. The other half was missing and cost
+a session ten minutes today:
+
+**When Codex has no findings it posts a plain issue comment** —
+`Codex Review: Didn't find any major issues. Hooray!` with
+`**Reviewed commit:** <sha>` — and creates **no review object at all**. A poll
+of `/pulls/{n}/reviews` filtered to the Codex bot therefore returns the
+*previous* round forever, and the session concludes the review is overdue while
+the verdict is already sitting in `/issues/{n}/comments`.
+
+Measured on websites #511: round 2 requested 13:54:20Z, verdict posted
+**13:56:19Z (~2 min)**, and a 10-minute poll of `/reviews` never saw it.
+
+**So check BOTH surfaces, and match on the reviewed SHA, not on recency:**
+
+    /pulls/{n}/reviews          → rounds that HAVE findings (+ inline comments)
+    /issues/{n}/comments        → the clean verdict, naming Reviewed commit
+
+**Second trap in the same poll:** your own reply to a review thread creates a
+review record under your account. A naive "is there a review at head?" check
+counts *your* reply as the reviewer's answer and reads clean. Filter by the
+Codex login, then by the SHA in its `Reviewed commit:` line.
+
+Both halves are the same defect the estate already recorded once — *a summary
+that looks empty is not an empty review* — extended to *an endpoint that looks
+silent is not a silent reviewer*.
+
 ### Cut a GitHub Release from a container session — via Actions, not the API (MEASURED 2026-08-22, program step R3)
 
 > **Novelty correction, same day, before anyone could act on the overclaim:**
