@@ -1003,6 +1003,21 @@
         "docs/traps.md"
       ],
       "says": "TRAP-006 (card lifecycle) — a session card's Status is a merge control, not paperwork. Commit it `in-progress` as the FIRST commit and push it red; flip to `complete` as the deliberate LAST commit, after review has answered. A card that reaches the remote already complete opens the PR green and it auto-merges unreviewed (fm #915: 37 seconds, 0 reviews). Register: docs/traps.md TRAP-006."
+    },
+    {
+      "id": "codex-verdict-poll",
+      "tools": [
+        "Bash"
+      ],
+      "when": [
+        "pulls/(?:\\d+|\\{n\\}|\\$\\{?\\w+\\}?)/reviews",
+        "issues/(?:\\d+|\\{n\\}|\\$\\{?\\w+\\}?)/comments",
+        "pulls/(?:\\d+|\\{n\\}|\\$\\{?\\w+\\}?)/comments"
+      ],
+      "docs": [
+        "docs/CAPABILITIES.md"
+      ],
+      "says": "You are polling for a review verdict. A CLEAN Codex pass creates NO review object: /pulls/{n}/reviews returns 0 and so does /pulls/{n}/comments, while the verdict sits in /issues/{n}/comments. Polling only /reviews cannot tell 'passed clean' from 'never answered'. MEASURED twice: websites #511 (2026-08-22) and fm #924 (2026-08-23, verdict at 11:23:57Z ~3 min after open) — on #924 a session polled /reviews and /pulls/{n}/comments for 24 minutes, concluded no review arrived, and wrote that into a committed card. It had passed clean. CHECK BOTH SURFACES, and match on the `Reviewed commit:` SHA rather than recency — a stale clean verdict from an earlier head otherwise reads as covering the current one. Also filter by the Codex login: your own reply to a review thread creates a review record under your account and a naive 'is there a review at head?' counts it as the reviewer's answer. Canonical: docs/CAPABILITIES.md § \"Codex's CLEAN verdict is an issue comment\"."
     }
   ]
 }

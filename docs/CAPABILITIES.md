@@ -413,19 +413,16 @@ findings go here, below the fence.)
   the artefact that implements the behaviour was sitting in the container. Before recording any
   hook or CLI behaviour as undocumented, grep the binary. · workaround: none needed. —
   LAST-VERIFIED: 2026-08-08
+- 2026-08-23 · capability · `any` · **A CLEAN Codex verdict creates no review object and lands in `/issues/{n}/comments` — second independent confirmation.** · evidence: fm #924, verdict posted `2026-08-23T11:23:57Z` (~3 min after open) reading *"Didn't find any major issues"*, while `/pulls/924/reviews` and `/pulls/924/comments` both returned **0**. First observation: websites #511, 2026-08-22. **Match the `Reviewed commit:` SHA on both surfaces** — recency is not sufficient, since a stale clean verdict from an earlier head otherwise reads as covering the current one. · **How this entry came to exist:** a session polled only `/reviews` and `/pulls/{n}/comments` for 24 minutes, concluded no review had arrived, and wrote that into a committed card — the PR had passed clean. The canonical section had said so since the day before and **no route delivered it**; route `codex-verdict-poll` now does. — LAST-VERIFIED: 2026-08-23
+
 - 2026-08-07 · capability · `any` · **`@codex review` on a PR works and answers in about
   5.5 minutes — do not conclude it is unavailable on a shorter window.** · evidence: measured
   on fleet-manager #812 — request `13:46:59Z`, review posted `13:52:34Z` on the exact head SHA
   = **335 seconds**. The reviewer is `chatgpt-codex-connector[bot]`; findings arrive as
   **inline review comments**, not in the review body, so a summary that looks empty is not an
-  empty review — read `/pulls/{n}/comments`. **And a CLEAN verdict is neither** —
-  `MEASURED` 2026-08-23 on fm #924: Codex found nothing, created **no review
-  object** (`/pulls/924/reviews` → `0`, and `/pulls/924/comments` → `0`), and
-  posted *"Didn't find any major issues"* to **`/issues/{n}/comments`** at
-  `11:23:57Z`, ~3 min after open. **So polling `/reviews` cannot distinguish a
-  clean pass from silence** — read `/issues/{n}/comments` too before concluding
-  a review never arrived. A session concluded exactly that on #924 and wrote it
-  into a committed card. Reviews trigger on PR open, draft→ready, and the
+  empty review — read `/pulls/{n}/comments`. **And a CLEAN verdict is
+  neither** — see § *"Codex's CLEAN verdict is an issue comment"* below, which is
+  canonical and carries the `Reviewed commit:` SHA-match requirement. Reviews trigger on PR open, draft→ready, and the
   literal comment `@codex review`. Across #812/#813 it produced **13 findings over 5 rounds**,
   several of which proved a PR did not do what its own title claimed. · **How this entry came
   to exist:** a session waited **150 seconds**, wrote *"no review appeared"* into a public PR
@@ -1753,7 +1750,7 @@ The ledger already says findings arrive as **inline review comments**, so an
 empty review *body* is not an empty review. The other half was missing and cost
 a session ten minutes today:
 
-**OBSERVED ONCE (n=1) — do not read this as a structural rule.** On this PR a
+**OBSERVED TWICE — websites #511 (2026-08-22) and fm #924 (2026-08-23, ~3 min after open, `/reviews` → 0 and `/pulls/{n}/comments` → 0). Still not a structural rule, but no longer n=1.** On this PR a
 no-findings round posted a plain issue comment — `Codex Review: Didn't find any
 major issues. Hooray!` with `**Reviewed commit:** <sha>` — and created **no
 review object**. A poll of `/pulls/{n}/reviews` filtered to the Codex bot
@@ -1761,7 +1758,7 @@ therefore returned the *previous* round, and the session reported the review
 overdue while the verdict sat in `/issues/{n}/comments`.
 
 **And the vendor's own text disagrees with the observation, which is why this
-stays n=1.** The About-Codex block inside its review body says: *"If Codex has
+stays cautious even at n=2.** The About-Codex block inside its review body says: *"If Codex has
 suggestions, it will comment; otherwise it will react with 👍."* That describes
 the clean case as a **reaction**, not an issue comment. What was seen here was
 an issue comment. Either the blurb is stale, or the behaviour varies by
