@@ -190,10 +190,24 @@ code=$(curl -sS --noproxy '*' -o /tmp/repos.json -w '%{http_code}' \
 
 # Validate the enumeration BEFORE the loop: a zero-iteration loop exits 0, so a
 # parse failure inside `for r in $(...)` would otherwise become an empty census.
-python3 -c "import json,sys; d=json.load(open('/tmp/repos.json')); sys.exit(0 if isinstance(d,list) and d else 1)" \
-  || { echo "ABORT: /user/repos did not parse as a non-empty list" >&2; exit 1; }
+# Extract the names ONCE, validating every entry, and fail before the loop starts.
+# Validating only the outer list is not enough: [{"name":"ok"}, {}] passes that
+# check and then raises KeyError inside the `for` header, where bash discards the
+# status and the census silently continues (Codex, fm #921 round 2).
+python3 - > /tmp/names.txt <<'EOF' || { echo "ABORT: /user/repos did not parse as a list of named repos" >&2; exit 1; }
+import json, sys
+d = json.load(open('/tmp/repos.json'))
+if not isinstance(d, list) or not d:
+    sys.exit(1)
+names = []
+for x in d:
+    if not isinstance(x, dict) or not isinstance(x.get('name'), str) or not x['name']:
+        sys.exit(1)                      # one malformed entry invalidates the census
+    names.append(x['name'])
+print('\n'.join(names))
+EOF
 
-for r in $(python3 -c "import json;[print(x['name']) for x in json.load(open('/tmp/repos.json'))]"); do
+for r in $(cat /tmp/names.txt); do
   code=$(curl -sS --noproxy '*' -o /tmp/c.json -w '%{http_code}' \
       -H "Authorization: Bearer $GITHUB_PAT" \
       "https://api.github.com/repos/menno420/$r/contents/.sessions")
