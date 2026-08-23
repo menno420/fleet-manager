@@ -909,6 +909,71 @@
         "docs/ESTATE.md"
       ],
       "says": "You are working the repo-disposition question (OD-18, owner 2026-08-22). His verbatim words and the three asks that are NOT directives are in docs/findings/2026-08-22-owner-direction.md. Two things that change the answer: archiving is REVERSIBLE and blocks writes only, so archive is a cheap undoable call and DELETE is the only one needing certainty; and the estate has TWO start-fresh precedents, not one — the 2026-08-21 game-community plan AND superbot-next, which reached 533/533 parity and still ended parked as a donor rather than a replacement. Read the pair, not the success story alone. Deliverable is a table with a reason per row."
+    },
+    {
+      "id": "exit-code-after-a-pipe",
+      "tools": [
+        "Bash"
+      ],
+      "when": [
+        "\\|[\\s\\S]{0,400}\\$\\?"
+      ],
+      "docs": [
+        "docs/traps.md"
+      ],
+      "says": "TRAP-002 — this command pipes, and then reads `$?`. After `a | b`, `$?` is **b's** exit code, not a's. The failure is silent and inverted: the real command fails, your check reports success, and the session records a pass. MEASURED 2026-08-23 in this very estate: `pip install … | tail -5; echo \"PIP_EXIT=$?\"` printed PIP_EXIT=0 — that was `tail`'s exit code, and the install's real status was unknown. FIX, pick one: redirect instead of piping (`cmd > out.txt 2>&1; echo $?`) and read the code directly, or use `${PIPESTATUS[0]}` when the pipe is unavoidable. fm #915 counted 26 of 389 session cards restating this trap and 0 routes delivering it — this route is the fix for that. Register: docs/traps.md TRAP-002."
+    },
+    {
+      "id": "stamping-a-measured-claim",
+      "tools": [
+        "Edit",
+        "Write"
+      ],
+      "when": [
+        "`?MEASURED`?\\b",
+        "\\bmeasured\\s+(live|2026-)",
+        "\\bverified live\\b"
+      ],
+      "docs": [
+        "docs/traps.md"
+      ],
+      "says": "TRAP-001 — you are stamping something MEASURED. One check: is your basis a **live surface**, or a document that describes one? A citation is not a measurement, and this estate's most recent failure was exactly that laundering — a session wrote 'measuring the live state instead' and then cited an audit doc, having already retracted a CORRECT finding on the strength of a code comment written two months earlier. The credential was in the environment the whole time: $GITHUB_PAT over direct egress for GitHub, $RAILWAY_API_KEY against backboard.railway.com/graphql/v2 for anything deployed. If you truly cannot read the live surface, the sentence must say so: 'per <doc> dated <date>, not re-verified.' MAP.md's own closing rule — the live surface wins over any document here — did not prevent three instances in one conversation. Register: docs/traps.md TRAP-001."
+    },
+    {
+      "id": "absence-claim",
+      "tools": [
+        "Edit",
+        "Write"
+      ],
+      "when": [
+        "\\bno (hits|results|matches|consumers|references|dependents)\\b",
+        "\\bnothing (in|else|found)\\b",
+        "\\bzero hits\\b",
+        "\\bnot (indexed|referenced|present anywhere)\\b",
+        "\\bnone of the (other|remaining)\\b"
+      ],
+      "docs": [
+        "docs/traps.md"
+      ],
+      "says": "TRAP-003 — you are about to record that something is NOT there. An empty result proves your QUERY RAN; it does not prove the world is empty. Run the positive control FIRST: make the same query, in the same form, find something you know IS present. If it can't, the query is broken, not the world. MEASURED 2026-08-23: a 26-repo index sweep using `path:README.md` with no search term returned 0 for EVERY repo including fleet-manager — it measured nothing, and was caught only because a known-good repo also came back empty. Same day, spider-swing was recorded as having 'no next-step line anywhere in 662 lines' from a heading regex; reading the file found it at lines 512-514, in prose. For a 'not in file F' claim, OPEN F — a keyword search is not a read. Register: docs/traps.md TRAP-003."
+    },
+    {
+      "id": "claim-beyond-the-sample",
+      "tools": [
+        "Edit",
+        "Write"
+      ],
+      "when": [
+        "\\bonly \\d+ of \\d+\\b",
+        "\\b\\d+ of (the )?\\d+ (repos|repositories|files|entries)\\b",
+        "\\bnone of the other \\d+\\b",
+        "\\bevery (repo|repository|file) in\\b",
+        "\\ball \\d+ (repos|repositories)\\b"
+      ],
+      "docs": [
+        "docs/traps.md"
+      ],
+      "says": "TRAP-004 — you are writing a count over a population. Did you measure EVERY member, or a sample? If a sample, the unmeasured members are being silently classified with the measured ones and the sentence reads as a census. State 'N measured of M total' and name the remainder — or go measure the rest, which is usually cheaper than the argument about whether the sample generalises. MEASURED 2026-08-23: 'only 3 of 26 repositories are in the search/code index' was written from 11 probes; @codex caught it, and probing the remaining 15 moved the real figure to 7 of 26. The conclusion survived, but the evidence had not supported it — and a recorded MEASURED dependency sweep rested on the same unstated assumption. Register: docs/traps.md TRAP-004."
     }
   ]
 }
