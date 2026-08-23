@@ -1010,9 +1010,9 @@
         "Bash"
       ],
       "when": [
-        "pulls/(?:\\d+|\\{n\\})/reviews",
-        "issues/(?:\\d+|\\{n\\})/comments",
-        "pulls/(?:\\d+|\\{n\\})/comments"
+        "pulls/(?:\\d+|\\{n\\}|\\$\\{?\\w+\\}?)/reviews",
+        "issues/(?:\\d+|\\{n\\}|\\$\\{?\\w+\\}?)/comments",
+        "pulls/(?:\\d+|\\{n\\}|\\$\\{?\\w+\\}?)/comments"
       ],
       "docs": [
         "docs/CAPABILITIES.md"
