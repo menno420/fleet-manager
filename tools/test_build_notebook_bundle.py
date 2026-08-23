@@ -48,9 +48,9 @@ def register(key: str, excl: dict | None = None) -> None:
     B.CORPORA[key] = {"repo": "test/test", "title": "T", "exclude_exact": excl or {}}
 
 
-def run(src: str, out: str, cap: int = B.DEFAULT_CAP, key: str = "t"):
-    items, nb = B.build(src, key, out, "deadbee", cap)
-    B.write_index(out, key, "deadbee", "2026-01-01", items, nb)
+def run(src: str, out: str, cap: int = B.DEFAULT_CAP, key: str = "t", depth: int = 1):
+    items, nb = B.build(src, key, out, "deadbee", cap, depth)
+    B.write_index(out, key, "deadbee", "2026-01-01", items, nb, depth)
     B.write_manifest(out, key, "deadbee", "2026-01-01", items, nb, cap)
     B.write_readme(out, key, items, nb, cap)
     return items, nb
@@ -340,6 +340,73 @@ def main() -> int:
     i_split = srctext.find("words = len(data.split())")
     check("byte check precedes data.split()", 0 < i_bytes < i_split,
           f"bytes@{i_bytes} split@{i_split}")
+
+    # -------- features this PR adds, which had NO coverage until now --------
+    print("NEW-1 — --group-depth must partition on the deeper seam")
+    files = {f"ideas/alpha/{i:03d}.md": "x\n" for i in range(5)}
+    files.update({f"ideas/beta/{i:03d}.md": "y\n" for i in range(5)})
+    src = corpus(tmp, files, "n1")
+    items, nb = run(src, os.path.join(tmp, "on1a"), cap=8, depth=1)
+    d1 = {i.notebook for i in items if i.disposition == "source"}
+    check("depth 1 sees ONE group (so a cap forces a split)", nb >= 2, f"nb={nb}")
+    items, nb2 = run(src, os.path.join(tmp, "on1b"), cap=8, depth=2)
+    by = {}
+    for i in items:
+        if i.disposition == "source":
+            by.setdefault(i.path.split("/")[1], set()).add(i.notebook)
+    check("depth 2 keeps alpha whole", len(by.get("alpha", set())) == 1, f"{by.get('alpha')}")
+    check("depth 2 keeps beta whole", len(by.get("beta", set())) == 1, f"{by.get('beta')}")
+    check("alpha and beta land in different notebooks",
+          by.get("alpha") != by.get("beta"), f"{by}")
+
+    print("NEW-2 — invalid --group-depth must be rejected, not silently wrong")
+    for bad in (0, -1):
+        try:
+            B.group_key("a/b/c.md", bad)
+            check(f"depth {bad} raises", False, "returned a key")
+        except ValueError as exc:
+            check(f"depth {bad} raises", "must be >= 1" in str(exc), str(exc)[:60])
+
+    print("NEW-3 — first-fit-decreasing backfills instead of opening a notebook")
+    # 9 + 5 + 4 at cap 11 (10 usable/notebook): forward-only packing puts 9
+    # alone, then 5, then opens a THIRD for 4. Backfill fits 4 beside... nothing
+    # fits with 9, so 5+4 share notebook 2 => 2 notebooks, not 3.
+    files = {f"g/big/{i:02d}.md": "x\n" for i in range(9)}
+    files.update({f"g/mid/{i:02d}.md": "y\n" for i in range(5)})
+    files.update({f"g/small/{i:02d}.md": "z\n" for i in range(4)})
+    src = corpus(tmp, files, "n3")
+    items, nb = run(src, os.path.join(tmp, "on3"), cap=11, depth=2)
+    grp = {}
+    for i in items:
+        if i.disposition == "source":
+            grp.setdefault(i.path.split("/")[1], set()).add(i.notebook)
+    check("packs into 2 notebooks, not 3", nb == 2, f"nb={nb}")
+    check("every group stays whole",
+          all(len(v) == 1 for v in grp.values()), f"{grp}")
+    check("no notebook exceeds the cap",
+          all(len(os.listdir(os.path.join(tmp, "on3", d))) <= 11
+              for d in os.listdir(os.path.join(tmp, "on3")) if d.startswith("notebook-")))
+
+    print("NEW-4 — prefix exclusions: listed in the manifest, never written")
+    B.CORPORA["tp"] = {"repo": "test/test", "title": "T", "exclude_exact": {},
+                       "exclude_prefix": {"skip/": "structural exclusion"}}
+    src = corpus(tmp, {"keep.md": "# keep\n",
+                       "skip/a.md": "SECRETISH-BODY-A\n",
+                       "skip/deep/b.md": "SECRETISH-BODY-B\n"}, "n4")
+    out = os.path.join(tmp, "on4")
+    items, _ = run(src, out, key="tp")
+    ex = [i for i in items if i.disposition == "excluded"]
+    check("both prefixed files enumerated as excluded", len(ex) == 2,
+          f"got {[(i.path, i.disposition) for i in items]}")
+    man = open(os.path.join(out, "MANIFEST.md"), encoding="utf-8").read()
+    check("named in the manifest with a reason",
+          "skip/a.md" in man and "structural exclusion" in man)
+    written = os.listdir(os.path.join(out, "sources"))
+    check("only the kept file is a source", sorted(written) == ["00-INDEX.md", "keep.md"],
+          f"{sorted(written)}")
+    exdir = os.listdir(os.path.join(out, "excluded"))
+    check("not materialised into excluded/ either (decided pre-read)",
+          exdir == [], f"{exdir}")
 
     shutil.rmtree(tmp, ignore_errors=True)
     print()

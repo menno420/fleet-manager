@@ -106,6 +106,25 @@ CORPORA = {
             "guides/how-a-pr-flows/index.html": REDIRECT + " (meta-refresh stub; its guide.md is kept)",
         },
     },
+    "idea-engine": {
+        "repo": "menno420/idea-engine",
+        "title": "Idea Engine — de ideeenverzameling",
+        # `ideas/` holds everything, subdivided by CONSUMER REPO. Depth 1 would
+        # see one 742-file group and cut it alphabetically; depth 2 gives
+        # `ideas/superbot`, `ideas/fleet`, ... which are exclusive by
+        # construction and are the seams the estate already records.
+        "group_depth": 2,
+        "exclude_exact": {".gitignore": MACHINERY},
+        "exclude_prefix": {
+            ".sessions/": "session cards — a different corpus (504 files) that "
+                          "would swamp the ideas and burn most of the cap",
+            ".substrate/": MACHINERY,
+            ".github/": MACHINERY,
+            ".claude/": MACHINERY,
+            "control/": MACHINERY,
+            "scripts/": MACHINERY,
+        },
+    },
 }
 
 NATIVE_MD = {".md"}
@@ -427,7 +446,31 @@ def list_files(root: str) -> list[str]:
     return sorted(paths)
 
 
-def partition(items: list[Item], cap: int) -> int:
+def group_key(path: str, depth: int) -> str:
+    """The seam a partition falls on.
+
+    Depth 1 is the top-level directory, which is right for most corpora. It is
+    WRONG for a corpus whose meaning lives one level down: `idea-engine` keeps
+    everything under a single `ideas/` directory subdivided by consumer repo,
+    so depth 1 sees one 742-file group and splits it alphabetically — exactly
+    the arbitrary cut the seam is supposed to avoid. Depth 2 gives
+    `ideas/superbot`, `ideas/fleet`, ... which are exclusive by construction.
+    """
+    if depth < 1:
+        # depth 0 collapses every path to one empty key (a single silent
+        # mega-group); a negative depth slices from the end and coincidentally
+        # behaves like some other depth. Both are wrong quietly, which is worse
+        # than loudly. Raised by @codex on fm #936.
+        raise ValueError(f"group depth must be >= 1, got {depth}")
+    parts = path.split("/")
+    if len(parts) > depth:
+        return "/".join(parts[:depth])
+    if len(parts) > 1:
+        return "/".join(parts[:-1])
+    return "(root)"
+
+
+def partition(items: list[Item], cap: int, depth: int = 1) -> int:
     """Assign each source a notebook number, splitting on top-level seams.
 
     The estate rule is partition, never concatenate: a corpus over the cap
@@ -440,27 +483,36 @@ def partition(items: list[Item], cap: int) -> int:
 
     groups: dict[str, list[Item]] = {}
     for i in srcs:
-        top = i.path.split("/")[0] if "/" in i.path else "(root)"
-        groups.setdefault(top, []).append(i)
+        groups.setdefault(group_key(i.path, depth), []).append(i)
 
-    nb, used = 1, 1                    # each notebook also carries an index
+    # First-fit-decreasing across ALL open notebooks, not just the current one.
+    # Packing only forward left a 4th notebook holding 12 files while the first
+    # had 50 free slots — four notebooks for him to create instead of three.
+    # Largest-first keeps the big consumer seams whole and lets the long tail of
+    # small groups backfill the gaps.
+    load = [1]                          # each notebook also carries an index
     for top in sorted(groups, key=lambda g: (-len(groups[g]), g)):
         members = groups[top]
-        oversized = len(members) + 1 > cap
-        # A group that WOULD fit on its own must not be sliced just because the
-        # current notebook is nearly full — that is exactly the consumer-repo
-        # seam the partition promises to fall on (@codex round 2).
-        if not oversized and used + len(members) > cap:
-            nb, used = nb + 1, 1
-        if oversized:
+        if len(members) + 1 > cap:
             print(f"note: `{top}/` alone holds {len(members)} sources, over the "
                   f"cap of {cap}; it is split across notebooks. No file merged.")
+            for m in members:
+                slot = next((i for i, u in enumerate(load) if u + 1 <= cap), None)
+                if slot is None:
+                    load.append(1)
+                    slot = len(load) - 1
+                m.notebook = slot + 1
+                load[slot] += 1
+            continue
+        # A group that fits stays whole, in the first notebook with room for it.
+        slot = next((i for i, u in enumerate(load) if u + len(members) <= cap), None)
+        if slot is None:
+            load.append(1)
+            slot = len(load) - 1
         for m in members:
-            if used + 1 > cap:
-                nb, used = nb + 1, 1
-            m.notebook = nb
-            used += 1
-    return nb
+            m.notebook = slot + 1
+        load[slot] += len(members)
+    return len(load)
 
 
 def assert_disjoint(src_root: str, out_dir: str) -> None:
@@ -489,9 +541,11 @@ def assert_disjoint(src_root: str, out_dir: str) -> None:
         )
 
 
-def build(src_root: str, corpus: str, out_dir: str, sha: str, cap: int) -> tuple[list[Item], int]:
+def build(src_root: str, corpus: str, out_dir: str, sha: str, cap: int,
+          depth: int = 1) -> tuple[list[Item], int]:
     cfg = CORPORA[corpus]
     repo, excl = cfg["repo"], cfg["exclude_exact"]
+    prefixes = cfg.get("exclude_prefix", {})
     assert_disjoint(src_root, out_dir)
 
     items: list[Item] = []
@@ -500,6 +554,11 @@ def build(src_root: str, corpus: str, out_dir: str, sha: str, cap: int) -> tuple
         full = os.path.join(src_root, p)
         if is_secretish(p):
             items.append(Item(p, "secret-shaped", "excluded", SECRETISH,
+                              flat_name(p, True), None))
+            continue
+        bulk = next((r for pre, r in prefixes.items() if p.startswith(pre)), None)
+        if bulk:
+            items.append(Item(p, "structural", "excluded", bulk,
                               flat_name(p, True), None))
             continue
         if os.path.islink(full):
@@ -554,7 +613,7 @@ def build(src_root: str, corpus: str, out_dir: str, sha: str, cap: int) -> tuple
         else:
             items.append(Item(p, kind, "source", "", name, payload))
 
-    notebooks = partition(items, cap)
+    notebooks = partition(items, cap, depth)
 
     # A reused --out otherwise keeps files from a previous run that the fresh
     # manifest does not list, so select-all uploads content nothing describes.
@@ -590,7 +649,7 @@ def src_dirname(notebooks: int, nb: int) -> str:
 
 
 def write_index(out_dir: str, corpus: str, sha: str, built: str,
-                items: list[Item], notebooks: int) -> None:
+                items: list[Item], notebooks: int, depth: int = 1) -> None:
     """A navigational source per notebook, uploaded alongside the rest.
 
     This is an INDEX, not a merge: it adds one source that helps the model
@@ -604,8 +663,7 @@ def write_index(out_dir: str, corpus: str, sha: str, built: str,
         total = len(srcs) + 1
         groups: dict[str, list[Item]] = {}
         for i in srcs:
-            top = i.path.split("/")[0] if "/" in i.path else "(root)"
-            groups.setdefault(top, []).append(i)
+            groups.setdefault(group_key(i.path, depth), []).append(i)
 
         part = f" — deel {nb} van {notebooks}" if notebooks > 1 else ""
         L = [
@@ -766,6 +824,9 @@ def main() -> int:
     ap.add_argument("--cap", type=int, default=DEFAULT_CAP,
                     help=f"sources per notebook (default {DEFAULT_CAP})")
     ap.add_argument("--date", help="build date for provenance (default: today)")
+    ap.add_argument("--group-depth", type=int, default=None,
+                    help="path depth the partition seam falls on (default: the "
+                         "corpus's own setting, else 1 = top-level directory)")
     args = ap.parse_args()
 
     cfg = CORPORA[args.corpus]
@@ -815,15 +876,21 @@ def main() -> int:
                   f"{head[:10]} and that is what provenance records")
         sha = head[:10]
 
+    depth = args.group_depth or cfg.get("group_depth", 1)
     try:
+        if depth < 1:
+            raise SystemExit(
+                f"error: --group-depth {depth} is invalid — 1 is the top-level "
+                "directory; there is no shallower seam."
+            )
         if args.cap < 2:
             raise SystemExit(
                 f"error: --cap {args.cap} is unusable — every notebook reserves "
                 "one slot for its generated index, so a cap below 2 cannot hold "
                 "an index and a single source."
             )
-        items, notebooks = build(src, args.corpus, args.out, sha, args.cap)
-        write_index(args.out, args.corpus, sha, built, items, notebooks)
+        items, notebooks = build(src, args.corpus, args.out, sha, args.cap, depth)
+        write_index(args.out, args.corpus, sha, built, items, notebooks, depth)
         write_manifest(args.out, args.corpus, sha, built, items, notebooks, args.cap)
         write_readme(args.out, args.corpus, items, notebooks, args.cap)
     finally:
