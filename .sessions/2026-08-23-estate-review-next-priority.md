@@ -1,8 +1,8 @@
 # 2026-08-23 — Estate review: what is most important to work on next
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
-- **📊 Model:** opus-5 · high · review (read-only)
+- **📊 Model:** opus-5 · high · review/verify
 
 ## 💡 Session idea
 
