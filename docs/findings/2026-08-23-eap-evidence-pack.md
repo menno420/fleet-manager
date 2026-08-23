@@ -243,12 +243,23 @@ round 1,000. **What is NOT true — corrected 2026-08-23 after the owner's revie
 challenged it:** an earlier version of this paragraph said *"`superbot` is also
 frozen, so that headroom is not closing."* **Nothing enforces that freeze.**
 `GET /repos/menno420/superbot` returns `archived: false`, `disabled: false` and
-`open_issues_count: 9`; the repository was pushed `2026-08-20T23:17:54Z`, merged
-**64 PRs in the preceding 14 days**, and its newest session card is dated
-**2026-08-13** — so `.sessions/` grew ten days before that sentence was written.
-"Frozen" here is an **editorial status** (OD-16, the behavioural oracle), a
-directive about intent, not a technical lock. The headroom is real but it is
-**31 cards and closing slowly**, not static. **The check to run before trusting a
+`pushed_at: 2026-08-20T23:17:54Z`. Its open work, re-derived by the endpoints that
+can actually establish it rather than from the aggregate `open_issues_count`:
+`GET /pulls?state=open` → **8 open PRs, all `dependabot[bot]`**;
+`GET /issues?state=open` minus those carrying `pull_request` → **1 issue**. Its
+newest session card is dated **2026-08-13**, so `.sessions/` grew ten days before
+that sentence was written. *(An earlier draft of this paragraph also cited "64 PRs
+merged in 14 days". **That figure came from `search/issues`, which § 0 of this
+same document declares unusable for this account** — publishing it here would have
+contradicted the pack's own method note, so it is withdrawn rather than repeated;
+Codex, fm #922.)* "Frozen" here is an **editorial status** (OD-16, the behavioural
+oracle), a directive about intent, not a technical lock. The headroom is real, and stated in the units the cap actually
+uses: the limit is **1,000 directory entries**, and `.sessions/` currently holds
+**970** entries (969 cards + the protocol README), so **30 further cards would
+reach it**. **How fast that closes is unmeasured** — the newest-card date
+establishes that growth happened recently, not a rate, and saying "closing slowly"
+would be the same species of unmeasured reassurance this correction exists to
+retract. **The check to run before trusting a
 future re-measurement:** if any
 repository returns exactly 1,000, treat it as truncated, not as a count, and page
 the Git Trees API instead.
