@@ -159,9 +159,53 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   runs `volumeDelete` by exact id, live `postgres-volume` untouched either
   way. (2026-08-20)
 
+- **`OQ-GEMINI-NOTEBOOKS` — 🧪 you want to start creating notebooks in Gemini
+  (added 2026-08-23, owner live).** **HIS WORDS, verbatim:** *"what I want to do
+  is start creating notebooks in gemini to help me with certain things and just
+  to explore that feature."* **THE READING, stated so it can be corrected:** two
+  goals at once and they want different handling — *"help me with certain
+  things"* is a tool need with real subjects behind it, and *"just to explore
+  that feature"* is deliberate play with no deliverable owed. A session should
+  not collapse the second into the first by demanding a use-case before he is
+  allowed to poke at it. **WHAT IS NOT KNOWN AND SHOULD BE ASKED, NOT ASSUMED:**
+  which product this is. *"Notebooks in Gemini"* most likely means **NotebookLM**
+  (upload sources → grounded Q&A, briefing docs, audio overviews), but it could
+  mean Colab notebooks driven by Gemini, or the Canvas/notebook surface inside
+  the Gemini app. These have different setup paths and different estate-side
+  support, so **one question settles it and saves a wrong build.**
+  **WHY-IT-MATTERS / where the estate can actually help:** if it is NotebookLM,
+  the estate is unusually well-stocked with corpora that are painful to read and
+  ideal to ground a notebook on — the 566-file idea corpus (`idea-engine`), the
+  389 session cards + 52 findings here, the EAP evidence pack, and the archived
+  repos' closeouts, which are now read-only and therefore stable sources.
+  **WHAT AN AGENT CAN DO WITHOUT HIM:** prepare export bundles — flatten a
+  corpus into upload-ready files with provenance kept — so his first notebook is
+  a paste, not a project. **WHAT ONLY HE CAN DO:** the account-side steps
+  (creating notebooks, uploading, any paid tier), since this is his Google
+  identity. **CREDENTIALS NOTE, so nobody probes blind:** this estate's Gemini
+  API access is documented at
+  [`conventions/vertex-first-for-gemini.md`](conventions/vertex-first-for-gemini.md)
+  and [`providers/gemini.md`](providers/gemini.md) — **but NotebookLM is a
+  consumer surface, and whether it is reachable by any API this estate holds is
+  UNVERIFIED.** Do not assume it is, and do not record a wall if it is not; check
+  first. **HOW:** he says which product, and whether he wants a prepared corpus
+  bundle to start from.
+
 - **`OQ-E1-FINAL-EAP-EMAIL` — write and send the final EAP review email
   (owner-reserved, your pace).**
-  **⬆ 2026-08-23 — you said today. The evidence half is now done and waiting:**
+  **⏸ DEFERRED BY THE OWNER, 2026-08-23 (live, late) — this supersedes the
+  "today" stamp below.** HIS WORDS, verbatim: *"The email aswell but that's
+  something I still want to wait a little bit with because I still feel like we
+  can do some more organizing."* **THE READING:** the evidence pack is not the
+  blocker and is not stale — the **organising** is what he wants further along
+  first. So no session should nudge him toward sending it, and no session should
+  treat the pack's existence as a reason to. It un-defers when he says so.
+  **What "more organizing" plausibly points at, offered as candidates and not as
+  his answer:** the per-repo front-door work (two landed 2026-08-23 —
+  `idea-engine` #900, `sim-lab` #360 — and `product-forge` + `estate-backups`
+  are still thin), and the D2 target question `OQ-FM-D2-TARGET`, which is the
+  root blocker on the whole plan.
+  ~~**⬆ 2026-08-23 — you said today.**~~ The evidence half is done and waiting:
   [`findings/2026-08-23-eap-evidence-pack.md`](findings/2026-08-23-eap-evidence-pack.md)
   — the numbers measured today, each with its command, organised against the six
   net-new sections your own reflection names. Headline figures you did not have
