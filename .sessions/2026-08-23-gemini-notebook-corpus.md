@@ -79,13 +79,53 @@ known, and two of them would have quietly degraded his first notebook.
    and seven held-back files had silently vanished from the listing. Now spelled
    `dot-github__…`. This is the defect that would have shipped.
 
+## Adversarial review — `@codex`, fm #934, round 1
+
+**Nine findings, three P1, and the tally is `[conceded] 9 / [survived] 0.`** Each
+came with a reproduction the reviewer had actually run, and each was real. The
+three P1s are the ones worth naming, because two of them would have shipped:
+
+- **A local-clone `--src` leaked `.git/**` and untracked files.** `@codex`
+  reproduced an untracked `.env` landing in `sources/` with its contents. This
+  session's own build used a tarball, so it never fired — but the flag invites a
+  clone, and **bundles get published as a release asset**, so this was a
+  credential path into a public artefact. Now `git ls-files` decides.
+- **Binary sources were UTF-8 decoded into corruption.** A PDF or image — formats
+  the provider doc I wrote in this same PR says the product ingests *natively* —
+  would have been `errors="replace"`d into garbage and emitted as Markdown. The
+  tool would have destroyed exactly the material it exists to prepare. Now they
+  are copied byte-for-byte.
+- **The bundle claimed single-notebook regardless of size.** The README said
+  "this fits in one notebook" unconditionally, which is false the moment a corpus
+  exceeds the cap — **guaranteed** for the `idea-engine` reuse this tool was
+  built for. It would have broken the partition-never-concatenate rule on the
+  very case that rule exists for. Now it partitions on top-level seams.
+
+The six P2s: flat-name collisions silently overwrote while the manifest still
+claimed 1:1; a reused `--out` kept stale files the manifest did not list; CSS
+`content:` strings were harvested as stage captions (I had lumped `<style>` and
+`<script>` into one skip counter); a triple-backtick inside a code file escaped
+its own fence; the index carried a hardcoded date; and the index undercounted
+itself by one, so it said 109 while the README said upload 110.
+
+**The fix for the worst one was itself wrong, and the test caught it.**
+[`tools/test_build_notebook_bundle.py`](../tools/test_build_notebook_bundle.py)
+writes one regression per finding. On its first run, F8 **failed**: when
+`git ls-files` errors, my code fell back to a filesystem walk — and the walk
+re-emitted `dot-env.md`. A broken checkout is now a hard error rather than a
+guess, and the no-git path (an extracted tarball) carries a secret deny-list.
+Three paths are now tested: a real clone, a broken `.git`, and a tarball.
+**24 assertions, all passing, exit 0.**
+
 ## Verification
 
 - **All 75 `.md` byte-identical** to the repo — checked file by file, not spot-checked.
 - `ls` == `ls -A` == 110 sources / 17 held back; 110 + 17 = 127 = 126 files + 1 index.
 - Manifest reconciles: 71 verbatim + 4 held = 75 md · 25 extracted + 5 held = 30 html.
 - No empty output: smallest source is 393 bytes and is a real idea file.
-- Zip `testzip()` OK, 129 entries, 414 KB.
+- Zip `testzip()` OK, 129 entries; published asset re-downloaded and sha256-matched.
+- **24 regression assertions** across all nine `@codex` findings — exit 0.
+- Index self-count now reads **110**, matching what the README tells him to upload.
 
 ## Open
 
@@ -95,10 +135,30 @@ known, and two of them would have quietly degraded his first notebook.
   on free — so the source cap is confirmed **per notebook** (the queue had it as
   *consistent, not confirmed*), and notebook count **is** capped. The PRO
   numbers are not on that page; 300/notebook remains his splash reading.
-- **Does archiving stop scheduled Actions?** Still open, and today cannot settle
-  it. Measured: `superbot-idle`'s `host-main-advisory` fires daily ~05:40–05:48Z,
-  last run `2026-08-23T05:42:49Z`, and the repo was archived at `07:11Z` —
-  **after** that day's run. The workflow `state` field reports `active` on all
-  six despite the archive, so that field is not the instrument. GitHub's
-  archiving doc says nothing about Actions (fetched, confirmed silent). Next
-  window `2026-08-24` ~05:45Z; a run is conclusive, a miss is not.
+- **Does archiving stop scheduled Actions?** Still open — and the useful result
+  is **which instruments cannot answer it**, so the next session does not repeat
+  these.
+  - **The docs gap is closed, and the answer is "the docs are silent."** GitHub's
+    archiving page was fetched: it enumerates what becomes read-only (issues,
+    PRs, code, labels, milestones, projects, wiki, releases, commits, tags,
+    branches, reactions, alerts, comments, permissions) and **never mentions
+    Actions, workflows or schedules**. Swept from the Actions direction too; the
+    only concrete artefact is a GitHub-rendered UI string on archived repos —
+    *"GitHub Actions workflows can't be executed on this repository"* — sourced
+    from community threads, **not** from GitHub's documentation.
+  - **Two API surfaces were probed and BOTH are the wrong instrument.**
+    `GET /actions/workflows` reports `state: active` for all six of
+    `superbot-idle`'s workflows despite the archive, and
+    `GET /actions/permissions` returns `{"enabled": true, "allowed_actions":
+    "all"}` — **byte-identical to live `fleet-manager`**, which was run as the
+    control. The API does not model the archive/Actions relationship at all, so
+    neither reading is evidence that Actions still run. Recording the null as a
+    property of the probes, not of the world (TRAP-003).
+  - **Observation is the only instrument left, and today cannot supply it.**
+    `host-main-advisory` fires daily ~05:40–05:48Z (41 scheduled runs, an
+    unbroken daily series). Last run `2026-08-23T05:42:49Z`; the repo was
+    archived at `07:11Z` — **after** that day's run. Next window `2026-08-24`
+    ~05:45Z. **A run is conclusive; a miss is not** — GitHub drops schedule
+    windows on inactivity, and an archived repo takes no commits by definition,
+    so the 60-day inactivity suspension is a confound that will eventually
+    produce a miss for a reason unrelated to archiving.
