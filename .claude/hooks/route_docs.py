@@ -118,6 +118,33 @@ def haystack(event: dict) -> tuple[str, str]:
     return tool, json.dumps(payload)[:4000]
 
 
+def code_only(text: str) -> str:
+    """Blank single/double-quoted spans, preserving length and separators count.
+
+    A Bash command is code; its quoted arguments are DATA. A route that guards an
+    ACTION (`git push`) must not fire on a quoted mention of that action, because
+    firing consumes it once-per-session and the real action then goes unwarned.
+    MEASURED 2026-08-23 (Codex, fm #923): `grep -n '; git push' docs/traps.md;
+    curl api.github.com/...` stored `card-flip-before-push` and the next real
+    `git push` produced nothing.
+
+    Opt-in per route via `"code_only": true` — it is NOT safe globally: the
+    `github-api` route matches URLs that legitimately live inside quotes.
+    """
+    out, quote = [], None
+    for ch in text:
+        if quote:
+            out.append(" " if ch != quote else ch)
+            if ch == quote:
+                quote = None
+        elif ch in "'\"":
+            quote = ch
+            out.append(ch)
+        else:
+            out.append(ch)
+    return "".join(out)
+
+
 def already_fired(session: str) -> set[str]:
     try:
         return set(json.loads((STATE_DIR / f"{session}.json").read_text()))
@@ -168,12 +195,25 @@ def main() -> int:
         # Content routes (Edit/Write) still fire ON their own doc — that is
         # the entire point of the wall-recording route; prompt routes are
         # untouched (a prompt naming a doc path is not an open of it).
-        if any(d in text for d in docs) and (
+        # …but NOT for a pre-execution guard. A Bash command that merely NAMES
+        # the doc (`grep -c TRAP docs/traps.md`) is not an agent reading it, and
+        # marking the route fired there silently disarms the guard for the rest
+        # of the session. MEASURED 2026-08-23 (Codex, fm #922): one combined
+        # command — `grep docs/traps.md; curl api.github.com/...` — persisted
+        # ["card-flip-before-push", …] because the github-api route supplied a
+        # hit, and the next REAL `git push` produced nothing. fm #920 merged
+        # unreviewed behind exactly that silence. The fm #878 defect this branch
+        # exists for was a Read re-firing onto its own directed read, so scoping
+        # the exemption away from Bash leaves that fix intact.
+        if any(d in text for d in docs) and tool != "Bash" and (
                 not route.get("tools") or tool in DEFAULT_TOOLS):
             fired.add(rid)
             continue
+        # A route guarding an ACTION matches against code with quoted data
+        # blanked, so a mention inside an argument cannot consume it (fm #923).
+        match_text = code_only(text) if route.get("code_only") else text
         try:
-            if not any(re.search(p, text, re.I) for p in route.get("when", [])):
+            if not any(re.search(p, match_text, re.I) for p in route.get("when", [])):
                 continue
         except re.error:
             continue  # a bad pattern silences its own route, never the hook

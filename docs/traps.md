@@ -203,6 +203,31 @@
   (*"`merge-on-green` landed #871 before the round-2 review I had requested
   could answer"*) and `docs/repos/superbot/README.md` (*"the auto-merge enabler
   ARMS AT OPEN — disable before requesting review"*).
+- **HOW THIS GUARD GETS DISARMED, and it is not hypothetical** — `MEASURED`
+  2026-08-23 (Codex, fm #922). `route_docs.py` marks a route fired when the tool
+  text merely *contains* the routed doc's path, and persists the whole fired set
+  whenever **any** route in the same call produced a hit. So one ordinary combined
+  command —
+
+  ```sh
+  grep -c TRAP docs/traps.md; curl -sS https://api.github.com/repos/...
+  ```
+
+  — persisted `["card-flip-before-push", …]` because the `github-api` route
+  supplied the hit, and the next **real** `git push` produced nothing. **fm #920
+  merged unreviewed behind exactly that silence.** Fixed by scoping the
+  mention-exemption away from `Bash`: a command naming a doc is not an agent
+  reading it. The fm #878 defect that branch exists for was a `Read` re-firing
+  onto its own directed read, and that still holds.
+
+- **AND a quoted mention disarmed it too, until 2026-08-23.** The `when` regex was
+  applied to the raw command, so `grep -n '; git push' docs/traps.md` matched on
+  text inside a quoted *argument* and consumed the route. Fixed with an opt-in
+  `"code_only": true`, which blanks quoted spans before matching: a Bash command
+  is code, its quoted arguments are data. **Opt-in on purpose** — blanking
+  globally would break `github-api`, whose patterns legitimately match URLs
+  inside quotes.
+
 - **WHAT THE PUSH ROUTE MATCHES** — probed across ten forms, because the first two
   regexes each missed real ones. It fires on every valid push, including git's
   global options and a shell-separated one:
