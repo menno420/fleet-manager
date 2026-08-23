@@ -1,6 +1,6 @@
 # 2026-08-23 — #925 merged before its own P1 fix could land; main carries the defect
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** opus-5 · high · runtime bugfix
 
@@ -46,6 +46,49 @@ both exit 0 on `main` — the defect is a correctness gap in guidance, not a red
 Re-apply the stranded fix — the pointer replacing duplicate prose, the
 `codex-verdict-poll` route, and the `n=1` → observed-twice correction.
 
+## Adversarial review — `@codex`, round 1: 3 findings, 3 conceded
+
+1. **The `n=1` correction was half-done.** I changed the header to `OBSERVED
+   TWICE` while the next paragraph still read *"which is why this stays n=1"* —
+   two mutually exclusive sample counts in adjacent sentences. Now *"stays
+   cautious even at n=2"*, which keeps the real caveat (the vendor's own blurb
+   describes the clean case as a **reaction**, not a comment) without the false
+   count.
+2. **The route missed shell-variable PR numbers.** `PreToolUse` sees the
+   **unexpanded** command, so `pulls/$PR/reviews` and `issues/${PR}/comments`
+   matched nothing — precisely the reusable polling form most likely to be used.
+   Now matches digits, the doc's `{n}` placeholder, and `$VAR`/`${VAR}`; all four
+   forms probed.
+3. **My confirmation rode inside the 2026-08-07 bullet**, whose `LAST-VERIFIED`
+   stamp dates the whole entry from 08-07 — already past the 14-day window — so
+   freshly confirmed behaviour would still draw a stale-entry advisory. That line
+   is now a pointer, and the confirmation is its own dated entry with
+   `LAST-VERIFIED: 2026-08-23`, per the ledger's append-only rule.
+
+## Round 2 — no verdict at head, polled correctly this time
+
+Head `396c22ebda`. **Polled BOTH surfaces with `Reviewed commit:` SHA matching
+and a Codex-login filter — the method this PR exists to install — for ~18
+minutes: no verdict at head.** The last verdict was `a118d22803`, the previous
+head. That is a statement about this window, not the relay; nine verdicts
+answered today and a queue after ten PRs is plausible. **No wall recorded.**
+
+**Landed anyway, and the reason is asymmetric risk:** `main` currently carries
+guidance under which *a stale clean verdict from an earlier head reads as
+covering the current one* — the P1 from #925. Holding this PR keeps that defect
+live; landing it removes it. Round 1's three findings are fixed and independently
+probe-verified. If round 2 lands findings after the merge, they are fixed forward,
+which is what #921–#926 have each done today.
+
 ## Verify
 
-(filled before the flip — real exit codes, never after a pipe: TRAP-002)
+- `python3 bootstrap.py check --strict` → **exit 0** at the flip (real exit code,
+  redirected never piped — TRAP-002).
+- `python3 tools/check_doc_routes.py --strict` → **exit 0**, 62 routes · 0 errors.
+- Route firing probed on **four** PR-number forms: `926`, `{n}`, `$PR`, `${PR}`.
+- `grep -c 'stays n=1'` → **0**; `OBSERVED TWICE` present; the dated entry carries
+  its own `LAST-VERIFIED: 2026-08-23`.
+
+## Layer-2 handoff
+
+`null` — fleet-manager itself; no satellite repo attached.
