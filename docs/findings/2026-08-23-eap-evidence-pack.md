@@ -169,7 +169,7 @@ makes demonstrable rather than asserted.
 
 | what he had to build | measured today |
 |---|---|
-| **Session cards** — durable per-session memory | **4,535 across 19 repositories** *(at 2026-08-23 10:3xZ; see § 7 — an earlier reading of 4,551 counted `.sessions/README.md` as a card)* (`superbot` 970 · `idea-engine` 504 · `fleet-manager` 394 · `substrate-kit` 342 · `superbot-next` 335) |
+| **Session cards** — durable per-session memory | **4,535 across 19 repositories** *(at 2026-08-23 10:3xZ; see § 7 — an earlier reading of 4,551 counted `.sessions/README.md` as a card)* (`superbot` 969 · `idea-engine` 503 · `fleet-manager` 394 · `substrate-kit` 341 · `superbot-next` 334 — READMEs excluded, same as the total) |
 | **Moment-of-action injection** — rules that arrive when they apply | **61 doc-routes** in one repo's `PreToolUse`/`UserPromptSubmit` hook |
 | **Lifecycle hooks** | **6** in fleet-manager alone |
 | **Executable procedures** (skills) | **27** |
@@ -231,6 +231,17 @@ print("with any card        ", sum(1 for c in counts if c))    # -> 19
 print("TOTAL session cards  ", sum(counts))                    # -> 4535 at 2026-08-23 10:3xZ
 EOF
 ```
+
+**One ceiling this recipe genuinely could hit, measured rather than assumed
+(Codex, fm #921):** the Contents API returns at most **1,000** entries for a
+directory listing, and a repository whose `.sessions/` exceeded that would be
+silently truncated — the same failure shape as the `search/issues` blindness in
+§ 0. **`MEASURED` 2026-08-23: it is not hit.** The largest listing is `superbot`
+at **970** entries, 30 short of the cap, and the API returned 970 rather than a
+suspicious round 1,000. `superbot` is also frozen, so that headroom is not
+closing. **The check to run before trusting a future re-measurement:** if any
+repository returns exactly 1,000, treat it as truncated, not as a count, and page
+the Git Trees API instead.
 
 Treatment: **19 of 26** repositories return a non-zero count; the other seven return
 **HTTP 404**, which is the only status read as absence — every other status aborts the
