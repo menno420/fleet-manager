@@ -168,7 +168,17 @@ def main() -> int:
         # Content routes (Edit/Write) still fire ON their own doc — that is
         # the entire point of the wall-recording route; prompt routes are
         # untouched (a prompt naming a doc path is not an open of it).
-        if any(d in text for d in docs) and (
+        # …but NOT for a pre-execution guard. A Bash command that merely NAMES
+        # the doc (`grep -c TRAP docs/traps.md`) is not an agent reading it, and
+        # marking the route fired there silently disarms the guard for the rest
+        # of the session. MEASURED 2026-08-23 (Codex, fm #922): one combined
+        # command — `grep docs/traps.md; curl api.github.com/...` — persisted
+        # ["card-flip-before-push", …] because the github-api route supplied a
+        # hit, and the next REAL `git push` produced nothing. fm #920 merged
+        # unreviewed behind exactly that silence. The fm #878 defect this branch
+        # exists for was a Read re-firing onto its own directed read, so scoping
+        # the exemption away from Bash leaves that fix intact.
+        if any(d in text for d in docs) and tool != "Bash" and (
                 not route.get("tools") or tool in DEFAULT_TOOLS):
             fired.add(rid)
             continue
