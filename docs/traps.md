@@ -220,6 +220,14 @@
   reading it. The fm #878 defect that branch exists for was a `Read` re-firing
   onto its own directed read, and that still holds.
 
+- **AND a quoted mention disarmed it too, until 2026-08-23.** The `when` regex was
+  applied to the raw command, so `grep -n '; git push' docs/traps.md` matched on
+  text inside a quoted *argument* and consumed the route. Fixed with an opt-in
+  `"code_only": true`, which blanks quoted spans before matching: a Bash command
+  is code, its quoted arguments are data. **Opt-in on purpose** — blanking
+  globally would break `github-api`, whose patterns legitimately match URLs
+  inside quotes.
+
 - **WHAT THE PUSH ROUTE MATCHES** — probed across ten forms, because the first two
   regexes each missed real ones. It fires on every valid push, including git's
   global options and a shell-separated one:

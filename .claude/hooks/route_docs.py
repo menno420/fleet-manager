@@ -118,6 +118,33 @@ def haystack(event: dict) -> tuple[str, str]:
     return tool, json.dumps(payload)[:4000]
 
 
+def code_only(text: str) -> str:
+    """Blank single/double-quoted spans, preserving length and separators count.
+
+    A Bash command is code; its quoted arguments are DATA. A route that guards an
+    ACTION (`git push`) must not fire on a quoted mention of that action, because
+    firing consumes it once-per-session and the real action then goes unwarned.
+    MEASURED 2026-08-23 (Codex, fm #923): `grep -n '; git push' docs/traps.md;
+    curl api.github.com/...` stored `card-flip-before-push` and the next real
+    `git push` produced nothing.
+
+    Opt-in per route via `"code_only": true` — it is NOT safe globally: the
+    `github-api` route matches URLs that legitimately live inside quotes.
+    """
+    out, quote = [], None
+    for ch in text:
+        if quote:
+            out.append(" " if ch != quote else ch)
+            if ch == quote:
+                quote = None
+        elif ch in "'\"":
+            quote = ch
+            out.append(ch)
+        else:
+            out.append(ch)
+    return "".join(out)
+
+
 def already_fired(session: str) -> set[str]:
     try:
         return set(json.loads((STATE_DIR / f"{session}.json").read_text()))
@@ -182,8 +209,11 @@ def main() -> int:
                 not route.get("tools") or tool in DEFAULT_TOOLS):
             fired.add(rid)
             continue
+        # A route guarding an ACTION matches against code with quoted data
+        # blanked, so a mention inside an argument cannot consume it (fm #923).
+        match_text = code_only(text) if route.get("code_only") else text
         try:
-            if not any(re.search(p, text, re.I) for p in route.get("when", [])):
+            if not any(re.search(p, match_text, re.I) for p in route.get("when", [])):
                 continue
         except re.error:
             continue  # a bad pattern silences its own route, never the hook
