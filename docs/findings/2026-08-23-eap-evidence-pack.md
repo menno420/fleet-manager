@@ -55,10 +55,16 @@ same hour. Both reproduce, so the method sees what the index cannot.
 | Repositories created after the program closed | **6** |
 | PRs in EAP-created repositories | **5,368** |
 
-**The one-sentence version, and it is the mail's opening fact:** one person, not
-a coder, went from a single repository to **nineteen new ones in a fortnight**
-and **8,000 pull requests**, then spent the next month finding out how much of it
-he could actually verify.
+**The one-sentence version, and the scopes must stay separate:** one person, not a
+coder, went from a single repository to **nineteen new ones in the EAP fortnight**,
+and the estate those repositories belong to now carries **8,000 pull requests
+all-time** — then he spent the next month finding out how much of it he could
+actually verify. **Do not fuse the two halves.** The 8,000 is an all-time,
+whole-estate figure that includes `superbot` (2,378 PRs, predating the EAP) and six
+repositories created after the program closed. **No count of PRs opened *during* the
+fortnight was derived** — the per-repo Link-header method counts lifetime PRs, not a
+date window, so a fortnight figure would need a different measurement that has not
+been made.
 
 Top repositories by PRs opened: `superbot` 2,378 · `fleet-manager` 918 ·
 `idea-engine` 900 · `superbot-next` 605 · `substrate-kit` 581 · `websites` 512 ·
@@ -80,10 +86,20 @@ plan. It is now executed.
 | **Executed 2026-08-23** | **9 archived, 0 deleted** | R5, fm #912 — confirmed by fresh `GET /user/repos`, not by the API's 200 |
 | Still gated | **3** | `superbot-next` + `superbot-plugin-hello` on GCB-1; `product-forge` on R2 |
 
-**The honest framing:** he did not archive nine repositories because they failed.
-He archived them because **he could not review them**, and unreviewed shipping
-volume is not finished work. That is the same thesis the mail opens on, with a
-number under it.
+**The honest framing, with the two claims kept apart** — an earlier draft of this
+line fused them and Codex refused it. **What the record actually says:** the nine
+executed rows in [the disposition table](../planning/2026-08-22-repo-dispositions.md)
+give *per-repository* reasons — releases completed and the tool finished
+(the three `codetool-lab-*`), research concluded, scope rejected or never used,
+experiments parked. Not one of them records *"could not review it"* as its reason.
+**What is separately true, and is the mail's thesis:** the owner's own judgement is
+that no realistic amount of oversight tooling lets one person genuinely run more
+than ~10 projects, and that quality drifts wherever nobody looks
+([the reflection](../owner-reflection-2026-07-21.md)). The review ceiling is why the
+estate needed consolidating **at all**; the per-repo reasons are why each specific
+row went. Citing the count as evidence for the ceiling is fair; citing it as the
+*reason each repo was archived* is not, and would be an unsupported claim about his
+motives in a mail to a third party.
 
 ## 3 · "What I had to build myself" — the teardown, measured
 
@@ -94,12 +110,35 @@ makes demonstrable rather than asserted.
 | what he had to build | measured today |
 |---|---|
 | **Session cards** — durable per-session memory | **4,550 across 19 repositories** (`superbot` 970 · `idea-engine` 504 · `fleet-manager` 393 · `substrate-kit` 342 · `superbot-next` 335) |
-| **Moment-of-action injection** — rules that arrive when they apply | **59 doc-routes** in one repo's `PreToolUse`/`UserPromptSubmit` hook |
+| **Moment-of-action injection** — rules that arrive when they apply | **61 doc-routes** in one repo's `PreToolUse`/`UserPromptSubmit` hook |
 | **Lifecycle hooks** | **6** in fleet-manager alone |
 | **Executable procedures** (skills) | **27** |
 | **Repo-side checkers/generators** | **30** |
-| **A trap register with deterministic checkers** | **5 traps**, 1 with a checker in the required gate — built 2026-08-23 |
+| **A trap register with deterministic checkers** | **6 traps**, 1 with a checker in the required gate — built 2026-08-23, and TRAP-006 was added by the same commit as this pack |
 | **Dated findings** (the estate's own research) | **52** in fleet-manager |
+
+**Reproducing the session-card total** — the pack promises a command per figure and
+this one had none (Codex, fm #919). It is a per-repository directory listing summed
+over the census, *not* a search query (§ 0):
+
+```bash
+# per repo: count .md files in .sessions/ ; absent directory => 0, not an error
+for r in $(curl -sS --noproxy '*' -H "Authorization: Bearer $GITHUB_PAT" \
+      "https://api.github.com/user/repos?per_page=100&affiliation=owner" \
+      | python3 -c "import sys,json;[print(x['name']) for x in json.load(sys.stdin)]"); do
+  n=$(curl -sS --noproxy '*' -H "Authorization: Bearer $GITHUB_PAT" \
+      "https://api.github.com/repos/menno420/$r/contents/.sessions" \
+      | python3 -c "import sys,json
+try:
+  d=json.load(sys.stdin); print(len([x for x in d if x['name'].endswith('.md')]) if isinstance(d,list) else 0)
+except Exception: print(0)")
+  echo "$r $n"
+done
+```
+
+Treatment: **19 of 26** repositories return a non-zero count; the other seven have no
+`.sessions/` directory and contribute 0. The total is the plain sum — no
+de-duplication, because a card belongs to exactly one repository.
 
 **Why this is roadmap-grade rather than a brag:** every item is a product gap he
 paid for in his own time. The session card exists because sessions forgot. The

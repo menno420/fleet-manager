@@ -978,19 +978,29 @@
     {
       "id": "card-flip-before-push",
       "tools": [
-        "Bash",
-        "Edit",
-        "Write"
+        "Bash"
       ],
       "when": [
-        "git\\s+push",
-        "\\.sessions/.*\\.md",
-        "Status:\\s*`?complete`?"
+        "git\\s+push"
       ],
       "docs": [
         "docs/traps.md"
       ],
-      "says": "TRAP-006 — the born-red card IS the merge hold, and flipping it before you push defeats it. Two guards read that card: the required check is red while it says in-progress, and merge-on-green.yml:190-213 parses each in-diff card and skips the merge on in-progress. Push the card RED; flip to complete as the deliberate LAST commit, after review answers. MEASURED 2026-08-23 (fm #915): card flipped locally, both commits pushed together, PR opened 08:24:29Z and auto-merged 08:25:06Z — 37 seconds, inside the ~335s Codex relay, so it landed with 0 reviews. Verify: right after opening the PR the required check must be RED and name the born-red hold; a green required check on a just-opened PR means the hold is not armed. Escape hatch if a PR must open green: the do-not-automerge label, honoured as a carve-out. Register: docs/traps.md TRAP-006."
+      "says": "TRAP-006 — before this push: does the in-diff .sessions/*.md card still say in-progress? The born-red card IS the merge hold. Two guards read it: the required check is red while it says in-progress, and merge-on-green.yml:190-213 parses each in-diff card and skips the merge on in-progress. Pushing a card already flipped to complete defeats both at once — the PR is born green and the sweep lands it before review can answer. MEASURED 2026-08-23 (fm #915): opened 08:24:29Z, auto-merged 08:25:06Z — 37 seconds, inside the ~335s Codex relay, 0 reviews. Verify right after opening: the required check must be RED and name the born-red hold. Escape hatch if a PR must open green: the do-not-automerge label. Register: docs/traps.md TRAP-006."
+    },
+    {
+      "id": "card-status-write",
+      "tools": [
+        "Edit",
+        "Write"
+      ],
+      "when": [
+        "\\.sessions/.*\\.md"
+      ],
+      "docs": [
+        "docs/traps.md"
+      ],
+      "says": "TRAP-006 (card lifecycle) — a session card's Status is a merge control, not paperwork. Commit it `in-progress` as the FIRST commit and push it red; flip to `complete` as the deliberate LAST commit, after review has answered. A card that reaches the remote already complete opens the PR green and it auto-merges unreviewed (fm #915: 37 seconds, 0 reviews). Register: docs/traps.md TRAP-006."
     }
   ]
 }

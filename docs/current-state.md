@@ -93,7 +93,7 @@ copy product architecture or internal product state. Canonical intent:
   number, chart or citation changed).
   **TRAP-006 registered** — the born-red card is the merge hold, and fm #915
   defeated it by flipping before push: opened 08:24:29Z, auto-merged 08:25:06Z,
-  **0 reviews**. Route added; the register is now 6 traps / 60 routes.
+  **0 reviews**. Routes added; the register is now **6 traps / 61 routes** — two routes, not one, because Codex caught that a single route matching both the card write and the push is consumed by the write, leaving the push (the trap's actual moment) silent. Reproduced 1-then-0 against the old design, 1-then-1 against the split.
 
 - **R5 EXECUTED — the estate's first archives: nine repositories, 26 → 9
   archived, 0 deleted** (2026-08-23, fm #912). The step OD-3 described on
