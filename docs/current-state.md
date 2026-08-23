@@ -103,8 +103,10 @@ copy product architecture or internal product state. Canonical intent:
   return-path gap that does **not** size D2. The
   [active-repo intent audit](findings/2026-08-23-active-repo-intent-audit.md),
   written hours earlier and **not read before that finding was drafted**, remains
-  the primary document and supplies D2's measured order. Also filed:
-  `OQ-LAPTOP-AI-WORKSTATION`, his current priority, recorded nowhere until now.
+  the primary document and supplies D2's measured order. His laptop-as-AI-workstation
+  thread is recorded in [`findings/2026-08-23-owner-direction.md`](findings/2026-08-23-owner-direction.md)
+  § 4 — his current priority, recorded nowhere until now, and deliberately *not*
+  an owner-queue entry since it is not an ask.
   E1 sends 2026-08-24 by his own statement.
 
 - **The E1 evidence pack — what the projects created, measured; and the review

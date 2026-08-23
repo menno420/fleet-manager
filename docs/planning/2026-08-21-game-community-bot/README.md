@@ -42,6 +42,35 @@ Three consequences for this plan:
    new repository. It is **not** a merge of running bots. Nothing in this plan
    should converge the deployments.
 
+### The executable roadmap now contradicts this, and that is not resolved here
+
+`MEASURED` 2026-08-23 (`@codex`, fm #937). Telling Phase 0 to "size for" the
+review bot is **not** enough, because
+[`delivery-roadmap.md`](delivery-roadmap.md) still orders the work the other way:
+
+| roadmap phase | what it requires |
+|---|---|
+| **Phase 1** | the full kernel, policy and **AI spine** |
+| **Phase 2–4** | Home/discovery/access, setup, then **community and safety core** |
+| **Phase 5** | the **game testing loop** — i.e. OD-19's *first* slice |
+
+So the destination's breadth is required across four phases **before** the thing
+he asked for first. A GCB session following the dependency-ordered roadmap would
+build the community bot and reach the review bot last, which is the opposite of
+the direction above.
+
+**Not re-sequenced here, deliberately.** Inserting a review-bot slice with its
+own exit gate is product-design work on an owner-gated plan, and OD-19 is one
+sentence — what "review oriented" covers (playtest capture? bug intake? build
+handoff? feedback triage?) is **not** specified, and inventing that scope would
+be manufacturing product intent, which
+[`../../intent.md`](../../intent.md) § 8b forbids.
+
+**So this is the first work a GCB session does, before Phase 0:** put the
+review-bot slice and its exit gate ahead of the destination breadth, having
+first asked him what the review bot must actually do. Until then the roadmap and
+OD-19 disagree, and **OD-19 wins** — it is the later owner statement.
+
 **GCB-1 is unchanged and still owner-gated** — none of the above authorises
 creating the repository.
 

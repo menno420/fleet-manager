@@ -1,4 +1,4 @@
-# 2026-08-23 — Owner direction: the bot's shape, the no-cut repo policy, and D2's answer
+# 2026-08-23 — Owner direction captured, and this session's own D2 conclusion withdrawn
 
 > **Status:** `complete` — branch `claude/active-projects-overview-kiftou`,
 > cut from `origin/main` at `a8e0988` (fm #936). Born red on purpose: the card is
@@ -40,11 +40,15 @@ same move #936 wished it had made.
 | The next bot: **review-oriented and small first**, cog-portable, **bots stay separated**; the two `superbot` repos consolidate into one new **repository** eventually | **OD-19**, plus an amendment at the head of the [pre-repository plan](../docs/planning/2026-08-21-game-community-bot/README.md) so a GCB session meets it before the headline |
 | **Every repo earns its place**; the remedy is documentation + hub linking, not cuts | **OD-20**, which bounds OD-17 and closes OD-18's execution arc |
 | *"so I will send the email tomorrow"*, deferred deliberately behind his setup work | **E1** status block, above the older 2026-08-01 note kept for provenance |
-| The laptop as an AI-integrated workstation — his current priority | **`OQ-LAPTOP-AI-WORKSTATION`**, filed as a thread, **not** an ask |
+| The laptop as an AI-integrated workstation — his current priority | [`findings/2026-08-23-owner-direction.md`](../docs/findings/2026-08-23-owner-direction.md) § 4. **Not** an owner-queue entry — it is not an ask, and a permanent non-ask there reads as a blocker (`@codex`) |
 
-**`OQ-FM-D2-TARGET` is answered by OD-20**, after 13 days open. D2 stops waiting
-on a named repository: the target is the property he stated, held across the
-active set. The NOW pointer is retargeted accordingly.
+**`OQ-FM-D2-TARGET` is NOT answered, and remains open.** This session recorded
+it as answered by OD-20 and retargeted the NOW pointer to an all-repo front-door
+sweep; **both were withdrawn the same session** on `@codex` review (§ below). His
+words set an estate-wide *outcome* and select no repository. The queue entry, the
+NOW pointer, OD-20's gloss and the current-state row all now say open, and the
+entry records that it was briefly closed so a later session sees the error rather
+than inheriting it.
 
 ## The measurement — and what `@codex` took away from it
 
@@ -124,6 +128,45 @@ had merged **19 PRs in the preceding 14 hours**. `TRAP-001` covers a dated
 document read as current; this is its neighbour — **a current document not read
 at all because the session assumed it knew the corpus.**
 
+## Round 2 — 6 more findings: 5 conceded, 1 partial
+
+It re-reviewed the merge preview (`5a3f0878`) at `23:26:36Z`.
+
+7. **`[conceded]` The withdrawn D2 closure was still in this card**, in present
+   tense, in the summary table and the title — while § 64 said the opposite.
+   A later session could have recovered the exact false owner decision the
+   correction existed to remove. Title and table fixed.
+8. **`[conceded]` The laptop thread was filed on the wrong surface.**
+   `docs/owner-queue.md` is for decisions and manual actions genuinely waiting on
+   him; a permanent entry that says *"not an ask"* reads as a blocker that never
+   clears. Moved to
+   [`findings/2026-08-23-owner-direction.md`](../docs/findings/2026-08-23-owner-direction.md),
+   which is the pattern OD-17/OD-18 already use.
+9. **`[conceded]` The back-link conclusion still overreached its own nulls.**
+   The result is *nine READMEs do not contain the literal string* — not "point
+   nowhere back", which the file's own § 6 already contradicted.
+10. **`[conceded]` I misdescribed the primary audit as covering all 17 repos.**
+    Its verdict classes name **16**; its headline says *7 pass* while naming 6.
+    **`spider-swing` has no verdict at all** — the one repo with a live external
+    clock is the unclassified one.
+11. **`[conceded]` And I said it fixed two of three failures.** It fixed
+    `idea-engine` (a failure) and `sim-lab` (the *stale* row) — so **one** of
+    three failures. `product-forge` and `estate-backups` remain open failures,
+    which understated the open D2 work.
+12. **`[partial]` The bot amendment does not actually reorder the work.**
+    Correct, and now recorded with the measurement: `delivery-roadmap.md` puts
+    the AI spine in Phase 1, community/safety through Phase 4, and the **game
+    testing loop — OD-19's first slice — at Phase 5.** Telling Phase 0 to "size
+    for" the review bot leaves the executable order contradicting the owner.
+    **Not re-sequenced here**, and the reason is stated in the plan: OD-19 is one
+    sentence, "review oriented" is unspecified, and inventing that scope would be
+    manufacturing product intent (`intent.md` § 8b). Recorded instead as the
+    first thing a GCB session does, with OD-19 named as the winner while they
+    disagree.
+
+**Running total across both rounds: 12 findings · 11 conceded · 1 partial · 0
+survived.**
+
 ## What landed
 
 - **OD-19 and OD-20** in the program's directive table (now 20 rows).
@@ -134,8 +177,11 @@ at all because the session assumed it knew the corpus.**
   the next session sees that it was briefly closed and why that was wrong, plus
   the intent audit's order as unblocked work.
 - **E1** restated with his reason — it did not slip, he re-ordered it.
-- **`OQ-LAPTOP-AI-WORKSTATION`** filed, explicitly not an ask and explicitly not
-  licence to reconfigure his machine.
+- **His laptop-as-AI-workstation thread recorded** in
+  [`findings/2026-08-23-owner-direction.md`](../docs/findings/2026-08-23-owner-direction.md)
+  § 4, alongside all four quotes verbatim — explicitly not an ask, and
+  explicitly not licence to reconfigure his machine. **Not** an owner-queue
+  entry: that surface is for decisions actually waiting on him.
 - **The back-link audit**, demoted to a supplement, carrying its own withdrawals.
 
 ## Verification

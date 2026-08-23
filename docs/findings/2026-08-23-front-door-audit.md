@@ -6,11 +6,20 @@
 >
 > **Read [`2026-08-23-active-repo-intent-audit.md`](2026-08-23-active-repo-intent-audit.md)
 > first — it is the primary document for this question and it is better
-> grounded than this one.** It ran D2's actual acceptance test across all 17
-> unarchived repos (7 pass · 5 unrated · 1 stale · 3 fail · 1 hub), fixed two of
-> the three failures the same day, and produced the D2 order this repo should
-> work. **This file is a narrow supplement**: it adds one measurement that audit
-> did not take — the *direction* of the linking — and nothing else.
+> grounded than this one.** It ran D2's actual acceptance test by reading each
+> repo's declared entry point, and produced the D2 order this repo should work.
+> **This file is a narrow supplement**: it adds one measurement that audit did
+> not take — whether a satellite README names the hub — and nothing else.
+>
+> **Two corrections to how an earlier draft of this header described it**
+> (`@codex`, fm #937). Its verdict classes **name 16 repositories, not 17**:
+> 6 pass · 5 unrated · 1 stale · 3 fail · 1 hub — while its own headline says
+> *7 pass*. **`spider-swing` carries no verdict**; it appears only in that
+> audit's activity table. So it is not a complete 17-repo sweep, and
+> `spider-swing` — the repo with the live external clock — is the unclassified
+> one. And **one of its three failures was fixed the same day**, not two:
+> `idea-engine` (#900) is a fail and `sim-lab` (#360) is the *stale* row.
+> **`product-forge` and `estate-backups` remain open failures.**
 >
 > **Scope discipline, stated because the first draft failed it (`@codex`, fm
 > #937, 5 of 6 findings):** presence of a file is not truth of its contents, and
@@ -40,9 +49,14 @@ Method, via the direct-PAT path (`curl --noproxy '*'`, proxy bypassed):
 |---|---|
 | `gba-homebrew` 3 · `pokemon-mod-lab` 3 · `idea-engine` 2 · `shiftlife` 2 · `venture-lab` 1 · `estate-backups` 1 | `spider-swing` · `couch-legend` · `websites` · `superbot-next` · `substrate-kit` · `product-forge` · `sim-lab` · `curious-research` · `superbot-plugin-hello` |
 
-**The estate's linking is one-directional.** [`ESTATE.md`](../ESTATE.md) points
-outward to all 26 repositories; **9 of 15 satellite front doors point nowhere
-back.**
+**Stated exactly, and no wider** (`@codex`): **9 of 15 satellite root READMEs do
+not contain the literal string `fleet-manager`.** That is the whole result.
+
+It is **not** established that those nine have no return path —
+[`ESTATE.md`](../ESTATE.md) points outward to all 26 repositories, but whether
+each satellite reaches back by some other route is **unmeasured** (§ 4, § 6).
+An earlier draft wrote *"the estate's linking is one-directional"* and *"point
+nowhere back"*, which its own nulls already contradicted.
 
 Two of the nine carry real recent work — `websites` (19 merged PRs in 14 days)
 and `couch-legend` (18), per the intent audit § 5. *(A first draft called four of
@@ -95,10 +109,13 @@ statement is that their *README* does not, not that they are unreachable.
 **Does:** adding a hub back-link to a satellite front door is cheap and
 defensible, and the nine are a concrete list.
 
-**Does not:** treating D2 as a mechanical link sweep. The intent audit's order —
+**Does not:** treating D2 as a mechanical link sweep, or treating a missing
+literal string as a proven missing route. The intent audit's order —
 **`product-forge` → `estate-backups` → the `websites` date stamp** — is the
 grounded one, because it came from reading contents against D2's actual
-acceptance test. Its five *unrated* repos are one read each and still owed.
+acceptance test. Both of those are still-open **failures**, not tidy-ups. Its
+five *unrated* repos are one read each and still owed, and **`spider-swing` has
+no verdict at all** — classify it before anyone calls that sweep complete.
 
 **No README was edited here.**
 
