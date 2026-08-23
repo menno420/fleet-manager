@@ -1,6 +1,6 @@
 # 2026-08-23 — "superbot is frozen so it won't grow" is not enforced by anything
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** opus-5 · high · docs-only
 
@@ -47,6 +47,50 @@ on #921.
 
 Correct the sentence in the pack; keep the measurement, drop the inference.
 
+## The second challenge, answered by tracing rather than asserting
+
+The same review asked whether the routes' *"fires once per session"* is
+architectural or a state-management bug. **Architectural, and deliberate** —
+traced to source, not inferred:
+
+- `.claude/hooks/route_docs.py` docstring, design constraint 2: *"It fires only
+  when a route matches AND the doc exists AND that route has not already fired
+  this session… an agent tries to satisfy whatever appears in its feedback
+  channel, so a channel that is usually empty is the only kind worth writing to."*
+- The gate is one line in the route loop: `if rid in fired: continue`, against
+  `already_fired(session)` read from `/tmp/claude-doc-routes/<session>.json`.
+
+**And a hypothesis of mine was disproved in the process, which is worth recording
+because I nearly shipped it as the explanation.** Reading the loop I found a
+second branch that adds a route to `fired` *without emitting anything* when the
+command text merely contains the routed doc's path — so I predicted that any
+session grepping `docs/traps.md` would silently disarm the trap routes. Probed:
+
+```
+A: grep docs/traps.md, then a real git push   → 0 then 1
+B: unrelated command, then a real git push    → 0 then 1   (control)
+```
+
+**Identical.** The branch marks the route fired in memory, but `remember()` is
+called only when `hits` is non-empty, so nothing persists. The hypothesis was
+wrong and the probe killed it.
+
+**What remains unestablished, stated rather than filled in:** why the route was
+silent on fm #920's push specifically. The route fires when tested against that
+exact command, and `card-flip-before-push` is absent from that session's fired
+list — so it was never recorded as having fired. I have no traced cause, and I am
+not offering a third theory in place of one.
+
 ## Verify
 
-(filled before the flip — real exit codes, never after a pipe: TRAP-002)
+- `GET /repos/menno420/superbot` → `archived: false`, `disabled: false`,
+  `open_issues_count: 9`, `pushed_at 2026-08-20T23:17:54Z`.
+- `GET .../contents/.sessions` → 969 cards, newest `2026-08-13-substrate-kit-v1-21-0.md`.
+- Route mechanism traced to `route_docs.py` docstring §2 and the `if rid in fired`
+  gate; the doc-mention hypothesis probed and **disproved** (0-then-1 both arms).
+- `python3 bootstrap.py check --strict` → **exit 0** at the flip (real exit code,
+  redirected never piped — TRAP-002); `tools/check_doc_routes.py --strict` → exit 0.
+
+## Layer-2 handoff
+
+`null` — fleet-manager itself; no satellite repo attached.

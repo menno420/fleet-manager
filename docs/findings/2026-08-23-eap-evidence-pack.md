@@ -237,9 +237,19 @@ EOF
 directory listing, and a repository whose `.sessions/` exceeded that would be
 silently truncated — the same failure shape as the `search/issues` blindness in
 § 0. **`MEASURED` 2026-08-23: it is not hit.** The largest listing is `superbot`
-at **970** entries, 30 short of the cap, and the API returned 970 rather than a
-suspicious round 1,000. `superbot` is also frozen, so that headroom is not
-closing. **The check to run before trusting a future re-measurement:** if any
+at **970**
+entries, 30 short of the cap, and the API returned 970 rather than a suspicious
+round 1,000. **What is NOT true — corrected 2026-08-23 after the owner's review
+challenged it:** an earlier version of this paragraph said *"`superbot` is also
+frozen, so that headroom is not closing."* **Nothing enforces that freeze.**
+`GET /repos/menno420/superbot` returns `archived: false`, `disabled: false` and
+`open_issues_count: 9`; the repository was pushed `2026-08-20T23:17:54Z`, merged
+**64 PRs in the preceding 14 days**, and its newest session card is dated
+**2026-08-13** — so `.sessions/` grew ten days before that sentence was written.
+"Frozen" here is an **editorial status** (OD-16, the behavioural oracle), a
+directive about intent, not a technical lock. The headroom is real but it is
+**31 cards and closing slowly**, not static. **The check to run before trusting a
+future re-measurement:** if any
 repository returns exactly 1,000, treat it as truncated, not as a count, and page
 the Git Trees API instead.
 
