@@ -12,9 +12,13 @@
 > `current-state.md` / `PROJECT-CLOSEOUT.md` and from live API reads on
 > 2026-08-22, and the repo always wins over the row.
 >
-> **Nothing here has been executed.** No repository was archived, deleted,
-> renamed or modified by this document. Execution is program step **R5** and
-> waits on the owner.
+> **~~Nothing here has been executed.~~ EXECUTED 2026-08-23 for the nine
+> ungated rows** — program step **R5**, fm #912. The owner's go-ahead is at
+> `OQ-ESTATE-ARCHIVE-LIST`. `MEASURED` by fresh live re-read after the run:
+> **26 repositories, 9 archived, 0 deleted.** The three gated rows
+> (`superbot-next` + `superbot-plugin-hello` on GCB-1, `product-forge` on R2)
+> were not touched. Nothing was deleted, renamed, or otherwise modified beyond
+> the § 4 pre-archive writes, which landed first. Archiving is reversible.
 >
 > Certainty tags per [`../findings/2026-08-05-foundation-continuation.md`](../findings/2026-08-05-foundation-continuation.md).
 
@@ -118,8 +122,24 @@ tested for this pass, and both moved.
   deletion on a four-repo grep, then withdrew it as too narrow. `MEASURED`
   2026-08-22, account-wide `search/code?q=Substrate-kit-app+user:menno420`:
   **5 hits, all in `fleet-manager`** — this repo's own index and doc-routes.
-  Nothing in the other 25 repositories references it. *Honest edge:* code search
-  indexes default branches and text; it would not see a consumer outside GitHub.
+  ~~Nothing in the other 25 repositories references it.~~ *Honest edge:* code
+  search indexes default branches and text; it would not see a consumer outside
+  GitHub.
+  **⚠️ CORRECTED 2026-08-23 — the method does not support that conclusion.**
+  `MEASURED` during R5, one query per repository using a term read out of that
+  repository's own files: **only 3 of 26 repositories are in the `search/code`
+  index at all** (`fleet-manager`, `substrate-kit`, `superbot-games`). The other
+  23 — including eight of the nine archived here — return **0 hits for their own
+  content**. A zero from an unindexed repository is indistinguishable from a
+  genuine absence, so *"nothing in the other 25 references it"* was never
+  established by this sweep; it may still be true, but this is not the evidence
+  for it. **This is not an archiving side-effect** — it was measured before any
+  archive, and archiving was separately shown to change nothing (`superbot-games`
+  returned 292 hits both before and after). It did **not** change this row's
+  disposition, which rests on *value*, not on the sweep. It **does** bar this
+  method from supporting the deletion call § 2 defers, since deletion is
+  irreversible. Recipe and full table: [`../ESTATE.md`](../ESTATE.md)
+  § *`search/code` does NOT cover this account*.
 - **`superbot-plugin-hello`'s "never archive".** Two reads, and the second is
   the deciding one. `superbot-next/plugins.lock.json` pins both plugins by
   `manifest_hash` (`sha256:…`) rather than by a fetchable ref — which shows the
@@ -193,9 +213,28 @@ before the archive; the same shape applies to text:
 2. **The three code labs** — one line in each README saying the tool is
    finished and unmaintained. A release cut days before an archive over-signals
    support; `ESTATE.md` already asks for this and it has not been written.
+   **✅ DONE 2026-08-23** — each README now opens with a notice naming the tool
+   **FINISHED and UNMAINTAINED**, its last release, and that the archive does not
+   imply upkeep: sonnet5 #21 (`ef3b600`), fable5 #21 (`e615b37`), opus4.8 #27
+   (`59f0b82`). fable5's also records that the PyPI name `envdrift` belongs to an
+   unrelated project. All three verified by live re-read of their `main`.
 3. **`proxybench`** — close issue #1 (`"probe issue (auto-closed)"`, still open,
-   a capability-probe artifact).
+   a capability-probe artifact). **✅ DONE 2026-08-23** — commented and closed as
+   `not_planned`; live re-read confirms `state: closed`, and the repo's
+   `open_issues_count` is now **0**. Read before closing: body was the single
+   line `capability probe`, so nothing was lost.
 4. **All twelve** — README/description line per GitHub's recommendation above.
+   **✅ DONE 2026-08-23 for the nine ungated rows** (the three gated rows are not
+   this step's to write). Every one of the nine got **both halves**: a README
+   notice inserted after the existing H1, and an updated GitHub description.
+   Verified live for all nine — banner present and description matching — *before*
+   any archive call was made. The four kit-seeded repos landed by PR with a
+   session card and a green `substrate-gate` (games #186, idle #177, mineverse
+   #146, trading-strategy #164); the three labs by PR (no required checks); the
+   two unprotected repos (`Substrate-kit-app`, `proxybench`) by direct commit to
+   `main`. **`Substrate-kit-app`'s notice is the one that does real work** — its
+   README is `substrate-kit`'s verbatim, so the notice is now the only thing in
+   that tree, above the fold, that correctly says what the repository is.
 
 `UNVERIFIED`, and this pass made it worth answering rather than noting:
 **whether archiving stops scheduled Actions.** The archiving docs enumerate what
@@ -205,6 +244,26 @@ that cron is measured still firing daily, a month after the repo's last commit.
 If archiving does stop it, the archive list is also the estate's cron cleanup;
 if it does not, that is separate work. Cheap to settle: archive one repo with a
 cron and look at the next scheduled window.
+
+> **STILL OPEN after R5 — but now set up to answer itself, 2026-08-23.**
+> `superbot-idle` was archived at ~13:00Z on 2026-08-23. Two things were
+> `MEASURED` immediately after:
+> 1. **The workflows are still `state: active`.** All six, `host-main-advisory`
+>    included, read `active` from `GET /actions/workflows` *after* the archive —
+>    so archiving does **not** flip the workflow-disabled flag the API exposes.
+>    That is a real data point and it points *against* the appealing claim, but
+>    it is not the answer: an active definition the scheduler never calls looks
+>    identical from here.
+> 2. **The baseline, so the next session does not have to reconstruct it.** Last
+>    scheduled run before the archive: **`2026-08-23T05:42:49Z`, success** — the
+>    41st, unbroken daily since 2026-07-14.
+>
+> **The check, in one call:** after 2026-08-24 ~06:00Z, run
+> `GET /repos/menno420/superbot-idle/actions/runs?event=schedule&per_page=3`. A
+> run created 2026-08-24 in the 05:40–05:46Z window ⇒ **archiving does not stop
+> scheduled Actions**, and the estate's crons are separate work. No such run ⇒
+> **it does**, and this archive list was also the cron cleanup. Do **not** stall
+> a session waiting on it; the window is up to 24 h away.
 
 The same unknown has one place where it could cost something rather than save
 it. `MEASURED` 2026-08-22: exactly one archive-bound repo publishes GitHub
