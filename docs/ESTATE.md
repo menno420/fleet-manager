@@ -163,12 +163,31 @@ after**. Archiving changes nothing about search, exactly as GitHub's docs say.
 not before any archiving. One query per repository, each using a term read out
 of that repository's own files:
 
-- **Indexed, non-zero hits:** `fleet-manager` (308) · `substrate-kit` (472) ·
-  `superbot-games` (292).
-- **NOT indexed, zero hits for a term taken from the repo's own files:**
-  `superbot-idle` · `superbot-mineverse` · `trading-strategy` ·
+**All 26 repositories were probed**, one query each, every search term verified
+present in that repository's own files first.
+
+- **Indexed — 7 of 26** (hits): `superbot` (3,576) · `substrate-kit` (472) ·
+  `fleet-manager` (308) · `spider-swing` (308) · `superbot-games` (292) ·
+  `venture-lab` (230) · `superbot-next` (79).
+- **NOT indexed — 19 of 26**, zero hits for a term confirmed present in the
+  tree: `superbot-idle` · `superbot-mineverse` · `trading-strategy` ·
   `codetool-lab-sonnet5` · `codetool-lab-fable5` · `codetool-lab-opus4.8` ·
-  `Substrate-kit-app` · `proxybench`.
+  `Substrate-kit-app` · `proxybench` · `couch-legend` · `curious-research` ·
+  `estate-backups` · `gba-homebrew` · `idea-engine` · `pokemon-mod-lab` ·
+  `product-forge` · `shiftlife` · `sim-lab` · `superbot-plugin-hello` ·
+  `websites`.
+
+`product-forge` was re-probed after its first term turned out not to be in the
+root README: `controller` and `bluetooth`, both verified present in
+`products/phone-controller/README.md`, both return **0**. `superbot` has no root
+README at all and is indexed anyway, so indexing does not track README presence.
+
+**Corrected 2026-08-23, same session, on `@codex` review of fm #912.** The first
+version of this note said *"only 3 of 26"* on the strength of **11** probes and
+classified the untested 15 with the measured 8. That was over-claiming past the
+evidence — the exact failure this file warns about elsewhere. The remaining 15
+were then probed and the real number is **7 indexed / 19 not**. The conclusion
+below is unchanged and, if anything, stronger.
 
 **What this invalidates.** The `Substrate-kit-app` dependency check recorded at
 [`planning/2026-08-22-repo-dispositions.md`](planning/2026-08-22-repo-dispositions.md)

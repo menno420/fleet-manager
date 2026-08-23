@@ -82,11 +82,13 @@ archived. All three are in `docs/CAPABILITIES.md`:
 
 ## The finding worth more than the step
 
-**`search/code` covers 3 of this account's 26 repositories.** Measured *before*
-any archiving, with a positive control: the same query form returns 308 / 472 /
-292 hits against `fleet-manager`, `substrate-kit` and `superbot-games`, and
-**zero** against eight others — each using a term I had first read in that
-repo's own README. So the zeros are coverage, not syntax.
+**`search/code` covers 7 of this account's 26 repositories; 19 are absent.**
+Measured *before* any archiving, all 26 probed, every term verified present in
+that repository's own files first. Indexed: `superbot` (3,576) ·
+`substrate-kit` (472) · `fleet-manager` (308) · `spider-swing` (308) ·
+`superbot-games` (292) · `venture-lab` (230) · `superbot-next` (79). The
+positive control is built in — the same query form returns hundreds of hits
+against those seven, so the nineteen zeros are coverage, not syntax.
 
 That matters because a recorded `MEASURED` claim rests on the opposite
 assumption: the disposition table § 3 cleared `Substrate-kit-app` with
@@ -102,6 +104,39 @@ deletion is the estate's one irreversible door — so the correction is recorded
 next to that call, not used to relitigate a reversible one. Guard recipe:
 for a completeness claim about this account, clone-and-grep, or run the per-repo
 probe first and state which repos the sweep could see.
+
+## Adversarial review — `@codex` on fm #912, 3 findings, 3 conceded
+
+Requested explicitly after the PR sat past the measured ~335 s with no review,
+and pointed at the two things most worth attacking. It found a real error in
+each. **Tally: `[conceded]` × 3, `[survived]` × 0** — worth stating plainly,
+because the headline finding of this session was wrong on first statement.
+
+1. **`[conceded]` — "only 3 of 26" was over-claimed.** I had probed **11**
+   repositories (3 indexed, 8 not) and classified the untested 15 with the
+   measured 8. Codex: *"it does not support 'only 3 of 26'… either probe those
+   remaining repositories or narrow the measured claim."* I probed the
+   remaining 15. The real number is **7 indexed / 19 not** — a bigger gap than I
+   claimed, reached honestly instead of by extrapolation. This is the same
+   over-claiming failure this session's own records warn about, committed in the
+   sentence announcing it.
+2. **`[conceded]` — a single missed cron window is not proof.** Codex cited
+   `docs/fleet-triage.md` § *2026-07-18 · roster-freshness lapse*; I read it
+   before accepting, and it is exactly on point — `roster-regen.yml` missed its
+   ~00:40Z window while the workflow was healthy and every other scheduled run
+   succeeded. My check treated "no run" as conclusive. The outcomes are not
+   symmetric: a run **is** conclusive, a miss needs several consecutive windows
+   or an unarchived control firing in the same window. Rewritten.
+3. **`[conceded]` — R5 was marked `✅ DONE` while its own row named three
+   remaining archives.** The completion condition (*active repo list ≈ the § 2
+   table*) is not met while `superbot-next`, `superbot-plugin-hello` and
+   `product-forge` are still active. A reader following step status would have
+   skipped them. Now **◐ PARTIAL**, in both the R5 row and the § 7 ledger.
+
+None of the three changes what was executed, and none argues for unarchiving
+anything. All three are about records claiming more than the evidence carried —
+which, on a step whose entire product *is* the record, is the failure mode that
+matters.
 
 This is the previous card's carried lesson landing again — *when a claim turns
 on "X is not there", check the thing that decides it* — and this time the thing
