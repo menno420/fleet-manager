@@ -45,12 +45,21 @@ copy product architecture or internal product state. Canonical intent:
 
 ### Work state
 
-- **E1 remains owner-reserved.** The final EAP email is written and sent by the
-  owner; a session does not draft or send it.
-- **D2 is the actionable program step**; its shiftlife target is SUPERSEDED
-  (OD-15; re-target pending at `OQ-FM-D2-TARGET`). Until the owner names the
-  next repository, the standing answer to "what should a session pick up" is
-  **OD-13** — the program's NOW pointer carries the detail.
+- **E1 remains owner-reserved, and the owner states it sends 2026-08-24.** He
+  deferred it deliberately to get his workstation setup and research done first;
+  the evidence pack is built and waiting. A session does not draft or send it.
+- **D2 is the actionable program step, and it is TARGETED as of 2026-08-23**
+  (OD-20; `OQ-FM-D2-TARGET` answered): the target is **every active repo's front
+  door**, not one named repository. Measured scope — 16 of 17 active repos carry
+  a README and 15 of 17 a current-state file, so what remains is three content
+  holes and **nine missing back-links to this hub**
+  ([the audit](findings/2026-08-23-front-door-audit.md)). This is orientation
+  work, so **OD-13** (methods before product) is satisfied rather than overridden.
+- **The next Discord bot's shape is set (OD-19):** a small, review-oriented
+  game-server bot **first**, built cog-portable so existing cogs can be added or
+  lightly adapted — and **the bots stay separated**. Repository consolidation of
+  the two `superbot` repos is the destination, not the next step. GCB-1 is
+  unchanged and still owner-gated.
 - fleet-manager vendors substrate-kit v1.21.0 (fm #853)
 - A root `AGENTS.md` remains an owner decision (`OQ-FM-AGENTS-BOOT`).
 
@@ -68,6 +77,24 @@ copy product architecture or internal product state. Canonical intent:
   [`execution-surfaces.md`](execution-surfaces.md).
 
 ## Recently shipped (newest first)
+
+- **Owner direction captured, and D2 targeted after 13 days open** (2026-08-23,
+  fm #937). He asked for oversight into the active projects and gave back four
+  pieces of direction that existed only in the chat — the loss mode the boot
+  file records as entry 1b. **OD-19**: the next bot is a small **review-oriented
+  game-server bot first**, **cog-portable** (existing cogs added on demand or
+  *slightly* altered), and **the bots stay separated** — the two-repo
+  consolidation is of repositories, not running bots. **OD-20**: no further repo
+  cuts; the lever is legibility, which answers `OQ-FM-D2-TARGET`.
+  **The answer was measured before it was accepted:** the
+  [front-door audit](findings/2026-08-23-front-door-audit.md) of all 17 active
+  repos found presence largely solved — **16/17 READMEs, 15/17 current-state
+  files** — so the remaining work is **three content holes plus nine missing
+  back-links**, not a 17-repo sweep. `superbot` — the LIVE bot's repo — has
+  **no root README at all**, and **9 of 15 front doors never name this hub**,
+  including the four most-worked repos. Also filed:
+  `OQ-LAPTOP-AI-WORKSTATION`, his current priority, which this estate recorded
+  nowhere. E1 sends 2026-08-24 by his own statement.
 
 - **The E1 evidence pack — what the projects created, measured; and the review
   site stops calling a finished program live** (2026-08-23, fm #919 +

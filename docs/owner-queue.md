@@ -121,6 +121,32 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   owner-only — product direction. *(The kit hop for pml stays owner-paced
   per `OQ-KIT-V1-21-RELEASE`.)*
 
+- **`OQ-LAPTOP-AI-WORKSTATION` — 🖥 the laptop as an AI-integrated workstation:
+  a standing owner thread with no home in this estate (added 2026-08-23, owner
+  live).** **HIS WORDS, verbatim:** *"I want to further work on discovering the
+  posibilities of my laptop and how I can use Claude and chatGPT to speed up and
+  improve my work, I want to make this laptop easier to use aswell as highly AI
+  intergrated, so both me and AI can easily use everything and work
+  productively, I'm still disvocering many posibilities."* And on the local-model
+  question: *"the main downside is that I would constantly need my laptop running
+  the whole time, so I think local sessions are only usefull once I'm really
+  sitting down, tho that doesn't mean I shouldn't optimize towards them."*
+  **THE READING, stated so it can be corrected:** this is **his current priority**
+  and it is not a repository task — it is the environment every repository is
+  worked *from*. Two goals that want different handling: **(a)** make the machine
+  easier for him to use, and **(b)** make it legible to an AI agent, so both can
+  work the same surfaces. His own framing already resolves the local-model
+  question into a **constraint, not a verdict**: local is for sit-down sessions
+  because it needs the machine running, and that is a reason to optimise toward
+  it rather than against it.
+  **WHY IT IS FILED HERE AT ALL:** the estate has no record of the owner's own
+  working environment, and this thread currently exists only in a chat
+  transcript. `intent.md` § 7 records *who does what across the agents*; nothing
+  records *where he works*. **NOT AN ASK — no letter is needed.** It is filed so a
+  session that could help does not have to be told this thread exists.
+  **THE ONE THING A SESSION SHOULD NOT DO:** treat this as licence to
+  reconfigure his machine. Nothing here is executable estate work.
+
 - **`OQ-BOT-DB-BTD6-PRUNE` — ⚑ the bot DB is 97.5 % accumulated BTD6
   ingestion history (last activity 27 min before the probe) — prune
   approval + the loop question (2026-08-20).**
@@ -337,8 +363,20 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   **VERIFIED-NEEDED:** owner-only by your own ruling. *(Added 2026-08-11: the
   audit found E1 in the program but absent from this queue entirely.)*
 
-- **`OQ-FM-D2-TARGET` — Retarget D2's repository order; the NOW pointer names a
-  repository you have deprioritised.** **WHAT:** decide what D2's next repository
+- **`OQ-FM-D2-TARGET` — ✅ ANSWERED 2026-08-23 (owner, live) — the target is not one
+  repository; it is every repo's front door.** **HIS WORDS:** *"there's not much we
+  can do except for making sure that each repo has proper documentation and is
+  linked and explained in the fleet-manager for easy discovering"* — recorded as
+  **OD-20**. So D2 stops waiting on a named repo and becomes a property to hold
+  across the active set. **AND IT IS MUCH SMALLER THAN IT SOUNDS:** the
+  [front-door audit](findings/2026-08-23-front-door-audit.md) measured presence
+  first — **16 of 17** active repos carry a README, **15 of 17** a current-state
+  file — so what remains is three narrow content holes (`superbot` has **no root
+  README** at all, `estate-backups` has a 130-byte stub, `superbot-plugin-hello`
+  has no state file) plus **nine missing back-links to this hub**. Nothing further
+  is asked of you here. **Original ask, kept for provenance:**
+  **WHAT:** decide what D2's next repository actually is, and whether spider-swing
+  enters the program at all.** **WHAT:** decide what D2's next repository
   actually is, and whether spider-swing enters the program at all.
   **WHERE:** [`planning/2026-07-26-consolidation-program.md`](planning/2026-07-26-consolidation-program.md)
   `:62` (the NOW pointer), `:102` (D2's order), `:45` (§2's target picture), plus the
