@@ -176,13 +176,35 @@
 | trap | delivered by | deterministic checker |
 |---|---|---|
 | TRAP-001 | 2 routes | not yet — a checker would need to tell a citation from a measurement |
-| TRAP-002 | 1 route, fires pre-execution | **possible and worth building** — a `PreToolUse` deny on `\|` + `$?` is mechanical |
+| TRAP-002 | 1 route, fires pre-execution | ✅ **`tools/check_pipe_exit_code.py`**, in the `check --strict` gate |
 | TRAP-003 | 1 route | not yet |
 | TRAP-004 | 1 route | not yet |
 | TRAP-005 | **none** — see its entry | no |
 
-**The honest state of this register: it is one session old, five entries, four
-delivered.** Roadmap § 5.4's lifecycle ends at *deterministic checker where
-possible*, and only TRAP-002 is currently mechanical enough to reach that end.
-Building that checker is the obvious next slice; the rest stay at route-level
-until an instance shows what a checker would have to catch.
+**The honest state of this register: five entries, four delivered by route, and
+TRAP-002 now complete through the full § 5.4 lifecycle** — mistake → trap entry
+→ route → deterministic checker. `tools/check_pipe_exit_code.py` runs in
+`python3 bootstrap.py check --strict` via `scripts/preflight.py`, and scans
+**executable surfaces only** (`.github/workflows/*.yml`, `*.sh`). It exempts
+`PIPESTATUS`, `set -o pipefail`, and `||`, and it does **not** scan prose —
+session cards quote this trap constantly, and a checker that fires on its own
+documentation gets ignored. Verified by positive control rather than by a clean
+run: 4 fixtures, exactly the 1 real instance flagged, all 3 legitimate forms
+passed. `fleet-manager` itself is clean at 18 files.
+
+**The remaining four stay at route-level** until an instance shows what a
+checker would have to catch. Guessing at one now would produce an instrument
+that fires on the wrong thing.
+
+### The coverage boundary, stated because it was found the hard way
+
+**Routes fire on tool calls, not on chat replies.** `route_docs.py` matches
+`tool_input` — an `Edit`/`Write` payload or a `Bash` command — so a trap
+committed in prose *to the owner* passes every route here untouched. This was
+measured immediately: the session that shipped TRAP-004 committed TRAP-004 in
+the same message, writing *"full workspace sweep"* before establishing that the
+credential could see the whole account. The register caught nothing, correctly,
+because no file was written. Closing that would need a different mechanism than
+a `PreToolUse` hook — the owner-review Stop hook is the surface that already
+reads replies, and pointing it at this register is a candidate next slice, not a
+claim that it works today.
