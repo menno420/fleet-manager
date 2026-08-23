@@ -80,7 +80,7 @@ same hour. Both reproduce, so the method sees what the index cannot.
 |---|---|
 | Repositories in the account | **26** |
 
-| **Pull requests opened, all-time, all repositories** | **8,000** |
+| **Pull requests opened, all-time, all repositories** | **8,000** *(at 2026-08-23 ~09:00Z — see the drift note in § 7)* |
 | Repositories created **inside** the EAP window (2026-07-07 → 07-21) | **19 of 26** |
 | …of which created in the first four days 07-07 → 07-10 | **17** |
 | …of which created by 07-13 (i.e. all of them) | **19** |
@@ -118,7 +118,7 @@ window and its own history starts 2025-08-10, nearly a year earlier.
 **The one-sentence version, and the scopes must stay separate:** one person, not a
 coder, went from a single repository to **nineteen new ones in the EAP fortnight**,
 and the estate those repositories belong to now carries **8,000 pull requests
-all-time** — then he spent the next month finding out how much of it he could
+all-time** (measured 2026-08-23 ~09:00Z) — then he spent the next month finding out how much of it he could
 actually verify. **Do not fuse the two halves.** The 8,000 is an all-time,
 whole-estate figure that includes `superbot` (2,378 PRs, predating the EAP) and six
 repositories created after the program closed. **No count of PRs opened *during* the
@@ -262,12 +262,23 @@ exactly where nobody looks — the same shape as the quality drift.
   of a final review are on the record, and **no vendor agenda ever arrived** — so
   the content is entirely his call
   ([correspondence record](2026-08-09-eap-correspondence-record.md)).
-- **The standing offer** has more behind it than in July: 26 repositories, 8,000
-  PRs and 4,551 session cards is an unusually good structured-probe harness.
+- **The standing offer** has more behind it than in July: 26 repositories, ~8,000
+  PRs and ~4,551 session cards is an unusually good structured-probe harness.
 
 ## 7 · Honest nulls — what this pack does NOT establish
 
 - **The ~15 peak is screenshot-supported, not machine-counted.** Do not harden it.
+- **The PR total is a point-in-time count and it moves — `MEASURED`, not warned
+  about in the abstract.** `8,000` is the sum at **2026-08-23 ~09:00Z**. Re-running
+  the same recipe at **10:2xZ the same morning returned 8,002**, because two pull
+  requests opened while this pack was being written (websites #512, fm #919) landed
+  inside it. **So a recipient who runs the § 0 command will not get 8,000, and that
+  is correct behaviour, not a discrepancy.** Quote it with its timestamp, or as
+  *"~8,000"*. The same applies to the 4,551 session cards and the 5,368 subtotal.
+  **8,000 is also not a ceiling** — it is the exact sum of 26 exact counts, the
+  largest of which (`superbot`, 2,378) itself exceeds the Search API's
+  1,000-result cap, so no pagination limit is in play; the round number is
+  coincidence, with tail addends 21 + 17 + 4.
 - **8,000 PRs is a volume figure, not a quality figure**, and the estate's own
   audit is the reason to say so out loud. Roughly 60 of `superbot`'s recent PRs
   were an automated dashboard-refresh loop (retired 2026-08-14) — volume counts
