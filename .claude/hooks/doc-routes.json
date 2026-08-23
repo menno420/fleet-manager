@@ -974,6 +974,23 @@
         "docs/traps.md"
       ],
       "says": "TRAP-004 — you are writing a count over a population. Did you measure EVERY member, or a sample? If a sample, the unmeasured members are being silently classified with the measured ones and the sentence reads as a census. State 'N measured of M total' and name the remainder — or go measure the rest, which is usually cheaper than the argument about whether the sample generalises. MEASURED 2026-08-23: 'only 3 of 26 repositories are in the search/code index' was written from 11 probes; @codex caught it, and probing the remaining 15 moved the real figure to 7 of 26. The conclusion survived, but the evidence had not supported it — and a recorded MEASURED dependency sweep rested on the same unstated assumption. Register: docs/traps.md TRAP-004."
+    },
+    {
+      "id": "card-flip-before-push",
+      "tools": [
+        "Bash",
+        "Edit",
+        "Write"
+      ],
+      "when": [
+        "git\\s+push",
+        "\\.sessions/.*\\.md",
+        "Status:\\s*`?complete`?"
+      ],
+      "docs": [
+        "docs/traps.md"
+      ],
+      "says": "TRAP-006 — the born-red card IS the merge hold, and flipping it before you push defeats it. Two guards read that card: the required check is red while it says in-progress, and merge-on-green.yml:190-213 parses each in-diff card and skips the merge on in-progress. Push the card RED; flip to complete as the deliberate LAST commit, after review answers. MEASURED 2026-08-23 (fm #915): card flipped locally, both commits pushed together, PR opened 08:24:29Z and auto-merged 08:25:06Z — 37 seconds, inside the ~335s Codex relay, so it landed with 0 reviews. Verify: right after opening the PR the required check must be RED and name the born-red hold; a green required check on a just-opened PR means the hold is not armed. Escape hatch if a PR must open green: the do-not-automerge label, honoured as a carve-out. Register: docs/traps.md TRAP-006."
     }
   ]
 }

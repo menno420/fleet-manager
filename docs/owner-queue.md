@@ -160,7 +160,19 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   way. (2026-08-20)
 
 - **`OQ-E1-FINAL-EAP-EMAIL` — write and send the final EAP review email
-  (owner-reserved, your pace).** **WHAT:** program step E1 — the one clear
+  (owner-reserved, your pace).**
+  **⬆ 2026-08-23 — you said today. The evidence half is now done and waiting:**
+  [`findings/2026-08-23-eap-evidence-pack.md`](findings/2026-08-23-eap-evidence-pack.md)
+  — the numbers measured today, each with its command, organised against the six
+  net-new sections your own reflection names. Headline figures you did not have
+  before: **8,000 pull requests opened all-time across 26 repositories · 19 of
+  the 26 created inside the EAP fortnight (17 in five days) · 4,550 session
+  cards across 19 repositories**, and the consolidation number is finally
+  *closed* rather than intended (**9 archived 2026-08-23, 0 deleted**). The
+  review site was also repaired first (websites #512): **0 of 7 of its live
+  pages said the program had ended**, and `/fleet/` showed *"15 live lanes"* 33
+  days after the seats were terminated — it is the surface this mail points at.
+  Nothing here drafts the mail; that stays yours. **WHAT:** program step E1 — the one clear
   review of the whole EAP plus the numbered wish list, written by you and sent
   from a **fresh compose**, not the existing Gmail thread. **WHERE:** method +
   sources: [`planning/2026-07-26-final-eap-email-plan.md`](planning/2026-07-26-final-eap-email-plan.md);
