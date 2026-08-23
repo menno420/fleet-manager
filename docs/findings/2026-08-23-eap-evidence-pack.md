@@ -169,7 +169,7 @@ makes demonstrable rather than asserted.
 
 | what he had to build | measured today |
 |---|---|
-| **Session cards** — durable per-session memory | **4,551 across 19 repositories** *(at 2026-08-23 ~09:00Z; see § 7)* (`superbot` 970 · `idea-engine` 504 · `fleet-manager` 394 · `substrate-kit` 342 · `superbot-next` 335) |
+| **Session cards** — durable per-session memory | **4,535 across 19 repositories** *(at 2026-08-23 10:3xZ; see § 7 — an earlier reading of 4,551 counted `.sessions/README.md` as a card)* (`superbot` 970 · `idea-engine` 504 · `fleet-manager` 394 · `substrate-kit` 342 · `superbot-next` 335) |
 | **Moment-of-action injection** — rules that arrive when they apply | **61 doc-routes** in one repo's `PreToolUse`/`UserPromptSubmit` hook |
 | **Lifecycle hooks** | **6** in fleet-manager alone |
 | **Executable procedures** (skills) | **27** |
@@ -187,12 +187,21 @@ code=$(curl -sS --noproxy '*' -o /tmp/repos.json -w '%{http_code}' \
   -H "Authorization: Bearer $GITHUB_PAT" \
   "https://api.github.com/user/repos?per_page=100&affiliation=owner")
 [ "$code" = 200 ] || { echo "ABORT: /user/repos HTTP $code" >&2; exit 1; }
+
+# Validate the enumeration BEFORE the loop: a zero-iteration loop exits 0, so a
+# parse failure inside `for r in $(...)` would otherwise become an empty census.
+python3 -c "import json,sys; d=json.load(open('/tmp/repos.json')); sys.exit(0 if isinstance(d,list) and d else 1)" \
+  || { echo "ABORT: /user/repos did not parse as a non-empty list" >&2; exit 1; }
+
 for r in $(python3 -c "import json;[print(x['name']) for x in json.load(open('/tmp/repos.json'))]"); do
   code=$(curl -sS --noproxy '*' -o /tmp/c.json -w '%{http_code}' \
       -H "Authorization: Bearer $GITHUB_PAT" \
       "https://api.github.com/repos/menno420/$r/contents/.sessions")
   case "$code" in
-    200) n=$(python3 -c "import json;print(len([x for x in json.load(open('/tmp/c.json')) if x['name'].endswith('.md')]))") ;;
+    # README.md is the session PROTOCOL, not a card — excluding it is what makes
+    # this a card count. Counting every .md inflated the total by exactly one per
+    # repository carrying the protocol (Codex, fm #921).
+    200) n=$(python3 -c "import json;print(len([x for x in json.load(open('/tmp/c.json')) if x['name'].endswith('.md') and x['name'].lower()!='readme.md']))") ;;
     404) n=0 ;;                       # the ONLY status that means "no .sessions/"
     *)   echo "ABORT $r HTTP $code" >&2; exit 1 ;;   # never convert an error into data
   esac
@@ -205,7 +214,7 @@ rows=[l.split() for l in open('/tmp/cards.tsv') if l.strip()]
 counts=[int(c) for _,c in rows]
 print("repositories probed  ", len(counts))
 print("with any card        ", sum(1 for c in counts if c))    # -> 19
-print("TOTAL session cards  ", sum(counts))                    # -> 4551 at 2026-08-23
+print("TOTAL session cards  ", sum(counts))                    # -> 4535 at 2026-08-23 10:3xZ
 EOF
 ```
 
@@ -272,7 +281,7 @@ exactly where nobody looks — the same shape as the quality drift.
   the content is entirely his call
   ([correspondence record](2026-08-09-eap-correspondence-record.md)).
 - **The standing offer** has more behind it than in July: 26 repositories, ~8,000
-  PRs and ~4,551 session cards is an unusually good structured-probe harness.
+  PRs and ~4,500 session cards is an unusually good structured-probe harness.
 
 ## 7 · Honest nulls — what this pack does NOT establish
 
@@ -283,10 +292,15 @@ exactly where nobody looks — the same shape as the quality drift.
   requests opened while this pack was being written (websites #512, fm #919) landed
   inside it. **So a recipient who runs the § 0 command will not get 8,000, and that
   is correct behaviour, not a discrepancy.** Quote it with its timestamp, or as
-  *"~8,000"*. **The same is measured for the session cards:** 4,551 at ~09:00Z,
-  **4,554 by 10:3xZ** the same morning — this session's own three cards. The 5,368
-  subtotal drifts with them. Every count here is a reading of a moving estate, and
-  the recipes are published precisely so the reader can take their own.
+  *"~8,000"*. **The session-card figure moved for two different reasons, and only one
+  of them is drift.** Readings: **4,551** at ~09:00Z → **4,554** by 10:3xZ (this
+  session's own three cards — drift), then **4,535** once `.sessions/README.md` was
+  excluded (a *definition* correction, −19: one protocol README per repository,
+  never a session card; Codex, fm #921). **4,535 is the figure.** The earlier
+  readings are recorded because a number that changes for two reasons at once is
+  exactly where a reader deserves to see both. The 5,368 subtotal drifts with the
+  PR total. Every count here is a reading of a moving estate, and the recipes are
+  published precisely so the reader can take their own.
   **8,000 is also not a ceiling** — it is the exact sum of 26 exact counts, the
   largest of which (`superbot`, 2,378) itself exceeds the Search API's
   1,000-result cap, so no pagination limit is in play; the round number is

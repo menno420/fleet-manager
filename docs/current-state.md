@@ -75,7 +75,7 @@ copy product architecture or internal product state. Canonical intent:
   properly looked at everything the projects created."*
   **MEASURED across all 26 repositories: 8,000 pull requests opened all-time ·
   19 of 26 repositories created inside the EAP fortnight — all 19 within its
-  first seven days, 17 of them in the first four · 4,551 session cards across 19
+  first seven days, 17 of them in the first four · 4,535 session cards across 19
   repositories.**
   [The pack](findings/2026-08-23-eap-evidence-pack.md) carries every figure with
   the command that produced it, mapped to the six net-new sections the owner's
