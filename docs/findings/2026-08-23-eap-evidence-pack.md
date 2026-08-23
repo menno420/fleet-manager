@@ -169,7 +169,7 @@ makes demonstrable rather than asserted.
 
 | what he had to build | measured today |
 |---|---|
-| **Session cards** — durable per-session memory | **4,551 across 19 repositories** (`superbot` 970 · `idea-engine` 504 · `fleet-manager` 394 · `substrate-kit` 342 · `superbot-next` 335) |
+| **Session cards** — durable per-session memory | **4,551 across 19 repositories** *(at 2026-08-23 ~09:00Z; see § 7)* (`superbot` 970 · `idea-engine` 504 · `fleet-manager` 394 · `substrate-kit` 342 · `superbot-next` 335) |
 | **Moment-of-action injection** — rules that arrive when they apply | **61 doc-routes** in one repo's `PreToolUse`/`UserPromptSubmit` hook |
 | **Lifecycle hooks** | **6** in fleet-manager alone |
 | **Executable procedures** (skills) | **27** |
@@ -197,7 +197,16 @@ for r in $(python3 -c "import json;[print(x['name']) for x in json.load(open('/t
     *)   echo "ABORT $r HTTP $code" >&2; exit 1 ;;   # never convert an error into data
   esac
   echo "$r $n"
-done
+done > /tmp/cards.tsv
+
+# The aggregation IS the deliverable — the loop above only produces rows.
+python3 - <<'EOF'
+rows=[l.split() for l in open('/tmp/cards.tsv') if l.strip()]
+counts=[int(c) for _,c in rows]
+print("repositories probed  ", len(counts))
+print("with any card        ", sum(1 for c in counts if c))    # -> 19
+print("TOTAL session cards  ", sum(counts))                    # -> 4551 at 2026-08-23
+EOF
 ```
 
 Treatment: **19 of 26** repositories return a non-zero count; the other seven return
@@ -274,7 +283,10 @@ exactly where nobody looks — the same shape as the quality drift.
   requests opened while this pack was being written (websites #512, fm #919) landed
   inside it. **So a recipient who runs the § 0 command will not get 8,000, and that
   is correct behaviour, not a discrepancy.** Quote it with its timestamp, or as
-  *"~8,000"*. The same applies to the 4,551 session cards and the 5,368 subtotal.
+  *"~8,000"*. **The same is measured for the session cards:** 4,551 at ~09:00Z,
+  **4,554 by 10:3xZ** the same morning — this session's own three cards. The 5,368
+  subtotal drifts with them. Every count here is a reading of a moving estate, and
+  the recipes are published precisely so the reader can take their own.
   **8,000 is also not a ceiling** — it is the exact sum of 26 exact counts, the
   largest of which (`superbot`, 2,378) itself exceeds the Search API's
   1,000-result cap, so no pagination limit is in play; the round number is
