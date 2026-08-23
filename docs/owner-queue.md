@@ -202,6 +202,17 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
      itself capped is unknown. Confirm both before building to them.
      **Selection stays legitimate** — picking the best 300 of 566 is lossy but
      keeps citations precise; concatenation is the option that does not.
+     **Sizes re-derived live 2026-08-23, and one corrects an earlier plan:**
+     `idea-engine/ideas/` holds **742 blobs — 580 `.md`, minus 14 README/index =
+     566 idea files**, which reconciles the estate's long-standing "566" against
+     the raw tree count (the remainder is 157 `.py` plus indexes). It partitions
+     naturally by consumer repo: `superbot` 249 · `fleet` 221 · `venture-lab`
+     103 · `superbot-games` 86 — so two notebooks split cleanly on those seams
+     with no file merged. **`curious-research`, by contrast, is 126 files total
+     (75 markdown): `guides` 49 · `projects` 22 · `ideas` 15 · `research` 14 ·
+     `docs` 7 · `site` 6 · `arm` 2. It fits in ONE notebook** — the partition
+     advice above applies to `idea-engine` only, and an earlier suggestion to
+     split `curious-research` into themed notebooks was unnecessary.
   2. **Custom instructions are supported** (*"Stel aangepaste instructies in"*) —
      read off the splash's third bullet. *That this can carry a standing brief is
      an inference from the feature name, not a tested behaviour.*
