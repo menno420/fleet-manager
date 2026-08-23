@@ -1,6 +1,6 @@
 # 2026-08-23 — The last verification delta, and the loop that keeps orphaning it
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** opus-5 · high · docs-only
 
@@ -38,6 +38,25 @@ repo. The P1 that #925 left on `main` is closed.
 
 Commit the append. No other change, and no strict run after the flip.
 
+## Adversarial review — clean, and the new mechanism proved itself on it
+
+`@codex` returned a **clean verdict at the exact head `50d964132e`**, posted to
+`/issues/927/comments`. **`/pulls/927/reviews` returned `0`** — so the method I
+used all morning would have reported *no review* on a PR that had just passed.
+
+That is fm #926's route and ledger entry working end to end, on the first PR
+after they landed, against the precise failure that produced them.
+
 ## Verify
 
-(filled before the flip — real exit codes, never after a pipe: TRAP-002)
+- `python3 bootstrap.py check --strict` → **exit 1 pre-flip, born-red hold only**;
+  its delta is committed *with* this flip, which is what closes the loop this card
+  names. **No strict run after the flip** — that is the whole point.
+- Delta properties measured before the commit: 7 lines · 0 deletions ·
+  0 unparseable · empty diff vs `main` excluding the ledger.
+- Verdict matched on the `Reviewed commit:` SHA and the Codex login, on **both**
+  surfaces — the discipline `CAPABILITIES.md` requires.
+
+## Layer-2 handoff
+
+`null` — fleet-manager itself; no satellite repo attached.
