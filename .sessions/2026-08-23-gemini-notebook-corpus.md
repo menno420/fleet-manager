@@ -1,12 +1,13 @@
 # 2026-08-23 — the first Gemini Notebook corpus: curious-research, built and offered
 
-> **Status:** `in-progress` — branch `claude/gemini-notebook-corpus-f7sa69`, cut
+> **Status:** `complete` — branch `claude/gemini-notebook-corpus-f7sa69`, cut
 > from `origin/main` at `42a2e28` (fm #933). Born red on purpose: the card is
-> the merge hold (TRAP-006). Flips only after
-> `python3 bootstrap.py check --strict` returns a real exit 0 on this tree,
+> the merge hold (TRAP-006), and it held through **three `@codex` rounds**
+> (9 + 9 + 7 findings, 23 conceded / 1 survived). Flipped only after
+> `python3 bootstrap.py check --strict` returned a real exit 0 on this tree,
 > read directly and never after a pipe.
 
-- **📊 Model:** opus-5 · high · tool + docs
+- **📊 Model:** opus-5 · high · feature build
 
 ## 💡 Session idea
 
