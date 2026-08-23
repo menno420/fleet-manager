@@ -1,9 +1,11 @@
 # 2026-08-23 — the TRAP-002 checker looked like it worked
 
-> **Status:** `in-progress` — branch `claude/r5-archive-execution-4dsvoh`, cut
-> from `origin/main` at `2af06d6` (fm #917). Born red on purpose; flips only
-> after `python3 bootstrap.py check --strict` returns a real exit 0, read
-> directly and never after a pipe.
+> **Status:** `complete` — branch `claude/r5-archive-execution-4dsvoh`, cut
+> from `origin/main` at `2af06d6` (fm #917). Flipped after
+> `python3 bootstrap.py check --strict` returned a real exit 0 on this tree,
+> read directly and never after a pipe. Before the flip it returned 1 on the
+> designed born-red hold alone — confirmed by reading the finding, not assumed
+> from the exit code.
 
 - **📊 Model:** opus-5 · high · docs-only
 

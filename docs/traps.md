@@ -185,12 +185,31 @@
 TRAP-002 now complete through the full § 5.4 lifecycle** — mistake → trap entry
 → route → deterministic checker. `tools/check_pipe_exit_code.py` runs in
 `python3 bootstrap.py check --strict` via `scripts/preflight.py`, and scans
-**executable surfaces only** (`.github/workflows/*.yml`, `*.sh`). It exempts
-`PIPESTATUS`, `set -o pipefail`, and `||`, and it does **not** scan prose —
-session cards quote this trap constantly, and a checker that fires on its own
-documentation gets ignored. Verified by positive control rather than by a clean
-run: 4 fixtures, exactly the 1 real instance flagged, all 3 legitimate forms
-passed. `fleet-manager` itself is clean at 18 files.
+**executable surfaces only**: `.github/workflows/*.yml|yaml`, `**/*.sh`, **plus
+extensionless files carrying a shell shebang** — extension is not the definition
+of a shell script, and relying on one leaves a silent gap the day someone adds
+`bin/deploy`. It does **not** scan prose: session cards quote this trap
+constantly (26 of 389, fm #915), and a checker that fires on its own
+documentation gets ignored.
+
+**The exemptions are positional, and that distinction is the whole point.**
+`PIPESTATUS` exempts when read *within the window*, at the use site.
+`set -o pipefail` exempts only when enabled on a **non-comment line above the
+pipe**. The first version of this checker substring-searched the whole file, so
+`pipefail` set *after* the pipe, inside a subshell, or merely named in a comment
+silently exempted **every** pipe in that file — miss-biased far past what
+"exempt the fix" requires, and a good example of a checker that looks like it
+works. *Honest limit:* `pipefail` set in a sourced file, or in a function
+defined above and called below, is not tracked. The bias stays toward missing a
+real instance rather than crying wolf.
+
+**Verified by positive control, not by a clean run** — a clean result from a
+broken checker is TRAP-003 itself. 8 fixtures: the plain instance, `PIPESTATUS`,
+`pipefail`-before, `||`, `pipefail`-after, `pipefail`-in-a-comment,
+`pipefail`-in-a-subshell, and an extensionless shebang script. **5 flagged, 3
+passed, zero false positives** — and four of those five were missed by the
+first version. `fleet-manager` itself is clean at 18 files, which means more
+now than it did before the hardening.
 
 **The remaining four stay at route-level** until an instance shows what a
 checker would have to catch. Guessing at one now would produce an instrument
