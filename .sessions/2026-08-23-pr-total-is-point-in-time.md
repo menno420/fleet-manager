@@ -1,6 +1,6 @@
 # 2026-08-23 — The 8,000 figure is point-in-time, and it already moved
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** opus-5 · high · docs-only
 
@@ -48,4 +48,19 @@ plus the honest-nulls section. No other figure changes.
 
 ## Verify
 
-(filled before the flip — real exit codes, never after a pipe: TRAP-002)
+- **Not a ceiling, cross-checked two ways on the largest repo:** `per_page=1` →
+  `rel="last"` page **2378**; `per_page=100` → **24** pages with **78** items on
+  page 24 → 23×100+78 = **2378**. Identical. 2,378 > 1,000 rules out the Search
+  API cap. No repository at 100 / 500 / 1,000 / 5,000.
+- **Drift measured, not asserted:** the § 0 recipe re-run at 10:2xZ returns
+  **8,002** against **8,000** at ~09:00Z.
+- `python3 bootstrap.py check --strict` → **exit 0** at the flip (real exit code,
+  redirected never piped — TRAP-002).
+- `python3 tools/check_doc_routes.py --strict` → exit 0.
+- The creation-date partition was **re-checked and needed no change**: main's copy
+  already reads 19 in-window / 17 by 07-10 / 19 by 07-13 as three unambiguous
+  rows, and its published recipe reproduces `26 / 19 / 17 / 19`.
+
+## Layer-2 handoff
+
+`null` — fleet-manager itself; no satellite repo attached for this change.
