@@ -213,20 +213,24 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
      `idea-engine/ideas/` holds **742 blobs — 580 `.md`, minus 14 README/index =
      566 idea files**, which reconciles the estate's long-standing "566" against
      the raw tree count (the remainder is 157 `.py` plus indexes).
-     **⚠️ CORRECTED 2026-08-23 (fm #934, caught by `@codex`): the consumer-repo
-     figures are NOT a partition.** This entry said it "partitions naturally by
-     consumer repo: `superbot` 249 · `fleet` 221 · `venture-lab` 103 ·
-     `superbot-games` 86 — so two notebooks split cleanly on those seams with no
-     file merged." **Those four numbers sum to 659, not 566** — 93 more than the
-     corpus contains — so they cannot be disjoint sets. They are almost certainly
-     **overlapping consumer references** (one idea file cited by several repos):
-     a fine measurement, and an unusable partition key, because assigning a file
-     to two notebooks splits its citations — the exact failure the
-     partition-never-concatenate rule exists to prevent. **An exclusive
-     assignment summing to 566 must be re-derived before `idea-engine` is
-     built**; `UNVERIFIED` here, not re-derived. The builder's default —
-     partition on top-level directories — is exclusive by construction and is
-     the safe fallback. **`curious-research`, by contrast, is 126 files total
+     **⚠️ CORRECTED TWICE, and the second correction is the measured one.**
+     fm #934 (via `@codex`) spotted that `superbot` 249 · `fleet` 221 ·
+     `venture-lab` 103 · `superbot-games` 86 sum to **659**, not 566 — a real
+     inconsistency. It then *inferred* the cause ("overlapping consumer
+     references") and wrote that inference into the records as a finding.
+     **fm #936 measured it, and the inference was wrong.** The live tree
+     (1,373 blobs) grouped on `ideas/<consumer>/` returns **249 · 221 · 103 · 86
+     — exactly the recorded figures** — and those directories are exclusive by
+     construction. The mismatch was a **denominator error**: `566` is `.md` minus
+     14 README/index files; `659` is *all* files (157 `.py` included) in only the
+     four largest of **fourteen** consumer dirs, and 659 ⊂ 742 total under
+     `ideas/`. **Your original seams were right all along.**
+     **✅ BUILT 2026-08-23 (fm #936):** 779 sources + 3 indexes = **782** across
+     **3 notebooks** (300 / 292 / 190), split on those seams with `superbot`
+     whole in #1 and `fleet` whole in #2, no file merged or split. One download:
+     [`idea-engine-notebook-bundle.zip`](https://github.com/menno420/fleet-manager/releases/tag/notebook-bundle-idea-engine-2026-08-23)
+     — make one notebook per folder. 594 files held back (`.sessions/` 504 above
+     all, a different corpus), each named with its reason. **`curious-research`, by contrast, is 126 files total
      (75 markdown): `guides` 49 · `projects` 22 · `ideas` 15 · `research` 14 ·
      `docs` 7 · `site` 6 · `arm` 2. It fits in ONE notebook** — the partition
      advice above applies to `idea-engine` only, and an earlier suggestion to

@@ -96,19 +96,23 @@ measured: an agent prepares files, he uploads them.**
 | corpus | sources | notebook(s) | state |
 |---|---|---|---|
 | `curious-research` | 110 (109 files + generated index), 17 held back | 1 — fits well under the cap | **built** 2026-08-23, published as a release asset |
-| `idea-engine` | 566 idea files — **over the cap** | **seams not yet usable — see below** | not started; the builder is corpus-agnostic and takes it next |
+| `idea-engine` | 779 sources (of 1,373 files; 594 held back) | **3** — 300 / 292 / 190, split on `ideas/<consumer-repo>/` seams | **built** 2026-08-23, published as a release asset |
 
-> **⚠️ The recorded `idea-engine` seam counts do not partition, and the
-> arithmetic says so.** The estate records `superbot` 249 · `fleet` 221 ·
-> `venture-lab` 103 · `superbot-games` 86 as consumer-repo seams for a
-> **566**-file corpus — but those sum to **659**, which is 93 more than the
-> corpus holds. They therefore cannot be disjoint partitions; the most
-> likely reading is that they are **overlapping consumer references** (an
-> idea file cited by more than one repo), which is a perfectly good
-> measurement and a **useless partition key** — assign a file to two
-> notebooks and its citations split, which is the failure this whole
-> convention exists to avoid. `UNVERIFIED`: caught by `@codex` on fm #934
-> and **not** re-derived here. **Re-derive an assignment that is exclusive
-> and sums to 566 before building `idea-engine`** — the builder partitions
-> on top-level directories by default, which is exclusive by construction
-> and is the safe fallback if no better seam is established.
+> **✅ The `idea-engine` seams ARE a partition — measured 2026-08-23 (fm #936).**
+> An earlier note here said the recorded counts were *"overlapping consumer
+> references"*. **That was an inference, it was written as a finding, and it is
+> wrong.** `GET /repos/menno420/idea-engine/git/trees/main?recursive=1` (1,373
+> blobs, not truncated) grouped on the second path component returns
+> `ideas/superbot` **249** · `ideas/fleet` **221** · `ideas/venture-lab` **103** ·
+> `ideas/superbot-games` **86** — **matching the recorded figures exactly**, and
+> exclusive by construction since every path sits in exactly one directory.
+> The real defect was a **denominator mismatch**: `566` counts `.md` minus 14
+> README/index files, while `659` counts *all* files (157 `.py` included) in only
+> the four largest of **fourteen** consumer dirs. 659 ⊂ 742 total under `ideas/`,
+> leaving 83 in the other ten. Both numbers were correct; pairing them was not.
+>
+> **Depth matters and the default is wrong for this corpus.** Everything lives
+> under one `ideas/` directory, so the builder's default depth-1 seam sees a
+> single 742-file group and cuts it alphabetically. `--group-depth 2` (set in the
+> corpus entry) gives the consumer-repo seams. Notebook 1 holds `superbot` whole,
+> notebook 2 holds `fleet` whole; no consumer directory is split.
