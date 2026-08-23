@@ -69,13 +69,35 @@ copy product architecture or internal product state. Canonical intent:
 
 ## Recently shipped (newest first)
 
+- **R5 EXECUTED — the estate's first archives: nine repositories, 26 → 9
+  archived, 0 deleted** (2026-08-23, fm #912). The step OD-3 described on
+  2026-07-26 had never run on anything; it has now run on `superbot-games`,
+  `superbot-idle`, `superbot-mineverse`, `trading-strategy`, the three
+  `codetool-lab-*` repos, `Substrate-kit-app` and `proxybench`. Pre-archive
+  writes landed and were verified live **first** (README notice + description on
+  all nine, `proxybench` #1 closed, the labs marked FINISHED and UNMAINTAINED);
+  the archives were confirmed by fresh live re-read, not by the API's 200. The
+  **three gated rows were not touched** and are still open R5 work when GCB-1 /
+  R2 lift. **Three capability firsts recorded:** the archive `PATCH` works
+  agent-side; a `git+https://…` install still works against an archived repo
+  (`cfgdiff 0.1.1`, real exit 0); a write to one returns 403 *"Repository was
+  archived so is read-only."* **And one finding bigger than the step:**
+  `search/code` covers only **3 of 26** repositories in this account — measured
+  before any archiving, so archiving is not the cause — which invalidates the
+  *method* behind the recorded `Substrate-kit-app` dependency sweep and bars it
+  from supporting the deletion call the table defers.
+  **Still open, deliberately not stalled on:** whether archiving stops scheduled
+  Actions — baseline (`superbot-idle`, last run `2026-08-23T05:42:49Z`) and a
+  one-call check are recorded in the disposition table § 4.
+
 - **Every repository has a disposition — keep 14 · archive 12 · delete 0**
   (2026-08-22, fm #906):
   [the table](planning/2026-08-22-repo-dispositions.md). All 26 re-derived from
   each repo's own state; 13 of 14 keeps are reworks, `superbot` neither
-  (frozen, fresh successor). **Not executed — the archive list is the owner's**
-  (`OQ-ESTATE-ARCHIVE-LIST`; `superbot-next`/`superbot-plugin-hello` gated on
-  GCB-1, `product-forge` on R2).
+  (frozen, fresh successor). ~~**Not executed — the archive list is the
+  owner's**~~ — **answered 2026-08-22 and EXECUTED 2026-08-23 for the nine
+  ungated rows** (see the R5 entry above); `superbot-next`/`superbot-plugin-hello`
+  remain gated on GCB-1 and `product-forge` on R2.
 
 - **The first pre-archive write executed** (2026-08-22, fm #907 + mineverse
   #145 `fc7c349`): the SuperBot-World MASTER told the next session to delete a

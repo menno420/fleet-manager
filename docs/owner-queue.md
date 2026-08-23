@@ -37,9 +37,23 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 
 ## Current owner decisions — verified from fleet-manager on 2026-08-10
 
-- **`OQ-ESTATE-ARCHIVE-LIST` ✅ ANSWERED 2026-08-22 — the owner gave the
-  go-ahead; R5 is unblocked for the nine ungated rows** (added 2026-08-22,
-  OD-18 table fm #906; answered live the same day).
+- **`OQ-ESTATE-ARCHIVE-LIST` ✅ ANSWERED 2026-08-22 · ✅ EXECUTED 2026-08-23 —
+  the nine ungated repositories are archived** (added 2026-08-22, OD-18 table
+  fm #906; answered live the same day; executed as program step **R5**, fm #912).
+  **WHAT WAS DONE, and it is verified rather than reported:** the § 4
+  pre-archive writes landed first — a README notice *and* an updated GitHub
+  description on all nine, `proxybench` #1 closed, the three labs marked
+  FINISHED and UNMAINTAINED — each confirmed by a live re-read *before* any
+  archive call. Then the nine were archived one at a time and confirmed by a
+  fresh `GET /user/repos`: **26 repositories, 9 archived, 0 deleted.** Nothing
+  was deleted, and **the three gated rows were not touched** — `superbot-next`
+  and `superbot-plugin-hello` still wait on GCB-1, `product-forge` on R2, exactly
+  as the reading below said they would.
+  **IF THE READING WAS WRONG, it costs one call to undo** — archiving is
+  reversible and every read path was tested working afterwards, including the
+  labs' documented `pipx`/`pip install git+https://…` (measured: `cfgdiff 0.1.1`,
+  exit 0, installed *from* the archived repo). Nothing further is asked of the
+  owner here.
   **HIS WORDS, verbatim:** *"use the continuation prompt skill so the next
   session can execute the archive."*
   **THE READING, stated so it can be checked rather than assumed:** that is

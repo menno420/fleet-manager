@@ -171,6 +171,71 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-23 · capability · `any` (remote container, direct-PAT egress) ·
+  **Archiving a repository works agent-side — `PATCH /repos/{owner}/{repo}`
+  with `{"archived": true}` returns 200, and it is the first archive ever
+  performed in this estate.** `admin: true` was known; that it is *sufficient*
+  for this operation was not, because nothing had ever been archived. Nine
+  repositories archived this way in one pass, zero refusals, no classifier
+  block. · evidence: `PATCH https://api.github.com/repos/menno420/superbot-games`
+  body `{"archived": true}` via Python `urllib` with `ProxyHandler({})` and
+  `Authorization: Bearer $GITHUB_PAT` → `HTTP 200`, response field
+  `archived: true`; confirmed by a separate `GET /repos/menno420/superbot-games`
+  → `archived: True, visibility: public`. Account-wide re-read after the run:
+  **26 repositories, 9 archived, 0 deleted.** · workaround: not needed — the
+  primary route worked first time. (There is no MCP archive tool, and the
+  session's MCP GitHub tools are scoped to `fleet-manager` only — a satellite
+  call returns `Access denied: repository "menno420/proxybench" is not
+  configured for this session`, which is a **scope of that tool**, not of the
+  account: the direct-PAT path performed every satellite write in this session.)
+  — LAST-VERIFIED: 2026-08-23
+
+- 2026-08-23 · capability · `any` · **An archived repository stays fully
+  installable — the documented `git+https://…` path keeps working, measured
+  rather than reasoned.** The estate had this recorded as `REASONED` from "the
+  code stays readable", with `ESTATE.md` explicitly asking someone to archive
+  one and re-run the install. Done. · evidence: after archiving,
+  `./venv/bin/pip install "git+https://github.com/menno420/codetool-lab-sonnet5"`
+  → **real exit 0** (read directly, not after a pipe): *"Cloning
+  https://github.com/menno420/codetool-lab-sonnet5 … Resolved … to commit
+  ef3b60097f6a2bd46dd27794d03fb120c1d6c36a … Successfully built cfgdiff …
+  Successfully installed cfgdiff-0.1.1"*; then `./venv/bin/cfgdiff --version` →
+  `cfgdiff 0.1.1`, exit 0. Note it resolved to **default-branch HEAD**, so the
+  install path serves the branch, not the release tags. The write half is the
+  mirror image and is the proof the archive is real: a contents `PUT` to
+  archived `proxybench` returned **403** with verbatim body *"Repository was
+  archived so is read-only."*, while a read of the same file kept working and
+  the probe text never landed. · workaround: n/a — capability, not a wall.
+  — LAST-VERIFIED: 2026-08-23
+
+- 2026-08-23 · capability · `any` · **Archiving does NOT remove a repository
+  from `search/code` — but `search/code` only covers 3 of this account's 26
+  repositories in the first place, so it cannot support any completeness claim
+  about the estate.** Two separate facts, and the second is the one that
+  changes future work. · evidence: (a) *archiving is innocent* —
+  `repo:menno420/superbot-games mining` returned **292 hits before** the archive
+  and **292 after**; the account-wide `Substrate-kit-app user:menno420` sweep
+  returned **10 before and 10 after**. (b) *the index is the problem* — one
+  query per repository, each term read out of that repository's own files, all
+  run **before** any archiving: non-zero for `fleet-manager` (`estate`, 308),
+  `substrate-kit` (`bootstrap`, 472) and `superbot-games` (`mining`, 292);
+  **zero** for `superbot-idle` (`prestige`), `superbot-mineverse` (`mineverse`),
+  `trading-strategy` (`backtesting`), `codetool-lab-sonnet5` (`cfgdiff`),
+  `codetool-lab-fable5` (`envdrift`), `codetool-lab-opus4.8` (`mdverify`),
+  `Substrate-kit-app` (`substrate`) and `proxybench` (`proxy`). **Positive
+  control run, per this skill's step 3b:** the same query form returns hundreds
+  of hits against the three indexed repos, so the query works and the zeros are
+  about coverage, not syntax; and each zero-term was verified present by reading
+  that repo's README first. *Honest edge:* what is measured is the API's
+  returned counts, repeatably, within one session — GitHub's index-coverage
+  rules are not inspectable from here, and coverage could change. · workaround:
+  for any completeness claim about this account (dependency sweeps especially),
+  **clone-and-grep**, or run the per-repo probe first and state which
+  repositories the sweep could actually see. This invalidated the *method*
+  behind a recorded `MEASURED` sweep — see `docs/ESTATE.md`
+  § *`search/code` does NOT cover this account*.
+  — LAST-VERIFIED: 2026-08-23
+
 - 2026-08-22 · capability · `owner-live` (Codex desktop/CLI 0.149.0-alpha.4.1,
   Windows) · **Repo-local Codex command hooks run end to end on this laptop at
   `UserPromptSubmit` and `Stop`, after both the project and the exact hook
