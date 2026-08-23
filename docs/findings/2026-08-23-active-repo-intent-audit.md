@@ -74,8 +74,12 @@ moment one does not — the case the boot file already flags as invisible.
   Railway GraphQL, full workspace sweep with no assumed project id: **3 projects
   / 8 services**; `reliable-grace` = **`Postgres` + `worker` only**. Re-run a
   second time asking each service for its latest deployment status, because a
-  *dormant* service would still be listed: same two, both `SUCCESS`. So the
-  absence rules out dormant-or-unlinked, not merely not-running. The live
+  *dormant* service would still be listed: same two, both `SUCCESS`. **That
+  premise was itself unverified when first written and is now measured** — a
+  positive control exists in the same workspace: `superbot-websites/dashboard`
+  reports status **`SLEEPING`** and still appears in the service list. So a
+  non-running service IS listed with its state, and absence from the list is
+  absence of the service — not dormancy. The live
   botsite and dashboard run from `websites` in `superbot-websites`.
   **Wording corrected 2026-08-23, same day:** this bullet first read *"the
   services were deleted"* under a `MEASURED` tag. What was measured is

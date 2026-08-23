@@ -56,10 +56,16 @@ assumption about account shape. Checked: `GET /user/orgs` → **0 orgs**;
 → **26**; account type `User`. Identical, so 26 is the whole estate and the
 figure survives.
 
-**It survived by account shape, not by reasoning** — if an org is ever created,
-that query silently undercounts from that day forward. Same family as the
-`search/code` coverage finding: a method that quietly omits rather than
-erroring. Recorded here so the next sweep does not inherit the assumption.
+**It survived by account shape, not by reasoning.** And the follow-on caution —
+*"if an org is ever created, that query silently undercounts"* — is **`REASONED`,
+not verified**, corrected same-session: GitHub's docs define `owner` as
+*"Repositories that are owned by the authenticated user"* and `organization_member`
+as access *"through being a member of an organization"*, but say **nothing** about
+a repo owned by an org the user administers. The empirical check could not settle
+it either — comparing the two filters with **0 orgs** is vacuous. So treat it as
+a plausible gap to test *if* an org ever exists, not as a known defect. Same
+family as the `search/code` coverage finding — a method that may quietly omit
+rather than error.
 
 ## Verify
 
