@@ -166,7 +166,8 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   — the numbers measured today, each with its command, organised against the six
   net-new sections your own reflection names. Headline figures you did not have
   before: **8,000 pull requests opened all-time across 26 repositories · 19 of
-  the 26 created inside the EAP fortnight (17 in five days) · 4,550 session
+  the 26 created inside the EAP fortnight (all 19 within seven days, 17 in the
+  first four) · 4,551 session
   cards across 19 repositories**, and the consolidation number is finally
   *closed* rather than intended (**9 archived 2026-08-23, 0 deleted**). The
   review site was also repaired first (websites #512): **0 of 7 of its live

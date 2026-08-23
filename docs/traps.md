@@ -203,8 +203,14 @@
   (*"`merge-on-green` landed #871 before the round-2 review I had requested
   could answer"*) and `docs/repos/superbot/README.md` (*"the auto-merge enabler
   ARMS AT OPEN — disable before requesting review"*).
-- **ROUTE** — `card-flip-before-push` (fires on `git push` and on writes to a
-  `.sessions/` card).
+- **ROUTE** — **two**, deliberately: `card-flip-before-push` (Bash, on `git push`)
+  and `card-status-write` (Edit/Write, on `.sessions/*.md`). One route covering both
+  was the first design and it was **useless** — routes fire once per session per ID,
+  so writing the born-red card consumed it and the push, the moment the trap actually
+  fires, was silent. Reproduced against `route_docs.py`: single route **1-then-0**,
+  split **1-then-1** (Codex, fm #919). The push pattern also matches git's global
+  options (`git -c http.proxy= … push`, `git -C <path> push`) — the estate's own
+  documented proxy-bypass push is exactly that form and the first regex missed it.
 
 ---
 
@@ -219,8 +225,8 @@
 | TRAP-005 | **none** — see its entry | no |
 | TRAP-006 | 1 route, fires on push | not yet — the check would have to read the PR that does not exist yet |
 
-**The honest state of this register: five entries, four delivered by route, and
-TRAP-002 now complete through the full § 5.4 lifecycle** — mistake → trap entry
+**The honest state of this register: six entries, five delivered by route (TRAP-006
+by two), and TRAP-002 complete through the full § 5.4 lifecycle** — mistake → trap entry
 → route → deterministic checker. `tools/check_pipe_exit_code.py` runs in
 `python3 bootstrap.py check --strict` via `scripts/preflight.py`, and scans
 **executable surfaces only**: `.github/workflows/*.yml|yaml`, `**/*.sh`, **plus

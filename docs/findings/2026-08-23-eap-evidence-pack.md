@@ -48,12 +48,40 @@ same hour. Both reproduce, so the method sees what the index cannot.
 | figure | value |
 |---|---|
 | Repositories in the account | **26** |
+
 | **Pull requests opened, all-time, all repositories** | **8,000** |
 | Repositories created **inside** the EAP window (2026-07-07 → 07-21) | **19 of 26** |
-| …of which created in the five days 07-07 → 07-13 | **17** |
+| …of which created in the first four days 07-07 → 07-10 | **17** |
+| …of which created by 07-13 (i.e. all of them) | **19** |
 | Repositories predating the EAP | **1** (`superbot`, 2025-08-10, 2,378 PRs) |
 | Repositories created after the program closed | **6** |
 | PRs in EAP-created repositories | **5,368** |
+
+**Reproducing the creation-date partition (19 / 17 / 1 / 6)** — the § 0 recipe counts
+PRs and never fetches `created_at`, so this partition had no command until Codex
+caught it (fm #919). The window boundaries are inclusive on both ends:
+
+```bash
+curl -sS --noproxy '*' -H "Authorization: Bearer $GITHUB_PAT" \
+  "https://api.github.com/user/repos?per_page=100&affiliation=owner" \
+  > /tmp/repos.json
+python3 - <<'EOF'
+import json
+d=json.load(open('/tmp/repos.json'))
+c=[(x['name'], x['created_at'][:10]) for x in d]
+lo,hi='2026-07-07','2026-07-21'          # inclusive: EAP kickoff .. program close
+inside=[x for x in c if lo <= x[1] <= hi]
+print('total          ', len(c))
+print('in EAP window  ', len(inside))
+print('in 07-07..07-13', len([x for x in inside if x[1] <= '2026-07-13']))
+print('before window  ', len([x for x in c if x[1] < lo]))
+print('after window   ', len([x for x in c if x[1] > hi]))
+EOF
+```
+
+**Caveat that belongs with the figure:** `created_at` is when the *repository* was
+created, not when work began in it — `superbot` is the one repository predating the
+window and its own history starts 2025-08-10, nearly a year earlier.
 
 **The one-sentence version, and the scopes must stay separate:** one person, not a
 coder, went from a single repository to **nineteen new ones in the EAP fortnight**,
@@ -109,7 +137,7 @@ makes demonstrable rather than asserted.
 
 | what he had to build | measured today |
 |---|---|
-| **Session cards** — durable per-session memory | **4,550 across 19 repositories** (`superbot` 970 · `idea-engine` 504 · `fleet-manager` 393 · `substrate-kit` 342 · `superbot-next` 335) |
+| **Session cards** — durable per-session memory | **4,551 across 19 repositories** (`superbot` 970 · `idea-engine` 504 · `fleet-manager` 394 · `substrate-kit` 342 · `superbot-next` 335) |
 | **Moment-of-action injection** — rules that arrive when they apply | **61 doc-routes** in one repo's `PreToolUse`/`UserPromptSubmit` hook |
 | **Lifecycle hooks** | **6** in fleet-manager alone |
 | **Executable procedures** (skills) | **27** |
@@ -126,18 +154,25 @@ over the census, *not* a search query (§ 0):
 for r in $(curl -sS --noproxy '*' -H "Authorization: Bearer $GITHUB_PAT" \
       "https://api.github.com/user/repos?per_page=100&affiliation=owner" \
       | python3 -c "import sys,json;[print(x['name']) for x in json.load(sys.stdin)]"); do
-  n=$(curl -sS --noproxy '*' -H "Authorization: Bearer $GITHUB_PAT" \
-      "https://api.github.com/repos/menno420/$r/contents/.sessions" \
-      | python3 -c "import sys,json
-try:
-  d=json.load(sys.stdin); print(len([x for x in d if x['name'].endswith('.md')]) if isinstance(d,list) else 0)
-except Exception: print(0)")
+  code=$(curl -sS --noproxy '*' -o /tmp/c.json -w '%{http_code}' \
+      -H "Authorization: Bearer $GITHUB_PAT" \
+      "https://api.github.com/repos/menno420/$r/contents/.sessions")
+  case "$code" in
+    200) n=$(python3 -c "import json;print(len([x for x in json.load(open('/tmp/c.json')) if x['name'].endswith('.md')]))") ;;
+    404) n=0 ;;                       # the ONLY status that means "no .sessions/"
+    *)   echo "ABORT $r HTTP $code" >&2; exit 1 ;;   # never convert an error into data
+  esac
   echo "$r $n"
 done
 ```
 
-Treatment: **19 of 26** repositories return a non-zero count; the other seven have no
-`.sessions/` directory and contribute 0. The total is the plain sum — no
+Treatment: **19 of 26** repositories return a non-zero count; the other seven return
+**HTTP 404**, which is the only status read as absence — every other status aborts the
+census rather than being counted as a zero. That distinction is TRAP-003, and the
+first version of this very recipe got it wrong (Codex, fm #919): it mapped any
+non-list response *and any parsing exception* to 0, so an expired token or a rate
+limit would have quietly shrunk both the total and the 19-of-26 coverage while
+printing plausible output. The total is the plain sum — no
 de-duplication, because a card belongs to exactly one repository.
 
 **Why this is roadmap-grade rather than a brag:** every item is a product gap he
@@ -194,7 +229,7 @@ exactly where nobody looks — the same shape as the quality drift.
   the content is entirely his call
   ([correspondence record](2026-08-09-eap-correspondence-record.md)).
 - **The standing offer** has more behind it than in July: 26 repositories, 8,000
-  PRs and 4,550 session cards is an unusually good structured-probe harness.
+  PRs and 4,551 session cards is an unusually good structured-probe harness.
 
 ## 7 · Honest nulls — what this pack does NOT establish
 

@@ -981,7 +981,7 @@
         "Bash"
       ],
       "when": [
-        "git\\s+push"
+        "\\bgit\\b(?:\\s+(?:-[cC]\\s*\\S+|--\\S+))*\\s+push\\b"
       ],
       "docs": [
         "docs/traps.md"
