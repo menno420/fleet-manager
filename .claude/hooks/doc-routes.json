@@ -1018,6 +1018,36 @@
         "docs/CAPABILITIES.md"
       ],
       "says": "You are polling for a review verdict. A CLEAN Codex pass creates NO review object: /pulls/{n}/reviews returns 0 and so does /pulls/{n}/comments, while the verdict sits in /issues/{n}/comments. Polling only /reviews cannot tell 'passed clean' from 'never answered'. MEASURED twice: websites #511 (2026-08-22) and fm #924 (2026-08-23, verdict at 11:23:57Z ~3 min after open) — on #924 a session polled /reviews and /pulls/{n}/comments for 24 minutes, concluded no review arrived, and wrote that into a committed card. It had passed clean. CHECK BOTH SURFACES, and match on the `Reviewed commit:` SHA rather than recency — a stale clean verdict from an earlier head otherwise reads as covering the current one. Also filter by the Codex login: your own reply to a review thread creates a review record under your account and a naive 'is there a review at head?' counts it as the reviewer's answer. Canonical: docs/CAPABILITIES.md § \"Codex's CLEAN verdict is an issue comment\"."
+    },
+    {
+      "id": "gemini-notebook",
+      "when": [
+        "\\bnotebooklm\\b",
+        "\\bgemini[- ]notebook",
+        "\\bnotebook (bundle|corpus|sources)\\b",
+        "build_notebook_bundle",
+        "OQ-GEMINI-NOTEBOOKS"
+      ],
+      "docs": [
+        "docs/providers/gemini-notebook.md"
+      ],
+      "says": "Gemini Notebook IS NotebookLM, renamed (owner screenshot of the in-app rename banner, 2026-08-23) \u2014 one product, two entry points, his account is PRO. THE RULE THAT GOVERNS EVERY BUNDLE: partition, never concatenate. A corpus over the cap becomes MORE notebooks, never fewer files \u2014 merging collapses the citation granularity that is the entire point of the upload. THE CAP IS PER NOTEBOOK: confirmed 2026-08-23 from Google's own FAQ (\"Up to 50 sources per notebook\", \"100 notebooks per account\" on free); the PRO figure of 300 is the owner's splash reading and is NOT on that page, so treat it as OWNER not MEASURED and do not assume it holds on the standalone surface. IT DOES NOT INGEST SOURCE FILES \u2014 .ino/.scad/.py/.sh/.yml/.json are not uploadable and .html is accepted only as a web URL; convert them. THE FILENAME IS THE CITATION LABEL, so flatten the path into the name (guides__first-layer__guide.md), and never leave a leading dot \u2014 a dotfile source is hidden from the upload picker and missed by select-all. Do not hand-roll any of this: tools/build_notebook_bundle.py does it, is corpus-agnostic, and idea-engine is next. API reachability is UNVERIFIED and a failed probe is one call's result, never a wall."
+    },
+    {
+      "id": "gemini-notebook-prompt",
+      "tools": [
+        "UserPromptSubmit"
+      ],
+      "when": [
+        "\\bnotebooklm\\b",
+        "\\bgemini[- ]notebook",
+        "\\bnotebook (bundle|corpus|sources)\\b",
+        "OQ-GEMINI-NOTEBOOKS"
+      ],
+      "docs": [
+        "docs/providers/gemini-notebook.md"
+      ],
+      "says": "You named Gemini Notebook (= NotebookLM, renamed). Read docs/providers/gemini-notebook.md BEFORE building or advising anything \u2014 it carries the rule that governs every bundle (partition, never concatenate: a corpus over the cap becomes MORE notebooks, never fewer files, because merging collapses the citation granularity the upload exists for), what the cap actually is and which half is confirmed (per notebook: MEASURED from Google's own FAQ; the PRO 300 is the owner's splash reading, NOT established for the standalone surface), what it refuses to ingest (.ino/.scad/.py/.sh/.yml/.json; .html only as a URL), and the two build findings that cost a session to learn \u2014 the filename IS the citation label, and a leading dot makes a source invisible to the upload picker. tools/build_notebook_bundle.py already does all of it and is corpus-agnostic. Paired with the `gemini-notebook` tool route so a Bash or Grep carrying the name cannot spend this route's once-per-session budget before your message does."
     }
   ]
 }

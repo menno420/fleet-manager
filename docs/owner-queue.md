@@ -198,8 +198,15 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
      notebooks**, each under 300, with file-to-source staying 1:1 and citations
      exact. *Honest edge:* that 300 is **per notebook** rather than per account
      is read from where the number appeared — in a notebook's own feature list —
-     and is **consistent, not confirmed**; whether the number of notebooks is
-     itself capped is unknown. Confirm both before building to them.
+     and was **consistent, not confirmed**. **✅ CONFIRMED 2026-08-23** from
+     Google's own Gemini Notebook FAQ, which states **"Up to 50 sources per
+     notebook"** and **"100 notebooks per account"** (free tier): the source cap
+     is **per notebook**, and the number of notebooks **is** itself capped. Both
+     open questions are answered in *shape*. What stays open is only the **PRO
+     numbers** — that page carries the free tier only, so the **300** remains
+     your splash reading (`OWNER`, not `MEASURED`) and is still not established
+     for the standalone surface. Full reference:
+     [`providers/gemini-notebook.md`](providers/gemini-notebook.md).
      **Selection stays legitimate** — picking the best 300 of 566 is lossy but
      keeps citations precise; concatenation is the option that does not.
      **Sizes re-derived live 2026-08-23, and one corrects an earlier plan:**
@@ -246,10 +253,32 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   the two names as different things. Do not assume it is, and do not
   record a wall if it is not; check first. **Working assumption until measured:
   an agent prepares files, he uploads them.**
-  **HOW / next step:** he says whether he wants a `curious-research` bundle built
-  to the 300-source ceiling. Building it is agent work and needs nothing from
-  him; creating the notebook and uploading is his, since it is his Google
-  identity.
+  **✅ BUILT 2026-08-23 — the offer was put to him AND the bundle built in the
+  same turn** (fm #934), because the build needs nothing from him and a "yes"
+  should cost an upload rather than a wait. **His step is now one download:**
+  [`curious-research-notebook-bundle.zip`](https://github.com/menno420/fleet-manager/releases/tag/notebook-bundle-curious-research-2026-08-23)
+  — unzip, drag everything in `sources/` into a new notebook. Download verified
+  end-to-end (sha256 identical, `testzip` OK).
+  **126 files in → 110 sources out** (109 + a generated index), **17 held back**
+  with a stated reason each, **0 merged**. All 75 `.md` are byte-identical to the
+  repo. Built by [`../tools/build_notebook_bundle.py`](../tools/build_notebook_bundle.py),
+  which is corpus-agnostic so `idea-engine` reuses it.
+  **Three findings from building it, two of which would have degraded the
+  notebook:** (1) `index.html` is **not** a render of `guide.md` — they are
+  self-contained animated explainers whose step-captions live in a JS array, per
+  the repo's own `visual-explainers` skill, so they are kept but text-extracted
+  rather than uploaded as ~4 KB of minified CSS/JS each; (2) five directories are
+  **redirect tombstones**, named as such by `curious-research`'s own
+  `guides/README.md` ("Compatibele oude paden") — uploading them would let the
+  notebook answer *"use vulling instead"* and reintroduce the divergence that
+  merge removed, so they are held back (the one exception,
+  `how-a-pr-flows/guide.md`, carries real content and is kept); (3) a **leading
+  dot makes a source invisible** to the upload picker and to select-all — caught
+  only because `ls` and `ls -A` disagreed.
+  **What is still yours:** creating the notebook and uploading, since it is your
+  Google identity — and, if you want them, the two PRO numbers above, which are
+  a glance at the UI. **The release is a data bundle, not a software release;
+  it is deletable in one call once the notebook exists.**
 
 - **`OQ-E1-FINAL-EAP-EMAIL` — write and send the final EAP review email
   (owner-reserved, your pace).**
