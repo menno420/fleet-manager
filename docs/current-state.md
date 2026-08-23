@@ -82,7 +82,7 @@ copy product architecture or internal product state. Canonical intent:
   agent-side; a `git+https://…` install still works against an archived repo
   (`cfgdiff 0.1.1`, real exit 0); a write to one returns 403 *"Repository was
   archived so is read-only."* **And one finding bigger than the step:**
-  `search/code` covers only **3 of 26** repositories in this account — measured
+  `search/code` covers only **7 of 26** repositories in this account — all 26 probed, measured
   before any archiving, so archiving is not the cause — which invalidates the
   *method* behind the recorded `Substrate-kit-app` dependency sweep and bars it
   from supporting the deletion call the table defers.

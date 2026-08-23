@@ -209,7 +209,7 @@ findings go here, below the fence.)
   — LAST-VERIFIED: 2026-08-23
 
 - 2026-08-23 · capability · `any` · **Archiving does NOT remove a repository
-  from `search/code` — but `search/code` only covers 3 of this account's 26
+  from `search/code` — but `search/code` only covers 7 of this account's 26
   repositories in the first place, so it cannot support any completeness claim
   about the estate.** Two separate facts, and the second is the one that
   changes future work. · evidence: (a) *archiving is innocent* —
@@ -217,16 +217,25 @@ findings go here, below the fence.)
   and **292 after**; the account-wide `Substrate-kit-app user:menno420` sweep
   returned **10 before and 10 after**. (b) *the index is the problem* — one
   query per repository, each term read out of that repository's own files, all
-  run **before** any archiving: non-zero for `fleet-manager` (`estate`, 308),
-  `substrate-kit` (`bootstrap`, 472) and `superbot-games` (`mining`, 292);
-  **zero** for `superbot-idle` (`prestige`), `superbot-mineverse` (`mineverse`),
-  `trading-strategy` (`backtesting`), `codetool-lab-sonnet5` (`cfgdiff`),
-  `codetool-lab-fable5` (`envdrift`), `codetool-lab-opus4.8` (`mdverify`),
-  `Substrate-kit-app` (`substrate`) and `proxybench` (`proxy`). **Positive
-  control run, per this skill's step 3b:** the same query form returns hundreds
-  of hits against the three indexed repos, so the query works and the zeros are
-  about coverage, not syntax; and each zero-term was verified present by reading
-  that repo's README first. *Honest edge:* what is measured is the API's
+  **all 26 probed**: non-zero for `superbot` (3,576), `substrate-kit` (472),
+  `fleet-manager` (308), `spider-swing` (308), `superbot-games` (292),
+  `venture-lab` (230) and `superbot-next` (79) — **7**; **zero** for the other
+  **19**, including `superbot-idle` (`prestige`), `trading-strategy`
+  (`backtesting`), `codetool-lab-sonnet5` (`cfgdiff`), `Substrate-kit-app`
+  (`substrate`), `proxybench` (`proxy`), `couch-legend`, `curious-research`,
+  `estate-backups`, `gba-homebrew`, `idea-engine`, `pokemon-mod-lab`,
+  `product-forge`, `shiftlife`, `sim-lab`, `superbot-plugin-hello`, `websites`
+  and `superbot-mineverse`. **Positive control run, per this skill's step 3b:**
+  the same query form returns hundreds of hits against the indexed repos, so the
+  query works and the zeros are about coverage, not syntax; every zero-term was
+  verified present in that repository's own files first. `product-forge` was
+  re-probed when its first term proved absent from the root README — `controller`
+  and `bluetooth`, both confirmed in `products/phone-controller/README.md`, both
+  return 0. `superbot` has no root README and is indexed anyway, so indexing does
+  not track README presence. **First stated as "3 of 26" on 11 probes and
+  corrected the same session on `@codex` review of fm #912** — the untested 15
+  had been classified with the measured 8, which is over-claiming past the
+  evidence; probing them moved the count to 7/19 and left the conclusion intact. *Honest edge:* what is measured is the API's
   returned counts, repeatably, within one session — GitHub's index-coverage
   rules are not inspectable from here, and coverage could change. · workaround:
   for any completeness claim about this account (dependency sweeps especially),

@@ -127,10 +127,11 @@ tested for this pass, and both moved.
   GitHub.
   **⚠️ CORRECTED 2026-08-23 — the method does not support that conclusion.**
   `MEASURED` during R5, one query per repository using a term read out of that
-  repository's own files: **only 3 of 26 repositories are in the `search/code`
-  index at all** (`fleet-manager`, `substrate-kit`, `superbot-games`). The other
-  23 — including eight of the nine archived here — return **0 hits for their own
-  content**. A zero from an unindexed repository is indistinguishable from a
+  repository's own files, all 26 probed: **only 7 of 26 repositories are in the
+  `search/code` index at all** (`superbot`, `substrate-kit`, `fleet-manager`,
+  `spider-swing`, `superbot-games`, `venture-lab`, `superbot-next`). The other
+  **19** — including eight of the nine archived here — return **0 hits for
+  content verified present in their own trees**. A zero from an unindexed repository is indistinguishable from a
   genuine absence, so *"nothing in the other 25 references it"* was never
   established by this sweep; it may still be true, but this is not the evidence
   for it. **This is not an archiving side-effect** — it was measured before any
@@ -259,11 +260,25 @@ cron and look at the next scheduled window.
 >    41st, unbroken daily since 2026-07-14.
 >
 > **The check, in one call:** after 2026-08-24 ~06:00Z, run
-> `GET /repos/menno420/superbot-idle/actions/runs?event=schedule&per_page=3`. A
-> run created 2026-08-24 in the 05:40–05:46Z window ⇒ **archiving does not stop
-> scheduled Actions**, and the estate's crons are separate work. No such run ⇒
-> **it does**, and this archive list was also the cron cleanup. Do **not** stall
-> a session waiting on it; the window is up to 24 h away.
+> `GET /repos/menno420/superbot-idle/actions/runs?event=schedule&per_page=3`.
+>
+> **The two outcomes are not symmetric — corrected 2026-08-23 on `@codex`
+> review, and this repo already holds the counter-example.** A run created
+> 2026-08-24 in the 05:40–05:46Z window is **conclusive**: archiving does not
+> stop scheduled Actions, and the estate's crons are separate work. **No run is
+> NOT conclusive**, because GitHub silently drops scheduled windows under load —
+> observed in this estate and written up at
+> [`../fleet-triage.md`](../fleet-triage.md) § *2026-07-18 · roster-freshness
+> lapse + dropped-cron watch*, where `roster-regen.yml` missed its ~00:40Z
+> window while the workflow itself was healthy and every other scheduled run
+> succeeded. One miss here is indistinguishable from that.
+>
+> So a negative needs **either** several consecutive missed windows (2–3 days),
+> **or** an unarchived control: a repository with a comparable cron observed
+> firing in the same window, which separates "archiving stopped it" from
+> "GitHub dropped the window for everyone". Until one of those holds, record it
+> as still open rather than answered. Do **not** stall a session on any of it;
+> the first window is up to 24 h away.
 
 The same unknown has one place where it could cost something rather than save
 it. `MEASURED` 2026-08-22: exactly one archive-bound repo publishes GitHub
