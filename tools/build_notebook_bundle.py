@@ -54,6 +54,7 @@ import shutil
 import subprocess
 import sys
 import tarfile
+import tempfile
 import urllib.request
 from dataclasses import dataclass
 from html.parser import HTMLParser
@@ -61,6 +62,14 @@ from html.parser import HTMLParser
 MACHINERY = "repo machinery — carries no workshop knowledge"
 REDIRECT = "redirect tombstone — the repo's own index lists it as a compatibility path"
 UNSUPPORTED = "binary format Gemini Notebook does not ingest"
+SYMLINK = "symlink — not dereferenced; it can point outside the corpus"
+OVERSIZE = "over Gemini Notebook's documented per-source limit"
+
+# Documented per-source ceilings (docs/providers/gemini-notebook.md). A file
+# over these is rejected by the product at upload, which would silently leave
+# the notebook short of the completeness count the index states.
+MAX_SOURCE_BYTES = 200 * 1024 * 1024
+MAX_SOURCE_WORDS = 500_000
 
 # Sources per notebook. 300 is the owner's PRO splash reading; it is NOT
 # established for the standalone surface, so it is a parameter, not a constant
@@ -344,23 +353,47 @@ def list_files(root: str) -> list[str]:
     a hard error rather than a guess, and the walk carries a deny-list for the
     legitimate no-git case (an extracted tarball).
     """
-    if os.path.isdir(os.path.join(root, ".git")):
+    # `.git` is a FILE, not a directory, in a linked worktree or a submodule
+    # checkout — testing only for a directory sent those standard checkouts down
+    # the walk path, undoing the whole fix (@codex round 2).
+    if os.path.exists(os.path.join(root, ".git")):
         try:
             out = subprocess.run(
                 ["git", "-C", root, "ls-files", "-z"],
                 capture_output=True, check=True,
             ).stdout.decode("utf-8", "replace")
+            # `--untracked-files=no` is load-bearing: untracked files are
+            # already excluded by ls-files, so they cannot affect a bundled
+            # file's provenance. Only a MODIFIED TRACKED file makes the
+            # `@ <sha>` header false. Without this the guard refused every
+            # ordinary working repo — caught by this repo's own regression.
+            dirty = subprocess.run(
+                ["git", "-C", root, "status", "--porcelain", "--untracked-files=no"],
+                capture_output=True, check=True,
+            ).stdout.decode("utf-8", "replace").strip()
         except (OSError, subprocess.CalledProcessError) as exc:
             raise SystemExit(
-                f"error: `{root}` has a .git directory but `git ls-files` failed "
+                f"error: `{root}` carries a .git entry but git failed "
                 f"({exc}). Refusing to fall back to a filesystem walk — that "
                 "would sweep in untracked and ignored files, and bundles get "
                 "published. Point --src at a clean checkout or an extracted "
                 "tarball."
             )
+        if dirty:
+            # `git ls-files` constrains NAMES only; the bytes still come from
+            # the working tree, so a local edit would be published under a
+            # provenance header naming a commit that does not contain it.
+            raise SystemExit(
+                f"error: `{root}` has uncommitted changes:\n"
+                + "\n".join("  " + ln for ln in dirty.splitlines()[:10])
+                + "\n  Every source carries a `@ <sha>` provenance header, so "
+                "publishing working-tree bytes would make that claim false — and "
+                "a local edit to a tracked config file would reach the public "
+                "asset. Commit, stash, or use --fetch."
+            )
         paths = sorted(p for p in out.split("\0") if p)
         print(f"note: {len(paths)} tracked file(s) via git ls-files "
-              "(untracked and ignored files excluded)")
+              "(untracked and ignored files excluded; tree verified clean)")
         return [p for p in paths if not is_secretish(p)]
 
     paths, skipped = [], []
@@ -394,7 +427,13 @@ def partition(items: list[Item], cap: int) -> int:
     nb, used = 1, 1                    # each notebook also carries an index
     for top in sorted(groups, key=lambda g: (-len(groups[g]), g)):
         members = groups[top]
-        if len(members) + 1 > cap:
+        oversized = len(members) + 1 > cap
+        # A group that WOULD fit on its own must not be sliced just because the
+        # current notebook is nearly full — that is exactly the consumer-repo
+        # seam the partition promises to fall on (@codex round 2).
+        if not oversized and used + len(members) > cap:
+            nb, used = nb + 1, 1
+        if oversized:
             print(f"note: `{top}/` alone holds {len(members)} sources, over the "
                   f"cap of {cap}; it is split across notebooks. No file merged.")
         for m in members:
@@ -405,17 +444,57 @@ def partition(items: list[Item], cap: int) -> int:
     return nb
 
 
+def assert_disjoint(src_root: str, out_dir: str) -> None:
+    """Refuse an --out that overlaps --src.
+
+    `build()` rmtree's `sources/`, `excluded/` and `notebook-*` under --out to
+    clear stale files. With `--src . --out .` those are directories of the
+    SOURCE repository, so a build would quietly delete tracked content out of
+    the caller's checkout while reporting success (@codex round 2). A
+    destructive path is worth a hard stop, not a warning.
+    """
+    src = os.path.realpath(src_root)
+    out = os.path.realpath(out_dir)
+    if src == out:
+        raise SystemExit("error: --out must not be the same directory as --src.")
+    if out.startswith(src + os.sep):
+        raise SystemExit(
+            f"error: --out (`{out}`) is inside --src (`{src}`). The build clears "
+            "sources/, excluded/ and notebook-* under --out, which would delete "
+            "content from the source tree."
+        )
+    if src.startswith(out + os.sep):
+        raise SystemExit(
+            f"error: --src (`{src}`) is inside --out (`{out}`), so the cleanup "
+            "step could remove the tree being read."
+        )
+
+
 def build(src_root: str, corpus: str, out_dir: str, sha: str, cap: int) -> tuple[list[Item], int]:
     cfg = CORPORA[corpus]
     repo, excl = cfg["repo"], cfg["exclude_exact"]
+    assert_disjoint(src_root, out_dir)
 
     items: list[Item] = []
     claimed: dict[str, str] = {}
     for p in list_files(src_root):
         full = os.path.join(src_root, p)
+        if os.path.islink(full):
+            # os.path.isfile() follows the link, so `notes.md -> ../private.md`
+            # would copy data from OUTSIDE the corpus into a published source
+            # while the manifest blamed the innocent repo path (@codex round 2).
+            items.append(Item(p, "symlink", "excluded", SYMLINK,
+                              flat_name(p, True), None))
+            continue
         if not os.path.isfile(full):
             continue
         data = open(full, "rb").read()
+        words = len(data.split())
+        if len(data) > MAX_SOURCE_BYTES or words > MAX_SOURCE_WORDS:
+            items.append(Item(p, "oversized", "excluded",
+                              f"{OVERSIZE} ({len(data) // (1024 * 1024)} MB, "
+                              f"~{words} words)", flat_name(p, True), None))
+            continue
         payload, kind, keep_ext = convert(p, data, repo, sha)
         name = flat_name(p, keep_ext)
 
@@ -458,8 +537,10 @@ def build(src_root: str, corpus: str, out_dir: str, sha: str, cap: int) -> tuple
     for i in items:
         d = target(i)
         os.makedirs(d, exist_ok=True)
-        if not i.payload:
+        if i.payload is None:      # nothing to materialise (symlink, oversized)
             continue
+        # NB: `not i.payload` would skip a legitimately EMPTY tracked file while
+        # every generated total still counted it (@codex round 2).
         mode, enc = ("wb", None) if isinstance(i.payload, bytes) else ("w", "utf-8")
         with open(os.path.join(d, i.out_name), mode, encoding=enc) as fh:
             fh.write(i.payload)
@@ -654,6 +735,7 @@ def main() -> int:
     sha = os.environ.get("BUNDLE_SHA", args.ref)
     built = args.date or datetime.date.today().isoformat()
     src = args.src
+    fetched = None
     os.makedirs(args.out, exist_ok=True)
 
     if args.fetch:
@@ -662,9 +744,11 @@ def main() -> int:
         req = urllib.request.Request(url, headers={"Authorization": f"Bearer {tok}"})
         opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
         blob = opener.open(req, timeout=90).read()
-        work = os.path.join(args.out, "_src")
-        shutil.rmtree(work, ignore_errors=True)
-        os.makedirs(work, exist_ok=True)
+        # Extract OUTSIDE --out. Left under --out, the raw checkout survives
+        # into any archive of the bundle — a second full copy of the repo,
+        # including everything deliberately held back (@codex round 2).
+        work = tempfile.mkdtemp(prefix="notebook-src-")
+        fetched = work
         with tarfile.open(fileobj=io.BytesIO(blob)) as tf:
             tf.extractall(work)
         roots = [d for d in os.listdir(work) if os.path.isdir(os.path.join(work, d))]
@@ -675,10 +759,14 @@ def main() -> int:
         print("error: need --src <dir> or --fetch", file=sys.stderr)
         return 2
 
-    items, notebooks = build(src, args.corpus, args.out, sha, args.cap)
-    write_index(args.out, args.corpus, sha, built, items, notebooks)
-    write_manifest(args.out, args.corpus, sha, built, items, notebooks, args.cap)
-    write_readme(args.out, args.corpus, items, notebooks, args.cap)
+    try:
+        items, notebooks = build(src, args.corpus, args.out, sha, args.cap)
+        write_index(args.out, args.corpus, sha, built, items, notebooks)
+        write_manifest(args.out, args.corpus, sha, built, items, notebooks, args.cap)
+        write_readme(args.out, args.corpus, items, notebooks, args.cap)
+    finally:
+        if fetched:
+            shutil.rmtree(fetched, ignore_errors=True)
 
     n_src = len([i for i in items if i.disposition == "source"])
     print(f"corpus     : {args.corpus} ({cfg['repo']} @ {sha})")

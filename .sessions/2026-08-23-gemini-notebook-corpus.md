@@ -117,6 +117,51 @@ guess, and the no-git path (an extracted tarball) carries a secret deny-list.
 Three paths are now tested: a real clone, a broken `.git`, and a tarball.
 **24 assertions, all passing, exit 0.**
 
+### Round 2 — nine more, four P1: `[conceded] 8 / [survived] 1`
+
+Round 1's fixes introduced surface of their own, and round 2 went at it. Eight
+were real; the four P1s again include two that would have caused damage:
+
+- **`--out . --src .` would have deleted tracked directories out of the caller's
+  checkout.** The stale-file cleanup from round 1 rmtree's `sources/`,
+  `excluded/` and `notebook-*` under `--out`; point `--out` at the source and
+  those are the *source repo's* directories. A build would report success while
+  destroying content. Overlapping paths are now a hard stop.
+- **`.git` is a FILE, not a directory, in a linked worktree or submodule** — so
+  the round-1 `os.path.isdir` test sent exactly those standard checkouts back
+  down the walk path, undoing the credential fix for them.
+- **A dirty checkout published working-tree bytes under a `@ sha` header** that
+  did not contain them — so a local edit to a tracked config file could reach
+  the public asset, and every provenance claim was potentially false. Now
+  refused.
+- **A tracked symlink was dereferenced**, so `notes.md -> ../private.md` would
+  copy content from outside the corpus into a published source while the
+  manifest blamed the innocent repo path. Now held back.
+
+Four P2s fixed: a group that would fit was sliced across notebooks anyway
+(defeating the consumer-repo seam the partition promises); an empty-but-valid
+file was skipped while still counted in every total; the `--fetch` checkout was
+left inside `--out`, so archiving the bundle shipped a second full copy of the
+repo including everything held back; and sources over the documented 200 MB /
+500,000-word ceilings were emitted rather than held back.
+
+**`[survived] 1` — the born-red card.** Codex flagged the card still reading
+`in-progress` as a defect to fix before merge. It is the opposite: the card **is**
+the merge hold (TRAP-006), and the gate's own message calls it a *"designed hold,
+not a defect"*. Flipping it early is precisely the trap. It flips as the last
+commit, which is what the badge already promised.
+
+**My own guard was wrong again, and again the test caught it.** The dirty-tree
+check first used `git status --porcelain`, which counts **untracked** files — and
+untracked files are exactly what `git ls-files` already excludes, so they cannot
+affect provenance. That version refused every ordinary working repo. Narrowed to
+`--untracked-files=no`, so only a modified *tracked* file blocks.
+
+**38 assertions across both rounds, exit 0.** And the published asset is
+**byte-identical** after all of it: every round-2 finding concerned input shapes
+`curious-research` does not contain, so the artefact he downloads was already
+correct.
+
 ## Verification
 
 - **All 75 `.md` byte-identical** to the repo — checked file by file, not spot-checked.

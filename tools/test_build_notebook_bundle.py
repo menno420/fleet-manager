@@ -198,6 +198,103 @@ def main() -> int:
     check("index total == files on disk", f"**{on_disk} bronnen**" in idx,
           f"expected {on_disk}; index says otherwise")
 
+    # ---------------- @codex round 2 ----------------
+    print("R2-F9 (P1) — --out overlapping --src must be refused, not rmtree'd")
+    src = corpus(tmp, {"a.md": "x\n"}, "r9")
+    for label, out in (("out == src", src),
+                       ("out inside src", os.path.join(src, "bundle"))):
+        try:
+            run(src, out)
+            check(f"{label} refused", False, "build proceeded")
+        except SystemExit as exc:
+            check(f"{label} refused", "--out" in str(exc) or "--src" in str(exc),
+                  str(exc)[:80])
+    check("source tree untouched", os.path.exists(os.path.join(src, "a.md")))
+
+    print("R2-F1 (P1) — a gitfile worktree counts as a checkout")
+    src = corpus(tmp, {"README.md": "# r\n", "untracked.md": "leak\n"}, "r1")
+    open(os.path.join(src, ".git"), "w").write("gitdir: /nonexistent/worktree\n")
+    try:
+        run(src, os.path.join(tmp, "or1"))
+        check("gitfile does not fall through to a walk", False,
+              "walked anyway — untracked file would ship")
+    except SystemExit as exc:
+        check("gitfile does not fall through to a walk", "git failed" in str(exc),
+              str(exc)[:90])
+
+    print("R2-F7 (P1) — a dirty checkout must be refused")
+    src = corpus(tmp, {"README.md": "# r\n"}, "r7")
+    for cmd in (["init", "-q"], ["add", "-A"],
+                ["-c", "user.email=t@t", "-c", "user.name=t", "commit", "-qm", "x"]):
+        subprocess.run(["git", "-C", src] + cmd, check=True, capture_output=True)
+    open(os.path.join(src, "README.md"), "a").write("SECRET=local-edit\n")
+    try:
+        run(src, os.path.join(tmp, "or7"))
+        check("dirty tree refused", False, "published working-tree bytes")
+    except SystemExit as exc:
+        check("dirty tree refused", "uncommitted" in str(exc), str(exc)[:90])
+
+    print("R2-F2 (P1) — a tracked symlink must not be dereferenced")
+    src = corpus(tmp, {"a.md": "# a\n"}, "r2")
+    open(os.path.join(tmp, "private.md"), "w").write("SECRET OUTSIDE THE CORPUS\n")
+    os.symlink(os.path.join(tmp, "private.md"), os.path.join(src, "notes.md"))
+    out = os.path.join(tmp, "or2")
+    items, _ = run(src, out)
+    link = [i for i in items if i.path == "notes.md"]
+    check("symlink held back", link and link[0].disposition == "excluded",
+          f"got {[ (i.path,i.disposition) for i in items ]}")
+    written = os.listdir(os.path.join(out, "sources"))
+    body = "".join(open(os.path.join(out, "sources", f), encoding="utf-8",
+                        errors="replace").read() for f in written)
+    check("outside content never copied", "SECRET OUTSIDE" not in body)
+
+    print("R2-F3 (P2) — a group that fits must not be sliced across notebooks")
+    files = {f"big/{i:03d}.md": "x\n" for i in range(6)}
+    files.update({f"small/{i:03d}.md": "y\n" for i in range(4)})
+    src = corpus(tmp, files, "r3")
+    out = os.path.join(tmp, "or3")
+    items, nb = run(src, out, cap=8)
+    by_group: dict[str, set] = {}
+    for i in items:
+        if i.disposition == "source":
+            by_group.setdefault(i.path.split("/")[0], set()).add(i.notebook)
+    check("`small/` stays in one notebook", len(by_group.get("small", set())) == 1,
+          f"spread over {by_group.get('small')}")
+    check("`big/` stays in one notebook", len(by_group.get("big", set())) == 1,
+          f"spread over {by_group.get('big')}")
+
+    print("R2-F4 (P2) — an empty tracked source must still be written")
+    src = corpus(tmp, {"a.md": "# a\n", "empty.md": ""}, "r4")
+    out = os.path.join(tmp, "or4")
+    items, _ = run(src, out)
+    check("empty file materialised",
+          os.path.exists(os.path.join(out, "sources", "empty.md")))
+    on_disk = len(os.listdir(os.path.join(out, "sources")))
+    idx = open(os.path.join(out, "sources", "00-INDEX.md"), encoding="utf-8").read()
+    check("index total still matches disk", f"**{on_disk} bronnen**" in idx,
+          f"disk={on_disk}")
+
+    print("R2-F8 (P2) — an oversized source must be held back")
+    saved = B.MAX_SOURCE_WORDS
+    B.MAX_SOURCE_WORDS = 50
+    try:
+        src = corpus(tmp, {"a.md": "# a\n", "huge.md": "word " * 200}, "r8")
+        out = os.path.join(tmp, "or8")
+        items, _ = run(src, out)
+        big = [i for i in items if i.path == "huge.md"]
+        check("oversized held back", big and big[0].disposition == "excluded",
+              f"got {big[0].disposition if big else 'missing'}")
+        check("not counted as a source",
+              not os.path.exists(os.path.join(out, "sources", "huge.md")))
+    finally:
+        B.MAX_SOURCE_WORDS = saved
+
+    print("R2-F5 (P2) — no _src copy is left inside the bundle")
+    src = corpus(tmp, {"a.md": "# a\n"}, "r5")
+    out = os.path.join(tmp, "or5")
+    run(src, out)
+    check("no _src in output", "_src" not in os.listdir(out), f"{os.listdir(out)}")
+
     shutil.rmtree(tmp, ignore_errors=True)
     print()
     if FAILURES:
