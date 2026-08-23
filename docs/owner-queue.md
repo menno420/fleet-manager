@@ -167,12 +167,41 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   things"* is a tool need with real subjects behind it, and *"just to explore
   that feature"* is deliberate play with no deliverable owed. A session should
   not collapse the second into the first by demanding a use-case before he is
-  allowed to poke at it. **WHAT IS NOT KNOWN AND SHOULD BE ASKED, NOT ASSUMED:**
-  which product this is. *"Notebooks in Gemini"* most likely means **NotebookLM**
-  (upload sources → grounded Q&A, briefing docs, audio overviews), but it could
-  mean Colab notebooks driven by Gemini, or the Canvas/notebook surface inside
-  the Gemini app. These have different setup paths and different estate-side
-  support, so **one question settles it and saves a wrong build.**
+  allowed to poke at it. **✅ PRODUCT ESTABLISHED 2026-08-23 — he sent a screenshot, and the guess was
+  wrong.** It is **Notebooks inside Gemini Apps** — a `Notebooks` section in the
+  app's own sidebar with `Nieuwe notebook`, splash reading *"Maak kennis met
+  notebooks · Til je projecten naar een hoger niveau | **Mogelijk gemaakt door
+  Gemini Notebook**"*. **`Gemini Notebook` IS NotebookLM, renamed** — its own
+  splash says so verbatim: *"NotebookLM heet nu Gemini Notebook. Nieuwe naam.
+  Hetzelfde geweldige product."* So this is **one product with two entry
+  points**: the standalone Gemini Notebook surface, and a `Notebooks` section
+  inside the Gemini app *"mogelijk gemaakt door Gemini Notebook"*. His account
+  shows **PRO** on both. UI is Dutch.
+  **Corrected same day, and the correction is the point:** this entry first said
+  *"NOT NotebookLM"* — an inference drawn from one screenshot's wording before
+  the second screenshot showed the rename banner. He supplied the evidence that
+  overturned it. Third instance today of the same shape (see
+  [`findings/2026-08-23-active-repo-intent-audit.md`](findings/2026-08-23-active-repo-intent-audit.md)
+  § 3): **his live knowledge beat an agent's reading, again.**
+  **THREE CONSTRAINTS READ OFF THAT SCREEN, and the first one bites:**
+  1. **Max 300 sources** (*"Upload maximaal 300 bronnen"*) — read off the Gemini
+     Apps splash on a PRO account; whether the standalone surface or a different
+     tier differs is **not** established here. The `idea-engine`
+     corpus is **566 files** — it does **not** fit. Any bundle must consolidate
+     (concatenate by theme, or select), never dump one file per idea.
+  2. **Custom instructions are supported** (*"Stel aangepaste instructies in"*) —
+     so a notebook can carry a standing brief, not just sources.
+  3. **The privacy split is asymmetric and worth stating plainly:** source files
+     added in Gemini Apps are **not** used to train the models, but
+     *"gesprekken met je notebook in Gemini Apps worden opgeslagen volgens je
+     instellingen voor Activiteit bewaren"* and are used **to improve the AI
+     models**. Sources in are protected; the conversation is not. Sources can
+     still be added with Activiteit bewaren off.
+  **THE OBVIOUS FIRST NOTEBOOK, from his own recent chats on that screen** —
+  Laser Cutting, Hobby CNC Milling, Hobby Servo Robot Arm, Fusion 360: that is
+  **`curious-research`'s** exact domain (the Dutch workshop notebook — 3D
+  printing, robot arm, Arduino). It is also a **keep, parked by his own words**
+  and therefore safe to feed a notebook without disturbing live work.
   **WHY-IT-MATTERS / where the estate can actually help:** if it is NotebookLM,
   the estate is unusually well-stocked with corpora that are painful to read and
   ideal to ground a notebook on — the 566-file idea corpus (`idea-engine`), the
@@ -185,11 +214,17 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   identity. **CREDENTIALS NOTE, so nobody probes blind:** this estate's Gemini
   API access is documented at
   [`conventions/vertex-first-for-gemini.md`](conventions/vertex-first-for-gemini.md)
-  and [`providers/gemini.md`](providers/gemini.md) — **but NotebookLM is a
-  consumer surface, and whether it is reachable by any API this estate holds is
-  UNVERIFIED.** Do not assume it is, and do not record a wall if it is not; check
-  first. **HOW:** he says which product, and whether he wants a prepared corpus
-  bundle to start from.
+  and [`providers/gemini.md`](providers/gemini.md) — **but Gemini Notebook (ex-NotebookLM) is a
+  consumer surface behind his Google login, and whether it is reachable by any
+  API this estate holds is UNVERIFIED.** Note the rename means older estate notes
+  and any external recipe may still say "NotebookLM" — same product, do not treat
+  the two names as different things. Do not assume it is, and do not
+  record a wall if it is not; check first. **Working assumption until measured:
+  an agent prepares files, he uploads them.**
+  **HOW / next step:** he says whether he wants a `curious-research` bundle built
+  to the 300-source ceiling. Building it is agent work and needs nothing from
+  him; creating the notebook and uploading is his, since it is his Google
+  identity.
 
 - **`OQ-E1-FINAL-EAP-EMAIL` — write and send the final EAP review email
   (owner-reserved, your pace).**
