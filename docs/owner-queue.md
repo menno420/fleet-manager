@@ -187,10 +187,24 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   1. **Max 300 sources** (*"Upload maximaal 300 bronnen"*) — read off the Gemini
      Apps splash on a PRO account; whether the standalone surface or a different
      tier differs is **not** established here. The `idea-engine`
-     corpus is **566 files** — it does **not** fit. Any bundle must consolidate
-     (concatenate by theme, or select), never dump one file per idea.
+     corpus is **566 files** and does not fit one notebook.
+     **⚠️ CORRECTED 2026-08-23, same day — do NOT concatenate to fit.** This
+     entry first said *"any bundle must consolidate (concatenate by theme)"*.
+     **That advice destroys the feature the upload exists for.** This product's
+     value is a citation resolving to a specific source; merge fifty idea files
+     into one themed blob and every citation resolves to the blob, so the
+     grounding is exactly as coarse as the merge. **Partition instead of
+     compressing:** the limit is per notebook, so 566 files becomes **2–3 themed
+     notebooks**, each under 300, with file-to-source staying 1:1 and citations
+     exact. *Honest edge:* that 300 is **per notebook** rather than per account
+     is read from where the number appeared — in a notebook's own feature list —
+     and is **consistent, not confirmed**; whether the number of notebooks is
+     itself capped is unknown. Confirm both before building to them.
+     **Selection stays legitimate** — picking the best 300 of 566 is lossy but
+     keeps citations precise; concatenation is the option that does not.
   2. **Custom instructions are supported** (*"Stel aangepaste instructies in"*) —
-     so a notebook can carry a standing brief, not just sources.
+     read off the splash's third bullet. *That this can carry a standing brief is
+     an inference from the feature name, not a tested behaviour.*
   3. **The privacy split is asymmetric and worth stating plainly:** source files
      added in Gemini Apps are **not** used to train the models, but
      *"gesprekken met je notebook in Gemini Apps worden opgeslagen volgens je
