@@ -418,7 +418,14 @@ findings go here, below the fence.)
   on fleet-manager #812 — request `13:46:59Z`, review posted `13:52:34Z` on the exact head SHA
   = **335 seconds**. The reviewer is `chatgpt-codex-connector[bot]`; findings arrive as
   **inline review comments**, not in the review body, so a summary that looks empty is not an
-  empty review — read `/pulls/{n}/comments`. Reviews trigger on PR open, draft→ready, and the
+  empty review — read `/pulls/{n}/comments`. **And a CLEAN verdict is neither** —
+  `MEASURED` 2026-08-23 on fm #924: Codex found nothing, created **no review
+  object** (`/pulls/924/reviews` → `0`, and `/pulls/924/comments` → `0`), and
+  posted *"Didn't find any major issues"* to **`/issues/{n}/comments`** at
+  `11:23:57Z`, ~3 min after open. **So polling `/reviews` cannot distinguish a
+  clean pass from silence** — read `/issues/{n}/comments` too before concluding
+  a review never arrived. A session concluded exactly that on #924 and wrote it
+  into a committed card. Reviews trigger on PR open, draft→ready, and the
   literal comment `@codex review`. Across #812/#813 it produced **13 findings over 5 rounds**,
   several of which proved a PR did not do what its own title claimed. · **How this entry came
   to exist:** a session waited **150 seconds**, wrote *"no review appeared"* into a public PR
