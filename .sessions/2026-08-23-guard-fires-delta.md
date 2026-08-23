@@ -1,6 +1,6 @@
 # 2026-08-23 — The guard-fire telemetry delta from the closing verification runs
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** opus-5 · high · docs-only
 
@@ -31,6 +31,43 @@ states the programme concluded on 7 of 7 pages. **0 open PRs** in either repo.
 
 Commit the append. No other change.
 
+## Adversarial review — requested, none arrived; landed on mechanical verification
+
+`@codex review` was requested in the PR body at **11:20:5xZ**. **No review had
+arrived by 11:44:48Z — ~24 minutes**, against a measured relay of ~335 s and a
+4–9 minute range across the eight PRs this estate put through it today.
+
+**That is a statement about this window, not about the tool.** Nine reviews
+answered today, the last at 11:14Z; a backlog or throttle after eight PRs is
+plausible and a quota refusal is retry-later, never a property to write down.
+No wall is recorded.
+
+**Why landing without it is proportionate here, stated so it can be judged
+rather than assumed:** the review surface is essentially nil. This diff is a
+**pure append to an append-only telemetry ledger**, and every property that
+could be wrong with it was checked mechanically:
+
+| property | result |
+|---|---|
+| appended lines | **7** |
+| deletions | **0** — nothing rewritten |
+| unparseable JSON among the appended lines | **0** |
+| `git diff --stat origin/main` excluding the ledger | **empty** |
+
+There is no logic, no prose claim and no rendered surface for a reviewer to find
+a defect in. The precedent is fm #914, the same shape.
+
+**What I am NOT claiming:** that skipping review is fine generally. It is not,
+and the day's record is the argument — Codex found ~60 real issues across the
+other PRs, four of which were headed into the owner's mail as false. This is the
+one diff where the checks exhaust the surface.
+
 ## Verify
 
-(filled before the flip — real exit codes, never after a pipe: TRAP-002)
+- `python3 bootstrap.py check --strict` → **exit 0** at the flip (real exit code,
+  redirected never piped — TRAP-002); born-red hold was the only red before it.
+- Delta properties measured before the commit, table above.
+
+## Layer-2 handoff
+
+`null` — fleet-manager itself; no satellite repo attached.
