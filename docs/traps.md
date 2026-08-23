@@ -256,6 +256,41 @@
 
 ---
 
+## TRAP-007 · A card flipped to `complete` while a requested review is unanswered
+
+- **TRIGGER** — you are about to flip an in-diff `.sessions/*.md` card from
+  `in-progress` to `complete`, **and** you have asked `@codex` (or any reviewer)
+  for a review whose verdict has not landed on the current head.
+- **WHY** — TRAP-006's neighbour, and **not covered by it**. TRAP-006 catches the
+  flip that happens *before the first push*. This is the flip that happens
+  *after* a review round — correctly, by every written rule — while a **further**
+  round is still outstanding. The lander reads two things: card `complete` and
+  gate green. **It cannot see that a re-review was requested.** So it merges the
+  head it has, and any findings still being written land against a PR that no
+  longer exists. The rule the card encodes is *review answered*; the rule it
+  actually enforces is *gate green*, and those diverge exactly once per PR — at
+  round two.
+- **REQUIRED PREVENTION** — flip only when **no** requested review is
+  outstanding on the current head. If you re-request a review after flipping,
+  apply the `do-not-automerge` label **before** pushing the request, and remove
+  it when the verdict lands. Re-requesting a review is itself the signal that the
+  card should not yet be `complete`.
+- **VERIFY** — before flipping, the reviewer's verdict exists **at the current
+  head SHA** (check both surfaces — `/pulls/{n}/reviews` *and*
+  `/issues/{n}/comments`; a clean pass creates no review object). After
+  re-requesting, the required check is red or the label is on.
+- **ORIGIN** — `MEASURED` 2026-08-23, fm **#937**. Round 1 of a Codex review was
+  addressed and the card flipped; a re-review was requested and further commits
+  pushed. `merge-on-green` merged the PR at head `775f1c8`. Commits `4a80bf6`
+  and `4ea3962` — carrying round 2's six findings — reached `main` in **neither**:
+  `git show origin/main:docs/findings/2026-08-23-owner-direction.md` returned
+  missing, and the superseded `owner-queue.md` entry was still present on `main`,
+  `grep -c` → **1**. `main` therefore carried five statements the session already
+  knew were wrong, for as long as it took to open fm #938. **The estate's own
+  2026-08-20 railway card records the same shape** (*"`merge-on-green` landed
+  #871 before the round-2 review I had requested could answer"*) — so this is the
+  second measured instance, and the first one produced no register entry.
+
 ## Coverage — stated so the gap is visible
 
 | trap | delivered by | deterministic checker |
@@ -266,6 +301,7 @@
 | TRAP-004 | 1 route | not yet |
 | TRAP-005 | **none** — see its entry | no |
 | TRAP-006 | **2 routes** — `card-flip-before-push` (Bash/push) + `card-status-write` (Edit/Write/MultiEdit) | not yet — the check would have to read the PR that does not exist yet |
+| TRAP-007 | shares TRAP-006's two routes — both fire at the flip and the push, and both now name the unanswered-review case | not yet — a checker would have to know a review was *requested*, which is PR state, not tree state |
 
 **The honest state of this register: six entries, five delivered by route (TRAP-006
 by two), and TRAP-002 complete through the full § 5.4 lifecycle** — mistake → trap entry

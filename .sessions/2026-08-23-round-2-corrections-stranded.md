@@ -56,3 +56,19 @@ missing, and the superseded queue entry was still present on `main`, count 1.
 **The rule that would have prevented it:** do not flip the card while a review
 you asked for is unanswered — or apply `do-not-automerge` when re-requesting
 one. The flip should track *review answered*, not just *gate green*.
+
+**Registered, not just described** — because a lesson that lives only in a card
+is the estate's statement #117, and the 2026-08-20 railway card already recorded
+this exact shape (*"`merge-on-green` landed #871 before the round-2 review I had
+requested could answer"*) **and produced no register entry**, which is why it
+happened again:
+
+- **`docs/traps.md` TRAP-007** — full entry with trigger, prevention, verify and
+  the measured origin.
+- **Both existing card routes now carry it** — `card-flip-before-push` (fires on
+  `git push`) and `card-status-write` (fires on any `.sessions/*.md` edit), so
+  the warning arrives at the flip *and* at the push. `check_doc_routes.py` → exit
+  0, 64 routes, 0 errors.
+- **No checker, and the reason is stated in the register:** a check would have to
+  know a review was *requested*, which is PR state, not tree state. That is an
+  honest null, not an omission.
