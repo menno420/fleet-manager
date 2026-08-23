@@ -13,6 +13,38 @@
 > into that repo, reconciled against its first commit, and this folder becomes
 > a dated pointer rather than a second product source of truth.
 
+## AMENDED 2026-08-23 — OD-19 narrows the first slice and adds one hard constraint
+
+`OWNER`, live, refining OD-16. Read this before the headline below: it does not
+replace the plan, it **orders** it.
+
+> *"both superbot repos should eventually be consolidated into one new one, but
+> first there should be a smaller review oriented bot for the game server, tho we
+> should probably keep in mind that it should still be expandable, meaning that I
+> should be able to add exiting cogs to it on demand, or be able to slightly alter
+> an existing cog so that it works with this bot, tho I think that it's important
+> that these bots remain seperated."*
+
+Three consequences for this plan:
+
+1. **The first build is smaller than the headline.** A **review-oriented bot for
+   the game server** is slice one. The multi-game community bot below is the
+   destination, not the opening scope — so Phase 0 should size for the review
+   bot and leave room, rather than standing up the full scope first.
+2. **Cog portability is a stated requirement, not an emergent nicety.** He must be
+   able to add an existing cog **on demand**, or make one work with **slight**
+   alteration. That is a constraint on the extension interface at design time: it
+   has to stay close enough to the existing bots' cog shape that adaptation stays
+   small. Treat "how far does an existing cog have to bend?" as a Phase 0
+   acceptance question, not a later discovery.
+3. **The bots remain separated — standing constraint.** The eventual
+   consolidation he describes is of the two `superbot` **repositories** into one
+   new repository. It is **not** a merge of running bots. Nothing in this plan
+   should converge the deployments.
+
+**GCB-1 is unchanged and still owner-gated** — none of the above authorises
+creating the repository.
+
 ## Decision headline
 
 Build a **clean, multi-game Discord bot repository** whose first real job is

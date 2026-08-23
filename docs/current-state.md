@@ -45,12 +45,25 @@ copy product architecture or internal product state. Canonical intent:
 
 ### Work state
 
-- **E1 remains owner-reserved.** The final EAP email is written and sent by the
-  owner; a session does not draft or send it.
-- **D2 is the actionable program step**; its shiftlife target is SUPERSEDED
-  (OD-15; re-target pending at `OQ-FM-D2-TARGET`). Until the owner names the
-  next repository, the standing answer to "what should a session pick up" is
-  **OD-13** — the program's NOW pointer carries the detail.
+- **E1 remains owner-reserved, and the owner states it sends 2026-08-24.** He
+  deferred it deliberately to get his workstation setup and research done first;
+  the evidence pack is built and waiting. A session does not draft or send it.
+- **D2 is the actionable program step. `OQ-FM-D2-TARGET` is STILL OPEN** — a
+  2026-08-23 session marked it answered by OD-20 and withdrew that the same
+  session (`@codex`, fm #937); his words set an estate-wide outcome, not a
+  repository choice. **No session is blocked by it:** the
+  [active-repo intent audit](findings/2026-08-23-active-repo-intent-audit.md) § 6
+  gives a measured order — **`product-forge` → `estate-backups` → the `websites`
+  date stamp** — plus five unrated repos owed one read each. Separately measured:
+  `superbot` has **no root README**, and **9 of 15 satellite READMEs never name
+  this hub** ([back-link audit](findings/2026-08-23-front-door-audit.md)), which
+  is a real return-path gap but **does not size D2** — presence is not truth.
+  This is orientation work, so **OD-13** is satisfied rather than overridden.
+- **The next Discord bot's shape is set (OD-19):** a small, review-oriented
+  game-server bot **first**, built cog-portable so existing cogs can be added or
+  lightly adapted — and **the bots stay separated**. Repository consolidation of
+  the two `superbot` repos is the destination, not the next step. GCB-1 is
+  unchanged and still owner-gated.
 - fleet-manager vendors substrate-kit v1.21.0 (fm #853)
 - A root `AGENTS.md` remains an owner decision (`OQ-FM-AGENTS-BOOT`).
 
@@ -68,6 +81,31 @@ copy product architecture or internal product state. Canonical intent:
   [`execution-surfaces.md`](execution-surfaces.md).
 
 ## Recently shipped (newest first)
+
+- **Owner direction captured — and the session's own D2 conclusion withdrawn on
+  review** (2026-08-23, fm #937). He asked for oversight into the active projects
+  and gave back four pieces of direction that existed only in the chat — the loss
+  mode the boot file records as entry 1b. **OD-19**: the next bot is a small
+  **review-oriented game-server bot first**, **cog-portable** (existing cogs added
+  on demand or *slightly* altered), and **the bots stay separated** — the two-repo
+  consolidation is of repositories, not running bots. **OD-20**: no further repo
+  cuts; the lever is legibility.
+  **`OQ-FM-D2-TARGET` was marked answered by OD-20 and that was withdrawn the
+  same session** — `@codex` returned **6 findings, 6 conceded**, the sharpest
+  being that an estate-wide outcome is not a repository selection. Also
+  withdrawn: a "four most-worked repos" ranking derived from last-commit dates
+  and contradicted by a 14-day merged-PR measurement already in this tree, and a
+  claim that a README back-link is the *only* channel reachable in a satellite
+  (the satellite's own `.claude/` loads).
+  **What survives is one measurement:** `superbot` has **no root README**, and
+  **9 of 15 satellite READMEs never name this hub**
+  ([back-link audit](findings/2026-08-23-front-door-audit.md)) — a real
+  return-path gap that does **not** size D2. The
+  [active-repo intent audit](findings/2026-08-23-active-repo-intent-audit.md),
+  written hours earlier and **not read before that finding was drafted**, remains
+  the primary document and supplies D2's measured order. Also filed:
+  `OQ-LAPTOP-AI-WORKSTATION`, his current priority, recorded nowhere until now.
+  E1 sends 2026-08-24 by his own statement.
 
 - **The E1 evidence pack — what the projects created, measured; and the review
   site stops calling a finished program live** (2026-08-23, fm #919 +
