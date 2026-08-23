@@ -70,10 +70,20 @@ moment one does not — the case the boot file already flags as invisible.
 - **28 shared filenames, ZERO byte-identical** — including `app.py`, `Procfile`,
   `requirements.txt` and eight templates each. Compared by blob SHA, not by
   listing. **A fork, not a duplicate.**
-- **The services were deleted.** `MEASURED` live via Railway GraphQL, full
-  workspace sweep with no assumed project id: **3 projects / 8 services**;
-  `reliable-grace` = **`Postgres` + `worker` only**. The live botsite and
-  dashboard run from `websites` in `superbot-websites`.
+- **No such services exist in `reliable-grace` today.** `MEASURED` live via
+  Railway GraphQL, full workspace sweep with no assumed project id: **3 projects
+  / 8 services**; `reliable-grace` = **`Postgres` + `worker` only**. Re-run a
+  second time asking each service for its latest deployment status, because a
+  *dormant* service would still be listed: same two, both `SUCCESS`. So the
+  absence rules out dormant-or-unlinked, not merely not-running. The live
+  botsite and dashboard run from `websites` in `superbot-websites`.
+  **Wording corrected 2026-08-23, same day:** this bullet first read *"the
+  services were deleted"* under a `MEASURED` tag. What was measured is
+  **absence now**; that they were *deleted* on 2026-08-20/21 is read from
+  [`2026-08-14-railway-websites-audit.md`](2026-08-14-railway-websites-audit.md)
+  `:298` — a document. Both halves are true and the conclusion is unchanged, but
+  blending a live read with a citation under one `MEASURED` tag is
+  [TRAP-001](../traps.md), committed in the record that reports TRAP-001.
 - **`superbot` still runs CI for them** — `Botsite CI` and `Dashboard CI` both
   `active`, last run 2026-08-17; `dashboard-data-refresh` `active`, last fired
   2026-08-14 and **unexplained since**.
@@ -85,8 +95,11 @@ nothing in either saying which is live.
 **Consequence for the dependabot ask:** file lists read directly from
 `/pulls/{n}/files` — **#2448** touches `botsite/requirements.txt` only;
 **#2447** touches `dashboard/requirements.in` + `.txt` only. **No root-level
-files in either.** They update dependencies for **deleted services** and can be
-closed rather than merged into the careful window.
+files in either.** They update dependencies for **services that no longer
+exist**, and can be closed rather than merged into the careful window. This
+conclusion needs only the absence, not the deletion history: nothing serves that
+code, which `reliable-grace`'s service list and superbot's root `Procfile`
+(`worker: python disbot/bot1.py`) establish independently.
 
 **How this was got wrong twice first, because the method matters more than the
 finding:** a Layer-2 doc, then a workflow header comment written **2026-06-17**
