@@ -1,6 +1,6 @@
 # 2026-08-23 — A clean Codex verdict is an issue comment, and I wrote "no review arrived" because I never read that endpoint
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** opus-5 · high · docs-only
 
@@ -50,4 +50,28 @@ capability ledger beside the inline-comments fact it completes.
 
 ## Verify
 
-(filled before the flip — real exit codes, never after a pipe: TRAP-002)
+- **The correction is measured, both endpoints, same PR:**
+  `GET /pulls/924/reviews` → **0** · `GET /pulls/924/comments` → **0** ·
+  `GET /issues/924/comments` → `chatgpt-codex-connector[bot]` at
+  **`2026-08-23T11:23:57Z`**, *"Didn't find any major issues."*
+- #924's card is corrected **at its site**, with the false claim preserved under
+  a banner rather than rewritten — the estate's own defect class is *an appended
+  correction that leaves the wrong sentence reading as current*, so the retraction
+  sits above the text it retracts.
+- The ledger fact is placed **beside the inline-comments fact it completes**
+  (`CAPABILITIES.md`), not appended elsewhere, so a session reading one meets both.
+- `python3 bootstrap.py check --strict` → **exit 0** at the flip (real exit code,
+  redirected never piped — TRAP-002); `tools/check_doc_routes.py --strict` → exit 0.
+
+## What this costs and what it buys
+
+The outcome was benign: #924 passed clean, so nothing unreviewed reached `main`.
+What was wrong is the **record** — and on a day whose entire product was a record
+going to a third party, a false claim about verification is the expensive kind.
+
+**The one-sentence version:** I polled two endpoints, a clean verdict lands on a
+third, and I wrote the absence down as a fact.
+
+## Layer-2 handoff
+
+`null` — fleet-manager itself; no satellite repo attached.

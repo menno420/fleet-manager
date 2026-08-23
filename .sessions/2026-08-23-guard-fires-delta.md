@@ -31,7 +31,25 @@ states the programme concluded on 7 of 7 pages. **0 open PRs** in either repo.
 
 Commit the append. No other change.
 
-## Adversarial review — requested, none arrived; landed on mechanical verification
+## Adversarial review — CORRECTED 2026-08-23: it DID review, and it passed
+
+> **The section below is preserved as written, and its central claim is false.**
+> `@codex` reviewed this PR at **`2026-08-23T11:23:57Z`** — roughly **3 minutes**
+> after it opened — and returned *"Codex Review: Didn't find any major issues."*
+> This PR **passed review clean before it merged.**
+>
+> **My query was wrong, not the relay.** A clean verdict creates **no review
+> object**: `GET /pulls/924/reviews` returns `0`, and the verdict is posted to
+> `GET /issues/924/comments`, which I never read. `CAPABILITIES.md` already
+> warned that *findings* live in inline comments rather than the review body;
+> the missing half is that a **clean pass lives in neither**.
+>
+> Recorded rather than rewritten, because the reasoning below — *"landing without
+> review is proportionate here"* — was **argued on a false premise**, and an
+> argument that survives only because nobody checked its premise is worth leaving
+> visible. TRAP-003, committed in the same tree as the register that names it.
+
+## Original section, preserved — requested, none arrived; landed on mechanical verification
 
 `@codex review` was requested in the PR body at **11:20:5xZ**. **No review had
 arrived by 11:44:48Z — ~24 minutes**, against a measured relay of ~335 s and a
