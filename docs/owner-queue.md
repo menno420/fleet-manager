@@ -363,21 +363,25 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   **VERIFIED-NEEDED:** owner-only by your own ruling. *(Added 2026-08-11: the
   audit found E1 in the program but absent from this queue entirely.)*
 
-- **`OQ-FM-D2-TARGET` — ✅ ANSWERED 2026-08-23 (owner, live) — the target is not one
-  repository; it is every repo's front door.** **HIS WORDS:** *"there's not much we
-  can do except for making sure that each repo has proper documentation and is
-  linked and explained in the fleet-manager for easy discovering"* — recorded as
-  **OD-20**. So D2 stops waiting on a named repo and becomes a property to hold
-  across the active set. **AND IT IS MUCH SMALLER THAN IT SOUNDS:** the
-  [front-door audit](findings/2026-08-23-front-door-audit.md) measured presence
-  first — **16 of 17** active repos carry a README, **15 of 17** a current-state
-  file — so what remains is three narrow content holes (`superbot` has **no root
-  README** at all, `estate-backups` has a 130-byte stub, `superbot-plugin-hello`
-  has no state file) plus **nine missing back-links to this hub**. Nothing further
-  is asked of you here. **Original ask, kept for provenance:**
+- **`OQ-FM-D2-TARGET` — STILL OPEN. Which repository is D2's next target, and does
+  spider-swing enter the program at all?**
+  **⚠ A 2026-08-23 session marked this ANSWERED, and it was withdrawn the same
+  session** (`@codex`, fm #937). He said *"there's not much we can do except for
+  making sure that each repo has proper documentation and is linked and explained
+  in the fleet-manager for easy discovering"* — recorded as **OD-20**. That states
+  a **desired estate-wide outcome**. It does **not** select a repository, and it
+  does not say D2's one-repo fresh-session test should become an all-repo sweep.
+  Reading it as an answer was `REASONED` inference recorded as an owner decision —
+  the one thing this queue exists to keep apart. **The question below is unchanged
+  and still yours.**
+  **NO SESSION IS BLOCKED WHILE THIS SITS.** The
+  [active-repo intent audit](findings/2026-08-23-active-repo-intent-audit.md) § 6
+  derives a grounded order from measured failures instead of a guess —
+  **`product-forge` → `estate-backups` → the `websites` date stamp** (after
+  `idea-engine` and `sim-lab` were fixed the same day). That is executable now and
+  needs no letter from you; your answer would override it.
   **WHAT:** decide what D2's next repository actually is, and whether spider-swing
-  enters the program at all.** **WHAT:** decide what D2's next repository
-  actually is, and whether spider-swing enters the program at all.
+  enters the program at all.
   **WHERE:** [`planning/2026-07-26-consolidation-program.md`](planning/2026-07-26-consolidation-program.md)
   `:62` (the NOW pointer), `:102` (D2's order), `:45` (§2's target picture), plus the
   three echoes at [`current-state.md`](current-state.md) `:40`, `:193`, `:534`.
