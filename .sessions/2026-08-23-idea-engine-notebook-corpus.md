@@ -1,10 +1,11 @@
 # 2026-08-23 — the second corpus: idea-engine in 3 notebooks, and a number corrected twice
 
-> **Status:** `in-progress` — branch `claude/gemini-notebook-corpus-f7sa69`, restarted
+> **Status:** `complete` — branch `claude/gemini-notebook-corpus-f7sa69`, restarted
 > from `origin/main` at `0f41be4` (fm #935) because the branch's previous PR
 > (#934) was already merged. Born red on purpose: the card is the merge hold
-> (TRAP-006). Flips only after `python3 bootstrap.py check --strict` returns a
-> real exit 0 on this tree, read directly and never after a pipe.
+> (TRAP-006), and it held while `@codex` answered. Flipped only after
+> `python3 bootstrap.py check --strict` returned a real exit 0 on this tree,
+> read directly and never after a pipe.
 
 - **📊 Model:** opus-5 · high · feature build
 
@@ -72,7 +73,44 @@ wrong was one sentence of my own inference layered on top of it.
 - `curious-research` rebuilt after every change and **byte-identical to the
   published asset** — the new options changed nothing for it.
 - Release asset re-downloaded: sha256 `c6a6b940…` identical both sides, `testzip` OK.
-- 49 regression assertions still pass, exit 0.
+- **62 regression assertions**, exit 0 — 49 inherited plus 13 written here
+  for the three features this PR adds, which had no coverage at all.
+- Both bundles rebuilt after the validation change: **byte-identical to their
+  published assets**.
+
+## `@codex` on this PR — it did not review, it tried to *fix*
+
+**It answered ~22 minutes after open (past the measured ~335 s) and with a
+different shape than every round on fm #934: not findings, but a summary of code
+it had written and committed as `d62f80d`** — including an edit to *this card*
+raising the assertion count to "58".
+
+**None of it landed, and its own summary says why:** *"A pull request could not
+be created because this environment exposes neither a `make_pr` tool nor a
+configured Git remote/PR CLI."* Verified rather than assumed —
+`git cat-file -t d62f80d` returns **`fatal: Not a valid object name`** and
+`git branch -a --contains` matches **0** branches. The work is stranded in its
+sandbox. **So its "58 passing assertions" is a claim about a tree that does not
+exist here, and its card edit never happened.** Treated as a suggestion, which is
+all it could be.
+
+**The suggestion was right, and the gap was mine.** This PR adds **three**
+features — `--group-depth`, prefix exclusions, first-fit-decreasing packing — and
+shipped them with **zero** regressions. Measured: `grep -c` over the test file
+returned **0** for `group_depth`, `group_key`, `first-fit`, `exclude_prefix` and
+`backfill`. The card's boast that "49 regression assertions still pass" was true
+and covered only the code from the *previous* PR. A suite that grows only when a
+reviewer finds a bug is a suite that never covers new work.
+
+Its `--group-depth` point was real too, and probing showed it was worse than
+"unvalidated": `group_key(path, 0)` returned `''` — one silent mega-group — and
+`group_key(path, -1)` returned `'ideas/superbot'`, coincidentally *identical to
+depth 2*. Both wrong quietly. Now `ValueError` at the helper and `SystemExit` at
+the CLI.
+
+**Written and counted here: 13 new assertions → 62 total, exit 0.** Not 58 —
+that figure belongs to Codex's tree, and copying a number from a summary I cannot
+run is the exact move this session already got burned by.
 
 ## The lesson, stated so it is not re-learned
 
@@ -82,3 +120,15 @@ mechanism went into two documents in the same commit that praised the catch.
 Measuring cost one API call. `docs/traps.md` **TRAP-001** already covers this —
 *"never launder a citation into a measurement"* — and this is the same failure
 with an inference in place of a citation.
+
+**And the same shape appeared twice more in one session.** A bot summary reported
+"58 passing assertions" for a commit that does not exist in this repository;
+copying that number would have put an unrunnable claim into the permanent record.
+The defence is identical each time and costs one command: `git cat-file -t`.
+**A count is only worth what the run that produced it is worth.**
+
+**A third instance, and it is the structural one:** a regression suite that grows
+only in response to review findings will always lag the features shipped between
+reviews. Three features landed here with zero coverage, and nothing in the gate
+noticed — the gate checks card grammar and prose, not whether new code is
+tested.

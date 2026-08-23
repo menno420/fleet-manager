@@ -456,6 +456,12 @@ def group_key(path: str, depth: int) -> str:
     the arbitrary cut the seam is supposed to avoid. Depth 2 gives
     `ideas/superbot`, `ideas/fleet`, ... which are exclusive by construction.
     """
+    if depth < 1:
+        # depth 0 collapses every path to one empty key (a single silent
+        # mega-group); a negative depth slices from the end and coincidentally
+        # behaves like some other depth. Both are wrong quietly, which is worse
+        # than loudly. Raised by @codex on fm #936.
+        raise ValueError(f"group depth must be >= 1, got {depth}")
     parts = path.split("/")
     if len(parts) > depth:
         return "/".join(parts[:depth])
@@ -870,14 +876,19 @@ def main() -> int:
                   f"{head[:10]} and that is what provenance records")
         sha = head[:10]
 
+    depth = args.group_depth or cfg.get("group_depth", 1)
     try:
+        if depth < 1:
+            raise SystemExit(
+                f"error: --group-depth {depth} is invalid — 1 is the top-level "
+                "directory; there is no shallower seam."
+            )
         if args.cap < 2:
             raise SystemExit(
                 f"error: --cap {args.cap} is unusable — every notebook reserves "
                 "one slot for its generated index, so a cap below 2 cannot hold "
                 "an index and a single source."
             )
-        depth = args.group_depth or cfg.get("group_depth", 1)
         items, notebooks = build(src, args.corpus, args.out, sha, args.cap, depth)
         write_index(args.out, args.corpus, sha, built, items, notebooks, depth)
         write_manifest(args.out, args.corpus, sha, built, items, notebooks, args.cap)
