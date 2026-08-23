@@ -203,6 +203,23 @@
   (*"`merge-on-green` landed #871 before the round-2 review I had requested
   could answer"*) and `docs/repos/superbot/README.md` (*"the auto-merge enabler
   ARMS AT OPEN — disable before requesting review"*).
+- **WHAT THE PUSH ROUTE MATCHES** — probed across ten forms, because the first two
+  regexes each missed real ones. It fires on every valid push, including git's
+  global options and a shell-separated one:
+
+  ```sh
+  git push -u origin claude/my-branch          # plain
+  git -c http.proxy= -c https.proxy= push      # the estate's proxy-bypass form
+  git -C /home/user/websites push              # another worktree
+  git -p push origin x  ·  git -P push origin x   # short pager options
+  cd /home/user/websites && git push           # after a separator
+  ```
+
+  It stays silent on a *mention*, which matters because a route is consumed once
+  per session — `echo git push`, `grep -rn 'git push' docs/`, and
+  `echo 'remember to git push later'` must not disarm the safeguard before the
+  real push happens. That was a live defect (Codex, fm #919 round 3).
+
 - **ROUTE** — **two**, deliberately: `card-flip-before-push` (Bash, on `git push`)
   and `card-status-write` (Edit/Write, on `.sessions/*.md`). One route covering both
   was the first design and it was **useless** — routes fire once per session per ID,

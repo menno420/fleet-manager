@@ -1,8 +1,8 @@
 # 2026-08-23 — The E1 evidence pack: what the projects actually created, measured
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
-- **📊 Model:** opus-5 · high · docs + measurement
+- **📊 Model:** opus-5 · high · research *(measurement of the estate from source, written up as the E1 evidence base)*
 
 ## 💡 Session idea
 
@@ -69,6 +69,64 @@ figure 5,217 PRs too low.**
 that produced it, organised against the six net-new sections his own reflection
 names, plus the honest nulls. Then the queue and program pointers.
 
+## Adversarial review — `@codex`, 4 rounds, 23 findings
+
+**`[conceded]` × 23 · `[survived]` × 0.** Rounds: 5 · 5 · 8 · 5.
+
+Three would have reached the owner's mail as false, which is the whole reason the
+pack got a review at all:
+
+1. **The 8,000 figure.** My first sweep used `search/issues` and returned
+   **2,783** — false, because the index is blind to most of this account
+   (`superbot` → 0 against a newest PR of #2450). Unchecked, the mail carries a
+   figure **5,217 too low**. Re-measured off the `pulls?state=all` Link header
+   with positive controls that reproduce.
+2. **"He archived them because he could not review them."** Codex refused it: the
+   disposition table's nine executed rows give per-repo reasons — releases
+   completed, research concluded, scope rejected or unused, experiments parked.
+   **None says "could not review."** As drafted it turned a verified count into an
+   unsupported causal claim about the owner's motives, addressed to a third party.
+3. **The opening sentence** fused an all-time estate total with fortnight output.
+   No during-the-fortnight PR count was ever derived.
+
+**And the command-per-figure rule falsified my own arithmetic.** Codex asked for
+the recipe behind the `19 / 17 / 1 / 6` partition; writing it and *running* it
+showed all 19 EAP-window repositories were created by 07-13 — the 17 is the first
+**four** days. I had summed four days and labelled it five. So I stopped trusting
+the recipes and extracted each published block from the committed document and ran
+it verbatim: `26 / 19 / 17 / 1 / 6`, every figure reproduced.
+
+**The route I added was twice defective before it worked.** Routes fire once per
+session per ID, so one route matching both the card write and the push was
+consumed by the write, leaving the push silent (`1-then-0`; split gives
+`1-then-1`). Then the regex missed `git -c … push` — the estate's own documented
+proxy-bypass form — and `git -p/-P push`. Then it fired on a bare *mention*
+(`echo git push`), consuming the ID before any real push. Ten forms probed; six
+fire, four stay silent. `MultiEdit` was also inert until the hook matcher itself
+was updated in `.claude/settings.json` (×3) and `tools/install_root_hooks.py`.
+
+## Accepted open — named, not silently dropped
+
+Four P2s from the final round, left with reasons: two further regex refinements
+(quoted shell separators, `env X=1 git push`-style wrappers), fallback-branch
+response validation in a recipe, and summing the card census inside the recipe
+rather than printing per-repo lines. Rounds went 5 → 5 → 8 → 5 with severity
+falling to all-P2; that is where the estate's convention says to stop cycling and
+say what remains.
+
 ## Verify
 
-(filled before the flip — real exit codes, never after a pipe: TRAP-002)
+- `python3 bootstrap.py check --strict` → **exit 0** at the flip (real exit code,
+  redirected never piped — TRAP-002). Born-red hold was the only red before it.
+- **CI's own added-card invocations run locally**, after CI caught what my plain
+  local run did not: an off-taxonomy `📊 Model:` task class. Both exit 0, zero
+  grammar findings.
+- `python3 tools/check_doc_routes.py --strict` → **exit 0**, 61 routes · 31 docs
+  routed · 0 errors.
+- Every published figure re-derived from the tree and cross-checked across four
+  surfaces: cards 4,551/4,551 · routes 61/61 · traps 6/6.
+
+## Layer-2 handoff
+
+`docs/repos/websites/README.md` — the review-site era pass landed as websites
+#512; this hub session's own deliverable is `docs/findings/`, not a Layer-2 repo.
