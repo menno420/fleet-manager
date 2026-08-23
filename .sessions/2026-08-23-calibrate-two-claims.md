@@ -1,10 +1,11 @@
 # 2026-08-23 — two asserted claims, tested, settled in opposite directions
 
-> **Status:** `in-progress` — branch `claude/r5-archive-execution-4dsvoh`, cut
-> from `origin/main` at `069268a` (fm #929). Born red on purpose: this card is
-> the merge hold (TRAP-006), and it flips only after
-> `python3 bootstrap.py check --strict` returns a real exit 0 on this tree,
-> read directly and never after a pipe.
+> **Status:** `complete` — branch `claude/r5-archive-execution-4dsvoh`, cut
+> from `origin/main` at `069268a` (fm #929), landed as fm **#930**. Born red on
+> purpose and **verified red on open** — `substrate-gate` returned `failure` on
+> the first head, naming the born-red hold, per TRAP-006's own check. Flipped
+> after `python3 bootstrap.py check --strict` returned a real exit 0 on this
+> tree, read directly and never after a pipe.
 
 - **📊 Model:** opus-5 · high · docs-only
 
