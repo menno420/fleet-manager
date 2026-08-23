@@ -96,4 +96,19 @@ measured: an agent prepares files, he uploads them.**
 | corpus | sources | notebook(s) | state |
 |---|---|---|---|
 | `curious-research` | 110 (109 files + generated index), 17 held back | 1 — fits well under the cap | **built** 2026-08-23, published as a release asset |
-| `idea-engine` | 566 idea files — **over the cap** | 2–3, split on consumer-repo seams: `superbot` 249 · `fleet` 221 · `venture-lab` 103 · `superbot-games` 86 | not started; the builder is corpus-agnostic and takes it next |
+| `idea-engine` | 566 idea files — **over the cap** | **seams not yet usable — see below** | not started; the builder is corpus-agnostic and takes it next |
+
+> **⚠️ The recorded `idea-engine` seam counts do not partition, and the
+> arithmetic says so.** The estate records `superbot` 249 · `fleet` 221 ·
+> `venture-lab` 103 · `superbot-games` 86 as consumer-repo seams for a
+> **566**-file corpus — but those sum to **659**, which is 93 more than the
+> corpus holds. They therefore cannot be disjoint partitions; the most
+> likely reading is that they are **overlapping consumer references** (an
+> idea file cited by more than one repo), which is a perfectly good
+> measurement and a **useless partition key** — assign a file to two
+> notebooks and its citations split, which is the failure this whole
+> convention exists to avoid. `UNVERIFIED`: caught by `@codex` on fm #934
+> and **not** re-derived here. **Re-derive an assignment that is exclusive
+> and sums to 566 before building `idea-engine`** — the builder partitions
+> on top-level directories by default, which is exclusive by construction
+> and is the safe fallback if no better seam is established.

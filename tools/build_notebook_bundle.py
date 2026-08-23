@@ -46,6 +46,7 @@ from __future__ import annotations
 
 import argparse
 import datetime
+import hashlib
 import html
 import io
 import os
@@ -63,6 +64,7 @@ MACHINERY = "repo machinery — carries no workshop knowledge"
 REDIRECT = "redirect tombstone — the repo's own index lists it as a compatibility path"
 UNSUPPORTED = "binary format Gemini Notebook does not ingest"
 SYMLINK = "symlink — not dereferenced; it can point outside the corpus"
+SECRETISH = "secret-shaped filename — never bundled, since bundles get published"
 OVERSIZE = "over Gemini Notebook's documented per-source limit"
 
 # Documented per-source ceilings (docs/providers/gemini-notebook.md). A file
@@ -127,6 +129,9 @@ BLOCK_TAGS = {
 }
 
 RESERVED_NAMES = {"00-INDEX.md"}
+
+# POSIX filesystems cap a single name component at 255 bytes.
+MAX_NAME_BYTES = 255
 
 
 class TextExtractor(HTMLParser):
@@ -257,9 +262,19 @@ def flat_name(path: str, keep_ext: bool = False) -> str:
     flat = path.replace("/", "__")
     if flat.startswith("."):
         flat = "dot-" + flat[1:]
-    if keep_ext or flat.endswith(".md"):
-        return flat
-    return flat + ".md"
+    if not (keep_ext or flat.endswith(".md")):
+        flat += ".md"
+    if len(flat.encode("utf-8")) > MAX_NAME_BYTES:
+        # Flattening turns a legal deep path into ONE component, which can blow
+        # past the 255-byte filesystem limit and fail the whole build with
+        # ENAMETOOLONG (@codex round 3). Keep a readable prefix and make it
+        # unique with a stable digest of the full path.
+        stem, ext = os.path.splitext(flat)
+        digest = hashlib.sha256(path.encode("utf-8")).hexdigest()[:12]
+        budget = MAX_NAME_BYTES - len(ext.encode("utf-8")) - len(digest) - 1
+        stem = stem.encode("utf-8")[:max(1, budget)].decode("utf-8", "ignore")
+        flat = f"{stem}~{digest}{ext}"
+    return flat
 
 
 def provenance(repo: str, sha: str, path: str, note: str) -> str:
@@ -394,7 +409,11 @@ def list_files(root: str) -> list[str]:
         paths = sorted(p for p in out.split("\0") if p)
         print(f"note: {len(paths)} tracked file(s) via git ls-files "
               "(untracked and ignored files excluded; tree verified clean)")
-        return [p for p in paths if not is_secretish(p)]
+        # Return everything: a TRACKED secret-shaped path (`.env.example` is the
+        # common one) must be classified and LISTED as held back, not silently
+        # dropped from enumeration — the manifest promises every omission has a
+        # stated reason (@codex round 3).
+        return paths
 
     paths, skipped = [], []
     for dirpath, dirnames, files in os.walk(root):
@@ -479,6 +498,10 @@ def build(src_root: str, corpus: str, out_dir: str, sha: str, cap: int) -> tuple
     claimed: dict[str, str] = {}
     for p in list_files(src_root):
         full = os.path.join(src_root, p)
+        if is_secretish(p):
+            items.append(Item(p, "secret-shaped", "excluded", SECRETISH,
+                              flat_name(p, True), None))
+            continue
         if os.path.islink(full):
             # os.path.isfile() follows the link, so `notes.md -> ../private.md`
             # would copy data from OUTSIDE the corpus into a published source
@@ -489,26 +512,40 @@ def build(src_root: str, corpus: str, out_dir: str, sha: str, cap: int) -> tuple
         if not os.path.isfile(full):
             continue
         data = open(full, "rb").read()
-        words = len(data.split())
-        if len(data) > MAX_SOURCE_BYTES or words > MAX_SOURCE_WORDS:
+        # Byte ceiling FIRST. `data.split()` on a whitespace-dense 200 MB file
+        # materialises tens of millions of bytestrings and can OOM the builder
+        # while trying to reject that very file (@codex round 3).
+        if len(data) > MAX_SOURCE_BYTES:
             items.append(Item(p, "oversized", "excluded",
-                              f"{OVERSIZE} ({len(data) // (1024 * 1024)} MB, "
-                              f"~{words} words)", flat_name(p, True), None))
+                              f"{OVERSIZE} ({len(data) // (1024 * 1024)} MB)",
+                              flat_name(p, True), None))
+            continue
+        words = len(data.split())
+        if words > MAX_SOURCE_WORDS:
+            items.append(Item(p, "oversized", "excluded",
+                              f"{OVERSIZE} (~{words} words)",
+                              flat_name(p, True), None))
             continue
         payload, kind, keep_ext = convert(p, data, repo, sha)
         name = flat_name(p, keep_ext)
 
-        if name in RESERVED_NAMES:
+        # Compare case-INSENSITIVELY: the bundle is unzipped on whatever
+        # filesystem the owner has, and on a case-insensitive one `Dir/a.md`
+        # and `dir__a.md` overwrite each other while the manifest counts two
+        # (@codex round 3).
+        key = name.casefold()
+        if key in {r.casefold() for r in RESERVED_NAMES}:
             raise SystemExit(
                 f"error: `{p}` flattens to reserved name `{name}`, which the "
                 "generated index uses. Rename it or add an exclusion."
             )
-        if name in claimed:
+        if key in claimed:
             raise SystemExit(
-                f"error: flat-name collision `{name}` — both `{claimed[name]}` "
-                f"and `{p}` map to it. 1:1 cannot be honoured; resolve first."
+                f"error: flat-name collision `{name}` — both `{claimed[key]}` "
+                f"and `{p}` map to it (case-insensitively). 1:1 cannot be "
+                "honoured; resolve first."
             )
-        claimed[name] = p
+        claimed[key] = p
 
         if payload is None:
             items.append(Item(p, kind, "excluded", UNSUPPORTED, name, b""))
@@ -759,7 +796,32 @@ def main() -> int:
         print("error: need --src <dir> or --fetch", file=sys.stderr)
         return 2
 
+    if not args.fetch and os.path.exists(os.path.join(src, ".git")):
+        # A clean checkout says nothing about WHICH commit it is on. Without
+        # this, a clone sitting on a feature branch or an old commit gets every
+        # source stamped `@ main` — a clean tree and a false provenance header
+        # at the same time (@codex round 3). Resolve it, do not label it.
+        try:
+            head = subprocess.run(
+                ["git", "-C", src, "rev-parse", "HEAD"],
+                capture_output=True, check=True,
+            ).stdout.decode().strip()
+        except (OSError, subprocess.CalledProcessError) as exc:
+            raise SystemExit(f"error: cannot resolve HEAD in `{src}` ({exc}).")
+        if sha not in (head, head[:len(sha)]) and sha != args.ref:
+            print(f"note: overriding provenance `{sha}` with resolved HEAD {head[:10]}")
+        elif sha == args.ref:
+            print(f"note: --ref `{args.ref}` is a label; resolved HEAD is "
+                  f"{head[:10]} and that is what provenance records")
+        sha = head[:10]
+
     try:
+        if args.cap < 2:
+            raise SystemExit(
+                f"error: --cap {args.cap} is unusable — every notebook reserves "
+                "one slot for its generated index, so a cap below 2 cannot hold "
+                "an index and a single source."
+            )
         items, notebooks = build(src, args.corpus, args.out, sha, args.cap)
         write_index(args.out, args.corpus, sha, built, items, notebooks)
         write_manifest(args.out, args.corpus, sha, built, items, notebooks, args.cap)

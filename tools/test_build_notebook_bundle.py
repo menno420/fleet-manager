@@ -295,6 +295,52 @@ def main() -> int:
     run(src, out)
     check("no _src in output", "_src" not in os.listdir(out), f"{os.listdir(out)}")
 
+    # ---------------- @codex round 3 ----------------
+    print("R3-F4 (P2) — a deep path must not produce an over-long filename")
+    deep = "/".join(f"dir{i:02d}_padding_xxxx" for i in range(13)) + "/file.md"
+    src = corpus(tmp, {deep: "# deep\n", "a.md": "# a\n"}, "q4")
+    out = os.path.join(tmp, "oq4")
+    items, _ = run(src, out)
+    names = os.listdir(os.path.join(out, "sources"))
+    check("no name exceeds the fs component limit",
+          all(len(n.encode()) <= 255 for n in names),
+          f"max={max(len(n.encode()) for n in names)}")
+    check("deep file still written", len(names) == 3, f"got {len(names)}")
+
+    print("R3-F3 (P2) — collisions must be caught case-insensitively")
+    src = corpus(tmp, {"Dir/a.md": "x\n", "dir__a.md": "y\n"}, "q3")
+    try:
+        run(src, os.path.join(tmp, "oq3"))
+        check("case-insensitive collision raises", False, "accepted both")
+    except SystemExit as exc:
+        check("case-insensitive collision raises", "collision" in str(exc), str(exc)[:70])
+
+    print("R3-F6 (P2) — a tracked secret-shaped file must be LISTED, not dropped")
+    src = corpus(tmp, {"README.md": "# r\n", ".env.example": "TOKEN=\n"}, "q6")
+    for cmd in (["init", "-q"], ["add", "-A"],
+                ["-c", "user.email=t@t", "-c", "user.name=t", "commit", "-qm", "x"]):
+        subprocess.run(["git", "-C", src] + cmd, check=True, capture_output=True)
+    out = os.path.join(tmp, "oq6")
+    items, _ = run(src, out)
+    env = [i for i in items if i.path == ".env.example"]
+    check("tracked secret-shaped file enumerated", bool(env),
+          f"paths={[i.path for i in items]}")
+    check("...and held back", env and env[0].disposition == "excluded")
+    man = open(os.path.join(out, "MANIFEST.md"), encoding="utf-8").read()
+    check("...and named in the manifest", ".env.example" in man)
+    body = "".join(open(os.path.join(out, "sources", f), encoding="utf-8",
+                        errors="replace").read()
+                   for f in os.listdir(os.path.join(out, "sources")))
+    check("...but never written as a source", "TOKEN=" not in body)
+
+    print("R3-F2 (P1) — the byte ceiling must be applied before tokenizing")
+    srctext = open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                "build_notebook_bundle.py"), encoding="utf-8").read()
+    i_bytes = srctext.find("if len(data) > MAX_SOURCE_BYTES")
+    i_split = srctext.find("words = len(data.split())")
+    check("byte check precedes data.split()", 0 < i_bytes < i_split,
+          f"bytes@{i_bytes} split@{i_split}")
+
     shutil.rmtree(tmp, ignore_errors=True)
     print()
     if FAILURES:

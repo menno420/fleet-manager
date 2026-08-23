@@ -162,6 +162,48 @@ affect provenance. That version refused every ordinary working repo. Narrowed to
 `curious-research` does not contain, so the artefact he downloads was already
 correct.
 
+### Round 3 — seven, two P1: `[conceded] 7 / [survived] 0`. Converging.
+
+The severity curve is the useful signal: rounds 1–2 found credential paths and a
+destructive delete; round 3 found an OOM edge case, a false provenance label, and
+filesystem-portability gaps. **9 → 9 → 7, narrowing.** So this is the last round
+requested, per `docs/conventions/adversarial-review.md`'s convergence rule.
+
+- **`--ref` was recorded as provenance without being resolved (P1).** A clean
+  clone sitting on a feature branch or an old commit stamped every source
+  `@ main`. The round-2 clean-tree guard proves the tree matches *its own* HEAD
+  and says nothing about which commit that is — clean and false at once. HEAD is
+  now resolved with git and that is what provenance records.
+- **The 200 MB ceiling tokenised before it rejected (P1).** `data.split()` on a
+  whitespace-dense 200 MB file materialises tens of millions of bytestrings and
+  can OOM the builder *while trying to reject that very file*. Byte check first.
+- Four P2s fixed: flattening a deep path could exceed the 255-byte filename
+  limit and fail the build with `ENAMETOOLONG` (now a bounded prefix plus a
+  stable digest); collisions were compared case-sensitively, so `Dir/a.md` and
+  `dir__a.md` overwrite each other on a case-insensitive filesystem while the
+  manifest counts two; `--cap 1` produced an empty first notebook; and a
+  **tracked** secret-shaped file such as `.env.example` was dropped from
+  enumeration entirely rather than listed as held back — which broke the
+  manifest's promise that every omission carries a reason.
+
+**The finding worth the whole review: `idea-engine`'s seam counts do not
+partition.** Codex checked the arithmetic in the provider doc I wrote:
+`superbot` 249 + `fleet` 221 + `venture-lab` 103 + `superbot-games` 86 = **659**,
+against a **566**-file corpus — **93 more than exists**. So they cannot be
+disjoint sets; they are almost certainly *overlapping consumer references*,
+which is a fine measurement and a **useless partition key** — assign a file to
+two notebooks and its citations split, the exact failure the
+partition-never-concatenate rule exists to prevent. **This was not my error to
+invent but it was mine to propagate**: I copied it out of `owner-queue.md`, where
+it reads as a clean plan (*"two notebooks split cleanly on those seams"*). Both
+the queue entry and the provider doc are now corrected and marked `UNVERIFIED`,
+with the instruction to re-derive an exclusive assignment summing to 566 before
+`idea-engine` is built. The builder's default — partition on top-level
+directories — is exclusive by construction and is the stated fallback.
+
+**48 assertions across three rounds, exit 0**, and the published asset is
+byte-identical after every round.
+
 ## Verification
 
 - **All 75 `.md` byte-identical** to the repo — checked file by file, not spot-checked.
