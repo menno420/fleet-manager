@@ -28,7 +28,7 @@
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "Bash|WebFetch|Read|Glob|Grep|Edit|Write",
+        "matcher": "Bash|WebFetch|Read|Glob|Grep|Edit|Write|MultiEdit",
         "hooks": [
           {
             "type": "command",
@@ -45,7 +45,7 @@
             "timeout": 10
           }
         ],
-        "matcher": "Bash|WebFetch|Read|Glob|Grep|Edit|Write"
+        "matcher": "Bash|WebFetch|Read|Glob|Grep|Edit|Write|MultiEdit"
       },
       {
         "hooks": [
@@ -55,7 +55,7 @@
             "timeout": 10
           }
         ],
-        "matcher": "Bash|WebFetch|Read|Glob|Grep|Edit|Write"
+        "matcher": "Bash|WebFetch|Read|Glob|Grep|Edit|Write|MultiEdit"
       },
       {
         "matcher": "Write|Edit|MultiEdit",

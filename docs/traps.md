@@ -171,6 +171,66 @@
 
 ---
 
+## TRAP-006 · A session card flipped to `complete` before the branch is pushed
+
+- **TRIGGER** — you are about to `git push` a branch whose in-diff
+  `.sessions/*.md` card already reads `Status: complete`, in any repo whose
+  landing path auto-merges on green (`merge-on-green.yml` here;
+  `auto-merge-enabler` elsewhere in the estate).
+- **WHY** — the born-red card **is** the merge hold. Two independent guards read
+  it: the `substrate-gate` / `quality` check is red while the card says
+  `in-progress`, and `merge-on-green.yml:190–213` fetches each in-diff card,
+  parses its Status and `continue`s past the merge on `in-progress`. Flipping
+  the card *locally before the first push* defeats both at once — the PR is
+  born green, the sweep lands it within seconds, and **the review window never
+  opens.** The card is not paperwork; it is the lock.
+- **REQUIRED PREVENTION** — commit the card **red** and push it red. Flip to
+  `complete` as the deliberate last commit, after review has answered. If a PR
+  must be opened green for some other reason, apply the `do-not-automerge`
+  label, which the workflow honours as an explicit carve-out re-read fresh per
+  PR.
+- **VERIFY** — after opening the PR, the required check is **red** and the
+  reason given is the born-red hold. A green required check on a PR you have
+  just opened means the hold is not armed.
+- **ORIGIN** — `MEASURED` 2026-08-23, fm **#915**: card flipped locally, both
+  commits pushed together, PR opened `08:24:29Z` and merged by
+  `github-actions[bot]` at `08:25:06Z` — **37 seconds**, inside the measured
+  ~335 s Codex relay. Result: **0 reviews and 0 inline comments** at 503 s,
+  against fm #912 the same morning which has its `chatgpt-codex-connector[bot]`
+  review. Nothing was harmed — the content was verified — but the PR that
+  argued *"documented traps are not delivered"* was itself landed unreviewed by
+  a trap documented in two places: the 2026-08-20 railway card
+  (*"`merge-on-green` landed #871 before the round-2 review I had requested
+  could answer"*) and `docs/repos/superbot/README.md` (*"the auto-merge enabler
+  ARMS AT OPEN — disable before requesting review"*).
+- **WHAT THE PUSH ROUTE MATCHES** — probed across ten forms, because the first two
+  regexes each missed real ones. It fires on every valid push, including git's
+  global options and a shell-separated one:
+
+  ```sh
+  git push -u origin claude/my-branch          # plain
+  git -c http.proxy= -c https.proxy= push      # the estate's proxy-bypass form
+  git -C /home/user/websites push              # another worktree
+  git -p push origin x  ·  git -P push origin x   # short pager options
+  cd /home/user/websites && git push           # after a separator
+  ```
+
+  It stays silent on a *mention*, which matters because a route is consumed once
+  per session — `echo git push`, `grep -rn 'git push' docs/`, and
+  `echo 'remember to git push later'` must not disarm the safeguard before the
+  real push happens. That was a live defect (Codex, fm #919 round 3).
+
+- **ROUTE** — **two**, deliberately: `card-flip-before-push` (Bash, on `git push`)
+  and `card-status-write` (Edit/Write, on `.sessions/*.md`). One route covering both
+  was the first design and it was **useless** — routes fire once per session per ID,
+  so writing the born-red card consumed it and the push, the moment the trap actually
+  fires, was silent. Reproduced against `route_docs.py`: single route **1-then-0**,
+  split **1-then-1** (Codex, fm #919). The push pattern also matches git's global
+  options (`git -c http.proxy= … push`, `git -C <path> push`) — the estate's own
+  documented proxy-bypass push is exactly that form and the first regex missed it.
+
+---
+
 ## Coverage — stated so the gap is visible
 
 | trap | delivered by | deterministic checker |
@@ -180,9 +240,10 @@
 | TRAP-003 | 1 route | not yet |
 | TRAP-004 | 1 route | not yet |
 | TRAP-005 | **none** — see its entry | no |
+| TRAP-006 | **2 routes** — `card-flip-before-push` (Bash/push) + `card-status-write` (Edit/Write/MultiEdit) | not yet — the check would have to read the PR that does not exist yet |
 
-**The honest state of this register: five entries, four delivered by route, and
-TRAP-002 now complete through the full § 5.4 lifecycle** — mistake → trap entry
+**The honest state of this register: six entries, five delivered by route (TRAP-006
+by two), and TRAP-002 complete through the full § 5.4 lifecycle** — mistake → trap entry
 → route → deterministic checker. `tools/check_pipe_exit_code.py` runs in
 `python3 bootstrap.py check --strict` via `scripts/preflight.py`, and scans
 **executable surfaces only**: `.github/workflows/*.yml|yaml`, `**/*.sh`, **plus

@@ -33,7 +33,7 @@ import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
-MATCHER = "Bash|WebFetch|Read|Glob|Grep|Edit|Write"
+MATCHER = "Bash|WebFetch|Read|Glob|Grep|Edit|Write|MultiEdit"
 
 # Every hook this repo installs, and the events each one serves. Keyed by script
 # name because that is how an existing registration is recognised — see merge_event.

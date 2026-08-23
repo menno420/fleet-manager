@@ -69,6 +69,33 @@ copy product architecture or internal product state. Canonical intent:
 
 ## Recently shipped (newest first)
 
+- **The E1 evidence pack — what the projects created, measured; and the review
+  site stops calling a finished program live** (2026-08-23, fm #919 +
+  websites #512). Owner directive: the mail goes today, *"but only after we have
+  properly looked at everything the projects created."*
+  **MEASURED across all 26 repositories: 8,000 pull requests opened all-time ·
+  19 of 26 repositories created inside the EAP fortnight — all 19 within its
+  first seven days, 17 of them in the first four · 4,551 session cards across 19
+  repositories.**
+  [The pack](findings/2026-08-23-eap-evidence-pack.md) carries every figure with
+  the command that produced it, mapped to the six net-new sections the owner's
+  own reflection names. **E1 itself remains owner-reserved — no session drafts
+  or sends it.**
+  **Two corrections it exists because of:** (1) the obvious method is wrong —
+  a first sweep via `search/issues` returned **2,783** PRs and was false
+  (`superbot` read 0 against a newest PR of #2450); the search index does not
+  cover most of this account, the same defect R5 measured for `search/code`.
+  Re-measured via the `pulls?state=all` Link header with positive controls that
+  reproduce. **Unchecked, the mail would have carried a figure 5,217 too low.**
+  (2) **0 of 7 live pages on the public review site said the program had ended**,
+  and `/fleet/` rendered *"15 live lanes"* with mirrored heartbeats 33 days after
+  the seats were terminated — on the surface the mail points at, addressed to the
+  vendor who ended the program. Fixed in websites #512 (era framing only; no
+  number, chart or citation changed).
+  **TRAP-006 registered** — the born-red card is the merge hold, and fm #915
+  defeated it by flipping before push: opened 08:24:29Z, auto-merged 08:25:06Z,
+  **0 reviews**. Routes added; the register is now **6 traps / 61 routes** — two routes, not one, because Codex caught that a single route matching both the card write and the push is consumed by the write, leaving the push (the trap's actual moment) silent. Reproduced 1-then-0 against the old design, 1-then-1 against the split.
+
 - **R5 EXECUTED — the estate's first archives: nine repositories, 26 → 9
   archived, 0 deleted** (2026-08-23, fm #912). The step OD-3 described on
   2026-07-26 had never run on anything; it has now run on `superbot-games`,
