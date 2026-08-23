@@ -31,11 +31,42 @@ zero ([TRAP-003](../traps.md)).
 **The method that works, with its positive control built in:**
 
 ```bash
-# per repo: count PRs by the Link header's rel="last" page number
-curl -sSD - -o /dev/null --noproxy '*' \
+# Enumerate the account, then count PRs per repo from the Link header's rel="last".
+# Every request's status is checked: an error must never become a data point.
+code=$(curl -sS --noproxy '*' -o /tmp/repos.json -w '%{http_code}' \
   -H "Authorization: Bearer $GITHUB_PAT" \
-  "https://api.github.com/repos/menno420/<repo>/pulls?state=all&per_page=1"
+  "https://api.github.com/user/repos?per_page=100&affiliation=owner")
+[ "$code" = 200 ] || { echo "ABORT: /user/repos HTTP $code" >&2; exit 1; }
+
+python3 - <<'EOF'
+import json, subprocess, re, sys
+repos = [r["name"] for r in json.load(open("/tmp/repos.json"))]
+total = 0
+for n in repos:
+    p = subprocess.run(["curl","-sSD","-","-o","/dev/null","--noproxy","*",
+        "-w","%{http_code}","-H","Authorization: Bearer " + __import__("os").environ["GITHUB_PAT"],
+        f"https://api.github.com/repos/menno420/{n}/pulls?state=all&per_page=1"],
+        capture_output=True, text=True)
+    if not p.stdout.rstrip().endswith("200"):
+        sys.exit(f"ABORT: {n} -> {p.stdout.rstrip()[-3:]}")     # never count an error as 0
+    m = re.search(r'<[^>]*[?&]page=(\d+)>;\s*rel="last"', p.stdout)
+    # no rel="last" => 0 or 1 page; re-fetch the single page and count it
+    if m:
+        c = int(m.group(1))
+    else:
+        d = json.loads(subprocess.run(["curl","-sS","--noproxy","*",
+            "-H","Authorization: Bearer " + __import__("os").environ["GITHUB_PAT"],
+            f"https://api.github.com/repos/menno420/{n}/pulls?state=all&per_page=1"],
+            capture_output=True, text=True).stdout)
+        c = len(d)
+    total += c
+    print(f"{n}\t{c}")
+print("TOTAL", total)                                            # -> 8000 on 2026-08-23
+EOF
 ```
+
+The **5,368 EAP-repository subtotal** is the same per-repo output filtered to the 19
+repositories the creation-date recipe below identifies, then summed.
 
 Controls: `superbot` → **2,378** against a max PR number of 2,450 (the gap is
 issues sharing the numbering) · `websites` → **512**, which is the PR opened the
@@ -73,7 +104,8 @@ lo,hi='2026-07-07','2026-07-21'          # inclusive: EAP kickoff .. program clo
 inside=[x for x in c if lo <= x[1] <= hi]
 print('total          ', len(c))
 print('in EAP window  ', len(inside))
-print('in 07-07..07-13', len([x for x in inside if x[1] <= '2026-07-13']))
+print('in 07-07..07-10', len([x for x in inside if x[1] <= '2026-07-10']))   # -> 17
+print('in 07-07..07-13', len([x for x in inside if x[1] <= '2026-07-13']))   # -> 19 (all of them)
 print('before window  ', len([x for x in c if x[1] < lo]))
 print('after window   ', len([x for x in c if x[1] > hi]))
 EOF
@@ -151,9 +183,11 @@ over the census, *not* a search query (§ 0):
 
 ```bash
 # per repo: count .md files in .sessions/ ; absent directory => 0, not an error
-for r in $(curl -sS --noproxy '*' -H "Authorization: Bearer $GITHUB_PAT" \
-      "https://api.github.com/user/repos?per_page=100&affiliation=owner" \
-      | python3 -c "import sys,json;[print(x['name']) for x in json.load(sys.stdin)]"); do
+code=$(curl -sS --noproxy '*' -o /tmp/repos.json -w '%{http_code}' \
+  -H "Authorization: Bearer $GITHUB_PAT" \
+  "https://api.github.com/user/repos?per_page=100&affiliation=owner")
+[ "$code" = 200 ] || { echo "ABORT: /user/repos HTTP $code" >&2; exit 1; }
+for r in $(python3 -c "import json;[print(x['name']) for x in json.load(open('/tmp/repos.json'))]"); do
   code=$(curl -sS --noproxy '*' -o /tmp/c.json -w '%{http_code}' \
       -H "Authorization: Bearer $GITHUB_PAT" \
       "https://api.github.com/repos/menno420/$r/contents/.sessions")
@@ -244,5 +278,4 @@ exactly where nobody looks — the same shape as the quality drift.
 - **No claim here is made about agent code quality.** The measured failures are
   about *records, retrieval and verification*, which is the mail's actual point.
 - **Session-card counts are per-repository directory listings**, so a repo that
-  archives older cards elsewhere reads low. `fleet-manager` 393 is current-window
-  only.
+  archives older cards elsewhere reads low. `fleet-manager` 394 is current-window only.

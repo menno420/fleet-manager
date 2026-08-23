@@ -223,7 +223,7 @@
 | TRAP-003 | 1 route | not yet |
 | TRAP-004 | 1 route | not yet |
 | TRAP-005 | **none** — see its entry | no |
-| TRAP-006 | 1 route, fires on push | not yet — the check would have to read the PR that does not exist yet |
+| TRAP-006 | **2 routes** — `card-flip-before-push` (Bash/push) + `card-status-write` (Edit/Write/MultiEdit) | not yet — the check would have to read the PR that does not exist yet |
 
 **The honest state of this register: six entries, five delivered by route (TRAP-006
 by two), and TRAP-002 complete through the full § 5.4 lifecycle** — mistake → trap entry
