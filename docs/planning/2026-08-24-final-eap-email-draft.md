@@ -103,24 +103,28 @@ either a public link or a published command you can re-run.
 
 **The scale, as of 24 August 2026.** 27 repositories on the account; **19 of
 them created inside the EAP fortnight**, 17 of those in the first four days. One
-predates it. The estate now carries **8,037 pull requests opened all-time** and
-**4,560 session records** across 19 repositories. Read those as volume, not
+predates it. The estate now carries **just over 8,000 pull requests opened all-time** and
+**about 4,560 session records** across 19 repositories (exact counts taken
+2026-08-24 ~18:05Z; they move daily). Read those as volume, not
 quality — that distinction is the whole mail. Two honest caveats travel with the
 figures: the counts are point-in-time and will differ when you re-run them, and
 no count of PRs opened *during* the fortnight exists, because the method counts
 lifetime PRs rather than a date window.
 
-**Finding 1 — the failure modes are FORGETTING and FALSE-DONE, not bad code.**
-Across the estate the recurring outcome problem was not that agents wrote broken
-software. It was that they forgot what had already been established, and that
-they reported work finished which was not finished in the way it was asked for.
-Both are intent failures, and neither shows up in a test suite.
+**Finding 1 — the failure modes we could measure are FORGETTING and FALSE-DONE.**
+The recurring outcome problems we found were that agents forgot what had already
+been established, and that they reported work finished which was not finished in
+the way it was asked for. Both are intent failures. **We are not making a claim
+about code quality either way** — we ran no census of runtime defects, so we do
+not know whether the software was good, and we would rather tell you what we
+measured than what we assume.
 
-**Finding 2 — the dominant defect class preserves coherence, which is why review
-does not catch it.** A full read of every tracked file in one repository — not a
-sample — found **101 defects**; 98 are closed. The most common was not an error
-of fact. It was **an appended correction that failed to retract what it
-corrected**. The agent added the truth and left the falsehood in place, so the
+**Finding 2 — the defect mechanism preserves coherence, which is why review does
+not catch it.** A full read of every tracked file in one repository — not a
+sample — found **101 defects**; 98 are closed. The mechanism behind its
+highest-cost findings was not an error of fact. It was **an appended correction
+that failed to retract what it corrected**. (We did not classify all 101 by
+mechanism, so read this as the shape of the worst ones, not a majority.) The agent added the truth and left the falsehood in place, so the
 document stayed internally consistent and read as correct. **Agents append; they
 do not retract.** A defect shaped like that is invisible to any review that
 reads a document for coherence, which is every review a human actually performs.
@@ -149,8 +153,10 @@ there, it survives indefinitely everywhere else.
 **Finding 5 — cost is not an agent-legible signal, so it accumulates exactly
 where nobody looks.** An infrastructure audit attributed a €30 monthly bill,
 ended an unnoticed crawler load, and sized the bot's database: **97.5 % of
-949 MB was accumulated ingestion history** against roughly 10 MB of real user
-data. Agents created every byte of it and no agent surface could see any of it.
+949 MB is accumulated ingestion history** against roughly 10 MB of real user
+data. That is a storage-composition measurement, not a verdict that the history
+is disposable — whether to keep it is still an open call on our side. Agents
+created every byte of it and no agent surface could see any of it.
 The euro figure is not the point; the shape is — an unobservable signal
 accumulates in the same way quality drift does.
 
@@ -166,9 +172,9 @@ worth more than a longer checklist.
 1. **Rules that arrive at the moment of action, not at session start.** *Because
    116 committed statements of one rule caught 0 of 16 violations in the session
    that wrote them — only hooks firing at the tool call caught anything.*
-2. **Agents that retract, not only append.** *Because the dominant defect in a
-   101-defect full-read audit was a correction that left the error in place, and
-   the result reads perfectly.*
+2. **Agents that retract, not only append.** *Because the costliest findings in
+   a 101-defect full-read audit were corrections that left the error standing,
+   and the result still reads perfectly.*
 3. **A durable, queryable record of what a session actually changed.** *Because
    sessions forget, and we now hand-maintain 4,560 session records to replace
    what the platform does not keep.*
@@ -176,8 +182,8 @@ worth more than a longer checklist.
    not broken code, it was work reported finished that was not finished as
    asked.*
 5. **Usage, cost and resource telemetry visible to the agent tier.** *Because
-   agents built a 949 MB store that was 97.5 % waste and no agent surface could
-   see it.*
+   agents built a 949 MB store of which 97.5 % is accumulated ingestion history,
+   and no agent surface could see any of it.*
 6. **Owner-set permission grants, scoped per repo, branch and action, able to
    restrict as well as allow.** *Because this is the ask from every previous
    mail and it is still the structural fix; pointer only.*
@@ -200,8 +206,9 @@ worth more than a longer checklist.
 11. **Do not classify factual capability documentation as workaround material.**
     *Because a session that misreads a denial as a permanent wall writes that
     wall into shared memory, where it becomes every later session's starting
-    fact — we had to purge 18 repositories and ship a CI check that reds any pull
-    request documenting an agent limitation.*
+    fact — we had to purge 18 repositories and ship a CI check that reds a pull
+    request asserting an undated, standing "agents cannot X" for the actions it
+    covers.*
 12. **A session that can accurately answer "what can I do?"** *Because
     tool-search-only tools are invisible to a session's own inspection, so agents
     declare false limits about tools they actually hold.*
@@ -230,8 +237,11 @@ questions in the 8 July mail offered this estate as a test harness and never got
 an answer. It is now 27 repositories, ~8,000 pull requests, ~4,560 session
 records, a published measurement method with its own positive controls, and a
 blind-scored evaluation of whether a fresh agent can correctly state what a
-repository is *for* — five agents producing, two independent scorers with no
-access to the answers, against a pre-registered rubric. If you want a specific
+repository is *for* — five agents producing, two independent scorers against a
+pre-registered rubric, with the outcomes withheld from the scorers' inputs.
+Honestly: that containment was instructed and self-attested rather than
+enforced, and both scorers ran the same model family — we would tighten both
+before calling it a result. If you want a specific
 scenario stress-tested, name it and we will run it and send you the raw results,
 including the ones that make us look bad.
 

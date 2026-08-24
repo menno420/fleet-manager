@@ -25,6 +25,28 @@ send that.
 fm #942 (spider-bot registration) landed the ESTATE row and Layer-2 folder. It
 left the repo clean at `27b81a4`; nothing about it blocks or feeds this session.
 
+## Adversarial review — round 1, 10 findings, all conceded
+
+`@codex` at `39753f5`: **10 inline findings, 9×P2 + 1×P3, every one accepted.**
+Disposition `[conceded] ×10`, `[survived] ×0` — the tally is countable per
+[`../docs/conventions/adversarial-review.md`](../docs/conventions/adversarial-review.md).
+Four of them are the same species: **a bounded measurement restated at a wider
+scope.** The mechanism behind the audit's worst findings became "the dominant
+class of all 101"; a self-attested containment became "no access to the
+answers"; a storage-composition measurement became "waste"; a grammar covering
+undated standing walls became "reds any PR documenting a limitation". Each was
+heading into a mail to a third party.
+
+**And the review nearly did not get read.** The poll loop that watched for it
+interpolated curl output into a `python3 -c` heredoc with `|| echo NO` as its
+fallback, so **any failure of the check printed the same token as a genuine
+absence.** It reported "no verdict" for 11 iterations while a review and ten
+comments were already on the PR. Re-run with the status code checked and the
+error path removed, all three surfaces answered `HTTP 200` immediately. This is
+TRAP-003 committed by the instrument built to detect it, and
+`docs/CAPABILITIES.md` already records a session losing 24 minutes to the same
+shape — the write-up existed and did not bind, which is this session's own N3.
+
 ## What landed
 
 - `docs/findings/2026-08-24-e1-source-sweep.md` — what was already sent, topic by

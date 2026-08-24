@@ -28,11 +28,20 @@
 
 ## 1 · The measured correction: two of the four reviews are gone from the mailbox
 
-`MEASURED` 2026-08-24. **The 2026-07-08 introduction review and the 2026-07-12
-scale-up report are no longer retrievable from Gmail**, and neither is the
-vendor's 07-14 acknowledgement. The correspondence record describes thread
-`19f41cd2e5380bb3` as carrying five messages; **it now carries two** — the
-07-16 21:12 classifier-crisis follow-up and the 07-16 21:42 attachment resend.
+`MEASURED` 2026-08-24. **Four of thread A's messages are no longer retrievable
+from Gmail** — and the arithmetic here was wrong in this file's first version
+(`@codex`, fm #943), which matters because the error under-counted the loss.
+
+The correspondence record lists thread `19f41cd2e5380bb3` as five messages:
+07-08, 07-12, 07-14, **07-16 01:52** and 07-16 21:12. Gmail now returns **two**:
+07-16 21:12 and 07-16 21:42. So the survivors are not a subset of the recorded
+five — **the 21:42 attachment resend was never in that list**, and the 07-16
+01:52 classifier-crisis report is **also gone**, which the first version did not
+notice. Gone: **07-08, 07-12, 07-14 and 07-16 01:52.**
+
+**The 01:52 body is partly recoverable and it is worth saying where from:** the
+surviving 21:12 message quotes it in its reply chain, so its opening argument
+survives as quoted text inside another mail — a partial, not a copy.
 
 Three independent queries, each returning consistently:
 
@@ -41,12 +50,21 @@ Three independent queries, each returning consistently:
 | `subject:"Claude Code Projects Review" in:anywhere` | 1 thread, **2 messages**, both 07-16 |
 | `in:sent after:2026/07/05 before:2026/07/22` | 3 threads — the 07-16 pair, the 07-21 power-user thread, one unrelated. **Nothing before 07-16.** |
 | `in:anywhere from:<owner> after:2026/07/01 before:2026/07/16` *(includeTrash)* | **`{}`** — zero threads |
+| `subject:"Claude Code Projects Review" in:anywhere` *(includeTrash)* | 1 thread, **the same 2 messages** |
+| `in:anywhere from:anthropic.com after:2026/07/13 before:2026/07/16` *(includeTrash)* | 3 vendor threads — **none of them the 07-14 00:57 thread-A acknowledgement** |
 
-**Positive control passed**, and it is what makes this an absence rather than a
-failed search: `in:sent after:2026/07/15 before:2026/07/18` returns the two
-known-present 07-16 messages with full metadata. The query form works, the
-window arithmetic is right, and the `in:anywhere … includeTrash` variant would
-have surfaced an archived or trashed copy. Per
+**Two positive controls, one per lane, because one lane was not enough.** The
+first version ran only owner-sent probes and still recorded the *vendor's*
+incoming acknowledgement as absent — an absence claim resting on a lane that
+could not have seen it (`@codex`, fm #943). Both lanes now carry their own
+control:
+
+- **Outgoing:** `in:sent after:2026/07/15 before:2026/07/18` returns the two
+  known-present 07-16 messages with full metadata.
+- **Incoming, with trash:** `in:anywhere from:anthropic.com after:2026/07/13
+  before:2026/07/16` *(includeTrash)* returns three genuine vendor messages in
+  that window — so the incoming lane is live and reads trash — **and does not
+  return the 07-14 00:57 acknowledgement.** Per
 [`capability-probe`](../../.claude/skills/capability-probe/SKILL.md) step 3b
 that converts *"I found nothing"* into *"nothing is there — in this lane."*
 
@@ -155,7 +173,7 @@ July mail was an inside-the-program bug report. The new material is an
 outcome study, and it runs on a different axis: not *could the agent do the
 thing*, but *was what it produced true, and could anyone tell*.
 
-Six findings, each already committed and citable:
+Seven findings, each already committed and citable — N6 was tested and withdrawn below, so **six stand**:
 
 **N1 · The two outcome failure modes, owner-named.** *"What is expected of an
 autonomous agent is that it understands intent and properly acts on it… What I
@@ -164,11 +182,20 @@ obviously they were not finished in the way I intended."* **FORGETTING** and
 **FALSE-DONE**. Not one of the E1 plan's thirteen seeded asks is an outcome
 claim — checked item by item ([correspondence record](2026-08-09-eap-correspondence-record.md) § 6).
 
-**N2 · The defect class is the finding, not the count.** A full-read audit of
+**N2 · The mechanism is the finding, not the count — and the scope of the
+mechanism claim is narrower than this file first said.** A full-read audit of
 every tracked file in one repository found **101 defects**, 98 closed
-([the audit](../audits/2026-08-10-full-read/README.md)). The dominant class was
-**not bad code**: it was *an appended correction that failed to retract what it
-corrected*. Every document stayed internally coherent, so review passed over it.
+([the audit](../audits/2026-08-10-full-read/README.md)). Its most-cited mechanism
+is *an appended correction that failed to retract what it corrected*.
+
+**`@codex` (fm #943) refused the word "dominant" and was right:** the audit
+groups that mechanism for its highest-cost findings and **never classifies the
+other 94 defects by mechanism at all** — `grep -c "^| D" findings.md` → 0; there
+is no mechanism column and no tally. Calling it the dominant class turned a
+purposive subset into a population result, which is the same over-reach as the
+withdrawn N6 one document further down. **The defensible claim, and the one the
+mail now carries: it is the mechanism the audit names for its worst findings,
+not a measured majority.** Every document stayed internally coherent, so review passed over it.
 **Agents append; they do not retract** — and a defect that preserves coherence
 is invisible to any review that reads for coherence. That is why human review is
 the wall: not because there is too much to read, but because the failures are
@@ -265,7 +292,10 @@ so a summary that looks empty is not an empty review.
 
 ## 5 · The scale, re-measured today
 
-`MEASURED` 2026-08-24, by the [evidence pack](2026-08-23-eap-evidence-pack.md)
+`MEASURED` 2026-08-24 **~18:05–18:10Z** — the times are part of the figures, not
+decoration: the pack's § 7 records the total moving twice inside one morning, so
+an exact value without its snapshot time cannot be told from later drift
+(`@codex`, fm #943). Taken by the [evidence pack](2026-08-23-eap-evidence-pack.md)
 § 0 recipe verbatim, re-run so the mail carries same-day figures rather than
 yesterday's.
 
@@ -277,8 +307,8 @@ yesterday's.
 | …predating the EAP | 1 (`superbot`) | **1** |
 | …created after the program closed | 6 | **7** |
 | …archived (R5 executed 08-23) | 9 | **9** |
-| **Pull requests opened, all-time, all repositories** | 8,000 (~09:00Z) | **8,037** |
-| Session cards across 19 repositories | 4,535 | **4,560** |
+| **Pull requests opened, all-time, all repositories** | 8,000 (~09:00Z) | **8,037** *(~18:05Z)* |
+| Session cards across 19 repositories | 4,535 | **4,560** *(~18:10Z)* |
 
 Top repositories by PRs opened, today: `superbot` 2,380 · `fleet-manager` 942 ·
 `idea-engine` 900 · `superbot-next` 605 · `substrate-kit` 581 · `websites` 518 ·
