@@ -175,13 +175,34 @@ def main() -> int:
     except Exception:
         return 0
 
+    # The actual edited path, NOT the concatenated haystack. A route that must
+    # only fire on a class of FILE has to test the path field itself: haystack()
+    # joins file_path with the written content, so prose that merely NAMES a path
+    # satisfies a path pattern searched over the combination. MEASURED 2026-08-24
+    # (Codex, fm #938): an Edit of docs/traps.md whose new_string mentioned
+    # `.sessions/example.md` and a `Status: complete` header fired
+    # `card-flip-to-complete` and spent it — the real card flip later in that
+    # session was SILENT. Same class as fm #923, one field deeper.
+    target_path = str((event.get("tool_input") or {}).get("file_path") or "")
+
     session = str(event.get("session_id") or "nosession")
     fired = already_fired(session)
     hits = []
 
     for route in routes:
         rid = route.get("id", "")
-        if rid in fired:
+        # `repeat` routes are never spent. Once-per-session is right for a
+        # REFERENCE pointer (say it once, the agent has it) and wrong for an
+        # ACTION guard, whose whole job is to speak at each occurrence of the
+        # action. Three measured incidents are the same shape — fm #922, fm #923
+        # and fm #937 — and the first two were patched by narrowing what CONSUMES
+        # the route, which fixes the instance and leaves the class. MEASURED
+        # 2026-08-24 (Codex, fm #938) on the real sequence: write red card -> push
+        # -> flip to complete -> push. Steps 3 and 4 — the only two that matter —
+        # were BOTH silent, because step 1 spent `card-status-write` and step 2
+        # spent `card-flip-before-push`. Opt-in per route, like `code_only`:
+        # blanket repetition would nag on every reference route.
+        if rid in fired and not route.get("repeat"):
             continue
         if tool not in tuple(route.get("tools") or DEFAULT_TOOLS):
             continue
@@ -209,6 +230,17 @@ def main() -> int:
                 not route.get("tools") or tool in DEFAULT_TOOLS):
             fired.add(rid)
             continue
+        # `path_when` is checked against the file_path FIELD alone, never the
+        # haystack, so naming a path in prose cannot satisfy it (fm #938).
+        path_pats = route.get("path_when") or []
+        if path_pats:
+            try:
+                if not target_path or not any(
+                        re.search(pp, target_path, re.I) for pp in path_pats):
+                    continue
+            except re.error:
+                continue
+
         # A route guarding an ACTION matches against code with quoted data
         # blanked, so a mention inside an argument cannot consume it (fm #923).
         match_text = code_only(text) if route.get("code_only") else text

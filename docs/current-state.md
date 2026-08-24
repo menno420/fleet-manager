@@ -91,7 +91,7 @@ copy product architecture or internal product state. Canonical intent:
   consolidation is of repositories, not running bots. **OD-20**: no further repo
   cuts; the lever is legibility.
   **`OQ-FM-D2-TARGET` was marked answered by OD-20 and that was withdrawn the
-  same session** — `@codex` returned **6 findings, 6 conceded**, the sharpest
+  same session** — `@codex` returned **40 findings across five rounds — 39 conceded, 1 partial, 0 survived**, the sharpest
   being that an estate-wide outcome is not a repository selection. Also
   withdrawn: a "four most-worked repos" ranking derived from last-commit dates
   and contradicted by a 14-day merged-PR measurement already in this tree, and a
@@ -103,8 +103,10 @@ copy product architecture or internal product state. Canonical intent:
   return-path gap that does **not** size D2. The
   [active-repo intent audit](findings/2026-08-23-active-repo-intent-audit.md),
   written hours earlier and **not read before that finding was drafted**, remains
-  the primary document and supplies D2's measured order. Also filed:
-  `OQ-LAPTOP-AI-WORKSTATION`, his current priority, recorded nowhere until now.
+  the primary document and supplies D2's measured order. His laptop-as-AI-workstation
+  thread is recorded in [`findings/2026-08-23-owner-direction.md`](findings/2026-08-23-owner-direction.md)
+  § 4 — his current priority, recorded nowhere until now, and deliberately *not*
+  an owner-queue entry since it is not an ask.
   E1 sends 2026-08-24 by his own statement.
 
 - **The E1 evidence pack — what the projects created, measured; and the review

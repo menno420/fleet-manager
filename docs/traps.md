@@ -256,6 +256,63 @@
 
 ---
 
+## TRAP-007 · A card flipped to `complete` while a requested review is unanswered
+
+**This is a COMPLIANCE failure with an existing rule, not a newly discovered
+trap.** An earlier draft claimed the flip was *"correct by every written rule"*
+and that no rule covered it. **Both were false** (`@codex`, fm #938), and the
+correction is the more useful record: the rule existed, was measured, and still
+was not followed — which is this estate's own thesis about why rules do not bind,
+demonstrated on itself.
+
+- **THE RULE THAT ALREADY SAID SO** —
+  [`.claude/skills/session-close/SKILL.md`](../.claude/skills/session-close/SKILL.md)
+  `:116-129`, `MEASURED` on fm #827, states the loop verbatim: *"request review on
+  the current head → wait, read the inline comments → verify each finding against
+  source → if you changed anything a reviewer would have an opinion about: push,
+  re-request on the NEW head, and wait again → flip only when the outstanding
+  review covers the head you are flipping."* Its step 6c adds the reason: **the
+  flip is the merge-eligibility event.**
+- **TRIGGER** — you are about to flip an in-diff `.sessions/*.md` card to
+  `complete`, or to push after flipping, and a review you requested has not
+  answered **on the current head**.
+- **WHY IT KEEPS HAPPENING ANYWAY** — the rule lives in a skill a session invokes
+  at the *end*, and the losing move happens *before* that. The lander sees card
+  `complete` + gate green and cannot know a re-review is pending, so it merges the
+  head it has. This is a delivery gap, not a knowledge gap.
+- **REQUIRED PREVENTION** — flip only when the outstanding verdict covers the
+  current head — and **the two surfaces are checked differently**, which is where
+  this goes wrong quietly. A **review object** carries `commit_id`: compare it
+  directly. A **clean pass creates no review object at all** — it arrives as an
+  **issue comment** whose head is named only on its `Reviewed commit:` body line,
+  so there is no `commit_id` to match and a `commit_id`-only check reads a clean
+  verdict as *absent*. Read `/pulls/{n}/reviews` **and** `/issues/{n}/comments`,
+  comparing `commit_id` on the first and parsing `Reviewed commit:` on the second. If you must re-request after flipping, apply `do-not-automerge`
+  **before pushing the completed card** — the push, not the request, is what makes
+  the PR mergeable, so a label applied afterwards can lose the race.
+- **VERIFY** — before flipping, a verdict exists at the current head SHA. After
+  re-requesting, the required check is red or the label is on.
+- **ORIGIN** — `MEASURED` 2026-08-23/24, fm **#937**. Round 1 addressed, card
+  flipped, re-review requested, further commits pushed. `merge-on-green` merged at
+  head `775f1c8`; commits `4a80bf6` and `4ea3962` carrying round 2's six findings
+  reached `main` in **neither** —
+  `git show origin/main:docs/findings/2026-08-23-owner-direction.md` returned
+  missing and `grep -c` on main's `owner-queue.md` returned **1** for the entry
+  that was supposed to have moved. `main` carried five known-wrong statements until
+  fm #938. **Second instance:** the 2026-08-20 railway card already recorded
+  *"`merge-on-green` landed #871 before the round-2 review I had requested could
+  answer"* — and produced no register entry, which is why it recurred.
+- **DELIVERY** — `MEASURED` 2026-08-24, fm #938, and the first fix was wrong.
+  Extending the two existing routes' `says` strings delivered **nothing**:
+  `route_docs.py` spends a route on first match, so `card-status-write` was
+  consumed writing the born-red card and `card-flip-before-push` on the first red
+  push, leaving the flip and the final push silent. Reproduced on the real
+  sequence — steps 3 and 4 both SILENT. Fixed two ways: an opt-in **`repeat`**
+  flag (an ACTION guard is never spent; a REFERENCE pointer still speaks once) now
+  set on `card-flip-before-push`, and a new **`card-flip-to-complete`** route that
+  matches the completion transition itself. Re-run post-fix: **1 fires, 2 fires,
+  3 fires, 4 fires, and every later push fires.**
+
 ## Coverage — stated so the gap is visible
 
 | trap | delivered by | deterministic checker |
@@ -266,9 +323,11 @@
 | TRAP-004 | 1 route | not yet |
 | TRAP-005 | **none** — see its entry | no |
 | TRAP-006 | **2 routes** — `card-flip-before-push` (Bash/push) + `card-status-write` (Edit/Write/MultiEdit) | not yet — the check would have to read the PR that does not exist yet |
+| TRAP-007 | **2 routes** — `card-flip-to-complete` (Edit/Write/MultiEdit, matches the completion transition) + `card-flip-before-push`, now `repeat: true` so it is never spent | not yet — a checker would have to know a review was *requested*, which is PR state, not tree state |
 
-**The honest state of this register: six entries, five delivered by route (TRAP-006
-by two), and TRAP-002 complete through the full § 5.4 lifecycle** — mistake → trap entry
+**The honest state of this register: seven entries, six delivered by route (TRAP-006
+and TRAP-007 by two each — they share `card-flip-before-push`), and TRAP-002 complete
+through the full § 5.4 lifecycle** — mistake → trap entry
 → route → deterministic checker. `tools/check_pipe_exit_code.py` runs in
 `python3 bootstrap.py check --strict` via `scripts/preflight.py`, and scans
 **executable surfaces only**: `.github/workflows/*.yml|yaml`, `**/*.sh`, **plus

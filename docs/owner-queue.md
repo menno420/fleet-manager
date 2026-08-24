@@ -121,31 +121,29 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   owner-only — product direction. *(The kit hop for pml stays owner-paced
   per `OQ-KIT-V1-21-RELEASE`.)*
 
-- **`OQ-LAPTOP-AI-WORKSTATION` — 🖥 the laptop as an AI-integrated workstation:
-  a standing owner thread with no home in this estate (added 2026-08-23, owner
-  live).** **HIS WORDS, verbatim:** *"I want to further work on discovering the
-  posibilities of my laptop and how I can use Claude and chatGPT to speed up and
-  improve my work, I want to make this laptop easier to use aswell as highly AI
-  intergrated, so both me and AI can easily use everything and work
-  productively, I'm still disvocering many posibilities."* And on the local-model
-  question: *"the main downside is that I would constantly need my laptop running
-  the whole time, so I think local sessions are only usefull once I'm really
-  sitting down, tho that doesn't mean I shouldn't optimize towards them."*
-  **THE READING, stated so it can be corrected:** this is **his current priority**
-  and it is not a repository task — it is the environment every repository is
-  worked *from*. Two goals that want different handling: **(a)** make the machine
-  easier for him to use, and **(b)** make it legible to an AI agent, so both can
-  work the same surfaces. His own framing already resolves the local-model
-  question into a **constraint, not a verdict**: local is for sit-down sessions
-  because it needs the machine running, and that is a reason to optimise toward
-  it rather than against it.
-  **WHY IT IS FILED HERE AT ALL:** the estate has no record of the owner's own
-  working environment, and this thread currently exists only in a chat
-  transcript. `intent.md` § 7 records *who does what across the agents*; nothing
-  records *where he works*. **NOT AN ASK — no letter is needed.** It is filed so a
-  session that could help does not have to be told this thread exists.
-  **THE ONE THING A SESSION SHOULD NOT DO:** treat this as licence to
-  reconfigure his machine. Nothing here is executable estate work.
+- **`OQ-GCB-REVIEW-SCOPE` — 🤖 what must the review bot actually DO? Answering this
+  unblocks the roadmap re-sequencing and the first slice's definition — **not** the
+  whole track: `GCB-1` is a second, separate owner gate and repository creation
+  still waits on it (2026-08-23, owner live).**
+  **WHY THIS IS NEW:** `GCB-1` asks whether to create the repository and under
+  what name. It does **not** carry this, and OD-19 introduced it: *"first there
+  should be a smaller review oriented bot for the game server."*
+  **WHAT IS BLOCKED:** [`delivery-roadmap.md`](planning/2026-08-21-game-community-bot/delivery-roadmap.md)
+  orders the AI spine at Phase 1, community/safety through Phase 4, and the
+  game-testing loop at **Phase 5**. If your review bot is that loop, the
+  executable order contradicts OD-19 and needs re-sequencing before Phase 0.
+  **A session must not answer this for you** — "review oriented" is one phrase,
+  and picking its contents would be manufacturing product intent
+  ([`intent.md`](intent.md) § 8b).
+  **OPTIONS, pick any mix or write your own:** **(A) playtest capture** — sessions,
+  runs, clips, who tested what · **(B) bug/feedback intake** — structured reports
+  from testers into something you can triage · **(C) build handoff** — announce a
+  build, collect who installed it, chase the ones who didn't · **(D) feedback
+  triage** — cluster and rank what testers said.
+  **HOW:** letters in the hub chat, e.g. "B and D first".
+  **UNBLOCKS:** re-sequencing the roadmap, and the first slice's exit gate.
+  **NOTE the separation constraint is already settled** (OD-19) — this asks only
+  what the *first* bot does, not whether the bots merge. They do not.
 
 - **`OQ-BOT-DB-BTD6-PRUNE` — ⚑ the bot DB is 97.5 % accumulated BTD6
   ingestion history (last activity 27 min before the probe) — prune

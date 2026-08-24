@@ -7,7 +7,15 @@
 >
 > **What this is:** D2's acceptance test — *a cold session states the repo's
 > purpose, live state and next step from ≤3 files* — run as a **sweep** across
-> all 17 unarchived repositories instead of one repo per session. It exists
+> the unarchived repositories instead of one repo per session.
+>
+> **CENSUS CORRECTED 2026-08-24 (`@codex`, fm #938): this sweep covers 16 of the
+> 17, not all 17.** The verdicts below name 16 repositories, and the headline said
+> *7 pass* while listing **6**. The missing repository is **`spider-swing`** — it
+> appears only in § 5's activity table and carries **no verdict at all**, which
+> matters because it is the one asset with a live external clock. It has not been
+> judged against the cold-session test; do that before anyone calls this complete
+> or derives a D2 order that assumes it passed. It exists
 > because `OQ-FM-D2-TARGET` has been picking D2's next repo by guess; this
 > replaces the guess with a ranked list of which repos actually fail.
 >
@@ -15,7 +23,9 @@
 
 ## 1 · The verdicts
 
-**7 pass · 5 unrated · 1 stale · 3 fail · 1 hub.** Judged from each repo's own
+**6 pass · 5 unrated · 1 stale · 3 fail · 1 hub = 16 of 17** — `spider-swing`
+unjudged (see the header correction). *Originally published as "7 pass" against a
+list of six; corrected 2026-08-24.* Judged from each repo's own
 declared entry point.
 
 **✅ Pass** — `pokemon-mod-lab`, `gba-homebrew`, `venture-lab` share the same
@@ -152,7 +162,14 @@ and an unindexed repo returns 0, indistinguishable from a true zero
 `websites` 19 are product work. The sharp fact is narrower: **`spider-swing` is
 the starved one, and it is the only asset with an external clock running.**
 
-## 6 · The order this implies for D2
+## 6 · The order this implies for D2 — **PROVISIONAL**
+
+> **This order is provisional until `spider-swing` is judged** (`@codex`, fm
+> #938). It was derived from verdicts that omit one repository, and that
+> repository is the estate's only asset with a live external clock — if it fails
+> the cold-session test it plausibly outranks everything below. Classify it
+> first, then confirm or re-rank.
+
 
 1. ~~`idea-engine`~~ ✅ · 2. ~~`sim-lab`~~ ✅ · 3. **`product-forge`** (needed
 before its R2 graduation anyway) · 4. **`estate-backups`** · 5. the date stamp
