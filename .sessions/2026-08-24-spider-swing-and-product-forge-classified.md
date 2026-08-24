@@ -167,8 +167,9 @@ rather than a truncated one.
 
 ## What this session got wrong, and the shape it kept taking
 
-**Six** claims were corrected under review — two by `@codex`, four by
-owner-review. Listing them because the **rate** is the finding, not any one fix:
+**Seven** claims were corrected under review — two by `@codex`, five by
+owner-review. **The table grew twice while being written**, which is a better
+measurement of the rate than the rate itself:
 
 | the claim | what it was really based on | caught by |
 |---|---|---|
@@ -178,6 +179,7 @@ owner-review. Listing them because the **rate** is the finding, not any one fix:
 | the earlier window's cutoff *cannot be recovered* | **one** method tried, then generalised | owner-review |
 | `product-forge`'s inbox is *empty*, so a session stalls | the README's fallback sentence; **the file was never opened** | owner-review |
 | three `substrate-gate` reds are *the same born-red hold* | **one** job log read, then generalised to three | owner-review |
+| CI's extra finding comes from the merge-base diff, which *no local run reproduces* | the output alone — neither the workflow nor `check --help` was read | owner-review |
 
 **They are one shape, not five.** Every one is a claim about a surface there was
 a *cheap* way to check — one API call, one `curl` — and the check was skipped
@@ -209,11 +211,35 @@ local checks that "confirmed" the hold were run as
 `grep -E "^check: (HOLD|session log)"` — a filter shaped to match what was
 expected, so a **new** finding of any other shape would have been invisible to
 the check meant to catch it. Re-run unfiltered, the local gate reports **1**
-finding where CI reports **2**: CI adds `[session-card-hold]` because it runs the
-added-card lane against the merge-base diff, which no local run reproduces. Every
-earlier "only the born-red hold" statement here was true, and none of them had
-read the count. Verified on all four heads — `5e7d4c1`, `3993da8`, `6dae308`,
-`2a08475` — each `check: 2 finding(s)`, both the hold, no third finding.
+finding where CI reports **2**. Verified on all four heads — `5e7d4c1`,
+`3993da8`, `6dae308`, `2a08475` — each `check: 2 finding(s)`, both the hold, no
+third finding.
+
+**The explanation first given for that gap was itself the seventh instance.** It
+said CI diverges because it runs the added-card lane *against the merge-base
+diff, which no local run reproduces* — inferred from output, with neither the
+workflow nor `check --help` opened. **Both halves are false.** Local already does
+merge-base selection: the very first gate run in this session printed
+*"session-card selection — 1 card(s) in the merge-base diff vs origin/main"*. And
+`--added-card` is an ordinary documented flag — `check --help` lists it. CI just
+runs **two** invocations (`substrate-gate.yml:246` and `:249`) and every local
+run here had only ever been the plain one.
+
+**So the CI result is exactly reproducible locally, and that is the operationally
+useful part** — the gate can be verified before pushing instead of after:
+
+```sh
+CARD=.sessions/2026-08-24-spider-swing-and-product-forge-classified.md
+python3 bootstrap.py check --strict --require-session-log --session-log "$CARD" \
+        --simulate-added-card "$CARD"                      # lane 1 -> 1 finding
+python3 bootstrap.py check --strict \
+        --session-log .sessions/__born-red-card-added__.md --added-card "$CARD"
+                                                            # lane 2 -> 2 findings
+```
+
+Run born-red, lane 2 reproduces CI's `check: 2 finding(s)` exactly. **A session
+that only runs plain `check --strict` is reading a weaker gate than the one that
+decides its merge**, and nothing said so until it was measured here.
 
 **What this does NOT license:** treating the table as the fix. Nothing here
 delivers the check at the moment it is skipped, and the estate has measured that
