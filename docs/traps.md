@@ -282,12 +282,30 @@ demonstrated on itself.
   head it has. This is a delivery gap, not a knowledge gap.
 - **REQUIRED PREVENTION** — flip only when the outstanding verdict covers the
   current head — and **the two surfaces are checked differently**, which is where
-  this goes wrong quietly. A **review object** carries `commit_id`: compare it
-  directly. A **clean pass creates no review object at all** — it arrives as an
-  **issue comment** whose head is named only on its `Reviewed commit:` body line,
-  so there is no `commit_id` to match and a `commit_id`-only check reads a clean
-  verdict as *absent*. Read `/pulls/{n}/reviews` **and** `/issues/{n}/comments`,
-  comparing `commit_id` on the first and parsing `Reviewed commit:` on the second. If you must re-request after flipping, apply `do-not-automerge`
+  this goes wrong quietly.
+  **A review object carries `commit_id`** — compare it directly; that is the case
+  with findings, and it needs no parsing.
+  **A clean pass creates no review object at all** — it arrives as an **issue
+  comment**, and **its body shape VARIES**, which is the part that bites:
+
+  | observed clean-pass shape | how the head is named |
+  |---|---|
+  | `Codex Review: Didn't find any major issues. Hooray!` (websites #511, fm #924) | an explicit **`Reviewed commit:` <sha>** line |
+  | `## Review result — Approved — no blocking findings` (fm #938, `MEASURED` 2026-08-24) | **no `Reviewed commit:` line at all** — `'Reviewed commit:' in body` → **False**; the head appears only as a 40-hex SHA inside `blob/<sha>/…` URLs, beside a second SHA for the merge-preview commit |
+
+  **So the rule is: try `Reviewed commit:` first, and when it is absent, extract
+  every 40-hex string from the body and test whether your head is AMONG them** —
+  presence, not position, because one of them is the merge preview.
+  *(fm #938 shipped a version of this block saying the clean comment identifies
+  the head *only* through `Reviewed commit:`. That is true of one shape and false
+  of the other, and a session meeting the second would find nothing and conclude
+  no verdict existed — the false negative this entry exists to prevent. **Do not
+  narrow this to one shape in either direction**; two are observed and the vendor's
+  own About-block claims a third behaviour, a 👍 reaction, which this estate has
+  never seen. `CAPABILITIES.md` § "Codex's CLEAN verdict is an issue comment"
+  keeps that unresolved deliberately.)*
+  **If the body names no SHA you can match, do not guess** — treat the verdict as
+  not covering your head and re-request. If you must re-request after flipping, apply `do-not-automerge`
   **before pushing the completed card** — the push, not the request, is what makes
   the PR mergeable, so a label applied afterwards can lose the race.
 - **VERIFY** — before flipping, a verdict exists at the current head SHA. After

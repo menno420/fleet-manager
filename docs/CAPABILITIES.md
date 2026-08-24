@@ -422,7 +422,7 @@ findings go here, below the fence.)
   **inline review comments**, not in the review body, so a summary that looks empty is not an
   empty review — read `/pulls/{n}/comments`. **And a CLEAN verdict is
   neither** — see § *"Codex's CLEAN verdict is an issue comment"* below, which is
-  canonical and carries the `Reviewed commit:` SHA-match requirement. Reviews trigger on PR open, draft→ready, and the
+  canonical and carries the SHA-match requirement — note the clean-pass body shape **varies**, and only one of the two observed shapes has a `Reviewed commit:` line. Reviews trigger on PR open, draft→ready, and the
   literal comment `@codex review`. Across #812/#813 it produced **13 findings over 5 rounds**,
   several of which proved a PR did not do what its own title claimed. · **How this entry came
   to exist:** a session waited **150 seconds**, wrote *"no review appeared"* into a public PR
@@ -1768,7 +1768,24 @@ does not depend on which: check both surfaces.
 Measured on websites #511: round 2 requested 13:54:20Z, verdict posted
 **13:56:19Z (~2 min)**, and a 10-minute poll of `/reviews` never saw it.
 
-**So check BOTH surfaces, and match on the reviewed SHA, not on recency:**
+**A SECOND clean-pass shape, `MEASURED` 2026-08-24 on fm #938 — and it breaks the
+parse rule this section taught.** Its clean verdict read `## Review result` /
+`**Approved — no blocking findings.**` and contained **no `Reviewed commit:` line
+at all** (`'Reviewed commit:' in body` → **False**, body 3,155 bytes, created
+`2026-08-23T23:42:43Z`). It named the head only as a 40-hex SHA inside
+`blob/<sha>/…` URLs — two SHAs in the body, the reviewed head `0c1a033f…` and the
+merge-preview commit `5a3f0878…`.
+
+So there are now **three** claimed clean-pass behaviours and this estate has seen
+two: `Hooray!` + `Reviewed commit:` · `Approved` + SHAs only in URLs · the
+vendor's own 👍 reaction, still never observed. **Do not narrow this to one shape
+in either direction.** fm #938 shipped guidance saying the clean comment names
+the head *only* via `Reviewed commit:`; that is true of the first shape and false
+of the second, and a session meeting the second would read a clean verdict as
+absent. Corrected 2026-08-24 in `docs/traps.md` TRAP-007 and all three card routes.
+
+**So check BOTH surfaces, and match on the reviewed SHA, not on recency — trying
+`Reviewed commit:` first and falling back to any 40-hex SHA in the body:**
 
     /pulls/{n}/reviews          → rounds that HAVE findings (+ inline comments)
     /issues/{n}/comments        → the clean verdict, naming Reviewed commit

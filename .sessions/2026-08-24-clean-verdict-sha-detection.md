@@ -1,10 +1,10 @@
-# 2026-08-24 — The clean-pass verdict has no `Reviewed commit:` line, and main says it does
+# 2026-08-24 — The clean-pass verdict body has TWO shapes; main teaches only one
 
 > **Status:** `in-progress` — branch `claude/active-projects-overview-kiftou`,
 > restarted from `origin/main` at `9bd48b4` (fm #938, merged). Born red on
-> purpose: the card is the merge hold (TRAP-006/007). It flips only after
-> `python3 bootstrap.py check --strict` returns a real exit 0, read from a
-> redirect and never after a pipe, **and** after `@codex` answers on the head
+> purpose: the card is the merge hold (TRAP-006/007). Flipped after
+> `python3 bootstrap.py check --strict` returned a real exit 0, read from a
+> redirect and never after a pipe, **and** after `@codex` answered on the head
 > being flipped.
 
 - **📊 Model:** opus-5 · high · docs-only
@@ -37,6 +37,54 @@ needs no parsing at all. So the shipped instruction fails in exactly the case it
 was written for: a session following it finds no such line and concludes **no
 verdict exists** — the same false-negative that made this estate merge two PRs
 mid-review.
+
+## The correction, and the correction to the correction
+
+**The first fix over-generalised in the opposite direction** — caught here before
+push, by opening the canonical record instead of trusting my own measurement as
+the whole truth.
+
+`CAPABILITIES.md` § *"Codex's CLEAN verdict is an issue comment"* documents a
+**different** clean-pass body, observed twice (websites #511, fm #924):
+`Codex Review: Didn't find any major issues. Hooray!` **with** a
+`**Reviewed commit:** <sha>` line. That is not refuted by fm #938 — it is a
+second shape. Writing *"the clean comment has no `Reviewed commit:` line"* would
+have been TRAP-004 exactly: a claim wider than the sample that produced it, and
+the mirror image of the error being fixed.
+
+**So both are recorded, and the rule handles both:**
+
+| observed clean-pass shape | how the head is named |
+|---|---|
+| `…Hooray!` (websites #511, fm #924) | explicit `Reviewed commit:` line |
+| `## Review result` / `Approved — no blocking findings` (fm #938) | **no such line**; 40-hex SHAs inside `blob/<sha>/…` URLs only |
+
+**Try `Reviewed commit:` first; when absent, extract every 40-hex string and test
+whether the head is AMONG them** — presence, not position, since one SHA is the
+merge preview. If none matches, re-request rather than guess.
+
+A third behaviour is claimed and never seen: the vendor's own About-block says a
+clean pass produces a 👍 **reaction**. `CAPABILITIES.md` leaves that unresolved
+deliberately; nothing here closes it.
+
+## What landed
+
+- **`docs/traps.md` TRAP-007** — the two shapes as a table, the fallback rule, and
+  a note naming what fm #938 shipped wrong.
+- **All THREE affected routes** — `card-flip-before-push`, `card-flip-to-complete`
+  and the pre-existing **`codex-verdict-poll`**, which carried the same
+  single-shape instruction and was not written by this session's work at all.
+- **`docs/CAPABILITIES.md`** — the second shape appended to the canonical section,
+  and its cross-reference at `:425` corrected, since that line taught the parse
+  rule as a requirement.
+
+## Verification
+
+- `python3 bootstrap.py check --strict` → **real exit 0**, read from a redirect,
+  never after a pipe.
+- `tools/check_doc_routes.py` → exit 0, 65 routes, 0 errors.
+- Every route mentioning `Reviewed commit:` now also carries the varies-shape rule
+  — checked by enumerating the route file, not by assuming the edit applied.
 
 ## What is about to happen
 
