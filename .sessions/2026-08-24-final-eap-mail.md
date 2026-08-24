@@ -1,8 +1,12 @@
 # 2026-08-24 — E1: the source sweep and the assembled final EAP mail
 
-> **Status:** `in-progress` — branch `claude/final-eap-mail-x2s9kx`, cut from
-> `origin/main` at `27b81a4` (fm #942). Born red on purpose; flips only after
-> `python3 bootstrap.py check --strict` returns a real exit 0 read directly.
+> **Status:** `complete` — branch `claude/final-eap-mail-x2s9kx`, cut from
+> `origin/main` at `27b81a4` (fm #942), landed as fm **#943**. Born red on
+> purpose and **verified red at open** — `substrate-gate` returned `failure` on
+> the first head naming the born-red hold, per TRAP-006. Flipped only after
+> `python3 bootstrap.py check --strict` returned a real exit 0 on this tree,
+> read directly and never after a pipe. **Owner instruction to land:** *"properly
+> review and document/merge what you already created."*
 
 - **📊 Model:** opus-5 · high · docs-only
 
