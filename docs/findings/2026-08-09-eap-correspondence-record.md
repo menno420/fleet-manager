@@ -59,6 +59,35 @@
 > commit history and the PR text both persist. The ruling here went the way that
 > made it moot; that was luck, not process.
 
+## 0 · Correction, 2026-08-24 — FOUR of the mails this file describes are gone
+
+`MEASURED` 2026-08-24 — five probe runs over four query strings, with **two**
+positive controls, one per lane (outgoing and incoming-with-trash):
+[`2026-08-24-e1-source-sweep.md`](2026-08-24-e1-source-sweep.md) § 1.
+**Thread A no longer holds five messages — it holds two**, and the two are not a
+subset of the recorded five. **Four are gone:** the 2026-07-08 introduction
+review, the 2026-07-12 scale-up report, the vendor's 07-14 acknowledgement **and
+the 07-16 01:52 classifier report** — the last of which an earlier version of
+this banner omitted while asserting that everything about the 07-16 messages
+re-verifies (`@codex`, fm #943 round 2). The survivors are 07-16 **21:12** and
+07-16 **21:42**, and the 21:42 attachment resend was never in this file's
+five-message table at all.
+
+**What that does to this file.** Thread B re-verifies today, as do the two
+surviving 07-16 messages. **The 07-16 01:52 body does not** — every claim sourced
+from it drops to `MEASURED-PRIOR` with the rest. Its opening argument survives
+only as quoted text inside the surviving 21:12 reply, which is a partial and not
+a copy. **§ 2's four unanswered questions were read out of the 07-08
+body by the session that had it, and are now `MEASURED-PRIOR`** — a demotion in
+certainty, not a retraction: nothing contradicts them, and nothing can now
+confirm them either. § 5's correction 1 (the 07-14 reply's sender) is in the same
+position. **No cause is recorded and none should be inferred.**
+
+**The process point, which is this file's own lesson one level up:** it argued
+that a fact living only in a handoff prompt is not in the repo. A fact living
+only in a mailbox is not in the repo either — these two reviews are recoverable
+today *only* because a session summarised them here.
+
 ## 1 · The shape of the correspondence
 
 `MEASURED` 2026-08-09. Two threads carry everything that matters.

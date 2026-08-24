@@ -18,15 +18,44 @@
 
 ## 0 · Read this first — the method, because the obvious one is wrong
 
-`MEASURED` 2026-08-23. **Do not measure this account with `search/issues` or
-`search/code`.** The search index covers a minority of these repositories, and an
-unindexed repository returns **0**, which is indistinguishable from a genuine
-zero ([TRAP-003](../traps.md)).
+> **⚠ CORRECTION 2026-08-24 — this section's DIAGNOSIS does not reproduce; its
+> METHOD stands and is now corroborated.** The paragraph below says
+> `search/issues` returned 2,783 account-wide with `superbot` at 0. Re-tested
+> 2026-08-24 before the figure could enter a vendor-facing mail:
+> `is:pr user:menno420` returns **8,038** (`incomplete_results: false`) and
+> `superbot` returns **2,380** — agreeing with the Link-header counts below to
+> the unit on all seven repositories spot-checked. Full probe and the ruled-out
+> alternatives (result ceiling, query syntax):
+> [`2026-08-24-e1-source-sweep.md`](2026-08-24-e1-source-sweep.md) § 4 N6.
+>
+> **What this changes:** *"do not measure this account with `search/issues`"* is
+> **not established** and should not be repeated as a fact. **What it does not
+> change:** the per-repo Link-header recipe below is correct, and a second
+> independent endpoint now agrees with it — this section's numbers are *better*
+> supported than before, not worse. `search/code` is a **different endpoint**;
+> R5's 7-of-26 measurement was not tested and is untouched. Why the 08-23 reading
+> differed is **unknown and uninvestigated** — naming a cause would repeat the
+> error being corrected.
 
-- First sweep, via `search/issues`: **2,783** PRs all-time. **False.**
-  `superbot` returned 0 with a newest PR of **#2450**.
-- R5 measured the same defect for `search/code`: **7 of 26** repositories indexed
-  (fm #912/#913).
+
+`MEASURED` 2026-08-23, and **half of it is retracted** — struck in place rather
+than banner-only, because a correction that leaves the claim standing is this
+estate's own named defect and the banner above was doing exactly that.
+
+~~**Do not measure this account with `search/issues` or `search/code`.** The
+search index covers a minority of these repositories, and an unindexed
+repository returns **0**, which is indistinguishable from a genuine zero.~~
+
+- ~~First sweep, via `search/issues`: **2,783** PRs all-time. **False.**
+  `superbot` returned 0 with a newest PR of **#2450**.~~ **RETRACTED 2026-08-24**
+  — re-tested, `search/issues` returns **8,038** account-wide and **2,380** for
+  `superbot`, matching the Link-header counts below to the unit
+  ([the test](2026-08-24-e1-source-sweep.md) § 4 N6).
+- **STANDS:** R5 measured the same defect for `search/code`: **7 of 26**
+  repositories indexed (fm #912/#913) — a **different endpoint**, not re-tested.
+- **STANDS:** [TRAP-003](../traps.md) itself. It is about reading an error or a
+  gap as a zero, and nothing here clears it — the retraction is of one
+  endpoint's diagnosis, not of the trap.
 
 **The method that works, with its positive control built in:**
 
@@ -70,7 +99,7 @@ repositories the creation-date recipe below identifies, then summed.
 
 Controls: `superbot` → **2,378** against a max PR number of 2,450 (the gap is
 issues sharing the numbering) · `websites` → **512**, which is the PR opened the
-same hour. Both reproduce, so the method sees what the index cannot.
+same hour. Both reproduce. ~~so the method sees what the index cannot.~~ **Trailing clause struck 2026-08-24** — it restates the diagnosis the banner above withdraws. The controls establish that the method is *correct*; they never established that the index is *wrong*, and on 2026-08-24 the index agrees with it.
 
 ## 1 · The scale, and the shape of it
 
@@ -170,7 +199,7 @@ makes demonstrable rather than asserted.
 | what he had to build | measured today |
 |---|---|
 | **Session cards** — durable per-session memory | **4,535 across 19 repositories** *(at 2026-08-23 10:3xZ; see § 7 — an earlier reading of 4,551 counted `.sessions/README.md` as a card)* (`superbot` 969 · `idea-engine` 503 · `fleet-manager` 394 · `substrate-kit` 341 · `superbot-next` 334 — READMEs excluded, same as the total) |
-| **Moment-of-action injection** — rules that arrive when they apply | **61 doc-routes** in one repo's `PreToolUse`/`UserPromptSubmit` hook |
+| **Moment-of-action injection** — rules that arrive when they apply | **61 doc-routes** in one repo's `PreToolUse`/`UserPromptSubmit` hook *(2026-08-23; **67** on 2026-08-24 — a moving count, like the PR total in § 7)* |
 | **Lifecycle hooks** | **6** in fleet-manager alone |
 | **Executable procedures** (skills) | **27** |
 | **Repo-side checkers/generators** | **30** |

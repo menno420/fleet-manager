@@ -2,11 +2,24 @@
 
 > **Status:** `plan` — owner-directed 2026-07-26 (late night). This file tells
 > the writing session **where every piece of source material lives** and how to
-> help the owner assemble the mail. Program step **E1** — **OWNER-RESERVED and
-> deliberately deferred since 2026-08-01** (it is *not* the program's NOW, which
-> this header claimed until 2026-08-11): he has the prework and a plan for how
-> he wants to write it, and a session must NOT draft, send, or restart it. The
-> queue entry is `OQ-E1-FINAL-EAP-EMAIL` in
+> help the owner assemble the mail.
+>
+> **⬆ THE RESERVATION IS LIFTED — 2026-08-24, owner, live.** *"today I want to
+> work on and possibly finish the final EAP mail… see what more you can prepare
+> for me and how we should complete the email."* The assembled draft is
+> [`2026-08-24-final-eap-email-draft.md`](2026-08-24-final-eap-email-draft.md);
+> the sweep of what the prior mails already argued is
+> [`../findings/2026-08-24-e1-source-sweep.md`](../findings/2026-08-24-e1-source-sweep.md).
+> **What did NOT change: he still sends it himself, from his own compose.** No
+> session sends this mail.
+>
+> ~~Program step **E1** — **OWNER-RESERVED and deliberately deferred since
+> 2026-08-01** (it is *not* the program's NOW, which this header claimed until
+> 2026-08-11): he has the prework and a plan for how he wants to write it, and a
+> session must NOT draft, send, or restart it.~~ **Struck 2026-08-24, not
+> deleted** — the reservation was real from 2026-08-01 to 2026-08-23 and four
+> deferrals were recorded under it; a reader of those deferrals needs to see the
+> rule they were obeying. The queue entry is `OQ-E1-FINAL-EAP-EMAIL` in
 > [`../owner-queue.md`](../owner-queue.md).
 
 ## 1 · What the owner wants (his words, distilled)

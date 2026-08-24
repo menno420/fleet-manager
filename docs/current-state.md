@@ -129,14 +129,16 @@ copy product architecture or internal product state. Canonical intent:
   repositories.**
   [The pack](findings/2026-08-23-eap-evidence-pack.md) carries every figure with
   the command that produced it, mapped to the six net-new sections the owner's
-  own reflection names. **E1 itself remains owner-reserved — no session drafts
-  or sends it.**
-  **Two corrections it exists because of:** (1) the obvious method is wrong —
-  a first sweep via `search/issues` returned **2,783** PRs and was false
-  (`superbot` read 0 against a newest PR of #2450); the search index does not
-  cover most of this account, the same defect R5 measured for `search/code`.
-  Re-measured via the `pulls?state=all` Link header with positive controls that
-  reproduce. **Unchecked, the mail would have carried a figure 5,217 too low.**
+  own reflection names. **E1's owner-reservation was LIFTED 2026-08-24 (owner, live)**; the sweep and
+  the assembled draft landed
+  ([draft](planning/2026-08-24-final-eap-email-draft.md) ·
+  [sweep](findings/2026-08-24-e1-source-sweep.md)). **He still sends it himself.**
+  **Two corrections it exists because of:** (1) a method correction that was
+  **itself corrected on 2026-08-24 and no longer says anything about
+  `search/issues`** — the figures were re-measured off the `pulls?state=all`
+  Link header, and that method stands, now corroborated by a second endpoint.
+  The withdrawn diagnosis and its test:
+  [the sweep](findings/2026-08-24-e1-source-sweep.md) § 4 N6.
   (2) **0 of 7 live pages on the public review site said the program had ended**,
   and `/fleet/` rendered *"15 live lanes"* with mirrored heartbeats 33 days after
   the seats were terminated — on the surface the mail points at, addressed to the

@@ -298,10 +298,17 @@ filtered on `merged_at`, last 14 days:
 | **`spider-swing`** | **2** |
 
 An earlier figure of *"fleet-manager 86 · spider-swing 2"* came from
-`search/issues` and was carried second-hand. **Do not measure this account with
+`search/issues` and was carried second-hand. ~~**Do not measure this account with
 `search/issues` or `search/code`** — the index covers a minority of these repos
-and an unindexed repo returns 0, indistinguishable from a true zero
-([TRAP-003](../traps.md); the EAP evidence pack § 0 measures the same effect).
+and an unindexed repo returns 0, indistinguishable from a true zero.~~
+**The `search/issues` half is RETRACTED 2026-08-24** — re-tested, it returns
+**8,038** account-wide and **2,380** for `superbot`, matching the Link-header
+counts to the unit ([the test](2026-08-24-e1-source-sweep.md) § 4 N6). **The
+`search/code` half stands** (R5, 7 of 26 indexed — a different endpoint, not
+re-tested), and so does the general lesson: [TRAP-003](../traps.md) is about
+reading an error or a gap as a zero, and nothing here clears it. **What this
+section's own numbers rest on is unchanged** — they were re-measured off
+`pulls?state=all`, not off the index.
 
 **The reading:** the estate is not doing *only* machinery — `couch-legend` 18 and
 `websites` 19 are product work. The sharp fact is narrower: **`spider-swing` is
