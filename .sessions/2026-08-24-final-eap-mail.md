@@ -101,7 +101,8 @@ Three classes, and the middle one is the one worth keeping:
    header — but a header does not change what gets pasted, and the plan says his
    half is never ghost-written. Moved out of the block entirely; a pointer
    skeleton takes its place and the prose survives as explicitly-not-for-sending
-   raw material. And Part 2 runs ~1,700 words against the plan's one-page cap:
+   raw material. And Part 2 ran ~1,700 words against the plan's one-page cap
+  (1,851 by round 4 — it grew with every round; see the round-4 entry):
    **surfaced as an owner call with two costed options, not resolved by a
    session** — the cap and *"add genuinely new points"* are both his, and they
    cannot both be met.
@@ -264,8 +265,24 @@ new edits made in that same commit were not. So the strategy was applied to the
 backlog and not to the work in hand, which is the same shape one level down.
 
 **The structural fix, applied from this round on: every claim change ends with a
-`grep -rn` for the claim across `docs/`, and the commit does not go until that
-returns only the corrected form.** Recorded here because "be more careful" is the
+search for the claim across `docs/`, and the commit does not go until that
+returns only the corrected form.**
+
+**The first run of that fix was itself broken, and it is worth more than the fix.**
+The command was a single `grep -rn` with five alternatives, one of which was
+`never got\nan answer` — **`grep` reads `\n` in a basic pattern as a literal
+backslash-n, so that alternative could not match a line break and therefore could
+not fail.** It returned clean and was reported as a passing propagation check.
+That is the session's **fifth** false-absence instance, and the first one inside
+the instrument built in direct response to the previous four. Replaced with a
+per-claim multiline `re.finditer` sweep that names each pattern and prints
+`CLEAN` or the residual sites — a check that can distinguish "nothing there" from
+"nothing could have matched". Seven patterns, all CLEAN at `dc7ed7d`.
+
+**The transferable rule, since "write a better grep" is not one:** a check whose
+failure mode is silence must be shown to fail at least once before its silence
+means anything. None of the five false-absence instruments in this session was
+ever tested against a case it should have caught. Recorded here because "be more careful" is the
 non-fix this estate's own N3 finding exists to reject.
 
 Two findings worth keeping beyond the fix:

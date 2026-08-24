@@ -271,7 +271,9 @@ Everything above is public:
    — every measured failure is about records, retrieval and verification. That
    restraint is what makes the rest credible.
 
-5. **Part 2 is ~1,700 words; the plan's § 5 caps it at one page — and both
+5. **Part 2 is **1,851 words** (measured 2026-08-24 on the current COPY block,
+   and it has grown with every review round — 1,704 → 1,827 → 1,851, so re-count
+   rather than quoting this); the plan's § 5 caps it at one page — and both
    halves of that conflict are his own instruction** (`@codex`, fm #943 round 2,
    correctly refusing to let the bound be treated as optional). **The conflict,
    stated rather than resolved:** the cap was written 2026-07-26, when this mail

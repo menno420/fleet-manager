@@ -344,7 +344,7 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   between COPY markers, **seven** overturnable decisions, **five** pre-send
   calls). **What remains yours and only yours: writing Part 1 — it is a beat
   table, not drafted prose — the five pre-send calls in § 2 of the draft
-  (call 5 is the new one: Part 2 is ~1,700 words against the plan's one-page
+  (call 5 is the new one: Part 2 is ~1,850 words against the plan's one-page
   cap, and both are your instructions), and sending it.** No session sends it.
   ~~**⏸ DEFERRED BY THE OWNER, 2026-08-23 (live, late) — this supersedes the
   "today" stamp below.**~~ HIS WORDS, verbatim: *"The email aswell but that's
