@@ -78,6 +78,31 @@ deliberately; nothing here closes it.
   and its cross-reference at `:425` corrected, since that line taught the parse
   rule as a requirement.
 
+## `@codex` on this PR — 0 inline findings, and it tried to fix rather than review
+
+Its verdict at head `3fc5d4f` carried **zero inline findings**. Instead it wrote
+the change itself and committed it as **`68d9b09`** — which does not exist here:
+`git cat-file -t 68d9b09` → **`fatal: Not a valid object name`**, and
+`git branch -a --contains` errors on a malformed object name. Its own summary
+says why: *"A pull request could not be created because this environment exposes
+no `make_pr` tool, has no configured Git remote, and `gh` has no authenticated
+GitHub host."* Stranded in its sandbox — the shape fm #936 already recorded, so
+its test results are claims about a tree that does not exist here and none of its
+counts were copied.
+
+**Its suggestion was right and I had missed both spots**, in the very file this PR
+was correcting. `docs/CAPABILITIES.md`'s endpoint summary still read
+*"the clean verdict, naming Reviewed commit"*, and the bot-filtering paragraph
+below it still said to match *"by the SHA in its `Reviewed commit:` line"* — both
+teaching the single shape this PR exists to replace. Applied here by hand.
+
+**And its verdict is itself the third data point:** that comment **did** contain a
+`Reviewed commit:` line **and** named the head SHA. So the `Approved — no blocking
+findings` shape is not uniformly line-less either — the variance is real and the
+fallback rule is what makes the check robust, not a preference between shapes.
+This detection ran through the new rule live: extract every 40-hex SHA, test
+whether the head is among them → **True**.
+
 ## Verification
 
 - `python3 bootstrap.py check --strict` → **real exit 0**, read from a redirect,

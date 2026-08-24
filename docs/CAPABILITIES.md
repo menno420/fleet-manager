@@ -1787,13 +1787,19 @@ absent. Corrected 2026-08-24 in `docs/traps.md` TRAP-007 and all three card rout
 **So check BOTH surfaces, and match on the reviewed SHA, not on recency — trying
 `Reviewed commit:` first and falling back to any 40-hex SHA in the body:**
 
-    /pulls/{n}/reviews          → rounds that HAVE findings (+ inline comments)
-    /issues/{n}/comments        → the clean verdict, naming Reviewed commit
+    /pulls/{n}/reviews          → rounds that HAVE findings; carries `commit_id`
+    /issues/{n}/comments        → the clean verdict; body shape VARIES —
+                                  `Reviewed commit:` line, OR only 40-hex SHAs
+                                  inside blob/<sha>/ URLs (fm #938). Try the
+                                  line first, then fall back to any 40-hex
+                                  match.
 
 **Second trap in the same poll:** your own reply to a review thread creates a
 review record under your account. A naive "is there a review at head?" check
 counts *your* reply as the reviewer's answer and reads clean. Filter by the
-Codex login, then by the SHA in its `Reviewed commit:` line.
+Codex login, then match the SHA by the two-shape rule above — **not** by assuming
+a `Reviewed commit:` line is present, which holds for only one of the two
+observed shapes.
 
 Both halves are the same defect the estate already recorded once — *a summary
 that looks empty is not an empty review* — extended to *an endpoint that looks
