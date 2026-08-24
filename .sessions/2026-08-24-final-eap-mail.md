@@ -336,6 +336,61 @@ buried:** no exact `rfc822msgid:` lookup, because the record carries the thread 
 but no per-message ids for the four absent mails — that is the one retrieval path
 left open, and if those ids ever surface it could overturn this.
 
+## Adversarial review — round 5, 13 findings, all conceded
+
+`@codex` at `0dc2f32`, 20:31:46Z. **13 findings, all P2, all conceded.
+Five-round tally: 52 conceded / 0 survived.**
+
+**This round is the answer to the sending-gate question, and it answers it the
+uncomfortable way.** The gate was added on a base rate — *4 of 4 rounds changed
+this document, 3 corrected errors that would have reached the vendor.* Round 5
+then found **five more vendor-facing errors**, three of them in claims this
+session had already "fixed" once:
+
+- **"a full read of every tracked file"** — the audit records 19 files (~22 MB)
+  inspected for **structure**, not line by line, and says the distinction is not
+  cosmetic. The mail claimed exhaustive content inspection to a third party.
+- **"no agent surface could see any of it"** — false, and the audit is the
+  refutation: it measured those costs **agent-side**, over Railway GraphQL and
+  the usage API. The true claim is narrower and better — *nothing surfaced it
+  during normal operation; cost had to be gone looking for.*
+- **"which is every review a human actually performs"** — a universal about all
+  human review, from a sample of several sessions missing seven defects.
+- **The 949 MB / 97.5 % figures** were 2026-08-20 measurements stated in the
+  present tense on 08-24, against a store still ingesting.
+- **The re-run promise** — the mail invited the recipient to re-run the
+  published commands. They enumerate the account through `/user/repos` with the
+  owner's PAT and include private repositories: **the method is reproducible,
+  the inputs are not.**
+
+**And one that refutes this session's own measurement.** The regex recount is
+**126 across 73 files**, not 125/72 — because `.sessions/2026-08-24-final-eap-mail.md`
+now matches on *"do not write about a file you have not opened"*, a phrase this
+card added while recording that very rule. The decomposition that said "this
+session's contribution: 0" was true when run and false by the time it was
+quoted. **The act of writing up the measurement changed the measurement.**
+
+## The propagation check is now a committed tool, not a claim
+
+Round 5's sharpest finding: the "structural fix" announced in round 4 existed
+**only as prose in this card** — no script, no patterns, no fixture, no way for
+anyone to run it or show it could fail. An unrunnable check is the thing this
+session keeps being caught by, described rather than built.
+
+Now [`tools/check_claim_propagation.py`](../tools/check_claim_propagation.py),
+12 patterns, and its `--selftest` has **two** halves because the first alone
+would have been the next mistake:
+
+- **A — every pattern must match its fixture.** A pattern that cannot fire is a
+  dead pattern, not a clean repo. This is precisely where round 4's
+  `never got\nan answer` grep failed.
+- **B — the retraction filter must not swallow a live claim.** Silencing false
+  positives by widening the filter is the obvious next error: widen it far
+  enough and the sweep can never fail again. So each fixture is also run through
+  the filter alone and must still be reported.
+
+`--selftest` → 12 fire, none swallowed. Sweep → **0 residual**.
+
 ## What landed
 
 - `docs/findings/2026-08-24-e1-source-sweep.md` — what was already sent, topic by

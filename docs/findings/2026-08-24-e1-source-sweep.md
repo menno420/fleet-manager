@@ -244,9 +244,12 @@ against ~10 MB of actual user data
 ([audit](2026-08-14-railway-websites-audit.md) § 8 — which measures
 table/index/TOAST **storage composition** and makes no authorship claim; 401 MB
 of one 668 MB table is TOAST). Agents built and ran the system that accumulated
-it;
-no agent surface could see any of it. Same shape as the quality drift — that is
-the transferable point, not the euro figure.
+it. **The gap is narrower than "no agent could see it" and the narrow version is
+the true one:** the audit itself measured these costs, agent-side, over Railway
+GraphQL and the usage API on direct egress. So the surface exists — **nothing
+ever surfaced it during normal operation.** Cost was never a signal that
+arrived; it had to be gone looking for. Same shape as the quality drift — that
+is the transferable point, not the euro figure.
 
 **N6 · WITHDRAWN 2026-08-24 — the search-index claim does not reproduce.**
 This slot held a finding that GitHub's search index is blind to most of this

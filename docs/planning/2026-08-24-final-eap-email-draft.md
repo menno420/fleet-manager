@@ -29,7 +29,7 @@
 | 3 | **Two-part format kept** (his voice, then Claude's) | It is what the earlier reviews used and what the team is used to reading | saying "one voice" |
 | 4 | **Fresh compose, new subject, no reply-linkage** | Plan § 1: the standalone closing statement, readable cold in minutes | replying on the old thread instead |
 | 5 | The thesis is **refined, not replaced**: the wall is human review *because the defects are shaped to survive review* | The month of auditing earned the sharper version; the original is still true and still his | keeping the July wording |
-| 6 | Part 1 is a **pointer skeleton inside the copy block**; the drafted prose sits outside it as raw material | The plan forbids ghost-writing his half, and a scaffold *inside* the markers gets pasted whatever the header calls it | writing his half himself, which is the expected outcome |
+| 6 | Part 1 is a **beat table placed BEFORE `COPY FROM HERE`**, and the drafted prose is **deleted, not retained** | Rounds 2 and 3 both rejected weaker versions: a scaffold inside the markers gets pasted whatever the header calls it, and prose outside them still supplies his voice when he is invited to lift phrases | writing his half himself, which is the expected outcome |
 | 7 | **Part 2 exceeds the plan's one-page bound — surfaced, not resolved** | See § 2 call 5: the bound and "add genuinely new points" cannot both be satisfied, and which one gives is his call | picking either side for him |
 
 **Logistics.** Fresh Gmail compose — *not* a reply. To the EAP alias, cc the
@@ -68,8 +68,13 @@ mail that is his rather than measured, and it is why the mail is worth sending.
 To the Claude Code Projects team,
 
 Menno's four EAP mails argued the platform from inside the program. This one
-reports what the program produced, measured a month later. Everything below is
-either a public link or a published command you can re-run.
+reports what the program produced, measured a month later. Everything below is either a public link, or a
+published command with its result recorded. **One caveat so the offer is
+honest:** the repository-census and infrastructure figures were taken against
+this account with the owner's own credentials and include private
+repositories, so the *method* is reproducible but the *inputs* are not
+available to you — those you would have to take on the record, or ask us to
+re-run.
 
 **The scale, as of 24 August 2026.** 27 repositories on the account; **19 of
 them created inside the EAP fortnight**, 17 of those in the first four days. One
@@ -90,28 +95,35 @@ not know whether the software was good, and we would rather tell you what we
 measured than what we assume.
 
 **Finding 2 — the defect mechanism preserves coherence, which is why review does
-not catch it.** A full read of every tracked file in one repository — not a
-sample — found **101 defects**; 98 are closed. The mechanism behind its
+not catch it.** Every tracked file in one repository was accounted
+for — not a sample — and it found **101 defects**; 98 are closed. (Precisely:
+most were read line by line; 19 large files, about 22 MB, were inspected for
+structure, provenance, schema and anomalies instead. The audit records which,
+and says the distinction is not cosmetic.) The mechanism behind its
 highest-cost findings was not an error of fact. It was **an appended correction
 that failed to retract what it corrected**. (We did not classify all 101 by
 mechanism, so read this as the shape of the worst ones, not a majority.) The agent added the truth and left the falsehood in place, so the
 document stayed internally consistent and read as correct. **Agents append; they
-do not retract.** A defect shaped like that is invisible to any review that
-reads a document for coherence, which is every review a human actually performs.
+do not retract.** A defect shaped like that is invisible to any review
+that reads a document for coherence — and reading for coherence is what a
+reviewer does by default, unless they stop to compare the document against its
+sources or re-run the thing it describes.
 
 **Finding 3 — written rules do not bind agents; only rules that arrive at the
 moment of action do.** We counted this properly. In one session — one that was
 itself building our verification tooling, so nothing was rushed — there were
 **16 distinct incidents**. At the time of that audit the repository carried **116 committed statements of
 the single rule those incidents violated, across 66 files**, including all three
-of the documents that bind a session there. *(Re-running the audit's own published
-regex today gives 125 across 72 files — the corpus grew; the 116 is the
-2026-08-08 audit-time count that goes with the 16 incidents, not a current one.)* Documentation recalled at the right
+of the documents that bind a session there. *(The 116 is the 2026-08-08 audit-time count that
+goes with those 16 incidents. Re-run today the same published regex gives
+**126 across 73 files** — the corpus grew, and one of the new matches is the
+write-up of this very exercise, which is its own small illustration.)* Documentation recalled at the right
 moment caught **0 of 16**. What did catch them: the owner asking a question (5),
 a Stop hook (4), the gate and CI together (3 — 1 local, 2 CI/GitHub), test runs (2), and after-the-fact discovery
 (2). The conclusion we acted on is that a rule binds only if it *arrives* at the
-moment it applies — every catch above came from something that fired, and none
-from a document being available — so we built 67 documentation routes onto a pre-tool hook (counted
+moment it applies — of the catches above, all but two came from something that
+fired at a moment — and the two exceptions were found only after the cost was
+paid; none came from a document being available — so we built 67 documentation routes onto a pre-tool hook (counted
 2026-08-24; it was 61 sixteen days earlier — the mechanism is still growing). That is a
 platform-shaped feature we had to build ourselves, and we think it generalises:
 **more instructions in a context file is not a fix, and our number for that is
@@ -131,8 +143,12 @@ ended an unnoticed crawler load, and sized the bot's database: **97.5 % of
 949 MB is accumulated ingestion history** against roughly 10 MB of real user
 data. That is a storage-composition measurement, not a verdict that the history
 is disposable — whether to keep it is still an open call on our side. Agents built and ran the system that
-accumulated it, and no agent surface could see any of it. (The measurement is
-storage composition; index and database overhead are in the total too.)
+accumulated it. **The precise gap is not that no agent could see this — one
+did, by deliberately querying the provider's API; it is that nothing surfaced it
+during normal operation.** Cost was never a signal that arrived; it had to be
+gone looking for, and nothing prompted anyone to look. (Sizes measured
+2026-08-20 and still growing — the ingestion loop was left running; index and
+database overhead are in the total too.)
 The euro figure is not the point; the shape is — an unobservable signal
 accumulates in the same way quality drift does.
 
@@ -159,8 +175,9 @@ worth more than a longer checklist.
    finished that was not finished as asked — we are not saying anything about
    the code either way.*
 5. **Usage, cost and resource telemetry visible to the agent tier.** *Because
-   agents built and ran a system whose 949 MB store is 97.5 % accumulated
-   ingestion history, and no agent surface could see any of it.*
+   agents built and ran a system whose 949 MB store was 97.5 % accumulated
+   ingestion history (measured 2026-08-20), and nothing surfaced that during
+   normal operation — an agent could only find it by going to look.*
 6. **Owner-set permission grants, scoped per repo, branch and action, able to
    restrict as well as allow.** *Because this is the ask from every previous
    mail and it is still the structural fix; pointer only.*
@@ -238,7 +255,7 @@ Everything above is public:
 
 ---
 
-## 2 · Before he sends — five calls, all his
+## 2 · Before he sends — six calls, all his
 
 > **⚠ SENDING GATE — added 2026-08-24 after owner-review, and it is a base rate,
 > not a worry.** A Codex round was outstanding when this draft was handed over,
@@ -320,17 +337,20 @@ fan's rather than a complainer's.
    trade-off is evidential weight against length:** it is **n=1 self-observation
    from one session**, where every other finding in the mail rests on a committed
    audit with a measured denominator — and Part 2 is already over the cap
-   (call 5). **Recommendation: include it if he takes the "keep the length" route
-   in call 5, drop it if he takes the 700-word route.** Drafted, ready to paste
+   (call 5). **Recommendation: include it if he takes the "keep the length"
+   route in call 5; drop it if he takes the literal-cap route (~1,227 words
+   before the further cuts call 5 names).** Drafted, ready to paste
    between findings 5 and the "one thing that did work" paragraph:
 
    > **Finding 6 — the same failure shape, caught live while writing this mail.**
-   > Assembling this review, the agent doing it wrote four separate checks that
-   > answered "is there anything there?" and four times returned a confident *no*
-   > that was wrong — a shell fallback that printed the same token for a failed
+   > Assembling this review, the agent doing it wrote **five** separate checks
+   > that answered "is there anything there?" and five times returned a confident
+   > *no* that was wrong — a shell fallback that printed the same token for a failed
    > check as for a real absence; a match on the wrong commit field; a match
-   > pinned to the wrong revision; and an unpaginated read that stopped at the
-   > API's 30-item default and dropped the newest item. Three of the four were in
+   > pinned to the wrong revision; an unpaginated read that stopped at the
+   > API's 30-item default and dropped the newest item; and — after all four were
+   > written up — a propagation check whose pattern could not match what it was
+   > searching for, so it could not fail. Four of the five were in
    > code written specifically to avoid that error, and the repository already
    > carried a written rule about it. The rule did not bind; the query decided
    > the answer, and nothing in the output said so. We report it because it is
