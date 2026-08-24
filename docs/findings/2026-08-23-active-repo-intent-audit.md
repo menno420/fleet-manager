@@ -348,7 +348,8 @@ session that had gone straight to fixing would have fixed the wrong thing twice.
 | 1 | lines 10–17 | the *"'Spider Swing' is a codename"* blockquote — *"Not approved release branding"*, *"review are all still open"* | the settled position: published as **Slingy Spider** / `com.menno420.slingyspider` since 2026-08-05; `com.menno420.spiderswing.dev` remains the **debug** identity and is not changing. Source: `docs/product/name-status.md`, PR #171 |
 | 2 | line 268 | *"No release signing exists."* | *"Release signing exists and is owner-controlled: `android-release.yml` is dispatch-only and signs with an upload key held outside the tree."* The sentence's true intent — that the committed debug key is not a release credential — is already the preceding sentence and should stay |
 | 3 | line 191 | *"…store publishing remain absent."* | narrow it to what is true: no **public** listing, no billing SDK — while stating that a signed bundle is on the internal-testing track |
-| 4 | lines 327–331 (Documentation table) | ten rows, none of them the ledger | add **`docs/current-state.md`** and **`docs/technical/play-closed-test-runbook.md`**. The single pointer to the ledger is currently at line 340 of 345 |
+| 4 | lines 317–328 (Documentation table: header, rule, **ten** data rows) | none of the ten is the ledger | add **`docs/current-state.md`** and **`docs/technical/play-closed-test-runbook.md`**. The single pointer to the ledger is currently at line 340 of 345 |
+| 5 | line 327 | the table's own *Name status* row — *"Why the title is a codename and what review remains"* | the same staleness as edit 1, in the row that points at the document which settled it. Fix both or neither |
 
 **The one addition worth making, beyond correcting falsehoods:** the front door
 should say the release is on a **clock** — 12 testers × 14 continuous days, then
