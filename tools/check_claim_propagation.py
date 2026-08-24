@@ -65,9 +65,19 @@ CLAIMS = {
     "no-agent-surface-at-all": (
         r"no agent surface could see any of it(?![^\n]*proactiv)",
         "and no agent surface could see any of it."),
+    # Deliberately shape-based, not spelling-based: the retired claim is the
+    # UNIVERSAL "agents append / do not retract", however punctuated, bolded or
+    # paraphrased. An earlier version matched only the exact bolded sentence with
+    # a semicolon and `do not`, so `Agents append; they never retract` and any
+    # unbolded copy passed (@codex, fm #944). A guard that only catches the
+    # spelling it retired is theatre.
     "agents-append-universal": (
-        r"\*\*Agents append; they\s+do not retract\.\*\*",
-        "read as correct. **Agents append; they\ndo not retract.** A defect shaped like that"),
+        r"agents\s+append\b[\s\S]{0,60}?(?:not|never|n't)\s+retract",
+        ["read as correct. **Agents append; they\ndo not retract.** A defect",
+         "Agents append; they never retract.",
+         "agents append and do not retract",
+         "Agents append, they don't retract.",
+         "*Agents append — they never retract.*"]),
     "every-human-review": (
         r"which is every review a human actually performs",
         "invisible to any review that reads for coherence, which is every review a human actually performs."),
@@ -78,9 +88,26 @@ ALLOW_IN_RETRACTION = re.compile(
     r"~~|RETRACTED|WITHDRAWN|withdrawn|struck|was headed|first said|"
     r"an earlier (version|draft)|no basis for|does not reproduce|"
     r"not established|removed from the mail|was wrong about|is now fixed|"
-    r"claimed every channel|corrected|conceded", re.I)
+    r"claimed every channel", re.I)
+# NOT in this list, deliberately: bare `corrected` and `conceded`. Both are
+# ordinary English that appears in prose ABOUT defects, so either one silences
+# the guard wherever a document merely discusses a correction. Measured fm #944:
+# `corrected` in the mail's own Finding 2 paragraph swallowed a deliberately
+# reintroduced paraphrase, and the sweep reported CLEAN. Every entry above names
+# a RETRACTION; none is a word that ordinary prose reaches for.
 
+# Every match site passes re.I. Until fm #944 none did, so a pattern written in
+# lower case could not match a capitalised sentence: `agents append` missed
+# `Agents append`. The selftest reported DEAD PATTERN rather than a false CLEAN,
+# which is the only reason it was cheap to find.
 ROOTS = ("docs", ".sessions")
+
+# A dated finding legitimately carries its own claim in the present tense — that
+# is what a dated document IS. Sweeping it reports a false positive. This is a
+# per-claim exemption for the ONE file that owns each claim, never a blanket one.
+EXEMPT = {
+    "116-present-tense": {"docs/findings/2026-08-08-why-rules-dont-bind.md"},
+}
 
 # WHICH marker retracts THIS claim — a structural rule, deliberately not a
 # character window. A -320/+160 window was tried first and measured: the
@@ -102,9 +129,11 @@ def sweep() -> int:
         sites = []
         for root in ROOTS:
             for f in pathlib.Path(root).rglob("*.md"):
+                if f.as_posix() in EXEMPT.get(name, ()):
+                    continue
                 text = f.read_text(errors="replace")
                 lines = text.splitlines()
-                for m in re.finditer(pat, text):
+                for m in re.finditer(pat, text, re.I):
                     ln = text[:m.start()].count("\n")
                     # Context = the ENCLOSING BLOCK (blank-line delimited), not a
                     # fixed line window. A fixed window was tried first and gave
@@ -154,8 +183,13 @@ def selftest() -> int:
         still be reported.
     """
     bad = []
-    for name, (pat, fixture) in CLAIMS.items():
-        fires = bool(re.search(pat, fixture))
+    for name, (pat, fixtures) in CLAIMS.items():
+        if isinstance(fixtures, str):
+            fixtures = [fixtures]
+        # EVERY variant must fire, not just the first. A pattern that catches
+        # only the wording it retired cannot stop a paraphrase restoring it.
+        fires = all(re.search(pat, f, re.I) for f in fixtures)
+        fixture = fixtures[0]
         # B — and it must run the PRODUCTION path, not a simplified one.
         # An earlier version tested the bare fixture against the filter while
         # sweep() applied the filter to the whole enclosing block, so a live
@@ -167,16 +201,20 @@ def selftest() -> int:
         hostile = (fixture + "\n" + "filler. " * 40 +
                    "\nSeparately, an unrelated claim was corrected earlier today.")
         hl = hostile.splitlines()
-        m = re.search(pat, hostile)
+        m = re.search(pat, hostile, re.I)
         off = m.start() if m else 0
         own_line = hl[hostile[:off].count("\n")] if m else ""
         preceding = hostile[:off]
         swallowed = bool(ALLOW_IN_RETRACTION.search(own_line)
                          or ALLOW_IN_RETRACTION.search(preceding))
-        status = "fires" if fires and not swallowed else (
-            "DEAD PATTERN" if not fires else "SWALLOWED BY FILTER")
+        n = len(fixtures)
+        status = (f"fires ({n} variant{'s' if n > 1 else ''})"
+                  if fires and not swallowed else
+                  "DEAD PATTERN" if not fires else "SWALLOWED BY FILTER")
         if not fires or swallowed:
-            bad.append(f"{name} ({status})")
+            missed = [f for f in fixtures if not re.search(pat, f, re.I)]
+            bad.append(f"{name} ({status}"
+                       + (f"; missed: {missed!r}" if missed else "") + ")")
         print(f"{name:28} {status}")
     if bad:
         print(f"\nBROKEN ({len(bad)}): {', '.join(bad)}", file=sys.stderr)
