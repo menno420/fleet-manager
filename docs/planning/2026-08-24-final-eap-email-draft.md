@@ -29,7 +29,8 @@
 | 3 | **Two-part format kept** (his voice, then Claude's) | It is what the earlier reviews used and what the team is used to reading | saying "one voice" |
 | 4 | **Fresh compose, new subject, no reply-linkage** | Plan § 1: the standalone closing statement, readable cold in minutes | replying on the old thread instead |
 | 5 | The thesis is **refined, not replaced**: the wall is human review *because the defects are shaped to survive review* | The month of auditing earned the sharper version; the original is still true and still his | keeping the July wording |
-| 6 | Part 1 below is a **scaffold in his register, not a ghost-written voice** | The plan forbids ghost-writing his half, and he asked to possibly finish today — so: substance placed, wording his to overwrite | rewriting it entirely, which is the expected outcome |
+| 6 | Part 1 is a **pointer skeleton inside the copy block**; the drafted prose sits outside it as raw material | The plan forbids ghost-writing his half, and a scaffold *inside* the markers gets pasted whatever the header calls it | writing his half himself, which is the expected outcome |
+| 7 | **Part 2 exceeds the plan's one-page bound — surfaced, not resolved** | See § 2 call 5: the bound and "add genuinely new points" cannot both be satisfied, and which one gives is his call | picking either side for him |
 
 **Logistics.** Fresh Gmail compose — *not* a reply. To the EAP alias, cc the
 three people already on the prior thread (their addresses are in that thread;
@@ -42,7 +43,38 @@ below has a public link behind it.
 
 ---
 
-## COPY FROM HERE
+> **⚠ PART 1 IS NOT IN THE COPY BLOCK, AND THAT IS DELIBERATE (`@codex`, fm #943
+> round 2).** An earlier version put a polished 482-word first-person narrative
+> between the COPY markers and called it a scaffold in a header. **Labelling it a
+> scaffold does not change what gets pasted** — follow the markers and he sends my
+> words under his name, which is exactly what the plan's *"Part 1 is the owner's
+> voice — never ghost-write it"* forbids. So the copy block now starts at Part 2,
+> and his half is a **pointer skeleton** plus, below it, drafted prose kept
+> explicitly as **raw material to cannibalise, not text to send**.
+
+## Part 1 — the owner's half: pointer skeleton (he writes this)
+
+Four beats, in his order. No wording supplied, on purpose.
+
+1. **Open warm, and say why it is late.** The delay *is* the argument: he did not
+   want to send a fifth list of complaints, he wanted to check what the projects
+   actually built first.
+2. **One paragraph: the four prior mails are not being repeated.** Permissions,
+   coordinator-to-worker trust, the classifier regression, the scheduler — all
+   still true, all already in their inbox with forensics. Offer to walk through
+   any of it.
+3. **The verdict paragraph, in his own words.** He went in thinking the limit was
+   what agents could do; a month of auditing changed his mind about where the
+   limit sits. This is the paragraph nobody else can write for him.
+4. **Hand off to Part 2, then thanks.** The program, the extension, and the
+   personal reply on the final day — he has said that mattered more than the gift.
+
+<details>
+<summary><strong>Drafted prose for beats 1–4 — RAW MATERIAL, deliberately outside the copy markers</strong></summary>
+
+Kept because he asked to possibly finish today and a bare skeleton finishes
+nothing. Lift phrases from it, or ignore it entirely.
+
 
 Hi everyone,
 
@@ -66,7 +98,7 @@ next month reading what came out of it. That month is the part nobody else did,
 and it changed my mind about where the actual limit is.
 
 I went in thinking the limit was what the agents could do. It is not. The agents
-built an enormous amount and most of it works. The limit is that I could not
+built an enormous amount. The limit is that I could not
 tell which parts were true. Not because there was too much to read — I did read
 it — but because the mistakes agents make are the kind that survive being read.
 A document that has been corrected without retracting the thing it corrected
@@ -93,8 +125,9 @@ Menno van Hattum
 
 *The next part is again written by Claude, for the technical side.*
 
----
+</details>
 
+## COPY FROM HERE
 To the Claude Code Projects team,
 
 Menno's four EAP mails argued the platform from inside the program. This one
@@ -133,10 +166,10 @@ reads a document for coherence, which is every review a human actually performs.
 moment of action do.** We counted this properly. In one session — one that was
 itself building our verification tooling, so nothing was rushed — there were
 **16 distinct incidents**. The repository carries **116 committed statements of
-the single rule those incidents violated, across 66 files**, including every
-document the session was required to read. Documentation recalled at the right
+the single rule those incidents violated, across 66 files**, including all three
+of the documents that bind a session in that repository. Documentation recalled at the right
 moment caught **0 of 16**. What did catch them: the owner asking a question (5),
-a Stop hook (4), a local gate (3), test runs (2), and after-the-fact discovery
+a Stop hook (4), the gate and CI together (3 — 1 local, 2 CI/GitHub), test runs (2), and after-the-fact discovery
 (2). The conclusion we acted on is that a rule binds only if it *fires* at the
 tool call, so we built 61 documentation routes onto a pre-tool hook. That is a
 platform-shaped feature we had to build ourselves, and we think it generalises:
@@ -178,9 +211,9 @@ worth more than a longer checklist.
 3. **A durable, queryable record of what a session actually changed.** *Because
    sessions forget, and we now hand-maintain 4,560 session records to replace
    what the platform does not keep.*
-4. **A done-ness signal an owner can trust.** *Because the recurring failure was
-   not broken code, it was work reported finished that was not finished as
-   asked.*
+4. **A done-ness signal an owner can trust.** *Because work was repeatedly reported
+   finished that was not finished as asked — we are not saying anything about
+   the code either way.*
 5. **Usage, cost and resource telemetry visible to the agent tier.** *Because
    agents built a 949 MB store of which 97.5 % is accumulated ingestion history,
    and no agent surface could see any of it.*
@@ -293,6 +326,22 @@ Everything above is public:
 4. **Nothing in this mail claims anything about agent code quality**, deliberately
    — every measured failure is about records, retrieval and verification. That
    restraint is what makes the rest credible.
+
+5. **Part 2 is ~1,700 words; the plan's § 5 caps it at one page — and both
+   halves of that conflict are his own instruction** (`@codex`, fm #943 round 2,
+   correctly refusing to let the bound be treated as optional). **The conflict,
+   stated rather than resolved:** the cap was written 2026-07-26, when this mail
+   was conceived as a *synthesis of already-sent material*; today's brief is
+   *"add a few genuinely new points… actually a new valuable source"*. Seven
+   month-after findings and fourteen asks do not fit on one page, so one of the
+   two instructions has to give and **that is not a session's call to make.**
+   **My recommendation, if he wants one:** keep the length, cut nothing from the
+   findings, and instead cut **asks 6–15** to a single line pointing at the
+   public list. That takes Part 2 to roughly one page of *argument* with the
+   catalogue moved off-mail, which satisfies the intent behind the cap
+   (readable cold, in minutes) rather than its word count. **Alternative if he
+   wants the cap honoured literally:** keep findings 1–3, drop 4 and 5, keep
+   asks 1–5, and the mail lands near 700 words.
 
 ## 3 · After he sends
 

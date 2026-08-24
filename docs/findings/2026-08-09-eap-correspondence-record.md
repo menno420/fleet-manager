@@ -63,13 +63,20 @@
 
 `MEASURED` 2026-08-24, three queries with a passing positive control:
 [`2026-08-24-e1-source-sweep.md`](2026-08-24-e1-source-sweep.md) § 1.
-**Thread A no longer holds five messages — it holds two**, the 07-16 pair. The
-2026-07-08 introduction review, the 2026-07-12 scale-up report and the vendor's
-07-14 acknowledgement are **not retrievable from Gmail**, including in trash and
-archive.
+**Thread A no longer holds five messages — it holds two**, and the two are not a
+subset of the recorded five. **Four are gone:** the 2026-07-08 introduction
+review, the 2026-07-12 scale-up report, the vendor's 07-14 acknowledgement **and
+the 07-16 01:52 classifier report** — the last of which an earlier version of
+this banner omitted while asserting that everything about the 07-16 messages
+re-verifies (`@codex`, fm #943 round 2). The survivors are 07-16 **21:12** and
+07-16 **21:42**, and the 21:42 attachment resend was never in this file's
+five-message table at all.
 
-**What that does to this file.** Everything about the 07-16 messages and thread B
-re-verifies today. **§ 2's four unanswered questions were read out of the 07-08
+**What that does to this file.** Thread B re-verifies today, as do the two
+surviving 07-16 messages. **The 07-16 01:52 body does not** — every claim sourced
+from it drops to `MEASURED-PRIOR` with the rest. Its opening argument survives
+only as quoted text inside the surviving 21:12 reply, which is a partial and not
+a copy. **§ 2's four unanswered questions were read out of the 07-08
 body by the session that had it, and are now `MEASURED-PRIOR`** — a demotion in
 certainty, not a retraction: nothing contradicts them, and nothing can now
 confirm them either. § 5's correction 1 (the 07-14 reply's sender) is in the same

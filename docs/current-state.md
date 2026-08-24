@@ -131,12 +131,18 @@ copy product architecture or internal product state. Canonical intent:
   the command that produced it, mapped to the six net-new sections the owner's
   own reflection names. **E1 itself remains owner-reserved — no session drafts
   or sends it.**
-  **Two corrections it exists because of:** (1) the obvious method is wrong —
+  **Two corrections it exists because of:** (1) ~~the obvious method is wrong —
   a first sweep via `search/issues` returned **2,783** PRs and was false
   (`superbot` read 0 against a newest PR of #2450); the search index does not
-  cover most of this account, the same defect R5 measured for `search/code`.
-  Re-measured via the `pulls?state=all` Link header with positive controls that
-  reproduce. **Unchecked, the mail would have carried a figure 5,217 too low.**
+  cover most of this account~~ — **RETRACTED 2026-08-24: the `search/issues`
+  diagnosis does not reproduce.** `is:pr user:menno420` returns **8,038**
+  (`incomplete_results: false`) and `superbot` **2,380**, matching the
+  Link-header counts to the unit; a result ceiling would have truncated to 1,000
+  and a syntax fault would have 422'd, so neither explains the 08-23 reading.
+  Why it differed is unknown and uninvestigated.
+  [The test](findings/2026-08-24-e1-source-sweep.md) § 4 N6. **The
+  `search/code` half is untouched** — different endpoint, not tested. The
+  Link-header method stands and is now corroborated by a second endpoint.
   (2) **0 of 7 live pages on the public review site said the program had ended**,
   and `/fleet/` rendered *"15 live lanes"* with mirrored heartbeats 33 days after
   the seats were terminated — on the surface the mail points at, addressed to the

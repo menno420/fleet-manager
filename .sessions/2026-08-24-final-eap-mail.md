@@ -76,6 +76,41 @@ as the record, so **matching on `commit_id` alone reads them as fresh
 findings** — a sibling of the TRAP-007 note about matching verdicts per
 surface.)*
 
+## Adversarial review — round 2, 7 findings, all conceded
+
+`@codex` at `f4e8160`, 19:42:57Z. **7 findings, all P2, `[conceded] ×7`,
+`[survived] ×0`.** Running tally **17 conceded / 0 survived over two rounds.**
+
+Three classes, and the middle one is the one worth keeping:
+
+1. **Two round-1 fixes were partial.** The code-quality negative was removed from
+   Finding 1 and left standing in an ask, in Part 1, and in the pre-send
+   checklist that *asserted* the mail made no such claim. The thread-A
+   correction was applied to the sweep and not to the correspondence record's
+   own banner, which went on saying the 07-16 messages all re-verify.
+2. **The N6 withdrawal was itself an append-without-retract.** The banner said
+   the diagnosis does not reproduce; the paragraph under it still asserted it,
+   and **three further live records** — `current-state.md`, the active-repo
+   intent audit, and the program's own E1-prep row — carried it as fact where a
+   cold session would meet it first. **The correction to the estate's flagship
+   defect was committed in the shape of that defect**, twice: banner-over-claim,
+   then no downstream sweep. Now struck in place in all four, with the
+   `search/code` half and TRAP-003 explicitly preserved.
+3. **Two owner boundaries were being quietly overrun.** Part 1 sat *inside* the
+   COPY markers as 482 words of polished first person, labelled a scaffold in a
+   header — but a header does not change what gets pasted, and the plan says his
+   half is never ghost-written. Moved out of the block entirely; a pointer
+   skeleton takes its place and the prose survives as explicitly-not-for-sending
+   raw material. And Part 2 runs ~1,700 words against the plan's one-page cap:
+   **surfaced as an owner call with two costed options, not resolved by a
+   session** — the cap and *"add genuinely new points"* are both his, and they
+   cannot both be met.
+
+Two smaller ones, both wider-than-measured restatements: the catcher tally read
+`local gate (3)` where the source says gate 1 + CI/GitHub 2, and the 116-statement
+scope read *"every document the session was required to read"* where the source
+says *"all three binding documents"*.
+
 ## What landed
 
 - `docs/findings/2026-08-24-e1-source-sweep.md` — what was already sent, topic by

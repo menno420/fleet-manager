@@ -38,15 +38,24 @@
 > error being corrected.
 
 
-`MEASURED` 2026-08-23. **Do not measure this account with `search/issues` or
-`search/code`.** The search index covers a minority of these repositories, and an
-unindexed repository returns **0**, which is indistinguishable from a genuine
-zero ([TRAP-003](../traps.md)).
+`MEASURED` 2026-08-23, and **half of it is retracted** — struck in place rather
+than banner-only, because a correction that leaves the claim standing is this
+estate's own named defect and the banner above was doing exactly that.
 
-- First sweep, via `search/issues`: **2,783** PRs all-time. **False.**
-  `superbot` returned 0 with a newest PR of **#2450**.
-- R5 measured the same defect for `search/code`: **7 of 26** repositories indexed
-  (fm #912/#913).
+~~**Do not measure this account with `search/issues` or `search/code`.** The
+search index covers a minority of these repositories, and an unindexed
+repository returns **0**, which is indistinguishable from a genuine zero.~~
+
+- ~~First sweep, via `search/issues`: **2,783** PRs all-time. **False.**
+  `superbot` returned 0 with a newest PR of **#2450**.~~ **RETRACTED 2026-08-24**
+  — re-tested, `search/issues` returns **8,038** account-wide and **2,380** for
+  `superbot`, matching the Link-header counts below to the unit
+  ([the test](2026-08-24-e1-source-sweep.md) § 4 N6).
+- **STANDS:** R5 measured the same defect for `search/code`: **7 of 26**
+  repositories indexed (fm #912/#913) — a **different endpoint**, not re-tested.
+- **STANDS:** [TRAP-003](../traps.md) itself. It is about reading an error or a
+  gap as a zero, and nothing here clears it — the retraction is of one
+  endpoint's diagnosis, not of the trap.
 
 **The method that works, with its positive control built in:**
 
