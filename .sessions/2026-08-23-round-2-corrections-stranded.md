@@ -1,12 +1,14 @@
 # 2026-08-23 — The round-2 corrections that #937 merged without
 
-> **Status:** `in-progress` — branch `claude/active-projects-overview-kiftou`,
+> **Status:** `complete` — branch `claude/active-projects-overview-kiftou`,
 > restarted from `origin/main` at `5a3f087` (fm #937, merged) because the
 > previous PR on this branch was already merged. Born red on purpose: the card is
 > the merge hold (TRAP-006), and this session exists **because that hold was
-> released too early on #937.** It flips only after
-> `python3 bootstrap.py check --strict` returns a real exit 0, read from a
-> redirect and never after a pipe — **and after `@codex` has answered.**
+> released too early on #937.** Flipped only after
+> `python3 bootstrap.py check --strict` returned a real exit 0, read from a
+> redirect and never after a pipe — **and after `@codex` converged**: round 6
+> returned **zero new findings**, only three threads re-posted from earlier
+> rounds, each verified fixed at head before dismissal.
 
 - **📊 Model:** opus-5 · high · docs-only
 
@@ -18,6 +20,25 @@ round 2 was still being written, so `main` currently carries five known-wrong
 statements and one unrecorded conflict.
 
 This lands them.
+
+## previous-session review
+
+⟲ fm #937 (`5a3f087` on `main`): the OD-19/OD-20 capture. Checked at `main` —
+present, and this branch was restarted from exactly that commit after its PR
+merged.
+
+**It merged incomplete, and this session exists to finish it.** Its round-2
+corrections never landed: `merge-on-green` took head `775f1c8` while round 2 was
+still being written, so commits `4a80bf6` and `4ea3962` reached `main` in
+neither. Verified rather than assumed —
+`git show origin/main:docs/findings/2026-08-23-owner-direction.md` returned
+missing, and `grep -c` on main's `owner-queue.md` returned **1** for the entry
+that was supposed to have moved off it. So `main` carried five statements that
+session already knew were wrong.
+
+Nothing to repair in its *content* — every correction it made was right. What it
+got wrong was the landing, and the fix for that is TRAP-007 plus the three routes
+this session had to rebuild twice before they actually fired.
 
 ## What is about to happen
 
@@ -190,6 +211,23 @@ Four were threads re-posted from earlier rounds, each verified fixed at head
 before dismissal.
 
 **Running total across five rounds: 40 findings · 39 conceded · 1 partial ·
+0 survived.**
+
+## Round 6 — converged: 0 new findings
+
+Three inline comments at head, **all re-posts of threads already fixed**, each
+verified against the tree before dismissal: the primary audit's census (now
+*16 of the 17* and *6 pass* at source), D2's order (now **PROVISIONAL** in both
+the audit and the NOW pointer), and `## Next executable action` (now gated on
+`OQ-GCB-REVIEW-SCOPE` **and** GCB-1).
+
+That verification caught one the reviewer had not flagged: **this session's own
+§ 7 ledger row still said the audit ran "across all 17 repos"** and still carried
+a two-round tally. Both corrected.
+
+**Convergence, by live-finding count: 8 → 10 → 4 → 0.** Landing.
+
+**Final total: 40 findings across five review rounds — 39 conceded, 1 partial,
 0 survived.**
 
 **Delivered — and the first attempt was a null change.** A lesson living only in a

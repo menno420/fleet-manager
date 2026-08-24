@@ -91,7 +91,7 @@ copy product architecture or internal product state. Canonical intent:
   consolidation is of repositories, not running bots. **OD-20**: no further repo
   cuts; the lever is legibility.
   **`OQ-FM-D2-TARGET` was marked answered by OD-20 and that was withdrawn the
-  same session** — `@codex` returned **12 findings across two rounds — 11 conceded, 1 partial, 0 survived**, the sharpest
+  same session** — `@codex` returned **40 findings across five rounds — 39 conceded, 1 partial, 0 survived**, the sharpest
   being that an estate-wide outcome is not a repository selection. Also
   withdrawn: a "four most-worked repos" ranking derived from last-commit dates
   and contradicted by a 14-day merged-PR measurement already in this tree, and a
