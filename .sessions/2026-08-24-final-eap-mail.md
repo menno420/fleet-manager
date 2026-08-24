@@ -368,7 +368,13 @@ session had already "fixed" once:
 now matches on *"do not write about a file you have not opened"*, a phrase this
 card added while recording that very rule. The decomposition that said "this
 session's contribution: 0" was true when run and false by the time it was
-quoted. **The act of writing up the measurement changed the measurement.**
+quoted. **The act of writing up the measurement changed the measurement** — and then did
+it twice more: 125 when first run, 126 when Codex ran it, **127** when re-run
+during the owner-review of the reply reporting 126. Each write-up added a phrase
+the regex matches. **Resolution: the mail no longer quotes a current count at
+all.** The argument needs only the fixed pair — *116 statements, 0 of 16 caught*
+— and that does not move. A number that changes because you described it is not
+evidence you can hand to anyone.
 
 ## The propagation check is now a committed tool, not a claim
 

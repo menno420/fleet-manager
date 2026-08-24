@@ -114,10 +114,12 @@ moment of action do.** We counted this properly. In one session — one that was
 itself building our verification tooling, so nothing was rushed — there were
 **16 distinct incidents**. At the time of that audit the repository carried **116 committed statements of
 the single rule those incidents violated, across 66 files**, including all three
-of the documents that bind a session there. *(The 116 is the 2026-08-08 audit-time count that
-goes with those 16 incidents. Re-run today the same published regex gives
-**126 across 73 files** — the corpus grew, and one of the new matches is the
-write-up of this very exercise, which is its own small illustration.)* Documentation recalled at the right
+of the documents that bind a session there. *(The 116 is the 2026-08-08 audit-time count, and it
+is the one that goes with those 16 incidents. We are deliberately not quoting a
+current count: the same regex re-run four times today gave 125, 126 and 127,
+because each write-up of the measurement added text the measurement then
+matched. That is a curiosity, not a defect in the finding — the argument is
+about 116 statements catching 0 of 16, and that pair is fixed.)* Documentation recalled at the right
 moment caught **0 of 16**. What did catch them: the owner asking a question (5),
 a Stop hook (4), the gate and CI together (3 — 1 local, 2 CI/GitHub), test runs (2), and after-the-fact discovery
 (2). The conclusion we acted on is that a rule binds only if it *arrives* at the
