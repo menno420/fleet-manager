@@ -165,6 +165,36 @@ be** — `spider-swing` was not in the order at all, and `product-forge`'s fix i
 its README before its ledger. That is what makes classification a finished thing
 rather than a truncated one.
 
+## What this session got wrong, and the shape it kept taking
+
+Five claims were corrected under review — two by `@codex`, three by owner-review.
+Listing them because the **rate** is the finding, not any one fix:
+
+| the claim | what it was really based on | caught by |
+|---|---|---|
+| signed vc64 is on Play's internal track | spider-swing's ledger — a document | owner-review |
+| `phone-controller` is the *only living asset* | session-card **filenames** | owner-review |
+| all four defects were *checked against a live surface* | a blanket over a mixed set | `@codex` r2 |
+| the earlier window's cutoff *cannot be recovered* | **one** method tried, then generalised | owner-review |
+| `product-forge`'s inbox is *empty*, so a session stalls | the README's fallback sentence; **the file was never opened** | owner-review |
+
+**They are one shape, not five.** Every one is a claim about a surface there was
+a *cheap* way to check — one API call, one `curl` — and the check was skipped
+because the inference felt like knowledge. None came from bad reasoning; each
+came from not noticing that a reasoning step had happened at all.
+
+**And the certainty legend did not stop any of them.** This audit carries
+`MEASURED` tags throughout, and four of the five sat inside or beside one. The
+tag was applied to *the sentence as written* rather than to *the check actually
+run* — which is [TRAP-001](../docs/traps.md)'s exact failure mode, in the
+document whose § 3 reports TRAP-001, for the second time in two sessions. The
+register entry does not need rewriting; this is another instance of it, and the
+instance count is the useful part.
+
+**The one that cost the most was the cheapest to check.** Opening
+`control/inbox.md` — 4,751 bytes, one fetch — falsified a ranking argument that
+had already survived a `@codex` round and been written into four files.
+
 ## Honest limits
 
 - The **five unrated repos** are still unrated. Unchanged by this session.
