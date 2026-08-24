@@ -374,10 +374,13 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   and still yours.**
   **NO SESSION IS BLOCKED WHILE THIS SITS.** The
   [active-repo intent audit](findings/2026-08-23-active-repo-intent-audit.md) § 6
-  derives a grounded order from measured failures instead of a guess —
-  **`product-forge` → `estate-backups` → the `websites` date stamp** (after
-  `idea-engine` and `sim-lab` were fixed the same day). That is executable now and
-  needs no letter from you; your answer would override it.
+  derives a grounded order from measured failures instead of a guess, and as of
+  2026-08-24 every unarchived repo has been swept (five still `unrated`, so the
+  order is settled among the rated) — **`spider-swing` →
+  `product-forge` → `estate-backups` → the `websites` date stamp** (after
+  `idea-engine` and `sim-lab` were fixed the same day). `spider-swing` was the
+  one repo that had never been judged and it went straight to the top. That is
+  executable now and needs no letter from you; your answer would override it.
   **WHAT:** decide what D2's next repository actually is, and whether spider-swing
   enters the program at all.
   **WHERE:** [`planning/2026-07-26-consolidation-program.md`](planning/2026-07-26-consolidation-program.md)
