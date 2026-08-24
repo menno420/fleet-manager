@@ -57,6 +57,27 @@ missing, and the superseded queue entry was still present on `main`, count 1.
 you asked for is unanswered — or apply `do-not-automerge` when re-requesting
 one. The flip should track *review answered*, not just *gate green*.
 
+**⚠ ROUND 3 (`@codex` at `0948ddc`, 8 findings) SHOWED THIS SECTION IS WRONG IN
+TWO WAYS. Both are verified against source and NOT yet fixed — they are the next
+session's first work, and this PR must not land until they are.**
+
+1. **The routes do not fire at the moment claimed.** `route_docs.py:184` —
+   `if rid in fired: continue` — fires each route **once per session**.
+   `card-status-write` is consumed when the born-red card is first *written*, and
+   `card-flip-before-push` on the first red *push*. **The flip and the final push
+   produce nothing.** Codex reproduced the write/push/flip/push sequence and both
+   final actions were silent. Extending the `says` strings delivers nothing;
+   dedicated route IDs that stay armed until the completion transition are needed.
+2. **TRAP-007 is not a new trap — it is a compliance failure with an existing
+   one.** `.claude/skills/session-close/SKILL.md:116-129` already states the loop,
+   `MEASURED` on fm #827: *"request review on the current head → … → if you
+   changed anything a reviewer would have an opinion about: push, re-request on
+   the NEW head, and wait again → flip only when the outstanding review covers the
+   head you are flipping."* So this card's claim that the flip was *"correct by
+   every written rule"* is **false**: the rule existed, and I had not read it.
+   **Which makes this a sharper instance of the estate's own thesis than a new
+   trap would be** — the rule was written, measured, and still not delivered.
+
 **Registered, not just described** — because a lesson that lives only in a card
 is the estate's statement #117, and the 2026-08-20 railway card already recorded
 this exact shape (*"`merge-on-green` landed #871 before the round-2 review I had
