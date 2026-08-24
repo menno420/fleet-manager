@@ -37,15 +37,32 @@ answers"; a storage-composition measurement became "waste"; a grammar covering
 undated standing walls became "reds any PR documenting a limitation". Each was
 heading into a mail to a third party.
 
-**And the review nearly did not get read.** The poll loop that watched for it
-interpolated curl output into a `python3 -c` heredoc with `|| echo NO` as its
-fallback, so **any failure of the check printed the same token as a genuine
-absence.** It reported "no verdict" for 11 iterations while a review and ten
-comments were already on the PR. Re-run with the status code checked and the
-error path removed, all three surfaces answered `HTTP 200` immediately. This is
-TRAP-003 committed by the instrument built to detect it, and
-`docs/CAPABILITIES.md` already records a session losing 24 minutes to the same
-shape — the write-up existed and did not bind, which is this session's own N3.
+**A defect in the watching instrument, and a causal claim about it that had to
+be withdrawn within the hour.** The poll loop interpolated curl output into a
+`python3 -c` heredoc with `|| echo NO` as its fallback, so **any failure of the
+check printed the same token as a genuine absence** — TRAP-003 committed by the
+instrument built to detect it, with `docs/CAPABILITIES.md` already recording a
+session losing 24 minutes to the same shape.
+
+**The defect is real. The story first told about it was not.** This card, and
+the reply to the owner, first said the loop *"reported no verdict for 11
+iterations while a review and ten comments were already on the PR."*
+`MEASURED` afterwards: `submitted_at` is **2026-08-24T19:29:21Z** and all ten
+inline comments carry 19:29:21–22Z, whereas the loop's ~11 × 28 s ran before
+that and a clean status-checked probe *preceding* it returned a genuine
+`entries=0`. **So the review was absent for most of the loop, and the defect
+cannot be shown to have hidden anything.** What actually happened is duller:
+Codex answered at ~35 min against a recorded ~335 s.
+
+Recorded because of *when* it happened — the over-claim was written into the
+reply that was itself reporting four Codex findings of exactly this shape, a
+bounded fact restated wider. The lesson the session already had in hand did not
+bind the sentence it was writing, which is N3 measured on itself twice in one
+session.
+
+*(Two of the ten comments are anchored at `f4e8160` rather than `39753f5`;
+`created_at` on both is 19:29:2xZ, so they are round-1 findings GitHub
+re-anchored to the newer head, not a second round.)*
 
 ## What landed
 
