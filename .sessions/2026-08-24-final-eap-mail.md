@@ -399,6 +399,32 @@ would have been the next mistake:
 
 `--selftest` → 12 fire, none swallowed. Sweep → **0 residual**.
 
+## "Precision" was the wrong word — a commitment and a factual claim changed
+
+Owner-review, on the framing *"the substance has been stable for three rounds;
+what keeps changing is precision"*: **that is not true of round 5, and the
+distinction decides whether further review is worth running.**
+
+| round-5 change | what kind of change it actually is |
+|---|---|
+| *"a published command you can re-run"* → the method is reproducible, the inputs are not | **A COMMITMENT.** The mail offered the recipient something this estate cannot give them: **3 of 27 repositories are private** (`estate-backups`, `pokemon-mod-lab`, `shiftlife`, `MEASURED` from the census JSON), so no third party re-running the recipe reaches the same total. Withdrawing an unhonourable offer is not precision. |
+| *"no agent surface could see any of it"* → nothing surfaced it during normal operation | **A FACTUAL CLAIM THAT WAS FALSE**, refuted by the very audit cited for it — that audit measured the costs agent-side over Railway GraphQL and the usage API. **Ask 5's justification moved from "impossible" to "not proactively legible"**, which is a weaker and true reason for the same ask. |
+| *"a full read of every tracked file"* | **A SCOPE CLAIM** — 19 files (~22 MB) were structural reads, and the audit says the distinction is not cosmetic. |
+
+**What has genuinely been stable is the thesis** — the wall is human review
+because the defects are shaped to survive it — and the five findings' identity.
+**What changed is what the mail asserts and what it promises.** Calling that
+precision made stopping look cheap; it is not, and the base rate (5/5 rounds
+finding vendor-facing changes) is the reason the stopping criterion is *"a round
+that changes nothing outbound"* rather than a round count.
+
+**One phrasing of my own, corrected here rather than left standing:** I told the
+owner Anthropic *"cannot actually re-run"* the measurements. Measured basis: 3 of
+27 repositories are private. What follows is narrower — **they cannot reproduce
+the same total**; they could run the method over the public subset, and could run
+it in full if the owner granted access. The mail's own wording was already the
+accurate one; the reply summarising it was not.
+
 ## What landed
 
 - `docs/findings/2026-08-24-e1-source-sweep.md` — what was already sent, topic by
