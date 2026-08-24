@@ -110,16 +110,6 @@ figures: the counts are point-in-time and will differ when you re-run them, and
 no count of PRs opened *during* the fortnight exists, because the method counts
 lifetime PRs rather than a date window.
 
-**A measurement bug worth reporting on its own, because your agents will hit
-it.** Our first sweep used GitHub's search API and returned 2,783 PRs. That is
-false by nearly a factor of three. The search index covers a **minority** of
-this account — 7 of 26 repositories for code search — and an unindexed
-repository returns **0**, which is indistinguishable from a genuine zero. The
-largest repository reported zero PRs against a newest PR number of 2450. Any
-agent that measures a repository through search silently under-counts, and
-nothing warns it. The method that works, with its positive control, is published
-in the evidence pack linked at the end.
-
 **Finding 1 — the failure modes are FORGETTING and FALSE-DONE, not bad code.**
 Across the estate the recurring outcome problem was not that agents wrote broken
 software. It was that they forgot what had already been established, and that
@@ -188,40 +178,37 @@ worth more than a longer checklist.
 5. **Usage, cost and resource telemetry visible to the agent tier.** *Because
    agents built a 949 MB store that was 97.5 % waste and no agent surface could
    see it.*
-6. **Index parity — or a truncation signal — for the tools agents measure with.**
-   *Because an unindexed repository returns 0 rather than an error, and our first
-   PR sweep under-counted 8,037 as 2,783 with nothing warning us.*
-7. **Owner-set permission grants, scoped per repo, branch and action, able to
+6. **Owner-set permission grants, scoped per repo, branch and action, able to
    restrict as well as allow.** *Because this is the ask from every previous
    mail and it is still the structural fix; pointer only.*
-8. **Same-account provenance for coordinator-to-worker instructions.** *Because
+7. **Same-account provenance for coordinator-to-worker instructions.** *Because
    a verified owner's own coordinator relaying to his own worker is not the
    cross-session injection the change was built to stop; argued in full on
    16 July.*
-9. **A permission model scoped to risk, not to venue.** *Because the identical
+8. **A permission model scoped to risk, not to venue.** *Because the identical
    actions on the identical account were denied inside a Project and completely
    unrestricted in an ordinary chat outside it — one outside session landed
    ~50 PRs the Projects had finished but could not merge, and cleaned 2,115
    stale branches, with zero denials.*
-10. **An owner-level off-switch for the routine and trigger approval prompt.**
+9. **An owner-level off-switch for the routine and trigger approval prompt.**
     *Because no setting suppresses it — we verified with bypass permissions, an
     explicit allow-list and the server wildcard all set — and ~1,900 orphaned
     routines could only be cleared by hand, one approval at a time.*
-11. **Do not let a stale stored artifact outrank a live instruction.** *Because a
+10. **Do not let a stale stored artifact outrank a live instruction.** *Because a
     session held a dated stand-down note above its owner's live message and
     refused the live message.*
-12. **Do not classify factual capability documentation as workaround material.**
+11. **Do not classify factual capability documentation as workaround material.**
     *Because a session that misreads a denial as a permanent wall writes that
     wall into shared memory, where it becomes every later session's starting
     fact — we had to purge 18 repositories and ship a CI check that reds any pull
     request documenting an agent limitation.*
-13. **A session that can accurately answer "what can I do?"** *Because
+12. **A session that can accurately answer "what can I do?"** *Because
     tool-search-only tools are invisible to a session's own inspection, so agents
     declare false limits about tools they actually hold.*
-14. **A cross-project overview with actions on it.** *Because "Blocked on you"
+13. **A cross-project overview with actions on it.** *Because "Blocked on you"
     exists inside a project but not one level up, so there is no single place to
     see which projects are waiting, stuck, or erroring — or to act on them.*
-15. **Surface auto-mode and consent changes where Projects users will see them.**
+14. **Surface auto-mode and consent changes where Projects users will see them.**
     *Because both changes that broke the fleet were logged only in the CLI
     changelog, and one visible line would have saved a full day of bisecting.*
 
@@ -265,6 +252,20 @@ Everything above is public:
 ---
 
 ## 2 · Before he sends — the four things worth one look
+
+> **A fifth item was here and is now closed, recorded because the near-miss is
+> the useful part.** The draft carried a paragraph and an ask reporting that
+> GitHub's search index is blind to most of this account — carried in good faith
+> from [the evidence pack](../findings/2026-08-23-eap-evidence-pack.md) § 0,
+> written the previous day with commands attached. **Tested before sending: it
+> does not reproduce** — search returns 8,038 account-wide and 2,380 for
+> `superbot`, matching the independent per-repo count to the unit
+> ([sweep](../findings/2026-08-24-e1-source-sweep.md) § 4 N6). Both the paragraph
+> and the ask are **removed**, not softened: a checkable false claim in a mail to
+> a vendor about their own tooling costs more than the finding was worth. The
+> net effect on the mail is positive — the § 5 figures now rest on two
+> independent endpoints instead of one.
+
 
 1. **Item 13 may be a repeat.** [`../anthropic-email-pack.md`](../anthropic-email-pack.md)
    was written as a ready-to-send block on exactly this topic and **we cannot

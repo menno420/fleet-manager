@@ -200,16 +200,51 @@ against ~10 MB of actual user data
 no agent surface could see any of it. Same shape as the quality drift — that is
 the transferable point, not the euro figure.
 
-**N6 · A measurement trap in the vendor-adjacent tooling, worth reporting on its
-own.** GitHub's search index covers a **minority** of this account: `search/code`
-indexed **7 of 26** repositories, and an unindexed repository returns **0**,
-which is indistinguishable from a genuine zero. The first PR sweep via
-`search/issues` returned **2,783** — false by a factor of nearly three, with
-`superbot` reporting 0 against a newest PR of #2450. Any agent measuring a
-repository through search will silently under-count, and nothing warns it. The
-working method and its positive control are published
-([evidence pack](2026-08-23-eap-evidence-pack.md) § 0), which is what makes this
-a report rather than a complaint.
+**N6 · WITHDRAWN 2026-08-24 — the search-index claim does not reproduce.**
+This slot held a finding that GitHub's search index is blind to most of this
+account, carried from [the evidence pack](2026-08-23-eap-evidence-pack.md) § 0
+(*"first sweep, via `search/issues`: 2,783 PRs all-time. **False.** `superbot`
+returned 0"*). It was on its way into a vendor-facing mail as a bug report.
+**Tested before sending, and it fails:**
+
+```
+GET /search/issues?q=is:pr+user:menno420   -> total_count 8038, incomplete_results false
+GET /search/issues?q=is:pr+repo:menno420/superbot       -> 2380
+GET /search/issues?q=is:pr+repo:menno420/fleet-manager  ->  943
+GET /search/issues?q=is:pr+repo:menno420/idea-engine    ->  900
+GET /search/issues?q=is:pr+repo:menno420/websites       ->  518
+GET /search/issues?q=is:pr+repo:menno420/substrate-kit  ->  581
+GET /search/issues?q=is:pr+repo:menno420/sim-lab        ->  360
+```
+
+Every one of those **matches the Link-header count in § 5 exactly** (the two
+`+1`s are PR #943, opened between the two measurements). `superbot` returns
+2,380, not 0. So on 2026-08-24 the search index is **not** blind to this
+account, and the three competing explanations separate cleanly rather than
+staying open: a **result ceiling** would have truncated `superbot` to 1,000, a
+**syntax fault** would have failed uniformly or returned HTTP 422, and neither
+happened.
+
+**What this does and does not overturn.**
+
+- **The pack's *method* stands and is now corroborated by a second, independent
+  endpoint.** Two different APIs agreeing to the unit on seven separate counts
+  is stronger evidence for the § 5 figures than either alone.
+- **The pack's *diagnosis* does not reproduce.** Why it did not on 2026-08-23 is
+  **unknown and not investigated** — a transient indexing state and a difference
+  in the query actually issued both fit, and neither is recorded. Naming a cause
+  here would repeat the original error one level up.
+- **This says nothing about `search/code`.** R5's separate measurement (7 of 26
+  repositories indexed, fm #912/#913) is a **different endpoint** and was not
+  tested here. Do not extend this result to it, and do not treat this as
+  clearing TRAP-003 — the trap is about reading an error as a zero, which
+  remains exactly as live as it was.
+
+**Why the withdrawal is recorded rather than the paragraph quietly deleted:**
+this is the estate's own N2 defect class caught in the act — an appended
+correction that leaves the error standing reads perfectly, and a deleted
+paragraph leaves the pack's § 0 claim to be picked up by the next session as
+fresh material. The pack now carries a pointer back to this test.
 
 **N7 · A blind-scored eval of agent comprehension — a method, not an anecdote.**
 Five fresh agents produced intent maps of a repository against a pre-registered
@@ -257,6 +292,10 @@ method counts lifetime PRs, not a date window · 8,037 is a point-in-time readin
 of a moving estate and a recipient re-running the command will get a different
 number, which is correct behaviour · **volume is not quality**, and the estate's
 own audit is the reason to say so out loud.
+
+**Cross-check, `MEASURED` 2026-08-24:** the same seven counts taken through
+`GET /search/issues` agree to the unit (see N6). The § 5 figures therefore rest
+on **two independent endpoints**, not one method's word.
 
 **Truncation control re-run today:** the largest `.sessions/` listing is
 `superbot` at **970** entries against the Contents API's 1,000-entry cap. Not

@@ -18,6 +18,26 @@
 
 ## 0 · Read this first — the method, because the obvious one is wrong
 
+> **⚠ CORRECTION 2026-08-24 — this section's DIAGNOSIS does not reproduce; its
+> METHOD stands and is now corroborated.** The paragraph below says
+> `search/issues` returned 2,783 account-wide with `superbot` at 0. Re-tested
+> 2026-08-24 before the figure could enter a vendor-facing mail:
+> `is:pr user:menno420` returns **8,038** (`incomplete_results: false`) and
+> `superbot` returns **2,380** — agreeing with the Link-header counts below to
+> the unit on all seven repositories spot-checked. Full probe and the ruled-out
+> alternatives (result ceiling, query syntax):
+> [`2026-08-24-e1-source-sweep.md`](2026-08-24-e1-source-sweep.md) § 4 N6.
+>
+> **What this changes:** *"do not measure this account with `search/issues`"* is
+> **not established** and should not be repeated as a fact. **What it does not
+> change:** the per-repo Link-header recipe below is correct, and a second
+> independent endpoint now agrees with it — this section's numbers are *better*
+> supported than before, not worse. `search/code` is a **different endpoint**;
+> R5's 7-of-26 measurement was not tested and is untouched. Why the 08-23 reading
+> differed is **unknown and uninvestigated** — naming a cause would repeat the
+> error being corrected.
+
+
 `MEASURED` 2026-08-23. **Do not measure this account with `search/issues` or
 `search/code`.** The search index covers a minority of these repositories, and an
 unindexed repository returns **0**, which is indistinguishable from a genuine
@@ -70,7 +90,7 @@ repositories the creation-date recipe below identifies, then summed.
 
 Controls: `superbot` → **2,378** against a max PR number of 2,450 (the gap is
 issues sharing the numbering) · `websites` → **512**, which is the PR opened the
-same hour. Both reproduce, so the method sees what the index cannot.
+same hour. Both reproduce. ~~so the method sees what the index cannot.~~ **Trailing clause struck 2026-08-24** — it restates the diagnosis the banner above withdraws. The controls establish that the method is *correct*; they never established that the index is *wrong*, and on 2026-08-24 the index agrees with it.
 
 ## 1 · The scale, and the shape of it
 
