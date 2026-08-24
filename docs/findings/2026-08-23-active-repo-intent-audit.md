@@ -92,8 +92,12 @@ never stated its current role. **Fixed 2026-08-23, sim-lab #360 `72ed751e`.**
    2026-08-07. Its standing fallback is *"Empty inbox → polish the newest
    product's roughest edge and flag `inbox empty` in status"*, which sends the
    session to write a heartbeat into `control/status.md` for a coordinator that
-   does not exist. It never names **`phone-controller`** — the repo's only living
-   asset, a shipped Android Bluetooth-HID controller app whose 22 slice cards run
+   does not exist. It never names **`phone-controller`** — **the only
+   subtree that has received a commit in 45 days** (`MEASURED` 2026-08-24 via
+   `GET /commits?path=`: `products/phone-controller` **2026-08-20T20:06:39Z**,
+   `products/games-web` **2026-07-10T22:43:14Z**; a work-distribution fact and
+   **not** a claim that `games-web` is dead — it was a Pages deploy and may still
+   serve). It is a shipped Android Bluetooth-HID controller app whose 22 slice cards run
    to `2026-08-20-phone-controller-slice22-foldables.md` and whose own
    `products/phone-controller/README.md` is 18,456 bytes.
    **Consequence: filling in `current-state.md` would have closed the finding
@@ -110,9 +114,23 @@ never stated its current role. **Fixed 2026-08-23, sim-lab #360 `72ed751e`.**
 
    It is the only failure where the cold session ends up *worse* informed than if
    the file had been blank. `README.md` is 345 lines, well written, and its front
-   matter is wrong on the one thread that has an external clock. All four
-   findings below were checked against a live surface, not against another
-   document.
+   matter is wrong on the one thread that has an external clock.
+
+   **Provenance, because three of the four findings are live reads and one is
+   not.** The tree byte-count, the greps, the merge timestamps and issue #2's
+   date are live API reads. **The Play-track state is not, and cannot be from
+   here:** this estate holds no Play Console credential — `androidpublisher` and
+   *"Play Console/Developer API"* return **zero** hits across `docs/`, and no
+   Google credential is present in the environment. Its source is spider-swing's
+   own `docs/current-state.md` (2026-08-23), which records it as
+   **owner-confirmed** — source truth per the boot file, but a *relayed owner
+   statement*, not a measurement. Stated rather than laundered, per
+   [TRAP-001](../traps.md).
+
+   **The verdict does not depend on it.** Every defect below is the README
+   contradicting **its own repo's ledger** — two files in the same tree, both
+   read in full. What Play's servers currently hold does not enter the
+   comparison.
 
    - **The name is settled and the README says it is open.** Lines 10–17 are a
      blockquote headed *"'Spider Swing' is a codename"* — *"**Not approved
@@ -128,9 +146,11 @@ never stated its current role. **Fixed 2026-08-23, sim-lab #360 `72ed751e`.**
      and `current-state.md` records it as dispatch-only, signing with the
      external upload key, and *"has run successfully through version code 66."*
    - **`"…store publishing remain absent."`** — line 191. Narrowly defensible
-     (nothing is *public*) and misleading in effect: signed version code **64**
-     has been live on Play's **internal-testing** track since 2026-08-05 and was
-     owner-confirmed working on 2026-08-23.
+     (nothing is *public*) and misleading in effect: per spider-swing's
+     `docs/current-state.md` dated 2026-08-23 — **owner-confirmed, not
+     re-verified from a Play surface** — signed version code **64** has been on
+     the **internal-testing** track since 2026-08-05. The defect is that the
+     README and the ledger disagree, which needs no Play read to establish.
    - **The clock is invisible, and the two mentions of Play both deny it.**
      `grep -ci` over the README returns **0** for `closed test`, `internal
      testing`, `tester`, `Slingy`, `slingyspider` and `version code`; positive

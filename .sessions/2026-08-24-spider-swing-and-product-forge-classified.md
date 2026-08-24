@@ -60,8 +60,11 @@ surface rather than another document:
 2. Line 268: *"No release signing exists."* — `android-release.yml` is in the
    tree at **14,303 bytes** and the repo's ledger records it as having *"run
    successfully through version code 66."*
-3. Line 191: *"…store publishing remain absent."* — signed vc**64** has been on
-   Play's internal track since 2026-08-05, owner-confirmed 2026-08-23.
+3. Line 191: *"…store publishing remain absent."* — per spider-swing's ledger
+   dated 2026-08-23, signed vc**64** has been on Play's internal track since
+   2026-08-05. **Owner-confirmed, not re-verified:** no Play surface is reachable
+   from here (`androidpublisher` → 0 hits across `docs/`; no Google credential in
+   the environment). The defect is README-vs-ledger and needs no Play read.
 4. **The clock is invisible.** `grep -ci` → **0** for `closed test`, `internal
    testing`, `tester`, `Slingy`, `version code`; positive controls on the same
    file → `swing` 17, `Godot` 13, `Reel-In` 3, so the query works, and the file
@@ -82,8 +85,10 @@ The 24-line template ledger is real, but the **declared entry point is
 product build seat"*, routing a cold session to wait for an ORDER in
 `control/inbox.md` written by a manager seat retired **2026-07-21**, with a
 fallback that writes a heartbeat to a coordinator that does not exist. It never
-names `phone-controller` — the repo's only living asset, 22 slice cards through
-2026-08-20, its own README 18,456 bytes. **Filling in `current-state.md` would
+names `phone-controller` — the only subtree committed to in 45 days (`MEASURED`:
+`products/phone-controller` 2026-08-20T20:06:39Z vs `products/games-web`
+2026-07-10T22:43:14Z; a work-distribution fact, **not** a claim games-web is
+dead), 22 slice cards through 2026-08-20, its own README 18,456 bytes. **Filling in `current-state.md` would
 have closed the recorded finding and left the repo still failing the test.**
 
 **§ 5 — re-measured live, and the starved reading needed re-checking.**
