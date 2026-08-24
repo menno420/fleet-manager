@@ -262,13 +262,20 @@ Everything above is public:
 > **⚠ SENDING GATE — added 2026-08-24 after owner-review, and it is a base rate,
 > not a worry.** A Codex round was outstanding when this draft was handed over,
 > and the handover said *"nothing is blocked — the mail is yours to finish now."*
-> **That was wrong about sending.** Measured over the four completed rounds:
-> **4 of 4 changed this document**, and **three of them corrected factual errors
-> that would otherwise have reached the vendor** — a withdrawn search-index bug
-> report, a rule count stated in the present tense that had moved from 116 to
-> 125, and a send date recorded for a mail that had not been sent. On that
+> **That was wrong about sending.** Measured over the five completed rounds:
+> **5 of 5 changed this document**, and every one corrected something that would
+> otherwise have reached the vendor — a withdrawn search-index bug report; a rule
+> count stated in the present tense that had already moved; a send date recorded
+> for a mail not yet sent; a telemetry claim the cited audit itself refutes; and
+> **an offer to re-run measurements the recipient cannot re-run**. On that
 > record, an outstanding round is a **material chance of another such error**,
 > not a formality.
+>
+> **And the hedge that belongs on the state of this draft, because the stronger
+> version is not earned:** it is **free of currently known errors** — not
+> "correct". Five of five rounds found assertion-level errors in a document that,
+> before each round, looked finished. The difference matters when deciding
+> whether to wait.
 >
 > **So: the six calls below can be made at any time — they are judgement, not
 > facts. Sending should wait until the outstanding round is reported.** If he
