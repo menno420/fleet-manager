@@ -125,6 +125,16 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   unblocks the roadmap re-sequencing and the first slice's definition — **not** the
   whole track: `GCB-1` is a second, separate owner gate and repository creation
   still waits on it (2026-08-23, owner live).**
+  **UPDATE 2026-08-24 — the GCB-1 clause above is RESOLVED; this ask is not.**
+  The repository exists: `menno420/spider-bot`, created and deployed **live**
+  the same day in owner-directed sessions outside fleet-manager (name
+  owner-chosen over the plan's `superbot-community` default) — v0.1.0 tester
+  funnel + human-only roster + AI chat, Phase-0 hardening (78-test harness +
+  informational CI) landed hours later. What remains owner-only is exactly
+  this entry's question: which review/testing scopes (the A–D mix below) the
+  bot grows toward — now as spider-bot's next-phase direction rather than a
+  pre-creation gate. Registration: the [`ESTATE.md`](ESTATE.md) row +
+  [`repos/spider-bot/`](repos/spider-bot/README.md).
   **WHY THIS IS NEW:** `GCB-1` asks whether to create the repository and under
   what name. It does **not** carry this, and OD-19 introduced it: *"first there
   should be a smaller review oriented bot for the game server."*

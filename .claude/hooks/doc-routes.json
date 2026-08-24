@@ -350,6 +350,38 @@
       "says": "You named spider-swing. Read docs/repos/spider-swing/README.md BEFORE attaching the repo — attaching is often unnecessary (it is PUBLIC, so read-only work needs a raw fetch, not add_repo), and the folder tells you what the repo is, where the last session left off, and which of the two live threads you are touching: core feel & difficulty (the owner's north star) or the Google Play release (owner-gated, hard three-week floor). Depth in the same folder: working-here.md, capabilities.md, records.md. The repo's own docs/current-state.md wins over all of it. Paired with the `repo-spider-swing` tool route so a Bash or Grep carrying the name cannot spend this route's once-per-session budget before your message does."
     },
     {
+      "id": "repo-spider-bot",
+      "tools": [
+        "Bash",
+        "WebFetch",
+        "Read",
+        "Glob",
+        "Grep"
+      ],
+      "when": [
+        "\\bspider[- ]bot\\b",
+        "menno420/spider-bot"
+      ],
+      "docs": [
+        "docs/repos/spider-bot/README.md"
+      ],
+      "says": "Layer 2 entry point — read it BEFORE touching the repo. spider-bot is the AI community bot of the Slingy Spider Discord server, LIVE on Railway since 2026-08-24, and push to main deploys STRAIGHT TO PRODUCTION (no PR gate; CI is informational) — the entry point carries the deploy trap (verify meta.commitHash = HEAD; never run a local instance next to the Railway worker), the venue rule (public repo: raw fetch for reads, fresh clone deleted after for writes), and the 12-invariant pointer (the repo's CLAUDE.md; never-Administrator and AI-never-side-effects are the two most tempted). What the bot does next is the OWNER's pick — do not infer a feature. The repo's own README.md and CLAUDE.md win over all of it."
+    },
+    {
+      "id": "repo-spider-bot-prompt",
+      "tools": [
+        "UserPromptSubmit"
+      ],
+      "when": [
+        "\\bspider[- ]bot\\b",
+        "menno420/spider-bot"
+      ],
+      "docs": [
+        "docs/repos/spider-bot/README.md"
+      ],
+      "says": "You named spider-bot. Read docs/repos/spider-bot/README.md BEFORE touching the repo — it is PUBLIC (raw fetch for read-only work; writes take a fresh clone, deleted after) and LIVE: push to main deploys straight to the production bot real people talk to, with CI informational-only. The entry point carries the deploy trap (deploy SUCCESS can run stale code — verify meta.commitHash = HEAD), the two-live-instances hazard, the extraction-ledger discipline for any superbot/superbot-next reuse, and the standing rule that the next feature is the owner's pick. The repo's own README.md and CLAUDE.md (12 invariants) win over all of it. Paired with the `repo-spider-bot` tool route so a Bash or Grep carrying the name cannot spend this route's once-per-session budget before your message does."
+    },
+    {
       "id": "repo-couch-legend",
       "tools": [
         "Bash",

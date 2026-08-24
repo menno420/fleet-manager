@@ -28,11 +28,12 @@
 > were **not** touched and remain unarchived. Archiving is reversible; the
 > disposition reasoning is unchanged.
 >
-> **Baseline:** all 26 repositories verified against the live account and
-> their own trees on **2026-08-21** by the fleet-wide review (fm #878, method
-> and evidence: [`findings/2026-08-21-fleet-estate-review.md`](findings/2026-08-21-fleet-estate-review.md)).
-> Re-derive the account list any time: `list_repos` (claude-code-remote MCP),
-> or `GET /user/repos` over the direct-PAT path. Consistency between this
+> **Baseline:** all 27 repositories verified against the live account — 26 of
+> them against their own trees on **2026-08-21** by the fleet-wide review
+> (fm #878, method and evidence: [`findings/2026-08-21-fleet-estate-review.md`](findings/2026-08-21-fleet-estate-review.md)),
+> and **`spider-bot`** (created 2026-08-24, after that review) verified live
+> at registration. Re-derive the account list any time: `list_repos`
+> (claude-code-remote MCP), or `GET /user/repos` over the direct-PAT path. Consistency between this
 > file, `docs/repos/`, and the doc-routes is checked by
 > `python3 scripts/check_estate_index.py` (advisory).
 
@@ -51,10 +52,11 @@
 |---|---|---|---|---|
 | `fleet-manager` | this hub — the estate's router and records home | active | `README.md` six-read order | — (its intent: [`intent.md`](intent.md)) |
 | `spider-swing` | **Slingy Spider** — Android 2D physics swing game, Godot 4.7.1. The owner's evening product | **active** — build 0.45.0 vc66; signed vc64 sits on Play's internal testing track (2026-08-05); core-feel tuning is the north star | `docs/current-state.md` | [`repos/spider-swing/`](repos/spider-swing/README.md) |
+| `spider-bot` | **Spider Bot** — the AI community bot of the **Slingy Spider** Discord server; the GCB plan's clean game-community repo (Python 3.12 + discord.py 2.7 + Railway worker) · "the spider bot", "the community bot" | **active** (verified 2026-08-24) — **LIVE on Railway** (`spider-bot`/`worker`; push to main auto-deploys to production, no PR gate); v0.1.0 + Phase-0 hardening 2026-08-24 (ruff + 78-test pytest harness + informational CI `quality`); tester funnel, human-only roster and AI chat running in the real server | `README.md` → `CLAUDE.md` (the 12 invariants) | [`repos/spider-bot/`](repos/spider-bot/README.md) |
 | `couch-legend` | **Couch Legend** — idle stoner sim, the first Grok-prototype graduation; live on Pages · "the Lucid Chronicle" = its looks contract (#3), not a rename | **active** — the life story LANDED 2026-08-21 (#7: adopted tuning, save v2 `lifeHigh`, 18 chapters + 3 painted scenes live, § 9.6 rails re-checked); kit-seeded v1.21.0 (#5: required checks `ci` + `substrate-gate`, land-it-yourself); next: the Android/Capacitor shell (DESIGN § 7) + the owner's late-game feel pass | `docs/DESIGN.md` (binding) | [`repos/couch-legend/`](repos/couch-legend/README.md) |
 | `websites` | estate web surfaces: control-plane · botsite · dashboard (Railway) + review (Pages static since 2026-08-20/21) | **active** — keep-bot-only cutover landed 2026-08-20/21 | `docs/decisions.md` + `.sessions/` | [`repos/websites/`](repos/websites/README.md) |
 | `product-forge` | seat-era shell whose living asset is **phone-controller** — shipped Android Bluetooth-HID controller app, v0.22.0 signed releases | **active** (app thread); graduation to own repo = program step R2, next | `products/phone-controller/README.md` | [`repos/product-forge/`](repos/product-forge/README.md) |
-| `superbot` | the **FROZEN** repo behind the **LIVE production Discord bot** (Railway `reliable-grace` `worker`). No root README — its entry is `docs/AGENT_ORIENTATION.md`. Hard rail: never touch worker/Postgres uninvited | **frozen behavior/UX oracle** — maintenance class only; the clean game-community successor is planned [here](planning/2026-08-21-game-community-bot/README.md), and this repo remains untouched | `docs/AGENT_ORIENTATION.md` → `docs/current-state.md` | [`repos/superbot/`](repos/superbot/README.md) |
+| `superbot` | the **FROZEN** repo behind the **LIVE production Discord bot** (Railway `reliable-grace` `worker`). No root README — its entry is `docs/AGENT_ORIENTATION.md`. Hard rail: never touch worker/Postgres uninvited | **frozen behavior/UX oracle** — maintenance class only; the clean game-community successor **exists: `spider-bot`, live since 2026-08-24** (plan: [GCB](planning/2026-08-21-game-community-bot/README.md)), and this repo remains untouched | `docs/AGENT_ORIENTATION.md` → `docs/current-state.md` | [`repos/superbot/`](repos/superbot/README.md) |
 | `substrate-kit` | the estate's method kit (single-file `bootstrap.py`, PL register = program law, adopter registry) · "the kit" | **infrastructure** — v1.21.0 cut 2026-08-13; its next worklist lives HERE, not in the kit | `control/status.md` → `docs/PROJECT-CLOSEOUT.md` | [`repos/substrate-kit/`](repos/substrate-kit/README.md) |
 | `estate-backups` | **PRIVATE** Actions venue for Railway-Postgres work (sealed-box one-shot secrets) | **infrastructure, dormant** between owner asks; executes `OQ-BOT-DB-BTD6-PRUNE` when answered | `README.md` + the two workflows | [`repos/estate-backups/`](repos/estate-backups/README.md) |
 
@@ -67,7 +69,7 @@
 
 | repo | what it is · aliases | state (verified 2026-08-21) | read first (in the repo) | Layer 2 |
 |---|---|---|---|---|
-| `superbot-next` | the ground-up bot rebuild · "SuperBot 2.0", "the rebuild" | **complete-parked architecture donor** — 533/533 golden parity green but parity ≠ ported; the former cutover/server-first fork is resolved by the [2026-08-21 game-community plan](planning/2026-08-21-game-community-bot/README.md): clean repo after GCB-1, live `superbot` behavior oracle, this repo untouched | `docs/PROJECT-CLOSEOUT.md` → `docs/current-state.md` | [`repos/superbot-next/`](repos/superbot-next/README.md) |
+| `superbot-next` | the ground-up bot rebuild · "SuperBot 2.0", "the rebuild" | **complete-parked architecture donor** — 533/533 golden parity green but parity ≠ ported; the former cutover/server-first fork is resolved by the [2026-08-21 game-community plan](planning/2026-08-21-game-community-bot/README.md): clean repo after GCB-1, live `superbot` behavior oracle, this repo untouched. **That clean repo exists: `spider-bot`, live 2026-08-24** — GCB-1's repo-confirmed half is resolved; the archive gate's "no longer being harvested" half is a judgment (spider-bot's extraction ledger is still growing, though archiving blocks writes, never the reads harvesting needs). The archive stays queued R5 work for a session that takes it deliberately | `docs/PROJECT-CLOSEOUT.md` → `docs/current-state.md` | [`repos/superbot-next/`](repos/superbot-next/README.md) |
 | `venture-lab` | the commerce lane · "Venture", **Stripe Webhook Test Kit**, **The Night Kiln**, **Lull/DREAMLINE**, **Ultramarine** | **paused by OD-11** (let it sit) — 1 live $29 SKU, 19 ready SKUs, 12 finished books; the repo's own closeout threads (kill clock, publish wave) are SUPERSEDED by OD-11 | `docs/PROJECT-CLOSEOUT.md` | [`repos/venture-lab/`](repos/venture-lab/README.md) |
 | `shiftlife` | **PRIVATE** — ShiftLife, shift calendar for shift-working households (binnenvaart first); Expo + Hono/Postgres monorepo | **paused by OD-15** (not active) — stopped 2026-07-27: free core 7/8, reminders *delivery* unbuilt (`OQ-SHIFTLIFE-PHASE0`); `apps/api` code↔live gap standing (merges since `fe2fbbf` not deployed); Railway scope = `OQ-RAILWAY-SHIFTLIFE-SCOPE` | `docs/current-state.md` + `docs/plan-conformance.md` | on demand |
 | `gba-homebrew` | original-IP GBA/NDS homebrew: **Lumen Drift** (released) · Wickroad · Brineward · Underroot + web arcade on Pages · "the GBA project" | **complete-parked** — resumes on the owner's A1/A3 pick + playtest verdicts (`OQ-GBA-NEXT-PICKS`); trap: required `NDS ROM build` check reds on cold-cache PRs (BlocksDS 1.21.1 pin unrecoverable; migration branch `claude/nds-toolchain-1-22-3` retained, gba #216 closed per D‑0017) | `docs/PROJECT-CLOSEOUT.md` | on demand |
@@ -86,7 +88,9 @@
 > `codetool-lab-*` repos, `Substrate-kit-app` and `proxybench` — so this
 > section's heading is now literally enforced by GitHub for those five, not just
 > a convention. `superbot-plugin-hello` is **not** among them: it is gated with
-> `superbot-next` on GCB-1.
+> `superbot-next` on GCB-1 — whose repo-confirmed half resolved 2026-08-24
+> (`spider-bot` exists and is live); see the `superbot-next` row for why the
+> archive is still a deliberate separate step rather than a formality.
 
 | repo | what it is · aliases | state (verified 2026-08-21) | read first | Layer 2 |
 |---|---|---|---|---|
@@ -245,7 +249,7 @@ indexes default-branch text, so a consumer outside GitHub would not appear.
 
 ## When the owner's words don't name a repo
 
-- **"the bot"** — the live bot is `superbot` (frozen oracle, hard rail); `superbot-next` is the parked architecture donor; the planned clean game-community bot has no repository until GCB-1. Say which one you mean before acting.
+- **"the bot"** — three candidates since 2026-08-24: the live production bot is `superbot` (frozen oracle, hard rail); `superbot-next` is the parked architecture donor; **the game-community bot is `spider-bot`** (live in the Slingy Spider server — GCB-1 resolved by creation). Slingy-Spider-server work almost certainly means `spider-bot`; say which one you mean before acting.
 - **"the idle game"** — ambiguous: the *product* is `couch-legend`; the bot's
   idle *engine* is `superbot-idle`. Recent context decides; ask only if it
   genuinely could be either.
@@ -264,7 +268,7 @@ indexes default-branch text, so a consumer outside GitHub would not appear.
 
 ## Cross-repo edges a router must know
 
-- `superbot` → planned game-community bot ← `superbot-next`: the live repo is the behavior/UX oracle; the parked rebuild is the architecture donor. The 2026-08-21 plan resolves the old fork in favor of a clean repository after GCB-1; neither source repo is modified, deployed, renamed, or archived by that planning decision.
+- `superbot` → `spider-bot` ← `superbot-next`: the live repo is the behavior/UX oracle; the parked rebuild is the architecture donor; **`spider-bot` is the clean repository the 2026-08-21 plan called for** (created 2026-08-24). Every reuse gets a row in spider-bot's `docs/extraction-ledger.md`; neither source repo is modified, deployed, renamed, or archived by that build.
 - `superbot-next` ⇐ `superbot-idle` + `superbot-plugin-hello`: plugins pinned
   by hash in its `plugins.lock.json`; games' adapters were never built (R1).
 - `superbot-mineverse` closeout = the SuperBot-World fleet **MASTER**; the

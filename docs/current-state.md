@@ -67,8 +67,13 @@ copy product architecture or internal product state. Canonical intent:
 - **The next Discord bot's shape is set (OD-19):** a small, review-oriented
   game-server bot **first**, built cog-portable so existing cogs can be added or
   lightly adapted — and **the bots stay separated**. Repository consolidation of
-  the two `superbot` repos is the destination, not the next step. GCB-1 is
-  unchanged and still owner-gated.
+  the two `superbot` repos is the destination, not the next step.
+  **UPDATE 2026-08-24: GCB-1 is resolved by creation** — the repo is
+  `menno420/spider-bot`, live on Railway in the real Slingy Spider server the
+  same day (v0.1.0 + Phase-0 hardening; [`ESTATE.md`](ESTATE.md) row +
+  [`repos/spider-bot/`](repos/spider-bot/README.md)). `OQ-GCB-REVIEW-SCOPE`
+  (the review-loop letters) stays open, now as spider-bot's next-phase
+  direction.
 - fleet-manager vendors substrate-kit v1.21.0 (fm #853)
 - A root `AGENTS.md` remains an owner decision (`OQ-FM-AGENTS-BOOT`).
 
