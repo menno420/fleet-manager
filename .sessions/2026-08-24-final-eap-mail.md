@@ -168,6 +168,40 @@ storage composition, not authorship of every byte) · *"only hooks firing at the
 tool call caught anything"* (the table credits the owner 5, Stop hook 4, gate/CI
 3, tests 2 — and the Stop hook is post-turn, not tool-call).
 
+## Two owner-review challenges to round 3's fixes — both checked, both held
+
+**1 · Was the 125/72 re-count inflated by artifacts, untracked files, or this
+session's own writing?** Fair question: the audit's published block filters only
+`node_modules` and `.git/`, so it would happily count anything else lying in the
+tree. Decomposed three ways, `MEASURED`:
+
+| variant | files / statements |
+|---|---|
+| the published block, verbatim | **72 / 125** |
+| restricted to `git ls-files '*.md'` | **72 / 125** |
+| tracked, minus the three files this session created | **72 / 125** |
+| *(audit-time, 2026-08-08)* | *66 / 116* |
+
+**Untracked contribution 0; this session's contribution 0** — the three new files
+do not match the pattern at all. So the +6 files / +9 statements is genuine
+corpus growth between 08-08 and 08-24, not self-inflation. `[survived]`, and now
+decomposed rather than asserted.
+
+**2 · Was "the audit measures storage composition, not authorship" read, or
+assumed?** **Assumed** — it was taken from the reviewer's wording, and a claim
+about what a document says was written without opening it, which is the estate's
+own *"do not write about a file you have not opened."* Now read:
+[`2026-08-14-railway-websites-audit.md`](../docs/findings/2026-08-14-railway-websites-audit.md)
+§ 8 reports relation sizes with **separate table / index / TOAST columns**
+(`btd6_source_snapshots` 668 MB total = 245 MB table + 22 MB index + **401 MB
+TOAST**), states that the date columns show only *"the last observed ingestion
+event; liveness at probe time is not"* established, and records that **nothing
+was deleted and the ingestion loop was left running** with `OQ-BOT-DB-BTD6-PRUNE`
+open. **No authorship claim anywhere in it.** `[survived]` — and the reading
+strengthens the fix rather than merely confirming it: with 401 MB of one table
+being TOAST, *"agents created every byte"* was wrong about the storage as well as
+about the authorship.
+
 ## What landed
 
 - `docs/findings/2026-08-24-e1-source-sweep.md` — what was already sent, topic by
