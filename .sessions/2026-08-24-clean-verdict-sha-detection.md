@@ -54,10 +54,15 @@ the mirror image of the error being fixed.
 
 **So both are recorded, and the rule handles both:**
 
-| observed clean-pass shape | how the head is named |
-|---|---|
-| `…Hooray!` (websites #511, fm #924) | explicit `Reviewed commit:` line |
-| `## Review result` / `Approved — no blocking findings` (fm #938) | **no such line**; 40-hex SHAs inside `blob/<sha>/…` URLs only |
+| observed clean-pass comment | `Reviewed commit:` line? | head also findable as |
+|---|---|---|
+| `…Hooray!` — websites #511, fm #924 | **yes** | — |
+| `Approved — no blocking findings` — fm #938 | **NO** | 40-hex SHA in `blob/<sha>/…` URLs |
+| `Approved — no blocking findings` — fm #939 | **yes** | 40-hex SHA in URLs |
+
+**Line presence is an INDEPENDENT variation — the headline does not predict it.**
+#938 and #939 share a headline and differ on the line, which is why the table has
+three rows rather than two and why no branch may key off the headline.
 
 **Try `Reviewed commit:` first; when absent, extract every 40-hex string and test
 whether the head is AMONG them** — presence, not position, since one SHA is the
@@ -132,6 +137,23 @@ class twice in one file. It found three:
 wider than its sample (*"the clean comment has no such line"*), then a structure
 implying a correlation the samples do not support. The fallback algorithm was
 right throughout; the *explanation* around it kept overfitting to n=1.
+
+## Round 3 — 4 findings, all conceded
+
+1+2. **`[conceded]` I appended the fix without removing the wrong tail.** The
+   capability row began with the corrected rule and **still ended** with *"Match
+   the `Reviewed commit:` SHA on both surfaces"* — self-contradicting in one row,
+   and re-raised as fresh evidence after I had already marked it conceded once.
+3. **`[conceded]` This card's own table still implied the correlation** it argues
+   against — two rows keyed on headline, while the text below recorded #939's
+   line. Now three rows, with the independence stated here as in `traps.md`.
+4. **`[conceded]` I edited a dated ledger row instead of appending.**
+   `CAPABILITIES.md` § 5 (`:102-105`) is explicit: *"Re-verifications APPEND,
+   never edit"*, because a row must keep representing what was known on its
+   recorded date and `LAST-VERIFIED` is the freshness signal. I folded 08-24
+   measurements into the 08-23 entry and left its `LAST-VERIFIED` at 08-23 —
+   making the new verification read a day stale. **Reverted to its recorded state
+   and appended a dated 2026-08-24 entry** that names what it supersedes.
 
 ## Verification
 
