@@ -303,6 +303,39 @@ broadened; "never got an answer" claimed every channel where only the mailbox wa
 searched; and the Codex yield (13 findings / 5 rounds) was attributed to fm #812
 alone when it is #812 and #813 combined — only the 335 s latency is #812's.
 
+## The uniqueness claim, withdrawn — and the one absence claim that holds
+
+**Withdrawn.** The sweep's § 4 was headed *"why nobody else can send it"* and
+opened *"this estate is the only one that kept the entire output and spent the
+following month auditing it."* **There is no basis for either.** This estate has
+no visibility into what other EAP participants retained or did afterwards, and
+none was sought — the vendor's own *"that's how we identified you as a power
+user in providing ample feedback"* is about **feedback volume**, not about what
+anyone kept. The claim was load-bearing: it was the stated justification for the
+mail's entire structure, in § 4's heading and in the draft's decision table.
+**It never reached the copy block**, so nothing false was heading to the vendor —
+but a reason that does not hold is still the wrong reason, and the structure it
+justified survives on a supportable one: the fortnight is already in their inbox
+across four mails and the month after is not.
+
+**And the contrast worth keeping, because it is the session's own standard
+applied to itself.** Five absence-checks here returned confident wrong answers.
+**The Gmail absence claim is the one that meets the bar those five failed**, and
+the difference is exactly the rule this card records: *a check whose failure mode
+is silence must be shown to fire before its silence means anything.*
+
+| lane | the probe | its control | control result |
+|---|---|---|---|
+| outgoing | `in:sent 07-05→07-22`; `in:anywhere from:<owner> 07-01→07-16` *(+trash)* | `in:sent 07-15→07-18` | **fired** — returns the known 07-16 pair |
+| incoming | `subject:"Claude Code Projects Review" in:anywhere` *(+trash)* | `in:anywhere from:anthropic.com 07-13→07-16` *(+trash)* | **fired** — returns 3 genuine vendor messages, not the acknowledgement |
+| direct | `get_thread(19f41cd2e5380bb3)` — fetch by id, not a search | — | 2 messages |
+
+**Both controls were demonstrated to fire on something they should catch.** None
+of the five broken checks ever was. **Still not done, and stated rather than
+buried:** no exact `rfc822msgid:` lookup, because the record carries the thread id
+but no per-message ids for the four absent mails — that is the one retrieval path
+left open, and if those ids ever surface it could overturn this.
+
 ## What landed
 
 - `docs/findings/2026-08-24-e1-source-sweep.md` — what was already sent, topic by

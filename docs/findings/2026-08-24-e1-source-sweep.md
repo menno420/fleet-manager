@@ -164,12 +164,24 @@ addressed either way.
 3 — an offer of structured stress-testing on an unusually instrumented harness —
 is the one worth carrying forward, and § 5 below is what it is worth now.
 
-## 4 · What is genuinely new — and why nobody else can send it
+## 4 · What is genuinely new — and why it is worth sending
 
 This is the answer to *"how do we make this an actually new valuable source."*
 
-**Every EAP participant can report on the fortnight. This estate is the only one
-that kept the entire output and spent the following month auditing it.** The
+**Corrected 2026-08-24 (owner-review).** This section was headed *"why nobody
+else can send it"* and opened *"this estate is the only one that kept the entire
+output and spent the following month auditing it."* **There is no basis for
+either.** This estate has no visibility into what other EAP participants
+retained or did afterwards, and none was sought. What is actually supportable,
+and all that is needed: the fortnight's output **was** retained here and **was**
+audited over the following month, which makes the material below available —
+whether it is unique is unknown and is not the argument. *(The claim never
+reached the copy block; it was in this heading and in the draft's internal
+decision table, where it was doing load-bearing work as the stated reason for the
+mail's whole structure — which is why it is corrected rather than quietly
+softened.)*
+
+The
 July mail was an inside-the-program bug report. The new material is an
 outcome study, and it runs on a different axis: not *could the agent do the
 thing*, but *was what it produced true, and could anyone tell*.

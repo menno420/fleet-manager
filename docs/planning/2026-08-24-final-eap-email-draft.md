@@ -24,7 +24,7 @@
 
 | # | Decision | Why | Overturn by |
 |---|---|---|---|
-| 1 | **The spine is the month *after* the program**, not the fortnight | Every participant can report the fortnight. He is the only one who kept the whole output and then audited it. That is the new source. | saying "lead with the fortnight" |
+| 1 | **The spine is the month *after* the program**, not the fortnight | The fortnight is already in their inbox across four mails; the month after is not, and it is what changed his conclusion. **Not** because other participants did not do it — we have no visibility into that and the claim has been withdrawn (sweep § 4) — but because it is the part he has that the prior mails do not carry. | saying "lead with the fortnight" |
 | 2 | Everything already argued becomes **one pointer line**, never a re-argument | His own reflection is explicit; four mails already carry it with forensics | saying which topic he wants re-opened |
 | 3 | **Two-part format kept** (his voice, then Claude's) | It is what the earlier reviews used and what the team is used to reading | saying "one voice" |
 | 4 | **Fresh compose, new subject, no reply-linkage** | Plan § 1: the standalone closing statement, readable cold in minutes | replying on the old thread instead |
