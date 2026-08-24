@@ -331,8 +331,21 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 
 - **`OQ-E1-FINAL-EAP-EMAIL` — write and send the final EAP review email
   (owner-reserved, your pace).**
-  **⏸ DEFERRED BY THE OWNER, 2026-08-23 (live, late) — this supersedes the
-  "today" stamp below.** HIS WORDS, verbatim: *"The email aswell but that's
+  **▶ UN-DEFERRED BY THE OWNER, 2026-08-24 (live) — this supersedes the deferral
+  below.** HIS WORDS: *"today I want to work on and possibly finish the final EAP
+  mail… go through the fleet manager and my email, find out everything we already
+  told them and found out, then see what more you can prepare for me and how we
+  should complete the email in such a way that this is actually a new valuable
+  source for anthropic."* **Done this session:**
+  [the source sweep](findings/2026-08-24-e1-source-sweep.md) (the fifteen-row
+  ledger of what the prior mails already argued, the never-sent 07-18 findings,
+  seven net-new month-after findings, today's re-measured figures) and
+  [the assembled draft](planning/2026-08-24-final-eap-email-draft.md) (the mail
+  between COPY markers, six overturnable decisions, four pre-send checks).
+  **What remains yours and only yours: rewriting Part 1 in your own voice, the
+  four pre-send calls in § 2 of the draft, and sending it.** No session sends it.
+  ~~**⏸ DEFERRED BY THE OWNER, 2026-08-23 (live, late) — this supersedes the
+  "today" stamp below.**~~ HIS WORDS, verbatim: *"The email aswell but that's
   something I still want to wait a little bit with because I still feel like we
   can do some more organizing."* **THE READING:** the evidence pack is not the
   blocker and is not stale — the **organising** is what he wants further along

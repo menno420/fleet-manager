@@ -59,6 +59,27 @@
 > commit history and the PR text both persist. The ruling here went the way that
 > made it moot; that was luck, not process.
 
+## 0 · Correction, 2026-08-24 — two of the mails this file describes are gone
+
+`MEASURED` 2026-08-24, three queries with a passing positive control:
+[`2026-08-24-e1-source-sweep.md`](2026-08-24-e1-source-sweep.md) § 1.
+**Thread A no longer holds five messages — it holds two**, the 07-16 pair. The
+2026-07-08 introduction review, the 2026-07-12 scale-up report and the vendor's
+07-14 acknowledgement are **not retrievable from Gmail**, including in trash and
+archive.
+
+**What that does to this file.** Everything about the 07-16 messages and thread B
+re-verifies today. **§ 2's four unanswered questions were read out of the 07-08
+body by the session that had it, and are now `MEASURED-PRIOR`** — a demotion in
+certainty, not a retraction: nothing contradicts them, and nothing can now
+confirm them either. § 5's correction 1 (the 07-14 reply's sender) is in the same
+position. **No cause is recorded and none should be inferred.**
+
+**The process point, which is this file's own lesson one level up:** it argued
+that a fact living only in a handoff prompt is not in the repo. A fact living
+only in a mailbox is not in the repo either — these two reviews are recoverable
+today *only* because a session summarised them here.
+
 ## 1 · The shape of the correspondence
 
 `MEASURED` 2026-08-09. Two threads carry everything that matters.

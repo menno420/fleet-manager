@@ -57,6 +57,7 @@
 | [`ui-visibility-2026-07-09.md`](ui-visibility-2026-07-09.md) | Status `reference` — frame-by-frame analysis of two owner screen recordings testing 'everything looks dormant while the fleet is working'; verdict:…. |
 | [`ultracode-verification-2026-07-10.md`](ultracode-verification-2026-07-10.md) | Status `reference` — adversarial-verification record re-deriving three 'ultracode'-class outputs (superbot #1911, fleet-manager #15, superbot #1913…. |
 | [`venture-shortlist-2026-07-09.md`](venture-shortlist-2026-07-09.md) | Status `reference` — transcript analysis of a creator-monetization YouTube interview: timestamped revenue claims, validation tactics, the four buil…. |
+| [`2026-08-24-e1-source-sweep.md`](2026-08-24-e1-source-sweep.md) | The E1 source sweep: what the four prior EAP mails already argued (a fifteen-row topic ledger, so the final mail repeats nothing), the never-sent 2026-07-18 findings, the seven genuinely-new month-after findings, and today's re-measured figures. Carries one measured correction — **the 2026-07-08 and 2026-07-12 reviews are no longer retrievable from Gmail**, positive control passed, so the mailbox is not the archive of record. |
 
 ★ = named in the boot file's ordered read path — read these before acting on
 the program's next-actions (entry 2b and its follow-on).
