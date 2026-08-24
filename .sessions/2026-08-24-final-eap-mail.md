@@ -347,15 +347,17 @@ this document, 3 corrected errors that would have reached the vendor.* Round 5
 then found **five more vendor-facing errors**, three of them in claims this
 session had already "fixed" once:
 
-- **"a full read of every tracked file"** — the audit records 19 files (~22 MB)
-  inspected for **structure**, not line by line, and says the distinction is not
-  cosmetic. The mail claimed exhaustive content inspection to a third party.
-- **"no agent surface could see any of it"** — false, and the audit is the
-  refutation: it measured those costs **agent-side**, over Railway GraphQL and
-  the usage API. The true claim is narrower and better — *nothing surfaced it
-  during normal operation; cost had to be gone looking for.*
-- **"which is every review a human actually performs"** — a universal about all
-  human review, from a sample of several sessions missing seven defects.
+- **WITHDRAWN — "a full read of every tracked file".** The audit records 19
+  files (~22 MB) inspected for **structure**, not line by line, and says the
+  distinction is not cosmetic. The mail claimed exhaustive content inspection to
+  a third party.
+- **WITHDRAWN — "no agent surface could see any of it".** False, and the audit
+  is the refutation: it measured those costs **agent-side**, over Railway
+  GraphQL and the usage API. The replacement is narrower and better — *nothing
+  surfaced it during normal operation; cost had to be gone looking for.*
+- **WITHDRAWN — "which is every review a human actually performs".** A universal
+  about all human review, from a sample of several sessions missing seven
+  defects.
 - **The 949 MB / 97.5 % figures** were 2026-08-20 measurements stated in the
   present tense on 08-24, against a store still ingesting.
 - **The re-run promise** — the mail invited the recipient to re-run the

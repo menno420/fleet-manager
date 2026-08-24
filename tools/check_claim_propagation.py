@@ -87,7 +87,21 @@ def sweep() -> int:
                 lines = text.splitlines()
                 for m in re.finditer(pat, text):
                     ln = text[:m.start()].count("\n")
-                    ctx = "\n".join(lines[max(0, ln - 3):ln + 2])
+                    # Context = the ENCLOSING BLOCK (blank-line delimited), not a
+                    # fixed line window. A fixed window was tried first and gave
+                    # false positives every time a retraction ran longer than a
+                    # few lines — and the reflex fix, adding whatever words the
+                    # missed case happened to use, is vocabulary whack-a-mole
+                    # that ratchets the filter toward never firing. The block is
+                    # the unit a human actually reads a claim in, so it is the
+                    # unit that decides whether the claim is being ASSERTED or
+                    # QUOTED-AS-WITHDRAWN.
+                    start = end = ln
+                    while start > 0 and lines[start - 1].strip():
+                        start -= 1
+                    while end < len(lines) - 1 and lines[end + 1].strip():
+                        end += 1
+                    ctx = "\n".join(lines[start:end + 1])
                     if ALLOW_IN_RETRACTION.search(ctx):
                         continue          # a retraction naming its own claim
                     sites.append(f"{f}:{ln + 1}")
