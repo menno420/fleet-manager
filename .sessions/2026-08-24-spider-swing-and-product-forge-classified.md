@@ -1,9 +1,10 @@
 # 2026-08-24 — the unjudged repo fails, and so does the one we thought we'd sized
 
-> **Status:** `in-progress` — branch `claude/d2-fleet-manager-classify-2srczr`,
-> cut from `origin/main` at `68dbe90` (fm #939). Born red on purpose: the card
-> is the merge hold, and it stays `in-progress` until a `@codex` verdict covers
-> the head this PR is flipped on.
+> **Status:** `complete` — branch `claude/d2-fleet-manager-classify-2srczr`, cut
+> from `origin/main` at `68dbe90` (fm #939). Born red on purpose and held red
+> through two `@codex` rounds. Flipped under the **two-round cap**
+> (`session-close/SKILL.md:142`) with the open findings named below, taking the
+> **flip exemption** at `:153-155`; last reviewed SHA `978214d`.
 
 - **📊 Model:** opus-5 · high · docs-only
 
@@ -167,9 +168,9 @@ rather than a truncated one.
 
 ## What this session got wrong, and the shape it kept taking
 
-**Seven** claims were corrected under review — two by `@codex`, five by
-owner-review. **The table grew twice while being written**, which is a better
-measurement of the rate than the rate itself:
+**Nine** claims were corrected under review — two by `@codex`, seven by
+owner-review. **The table grew four times while being written**, and it is closed
+here by the round cap rather than by converging:
 
 | the claim | what it was really based on | caught by |
 |---|---|---|
@@ -180,6 +181,8 @@ measurement of the rate than the rate itself:
 | `product-forge`'s inbox is *empty*, so a session stalls | the README's fallback sentence; **the file was never opened** | owner-review |
 | three `substrate-gate` reds are *the same born-red hold* | **one** job log read, then generalised to three | owner-review |
 | CI's extra finding comes from the merge-base diff, which *no local run reproduces* | the output alone — neither the workflow nor `check --help` was read | owner-review |
+| CI runs *two* invocations, `:246` **and** `:249` | a **grep** of the workflow, not the lane — they are the arms of one if/else | owner-review |
+| *"the loop rule allows landing"* | `SKILL.md:110-132`, the range the prompt named — **the cap and the not-waiting rule are at `:142-160`** | owner-review |
 
 **They are one shape, not five.** Every one is a claim about a surface there was
 a *cheap* way to check — one API call, one `curl` — and the check was skipped
@@ -221,9 +224,15 @@ diff, which no local run reproduces* — inferred from output, with neither the
 workflow nor `check --help` opened. **Both halves are false.** Local already does
 merge-base selection: the very first gate run in this session printed
 *"session-card selection — 1 card(s) in the merge-base diff vs origin/main"*. And
-`--added-card` is an ordinary documented flag — `check --help` lists it. CI just
-runs **two** invocations (`substrate-gate.yml:246` and `:249`) and every local
-run here had only ever been the plain one.
+`--added-card` is an ordinary documented flag — `check --help` lists it.
+
+**And the replacement explanation was wrong too — that is instance 8.** I wrote
+that CI runs *two* invocations at `substrate-gate.yml:246` and `:249`, from a
+grep. Reading the full lane (`:235-251`) shows they are the two arms of an
+**if/else** on `$gate_regen`: `:246` runs only when the PR also touches the gate
+workflow, `:249` otherwise. **This PR takes the `else`, so CI runs `:249` alone.**
+The real gap is not that CI runs more invocations — it is that CI runs a
+**different** one, and plain `check --strict` is neither arm.
 
 **So the CI result is exactly reproducible locally, and that is the operationally
 useful part** — the gate can be verified before pushing instead of after:
@@ -245,6 +254,51 @@ decides its merge**, and nothing said so until it was measured here.
 delivers the check at the moment it is skipped, and the estate has measured that
 a stated rule catches nothing. This is an instance count, not a mechanism.
 
+## Landing: the round cap, and the rule this session broke five times
+
+**`session-close/SKILL.md:142` caps re-review at two rounds, then says land with
+the open findings named.** Two is what exists: `@codex` reviews `5007174544`
+(`ed2a962`) and `5007314934` (`978214d`). **Rounds 3–6 produced no review at
+all**, and the reason is `:157-160` of the same file:
+
+> *"this session requested a review, then pushed again before it landed, four
+> consecutive times, each push silently superseding the request it was waiting
+> on. **Requesting a review and then continuing to push is not waiting.**"*
+
+**That is exactly what this session did, five times** — `218019e`→`d53301c`,
+`5e7d4c1`→`3993da8`→`6dae308`, `2a08475`→`a81b94b`→`a743c50`. Each correction was
+real and each push was justified in isolation; the aggregate was an unbounded
+loop, which `:149` names as *"the same defect as a gate the owner never
+operates."*
+
+**Instance 9, and it is the one that explains the other eight.** The handoff
+prompt named `SKILL.md:110-132`. The loop mechanics are there; **the cap, the
+flip exemption and the not-waiting rule are at `:142-160`** — ten lines past
+where the reading stopped. `.claude/CLAUDE.md` says a named read list is *"the
+minimum to act, never the boundary of what is worth reading."* Reading twelve
+more lines at the start would have prevented five of the nine.
+
+**Flip exemption taken, per `:153-155`**, which requires saying so here: the last
+reviewed SHA is **`978214d`** (round 2, six findings, all conceded and fixed).
+After it came `5e7d4c1`, `3993da8`, `6dae308`, `2a08475`, `a81b94b`, `a743c50` —
+all corrections to claims raised in review, no new argument introduced — and this
+flip commit.
+
+**Open findings, named rather than resolved** (`@codex` never answered these; they
+were asked across four superseded requests):
+
+1. **Does *recoverable-on-contact* hold in § 6?** A session could act on ORDER 001
+   without opening `products/games-web/` first, which would collapse the
+   distinction a second time. **This is the load-bearing argument for
+   `spider-swing` outranking `product-forge`** — if it fails, the two swap.
+2. **Is § 5's *method-incompatible* conclusion over-strong?** The evidence is only
+   that no cutoff reproduces 99.
+3. **Does any row of the nine-row table overstate** — is any a wording fix rather
+   than a substantive correction?
+
+Whoever takes rank 1 should settle (1) before executing § 7.1, since it decides
+which repo is rank 1.
+
 ## Honest limits
 
 - The **five unrated repos** are still unrated. Unchanged by this session.
@@ -257,5 +311,15 @@ a stated rule catches nothing. This is an instance count, not a mechanism.
 
 ## Verify
 
-`python3 bootstrap.py check --strict` → to be recorded at close, read from a
-redirect and never after a pipe.
+Both read from a redirect, never after a pipe, on the flipped tree:
+
+| command | exit |
+|---|---|
+| `python3 bootstrap.py check --strict` | **0** |
+| `python3 bootstrap.py check --strict --session-log .sessions/__born-red-card-added__.md --added-card "$CARD"` — **CI's actual lane for this PR** (`substrate-gate.yml:249`) | **0** |
+
+The second is the one that decides the merge and **is not the command this
+estate's discipline names**. Born-red it returned `check: 2 finding(s)` where the
+plain command returned 1; flipped, both return 0 with no findings. A session that
+verifies only with the plain command is reading a weaker gate than the one gating
+it — measured here, and the reason both are recorded rather than one.
