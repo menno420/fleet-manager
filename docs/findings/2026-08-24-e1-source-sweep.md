@@ -211,7 +211,10 @@ Documentation recalled at the right moment caught **0 of 16**
 owner asking a question (5), a Stop hook (4), gate/CI (3 — **1 local gate,
 2 CI/GitHub**; collapsing them to "the local gate" overstates what is available
 before a push), own test runs (2), after-the-fact (2). The remedy that works is **injection at the moment of
-action** — 61 doc-routes on a `PreToolUse`/`UserPromptSubmit` hook, which is a
+action** — **67** doc-routes on a `PreToolUse`/`UserPromptSubmit` hook
+(`len(json.load(open('.claude/hooks/doc-routes.json'))['routes'])` → 67,
+2026-08-24; the evidence pack's 61 is its 2026-08-23 snapshot and both are
+correct for their dates), which is a
 product feature the platform does not have and which this estate had to build.
 
 **N4 · Drift lands on the most visible surface, and nobody notices.** The

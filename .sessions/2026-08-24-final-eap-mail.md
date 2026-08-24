@@ -202,6 +202,31 @@ strengthens the fix rather than merely confirming it: with 401 MB of one table
 being TOAST, *"agents created every byte"* was wrong about the storage as well as
 about the authorship.
 
+## Round 3 was 14 findings, not 13 — the fourteenth was hidden by pagination
+
+`MEASURED` 2026-08-24. `GET /pulls/943/comments` **defaults to 30 items per
+page**. The PR had accumulated 10 + 7 + 14 = **31** inline comments, so the
+unpaginated read returned exactly 30 and silently dropped the newest one. It
+surfaced only because the webhook delivered it separately.
+
+The lost finding was real and is now fixed: the mail, the sweep and the evidence
+pack all said **61 doc-routes**; `.claude/hooks/doc-routes.json` holds **67**
+(`len(json.load(...)['routes'])` → 67). The mail and sweep now carry 67 with the
+measurement date; the pack keeps 61 as its own 2026-08-23 snapshot, marked as a
+moving count.
+
+**This is the fourth distinct instance in one session of a truncated or
+over-narrow read reporting a false absence** — after `|| echo NO` swallowing a
+failed check, matching round 2 on `commit_id` instead of `original_commit_id`,
+and matching round 3 only at the current head. Each had a different mechanism and
+the same shape: **the query decided the answer, and nothing said so.** Written
+here rather than in the mail because it is the estate's own TRAP-003, not the
+vendor's problem — but it is also the most honest illustration this session
+produced of why the mail's central claim is true.
+
+**The standing fix, in one line: always page, always check the status, never let
+a filter be the only thing standing between a read and "nothing is there."**
+
 ## What landed
 
 - `docs/findings/2026-08-24-e1-source-sweep.md` — what was already sent, topic by

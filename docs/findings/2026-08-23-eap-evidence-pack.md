@@ -199,7 +199,7 @@ makes demonstrable rather than asserted.
 | what he had to build | measured today |
 |---|---|
 | **Session cards** — durable per-session memory | **4,535 across 19 repositories** *(at 2026-08-23 10:3xZ; see § 7 — an earlier reading of 4,551 counted `.sessions/README.md` as a card)* (`superbot` 969 · `idea-engine` 503 · `fleet-manager` 394 · `substrate-kit` 341 · `superbot-next` 334 — READMEs excluded, same as the total) |
-| **Moment-of-action injection** — rules that arrive when they apply | **61 doc-routes** in one repo's `PreToolUse`/`UserPromptSubmit` hook |
+| **Moment-of-action injection** — rules that arrive when they apply | **61 doc-routes** in one repo's `PreToolUse`/`UserPromptSubmit` hook *(2026-08-23; **67** on 2026-08-24 — a moving count, like the PR total in § 7)* |
 | **Lifecycle hooks** | **6** in fleet-manager alone |
 | **Executable procedures** (skills) | **27** |
 | **Repo-side checkers/generators** | **30** |

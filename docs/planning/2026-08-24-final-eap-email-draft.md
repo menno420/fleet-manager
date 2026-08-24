@@ -110,7 +110,8 @@ regex today gives 125 across 72 files — the corpus grew; the 116 is the
 moment caught **0 of 16**. What did catch them: the owner asking a question (5),
 a Stop hook (4), the gate and CI together (3 — 1 local, 2 CI/GitHub), test runs (2), and after-the-fact discovery
 (2). The conclusion we acted on is that a rule binds only if it *fires* at the
-tool call, so we built 61 documentation routes onto a pre-tool hook. That is a
+tool call, so we built 67 documentation routes onto a pre-tool hook (counted
+2026-08-24; it was 61 sixteen days earlier — the mechanism is still growing). That is a
 platform-shaped feature we had to build ourselves, and we think it generalises:
 **more instructions in a context file is not a fix, and our number for that is
 116 to nothing.**
