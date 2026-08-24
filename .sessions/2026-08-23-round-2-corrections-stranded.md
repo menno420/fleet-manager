@@ -35,27 +35,32 @@ Re-applied onto the new base, unchanged from the stranded commits:
 - the `delivery-roadmap.md` conflict **recorded**: OD-19's first slice sits at
   **Phase 5**, behind the AI spine and community core
 
-## The trap this session is evidence for
+## The trap this session is evidence for — DIAGNOSIS WITHDRAWN
 
-**TRAP-006 covers flipping a card to `complete` before the branch is pushed.
-This is its neighbour and it is not covered: flipping to `complete` while a
-review is still outstanding.**
+> **⚠ WITHDRAWN 2026-08-24 (`@codex`, fm #938).** The original reading below was
+> wrong on its central claim: it said TRAP-006 did not cover this and that the
+> flip was *"correct by every written rule"*.
+> **`.claude/skills/session-close/SKILL.md:116-129` already stated the rule** —
+> `MEASURED` on fm #827 — including *"flip only when the outstanding review covers
+> the head you are flipping"*, with step 6c giving the reason: the flip is the
+> merge-eligibility event. So this was a **compliance and delivery failure of an
+> existing rule**, not an unstated trap. Struck rather than deleted, because the
+> misdiagnosis IS the finding — the rule was written, measured, and still not
+> followed. Current entry: [`docs/traps.md`](../docs/traps.md) TRAP-007.
 
-The card is the merge hold. On #937 I flipped it after the gate went green and
-after round 1 was addressed — which was correct by every written rule — then
-requested a re-review and pushed further commits. The lander does not know a
-re-review was requested: it saw a complete card and a green gate, and merged the
-**earlier** head. Round 2's six findings landed against a PR that no longer
-existed.
+~~TRAP-006 covers flipping a card to `complete` before the branch is pushed. This
+is its neighbour and it is not covered.~~ **Wrong — see above.**
+
+What actually happened, which stands: on #937 the card was flipped after the gate
+went green and round 1 was addressed, then a re-review was requested and further
+commits pushed. The lander cannot see a pending re-review — it saw a complete card
+and a green gate and merged the **earlier** head, so round 2's six findings landed
+against a PR that no longer existed.
 
 **Measured:** PR #937 merged at head `775f1c8`; commits `4a80bf6` and `4ea3962`
-were pushed to the same branch afterwards and reached `main` in **neither** —
+reached `main` in **neither** —
 `git show origin/main:docs/findings/2026-08-23-owner-direction.md` returned
 missing, and the superseded queue entry was still present on `main`, count 1.
-
-**The rule that would have prevented it:** do not flip the card while a review
-you asked for is unanswered — or apply `do-not-automerge` when re-requesting
-one. The flip should track *review answered*, not just *gate green*.
 
 ## Round 3 — 8 findings (1 × P1), all 8 addressed IN THIS SESSION
 
@@ -108,18 +113,66 @@ delivered nothing at all.**
 **Running total across three rounds: 20 findings · 19 conceded · 1 partial ·
 0 survived.**
 
-**Registered, not just described** — because a lesson that lives only in a card
-is the estate's statement #117, and the 2026-08-20 railway card already recorded
-this exact shape (*"`merge-on-green` landed #871 before the round-2 review I had
-requested could answer"*) **and produced no register entry**, which is why it
-happened again:
+## Round 4 — 12 findings: 10 live, all fixed; 2 were stale re-posts
 
-- **`docs/traps.md` TRAP-007** — full entry with trigger, prevention, verify and
-  the measured origin.
-- **Both existing card routes now carry it** — `card-flip-before-push` (fires on
-  `git push`) and `card-status-write` (fires on any `.sessions/*.md` edit), so
-  the warning arrives at the flip *and* at the push. `check_doc_routes.py` → exit
-  0, 64 routes, 0 errors.
-- **No checker, and the reason is stated in the register:** a check would have to
-  know a review was *requested*, which is PR state, not tree state. That is an
-  honest null, not an omission.
+Verified each against the tree before acting — two were threads re-posted from
+round 3 and already fixed at head (the P1 `says`-string null change: `repeat` and
+`card-flip-to-complete` are present; the primary-audit census: already 16 of 17 /
+6 pass). **The other ten were live and are fixed:**
+
+1. **`[conceded]` The new route fired on ANY file.** `haystack()` concatenates
+   path *and* content, so `Status:.*complete` matched prose — including
+   `docs/traps.md` itself, which contains that phrase. An earlier doc edit would
+   have **spent the route and silenced the real flip**, recreating the exact bug
+   one commit after fixing it. Now requires **both** the `.sessions/*.md` path and
+   the completion header in the same event. **Negative test: editing traps.md
+   prose → SILENT; the real flip still fires.**
+2. **`[conceded]` I broke the coverage table.** Inserting TRAP-007 deleted the
+   `## Coverage` heading and the table header/separator, so seven rows rendered as
+   loose pipe-delimited paragraphs. Restored.
+3. **`[conceded]` The route still said "before pushing the request".** The push,
+   not the request, is the merge-eligibility event. Both routes now say **before
+   pushing the completed card**, matching the register.
+4. **`[conceded]` "Match `commit_id`" cannot verify a clean pass.** A clean
+   `@codex` verdict creates **no review object** — it arrives as an issue comment
+   naming the SHA on its `Reviewed commit:` line. Checking only `commit_id` reads
+   a clean verdict as *absent*. Both routes now give the per-surface rule.
+5. **`[conceded]` The superseded diagnosis was still live prose in this card**,
+   contradicting its own correction section. Struck and marked WITHDRAWN.
+6. **`[conceded]` The delivery record described the discarded fix** and said 64
+   routes when the checker reports 65. Now names all three routes and the real
+   count.
+7. **`[conceded]` The program ledger still called Phase 5 "OD-19's first slice"** —
+   the same inference rejected a round earlier, surviving in the living ledger.
+   Now a **possible** match pending `OQ-GCB-REVIEW-SCOPE`.
+8. **`[conceded]` The ledger still said E1 "not a slip".** The date moved by one
+   day. Now an **intentional deferral**.
+9. **`[conceded]` D2's order was published as measured** while resting on
+   verdicts that omit `spider-swing`. Marked **PROVISIONAL** in both the audit
+   and the NOW pointer.
+10. **`[conceded]` `## Next executable action` still sent a session into Phase 0**
+    as written, skipping the scope gate the amendment above it had just created.
+    Now gated on `OQ-GCB-REVIEW-SCOPE` **and** GCB-1, with re-sequencing before
+    Phase 0.
+
+**Running total across four rounds: 32 findings · 31 conceded · 1 partial ·
+0 survived.**
+
+**Delivered — and the first attempt was a null change.** A lesson living only in a
+card is this estate's statement #117, and the 2026-08-20 railway card already
+recorded this exact shape (*"`merge-on-green` landed #871 before the round-2
+review I had requested could answer"*) **and produced no register entry**, which
+is why it recurred. What is committed now:
+
+- **`docs/traps.md` TRAP-007** — trigger, prevention, verify, measured origin.
+- **THREE routes matter, not two.** `card-status-write` fires once at card
+  creation — correct, it is the lifecycle reminder, and it does **not** deliver
+  the later flip. **`card-flip-to-complete`** is NEW and fires at the completion
+  transition; it requires **both** the `.sessions/*.md` path **and** the
+  completion header in the same event, so a prose edit mentioning
+  "Status: complete" cannot spend it (negative test: SILENT, real flip still
+  fires). **`card-flip-before-push`** now carries **`repeat: true`** — never
+  spent, warns on every push.
+- **`check_doc_routes.py` → exit 0, 65 routes, 0 errors** (64 before this change).
+- **No checker**, and the register says why: a check would have to know a review
+  was *requested*, which is PR state, not tree state. An honest null.

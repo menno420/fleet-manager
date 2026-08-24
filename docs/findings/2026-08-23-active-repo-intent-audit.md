@@ -162,7 +162,14 @@ and an unindexed repo returns 0, indistinguishable from a true zero
 `websites` 19 are product work. The sharp fact is narrower: **`spider-swing` is
 the starved one, and it is the only asset with an external clock running.**
 
-## 6 · The order this implies for D2
+## 6 · The order this implies for D2 — **PROVISIONAL**
+
+> **This order is provisional until `spider-swing` is judged** (`@codex`, fm
+> #938). It was derived from verdicts that omit one repository, and that
+> repository is the estate's only asset with a live external clock — if it fails
+> the cold-session test it plausibly outranks everything below. Classify it
+> first, then confirm or re-rank.
+
 
 1. ~~`idea-engine`~~ ✅ · 2. ~~`sim-lab`~~ ✅ · 3. **`product-forge`** (needed
 before its R2 graduation anyway) · 4. **`estate-backups`** · 5. the date stamp

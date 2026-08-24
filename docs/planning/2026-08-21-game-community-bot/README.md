@@ -202,7 +202,20 @@ verified phases.
 
 ## Next executable action
 
-Confirm GCB-1 and create the new repository from a minimal substrate-kit seed.
-Then execute Phase 0 of the roadmap: transplant this plan, add the architecture
-decision record, establish one required CI check, and land an empty but
-observable Discord process before any feature module is ported.
+**Two gates now, not one** (amended 2026-08-24, `@codex` fm #938 — this section
+still sent a session straight into the unresequenced roadmap the OD-19 amendment
+says not to execute).
+
+1. **`OQ-GCB-REVIEW-SCOPE` — what must the review bot actually do?** Owner-only.
+   Four candidate scopes are in [`../../owner-queue.md`](../../owner-queue.md).
+   Until it is answered, the first slice has no definition and the roadmap cannot
+   be re-sequenced against OD-19.
+2. **GCB-1** — confirm the clean repository and its name. Owner-only.
+
+**Then, and in this order:** re-sequence [`delivery-roadmap.md`](delivery-roadmap.md)
+so the review-bot slice and its exit gate come *before* the destination breadth
+currently spread across Phases 1–4 — **do not skip this and start Phase 0 as
+written**. Only then create the repository from a minimal substrate-kit seed and
+execute Phase 0: transplant this plan, add the architecture decision record,
+establish one required CI check, and land an empty but observable Discord process
+before any feature module is ported.

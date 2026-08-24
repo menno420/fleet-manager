@@ -309,6 +309,10 @@ demonstrated on itself.
   matches the completion transition itself. Re-run post-fix: **1 fires, 2 fires,
   3 fires, 4 fires, and every later push fires.**
 
+## Coverage — stated so the gap is visible
+
+| trap | delivered by | deterministic checker |
+|---|---|---|
 | TRAP-001 | 2 routes | not yet — a checker would need to tell a citation from a measurement |
 | TRAP-002 | 1 route, fires pre-execution | ✅ **`tools/check_pipe_exit_code.py`**, in the `check --strict` gate |
 | TRAP-003 | 1 route | not yet |
