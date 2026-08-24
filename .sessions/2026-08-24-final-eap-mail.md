@@ -132,6 +132,42 @@ current, so a struck claim is the one thing it must not carry. Both obey the
 same underlying rule — the retraction lands at the site — and they differ only
 in whether the site is history or state.
 
+## Adversarial review — round 3, 13 findings, all conceded
+
+`@codex` at `94b8b0b`, 20:00:24Z. **13 findings, all P2. Tally over three rounds:
+30 conceded / 0 survived.**
+
+**The count went UP (10 → 7 → 13) and the reason is diagnostic, not alarming.**
+Six of the thirteen exist *because of how round 2 was fixed*: findings 1, 2, 3
+and 9 are all *"you corrected the mail and left the source sweep saying the old
+thing"*, and 6 and 8 are stale cross-references created by that same editing
+(ask numbers, decision counts). **Patching the outbound document without
+propagating to its source manufactures the next round's findings** — which is
+the append-without-retract mechanism again, one level up: the correction landed
+somewhere, just not everywhere the claim lived. This round fixes at the source
+and propagates outward.
+
+**One is a straight refutation of a number that was in the mail.** The
+116-statements-across-66-files figure does not reproduce: re-running the audit's
+own published regex against this tree gives **125 across 72 files**. The 116 is
+the 2026-08-08 audit-time count and belongs with the 16 incidents it was measured
+against; the mail said it in the present tense under an as-of-24-August heading.
+Now dated explicitly.
+
+**And the Part 1 fix from round 2 was still not enough.** Moving the drafted
+prose outside the COPY markers and calling it *"raw material to lift phrases
+from"* still supplies his voice — the plan permits **at most a pointer
+skeleton**. The prose is now **deleted**; Part 1 is a beat table of what each
+paragraph must carry, with no sentences at all. Beat 3 is flagged as the one
+nobody can supply for him.
+
+Four more wider-than-measured claims removed from the mail: *"most of it
+works"* (no denominator) · *"drift survives indefinitely everywhere else"* (one
+surface, measured once) · *"agents created every byte"* (the audit measures
+storage composition, not authorship of every byte) · *"only hooks firing at the
+tool call caught anything"* (the table credits the owner 5, Stop hook 4, gate/CI
+3, tests 2 — and the Stop hook is post-turn, not tool-call).
+
 ## What landed
 
 - `docs/findings/2026-08-24-e1-source-sweep.md` — what was already sent, topic by

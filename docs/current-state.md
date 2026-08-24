@@ -129,8 +129,10 @@ copy product architecture or internal product state. Canonical intent:
   repositories.**
   [The pack](findings/2026-08-23-eap-evidence-pack.md) carries every figure with
   the command that produced it, mapped to the six net-new sections the owner's
-  own reflection names. **E1 itself remains owner-reserved — no session drafts
-  or sends it.**
+  own reflection names. **E1's owner-reservation was LIFTED 2026-08-24 (owner, live)**; the sweep and
+  the assembled draft landed
+  ([draft](planning/2026-08-24-final-eap-email-draft.md) ·
+  [sweep](findings/2026-08-24-e1-source-sweep.md)). **He still sends it himself.**
   **Two corrections it exists because of:** (1) a method correction that was
   **itself corrected on 2026-08-24 and no longer says anything about
   `search/issues`** — the figures were re-measured off the `pulls?state=all`

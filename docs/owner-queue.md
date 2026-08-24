@@ -341,9 +341,11 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   ledger of what the prior mails already argued, the never-sent 07-18 findings,
   seven net-new month-after findings, today's re-measured figures) and
   [the assembled draft](planning/2026-08-24-final-eap-email-draft.md) (the mail
-  between COPY markers, six overturnable decisions, four pre-send checks).
-  **What remains yours and only yours: rewriting Part 1 in your own voice, the
-  four pre-send calls in § 2 of the draft, and sending it.** No session sends it.
+  between COPY markers, **seven** overturnable decisions, **five** pre-send
+  calls). **What remains yours and only yours: writing Part 1 — it is a beat
+  table, not drafted prose — the five pre-send calls in § 2 of the draft
+  (call 5 is the new one: Part 2 is ~1,700 words against the plan's one-page
+  cap, and both are your instructions), and sending it.** No session sends it.
   ~~**⏸ DEFERRED BY THE OWNER, 2026-08-23 (live, late) — this supersedes the
   "today" stamp below.**~~ HIS WORDS, verbatim: *"The email aswell but that's
   something I still want to wait a little bit with because I still feel like we

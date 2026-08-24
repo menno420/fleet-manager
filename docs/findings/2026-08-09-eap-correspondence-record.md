@@ -59,7 +59,7 @@
 > commit history and the PR text both persist. The ruling here went the way that
 > made it moot; that was luck, not process.
 
-## 0 · Correction, 2026-08-24 — two of the mails this file describes are gone
+## 0 · Correction, 2026-08-24 — FOUR of the mails this file describes are gone
 
 `MEASURED` 2026-08-24, three queries with a passing positive control:
 [`2026-08-24-e1-source-sweep.md`](2026-08-24-e1-source-sweep.md) § 1.

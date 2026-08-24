@@ -43,89 +43,26 @@ below has a public link behind it.
 
 ---
 
-> **⚠ PART 1 IS NOT IN THE COPY BLOCK, AND THAT IS DELIBERATE (`@codex`, fm #943
-> round 2).** An earlier version put a polished 482-word first-person narrative
-> between the COPY markers and called it a scaffold in a header. **Labelling it a
-> scaffold does not change what gets pasted** — follow the markers and he sends my
-> words under his name, which is exactly what the plan's *"Part 1 is the owner's
-> voice — never ghost-write it"* forbids. So the copy block now starts at Part 2,
-> and his half is a **pointer skeleton** plus, below it, drafted prose kept
-> explicitly as **raw material to cannibalise, not text to send**.
+> **⚠ PART 1 IS NOT DRAFTED, AND THAT IS NOW LITERAL (`@codex`, fm #943, rounds
+> 2 and 3).** Round 2 caught 482 words of polished first person *inside* the COPY
+> markers under a header calling it a scaffold. Moving it outside the markers and
+> relabelling it "raw material to lift phrases from" was **not enough** — round 3
+> was right that a complete send-ready narrative supplies his voice whatever the
+> label says, and the plan permits *at most a pointer skeleton*. **The prose is
+> deleted.** What remains is beats and facts: what each paragraph must carry, and
+> nothing about how to say it.
 
-## Part 1 — the owner's half: pointer skeleton (he writes this)
+## Part 1 — the owner's half (he writes this; nothing here is sentences)
 
-Four beats, in his order. No wording supplied, on purpose.
+| beat | what it has to carry | facts available if he wants them |
+|---|---|---|
+| 1 · open, and why it is late | the delay *is* the argument — he wanted to check what the projects built before sending a fifth list of complaints | promised 2026-07-21; sent 2026-08-24 |
+| 2 · the prior mails are not repeated | permissions · coordinator↔worker trust · the classifier regression · the scheduler — all still true, all already with them, with forensics | four mails, 07-08 → 07-16; offer to walk through any of it |
+| 3 · **the verdict paragraph — his alone** | he went in thinking the limit was agent capability; a month of auditing moved it | the limit he found: not too much to read, but mistakes shaped to survive reading |
+| 4 · hand off to Part 2, then thanks | the program, the extension, the personal reply on the final day | he has said on the record that the reply mattered more than the gift |
 
-1. **Open warm, and say why it is late.** The delay *is* the argument: he did not
-   want to send a fifth list of complaints, he wanted to check what the projects
-   actually built first.
-2. **One paragraph: the four prior mails are not being repeated.** Permissions,
-   coordinator-to-worker trust, the classifier regression, the scheduler — all
-   still true, all already in their inbox with forensics. Offer to walk through
-   any of it.
-3. **The verdict paragraph, in his own words.** He went in thinking the limit was
-   what agents could do; a month of auditing changed his mind about where the
-   limit sits. This is the paragraph nobody else can write for him.
-4. **Hand off to Part 2, then thanks.** The program, the extension, and the
-   personal reply on the final day — he has said that mattered more than the gift.
-
-<details>
-<summary><strong>Drafted prose for beats 1–4 — RAW MATERIAL, deliberately outside the copy markers</strong></summary>
-
-Kept because he asked to possibly finish today and a bare skeleton finishes
-nothing. Lift phrases from it, or ignore it entirely.
-
-
-Hi everyone,
-
-This is the final review I promised on 21 July. It took longer than I said, and
-the reason is the whole point of the mail: I did not want to send you another
-list of things that annoyed me during the program. I wanted to first go back
-through everything my projects actually built and find out how much of it was
-real.
-
-So this is not a bug report. During the EAP I sent you four of those, and I am
-not going to repeat them here — the permission model, the coordinator-to-worker
-trust problem, the classifier regression and the scheduler issues are all still
-what they were, and everything I know about them is already in your inbox with
-the forensics attached. If any of it is still useful, my offer to walk you
-through it stands.
-
-What I have instead is something I do not think you will get from anyone else in
-the program. I ran the fortnight at full speed — nineteen new repositories, a
-fleet of parallel projects, thousands of pull requests — and then I spent the
-next month reading what came out of it. That month is the part nobody else did,
-and it changed my mind about where the actual limit is.
-
-I went in thinking the limit was what the agents could do. It is not. The agents
-built an enormous amount. The limit is that I could not
-tell which parts were true. Not because there was too much to read — I did read
-it — but because the mistakes agents make are the kind that survive being read.
-A document that has been corrected without retracting the thing it corrected
-still reads perfectly. A project that reports itself finished, and is not
-finished in the way I meant, still reads finished. I could not catch those by
-looking harder, and I do not think any user can.
-
-That is what I would most like you to take from this mail, because it points at
-a different kind of product work than the one my earlier mails asked for. I
-asked you for permissions. What I actually needed was a way to know what my
-agents had really done.
-
-The rest is Claude's half — the measurements, the specific findings, and the
-list of what I would like to see, in one line each. Everything in it is public
-and linked; nothing needs an attachment.
-
-Thank you genuinely for the program, for the extension, and for the reply Diana
-sent me on the last day — that mattered more than the gift did. I would happily
-test Projects again as they mature, and the offer at the end of Claude's half is
-serious and open-ended.
-
-Kind regards,
-Menno van Hattum
-
-*The next part is again written by Claude, for the technical side.*
-
-</details>
+**Beat 3 is the one nobody can supply.** It is the only new argument in the whole
+mail that is his rather than measured, and it is why the mail is worth sending.
 
 ## COPY FROM HERE
 To the Claude Code Projects team,
@@ -165,9 +102,11 @@ reads a document for coherence, which is every review a human actually performs.
 **Finding 3 — written rules do not bind agents; only rules that arrive at the
 moment of action do.** We counted this properly. In one session — one that was
 itself building our verification tooling, so nothing was rushed — there were
-**16 distinct incidents**. The repository carries **116 committed statements of
+**16 distinct incidents**. At the time of that audit the repository carried **116 committed statements of
 the single rule those incidents violated, across 66 files**, including all three
-of the documents that bind a session in that repository. Documentation recalled at the right
+of the documents that bind a session there. *(Re-running the audit's own published
+regex today gives 125 across 72 files — the corpus grew; the 116 is the
+2026-08-08 audit-time count that goes with the 16 incidents, not a current one.)* Documentation recalled at the right
 moment caught **0 of 16**. What did catch them: the owner asking a question (5),
 a Stop hook (4), the gate and CI together (3 — 1 local, 2 CI/GitHub), test runs (2), and after-the-fact discovery
 (2). The conclusion we acted on is that a rule binds only if it *fires* at the
@@ -180,16 +119,18 @@ platform-shaped feature we had to build ourselves, and we think it generalises:
 for a month.** Menno's public review site described the program as running,
 33 days after it ended: 0 of 7 live pages said it had concluded, and the fleet
 page rendered "15 live lanes" with mirrored heartbeats for projects that had
-been terminated. This was his *most-looked-at* page. If drift survives a month
-there, it survives indefinitely everywhere else.
+been terminated. This was his *most-looked-at* page. We are not claiming that generalises —
+it is one surface, measured once — but if drift lasts a month *there*, we would
+not bet on catching it anywhere less visible.
 
 **Finding 5 — cost is not an agent-legible signal, so it accumulates exactly
 where nobody looks.** An infrastructure audit attributed a €30 monthly bill,
 ended an unnoticed crawler load, and sized the bot's database: **97.5 % of
 949 MB is accumulated ingestion history** against roughly 10 MB of real user
 data. That is a storage-composition measurement, not a verdict that the history
-is disposable — whether to keep it is still an open call on our side. Agents
-created every byte of it and no agent surface could see any of it.
+is disposable — whether to keep it is still an open call on our side. Agents built and ran the system that
+accumulated it, and no agent surface could see any of it. (The measurement is
+storage composition; index and database overhead are in the total too.)
 The euro figure is not the point; the shape is — an unobservable signal
 accumulates in the same way quality drift does.
 
@@ -204,7 +145,8 @@ worth more than a longer checklist.
 
 1. **Rules that arrive at the moment of action, not at session start.** *Because
    116 committed statements of one rule caught 0 of 16 violations in the session
-   that wrote them — only hooks firing at the tool call caught anything.*
+   that wrote them, while every catch came from something that fired at a
+   moment — a question, a hook, a gate, a test — rather than from a document.*
 2. **Agents that retract, not only append.** *Because the costliest findings in
    a 101-defect full-read audit were corrections that left the error standing,
    and the result still reads perfectly.*
@@ -215,8 +157,8 @@ worth more than a longer checklist.
    finished that was not finished as asked — we are not saying anything about
    the code either way.*
 5. **Usage, cost and resource telemetry visible to the agent tier.** *Because
-   agents built a 949 MB store of which 97.5 % is accumulated ingestion history,
-   and no agent surface could see any of it.*
+   agents built and ran a system whose 949 MB store is 97.5 % accumulated
+   ingestion history, and no agent surface could see any of it.*
 6. **Owner-set permission grants, scoped per repo, branch and action, able to
    restrict as well as allow.** *Because this is the ask from every previous
    mail and it is still the structural fix; pointer only.*
@@ -252,7 +194,7 @@ worth more than a longer checklist.
     *Because both changes that broke the fleet were logged only in the CLI
     changelog, and one visible line would have saved a full day of bisecting.*
 
-**What genuinely worked, and it is most of it.** The shared working agreement is
+**What genuinely worked.** The shared working agreement is
 the single best feature you have — written once, picked up by every session in
 every project, with nothing repeated by hand; it is the reason any of this was
 possible. Worker-tier autonomy ran clean from the first night: claim, open,
@@ -294,7 +236,7 @@ Everything above is public:
 
 ---
 
-## 2 · Before he sends — the four things worth one look
+## 2 · Before he sends — five calls, all his
 
 > **A fifth item was here and is now closed, recorded because the near-miss is
 > the useful part.** The draft carried a paragraph and an ask reporting that
@@ -310,14 +252,14 @@ Everything above is public:
 > independent endpoints instead of one.
 
 
-1. **Item 13 may be a repeat.** [`../anthropic-email-pack.md`](../anthropic-email-pack.md)
+1. **Ask 12 may be a repeat.** [`../anthropic-email-pack.md`](../anthropic-email-pack.md)
    was written as a ready-to-send block on exactly this topic and **we cannot
    establish whether it was ever sent** ([source sweep](../findings/2026-08-24-e1-source-sweep.md)
    § 3). At worst it repeats an unanswered ask. Cut it if he remembers sending it.
 2. **The €30 and the 97.5 % are his own infrastructure**, not the vendor's. Kept
    because the *shape* transfers — an unobservable signal accumulating unseen.
    Cut it if he would rather not put his hosting bill in a vendor mail.
-3. **The 2,115 branches / ~50 PRs / ~1,900 routines figures in items 9 and 10**
+3. **The 2,115 branches / ~50 PRs / ~1,900 routines figures in asks 8 and 9**
    come from the never-sent 18 July draft and are `MEASURED-PRIOR` — measured
    then, not re-measured now. They are the strongest single argument in the
    estate and they are five weeks old. Either send them as dated July
@@ -336,7 +278,7 @@ Everything above is public:
    month-after findings and fourteen asks do not fit on one page, so one of the
    two instructions has to give and **that is not a session's call to make.**
    **My recommendation, if he wants one:** keep the length, cut nothing from the
-   findings, and instead cut **asks 6–15** to a single line pointing at the
+   findings, and instead cut **asks 6–14** to a single line pointing at the
    public list. That takes Part 2 to roughly one page of *argument* with the
    catalogue moved off-mail, which satisfies the intent behind the cap
    (readable cold, in minutes) rather than its word count. **Alternative if he

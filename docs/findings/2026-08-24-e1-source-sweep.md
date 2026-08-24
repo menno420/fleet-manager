@@ -26,7 +26,7 @@
 > individual cc addresses on the prior thread are therefore referenced by role,
 > not written out; they are in the thread itself when he composes.
 
-## 1 · The measured correction: two of the four reviews are gone from the mailbox
+## 1 · The measured correction: four thread-A messages are gone from the mailbox
 
 `MEASURED` 2026-08-24. **Four of thread A's messages are no longer retrievable
 from Gmail** — and the arithmetic here was wrong in this file's first version
@@ -138,8 +138,9 @@ the estate ever produced:
    one invented wall became every later session's starting fact, until a session
    read its own repo's wall list and replied *"this list is accurate and I will
    not attempt anything."* Repaired by purging 18 repos **and** shipping a
-   required CI check that reds any PR documenting an agent-capability
-   limitation. This is the consequence of ledger row 4, and it is the part that
+   required CI check that reds an undated, standing "agents cannot X" for the
+   capabilities its grammar covers (dated incidents and quoted/negated forms are
+   exempt — it is a grammar, not a universal prohibition). This is the consequence of ledger row 4, and it is the part that
    makes that row matter.
 3. **Stale stored text outranking a live instruction** — a session held a dated
    stand-down note above the owner's live message and refused the live message.
@@ -207,8 +208,9 @@ that was *building the estate's verification instruments*, so nothing was rushed
 verify-first rule across 66 files**, including all three binding documents.
 Documentation recalled at the right moment caught **0 of 16**
 ([the measurement](2026-08-08-why-rules-dont-bind.md)). The catchers were: the
-owner asking a question (5), a Stop hook (4), the local gate (3), own test runs
-(2), after-the-fact (2). The remedy that works is **injection at the moment of
+owner asking a question (5), a Stop hook (4), gate/CI (3 — **1 local gate,
+2 CI/GitHub**; collapsing them to "the local gate" overstates what is available
+before a push), own test runs (2), after-the-fact (2). The remedy that works is **injection at the moment of
 action** — 61 doc-routes on a `PreToolUse`/`UserPromptSubmit` hook, which is a
 product feature the platform does not have and which this estate had to build.
 
@@ -275,10 +277,14 @@ fresh material. The pack now carries a pointer back to this test.
 
 **N7 · A blind-scored eval of agent comprehension — a method, not an anecdote.**
 Five fresh agents produced intent maps of a repository against a pre-registered
-rubric; **two independent scorers with no access to the conversation, the
-adjudications, or any prior scoring** re-scored them, so that divergence between
-blind and outcome-aware scoring measures the prior scorer's bias rather than
-noise. Verdict **PARTIAL**, confirmed 3/3
+rubric; **two independent scorers, with the conversation, the
+adjudications and any prior scoring withheld from their inputs,** re-scored
+them, so that divergence between blind and outcome-aware scoring measures the
+prior scorer's bias rather than noise. **Carry the finding's own honest nulls
+with it and never state the containment as a guarantee:** it was *instructed and
+self-attested*, not enforced — the live checkout holding the outcomes stayed
+readable to a disobedient scorer process — and both scorers ran the same model
+family. Verdict **PARTIAL**, confirmed 3/3
 ([producer half](2026-08-12-intent-map-fresh-agent-test.md) ·
 [scorer half](2026-08-13-intent-map-fresh-scorer.md)). Very few users build a
 blind-scored eval of whether an agent understood what a repository is *for*.
