@@ -240,6 +240,24 @@ Everything above is public:
 
 ## 2 · Before he sends — five calls, all his
 
+> **⚠ SENDING GATE — added 2026-08-24 after owner-review, and it is a base rate,
+> not a worry.** A Codex round was outstanding when this draft was handed over,
+> and the handover said *"nothing is blocked — the mail is yours to finish now."*
+> **That was wrong about sending.** Measured over the four completed rounds:
+> **4 of 4 changed this document**, and **three of them corrected factual errors
+> that would otherwise have reached the vendor** — a withdrawn search-index bug
+> report, a rule count stated in the present tense that had moved from 116 to
+> 125, and a send date recorded for a mail that had not been sent. On that
+> record, an outstanding round is a **material chance of another such error**,
+> not a formality.
+>
+> **So: the six calls below can be made at any time — they are judgement, not
+> facts. Sending should wait until the outstanding round is reported.** If he
+> would rather send without waiting, that is entirely his call; the point is
+> that it is a decision with a measured risk attached, not a free action.
+
+
+
 > **A fifth item was here and is now closed, recorded because the near-miss is
 > the useful part.** The draft carried a paragraph and an ask reporting that
 > GitHub's search index is blind to most of this account — carried in good faith
