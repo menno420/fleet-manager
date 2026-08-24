@@ -413,7 +413,7 @@ findings go here, below the fence.)
   the artefact that implements the behaviour was sitting in the container. Before recording any
   hook or CLI behaviour as undocumented, grep the binary. · workaround: none needed. —
   LAST-VERIFIED: 2026-08-08
-- 2026-08-23 · capability · `any` · **A CLEAN Codex verdict creates no review object and lands in `/issues/{n}/comments` — second independent confirmation.** · evidence: fm #924, verdict posted `2026-08-23T11:23:57Z` (~3 min after open) reading *"Didn't find any major issues"*, while `/pulls/924/reviews` and `/pulls/924/comments` both returned **0**. First observation: websites #511, 2026-08-22. **Match the `Reviewed commit:` SHA on both surfaces** — recency is not sufficient, since a stale clean verdict from an earlier head otherwise reads as covering the current one. · **How this entry came to exist:** a session polled only `/reviews` and `/pulls/{n}/comments` for 24 minutes, concluded no review had arrived, and wrote that into a committed card — the PR had passed clean. The canonical section had said so since the day before and **no route delivered it**; route `codex-verdict-poll` now does. — LAST-VERIFIED: 2026-08-23
+- 2026-08-23 · capability · `any` · **A CLEAN Codex verdict creates no review object and lands in `/issues/{n}/comments` — second independent confirmation.** **SHA-matching rule, corrected 2026-08-24:** try a `Reviewed commit:` line first, and when it is absent fall back to any 40-hex SHA in the body. Do **not** instruct "match the `Reviewed commit:` SHA" as if the line were always present — fm #938's clean verdict had none, and a reader following that reports a real verdict as absent. · evidence: fm #924, verdict posted `2026-08-23T11:23:57Z` (~3 min after open) reading *"Didn't find any major issues"*, while `/pulls/924/reviews` and `/pulls/924/comments` both returned **0**. First observation: websites #511, 2026-08-22. **Match the `Reviewed commit:` SHA on both surfaces** — recency is not sufficient, since a stale clean verdict from an earlier head otherwise reads as covering the current one. · **How this entry came to exist:** a session polled only `/reviews` and `/pulls/{n}/comments` for 24 minutes, concluded no review had arrived, and wrote that into a committed card — the PR had passed clean. The canonical section had said so since the day before and **no route delivered it**; route `codex-verdict-poll` now does. — LAST-VERIFIED: 2026-08-23
 
 - 2026-08-07 · capability · `any` · **`@codex review` on a PR works and answers in about
   5.5 minutes — do not conclude it is unavailable on a shorter window.** · evidence: measured
@@ -1776,9 +1776,12 @@ at all** (`'Reviewed commit:' in body` → **False**, body 3,155 bytes, created
 `blob/<sha>/…` URLs — two SHAs in the body, the reviewed head `0c1a033f…` and the
 merge-preview commit `5a3f0878…`.
 
-So there are now **three** claimed clean-pass behaviours and this estate has seen
-two: `Hooray!` + `Reviewed commit:` · `Approved` + SHAs only in URLs · the
-vendor's own 👍 reaction, still never observed. **Do not narrow this to one shape
+**Line presence is an INDEPENDENT variation — the headline does not predict it.**
+fm #938 and fm #939 both used the `Approved — no blocking findings` headline and
+**differed**: #938 carried no `Reviewed commit:` line, #939 did. So do not model
+this as headline/body pairs and never branch on the headline. The vendor's own
+About-block claims a third behaviour — a 👍 **reaction** — still never observed
+here. **Do not narrow this to one shape
 in either direction.** fm #938 shipped guidance saying the clean comment names
 the head *only* via `Reviewed commit:`; that is true of the first shape and false
 of the second, and a session meeting the second would read a clean verdict as

@@ -103,6 +103,36 @@ fallback rule is what makes the check robust, not a preference between shapes.
 This detection ran through the new rule live: extract every 40-hex SHA, test
 whether the head is among them → **True**.
 
+## Round 2 — 3 findings, all conceded, and one corrects my own correction
+
+I had asked for a third pass by someone who is not me, having missed the same
+class twice in one file. It found three:
+
+1. **`[conceded]` A standalone capability row still taught the single shape** —
+   `CAPABILITIES.md:416` said *"Match the `Reviewed commit:` SHA on both
+   surfaces."* Third miss in the same file, and the reason is worth stating: I
+   was correcting the *prose sections* and never enumerated every instruction in
+   the file. Codex also confirmed **no remaining single-shape instruction in
+   `docs/traps.md`**.
+2. **`[conceded]` The flip route contradicted itself.** Its first numbered check
+   still said read both surfaces and *"match `commit_id`"* — and issue comments
+   have no `commit_id`, as the same route's later text explains. A session
+   following the checklist literally **rejects every clean verdict before
+   reaching the fallback**. Now says match per surface.
+3. **`[conceded]` — and this one corrects the correction.** My two-shape table
+   modelled the observations as headline/body **pairs**, implying the headline
+   predicts where the SHA appears. **It does not:** fm #938 and fm #939 share the
+   `Approved — no blocking findings` headline and **differ** on whether a
+   `Reviewed commit:` line is present. My own card recorded #939's line while the
+   table still said that headline had none. **Line presence is an independent
+   variation; never branch on the headline.** Recorded as a three-row table with
+   the variation called out, in `traps.md`, `CAPABILITIES.md` and the routes.
+
+**This is TRAP-004 twice in one PR, in opposite directions** — first a claim
+wider than its sample (*"the clean comment has no such line"*), then a structure
+implying a correlation the samples do not support. The fallback algorithm was
+right throughout; the *explanation* around it kept overfitting to n=1.
+
 ## Verification
 
 - `python3 bootstrap.py check --strict` → **real exit 0**, read from a redirect,

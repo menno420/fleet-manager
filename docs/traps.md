@@ -288,10 +288,15 @@ demonstrated on itself.
   **A clean pass creates no review object at all** — it arrives as an **issue
   comment**, and **its body shape VARIES**, which is the part that bites:
 
-  | observed clean-pass shape | how the head is named |
-  |---|---|
-  | `Codex Review: Didn't find any major issues. Hooray!` (websites #511, fm #924) | an explicit **`Reviewed commit:` <sha>** line |
-  | `## Review result — Approved — no blocking findings` (fm #938, `MEASURED` 2026-08-24) | **no `Reviewed commit:` line at all** — `'Reviewed commit:' in body` → **False**; the head appears only as a 40-hex SHA inside `blob/<sha>/…` URLs, beside a second SHA for the merge-preview commit |
+  | observed clean-pass comment | `Reviewed commit:` line? | head also findable as |
+  |---|---|---|
+  | `…Hooray!` — websites #511, fm #924 | **yes** | — |
+  | `Approved — no blocking findings` — fm #938, 2026-08-24 | **NO** (`'Reviewed commit:' in body` → False) | 40-hex SHA in `blob/<sha>/…` URLs, beside the merge-preview SHA |
+  | `Approved — no blocking findings` — fm #939, 2026-08-24 | **yes** | 40-hex SHA in URLs |
+
+  **The headline does NOT predict whether the line is present** — fm #938 and
+  fm #939 share the `Approved` headline and differ on it. Line presence is an
+  **independent variation**, so never branch on the headline.
 
   **So the rule is: try `Reviewed commit:` first, and when it is absent, extract
   every 40-hex string from the body and test whether your head is AMONG them** —
