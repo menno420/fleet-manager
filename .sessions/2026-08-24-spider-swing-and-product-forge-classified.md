@@ -103,17 +103,36 @@ fallback that writes a heartbeat to a coordinator that does not exist. It never
 names `phone-controller` — the only subtree committed to in 45 days (`MEASURED`:
 `products/phone-controller` 2026-08-20T20:06:39Z vs `products/games-web`
 2026-07-10T22:43:14Z; a work-distribution fact, **not** a claim games-web is
-dead), 22 slice cards through 2026-08-20, its own README 18,456 bytes. **Filling in `current-state.md` would
-have closed the recorded finding and left the repo still failing the test.**
+dead), 22 slice cards through 2026-08-20, its own README 18,456 bytes.
 
-**§ 5 — re-measured live, and the starved reading needed re-checking.**
+**And the bus it routes to is not empty — it is contradicted**, which I learned
+only after an owner-review round asked what "empty inbox" was based on. It was
+based on the README's fallback sentence; I had never opened the file.
+`control/inbox.md` carries **four ORDERs, all `status: new`**, two of them
+**P1** (001 = *"Build `products/games-web/`"*, 2026-07-10), while
+`control/status.md` reports `acked=001,002,003,004 done=001,002,003,004`. The
+file forbids anyone but the manager seat from editing it, and that seat retired
+2026-07-21, so the stale markers are structural rather than neglect.
+
+**Filling in `current-state.md` would have closed the recorded finding and left
+the repo still failing the test — and so would fixing `README.md` alone**, since
+its route still lands on a queue advertising two unexecuted P1s.
+
+**§ 5 — re-measured live; the starved reading needed re-checking, and the two
+tables turn out not to reconcile at all.**
 `spider-swing` reads **5** in the 2026-08-24 window, not 2. The three new ones are
 #177/#178/#179 — all Play-release work — merged `19:29:40Z`, `19:52:39Z`,
 `20:17:00Z` on 2026-08-23, while this audit landed in fm #928 at **`17:19:21Z`**
 the same day: two to three hours *after* the measurement. The two windows are not
-interchangeable and the differences are not drift — `superbot` merged **11** PRs
-on 2026-08-09, the day the slide dropped, which accounts for 64 → 53 exactly.
-Ordering survives; using "2 merges" as evidence of *dormancy* does not.
+interchangeable. `superbot`'s 64 → 53 matches an 11-merge day dropping out, but
+**`fleet-manager`'s 99 → 103 reconciles at no cutoff at all** — swept 595 merged
+PRs (oldest 2026-07-18, so the window is fully covered) and tested every 14-day
+window ending on 2026-08-23 from `00:00Z` to fm #928's own merge at `17:19:21Z`:
+the range is **83–93**, never 99. The two tables came from different methods and
+**no arithmetic bridges them**; cite one or the other and do not try. Ordering
+survives; using "2 merges" as evidence of *dormancy* does not, and neither does a
+merge count as evidence of which threads are live — Layer 2 marks core feel &
+difficulty active at `:55`.
 
 **§ 6 — re-ranked, PROVISIONAL discharged.** `spider-swing` → `product-forge` →
 `estate-backups` → the `websites` date stamp. **Settled among the rated only:**
