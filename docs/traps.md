@@ -281,9 +281,13 @@ demonstrated on itself.
   `complete` + gate green and cannot know a re-review is pending, so it merges the
   head it has. This is a delivery gap, not a knowledge gap.
 - **REQUIRED PREVENTION** — flip only when the outstanding verdict covers the
-  current head. Check **both** surfaces: a clean `@codex` pass creates **no review
-  object**, so read `/pulls/{n}/reviews` *and* `/issues/{n}/comments`, matching
-  `commit_id`. If you must re-request after flipping, apply `do-not-automerge`
+  current head — and **the two surfaces are checked differently**, which is where
+  this goes wrong quietly. A **review object** carries `commit_id`: compare it
+  directly. A **clean pass creates no review object at all** — it arrives as an
+  **issue comment** whose head is named only on its `Reviewed commit:` body line,
+  so there is no `commit_id` to match and a `commit_id`-only check reads a clean
+  verdict as *absent*. Read `/pulls/{n}/reviews` **and** `/issues/{n}/comments`,
+  comparing `commit_id` on the first and parsing `Reviewed commit:` on the second. If you must re-request after flipping, apply `do-not-automerge`
   **before pushing the completed card** — the push, not the request, is what makes
   the PR mergeable, so a label applied afterwards can lose the race.
 - **VERIFY** — before flipping, a verdict exists at the current head SHA. After

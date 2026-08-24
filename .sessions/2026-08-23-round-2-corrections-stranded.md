@@ -158,6 +158,40 @@ round 3 and already fixed at head (the P1 `says`-string null change: `repeat` an
 **Running total across four rounds: 32 findings · 31 conceded · 1 partial ·
 0 survived.**
 
+## Round 5 — 8 findings: 4 live and fixed, 4 stale re-posts
+
+**The P1 was real and I reproduced it myself before fixing it.** Round 4's fix was
+still wrong: `haystack()` joins `file_path` with the written content, so **both**
+lookaheads could be satisfied by content alone. Codex's exact repro — an `Edit` of
+`docs/traps.md` whose `new_string` mentioned `.sessions/example.md` and a
+`Status: complete` header — **fired the route and spent it**, and the real card
+flip later in that session was **SILENT**. Same class as fm #923, one field deeper:
+a route that must fire on a class of FILE cannot be gated by searching a haystack
+that contains prose.
+
+**Fixed at the field level:** a new **`path_when`** key, matched against the
+`file_path` field **alone** and never the haystack, now gates both card routes to
+`.sessions/*.md`. Re-run of Codex's repro: **A SILENT · B status-write · C
+flip-before-push · D flip-to-complete · E flip-before-push** — the doc edit no
+longer spends it and the real flip still fires.
+
+Three more, all fixed:
+
+- **`[conceded]` The register's own prevention block still said "match
+  `commit_id`"** for the clean-pass case it had just said produces no review
+  object. Now states the per-surface rule explicitly.
+- **`[conceded]` `card-status-write` still carried the discarded ordering.** Now
+  says apply the label **before pushing the completed card**, like the other two.
+- **`[conceded]` The queue headline over-promised.** Answering
+  `OQ-GCB-REVIEW-SCOPE` unblocks re-sequencing and the first-slice definition —
+  **GCB-1 is a separate gate** and repository creation still waits on it.
+
+Four were threads re-posted from earlier rounds, each verified fixed at head
+before dismissal.
+
+**Running total across five rounds: 40 findings · 39 conceded · 1 partial ·
+0 survived.**
+
 **Delivered — and the first attempt was a null change.** A lesson living only in a
 card is this estate's statement #117, and the 2026-08-20 railway card already
 recorded this exact shape (*"`merge-on-green` landed #871 before the round-2

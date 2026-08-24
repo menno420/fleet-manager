@@ -121,8 +121,10 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   owner-only — product direction. *(The kit hop for pml stays owner-paced
   per `OQ-KIT-V1-21-RELEASE`.)*
 
-- **`OQ-GCB-REVIEW-SCOPE` — 🤖 what must the review bot actually DO? One answer
-  unblocks the whole next-bot track (2026-08-23, owner live).**
+- **`OQ-GCB-REVIEW-SCOPE` — 🤖 what must the review bot actually DO? Answering this
+  unblocks the roadmap re-sequencing and the first slice's definition — **not** the
+  whole track: `GCB-1` is a second, separate owner gate and repository creation
+  still waits on it (2026-08-23, owner live).**
   **WHY THIS IS NEW:** `GCB-1` asks whether to create the repository and under
   what name. It does **not** carry this, and OD-19 introduced it: *"first there
   should be a smaller review oriented bot for the game server."*
