@@ -1,6 +1,6 @@
 # 2026-08-24 — The clean-pass verdict body has TWO shapes; main teaches only one
 
-> **Status:** `in-progress` — branch `claude/active-projects-overview-kiftou`,
+> **Status:** `complete` — branch `claude/active-projects-overview-kiftou`,
 > restarted from `origin/main` at `9bd48b4` (fm #938, merged). Born red on
 > purpose: the card is the merge hold (TRAP-006/007). Flipped after
 > `python3 bootstrap.py check --strict` returned a real exit 0, read from a
@@ -154,6 +154,24 @@ right throughout; the *explanation* around it kept overfitting to n=1.
    measurements into the 08-23 entry and left its `LAST-VERIFIED` at 08-23 —
    making the new verification read a day stale. **Reverted to its recorded state
    and appended a dated 2026-08-24 entry** that names what it supersedes.
+
+## Round 4 — 1 finding, and it exposed a tension I created
+
+The re-post was fair. **Rounds 1–3 pulled in opposite directions and I obeyed the
+later one blindly:** findings #1/#2 said to remove the single-shape instruction
+from the 2026-08-23 capability row; finding #4 said re-verifications APPEND and
+must never edit a dated row. Reverting the row to satisfy #4 **restored the wrong
+instruction** #1/#2 had flagged.
+
+**Both rules are right and the resolution is neither edit nor silence:** the row's
+*measurement* stays exactly as recorded — that is what append-never-edit
+protects — and its *instruction* now carries an explicit **⚠ SUPERSEDED** marker
+pointing at the 2026-08-24 entry. A dated record keeps its content; a reader is
+still stopped from acting on a rule the estate has since disproved.
+
+**Reading a review round as a checklist rather than as a constraint set is the
+generalisable error here** — the fix for #4 broke #1 because I applied it without
+re-checking what the earlier rounds had established.
 
 ## Verification
 
