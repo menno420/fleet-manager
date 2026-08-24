@@ -351,12 +351,15 @@ do not; that is one read each and is **still not done**.
 
 ## 7 · The fix briefs — written 2026-08-24 so the next session executes
 
-**Why these are here and the fixes are not.** Each is a write to a different
-repository with its own gates, its own born-red card and its own PR —
-`spider-swing`'s `main` requires **both** `substrate-gate` and `game-quality`.
-Four landings in one session is not OD-6. What classification bought is that
-**two of these briefs are not what the verdict above originally implied**, so a
-session that had gone straight to fixing would have fixed the wrong thing twice.
+**Why these are here and the fixes are not.** Each is a landing in a different
+repository with its own required checks and its own born-red card —
+`spider-swing`'s `main` gates on **both** `substrate-gate` and `game-quality` —
+so no two of them can share a PR. **That is a gate fact, not an OD-6
+head-count:** OD-6 is *one thing at a time, finished properly*, and explicitly
+**not a reason to stop short**, so it caps no session's landings. What makes
+classification a finished thing rather than a truncated one is that **two of
+these briefs are not what the verdict above originally implied** — a session that
+had gone straight to fixing would have fixed the wrong thing twice.
 
 ### 7.1 · `spider-swing` — rank 1, and the fix is mostly deletion
 

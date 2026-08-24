@@ -23,11 +23,21 @@ re-ranked and the PROVISIONAL marker discharged; each failing repo gets a
 turnkey fix brief so the next session executes instead of re-deriving.
 
 **Out — and this is a decision, not an omission:** the *fixes* themselves. Each
-is a write to a satellite repo with its own gates, its own born-red card and its
-own PR — `spider-swing`'s `main` requires **both** `substrate-gate` and
-`game-quality`. Four landings in one session is not OD-6, and the audit's own
-rejected note (*presence of a file is not truth of its contents*) is the reason
-classifying first was worth a session at all: it changed what the fix has to be.
+is a write to a satellite repo with its own required checks and its own born-red
+card — `spider-swing`'s `main` gates on **both** `substrate-gate` and
+`game-quality` — so none of them can ride this PR; each is its own landing in its
+own repo regardless of who does it.
+
+**The boundary is not an OD-6 head-count, and saying so would misread it.**
+OD-6 (`../docs/planning/2026-07-26-consolidation-program.md:31`) is *"one thing
+at a time and do it properly from start to finish"* and is explicitly **not a
+reason to stop short of a finished job** — it sets no per-session limit on
+landings. The boundary here is that **classification is the one thing, and it is
+finished**: verdict, re-rank, brief. The evidence that it is a genuine unit
+rather than a truncated one is that it **changed what two of the four fixes have
+to be** — `spider-swing` was not in the order at all, and `product-forge`'s fix
+is its README before its ledger. Had classification left the fixes unchanged,
+this boundary would have been stopping short.
 
 ## previous-session review
 
@@ -115,12 +125,15 @@ order, not a repository chosen on the owner's behalf.
 
 ## What did NOT happen, deliberately
 
-**No satellite repo was edited.** Four fixes across four repos in one session is
-not OD-6, and each carries its own gates, born-red card and PR —
-`spider-swing`'s `main` requires **both** `substrate-gate` and `game-quality`.
-The argument for spending a session on classification alone is that it **changed
-what two of the four fixes have to be**: `spider-swing` was not in the order at
-all, and `product-forge`'s fix is its README before its ledger.
+**No satellite repo was edited.** Each fix is a landing in a different repo with
+different required checks and its own born-red card — `spider-swing`'s `main`
+gates on **both** `substrate-gate` and `game-quality` — so none could have ridden
+this PR anyway. **Not an OD-6 head-count:** OD-6 forbids stopping short, and sets
+no per-session landing limit. The argument for spending a session on
+classification alone is that it **changed what two of the four fixes have to
+be** — `spider-swing` was not in the order at all, and `product-forge`'s fix is
+its README before its ledger. That is what makes classification a finished thing
+rather than a truncated one.
 
 ## Honest limits
 
