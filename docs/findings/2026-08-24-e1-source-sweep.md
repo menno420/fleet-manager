@@ -43,7 +43,7 @@ notice. Gone: **07-08, 07-12, 07-14 and 07-16 01:52.**
 surviving 21:12 message quotes it in its reply chain, so its opening argument
 survives as quoted text inside another mail — a partial, not a copy.
 
-Three independent queries, each returning consistently:
+**Five probe runs over four distinct query strings**, each returning consistently:
 
 | query | result |
 |---|---|
@@ -204,7 +204,8 @@ shaped to survive being read.
 
 **N3 · Instructions do not bind; only arrival binds.** In one session — a session
 that was *building the estate's verification instruments*, so nothing was rushed
-— **16 distinct incidents**. This repo carries **116 committed statements of the
+— **16 distinct incidents**. **At the time of that audit (2026-08-08)** this repo
+carried **116 committed statements of the
 verify-first rule across 66 files**, including all three binding documents.
 Documentation recalled at the right moment caught **0 of 16**
 ([the measurement](2026-08-08-why-rules-dont-bind.md)). The catchers were: the
@@ -228,7 +229,10 @@ thesis in one artifact, on his *most-looked-at* page.
 looks.** The Railway audit attributed a **€30** bill, ended a crawler DoS, and
 sized the bot database: **97.5 % of 949 MB** was accumulated ingestion history
 against ~10 MB of actual user data
-([audit](2026-08-14-railway-websites-audit.md) § 8). Agents created all of it;
+([audit](2026-08-14-railway-websites-audit.md) § 8 — which measures
+table/index/TOAST **storage composition** and makes no authorship claim; 401 MB
+of one 668 MB table is TOAST). Agents built and ran the system that accumulated
+it;
 no agent surface could see any of it. Same shape as the quality drift — that is
 the transferable point, not the euro figure.
 
@@ -294,8 +298,11 @@ blind-scored eval of whether an agent understood what a repository is *for*.
 
 **And one thing worth telling them that is not about their product:**
 independent adversarial review by a **different vendor's** model is what caught
-the false-dones. Measured on fm #812: request → review in **335 s**; 13 findings
-over 5 rounds, several proving a PR did not do what its own title claimed
+the false-dones. Measured on fm #812: request → review in **335 s**. Separately,
+**13 findings
+over 5 rounds across fm #812 AND #813** — the latency is #812's, the
+yield is the two PRs combined — several proving a PR did not do what its own
+title claimed
 ([CAPABILITIES](../CAPABILITIES.md)). Findings arrive as inline review comments,
 so a summary that looks empty is not an empty review.
 

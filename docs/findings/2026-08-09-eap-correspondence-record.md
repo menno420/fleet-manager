@@ -61,7 +61,8 @@
 
 ## 0 · Correction, 2026-08-24 — FOUR of the mails this file describes are gone
 
-`MEASURED` 2026-08-24, three queries with a passing positive control:
+`MEASURED` 2026-08-24 — five probe runs over four query strings, with **two**
+positive controls, one per lane (outgoing and incoming-with-trash):
 [`2026-08-24-e1-source-sweep.md`](2026-08-24-e1-source-sweep.md) § 1.
 **Thread A no longer holds five messages — it holds two**, and the two are not a
 subset of the recorded five. **Four are gone:** the 2026-07-08 introduction

@@ -250,6 +250,42 @@ every line in both outputs names the in-progress card and nothing else — is
 established by reading both outputs, which is what should have been said instead
 of asserting they were identical.
 
+## Adversarial review — round 4, 9 findings, 8 conceded + 1 already fixed
+
+`@codex` at `059bfcd`, 20:11:59Z. **8 conceded, 1 stale (the 61→67 route count,
+already fixed at `5e53541` before the review ran). Four-round tally: 39 conceded
+/ 0 survived.**
+
+**The dominant failure mode is now unambiguous and it is mine, not the
+reviewer's.** Findings 1 and 2 are *again* "the mail was corrected and the source
+sweep was not" — **in the round whose commit message claimed to fix at the
+source.** What actually happened: round 3's own findings were propagated, and the
+new edits made in that same commit were not. So the strategy was applied to the
+backlog and not to the work in hand, which is the same shape one level down.
+
+**The structural fix, applied from this round on: every claim change ends with a
+`grep -rn` for the claim across `docs/`, and the commit does not go until that
+returns only the corrected form.** Recorded here because "be more careful" is the
+non-fix this estate's own N3 finding exists to reject.
+
+Two findings worth keeping beyond the fix:
+
+- **A false fact was seeded into the owner's own prose.** The Part 1 fact table
+  read *"promised 2026-07-21; sent 2026-08-24"* — a **send date for a mail that
+  has not been sent**, in the one section he is meant to write from. If he sends
+  tomorrow, the table hands him a false correspondence date about his own mail.
+  Now explicitly "do not pre-fill".
+- **The literal-cap option was arithmetic nobody did.** § 2 call 5 offered
+  "keep findings 1–3, drop 4 and 5, keep asks 1–5 → ~700 words". Measured: that
+  cut leaves **1,227**, because the good-parts block, the standing offer, the
+  links and the framing all survive it. The option is now costed honestly and
+  says what else would have to go.
+
+Also: the tool-call-only conclusion survived in Finding 3 after ask 1 was
+broadened; "never got an answer" claimed every channel where only the mailbox was
+searched; and the Codex yield (13 findings / 5 rounds) was attributed to fm #812
+alone when it is #812 and #813 combined — only the 335 s latency is #812's.
+
 ## What landed
 
 - `docs/findings/2026-08-24-e1-source-sweep.md` — what was already sent, topic by

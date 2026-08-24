@@ -56,7 +56,7 @@ below has a public link behind it.
 
 | beat | what it has to carry | facts available if he wants them |
 |---|---|---|
-| 1 · open, and why it is late | the delay *is* the argument — he wanted to check what the projects built before sending a fifth list of complaints | promised 2026-07-21; sent 2026-08-24 |
+| 1 · open, and why it is late | the delay *is* the argument — he wanted to check what the projects built before sending a fifth list of complaints | promised 2026-07-21; **send date is whatever he actually sends on** — do not pre-fill it |
 | 2 · the prior mails are not repeated | permissions · coordinator↔worker trust · the classifier regression · the scheduler — all still true, all already with them, with forensics | four mails, 07-08 → 07-16; offer to walk through any of it |
 | 3 · **the verdict paragraph — his alone** | he went in thinking the limit was agent capability; a month of auditing moved it | the limit he found: not too much to read, but mistakes shaped to survive reading |
 | 4 · hand off to Part 2, then thanks | the program, the extension, the personal reply on the final day | he has said on the record that the reply mattered more than the gift |
@@ -109,8 +109,9 @@ regex today gives 125 across 72 files — the corpus grew; the 116 is the
 2026-08-08 audit-time count that goes with the 16 incidents, not a current one.)* Documentation recalled at the right
 moment caught **0 of 16**. What did catch them: the owner asking a question (5),
 a Stop hook (4), the gate and CI together (3 — 1 local, 2 CI/GitHub), test runs (2), and after-the-fact discovery
-(2). The conclusion we acted on is that a rule binds only if it *fires* at the
-tool call, so we built 67 documentation routes onto a pre-tool hook (counted
+(2). The conclusion we acted on is that a rule binds only if it *arrives* at the
+moment it applies — every catch above came from something that fired, and none
+from a document being available — so we built 67 documentation routes onto a pre-tool hook (counted
 2026-08-24; it was 61 sixteen days earlier — the mechanism is still growing). That is a
 platform-shaped feature we had to build ourselves, and we think it generalises:
 **more instructions in a context file is not a fix, and our number for that is
@@ -209,8 +210,8 @@ And the team was responsive throughout — the extension, the features shipped
 mid-program, and a personal reply on the final day.
 
 **A standing offer, and it is bigger than it was in July.** One of the four
-questions in the 8 July mail offered this estate as a test harness and never got
-an answer. It is now 27 repositories, ~8,000 pull requests, ~4,560 session
+questions in the 8 July mail offered this estate as a test harness, and no answer
+to it appears anywhere in our recorded correspondence. It is now 27 repositories, ~8,000 pull requests, ~4,560 session
 records, a published measurement method with its own positive controls, and a
 blind-scored evaluation of whether a fresh agent can correctly state what a
 repository is *for* — five agents producing, two independent scorers against a
@@ -284,7 +285,12 @@ Everything above is public:
    catalogue moved off-mail, which satisfies the intent behind the cap
    (readable cold, in minutes) rather than its word count. **Alternative if he
    wants the cap honoured literally:** keep findings 1–3, drop 4 and 5, keep
-   asks 1–5, and the mail lands near 700 words.
+   asks 1–5, and the mail lands at **~1,227 words** (measured, not estimated — an
+earlier version of this line said "near 700", which was wrong: the good-parts
+block, the standing offer, the links and the framing all survive that cut). **To
+get genuinely near one page he would also have to drop the good-parts block and
+the standing offer**, and both of those are the reasons the critique reads as a
+fan's rather than a complainer's.
 
 6. **An optional sixth finding is drafted below and NOT in the copy block —
    his call whether to spend the words.** It was first excluded on the reasoning
