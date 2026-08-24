@@ -350,15 +350,23 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   (call 5: Part 2 is **2,127 words** against the plan's one-page cap, and both
   are your instructions — re-count before acting, it moved every round), and
   sending it.** No session sends it.
-  **HIS SEND-DAY SEQUENCE, stated 2026-08-24 late and recorded because it was
-  nowhere in this repo:** *"tomorrow morning I will start fresh and create and
-  send the email after a revision pass and my own section added/edited."*
-  **Three steps, in his order: (1) a revision pass over the assembled Part 2,
-  (2) his own Part 1 written and Part 2 edited where he wants it different,
-  (3) send.** The load-bearing new fact is **step 1** — the queue previously
-  implied the draft was handed over finished and only Part 1 was outstanding.
-  It is not: **he intends to revise Part 2, so a session helping him should
-  expect to edit the draft on his direction, not just hand him the file.**
+  **HIS SEND-DAY PLAN, stated 2026-08-24 late, VERBATIM and not decomposed:**
+  *"tomorrow morning I will start fresh and create and send the email after a
+  revision pass and my own section added/edited."*
+  **What that settles:** he sends it himself, tomorrow morning, from a fresh
+  session, and **something is revised or edited before it goes.** That is
+  strictly more than the line above assumed — so read that line as *"the minimum
+  outstanding"*, not as the full list.
+  **What it does NOT settle, and a session must not fill in** (`@codex`, fm #945,
+  P1 — an earlier version of this entry did exactly that): the sentence names
+  **no target for the revision pass** and does not say whether *"a revision pass"*
+  and *"my own section added/edited"* are two operations or one description of
+  the same one. **Do not record or act on a Part 2 decomposition.** If it matters
+  to what you do next, **ask him** — one question, at the start, cheaper than
+  guessing.
+  **The safe reading, which is all a session needs to start:** be ready to edit
+  the assembled draft wherever he directs, and do not assume the only outstanding
+  item is Part 1.
   ~~**⏸ DEFERRED BY THE OWNER, 2026-08-23 (live, late) — this supersedes the
   "today" stamp below.**~~ HIS WORDS, verbatim: *"The email aswell but that's
   something I still want to wait a little bit with because I still feel like we
