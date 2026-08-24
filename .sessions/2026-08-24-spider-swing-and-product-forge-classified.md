@@ -167,8 +167,8 @@ rather than a truncated one.
 
 ## What this session got wrong, and the shape it kept taking
 
-Five claims were corrected under review — two by `@codex`, three by owner-review.
-Listing them because the **rate** is the finding, not any one fix:
+**Six** claims were corrected under review — two by `@codex`, four by
+owner-review. Listing them because the **rate** is the finding, not any one fix:
 
 | the claim | what it was really based on | caught by |
 |---|---|---|
@@ -177,6 +177,7 @@ Listing them because the **rate** is the finding, not any one fix:
 | all four defects were *checked against a live surface* | a blanket over a mixed set | `@codex` r2 |
 | the earlier window's cutoff *cannot be recovered* | **one** method tried, then generalised | owner-review |
 | `product-forge`'s inbox is *empty*, so a session stalls | the README's fallback sentence; **the file was never opened** | owner-review |
+| three `substrate-gate` reds are *the same born-red hold* | **one** job log read, then generalised to three | owner-review |
 
 **They are one shape, not five.** Every one is a claim about a surface there was
 a *cheap* way to check — one API call, one `curl` — and the check was skipped
@@ -194,6 +195,29 @@ instance count is the useful part.
 **The one that cost the most was the cheapest to check.** Opening
 `control/inbox.md` — 4,751 bytes, one fetch — falsified a ranking argument that
 had already survived a `@codex` round and been written into four files.
+
+**And the sixth is the one that matters, because it happened AFTER this table was
+written.** Having just tabled five instances of *skipped a cheap check*, the next
+message dismissed three CI failures as the born-red hold on the strength of one
+job log read earlier. **Writing the pattern down did not prevent the next
+instance of it** — which is this estate's own thesis
+([`why-rules-dont-bind`](../docs/findings/2026-08-08-why-rules-dont-bind.md))
+demonstrated on the document written to record it, within one message.
+
+**A second-order defect came out with it, and it is the more useful one.** The
+local checks that "confirmed" the hold were run as
+`grep -E "^check: (HOLD|session log)"` — a filter shaped to match what was
+expected, so a **new** finding of any other shape would have been invisible to
+the check meant to catch it. Re-run unfiltered, the local gate reports **1**
+finding where CI reports **2**: CI adds `[session-card-hold]` because it runs the
+added-card lane against the merge-base diff, which no local run reproduces. Every
+earlier "only the born-red hold" statement here was true, and none of them had
+read the count. Verified on all four heads — `5e7d4c1`, `3993da8`, `6dae308`,
+`2a08475` — each `check: 2 finding(s)`, both the hold, no third finding.
+
+**What this does NOT license:** treating the table as the fix. Nothing here
+delivers the check at the moment it is skipped, and the estate has measured that
+a stated rule catches nothing. This is an instance count, not a mechanism.
 
 ## Honest limits
 
