@@ -53,9 +53,10 @@ copy product architecture or internal product state. Canonical intent:
   session (`@codex`, fm #937); his words set an estate-wide outcome, not a
   repository choice. **No session is blocked by it:** the
   [active-repo intent audit](findings/2026-08-23-active-repo-intent-audit.md) § 6
-  gives a measured order, **settled 2026-08-24 (fm #940) now that all 17 are
-  judged** — **`spider-swing` → `product-forge` → `estate-backups` → the
-  `websites` date stamp** — plus five unrated repos owed one read each.
+  gives a measured order — **`spider-swing` → `product-forge` → `estate-backups`
+  → the `websites` date stamp**. **Settled among the RATED, 2026-08-24 (fm
+  #940):** the census gap closed when `spider-swing` was judged, but five repos
+  still read `unrated` (one read each) and any could displace this.
   `spider-swing` went to the top: its README contradicts its own ledger about the
   Play release, which is the one thread with an external clock. § 7 of the audit
   carries a turnkey fix brief for each; none of the fixes has been done. Separately measured:

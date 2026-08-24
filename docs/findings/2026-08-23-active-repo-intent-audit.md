@@ -27,14 +27,26 @@
 > re-judgements moved the work, which is the argument for classifying before
 > fixing rather than after.
 >
+> **What closes is the CENSUS gap, not every caveat.** Five repos still read
+> `unrated`, so § 6 is settled **among the rated** — see § 1's tally note and
+> § 6's own heading.
+>
 > Certainty tags per [`2026-08-05-foundation-continuation.md`](2026-08-05-foundation-continuation.md).
 
 ## 1 · The verdicts
 
-**6 pass · 5 unrated · 1 stale · 4 fail · 1 hub = 17 of 17** — complete as of
-2026-08-24. *Originally published as "7 pass" against a list of six, and as a
-17-repo sweep that covered 16; both corrected.* Judged from each repo's own
-declared entry point.
+**6 pass · 5 unrated · 1 stale · 4 fail · 1 hub = 17 of 17** — every unarchived
+repo now carries a verdict **line** as of 2026-08-24. *Originally published as
+"7 pass" against a list of six, and as a 17-repo sweep that covered 16; both
+corrected.* Judged from each repo's own declared entry point.
+
+**"17 of 17" means swept, NOT rated — and the difference is load-bearing.** Five
+of those verdicts read `unrated`, which is a deliberate refusal to decide, not a
+pass: their next-step pointers were never opened. So the ranking below is settled
+**among the rated**, and any one of the five could turn out to carry the same
+coherent-but-wrong front door that put `spider-swing` first. Five reads would
+close it (`@codex`, fm #940 round 2 — flagged because an earlier draft said "all
+17 are judged" in the same breath as "five unrated").
 
 **The four failures are not one kind of failure, and the distinction decides the
 order.** Two are **empty** front doors — `estate-backups`' two lines, and
@@ -307,36 +319,79 @@ the month immediately after being recorded as the starved one.
 **The two windows are not directly comparable, and the differences are not
 drift.** The window slid one day, so 2026-08-09 dropped out and 2026-08-23/24
 came in. `superbot` merged **11** PRs on 2026-08-09 and **0** on 08-23/24, which
-accounts for 64 → 53 exactly; `fleet-manager` lost 8 and gained 28 across two
-days. Cite one window or the other, never a row from each.
+accounts for 64 → 53 exactly, because it merged nothing on either incoming day.
+**`fleet-manager`'s transition does NOT reconcile from day counts, and saying it
+did was wrong** (`@codex`, fm #940 round 2: 99 − 8 + 28 = 119, not 103). The
+reason is that the earlier window's cutoff was a **run-time instant inside
+2026-08-23**, not a midnight boundary, and 26 `fleet-manager` PRs merged that
+day — so an unknown share of them sat inside the earlier window already, and
+day-granularity counts cannot recover the split. `superbot` reconciles precisely
+*because* it merged 0 on 08-23/24, which removes the ambiguous day entirely.
+**Cite one window or the other, never a row from each** — this is the worked
+example of why.
 
 **What survives and what does not.** The *ordering* is unchanged — `fleet-manager`
 ≫ `superbot` ≫ `websites` ≈ `couch-legend` ≫ `spider-swing`, and `spider-swing`
 is still last by a wide margin. What does not survive is using "2 merges" as
-evidence that the repo is *dormant*: it is a repo with **one active thread** —
-the Play release — that moves in bursts when the owner is in front of it. § 6
-below ranks it first on its front door, not on this table.
+evidence that the repo is *dormant*: the Play release is the one thread that
+**received merges in this window**, and it moves in bursts when the owner is in
+front of it.
 
-## 6 · The order this implies for D2 — **settled 2026-08-24**
+**That is not the same as its only active thread, and the distinction matters for
+whoever reads this next.**
+[`../repos/spider-swing/README.md`](../repos/spider-swing/README.md) `:55` marks
+**core feel & difficulty active** — the owner's north star, *tune until excellent
+play reaches 25 k+* — and calls a tuning pass against the run-evidence ledger the
+obvious first move; `:78` marks the Play release active and owner-gated
+separately. A merge count measures where PRs landed, not which threads are live,
+and reading it as the latter would send the next session away from the north-star
+work. § 6 below ranks the repo on its front door, not on this table.
+
+## 6 · The order this implies for D2 — **settled among the rated, 2026-08-24**
 
 > **The PROVISIONAL marker is discharged, and it was right to have been there.**
 > fm #938 held this order open because `spider-swing` was unjudged and carried the
 > only live external clock. Judged (§ 1), it **fails**, and it **displaces
 > `product-forge` at the top**. The order below it is otherwise unchanged.
+>
+> **What is discharged is the census gap, not every caveat.** Five repos remain
+> **`unrated`** — `superbot`, `superbot-next`, `websites`, `couch-legend`,
+> `shiftlife` — and rating them is one read each. Any one could carry a
+> contradicting front door and displace this order, so run it as *the best order
+> the evidence supports*, not as a closed question.
 
 1. ~~`idea-engine`~~ ✅ · 2. ~~`sim-lab`~~ ✅ · 3. **`spider-swing`** ·
 4. **`product-forge`** (needed before its R2 graduation anyway) ·
 5. **`estate-backups`** · 6. the date stamp on `websites`.
 
 **Why `spider-swing` outranks `product-forge`, stated so it can be argued with.**
-Not because it is busier, and not because of the clock alone — because of the
-**kind** of failure. `product-forge` and `estate-backups` cost a cold session one
-wasted read: the front door is visibly empty and the session goes looking.
-`spider-swing`'s front door is full, coherent and wrong, so the session does not
-go looking — it acts. The three specific wrong beliefs it hands over are *the
-name is undecided*, *no release signing exists*, and *nothing is on a store*, and
-each one is about the single thread with a deadline attached. A confident
-falsehood on the critical path beats a visible blank anywhere else.
+**Not because `product-forge`'s front door is blank — it is not.** § 1 says the
+opposite: its `README.md` is a detailed, confident, seat-era document routing a
+cold session to a seat retired 2026-07-21. **Both repos are the contradicting
+class**, and that is exactly why they hold ranks 1 and 2 ahead of
+`estate-backups` and the `websites` stamp, whose front doors genuinely are thin.
+*(An earlier draft of this paragraph called `product-forge` visibly empty, which
+contradicted § 1 one section above it — `@codex`, fm #940 round 2.)*
+
+**The tiebreak between the two is the clock, and it is the only thing separating
+them.** Both hand a cold session a confident falsehood; what differs is the cost:
+
+- `product-forge` sends the session to **wait at a dead bus** — it opens
+  `control/inbox.md`, finds no ORDER, and the README tells it what to do with an
+  empty inbox. The failure is **self-limiting**, because an empty inbox is
+  *visible*: the session stalls rather than acting wrongly. Cost is a wasted
+  session.
+- `spider-swing` hands over three beliefs that are **actionable and wrong** — the
+  name is undecided, no release signing exists, nothing is on a store — about the
+  one asset with an external clock that finished code cannot compress (12 testers
+  × 14 continuous days, then ~7 days review). A session acting on them can
+  re-open a decision the owner closed on 2026-08-05, or rebuild a release path
+  that already works. Neither is caught by noticing later.
+
+**So the rule is: contradicting beats empty, and among contradicting, the one
+with a running clock goes first.** If one of the five unrated repos turns out to
+have a contradicting front door too, apply this rule to it rather than assuming
+the order below already absorbs it.
 
 **What this does NOT decide.** `OQ-FM-D2-TARGET` stays open. This is the audit's
 measured order, which is what a session runs when the owner has not named a
@@ -412,8 +467,16 @@ and says what graduation means for this repo's remaining contents. The keystore
 edge is in [`../repos/product-forge/README.md`](../repos/product-forge/README.md).
 
 **Acceptance:** a cold session states that product-forge is the seat-era shell
-whose living asset is the phone-controller app, what state that app is in, and
-that its next step is R2 graduation — without opening `control/`.
+whose actively-developed product is the phone-controller app, what state that app
+is in, and that its next step is R2 graduation — without opening `control/`.
+
+**And it must not silently drop `games-web`** (`@codex`, fm #940 round 2). The
+commit-path measurement in § 1 shows only that `phone-controller` is the sole
+subtree committed to in 45 days; it does **not** establish that `games-web` is
+dead, and the repo did ship it to Pages. A replacement README that names one
+product and omits the other is a new incomplete front door, not a fix. State both
+with honest states — including *"last touched 2026-07-10, deployment state
+unchecked"* if that is what a check returns.
 
 ### 7.3 · `estate-backups` — rank 3, one file, no gates
 

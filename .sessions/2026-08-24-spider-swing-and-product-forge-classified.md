@@ -61,8 +61,13 @@ needed correcting.
 house convention for this file (it already carries three dated in-place
 corrections).
 
-**§ 1 — `spider-swing` judged, FAIL.** Four defects, each checked against a live
-surface rather than another document:
+**§ 1 — `spider-swing` judged, FAIL.** Four defects — **a mix of live reads and
+ledger statements, and the card has to say which** (`@codex`, fm #940 round 2, on
+an earlier line claiming all four were live). Live: the tree byte-count, the
+greps, the merge timestamps, issue #2's date. From spider-swing's own ledger:
+that `android-release.yml` has run through vc66, and the whole Play-track state.
+Every defect is nonetheless a **README-vs-its-own-ledger** contradiction, so none
+of them needs a surface this session cannot reach:
 
 1. Lines 10–17 still call the name unapproved and *"still open"*. It was settled
    **2026-08-05** as **Slingy Spider**; spider-swing #171 merged `11:27:20Z` that
@@ -111,7 +116,13 @@ on 2026-08-09, the day the slide dropped, which accounts for 64 → 53 exactly.
 Ordering survives; using "2 merges" as evidence of *dormancy* does not.
 
 **§ 6 — re-ranked, PROVISIONAL discharged.** `spider-swing` → `product-forge` →
-`estate-backups` → the `websites` date stamp.
+`estate-backups` → the `websites` date stamp. **Settled among the rated only:**
+five repos stay `unrated` (one read each), and any could carry a contradicting
+front door that displaces this. The ranking rule is now stated explicitly —
+contradicting beats empty, and among contradicting, the one with a running clock
+goes first — because **both** `spider-swing` and `product-forge` are the
+contradicting class; an earlier draft wrongly called `product-forge`'s front door
+blank, contradicting § 1 one section above.
 
 **§ 7 — new: a turnkey fix brief per repo**, including the `websites` item, which
 is more than a stamp: its `docs/current-state.md` reads `last updated
