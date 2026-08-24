@@ -112,10 +112,23 @@ never stated its current role. **Fixed 2026-08-23, sim-lab #360 `72ed751e`.**
    serve). It is a shipped Android Bluetooth-HID controller app whose 22 slice cards run
    to `2026-08-20-phone-controller-slice22-foldables.md` and whose own
    `products/phone-controller/README.md` is 18,456 bytes.
+   **And the bus it routes to is not empty — it is contradicted.** `MEASURED`
+   2026-08-24 by opening both files, which an earlier draft of this entry did not
+   do: `control/inbox.md` (4,751 bytes, 45 lines) carries **four ORDERs, every
+   one still `status: new`**, two of them **P1** — ORDER 001 *"Build
+   `products/games-web/`"* dated 2026-07-10, plus 002/003/004 from 2026-07-11.
+   `control/status.md` (updated 2026-08-20T20:04:47Z) says the opposite:
+   `orders: acked=001,002,003,004 done=001,002,003,004`. **Nobody was permitted
+   to reconcile them** — `inbox.md` opens *"ONE writer: the manager — never edit
+   this file"*, and that seat retired 2026-07-21, so the stale `new` markers are
+   structural rather than neglect.
+
    **Consequence: filling in `current-state.md` would have closed the finding
-   recorded here and left the repo still failing the test.** `MEASURED`
-   2026-08-24 — README fetched and read in full, tree read live from the API
-   (171 blobs, `pushed_at` 2026-08-20T20:06:59Z).
+   recorded here and left the repo still failing the test** — and so would fixing
+   `README.md` alone, because the README's route still lands on a queue
+   advertising two unexecuted P1s. `MEASURED` 2026-08-24 — README, `inbox.md` and
+   `status.md` fetched and read in full, tree read live from the API (171 blobs,
+   `pushed_at` 2026-08-20T20:06:59Z).
 3. **`estate-backups`** — a two-line README and no other entry point.
    Everything real about it lives in the hub. **Open.** Confirmed 2026-08-24: the
    repo is **3 blobs** — `README.md` (130 bytes) plus `dump.yml` and `sizing.yml`.
@@ -320,15 +333,24 @@ the month immediately after being recorded as the starved one.
 drift.** The window slid one day, so 2026-08-09 dropped out and 2026-08-23/24
 came in. `superbot` merged **11** PRs on 2026-08-09 and **0** on 08-23/24, which
 accounts for 64 → 53 exactly, because it merged nothing on either incoming day.
-**`fleet-manager`'s transition does NOT reconcile from day counts, and saying it
-did was wrong** (`@codex`, fm #940 round 2: 99 − 8 + 28 = 119, not 103). The
-reason is that the earlier window's cutoff was a **run-time instant inside
-2026-08-23**, not a midnight boundary, and 26 `fleet-manager` PRs merged that
-day — so an unknown share of them sat inside the earlier window already, and
-day-granularity counts cannot recover the split. `superbot` reconciles precisely
-*because* it merged 0 on 08-23/24, which removes the ambiguous day entirely.
-**Cite one window or the other, never a row from each** — this is the worked
-example of why.
+**`fleet-manager`'s does not reconcile at all, and both of my explanations for
+that were wrong in turn.**
+
+First I wrote *"lost 8 and gained 28"* — 99 − 8 + 28 = 119, not 103 (`@codex`,
+round 2). Then I wrote that the earlier cutoff was a run-time instant inside
+2026-08-23 that day-counts could not recover — **and that was a guess I had not
+tested.** Tested now: no cutoff instant on 2026-08-23 reproduces 99. Sweeping
+595 merged PRs (oldest 2026-07-18, so the window is fully covered and the scan is
+not short), a 14-day window ending anywhere from `00:00Z` to `17:19:21Z` on
+2026-08-23 yields **83 → 93**, never 99 — including the anchor that matters, fm
+#928's own merge at `17:19:21Z`, which gives **93**.
+
+**So the two tables were not produced by the same method, and no arithmetic
+bridges them.** That is the honest conclusion and it is stronger than the
+reconciliation I was reaching for: **cite one window or the other and do not
+attempt to reconcile them.** `superbot`'s 64 → 53 is *consistent with* a clean
+day-slide, but after this it should be read as a coincidence that survived, not
+as proof the two measurements agree.
 
 **What survives and what does not.** The *ordering* is unchanged — `fleet-manager`
 ≫ `superbot` ≫ `websites` ≈ `couch-legend` ≫ `spider-swing`, and `spider-swing`
@@ -376,22 +398,27 @@ contradicted § 1 one section above it — `@codex`, fm #940 round 2.)*
 **The tiebreak between the two is the clock, and it is the only thing separating
 them.** Both hand a cold session a confident falsehood; what differs is the cost:
 
-- `product-forge` sends the session to **wait at a dead bus** — it opens
-  `control/inbox.md`, finds no ORDER, and the README tells it what to do with an
-  empty inbox. The failure is **self-limiting**, because an empty inbox is
-  *visible*: the session stalls rather than acting wrongly. Cost is a wasted
-  session.
-- `spider-swing` hands over three beliefs that are **actionable and wrong** — the
-  name is undecided, no release signing exists, nothing is on a store — about the
-  one asset with an external clock that finished code cannot compress (12 testers
-  × 14 continuous days, then ~7 days review). A session acting on them can
-  re-open a decision the owner closed on 2026-08-05, or rebuild a release path
-  that already works. Neither is caught by noticing later.
+- `product-forge` misdirects **concretely** — see § 1: `control/inbox.md` still
+  advertises four ORDERs at `status: new`, two of them **P1**, the first being
+  *"Build `products/games-web/`"*. But it is **recoverable on contact**: that
+  product exists in the tree, so the first thing the session opens falsifies the
+  order. Cost is wasted effort, caught within the session.
+- `spider-swing` hands over three beliefs that are **actionable, wrong, and not
+  falsified by anything the session would touch** — the name is undecided, no
+  release signing exists, nothing is on a store. Nothing in `game/` carries the
+  name decision, and the README's own *Name status* row is stale in the same way,
+  so the session has no contact point that corrects it. And it is the one asset
+  with an external clock finished code cannot compress (12 testers × 14
+  continuous days, then ~7 days review).
 
-**So the rule is: contradicting beats empty, and among contradicting, the one
-with a running clock goes first.** If one of the five unrated repos turns out to
-have a contradicting front door too, apply this rule to it rather than assuming
-the order below already absorbs it.
+**So the rule is: contradicting beats empty; among contradicting, the one whose
+falsehood is NOT corrected on contact goes first; and a running clock breaks any
+remaining tie.** *(An earlier draft made the distinction "self-limiting, because
+the inbox is empty" — falsified by opening `control/inbox.md`, which is not
+empty. `@codex`, fm #940 round 3. The corrected distinction is stronger for
+`spider-swing`, not weaker, and it is measured rather than assumed.)* If one of
+the five unrated repos turns out to have a contradicting front door too, apply
+this rule to it rather than assuming the order below already absorbs it.
 
 **What this does NOT decide.** `OQ-FM-D2-TARGET` stays open. This is the audit's
 measured order, which is what a session runs when the owner has not named a
@@ -461,14 +488,24 @@ baseline, in-flight and recently-shipped material exists — it is spread across
 those 22 slice cards and the product README, which is exactly why the ledger is
 worth having.
 
-**The one thing to check before writing either:** program step **R2** graduates
+**Third, and it is not optional: `control/`.** The README routes to
+`control/inbox.md`, so a fixed README pointing at an unfixed queue still
+misdirects. Four ORDERs read `status: new` while `status.md` reports all four
+`done`. The protocol line forbidding edits (*"ONE writer: the manager"*) names a
+seat that no longer exists, so **the protocol itself is what needs the era
+marker** — mark the ORDERs resolved against `status.md`'s record, or mark the
+whole `control/` layer historical, per the estate's convention of banner-not-
+delete. Do not silently rewrite `inbox.md` as though the seat had done it.
+
+**The one thing to check before writing any of it:** program step **R2** graduates
 `phone-controller` to its own repo. If that is close, the honest ledger says so
 and says what graduation means for this repo's remaining contents. The keystore
 edge is in [`../repos/product-forge/README.md`](../repos/product-forge/README.md).
 
 **Acceptance:** a cold session states that product-forge is the seat-era shell
 whose actively-developed product is the phone-controller app, what state that app
-is in, and that its next step is R2 graduation — without opening `control/`.
+is in, and that its next step is R2 graduation — **and if it does open
+`control/`, it is not told to build something that already exists.**
 
 **And it must not silently drop `games-web`** (`@codex`, fm #940 round 2). The
 commit-path measurement in § 1 shows only that `phone-controller` is the sole
