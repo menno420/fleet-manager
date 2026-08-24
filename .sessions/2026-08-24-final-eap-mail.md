@@ -111,6 +111,27 @@ Two smaller ones, both wider-than-measured restatements: the catcher tally read
 scope read *"every document the session was required to read"* where the source
 says *"all three binding documents"*.
 
+## Retraction shape is per-document, and the first pass got one wrong
+
+Owner-review, 2026-08-24: *"did you think through the consequences of leaving
+struck-through text in a prep document meant for a cold session?"* **No — the
+first pass applied one shape to four documents.** The correct rule is that the
+shape follows the document's job:
+
+| document | shape | why |
+|---|---|---|
+| [the evidence pack](../docs/findings/2026-08-23-eap-evidence-pack.md) | **strike in place** | a dated record of what was measured on 08-23; deleting it would erase that the claim was ever made and let a future session re-derive it from the same source |
+| [the intent audit](../docs/findings/2026-08-23-active-repo-intent-audit.md) | **strike in place** | same — a dated finding |
+| [the program's E1-prep row](../docs/planning/2026-07-26-consolidation-program.md) | **strike in place** | the § 7 ledger is an append-only history of what each step did; a row that silently changes is a falsified history |
+| [`current-state.md`](../docs/current-state.md) | **DELETE, leave a pointer** | it is a `living-ledger` answering *what is true now*. A struck paragraph there is dead weight on a read path, and its retraction has a home elsewhere. Corrected after the first pass struck it like the others. |
+
+**The distinction, stated so it is reusable: strike a record, delete from a
+ledger.** A dated document's value is that it says what was believed then, so
+the strike *is* the content; a living ledger's value is that everything in it is
+current, so a struck claim is the one thing it must not carry. Both obey the
+same underlying rule — the retraction lands at the site — and they differ only
+in whether the site is history or state.
+
 ## What landed
 
 - `docs/findings/2026-08-24-e1-source-sweep.md` — what was already sent, topic by
