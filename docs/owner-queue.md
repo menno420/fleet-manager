@@ -341,9 +341,9 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   ledger of what the prior mails already argued, the never-sent 07-18 findings,
   seven month-after findings examined — **six standing**, N6 tested against a live API and withdrawn — today's re-measured figures) and
   [the assembled draft](planning/2026-08-24-final-eap-email-draft.md) (the mail
-  between COPY markers, **seven** overturnable decisions, **six** pre-send
+  between COPY markers, **seven** overturnable decisions, **seven** pre-send
   calls). **What remains yours and only yours: writing Part 1 — it is a beat
-  table, not drafted prose — the six pre-send calls in § 2 of the draft
+  table, not drafted prose — the seven pre-send calls in § 2 of the draft
   (call 5 is the new one: Part 2 is ~1,850 words against the plan's one-page
   cap, and both are your instructions), and sending it.** No session sends it.
   ~~**⏸ DEFERRED BY THE OWNER, 2026-08-23 (live, late) — this supersedes the

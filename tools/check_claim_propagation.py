@@ -79,10 +79,18 @@ ALLOW_IN_RETRACTION = re.compile(
 
 ROOTS = ("docs", ".sessions")
 
-# How close a retraction marker must sit to the claim to count as retracting IT.
-# Tuned to cover a marker at the head of a sentence or bullet, not one anywhere
-# in the enclosing paragraph.
-NEAR_BEFORE, NEAR_AFTER = 320, 160
+# WHICH marker retracts THIS claim — a structural rule, deliberately not a
+# character window. A -320/+160 window was tried first and measured: the
+# tightest real case cleared it by TWO characters, i.e. the number fitted the
+# corpus by luck and any nearby edit would have flipped a valid retraction into
+# a false residual. A threshold that has to be re-tuned whenever prose moves is
+# not a check, it is a tripwire.
+#
+# The structural discriminator, which needs no number: **a retraction announces
+# itself and then quotes what it retracts.** So a marker counts when it is on
+# the claim's own line, or anywhere EARLIER in the same block. A marker that
+# appears only AFTER the claim is a different sentence talking about something
+# else — which is exactly the hostile case part B builds.
 
 
 def sweep() -> int:
@@ -109,7 +117,8 @@ def sweep() -> int:
                         start -= 1
                     while end < len(lines) - 1 and lines[end + 1].strip():
                         end += 1
-                    block = "\n".join(lines[start:end + 1])
+                    block_lines = lines[start:end + 1]
+                    block = "\n".join(block_lines)
                     # The marker must belong to THIS claim, not merely share a
                     # block with it. Scanning the whole block was the previous
                     # rule and it is unsafe: one retraction anywhere in a long
@@ -117,8 +126,10 @@ def sweep() -> int:
                     # which is a check that cannot fail, the defect this file
                     # exists to prevent. So: a bounded window around the match.
                     off = block.find(m.group(0))
-                    near = block[max(0, off - NEAR_BEFORE):off + len(m.group(0)) + NEAR_AFTER]
-                    if ALLOW_IN_RETRACTION.search(near):
+                    own_line = lines[ln]
+                    preceding = block[:off]          # everything earlier in the block
+                    if (ALLOW_IN_RETRACTION.search(own_line)
+                            or ALLOW_IN_RETRACTION.search(preceding)):
                         continue          # a retraction naming its own claim
                     sites.append(f"{f}:{ln + 1}")
         print(f"{name:28} {'CLEAN' if not sites else 'RESIDUAL -> ' + ', '.join(sites)}")
@@ -152,10 +163,13 @@ def selftest() -> int:
         # it. If the windowing regresses, this goes red.
         hostile = (fixture + "\n" + "filler. " * 40 +
                    "\nSeparately, an unrelated claim was corrected earlier today.")
+        hl = hostile.splitlines()
         m = re.search(pat, hostile)
         off = m.start() if m else 0
-        near = hostile[max(0, off - NEAR_BEFORE):off + (len(m.group(0)) if m else 0) + NEAR_AFTER]
-        swallowed = bool(ALLOW_IN_RETRACTION.search(near))
+        own_line = hl[hostile[:off].count("\n")] if m else ""
+        preceding = hostile[:off]
+        swallowed = bool(ALLOW_IN_RETRACTION.search(own_line)
+                         or ALLOW_IN_RETRACTION.search(preceding))
         status = "fires" if fires and not swallowed else (
             "DEAD PATTERN" if not fires else "SWALLOWED BY FILTER")
         if not fires or swallowed:

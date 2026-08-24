@@ -259,7 +259,7 @@ Everything above is public:
 
 ---
 
-## 2 · Before he sends — six calls, all his
+## 2 · Before he sends — seven calls, all his
 
 > **⚠ SENDING GATE — added 2026-08-24 after owner-review, and it is a base rate,
 > not a worry.** A Codex round was outstanding when this draft was handed over,
@@ -304,20 +304,28 @@ Everything above is public:
    was written as a ready-to-send block on exactly this topic and **we cannot
    establish whether it was ever sent** ([source sweep](../findings/2026-08-24-e1-source-sweep.md)
    § 3). At worst it repeats an unanswered ask. Cut it if he remembers sending it.
-2. **The €30 and the 97.5 % are his own infrastructure**, not the vendor's. Kept
+2. **The database figures are a 2026-08-20 snapshot and were NOT re-measured for
+   this mail** (`@codex`, fm #943 round 6). They come from the audit's sizing run;
+   re-taking them needs the private Actions venue and a one-shot database
+   credential, which is a real operation rather than a read, so it was not done.
+   The audit records an ingestion event 27 minutes before that run and the loop
+   was left going, so **the store is larger now than the number says**. Both
+   mentions carry the date. If he wants a current figure, say so and it can be
+   re-run before sending.
+3. **The €30 and the 97.5 % are his own infrastructure**, not the vendor's. Kept
    because the *shape* transfers — an unobservable signal accumulating unseen.
    Cut it if he would rather not put his hosting bill in a vendor mail.
-3. **The 2,115 branches / ~50 PRs / ~1,900 routines figures in asks 8 and 9**
+4. **The 2,115 branches / ~50 PRs / ~1,900 routines figures in asks 8 and 9**
    come from the never-sent 18 July draft and are `MEASURED-PRIOR` — measured
    then, not re-measured now. They are the strongest single argument in the
    estate and they are five weeks old. Either send them as dated July
    measurements, or drop the counts and keep the venue asymmetry, which needs no
    number.
-4. **Nothing in this mail claims anything about agent code quality**, deliberately
+5. **Nothing in this mail claims anything about agent code quality**, deliberately
    — every measured failure is about records, retrieval and verification. That
    restraint is what makes the rest credible.
 
-5. **Part 2 is **2,082 words** (measured on the current COPY block; it has grown
+6. **Part 2 is **2,082 words** (measured on the current COPY block; it has grown
    with every review round — 1,704 → 1,827 → 1,851 → 2,082, because each
    correction adds a qualifying clause. **Re-count before acting on this; do not
    quote it.**); the plan's § 5 caps it at one page — and both
@@ -342,7 +350,7 @@ get genuinely near one page he would also have to drop the good-parts block and
 the standing offer**, and both of those are the reasons the critique reads as a
 fan's rather than a complainer's.
 
-6. **An optional sixth finding is drafted below and NOT in the copy block —
+7. **An optional sixth finding is drafted below and NOT in the copy block —
    his call whether to spend the words.** It was first excluded on the reasoning
    *"that's our own trap, not the vendor's problem"*, which owner-review
    correctly rejected: the mail's subject **is** agent failure modes, so a

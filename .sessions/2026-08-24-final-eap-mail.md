@@ -475,6 +475,41 @@ GNU grep 3.11 actually matches `never gotnan answer`, and the standard calls a
 backslash before an ordinary character unspecified. The conclusion held; the
 mechanism was wrong.)*
 
+## Owner-review on round 6's fixes — the window was luck, not design
+
+**The bounded window I introduced was 2 characters from failing.** Owner-review
+asked whether any existing valid retraction now falls outside it. Measured across
+all 13 currently-filtered sites: the furthest marker sits **318 characters** from
+its claim against a **320**-character window. **The number fitted the corpus by
+luck**; any nearby edit would have flipped a valid retraction into a false
+residual, and a threshold that needs re-tuning whenever prose moves is a tripwire,
+not a check.
+
+**Replaced with a structural rule that needs no number.** A retraction announces
+itself and *then* quotes what it retracts — so a marker counts when it is **on the
+claim's own line, or anywhere earlier in the same block**. A marker appearing only
+*after* the claim is a different sentence about something else, which is exactly
+what part B's hostile fixture builds. `NEAR_BEFORE`/`NEAR_AFTER` are gone.
+
+**Still demonstrated rather than asserted:** regressing to "marker anywhere in the
+block" makes part B report `SWALLOWED BY FILTER` on **all 12** patterns, exit 1.
+
+**Two limits stated rather than papered over:**
+
+- **The page-view claim was under-checked.** *"Nothing records page views"* was
+  taken from the reviewer's wording; grepping fleet-manager's docs for analytics
+  vocabulary finds only unrelated hits. **The `websites` repo and any provider
+  dashboard were NOT checked** — the review site is GitHub Pages, which ships no
+  analytics by default, but that is a property of the platform, not a search I ran.
+  The fix stands regardless: a superlative needs positive evidence, and none was
+  offered.
+- **The database figures were not re-measured, and now say so in the mail.** They
+  are the audit's 2026-08-20 sizing run. Re-taking them needs the private Actions
+  venue and a one-shot database credential — a real operation, not a read — so it
+  was not done. The audit records ingestion 27 minutes before that run with the
+  loop left going, so the store is larger now than the number says. Added as
+  pre-send call 2, with the offer to re-run before sending.
+
 ## What landed
 
 - `docs/findings/2026-08-24-e1-source-sweep.md` — what was already sent, topic by
