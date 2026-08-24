@@ -5,9 +5,12 @@ WHY THIS EXISTS. On 2026-08-24 (fm #943) five consecutive review rounds each
 found the same defect shape: a claim was corrected in the outbound document and
 left standing in its source, or vice versa. The fix announced in round 4 was a
 one-line `grep -rn` with five alternatives — one of which was `never got\\nan
-answer`. **grep reads `\\n` in a basic pattern as a literal backslash-n**, so that
-alternative could not match a line break and therefore could not fail. It
-returned clean and was reported as a passing check.
+answer`. **A basic-regex `\\n` cannot express a newline** — POSIX/GNU call a
+backslash before an ordinary character *unspecified*, and GNU grep 3.11 here
+matches the literal text `never gotnan answer` — so that alternative could not
+match a line break and therefore could not fail. It returned clean and was
+reported as a passing check. (An earlier version of this comment said grep reads
+it as a literal backslash-n; the conclusion held, the mechanism was wrong.)
 
 THE RULE THIS ENFORCES, and it is the transferable half:
     A check whose failure mode is SILENCE must be shown to fire
@@ -76,6 +79,11 @@ ALLOW_IN_RETRACTION = re.compile(
 
 ROOTS = ("docs", ".sessions")
 
+# How close a retraction marker must sit to the claim to count as retracting IT.
+# Tuned to cover a marker at the head of a sentence or bullet, not one anywhere
+# in the enclosing paragraph.
+NEAR_BEFORE, NEAR_AFTER = 320, 160
+
 
 def sweep() -> int:
     residual = 0
@@ -101,8 +109,16 @@ def sweep() -> int:
                         start -= 1
                     while end < len(lines) - 1 and lines[end + 1].strip():
                         end += 1
-                    ctx = "\n".join(lines[start:end + 1])
-                    if ALLOW_IN_RETRACTION.search(ctx):
+                    block = "\n".join(lines[start:end + 1])
+                    # The marker must belong to THIS claim, not merely share a
+                    # block with it. Scanning the whole block was the previous
+                    # rule and it is unsafe: one retraction anywhere in a long
+                    # paragraph or list silences every live claim beside it —
+                    # which is a check that cannot fail, the defect this file
+                    # exists to prevent. So: a bounded window around the match.
+                    off = block.find(m.group(0))
+                    near = block[max(0, off - NEAR_BEFORE):off + len(m.group(0)) + NEAR_AFTER]
+                    if ALLOW_IN_RETRACTION.search(near):
                         continue          # a retraction naming its own claim
                     sites.append(f"{f}:{ln + 1}")
         print(f"{name:28} {'CLEAN' if not sites else 'RESIDUAL -> ' + ', '.join(sites)}")
@@ -126,8 +142,20 @@ def selftest() -> int:
     bad = []
     for name, (pat, fixture) in CLAIMS.items():
         fires = bool(re.search(pat, fixture))
-        # B: the bare fixture carries no retraction marker, so it must survive.
-        swallowed = bool(ALLOW_IN_RETRACTION.search(fixture))
+        # B — and it must run the PRODUCTION path, not a simplified one.
+        # An earlier version tested the bare fixture against the filter while
+        # sweep() applied the filter to the whole enclosing block, so a live
+        # claim sharing a block with an unrelated retraction was swallowed in
+        # production while this test passed (@codex, fm #943 round 6). The
+        # fixture is therefore embedded in a hostile block: a live claim, then
+        # an UNRELATED retraction marker far enough away that it must not reach
+        # it. If the windowing regresses, this goes red.
+        hostile = (fixture + "\n" + "filler. " * 40 +
+                   "\nSeparately, an unrelated claim was corrected earlier today.")
+        m = re.search(pat, hostile)
+        off = m.start() if m else 0
+        near = hostile[max(0, off - NEAR_BEFORE):off + (len(m.group(0)) if m else 0) + NEAR_AFTER]
+        swallowed = bool(ALLOW_IN_RETRACTION.search(near))
         status = "fires" if fires and not swallowed else (
             "DEAD PATTERN" if not fires else "SWALLOWED BY FILTER")
         if not fires or swallowed:

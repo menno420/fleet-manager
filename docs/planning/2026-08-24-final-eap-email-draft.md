@@ -116,7 +116,7 @@ itself building our verification tooling, so nothing was rushed — there were
 the single rule those incidents violated, across 66 files**, including all three
 of the documents that bind a session there. *(The 116 is the 2026-08-08 audit-time count, and it
 is the one that goes with those 16 incidents. We are deliberately not quoting a
-current count: the same regex re-run four times today gave 125, 126 and 127,
+current count: the same regex, run three times today, gave 125, 126 and 127,
 because each write-up of the measurement added text the measurement then
 matched. That is a curiosity, not a defect in the finding — the argument is
 about 116 statements catching 0 of 16, and that pair is fixed.)* Documentation recalled at the right
@@ -135,14 +135,15 @@ platform-shaped feature we had to build ourselves, and we think it generalises:
 for a month.** Menno's public review site described the program as running,
 33 days after it ended: 0 of 7 live pages said it had concluded, and the fleet
 page rendered "15 live lanes" with mirrored heartbeats for projects that had
-been terminated. This was his *most-looked-at* page. We are not claiming that generalises —
+been terminated. This was his most visible public surface. We are not claiming that generalises —
 it is one surface, measured once — but if drift lasts a month *there*, we would
 not bet on catching it anywhere less visible.
 
 **Finding 5 — cost is not an agent-legible signal, so it accumulates exactly
 where nobody looks.** An infrastructure audit attributed a €30 monthly bill,
-ended an unnoticed crawler load, and sized the bot's database: **97.5 % of
-949 MB is accumulated ingestion history** against roughly 10 MB of real user
+ended an unnoticed crawler load, and sized the bot's database: it is 949 MB, of
+which the `public` schema is 939 MB, and **97.5 % of that 939 MB is accumulated
+ingestion history** — about 96.5 % of the whole database against roughly 10 MB of real user
 data. That is a storage-composition measurement, not a verdict that the history
 is disposable — whether to keep it is still an open call on our side. Agents built and ran the system that
 accumulated it. **The precise gap is not that no agent could see this — one
@@ -165,8 +166,9 @@ worth more than a longer checklist.
 
 1. **Rules that arrive at the moment of action, not at session start.** *Because
    116 committed statements of one rule caught 0 of 16 violations in the session
-   that wrote them, while every catch came from something that fired at a
-   moment — a question, a hook, a gate, a test — rather than from a document.*
+   that wrote them; 14 of the 16 were caught by something firing at a moment — a
+   question, a hook, a gate, a test — and the last two only after the cost was
+   paid. None came from a document being available.*
 2. **Agents that retract, not only append.** *Because the costliest findings in
    a 101-defect full-read audit were corrections that left the error standing,
    and the result still reads perfectly.*
@@ -177,8 +179,8 @@ worth more than a longer checklist.
    finished that was not finished as asked — we are not saying anything about
    the code either way.*
 5. **Usage, cost and resource telemetry visible to the agent tier.** *Because
-   agents built and ran a system whose 949 MB store was 97.5 % accumulated
-   ingestion history (measured 2026-08-20), and nothing surfaced that during
+   agents built and ran a system whose 949 MB store was ~96.5 % accumulated
+   ingestion history (97.5 % of its 939 MB `public` schema; measured 2026-08-20), and nothing surfaced that during
    normal operation — an agent could only find it by going to look.*
 6. **Owner-set permission grants, scoped per repo, branch and action, able to
    restrict as well as allow.** *Because this is the ask from every previous
@@ -315,9 +317,10 @@ Everything above is public:
    — every measured failure is about records, retrieval and verification. That
    restraint is what makes the rest credible.
 
-5. **Part 2 is **1,851 words** (measured 2026-08-24 on the current COPY block,
-   and it has grown with every review round — 1,704 → 1,827 → 1,851, so re-count
-   rather than quoting this); the plan's § 5 caps it at one page — and both
+5. **Part 2 is **2,082 words** (measured on the current COPY block; it has grown
+   with every review round — 1,704 → 1,827 → 1,851 → 2,082, because each
+   correction adds a qualifying clause. **Re-count before acting on this; do not
+   quote it.**); the plan's § 5 caps it at one page — and both
    halves of that conflict are his own instruction** (`@codex`, fm #943 round 2,
    correctly refusing to let the bound be treated as optional). **The conflict,
    stated rather than resolved:** the cap was written 2026-07-26, when this mail
@@ -331,8 +334,9 @@ Everything above is public:
    catalogue moved off-mail, which satisfies the intent behind the cap
    (readable cold, in minutes) rather than its word count. **Alternative if he
    wants the cap honoured literally:** keep findings 1–3, drop 4 and 5, keep
-   asks 1–5, and the mail lands at **~1,227 words** (measured, not estimated — an
-earlier version of this line said "near 700", which was wrong: the good-parts
+   asks 1–5, and the mail lands at **~1,434 words** (measured on the current block; earlier
+versions of this line said "near 700" and then "~1,227" — both were right when
+written and both went stale, which is the same drift as the figure above: the good-parts
 block, the standing offer, the links and the framing all survive that cut). **To
 get genuinely near one page he would also have to drop the good-parts block and
 the standing offer**, and both of those are the reasons the critique reads as a

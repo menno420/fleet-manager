@@ -425,6 +425,56 @@ the same total**; they could run the method over the public subset, and could ru
 it in full if the owner granted access. The mail's own wording was already the
 accurate one; the reply summarising it was not.
 
+## Adversarial review — round 6, 11 findings, 10 conceded + 1 stale
+
+`@codex` at `74a1905`, 20:50:27Z. **10 conceded, 1 already fixed** (the sending
+gate's 4-of-4 figures, corrected at `0793ec4` after the review ran).
+**Six-round tally: 62 conceded / 0 survived.**
+
+**The stopping criterion said: stop when a round changes nothing outbound. Round
+6 changed five outbound things**, including a wrong denominator, so it does not
+stop here.
+
+**An arithmetic error that was heading to the vendor.** The audit says the
+database is 949 MB, **939 MB of it `public`**, and 97.5 % of *that 939 MB* is the
+three ingestion tables. The mail applied 97.5 % to the **whole 949 MB**. Correct:
+97.5 % of the public schema, or **~96.5 %** of the database. Wrong denominator,
+in a figure offered as a measurement.
+
+Also outbound: *"most-looked-at page"* was an unmeasured superlative (nothing
+records page views) → *"most visible public surface"*; the ask still said every
+catch came from something firing when **two of sixteen were after-the-fact
+only**; the paragraph explaining why a count was withdrawn **introduced a new
+unsupported count** ("re-run four times" against three recorded runs); and the
+length figures were stale again — **2,082 words**, not 1,851, with the
+literal-cap cut at **1,434**, not 1,227.
+
+## The checker had the same defect it exists to prevent — one level deeper
+
+Round 6's sharpest finding: **`--selftest` part B did not run the production
+path.** It tested each bare fixture against the filter, while `sweep()` applied
+the filter to the whole enclosing block. **So a live claim sharing a block with
+an unrelated retraction was swallowed in production while the test passed** —
+a check that cannot fail, in the file written to stop checks that cannot fail.
+
+Two changes, and the second is the one that makes the first believable:
+
+1. **The marker must belong to the claim, not the block.** A bounded window
+   (`NEAR_BEFORE=320`, `NEAR_AFTER=160`) replaces "anywhere in the paragraph".
+2. **Part B now embeds each fixture in a hostile block** — a live claim, filler,
+   then an unrelated *"another claim was corrected"* — and asserts the live claim
+   is still reported.
+
+**Demonstrated, not asserted:** restoring the old whole-block window makes
+part B report `SWALLOWED BY FILTER` on **all 12** patterns and exit 1. The test
+fails when the thing it guards regresses. That is the property the previous two
+versions of this check claimed and could not show.
+
+*(One P3 accepted: the header said grep reads `\n` as a literal backslash-n.
+GNU grep 3.11 actually matches `never gotnan answer`, and the standard calls a
+backslash before an ordinary character unspecified. The conclusion held; the
+mechanism was wrong.)*
+
 ## What landed
 
 - `docs/findings/2026-08-24-e1-source-sweep.md` — what was already sent, topic by

@@ -339,7 +339,7 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   source for anthropic."* **Done this session:**
   [the source sweep](findings/2026-08-24-e1-source-sweep.md) (the fifteen-row
   ledger of what the prior mails already argued, the never-sent 07-18 findings,
-  seven net-new month-after findings, today's re-measured figures) and
+  seven month-after findings examined — **six standing**, N6 tested against a live API and withdrawn — today's re-measured figures) and
   [the assembled draft](planning/2026-08-24-final-eap-email-draft.md) (the mail
   between COPY markers, **seven** overturnable decisions, **six** pre-send
   calls). **What remains yours and only yours: writing Part 1 — it is a beat

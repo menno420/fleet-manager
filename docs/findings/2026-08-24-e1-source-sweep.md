@@ -239,7 +239,7 @@ thesis in one artifact, on his *most-looked-at* page.
 
 **N5 · Cost is not an agent-legible signal, so it accumulates where nobody
 looks.** The Railway audit attributed a **€30** bill, ended a crawler DoS, and
-sized the bot database: **97.5 % of 949 MB** was accumulated ingestion history
+sized the bot database: 949 MB total, 939 MB of it `public`, and **97.5 % of that 939 MB** was accumulated ingestion history (~96.5 % of the whole)
 against ~10 MB of actual user data
 ([audit](2026-08-14-railway-websites-audit.md) § 8 — which measures
 table/index/TOAST **storage composition** and makes no authorship claim; 401 MB
@@ -354,9 +354,14 @@ of a moving estate and a recipient re-running the command will get a different
 number, which is correct behaviour · **volume is not quality**, and the estate's
 own audit is the reason to say so out loud.
 
-**Cross-check, `MEASURED` 2026-08-24:** the same seven counts taken through
-`GET /search/issues` agree to the unit (see N6). The § 5 figures therefore rest
-on **two independent endpoints**, not one method's word.
+**Cross-check, `MEASURED` 2026-08-24 — and its breadth is narrower than an
+earlier version of this note claimed.** What was cross-checked through
+`GET /search/issues` is **the account-wide PR total plus six sampled per-repo PR
+counts** (see N6), all agreeing to the unit. **So the PR figures rest on two
+independent endpoints; nothing else in § 5 does.** The creation-date partition,
+the archive states and the session-card counts come from other API reads
+(`created_at`, `archived`, the Contents API) and were **not** independently
+corroborated.
 
 **Truncation control re-run today:** the largest `.sessions/` listing is
 `superbot` at **970** entries against the Contents API's 1,000-entry cap. Not
