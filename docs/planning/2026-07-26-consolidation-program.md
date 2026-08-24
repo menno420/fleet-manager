@@ -77,8 +77,9 @@ completed step appends a row to §7 with its PR.
 >
 > **A session is not blocked by it.** The
 > [active-repo intent audit](../findings/2026-08-23-active-repo-intent-audit.md)
-> ran D2's actual acceptance test across all 17 unarchived repos and produced a
-> measured order from real failures rather than a guess:
+> ran D2's actual acceptance test across **16 of the 17** unarchived repos and
+> produced a measured order from real failures rather than a guess (**`spider-swing`
+> carries no verdict** — census corrected 2026-08-24, `@codex` fm #938):
 >
 > **`product-forge` → `estate-backups` → the `websites` date stamp**
 >

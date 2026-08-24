@@ -40,8 +40,12 @@ session (`OQ-FM-D2-TARGET` stays open).
 > have a more organized and intergrated setup with more research done and better
 > solutions found etc. so I will send the email tomorrow."*
 
-So the 08-22 *"today or tomorrow"* did not slip; he re-ordered it deliberately
-behind the workstation work. Sends **2026-08-24** by his own statement.
+**The date moved, and the reason was deliberate — record both** (`@codex`, fm
+#938). On 08-22 *"today or tomorrow"* meant **no later than 08-23**; this
+statement sets **08-24**. So it is an **intentional deferral by one day**, not an
+unchanged schedule. An earlier draft wrote *"did not slip"*, which recorded a
+false schedule history for anyone later reading E1's status. Keep the reason —
+he re-ordered it behind the workstation work — and keep the moved date.
 
 ## 4 · The laptop as an AI-integrated workstation — a thread, not a task
 

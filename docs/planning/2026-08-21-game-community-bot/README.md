@@ -52,12 +52,19 @@ review bot is **not** enough, because
 |---|---|
 | **Phase 1** | the full kernel, policy and **AI spine** |
 | **Phase 2–4** | Home/discovery/access, setup, then **community and safety core** |
-| **Phase 5** | the **game testing loop** — i.e. OD-19's *first* slice |
+| **Phase 5** | the **game testing loop** |
 
-So the destination's breadth is required across four phases **before** the thing
-he asked for first. A GCB session following the dependency-ordered roadmap would
-build the community bot and reach the review bot last, which is the opposite of
-the direction above.
+**This is a POSSIBLE sequencing conflict, not a measured one** (`@codex`, fm
+#938). Calling Phase 5 *"OD-19's first slice"* assumes the review bot **is** the
+game-testing loop — and his words say only *"review oriented bot for the game
+server"*. Whether that means playtest capture, bug intake, build handoff or
+feedback triage is **unknown and is `OQ-GCB-REVIEW-SCOPE`**. Asserting the
+identity would be the product-intent inference this section exists to refuse.
+
+What *is* certain: OD-19 puts a **small** review bot first, while the roadmap
+requires the AI spine and the community core across four phases before any
+testing-loop work. So a GCB session following the dependency order would very
+likely reach the review bot last. **Confirm the scope first, then re-sequence.**
 
 **Not re-sequenced here, deliberately.** Inserting a review-bot slice with its
 own exit gate is product-design work on an owner-gated plan, and OD-19 is one
@@ -66,9 +73,10 @@ handoff? feedback triage?) is **not** specified, and inventing that scope would
 be manufacturing product intent, which
 [`../../intent.md`](../../intent.md) § 8b forbids.
 
-**So this is the first work a GCB session does, before Phase 0:** put the
-review-bot slice and its exit gate ahead of the destination breadth, having
-first asked him what the review bot must actually do. Until then the roadmap and
+**So this is the first work a GCB session does, before Phase 0:** get
+`OQ-GCB-REVIEW-SCOPE` answered — what the review bot must actually do — and only
+then put its slice and exit gate ahead of the destination breadth. The queue entry
+carries four candidate scopes for him to pick from. Until then the roadmap and
 OD-19 disagree, and **OD-19 wins** — it is the later owner statement.
 
 **GCB-1 is unchanged and still owner-gated** — none of the above authorises

@@ -57,26 +57,56 @@ missing, and the superseded queue entry was still present on `main`, count 1.
 you asked for is unanswered — or apply `do-not-automerge` when re-requesting
 one. The flip should track *review answered*, not just *gate green*.
 
-**⚠ ROUND 3 (`@codex` at `0948ddc`, 8 findings) SHOWED THIS SECTION IS WRONG IN
-TWO WAYS. Both are verified against source and NOT yet fixed — they are the next
-session's first work, and this PR must not land until they are.**
+## Round 3 — 8 findings (1 × P1), all 8 addressed IN THIS SESSION
 
-1. **The routes do not fire at the moment claimed.** `route_docs.py:184` —
-   `if rid in fired: continue` — fires each route **once per session**.
-   `card-status-write` is consumed when the born-red card is first *written*, and
-   `card-flip-before-push` on the first red *push*. **The flip and the final push
-   produce nothing.** Codex reproduced the write/push/flip/push sequence and both
-   final actions were silent. Extending the `says` strings delivers nothing;
-   dedicated route IDs that stay armed until the completion transition are needed.
-2. **TRAP-007 is not a new trap — it is a compliance failure with an existing
-   one.** `.claude/skills/session-close/SKILL.md:116-129` already states the loop,
-   `MEASURED` on fm #827: *"request review on the current head → … → if you
-   changed anything a reviewer would have an opinion about: push, re-request on
-   the NEW head, and wait again → flip only when the outstanding review covers the
-   head you are flipping."* So this card's claim that the flip was *"correct by
-   every written rule"* is **false**: the rule existed, and I had not read it.
-   **Which makes this a sharper instance of the estate's own thesis than a new
-   trap would be** — the rule was written, measured, and still not delivered.
+The P1 is the one that matters: **the first attempt to register TRAP-007
+delivered nothing at all.**
+
+1. **`[conceded]` P1 — the routes never fired at the claimed moment.**
+   `route_docs.py` spends a route on first match, so `card-status-write` was
+   consumed **writing the born-red card** and `card-flip-before-push` on the
+   **first red push** — leaving the flip and the final push silent. Reproduced
+   here on the real sequence (write → push → flip → push): **steps 3 and 4 both
+   SILENT.** So extending the two `says` strings was a null change dressed as a
+   mechanism — the precise failure the estate calls statement #117, committed
+   inside the commit that claimed to fix it.
+   **Fixed two ways, then re-measured.** An opt-in **`repeat`** flag —
+   an ACTION guard is never spent, a REFERENCE pointer still speaks once — now
+   set on `card-flip-before-push`; plus a new **`card-flip-to-complete`** route
+   matching the completion transition itself. Post-fix on the same sequence:
+   **1 fires · 2 fires · 3 fires · 4 fires**, and every later push fires.
+   *The alternative (dedicated IDs alone) was evaluated and is insufficient: the
+   hook sees only tool input, so it cannot tell a final push from the first, and
+   any new any-`git push` route is consumed exactly as the old one was.*
+2. **`[conceded]` TRAP-007 misdiagnosed itself.**
+   `session-close/SKILL.md:116-129` — `MEASURED` on fm #827 — already states the
+   loop, including *"flip only when the outstanding review covers the head you
+   are flipping."* The claim that the flip was *"correct by every written rule"*
+   was **false**; the rule existed and had not been read. Rewritten as a
+   **compliance/delivery failure of an existing rule**, which is the more useful
+   record: it is this estate's own thesis demonstrated on itself.
+3. **`[conceded]` Recovery ordering.** `do-not-automerge` must be applied
+   **before pushing the completed card** — the push, not the request, is what
+   makes the PR mergeable, so a label applied afterwards loses the same race.
+4. **`[conceded]` Register totals.** `docs/traps.md` said *"six entries, five
+   delivered"* and `docs/MAP.md` *"five of its six"* — both current-state
+   summaries, both stale the moment TRAP-007 landed. Now **seven / six**.
+5. **`[conceded]` The primary audit's census was wrong AT SOURCE.** Annotating it
+   in the supplement left the misinformation where readers are sent first.
+   `2026-08-23-active-repo-intent-audit.md` now says **16 of 17**, **6 pass**
+   (it listed six while claiming seven), and names **`spider-swing` as carrying
+   no verdict**. The NOW pointer's "all 17" is corrected too.
+6. **`[conceded]` The review-bot scope question had no queue entry.** Filed as
+   **`OQ-GCB-REVIEW-SCOPE`** (`bf94e29`) with four candidate scopes.
+7. **`[conceded]` Phase 5 was asserted to BE OD-19's first slice.** That assumes
+   the review bot *is* the game-testing loop, which his one sentence does not say.
+   Now recorded as a **possible** sequencing conflict, gated on the scope answer.
+8. **`[conceded]` E1 "did not slip" was a false schedule history.** 08-22's
+   *"today or tomorrow"* meant no later than 08-23; this sets 08-24. It is an
+   **intentional deferral by one day**. Reason kept, date corrected.
+
+**Running total across three rounds: 20 findings · 19 conceded · 1 partial ·
+0 survived.**
 
 **Registered, not just described** — because a lesson that lives only in a card
 is the estate's statement #117, and the 2026-08-20 railway card already recorded

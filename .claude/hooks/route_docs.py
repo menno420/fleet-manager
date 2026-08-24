@@ -181,7 +181,18 @@ def main() -> int:
 
     for route in routes:
         rid = route.get("id", "")
-        if rid in fired:
+        # `repeat` routes are never spent. Once-per-session is right for a
+        # REFERENCE pointer (say it once, the agent has it) and wrong for an
+        # ACTION guard, whose whole job is to speak at each occurrence of the
+        # action. Three measured incidents are the same shape — fm #922, fm #923
+        # and fm #937 — and the first two were patched by narrowing what CONSUMES
+        # the route, which fixes the instance and leaves the class. MEASURED
+        # 2026-08-24 (Codex, fm #938) on the real sequence: write red card -> push
+        # -> flip to complete -> push. Steps 3 and 4 — the only two that matter —
+        # were BOTH silent, because step 1 spent `card-status-write` and step 2
+        # spent `card-flip-before-push`. Opt-in per route, like `code_only`:
+        # blanket repetition would nag on every reference route.
+        if rid in fired and not route.get("repeat"):
             continue
         if tool not in tuple(route.get("tools") or DEFAULT_TOOLS):
             continue
