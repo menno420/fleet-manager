@@ -51,8 +51,16 @@ iterations while a review and ten comments were already on the PR."*
 inline comments carry 19:29:21–22Z, whereas the loop's ~11 × 28 s ran before
 that and a clean status-checked probe *preceding* it returned a genuine
 `entries=0`. **So the review was absent for most of the loop, and the defect
-cannot be shown to have hidden anything.** What actually happened is duller:
-Codex answered at ~35 min against a recorded ~335 s.
+cannot be shown to have hidden anything.**
+
+**And the replacement story was wrong too, on the third telling.** *"Codex
+answered at ~35 min"* was eyeballed off the polling, not computed. `MEASURED`
+from the API: PR `created_at` **19:10:05Z**, review `submitted_at` **19:29:21Z**
+= **19.3 min** open→review; the explicit `@codex review` at **19:21:07Z** was
+answered in **8.2 min**. So the relay ran close to its recorded ~335 s once
+*explicitly* triggered, and what actually underperformed was the **open**
+trigger. That is a different fact from "Codex is slow", and the difference is
+the whole diagnostic value.
 
 Recorded because of *when* it happened — the over-claim was written into the
 reply that was itself reporting four Codex findings of exactly this shape, a
@@ -60,9 +68,13 @@ bounded fact restated wider. The lesson the session already had in hand did not
 bind the sentence it was writing, which is N3 measured on itself twice in one
 session.
 
-*(Two of the ten comments are anchored at `f4e8160` rather than `39753f5`;
-`created_at` on both is 19:29:2xZ, so they are round-1 findings GitHub
-re-anchored to the newer head, not a second round.)*
+*(Two of the ten comments carry `commit_id f4e81600c3` rather than `39753f5` —
+not a second round, and now measured rather than reasoned: both carry
+`original_commit_id 39753f5f04` with `created_at` 19:29:2xZ. GitHub re-anchors a
+still-applicable review comment to the newer head and keeps `original_commit_id`
+as the record, so **matching on `commit_id` alone reads them as fresh
+findings** — a sibling of the TRAP-007 note about matching verdicts per
+surface.)*
 
 ## What landed
 
