@@ -286,6 +286,32 @@ Everything above is public:
    wants the cap honoured literally:** keep findings 1–3, drop 4 and 5, keep
    asks 1–5, and the mail lands near 700 words.
 
+6. **An optional sixth finding is drafted below and NOT in the copy block —
+   his call whether to spend the words.** It was first excluded on the reasoning
+   *"that's our own trap, not the vendor's problem"*, which owner-review
+   correctly rejected: the mail's subject **is** agent failure modes, so a
+   session generating false-absence checks is on topic, not off it. **The real
+   trade-off is evidential weight against length:** it is **n=1 self-observation
+   from one session**, where every other finding in the mail rests on a committed
+   audit with a measured denominator — and Part 2 is already over the cap
+   (call 5). **Recommendation: include it if he takes the "keep the length" route
+   in call 5, drop it if he takes the 700-word route.** Drafted, ready to paste
+   between findings 5 and the "one thing that did work" paragraph:
+
+   > **Finding 6 — the same failure shape, caught live while writing this mail.**
+   > Assembling this review, the agent doing it wrote four separate checks that
+   > answered "is there anything there?" and four times returned a confident *no*
+   > that was wrong — a shell fallback that printed the same token for a failed
+   > check as for a real absence; a match on the wrong commit field; a match
+   > pinned to the wrong revision; and an unpaginated read that stopped at the
+   > API's 30-item default and dropped the newest item. Three of the four were in
+   > code written specifically to avoid that error, and the repository already
+   > carried a written rule about it. The rule did not bind; the query decided
+   > the answer, and nothing in the output said so. We report it because it is
+   > one session's self-observation rather than an audited sample — but it is the
+   > same shape as everything above, it happened today, and it is the reason we
+   > think this class needs a product answer rather than more documentation.
+
 ## 3 · After he sends
 
 - Mark **E1 complete** in the [program](2026-07-26-consolidation-program.md) § 7

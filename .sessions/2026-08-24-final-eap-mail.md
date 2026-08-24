@@ -227,6 +227,29 @@ produced of why the mail's central claim is true.
 **The standing fix, in one line: always page, always check the status, never let
 a filter be the only thing standing between a read and "nothing is there."**
 
+**Correction to this section's own reasoning, owner-review 2026-08-24.** It
+first said the pagination miss was kept out of the mail because it is *"this
+estate's own TRAP-003, not the vendor's problem."* **That reason does not hold.**
+The mail's subject *is* agent failure modes; a session building four different
+false-absence checks — three of them inside instruments built to catch exactly
+that — is squarely on topic, is measured, and is the most current evidence in the
+whole document. The real trade-off is different and is the owner's: it is **n=1
+self-observation** against the committed audits' measured n, and the mail is
+already over its length cap. So it is now offered to him as a costed option
+rather than silently excluded.
+
+**And the CI/local comparison in the reply was overstated.** It claimed the hold
+was *"verified by running the identical preflight locally against this exact
+tree."* Neither half survives inspection: the CI job was for `059bfcd` and the
+local run for `5e53541` — **different trees** — and the outputs are **not
+identical**. CI reports **2 findings** (`[preflight-script]` +
+`[session-card-hold]`); the local gate reports **1** (`[preflight-script]`) plus
+a separate un-numbered *"session log … is missing: a completed Status"* line.
+**Same root cause, different presentation.** The conclusion — no real defect,
+every line in both outputs names the in-progress card and nothing else — is
+established by reading both outputs, which is what should have been said instead
+of asserting they were identical.
+
 ## What landed
 
 - `docs/findings/2026-08-24-e1-source-sweep.md` — what was already sent, topic by
