@@ -103,8 +103,9 @@ and says the distinction is not cosmetic.) The mechanism behind its
 highest-cost findings was not an error of fact. It was **an appended correction
 that failed to retract what it corrected**. (We did not classify all 101 by
 mechanism, so read this as the shape of the worst ones, not a majority.) The agent added the truth and left the falsehood in place, so the
-document stayed internally consistent and read as correct. **Agents append; they
-do not retract.** A defect shaped like that is invisible to any review
+document stayed internally consistent and read as correct. **In this sample,
+agents appended and did not retract** — we have not tested whether that
+generalises, and it is a tendency we measured rather than a rule we proved. A defect shaped like that is invisible to any review
 that reads a document for coherence — and reading for coherence is what a
 reviewer does by default, unless they stop to compare the document against its
 sources or re-run the thing it describes.
@@ -312,6 +313,16 @@ Everything above is public:
    was left going, so **the store is larger now than the number says**. Both
    mentions carry the date. If he wants a current figure, say so and it can be
    re-run before sending.
+   **⚠ AND THE RATIO CONTRADICTS ITSELF INSIDE ITS OWN SOURCE** (`@codex`,
+   fm #944 — raised because recording this only on a session card left it where
+   the sender would never see it). The audit's prose says **97.5 %** of the
+   939 MB `public` schema; its own table rows sum to 668 + 135 + 122 = **925 MB**,
+   which is **98.5 %** of 939. Plausibly exact-bytes versus rounded-MB, but
+   **unresolved, and a session must not resolve it by picking one.** So this call
+   has a third option beyond keep-or-date: **cut the ratio and keep the shape** —
+   the argument is that cost accumulates unseen, and it survives intact without
+   any percentage at all. **Recommended if he does not want to re-run the
+   sizing.**
 3. **The €30 and the 97.5 % are his own infrastructure**, not the vendor's. Kept
    because the *shape* transfers — an unobservable signal accumulating unseen.
    Cut it if he would rather not put his hosting bill in a vendor mail.
