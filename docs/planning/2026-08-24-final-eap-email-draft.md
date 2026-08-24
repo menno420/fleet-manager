@@ -103,8 +103,9 @@ and says the distinction is not cosmetic.) The mechanism behind its
 highest-cost findings was not an error of fact. It was **an appended correction
 that failed to retract what it corrected**. (We did not classify all 101 by
 mechanism, so read this as the shape of the worst ones, not a majority.) The agent added the truth and left the falsehood in place, so the
-document stayed internally consistent and read as correct. **Agents append; they
-do not retract.** A defect shaped like that is invisible to any review
+document stayed internally consistent and read as correct. **In this sample,
+agents appended and did not retract** — we have not tested whether that
+generalises, and it is a tendency we measured rather than a rule we proved. A defect shaped like that is invisible to any review
 that reads a document for coherence — and reading for coherence is what a
 reviewer does by default, unless they stop to compare the document against its
 sources or re-run the thing it describes.

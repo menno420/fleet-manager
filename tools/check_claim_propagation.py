@@ -65,6 +65,9 @@ CLAIMS = {
     "no-agent-surface-at-all": (
         r"no agent surface could see any of it(?![^\n]*proactiv)",
         "and no agent surface could see any of it."),
+    "agents-append-universal": (
+        r"\*\*Agents append; they\s+do not retract\.\*\*",
+        "read as correct. **Agents append; they\ndo not retract.** A defect shaped like that"),
     "every-human-review": (
         r"which is every review a human actually performs",
         "invisible to any review that reads for coherence, which is every review a human actually performs."),
