@@ -38,7 +38,7 @@ deliberately not copied into this public repo). No attachments: every number
 below has a public link behind it.
 
 **⚠ The COPY block is markdown; the mail is not — do not paste the block
-itself.** Part 2 carries **27 `**bold**` and 56 `*italic*` spans** (counted) and
+itself.** Part 2 carries **27 bold and 12 italic spans** (from `--count`) and
 hard wraps at ~76 columns. Pasted straight into a Gmail compose, that is what the
 recipient reads: literal asterisks through the whole argument, and wrapping that
 re-breaks raggedly at whatever width their client uses. Run one of these instead
@@ -57,7 +57,7 @@ client** — none is reachable from this container. What is verified is what the
 files contain: no `**` survives the plain-text path, `--verify` proves nothing is
 dropped or invented, and the HTML is a well-formed document. How Gmail treats
 them on arrival is **unverified**. *(2)* **The plain-text route does not preserve
-the emphasis — it deletes it.** All 83 emphasis spans go, so *"116 to nothing"*
+the emphasis — it deletes it.** All 39 emphasis spans go, so *"116 to nothing"*
 and *"0 of 16"* land flat. That is a real loss for an argument that leans on
 them, and it is the reason the HTML route exists. If the emphasis matters to him,
 the browser round-trip is the one that keeps it.

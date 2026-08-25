@@ -4,8 +4,10 @@
 WHY THIS EXISTS. Two send-day defects, both measured on 2026-08-25 (fm #946).
 
 1. THE BLOCK IS MARKDOWN AND THE MAIL IS NOT. Part 2 carries 27 `**bold**` and
-   56 `*italic*` spans (counted, not estimated), backticked URLs and hard line
-   wraps at ~76 columns. Pasted
+   12 `*italic*` spans, backticked URLs and hard line wraps at ~76 columns.
+   (`--count` reports these, because the figure was asserted wrong twice before
+   it was computed: first as "~90 bold", then as 83 total — that second one
+   reused the asterisks inside `**bold**` as italic delimiters.) Pasted
    into a Gmail compose that is exactly what the recipient sees: literal
    asterisks through a carefully-argued vendor mail, and ragged wrapping that
    re-breaks at whatever width their client uses. Nothing in the draft said so.
@@ -159,8 +161,16 @@ def count(lines: list[str]) -> dict:
     the stored form and the sent form stays visible.
     """
     body = to_text(lines)
+    raw = "\n".join(lines)
+    bold = re.findall(r"\*\*.+?\*\*", raw, flags=re.S)
+    # count italics only AFTER bold is removed, and forbid a match spanning another
+    # asterisk — otherwise the `*` inside `**bold**` gets reused as an italic
+    # delimiter and the total roughly doubles. That error was made twice here.
+    ital = re.findall(r"(?<!\w)\*(?!\*)[^*]+?\*(?!\w)", re.sub(r"\*\*.+?\*\*", " ", raw, flags=re.S))
     return {"mail": sum(1 for w in body.split() if re.search(r"[A-Za-z0-9]", w)),
-            "markdown_tokens": len("\n".join(lines).split())}
+            "markdown_tokens": len(raw.split()),
+            "bold": len(bold), "italic": len(ital),
+            "residual_marks": sum(body.count(c) for c in "*`_")}
 
 
 FIXTURE = f"""preamble that must not appear
@@ -283,6 +293,10 @@ def main() -> int:
         print(f"Part 2, measured on {DRAFT.name} between the COPY markers:")
         print(f"  {c['mail']:>5}  WORDS IN THE MAIL  <- quote this one; every figure in the draft uses it")
         print(f"  {c['markdown_tokens']:>5}  tokens in the markdown that stores it (not the mail)")
+        print(f"  emphasis in source: {c['bold']} bold + {c['italic']} italic = "
+              f"{c['bold']+c['italic']} spans, ALL removed by the plain-text route")
+        print(f"  residual markdown marks in the plain-text output: {c['residual_marks']} "
+              f"({'clean' if not c['residual_marks'] else 'LEAK — investigate'})")
         return 0
     sys.stdout.write(to_html(lines) if a.html else to_text(lines))
     return 0
