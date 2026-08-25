@@ -147,15 +147,22 @@ and breaking the marker bounds each produced **exit 1, all three caught**.
 Both were carried from repo records rather than measured by this session. One
 still is; the other is now measured.
 
-1. **"Four of his sent EAP mails are gone from Gmail."** `MEASURED-PRIOR`, not
+1. **"Four of his sent EAP mails are no longer retrievable from Gmail."**
+   `MEASURED-PRIOR`, not
    by this session — [the correspondence record](../docs/findings/2026-08-09-eap-correspondence-record.md)
    § 0, which records **five probe runs over four query strings with two
    positive controls** (one per lane) on 2026-08-24. Thread A holds two messages
    where five were recorded; the missing four are the 07-08 introduction review,
    the 07-12 scale-up report, the vendor's 07-14 acknowledgement and the 07-16
    01:52 classifier report. **This session has no Gmail measurement of its own**
-   and did not open that file until owner-review asked. The § 3 send-record
-   rationale rests on that dated finding, not on anything measured here.
+   and did not open that file until owner-review asked. **The scope matters:**
+   what was measured is *retrievability* — thread A returns two messages where
+   five were recorded, with trash covered in one of the two lanes. It is **not**
+   a finding that the mails were destroyed, and the record explicitly says no
+   cause is recorded and none should be inferred. The § 3 send-record rationale
+   rests on that dated finding, not on anything measured here — and it survives
+   either reading, since a mail the owner cannot retrieve is not an archive
+   whether or not it still exists somewhere.
 2. **"Seven repositories were created after the program closed."** Was one table
    row in the sweep. **Now measured directly** — `GET /user/repos` paginated over
    the direct-PAT path, bucketed on `created_at` against the 07-07 → 07-21
