@@ -213,15 +213,41 @@ def selftest() -> int:
     return 1 if fails else 0
 
 
+def verify(lines: list[str]) -> int:
+    """Assert the rendering drops nothing and invents nothing.
+
+    The selftest proves the renderer works on a FIXTURE. This proves it on the
+    actual mail, which is the thing that gets pasted: a silently swallowed
+    paragraph would send the vendor a truncated argument and nothing would say so.
+    """
+    words = lambda s: [w for w in re.sub(r"\s+", " ", s).split() if re.search(r"[A-Za-z0-9]", w)]
+    a, b = words(strip_marks("\n".join(lines))), words(to_text(lines))
+    import difflib
+    ops = difflib.SequenceMatcher(None, a, b).get_opcodes()
+    dropped = [w for op, i1, i2, _, _ in ops if op in ("delete", "replace") for w in a[i1:i2]]
+    added = [w for op, _, _, j1, j2 in ops if op in ("insert", "replace") for w in b[j1:j2]]
+    print(f"source words {len(a)} -> rendered words {len(b)}")
+    if dropped: print(f"DROPPED in rendering: {dropped}", file=sys.stderr)
+    if added:   print(f"INTRODUCED by rendering: {added}", file=sys.stderr)
+    if dropped or added:
+        return 1
+    print("verify: rendering is loss-free — nothing dropped, nothing introduced")
+    return 0
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--html", action="store_true", help="rich paste (keeps bold and links)")
     ap.add_argument("--count", action="store_true", help="word count, with its method")
+    ap.add_argument("--verify", action="store_true",
+                    help="assert the real mail renders loss-free (nothing dropped or invented)")
     ap.add_argument("--selftest", action="store_true", help="prove the renderer fires")
     a = ap.parse_args()
     if a.selftest:
         return selftest()
     lines = extract(DRAFT.read_text(encoding="utf-8"))
+    if a.verify:
+        return verify(lines)
     if a.count:
         c = count(lines)
         print(f"Part 2, measured on {DRAFT.name} between the COPY markers:")

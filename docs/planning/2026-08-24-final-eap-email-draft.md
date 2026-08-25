@@ -49,6 +49,7 @@ its output — same source, no second copy to drift:
 | `python3 tools/render_eap_mail.py` | **plain text — use this for a normal compose.** Emphasis marks gone, paragraphs unwrapped so the mail client reflows them |
 | `python3 tools/render_eap_mail.py --html` | rich paste that keeps the bold and the links |
 | `python3 tools/render_eap_mail.py --count` | the word count, computed from the source rather than quoted from a sentence about it |
+| `python3 tools/render_eap_mail.py --verify` | proof the paste is **complete** — asserts the rendering dropped nothing and invented nothing (1,477 → 1,477). Worth running once before you paste |
 
 *(There is deliberately no rendered copy of the mail committed anywhere. A second
 copy would drift from this one — which is precisely the defect finding 2
