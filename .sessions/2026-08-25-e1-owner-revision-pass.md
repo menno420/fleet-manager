@@ -46,7 +46,7 @@ worked here.
 
 The route prices were stale by more than the total was. The literal-cap route
 was quoted at **~1,227** in one place and **~1,434** in another; measured, the
-route lands at **1,651**. *(This session's own first answer here — "~1,478–1,503"
+route lands at **1,678**. *(This session's own first answer here — "~1,478–1,503"
 — was computed with the same defective methods described above, and is corrected
 for the same reason.)*
 
@@ -86,7 +86,7 @@ ingestion-history tables · ~10 MB across every other table combined** — and c
 percentage at all. That is strictly stronger than either side of the
 contradiction and resolves nothing on his behalf.
 
-**Part 2: 2,097 words → 1,651 by the cut → 1,659 as it now stands**, the
+**Part 2: 2,097 words → 1,678 by the cut → 1,686 as it now stands**, the
 difference being the eight-word census fix at consequence 5 below.
 
 ## ⚠️ Five consequences, surfaced and not resolved
@@ -201,7 +201,7 @@ eight P2. Every one was real.
 | 9 | P2 | § 2's heading said *three of the seven calls answered*; only **two** are numbered calls, the third answers the separate revision-scope question | `[conceded]` — heading and lead corrected |
 
 **Finding 6 proved itself within the hour.** Fixing the P1 added four words to
-ask 5 — **1,477 → 1,659** — which silently falsified **nine** figures across five
+ask 5 — **1,477 → 1,686** — which silently falsified **nine** figures across five
 documents. The new checker caught all nine. That is the same defect as everything
 else this session found, committed by the session that was documenting it.
 
@@ -224,7 +224,7 @@ exactly this class**, which is the whole lesson of the round.
 |---|---|---|---|
 | 1 | P2 | `re.search` validated only the **first** occurrence — a stale duplicate in a second document passed because an earlier correct copy satisfied the pattern | `[conceded]` — `finditer`, every occurrence, every file, reported with `path:line` |
 | 2 | P2 | the docstring advertised **five** consumers and the code loaded **two**: `owner-queue.md`, `current-state.md` and the § 7 ledger could rot while it exited 0 | `[conceded]` — `CONSUMERS` is now the list, and 15 occurrences across 5 files are checked |
-| 3 | P2 | the queue said *"the mail as pasted is 2,097"* — that is the **pre-cut baseline**, contradicting its own `2,097 → 1,659` line one paragraph above | `[conceded]` |
+| 3 | P2 | the queue said *"the mail as pasted is 2,097"* — that is the **pre-cut baseline**, contradicting its own `2,097 → 1,686` line one paragraph above | `[conceded]` |
 | 4 | P3 | the ledger recorded `--selftest` as **7 assertions** and the tool's docstring still claimed a `9/10` mutation result, both stale after the count reached 13 | `[conceded]` — **and the rewritten checker found a second site Codex had not flagged**, in this card |
 | 5 | P2 | this card still asserted **~90 bold spans**, unretracted, directly above the table conceding it was wrong | `[conceded]` — retracted in place |
 
@@ -324,6 +324,30 @@ substitution used `if a in t:` rather than an assertion — a **silent** miss, t
 third of that exact shape in this session. Both the emphasis total and the
 executive-summary depths are now computed and guarded.
 
+## 🔎 Codex round 6 — 4 findings, **4 `[conceded]`, 0 `[survived]`** — and a verdict on the process
+
+At `d26d6c9`. Two P1, two P2, all in the outbound mail.
+
+| pri | finding | fix |
+|---|---|---|
+| **P1** | *"documentation bound nothing"* — **the third generation of this header, and still a population claim.** The audit establishes 0 catches across **the 16 enumerated incidents**, and the same paragraph concedes prevented errors are invisible | now states only the observed: *"across 16 incidents we enumerated in one session, documentation recalled at the right moment caught none of them"* |
+| **P1** | *"in the session that wrote them"* — the audit says the repository **already carried** 116 statements across 66 files, including seat-era material; the session authored only some | now: the repository already carried them, and they caught 0 of the 16 violations that happened in that session |
+| P2 | *"run three times today"* — those runs were 2026-08-24 and the mail may be sent later | dated |
+| P2 | the 335 s and the 13 findings presented as one measurement — the sweep says *"the latency is #812's, the yield is the two PRs combined"* | separated, with both scopes named |
+
+**THE PROCESS VERDICT I SAID I WOULD GIVE.** Rounds 4, 5 and 6 found 7, 7 and 4
+findings in the mail. Traced by `git log -S`, three of round 5's four P1s were
+introduced by round 4's fixes, and round 6's headline P1 is **the third rewrite
+of one sentence, each version wrong in a new way**. That is no longer a text
+converging under review; it is a text being churned by it.
+
+**What is genuinely improving:** every round still finds real, checkable errors,
+and four rounds of diff review found none of them because the mail was not in
+those diffs. **What is not:** the same sentence has now been wrong as an
+absolute, wrong as a hedge, and wrong as a population claim. **The next rewrite
+of finding 3 should be the owner's, not a session's** — it is his argument, and
+three attempts to state it for him have each traded one error for another.
+
 ## 🧪 "No mail client is reachable" was a wall, and it took one probe to fall
 
 This session wrote, twice, that neither rendered output could be tested because
@@ -335,7 +359,7 @@ look like. The answer was *none*, and there were three:
   `which chromium` returns nothing, which is what the first look relied on).
   Rendered: **every `<strong>`, `<em>` and `<li>` survives, both lists,
   every paragraph; 0 literal asterisks.** Re-run 2026-08-25 after the round-4
-  corrections: the DOM now shows **28 `<strong>`, 13 `<em>`, 10 `<li>`, 0 literal
+  corrections: the DOM now shows **29 `<strong>`, 13 `<em>`, 10 `<li>`, 0 literal
   asterisks**, matching `--count` and independently confirming `--count` by a completely
   different route — a regex and a browser engine agreeing. *(The mail has since
   grown since, under Codex round 4's corrections; the render check is re-run by
@@ -409,7 +433,7 @@ of the block *as prose* returned **four P1 and three P2**.
 | P2 | *"worth more than a longer checklist"* — no checklist control exists; and after *"it was not one of yours"* it reads as a complaint | header softened, comparative dropped, replaced with the measured result and an explicit *"we have no controlled comparison"* |
 
 **Every one was an overclaim, and the honest version of an overclaim is longer:
-+159 words, 1,481 → 1,659.** That is 11 % past the cap he chose, surfaced in § 2
++159 words, 1,481 → 1,686.** That is 11 % past the cap he chose, surfaced in § 2
 item 6 as his call rather than absorbed.
 
 **The lesson is about how the earlier rounds were read, not about the mail.**
