@@ -335,18 +335,28 @@ At `d26d6c9`. Two P1, two P2, all in the outbound mail.
 | P2 | *"run three times today"* — those runs were 2026-08-24 and the mail may be sent later | dated |
 | P2 | the 335 s and the 13 findings presented as one measurement — the sweep says *"the latency is #812's, the yield is the two PRs combined"* | separated, with both scopes named |
 
-**THE PROCESS VERDICT I SAID I WOULD GIVE.** Rounds 4, 5 and 6 found 7, 7 and 4
-findings in the mail. Traced by `git log -S`, three of round 5's four P1s were
-introduced by round 4's fixes, and round 6's headline P1 is **the third rewrite
-of one sentence, each version wrong in a new way**. That is no longer a text
-converging under review; it is a text being churned by it.
+**THE PROCESS VERDICT I SAID I WOULD GIVE — with its evidence counted, not
+estimated.** Rounds 4, 5 and 6 found **7, 7 and 4** findings in the mail. Traced
+by `git log -S` on each flagged phrase: **three of round 5's four P1s were
+introduced by round 4's fixes** (`e8517a5`); the fourth predates them.
+
+**Finding 3's header has had three versions** — `07591dd` (original),
+`e8517a5` (round 4's fix), `5219476` (round 6's fix, current). **Two have been
+found wrong: the original as an absolute exclusivity claim, round 4's as a
+population claim. The current one is untested** — it has not been through a
+round, so "each version wrong" would overstate it. What is established is that
+**two consecutive attempts to state this sentence for him each traded one error
+for another.**
 
 **What is genuinely improving:** every round still finds real, checkable errors,
-and four rounds of diff review found none of them because the mail was not in
-those diffs. **What is not:** the same sentence has now been wrong as an
-absolute, wrong as a hedge, and wrong as a population claim. **The next rewrite
-of finding 3 should be the owner's, not a session's** — it is his argument, and
-three attempts to state it for him have each traded one error for another.
+and four rounds of diff review found none of them, because the mail was not in
+those diffs. Prose review is earning its place.
+
+**What should change:** finding 3 is the one claim in the mail that is an
+argument rather than a measurement — the same class the draft already reserves
+to him in beat 3. **The next version should be his.** The measured floor is
+solid underneath it: 116 statements already in the repository, 0 catches across
+16 enumerated incidents, and everything that did catch one arrived at a moment.
 
 ## 🧪 "No mail client is reachable" was a wall, and it took one probe to fall
 
