@@ -108,6 +108,16 @@ reports.)*
 **Beat 3 is the one nobody can supply.** It is the only new argument in the whole
 mail that is his rather than measured, and it is why the mail is worth sending.
 
+**What is reserved is his SENTENCES, not this section.** The beats above are
+committed and versioned like everything else — only the prose is off-limits to a
+session. **So there is an option nobody has offered him:** he can draft Part 1
+*into this file*, above the COPY markers, and it then gets exactly what Part 2
+gets — a word count from `--count`, its claims checked against the linked
+sources, and a review round of its own. **Right now his half is the only part of
+the mail with no verification at all.** → *"I'll draft Part 1 here"* and the
+session verifies it without rewriting it; the alternative, which is the current
+default, is that he writes it in the compose window and it goes out unchecked.
+
 ## COPY FROM HERE
 To the Claude Code Projects team,
 
@@ -449,7 +459,13 @@ each is one line to overturn.
    what it measured** — its own words are *"prevented errors are invisible… the
    116 statements may do work this table cannot see."* That is a limit on the
    measurement, **not a refutation**: the architectural claim may well be true,
-   and this evidence simply does not reach it. **But a session
+   and this evidence simply does not reach it. **And it is unmeasured, not unmeasurable** — the audit's own closing
+   list says *"whether error frequency actually drops is unmeasured and is the
+   only number that finally matters. **The instruments make it countable:** hook
+   firings, gate reds, and owner corrections per session are all in logs now."*
+   So there is a **third option** neither of the other two offers: run that
+   count. It would turn the thesis from a design conclusion into a measured one,
+   and the data already exists. **But a session
    cannot know whether the flat statement was sloppiness or a deliberate thesis
    he wanted stated flatly** — it is his estate's central argument, and the
    design conclusion still stands in the body (*"a rule binds only if it arrives
