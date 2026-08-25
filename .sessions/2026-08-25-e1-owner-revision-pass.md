@@ -123,8 +123,12 @@ sending.
 
 ## 🛠 `tools/render_eap_mail.py` — because the block is markdown and the mail is not
 
-A second send-day defect, unflagged anywhere: **Part 2 carries ~90 `**bold**`
-spans and hard wraps at 76 columns.** Pasted straight into a Gmail compose that
+A second send-day defect, unflagged anywhere: **Part 2 carries 27 bold and 12
+italic spans** (`--count`) **and hard wraps at 76 columns.** *(This line said
+"~90 bold spans" — asserted, never counted. Corrected 2026-08-25 rather than
+left standing above the review table below that concedes it: an appended
+concession that does not retract the original is the defect this whole mail
+reports.)* Pasted straight into a Gmail compose that
 is exactly what the vendor reads — literal asterisks through the whole argument,
 and wrapping that re-breaks raggedly at their client's width. Six adversarial
 rounds and four prior sessions never surfaced it, because every one of them read
@@ -138,9 +142,10 @@ paragraphs unwrapped, `--html` for rich paste, and `--count`.
 **`--count` is the real payload.** The number was stale in three places and
 *wrong in all three*; the fix for that is one command, not a fourth sentence
 stating it. Per the kit's own rule — *a check whose failure mode is silence must
-be shown to fire* — it ships `--selftest` (7 assertions), and the selftest was
+be shown to fire* — it ships `--selftest` (13 assertions), and the selftest was
 **mutation-tested**: disabling the bold-strip, disabling the paragraph unwrap,
-and breaking the marker bounds each produced **exit 1, all three caught**.
+breaking the marker bounds, collapsing the ordered/unordered split and numbering
+the bullets each produced **exit 1, all five caught**.
 
 ## 🔍 Two claims checked after owner-review asked what was behind them
 
@@ -209,6 +214,38 @@ turned `\d` into a literal backslash-d. Each printed **CHECK CANNOT FAIL**
 rather than a clean pass, which is the only reason any of it was caught. That is
 finding 6 of the mail — *a check whose pattern could not match what it was
 searching for, so it could not fail* — reproduced four times over.
+
+## 🔎 Codex round 2 — 5 findings, **5 `[conceded]`, 0 `[survived]`**
+
+At `292327e`. Four P2, one P3. **Two were defects in the checker built to catch
+exactly this class**, which is the whole lesson of the round.
+
+| # | pri | finding | disposition |
+|---|---|---|---|
+| 1 | P2 | `re.search` validated only the **first** occurrence — a stale duplicate in a second document passed because an earlier correct copy satisfied the pattern | `[conceded]` — `finditer`, every occurrence, every file, reported with `path:line` |
+| 2 | P2 | the docstring advertised **five** consumers and the code loaded **two**: `owner-queue.md`, `current-state.md` and the § 7 ledger could rot while it exited 0 | `[conceded]` — `CONSUMERS` is now the list, and 15 occurrences across 5 files are checked |
+| 3 | P2 | the queue said *"the mail as pasted is 2,097"* — that is the **pre-cut baseline**, contradicting its own `2,097 → 1,481` line one paragraph above | `[conceded]` |
+| 4 | P3 | the ledger recorded `--selftest` as **7 assertions** and the tool's docstring still claimed a `9/10` mutation result, both stale after the count reached 13 | `[conceded]` — **and the rewritten checker found a second site Codex had not flagged**, in this card |
+| 5 | P2 | this card still asserted **~90 bold spans**, unretracted, directly above the table conceding it was wrong | `[conceded]` — retracted in place |
+
+**Finding 5 is the mail's own thesis, committed inside the record of conceding
+it.** The card contained both the original claim and its concession, and left the
+original standing — *an appended correction that fails to retract what it
+corrects*, which is finding 2 of the outbound mail, in the document reporting
+finding 2 of the outbound mail.
+
+**And the liveness probe took three tries to become real.** Corrupting the
+literal `"the route lands at **"` was a **no-op**, because the card hard-wraps
+between *route* and *lands* — the same wrap defect that had already broken the
+patterns once. Rewritten to corrupt by regex. It then still failed, because the
+corruption value `9,999` does not match a `(\d+)` group, so the claim **vanished
+instead of mismatching** and the probe reported zero problems on a document it
+had just broken — visible only as the occurrence count dropping 15 → 14. The
+probe now uses a value that still matches, and **asserts the occurrence count is
+unchanged**, because a corruption that deletes the claim proves nothing.
+
+Four distinct ways for a check to pass while being incapable of failing, all in
+one file, all found by writing the corruption down and watching it not fire.
 
 ## 📌 The thing the mail's own subject argues for
 

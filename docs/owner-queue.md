@@ -359,8 +359,10 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
     stated, which is why it drifted: the draft said 2,082, this entry said 2,127, the file
     measured 2,151 — and **none of the three was right**, because the method was
     never stated and both obvious methods count punctuation or bullet glyphs as
-    words. The mail as pasted is **2,097**. One command settles it now:
-    `python3 tools/render_eap_mail.py --count`.)*
+    words. The mail as pasted was **2,097** before his cut and is **1,481** now —
+    2,097 is the before-cut baseline, not the send length. One command settles it:
+    `python3 tools/render_eap_mail.py --count`, and
+    `python3 tools/check_eap_figures.py` checks this entry still agrees with it.)*
   - **The 97.5 % (§ 2 item 2): cut the ratio, keep the shape.** The mail quotes
     the audit's own uncontested rows instead — **949 MB store · 925 MB in three
     ingestion-history tables · ~10 MB across every other table combined** — and carries no
