@@ -94,7 +94,11 @@ EXPECTED_INVENTORY = {
     (9, "docs/owner-queue.md"): 1,
     (9, "docs/planning/2026-08-24-final-eap-email-draft.md"): 1,
     (10, "docs/current-state.md"): 1,
-    (11, ".sessions/2026-08-25-e1-owner-revision-pass.md"): 1,
+    # x2: the card states the count once as fact and once inside the quoted
+    # round-3 scenario. Both go stale together if the count moves, so both are
+    # pinned. This entry was found by the checker failing on its own author's
+    # commit, which is the behaviour it exists for.
+    (11, ".sessions/2026-08-25-e1-owner-revision-pass.md"): 2,
     (11, "docs/planning/2026-07-26-consolidation-program.md"): 1,
 }
 

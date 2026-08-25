@@ -275,6 +275,17 @@ only, so it stays honest while the run fails.
 **The count is now five, and every one was found the same way:** by writing down
 what corruption *should* trigger the check and watching it not trigger.
 
+**Then it caught its own author, in the commit describing it.** Writing this
+section quoted `` `--selftest` (13 assertions) `` a second time, which is a
+second live figure claim in this card — it goes stale with the first if the
+count ever moves. The inventory flagged `CLAIM COUNT CHANGED … expected 1,
+found 2` and the commit went out with the check red before the drift was pinned.
+The right fix was to pin **2**, not to reword the sentence: both statements are
+real and both must track the tool. **A checker whose first act is to fail on the
+document announcing it is the only kind worth having** — and it is the exact
+inverse of the defect this whole session has been chasing, where the check stayed
+quiet and the document was wrong.
+
 ## 🧪 "No mail client is reachable" was a wall, and it took one probe to fall
 
 This session wrote, twice, that neither rendered output could be tested because
