@@ -73,7 +73,7 @@ editor's behaviour rather than the file's. The `.eml` is the closest available
 answer and is one command away.
 
 **And one real trade-off, not a limitation:** the plain-text route **deletes**
-the emphasis rather than preserving it. All 39 spans go, so *"116 to nothing"*
+the emphasis rather than preserving it. All 41 spans go, so *"116 to nothing"*
 and *"0 of 16"* land flat. That is a genuine loss for an argument that leans on
 them, and it is why the HTML route exists.
 

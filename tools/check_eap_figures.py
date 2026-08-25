@@ -68,6 +68,10 @@ CLAIMS = [
     # because the pattern meant to guard it was added by a replace that silently
     # no-opped. Guarded now, with the edit asserted.
     (r"\*\*([\d,]+)\s+words\s+at\s+one\s+sentence\s+per",         ["exec_summary"]),
+    # the emphasis TOTAL, separate from the bold/italic split. It drifted to
+    # "All 39 spans go" and survived three sweeps because the phrasing omits the
+    # word "emphasis" — two greps and one silent `if a in t` replace all missed it.
+    (r"All\s+([\d,]+)\s+spans\s+go",                               ["emphasis_total"]),
 ]
 
 
@@ -99,7 +103,9 @@ EXPECTED_INVENTORY = {
     (9, "docs/planning/2026-07-26-consolidation-program.md"): 1,
     (10, "docs/owner-queue.md"): 1,
     (10, "docs/planning/2026-08-24-final-eap-email-draft.md"): 1,
+    (11, "docs/planning/2026-08-24-final-eap-email-draft.md"): 1,
 }
+
 
 
 
@@ -138,6 +144,7 @@ def computed() -> dict:
             "now": mw(N),
             "floor": mw(N) - mw(N[gp:so]) - mw(N[so:ev]),
             "bold": c["bold"], "italic": c["italic"],
+            "emphasis_total": c["bold"] + c["italic"],
             "assertions": int(m.group(2)) if m else -1}
 
 
