@@ -30,12 +30,29 @@
 | 4 | **Fresh compose, new subject, no reply-linkage** | Plan § 1: the standalone closing statement, readable cold in minutes | replying on the old thread instead |
 | 5 | The thesis is **refined, not replaced**: the wall is human review *because the defects are shaped to survive review* | The month of auditing earned the sharper version; the original is still true and still his | keeping the July wording |
 | 6 | Part 1 is a **beat table placed BEFORE `COPY FROM HERE`**, and the drafted prose is **deleted, not retained** | Rounds 2 and 3 both rejected weaker versions: a scaffold inside the markers gets pasted whatever the header calls it, and prose outside them still supplies his voice when he is invited to lift phrases | writing his half himself, which is the expected outcome |
-| 7 | **The one-page bound wins — findings 1–3 and asks 1–5 only** | Two of his own instructions collided (§ 2 item 6: the cap, versus *"add genuinely new points"*). Surfaced rather than resolved, and **he chose the literal cap on 2026-08-25**: findings 4–5 out, asks 6–14 out, optional finding 6 out. **2,151 → 1,513 words.** | saying which of the two month-after findings goes back |
+| 7 | **The one-page bound wins — findings 1–3 and asks 1–5 only** | Two of his own instructions collided (§ 2 item 6: the cap, versus *"add genuinely new points"*). Surfaced rather than resolved, and **he chose the literal cap on 2026-08-25**: findings 4–5 out, asks 6–14 out, optional finding 6 out. **2,097 → 1,477 words.** | saying which of the two month-after findings goes back |
 
 **Logistics.** Fresh Gmail compose — *not* a reply. To the EAP alias, cc the
 three people already on the prior thread (their addresses are in that thread;
 deliberately not copied into this public repo). No attachments: every number
 below has a public link behind it.
+
+**⚠ The COPY block is markdown; the mail is not — do not paste the block
+itself.** Part 2 carries some ninety `**bold**` spans and hard wraps at ~76
+columns. Pasted straight into a Gmail compose, that is what the recipient reads:
+literal asterisks through the whole argument, and wrapping that re-breaks
+raggedly at whatever width their client uses. Run one of these instead and paste
+its output — same source, no second copy to drift:
+
+| command | gives you |
+|---|---|
+| `python3 tools/render_eap_mail.py` | **plain text — use this for a normal compose.** Emphasis marks gone, paragraphs unwrapped so the mail client reflows them |
+| `python3 tools/render_eap_mail.py --html` | rich paste that keeps the bold and the links |
+| `python3 tools/render_eap_mail.py --count` | the word count, computed from the source rather than quoted from a sentence about it |
+
+*(There is deliberately no rendered copy of the mail committed anywhere. A second
+copy would drift from this one — which is precisely the defect finding 2
+reports.)*
 
 **Subject — pick one:**
 - *Claude Code Projects EAP — the final review, one month on*
@@ -252,7 +269,7 @@ Everything above is public:
 ### ✅ Answered by the owner, 2026-08-25 — recorded, not interpreted
 
 Each was put to him as a menu before any edit was made, and he picked.
-**What his three answers did to the mail: 2,151 → 1,513 words.**
+**What his three answers did to the mail: 2,097 → 1,477 words.**
 
 | item | the call | his answer |
 |---|---|---|
@@ -266,7 +283,7 @@ each is one line to overturn.
 
 - **a · The venue asymmetry is gone.** The 2,115 branches / ~50 PRs / ~1,900
   routines figures — which item 4 below calls *the strongest single argument in
-  the estate* — lived in asks 8 and 9. → *"put ask 8 back"* (55 words)
+  the estate* — lived in asks 8 and 9. → *"put ask 8 back"* (54 words)
 - **b · The prior-mail pointer left with asks 6–7.** Those two were Part 2's only
   reference back to what the four earlier mails argued, which **§ 1 decision 2
   requires the mail to carry**. Rather than leave the July link orphaned at the
@@ -276,7 +293,7 @@ each is one line to overturn.
   → *"drop the link"*, or *"give it a sentence in the body"*
 - **c · The month-after spine is three findings, not five** — and the month-after
   is **§ 1 decision 1's entire rationale** for sending this at all. → *"put
-  finding 4 back"* (drift, 96 words) or *"finding 5 back"* (cost, 201 words)
+  finding 4 back"* (drift, 92 words) or *"finding 5 back"* (cost, 193 words)
 - **e · One addition, eight words, and it is the only content added to the
   mail.** The scale paragraph accounted for 19 + 1 of 27 repositories and left
   **seven unexplained** — an arithmetic gap a vendor would notice, and six
@@ -284,9 +301,9 @@ each is one line to overturn.
   closed"*, 7 as of 08-24), and they are **evidence for the spine rather than
   filler**: repositories created *after* the program is exactly what § 1
   decision 1 says this mail is for. → *"cut it"*
-- **d · 1,513 words is about three pages, not one.** No route reached one page.
+- **d · 1,477 words is about three pages, not one.** No route reached one page.
   The honest floor — cutting the good-parts block and the standing offer as well
-  — measured ~1,200, and those two are exactly what make the critique read as a
+  — measured 1,182, and those two are exactly what make the critique read as a
   fan's rather than a complainer's. Recorded so the cap is not mistaken for met.
 
 ---
@@ -333,20 +350,26 @@ each is one line to overturn.
    sites are corrected. The item keeps its number so that "seven pre-send calls",
    recorded in the queue, the program § 7 row and `docs/planning/README.md`,
    stays true.
-6. **The length — ANSWERED: the literal cap.** **Part 2 measured 2,151 words at
-   `9b2d83a`** before the cut, **1,504 immediately after** it, and **1,513 as
-   sent** — the eight-word repository-census fix at consequence *e* is the
-   difference. **The method is part of the
-   number and was never previously stated**, which is most of why it drifted:
-   2,151 is *rendered* (emphasis marks stripped, links flattened to their text);
-   the same block is 2,147 raw whitespace-split and 2,097 word-like tokens only.
-   Every figure in this document now uses the rendered method, so they are
-   comparable. **The drift, for the record:** the draft said **2,082**, the
-   owner-queue said **2,127**, and the file was **2,151** — three committed
-   numbers, three different values, none matching. The route prices were staler
-   than the total: the literal-cap route was quoted at ~1,227 in one place and
-   ~1,434 in another; **measured, the route itself lands at 1,504.** *(Re-count rather than quote —
-   `python3` between the COPY markers, rendered method.)*
+6. **The length — ANSWERED: the literal cap.** **Part 2 was 2,097 words at
+   `9b2d83a`, 1,469 after the cut, and 1,477 as it now stands** — the eight-word
+   census fix at consequence *e* is the difference.
+   **The number now comes from a command rather than from prose:**
+   `python3 tools/render_eap_mail.py --count`. That *is* the fix; a fourth
+   written statement of it would go stale exactly like the first three.
+   **The drift, for the record — and it ran deeper than stale copies.** Three
+   committed places carried three different values: the draft **2,082**, the
+   owner-queue **2,127**, the file **2,151**. **None of the three was right.**
+   The method was never stated, and both obvious methods are wrong — substituting
+   a space for each emphasis mark splits `**fortnight**,` into `fortnight` + `,`
+   and counts the bare comma as a word (**+8**), while deleting the marks instead
+   leaves the links block's `-` bullets standing as words (**+4**). Neither
+   punctuation nor a bullet glyph is a word. **Counting the plain text that is
+   actually pasted gives 2,097** — so the 2,151 this session first put in front
+   of him was itself inflated by ~2.5 %. **It did not change the decision:**
+   2,097 words against a one-page cap is the same call as 2,151, and he made it
+   on the direction, not the third digit. **The route prices were staler still:**
+   quoted at ~1,227 in one place and ~1,434 in another; measured, the route
+   lands at **1,469**.
    **The conflict this resolved:** the cap was written 2026-07-26, when the mail
    was conceived as a *synthesis of already-sent material*; today's brief was
    *"add a few genuinely new points… actually a new valuable source"*. Both are
@@ -365,7 +388,7 @@ each is one line to overturn.
    **What keeps it out now is evidential weight against length** — it is **n=1
    self-observation from one session**, where every other finding rests on a
    committed audit with a measured denominator. → *"include finding 6"* puts it
-   back at **198 words**, taking Part 2 to ~1,711. **Its paste location moved:**
+   back at **193 words**, taking Part 2 to ~1,670. **Its paste location moved:**
    between **finding 3** and the "one thing that did work" paragraph — findings 4
    and 5 are no longer there to sit between.
 

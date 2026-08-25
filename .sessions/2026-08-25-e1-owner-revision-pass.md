@@ -22,16 +22,27 @@ The handoff's first instruction was to re-count the COPY block, and the reason
 is visible in the result — **three committed places carried three different
 numbers, and none of them matched the file**:
 
-| where | said | measured at `9b2d83a` |
+| where | said | the mail as pasted |
 |---|--:|--:|
-| the draft, § 2 item 6 | 2,082 | **2,151** |
-| `docs/owner-queue.md` | 2,127 | **2,151** |
-| the handoff prompt | 2,151 | **2,151** ✓ |
+| the draft, § 2 item 6 | 2,082 | **2,097** |
+| `docs/owner-queue.md` | 2,127 | **2,097** |
+| the handoff prompt | 2,151 | **2,097** |
 
-**The count is method-dependent and that was never stated**, which is part of
-why it drifted: 2,151 rendered (marks stripped, links flattened) · 2,147 raw
-whitespace-split · 2,097 word-like tokens only. The doc now records the method
-alongside the number, so the next telling can be checked rather than re-guessed.
+**None of the three was right, and neither was the first re-count.** The method
+was never stated, and both obvious methods are wrong. Substituting a space for
+each emphasis mark splits `**fortnight**,` into `fortnight` + `,` and counts the
+bare comma as a word (**+8**); deleting the marks instead leaves the links
+block's `-` bullet glyphs standing as words (**+4**). This session's own opening
+measurement — **2,151**, the figure put in front of the owner with the length
+call — carried the first of those errors and was inflated by ~2.5 %. Counting
+the plain text that actually gets pasted gives **2,097**.
+
+**It did not change his decision**, which is why the correction is recorded
+rather than re-asked: 2,097 words against a one-page cap is the same call as
+2,151, and he chose on the direction. The record now carries the checkable
+number, and the number now comes from `python3 tools/render_eap_mail.py --count`
+rather than from prose that goes stale — which is the only fix that has ever
+worked here.
 
 The route prices were stale by more than the total was. The literal-cap route
 was quoted at **~1,227** in one place and **~1,434** in another; measured, it is
@@ -73,7 +84,7 @@ ingestion-history tables · ~10 MB of actual user data** — and carries no
 percentage at all. That is strictly stronger than either side of the
 contradiction and resolves nothing on his behalf.
 
-**Part 2: 2,151 words → 1,504 by the cut → 1,513 as it now stands**, the
+**Part 2: 2,097 words → 1,469 by the cut → 1,477 as it now stands**, the
 difference being the eight-word census fix at consequence 5 below.
 
 ## ⚠️ Five consequences, surfaced and not resolved
@@ -92,7 +103,7 @@ Each is one line to overturn; none was decided for him.
    month-after *is* § 1 decision 1's whole rationale for the mail.
 4. **Optional finding 6 is dropped**, per item 7's own stated conditional
    (*include on the keep-the-length route, drop on the literal-cap route*) —
-   a resolved conditional, not a new decision. It stays drafted; 198 words to
+   a resolved conditional, not a new decision. It stays drafted; 193 words to
    put back.
 5. **Eight words were added — the only content this session added to the mail.**
    The scale paragraph accounted for 19 + 1 of 27 repositories and left **seven
@@ -107,6 +118,27 @@ pack) and item 3 (his hosting bill in a vendor mail) are **both moot under the
 cap** — ask 12 and the €30 lived in the cut material. Item 4 is moot for the
 same reason. What genuinely remains is **Part 1, which no session writes**, and
 sending.
+
+## 🛠 `tools/render_eap_mail.py` — because the block is markdown and the mail is not
+
+A second send-day defect, unflagged anywhere: **Part 2 carries ~90 `**bold**`
+spans and hard wraps at 76 columns.** Pasted straight into a Gmail compose that
+is exactly what the vendor reads — literal asterisks through the whole argument,
+and wrapping that re-breaks raggedly at their client's width. Six adversarial
+rounds and four prior sessions never surfaced it, because every one of them read
+the block as markdown, which is the one context where it looks right.
+
+The fix is **not a rendered copy committed beside the source** — that is the
+append-without-retract defect finding 2 of this very mail reports, and it would
+drift within a day. It is a renderer over the single source: plain text with
+paragraphs unwrapped, `--html` for rich paste, and `--count`.
+
+**`--count` is the real payload.** The number was stale in three places and
+*wrong in all three*; the fix for that is one command, not a fourth sentence
+stating it. Per the kit's own rule — *a check whose failure mode is silence must
+be shown to fire* — it ships `--selftest` (7 assertions), and the selftest was
+**mutation-tested**: disabling the bold-strip, disabling the paragraph unwrap,
+and breaking the marker bounds each produced **exit 1, all three caught**.
 
 ## 📌 The thing the mail's own subject argues for
 
