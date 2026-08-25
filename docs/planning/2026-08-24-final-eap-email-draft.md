@@ -345,10 +345,15 @@ each is one line to overturn.
    ingestion-history tables · about 10 MB across every other table combined**,
    and no percentage anywhere. **The remainder is NOT described as user data**
    (`@codex`, fm #946 P1): the audit's next-largest row is the 8.4 MB
-   `ai_decision_audit` — itself an audit/history table — with ~2 MB of
-   everything else including server logs. Calling that "actual user data" would
-   turn a storage remainder into a measurement the audit does not support, in a
-   mail to a vendor. The phrasing was inherited from the evidence pack; it is
+   `ai_decision_audit` (21,201 rows) with ~2 MB of everything else. Calling that
+   "actual user data" would turn a storage remainder into a measurement the audit
+   does not support, in a mail to a vendor. **And nobody has established what
+   that table holds** — the audit records its size, row count and date span and
+   nothing else; no session has read its schema or sampled it. A name is not a
+   measurement, and a bot's decision-audit table could perfectly well contain
+   user-generated payloads. That is precisely why the mail now states a
+   *storage remainder* and makes no claim either way: the honest wording is the
+   one that does not depend on a fact nobody has checked. The phrasing was inherited from the evidence pack; it is
    corrected here and in [the sweep](../findings/2026-08-24-e1-source-sweep.md)
    § 4. → *"re-run the sizing before I send"* if he wants a
    current, self-consistent figure instead.
