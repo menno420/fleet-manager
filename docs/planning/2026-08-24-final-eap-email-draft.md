@@ -30,7 +30,7 @@
 | 4 | **Fresh compose, new subject, no reply-linkage** | Plan § 1: the standalone closing statement, readable cold in minutes | replying on the old thread instead |
 | 5 | The thesis is **refined, not replaced**: the wall is human review *because the defects are shaped to survive review* | The month of auditing earned the sharper version; the original is still true and still his | keeping the July wording |
 | 6 | Part 1 is a **beat table placed BEFORE `COPY FROM HERE`**, and the drafted prose is **deleted, not retained** | Rounds 2 and 3 both rejected weaker versions: a scaffold inside the markers gets pasted whatever the header calls it, and prose outside them still supplies his voice when he is invited to lift phrases | writing his half himself, which is the expected outcome |
-| 7 | **The one-page bound wins — findings 1–3 and asks 1–5 only** | Two of his own instructions collided (§ 2 item 6: the cap, versus *"add genuinely new points"*). Surfaced rather than resolved, and **he chose the literal cap on 2026-08-25**: findings 4–5 out, asks 6–14 out, optional finding 6 out. **2,097 → 1,644 words.** | saying which of the two month-after findings goes back |
+| 7 | **The one-page bound wins — findings 1–3 and asks 1–5 only** | Two of his own instructions collided (§ 2 item 6: the cap, versus *"add genuinely new points"*). Surfaced rather than resolved, and **he chose the literal cap on 2026-08-25**: findings 4–5 out, asks 6–14 out, optional finding 6 out. **2,097 → 1,640 words.** | saying which of the two month-after findings goes back |
 
 **Logistics.** Fresh Gmail compose — *not* a reply. To the EAP alias, cc the
 three people already on the prior thread (their addresses are in that thread;
@@ -51,7 +51,7 @@ re-breaks raggedly at whatever width their client uses. Run one of these instead
 | `python3 tools/render_eap_mail.py --count` | the word count, computed from the source rather than quoted from a sentence about it |
 | `python3 tools/render_eap_mail.py --eml > mail.eml` | **a real message you can open in a mail client** — plain + HTML alternatives — to *see* the rendering before sending. Headers are blank: it previews, it never sends |
 | `python3 tools/check_eap_figures.py` | checks that **this document's stated figures still match the mail** — run it after any edit to the COPY block, because the count is hard-coded in five living documents and one re-wording falsifies all of them at once |
-| `python3 tools/render_eap_mail.py --verify` | proof the paste is **complete** — asserts the rendering dropped nothing and invented nothing (1,644 → 1,644). Worth running once before you paste |
+| `python3 tools/render_eap_mail.py --verify` | proof the paste is **complete** — asserts the rendering dropped nothing and invented nothing (1,640 → 1,640). Worth running once before you paste |
 
 **What is verified, and what is not.** An earlier version of this note said no
 mail client was reachable and left it there. That was a wall, not a measurement —
@@ -158,7 +158,7 @@ findings were caught exactly that way — but that is a different and far more
 expensive read than the one anyone actually performs.
 
 **Finding 3 — in the one session we counted properly, documentation bound
-nothing, and everything that caught an error arrived at a moment.** We counted this properly. In one session — one that was
+nothing, and everything that caught an error arrived at a moment.** In one session — one that was
 itself building our verification tooling, so nothing was rushed — there were
 **16 distinct incidents**. At the time of that audit the repository carried **116 committed statements of
 the single rule those incidents violated, across 66 files**, including all three
@@ -314,7 +314,7 @@ Three answers, but **only two of them are among the seven calls** — items 2 an
 6. The third answers the separate question of what his revision pass targets,
 which is why its row is numbered `—` and why the queue says *"it and two of the
 seven pre-send calls"*. Each was put to him as a menu before any edit was made.
-**What his three answers did to the mail: 2,097 → 1,644 words.**
+**What his three answers did to the mail: 2,097 → 1,640 words.**
 
 | item | the call | his answer |
 |---|---|---|
@@ -339,9 +339,9 @@ each is one line to overturn.
 - **c · The month-after spine is three findings, not five** — and the month-after
   is **§ 1 decision 1's entire rationale** for sending this at all. → *"put
   finding 4 back"* (drift, 92 words) or *"finding 5 back"* (cost, 193 words)
-- **d · 1,644 words is about three pages, not one.** No route reached one page.
+- **d · 1,640 words is about three pages, not one.** No route reached one page.
   The honest floor — cutting the good-parts block and the standing offer as well
-  — measured 1,349, and those two are exactly what make the critique read as a
+  — measured 1,345, and those two are exactly what make the critique read as a
   fan's rather than a complainer's. Recorded so the cap is not mistaken for met.
 - **e · One addition, eight words, and it is the only content added to the
   mail.** The scale paragraph accounted for 19 + 1 of 27 repositories and left
@@ -408,7 +408,7 @@ each is one line to overturn.
    recorded in the queue, the program § 7 row and `docs/planning/README.md`,
    stays true.
 6. **The length — ANSWERED: the literal cap.** **Part 2 was 2,097 words at
-   `9b2d83a`, 1,636 after the cut, and 1,644 as it now stands** — the eight-word
+   `9b2d83a`, 1,632 after the cut, and 1,640 as it now stands** — the eight-word
    census fix at consequence *e* is the difference.
    **The number now comes from a command rather than from prose:**
    `python3 tools/render_eap_mail.py --count`. That *is* the fix; a fourth
@@ -426,12 +426,23 @@ each is one line to overturn.
    2,097 words against a one-page cap is the same call as 2,151, and he made it
    on the direction, not the third digit. **The route prices were staler still:**
    quoted at ~1,227 in one place and ~1,434 in another; measured, the route
-   lands at **1,636**.
+   lands at **1,632**.
+   **⚠ ONE OF THOSE CORRECTIONS MAY HAVE BEEN A DEMOTION HE DOES NOT WANT.**
+   Finding 3's header read *"written rules do not bind agents; only rules that
+   arrive at the moment of action do"* — an architectural claim about passive
+   context versus injected prompts. It is now scoped to the one session that was
+   counted, because the source refuses the absolute version. **But a session
+   cannot know whether the flat statement was sloppiness or a deliberate thesis
+   he wanted stated flatly** — it is his estate's central argument, and the
+   design conclusion still stands in the body (*"a rule binds only if it arrives
+   at the moment it applies"*) and in ask 1. → *"put the thesis back in the
+   header"* restores it; the measured limits stay either way.
+
    **⚠ AND THE CORRECTIONS OVERRAN IT — his call, surfaced not resolved**
    (`@codex`, fm #946 round 4). A prose review of the COPY block itself, requested
    *because* rounds 1–3 had reviewed diffs and the mail had not changed since
    round 1, returned **seven findings in the outbound text: four P1, three P2.**
-   Fixing them cost **+163 words — 1,481 → 1,644** — because every one was an
+   Fixing them cost **+163 words — 1,481 → 1,640** — because every one was an
    overclaim, and the honest version of an overclaim is longer than the overclaim.
    That is **11 % past the length he approved**, and it is not a session's call to
    accept on his behalf. → *"take the words"* · or *"cut something to pay for

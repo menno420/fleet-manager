@@ -46,7 +46,7 @@ worked here.
 
 The route prices were stale by more than the total was. The literal-cap route
 was quoted at **~1,227** in one place and **~1,434** in another; measured, the
-route lands at **1,636**. *(This session's own first answer here — "~1,478–1,503"
+route lands at **1,632**. *(This session's own first answer here — "~1,478–1,503"
 — was computed with the same defective methods described above, and is corrected
 for the same reason.)*
 
@@ -86,7 +86,7 @@ ingestion-history tables · ~10 MB across every other table combined** — and c
 percentage at all. That is strictly stronger than either side of the
 contradiction and resolves nothing on his behalf.
 
-**Part 2: 2,097 words → 1,636 by the cut → 1,644 as it now stands**, the
+**Part 2: 2,097 words → 1,632 by the cut → 1,640 as it now stands**, the
 difference being the eight-word census fix at consequence 5 below.
 
 ## ⚠️ Five consequences, surfaced and not resolved
@@ -200,7 +200,7 @@ eight P2. Every one was real.
 | 9 | P2 | § 2's heading said *three of the seven calls answered*; only **two** are numbered calls, the third answers the separate revision-scope question | `[conceded]` — heading and lead corrected |
 
 **Finding 6 proved itself within the hour.** Fixing the P1 added four words to
-ask 5 — **1,477 → 1,644** — which silently falsified **nine** figures across five
+ask 5 — **1,477 → 1,640** — which silently falsified **nine** figures across five
 documents. The new checker caught all nine. That is the same defect as everything
 else this session found, committed by the session that was documenting it.
 
@@ -223,7 +223,7 @@ exactly this class**, which is the whole lesson of the round.
 |---|---|---|---|
 | 1 | P2 | `re.search` validated only the **first** occurrence — a stale duplicate in a second document passed because an earlier correct copy satisfied the pattern | `[conceded]` — `finditer`, every occurrence, every file, reported with `path:line` |
 | 2 | P2 | the docstring advertised **five** consumers and the code loaded **two**: `owner-queue.md`, `current-state.md` and the § 7 ledger could rot while it exited 0 | `[conceded]` — `CONSUMERS` is now the list, and 15 occurrences across 5 files are checked |
-| 3 | P2 | the queue said *"the mail as pasted is 2,097"* — that is the **pre-cut baseline**, contradicting its own `2,097 → 1,644` line one paragraph above | `[conceded]` |
+| 3 | P2 | the queue said *"the mail as pasted is 2,097"* — that is the **pre-cut baseline**, contradicting its own `2,097 → 1,640` line one paragraph above | `[conceded]` |
 | 4 | P3 | the ledger recorded `--selftest` as **7 assertions** and the tool's docstring still claimed a `9/10` mutation result, both stale after the count reached 13 | `[conceded]` — **and the rewritten checker found a second site Codex had not flagged**, in this card |
 | 5 | P2 | this card still asserted **~90 bold spans**, unretracted, directly above the table conceding it was wrong | `[conceded]` — retracted in place |
 
@@ -372,7 +372,7 @@ of the block *as prose* returned **four P1 and three P2**.
 | P2 | *"worth more than a longer checklist"* — no checklist control exists; and after *"it was not one of yours"* it reads as a complaint | header softened, comparative dropped, replaced with the measured result and an explicit *"we have no controlled comparison"* |
 
 **Every one was an overclaim, and the honest version of an overclaim is longer:
-+163 words, 1,481 → 1,644.** That is 11 % past the cap he chose, surfaced in § 2
++163 words, 1,481 → 1,640.** That is 11 % past the cap he chose, surfaced in § 2
 item 6 as his call rather than absorbed.
 
 **The lesson is about how the earlier rounds were read, not about the mail.**
