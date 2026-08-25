@@ -339,10 +339,18 @@ each is one line to overturn.
 - **c · The month-after spine is three findings, not five** — and the month-after
   is **§ 1 decision 1's entire rationale** for sending this at all. → *"put
   finding 4 back"* (drift, 92 words) or *"finding 5 back"* (cost, 193 words)
-- **d · 1,640 words is about three pages, not one.** No route reached one page.
-  The honest floor — cutting the good-parts block and the standing offer as well
-  — measured 1,345, and those two are exactly what make the critique read as a
-  fan's rather than a complainer's. Recorded so the cap is not mistaken for met.
+- **d · 1,640 words is about three pages, and one page IS reachable — by
+  restructure, not by subtraction.** *(Corrected 2026-08-25: this entry said "no
+  route reached one page", which was only ever true of **cutting things**. Nobody
+  had tried changing the shape.)* Subtractive floor: cutting the good-parts block
+  and the standing offer too lands at **1,345**, still ~2.7 pages, and those two
+  are what make the critique read as a fan's rather than a complainer's.
+  **But an executive-summary route measures ~449 words — 0.9 pages** (each block
+  reduced to its lead claim; all three findings, all five asks, the good-parts
+  block, the standing offer and every link retained). What it loses is the
+  forensic detail behind each claim — **which is already public at the four links
+  the mail carries.** → *"do the one-pager"* is a real option, not a
+  compromise between two impossible ones.
 - **e · One addition, eight words, and it is the only content added to the
   mail.** The scale paragraph accounted for 19 + 1 of 27 repositories and left
   **seven unexplained** — an arithmetic gap a vendor would notice, and six
@@ -431,7 +439,11 @@ each is one line to overturn.
    Finding 3's header read *"written rules do not bind agents; only rules that
    arrive at the moment of action do"* — an architectural claim about passive
    context versus injected prompts. It is now scoped to the one session that was
-   counted, because the source refuses the absolute version. **But a session
+   counted, because **the cited audit cannot establish the absolute version from
+   what it measured** — its own words are *"prevented errors are invisible… the
+   116 statements may do work this table cannot see."* That is a limit on the
+   measurement, **not a refutation**: the architectural claim may well be true,
+   and this evidence simply does not reach it. **But a session
    cannot know whether the flat statement was sloppiness or a deliberate thesis
    he wanted stated flatly** — it is his estate's central argument, and the
    design conclusion still stands in the body (*"a rule binds only if it arrives

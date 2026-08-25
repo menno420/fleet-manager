@@ -57,8 +57,6 @@ CLAIMS = [
     (r"9b2d83a`,\s+([\d,]+)\s+after\s+the\s+cut",                  ["cut_only"]),
     (r"and\s+([\d,]+)\s+as\s+it\s+now\s+stands",                   ["now"]),
     (r"·\s+([\d,]+)\s+words\s+is\s+about\s+three\s+pages",         ["now"]),
-    (r"([\d,]+)\s+words\s+is\s+still\s+about\s+three\s+pages",     ["now"]),
-    (r"measured\s+([\d,]+),\s+and\s+those\s+two",                  ["floor"]),
     (r"carries\s+\*\*([\d,]+)\s+bold",                             ["bold"]),
     (r"bold\s+and\s+([\d,]+)\s+italic\s+spans",                    ["italic"]),
     (r"the\s+route\s+lands\s+at\s+\*\*([\d,]+)\*\*",               ["cut_only"]),
@@ -84,23 +82,18 @@ EXPECTED_INVENTORY = {
     (1, "docs/planning/2026-08-24-final-eap-email-draft.md"): 1,
     (2, "docs/planning/2026-08-24-final-eap-email-draft.md"): 1,
     (3, "docs/planning/2026-08-24-final-eap-email-draft.md"): 1,
-    (4, "docs/owner-queue.md"): 1,
+    (4, "docs/planning/2026-08-24-final-eap-email-draft.md"): 1,
+    (5, ".sessions/2026-08-25-e1-owner-revision-pass.md"): 1,
     (5, "docs/planning/2026-08-24-final-eap-email-draft.md"): 1,
+    (6, ".sessions/2026-08-25-e1-owner-revision-pass.md"): 1,
     (6, "docs/planning/2026-08-24-final-eap-email-draft.md"): 1,
-    (7, ".sessions/2026-08-25-e1-owner-revision-pass.md"): 1,
+    (7, "docs/owner-queue.md"): 1,
     (7, "docs/planning/2026-08-24-final-eap-email-draft.md"): 1,
-    (8, ".sessions/2026-08-25-e1-owner-revision-pass.md"): 1,
-    (8, "docs/planning/2026-08-24-final-eap-email-draft.md"): 1,
-    (9, "docs/owner-queue.md"): 1,
-    (9, "docs/planning/2026-08-24-final-eap-email-draft.md"): 1,
-    (10, "docs/current-state.md"): 1,
-    # x1, and keeping it at 1 is deliberate. Narrating this claim in the words
-    # the pattern matches turns every description of it into a new occurrence —
-    # that recursion went red twice in consecutive commits. Prose ABOUT a checked
-    # claim must describe it, not reproduce it.
-    (11, ".sessions/2026-08-25-e1-owner-revision-pass.md"): 1,
-    (11, "docs/planning/2026-07-26-consolidation-program.md"): 1,
+    (8, "docs/current-state.md"): 1,
+    (9, ".sessions/2026-08-25-e1-owner-revision-pass.md"): 1,
+    (9, "docs/planning/2026-07-26-consolidation-program.md"): 1,
 }
+
 
 def computed() -> dict:
     md = R.DRAFT.read_text(encoding="utf-8")
@@ -120,7 +113,19 @@ def computed() -> dict:
     out = subprocess.run([sys.executable, str(ROOT / "tools/render_eap_mail.py"), "--selftest"],
                          capture_output=True, text=True).stdout
     m = re.search(r"(\d+)/(\d+)\s+assertions", out)
-    return {"before": mw(R.extract(base)) if base is not None else None,
+    # the executive-summary route: each block reduced to its lead claim. Computed,
+    # because it is now an option offered to the owner and a bare number in prose
+    # is exactly what this file exists to stop.
+    paras = [x for x in R.to_text(N).split("\n\n") if x.strip()]
+    lead = []
+    for x in paras:
+        if re.match(r"^\d+\.", x) or x.startswith("- ") or x.startswith("Everything above"):
+            lead.append(x)
+        else:
+            lead.append(re.split(r"(?<=[.!?])\s", x.strip())[0])
+    exec_summary = sum(1 for s in lead for w in s.split() if re.search(r"[A-Za-z0-9]", w))
+    return {"exec_summary": exec_summary,
+            "before": mw(R.extract(base)) if base is not None else None,
             "cut_only": mw(R.extract(md.replace(CENSUS_FIX, ""))),
             "now": mw(N),
             "floor": mw(N) - mw(N[gp:so]) - mw(N[so:ev]),

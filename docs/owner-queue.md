@@ -372,8 +372,12 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   the venue asymmetry (ask 8, *"the strongest single argument in the estate"*) is
   gone; the prior-mail pointer that § 1 decision 2 requires moved onto the July
   findings link; the month-after spine is three findings rather than five;
-  **1,640 words is still about three pages, not one** — no route reached one page,
-  so the cap is narrowed, not met; and **eight words were added — the only content
+  **1,640 words is about three pages** — but **one page IS reachable**, by
+  restructure rather than subtraction: an executive-summary route measures
+  **~449 words (0.9 pages)**, keeping every finding, ask, block and link and
+  losing only the forensic detail, which is already public at the four links the
+  mail carries. *(This entry said "no route reached one page"; that was only ever
+  true of cutting things — nobody had tried changing the shape.)* and **eight words were added — the only content
   added to the outbound mail** — accounting for the seven repositories created
   after the program closed, which the scale paragraph had left unexplained
   (→ *"cut it"*). **Items 1, 3 and 4 are now moot** — ask 12, the
