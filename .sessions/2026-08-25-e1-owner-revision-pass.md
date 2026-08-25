@@ -246,6 +246,34 @@ unchanged**, because a corruption that deletes the claim proves nothing.
 
 Four distinct ways for a check to pass while being incapable of failing, all in
 one file, all found by writing the corruption down and watching it not fire.
+**Round 3 found a fifth.**
+
+## 🔎 Codex round 3 — 1 finding, **1 `[conceded]`, 0 `[survived]`**
+
+At `efa8b28`. One P2, and it is the fifth way this file has found to pass while
+unable to fail — this time in the guard added *last* round to stop the fourth.
+
+**The unchanged-occurrence-count invariant compared the poisoned copy against the
+same possibly-incomplete input, so it could not see a claim that had vanished
+before the probe began.** Because occurrences were counted **globally**, rewording
+the card's `` `--selftest` (13 assertions) `` left the program ledger's copy
+satisfying the pattern: total unchanged, no MISMATCH, exit 0 — on a document
+whose claim was now unguarded.
+
+**Fixed by pinning the inventory per pattern AND per file** (`EXPECTED_INVENTORY`,
+16 locations), and checking the shape *before* the values: if a claim is gone, no
+amount of value-checking on what remains can tell you. **Verified against the
+exact scenario Codex described** — rewording that one line now yields
+`CLAIM VANISHED: claim[11] in .sessions/2026-08-25-e1-owner-revision-pass.md —
+expected 1, found 0`, exit 1; restoring it returns exit 0.
+
+One cosmetic defect fixed alongside: folding inventory drift into the value-problem
+count made the liveness probe print *"did not fire"* on any run that was already
+failing for a different reason. The verdict is now computed from value problems
+only, so it stays honest while the run fails.
+
+**The count is now five, and every one was found the same way:** by writing down
+what corruption *should* trigger the check and watching it not trigger.
 
 ## 🧪 "No mail client is reachable" was a wall, and it took one probe to fall
 

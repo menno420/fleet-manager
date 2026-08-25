@@ -68,6 +68,36 @@ CLAIMS = [
 ]
 
 
+# WHERE EACH CLAIM IS EXPECTED TO LIVE — pinned per pattern AND per file.
+# WHY IT IS PINNED. Counting occurrences GLOBALLY cannot see a claim that
+# disappears: reword the card's "(13 assertions)" and the program ledger's copy
+# still satisfies the pattern, so the total is unchanged, no MISMATCH fires, and
+# the run exits 0 on a document whose claim is now unguarded (`@codex`, fm #946
+# round 3 — the fifth distinct way this file has found to pass while being
+# incapable of failing). A per-file inventory makes the disappearance itself the
+# error.
+#
+# When a claim legitimately moves or a document is added, this must be updated in
+# the same commit — that is the point, not friction around it.
+EXPECTED_INVENTORY = {
+    (0, "docs/planning/2026-08-24-final-eap-email-draft.md"): 1,
+    (1, "docs/planning/2026-08-24-final-eap-email-draft.md"): 1,
+    (2, "docs/planning/2026-08-24-final-eap-email-draft.md"): 1,
+    (3, "docs/planning/2026-08-24-final-eap-email-draft.md"): 1,
+    (4, "docs/owner-queue.md"): 1,
+    (5, "docs/planning/2026-08-24-final-eap-email-draft.md"): 1,
+    (6, "docs/planning/2026-08-24-final-eap-email-draft.md"): 1,
+    (7, ".sessions/2026-08-25-e1-owner-revision-pass.md"): 1,
+    (7, "docs/planning/2026-08-24-final-eap-email-draft.md"): 1,
+    (8, ".sessions/2026-08-25-e1-owner-revision-pass.md"): 1,
+    (8, "docs/planning/2026-08-24-final-eap-email-draft.md"): 1,
+    (9, "docs/owner-queue.md"): 1,
+    (9, "docs/planning/2026-08-24-final-eap-email-draft.md"): 1,
+    (10, "docs/current-state.md"): 1,
+    (11, ".sessions/2026-08-25-e1-owner-revision-pass.md"): 1,
+    (11, "docs/planning/2026-07-26-consolidation-program.md"): 1,
+}
+
 def computed() -> dict:
     md = R.DRAFT.read_text(encoding="utf-8")
     mw = lambda ls: sum(1 for w in R.to_text(ls).split() if re.search(r"[A-Za-z0-9]", w))
@@ -116,6 +146,29 @@ def main() -> int:
     want = computed()
     print("computed from the mail:", want)
     docs = {p: (ROOT / p).read_text(encoding="utf-8") for p in CONSUMERS}
+
+    # INVENTORY FIRST. If a claim has vanished, no amount of value-checking on
+    # what remains can tell you — so establish the shape before trusting the values.
+    actual = {}
+    for pi, (pat, _keys) in enumerate(CLAIMS):
+        for path, text in docs.items():
+            n = len(re.findall(pat, text))
+            if n:
+                actual[(pi, path)] = n
+    drift = []
+    for key, n in EXPECTED_INVENTORY.items():
+        got = actual.get(key, 0)
+        if got != n:
+            drift.append(f"CLAIM {'VANISHED' if got == 0 else 'COUNT CHANGED'}: "
+                         f"claim[{key[0]}] in {key[1]} — expected {n}, found {got}")
+    for key, n in actual.items():
+        if key not in EXPECTED_INVENTORY:
+            drift.append(f"UNPINNED OCCURRENCE: claim[{key[0]}] in {key[1]} x{n} "
+                         f"— add it to EXPECTED_INVENTORY")
+    print(f"  [inventory] {len(actual)} pinned location(s); drift: {len(drift)}")
+    for d in drift:
+        print("      ", d)
+
     real, seen_before = check(docs, want, "all consumers", ret_hits=True)
     # Corrupt the LAST occurrence of a claim in the LAST file, so a
     # first-match-only regression is caught too. Done by REGEX, never by a
@@ -140,6 +193,9 @@ def main() -> int:
         print("  !! no claim found to corrupt — liveness cannot be established !!")
         return 1
     print(f"  (liveness probe corrupts the last claim in {target})")
+    # Liveness compares VALUE problems only. Folding inventory drift into `real`
+    # made the probe report "did not fire" whenever drift existed, which is
+    # misleading output on a run that is already failing for a different reason.
     fired, seen_after = check(poisoned, want, "corrupted copy", ret_hits=True)
     live = fired > real and seen_after == seen_before
     if seen_after != seen_before:
@@ -148,7 +204,7 @@ def main() -> int:
               f"mismatching, so this probe proves nothing !!")
     print("\nliveness:", "check FIRED on corruption" if live
           else "!! CHECK DID NOT FIRE — its result means nothing !!")
-    return 0 if (real == 0 and live) else 1
+    return 0 if (real == 0 and not drift and live) else 1
 
 
 if __name__ == "__main__":
