@@ -21,6 +21,14 @@ looking like it worked — they are why it is written the way it is:
      could go stale while this exited 0. NOW: CONSUMERS is the list, and a
      document is only protected if it is in it.
 
+WHAT IT DOES NOT DO, stated because the alternative is a false sense of cover.
+It guards the figures named in CLAIMS — 17 pinned locations. A scan of the five
+consumer documents finds roughly 100 occurrences of a live figure, so **most
+occurrences are not guarded**. Many of those are correctly unguarded (historical
+values inside retractions, descriptive prose, figures that belong to other
+findings) — but not all, and this file is not a coverage guarantee. Adding a
+figure to prose does not make it checked; adding it to CLAIMS does.
+
 Two failure modes, both reported, because a check that cannot fail is worse than
 no check:
   * MISMATCH               - prose states a number the mail does not have.
