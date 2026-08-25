@@ -361,9 +361,11 @@ each is one line to overturn.
   both closing blocks and every link: **471 words at one sentence per block
   (0.9 pages), 667 at two (1.3), 853 at three (1.7).**
   **⚠ THE 471 IS A FLOOR, NOT A DRAFT — and it is not a sendable mail.** Checked
-  by printing it: at one sentence per block *"The scale, as of 24 August 2026."*
-  keeps **no numbers at all**, and each finding keeps its headline with **none of
-  its evidence**. A readable one-pager has to be *written*, not extracted, and
+  by printing it, twice, on the current text: at one sentence per block *"The
+  scale, as of 24 August 2026."* survives with **its date and none of its six
+  census figures**, and each finding survives as its headline claim with **none
+  of the count that supports it**. (Not *"no numbers"* — the date and the finding
+  ordinals remain; it is the evidence that goes.) A readable one-pager has to be *written*, not extracted, and
   lands nearer the **667** mark. What it trades away is the forensic detail —
   **already public at the four links the mail carries.** → *"draft the one-pager"*
   is a real option; it is a rewrite, not a trim, and no session has drafted it.
@@ -464,8 +466,13 @@ each is one line to overturn.
    only number that finally matters. **The instruments make it countable:** hook
    firings, gate reds, and owner corrections per session are all in logs now."*
    So there is a **third option** neither of the other two offers: run that
-   count. It would turn the thesis from a design conclusion into a measured one,
-   and the data already exists. **But a session
+   count. It would turn the thesis from a design conclusion into a measured one.
+   **Two of the three inputs are verified structured and queryable today**
+   (2026-08-25): `.substrate/guard-fires.jsonl` holds **26,835 timestamped
+   records across 31 emitters**, keyed on `guard`/`outcome`/`verdict`/`surface`,
+   and gate reds are check-run state on the API. **The third — owner corrections
+   per session — is NOT verified structured**; it lives in session-card prose,
+   and counting it is the part of that study that would need building. **But a session
    cannot know whether the flat statement was sloppiness or a deliberate thesis
    he wanted stated flatly** — it is his estate's central argument, and the
    design conclusion still stands in the body (*"a rule binds only if it arrives
