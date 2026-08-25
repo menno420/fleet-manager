@@ -63,6 +63,11 @@ CLAIMS = [
     (r"\*\*([\d,]+)\s+→\s+([\d,]+)\s+words",                       ["before", "now"]),
     (r"Part\s+2\s+is\s+\*\*([\d,]+)\s+words\*\*",                  ["now"]),
     (r"`--selftest`\s+\((\d+)\s+assertions\)",                     ["assertions"]),
+    # the executive-summary floor: an option offered to the owner, so it is a
+    # figure that can go stale. It did — computed 471 while the prose said 449,
+    # because the pattern meant to guard it was added by a replace that silently
+    # no-opped. Guarded now, with the edit asserted.
+    (r"\*\*([\d,]+)\s+words\s+at\s+one\s+sentence\s+per",         ["exec_summary"]),
 ]
 
 
@@ -92,7 +97,10 @@ EXPECTED_INVENTORY = {
     (8, "docs/current-state.md"): 1,
     (9, ".sessions/2026-08-25-e1-owner-revision-pass.md"): 1,
     (9, "docs/planning/2026-07-26-consolidation-program.md"): 1,
+    (10, "docs/owner-queue.md"): 1,
+    (10, "docs/planning/2026-08-24-final-eap-email-draft.md"): 1,
 }
+
 
 
 def computed() -> dict:

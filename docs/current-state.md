@@ -52,7 +52,7 @@ copy product architecture or internal product state. Canonical intent:
   — *"a revision pass and my own section added/edited"* — **was put to him rather
   than interpreted**: two operations, and the pass covers the whole document. He
   then chose **the literal one-page cap** (findings 1–3 and asks 1–5 only) and
-  **cut the contested 97.5 % ratio**. Part 2 is **1,640 words**, from
+  **cut the contested 97.5 % ratio**. Part 2 is **1,659 words**, from
   `python3 tools/render_eap_mail.py --count` rather than from prose — the figure
   had been wrong in all three places it was written. **A session still does not
   draft Part 1 or send it.**
