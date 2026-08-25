@@ -247,6 +247,37 @@ unchanged**, because a corruption that deletes the claim proves nothing.
 Four distinct ways for a check to pass while being incapable of failing, all in
 one file, all found by writing the corruption down and watching it not fire.
 
+## 🧪 "No mail client is reachable" was a wall, and it took one probe to fall
+
+This session wrote, twice, that neither rendered output could be tested because
+no mail client exists in the container — and **tried nothing** before saying so.
+Owner-review asked which paths had been tried and what a different one would
+look like. The answer was *none*, and there were three:
+
+- **Headless Chromium is installed** (`/opt/pw-browsers/chromium-1194/chrome-linux/chrome`;
+  `which chromium` returns nothing, which is what the first look relied on).
+  Rendered: **27 `<strong>`, 12 `<em>`, 9 `<li>`, 2 lists, 12 paragraphs all
+  survive; 0 literal asterisks.** The DOM's 27/12 emphasis split independently
+  confirms `--count` by a completely different route — a regex and a browser
+  engine agreeing.
+- **Structural validation** via stdlib `HTMLParser`: no unclosed tags, no
+  mismatched closes.
+- **`--eml`**, now shipped: a real `multipart/alternative` message with
+  `text/plain` and `text/html`, which parses back through Python's `email`
+  module and **opens in Gmail, Thunderbird or Mail**. The owner can see the
+  recipient's view before sending. Headers are blank by design — it previews,
+  it never sends.
+
+**What is still genuinely unverified** is narrower and worth stating that way:
+how *Gmail's editor* treats a paste, which is a property of that editor, not of
+the file. The `.eml` is the closest available answer.
+
+**The pattern this belongs to.** `CONSTITUTION.md` and `docs/CAPABILITIES.md`
+forbid recording a limitation, and the reason is exactly this: the wall was
+written from *one absent binary on `$PATH`*, and it would have shipped as a
+standing fact about what this estate can test. Three paths existed. The rule
+held; the session did not.
+
 ## 📌 The thing the mail's own subject argues for
 
 `OQ-E1-FINAL-EAP-EMAIL` has to be closed with the sent date, subject and

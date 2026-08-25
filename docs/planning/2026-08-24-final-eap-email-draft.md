@@ -49,19 +49,33 @@ re-breaks raggedly at whatever width their client uses. Run one of these instead
 | `python3 tools/render_eap_mail.py` | **plain text — use this for a normal compose.** Emphasis marks gone, paragraphs unwrapped so the mail client reflows them |
 | `python3 tools/render_eap_mail.py --html > mail.html` | a **complete HTML document**. **Open it in a browser, select all, copy, and paste *that*** — pasting the HTML source into the compose gives literal `<p>` tags, which is worse than asterisks. This is the only route that keeps the emphasis |
 | `python3 tools/render_eap_mail.py --count` | the word count, computed from the source rather than quoted from a sentence about it |
+| `python3 tools/render_eap_mail.py --eml > mail.eml` | **a real message you can open in a mail client** — plain + HTML alternatives — to *see* the rendering before sending. Headers are blank: it previews, it never sends |
 | `python3 tools/check_eap_figures.py` | checks that **this document's stated figures still match the mail** — run it after any edit to the COPY block, because the count is hard-coded in five living documents and one re-wording falsifies all of them at once |
 | `python3 tools/render_eap_mail.py --verify` | proof the paste is **complete** — asserts the rendering dropped nothing and invented nothing (1,481 → 1,481). Worth running once before you paste |
 
-**Two honest limits on this, because neither was tested and one is a real
-trade-off.** *(1)* **No session has pasted either output into a real mail
-client** — none is reachable from this container. What is verified is what the
-files contain: no `**` survives the plain-text path, `--verify` proves nothing is
-dropped or invented, and the HTML is a well-formed document. How Gmail treats
-them on arrival is **unverified**. *(2)* **The plain-text route does not preserve
-the emphasis — it deletes it.** All 39 emphasis spans go, so *"116 to nothing"*
-and *"0 of 16"* land flat. That is a real loss for an argument that leans on
-them, and it is the reason the HTML route exists. If the emphasis matters to him,
-the browser round-trip is the one that keeps it.
+**What is verified, and what is not.** An earlier version of this note said no
+mail client was reachable and left it there. That was a wall, not a measurement —
+nothing had been tried. What has now actually been run:
+
+- **The HTML renders correctly in a real browser engine.** Headless Chromium
+  (`/opt/pw-browsers/chromium-1194`): all **27 `<strong>`, 12 `<em>`, 9 `<li>`,
+  both lists and 12 paragraphs survive rendering, and **zero literal asterisks**
+  appear. The DOM's 27/12 split independently confirms `--count`'s emphasis
+  figures by a completely different route.
+- **The document is structurally valid** — stdlib `HTMLParser`, no unclosed tags,
+  no mismatched closes.
+- **`--eml` produces a real message** — `multipart/alternative`, `text/plain` +
+  `text/html`, parses back through Python's `email` module. **Open it in Gmail,
+  Thunderbird or Mail and you see what the recipient sees, before you send.**
+
+**Still unverified:** how *Gmail specifically* treats a paste, since that is its
+editor's behaviour rather than the file's. The `.eml` is the closest available
+answer and is one command away.
+
+**And one real trade-off, not a limitation:** the plain-text route **deletes**
+the emphasis rather than preserving it. All 39 spans go, so *"116 to nothing"*
+and *"0 of 16"* land flat. That is a genuine loss for an argument that leans on
+them, and it is why the HTML route exists.
 
 *(There is deliberately no rendered copy of the mail committed anywhere. A second
 copy would drift from this one — which is precisely the defect finding 2

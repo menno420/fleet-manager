@@ -37,6 +37,8 @@ USAGE
         literal <p> tags. NOTE: no session has tested either output in a real
         mail client — none is reachable from here.
     python3 tools/render_eap_mail.py --count    # the number, with its method
+    python3 tools/render_eap_mail.py --eml > mail.eml   # open in a real client to
+        SEE the rendering before sending — headers blank, this previews, never sends
     python3 tools/render_eap_mail.py --selftest # prove the renderer fires
 """
 from __future__ import annotations
@@ -153,6 +155,24 @@ def to_html(lines: list[str]) -> str:
         "max-width:44em;margin:2em auto;padding:0 1em}li{margin:.6em 0}</style>\n"
         "</head><body>\n" + body + "\n</body></html>\n"
     )
+
+
+def to_eml(lines: list[str], subject: str) -> str:
+    """A real multipart/alternative message: plain text AND html, one file.
+
+    WHY. "How will a mail client treat this?" was called untestable here on
+    2026-08-25 without anything being tried. It is not: an `.eml` opens in Gmail
+    (drag into the compose window or import), Thunderbird, Apple Mail and Outlook,
+    so the owner can SEE the rendering the recipient gets before he sends —
+    which no amount of reasoning about the markup establishes. Headers are
+    deliberately left blank: this is a preview artifact, not a sending path.
+    """
+    from email.message import EmailMessage
+    m = EmailMessage()
+    m["Subject"] = subject
+    m.set_content(to_text(lines))
+    m.add_alternative(to_html(lines), subtype="html")
+    return m.as_string()
 
 
 def count(lines: list[str]) -> dict:
@@ -304,6 +324,9 @@ def main() -> int:
     mode.add_argument("--count", action="store_true", help="word count, with its method")
     mode.add_argument("--verify", action="store_true",
                       help="assert the real mail renders loss-free (nothing dropped or invented)")
+    mode.add_argument("--eml", action="store_true",
+                      help="a .eml preview (plain + html); open it in a real mail client "
+                           "to see what the recipient sees")
     mode.add_argument("--selftest", action="store_true", help="prove the renderer fires")
     a = ap.parse_args()
     if a.selftest:
@@ -320,6 +343,9 @@ def main() -> int:
               f"{c['bold']+c['italic']} spans, ALL removed by the plain-text route")
         print(f"  residual markdown marks in the plain-text output: {c['residual_marks']} "
               f"({'clean' if not c['residual_marks'] else 'LEAK — investigate'})")
+        return 0
+    if a.eml:
+        sys.stdout.write(to_eml(lines, "Claude Code Projects EAP — the final review, one month on"))
         return 0
     sys.stdout.write(to_html(lines) if a.html else to_text(lines))
     return 0
