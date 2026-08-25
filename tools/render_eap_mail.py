@@ -219,6 +219,18 @@ def verify(lines: list[str]) -> int:
     The selftest proves the renderer works on a FIXTURE. This proves it on the
     actual mail, which is the thing that gets pasted: a silently swallowed
     paragraph would send the vendor a truncated argument and nothing would say so.
+
+    ITS LANE, stated because the two checks are complementary and neither is
+    complete alone (measured 2026-08-25 by mutating this file in place):
+      * `--verify` is a CONTENT check. Dropping a paragraph and inventing a word
+        are both caught. A formatting-only regression is NOT caught and should
+        not be — the words are all still there.
+      * `--selftest` is a MECHANISM check and covers formatting: routing the
+        links block through the paragraph branch leaves the word count identical,
+        so `--verify` passes it at exit 0 while `--selftest` fails it 9/10.
+    Run both. (The mutation harness needs the mutant to live in `tools/` — a copy
+    under /tmp dies on FileNotFoundError resolving DRAFT, which exits 1 and reads
+    as a catch when nothing was caught. That false pass happened here first.)
     """
     words = lambda s: [w for w in re.sub(r"\s+", " ", s).split() if re.search(r"[A-Za-z0-9]", w)]
     a, b = words(strip_marks("\n".join(lines))), words(to_text(lines))
