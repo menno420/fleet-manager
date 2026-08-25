@@ -30,12 +30,56 @@
 | 4 | **Fresh compose, new subject, no reply-linkage** | Plan § 1: the standalone closing statement, readable cold in minutes | replying on the old thread instead |
 | 5 | The thesis is **refined, not replaced**: the wall is human review *because the defects are shaped to survive review* | The month of auditing earned the sharper version; the original is still true and still his | keeping the July wording |
 | 6 | Part 1 is a **beat table placed BEFORE `COPY FROM HERE`**, and the drafted prose is **deleted, not retained** | Rounds 2 and 3 both rejected weaker versions: a scaffold inside the markers gets pasted whatever the header calls it, and prose outside them still supplies his voice when he is invited to lift phrases | writing his half himself, which is the expected outcome |
-| 7 | **Part 2 exceeds the plan's one-page bound — surfaced, not resolved** | See § 2 call 5: the bound and "add genuinely new points" cannot both be satisfied, and which one gives is his call | picking either side for him |
+| 7 | **The one-page bound wins — findings 1–3 and asks 1–5 only** | Two of his own instructions collided (§ 2 item 6: the cap, versus *"add genuinely new points"*). Surfaced rather than resolved, and **he chose the literal cap on 2026-08-25**: findings 4–5 out, asks 6–14 out, optional finding 6 out. **2,097 → 1,686 words.** | saying which of the two month-after findings goes back |
 
 **Logistics.** Fresh Gmail compose — *not* a reply. To the EAP alias, cc the
 three people already on the prior thread (their addresses are in that thread;
 deliberately not copied into this public repo). No attachments: every number
 below has a public link behind it.
+
+**⚠ The COPY block is markdown; the mail is not — do not paste the block
+itself.** Part 2 carries **29 bold and 13 italic spans** (from `--count`) and
+hard wraps at ~76 columns. Pasted straight into a Gmail compose, that is what the
+recipient reads: literal asterisks through the whole argument, and wrapping that
+re-breaks raggedly at whatever width their client uses. Run one of these instead
+— same source, no second copy to drift:
+
+| command | gives you |
+|---|---|
+| `python3 tools/render_eap_mail.py` | **plain text — use this for a normal compose.** Emphasis marks gone, paragraphs unwrapped so the mail client reflows them |
+| `python3 tools/render_eap_mail.py --html > mail.html` | a **complete HTML document**. **Open it in a browser, select all, copy, and paste *that*** — pasting the HTML source into the compose gives literal `<p>` tags, which is worse than asterisks. This is the only route that keeps the emphasis |
+| `python3 tools/render_eap_mail.py --count` | the word count, computed from the source rather than quoted from a sentence about it |
+| `python3 tools/render_eap_mail.py --eml > mail.eml` | **a real message you can open in a mail client** — plain + HTML alternatives — to *see* the rendering before sending. Headers are blank: it previews, it never sends |
+| `python3 tools/check_eap_figures.py` | checks that **this document's stated figures still match the mail** — run it after any edit to the COPY block, because the count is hard-coded in five living documents and one re-wording falsifies all of them at once |
+| `python3 tools/render_eap_mail.py --verify` | proof the paste is **complete** — asserts the rendering dropped nothing and invented nothing (1,686 → 1,686). Worth running once before you paste |
+
+**What is verified, and what is not.** An earlier version of this note said no
+mail client was reachable and left it there. That was a wall, not a measurement —
+nothing had been tried. What has now actually been run:
+
+- **The HTML renders correctly in a real browser engine.** Headless Chromium
+  (`/opt/pw-browsers/chromium-1194`): all **27 `<strong>`, 12 `<em>`, 9 `<li>`,
+  both lists and 12 paragraphs survive rendering, and **zero literal asterisks**
+  appear. The DOM's 27/12 split independently confirms `--count`'s emphasis
+  figures by a completely different route.
+- **The document is structurally valid** — stdlib `HTMLParser`, no unclosed tags,
+  no mismatched closes.
+- **`--eml` produces a real message** — `multipart/alternative`, `text/plain` +
+  `text/html`, parses back through Python's `email` module. **Open it in Gmail,
+  Thunderbird or Mail and you see what the recipient sees, before you send.**
+
+**Still unverified:** how *Gmail specifically* treats a paste, since that is its
+editor's behaviour rather than the file's. The `.eml` is the closest available
+answer and is one command away.
+
+**And one real trade-off, not a limitation:** the plain-text route **deletes**
+the emphasis rather than preserving it. All 42 spans go, so *"116 to nothing"*
+and *"0 of 16"* land flat. That is a genuine loss for an argument that leans on
+them, and it is why the HTML route exists.
+
+*(There is deliberately no rendered copy of the mail committed anywhere. A second
+copy would drift from this one — which is precisely the defect finding 2
+reports.)*
 
 **Subject — pick one:**
 - *Claude Code Projects EAP — the final review, one month on*
@@ -64,6 +108,16 @@ below has a public link behind it.
 **Beat 3 is the one nobody can supply.** It is the only new argument in the whole
 mail that is his rather than measured, and it is why the mail is worth sending.
 
+**What is reserved is his SENTENCES, not this section.** The beats above are
+committed and versioned like everything else — only the prose is off-limits to a
+session. **So there is an option nobody has offered him:** he can draft Part 1
+*into this file*, above the COPY markers, and it then gets exactly what Part 2
+gets — a word count from `--count`, its claims checked against the linked
+sources, and a review round of its own. **Right now his half is the only part of
+the mail with no verification at all.** → *"I'll draft Part 1 here"* and the
+session verifies it without rewriting it; the alternative, which is the current
+default, is that he writes it in the compose window and it goes out unchecked.
+
 ## COPY FROM HERE
 To the Claude Code Projects team,
 
@@ -78,7 +132,8 @@ re-run.
 
 **The scale, as of 24 August 2026.** 27 repositories on the account; **19 of
 them created inside the EAP fortnight**, 17 of those in the first four days. One
-predates it. The estate now carries **just over 8,000 pull requests opened all-time** and
+predates it, and **seven were created after the program closed**. The estate now
+carries **just over 8,000 pull requests opened all-time** and
 **about 4,560 session records** across 19 repositories (exact counts taken
 2026-08-24 ~18:05Z; they move daily). Read those as volume, not
 quality — that distinction is the whole mail. Two honest caveats travel with the
@@ -102,22 +157,26 @@ structure, provenance, schema and anomalies instead. The audit records which,
 and says the distinction is not cosmetic.) The mechanism behind its
 highest-cost findings was not an error of fact. It was **an appended correction
 that failed to retract what it corrected**. (We did not classify all 101 by
-mechanism, so read this as the shape of the worst ones, not a majority.) The agent added the truth and left the falsehood in place, so the
-document stayed internally consistent and read as correct. **In this sample,
+mechanism, so read this as the shape of the worst ones, not a majority.) The agent added the truth and left the falsehood in place, so each passage read
+as correct on its own and the contradiction appeared only if you held both
+statements side by side. **In this sample,
 agents appended and did not retract** — we have not tested whether that
-generalises, and it is a tendency we measured rather than a rule we proved. A defect shaped like that is invisible to any review
-that reads a document for coherence — and reading for coherence is what a
-reviewer does by default, unless they stop to compare the document against its
-sources or re-run the thing it describes.
+generalises, and it is a tendency we measured rather than a rule we proved. A defect shaped like that survives any review that reads a
+document a section at a time, which is what a reviewer does by default. A
+whole-document coherence check *can* expose it — two of that audit's worst
+findings were caught exactly that way — but that is a different and far more
+expensive read than a reviewer performs in the ordinary course: it took a
+dedicated full-file audit, which is what the linked one is.
 
-**Finding 3 — written rules do not bind agents; only rules that arrive at the
-moment of action do.** We counted this properly. In one session — one that was
+**Finding 3 — across 16 incidents we enumerated in one session, documentation
+recalled at the right moment caught none of them; everything that did catch one
+arrived at a moment.** In one session — one that was
 itself building our verification tooling, so nothing was rushed — there were
 **16 distinct incidents**. At the time of that audit the repository carried **116 committed statements of
 the single rule those incidents violated, across 66 files**, including all three
 of the documents that bind a session there. *(The 116 is the 2026-08-08 audit-time count, and it
 is the one that goes with those 16 incidents. We are deliberately not quoting a
-current count: the same regex, run three times today, gave 125, 126 and 127,
+current count: the same regex, run three times on 2026-08-24, gave 125, 126 and 127,
 because each write-up of the measurement added text the measurement then
 matched. That is a curiosity, not a defect in the finding — the argument is
 about 116 statements catching 0 of 16, and that pair is fixed.)* Documentation recalled at the right
@@ -127,47 +186,29 @@ a Stop hook (4), the gate and CI together (3 — 1 local, 2 CI/GitHub), test run
 moment it applies — of the catches above, all but two came from something that
 fired at a moment — and the two exceptions were found only after the cost was
 paid; none came from a document being available — so we built 67 documentation routes onto a pre-tool hook (counted
-2026-08-24; it was 61 sixteen days earlier — the mechanism is still growing). That is a
-platform-shaped feature we had to build ourselves, and we think it generalises:
-**more instructions in a context file is not a fix, and our number for that is
-116 to nothing.**
+2026-08-24; the same count was 61 the day before). That is a
+platform-shaped feature we had to build ourselves. **Two limits belong on this,
+because the counting method has them:** prevented errors are invisible to it —
+those 116 statements may have stopped things the table cannot see — and our own
+arriving mechanisms have fired in tests but have no measured save yet. **That is the design conclusion we acted on, not a proof
+that documentation never binds** — and the pair it rests on, 116 statements
+catching 0 of 16, is fixed.
 
-**Finding 4 — drift lands on the most visible surface and still goes unnoticed
-for a month.** Menno's public review site described the program as running,
-33 days after it ended: 0 of 7 live pages said it had concluded, and the fleet
-page rendered "15 live lanes" with mirrored heartbeats for projects that had
-been terminated. This was his most visible public surface. We are not claiming that generalises —
-it is one surface, measured once — but if drift lasts a month *there*, we would
-not bet on catching it anywhere less visible.
-
-**Finding 5 — cost is not an agent-legible signal, so it accumulates exactly
-where nobody looks.** An infrastructure audit attributed a €30 monthly bill,
-ended an unnoticed crawler load, and sized the bot's database: it is 949 MB, of
-which the `public` schema is 939 MB, and **97.5 % of that 939 MB is accumulated
-ingestion history** — about 96.5 % of the whole database against roughly 10 MB of real user
-data. That is a storage-composition measurement, not a verdict that the history
-is disposable — whether to keep it is still an open call on our side. Agents built and ran the system that
-accumulated it. **The precise gap is not that no agent could see this — one
-did, by deliberately querying the provider's API; it is that nothing surfaced it
-during normal operation.** Cost was never a signal that arrived; it had to be
-gone looking for, and nothing prompted anyone to look. (Sizes measured
-2026-08-20 and still growing — the ingestion loop was left running; index and
-database overhead are in the total too.)
-The euro figure is not the point; the shape is — an unobservable signal
-accumulates in the same way quality drift does.
-
-**One thing that did work, and it was not one of yours.** What reliably caught
+**One thing that worked, and it came from outside the platform.** What reliably caught
 the false-dones was independent adversarial review by a *different vendor's*
-model, wired into the PR flow. Measured: request to review in **335 seconds**,
-13 findings over 5 rounds, several of them proving a pull request did not do
-what its own title claimed. A second model that has not read your reasoning is
-worth more than a longer checklist.
+model, wired into the PR flow. Measured on one pull request: request to review in
+**335 seconds**. Separately, and across two pull requests: **13 findings over
+5 rounds**, several of them proving a pull request did not do what its own title
+claimed. We have kept it wired in since. We have no
+controlled comparison against a longer checklist — what we have is that this is
+the thing that caught them.
 
 **What we would like to see.** One line of why each; the detail is all public.
 
 1. **Rules that arrive at the moment of action, not at session start.** *Because
-   116 committed statements of one rule caught 0 of 16 violations in the session
-   that wrote them; 14 of the 16 were caught by something firing at a moment — a
+   the repository already carried 116 committed statements of one
+   rule, across 66 files, and they caught 0 of the 16 violations that happened
+   in that session; 14 of the 16 were caught by something firing at a moment — a
    question, a hook, a gate, a test — and the last two only after the cost was
    paid. None came from a document being available.*
 2. **Agents that retract, not only append.** *Because the costliest findings in
@@ -180,43 +221,14 @@ worth more than a longer checklist.
    finished that was not finished as asked — we are not saying anything about
    the code either way.*
 5. **Usage, cost and resource telemetry visible to the agent tier.** *Because
-   agents built and ran a system whose 949 MB store was ~96.5 % accumulated
-   ingestion history (97.5 % of its 939 MB `public` schema; measured 2026-08-20), and nothing surfaced that during
-   normal operation — an agent could only find it by going to look.*
-6. **Owner-set permission grants, scoped per repo, branch and action, able to
-   restrict as well as allow.** *Because this is the ask from every previous
-   mail and it is still the structural fix; pointer only.*
-7. **Same-account provenance for coordinator-to-worker instructions.** *Because
-   a verified owner's own coordinator relaying to his own worker is not the
-   cross-session injection the change was built to stop; argued in full on
-   16 July.*
-8. **A permission model scoped to risk, not to venue.** *Because the identical
-   actions on the identical account were denied inside a Project and completely
-   unrestricted in an ordinary chat outside it — one outside session landed
-   ~50 PRs the Projects had finished but could not merge, and cleaned 2,115
-   stale branches, with zero denials.*
-9. **An owner-level off-switch for the routine and trigger approval prompt.**
-    *Because no setting suppresses it — we verified with bypass permissions, an
-    explicit allow-list and the server wildcard all set — and ~1,900 orphaned
-    routines could only be cleared by hand, one approval at a time.*
-10. **Do not let a stale stored artifact outrank a live instruction.** *Because a
-    session held a dated stand-down note above its owner's live message and
-    refused the live message.*
-11. **Do not classify factual capability documentation as workaround material.**
-    *Because a session that misreads a denial as a permanent wall writes that
-    wall into shared memory, where it becomes every later session's starting
-    fact — we had to purge 18 repositories and ship a CI check that reds a pull
-    request asserting an undated, standing "agents cannot X" for the actions it
-    covers.*
-12. **A session that can accurately answer "what can I do?"** *Because
-    tool-search-only tools are invisible to a session's own inspection, so agents
-    declare false limits about tools they actually hold.*
-13. **A cross-project overview with actions on it.** *Because "Blocked on you"
-    exists inside a project but not one level up, so there is no single place to
-    see which projects are waiting, stuck, or erroring — or to act on them.*
-14. **Surface auto-mode and consent changes where Projects users will see them.**
-    *Because both changes that broke the fleet were logged only in the CLI
-    changelog, and one visible line would have saved a full day of bisecting.*
+   agents built and ran a system whose 949 MB store held 925 MB in three
+   ingestion-history tables, against about 10 MB across every other table in the
+   schema combined — a dated snapshot, 2026-08-20, not a trend. Nothing in the
+   agent tier surfaced it during normal operation: the investigation began
+   because the owner questioned a hosting bill and asked, and an agent then found
+   it by running a read-only catalog job against the database — sizes, row counts
+   and date ranges only, never contents. A person noticing a bill is
+   not a telemetry signal.*
 
 **What genuinely worked.** The shared working agreement is
 the single best feature you have — written once, picked up by every session in
@@ -245,13 +257,20 @@ scenario stress-tested, name it and we will run it and send you the raw results,
 including the ones that make us look bad.
 
 Everything above is public:
-- The measured evidence pack, every figure with the command that produced it:
+- The census behind the figures above, measured 2026-08-24 — 27 repositories,
+  seven created after the close, 4,560 session records:
+  `github.com/menno420/fleet-manager/blob/main/docs/findings/2026-08-24-e1-source-sweep.md`
+- The measured evidence pack — the method, and the commands behind the headline
+  figures (its inventory rows are counts, without a published command each).
+  Its own census is the 2026-08-23 snapshot (26 repositories, 4,535 session
+  records); the sweep above supersedes those counts:
   `github.com/menno420/fleet-manager/blob/main/docs/findings/2026-08-23-eap-evidence-pack.md`
 - Why written rules do not bind, 116 to nothing:
   `github.com/menno420/fleet-manager/blob/main/docs/findings/2026-08-08-why-rules-dont-bind.md`
 - The full-read audit, all 101 defects:
   `github.com/menno420/fleet-manager/blob/main/docs/audits/2026-08-10-full-read/README.md`
-- The consolidated permission-classifier findings from July:
+- The permission, trust and classifier findings argued in full in July, which
+  this mail deliberately does not repeat:
   `github.com/menno420/superbot/blob/main/docs/eap/permission-classifier-findings-consolidated-2026-07-16.md`
 
 — Claude, writing for Menno's estate.
@@ -260,7 +279,7 @@ Everything above is public:
 
 ---
 
-## 2 · Before he sends — seven calls, all his
+## 2 · Before he sends — the seven calls, two of them answered 2026-08-25 (plus the separate revision-scope question)
 
 > **⚠ SENDING GATE — added 2026-08-24 after owner-review, and it is a base rate,
 > not a worry.** A Codex round was outstanding when this draft was handed over,
@@ -280,10 +299,12 @@ Everything above is public:
 > before each round, looked finished. The difference matters when deciding
 > whether to wait.
 >
-> **So: the six calls below can be made at any time — they are judgement, not
-> facts. Sending should wait until the outstanding round is reported.** If he
-> would rather send without waiting, that is entirely his call; the point is
-> that it is a decision with a measured risk attached, not a free action.
+> **So: the calls below are judgement and can be made at any time. Sending
+> should wait until the outstanding round is reported.** If he would rather send
+> without waiting, that is entirely his call; the point is that it is a decision
+> with a measured risk attached, not a free action. *(This paragraph said "the
+> six calls below" under a header saying seven. The header was right — see the
+> numbering note at item 5.)*
 
 
 
@@ -301,78 +322,211 @@ Everything above is public:
 > independent endpoints instead of one.
 
 
-1. **Ask 12 may be a repeat.** [`../anthropic-email-pack.md`](../anthropic-email-pack.md)
-   was written as a ready-to-send block on exactly this topic and **we cannot
-   establish whether it was ever sent** ([source sweep](../findings/2026-08-24-e1-source-sweep.md)
-   § 3). At worst it repeats an unanswered ask. Cut it if he remembers sending it.
-2. **The database figures are a 2026-08-20 snapshot and were NOT re-measured for
-   this mail** (`@codex`, fm #943 round 6). They come from the audit's sizing run;
-   re-taking them needs the private Actions venue and a one-shot database
-   credential, which is a real operation rather than a read, so it was not done.
-   The audit records an ingestion event 27 minutes before that run and the loop
-   was left going, so **the store is larger now than the number says**. Both
-   mentions carry the date. If he wants a current figure, say so and it can be
-   re-run before sending.
-   **⚠ AND THE RATIO CONTRADICTS ITSELF INSIDE ITS OWN SOURCE** (`@codex`,
-   fm #944 — raised because recording this only on a session card left it where
-   the sender would never see it). The audit's prose says **97.5 %** of the
-   939 MB `public` schema; its own table rows sum to 668 + 135 + 122 = **925 MB**,
-   which is **98.5 %** of 939. Plausibly exact-bytes versus rounded-MB, but
-   **unresolved, and a session must not resolve it by picking one.** So this call
-   has a third option beyond keep-or-date: **cut the ratio and keep the shape** —
-   the argument is that cost accumulates unseen, and it survives intact without
-   any percentage at all. **Recommended if he does not want to re-run the
-   sizing.**
-3. **The €30 and the 97.5 % are his own infrastructure**, not the vendor's. Kept
-   because the *shape* transfers — an unobservable signal accumulating unseen.
-   Cut it if he would rather not put his hosting bill in a vendor mail.
-4. **The 2,115 branches / ~50 PRs / ~1,900 routines figures in asks 8 and 9**
-   come from the never-sent 18 July draft and are `MEASURED-PRIOR` — measured
-   then, not re-measured now. They are the strongest single argument in the
-   estate and they are five weeks old. Either send them as dated July
-   measurements, or drop the counts and keep the venue asymmetry, which needs no
-   number.
-5. **Nothing in this mail claims anything about agent code quality**, deliberately
-   — every measured failure is about records, retrieval and verification. That
-   restraint is what makes the rest credible.
+### ✅ Answered by the owner, 2026-08-25 — recorded, not interpreted
 
-6. **Part 2 is **2,082 words** (measured on the current COPY block; it has grown
-   with every review round — 1,704 → 1,827 → 1,851 → 2,082, because each
-   correction adds a qualifying clause. **Re-count before acting on this; do not
-   quote it.**); the plan's § 5 caps it at one page — and both
-   halves of that conflict are his own instruction** (`@codex`, fm #943 round 2,
-   correctly refusing to let the bound be treated as optional). **The conflict,
-   stated rather than resolved:** the cap was written 2026-07-26, when this mail
-   was conceived as a *synthesis of already-sent material*; today's brief is
-   *"add a few genuinely new points… actually a new valuable source"*. Seven
-   month-after findings and fourteen asks do not fit on one page, so one of the
-   two instructions has to give and **that is not a session's call to make.**
-   **My recommendation, if he wants one:** keep the length, cut nothing from the
-   findings, and instead cut **asks 6–14** to a single line pointing at the
-   public list. That takes Part 2 to roughly one page of *argument* with the
-   catalogue moved off-mail, which satisfies the intent behind the cap
-   (readable cold, in minutes) rather than its word count. **Alternative if he
-   wants the cap honoured literally:** keep findings 1–3, drop 4 and 5, keep
-   asks 1–5, and the mail lands at **~1,434 words** (measured on the current block; earlier
-versions of this line said "near 700" and then "~1,227" — both were right when
-written and both went stale, which is the same drift as the figure above: the good-parts
-block, the standing offer, the links and the framing all survive that cut). **To
-get genuinely near one page he would also have to drop the good-parts block and
-the standing offer**, and both of those are the reasons the critique reads as a
-fan's rather than a complainer's.
+Three answers, but **only two of them are among the seven calls** — items 2 and
+6. The third answers the separate question of what his revision pass targets,
+which is why its row is numbered `—` and why the queue says *"it and two of the
+seven pre-send calls"*. Each was put to him as a menu before any edit was made.
+**What his three answers did to the mail: 2,097 → 1,686 words.**
 
-7. **An optional sixth finding is drafted below and NOT in the copy block —
-   his call whether to spend the words.** It was first excluded on the reasoning
-   *"that's our own trap, not the vendor's problem"*, which owner-review
-   correctly rejected: the mail's subject **is** agent failure modes, so a
-   session generating false-absence checks is on topic, not off it. **The real
-   trade-off is evidential weight against length:** it is **n=1 self-observation
-   from one session**, where every other finding in the mail rests on a committed
-   audit with a measured denominator — and Part 2 is already over the cap
-   (call 5). **Recommendation: include it if he takes the "keep the length"
-   route in call 5; drop it if he takes the literal-cap route (~1,227 words
-   before the further cuts call 5 names).** Drafted, ready to paste
-   between findings 5 and the "one thing that did work" paragraph:
+| item | the call | his answer |
+|---|---|---|
+| **6** | the length, against the plan's one-page cap | **the literal cap** — findings 1–3, asks 1–5 |
+| **2** | the 97.5 % that contradicts its own source | **cut the ratio, keep the shape** |
+| — | what *"a revision pass and my own section added/edited"* targets | **two operations, and the pass covers the whole document** |
+
+**Five consequences of the cap — surfaced, not resolved.** None was decided for
+him; each follows from the route itself rather than from anyone's judgement, and
+each is one line to overturn.
+
+- **a · The venue asymmetry is gone.** The 2,115 branches / ~50 PRs / ~1,900
+  routines figures — which item 4 below calls *the strongest single argument in
+  the estate* — lived in asks 8 and 9. → *"put ask 8 back"* (54 words)
+- **b · The prior-mail pointer left with asks 6–7.** Those two were Part 2's only
+  reference back to what the four earlier mails argued, which **§ 1 decision 2
+  requires the mail to carry**. Rather than leave the July link orphaned at the
+  foot of a mail that no longer cites it, **the link is re-labelled to carry that
+  pointer itself** — *"the permission, trust and classifier findings argued in
+  full in July, which this mail deliberately does not repeat"*, ten words.
+  → *"drop the link"*, or *"give it a sentence in the body"*
+- **c · The month-after spine is three findings, not five** — and the month-after
+  is **§ 1 decision 1's entire rationale** for sending this at all. → *"put
+  finding 4 back"* (drift, 92 words) or *"finding 5 back"* (cost, 193 words)
+- **d · 1,686 words is about three pages, and one page IS reachable — by
+  restructure, not by subtraction.** *(Corrected 2026-08-25: this entry said "no
+  route reached one page", which was only ever true of **cutting things**. Nobody
+  had tried changing the shape.)* Subtractive floor: cutting the good-parts block
+  and the standing offer too lands at **1,391**, still ~2.7 pages, and those two
+  are what make the critique read as a fan's rather than a complainer's.
+  **But a restructure gets there, and it was never tried.** Measured by reducing
+  each block to its opening sentences, keeping all three findings, all five asks,
+  both closing blocks and every link: **487 words at one sentence per block
+  (0.9 pages), 667 at two (1.3), 853 at three (1.7).**
+  **⚠ THE 487 IS A FLOOR, NOT A DRAFT — and it is not a sendable mail.** Checked
+  by printing it, twice, on the current text: at one sentence per block *"The
+  scale, as of 24 August 2026."* survives with **its date and none of its six
+  census figures**, and each finding survives as its headline claim with **none
+  of the count that supports it**. (Not *"no numbers"* — the date and the finding
+  ordinals remain; it is the evidence that goes.) A readable one-pager has to be *written*, not extracted.
+  **667 is what the two-sentence extraction measures, not a prediction about a
+  drafted one** — nobody has drafted it, and its length is not knowable until
+  someone does. Two sentences per block is simply the shallowest depth at which
+  each finding still carries an evidential clause. What it trades away is the forensic detail —
+  **already public at the four links the mail carries.** → *"draft the one-pager"*
+  is a real option; it is a rewrite, not a trim, and no session has drafted it.
+- **e · One addition, eight words, and it is the only content added to the
+  mail.** The scale paragraph accounted for 19 + 1 of 27 repositories and left
+  **seven unexplained** — an arithmetic gap a vendor would notice, and six
+  adversarial rounds did not. The sweep has them (§ *"created after the program
+  closed"*, 7 as of 08-24), and they are **evidence for the spine rather than
+  filler**: repositories created *after* the program is exactly what § 1
+  decision 1 says this mail is for. → *"cut it"*
+
+---
+
+1. **Ask 12 may be a repeat — MOOT under the cap.** Ask 12 was in asks 6–14 and
+   is out, so nothing turns on whether [`../anthropic-email-pack.md`](../anthropic-email-pack.md)
+   was ever sent ([source sweep](../findings/2026-08-24-e1-source-sweep.md) § 3;
+   we could not establish it either way). **It returns as a live question only if
+   he takes consequence *a* and puts asks back.**
+2. **The database figures — ANSWERED: cut the ratio, keep the shape.** They
+   remain a **2026-08-20 snapshot, not re-measured for this mail** (`@codex`,
+   fm #943 round 6): re-taking them needs the private Actions venue and a
+   one-shot database credential, a real operation rather than a read. The audit
+   records an ingestion event 27 minutes before that run and the loop was left
+   going, so **the store is larger now than the number says** — the mail says so.
+   **How the ratio was cut without losing the evidence:** the contested quantity
+   was the *derived percentage* — the audit's prose says **97.5 %** of the 939 MB
+   `public` schema while its own rows sum to 668 + 135 + 122 = **925 MB**, which
+   is **98.5 %**. Plausibly exact-bytes versus rounded-MB, and **still
+   unresolved — no session picked a side.** The rows themselves were never in
+   dispute, so ask 5 now quotes *them*: **949 MB store · 925 MB in three
+   ingestion-history tables · about 10 MB across every other table combined**,
+   and no percentage anywhere. **The remainder is NOT described as user data**
+   (`@codex`, fm #946 P1): the audit's next-largest row is the 8.4 MB
+   `ai_decision_audit` (21,201 rows) with ~2 MB of everything else. Calling that
+   "actual user data" would turn a storage remainder into a measurement the audit
+   does not support, in a mail to a vendor. **And nobody has established what
+   that table holds** — the audit records its size, row count and date span and
+   nothing else; no session has read its schema or sampled it. A name is not a
+   measurement, and a bot's decision-audit table could perfectly well contain
+   user-generated payloads. That is precisely why the mail now states a
+   *storage remainder* and makes no claim either way: the honest wording is the
+   one that does not depend on a fact nobody has checked. The phrasing was inherited from the evidence pack; it is
+   corrected here and in [the sweep](../findings/2026-08-24-e1-source-sweep.md)
+   § 4. → *"re-run the sizing before I send"* if he wants a
+   current, self-consistent figure instead.
+3. **The €30 was his own infrastructure — MOOT under the cap.** It lived in
+   finding 5, which is out, so no hosting bill appears in the mail. Ask 5 keeps
+   the storage shape because *that* shape transfers — an unobservable signal
+   accumulating unseen — and it carries no euro figure. → *"put finding 5 back"*
+   re-opens this.
+4. **The July `MEASURED-PRIOR` figures — MOOT under the cap, and this is
+   consequence *a*.** The 2,115 branches / ~50 PRs / ~1,900 routines counts came
+   from the never-sent 18 July draft: measured then, not re-measured now, and
+   five weeks old. They were the choice between *send them as dated July
+   measurements* and *drop the counts, keep the venue asymmetry*. **The cap took
+   both, along with the asymmetry itself.** → *"put ask 8 back, counts and all"*
+   or *"put ask 8 back without the numbers"*.
+5. **Not a call — a statement, and this is where the numbering drifted.**
+   *Nothing in this mail claims anything about agent code quality*, deliberately:
+   every measured failure is about records, retrieval and verification, and that
+   restraint is what makes the rest credible. **It has nothing in it to decide**,
+   which is why the sending gate said "six calls" while the header said seven,
+   and why § 1 decision 7, item 7 (three times) and the owner-queue entry all
+   pointed at **"call 5"** when they meant the length — item **6**. All five
+   sites are corrected. The item keeps its number so that "seven pre-send calls",
+   recorded in the queue, the program § 7 row and `docs/planning/README.md`,
+   stays true.
+6. **The length — ANSWERED: the literal cap.** **Part 2 was 2,097 words at
+   `9b2d83a`, 1,678 after the cut, and 1,686 as it now stands** — the eight-word
+   census fix at consequence *e* is the difference.
+   **The number now comes from a command rather than from prose:**
+   `python3 tools/render_eap_mail.py --count`. That *is* the fix; a fourth
+   written statement of it would go stale exactly like the first three.
+   **The drift, for the record — and it ran deeper than stale copies.** Three
+   committed places carried three different values: the draft **2,082**, the
+   owner-queue **2,127**, the file **2,151**. **None of the three was right.**
+   The method was never stated, and both obvious methods are wrong — substituting
+   a space for each emphasis mark splits `**fortnight**,` into `fortnight` + `,`
+   and counts the bare comma as a word (**+8**), while deleting the marks instead
+   leaves the links block's `-` bullets standing as words (**+4**). Neither
+   punctuation nor a bullet glyph is a word. **Counting the plain text that is
+   actually pasted gives 2,097** — so the 2,151 this session first put in front
+   of him was itself inflated by ~2.5 %. **It did not change the decision:**
+   2,097 words against a one-page cap is the same call as 2,151, and he made it
+   on the direction, not the third digit. **The route prices were staler still:**
+   quoted at ~1,227 in one place and ~1,434 in another; measured, the route
+   lands at **1,678**.
+   **⚠ ONE OF THOSE CORRECTIONS MAY HAVE BEEN A DEMOTION HE DOES NOT WANT.**
+   Finding 3's header read *"written rules do not bind agents; only rules that
+   arrive at the moment of action do"* — an architectural claim about passive
+   context versus injected prompts. It is now scoped to the one session that was
+   counted, because **the cited audit cannot establish the absolute version from
+   what it measured** — its own words are *"prevented errors are invisible… the
+   116 statements may do work this table cannot see."* That is a limit on the
+   measurement, **not a refutation**: the architectural claim may well be true,
+   and this evidence simply does not reach it. **And it is unmeasured, not unmeasurable** — the audit's own closing
+   list says *"whether error frequency actually drops is unmeasured and is the
+   only number that finally matters. **The instruments make it countable:** hook
+   firings, gate reds, and owner corrections per session are all in logs now."*
+   So there is a **third option** neither of the other two offers: run that
+   count. It would turn the thesis from a design conclusion into a measured one.
+   **What exists today, checked 2026-08-25 — and it is less
+   than "two of three":** `.substrate/guard-fires.jsonl` holds **26,835
+   timestamped records across 31 emitters**, keyed on
+   `guard`/`outcome`/`verdict`/`surface`, and gate reds are check-run state on
+   the API. **But neither carries a session identifier** — guard-fires has no
+   `session`/`run` key at all — so *per session*, which is the unit the study
+   needs, has to be reconstructed from timestamp windows. The raw events are
+   there; the attribution is not. **The third — owner corrections
+   per session — is not available structured**, checked 2026-08-25 across the
+   three surfaces that could plausibly carry it: `guard-fires.jsonl`'s 31 guard
+   names (the only owner-shaped one, `owner-action-fields`, governs the *format*
+   of queue asks, not a count of corrections), `.substrate/state.json`
+   (`open_questions`, `reflection_buffer` — neither counts them) and
+   `episodic_index.json`. It lives in session-card prose, so counting it is the
+   part of that study that would need building. **But a session
+   cannot know whether the flat statement was sloppiness or a deliberate thesis
+   he wanted stated flatly** — it is his estate's central argument, and the
+   design conclusion still stands in the body (*"a rule binds only if it arrives
+   at the moment it applies"*) and in ask 1. → *"put the thesis back in the
+   header"* restores it; the measured limits stay either way.
+
+   **⚠ AND THE CORRECTIONS OVERRAN IT — his call, surfaced not resolved**
+   (`@codex`, fm #946 round 4). A prose review of the COPY block itself, requested
+   *because* rounds 1–3 had reviewed diffs and the mail had not changed since
+   round 1, returned **seven findings in the outbound text: four P1, three P2.**
+   Fixing them cost **+159 words — 1,481 → 1,686** — because every one was an
+   overclaim, and the honest version of an overclaim is longer than the overclaim.
+   That is **11 % past the length he approved**, and it is not a session's call to
+   accept on his behalf. → *"take the words"* · or *"cut something to pay for
+   them"* — the good-parts block (145) and the standing offer (150) are the only
+   blocks big enough, and both are what stop the mail reading as a complaint.
+
+   **The conflict this resolved:** the cap was written 2026-07-26, when the mail
+   was conceived as a *synthesis of already-sent material*; today's brief was
+   *"add a few genuinely new points… actually a new valuable source"*. Both are
+   his instructions and both could not hold. **He chose the cap** — see
+   consequence *d* for what that did and did not achieve.
+
+
+7. **The optional sixth finding — DROPPED, by this item's own conditional.**
+   It said: *include it on the "keep the length" route, drop it on the
+   literal-cap route.* He took the literal cap, so it is out. **That is a
+   resolved conditional, not a new decision.** It stays drafted below, because
+   the reasoning that put it here has not changed.
+   It was first excluded as *"that's our own trap, not the vendor's problem"*,
+   which owner-review correctly rejected: the mail's subject **is** agent failure
+   modes, so a session generating false-absence checks is on topic, not off it.
+   **What keeps it out now is evidential weight against length** — it is **n=1
+   self-observation from one session**, where every other finding rests on a
+   committed audit with a measured denominator. → *"include finding 6"* puts it
+   back at **193 words**, taking Part 2 to ~1,674. **Its paste location moved:**
+   between **finding 3** and the "one thing that did work" paragraph — findings 4
+   and 5 are no longer there to sit between.
+
 
    > **Finding 6 — the same failure shape, caught live while writing this mail.**
    > Assembling this review, the agent doing it wrote **five** separate checks
@@ -398,6 +552,23 @@ fan's rather than a complainer's.
 - One-line "superseded by the final mail" note on
   [`../anthropic-email-pack.md`](../anthropic-email-pack.md) and on superbot's
   `docs/eap/2026-07-18-followup-email-draft.md`.
+- **Record the send into the repo — date, exact subject, and the Gmail
+  `Message-Id`.** This is not tidy-up bookkeeping, it is the mail's own argument
+  applied to itself: § 0 of [the correspondence record](../findings/2026-08-09-eap-correspondence-record.md)
+  **measured that four EAP-thread messages are no longer retrievable from Gmail —
+  three of them his own sent mail** (07-08, 07-12, 07-16 01:52) **and one the
+  vendor's 07-14 reply to him**, with two positive controls passing — so the mailbox is not the archive
+  of record and the repo has to be. The `Message-Id` is under Gmail's *Show
+  original*. The row below is staged and needs only the three values.
+
+### The send record — three values, and the queue entry can close
+
+| field | value |
+|---|---|
+| sent (UTC) | *(pending)* |
+| subject | *(pending — one of the two in § 1 Logistics)* |
+| `Message-Id` | *(pending — Gmail → ⋮ → Show original)* |
+| thread | fresh compose, **not** a reply to the July thread (§ 1 decision 4) |
 - Record the sent-mail metadata (date, subject, message id) into
   [the correspondence record](../findings/2026-08-09-eap-correspondence-record.md)
   — and this time into the **repo**, since

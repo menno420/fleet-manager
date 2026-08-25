@@ -45,9 +45,17 @@ copy product architecture or internal product state. Canonical intent:
 
 ### Work state
 
-- **E1 remains owner-reserved, and the owner states it sends 2026-08-24.** He
-  deferred it deliberately to get his workstation setup and research done first;
-  the evidence pack is built and waiting. A session does not draft or send it.
+- **E1 is assembled, revised against his own calls, and waiting on two things
+  only he can do: Part 1, and sending.** *(2026-08-25, fm #946. The reservation
+  was lifted live on 08-24; the "sends 2026-08-24" this line used to carry was
+  his intention that day, not an event — it did not send.)* His send-day sentence
+  — *"a revision pass and my own section added/edited"* — **was put to him rather
+  than interpreted**: two operations, and the pass covers the whole document. He
+  then chose **the literal one-page cap** (findings 1–3 and asks 1–5 only) and
+  **cut the contested 97.5 % ratio**. Part 2 is **1,686 words**, from
+  `python3 tools/render_eap_mail.py --count` rather than from prose — the figure
+  had been wrong in all three places it was written. **A session still does not
+  draft Part 1 or send it.**
 - **D2 is the actionable program step. `OQ-FM-D2-TARGET` is STILL OPEN** — a
   2026-08-23 session marked it answered by OD-20 and withdrew that the same
   session (`@codex`, fm #937); his words set an estate-wide outcome, not a
@@ -117,7 +125,8 @@ copy product architecture or internal product state. Canonical intent:
   thread is recorded in [`findings/2026-08-23-owner-direction.md`](findings/2026-08-23-owner-direction.md)
   § 4 — his current priority, recorded nowhere until now, and deliberately *not*
   an owner-queue entry since it is not an ask.
-  E1 sends 2026-08-24 by his own statement.
+  E1 did **not** send on 2026-08-24; it is assembled and revised, and waits on
+  his Part 1 and his compose (fm #946).
 
 - **The E1 evidence pack — what the projects created, measured; and the review
   site stops calling a finished program live** (2026-08-23, fm #919 +
@@ -255,7 +264,8 @@ window.
 **Current:** the authoritative next action is the consolidation program's NOW
 pointer in
 [`planning/2026-07-26-consolidation-program.md`](planning/2026-07-26-consolidation-program.md).
-E1 remains owner-reserved; D2 is the available track; its next-repo target awaits
+E1 is assembled and revised against his own calls — Part 1 and the send remain
+his alone (fm #946); D2 is the available track; its next-repo target awaits
 the owner (OD-15 superseded shiftlife, 2026-08-10).
 
 Use

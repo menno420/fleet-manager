@@ -345,11 +345,56 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   calls). **✅ ASSEMBLED AND MERGED 2026-08-24 (fm #943)** — six adversarial
   review rounds, **62 findings, all conceded, 0 survived**, five of them
   vendor-facing errors caught in rounds 5–6 alone.
-  **What remains yours and only yours: writing Part 1 — it is a beat
-  table, not drafted prose — the seven pre-send calls in § 2 of the draft
-  (call 5: Part 2 is **2,127 words** against the plan's one-page cap, and both
-  are your instructions — re-count before acting, it moved every round), and
-  sending it.** No session sends it.
+  **▶ 2026-08-25 — THE REVISION PASS RAN AGAINST YOUR OWN CALLS. WHAT IS LEFT IS
+  PART 1 AND SENDING.** The one open question was put to you before any edit, and
+  you answered it and two of the seven pre-send calls:
+  - *"a revision pass and my own section added/edited"* = **two operations, and
+    the pass covers the whole document** — § 1 and § 2, not only the COPY block.
+    This is the sentence fm #945 recorded as a P1 for a session having filled it
+    in; it was asked, not assumed, and **your answer was wider than the guarded
+    reading, not narrower**.
+  - **The length (§ 2 item 6): the literal cap.** Findings 1–3 and asks 1–5 only;
+    findings 4–5, asks 6–14 and the optional finding 6 are out.
+    **2,097 → 1,686 words.** *(The count is method-dependent and that was never
+    stated, which is why it drifted: the draft said 2,082, this entry said 2,127, the file
+    measured 2,151 — and **none of the three was right**, because the method was
+    never stated and both obvious methods count punctuation or bullet glyphs as
+    words. The mail as pasted was **2,097** before his cut and is **1,686** now —
+    2,097 is the before-cut baseline, not the send length. One command settles it:
+    `python3 tools/render_eap_mail.py --count`, and
+    `python3 tools/check_eap_figures.py` checks this entry still agrees with it.)*
+  - **The 97.5 % (§ 2 item 2): cut the ratio, keep the shape.** The mail quotes
+    the audit's own uncontested rows instead — **949 MB store · 925 MB in three
+    ingestion-history tables · ~10 MB across every other table combined** — and carries no
+    percentage at all. The prose-versus-rows contradiction in the audit is left
+    **unresolved**; no session picked a side.
+  **Five consequences of the cap are surfaced in § 2, each one line to overturn:**
+  the venue asymmetry (ask 8, *"the strongest single argument in the estate"*) is
+  gone; the prior-mail pointer that § 1 decision 2 requires moved onto the July
+  findings link; the month-after spine is three findings rather than five;
+  **1,686 words is about three pages** — but **one page IS reachable**, by
+  restructure rather than subtraction. Measured: **487 words at one sentence per
+  block, 667 at two, 853 at three.** But the 471 is a **floor, not a draft** —
+  printed out, it keeps no scale numbers and no evidence under any finding. A
+  readable one-pager has to be written rather than extracted and lands nearer
+  667, trading away forensic detail that is already public at the mail's four
+  links. *(This entry said "no route reached one page"; that was only ever
+  true of cutting things — nobody had tried changing the shape.)* and **eight words were added — the only content
+  added to the outbound mail** — accounting for the seven repositories created
+  after the program closed, which the scale paragraph had left unexplained
+  (→ *"cut it"*). **Items 1, 3 and 4 are now moot** — ask 12, the
+  €30 and the July counts all lived in the cut material.
+  **What remains yours and only yours: writing Part 1 — a beat table, never
+  drafted prose — and sending it.** No session sends it. **Then three values
+  close this entry:** the sent date, the exact subject, and the Gmail
+  `Message-Id`, into the staged row in § 3 of the draft — because § 0 of the
+  correspondence record measured that **four EAP-thread messages are no longer
+  retrievable from Gmail — three of them your own sent mail** (07-08, 07-12,
+  07-16 01:52) **and one the vendor's 07-14 reply to you** — thread A holds two messages where five were
+  recorded, over five probe runs and two positive controls, one lane including
+  trash. That is a *retrievability* measurement, not a finding that they were
+  destroyed; the record states no cause and says none should be inferred. Either
+  way the mailbox cannot be the archive of record.
   **HIS SEND-DAY PLAN, stated 2026-08-24 late, VERBATIM and not decomposed:**
   *"tomorrow morning I will start fresh and create and send the email after a
   revision pass and my own section added/edited."*
