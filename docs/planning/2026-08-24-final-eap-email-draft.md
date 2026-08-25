@@ -345,12 +345,17 @@ each is one line to overturn.
   had tried changing the shape.)* Subtractive floor: cutting the good-parts block
   and the standing offer too lands at **1,345**, still ~2.7 pages, and those two
   are what make the critique read as a fan's rather than a complainer's.
-  **But an executive-summary route measures ~449 words — 0.9 pages** (each block
-  reduced to its lead claim; all three findings, all five asks, the good-parts
-  block, the standing offer and every link retained). What it loses is the
-  forensic detail behind each claim — **which is already public at the four links
-  the mail carries.** → *"do the one-pager"* is a real option, not a
-  compromise between two impossible ones.
+  **But a restructure gets there, and it was never tried.** Measured by reducing
+  each block to its opening sentences, keeping all three findings, all five asks,
+  both closing blocks and every link: **449 words at one sentence per block
+  (0.9 pages), 645 at two (1.3), 831 at three (1.7).**
+  **⚠ THE 449 IS A FLOOR, NOT A DRAFT — and it is not a sendable mail.** Checked
+  by printing it: at one sentence per block *"The scale, as of 24 August 2026."*
+  keeps **no numbers at all**, and each finding keeps its headline with **none of
+  its evidence**. A readable one-pager has to be *written*, not extracted, and
+  lands nearer the **645** mark. What it trades away is the forensic detail —
+  **already public at the four links the mail carries.** → *"draft the one-pager"*
+  is a real option; it is a rewrite, not a trim, and no session has drafted it.
 - **e · One addition, eight words, and it is the only content added to the
   mail.** The scale paragraph accounted for 19 + 1 of 27 repositories and left
   **seven unexplained** — an arithmetic gap a vendor would notice, and six
