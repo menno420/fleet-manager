@@ -388,8 +388,9 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   drafted prose — and sending it.** No session sends it. **Then three values
   close this entry:** the sent date, the exact subject, and the Gmail
   `Message-Id`, into the staged row in § 3 of the draft — because § 0 of the
-  correspondence record measured that **four of your own sent EAP mails are no
-  longer retrievable from Gmail** — thread A holds two messages where five were
+  correspondence record measured that **four EAP-thread messages are no longer
+  retrievable from Gmail — three of them your own sent mail** (07-08, 07-12,
+  07-16 01:52) **and one the vendor's 07-14 reply to you** — thread A holds two messages where five were
   recorded, over five probe runs and two positive controls, one lane including
   trash. That is a *retrievability* measurement, not a finding that they were
   destroyed; the record states no cause and says none should be inferred. Either

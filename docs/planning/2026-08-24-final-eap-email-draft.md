@@ -533,8 +533,9 @@ each is one line to overturn.
 - **Record the send into the repo — date, exact subject, and the Gmail
   `Message-Id`.** This is not tidy-up bookkeeping, it is the mail's own argument
   applied to itself: § 0 of [the correspondence record](../findings/2026-08-09-eap-correspondence-record.md)
-  **measured that four of his own sent EAP mails are no longer retrievable from
-  Gmail**, with two positive controls passing — so the mailbox is not the archive
+  **measured that four EAP-thread messages are no longer retrievable from Gmail —
+  three of them his own sent mail** (07-08, 07-12, 07-16 01:52) **and one the
+  vendor's 07-14 reply to him**, with two positive controls passing — so the mailbox is not the archive
   of record and the repo has to be. The `Message-Id` is under Gmail's *Show
   original*. The row below is staged and needs only the three values.
 

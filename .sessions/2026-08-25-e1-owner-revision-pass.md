@@ -151,7 +151,8 @@ the bullets each produced **exit 1, all five caught**.
 Both were carried from repo records rather than measured by this session. One
 still is; the other is now measured.
 
-1. **"Four of his sent EAP mails are no longer retrievable from Gmail."**
+1. **"Four EAP-thread messages are no longer retrievable from Gmail — three of
+   them his own sent mail, one the vendor's reply."**
    `MEASURED-PRIOR`, not
    by this session — [the correspondence record](../docs/findings/2026-08-09-eap-correspondence-record.md)
    § 0, which records **five probe runs over four query strings with two
@@ -386,7 +387,7 @@ file that mattered most.
 
 `OQ-E1-FINAL-EAP-EMAIL` has to be closed with the sent date, subject and
 **message id recorded into the repo** — because § 0 of the correspondence
-record measured that **four of his own sent mails are no longer retrievable
+record measured that **four EAP-thread messages are no longer retrievable
 from Gmail**. § 3 of the draft asked for none of that. It does now.
 
 ## previous-session review
