@@ -320,6 +320,35 @@ written from *one absent binary on `$PATH`*, and it would have shipped as a
 standing fact about what this estate can test. Three paths existed. The rule
 held; the session did not.
 
+## ⚙️ The checkers were not wired to anything, and CI proved it
+
+**Two commits went out with the figure checker red and CI passed them both.**
+Nothing ran it. A tool that only runs when a session remembers to run it is the
+outbound mail's own finding 3 — *a rule that does not arrive at the moment of
+action does not bind* — committed in the tooling built to support that mail.
+
+They are now wired into [`scripts/repo_checks.sh`](../scripts/repo_checks.sh),
+which the kit-owned workflow invokes as its `repo checkers` extension point.
+**That file, not the workflow, is the right place** for two reasons its own
+header already records: it is host-owned so kit upgrades cannot silently drop the
+wiring (fm #833 — the gate once stayed green while running neither checker), and
+it keeps this PR out of the `.github/workflows/**` carve-out that would make
+`merge-on-green` refuse to land it.
+
+**Guarded with a self-skip** on the draft's existence, so the checkers drop
+cleanly once E1 closes and the draft is archived rather than reddening the gate
+for every later PR.
+
+**Demonstrated to fire through CI's own path**, not just standalone: breaking the
+word figure in `docs/current-state.md` makes `bash scripts/repo_checks.sh` exit 1
+naming `docs/current-state.md:55`; restoring it returns exit 0.
+
+One defensive fix alongside: the baseline comparison shells out to `git show` for
+a pre-cut commit, which a shallow CI checkout would not have. This gate uses
+`fetch-depth: 0` so it resolves — but the code now **skips that one claim and
+says so** rather than crashing, because a checker that dies on an unrelated
+environment difference teaches everyone to ignore it.
+
 ## 📌 The thing the mail's own subject argues for
 
 `OQ-E1-FINAL-EAP-EMAIL` has to be closed with the sent date, subject and

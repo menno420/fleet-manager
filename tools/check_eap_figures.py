@@ -106,8 +106,12 @@ def computed() -> dict:
     md = R.DRAFT.read_text(encoding="utf-8")
     mw = lambda ls: sum(1 for w in R.to_text(ls).split() if re.search(r"[A-Za-z0-9]", w))
     N = R.extract(md)
-    base = subprocess.run(["git", "show", BASE], cwd=ROOT,
-                          capture_output=True, text=True, check=True).stdout
+    # CI checks out shallow, so the pre-cut baseline commit may not exist in the
+    # clone. That must SKIP the one claim that needs it, never crash the gate —
+    # a checker that dies on an unrelated environment difference teaches everyone
+    # to ignore it.
+    r = subprocess.run(["git", "show", BASE], cwd=ROOT, capture_output=True, text=True)
+    base = r.stdout if r.returncode == 0 else None
     at = lambda p: next(k for k, l in enumerate(N) if l.startswith(p))
     gp, so, ev = (at("**What genuinely worked"), at("**A standing offer"),
                   at("Everything above is public"))
@@ -116,7 +120,7 @@ def computed() -> dict:
     out = subprocess.run([sys.executable, str(ROOT / "tools/render_eap_mail.py"), "--selftest"],
                          capture_output=True, text=True).stdout
     m = re.search(r"(\d+)/(\d+)\s+assertions", out)
-    return {"before": mw(R.extract(base)),
+    return {"before": mw(R.extract(base)) if base is not None else None,
             "cut_only": mw(R.extract(md.replace(CENSUS_FIX, ""))),
             "now": mw(N),
             "floor": mw(N) - mw(N[gp:so]) - mw(N[so:ev]),
@@ -133,6 +137,8 @@ def check(docs: dict[str, str], want: dict, label: str, ret_hits: bool = False):
                 found += 1; hits += 1
                 line = text.count("\n", 0, m.start()) + 1
                 for gi, key in enumerate(keys, start=1):
+                    if want[key] is None:          # baseline unavailable (shallow clone)
+                        continue
                     stated = int(m.group(gi).replace(",", ""))
                     if stated != want[key]:
                         problems.append(f"MISMATCH {path}:{line} — states {stated:,} "
@@ -149,6 +155,9 @@ def check(docs: dict[str, str], want: dict, label: str, ret_hits: bool = False):
 def main() -> int:
     want = computed()
     print("computed from the mail:", want)
+    if want["before"] is None:
+        print("  NOTE: base commit 9b2d83a not in this clone (shallow checkout) — "
+              "the pre-cut baseline claim is SKIPPED, not silently passed.")
     docs = {p: (ROOT / p).read_text(encoding="utf-8") for p in CONSUMERS}
 
     # INVENTORY FIRST. If a claim has vanished, no amount of value-checking on
