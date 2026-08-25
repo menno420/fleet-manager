@@ -289,6 +289,33 @@ is to fail on the document announcing it is the only kind worth having**, and it
 is the exact inverse of the defect this session has been chasing, where the check
 stayed quiet and the document was wrong.
 
+## 🔎 Codex round 5 — 7 findings, **7 `[conceded]`, 0 `[survived]`**
+
+At `a524170`, requested specifically to check whether round 4's rewrites had
+traded one overclaim for another. **Four of the seven say they had.**
+
+| pri | finding | fix |
+|---|---|---|
+| **P1** | *"a read no one actually performs"* — contradicts the linked audit, which **is** an exhaustive read of every tracked file, in a sentence that had just credited it with catching two of the worst findings | scoped to what a reviewer does in the ordinary course |
+| **P1** | *"the marginal value of adding a 117th statement: zero, five separate times"* — a causal result the ledger does not record; it observes 116 existing statements, not five add-one interventions | **removed.** The finding rests on 116 catching 0 of 16, which is measured |
+| **P1** | the storage composition attributed to *"querying the provider's API"* — the audit says a read-only catalog job on a private Actions venue, one-shot DSN, direct SQL | method corrected |
+| **P1** | the pack link still promised *"the command behind each figure"*; its inventory rows are counts with no published command | narrowed to the headline figures |
+| P2 | *"Today's census"* would mislead if sent on a later day | dated explicitly |
+| P2 | *"+163 words"* — the total was revised to 1,640 and the delta was not | **+159** |
+| P2 | the recorded browser verification was stale at 27/12/9 | re-run; now tracks `--count` |
+
+**The round's lesson is that a correction is where the next error hides.** Round
+4 fixed seven overclaims; four of those fixes were themselves overclaims. There
+is no reason to think round 5's fixes are exempt, which is why round 6 was
+requested on the same terms.
+
+**And one finding the API read had missed entirely.** The webhook copy named
+*"line 76 saying all 39 spans are removed"*. It is 41. It survived because the
+phrasing omits the word "emphasis" so two greps returned nothing, and the
+substitution used `if a in t:` rather than an assertion — a **silent** miss, the
+third of that exact shape in this session. Both the emphasis total and the
+executive-summary depths are now computed and guarded.
+
 ## 🧪 "No mail client is reachable" was a wall, and it took one probe to fall
 
 This session wrote, twice, that neither rendered output could be tested because
