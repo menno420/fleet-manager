@@ -256,7 +256,7 @@ unable to fail — this time in the guard added *last* round to stop the fourth.
 **The unchanged-occurrence-count invariant compared the poisoned copy against the
 same possibly-incomplete input, so it could not see a claim that had vanished
 before the probe began.** Because occurrences were counted **globally**, rewording
-the card's `` `--selftest` (13 assertions) `` left the program ledger's copy
+the card's selftest-assertion sentence left the program ledger's copy
 satisfying the pattern: total unchanged, no MISMATCH, exit 0 — on a document
 whose claim was now unguarded.
 
@@ -276,15 +276,18 @@ only, so it stays honest while the run fails.
 what corruption *should* trigger the check and watching it not trigger.
 
 **Then it caught its own author, in the commit describing it.** Writing this
-section quoted `` `--selftest` (13 assertions) `` a second time, which is a
-second live figure claim in this card — it goes stale with the first if the
-count ever moves. The inventory flagged `CLAIM COUNT CHANGED … expected 1,
-found 2` and the commit went out with the check red before the drift was pinned.
-The right fix was to pin **2**, not to reword the sentence: both statements are
-real and both must track the tool. **A checker whose first act is to fail on the
-document announcing it is the only kind worth having** — and it is the exact
-inverse of the defect this whole session has been chasing, where the check stayed
-quiet and the document was wrong.
+section **reproduced the assertion-count claim verbatim while describing it**,
+creating a second occurrence — and the commit went out with the check red. The
+first fix pinned the count at 2; writing *that* down reproduced it a third time
+and the check went red again, on the very next commit.
+
+**The recursion was the lesson, not the count.** Narrating a checked claim in the
+same words the checker matches makes every description a new claim. The two
+narrating sentences now *describe* the claim instead of reproducing it, so
+exactly one live occurrence remains — the true one. **A checker whose first act
+is to fail on the document announcing it is the only kind worth having**, and it
+is the exact inverse of the defect this session has been chasing, where the check
+stayed quiet and the document was wrong.
 
 ## 🧪 "No mail client is reachable" was a wall, and it took one probe to fall
 
