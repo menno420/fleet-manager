@@ -46,7 +46,7 @@ worked here.
 
 The route prices were stale by more than the total was. The literal-cap route
 was quoted at **~1,227** in one place and **~1,434** in another; measured, the
-route lands at **1,473**. *(This session's own first answer here — "~1,478–1,503"
+route lands at **1,636**. *(This session's own first answer here — "~1,478–1,503"
 — was computed with the same defective methods described above, and is corrected
 for the same reason.)*
 
@@ -86,7 +86,7 @@ ingestion-history tables · ~10 MB across every other table combined** — and c
 percentage at all. That is strictly stronger than either side of the
 contradiction and resolves nothing on his behalf.
 
-**Part 2: 2,097 words → 1,473 by the cut → 1,481 as it now stands**, the
+**Part 2: 2,097 words → 1,636 by the cut → 1,644 as it now stands**, the
 difference being the eight-word census fix at consequence 5 below.
 
 ## ⚠️ Five consequences, surfaced and not resolved
@@ -123,8 +123,7 @@ sending.
 
 ## 🛠 `tools/render_eap_mail.py` — because the block is markdown and the mail is not
 
-A second send-day defect, unflagged anywhere: **Part 2 carries 27 bold and 12
-italic spans** (`--count`) **and hard wraps at 76 columns.** *(This line said
+A second send-day defect, unflagged anywhere: **Part 2 carries 29 bold and 13 italic spans** (`--count`) **and hard wraps at 76 columns.** *(This line said
 "~90 bold spans" — asserted, never counted. Corrected 2026-08-25 rather than
 left standing above the review table below that concedes it: an appended
 concession that does not retract the original is the defect this whole mail
@@ -201,7 +200,7 @@ eight P2. Every one was real.
 | 9 | P2 | § 2's heading said *three of the seven calls answered*; only **two** are numbered calls, the third answers the separate revision-scope question | `[conceded]` — heading and lead corrected |
 
 **Finding 6 proved itself within the hour.** Fixing the P1 added four words to
-ask 5 — **1,477 → 1,481** — which silently falsified **nine** figures across five
+ask 5 — **1,477 → 1,644** — which silently falsified **nine** figures across five
 documents. The new checker caught all nine. That is the same defect as everything
 else this session found, committed by the session that was documenting it.
 
@@ -224,7 +223,7 @@ exactly this class**, which is the whole lesson of the round.
 |---|---|---|---|
 | 1 | P2 | `re.search` validated only the **first** occurrence — a stale duplicate in a second document passed because an earlier correct copy satisfied the pattern | `[conceded]` — `finditer`, every occurrence, every file, reported with `path:line` |
 | 2 | P2 | the docstring advertised **five** consumers and the code loaded **two**: `owner-queue.md`, `current-state.md` and the § 7 ledger could rot while it exited 0 | `[conceded]` — `CONSUMERS` is now the list, and 15 occurrences across 5 files are checked |
-| 3 | P2 | the queue said *"the mail as pasted is 2,097"* — that is the **pre-cut baseline**, contradicting its own `2,097 → 1,481` line one paragraph above | `[conceded]` |
+| 3 | P2 | the queue said *"the mail as pasted is 2,097"* — that is the **pre-cut baseline**, contradicting its own `2,097 → 1,644` line one paragraph above | `[conceded]` |
 | 4 | P3 | the ledger recorded `--selftest` as **7 assertions** and the tool's docstring still claimed a `9/10` mutation result, both stale after the count reached 13 | `[conceded]` — **and the rewritten checker found a second site Codex had not flagged**, in this card |
 | 5 | P2 | this card still asserted **~90 bold spans**, unretracted, directly above the table conceding it was wrong | `[conceded]` — retracted in place |
 
@@ -298,10 +297,13 @@ look like. The answer was *none*, and there were three:
 
 - **Headless Chromium is installed** (`/opt/pw-browsers/chromium-1194/chrome-linux/chrome`;
   `which chromium` returns nothing, which is what the first look relied on).
-  Rendered: **27 `<strong>`, 12 `<em>`, 9 `<li>`, 2 lists, 12 paragraphs all
-  survive; 0 literal asterisks.** The DOM's 27/12 emphasis split independently
-  confirms `--count` by a completely different route — a regex and a browser
-  engine agreeing.
+  Rendered: **every `<strong>`, `<em>` and `<li>` survives, both lists,
+  every paragraph; 0 literal asterisks.** At the time of that run the DOM showed
+  27 bold and 12 italic, independently confirming `--count` by a completely
+  different route — a regex and a browser engine agreeing. *(The mail has since
+  grown since, under Codex round 4's corrections; the render check is re-run by
+  `repo_checks.sh`, and the DOM figures quoted here are the dated reading that
+  established the agreement, not a current count.)*
 - **Structural validation** via stdlib `HTMLParser`: no unclosed tags, no
   mismatched closes.
 - **`--eml`**, now shipped: a real `multipart/alternative` message with
@@ -348,6 +350,36 @@ a pre-cut commit, which a shallow CI checkout would not have. This gate uses
 `fetch-depth: 0` so it resolves — but the code now **skips that one claim and
 says so** rather than crashing, because a checker that dies on an unrelated
 environment difference teaches everyone to ignore it.
+
+## 🔎 Codex round 4 — 7 findings **in the outbound mail**, all `[conceded]`
+
+**This round exists because of a mistake in how the previous three were read.**
+Rounds 1–3 raised 15 findings; counted by file, round 1 raised 3 in the draft and
+rounds 2 and 3 raised **none**. That was taken as "the mail is clean". It was not:
+the COPY block is byte-identical since `292327e`, so it **was not in those
+diffs** — Codex reviews diffs. The outbound text had had exactly **one**
+adversarial pass, and that pass had found a P1 in it. Asking instead for a review
+of the block *as prose* returned **four P1 and three P2**.
+
+| pri | finding | fix |
+|---|---|---|
+| **P1** | *"written rules do not bind agents; only rules that arrive at the moment of action do"* — an exclusivity claim the source does not support. Its own honest limit: prevented errors are invisible to the counting method, and the new mechanisms *"have prevented nothing yet"* | reframed as the **design conclusion from one sample**, with both limits stated, and the marginal-value finding (a 117th statement was worth zero, five times) carrying the weight |
+| **P1** | the mail advertised the evidence pack as *"every figure with the command that produced it"* — but the pack's census is **26 repositories, six post-close, 4,535 cards** against the mail's **27, seven, 4,560**. A recipient following the link finds different numbers | the sweep with today's census is now linked **first**, and the pack is described as method-plus-commands with its snapshot dated and marked superseded |
+| **P1** | *"the document stayed internally consistent"* — the audit's own worst findings show a **whole-document** coherence check *can* expose these | narrowed to section-at-a-time reading, and the fact that a full read catches them is now stated rather than contradicted |
+| **P1** | *"nothing prompted anyone to look"* — reverses the audit's recorded causal chain: it is owner-directed, opening with *"I received a 30 euro railway bill and I think thats a little high"* | now says the **agent tier** surfaced nothing and names the real prompt — a person questioning a bill, which is not a telemetry signal |
+| P2 | *"still growing — the loop was left running"* — the audit says liveness at probe time was **not measured** and the endpoints cannot tell steady ingestion from bursts or backfill | a dated snapshot, explicitly *not a trend* |
+| P2 | *"it was 61 sixteen days earlier"* — 61 was the **2026-08-23** reading, one day before, not sixteen. Earlier records show 19 routes on 08-05 | *"the same count was 61 the day before"* |
+| P2 | *"worth more than a longer checklist"* — no checklist control exists; and after *"it was not one of yours"* it reads as a complaint | header softened, comparative dropped, replaced with the measured result and an explicit *"we have no controlled comparison"* |
+
+**Every one was an overclaim, and the honest version of an overclaim is longer:
++163 words, 1,481 → 1,644.** That is 11 % past the cap he chose, surfaced in § 2
+item 6 as his call rather than absorbed.
+
+**The lesson is about how the earlier rounds were read, not about the mail.**
+Three rounds of "no findings in the draft" were counted as evidence the mail was
+sound. They were evidence that the mail was not in the diff. *Silence is not a
+pass* had been applied carefully to Codex's overall quiet and never to the one
+file that mattered most.
 
 ## 📌 The thing the mail's own subject argues for
 

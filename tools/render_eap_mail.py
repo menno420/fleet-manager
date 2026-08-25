@@ -3,8 +3,8 @@
 
 WHY THIS EXISTS. Two send-day defects, both measured on 2026-08-25 (fm #946).
 
-1. THE BLOCK IS MARKDOWN AND THE MAIL IS NOT. Part 2 carries 27 `**bold**` and
-   12 `*italic*` spans, backticked URLs and hard line wraps at ~76 columns.
+1. THE BLOCK IS MARKDOWN AND THE MAIL IS NOT. Part 2 carries 29 `**bold**` and
+   13 `*italic*` spans, backticked URLs and hard line wraps at ~76 columns.
    (`--count` reports these, because the figure was asserted wrong twice before
    it was computed: first as "~90 bold", then as 83 total — that second one
    reused the asterisks inside `**bold**` as italic delimiters.) Pasted

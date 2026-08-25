@@ -355,11 +355,11 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
     reading, not narrower**.
   - **The length (§ 2 item 6): the literal cap.** Findings 1–3 and asks 1–5 only;
     findings 4–5, asks 6–14 and the optional finding 6 are out.
-    **2,097 → 1,481 words.** *(The count is method-dependent and that was never
+    **2,097 → 1,644 words.** *(The count is method-dependent and that was never
     stated, which is why it drifted: the draft said 2,082, this entry said 2,127, the file
     measured 2,151 — and **none of the three was right**, because the method was
     never stated and both obvious methods count punctuation or bullet glyphs as
-    words. The mail as pasted was **2,097** before his cut and is **1,481** now —
+    words. The mail as pasted was **2,097** before his cut and is **1,644** now —
     2,097 is the before-cut baseline, not the send length. One command settles it:
     `python3 tools/render_eap_mail.py --count`, and
     `python3 tools/check_eap_figures.py` checks this entry still agrees with it.)*
@@ -372,7 +372,7 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   the venue asymmetry (ask 8, *"the strongest single argument in the estate"*) is
   gone; the prior-mail pointer that § 1 decision 2 requires moved onto the July
   findings link; the month-after spine is three findings rather than five;
-  **1,481 words is still about three pages, not one** — no route reached one page,
+  **1,644 words is still about three pages, not one** — no route reached one page,
   so the cap is narrowed, not met; and **eight words were added — the only content
   added to the outbound mail** — accounting for the seven repositories created
   after the program closed, which the scale paragraph had left unexplained
