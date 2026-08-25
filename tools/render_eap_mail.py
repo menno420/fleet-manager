@@ -55,7 +55,13 @@ def extract(md: str) -> list[str]:
 
 
 def blocks(lines: list[str]):
-    """Group into (kind, text) blocks: 'item' for N. list entries, else 'para'."""
+    """Group into (kind, text) blocks: 'ol' (numbered), 'ul' (bulleted), 'para'.
+
+    ORDERED AND UNORDERED ARE DISTINCT KINDS ON PURPOSE. The mail holds both — the
+    numbered asks and the bulleted links block — and an earlier version told them
+    apart by guessing at the text (`endswith('.md')`), which also advanced the
+    ordinal counter for bullets. A fifth link would have renumbered the asks.
+    """
     out, buf, kind = [], [], "para"
     def flush():
         if buf:
@@ -64,10 +70,11 @@ def blocks(lines: list[str]):
     for l in lines:
         if not l.strip():
             flush(); continue
-        if re.match(r"^\s{0,3}(\d+\.|[-+])\s+", l):
-            flush(); kind = "item"
-            buf.append(re.sub(r"^\s{0,3}(\d+\.|[-+])\s+", "", l))
-        elif buf and kind == "item":
+        m = re.match(r"^\s{0,3}(\d+\.|[-+])\s+", l)
+        if m:
+            flush(); kind = "ol" if m.group(1)[0].isdigit() else "ul"
+            buf.append(l[m.end():])
+        elif buf and kind in ("ol", "ul"):
             buf.append(l)
         else:
             if not buf: kind = "para"
@@ -89,9 +96,11 @@ def to_text(lines: list[str]) -> str:
     parts, n = [], 0
     for kind, t in blocks(lines):
         t = strip_marks(t)
-        if kind == "item":
+        if kind == "ol":
             n += 1
-            parts.append(f"{n}. {t}" if not t.startswith("http") and not t.endswith(".md") else f"  {t}")
+            parts.append(f"{n}. {t}")
+        elif kind == "ul":
+            parts.append(f"  {t}")
         else:
             n = 0
             parts.append(t)
@@ -105,15 +114,17 @@ def to_html(lines: list[str]) -> str:
         t = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", t, flags=re.S)
         t = re.sub(r"(?<!\w)\*(.+?)\*(?!\w)", r"<em>\1</em>", t, flags=re.S)
         return t.replace("`", "")
-    out, in_list = [], False
+    out, open_tag = [], None
     for kind, t in blocks(lines):
-        if kind == "item":
-            if not in_list: out.append("<ol>"); in_list = True
+        if kind in ("ol", "ul"):
+            if open_tag != kind:
+                if open_tag: out.append(f"</{open_tag}>")
+                out.append(f"<{kind}>"); open_tag = kind
             out.append(f"  <li>{inline(t)}</li>")
         else:
-            if in_list: out.append("</ol>"); in_list = False
+            if open_tag: out.append(f"</{open_tag}>"); open_tag = None
             out.append(f"<p>{inline(t)}</p>")
-    if in_list: out.append("</ol>")
+    if open_tag: out.append(f"</{open_tag}>")
     return "\n".join(out) + "\n"
 
 
@@ -145,6 +156,10 @@ across two source lines.
 
 1. **An ask.** *Because* of `a reason`.
 2. **A second ask.** See [the pack](../x.md).
+
+Everything above is public:
+- A link line: example.com/a
+- A second link line: example.com/b
 {END}
 trailing text that must not appear
 """
@@ -171,6 +186,13 @@ def selftest() -> int:
     # 5. list numbering survives
     if "1. An ask." not in txt or "2. A second ask." not in txt:
         fails.append("to_text() lost list numbering")
+    # 5b. bullets must NOT consume ordinals, and must not be numbered themselves
+    if "3. A link line" in txt or "1. A link line" in txt:
+        fails.append("to_text() numbered a bulleted item")
+    if "  A link line: example.com/a" not in txt:
+        fails.append("to_text() lost the bulleted links block")
+    if "<ul>" not in htm or htm.count("<ol>") != 1:
+        fails.append("to_html() did not separate the ordered and unordered lists")
     # 6. the html path keeps what the text path removes
     if "<strong>" not in htm or "<ol>" not in htm or '<a href="../x.md">' not in htm:
         fails.append("to_html() lost bold, list or link structure")
@@ -186,7 +208,7 @@ def selftest() -> int:
         fails.append("count() counted a bare-punctuation token as a word")
     for f in fails:
         print(f"selftest FAIL: {f}", file=sys.stderr)
-    print(f"selftest: {7 - len(fails)}/7 assertions passed"
+    print(f"selftest: {10 - len(fails)}/10 assertions passed"
           + ("" if fails else " — renderer demonstrated to fire"))
     return 1 if fails else 0
 
