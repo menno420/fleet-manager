@@ -470,10 +470,14 @@ each is one line to overturn.
    firings, gate reds, and owner corrections per session are all in logs now."*
    So there is a **third option** neither of the other two offers: run that
    count. It would turn the thesis from a design conclusion into a measured one.
-   **Two of the three inputs are verified structured and queryable today**
-   (2026-08-25): `.substrate/guard-fires.jsonl` holds **26,835 timestamped
-   records across 31 emitters**, keyed on `guard`/`outcome`/`verdict`/`surface`,
-   and gate reds are check-run state on the API. **The third — owner corrections
+   **What exists today, checked 2026-08-25 — and it is less
+   than "two of three":** `.substrate/guard-fires.jsonl` holds **26,835
+   timestamped records across 31 emitters**, keyed on
+   `guard`/`outcome`/`verdict`/`surface`, and gate reds are check-run state on
+   the API. **But neither carries a session identifier** — guard-fires has no
+   `session`/`run` key at all — so *per session*, which is the unit the study
+   needs, has to be reconstructed from timestamp windows. The raw events are
+   there; the attribution is not. **The third — owner corrections
    per session — is not available structured**, checked 2026-08-25 across the
    three surfaces that could plausibly carry it: `guard-fires.jsonl`'s 31 guard
    names (the only owner-shaped one, `owner-action-fields`, governs the *format*

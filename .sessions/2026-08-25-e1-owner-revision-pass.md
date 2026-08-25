@@ -292,7 +292,15 @@ stayed quiet and the document was wrong.
 ## 🔎 Codex round 5 — 7 findings, **7 `[conceded]`, 0 `[survived]`**
 
 At `a524170`, requested specifically to check whether round 4's rewrites had
-traded one overclaim for another. **Four of the seven say they had.**
+traded one overclaim for another. **Three of the four P1s say they had** — traced
+by `git log -S` on each flagged phrase rather than assumed from the timing:
+*"a read no one actually performs"*, *"117th statement"* and *"the command behind
+each figure"* all enter at **`e8517a5`**, the round-4 fix commit. **The fourth
+does not:** *"querying the provider's API"* dates to **`07591dd`**, the original
+#943 assembly — it had been in the mail from the start and four diff-based rounds
+never saw it, because the mail was not in their diffs. Both facts matter, and
+they point different ways: corrections do hide new errors, *and* prose review
+catches old ones that diff review structurally cannot.
 
 | pri | finding | fix |
 |---|---|---|
