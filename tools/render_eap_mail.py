@@ -3,8 +3,9 @@
 
 WHY THIS EXISTS. Two send-day defects, both measured on 2026-08-25 (fm #946).
 
-1. THE BLOCK IS MARKDOWN AND THE MAIL IS NOT. Part 2 carries ~90 `**bold**`
-   spans, `*italic*`, backticked URLs and hard line wraps at ~76 columns. Pasted
+1. THE BLOCK IS MARKDOWN AND THE MAIL IS NOT. Part 2 carries 27 `**bold**` and
+   56 `*italic*` spans (counted, not estimated), backticked URLs and hard line
+   wraps at ~76 columns. Pasted
    into a Gmail compose that is exactly what the recipient sees: literal
    asterisks through a carefully-argued vendor mail, and ragged wrapping that
    re-breaks at whatever width their client uses. Nothing in the draft said so.
@@ -29,7 +30,10 @@ on a fixture built to contain them.
 
 USAGE
     python3 tools/render_eap_mail.py            # plain text, paragraphs unwrapped
-    python3 tools/render_eap_mail.py --html     # rich paste (keeps bold/links)
+    python3 tools/render_eap_mail.py --html > /tmp/mail.html   # then OPEN IN A
+        BROWSER, select all, copy, paste. Pasting the HTML source itself gives
+        literal <p> tags. NOTE: no session has tested either output in a real
+        mail client — none is reachable from here.
     python3 tools/render_eap_mail.py --count    # the number, with its method
     python3 tools/render_eap_mail.py --selftest # prove the renderer fires
 """
@@ -125,7 +129,19 @@ def to_html(lines: list[str]) -> str:
             if open_tag: out.append(f"</{open_tag}>"); open_tag = None
             out.append(f"<p>{inline(t)}</p>")
     if open_tag: out.append(f"</{open_tag}>")
-    return "\n".join(out) + "\n"
+    body = "\n".join(out)
+    # A COMPLETE DOCUMENT, not fragments. You cannot paste HTML SOURCE into a
+    # Gmail compose and get formatting — you get literal <p> tags, which is worse
+    # than the asterisks this mode exists to avoid. The only route that works is
+    # to render it first: write this to a .html file, open it in a browser,
+    # select all, copy, and paste THAT into the compose window.
+    return (
+        "<!doctype html>\n<html><head><meta charset=\"utf-8\">\n"
+        "<title>EAP final review — Part 2</title>\n"
+        "<style>body{font:16px/1.55 -apple-system,Segoe UI,Roboto,sans-serif;"
+        "max-width:44em;margin:2em auto;padding:0 1em}li{margin:.6em 0}</style>\n"
+        "</head><body>\n" + body + "\n</body></html>\n"
+    )
 
 
 def count(lines: list[str]) -> dict:
@@ -249,7 +265,9 @@ def verify(lines: list[str]) -> int:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--html", action="store_true", help="rich paste (keeps bold and links)")
+    ap.add_argument("--html", action="store_true",
+                    help="complete HTML document; open in a browser and copy from there, "
+                         "do not paste the source")
     ap.add_argument("--count", action="store_true", help="word count, with its method")
     ap.add_argument("--verify", action="store_true",
                     help="assert the real mail renders loss-free (nothing dropped or invented)")
