@@ -1,6 +1,16 @@
 # 2026-08-25 — E1: the owner's revision pass, executed against three live calls
 
-> **Status:** `in-progress` — **born red on purpose**, branch
+> **Status:** `complete` — born red on purpose and **verified red at open and on
+> every head since** (`substrate-gate` step 9, the added-card hold, the only
+> failing step in 13 on each run). Flipped after `bash scripts/repo_checks.sh`
+> and `python3 bootstrap.py check --strict` were read directly, never after a
+> pipe. **Six `@codex` rounds: 33 findings, 33 `[conceded]`, 0 `[survived]`** —
+> **21 of them in the outbound mail, and 18 of those 21 came from the three
+> rounds that read the mail as *prose* rather than as a diff.** The three
+> diff-based rounds found 3 in it between them. *(Counted from the API per round:
+> 9 · 5 · 1 · 7 · 7 · 4. An earlier version of this line said 19 and 14 —
+> arithmetic done from memory while flipping the card, which is the one moment
+> it should not have been.)* Branch
 > `claude/final-eap-review-mail-3iw41z` restarted from `origin/main` at `9b2d83a`
 > (fm #945 merged; the prior branch `claude/final-eap-mail-x2s9kx` is spent — all
 > three of its PRs squash-merged, nothing stacked on it). Flips to `complete`
