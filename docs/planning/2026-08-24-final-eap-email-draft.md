@@ -365,8 +365,11 @@ each is one line to overturn.
   scale, as of 24 August 2026."* survives with **its date and none of its six
   census figures**, and each finding survives as its headline claim with **none
   of the count that supports it**. (Not *"no numbers"* — the date and the finding
-  ordinals remain; it is the evidence that goes.) A readable one-pager has to be *written*, not extracted, and
-  lands nearer the **667** mark. What it trades away is the forensic detail —
+  ordinals remain; it is the evidence that goes.) A readable one-pager has to be *written*, not extracted.
+  **667 is what the two-sentence extraction measures, not a prediction about a
+  drafted one** — nobody has drafted it, and its length is not knowable until
+  someone does. Two sentences per block is simply the shallowest depth at which
+  each finding still carries an evidential clause. What it trades away is the forensic detail —
   **already public at the four links the mail carries.** → *"draft the one-pager"*
   is a real option; it is a rewrite, not a trim, and no session has drafted it.
 - **e · One addition, eight words, and it is the only content added to the
@@ -471,8 +474,13 @@ each is one line to overturn.
    (2026-08-25): `.substrate/guard-fires.jsonl` holds **26,835 timestamped
    records across 31 emitters**, keyed on `guard`/`outcome`/`verdict`/`surface`,
    and gate reds are check-run state on the API. **The third — owner corrections
-   per session — is NOT verified structured**; it lives in session-card prose,
-   and counting it is the part of that study that would need building. **But a session
+   per session — is not available structured**, checked 2026-08-25 across the
+   three surfaces that could plausibly carry it: `guard-fires.jsonl`'s 31 guard
+   names (the only owner-shaped one, `owner-action-fields`, governs the *format*
+   of queue asks, not a count of corrections), `.substrate/state.json`
+   (`open_questions`, `reflection_buffer` — neither counts them) and
+   `episodic_index.json`. It lives in session-card prose, so counting it is the
+   part of that study that would need building. **But a session
    cannot know whether the flat statement was sloppiness or a deliberate thesis
    he wanted stated flatly** — it is his estate's central argument, and the
    design conclusion still stands in the body (*"a rule binds only if it arrives
