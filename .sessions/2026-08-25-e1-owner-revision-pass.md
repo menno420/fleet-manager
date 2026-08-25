@@ -142,6 +142,34 @@ be shown to fire* — it ships `--selftest` (7 assertions), and the selftest was
 **mutation-tested**: disabling the bold-strip, disabling the paragraph unwrap,
 and breaking the marker bounds each produced **exit 1, all three caught**.
 
+## 🔍 Two claims checked after owner-review asked what was behind them
+
+Both were carried from repo records rather than measured by this session. One
+still is; the other is now measured.
+
+1. **"Four of his sent EAP mails are gone from Gmail."** `MEASURED-PRIOR`, not
+   by this session — [the correspondence record](../docs/findings/2026-08-09-eap-correspondence-record.md)
+   § 0, which records **five probe runs over four query strings with two
+   positive controls** (one per lane) on 2026-08-24. Thread A holds two messages
+   where five were recorded; the missing four are the 07-08 introduction review,
+   the 07-12 scale-up report, the vendor's 07-14 acknowledgement and the 07-16
+   01:52 classifier report. **This session has no Gmail measurement of its own**
+   and did not open that file until owner-review asked. The § 3 send-record
+   rationale rests on that dated finding, not on anything measured here.
+2. **"Seven repositories were created after the program closed."** Was one table
+   row in the sweep. **Now measured directly** — `GET /user/repos` paginated over
+   the direct-PAT path, bucketed on `created_at` against the 07-07 → 07-21
+   fortnight:
+
+   | bucket | n |
+   |---|--:|
+   | predating the fortnight | 1 (`superbot`) |
+   | inside 07-07 → 07-21 | 19 |
+   | **after the close** | **7** — `proxybench` 07-22 · `shiftlife` 07-24 · `spider-swing` 07-28 · `Substrate-kit-app` 08-04 · `estate-backups` 08-16 · `couch-legend` 08-20 · `spider-bot` 08-24 |
+
+   1 + 19 + 7 = 27, matching the account total. The eight words added to the mail
+   are correct, and are now backed by a measurement rather than by a row.
+
 ## 📌 The thing the mail's own subject argues for
 
 `OQ-E1-FINAL-EAP-EMAIL` has to be closed with the sent date, subject and
