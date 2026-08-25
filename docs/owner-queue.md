@@ -345,11 +345,37 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   calls). **✅ ASSEMBLED AND MERGED 2026-08-24 (fm #943)** — six adversarial
   review rounds, **62 findings, all conceded, 0 survived**, five of them
   vendor-facing errors caught in rounds 5–6 alone.
-  **What remains yours and only yours: writing Part 1 — it is a beat
-  table, not drafted prose — the seven pre-send calls in § 2 of the draft
-  (call 5: Part 2 is **2,127 words** against the plan's one-page cap, and both
-  are your instructions — re-count before acting, it moved every round), and
-  sending it.** No session sends it.
+  **▶ 2026-08-25 — THE REVISION PASS RAN AGAINST YOUR OWN CALLS. WHAT IS LEFT IS
+  PART 1 AND SENDING.** The one open question was put to you before any edit, and
+  you answered it and two of the seven pre-send calls:
+  - *"a revision pass and my own section added/edited"* = **two operations, and
+    the pass covers the whole document** — § 1 and § 2, not only the COPY block.
+    This is the sentence fm #945 recorded as a P1 for a session having filled it
+    in; it was asked, not assumed, and **your answer was wider than the guarded
+    reading, not narrower**.
+  - **The length (§ 2 item 6): the literal cap.** Findings 1–3 and asks 1–5 only;
+    findings 4–5, asks 6–14 and the optional finding 6 are out.
+    **2,151 → 1,513 words.** *(The count is method-dependent and that was never
+    stated, which is why it drifted: the draft said 2,082, this entry said 2,127,
+    and the file was 2,151. All figures now use one stated method.)*
+  - **The 97.5 % (§ 2 item 2): cut the ratio, keep the shape.** The mail quotes
+    the audit's own uncontested rows instead — **949 MB store · 925 MB in three
+    ingestion-history tables · ~10 MB of actual user data** — and carries no
+    percentage at all. The prose-versus-rows contradiction in the audit is left
+    **unresolved**; no session picked a side.
+  **Four consequences of the cap are surfaced in § 2, each one line to overturn:**
+  the venue asymmetry (ask 8, *"the strongest single argument in the estate"*) is
+  gone; the prior-mail pointer that § 1 decision 2 requires moved onto the July
+  findings link; the month-after spine is three findings rather than five; and
+  **1,513 words is still about three pages, not one** — no route reached one page,
+  so the cap is narrowed, not met. **Items 1, 3 and 4 are now moot** — ask 12, the
+  €30 and the July counts all lived in the cut material.
+  **What remains yours and only yours: writing Part 1 — a beat table, never
+  drafted prose — and sending it.** No session sends it. **Then three values
+  close this entry:** the sent date, the exact subject, and the Gmail
+  `Message-Id`, into the staged row in § 3 of the draft — because § 0 of the
+  correspondence record measured that **four of your own sent EAP mails are gone
+  from Gmail**, so the mailbox cannot be the archive of record.
   **HIS SEND-DAY PLAN, stated 2026-08-24 late, VERBATIM and not decomposed:**
   *"tomorrow morning I will start fresh and create and send the email after a
   revision pass and my own section added/edited."*

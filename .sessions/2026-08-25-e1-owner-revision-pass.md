@@ -73,7 +73,10 @@ ingestion-history tables · ~10 MB of actual user data** — and carries no
 percentage at all. That is strictly stronger than either side of the
 contradiction and resolves nothing on his behalf.
 
-## ⚠️ Four consequences of the literal cap, surfaced and not resolved
+**Part 2: 2,151 words → 1,504 by the cut → 1,513 as it now stands**, the
+difference being the eight-word census fix at consequence 5 below.
+
+## ⚠️ Five consequences, surfaced and not resolved
 
 Each is one line to overturn; none was decided for him.
 
@@ -89,7 +92,15 @@ Each is one line to overturn; none was decided for him.
    month-after *is* § 1 decision 1's whole rationale for the mail.
 4. **Optional finding 6 is dropped**, per item 7's own stated conditional
    (*include on the keep-the-length route, drop on the literal-cap route*) —
-   a resolved conditional, not a new decision.
+   a resolved conditional, not a new decision. It stays drafted; 198 words to
+   put back.
+5. **Eight words were added — the only content this session added to the mail.**
+   The scale paragraph accounted for 19 + 1 of 27 repositories and left **seven
+   unexplained**; six adversarial rounds passed over the gap. The sweep has them
+   (*created after the program closed*, 7 as of 08-24) and they are **evidence
+   for the spine, not filler** — repositories created *after* the program is
+   precisely what § 1 decision 1 says the mail exists to report. This is a new
+   observation, not a re-opened round.
 
 **Still his, and still open:** item 1 (does he remember sending the capability
 pack) and item 3 (his hosting bill in a vendor mail) are **both moot under the
