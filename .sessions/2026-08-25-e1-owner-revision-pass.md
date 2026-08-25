@@ -45,8 +45,10 @@ rather than from prose that goes stale — which is the only fix that has ever
 worked here.
 
 The route prices were stale by more than the total was. The literal-cap route
-was quoted at **~1,227** in one place and **~1,434** in another; measured, it is
-**~1,478–1,503**.
+was quoted at **~1,227** in one place and **~1,434** in another; measured, the
+route lands at **1,469**. *(This session's own first answer here — "~1,478–1,503"
+— was computed with the same defective methods described above, and is corrected
+for the same reason.)*
 
 ## 🔗 The mis-numbered call, which five documents inherited
 

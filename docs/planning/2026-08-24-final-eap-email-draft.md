@@ -277,7 +277,7 @@ Each was put to him as a menu before any edit was made, and he picked.
 | **2** | the 97.5 % that contradicts its own source | **cut the ratio, keep the shape** |
 | — | what *"a revision pass and my own section added/edited"* targets | **two operations, and the pass covers the whole document** |
 
-**Four consequences of the cap — surfaced, not resolved.** None was decided for
+**Five consequences of the cap — surfaced, not resolved.** None was decided for
 him; each follows from the route itself rather than from anyone's judgement, and
 each is one line to overturn.
 
@@ -294,6 +294,10 @@ each is one line to overturn.
 - **c · The month-after spine is three findings, not five** — and the month-after
   is **§ 1 decision 1's entire rationale** for sending this at all. → *"put
   finding 4 back"* (drift, 92 words) or *"finding 5 back"* (cost, 193 words)
+- **d · 1,477 words is about three pages, not one.** No route reached one page.
+  The honest floor — cutting the good-parts block and the standing offer as well
+  — measured 1,182, and those two are exactly what make the critique read as a
+  fan's rather than a complainer's. Recorded so the cap is not mistaken for met.
 - **e · One addition, eight words, and it is the only content added to the
   mail.** The scale paragraph accounted for 19 + 1 of 27 repositories and left
   **seven unexplained** — an arithmetic gap a vendor would notice, and six
@@ -301,10 +305,6 @@ each is one line to overturn.
   closed"*, 7 as of 08-24), and they are **evidence for the spine rather than
   filler**: repositories created *after* the program is exactly what § 1
   decision 1 says this mail is for. → *"cut it"*
-- **d · 1,477 words is about three pages, not one.** No route reached one page.
-  The honest floor — cutting the good-parts block and the standing offer as well
-  — measured 1,182, and those two are exactly what make the critique read as a
-  fan's rather than a complainer's. Recorded so the cap is not mistaken for met.
 
 ---
 
