@@ -30,7 +30,7 @@
 | 4 | **Fresh compose, new subject, no reply-linkage** | Plan § 1: the standalone closing statement, readable cold in minutes | replying on the old thread instead |
 | 5 | The thesis is **refined, not replaced**: the wall is human review *because the defects are shaped to survive review* | The month of auditing earned the sharper version; the original is still true and still his | keeping the July wording |
 | 6 | Part 1 is a **beat table placed BEFORE `COPY FROM HERE`**, and the drafted prose is **deleted, not retained** | Rounds 2 and 3 both rejected weaker versions: a scaffold inside the markers gets pasted whatever the header calls it, and prose outside them still supplies his voice when he is invited to lift phrases | writing his half himself, which is the expected outcome |
-| 7 | **The one-page bound wins — findings 1–3 and asks 1–5 only** | Two of his own instructions collided (§ 2 item 6: the cap, versus *"add genuinely new points"*). Surfaced rather than resolved, and **he chose the literal cap on 2026-08-25**: findings 4–5 out, asks 6–14 out, optional finding 6 out. **2,097 → 1,477 words.** | saying which of the two month-after findings goes back |
+| 7 | **The one-page bound wins — findings 1–3 and asks 1–5 only** | Two of his own instructions collided (§ 2 item 6: the cap, versus *"add genuinely new points"*). Surfaced rather than resolved, and **he chose the literal cap on 2026-08-25**: findings 4–5 out, asks 6–14 out, optional finding 6 out. **2,097 → 1,481 words.** | saying which of the two month-after findings goes back |
 
 **Logistics.** Fresh Gmail compose — *not* a reply. To the EAP alias, cc the
 three people already on the prior thread (their addresses are in that thread;
@@ -49,7 +49,8 @@ re-breaks raggedly at whatever width their client uses. Run one of these instead
 | `python3 tools/render_eap_mail.py` | **plain text — use this for a normal compose.** Emphasis marks gone, paragraphs unwrapped so the mail client reflows them |
 | `python3 tools/render_eap_mail.py --html > mail.html` | a **complete HTML document**. **Open it in a browser, select all, copy, and paste *that*** — pasting the HTML source into the compose gives literal `<p>` tags, which is worse than asterisks. This is the only route that keeps the emphasis |
 | `python3 tools/render_eap_mail.py --count` | the word count, computed from the source rather than quoted from a sentence about it |
-| `python3 tools/render_eap_mail.py --verify` | proof the paste is **complete** — asserts the rendering dropped nothing and invented nothing (1,477 → 1,477). Worth running once before you paste |
+| `python3 tools/check_eap_figures.py` | checks that **this document's stated figures still match the mail** — run it after any edit to the COPY block, because the count is hard-coded in five living documents and one re-wording falsifies all of them at once |
+| `python3 tools/render_eap_mail.py --verify` | proof the paste is **complete** — asserts the rendering dropped nothing and invented nothing (1,481 → 1,481). Worth running once before you paste |
 
 **Two honest limits on this, because neither was tested and one is a real
 trade-off.** *(1)* **No session has pasted either output into a real mail
@@ -187,8 +188,9 @@ worth more than a longer checklist.
    the code either way.*
 5. **Usage, cost and resource telemetry visible to the agent tier.** *Because
    agents built and ran a system whose 949 MB store held 925 MB in three
-   ingestion-history tables against about 10 MB of actual user data (measured
-   2026-08-20, and still growing — the loop was left running), and nothing
+   ingestion-history tables, against about 10 MB across every other table in the
+   schema combined (measured 2026-08-20, and still growing — the loop was left
+   running), and nothing
    surfaced that during normal operation. One agent did find it, by deliberately
    going to look; nothing prompted anyone to look.*
 
@@ -235,7 +237,7 @@ Everything above is public:
 
 ---
 
-## 2 · Before he sends — the seven calls, three of them answered 2026-08-25
+## 2 · Before he sends — the seven calls, two of them answered 2026-08-25 (plus the separate revision-scope question)
 
 > **⚠ SENDING GATE — added 2026-08-24 after owner-review, and it is a base rate,
 > not a worry.** A Codex round was outstanding when this draft was handed over,
@@ -280,8 +282,11 @@ Everything above is public:
 
 ### ✅ Answered by the owner, 2026-08-25 — recorded, not interpreted
 
-Each was put to him as a menu before any edit was made, and he picked.
-**What his three answers did to the mail: 2,097 → 1,477 words.**
+Three answers, but **only two of them are among the seven calls** — items 2 and
+6. The third answers the separate question of what his revision pass targets,
+which is why its row is numbered `—` and why the queue says *"it and two of the
+seven pre-send calls"*. Each was put to him as a menu before any edit was made.
+**What his three answers did to the mail: 2,097 → 1,481 words.**
 
 | item | the call | his answer |
 |---|---|---|
@@ -306,9 +311,9 @@ each is one line to overturn.
 - **c · The month-after spine is three findings, not five** — and the month-after
   is **§ 1 decision 1's entire rationale** for sending this at all. → *"put
   finding 4 back"* (drift, 92 words) or *"finding 5 back"* (cost, 193 words)
-- **d · 1,477 words is about three pages, not one.** No route reached one page.
+- **d · 1,481 words is about three pages, not one.** No route reached one page.
   The honest floor — cutting the good-parts block and the standing offer as well
-  — measured 1,182, and those two are exactly what make the critique read as a
+  — measured 1,186, and those two are exactly what make the critique read as a
   fan's rather than a complainer's. Recorded so the cap is not mistaken for met.
 - **e · One addition, eight words, and it is the only content added to the
   mail.** The scale paragraph accounted for 19 + 1 of 27 repositories and left
@@ -337,8 +342,15 @@ each is one line to overturn.
    is **98.5 %**. Plausibly exact-bytes versus rounded-MB, and **still
    unresolved — no session picked a side.** The rows themselves were never in
    dispute, so ask 5 now quotes *them*: **949 MB store · 925 MB in three
-   ingestion-history tables · about 10 MB of actual user data**, and no
-   percentage anywhere. → *"re-run the sizing before I send"* if he wants a
+   ingestion-history tables · about 10 MB across every other table combined**,
+   and no percentage anywhere. **The remainder is NOT described as user data**
+   (`@codex`, fm #946 P1): the audit's next-largest row is the 8.4 MB
+   `ai_decision_audit` — itself an audit/history table — with ~2 MB of
+   everything else including server logs. Calling that "actual user data" would
+   turn a storage remainder into a measurement the audit does not support, in a
+   mail to a vendor. The phrasing was inherited from the evidence pack; it is
+   corrected here and in [the sweep](../findings/2026-08-24-e1-source-sweep.md)
+   § 4. → *"re-run the sizing before I send"* if he wants a
    current, self-consistent figure instead.
 3. **The €30 was his own infrastructure — MOOT under the cap.** It lived in
    finding 5, which is out, so no hosting bill appears in the mail. Ask 5 keeps
@@ -363,7 +375,7 @@ each is one line to overturn.
    recorded in the queue, the program § 7 row and `docs/planning/README.md`,
    stays true.
 6. **The length — ANSWERED: the literal cap.** **Part 2 was 2,097 words at
-   `9b2d83a`, 1,469 after the cut, and 1,477 as it now stands** — the eight-word
+   `9b2d83a`, 1,473 after the cut, and 1,481 as it now stands** — the eight-word
    census fix at consequence *e* is the difference.
    **The number now comes from a command rather than from prose:**
    `python3 tools/render_eap_mail.py --count`. That *is* the fix; a fourth
@@ -381,7 +393,7 @@ each is one line to overturn.
    2,097 words against a one-page cap is the same call as 2,151, and he made it
    on the direction, not the third digit. **The route prices were staler still:**
    quoted at ~1,227 in one place and ~1,434 in another; measured, the route
-   lands at **1,469**.
+   lands at **1,473**.
    **The conflict this resolved:** the cap was written 2026-07-26, when the mail
    was conceived as a *synthesis of already-sent material*; today's brief was
    *"add a few genuinely new points… actually a new valuable source"*. Both are
@@ -400,7 +412,7 @@ each is one line to overturn.
    **What keeps it out now is evidential weight against length** — it is **n=1
    self-observation from one session**, where every other finding rests on a
    committed audit with a measured denominator. → *"include finding 6"* puts it
-   back at **193 words**, taking Part 2 to ~1,670. **Its paste location moved:**
+   back at **193 words**, taking Part 2 to ~1,674. **Its paste location moved:**
    between **finding 3** and the "one thing that did work" paragraph — findings 4
    and 5 are no longer there to sit between.
 

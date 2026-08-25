@@ -240,7 +240,7 @@ thesis in one artifact, on his *most-looked-at* page.
 **N5 · Cost is not an agent-legible signal, so it accumulates where nobody
 looks.** The Railway audit attributed a **€30** bill, ended a crawler DoS, and
 sized the bot database: 949 MB total, 939 MB of it `public`, and **97.5 % of that 939 MB** was accumulated ingestion history (~96.5 % of the whole)
-against ~10 MB of actual user data
+against ~10 MB **across every other table combined** *(**CORRECTED** 2026-08-25, `@codex` fm #946 P1 — this line read "of actual user data", which the audit does not support: the remainder is 8.4 MB `ai_decision_audit`, itself an audit/history table, plus ~2 MB of everything else including server logs. It is a storage remainder, not a user-data subtotal.)*
 ([audit](2026-08-14-railway-websites-audit.md) § 8 — which measures
 table/index/TOAST **storage composition** and makes no authorship claim; 401 MB
 of one 668 MB table is TOAST). Agents built and ran the system that accumulated

@@ -90,7 +90,13 @@ def blocks(lines: list[str]):
 
 
 def strip_marks(t: str) -> str:
-    t = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", t)     # links -> their text
+    # A LINK KEEPS ITS DESTINATION. Flattening `[label](url)` to `label` makes a
+    # descriptive link unusable in a plain-text mail, and `--verify` cannot see
+    # the loss because it applies this same transform to both sides of its
+    # comparison (`@codex`, fm #946). The COPY block currently holds 0 markdown
+    # links, so this changes no present figure — it stops a future one silently
+    # losing its URL.
+    t = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r"\1 (\2)", t)
     t = re.sub(r"\*\*(.+?)\*\*", r"\1", t, flags=re.S)  # bold
     t = re.sub(r"(?<!\w)\*(.+?)\*(?!\w)", r"\1", t, flags=re.S)  # italic
     t = t.replace("`", "")
@@ -106,7 +112,10 @@ def to_text(lines: list[str]) -> str:
             n += 1
             parts.append(f"{n}. {t}")
         elif kind == "ul":
-            parts.append(f"  {t}")
+            # a visible glyph, not bare indentation — otherwise the links block
+            # reads as four unrelated paragraphs. Punctuation-only tokens are
+            # excluded from count(), so this moves no figure.
+            parts.append(f"- {t}")
         else:
             n = 0
             parts.append(t)
@@ -206,6 +215,15 @@ def selftest() -> int:
     for mark in ("**", "`"):
         if mark in txt:
             fails.append(f"to_text() left {mark!r} in the output")
+    # 3b. SINGLE-asterisk emphasis too — the loop above passes while `*Because*`
+    # renders literally, which is the exact thing this mode exists to prevent.
+    if "*" in txt:
+        fails.append("to_text() left a single-asterisk emphasis mark in the output")
+    if "Because" not in txt:
+        fails.append("to_text() destroyed italic content instead of unwrapping it")
+    # 3c. a link must arrive with its destination, not just its label
+    if "the pack (../x.md)" not in txt:
+        fails.append("to_text() dropped a link destination")
     # 4. hard wraps are unwrapped so the mail client can reflow
     if "hard-wrapped across two source lines" not in txt:
         fails.append("to_text() kept the source's hard line wrap")
@@ -215,7 +233,7 @@ def selftest() -> int:
     # 5b. bullets must NOT consume ordinals, and must not be numbered themselves
     if "3. A link line" in txt or "1. A link line" in txt:
         fails.append("to_text() numbered a bulleted item")
-    if "  A link line: example.com/a" not in txt:
+    if "- A link line: example.com/a" not in txt:
         fails.append("to_text() lost the bulleted links block")
     if "<ul>" not in htm or htm.count("<ol>") != 1:
         fails.append("to_html() did not separate the ordered and unordered lists")
@@ -234,7 +252,7 @@ def selftest() -> int:
         fails.append("count() counted a bare-punctuation token as a word")
     for f in fails:
         print(f"selftest FAIL: {f}", file=sys.stderr)
-    print(f"selftest: {10 - len(fails)}/10 assertions passed"
+    print(f"selftest: {13 - len(fails)}/13 assertions passed"
           + ("" if fails else " — renderer demonstrated to fire"))
     return 1 if fails else 0
 
@@ -275,13 +293,18 @@ def verify(lines: list[str]) -> int:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--html", action="store_true",
-                    help="complete HTML document; open in a browser and copy from there, "
-                         "do not paste the source")
-    ap.add_argument("--count", action="store_true", help="word count, with its method")
-    ap.add_argument("--verify", action="store_true",
-                    help="assert the real mail renders loss-free (nothing dropped or invented)")
-    ap.add_argument("--selftest", action="store_true", help="prove the renderer fires")
+    # MUTUALLY EXCLUSIVE. `--html --count > mail.html` used to exit 0 and write
+    # the count report into the file the owner then opens and pastes from
+    # (`@codex`, fm #946). Silent precedence between output modes is how you send
+    # the wrong artifact.
+    mode = ap.add_mutually_exclusive_group()
+    mode.add_argument("--html", action="store_true",
+                      help="complete HTML document; open in a browser and copy from there, "
+                           "do not paste the source")
+    mode.add_argument("--count", action="store_true", help="word count, with its method")
+    mode.add_argument("--verify", action="store_true",
+                      help="assert the real mail renders loss-free (nothing dropped or invented)")
+    mode.add_argument("--selftest", action="store_true", help="prove the renderer fires")
     a = ap.parse_args()
     if a.selftest:
         return selftest()

@@ -46,7 +46,7 @@ worked here.
 
 The route prices were stale by more than the total was. The literal-cap route
 was quoted at **~1,227** in one place and **~1,434** in another; measured, the
-route lands at **1,469**. *(This session's own first answer here — "~1,478–1,503"
+route lands at **1,473**. *(This session's own first answer here — "~1,478–1,503"
 — was computed with the same defective methods described above, and is corrected
 for the same reason.)*
 
@@ -82,11 +82,11 @@ directs; the session executes.
 the *derived percentage*: the audit's prose says 97.5 % of the 939 MB `public`
 schema, its own rows sum to 925 MB = 98.5 %. The rows themselves are not in
 dispute, so the mail now quotes them — **949 MB store · 925 MB in three
-ingestion-history tables · ~10 MB of actual user data** — and carries no
+ingestion-history tables · ~10 MB across every other table combined** — and carries no
 percentage at all. That is strictly stronger than either side of the
 contradiction and resolves nothing on his behalf.
 
-**Part 2: 2,097 words → 1,469 by the cut → 1,477 as it now stands**, the
+**Part 2: 2,097 words → 1,473 by the cut → 1,481 as it now stands**, the
 difference being the eight-word census fix at consequence 5 below.
 
 ## ⚠️ Five consequences, surfaced and not resolved
@@ -176,6 +176,39 @@ still is; the other is now measured.
 
    1 + 19 + 7 = 27, matching the account total. The eight words added to the mail
    are correct, and are now backed by a measurement rather than by a row.
+
+## 🔎 Codex round 1 — 9 findings, **9 `[conceded]`, 0 `[survived]`**
+
+Answered at `d7b37d0` after four requests went unanswered past the measured
+~335 s (three of which this session invalidated by pushing under them). One P1,
+eight P2. Every one was real.
+
+| # | pri | finding | disposition |
+|---|---|---|---|
+| 1 | **P1** | ask 5 called the DB remainder *"actual user data"*; the audit's next row is 8.4 MB `ai_decision_audit` — itself an audit/history table — plus ~2 MB incl. server logs | `[conceded]` — reworded to *"about 10 MB across every other table combined"*, a storage remainder rather than a user-data subtotal, and **retracted in the sweep too**, where the phrasing was inherited from |
+| 2 | P2 | the emphasis figure was wrong in the draft (56 italic / 83 total) **and the program-ledger row still said `~90 bold`** | `[conceded]` — the draft was already fixed; **the ledger row was not, and I had not checked it** |
+| 3 | P2 | plain-text bullets rendered as bare two-space indents, so the four links read as unrelated paragraphs | `[conceded]` — visible `- ` glyph; punctuation-only tokens are excluded from `count()`, so no figure moved |
+| 4 | P2 | `--selftest` checked `**` and backticks but **not single-asterisk italics** — `*Because*` could render literally and still pass | `[conceded]` — three assertions added; 10 → 13 |
+| 5 | P2 | `strip_marks()` flattened `[label](url)` to `label`, dropping the URL — and **`--verify` was blind to it**, applying the same transform to both sides | `[conceded]` — links now render `label (url)`. 0 markdown links in the block today, so no figure moved; it stops a future one vanishing |
+| 6 | P2 | `--count` computes but does not **enforce**: the number is hard-coded in five living documents | `[conceded]` — [`check_eap_figures.py`](../tools/check_eap_figures.py), which reads the number out of the prose and compares it |
+| 7 | P2 | the output modes were not mutually exclusive: `--html --count > mail.html` exits 0 and writes the **count report** into the file the owner then pastes from | `[conceded]` — argparse exclusive group; the conflict now exits 2 |
+| 8 | P2 | the owner-queue said *four* consequences; the draft has five | `[conceded]` — item e added to the queue with its overturn line |
+| 9 | P2 | § 2's heading said *three of the seven calls answered*; only **two** are numbered calls, the third answers the separate revision-scope question | `[conceded]` — heading and lead corrected |
+
+**Finding 6 proved itself within the hour.** Fixing the P1 added four words to
+ask 5 — **1,477 → 1,481** — which silently falsified **nine** figures across five
+documents. The new checker caught all nine. That is the same defect as everything
+else this session found, committed by the session that was documenting it.
+
+**And the checker's first version could not have caught them.** It searched each
+file for the literal `"1,477"` and compared `int("1,477")` against the computed
+`1477` — an `X != X` condition, structurally incapable of failing. Three further
+attempts died the same way: a pattern searching a file that lacked the phrase,
+then patterns broken by the docs' 76-column hard wrapping, then escaping that
+turned `\d` into a literal backslash-d. Each printed **CHECK CANNOT FAIL**
+rather than a clean pass, which is the only reason any of it was caught. That is
+finding 6 of the mail — *a check whose pattern could not match what it was
+searching for, so it could not fail* — reproduced four times over.
 
 ## 📌 The thing the mail's own subject argues for
 

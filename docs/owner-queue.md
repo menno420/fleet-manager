@@ -355,7 +355,7 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
     reading, not narrower**.
   - **The length (§ 2 item 6): the literal cap.** Findings 1–3 and asks 1–5 only;
     findings 4–5, asks 6–14 and the optional finding 6 are out.
-    **2,097 → 1,477 words.** *(The count is method-dependent and that was never
+    **2,097 → 1,481 words.** *(The count is method-dependent and that was never
     stated, which is why it drifted: the draft said 2,082, this entry said 2,127, the file
     measured 2,151 — and **none of the three was right**, because the method was
     never stated and both obvious methods count punctuation or bullet glyphs as
@@ -363,15 +363,18 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
     `python3 tools/render_eap_mail.py --count`.)*
   - **The 97.5 % (§ 2 item 2): cut the ratio, keep the shape.** The mail quotes
     the audit's own uncontested rows instead — **949 MB store · 925 MB in three
-    ingestion-history tables · ~10 MB of actual user data** — and carries no
+    ingestion-history tables · ~10 MB across every other table combined** — and carries no
     percentage at all. The prose-versus-rows contradiction in the audit is left
     **unresolved**; no session picked a side.
-  **Four consequences of the cap are surfaced in § 2, each one line to overturn:**
+  **Five consequences of the cap are surfaced in § 2, each one line to overturn:**
   the venue asymmetry (ask 8, *"the strongest single argument in the estate"*) is
   gone; the prior-mail pointer that § 1 decision 2 requires moved onto the July
-  findings link; the month-after spine is three findings rather than five; and
-  **1,477 words is still about three pages, not one** — no route reached one page,
-  so the cap is narrowed, not met. **Items 1, 3 and 4 are now moot** — ask 12, the
+  findings link; the month-after spine is three findings rather than five;
+  **1,481 words is still about three pages, not one** — no route reached one page,
+  so the cap is narrowed, not met; and **eight words were added — the only content
+  added to the outbound mail** — accounting for the seven repositories created
+  after the program closed, which the scale paragraph had left unexplained
+  (→ *"cut it"*). **Items 1, 3 and 4 are now moot** — ask 12, the
   €30 and the July counts all lived in the cut material.
   **What remains yours and only yours: writing Part 1 — a beat table, never
   drafted prose — and sending it.** No session sends it. **Then three values
