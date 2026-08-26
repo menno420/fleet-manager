@@ -1154,10 +1154,13 @@ fleet-wide merges/ready-flips live in
   superbot-websites, copy `DATABASE_URL` into service **botsite**. Unblocks public `/submit`.
 - **`OQ-WEBSITES-PAT` — websites: a token for control-plane, one recipe, two tiers.** STILL OPEN
   (the mint is yours; wiring is a session's). **NOTE 2026-08-26: the same sitting
-  can mint the SECOND token Move 3's comment loop needs** — a write-scoped PAT
-  (fleet-manager contents:write) for `app/writeback.py`'s new fm target; the
-  deployed token's scope is `UNVERIFIED` (its docstring says read) and the
-  packet is [the execution packets](planning/2026-08-26-estate-execution-packets.md)
+  can mint the SECOND token Move 3's comment loop needs** — a fine-grained PAT
+  on fleet-manager with **Contents R/W AND Pull requests R/W** (the loop lands
+  comments via branch + PR because main's ruleset requires PRs, so Contents
+  alone writes the branch and then stalls at the PR call — `@codex` fm #951)
+  for `app/writeback.py`'s new fm target; the deployed token's scope is
+  `UNVERIFIED` (its docstring says read) and the packet is
+  [the execution packets](planning/2026-08-26-estate-execution-packets.md)
   § 5 PKT-D3. Purpose: lift the 60/h anonymous GitHub rate limit
   on the readiness board's polling. **Minting is UI-only — measured 2026-08-16** on your ask
   (*"use my account pat to mint one? Please try that"*): `POST /user/personal-access-tokens` →

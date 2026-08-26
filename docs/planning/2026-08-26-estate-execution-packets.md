@@ -284,6 +284,13 @@ the review surface alone → land on green → verify pin + dist sha at `main`.
 | `spider-swing` | 1.20.2 → new; **two** required checks, `substrate-gate` AND `game-quality` (re-verify from the rulesets endpoint, not prose); local `python3 tools/verify.py` + `check --strict` |
 | `sim-lab` | 1.15.0 — check the release's `min_upgrade_from` first; hop stepwise if required |
 
+**PKT-A12 · fleet-manager · the post-release hop** (`@codex` fm #951 round 2 —
+without it fm stays on v1.21.0 running the prototype beside the engine copy
+forever): vendor the published dist, bump the pin, **retire the A1 prototype
+in the same PR** — reconcile `scripts/preflight.py` to the engine's checker,
+expect the prototype in the carve-out list, and keep the added-card-scoped
+acceptance tests green against the released implementation.
+
 **Skipped, with reasons (the honest wave):** `pokemon-mod-lab` — owner-held
 (program, 2026-08-14; owner lane) · `shiftlife` — paused by OD-15, hop
 owner-paced (owner lane) · `product-forge` — 1.7.0 but R2-bound and its
@@ -304,29 +311,41 @@ the rulesets endpoint · gate command · deploy binding where recorded · live
 scheduled workflows · last touch + venue) · **Intent** (the declared entry
 point from [ESTATE](../ESTATE.md), whether it exists, its date,
 written-or-template · Layer-2 threads · the dated audit verdict, stamped as a
-judgement) · **Digest** (the hand-written summaries — PKT-B2's job, empty slots
-rendered honestly until then) · **unconsumed owner comments** (empty until
-Wave D). Every page GENERATED-bannered with a per-repo `measured_at`; past 14
-days it renders **STALE, visibly** — never hidden, never auto-refreshed.
+judgement) · **Digest** (the hand-written summaries — **embedded at render
+from a separate, hand-owned `docs/repos/<name>/summary.md`**, never generated
+text: a full re-render would otherwise silently delete PKT-B2's prose,
+`@codex` fm #951 round 2; empty slots rendered honestly until B2 writes them)
+· **unconsumed owner comments** (empty until Wave D; reads
+`docs/owner-comments/<repo>/` excluding `consumed/`). Every page
+GENERATED-bannered with a per-repo `measured_at` **plus the printed
+boundary** — "treat as stale after <measured_at + 14 d>" — because a
+committed page cannot flip its own text when time passes: the page
+self-describes the boundary and **consumers compute age at read time** (D1
+renders the STALE mark from `measured_at`; an agent reader compares the
+date — `@codex` fm #951 round 2). Never hidden, never auto-refreshed.
 Fields are derived by diffing each repo's whole `substrate.config.json` against
 a reference — a hand field list is what always goes stale here.
 **Wired, not prose:** `session-close` gains the local-amendment step (the 5c
 shape, fm #947 precedent) — *regenerate the digest for every repo this session
 touched* — so freshness follows work, on the venue where the generator runs.
 *Acceptance:* 19 digests committed; three spot-diffs against live API agree; a
-second run is idempotent; a deliberately stale `measured_at` renders the STALE
-mark.
+second run is idempotent; every page prints `measured_at` and its "stale
+after" boundary; **a re-render with a populated `summary.md` present
+round-trips the hand prose byte-identical** (the preservation proof — the
+stale-mark *rendering* test belongs to D1, which computes age at read time).
 *Verify:* `python3 bootstrap.py check --strict`.
 *Non-scope:* no hand summaries (B2); no website (D); no schedule.
 
-**PKT-B2 · fleet-manager · either.** The hand-written Digest sections, batched
-by cluster (the bots · the games · the labs · web/infra) — dated pointer prose
-in the Layer-2 register (what the repo is for at a glance, which files matter,
+**PKT-B2 · fleet-manager · either.** The hand-written summaries, batched
+by cluster (the bots · the games · the labs · web/infra) — written into each
+repo's **hand-owned `docs/repos/<name>/summary.md`** (the generator embeds it
+at render; it never generates or overwrites it): dated pointer prose in the
+Layer-2 register (what the repo is for at a glance, which files matter,
 where its truth lives), **never intent** (his conversations own that) and never
 a copy of the repo's own docs.
-*Acceptance:* every digest's Digest slot filled or carrying an honest
-"nothing beyond ESTATE's line yet"; each summary cites what was actually
-opened. *Verify:* `check --strict`.
+*Acceptance:* every digest's Digest slot filled from its `summary.md` or
+carrying an honest "nothing beyond ESTATE's line yet"; each summary cites what
+was actually opened. *Verify:* `check --strict`.
 
 **PKT-B3 · the hub (OneDrive / local disk) · owner-executed, hub-local.** He
 said he will do this himself; this packet is the written target so his sitting
@@ -352,8 +371,10 @@ his call.
 the laptop right now" from them. *Non-scope:* no session pre-empts this — it is
 his, by his word.
 
-**PKT-B4 · every non-archived repo · either venue · gated on his AGENTS.md
-yes** (`OQ-FM-AGENTS-BOOT` — recommendation: yes). One ~15-line root
+**PKT-B4 (×N) · one packet per non-archived repo · either venue · gated on
+his AGENTS.md yes** (`OQ-FM-AGENTS-BOOT` — recommendation: yes; the ×N form
+is the C8 shape — landing modes and gates differ per repo, so each row is
+independently completable, `@codex` fm #951 round 2). One ~15-line root
 `AGENTS.md` per repo: what the repo is (one line) · its own read-first path
 (from [ESTATE](../ESTATE.md)'s read-first column, inlined per row) · the hub
 back-link (fleet-manager is the estate's router — public, raw-fetchable) · the
@@ -556,8 +577,10 @@ read-only token** (`OQ-WEBSITES-PAT` — already open for exactly this
 rate-limit class) · alternative: a committed sync copy in websites (second
 copy to drift — rejected unless the token stalls).
 *Verify:* the pytest suites + `quality`; acceptance: the page renders what the
-fm tree holds, stale rows marked, and a comment file appears without any
-digest regen.
+fm tree holds; **a digest whose `measured_at` is older than 14 days renders
+the STALE mark, computed at read time** (the committed page cannot flip its
+own text — `@codex` fm #951 round 2); a comment file appears without any
+digest regen and disappears from "unconsumed" when moved to `consumed/`.
 
 **PKT-D2 · websites.** Retire or repoint `/fleet` and `/projects` — the
 control plane still renders the terminated seat roster; two competing answers
@@ -583,11 +606,27 @@ the hub's review-fm-first step for local sessions + the AGENTS.md pointer for
 everything else. A comment is *consumed* by the session that acts on it moving
 it into the repo's record (its card or the relevant doc) — mechanical, no
 grading.
-*Needs (owner lane):* a **write-scoped PAT** in Railway for the fm target —
-today's deployed token is `UNVERIFIED` and the docstring says read-scoped
-either way; the engine already fails honestly on 403.
+**Two mechanics the branch+PR design makes load-bearing (`@codex` fm #951
+round 2):** (1) each writeback also appends a line to the stable per-repo
+index `docs/owner-comments/<repo>/README.md` in the same commit — the prompt
+router routes **literal files only** (`route_docs.py` filters entries through
+`is_file()`), so an arbitrarily named new comment file is undiscoverable
+without a stable routed path; the route targets the index, the index names
+the files. (2) **consumption is a file move, not a description**: the acting
+session moves the comment file to `docs/owner-comments/<repo>/consumed/` in
+its own PR (move, never delete — the record survives), and every reader —
+D1's render, B1's generator, the route index — excludes `consumed/`. Copying
+the direction into a card without the move leaves the comment reading
+unconsumed forever.
+*Needs (owner lane):* a fine-grained PAT in Railway for the fm target with
+**Contents R/W AND Pull requests R/W** — Contents alone writes the branch but
+cannot open the gate-compatible PR (`@codex` fm #951 round 2; the estate's
+existing writeback recipe already requires both) — today's deployed token is
+`UNVERIFIED` and the docstring says read-scoped either way; the engine
+already fails honestly on 403.
 *Acceptance:* a test comment travels: site → comments PR merged → the `/repos`
-page shows it on next render → consumed by a session's card. *Non-scope:* no
+page shows it on next render → a session consumes it by moving it to
+`consumed/` → the page and the route stop presenting it. *Non-scope:* no
 notification system; no second store — the commit is the record.
 
 ### The owner lane — batched, one sitting each
@@ -596,7 +635,7 @@ notification system; no second store — the commit is the record.
 |---|---|---|
 | OWN-1 | `AGENTS.md` estate-wide (`OQ-FM-AGENTS-BOOT`) | yes / no — recommendation **yes**; unlocks PKT-B4 |
 | OWN-2 | the hub centralisation route (`OQ-ONEDRIVE-HUB`) | one letter a/b/c (§ PKT-B3); recommendation **a** |
-| OWN-3 | two token mints, one sitting | Tier-1 read-only (readiness + D1) per `OQ-WEBSITES-PAT` · write-scoped for writeback (D3) |
+| OWN-3 | two token mints, one sitting | Tier-1 read-only (readiness + D1) per `OQ-WEBSITES-PAT` · the writeback token for D3 with **Contents R/W AND Pull requests R/W** — Contents alone cannot open the gate-compatible PR |
 | OWN-4 | `pokemon-mod-lab` hop | release the hold, or keep it — one word |
 | OWN-5 | `shiftlife` hop pacing | now / later |
 | OWN-6 | `gba-homebrew` landing route for hop + AGENTS.md | admin-merge red / demote the check / defer — one letter |
