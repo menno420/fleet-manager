@@ -174,11 +174,16 @@ on one of the two boot venues:
 **The venue block every packet inherits (stated once, referenced as
 "the venue block"):**
 
-- **Local precheck:** `python --version` (or `py -3 --version`) — if no Python,
-  the local gate cannot run; the **server-side required check on the PR is the
-  binding gate** and the session must let it decide (never merge on red). Then
-  `gh auth status` and `git --version`. Shell is Git Bash; in PowerShell read
-  `$LASTEXITCODE`, never `$?`, and never an exit code after a pipe (TRAP-002).
+- **Local precheck:** `python --version` (or `python3 --version`, or
+  `py -3 --version`) — **record which interpreter answered and use IT for every
+  command in the packet**: the packets write `python3` as the canonical form,
+  and on a Windows hub where only the `py` launcher exists, a literal
+  `python3` fails after the precheck passed (`@codex` fm #951). If none
+  answers, the local gate cannot run; the **server-side required check on the
+  PR is the binding gate** and the session must let it decide (never merge on
+  red). Then `gh auth status` and `git --version`. Shell is Git Bash; in
+  PowerShell read `$LASTEXITCODE`, never `$?`, and never an exit code after a
+  pipe (TRAP-002).
 - **Landing mode is per-repo and the packet names it:** PR-with-born-red-card
   (kit adopters) · push-to-main-deploys-production (`spider-bot`) · no CI
   (`estate-backups`). Where an auto-merge enabler arms at PR open (`superbot`,
@@ -214,9 +219,13 @@ carry only their deltas.
 card grammar and gate it repo-locally.
 *Steps:* (1) the card protocol (`.sessions/README.md`) gains
 `- **♻ Carried forward:** idea | journal | both | null — <one line>`;
-(2) a deterministic checker — fm-owned, in `tools/`, wired through
-`scripts/repo_checks.sh` so a kit regen cannot clobber it — runs **in the
-added-card lane only** and checks the declared value against the same diff:
+(2) a deterministic checker — fm-owned, in `tools/`, **invoked from
+`scripts/preflight.py`** (the planted local↔CI parity list: `check --strict`
+and CI's substrate-gate both run it, so local green and CI green stay one
+predicate — `@codex` fm #951: wiring it only through `scripts/repo_checks.sh`
+would leave it CI-only, the exact divergence preflight.py was planted to end) —
+runs **in the added-card lane only** and checks the declared value against the
+same diff:
 `idea` ⇒ a change under `docs/ideas/` · `journal` ⇒ a change to
 `.session-journal.md` · `both` ⇒ both · `null` ⇒ nothing required, the line is
 the record. No prose is read, content is never graded, extra deltas are never
@@ -254,8 +263,14 @@ pattern: read the repo's pin → download the new dist + verify sha256 three way
 → bank a rollback copy of the vendored `bootstrap.py` → vendor + bump
 `kit_version` → **diff every regenerated workflow and revert regens that drop
 host customizations** (the recurring wave lesson) → run the repo's local gate →
-born-red card, PR, `@codex review` at the exact head, wait ≥ 6 min, read the
-*inline* comments → land on green → verify pin + dist sha at `main`.
+born-red card, PR, `@codex review` at the exact head, wait ≥ 6 min, then
+**read BOTH verdict surfaces and match the head SHA** (`@codex` fm #951):
+findings arrive as inline comments (`/pulls/{n}/comments`, and the review
+object carries `commit_id`), but **a clean pass creates no review object at
+all** — it lands in `/issues/{n}/comments`, its shape varies, and the match
+rule is `Reviewed commit:` first, else membership among the body's 40-hex SHAs
+(`CAPABILITIES.md` § Codex's CLEAN verdict). Never conclude "no review" from
+the review surface alone → land on green → verify pin + dist sha at `main`.
 
 | hop | deltas the pattern must know |
 |---|---|
@@ -430,7 +445,8 @@ worker/Postgres hard rail; and the line that prevents a real mistake: **the
 recurring bot backup is a `superbot` workflow, not this repo.** Plus
 `.sessions/` **with a dated seed card in the same diff** — an empty
 `.sessions/` reads as "exists but holds no card", which the derived lane
-reports as invisible work.
+reports as invisible work — and the same convention README as PKT-C6's
+(Status · Model · Venue · the ♻ line as self-declared, ungated convention).
 *Acceptance:* a cold session knows what the venue is, that both workflows
 already ran, and where the recurring backup actually lives.
 *Verify:* none local (3 blobs, no CI) — the PR diff is the deliverable.
@@ -450,13 +466,17 @@ for — if the session holds no `$RAILWAY_API_KEY`, **write the service claim as
 world about review. *Verify:* `check --strict` + the four pytest suites;
 required check `quality`.
 
-**PKT-C5 · superbot · either.** **Step 1 is the rating read, not a fix** — the
-audit deliberately left `superbot` unrated (PKT-C0 may have done this; if so,
+**PKT-C5 · superbot · either.** **Step 1 is the rating read** — the audit
+deliberately left `superbot` unrated (PKT-C0 may have done this; if so,
 inherit its verdict): open `docs/AGENT_ORIENTATION.md` → what it delegates to →
-`docs/current-state.md`. Only on a fail verdict: a minimal root `README.md`
-(the repo renders nothing at its root today — measured in the back-link audit)
-that says what the repo is (FROZEN, behind the LIVE production bot), the hard
-rail, and points at `docs/AGENT_ORIENTATION.md` → `docs/current-state.md`.
+`docs/current-state.md`. **The minimal root `README.md` lands regardless of
+the verdict** (`@codex` fm #951 — the no-root-README fact is measured and
+independent of how the delegation path rates; the repo renders nothing at its
+root today): what the repo is (FROZEN, behind the LIVE production bot), the
+hard rail, pointing at `docs/AGENT_ORIENTATION.md` → `docs/current-state.md`.
+**The rating decides the content depth**, not whether the pointer file exists —
+a fail verdict means the README also has to carry the corrections the read
+surfaced.
 *Cautions inlined:* the **auto-merge enabler arms at PR open — disable or
 label before requesting review**; docs-only pushes are rebuild-safe under the
 watch filter (`['disbot/**', 'requirements*.txt', 'pyproject.toml',
@@ -471,7 +491,9 @@ recorded pass state.
 the clone — the repo's own venue rule).** Card protocol without the kit:
 create `.sessions/` with a convention README (dated `YYYY-MM-DD-slug.md`
 cards · Status badge · Model line · **📍 Venue line** — the derived lane
-parses exactly this, `MEASURED` against `tools/estate_activity.py`) **plus a
+parses exactly this, `MEASURED` against `tools/estate_activity.py` — · and
+the **♻ Carried forward line as self-declared convention**, stated honestly
+as ungated here: nothing in this repo checks it, per § 6's scoping) **plus a
 dated seed card in the same diff** (an empty directory reads as invisible
 work). **No CI or landing change** — making `quality` required converts the
 repo to a PR flow, which its entry point records as owner-gated twice over.
@@ -523,12 +545,19 @@ row in PKT-B4 is the only touch, if he says yes.)*
 **PKT-D1 · websites.** `/repos` + `/repos/{name}` rendering fleet-manager's
 committed digests — including `measured_at` and the STALE marks, so aging is
 visible on his board — behind the existing owner gate (`app/owner_login.py`).
-Fetch trade, recommendation first: **server-side raw fetch of the committed
-digest with the Tier-1 read-only token** (`OQ-WEBSITES-PAT` — already open for
-exactly this rate-limit class) · alternative: a committed sync copy in
-websites (second copy to drift — rejected unless the token stalls).
+**The page also reads `docs/owner-comments/<repo>/` live from the same fm tree
+fetch** (`@codex` fm #951): a writeback is not a session, so nothing
+regenerates the digest when a comment lands — deriving the "unconsumed
+comments" row at render time is what keeps site → commit → visible true
+without a regen dependency (B1's generator still lists them when it runs; the
+page never waits for it).
+Fetch trade, recommendation first: **server-side raw fetch with the Tier-1
+read-only token** (`OQ-WEBSITES-PAT` — already open for exactly this
+rate-limit class) · alternative: a committed sync copy in websites (second
+copy to drift — rejected unless the token stalls).
 *Verify:* the pytest suites + `quality`; acceptance: the page renders what the
-fm tree holds, stale rows marked.
+fm tree holds, stale rows marked, and a comment file appears without any
+digest regen.
 
 **PKT-D2 · websites.** Retire or repoint `/fleet` and `/projects` — the
 control plane still renders the terminated seat roster; two competing answers
@@ -539,18 +568,27 @@ addition replaces a seat-era surface).
 **PKT-D3 · websites + fleet-manager.** The comment loop, **route before box**:
 extend `writeback.py` with a fleet-manager target and a per-repo comment kind →
 each comment is one commit under `docs/owner-comments/<repo>/` **in
-fleet-manager** (§ 2 item 7) → delivery: the digest's "unconsumed comments"
-row (D1 renders it; the generator reads it) + the fm prompt-route so a cloud
-session touching that repo gets the comment injected + the hub's
-review-fm-first step for local sessions + the AGENTS.md pointer for everything
-else. A comment is *consumed* by the session that acts on it moving it into
-the repo's record (its card or the relevant doc) — mechanical, no grading.
+fleet-manager** (§ 2 item 7) — **landed via a branch + gate-compatible PR,
+never a direct Contents-API write to `main`** (`@codex` fm #951, verified this
+session: the effective rules on fm `main` include a `pull_request` rule, and
+the estate has already measured a direct write failing GH013 — so a
+main-targeted writeback would 403 every comment at the door). The writeback
+pushes to a rolling comments branch and opens/updates its PR; a comments-only
+diff adds no session card, so the added-card lane passes and the required
+check can green (the alternative — a narrowly scoped ruleset bypass for the
+writeback actor — is recorded and not preferred: it weakens the one
+protection). Delivery: D1 renders the comment records live (below) + the fm
+prompt-route so a cloud session touching that repo gets the comment injected +
+the hub's review-fm-first step for local sessions + the AGENTS.md pointer for
+everything else. A comment is *consumed* by the session that acts on it moving
+it into the repo's record (its card or the relevant doc) — mechanical, no
+grading.
 *Needs (owner lane):* a **write-scoped PAT** in Railway for the fm target —
 today's deployed token is `UNVERIFIED` and the docstring says read-scoped
 either way; the engine already fails honestly on 403.
-*Acceptance:* a test comment travels: site → fm commit → digest row → consumed
-by a session's card. *Non-scope:* no notification system; no second store —
-the commit is the record.
+*Acceptance:* a test comment travels: site → comments PR merged → the `/repos`
+page shows it on next render → consumed by a session's card. *Non-scope:* no
+notification system; no second store — the commit is the record.
 
 ### The owner lane — batched, one sitting each
 
@@ -576,8 +614,15 @@ Packets are independent unless their `needs` line says otherwise — the wave
 rows, B4's rows and C1–C7 can interleave freely once their gates are met.
 **The first sitting is PKT-C1** (declared exception to the linear order: zero
 dependency, thirty minutes, subtractive, teaches the form). **The pair that
-must not slip is A1/A2** — the § 9 test: if only Move 1 lands, every future
-session in every repo adds to the record instead of drawing from it. When
+must not slip is A1/A2** — the § 9 test: once Move 1 lands and a repo takes
+its hop, every future session **in that repo** adds to the record instead of
+drawing from it. **Scoped to the upgraded adopters, deliberately** (`@codex`
+fm #951): the no-kit repos — `spider-bot`, `estate-backups`, `creator-kit`'s
+gate-less half, `curious-research` — get the ♻ convention only as a
+self-declared line in their C-packet convention READMEs, ungated, and full
+coverage there arrives with kit adoption, which stays owner-gated
+(spider-bot's landing flow twice over). Saying "every repo" would be the
+claim-beyond-the-mechanism this plan exists to end. When
 choosing among optional per-repo rows, rank by **fresh traffic, measured in
 that sitting** (`GET /repos/menno420/{repo}/pulls?state=closed` filtered on
 `merged_at`, one single window) — never by a frozen table and never by
