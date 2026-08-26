@@ -69,9 +69,17 @@ Live reads of all 19 non-archived repositories over the direct-PAT path
 | **`docs/ideas/` entry** | a sentence in the `session-close` skill | **3 added in fleet-manager since the program closed** |
 | **`.session-journal.md`** | a generated template and nothing else | **untouched in 11 of 14** |
 
-**fleet-manager ran 163 sessions between 2026-07-22 and 2026-08-26 and added 3
-ideas.** The `session-close` skill says every session *"groom one idea forward;
-add one new 💡 idea you genuinely believe in."* Compliance is **~2 %**.
+**fleet-manager landed 163 dated session cards between 2026-07-22 and
+2026-08-26 and added 3 ideas.** The `session-close` skill asks every session to
+*"groom one idea forward; add one new 💡 idea you genuinely believe in."*
+
+**Cards, not sessions — and the distinction is not pedantry.** One session can
+land two cards (this tree holds `2026-07-23-hub-forge-slice4-handoff.md` and
+`…-landed.md`, the second saying in its own text that it is the same owner-live
+session), and a session that lands none is invisible to the count entirely. So
+**3 ideas per 163 cards** is the measurement; a per-session compliance rate is
+not derivable from it and is not claimed. The order of magnitude is what the
+plan rests on, and it survives either denominator (`@codex`, fm #949).
 
 Method: `ls .sessions/` filtered to dated cards from 2026-07-22; `ls
 docs/ideas/*.md` grouped by the date in the filename — **15 of 18 are dated
@@ -84,7 +92,8 @@ them. Three are from August.
 headings are *"Recurring problems + fixes — so the next session doesn't
 re-discover them."*
 
-**Untouched planted template in 11 of 14 kit repositories.** Written in three:
+**Byte-identical to the planted template in 11 of 14 kit repositories** — never
+written, or written and reverted; the hash cannot tell them apart. Written in three:
 `spider-swing`, `substrate-kit`, `websites`. fleet-manager's is a template, and
 [`../MAP.md`](../MAP.md) has said so in writing since 2026-08-10 without anyone
 filling it.
@@ -111,14 +120,27 @@ not about the repo having no ideas. The kit's channel is unused.)*
 - **`AGENTS.md` exists in 0 of 19 non-archived repositories.** Every
   ChatGPT/Codex session in the estate boots with no boot file, everywhere.
   `@codex` reviews every PR the owner opens.
-- **Kit versions have drifted silently:** `product-forge` at **1.7.0**,
-  `spider-swing` at **1.20.2**, the rest at **1.21.0**.
+- **Kit versions have drifted silently — five live versions across 16
+  adopters**, `MEASURED` over *every* non-archived repo (an earlier draft said
+  "three versions" from a **ten-repo sample**, and the estate's own records
+  already contradicted it — `@codex`, fm #949; the same sample-as-population
+  error this plan warns about, made inside it):
+  **1.21.0** ×10 (`couch-legend`, `creator-kit`, `fleet-manager`, `gba-homebrew`,
+  `idea-engine`, `substrate-kit`, `superbot`, `superbot-next`, `venture-lab`,
+  `websites`) · **1.20.2** `spider-swing` · **1.20.1** `shiftlife` ·
+  **1.15.0** ×3 (`pokemon-mod-lab`, `sim-lab`, `superbot-plugin-hello`) ·
+  **1.7.0** `product-forge`. `pokemon-mod-lab` is owner-held on its upgrade
+  (program, 2026-08-14), so a laggard is not automatically a defect.
 - **No `.claude/` at all:** `product-forge`, `creator-kit`, `spider-bot`,
   `estate-backups`.
 - **No kit and no session cards at all:** `spider-bot` (live in production),
   `estate-backups`, `curious-research`, `superbot-plugin-hello`.
-- **Planted docs never edited** — a mechanical "nobody has written this repo's
-  own truth" gauge: `creator-kit` **25/25**, `product-forge` **15/19**,
+- **Planted docs still byte-identical to the kit's planted copy** — a
+  mechanical "how much of this repo speaks for itself" gauge. **It proves
+  current identity, not that nobody ever edited**: an edit and a revert leave
+  the same hash (`@codex`, fm #949). The same caveat governs every "untouched"
+  and "virgin" label in this document — none of them inspected commit history.
+  Ratios: `creator-kit` **25/25**, `product-forge` **15/19**,
   `idea-engine` 19/26, `couch-legend` 13/26, `spider-swing` 12/26, `websites`
   7/10, fleet-manager 7/22.
   **Not a score — a prompt to look.** `websites` is a healthy repo with a high
@@ -137,10 +159,21 @@ and complied with 2,849 times.** Volume is not the binding constraint.
 the card is demanded at a moment, by a gate, in a machine-checkable shape.**
 
 ```
-gated at a moment          → 2,849 done
+gated at a moment              → 2,849 done
 asked for in prose, at the end → 3 done
 ```
 
+**Narrowed under review, and the narrowing matters (`@codex`, fm #949).** That
+comparison changes **four** things at once, not one: the card is gated, it is
+*also* auto-drafted by the kit when missing, it is structurally templated, and
+an idea or a journal entry is materially harder semantic work than filling a
+known slot. So the evidence supports **"the card mechanism vastly outperforms
+prose instruction"** and does **not** isolate the gate as the operative
+variable, nor settle that memory plays no part. The claim this plan acts on is
+the narrow one — and it is enough, because every move below improves the
+mechanism rather than asking anyone to remember more. A clean test would hold
+difficulty constant: gate one artifact of comparable semantic weight and
+measure. **That test is not run, and the plan does not pretend it was.**
 This is the estate's own law, already written and already measured:
 [`../findings/2026-08-08-why-rules-dont-bind.md`](../findings/2026-08-08-why-rules-dont-bind.md)
 found **116 committed statements across 66 files catching 0 of 16 incidents**,
@@ -193,20 +226,44 @@ The card already carries a required `💡` marker, so an *idea sentence* is
 gated — but it dies on a card nobody re-reads. Nothing carries it into
 `docs/ideas/`, and nothing asks for the journal at all.
 
-**Do:** a deterministic checker in the added-card lane — when a session card
-claims a new idea or records a recurring problem, require a corresponding change
-to `docs/ideas/` or `.session-journal.md` in the same diff.
+**Do:** add **one closed-vocabulary marker** to the card grammar, checked in the
+added-card lane exactly as the existing markers are:
 
-**Do not:** grade the content. This estate has withdrawn two gates for
+```
+- **♻ Carried forward:** idea | journal | both | null — <one line>
+```
+
+The checker's whole rule, and it reads no prose (`@codex`, fm #949 — an earlier
+draft said *"when a card claims a new idea"*, which requires deciding what a
+free-form sentence means, i.e. the semantic grading the next paragraph forbids):
+
+| value | required in the same diff |
+|---|---|
+| `idea` | a change under `docs/ideas/` |
+| `journal` | a change to `.session-journal.md` |
+| `both` | both |
+| `null` | nothing — and the one-line reason is the record |
+
+**Do not grade the content.** This estate has withdrawn two gates for
 mechanising meaning
 ([`../../.claude/skills/session-close/SKILL.md`](../../.claude/skills/session-close/SKILL.md)
-step 5b). Check **presence of a delta**, never quality — and make "nothing
-learned this session" an explicit, writable answer, the way the Layer-2 handoff
-line makes `null` a legitimate outcome.
+step 5b). The gate checks a **declared value against a file delta** — both
+mechanical — and `null` stays a first-class answer, the way the Layer-2 handoff
+line makes `null` legitimate. A session can still declare `null` dishonestly;
+that is deliberate, because the alternative is a checker reading prose.
 
-**Ship it in substrate-kit, not here**, so all 14 repos inherit it. That is
-roadmap § 5.3: the kit owns the universal method; each repo owns its
-specialisation.
+**Ship it in substrate-kit, not here** — roadmap § 5.3: the kit owns the
+universal method, each repo owns its specialisation.
+
+**But shipping is not inheriting, and that gap is the move's real cost
+(`@codex`, fm #949).** Adopters vendor a *pinned* release and upgrade
+independently — § 2.4 measures **five live versions across 16 adopters**, three
+of them at 1.15.0 and one at 1.7.0 — so a checker released into the kit changes
+nothing in a repo until that repo upgrades. **Move 1 is therefore two things:
+the checker, and a rollout wave** (`upgrade-distribution`, one adopter at a
+time, born-red PR each). Any claim that the inflow closes estate-wide is a claim
+about the *wave*, not about the release. And `pokemon-mod-lab`'s upgrade is
+owner-held (program, 2026-08-14), so the wave has an owner-gated row in it.
 
 ### Move 2 · The per-repo digest — one generator, two readers
 
@@ -233,6 +290,20 @@ files"* — and *"I do not want this to be a direct clone of a repo."*
 Every hand-written enumeration in this repo has gone stale — the hook count, the
 check list, the skills count, and twice in the session that wrote this file.
 
+**Generated is not the same as fresh — the digest needs a freshness contract
+(`@codex`, fm #949).** § 8 rules out a schedule, and the digest additionally
+carries hand-written summaries plus volatile facts (deploy bindings, live
+workflows, required checks). Without one it becomes the thing this plan exists
+to remove: an inherited state rendered as current. Minimum:
+
+- a **`measured_at` stamp per repo**, rendered in the open, never in a footer;
+- a **staleness threshold** — the kit's own `cadence.staleness_days` is 14 —
+  after which the page marks the row stale **rather than hiding it**;
+- **refresh at the moment of use**: the session-close skill regenerates the
+  digest for a repo it worked, the same way the born-red card is written for a
+  session it ran. That is refresh-on-touch, not a cron, and it keeps the
+  active repos current while letting resting ones visibly age.
+
 **Two readers, one artefact:** an agent reads the markdown; the control plane
 renders it.
 
@@ -244,8 +315,9 @@ look at what I think is important in each repo while the agent works, so I can
 also have visual confirmation about what I believe to be true."*
 
 **Do:** `/repos` and `/repos/{name}` on the control plane, rendering Move 2's
-digest, behind the existing owner gate (`app/owner_login.py`); repoint
-`writeback.py` at fleet-manager so a comment becomes a committed file; then
+digest, behind the existing owner gate (`app/owner_login.py`); extend
+`writeback.py` with a fleet-manager target and a per-repo comment kind so a
+comment becomes a committed file; then
 **route that file to the next agent working that repo**, so a correction is
 delivered at the moment of action rather than filed where nobody looks.
 
@@ -268,9 +340,17 @@ Those conversations are the expensive part — fleet-manager's own intent docume
 took **21 questions answered by him**, and there are 19 repositories. **Move 2
 is what makes them cheap:** each conversation starts from a digest that already
 says what exists, what is configured, what is missing and what the last session
-did, so his time goes to *intent* instead of to reconstruction. So the order is
-**Move 2 → the intent conversations → Move 3**, with Move 1 running in parallel
-because it lives in the kit and blocks nothing.
+did, so his time goes to *intent* instead of to reconstruction. **One order, stated once, and § 9 does not contradict it (`@codex`, fm #949 —
+an earlier draft had Move 1 "parallel" here and "first" there, which leaves an
+implementing session unable to tell what to start):**
+
+> **Move 1 → Move 2 → the intent conversations → Move 3.**
+
+Move 1 leads because it is the only one that shrinks the problem while nobody is
+working a repo (§ 9 lever 2). Its *checker* is small; its *rollout wave* is the
+long pole and runs alongside Move 2 rather than blocking it — that is the only
+concurrency in this plan, and it is between the wave and Move 2, never between
+Move 1 and Move 2.
 
 ## 6 · The risk this plan carries
 
@@ -314,9 +394,14 @@ summaries — and those are the compression that removes reading elsewhere.
 
 ## 9 · How to work through 19 repositories without a 19-session slog
 
-`DERIVED`. **The failure mode to design against is already on the record:** D2
-has existed since 2026-07-26 with a per-repo acceptance test, and in a month it
-has moved three repositories. A plan that is a list of 19 repos will do the same.
+`DERIVED`. **The failure mode to design against is already on the record:** D2 has existed
+since 2026-07-26 with a per-repo acceptance test, and in a month **one repo has
+had a completed truth pass** (fleet-manager; `substrate-kit` is recorded
+partial). `idea-engine` and `sim-lab` had front-door fixes landed, and
+`spider-swing` and `product-forge` were *classified* — which the program's
+2026-08-24 row is explicit changed what their fixes must be **without doing
+them**. Audited is not fixed, and an earlier draft of this line counted
+classifications as movement (`@codex`, fm #949). A plan that is a list of 19 repos will do the same.
 Five levers, in the order they matter.
 
 **1 · The survey is a command, not a sweep.** Everything in § 2 and § 2.4 — kit
@@ -334,11 +419,18 @@ record instead of drawing from it. Draining a backlog that is still filling is
 bailing; this closes the inflow.
 
 **3 · Traffic decides the order, not tidiness.** A stale front door in a repo
-nobody opens costs nothing until someone arrives. The estate already has the
-right measurement — **merged PRs per 14 days**: `fleet-manager` 99 · `superbot`
-64 · `websites` 19 · `couch-legend` 18 · `spider-swing` 2 (program §7,
-2026-08-23). Use that, **not** last-commit dates: this repo ranked repos that way
-once and withdrew it under review the same session.
+nobody opens costs nothing until someone arrives. **Use the surviving *ordering*, not those numbers.** The program's 2026-08-23
+row quotes `fleet-manager` 99 · `superbot` 64 · `websites` 19 · `couch-legend`
+18 · `spider-swing` 2 — and **its own 2026-08-24 row retracts them as a
+comparable set**: no 14-day window ending on 08-23 reproduces the 99 (595 PRs
+swept, range 83–93), so *"they came from different methods and must never be
+mixed"*, and `spider-swing` re-reads **5**, not 2. What that re-measurement
+explicitly preserved is the **ordering**; what it killed is *dormant*. So rank
+by a **single-window measurement taken fresh**, and read the old figures as
+order only (`@codex`, fm #949 — I cited a corrected row without reading its
+correction, which is the un-propagated-correction class this repo keeps a
+checker for). Do **not** rank by last-commit dates: this repo did that once and
+withdrew it under review the same session.
 
 **4 · Where traffic ties, the intent audit's rule breaks it** — already written,
 already argued: *contradicting beats empty; among contradicting, the one whose
