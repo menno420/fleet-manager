@@ -311,3 +311,51 @@ summaries — and those are the compression that removes reading elsewhere.
 - **Nothing here is scheduled.** No cron, no bot commits. The estate has been
   retiring those (superbot #2450), and a generated file is corrected by one
   command.
+
+## 9 · How to work through 19 repositories without a 19-session slog
+
+`DERIVED`. **The failure mode to design against is already on the record:** D2
+has existed since 2026-07-26 with a per-repo acceptance test, and in a month it
+has moved three repositories. A plan that is a list of 19 repos will do the same.
+Five levers, in the order they matter.
+
+**1 · The survey is a command, not a sweep.** Everything in § 2 and § 2.4 — kit
+versions, apparatus presence, planted-doc ratios, ideas and journals across all
+19 repositories — came from **one script run this session**, not from 19 reads.
+Move 2's generator makes that repeatable. So the per-repo cost drops to the part
+that genuinely needs a mind: the summaries and the intent. Everything a machine
+can see, a machine should already have seen before anyone opens a session.
+
+**2 · Move 1 first, because it is the only one that makes the problem shrink
+while nobody is working.** It is listed as parallel because it lives in the kit
+and blocks nothing — but it is the move that stops the bleeding. Once the
+next-agent contribution is gated, every future session in every repo adds to the
+record instead of drawing from it. Draining a backlog that is still filling is
+bailing; this closes the inflow.
+
+**3 · Traffic decides the order, not tidiness.** A stale front door in a repo
+nobody opens costs nothing until someone arrives. The estate already has the
+right measurement — **merged PRs per 14 days**: `fleet-manager` 99 · `superbot`
+64 · `websites` 19 · `couch-legend` 18 · `spider-swing` 2 (program §7,
+2026-08-23). Use that, **not** last-commit dates: this repo ranked repos that way
+once and withdrew it under review the same session.
+
+**4 · Where traffic ties, the intent audit's rule breaks it** — already written,
+already argued: *contradicting beats empty; among contradicting, the one whose
+falsehood is not corrected on contact goes first; a running clock breaks any
+remaining tie* ([the audit](../findings/2026-08-23-active-repo-intent-audit.md)
+§ 6). Do not invent a second ranking rule.
+
+**5 · Size the owner's input per repo, and batch it by cluster.** fleet-manager's
+intent needed **21 questions** because it is the hub and the corpus answered
+almost none of them. A small repo needs three: *what is this for · what is
+explicitly not in scope · what would make you call it working.* Cluster the
+sittings — the bots, the games, the labs — so one conversation covers several,
+and let the digest carry the reconstruction so his time goes to intent alone.
+
+**The test that keeps this honest.** If **Move 1 lands and nothing else does**,
+the estate is still better off, because the contract self-heals from that point
+forward. If **Move 3 lands first and Move 1 never does**, the website renders a
+decaying picture beautifully. So Move 1 is the one that must not slip, and any
+session that reports progress on this plan should say where Move 1 stands before
+anything else.
