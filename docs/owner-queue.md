@@ -493,8 +493,28 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   [`audits/2026-08-10-full-read/findings.md`](audits/2026-08-10-full-read/findings.md)
   § "Start here", item 1.
 
+- **`OQ-ONEDRIVE-HUB` — 🔗 how the OneDrive hub and fleet-manager centralise
+  (added 2026-08-26 evening, OD-22).** **WHAT:** you called the OneDrive /
+  local-disk hub *"basically a repo of its own … kinda like the local version of
+  fleet-manager"* and want the two centralised better; the packet plan's
+  PKT-B3 ([the execution packets](planning/2026-08-26-estate-execution-packets.md)
+  § 5 Wave B) carries the trade. **OPTIONS, one letter:** **(a)** make the hub a
+  private git repository — both fleet-managers sync by git, cloud sessions can
+  read it, and the `Hub/journal.md` question dissolves (risk to test once:
+  OneDrive sync × git friction) · **(b)** share the folder read-only the way the
+  Drive folder is · **(c)** a local session copies `journal.md` in per sitting.
+  **RECOMMENDATION:** a, `REASONED`. **HOW:** one letter in any chat; your own
+  PKT-B3 sitting executes it. **VERIFIED-NEEDED:** owner-only — it is your
+  OneDrive and your layout. *(Supersedes the un-slugged "how does
+  `Hub/journal.md` reach this repo" question in
+  [`activity/README.md`](activity/README.md) — same question, now decidable.)*
+
 - **`OQ-FM-AGENTS-BOOT` — Decide whether to add a minimal root `AGENTS.md`.**
-  **UPDATED 2026-08-26 — he leaned toward yes, and the scope is estate-wide, not
+  **UPDATED 2026-08-26 evening: the per-repo packet exists and one word starts
+  it** — [the execution packets](planning/2026-08-26-estate-execution-packets.md)
+  § 5 PKT-B4 (a ~15-line pointer per repo: its own read path, the hub
+  back-link, the activity + owner-comments pointers; the four audit-failure
+  repos sequenced after their fixes). **UPDATED 2026-08-26 — he leaned toward yes, and the scope is estate-wide, not
   this repo.** Owner, live: *"a dedicated agents.md is still probably a good
   idea."* `MEASURED` the same day across the account: **0 of 19 non-archived
   repositories carry one.** **And the argument for it changed** — the
@@ -1133,7 +1153,12 @@ fleet-wide merges/ready-flips live in
 - **`OQ-WEBSITES-RAILWAY-POSTGRES` — websites: add Railway PostgreSQL** to project
   superbot-websites, copy `DATABASE_URL` into service **botsite**. Unblocks public `/submit`.
 - **`OQ-WEBSITES-PAT` — websites: a token for control-plane, one recipe, two tiers.** STILL OPEN
-  (the mint is yours; wiring is a session's). Purpose: lift the 60/h anonymous GitHub rate limit
+  (the mint is yours; wiring is a session's). **NOTE 2026-08-26: the same sitting
+  can mint the SECOND token Move 3's comment loop needs** — a write-scoped PAT
+  (fleet-manager contents:write) for `app/writeback.py`'s new fm target; the
+  deployed token's scope is `UNVERIFIED` (its docstring says read) and the
+  packet is [the execution packets](planning/2026-08-26-estate-execution-packets.md)
+  § 5 PKT-D3. Purpose: lift the 60/h anonymous GitHub rate limit
   on the readiness board's polling. **Minting is UI-only — measured 2026-08-16** on your ask
   (*"use my account pat to mint one? Please try that"*): `POST /user/personal-access-tokens` →
   404, `GET` same path → 404, legacy `POST /authorizations` → 404, against positive controls

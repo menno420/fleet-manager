@@ -19,6 +19,13 @@
 > Provenance per entry. `OWNER` = his words. `MEASURED` = a live read, dated,
 > with the method. `DERIVED` = inference, revisable. Legend:
 > [`../findings/2026-08-05-foundation-continuation.md`](../findings/2026-08-05-foundation-continuation.md).
+>
+> **Execution decomposition (same day, evening):**
+> [the estate execution packets](2026-08-26-estate-execution-packets.md) — this
+> plan broken into per-repo work packets for the two boot venues, with two
+> corrections to this document stated in its § 2 (the § 2.4 `.claude/` census
+> reads 4 and the measured figure is 10 of 19; § 4's "the deployed token is
+> READ-scoped" is the docstring's claim, `UNVERIFIED` at the deployment).
 
 ## 1 · The owner's diagnosis, in his words
 
