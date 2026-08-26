@@ -249,6 +249,7 @@ def _in_flight(gh: GitHub, repo: str) -> list[dict]:
     for pr in gh.get_all(f"/repos/{OWNER}/{repo}/pulls?state=open&per_page=100") or []:
         head = pr.get("head", {}).get("sha", "")
         head_date = None
+        head_tried = False
         for f in gh.get_all(
                 f"/repos/{OWNER}/{repo}/pulls/{pr['number']}/files?per_page=100") or []:
             path = f["filename"]
@@ -261,10 +262,16 @@ def _in_flight(gh: GitHub, repo: str) -> list[dict]:
                 when = date.fromisoformat(m.group(1))
             except ValueError:
                 continue
-            if head_date is None and head:
+            if not head_tried and head:
+                head_tried = True
                 # The PR head's commit date, so an in-flight card can excuse
                 # the branch push that carried it WITHOUT excusing every other
-                # push in the repository (@codex, fm #947 round 3).
+                # push in the repository (@codex, fm #947 round 3). Guarded on
+                # ATTEMPTED rather than on the result: a head that cannot be
+                # resolved (deleted fork, 404) leaves head_date None, and
+                # keying on the result would re-request it for every further
+                # card in the same PR — in exactly the degraded case this
+                # branch exists to tolerate (@codex, round 4).
                 c = gh.get(f"/repos/{OWNER}/{repo}/commits/{head}")
                 if c:
                     head_date = datetime.fromisoformat(
@@ -294,7 +301,6 @@ def collect(gh: GitHub, days: int):
     silent: list[dict] = []
     no_protocol: list[str] = []
     incomplete: list[str] = []
-    flight_dates: dict[str, list[dict]] = {}
     seen: set[tuple[str, str]] = set()
     flight_seen: set[tuple[str, str, int]] = set()
 
@@ -307,36 +313,21 @@ def collect(gh: GitHub, days: int):
         pushed = (datetime.fromisoformat(raw_push.replace("Z", "+00:00")).date()
                   if raw_push else None)
         moved = pushed is not None and pushed >= cutoff
+
         blobs, truncated = _sessions_tree(gh, name, r.get("default_branch") or "main")
         if truncated:
             incomplete.append(name)
-        if blobs is None:
-            # A repository adopting the protocol RIGHT NOW has its first
-            # `.sessions/` on an open PR, not on the default branch. Deciding
-            # "no protocol" before looking there reports the adoption session
-            # as both missing and unexplained (@codex, fm #947 round 2).
-            # Un-windowed on purpose: protocol existence is not window-scoped,
-            # so an adoption PR open for longer than --days still proves the
-            # repository has the protocol (@codex, fm #947 round 3).
-            adopting = _in_flight(gh, name)
-            for card in adopting:
-                if date.fromisoformat(card["date"]) < cutoff:
-                    continue
-                key = (card["repo"], card["file"], card["pr"])
-                if key not in flight_seen:
-                    entries.append(card)
-                    flight_seen.add(key)
-                    flight_dates.setdefault(name, []).append(card)
-            if adopting:
-                continue
-            no_protocol.append(name)
-            if moved:
-                silent.append({"repo": name, "pushed": pushed.isoformat(),
-                               "why": "no `.sessions/` directory"})
-            continue
 
-        dated = []
-        for b in blobs:
+        # ONE path, deliberately. Rounds 3 and 4 each found the same three bugs
+        # in a second, near-parallel branch for repositories adopting the
+        # protocol — a missing `<= today` bound, a missing coverage check, a
+        # dropped head date — because that branch `continue`d past the shared
+        # logic. Fixing the symptoms drew a reshaped finding each time, so the
+        # branch is gone: everything below runs for every repository, and a
+        # repository with no `.sessions/` on its default branch is simply one
+        # whose `dated` list is empty (@codex, fm #947 round 4).
+        dated: list[tuple] = []
+        for b in (blobs or []):
             m = CARD_RE.match(b["path"])
             if not m:
                 continue
@@ -346,39 +337,51 @@ def collect(gh: GitHub, days: int):
                 continue
             # Upper bound as well as lower: a mistyped future date would sort
             # ahead of real activity, count inside "the last N days", and
-            # suppress invisible-work detection until it arrived (@codex,
-            # fm #947 round 3).
+            # suppress invisible-work detection until it arrived.
             if when > today:
                 continue
             dated.append((when, b))
 
-        fresh = [(w, b) for w, b in dated if w >= cutoff]
-        for when, b in fresh:
+        # Un-windowed on purpose, and used for two different jobs below.
+        # Protocol existence is not window-scoped, and neither is coverage: an
+        # open PR whose card filename predates the window can still be what
+        # accounts for a push inside it.
+        flights = _in_flight(gh, name)
+        has_protocol = blobs is not None or bool(flights)
+
+        # --- rendered entries: windowed on both sides
+        for when, b in dated:
+            if not (cutoff <= when <= today):
+                continue
             card = parse_card(_read_blob(gh, name, b["sha"]))
             card.update({"repo": name, "date": when.isoformat(),
-                         "file": b["path"], "pr": None, "in_flight": False})
+                         "file": b["path"], "pr": None, "in_flight": False,
+                         "head_date": None})
             entries.append(card)
             seen.add((name, b["path"]))
 
-        for card in _in_flight(gh, name):
-            if not (cutoff <= date.fromisoformat(card["date"]) <= today):
+        for card in flights:
+            when = date.fromisoformat(card["date"])
+            if not (cutoff <= when <= today):
                 continue
             # Suppress only what is already on the default branch. Keep the PR
             # in the key so two open PRs claiming the same card filename BOTH
             # appear — that collision is the conflict this surface exists to
-            # show, not noise to fold away (@codex, fm #947 round 2).
+            # show, not noise to fold away (@codex, round 2).
             if (card["repo"], card["file"]) in seen:
                 continue
             key = (card["repo"], card["file"], card["pr"])
             if key not in flight_seen:
                 entries.append(card)
                 flight_seen.add(key)
-                flight_dates.setdefault(name, []).append(card)
 
-        # Movement without a card — the section this whole log exists for.
+        if not has_protocol:
+            no_protocol.append(name)
+
+        # --- movement without a card: the section this whole log exists for.
         #
-        # Three corrections are folded into the predicate below, in the order
-        # @codex found them (fm #947):
+        # Four corrections are folded into the predicate below, in the order
+        # @codex found them (fm #947), and two of them pull against each other:
         #   r1: it only fired when a repository had NO card in the window, so
         #       an 08-20 card plus an uncarded 08-25 push went unreported.
         #   r2: an in-flight card has to count, or every repository with an
@@ -387,18 +390,24 @@ def collect(gh: GitHub, days: int):
         #       is the repository-wide latest push and can belong to a branch
         #       no PR touches, so an old carded PR would hide a fresh uncarded
         #       push to main.
+        #   r4: and the coverage set must NOT be windowed, or an open PR whose
+        #       card filename predates the window stops covering the push its
+        #       own branch made inside it.
         #
-        # What excuses a push is therefore a DATE that covers it — a card's
-        # own date, or the head-commit date of the open PR whose branch carried
-        # the push — never the mere existence of an open card.
-        flights = flight_dates.get(name, [])
+        # What excuses a push is therefore a DATE that covers it — a card's own
+        # date, or the head-commit date of the open PR whose branch carried the
+        # push — never the mere existence of an open card, and never a date
+        # filtered out for being outside the rendering window.
         covered = ([w for w, _ in dated]
                    + [date.fromisoformat(c["date"]) for c in flights]
                    + [date.fromisoformat(c["head_date"]) for c in flights
                       if c.get("head_date")])
         newest = max(covered, default=None)
         if moved:
-            if newest is None:
+            if not has_protocol:
+                silent.append({"repo": name, "pushed": pushed.isoformat(),
+                               "why": "no `.sessions/` directory"})
+            elif newest is None:
                 silent.append({"repo": name, "pushed": pushed.isoformat(),
                                "why": "`.sessions/` exists but holds no card at all"})
             elif pushed > newest:

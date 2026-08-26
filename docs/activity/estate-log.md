@@ -7,7 +7,7 @@
 > canonical in each repository's own `.sessions/` card — this file is a
 > pointer index, never a copy.
 >
-> **Window:** the last **7 calendar days** (UTC). **Generated:** 2026-08-26 16:54Z.
+> **Window:** the last **7 calendar days** (UTC). **Generated:** 2026-08-26 17:05Z.
 > **Scope: the 19 NON-ARCHIVED repositories** — 9 archived ones are excluded, so every count here is
 > non-archived-only and is not a total for the estate's whole history.
 > **Cards:** 75 across 6 repositories, of which **1 is in flight** on an open PR.
