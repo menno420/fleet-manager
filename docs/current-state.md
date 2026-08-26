@@ -126,10 +126,15 @@ copy product architecture or internal product state. Canonical intent:
   **Three gaps, three fixes:** no aggregation (the cards existed and were
   unreachable from the router whose job is routing) · no venue on any card ·
   and work outside every repository leaving nothing at all, which is what his
-  question was actually about. **`@codex` returned 15 findings over the PR —
-  15 `[conceded]`, 0 `[survived]`**, three of them P1 and two of them arithmetic
+  question was actually about. **`@codex` returned 46 findings over five rounds —
+  35 `[conceded]`, 1 `[partial]`, 10 `[survived]`** (the survivors all
+  re-emissions of fixes already in the tree). Three were P1, two were arithmetic
   in this very entry (the reachable split was 43/31 and is 54/20; the card
-  baseline counted the directory README). **`creator-kit` registered the same
+  baseline counted the directory README), and the sharpest pair **contradicted
+  each other on one predicate** — an open born-red PR must not report itself as
+  unexplained movement, and must not excuse every other push either. Rounds 3
+  and 4 then found the same three bugs twice in a second near-parallel code
+  path, so that path was **removed rather than patched**. **`creator-kit` registered the same
   PR** —
   created 2026-08-25, absent from an index whose header promised *"every
   repository the account holds"*; the baseline was 27 and the account held 28.

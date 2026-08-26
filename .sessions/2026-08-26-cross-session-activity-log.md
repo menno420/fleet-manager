@@ -1,10 +1,12 @@
 # 2026-08-26 — the estate activity log: what a cloud session can learn about local work
 
-> **Status:** `in-progress` — born red on purpose and verified red at open and on
+> **Status:** `complete` — born red on purpose and verified red at open and on
 > every head since (`substrate-gate`'s added-card hold, naming this card).
-> Flips to `complete` only after `python3 bootstrap.py check --strict` returns a
-> real exit 0 read directly, never after a pipe, and after `@codex` has answered
-> at the exact head.
+> Flipped only after `python3 bootstrap.py check --strict` returned a real exit 0
+> read from the process, never after a pipe, and after **five `@codex` rounds**
+> — the last of which was acted on in full but deliberately not answered with a
+> sixth request, per the convergence rule. No review request is outstanding at
+> the flip (TRAP-007).
 
 - **📊 Model:** opus-5 · high · feature build
 - **📍 Venue:** cloud-container
@@ -61,13 +63,25 @@ have a single answer:
 3. **Work outside every repository leaves nothing at all** — and this is what
    his question was really about. The estate's whole memory is git-shaped.
 
-## ⚑ The @codex relay — four rounds, and the last two are the interesting ones
+## ⚑ The @codex relay — five rounds, and the last three are the interesting ones
 
-**40 findings · 31 `[conceded]` · 1 `[partial]` · 8 `[survived]`.** Rounds:
-15 · 9 · 8 · 8. The `[survived]` are all re-emissions of fixes present and
-verified in the tree; the `[partial]` is round 1's venue regex, which I fixed
-and round 2 re-flagged from a different angle that turned out to name a case
-neither of us had — a **fenced example** of the bullet inside a card body.
+**46 findings · 35 `[conceded]` · 1 `[partial]` · 10 `[survived]`.** Per round:
+15 (15·0·0) · 9 (8·1·0) · 8 (4·0·4) · 8 (4·0·4) · 6 (4·0·2). Every `[survived]`
+is a re-emission of a fix present and verified in the tree; the `[partial]` is
+round 1's venue regex, which I fixed and round 2 re-flagged from a different
+angle that turned out to name a case neither of us had — a **fenced example**
+of the bullet inside a card body.
+
+**New findings per round went 15 → 9 → 4 → 4 → 4 while re-emissions went
+0 → 0 → 4 → 4 → 2.** Round 5 was taken and acted on but not answered with a
+sixth request, per the repo's convergence rule: it returned two genuine
+completions of earlier fixes (an unborn repository answers the tree endpoint
+with **409**, not 404, so the no-commit guard was half done; and in-flight card
+dates entered the coverage set without the `<= today` bound their rendered
+counterparts get), one real Windows-locale bug in the `gh` fallback, and one
+stale tally **in this very close-out's neighbour**, `current-state.md` — which
+is the un-propagated-correction class this repo keeps a checker for, caught in
+the act.
 
 **Two findings pulled in opposite directions on one predicate**, which is the
 finding worth carrying forward. Round 2: an open born-red PR must not report

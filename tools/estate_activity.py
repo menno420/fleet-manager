@@ -145,7 +145,10 @@ class GitHub:
                 verify=self.verify,
                 timeout=30,
             )
-            if r.status_code == 404:
+            if r.status_code in (404, 409):
+                # 409 is GitHub's "Git Repository is empty" — an unborn
+                # repository, which must reach the no-protocol classification
+                # rather than abort the whole refresh (@codex, fm #947 r5).
                 return None
             r.raise_for_status()
             return r.json()
@@ -159,9 +162,11 @@ class GitHub:
                 "installed), or install and sign in to the `gh` CLI"
             )
         p = subprocess.run([exe, "api", path.lstrip("/")],
-                           capture_output=True, text=True)
+                           capture_output=True, text=True, encoding="utf-8")
         if p.returncode != 0:
-            if "404" in p.stderr or "Not Found" in p.stderr:
+            err = p.stderr
+            if ("404" in err or "Not Found" in err
+                    or "409" in err or "empty" in err.lower()):
                 return None
             raise RuntimeError(f"gh api {path} failed: {p.stderr.strip()[:300]}")
         return json.loads(p.stdout)
@@ -398,10 +403,18 @@ def collect(gh: GitHub, days: int):
         # date, or the head-commit date of the open PR whose branch carried the
         # push — never the mere existence of an open card, and never a date
         # filtered out for being outside the rendering window.
+        # `<= today` on BOTH halves. The rendered-entry filter already bounds
+        # in-flight dates; coverage did not, so a mistyped future date on an
+        # open PR would have suppressed the invisible-work row until it
+        # arrived — the same bug as the default-branch one, in the other list
+        # (@codex, fm #947 r5). Head dates come from real commits and cannot be
+        # in the future, but are bounded with them rather than trusted.
         covered = ([w for w, _ in dated]
-                   + [date.fromisoformat(c["date"]) for c in flights]
-                   + [date.fromisoformat(c["head_date"]) for c in flights
-                      if c.get("head_date")])
+                   + [d for d in (date.fromisoformat(c["date"]) for c in flights)
+                      if d <= today]
+                   + [d for d in (date.fromisoformat(c["head_date"])
+                                  for c in flights if c.get("head_date"))
+                      if d <= today])
         newest = max(covered, default=None)
         if moved:
             if not has_protocol:
