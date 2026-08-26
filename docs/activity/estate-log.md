@@ -7,11 +7,11 @@
 > canonical in each repository's own `.sessions/` card — this file is a
 > pointer index, never a copy.
 >
-> **Window:** the last **7 calendar days** (UTC). **Generated:** 2026-08-26 17:15Z.
+> **Window:** the last **7 calendar days** (UTC). **Generated:** 2026-08-26 21:24Z.
 > **Scope: the 19 NON-ARCHIVED repositories** — 9 archived ones are excluded, so every count here is
 > non-archived-only and is not a total for the estate's whole history.
-> **Cards:** 75 across 6 repositories, of which **1 is in flight** on an open PR.
-> **Venue stated:** 1 of 75.
+> **Cards:** 79 across 6 repositories, of which **1 is in flight** on an open PR.
+> **Venue stated:** 5 of 79.
 
 ## In flight right now — cards on open PR branches
 
@@ -20,14 +20,14 @@ session collides with, so read it before starting work in these repos.
 
 | repo | PR | venue | card |
 |---|---|---|---|
-| `fleet-manager` | [#947](https://github.com/menno420/fleet-manager/pull/947) | `cloud-container` | 2026-08-26-cross-session-activity-log.md |
+| `fleet-manager` | [#951](https://github.com/menno420/fleet-manager/pull/951) | `cloud-container` | 2026-08-26-estate-execution-packets.md |
 
 ## What ran where
 
 | venue | cards |
 |---|--:|
 | `unstated` | 74 |
-| `cloud-container` | 1 |
+| `cloud-container` | 5 |
 
 `unstated` is an honest null, never a guess: a card with no
 📍 Venue: line means nobody said, not `cloud-container`.
@@ -39,7 +39,7 @@ and nothing else. This is the split that made the log necessary.
 
 | repo | cards | reachable from a fleet-manager session without this log |
 |---|--:|---|
-| `fleet-manager` | 55 | yes |
+| `fleet-manager` | 59 | yes |
 | `websites` | 9 | **no** |
 | `couch-legend` | 7 | **no** |
 | `product-forge` | 2 | **no** |
@@ -50,7 +50,11 @@ and nothing else. This is the split that made the log necessary.
 
 | date | repo | venue | model | status | card |
 |---|---|---|---|---|---|
-| 2026-08-26 ⏳ | `fleet-manager` | `cloud-container` | opus-5 | `in-progress` | [2026-08-26-cross-session-activity-log.md](https://github.com/menno420/fleet-manager/pull/947/files) |
+| 2026-08-26 | `fleet-manager` | `cloud-container` | opus-5 | `complete` | [2026-08-26-cross-session-activity-log.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-26-cross-session-activity-log.md) |
+| 2026-08-26 | `fleet-manager` | `cloud-container` | opus-5 | `complete` | [2026-08-26-legibility-and-intent-plan.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-26-legibility-and-intent-plan.md) |
+| 2026-08-26 | `fleet-manager` | `cloud-container` | opus-5 | `complete` | [2026-08-26-owner-direction-and-session-sweep.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-26-owner-direction-and-session-sweep.md) |
+| 2026-08-26 | `fleet-manager` | `cloud-container` | opus-5 | `complete` | [2026-08-26-spider-bot-commit-count.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-26-spider-bot-commit-count.md) |
+| 2026-08-26 ⏳ | `fleet-manager` | `cloud-container` | fable-5 | `in-progress` | [2026-08-26-estate-execution-packets.md](https://github.com/menno420/fleet-manager/pull/951/files) |
 | 2026-08-25 | `websites` | `unstated` | GPT-5 | `complete` | [2026-08-25-railway-hardening.md](https://github.com/menno420/websites/blob/HEAD/.sessions/2026-08-25-railway-hardening.md) |
 | 2026-08-25 | `fleet-manager` | `unstated` | opus-5 | `complete` | [2026-08-25-e1-owner-revision-pass.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-25-e1-owner-revision-pass.md) |
 | 2026-08-24 | `websites` | `unstated` | GPT-5 | `complete` | [2026-08-24-current-state-truth-closeout.md](https://github.com/menno420/websites/blob/HEAD/.sessions/2026-08-24-current-state-truth-closeout.md) |

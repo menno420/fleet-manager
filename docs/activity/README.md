@@ -108,10 +108,14 @@ the use case he gave. Planned pages, each carrying **what it is · what is on it
 written target instead of a chat message, not so a session pre-empts it. The
 dated log stays underneath as history.
 
-**One question is his and is open:** how `Hub/journal.md` reaches this repo — a
-local session copying it in, or the OneDrive folder shared the way the Google
-one is. Full record:
-[`../findings/2026-08-26-owner-direction.md`](../findings/2026-08-26-owner-direction.md) § 1.
+**One question is his and is open — now slugged `OQ-ONEDRIVE-HUB`** (evening
+2026-08-26, after OD-22 called the hub *"kinda like the local version of
+fleet-manager"*): how the hub and this repo centralise — the hub as a private
+git repo, the folder shared the way the Google one is, or `journal.md` copied
+in per sitting. The trade and recommendation:
+[the execution packets](../planning/2026-08-26-estate-execution-packets.md)
+§ 5 PKT-B3. Full record:
+[`../findings/2026-08-26-owner-direction.md`](../findings/2026-08-26-owner-direction.md) §§ 1, 5.
 
 ## Refreshing the derived lane
 

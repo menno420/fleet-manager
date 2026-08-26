@@ -1151,6 +1151,21 @@
         "docs/traps.md"
       ],
       "says": "This container's clone is SHALLOW — `.git/shallow` exists, and on 2026-08-26 it held 52 commits while `main` held 966. So any count, author list or 'every commit' claim taken from `git log`, `git rev-list` or `git shortlog` here describes THE CLONE, not the repository, and a squash-merged history makes the sample look uniform (one author, one committer) exactly when it is least representative. Check with `test -f .git/shallow` before quoting a number, and either scope the claim to the sample in the same sentence or get the real figure from the API (`GET /repos/{o}/{r}/commits?per_page=1` + the Link header). MEASURED 2026-08-26: 'git history | 50 commits, one author, every one squash-merged' was published as a property of fleet-manager and was a property of a shallow clone (TRAP-004; @codex, fm #947)."
+    },
+    {
+      "id": "execution-packets-prompt",
+      "tools": [
+        "UserPromptSubmit"
+      ],
+      "when": [
+        "\\bPKT-[A-D]\\d",
+        "\\b(execution|work) packets?\\b",
+        "\\bpacket plan\\b"
+      ],
+      "docs": [
+        "docs/planning/2026-08-26-estate-execution-packets.md"
+      ],
+      "says": "You are naming the estate execution packets (2026-08-26, OD-22's frame). Read docs/planning/2026-08-26-estate-execution-packets.md before acting: § 5 is the packet catalog (target, executor, steps, acceptance, verify, non-scope per packet), § 4 the venue block every packet inherits — run its precheck first on a local session (python --version · gh auth status; if Python is missing, the PR's required check is the binding gate, never merge on red). The first sitting is PKT-C1 (spider-swing's front door); the pair that must not slip is A1/A2 (gate the next-agent contribution); the owner-lane letters are § 5's closing table. The doc's figures carry the command that produced each — re-derive before building on one, never quote. The owner accepted the plan provisionally ('not read every word yet'), so expect his line-level corrections to outrank the prose."
     }
   ]
 }

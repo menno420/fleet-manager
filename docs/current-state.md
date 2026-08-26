@@ -100,8 +100,16 @@ copy product architecture or internal product state. Canonical intent:
   born-red card in flight is visible before it merges — which is the half that
   makes it a coordination surface and not just a history. On demand, not
   scheduled.
+- **The legibility plan has its execution decomposition (2026-08-26 evening):**
+  [the estate execution packets](planning/2026-08-26-estate-execution-packets.md)
+  — per-repo work packets for the two boot venues (OD-22: fleet-manager in the
+  cloud, the OneDrive/local-disk hub locally; satellites never boot). First
+  sitting: PKT-C1 (spider-swing's front-door fix); must-not-slip: A1/A2 (gate
+  the next-agent contribution). The owner accepted it provisionally — *"not
+  read every word yet"* — and works it from a local session next.
 - fleet-manager vendors substrate-kit v1.21.0 (fm #853)
-- A root `AGENTS.md` remains an owner decision (`OQ-FM-AGENTS-BOOT`).
+- A root `AGENTS.md` remains an owner decision (`OQ-FM-AGENTS-BOOT`) — the
+  per-repo packet awaits his word (PKT-B4).
 
 ### Live operating mechanisms
 

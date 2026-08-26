@@ -157,3 +157,55 @@ reply the owner reads"* — rests on a premise that does not hold on that surfac
 **He judged it not worth recording as a defect** (*"today is the first time I'm
 seeing it"*), so it is noted here and not filed. The agent-side fix needs no
 mechanism: answer a block with **only what changed**.
+
+## 5 · The evening correction — boot venues, the hub, and initiative (became OD-22)
+
+Given while rejecting the first draft of
+[the execution packets](../planning/2026-08-26-estate-execution-packets.md),
+and it corrected that draft's frame in three places. Verbatim:
+
+> *"you and the other session made a few claims that aren't true or at least
+> unverified or badly worded. Like that a satellite can't read fleet-manager,
+> which is not true. They just don't load the skills automatically, but if I
+> would ask any session to execute a skill in any repo, they can do that
+> perfectly. Tho they will have to be directed by me to find out about that."*
+
+> *"But I always start all my session on fleet-manager, or when I now boot a
+> local session it boots inside the onedrive or my local disk, which already
+> has a copy of the skills. The local sessions are alreasy told to review
+> fleet-manager first. Tho this might also need some work."*
+
+> *"the other repos will never be used as boot repo, so they are out of the
+> picture, which is why it is so important to have proper links and summaries
+> of each repo inside the fleet-manager."*
+
+> *"And the onedrive should basically be considered a repo of it's own. Which
+> is kinda like the local version of fleet-manager, which is why right now I
+> want to come up with a way that centralises this better."*
+
+> *"I think the root cause/fix is to make sure agents take initiative to do
+> their own research inside and outside the repos they work in, to help solve
+> the problems they encountered for the next sessions. That's basically the
+> main purpose of the substrate-kit and right now it's obviously not working
+> as intended, which is why I believe this current plan is very connected to
+> the substrate-kit, this is basically all one large connected web of repos
+> and files that should all agree on most things and make it easy for any
+> agent to navigate."*
+
+**And on accepting the revised plan, the same evening:**
+
+> *"I accepted it, and I think it's pretty good. Tho I have not read every word
+> yet, it's getting late and I will continue with this tomorrow. Your task now
+> is to properly document this plan and start with some preparations that make
+> it easier for me to work on this with a local session tomorrow."*
+
+**What is directive and what is not.** The boot-venue model, the hub's status
+and the wanted centralisation are **OD-22** (the program's table). The
+plan-acceptance is provisional by his own words — *"not read every word yet"* —
+so tomorrow's session should expect line-level corrections, not treat the
+packet doc as ratified prose. `MEASURED` the same session, settling the access
+half of his correction: fleet-manager is **public** — an unauthenticated raw
+fetch of `README.md` returns HTTP 200 — so any session anywhere can read it;
+what a satellite boot lacks is auto-loaded apparatus and routing, which is a
+discovery gap. The claims his correction retired are listed in the packet
+plan's § 3 claims audit.
