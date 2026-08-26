@@ -32,8 +32,9 @@ belong inside a gated grammar.
 
 **Why it exists at all:** the Model line answers *who*, and until 2026-08-26
 nothing answered *where* — so a session reading another session's card could not
-tell laptop work from container work. `MEASURED`: 0 of 419 cards here carried
-it. The owner asked for the fix on 2026-08-26; the measurement is
+tell laptop work from container work. `MEASURED` at `39c9d6e`: **0 of 418**
+dated cards here carried it — 418 and not 419, because this directory's own
+`README.md` is not a session card. The owner asked for the fix on 2026-08-26; the measurement is
 [`docs/findings/2026-08-26-cross-session-visibility.md`](../docs/findings/2026-08-26-cross-session-visibility.md)
 and the estate-wide index it feeds is [`docs/activity/`](../docs/activity/README.md).
 

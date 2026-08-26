@@ -170,7 +170,12 @@ class GitHub:
 # ---------------------------------------------------------------- refresh
 
 def parse_card(text: str) -> dict:
-    venue = VENUE_RE.search(text)
+    # The protocol puts the venue line in the card header, above the first `##`.
+    # Anchoring to the complete bullet already rejects prose about the
+    # convention; restricting to the header also rejects a FENCED EXAMPLE of the
+    # bullet inside a card body, which this estate's cards now plausibly carry.
+    header = text.split("\n## ", 1)[0]
+    venue = VENUE_RE.search(header)
     model = MODEL_RE.search(text)
     status = STATUS_RE.search(text)
     title = ""
@@ -200,22 +205,27 @@ def _sessions_tree(gh: GitHub, repo: str, branch: str):
     date-prefixed names sort oldest-first, the entries it would have dropped
     are exactly the newest ones this window needs (@codex, fm #947).
 
-    Returns None when the repository has no `.sessions/` at all.
+    Returns `(blobs, truncated)`; `blobs` is None when the repository has no
+    `.sessions/` at all. `truncated` is propagated INTO the generated file
+    rather than printed and forgotten: a warning on stdout does not stop the
+    artifact presenting a floor as a total, and under `--stdout` it would
+    contaminate the Markdown stream (@codex, fm #947 round 2).
     """
     root = gh.get(f"/repos/{OWNER}/{repo}/git/trees/{branch}")
     if not root:
-        return None
+        return None, False
     node = next((t for t in root.get("tree", [])
                  if t["path"] == ".sessions" and t["type"] == "tree"), None)
     if node is None:
-        return None
+        return None, False
     sub = gh.get(f"/repos/{OWNER}/{repo}/git/trees/{node['sha']}")
     if not sub:
-        return []
-    if sub.get("truncated"):
-        print(f"WARNING  {repo}/.sessions listing came back truncated — "
-              f"counts for this repository are a floor, not a total.")
-    return [t for t in sub.get("tree", []) if t["type"] == "blob"]
+        return [], False
+    truncated = bool(sub.get("truncated"))
+    if truncated:
+        print(f"WARNING  {repo}/.sessions came back truncated — counts for it "
+              f"are a floor, not a total.", file=sys.stderr)
+    return [t for t in sub.get("tree", []) if t["type"] == "blob"], truncated
 
 
 def _read_blob(gh: GitHub, repo: str, sha: str) -> str:
@@ -275,13 +285,29 @@ def collect(gh: GitHub, days: int):
     entries: list[dict] = []
     silent: list[dict] = []
     no_protocol: list[str] = []
+    incomplete: list[str] = []
     seen: set[tuple[str, str]] = set()
+    flight_seen: set[tuple[str, str, int]] = set()
 
     for r in repos:
         name = r["name"]
         pushed = datetime.fromisoformat(r["pushed_at"].replace("Z", "+00:00")).date()
-        blobs = _sessions_tree(gh, name, r.get("default_branch") or "main")
+        blobs, truncated = _sessions_tree(gh, name, r.get("default_branch") or "main")
+        if truncated:
+            incomplete.append(name)
         if blobs is None:
+            # A repository adopting the protocol RIGHT NOW has its first
+            # `.sessions/` on an open PR, not on the default branch. Deciding
+            # "no protocol" before looking there reports the adoption session
+            # as both missing and unexplained (@codex, fm #947 round 2).
+            adopting = _in_flight(gh, name, cutoff)
+            for card in adopting:
+                key = (card["repo"], card["file"], card["pr"])
+                if key not in flight_seen:
+                    entries.append(card)
+                    flight_seen.add(key)
+            if adopting:
+                continue
             no_protocol.append(name)
             if pushed >= cutoff:
                 silent.append({"repo": name, "pushed": pushed.isoformat(),
@@ -307,22 +333,33 @@ def collect(gh: GitHub, days: int):
             seen.add((name, b["path"]))
 
         for card in _in_flight(gh, name, cutoff):
-            if (card["repo"], card["file"]) not in seen:
+            # Suppress only what is already on the default branch. Keep the PR
+            # in the key so two open PRs claiming the same card filename BOTH
+            # appear — that collision is the conflict this surface exists to
+            # show, not noise to fold away (@codex, fm #947 round 2).
+            if (card["repo"], card["file"]) in seen:
+                continue
+            key = (card["repo"], card["file"], card["pr"])
+            if key not in flight_seen:
                 entries.append(card)
-                seen.add((card["repo"], card["file"]))
+                flight_seen.add(key)
 
         # Movement without a card. The first version of this only fired when a
         # repository had NO card in the window at all, so an 08-20 card plus an
         # uncarded 08-25 push was invisible to the section whose whole job is
         # spotting exactly that (@codex, fm #947).
-        # An in-flight card accounts for the branch push that carried it, so
-        # it counts here — otherwise every repository with an open born-red PR
-        # reports itself as unexplained movement.
+        # An in-flight card accounts for the branch push that carried it. That
+        # has to hold in EVERY branch below, not just the has-dated-cards one:
+        # a repository whose only card is in flight, or an open PR whose branch
+        # was pushed on a later calendar day than its card filename, would
+        # otherwise contradict the invariant this line states
+        # (@codex, fm #947 rounds 1 and 2).
+        has_flight = any(c["repo"] == name and c["in_flight"] for c in entries)
         newest = max([w for w, _ in dated]
                      + [date.fromisoformat(c["date"]) for c in entries
                         if c["repo"] == name and c["in_flight"]],
                      default=None)
-        if pushed >= cutoff:
+        if pushed >= cutoff and not has_flight:
             if not dated:
                 silent.append({"repo": name, "pushed": pushed.isoformat(),
                                "why": "`.sessions/` exists but holds no card at all"})
@@ -336,10 +373,12 @@ def collect(gh: GitHub, days: int):
 
     entries.sort(key=lambda e: (e["date"], e["repo"]), reverse=True)
     silent.sort(key=lambda s_: s_["pushed"], reverse=True)
-    return entries, silent, sorted(no_protocol), len(repos), archived
+    return (entries, silent, sorted(no_protocol), len(repos), archived,
+            sorted(incomplete))
 
 
-def render(entries, silent, no_protocol, live_count, archived_count, days) -> str:
+def render(entries, silent, no_protocol, live_count, archived_count,
+           incomplete, days) -> str:
     now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%MZ")
     stated = sum(1 for e in entries if e["venue_stated"])
     inflight = [e for e in entries if e["in_flight"]]
@@ -368,6 +407,13 @@ def render(entries, silent, no_protocol, live_count, archived_count, days) -> st
         f"of which **{len(inflight)} "
         f"{'is' if len(inflight) == 1 else 'are'} in flight** on an open PR.")
     add(f"> **Venue stated:** {stated} of {len(entries)}.")
+    if incomplete:
+        add(">")
+        add("> \N{WARNING SIGN} **INCOMPLETE — these counts are a floor, not a total.** "
+            "GitHub returned a truncated")
+        add("> `.sessions/` listing for: "
+            + ", ".join(f"`{n}`" for n in incomplete)
+            + ". Cards from them are missing here.")
     add("")
     add("## In flight right now — cards on open PR branches")
     add("")
@@ -458,6 +504,8 @@ ENTRY_MARKER = "<!-- newest entry goes directly below this line -->"
 
 
 HEADING_RE = re.compile(r"^### (\d{4}-\d{2}-\d{2}) ", re.M)
+EMPTY_STATE = "*No entries yet.*"
+EMPTY_REPLACEMENT = "*Entries begin 2026-08-26.*"
 
 
 def append_entry(args: argparse.Namespace) -> int:
@@ -495,6 +543,11 @@ def append_entry(args: argparse.Namespace) -> int:
         f"- **state left:** {args.state}",
         f"- **next:** {args.next}",
     ])
+
+    if EMPTY_STATE in text:
+        # Otherwise the lane says "no entries yet" directly above its first
+        # entry (@codex, fm #947 round 2).
+        text = text.replace(EMPTY_STATE, EMPTY_REPLACEMENT, 1)
 
     # "Newest first" is a promise, so a backfilled --date is inserted in its
     # place rather than jammed at the top (@codex, fm #947).
@@ -546,12 +599,17 @@ def main() -> int:
         print("ERROR  no usable GitHub path: set $GITHUB_PAT (with `requests` "
               "installed), or install and sign in to the `gh` CLI.")
         return 1
+    if args.days < 1:
+        # `--days 0` puts the cutoff in the FUTURE and writes a clean-looking
+        # empty ledger over the real one (@codex, fm #947 round 2).
+        print(f"ERROR  --days must be a positive integer, got {args.days}")
+        return 1
     try:
-        entries, silent, no_protocol, live, archived = collect(gh, args.days)
+        entries, silent, no_protocol, live, archived, incomplete = collect(gh, args.days)
     except RuntimeError as exc:
         print(f"ERROR  {exc}")
         return 1
-    body = render(entries, silent, no_protocol, live, archived, args.days)
+    body = render(entries, silent, no_protocol, live, archived, incomplete, args.days)
     if args.stdout:
         print(body)
     else:

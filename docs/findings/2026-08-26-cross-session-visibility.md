@@ -103,9 +103,13 @@ leaving a card**, which is how `creator-kit` surfaces at all.
   machine that produced it. The generator prints the stated-vs-total count so
   the coverage of the convention is visible instead of assumed. It began at
   **0 of 74**, and an honest null beats a guessed venue.
-- **No backfill.** The off-repo lane starts 2026-08-25 with one reconstructed
-  entry, labelled `REASONED`. Everything before it was never recorded and is not
-  invented, because a reconstructed diary reads exactly like a remembered one.
+- **No backfill. The off-repo lane opens empty.** It was seeded with one
+  reconstructed `creator-kit` entry and that entry was removed the same day
+  (`@codex`, fm #947): it recorded a **commit**, which the lane's own contract
+  sends to the repository lane, and `creator-kit` already appears in the
+  generated invisible-work section. The reconstruction survives in § 3 above,
+  where it is evidence rather than a ledger entry. Nothing earlier is invented,
+  because a reconstructed diary reads exactly like a remembered one.
 
 ## 5 · What this does not solve
 
