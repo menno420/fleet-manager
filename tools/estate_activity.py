@@ -62,6 +62,7 @@ import base64
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 from datetime import date, datetime, timedelta, timezone
@@ -86,7 +87,14 @@ VENUES = (
 )
 
 CARD_RE = re.compile(r"^(\d{4}-\d{2}-\d{2})-(.+)\.md$")
-VENUE_RE = re.compile(r"\N{ROUND PUSHPIN}\s*Venue:\*{0,2}\s*`?([a-z-]+)`?", re.I)
+# Anchored to the complete bullet line on purpose. An unanchored search reads
+# prose *about* the convention — of which this estate now has a great deal — as
+# a stated venue, which corrupts the very stated-vs-total count that exists to
+# keep the nulls honest (@codex, fm #947).
+VENUE_RE = re.compile(
+    r"^[ \t]*[-*][ \t]+\*\*\N{ROUND PUSHPIN}[ \t]*Venue:\*\*[ \t]*`?([A-Za-z][A-Za-z-]*)`?[ \t]*$",
+    re.M,
+)
 MODEL_RE = re.compile(r"\N{BAR CHART}\s*Model:\*{0,2}\s*(.+)")
 STATUS_RE = re.compile(r"\*\*Status:\*\*\s*`([a-z-]+)`", re.I)
 
@@ -97,6 +105,7 @@ class GitHub:
     """Whichever of the two paths this machine actually has."""
 
     def __init__(self) -> None:
+        self.available = True
         self.token = os.environ.get("GITHUB_PAT") or os.environ.get("GH_TOKEN")
         self.session = None
         if self.token:
@@ -108,6 +117,21 @@ class GitHub:
                 self.session = requests.Session()
                 self.session.trust_env = False
         self.verify = CA if os.path.exists(CA) else True
+
+    def get_all(self, path: str, cap: int = 20):
+        """Follow pagination until a short page. `path` must already carry
+        per_page. Returns a flat list; a single unpaginated page still works."""
+        out: list = []
+        page = 1
+        while page <= cap:
+            chunk = self.get(f"{path}&page={page}")
+            if not chunk:
+                break
+            out.extend(chunk)
+            if len(chunk) < 100:
+                break
+            page += 1
+        return out
 
     def get(self, path: str):
         """Return parsed JSON, or None on 404. Raises on anything else."""
@@ -125,10 +149,17 @@ class GitHub:
                 return None
             r.raise_for_status()
             return r.json()
-        # gh CLI fallback — the laptop path.
-        p = subprocess.run(
-            ["gh", "api", path.lstrip("/")], capture_output=True, text=True
-        )
+        # gh CLI fallback — the laptop path. `shutil.which`, never Unix
+        # `which`: that is not an executable on Windows, which is the exact
+        # machine this branch exists for (@codex, fm #947).
+        exe = shutil.which("gh")
+        if exe is None:
+            raise RuntimeError(
+                "no usable GitHub path: set $GITHUB_PAT (with `requests` "
+                "installed), or install and sign in to the `gh` CLI"
+            )
+        p = subprocess.run([exe, "api", path.lstrip("/")],
+                           capture_output=True, text=True)
         if p.returncode != 0:
             if "404" in p.stderr or "Not Found" in p.stderr:
                 return None
@@ -160,65 +191,163 @@ def parse_card(text: str) -> dict:
     }
 
 
-def collect(gh: GitHub, days: int) -> tuple[list[dict], list[dict], list[str]]:
-    cutoff = (datetime.now(timezone.utc) - timedelta(days=days)).date()
-    repos = gh.get("/user/repos?per_page=100&sort=pushed&affiliation=owner") or []
-    repos = [r for r in repos if not r["archived"]]
+def _sessions_tree(gh: GitHub, repo: str, branch: str):
+    """Card entries in `.sessions/`, via the Git Trees API.
 
-    entries: list[dict] = []
-    silent: list[dict] = []
-    no_protocol: list[str] = []
+    NOT the Contents API: a Contents directory listing is capped at 1,000
+    entries and `superbot/.sessions/` was already at ~970 on 2026-08-24, so
+    that call was ~30 cards away from silently truncating — and because
+    date-prefixed names sort oldest-first, the entries it would have dropped
+    are exactly the newest ones this window needs (@codex, fm #947).
 
-    for r in repos:
-        name = r["name"]
-        pushed = datetime.fromisoformat(r["pushed_at"].replace("Z", "+00:00")).date()
-        listing = gh.get(f"/repos/{OWNER}/{name}/contents/.sessions")
-        if listing is None:
-            no_protocol.append(name)
-            if pushed >= cutoff:
-                silent.append({"repo": name, "pushed": pushed.isoformat(),
-                               "why": "no .sessions/ directory"})
-            continue
+    Returns None when the repository has no `.sessions/` at all.
+    """
+    root = gh.get(f"/repos/{OWNER}/{repo}/git/trees/{branch}")
+    if not root:
+        return None
+    node = next((t for t in root.get("tree", [])
+                 if t["path"] == ".sessions" and t["type"] == "tree"), None)
+    if node is None:
+        return None
+    sub = gh.get(f"/repos/{OWNER}/{repo}/git/trees/{node['sha']}")
+    if not sub:
+        return []
+    if sub.get("truncated"):
+        print(f"WARNING  {repo}/.sessions listing came back truncated — "
+              f"counts for this repository are a floor, not a total.")
+    return [t for t in sub.get("tree", []) if t["type"] == "blob"]
 
-        fresh = []
-        for item in listing:
-            m = CARD_RE.match(item["name"])
+
+def _read_blob(gh: GitHub, repo: str, sha: str) -> str:
+    blob = gh.get(f"/repos/{OWNER}/{repo}/git/blobs/{sha}")
+    if not blob:
+        return ""
+    return base64.b64decode(blob["content"]).decode("utf-8", "replace")
+
+
+def _in_flight(gh: GitHub, repo: str, cutoff) -> list[dict]:
+    """Cards on OPEN PR branches — the born-red claim, before it merges.
+
+    The default branch cannot answer "what is another session doing right
+    now": under this estate's landing discipline a card is pushed to a PR
+    branch first and reaches `main` only when the work is finished, so a
+    default-branch-only read shows an active repository as silent (@codex,
+    fm #947). This is the half that makes the log a coordination surface
+    rather than a history.
+    """
+    out: list[dict] = []
+    for pr in gh.get_all(f"/repos/{OWNER}/{repo}/pulls?state=open&per_page=100") or []:
+        head = pr.get("head", {}).get("sha", "")
+        for f in gh.get_all(
+                f"/repos/{OWNER}/{repo}/pulls/{pr['number']}/files?per_page=100") or []:
+            path = f["filename"]
+            if not path.startswith(".sessions/") or f["status"] == "removed":
+                continue
+            m = CARD_RE.match(path.split("/", 1)[1])
             if not m:
                 continue
             try:
                 when = date.fromisoformat(m.group(1))
             except ValueError:
                 continue
-            if when >= cutoff:
-                fresh.append((when, item))
-
-        for when, item in fresh:
-            blob = gh.get(f"/repos/{OWNER}/{name}/contents/.sessions/{item['name']}")
-            if blob is None:
+            if when < cutoff:
                 continue
-            text = base64.b64decode(blob["content"]).decode("utf-8", "replace")
-            card = parse_card(text)
-            card.update({"repo": name, "date": when.isoformat(), "file": item["name"]})
-            entries.append(card)
+            blob = gh.get(f"/repos/{OWNER}/{repo}/contents/{path}?ref={head}")
+            if not blob:
+                continue
+            card = parse_card(base64.b64decode(blob["content"]).decode("utf-8", "replace"))
+            card.update({"repo": repo, "date": when.isoformat(),
+                         "file": path.split("/", 1)[1], "pr": pr["number"],
+                         "in_flight": True})
+            out.append(card)
+    return out
 
-        if pushed >= cutoff and not fresh:
-            dated = any(CARD_RE.match(i["name"]) for i in listing)
-            silent.append({"repo": name, "pushed": pushed.isoformat(),
-                           "why": ("has cards, none dated in the window" if dated
-                                   else "`.sessions/` exists but holds no card at all")})
+
+def collect(gh: GitHub, days: int):
+    # `days - 1`: a bare `now - timedelta(days=7)` date compared with `>=`
+    # spans parts of eight UTC calendar dates. This is a calendar-day window
+    # and it matches what the header advertises (@codex, fm #947).
+    cutoff = (datetime.now(timezone.utc) - timedelta(days=days - 1)).date()
+    repos = gh.get_all("/user/repos?per_page=100&sort=pushed&affiliation=owner")
+    archived = sum(1 for r in repos if r["archived"])
+    repos = [r for r in repos if not r["archived"]]
+
+    entries: list[dict] = []
+    silent: list[dict] = []
+    no_protocol: list[str] = []
+    seen: set[tuple[str, str]] = set()
+
+    for r in repos:
+        name = r["name"]
+        pushed = datetime.fromisoformat(r["pushed_at"].replace("Z", "+00:00")).date()
+        blobs = _sessions_tree(gh, name, r.get("default_branch") or "main")
+        if blobs is None:
+            no_protocol.append(name)
+            if pushed >= cutoff:
+                silent.append({"repo": name, "pushed": pushed.isoformat(),
+                               "why": "no `.sessions/` directory"})
+            continue
+
+        dated = []
+        for b in blobs:
+            m = CARD_RE.match(b["path"])
+            if not m:
+                continue
+            try:
+                dated.append((date.fromisoformat(m.group(1)), b))
+            except ValueError:
+                continue
+
+        fresh = [(w, b) for w, b in dated if w >= cutoff]
+        for when, b in fresh:
+            card = parse_card(_read_blob(gh, name, b["sha"]))
+            card.update({"repo": name, "date": when.isoformat(),
+                         "file": b["path"], "pr": None, "in_flight": False})
+            entries.append(card)
+            seen.add((name, b["path"]))
+
+        for card in _in_flight(gh, name, cutoff):
+            if (card["repo"], card["file"]) not in seen:
+                entries.append(card)
+                seen.add((card["repo"], card["file"]))
+
+        # Movement without a card. The first version of this only fired when a
+        # repository had NO card in the window at all, so an 08-20 card plus an
+        # uncarded 08-25 push was invisible to the section whose whole job is
+        # spotting exactly that (@codex, fm #947).
+        # An in-flight card accounts for the branch push that carried it, so
+        # it counts here — otherwise every repository with an open born-red PR
+        # reports itself as unexplained movement.
+        newest = max([w for w, _ in dated]
+                     + [date.fromisoformat(c["date"]) for c in entries
+                        if c["repo"] == name and c["in_flight"]],
+                     default=None)
+        if pushed >= cutoff:
+            if not dated:
+                silent.append({"repo": name, "pushed": pushed.isoformat(),
+                               "why": "`.sessions/` exists but holds no card at all"})
+            elif newest is None or pushed > newest:
+                gap = (pushed - newest).days
+                silent.append({
+                    "repo": name, "pushed": pushed.isoformat(),
+                    "why": (f"newest card is {newest.isoformat()} — "
+                            f"pushed {gap} day{'s' if gap != 1 else ''} later "
+                            f"with no card for it")})
 
     entries.sort(key=lambda e: (e["date"], e["repo"]), reverse=True)
-    silent.sort(key=lambda s: s["pushed"], reverse=True)
-    return entries, silent, sorted(no_protocol)
+    silent.sort(key=lambda s_: s_["pushed"], reverse=True)
+    return entries, silent, sorted(no_protocol), len(repos), archived
 
 
-def render(entries: list[dict], silent: list[dict], no_protocol: list[str],
-           days: int) -> str:
+def render(entries, silent, no_protocol, live_count, archived_count, days) -> str:
     now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%MZ")
     stated = sum(1 for e in entries if e["venue_stated"])
+    inflight = [e for e in entries if e["in_flight"]]
     by_venue: dict[str, int] = {}
+    by_repo: dict[str, int] = {}
     for e in entries:
         by_venue[e["venue"]] = by_venue.get(e["venue"], 0) + 1
+        by_repo[e["repo"]] = by_repo.get(e["repo"], 0) + 1
 
     out: list[str] = []
     add = out.append
@@ -231,9 +360,28 @@ def render(entries: list[dict], silent: list[dict], no_protocol: list[str],
     add("> canonical in each repository's own `.sessions/` card — this file is a")
     add("> pointer index, never a copy.")
     add(">")
-    add(f"> **Window:** the last **{days} days**. **Generated:** {now}.")
-    add(f"> **Cards:** {len(entries)} across {len({e['repo'] for e in entries})} "
-        f"repositories; **{stated} of {len(entries)}** state their venue.")
+    add(f"> **Window:** the last **{days} calendar days** (UTC). **Generated:** {now}.")
+    add(f"> **Scope: the {live_count} NON-ARCHIVED repositories** — "
+        f"{archived_count} archived ones are excluded, so every count here is")
+    add("> non-archived-only and is not a total for the estate's whole history.")
+    add(f"> **Cards:** {len(entries)} across {len(by_repo)} repositories, "
+        f"of which **{len(inflight)} "
+        f"{'is' if len(inflight) == 1 else 'are'} in flight** on an open PR.")
+    add(f"> **Venue stated:** {stated} of {len(entries)}.")
+    add("")
+    add("## In flight right now — cards on open PR branches")
+    add("")
+    add("Not yet on any default branch. This is the born-red claim another")
+    add("session collides with, so read it before starting work in these repos.")
+    add("")
+    if inflight:
+        add("| repo | PR | venue | card |")
+        add("|---|---|---|---|")
+        for e in sorted(inflight, key=lambda x: (x["repo"], x["date"])):
+            add(f"| `{e['repo']}` | [#{e['pr']}](https://github.com/{OWNER}/"
+                f"{e['repo']}/pull/{e['pr']}) | `{e['venue']}` | {e['file']} |")
+    else:
+        add("None.")
     add("")
     add("## What ran where")
     add("")
@@ -242,10 +390,23 @@ def render(entries: list[dict], silent: list[dict], no_protocol: list[str],
         add("|---|--:|")
         for v, n in sorted(by_venue.items(), key=lambda kv: -kv[1]):
             add(f"| `{v}` | {n} |")
+        add("")
+        add("`unstated` is an honest null, never a guess: a card with no")
+        add("\N{ROUND PUSHPIN} Venue: line means nobody said, not `cloud-container`.")
     else:
         add("No session cards dated inside the window. That is an honest null, "
             "not an error — check the invisible-work section below before "
             "concluding nothing happened.")
+    add("")
+    add("## Where the cards are — reachability from fleet-manager")
+    add("")
+    add("A session booted in this repository reads `fleet-manager/.sessions/`")
+    add("and nothing else. This is the split that made the log necessary.")
+    add("")
+    add("| repo | cards | reachable from a fleet-manager session without this log |")
+    add("|---|--:|---|")
+    for repo, n in sorted(by_repo.items(), key=lambda kv: -kv[1]):
+        add(f"| `{repo}` | {n} | {'yes' if repo == 'fleet-manager' else '**no**'} |")
     add("")
     add("## Sessions, newest first")
     add("")
@@ -253,33 +414,38 @@ def render(entries: list[dict], silent: list[dict], no_protocol: list[str],
         add("| date | repo | venue | model | status | card |")
         add("|---|---|---|---|---|---|")
         for e in entries:
-            link = (f"[{e['file']}](https://github.com/{OWNER}/{e['repo']}"
-                    f"/blob/main/.sessions/{e['file']})")
-            add(f"| {e['date']} | `{e['repo']}` | `{e['venue']}` | "
+            ref = f"pull/{e['pr']}/files" if e["in_flight"] else "blob/HEAD/.sessions"
+            link = (f"[{e['file']}](https://github.com/{OWNER}/{e['repo']}/{ref})"
+                    if e["in_flight"] else
+                    f"[{e['file']}](https://github.com/{OWNER}/{e['repo']}"
+                    f"/blob/HEAD/.sessions/{e['file']})")
+            flag = " ⏳" if e["in_flight"] else ""
+            add(f"| {e['date']}{flag} | `{e['repo']}` | `{e['venue']}` | "
                 f"{e['model'] or '—'} | `{e['status']}` | {link} |")
     else:
         add("(none)")
     add("")
-    add("## Invisible work — repositories that moved and left no card in the window")
+    add("## Invisible work — repositories that moved without a card to explain it")
     add("")
     add("This is the section the log exists for. A repository here was pushed")
-    add("inside the window but has no session card dated inside it, so **nothing")
-    add("in the estate's records says who did that work or why.** A row is a")
-    add("prompt to go and look, not an accusation: a hand-merged owner commit is")
-    add("a perfectly good reason to appear here.")
+    add("inside the window and has no session card accounting for that push, so")
+    add("**nothing in the estate's records says who did that work or why.** A row")
+    add("is a prompt to go and look, not an accusation: a hand-merged owner")
+    add("commit is a perfectly good reason to appear here.")
     add("")
     if silent:
         add("| repo | last push | why it is here |")
         add("|---|---|---|")
-        for s in silent:
-            add(f"| `{s['repo']}` | {s['pushed']} | {s['why']} |")
+        for s_ in silent:
+            add(f"| `{s_['repo']}` | {s_['pushed']} | {s_['why']} |")
     else:
-        add("None — every repository pushed inside the window left a card.")
+        add("None — every repository pushed inside the window left a card for it.")
     add("")
     add("## Repositories with no card protocol at all")
     add("")
     add("No `.sessions/` directory, so no session there can ever appear above.")
     add("Adopting substrate-kit is what closes this, per repository.")
+    add("Non-archived only, like everything else here.")
     add("")
     add(", ".join(f"`{n}`" for n in no_protocol) if no_protocol else "None.")
     add("")
@@ -291,20 +457,33 @@ def render(entries: list[dict], silent: list[dict], no_protocol: list[str],
 ENTRY_MARKER = "<!-- newest entry goes directly below this line -->"
 
 
+HEADING_RE = re.compile(r"^### (\d{4}-\d{2}-\d{2}) ", re.M)
+
+
 def append_entry(args: argparse.Namespace) -> int:
     if args.venue not in VENUES:
         print(f"ERROR  --venue must be one of: {', '.join(VENUES)}")
         return 1
+    if args.date:
+        try:
+            when = date.fromisoformat(args.date).isoformat()
+        except ValueError:
+            print(f"ERROR  --date must be YYYY-MM-DD, got {args.date!r}")
+            return 1
+    else:
+        when = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     if not OFF_REPO.exists():
         print(f"ERROR  {OFF_REPO.relative_to(REPO)} is missing")
         return 1
-    text = OFF_REPO.read_text()
+    # Explicit encoding on both ends: the command this file advertises is run
+    # on a Windows laptop, where the locale default can fail on the 📍 the file
+    # itself contains (@codex, fm #947).
+    text = OFF_REPO.read_text(encoding="utf-8")
     if ENTRY_MARKER not in text:
         print(f"ERROR  {OFF_REPO.relative_to(REPO)} has lost its entry marker")
         return 1
 
-    when = args.date or datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    block = [
+    block = "\n".join([
         "",
         "",
         f"### {when} — {args.title}",
@@ -315,8 +494,24 @@ def append_entry(args: argparse.Namespace) -> int:
         f"- **why:** {args.why}",
         f"- **state left:** {args.state}",
         f"- **next:** {args.next}",
-    ]
-    OFF_REPO.write_text(text.replace(ENTRY_MARKER, ENTRY_MARKER + "\n".join(block), 1))
+    ])
+
+    # "Newest first" is a promise, so a backfilled --date is inserted in its
+    # place rather than jammed at the top (@codex, fm #947).
+    insert_at = None
+    for m in HEADING_RE.finditer(text):
+        if m.group(1) <= when:
+            insert_at = m.start()
+            break
+    if insert_at is None:
+        marker_end = text.index(ENTRY_MARKER) + len(ENTRY_MARKER)
+        headings = list(HEADING_RE.finditer(text))
+        insert_at = len(text.rstrip()) if headings else marker_end
+        OFF_REPO.write_text(text[:insert_at] + block + text[insert_at:],
+                            encoding="utf-8")
+    else:
+        OFF_REPO.write_text(text[:insert_at].rstrip("\n") + block + "\n\n"
+                            + text[insert_at:], encoding="utf-8")
     print(f"appended to {OFF_REPO.relative_to(REPO)}: {when} — {args.title}")
     return 0
 
@@ -347,24 +542,25 @@ def main() -> int:
         return append_entry(args)
 
     gh = GitHub()
-    if gh.session is None and not _have_gh():
+    if gh.session is None and shutil.which("gh") is None:
         print("ERROR  no usable GitHub path: set $GITHUB_PAT (with `requests` "
-              "installed) or install and sign in to the `gh` CLI.")
+              "installed), or install and sign in to the `gh` CLI.")
         return 1
-    entries, silent, no_protocol = collect(gh, args.days)
-    body = render(entries, silent, no_protocol, args.days)
+    try:
+        entries, silent, no_protocol, live, archived = collect(gh, args.days)
+    except RuntimeError as exc:
+        print(f"ERROR  {exc}")
+        return 1
+    body = render(entries, silent, no_protocol, live, archived, args.days)
     if args.stdout:
         print(body)
     else:
         DERIVED.parent.mkdir(parents=True, exist_ok=True)
-        DERIVED.write_text(body)
-        print(f"wrote {DERIVED.relative_to(REPO)}: {len(entries)} cards, "
+        DERIVED.write_text(body, encoding="utf-8")
+        print(f"wrote {DERIVED.relative_to(REPO)}: {len(entries)} cards "
+              f"({sum(1 for e in entries if e['in_flight'])} in flight), "
               f"{len(silent)} repositories with unexplained movement")
     return 0
-
-
-def _have_gh() -> bool:
-    return subprocess.run(["which", "gh"], capture_output=True).returncode == 0
 
 
 if __name__ == "__main__":

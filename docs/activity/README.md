@@ -2,9 +2,18 @@
 
 > **Status:** `living-ledger` · tier **TASK**
 >
-> **What this area is for:** so a session booting **anywhere** — the owner's
-> laptop, a cloud container, Codex, ChatGPT Work — can find out what the other
-> sessions have been doing without being told. Built 2026-08-26 on the owner's
+> **What this area is for:** so a session working **fleet-manager** — from the
+> owner's laptop, a cloud container, Codex or ChatGPT Work — can find out what
+> sessions in *other* repositories and on *other* machines have been doing.
+>
+> **The promise is scoped on purpose.** A session booted in a satellite
+> repository loads that repo's `.claude/`, not this one's
+> ([`../../.claude/CLAUDE.md`](../../.claude/CLAUDE.md), boot triad case two), so
+> the prompt route and the map entry that point here **do not exist for it**.
+> Reaching this area from a satellite still takes someone naming fleet-manager.
+> Propagating a pointer into the satellites is real follow-up work and is not
+> done here (`@codex`, fm #947) — claiming otherwise would be the "delivered by
+> a mechanism" story told about a mechanism that is absent. Built 2026-08-26 on the owner's
 > ask: *"how well does a cloud session understand what the local sessions have
 > been doing? … we should make a dedicated section in the fleet manager where
 > my local AIs keep track of what they have been doing."*
@@ -19,12 +28,14 @@
 Measured 2026-08-26 and written up in
 [`../findings/2026-08-26-cross-session-visibility.md`](../findings/2026-08-26-cross-session-visibility.md):
 a cloud session booted in fleet-manager could see **this repository's** session
-cards and nothing else. Sixty-plus cards had been written across five other
-repositories in the same week and none of them was reachable from here; a whole
-repository (`creator-kit`) had been created and was absent from the estate
-index; and no card in the estate — 419 in this repo alone — recorded **which
-machine ran it**, so even a visible card could not tell you whether it was
-local or cloud.
+cards and nothing else. In the seven calendar days to that date the estate wrote
+**74 cards across six non-archived repositories**; this session could reach
+**54** and **20 were unreachable** — `websites` 9, `couch-legend` 7,
+`product-forge` 2, `sim-lab` 1, `idea-engine` 1. A whole repository
+(`creator-kit`) had been created and was absent from the estate index. And no
+card anywhere — **418 dated cards in this repo alone** — recorded **which
+machine ran it**, so even a visible card could not tell you whether it was local
+or cloud.
 
 ## The two lanes
 
@@ -32,7 +43,7 @@ The split is the design, and it is a split by *what can be derived*:
 
 | lane | file | written by | covers |
 |---|---|---|---|
-| **derived** | [`estate-log.md`](estate-log.md) | `python3 tools/estate_activity.py refresh` | every session card in every non-archived repository, inside a rolling window — **automatically**, because the card already exists |
+| **derived** | [`estate-log.md`](estate-log.md) | `python3 tools/estate_activity.py refresh` | every session card in every **non-archived** repository inside a rolling window — on the default branch **and on open PR branches**, so a born-red card in flight is visible before it merges — **automatically**, because the card already exists |
 | **hand-written** | [`off-repo-log.md`](off-repo-log.md) | `python3 tools/estate_activity.py log …` | work that touches no repository and therefore cannot be derived: laptop setup, a ChatGPT or Gemini sitting, a Drive reorganisation, an install |
 
 Nothing has to be remembered for the derived lane, which is why it carries the
@@ -94,9 +105,13 @@ default.
 
 Honest limits, so the next session does not assume more than is here:
 
-- **A local session that never commits leaves nothing.** The derived lane reads
-  pushed cards. Work still on the laptop's disk is invisible until it is pushed,
-  and that is a property of git, not a defect to fix here.
+- **A local session that never pushes leaves nothing.** The derived lane reads
+  pushed cards, on `main` or on an open PR branch. Work still on the laptop's
+  disk is invisible until it is pushed, and that is a property of git, not a
+  defect to fix here.
+- **Archived repositories are excluded**, so every count is non-archived-only
+  and none of them is a total for the estate's whole history. Nine repositories
+  were archived on 2026-08-23 and some carry cards from that wave.
 - **Repositories with no card protocol can never appear in the derived lane.**
   The generator names them in their own section rather than passing over them.
   As of the first run: `curious-research`, `estate-backups`, `spider-bot`,

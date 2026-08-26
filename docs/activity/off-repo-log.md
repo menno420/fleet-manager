@@ -34,34 +34,16 @@
 
 ## Entries, newest first
 
+*No entries yet.* The lane opened 2026-08-26 and is deliberately **not**
+backfilled: a reconstructed diary reads exactly like a remembered one.
+
+A seed entry about `creator-kit` was written here and removed the same day
+(`@codex`, fm #947) — it recorded a **commit**, which this file's own contract
+sends to the repository lane, and `creator-kit` already appears in
+[`estate-log.md`](estate-log.md)'s invisible-work section. The reconstruction
+survives where it belongs, in
+[the visibility finding](../findings/2026-08-26-cross-session-visibility.md) § 3.
+The first operational entry violating the boundary the file had just drawn would
+have taught the next session the wrong rule.
+
 <!-- newest entry goes directly below this line -->
-
-### 2026-08-25 — creator-kit seeded on the laptop: FreeCAD + Godot tooling
-
-- **venue:** `local-desktop`
-- **agent:** unstated — `REASONED`, see the provenance note below
-- **touched:** `menno420/creator-kit` (created 2026-08-25T21:14:50Z), one commit
-  *"Seed creator-kit: existing FreeCAD/Godot tooling + substrate-kit 1.21.0"*
-- **why:** unstated by the owner. The tree is a reusable starting point for
-  physical ideas in FreeCAD and spatial experiments in Godot, deliberately
-  usable without coding.
-- **state left:** 111 files. Windows `.cmd` launchers (`Open FreeCAD
-  Library.cmd`, `Rebuild FreeCAD Library.cmd`, `Open Creator Workbench.cmd`),
-  eight named FreeCAD parts driven by `freecad/dimensions.txt`, a Godot
-  workbench scene, substrate-kit v1.21.0 vendored. `docs/current-state.md` is
-  still the **unrendered kit template** — every `${...}` slot unfilled.
-- **next:** run the kit interview (`python3 bootstrap.py ask`) so the repo has
-  its own truth; give it a `docs/repos/creator-kit/` folder here.
-
-> **Provenance of this entry — `REASONED`, not `OWNER`.** It is the seed entry,
-> reconstructed on 2026-08-26 from the repository itself because it is the
-> exact class of work this lane exists to catch: it happened, fleet-manager did
-> not know, and nothing would have told a later session. The `local-desktop`
-> venue is inferred from the tree — Windows `.cmd` launchers and a FreeCAD
-> library are not things a Linux container produces — and from the owner's
-> stated laptop work in the same days. **Inferred, not measured**; correct it
-> here if it is wrong.
-
-*(This is the first entry. Everything before 2026-08-25 predates the lane and
-was never recorded — that gap is real and is not backfilled, because a
-reconstructed diary would read exactly like a remembered one.)*

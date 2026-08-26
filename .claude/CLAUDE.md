@@ -341,7 +341,7 @@ half; the local file explains the split.
 | About to say "I can't" / a tool seems missing / something new worked | `capability-probe` |
 | A job means reading a whole corpus (all cards, all results, a full tree) | `delegate-read` |
 | Owner asks anything status-shaped ("where are we", "what's left") | `owner-brief` |
-| Owner asks what OTHER sessions did — his local ones especially — or you need the estate-wide picture | **not a skill: run `python3 tools/estate_activity.py refresh`, then read [`docs/activity/`](../docs/activity/README.md)** — this repo's `.sessions/` is fleet-manager's work ALONE (MEASURED 2026-08-26: 74 cards estate-wide that week, 43 reachable from here) |
+| Owner asks what OTHER sessions did — his local ones especially — or you need the estate-wide picture | **not a skill: run `python3 tools/estate_activity.py refresh`, then read [`docs/activity/`](../docs/activity/README.md)** — this repo's `.sessions/` is fleet-manager's work ALONE (MEASURED 2026-08-26: 74 cards estate-wide that week, 54 reachable from here, 20 not) |
 | Ending the session | `session-close` (run the one strict command and read its real exit code) |
 | Kit version work | `release` → `upgrade-distribution` |
 

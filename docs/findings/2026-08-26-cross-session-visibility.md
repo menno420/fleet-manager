@@ -19,17 +19,23 @@ path (`GET /user/repos`, `GET /repos/{o}/{r}/contents/.sessions`).
 
 | channel | what it carries | what it misses |
 |---|---|---|
-| `fleet-manager/.sessions/` — **419 cards** | every session that ran **in this repo** | every session that ran anywhere else |
+| `fleet-manager/.sessions/` — **418 dated cards** (the directory README is not one) | every session that ran **in this repo** | every session that ran anywhere else |
 | `docs/current-state.md` | hub state, hand-maintained | only what a hub session chose to write |
 | `docs/repos/<name>/` (Layer 2) | per-repo handoff threads | updated by the session that worked the repo, **if** it ran the step |
 | `docs/ESTATE.md` | every repository, one line | **was missing `creator-kit` entirely** |
-| git history | 50 commits, **one author, one committer** — `Menno van Hattum` / `GitHub`, every one squash-merged | nothing distinguishes a local push from a container push |
+| git history | **the 52 commits present in this container's clone, which is shallow** (`.git/shallow` exists; `main` has 966) — one author and one committer across all 52, `Menno van Hattum` / `GitHub`, every one squash-merged | nothing distinguishes a local push from a container push. **Scoped to the sample**: the first version of this row said "50 commits" as though it described the repository, which a shallow clone cannot support (`@codex`, fm #947). The conclusion is unchanged — a squash merge carries no trace of the machine either way |
 
-**In the seven days to 2026-08-26 the estate wrote 74 session cards across six
-repositories. A fleet-manager cloud session could reach 43 of them** — the ones
-in its own tree. The other 31, in `websites`, `sim-lab`, `idea-engine`,
-`couch-legend` and `superbot`, were unreachable from here by any path a session
-would take without being told to look.
+**In the seven calendar days to 2026-08-26 the estate wrote 74 session cards
+across six non-archived repositories. A fleet-manager cloud session could reach
+54 of them** — the ones in its own tree. **The other 20 could not be reached
+from here by any path a session would take unprompted**: `websites` 9,
+`couch-legend` 7, `product-forge` 2, `sim-lab` 1, `idea-engine` 1.
+
+*(An earlier version of this paragraph said 43 and 31. Those were written from a
+hand count, not from the generated table sitting in the same commit, and
+`@codex` caught the arithmetic against the artefact. Every figure here now comes
+from [`../activity/estate-log.md`](../activity/estate-log.md), which is
+regenerated rather than remembered — the only fix that has ever worked here.)*
 
 ## 2 · Three separate gaps, and they need three different fixes
 
@@ -37,8 +43,12 @@ would take without being told to look.
 records; nothing ever reads them together. The cards were not missing, they were
 **unreachable from the router whose job is routing**.
 
-**Gap 2 — no venue on any card.** `MEASURED`: **0 of 419** cards in this repo,
-and 0 of 74 estate-wide in the window, record which machine ran the session. The
+**Gap 2 — no venue on any card.** `MEASURED` at `39c9d6e`, the commit this work
+branched from: **0 of 418** dated cards in this repo carry a venue
+(`git grep -l "📍 Venue" HEAD~2 -- .sessions/` → 0), and 0 of the 74 in the
+estate-wide window do either. **418, not 419**: the directory's own `README.md`
+is not a session card, and counting it inflated the baseline by one
+(`@codex`, fm #947). The
 card grammar has a `📊 Model:` line with a kit-validated three-segment taxonomy
 (`model · effort · task-class`) and no fourth axis for *where*. So even a card a
 session **can** read cannot answer the owner's question. A `GPT-5` card and an
@@ -103,9 +113,12 @@ leaving a card**, which is how `creator-kit` surfaces at all.
 
 - **A local session that never pushes stays invisible.** The derived lane reads
   pushed cards. That is a property of git, not a defect of this design.
-- **Four repositories have no card protocol**, so no session in them can ever
-  appear in the derived lane: `curious-research`, `estate-backups`,
-  `spider-bot`, `superbot-plugin-hello`. `spider-bot` is the notable one — it is
+- **Four non-archived repositories have no card protocol**, so no session in
+  them can ever appear in the derived lane: `curious-research`,
+  `estate-backups`, `spider-bot`, `superbot-plugin-hello`. **Every count in this
+  finding and in the generated log is non-archived-only** — nine repositories
+  were archived on 2026-08-23 and some carry cards from that very wave, so these
+  are not totals for the estate's whole history (`@codex`, fm #947). `spider-bot` is the notable one — it is
   **live in production** and took 8 commits in the two days to 2026-08-25 with
   no `.sessions/` directory to record any of them.
 - **Card discipline is uneven where it exists.** `superbot` and `spider-swing`
