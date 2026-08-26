@@ -78,6 +78,7 @@ anything — this README is deliberately surface-neutral.
 | Program progress and next action | [Consolidation program](docs/planning/2026-07-26-consolidation-program.md) |
 | Owner-only decisions and manual actions | [`docs/owner-queue.md`](docs/owner-queue.md) |
 | **Which repo owns a request** — every repository, one line each | [`docs/ESTATE.md`](docs/ESTATE.md) |
+| **What every session did, wherever it ran** (local + cloud) | [`docs/activity/`](docs/activity/README.md) |
 | Per-repo entry points and handoffs | [`docs/repos/`](docs/repos/README.md) |
 | Verified capabilities and route facts | [`docs/CAPABILITIES.md`](docs/CAPABILITIES.md) |
 | Decisions ledger | [`docs/decisions.md`](docs/decisions.md) |

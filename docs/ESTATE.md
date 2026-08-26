@@ -28,11 +28,18 @@
 > were **not** touched and remain unarchived. Archiving is reversible; the
 > disposition reasoning is unchanged.
 >
-> **Baseline:** all 27 repositories verified against the live account — 26 of
-> them against their own trees on **2026-08-21** by the fleet-wide review
+> **Baseline:** **all 28 repositories** verified against the live account,
+> `MEASURED` 2026-08-26 (`GET /user/repos`). This line read *"all 27"* until then and was
+> wrong for a day: `creator-kit` was created 2026-08-25 and reached no record
+> here until the activity log's invisible-work sweep found it
+> ([the visibility finding](findings/2026-08-26-cross-session-visibility.md) § 3).
+> **That is the failure mode this file is most exposed to** — a repository born
+> outside a hub session is invisible to the hub until someone counts. 26 of the
+> 28 were verified
+> against their own trees on **2026-08-21** by the fleet-wide review
 > (fm #878, method and evidence: [`findings/2026-08-21-fleet-estate-review.md`](findings/2026-08-21-fleet-estate-review.md)),
-> and **`spider-bot`** (created 2026-08-24, after that review) verified live
-> at registration. Re-derive the account list any time: `list_repos`
+> and the two created after it — **`spider-bot`** (2026-08-24) and
+> **`creator-kit`** (2026-08-25) — verified live at registration. Re-derive the account list any time: `list_repos`
 > (claude-code-remote MCP), or `GET /user/repos` over the direct-PAT path. Consistency between this
 > file, `docs/repos/`, and the doc-routes is checked by
 > `python3 scripts/check_estate_index.py` (advisory).
@@ -54,6 +61,7 @@
 | `spider-swing` | **Slingy Spider** — Android 2D physics swing game, Godot 4.7.1. The owner's evening product | **active** — build 0.45.0 vc66; signed vc64 sits on Play's internal testing track (2026-08-05); core-feel tuning is the north star | `docs/current-state.md` | [`repos/spider-swing/`](repos/spider-swing/README.md) |
 | `spider-bot` | **Spider Bot** — the AI community bot of the **Slingy Spider** Discord server; the GCB plan's clean game-community repo (Python 3.12 + discord.py 2.7 + Railway worker) · "the spider bot", "the community bot" | **active** (verified 2026-08-24) — **LIVE on Railway** (`spider-bot`/`worker`; push to main auto-deploys to production, no PR gate); v0.1.0 + Phase-0 hardening 2026-08-24 (ruff + 78-test pytest harness + informational CI `quality`); tester funnel, human-only roster and AI chat running in the real server | `README.md` → `CLAUDE.md` (the 12 invariants) | [`repos/spider-bot/`](repos/spider-bot/README.md) |
 | `couch-legend` | **Couch Legend** — idle stoner sim, the first Grok-prototype graduation; live on Pages · "the Lucid Chronicle" = its looks contract (#3), not a rename | **active** — the life story LANDED 2026-08-21 (#7: adopted tuning, save v2 `lifeHigh`, 18 chapters + 3 painted scenes live, § 9.6 rails re-checked); kit-seeded v1.21.0 (#5: required checks `ci` + `substrate-gate`, land-it-yourself); next: the Android/Capacitor shell (DESIGN § 7) + the owner's late-game feel pass | `docs/DESIGN.md` (binding) | [`repos/couch-legend/`](repos/couch-legend/README.md) |
+| `creator-kit` | **Menno Creator Kit** — a reusable starting point for physical ideas in **FreeCAD** and spatial experiments in **Godot**, deliberately usable without coding: eight named parts driven by `freecad/dimensions.txt`, a Godot workbench scene, Windows `.cmd` launchers · "the creator kit", "the FreeCAD thing" | **active, brand new and barely recorded** — created **2026-08-25T21:14:50Z**, one seed commit, 111 files, substrate-kit v1.21.0 vendored. Its own `docs/current-state.md` is still the **unrendered kit template** (every `${...}` slot unfilled) and `.sessions/` holds no card, so **the repo cannot answer for itself yet**. `REASONED`: built on the laptop — Windows launchers and a FreeCAD library are not what a Linux container produces. **Registered 2026-08-26 (fm #947)**, the day after creation, and only because the activity log's invisible-work sweep surfaced it — see [the visibility finding](findings/2026-08-26-cross-session-visibility.md) § 3 | `README.md` | on demand |
 | `websites` | estate web surfaces: control-plane · botsite · dashboard (Railway) + review (Pages static since 2026-08-20/21) | **active** — keep-bot-only cutover landed 2026-08-20/21 | `docs/decisions.md` + `.sessions/` | [`repos/websites/`](repos/websites/README.md) |
 | `product-forge` | seat-era shell whose living asset is **phone-controller** — shipped Android Bluetooth-HID controller app, v0.22.0 signed releases | **active** (app thread); graduation to own repo = program step R2, next | `products/phone-controller/README.md` | [`repos/product-forge/`](repos/product-forge/README.md) |
 | `superbot` | the **FROZEN** repo behind the **LIVE production Discord bot** (Railway `reliable-grace` `worker`). No root README — its entry is `docs/AGENT_ORIENTATION.md`. Hard rail: never touch worker/Postgres uninvited | **frozen behavior/UX oracle** — maintenance class only; the clean game-community successor **exists: `spider-bot`, live since 2026-08-24** (plan: [GCB](planning/2026-08-21-game-community-bot/README.md)), and this repo remains untouched | `docs/AGENT_ORIENTATION.md` → `docs/current-state.md` | [`repos/superbot/`](repos/superbot/README.md) |

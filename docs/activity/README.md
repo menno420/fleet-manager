@@ -1,0 +1,108 @@
+# Activity — what every session did, wherever it ran
+
+> **Status:** `living-ledger` · tier **TASK**
+>
+> **What this area is for:** so a session booting **anywhere** — the owner's
+> laptop, a cloud container, Codex, ChatGPT Work — can find out what the other
+> sessions have been doing without being told. Built 2026-08-26 on the owner's
+> ask: *"how well does a cloud session understand what the local sessions have
+> been doing? … we should make a dedicated section in the fleet manager where
+> my local AIs keep track of what they have been doing."*
+>
+> **What it is NOT:** canonical for any repository's work. Per-repo truth stays
+> in that repository's own `.sessions/` card and its `docs/current-state.md`
+> (`intent.md` § 1 — this repo points, it does not copy). This area is an
+> **index of where the work happened**, not a second copy of it.
+
+## The answer to the question that produced this area
+
+Measured 2026-08-26 and written up in
+[`../findings/2026-08-26-cross-session-visibility.md`](../findings/2026-08-26-cross-session-visibility.md):
+a cloud session booted in fleet-manager could see **this repository's** session
+cards and nothing else. Sixty-plus cards had been written across five other
+repositories in the same week and none of them was reachable from here; a whole
+repository (`creator-kit`) had been created and was absent from the estate
+index; and no card in the estate — 419 in this repo alone — recorded **which
+machine ran it**, so even a visible card could not tell you whether it was
+local or cloud.
+
+## The two lanes
+
+The split is the design, and it is a split by *what can be derived*:
+
+| lane | file | written by | covers |
+|---|---|---|---|
+| **derived** | [`estate-log.md`](estate-log.md) | `python3 tools/estate_activity.py refresh` | every session card in every non-archived repository, inside a rolling window — **automatically**, because the card already exists |
+| **hand-written** | [`off-repo-log.md`](off-repo-log.md) | `python3 tools/estate_activity.py log …` | work that touches no repository and therefore cannot be derived: laptop setup, a ChatGPT or Gemini sitting, a Drive reorganisation, an install |
+
+Nothing has to be remembered for the derived lane, which is why it carries the
+bulk. The hand-written lane exists only for the residue — and it is one
+command, not a procedure, because
+[`intent.md`](../intent.md) § 4 rules that **the fix for an unfollowed rule is
+a mechanism that delivers it at the right moment, never another statement of
+the rule.**
+
+## The venue token — how a card says which machine ran it
+
+Every session card in the estate may carry one line directly under its
+`📊 Model:` line:
+
+```
+- **📍 Venue:** local-desktop
+```
+
+The closed set, and it answers *which machine*, not *which model* — the Model
+line already answers that:
+
+| token | means |
+|---|---|
+| `local-desktop` | the owner's laptop — Claude Desktop's Code tab |
+| `local-cli` | the owner's laptop — `claude` in a terminal |
+| `cloud-container` | Claude Code on the web / a remote container |
+| `codex-cloud` | ChatGPT Codex cloud |
+| `chatgpt-work` | ChatGPT Work |
+| `other` | anything else — say what in the card body |
+
+**Absence is reported as `unstated`, never guessed.** The generator prints the
+stated-vs-total count in its header, so the coverage of this convention is
+visible rather than assumed. It started at **0 of 74**.
+
+The line is deliberately **not** part of the Model line: that line has a
+kit-validated three-segment taxonomy (`model · effort · task-class`) and
+overloading it would put a local convention inside a gated grammar.
+
+## Refreshing the derived lane
+
+```bash
+python3 tools/estate_activity.py refresh            # last 7 days
+python3 tools/estate_activity.py refresh --days 30  # a wider window
+python3 tools/estate_activity.py refresh --stdout   # look without writing
+```
+
+It works from either GitHub path — `$GITHUB_PAT` over direct egress in a
+container, or the `gh` CLI on the laptop — so the same command is correct in
+both places.
+
+**On demand, not on a schedule.** A cron that commits a regenerated file to
+`main` every day is exactly the churn class the estate has been retiring
+(superbot #2450). Refresh it when you want the picture: at session close, or
+when a session asks "what happened while I was away". If the owner later wants
+it scheduled, that is a one-file workflow and a deliberate choice, not a
+default.
+
+## What this area still does not solve
+
+Honest limits, so the next session does not assume more than is here:
+
+- **A local session that never commits leaves nothing.** The derived lane reads
+  pushed cards. Work still on the laptop's disk is invisible until it is pushed,
+  and that is a property of git, not a defect to fix here.
+- **Repositories with no card protocol can never appear in the derived lane.**
+  The generator names them in their own section rather than passing over them.
+  As of the first run: `curious-research`, `estate-backups`, `spider-bot`,
+  `superbot-plugin-hello`.
+- **The venue token is self-reported.** Nothing verifies it, and nothing can:
+  a squash-merged commit carries no trace of the machine that produced it.
+- **This is a log, not a lock.** It tells a session what happened; it does not
+  stop two sessions colliding. The in-flight claim is still the born-red card
+  plus the open PR, per [`session-close`](../../.claude/skills/session-close/SKILL.md).

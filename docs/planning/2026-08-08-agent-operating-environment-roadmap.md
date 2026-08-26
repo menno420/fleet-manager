@@ -467,6 +467,27 @@ gemini:
 Null and multiple values are both normal. Forcing symmetry would make the
 topology tidy and untrue.
 
+**One surface the table above does not carry: the owner's own machine.**
+`DERIVED` 2026-08-26, and added below his table rather than inside it, because
+the table is `OWNER` and this row is not his. The table names Drive, ChatGPT
+Projects, Gemini notebooks and the agents — every surface except the laptop the
+agents increasingly run *on*. That mattered from 2026-08-21, when he set the
+machine up ([`../owner-steps-2026-08-21-laptop-setup.md`](../owner-steps-2026-08-21-laptop-setup.md)),
+and it is what he asked about on 2026-08-26: *"how well does a cloud session
+understand what the local sessions have been doing?"*
+
+| surface | role |
+|---|---|
+| **the owner's laptop** | a **venue**, not a store — the same repositories, worked from a machine with a screen, a USB port and the Godot editor. It reaches what a container cannot; it also leaves no trace saying so |
+
+The venue is the load-bearing word. Drive and the notebooks are *places
+material lives*, so fleet-manager points at them. The laptop holds no canonical
+anything — it runs sessions against the same repositories — so pointing at it
+is meaningless and what is needed instead is a **record of what ran there**.
+That is [`../activity/`](../activity/README.md), built 2026-08-26 (fm #947), and
+the measurement that sized the gap is
+[`../findings/2026-08-26-cross-session-visibility.md`](../findings/2026-08-26-cross-session-visibility.md).
+
 **Why the owner is building the Drive half by hand, in his words** (`OWNER`,
 2026-08-08). He is creating a **Drive folder per repo** and making them public so
 an agent can open them on request, then filling them with images, recordings and
