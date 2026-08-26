@@ -165,6 +165,13 @@
   4** while its own origin sentence fired. Widened 2026-08-26 (fm #950), plus a
   second route on `git log` for the shallow-clone case, which no phrasing check
   can catch because the sentence is only wrong on this surface.
+  **The widening itself then narrowed the route, which is why it now has a
+  test.** Replacing the singular noun list with a plural one silently deleted
+  `every (repo|repository|file) in` — three forms the route had caught since it
+  was written. `@codex` caught it on fm #950; restored, and
+  `tools/test_doc_route_patterns.py` now pins **17 cases** (10 must-fire, 3
+  must-be-silent, 4 shallow-clone) so a future edit that narrows this table
+  fails instead of looking like a widening.
 - **ROUTE** — `claim-beyond-the-sample` (fires on Edit/Write of census phrasing,
   ratio **and** count-only forms) · `shallow-clone-commit-counts` (fires on
   Bash `git log` / `git rev-list` / `git shortlog`).

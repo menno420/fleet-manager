@@ -999,7 +999,7 @@
         "\\bonly \\d+ of \\d+\\b",
         "\\b\\d+ of (the )?\\d+ (repos|repositories|files|entries|cards|commits|sessions|PRs|pull requests|notifications|findings|adopters|routes|hooks|skills|docs|documents)\\b",
         "\\bnone of the other \\d+\\b",
-        "\\bevery (repos|repositories|files|entries|cards|commits|sessions|PRs|pull requests|notifications|findings|adopters|routes|hooks|skills|docs|documents) in\\b",
+        "\\bevery (repo|repository|file|entry|card|commit|session|PR|pull request|notification|finding|adopter|route|hook|skill|doc|document) in\\b",
         "\\ball \\d+ (repos|repositories|files|entries|cards|commits|sessions|PRs|pull requests|notifications|findings|adopters|routes|hooks|skills|docs|documents)\\b",
         "\\b\\d[\\d,]*\\s+(?:[a-z-]+\\s+)?(repos|repositories|files|entries|cards|commits|sessions|PRs|pull requests|notifications|findings|adopters|routes|hooks|skills|docs|documents)\\b(?!\\s*(that|which)\\b)"
       ],
