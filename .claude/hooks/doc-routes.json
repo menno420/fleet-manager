@@ -997,15 +997,16 @@
       ],
       "when": [
         "\\bonly \\d+ of \\d+\\b",
-        "\\b\\d+ of (the )?\\d+ (repos|repositories|files|entries)\\b",
+        "\\b\\d+ of (the )?\\d+ (repos|repositories|files|entries|cards|commits|sessions|PRs|pull requests|notifications|findings|adopters|routes|hooks|skills|docs|documents)\\b",
         "\\bnone of the other \\d+\\b",
-        "\\bevery (repo|repository|file) in\\b",
-        "\\ball \\d+ (repos|repositories)\\b"
+        "\\bevery (repo|repository|file|entry|card|commit|session|PR|pull request|notification|finding|adopter|route|hook|skill|doc|document) in\\b",
+        "\\ball \\d+ (repos|repositories|files|entries|cards|commits|sessions|PRs|pull requests|notifications|findings|adopters|routes|hooks|skills|docs|documents)\\b",
+        "\\b\\d[\\d,]*\\s+(?:[a-z-]+\\s+)?(repos|repositories|files|entries|cards|commits|sessions|PRs|pull requests|notifications|findings|adopters|routes|hooks|skills|docs|documents)\\b(?!\\s*(that|which)\\b)"
       ],
       "docs": [
         "docs/traps.md"
       ],
-      "says": "TRAP-004 — you are writing a count over a population. Did you measure EVERY member, or a sample? If a sample, the unmeasured members are being silently classified with the measured ones and the sentence reads as a census. State 'N measured of M total' and name the remainder — or go measure the rest, which is usually cheaper than the argument about whether the sample generalises. MEASURED 2026-08-23: 'only 3 of 26 repositories are in the search/code index' was written from 11 probes; @codex caught it, and probing the remaining 15 moved the real figure to 7 of 26. The conclusion survived, but the evidence had not supported it — and a recorded MEASURED dependency sweep rested on the same unstated assumption. Register: docs/traps.md TRAP-004."
+      "says": "STOP — you are about to write a COUNT or a UNIVERSAL over a population. State N MEASURED of M TOTAL and name what the unmeasured remainder is. TRAP-004, and it fired four times on 2026-08-26 in one session, twice inside the very document warning about it: a kit-version census taken from TEN repos was published over all of them and contradicted by the estate's own records (five live versions across 16 adopters, not three); a commit count taken from a SHALLOW container clone (52 here, 966 on main) was written as the repository's history; 'all 51 notifications were replays' described a set by its majority when four were new; and a card count was reported as a session count when one session can land two cards. THE COUNT-ONLY FORM IS THE ONE THAT KEEPS GETTING THROUGH — 'X cards', 'Y commits' with no ratio and no qualifier reads as a census and is usually a sample. Two checks before you write it: (1) did you enumerate the WHOLE population, or the first page / the default depth / the ten you sampled? (2) does a record already in this tree contradict it? Re-measuring the full set is nearly always cheaper than the argument about whether the sample generalises — the ten-repo shortcut above cost a round of review to undo, and the full sweep took two minutes."
     },
     {
       "id": "card-flip-before-push",
@@ -1136,6 +1137,20 @@
         "docs/findings/2026-08-26-cross-session-visibility.md"
       ],
       "says": "You are being asked what other sessions have been doing. DO NOT answer from this repo's .sessions/ alone — that is only fleet-manager's own work, and it is the exact gap measured on 2026-08-26: in the seven days to that date the estate wrote 74 cards across six non-archived repositories and a fleet-manager cloud session could reach 54 of them; the other 20 were unreachable from here. Run `python3 tools/estate_activity.py refresh` for the current estate-wide picture, then read docs/activity/estate-log.md — including its INVISIBLE WORK section, which names repositories that moved and left no card (that is how creator-kit surfaced at all). Work that touched no repository (laptop setup, a ChatGPT or Gemini sitting, Drive) is never derivable and lives only in docs/activity/off-repo-log.md — read it too. The log also reads OPEN PR BRANCHES, so a born-red card in flight is listed before it merges — check that section before starting work in a repo. Venue coverage started at 0 of 74, so a card with no 📍 Venue: line means UNSTATED, never 'cloud'; say unknown rather than inferring the machine."
+    },
+    {
+      "id": "shallow-clone-commit-counts",
+      "tools": [
+        "Bash"
+      ],
+      "when": [
+        "git\\s+(log|rev-list|shortlog)\\b",
+        "git\\s+log[^|]*\\|\\s*wc\\b"
+      ],
+      "docs": [
+        "docs/traps.md"
+      ],
+      "says": "This container's clone is SHALLOW — `.git/shallow` exists, and on 2026-08-26 it held 52 commits while `main` held 966. So any count, author list or 'every commit' claim taken from `git log`, `git rev-list` or `git shortlog` here describes THE CLONE, not the repository, and a squash-merged history makes the sample look uniform (one author, one committer) exactly when it is least representative. Check with `test -f .git/shallow` before quoting a number, and either scope the claim to the sample in the same sentence or get the real figure from the API (`GET /repos/{o}/{r}/commits?per_page=1` + the Link header). MEASURED 2026-08-26: 'git history | 50 commits, one author, every one squash-merged' was published as a property of fleet-manager and was a property of a shallow clone (TRAP-004; @codex, fm #947)."
     }
   ]
 }

@@ -163,6 +163,20 @@ look like the dedupe failed when it did not.
 
 ## The owner-review Stop hook — `owner_review.py`
 
+> **`MEASURED` 2026-08-26 — the ENRICHMENT half has not been running here, and
+> it fails silently.** Six firings in one session logged
+> `{"route": null, "enriched": false, "error": null}` to
+> `/tmp/claude-owner-review/log.jsonl`, with **`GEMINI_API_KEY` present in the
+> environment**. So the block fired every time — correct, that is the design and
+> the fixed question is the hook — but the *"And specifically:"* section never
+> appended, and **no error was recorded to say why**. The fail-open contract is
+> holding (a defect exits 0 silently, which is the right trade), and the cost is
+> that the reviewer's tailored findings have been absent without anyone
+> noticing. Not diagnosed; recorded so the next session debugging this starts
+> from a measurement rather than a suspicion. `error: null` alongside
+> `route: null` is the specific oddity — it suggests a short-circuit *before*
+> the call rather than a failed call.
+
 > added 2026-08-07 · design record:
 > [`docs/findings/2026-08-06-provenance-mechanism-measured.md`](../../docs/findings/2026-08-06-provenance-mechanism-measured.md)
 

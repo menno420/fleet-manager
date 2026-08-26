@@ -494,6 +494,17 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   § "Start here", item 1.
 
 - **`OQ-FM-AGENTS-BOOT` — Decide whether to add a minimal root `AGENTS.md`.**
+  **UPDATED 2026-08-26 — he leaned toward yes, and the scope is estate-wide, not
+  this repo.** Owner, live: *"a dedicated agents.md is still probably a good
+  idea."* `MEASURED` the same day across the account: **0 of 19 non-archived
+  repositories carry one.** **And the argument for it changed** — the
+  justification below reads *"loaded no repository instructions"*, which he
+  corrected: *"you say it boots blind, but thats not true."* `@codex` demonstrably
+  reads the tree deeply without one (evidence:
+  [`../findings/2026-08-26-owner-direction.md`](findings/2026-08-26-owner-direction.md) § 3).
+  So the case for `AGENTS.md` is **saving the first hunt and declaring a read
+  path**, never remedying blindness — and it is worth deciding once for the
+  estate rather than per repo.
   **WHAT:** now that the no-boot-file D2 test is preserved, decide whether a
   native instruction file should point non-Claude surfaces at the same
   surface-neutral cold route: `README.md` → `docs/current-state.md` → the

@@ -86,7 +86,32 @@ frame by frame. Two things to know:
   unreliable on a scroll — a scroll is continuous change, not a cut.
 
 Reading frames costs one image read each. Delegating the clip to Gemini costs
-one call. **Delegate unless you need to quote exact pixels.**
+one call. **Delegate unless you need to quote exact pixels** — or unless the
+owner sent it *so that you would look*, which is a third case this section did
+not carry until 2026-08-26.
+
+### 16 fps is the rate for the MODEL, not for you
+
+The table above solves *Gemini's* coverage problem. Reading frames yourself has
+different economics and needs a different rate: a 24 s clip at 16 fps is **380
+images**, and you can realistically read ten to fifteen. So:
+
+1. **Sample the arc first** — `-vf fps=1/2` on a 24 s clip gives **12 frames**,
+   enough to see the shape of a scroll and locate what you actually came for.
+2. **Then go full-resolution on the two or three frames that matter.** At
+   480×1040 the text is directly readable; no crop or upscale was needed.
+
+`MEASURED` 2026-08-26 on a 23.81 s / 480×1040 Samsung Browser capture of the
+claude.ai chat: 12 frames at 0.5 fps were enough to locate a duplicated reply,
+and two of them settled the question — the frame at ~8 s carried a sentence and
+the frame at ~16 s carried its correction, proving both copies rendered in the
+owner's chat. **Gemini would have described the scroll; the question was whether
+two specific paragraphs both appeared, which is a looking question.**
+
+**Also recorded because it is the failure this convention exists to prevent:**
+that session read §1 of this page, hit `ffmpeg: not found`, and re-derived the
+`imageio-ffmpeg` line already written four sections down. Read the whole page —
+it is short, and the recipe you need is rarely in the first screen.
 
 ## The traps — two wrong measurements, one of them published
 
