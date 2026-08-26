@@ -1,8 +1,12 @@
 # 2026-08-26 — correct a page size published as a commit count
 
-> **Status:** `in-progress` — born red. About to happen: `spider-bot`'s commit
-> figure in the merged fm #947 is wrong and main is carrying it. Flips after
-> `python3 bootstrap.py check --strict` returns a real exit 0 read directly.
+> **Status:** `complete` — born red, verified red at open (the added-card hold
+> naming this card), flipped after `python3 bootstrap.py check --strict`
+> returned a real exit 0 read from the process, never after a pipe. **No review
+> requested and none outstanding** (TRAP-007): the change is two figures and
+> their provenance, and fm #947 had just over-run this repo's own convergence
+> rule by five rounds — running a sixth relay for a two-number correction would
+> repeat the mistake the owner had already named.
 
 - **📊 Model:** opus-5 · high · docs-only
 - **📍 Venue:** cloud-container
