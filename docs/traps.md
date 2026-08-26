@@ -141,7 +141,33 @@
   15 moved the real figure to **7 of 26** — a wider gap than claimed, so the
   conclusion survived, but the evidence had not supported it. A recorded
   `MEASURED` dependency sweep had rested on the same unstated assumption.
-- **ROUTE** — `claim-beyond-the-sample` (fires on Edit/Write of census phrasing).
+- **ORIGIN, second entry — `MEASURED` 2026-08-26, four instances in ONE session,
+  two of them inside the document warning about this trap.** Recorded because
+  the repeat rate is the finding: a rule with a route still fired four times.
+  1. **A ten-repo kit-version census published over all adopters.** The estate's
+     own records already contradicted it; the full sweep returned **five live
+     versions across 16 adopters**, not three.
+  2. **A commit count from a SHALLOW clone.** `git log` in this container
+     reported **52 commits, one author, every one squash-merged** — written as a
+     property of the repository. `main` holds **966**; `.git/shallow` exists.
+     `git rev-list --count HEAD` and `git shortlog` share the defect.
+  3. **"All 51 notifications were replays"** — the set described by its
+     majority; four were new.
+  4. **163 cards reported as 163 sessions**, when one session can land two
+     (`.sessions/2026-07-23-hub-forge-slice4-handoff.md` + `-landed.md` say so
+     in their own text).
+  **What the existing route missed, and why it was widened:** its noun
+  allowlist covered `repos|repositories|files|entries` only — so `cards`,
+  `commits` and `sessions` were invisible in a repo that counts session cards
+  constantly — and **every pattern required a ratio or an `all`/`only`
+  qualifier**, so the bare count-only form (*"50 commits"*, *"74 cards"*) matched
+  nothing. Replayed against the four sentences above, the route scored **0 of
+  4** while its own origin sentence fired. Widened 2026-08-26 (fm #950), plus a
+  second route on `git log` for the shallow-clone case, which no phrasing check
+  can catch because the sentence is only wrong on this surface.
+- **ROUTE** — `claim-beyond-the-sample` (fires on Edit/Write of census phrasing,
+  ratio **and** count-only forms) · `shallow-clone-commit-counts` (fires on
+  Bash `git log` / `git rev-list` / `git shortlog`).
 
 ---
 

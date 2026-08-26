@@ -76,12 +76,32 @@ does not exist on the Codex side — so an agent-phase step there may not see th
 even though setup ran correctly. **Unverified on that surface** (no run observed);
 flagged as the highest-value thing to check next.
 
-**4b. A ChatGPT Work session boots BLIND in this repo, and the row above is why.**
-`MEASURED` 2026-08-09: `ls AGENTS.md .github/AGENTS.md` → neither exists. The
-table says both surfaces read `AGENTS.md`, which is true and is not the point —
-**fleet-manager does not have one.** Claude Code loads `.claude/CLAUDE.md`
+**4b. A ChatGPT Work session starts with NO AUTO-LOADED BOOT FILE here — which
+is not the same as blind.**
+`MEASURED` 2026-08-09: `ls AGENTS.md .github/AGENTS.md` → neither exists, and
+`MEASURED` 2026-08-26 across the account: **0 of 19** non-archived repositories
+carry one. The table says both surfaces read `AGENTS.md`, which is true and is
+not the point — **no repo here has one.** Claude Code loads `.claude/CLAUDE.md`
 automatically; ChatGPT Work does not read that path, so it starts with **no boot
 file, no read path, no skills, and none of the hooks.**
+
+> **CORRECTED 2026-08-26 — this paragraph said "boots BLIND" from 2026-08-09
+> until then, and the owner corrected it: *"you say it boots blind, but thats
+> not true."*** `MEASURED` in the same day's PR reviews, `@codex` cited
+> `docs/repos/substrate-kit/README.md` lines 49/51 to refute a kit-version
+> census, the consolidation program's **2026-08-24** row to show its own
+> **08-23** figures had been retracted, `bootstrap.py`'s `ensure_draft` /
+> `_hook_stopcheck` to break a causal claim, and both
+> `.sessions/2026-07-23-hub-forge-slice4-*.md` cards to show one session can
+> land two. **Nothing routed it to any of those.** A session that retrieves the
+> correcting row of a ledger it was not pointed at is reading the tree better
+> than a boot file would have taught it to.
+>
+> **What is actually missing is DELIVERY, not comprehension** — the
+> moment-of-action hooks below, and a declared read path so orientation costs
+> one read instead of a sweep. Those are worth having (`AGENTS.md` remains
+> wanted, `OQ-FM-AGENTS-BOOT`), and "blind" was never the argument for them.
+> Full record: [`findings/2026-08-26-owner-direction.md`](findings/2026-08-26-owner-direction.md) § 3.
 
 That last part is the one that changes an outcome rather than a convenience. On
 2026-08-09 those hooks — the reply-reviewer, the propagation checker, the

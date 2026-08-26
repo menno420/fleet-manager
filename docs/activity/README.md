@@ -82,6 +82,37 @@ The line is deliberately **not** part of the Model line: that line has a
 kit-validated three-segment taxonomy (`model · effort · task-class`) and
 overloading it would put a local convention inside a gated grammar.
 
+## Planned: a page per surface, not only a log — the owner's shape
+
+**`OWNER`, 2026-08-26, after this area was built**, and it is a different shape
+from what is here:
+
+> *"Just create a seperate section in fleet-manager for the local work, just
+> like how each repo is mentioned with some explanation, the one drive should
+> get the same treatment."*
+
+**What exists is a log; what he described is a place.** `off-repo-log.md`
+answers *"what happened Tuesday"*. His shape — the
+[`../repos/`](../repos/README.md) shape, one page per surface — answers *"what
+is the state of the laptop right now, before I continue in the cloud"*, which is
+the use case he gave. Planned pages, each carrying **what it is · what is on it
+· current state · what to know before continuing · last checked**:
+
+| page | what it covers | already in the tree |
+|---|---|---|
+| `laptop.md` | the machine, what is installed, what has been prepared there | [`../owner-steps-2026-08-21-laptop-setup.md`](../owner-steps-2026-08-21-laptop-setup.md) |
+| `onedrive.md` | **his laptop hub** — `Hub/journal.md` on it carries the build-session narrative, and no cloud agent can read it | [`../repos/spider-bot/README.md`](../repos/spider-bot/README.md) line 107 |
+| `google-drive.md` | the media dropbox sessions already read | [`../conventions/owner-drive-folder.md`](../conventions/owner-drive-folder.md) |
+
+**He is executing this himself, locally.** This section exists so that work has a
+written target instead of a chat message, not so a session pre-empts it. The
+dated log stays underneath as history.
+
+**One question is his and is open:** how `Hub/journal.md` reaches this repo — a
+local session copying it in, or the OneDrive folder shared the way the Google
+one is. Full record:
+[`../findings/2026-08-26-owner-direction.md`](../findings/2026-08-26-owner-direction.md) § 1.
+
 ## Refreshing the derived lane
 
 ```bash
