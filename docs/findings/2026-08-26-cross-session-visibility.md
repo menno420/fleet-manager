@@ -123,8 +123,17 @@ leaving a card**, which is how `creator-kit` surfaces at all.
   finding and in the generated log is non-archived-only** — nine repositories
   were archived on 2026-08-23 and some carry cards from that very wave, so these
   are not totals for the estate's whole history (`@codex`, fm #947). `spider-bot` is the notable one — it is
-  **live in production** and took 8 commits in the two days to 2026-08-25 with
-  no `.sessions/` directory to record any of them.
+  **live in production** and took **20 commits** in the two days to 2026-08-25
+  with no `.sessions/` directory to record any of them
+  (`/commits?since=2026-08-24T00:00:00Z&per_page=100` → 20, oldest
+  `2026-08-24T14:39:58Z`, newest `2026-08-25T22:42:55Z`).
+  **Corrected 2026-08-26, after the PR merged.** The first version said *8*,
+  which was the `per_page=8` I had requested — a page size written down as a
+  count. That is the third instance in this one session of reading a sample as
+  a total: `@codex` caught the shallow clone's 52 commits presented as the
+  repository's history, and caught a hand count presented as the generated
+  table's. The fix that works is the one the log itself uses — a number that
+  comes from a command, with the command beside it.
 - **Card discipline is uneven where it exists.** `superbot` and `spider-swing`
   both moved inside the window and neither left a card dated inside it.
 - **The desktop app cannot list cloud sessions.** Recorded independently at

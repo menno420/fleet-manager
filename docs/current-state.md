@@ -141,7 +141,9 @@ copy product architecture or internal product state. Canonical intent:
   **Four non-archived repositories still have no card protocol**, so no session
   in them can ever appear in the derived lane — `curious-research`, `estate-backups`,
   `spider-bot`, `superbot-plugin-hello`; `spider-bot` is the notable one, live
-  in production with 8 commits in two days and no `.sessions/` at all.
+  in production with **20 commits** in two days and no `.sessions/` at all
+  (corrected 2026-08-26 after merge; the figure first published here was *8*,
+  which was the requested page size, not a count).
 
 - **Owner direction captured — and the session's own D2 conclusion withdrawn on
   review** (2026-08-23, fm #937). He asked for oversight into the active projects
