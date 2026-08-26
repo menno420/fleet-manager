@@ -85,6 +85,26 @@ steps.
    deliberately **not** a gate: *"did the session attach a repo"* is a fact,
    *"did the handoff state change"* is a judgement, and this estate has
    withdrawn two gates for mechanising meaning.
+5c. **Venue + the activity log — the cross-session half (local amendment,
+   2026-08-26, fm #947).** Two small things, both about a session that is not
+   this one:
+
+   - The card carries a `- **📍 Venue:** <token>` line under its
+     `📊 Model:` line — `local-desktop` · `local-cli` · `cloud-container` ·
+     `codex-cloud` · `chatgpt-work` · `other`. **Omit it rather than guess**;
+     the generator reports an absent line as `unstated` and prints the
+     coverage count, so an honest null stays visible.
+   - If the session did anything that produced **no commit anywhere** — a
+     laptop change, a ChatGPT or Gemini sitting, a Drive reorganisation, an
+     install — that is the one thing nothing can derive, so log it:
+     `python3 tools/estate_activity.py log --venue <token> --title "..."`.
+     Repository work needs nothing: `refresh` picks the card up on its own.
+
+   Refresh the derived index when you want the current picture across the
+   estate: `python3 tools/estate_activity.py refresh`. Not required at every
+   close — it is a generated file, and a stale one is corrected by one command.
+   Why this exists: [`docs/activity/README.md`](../../../docs/activity/README.md).
+
 6. Verify — **one command: `python3 bootstrap.py check --strict`.** It fans out
    through `scripts/preflight.py` to the added-card lane and both checkers, so
    this is the same predicate CI evaluates; do not maintain a list of gates

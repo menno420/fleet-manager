@@ -58,7 +58,9 @@ surface-neutral front door. Do not hide a failed orientation by hunting through
 extra documents; record the missing fact instead.
 
 The quick mid-task re-check (not a substitute for the six on a cold start) is
-`docs/current-state.md` + the program's NOW pointer. **The one-line-per-area map
+`docs/current-state.md` + the program's NOW pointer. **What ran anywhere else —
+including on the owner's laptop — is `docs/activity/`**, and nothing else in
+this repo carries it: `.sessions/` here is fleet-manager's own work only. **The one-line-per-area map
 with tiers (CORE / TASK / RECORD) is `docs/MAP.md`** — the router for everything
 not on a path here. Owner directive + design:
 `docs/planning/2026-08-10-repo-navigation-plan.md`.
@@ -339,6 +341,7 @@ half; the local file explains the split.
 | About to say "I can't" / a tool seems missing / something new worked | `capability-probe` |
 | A job means reading a whole corpus (all cards, all results, a full tree) | `delegate-read` |
 | Owner asks anything status-shaped ("where are we", "what's left") | `owner-brief` |
+| Owner asks what OTHER sessions did — his local ones especially — or you need the estate-wide picture | **not a skill: run `python3 tools/estate_activity.py refresh`, then read [`docs/activity/`](../docs/activity/README.md)** — this repo's `.sessions/` is fleet-manager's work ALONE (MEASURED 2026-08-26: 74 cards estate-wide that week, 54 reachable from here, 20 not) |
 | Ending the session | `session-close` (run the one strict command and read its real exit code) |
 | Kit version work | `release` → `upgrade-distribution` |
 
