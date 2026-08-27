@@ -77,6 +77,7 @@ FIELDS = {
 DEFAULT_TOOLS = ("Bash", "WebFetch", "Read", "Glob", "Grep")
 
 PROMPT_EVENT = "UserPromptSubmit"
+LAYER2_INDEX_RE = re.compile(r"^docs/repos/([^/]+)/README\.md$")
 
 # Session plumbing, never content. Only used by the defensive fallback below —
 # without this, a `cwd` or a `transcript_path` could trip a route on its own.
@@ -160,6 +161,27 @@ def remember(session: str, fired: set[str]) -> None:
         pass  # advisory state; losing it costs one duplicate line
 
 
+def routed_docs(route: dict) -> list[str]:
+    """Return existing route docs plus the repo's stable comment index.
+
+    Owner comments use arbitrary durable ids, while this hook can route only
+    literal files. Every Layer-2 repository route therefore carries its stable
+    ``docs/owner-comments/<repo>/README.md`` companion automatically. The
+    generated index exists for every ESTATE row; this small rule avoids a
+    parallel 20-entry hand-maintained list in ``doc-routes.json``.
+    """
+    docs: list[str] = []
+    for candidate in route.get("docs", []):
+        if (REPO / candidate).is_file() and candidate not in docs:
+            docs.append(candidate)
+        match = LAYER2_INDEX_RE.fullmatch(candidate)
+        if match:
+            companion = f"docs/owner-comments/{match.group(1)}/README.md"
+            if (REPO / companion).is_file() and companion not in docs:
+                docs.append(companion)
+    return docs
+
+
 def main() -> int:
     try:
         event = json.loads(sys.stdin.read() or "{}")
@@ -206,10 +228,12 @@ def main() -> int:
             continue
         if tool not in tuple(route.get("tools") or DEFAULT_TOOLS):
             continue
-        docs = [d for d in route.get("docs", []) if (REPO / d).is_file()]
+        docs = routed_docs(route)
         if not docs:
             continue
-        # Already opening one of these docs? Then the hook has nothing to add.
+        # Suppress each doc already being opened. Most routes have one, so that
+        # still means the hook has nothing to add; Layer-2 routes now have the
+        # stable owner-comment companion and can surface just that unopened doc.
         # Applies to probe routes AND to explicit read-event routes (Codex on
         # fm #878: a folder route re-fired on the very Read its prompt half had
         # just directed, repeating "read this file" onto the read itself).
@@ -226,10 +250,16 @@ def main() -> int:
         # unreviewed behind exactly that silence. The fm #878 defect this branch
         # exists for was a Read re-firing onto its own directed read, so scoping
         # the exemption away from Bash leaves that fix intact.
-        if any(d in text for d in docs) and tool != "Bash" and (
+        if tool != "Bash" and (
                 not route.get("tools") or tool in DEFAULT_TOOLS):
-            fired.add(rid)
-            continue
+            unopened = [doc for doc in docs if doc not in text]
+            if not unopened:
+                fired.add(rid)
+                continue
+            # A Layer-2 read still has one useful companion to surface: the
+            # stable owner-comment index. Suppress only paths actually being
+            # opened, not the whole route.
+            docs = unopened
         # `path_when` is checked against the file_path FIELD alone, never the
         # haystack, so naming a path in prose cannot satisfy it (fm #938).
         path_pats = route.get("path_when") or []

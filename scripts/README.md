@@ -5,7 +5,11 @@
 > **Tier: TASK** — live; read when your task touches it.
 > Where you are in the estate: [the map](../docs/MAP.md).
 
-The one that matters daily is `preflight.py` — the added-card lane plus both repo checkers, the same predicate CI's `substrate-gate` evaluates. Most of the rest are seat-era advisory checkers whose subjects (roster, lanes, triage register) are retired; their own headers say so unevenly — see the audit findings before trusting one.
+The one that matters daily is `preflight.py` — the added-card lane, repo
+checkers, and owner-comment contract/tests, the same predicate CI's
+`substrate-gate` evaluates. Most of the rest are seat-era advisory checkers
+whose subjects (roster, lanes, triage register) are retired; their own headers
+say so unevenly — see the audit findings before trusting one.
 
 | file | what it is |
 |---|---|

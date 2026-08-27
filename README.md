@@ -79,6 +79,7 @@ anything — this README is deliberately surface-neutral.
 | Owner-only decisions and manual actions | [`docs/owner-queue.md`](docs/owner-queue.md) |
 | **Which repo owns a request** — every repository, one line each | [`docs/ESTATE.md`](docs/ESTATE.md) |
 | **What every session did, wherever it ran** (local + cloud) | [`docs/activity/`](docs/activity/README.md) |
+| Repository-specific owner feedback — active + preserved history | [`docs/owner-comments/`](docs/owner-comments/README.md) |
 | Per-repo entry points and handoffs | [`docs/repos/`](docs/repos/README.md) |
 | Verified capabilities and route facts | [`docs/CAPABILITIES.md`](docs/CAPABILITIES.md) |
 | Decisions ledger | [`docs/decisions.md`](docs/decisions.md) |

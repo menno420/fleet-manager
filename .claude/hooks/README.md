@@ -40,6 +40,11 @@ stranger, so the fix had to be a mechanism.
    tree a session is trying to keep clean.
 4. **Every route points at a doc that genuinely covers its trigger** — enforced,
    not assumed. See below.
+5. **A Layer-2 repository route also carries its stable owner-comment index.**
+   `route_docs.py` derives `docs/owner-comments/<repo>/README.md` from a routed
+   `docs/repos/<repo>/README.md`; the generated index is literal and therefore
+   discoverable even though individual durable comment ids are arbitrary. This
+   is derived in the matcher, not duplicated across every JSON route entry.
 
 ## Adding a route
 

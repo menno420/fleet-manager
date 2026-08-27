@@ -18,11 +18,14 @@ exception being work on fleet-manager itself. So a session:
 
 1. boots here (single source, so this repo's `.claude/` actually loads),
 2. **orients from the repo's folder below — before attaching anything**,
-3. attaches the working repo (`add_repo`),
-4. works there,
-5. at close, updates that repo's folder here.
+3. reads `../owner-comments/<repo>/README.md` and opens its **Unconsumed**
+   records (the prompt route supplies this stable companion automatically),
+4. attaches the working repo (`add_repo`),
+5. works there,
+6. at close, updates that repo's folder here and mechanically consumes any
+   feedback it acted on or reconciled.
 
-Because step 5 happens while the session is still inside fleet-manager, **no
+Because step 6 happens while the session is still inside fleet-manager, **no
 cross-repo write is involved anywhere in this loop.**
 
 ## What a folder IS — a handoff, not an encyclopedia

@@ -50,7 +50,12 @@
    his vocabulary where it differs from the repo name).
 2. Read the row, then the **Layer 2** folder if one exists — *before*
    attaching anything (`repos/README.md` § The working model).
-3. No folder → the row's **read first** column names the repo's own entry
+3. Read the repository's stable owner-feedback route at
+   `docs/owner-comments/<repo>/README.md`. Open the records under
+   **Unconsumed** before acting; consumed history is preserved but is not
+   active work. Existing Layer-2 prompt routes inject this companion index
+   automatically.
+4. No folder → the row's **read first** column names the repo's own entry
    point. Public repos need a raw fetch for read-only work, not `add_repo`.
 
 ## Active — where work actually goes now

@@ -300,3 +300,42 @@
   continuation prompt, which carried it as a DECIDED item; recorded per
   CONSTITUTION § "Changing the rules" — owner-directed live, so applied rather
   than proposed. Session card: `.sessions/2026-08-14-v1210-phase3-review.md`.
+
+## [D-0018] Repository owner comments are public Fleet Manager records with a move-to-consume lifecycle
+
+- status: decided
+- date: 2026-08-27
+- verdict: Repository review comments are owned by Fleet Manager, stored as
+  deterministic JSON under `docs/owner-comments/<repo>/`, and preserve the
+  owner's wording verbatim. Every ESTATE repository has a stable literal
+  `README.md` index; the root `index.json` is a cheap generated projection for
+  estate overviews, not another registry. A comment is active while its record
+  is direct under the repo directory. Acting on or explicitly reconciling it
+  moves the record into `consumed/`, adds actor/time/evidence, and updates both
+  indexes in the same diff. It is never deleted.
+- why: The desired review loop fails if feedback lives only in Railway process
+  state, in a website-owned note, or in a file whose arbitrary name the router
+  cannot discover. A committed Fleet Manager record respects the estate's
+  ownership boundary; stable generated indexes make it cheap to render and
+  literal to route; a move preserves accountability while making active work a
+  deterministic set. The public warning is part of the contract because the
+  server-side reader may know about private repositories while this records
+  home is visible without owner authentication.
+- privacy and durability boundary: Fleet Manager is public, so these comments
+  are public. Credentials, third-party contact details, private-repository
+  contents/URLs, and unreleased specifics do not enter this channel. A website
+  process queue or open PR is not the durable record: durability means the
+  branch-and-PR change merged to protected `main` and the record/index are
+  readable there.
+- ownership boundary: `websites` owns the authenticated UI, validation, and
+  writeback client; Fleet Manager owns storage, routing, active/consumed
+  semantics, validation, and consumption. Member repositories do not receive
+  copied comments, and neither repository gains a database as canonical truth.
+- rules out: direct writes to protected `main`; writing feedback into the
+  target member repo or website-local owner notes; describing an open PR or
+  Railway-local audit row as durable; deleting a consumed record; and silently
+  publishing material that is not safe in this public repository.
+- provenance: owner direction in the 2026-08-27 control-plane implementation
+  mission, superseding only the rollout order in the 2026-08-26 execution
+  packets. The record/index/move mechanics incorporate the named-open review
+  findings on fm #951; source-of-truth ownership remains unchanged.
