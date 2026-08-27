@@ -1268,6 +1268,22 @@ store.consume(
         consumed = self.root / consumed_relative
         self.assertEqual(stat.S_IMODE(consumed.stat().st_mode), 0o644)
 
+    def test_atomic_mode_fallback_works_without_fchmod(self) -> None:
+        existing = self.root / "existing-mode.json"
+        existing.write_bytes(b"old\n")
+        existing.chmod(0o640)
+        created = self.root / "new-mode.json"
+
+        with mock.patch.object(
+            owner_comments.os, "fchmod", new=None, create=True
+        ), mock.patch.object(owner_comments.os, "chmod", wraps=os.chmod) as chmod:
+            owner_comments._atomic_write(existing, b"replacement\n")
+            owner_comments._atomic_write(created, b"new\n")
+
+        self.assertGreaterEqual(chmod.call_count, 2)
+        self.assertEqual(stat.S_IMODE(existing.stat().st_mode), 0o640)
+        self.assertEqual(stat.S_IMODE(created.stat().st_mode), 0o644)
+
     def test_directory_fsync_propagates_io_errors_only(self) -> None:
         directory = self.root / "docs/owner-comments"
         with mock.patch.object(
@@ -1822,6 +1838,38 @@ class RouteCase(unittest.TestCase):
                 )
                 self.assertEqual(routed, expected, str(path))
 
+    def test_canonical_repo_terminal_punctuation_is_a_boundary(self) -> None:
+        cases = (
+            ("Review creator-kit.", {"creator-kit"}),
+            ("Review creator-kit!", {"creator-kit"}),
+            ("Review creator-kit.component", set()),
+            ("Review creator-kit-more", set()),
+            ("Review xcreator-kit", set()),
+        )
+        with tempfile.TemporaryDirectory() as state:
+            for number, (prompt, expected) in enumerate(cases):
+                event = {
+                    "hook_event_name": "UserPromptSubmit",
+                    "session_id": f"owner-comments-punctuation-{number}",
+                    "prompt": prompt,
+                }
+                result = subprocess.run(
+                    [sys.executable, ".claude/hooks/route_docs.py"],
+                    cwd=REPO,
+                    input=json.dumps(event),
+                    text=True,
+                    capture_output=True,
+                    env=dict(os.environ, TMPDIR=state),
+                    check=True,
+                )
+                routed = set(
+                    re.findall(
+                        r"docs/owner-comments/([^/]+)/README\.md",
+                        result.stdout,
+                    )
+                )
+                self.assertEqual(routed, expected, prompt)
+
     def test_estate_family_aliases_route_each_member_comment_index(self) -> None:
         cases = [
             ("Menno Creator Kit", ("creator-kit",)),
@@ -1844,6 +1892,7 @@ class RouteCase(unittest.TestCase):
             ("proxybench", ("proxybench",)),
             ("SuperBot Games", ("superbot-games",)),
             ("SuperBot Idle", ("superbot-idle",)),
+            ("the idle engine", ("superbot-idle",)),
             ("SuperBot Plugin Hello", ("superbot-plugin-hello",)),
             ("SuperBot 2.0", ("superbot-next",)),
             ("the rebuild", ("superbot-next",)),

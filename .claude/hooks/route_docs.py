@@ -83,7 +83,7 @@ COMMENT_ALIAS_REPOS = (
         ("creator-kit",),
     ),
     (r"\bsuperbot[- ]games\b", ("superbot-games",)),
-    (r"\bsuperbot[- ]idle\b", ("superbot-idle",)),
+    (r"\b(superbot[- ]idle|the idle engine)\b", ("superbot-idle",)),
     (r"\b(superbot[- ]mineverse|mineverse)\b", ("superbot-mineverse",)),
     (r"\b(superbot[- ]plugin[- ]hello|plugin[- ]hello)\b", ("superbot-plugin-hello",)),
     (
@@ -234,7 +234,9 @@ def mentioned_repositories(
     for repository in repositories:
         pattern = (
             rf"(?<![A-Za-z0-9._-]){re.escape(repository)}"
-            r"(?![A-Za-z0-9._-])"
+            # A final full stop is prose punctuation, but ``repo.component``
+            # is still one longer slug-like token and must not route ``repo``.
+            r"(?![A-Za-z0-9_-]|\.[A-Za-z0-9_-])"
         )
         for match in re.finditer(pattern, subject, re.I):
             candidates.append(

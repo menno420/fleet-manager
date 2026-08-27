@@ -246,6 +246,26 @@ def _expected_state_key(state: Any) -> tuple[bool, str, int] | None:
     return (True, sha256, size)
 
 
+def _set_file_mode(path: Path, descriptor: int, mode: int) -> None:
+    """Set replacement permissions with a Windows-compatible path fallback."""
+    fchmod = getattr(os, "fchmod", None)
+    if callable(fchmod):
+        try:
+            fchmod(descriptor, mode)
+        except (AttributeError, NotImplementedError):
+            pass
+        except OSError as exc:
+            if exc.errno not in {
+                errno.ENOSYS,
+                getattr(errno, "ENOTSUP", errno.ENOSYS),
+                getattr(errno, "EOPNOTSUPP", errno.ENOSYS),
+            }:
+                raise
+        else:
+            return
+    os.chmod(path, mode)
+
+
 def _atomic_write(path: Path, content: bytes) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     try:
@@ -283,7 +303,7 @@ def _atomic_write(path: Path, content: bytes) -> None:
         with os.fdopen(fd, "wb") as handle:
             handle.write(content)
             handle.flush()
-            os.fchmod(handle.fileno(), target_mode)
+            _set_file_mode(temporary, handle.fileno(), target_mode)
             os.fsync(handle.fileno())
         os.replace(temporary, path)
         _fsync_directory(path.parent)
