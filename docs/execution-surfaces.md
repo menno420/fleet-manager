@@ -99,8 +99,9 @@ file, no read path, no skills, and none of the hooks.**
 >
 > **What is actually missing is DELIVERY, not comprehension** — the
 > moment-of-action hooks below, and a declared read path so orientation costs
-> one read instead of a sweep. Those are worth having (`AGENTS.md` remains
-> wanted, `OQ-FM-AGENTS-BOOT`), and "blind" was never the argument for them.
+> one read instead of a sweep. Those are worth having (`AGENTS.md`: answered
+> **yes, estate-wide** on 2026-08-28, `OQ-FM-AGENTS-BOOT`), and "blind" was
+> never the argument for them.
 > Full record: [`findings/2026-08-26-owner-direction.md`](findings/2026-08-26-owner-direction.md) § 3.
 
 That last part is the one that changes an outcome rather than a convenience. On
@@ -126,7 +127,8 @@ the same read path would close the orientation half. It was deliberately absent
 for the D2 cold-read test, and remains absent after the test so the owner can
 make that surface-wide choice explicitly. The evidence and recommendation are
 recorded in `docs/findings/2026-08-10-fleet-manager-cold-read.md`; the action is
-`OQ-FM-AGENTS-BOOT`.
+`OQ-FM-AGENTS-BOOT` — **answered 2026-08-28: yes, estate-wide**; rollout is
+PKT-B4, sequenced, awaiting the owner's GO on plan execution.
 
 **4. `$GITHUB_PAT` is not universal.** Some environments here carry it, and the
 Codex side does not. Any recipe that names it must branch on

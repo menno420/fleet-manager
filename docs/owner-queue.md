@@ -493,23 +493,39 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   [`audits/2026-08-10-full-read/findings.md`](audits/2026-08-10-full-read/findings.md)
   § "Start here", item 1.
 
-- **`OQ-ONEDRIVE-HUB` — 🔗 how the OneDrive hub and fleet-manager centralise
-  (added 2026-08-26 evening, OD-22).** **WHAT:** you called the OneDrive /
-  local-disk hub *"basically a repo of its own … kinda like the local version of
-  fleet-manager"* and want the two centralised better; the packet plan's
-  PKT-B3 ([the execution packets](planning/2026-08-26-estate-execution-packets.md)
-  § 5 Wave B) carries the trade. **OPTIONS, one letter:** **(a)** make the hub a
-  private git repository — both fleet-managers sync by git, cloud sessions can
-  read it, and the `Hub/journal.md` question dissolves (risk to test once:
-  OneDrive sync × git friction) · **(b)** share the folder read-only the way the
-  Drive folder is · **(c)** a local session copies `journal.md` in per sitting.
-  **RECOMMENDATION:** a, `REASONED`. **HOW:** one letter in any chat; your own
-  PKT-B3 sitting executes it. **VERIFIED-NEEDED:** owner-only — it is your
-  OneDrive and your layout. *(Supersedes the un-slugged "how does
-  `Hub/journal.md` reach this repo" question in
-  [`activity/README.md`](activity/README.md) — same question, now decidable.)*
+- **`OQ-ONEDRIVE-HUB` ✅ RESCOPED 2026-08-28 — no longer a sync question; no
+  letter owed** (added 2026-08-26 evening, OD-22). The visibility need that
+  motivated it is answered differently: you directed a **local section inside
+  fleet-manager** — deeper than a repo pointer, lean, the main happenings
+  included — kept by hub-local sessions, so a cloud session reads that instead
+  of the hub itself
+  ([`findings/2026-08-28-owner-direction.md`](findings/2026-08-28-owner-direction.md)
+  §§ 2–4, 7; OD-23). What survives is unhurried hub housekeeping — whether the
+  hub itself wants git versioning/backup — blocking nothing; decide it
+  whenever, or never. **The residual that could re-open it (`@codex`,
+  fm #954): the pages give sight, not file access** — work meant to continue
+  in the cloud lands in a repo before the handoff, and if a genuine handoff
+  ever depends on artifacts that live only in the hub, the a/b/c options
+  below are the recorded transfer candidates. **Original ask, kept for provenance:** you called the
+  OneDrive / local-disk hub *"basically a repo of its own … kinda like the
+  local version of fleet-manager"* and wanted the two centralised better;
+  PKT-B3 carried the trade — **(a)** hub as a private git repository (risk to
+  test once: OneDrive sync × git friction) · **(b)** folder shared read-only ·
+  **(c)** `journal.md` copied per sitting — with recommendation (a), now
+  withdrawn as a sync path. *(The un-slugged "how does `Hub/journal.md` reach
+  this repo" question in [`activity/README.md`](activity/README.md) settles
+  the same way: the lean fm pages carry the account.)*
 
-- **`OQ-FM-AGENTS-BOOT` — Decide whether to add a minimal root `AGENTS.md`.**
+- **`OQ-FM-AGENTS-BOOT` ✅ ANSWERED 2026-08-28 — yes, estate-wide.** Owner,
+  live: *"Agents.md should indeed be everywhere."* Execution is PKT-B4's ×N
+  rows, still sequenced (the four audit-failure repos after their Wave C
+  fixes) and **held until your GO on plan execution** (*"no execution yet"*,
+  same sitting). One design question your yes reopens is parked for the
+  substrate-kit sitting: hand-write the 19 files (PKT-B4 as recorded) or teach
+  the kit to plant and maintain them
+  ([`findings/2026-08-28-owner-direction.md`](findings/2026-08-28-owner-direction.md)
+  §§ 5, 7). **Original ask, kept for provenance — decide whether to add a
+  minimal root `AGENTS.md`:**
   **UPDATED 2026-08-26 evening: the per-repo packet exists and one word starts
   it** — [the execution packets](planning/2026-08-26-estate-execution-packets.md)
   § 5 PKT-B4 (a ~15-line pointer per repo: its own read path, the hub
