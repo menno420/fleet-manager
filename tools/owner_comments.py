@@ -1591,9 +1591,20 @@ class OwnerCommentsStore:
                 yield
             finally:
                 _ACTIVE_ATOMIC_TEMPORARIES.reset(token)
-            manifest["state"] = "committed"
-            manifest["recovery"] = None
-            _write_transaction_manifest(backup_root / "manifest.json", manifest)
+            # Keep the in-memory prepared manifest recoverable until the
+            # committed replacement and its directory sync both succeed.  A
+            # failure after replacing manifest.json still needs this process
+            # to roll the target files back; mutating ``manifest`` first would
+            # leave _restore_transaction with committed state and no cursor.
+            committed_manifest = {
+                **manifest,
+                "state": "committed",
+                "recovery": None,
+            }
+            _write_transaction_manifest(
+                backup_root / "manifest.json", committed_manifest
+            )
+            manifest = committed_manifest
         except BaseException:
             if prepared:
                 self._restore_transaction(backup_root, manifest)

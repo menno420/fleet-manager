@@ -112,11 +112,17 @@ COMMENT_ALIAS_REPOS = (
     ),
     (
         reference_pattern(
-            r"(?:the[- ])?community[- ]bot|game[- ]community[- ]bot|"
+            r"(?:the[- ])?community[- ]bot"
+            r"(?:[- ]for[- ]slingy[- ]spider)?|game[- ]community[- ]bot|"
             r"slingy[- ]spider[- ](?:server|(?:community[- ])?bot)"
         ),
         ("spider-bot",),
         ("spider-swing",),
+    ),
+    (
+        reference_pattern(r"slingy[- ]spider"),
+        ("spider-swing",),
+        (),
     ),
     (
         reference_pattern(
@@ -165,7 +171,7 @@ COMMENT_ALIAS_REPOS = (
         (),
     ),
     (
-        reference_pattern(r"the[- ]kit(?![- ]dashboard)"),
+        reference_pattern(r"the[- ]kit(?![- ]dashboard)|kit[- ]release"),
         ("substrate-kit",),
         (),
     ),
@@ -311,7 +317,10 @@ def comment_repository_names() -> list[str]:
 
 
 def mentioned_repositories(
-    text: str, repositories: list[str]
+    text: str,
+    repositories: list[str],
+    *,
+    strip_checkout_prefix: bool = False,
 ) -> tuple[set[str], set[str]]:
     """Resolve canonical slugs and product aliases by longest contained match.
 
@@ -322,13 +331,15 @@ def mentioned_repositories(
     canonical repositories shadowed by a longer alias; matched legacy routes
     must not re-add them later.
     """
-    # The hook commonly receives absolute paths.  Fleet Manager's own checkout
-    # directory is plumbing, not a repository mention: without stripping it,
-    # every absolute Read from this tree spuriously routes ``fleet-manager``
-    # feedback (including a self-read of another repo's comment index).
     subject = text
-    for prefix in {str(REPO) + os.sep, REPO.as_posix() + "/"}:
-        subject = subject.replace(prefix, "")
+    if strip_checkout_prefix:
+        # Tool payloads commonly carry absolute paths. Fleet Manager's checkout
+        # directory is plumbing there, not a repository mention: without
+        # stripping it, every absolute Read from this tree spuriously routes
+        # ``fleet-manager`` feedback. Owner prompt text is intentional content,
+        # though, and an absolute checkout selection must remain discoverable.
+        for prefix in {str(REPO) + os.sep, REPO.as_posix() + "/"}:
+            subject = subject.replace(prefix, "")
 
     candidates: list[
         tuple[int, int, frozenset[str], bool, frozenset[str]]
@@ -436,7 +447,11 @@ def main() -> int:
     available_comments = comment_repository_names()
     if tool in DEFAULT_TOOLS or tool == PROMPT_EVENT:
         comment_repositories, shadowed_comment_repositories = (
-            mentioned_repositories(text, available_comments)
+            mentioned_repositories(
+                text,
+                available_comments,
+                strip_checkout_prefix=tool != PROMPT_EVENT,
+            )
         )
     else:
         comment_repositories, shadowed_comment_repositories = set(), set()

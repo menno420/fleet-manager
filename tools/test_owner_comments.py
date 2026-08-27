@@ -1602,6 +1602,46 @@ store.consume(
         prepared_manifest = events.index(("manifest", "prepared"))
         self.assertLess(parent_sync, prepared_manifest)
 
+    def test_commit_manifest_sync_failure_uses_prepared_state_to_roll_back(self) -> None:
+        generated = (
+            self.root / "docs/owner-comments/index.json",
+            self.root / "docs/owner-comments/websites/README.md",
+        )
+        before = {path: path.read_bytes() for path in generated}
+        self.write_record()
+        real_sync = owner_comments._fsync_directory
+        failed = False
+
+        def fail_after_committed_manifest_replace(path: Path) -> None:
+            nonlocal failed
+            manifest_path = path / "manifest.json"
+            if not failed and manifest_path.is_file():
+                manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+                if manifest.get("state") == "committed":
+                    failed = True
+                    raise OSError(
+                        errno.EIO,
+                        "simulated final manifest directory sync failure",
+                    )
+            real_sync(path)
+
+        with mock.patch.object(
+            owner_comments,
+            "_fsync_directory",
+            side_effect=fail_after_committed_manifest_replace,
+        ):
+            with self.assertRaisesRegex(
+                OSError, "final manifest directory sync failure"
+            ):
+                self.store.reindex()
+
+        self.assertTrue(failed)
+        self.assertEqual(
+            {path: path.read_bytes() for path in generated},
+            before,
+        )
+        self.assertEqual(list(self.store._transaction_root().glob("txn-*")), [])
+
     def test_manifestless_published_journal_finishes_committed_cleanup(self) -> None:
         transaction_root = self.store._transaction_root()
         residue = transaction_root / "txn-interrupted-cleanup"
@@ -2122,6 +2162,38 @@ class RouteCase(unittest.TestCase):
                 )
                 self.assertEqual(routed, expected, str(path))
 
+    def test_absolute_checkout_selection_is_prompt_content_not_read_plumbing(self) -> None:
+        with tempfile.TemporaryDirectory() as state:
+            _context, comments, _docs = self.route_prompt(
+                f"Start in {REPO}",
+                "owner-comments-absolute-prompt",
+                state,
+            )
+            self.assertEqual(comments, {"fleet-manager"})
+
+            event = {
+                "hook_event_name": "PreToolUse",
+                "session_id": "owner-comments-absolute-read",
+                "tool_name": "Read",
+                "tool_input": {"file_path": str(REPO / "README.md")},
+            }
+            result = subprocess.run(
+                [sys.executable, ".claude/hooks/route_docs.py"],
+                cwd=REPO,
+                input=json.dumps(event),
+                text=True,
+                capture_output=True,
+                env=dict(os.environ, TMPDIR=state),
+                check=True,
+            )
+            routed = set(
+                re.findall(
+                    r"docs/owner-comments/([^/]+)/README\.md",
+                    result.stdout,
+                )
+            )
+            self.assertEqual(routed, set())
+
     def test_canonical_repo_terminal_punctuation_is_a_boundary(self) -> None:
         cases = (
             ("Review creator-kit.", {"creator-kit"}),
@@ -2291,6 +2363,26 @@ class RouteCase(unittest.TestCase):
                     "docs/repos/spider-swing/README.md",
                     "docs/owner-comments/spider-bot/README.md",
                     "docs/owner-comments/spider-swing/README.md",
+                },
+            ),
+            (
+                "Compare the community bot and Slingy Spider.",
+                {"spider-bot", "spider-swing"},
+                {
+                    "docs/repos/spider-bot/README.md",
+                    "docs/repos/spider-swing/README.md",
+                    "docs/owner-comments/spider-bot/README.md",
+                    "docs/owner-comments/spider-swing/README.md",
+                },
+            ),
+            (
+                "Compare Substrate Kit Dashboard and kit release.",
+                {"Substrate-kit-app", "substrate-kit"},
+                {
+                    "docs/ESTATE.md",
+                    "docs/repos/substrate-kit/README.md",
+                    "docs/owner-comments/Substrate-kit-app/README.md",
+                    "docs/owner-comments/substrate-kit/README.md",
                 },
             ),
         )
