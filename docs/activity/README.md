@@ -95,8 +95,15 @@ from what is here:
 answers *"what happened Tuesday"*. His shape — the
 [`../repos/`](../repos/README.md) shape, one page per surface — answers *"what
 is the state of the laptop right now, before I continue in the cloud"*, which is
-the use case he gave. Planned pages, each carrying **what it is · what is on it
-· current state · what to know before continuing · last checked**:
+the use case he gave. **Sharpened 2026-08-27→28
+([owner direction](../findings/2026-08-28-owner-direction.md) §§ 1–3): the
+acceptance test is venue handoff** — a device-bound task started locally must
+be continuable by a fresh cloud session — and the pages carry **state AND a
+lean account of the main things that happened** (*"lean, but not that it should
+exclude all feature work"*), at capability/work level only: nothing personal,
+no paths or security-relevant detail, because these pages are public. Planned
+pages, each carrying **what it is · what is on it · current state · what to
+know before continuing · last checked**:
 
 | page | what it covers | already in the tree |
 |---|---|---|
@@ -104,18 +111,28 @@ the use case he gave. Planned pages, each carrying **what it is · what is on it
 | `onedrive.md` | **his laptop hub** — `Hub/journal.md` on it carries the build-session narrative, and no cloud agent can read it | [`../repos/spider-bot/README.md`](../repos/spider-bot/README.md) line 107 |
 | `google-drive.md` | the media dropbox sessions already read | [`../conventions/owner-drive-folder.md`](../conventions/owner-drive-folder.md) |
 
-**He is executing this himself, locally.** This section exists so that work has a
-written target instead of a chat message, not so a session pre-empts it. The
-dated log stays underneath as history.
+**Hub-local sessions execute this, owner-directed** — clarified 2026-08-27→28:
+his 2026-08-26 *"himself"* meant *via local sessions*, *"because they have the
+full ability to work on both sides and see everything"* — and **execution
+awaits his GO** (*"no execution yet"*, same sitting). This section exists so
+that work has a written target instead of a chat message. The dated log stays
+underneath as history, and the scope rule that feeds all of this is now
+owner-stated: repo work in the repo's own card (scoped to that repo),
+estate-level work here, machine/personal in the hub with these pages as its
+lean cloud-readable account
+([owner direction](../findings/2026-08-28-owner-direction.md) § 3).
 
-**One question is his and is open — now slugged `OQ-ONEDRIVE-HUB`** (evening
-2026-08-26, after OD-22 called the hub *"kinda like the local version of
-fleet-manager"*): how the hub and this repo centralise — the hub as a private
-git repo, the folder shared the way the Google one is, or `journal.md` copied
-in per sitting. The trade and recommendation:
-[the execution packets](../planning/2026-08-26-estate-execution-packets.md)
-§ 5 PKT-B3. Full record:
-[`../findings/2026-08-26-owner-direction.md`](../findings/2026-08-26-owner-direction.md) §§ 1, 5.
+**`OQ-ONEDRIVE-HUB` is rescoped (2026-08-27→28) — no longer a sync question.**
+It asked how the hub and this repo centralise (private git repo · read-only
+share · `journal.md` copied per sitting) so the cloud could see the laptop;
+the owner answered the visibility need differently — the cloud reads this
+section's pages — so the a/b/c choice shrinks to unhurried hub housekeeping
+(whether the hub wants git versioning for its own sake), blocks nothing, and
+the old recommendation **(a)** no longer stands as a sync path. Records:
+[`../findings/2026-08-26-owner-direction.md`](../findings/2026-08-26-owner-direction.md)
+§§ 1, 5 (origin) ·
+[`../findings/2026-08-28-owner-direction.md`](../findings/2026-08-28-owner-direction.md)
+§ 7 (rescope).
 
 ## Refreshing the derived lane
 

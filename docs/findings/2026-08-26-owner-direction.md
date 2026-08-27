@@ -47,7 +47,12 @@ is on it · current state · what to know before continuing · last checked*.
 
 **He is executing this himself, locally, later** — stated 2026-08-26. A session
 should not pre-empt it; this entry exists so his execution has a written target
-rather than a chat message.
+rather than a chat message. **Clarified 2026-08-27→28, and the current word
+lives there:** *"himself"* meant *via local sessions* (*"they have the full
+ability to work on both sides and see everything"*), the pages carry a lean
+history as well as state, and execution waits on his explicit GO —
+[`2026-08-28-owner-direction.md`](2026-08-28-owner-direction.md) §§ 2–4. This
+paragraph stays as the record of what he said on 2026-08-26.
 
 ### 1b · Two drives, and both were already in the tree
 
@@ -62,7 +67,11 @@ be **both**, and the repo already knew about each:
 **`Hub/journal.md` is the sharp end.** A record of his local work already
 exists, on his machine, and no cloud agent can read it. **Open question, his to
 answer:** whether a local session copies it into fleet-manager, or the OneDrive
-folder is shared the way the Google one is.
+folder is shared the way the Google one is. *(Settled differently
+2026-08-27→28: hub-local sessions keep a lean account in fleet-manager's local
+section, so neither copy nor share is the path —
+[`2026-08-28-owner-direction.md`](2026-08-28-owner-direction.md) §§ 2–3, and
+`OQ-ONEDRIVE-HUB` is rescoped to housekeeping.)*
 
 ## 2 · The website as his review surface — became OD-21
 
@@ -131,6 +140,8 @@ measuring only the first.
 **`AGENTS.md` is still wanted** — his words, and the gap is estate-wide:
 `MEASURED` 2026-08-26, **0 of 19** non-archived repositories carry one. Filed as
 `OQ-FM-AGENTS-BOOT`, whose scope this widens from fleet-manager to the estate.
+**Answered 2026-08-28: yes, everywhere**
+([`2026-08-28-owner-direction.md`](2026-08-28-owner-direction.md) § 5).
 
 ## 4 · Two process notes he gave, worth keeping
 

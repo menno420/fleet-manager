@@ -347,32 +347,43 @@ a copy of the repo's own docs.
 carrying an honest "nothing beyond ESTATE's line yet"; each summary cites what
 was actually opened. *Verify:* `check --strict`.
 
-**PKT-B3 · the hub (OneDrive / local disk) · owner-executed, hub-local.** He
-said he will do this himself; this packet is the written target so his sitting
-starts from a page, not a chat memory.
+**PKT-B3 · the hub (OneDrive / local disk) · hub-local session, owner-directed
+— held until his GO.** Amended 2026-08-27→28
+([owner direction](../findings/2026-08-28-owner-direction.md) §§ 2–4, 6): his
+2026-08-26 *"himself"* meant *via local sessions* — *"they have the full
+ability to work on both sides and see everything"* — so the executor is
+**hub-local only** (the one venue that reads both the hub and GitHub), and
+nothing runs before his GO (*"no execution yet, because I still have more to
+plan"*). This packet is the written target so that sitting starts from a page,
+not a chat memory.
 *Steps:* (1) document the hub into `docs/activity/onedrive.md` +
 `laptop.md` + `google-drive.md` (the shape already planned in
 [activity](../activity/README.md) § Planned: *what it is · what is on it ·
-current state · what to know before continuing · last checked*) — including
+current state · what to know before continuing · last checked* — plus, per the
+08-27→28 direction: the venue-handoff contract, a **lean account of the main
+things that happened**, and the public-surface content rule) — including
 the hub's actual layout (where the skills copy lives; whether repo clones live
 inside it), which is `UNVERIFIED` until written; (2) tighten the hub's
 review-fleet-manager-first boot instruction to mirror the six-read pointer —
-his own *"tho this might also need some work"*; (3) **answer the
-centralisation question** (`OQ-ONEDRIVE-HUB`, one letter):
-**(a)** make the hub a private git repository — the two fleet-managers then
-sync by git, cloud sessions can read it, and the `Hub/journal.md` question
-dissolves; risk to test once: OneDrive sync × git friction ·
-**(b)** share the folder read-only the way the Drive folder is — always
-current, agent-readable, exposes the folder and needs a one-time read-recipe
-probe · **(c)** a local session copies `journal.md` in per sitting — curated
-and versioned, stales between sittings. Recommendation **(a)**, `REASONED`,
-his call.
-*Acceptance:* the three pages exist and a cloud session can answer "what is on
-the laptop right now" from them. *Non-scope:* no session pre-empts this — it is
-his, by his word.
+his own *"tho this might also need some work"* — and wire the scope routing
+rule into the hub's close hooks (repo work → that repo's own card · non-repo
+work → this section · push when a handoff is intended): a mechanism at the
+moment of action, never another rule statement
+([intent](../intent.md) § 4); (3) the centralisation question is **no longer a
+step here** — `OQ-ONEDRIVE-HUB` was rescoped 2026-08-27→28 to unhurried hub
+housekeeping (git versioning for its own sake), its recommendation (a)
+withdrawn as a sync path; it blocks nothing in this packet.
+*Acceptance:* the three pages exist and a cloud session can answer both "what
+is on the laptop right now" and "can I pick up the task that was started
+there" from them. *Non-scope:* nothing executes before the owner's GO; nothing
+personal or security-relevant reaches the public pages.
 
-**PKT-B4 (×N) · one packet per non-archived repo · either venue · gated on
-his AGENTS.md yes** (`OQ-FM-AGENTS-BOOT` — recommendation: yes; the ×N form
+**PKT-B4 (×N) · one packet per non-archived repo · either venue · gate OPEN —
+his AGENTS.md yes landed 2026-08-28** (*"Agents.md should indeed be
+everywhere"*, `OQ-FM-AGENTS-BOOT` answered — execution still waits on his GO
+for plan work, and one design question is parked for the substrate-kit
+sitting: hand-write the 19 files as below, or teach the kit to plant and
+maintain them; the ×N form
 is the C8 shape — landing modes and gates differ per repo, so each row is
 independently completable, `@codex` fm #951 round 2). One ~15-line root
 `AGENTS.md` per repo: what the repo is (one line) · its own read-first path
@@ -633,14 +644,14 @@ notification system; no second store — the commit is the record.
 
 | # | ask | shape |
 |---|---|---|
-| OWN-1 | `AGENTS.md` estate-wide (`OQ-FM-AGENTS-BOOT`) | yes / no — recommendation **yes**; unlocks PKT-B4 |
-| OWN-2 | the hub centralisation route (`OQ-ONEDRIVE-HUB`) | one letter a/b/c (§ PKT-B3); recommendation **a** |
+| OWN-1 | `AGENTS.md` estate-wide (`OQ-FM-AGENTS-BOOT`) | **ANSWERED 2026-08-28: yes** (*"Agents.md should indeed be everywhere"*) — PKT-B4's gate is open; its sequencing rule stands |
+| OWN-2 | the hub centralisation route (`OQ-ONEDRIVE-HUB`) | **RESCOPED 2026-08-28 — no letter owed**: the sync need is met by the fm local section; residual = optional hub housekeeping ([owner direction](../findings/2026-08-28-owner-direction.md) § 7) |
 | OWN-3 | two token mints, one sitting | Tier-1 read-only (readiness + D1) per `OQ-WEBSITES-PAT` · the writeback token for D3 with **Contents R/W AND Pull requests R/W** — Contents alone cannot open the gate-compatible PR |
 | OWN-4 | `pokemon-mod-lab` hop | release the hold, or keep it — one word |
 | OWN-5 | `shiftlife` hop pacing | now / later |
 | OWN-6 | `gba-homebrew` landing route for hop + AGENTS.md | admin-merge red / demote the check / defer — one letter |
 | OWN-7 | Python on the laptop | **only if** a local venue precheck finds none — one install, `python --version` |
-| OWN-8 | the hub pages themselves (PKT-B3) | his own sitting, by his word |
+| OWN-8 | the hub pages themselves (PKT-B3) | a **hub-local session** sitting, on his GO (clarified 2026-08-28: *"I want to do this in local sessions … they have the full ability to work on both sides"*) |
 | — | **the per-repo intent conversations** | after Wave B, clustered (the bots · the games · the labs), digest-fed so his time goes to intent, not reconstruction — the expensive, valuable part; explicitly not packet work |
 
 ## 6 · Ordering, and the first sitting
@@ -705,8 +716,10 @@ letters (§ 5) are one batched reply whenever convenient; none blocks C1.
 - The venue token stays self-reported; nothing verifies it, and nothing can.
 - The hub's layout, and therefore how a hub-local session reaches a repo
   checkout, is `UNVERIFIED` until PKT-B3 writes it down.
-- Whether OneDrive sync and a git repository coexist without corruption
-  (PKT-B3 option a) is untested — one sitting settles it before committing.
+- Whether OneDrive sync and a git repository coexist without corruption is
+  untested — since 2026-08-28 this matters only to the rescoped
+  `OQ-ONEDRIVE-HUB` housekeeping question, not to any sync path; if the owner
+  ever picks that route, one sitting settles it before committing.
 - The iOS listing and the laptop/phone capability questions
   ([2026-08-22 owner direction](../findings/2026-08-22-owner-direction.md)
   §§ 3–4) remain unhomed by this plan — named so they are not read as absorbed.

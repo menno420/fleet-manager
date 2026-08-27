@@ -116,8 +116,20 @@ copy product architecture or internal product state. Canonical intent:
   record into preserved history and updates both indexes in the same diff,
   never deleting it. The authenticated website UI/writeback is a separate
   `websites` change; no local queue or pending PR counts as durable.
-- A root `AGENTS.md` remains an owner decision (`OQ-FM-AGENTS-BOOT`) — the
-  per-repo packet awaits his word (PKT-B4).
+- **`AGENTS.md` is decided: yes, estate-wide** (owner, 2026-08-28 —
+  `OQ-FM-AGENTS-BOOT` answered). Rollout is PKT-B4's ×N rows, sequenced and
+  held until his GO on plan execution; whether the kit should plant/maintain
+  the files instead of hand-writes is parked for the substrate-kit sitting.
+- **The local/cloud sync direction is recorded (2026-08-27→28, OD-23):** the
+  goal is **venue handoff** — a device-bound task started locally must be
+  continuable by a fresh cloud session. Hub-local sessions will keep
+  fleet-manager's local-surface pages (lean, the main happenings included,
+  public-safe) once he gives GO; local sessions follow the full card
+  discipline with work routed by scope (repo → its own card · estate-level →
+  here · machine/personal → the hub). `OQ-ONEDRIVE-HUB` is rescoped to
+  optional hub housekeeping. Execution is explicitly held; the substrate-kit
+  conversation is next. Record:
+  [`findings/2026-08-28-owner-direction.md`](findings/2026-08-28-owner-direction.md).
 
 ### Live operating mechanisms
 

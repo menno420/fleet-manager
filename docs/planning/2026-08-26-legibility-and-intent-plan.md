@@ -385,7 +385,10 @@ summaries — and those are the compression that removes reading elsewhere.
   [the roadmap § 4.6](2026-08-08-agent-operating-environment-roadmap.md) records
   that **20 of 21 questions were unanswered anywhere in the corpus**.
 - **Whether `AGENTS.md` lands estate-wide** (`OQ-FM-AGENTS-BOOT`, currently
-  scoped to this repo; § 2.4 shows it is estate-wide).
+  scoped to this repo; § 2.4 shows it is estate-wide). **ANSWERED 2026-08-28:
+  yes, estate-wide** — *"Agents.md should indeed be everywhere"*
+  ([owner direction](../findings/2026-08-28-owner-direction.md) § 5); rollout
+  is PKT-B4, sequenced, and waits on his GO for plan execution.
 
 ## 8 · Honest nulls
 
