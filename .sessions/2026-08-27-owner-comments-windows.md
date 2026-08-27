@@ -1,7 +1,8 @@
 # 2026-08-27 — owner-comment verification on Windows
 
-> **Status:** `in-progress` — reproducing and repairing the Windows-only
-> verification failures without weakening the public owner-comment contract.
+> **Status:** `complete` — Windows and Linux-compatible verification now
+> preserves the public owner-comment contract without requiring administrator
+> rights or Developer Mode.
 
 - **📊 Model:** GPT-5 family · high · portability repair
 - **📍 Venue:** local-desktop
@@ -60,5 +61,8 @@ modified).
   self-reads require an exact normalized path instead of accepting backup
   filename substrings. Focused regressions cover both cases, and the complete
   dedicated suite above passed after the fixes.
-- Linux CI and a clean exact-head rereview remain required before the
-  completion flip.
+- Exact-head Codex rereview of product commit `be589cb406` found no major
+  issues. This status/closeout update is the deliberate records-only change
+  after that clean review.
+- The completion flip makes the strict Linux substrate gate eligible to pass;
+  its protected-branch result remains the final merge condition.
