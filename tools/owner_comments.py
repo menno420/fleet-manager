@@ -471,6 +471,19 @@ def _fsync_directory(path: Path) -> None:
         os.close(descriptor)
 
 
+def _fsync_file(path: Path) -> None:
+    """Durably sync an existing regular file on POSIX and Windows.
+
+    Windows' CRT rejects ``fsync`` on a read-only descriptor with ``EBADF``.
+    Transaction artifacts are already required to be writable before they can
+    be mutated, so open them read/write there while retaining the narrower
+    read-only descriptor on POSIX.
+    """
+    mode = "r+b" if _is_windows() else "rb"
+    with path.open(mode) as handle:
+        os.fsync(handle.fileno())
+
+
 def _write_transaction_manifest(path: Path, data: dict[str, Any]) -> None:
     """Durably replace a transaction manifest without using the data writer."""
     content = _json_bytes(data)
@@ -1446,16 +1459,14 @@ class OwnerCommentsStore:
                     f"unsafe transaction temporary cannot be preserved: {temporary}"
                 )
             shutil.copy2(temporary, preserved)
-            with preserved.open("rb") as handle:
-                os.fsync(handle.fileno())
+            _fsync_file(preserved)
             _fsync_directory(preserved.parent)
             _unlink_windows_compatible(temporary)
             _fsync_directory(temporary.parent)
         else:
             metadata = os.lstat(preserved)
             if stat.S_ISREG(metadata.st_mode):
-                with preserved.open("rb") as handle:
-                    os.fsync(handle.fileno())
+                _fsync_file(preserved)
             _fsync_directory(preserved.parent)
             _fsync_directory(temporary.parent)
         return preserved
@@ -1494,8 +1505,7 @@ class OwnerCommentsStore:
                     # Preservation may have died immediately after rename/copy.
                     # Make every recognized regular artifact durable before an
                     # absent-source fast path or quarantine can proceed.
-                    with candidate.open("rb") as handle:
-                        os.fsync(handle.fileno())
+                    _fsync_file(candidate)
             _fsync_directory(backup_root)
             actual = _content_key(
                 _expected_state_key(
@@ -1516,8 +1526,7 @@ class OwnerCommentsStore:
                 # matching copy and its directory durable before deleting the
                 # deterministic checkout duplicate.
                 preserved = matching[0]
-                with preserved.open("rb") as handle:
-                    os.fsync(handle.fileno())
+                _fsync_file(preserved)
                 _fsync_directory(preserved.parent)
                 if actual != _content_key(
                     _expected_state_key(
@@ -1555,8 +1564,7 @@ class OwnerCommentsStore:
             if _is_link_or_reparse(path, metadata):
                 continue
             if stat.S_ISREG(metadata.st_mode):
-                with path.open("rb") as handle:
-                    os.fsync(handle.fileno())
+                _fsync_file(path)
             elif stat.S_ISDIR(metadata.st_mode):
                 _fsync_directory(path)
         if unknown:
@@ -1865,8 +1873,7 @@ class OwnerCommentsStore:
                     path = self.root / entry["path"]
                     backup = backup_root / entry["backup"]
                     shutil.copy2(path, backup)
-                    with backup.open("rb") as handle:
-                        os.fsync(handle.fileno())
+                    _fsync_file(backup)
             self._assert_transaction_directory(
                 backup_root, prefixes=(".initializing-",)
             )

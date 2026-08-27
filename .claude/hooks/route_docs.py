@@ -340,6 +340,14 @@ def mentioned_repositories(
     must not re-add them later.
     """
     subject = text
+    prompt_mentions_checkout = (
+        not strip_checkout_prefix
+        and "fleet-manager" in repositories
+        and any(
+            spelling.casefold() in text.casefold()
+            for spelling in {str(REPO), REPO.as_posix()}
+        )
+    )
     if strip_checkout_prefix:
         # Tool payloads commonly carry absolute paths. Fleet Manager's checkout
         # directory is plumbing there, not a repository mention: without
@@ -348,6 +356,10 @@ def mentioned_repositories(
         # though, and an absolute checkout selection must remain discoverable.
         for prefix in {str(REPO) + os.sep, REPO.as_posix() + "/"}:
             subject = subject.replace(prefix, "")
+        # Repository-relative routing uses POSIX paths. Normalize tool payloads
+        # after removing this checkout's plumbing so Windows absolute paths do
+        # not become invisible (or route the checkout itself as Fleet Manager).
+        subject = subject.replace("\\", "/")
 
     candidates: list[
         tuple[int, int, frozenset[str], bool, frozenset[str]]
@@ -377,6 +389,8 @@ def mentioned_repositories(
             )
 
     selected: set[str] = set()
+    if prompt_mentions_checkout:
+        selected.add("fleet-manager")
     shadowed: set[str] = set()
     for start, end, names, canonical, route_shadows in candidates:
         dominated = any(
@@ -571,7 +585,7 @@ def main() -> int:
         if comment_route_id in fired:
             continue
         comment_index = f"docs/owner-comments/{repository}/README.md"
-        if tool != "Bash" and comment_index in text:
+        if tool != "Bash" and comment_index in text.replace("\\", "/"):
             fired.add(comment_route_id)
             # A self-read is intentionally silent, but it still consumes this
             # once-per-session pointer. Persist before the no-hit return below.

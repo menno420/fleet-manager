@@ -29,9 +29,30 @@ design.
 Layer-2 handoff: null (Fleet Manager itself; no member repository is being
 modified).
 
-## Planned verification
+## What shipped
 
-- `python tools/test_owner_comments.py -q`
-- `python tools/owner_comments.py check`
-- `python bootstrap.py check --strict`
-- Linux CI and an exact-head review before the completion flip
+- `tools/owner_comments.py` now flushes existing transaction artifacts through
+  a platform-aware helper. POSIX keeps a read-only descriptor; Windows uses the
+  write-capable descriptor its CRT requires, fixing the real rollback-backup
+  `EBADF` without relaxing transaction prevalidation.
+- `tools/test_owner_comments.py` writes canonical UTF-8/LF fixtures as bytes,
+  uses path-level durability probes instead of Linux `/proc`, exercises the
+  observable Windows writable/read-only mode distinction, and skips only real
+  symlink creation when Windows reports privilege error 1314. Mocked reparse
+  and fail-closed coverage remains active.
+- `.claude/hooks/route_docs.py` normalizes Windows tool paths after removing
+  checkout plumbing and treats an absolute checkout named in prompt text as an
+  intentional Fleet Manager selection.
+
+## Verification
+
+- `python tools/test_owner_comments.py -q` — **PASS**, 90 tests in 219.805 s;
+  five symlink-creation tests skipped because this ordinary Windows account has
+  neither Developer Mode nor administrator link privilege.
+- `python tools/owner_comments.py check` — **PASS**, 28 repositories, zero
+  unconsumed and zero consumed records.
+- `python bootstrap.py check --strict` — the only pre-flip finding is the
+  designed born-red hold on this still-`in-progress` card; all other strict
+  checks passed.
+- Linux CI and exact-head Codex review remain required before the completion
+  flip.

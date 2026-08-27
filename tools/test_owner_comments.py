@@ -24,6 +24,11 @@ from owner_comments import ContractError, OwnerCommentsStore
 REPO = Path(__file__).resolve().parents[1]
 
 
+def write_lf(path: Path, content: str) -> None:
+    """Write a UTF-8 fixture without host newline translation."""
+    path.write_bytes(content.encode("utf-8"))
+
+
 def record(comment_id: str = "oc-20260827t120000z-a1b2c3d4") -> dict:
     return {
         "schema_version": 1,
@@ -41,13 +46,13 @@ class StoreCase(unittest.TestCase):
         self.temporary = tempfile.TemporaryDirectory()
         self.root = Path(self.temporary.name)
         (self.root / "docs").mkdir()
-        (self.root / "docs/ESTATE.md").write_text(
+        write_lf(
+            self.root / "docs/ESTATE.md",
             "# estate\n\n"
             "| repo | state |\n|---|---|\n"
             "| `fleet-manager` | active |\n"
             "| `websites` | active |\n"
             "| `Substrate-kit-app` | archived |\n",
-            encoding="utf-8",
         )
         comments = self.root / "docs/owner-comments"
         comments.mkdir()
@@ -62,11 +67,24 @@ class StoreCase(unittest.TestCase):
     def write_record(self, data: dict | None = None) -> Path:
         payload = data or record()
         path = self.root / "docs/owner-comments/websites" / f"{payload['id']}.json"
-        path.write_text(
+        write_lf(
+            path,
             json.dumps(payload, indent=2, sort_keys=True, ensure_ascii=False) + "\n",
-            encoding="utf-8",
         )
         return path
+
+    def symlink_or_skip(
+        self, link: Path, target: Path, *, target_is_directory: bool
+    ) -> None:
+        """Create a link or skip when ordinary Windows lacks link privilege."""
+        try:
+            link.symlink_to(target, target_is_directory=target_is_directory)
+        except OSError as exc:
+            if os.name == "nt" and getattr(exc, "winerror", None) == 1314:
+                self.skipTest(
+                    "Windows symlink privilege is unavailable without Developer Mode"
+                )
+            raise
 
     def assert_safe_data_file_mode(self, path: Path) -> None:
         """Assert the strongest portable mode promised for new data files."""
@@ -295,7 +313,7 @@ class StoreCase(unittest.TestCase):
         self.write_record(bad)
         unknown = self.root / "docs/owner-comments/not-indexed"
         unknown.mkdir()
-        (unknown / "README.md").write_text("unexpected\n", encoding="utf-8")
+        write_lf(unknown / "README.md", "unexpected\n")
         errors = self.store.check()
         self.assertTrue(any("non-whitespace" in error for error in errors), errors)
         self.assertTrue(any("closed owner-comment" in error for error in errors), errors)
@@ -329,7 +347,7 @@ class StoreCase(unittest.TestCase):
 
     def test_stale_generated_index_fails_check(self) -> None:
         path = self.root / "docs/owner-comments/index.json"
-        path.write_text("{}\n", encoding="utf-8")
+        write_lf(path, "{}\n")
         self.assertTrue(any("stale" in error for error in self.store.check()))
 
     def test_estate_repository_names_are_safe_path_components(self) -> None:
@@ -357,11 +375,11 @@ class StoreCase(unittest.TestCase):
 
         duplicate = json.dumps(record(), sort_keys=True)
         duplicate = duplicate[:-1] + ', "state": "unconsumed"}'
-        path.write_text(duplicate + "\n", encoding="utf-8")
+        write_lf(path, duplicate + "\n")
         errors = self.store.check()
         self.assertTrue(any("duplicate JSON key" in error for error in errors), errors)
 
-        path.write_text(json.dumps(record()) + "\n", encoding="utf-8")
+        write_lf(path, json.dumps(record()) + "\n")
         errors = self.store.check()
         self.assertTrue(any("not canonical" in error for error in errors), errors)
 
@@ -639,24 +657,24 @@ from pathlib import Path
 sys.path.insert(0, sys.argv[1])
 import owner_comments
 store = owner_comments.OwnerCommentsStore(Path(sys.argv[2]))
-real_fsync = owner_comments.os.fsync
+real_fsync_file = owner_comments._fsync_file
+real_fsync_directory = owner_comments._fsync_directory
 real_rename = owner_comments.os.rename
 seen = {'file': False, 'directory': False}
-def track_fsync(descriptor):
-    try:
-        opened = Path(os.readlink(f'/proc/self/fd/{descriptor}'))
-    except OSError:
-        opened = Path('')
-    real_fsync(descriptor)
-    if opened.name.startswith('unexpected-atomic-1'):
+def track_file_fsync(path):
+    real_fsync_file(path)
+    if Path(path).name.startswith('unexpected-atomic-1'):
         seen['file'] = True
-    if opened.name.startswith('txn-'):
+def track_directory_fsync(path):
+    real_fsync_directory(path)
+    if Path(path).name.startswith('txn-'):
         seen['directory'] = True
 def require_durable_preservation(source, destination):
     if Path(destination).name.startswith('quarantine-') and not all(seen.values()):
         os._exit(96)
     real_rename(source, destination)
-owner_comments.os.fsync = track_fsync
+owner_comments._fsync_file = track_file_fsync
+owner_comments._fsync_directory = track_directory_fsync
 owner_comments.os.rename = require_durable_preservation
 try:
     store.check()
@@ -733,18 +751,14 @@ store.consume(
         )
         unexpected = b"same-filesystem preserved bytes are durable\n"
         temporary.write_bytes(unexpected)
-        real_fsync = owner_comments.os.fsync
+        real_fsync_file = owner_comments._fsync_file
         real_rename = owner_comments.os.rename
         preserved_fsynced = False
 
-        def track_fsync(descriptor: int) -> None:
+        def track_fsync(path: Path) -> None:
             nonlocal preserved_fsynced
-            try:
-                opened = Path(os.readlink(f"/proc/self/fd/{descriptor}"))
-            except OSError:
-                opened = Path("")
-            real_fsync(descriptor)
-            if opened.name.startswith("unexpected-atomic-1"):
+            real_fsync_file(path)
+            if Path(path).name.startswith("unexpected-atomic-1"):
                 preserved_fsynced = True
 
         def require_file_fsync(source: Path, destination: Path) -> None:
@@ -753,7 +767,7 @@ store.consume(
             real_rename(source, destination)
 
         with mock.patch.object(
-            owner_comments.os, "fsync", side_effect=track_fsync
+            owner_comments, "_fsync_file", side_effect=track_fsync
         ), mock.patch.object(
             owner_comments.os, "rename", side_effect=require_file_fsync
         ):
@@ -823,21 +837,17 @@ sys.path.insert(0, sys.argv[1])
 import owner_comments
 store = owner_comments.OwnerCommentsStore(Path(sys.argv[2]))
 real_replace = owner_comments.os.replace
-real_fsync = owner_comments.os.fsync
+real_fsync_file = owner_comments._fsync_file
 def force_cross_device(source, destination):
     if Path(destination).name.startswith('unexpected-'):
         raise OSError(errno.EXDEV, 'simulated cross-device journal')
     real_replace(source, destination)
-def crash_before_preserved_fsync(descriptor):
-    try:
-        opened = Path(os.readlink(f'/proc/self/fd/{descriptor}'))
-    except OSError:
-        opened = Path('')
-    if opened.name.startswith('unexpected-atomic-1'):
+def crash_before_preserved_fsync(path):
+    if Path(path).name.startswith('unexpected-atomic-1'):
         os._exit(95)
-    real_fsync(descriptor)
+    real_fsync_file(path)
 owner_comments.os.replace = force_cross_device
-owner_comments.os.fsync = crash_before_preserved_fsync
+owner_comments._fsync_file = crash_before_preserved_fsync
 store.check()
 """
         second = subprocess.run(
@@ -870,21 +880,17 @@ sys.path.insert(0, sys.argv[1])
 import owner_comments
 store = owner_comments.OwnerCommentsStore(Path(sys.argv[2]))
 marker = Path(sys.argv[3])
-real_fsync = owner_comments.os.fsync
+real_fsync_file = owner_comments._fsync_file
 real_unlink = Path.unlink
-def track_preserved_fsync(descriptor):
-    try:
-        opened = Path(os.readlink(f'/proc/self/fd/{descriptor}'))
-    except OSError:
-        opened = Path('')
-    real_fsync(descriptor)
-    if opened.name.startswith('unexpected-atomic-1'):
-        marker.write_text('fsynced before unlink\\n', encoding='utf-8')
+def track_preserved_fsync(path):
+    real_fsync_file(path)
+    if Path(path).name.startswith('unexpected-atomic-1'):
+        marker.write_bytes(b'fsynced before unlink\\n')
 def refuse_early_unlink(path, *args, **kwargs):
     if '.atomic-' in path.name and not marker.exists():
         os._exit(96)
     return real_unlink(path, *args, **kwargs)
-owner_comments.os.fsync = track_preserved_fsync
+owner_comments._fsync_file = track_preserved_fsync
 Path.unlink = refuse_early_unlink
 try:
     store.check()
@@ -1514,24 +1520,30 @@ store.consume(
             name="prepared-mode-edit",
         )
         owner_comments._atomic_write(target, changed)
-        edited_mode = 0o600 if initial_mode != 0o600 else 0o640
-        target.chmod(edited_mode)
-        edited_mode = stat.S_IMODE(target.stat().st_mode)
-
-        with mock.patch.object(
-            self.store, "_restore_entry", wraps=self.store._restore_entry
-        ) as restore_entry, self.assertRaisesRegex(
-            ContractError, "target bytes/state changed.*quarantined"
-        ):
-            self.store.check()
-
-        restore_entry.assert_not_called()
-        self.assertEqual(target.read_bytes(), changed)
-        self.assertEqual(stat.S_IMODE(target.stat().st_mode), edited_mode)
-        self.assertFalse(backup_root.exists())
-        self.assertEqual(
-            len(list(self.store._transaction_root().glob("quarantine-*"))), 1
+        requested_mode = 0o444 if os.name == "nt" else (
+            0o600 if initial_mode != 0o600 else 0o640
         )
+        target.chmod(requested_mode)
+        edited_mode = stat.S_IMODE(target.stat().st_mode)
+        self.assertNotEqual(edited_mode, initial_mode)
+
+        try:
+            with mock.patch.object(
+                self.store, "_restore_entry", wraps=self.store._restore_entry
+            ) as restore_entry, self.assertRaisesRegex(
+                ContractError, "target bytes/state changed.*quarantined"
+            ):
+                self.store.check()
+
+            restore_entry.assert_not_called()
+            self.assertEqual(target.read_bytes(), changed)
+            self.assertEqual(stat.S_IMODE(target.stat().st_mode), edited_mode)
+            self.assertFalse(backup_root.exists())
+            self.assertEqual(
+                len(list(self.store._transaction_root().glob("quarantine-*"))), 1
+            )
+        finally:
+            target.chmod(initial_mode)
 
     def test_same_byte_mode_edit_at_recovering_boundary_is_not_overwritten(
         self,
@@ -1553,21 +1565,27 @@ store.consume(
             backup_root / "manifest.json", manifest
         )
         original_bytes = target.read_bytes()
-        edited_mode = 0o600 if initial_mode != 0o600 else 0o640
-        target.chmod(edited_mode)
+        requested_mode = 0o444 if os.name == "nt" else (
+            0o600 if initial_mode != 0o600 else 0o640
+        )
+        target.chmod(requested_mode)
         edited_mode = stat.S_IMODE(target.stat().st_mode)
+        self.assertNotEqual(edited_mode, initial_mode)
 
-        with mock.patch.object(
-            self.store, "_restore_entry", wraps=self.store._restore_entry
-        ) as restore_entry, self.assertRaisesRegex(
-            ContractError, "target bytes/state changed.*quarantined"
-        ):
-            self.store.check()
+        try:
+            with mock.patch.object(
+                self.store, "_restore_entry", wraps=self.store._restore_entry
+            ) as restore_entry, self.assertRaisesRegex(
+                ContractError, "target bytes/state changed.*quarantined"
+            ):
+                self.store.check()
 
-        restore_entry.assert_not_called()
-        self.assertEqual(target.read_bytes(), original_bytes)
-        self.assertEqual(stat.S_IMODE(target.stat().st_mode), edited_mode)
-        self.assertFalse(backup_root.exists())
+            restore_entry.assert_not_called()
+            self.assertEqual(target.read_bytes(), original_bytes)
+            self.assertEqual(stat.S_IMODE(target.stat().st_mode), edited_mode)
+            self.assertFalse(backup_root.exists())
+        finally:
+            target.chmod(initial_mode)
 
     def test_transaction_manifest_v6_strictly_validates_file_modes(self) -> None:
         valid = owner_comments._content_state(b"content\n", 0o640)
@@ -1842,7 +1860,7 @@ store.consume(
         destination.chmod(0o444)
 
         estate = self.root / "docs/ESTATE.md"
-        estate.write_text(estate.read_text(encoding="utf-8") + "\n", encoding="utf-8")
+        write_lf(estate, estate.read_text(encoding="utf-8") + "\n")
         subprocess.run(["git", "add", "docs/ESTATE.md"], cwd=self.root, check=True)
 
         with mock.patch.object(owner_comments, "_is_windows", return_value=True):
@@ -1859,7 +1877,7 @@ store.consume(
 
     def test_directory_fsync_is_explicitly_unsupported_on_windows(self) -> None:
         directory = self.root / "docs/owner-comments"
-        with mock.patch.object(owner_comments.os, "name", "nt"), mock.patch.object(
+        with mock.patch.object(owner_comments, "_is_windows", return_value=True), mock.patch.object(
             owner_comments.os, "open"
         ) as opened, mock.patch.object(owner_comments.os, "fsync") as fsync:
             owner_comments._fsync_directory(directory)
@@ -1870,21 +1888,29 @@ store.consume(
     def test_directory_fsync_propagates_io_errors_only(self) -> None:
         directory = self.root / "docs/owner-comments"
         with mock.patch.object(
-            owner_comments.os,
-            "fsync",
+            owner_comments, "_is_windows", return_value=False
+        ), mock.patch.object(
+            owner_comments.os, "open", return_value=123
+        ), mock.patch.object(owner_comments.os, "close"), mock.patch.object(
+            owner_comments.os, "fsync",
             side_effect=OSError(errno.EINVAL, "directory fsync unsupported"),
         ):
             owner_comments._fsync_directory(directory)
 
         with mock.patch.object(
-            owner_comments.os,
-            "fsync",
+            owner_comments, "_is_windows", return_value=False
+        ), mock.patch.object(
+            owner_comments.os, "open", return_value=123
+        ), mock.patch.object(owner_comments.os, "close"), mock.patch.object(
+            owner_comments.os, "fsync",
             side_effect=OSError(errno.EIO, "storage I/O failure"),
         ):
             with self.assertRaisesRegex(OSError, "storage I/O failure"):
                 owner_comments._fsync_directory(directory)
 
         with mock.patch.object(
+            owner_comments, "_is_windows", return_value=False
+        ), mock.patch.object(
             owner_comments.os,
             "open",
             side_effect=OSError(errno.EIO, "directory open I/O failure"),
@@ -1892,13 +1918,26 @@ store.consume(
             with self.assertRaisesRegex(OSError, "directory open I/O failure"):
                 owner_comments._fsync_directory(directory)
 
-        with mock.patch.object(owner_comments.os, "name", "posix"), mock.patch.object(
+        with mock.patch.object(owner_comments, "_is_windows", return_value=False), mock.patch.object(
             owner_comments.os,
             "open",
             side_effect=PermissionError(errno.EACCES, "directory open denied"),
         ):
             with self.assertRaisesRegex(PermissionError, "directory open denied"):
                 owner_comments._fsync_directory(directory)
+
+    def test_file_fsync_uses_a_write_capable_descriptor_on_windows(self) -> None:
+        path = self.root / "docs/owner-comments/index.json"
+        opened = mock.mock_open()
+        with mock.patch.object(
+            owner_comments, "_is_windows", return_value=True
+        ), mock.patch.object(Path, "open", opened), mock.patch.object(
+            owner_comments.os, "fsync"
+        ) as fsync:
+            owner_comments._fsync_file(path)
+
+        opened.assert_called_once_with("r+b")
+        fsync.assert_called_once()
 
     def test_new_transaction_root_is_durable_before_manifest_publication(self) -> None:
         self.write_record()
@@ -1981,7 +2020,7 @@ store.consume(
         transaction_root = self.store._transaction_root()
         residue = transaction_root / "txn-interrupted-cleanup"
         residue.mkdir(parents=True)
-        (residue / "partial-backup").write_text("residue\n", encoding="utf-8")
+        write_lf(residue / "partial-backup", "residue\n")
         self.assertEqual(self.store.check(), [])
         self.assertFalse(residue.exists())
 
@@ -2080,11 +2119,11 @@ store.consume(
 
     def test_closed_tree_rejects_stray_files_and_uppercase_json_suffix(self) -> None:
         repository = self.root / "docs/owner-comments/websites"
-        (repository / "notes.txt").write_text("not a record\n", encoding="utf-8")
-        (repository / "comment.JSON").write_text("{}\n", encoding="utf-8")
+        write_lf(repository / "notes.txt", "not a record\n")
+        write_lf(repository / "comment.JSON", "{}\n")
         consumed = repository / "consumed"
         consumed.mkdir()
-        (consumed / "notes.txt").write_text("not a record\n", encoding="utf-8")
+        write_lf(consumed / "notes.txt", "not a record\n")
         errors = self.store.check()
         self.assertGreaterEqual(
             sum("only" in error and "json" in error for error in errors), 3
@@ -2098,9 +2137,11 @@ store.consume(
 
         repository = self.root / "docs/owner-comments/websites"
         shutil.rmtree(repository)
-        repository.symlink_to(outside_repository, target_is_directory=True)
+        self.symlink_or_skip(
+            repository, outside_repository, target_is_directory=True
+        )
         consumed = self.root / "docs/owner-comments/fleet-manager/consumed"
-        consumed.symlink_to(outside_consumed, target_is_directory=True)
+        self.symlink_or_skip(consumed, outside_consumed, target_is_directory=True)
 
         errors = self.store.check()
         self.assertTrue(any("repository path" in error for error in errors), errors)
@@ -2331,8 +2372,8 @@ store.consume(
                 if path.is_file()
             }
             shutil.rmtree(self.root / "docs")
-            (self.root / "docs").symlink_to(
-                external_docs, target_is_directory=True
+            self.symlink_or_skip(
+                self.root / "docs", external_docs, target_is_directory=True
             )
 
             errors = self.store.check()
@@ -2359,7 +2400,7 @@ store.consume(
 
     def test_symlinked_store_root_is_not_resolved_away(self) -> None:
         alias = self.root.parent / f"{self.root.name}-owner-comments-alias"
-        alias.symlink_to(self.root, target_is_directory=True)
+        self.symlink_or_skip(alias, self.root, target_is_directory=True)
         try:
             aliased_store = OwnerCommentsStore(alias)
             errors = aliased_store.check()
@@ -2373,7 +2414,9 @@ store.consume(
         self,
     ) -> None:
         alias_parent = self.root.parent / f"{self.root.name}-parent-alias"
-        alias_parent.symlink_to(self.root.parent, target_is_directory=True)
+        self.symlink_or_skip(
+            alias_parent, self.root.parent, target_is_directory=True
+        )
         try:
             aliased_store = OwnerCommentsStore(alias_parent / self.root.name)
             self.assertEqual(aliased_store.root, self.store.root)
@@ -2415,8 +2458,10 @@ store.consume(
                 if path.is_file()
             }
             shutil.rmtree(self.root / "docs/owner-comments")
-            (self.root / "docs/owner-comments").symlink_to(
-                external_comments, target_is_directory=True
+            self.symlink_or_skip(
+                self.root / "docs/owner-comments",
+                external_comments,
+                target_is_directory=True,
             )
 
             errors = self.store.check()
@@ -2446,9 +2491,9 @@ store.consume(
         for invalid_state in ([], {}):
             payload = record()
             payload["state"] = invalid_state
-            path.write_text(
+            write_lf(
+                path,
                 json.dumps(payload, indent=2, sort_keys=True) + "\n",
-                encoding="utf-8",
             )
             errors = self.store.check()
             self.assertTrue(any("state must be" in error for error in errors), errors)
@@ -2493,7 +2538,7 @@ store.consume(
         errors = owner_comments.validate_record(explicit_null)
         self.assertTrue(any("must not have consumption" in error for error in errors))
 
-        schema.write_text("{}\n", encoding="utf-8")
+        write_lf(schema, "{}\n")
         errors = self.store.check()
         self.assertTrue(any("schema artifact differs" in error for error in errors), errors)
         schema.unlink()
@@ -2635,9 +2680,9 @@ store.consume(
 
         edited = record()
         edited["comment"] = "changed after it became durable"
-        path.write_text(
+        write_lf(
+            path,
             json.dumps(edited, indent=2, sort_keys=True) + "\n",
-            encoding="utf-8",
         )
         self.store.reindex()
         errors = self.store.check()

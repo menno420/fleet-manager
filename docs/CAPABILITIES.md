@@ -171,6 +171,22 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-27 · capability · `owner-live` (Codex desktop, ordinary Windows 11
+  account without Developer Mode) · **Fleet Manager's owner-comment contract
+  can be verified locally on Windows without administrator or symlink
+  privileges.** The portable suite preserves canonical LF bytes, traversal and
+  reparse rejection, atomic rollback/recovery, exact file-state checks, and
+  durable history; tests requiring creation of a real symlink report the
+  platform privilege absence while mocked Windows reparse defenses still run.
+  · evidence: `python tools/test_owner_comments.py -q` on PR #953's pre-review
+  implementation head ran 90 tests in 219.805 s with 5 privilege-specific
+  skips and no failures; `python tools/owner_comments.py check` reported CLEAN.
+  The run also exposed and fixed a real Windows CRT boundary: `os.fsync` on a
+  descriptor opened `rb` returned `EBADF`, so approved writable transaction
+  artifacts now use `r+b` on Windows and retain `rb` on POSIX. · workaround:
+  no elevated setup is needed; Linux CI continues to execute the real symlink
+  cases. — LAST-VERIFIED: 2026-08-27
+
 - 2026-08-23 · capability · `any` (remote container, direct-PAT egress) ·
   **Archiving a repository works agent-side — `PATCH /repos/{owner}/{repo}`
   with `{"archived": true}` returns 200, and it is the first archive ever
