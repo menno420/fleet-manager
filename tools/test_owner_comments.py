@@ -191,6 +191,27 @@ class StoreCase(unittest.TestCase):
             check=True,
         )
 
+    def publish_test_transaction(
+        self,
+        phase: dict[Path, owner_comments._FileImage | None],
+        *,
+        name: str,
+    ) -> tuple[Path, dict]:
+        """Publish one valid prepared journal for recovery regressions."""
+        manifest = self.store._transaction_manifest((phase,))
+        transaction_root = self.store._ensure_transaction_root()
+        backup_root = transaction_root / f"txn-{name}"
+        backup_root.mkdir()
+        for number, entry in enumerate(manifest["entries"]):
+            if entry["existed"]:
+                shutil.copy2(
+                    self.root / entry["path"], backup_root / str(number)
+                )
+        owner_comments._write_transaction_manifest(
+            backup_root / "manifest.json", manifest
+        )
+        return backup_root, manifest
+
     def test_reindex_builds_all_stable_indexes_and_cheap_root_index(self) -> None:
         root_index = json.loads(
             (self.root / "docs/owner-comments/index.json").read_text(encoding="utf-8")
@@ -1372,6 +1393,214 @@ store.consume(
         consumed = self.root / consumed_relative
         self.assert_safe_data_file_mode(consumed)
 
+    def test_transaction_phases_model_reindex_and_consume_modes_exactly(
+        self,
+    ) -> None:
+        root_index = self.root / "docs/owner-comments/index.json"
+        repository_index = (
+            self.root / "docs/owner-comments/websites/README.md"
+        )
+        repository_index.chmod(0o604)
+        observed_repository_mode = stat.S_IMODE(
+            repository_index.stat().st_mode
+        )
+        root_index.unlink()
+        self.write_record()
+        manifests: list[dict] = []
+        real_manifest = self.store._transaction_manifest
+
+        def capture_manifest(phases):
+            manifest = real_manifest(phases)
+            manifests.append(manifest)
+            return manifest
+
+        with mock.patch.object(
+            self.store,
+            "_transaction_manifest",
+            side_effect=capture_manifest,
+        ):
+            self.store.reindex()
+
+        reindex_manifest = manifests.pop()
+        reindex_paths = {
+            entry["path"]: number
+            for number, entry in enumerate(reindex_manifest["entries"])
+        }
+        initial, final = (
+            reindex_manifest["expected_phases"][0],
+            reindex_manifest["expected_phases"][-1],
+        )
+        root_number = reindex_paths["docs/owner-comments/index.json"]
+        repository_number = reindex_paths[
+            "docs/owner-comments/websites/README.md"
+        ]
+        self.assertEqual(initial[root_number], {"exists": False})
+        self.assertEqual(
+            final[root_number]["mode"],
+            owner_comments._observable_created_mode(
+                owner_comments.DEFAULT_FILE_MODE
+            ),
+        )
+        self.assertEqual(
+            initial[repository_number]["mode"], observed_repository_mode
+        )
+        self.assertEqual(
+            final[repository_number]["mode"], observed_repository_mode
+        )
+
+        source = (
+            self.root
+            / "docs/owner-comments/websites"
+            / f"{record()['id']}.json"
+        )
+        source.chmod(0o640)
+        root_index.chmod(0o660)
+        repository_index.chmod(0o604)
+        source_mode = stat.S_IMODE(source.stat().st_mode)
+        root_mode = stat.S_IMODE(root_index.stat().st_mode)
+        repository_mode = stat.S_IMODE(repository_index.stat().st_mode)
+        with mock.patch.object(
+            self.store,
+            "_transaction_manifest",
+            side_effect=capture_manifest,
+        ):
+            destination_relative = self.store.consume(
+                "websites",
+                record()["id"],
+                consumed_at="2026-08-27T13:00:00Z",
+                actor="actor",
+                evidence="evidence",
+            )
+
+        consume_manifest = manifests.pop()
+        consume_paths = {
+            entry["path"]: number
+            for number, entry in enumerate(consume_manifest["entries"])
+        }
+        destination_number = consume_paths[destination_relative.as_posix()]
+        root_number = consume_paths["docs/owner-comments/index.json"]
+        repository_number = consume_paths[
+            "docs/owner-comments/websites/README.md"
+        ]
+        for phase in consume_manifest["expected_phases"][1:]:
+            if phase[destination_number]["exists"]:
+                self.assertEqual(phase[destination_number]["mode"], source_mode)
+        self.assertEqual(
+            consume_manifest["expected_phases"][-1][root_number]["mode"],
+            root_mode,
+        )
+        self.assertEqual(
+            consume_manifest["expected_phases"][-1][repository_number]["mode"],
+            repository_mode,
+        )
+        self.assertEqual(
+            stat.S_IMODE((self.root / destination_relative).stat().st_mode),
+            source_mode,
+        )
+        self.assertEqual(stat.S_IMODE(root_index.stat().st_mode), root_mode)
+        self.assertEqual(
+            stat.S_IMODE(repository_index.stat().st_mode), repository_mode
+        )
+
+    def test_same_byte_mode_edit_at_prepared_boundary_is_not_overwritten(
+        self,
+    ) -> None:
+        target = self.root / "docs/owner-comments/index.json"
+        target.chmod(0o640)
+        initial_mode = stat.S_IMODE(target.stat().st_mode)
+        changed = target.read_bytes() + b"\n"
+        backup_root, _manifest = self.publish_test_transaction(
+            {target: owner_comments._FileImage(changed, initial_mode)},
+            name="prepared-mode-edit",
+        )
+        owner_comments._atomic_write(target, changed)
+        edited_mode = 0o600 if initial_mode != 0o600 else 0o640
+        target.chmod(edited_mode)
+        edited_mode = stat.S_IMODE(target.stat().st_mode)
+
+        with mock.patch.object(
+            self.store, "_restore_entry", wraps=self.store._restore_entry
+        ) as restore_entry, self.assertRaisesRegex(
+            ContractError, "target bytes/state changed.*quarantined"
+        ):
+            self.store.check()
+
+        restore_entry.assert_not_called()
+        self.assertEqual(target.read_bytes(), changed)
+        self.assertEqual(stat.S_IMODE(target.stat().st_mode), edited_mode)
+        self.assertFalse(backup_root.exists())
+        self.assertEqual(
+            len(list(self.store._transaction_root().glob("quarantine-*"))), 1
+        )
+
+    def test_same_byte_mode_edit_at_recovering_boundary_is_not_overwritten(
+        self,
+    ) -> None:
+        target = self.root / "docs/owner-comments/index.json"
+        target.chmod(0o640)
+        initial_mode = stat.S_IMODE(target.stat().st_mode)
+        backup_root, manifest = self.publish_test_transaction(
+            {
+                target: owner_comments._FileImage(
+                    target.read_bytes() + b"\n", initial_mode
+                )
+            },
+            name="recovering-mode-edit",
+        )
+        manifest["state"] = "recovering"
+        manifest["recovery"] = {"phase": 1, "cursor": 1}
+        owner_comments._write_transaction_manifest(
+            backup_root / "manifest.json", manifest
+        )
+        original_bytes = target.read_bytes()
+        edited_mode = 0o600 if initial_mode != 0o600 else 0o640
+        target.chmod(edited_mode)
+        edited_mode = stat.S_IMODE(target.stat().st_mode)
+
+        with mock.patch.object(
+            self.store, "_restore_entry", wraps=self.store._restore_entry
+        ) as restore_entry, self.assertRaisesRegex(
+            ContractError, "target bytes/state changed.*quarantined"
+        ):
+            self.store.check()
+
+        restore_entry.assert_not_called()
+        self.assertEqual(target.read_bytes(), original_bytes)
+        self.assertEqual(stat.S_IMODE(target.stat().st_mode), edited_mode)
+        self.assertFalse(backup_root.exists())
+
+    def test_transaction_manifest_v6_strictly_validates_file_modes(self) -> None:
+        valid = owner_comments._content_state(b"content\n", 0o640)
+        self.assertEqual(owner_comments._expected_state_key(valid)[3], 0o640)
+        for invalid_mode in (True, -1, 0o10000):
+            invalid = dict(valid, mode=invalid_mode)
+            self.assertIsNone(owner_comments._expected_state_key(invalid))
+        missing = dict(valid)
+        missing.pop("mode")
+        self.assertIsNone(owner_comments._expected_state_key(missing))
+
+        target = self.root / "docs/owner-comments/index.json"
+        mode = stat.S_IMODE(target.stat().st_mode)
+        backup_root, manifest = self.publish_test_transaction(
+            {
+                target: owner_comments._FileImage(
+                    target.read_bytes() + b"\n", mode
+                )
+            },
+            name="obsolete-schema",
+        )
+        manifest["schema_version"] = 5
+        owner_comments._write_transaction_manifest(
+            backup_root / "manifest.json", manifest
+        )
+        before = target.read_bytes()
+        with self.assertRaisesRegex(
+            ContractError, "invalid owner-comment recovery journal.*quarantined"
+        ):
+            self.store.check()
+        self.assertEqual(target.read_bytes(), before)
+        self.assertFalse(backup_root.exists())
+
     def test_atomic_mode_fallback_works_without_fchmod(self) -> None:
         existing = self.root / "existing-mode.json"
         existing.write_bytes(b"old\n")
@@ -1756,6 +1985,22 @@ store.consume(
         self.assertEqual(self.store.check(), [])
         self.assertFalse(residue.exists())
 
+    def test_journal_cleanup_io_failure_is_retryable_not_a_false_mutation_failure(
+        self,
+    ) -> None:
+        transaction_root = self.store._transaction_root()
+        residue = transaction_root / "txn-retry-cleanup"
+        residue.mkdir(parents=True)
+        with mock.patch.object(
+            owner_comments.shutil,
+            "rmtree",
+            side_effect=OSError(errno.EIO, "cleanup unavailable"),
+        ):
+            self.assertEqual(self.store.check(), [])
+        self.assertTrue(residue.is_dir())
+        self.assertEqual(self.store.check(), [])
+        self.assertFalse(residue.exists())
+
     def test_baseexception_during_consume_rolls_back_move_and_indexes(self) -> None:
         original = self.write_record()
         self.store.reindex()
@@ -1967,6 +2212,113 @@ store.consume(
         self.assertEqual(list(transaction_root.glob("txn-*")), [])
         self.assertEqual(len(list(transaction_root.glob("quarantine-*"))), 1)
 
+    def test_windows_reparse_transaction_root_is_not_traversed_or_deleted(
+        self,
+    ) -> None:
+        transaction_root = self.store._transaction_root()
+        sentinel = transaction_root / "external-sentinel"
+        sentinel.write_bytes(b"external bytes\n")
+        real_iterdir = Path.iterdir
+
+        def guarded_iterdir(path):
+            if path == transaction_root:
+                raise AssertionError("traversed mocked transaction-root junction")
+            return real_iterdir(path)
+
+        with self.windows_reparse_semantics(transaction_root), mock.patch.object(
+            Path, "iterdir", guarded_iterdir
+        ), mock.patch.object(
+            owner_comments.shutil, "rmtree"
+        ) as remove_tree, self.assertRaisesRegex(
+            ContractError, "transaction root.*junction, or reparse point"
+        ):
+            self.store.check()
+
+        remove_tree.assert_not_called()
+        self.assertEqual(sentinel.read_bytes(), b"external bytes\n")
+
+    def test_windows_reparse_transaction_child_is_not_read_or_deleted(
+        self,
+    ) -> None:
+        transaction_root = self.store._transaction_root()
+        transaction = transaction_root / "txn-external-target"
+        transaction.mkdir()
+        sentinel = transaction / "external-sentinel"
+        sentinel.write_bytes(b"external bytes\n")
+
+        with self.windows_reparse_semantics(transaction), mock.patch.object(
+            self.store, "_read_transaction_manifest"
+        ) as read_manifest, mock.patch.object(
+            owner_comments.shutil, "rmtree"
+        ) as remove_tree, self.assertRaisesRegex(
+            ContractError, "transaction directory.*junction, or reparse point"
+        ):
+            self.store.check()
+
+        read_manifest.assert_not_called()
+        remove_tree.assert_not_called()
+        self.assertEqual(sentinel.read_bytes(), b"external bytes\n")
+
+    def test_windows_reparse_initializing_and_quarantine_paths_fail_closed(
+        self,
+    ) -> None:
+        transaction_root = self.store._transaction_root()
+        initializing = transaction_root / ".initializing-external-target"
+        initializing.mkdir()
+        initializing_sentinel = initializing / "external-sentinel"
+        initializing_sentinel.write_bytes(b"initializing external bytes\n")
+        self.write_record()
+
+        with self.windows_reparse_semantics(initializing), mock.patch.object(
+            owner_comments.tempfile,
+            "mkdtemp",
+            return_value=str(initializing),
+        ), mock.patch.object(
+            owner_comments.shutil, "copy2"
+        ) as copy_file, mock.patch.object(
+            owner_comments.shutil, "rmtree"
+        ) as remove_tree, self.assertRaisesRegex(
+            ContractError, "transaction directory.*junction, or reparse point"
+        ):
+            self.store.reindex()
+
+        copy_file.assert_not_called()
+        remove_tree.assert_not_called()
+        self.assertEqual(
+            initializing_sentinel.read_bytes(), b"initializing external bytes\n"
+        )
+
+        # A deterministic quarantine collision must likewise be inspected and
+        # left untouched rather than renamed over or traversed.
+        target = self.root / "docs/owner-comments/index.json"
+        target_mode = stat.S_IMODE(target.stat().st_mode)
+        backup_root, _manifest = self.publish_test_transaction(
+            {
+                target: owner_comments._FileImage(
+                    target.read_bytes() + b"\n", target_mode
+                )
+            },
+            name="external-target",
+        )
+        target.write_bytes(target.read_bytes() + b"owner change\n")
+        quarantine = transaction_root / "quarantine-external-target"
+        quarantine.mkdir()
+        quarantine_sentinel = quarantine / "external-sentinel"
+        quarantine_sentinel.write_bytes(b"quarantine external bytes\n")
+
+        with self.windows_reparse_semantics(quarantine), mock.patch.object(
+            owner_comments.os, "rename", wraps=os.rename
+        ) as rename, self.assertRaisesRegex(
+            ContractError, "transaction directory.*junction, or reparse point"
+        ):
+            self.store.check()
+
+        rename.assert_not_called()
+        self.assertTrue(backup_root.is_dir())
+        self.assertEqual(
+            quarantine_sentinel.read_bytes(), b"quarantine external bytes\n"
+        )
+
     def test_symlinked_docs_ancestor_never_reads_or_writes_external_store(self) -> None:
         self.write_record()
         self.store.reindex()
@@ -2030,7 +2382,11 @@ store.consume(
                 aliased_store._transaction_root(), self.store._transaction_root()
             )
             target = self.root / "docs/owner-comments/index.json"
-            phase = {target: target.read_bytes()}
+            phase = {
+                target: owner_comments._FileImage(
+                    target.read_bytes(), stat.S_IMODE(target.stat().st_mode)
+                )
+            }
             manifest = aliased_store._transaction_manifest((phase,))
             self.assertEqual(manifest["root"], str(self.store.root))
             backup_root = aliased_store._transaction_root() / "txn-alias-recovery"
@@ -2621,7 +2977,7 @@ class RouteCase(unittest.TestCase):
             ("the kit", {"substrate-kit"}),
             ("the review site", {"websites"}),
             ("the control plane", {"websites"}),
-            ("Venture", {"venture-lab"}),
+            ("Venture Lab", {"venture-lab"}),
             ("Lull/DREAMLINE", {"venture-lab"}),
             ("DREAMLINE", {"venture-lab"}),
             ("Ultramarine", {"venture-lab"}),
@@ -2644,6 +3000,25 @@ class RouteCase(unittest.TestCase):
                     prompt, f"owner-comments-vocabulary-{number}", state
                 )
                 self.assertEqual(comments, expected, prompt)
+
+    def test_generic_venture_does_not_consume_later_venture_lab_route(self) -> None:
+        with tempfile.TemporaryDirectory() as state:
+            session = "owner-comments-generic-venture"
+            context, comments, docs = self.route_prompt(
+                "What kind of venture should I start?", session, state
+            )
+            self.assertNotIn("repo-venture-lab", context)
+            self.assertEqual(comments, set())
+            self.assertNotIn("docs/repos/venture-lab/README.md", docs)
+
+            _context, comments, docs = self.route_prompt(
+                "Now continue Venture Lab", session, state
+            )
+            self.assertEqual(comments, {"venture-lab"})
+            self.assertIn("docs/repos/venture-lab/README.md", docs)
+            self.assertIn(
+                "docs/owner-comments/venture-lab/README.md", docs
+            )
 
     def test_embedded_product_aliases_shadow_only_the_implicit_route(self) -> None:
         cases = (

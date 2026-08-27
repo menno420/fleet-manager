@@ -72,11 +72,16 @@ before continuing. Every prepared journal is pinned to its symbolic Git `HEAD`
 ref (or an explicit detached marker), commit OID, and index tree. If any changed
 (for example, after switching branches), recovery quarantines the stale journal
 and stops without changing the current checkout. It also pins exact whole-tree
-byte/state phases, uses independent backups, and advances a durable recovery
-cursor; an unrecognized post-crash edit or path type is quarantined before any
-restore. Atomic replacement and restore scratch names are deterministic and
-journal-owned: exact expected residue is scavenged on retry, while different
-bytes are preserved inside the quarantined journal instead of deleted. Data
+byte/mode/state phases, uses independent backups, and advances a durable
+recovery cursor; a same-byte mode change, other unrecognized post-crash edit,
+or unexpected path type is quarantined before any restore. Existing indexes
+retain their observable modes, a consumed destination inherits its source mode,
+and a newly generated file uses the portable default mode. On Windows the exact
+observable mode is the platform's writable/read-only projection rather than
+unobservable POSIX group distinctions. Atomic replacement and restore scratch
+names are deterministic and journal-owned: exact expected residue is scavenged
+on retry, while different bytes are preserved inside the quarantined journal
+instead of deleted. Data
 moves and generated-index replacements sync their parent directories before the
 journal can be marked committed. On native Windows, every existing transaction
 target must be writable: a read-only record or index is rejected before a move,
@@ -86,7 +91,10 @@ and retry. Storage scans and mutations also `lstat` the lexical store root,
 `docs/`, `docs/owner-comments/`, repository folders, `consumed/`, and record
 targets before traversal. Links and Windows name-surrogate reparse points are
 refused; every Windows directory reparse point (including a junction or mount
-point) is refused even when its tag is otherwise unknown.
+point) is refused even when its tag is otherwise unknown. The Git-derived
+transaction root and every initializing, active, or quarantine journal
+directory receive the same `lstat` redirect check before traversal, creation,
+reading, or cleanup.
 
 ## Commands
 

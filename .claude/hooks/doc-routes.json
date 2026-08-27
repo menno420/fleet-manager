@@ -664,7 +664,6 @@
       ],
       "when": [
         "\\bventure[- ]lab\\b",
-        "\\bventure\\b",
         "\\bstripe webhook test kit\\b",
         "\\bnight kiln\\b",
         "\\blull/dreamline\\b",
@@ -684,7 +683,6 @@
       ],
       "when": [
         "\\bventure[- ]lab\\b",
-        "\\bventure\\b",
         "\\bstripe webhook test kit\\b",
         "\\bnight kiln\\b",
         "\\blull/dreamline\\b",

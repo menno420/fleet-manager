@@ -185,7 +185,7 @@ COMMENT_ALIAS_REPOS = (
     ),
     (
         reference_pattern(
-            r"venture|stripe[- ]webhook[- ]test[- ]kit|(?:the[- ])?night[- ]kiln|"
+            r"venture[- ]lab|stripe[- ]webhook[- ]test[- ]kit|(?:the[- ])?night[- ]kiln|"
             r"lull/dreamline|dreamline|ultramarine"
         ),
         ("venture-lab",),

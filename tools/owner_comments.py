@@ -46,6 +46,8 @@ REPO = Path(__file__).resolve().parents[1]
 COMMENTS_REL = Path("docs/owner-comments")
 ESTATE_REL = Path("docs/ESTATE.md")
 SCHEMA_VERSION = 1
+TRANSACTION_SCHEMA_VERSION = 6
+DEFAULT_FILE_MODE = 0o644
 SCHEMA_SHA256 = "f20d60213aafd6abe5ca315d9b468cb5ddbab14fd9e3bddea8263c2fbedb76a4"
 ID_RE = re.compile(r"^[a-z0-9][a-z0-9._-]{2,79}$")
 SURFACE_RE = re.compile(r"^[a-z0-9][a-z0-9._-]{0,63}$")
@@ -124,6 +126,20 @@ class Record:
         return str(self.data["state"])
 
 
+@dataclass(frozen=True)
+class _FileImage:
+    """One exact file image expected at a durable transaction boundary."""
+
+    content: bytes
+    mode: int
+
+
+_FileStateKey = tuple[bool, str, int, int | None]
+_ContentStateKey = tuple[bool, str, int]
+_ABSENT_STATE_KEY: _FileStateKey = (False, "", 0, None)
+_ABSENT_CONTENT_KEY: _ContentStateKey = (False, "", 0)
+
+
 def _parse_timestamp(value: str) -> datetime:
     return datetime.fromisoformat(value[:-1] + "+00:00")
 
@@ -180,13 +196,18 @@ def _contains_surrogate(value: Any) -> bool:
     return False
 
 
-def _content_state(content: bytes | None) -> dict[str, Any]:
+def _content_state(content: bytes | None, mode: int | None = None) -> dict[str, Any]:
     if content is None:
+        if mode is not None:
+            raise ValueError("an absent file state cannot carry a mode")
         return {"exists": False}
+    if type(mode) is not int or not 0 <= mode <= 0o7777:
+        raise ValueError("an existing file state requires a valid regular-file mode")
     return {
         "exists": True,
         "sha256": hashlib.sha256(content).hexdigest(),
         "size": len(content),
+        "mode": mode,
     }
 
 
@@ -253,30 +274,50 @@ def _path_state(path: Path, *, boundary: Path) -> dict[str, Any] | None:
         if not stat.S_ISREG(metadata.st_mode):
             return None
         try:
-            return _content_state(current.read_bytes())
+            return _content_state(
+                current.read_bytes(), stat.S_IMODE(metadata.st_mode)
+            )
         except OSError:
             return None
     return None
 
 
-def _expected_state_key(state: Any) -> tuple[bool, str, int] | None:
+def _expected_state_key(state: Any) -> _FileStateKey | None:
     """Validate and normalize one manifest file-state descriptor."""
     if not isinstance(state, dict) or type(state.get("exists")) is not bool:
         return None
     if state["exists"] is False:
-        return (False, "", 0) if set(state) == {"exists"} else None
-    if set(state) != {"exists", "sha256", "size"}:
+        return _ABSENT_STATE_KEY if set(state) == {"exists"} else None
+    if set(state) != {"exists", "sha256", "size", "mode"}:
         return None
     sha256 = state.get("sha256")
     size = state.get("size")
+    mode = state.get("mode")
     if (
         not isinstance(sha256, str)
         or not SHA256_RE.fullmatch(sha256)
         or type(size) is not int
         or size < 0
+        or type(mode) is not int
+        or not 0 <= mode <= 0o7777
     ):
         return None
-    return (True, sha256, size)
+    return (True, sha256, size, mode)
+
+
+def _content_key(state: _FileStateKey | None) -> _ContentStateKey | None:
+    """Compare scratch bytes while admitting its pre-chmod creation window."""
+    if state is None:
+        return None
+    return (state[0], state[1], state[2])
+
+
+def _read_file_image(path: Path) -> _FileImage:
+    """Read bytes and the exact observable mode of one regular file."""
+    metadata = os.lstat(path)
+    if _is_link_or_reparse(path, metadata) or not stat.S_ISREG(metadata.st_mode):
+        raise ContractError(f"transaction target must be a regular file: {path}")
+    return _FileImage(path.read_bytes(), stat.S_IMODE(metadata.st_mode))
 
 
 def _set_file_mode(path: Path, descriptor: int, mode: int) -> None:
@@ -302,6 +343,15 @@ def _set_file_mode(path: Path, descriptor: int, mode: int) -> None:
 def _is_windows() -> bool:
     """Return the platform decision through a small testable seam."""
     return os.name == "nt"
+
+
+def _observable_created_mode(mode: int) -> int:
+    """Project a requested new-file mode to the platform's observable mode."""
+    if _is_windows():
+        # Native Windows chmod models only the read-only attribute. Writable
+        # regular files conventionally stat as 0666 and read-only ones as 0444.
+        return 0o666 if mode & stat.S_IWRITE else 0o444
+    return mode
 
 
 def _reject_windows_readonly_file(
@@ -346,17 +396,12 @@ def _unlink_windows_compatible(path: Path, *, missing_ok: bool = False) -> None:
         raise
 
 
-def _remove_tree_best_effort(path: Path) -> None:
-    """Best-effort removal of writable journal scratch."""
-    shutil.rmtree(path, ignore_errors=True)
-
-
 def _atomic_write(path: Path, content: bytes) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     try:
         target_metadata = os.lstat(path)
     except FileNotFoundError:
-        target_mode = 0o644
+        target_mode = DEFAULT_FILE_MODE
     else:
         if not stat.S_ISREG(target_metadata.st_mode):
             raise ContractError(f"atomic-write target must be a regular file: {path}")
@@ -715,6 +760,107 @@ class OwnerCommentsStore:
         lock_path = self._lock_path()
         return lock_path.parent / f"{lock_path.stem}-transactions"
 
+    @staticmethod
+    def _assert_real_directory(
+        path: Path, *, label: str, missing_ok: bool = False
+    ) -> bool:
+        """lstat one journal boundary without following a Windows redirect."""
+        try:
+            metadata = os.lstat(path)
+        except FileNotFoundError:
+            if missing_ok:
+                return False
+            raise ContractError(f"missing {label}: {path}")
+        except OSError as exc:
+            raise ContractError(f"cannot inspect {label} {path}: {exc}") from exc
+        if _is_link_or_reparse(path, metadata) or not stat.S_ISDIR(
+            metadata.st_mode
+        ):
+            raise ContractError(
+                f"{label} must be a real directory, not a link, junction, "
+                f"or reparse point: {path}"
+            )
+        return True
+
+    def _assert_transaction_root(self, *, missing_ok: bool = False) -> bool:
+        return self._assert_real_directory(
+            self._transaction_root(),
+            label="owner-comment transaction root",
+            missing_ok=missing_ok,
+        )
+
+    def _ensure_transaction_root(self) -> Path:
+        transaction_root = self._transaction_root()
+        if self._assert_transaction_root(missing_ok=True):
+            return transaction_root
+        self._assert_real_directory(
+            transaction_root.parent,
+            label="owner-comment transaction parent",
+        )
+        try:
+            transaction_root.mkdir(mode=0o700)
+        except FileExistsError:
+            # Another process cannot legitimately race while the mutation lock
+            # is held, but still inspect rather than following what appeared.
+            pass
+        self._assert_transaction_root()
+        _fsync_directory(transaction_root.parent)
+        return transaction_root
+
+    def _assert_transaction_directory(
+        self,
+        path: Path,
+        *,
+        prefixes: tuple[str, ...],
+        missing_ok: bool = False,
+    ) -> bool:
+        transaction_root = self._transaction_root()
+        if path.parent != transaction_root or not path.name.startswith(prefixes):
+            raise ContractError(f"unsafe owner-comment transaction path: {path}")
+        self._assert_transaction_root()
+        return self._assert_real_directory(
+            path,
+            label="owner-comment transaction directory",
+            missing_ok=missing_ok,
+        )
+
+    def _assert_transaction_destination_absent(
+        self, path: Path, *, prefix: str
+    ) -> None:
+        transaction_root = self._transaction_root()
+        if path.parent != transaction_root or not path.name.startswith(prefix):
+            raise ContractError(f"unsafe owner-comment transaction path: {path}")
+        self._assert_transaction_root()
+        try:
+            metadata = os.lstat(path)
+        except FileNotFoundError:
+            return
+        except OSError as exc:
+            raise ContractError(
+                f"cannot inspect owner-comment transaction destination {path}: {exc}"
+            ) from exc
+        kind = "redirect" if _is_link_or_reparse(path, metadata) else "path"
+        raise ContractError(
+            f"owner-comment transaction destination {kind} already exists: {path}"
+        )
+
+    def _remove_transaction_tree(self, path: Path) -> None:
+        """Delete only a lstat-verified direct journal directory."""
+        if not self._assert_transaction_directory(
+            path,
+            prefixes=("txn-", "quarantine-", ".initializing-"),
+            missing_ok=True,
+        ):
+            return
+        try:
+            shutil.rmtree(path)
+        except OSError:
+            # A committed journal can be scavenged on the next locked entry;
+            # cleanup I/O must not turn a successful durable mutation into a
+            # false failure. Containment validation above remains fail-closed.
+            return
+        _fsync_directory(path.parent)
+
     def _git_identity(self) -> dict[str, str | None]:
         """Return the exact symbolic HEAD/OID/index rollback identity."""
         inside = subprocess.run(
@@ -829,7 +975,7 @@ class OwnerCommentsStore:
             handle.close()
 
     def _transaction_manifest(
-        self, expected_phases: tuple[dict[Path, bytes | None], ...]
+        self, expected_phases: tuple[dict[Path, _FileImage | None], ...]
     ) -> dict[str, Any]:
         if not expected_phases or not expected_phases[0]:
             raise ContractError("transaction must declare at least one target phase")
@@ -838,7 +984,7 @@ class OwnerCommentsStore:
             raise ContractError("transaction phases must cover the same target paths")
 
         entries = []
-        initial_contents: dict[Path, bytes | None] = {}
+        initial_images: dict[Path, _FileImage | None] = {}
         for number, path in enumerate(paths):
             try:
                 relative = path.relative_to(self.root)
@@ -847,15 +993,24 @@ class OwnerCommentsStore:
                     f"transaction path is outside repository root: {path}"
                 ) from exc
             self._assert_safe_target(path)
-            existed = path.exists()
-            if existed and not path.is_file():
+            try:
+                metadata = os.lstat(path)
+            except FileNotFoundError:
+                metadata = None
+            existed = metadata is not None
+            if existed and not stat.S_ISREG(metadata.st_mode):
                 raise ContractError(
                     f"transaction target must be a regular file or absent: {path}"
                 )
             if existed:
                 _reject_windows_readonly_file(path)
-            initial_content = path.read_bytes() if existed else None
-            initial_contents[path] = initial_content
+            initial_images[path] = (
+                _FileImage(
+                    path.read_bytes(), stat.S_IMODE(metadata.st_mode)
+                )
+                if metadata is not None
+                else None
+            )
             entries.append(
                 {
                     "path": relative.as_posix(),
@@ -865,10 +1020,16 @@ class OwnerCommentsStore:
             )
 
         phase_vectors: list[list[dict[str, Any]]] = []
-        seen_vectors: set[tuple[tuple[bool, str, int], ...]] = set()
+        seen_vectors: set[tuple[_FileStateKey, ...]] = set()
 
-        def add_phase(contents: dict[Path, bytes | None]) -> None:
-            states = [_content_state(contents[path]) for path in paths]
+        def add_phase(images: dict[Path, _FileImage | None]) -> None:
+            states = [
+                _content_state(
+                    images[path].content if images[path] is not None else None,
+                    images[path].mode if images[path] is not None else None,
+                )
+                for path in paths
+            ]
             keys = tuple(_expected_state_key(state) for state in states)
             assert all(key is not None for key in keys)
             normalized = tuple(key for key in keys if key is not None)
@@ -876,12 +1037,12 @@ class OwnerCommentsStore:
                 seen_vectors.add(normalized)
                 phase_vectors.append(states)
 
-        add_phase(initial_contents)
+        add_phase(initial_images)
         for phase in expected_phases:
             add_phase(phase)
 
         return {
-            "schema_version": 5,
+            "schema_version": TRANSACTION_SCHEMA_VERSION,
             "state": "prepared",
             "root": str(self.root),
             "git_identity": self._git_identity(),
@@ -893,13 +1054,28 @@ class OwnerCommentsStore:
     def _read_transaction_manifest(
         self, backup_root: Path
     ) -> dict[str, Any] | None:
+        self._assert_transaction_directory(
+            backup_root, prefixes=("txn-",)
+        )
         manifest_path = backup_root / "manifest.json"
-        if not manifest_path.exists():
+        try:
+            manifest_metadata = os.lstat(manifest_path)
+        except FileNotFoundError:
             return None
-        if manifest_path.is_symlink() or not manifest_path.is_file():
+        except OSError as exc:
+            raise ContractError(
+                f"cannot inspect owner-comment transaction manifest "
+                f"{manifest_path}: {exc}"
+            ) from exc
+        if _is_link_or_reparse(
+            manifest_path, manifest_metadata
+        ) or not stat.S_ISREG(manifest_metadata.st_mode):
             raise ContractError(
                 f"invalid owner-comment transaction manifest: {manifest_path}"
             )
+        self._assert_transaction_directory(
+            backup_root, prefixes=("txn-",)
+        )
         try:
             data, raw = _load_json(manifest_path)
         except Exception as exc:
@@ -922,7 +1098,9 @@ class OwnerCommentsStore:
             raise ContractError(
                 f"owner-comment transaction manifest has unknown fields: {manifest_path}"
             )
-        if data.get("schema_version") != 5 or data.get("state") not in {
+        if data.get("schema_version") != TRANSACTION_SCHEMA_VERSION or data.get(
+            "state"
+        ) not in {
             "prepared",
             "recovering",
             "committed",
@@ -991,7 +1169,7 @@ class OwnerCommentsStore:
             raise ContractError(
                 f"owner-comment transaction phases are invalid: {manifest_path}"
             )
-        phase_keys: list[tuple[tuple[bool, str, int], ...]] = []
+        phase_keys: list[tuple[_FileStateKey, ...]] = []
         for phase in expected_phases:
             if not isinstance(phase, list) or len(phase) != len(data["entries"]):
                 raise ContractError(
@@ -1027,7 +1205,7 @@ class OwnerCommentsStore:
             )
 
         seen: set[Path] = set()
-        initial_keys: list[tuple[bool, str, int]] = []
+        initial_keys: list[_FileStateKey] = []
         for entry in data["entries"]:
             if not isinstance(entry, dict) or set(entry) != {
                 "path",
@@ -1063,19 +1241,13 @@ class OwnerCommentsStore:
                         f"owner-comment transaction backup is invalid: {manifest_path}"
                     )
                 backup = backup_root / backup_name
-                if (
-                    data["state"] in {"prepared", "recovering"}
-                    and (backup.is_symlink() or not backup.is_file())
-                ):
-                    raise ContractError(
-                        f"owner-comment transaction backup is missing: {backup}"
-                    )
                 if data["state"] in {"prepared", "recovering"}:
                     backup_state = _path_state(backup, boundary=backup_root)
                     backup_key = _expected_state_key(backup_state)
-                    if backup_key is None:
+                    if backup_key is None or not backup_key[0]:
                         raise ContractError(
-                            f"owner-comment transaction backup is invalid: {backup}"
+                            f"owner-comment transaction backup is missing or "
+                            f"invalid: {backup}"
                         )
                     initial_keys.append(backup_key)
                 else:
@@ -1086,7 +1258,7 @@ class OwnerCommentsStore:
                     f"{manifest_path}"
                 )
             else:
-                initial_keys.append((False, "", 0))
+                initial_keys.append(_ABSENT_STATE_KEY)
         if data["state"] in {"prepared", "recovering"} and tuple(
             initial_keys
         ) != phase_keys[0]:
@@ -1097,7 +1269,7 @@ class OwnerCommentsStore:
 
     def _current_target_vector(
         self, manifest: dict[str, Any]
-    ) -> tuple[tuple[bool, str, int] | None, ...]:
+    ) -> tuple[_FileStateKey | None, ...]:
         return tuple(
             _expected_state_key(
                 _path_state(
@@ -1110,7 +1282,7 @@ class OwnerCommentsStore:
     @staticmethod
     def _phase_vectors(
         manifest: dict[str, Any]
-    ) -> list[tuple[tuple[bool, str, int] | None, ...]]:
+    ) -> list[tuple[_FileStateKey | None, ...]]:
         return [
             tuple(_expected_state_key(state) for state in phase)
             for phase in manifest["expected_phases"]
@@ -1128,8 +1300,8 @@ class OwnerCommentsStore:
     def _recovery_vectors(
         self, manifest: dict[str, Any]
     ) -> tuple[
-        tuple[tuple[bool, str, int] | None, ...],
-        tuple[tuple[bool, str, int] | None, ...],
+        tuple[_FileStateKey | None, ...],
+        tuple[_FileStateKey | None, ...],
     ]:
         phases = self._phase_vectors(manifest)
         recovery = manifest["recovery"]
@@ -1154,14 +1326,21 @@ class OwnerCommentsStore:
 
     def _quarantine_transaction(self, backup_root: Path) -> Path:
         """Preserve a stale prepared journal without touching this checkout."""
+        self._assert_transaction_directory(
+            backup_root, prefixes=("txn-",)
+        )
         suffix = backup_root.name.removeprefix("txn-")
         quarantine = backup_root.with_name(f"quarantine-{suffix}")
-        if quarantine.exists() or quarantine.is_symlink():
-            raise ContractError(
-                "cannot quarantine stale owner-comment transaction because "
-                f"the deterministic destination exists: {quarantine}"
-            )
+        self._assert_transaction_destination_absent(
+            quarantine, prefix="quarantine-"
+        )
+        self._assert_transaction_directory(
+            backup_root, prefixes=("txn-",)
+        )
         os.rename(backup_root, quarantine)
+        self._assert_transaction_directory(
+            quarantine, prefixes=("quarantine-",)
+        )
         _fsync_directory(backup_root.parent)
         return quarantine
 
@@ -1203,26 +1382,30 @@ class OwnerCommentsStore:
 
     def _temporary_specs(
         self, backup_root: Path, manifest: dict[str, Any]
-    ) -> list[tuple[Path, tuple[bool, str, int], str]]:
+    ) -> list[tuple[Path, _ContentStateKey, str]]:
         """Return every deterministic scratch path and its only valid content."""
         phases = self._phase_vectors(manifest)
         initial = phases[0]
         final = phases[-1]
-        specs: list[tuple[Path, tuple[bool, str, int], str]] = []
+        specs: list[tuple[Path, _ContentStateKey, str]] = []
         for number, entry in enumerate(manifest["entries"]):
             if final[number][0] and final[number] != initial[number]:
+                expected = _content_key(final[number])
+                assert expected is not None
                 specs.append(
                     (
                         self._atomic_temporary_path(backup_root, entry, number),
-                        final[number],
+                        expected,
                         f"atomic-{number}",
                     )
                 )
             if entry["existed"]:
+                expected = _content_key(initial[number])
+                assert expected is not None
                 specs.append(
                     (
                         self._recovery_temporary_path(backup_root, entry, number),
-                        initial[number],
+                        expected,
                         f"recovery-{number}",
                     )
                 )
@@ -1232,11 +1415,26 @@ class OwnerCommentsStore:
         self, backup_root: Path, temporary: Path, label: str
     ) -> Path:
         """Move unrecognized scratch bytes into the journal before quarantine."""
+        self._assert_transaction_directory(
+            backup_root, prefixes=("txn-",)
+        )
         preserved = backup_root / f"unexpected-{label}"
         suffix = 0
-        while preserved.exists() or preserved.is_symlink():
+        while True:
+            preserved_state = _expected_state_key(
+                _path_state(preserved, boundary=backup_root)
+            )
+            if preserved_state == _ABSENT_STATE_KEY:
+                break
+            if preserved_state is None:
+                raise ContractError(
+                    f"unsafe preserved transaction path: {preserved}"
+                )
             suffix += 1
             preserved = backup_root / f"unexpected-{label}-source-{suffix}"
+        self._assert_transaction_directory(
+            backup_root, prefixes=("txn-",)
+        )
         try:
             os.replace(temporary, preserved)
         except OSError:
@@ -1266,19 +1464,30 @@ class OwnerCommentsStore:
         self, backup_root: Path, manifest: dict[str, Any]
     ) -> list[Path]:
         """Finish an interrupted cross-filesystem preservation idempotently."""
+        self._assert_transaction_directory(
+            backup_root, prefixes=("txn-",)
+        )
         residues: list[Path] = []
         recognized: set[Path] = set()
         for temporary, _, label in self._temporary_specs(backup_root, manifest):
             base = backup_root / f"unexpected-{label}"
             if not (base.exists() or base.is_symlink()):
                 continue
-            candidates = [base, *sorted(backup_root.glob(f"{base.name}-source-*"))]
+            self._assert_transaction_directory(
+                backup_root, prefixes=("txn-",)
+            )
+            candidates = [
+                base,
+                *sorted(backup_root.glob(f"{base.name}-source-*")),
+            ]
             recognized.update(candidates)
             residues.extend(candidates)
-            candidate_states: dict[Path, tuple[bool, str, int] | None] = {}
+            candidate_states: dict[Path, _ContentStateKey | None] = {}
             for candidate in candidates:
-                state = _expected_state_key(
-                    _path_state(candidate, boundary=backup_root)
+                state = _content_key(
+                    _expected_state_key(
+                        _path_state(candidate, boundary=backup_root)
+                    )
                 )
                 candidate_states[candidate] = state
                 if state is not None and state[0]:
@@ -1288,10 +1497,12 @@ class OwnerCommentsStore:
                     with candidate.open("rb") as handle:
                         os.fsync(handle.fileno())
             _fsync_directory(backup_root)
-            actual = _expected_state_key(
-                _path_state(temporary, boundary=self.comments)
+            actual = _content_key(
+                _expected_state_key(
+                    _path_state(temporary, boundary=self.comments)
+                )
             )
-            if actual == (False, "", 0):
+            if actual == _ABSENT_CONTENT_KEY:
                 continue
             matching = [
                 path
@@ -1308,8 +1519,10 @@ class OwnerCommentsStore:
                 with preserved.open("rb") as handle:
                     os.fsync(handle.fileno())
                 _fsync_directory(preserved.parent)
-                if actual != _expected_state_key(
-                    _path_state(preserved, boundary=backup_root)
+                if actual != _content_key(
+                    _expected_state_key(
+                        _path_state(preserved, boundary=backup_root)
+                    )
                 ):
                     raise ContractError(
                         f"preserved transaction temporary changed: {preserved}"
@@ -1326,6 +1539,9 @@ class OwnerCommentsStore:
                     backup_root, temporary, label
                 )
             )
+        self._assert_transaction_directory(
+            backup_root, prefixes=("txn-",)
+        )
         unknown = [
             path
             for path in sorted(backup_root.glob("unexpected-*"))
@@ -1335,6 +1551,8 @@ class OwnerCommentsStore:
             try:
                 metadata = os.lstat(path)
             except OSError:
+                continue
+            if _is_link_or_reparse(path, metadata):
                 continue
             if stat.S_ISREG(metadata.st_mode):
                 with path.open("rb") as handle:
@@ -1350,6 +1568,9 @@ class OwnerCommentsStore:
         self, backup_root: Path, manifest: dict[str, Any]
     ) -> None:
         """Scavenge only exact journal-owned scratch, preserving mismatches."""
+        self._assert_transaction_directory(
+            backup_root, prefixes=("txn-",)
+        )
         preserved_residue = self._reconcile_preserved_temporaries(
             backup_root, manifest
         )
@@ -1364,8 +1585,8 @@ class OwnerCommentsStore:
             backup_root, manifest
         ):
             state = _path_state(temporary, boundary=self.comments)
-            actual = _expected_state_key(state)
-            if actual == (False, "", 0):
+            actual = _content_key(_expected_state_key(state))
+            if actual == _ABSENT_CONTENT_KEY:
                 continue
             if actual == expected:
                 _unlink_windows_compatible(temporary)
@@ -1384,6 +1605,9 @@ class OwnerCommentsStore:
     def _begin_recovery(
         self, backup_root: Path, manifest: dict[str, Any]
     ) -> None:
+        self._assert_transaction_directory(
+            backup_root, prefixes=("txn-",)
+        )
         phase = self._prepared_phase_index(manifest)
         if phase is None:
             raise ContractError("owner-comment transaction target phase is unexpected")
@@ -1392,12 +1616,20 @@ class OwnerCommentsStore:
         _write_transaction_manifest(backup_root / "manifest.json", manifest)
 
     def _restore_entry(
-        self, backup_root: Path, entry: dict[str, Any], number: int
+        self,
+        backup_root: Path,
+        entry: dict[str, Any],
+        number: int,
+        initial_mode: int | None,
     ) -> None:
+        self._assert_transaction_directory(
+            backup_root, prefixes=("txn-",)
+        )
         target = self.root / entry["path"]
         if entry["existed"]:
+            if initial_mode is None:
+                raise ContractError("existing recovery target has no initial mode")
             backup = backup_root / entry["backup"]
-            backup_mode = stat.S_IMODE(os.lstat(backup).st_mode)
             _reject_windows_readonly_file(backup)
             _reject_windows_readonly_file(target, missing_ok=True)
             target.parent.mkdir(parents=True, exist_ok=True)
@@ -1421,10 +1653,10 @@ class OwnerCommentsStore:
                 ) as destination:
                     shutil.copyfileobj(source, destination)
                     destination.flush()
+                    _set_file_mode(
+                        temporary, destination.fileno(), initial_mode
+                    )
                     os.fsync(destination.fileno())
-                os.chmod(temporary, backup_mode)
-                with temporary.open("rb") as handle:
-                    os.fsync(handle.fileno())
                 os.replace(temporary, target)
                 _fsync_directory(target.parent)
             except BaseException:
@@ -1452,6 +1684,9 @@ class OwnerCommentsStore:
         self, backup_root: Path, manifest: dict[str, Any]
     ) -> None:
         """Resume a cursor-pinned recovery without accepting mixed target states."""
+        self._assert_transaction_directory(
+            backup_root, prefixes=("txn-",)
+        )
         if manifest["state"] == "prepared":
             self._begin_recovery(backup_root, manifest)
         while manifest["recovery"]["cursor"] < len(manifest["entries"]):
@@ -1463,8 +1698,12 @@ class OwnerCommentsStore:
             cursor = manifest["recovery"]["cursor"]
             before, after = self._recovery_vectors(manifest)
             if status == "before" and before != after:
+                initial_mode = self._phase_vectors(manifest)[0][cursor][3]
                 self._restore_entry(
-                    backup_root, manifest["entries"][cursor], cursor
+                    backup_root,
+                    manifest["entries"][cursor],
+                    cursor,
+                    initial_mode,
                 )
                 if self._current_target_vector(manifest) != self._recovery_vectors(
                     manifest
@@ -1473,23 +1712,38 @@ class OwnerCommentsStore:
                         "owner-comment recovery could not verify restored target"
                     )
             manifest["recovery"]["cursor"] = cursor + 1
+            self._assert_transaction_directory(
+                backup_root, prefixes=("txn-",)
+            )
             _write_transaction_manifest(backup_root / "manifest.json", manifest)
 
     def _recover_transactions(self) -> None:
         """Recover any process-terminated transaction while holding the lock."""
         transaction_root = self._transaction_root()
-        if not transaction_root.exists():
+        if not self._assert_transaction_root(missing_ok=True):
             return
-        if transaction_root.is_symlink() or not transaction_root.is_dir():
-            raise ContractError(
-                f"invalid owner-comment transaction root: {transaction_root}"
+        self._assert_transaction_root()
+        published: list[Path] = []
+        for child in sorted(transaction_root.iterdir()):
+            prefixes = next(
+                (
+                    allowed
+                    for allowed in (
+                        ("txn-",),
+                        ("quarantine-",),
+                        (".initializing-",),
+                    )
+                    if child.name.startswith(allowed)
+                ),
+                None,
             )
+            if prefixes is None:
+                continue
+            self._assert_transaction_directory(child, prefixes=prefixes)
+            if prefixes == ("txn-",):
+                published.append(child)
         transactions: list[tuple[Path, dict[str, Any]]] = []
-        for backup_root in sorted(transaction_root.glob("txn-*")):
-            if backup_root.is_symlink() or not backup_root.is_dir():
-                raise ContractError(
-                    f"invalid owner-comment transaction path: {backup_root}"
-                )
+        for backup_root in published:
             try:
                 manifest = self._read_transaction_manifest(backup_root)
             except ContractError as exc:
@@ -1503,8 +1757,7 @@ class OwnerCommentsStore:
                 # directory only after a durable manifest exists.  Therefore a
                 # manifest-less published directory can only be residue from
                 # committed cleanup deleting the manifest before the directory.
-                _remove_tree_best_effort(backup_root)
-                _fsync_directory(transaction_root)
+                self._remove_transaction_tree(backup_root)
                 continue
             try:
                 self._cleanup_transaction_temporaries(backup_root, manifest)
@@ -1571,15 +1824,17 @@ class OwnerCommentsStore:
                 self._restore_transaction(backup_root, manifest)
                 manifest["state"] = "committed"
                 manifest["recovery"] = None
+                self._assert_transaction_directory(
+                    backup_root, prefixes=("txn-",)
+                )
                 _write_transaction_manifest(
                     backup_root / "manifest.json", manifest
                 )
-            _remove_tree_best_effort(backup_root)
-            _fsync_directory(transaction_root)
+            self._remove_transaction_tree(backup_root)
 
     @contextmanager
     def rollback_snapshot(
-        self, expected_phases: tuple[dict[Path, bytes | None], ...]
+        self, expected_phases: tuple[dict[Path, _FileImage | None], ...]
     ):
         """Restore files on exceptions and journal recovery across process death.
 
@@ -1592,26 +1847,43 @@ class OwnerCommentsStore:
         # Validate every existing target (including Windows read-only state)
         # before publishing or even initializing transaction recovery data.
         manifest = self._transaction_manifest(expected_phases)
-        transaction_root = self._transaction_root()
-        transaction_root.mkdir(parents=True, exist_ok=True)
-        _fsync_directory(transaction_root.parent)
+        transaction_root = self._ensure_transaction_root()
+        self._assert_transaction_root()
         backup_root = Path(
             tempfile.mkdtemp(prefix=".initializing-", dir=transaction_root)
         )
         prepared = False
         try:
+            self._assert_transaction_directory(
+                backup_root, prefixes=(".initializing-",)
+            )
             for entry in manifest["entries"]:
                 if entry["existed"]:
+                    self._assert_transaction_directory(
+                        backup_root, prefixes=(".initializing-",)
+                    )
                     path = self.root / entry["path"]
                     backup = backup_root / entry["backup"]
                     shutil.copy2(path, backup)
                     with backup.open("rb") as handle:
                         os.fsync(handle.fileno())
+            self._assert_transaction_directory(
+                backup_root, prefixes=(".initializing-",)
+            )
             _write_transaction_manifest(backup_root / "manifest.json", manifest)
             final_root = transaction_root / (
                 "txn-" + backup_root.name.removeprefix(".initializing-")
             )
+            self._assert_transaction_destination_absent(
+                final_root, prefix="txn-"
+            )
+            self._assert_transaction_directory(
+                backup_root, prefixes=(".initializing-",)
+            )
             os.replace(backup_root, final_root)
+            self._assert_transaction_directory(
+                final_root, prefixes=("txn-",)
+            )
             _fsync_directory(transaction_root)
             backup_root = final_root
             prepared = True
@@ -1620,7 +1892,7 @@ class OwnerCommentsStore:
                 state = _expected_state_key(
                     _path_state(temporary, boundary=self.comments)
                 )
-                if state != (False, "", 0):
+                if state != _ABSENT_STATE_KEY:
                     raise ContractError(
                         f"transaction atomic temporary is not absent: {temporary}"
                     )
@@ -1639,6 +1911,9 @@ class OwnerCommentsStore:
                 "state": "committed",
                 "recovery": None,
             }
+            self._assert_transaction_directory(
+                backup_root, prefixes=("txn-",)
+            )
             _write_transaction_manifest(
                 backup_root / "manifest.json", committed_manifest
             )
@@ -1650,18 +1925,18 @@ class OwnerCommentsStore:
                 # interruption never retries against partially removed backups.
                 manifest["state"] = "committed"
                 manifest["recovery"] = None
+                self._assert_transaction_directory(
+                    backup_root, prefixes=("txn-",)
+                )
                 _write_transaction_manifest(
                     backup_root / "manifest.json", manifest
                 )
-                _remove_tree_best_effort(backup_root)
-                _fsync_directory(transaction_root)
+                self._remove_transaction_tree(backup_root)
             else:
-                _remove_tree_best_effort(backup_root)
-                _fsync_directory(transaction_root)
+                self._remove_transaction_tree(backup_root)
             raise
         else:
-            _remove_tree_best_effort(backup_root)
-            _fsync_directory(transaction_root)
+            self._remove_transaction_tree(backup_root)
 
     def repositories(self) -> list[str]:
         self._assert_storage_ancestors()
@@ -2262,12 +2537,21 @@ class OwnerCommentsStore:
         # index half of consume: interruption on any write restores every
         # already-written index instead of leaving root and repository views
         # disagreeing.  consume adds an outer record snapshot around this.
-        phase = {
-            path: path.read_bytes() if path.is_file() else None for path in changes
+        phase: dict[Path, _FileImage | None] = {
+            path: _read_file_image(path) if path.is_file() else None
+            for path in changes
+        }
+        output_modes = {
+            path: (
+                image.mode
+                if image is not None
+                else _observable_created_mode(DEFAULT_FILE_MODE)
+            )
+            for path, image in phase.items()
         }
         expected_phases = []
         for path, content in changes.items():
-            phase[path] = content
+            phase[path] = _FileImage(content, output_modes[path])
             expected_phases.append(dict(phase))
         with self.rollback_snapshot(tuple(expected_phases)):
             for path, content in changes.items():
@@ -2378,24 +2662,31 @@ class OwnerCommentsStore:
         planned_indexes = self.expected_indexes(planned_records)
         repository_index = self.comments / repository / "README.md"
         root_index = self.comments / "index.json"
-        phase = {
-            source: source_raw,
+        source_image = _read_file_image(source)
+        repository_index_image = _read_file_image(repository_index)
+        root_index_image = _read_file_image(root_index)
+        phase: dict[Path, _FileImage | None] = {
+            source: source_image,
             destination: None,
-            repository_index: repository_index.read_bytes(),
-            root_index: root_index.read_bytes(),
+            repository_index: repository_index_image,
+            root_index: root_index_image,
         }
         expected_phases = []
         # The move first exposes the original bytes at destination.
         phase[source] = None
-        phase[destination] = source_raw
+        phase[destination] = source_image
         expected_phases.append(dict(phase))
         # The following atomic replace exposes the consumed record bytes.
-        phase[destination] = updated_raw
+        phase[destination] = _FileImage(updated_raw, source_image.mode)
         expected_phases.append(dict(phase))
         # expected_indexes writes the root projection before repository indexes.
-        phase[root_index] = planned_indexes[root_index]
+        phase[root_index] = _FileImage(
+            planned_indexes[root_index], root_index_image.mode
+        )
         expected_phases.append(dict(phase))
-        phase[repository_index] = planned_indexes[repository_index]
+        phase[repository_index] = _FileImage(
+            planned_indexes[repository_index], repository_index_image.mode
+        )
         expected_phases.append(dict(phase))
         # Reject a read-only source or index before creating consumed/ or a
         # recovery journal. rollback_snapshot repeats this target preflight
