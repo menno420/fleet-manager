@@ -136,6 +136,38 @@ class StoreCase(unittest.TestCase):
         ):
             yield replacements
 
+    @contextmanager
+    def windows_reparse_semantics(self, *reparse_paths: Path):
+        """Model Windows junction/reparse metadata on the POSIX gate runner."""
+        real_lstat = os.lstat
+        marked = {Path(path) for path in reparse_paths}
+
+        class ReparseMetadata:
+            def __init__(self, metadata):
+                self._metadata = metadata
+
+            def __getattr__(self, name):
+                if name == "st_file_attributes":
+                    return (
+                        getattr(self._metadata, name, 0)
+                        | owner_comments._WINDOWS_REPARSE_POINT
+                    )
+                if name == "st_reparse_tag":
+                    return 0xA0000003  # IO_REPARSE_TAG_MOUNT_POINT
+                return getattr(self._metadata, name)
+
+        def windows_lstat(path, *args, **kwargs):
+            metadata = real_lstat(path, *args, **kwargs)
+            candidate = Path(path)
+            if candidate in marked:
+                return ReparseMetadata(metadata)
+            return metadata
+
+        with mock.patch.object(
+            owner_comments, "_is_windows", return_value=True
+        ), mock.patch.object(owner_comments.os, "lstat", side_effect=windows_lstat):
+            yield
+
     def commit_baseline(self, message: str = "baseline") -> None:
         subprocess.run(
             ["git", "init", "-q", "--initial-branch=main"],
@@ -1399,6 +1431,30 @@ store.consume(
         self.assertEqual(replacements, [])
         self.assertEqual(list(self.root.glob(".readonly-index.json.*")), [])
 
+    def test_windows_reparse_classifier_allows_only_nonredirect_regular_files(
+        self,
+    ) -> None:
+        cloud_file = mock.Mock(
+            st_mode=stat.S_IFREG | 0o644,
+            st_file_attributes=owner_comments._WINDOWS_REPARSE_POINT,
+            st_reparse_tag=0x9000001A,
+        )
+        cloud_directory = mock.Mock(
+            st_mode=stat.S_IFDIR | 0o755,
+            st_file_attributes=owner_comments._WINDOWS_REPARSE_POINT,
+            st_reparse_tag=0x9000001A,
+        )
+        mount_file = mock.Mock(
+            st_mode=stat.S_IFREG | 0o644,
+            st_file_attributes=owner_comments._WINDOWS_REPARSE_POINT,
+            st_reparse_tag=0xA0000003,
+        )
+        path = self.root / "modeled-reparse"
+
+        self.assertFalse(owner_comments._is_link_or_reparse(path, cloud_file))
+        self.assertTrue(owner_comments._is_link_or_reparse(path, cloud_directory))
+        self.assertTrue(owner_comments._is_link_or_reparse(path, mount_file))
+
     def test_atomic_cleanup_failure_never_masks_original_error(self) -> None:
         target = self.root / "cleanup-mask.json"
         target.write_bytes(b"old\n")
@@ -1808,6 +1864,108 @@ store.consume(
             self.store.reindex()
         self.assertEqual(list(outside_repository.iterdir()), [])
         self.assertEqual(list(outside_consumed.iterdir()), [])
+
+    def test_windows_reparse_storage_ancestors_fail_before_mutation(self) -> None:
+        self.write_record()
+        self.store.reindex()
+        transaction_root = self.store._transaction_root()
+        root_before = (self.root / "docs/owner-comments/index.json").read_bytes()
+
+        for path in (
+            self.root,
+            self.root / "docs",
+            self.root / "docs/owner-comments",
+        ):
+            with self.subTest(path=path), self.windows_reparse_semantics(path):
+                errors = self.store.check()
+                self.assertTrue(
+                    any("junction, or reparse point" in error for error in errors),
+                    errors,
+                )
+                with self.assertRaisesRegex(
+                    ContractError, "junction, or reparse point"
+                ):
+                    self.store.reindex()
+
+        self.assertEqual(
+            (self.root / "docs/owner-comments/index.json").read_bytes(), root_before
+        )
+        self.assertEqual(list(transaction_root.glob("txn-*")), [])
+
+    def test_windows_reparse_repository_and_consumed_are_not_traversed(self) -> None:
+        repository = self.root / "docs/owner-comments/websites"
+        consumed = repository / "consumed"
+        consumed.mkdir()
+        real_iterdir = Path.iterdir
+
+        for path, expected in (
+            (repository, "repository path"),
+            (consumed, "consumed must be a real directory"),
+        ):
+            def guarded_iterdir(candidate, *, forbidden=path):
+                if candidate == forbidden:
+                    raise AssertionError(f"traversed mocked reparse point {forbidden}")
+                return real_iterdir(candidate)
+
+            with self.subTest(path=path), self.windows_reparse_semantics(
+                path
+            ), mock.patch.object(Path, "iterdir", guarded_iterdir):
+                records, errors = self.store.scan()
+                self.assertEqual(records, [])
+                self.assertTrue(any(expected in error for error in errors), errors)
+                with self.assertRaisesRegex(ContractError, "reparse point"):
+                    self.store.reindex()
+
+    def test_windows_reparse_target_parent_quarantines_before_recovery(self) -> None:
+        original = self.write_record()
+        self.store.reindex()
+        crash_code = """
+import os
+import sys
+from pathlib import Path
+sys.path.insert(0, sys.argv[1])
+import owner_comments
+store = owner_comments.OwnerCommentsStore(Path(sys.argv[2]))
+real_write = owner_comments._atomic_write
+def crash_on_consumed(path, content):
+    if path.parent.name == 'consumed':
+        os._exit(99)
+    real_write(path, content)
+owner_comments._atomic_write = crash_on_consumed
+store.consume(
+    'websites',
+    'oc-20260827t120000z-a1b2c3d4',
+    consumed_at='2026-08-27T13:00:00Z',
+    actor='actor',
+    evidence='evidence',
+)
+"""
+        crashed = subprocess.run(
+            [sys.executable, "-c", crash_code, str(REPO / "tools"), str(self.root)],
+            cwd=REPO,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(crashed.returncode, 99, crashed.stderr)
+        destination = original.parent / "consumed" / original.name
+        before = destination.read_bytes()
+        transaction_root = self.store._transaction_root()
+        self.assertEqual(len(list(transaction_root.glob("txn-*"))), 1)
+
+        with self.windows_reparse_semantics(original.parent), mock.patch.object(
+            self.store, "_restore_entry", wraps=self.store._restore_entry
+        ) as restore_entry:
+            with self.assertRaisesRegex(
+                ContractError, "invalid owner-comment recovery journal.*quarantined"
+            ):
+                self.store.check()
+
+        restore_entry.assert_not_called()
+        self.assertFalse(original.exists())
+        self.assertEqual(destination.read_bytes(), before)
+        self.assertEqual(list(transaction_root.glob("txn-*")), [])
+        self.assertEqual(len(list(transaction_root.glob("quarantine-*"))), 1)
 
     def test_symlinked_docs_ancestor_never_reads_or_writes_external_store(self) -> None:
         self.write_record()

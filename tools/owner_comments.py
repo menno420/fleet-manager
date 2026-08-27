@@ -190,8 +190,37 @@ def _content_state(content: bytes | None) -> dict[str, Any]:
     }
 
 
+_WINDOWS_REPARSE_POINT = getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400)
+_WINDOWS_NAME_SURROGATE = 0x20000000
+
+
+def _is_link_or_reparse(path: Path, metadata: os.stat_result | Any) -> bool:
+    """Reject path redirects and every Windows directory reparse point."""
+    if stat.S_ISLNK(metadata.st_mode):
+        return True
+    attributes = getattr(metadata, "st_file_attributes", 0)
+    reparse_tag = getattr(metadata, "st_reparse_tag", 0)
+    is_reparse = bool(attributes & _WINDOWS_REPARSE_POINT or reparse_tag)
+    # Directories are traversal boundaries, so fail closed for every directory
+    # reparse point (junctions, mount points, and any unrecognized tag). Regular
+    # cloud-placeholder files are not path redirects and remain usable unless
+    # their tag explicitly declares a name surrogate.
+    if is_reparse and stat.S_ISDIR(metadata.st_mode):
+        return True
+    if reparse_tag & _WINDOWS_NAME_SURROGATE:
+        return True
+    is_junction = getattr(path, "is_junction", None)
+    if callable(is_junction):
+        try:
+            return bool(is_junction())
+        except OSError:
+            # An uninspectable junction decision is unsafe for a storage path.
+            return True
+    return False
+
+
 def _path_state(path: Path, *, boundary: Path) -> dict[str, Any] | None:
-    """lstat a bounded path without accepting symlinked parent traversal."""
+    """lstat a bounded path without accepting link/reparse traversal."""
     try:
         relative = path.relative_to(boundary)
     except ValueError:
@@ -200,7 +229,9 @@ def _path_state(path: Path, *, boundary: Path) -> dict[str, Any] | None:
         boundary_metadata = os.lstat(boundary)
     except OSError:
         return None
-    if not stat.S_ISDIR(boundary_metadata.st_mode):
+    if _is_link_or_reparse(boundary, boundary_metadata) or not stat.S_ISDIR(
+        boundary_metadata.st_mode
+    ):
         return None
     current = boundary
     components = relative.parts
@@ -211,6 +242,8 @@ def _path_state(path: Path, *, boundary: Path) -> dict[str, Any] | None:
         except FileNotFoundError:
             return _content_state(None)
         except OSError:
+            return None
+        if _is_link_or_reparse(current, metadata):
             return None
         final = index == len(components) - 1
         if not final:
@@ -599,10 +632,10 @@ class OwnerCommentsStore:
                 return None
             except OSError as exc:
                 return f"cannot inspect owner-comment storage ancestor {path}: {exc}"
-            if stat.S_ISLNK(metadata.st_mode):
+            if _is_link_or_reparse(path, metadata):
                 return (
                     "owner-comment storage ancestor must be a real directory, "
-                    f"not a symlink: {path}"
+                    f"not a link, junction, or reparse point: {path}"
                 )
             if not stat.S_ISDIR(metadata.st_mode):
                 return f"owner-comment storage ancestor must be a directory: {path}"
@@ -615,14 +648,40 @@ class OwnerCommentsStore:
 
     def _assert_safe_target(self, path: Path) -> None:
         self._assert_storage_ancestors()
+        try:
+            relative = path.relative_to(self.comments)
+        except ValueError as exc:
+            raise ContractError(
+                f"owner-comment path escapes storage root: {path}"
+            ) from exc
+        current = self.comments
+        for index, component in enumerate(relative.parts):
+            current /= component
+            try:
+                metadata = os.lstat(current)
+            except FileNotFoundError:
+                break
+            except OSError as exc:
+                raise ContractError(
+                    f"cannot inspect owner-comment target path {current}: {exc}"
+                ) from exc
+            if _is_link_or_reparse(current, metadata):
+                raise ContractError(
+                    "owner-comment target path must not traverse a link, "
+                    f"junction, or reparse point: {current}"
+                )
+            if index < len(relative.parts) - 1 and not stat.S_ISDIR(
+                metadata.st_mode
+            ):
+                raise ContractError(
+                    f"owner-comment target parent must be a directory: {current}"
+                )
         base = self.comments.resolve(strict=False)
         resolved = path.resolve(strict=False)
         try:
             resolved.relative_to(base)
         except ValueError as exc:
             raise ContractError(f"owner-comment path escapes storage root: {path}") from exc
-        if path.is_symlink():
-            raise ContractError(f"owner-comment target must not be a symlink: {path}")
 
     def _lock_path(self) -> Path:
         """Return a store-stable lock path independent of process TMPDIR.
@@ -996,6 +1055,7 @@ class OwnerCommentsStore:
                 raise ContractError(
                     f"unsafe owner-comment transaction path {relative_text!r}"
                 )
+            self._assert_safe_target(self.root / relative)
             seen.add(relative)
             if existed:
                 if not isinstance(backup_name, str) or not backup_name.isdigit():
@@ -1740,20 +1800,39 @@ class OwnerCommentsStore:
         records: list[Record] = []
         errors: list[str] = []
         seen_ids: dict[str, Path] = {}
-        if not self.comments.exists():
+
+        def is_real_kind(path: Path, predicate) -> bool:
+            try:
+                metadata = os.lstat(path)
+            except OSError:
+                return False
+            return not _is_link_or_reparse(path, metadata) and predicate(
+                metadata.st_mode
+            )
+
+        try:
+            comments_metadata = os.lstat(self.comments)
+        except FileNotFoundError:
             return [], []
-        if self.comments.is_symlink() or not self.comments.is_dir():
+        except OSError:
+            comments_metadata = None
+        if (
+            comments_metadata is None
+            or _is_link_or_reparse(self.comments, comments_metadata)
+            or not stat.S_ISDIR(comments_metadata.st_mode)
+        ):
             return [], [
-                "docs/owner-comments: must be a real directory, not a symlink"
+                "docs/owner-comments: must be a real directory, not a link, "
+                "junction, or reparse point"
             ]
 
         candidates: list[Path] = []
         for child in sorted(self.comments.iterdir()):
             if child.name in {"README.md", "index.json", "record.schema.json"}:
-                if child.is_symlink() or not child.is_file():
+                if not is_real_kind(child, stat.S_ISREG):
                     errors.append(
                         f"{child.relative_to(self.root).as_posix()}: must be a "
-                        "regular file, not a symlink"
+                        "regular file, not a link or reparse point"
                     )
                 continue
             if child.name not in canonical:
@@ -1762,30 +1841,30 @@ class OwnerCommentsStore:
                     "of the closed owner-comment storage contract"
                 )
                 continue
-            if child.is_symlink() or not child.is_dir():
+            if not is_real_kind(child, stat.S_ISDIR):
                 errors.append(
                     f"{child.relative_to(self.root).as_posix()}: repository path "
-                    "must be a real directory, not a symlink"
+                    "must be a real directory, not a link, junction, or reparse point"
                 )
                 continue
             for entry in sorted(child.iterdir()):
                 if entry.name == "README.md":
-                    if entry.is_symlink() or not entry.is_file():
+                    if not is_real_kind(entry, stat.S_ISREG):
                         errors.append(
                             f"{entry.relative_to(self.root).as_posix()}: must be "
-                            "a regular file, not a symlink"
+                            "a regular file, not a link or reparse point"
                         )
                 elif entry.name == "consumed":
-                    if entry.is_symlink() or not entry.is_dir():
+                    if not is_real_kind(entry, stat.S_ISDIR):
                         errors.append(
                             f"{entry.relative_to(self.root).as_posix()}: consumed "
-                            "must be a real directory, not a symlink"
+                            "must be a real directory, not a link, junction, or "
+                            "reparse point"
                         )
                         continue
                     for history in sorted(entry.iterdir()):
                         if (
-                            history.is_symlink()
-                            or not history.is_file()
+                            not is_real_kind(history, stat.S_ISREG)
                             or history.suffix != ".json"
                         ):
                             errors.append(
@@ -1796,8 +1875,7 @@ class OwnerCommentsStore:
                         else:
                             candidates.append(history)
                 elif (
-                    entry.is_symlink()
-                    or not entry.is_file()
+                    not is_real_kind(entry, stat.S_ISREG)
                     or entry.suffix != ".json"
                 ):
                     errors.append(

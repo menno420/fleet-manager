@@ -83,7 +83,10 @@ target must be writable: a read-only record or index is rejected before a move,
 temporary, or recovery journal exists, because clearing that attribute first
 would create an unrecoverable mode-only crash window. Make the file writable
 and retry. Storage scans and mutations also `lstat` the lexical store root,
-`docs/`, and `docs/owner-comments/`; none may be a symlink.
+`docs/`, `docs/owner-comments/`, repository folders, `consumed/`, and record
+targets before traversal. Links and Windows name-surrogate reparse points are
+refused; every Windows directory reparse point (including a junction or mount
+point) is refused even when its tag is otherwise unknown.
 
 ## Commands
 
