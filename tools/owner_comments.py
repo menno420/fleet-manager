@@ -24,11 +24,15 @@ from __future__ import annotations
 
 import argparse
 import copy
+import hashlib
 import json
 import os
 import re
+import shutil
+import subprocess
 import sys
 import tempfile
+from contextlib import contextmanager
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -39,18 +43,51 @@ REPO = Path(__file__).resolve().parents[1]
 COMMENTS_REL = Path("docs/owner-comments")
 ESTATE_REL = Path("docs/ESTATE.md")
 SCHEMA_VERSION = 1
+SCHEMA_SHA256 = "f20d60213aafd6abe5ca315d9b468cb5ddbab14fd9e3bddea8263c2fbedb76a4"
 ID_RE = re.compile(r"^[a-z0-9][a-z0-9._-]{2,79}$")
 SURFACE_RE = re.compile(r"^[a-z0-9][a-z0-9._-]{0,63}$")
+REPOSITORY_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,99}$")
 TIMESTAMP_RE = re.compile(
     r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,6})?Z$"
 )
 ESTATE_ROW_RE = re.compile(r"^\|\s*`([^`]+)`\s*\|")
 MAX_COMMENT_CHARS = 20_000
 MAX_CONTEXT_CHARS = 1_000
+WINDOWS_RESERVED = {
+    "con", "prn", "aux", "nul",
+    *(f"com{number}" for number in range(1, 10)),
+    *(f"lpt{number}" for number in range(1, 10)),
+}
+ROOT_RESERVED = {"readme.md", "index.json", "record.schema.json"}
 
 
 class ContractError(ValueError):
     """The committed owner-comment contract is invalid or unsafe to change."""
+
+
+def _windows_safe_component(value: str) -> bool:
+    return (
+        not value.endswith((".", " "))
+        and value.split(".", 1)[0].casefold() not in WINDOWS_RESERVED
+    )
+
+
+def _valid_comment_id(value: Any) -> bool:
+    return (
+        isinstance(value, str)
+        and bool(ID_RE.fullmatch(value))
+        and ".." not in value
+        and not value.endswith(".lock")
+        and _windows_safe_component(value)
+    )
+
+
+def _valid_repository(value: str) -> bool:
+    return (
+        bool(REPOSITORY_RE.fullmatch(value))
+        and _windows_safe_component(value)
+        and value.casefold() not in ROOT_RESERVED
+    )
 
 
 @dataclass(frozen=True)
@@ -71,11 +108,15 @@ class Record:
         return str(self.data["state"])
 
 
+def _parse_timestamp(value: str) -> datetime:
+    return datetime.fromisoformat(value[:-1] + "+00:00")
+
+
 def _utc_timestamp(value: str, field: str) -> str | None:
     if not isinstance(value, str) or not TIMESTAMP_RE.fullmatch(value):
         return f"{field} must be an RFC3339 UTC timestamp ending in Z"
     try:
-        datetime.fromisoformat(value[:-1] + "+00:00")
+        _parse_timestamp(value)
     except ValueError:
         return f"{field} is not a real timestamp"
     return None
@@ -87,6 +128,42 @@ def _json_bytes(data: Any) -> bytes:
     )
 
 
+def _reject_duplicate_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    result: dict[str, Any] = {}
+    for key, value in pairs:
+        if key in result:
+            raise ContractError(f"duplicate JSON key {key!r}")
+        result[key] = value
+    return result
+
+
+def _load_json(path: Path) -> tuple[dict[str, Any], bytes]:
+    raw = path.read_bytes()
+    return _decode_json(raw), raw
+
+
+def _decode_json(raw: bytes) -> dict[str, Any]:
+    data = json.loads(raw.decode("utf-8"), object_pairs_hook=_reject_duplicate_keys)
+    if not isinstance(data, dict):
+        raise ContractError("record must be a JSON object")
+    if _contains_surrogate(data):
+        raise ContractError("record contains an invalid Unicode surrogate")
+    return data
+
+
+def _contains_surrogate(value: Any) -> bool:
+    if isinstance(value, str):
+        return any(0xD800 <= ord(character) <= 0xDFFF for character in value)
+    if isinstance(value, dict):
+        return any(
+            _contains_surrogate(key) or _contains_surrogate(item)
+            for key, item in value.items()
+        )
+    if isinstance(value, list):
+        return any(_contains_surrogate(item) for item in value)
+    return False
+
+
 def _atomic_write(path: Path, content: bytes) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     fd, temporary = tempfile.mkstemp(prefix=f".{path.name}.", dir=path.parent)
@@ -96,7 +173,41 @@ def _atomic_write(path: Path, content: bytes) -> None:
             handle.flush()
             os.fsync(handle.fileno())
         os.replace(temporary, path)
-    except Exception:
+    except BaseException:
+        try:
+            os.unlink(temporary)
+        except FileNotFoundError:
+            pass
+        raise
+
+
+def _fsync_directory(path: Path) -> None:
+    """Best-effort directory sync for transaction markers on supported OSes."""
+    flags = os.O_RDONLY | getattr(os, "O_DIRECTORY", 0)
+    try:
+        descriptor = os.open(path, flags)
+    except OSError:
+        return
+    try:
+        os.fsync(descriptor)
+    except OSError:
+        pass
+    finally:
+        os.close(descriptor)
+
+
+def _write_transaction_manifest(path: Path, data: dict[str, Any]) -> None:
+    """Durably replace a transaction manifest without using the data writer."""
+    content = _json_bytes(data)
+    fd, temporary = tempfile.mkstemp(prefix=".manifest.", dir=path.parent)
+    try:
+        with os.fdopen(fd, "wb") as handle:
+            handle.write(content)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temporary, path)
+        _fsync_directory(path.parent)
+    except BaseException:
         try:
             os.unlink(temporary)
         except FileNotFoundError:
@@ -130,12 +241,18 @@ def validate_record(data: Any, *, relative_path: Path | None = None) -> list[str
     if missing:
         return errors
 
-    if data.get("schema_version") != SCHEMA_VERSION:
+    if type(data.get("schema_version")) is not int or data.get(
+        "schema_version"
+    ) != SCHEMA_VERSION:
         errors.append(f"{label}: schema_version must be {SCHEMA_VERSION}")
 
     comment_id = data.get("id")
-    if not isinstance(comment_id, str) or not ID_RE.fullmatch(comment_id):
-        errors.append(f"{label}: id must match {ID_RE.pattern}")
+    if not _valid_comment_id(comment_id):
+        errors.append(
+            f"{label}: id must be lowercase path/ref-safe text, 3–80 "
+            "characters, with no '..', trailing '.', '.lock', or Windows "
+            "reserved device name"
+        )
 
     repository = data.get("repository")
     if not isinstance(repository, str) or not repository:
@@ -146,7 +263,7 @@ def validate_record(data: Any, *, relative_path: Path | None = None) -> list[str
         errors.append(f"{label}: {timestamp_error}")
 
     state = data.get("state")
-    if state not in {"unconsumed", "consumed"}:
+    if not isinstance(state, str) or state not in {"unconsumed", "consumed"}:
         errors.append(f"{label}: state must be unconsumed or consumed")
 
     comment = data.get("comment")
@@ -183,7 +300,7 @@ def validate_record(data: Any, *, relative_path: Path | None = None) -> list[str
 
     consumption = data.get("consumption")
     if state == "unconsumed":
-        if consumption is not None:
+        if "consumption" in data:
             errors.append(f"{label}: unconsumed record must not have consumption")
     elif state == "consumed":
         if not isinstance(consumption, dict):
@@ -225,12 +342,8 @@ def validate_record(data: Any, *, relative_path: Path | None = None) -> list[str
                             f"{label}: consumption.{key} must not contain a NUL byte"
                         )
                 if not consumed_at_error and not timestamp_error:
-                    created = datetime.fromisoformat(
-                        str(data["created_at"])[:-1] + "+00:00"
-                    )
-                    consumed = datetime.fromisoformat(
-                        str(consumption["at"])[:-1] + "+00:00"
-                    )
+                    created = _parse_timestamp(str(data["created_at"]))
+                    consumed = _parse_timestamp(str(consumption["at"]))
                     if consumed < created:
                         errors.append(
                             f"{label}: consumption.at must not precede created_at"
@@ -265,6 +378,327 @@ class OwnerCommentsStore:
         self.comments = self.root / COMMENTS_REL
         self.estate = self.root / ESTATE_REL
 
+    def _assert_safe_target(self, path: Path) -> None:
+        if self.comments.is_symlink():
+            raise ContractError("docs/owner-comments must not be a symlink")
+        base = self.comments.resolve(strict=False)
+        resolved = path.resolve(strict=False)
+        try:
+            resolved.relative_to(base)
+        except ValueError as exc:
+            raise ContractError(f"owner-comment path escapes storage root: {path}") from exc
+        if path.is_symlink():
+            raise ContractError(f"owner-comment target must not be a symlink: {path}")
+
+    def _lock_path(self) -> Path:
+        """Return a store-stable lock path independent of process TMPDIR.
+
+        A Git common-dir lock serializes all worktrees of the same repository
+        without dirtying the tree.  The non-Git fallback is derived from the
+        resolved store path and its parent, so two processes cannot evade each
+        other merely by carrying different temporary-directory environments.
+        """
+        digest = hashlib.sha256(str(self.root).encode("utf-8")).hexdigest()[:20]
+        result = subprocess.run(
+            ["git", "rev-parse", "--git-common-dir"],
+            cwd=self.root,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if result.returncode == 0 and result.stdout.strip():
+            common = Path(result.stdout.strip())
+            if not common.is_absolute():
+                common = self.root / common
+            return common.resolve() / f"fleet-manager-owner-comments-{digest}.lock"
+        return (
+            self.root.parent
+            / ".fleet-manager-owner-comment-locks"
+            / f"{digest}.lock"
+        )
+
+    def _transaction_root(self) -> Path:
+        """Non-worktree journal home shared by every process for this store."""
+        lock_path = self._lock_path()
+        return lock_path.parent / f"{lock_path.stem}-transactions"
+
+    @contextmanager
+    def mutation_lock(self):
+        """Take a non-blocking process lock for a consume transaction.
+
+        The lock lives in Git's common metadata (or a root-derived fallback),
+        and the OS releases it if a process dies. That avoids both concurrent
+        rollbacks undoing a successful consume and TMPDIR-specific lock islands.
+        """
+        lock_path = self._lock_path()
+        lock_path.parent.mkdir(parents=True, exist_ok=True)
+        handle = lock_path.open("a+b")
+        try:
+            if os.name == "nt":
+                import msvcrt  # noqa: PLC0415 — platform-specific stdlib
+
+                handle.seek(0, os.SEEK_END)
+                if handle.tell() == 0:
+                    handle.write(b"\0")
+                    handle.flush()
+                handle.seek(0)
+                msvcrt.locking(handle.fileno(), msvcrt.LK_NBLCK, 1)
+            else:
+                import fcntl  # noqa: PLC0415 — platform-specific stdlib
+
+                fcntl.flock(handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except (BlockingIOError, OSError) as exc:
+            handle.close()
+            raise ContractError(
+                "another owner-comment mutation transaction is in progress"
+            ) from exc
+        try:
+            self._recover_transactions()
+            yield
+        finally:
+            if os.name == "nt":
+                import msvcrt  # noqa: PLC0415 — platform-specific stdlib
+
+                handle.seek(0)
+                msvcrt.locking(handle.fileno(), msvcrt.LK_UNLCK, 1)
+            else:
+                import fcntl  # noqa: PLC0415 — platform-specific stdlib
+
+                fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
+            handle.close()
+
+    def _transaction_manifest(
+        self, paths: tuple[Path, ...]
+    ) -> dict[str, Any]:
+        entries = []
+        for number, path in enumerate(paths):
+            try:
+                relative = path.relative_to(self.root)
+            except ValueError as exc:
+                raise ContractError(
+                    f"transaction path is outside repository root: {path}"
+                ) from exc
+            entries.append(
+                {
+                    "path": relative.as_posix(),
+                    "existed": path.exists(),
+                    "backup": str(number) if path.exists() else None,
+                }
+            )
+        return {
+            "schema_version": 1,
+            "state": "prepared",
+            "root": str(self.root),
+            "entries": entries,
+        }
+
+    def _read_transaction_manifest(
+        self, backup_root: Path
+    ) -> dict[str, Any] | None:
+        manifest_path = backup_root / "manifest.json"
+        if not manifest_path.exists():
+            return None
+        if manifest_path.is_symlink() or not manifest_path.is_file():
+            raise ContractError(
+                f"invalid owner-comment transaction manifest: {manifest_path}"
+            )
+        try:
+            data, raw = _load_json(manifest_path)
+        except Exception as exc:
+            raise ContractError(
+                f"cannot read owner-comment transaction manifest {manifest_path}: {exc}"
+            ) from exc
+        if raw != _json_bytes(data):
+            raise ContractError(
+                f"owner-comment transaction manifest is not canonical: {manifest_path}"
+            )
+        if set(data) != {"schema_version", "state", "root", "entries"}:
+            raise ContractError(
+                f"owner-comment transaction manifest has unknown fields: {manifest_path}"
+            )
+        if data.get("schema_version") != 1 or data.get("state") not in {
+            "prepared",
+            "committed",
+        }:
+            raise ContractError(
+                f"owner-comment transaction manifest has invalid state: {manifest_path}"
+            )
+        if data.get("root") != str(self.root):
+            raise ContractError(
+                f"owner-comment transaction belongs to another worktree: {manifest_path}"
+            )
+        if not isinstance(data.get("entries"), list):
+            raise ContractError(
+                f"owner-comment transaction manifest entries are invalid: {manifest_path}"
+            )
+
+        seen: set[Path] = set()
+        for entry in data["entries"]:
+            if not isinstance(entry, dict) or set(entry) != {
+                "path",
+                "existed",
+                "backup",
+            }:
+                raise ContractError(
+                    f"owner-comment transaction entry is invalid: {manifest_path}"
+                )
+            relative_text = entry.get("path")
+            existed = entry.get("existed")
+            backup_name = entry.get("backup")
+            if not isinstance(relative_text, str) or not isinstance(existed, bool):
+                raise ContractError(
+                    f"owner-comment transaction entry types are invalid: {manifest_path}"
+                )
+            relative = Path(relative_text)
+            if (
+                relative.is_absolute()
+                or ".." in relative.parts
+                or not relative.parts
+                or relative.parts[:2] != COMMENTS_REL.parts
+                or relative in seen
+            ):
+                raise ContractError(
+                    f"unsafe owner-comment transaction path {relative_text!r}"
+                )
+            seen.add(relative)
+            target = self.root / relative
+            self._assert_safe_target(target)
+            if existed:
+                if not isinstance(backup_name, str) or not backup_name.isdigit():
+                    raise ContractError(
+                        f"owner-comment transaction backup is invalid: {manifest_path}"
+                    )
+                backup = backup_root / backup_name
+                if (
+                    data["state"] == "prepared"
+                    and (backup.is_symlink() or not backup.is_file())
+                ):
+                    raise ContractError(
+                        f"owner-comment transaction backup is missing: {backup}"
+                    )
+            elif backup_name is not None:
+                raise ContractError(
+                    f"owner-comment transaction has a backup for an absent path: "
+                    f"{manifest_path}"
+                )
+        return data
+
+    def _restore_transaction(
+        self, backup_root: Path, manifest: dict[str, Any]
+    ) -> None:
+        """Idempotently restore a prepared transaction without consuming backups."""
+        for entry in manifest["entries"]:
+            target = self.root / entry["path"]
+            if entry["existed"]:
+                backup = backup_root / entry["backup"]
+                target.parent.mkdir(parents=True, exist_ok=True)
+                fd, temporary = tempfile.mkstemp(
+                    prefix=f".{target.name}.recover.", dir=target.parent
+                )
+                os.close(fd)
+                try:
+                    shutil.copy2(backup, temporary)
+                    with open(temporary, "rb") as handle:
+                        os.fsync(handle.fileno())
+                    os.replace(temporary, target)
+                    _fsync_directory(target.parent)
+                except BaseException:
+                    try:
+                        os.unlink(temporary)
+                    except FileNotFoundError:
+                        pass
+                    raise
+            elif target.exists() or target.is_symlink():
+                if target.is_dir() and not target.is_symlink():
+                    raise ContractError(
+                        f"transaction recovery refuses to delete directory: {target}"
+                    )
+                target.unlink()
+                _fsync_directory(target.parent)
+
+    def _recover_transactions(self) -> None:
+        """Recover any process-terminated transaction while holding the lock."""
+        transaction_root = self._transaction_root()
+        if not transaction_root.exists():
+            return
+        if transaction_root.is_symlink() or not transaction_root.is_dir():
+            raise ContractError(
+                f"invalid owner-comment transaction root: {transaction_root}"
+            )
+        for backup_root in sorted(transaction_root.glob("txn-*")):
+            if backup_root.is_symlink() or not backup_root.is_dir():
+                raise ContractError(
+                    f"invalid owner-comment transaction path: {backup_root}"
+                )
+            manifest = self._read_transaction_manifest(backup_root)
+            if manifest is None:
+                # ``txn-*`` is published into this root-digested, non-worktree
+                # directory only after a durable manifest exists.  Therefore a
+                # manifest-less published directory can only be residue from
+                # committed cleanup deleting the manifest before the directory.
+                shutil.rmtree(backup_root, ignore_errors=True)
+                continue
+            if manifest["state"] == "prepared":
+                self._restore_transaction(backup_root, manifest)
+                manifest["state"] = "committed"
+                _write_transaction_manifest(
+                    backup_root / "manifest.json", manifest
+                )
+            shutil.rmtree(backup_root, ignore_errors=True)
+            _fsync_directory(self.root)
+
+    @contextmanager
+    def rollback_snapshot(self, paths: tuple[Path, ...]):
+        """Restore files on exceptions and journal recovery across process death.
+
+        Backups live on the repository filesystem and prefer hard links, so a
+        persistent failure in ``_atomic_write`` cannot also disable rollback.
+        A durable prepared/committed manifest lets the next locked operation
+        recover an ``os._exit``/SIGTERM interruption deterministically.
+        """
+        transaction_root = self._transaction_root()
+        transaction_root.mkdir(parents=True, exist_ok=True)
+        backup_root = Path(
+            tempfile.mkdtemp(prefix=".initializing-", dir=transaction_root)
+        )
+        manifest = self._transaction_manifest(paths)
+        prepared = False
+        try:
+            for entry in manifest["entries"]:
+                if entry["existed"]:
+                    path = self.root / entry["path"]
+                    backup = backup_root / entry["backup"]
+                    try:
+                        os.link(path, backup)
+                    except OSError:
+                        shutil.copy2(path, backup)
+            _write_transaction_manifest(backup_root / "manifest.json", manifest)
+            final_root = transaction_root / (
+                "txn-" + backup_root.name.removeprefix(".initializing-")
+            )
+            os.replace(backup_root, final_root)
+            _fsync_directory(transaction_root)
+            backup_root = final_root
+            prepared = True
+            yield
+            manifest["state"] = "committed"
+            _write_transaction_manifest(backup_root / "manifest.json", manifest)
+        except BaseException:
+            if prepared:
+                self._restore_transaction(backup_root, manifest)
+                # Mark the restored state final before cleanup, so a cleanup
+                # interruption never retries against partially removed backups.
+                manifest["state"] = "committed"
+                _write_transaction_manifest(
+                    backup_root / "manifest.json", manifest
+                )
+                shutil.rmtree(backup_root, ignore_errors=True)
+            else:
+                shutil.rmtree(backup_root, ignore_errors=True)
+            raise
+        else:
+            shutil.rmtree(backup_root, ignore_errors=True)
+
     def repositories(self) -> list[str]:
         if not self.estate.is_file():
             raise ContractError(f"missing estate index: {self.estate}")
@@ -275,9 +709,80 @@ class OwnerCommentsStore:
         ]
         if not repositories:
             raise ContractError("docs/ESTATE.md contains no canonical repository rows")
+        invalid = [repo for repo in repositories if not _valid_repository(repo)]
+        if invalid:
+            raise ContractError(
+                "docs/ESTATE.md has unsafe repository name(s): "
+                + ", ".join(repr(repo) for repo in invalid)
+            )
         if len(repositories) != len(set(repositories)):
             raise ContractError("docs/ESTATE.md contains duplicate repository rows")
+        folded = [repository.casefold() for repository in repositories]
+        if len(folded) != len(set(folded)):
+            raise ContractError(
+                "docs/ESTATE.md contains case-folding repository collisions"
+            )
         return repositories
+
+    def staged_blob_errors(self) -> list[str]:
+        """Validate committed/index bytes before checkout normalization masks them.
+
+        GitHub's Contents/Git Data APIs can commit CRLF blobs directly.  An
+        ``eol=lf`` checkout then presents LF worktree bytes while the PR still
+        contains CRLF, so worktree-only validation is insufficient.  The index
+        is the exact candidate tree in CI and the next committed tree locally.
+        """
+        if not (self.root / ".git").exists():
+            return []
+        listing = subprocess.run(
+            ["git", "ls-files", "-z", "--", COMMENTS_REL.as_posix()],
+            cwd=self.root,
+            capture_output=True,
+            check=False,
+        )
+        if listing.returncode != 0:
+            return ["owner-comment blobs: git ls-files failed"]
+
+        errors: list[str] = []
+        for encoded in listing.stdout.split(b"\0"):
+            if not encoded:
+                continue
+            path_text = encoded.decode("utf-8", errors="strict")
+            shown = subprocess.run(
+                ["git", "show", f":{path_text}"],
+                cwd=self.root,
+                capture_output=True,
+                check=False,
+            )
+            if shown.returncode != 0:
+                errors.append(f"{path_text}: cannot read staged blob")
+                continue
+            raw = shown.stdout
+            if b"\r" in raw:
+                errors.append(
+                    f"{path_text}: staged blob contains CR bytes; committed "
+                    "owner-comment files must use LF"
+                )
+            if not path_text.endswith(".json"):
+                continue
+            if path_text == (COMMENTS_REL / "record.schema.json").as_posix():
+                if hashlib.sha256(raw).hexdigest() != SCHEMA_SHA256:
+                    errors.append(
+                        f"{path_text}: staged schema differs from the executable "
+                        "contract"
+                    )
+                continue
+            try:
+                data = _decode_json(raw)
+            except Exception as exc:
+                errors.append(f"{path_text}: invalid staged JSON ({exc})")
+                continue
+            if raw != _json_bytes(data):
+                errors.append(
+                    f"{path_text}: staged JSON blob is not canonical; the Git "
+                    "object, not only checkout bytes, must be canonical"
+                )
+        return errors
 
     def scan(self) -> tuple[list[Record], list[str]]:
         canonical = set(self.repositories())
@@ -286,25 +791,86 @@ class OwnerCommentsStore:
         seen_ids: dict[str, Path] = {}
         if not self.comments.exists():
             return [], []
+        if self.comments.is_symlink() or not self.comments.is_dir():
+            return [], [
+                "docs/owner-comments: must be a real directory, not a symlink"
+            ]
 
-        for candidate in sorted(self.comments.rglob("*.json")):
-            rel = candidate.relative_to(self.comments)
-            if rel == Path("index.json"):
+        candidates: list[Path] = []
+        for child in sorted(self.comments.iterdir()):
+            if child.name in {"README.md", "index.json", "record.schema.json"}:
+                if child.is_symlink() or not child.is_file():
+                    errors.append(
+                        f"{child.relative_to(self.root).as_posix()}: must be a "
+                        "regular file, not a symlink"
+                    )
                 continue
-            if len(rel.parts) not in {2, 3}:
-                errors.append(f"{rel.as_posix()}: unsupported JSON path")
-                continue
-            repository = rel.parts[0]
-            if repository not in canonical:
+            if child.name not in canonical:
                 errors.append(
-                    f"{rel.as_posix()}: repository is not indexed by docs/ESTATE.md"
+                    f"{child.relative_to(self.root).as_posix()}: path is not part "
+                    "of the closed owner-comment storage contract"
                 )
+                continue
+            if child.is_symlink() or not child.is_dir():
+                errors.append(
+                    f"{child.relative_to(self.root).as_posix()}: repository path "
+                    "must be a real directory, not a symlink"
+                )
+                continue
+            for entry in sorted(child.iterdir()):
+                if entry.name == "README.md":
+                    if entry.is_symlink() or not entry.is_file():
+                        errors.append(
+                            f"{entry.relative_to(self.root).as_posix()}: must be "
+                            "a regular file, not a symlink"
+                        )
+                elif entry.name == "consumed":
+                    if entry.is_symlink() or not entry.is_dir():
+                        errors.append(
+                            f"{entry.relative_to(self.root).as_posix()}: consumed "
+                            "must be a real directory, not a symlink"
+                        )
+                        continue
+                    for history in sorted(entry.iterdir()):
+                        if (
+                            history.is_symlink()
+                            or not history.is_file()
+                            or history.suffix != ".json"
+                        ):
+                            errors.append(
+                                f"{history.relative_to(self.root).as_posix()}: "
+                                "only regular lowercase .json records are allowed "
+                                "under consumed/"
+                            )
+                        else:
+                            candidates.append(history)
+                elif (
+                    entry.is_symlink()
+                    or not entry.is_file()
+                    or entry.suffix != ".json"
+                ):
+                    errors.append(
+                        f"{entry.relative_to(self.root).as_posix()}: only README.md, "
+                        "consumed/, and regular lowercase .json records are allowed "
+                        "under a repository index"
+                    )
+                else:
+                    candidates.append(entry)
+
+        for candidate in sorted(candidates):
+            rel = candidate.relative_to(self.comments)
+            repository = rel.parts[0]
             try:
-                data = json.loads(candidate.read_text(encoding="utf-8"))
+                data, raw = _load_json(candidate)
             except Exception as exc:
                 errors.append(f"{rel.as_posix()}: invalid JSON ({exc})")
                 continue
             record_errors = validate_record(data, relative_path=rel)
+            if raw != _json_bytes(data):
+                record_errors.append(
+                    f"{rel.as_posix()}: record JSON is not canonical; use sorted "
+                    "keys, two-space indentation, UTF-8, and one final newline"
+                )
             errors.extend(record_errors)
             if record_errors:
                 continue
@@ -317,15 +883,156 @@ class OwnerCommentsStore:
                 continue
             seen_ids[comment_id] = rel
             records.append(Record(path=rel, data=data))
-
-        if self.comments.is_dir():
-            for child in sorted(self.comments.iterdir()):
-                if child.is_dir() and child.name not in canonical:
-                    errors.append(
-                        f"{child.relative_to(self.root).as_posix()}: directory is not "
-                        "a canonical docs/ESTATE.md repository"
-                    )
         return records, errors
+
+    def _merge_base(self) -> tuple[str | None, list[str]]:
+        if not (self.root / ".git").exists():
+            return None, []  # isolated contract tests, not a repository gate
+        branch = os.environ.get("GITHUB_BASE_REF") or "main"
+        for candidate in (f"origin/{branch}", branch):
+            result = subprocess.run(
+                ["git", "merge-base", candidate, "HEAD"],
+                cwd=self.root,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            if result.returncode == 0 and result.stdout.strip():
+                return result.stdout.strip(), []
+        return None, [
+            "owner-comment lifecycle: cannot establish merge base with "
+            f"origin/{branch} or {branch}"
+        ]
+
+    def _base_records(self) -> tuple[list[Record] | None, list[str]]:
+        base, errors = self._merge_base()
+        if base is None:
+            # ``None`` means lifecycle comparison is unavailable (the focused
+            # unit-test store is intentionally not a Git repository, or Git
+            # could not establish a trustworthy base).  An empty list, by
+            # contrast, is a real Git base containing no comment records.
+            return None, errors
+        listing = subprocess.run(
+            [
+                "git", "ls-tree", "-r", "--name-only", "-z", base, "--",
+                COMMENTS_REL.as_posix(),
+            ],
+            cwd=self.root,
+            capture_output=True,
+            check=False,
+        )
+        if listing.returncode != 0:
+            return [], ["owner-comment lifecycle: git ls-tree failed at merge base"]
+
+        records: list[Record] = []
+        seen: set[str] = set()
+        prefix = COMMENTS_REL.as_posix() + "/"
+        for encoded in listing.stdout.split(b"\0"):
+            if not encoded:
+                continue
+            path_text = encoded.decode("utf-8", errors="strict")
+            if not path_text.startswith(prefix):
+                continue
+            relative = Path(path_text[len(prefix):])
+            is_record = (
+                len(relative.parts) == 2 and relative.suffix == ".json"
+            ) or (
+                len(relative.parts) == 3
+                and relative.parts[1] == "consumed"
+                and relative.suffix == ".json"
+            )
+            if not is_record:
+                continue
+            shown = subprocess.run(
+                ["git", "show", f"{base}:{path_text}"],
+                cwd=self.root,
+                capture_output=True,
+                check=False,
+            )
+            if shown.returncode != 0:
+                errors.append(f"{path_text}: cannot read merge-base record")
+                continue
+            try:
+                data = _decode_json(shown.stdout)
+            except Exception as exc:
+                errors.append(f"{path_text}: invalid merge-base JSON ({exc})")
+                continue
+            record_errors = validate_record(data, relative_path=relative)
+            if shown.stdout != _json_bytes(data):
+                record_errors.append(f"{path_text}: merge-base JSON is not canonical")
+            if record_errors:
+                errors.extend(record_errors)
+                continue
+            comment_id = str(data["id"])
+            if comment_id in seen:
+                errors.append(f"{path_text}: duplicate merge-base id {comment_id!r}")
+                continue
+            seen.add(comment_id)
+            records.append(Record(path=relative, data=data))
+        return records, errors
+
+    def lifecycle_errors(self, current: list[Record]) -> list[str]:
+        """Enforce append-only records and the sole active→consumed mutation."""
+        base, errors = self._base_records()
+        if base is None:
+            return errors
+        if errors:
+            return errors
+        old_by_id = {record.comment_id: record for record in base}
+        new_by_id = {record.comment_id: record for record in current}
+
+        for comment_id, old in old_by_id.items():
+            new = new_by_id.get(comment_id)
+            if new is None:
+                errors.append(
+                    f"owner-comment lifecycle: {comment_id} was deleted; records "
+                    "must be preserved"
+                )
+                continue
+            if old.state == "consumed":
+                if new.path != old.path or new.data != old.data:
+                    errors.append(
+                        f"owner-comment lifecycle: consumed record {comment_id} "
+                        "is immutable"
+                    )
+                continue
+            if new.state == "unconsumed":
+                if new.path != old.path or new.data != old.data:
+                    errors.append(
+                        f"owner-comment lifecycle: active record {comment_id} may "
+                        "not be edited or renamed"
+                    )
+                continue
+
+            expected_path = (
+                Path(old.repository) / "consumed" / f"{comment_id}.json"
+            )
+            preserved = all(
+                new.data.get(key) == value
+                for key, value in old.data.items()
+                if key != "state"
+            )
+            if (
+                new.path != expected_path
+                or new.data.get("state") != "consumed"
+                or set(new.data) != set(old.data) | {"consumption"}
+                or not preserved
+            ):
+                errors.append(
+                    f"owner-comment lifecycle: {comment_id} may change only by "
+                    "moving to consumed/, changing state, and adding consumption"
+                )
+
+        for comment_id, new in new_by_id.items():
+            if comment_id in old_by_id:
+                continue
+            expected_path = Path(new.repository) / f"{comment_id}.json"
+            if new.state != "unconsumed" or new.path != expected_path:
+                errors.append(
+                    f"owner-comment lifecycle: new record {comment_id} must be "
+                    "added unconsumed at its canonical repository path"
+                )
+        return errors
 
     def _by_repository(self, records: list[Record]) -> dict[str, list[Record]]:
         result = {repository: [] for repository in self.repositories()}
@@ -333,7 +1040,12 @@ class OwnerCommentsStore:
             if record.repository in result:
                 result[record.repository].append(record)
         for values in result.values():
-            values.sort(key=lambda item: (item.data["created_at"], item.comment_id))
+            values.sort(
+                key=lambda item: (
+                    _parse_timestamp(item.data["created_at"]),
+                    item.comment_id,
+                )
+            )
         return result
 
     def render_root_index(self, records: list[Record]) -> bytes:
@@ -342,6 +1054,16 @@ class OwnerCommentsStore:
         for repository in self.repositories():
             active = [r for r in grouped[repository] if r.state == "unconsumed"]
             consumed = [r for r in grouped[repository] if r.state == "consumed"]
+            latest_active = max(
+                active,
+                key=lambda item: _parse_timestamp(item.data["created_at"]),
+                default=None,
+            )
+            latest_consumed = max(
+                consumed,
+                key=lambda item: _parse_timestamp(item.data["consumption"]["at"]),
+                default=None,
+            )
             rows.append(
                 {
                     "repository": repository,
@@ -349,13 +1071,12 @@ class OwnerCommentsStore:
                     "unconsumed_count": len(active),
                     "consumed_count": len(consumed),
                     "latest_unconsumed_at": (
-                        max((r.data["created_at"] for r in active), default=None)
+                        latest_active.data["created_at"] if latest_active else None
                     ),
                     "latest_consumed_at": (
-                        max(
-                            (r.data["consumption"]["at"] for r in consumed),
-                            default=None,
-                        )
+                        latest_consumed.data["consumption"]["at"]
+                        if latest_consumed
+                        else None
                     ),
                 }
             )
@@ -374,11 +1095,17 @@ class OwnerCommentsStore:
     def render_repository_index(self, repository: str, records: list[Record]) -> bytes:
         active = sorted(
             (r for r in records if r.repository == repository and r.state == "unconsumed"),
-            key=lambda item: (item.data["created_at"], item.comment_id),
+            key=lambda item: (
+                _parse_timestamp(item.data["created_at"]),
+                item.comment_id,
+            ),
         )
         consumed = sorted(
             (r for r in records if r.repository == repository and r.state == "consumed"),
-            key=lambda item: (item.data["consumption"]["at"], item.comment_id),
+            key=lambda item: (
+                _parse_timestamp(item.data["consumption"]["at"]),
+                item.comment_id,
+            ),
         )
         lines = [
             f"# Owner comments — `{repository}`",
@@ -386,8 +1113,9 @@ class OwnerCommentsStore:
             "> **Status:** `living-ledger`",
             ">",
             "> **Generated index.** Run `python3 tools/owner_comments.py reindex`;",
-            "> do not hand-edit this file. Comment text is a **public record**. The",
-            "> JSON files preserve the owner's wording verbatim.",
+            "> do not hand-edit this file. **Every record and all of its metadata",
+            "> are public.** Read the [storage and privacy contract](../README.md)",
+            "> before adding feedback. JSON preserves the owner's wording verbatim.",
             "",
             f"## Unconsumed ({len(active)})",
             "",
@@ -450,23 +1178,60 @@ class OwnerCommentsStore:
         return expected
 
     def check(self) -> list[str]:
+        with self.mutation_lock():
+            return self._check_locked()
+
+    def _check_locked(self) -> list[str]:
         records, errors = self.scan()
         if errors:
             return errors
+        for name in ("README.md", "record.schema.json"):
+            path = self.comments / name
+            relative = path.relative_to(self.root).as_posix()
+            if path.is_symlink() or not path.is_file():
+                errors.append(
+                    f"{relative}: missing required regular contract file"
+                )
+            elif name == "record.schema.json":
+                actual_hash = hashlib.sha256(path.read_bytes()).hexdigest()
+                if actual_hash != SCHEMA_SHA256:
+                    errors.append(
+                        f"{relative}: schema artifact differs from the executable "
+                        "contract; update both deliberately"
+                    )
         for path, expected in self.expected_indexes(records).items():
             relative = path.relative_to(self.root).as_posix()
             if not path.is_file():
                 errors.append(f"{relative}: missing generated index")
             elif path.read_bytes() != expected:
                 errors.append(f"{relative}: generated index is stale; run reindex")
+        errors.extend(self.staged_blob_errors())
+        errors.extend(self.lifecycle_errors(records))
         return errors
 
     def reindex(self) -> None:
+        with self.mutation_lock():
+            self._reindex_locked()
+
+    def _reindex_locked(self) -> None:
         records, errors = self.scan()
         if errors:
             raise ContractError("\n".join(errors))
+        changes: dict[Path, bytes] = {}
         for path, content in self.expected_indexes(records).items():
-            _atomic_write(path, content)
+            self._assert_safe_target(path)
+            if not path.is_file() or path.read_bytes() != content:
+                changes[path] = content
+        if not changes:
+            return
+        # A standalone reindex is one exception-safe projection transaction,
+        # just like the
+        # index half of consume: interruption on any write restores every
+        # already-written index instead of leaving root and repository views
+        # disagreeing.  consume adds an outer record snapshot around this.
+        with self.rollback_snapshot(tuple(changes)):
+            for path, content in changes.items():
+                _atomic_write(path, content)
 
     def consume(
         self,
@@ -482,15 +1247,39 @@ class OwnerCommentsStore:
             raise ContractError(
                 f"{repository!r} is not a canonical repository in docs/ESTATE.md"
             )
-        if not ID_RE.fullmatch(comment_id):
+        if not _valid_comment_id(comment_id):
             raise ContractError("unsafe or invalid comment id")
         timestamp_error = _utc_timestamp(consumed_at, "consumption.at")
         if timestamp_error:
             raise ContractError(timestamp_error)
-        if not actor.strip() or not evidence.strip():
+        if (
+            not isinstance(actor, str)
+            or not actor.strip()
+            or not isinstance(evidence, str)
+            or not evidence.strip()
+        ):
             raise ContractError("actor and evidence are required for consumption")
 
-        preflight_errors = self.check()
+        with self.mutation_lock():
+            return self._consume_locked(
+                repository,
+                comment_id,
+                consumed_at=consumed_at,
+                actor=actor,
+                evidence=evidence,
+            )
+
+    def _consume_locked(
+        self,
+        repository: str,
+        comment_id: str,
+        *,
+        consumed_at: str,
+        actor: str,
+        evidence: str,
+    ) -> Path:
+
+        preflight_errors = self._check_locked()
         if preflight_errors:
             raise ContractError(
                 "owner-comment tree is not clean before consume:\n"
@@ -499,6 +1288,8 @@ class OwnerCommentsStore:
 
         source = self.comments / repository / f"{comment_id}.json"
         destination = self.comments / repository / "consumed" / f"{comment_id}.json"
+        self._assert_safe_target(source)
+        self._assert_safe_target(destination)
         if not source.is_file():
             if destination.is_file():
                 raise ContractError(f"{comment_id!r} is already consumed")
@@ -506,7 +1297,10 @@ class OwnerCommentsStore:
         if destination.exists():
             raise ContractError(f"consumed destination already exists: {destination}")
 
-        data = json.loads(source.read_text(encoding="utf-8"))
+        try:
+            data, _ = _load_json(source)
+        except Exception as exc:
+            raise ContractError(f"invalid source record JSON: {exc}") from exc
         errors = validate_record(
             data, relative_path=source.relative_to(self.comments)
         )
@@ -527,33 +1321,22 @@ class OwnerCommentsStore:
             raise ContractError("\n".join(updated_errors))
         destination.parent.mkdir(parents=True, exist_ok=True)
 
-        tracked = {
-            path: path.read_bytes() if path.exists() else None
-            for path in (
-                source,
-                destination,
-                self.comments / repository / "README.md",
-                self.comments / "index.json",
-            )
-        }
-        try:
+        transaction_paths = (
+            source,
+            destination,
+            self.comments / repository / "README.md",
+            self.comments / "index.json",
+        )
+        with self.rollback_snapshot(transaction_paths):
             source.replace(destination)  # the lifecycle transition is a real move
             _atomic_write(destination, _json_bytes(updated))
-            self.reindex()
-            postflight_errors = self.check()
+            self._reindex_locked()
+            postflight_errors = self._check_locked()
             if postflight_errors:
                 raise ContractError(
                     "consume produced an invalid tree:\n"
                     + "\n".join(postflight_errors)
                 )
-        except Exception:
-            for path, prior in tracked.items():
-                if prior is None:
-                    if path.exists():
-                        path.unlink()
-                else:
-                    _atomic_write(path, prior)
-            raise
         return destination.relative_to(self.root)
 
 

@@ -3,8 +3,9 @@
 > **Status:** `living-ledger`
 >
 > **Generated index.** Run `python3 tools/owner_comments.py reindex`;
-> do not hand-edit this file. Comment text is a **public record**. The
-> JSON files preserve the owner's wording verbatim.
+> do not hand-edit this file. **Every record and all of its metadata
+> are public.** Read the [storage and privacy contract](../README.md)
+> before adding feedback. JSON preserves the owner's wording verbatim.
 
 ## Unconsumed (0)
 

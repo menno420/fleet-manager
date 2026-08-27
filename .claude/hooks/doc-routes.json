@@ -483,7 +483,7 @@
         "menno420/superbot(?![\\w-])",
         "\\bsuperbot repo\\b",
         "\\bworker service\\b",
-        "\\bsuperbot\\b(?![\\w-])(?! ?(next|idle|games|mineverse|world|plugin))"
+        "\\bsuperbot\\b(?![\\w-])(?! ?(next|idle|games|mineverse|world|plugin|2\\.0))"
       ],
       "docs": [
         "docs/repos/superbot/README.md"
@@ -499,7 +499,7 @@
         "menno420/superbot(?![\\w-])",
         "\\bsuperbot repo\\b",
         "\\bworker service\\b",
-        "\\bsuperbot\\b(?![\\w-])(?! ?(next|idle|games|mineverse|world|plugin))"
+        "\\bsuperbot\\b(?![\\w-])(?! ?(next|idle|games|mineverse|world|plugin|2\\.0))"
       ],
       "docs": [
         "docs/repos/superbot/README.md"
@@ -601,6 +601,7 @@
       "when": [
         "\\bsuperbot[- ]next\\b",
         "\\bsuperbot 2\\.0\\b",
+        "\\bthe rebuild\\b",
         "\\bthe old rebuild\\b",
         "menno420/superbot-next"
       ],

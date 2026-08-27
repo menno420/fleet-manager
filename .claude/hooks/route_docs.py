@@ -77,7 +77,38 @@ FIELDS = {
 DEFAULT_TOOLS = ("Bash", "WebFetch", "Read", "Glob", "Grep")
 
 PROMPT_EVENT = "UserPromptSubmit"
-LAYER2_INDEX_RE = re.compile(r"^docs/repos/([^/]+)/README\.md$")
+COMMENT_ALIAS_REPOS = (
+    (r"\bsuperbot[- ]games\b", ("superbot-games",)),
+    (r"\bsuperbot[- ]idle\b", ("superbot-idle",)),
+    (r"\b(superbot[- ]mineverse|mineverse)\b", ("superbot-mineverse",)),
+    (r"\b(superbot[- ]plugin[- ]hello|plugin[- ]hello)\b", ("superbot-plugin-hello",)),
+    (
+        r"\bsuperbot world\b",
+        ("superbot-games", "superbot-idle", "superbot-mineverse", "superbot-plugin-hello"),
+    ),
+    (
+        r"\b(superbot[- ]next|superbot 2\.0|the (old )?rebuild)\b",
+        ("superbot-next",),
+    ),
+    (r"\bmdverify\b", ("codetool-lab-opus4.8",)),
+    (r"\benvdrift\b(?!\.py)", ("codetool-lab-fable5",)),
+    (r"\bcfgdiff\b", ("codetool-lab-sonnet5",)),
+    (
+        r"\bcodetool[- ]labs?\b",
+        ("codetool-lab-opus4.8", "codetool-lab-fable5", "codetool-lab-sonnet5"),
+    ),
+    (r"\bshift calendar\b", ("shiftlife",)),
+    (r"\b(lumen[- ]drift|gba (project|game|games|rom|roms))\b", ("gba-homebrew",)),
+    (r"\bgba homebrew\b", ("gba-homebrew",)),
+    (r"\bpokemon (mod|hack)\b", ("pokemon-mod-lab",)),
+    (r"\bpokemon mod lab\b", ("pokemon-mod-lab",)),
+    (r"\bideas lab\b", ("idea-engine", "sim-lab")),
+    (r"\bidea engine\b", ("idea-engine",)),
+    (r"\bsim lab\b", ("sim-lab",)),
+    (r"\btrading strategy\b", ("trading-strategy",)),
+    (r"\bcurious research\b", ("curious-research",)),
+    (r"\b(kit dashboard|substrate[- ]kit[- ]app)\b", ("Substrate-kit-app",)),
+)
 
 # Session plumbing, never content. Only used by the defensive fallback below —
 # without this, a `cwd` or a `transcript_path` could trip a route on its own.
@@ -161,25 +192,81 @@ def remember(session: str, fired: set[str]) -> None:
         pass  # advisory state; losing it costs one duplicate line
 
 
-def routed_docs(route: dict) -> list[str]:
-    """Return existing route docs plus the repo's stable comment index.
+def comment_repository_names() -> list[str]:
+    """Repositories with stable indexes, from the generated root projection."""
+    try:
+        data = json.loads((REPO / "docs/owner-comments/index.json").read_text())
+        names = [row["repository"] for row in data["repositories"]]
+        return [
+            name for name in names
+            if isinstance(name, str)
+            and (REPO / f"docs/owner-comments/{name}/README.md").is_file()
+        ]
+    except Exception:
+        return []
 
-    Owner comments use arbitrary durable ids, while this hook can route only
-    literal files. Every Layer-2 repository route therefore carries its stable
-    ``docs/owner-comments/<repo>/README.md`` companion automatically. The
-    generated index exists for every ESTATE row; this small rule avoids a
-    parallel 20-entry hand-maintained list in ``doc-routes.json``.
+
+def mentioned_repositories(
+    text: str, repositories: list[str]
+) -> tuple[set[str], set[str]]:
+    """Resolve canonical slugs and product aliases by longest contained match.
+
+    This makes a full canonical slug beat a generic prefix (the exact
+    ``codetool-lab-opus4.8`` must not fan out through ``codetool labs``), while
+    a qualified product alias beats a shorter canonical prefix (``SuperBot
+    2.0`` is ``superbot-next``, not also ``superbot``).  The second result is
+    canonical repositories shadowed by a longer alias; matched legacy routes
+    must not re-add them later.
     """
-    docs: list[str] = []
-    for candidate in route.get("docs", []):
-        if (REPO / candidate).is_file() and candidate not in docs:
-            docs.append(candidate)
-        match = LAYER2_INDEX_RE.fullmatch(candidate)
+    # The hook commonly receives absolute paths.  Fleet Manager's own checkout
+    # directory is plumbing, not a repository mention: without stripping it,
+    # every absolute Read from this tree spuriously routes ``fleet-manager``
+    # feedback (including a self-read of another repo's comment index).
+    subject = text
+    for prefix in {str(REPO) + os.sep, REPO.as_posix() + "/"}:
+        subject = subject.replace(prefix, "")
+
+    candidates: list[tuple[int, int, frozenset[str], bool]] = []
+    for repository in repositories:
+        pattern = (
+            rf"(?<![A-Za-z0-9._-]){re.escape(repository)}"
+            r"(?![A-Za-z0-9._-])"
+        )
+        for match in re.finditer(pattern, subject, re.I):
+            candidates.append(
+                (match.start(), match.end(), frozenset({repository}), True)
+            )
+    for pattern, aliases in COMMENT_ALIAS_REPOS:
+        for match in re.finditer(pattern, subject, re.I):
+            candidates.append(
+                (match.start(), match.end(), frozenset(aliases), False)
+            )
+
+    selected: set[str] = set()
+    shadowed: set[str] = set()
+    for start, end, names, canonical in candidates:
+        dominated = any(
+            other_start <= start
+            and other_end >= end
+            and other_end - other_start > end - start
+            for other_start, other_end, _other_names, _canonical in candidates
+        )
+        if dominated:
+            if canonical:
+                shadowed.update(names)
+        else:
+            selected.update(names)
+    return selected, shadowed
+
+
+def repositories_for_route(route: dict) -> set[str]:
+    """Repository identity carried by a matched Layer-2 route."""
+    result: set[str] = set()
+    for doc in route.get("docs", []):
+        match = re.fullmatch(r"docs/repos/([^/]+)/README\.md", doc)
         if match:
-            companion = f"docs/owner-comments/{match.group(1)}/README.md"
-            if (REPO / companion).is_file() and companion not in docs:
-                docs.append(companion)
-    return docs
+            result.add(match.group(1))
+    return result
 
 
 def main() -> int:
@@ -210,6 +297,13 @@ def main() -> int:
     session = str(event.get("session_id") or "nosession")
     fired = already_fired(session)
     hits = []
+    available_comments = comment_repository_names()
+    if tool in DEFAULT_TOOLS or tool == PROMPT_EVENT:
+        comment_repositories, shadowed_comment_repositories = (
+            mentioned_repositories(text, available_comments)
+        )
+    else:
+        comment_repositories, shadowed_comment_repositories = set(), set()
 
     for route in routes:
         rid = route.get("id", "")
@@ -228,12 +322,12 @@ def main() -> int:
             continue
         if tool not in tuple(route.get("tools") or DEFAULT_TOOLS):
             continue
-        docs = routed_docs(route)
+        docs = [d for d in route.get("docs", []) if (REPO / d).is_file()]
         if not docs:
             continue
-        # Suppress each doc already being opened. Most routes have one, so that
-        # still means the hook has nothing to add; Layer-2 routes now have the
-        # stable owner-comment companion and can surface just that unopened doc.
+        # Already opening one of these docs? Then the configured route has
+        # nothing to add. The independent owner-comment route below still sees
+        # a canonical repo slug in the path and can surface its stable index.
         # Applies to probe routes AND to explicit read-event routes (Codex on
         # fm #878: a folder route re-fired on the very Read its prompt half had
         # just directed, repeating "read this file" onto the read itself).
@@ -250,16 +344,10 @@ def main() -> int:
         # unreviewed behind exactly that silence. The fm #878 defect this branch
         # exists for was a Read re-firing onto its own directed read, so scoping
         # the exemption away from Bash leaves that fix intact.
-        if tool != "Bash" and (
+        if any(d in text for d in docs) and tool != "Bash" and (
                 not route.get("tools") or tool in DEFAULT_TOOLS):
-            unopened = [doc for doc in docs if doc not in text]
-            if not unopened:
-                fired.add(rid)
-                continue
-            # A Layer-2 read still has one useful companion to surface: the
-            # stable owner-comment index. Suppress only paths actually being
-            # opened, not the whole route.
-            docs = unopened
+            fired.add(rid)
+            continue
         # `path_when` is checked against the file_path FIELD alone, never the
         # haystack, so naming a path in prose cannot satisfy it (fm #938).
         path_pats = route.get("path_when") or []
@@ -281,6 +369,33 @@ def main() -> int:
             continue  # a bad pattern silences its own route, never the hook
         fired.add(rid)
         hits.append((docs, route.get("says", "")))
+        comment_repositories.update(
+            repositories_for_route(route) - shadowed_comment_repositories
+        )
+
+    for repository in available_comments:
+        if repository not in comment_repositories:
+            continue
+        comment_route_id = f"owner-comments-{repository.lower()}"
+        if comment_route_id in fired:
+            continue
+        comment_index = f"docs/owner-comments/{repository}/README.md"
+        if tool != "Bash" and comment_index in text:
+            fired.add(comment_route_id)
+            continue
+        fired.add(comment_route_id)
+        hits.append(
+            (
+                [comment_index],
+                f"Owner feedback for {repository}: open the Unconsumed section "
+                "and each linked JSON record before acting. Consumed history is "
+                "preserved but is not active work. The entire record and its "
+                "metadata are public. Never put credentials, private-repository "
+                "contents or private-only URLs, third-party contact details, or "
+                "unreleased specifics here; the full contract is at "
+                "docs/owner-comments/README.md.",
+            )
+        )
 
     if not hits:
         return 0

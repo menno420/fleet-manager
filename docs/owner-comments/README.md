@@ -23,7 +23,8 @@ Fleet Manager branch-and-PR change has merged and the record is visible on
   [`ESTATE.md`](../ESTATE.md) plus the records. It is a projection, not a second
   repository registry.
 
-The JSON schema is version 1. It requires `schema_version`, `id`, `repository`,
+The normative [JSON Schema](record.schema.json) is version 1. It requires
+`schema_version`, `id`, `repository`,
 `created_at`, `state`, `source`, and `comment`. `comment` is the owner's wording
 verbatim. `source` requires a surface name and may carry a context string. A
 consumed record additionally carries `consumption.at`, `consumption.actor`, and
@@ -47,9 +48,25 @@ website must escape them as text; they are never templates or trusted Markdown.
 }
 ```
 
-Ids are 3–80 lowercase URL/path-safe characters (`a-z`, `0-9`, `.`, `_`, `-`)
-and the filename is exactly `<id>.json`. Repository spelling and case must match
-an `ESTATE.md` row. Timestamps are real RFC3339 UTC values ending in `Z`.
+Ids are 3–80 lowercase URL/path- and Git-ref-safe characters (`a-z`, `0-9`,
+`.`, `_`, `-`) and the filename is exactly `<id>.json`; consecutive dots,
+trailing dots/`.lock`, and Windows device names are rejected. Ids are unique
+across the ledger. Repository spelling and case must match an `ESTATE.md` row;
+reserved root filenames and case-folding collisions are rejected. Timestamps
+are real RFC3339 UTC values ending in `Z`.
+
+Record bytes are canonical: UTF-8 without invalid surrogates, keys sorted,
+two-space JSON indentation, no duplicate/unknown keys, and exactly one final
+newline. `tools/owner_comments.py check` is the executable reference for the
+ESTATE-membership, timestamp ordering, path, lifecycle, and canonical-byte
+rules that JSON Schema alone cannot express.
+
+`check` validates both checkout bytes and the staged Git-object bytes, so an API
+commit cannot hide CRLF/noncanonical records behind checkout normalization.
+Mutations share a worktree-stable process lock. Their recovery journals live in
+Git metadata (never in the committed record tree); the next `check`, `reindex`,
+or `consume` deterministically rolls back a process-terminated prepared change
+before continuing.
 
 ## Commands
 
