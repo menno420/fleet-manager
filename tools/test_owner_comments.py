@@ -477,10 +477,85 @@ store.consume(
             )
         }
 
-        with self.assertRaisesRegex(
-            ContractError, "temporary mismatch.*preserved.*quarantined"
-        ):
-            self.store.check()
+        preserve_crash_code = """
+import os
+import sys
+from pathlib import Path
+sys.path.insert(0, sys.argv[1])
+import owner_comments
+store = owner_comments.OwnerCommentsStore(Path(sys.argv[2]))
+real_replace = owner_comments.os.replace
+def preserve_then_crash(source, destination):
+    real_replace(source, destination)
+    if Path(destination).name.startswith('unexpected-atomic-1'):
+        os._exit(94)
+owner_comments.os.replace = preserve_then_crash
+store.check()
+"""
+        preserved = subprocess.run(
+            [
+                sys.executable,
+                "-c",
+                preserve_crash_code,
+                str(REPO / "tools"),
+                str(self.root),
+            ],
+            cwd=REPO,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(preserved.returncode, 94, preserved.stderr)
+        self.assertFalse(temporary.exists())
+
+        retry_code = """
+import os
+import sys
+from pathlib import Path
+sys.path.insert(0, sys.argv[1])
+import owner_comments
+store = owner_comments.OwnerCommentsStore(Path(sys.argv[2]))
+real_fsync = owner_comments.os.fsync
+real_rename = owner_comments.os.rename
+seen = {'file': False, 'directory': False}
+def track_fsync(descriptor):
+    try:
+        opened = Path(os.readlink(f'/proc/self/fd/{descriptor}'))
+    except OSError:
+        opened = Path('')
+    real_fsync(descriptor)
+    if opened.name.startswith('unexpected-atomic-1'):
+        seen['file'] = True
+    if opened.name.startswith('txn-'):
+        seen['directory'] = True
+def require_durable_preservation(source, destination):
+    if Path(destination).name.startswith('quarantine-') and not all(seen.values()):
+        os._exit(96)
+    real_rename(source, destination)
+owner_comments.os.fsync = track_fsync
+owner_comments.os.rename = require_durable_preservation
+try:
+    store.check()
+except owner_comments.ContractError as exc:
+    if 'temporary mismatch' not in str(exc):
+        raise
+else:
+    raise SystemExit(97)
+"""
+        retry = subprocess.run(
+            [
+                sys.executable,
+                "-c",
+                retry_code,
+                str(REPO / "tools"),
+                str(self.root),
+            ],
+            cwd=REPO,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(retry.returncode, 0, retry.stderr)
         self.assertEqual(
             {
                 path: path.read_bytes() if path.exists() else None
@@ -491,6 +566,79 @@ store.consume(
         transaction_root = self.store._transaction_root()
         self.assertFalse(list(transaction_root.glob("txn-*")))
         quarantine = next(transaction_root.glob("quarantine-*"))
+        self.assertEqual(
+            (quarantine / "unexpected-atomic-1").read_bytes(), unexpected
+        )
+
+    def test_same_filesystem_preservation_fsyncs_before_quarantine(self) -> None:
+        self.write_record()
+        self.store.reindex()
+        crash_code = """
+import os
+import sys
+from pathlib import Path
+sys.path.insert(0, sys.argv[1])
+import owner_comments
+store = owner_comments.OwnerCommentsStore(Path(sys.argv[2]))
+real_replace = owner_comments.os.replace
+def crash_before_atomic_replace(source, destination):
+    source = Path(source)
+    destination = Path(destination)
+    if '.atomic-' in source.name and destination.parent.name == 'consumed':
+        os._exit(93)
+    real_replace(source, destination)
+owner_comments.os.replace = crash_before_atomic_replace
+store.consume(
+    'websites',
+    'oc-20260827t120000z-a1b2c3d4',
+    consumed_at='2026-08-27T13:00:00Z',
+    actor='actor',
+    evidence='evidence',
+)
+"""
+        crashed = subprocess.run(
+            [sys.executable, "-c", crash_code, str(REPO / "tools"), str(self.root)],
+            cwd=REPO,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(crashed.returncode, 93, crashed.stderr)
+        temporary = next(
+            (self.root / "docs/owner-comments").rglob(".*.atomic-*")
+        )
+        unexpected = b"same-filesystem preserved bytes are durable\n"
+        temporary.write_bytes(unexpected)
+        real_fsync = owner_comments.os.fsync
+        real_rename = owner_comments.os.rename
+        preserved_fsynced = False
+
+        def track_fsync(descriptor: int) -> None:
+            nonlocal preserved_fsynced
+            try:
+                opened = Path(os.readlink(f"/proc/self/fd/{descriptor}"))
+            except OSError:
+                opened = Path("")
+            real_fsync(descriptor)
+            if opened.name.startswith("unexpected-atomic-1"):
+                preserved_fsynced = True
+
+        def require_file_fsync(source: Path, destination: Path) -> None:
+            if Path(destination).name.startswith("quarantine-"):
+                self.assertTrue(preserved_fsynced)
+            real_rename(source, destination)
+
+        with mock.patch.object(
+            owner_comments.os, "fsync", side_effect=track_fsync
+        ), mock.patch.object(
+            owner_comments.os, "rename", side_effect=require_file_fsync
+        ):
+            with self.assertRaisesRegex(
+                ContractError, "temporary mismatch.*preserved.*quarantined"
+            ):
+                self.store.check()
+        self.assertTrue(preserved_fsynced)
+        quarantine = next(self.store._transaction_root().glob("quarantine-*"))
         self.assertEqual(
             (quarantine / "unexpected-atomic-1").read_bytes(), unexpected
         )
@@ -543,17 +691,29 @@ store.consume(
         temporary.write_bytes(unexpected)
 
         preservation_crash_code = """
+import errno
 import os
 import sys
 from pathlib import Path
 sys.path.insert(0, sys.argv[1])
 import owner_comments
 store = owner_comments.OwnerCommentsStore(Path(sys.argv[2]))
-real_preserve = owner_comments.OwnerCommentsStore._preserve_unexpected_temporary
-def preserve_then_crash(self, *args):
-    real_preserve(self, *args)
-    os._exit(94)
-owner_comments.OwnerCommentsStore._preserve_unexpected_temporary = preserve_then_crash
+real_replace = owner_comments.os.replace
+real_fsync = owner_comments.os.fsync
+def force_cross_device(source, destination):
+    if Path(destination).name.startswith('unexpected-'):
+        raise OSError(errno.EXDEV, 'simulated cross-device journal')
+    real_replace(source, destination)
+def crash_before_preserved_fsync(descriptor):
+    try:
+        opened = Path(os.readlink(f'/proc/self/fd/{descriptor}'))
+    except OSError:
+        opened = Path('')
+    if opened.name.startswith('unexpected-atomic-1'):
+        os._exit(95)
+    real_fsync(descriptor)
+owner_comments.os.replace = force_cross_device
+owner_comments.os.fsync = crash_before_preserved_fsync
 store.check()
 """
         second = subprocess.run(
@@ -569,17 +729,63 @@ store.check()
             text=True,
             check=False,
         )
-        self.assertEqual(second.returncode, 94, second.stderr)
+        self.assertEqual(second.returncode, 95, second.stderr)
         transaction_root = self.store._transaction_root()
         transaction = next(transaction_root.glob("txn-*"))
         self.assertEqual(
             (transaction / "unexpected-atomic-1").read_bytes(), unexpected
         )
+        self.assertEqual(temporary.read_bytes(), unexpected)
 
-        with self.assertRaisesRegex(
-            ContractError, "temporary mismatch.*preserved.*quarantined"
-        ):
-            self.store.check()
+        marker = self.root / "preserved-copy-was-fsynced"
+        retry_code = """
+import os
+import sys
+from pathlib import Path
+sys.path.insert(0, sys.argv[1])
+import owner_comments
+store = owner_comments.OwnerCommentsStore(Path(sys.argv[2]))
+marker = Path(sys.argv[3])
+real_fsync = owner_comments.os.fsync
+real_unlink = Path.unlink
+def track_preserved_fsync(descriptor):
+    try:
+        opened = Path(os.readlink(f'/proc/self/fd/{descriptor}'))
+    except OSError:
+        opened = Path('')
+    real_fsync(descriptor)
+    if opened.name.startswith('unexpected-atomic-1'):
+        marker.write_text('fsynced before unlink\\n', encoding='utf-8')
+def refuse_early_unlink(path, *args, **kwargs):
+    if '.atomic-' in path.name and not marker.exists():
+        os._exit(96)
+    return real_unlink(path, *args, **kwargs)
+owner_comments.os.fsync = track_preserved_fsync
+Path.unlink = refuse_early_unlink
+try:
+    store.check()
+except owner_comments.ContractError as exc:
+    if 'temporary mismatch' not in str(exc):
+        raise
+else:
+    raise SystemExit(97)
+"""
+        retry = subprocess.run(
+            [
+                sys.executable,
+                "-c",
+                retry_code,
+                str(REPO / "tools"),
+                str(self.root),
+                str(marker),
+            ],
+            cwd=REPO,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(retry.returncode, 0, retry.stderr)
+        self.assertEqual(marker.read_text(encoding="utf-8"), "fsynced before unlink\n")
         self.assertFalse(list(transaction_root.glob("txn-*")))
         quarantine = next(transaction_root.glob("quarantine-*"))
         self.assertEqual(

@@ -1031,10 +1031,10 @@ class OwnerCommentsStore:
     ) -> Path:
         """Move unrecognized scratch bytes into the journal before quarantine."""
         preserved = backup_root / f"unexpected-{label}"
-        if preserved.exists() or preserved.is_symlink():
-            raise ContractError(
-                f"cannot preserve unexpected transaction temporary: {preserved}"
-            )
+        suffix = 0
+        while preserved.exists() or preserved.is_symlink():
+            suffix += 1
+            preserved = backup_root / f"unexpected-{label}-source-{suffix}"
         try:
             os.replace(temporary, preserved)
         except OSError:
@@ -1050,15 +1050,107 @@ class OwnerCommentsStore:
                 os.fsync(handle.fileno())
             _fsync_directory(preserved.parent)
             temporary.unlink()
-        _fsync_directory(temporary.parent)
-        _fsync_directory(preserved.parent)
+            _fsync_directory(temporary.parent)
+        else:
+            metadata = os.lstat(preserved)
+            if stat.S_ISREG(metadata.st_mode):
+                with preserved.open("rb") as handle:
+                    os.fsync(handle.fileno())
+            _fsync_directory(preserved.parent)
+            _fsync_directory(temporary.parent)
         return preserved
+
+    def _reconcile_preserved_temporaries(
+        self, backup_root: Path, manifest: dict[str, Any]
+    ) -> list[Path]:
+        """Finish an interrupted cross-filesystem preservation idempotently."""
+        residues: list[Path] = []
+        recognized: set[Path] = set()
+        for temporary, _, label in self._temporary_specs(backup_root, manifest):
+            base = backup_root / f"unexpected-{label}"
+            if not (base.exists() or base.is_symlink()):
+                continue
+            candidates = [base, *sorted(backup_root.glob(f"{base.name}-source-*"))]
+            recognized.update(candidates)
+            residues.extend(candidates)
+            candidate_states: dict[Path, tuple[bool, str, int] | None] = {}
+            for candidate in candidates:
+                state = _expected_state_key(
+                    _path_state(candidate, boundary=backup_root)
+                )
+                candidate_states[candidate] = state
+                if state is not None and state[0]:
+                    # Preservation may have died immediately after rename/copy.
+                    # Make every recognized regular artifact durable before an
+                    # absent-source fast path or quarantine can proceed.
+                    with candidate.open("rb") as handle:
+                        os.fsync(handle.fileno())
+            _fsync_directory(backup_root)
+            actual = _expected_state_key(
+                _path_state(temporary, boundary=self.comments)
+            )
+            if actual == (False, "", 0):
+                continue
+            matching = [
+                path
+                for path in candidates
+                if actual is not None
+                and actual == candidate_states[path]
+            ]
+            if matching:
+                # The journal already owns these exact bytes, but a prior
+                # process may have died between copy2 and fsync. Make one
+                # matching copy and its directory durable before deleting the
+                # deterministic checkout duplicate.
+                preserved = matching[0]
+                with preserved.open("rb") as handle:
+                    os.fsync(handle.fileno())
+                _fsync_directory(preserved.parent)
+                if actual != _expected_state_key(
+                    _path_state(preserved, boundary=backup_root)
+                ):
+                    raise ContractError(
+                        f"preserved transaction temporary changed: {preserved}"
+                    )
+                temporary.unlink()
+                _fsync_directory(temporary.parent)
+                continue
+            # The source changed again (or has an unsafe type). Preserve it as
+            # another uniquely named journal artifact before quarantine. If a
+            # process dies after a cross-device copy, the next pass recognizes
+            # that duplicate by hash and completes the unlink above.
+            residues.append(
+                self._preserve_unexpected_temporary(
+                    backup_root, temporary, label
+                )
+            )
+        unknown = [
+            path
+            for path in sorted(backup_root.glob("unexpected-*"))
+            if path not in recognized and path not in residues
+        ]
+        for path in unknown:
+            try:
+                metadata = os.lstat(path)
+            except OSError:
+                continue
+            if stat.S_ISREG(metadata.st_mode):
+                with path.open("rb") as handle:
+                    os.fsync(handle.fileno())
+            elif stat.S_ISDIR(metadata.st_mode):
+                _fsync_directory(path)
+        if unknown:
+            _fsync_directory(backup_root)
+        residues.extend(unknown)
+        return residues
 
     def _cleanup_transaction_temporaries(
         self, backup_root: Path, manifest: dict[str, Any]
     ) -> None:
         """Scavenge only exact journal-owned scratch, preserving mismatches."""
-        preserved_residue = sorted(backup_root.glob("unexpected-*"))
+        preserved_residue = self._reconcile_preserved_temporaries(
+            backup_root, manifest
+        )
         if preserved_residue:
             raise ContractError(
                 "previous recovery already preserved unexpected transaction "
