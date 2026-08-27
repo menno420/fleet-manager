@@ -4,7 +4,7 @@
 > preserves the public owner-comment contract without requiring administrator
 > rights or Developer Mode.
 
-- **📊 Model:** GPT-5 family · high · portability repair
+- **📊 Model:** GPT-5 family · high · runtime bugfix
 - **📍 Venue:** local-desktop
 
 ## Mission
@@ -64,5 +64,11 @@ modified).
 - Exact-head Codex rereview of product commit `be589cb406` found no major
   issues. This status/closeout update is the deliberate records-only change
   after that clean review.
+- The first Linux closeout run then exposed two gate-only issues: the card's
+  task-class label was outside the taught taxonomy, and a CI checkout path of
+  `.../fleet-manager/fleet-manager` let the canonical parent directory route a
+  sibling `-old` prompt. Both were **[conceded]**. The label now uses
+  `runtime bugfix`, and prompt routing removes checkout plumbing before slug
+  matching while retaining the exact-checkout decision.
 - The completion flip makes the strict Linux substrate gate eligible to pass;
   its protected-branch result remains the final merge condition.

@@ -360,6 +360,14 @@ def mentioned_repositories(
         # after removing this checkout's plumbing so Windows absolute paths do
         # not become invisible (or route the checkout itself as Fleet Manager).
         subject = subject.replace("\\", "/")
+    else:
+        # Prompt text may name this checkout or a sibling whose path begins
+        # with it.  The full-path decision above owns that meaning; remove the
+        # checkout plumbing before canonical-slug matching so a CI layout such
+        # as ``.../fleet-manager/fleet-manager-old`` cannot route the ancestor
+        # directory as an explicit Fleet Manager mention.
+        for spelling in {str(REPO), REPO.as_posix()}:
+            subject = re.sub(re.escape(spelling), "", subject, flags=re.I)
 
     candidates: list[
         tuple[int, int, frozenset[str], bool, frozenset[str]]
