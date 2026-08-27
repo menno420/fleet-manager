@@ -378,6 +378,154 @@ store.consume(
         self.assertFalse(destination.exists())
         self.assertFalse(list(transaction_root.glob("txn-*")))
 
+    def test_stale_journal_cannot_rewrite_a_switched_branch(self) -> None:
+        original = self.write_record()
+        self.store.reindex()
+        self.commit_baseline("active owner comment")
+        subprocess.run(
+            ["git", "switch", "-q", "-c", "consumed-state"],
+            cwd=self.root,
+            check=True,
+        )
+        destination = self.root / self.store.consume(
+            "websites",
+            record()["id"],
+            consumed_at="2026-08-27T13:00:00Z",
+            actor="actor",
+            evidence="evidence",
+        )
+        subprocess.run(["git", "add", "."], cwd=self.root, check=True)
+        subprocess.run(
+            ["git", "commit", "-q", "-m", "consume owner comment"],
+            cwd=self.root,
+            check=True,
+        )
+        subprocess.run(
+            ["git", "switch", "-q", "main"], cwd=self.root, check=True
+        )
+
+        crash_code = """
+import os
+import sys
+from pathlib import Path
+sys.path.insert(0, sys.argv[1])
+import owner_comments
+store = owner_comments.OwnerCommentsStore(Path(sys.argv[2]))
+real_write = owner_comments._atomic_write
+def crash_on_consumed(path, content):
+    if path.parent.name == 'consumed':
+        os._exit(91)
+    real_write(path, content)
+owner_comments._atomic_write = crash_on_consumed
+store.consume(
+    'websites',
+    'oc-20260827t120000z-a1b2c3d4',
+    consumed_at='2026-08-27T13:00:00Z',
+    actor='actor',
+    evidence='evidence',
+)
+"""
+        crashed = subprocess.run(
+            [sys.executable, "-c", crash_code, str(REPO / "tools"), str(self.root)],
+            cwd=REPO,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(crashed.returncode, 91, crashed.stderr)
+        transaction_root = self.store._transaction_root()
+        self.assertEqual(len(list(transaction_root.glob("txn-*"))), 1)
+
+        subprocess.run(
+            ["git", "switch", "-q", "-f", "consumed-state"],
+            cwd=self.root,
+            check=True,
+        )
+        expected_destination = destination.read_bytes()
+        expected_repo_index = (destination.parent.parent / "README.md").read_bytes()
+        expected_root_index = (
+            self.root / "docs/owner-comments/index.json"
+        ).read_bytes()
+        self.assertEqual(
+            subprocess.run(
+                ["git", "status", "--porcelain"],
+                cwd=self.root,
+                capture_output=True,
+                text=True,
+                check=True,
+            ).stdout,
+            "",
+        )
+
+        with self.assertRaisesRegex(ContractError, "Git HEAD/index tree.*quarantined"):
+            self.store.check()
+        self.assertFalse(original.exists())
+        self.assertEqual(destination.read_bytes(), expected_destination)
+        self.assertEqual(
+            (destination.parent.parent / "README.md").read_bytes(),
+            expected_repo_index,
+        )
+        self.assertEqual(
+            (self.root / "docs/owner-comments/index.json").read_bytes(),
+            expected_root_index,
+        )
+        self.assertFalse(list(transaction_root.glob("txn-*")))
+        self.assertEqual(len(list(transaction_root.glob("quarantine-*"))), 1)
+        self.assertEqual(self.store.check(), [])
+        self.assertEqual(
+            subprocess.run(
+                ["git", "status", "--porcelain"],
+                cwd=self.root,
+                capture_output=True,
+                text=True,
+                check=True,
+            ).stdout,
+            "",
+        )
+
+    def test_atomic_write_syncs_parent_directory_after_replace(self) -> None:
+        path = self.root / "docs/owner-comments/index.json"
+        with mock.patch.object(owner_comments, "_fsync_directory") as sync:
+            owner_comments._atomic_write(path, b"replacement\n")
+        sync.assert_called_once_with(path.parent)
+
+    def test_new_transaction_root_is_durable_before_manifest_publication(self) -> None:
+        self.write_record()
+        self.store.reindex()
+        transaction_root = self.store._transaction_root()
+        self.assertEqual(list(transaction_root.iterdir()), [])
+        transaction_root.rmdir()
+        events: list[tuple[str, object]] = []
+        real_sync = owner_comments._fsync_directory
+        real_manifest_write = owner_comments._write_transaction_manifest
+
+        def track_sync(path: Path) -> None:
+            events.append(("sync", path))
+            real_sync(path)
+
+        def track_manifest(path: Path, data: dict) -> None:
+            events.append(("manifest", data["state"]))
+            real_manifest_write(path, data)
+
+        with mock.patch.object(
+            owner_comments, "_fsync_directory", side_effect=track_sync
+        ), mock.patch.object(
+            owner_comments,
+            "_write_transaction_manifest",
+            side_effect=track_manifest,
+        ):
+            self.store.consume(
+                "websites",
+                record()["id"],
+                consumed_at="2026-08-27T13:00:00Z",
+                actor="actor",
+                evidence="evidence",
+            )
+
+        parent_sync = events.index(("sync", transaction_root.parent))
+        prepared_manifest = events.index(("manifest", "prepared"))
+        self.assertLess(parent_sync, prepared_manifest)
+
     def test_manifestless_published_journal_finishes_committed_cleanup(self) -> None:
         transaction_root = self.store._transaction_root()
         residue = transaction_root / "txn-interrupted-cleanup"

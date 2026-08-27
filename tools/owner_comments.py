@@ -173,6 +173,7 @@ def _atomic_write(path: Path, content: bytes) -> None:
             handle.flush()
             os.fsync(handle.fileno())
         os.replace(temporary, path)
+        _fsync_directory(path.parent)
     except BaseException:
         try:
             os.unlink(temporary)
@@ -422,6 +423,46 @@ class OwnerCommentsStore:
         lock_path = self._lock_path()
         return lock_path.parent / f"{lock_path.stem}-transactions"
 
+    def _git_identity(self) -> dict[str, str | None]:
+        """Return the exact HEAD/index identity a rollback was prepared for."""
+        inside = subprocess.run(
+            ["git", "rev-parse", "--is-inside-work-tree"],
+            cwd=self.root,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if inside.returncode != 0 or inside.stdout.strip() != "true":
+            return {"head": None, "index_tree": None}
+
+        head_result = subprocess.run(
+            ["git", "rev-parse", "--verify", "HEAD"],
+            cwd=self.root,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        head = head_result.stdout.strip() if head_result.returncode == 0 else None
+        tree_result = subprocess.run(
+            ["git", "write-tree"],
+            cwd=self.root,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if tree_result.returncode != 0:
+            detail = tree_result.stderr.strip() or "git write-tree failed"
+            raise ContractError(
+                f"cannot identify owner-comment transaction Git index: {detail}"
+            )
+        index_tree = tree_result.stdout.strip()
+        oid = re.compile(r"^[0-9a-f]{40,64}$")
+        if (head is not None and not oid.fullmatch(head)) or not oid.fullmatch(
+            index_tree
+        ):
+            raise ContractError("Git returned an invalid transaction identity")
+        return {"head": head, "index_tree": index_tree}
+
     @contextmanager
     def mutation_lock(self):
         """Take a non-blocking process lock for a consume transaction.
@@ -486,9 +527,10 @@ class OwnerCommentsStore:
                 }
             )
         return {
-            "schema_version": 1,
+            "schema_version": 2,
             "state": "prepared",
             "root": str(self.root),
+            "git_identity": self._git_identity(),
             "entries": entries,
         }
 
@@ -512,11 +554,17 @@ class OwnerCommentsStore:
             raise ContractError(
                 f"owner-comment transaction manifest is not canonical: {manifest_path}"
             )
-        if set(data) != {"schema_version", "state", "root", "entries"}:
+        if set(data) != {
+            "schema_version",
+            "state",
+            "root",
+            "git_identity",
+            "entries",
+        }:
             raise ContractError(
                 f"owner-comment transaction manifest has unknown fields: {manifest_path}"
             )
-        if data.get("schema_version") != 1 or data.get("state") not in {
+        if data.get("schema_version") != 2 or data.get("state") not in {
             "prepared",
             "committed",
         }:
@@ -526,6 +574,27 @@ class OwnerCommentsStore:
         if data.get("root") != str(self.root):
             raise ContractError(
                 f"owner-comment transaction belongs to another worktree: {manifest_path}"
+            )
+        identity = data.get("git_identity")
+        if not isinstance(identity, dict) or set(identity) != {"head", "index_tree"}:
+            raise ContractError(
+                f"owner-comment transaction Git identity is invalid: {manifest_path}"
+            )
+        oid = re.compile(r"^[0-9a-f]{40,64}$")
+        head = identity.get("head")
+        index_tree = identity.get("index_tree")
+        if (
+            head is not None
+            and (not isinstance(head, str) or not oid.fullmatch(head))
+        ) or (
+            index_tree is not None
+            and (
+                not isinstance(index_tree, str)
+                or not oid.fullmatch(index_tree)
+            )
+        ) or (head is not None and index_tree is None):
+            raise ContractError(
+                f"owner-comment transaction Git identity is invalid: {manifest_path}"
             )
         if not isinstance(data.get("entries"), list):
             raise ContractError(
@@ -583,6 +652,19 @@ class OwnerCommentsStore:
                 )
         return data
 
+    def _quarantine_transaction(self, backup_root: Path) -> Path:
+        """Preserve a stale prepared journal without touching this checkout."""
+        suffix = backup_root.name.removeprefix("txn-")
+        quarantine = backup_root.with_name(f"quarantine-{suffix}")
+        if quarantine.exists() or quarantine.is_symlink():
+            raise ContractError(
+                "cannot quarantine stale owner-comment transaction because "
+                f"the deterministic destination exists: {quarantine}"
+            )
+        os.rename(backup_root, quarantine)
+        _fsync_directory(backup_root.parent)
+        return quarantine
+
     def _restore_transaction(
         self, backup_root: Path, manifest: dict[str, Any]
     ) -> None:
@@ -625,6 +707,7 @@ class OwnerCommentsStore:
             raise ContractError(
                 f"invalid owner-comment transaction root: {transaction_root}"
             )
+        transactions: list[tuple[Path, dict[str, Any]]] = []
         for backup_root in sorted(transaction_root.glob("txn-*")):
             if backup_root.is_symlink() or not backup_root.is_dir():
                 raise ContractError(
@@ -637,7 +720,31 @@ class OwnerCommentsStore:
                 # manifest-less published directory can only be residue from
                 # committed cleanup deleting the manifest before the directory.
                 shutil.rmtree(backup_root, ignore_errors=True)
+                _fsync_directory(transaction_root)
                 continue
+            transactions.append((backup_root, manifest))
+
+        prepared = [item for item in transactions if item[1]["state"] == "prepared"]
+        if prepared:
+            current_identity = self._git_identity()
+            mismatched = [
+                item
+                for item in prepared
+                if item[1]["git_identity"] != current_identity
+            ]
+            if mismatched:
+                quarantined = [
+                    self._quarantine_transaction(backup_root)
+                    for backup_root, _ in mismatched
+                ]
+                raise ContractError(
+                    "prepared owner-comment transaction belongs to a different "
+                    "Git HEAD/index tree; the current checkout was not changed and "
+                    "the stale recovery data was quarantined at "
+                    + ", ".join(str(path) for path in quarantined)
+                )
+
+        for backup_root, manifest in transactions:
             if manifest["state"] == "prepared":
                 self._restore_transaction(backup_root, manifest)
                 manifest["state"] = "committed"
@@ -645,7 +752,7 @@ class OwnerCommentsStore:
                     backup_root / "manifest.json", manifest
                 )
             shutil.rmtree(backup_root, ignore_errors=True)
-            _fsync_directory(self.root)
+            _fsync_directory(transaction_root)
 
     @contextmanager
     def rollback_snapshot(self, paths: tuple[Path, ...]):
@@ -658,6 +765,7 @@ class OwnerCommentsStore:
         """
         transaction_root = self._transaction_root()
         transaction_root.mkdir(parents=True, exist_ok=True)
+        _fsync_directory(transaction_root.parent)
         backup_root = Path(
             tempfile.mkdtemp(prefix=".initializing-", dir=transaction_root)
         )
@@ -693,11 +801,14 @@ class OwnerCommentsStore:
                     backup_root / "manifest.json", manifest
                 )
                 shutil.rmtree(backup_root, ignore_errors=True)
+                _fsync_directory(transaction_root)
             else:
                 shutil.rmtree(backup_root, ignore_errors=True)
+                _fsync_directory(transaction_root)
             raise
         else:
             shutil.rmtree(backup_root, ignore_errors=True)
+            _fsync_directory(transaction_root)
 
     def repositories(self) -> list[str]:
         if not self.estate.is_file():
@@ -1329,6 +1440,8 @@ class OwnerCommentsStore:
         )
         with self.rollback_snapshot(transaction_paths):
             source.replace(destination)  # the lifecycle transition is a real move
+            _fsync_directory(source.parent)
+            _fsync_directory(destination.parent)
             _atomic_write(destination, _json_bytes(updated))
             self._reindex_locked()
             postflight_errors = self._check_locked()
