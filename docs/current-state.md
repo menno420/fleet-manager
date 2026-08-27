@@ -108,6 +108,14 @@ copy product architecture or internal product state. Canonical intent:
   the next-agent contribution). The owner accepted it provisionally — *"not
   read every word yet"* — and works it from a local session next.
 - fleet-manager vendors substrate-kit v1.21.0 (fm #853)
+- **Fleet Manager now owns the durable owner-comment contract** (2026-08-27):
+  [`owner-comments/`](owner-comments/README.md) carries public, exact-wording
+  JSON records; every ESTATE row has a stable routed README; one generated root
+  index gives the control plane cheap counts. `tools/owner_comments.py check`
+  and its regression suite are in the required preflight. Consumption moves a
+  record into preserved history and updates both indexes in the same diff,
+  never deleting it. The authenticated website UI/writeback is a separate
+  `websites` change; no local queue or pending PR counts as durable.
 - A root `AGENTS.md` remains an owner decision (`OQ-FM-AGENTS-BOOT`) — the
   per-repo packet awaits his word (PKT-B4).
 

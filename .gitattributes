@@ -1,3 +1,6 @@
 # substrate-kit search hygiene (planted by adopt/upgrade; the kit only ever APPENDS missing entries — existing content above is host-owned)
 /bootstrap.py linguist-generated=true
 /.substrate/backup/** linguist-generated=true
+
+# Owner-comment records and derived indexes are byte-canonical on every lane.
+/docs/owner-comments/** text eol=lf

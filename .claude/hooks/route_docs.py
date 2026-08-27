@@ -78,6 +78,156 @@ DEFAULT_TOOLS = ("Bash", "WebFetch", "Read", "Glob", "Grep")
 
 PROMPT_EVENT = "UserPromptSubmit"
 
+# Repository names and their human aliases share one token boundary. A final
+# full stop is prose punctuation and a terminal ``.git`` is a repository URL
+# suffix, while ``repo.component``, ``repo.gitignore``, ``repo-extra`` and
+# ``repo2`` are longer slug-like tokens and must not route ``repo``. Keep the
+# same boundary on the JSON route table's repository patterns below; otherwise
+# a permissive Layer-2 alias can re-add the comment index that this matcher
+# deliberately rejected.
+REFERENCE_START = r"(?<![A-Za-z0-9._-])"
+REFERENCE_END = (
+    r"(?![A-Za-z0-9_-]|\."
+    r"(?!git(?:$|\.(?![A-Za-z0-9_-])|[^A-Za-z0-9._/\\-]))"
+    r"[A-Za-z0-9_-])"
+)
+
+
+def reference_pattern(body: str) -> str:
+    """Wrap one repository name/alias body in the shared token boundary."""
+    return rf"{REFERENCE_START}(?:{body}){REFERENCE_END}"
+
+
+# Each row is (bounded alias body, repositories, Layer-2 repositories shadowed
+# by this meaning).  Shadows resolve documented product vocabulary that embeds
+# another product's name: "Substrate Kit Dashboard" is the dashboard experiment,
+# not the kit, and Slingy-Spider-server/community-bot work is spider-bot, not the
+# game.  An independently named canonical repository still wins below, so a
+# prompt that explicitly asks to compare both products continues to route both.
+COMMENT_ALIAS_REPOS = (
+    (
+        reference_pattern(r"menno[- ]creator[- ]kit|the[- ]creator[- ]kit|the[- ]freecad[- ]thing"),
+        ("creator-kit",),
+        (),
+    ),
+    (
+        reference_pattern(r"(?:the[- ])?spider[- ]bot"),
+        ("spider-bot",),
+        (),
+    ),
+    (
+        reference_pattern(
+            r"(?:the[- ])?community[- ]bot"
+            r"(?:[- ](?:in|of|for)[- ](?:the[- ])?slingy[- ]spider"
+            r"(?:[- ](?:discord[- ])?server)?)?|game[- ]community[- ]bot|"
+            r"(?:the[- ])?slingy[- ]spider"
+            r"(?:['’]s[- ]community[- ]bot|"
+            r"[- ](?:(?:discord[- ])?server|(?:community[- ])?bot))"
+        ),
+        ("spider-bot",),
+        ("spider-swing",),
+    ),
+    (
+        reference_pattern(r"slingy[- ]spider"),
+        ("spider-swing",),
+        (),
+    ),
+    (
+        reference_pattern(
+            r"couch[- ]legend|idle[- ]stoner|(?:the[- ])?lucid[- ]chronicle"
+        ),
+        ("couch-legend",),
+        (),
+    ),
+    (
+        reference_pattern(
+            r"(?:the|my)[- ]websites|websites[- ]repo|control[- ]plane|"
+            r"botsite|(?:the[- ])?review[- ]site"
+        ),
+        ("websites",),
+        (),
+    ),
+    (
+        reference_pattern(r"product[- ]forge|phone[- ]controller|controller[- ]app"),
+        ("product-forge",),
+        (),
+    ),
+    (reference_pattern(r"superbot[- ]games"), ("superbot-games",), ()),
+    (
+        reference_pattern(r"superbot[- ]idle|the[- ]idle[- ]engine"),
+        ("superbot-idle",),
+        (),
+    ),
+    (
+        reference_pattern(r"superbot[- ]mineverse|mineverse"),
+        ("superbot-mineverse",),
+        (),
+    ),
+    (
+        reference_pattern(r"superbot[- ]plugin[- ]hello|plugin[- ]hello"),
+        ("superbot-plugin-hello",),
+        (),
+    ),
+    (
+        reference_pattern(r"superbot[- ]world"),
+        ("superbot-games", "superbot-idle", "superbot-mineverse", "superbot-plugin-hello"),
+        (),
+    ),
+    (
+        reference_pattern(r"superbot[- ]next|superbot[- ]2\.0|the[- ](?:old[- ])?rebuild"),
+        ("superbot-next",),
+        (),
+    ),
+    (
+        reference_pattern(r"the[- ]kit(?![- ]dashboard)|kit[- ]release"),
+        ("substrate-kit",),
+        (),
+    ),
+    (
+        reference_pattern(
+            r"venture[- ]lab|stripe[- ]webhook[- ]test[- ]kit|(?:the[- ])?night[- ]kiln|"
+            r"lull/dreamline|dreamline|ultramarine"
+        ),
+        ("venture-lab",),
+        (),
+    ),
+    (reference_pattern(r"mdverify"), ("codetool-lab-opus4.8",), ()),
+    (reference_pattern(r"envdrift"), ("codetool-lab-fable5",), ()),
+    (reference_pattern(r"cfgdiff"), ("codetool-lab-sonnet5",), ()),
+    (
+        reference_pattern(r"codetool[- ]labs?"),
+        ("codetool-lab-opus4.8", "codetool-lab-fable5", "codetool-lab-sonnet5"),
+        (),
+    ),
+    (reference_pattern(r"shift[- ]calendar"), ("shiftlife",), ()),
+    (
+        reference_pattern(
+            r"lumen[- ]drift|gba[- ](?:project|game|games|rom|roms|homebrew)|"
+            r"wickroad|brineward|underroot"
+        ),
+        ("gba-homebrew",),
+        (),
+    ),
+    (reference_pattern(r"pokemon[- ](?:mod|hack)"), ("pokemon-mod-lab",), ()),
+    (reference_pattern(r"pokemon[- ]mod[- ]lab"), ("pokemon-mod-lab",), ()),
+    (reference_pattern(r"ideas[- ]lab"), ("idea-engine", "sim-lab"), ()),
+    (reference_pattern(r"idea[- ]engine"), ("idea-engine",), ()),
+    (reference_pattern(r"sim[- ]lab"), ("sim-lab",), ()),
+    (
+        reference_pattern(r"trading[- ]strategy|trading[- ]lab"),
+        ("trading-strategy",),
+        (),
+    ),
+    (reference_pattern(r"curious[- ]research"), ("curious-research",), ()),
+    (
+        reference_pattern(
+            r"(?:the[- ])?kit[- ]dashboard|substrate[- ]kit[- ](?:app|dashboard)"
+        ),
+        ("Substrate-kit-app",),
+        ("substrate-kit",),
+    ),
+)
+
 # Session plumbing, never content. Only used by the defensive fallback below —
 # without this, a `cwd` or a `transcript_path` could trip a route on its own.
 EVENT_NOISE = {
@@ -160,6 +310,127 @@ def remember(session: str, fired: set[str]) -> None:
         pass  # advisory state; losing it costs one duplicate line
 
 
+def comment_repository_names() -> list[str]:
+    """Repositories with stable indexes, from the generated root projection."""
+    try:
+        data = json.loads((REPO / "docs/owner-comments/index.json").read_text())
+        names = [row["repository"] for row in data["repositories"]]
+        return [
+            name for name in names
+            if isinstance(name, str)
+            and (REPO / f"docs/owner-comments/{name}/README.md").is_file()
+        ]
+    except Exception:
+        return []
+
+
+def mentioned_repositories(
+    text: str,
+    repositories: list[str],
+    *,
+    strip_checkout_prefix: bool = False,
+) -> tuple[set[str], set[str]]:
+    """Resolve canonical slugs and product aliases by longest contained match.
+
+    This makes a full canonical slug beat a generic prefix (the exact
+    ``codetool-lab-opus4.8`` must not fan out through ``codetool labs``), while
+    a qualified product alias beats a shorter canonical prefix (``SuperBot
+    2.0`` is ``superbot-next``, not also ``superbot``).  The second result is
+    canonical repositories shadowed by a longer alias; matched legacy routes
+    must not re-add them later.
+    """
+    subject = text
+    if strip_checkout_prefix:
+        # Tool payloads commonly carry absolute paths. Fleet Manager's checkout
+        # directory is plumbing there, not a repository mention: without
+        # stripping it, every absolute Read from this tree spuriously routes
+        # ``fleet-manager`` feedback. Owner prompt text is intentional content,
+        # though, and an absolute checkout selection must remain discoverable.
+        for prefix in {str(REPO) + os.sep, REPO.as_posix() + "/"}:
+            subject = subject.replace(prefix, "")
+
+    candidates: list[
+        tuple[int, int, frozenset[str], bool, frozenset[str]]
+    ] = []
+    for repository in repositories:
+        pattern = reference_pattern(re.escape(repository))
+        for match in re.finditer(pattern, subject, re.I):
+            candidates.append(
+                (
+                    match.start(),
+                    match.end(),
+                    frozenset({repository}),
+                    True,
+                    frozenset(),
+                )
+            )
+    for pattern, aliases, route_shadows in COMMENT_ALIAS_REPOS:
+        for match in re.finditer(pattern, subject, re.I):
+            candidates.append(
+                (
+                    match.start(),
+                    match.end(),
+                    frozenset(aliases),
+                    False,
+                    frozenset(route_shadows),
+                )
+            )
+
+    selected: set[str] = set()
+    shadowed: set[str] = set()
+    for start, end, names, canonical, route_shadows in candidates:
+        dominated = any(
+            other_start <= start
+            and other_end >= end
+            and other_end - other_start > end - start
+            for (
+                other_start,
+                other_end,
+                _other_names,
+                _canonical,
+                _route_shadows,
+            ) in candidates
+        )
+        if dominated:
+            if canonical:
+                shadowed.update(names)
+        else:
+            selected.update(names)
+            shadowed.update(route_shadows)
+    return selected, shadowed
+
+
+def reference_match(pattern: str, text: str) -> bool:
+    """Match a route-table repository pattern at the shared token boundary."""
+    for match in re.finditer(pattern, text, re.I):
+        start, end = match.span()
+        if start and re.match(r"[A-Za-z0-9._-]", text[start - 1]):
+            continue
+        if end < len(text):
+            suffix = text[end:]
+            terminal_git = re.match(
+                r"\.git(?:$|\.(?![A-Za-z0-9_-])|[^A-Za-z0-9._/\\-])",
+                suffix,
+                re.I,
+            )
+            if not terminal_git and re.match(
+                r"[A-Za-z0-9_-]|\.[A-Za-z0-9_-]", suffix
+            ):
+                continue
+        return True
+    return False
+
+
+def repositories_for_route(route: dict) -> set[str]:
+    """Repository identity carried by a matched Layer-2 route."""
+    result: set[str] = set()
+    for doc in route.get("docs", []):
+        match = re.fullmatch(r"docs/repos/([^/]+)/README\.md", doc)
+        if match:
+            result.add(match.group(1))
+    return result
+
+
 def main() -> int:
     try:
         event = json.loads(sys.stdin.read() or "{}")
@@ -188,6 +459,18 @@ def main() -> int:
     session = str(event.get("session_id") or "nosession")
     fired = already_fired(session)
     hits = []
+    available_comments = comment_repository_names()
+    if tool in DEFAULT_TOOLS or tool == PROMPT_EVENT:
+        comment_repositories, shadowed_comment_repositories = (
+            mentioned_repositories(
+                text,
+                available_comments,
+                strip_checkout_prefix=tool != PROMPT_EVENT,
+            )
+        )
+    else:
+        comment_repositories, shadowed_comment_repositories = set(), set()
+    explicitly_mentioned_comments = set(comment_repositories)
 
     for route in routes:
         rid = route.get("id", "")
@@ -206,10 +489,23 @@ def main() -> int:
             continue
         if tool not in tuple(route.get("tools") or DEFAULT_TOOLS):
             continue
+        route_repositories = repositories_for_route(route)
+        # A documented product alias may embed another repository's product
+        # name (for example, "Substrate Kit Dashboard").  Do not let that
+        # shorter Layer-2 route steal the prompt back.  A separately named
+        # canonical repository is explicit and therefore overrides the shadow.
+        effective_shadows = (
+            shadowed_comment_repositories - explicitly_mentioned_comments
+        )
+        unshadowed_route_repositories = route_repositories - effective_shadows
+        if route_repositories and not unshadowed_route_repositories:
+            continue
         docs = [d for d in route.get("docs", []) if (REPO / d).is_file()]
         if not docs:
             continue
-        # Already opening one of these docs? Then the hook has nothing to add.
+        # Already opening one of these docs? Then the configured route has
+        # nothing to add. The independent owner-comment route below still sees
+        # a canonical repo slug in the path and can surface its stable index.
         # Applies to probe routes AND to explicit read-event routes (Codex on
         # fm #878: a folder route re-fired on the very Read its prompt half had
         # just directed, repeating "read this file" onto the read itself).
@@ -244,13 +540,56 @@ def main() -> int:
         # A route guarding an ACTION matches against code with quoted data
         # blanked, so a mention inside an argument cannot consume it (fm #923).
         match_text = code_only(text) if route.get("code_only") else text
+        repository_reference_route = bool(route_repositories) or route.get(
+            "docs"
+        ) == ["docs/ESTATE.md"]
         try:
-            if not any(re.search(p, match_text, re.I) for p in route.get("when", [])):
+            if repository_reference_route:
+                matched = any(
+                    reference_match(pattern, match_text)
+                    for pattern in route.get("when", [])
+                )
+            else:
+                matched = any(
+                    re.search(pattern, match_text, re.I)
+                    for pattern in route.get("when", [])
+                )
+            if not matched:
                 continue
         except re.error:
             continue  # a bad pattern silences its own route, never the hook
         fired.add(rid)
         hits.append((docs, route.get("says", "")))
+        comment_repositories.update(
+            unshadowed_route_repositories
+        )
+
+    for repository in available_comments:
+        if repository not in comment_repositories:
+            continue
+        comment_route_id = f"owner-comments-{repository.lower()}"
+        if comment_route_id in fired:
+            continue
+        comment_index = f"docs/owner-comments/{repository}/README.md"
+        if tool != "Bash" and comment_index in text:
+            fired.add(comment_route_id)
+            # A self-read is intentionally silent, but it still consumes this
+            # once-per-session pointer. Persist before the no-hit return below.
+            remember(session, fired)
+            continue
+        fired.add(comment_route_id)
+        hits.append(
+            (
+                [comment_index],
+                f"Owner feedback for {repository}: open the Unconsumed section "
+                "and each linked JSON record before acting. Consumed history is "
+                "preserved but is not active work. The entire record and its "
+                "metadata are public. Never put credentials, private-repository "
+                "contents or private-only URLs, third-party contact details, or "
+                "unreleased specifics here; the full contract is at "
+                "docs/owner-comments/README.md.",
+            )
+        )
 
     if not hits:
         return 0

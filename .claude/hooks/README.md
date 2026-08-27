@@ -40,6 +40,22 @@ stranger, so the fix had to be a mechanism.
    tree a session is trying to keep clean.
 4. **Every route points at a doc that genuinely covers its trigger** — enforced,
    not assumed. See below.
+5. **A repository route also carries its stable owner-comment index.** The
+   matcher derives direct canonical names from the generated root index, derives
+   Layer-2 identities from their routed doc, and maps product aliases to their
+   exact repository member(s), including ESTATE vocabulary such as
+   `trading-lab` → `trading-strategy`, “the community bot” → `spider-bot`, and
+   “the idle engine” → `superbot-idle`. Canonical names, aliases, and repository
+   route-table matches use the same boundary: sentence punctuation is allowed,
+   but `.component`, `-extra`, `.py`, and numeric continuations are longer
+   tokens and do not route. A small explicit shadow set resolves names that
+   embed another product: “Substrate Kit Dashboard” routes only
+   `Substrate-kit-app`, while Slingy-Spider-server/community-bot wording routes
+   only `spider-bot`; naming both canonical repositories separately still
+   routes both. It emits
+   `docs/owner-comments/<repo>/README.md` with its own active-feedback message —
+   never a Layer-2 route's unrelated `says`. The literal generated index is
+   discoverable even though individual durable comment ids are arbitrary.
 
 ## Adding a route
 

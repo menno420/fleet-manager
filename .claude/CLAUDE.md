@@ -144,6 +144,16 @@ repository the account holds, one line each (what it is, state, owner
 vocabulary, canonical entry, Layer-2 link). When the target repo has no
 folder, or the owner's words name a product rather than a repo, start there.
 
+**Then read the repository's active owner feedback:**
+`docs/owner-comments/<name>/README.md`. It is the stable literal index for
+arbitrarily named comment records; existing Layer-2 prompt routes inject it as
+a companion automatically. Open the records in **Unconsumed** before acting.
+After acting or explicitly reconciling one, run `python3
+tools/owner_comments.py consume ...` so the JSON is moved into `consumed/` and
+both indexes change in the same diff. Never delete it. Everything in this
+directory is public; secrets and private-repository contents do not belong
+there.
+
 **This list is a floor, not a ceiling.** A session whose job is to *understand*
 this repo reads past it — `CONSTITUTION.md` and `docs/owner-profile.md` (live),
 `docs/playbook.md` (mixed era — R1/R2/R16/R17/R22/R24/R28/R29/R30 still bind

@@ -1,0 +1,234 @@
+{
+  "derived_from": [
+    "docs/ESTATE.md",
+    "docs/owner-comments/<repo>/*.json",
+    "docs/owner-comments/<repo>/consumed/*.json"
+  ],
+  "repositories": [
+    {
+      "consumed_count": 0,
+      "index": "docs/owner-comments/fleet-manager/README.md",
+      "latest_consumed_at": null,
+      "latest_unconsumed_at": null,
+      "repository": "fleet-manager",
+      "unconsumed_count": 0
+    },
+    {
+      "consumed_count": 0,
+      "index": "docs/owner-comments/spider-swing/README.md",
+      "latest_consumed_at": null,
+      "latest_unconsumed_at": null,
+      "repository": "spider-swing",
+      "unconsumed_count": 0
+    },
+    {
+      "consumed_count": 0,
+      "index": "docs/owner-comments/spider-bot/README.md",
+      "latest_consumed_at": null,
+      "latest_unconsumed_at": null,
+      "repository": "spider-bot",
+      "unconsumed_count": 0
+    },
+    {
+      "consumed_count": 0,
+      "index": "docs/owner-comments/couch-legend/README.md",
+      "latest_consumed_at": null,
+      "latest_unconsumed_at": null,
+      "repository": "couch-legend",
+      "unconsumed_count": 0
+    },
+    {
+      "consumed_count": 0,
+      "index": "docs/owner-comments/creator-kit/README.md",
+      "latest_consumed_at": null,
+      "latest_unconsumed_at": null,
+      "repository": "creator-kit",
+      "unconsumed_count": 0
+    },
+    {
+      "consumed_count": 0,
+      "index": "docs/owner-comments/websites/README.md",
+      "latest_consumed_at": null,
+      "latest_unconsumed_at": null,
+      "repository": "websites",
+      "unconsumed_count": 0
+    },
+    {
+      "consumed_count": 0,
+      "index": "docs/owner-comments/product-forge/README.md",
+      "latest_consumed_at": null,
+      "latest_unconsumed_at": null,
+      "repository": "product-forge",
+      "unconsumed_count": 0
+    },
+    {
+      "consumed_count": 0,
+      "index": "docs/owner-comments/superbot/README.md",
+      "latest_consumed_at": null,
+      "latest_unconsumed_at": null,
+      "repository": "superbot",
+      "unconsumed_count": 0
+    },
+    {
+      "consumed_count": 0,
+      "index": "docs/owner-comments/substrate-kit/README.md",
+      "latest_consumed_at": null,
+      "latest_unconsumed_at": null,
+      "repository": "substrate-kit",
+      "unconsumed_count": 0
+    },
+    {
+      "consumed_count": 0,
+      "index": "docs/owner-comments/estate-backups/README.md",
+      "latest_consumed_at": null,
+      "latest_unconsumed_at": null,
+      "repository": "estate-backups",
+      "unconsumed_count": 0
+    },
+    {
+      "consumed_count": 0,
+      "index": "docs/owner-comments/superbot-next/README.md",
+      "latest_consumed_at": null,
+      "latest_unconsumed_at": null,
+      "repository": "superbot-next",
+      "unconsumed_count": 0
+    },
+    {
+      "consumed_count": 0,
+      "index": "docs/owner-comments/venture-lab/README.md",
+      "latest_consumed_at": null,
+      "latest_unconsumed_at": null,
+      "repository": "venture-lab",
+      "unconsumed_count": 0
+    },
+    {
+      "consumed_count": 0,
+      "index": "docs/owner-comments/shiftlife/README.md",
+      "latest_consumed_at": null,
+      "latest_unconsumed_at": null,
+      "repository": "shiftlife",
+      "unconsumed_count": 0
+    },
+    {
+      "consumed_count": 0,
+      "index": "docs/owner-comments/gba-homebrew/README.md",
+      "latest_consumed_at": null,
+      "latest_unconsumed_at": null,
+      "repository": "gba-homebrew",
+      "unconsumed_count": 0
+    },
+    {
+      "consumed_count": 0,
+      "index": "docs/owner-comments/pokemon-mod-lab/README.md",
+      "latest_consumed_at": null,
+      "latest_unconsumed_at": null,
+      "repository": "pokemon-mod-lab",
+      "unconsumed_count": 0
+    },
+    {
+      "consumed_count": 0,
+      "index": "docs/owner-comments/superbot-games/README.md",
+      "latest_consumed_at": null,
+      "latest_unconsumed_at": null,
+      "repository": "superbot-games",
+      "unconsumed_count": 0
+    },
+    {
+      "consumed_count": 0,
+      "index": "docs/owner-comments/superbot-idle/README.md",
+      "latest_consumed_at": null,
+      "latest_unconsumed_at": null,
+      "repository": "superbot-idle",
+      "unconsumed_count": 0
+    },
+    {
+      "consumed_count": 0,
+      "index": "docs/owner-comments/superbot-mineverse/README.md",
+      "latest_consumed_at": null,
+      "latest_unconsumed_at": null,
+      "repository": "superbot-mineverse",
+      "unconsumed_count": 0
+    },
+    {
+      "consumed_count": 0,
+      "index": "docs/owner-comments/idea-engine/README.md",
+      "latest_consumed_at": null,
+      "latest_unconsumed_at": null,
+      "repository": "idea-engine",
+      "unconsumed_count": 0
+    },
+    {
+      "consumed_count": 0,
+      "index": "docs/owner-comments/sim-lab/README.md",
+      "latest_consumed_at": null,
+      "latest_unconsumed_at": null,
+      "repository": "sim-lab",
+      "unconsumed_count": 0
+    },
+    {
+      "consumed_count": 0,
+      "index": "docs/owner-comments/curious-research/README.md",
+      "latest_consumed_at": null,
+      "latest_unconsumed_at": null,
+      "repository": "curious-research",
+      "unconsumed_count": 0
+    },
+    {
+      "consumed_count": 0,
+      "index": "docs/owner-comments/trading-strategy/README.md",
+      "latest_consumed_at": null,
+      "latest_unconsumed_at": null,
+      "repository": "trading-strategy",
+      "unconsumed_count": 0
+    },
+    {
+      "consumed_count": 0,
+      "index": "docs/owner-comments/superbot-plugin-hello/README.md",
+      "latest_consumed_at": null,
+      "latest_unconsumed_at": null,
+      "repository": "superbot-plugin-hello",
+      "unconsumed_count": 0
+    },
+    {
+      "consumed_count": 0,
+      "index": "docs/owner-comments/codetool-lab-opus4.8/README.md",
+      "latest_consumed_at": null,
+      "latest_unconsumed_at": null,
+      "repository": "codetool-lab-opus4.8",
+      "unconsumed_count": 0
+    },
+    {
+      "consumed_count": 0,
+      "index": "docs/owner-comments/codetool-lab-fable5/README.md",
+      "latest_consumed_at": null,
+      "latest_unconsumed_at": null,
+      "repository": "codetool-lab-fable5",
+      "unconsumed_count": 0
+    },
+    {
+      "consumed_count": 0,
+      "index": "docs/owner-comments/codetool-lab-sonnet5/README.md",
+      "latest_consumed_at": null,
+      "latest_unconsumed_at": null,
+      "repository": "codetool-lab-sonnet5",
+      "unconsumed_count": 0
+    },
+    {
+      "consumed_count": 0,
+      "index": "docs/owner-comments/Substrate-kit-app/README.md",
+      "latest_consumed_at": null,
+      "latest_unconsumed_at": null,
+      "repository": "Substrate-kit-app",
+      "unconsumed_count": 0
+    },
+    {
+      "consumed_count": 0,
+      "index": "docs/owner-comments/proxybench/README.md",
+      "latest_consumed_at": null,
+      "latest_unconsumed_at": null,
+      "repository": "proxybench",
+      "unconsumed_count": 0
+    }
+  ],
+  "schema_version": 1
+}

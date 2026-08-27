@@ -1,0 +1,118 @@
+{
+  "$id": "https://github.com/menno420/fleet-manager/blob/main/docs/owner-comments/record.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "const": "consumed"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "consumption"
+        ]
+      },
+      "else": {
+        "not": {
+          "required": [
+            "consumption"
+          ]
+        }
+      }
+    }
+  ],
+  "description": "Public Fleet Manager owner-comment record. Text and metadata are untrusted public input.",
+  "properties": {
+    "comment": {
+      "maxLength": 20000,
+      "pattern": "^(?=[\\s\\S]*\\S)[^\\u0000\\uD800-\\uDFFF]*$",
+      "type": "string"
+    },
+    "consumption": {
+      "additionalProperties": false,
+      "properties": {
+        "actor": {
+          "maxLength": 1000,
+          "pattern": "^(?=[\\s\\S]*\\S)[^\\u0000\\uD800-\\uDFFF]*$",
+          "type": "string"
+        },
+        "at": {
+          "format": "date-time",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?Z$",
+          "type": "string"
+        },
+        "evidence": {
+          "maxLength": 1000,
+          "pattern": "^(?=[\\s\\S]*\\S)[^\\u0000\\uD800-\\uDFFF]*$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "at",
+        "actor",
+        "evidence"
+      ],
+      "type": "object"
+    },
+    "created_at": {
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?Z$",
+      "type": "string"
+    },
+    "id": {
+      "pattern": "^(?!(?:con|prn|aux|nul|com[1-9]|lpt[1-9])(?:\\.|$))(?!.*\\.\\.)(?!.*\\.lock$)(?!.*\\.$)[a-z0-9][a-z0-9._-]{2,79}$",
+      "type": "string"
+    },
+    "repository": {
+      "pattern": "^(?!(?:[Rr][Ee][Aa][Dd][Mm][Ee]\\.[Mm][Dd]|[Ii][Nn][Dd][Ee][Xx]\\.[Jj][Ss][Oo][Nn]|[Rr][Ee][Cc][Oo][Rr][Dd]\\.[Ss][Cc][Hh][Ee][Mm][Aa]\\.[Jj][Ss][Oo][Nn])$)(?!(?:[Cc][Oo][Nn]|[Pp][Rr][Nn]|[Aa][Uu][Xx]|[Nn][Uu][Ll]|[Cc][Oo][Mm][1-9]|[Ll][Pp][Tt][1-9])(?:\\.|$))[A-Za-z0-9](?:[A-Za-z0-9._-]{0,98}[A-Za-z0-9_-])?$",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": 1,
+      "type": "integer"
+    },
+    "source": {
+      "additionalProperties": false,
+      "properties": {
+        "context": {
+          "maxLength": 1000,
+          "pattern": "^[^\\u0000\\uD800-\\uDFFF]*$",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "surface": {
+          "pattern": "^[a-z0-9][a-z0-9._-]{0,63}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "surface"
+      ],
+      "type": "object"
+    },
+    "state": {
+      "enum": [
+        "unconsumed",
+        "consumed"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "id",
+    "repository",
+    "created_at",
+    "state",
+    "source",
+    "comment"
+  ],
+  "title": "Fleet Manager owner comment",
+  "type": "object"
+}

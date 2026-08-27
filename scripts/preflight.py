@@ -21,6 +21,10 @@ What runs here, and why exactly these:
 4. **`tools/check_pipe_exit_code.py --strict`** — TRAP-002's deterministic half:
    an exit code read after a pipe, in executable surfaces only (workflows, shell
    scripts). Prose is not scanned; the doc-route covers command-authoring time.
+5. **Owner-comment contract check** — every record validates against the public
+   JSON schema and both generated indexes match it.
+6. **Owner-comment regression suite** — active/consumed separation, move-not-
+   delete preservation, invalid repository/schema rejection and prompt routing.
 
 Recursion guard: bootstrap runs THIS script from inside `check`, and step 1
 runs bootstrap from inside this script. `FM_PREFLIGHT_ACTIVE` breaks the
@@ -98,6 +102,8 @@ def main() -> int:
         ("doc routes", [sys.executable, "tools/check_doc_routes.py", "--strict"]),
         ("false walls", [sys.executable, "tools/check_no_false_walls.py", "--strict"]),
         ("pipe exit code", [sys.executable, "tools/check_pipe_exit_code.py", "--strict"]),
+        ("owner comments", [sys.executable, "tools/owner_comments.py", "check"]),
+        ("owner comment tests", [sys.executable, "tools/test_owner_comments.py"]),
     ):
         rc = run(label, argv)
         if rc != 0:
