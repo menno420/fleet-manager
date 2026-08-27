@@ -366,10 +366,11 @@ the hub's actual layout (where the skills copy lives; whether repo clones live
 inside it), which is `UNVERIFIED` until written; (2) tighten the hub's
 review-fleet-manager-first boot instruction to mirror the six-read pointer —
 his own *"tho this might also need some work"* — and wire the scope routing
-rule into the hub's close hooks (repo work → that repo's own card · non-repo
-work → this section · push when a handoff is intended): a mechanism at the
-moment of action, never another rule statement
-([intent](../intent.md) § 4); (3) the centralisation question is **no longer a
+rule into the hub's close hooks, all three branches (repo work → that repo's
+own card · cross-repo/estate-level work → this section · machine/personal
+work → the hub's own records, with only the lean public-safe account reaching
+these pages · push when a handoff is intended): a mechanism at the moment of
+action, never another rule statement ([intent](../intent.md) § 4); (3) the centralisation question is **no longer a
 step here** — `OQ-ONEDRIVE-HUB` was rescoped 2026-08-27→28 to unhurried hub
 housekeeping (git versioning for its own sake), its recommendation (a)
 withdrawn as a sync path; it blocks nothing in this packet. **One residual

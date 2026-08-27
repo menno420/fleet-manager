@@ -60,6 +60,11 @@ owner said "no execution yet" and the substrate-kit discussion is still ahead.
   packets, the activity README, the queue row and the finding's § 7, with
   the a/b/c options kept as the recorded transfer candidates should a
   hub-only handoff ever arise.
+- Round 3 on `cd039ec` returned one P2, **[conceded]**: the PKT-B3 hook-wiring
+  clause had collapsed the three-way routing rule into two-way (all non-repo
+  work → the public section); the spec now names all three branches, with
+  machine/personal staying in the hub and only the lean public-safe account
+  reaching the pages.
 
 ## 💡 Session idea
 
