@@ -78,6 +78,10 @@ DEFAULT_TOOLS = ("Bash", "WebFetch", "Read", "Glob", "Grep")
 
 PROMPT_EVENT = "UserPromptSubmit"
 COMMENT_ALIAS_REPOS = (
+    (
+        r"\b(menno creator kit|the creator kit|the freecad thing)\b",
+        ("creator-kit",),
+    ),
     (r"\bsuperbot[- ]games\b", ("superbot-games",)),
     (r"\bsuperbot[- ]idle\b", ("superbot-idle",)),
     (r"\b(superbot[- ]mineverse|mineverse)\b", ("superbot-mineverse",)),

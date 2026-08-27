@@ -378,6 +378,447 @@ store.consume(
         self.assertFalse(destination.exists())
         self.assertFalse(list(transaction_root.glob("txn-*")))
 
+    def test_hard_exit_atomic_temporary_is_scavenged_before_recovery(self) -> None:
+        original = self.write_record()
+        self.store.reindex()
+        crash_code = """
+import os
+import sys
+from pathlib import Path
+sys.path.insert(0, sys.argv[1])
+import owner_comments
+store = owner_comments.OwnerCommentsStore(Path(sys.argv[2]))
+real_replace = owner_comments.os.replace
+def crash_before_atomic_replace(source, destination):
+    source = Path(source)
+    destination = Path(destination)
+    if '.atomic-' in source.name and destination.parent.name == 'consumed':
+        os._exit(93)
+    real_replace(source, destination)
+owner_comments.os.replace = crash_before_atomic_replace
+store.consume(
+    'websites',
+    'oc-20260827t120000z-a1b2c3d4',
+    consumed_at='2026-08-27T13:00:00Z',
+    actor='actor',
+    evidence='evidence',
+)
+"""
+        crashed = subprocess.run(
+            [sys.executable, "-c", crash_code, str(REPO / "tools"), str(self.root)],
+            cwd=REPO,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(crashed.returncode, 93, crashed.stderr)
+        temporaries = list(
+            (self.root / "docs/owner-comments").rglob(".*.atomic-*")
+        )
+        self.assertEqual(len(temporaries), 1)
+
+        self.assertEqual(self.store.check(), [])
+        self.assertTrue(original.is_file())
+        self.assertFalse(
+            (original.parent / "consumed" / original.name).exists()
+        )
+        self.assertFalse(
+            list((self.root / "docs/owner-comments").rglob(".*.atomic-*"))
+        )
+        self.assertFalse(list(self.store._transaction_root().glob("txn-*")))
+
+    def test_changed_atomic_temporary_is_preserved_before_quarantine(self) -> None:
+        original = self.write_record()
+        self.store.reindex()
+        crash_code = """
+import os
+import sys
+from pathlib import Path
+sys.path.insert(0, sys.argv[1])
+import owner_comments
+store = owner_comments.OwnerCommentsStore(Path(sys.argv[2]))
+real_replace = owner_comments.os.replace
+def crash_before_atomic_replace(source, destination):
+    source = Path(source)
+    destination = Path(destination)
+    if '.atomic-' in source.name and destination.parent.name == 'consumed':
+        os._exit(93)
+    real_replace(source, destination)
+owner_comments.os.replace = crash_before_atomic_replace
+store.consume(
+    'websites',
+    'oc-20260827t120000z-a1b2c3d4',
+    consumed_at='2026-08-27T13:00:00Z',
+    actor='actor',
+    evidence='evidence',
+)
+"""
+        crashed = subprocess.run(
+            [sys.executable, "-c", crash_code, str(REPO / "tools"), str(self.root)],
+            cwd=REPO,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(crashed.returncode, 93, crashed.stderr)
+        temporary = next(
+            (self.root / "docs/owner-comments").rglob(".*.atomic-*")
+        )
+        unexpected = b"post-crash owner bytes must not be deleted\n"
+        temporary.write_bytes(unexpected)
+        destination = original.parent / "consumed" / original.name
+        targets_before = {
+            path: path.read_bytes() if path.exists() else None
+            for path in (
+                original,
+                destination,
+                original.parent / "README.md",
+                self.root / "docs/owner-comments/index.json",
+            )
+        }
+
+        with self.assertRaisesRegex(
+            ContractError, "temporary mismatch.*preserved.*quarantined"
+        ):
+            self.store.check()
+        self.assertEqual(
+            {
+                path: path.read_bytes() if path.exists() else None
+                for path in targets_before
+            },
+            targets_before,
+        )
+        transaction_root = self.store._transaction_root()
+        self.assertFalse(list(transaction_root.glob("txn-*")))
+        quarantine = next(transaction_root.glob("quarantine-*"))
+        self.assertEqual(
+            (quarantine / "unexpected-atomic-1").read_bytes(), unexpected
+        )
+        self.assertFalse(temporary.exists())
+
+    def test_second_death_after_preserving_temp_still_quarantines_bytes(self) -> None:
+        original = self.write_record()
+        self.store.reindex()
+        atomic_crash_code = """
+import os
+import sys
+from pathlib import Path
+sys.path.insert(0, sys.argv[1])
+import owner_comments
+store = owner_comments.OwnerCommentsStore(Path(sys.argv[2]))
+real_replace = owner_comments.os.replace
+def crash_before_atomic_replace(source, destination):
+    source = Path(source)
+    destination = Path(destination)
+    if '.atomic-' in source.name and destination.parent.name == 'consumed':
+        os._exit(93)
+    real_replace(source, destination)
+owner_comments.os.replace = crash_before_atomic_replace
+store.consume(
+    'websites',
+    'oc-20260827t120000z-a1b2c3d4',
+    consumed_at='2026-08-27T13:00:00Z',
+    actor='actor',
+    evidence='evidence',
+)
+"""
+        first = subprocess.run(
+            [
+                sys.executable,
+                "-c",
+                atomic_crash_code,
+                str(REPO / "tools"),
+                str(self.root),
+            ],
+            cwd=REPO,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(first.returncode, 93, first.stderr)
+        temporary = next(
+            (self.root / "docs/owner-comments").rglob(".*.atomic-*")
+        )
+        unexpected = b"unique post-crash bytes survive a second death\n"
+        temporary.write_bytes(unexpected)
+
+        preservation_crash_code = """
+import os
+import sys
+from pathlib import Path
+sys.path.insert(0, sys.argv[1])
+import owner_comments
+store = owner_comments.OwnerCommentsStore(Path(sys.argv[2]))
+real_preserve = owner_comments.OwnerCommentsStore._preserve_unexpected_temporary
+def preserve_then_crash(self, *args):
+    real_preserve(self, *args)
+    os._exit(94)
+owner_comments.OwnerCommentsStore._preserve_unexpected_temporary = preserve_then_crash
+store.check()
+"""
+        second = subprocess.run(
+            [
+                sys.executable,
+                "-c",
+                preservation_crash_code,
+                str(REPO / "tools"),
+                str(self.root),
+            ],
+            cwd=REPO,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(second.returncode, 94, second.stderr)
+        transaction_root = self.store._transaction_root()
+        transaction = next(transaction_root.glob("txn-*"))
+        self.assertEqual(
+            (transaction / "unexpected-atomic-1").read_bytes(), unexpected
+        )
+
+        with self.assertRaisesRegex(
+            ContractError, "temporary mismatch.*preserved.*quarantined"
+        ):
+            self.store.check()
+        self.assertFalse(list(transaction_root.glob("txn-*")))
+        quarantine = next(transaction_root.glob("quarantine-*"))
+        self.assertEqual(
+            (quarantine / "unexpected-atomic-1").read_bytes(), unexpected
+        )
+        self.assertFalse(temporary.exists())
+        self.assertFalse(original.exists())
+
+    def test_second_hard_exit_recovery_temporary_resumes_cleanly(self) -> None:
+        original = self.write_record()
+        self.store.reindex()
+        consume_crash_code = """
+import os
+import sys
+from pathlib import Path
+sys.path.insert(0, sys.argv[1])
+import owner_comments
+store = owner_comments.OwnerCommentsStore(Path(sys.argv[2]))
+real_write = owner_comments._atomic_write
+def crash_on_consumed(path, content):
+    if path.parent.name == 'consumed':
+        os._exit(91)
+    real_write(path, content)
+owner_comments._atomic_write = crash_on_consumed
+store.consume(
+    'websites',
+    'oc-20260827t120000z-a1b2c3d4',
+    consumed_at='2026-08-27T13:00:00Z',
+    actor='actor',
+    evidence='evidence',
+)
+"""
+        first = subprocess.run(
+            [
+                sys.executable,
+                "-c",
+                consume_crash_code,
+                str(REPO / "tools"),
+                str(self.root),
+            ],
+            cwd=REPO,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(first.returncode, 91, first.stderr)
+
+        recovery_crash_code = """
+import os
+import sys
+from pathlib import Path
+sys.path.insert(0, sys.argv[1])
+import owner_comments
+store = owner_comments.OwnerCommentsStore(Path(sys.argv[2]))
+real_replace = owner_comments.os.replace
+def crash_before_recovery_replace(source, destination):
+    if '.recover-' in Path(source).name:
+        os._exit(92)
+    real_replace(source, destination)
+owner_comments.os.replace = crash_before_recovery_replace
+store.check()
+"""
+        second = subprocess.run(
+            [
+                sys.executable,
+                "-c",
+                recovery_crash_code,
+                str(REPO / "tools"),
+                str(self.root),
+            ],
+            cwd=REPO,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(second.returncode, 92, second.stderr)
+        self.assertEqual(
+            len(list((self.root / "docs/owner-comments").rglob(".*.recover-*"))),
+            1,
+        )
+
+        self.assertEqual(self.store.check(), [])
+        self.assertTrue(original.is_file())
+        self.assertFalse(
+            (original.parent / "consumed" / original.name).exists()
+        )
+        self.assertFalse(
+            list((self.root / "docs/owner-comments").rglob(".*.recover-*"))
+        )
+        self.assertFalse(list(self.store._transaction_root().glob("txn-*")))
+
+    def test_same_identity_recovery_quarantines_post_crash_target_edit(self) -> None:
+        original = self.write_record()
+        self.store.reindex()
+        self.commit_baseline("active owner comment")
+        prepared_identity = self.store._git_identity()
+        crash_code = """
+import os
+import sys
+from pathlib import Path
+sys.path.insert(0, sys.argv[1])
+import owner_comments
+store = owner_comments.OwnerCommentsStore(Path(sys.argv[2]))
+real_write = owner_comments._atomic_write
+def crash_on_consumed(path, content):
+    if path.parent.name == 'consumed':
+        os._exit(91)
+    real_write(path, content)
+owner_comments._atomic_write = crash_on_consumed
+store.consume(
+    'websites',
+    'oc-20260827t120000z-a1b2c3d4',
+    consumed_at='2026-08-27T13:00:00Z',
+    actor='actor',
+    evidence='evidence',
+)
+"""
+        crashed = subprocess.run(
+            [sys.executable, "-c", crash_code, str(REPO / "tools"), str(self.root)],
+            cwd=REPO,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(crashed.returncode, 91, crashed.stderr)
+        destination = original.parent / "consumed" / original.name
+        edited = record()
+        edited["comment"] = "Canonical owner edit made after the interrupted process."
+        destination.write_bytes(owner_comments._json_bytes(edited))
+        self.assertEqual(self.store._git_identity(), prepared_identity)
+        before = {
+            path: path.read_bytes() if path.exists() else None
+            for path in (
+                original,
+                destination,
+                original.parent / "README.md",
+                self.root / "docs/owner-comments/index.json",
+            )
+        }
+        status_before = subprocess.run(
+            ["git", "status", "--porcelain"],
+            cwd=self.root,
+            capture_output=True,
+            text=True,
+            check=True,
+        ).stdout
+
+        with self.assertRaisesRegex(
+            ContractError, "target bytes/state changed.*quarantined"
+        ):
+            self.store.check()
+        self.assertEqual(
+            {
+                path: path.read_bytes() if path.exists() else None
+                for path in before
+            },
+            before,
+        )
+        self.assertEqual(
+            subprocess.run(
+                ["git", "status", "--porcelain"],
+                cwd=self.root,
+                capture_output=True,
+                text=True,
+                check=True,
+            ).stdout,
+            status_before,
+        )
+        transaction_root = self.store._transaction_root()
+        self.assertFalse(list(transaction_root.glob("txn-*")))
+        self.assertEqual(len(list(transaction_root.glob("quarantine-*"))), 1)
+
+    def test_same_identity_recovery_rejects_impossible_deleted_move_vector(self) -> None:
+        original = self.write_record()
+        self.store.reindex()
+        self.commit_baseline("active owner comment")
+        prepared_identity = self.store._git_identity()
+        crash_code = """
+import os
+import sys
+from pathlib import Path
+sys.path.insert(0, sys.argv[1])
+import owner_comments
+store = owner_comments.OwnerCommentsStore(Path(sys.argv[2]))
+real_write = owner_comments._atomic_write
+def crash_on_consumed(path, content):
+    if path.parent.name == 'consumed':
+        os._exit(91)
+    real_write(path, content)
+owner_comments._atomic_write = crash_on_consumed
+store.consume(
+    'websites',
+    'oc-20260827t120000z-a1b2c3d4',
+    consumed_at='2026-08-27T13:00:00Z',
+    actor='actor',
+    evidence='evidence',
+)
+"""
+        crashed = subprocess.run(
+            [sys.executable, "-c", crash_code, str(REPO / "tools"), str(self.root)],
+            cwd=REPO,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(crashed.returncode, 91, crashed.stderr)
+        destination = original.parent / "consumed" / original.name
+        self.assertFalse(original.exists())
+        self.assertTrue(destination.exists())
+        destination.unlink()
+        self.assertEqual(self.store._git_identity(), prepared_identity)
+        status_before = subprocess.run(
+            ["git", "status", "--porcelain"],
+            cwd=self.root,
+            capture_output=True,
+            text=True,
+            check=True,
+        ).stdout
+
+        with self.assertRaisesRegex(
+            ContractError, "target bytes/state changed.*quarantined"
+        ):
+            self.store.check()
+        self.assertFalse(original.exists())
+        self.assertFalse(destination.exists())
+        self.assertEqual(
+            subprocess.run(
+                ["git", "status", "--porcelain"],
+                cwd=self.root,
+                capture_output=True,
+                text=True,
+                check=True,
+            ).stdout,
+            status_before,
+        )
+        transaction_root = self.store._transaction_root()
+        self.assertFalse(list(transaction_root.glob("txn-*")))
+        self.assertEqual(len(list(transaction_root.glob("quarantine-*"))), 1)
+
     def test_stale_journal_cannot_rewrite_a_switched_branch(self) -> None:
         original = self.write_record()
         self.store.reindex()
@@ -842,6 +1283,99 @@ store.consume(
         errors = self.store.check()
         self.assertTrue(any("staged blob contains CR" in error for error in errors), errors)
 
+    def test_staged_candidate_validates_schema_and_lifecycle_when_worktree_is_fixed(
+        self,
+    ) -> None:
+        path = self.write_record()
+        self.store.reindex()
+        self.commit_baseline("active owner comment")
+        baseline = path.read_bytes()
+
+        invalid = record()
+        invalid["comment"] = "   "
+        path.write_bytes(owner_comments._json_bytes(invalid))
+        subprocess.run(["git", "add", str(path)], cwd=self.root, check=True)
+        path.write_bytes(baseline)
+        errors = self.store.check()
+        self.assertTrue(
+            any(
+                "staged candidate:" in error and "non-whitespace" in error
+                for error in errors
+            ),
+            errors,
+        )
+
+        rewritten = record()
+        rewritten["comment"] = "A schema-valid rewrite that violates append-only history."
+        path.write_bytes(owner_comments._json_bytes(rewritten))
+        subprocess.run(["git", "add", str(path)], cwd=self.root, check=True)
+        path.write_bytes(baseline)
+        errors = self.store.check()
+        self.assertTrue(
+            any(
+                "staged candidate:" in error and "active record" in error
+                for error in errors
+            ),
+            errors,
+        )
+
+    def test_staged_candidate_requires_matching_generated_indexes(self) -> None:
+        self.commit_baseline("empty owner-comment ledger")
+        path = self.write_record()
+        self.store.reindex()
+        subprocess.run(["git", "add", str(path)], cwd=self.root, check=True)
+
+        errors = self.store.check()
+        self.assertTrue(
+            any(
+                "staged candidate: docs/owner-comments/index.json" in error
+                and "stale" in error
+                for error in errors
+            ),
+            errors,
+        )
+        self.assertTrue(
+            any(
+                "staged candidate: docs/owner-comments/websites/README.md" in error
+                and "stale" in error
+                for error in errors
+            ),
+            errors,
+        )
+
+        subprocess.run(
+            [
+                "git",
+                "add",
+                "docs/owner-comments/index.json",
+                "docs/owner-comments/websites/README.md",
+            ],
+            cwd=self.root,
+            check=True,
+        )
+        self.assertEqual(self.store.check(), [])
+
+    def test_staged_candidate_rejects_cached_deletion_retained_in_worktree(
+        self,
+    ) -> None:
+        path = self.write_record()
+        self.store.reindex()
+        self.commit_baseline("active owner comment")
+        subprocess.run(
+            ["git", "rm", "-q", "--cached", str(path)],
+            cwd=self.root,
+            check=True,
+        )
+        self.assertTrue(path.is_file())
+        errors = self.store.check()
+        self.assertTrue(
+            any(
+                "staged candidate:" in error and "was deleted" in error
+                for error in errors
+            ),
+            errors,
+        )
+
     def test_git_lifecycle_rejects_active_edit_and_delete(self) -> None:
         path = self.write_record()
         self.store.reindex()
@@ -1023,6 +1557,9 @@ class RouteCase(unittest.TestCase):
 
     def test_estate_family_aliases_route_each_member_comment_index(self) -> None:
         cases = [
+            ("Menno Creator Kit", ("creator-kit",)),
+            ("THE CREATOR KIT", ("creator-kit",)),
+            ("the FreeCAD thing", ("creator-kit",)),
             ("mdverify", ("codetool-lab-opus4.8",)),
             ("envdrift", ("codetool-lab-fable5",)),
             ("the shift calendar", ("shiftlife",)),
@@ -1077,6 +1614,31 @@ class RouteCase(unittest.TestCase):
                     re.findall(r"docs/owner-comments/([^/]+)/README\.md", context)
                 )
                 self.assertEqual(routed, set(repositories), prompt)
+
+    def test_creator_kit_alias_boundaries_do_not_overroute(self) -> None:
+        with tempfile.TemporaryDirectory() as state:
+            for number, prompt in enumerate(
+                ("the creator kitten", "the FreeCAD thingy", "FreeCAD")
+            ):
+                event = {
+                    "hook_event_name": "UserPromptSubmit",
+                    "session_id": f"owner-comments-creator-boundary-{number}",
+                    "prompt": prompt,
+                }
+                result = subprocess.run(
+                    [sys.executable, ".claude/hooks/route_docs.py"],
+                    cwd=REPO,
+                    input=json.dumps(event),
+                    text=True,
+                    capture_output=True,
+                    env=dict(os.environ, TMPDIR=state),
+                    check=True,
+                )
+                self.assertNotIn(
+                    "docs/owner-comments/creator-kit/README.md",
+                    result.stdout,
+                    prompt,
+                )
 
     def test_envdrift_python_module_does_not_route_fable5_feedback(self) -> None:
         with tempfile.TemporaryDirectory() as state:

@@ -29,10 +29,12 @@ import json
 import os
 import re
 import shutil
+import stat
 import subprocess
 import sys
 import tempfile
 from contextlib import contextmanager
+from contextvars import ContextVar
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -50,6 +52,7 @@ REPOSITORY_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,99}$")
 TIMESTAMP_RE = re.compile(
     r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,6})?Z$"
 )
+SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 ESTATE_ROW_RE = re.compile(r"^\|\s*`([^`]+)`\s*\|")
 MAX_COMMENT_CHARS = 20_000
 MAX_CONTEXT_CHARS = 1_000
@@ -60,6 +63,9 @@ WINDOWS_RESERVED = {
 }
 ROOT_RESERVED = {"readme.md", "index.json", "record.schema.json"}
 DETACHED_HEAD_REF = "DETACHED"
+_ACTIVE_ATOMIC_TEMPORARIES: ContextVar[dict[Path, Path] | None] = ContextVar(
+    "owner_comment_atomic_temporaries", default=None
+)
 
 
 class ContractError(ValueError):
@@ -165,9 +171,97 @@ def _contains_surrogate(value: Any) -> bool:
     return False
 
 
+def _content_state(content: bytes | None) -> dict[str, Any]:
+    if content is None:
+        return {"exists": False}
+    return {
+        "exists": True,
+        "sha256": hashlib.sha256(content).hexdigest(),
+        "size": len(content),
+    }
+
+
+def _path_state(path: Path, *, boundary: Path) -> dict[str, Any] | None:
+    """lstat a bounded path without accepting symlinked parent traversal."""
+    try:
+        relative = path.relative_to(boundary)
+    except ValueError:
+        return None
+    try:
+        boundary_metadata = os.lstat(boundary)
+    except OSError:
+        return None
+    if not stat.S_ISDIR(boundary_metadata.st_mode):
+        return None
+    current = boundary
+    components = relative.parts
+    for index, component in enumerate(components):
+        current /= component
+        try:
+            metadata = os.lstat(current)
+        except FileNotFoundError:
+            return _content_state(None)
+        except OSError:
+            return None
+        final = index == len(components) - 1
+        if not final:
+            if not stat.S_ISDIR(metadata.st_mode):
+                return None
+            continue
+        if not stat.S_ISREG(metadata.st_mode):
+            return None
+        try:
+            return _content_state(current.read_bytes())
+        except OSError:
+            return None
+    return None
+
+
+def _expected_state_key(state: Any) -> tuple[bool, str, int] | None:
+    """Validate and normalize one manifest file-state descriptor."""
+    if not isinstance(state, dict) or type(state.get("exists")) is not bool:
+        return None
+    if state["exists"] is False:
+        return (False, "", 0) if set(state) == {"exists"} else None
+    if set(state) != {"exists", "sha256", "size"}:
+        return None
+    sha256 = state.get("sha256")
+    size = state.get("size")
+    if (
+        not isinstance(sha256, str)
+        or not SHA256_RE.fullmatch(sha256)
+        or type(size) is not int
+        or size < 0
+    ):
+        return None
+    return (True, sha256, size)
+
+
 def _atomic_write(path: Path, content: bytes) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    fd, temporary = tempfile.mkstemp(prefix=f".{path.name}.", dir=path.parent)
+    active_temporaries = _ACTIVE_ATOMIC_TEMPORARIES.get()
+    temporary = (
+        active_temporaries.get(path.absolute())
+        if active_temporaries is not None
+        else None
+    )
+    if temporary is None:
+        fd, temporary_name = tempfile.mkstemp(
+            prefix=f".{path.name}.", dir=path.parent
+        )
+        temporary = Path(temporary_name)
+    else:
+        try:
+            fd = os.open(
+                temporary,
+                os.O_WRONLY | os.O_CREAT | os.O_EXCL,
+                0o600,
+            )
+        except FileExistsError as exc:
+            raise ContractError(
+                f"transaction atomic temporary already exists: {temporary}"
+            ) from exc
+    created = True
     try:
         with os.fdopen(fd, "wb") as handle:
             handle.write(content)
@@ -176,10 +270,11 @@ def _atomic_write(path: Path, content: bytes) -> None:
         os.replace(temporary, path)
         _fsync_directory(path.parent)
     except BaseException:
-        try:
-            os.unlink(temporary)
-        except FileNotFoundError:
-            pass
+        if created:
+            try:
+                os.unlink(temporary)
+            except FileNotFoundError:
+                pass
         raise
 
 
@@ -535,9 +630,16 @@ class OwnerCommentsStore:
             handle.close()
 
     def _transaction_manifest(
-        self, paths: tuple[Path, ...]
+        self, expected_phases: tuple[dict[Path, bytes | None], ...]
     ) -> dict[str, Any]:
+        if not expected_phases or not expected_phases[0]:
+            raise ContractError("transaction must declare at least one target phase")
+        paths = tuple(expected_phases[0])
+        if any(set(phase) != set(paths) for phase in expected_phases):
+            raise ContractError("transaction phases must cover the same target paths")
+
         entries = []
+        initial_contents: dict[Path, bytes | None] = {}
         for number, path in enumerate(paths):
             try:
                 relative = path.relative_to(self.root)
@@ -545,19 +647,46 @@ class OwnerCommentsStore:
                 raise ContractError(
                     f"transaction path is outside repository root: {path}"
                 ) from exc
+            self._assert_safe_target(path)
+            existed = path.exists()
+            if existed and not path.is_file():
+                raise ContractError(
+                    f"transaction target must be a regular file or absent: {path}"
+                )
+            initial_content = path.read_bytes() if existed else None
+            initial_contents[path] = initial_content
             entries.append(
                 {
                     "path": relative.as_posix(),
-                    "existed": path.exists(),
-                    "backup": str(number) if path.exists() else None,
+                    "existed": existed,
+                    "backup": str(number) if existed else None,
                 }
             )
+
+        phase_vectors: list[list[dict[str, Any]]] = []
+        seen_vectors: set[tuple[tuple[bool, str, int], ...]] = set()
+
+        def add_phase(contents: dict[Path, bytes | None]) -> None:
+            states = [_content_state(contents[path]) for path in paths]
+            keys = tuple(_expected_state_key(state) for state in states)
+            assert all(key is not None for key in keys)
+            normalized = tuple(key for key in keys if key is not None)
+            if normalized not in seen_vectors:
+                seen_vectors.add(normalized)
+                phase_vectors.append(states)
+
+        add_phase(initial_contents)
+        for phase in expected_phases:
+            add_phase(phase)
+
         return {
-            "schema_version": 3,
+            "schema_version": 5,
             "state": "prepared",
             "root": str(self.root),
             "git_identity": self._git_identity(),
             "entries": entries,
+            "expected_phases": phase_vectors,
+            "recovery": None,
         }
 
     def _read_transaction_manifest(
@@ -586,12 +715,15 @@ class OwnerCommentsStore:
             "root",
             "git_identity",
             "entries",
+            "expected_phases",
+            "recovery",
         }:
             raise ContractError(
                 f"owner-comment transaction manifest has unknown fields: {manifest_path}"
             )
-        if data.get("schema_version") != 3 or data.get("state") not in {
+        if data.get("schema_version") != 5 or data.get("state") not in {
             "prepared",
+            "recovering",
             "committed",
         }:
             raise ContractError(
@@ -653,8 +785,48 @@ class OwnerCommentsStore:
             raise ContractError(
                 f"owner-comment transaction manifest entries are invalid: {manifest_path}"
             )
+        expected_phases = data.get("expected_phases")
+        if not isinstance(expected_phases, list) or not expected_phases:
+            raise ContractError(
+                f"owner-comment transaction phases are invalid: {manifest_path}"
+            )
+        phase_keys: list[tuple[tuple[bool, str, int], ...]] = []
+        for phase in expected_phases:
+            if not isinstance(phase, list) or len(phase) != len(data["entries"]):
+                raise ContractError(
+                    f"owner-comment transaction phases are invalid: {manifest_path}"
+                )
+            keys = tuple(_expected_state_key(state) for state in phase)
+            if any(key is None for key in keys):
+                raise ContractError(
+                    f"owner-comment transaction phases are invalid: {manifest_path}"
+                )
+            phase_keys.append(tuple(key for key in keys if key is not None))
+        if len(phase_keys) != len(set(phase_keys)):
+            raise ContractError(
+                f"owner-comment transaction phases are duplicated: {manifest_path}"
+            )
+        recovery = data.get("recovery")
+        if data["state"] == "recovering":
+            if (
+                not isinstance(recovery, dict)
+                or set(recovery) != {"phase", "cursor"}
+                or type(recovery.get("phase")) is not int
+                or type(recovery.get("cursor")) is not int
+                or not 0 <= recovery["phase"] < len(phase_keys)
+                or not 0 <= recovery["cursor"] <= len(data["entries"])
+            ):
+                raise ContractError(
+                    f"owner-comment transaction recovery cursor is invalid: "
+                    f"{manifest_path}"
+                )
+        elif recovery is not None:
+            raise ContractError(
+                f"owner-comment transaction recovery cursor is invalid: {manifest_path}"
+            )
 
         seen: set[Path] = set()
+        initial_keys: list[tuple[bool, str, int]] = []
         for entry in data["entries"]:
             if not isinstance(entry, dict) or set(entry) != {
                 "path",
@@ -683,8 +855,6 @@ class OwnerCommentsStore:
                     f"unsafe owner-comment transaction path {relative_text!r}"
                 )
             seen.add(relative)
-            target = self.root / relative
-            self._assert_safe_target(target)
             if existed:
                 if not isinstance(backup_name, str) or not backup_name.isdigit():
                     raise ContractError(
@@ -692,18 +862,93 @@ class OwnerCommentsStore:
                     )
                 backup = backup_root / backup_name
                 if (
-                    data["state"] == "prepared"
+                    data["state"] in {"prepared", "recovering"}
                     and (backup.is_symlink() or not backup.is_file())
                 ):
                     raise ContractError(
                         f"owner-comment transaction backup is missing: {backup}"
                     )
+                if data["state"] in {"prepared", "recovering"}:
+                    backup_state = _path_state(backup, boundary=backup_root)
+                    backup_key = _expected_state_key(backup_state)
+                    if backup_key is None:
+                        raise ContractError(
+                            f"owner-comment transaction backup is invalid: {backup}"
+                        )
+                    initial_keys.append(backup_key)
+                else:
+                    initial_keys.append(phase_keys[0][len(initial_keys)])
             elif backup_name is not None:
                 raise ContractError(
                     f"owner-comment transaction has a backup for an absent path: "
                     f"{manifest_path}"
                 )
+            else:
+                initial_keys.append((False, "", 0))
+        if data["state"] in {"prepared", "recovering"} and tuple(
+            initial_keys
+        ) != phase_keys[0]:
+            raise ContractError(
+                f"owner-comment transaction initial phase is invalid: {manifest_path}"
+            )
         return data
+
+    def _current_target_vector(
+        self, manifest: dict[str, Any]
+    ) -> tuple[tuple[bool, str, int] | None, ...]:
+        return tuple(
+            _expected_state_key(
+                _path_state(
+                    self.root / entry["path"], boundary=self.comments
+                )
+            )
+            for entry in manifest["entries"]
+        )
+
+    @staticmethod
+    def _phase_vectors(
+        manifest: dict[str, Any]
+    ) -> list[tuple[tuple[bool, str, int] | None, ...]]:
+        return [
+            tuple(_expected_state_key(state) for state in phase)
+            for phase in manifest["expected_phases"]
+        ]
+
+    def _prepared_phase_index(self, manifest: dict[str, Any]) -> int | None:
+        current = self._current_target_vector(manifest)
+        if any(state is None for state in current):
+            return None
+        try:
+            return self._phase_vectors(manifest).index(current)
+        except ValueError:
+            return None
+
+    def _recovery_vectors(
+        self, manifest: dict[str, Any]
+    ) -> tuple[
+        tuple[tuple[bool, str, int] | None, ...],
+        tuple[tuple[bool, str, int] | None, ...],
+    ]:
+        phases = self._phase_vectors(manifest)
+        recovery = manifest["recovery"]
+        cursor = recovery["cursor"]
+        origin = phases[recovery["phase"]]
+        initial = phases[0]
+        before = initial[:cursor] + origin[cursor:]
+        after_cursor = min(cursor + 1, len(initial))
+        after = initial[:after_cursor] + origin[after_cursor:]
+        return before, after
+
+    def _recovery_status(self, manifest: dict[str, Any]) -> str | None:
+        current = self._current_target_vector(manifest)
+        if any(state is None for state in current):
+            return None
+        before, after = self._recovery_vectors(manifest)
+        if current == before:
+            return "before"
+        if current == after:
+            return "after"
+        return None
 
     def _quarantine_transaction(self, backup_root: Path) -> Path:
         """Preserve a stale prepared journal without touching this checkout."""
@@ -718,38 +963,218 @@ class OwnerCommentsStore:
         _fsync_directory(backup_root.parent)
         return quarantine
 
+    @staticmethod
+    def _transaction_id(backup_root: Path) -> str:
+        return backup_root.name.removeprefix("txn-")
+
+    def _atomic_temporary_path(
+        self, backup_root: Path, entry: dict[str, Any], number: int
+    ) -> Path:
+        target = self.root / entry["path"]
+        return target.with_name(
+            f".{target.name}.atomic-{self._transaction_id(backup_root)}-{number}"
+        )
+
+    def _recovery_temporary_path(
+        self, backup_root: Path, entry: dict[str, Any], number: int
+    ) -> Path:
+        target = self.root / entry["path"]
+        return target.with_name(
+            f".{target.name}.recover-{self._transaction_id(backup_root)}-{number}"
+        )
+
+    def _atomic_temporaries(
+        self, backup_root: Path, manifest: dict[str, Any]
+    ) -> dict[Path, Path]:
+        """Map atomically-written targets to journal-owned deterministic temps."""
+        phases = self._phase_vectors(manifest)
+        initial = phases[0]
+        final = phases[-1]
+        result: dict[Path, Path] = {}
+        for number, entry in enumerate(manifest["entries"]):
+            if final[number][0] and final[number] != initial[number]:
+                target = (self.root / entry["path"]).absolute()
+                result[target] = self._atomic_temporary_path(
+                    backup_root, entry, number
+                )
+        return result
+
+    def _temporary_specs(
+        self, backup_root: Path, manifest: dict[str, Any]
+    ) -> list[tuple[Path, tuple[bool, str, int], str]]:
+        """Return every deterministic scratch path and its only valid content."""
+        phases = self._phase_vectors(manifest)
+        initial = phases[0]
+        final = phases[-1]
+        specs: list[tuple[Path, tuple[bool, str, int], str]] = []
+        for number, entry in enumerate(manifest["entries"]):
+            if final[number][0] and final[number] != initial[number]:
+                specs.append(
+                    (
+                        self._atomic_temporary_path(backup_root, entry, number),
+                        final[number],
+                        f"atomic-{number}",
+                    )
+                )
+            if entry["existed"]:
+                specs.append(
+                    (
+                        self._recovery_temporary_path(backup_root, entry, number),
+                        initial[number],
+                        f"recovery-{number}",
+                    )
+                )
+        return specs
+
+    def _preserve_unexpected_temporary(
+        self, backup_root: Path, temporary: Path, label: str
+    ) -> Path:
+        """Move unrecognized scratch bytes into the journal before quarantine."""
+        preserved = backup_root / f"unexpected-{label}"
+        if preserved.exists() or preserved.is_symlink():
+            raise ContractError(
+                f"cannot preserve unexpected transaction temporary: {preserved}"
+            )
+        try:
+            os.replace(temporary, preserved)
+        except OSError:
+            # A linked worktree can put the Git journal on another filesystem.
+            # Copy regular bytes durably before removing their checkout name.
+            metadata = os.lstat(temporary)
+            if not stat.S_ISREG(metadata.st_mode):
+                raise ContractError(
+                    f"unsafe transaction temporary cannot be preserved: {temporary}"
+                )
+            shutil.copy2(temporary, preserved)
+            with preserved.open("rb") as handle:
+                os.fsync(handle.fileno())
+            _fsync_directory(preserved.parent)
+            temporary.unlink()
+        _fsync_directory(temporary.parent)
+        _fsync_directory(preserved.parent)
+        return preserved
+
+    def _cleanup_transaction_temporaries(
+        self, backup_root: Path, manifest: dict[str, Any]
+    ) -> None:
+        """Scavenge only exact journal-owned scratch, preserving mismatches."""
+        preserved_residue = sorted(backup_root.glob("unexpected-*"))
+        if preserved_residue:
+            raise ContractError(
+                "previous recovery already preserved unexpected transaction "
+                "temporary bytes: "
+                + ", ".join(path.name for path in preserved_residue)
+            )
+        unexpected: list[str] = []
+        for temporary, expected, label in self._temporary_specs(
+            backup_root, manifest
+        ):
+            state = _path_state(temporary, boundary=self.comments)
+            actual = _expected_state_key(state)
+            if actual == (False, "", 0):
+                continue
+            if actual == expected:
+                temporary.unlink()
+                _fsync_directory(temporary.parent)
+                continue
+            preserved = self._preserve_unexpected_temporary(
+                backup_root, temporary, label
+            )
+            unexpected.append(f"{temporary} -> {preserved.name}")
+        if unexpected:
+            raise ContractError(
+                "transaction temporary bytes/state changed unexpectedly; preserved "
+                + ", ".join(unexpected)
+            )
+
+    def _begin_recovery(
+        self, backup_root: Path, manifest: dict[str, Any]
+    ) -> None:
+        phase = self._prepared_phase_index(manifest)
+        if phase is None:
+            raise ContractError("owner-comment transaction target phase is unexpected")
+        manifest["state"] = "recovering"
+        manifest["recovery"] = {"phase": phase, "cursor": 0}
+        _write_transaction_manifest(backup_root / "manifest.json", manifest)
+
+    def _restore_entry(
+        self, backup_root: Path, entry: dict[str, Any], number: int
+    ) -> None:
+        target = self.root / entry["path"]
+        if entry["existed"]:
+            backup = backup_root / entry["backup"]
+            target.parent.mkdir(parents=True, exist_ok=True)
+            temporary = self._recovery_temporary_path(
+                backup_root, entry, number
+            )
+            created = False
+            try:
+                if temporary.exists() or temporary.is_symlink():
+                    raise ContractError(
+                        f"recovery temporary path already exists: {temporary}"
+                    )
+                descriptor = os.open(
+                    temporary,
+                    os.O_WRONLY | os.O_CREAT | os.O_EXCL,
+                    0o600,
+                )
+                created = True
+                with backup.open("rb") as source, os.fdopen(
+                    descriptor, "wb"
+                ) as destination:
+                    shutil.copyfileobj(source, destination)
+                    destination.flush()
+                    os.fsync(destination.fileno())
+                os.chmod(temporary, stat.S_IMODE(os.lstat(backup).st_mode))
+                with temporary.open("rb") as handle:
+                    os.fsync(handle.fileno())
+                os.replace(temporary, target)
+                _fsync_directory(target.parent)
+            except BaseException:
+                try:
+                    if created and (
+                        temporary.is_symlink() or (
+                        temporary.exists() and not temporary.is_dir()
+                        )
+                    ):
+                        temporary.unlink()
+                        _fsync_directory(temporary.parent)
+                except OSError:
+                    pass
+                raise
+        elif target.exists() or target.is_symlink():
+            if target.is_dir() and not target.is_symlink():
+                raise ContractError(
+                    f"transaction recovery refuses to delete directory: {target}"
+                )
+            target.unlink()
+            _fsync_directory(target.parent)
+
     def _restore_transaction(
         self, backup_root: Path, manifest: dict[str, Any]
     ) -> None:
-        """Idempotently restore a prepared transaction without consuming backups."""
-        for entry in manifest["entries"]:
-            target = self.root / entry["path"]
-            if entry["existed"]:
-                backup = backup_root / entry["backup"]
-                target.parent.mkdir(parents=True, exist_ok=True)
-                fd, temporary = tempfile.mkstemp(
-                    prefix=f".{target.name}.recover.", dir=target.parent
+        """Resume a cursor-pinned recovery without accepting mixed target states."""
+        if manifest["state"] == "prepared":
+            self._begin_recovery(backup_root, manifest)
+        while manifest["recovery"]["cursor"] < len(manifest["entries"]):
+            status = self._recovery_status(manifest)
+            if status is None:
+                raise ContractError(
+                    "owner-comment recovery target phase changed unexpectedly"
                 )
-                os.close(fd)
-                try:
-                    shutil.copy2(backup, temporary)
-                    with open(temporary, "rb") as handle:
-                        os.fsync(handle.fileno())
-                    os.replace(temporary, target)
-                    _fsync_directory(target.parent)
-                except BaseException:
-                    try:
-                        os.unlink(temporary)
-                    except FileNotFoundError:
-                        pass
-                    raise
-            elif target.exists() or target.is_symlink():
-                if target.is_dir() and not target.is_symlink():
+            cursor = manifest["recovery"]["cursor"]
+            if status == "before":
+                self._restore_entry(
+                    backup_root, manifest["entries"][cursor], cursor
+                )
+                if self._current_target_vector(manifest) != self._recovery_vectors(
+                    manifest
+                )[1]:
                     raise ContractError(
-                        f"transaction recovery refuses to delete directory: {target}"
+                        "owner-comment recovery could not verify restored target"
                     )
-                target.unlink()
-                _fsync_directory(target.parent)
+            manifest["recovery"]["cursor"] = cursor + 1
+            _write_transaction_manifest(backup_root / "manifest.json", manifest)
 
     def _recover_transactions(self) -> None:
         """Recover any process-terminated transaction while holding the lock."""
@@ -766,7 +1191,14 @@ class OwnerCommentsStore:
                 raise ContractError(
                     f"invalid owner-comment transaction path: {backup_root}"
                 )
-            manifest = self._read_transaction_manifest(backup_root)
+            try:
+                manifest = self._read_transaction_manifest(backup_root)
+            except ContractError as exc:
+                quarantine = self._quarantine_transaction(backup_root)
+                raise ContractError(
+                    "invalid owner-comment recovery journal was quarantined at "
+                    f"{quarantine}: {exc}"
+                ) from exc
             if manifest is None:
                 # ``txn-*`` is published into this root-digested, non-worktree
                 # directory only after a durable manifest exists.  Therefore a
@@ -775,32 +1207,71 @@ class OwnerCommentsStore:
                 shutil.rmtree(backup_root, ignore_errors=True)
                 _fsync_directory(transaction_root)
                 continue
+            try:
+                self._cleanup_transaction_temporaries(backup_root, manifest)
+            except ContractError as exc:
+                quarantine = self._quarantine_transaction(backup_root)
+                raise ContractError(
+                    "owner-comment transaction temporary mismatch was preserved "
+                    f"and quarantined at {quarantine}: {exc}"
+                ) from exc
             transactions.append((backup_root, manifest))
 
-        prepared = [item for item in transactions if item[1]["state"] == "prepared"]
-        if prepared:
+        active = [
+            item
+            for item in transactions
+            if item[1]["state"] in {"prepared", "recovering"}
+        ]
+        if active:
             current_identity = self._git_identity()
-            mismatched = [
-                item
-                for item in prepared
-                if item[1]["git_identity"] != current_identity
+            identity_mismatches = [
+                backup_root
+                for backup_root, manifest in active
+                if manifest["git_identity"] != current_identity
             ]
-            if mismatched:
+            target_mismatches = {
+                backup_root: [entry["path"] for entry in manifest["entries"]]
+                for backup_root, manifest in active
+                if (
+                    self._prepared_phase_index(manifest) is None
+                    if manifest["state"] == "prepared"
+                    else self._recovery_status(manifest) is None
+                )
+            }
+            multiple_active = len(active) != 1
+            if identity_mismatches or target_mismatches or multiple_active:
                 quarantined = [
                     self._quarantine_transaction(backup_root)
-                    for backup_root, _ in mismatched
+                    for backup_root, _ in active
                 ]
+                reasons = []
+                if identity_mismatches:
+                    reasons.append("Git symbolic HEAD/OID/index tree changed")
+                if multiple_active:
+                    reasons.append("multiple overlapping recovery journals exist")
+                if target_mismatches:
+                    changed = sorted(
+                        {
+                            path
+                            for paths in target_mismatches.values()
+                            for path in paths
+                        }
+                    )
+                    reasons.append(
+                        "target bytes/state changed at " + ", ".join(changed)
+                    )
                 raise ContractError(
-                    "prepared owner-comment transaction belongs to a different "
-                    "Git symbolic HEAD/OID/index tree; the current checkout was "
-                    "not changed and the stale recovery data was quarantined at "
+                    "prepared owner-comment transaction cannot be recovered "
+                    "safely (" + "; ".join(reasons) + "); the current checkout "
+                    "was not changed and the stale recovery data was quarantined at "
                     + ", ".join(str(path) for path in quarantined)
                 )
 
         for backup_root, manifest in transactions:
-            if manifest["state"] == "prepared":
+            if manifest["state"] in {"prepared", "recovering"}:
                 self._restore_transaction(backup_root, manifest)
                 manifest["state"] = "committed"
+                manifest["recovery"] = None
                 _write_transaction_manifest(
                     backup_root / "manifest.json", manifest
                 )
@@ -808,10 +1279,13 @@ class OwnerCommentsStore:
             _fsync_directory(transaction_root)
 
     @contextmanager
-    def rollback_snapshot(self, paths: tuple[Path, ...]):
+    def rollback_snapshot(
+        self, expected_phases: tuple[dict[Path, bytes | None], ...]
+    ):
         """Restore files on exceptions and journal recovery across process death.
 
-        Backups live on the repository filesystem and prefer hard links, so a
+        Backups are independent files on the repository filesystem, so an
+        in-place post-crash target edit cannot mutate the recovery copy and a
         persistent failure in ``_atomic_write`` cannot also disable rollback.
         A durable prepared/committed manifest lets the next locked operation
         recover an ``os._exit``/SIGTERM interruption deterministically.
@@ -822,17 +1296,16 @@ class OwnerCommentsStore:
         backup_root = Path(
             tempfile.mkdtemp(prefix=".initializing-", dir=transaction_root)
         )
-        manifest = self._transaction_manifest(paths)
+        manifest = self._transaction_manifest(expected_phases)
         prepared = False
         try:
             for entry in manifest["entries"]:
                 if entry["existed"]:
                     path = self.root / entry["path"]
                     backup = backup_root / entry["backup"]
-                    try:
-                        os.link(path, backup)
-                    except OSError:
-                        shutil.copy2(path, backup)
+                    shutil.copy2(path, backup)
+                    with backup.open("rb") as handle:
+                        os.fsync(handle.fileno())
             _write_transaction_manifest(backup_root / "manifest.json", manifest)
             final_root = transaction_root / (
                 "txn-" + backup_root.name.removeprefix(".initializing-")
@@ -841,8 +1314,22 @@ class OwnerCommentsStore:
             _fsync_directory(transaction_root)
             backup_root = final_root
             prepared = True
-            yield
+            atomic_temporaries = self._atomic_temporaries(backup_root, manifest)
+            for temporary in atomic_temporaries.values():
+                state = _expected_state_key(
+                    _path_state(temporary, boundary=self.comments)
+                )
+                if state != (False, "", 0):
+                    raise ContractError(
+                        f"transaction atomic temporary is not absent: {temporary}"
+                    )
+            token = _ACTIVE_ATOMIC_TEMPORARIES.set(atomic_temporaries)
+            try:
+                yield
+            finally:
+                _ACTIVE_ATOMIC_TEMPORARIES.reset(token)
             manifest["state"] = "committed"
+            manifest["recovery"] = None
             _write_transaction_manifest(backup_root / "manifest.json", manifest)
         except BaseException:
             if prepared:
@@ -850,6 +1337,7 @@ class OwnerCommentsStore:
                 # Mark the restored state final before cleanup, so a cleanup
                 # interruption never retries against partially removed backups.
                 manifest["state"] = "committed"
+                manifest["recovery"] = None
                 _write_transaction_manifest(
                     backup_root / "manifest.json", manifest
                 )
@@ -889,63 +1377,106 @@ class OwnerCommentsStore:
         return repositories
 
     def staged_blob_errors(self) -> list[str]:
-        """Validate committed/index bytes before checkout normalization masks them.
-
-        GitHub's Contents/Git Data APIs can commit CRLF blobs directly.  An
-        ``eol=lf`` checkout then presents LF worktree bytes while the PR still
-        contains CRLF, so worktree-only validation is insufficient.  The index
-        is the exact candidate tree in CI and the next committed tree locally.
-        """
+        """Validate the exact candidate index tree, independent of the checkout."""
         if not (self.root / ".git").exists():
             return []
+        written = subprocess.run(
+            ["git", "write-tree"],
+            cwd=self.root,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if written.returncode != 0 or not written.stdout.strip():
+            detail = written.stderr.strip() or "git write-tree failed"
+            return [f"staged candidate: cannot write index tree ({detail})"]
+        tree = written.stdout.strip()
         listing = subprocess.run(
-            ["git", "ls-files", "-z", "--", COMMENTS_REL.as_posix()],
+            [
+                "git",
+                "ls-tree",
+                "-r",
+                "-z",
+                "--full-tree",
+                tree,
+                "--",
+                ESTATE_REL.as_posix(),
+                COMMENTS_REL.as_posix(),
+            ],
             cwd=self.root,
             capture_output=True,
             check=False,
         )
         if listing.returncode != 0:
-            return ["owner-comment blobs: git ls-files failed"]
+            return ["staged candidate: git ls-tree failed"]
 
         errors: list[str] = []
+        files: dict[Path, bytes] = {}
         for encoded in listing.stdout.split(b"\0"):
             if not encoded:
                 continue
-            path_text = encoded.decode("utf-8", errors="strict")
+            try:
+                metadata, encoded_path = encoded.split(b"\t", 1)
+                mode, object_type, oid = metadata.decode("ascii").split()
+                path_text = encoded_path.decode("utf-8", errors="strict")
+            except (ValueError, UnicodeDecodeError):
+                errors.append("staged candidate: malformed Git tree entry")
+                continue
+            relative = Path(path_text)
+            if (
+                relative.is_absolute()
+                or ".." in relative.parts
+                or not (
+                    relative == ESTATE_REL
+                    or relative.parts[:2] == COMMENTS_REL.parts
+                )
+            ):
+                errors.append(f"staged candidate: unsafe path {path_text!r}")
+                continue
+            if mode != "100644" or object_type != "blob":
+                errors.append(
+                    f"staged candidate: {path_text} must be a regular 100644 file"
+                )
+                continue
             shown = subprocess.run(
-                ["git", "show", f":{path_text}"],
+                ["git", "cat-file", "blob", oid],
                 cwd=self.root,
                 capture_output=True,
                 check=False,
             )
             if shown.returncode != 0:
-                errors.append(f"{path_text}: cannot read staged blob")
+                errors.append(f"staged candidate: {path_text}: cannot read blob")
                 continue
             raw = shown.stdout
             if b"\r" in raw:
                 errors.append(
-                    f"{path_text}: staged blob contains CR bytes; committed "
+                    f"staged candidate: {path_text}: staged blob contains CR bytes; "
+                    "committed "
                     "owner-comment files must use LF"
                 )
-            if not path_text.endswith(".json"):
-                continue
-            if path_text == (COMMENTS_REL / "record.schema.json").as_posix():
-                if hashlib.sha256(raw).hexdigest() != SCHEMA_SHA256:
-                    errors.append(
-                        f"{path_text}: staged schema differs from the executable "
-                        "contract"
-                    )
-                continue
+            files[relative] = raw
+
+        with tempfile.TemporaryDirectory(prefix="owner-comments-candidate-") as temp:
+            candidate_root = Path(temp)
             try:
-                data = _decode_json(raw)
-            except Exception as exc:
-                errors.append(f"{path_text}: invalid staged JSON ({exc})")
-                continue
-            if raw != _json_bytes(data):
-                errors.append(
-                    f"{path_text}: staged JSON blob is not canonical; the Git "
-                    "object, not only checkout bytes, must be canonical"
+                for relative, raw in files.items():
+                    destination = candidate_root / relative
+                    destination.parent.mkdir(parents=True, exist_ok=True)
+                    destination.write_bytes(raw)
+                candidate = OwnerCommentsStore(candidate_root)
+                candidate_errors = candidate._check_locked()
+                records, scan_errors = candidate.scan()
+            except (ContractError, OSError) as exc:
+                errors.append(f"staged candidate: cannot validate tree ({exc})")
+            else:
+                errors.extend(
+                    f"staged candidate: {error}" for error in candidate_errors
                 )
+                if not scan_errors:
+                    errors.extend(
+                        f"staged candidate: {error}"
+                        for error in self.lifecycle_errors(records)
+                    )
         return errors
 
     def scan(self) -> tuple[list[Record], list[str]]:
@@ -1347,8 +1878,9 @@ class OwnerCommentsStore:
 
     def _check_locked(self) -> list[str]:
         records, errors = self.scan()
+        staged_errors = self.staged_blob_errors()
         if errors:
-            return errors
+            return errors + staged_errors
         for name in ("README.md", "record.schema.json"):
             path = self.comments / name
             relative = path.relative_to(self.root).as_posix()
@@ -1369,7 +1901,7 @@ class OwnerCommentsStore:
                 errors.append(f"{relative}: missing generated index")
             elif path.read_bytes() != expected:
                 errors.append(f"{relative}: generated index is stale; run reindex")
-        errors.extend(self.staged_blob_errors())
+        errors.extend(staged_errors)
         errors.extend(self.lifecycle_errors(records))
         return errors
 
@@ -1393,7 +1925,14 @@ class OwnerCommentsStore:
         # index half of consume: interruption on any write restores every
         # already-written index instead of leaving root and repository views
         # disagreeing.  consume adds an outer record snapshot around this.
-        with self.rollback_snapshot(tuple(changes)):
+        phase = {
+            path: path.read_bytes() if path.is_file() else None for path in changes
+        }
+        expected_phases = []
+        for path, content in changes.items():
+            phase[path] = content
+            expected_phases.append(dict(phase))
+        with self.rollback_snapshot(tuple(expected_phases)):
             for path, content in changes.items():
                 _atomic_write(path, content)
 
@@ -1462,7 +2001,7 @@ class OwnerCommentsStore:
             raise ContractError(f"consumed destination already exists: {destination}")
 
         try:
-            data, _ = _load_json(source)
+            data, source_raw = _load_json(source)
         except Exception as exc:
             raise ContractError(f"invalid source record JSON: {exc}") from exc
         errors = validate_record(
@@ -1483,20 +2022,53 @@ class OwnerCommentsStore:
         )
         if updated_errors:
             raise ContractError("\n".join(updated_errors))
+        updated_raw = _json_bytes(updated)
+        current_records, scan_errors = self.scan()
+        if scan_errors:
+            raise ContractError("\n".join(scan_errors))
+        source_relative = source.relative_to(self.comments)
+        destination_relative = destination.relative_to(self.comments)
+        planned_records = [
+            (
+                Record(path=destination_relative, data=updated)
+                if current.path == source_relative
+                else current
+            )
+            for current in current_records
+        ]
+        if sum(current.path == source_relative for current in current_records) != 1:
+            raise ContractError("source record is missing from the validated ledger")
+        planned_indexes = self.expected_indexes(planned_records)
+        repository_index = self.comments / repository / "README.md"
+        root_index = self.comments / "index.json"
         destination.parent.mkdir(parents=True, exist_ok=True)
 
-        transaction_paths = (
-            source,
-            destination,
-            self.comments / repository / "README.md",
-            self.comments / "index.json",
-        )
-        with self.rollback_snapshot(transaction_paths):
+        phase = {
+            source: source_raw,
+            destination: None,
+            repository_index: repository_index.read_bytes(),
+            root_index: root_index.read_bytes(),
+        }
+        expected_phases = []
+        # The move first exposes the original bytes at destination.
+        phase[source] = None
+        phase[destination] = source_raw
+        expected_phases.append(dict(phase))
+        # The following atomic replace exposes the consumed record bytes.
+        phase[destination] = updated_raw
+        expected_phases.append(dict(phase))
+        # expected_indexes writes the root projection before repository indexes.
+        phase[root_index] = planned_indexes[root_index]
+        expected_phases.append(dict(phase))
+        phase[repository_index] = planned_indexes[repository_index]
+        expected_phases.append(dict(phase))
+        with self.rollback_snapshot(tuple(expected_phases)):
             source.replace(destination)  # the lifecycle transition is a real move
             _fsync_directory(source.parent)
             _fsync_directory(destination.parent)
-            _atomic_write(destination, _json_bytes(updated))
-            self._reindex_locked()
+            _atomic_write(destination, updated_raw)
+            _atomic_write(root_index, planned_indexes[root_index])
+            _atomic_write(repository_index, planned_indexes[repository_index])
             postflight_errors = self._check_locked()
             if postflight_errors:
                 raise ContractError(

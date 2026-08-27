@@ -61,17 +61,24 @@ newline. `tools/owner_comments.py check` is the executable reference for the
 ESTATE-membership, timestamp ordering, path, lifecycle, and canonical-byte
 rules that JSON Schema alone cannot express.
 
-`check` validates both checkout bytes and the staged Git-object bytes, so an API
-commit cannot hide CRLF/noncanonical records behind checkout normalization.
+`check` validates both the checkout and the complete staged Git candidate tree:
+record schema/path rules, append-only lifecycle, closed storage topology, schema
+pin, and both generated-index projections. An API commit cannot hide an invalid
+record, deletion, stale projection, or CRLF bytes behind checkout normalization.
 Mutations share a worktree-stable process lock. Their recovery journals live in
 Git metadata (never in the committed record tree); the next `check`, `reindex`,
 or `consume` deterministically rolls back a process-terminated prepared change
 before continuing. Every prepared journal is pinned to its symbolic Git `HEAD`
 ref (or an explicit detached marker), commit OID, and index tree. If any changed
 (for example, after switching branches), recovery quarantines the stale journal
-and stops without changing the current checkout. Data moves and generated-index
-replacements sync their parent directories before the journal can be marked
-committed.
+and stops without changing the current checkout. It also pins exact whole-tree
+byte/state phases, uses independent backups, and advances a durable recovery
+cursor; an unrecognized post-crash edit or path type is quarantined before any
+restore. Atomic replacement and restore scratch names are deterministic and
+journal-owned: exact expected residue is scavenged on retry, while different
+bytes are preserved inside the quarantined journal instead of deleted. Data
+moves and generated-index replacements sync their parent directories before the
+journal can be marked committed.
 
 ## Commands
 
