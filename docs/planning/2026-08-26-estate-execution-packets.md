@@ -372,7 +372,14 @@ moment of action, never another rule statement
 ([intent](../intent.md) § 4); (3) the centralisation question is **no longer a
 step here** — `OQ-ONEDRIVE-HUB` was rescoped 2026-08-27→28 to unhurried hub
 housekeeping (git versioning for its own sake), its recommendation (a)
-withdrawn as a sync path; it blocks nothing in this packet.
+withdrawn as a sync path; it blocks nothing in this packet. **One residual
+stays named (`@codex`, fm #954): the pages give a cloud session sight of
+hub-only work, never the files themselves.** The routing rule's own answer is
+that work meant to continue in the cloud lands in a repo before the handoff
+(push-at-close); if a genuine handoff ever depends on artifacts that live only
+in the hub, the a/b/c options are the recorded transfer candidates and the
+question re-opens as a sync question — visibility satisfied is not transfer
+solved.
 *Acceptance:* the three pages exist and a cloud session can answer both "what
 is on the laptop right now" and "can I pick up the task that was started
 there" from them. *Non-scope:* nothing executes before the owner's GO; nothing

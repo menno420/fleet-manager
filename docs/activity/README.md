@@ -128,7 +128,11 @@ share · `journal.md` copied per sitting) so the cloud could see the laptop;
 the owner answered the visibility need differently — the cloud reads this
 section's pages — so the a/b/c choice shrinks to unhurried hub housekeeping
 (whether the hub wants git versioning for its own sake), blocks nothing, and
-the old recommendation **(a)** no longer stands as a sync path. Records:
+the old recommendation **(a)** no longer stands as a sync path. **The pages
+give sight, not file access** (`@codex`, fm #954): work meant to continue in
+the cloud lands in a repo before the handoff, and if a genuine handoff ever
+depends on hub-only artifacts, the a/b/c options are the recorded transfer
+candidates and the question re-opens. Records:
 [`../findings/2026-08-26-owner-direction.md`](../findings/2026-08-26-owner-direction.md)
 §§ 1, 5 (origin) ·
 [`../findings/2026-08-28-owner-direction.md`](../findings/2026-08-28-owner-direction.md)

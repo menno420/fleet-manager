@@ -123,8 +123,11 @@ and keep working — stop only when no next step exists without the answer.
 One thing at a time, finished properly; small changes, landed.
 ```
 
-## Open question for a future pass
+## Answered 2026-08-28 — do not re-ask
 
-Whether couch-legend should carry an `AGENTS.md` so this surface orients
-natively without the paste — same question as `OQ-FM-AGENTS-BOOT` on the hub,
-and it should be answered once, estate-wide, not per repo.
+Whether couch-legend should carry an `AGENTS.md` was open here; **the owner
+answered it once, estate-wide: yes, everywhere** (`OQ-FM-AGENTS-BOOT`,
+[`../findings/2026-08-28-owner-direction.md`](../findings/2026-08-28-owner-direction.md)
+§ 5). Do not re-ask. couch-legend's file arrives with PKT-B4's rollout —
+sequenced, held until the owner's GO on plan execution — so its absence today
+means "not yet rolled out", not "undecided".

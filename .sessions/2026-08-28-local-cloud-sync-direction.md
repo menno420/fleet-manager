@@ -49,6 +49,18 @@ owner said "no execution yet" and the substrate-kit discussion is still ahead.
 - `.substrate/guard-fires.jsonl` — the gate run's telemetry delta, committed
   per its own instruction.
 
+## Review disposition
+
+- Codex round 1 errored ("Failed to set up container") — retried per doctrine.
+- Round 2 on `b3b2d09` returned two P2 findings, both **[conceded]**:
+  (1) the two live ChatGPT project prompts still presented the AGENTS.md
+  decision as open — both now carry the answered note ("do not re-ask");
+  (2) the `OQ-ONEDRIVE-HUB` rescope read as if visibility solved transfer —
+  the "pages give sight, not file access" residual is now named in the
+  packets, the activity README, the queue row and the finding's § 7, with
+  the a/b/c options kept as the recorded transfer candidates should a
+  hub-only handoff ever arise.
+
 ## 💡 Session idea
 
 A `🤝 Handoff:` card line (closed set: `expected-cloud` · `expected-local` ·

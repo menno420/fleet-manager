@@ -138,7 +138,10 @@ otherwise untouched (it is history of what he said then).
   by § 2 — the cloud reads the fm local section. What survives is unhurried
   hub housekeeping (whether the hub itself wants git versioning/backup),
   blocking nothing; the old recommendation **(a)** no longer stands as a sync
-  path.
+  path. `DERIVED`, review-raised (`@codex`, fm #954): the pages give sight,
+  not file access — work meant to continue in the cloud lands in a repo before
+  the handoff, and a genuine handoff depending on hub-only artifacts would
+  re-open the a/b/c trade as the recorded transfer candidates.
 - **No GO for PKT-B3's pages or the hub-side wiring** — planned, specified,
   held.
 - **The kit questions are open for the kit sitting**, including one his

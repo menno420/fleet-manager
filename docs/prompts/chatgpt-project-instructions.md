@@ -139,10 +139,14 @@ requested and waited for on the exact head, findings dispositioned in-thread as
 Note the auto-merge lane only sweeps branches named claude/* .
 ```
 
-## Open question for the next run
+## Answered 2026-08-28 — do not re-ask
 
-Whether a short `AGENTS.md` at the repo root would beat these instructions for
-orientation. It would be read natively by that surface. Deliberately not added
-yet: the no-boot-file D2 test is now preserved as evidence, and the remaining
-choice is whether native auto-orientation is worth adding. The owner ask lives at
-`OQ-FM-AGENTS-BOOT`; `docs/execution-surfaces.md` § 4b carries the reasoning.
+Whether a short `AGENTS.md` should exist was an open question here; **the owner
+answered it estate-wide: yes, everywhere** (*"Agents.md should indeed be
+everywhere"* — `OQ-FM-AGENTS-BOOT`,
+[`../findings/2026-08-28-owner-direction.md`](../findings/2026-08-28-owner-direction.md)
+§ 5). Do not ask him again. Rollout is PKT-B4 in
+[the execution packets](../planning/2026-08-26-estate-execution-packets.md) —
+sequenced, and **held until his GO on plan execution**; a session using this
+prompt treats the file's absence as "not yet rolled out", never as an open
+decision. `docs/execution-surfaces.md` § 4b carries the original reasoning.
