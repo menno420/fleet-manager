@@ -113,8 +113,11 @@ COMMENT_ALIAS_REPOS = (
     (
         reference_pattern(
             r"(?:the[- ])?community[- ]bot"
-            r"(?:[- ]for[- ]slingy[- ]spider)?|game[- ]community[- ]bot|"
-            r"slingy[- ]spider[- ](?:server|(?:community[- ])?bot)"
+            r"(?:[- ](?:in|of|for)[- ](?:the[- ])?slingy[- ]spider"
+            r"(?:[- ](?:discord[- ])?server)?)?|game[- ]community[- ]bot|"
+            r"(?:the[- ])?slingy[- ]spider"
+            r"(?:['’]s[- ]community[- ]bot|"
+            r"[- ](?:(?:discord[- ])?server|(?:community[- ])?bot))"
         ),
         ("spider-bot",),
         ("spider-swing",),

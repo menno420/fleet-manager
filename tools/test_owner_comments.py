@@ -1402,6 +1402,42 @@ store.consume(
         self.assertTrue(destination_mode & stat.S_IWRITE, oct(destination_mode))
         self.assertEqual(list(self.root.glob(".readonly-index.json.*")), [])
 
+    def test_windows_readonly_atomic_refuses_multiply_linked_target(self) -> None:
+        target = self.root / "readonly-linked.json"
+        peer = self.root / "readonly-linked-peer.json"
+        target.write_bytes(b"old linked bytes\n")
+        os.link(target, peer)
+        target.chmod(0o444)
+        before_mode = stat.S_IMODE(target.stat().st_mode)
+
+        with self.windows_readonly_semantics():
+            with self.assertRaisesRegex(ContractError, "multiply linked"):
+                owner_comments._atomic_write(target, b"new bytes\n")
+
+        self.assertEqual(target.read_bytes(), b"old linked bytes\n")
+        self.assertEqual(peer.read_bytes(), b"old linked bytes\n")
+        self.assertEqual(stat.S_IMODE(target.stat().st_mode), before_mode)
+        self.assertEqual(stat.S_IMODE(peer.stat().st_mode), before_mode)
+        self.assertTrue(os.path.samefile(target, peer))
+        self.assertEqual(list(self.root.glob(".readonly-linked.json.*")), [])
+
+    def test_windows_readonly_restore_closes_writable_alias_mode_window(
+        self,
+    ) -> None:
+        target = self.root / "writable-linked.json"
+        peer = self.root / "writable-linked-peer.json"
+        target.write_bytes(b"proven bytes\n")
+        os.link(target, peer)
+        target.chmod(0o666)
+
+        with self.windows_readonly_semantics():
+            owner_comments._apply_windows_readonly_after_replace(target, 0o444)
+
+        self.assertEqual(target.read_bytes(), b"proven bytes\n")
+        self.assertEqual(peer.read_bytes(), b"proven bytes\n")
+        self.assertEqual(stat.S_IMODE(target.stat().st_mode), 0o444)
+        self.assertEqual(stat.S_IMODE(peer.stat().st_mode), 0o444)
+
     def test_windows_readonly_atomic_failure_restores_and_preserves_error(
         self,
     ) -> None:
@@ -1485,6 +1521,177 @@ store.consume(
         with self.windows_readonly_semantics():
             self.store._restore_entry(backup_root, absent_entry, 0)
         self.assertFalse(target.exists())
+
+    def test_windows_readonly_recovery_refuses_multiply_linked_delete(self) -> None:
+        backup_root = self.root / ".git" / "txn-linked-delete"
+        backup_root.mkdir(parents=True)
+        target = self.root / "docs/owner-comments/index.json"
+        peer = self.root / "linked-index-peer.json"
+        os.link(target, peer)
+        target.chmod(0o444)
+        before = target.read_bytes()
+        before_mode = stat.S_IMODE(target.stat().st_mode)
+        entry = {
+            "path": "docs/owner-comments/index.json",
+            "existed": False,
+            "backup": None,
+        }
+
+        with self.windows_readonly_semantics():
+            with self.assertRaisesRegex(ContractError, "multiply linked"):
+                self.store._restore_entry(backup_root, entry, 0)
+
+        self.assertEqual(target.read_bytes(), before)
+        self.assertEqual(peer.read_bytes(), before)
+        self.assertEqual(stat.S_IMODE(target.stat().st_mode), before_mode)
+        self.assertEqual(stat.S_IMODE(peer.stat().st_mode), before_mode)
+
+    def test_windows_readonly_hardlink_reindex_rollback_preserves_original_error(
+        self,
+    ) -> None:
+        target = self.root / "docs/owner-comments/index.json"
+        peer = self.root / "linked-reindex-index.json"
+        os.link(target, peer)
+        target.chmod(0o444)
+        repository_index = self.root / "docs/owner-comments/websites/README.md"
+        before_target = target.read_bytes()
+        before_repository_index = repository_index.read_bytes()
+        before_mode = stat.S_IMODE(target.stat().st_mode)
+        self.write_record()
+
+        with self.windows_readonly_semantics(), mock.patch.object(
+            self.store, "_restore_entry", wraps=self.store._restore_entry
+        ) as restore_entry:
+            with self.assertRaisesRegex(ContractError, "multiply linked"):
+                self.store.reindex()
+
+        self.assertEqual(target.read_bytes(), before_target)
+        self.assertEqual(peer.read_bytes(), before_target)
+        self.assertEqual(repository_index.read_bytes(), before_repository_index)
+        self.assertEqual(stat.S_IMODE(target.stat().st_mode), before_mode)
+        self.assertEqual(stat.S_IMODE(peer.stat().st_mode), before_mode)
+        restore_entry.assert_not_called()
+        transaction_root = self.store._transaction_root()
+        self.assertEqual(list(transaction_root.glob("txn-*")), [])
+        self.assertEqual(list(transaction_root.glob("quarantine-*")), [])
+
+    def test_windows_mode_window_closes_before_identity_quarantine(self) -> None:
+        self.commit_baseline("readonly owner-comment projection")
+        target = self.root / "docs/owner-comments/index.json"
+        target.chmod(0o444)
+        before = target.read_bytes()
+        self.write_record()
+        crash_code = """
+import os
+import sys
+from pathlib import Path
+sys.path.insert(0, sys.argv[1])
+import owner_comments
+store = owner_comments.OwnerCommentsStore(Path(sys.argv[2]))
+target = Path(sys.argv[3])
+owner_comments._is_windows = lambda: True
+real_clear = owner_comments._clear_windows_readonly
+def crash_after_clear(path, *, missing_ok=False):
+    prior = real_clear(path, missing_ok=missing_ok)
+    if Path(path) == target and prior is not None:
+        os._exit(97)
+    return prior
+owner_comments._clear_windows_readonly = crash_after_clear
+store.reindex()
+"""
+        crashed = subprocess.run(
+            [
+                sys.executable,
+                "-c",
+                crash_code,
+                str(REPO / "tools"),
+                str(self.root),
+                str(target),
+            ],
+            cwd=REPO,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(crashed.returncode, 97, crashed.stderr)
+        self.assertEqual(target.read_bytes(), before)
+        self.assertTrue(stat.S_IMODE(target.stat().st_mode) & stat.S_IWRITE)
+
+        estate = self.root / "docs/ESTATE.md"
+        estate.write_text(estate.read_text(encoding="utf-8") + "\n", encoding="utf-8")
+        subprocess.run(["git", "add", "docs/ESTATE.md"], cwd=self.root, check=True)
+
+        with self.windows_readonly_semantics():
+            with self.assertRaisesRegex(
+                ContractError, "Git symbolic HEAD/OID/index tree changed"
+            ):
+                self.store.check()
+
+        self.assertEqual(target.read_bytes(), before)
+        self.assertEqual(stat.S_IMODE(target.stat().st_mode), 0o444)
+        transaction_root = self.store._transaction_root()
+        self.assertEqual(list(transaction_root.glob("txn-*")), [])
+        self.assertEqual(len(list(transaction_root.glob("quarantine-*"))), 1)
+
+    def test_windows_mode_window_closes_before_temp_mismatch_quarantine(
+        self,
+    ) -> None:
+        target = self.root / "docs/owner-comments/index.json"
+        target.chmod(0o444)
+        before = target.read_bytes()
+        self.write_record()
+        crash_code = """
+import os
+import sys
+from pathlib import Path
+sys.path.insert(0, sys.argv[1])
+import owner_comments
+store = owner_comments.OwnerCommentsStore(Path(sys.argv[2]))
+target = Path(sys.argv[3])
+owner_comments._is_windows = lambda: True
+real_clear = owner_comments._clear_windows_readonly
+def crash_after_clear(path, *, missing_ok=False):
+    prior = real_clear(path, missing_ok=missing_ok)
+    if Path(path) == target and prior is not None:
+        os._exit(98)
+    return prior
+owner_comments._clear_windows_readonly = crash_after_clear
+store.reindex()
+"""
+        crashed = subprocess.run(
+            [
+                sys.executable,
+                "-c",
+                crash_code,
+                str(REPO / "tools"),
+                str(self.root),
+                str(target),
+            ],
+            cwd=REPO,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(crashed.returncode, 98, crashed.stderr)
+        transaction_root = self.store._transaction_root()
+        temporary = next(
+            (self.root / "docs/owner-comments").rglob(".index.json.atomic-*")
+        )
+        unexpected = b"changed deterministic temporary\n"
+        temporary.write_bytes(unexpected)
+
+        with self.windows_readonly_semantics():
+            with self.assertRaisesRegex(
+                ContractError, "temporary mismatch.*preserved and quarantined"
+            ):
+                self.store.check()
+
+        self.assertEqual(target.read_bytes(), before)
+        self.assertEqual(stat.S_IMODE(target.stat().st_mode), 0o444)
+        self.assertEqual(list(transaction_root.glob("txn-*")), [])
+        quarantine = next(transaction_root.glob("quarantine-*"))
+        preserved = next(quarantine.glob("unexpected-atomic-*"))
+        self.assertEqual(preserved.read_bytes(), unexpected)
 
     def test_windows_readonly_reindex_transaction_completes_and_cleans_journal(
         self,
@@ -2343,6 +2550,62 @@ class RouteCase(unittest.TestCase):
                 {
                     "docs/repos/spider-bot/README.md",
                     "docs/owner-comments/spider-bot/README.md",
+                },
+            ),
+            (
+                "the community bot for the Slingy Spider",
+                {"spider-bot"},
+                {
+                    "docs/repos/spider-bot/README.md",
+                    "docs/owner-comments/spider-bot/README.md",
+                },
+            ),
+            (
+                "the community bot for the Slingy Spider Discord server",
+                {"spider-bot"},
+                {
+                    "docs/repos/spider-bot/README.md",
+                    "docs/owner-comments/spider-bot/README.md",
+                },
+            ),
+            (
+                "the community bot of the Slingy Spider Discord server",
+                {"spider-bot"},
+                {
+                    "docs/repos/spider-bot/README.md",
+                    "docs/owner-comments/spider-bot/README.md",
+                },
+            ),
+            (
+                "the community bot in the Slingy Spider Discord server",
+                {"spider-bot"},
+                {
+                    "docs/repos/spider-bot/README.md",
+                    "docs/owner-comments/spider-bot/README.md",
+                },
+            ),
+            (
+                "the Slingy Spider Discord server",
+                {"spider-bot"},
+                {
+                    "docs/repos/spider-bot/README.md",
+                    "docs/owner-comments/spider-bot/README.md",
+                },
+            ),
+            (
+                "Slingy Spider's community bot",
+                {"spider-bot"},
+                {
+                    "docs/repos/spider-bot/README.md",
+                    "docs/owner-comments/spider-bot/README.md",
+                },
+            ),
+            (
+                "Slingy Spider game",
+                {"spider-swing"},
+                {
+                    "docs/repos/spider-swing/README.md",
+                    "docs/owner-comments/spider-swing/README.md",
                 },
             ),
             (

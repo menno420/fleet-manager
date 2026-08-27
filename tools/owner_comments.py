@@ -292,6 +292,11 @@ def _clear_windows_readonly(
     mode = stat.S_IMODE(metadata.st_mode)
     if mode & stat.S_IWRITE:
         return None
+    if metadata.st_nlink != 1:
+        raise ContractError(
+            "refusing to clear Windows read-only state on a multiply linked "
+            f"file: {path}"
+        )
     os.chmod(path, mode | stat.S_IWRITE)
     return mode
 
@@ -326,7 +331,19 @@ def _apply_windows_readonly_after_replace(path: Path, mode: int) -> None:
     """Publish Windows read-only state only after replacement succeeds."""
     if not _windows_readonly_mode(mode):
         return
-    _clear_windows_readonly(path)
+    metadata = os.lstat(path)
+    if not stat.S_ISREG(metadata.st_mode):
+        raise ContractError(
+            f"Windows read-only target must be a regular file: {path}"
+        )
+    if not stat.S_IMODE(metadata.st_mode) & stat.S_IWRITE:
+        # Recovery can reach an entry whose before/after bytes are identical.
+        # Its unchanged read-only target may legitimately have other links, so
+        # do not clear and reapply an attribute that is already correct.
+        return
+    # A writable multiply-linked target can only reach this helper through a
+    # byte-vector-proven recovery window. Applying read-only here deliberately
+    # restores the shared Windows attribute on every surviving alias.
     # Keep a writable descriptor while applying the attribute so the metadata
     # change itself can be committed before this operation reports success.
     with path.open("r+b") as handle:
@@ -340,7 +357,7 @@ def _remove_tree_best_effort(path: Path) -> None:
         for candidate in sorted(path.rglob("*"), reverse=True):
             try:
                 _clear_windows_readonly(candidate, missing_ok=True)
-            except OSError:
+            except (OSError, ContractError):
                 pass
     shutil.rmtree(path, ignore_errors=True)
 
@@ -1409,6 +1426,44 @@ class OwnerCommentsStore:
             self.root / entry["path"], backup_mode
         )
 
+    def _restore_proven_windows_modes_before_quarantine(
+        self, backup_root: Path, manifest: dict[str, Any]
+    ) -> None:
+        """Close only mode windows whose complete target vector is proven."""
+        if not _is_windows():
+            return
+        if manifest["state"] == "prepared":
+            phase = self._prepared_phase_index(manifest)
+            if phase is None:
+                return
+            expected = self._phase_vectors(manifest)[phase]
+        elif manifest["state"] == "recovering":
+            status = self._recovery_status(manifest)
+            if status is None:
+                return
+            before, after = self._recovery_vectors(manifest)
+            expected = before if status == "before" else after
+        else:
+            return
+
+        for number, entry in enumerate(manifest["entries"]):
+            if not entry["existed"] or not expected[number][0]:
+                continue
+            backup = backup_root / entry["backup"]
+            backup_mode = stat.S_IMODE(os.lstat(backup).st_mode)
+            if not _windows_readonly_mode(backup_mode):
+                continue
+            target = self.root / entry["path"]
+            actual = _expected_state_key(
+                _path_state(target, boundary=self.comments)
+            )
+            if actual != expected[number]:
+                raise ContractError(
+                    "owner-comment target changed while closing a Windows "
+                    f"read-only recovery window: {target}"
+                )
+            _apply_windows_readonly_after_replace(target, backup_mode)
+
     def _restore_transaction(
         self, backup_root: Path, manifest: dict[str, Any]
     ) -> None:
@@ -1422,7 +1477,8 @@ class OwnerCommentsStore:
                     "owner-comment recovery target phase changed unexpectedly"
                 )
             cursor = manifest["recovery"]["cursor"]
-            if status == "before":
+            before, after = self._recovery_vectors(manifest)
+            if status == "before" and before != after:
                 self._restore_entry(
                     backup_root, manifest["entries"][cursor], cursor
                 )
@@ -1473,6 +1529,12 @@ class OwnerCommentsStore:
             try:
                 self._cleanup_transaction_temporaries(backup_root, manifest)
             except ContractError as exc:
+                # Temporary corruption changes the quarantine decision, not a
+                # separately proven target. Close any Windows read-only mode
+                # window before moving this otherwise valid journal aside.
+                self._restore_proven_windows_modes_before_quarantine(
+                    backup_root, manifest
+                )
                 quarantine = self._quarantine_transaction(backup_root)
                 raise ContractError(
                     "owner-comment transaction temporary mismatch was preserved "
@@ -1503,6 +1565,18 @@ class OwnerCommentsStore:
             }
             multiple_active = len(active) != 1
             if identity_mismatches or target_mismatches or multiple_active:
+                # A Windows replacement clears the old target's read-only
+                # attribute immediately before MoveFileEx. If the process dies
+                # in that narrow window, identity quarantine must not strand
+                # proven transaction bytes writable. Never touch bytes here,
+                # and do this only for one journal whose complete target vector
+                # still matches an expected phase/recovery boundary.
+                if not multiple_active:
+                    backup_root, manifest = active[0]
+                    if backup_root not in target_mismatches:
+                        self._restore_proven_windows_modes_before_quarantine(
+                            backup_root, manifest
+                        )
                 quarantined = [
                     self._quarantine_transaction(backup_root)
                     for backup_root, _ in active
