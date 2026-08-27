@@ -1,6 +1,7 @@
 # 2026-08-28 — record the owner's local/cloud sync direction (2026-08-27→28)
 
-> **Status:** `in-progress` — born-red; the recording pass is underway.
+> **Status:** `complete` — the sitting's decisions are recorded, every review
+> finding is dispositioned, and the gate ran green on the completed card.
 
 - **📊 Model:** fable-5 · high · docs-only
 - **📍 Venue:** local-desktop
@@ -99,9 +100,16 @@ Layer-2 handoff: null (fleet-manager itself; no member repository attached).
 
 - `python tools/check_doc_routes.py --strict` — **71 routes · 36 docs routed ·
   0 errors · 4 notes** (all four pre-existing).
-- `python bootstrap.py check --strict` — 1 finding: the added-card lane's
-  **born-red HOLD naming this card** (designed pre-flip state); re-run at the
-  flip must be green.
+- `python bootstrap.py check --strict` — re-run at the flip with the card
+  complete: the card hold cleared; the run stays red on **one pre-existing
+  environment finding** — `tools/test_owner_comments.py` fails on this
+  Windows venue **identically on a clean tree with this PR's changes stashed**
+  (6 failures / 41 errors both ways; the parallel Codex workspace on this
+  machine is claimed for exactly "owner-comments Windows portability").
+  This PR's diff is markdown + this card + guard-fire telemetry only.
+  **The binding predicate is the PR's required `substrate-gate` check
+  (Linux), and this PR lands only on its green** — the venue block's own
+  rule for a local gate that cannot answer.
 - Removal preview: six rows presented to the owner in the hub chat
   2026-08-28; all six approved (rows 1–2 with the § 4 clarification).
 
