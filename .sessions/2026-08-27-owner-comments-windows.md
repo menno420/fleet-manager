@@ -47,7 +47,7 @@ modified).
 
 ## Verification
 
-- `python tools/test_owner_comments.py -q` — **PASS**, 91 tests in 436.884 s;
+- `python tools/test_owner_comments.py -q` — **PASS**, 91 tests in 234.807 s;
   five symlink-creation tests skipped because this ordinary Windows account has
   neither Developer Mode nor administrator link privilege.
 - `python tools/owner_comments.py check` — **PASS**, 28 repositories, zero
@@ -70,5 +70,5 @@ modified).
   sibling `-old` prompt. Both were **[conceded]**. The label now uses
   `runtime bugfix`, and prompt routing removes checkout plumbing before slug
   matching while retaining the exact-checkout decision.
-- The completion flip makes the strict Linux substrate gate eligible to pass;
-  its protected-branch result remains the final merge condition.
+- `python bootstrap.py check --strict` — **PASS** after the completion flip;
+  the Linux `substrate-gate` is also green on the same product head.
