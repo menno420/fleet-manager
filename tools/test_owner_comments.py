@@ -3,10 +3,12 @@
 
 from __future__ import annotations
 
+import errno
 import json
 import os
 import re
 import shutil
+import stat
 import subprocess
 import sys
 import tempfile
@@ -1241,6 +1243,56 @@ store.consume(
             owner_comments._atomic_write(path, b"replacement\n")
         sync.assert_called_once_with(path.parent)
 
+    def test_atomic_replacements_preserve_modes_and_new_outputs_are_readable(
+        self,
+    ) -> None:
+        existing = self.root / "docs/owner-comments/index.json"
+        existing.chmod(0o640)
+        owner_comments._atomic_write(existing, b"replacement\n")
+        self.assertEqual(stat.S_IMODE(existing.stat().st_mode), 0o640)
+
+        existing.unlink()
+        self.store.reindex()
+        self.assertEqual(stat.S_IMODE(existing.stat().st_mode), 0o644)
+
+        source = self.write_record()
+        source.chmod(0o644)
+        self.store.reindex()
+        consumed_relative = self.store.consume(
+            "websites",
+            record()["id"],
+            consumed_at="2026-08-27T13:00:00Z",
+            actor="actor",
+            evidence="evidence",
+        )
+        consumed = self.root / consumed_relative
+        self.assertEqual(stat.S_IMODE(consumed.stat().st_mode), 0o644)
+
+    def test_directory_fsync_propagates_io_errors_only(self) -> None:
+        directory = self.root / "docs/owner-comments"
+        with mock.patch.object(
+            owner_comments.os,
+            "fsync",
+            side_effect=OSError(errno.EINVAL, "directory fsync unsupported"),
+        ):
+            owner_comments._fsync_directory(directory)
+
+        with mock.patch.object(
+            owner_comments.os,
+            "fsync",
+            side_effect=OSError(errno.EIO, "storage I/O failure"),
+        ):
+            with self.assertRaisesRegex(OSError, "storage I/O failure"):
+                owner_comments._fsync_directory(directory)
+
+        with mock.patch.object(
+            owner_comments.os,
+            "open",
+            side_effect=OSError(errno.EIO, "directory open I/O failure"),
+        ):
+            with self.assertRaisesRegex(OSError, "directory open I/O failure"):
+                owner_comments._fsync_directory(directory)
+
     def test_new_transaction_root_is_durable_before_manifest_publication(self) -> None:
         self.write_record()
         self.store.reindex()
@@ -1724,6 +1776,15 @@ class RouteCase(unittest.TestCase):
                 check=True,
             )
             self.assertFalse(result.stdout.strip())
+            state_path = (
+                Path(state)
+                / "claude-doc-routes"
+                / "owner-comments-self-read-test.json"
+            )
+            self.assertIn(
+                "owner-comments-websites",
+                json.loads(state_path.read_text(encoding="utf-8")),
+            )
 
     def test_absolute_paths_do_not_treat_checkout_ancestor_as_fleet_target(self) -> None:
         cases = [
@@ -1776,6 +1837,7 @@ class RouteCase(unittest.TestCase):
             ("idea engine", ("idea-engine",)),
             ("sim lab", ("sim-lab",)),
             ("trading strategy", ("trading-strategy",)),
+            ("trading-lab", ("trading-strategy",)),
             ("curious research", ("curious-research",)),
             ("the kit dashboard", ("Substrate-kit-app",)),
             ("Substrate Kit app", ("Substrate-kit-app",)),

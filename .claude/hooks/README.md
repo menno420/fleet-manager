@@ -43,7 +43,8 @@ stranger, so the fix had to be a mechanism.
 5. **A repository route also carries its stable owner-comment index.** The
    matcher derives direct canonical names from the generated root index, derives
    Layer-2 identities from their routed doc, and maps product aliases to their
-   exact repository member(s). It emits
+   exact repository member(s), including ESTATE vocabulary such as
+   `trading-lab` → `trading-strategy`. It emits
    `docs/owner-comments/<repo>/README.md` with its own active-feedback message —
    never a Layer-2 route's unrelated `says`. The literal generated index is
    discoverable even though individual durable comment ids are arbitrary.

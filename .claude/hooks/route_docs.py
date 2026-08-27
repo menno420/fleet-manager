@@ -109,7 +109,7 @@ COMMENT_ALIAS_REPOS = (
     (r"\bideas lab\b", ("idea-engine", "sim-lab")),
     (r"\bidea engine\b", ("idea-engine",)),
     (r"\bsim lab\b", ("sim-lab",)),
-    (r"\btrading strategy\b", ("trading-strategy",)),
+    (r"\b(trading strategy|trading[- ]lab)\b", ("trading-strategy",)),
     (r"\bcurious research\b", ("curious-research",)),
     (r"\b(kit dashboard|substrate[- ]kit[- ]app)\b", ("Substrate-kit-app",)),
 )
@@ -386,6 +386,9 @@ def main() -> int:
         comment_index = f"docs/owner-comments/{repository}/README.md"
         if tool != "Bash" and comment_index in text:
             fired.add(comment_route_id)
+            # A self-read is intentionally silent, but it still consumes this
+            # once-per-session pointer. Persist before the no-hit return below.
+            remember(session, fired)
             continue
         fired.add(comment_route_id)
         hits.append(

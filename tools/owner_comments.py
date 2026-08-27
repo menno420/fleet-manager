@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import argparse
 import copy
+import errno
 import hashlib
 import json
 import os
@@ -65,6 +66,14 @@ ROOT_RESERVED = {"readme.md", "index.json", "record.schema.json"}
 DETACHED_HEAD_REF = "DETACHED"
 _ACTIVE_ATOMIC_TEMPORARIES: ContextVar[dict[Path, Path] | None] = ContextVar(
     "owner_comment_atomic_temporaries", default=None
+)
+_UNSUPPORTED_DIRECTORY_FSYNC_ERRNOS = frozenset(
+    {
+        errno.EINVAL,
+        errno.ENOSYS,
+        getattr(errno, "ENOTSUP", errno.EINVAL),
+        getattr(errno, "EOPNOTSUPP", errno.EINVAL),
+    }
 )
 
 
@@ -239,6 +248,14 @@ def _expected_state_key(state: Any) -> tuple[bool, str, int] | None:
 
 def _atomic_write(path: Path, content: bytes) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        target_metadata = os.lstat(path)
+    except FileNotFoundError:
+        target_mode = 0o644
+    else:
+        if not stat.S_ISREG(target_metadata.st_mode):
+            raise ContractError(f"atomic-write target must be a regular file: {path}")
+        target_mode = stat.S_IMODE(target_metadata.st_mode)
     active_temporaries = _ACTIVE_ATOMIC_TEMPORARIES.get()
     temporary = (
         active_temporaries.get(path.absolute())
@@ -266,6 +283,7 @@ def _atomic_write(path: Path, content: bytes) -> None:
         with os.fdopen(fd, "wb") as handle:
             handle.write(content)
             handle.flush()
+            os.fchmod(handle.fileno(), target_mode)
             os.fsync(handle.fileno())
         os.replace(temporary, path)
         _fsync_directory(path.parent)
@@ -279,16 +297,19 @@ def _atomic_write(path: Path, content: bytes) -> None:
 
 
 def _fsync_directory(path: Path) -> None:
-    """Best-effort directory sync for transaction markers on supported OSes."""
+    """Durably sync a directory or ignore an explicitly unsupported platform."""
     flags = os.O_RDONLY | getattr(os, "O_DIRECTORY", 0)
     try:
         descriptor = os.open(path, flags)
-    except OSError:
-        return
+    except OSError as exc:
+        if exc.errno in _UNSUPPORTED_DIRECTORY_FSYNC_ERRNOS:
+            return
+        raise
     try:
         os.fsync(descriptor)
-    except OSError:
-        pass
+    except OSError as exc:
+        if exc.errno not in _UNSUPPORTED_DIRECTORY_FSYNC_ERRNOS:
+            raise
     finally:
         os.close(descriptor)
 
