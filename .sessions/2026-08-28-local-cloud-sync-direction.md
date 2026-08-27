@@ -110,6 +110,12 @@ Layer-2 handoff: null (fleet-manager itself; no member repository attached).
   **The binding predicate is the PR's required `substrate-gate` check
   (Linux), and this PR lands only on its green** — the venue block's own
   rule for a local gate that cannot answer.
+- **Resolved before landing:** `main` moved mid-review (#953 — exactly that
+  Windows portability fix, landed by the parallel Codex workspace); the one
+  merge conflict was the append-only `guard-fires.jsonl` ledger, resolved as
+  a union (both sides' records kept: 28,386 + 154). After the merge the full
+  local gate runs **green, real exit code 0** — `check: all checks passed`,
+  card reported complete.
 - Removal preview: six rows presented to the owner in the hub chat
   2026-08-28; all six approved (rows 1–2 with the § 4 clarification).
 
