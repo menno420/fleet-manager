@@ -326,7 +326,7 @@
       ],
       "when": [
         "\\bspider[- ]swing\\b",
-        "\\bslingy spider\\b",
+        "\\bslingy[- ]spider\\b(?![- ](?:server|(?:community[- ])?bot))",
         "menno420/spider-swing"
       ],
       "docs": [
@@ -341,7 +341,7 @@
       ],
       "when": [
         "\\bspider[- ]swing\\b",
-        "\\bslingy spider\\b",
+        "\\bslingy[- ]spider\\b(?![- ](?:server|(?:community[- ])?bot))",
         "menno420/spider-swing"
       ],
       "docs": [
@@ -360,6 +360,9 @@
       ],
       "when": [
         "\\bspider[- ]bot\\b",
+        "\\b(?:the[- ])?community[- ]bot\\b",
+        "\\bgame[- ]community[- ]bot\\b",
+        "\\bslingy[- ]spider[- ](?:server|(?:community[- ])?bot)\\b",
         "menno420/spider-bot"
       ],
       "docs": [
@@ -374,6 +377,9 @@
       ],
       "when": [
         "\\bspider[- ]bot\\b",
+        "\\b(?:the[- ])?community[- ]bot\\b",
+        "\\bgame[- ]community[- ]bot\\b",
+        "\\bslingy[- ]spider[- ](?:server|(?:community[- ])?bot)\\b",
         "menno420/spider-bot"
       ],
       "docs": [
@@ -445,8 +451,9 @@
       "when": [
         "menno420/websites",
         "\\bwebsites repo\\b",
-        "\\bcontrol-plane\\b",
-        "\\bbotsite\\b"
+        "\\bcontrol[- ]plane\\b",
+        "\\bbotsite\\b",
+        "\\breview[- ]site\\b"
       ],
       "docs": [
         "docs/repos/websites/README.md"
@@ -461,8 +468,9 @@
       "when": [
         "menno420/websites",
         "\\bwebsites repo\\b",
-        "\\bcontrol-plane\\b",
+        "\\bcontrol[- ]plane\\b",
         "\\bbotsite\\b",
+        "\\breview[- ]site\\b",
         "\\b(the|my) websites\\b"
       ],
       "docs": [
@@ -620,7 +628,8 @@
         "Grep"
       ],
       "when": [
-        "\\bsubstrate[- ]kit\\b(?![- ]app)",
+        "\\bsubstrate[- ]kit\\b(?![- ](?:app|dashboard))",
+        "\\bthe[- ]kit\\b(?![- ]dashboard)",
         "menno420/substrate-kit(?![\\w-])"
       ],
       "docs": [
@@ -634,7 +643,8 @@
         "UserPromptSubmit"
       ],
       "when": [
-        "\\bsubstrate[- ]kit\\b(?![- ]app)",
+        "\\bsubstrate[- ]kit\\b(?![- ](?:app|dashboard))",
+        "\\bthe[- ]kit\\b(?![- ]dashboard)",
         "\\bkit release\\b",
         "menno420/substrate-kit(?![\\w-])"
       ],
@@ -654,8 +664,12 @@
       ],
       "when": [
         "\\bventure[- ]lab\\b",
+        "\\bventure\\b",
         "\\bstripe webhook test kit\\b",
         "\\bnight kiln\\b",
+        "\\blull/dreamline\\b",
+        "\\bdreamline\\b",
+        "\\bultramarine\\b",
         "menno420/venture-lab"
       ],
       "docs": [
@@ -670,8 +684,12 @@
       ],
       "when": [
         "\\bventure[- ]lab\\b",
+        "\\bventure\\b",
         "\\bstripe webhook test kit\\b",
         "\\bnight kiln\\b",
+        "\\blull/dreamline\\b",
+        "\\bdreamline\\b",
+        "\\bultramarine\\b",
         "menno420/venture-lab"
       ],
       "docs": [
@@ -691,7 +709,7 @@
       "when": [
         "\\bsuperbot[- ](games|idle|mineverse)\\b",
         "\\bmineverse\\b",
-        "\\bsuperbot world\\b",
+        "\\bsuperbot[- ]world\\b",
         "\\bsuperbot[- ]plugin[- ]hello\\b",
         "\\bplugin[- ]hello\\b"
       ],
@@ -708,7 +726,7 @@
       "when": [
         "\\bsuperbot[- ](games|idle|mineverse)\\b",
         "\\bmineverse\\b",
-        "\\bsuperbot world\\b",
+        "\\bsuperbot[- ]world\\b",
         "\\bsuperbot[- ]plugin[- ]hello\\b",
         "\\bplugin[- ]hello\\b"
       ],
@@ -727,7 +745,8 @@
         "Grep"
       ],
       "when": [
-        "\\bcodetool[- ]lab\\b",
+        "\\bcodetool[- ]labs?\\b",
+        "\\bcodetool-lab-(?:opus4\\.8|fable5|sonnet5)\\b",
         "\\bmdverify\\b",
         "\\benvdrift\\b(?!\\.py)",
         "\\bcfgdiff\\b"
@@ -743,7 +762,8 @@
         "UserPromptSubmit"
       ],
       "when": [
-        "\\bcodetool[- ]lab\\b",
+        "\\bcodetool[- ]labs?\\b",
+        "\\bcodetool-lab-(?:opus4\\.8|fable5|sonnet5)\\b",
         "\\bmdverify\\b",
         "\\benvdrift\\b(?!\\.py)",
         "\\bcfgdiff\\b"
@@ -798,7 +818,10 @@
       "when": [
         "\\bgba[- ]homebrew\\b",
         "\\bpokemon[- ]mod[- ]lab\\b",
-        "\\blumen[- ]drift\\b"
+        "\\blumen[- ]drift\\b",
+        "\\bwickroad\\b",
+        "\\bbrineward\\b",
+        "\\bunderroot\\b"
       ],
       "docs": [
         "docs/ESTATE.md"
@@ -815,7 +838,10 @@
         "\\bpokemon[- ]mod[- ]lab\\b",
         "\\bgba (project|game|games|rom|roms)\\b",
         "\\bpokemon (mod|hack)\\b",
-        "\\blumen[- ]drift\\b"
+        "\\blumen[- ]drift\\b",
+        "\\bwickroad\\b",
+        "\\bbrineward\\b",
+        "\\bunderroot\\b"
       ],
       "docs": [
         "docs/ESTATE.md"
@@ -835,6 +861,7 @@
         "\\bidea[- ]engine\\b",
         "\\bsim[- ]lab\\b",
         "\\btrading[- ]strategy\\b",
+        "\\btrading[- ]lab\\b",
         "\\bcurious[- ]research\\b"
       ],
       "docs": [
@@ -851,6 +878,7 @@
         "\\bidea[- ]engine\\b",
         "\\bsim[- ]lab\\b",
         "\\btrading[- ]strategy\\b",
+        "\\btrading[- ]lab\\b",
         "\\bcurious[- ]research\\b",
         "\\bideas lab\\b"
       ],
@@ -869,7 +897,7 @@
         "Grep"
       ],
       "when": [
-        "\\bsubstrate[- ]kit[- ]app\\b",
+        "\\bsubstrate[- ]kit[- ](?:app|dashboard)\\b",
         "\\bkit dashboard\\b"
       ],
       "docs": [
@@ -883,7 +911,7 @@
         "UserPromptSubmit"
       ],
       "when": [
-        "\\bsubstrate[- ]kit[- ]app\\b",
+        "\\bsubstrate[- ]kit[- ](?:app|dashboard)\\b",
         "\\bkit dashboard\\b"
       ],
       "docs": [

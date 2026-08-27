@@ -13,6 +13,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from contextlib import contextmanager
 from pathlib import Path
 from unittest import mock
 
@@ -66,6 +67,74 @@ class StoreCase(unittest.TestCase):
             encoding="utf-8",
         )
         return path
+
+    def assert_safe_data_file_mode(self, path: Path) -> None:
+        """Assert the strongest portable mode promised for new data files."""
+        mode = stat.S_IMODE(path.stat().st_mode)
+        if os.name == "nt":
+            # Windows chmod exposes only the read-only attribute; group/other
+            # POSIX bits are ignored and writable files commonly report 0666.
+            self.assertTrue(mode & stat.S_IREAD, oct(mode))
+            self.assertTrue(mode & stat.S_IWRITE, oct(mode))
+        else:
+            self.assertEqual(mode, 0o644)
+
+    @contextmanager
+    def windows_readonly_semantics(self):
+        """Model the Windows read-only checks on the POSIX gate runner."""
+        real_chmod = os.chmod
+        real_replace = os.replace
+        real_unlink = os.unlink
+        replacements: list[tuple[int, int | None]] = []
+
+        def windows_chmod(
+            path: os.PathLike[str] | str, mode: int, *args, **kwargs
+        ) -> None:
+            observable = 0o666 if mode & stat.S_IWRITE else 0o444
+            real_chmod(path, observable, *args, **kwargs)
+
+        def windows_replace(
+            source: os.PathLike[str] | str,
+            destination: os.PathLike[str] | str,
+        ) -> None:
+            source_mode = stat.S_IMODE(os.lstat(source).st_mode)
+            try:
+                destination_mode = stat.S_IMODE(os.lstat(destination).st_mode)
+            except FileNotFoundError:
+                destination_mode = None
+            if destination_mode is not None and not (
+                destination_mode & stat.S_IWRITE
+            ):
+                raise PermissionError(
+                    errno.EACCES, "Windows refuses a read-only destination"
+                )
+            replacements.append((source_mode, destination_mode))
+            real_replace(source, destination)
+
+        def windows_unlink(
+            path: os.PathLike[str] | str, *args, **kwargs
+        ) -> None:
+            if not args and not kwargs:
+                try:
+                    mode = stat.S_IMODE(os.lstat(path).st_mode)
+                except FileNotFoundError:
+                    mode = None
+                if mode is not None and not (mode & stat.S_IWRITE):
+                    raise PermissionError(
+                        errno.EACCES, "Windows refuses a read-only unlink"
+                    )
+            real_unlink(path, *args, **kwargs)
+
+        with mock.patch.object(
+            owner_comments, "_is_windows", return_value=True
+        ), mock.patch.object(
+            owner_comments.os, "chmod", side_effect=windows_chmod
+        ), mock.patch.object(
+            owner_comments.os, "replace", side_effect=windows_replace
+        ), mock.patch.object(
+            owner_comments.os, "unlink", side_effect=windows_unlink
+        ):
+            yield replacements
 
     def commit_baseline(self, message: str = "baseline") -> None:
         subprocess.run(
@@ -1248,12 +1317,15 @@ store.consume(
     ) -> None:
         existing = self.root / "docs/owner-comments/index.json"
         existing.chmod(0o640)
+        observable_existing_mode = stat.S_IMODE(existing.stat().st_mode)
         owner_comments._atomic_write(existing, b"replacement\n")
-        self.assertEqual(stat.S_IMODE(existing.stat().st_mode), 0o640)
+        self.assertEqual(
+            stat.S_IMODE(existing.stat().st_mode), observable_existing_mode
+        )
 
         existing.unlink()
         self.store.reindex()
-        self.assertEqual(stat.S_IMODE(existing.stat().st_mode), 0o644)
+        self.assert_safe_data_file_mode(existing)
 
         source = self.write_record()
         source.chmod(0o644)
@@ -1266,12 +1338,13 @@ store.consume(
             evidence="evidence",
         )
         consumed = self.root / consumed_relative
-        self.assertEqual(stat.S_IMODE(consumed.stat().st_mode), 0o644)
+        self.assert_safe_data_file_mode(consumed)
 
     def test_atomic_mode_fallback_works_without_fchmod(self) -> None:
         existing = self.root / "existing-mode.json"
         existing.write_bytes(b"old\n")
         existing.chmod(0o640)
+        observable_existing_mode = stat.S_IMODE(existing.stat().st_mode)
         created = self.root / "new-mode.json"
 
         with mock.patch.object(
@@ -1281,8 +1354,183 @@ store.consume(
             owner_comments._atomic_write(created, b"new\n")
 
         self.assertGreaterEqual(chmod.call_count, 2)
-        self.assertEqual(stat.S_IMODE(existing.stat().st_mode), 0o640)
-        self.assertEqual(stat.S_IMODE(created.stat().st_mode), 0o644)
+        self.assertEqual(
+            stat.S_IMODE(existing.stat().st_mode), observable_existing_mode
+        )
+        self.assert_safe_data_file_mode(created)
+
+    def test_atomic_mode_fallback_models_windows_observable_permissions(self) -> None:
+        existing = self.root / "existing-windows-mode.json"
+        existing.write_bytes(b"old\n")
+        existing.chmod(0o666)
+        created = self.root / "new-windows-mode.json"
+        real_chmod = os.chmod
+
+        def windows_chmod(path: os.PathLike[str] | str, mode: int) -> None:
+            # Model Windows' documented read-only/writable distinction while
+            # running this regression on the POSIX required-gate runner.
+            observable = 0o666 if mode & stat.S_IWRITE else 0o444
+            real_chmod(path, observable)
+
+        with mock.patch.object(
+            owner_comments.os, "fchmod", new=None, create=True
+        ), mock.patch.object(
+            owner_comments.os, "chmod", side_effect=windows_chmod
+        ):
+            owner_comments._atomic_write(existing, b"replacement\n")
+            owner_comments._atomic_write(created, b"new\n")
+
+        self.assertEqual(stat.S_IMODE(existing.stat().st_mode), 0o666)
+        self.assertEqual(stat.S_IMODE(created.stat().st_mode), 0o666)
+
+    def test_windows_readonly_atomic_replace_defers_attribute_until_publish(
+        self,
+    ) -> None:
+        target = self.root / "readonly-index.json"
+        target.write_bytes(b"old\n")
+        target.chmod(0o444)
+
+        with self.windows_readonly_semantics() as replacements:
+            owner_comments._atomic_write(target, b"new\n")
+
+        self.assertEqual(target.read_bytes(), b"new\n")
+        self.assertEqual(stat.S_IMODE(target.stat().st_mode), 0o444)
+        self.assertEqual(len(replacements), 1)
+        source_mode, destination_mode = replacements[0]
+        self.assertTrue(source_mode & stat.S_IWRITE, oct(source_mode))
+        self.assertIsNotNone(destination_mode)
+        self.assertTrue(destination_mode & stat.S_IWRITE, oct(destination_mode))
+        self.assertEqual(list(self.root.glob(".readonly-index.json.*")), [])
+
+    def test_windows_readonly_atomic_failure_restores_and_preserves_error(
+        self,
+    ) -> None:
+        target = self.root / "readonly-failure.json"
+        target.write_bytes(b"old\n")
+        target.chmod(0o444)
+
+        with self.windows_readonly_semantics(), mock.patch.object(
+            owner_comments.os,
+            "replace",
+            side_effect=OSError(errno.EIO, "original replacement failure"),
+        ):
+            with self.assertRaisesRegex(OSError, "original replacement failure"):
+                owner_comments._atomic_write(target, b"new\n")
+
+        self.assertEqual(target.read_bytes(), b"old\n")
+        self.assertEqual(stat.S_IMODE(target.stat().st_mode), 0o444)
+        self.assertEqual(list(self.root.glob(".readonly-failure.json.*")), [])
+
+    def test_atomic_cleanup_failure_never_masks_original_error(self) -> None:
+        target = self.root / "cleanup-mask.json"
+        target.write_bytes(b"old\n")
+        with mock.patch.object(
+            owner_comments.os,
+            "replace",
+            side_effect=OSError(errno.EIO, "original replacement failure"),
+        ), mock.patch.object(
+            owner_comments,
+            "_unlink_windows_compatible",
+            side_effect=PermissionError(errno.EACCES, "cleanup denied"),
+        ):
+            with self.assertRaisesRegex(OSError, "original replacement failure"):
+                owner_comments._atomic_write(target, b"new\n")
+
+    def test_windows_readonly_cleanup_clears_attribute_before_unlink(self) -> None:
+        temporary = self.root / ".readonly-cleanup"
+        temporary.write_bytes(b"scratch\n")
+        temporary.chmod(0o444)
+
+        with self.windows_readonly_semantics():
+            owner_comments._unlink_windows_compatible(temporary)
+
+        self.assertFalse(temporary.exists())
+
+    def test_windows_readonly_recovery_replaces_and_deletes_without_wedging(
+        self,
+    ) -> None:
+        backup_root = self.root / ".git" / "txn-readonly"
+        backup_root.mkdir(parents=True)
+        backup = backup_root / "0"
+        backup.write_bytes(b"original\n")
+        backup.chmod(0o444)
+        target = self.root / "docs/owner-comments/index.json"
+        target.write_bytes(b"interrupted\n")
+        target.chmod(0o444)
+        entry = {
+            "path": "docs/owner-comments/index.json",
+            "existed": True,
+            "backup": "0",
+        }
+
+        with self.windows_readonly_semantics() as replacements:
+            self.store._restore_entry(backup_root, entry, 0)
+
+        self.assertEqual(target.read_bytes(), b"original\n")
+        self.assertEqual(stat.S_IMODE(target.stat().st_mode), 0o444)
+        self.assertTrue(replacements)
+        source_mode, destination_mode = replacements[-1]
+        self.assertTrue(source_mode & stat.S_IWRITE, oct(source_mode))
+        self.assertTrue(destination_mode & stat.S_IWRITE, oct(destination_mode))
+        self.assertEqual(list(target.parent.glob(".index.json.recover-*")), [])
+
+        target.chmod(0o666)
+        target.write_bytes(b"created during failed mutation\n")
+        target.chmod(0o444)
+        absent_entry = {
+            "path": "docs/owner-comments/index.json",
+            "existed": False,
+            "backup": None,
+        }
+        with self.windows_readonly_semantics():
+            self.store._restore_entry(backup_root, absent_entry, 0)
+        self.assertFalse(target.exists())
+
+    def test_windows_readonly_reindex_transaction_completes_and_cleans_journal(
+        self,
+    ) -> None:
+        target = self.root / "docs/owner-comments/index.json"
+        target.write_bytes(b"{}\n")
+        target.chmod(0o444)
+        transaction_root = self.store._transaction_root()
+
+        with self.windows_readonly_semantics():
+            self.store.reindex()
+
+        self.assertEqual(self.store.check(), [])
+        self.assertEqual(stat.S_IMODE(target.stat().st_mode), 0o444)
+        self.assertEqual(list(transaction_root.glob("txn-*")), [])
+
+    def test_windows_interrupted_recovery_finishes_readonly_mode(self) -> None:
+        backup_root = self.root / ".git" / "txn-mode-window"
+        backup_root.mkdir(parents=True)
+        backup = backup_root / "0"
+        backup.write_bytes(b"original\n")
+        backup.chmod(0o444)
+        target = self.root / "docs/owner-comments/index.json"
+        target.write_bytes(b"original\n")
+        target.chmod(0o666)
+        entry = {
+            "path": "docs/owner-comments/index.json",
+            "existed": True,
+            "backup": "0",
+        }
+
+        with self.windows_readonly_semantics():
+            self.store._finish_windows_recovery_mode(backup_root, entry)
+
+        self.assertEqual(target.read_bytes(), b"original\n")
+        self.assertEqual(stat.S_IMODE(target.stat().st_mode), 0o444)
+
+    def test_directory_fsync_is_explicitly_unsupported_on_windows(self) -> None:
+        directory = self.root / "docs/owner-comments"
+        with mock.patch.object(owner_comments.os, "name", "nt"), mock.patch.object(
+            owner_comments.os, "open"
+        ) as opened, mock.patch.object(owner_comments.os, "fsync") as fsync:
+            owner_comments._fsync_directory(directory)
+
+        opened.assert_not_called()
+        fsync.assert_not_called()
 
     def test_directory_fsync_propagates_io_errors_only(self) -> None:
         directory = self.root / "docs/owner-comments"
@@ -1307,6 +1555,14 @@ store.consume(
             side_effect=OSError(errno.EIO, "directory open I/O failure"),
         ):
             with self.assertRaisesRegex(OSError, "directory open I/O failure"):
+                owner_comments._fsync_directory(directory)
+
+        with mock.patch.object(owner_comments.os, "name", "posix"), mock.patch.object(
+            owner_comments.os,
+            "open",
+            side_effect=PermissionError(errno.EACCES, "directory open denied"),
+        ):
+            with self.assertRaisesRegex(PermissionError, "directory open denied"):
                 owner_comments._fsync_directory(directory)
 
     def test_new_transaction_root_is_durable_before_manifest_publication(self) -> None:
@@ -1725,6 +1981,34 @@ store.consume(
 
 
 class RouteCase(unittest.TestCase):
+    def route_prompt(
+        self, prompt: str, session: str, state: str
+    ) -> tuple[str, set[str], set[str]]:
+        event = {
+            "hook_event_name": "UserPromptSubmit",
+            "session_id": session,
+            "prompt": prompt,
+        }
+        result = subprocess.run(
+            [sys.executable, ".claude/hooks/route_docs.py"],
+            cwd=REPO,
+            input=json.dumps(event),
+            text=True,
+            capture_output=True,
+            env=dict(os.environ, TMPDIR=state),
+            check=True,
+        )
+        if not result.stdout.strip():
+            return "", set(), set()
+        context = json.loads(result.stdout)["hookSpecificOutput"][
+            "additionalContext"
+        ]
+        comments = set(
+            re.findall(r"docs/owner-comments/([^/]+)/README\.md", context)
+        )
+        routed_docs = set(re.findall(r"^· `([^`]+)`", context, re.MULTILINE))
+        return context, comments, routed_docs
+
     def test_repository_prompt_routes_stable_comment_index(self) -> None:
         with tempfile.TemporaryDirectory() as state:
             event = {
@@ -1931,6 +2215,125 @@ class RouteCase(unittest.TestCase):
                     re.findall(r"docs/owner-comments/([^/]+)/README\.md", context)
                 )
                 self.assertEqual(routed, set(repositories), prompt)
+
+    def test_documented_owner_vocabulary_routes_stable_indexes(self) -> None:
+        cases = (
+            ("the community bot", {"spider-bot"}),
+            ("Slingy-Spider-server work", {"spider-bot"}),
+            ("the kit", {"substrate-kit"}),
+            ("the review site", {"websites"}),
+            ("the control plane", {"websites"}),
+            ("Venture", {"venture-lab"}),
+            ("Lull/DREAMLINE", {"venture-lab"}),
+            ("DREAMLINE", {"venture-lab"}),
+            ("Ultramarine", {"venture-lab"}),
+            ("Wickroad", {"gba-homebrew"}),
+            ("Brineward", {"gba-homebrew"}),
+            ("Underroot", {"gba-homebrew"}),
+            (
+                "SuperBot-World fleet MASTER",
+                {
+                    "superbot-games",
+                    "superbot-idle",
+                    "superbot-mineverse",
+                    "superbot-plugin-hello",
+                },
+            ),
+        )
+        with tempfile.TemporaryDirectory() as state:
+            for number, (prompt, expected) in enumerate(cases):
+                _context, comments, _docs = self.route_prompt(
+                    prompt, f"owner-comments-vocabulary-{number}", state
+                )
+                self.assertEqual(comments, expected, prompt)
+
+    def test_embedded_product_aliases_shadow_only_the_implicit_route(self) -> None:
+        cases = (
+            (
+                "Substrate Kit Dashboard",
+                {"Substrate-kit-app"},
+                {
+                    "docs/ESTATE.md",
+                    "docs/owner-comments/Substrate-kit-app/README.md",
+                },
+            ),
+            (
+                "Slingy Spider community bot",
+                {"spider-bot"},
+                {
+                    "docs/repos/spider-bot/README.md",
+                    "docs/owner-comments/spider-bot/README.md",
+                },
+            ),
+            (
+                "the community bot for Slingy Spider",
+                {"spider-bot"},
+                {
+                    "docs/repos/spider-bot/README.md",
+                    "docs/owner-comments/spider-bot/README.md",
+                },
+            ),
+            (
+                "compare Substrate Kit Dashboard and substrate-kit",
+                {"Substrate-kit-app", "substrate-kit"},
+                {
+                    "docs/ESTATE.md",
+                    "docs/repos/substrate-kit/README.md",
+                    "docs/owner-comments/Substrate-kit-app/README.md",
+                    "docs/owner-comments/substrate-kit/README.md",
+                },
+            ),
+            (
+                "compare the community bot and spider-swing",
+                {"spider-bot", "spider-swing"},
+                {
+                    "docs/repos/spider-bot/README.md",
+                    "docs/repos/spider-swing/README.md",
+                    "docs/owner-comments/spider-bot/README.md",
+                    "docs/owner-comments/spider-swing/README.md",
+                },
+            ),
+        )
+        with tempfile.TemporaryDirectory() as state:
+            for number, (prompt, expected_comments, expected_docs) in enumerate(cases):
+                _context, comments, docs = self.route_prompt(
+                    prompt, f"owner-comments-collision-{number}", state
+                )
+                self.assertEqual(comments, expected_comments, prompt)
+                self.assertEqual(docs, expected_docs, prompt)
+
+    def test_repository_aliases_share_canonical_suffix_boundaries(self) -> None:
+        root_index = json.loads(
+            (REPO / "docs/owner-comments/index.json").read_text(encoding="utf-8")
+        )
+        negative = [
+            f"{row['repository']}.component"
+            for row in root_index["repositories"]
+        ] + [
+            "codetool-lab-opus4.80",
+            "superbot-games-extra",
+            "trading-lab.py",
+            "DREAMLINER",
+        ]
+        positive = (
+            ("creator-kit.", {"creator-kit"}),
+            ("trading-lab.", {"trading-strategy"}),
+            ("codetool-lab-opus4.8.", {"codetool-lab-opus4.8"}),
+            ("the community bot!", {"spider-bot"}),
+            ("Substrate Kit Dashboard?", {"Substrate-kit-app"}),
+        )
+        with tempfile.TemporaryDirectory() as state:
+            for number, prompt in enumerate(negative):
+                _context, comments, docs = self.route_prompt(
+                    prompt, f"owner-comments-suffix-negative-{number}", state
+                )
+                self.assertEqual(comments, set(), prompt)
+                self.assertEqual(docs, set(), prompt)
+            for number, (prompt, expected) in enumerate(positive):
+                _context, comments, _docs = self.route_prompt(
+                    prompt, f"owner-comments-suffix-positive-{number}", state
+                )
+                self.assertEqual(comments, expected, prompt)
 
     def test_creator_kit_alias_boundaries_do_not_overroute(self) -> None:
         with tempfile.TemporaryDirectory() as state:

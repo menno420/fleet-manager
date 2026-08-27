@@ -266,6 +266,85 @@ def _set_file_mode(path: Path, descriptor: int, mode: int) -> None:
     os.chmod(path, mode)
 
 
+def _is_windows() -> bool:
+    """Return the platform decision through a small testable seam."""
+    return os.name == "nt"
+
+
+def _windows_readonly_mode(mode: int) -> bool:
+    return _is_windows() and not bool(mode & stat.S_IWRITE)
+
+
+def _clear_windows_readonly(
+    path: Path, *, missing_ok: bool = False
+) -> int | None:
+    """Make one regular Windows path writable and return its prior mode."""
+    if not _is_windows():
+        return None
+    try:
+        metadata = os.lstat(path)
+    except FileNotFoundError:
+        if missing_ok:
+            return None
+        raise
+    if not stat.S_ISREG(metadata.st_mode):
+        return None
+    mode = stat.S_IMODE(metadata.st_mode)
+    if mode & stat.S_IWRITE:
+        return None
+    os.chmod(path, mode | stat.S_IWRITE)
+    return mode
+
+
+def _restore_mode_without_masking(path: Path, mode: int | None) -> None:
+    """Best-effort mode restoration while another exception is active."""
+    if mode is None:
+        return
+    try:
+        metadata = os.lstat(path)
+        if stat.S_ISREG(metadata.st_mode):
+            os.chmod(path, mode)
+    except OSError:
+        pass
+
+
+def _unlink_windows_compatible(path: Path, *, missing_ok: bool = False) -> None:
+    """Unlink a path after clearing the Windows read-only attribute."""
+    prior_mode = _clear_windows_readonly(path, missing_ok=missing_ok)
+    try:
+        path.unlink()
+    except FileNotFoundError:
+        if missing_ok:
+            return
+        raise
+    except BaseException:
+        _restore_mode_without_masking(path, prior_mode)
+        raise
+
+
+def _apply_windows_readonly_after_replace(path: Path, mode: int) -> None:
+    """Publish Windows read-only state only after replacement succeeds."""
+    if not _windows_readonly_mode(mode):
+        return
+    _clear_windows_readonly(path)
+    # Keep a writable descriptor while applying the attribute so the metadata
+    # change itself can be committed before this operation reports success.
+    with path.open("r+b") as handle:
+        os.chmod(path, mode)
+        os.fsync(handle.fileno())
+
+
+def _remove_tree_best_effort(path: Path) -> None:
+    """Remove journal scratch, first clearing Windows read-only artifacts."""
+    if _is_windows() and path.is_dir() and not path.is_symlink():
+        for candidate in sorted(path.rglob("*"), reverse=True):
+            try:
+                _clear_windows_readonly(candidate, missing_ok=True)
+            except OSError:
+                pass
+    shutil.rmtree(path, ignore_errors=True)
+
+
 def _atomic_write(path: Path, content: bytes) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     try:
@@ -298,26 +377,45 @@ def _atomic_write(path: Path, content: bytes) -> None:
             raise ContractError(
                 f"transaction atomic temporary already exists: {temporary}"
             ) from exc
-    created = True
+    windows_readonly = _windows_readonly_mode(target_mode)
+    cleared_target_mode: int | None = None
+    replaced = False
     try:
         with os.fdopen(fd, "wb") as handle:
             handle.write(content)
             handle.flush()
-            _set_file_mode(temporary, handle.fileno(), target_mode)
+            # POSIX replacement modes remain atomic. Windows read-only state
+            # must wait until after MoveFileEx has replaced the old path.
+            if not windows_readonly:
+                _set_file_mode(temporary, handle.fileno(), target_mode)
             os.fsync(handle.fileno())
+        if windows_readonly:
+            cleared_target_mode = _clear_windows_readonly(path)
         os.replace(temporary, path)
+        replaced = True
+        _apply_windows_readonly_after_replace(path, target_mode)
         _fsync_directory(path.parent)
     except BaseException:
-        if created:
-            try:
-                os.unlink(temporary)
-            except FileNotFoundError:
-                pass
+        _restore_mode_without_masking(
+            path, target_mode if replaced and windows_readonly else cleared_target_mode
+        )
+        try:
+            _unlink_windows_compatible(temporary, missing_ok=True)
+        except BaseException:
+            # Cleanup must never replace the write/replace/fsync failure that
+            # made this rollback path necessary.
+            pass
         raise
 
 
 def _fsync_directory(path: Path) -> None:
     """Durably sync a directory or ignore an explicitly unsupported platform."""
+    if _is_windows():
+        # The Windows CRT cannot open a directory with the ordinary os.open
+        # flags used here, so there is no descriptor that os.fsync can commit.
+        # Keep this platform decision explicit: EACCES and I/O failures on
+        # platforms that do support directory descriptors must still surface.
+        return
     flags = os.O_RDONLY | getattr(os, "O_DIRECTORY", 0)
     try:
         descriptor = os.open(path, flags)
@@ -1090,7 +1188,7 @@ class OwnerCommentsStore:
             with preserved.open("rb") as handle:
                 os.fsync(handle.fileno())
             _fsync_directory(preserved.parent)
-            temporary.unlink()
+            _unlink_windows_compatible(temporary)
             _fsync_directory(temporary.parent)
         else:
             metadata = os.lstat(preserved)
@@ -1153,7 +1251,7 @@ class OwnerCommentsStore:
                     raise ContractError(
                         f"preserved transaction temporary changed: {preserved}"
                     )
-                temporary.unlink()
+                _unlink_windows_compatible(temporary)
                 _fsync_directory(temporary.parent)
                 continue
             # The source changed again (or has an unsafe type). Preserve it as
@@ -1207,7 +1305,7 @@ class OwnerCommentsStore:
             if actual == (False, "", 0):
                 continue
             if actual == expected:
-                temporary.unlink()
+                _unlink_windows_compatible(temporary)
                 _fsync_directory(temporary.parent)
                 continue
             preserved = self._preserve_unexpected_temporary(
@@ -1236,11 +1334,15 @@ class OwnerCommentsStore:
         target = self.root / entry["path"]
         if entry["existed"]:
             backup = backup_root / entry["backup"]
+            backup_mode = stat.S_IMODE(os.lstat(backup).st_mode)
+            windows_readonly = _windows_readonly_mode(backup_mode)
             target.parent.mkdir(parents=True, exist_ok=True)
             temporary = self._recovery_temporary_path(
                 backup_root, entry, number
             )
             created = False
+            cleared_target_mode: int | None = None
+            replaced = False
             try:
                 if temporary.exists() or temporary.is_symlink():
                     raise ContractError(
@@ -1258,21 +1360,33 @@ class OwnerCommentsStore:
                     shutil.copyfileobj(source, destination)
                     destination.flush()
                     os.fsync(destination.fileno())
-                os.chmod(temporary, stat.S_IMODE(os.lstat(backup).st_mode))
-                with temporary.open("rb") as handle:
-                    os.fsync(handle.fileno())
+                if not windows_readonly:
+                    os.chmod(temporary, backup_mode)
+                    with temporary.open("rb") as handle:
+                        os.fsync(handle.fileno())
+                cleared_target_mode = _clear_windows_readonly(
+                    target, missing_ok=True
+                )
                 os.replace(temporary, target)
+                replaced = True
+                _apply_windows_readonly_after_replace(target, backup_mode)
                 _fsync_directory(target.parent)
             except BaseException:
+                _restore_mode_without_masking(
+                    target,
+                    backup_mode
+                    if replaced and windows_readonly
+                    else cleared_target_mode,
+                )
                 try:
                     if created and (
                         temporary.is_symlink() or (
                         temporary.exists() and not temporary.is_dir()
                         )
                     ):
-                        temporary.unlink()
+                        _unlink_windows_compatible(temporary, missing_ok=True)
                         _fsync_directory(temporary.parent)
-                except OSError:
+                except BaseException:
                     pass
                 raise
         elif target.exists() or target.is_symlink():
@@ -1280,8 +1394,20 @@ class OwnerCommentsStore:
                 raise ContractError(
                     f"transaction recovery refuses to delete directory: {target}"
                 )
-            target.unlink()
+            _unlink_windows_compatible(target)
             _fsync_directory(target.parent)
+
+    def _finish_windows_recovery_mode(
+        self, backup_root: Path, entry: dict[str, Any]
+    ) -> None:
+        """Close the post-replace mode window after an interrupted recovery."""
+        if not _is_windows() or not entry["existed"]:
+            return
+        backup = backup_root / entry["backup"]
+        backup_mode = stat.S_IMODE(os.lstat(backup).st_mode)
+        _apply_windows_readonly_after_replace(
+            self.root / entry["path"], backup_mode
+        )
 
     def _restore_transaction(
         self, backup_root: Path, manifest: dict[str, Any]
@@ -1306,6 +1432,10 @@ class OwnerCommentsStore:
                     raise ContractError(
                         "owner-comment recovery could not verify restored target"
                     )
+            else:
+                self._finish_windows_recovery_mode(
+                    backup_root, manifest["entries"][cursor]
+                )
             manifest["recovery"]["cursor"] = cursor + 1
             _write_transaction_manifest(backup_root / "manifest.json", manifest)
 
@@ -1337,7 +1467,7 @@ class OwnerCommentsStore:
                 # directory only after a durable manifest exists.  Therefore a
                 # manifest-less published directory can only be residue from
                 # committed cleanup deleting the manifest before the directory.
-                shutil.rmtree(backup_root, ignore_errors=True)
+                _remove_tree_best_effort(backup_root)
                 _fsync_directory(transaction_root)
                 continue
             try:
@@ -1408,7 +1538,7 @@ class OwnerCommentsStore:
                 _write_transaction_manifest(
                     backup_root / "manifest.json", manifest
                 )
-            shutil.rmtree(backup_root, ignore_errors=True)
+            _remove_tree_best_effort(backup_root)
             _fsync_directory(transaction_root)
 
     @contextmanager
@@ -1474,14 +1604,14 @@ class OwnerCommentsStore:
                 _write_transaction_manifest(
                     backup_root / "manifest.json", manifest
                 )
-                shutil.rmtree(backup_root, ignore_errors=True)
+                _remove_tree_best_effort(backup_root)
                 _fsync_directory(transaction_root)
             else:
-                shutil.rmtree(backup_root, ignore_errors=True)
+                _remove_tree_best_effort(backup_root)
                 _fsync_directory(transaction_root)
             raise
         else:
-            shutil.rmtree(backup_root, ignore_errors=True)
+            _remove_tree_best_effort(backup_root)
             _fsync_directory(transaction_root)
 
     def repositories(self) -> list[str]:
