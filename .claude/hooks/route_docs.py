@@ -78,14 +78,19 @@ DEFAULT_TOOLS = ("Bash", "WebFetch", "Read", "Glob", "Grep")
 
 PROMPT_EVENT = "UserPromptSubmit"
 
-# Repository names and their human aliases share one token boundary.  A final
-# full stop is prose punctuation, while ``repo.component``, ``repo-extra`` and
-# ``repo2`` are longer slug-like tokens and must not route ``repo``.  Keep the
+# Repository names and their human aliases share one token boundary. A final
+# full stop is prose punctuation and a terminal ``.git`` is a repository URL
+# suffix, while ``repo.component``, ``repo.gitignore``, ``repo-extra`` and
+# ``repo2`` are longer slug-like tokens and must not route ``repo``. Keep the
 # same boundary on the JSON route table's repository patterns below; otherwise
 # a permissive Layer-2 alias can re-add the comment index that this matcher
 # deliberately rejected.
 REFERENCE_START = r"(?<![A-Za-z0-9._-])"
-REFERENCE_END = r"(?![A-Za-z0-9_-]|\.[A-Za-z0-9_-])"
+REFERENCE_END = (
+    r"(?![A-Za-z0-9_-]|\."
+    r"(?!git(?:$|\.(?![A-Za-z0-9_-])|[^A-Za-z0-9._/\\-]))"
+    r"[A-Za-z0-9_-])"
+)
 
 
 def reference_pattern(body: str) -> str:
@@ -403,7 +408,14 @@ def reference_match(pattern: str, text: str) -> bool:
             continue
         if end < len(text):
             suffix = text[end:]
-            if re.match(r"[A-Za-z0-9_-]|\.[A-Za-z0-9_-]", suffix):
+            terminal_git = re.match(
+                r"\.git(?:$|\.(?![A-Za-z0-9_-])|[^A-Za-z0-9._/\\-])",
+                suffix,
+                re.I,
+            )
+            if not terminal_git and re.match(
+                r"[A-Za-z0-9_-]|\.[A-Za-z0-9_-]", suffix
+            ):
                 continue
         return True
     return False

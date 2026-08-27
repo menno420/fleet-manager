@@ -1383,7 +1383,7 @@ store.consume(
         self.assertEqual(stat.S_IMODE(existing.stat().st_mode), 0o666)
         self.assertEqual(stat.S_IMODE(created.stat().st_mode), 0o666)
 
-    def test_windows_readonly_atomic_replace_defers_attribute_until_publish(
+    def test_windows_readonly_atomic_write_fails_before_temporary_or_mode_change(
         self,
     ) -> None:
         target = self.root / "readonly-index.json"
@@ -1391,71 +1391,13 @@ store.consume(
         target.chmod(0o444)
 
         with self.windows_readonly_semantics() as replacements:
-            owner_comments._atomic_write(target, b"new\n")
-
-        self.assertEqual(target.read_bytes(), b"new\n")
-        self.assertEqual(stat.S_IMODE(target.stat().st_mode), 0o444)
-        self.assertEqual(len(replacements), 1)
-        source_mode, destination_mode = replacements[0]
-        self.assertTrue(source_mode & stat.S_IWRITE, oct(source_mode))
-        self.assertIsNotNone(destination_mode)
-        self.assertTrue(destination_mode & stat.S_IWRITE, oct(destination_mode))
-        self.assertEqual(list(self.root.glob(".readonly-index.json.*")), [])
-
-    def test_windows_readonly_atomic_refuses_multiply_linked_target(self) -> None:
-        target = self.root / "readonly-linked.json"
-        peer = self.root / "readonly-linked-peer.json"
-        target.write_bytes(b"old linked bytes\n")
-        os.link(target, peer)
-        target.chmod(0o444)
-        before_mode = stat.S_IMODE(target.stat().st_mode)
-
-        with self.windows_readonly_semantics():
-            with self.assertRaisesRegex(ContractError, "multiply linked"):
-                owner_comments._atomic_write(target, b"new bytes\n")
-
-        self.assertEqual(target.read_bytes(), b"old linked bytes\n")
-        self.assertEqual(peer.read_bytes(), b"old linked bytes\n")
-        self.assertEqual(stat.S_IMODE(target.stat().st_mode), before_mode)
-        self.assertEqual(stat.S_IMODE(peer.stat().st_mode), before_mode)
-        self.assertTrue(os.path.samefile(target, peer))
-        self.assertEqual(list(self.root.glob(".readonly-linked.json.*")), [])
-
-    def test_windows_readonly_restore_closes_writable_alias_mode_window(
-        self,
-    ) -> None:
-        target = self.root / "writable-linked.json"
-        peer = self.root / "writable-linked-peer.json"
-        target.write_bytes(b"proven bytes\n")
-        os.link(target, peer)
-        target.chmod(0o666)
-
-        with self.windows_readonly_semantics():
-            owner_comments._apply_windows_readonly_after_replace(target, 0o444)
-
-        self.assertEqual(target.read_bytes(), b"proven bytes\n")
-        self.assertEqual(peer.read_bytes(), b"proven bytes\n")
-        self.assertEqual(stat.S_IMODE(target.stat().st_mode), 0o444)
-        self.assertEqual(stat.S_IMODE(peer.stat().st_mode), 0o444)
-
-    def test_windows_readonly_atomic_failure_restores_and_preserves_error(
-        self,
-    ) -> None:
-        target = self.root / "readonly-failure.json"
-        target.write_bytes(b"old\n")
-        target.chmod(0o444)
-
-        with self.windows_readonly_semantics(), mock.patch.object(
-            owner_comments.os,
-            "replace",
-            side_effect=OSError(errno.EIO, "original replacement failure"),
-        ):
-            with self.assertRaisesRegex(OSError, "original replacement failure"):
+            with self.assertRaisesRegex(ContractError, "read-only.*unsupported"):
                 owner_comments._atomic_write(target, b"new\n")
 
         self.assertEqual(target.read_bytes(), b"old\n")
         self.assertEqual(stat.S_IMODE(target.stat().st_mode), 0o444)
-        self.assertEqual(list(self.root.glob(".readonly-failure.json.*")), [])
+        self.assertEqual(replacements, [])
+        self.assertEqual(list(self.root.glob(".readonly-index.json.*")), [])
 
     def test_atomic_cleanup_failure_never_masks_original_error(self) -> None:
         target = self.root / "cleanup-mask.json"
@@ -1472,83 +1414,19 @@ store.consume(
             with self.assertRaisesRegex(OSError, "original replacement failure"):
                 owner_comments._atomic_write(target, b"new\n")
 
-    def test_windows_readonly_cleanup_clears_attribute_before_unlink(self) -> None:
+    def test_windows_readonly_scratch_cleanup_fails_closed_without_mode_change(self) -> None:
         temporary = self.root / ".readonly-cleanup"
         temporary.write_bytes(b"scratch\n")
         temporary.chmod(0o444)
 
         with self.windows_readonly_semantics():
-            owner_comments._unlink_windows_compatible(temporary)
+            with self.assertRaisesRegex(ContractError, "read-only.*unsupported"):
+                owner_comments._unlink_windows_compatible(temporary)
 
-        self.assertFalse(temporary.exists())
+        self.assertTrue(temporary.is_file())
+        self.assertEqual(stat.S_IMODE(temporary.stat().st_mode), 0o444)
 
-    def test_windows_readonly_recovery_replaces_and_deletes_without_wedging(
-        self,
-    ) -> None:
-        backup_root = self.root / ".git" / "txn-readonly"
-        backup_root.mkdir(parents=True)
-        backup = backup_root / "0"
-        backup.write_bytes(b"original\n")
-        backup.chmod(0o444)
-        target = self.root / "docs/owner-comments/index.json"
-        target.write_bytes(b"interrupted\n")
-        target.chmod(0o444)
-        entry = {
-            "path": "docs/owner-comments/index.json",
-            "existed": True,
-            "backup": "0",
-        }
-
-        with self.windows_readonly_semantics() as replacements:
-            self.store._restore_entry(backup_root, entry, 0)
-
-        self.assertEqual(target.read_bytes(), b"original\n")
-        self.assertEqual(stat.S_IMODE(target.stat().st_mode), 0o444)
-        self.assertTrue(replacements)
-        source_mode, destination_mode = replacements[-1]
-        self.assertTrue(source_mode & stat.S_IWRITE, oct(source_mode))
-        self.assertTrue(destination_mode & stat.S_IWRITE, oct(destination_mode))
-        self.assertEqual(list(target.parent.glob(".index.json.recover-*")), [])
-
-        target.chmod(0o666)
-        target.write_bytes(b"created during failed mutation\n")
-        target.chmod(0o444)
-        absent_entry = {
-            "path": "docs/owner-comments/index.json",
-            "existed": False,
-            "backup": None,
-        }
-        with self.windows_readonly_semantics():
-            self.store._restore_entry(backup_root, absent_entry, 0)
-        self.assertFalse(target.exists())
-
-    def test_windows_readonly_recovery_refuses_multiply_linked_delete(self) -> None:
-        backup_root = self.root / ".git" / "txn-linked-delete"
-        backup_root.mkdir(parents=True)
-        target = self.root / "docs/owner-comments/index.json"
-        peer = self.root / "linked-index-peer.json"
-        os.link(target, peer)
-        target.chmod(0o444)
-        before = target.read_bytes()
-        before_mode = stat.S_IMODE(target.stat().st_mode)
-        entry = {
-            "path": "docs/owner-comments/index.json",
-            "existed": False,
-            "backup": None,
-        }
-
-        with self.windows_readonly_semantics():
-            with self.assertRaisesRegex(ContractError, "multiply linked"):
-                self.store._restore_entry(backup_root, entry, 0)
-
-        self.assertEqual(target.read_bytes(), before)
-        self.assertEqual(peer.read_bytes(), before)
-        self.assertEqual(stat.S_IMODE(target.stat().st_mode), before_mode)
-        self.assertEqual(stat.S_IMODE(peer.stat().st_mode), before_mode)
-
-    def test_windows_readonly_hardlink_reindex_rollback_preserves_original_error(
-        self,
-    ) -> None:
+    def test_windows_readonly_reindex_rejects_before_journal_or_write(self) -> None:
         target = self.root / "docs/owner-comments/index.json"
         peer = self.root / "linked-reindex-index.json"
         os.link(target, peer)
@@ -1558,11 +1436,10 @@ store.consume(
         before_repository_index = repository_index.read_bytes()
         before_mode = stat.S_IMODE(target.stat().st_mode)
         self.write_record()
+        transaction_root = self.store._transaction_root()
 
-        with self.windows_readonly_semantics(), mock.patch.object(
-            self.store, "_restore_entry", wraps=self.store._restore_entry
-        ) as restore_entry:
-            with self.assertRaisesRegex(ContractError, "multiply linked"):
+        with self.windows_readonly_semantics() as replacements:
+            with self.assertRaisesRegex(ContractError, "read-only.*unsupported"):
                 self.store.reindex()
 
         self.assertEqual(target.read_bytes(), before_target)
@@ -1570,17 +1447,74 @@ store.consume(
         self.assertEqual(repository_index.read_bytes(), before_repository_index)
         self.assertEqual(stat.S_IMODE(target.stat().st_mode), before_mode)
         self.assertEqual(stat.S_IMODE(peer.stat().st_mode), before_mode)
-        restore_entry.assert_not_called()
+        self.assertEqual(replacements, [])
+        self.assertEqual(list(transaction_root.glob("txn-*")), [])
+        self.assertEqual(list(transaction_root.glob("quarantine-*")), [])
+        self.assertEqual(
+            list((self.root / "docs/owner-comments").rglob(".*.atomic-*")), []
+        )
+
+    def test_windows_readonly_linked_source_rejects_consume_without_journal(self) -> None:
+        source = self.write_record()
+        self.store.reindex()
+        peer = self.root / "linked-owner-comment.json"
+        os.link(source, peer)
+        source.chmod(0o444)
+        before_source = source.read_bytes()
+        before_root = (self.root / "docs/owner-comments/index.json").read_bytes()
+        before_repository = (source.parent / "README.md").read_bytes()
+        destination = source.parent / "consumed" / source.name
         transaction_root = self.store._transaction_root()
+
+        with self.windows_readonly_semantics() as replacements:
+            with self.assertRaisesRegex(ContractError, "read-only.*unsupported"):
+                self.store.consume(
+                    "websites",
+                    record()["id"],
+                    consumed_at="2026-08-27T13:00:00Z",
+                    actor="actor",
+                    evidence="evidence",
+                )
+
+        self.assertEqual(source.read_bytes(), before_source)
+        self.assertEqual(peer.read_bytes(), before_source)
+        self.assertTrue(os.path.samefile(source, peer))
+        self.assertEqual(stat.S_IMODE(source.stat().st_mode), 0o444)
+        self.assertFalse(destination.exists())
+        self.assertFalse(destination.parent.exists())
+        self.assertEqual(
+            (self.root / "docs/owner-comments/index.json").read_bytes(), before_root
+        )
+        self.assertEqual((source.parent / "README.md").read_bytes(), before_repository)
+        self.assertEqual(replacements, [])
         self.assertEqual(list(transaction_root.glob("txn-*")), [])
         self.assertEqual(list(transaction_root.glob("quarantine-*")), [])
 
-    def test_windows_mode_window_closes_before_identity_quarantine(self) -> None:
-        self.commit_baseline("readonly owner-comment projection")
-        target = self.root / "docs/owner-comments/index.json"
-        target.chmod(0o444)
-        before = target.read_bytes()
-        self.write_record()
+    def test_windows_writable_consume_remains_supported(self) -> None:
+        source = self.write_record()
+        source.chmod(0o666)
+        self.store.reindex()
+
+        with self.windows_readonly_semantics() as replacements:
+            consumed_relative = self.store.consume(
+                "websites",
+                record()["id"],
+                consumed_at="2026-08-27T13:00:00Z",
+                actor="actor",
+                evidence="evidence",
+            )
+
+        destination = self.root / consumed_relative
+        self.assertFalse(source.exists())
+        self.assertTrue(destination.is_file())
+        self.assertEqual(json.loads(destination.read_text())["state"], "consumed")
+        self.assertTrue(replacements)
+        self.assertEqual(self.store.check(), [])
+
+    def test_identity_quarantine_preserves_matching_target_mode_only_edit(self) -> None:
+        original = self.write_record()
+        self.store.reindex()
+        self.commit_baseline("active owner comment")
         crash_code = """
 import os
 import sys
@@ -1588,16 +1522,19 @@ from pathlib import Path
 sys.path.insert(0, sys.argv[1])
 import owner_comments
 store = owner_comments.OwnerCommentsStore(Path(sys.argv[2]))
-target = Path(sys.argv[3])
-owner_comments._is_windows = lambda: True
-real_clear = owner_comments._clear_windows_readonly
-def crash_after_clear(path, *, missing_ok=False):
-    prior = real_clear(path, missing_ok=missing_ok)
-    if Path(path) == target and prior is not None:
+real_write = owner_comments._atomic_write
+def crash_on_consumed(path, content):
+    if path.parent.name == 'consumed':
         os._exit(97)
-    return prior
-owner_comments._clear_windows_readonly = crash_after_clear
-store.reindex()
+    real_write(path, content)
+owner_comments._atomic_write = crash_on_consumed
+store.consume(
+    'websites',
+    'oc-20260827t120000z-a1b2c3d4',
+    consumed_at='2026-08-27T13:00:00Z',
+    actor='actor',
+    evidence='evidence',
+)
 """
         crashed = subprocess.run(
             [
@@ -1606,7 +1543,6 @@ store.reindex()
                 crash_code,
                 str(REPO / "tools"),
                 str(self.root),
-                str(target),
             ],
             cwd=REPO,
             capture_output=True,
@@ -1614,120 +1550,27 @@ store.reindex()
             check=False,
         )
         self.assertEqual(crashed.returncode, 97, crashed.stderr)
-        self.assertEqual(target.read_bytes(), before)
-        self.assertTrue(stat.S_IMODE(target.stat().st_mode) & stat.S_IWRITE)
+        destination = original.parent / "consumed" / original.name
+        self.assertFalse(original.exists())
+        self.assertTrue(destination.is_file())
+        matching_bytes = destination.read_bytes()
+        destination.chmod(0o444)
 
         estate = self.root / "docs/ESTATE.md"
         estate.write_text(estate.read_text(encoding="utf-8") + "\n", encoding="utf-8")
         subprocess.run(["git", "add", "docs/ESTATE.md"], cwd=self.root, check=True)
 
-        with self.windows_readonly_semantics():
+        with mock.patch.object(owner_comments, "_is_windows", return_value=True):
             with self.assertRaisesRegex(
                 ContractError, "Git symbolic HEAD/OID/index tree changed"
             ):
                 self.store.check()
 
-        self.assertEqual(target.read_bytes(), before)
-        self.assertEqual(stat.S_IMODE(target.stat().st_mode), 0o444)
+        self.assertEqual(destination.read_bytes(), matching_bytes)
+        self.assertEqual(stat.S_IMODE(destination.stat().st_mode), 0o444)
         transaction_root = self.store._transaction_root()
         self.assertEqual(list(transaction_root.glob("txn-*")), [])
         self.assertEqual(len(list(transaction_root.glob("quarantine-*"))), 1)
-
-    def test_windows_mode_window_closes_before_temp_mismatch_quarantine(
-        self,
-    ) -> None:
-        target = self.root / "docs/owner-comments/index.json"
-        target.chmod(0o444)
-        before = target.read_bytes()
-        self.write_record()
-        crash_code = """
-import os
-import sys
-from pathlib import Path
-sys.path.insert(0, sys.argv[1])
-import owner_comments
-store = owner_comments.OwnerCommentsStore(Path(sys.argv[2]))
-target = Path(sys.argv[3])
-owner_comments._is_windows = lambda: True
-real_clear = owner_comments._clear_windows_readonly
-def crash_after_clear(path, *, missing_ok=False):
-    prior = real_clear(path, missing_ok=missing_ok)
-    if Path(path) == target and prior is not None:
-        os._exit(98)
-    return prior
-owner_comments._clear_windows_readonly = crash_after_clear
-store.reindex()
-"""
-        crashed = subprocess.run(
-            [
-                sys.executable,
-                "-c",
-                crash_code,
-                str(REPO / "tools"),
-                str(self.root),
-                str(target),
-            ],
-            cwd=REPO,
-            capture_output=True,
-            text=True,
-            check=False,
-        )
-        self.assertEqual(crashed.returncode, 98, crashed.stderr)
-        transaction_root = self.store._transaction_root()
-        temporary = next(
-            (self.root / "docs/owner-comments").rglob(".index.json.atomic-*")
-        )
-        unexpected = b"changed deterministic temporary\n"
-        temporary.write_bytes(unexpected)
-
-        with self.windows_readonly_semantics():
-            with self.assertRaisesRegex(
-                ContractError, "temporary mismatch.*preserved and quarantined"
-            ):
-                self.store.check()
-
-        self.assertEqual(target.read_bytes(), before)
-        self.assertEqual(stat.S_IMODE(target.stat().st_mode), 0o444)
-        self.assertEqual(list(transaction_root.glob("txn-*")), [])
-        quarantine = next(transaction_root.glob("quarantine-*"))
-        preserved = next(quarantine.glob("unexpected-atomic-*"))
-        self.assertEqual(preserved.read_bytes(), unexpected)
-
-    def test_windows_readonly_reindex_transaction_completes_and_cleans_journal(
-        self,
-    ) -> None:
-        target = self.root / "docs/owner-comments/index.json"
-        target.write_bytes(b"{}\n")
-        target.chmod(0o444)
-        transaction_root = self.store._transaction_root()
-
-        with self.windows_readonly_semantics():
-            self.store.reindex()
-
-        self.assertEqual(self.store.check(), [])
-        self.assertEqual(stat.S_IMODE(target.stat().st_mode), 0o444)
-        self.assertEqual(list(transaction_root.glob("txn-*")), [])
-
-    def test_windows_interrupted_recovery_finishes_readonly_mode(self) -> None:
-        backup_root = self.root / ".git" / "txn-mode-window"
-        backup_root.mkdir(parents=True)
-        backup = backup_root / "0"
-        backup.write_bytes(b"original\n")
-        backup.chmod(0o444)
-        target = self.root / "docs/owner-comments/index.json"
-        target.write_bytes(b"original\n")
-        target.chmod(0o666)
-        entry = {
-            "path": "docs/owner-comments/index.json",
-            "existed": True,
-            "backup": "0",
-        }
-
-        with self.windows_readonly_semantics():
-            self.store._finish_windows_recovery_mode(backup_root, entry)
-
-        self.assertEqual(target.read_bytes(), b"original\n")
-        self.assertEqual(stat.S_IMODE(target.stat().st_mode), 0o444)
 
     def test_directory_fsync_is_explicitly_unsupported_on_windows(self) -> None:
         directory = self.root / "docs/owner-comments"
@@ -1965,6 +1808,124 @@ store.reindex()
             self.store.reindex()
         self.assertEqual(list(outside_repository.iterdir()), [])
         self.assertEqual(list(outside_consumed.iterdir()), [])
+
+    def test_symlinked_docs_ancestor_never_reads_or_writes_external_store(self) -> None:
+        self.write_record()
+        self.store.reindex()
+        with tempfile.TemporaryDirectory() as external_temp:
+            external_docs = Path(external_temp) / "docs"
+            shutil.copytree(self.root / "docs", external_docs)
+            before = {
+                path.relative_to(external_docs): path.read_bytes()
+                for path in external_docs.rglob("*")
+                if path.is_file()
+            }
+            shutil.rmtree(self.root / "docs")
+            (self.root / "docs").symlink_to(
+                external_docs, target_is_directory=True
+            )
+
+            errors = self.store.check()
+            self.assertTrue(any("storage ancestor" in error for error in errors), errors)
+            with self.assertRaisesRegex(ContractError, "storage ancestor"):
+                self.store.reindex()
+            with self.assertRaisesRegex(ContractError, "storage ancestor"):
+                self.store.consume(
+                    "websites",
+                    record()["id"],
+                    consumed_at="2026-08-27T13:00:00Z",
+                    actor="actor",
+                    evidence="evidence",
+                )
+
+            after = {
+                path.relative_to(external_docs): path.read_bytes()
+                for path in external_docs.rglob("*")
+                if path.is_file()
+            }
+            self.assertEqual(after, before)
+            transaction_root = self.store._transaction_root()
+            self.assertEqual(list(transaction_root.glob("txn-*")), [])
+
+    def test_symlinked_store_root_is_not_resolved_away(self) -> None:
+        alias = self.root.parent / f"{self.root.name}-owner-comments-alias"
+        alias.symlink_to(self.root, target_is_directory=True)
+        try:
+            aliased_store = OwnerCommentsStore(alias)
+            errors = aliased_store.check()
+            self.assertTrue(any("storage ancestor" in error for error in errors), errors)
+            with self.assertRaisesRegex(ContractError, "storage ancestor"):
+                aliased_store.reindex()
+        finally:
+            alias.unlink()
+
+    def test_symlinked_parent_aliases_share_store_lock_and_journal_identity(
+        self,
+    ) -> None:
+        alias_parent = self.root.parent / f"{self.root.name}-parent-alias"
+        alias_parent.symlink_to(self.root.parent, target_is_directory=True)
+        try:
+            aliased_store = OwnerCommentsStore(alias_parent / self.root.name)
+            self.assertEqual(aliased_store.root, self.store.root)
+            self.assertEqual(aliased_store._lock_path(), self.store._lock_path())
+            self.assertEqual(
+                aliased_store._transaction_root(), self.store._transaction_root()
+            )
+            target = self.root / "docs/owner-comments/index.json"
+            phase = {target: target.read_bytes()}
+            manifest = aliased_store._transaction_manifest((phase,))
+            self.assertEqual(manifest["root"], str(self.store.root))
+            backup_root = aliased_store._transaction_root() / "txn-alias-recovery"
+            backup_root.mkdir(parents=True)
+            shutil.copy2(target, backup_root / "0")
+            owner_comments._write_transaction_manifest(
+                backup_root / "manifest.json", manifest
+            )
+            self.assertEqual(self.store.check(), [])
+            self.assertFalse(backup_root.exists())
+            self.assertEqual(aliased_store.check(), [])
+        finally:
+            alias_parent.unlink()
+
+    def test_symlinked_owner_comments_ancestor_never_writes_external_store(
+        self,
+    ) -> None:
+        self.write_record()
+        self.store.reindex()
+        with tempfile.TemporaryDirectory() as external_temp:
+            external_comments = Path(external_temp) / "owner-comments"
+            shutil.copytree(self.root / "docs/owner-comments", external_comments)
+            before = {
+                path.relative_to(external_comments): path.read_bytes()
+                for path in external_comments.rglob("*")
+                if path.is_file()
+            }
+            shutil.rmtree(self.root / "docs/owner-comments")
+            (self.root / "docs/owner-comments").symlink_to(
+                external_comments, target_is_directory=True
+            )
+
+            errors = self.store.check()
+            self.assertTrue(any("storage ancestor" in error for error in errors), errors)
+            with self.assertRaisesRegex(ContractError, "storage ancestor"):
+                self.store.reindex()
+            with self.assertRaisesRegex(ContractError, "storage ancestor"):
+                self.store.consume(
+                    "websites",
+                    record()["id"],
+                    consumed_at="2026-08-27T13:00:00Z",
+                    actor="actor",
+                    evidence="evidence",
+                )
+
+            after = {
+                path.relative_to(external_comments): path.read_bytes()
+                for path in external_comments.rglob("*")
+                if path.is_file()
+            }
+            self.assertEqual(after, before)
+            transaction_root = self.store._transaction_root()
+            self.assertEqual(list(transaction_root.glob("txn-*")), [])
 
     def test_malformed_state_and_unicode_surrogate_fail_without_crashing(self) -> None:
         path = self.write_record()
@@ -2668,12 +2629,23 @@ class RouteCase(unittest.TestCase):
             "codetool-lab-opus4.80",
             "superbot-games-extra",
             "trading-lab.py",
+            "websites.gitignore",
+            "websites.github",
+            "websites.git/continuation",
+            "websites.py",
+            "websites-extra",
+            "websites2",
             "DREAMLINER",
         ]
         positive = (
             ("creator-kit.", {"creator-kit"}),
             ("trading-lab.", {"trading-strategy"}),
             ("codetool-lab-opus4.8.", {"codetool-lab-opus4.8"}),
+            (
+                "git clone https://github.com/menno420/websites.git",
+                {"websites"},
+            ),
+            ("Use menno420/websites.git.", {"websites"}),
             ("the community bot!", {"spider-bot"}),
             ("Substrate Kit Dashboard?", {"Substrate-kit-app"}),
         )

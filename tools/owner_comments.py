@@ -271,94 +271,50 @@ def _is_windows() -> bool:
     return os.name == "nt"
 
 
-def _windows_readonly_mode(mode: int) -> bool:
-    return _is_windows() and not bool(mode & stat.S_IWRITE)
-
-
-def _clear_windows_readonly(
+def _reject_windows_readonly_file(
     path: Path, *, missing_ok: bool = False
-) -> int | None:
-    """Make one regular Windows path writable and return its prior mode."""
+) -> None:
+    """Fail closed before mutating an existing read-only Windows file.
+
+    Native Windows cannot atomically replace or unlink a read-only path. A
+    clear-then-replace sequence creates a crash window in which the checkout's
+    mode has changed but no durable journal fact can distinguish that window
+    from a legitimate mode-only owner edit. Owner-comment mutations therefore
+    support writable Windows files only; callers can make the path writable and
+    retry without any partial transaction to recover.
+    """
     if not _is_windows():
-        return None
+        return
     try:
         metadata = os.lstat(path)
     except FileNotFoundError:
         if missing_ok:
-            return None
+            return
         raise
     if not stat.S_ISREG(metadata.st_mode):
-        return None
+        return
     mode = stat.S_IMODE(metadata.st_mode)
     if mode & stat.S_IWRITE:
-        return None
-    if metadata.st_nlink != 1:
-        raise ContractError(
-            "refusing to clear Windows read-only state on a multiply linked "
-            f"file: {path}"
-        )
-    os.chmod(path, mode | stat.S_IWRITE)
-    return mode
-
-
-def _restore_mode_without_masking(path: Path, mode: int | None) -> None:
-    """Best-effort mode restoration while another exception is active."""
-    if mode is None:
         return
-    try:
-        metadata = os.lstat(path)
-        if stat.S_ISREG(metadata.st_mode):
-            os.chmod(path, mode)
-    except OSError:
-        pass
+    raise ContractError(
+        "Windows read-only owner-comment transaction target is unsupported; "
+        f"make it writable and retry: {path}"
+    )
 
 
 def _unlink_windows_compatible(path: Path, *, missing_ok: bool = False) -> None:
-    """Unlink a path after clearing the Windows read-only attribute."""
-    prior_mode = _clear_windows_readonly(path, missing_ok=missing_ok)
+    """Unlink writable transaction scratch without masking missing cleanup."""
+    _reject_windows_readonly_file(path, missing_ok=missing_ok)
     try:
         path.unlink()
     except FileNotFoundError:
         if missing_ok:
             return
         raise
-    except BaseException:
-        _restore_mode_without_masking(path, prior_mode)
-        raise
-
-
-def _apply_windows_readonly_after_replace(path: Path, mode: int) -> None:
-    """Publish Windows read-only state only after replacement succeeds."""
-    if not _windows_readonly_mode(mode):
-        return
-    metadata = os.lstat(path)
-    if not stat.S_ISREG(metadata.st_mode):
-        raise ContractError(
-            f"Windows read-only target must be a regular file: {path}"
-        )
-    if not stat.S_IMODE(metadata.st_mode) & stat.S_IWRITE:
-        # Recovery can reach an entry whose before/after bytes are identical.
-        # Its unchanged read-only target may legitimately have other links, so
-        # do not clear and reapply an attribute that is already correct.
-        return
-    # A writable multiply-linked target can only reach this helper through a
-    # byte-vector-proven recovery window. Applying read-only here deliberately
-    # restores the shared Windows attribute on every surviving alias.
-    # Keep a writable descriptor while applying the attribute so the metadata
-    # change itself can be committed before this operation reports success.
-    with path.open("r+b") as handle:
-        os.chmod(path, mode)
-        os.fsync(handle.fileno())
 
 
 def _remove_tree_best_effort(path: Path) -> None:
-    """Remove journal scratch, first clearing Windows read-only artifacts."""
-    if _is_windows() and path.is_dir() and not path.is_symlink():
-        for candidate in sorted(path.rglob("*"), reverse=True):
-            try:
-                _clear_windows_readonly(candidate, missing_ok=True)
-            except (OSError, ContractError):
-                pass
+    """Best-effort removal of writable journal scratch."""
     shutil.rmtree(path, ignore_errors=True)
 
 
@@ -372,6 +328,7 @@ def _atomic_write(path: Path, content: bytes) -> None:
         if not stat.S_ISREG(target_metadata.st_mode):
             raise ContractError(f"atomic-write target must be a regular file: {path}")
         target_mode = stat.S_IMODE(target_metadata.st_mode)
+        _reject_windows_readonly_file(path)
     active_temporaries = _ACTIVE_ATOMIC_TEMPORARIES.get()
     temporary = (
         active_temporaries.get(path.absolute())
@@ -394,28 +351,15 @@ def _atomic_write(path: Path, content: bytes) -> None:
             raise ContractError(
                 f"transaction atomic temporary already exists: {temporary}"
             ) from exc
-    windows_readonly = _windows_readonly_mode(target_mode)
-    cleared_target_mode: int | None = None
-    replaced = False
     try:
         with os.fdopen(fd, "wb") as handle:
             handle.write(content)
             handle.flush()
-            # POSIX replacement modes remain atomic. Windows read-only state
-            # must wait until after MoveFileEx has replaced the old path.
-            if not windows_readonly:
-                _set_file_mode(temporary, handle.fileno(), target_mode)
+            _set_file_mode(temporary, handle.fileno(), target_mode)
             os.fsync(handle.fileno())
-        if windows_readonly:
-            cleared_target_mode = _clear_windows_readonly(path)
         os.replace(temporary, path)
-        replaced = True
-        _apply_windows_readonly_after_replace(path, target_mode)
         _fsync_directory(path.parent)
     except BaseException:
-        _restore_mode_without_masking(
-            path, target_mode if replaced and windows_readonly else cleared_target_mode
-        )
         try:
             _unlink_windows_compatible(temporary, missing_ok=True)
         except BaseException:
@@ -627,13 +571,50 @@ def validate_record(data: Any, *, relative_path: Path | None = None) -> list[str
 
 class OwnerCommentsStore:
     def __init__(self, root: Path = REPO) -> None:
-        self.root = root.resolve()
+        # Canonicalize every ancestor above the store so two spellings of the
+        # same physical checkout share one lock/journal identity. Keep only the
+        # final component lexical so a store-root symlink remains visible to the
+        # lstat walk instead of being normalized away.
+        lexical_root = Path(os.path.abspath(os.fspath(root)))
+        self.root = lexical_root.parent.resolve() / lexical_root.name
         self.comments = self.root / COMMENTS_REL
         self.estate = self.root / ESTATE_REL
 
+    def _storage_ancestor_error(self) -> str | None:
+        """lstat every existing storage ancestor without following symlinks."""
+        current = self.root
+        paths = (
+            current,
+            *(
+                current / Path(*COMMENTS_REL.parts[:number])
+                for number in range(1, len(COMMENTS_REL.parts) + 1)
+            ),
+        )
+        for path in paths:
+            try:
+                metadata = os.lstat(path)
+            except FileNotFoundError:
+                # A missing descendant is reported by the caller's ordinary
+                # contract checks. No later descendant can exist lexically.
+                return None
+            except OSError as exc:
+                return f"cannot inspect owner-comment storage ancestor {path}: {exc}"
+            if stat.S_ISLNK(metadata.st_mode):
+                return (
+                    "owner-comment storage ancestor must be a real directory, "
+                    f"not a symlink: {path}"
+                )
+            if not stat.S_ISDIR(metadata.st_mode):
+                return f"owner-comment storage ancestor must be a directory: {path}"
+        return None
+
+    def _assert_storage_ancestors(self) -> None:
+        error = self._storage_ancestor_error()
+        if error:
+            raise ContractError(error)
+
     def _assert_safe_target(self, path: Path) -> None:
-        if self.comments.is_symlink():
-            raise ContractError("docs/owner-comments must not be a symlink")
+        self._assert_storage_ancestors()
         base = self.comments.resolve(strict=False)
         resolved = path.resolve(strict=False)
         try:
@@ -748,6 +729,9 @@ class OwnerCommentsStore:
         and the OS releases it if a process dies. That avoids both concurrent
         rollbacks undoing a successful consume and TMPDIR-specific lock islands.
         """
+        # Recovery and even lock creation are mutation-adjacent. Refuse a
+        # symlinked store/root before either can derive paths from it.
+        self._assert_storage_ancestors()
         lock_path = self._lock_path()
         lock_path.parent.mkdir(parents=True, exist_ok=True)
         handle = lock_path.open("a+b")
@@ -809,6 +793,8 @@ class OwnerCommentsStore:
                 raise ContractError(
                     f"transaction target must be a regular file or absent: {path}"
                 )
+            if existed:
+                _reject_windows_readonly_file(path)
             initial_content = path.read_bytes() if existed else None
             initial_contents[path] = initial_content
             entries.append(
@@ -1352,14 +1338,13 @@ class OwnerCommentsStore:
         if entry["existed"]:
             backup = backup_root / entry["backup"]
             backup_mode = stat.S_IMODE(os.lstat(backup).st_mode)
-            windows_readonly = _windows_readonly_mode(backup_mode)
+            _reject_windows_readonly_file(backup)
+            _reject_windows_readonly_file(target, missing_ok=True)
             target.parent.mkdir(parents=True, exist_ok=True)
             temporary = self._recovery_temporary_path(
                 backup_root, entry, number
             )
             created = False
-            cleared_target_mode: int | None = None
-            replaced = False
             try:
                 if temporary.exists() or temporary.is_symlink():
                     raise ContractError(
@@ -1377,24 +1362,12 @@ class OwnerCommentsStore:
                     shutil.copyfileobj(source, destination)
                     destination.flush()
                     os.fsync(destination.fileno())
-                if not windows_readonly:
-                    os.chmod(temporary, backup_mode)
-                    with temporary.open("rb") as handle:
-                        os.fsync(handle.fileno())
-                cleared_target_mode = _clear_windows_readonly(
-                    target, missing_ok=True
-                )
+                os.chmod(temporary, backup_mode)
+                with temporary.open("rb") as handle:
+                    os.fsync(handle.fileno())
                 os.replace(temporary, target)
-                replaced = True
-                _apply_windows_readonly_after_replace(target, backup_mode)
                 _fsync_directory(target.parent)
             except BaseException:
-                _restore_mode_without_masking(
-                    target,
-                    backup_mode
-                    if replaced and windows_readonly
-                    else cleared_target_mode,
-                )
                 try:
                     if created and (
                         temporary.is_symlink() or (
@@ -1411,58 +1384,9 @@ class OwnerCommentsStore:
                 raise ContractError(
                     f"transaction recovery refuses to delete directory: {target}"
                 )
+            _reject_windows_readonly_file(target)
             _unlink_windows_compatible(target)
             _fsync_directory(target.parent)
-
-    def _finish_windows_recovery_mode(
-        self, backup_root: Path, entry: dict[str, Any]
-    ) -> None:
-        """Close the post-replace mode window after an interrupted recovery."""
-        if not _is_windows() or not entry["existed"]:
-            return
-        backup = backup_root / entry["backup"]
-        backup_mode = stat.S_IMODE(os.lstat(backup).st_mode)
-        _apply_windows_readonly_after_replace(
-            self.root / entry["path"], backup_mode
-        )
-
-    def _restore_proven_windows_modes_before_quarantine(
-        self, backup_root: Path, manifest: dict[str, Any]
-    ) -> None:
-        """Close only mode windows whose complete target vector is proven."""
-        if not _is_windows():
-            return
-        if manifest["state"] == "prepared":
-            phase = self._prepared_phase_index(manifest)
-            if phase is None:
-                return
-            expected = self._phase_vectors(manifest)[phase]
-        elif manifest["state"] == "recovering":
-            status = self._recovery_status(manifest)
-            if status is None:
-                return
-            before, after = self._recovery_vectors(manifest)
-            expected = before if status == "before" else after
-        else:
-            return
-
-        for number, entry in enumerate(manifest["entries"]):
-            if not entry["existed"] or not expected[number][0]:
-                continue
-            backup = backup_root / entry["backup"]
-            backup_mode = stat.S_IMODE(os.lstat(backup).st_mode)
-            if not _windows_readonly_mode(backup_mode):
-                continue
-            target = self.root / entry["path"]
-            actual = _expected_state_key(
-                _path_state(target, boundary=self.comments)
-            )
-            if actual != expected[number]:
-                raise ContractError(
-                    "owner-comment target changed while closing a Windows "
-                    f"read-only recovery window: {target}"
-                )
-            _apply_windows_readonly_after_replace(target, backup_mode)
 
     def _restore_transaction(
         self, backup_root: Path, manifest: dict[str, Any]
@@ -1488,10 +1412,6 @@ class OwnerCommentsStore:
                     raise ContractError(
                         "owner-comment recovery could not verify restored target"
                     )
-            else:
-                self._finish_windows_recovery_mode(
-                    backup_root, manifest["entries"][cursor]
-                )
             manifest["recovery"]["cursor"] = cursor + 1
             _write_transaction_manifest(backup_root / "manifest.json", manifest)
 
@@ -1529,12 +1449,6 @@ class OwnerCommentsStore:
             try:
                 self._cleanup_transaction_temporaries(backup_root, manifest)
             except ContractError as exc:
-                # Temporary corruption changes the quarantine decision, not a
-                # separately proven target. Close any Windows read-only mode
-                # window before moving this otherwise valid journal aside.
-                self._restore_proven_windows_modes_before_quarantine(
-                    backup_root, manifest
-                )
                 quarantine = self._quarantine_transaction(backup_root)
                 raise ContractError(
                     "owner-comment transaction temporary mismatch was preserved "
@@ -1565,18 +1479,6 @@ class OwnerCommentsStore:
             }
             multiple_active = len(active) != 1
             if identity_mismatches or target_mismatches or multiple_active:
-                # A Windows replacement clears the old target's read-only
-                # attribute immediately before MoveFileEx. If the process dies
-                # in that narrow window, identity quarantine must not strand
-                # proven transaction bytes writable. Never touch bytes here,
-                # and do this only for one journal whose complete target vector
-                # still matches an expected phase/recovery boundary.
-                if not multiple_active:
-                    backup_root, manifest = active[0]
-                    if backup_root not in target_mismatches:
-                        self._restore_proven_windows_modes_before_quarantine(
-                            backup_root, manifest
-                        )
                 quarantined = [
                     self._quarantine_transaction(backup_root)
                     for backup_root, _ in active
@@ -1627,13 +1529,15 @@ class OwnerCommentsStore:
         A durable prepared/committed manifest lets the next locked operation
         recover an ``os._exit``/SIGTERM interruption deterministically.
         """
+        # Validate every existing target (including Windows read-only state)
+        # before publishing or even initializing transaction recovery data.
+        manifest = self._transaction_manifest(expected_phases)
         transaction_root = self._transaction_root()
         transaction_root.mkdir(parents=True, exist_ok=True)
         _fsync_directory(transaction_root.parent)
         backup_root = Path(
             tempfile.mkdtemp(prefix=".initializing-", dir=transaction_root)
         )
-        manifest = self._transaction_manifest(expected_phases)
         prepared = False
         try:
             for entry in manifest["entries"]:
@@ -1700,6 +1604,7 @@ class OwnerCommentsStore:
             _fsync_directory(transaction_root)
 
     def repositories(self) -> list[str]:
+        self._assert_storage_ancestors()
         if not self.estate.is_file():
             raise ContractError(f"missing estate index: {self.estate}")
         repositories = [
@@ -1828,6 +1733,9 @@ class OwnerCommentsStore:
         return errors
 
     def scan(self) -> tuple[list[Record], list[str]]:
+        ancestor_error = self._storage_ancestor_error()
+        if ancestor_error:
+            return [], [ancestor_error]
         canonical = set(self.repositories())
         records: list[Record] = []
         errors: list[str] = []
@@ -2221,6 +2129,9 @@ class OwnerCommentsStore:
         return expected
 
     def check(self) -> list[str]:
+        ancestor_error = self._storage_ancestor_error()
+        if ancestor_error:
+            return [ancestor_error]
         with self.mutation_lock():
             return self._check_locked()
 
@@ -2389,8 +2300,6 @@ class OwnerCommentsStore:
         planned_indexes = self.expected_indexes(planned_records)
         repository_index = self.comments / repository / "README.md"
         root_index = self.comments / "index.json"
-        destination.parent.mkdir(parents=True, exist_ok=True)
-
         phase = {
             source: source_raw,
             destination: None,
@@ -2410,7 +2319,13 @@ class OwnerCommentsStore:
         expected_phases.append(dict(phase))
         phase[repository_index] = planned_indexes[repository_index]
         expected_phases.append(dict(phase))
+        # Reject a read-only source or index before creating consumed/ or a
+        # recovery journal. rollback_snapshot repeats this target preflight
+        # while constructing the exact transaction manifest.
+        for path in phase:
+            _reject_windows_readonly_file(path, missing_ok=True)
         with self.rollback_snapshot(tuple(expected_phases)):
+            destination.parent.mkdir(parents=True, exist_ok=True)
             source.replace(destination)  # the lifecycle transition is a real move
             _fsync_directory(source.parent)
             _fsync_directory(destination.parent)

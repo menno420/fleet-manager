@@ -78,7 +78,12 @@ restore. Atomic replacement and restore scratch names are deterministic and
 journal-owned: exact expected residue is scavenged on retry, while different
 bytes are preserved inside the quarantined journal instead of deleted. Data
 moves and generated-index replacements sync their parent directories before the
-journal can be marked committed.
+journal can be marked committed. On native Windows, every existing transaction
+target must be writable: a read-only record or index is rejected before a move,
+temporary, or recovery journal exists, because clearing that attribute first
+would create an unrecoverable mode-only crash window. Make the file writable
+and retry. Storage scans and mutations also `lstat` the lexical store root,
+`docs/`, and `docs/owner-comments/`; none may be a symlink.
 
 ## Commands
 
