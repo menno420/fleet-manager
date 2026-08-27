@@ -362,8 +362,10 @@ not a chat memory.
 current state · what to know before continuing · last checked* — plus, per the
 08-27→28 direction: the venue-handoff contract, a **lean account of the main
 things that happened**, and the public-surface content rule) — including
-the hub's actual layout (where the skills copy lives; whether repo clones live
-inside it), which is `UNVERIFIED` until written; (2) tighten the hub's
+the hub's layout **at capability level only** (that a live skills copy exists
+and loads; whether repo clones live inside the synced tree), which is
+`UNVERIFIED` until written — exact filesystem paths stay in the hub's own
+private records, per the public-surface content rule (`@codex`, fm #954); (2) tighten the hub's
 review-fleet-manager-first boot instruction to mirror the six-read pointer —
 his own *"tho this might also need some work"* — and wire the scope routing
 rule into the hub's close hooks, all three branches (repo work → that repo's
@@ -671,7 +673,10 @@ A1 → A2 → (the wave ∥ B1) → B2 · B3 → C0 → C1…C8 (audit order) �
 Packets are independent unless their `needs` line says otherwise — the wave
 rows, B4's rows and C1–C7 can interleave freely once their gates are met.
 **The first sitting is PKT-C1** (declared exception to the linear order: zero
-dependency, thirty minutes, subtractive, teaches the form). **The pair that
+dependency, thirty minutes, subtractive, teaches the form) — **and no sitting
+starts before the owner's GO** (OD-23, 2026-08-28: *"no execution yet, because
+I still have more to plan"*; the substrate-kit conversation precedes
+execution). **The pair that
 must not slip is A1/A2** — the § 9 test: once Move 1 lands and a repo takes
 its hop, every future session **in that repo** adds to the record instead of
 drawing from it. **Scoped to the upgraded adopters, deliberately** (`@codex`
@@ -690,8 +695,9 @@ last-commit dates (both withdrawn under review before).
 
 The owner's local session boots in the hub and reviews fleet-manager first;
 this doc is reachable from that route three ways (current-state → Work state ·
-the program's NOW note · the planning index). To start a sitting, one line is
-enough:
+the program's NOW note · the planning index). **Every packet is held until his
+explicit GO** (OD-23, 2026-08-28) — once he gives it, one line starts a
+sitting:
 
 > *Read `docs/planning/2026-08-26-estate-execution-packets.md` § 5, then
 > execute PKT-C1 (or the packet I name). fleet-manager is public — raw-fetch

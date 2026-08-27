@@ -106,7 +106,9 @@ copy product architecture or internal product state. Canonical intent:
   cloud, the OneDrive/local-disk hub locally; satellites never boot). First
   sitting: PKT-C1 (spider-swing's front-door fix); must-not-slip: A1/A2 (gate
   the next-agent contribution). The owner accepted it provisionally — *"not
-  read every word yet"* — and works it from a local session next.
+  read every word yet"* — **and as of 2026-08-28 every packet is held until
+  his explicit GO** (OD-23: *"no execution yet, because I still have more to
+  plan"*; the substrate-kit sitting comes first).
 - fleet-manager vendors substrate-kit v1.21.0 (fm #853)
 - **Fleet Manager now owns the durable owner-comment contract** (2026-08-27):
   [`owner-comments/`](owner-comments/README.md) carries public, exact-wording

@@ -65,6 +65,17 @@ owner said "no execution yet" and the substrate-kit discussion is still ahead.
   work → the public section); the spec now names all three branches, with
   machine/personal staying in the hub and only the lean public-safe account
   reaching the pages.
+- Round 4 on `994bb8f` — the capped round (session-close: two re-review
+  rounds, then land with findings named) — returned three findings. The P1 on
+  this card's own `in-progress` badge is the designed born-red hold and
+  resolves with the flip **[conceded-by-design]**. The P2 (PKT-B3 step 1 asked
+  the public page for the hub's actual layout, conflicting with the no-paths
+  content rule — now capability-level only) and the P1 (the GO hold was not
+  propagated to the executable-route pointers: current-state's first-sitting
+  line, the packets' § 6 first-sitting and § 7 paste-ready line — now gated)
+  are both **[conceded]** and fixed. Per the cap, these fixes land without a
+  further re-review round: reviewed SHA `994bb8f`, followed only by the fix
+  commit and the flip commit.
 
 ## 💡 Session idea
 
