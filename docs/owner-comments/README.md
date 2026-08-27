@@ -66,11 +66,12 @@ commit cannot hide CRLF/noncanonical records behind checkout normalization.
 Mutations share a worktree-stable process lock. Their recovery journals live in
 Git metadata (never in the committed record tree); the next `check`, `reindex`,
 or `consume` deterministically rolls back a process-terminated prepared change
-before continuing. Every prepared journal is pinned to its Git `HEAD` and index
-tree. If either changed (for example, after switching branches), recovery
-quarantines the stale journal and stops without changing the current checkout.
-Data moves and generated-index replacements sync their parent directories before
-the journal can be marked committed.
+before continuing. Every prepared journal is pinned to its symbolic Git `HEAD`
+ref (or an explicit detached marker), commit OID, and index tree. If any changed
+(for example, after switching branches), recovery quarantines the stale journal
+and stops without changing the current checkout. Data moves and generated-index
+replacements sync their parent directories before the journal can be marked
+committed.
 
 ## Commands
 

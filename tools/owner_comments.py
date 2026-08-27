@@ -59,6 +59,7 @@ WINDOWS_RESERVED = {
     *(f"lpt{number}" for number in range(1, 10)),
 }
 ROOT_RESERVED = {"readme.md", "index.json", "record.schema.json"}
+DETACHED_HEAD_REF = "DETACHED"
 
 
 class ContractError(ValueError):
@@ -424,7 +425,7 @@ class OwnerCommentsStore:
         return lock_path.parent / f"{lock_path.stem}-transactions"
 
     def _git_identity(self) -> dict[str, str | None]:
-        """Return the exact HEAD/index identity a rollback was prepared for."""
+        """Return the exact symbolic HEAD/OID/index rollback identity."""
         inside = subprocess.run(
             ["git", "rev-parse", "--is-inside-work-tree"],
             cwd=self.root,
@@ -433,7 +434,7 @@ class OwnerCommentsStore:
             check=False,
         )
         if inside.returncode != 0 or inside.stdout.strip() != "true":
-            return {"head": None, "index_tree": None}
+            return {"head": None, "head_ref": None, "index_tree": None}
 
         head_result = subprocess.run(
             ["git", "rev-parse", "--verify", "HEAD"],
@@ -443,6 +444,31 @@ class OwnerCommentsStore:
             check=False,
         )
         head = head_result.stdout.strip() if head_result.returncode == 0 else None
+        symbolic_result = subprocess.run(
+            ["git", "symbolic-ref", "--quiet", "HEAD"],
+            cwd=self.root,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if symbolic_result.returncode == 0:
+            head_ref = symbolic_result.stdout.strip()
+            ref_check = subprocess.run(
+                ["git", "check-ref-format", head_ref],
+                cwd=self.root,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            if not head_ref.startswith("refs/heads/") or ref_check.returncode != 0:
+                raise ContractError("Git returned an invalid symbolic HEAD ref")
+        elif symbolic_result.returncode == 1 and head is not None:
+            head_ref = DETACHED_HEAD_REF
+        else:
+            detail = symbolic_result.stderr.strip() or "cannot identify symbolic HEAD"
+            raise ContractError(
+                f"cannot identify owner-comment transaction Git HEAD: {detail}"
+            )
         tree_result = subprocess.run(
             ["git", "write-tree"],
             cwd=self.root,
@@ -461,7 +487,7 @@ class OwnerCommentsStore:
             index_tree
         ):
             raise ContractError("Git returned an invalid transaction identity")
-        return {"head": head, "index_tree": index_tree}
+        return {"head": head, "head_ref": head_ref, "index_tree": index_tree}
 
     @contextmanager
     def mutation_lock(self):
@@ -527,7 +553,7 @@ class OwnerCommentsStore:
                 }
             )
         return {
-            "schema_version": 2,
+            "schema_version": 3,
             "state": "prepared",
             "root": str(self.root),
             "git_identity": self._git_identity(),
@@ -564,7 +590,7 @@ class OwnerCommentsStore:
             raise ContractError(
                 f"owner-comment transaction manifest has unknown fields: {manifest_path}"
             )
-        if data.get("schema_version") != 2 or data.get("state") not in {
+        if data.get("schema_version") != 3 or data.get("state") not in {
             "prepared",
             "committed",
         }:
@@ -576,23 +602,50 @@ class OwnerCommentsStore:
                 f"owner-comment transaction belongs to another worktree: {manifest_path}"
             )
         identity = data.get("git_identity")
-        if not isinstance(identity, dict) or set(identity) != {"head", "index_tree"}:
+        if not isinstance(identity, dict) or set(identity) != {
+            "head",
+            "head_ref",
+            "index_tree",
+        }:
             raise ContractError(
                 f"owner-comment transaction Git identity is invalid: {manifest_path}"
             )
         oid = re.compile(r"^[0-9a-f]{40,64}$")
         head = identity.get("head")
+        head_ref = identity.get("head_ref")
         index_tree = identity.get("index_tree")
-        if (
-            head is not None
-            and (not isinstance(head, str) or not oid.fullmatch(head))
-        ) or (
-            index_tree is not None
-            and (
-                not isinstance(index_tree, str)
-                or not oid.fullmatch(index_tree)
+        head_valid = head is None or (
+            isinstance(head, str) and bool(oid.fullmatch(head))
+        )
+        tree_valid = index_tree is None or (
+            isinstance(index_tree, str) and bool(oid.fullmatch(index_tree))
+        )
+        symbolic_valid = False
+        if isinstance(head_ref, str) and head_ref != DETACHED_HEAD_REF:
+            ref_check = subprocess.run(
+                ["git", "check-ref-format", head_ref],
+                cwd=self.root,
+                capture_output=True,
+                text=True,
+                check=False,
             )
-        ) or (head is not None and index_tree is None):
+            symbolic_valid = (
+                head_ref.startswith("refs/heads/") and ref_check.returncode == 0
+            )
+        valid_identity = (
+            head_valid
+            and tree_valid
+            and (
+                (head is None and head_ref is None and index_tree is None)
+                or (index_tree is not None and symbolic_valid)
+                or (
+                    head is not None
+                    and index_tree is not None
+                    and head_ref == DETACHED_HEAD_REF
+                )
+            )
+        )
+        if not valid_identity:
             raise ContractError(
                 f"owner-comment transaction Git identity is invalid: {manifest_path}"
             )
@@ -739,8 +792,8 @@ class OwnerCommentsStore:
                 ]
                 raise ContractError(
                     "prepared owner-comment transaction belongs to a different "
-                    "Git HEAD/index tree; the current checkout was not changed and "
-                    "the stale recovery data was quarantined at "
+                    "Git symbolic HEAD/OID/index tree; the current checkout was "
+                    "not changed and the stale recovery data was quarantined at "
                     + ", ".join(str(path) for path in quarantined)
                 )
 

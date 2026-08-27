@@ -457,7 +457,9 @@ store.consume(
             "",
         )
 
-        with self.assertRaisesRegex(ContractError, "Git HEAD/index tree.*quarantined"):
+        with self.assertRaisesRegex(
+            ContractError, "Git symbolic HEAD/OID/index tree.*quarantined"
+        ):
             self.store.check()
         self.assertFalse(original.exists())
         self.assertEqual(destination.read_bytes(), expected_destination)
@@ -482,6 +484,109 @@ store.consume(
             ).stdout,
             "",
         )
+
+    def test_same_tree_branch_switch_quarantines_before_unstaged_edit_restore(
+        self,
+    ) -> None:
+        original = self.write_record()
+        self.store.reindex()
+        self.commit_baseline("active owner comment")
+        main_identity = self.store._git_identity()
+        subprocess.run(
+            ["git", "branch", "other"], cwd=self.root, check=True
+        )
+
+        crash_code = """
+import os
+import sys
+from pathlib import Path
+sys.path.insert(0, sys.argv[1])
+import owner_comments
+store = owner_comments.OwnerCommentsStore(Path(sys.argv[2]))
+real_write = owner_comments._atomic_write
+def crash_on_consumed(path, content):
+    if path.parent.name == 'consumed':
+        os._exit(91)
+    real_write(path, content)
+owner_comments._atomic_write = crash_on_consumed
+store.consume(
+    'websites',
+    'oc-20260827t120000z-a1b2c3d4',
+    consumed_at='2026-08-27T13:00:00Z',
+    actor='actor',
+    evidence='evidence',
+)
+"""
+        crashed = subprocess.run(
+            [sys.executable, "-c", crash_code, str(REPO / "tools"), str(self.root)],
+            cwd=REPO,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(crashed.returncode, 91, crashed.stderr)
+        transaction_root = self.store._transaction_root()
+        self.assertEqual(len(list(transaction_root.glob("txn-*"))), 1)
+
+        subprocess.run(
+            ["git", "switch", "-q", "-f", "other"],
+            cwd=self.root,
+            check=True,
+        )
+        other_identity = self.store._git_identity()
+        self.assertEqual(main_identity["head"], other_identity["head"])
+        self.assertEqual(
+            main_identity["index_tree"], other_identity["index_tree"]
+        )
+        self.assertEqual(main_identity["head_ref"], "refs/heads/main")
+        self.assertEqual(other_identity["head_ref"], "refs/heads/other")
+
+        edited = record()
+        edited["comment"] = "Different canonical bytes on the switched branch."
+        original.write_bytes(owner_comments._json_bytes(edited))
+        destination = original.parent / "consumed" / original.name
+        source_before = original.read_bytes()
+        destination_before = destination.read_bytes() if destination.exists() else None
+        status_before = subprocess.run(
+            ["git", "status", "--porcelain"],
+            cwd=self.root,
+            capture_output=True,
+            text=True,
+            check=True,
+        ).stdout
+
+        with self.assertRaisesRegex(
+            ContractError, "Git symbolic HEAD/OID/index tree.*quarantined"
+        ):
+            self.store.check()
+        self.assertEqual(original.read_bytes(), source_before)
+        if destination_before is None:
+            self.assertFalse(destination.exists())
+        else:
+            self.assertEqual(destination.read_bytes(), destination_before)
+        self.assertEqual(
+            subprocess.run(
+                ["git", "status", "--porcelain"],
+                cwd=self.root,
+                capture_output=True,
+                text=True,
+                check=True,
+            ).stdout,
+            status_before,
+        )
+        self.assertFalse(list(transaction_root.glob("txn-*")))
+        self.assertEqual(len(list(transaction_root.glob("quarantine-*"))), 1)
+
+    def test_git_identity_marks_detached_head_explicitly(self) -> None:
+        self.commit_baseline("baseline")
+        symbolic = self.store._git_identity()
+        subprocess.run(
+            ["git", "switch", "-q", "--detach"], cwd=self.root, check=True
+        )
+        detached = self.store._git_identity()
+        self.assertEqual(detached["head"], symbolic["head"])
+        self.assertEqual(detached["index_tree"], symbolic["index_tree"])
+        self.assertEqual(detached["head_ref"], owner_comments.DETACHED_HEAD_REF)
 
     def test_atomic_write_syncs_parent_directory_after_replace(self) -> None:
         path = self.root / "docs/owner-comments/index.json"
