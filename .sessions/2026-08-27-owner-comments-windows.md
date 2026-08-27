@@ -46,7 +46,7 @@ modified).
 
 ## Verification
 
-- `python tools/test_owner_comments.py -q` — **PASS**, 90 tests in 219.805 s;
+- `python tools/test_owner_comments.py -q` — **PASS**, 91 tests in 436.884 s;
   five symlink-creation tests skipped because this ordinary Windows account has
   neither Developer Mode nor administrator link privilege.
 - `python tools/owner_comments.py check` — **PASS**, 28 repositories, zero
@@ -54,5 +54,11 @@ modified).
 - `python bootstrap.py check --strict` — the only pre-flip finding is the
   designed born-red hold on this still-`in-progress` card; all other strict
   checks passed.
-- Linux CI and exact-head Codex review remain required before the completion
-  flip.
+- Exact-head Codex review of `104946dd76` raised two portable-routing findings.
+  Both were **[conceded]**: prompt checkout matching now observes path
+  boundaries instead of accepting sibling prefixes, and comment-index
+  self-reads require an exact normalized path instead of accepting backup
+  filename substrings. Focused regressions cover both cases, and the complete
+  dedicated suite above passed after the fixes.
+- Linux CI and a clean exact-head rereview remain required before the
+  completion flip.

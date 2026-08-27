@@ -2853,6 +2853,32 @@ class RouteCase(unittest.TestCase):
                 json.loads(state_path.read_text(encoding="utf-8")),
             )
 
+    def test_comment_index_backup_name_is_not_mistaken_for_a_self_read(self) -> None:
+        with tempfile.TemporaryDirectory() as state:
+            event = {
+                "hook_event_name": "PreToolUse",
+                "session_id": "owner-comments-backup-read-test",
+                "tool_name": "Read",
+                "tool_input": {
+                    "file_path": "docs\\owner-comments\\websites\\README.md.bak"
+                },
+            }
+            result = subprocess.run(
+                [sys.executable, ".claude/hooks/route_docs.py"],
+                cwd=REPO,
+                input=json.dumps(event),
+                text=True,
+                capture_output=True,
+                env=dict(os.environ, TMPDIR=state),
+                check=True,
+            )
+
+            context = json.loads(result.stdout)["hookSpecificOutput"][
+                "additionalContext"
+            ]
+            self.assertIn("· `docs/owner-comments/websites/README.md`", context)
+            self.assertIn("open the Unconsumed section", context)
+
     def test_absolute_paths_do_not_treat_checkout_ancestor_as_fleet_target(self) -> None:
         cases = [
             (
@@ -2897,6 +2923,13 @@ class RouteCase(unittest.TestCase):
                 state,
             )
             self.assertEqual(comments, {"fleet-manager"})
+
+            _context, comments, _docs = self.route_prompt(
+                f"Start in {REPO}-old",
+                "owner-comments-absolute-prefix-prompt",
+                state,
+            )
+            self.assertEqual(comments, set())
 
             event = {
                 "hook_event_name": "PreToolUse",

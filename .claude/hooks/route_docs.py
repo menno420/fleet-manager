@@ -344,7 +344,7 @@ def mentioned_repositories(
         not strip_checkout_prefix
         and "fleet-manager" in repositories
         and any(
-            spelling.casefold() in text.casefold()
+            re.search(reference_pattern(re.escape(spelling)), text, re.I)
             for spelling in {str(REPO), REPO.as_posix()}
         )
     )
@@ -469,6 +469,12 @@ def main() -> int:
     # `card-flip-to-complete` and spent it — the real card flip later in that
     # session was SILENT. Same class as fm #923, one field deeper.
     target_path = str((event.get("tool_input") or {}).get("file_path") or "")
+    normalized_target_path = target_path.replace("\\", "/")
+    checkout_prefix = REPO.as_posix().rstrip("/") + "/"
+    if normalized_target_path.casefold().startswith(checkout_prefix.casefold()):
+        normalized_target_path = normalized_target_path[len(checkout_prefix):]
+    while normalized_target_path.startswith("./"):
+        normalized_target_path = normalized_target_path[2:]
 
     session = str(event.get("session_id") or "nosession")
     fired = already_fired(session)
@@ -585,7 +591,7 @@ def main() -> int:
         if comment_route_id in fired:
             continue
         comment_index = f"docs/owner-comments/{repository}/README.md"
-        if tool != "Bash" and comment_index in text.replace("\\", "/"):
+        if tool != "Bash" and normalized_target_path == comment_index:
             fired.add(comment_route_id)
             # A self-read is intentionally silent, but it still consumes this
             # once-per-session pointer. Persist before the no-hit return below.
