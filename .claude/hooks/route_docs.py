@@ -340,6 +340,14 @@ def mentioned_repositories(
     must not re-add them later.
     """
     subject = text
+    prompt_mentions_checkout = (
+        not strip_checkout_prefix
+        and "fleet-manager" in repositories
+        and any(
+            re.search(reference_pattern(re.escape(spelling)), text, re.I)
+            for spelling in {str(REPO), REPO.as_posix()}
+        )
+    )
     if strip_checkout_prefix:
         # Tool payloads commonly carry absolute paths. Fleet Manager's checkout
         # directory is plumbing there, not a repository mention: without
@@ -348,6 +356,18 @@ def mentioned_repositories(
         # though, and an absolute checkout selection must remain discoverable.
         for prefix in {str(REPO) + os.sep, REPO.as_posix() + "/"}:
             subject = subject.replace(prefix, "")
+        # Repository-relative routing uses POSIX paths. Normalize tool payloads
+        # after removing this checkout's plumbing so Windows absolute paths do
+        # not become invisible (or route the checkout itself as Fleet Manager).
+        subject = subject.replace("\\", "/")
+    else:
+        # Prompt text may name this checkout or a sibling whose path begins
+        # with it.  The full-path decision above owns that meaning; remove the
+        # checkout plumbing before canonical-slug matching so a CI layout such
+        # as ``.../fleet-manager/fleet-manager-old`` cannot route the ancestor
+        # directory as an explicit Fleet Manager mention.
+        for spelling in {str(REPO), REPO.as_posix()}:
+            subject = re.sub(re.escape(spelling), "", subject, flags=re.I)
 
     candidates: list[
         tuple[int, int, frozenset[str], bool, frozenset[str]]
@@ -377,6 +397,8 @@ def mentioned_repositories(
             )
 
     selected: set[str] = set()
+    if prompt_mentions_checkout:
+        selected.add("fleet-manager")
     shadowed: set[str] = set()
     for start, end, names, canonical, route_shadows in candidates:
         dominated = any(
@@ -455,6 +477,12 @@ def main() -> int:
     # `card-flip-to-complete` and spent it — the real card flip later in that
     # session was SILENT. Same class as fm #923, one field deeper.
     target_path = str((event.get("tool_input") or {}).get("file_path") or "")
+    normalized_target_path = target_path.replace("\\", "/")
+    checkout_prefix = REPO.as_posix().rstrip("/") + "/"
+    if normalized_target_path.casefold().startswith(checkout_prefix.casefold()):
+        normalized_target_path = normalized_target_path[len(checkout_prefix):]
+    while normalized_target_path.startswith("./"):
+        normalized_target_path = normalized_target_path[2:]
 
     session = str(event.get("session_id") or "nosession")
     fired = already_fired(session)
@@ -571,7 +599,7 @@ def main() -> int:
         if comment_route_id in fired:
             continue
         comment_index = f"docs/owner-comments/{repository}/README.md"
-        if tool != "Bash" and comment_index in text:
+        if tool != "Bash" and normalized_target_path == comment_index:
             fired.add(comment_route_id)
             # A self-read is intentionally silent, but it still consumes this
             # once-per-session pointer. Persist before the no-hit return below.
