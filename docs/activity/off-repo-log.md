@@ -34,7 +34,7 @@
 
 ## Entries, newest first
 
-*No entries yet.* The lane opened 2026-08-26 and is deliberately **not**
+*Entries begin 2026-08-26.* The lane opened 2026-08-26 and is deliberately **not**
 backfilled: a reconstructed diary reads exactly like a remembered one.
 
 A seed entry about `creator-kit` was written here and removed the same day
@@ -47,3 +47,12 @@ The first operational entry violating the boundary the file had just drawn would
 have taught the next session the wrong rule.
 
 <!-- newest entry goes directly below this line -->
+
+### 2026-08-28 — Laptop: instant file search wired and Start-menu web search disabled
+
+- **venue:** `local-desktop`
+- **agent:** claude
+- **touched:** OneDrive Hub docs; Everything.ini; HKCU search settings
+- **why:** owner asked why file search was not instant; Everything had no route into daily use
+- **state left:** done: Everything toggle hotkey Ctrl+Shift+Space (probe-verified); cloud/history/highlights search toggles off (owner had already set the web-suggestions policy himself); hub capabilities+current-state corrected
+- **next:** hygiene detector/skill/hook prototype on the hub (OD-24), venue: OneDrive hub session
