@@ -18,23 +18,29 @@
 > **Provenance is labelled per claim and never merged.** `OWNER` = his words.
 > `REVIEWED` = the ChatGPT sitting's framing — a second reading, not a second
 > authority, labelled the way [`intent.md`](../intent.md) § 8b labels its
-> ChatGPT distillation. `MEASURED` = instrument readings. `DERIVED` = this
-> record's inference. Certainty legend:
+> ChatGPT distillation. `DERIVED` = this record's inference. Certainty legend:
 > [`2026-08-05-foundation-continuation.md`](2026-08-05-foundation-continuation.md).
 >
-> **The one honest null, stated up front:** the context figures below were read
-> off **his Claude Code UI**, which is the authoritative instrument for them. A
-> session cannot instrument its own context-window occupancy from the inside —
-> the token counter visible to a running agent is a *budget* counter, not a
-> window gauge — so **this record reproduces his readings and does not
-> independently verify them.** They are `MEASURED`, by him, on the instrument
-> that measures this.
+> **The context figures are `OWNER` · `NOT-VERIFIABLE`, and NOT `MEASURED`.**
+> They were read off **his Claude Code UI**, which is the authoritative
+> instrument for them. A session cannot instrument its own context-window
+> occupancy from the inside — the token counter visible to a running agent is a
+> *budget* counter, not a window gauge — so this record **reproduces** his
+> readings and does not independently verify them. The legend reserves
+> `MEASURED` for *"a command and a real exit code, reproducible"* and gives
+> **owner-console state** as its named example of `NOT-VERIFIABLE`; these
+> figures are owner-console state exactly. **Corrected after `@codex` R3**,
+> which caught this record labelling them `MEASURED` in the same breath as
+> saying no session can reproduce them — the label would have told every future
+> agent to treat them as re-runnable evidence. Act on them as his statement
+> (DISCOVERY RULE step 0); do not cite them as something this estate measured,
+> and do not try to re-derive them from inside a session.
 
 ## 1 · The measurement
 
-`MEASURED` (his UI readout, reported in the sitting). The session was a cold
-boot in fleet-manager that walked `README.md`'s mandatory six-read order and
-then investigated live state.
+`OWNER` · `NOT-VERIFIABLE` (his UI readout, reported in the sitting). The
+session was a cold boot in fleet-manager that walked `README.md`'s mandatory
+six-read order and then investigated live state.
 
 | checkpoint | context | added |
 |---|--:|--:|
@@ -44,7 +50,7 @@ then investigated live state.
 | **total repo-orientation delta** | | **+87.6k** |
 
 **The composition at 157.3k**, which is the part that redirects the obvious
-conclusion:
+conclusion — and **read the arithmetic note under it before quoting any row**:
 
 | component | tokens |
 |---|--:|
@@ -55,6 +61,16 @@ conclusion:
 | memory files | 9.6k |
 | **skills** | **5.9k** |
 
+**These six rows sum to 159.0k against a stated total of 157.3k — a 1.7k gap
+this record cannot resolve, and does not smooth over.** `@codex` R3 caught it.
+The gap is too large for the displayed precision to explain as rounding, so the
+rows are **not** provably exclusive components of one snapshot: either two
+categories overlap, or a row was read a moment apart from the total. Reported as
+he reported it, with the discrepancy named. **Consequence for use:** the
+*proportions* are safe to reason about (skills are a small single-digit
+percentage however the 1.7k is distributed), and any *derived subtraction* on
+individual rows is not.
+
 `REVIEWED`, and it is the sitting's sharpest observation: **skills are not what
 consumes the context.** At 5.9k they are under 4 % of the total, and the figure
 did not move across the sitting's two readings. The growth is in *messages* —
@@ -63,9 +79,17 @@ consequence: **a skill can cost several thousand tokens and still pay for
 itself many times over** if it prevents an agent re-reading or re-deriving tens
 of thousands of tokens of procedure.
 
-`REVIEWED`, a second distinction worth keeping for future benchmarking: the
-+87.6k splits into **~58k of core boot orientation** (the six reads) and **~30k
-of operationally useful orientation** — live PR state, owner comments, the
+`REVIEWED`, a second distinction worth keeping for future benchmarking — **with
+one boundary the sitting blurred and this record does not.** The +87.6k splits
+into **~58k for the six reads _plus the first live surfaces_** and **~30k of
+further operational investigation**. The first checkpoint is a *combined* one:
+by the sitting's own description it covers the mandatory reads **and** initial
+live-surface reads, so **the ~58k is not the six reads' cost and must never be
+quoted as it** (`@codex` R3 — the downstream index and directive rows made
+exactly that slip and are corrected). **No clean post-six-read checkpoint was
+taken**, so the boot path's isolated cost is currently unmeasured; taking that
+reading is cheap and is the obvious next experiment. What the ~30k covers:
+live PR state, owner comments, the
 activity records, the held execution packets, the running review round, CI and
 gate output, the shallow-clone condition, owner-gated questions, and
 record-versus-live discrepancies. Only the first half is what "read the boot
@@ -201,7 +225,11 @@ a live risk in the `delegate-read` path.
 
 ## 5 · The procedure gap the experiment exposed live
 
-`MEASURED`, in the observed session itself, and this is the sitting's second
+`MEASURED` for the mechanical half — running `python3 bootstrap.py check
+--strict` appends to `.substrate/guard-fires.jsonl` and prints *commit the delta
+with your session; do not revert*, reproducible on any tree — and **the session's
+own committed record** for the behavioural half, which is a fact about one
+session rather than a re-runnable one. This is the sitting's second
 deliverable. The session hit a genuine tension: running the repository's
 required gate **modified telemetry**, which activated the repository's standing
 instruction that the delta must be committed — inside a task the owner had

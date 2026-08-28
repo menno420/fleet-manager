@@ -1,6 +1,11 @@
 # 2026-08-28 — cold orientation pass, the activity lane refreshed, and the context-budget direction recorded
 
-> **Status:** `in-progress` — born red; flips only as the last commit.
+> **Status:** `complete` — landed after three `@codex` rounds (2 + 1 + 3
+> findings, **all six `[conceded]` and fixed, zero `[survived]`**).
+> **Flip exemption, declared:** the last reviewed SHA is `6f41957`; after it
+> come only the R3 fix commit — the certainty relabel, the named 1.7k
+> arithmetic gap, and the combined-checkpoint attribution, each mechanical and
+> each named in the PR thread — and this flip. The two-re-review cap is spent.
 
 - **📊 Model:** opus-5 · high · docs-only
 - **📍 Venue:** cloud-container
@@ -51,7 +56,7 @@ with a `chatgpt.com/share/…` link.
     ever resolved — so this is the first committed evidence in the derived lane
     that *local* and *ChatGPT* sessions are visible from a cloud session at
     all, which is the question the area was built to answer.
-- `.substrate/guard-fires.jsonl` — **183 records in 12 timestamped
+- `.substrate/guard-fires.jsonl` — **276 records in 18 timestamped
   batches** as of this commit, across this session's `check --strict` runs.
   The count is a moving target by construction — **every gate run appends more,
   including the run that verifies the flip** — so read it as "what this commit
@@ -171,6 +176,15 @@ Finding 2 is the sharper of the two: it is the *refresh-before-you-add*
 ordering bug, and it would recur on every future session that refreshes the
 lane before writing its own card. Captured as this card's session idea.
 
+**`@codex` R3 at head `6f41957` — 3 findings, all P2, all `[conceded]`**, and
+the sharpest round of the three. All landed on the new context-budget record.
+
+| # | finding | disposition |
+|---|---|---|
+| 1 | The figures were labelled `MEASURED` in the same record that says no session can reproduce them — the legend reserves `MEASURED` for *"a command and a real exit code, reproducible"* and names **owner-console state** as its `NOT-VERIFIABLE` example | `[conceded]` — relabelled `OWNER` · `NOT-VERIFIABLE` in all four surfaces (record, findings index, `current-state.md`, OD-25). This one mattered: the stronger label would have told every future agent to treat his UI readings as re-runnable estate evidence |
+| 2 | The six composition rows sum to **159.0k** against a stated **157.3k** — too large a gap for the displayed precision to explain as rounding, so they cannot all be exclusive components of one snapshot | `[conceded]` — the gap is now named rather than smoothed, with the use-boundary stated: proportions are safe, per-row subtraction is not |
+| 3 | The +57.9k was attributed to the six reads, but the checkpoint is explicitly *"six mandatory reads **+ initial live surfaces**"* — so anyone sizing the boot path from this record would count operational investigation as mandatory-reading overhead | `[conceded]` — the combined label is preserved everywhere, and the record now states plainly that **no isolated post-six-read checkpoint was taken**, so the boot path's own cost is unmeasured and taking that reading is the obvious next experiment |
+
 **`@codex` R2 at head `a152c8b` — 1 finding, P2, `[conceded]`.** The Verify
 section advertised `check --strict  # real exit 0` on a tree where the card's
 own born-red status makes the gate exit 1; the recorded green came from the
@@ -180,6 +194,16 @@ same class of defect** — R1's two and R2's one are all *a number or an exit
 code copied from the moment it was true into a document that outlives that
 moment*. Worth noting as the session's own recurring failure rather than three
 unrelated slips.
+
+**Six findings across three rounds, zero `[survived]`, and the class shifted at
+R3.** R1–R2 were all *stale-at-the-moment-of-writing* errors. R3's three are
+different and worse: **a wrong certainty label, unchecked arithmetic, and an
+attribution the record's own table contradicted two lines above.** Every one was
+catchable by reading what I had just written against the legend I had just
+cited — none needed new information. The honest reading is that the failure was
+not carelessness with numbers but **not re-reading my own draft adversarially
+before pushing it**, which is a step this repo's landing discipline names and
+this session skipped twice.
 
 ## 💡 Session idea
 

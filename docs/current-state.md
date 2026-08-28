@@ -177,13 +177,19 @@ copy product architecture or internal product state. Canonical intent:
   paying (OD-25, 2026-08-28).** He ran this session (fm #962) as a deliberate
   experiment — *"to find out exactly how much context a cold boot would
   consume"* — and the answer matched his prior: **157.3k**, from 69.7k at
-  session init through 127.6k after the six mandatory reads (+57.9k) to 157.3k
-  after live-state investigation (+29.7k). `MEASURED` on his Claude Code UI; a
+  session init through 127.6k after the six mandatory reads *plus the first live
+  surfaces* (+57.9k) to 157.3k after further live-state investigation (+29.7k).
+  **`OWNER` · `NOT-VERIFIABLE`, not `MEASURED`** — these are owner-console
+  readings and the legend reserves `MEASURED` for a reproducible command; a
   session cannot instrument its own window from inside, so this record
-  reproduces his readings rather than verifying them. **Composition at 157.3k:**
+  reproduces his readings rather than verifying them. The 127.6k checkpoint is
+  **combined**, so the +57.9k is not the six reads' isolated cost and must not
+  be quoted as it — that reading was never taken. **Composition at 157.3k:**
   messages 99.9k · system tools 18k · MCP 14.6k · system prompt 11k · memory
-  9.6k · **skills 5.9k** — skills are under 4 %, so skill size is not the thing
-  to optimize. **His ruling bounds OD-17:** offered the figure as an
+  9.6k · **skills 5.9k**, rows that sum to 159.0k against the stated 157.3k —
+  a 1.7k gap the record names rather than smooths, so proportions hold and
+  per-row subtraction does not. Skills are a small single-digit percentage
+  either way, so skill size is not the thing to optimize. **His ruling bounds OD-17:** offered the figure as an
   optimization target he declined it — the boot cost buys *"an agent that knows
   what's going on without the need for me to explain everything again"*, and
   *"the memory my agents have … is the most valuable thing we have now"*. Token
