@@ -25,12 +25,14 @@ kit #581–#586). The Self-Improvement seat closed 2026-07-21; releases are cut
 by owner-directed sessions using this repo's `release` →
 `upgrade-distribution` skills. `MEASURED` 2026-08-21: 0 open PRs — records
 still carrying "#552 parked for owner ratification" describe July (**#552
-MERGED 2026-08-04**), and its own `docs/current-state.md` body still says
-v1.20.2; trust `control/status.md` + the tree.
+MERGED 2026-08-04**). ~~Its own `docs/current-state.md` body still says
+v1.20.2~~ — **reconciled 2026-08-28 (kit #588)**: a dated reconcile block
+now heads that file; `control/status.md`'s stale #552 line fixed in the
+same PR.
 
 ## Threads
 
-### Thread: the owner-directed review round — **session 2 DONE (step 3's first fixes + the item-4 audit); the letters still wait**
+### Thread: the owner-directed review round — **session 3 DONE (the kit-tree truth pass + the two owed checks; current-state reconciled); the letters still wait**
 
 The owner ordered a kit review round in the second overnight 2026-08-27→28
 hub sitting (*"review it again and improve it"* — verbatim record + the
@@ -65,9 +67,32 @@ dispositions table (recommendations only, execution owner-gated).
   gated. The re-read adds superbot:Q-0101 as evidence for the journal
   letter.
 
+**Session 3** (2026-08-28, daytime — the round's next audit):
+[the kit-tree truth pass](../../findings/2026-08-28-kit-tree-truth-pass.md)
+— the kit's whole committed doc surface (187 files at `a9acc41`, the dig's
+skipped subdirectories + `docs/succession/` included) judged per-doc with
+adversarial verification (31/36 upheld, 5 minor corrections applied), and
+**both owed checks answered**: PL-002's canonicalization **preserves**
+Q-0241's rebuild-only scope (the one drop is a Q-0241-vs-Q-0271 provenance
+mislabel in three derived copies of one owner-profile sentence), and
+Q-0214's delete-with-tombstones retention **substantially shipped** as the
+v1.0.0 economy engine — never run on the kit's own 343-card corpus. The
+headline: 103 of 187 files are honest self-bannered history; the failure
+class is ~20 current-truth-voiced files, catalogued as recommendations in
+the finding's §5 (a future doc-surface truth sweep; nothing owner-gated).
+**Executed in the kit's venue: kit #588** — `docs/current-state.md`
+reconciled (the supersede table's open item 4) + `control/status.md`'s
+false #552 line, through the kit's full discipline; Codex R1's two P2s
+conceded-and-fixed (the release-path wording is now precise: tag push
+owner-side canonical, workflow_dispatch the only agent-runnable trigger).
+`OQ-KIT-P10-REQUIRED-CHECKS` retired by a live rules read (kit-quality is
+the one required check — the ci.yml legacy-alias deletion is now unblocked
+agent work).
+
 **Next session:** the letters' answers when they come; otherwise the
-worklist's restated order — the work-destroyers 26, 29, 33 (+34) — or the
-round's routing work (gap #3's shipped-but-unrouted reflection miner).
+worklist's restated order — the work-destroyers 26, 29, 33 (+34/35) — or
+the truth pass §5's doc-surface sweep (records-only, sized one session), or
+the round's routing work (gap #3's shipped-but-unrouted reflection miner).
 Nothing GOs the held packets; AGENTS.md stays parked for the round.
 
 ### Thread: the v1.21.0 follow-up worklist — **open, lives in THIS repo, not the kit**
@@ -115,13 +140,17 @@ skill graduation (roadmap § 7) — its own session.
 - **`src/engine/` is source of truth; `dist/bootstrap.py` is GENERATED and
   byte-pinned** — after any engine edit run `python3 src/build_bootstrap.py`;
   CI reds on divergence.
-- Gate: **`kit-quality` is the ONE required check**; local convergence is
-  `python3 scripts/preflight.py`. Legacy alias jobs mirror it without running
-  anything (`OQ-KIT-P10-REQUIRED-CHECKS` would retire them).
-- **Releases go ONLY via `release.yml` `workflow_dispatch`** (the git proxy
-  403s tag pushes — path quirk, not a wall); verify with
-  `scripts/verify_release.py` / three-way sha256. The `release` skill here is
-  the procedure.
+- Gate: **`kit-quality` is the ONE required check** (live rules re-verified
+  2026-08-28); local convergence is `python3 scripts/preflight.py`. Legacy
+  alias jobs mirror it without running anything (`OQ-KIT-P10-REQUIRED-CHECKS`
+  resolved 2026-08-28 — deleting the aliases from `ci.yml` is now unblocked
+  agent work for a build session).
+- **Releases: `workflow_dispatch` on `release.yml` is the only AGENT-runnable
+  path** (the git proxy 403s tag pushes — path quirk, not a wall); the
+  workflow's other supported trigger, a hand-pushed `v*` tag, is owner-side
+  canonical (its own header; precision from Codex R1 on kit #588). Verify
+  with `scripts/verify_release.py` / three-way sha256. The `release` skill
+  here is the procedure.
 - `docs/adopters.md` is **GENERATED — never hand-edit**; regenerate with
   `python3 dist/bootstrap.py currency` (sole writer: this repo).
 - Engine code is stdlib-only, no print/assert/subprocess (CI lint leg).
