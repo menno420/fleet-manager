@@ -521,8 +521,9 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   rows, still sequenced (the four audit-failure repos after their Wave C
   fixes) and **held until your GO on plan execution** (*"no execution yet"*,
   same sitting). One design question your yes reopens is parked for the
-  substrate-kit sitting: hand-write the 19 files (PKT-B4 as recorded) or teach
-  the kit to plant and maintain them
+  substrate-kit **review round** (OD-24 — the sitting itself happened
+  2026-08-28 and left it parked): hand-write the 19 files (PKT-B4 as
+  recorded) or teach the kit to plant and maintain them
   ([`findings/2026-08-28-owner-direction.md`](findings/2026-08-28-owner-direction.md)
   §§ 5, 7). **Original ask, kept for provenance — decide whether to add a
   minimal root `AGENTS.md`:**

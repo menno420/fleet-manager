@@ -108,7 +108,8 @@ copy product architecture or internal product state. Canonical intent:
   the next-agent contribution). The owner accepted it provisionally — *"not
   read every word yet"* — **and as of 2026-08-28 every packet is held until
   his explicit GO** (OD-23: *"no execution yet, because I still have more to
-  plan"*; the substrate-kit sitting comes first).
+  plan"*; the substrate-kit sitting happened later the same date — **OD-24**
+  — and did **not** lift the hold).
 - fleet-manager vendors substrate-kit v1.21.0 (fm #853)
 - **Fleet Manager now owns the durable owner-comment contract** (2026-08-27):
   [`owner-comments/`](owner-comments/README.md) carries public, exact-wording
@@ -121,7 +122,8 @@ copy product architecture or internal product state. Canonical intent:
 - **`AGENTS.md` is decided: yes, estate-wide** (owner, 2026-08-28 —
   `OQ-FM-AGENTS-BOOT` answered). Rollout is PKT-B4's ×N rows, sequenced and
   held until his GO on plan execution; whether the kit should plant/maintain
-  the files instead of hand-writes is parked for the substrate-kit sitting.
+  the files instead of hand-writes is parked for the substrate-kit **review
+  round** (OD-24 — the sitting itself happened 2026-08-28 and left it parked).
 - **The local/cloud sync direction is recorded (2026-08-27→28, OD-23):** the
   goal is **venue handoff** — a device-bound task started locally must be
   continuable by a fresh cloud session. Hub-local sessions will keep
@@ -130,8 +132,18 @@ copy product architecture or internal product state. Canonical intent:
   discipline with work routed by scope (repo → its own card · estate-level →
   here · machine/personal → the hub). `OQ-ONEDRIVE-HUB` is rescoped to
   optional hub housekeeping. Execution is explicitly held; the substrate-kit
-  conversation is next. Record:
+  conversation happened the same night (**OD-24**). Record:
   [`findings/2026-08-28-owner-direction.md`](findings/2026-08-28-owner-direction.md).
+- **The agent-autonomy and session-hygiene direction is recorded (2026-08-28,
+  OD-24):** every session leaves the surfaces it actually touched **better
+  than it found them** (hygiene detector/skill/hook prototypes on the laptop
+  hub first, per the promotion rule); **initiative is a duty** — improve what
+  you notice, small fixes inline, large finds recorded; **walls exist by
+  owner ratification only** (authorship irrelevant; unratified walls must not
+  accumulate); skills/hooks chain across the session boundary and stay
+  kit-portable per model; and the **substrate-kit review round is directed**
+  with a four-step method. Nothing GOs the held packets. Record:
+  [`findings/2026-08-28-owner-direction-agent-autonomy.md`](findings/2026-08-28-owner-direction-agent-autonomy.md).
 
 ### Live operating mechanisms
 
