@@ -37,6 +37,27 @@
   "Without asking" stands; "without routing" never did. Recorded because the
   full-read audit found this entry, the boot file and `providers/gemini.md` all
   advertising the un-routed version while the convention ruled the opposite.
+- amendment: **(2026-08-28) the title's "capped at its balance" is FALSE for the
+  route this entry authorises — reconciled for the OD-24 round's spend question
+  (agenda § 2 · H), which could not honestly be put to the owner while the
+  ledger contradicted itself.** The cap reasoning in `why` below (a €10 prepay,
+  auto-reload off, *"the worst case is the balance reaching zero"*) describes a
+  **prepaid** model. Per
+  [`conventions/vertex-first-for-gemini.md`](conventions/vertex-first-for-gemini.md)
+  (`binding`) that model is true of **Vertex** — credit-funded, €245.23 left
+  2026-08-06, and the credit **expires unused** — and false of
+  **`GEMINI_API_KEY_PAID`**, whose `generativelanguage` route is **excluded from
+  the credit and billed to the owner's card**, with the convention's own
+  constraint column reading *"none — and that is the problem"*. Same billing
+  project, two routes, two funding sources: *the route decides who pays, not the
+  key.* **What survives unchanged:** the spend authorisation — any session may
+  still spend without asking. **What changes:** its *reason*. The justification
+  is now "Vertex is credit-funded and the credit expires unused", never "the
+  balance caps the downside" — because on the card-funded route there is no
+  balance and no cap. **Not re-measured live:** the cost figures are
+  console-UI-only data no session can read (`NOT-VERIFIABLE` per the certainty
+  legend); the €0.49 → €7.88 month-to-date pair is the owner's, from 2026-08-06,
+  and is quoted as his, not re-derived.
 - verdict: Any session may spend `GEMINI_API_KEY_PAID` without asking — Pro-model
   review, image generation, live-search grounding, or any other paid Gemini call
   that serves the work in front of it. No approval step, no per-call budget.
