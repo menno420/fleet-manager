@@ -290,11 +290,14 @@ findings index still advertising a withdrawn sequence, an "unobservable"
 overstatement its own evidence contradicted, and a test marker that was not
 unique). **Five are shell-parsing findings, and those are not being patched.**
 
-**Why not:** R2 returned 3 parsing findings, R3 returned 4, R5 returned 5. That
-is the non-convergence this card already recorded after R3, where it said
-plainly that another construct should be treated as evidence to replace the
-mechanism rather than extend it. Three rounds later that is what the evidence
-says, so the commitment is honoured rather than quietly dropped.
+**Why not:** parsing findings have arrived in **every round that examined the
+parser**, and R5 produced **five** that this session reproduced itself. That is
+the non-convergence this card recorded after R3, where it said plainly that
+another construct should be treated as evidence to replace the mechanism rather
+than extend it — so the commitment is honoured rather than quietly dropped.
+*(An earlier version of this paragraph gave a tidy "3 → 4 → 5" progression across
+rounds. That split was recalled, not counted, and is withdrawn; the five
+verified R5 limits carry the decision on their own.)*
 
 **The five limits, each reproduced by this session rather than taken on report:**
 
@@ -311,9 +314,25 @@ against what preceded it, not against perfect. **Before: all eight routes were
 completely disarmed under Bash authoring.** Now the common forms fire — heredoc
 writes, `printf`/`echo` redirects, `tee`, `sed -i` writes — and the two P1
 misses above were **equally missed before**, because the routes did not run on
-Bash at all. The false fires are bounded (advisory, never blocking, capped at
-three per route) and the misses are a strict subset of the prior state. Net
-coverage is up; it is not complete, and the table above says exactly where.
+Bash at all. The misses are a strict subset of the prior state, so net coverage is up.
+
+**But "the false fires are capped" is only true for one of them, and the
+distinction matters.** `claim-beyond-the-sample` repeats, so a false fire there
+costs one of three slots. **`card-flip-to-complete`, `card-status-write` and
+`session-card-venue` are all fire-once** — a false fire on any of those **spends
+the guard for the session**, and the real card write afterwards is silent. That
+is the fm #923 failure shape, re-entering through the write-detection path
+instead of the mention path.
+
+**Measured exposure:** the two false-fire cases in the table above
+(`grep 'x > docs/f'`, and a non-writing heredoc followed by any write) both
+carry a `.sessions/` path only if the session happens to name one in the same
+command — so the card routes are exposed when a session greps or reads a card
+path in a compound command that also writes anywhere. Not hypothetical, and not
+capped. An earlier version of this card called all false fires "capped at
+three", which softened a reviewer's precise finding (*"spends the non-repeat
+card-flip guard"*) into a reassurance; it is corrected here because a
+understated safety property is worse than an admitted gap.
 
 **What replaces it, when the owner decides to:** `PostToolUse` on Bash, reading
 what actually changed on disk instead of parsing intent from the command
