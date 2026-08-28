@@ -39,6 +39,7 @@
   "routes": [
     {
       "id": "recording-a-wall",
+      "repeat": true,
       "tools": [
         "Edit",
         "Write",
@@ -976,6 +977,7 @@
     },
     {
       "id": "exit-code-after-a-pipe",
+      "repeat": true,
       "tools": [
         "Bash"
       ],
@@ -989,6 +991,7 @@
     },
     {
       "id": "stamping-a-measured-claim",
+      "repeat": true,
       "tools": [
         "Edit",
         "Write",
@@ -1008,6 +1011,7 @@
     },
     {
       "id": "absence-claim",
+      "repeat": true,
       "tools": [
         "Edit",
         "Write",
@@ -1029,6 +1033,7 @@
     },
     {
       "id": "claim-beyond-the-sample",
+      "repeat": true,
       "tools": [
         "Edit",
         "Write",
@@ -1066,6 +1071,7 @@
     },
     {
       "id": "card-flip-to-complete",
+      "repeat": true,
       "tools": [
         "Edit",
         "Write",
@@ -1087,6 +1093,7 @@
     },
     {
       "id": "card-status-write",
+      "repeat": true,
       "tools": [
         "Edit",
         "Write",
@@ -1107,6 +1114,7 @@
     },
     {
       "id": "codex-verdict-poll",
+      "repeat": true,
       "tools": [
         "Bash"
       ],
@@ -1191,6 +1199,7 @@
     },
     {
       "id": "shallow-clone-commit-counts",
+      "repeat": true,
       "tools": [
         "Bash"
       ],
