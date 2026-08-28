@@ -77,11 +77,15 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   untill I get back. Always prevent using them."* That is the same subject,
   later, and **narrower**: he names the one call that actually raises a
   prompt and asks for it to be prevented — not for confirmation as such to
-  be abolished. So the fork as posed ("which of the two rulings governs")
-  largely dissolves; what genuinely survives is whether a kit gate may ever
-  *block* a session, which is asked as § 2 · B of
+  be abolished. **It sharpens this entry; it does not answer it** — the
+  2026-08-09 line says nothing about whether a *send* or a *delete* may still
+  ask first, which is exactly what Q-0128 and OD-24 § 3 disagree about. So the
+  fork stays open, restated with three concrete options as **§ 2 · B2** of
   [the round's open-questions agenda](planning/2026-08-28-od24-round-open-questions.md).
-  Kept open at the narrower scope; do not put the original two-way fork to him.
+  *(A first version of this note said the fork "largely dissolves" and routed
+  the residue to the agenda's § 2 · B — a different subject, blocking a flip
+  rather than interrupting him. Codex review on fm #961 caught it before he
+  saw either.)* Put the sharpened fork to him, not the original two-way one.
 - **`OQ-EAP-SPEND-WINDOW-MOOT` — record whether the ~09-07 spend-cap
   decision window is mooted.** (added 2026-08-28, same source, §1.7.)
   **WHAT:** one sentence — superbot:Q-0249 (07-06) deferred AI-spend caps to

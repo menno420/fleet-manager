@@ -26,10 +26,13 @@
 
 ## 0 · The headline — the round asked you for things your own record already answers
 
-**Five of the questions this round queued for you are already answered in the
-committed record, and one is answered by your own later words.** The round is
-an audit of unrouted knowledge; its own output turned out to carry the same
+**Six of the questions this round queued for you are already answered in the
+committed record, and two more are narrower than they were posed.** The round
+is an audit of unrouted knowledge; its own output turned out to carry the same
 defect. Read § 4 before the sitting — it is what keeps the conversation short.
+*(A first cut of § 4 claimed seven answered; Codex review established that one
+of them — the confirmation doctrine — is narrowed rather than settled, and it
+is back on the agenda as § 2 · B2. The count here is the corrected one.)*
 
 The sharpest instance: session 2 queued `OQ-KIT-PROMPT-DOCTRINE` asking which
 of your rules governs a kit-planted brake, citing superbot:Q-0128 from
@@ -42,8 +45,13 @@ verbatim, from **2026-08-09**:
 
 That is the same subject two months on, and it is narrower than the June line:
 you named the one call that actually raises a prompt and asked for it to be
-prevented — not for all confirmation to be abolished. The letter as queued is
-therefore mostly answered; what survives of it is folded into § 2 · B.
+prevented — not for all confirmation to be abolished. **It sharpens the letter
+without settling it**, because it says nothing about whether a *send* or a
+*delete* may still ask first — so the fork is on the agenda as § 2 · B2 rather
+than closed. *(An earlier cut of this paragraph called it "mostly answered" and
+folded the residue into § 2 · B, which is a different subject entirely —
+waiting for review, not interrupting you. Codex review caught it; the
+correction is the kind of thing this round exists to make.)*
 
 **And the second headline, which is not your fault and not quite ours
 either: the three letters this round has been waiting on for three sessions
@@ -61,12 +69,12 @@ points at it.
 
 ## 1 · How to use this in the sitting
 
-- **§ 2 is the agenda.** Nine questions, ordered by dependency, not by size —
+- **§ 2 is the agenda.** Ten questions, ordered by dependency, not by size —
   start at § 2 · 0, which is the one nobody ever asked you. Each carries: the
   ask in plain language · the options · what it unblocks · what the minimum
   answer is. **§ 2b adds four short ones** the audits never phrased as
   questions at all.
-- **Read § 4 first if the sitting is short.** It removes five things you might
+- **Read § 4 first if the sitting is short.** It removes six things you might
   otherwise be asked.
 - **§ 5 is not for you.** It is what a session should simply decide, recorded
   here so the sitting does not spend your attention on it. Your own rule
@@ -149,6 +157,35 @@ and needs no GO.
 
 **Evidence:** dig § 7 gap #7 · re-read § 3 (superbot:Q-0180 + Q-0174 accepted
 the race *because* a consumption loop existed) · OD-24 § 3.
+
+### B2 · May a brake ever stop and ask you — and for what?
+
+**The ask.** Separate from B, and it stayed open after a first pass wrongly
+folded it into B (caught on review). B is about *waiting for review before
+calling work done*. This one is about **interruption**: may a kit-planted brake
+ever surface a prompt that waits for you?
+
+Two of your own rules point opposite ways. June: *"I never want to see such a
+prompt asking me for my confirmation ever again, no matter what it is for."*
+This month (OD-24 § 3), the re-ratified line keeps **confirm before sending or
+deleting**. Your 2026-08-09 words narrow the gap but do not close it — you
+named `delete_trigger` as the one call whose prompt stalls a session and asked
+for it to be prevented, which says nothing about whether a *send* or a *delete*
+may ask first.
+
+**Why it cannot be derived.** Left unresolved, a session either skips a
+confirmation you require or introduces a prompt you banned — and which of those
+it does is currently luck.
+
+**Options.** (a) Never prompt — brakes refuse or proceed, never wait. ·
+(b) Prompt only before something leaves the estate or destroys data (sends,
+deletes) — the OD-24 line, which means accepting the occasional wait. ·
+(c) Never prompt while you are away; prompt freely when you are present.
+
+**Minimum answer:** one sentence choosing (a), (b) or (c).
+
+**Evidence:** `OQ-KIT-PROMPT-DOCTRINE` (narrowed, still open) ·
+superbot:Q-0128 · OD-24 § 3 · `.claude/hooks/README.md:483-486`.
 
 ### C · Move 1 — GO or hold, and how far does the GO reach?
 
@@ -258,10 +295,21 @@ actually be deleted with a tombstone, or do we keep everything forever?
 **The ask.** In early July you said the AI bills were not really a problem and
 you would rather watch a couple of months and decide from the average. That
 window lands about now — but **no meter ever ran** (the telemetry feed carried
-no cost and stopped 2026-07-13), so there is no average to look at. The
-question is just: leave it uncapped, or set a cap?
+no cost and stopped 2026-07-13), so there is no average to look at.
 
-**Minimum answer:** one word — *no cap*, or *cap it* plus a rough number.
+**First, what is already capped, so the question is not ambiguous** *(added on
+review — an earlier cut asked "cap or no cap" as if nothing were capped)*: the
+paid Gemini key sits behind a **€10 prepay with auto-reload off** and degrades
+to the free key at zero (`[D-0011]`) — that ceiling is yours, already decided,
+and is not what this asks about. What has no ceiling is the **card-billed**
+path (`GEMINI_API_KEY_PAID` on `generativelanguage`, measured €0.49 → €7.88
+month-to-date) and AI spend generally.
+
+**So the question is:** leave the card-billed path uncapped and keep deciding
+by watching, or set a ceiling now?
+
+**Minimum answer:** one sentence — *leave it*, or *cap it* plus a rough number.
+The €10 prepay stays as it is either way unless you say otherwise.
 
 **Prior, so you can answer in a breath:** your own recorded position is
 *"budget so far is not really a problem"* and *"we spend way too much time on
@@ -294,13 +342,17 @@ are shorter than § 2's rows and mostly answerable in a breath.
   `README.md:9` reads *"`substrate-kit` is a placeholder name"* and defers the
   published name to you. It has shipped 21 releases under it. Keep the name,
   or change it now while the adopter list is still short? *One word.*
-- **What becomes the single next thing when this sitting ends?** The program's
-  own rule is that exactly one step is NOW. There are currently four live
-  "next" queues with no ordering between them: the program's NOW pointer (D2,
-  whose target is itself § 3's open question), the kit worklist's build rows,
-  this agenda's outcomes, and the held execution packets. *Name the one that
-  leads after the sitting* — or say "you pick", and a session will propose one
-  and flag it.
+- **The kit's own fixes are finished and unreleased — when does the next cut
+  happen, and who gets it?** kit #587 and #588 both ride `main` unreleased, and
+  `OQ-KIT-V1-21-RELEASE` still has an open half: which remaining adopters take
+  the v1.21.0 hop (`pokemon-mod-lab` is owner-held, `superbot-games` was "no
+  adopter yet", `trading-strategy` is archived now). Releases are owner-paced by
+  your own standing call, so this is a genuine ask rather than a queued job.
+  *Cut now, cut when the next fix batch lands, or leave it — plus any adopter
+  you want moved.* *(Promoted here from the unverified residue on review: it is
+  source-verified in the queue and in the worklist's tail, and leaving it in a
+  "do not ask this" section would have parked the round's own output
+  indefinitely.)*
 
 ## 3 · Also yours, but not this round's
 
@@ -321,7 +373,7 @@ and three of them were queued *for you* by the round before anyone checked.
 
 | the round asked | the answer, and where it already lives |
 |---|---|
-| **`OQ-KIT-PROMPT-DOCTRINE`** — which rule governs a kit-planted brake | **Largely answered by your own later words.** `.claude/hooks/README.md:483-486`, owner-live **2026-08-09**: *"Delete triggers are the only thing that gives me an approval prompt in automode … Always prevent using them."* Two months after the June line the round cited, and narrower: you named the one call that raises a prompt. What survives is folded into § 2 · B; **the queue entry is narrowed accordingly, not left as posed.** |
+| **`OQ-KIT-PROMPT-DOCTRINE`** — which rule governs a kit-planted brake | **NARROWED, NOT ANSWERED — and this row said "answered" until review caught it.** Your 2026-08-09 words (`.claude/hooks/README.md:483-486`) name `delete_trigger` as the one call whose prompt stalls a session, which sharpens the question but does not settle whether a *send* or *delete* may ask first. An earlier cut folded the residue into § 2 · B; B is a different subject (waiting for review, not interrupting you), so the fork is restored as its own agenda row, **§ 2 · B2**. |
 | **`OQ-EAP-SPEND-WINDOW-MOOT`** — a dangling dated obligation? | **Not dangling — it is program law.** kit `docs/program/rulings.md` **PL-005 "Observe-first budgets"** (2026-07-07) carries your full quote and the method: caps *deferred, not adopted*; instrument, then decide from the measured average. The genuine residue is that **no meter ever ran**, which is why § 2 · H exists in its place. |
 | **The journal letter** — does the per-repo journal survive? | **You already specified this surface**, in your own roadmap: `planning/2026-08-08-agent-operating-environment-roadmap.md` § 5.4 *"Known mistakes as executable knowledge"*, marked `OWNER` — and the round never cited it. The letter as posed asks you to re-decide something you decided; what remains is design, not a letter. |
 | **The `control/claims/` disposition** — contested, rule separately | **Closed 2026-08-11** as audit finding **D46** (fm #849). The dig deferred to a ruling that had already been made. |
@@ -353,6 +405,14 @@ committed record.
   report, delete nothing.
 - **The Q-0241 provenance correction** — fix the attribution at its source slot
   and re-render the two derived copies.
+- **What becomes NOW after the sitting** — *not his to pick, and an earlier cut
+  wrongly put it to him* (caught on review). The program's own ledger rule is
+  explicit: *"only ONE step is NOW at a time — the owner (**or the session, if
+  he hasn't said**) picks the next NOW from the top of any track."* So a
+  session selects it from the sitting's outcomes and flags the choice; it asks
+  him only if he overrides. The four candidate queues (the program's D2, the
+  kit build rows, this agenda's outcomes, the held packets) are inputs to that
+  choice, not a fork for him.
 
 ## 6 · Raised but not adversarially verified
 
@@ -364,8 +424,7 @@ whether the **NOW pointer** moves off D2 now that the round has output · what
 counts as *"further along"* for OD-13's methods-before-product gate · whether
 this round is the roadmap's Phase 3 or a track beside it · whether the
 **provenance mandate** gets a session · whether the **intent map** graduates
-into the kit · when the next **kit release** is cut and which adopters take it
-· whether new red-gate conditions need your ratification · the
+into the kit · whether new red-gate conditions need your ratification · the
 **session-hygiene prototype**'s start and whether its closer blocks or warns ·
 how the **cross-session chain** gets enforced · **PKT-B3** and the hub-side
 wiring.
@@ -380,10 +439,21 @@ wiring.
   surfaced in five lanes under four titles and deduped to four rows, not one.
   66 groups resulted; the semantic merge is the one done by hand in § 2.
 - **Verify:** 26 adversarial verifiers, each told to refute. **13 survived as
-  open** (some narrowed), **13 were closed** as already-answered, not-questions,
-  or misreads — the § 4 table is that half. The narrowings are the pass's real
-  product: nearly every survivor lost an agent-derivable half that the harvest
+  open** (most narrowed) and **13 were closed.** The narrowings are the pass's
+  real product: nearly every survivor lost an agent-derivable half the harvest
   had wrongly routed to the owner.
+- **Where the 13 closed ones went** *(this mapping was missing, and the counts
+  did not reconcile, until Codex review — § 4 has eight rows, not thirteen)*:
+  **8** are § 4's rows · **1** was a second lane's duplicate of § 4's
+  confirmation-doctrine row (which review then re-opened as § 2 · B2, so § 4
+  now records it as narrowed rather than answered) · **1** was
+  *"pinning PL-002's scope sentence"*, closed as not-a-question and living in
+  § 5 as agent work · **2** were estate-queue product items outside this round
+  (`pokemon-mod-lab`'s v1.21.0 hop, the review-bot's scope) and stay in the
+  queue · **1** — whether superbot:Q-0132's untrusted-input trust criterion
+  still binds the provider mix — was closed as *partial* and is genuinely
+  round-adjacent; it is named here rather than dropped, and belongs with the
+  OD-13 provider-mix row in § 2b.
 - **Completeness pass:** a critic re-read the surfaces the harvest lanes did
   not own, asking what the audits never turned into a question. It returned
   nine; the five strongest are § 2 · 0 and § 2b, each **verified at source by
