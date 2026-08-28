@@ -250,8 +250,9 @@ and measured the superbot-next gate failure in the real venue:
 The next kit session takes this file the way this session took the
 seven-defect worklist: fix upstream in the **restated order above**
 (superseded 2026-08-13, fm #855 — this line originally said "2 and 5 first",
-written when the list had five rows; the wave grew it to 22 and the false
-negatives now lead), with reproductions before
+written when the list had five rows; the wave grew it to 22; the false
+negatives led until they were **consumed by kit #587 on 2026-08-28 — the
+work-destroyers 26/29/33 now lead**), with reproductions before
 dispositions, and verify against the published asset, not the changelog.
 Rows 1 and 5 carry the fm #853 Codex thread verbatim; rows 2–4 predate the
 release and simply had their first non-author read here.

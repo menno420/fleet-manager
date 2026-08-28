@@ -56,13 +56,14 @@ dispositions table (recommendations only, execution owner-gated).
   — all 208 body sections superbot:Q-0063–Q-0272, 59/59 quotes
   machine-verified (ledger committed in its appendix); seven genesis-dig
   claims narrowed, each routed in place at the claim site; a carrier
-  census of standing owner rules (six absent from every fm document, the
+  census of standing owner rules (five absent from every fm document, the
   rest in seat-era/reference surfaces or carrying a different facet);
-  genesis precedents mapped onto the gap table; three letter candidates.
+  genesis precedents mapped onto the gap table; its two new owner asks
+  queued (`OQ-KIT-PROMPT-DOCTRINE` · `OQ-EAP-SPEND-WINDOW-MOOT`).
 - **The morning letters (Move-1 GO · journal · §10 confirmations) were
   checked first and remain UNANSWERED** — everything owner-gated stayed
-  gated. The re-read adds Q-0101 as evidence for the journal letter and
-  two new letter candidates (its §4).
+  gated. The re-read adds superbot:Q-0101 as evidence for the journal
+  letter.
 
 **Next session:** the letters' answers when they come; otherwise the
 worklist's restated order — the work-destroyers 26, 29, 33 (+34) — or the

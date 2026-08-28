@@ -126,7 +126,7 @@ The record shows a **two-part system**, and only one part was ever mechanized:
 | part | what it was | carried by |
 |---|---|---|
 | **the ritual** | born-red card · enders (💡, ⟲, doc-audit) · flip-last | CI gate (Q-0133) + checker (`check_session_log`) + seat-prompt enders |
-| **the loop** | interview → card Context-delta → REVIEW pass every ~3-5 sessions mines the deltas → owner-ratified promotion into CLAUDE.md/hooks → next session boots into the promoted rule; ideas groomed down a lifecycle (*"every idea ends implemented or discussed"*, Q-0015) | **the owner's questions, his check-ins, and prose obligations** — no machine ever verified any of it *(narrowed 2026-08-28, [re-read](2026-08-28-router-band-reread.md) §1.2: the loop's CADENCE was machine-fired — Q-0107's auto-firing reconciliation trigger; the substance was prose)* |
+| **the loop** | interview → card Context-delta → REVIEW pass every ~3-5 sessions mines the deltas → owner-ratified promotion into CLAUDE.md/hooks → next session boots into the promoted rule; ideas groomed down a lifecycle (*"every idea ends implemented or discussed"*, superbot:Q-0015) | **the owner's questions, his check-ins, and prose obligations** — no machine ever verified any of it *(narrowed 2026-08-28, [re-read](2026-08-28-router-band-reread.md) §1.2: the loop's CADENCE was machine-fired — superbot:Q-0107's auto-firing reconciliation trigger; the substance was prose)* |
 
 Of the 22 core rulings this dig read in full, **~5 were machine-enforced; all
 four ancestors of the kit's next-agent contract (Q-0089 idea · Q-0102 review ·
@@ -327,9 +327,9 @@ The regressions, dated:
 6. **Drift incidents in the stepped-back window** (the OD-24 §6 step-1
    harvest, fm side; each verified in its card): the **flip-before-review
    family** *(narrowed 2026-08-28,
-   [re-read](2026-08-28-router-band-reread.md) §1.3: Q-0180's ratified June
+   [re-read](2026-08-28-router-band-reread.md) §1.3: superbot:Q-0180's ratified June
    design ACCEPTED the merge-vs-review race given a consumption loop —
-   Q-0174 — so the owner-precedented defect is the missing consumption
+   superbot:Q-0174 — so the owner-precedented defect is the missing consumption
    loop, not merge timing itself)* — fm #828 (merged 22 s after review request, 08-08), then ×5 on
    2026-08-23 alone (#915 auto-merged 37 s after open, 0 reviews; #920, #922,
    #925, #937) **with the rule already written and TRAP-006 registered the
@@ -378,10 +378,10 @@ The regressions, dated:
 2. **His own intent moved, and the kit tracked the July version.** Genesis:
    *not* 100% autonomous, *"managable and reviewable"* (Q-0015, 06-08) —
    *(narrowed 2026-08-28, [re-read](2026-08-28-router-band-reread.md) §1.1:
-   Q-0083 declared full self-driving the END-STATE two days later, inside the
+   superbot:Q-0083 declared full self-driving the END-STATE two days later, inside the
    genesis era)*. July:
-   *"let fable decide"* (Q-0240), *"never wait … silence = consent"* (Q-0241) —
-   his directives, canonicalized as PL-002 *(narrowed, re-read §1.5: Q-0241's
+   *"let fable decide"* (superbot:Q-0240), *"never wait … silence = consent"* (superbot:Q-0241) —
+   his directives, canonicalized as PL-002 *(narrowed, re-read §1.5: superbot:Q-0241's
    own scope clause bound never-wait to the REBUILD program, ask-first brakes
    left standing for production)*. Post-close he re-centered on
    verification (the 07-21 reflection: *"the wall is verification, not
@@ -394,11 +394,11 @@ The regressions, dated:
    program, and Codex on PRs is the one external check added, post-close, by
    his instruction *(narrowed in verification — an earlier draft said "never
    grew the verification half"; narrowed again 2026-08-28,
-   [re-read](2026-08-28-router-band-reread.md) §1.6: Q-0258 made Codex the
-   standing review-lane drainer MID-program, 07-10, and Q-0117 had directed an
+   [re-read](2026-08-28-router-band-reread.md) §1.6: superbot:Q-0258 made Codex the
+   standing review-lane drainer MID-program, 07-10, and superbot:Q-0117 had directed an
    independent reviewer already on 06-12 — the closed loop survived despite
    an owner directive, and he himself retired that gate as unused friction,
-   Q-0197)*.
+   superbot:Q-0197)*.
 3. **What did not drift:** born-red, verify-first, honest negatives,
    friction→guard-as-law — all deepened post-close (traps register, injection
    hooks, adversarial-review vocabulary, the 08-08 error-ledger mechanisms).
@@ -472,7 +472,7 @@ measured, and not the driver of the decline.** What the record supports:
   *"plants docs once"* — never volume; and the EAP-era answer to maintain-cost
   was **generation + checkers, never fewer files** (the 33.5h-stale hand
   manifest → generated roster) *(narrowed 2026-08-28,
-  [re-read](2026-08-28-router-band-reread.md) §1.4: Q-0214 shows the owner
+  [re-read](2026-08-28-router-band-reread.md) §1.4: superbot:Q-0214 shows the owner
   picked delete-with-tombstones — a bounded corpus by construction — as the
   kit's retention posture on 07-02; whether the kit shipped it is a round
   question)*. The legibility plan's §3 split (compliance is
@@ -607,7 +607,7 @@ deletion anywhere breaks that chain; (3) the retrieval fix for this corpus is
 | `kit:docs/NEXT-TASKS.md` | **archive-recommend** (kit-side edit, round session) | actively false — tells the next session to distribute v1.18.0; supersede with a pointer to the fm worklist (gap #5's fix) |
 | kit docs top-level remainder (~15 small binding/template docs) | **keep** | adopter-facing surface of a live kit; `house-style.md` is fm-orphaned but is D-7's canonical home |
 | fm `docs/eap-story.md` · `docs/eap-retrospective.md` | **keep** | the two canonical narratives; fleet-account (six-read) distils and cites them |
-| fm `docs/eap-final-night-worklists-2026-07-13.md` · `eap-final-recon-2026-07-14.md` · `eap-owner-checklist-2026-07-14.md` | **extract-then-archive** | all three carry the estate's only future-dated obligation — the **~2026-09-09** trading R5-C gate (due in 12 days) — plus possibly-undistilled owner-checklist rows; move the gate to `owner-queue.md` first, then archive *(narrowed 2026-08-28, [re-read](2026-08-28-router-band-reread.md) §1.7: Q-0249 set a second ~09-07 dated obligation — the AI-spend cap window — presumably mooted by the close, the mooting never recorded)* |
+| fm `docs/eap-final-night-worklists-2026-07-13.md` · `eap-final-recon-2026-07-14.md` · `eap-owner-checklist-2026-07-14.md` | **extract-then-archive** | all three carry the estate's only future-dated obligation — the **~2026-09-09** trading R5-C gate (due in 12 days) — plus possibly-undistilled owner-checklist rows; move the gate to `owner-queue.md` first, then archive *(narrowed 2026-08-28, [re-read](2026-08-28-router-band-reread.md) §1.7: superbot:Q-0249 set a second ~09-07 dated obligation — the AI-spend cap window — presumably mooted by the close, the mooting never recorded)* |
 | fm `docs/eap-audit-collection.md` | **archive** | tracking instrument for a fan-out that completed 2026-07-14; not on any live path |
 | fm `docs/eap-final-email-draft-2026-07-14.md` | **archive** (supersede-by note) | superseded by `planning/2026-08-24-final-eap-email-draft.md`; keep as correspondence lineage until E1 sends |
 | fm `docs/roster.md` · `control/` (minus `claims/`) · `telemetry/` · `projects/` · `docs/prompts/` (minus the 3 live files) | **keep as bannered RECORD** (already done) | all self-declare historical; re-litigating them is churn; Move 2 digests them out of the read path |

@@ -46,10 +46,10 @@ stays gated: no Move 1 build, no §10 disposition execution, no release.
   reader lanes, 59/59 notable quotes machine-verified against the frozen
   router (ledger committed in the finding's appendix, Codex R2), seven
   genesis-dig claims narrowed with in-place pointers at each claim site
-  (Codex R1), a carrier census of standing owner rules — six absent from
-  every fm document, the rest in seat-era/reference surfaces or carrying
-  a different facet (Codex R2 corrected the first cut's "no live record"
-  headline) — three letter candidates; findings-README row;
+  (Codex R1), a carrier census of standing owner rules — five absent from
+  every fm document, the rest in seat-era/reference surfaces, live
+  successors, or a different facet (Codex R2 and R3 corrected the first
+  cut's "no live record" headline twice) — three letter candidates; findings-README row;
   current-state bullet extended.
 
 ## Verify
@@ -67,10 +67,14 @@ stays gated: no Move 1 build, no §10 disposition execution, no release.
 - superbot stayed frozen: one raw API fetch of the router file; no clone,
   no write.
 
-⚑ Owner decisions needed: **none new** — the round's standing letters
-(Move-1 GO · journal · §10 confirmations) remain open, now with the
-re-read's §4 additions (the Q-0128 no-prompts vs confirm-first tension;
-the ~09-07 spend-window mooting; Q-0101 as journal-letter evidence).
+⚑ Owner decisions needed: **two queued** (Codex fm #959 R3 — the re-read's
+letter candidates belong in the queue, not only in an audit):
+`OQ-KIT-PROMPT-DOCTRINE` (superbot:Q-0128's "no confirmation prompts ever"
+vs OD-24 §3's re-ratified confirm-first line — which governs kit-planted
+brakes) and `OQ-EAP-SPEND-WINDOW-MOOT` (record whether the ~09-07
+spend-cap window is mooted). The round's standing letters (Move-1 GO ·
+journal · §10 confirmations) remain open, with superbot:Q-0101 as new
+journal-letter evidence.
 
 💡 **Session idea:** the estate's Codex rounds on new detection grammar
 measured non-convergent again (5→6→4 after two full concede-and-fix

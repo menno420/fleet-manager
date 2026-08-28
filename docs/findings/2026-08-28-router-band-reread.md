@@ -28,7 +28,7 @@
 > **The one-paragraph result:** the band holds no reversal of the round's
 > direction, but it **narrows seven of the genesis dig's claims** (§1),
 > surfaces **a census of standing owner rules with their fm carrier state**
-> (§2 — six ABSENT from every fm document, the rest carried only in
+> (§2 — five ABSENT from every fm document, the rest carried only in
 > seat-era/reference/raw surfaces or as a different facet of the ruling),
 > and gives **owner-ratified genesis precedents for most of the dig's
 > gap table** (§3) — including three cases where the genesis system already
@@ -105,8 +105,9 @@ Verbatim-verified, each with its bearing; none is estate-law until the
 round or the owner routes it — this section is the retrieval surface.
 **Carrier verdicts re-censused on Codex review of fm #959** (a repo-wide
 grep per Q-number over `docs/` + `CONSTITUTION.md`; the first cut's
-headline "no live fm record carries these" was too strong): **six are
-ABSENT from every fm document**; the rest are carried only in seat-era /
+headline "no live fm record carries these" was too strong): **five are
+ABSENT from every fm document** (a sixth, superbot:Q-0084, moved to
+live-successor carriage on Codex R3); the rest are carried only in seat-era /
 RECORD-tier / raw-artifact surfaces, in a `reference`-tier q-index seed
 row, or as a **different facet** of the same ruling — each entry names its
 verdict, and "live" below means a routed, current-truth surface (the
@@ -115,8 +116,12 @@ tiers of `docs/MAP.md`), not any mention anywhere.
 - **superbot:Q-0084 (06-10), the merge grant's envelope:** *"it would be great if
   agents would merge their PRs whenever they feel like they are done"* —
   with CI-green-on-final-head, re-sync-main-first, own-session-PR scope.
-  The provenance of the practice every session exercises. **Carrier:
-  ABSENT.**
+  **Carrier: live successors, no token** — `CONSTITUTION.md`'s
+  merge-your-own-green-PRs doctrine and the session-close skill's
+  review-at-current-head requirement carry the envelope's content without
+  citing this ruling *(the first cut said ABSENT — the token census missed
+  successor carriage; Codex fm #959 R3)*. What the re-read adds is the
+  provenance: the practice traces to this 06-10 grant.
 - **superbot:Q-0191 (06-20):** *"anything that I personally direct the agents to do
   should never be held for review, always merge immediately"* — review
   gates key on who chose the task. **Carrier: ABSENT.** Its cousin
@@ -227,7 +232,7 @@ disposition §10 defers to this round. **superbot:Q-0272** item 3 made the per-r
 reading path kit-template material — routed to the dead Self-Improvement
 lane and never shipped; Layer-2/ESTATE.md is its uncredited descendant.
 
-## 4 · Letter candidates (for the round's next owner sitting — not queued)
+## 4 · Letter candidates (items 1–2 queued on Codex fm #959 R3: `OQ-KIT-PROMPT-DOCTRINE` · `OQ-EAP-SPEND-WINDOW-MOOT`)
 
 1. **superbot:Q-0128 vs OD-24 §3:** "no confirmation prompts ever" (06-13, his
    strongest phrasing) vs the re-ratified "confirm before sending or

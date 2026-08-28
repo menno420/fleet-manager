@@ -159,8 +159,8 @@ copy product architecture or internal product state. Canonical intent:
   the cut stays owner-paced) — and §11 item 4's audit ran:
   [the router band re-read](findings/2026-08-28-router-band-reread.md)
   (208 body sections, seven dig claims narrowed and routed in place, a
-  carrier census of standing owner rules — six absent from every fm
-  document — three letter candidates). His morning letters were checked
+  carrier census of standing owner rules — five absent from every fm
+  document — with its two new owner asks queued). His morning letters were checked
   first and remain unanswered; everything owner-gated stayed gated.
 
 ### Live operating mechanisms
