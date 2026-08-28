@@ -41,9 +41,11 @@ four-step method:
 — the three-era history (genesis in superbot's interview era, dated
 self-sustainment 2026-06-09, peak 2026-07-12→13, extraction as "the door,
 not the notebook"), every regression cited, the drift harvest classified
-(§7: twelve gaps, dominant classes **unenforced/unrouted**; the loop's
-moving parts — interview/mining/promotion, ask-channel, executor — are the
-genuinely **absent** ones), the rival-hypothesis verdict (§8: seat-ender
+(§7: twelve gaps, dominant classes **unenforced/unrouted** — verification
+split two further: the reflection MINER and the planted question-router are
+shipped-but-unrouted, so route them before rebuilding anything; genuinely
+**absent** are only the interview/owner-ratified-promotion halves, the
+executor, and owner-words capture), the rival-hypothesis verdict (§8: seat-ender
 removal + injection thesis supported as one mechanism; "too many files"
 real but write-side, not the driver), and the **dispositions table (§10 —
 recommendations only, zero deletions proposed, execution owner-gated)**.

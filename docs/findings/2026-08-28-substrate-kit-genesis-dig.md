@@ -295,9 +295,10 @@ The regressions, dated:
    template"* on superbot-next **during** the EAP (2026-07-12 problem census
    U3); program step **D3 ("fill the empty journal guidebooks", Track D
    priority 1) appears in 0 of the 50 §7 ledger rows** — never run. The three
-   journals that DO live (superbot 802 lines/689 content · websites ·
-   spider-swing · kit) are where a session chose to write, not where a
-   mechanism asked.
+   written adopter journals (`spider-swing` · `substrate-kit` · `websites`,
+   the census's 3-of-14) — plus superbot's origin journal (802 lines/689
+   content, outside the adopter denominator) — are where a session chose to
+   write, not where a mechanism asked.
 3. **The kit itself stalled mid-worklist.** Release cadence was already broken
    by 08-06 (ADVISORY_CENSUS sat unreleased on `main` *"sixteen days after the
    last release"* — fm #833); one post-close release (v1.21.0, 08-13) closed 7
@@ -466,7 +467,8 @@ weak day, 07-30, a real-world playtest event, is excluded) — "stepped back"
 was a mode change (product directives and corrections continued; purpose
 supply stopped, deliberately: *"I wanted to find out how well the agents would
 currently work with the subtrate kit"*). What actually vanished at 07-21 was
-the **mechanized demand structure**: the seat enders (all 8 files, line 21),
+the **mechanized demand structure**: the seat enders (9 of 9 per-project
+custom-instruction files, re-measured tonight),
 the wake routines, the interview cadence. Ideas decline dates exactly to that
 boundary; the practice held wherever a gate replaced the prompts. This is the
 injection thesis at estate scale, and the kit's own bench had already measured
