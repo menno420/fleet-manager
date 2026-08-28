@@ -636,3 +636,104 @@ his ratification. The second is what he is asking for.**
   **one** correction rather than many. That is countable against future PRs
   without inventing a metric.
 
+## 3 · The benchmark — the one-word test, and it is a real measured event
+
+His statement, 2026-08-28, given as *"an example of what has been possible
+before and what I mean by trusting an agent to work on it's own"*:
+
+> *"Back when superbot still was the only repo, we created a very good system,
+> tho nothing was yet turned into skills or hooks, we had a lot of CI checks
+> that enforced thing to be made according to a set standard.*
+>
+> *Everything was so well documented that I have been able to create full
+> working cogs with just 1 or 2 words of input, the 2 examples that have
+> actually been build this way: chicken farm, and karma. I literally started a
+> fresh session, wrote only "chicken farm" and the session created exactly what
+> I had in mind, basically perfectly in one try from start to finish … The
+> second test, I just wrote "karma" and again it build exactly what I had in
+> mind without any further questions at all.*
+>
+> *This is the level I wish to achieve in all my repos, tho I understand that
+> such a small prompt without any further context would not always work in every
+> kind of repo, but it should be reasonably possible in any repo where one word
+> could turn into a feature that matches what currently exists"*
+
+`OWNER`. **This is the estate's success criterion, and unlike every other
+statement of "working" in the record, it is a test that can actually be run.**
+
+### 3.1 · Both examples verified — they exist, and the record corroborates him
+
+`MEASURED` 2026-08-28 against the frozen `menno420/superbot` via the GitHub API.
+He did not name PR numbers; these were found by search and match his account.
+
+| | chicken farm | karma |
+|---|---|---|
+| PR | **#1328** *"feat(farm): NEW idle egg/chicken farm game (lazy-accrual idle loop)"* | **#1332** *"Implement Karma (thanks/upvote reputation) subsystem"* (plan PR **#1330** the same evening) |
+| opened → merged | 20:45:53Z → 21:26:22Z — **41 minutes** | 21:54:01Z → 22:50:59Z — **57 minutes** |
+| size | +1,668 / −148, **29 files**, 4 commits | +2,131 / −153, **37 files**, 9 commits |
+
+**Both on 2026-06-22, within about two hours of each other.** That date places
+them at the exact peak the genesis dig measured: the enforcement stack had
+landed over the preceding twelve days (one-idea 06-10 · ⟲ review 06-12 ·
+enders 06-12 · auto-merge 06-13 · **born-red gate 06-14**), and superbot:Q-0194
+— friction becomes a guard, *"catching these should not depend on the owner
+spotting them"* — is dated **the same day**. His causal account and the dig's
+independent measurement agree without either having been derived from the other.
+
+### 3.2 · The three things the PR bodies show, and the third is the answer
+
+1. **The one-phrase input is recorded verbatim in the artefact.** #1328's body
+   opens: *"Owner-directed task: **\"Idle egg/chicken farm\"**"*. The prompt he
+   remembers giving is preserved in the PR itself.
+2. **"Without any further questions" was decide-and-flag, not luck.** #1332's
+   body reads *"Defaults used (the 5 design Qs weren't …"* — there **were** five
+   design questions. The session did not ask him; it chose documented defaults
+   and said so. That is the estate's decide-and-flag doctrine producing exactly
+   the experience he describes.
+3. **The session applied an owner preference it was never given — and this is
+   the mechanism.** #1328 records: *"a **modest** faucet; the owner's 'rewards
+   too large/frequent' caution is respected"*. Nobody put that in the prompt;
+   the prompt was two words. The session **retrieved a previously recorded owner
+   preference and applied it unprompted.** It also reused the existing
+   `settle()` lazy-accrual pattern and cited ADR-001/002 by name rather than
+   inventing a mechanism.
+
+**That third row is what "one word" actually costs.** It is not model
+capability and it is not permission — it is that everything needed to build the
+thing correctly was *already written down and reachable*, so two words plus the
+repository equalled a specification. His own caveat says the same in his words:
+it should work *"in any repo where one word could turn into a feature that
+matches what currently exists."* **The one-word test is a test of the
+repository, not of the agent.**
+
+### 3.3 · The uncomfortable part, stated plainly
+
+`DERIVED`, and it should be checked rather than believed:
+
+**He says the system that produced this had no skills and no hooks — it had CI
+checks enforcing a standard, plus documentation.** *"nothing was yet turned into
+skills or hooks, we had a lot of CI checks that enforced thing to be made
+according to a set standard."* The estate's current effort is largely **skills
+and hooks**, and the substrate-kit exists to carry them.
+
+This is **not** evidence that skills and hooks are wrong — they did not exist
+then, so nothing was measured against them, and the kit's own bench separately
+found that *steering survives shipping while enforcement pull does not ship in
+prose*. But it does mean the estate has **one demonstrated recipe for the result
+he wants**, and it is: **enforced standards in CI + documentation complete
+enough to substitute for a specification.** Any plan that reaches for a
+different mechanism should say why it is not just rebuilding that.
+
+### 3.4 · What this gives the plan that it did not have
+
+- **A named acceptance test.** *Can a fresh session, given one or two words in
+  this repo, produce a working feature that matches what already exists?* It is
+  runnable per repo, it needs no new metric, and it fails informatively.
+- **A benchmark with a reproducible target.** #1328 and #1332 are open in a
+  frozen repository. A session can read what the repo looked like on
+  2026-06-22 — the docs, the ADRs, the CI checks — and ask what is missing in
+  a repo where the test would fail today.
+- **It sharpens his own acceptance criterion from § 2.** *"Without multiple
+  corrections each time"* and *"one word becomes a working feature"* are the
+  same standard measured at two points: one on the work, one on the input.
+
