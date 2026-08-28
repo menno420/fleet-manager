@@ -1,13 +1,19 @@
 # 2026-08-28 — the owner intent elicitation sitting
 
-> **Status:** `in-progress` — born red, and it stayed red for the whole sitting
+> **Status:** `complete` — flipped last, after the R1 dispositions below. Born
+> red, and it stayed red for the whole sitting
 > **by design**: he was answering live, and the hold is what kept this PR from
 > merging mid-conversation. Flipped only at his explicit close (*"I'd like you
 > to properly end the session for now, I'm about to go to sleep"*). The
 > questions he has not yet answered are **committed**, not carried in this chat,
 > so tomorrow starts from the repo.
+>
+> **Codex R1: 11 findings (1 P1 + 10 P2) — 10 `[conceded]`, 1 `[partial]`, 0
+> survived.** Merged on his explicit instruction — *"After the first review,
+> please fix what it flagged and then merge without a second review"* — so the
+> two-re-review cap is not in play and no R2 was requested.
 
-- **📊 Model:** opus-5 · high · owner-live interview
+- **📊 Model:** opus-5 · high · idea/planning
 - **📍 Venue:** cloud-container, owner PRESENT
 
 ## Mission
@@ -57,10 +63,11 @@ loss mode the whole sitting exists to correct.
 - **The end state for the bots, in his words:** `spider-bot` + `superbot-next`
   converge into **one** bot with **no architectural debt**, *"planned and
   connected from the start so it remains manageable and able to grow
-  indefinitely"*. His *"already documented"* was **verified true** — and three
-  parts of it are recorded nowhere, including that **`superbot-next` must be
-  remade**, which contradicts `ESTATE.md`'s *"complete-parked architecture
-  donor — 533/533 golden parity green"*.
+  indefinitely"*. His *"already documented"* was **verified true** — the GCB
+  plan carries the architectural-debt rejection, superbot as unsafe foundation,
+  and superbot-next as donor-not-product. *(An earlier version of this line
+  claimed three parts were "recorded nowhere"; the record itself corrects two of
+  them, and repeating the struck claim here is what Codex fm #965 R1 caught.)*
 - **The estate's first defect baseline:** ~7 agent claims corrected per session,
   14 the highest counted, recorded as a **floor** because his own hedges say
   counting started partway.
@@ -112,6 +119,40 @@ narrowing flagged as `DERIVED` for him to widen if he wants.
   wrong; `git fetch --unshallow` (64 → 995 commits) restored the truth and
   vindicated the inference. The false version is struck through in place, not
   deleted.
+
+## Codex R1 dispositions — 11 findings, 10 conceded · 1 partial · 0 survived
+
+**The P1 is the one worth reading.** `[conceded]` — a bullet in § 3.3
+**reinstated a claim § 3.2 had already withdrawn** (that #1328 proved an agent
+retrieved a prior owner caution unprompted). The withdrawal was two sections
+above and the conclusion still leaned on the retracted mechanism. Fixed to what
+the artefact actually supports: retrieval of *implementation* precedent (the
+documented `settle()` pattern, ADR-001/002 cited by name), not of an owner
+preference.
+
+`[conceded]` ×9, each a real overreach: the PR body called a **verbatim prompt**
+when it is written after the fact and says *"Idle egg/chicken farm"* against his
+*"chicken farm"* · **kill criteria "recorded nowhere"** — `shiftlife` has one
+(`app-plan-life-admin.md:298-301`), the session's **third** false absence ·
+`spider-swing` as the estate's **only** outside audience — false against
+`spider-bot`, `shiftlife` and the kit · a **heading** still asserting the
+shallow-clone conclusion its own corrected body refutes · **"within 48 hours"**
+when the timestamps are **57 h 33 m** · the card repeating a struck absence
+claim · the findings index reporting both slots empty in **every** draft when
+substrate-kit's filled both · the one-word test generalised past his own *"would
+not always work in every kind of repo"* · a method doctrine stated as **"minimum
+freedom of method"** when he asked only for mechanisms preventing errors the
+mapping finds.
+
+`[partial]` ×1 — the revenue-ranking prohibition. Codex read it as stronger than
+his answer; it is in fact **in the option description he selected**. Kept, with
+the provenance sharpened: a clicked option is weaker evidence than a written
+sentence, and it now says so.
+
+**The pattern across R1 is one thing:** nine of eleven are the session asserting
+something **broader than its own evidence** — and three of those are absence
+claims. That is the same defect the sitting spent the evening documenting,
+committed by the session documenting it.
 
 ⚑ Owner decisions needed: the standing intent questions (his to write, whenever
 — `OQ-INTENT-WRITE-UP`) · whether the route-repeat policy should widen to the

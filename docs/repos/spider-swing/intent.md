@@ -61,9 +61,12 @@ stopping condition.
 
 ## Who it's for
 
-`DERIVED`: **real players — and this is the only asset in the estate with a
-live external signal.** Returning players and unprompted difficulty feedback
-are on record. Every other repo's audience is either him or his agents.
+`DERIVED`: **real players.** Returning players and unprompted difficulty
+feedback are on record — a *product-feedback* signal no other repo has.
+**It is not the estate's only outside audience**, and the first version of this
+line said so wrongly: `spider-bot` has Discord members using it daily,
+`shiftlife` targets shift-working households, and the kit is explicitly meant
+for outside adopters. *(Codex fm #965 R1.)*
 
 ## How much it matters right now
 

@@ -69,9 +69,13 @@ not goals.**
 
 `DERIVED`, and this is a real constraint rather than a mood:
 
-- **No repo is prioritised because it might earn.** The option he chose says so
-  explicitly. Any plan that ranks work by revenue potential is mis-aimed, and
-  `venture-lab`'s pause (OD-11) needs no commercial justification.
+- **No repo is prioritised because it might earn** — with the provenance stated
+  precisely, because it matters: this sentence is in the **option description he
+  selected**, not in words he typed. A clicked option is weaker evidence than a
+  written sentence, so read it as *revenue is not a reason to rank work* rather
+  than as a prohibition he authored. `venture-lab`'s pause (OD-11) needs no
+  commercial justification either way. *(Codex fm #965 R1 flagged the absolute
+  form as stronger than his quoted answer; the narrowing is that correction.)*
 - **It bounds the safety/verification budget too.** Q-0263's full line pairs the
   hobby framing with *"we spend way too much time on safety"* — the same
   sentence. Effort spent making commercial-grade guarantees is effort spent
@@ -144,7 +148,7 @@ across 28 repos, then an open section so nothing gets truncated to fit:
 | **Why it exists** | what made him start it, in his words |
 | **What done looks like** | the end condition, or *"never done"* said deliberately |
 | **What it must never become** | the guardrail — the non-goal specific to this repo |
-| **What would make me stop** | the kill criterion, which the estate records **nowhere** today |
+| **What would make me stop** | the kill criterion — **rare, not absent**: `shiftlife` has one (`../planning/2026-07-24-app-plan-life-admin.md:298-301` — sub-15% household adoption + sub-20% week-4 retention after ~8 public weeks → stop, retro, carry the reusable parts into the next vertical), and no other repo does *(Codex fm #965 R1: the first version said "nowhere", the session's **third** false absence of the evening)* |
 | **Who it's for** | him, an audience, or nobody yet |
 | **How much it matters right now** | the priority signal that lets a session tell a beloved project from a tolerated one |
 | **— anything else** | free, unbounded, his voice, no schema |
@@ -613,7 +617,12 @@ as opposites:
 **These are different objects.** § 3 objects to walls that restrict **what an
 agent may do** — permission walls, confirmation prompts, capability limits.
 This asks for mechanisms that constrain **how the work is done** — method
-enforcement. He wants maximum freedom of action and minimum freedom of method.
+enforcement. **Stated at his scope, not broader:** he asked for mechanisms that
+prevent *the errors the mapping finds* — so a method constraint earns its place
+by targeting a demonstrated error, and "minimum freedom of method" as a blanket
+doctrine is **not** what he said. *(Codex fm #965 R1: the blanket form would
+license arbitrary process gates so long as they constrain how rather than what,
+which collides with his own objection to agent-added restrictions.)*
 
 **The estate has been conflating them**, and the conflation is expensive in both
 directions: it makes a session hesitate to build a real method gate (reading
@@ -682,9 +691,13 @@ independent measurement agree without either having been derived from the other.
 
 ### 3.2 · The three things the PR bodies show, and the third is the answer
 
-1. **The one-phrase input is recorded verbatim in the artefact.** #1328's body
-   opens: *"Owner-directed task: **\"Idle egg/chicken farm\"**"*. The prompt he
-   remembers giving is preserved in the PR itself.
+1. **The artefact corroborates the attribution — but it is NOT the prompt.**
+   #1328's body opens *"Owner-directed task: **\"Idle egg/chicken farm\"**"*,
+   while he recalls typing only *"chicken farm"*. A PR body is written **after**
+   the interaction by the agent doing the work, so it evidences that the feature
+   was owner-directed and briefly stated; it is **not** a transcript of the
+   initiating message and the exact wording is unrecovered. *(Codex fm #965 R1 —
+   the first version called it "recorded verbatim", which overstated it.)*
 2. **"Without any further questions" was decide-and-flag, not luck.** #1332's
    body reads *"Defaults used (the 5 design Qs weren't …"* — there **were** five
    design questions. The session did not ask him; it chose documented defaults
@@ -774,9 +787,15 @@ replaces:**
   judgement**. Skills make the third part explicit and repeatable; hooks make it
   fire.
 - **`#1328` is therefore a worked example of a skill, not a counterexample to
-  one.** The session read the rules and prior owner cautions, then decided —
-  which is exactly what the estate's `intake` and `chase-references` skills
-  describe as a procedure.
+  one** — on the evidence that survives. What the artefact shows is that the
+  session **reused the documented `settle()` pattern and cited ADR-001/002 by
+  name** rather than inventing a mechanism: retrieval of *implementation*
+  precedent, which is real. **It does NOT show retrieval of a prior owner
+  caution** — § 3.2 withdrew that claim (the phrase appears nowhere in the frozen
+  router and returns 0 hits repo-wide; it may have been said in-session).
+  *(Codex fm #965 R1 P1: this bullet had reinstated the withdrawn claim two
+  sections after the withdrawal — the exact defect the strike-through exists to
+  prevent.)*
 - **What a skill adds is variance reduction, not capability.** *"the skill only
   helps to enforce the process and to make sure that it happens in the same way
   each time."* The one-word era got that consistency from an unusually complete
@@ -827,8 +846,14 @@ it.
 ### 3.4 · What this gives the plan that it did not have
 
 - **A named acceptance test.** *Can a fresh session, given one or two words in
-  this repo, produce a working feature that matches what already exists?* It is
-  runnable per repo, it needs no new metric, and it fails informatively.
+  this repo, produce a working feature that matches what already exists?* It
+  needs no new metric and it fails informatively — **within his stated scope**,
+  which is repos *"where one word could turn into a feature that matches what
+  currently exists"*. He said explicitly that it *"would not always work in every
+  kind of repo"*. Applying it to records-only, infrastructure, research or
+  genuinely novel work would manufacture failures he never predicted.
+  *(Codex fm #965 R1: the first version said "runnable per repo", dropping his
+  own qualifier.)*
 - **A benchmark with a reproducible target.** #1328 and #1332 are open in a
   frozen repository. A session can read what the repo looked like on
   2026-06-22 — the docs, the ADRs, the CI checks — and ask what is missing in
@@ -837,7 +862,7 @@ it.
   corrections each time"* and *"one word becomes a working feature"* are the
   same standard measured at two points: one on the work, one on the input.
 
-### 3.3c · A stale claim in `owner-profile.md`, and it was wrong the day it shipped
+### 3.3c · A stale claim in `owner-profile.md` — falsified by its own repository two days later
 
 Surfaced by his testimony in the same message, then dated — and the dating
 overturned the session's first explanation of it.
@@ -890,8 +915,11 @@ alternative:** the profile asserted that judgement could not be instrumented on
 **08-06**; the estate *measured* that exact gap on **08-07**; and it *built* the
 instrument on **08-08**. Three consecutive days, claim → measurement → mechanism.
 The line is not a same-day contradiction and not a long-rotting error — it is a
-true statement that its own repository falsified within 48 hours and **never went
-back to amend**.
+true statement that its own repository falsified **about two and a half days
+later** and **never went back to amend**. *(Codex fm #965 R1: "within 48 hours"
+was wrong — the author timestamps are `17bac33` 2026-08-06 00:39:40 +0200 and
+`d58f9e3` 2026-08-08 10:12:48 +0200, **57 h 33 m**. The consecutive-calendar-day
+reading holds; the compressed number did not.)*
 
 **Three method notes, each an instance of a class this estate already tracks:**
 
