@@ -79,10 +79,14 @@ tier" — were unsupportable and are removed.
 | **Template-carried ritual** | complete, because the text is written by construction | `Session idea (Q-0089)` in **598 of 969**; `Grooming (Q-0015)` in **82** |
 | **Skill invocation** | **nothing** — no trace is required and none is kept | unmeasurable; card mentions give a floor only |
 
-**The finding is the third row.** Not that skills are weak — that **skill use in
-this estate cannot be observed at all.** A mechanism whose use leaves no record
-cannot be measured, improved, or verified, and cannot be shown to be working
-even if it is. That is a stronger argument for preferring gates and
+**The finding is the third row**, stated at the width the evidence supports:
+**there is no complete invocation telemetry.** Not that skill use is invisible —
+46 recorded invocations exist and are observable, and controlled verification of
+a skill is entirely possible. What is missing is an *exhaustive* count, which is
+what a rate would require (`@codex` R5 narrowed this; the first cut said
+"cannot be observed at all", which its own evidence contradicted). A mechanism whose use leaves no record
+cannot be counted exhaustively, so no rate is derivable and no claim about how
+often skills run — in either direction — is checkable. That is a stronger argument for preferring gates and
 template-carried rituals than the false quantification it replaces, because it
 does not depend on knowing how often skills run.
 
@@ -263,8 +267,11 @@ mining chains and the § 2 variance are exactly the case a revised plan would
 weigh — and withdrawn as a thing to build. It also **collided by name** with the
 estate's Move 1, which is why the moves here are now lettered. The estate's own spec for this is already written twice in the
 mining evidence. This is a **gate change**, which § 1 says is the only tier that
-holds. It is also the smallest change with the largest measured gap behind it —
-3,668 written against 357 landed.
+holds. **Its rationale is NOT the withdrawn ratio.** 3,668 counted a marker and 357
+covered one destination of several; neither half measures written-against-landed
+(§ 2). What supports Move A is the **citation evidence** — the four
+re-derivation chains, each naming distinct sessions in a repo — and nothing
+numerical.
 
 **Move B — port the checkers, not the skills.** superbot's nine checkers are
 the highest-value material and they are already executable. A checker in the

@@ -261,9 +261,8 @@ copy product architecture or internal product state. Canonical intent:
   **wide variance, not uniform failure** — purpose-built conveyors convert near
   1 : 1 while `fleet-manager`, the hub, sits at **0.04** (433 cards, 18 idea
   files).
-  **`idea-engine` has 503 cards, 503 ideas and zero in its conveyor.** So the
-  estate produces reusable knowledge reliably and never reads it back — OD-21's
-  diagnosis, measured. **Why skills are the wrong container:** on one corpus,
+  OD-21's diagnosis is supported by the citation evidence in the record, **not** by
+  a conveyor count. **Why skills are the wrong container:** on one corpus,
   gate-enforced **95–97 %** of 3,836 cards and template-carried **598/969**,
   both completely countable; **skill use is unobservable in this estate**, so
   the earlier three-way ranking is withdrawn and the surviving argument is that

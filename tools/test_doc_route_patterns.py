@@ -155,18 +155,22 @@ CARD_PATH_CASES = [
 E2E_CASES = [
     ("card authored via redirect",
      "cat > .sessions/2026-01-01-x.md <<'EOF'\n> **Status:** `complete`\nEOF",
-     "TRAP-006"),
+     # UNIQUE to card-flip-to-complete. "TRAP-006" is NOT — it appears in
+     # card-status-write too, so the first version of this case passed with
+     # card-flip-to-complete deleted outright (`@codex` R5). Verified by
+     # set-differencing the two routes' says text.
+     "a review binds the SHA it ran on"),
     # R3 P1: the card is the SECOND write target, so taking only the first
     # made both card routes fail path_when and let a completed card through.
     ("card is the second write target",
      "echo ok > docs/x.md; cat > .sessions/2026-01-01-x.md <<'EOF'\n"
-     "> **Status:** `complete`\nEOF", "TRAP-006"),
+     "> **Status:** `complete`\nEOF", "a review binds the SHA it ran on"),
     # R3: card-status-write's `when` is the card PATH, so the Bash haystack has
     # to carry the target as well as the content, mirroring FIELDS["Write"].
     ("in-progress card matches on its path",
      "cat > .sessions/2026-01-01-y.md <<'EOF'\n> **Status:** `in-progress`\nEOF",
-     # distinctive to card-status-write; card-flip-to-complete does not carry it
-     "card lifecycle"),
+     # UNIQUE to card-status-write, set-differenced against its neighbour.
+     "Status is a merge control"),
     ("read of a card names no target",
      "grep -rn Status .sessions/2026-01-01-x.md", None),
     # R3: a mention in one segment must not be authorised by a write in another.

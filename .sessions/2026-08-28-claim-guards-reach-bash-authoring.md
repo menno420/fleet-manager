@@ -118,10 +118,10 @@ python3 tools/check_no_false_walls.py # real exit 0 — CLEAN
 ```
 
 ```
-python3 tools/test_doc_route_patterns.py  # real exit 0 — 53 cases
+python3 tools/test_doc_route_patterns.py  # real exit 0 — 61 cases
 ```
 
-**53 cases** (10 must-fire, 3 must-be-silent, 4 shallow-clone, 36 plumbing),
+**61 cases** (10 must-fire, 3 must-be-silent, 4 shallow-clone, 44 plumbing),
 up from the 17 that existed before this change. The plumbing half covers each
 claim route's tool opt-in, `authored_only` flag and `repeat`; seventeen Bash
 authoring spellings split into writes (visible) and non-writes (silent); the
@@ -280,6 +280,49 @@ suite nobody executes. Registered in `preflight.py` beside the checker pair and
 both ways — preflight now prints `doc-route patterns -> exit 0`, and with the
 P1 fix patched out it prints `doc-route patterns -> exit 1 (1 of 61 case(s)
 FAILED)` and the gate fails.
+
+## The parser stands down — five rounds, and the shell keeps winning
+
+**`@codex` R5: 11 findings, 2 P1.** Six were documentation defects and are
+fixed (stale verification counts, the withdrawn ratio still supplying Move A's
+rationale, a retracted `idea-engine` zero still in `current-state.md`, the
+findings index still advertising a withdrawn sequence, an "unobservable"
+overstatement its own evidence contradicted, and a test marker that was not
+unique). **Five are shell-parsing findings, and those are not being patched.**
+
+**Why not:** R2 returned 3 parsing findings, R3 returned 4, R5 returned 5. That
+is the non-convergence this card already recorded after R3, where it said
+plainly that another construct should be treated as evidence to replace the
+mechanism rather than extend it. Three rounds later that is what the evidence
+says, so the commitment is honoured rather than quietly dropped.
+
+**The five limits, each reproduced by this session rather than taken on report:**
+
+| # | case | behaviour |
+|---|---|---|
+| P1 | `python3 - <<'PY'` doing `Path('.sessions/x.md').write_text(…)` | **silent** — the `<interpreter-write>` sentinel carries no path, so `path_when` cannot gate the card routes |
+| P1 | `sed -i 's/\`in-progress\`/\`complete\`/' .sessions/x.md` | **silent** — the route needs a literal `Status:` and `authored_only` exposes only the substitution. **This is the merge-eligibility event, and auto mode recommends `sed`** |
+| P2 | `printf '%s' 'all 26 repositories; a census' > docs/x.md` | **silent** — the segmenter splits on `;` without quote-awareness, so prose punctuation cuts the command |
+| P2 | `grep 'all 26 repositories > docs/x.md' docs/traps.md` | **false fire** — a redirect named inside quotes reads as a write |
+| P2 | a non-writing heredoc followed by any unrelated write | **false fire** — heredoc bodies are appended whenever a write exists anywhere in the payload; the per-segment attribution covers quoted spans only |
+
+**Is the change still worth landing?** Yes, and the honest comparison is
+against what preceded it, not against perfect. **Before: all eight routes were
+completely disarmed under Bash authoring.** Now the common forms fire — heredoc
+writes, `printf`/`echo` redirects, `tee`, `sed -i` writes — and the two P1
+misses above were **equally missed before**, because the routes did not run on
+Bash at all. The false fires are bounded (advisory, never blocking, capped at
+three per route) and the misses are a strict subset of the prior state. Net
+coverage is up; it is not complete, and the table above says exactly where.
+
+**What replaces it, when the owner decides to:** `PostToolUse` on Bash, reading
+what actually changed on disk instead of parsing intent from the command
+string. That removes the entire class — quoting, comments, interpreters,
+separators, `sed`, and whatever the sixth round would have found. It is a
+different mechanism with its own blast radius, it is not this PR's to take, and
+**it has no precedent in this repo** — `change_guard.py`'s `PostToolUse` half is
+registered for `Edit|MultiEdit` only and works by grepping a replaced string,
+not by inspecting disk (checked, after citing it wrongly once).
 
 ## 💡 Session idea
 
