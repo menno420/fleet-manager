@@ -324,10 +324,23 @@ land side never was. **A ratio needs both halves established, and only one was.*
 **`@codex` R4 attacked this document and landed two P1s.** (1) The 💡 count is
 a marker count, not an idea count — verified against `bootstrap.py:326-330` and
 a card that passes while carrying nothing. (2) `idea-engine/ideas/` is recorded
-as canonical in this repo's **own tree** — `tools/build_notebook_bundle.py:109-115`,
-`docs/ESTATE.md:93`, `docs/owner-queue.md:353-356`, the last naming 566 files —
-so the § 2 error was not a hard-to-find fact but one already written down here
-three times. It also showed the delivery ranking was incommensurable (§ 1,
+as canonical in this repo's **own tree**, so the § 2 error was not a
+hard-to-find fact. **Verified rather than relayed, and one of R4's three
+citations does not hold:**
+- `tools/build_notebook_bundle.py:109-115` — holds, and is stronger than R4
+  claimed: the comment reads *"`ideas/` holds everything, subdivided by CONSUMER
+  REPO"* and names a **742-file group**, the exact figure this session hit on
+  its first `find`.
+- `docs/ESTATE.md:93` — holds verbatim: *"566 fleet-era idea files"*.
+- `docs/owner-queue.md:353-356` — **does not.** Those lines concern database
+  history pruning and Railway cost; no 566, no idea-engine. A third instance
+  does exist, found by grepping for the number rather than from any citation:
+  `docs/fleet-account-2026-07-26.md:194`.
+
+**Recorded because the failure mode is specific:** two of the three citations
+held, and this record initially repeated all three as fact. **A batch of
+citations launders a bad member through the credibility of its neighbours** —
+check each, or attribute the batch. It also showed the delivery ranking was incommensurable (§ 1,
 withdrawn) and that 41 cards sharing a string does not establish 41 independent
 derivations.
 
