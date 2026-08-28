@@ -219,7 +219,8 @@ Grouped, with the full per-doc detail in the appendix:
   (live-voiced protocol directing every session to execute `status: new`
   inbox orders), `control/inbox.md` (all 24 seat-era ORDERs still read
   `status: new`, including ORDER 010 "arm an hourly routine" — trigger
-  territory, D-0015-adjacent), `docs/operations/lab-loop.md` (binding-marked
+  territory — adjacent to the estate's never-delete-a-trigger decision,
+  stamped in [`../decisions.md`](../decisions.md)), `docs/operations/lab-loop.md` (binding-marked
   runbook for a console Schedule that closed 2026-07-21; could revive the
   retired P4 owner ask), `docs/planning/README.md` (its "Active" tier
   presents an ORDER-025 veto menu as pending; omits the two newest planning
