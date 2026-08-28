@@ -119,8 +119,8 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   is back), and OD-24 § 3's confirm-before-send/delete line governs the attended
   case. So a kit-planted brake **may prompt only when a human is in the
   session**; unattended it must decide — refuse or proceed — never wait.
-  **`delete_trigger` stays PREVENTED in every venue**, attended or not; `[D-0015]`
-  and the denying guard hook are untouched. Presence must be computed from the
+  **`delete_trigger` stays PREVENTED in every venue**, attended or not; fm's
+  never-delete-a-trigger decision and the denying guard hook are untouched. Presence must be computed from the
   venue, not guessed. *(Original ask below.)*
 - **`OQ-KIT-PROMPT-DOCTRINE` (original body) — which rule governs kit-planted brakes: your
   "no confirmation prompts ever" or the re-ratified confirm-first line?**

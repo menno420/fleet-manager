@@ -204,8 +204,9 @@ copy product architecture or internal product state. Canonical intent:
   (`OQ-FM-D2-TARGET` **CLOSED** — open since 08-23, once falsely closed by
   inference) · the final EAP mail moved from *"leave it"* to **"soon"** with a
   **widened brief**. **`OQ-KIT-PROMPT-DOCTRINE` and `OQ-EAP-SPEND-WINDOW-MOOT`
-  also closed; `OQ-KIT-RENAME` added.** `[D-0011]`'s self-contradiction
-  reconciled (the agenda's stated prerequisite to the spend question).
+  also closed; `OQ-KIT-RENAME` added.** The Gemini paid-key budget decision's
+  self-contradiction is reconciled in [`decisions.md`](decisions.md) — the
+  agenda's stated prerequisite to the spend question.
   **Session 5 is named from his own words** — he drew the boundary himself
   (*"Records work can go now"*): a kit-venue **records** session (charter
   rewrite + the truth pass's 23-file sweep), then the release. Everything

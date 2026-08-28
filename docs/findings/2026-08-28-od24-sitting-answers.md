@@ -97,8 +97,8 @@ names that mechanism exactly. The confirm-first line governs the attended case.
   must decide — refuse or proceed — and never wait.
 - **`delete_trigger` stays PREVENTED in every venue**, attended or not. It was
   carved out of all three options before he answered and no answer re-authorises
-  it; fm's [`../decisions.md`](../decisions.md) `[D-0015]` and the denying
-  `trigger_tools_guard.py` hook are unaffected.
+  it; fm's never-delete-a-trigger decision ([`decisions.md`](../decisions.md))
+  and the denying `trigger_tools_guard.py` hook are unaffected.
 - **Presence must be a computed fact, not a guess.** The estate already
   distinguishes the venues this needs (owner-live hub chat · scheduled wake ·
   unattended cloud session) — this is a routing question with an existing
@@ -560,7 +560,7 @@ was **"Leave it — not now"**; minutes later, unprompted, he revised it:
 
 `OWNER`. Recorded as a supersession rather than a correction of the record: the
 option he clicked is what he clicked, and his later live words outrank it
-([`../../CONSTITUTION.md`](../CONSTITUTION.md) — the live owner beats any stored
+([`CONSTITUTION.md`](../../CONSTITUTION.md) — the live owner beats any stored
 text, and that includes a stored answer from ten minutes earlier). A session
 reading only the click would park this for months.
 
