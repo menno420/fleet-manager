@@ -1,7 +1,12 @@
 # 2026-08-28 — substrate-kit review round, session 3 (the kit-tree truth pass + the two owed checks)
 
-> **Status:** `in-progress` — born red; this hold token flips only as the
-> session's last commit.
+> **Status:** `complete` — landed after three Codex rounds on this PR
+> (6 + 2 + 4 findings, all conceded and fixed — R3's four fixed post-review
+> under the spent two-re-review cap, dispositions in the thread; the kit
+> venue's #588 took its own three rounds and merged on green first). Flip
+> exemption per the close discipline: the last reviewed SHA is `3fd00ff`;
+> after it come only `541a086` (R3's four fixes, each mechanical and named
+> in the thread) and this flip.
 
 - **📊 Model:** fable-5 · high · review/verify
 - **📍 Venue:** cloud-container
