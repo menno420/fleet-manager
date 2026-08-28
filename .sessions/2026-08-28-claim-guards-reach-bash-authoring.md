@@ -62,14 +62,19 @@ session.
 ## Shipped
 
 - `.claude/hooks/route_docs.py` — new `authored_only()`, the complement of the
-  existing `code_only()`. It narrows a Bash command to its **heredoc bodies**,
-  so a document authored via `cat > f <<'EOF'` is matched exactly as a `Write`
-  is. Wired at the match site, scoped to `tool == "Bash"` so Write/Edit
-  behaviour is untouched.
-  **Heredoc bodies only, deliberately:** matching the whole command would
-  re-create fm #923 in the opposite direction — `grep -n 'MEASURED' docs/traps.md`
-  would spend the route and leave the real write unwarned. A heredoc body is
-  unambiguously authored prose.
+  existing `code_only()`, keyed on **write intent** rather than on the presence
+  of a heredoc. A Bash command authors when it names a write target
+  (`bash_write_targets()`: a redirect, `tee`, or `sed -i`); what it authors is
+  its heredoc bodies plus its quoted spans, the latter carrying the payload of
+  a `printf '…' > f`. No write target means no text and silence, so a mention
+  stays cheap and leaves the route unspent (fm #923's failure, inverted).
+  **The first cut keyed on the heredoc alone and was wrong three ways** — see
+  the R2 disposition below.
+- `.claude/hooks/route_docs.py` — **`target_path` is now derived for Bash** from
+  the first write target. `path_when` gates on that field, which a Bash payload
+  has no `file_path` for, so both card routes skipped before their content was
+  ever examined and stayed silent for the exact authoring path this change
+  added them to.
 - `.claude/hooks/doc-routes.json` — the 8 write-only routes gain `Bash` +
   `authored_only: true`; the 4 claim-quality ones also gain `repeat: true`.
   Write-only routes remaining: **0**.
@@ -81,17 +86,26 @@ python3 tools/check_doc_routes.py    # real exit 0 — 71 routes · 36 docs · 0
 python3 tools/check_no_false_walls.py # real exit 0 — CLEAN
 ```
 
-Four-case A/B against the live hook, all passing:
+```
+python3 tools/test_doc_route_patterns.py  # real exit 0 — 53 cases
+```
 
-| case | expected | result |
-|---|---|---|
-| Bash heredoc authoring | fires (was the bug) | **fires** — TRAP-001 + TRAP-004 |
-| `Write` tool | still fires (no regression) | **fires** |
-| `grep -n 'MEASURED' …` — a mention, not a write | **silent** | **silent** |
-| second heredoc write, same session | fires again | **fires again** |
+**53 cases** (10 must-fire, 3 must-be-silent, 4 shallow-clone, 36 plumbing),
+up from the 17 that existed before this change. The plumbing half covers each
+claim route's tool opt-in, `authored_only` flag and `repeat`; seventeen Bash
+authoring spellings split into writes (visible) and non-writes (silent); the
+write-target extraction; and **two end-to-end cases run through the hook as a
+subprocess**.
 
-The third case is the one that matters for cost: a guard that fired on every
-mention would be spent by its own documentation, which is the fm #923 failure.
+**Three negative controls, each confirmed to fail correctly** rather than
+merely passing today: reverting to heredoc-only makes the mention cases fail;
+breaking the redirect-after-delimiter regex fails those two spellings; deleting
+the `target_path` derivation fails the end-to-end card case.
+
+That third one is the reason the end-to-end cases exist. A first version tested
+`bash_write_targets()` directly and **passed with the P1 wiring deleted** — the
+helper was fine and the call site was the defect, which is this change's own
+failure shape repeating one level down.
 
 ## Layer-2 handoff
 
@@ -131,6 +145,23 @@ the bug it would have evidenced. The conclusion still holds (the routes were
 structurally incapable of matching heredoc authoring, which the A/B shows), but
 it rests on inference where a direct record had existed. **Anyone reusing that
 suite should scope the reset to its own synthetic session ids.**
+
+**`@codex` R2 at head `4490046` — 4 findings (1 P1, 3 P2), all `[conceded]`,
+and it found a half-working fix that my own green suite had certified.**
+
+| # | finding | disposition |
+|---|---|---|
+| P1 | Card routes gate on `path_when`, matched against `target_path`, which is empty for a Bash payload — so both card routes skipped before content was examined and stayed silent for the authoring path this change exists to cover. It reproduced with `cat > .sessions/x.md <<'EOF'` | `[conceded]` — `target_path` now derived from the first write target. **My plumbing tests missed it because they covered the four claim routes, which have no `path_when`** |
+| P2 | A heredoc feeding a non-writing command (`grep -f -`, a `python3 -` that only prints) still returned prose and fired the guard — and with the repeat cap, three such commands would exhaust a route before the session's first real write | `[conceded]` — the test is now write intent, so a non-write returns nothing |
+| P2 | `printf '…' > f`, `echo > f` and `sed -i` reach disk with no heredoc and bypassed every newly-Bash-enabled route. **The suite actively pinned `echo … > a.md` as correctly-silent**, enshrining the gap | `[conceded]` — quoted spans are now extracted for redirect writes, and that case is inverted to must-fire |
+| P2 | `cat <<'EOF' > docs/x.md` and `… | tee f` put the redirect after the delimiter; the regex required a newline immediately after it | `[conceded]` — the delimiter now tolerates trailing shell tokens |
+
+**The pattern across R1 and R2 is one mistake, not four.** I keyed the guard on
+*"is there a heredoc"* when the question is *"does this command write, where,
+and with what text."* Every finding is a consequence of that substitution, and
+the suite I wrote inherited it — which is why it went green over a fix that did
+not work for two of the eight routes it claimed to cover. A test written from
+the same wrong model as the code cannot catch the model being wrong.
 
 ## 💡 Session idea
 

@@ -296,9 +296,39 @@ def code_only(text: str) -> str:
 
 
 _HEREDOC = re.compile(
-    r"<<-?\s*(['\"]?)([A-Za-z_][A-Za-z0-9_]*)\1\s*\n(.*?)^\s*\2\s*$",
+    r"<<-?\s*(['\"]?)([A-Za-z_][A-Za-z0-9_]*)\1[^\n]*\n(.*?)^\s*\2\s*$",
     re.DOTALL | re.MULTILINE,
 )
+
+# Where a Bash command puts bytes on disk. Redirects and `tee` name their target
+# directly; `sed -i` edits in place and names it last. These are also what make a
+# command an AUTHORING command at all — see authored_only().
+_WRITE_TARGET = re.compile(
+    r"(?:>>?|\|\s*tee(?:\s+-a)?)\s+['\"]?([\w./@-]+\.[A-Za-z0-9]+)['\"]?"
+    r"|sed\s+(?:-[a-zA-Z]*i[a-zA-Z]*)\s+[^|;&]*?['\"]?([\w./@-]+\.[A-Za-z0-9]+)['\"]?\s*(?:$|[|;&])"
+)
+
+# Quoted spans, so a `printf '…text…' > f` carries its payload into the match.
+_QUOTED = re.compile(r"'([^']*)'|\"([^\"]*)\"", re.DOTALL)
+
+
+def bash_write_targets(command: str) -> list[str]:
+    """Paths a Bash command writes to, in order of appearance.
+
+    Used for two things: deciding whether the command authors anything at all,
+    and giving `path_when` a target to match when the payload has no
+    `file_path` field. Without the second, a route that gates on the path — the
+    two card routes do — skips before the content is ever examined, which is
+    how this change shipped half-working: `@codex` reproduced
+    `cat > .sessions/x.md <<'EOF'` producing no guard output while the
+    equivalent Write event fired (fm #963, P1).
+    """
+    out: list[str] = []
+    for m in _WRITE_TARGET.finditer(command):
+        target = m.group(1) or m.group(2)
+        if target and target not in out:
+            out.append(target)
+    return out
 
 
 def authored_only(text: str) -> str:
@@ -329,13 +359,36 @@ def authored_only(text: str) -> str:
     of the exact errors those two routes exist to catch, all of them written
     through a heredoc.
 
-    Why heredoc bodies ONLY, and not the whole command: the command is code, and
-    matching claim patterns against code re-creates the fm #923 failure in the
-    opposite direction — `grep -n 'MEASURED' docs/traps.md` would spend the
-    route and leave the real write unwarned. A heredoc body is unambiguously
-    authored prose, which is the only thing these routes should read.
+    Why not the whole command: the command is code, and matching claim patterns
+    against code re-creates the fm #923 failure in the opposite direction —
+    `grep -n 'MEASURED' docs/traps.md` would spend the route and leave the real
+    write unwarned.
+
+    **The test is WRITE INTENT, not the presence of a heredoc.** The first cut
+    of this function keyed on the heredoc alone and `@codex` found three ways
+    that is wrong (fm #963):
+
+    - `python3 - <<'PY'` that only prints, or a heredoc fed to `grep`, writes
+      nothing — yet returned prose, fired the guard, and with the repeat cap in
+      place three such commands would exhaust the route before the session's
+      first real document write. False fire, then false silence: exactly the
+      failure the filtering exists to prevent.
+    - `printf '…' > docs/x.md` and `sed -i` reach disk with no heredoc at all,
+      so they bypassed every newly-Bash-enabled route. Worse, the first test
+      suite PINNED `echo … > a.md` as correctly-silent, enshrining the gap.
+    - `cat <<'EOF' > docs/x.md` puts the redirect after the delimiter, which the
+      first regex rejected by requiring a newline immediately after it.
+
+    So: a command authors when it names a write target. What it authors is its
+    heredoc bodies plus its quoted spans — the latter carrying the payload of a
+    `printf '…' > f`. No write target means no authored text and silence, which
+    keeps a mention cheap and leaves the route unspent.
     """
-    return "\n".join(m.group(3) for m in _HEREDOC.finditer(text))
+    if not bash_write_targets(text):
+        return ""
+    bodies = [m.group(3) for m in _HEREDOC.finditer(text)]
+    quoted = [q for m in _QUOTED.finditer(text) for q in m.groups() if q]
+    return "\n".join(bodies + quoted)
 
 
 # A `repeat` route is bounded, not unlimited. Repetition is what makes a guard
@@ -556,6 +609,18 @@ def main() -> int:
     # `card-flip-to-complete` and spent it — the real card flip later in that
     # session was SILENT. Same class as fm #923, one field deeper.
     target_path = str((event.get("tool_input") or {}).get("file_path") or "")
+    if not target_path and tool == "Bash":
+        # A Bash write names its target in a redirect, not in a `file_path`
+        # field, so a route gating on `path_when` skipped before its content was
+        # ever examined — both card routes stayed silent for the exact authoring
+        # path adding Bash was meant to cover (`@codex`, fm #963 P1, reproduced
+        # with `cat > .sessions/x.md <<'EOF'`). Take the first target: a command
+        # writing several files is rare, and the first is the one the rest of
+        # the line is about.
+        bash_targets = bash_write_targets(
+            str((event.get("tool_input") or {}).get("command") or "")
+        )
+        target_path = bash_targets[0] if bash_targets else ""
     normalized_target_path = target_path.replace("\\", "/")
     checkout_prefix = REPO.as_posix().rstrip("/") + "/"
     if normalized_target_path.casefold().startswith(checkout_prefix.casefold()):

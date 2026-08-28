@@ -22,6 +22,7 @@ from __future__ import annotations
 
 import json
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -91,26 +92,60 @@ CLAIM_ROUTES = (
 HEREDOC_DOC = "cat > docs/findings/x.md <<'EOF'\nall 26 repositories were swept\nEOF"
 HEREDOC_MENTION = "grep -rn 'all 26 repositories' docs/traps.md"
 
-# Heredoc spelling varies, and a variant `authored_only()` misses is a guard
-# silently back off for that spelling — the same failure this whole change
-# exists to fix, one level down. The `<<-` and multiple-heredoc cases were
-# raised by `@codex` on fm #963 against an earlier head; they pass, and they
-# are pinned here so a future regex tightening cannot quietly drop one.
+# Bash authoring has many spellings, and the test is WRITE INTENT rather than
+# the presence of a heredoc. The first cut of `authored_only()` keyed on the
+# heredoc alone; `@codex` found four ways that is wrong (fm #963), one of them
+# P1, and every case below pins one of them. The `False` rows matter as much as
+# the `True` ones: a command that writes nothing must stay silent, or with the
+# repeat cap in place three mentions exhaust a route before the session's first
+# real document write.
 MARK = "all 26 repositories"
-HEREDOC_VARIANTS = [
-    ("single-quoted delimiter", f"cat > a.md <<'EOF'\n{MARK}\nEOF", True),
-    ("double-quoted delimiter", f'cat > a.md <<"EOF"\n{MARK}\nEOF', True),
-    ("bare delimiter", f"cat > a.md <<EOF\n{MARK}\nEOF", True),
-    ("tab-stripping <<-", f"cat > a.md <<-EOF\n\t{MARK}\n\tEOF", True),
-    ("custom delimiter name", f"cat > a.md <<'CARD'\n{MARK}\nCARD", True),
-    ("python3 - heredoc", f"python3 - <<'PY'\nprint('{MARK}')\nPY", True),
+BASH_AUTHORING = [
+    # writes — must be visible
+    ("redirect before heredoc", f"cat > docs/x.md <<'EOF'\n{MARK}\nEOF", True),
+    ("redirect after delimiter", f"cat <<'EOF' > docs/x.md\n{MARK}\nEOF", True),
+    ("piped into tee", f"cat <<'EOF' | tee docs/x.md\n{MARK}\nEOF", True),
+    ("double-quoted delimiter", f'cat > docs/x.md <<"EOF"\n{MARK}\nEOF', True),
+    ("bare delimiter", f"cat > docs/x.md <<EOF\n{MARK}\nEOF", True),
+    ("tab-stripping <<-", f"cat > docs/x.md <<-EOF\n\t{MARK}\n\tEOF", True),
+    ("custom delimiter name", f"cat > docs/x.md <<'CARD'\n{MARK}\nCARD", True),
     ("second of two heredocs",
      f"cat > a.md <<'A'\nnothing\nA\ncat > b.md <<'B'\n{MARK}\nB", True),
-    ("indented terminator", f"cat > a.md <<'EOF'\n{MARK}\n  EOF", True),
-    # The silent half: a command that merely NAMES the text must not be
-    # matched, or the guard is spent by its own documentation (fm #923).
-    ("grep mention, no heredoc", f"grep -rn '{MARK}' docs/traps.md", False),
-    ("plain redirect, no heredoc", f"echo '{MARK}' > a.md", False),
+    ("printf into a redirect", f"printf '%s\\n' '{MARK}' > docs/x.md", True),
+    ("echo into a redirect", f"echo '{MARK}' > docs/x.md", True),
+    ("append redirect", f"echo '{MARK}' >> docs/x.md", True),
+    ("sed -i in place", f"sed -i 's/x/{MARK}/' docs/x.md", True),
+    ("python heredoc that redirects",
+     f"python3 - <<'PY' > docs/x.md\nprint('{MARK}')\nPY", True),
+    # no write — must stay silent, or a mention spends the guard (fm #923)
+    ("grep mention", f"grep -rn '{MARK}' docs/traps.md", False),
+    ("heredoc fed to grep", f"grep -f - docs/x.md <<'EOF'\n{MARK}\nEOF", False),
+    ("python heredoc that only prints",
+     f"python3 - <<'PY'\nprint('{MARK}')\nPY", False),
+    ("plain read", "cat docs/traps.md | head", False),
+]
+
+# `path_when` routes gate on the target path, which a Bash payload does not
+# carry in a `file_path` field. Until the target was derived from the redirect,
+# both card routes skipped before their content was examined and stayed silent
+# for the very authoring path this change added them to (fm #963 P1).
+CARD_PATH_CASES = [
+    ("card write via redirect", "cat > .sessions/2026-01-01-x.md <<'EOF'\nx\nEOF",
+     ".sessions/2026-01-01-x.md"),
+    ("card write, redirect after delimiter",
+     "cat <<'EOF' > .sessions/2026-01-01-x.md\nx\nEOF", ".sessions/2026-01-01-x.md"),
+    ("a read names no target", "grep -rn x .sessions/2026-01-01-x.md", None),
+]
+
+
+# Fired through the real hook, not through a helper. `card-status-write` gates
+# on `path_when`, so it exercises the whole chain: tool opt-in -> target-path
+# derivation -> authored_only() -> pattern match.
+E2E_CASES = [
+    ("card authored via redirect",
+     "cat > .sessions/2026-01-01-x.md <<'EOF'\n> **Status:** `complete`\nEOF", True),
+    ("read of a card names no target",
+     "grep -rn Status .sessions/2026-01-01-x.md", False),
 ]
 
 
@@ -156,11 +191,44 @@ def check_plumbing() -> list[str]:
             "authored_only() returned text for a command with no heredoc — a "
             "mention would fire the guard and spend it"
         )
-    for label, command, should_see in HEREDOC_VARIANTS:
+    for label, command, should_see in BASH_AUTHORING:
         seen = MARK in authored_only(command)
         if seen != should_see:
             want = "expose" if should_see else "stay silent on"
             bad.append(f"authored_only() must {want} the {label} form")
+
+    # END-TO-END, and it must be end-to-end. A first version of this check
+    # called bash_write_targets() directly and passed with the P1 wiring
+    # deleted — the helper was fine and the CALL SITE was the defect, which is
+    # this whole change's own failure shape repeating one level down. Run the
+    # hook as a subprocess with a real payload instead.
+    for label, command, must_fire in E2E_CASES:
+        event = json.dumps({
+            "session_id": f"selftest-{abs(hash(label)) % 10**8}",
+            "tool_name": "Bash",
+            "tool_input": {"command": command},
+        })
+        proc = subprocess.run(
+            [sys.executable, str(TABLE.parent / "route_docs.py")],
+            input=event, capture_output=True, text=True,
+        )
+        fired = bool(proc.stdout.strip())
+        if fired != must_fire:
+            bad.append(
+                f"end-to-end: {label} must {'fire' if must_fire else 'stay silent'} "
+                f"but did not (a route gating on path_when needs the redirect "
+                f"target derived from the command)"
+            )
+
+    from route_docs import bash_write_targets  # noqa: PLC0415
+    for label, command, expected in CARD_PATH_CASES:
+        got = bash_write_targets(command)
+        first = got[0] if got else None
+        if first != expected:
+            bad.append(
+                f"bash_write_targets() must yield {expected!r} for {label} "
+                f"so path_when can gate on it — got {got!r}"
+            )
     return bad
 
 
@@ -180,7 +248,7 @@ def main() -> int:
         if not fires(shallow, text):
             failures.append(f"{SHALLOW}: SHOULD FIRE but is silent — {label}: {text!r}")
 
-    plumbing_cases = len(CLAIM_ROUTES) * 3 + 2 + len(HEREDOC_VARIANTS)
+    plumbing_cases = len(CLAIM_ROUTES) * 3 + 2 + len(BASH_AUTHORING) + len(CARD_PATH_CASES) + len(E2E_CASES)
     total = (len(MUST_FIRE) + len(MUST_BE_SILENT) + len(SHALLOW_MUST_FIRE)
              + plumbing_cases)
     if failures:
