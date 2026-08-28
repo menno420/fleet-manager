@@ -41,7 +41,8 @@
       "id": "recording-a-wall",
       "tools": [
         "Edit",
-        "Write"
+        "Write",
+        "Bash"
       ],
       "when": [
         "·\\s*wall\\s*·",
@@ -55,7 +56,9 @@
       "docs": [
         "docs/CAPABILITIES.md"
       ],
-      "says": "STOP — you are about to write a limitation down. Two checks first, in this order. (1) DID THE OWNER SAY OTHERWISE? His statements about this estate are source truth, not a hypothesis your probe gets to overturn — a failed call means you used the wrong path, not that he was wrong. This exact failure is on the record: 2026-08-05 he wrote that the Interactions API 'works fully turn based and stored session history', a probe of the Vertex path returned RESOURCE_PROJECT_INVALID, and 'unavailable' went into the ledger anyway. It works, on the other surface, exactly as he said. (2) Has the estate already measured it? grep docs/providers/ and docs/conventions/ before recording anything. See THE DISCOVERY RULE step 0."
+      "says": "STOP — you are about to write a limitation down. Two checks first, in this order. (1) DID THE OWNER SAY OTHERWISE? His statements about this estate are source truth, not a hypothesis your probe gets to overturn — a failed call means you used the wrong path, not that he was wrong. This exact failure is on the record: 2026-08-05 he wrote that the Interactions API 'works fully turn based and stored session history', a probe of the Vertex path returned RESOURCE_PROJECT_INVALID, and 'unavailable' went into the ledger anyway. It works, on the other surface, exactly as he said. (2) Has the estate already measured it? grep docs/providers/ and docs/conventions/ before recording anything. See THE DISCOVERY RULE step 0.",
+      "authored_only": true,
+      "repeat": true
     },
     {
       "id": "discovery-probe",
@@ -951,7 +954,8 @@
       "id": "repo-disposition-2026-08-22",
       "tools": [
         "Edit",
-        "Write"
+        "Write",
+        "Bash"
       ],
       "when": [
         "\\barchiv(e|ed|ing)\\b",
@@ -967,7 +971,8 @@
         "docs/planning/2026-07-26-consolidation-program.md",
         "docs/ESTATE.md"
       ],
-      "says": "You are working the repo-disposition question (OD-18, owner 2026-08-22). His verbatim words and the three asks that are NOT directives are in docs/findings/2026-08-22-owner-direction.md. Two things that change the answer: archiving is REVERSIBLE and blocks writes only, so archive is a cheap undoable call and DELETE is the only one needing certainty; and the estate has TWO start-fresh precedents, not one — the 2026-08-21 game-community plan AND superbot-next, which reached 533/533 parity and still ended parked as a donor rather than a replacement. Read the pair, not the success story alone. Deliverable is a table with a reason per row."
+      "says": "You are working the repo-disposition question (OD-18, owner 2026-08-22). His verbatim words and the three asks that are NOT directives are in docs/findings/2026-08-22-owner-direction.md. Two things that change the answer: archiving is REVERSIBLE and blocks writes only, so archive is a cheap undoable call and DELETE is the only one needing certainty; and the estate has TWO start-fresh precedents, not one — the 2026-08-21 game-community plan AND superbot-next, which reached 533/533 parity and still ended parked as a donor rather than a replacement. Read the pair, not the success story alone. Deliverable is a table with a reason per row.",
+      "authored_only": true
     },
     {
       "id": "exit-code-after-a-pipe",
@@ -986,7 +991,8 @@
       "id": "stamping-a-measured-claim",
       "tools": [
         "Edit",
-        "Write"
+        "Write",
+        "Bash"
       ],
       "when": [
         "`?MEASURED`?\\b",
@@ -996,13 +1002,16 @@
       "docs": [
         "docs/traps.md"
       ],
-      "says": "TRAP-001 — you are stamping something MEASURED. One check: is your basis a **live surface**, or a document that describes one? A citation is not a measurement, and this estate's most recent failure was exactly that laundering — a session wrote 'measuring the live state instead' and then cited an audit doc, having already retracted a CORRECT finding on the strength of a code comment written two months earlier. The credential was in the environment the whole time: $GITHUB_PAT over direct egress for GitHub, $RAILWAY_API_KEY against backboard.railway.com/graphql/v2 for anything deployed. If you truly cannot read the live surface, the sentence must say so: 'per <doc> dated <date>, not re-verified.' MAP.md's own closing rule — the live surface wins over any document here — did not prevent three instances in one conversation. Register: docs/traps.md TRAP-001."
+      "says": "TRAP-001 — you are stamping something MEASURED. One check: is your basis a **live surface**, or a document that describes one? A citation is not a measurement, and this estate's most recent failure was exactly that laundering — a session wrote 'measuring the live state instead' and then cited an audit doc, having already retracted a CORRECT finding on the strength of a code comment written two months earlier. The credential was in the environment the whole time: $GITHUB_PAT over direct egress for GitHub, $RAILWAY_API_KEY against backboard.railway.com/graphql/v2 for anything deployed. If you truly cannot read the live surface, the sentence must say so: 'per <doc> dated <date>, not re-verified.' MAP.md's own closing rule — the live surface wins over any document here — did not prevent three instances in one conversation. Register: docs/traps.md TRAP-001.",
+      "authored_only": true,
+      "repeat": true
     },
     {
       "id": "absence-claim",
       "tools": [
         "Edit",
-        "Write"
+        "Write",
+        "Bash"
       ],
       "when": [
         "\\bno (hits|results|matches|consumers|references|dependents)\\b",
@@ -1014,13 +1023,16 @@
       "docs": [
         "docs/traps.md"
       ],
-      "says": "TRAP-003 — you are about to record that something is NOT there. An empty result proves your QUERY RAN; it does not prove the world is empty. Run the positive control FIRST: make the same query, in the same form, find something you know IS present. If it can't, the query is broken, not the world. MEASURED 2026-08-23: a 26-repo index sweep using `path:README.md` with no search term returned 0 for EVERY repo including fleet-manager — it measured nothing, and was caught only because a known-good repo also came back empty. Same day, spider-swing was recorded as having 'no next-step line anywhere in 662 lines' from a heading regex; reading the file found it at lines 512-514, in prose. For a 'not in file F' claim, OPEN F — a keyword search is not a read. Register: docs/traps.md TRAP-003."
+      "says": "TRAP-003 — you are about to record that something is NOT there. An empty result proves your QUERY RAN; it does not prove the world is empty. Run the positive control FIRST: make the same query, in the same form, find something you know IS present. If it can't, the query is broken, not the world. MEASURED 2026-08-23: a 26-repo index sweep using `path:README.md` with no search term returned 0 for EVERY repo including fleet-manager — it measured nothing, and was caught only because a known-good repo also came back empty. Same day, spider-swing was recorded as having 'no next-step line anywhere in 662 lines' from a heading regex; reading the file found it at lines 512-514, in prose. For a 'not in file F' claim, OPEN F — a keyword search is not a read. Register: docs/traps.md TRAP-003.",
+      "authored_only": true,
+      "repeat": true
     },
     {
       "id": "claim-beyond-the-sample",
       "tools": [
         "Edit",
-        "Write"
+        "Write",
+        "Bash"
       ],
       "when": [
         "\\bonly \\d+ of \\d+\\b",
@@ -1033,7 +1045,9 @@
       "docs": [
         "docs/traps.md"
       ],
-      "says": "STOP — you are about to write a COUNT or a UNIVERSAL over a population. State N MEASURED of M TOTAL and name what the unmeasured remainder is. TRAP-004, and it fired four times on 2026-08-26 in one session, twice inside the very document warning about it: a kit-version census taken from TEN repos was published over all of them and contradicted by the estate's own records (five live versions across 16 adopters, not three); a commit count taken from a SHALLOW container clone (52 here, 966 on main) was written as the repository's history; 'all 51 notifications were replays' described a set by its majority when four were new; and a card count was reported as a session count when one session can land two cards. THE COUNT-ONLY FORM IS THE ONE THAT KEEPS GETTING THROUGH — 'X cards', 'Y commits' with no ratio and no qualifier reads as a census and is usually a sample. Two checks before you write it: (1) did you enumerate the WHOLE population, or the first page / the default depth / the ten you sampled? (2) does a record already in this tree contradict it? Re-measuring the full set is nearly always cheaper than the argument about whether the sample generalises — the ten-repo shortcut above cost a round of review to undo, and the full sweep took two minutes."
+      "says": "STOP — you are about to write a COUNT or a UNIVERSAL over a population. State N MEASURED of M TOTAL and name what the unmeasured remainder is. TRAP-004, and it fired four times on 2026-08-26 in one session, twice inside the very document warning about it: a kit-version census taken from TEN repos was published over all of them and contradicted by the estate's own records (five live versions across 16 adopters, not three); a commit count taken from a SHALLOW container clone (52 here, 966 on main) was written as the repository's history; 'all 51 notifications were replays' described a set by its majority when four were new; and a card count was reported as a session count when one session can land two cards. THE COUNT-ONLY FORM IS THE ONE THAT KEEPS GETTING THROUGH — 'X cards', 'Y commits' with no ratio and no qualifier reads as a census and is usually a sample. Two checks before you write it: (1) did you enumerate the WHOLE population, or the first page / the default depth / the ten you sampled? (2) does a record already in this tree contradict it? Re-measuring the full set is nearly always cheaper than the argument about whether the sample generalises — the ten-repo shortcut above cost a round of review to undo, and the full sweep took two minutes.",
+      "authored_only": true,
+      "repeat": true
     },
     {
       "id": "card-flip-before-push",
@@ -1055,7 +1069,8 @@
       "tools": [
         "Edit",
         "Write",
-        "MultiEdit"
+        "MultiEdit",
+        "Bash"
       ],
       "when": [
         "Status:\\**\\s*`?complete`?"
@@ -1067,14 +1082,16 @@
       "code_only": false,
       "path_when": [
         "(^|/)\\.sessions/[^/]*\\.md$"
-      ]
+      ],
+      "authored_only": true
     },
     {
       "id": "card-status-write",
       "tools": [
         "Edit",
         "Write",
-        "MultiEdit"
+        "MultiEdit",
+        "Bash"
       ],
       "when": [
         "\\.sessions/.*\\.md"
@@ -1085,7 +1102,8 @@
       "says": "TRAP-006 (card lifecycle) — a session card's Status is a merge control, not paperwork. Commit it `in-progress` as the FIRST commit and push it red; flip to `complete` as the deliberate LAST commit, after review has answered. A card that reaches the remote already complete opens the PR green and it auto-merges unreviewed (fm #915: 37 seconds, 0 reviews). If a review is outstanding, apply do-not-automerge BEFORE PUSHING THE COMPLETED CARD — the push, not the request, is the merge-eligibility event. Register: docs/traps.md TRAP-006 + TRAP-007. ALSO TRAP-007 (the neighbour this route did not name): the other losing flip is flipping to complete while a review you REQUESTED is still unanswered. The lander sees card=complete + gate=green and cannot see a pending re-review, so it merges the head it has and later findings land against a PR that no longer exists. MEASURED 2026-08-23 fm #937: merged at 775f1c8; the round-2 commits 4a80bf6/4ea3962 reached main in neither, so main carried five known-wrong statements. Before flipping, confirm the verdict exists AT THE CURRENT HEAD on BOTH surfaces (/pulls/{n}/reviews AND /issues/{n}/comments — a clean pass creates no review object). If you re-request after flipping, apply do-not-automerge BEFORE pushing the request.",
       "path_when": [
         "(^|/)\\.sessions/[^/]*\\.md$"
-      ]
+      ],
+      "authored_only": true
     },
     {
       "id": "codex-verdict-poll",
@@ -1136,7 +1154,8 @@
       "id": "session-card-venue",
       "tools": [
         "Write",
-        "Edit"
+        "Edit",
+        "Bash"
       ],
       "when": [
         "📊\\s*Model:",
@@ -1145,7 +1164,12 @@
       "docs": [
         "docs/activity/README.md"
       ],
-      "says": "You are writing a session card. Add the venue line directly under the 📊 Model: line — `- **📍 Venue:** <token>` — from the closed set: local-desktop · local-cli · cloud-container · codex-cloud · chatgpt-work · other. The Model line answers WHO ran the session; nothing answered WHERE until 2026-08-26, and MEASURED that day: 0 of 418 dated cards in this repo carried it (the directory README is not a card), so a session reading another session's card could not tell laptop work from container work — which is exactly the question the owner asked. It is a separate line, never a fourth Model segment: that line has a kit-validated three-segment taxonomy (model · effort · task-class) and a local convention does not belong inside a gated grammar. OMIT IT RATHER THAN GUESS — the generator reports an absent line as `unstated` and prints the coverage count, so an honest null stays visible and a wrong venue does not. And if this session did anything that produced NO COMMIT ANYWHERE (a laptop change, a ChatGPT or Gemini sitting, a Drive reorganisation, an install), that is the one thing nothing can derive: log it with `python3 tools/estate_activity.py log --venue <token> --title \"...\"`. Full design: docs/activity/README.md."
+      "says": "You are writing a session card. Add the venue line directly under the 📊 Model: line — `- **📍 Venue:** <token>` — from the closed set: local-desktop · local-cli · cloud-container · codex-cloud · chatgpt-work · other. The Model line answers WHO ran the session; nothing answered WHERE until 2026-08-26, and MEASURED that day: 0 of 418 dated cards in this repo carried it (the directory README is not a card), so a session reading another session's card could not tell laptop work from container work — which is exactly the question the owner asked. It is a separate line, never a fourth Model segment: that line has a kit-validated three-segment taxonomy (model · effort · task-class) and a local convention does not belong inside a gated grammar. OMIT IT RATHER THAN GUESS — the generator reports an absent line as `unstated` and prints the coverage count, so an honest null stays visible and a wrong venue does not. And if this session did anything that produced NO COMMIT ANYWHERE (a laptop change, a ChatGPT or Gemini sitting, a Drive reorganisation, an install), that is the one thing nothing can derive: log it with `python3 tools/estate_activity.py log --venue <token> --title \"...\"`. Full design: docs/activity/README.md.",
+      "authored_only": true,
+      "path_when": [
+        "(^|/)\\.sessions/[^/]*\\.md$"
+      ],
+      "_why_path_when": "Gated on the card path like its neighbours, using their EXACT shape. A looser `\\.sessions/.*\\.md` matched `.sessions/x.md.bak`, which fires and spends this fire-once route so the real card write gets no venue reminder (@codex, fm #963 R6)."
     },
     {
       "id": "cross-session-visibility",

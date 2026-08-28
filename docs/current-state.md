@@ -243,6 +243,47 @@ copy product architecture or internal product state. Canonical intent:
   and has never carried its **trigger condition**, which is the same *unrouted*
   class the OD-24 round is cataloguing. `500k` is **not** fixed as doctrine.
   Record: [`findings/2026-08-28-context-budget-and-orientation-cost.md`](findings/2026-08-28-context-budget-and-orientation-cost.md).
+- **The skill/rule reuse map is measured, and the container — not the material —
+  is the problem (2026-08-28).** Owner ask: *"find out exactly what we already
+  have that is good skill material and … what previous sessions struggled
+  with."* A 79-agent fan-out read 1,002 of the estate's 3,836 session cards.
+  **The spine is the delivery-mechanism ranking**, one corpus: gate-enforced
+  **95–97 %** of 3,836 cards, and a template-carried ritual is completely
+  countable (**598/969**) because its text is written by construction. **There is no
+  COMPLETE skill-invocation telemetry** — 46 recorded invocations exist and are
+  observable, but no exhaustive count does — so an earlier quantified ranking
+  of the three is **withdrawn** (`@codex` R4/R5). **Idea consumption was published wrong twice and is now
+  bounded** — a "10 : 1 ratio" (denominator never established) and then "four
+  repos at zero, one is `idea-engine`" (a directory-name mismatch: it holds
+  **566** idea files in `ideas/` — the same figure OD-4 has carried
+  independently — and `sim-lab` **268** verdict directories in `sims/`, making
+  them the estate's **best** converters, not its worst). Corrected reading:
+  **wide variance, not uniform failure** — purpose-built conveyors convert near
+  1 : 1 while `fleet-manager`, the hub, sits at **0.04** (433 cards, 18 idea
+  files).
+  OD-21's diagnosis is supported by the citation evidence in the record, **not** by
+  a conveyor count. **Why skills are the wrong container:** on one corpus,
+  gate-enforced **95–97 %** of 3,836 cards and template-carried **598/969**,
+  both completely countable; **skill use is unobservable in this estate**, so
+  the earlier three-way ranking is withdrawn and the surviving argument is that
+  a mechanism leaving no record cannot be shown to work even when it does. **And the kit cannot deliver a skill anyway** — it
+  stages and never installs (`SKILLS-index.md.tmpl:30-40`, *"nothing live"*);
+  **4 of 19** repos have a populated `.claude/skills/`. **0 of 27 fm skills
+  reference the guard layer and 0 of 71 routes point at the four rule
+  surfaces.** **Reframed against OD-26**: this is **stage-one mapping input**, one of the
+  three parallel ultracode mapping sessions he named (§ 13: *mapping → revised
+  plan → execution*), so its four moves are **candidate inputs, not a
+  sequence** — the pre-sequencing it first carried was withdrawn. Re-scored
+  against his two criteria (§ 20 *does it stop re-derivation?* · § 4 *does it
+  make a session leave the repo better?*), **the ranking inverts**: routing the
+  rulebook was cheapest and is weakest on re-derivation; *consume the cards* is the only
+  move scoring directly on both — **and it is the estate's own Move 1 in another
+  shape, which OD-26 § 7 holds** (*"no adjacent mechanism may be built that is
+  Move 1 in another shape; the hold is on the function"*). The record scored it
+  highest and recommended it hardest while it was already held; it is now marked
+  DO-NOT-BUILD and retained as evidence *for* the held function. The moves are
+  lettered A–D to stop colliding with the estate's Move 1. Nothing is executed. Record:
+  [`findings/2026-08-28-skill-and-rule-reuse-map.md`](findings/2026-08-28-skill-and-rule-reuse-map.md).
 
 ### Live operating mechanisms
 

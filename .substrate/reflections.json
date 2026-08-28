@@ -1,0 +1,52 @@
+[
+  {
+    "id": "R-0007",
+    "lesson": "Recurring attention on docs/NEXT-TASKS.md",
+    "evidence": "2026-08-28-substrate-kit-od24-session2.md:L17, 2026-08-28-substrate-kit-od24-session3.md:L75",
+    "tags": [
+      "recurring-path"
+    ],
+    "status": "provisional",
+    "date": "2026-08-28"
+  },
+  {
+    "id": "R-0008",
+    "lesson": "Recurring attention on docs/current-state.md",
+    "evidence": "2026-08-28-repo-orientation.md:L91, 2026-08-28-substrate-kit-od24-session3.md:L72",
+    "tags": [
+      "recurring-path"
+    ],
+    "status": "provisional",
+    "date": "2026-08-28"
+  },
+  {
+    "id": "R-0009",
+    "lesson": "Recurring attention on docs/repos/substrate-kit/README.md",
+    "evidence": "2026-08-28-od24-round-open-questions-agenda.md:L134, 2026-08-28-substrate-kit-od24-session2.md:L102, 2026-08-28-substrate-kit-od24-session3.md:L135",
+    "tags": [
+      "recurring-path"
+    ],
+    "status": "provisional",
+    "date": "2026-08-28"
+  },
+  {
+    "id": "R-0010",
+    "lesson": "Recurring attention on scripts/preflight.py",
+    "evidence": "2026-08-28-substrate-kit-od24-session2.md:L65, 2026-08-28-substrate-kit-od24-session3.md:L101",
+    "tags": [
+      "recurring-path"
+    ],
+    "status": "provisional",
+    "date": "2026-08-28"
+  },
+  {
+    "id": "R-0011",
+    "lesson": "Recurring attention on .sessions/2026-08-28-repo-orientation.md",
+    "evidence": "2026-08-28-claim-guards-reach-bash-authoring.md:L214, 2026-08-28-repo-orientation.md:L136",
+    "tags": [
+      "recurring-path"
+    ],
+    "status": "provisional",
+    "date": "2026-08-28"
+  }
+]
