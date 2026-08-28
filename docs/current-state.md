@@ -205,13 +205,17 @@ copy product architecture or internal product state. Canonical intent:
   is the problem (2026-08-28).** Owner ask: *"find out exactly what we already
   have that is good skill material and … what previous sessions struggled
   with."* A 79-agent fan-out read 1,002 of the estate's 3,836 session cards.
-  **The spine:** sessions write an idea on **95 % of 3,836 cards** (35 of 40
-  sampled carry a substantive one) and **357** files sit in the kit's idea
-  conveyors, `superbot` holding **256** of them as the control condition from
-  the era the loop worked. **A "10 : 1 write-to-land ratio" was published and is
-  withdrawn** — `docs/ideas/` is *a* destination, not *the* destination (an idea
-  can also land as a trap, a route, an `OQ-` ask or a finding), so the landed
-  side is undercounted and no lossage ratio is supportable.
+  **The spine is the delivery-mechanism ranking**, one corpus: gate-enforced
+  **95–97 %** of 3,836 cards · card-template **598/969** · best skill invocation
+  **46/969** · `/groom-ideas` **0/969** against **82** for the same ritual
+  template-carried. **Idea consumption was published wrong twice and is now
+  bounded** — a "10 : 1 ratio" (denominator never established) and then "four
+  repos at zero, one is `idea-engine`" (a directory-name mismatch: it holds
+  **580** idea files in `ideas/`, and `sim-lab` **551** verdicts in `sims/`,
+  making them the estate's **best** converters, not its worst). Corrected
+  reading: **wide variance, not uniform failure** — purpose-built conveyors
+  convert above 1 : 1 while `fleet-manager`, the hub, sits at **0.05** (433
+  cards, 22 idea artifacts).
   **`idea-engine` has 503 cards, 503 ideas and zero in its conveyor.** So the
   estate produces reusable knowledge reliably and never reads it back — OD-21's
   diagnosis, measured. **Why skills are the wrong container:** on one corpus,

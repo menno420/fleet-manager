@@ -26,30 +26,22 @@
 
 ## 0 · The answer in one paragraph
 
-The estate has **excellent** reusable material and has been putting almost all
-of it into the one container that does not deliver. `MEASURED`: sessions write
-an idea on **95 % of 3,836 session cards** (sampled: 35 of 40 random cards
-carry a substantive 💡, not a bare heading), and **357** files sit in the
-repositories' idea conveyors. **Four repositories have zero — and one of them
-is `idea-engine`.**
+The estate has **excellent** reusable material, and the question of *which
+container it goes into* decides whether it is ever used again. `MEASURED` on one
+corpus: the artifact **gated by `check --strict`** (the session card) holds at
+**95–97 % across 3,836 cards**; the same procedure **embedded in the card
+template** ran **598 of 969** times; the same procedure **written as a skill**
+ran **46 of 969** at best and **0 of 969** for `/groom-ideas` — whose ritual,
+carried by the template instead, ran **82** times in the same repository. That
+ranking is the finding everything else hangs off, and it is why the plan in § 6
+does not consist of writing more skills. Separately and more prosaically:
+**substrate-kit cannot deliver a skill at all** — it stages them and never
+installs, so promoting one into the kit reaches nobody.
 
-**A ratio was published here and is withdrawn.** An earlier version of this
-record called that a "10 : 1 write-to-land ratio". It is not one: `docs/ideas/`
-is *a* destination, not *the* destination. In fleet-manager alone an idea can
-land as a **trap entry (7)**, a **route (71)**, an **`OQ-` owner ask (118)** or
-a **finding (65)** — surfaces this very session used. The landed side is
-therefore undercounted by an unknown amount and no lossage ratio is supportable
-from what was measured. **What is supportable is a statement about the
-conveyor**, which is the destination the kit plants for exactly this purpose:
-357 files estate-wide, four active repositories at zero.
-
-Meanwhile the artifact that *is* gated by `check --strict` — the session card
-itself — holds at **95–97 % conformance across all 3,836 cards**.
-The estate is not failing to *produce* reusable knowledge. It produces it
-reliably, on nearly every card, and then never reads it back. **So the plan is
-not "write more skills". It is "consume what the cards already contain", and
-the mechanism has to be one that fires, because the same corpus shows that
-anything not attached to a gate decays to near zero.**
+**On idea consumption, this record twice published a wrong answer and now
+publishes a bounded one.** See § 2: the corrected measurement shows **wide
+variance, not uniform failure**, and the two repositories built as idea engines
+convert at better than 1 : 1.
 
 ## 1 · The delivery-mechanism ranking — the finding everything else hangs off
 
@@ -84,66 +76,71 @@ two orders weaker than a gate.
 **Convergent with the genesis dig's "the door, not the notebook", measured
 independently and at a different scale.**
 
-## 2 · The dominant struggle — the estate writes knowledge and never reads it back
+## 2 · Idea consumption — corrected twice, and the corrected reading is different
 
-This is what the nine card-mining agents converged on from repositories that
-share no code and no sessions.
+**This section was wrong twice and the errors are recorded rather than edited
+away, because the method failure is more reusable than the number.**
 
-`MEASURED` by the directing session across every repo with a card protocol:
+**Version 1** claimed a *"10 : 1 write-to-land ratio"* — 3,668 ideas written
+against 357 landed. Withdrawn: `docs/ideas/` is *a* destination, not *the*
+destination. An idea can equally land as a trap entry, a route, an `OQ-` ask or
+a finding.
 
-| repo | cards | carrying a 💡 idea | ideas in the conveyor |
-|---|--:|--:|--:|
-| `superbot` | 969 | 803 | **256** |
-| `substrate-kit` | 343 | 343 | 50 |
-| `fleet-manager` | 433 | 432 | 18 |
-| `spider-swing` | 142 | 142 | 8 |
-| `superbot-next` | 334 | 333 | 7 |
-| `venture-lab` | 228 | 228 | 6 |
-| `websites` | 302 | 302 | 6 |
-| `gba-homebrew` · `pokemon-mod-lab` · `couch-legend` | 228 | 228 | 6 |
-| **`idea-engine`** | **503** | **503** | **0** |
-| `sim-lab` | 259 | 259 | **0** |
-| `product-forge` | 35 | 35 | **0** |
-| `shiftlife` | 60 | 60 | **0** |
-| **total** | **3,836** | **3,668 (95 %)** | **357** |
+**Version 2** retreated to *"four repositories have zero, and one is
+`idea-engine`"*. **Also wrong, and worse** — the zeros were an artifact of
+counting one directory name in repositories that keep ideas elsewhere.
 
-**Read the third column as "reached the kit's conveyor", never as "survived".**
-Other destinations exist and are not counted here (§ 0).
+**The corrected measurement**, each repository against **its own** idea store:
 
-**`idea-engine` — the repository whose entire purpose is ideas — has 503 cards
-each carrying an idea and zero files in its conveyor.** Its zero is the
-strongest cell in the table precisely because it needs no ratio to interpret.
+| repo | cards | idea artifacts | store | ratio |
+|---|--:|--:|---|--:|
+| `idea-engine` | 503 | **580** | `ideas/` | **1.15** |
+| `sim-lab` | 259 | **551** | `sims/` (verdicts) | **2.13** |
+| `superbot` | 969 | 257 | `docs/ideas/` | 0.27 |
+| `substrate-kit` | 343 | 50 | `docs/ideas/` | 0.15 |
+| `spider-swing` | 142 | 8 | `docs/ideas/` | 0.06 |
+| `fleet-manager` | 433 | 22 | `docs/ideas/` + `projects/ideas-lab/` | **0.05** |
+| `couch-legend` | 7 | 2 | `docs/ideas/` | 0.29 |
+| `superbot-next` | 334 | 7 | `docs/ideas/` | 0.02 |
+| `venture-lab` | 228 | 6 | `docs/ideas/` | 0.03 |
+| `websites` | 302 | 6 | `docs/ideas/` | 0.02 |
+| `gba-homebrew` | 151 | 2 | `docs/ideas/` | 0.01 |
+| `pokemon-mod-lab` | 70 | 2 | `docs/ideas/` | 0.03 |
+| `product-forge` | 35 | 0 | `docs/ideas/` empty | 0 |
+| `shiftlife` | 60 | 0 | `docs/ideas/` empty | 0 |
 
-`docs/ideas/README.md` states the contract these numbers are measured against:
-*"Capture ideas here so they live in the repo, not in chat … A **conveyor, not
-a graveyard**: every idea ends implemented, on a roadmap, in discussion, or
-explicitly rejected."*
+**What this actually shows — and it is not what versions 1 and 2 said.** The
+**two repositories built as idea and verification engines convert at better than
+1 : 1**: `idea-engine` holds 580 idea files across per-repository folders, and
+`sim-lab` holds 551 verdict artifacts, which *are* its output form. They are the
+estate's **best** performers, and this record twice named them as its worst.
 
-**superbot is the control condition** — 803 ideas written, **256** conveyor
-files, by far the closest of any repository, and the era the genesis dig
-identifies as the practice working. Every post-close repo is far below it, four
-at zero. Stated as a comparison between repositories on one consistent measure,
-which is what the data supports; not as a survival rate.
+The gap is between **purpose-built conveyors and everything else**. `superbot`
+at 0.27 is the best of the rest — again the era the genesis dig identifies as the
+practice working. **`fleet-manager`, the hub that writes the most process
+knowledge in the estate, sits at 0.05**: 433 cards, 22 idea artifacts.
 
-`REVIEWED` — the same shape, found independently by four mining agents in four
-repositories, each with its own citations:
-- **fleet-manager** — a session's 💡 / guard-recipe / ⚑ observation gets no
-  routed destination and is re-noticed later; 8 distinct cards, 2026-07-11 →
-  2026-08-28.
+**Bound, stated because two versions of this section lacked one:** a card's 💡 is
+one field and an idea artifact is one file; they are not the same unit, and a
+ratio between them measures *relative* conveyor use across repositories, not
+survival. Nothing here establishes that any specific idea was lost. What it
+supports is a **comparison between repositories on one consistent measure**.
+
+**The independent evidence for re-derivation is qualitative and unaffected by
+any of this.** Four mining agents found the same shape in four repositories,
+each with card citations rather than counts:
+- **fleet-manager** — a 💡 / guard-recipe / ⚑ observation gets no routed
+  destination and is re-noticed later; 8 distinct cards, 2026-07-11 → 2026-08-28.
 - **sim-lab** — an unbroken chain V047 → V048 → V049, each independently
-  proposing a tooling fix that was never routed; separately, the same
-  statistical-power defect re-registered across at least 5 sessions.
-- **idea-engine** — a seed-sweep recipe re-derived by hand across 8 consecutive
-  cards; a rotation-slot position across 9.
-- **substrate-kit** — the instrument fired and the session did not see it: the
+  proposing a tooling fix that was never routed; separately the same
+  statistical-power defect re-registered across at least 5 sessions. *(Note the
+  tension with sim-lab's 2.13 above: a repo can convert ideas into its own
+  product and still lose process observations. The two measure different things.)*
+- **idea-engine** — a seed-sweep recipe re-derived across 8 consecutive cards.
+- **substrate-kit** — the instrument fired and the session did not see it; the
   advisory channel measured at ~1 : 9 signal-to-noise.
 
-**This is OD-21 measured.** The owner's diagnosis was *"each agent working in
-any repo should contribute to ideas and journals and helping to improve the repo
-for the next agent. If this had been done consistently and properly then most of
-what I needed to intervene for would have resolved itself much faster."* The
-contribution half is happening at 95 %. The consumption half is not happening at
-all.
+**OD-21's diagnosis is supported by that citation evidence, not by this table.**
 
 ## 3 · What we actually have that is good material
 
@@ -285,6 +282,19 @@ from a list of attractive material elsewhere.
 - *"Skills are never invoked by name"* — false; 10 of superbot's 14 are.
 - *"3 of 12 repos have a populated `.claude/skills/`"* — the subagent's
   denominator; the measured figure over all 19 is **4 of 19**.
+
+**Section 2 was wrong twice, and the second error was worse than the first.**
+Version 1 published a lossage ratio whose denominator was never established.
+Version 2, correcting it, retreated to "four repos have zero, one is
+`idea-engine`" — and that zero was a **directory-name mismatch in the one
+repository guaranteed to keep ideas somewhere else**. `idea-engine` holds 580
+idea files in `ideas/`; `sim-lab` holds 551 verdict artifacts in `sims/`. Both
+were named as the estate's worst performers when they are its best. **The
+correction and the original error were the same mistake — measuring a proxy and
+reporting it as the thing — made twice, twenty minutes apart, the second time
+while explicitly correcting the first.** Anyone re-running this: enumerate each
+repository's own store before comparing, and treat a zero as a question about
+your query before it is a finding about the repo (TRAP-003).
 
 **The withdrawn ratio, recorded as a method failure and not just an edit.** The
 first version of this record led with a 10 : 1 write-to-land ratio built on the
