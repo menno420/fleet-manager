@@ -1,7 +1,12 @@
 # 2026-08-28 — the claim guards could not see Bash-authored documents; and the estate-wide skill/rule reuse map
 
-> **Status:** `in-progress` — born red; flips only as the last commit, after a
-> review answers at the head that carries the repeat cap and the tests.
+> **Status:** `complete` — landed after five `@codex` rounds (4 + 6 + 6 + 11 + 5
+> = **32 findings, all `[conceded]`, 0 `[survived]`**).
+> **Flip exemption, declared:** R6 reviewed head `49610d8`; after it come only
+> the five fixes R6 itself asked for, each named in the table above, plus this
+> flip. No hook logic changed after its review except finding 5's venue-gate
+> pattern, which is R6's own requested fix and is byte-identical to the
+> neighbouring route it was told to match.
 
 - **📊 Model:** opus-5 · high · docs-only
 - **📍 Venue:** cloud-container
@@ -90,18 +95,28 @@ all 19 non-archived repositories, cloned to disk: ten seam readers, nine card
 miners, then adversarial verification. **1,002 cards opened** of 3,836.
 Record: [`docs/findings/2026-08-28-skill-and-rule-reuse-map.md`](../docs/findings/2026-08-28-skill-and-rule-reuse-map.md).
 
-**The spine, re-measured by this session rather than relayed:** sessions write
-an idea on **95 % of 3,836 cards**; **357** reach the conveyors. **10 : 1**,
-and **28 : 1** excluding `superbot`, whose **3.1 : 1** is the control condition.
-`idea-engine` — the ideas repository — has **503 cards, 503 ideas, zero in its
-conveyor**. The estate produces reusable knowledge reliably and never reads it
-back, which is OD-21's diagnosis with numbers under it.
+**The spine, and every number in the first version of this paragraph was later
+withdrawn.** It read: *95 % of 3,836 cards write an idea; 357 reach the
+conveyors; 10 : 1, and 28 : 1 excluding superbot; `idea-engine` has 503 cards,
+503 ideas and zero in its conveyor; the estate never reads it back.* **The
+ratios had no established denominator, the 95 % counted a marker rather than an
+idea, and the `idea-engine` zero was a directory-name mismatch — it holds 566
+idea files.** Corrected reading: **wide variance, not uniform failure**;
+purpose-built conveyors run near 1 : 1 while `fleet-manager` sits at 0.04. What
+supports OD-21's diagnosis is the **citation evidence** — four re-derivation
+chains in four repositories — never a conveyor count. Full record and the
+method failure: [the reuse map](../docs/findings/2026-08-28-skill-and-rule-reuse-map.md)
+§ 2 and § 7.
 
 **Why the container is the whole question:** gate-enforced **95–97 %** ·
-card-template **598/969** — both countable. **Skill invocation is not
-measurable at all**, so the three-way ranking first published here is withdrawn
-(`@codex` R4): a template writes its text by construction, a skill need not, and
-46 is a floor with no ceiling.
+card-template **598/969** — both countable. **There is no COMPLETE
+skill-invocation telemetry** — 46 recorded invocations exist and are
+observable, but no exhaustive count does — so the three-way ranking first
+published here is withdrawn (`@codex` R4/R5): a template writes its text by
+construction, a skill need not, and 46 is a floor with no ceiling. *(This
+paragraph said "not measurable at all" until R6; the narrowing had been applied
+in the reference document and not in this card — the fix-the-source,
+leave-the-copies defect, in the very card that records it.)*
 
 **Three subagent headlines were corrected before use** — the "41 sessions over
 five weeks" span is two days of filename dates; "skills are never invoked" is
@@ -342,6 +357,25 @@ different mechanism with its own blast radius, it is not this PR's to take, and
 **it has no precedent in this repo** — `change_guard.py`'s `PostToolUse` half is
 registered for `Edit|MultiEdit` only and works by grepping a replaced string,
 not by inspecting disk (checked, after citing it wrongly once).
+
+**`@codex` R6 at head `49610d8` — 5 findings, all P2, all `[conceded]` and fixed.**
+
+| # | finding | disposition |
+|---|---|---|
+| 1 | `superbot` prose said 0.27; 256/969 = 0.2642, which rounds to 0.26 at the table's precision | fixed — the table and prose now agree |
+| 2 | **This card's own summary still carried every withdrawn number** — the 10 : 1 and 28 : 1 ratios, the 3.1 : 1, and the `idea-engine` zero — presented as the report's spine | fixed — the paragraph now quotes them as withdrawn and gives the corrected reading |
+| 3 | The "cannot be observed at all" narrowing had been applied **only in § 1** of the reference document; the findings index, `current-state.md`, this card and **§ 0 of the same document** still overstated | fixed on all four, then swept programmatically rather than by eye — **0 live assertions remain** |
+| 4 | `.substrate/reflections.json` carried `sessions/2026-08-28-repo-orientation.md` without the leading dot, and that field is injected verbatim into orientation — a pointer to a path that does not exist | fixed; the corrected path resolves |
+| 5 | The venue gate I added in R4 was looser than its neighbours (no `(^|/)` boundary, no `.md$`), so `.sessions/x.md.bak` would fire and spend the fire-once route | fixed — now byte-identical to `card-flip-to-complete`'s pattern |
+
+**Findings 2 and 3 are the same defect, and it is the one this repo names as its
+most-repeated: fix the source, leave the copies.** It has now occurred five
+times in this PR — and finding 3's instance is the sharpest, because the
+narrowing was missing from **§ 0 of the very document whose § 1 performs it**.
+The lasting fix applied here is not another manual pass: the final sweep was a
+script that lists every withdrawn claim, scans every surface, and flags a hit
+only when no withdrawal marker sits near it. Doing that by eye had already
+missed two instances twice.
 
 ## 💡 Session idea
 

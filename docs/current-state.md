@@ -249,10 +249,10 @@ copy product architecture or internal product state. Canonical intent:
   with."* A 79-agent fan-out read 1,002 of the estate's 3,836 session cards.
   **The spine is the delivery-mechanism ranking**, one corpus: gate-enforced
   **95–97 %** of 3,836 cards, and a template-carried ritual is completely
-  countable (**598/969**) because its text is written by construction. **Skill
-  invocation is not measurable at all** — no trace is required and none is kept
-  — so an earlier quantified ranking of the three is **withdrawn** (`@codex`
-  R4). **Idea consumption was published wrong twice and is now
+  countable (**598/969**) because its text is written by construction. **There is no
+  COMPLETE skill-invocation telemetry** — 46 recorded invocations exist and are
+  observable, but no exhaustive count does — so an earlier quantified ranking
+  of the three is **withdrawn** (`@codex` R4/R5). **Idea consumption was published wrong twice and is now
   bounded** — a "10 : 1 ratio" (denominator never established) and then "four
   repos at zero, one is `idea-engine`" (a directory-name mismatch: it holds
   **566** idea files in `ideas/` — the same figure OD-4 has carried

@@ -39,8 +39,9 @@ The estate has **excellent** reusable material, and the question of *which
 container it goes into* decides whether it is ever used again. `MEASURED`: the artifact **gated by `check --strict`** holds at **95–97 %
 across 3,836 cards**, and a **template-carried ritual** is completely countable
 because its text is written by construction (`Session idea (Q-0089)` in **598 of
-969**). **Skill invocation is not measurable at all** — no trace is required and
-none is kept — so an earlier quantified ranking of the three was withdrawn (§ 1).
+969**). **There is no COMPLETE skill-invocation telemetry** — 46 recorded invocations
+exist and are observable, but no exhaustive count does — so an earlier
+quantified ranking of the three was withdrawn (§ 1).
 The surviving argument is stronger for not needing the numbers: prefer
 mechanisms whose use leaves a record, because one that leaves none cannot be
 shown to work even when it does. Separately and more prosaically:
@@ -67,7 +68,7 @@ showed the comparison is invalid, and it is right: the mechanisms have
   ceiling**: the true number could be anything from 46 to 969.
 
 Ranking a complete count against an unbounded floor produces a number that
-looks like a measurement and is not one. **The estate has no skill-invocation
+looks like a measurement and is not one. **The estate has no COMPLETE skill-invocation
 telemetry**, so the earlier claims — "an order of magnitude weaker", "the 0–3 %
 tier" — were unsupportable and are removed.
 
@@ -143,7 +144,7 @@ from another source is the closest thing to corroboration available here.
 estate's **best** performers, and this record twice named them as its worst.
 
 The gap is between **purpose-built conveyors and everything else**. `superbot`
-at 0.27 is the best of the rest — again the era the genesis dig identifies as the
+at 0.26 is the best of the rest — again the era the genesis dig identifies as the
 practice working. **`fleet-manager`, the hub that writes the most process
 knowledge in the estate, sits at 0.04**: 433 cards, 18 idea files.
 
@@ -325,7 +326,7 @@ plan.**
 
 **What NOT to do, on the evidence:** do not write new skills as the primary
 vehicle. The estate has 57 skill files across four repositories and a measured
-invocation rate near zero, a distribution mechanism that terminates one manual
+no exhaustive invocation count, a distribution mechanism that terminates one manual
 command short of the invocable surface, and a registry that is wrong about
 which of its own skills the kit owns.
 
