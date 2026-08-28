@@ -1,6 +1,11 @@
 # 2026-08-28 — substrate-kit review round, session 2 (OD-24 §6 step 3, first fixes)
 
-> **Status:** `in-progress` — born-red hold; flip is the last act.
+> **Status:** `complete` — landed after three Codex rounds on the fm PR
+> (1 + 5 + 6 findings, all conceded and fixed — R3's six fixed post-review
+> under the spent two-round cap, dispositions in the thread). Flip
+> exemption per the close discipline: the last reviewed SHA is `d3d6d5f`;
+> after it come only `df491f5` (R3's six fixes, each mechanical and named
+> in the thread) and this flip.
 
 - **📊 Model:** fable-5 · high · runtime bugfix
 - **📍 Venue:** cloud-container
