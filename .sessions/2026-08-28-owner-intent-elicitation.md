@@ -1,9 +1,11 @@
-# 2026-08-28 — the owner intent elicitation sitting (ONGOING)
+# 2026-08-28 — the owner intent elicitation sitting
 
-> **Status:** `in-progress` — born red, and it stays red **because the sitting
-> is still running**. He is writing answers to the standing questions; the card
-> flips when the sitting closes, not when the first batch lands. The red gate is
-> doing exactly its job here: it keeps this PR from merging mid-conversation.
+> **Status:** `in-progress` — born red, and it stayed red for the whole sitting
+> **by design**: he was answering live, and the hold is what kept this PR from
+> merging mid-conversation. Flipped only at his explicit close (*"I'd like you
+> to properly end the session for now, I'm about to go to sleep"*). The
+> questions he has not yet answered are **committed**, not carried in this chat,
+> so tomorrow starts from the repo.
 
 - **📊 Model:** opus-5 · high · owner-live interview
 - **📍 Venue:** cloud-container, owner PRESENT
@@ -28,73 +30,102 @@ the estate records nowhere.
 question was put to him (`intent.md`, the OD table, `decisions.md`, `ESTATE.md`,
 `owner-profile.md`, the Layer-2 folders).
 
-## Shipped so far — the sitting is NOT finished
+## Shipped
 
-- **[The elicitation record](../docs/findings/2026-08-28-owner-intent-elicitation.md)**
-  — §§ 1.1–1.13, `OWNER` separated from `DERIVED` throughout, written as each
-  answer arrived. **Thirteen answers, of which seven resolve conflicts between
-  his own past statements**: money (hobby stands; the commercial structures are
-  not goals) · autonomy · reader (agent-first, **not** stale) · repo count
-  (**deferred, not closed** — the estate had hardened it into a permanent
-  closure) · the kit vs the maintenance non-goal · shiftlife (paused, he
-  intends to return) · record shape.
-- **The headline correction: he rejects the autonomy axis itself** — *"I don't
-  see a lot of difference between autonomous and directed apart from where the
-  initiative comes from. The results will not automatically be better because I
-  started the task."* The estate is built on autonomy-as-permission (PL-002,
-  PL-012, the ask-first list, the decide-and-flag ladder); **he is describing an
-  initiative problem, and has been since OD-24.** Recorded with the session's
-  own wrong turn left visible: § 1.2 had just called an autonomy area-map "the
-  highest-value follow-up" minutes before he dissolved the framing.
-- **The kit gets an exit condition it never had** — *"Right now it's worth it,
-  but it must end"*, narrowed to *"quiet, but it can still grow when something
-  proves out"*: **maintenance ends, development does not**, and recurring upkeep
-  after this round is evidence the kit is too big rather than progress.
-- **Three staging drafts** for his rewrite, in the form he chose (*"draft it
-  first, but also provide questions when certain things aren't sure"*):
-  [substrate-kit](../docs/repos/substrate-kit/intent.md) ·
-  [spider-swing](../docs/repos/spider-swing/intent.md) ·
-  [spider-bot](../docs/repos/spider-bot/intent.md) — six slots plus a free
-  section, every line labelled, guiding questions embedded only where the draft
-  is guessing.
-- **A new owner-originated want, unasked for:** a **repo-creation skill** *"so
-  all repos get created in the same way"*. Queued, not built — his mapping →
-  revised plan → execution sequencing governs.
+**The record — his words, kept apart from mine.**
+[The elicitation record](../docs/findings/2026-08-28-owner-intent-elicitation.md)
+— `OWNER` separated from `DERIVED` throughout, every answer written **as it
+arrived** rather than at the close, because answers living only in chat are the
+loss mode the whole sitting exists to correct.
+
+- **Seven conflicts between his own past statements, resolved by him:** money
+  (hobby stands; the commercial structures are not goals) · autonomy · reader
+  (agent-first — **not** stale) · repo count (**deferred, not closed** — the
+  estate had hardened it into a permanent closure) · the kit vs the
+  maintenance non-goal (**not exempt** — time-boxed instead) · shiftlife
+  (paused, he intends to return) · record shape.
+- **His acceptance criterion, which the estate had never captured:** the
+  **one-word test**. *"I literally started a fresh session, wrote only 'chicken
+  farm' and the session created exactly what I had in mind."* **Both examples
+  verified in the frozen repo** — superbot **#1328** (41 min, +1,668/29 files)
+  and **#1332** (57 min, +2,131/37 files), **both 2026-06-22**, which lands on
+  the exact peak the genesis dig measured independently. The PR bodies carry the
+  mechanism: the two-word prompt is preserved verbatim in #1328; #1332 shows
+  *five* design questions answered by documented defaults rather than by asking
+  him; and #1328 applied an owner caution **nobody put in the prompt**. **The
+  one-word test is a test of the repository, not of the agent.**
+- **The end state for the bots, in his words:** `spider-bot` + `superbot-next`
+  converge into **one** bot with **no architectural debt**, *"planned and
+  connected from the start so it remains manageable and able to grow
+  indefinitely"*. His *"already documented"* was **verified true** — and three
+  parts of it are recorded nowhere, including that **`superbot-next` must be
+  remade**, which contradicts `ESTATE.md`'s *"complete-parked architecture
+  donor — 533/533 golden parity green"*.
+- **The estate's first defect baseline:** ~7 agent claims corrected per session,
+  14 the highest counted, recorded as a **floor** because his own hedges say
+  counting started partway.
+- **A new owner-originated want:** a **repo-creation skill** *"so all repos get
+  created in the same way"*. Queued, not built.
+- **Three intent drafts staged** for his rewrite — `substrate-kit`,
+  `spider-swing`, `spider-bot` — each labelled slot-by-slot, with guiding
+  questions only where the draft is guessing. The pattern they exposed: the
+  same two slots are empty for every repo — **"what would make me stop"** and
+  **"why it exists"** — and the worst case is `spider-swing`, the repo with more
+  recorded state than any other and **no statement anywhere of why he made it**.
+- **The questions he has not answered are committed**, not stranded in chat:
+  [`../docs/planning/2026-08-28-owner-intent-questions.md`](../docs/planning/2026-08-28-owner-intent-questions.md),
+  routed from the planning index, the record, and a new `OQ-INTENT-WRITE-UP`.
+
+**A mechanism fix he ratified in-sitting, and it is the session's sharpest
+result.** The shallow-clone error this session made was **not** unwritten
+knowledge: TRAP-004 registered it, `doc-routes.json` routed it at exactly the
+right tool, and its text is the missing step verbatim. It still did not arrive —
+because the route was **one-shot**, and this session's *first* tool call spent it
+on harmless orientation nine hours earlier. Put to him (hooks are owner-gated by
+superbot:Q-0194's ladder), he ruled: **a route guarding a KIND of command is
+never spent.** Applying it found the policy **already written in
+`route_docs.py:505-515`** — reference pointer vs action guard, three measured
+incidents behind it — with **one opt-in across 71 routes**; and found fm #938
+had named **two** spent routes and given the flag to **one**. `repeat: true`
+applied to the **9 action guards**; reference/repo routes deliberately excluded
+per the implementation's own *"blanket repetition would nag"* warning, and that
+narrowing flagged as `DERIVED` for him to widen if he wants.
 
 ## Verify
 
-- `python3 bootstrap.py check --strict` on real exit codes, no pipes — result
-  recorded at the flip; the born-red hold is expected and designed.
-- **One hedged owner claim verified rather than accepted**, per his own
-  calibration profile (verify the hedged, act on the unhedged): he said the
-  kit's outside-adopter framing *"is already explained there. At least by the
-  MIT license"*. `MEASURED` at kit `main` — **substantially right** (MIT
-  `LICENSE` present; README carries a one-step adopt recipe, three modes that
-  explicitly pace adoption, a pip-installable form, in a repo-agnostic voice),
-  with two exceptions that land on the charter rewrite he ordered: the purpose
-  sentence at `README.md:3-5` carries only the *autonomy* half, and the repo
-  description reads *"AI self improvement system in progress"* with no topics.
-- **A process error caught by the Stop hook and fixed, not hidden:** the first
-  four commits of this work went onto local `main` instead of the designated
-  branch. Moved to `claude/substrate-kit-od24-session4-95rqu8`, `main` reset to
-  `origin/main` (`d7c4dcc`), nothing lost, nothing force-pushed over.
+- `python3 bootstrap.py check --strict` on **real exit codes, no pipes**
+  (redirect-then-read; TRAP-002 honoured). Final pre-flip run: the only finding
+  is the designed born-red hold naming this card.
+- **The route fix verified live, not asserted:** JSON re-parsed after the edit ·
+  `repeat` routes **1 → 10** · `python3 tools/test_doc_route_patterns.py`
+  **exit 0**, *"17 case(s) — CLEAN"*. Then the real proof — **both newly
+  repeated routes fired on the very next Bash command**, having already been
+  spent earlier in this session.
+- **A hedged owner claim verified rather than accepted** (verify the hedged, act
+  on the unhedged): the kit's outside-adopter framing is **substantially as he
+  said** — MIT `LICENSE`, a one-step adopt recipe, three modes that pace
+  adoption — with two exceptions that land on the charter rewrite he ordered.
+- **Both one-word-test PRs verified** at `menno420/superbot` via the API, with
+  timestamps and diff sizes; superbot never cloned, never written.
+- **A dating claim measured, published, refuted and re-measured.** Its first
+  form was inference; its second was `MEASURED` **on a shallow clone** and
+  wrong; `git fetch --unshallow` (64 → 995 commits) restored the truth and
+  vindicated the inference. The false version is struck through in place, not
+  deleted.
 
-⚑ Owner decisions needed: **the sitting itself is the ask** — six standing
-questions he is writing answers to (what the estate is for in his life · what he
-wants to be doing in a year · which of four categories each repo is · creator-kit
-as a possible new direction · who else this is for · what would make him stop),
-plus **which repos he actually thinks about away from the computer**, which sets
-the interview order and is not derivable from any record.
+⚑ Owner decisions needed: the standing intent questions (his to write, whenever
+— `OQ-INTENT-WRITE-UP`) · whether the route-repeat policy should widen to the
+reference routes · `OQ-KIT-RENAME` still needs one word from him.
 
-💡 **Session idea:** the same two template slots came back empty for all three
-repos drafted — **"what would make me stop"** and **"why it exists"** — and the
-sharpest case is `spider-swing`: the estate records its build number, version
-code, Play track, tester arithmetic and a north star quoted to the digit, and
-**nowhere records why he made it.** The estate's records are exhaustive about
-state and near-silent about purpose, and that asymmetry is mechanical rather
-than accidental: state is what sessions produce as a by-product of working, and
-purpose is only ever produced by asking him. Any mechanism that wants intent to
-stay fresh has to schedule the asking, because nothing else generates it.
+💡 **Session idea:** every mechanism failure this evening had the same shape and
+**none involved missing knowledge** — a routed rule that arrived too early, a
+policy written inside its own implementation and applied once, a fix that named
+two defects and repaired one. That suggests the estate's next instrument is not
+another guard but a **guard census**: for each registered trap, does a route
+exist, does it repeat, and has it ever fired at the moment it was written for?
+`.substrate/guard-fires.jsonl` already records every fire, so the census is
+readable from the tree today — it needs no new apparatus, which is exactly the
+kind of fix his own cost function ranks highest.
 
 ## ⟲ previous-session review
 
