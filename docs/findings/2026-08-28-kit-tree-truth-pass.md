@@ -28,26 +28,31 @@
 > extracted verbatim).
 >
 > **The one-paragraph result:** the kit's doc surface is **mostly honest
-> history** — 103 of 187 files are dated records, and the era-banner
+> history** — 104 of 187 files are dated records, and the era-banner
 > discipline held on nearly all of them — but the failure class is
-> **concentrated and current-truth-voiced**: ~20 files that speak in the
-> present tense carry month-or-seven-week-old claims that would send a cold
-> session to a wrong action today (the reconcile pair this session executes,
-> a stalled ideas-conveyor cohort presenting shipped work as open, five
-> apparatus docs with no era banner, and a standing-walls set that
+> **concentrated and current-truth-voiced**: the 22-file wrong-action set
+> speaks in the present tense and carries month-or-seven-week-old claims
+> that would misdirect a cold session today (the reconcile pair this session
+> executes, a stalled ideas-conveyor cohort presenting shipped work as open,
+> five apparatus docs with no era banner, and a standing-walls set that
 > contradicts the estate's never-write-down-a-limitation doctrine). The two
 > owed checks both came back **better than the round's working assumption**:
 > PL-002's canonicalization **preserves** Q-0241's rebuild-only scope at the
 > canonical block, and the kit **did ship** most of Q-0214's
 > delete-with-tombstones retention posture as working mechanism — shipped,
-> and never once run on the kit's own 343-card corpus.
+> unconfigured on the kit's own 342-card corpus at HEAD, and trace-free
+> there (no evidence it has ever run on it).
 
 ## 1 · Headline numbers
 
-**187 files judged:** 103 historical-record · 22 stale · 21 live · 21
-generated · 15 reference · 5 superseded. **Dispositions:** 145 keep · 19
-banner-or-fix-in-round · 19 keep-live · 2 regen-only · 1 supersede-pointer ·
-1 archive-recommend · 0 deletions recommended (OD-3-as-amended examined; every
+**187 files judged:** 104 historical-record · 23 stale · 20 live · 21
+generated · 15 reference · 4 superseded. **Dispositions:** 143 keep · 22
+banner-or-fix-in-round · 19 keep-live · 1 regen-only · 1 supersede-pointer ·
+1 archive-recommend. *(Totals recomputed mechanically from the appendix
+after all seven verdict corrections — the workflow verify pass's five plus
+Codex fm #960's two; an earlier cut published the pre-correction totals, the
+exact drift class this audit hunts.)* 0 deletions recommended
+(OD-3-as-amended examined; every
 candidate is either honest dated history, cited provenance, or CI-enforced
 apparatus). The full 187-row table is the appendix; §4 carries the
 wrong-action set in detail; §5 turns the un-executed rows into
@@ -110,7 +115,7 @@ is **not itself verbatim-pinned by any test** (`check_program_law.py` treats
 `scope` as optional grammar). Q-0213 appears exactly once in the whole kit
 tree (`rulings.md:66`).
 
-## 3 · Owed check B — did the kit ship any of superbot:Q-0214's delete-with-tombstones retention posture? **PARTIALLY — most of it, as working mechanism; never run on the kit's own corpus**
+## 3 · Owed check B — did the kit ship any of superbot:Q-0214's delete-with-tombstones retention posture? **PARTIALLY — most of it, as working mechanism; unconfigured and trace-free on the kit's own corpus**
 
 *(Answers [the re-read](2026-08-28-router-band-reread.md) §1 item 4, which
 recorded "whether the kit shipped any of it is unexamined". Both adversarial
@@ -155,9 +160,12 @@ nor mention. The decision's 14-day floor does surface as the default
 
 **The dogfooding gap, measured:** the kit's own `substrate.config.json` keeps
 `economy.classes: []` and `maturity: "shadow"` (`:22-23, :31`); its
-`.sessions/` holds **343 cards with no `.sessions/pruned/` directory** — the
-shipped delete-with-tombstones machinery **has never executed on the kit's
-own corpus**. The posture exists in shadow; the corpus is not yet bounded in
+`.sessions/` holds **342 dated cards (plus the README) with no
+`.sessions/pruned/` directory** — the shipped delete-with-tombstones
+machinery is **unconfigured at HEAD and has left no trace of ever running
+on the kit's own corpus** (what the tree can prove: no prune artifact, no
+tombstone shard, empty class config; run history beyond the tree was not
+examined). The posture exists in shadow; the corpus is not bounded in
 practice. Provenance note: the kit names Q-0214 by ID exactly once
 (`src/engine/ledger.py:3`, the .4 depth choice), proving the decision set
 reached the kit lanes.
@@ -173,12 +181,12 @@ re-read's two owed lines (this PR).
 
 ## 4 · The truth pass — what the doc surface actually is
 
-**The counter-headline first, because it is most of the tree:** 103 of 187
+**The counter-headline first, because it is most of the tree:** 104 of 187
 files are dated records — retros, reports, succession notes, gen2 snapshots,
 executed plans, seat-era cards' index — and **the era-banner discipline
 mostly held**: the overwhelming majority self-declare their date or era, and
 17 lanes returned explicit honest-null notes of the form "all clean
-self-bannered history". The 21 `generated`, 21 `live` and 15 `reference`
+self-bannered history". The 21 `generated`, 20 `live` and 15 `reference`
 files verify against the tree (all four version homes read 1.21.0; the PL
 register matches the anchor exactly; `docs/NEXT-TASKS.md` — the round's own
 session-2 fix — verifies as exactly the supersession pointer it should be,
@@ -256,7 +264,12 @@ Grouped, with the full per-doc detail in the appendix:
   incomplete registry (the round thread already carries this roster gap);
   `docs/house-style.md` one false table cell; `docs/ai-project-workflow.md`
   one stale slot value (hand-edit — the verifier established `render
-  --live` cannot reach an already-substituted slot).
+  --live` cannot reach an already-substituted slot); `telemetry/README.md`'s
+  false operational guarantee (outcome fields "are backfilled by the lab
+  loop's telemetry sweep" — the loop closed 2026-07-21 and all 143 rows
+  carry null outcomes); and `docs/repo-navigation-map.md`, stale by its own
+  completeness invariant (a placeholder-only table that routes nothing —
+  both raised on Codex review of fm #960).
 - **(e) One archive-recommend.** `control/status-gba-homebrew-trackb.md` —
   a self-terminal visiting-lane heartbeat whose own header pre-authorizes
   disposal after the visit closed (2026-07-10); archiving executes the
@@ -265,10 +278,13 @@ Grouped, with the full per-doc detail in the appendix:
 ## 5 · Dispositions — recommendations ONLY (the dig-§10 shape; nothing executed this session beyond the named reconcile)
 
 The reconcile pair (a) lands in this session's kit PR. Everything else below
-is **recommended, not executed** — all of it agent-executable in one future
-round session (a kit doc-surface truth sweep), none owner-gated, no new
-apparatus proposed anywhere (every fix is a record edit in an existing
-grammar):
+is **recommended, not executed**. Every row **except the last** is
+agent-executable in one future round session (a kit doc-surface truth
+sweep), none owner-gated, no new apparatus proposed anywhere — every fix a
+record edit in an existing grammar. **The last row is the carve-out**: it is
+a flagged *decision* about activating deletion machinery, explicitly outside
+the records sweep, and no future session may read this table's blanket as
+pre-approving it:
 
 | set | the fix | the one reason |
 |---|---|---|
@@ -277,7 +293,7 @@ grammar):
 | (d) walls & conditionals: `CAPABILITIES.md` walls section · `README.md` regen line · `.session-journal.md` P10 · `auto-merge-guards.md` · `recipes/README.md` · `fleet-repos.txt` · `house-style.md` cell · `ai-project-workflow.md` slot | targeted corrections in each file's own grammar (the CAPABILITIES append-log's 2026-07-18 correction entry is the model); the roster fix adds the five missing adopters | standing walls contradicting the estate's verified capability matrix, in the false-walls checker's own repo; the roster is live machinery input, so its gap ships into every future regen |
 | (e) `control/status-gba-homebrew-trackb.md` | archive per its own header | self-authorized disposal; kept-as-is it costs nothing but contradicts nothing — lowest priority |
 | §2's provenance mislabel | correct the Q-0241 attribution to Q-0271/PL-012 in the owner-profile sentence's **source slot** (`.substrate/state.json:63`) and re-render the two derived copies | a boot-adjacent sentence presenting a scoped ruling as unscoped law; the fix is one attribution, not a doctrine change |
-| §3's dogfooding gap | a decision for the round's build track, not this table: whether the kit activates its own economy (declare classes, run shadow → gated on its 343-card corpus) | activation is behaviour change with an owner-facing surface — it belongs to the round's promote-by-measurement rule, not to a records sweep |
+| §3's dogfooding gap | **NOT part of this sweep — a flagged decision, not a task** (see the preamble carve-out): whether the kit activates its own economy (declare classes, run shadow → gated on its 342-card corpus) | activation is behaviour change with an owner-facing surface — it belongs to the round's promote-by-measurement rule; only a report-only shadow census could ever ride a records session, and even that is a build-track call |
 
 **Deletions recommended: none.** Same reasoning as the dig's §10 row: every
 candidate is honest dated history, cited provenance, or CI-enforced
@@ -323,7 +339,16 @@ queue this session. Residue: deleting the two `legacy-alias-*` jobs from
   replacement) · `docs/ai-project-workflow.md` recommendation
   regen-only→fix-in-round (`render --live` no-ops on substituted slots). No
   stale/superseded verdict was overturned to clean, and no clean verdict was
-  overturned to hot. Owed-check verifier residue, folded in: "shrink" also
+  overturned to hot — until Codex review of fm #960 overturned two the other
+  way and caught three propagation errors, all folded in above: the
+  headline totals had not been recomputed after the verifier corrections
+  (now recomputed mechanically from the appendix);
+  `docs/repo-navigation-map.md` live→STALE (its own completeness invariant);
+  `telemetry/README.md`'s disposition keep→banner-or-fix (a false
+  operational guarantee is wrong-action grade); the `.sessions/` corpus is
+  342 dated cards plus the README, not 343 cards; and "never executed on
+  the kit's own corpus" overclaimed run history from tree state — restated
+  as unconfigured-and-trace-free at HEAD. Owed-check verifier residue, folded in: "shrink" also
   matches `guards.py` shrinkage-guard comments and two docs — none a
   retention mechanism, so check B's null stands as "nowhere load-bearing";
   `.substrate/claude/CLAUDE.md` is a staged render, not an installed boot
@@ -377,7 +402,7 @@ supersede-pointer · archive-recommend · regen-only.
 | `docs/owner-profile.md` | **STALE** | keep | One spent conditional — 'once §3.2 item 7 makes the check required' — is now done (kit-quality IS the single required check on main, re-verified this session); the rest is the seat-era autonomy frame (never-wait,… |
 | `docs/ownership.md` | **STALE** | keep | Its two future-tense claims are past: docs/program/ exists at HEAD holding rulings.md (the 'lands KL-2' already landed), and the 'lab loop' named as its owner closed 2026-07-21 — but the rest of the mutation-seam… |
 | `docs/question-router.md` | **live** | keep | An empty append-only ledger whose format contract holds and whose machinery (the interview writing Q-blocks) still exists in the engine; zero blocks is an honest state, not staleness. |
-| `docs/repo-navigation-map.md` | **live** | keep | Vacuously true — the table holds only its placeholder row so it asserts nothing false, though by its own placement rule ('if no row matches, the map is stale — extend the table') it currently routes nothing. |
+| `docs/repo-navigation-map.md` | **STALE** | banner-or-fix-in-round | By its own placement rule ('if no row matches, the map is stale — extend the table') a table holding only its placeholder row is stale for every real placement task — a reachable routing surface that routes nothing; the fix is filling the rows *(corrected from live/keep on Codex review, fm #960 — the lane's 'vacuously true' reading contradicted the doc's own completeness invariant)*. |
 | `docs/runtime_contracts.md` | **live** | keep-live | The one filled section (mutation seam) verifies at HEAD: atomic state backend, skip-if-exists plants, staged .claude/ (no live .claude/ dir exists in the kit tree), and the self-operation-via-dist rule; the rest are… |
 
 **docs/audits** (1):
@@ -575,7 +600,7 @@ supersede-pointer · archive-recommend · regen-only.
 
 | doc | verdict | disposition | the one reason |
 |---|---|---|---|
-| `telemetry/README.md` | **STALE** | keep | Current-truth-voiced feed contract carrying closed-era claims — outcome fields 'are backfilled by the lab loop's telemetry sweep' (lab loop closed 2026-07-21; all 143 rows still carry null outcomes) and 'the console… |
+| `telemetry/README.md` | **STALE** | banner-or-fix-in-round | Current-truth-voiced feed contract carrying a false operational guarantee — outcome fields 'are backfilled by the lab loop's telemetry sweep' (lab loop closed 2026-07-21; all 143 rows still carry null outcomes) and 'the console exporter renders declared JSON arrays' (console closed); a session relying on the contract waits for a backfill that never comes *(disposition raised from keep on Codex review, fm #960)*. |
 | `telemetry/allocation-ladder.md` | reference | keep-live | PL-004 layer 2 of the live PL register (docs/program/rulings.md is live program law per this round's anchors): the program-wide model-for-task defaults remain in force, the revision log is honestly empty, and the doc… |
 | `telemetry/model-usage.jsonl` | generated | keep | Machine-appended ledger — session-close's Model-line harvest writes it (src/engine/cli.py:3260; append-only per KF-11, never hand-edited): 143 structurally valid JSON rows spanning 2026-07-09→2026-07-13 only, i.e.… |
 

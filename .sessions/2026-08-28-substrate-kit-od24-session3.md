@@ -40,13 +40,16 @@ into `a9acc41`).
 
 - **[The kit-tree truth pass](../docs/findings/2026-08-28-kit-tree-truth-pass.md)**
   (this PR): all **187** doc-surface files at kit `a9acc41` judged per-doc
-  (103 historical-record · 22 stale · 21 live · 21 generated · 15 reference ·
-  5 superseded), read by 19 workflow lanes with a code-checked
+  (104 historical-record · 23 stale · 20 live · 21 generated · 15 reference ·
+  4 superseded — totals recomputed mechanically from the appendix after
+  every correction), read by 19 workflow lanes with a code-checked
   whole-population coverage gate, every non-obvious verdict adversarially
-  verified (31/36 upheld; the 5 corrections — three line-cites, two classes —
-  applied and named in §6); the ~20 wrong-action files catalogued as §5
-  recommendations (zero deletions); the 1,165 unjudged tracked files named
-  with reasons (code/harness/cards/boilerplate; 187+1,165=1,352 ✓).
+  verified (31/36 upheld; the workflow's 5 corrections plus Codex fm #960's
+  2 verdict overturns and 3 propagation fixes, all applied and named in §6);
+  the 22-file wrong-action set catalogued as §5 recommendations (zero
+  deletions; the economy-activation decision carved out of the sweep's
+  blanket); the 1,165 unjudged tracked files named with reasons
+  (code/harness/cards/boilerplate; 187+1,165=1,352 ✓).
 - **Both owed checks answered** in the same finding: §2 — PL-002's
   canonicalization **preserves** superbot:Q-0241's rebuild-only scope at
   `kit:docs/program/rulings.md:66-68` (the expiry clause legitimately
@@ -55,7 +58,8 @@ into `a9acc41`).
   superbot:Q-0214's delete-with-tombstones retention **substantially
   shipped** as the v1.0.0 economy engine (harvest-gated triple filter,
   tombstone shards, shadow→gated ladder), the `/updates` feed nowhere, and
-  the mechanism never once run on the kit's own 343-card corpus. In-place
+  the mechanism unconfigured and trace-free on the kit's own 342-card
+  corpus at HEAD. In-place
   answered-pointers added at the dig's §4/§8 claim sites and the re-read's
   §1.4/§1.5; findings-README row; round thread advanced to session 3 done;
   current-state OD-24 bullet extended.
@@ -100,9 +104,10 @@ GO · journal · §10 confirmations) and the two queued one-liners
 `OQ-KIT-P10-REQUIRED-CHECKS` closed as overtaken (no click needed).
 
 💡 **Session idea:** the truth pass's sharpest structural result is that the
-kit's own retention machinery (shipped v1.0.0, tested, shadow-gated) has
-never executed on the kit's own 343-card corpus — `economy.classes: []` —
-while the estate separately worries about corpus growth. A one-session
+kit's own retention machinery (shipped v1.0.0, tested, shadow-gated) is
+unconfigured and trace-free on the kit's own 342-card corpus —
+`economy.classes: []`, no prune artifact at HEAD — while the estate
+separately worries about corpus growth. A one-session
 build-track item "kit dogfoods its own economy in shadow mode" would
 produce the first real census of what delete-with-tombstones would do,
 purely report-only, and turn the §5 disposition row into measured evidence

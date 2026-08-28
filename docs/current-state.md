@@ -167,11 +167,12 @@ copy product architecture or internal product state. Canonical intent:
   all 187 doc-surface files judged at kit `a9acc41` with adversarial
   verification, **both owed checks answered** (PL-002 preserves Q-0241's
   rebuild-only scope at the canonical block; Q-0214's delete-with-tombstones
-  retention substantially shipped as the v1.0.0 economy engine, never run on
-  the kit's own corpus), kit `docs/current-state.md` + `control/status.md`
-  reconciled in the kit's venue, ~20 wrong-action docs catalogued as §5
-  recommendations, and `OQ-KIT-P10-REQUIRED-CHECKS` retired by a live rules
-  read. The letters were re-checked and remain unanswered.
+  retention substantially shipped as the v1.0.0 economy engine, unconfigured
+  and trace-free on the kit's own corpus at HEAD), kit `docs/current-state.md`
+  + `control/status.md` reconciled in the kit's venue (kit #588 MERGED on
+  green), the 22-file wrong-action set catalogued as §5 recommendations, and
+  `OQ-KIT-P10-REQUIRED-CHECKS` retired by a live rules read. The letters
+  were re-checked and remain unanswered.
 
 ### Live operating mechanisms
 

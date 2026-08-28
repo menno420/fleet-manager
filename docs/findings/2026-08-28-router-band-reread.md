@@ -76,8 +76,8 @@ session would meet them), and its §9 coverage line routes here.
    [the truth pass](2026-08-28-kit-tree-truth-pass.md) §3 — PARTIALLY:
    delete-with-tombstones shipped as working mechanism in v1.0.0
    (`src/engine/economy/`), the shrink duty at checker/actuator level, the
-   `/updates` feed nowhere; never run on the kit's own 343-card corpus. The
-   dig's table now carries the retention row.**
+   `/updates` feed nowhere; unconfigured and trace-free on the kit's own
+   342-card corpus at HEAD. The dig's table now carries the retention row.**
 5. **superbot:Q-0241's own scope clause — never-wait / silence=consent governed the
    rebuild program only**, with superbot:Q-0213's ask-first brakes left standing for
    production *"until the owner generalizes this"*. Narrows dig §6.2's

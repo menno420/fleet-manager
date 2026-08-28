@@ -76,10 +76,12 @@ adversarial verification (31/36 upheld, 5 minor corrections applied), and
 Q-0241's rebuild-only scope (the one drop is a Q-0241-vs-Q-0271 provenance
 mislabel in three derived copies of one owner-profile sentence), and
 Q-0214's delete-with-tombstones retention **substantially shipped** as the
-v1.0.0 economy engine — never run on the kit's own 343-card corpus. The
-headline: 103 of 187 files are honest self-bannered history; the failure
-class is ~20 current-truth-voiced files, catalogued as recommendations in
-the finding's §5 (a future doc-surface truth sweep; nothing owner-gated).
+v1.0.0 economy engine — unconfigured and trace-free on the kit's own
+342-card corpus at HEAD. The headline: 104 of 187 files are honest
+self-bannered history; the failure class is a 22-file current-truth-voiced
+set, catalogued as recommendations in the finding's §5 (a future
+doc-surface truth sweep; nothing owner-gated except the flagged
+economy-activation decision, carved out of the sweep's blanket).
 **Executed in the kit's venue: kit #588, MERGED on green** (squash
 `7f58f0e`) — `docs/current-state.md` reconciled (the supersede table's open
 item 4) + `control/status.md`'s false #552 line, through the kit's full
