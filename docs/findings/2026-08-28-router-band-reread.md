@@ -140,7 +140,9 @@ round or the owner routes it — this section is the retrieval surface.
   is stable intent from June/July, not an 08-28 mood.
 - **Q-0242 (07-05):** allowlisting **cannot** silence scheduling-tool
   prompts (measured repeatedly; treat as platform behaviour) — the
-  mechanism background behind `[D-0015]` that fm states only as the rule.
+  mechanism background behind fm's never-delete-a-trigger decision (the
+  `delete_trigger` approval-prompt rule in [`../decisions.md`](../decisions.md)),
+  which fm states only as the rule.
 - **Q-0248 (07-06):** model-for-task as empirical discipline — the founding
   directive behind PL-004, connected to OD-13's methods track nowhere in
   fm.
