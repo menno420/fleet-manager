@@ -46,12 +46,12 @@
       "unconsumed_count": 0
     },
     {
-      "consumed_count": 0,
+      "consumed_count": 1,
       "index": "docs/owner-comments/websites/README.md",
-      "latest_consumed_at": null,
-      "latest_unconsumed_at": "2026-08-28T00:34:26Z",
+      "latest_consumed_at": "2026-08-28T00:43:20Z",
+      "latest_unconsumed_at": null,
       "repository": "websites",
-      "unconsumed_count": 1
+      "unconsumed_count": 0
     },
     {
       "consumed_count": 0,

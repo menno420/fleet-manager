@@ -1,5 +1,10 @@
 {
   "comment": "End-to-end production verification on 2026-08-28: confirm the website-to-Fleet Manager owner-comment workflow preserves deterministic replay and durable consumed history.",
+  "consumption": {
+    "actor": ".sessions/2026-08-28-owner-comment-e2e.md",
+    "at": "2026-08-28T00:43:20Z",
+    "evidence": "https://github.com/menno420/fleet-manager/pull/957"
+  },
   "created_at": "2026-08-28T00:34:26Z",
   "id": "oc-c3c8bee2da350d92f9f32fe983e273bc",
   "repository": "websites",
@@ -8,5 +13,5 @@
     "context": "/repos/websites",
     "surface": "control-plane"
   },
-  "state": "unconsumed"
+  "state": "consumed"
 }
