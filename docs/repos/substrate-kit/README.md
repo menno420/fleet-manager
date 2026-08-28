@@ -94,11 +94,21 @@ R3's one P1 was the born-red hold itself, consumed by the flip).
 the one required check — the ci.yml legacy-alias deletion is now unblocked
 agent work).
 
-**Next session:** the letters' answers when they come; otherwise the
-worklist's restated order — the work-destroyers 26, 29, 33 (+34/35) — or
-the truth pass §5's doc-surface sweep (records-only, sized one session), or
-the round's routing work (gap #3's shipped-but-unrouted reflection miner).
-Nothing GOs the held packets; AGENTS.md stays parked for the round.
+**Next session — SELECTED BY THE OWNER, live, 2026-08-28 after session 3
+landed:** *"the next session can review everything that these 3 audits have
+produced, and then helps me to discuss and answer the open questions."* So
+session 4 is a **review-and-discussion sitting**, not a build session; its
+input is
+[the round's open-questions agenda](../../planning/2026-08-28-od24-round-open-questions.md)
+(every open question the round produced, verified still-open at HEAD,
+classified owner-only vs agent-derivable). **This supersedes the candidate
+list this thread carried before** — ~~the work-destroyers 26/29/33 (+34/35),
+the §5 doc-surface sweep, gap #3's reflection miner~~ — which were a
+session's proposal; those remain the standing BUILD queue for whenever a
+build session is next, and the agenda's own "what a session should just
+decide" section says which of them need no letter at all. Nothing GOs the
+held packets; AGENTS.md stays parked for the round (and is itself an agenda
+row).
 
 ### Thread: the v1.21.0 follow-up worklist — **open, lives in THIS repo, not the kit**
 

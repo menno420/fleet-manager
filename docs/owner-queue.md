@@ -37,6 +37,59 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 
 ## Current owner decisions — verified from fleet-manager on 2026-08-10
 
+> **The substrate-kit round's questions have a sitting of their own
+> (2026-08-28), and three of them were never in this file.** `MEASURED` today
+> against `origin/main`: this queue carried **134 `OQ-` references and no
+> entry** for the round's three standing letters — **Move 1's GO**, **the
+> journal question**, and **the §10 disposition confirmations** — although
+> every session card since 2026-08-28 recorded them as *"unanswered"*. They
+> lived only in audit findings, which are `RECORD`-tier and not a surface the
+> owner reads. **Two of the three are now proper entries here:** Move 1's GO as
+> **`OQ-KIT-MOVE1-GO`** below, and the **journal question** — first closed on
+> the grounds that his roadmap § 5.4 answered it, then re-opened when Codex
+> review established § 5.4 never mentions `.session-journal.md` — as
+> **`OQ-KIT-JOURNAL-SURVIVES`**. The **§10 confirmations** turn out to be
+> agent-executable and need no entry; they are dispositioned in § 5 of
+> [the OD-24 open-questions agenda](planning/2026-08-28-od24-round-open-questions.md),
+> which is the input to the review-and-discussion session he asked for. The
+> two `OQ-KIT-*` entries below are the half that *was* queued (both narrowed
+> the same day — see their notes). Answers given in the sitting come back here
+> as entry updates; the agenda feeds this queue, it does not replace it.
+
+- **`OQ-KIT-MOVE1-GO` — GO or hold on Move 1, the end-of-session contribution
+  line — and if GO, how far does it reach?** (added 2026-08-28, the OD-24
+  round's session 4 — **this ask is three sessions old and had no queue entry
+  until now**, which is why it reads as unanswered in every card since
+  2026-08-28 while never appearing in the surface you actually read.)
+  **WHAT:** one word — GO or hold — and if GO, one letter for reach:
+  **(a)** fleet-manager only, as a measured prototype · **(b)** prototype **plus**
+  a kit release · **(c)** the whole chain including the adopter hops.
+  **WHERE:** the hub chat, or the round's sitting;
+  [the agenda](planning/2026-08-28-od24-round-open-questions.md) § 2 · C states
+  it with its evidence. **WHY-IT-MATTERS:** Move 1 is the designed answer to
+  the round's gap #1 — when a session finishes, nothing currently asks what it
+  left for the next one, which is precisely the habit that stopped when you
+  stepped back. It is built, evidenced and held by your own *"no execution yet,
+  because I still have more to plan"* (OD-23, 2026-08-28); nothing since lifts
+  that hold. **UNBLOCKS:** the round's whole build track, and the § 2 · B answer
+  governs whether that line may ever *block* a session's close.
+  **VERIFIED-NEEDED:** none — the hold is your own words, quoted above.
+- **`OQ-KIT-JOURNAL-SURVIVES` — does the per-repo `.session-journal.md` survive
+  as a surface, or is it superseded by routed trap-style records?** (added
+  2026-08-28, session 4 — the second of the three letters that had no entry.)
+  **WHAT:** one sentence — **(a)** keep it and enforce it · **(b)** retire it,
+  routed trap/idea records carry the function · **(c)** keep it unenforced and
+  stop calling it a contract. **WHERE:** the sitting;
+  [the agenda](planning/2026-08-28-od24-round-open-questions.md) § 2 · E2.
+  **WHY-IT-MATTERS:** the kit plants the file in every adopter, no checker
+  references it, and the dig measured it byte-identical to its template in 11
+  of 14 repos — so it is currently a contract nothing keeps.
+  **⚠ Nearly closed in error:** a session judged this answered by the roadmap's
+  § 5.4; Codex review on fm #961 established § 5.4 defines a recurring-*trap*
+  lifecycle and never mentions the journal (grep, zero hits), and the genesis
+  dig calls the disposition *"a round question for the owner"* verbatim.
+  **UNBLOCKS:** gap #2's fix family, and Move 1's `journal` value.
+  **VERIFIED-NEEDED:** none.
 - **`OQ-KIT-PROMPT-DOCTRINE` — which rule governs kit-planted brakes: your
   "no confirmation prompts ever" or the re-ratified confirm-first line?**
   (added 2026-08-28, the OD-24 round's session 2 — surfaced by
@@ -51,6 +104,23 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   brake may ever surface interactively. **UNBLOCKS:** the round's gap-#7
   flip-gate design and any kit-planted brake. **VERIFIED-NEEDED:** none —
   both rulings are quoted verbatim in the re-read.
+  **⚠ NARROWED 2026-08-28, same day, before he ever saw it — this entry was
+  posed without checking for a later statement, and there is one.**
+  `.claude/hooks/README.md:483-486` carries him live on **2026-08-09**, two
+  months after the Q-0128 line above: *"Delete triggers are the only thing
+  that gives me an approval prompt in automode, this will stall your session
+  untill I get back. Always prevent using them."* That is the same subject,
+  later, and **narrower**: he names the one call that actually raises a
+  prompt and asks for it to be prevented — not for confirmation as such to
+  be abolished. **It sharpens this entry; it does not answer it** — the
+  2026-08-09 line says nothing about whether a *send* or a *delete* may still
+  ask first, which is exactly what Q-0128 and OD-24 § 3 disagree about. So the
+  fork stays open, restated with three concrete options as **§ 2 · B2** of
+  [the round's open-questions agenda](planning/2026-08-28-od24-round-open-questions.md).
+  *(A first version of this note said the fork "largely dissolves" and routed
+  the residue to the agenda's § 2 · B — a different subject, blocking a flip
+  rather than interrupting him. Codex review on fm #961 caught it before he
+  saw either.)* Put the sharpened fork to him, not the original two-way one.
 - **`OQ-EAP-SPEND-WINDOW-MOOT` — record whether the ~09-07 spend-cap
   decision window is mooted.** (added 2026-08-28, same source, §1.7.)
   **WHAT:** one sentence — superbot:Q-0249 (07-06) deferred AI-spend caps to
@@ -61,6 +131,18 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   dig's §10 called the ~09-09 trading gate the estate's only future-dated
   obligation; this is the second. **UNBLOCKS:** closing the record.
   **VERIFIED-NEEDED:** none.
+  **⚠ REFRAMED 2026-08-28, same day — the premise was wrong and the real
+  question is better.** Q-0249 is **not** an unrecorded dangling obligation:
+  it was promoted to program law on 2026-07-07 as substrate-kit
+  `docs/program/rulings.md` **[PL-005] "Observe-first budgets — telemetry
+  before caps"**, carrying his full quote and the method (caps *deferred, not
+  adopted*; instrument spend, then decide from the measured average). What is
+  actually true, and worth one line from him: **no meter ever ran** — the
+  telemetry feed carried no cost field and stopped 2026-07-13 — so the
+  "decide from the average" step cannot execute and there is nothing to moot.
+  The reframed ten-second ask is § 2 · H of
+  [the agenda](planning/2026-08-28-od24-round-open-questions.md): leave it
+  uncapped, or set a cap.
 
 - **`OQ-ESTATE-ARCHIVE-LIST` ✅ ANSWERED 2026-08-22 · ✅ EXECUTED 2026-08-23 —
   the nine ungated repositories are archived** (added 2026-08-22, OD-18 table
