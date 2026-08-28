@@ -733,23 +733,96 @@ it should work *"in any repo where one word could turn into a feature that
 matches what currently exists."* **The one-word test is a test of the
 repository, not of the agent.**
 
-### 3.3 · The uncomfortable part, stated plainly
+### 3.3 · ~~The uncomfortable part~~ — **CORRECTED BY HIM, 2026-08-28: the framing set up a false opposition**
 
-`DERIVED`, and it should be checked rather than believed:
+**The original claim, kept visible because the correction is the point.** This
+section argued that since the one-word era ran on *"CI checks + documentation"*
+with *"nothing yet turned into skills or hooks"*, the estate had **one
+demonstrated recipe** for the result he wants, and that any plan reaching for a
+different mechanism — skills and hooks — should say why it is not just
+rebuilding that one. It set skills and hooks up as a **rival** to the superbot
+recipe.
 
-**He says the system that produced this had no skills and no hooks — it had CI
-checks enforcing a standard, plus documentation.** *"nothing was yet turned into
-skills or hooks, we had a lot of CI checks that enforced thing to be made
-according to a set standard."* The estate's current effort is largely **skills
-and hooks**, and the substrate-kit exists to carry them.
+**His correction, verbatim:**
 
-This is **not** evidence that skills and hooks are wrong — they did not exist
-then, so nothing was measured against them, and the kit's own bench separately
-found that *steering survives shipping while enforcement pull does not ship in
-prose*. But it does mean the estate has **one demonstrated recipe for the result
-he wants**, and it is: **enforced standards in CI + documentation complete
-enough to substitute for a specification.** Any plan that reaches for a
-different mechanism should say why it is not just rebuilding that.
+> *"What you said about suberbot that there were no skills and we had nothing to
+> test against, that is true in some way. But at the same time I think that what
+> the agents did back then could basically be called using a skill aswell, the
+> fact thay they saw a message, used their own judgement to find which documents
+> contained the right information and intent needed to execute the task is
+> nearly the same procedure as activating a skill and following it's steps, the
+> skill only helps to enforce the process and to make sure that it happens in
+> the same way each time.*
+>
+> *I think the example you mentioned is a good one too, that the agents read the
+> questions and rules before deciding how to create it. Thats a perfect example
+> of a skill"*
+
+`OWNER`. **He is right and the original framing was wrong.** The 2026-06-22
+sessions *were* running a skill — an unnamed, unenforced, judgement-carried one.
+The procedure (see the message → find the documents holding the right
+information and intent → execute against them) is the same procedure a skill
+encodes. What the era lacked was not the procedure but its **guarantee**.
+
+**So the corrected reading, and it is a stronger claim than the one it
+replaces:**
+
+- **A skill is not a rival mechanism to what worked — it is the encoding of the
+  half that was implicit.** The superbot recipe had three parts, not two:
+  documentation good enough to specify the work · CI enforcing the output
+  standard · **and a retrieval-then-execute procedure living in agent
+  judgement**. Skills make the third part explicit and repeatable; hooks make it
+  fire.
+- **`#1328` is therefore a worked example of a skill, not a counterexample to
+  one.** The session read the rules and prior owner cautions, then decided —
+  which is exactly what the estate's `intake` and `chase-references` skills
+  describe as a procedure.
+- **What a skill adds is variance reduction, not capability.** *"the skill only
+  helps to enforce the process and to make sure that it happens in the same way
+  each time."* The one-word era got that consistency from an unusually complete
+  repository plus a small, stable set of conventions; a skill gets it from being
+  written down and invoked.
+- **The open question the corrected framing leaves is narrower and better:**
+  not *"skills or the superbot recipe?"* but *"which parts of that implicit
+  procedure are now written down, and which are still relying on judgement being
+  good that day?"*
+
+*(This section is left as a strike-through-and-replace rather than a rewrite
+because the estate's own doctrine is that a superseded reading must not be
+silently removed where a later session would meet it — and because the error is
+a clean instance of the class it was describing: an agent reaching for an
+opposition the evidence did not support.)*
+
+### 3.3b · The correction rate — the number the hooks are measured against
+
+Given in the same message, unprompted, as the reason hooks and skills matter:
+
+> *"in most of my sessions, I had to correct the agents on claims they made on
+> average about 7x per session, and much more in larger sessions, I believe the
+> most times I caught an error in something an agent said in one session was 14
+> times, and that's only after we started counting."*
+
+`OWNER`, and **note the hedges — they are load-bearing**: *"on average about"*,
+*"I believe the most times"*, and the qualifier that counting started partway.
+So: **~7 corrections per session typical, 14 the highest counted, and the true
+figure is a floor rather than a measurement.**
+
+**This is the first baseline the estate has for its own defect rate**, and it
+belongs beside two things already recorded:
+
+- [`../intent.md`](../intent.md) § 2's success criterion — *"the same class of
+  mistake is never corrected twice"* — which is this number's target.
+- The `why-rules-dont-bind` measurement (116 statements, 0 catches). That
+  measured **statements** failing to bind; this measures **what got through**.
+
+`OWNER` on the outcome, same message: the owner-review hook *"has already saved
+me a lot of time and effort, aswell as helped catch errors that I personally
+would not have been able to spot"*. So the instrument is credited by him with
+catching a class he could not catch himself — which is the exact gap
+[`../owner-profile.md`](../owner-profile.md) names as uninstrumented (*"this
+estate instruments execution and does not instrument judgement"*). That line is
+now out of date in his favour, and should be amended when a session next touches
+it.
 
 ### 3.4 · What this gives the plan that it did not have
 
