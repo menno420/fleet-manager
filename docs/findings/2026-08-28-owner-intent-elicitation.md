@@ -856,30 +856,62 @@ personally would not have been able to spot."*
 judgement now exists, and by his own account it catches a class **he cannot**,
 which is stronger than mere redundancy.
 
-**The session's first explanation was that the line predated the hook. `MEASURED`
-2026-08-28, and it is refuted:**
+**Dating it took three passes, and the middle one put a false claim in this
+file. All three are kept, because the sequence is the finding.**
+
+**Pass 1 (inference):** the session said the line *predated* the hook. Not
+checked — asserted.
+
+**Pass 2 (measured on a SHALLOW clone — WRONG, and it was committed):** three
+`git log` queries each returned `767238c 2026-08-23`, and the session recorded
+that the hook, the claim contradicting it, and the design record *"all landed in
+the same commit"* — concluding the line was **wrong on the day it shipped**.
+
+**Pass 3 (measured on full history — the truth, and it restores pass 1):**
 
 ```
-git log --diff-filter=A -- .claude/hooks/owner_review.py        → 767238c  2026-08-23
-git log -S 'instruments execution' -- docs/owner-profile.md     → 767238c  2026-08-23
-git log --diff-filter=A -- .../2026-08-06-provenance-mechanism-measured.md → 767238c  2026-08-23
+git rev-parse --is-shallow-repository          → true       # 64 commits visible
+git show --stat 767238c                        → 964 files changed, 474,614 insertions(+)
+git fetch --unshallow                          → 995 commits
 ```
 
-**The hook, the claim that it does not exist, and its design record all landed
-in the same commit.** The line was not overtaken by later events; it was
-**wrong on the day it shipped**, written beside the instrument that contradicts
-it.
+`767238c` is the **graft boundary**, not a commit that added anything: every
+file merely *present* at the shallow horizon reports as added there. Re-measured
+after unshallowing:
 
-**Two method notes, because both are instances of classes this estate tracks:**
+| what | first appears | commit |
+|---|---|---|
+| the *"instruments execution … the only instrument"* claim in `owner-profile.md` | **2026-08-06** | `17bac33` |
+| [`2026-08-06-provenance-mechanism-measured.md`](2026-08-06-provenance-mechanism-measured.md) — *"an unframed reviewer endorses whatever it is shown"* | **2026-08-07** | `d1455e9` |
+| `.claude/hooks/owner_review.py` — *"Build the owner-review Stop hook"* | **2026-08-08** | `d58f9e3` |
 
-1. **A date printed inside a document is not the document's date.** The section
-   is headed *"(owner-stated, 2026-08-05)"*, which records when **he said** the
-   presence-model material — not when the surrounding analysis was written. The
-   session collapsed the two and produced a false chronology from it.
-2. **A `git log -S` search returned empty and was nearly read as absence.** The
-   search string spanned a line break in the wrapped file. The null was an
-   artefact of the query, not a fact about history — TRAP-003's class, caught
-   before it was recorded.
+**So the ordinary story was the true one, and it is better than either
+alternative:** the profile asserted that judgement could not be instrumented on
+**08-06**; the estate *measured* that exact gap on **08-07**; and it *built* the
+instrument on **08-08**. Three consecutive days, claim → measurement → mechanism.
+The line is not a same-day contradiction and not a long-rotting error — it is a
+true statement that its own repository falsified within 48 hours and **never went
+back to amend**.
+
+**Three method notes, each an instance of a class this estate already tracks:**
+
+1. **A shallow clone manufactures false co-location.** `--diff-filter=A` on a
+   grafted history dates every pre-horizon file to the boundary, so unrelated
+   files appear to have landed together. The genesis dig hit this same artifact
+   and re-measured via the API; this pass hit it again and needed
+   `--unshallow`. **Check `is-shallow-repository` before any `git log`-based
+   dating claim** — a 964-file, 474k-insertion "commit" is the tell.
+2. **A date printed inside a document is not the document's date.** The section
+   heading *"(owner-stated, 2026-08-05)"* records when **he said** the
+   presence-model material, not when the analysis around it was written.
+3. **A `git log -S` null can be a query artifact.** The first search returned
+   empty because the string spanned a line break in the wrapped file — TRAP-003's
+   class, caught before it was recorded.
+
+**And the sequence itself is the lesson:** an unverified inference was *correct*,
+a measurement *overturned* it, and only a check of the measurement's own
+instrument restored the truth. Verification is not a single step that ends an
+argument — a measured claim inherits every defect of the tool that produced it.
 
 **Disposition: flagged, not edited.** The paragraph is analysis *about him*
 built on his own quoted words, so the correction should carry his — and § 2's
