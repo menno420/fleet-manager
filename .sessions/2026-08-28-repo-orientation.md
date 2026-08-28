@@ -122,10 +122,30 @@ carry would be exactly that.
 
 ## Verify
 
+Read every exit code through `PIPESTATUS`, never `$?` after a pipe.
+
 ```
-python3 bootstrap.py check --strict     # real exit 0 (PIPESTATUS, never $? after a pipe)
-python3 tools/estate_activity.py refresh # real exit 0
+python3 bootstrap.py check --strict
+#   real exit 1 on the committed tree while this card says in-progress.
+#   That is the born-red HOLD, by design, and the gate names it:
+#     [session-card-hold] .sessions/2026-08-28-repo-orientation.md:
+#       born-red HOLD ... the gate holds the merge red until the card flips
+#       complete (designed hold, not a defect)
+#   real exit 0 on the pre-card tree (15:48Z, before this card existed) and
+#   again after the flip to complete — which is the run that lands it green.
+
+python3 tools/estate_activity.py refresh          # real exit 0
+python3 tools/read_shared_chat.py <url> -o out.txt # real exit 0, after `pip install playwright`
 ```
+
+**Corrected after `@codex` R2** (1 finding, P2, `[conceded]`). This section
+first read `check --strict  # real exit 0`, which was true of the run that
+produced it — the 15:48Z run, before the card existed — and false of the
+committed tree it appeared on, where the card's own `in-progress` status makes
+the gate exit 1. A verify block that advertises a green a reader cannot
+reproduce is worse than no verify block: it trains the next session to discount
+a red it should read. The pre-card and post-flip runs are now distinguished
+from the held one.
 
 ## Layer-2 handoff
 
@@ -150,6 +170,16 @@ clean-pass shape that route warns about.
 Finding 2 is the sharper of the two: it is the *refresh-before-you-add*
 ordering bug, and it would recur on every future session that refreshes the
 lane before writing its own card. Captured as this card's session idea.
+
+**`@codex` R2 at head `a152c8b` — 1 finding, P2, `[conceded]`.** The Verify
+section advertised `check --strict  # real exit 0` on a tree where the card's
+own born-red status makes the gate exit 1; the recorded green came from the
+pre-card run. Corrected in § Verify above, with the held, pre-card and
+post-flip states distinguished. **This is the third finding in a row about the
+same class of defect** — R1's two and R2's one are all *a number or an exit
+code copied from the moment it was true into a document that outlives that
+moment*. Worth noting as the session's own recurring failure rather than three
+unrelated slips.
 
 ## 💡 Session idea
 
