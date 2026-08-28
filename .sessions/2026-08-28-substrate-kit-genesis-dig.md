@@ -1,7 +1,7 @@
 # 2026-08-28 — the substrate-kit genesis dig (OD-24 review round, session 1)
 
-> **Status:** `in-progress` — born-red hold. The dig is running; nothing below
-> is complete until this badge flips.
+> **Status:** `complete` — landed on green after two Codex rounds; every
+> finding dispositioned.
 
 - **📊 Model:** fable-5 · high · docs-only
 - **📍 Venue:** cloud-container
@@ -71,6 +71,22 @@ finding).
   apparatus — the class boundary between absent and unrouted is where this
   round's real work sits). One miss to carry: #955's thread pointed the round
   at the worklist but not at Q-0266's phase plan, which §8 needed.
+
+## Codex review (two rounds, the cap)
+
+- **R1 on `9b1f92e`: 3 findings (2 P2, 1 P3) — 3 [conceded], fixed in
+  `aa31581`.** Layer-2 carried a pre-correction gap split; a stale 8-file
+  census; a four-item "three journals" list.
+- **R2 on `aa31581`: 4 findings (3 P2, 1 P3) — 4 [conceded], fixed
+  post-review.** The §7 ledger row's same pre-correction split; the
+  superseded 86·2 PR pair replaced with the ordering-only claim; the card
+  censuses restated as final-tree 161/161; two dispositions rows corrected
+  (both findings already indexed).
+- **Tally: 7 findings · 7 [conceded] · 0 [survived] · 0 open.** Reviewed SHA:
+  `aa31581` (review object `commit_id` verified on /pulls/956/reviews). What
+  came after it: the four R2 concession fixes + this close-out/flip commit —
+  taken under the skill's flip exemption, named here per its own rule; the
+  two-re-review cap is reached and nothing reviewable remains unfixed.
 
 Layer-2 handoff: docs/repos/substrate-kit/README.md — review-round thread updated
 PR: fm #956 — merged on green after Codex review (state verified at close).

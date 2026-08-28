@@ -250,9 +250,10 @@ the substrate it exports"*), and the kit's heartbeat self-reports
 
 **First, what did NOT regress** (the correction that reframes OD-21): the card
 ritual's form held everywhere it was gated. fm July 266/267 cards carry the
-review section, August **160/161** (the miss is tonight's own in-progress card);
-a mechanical empty-section detector over all 161 August cards found **zero**
-empty review sections; the 96%→60% "⟲ decline" in the first sweep was **glyph
+review section, August **161/161 at this PR's final tree** (160/161 when
+measured mid-dig — the one miss was this session's own then-unfinished card,
+completed before landing); a mechanical empty-section detector over all 161
+August cards found **zero** empty review sections; the 96%→60% "⟲ decline" in the first sweep was **glyph
 notation, not practice**. superbot's four post-freeze cards keep full
 discipline, and the single most rigorous predecessor-correction in the whole
 sample is post-freeze (the 56th reconcile pass refuting the 55th against a
@@ -261,7 +262,8 @@ non-emptiness: an adversarial residue probe over all 161 August cards found
 **0 surviving drafted-hint texts** (the sham-card fingerprint the kit's own
 `check_card_residue` hunts), so the sections were authored, not
 draft-residue (`MEASURED`, verification pass). Two honest narrowings from
-the same pass: sessions still **carry the 💡 marker** (160/161 August cards)
+the same pass: sessions still **carry the 💡 marker** (161/161 at the final
+tree; 160/161 at measurement, the miss being this card)
 but a fresh disjoint 27-card sample found ~11% of the slots holding no idea
 at all (dispatch text, mission restatement — the marker-needle hole §4
 describes, present in fm too); and August's review register visibly shifts
@@ -438,8 +440,12 @@ measured, and not the driver of the decline.** What the record supports:
   suppressed record-keeping for two sessions; every hand-kept index decayed
   (findings index 25/42; planning 12/15; the router grew to **668,746 bytes
   against a 1,500-byte never-used archive**, its reconciliation cadence widened
-  20→30 as volume grew); fm spent 86 merged PRs in 14 days on apparatus vs
-  spider-swing's 2 — against intent.md §5's own non-goal. The owner's recall
+  20→30 as volume grew); fleet-manager out-merged
+  spider-swing by an order of magnitude in every measured 14-day window —
+  against intent.md §5's own non-goal (the intent audit retains the
+  **ordering only**: its published pairs — 99·2, the second-hand 86·2, the
+  08-24 re-measure — could not be reconciled across windows, so no single
+  pair is quoted here as measured). The owner's recall
   framing (*"too much information for an agent to remember"*) is real on this
   axis.
 - **Against (as decline cause):** the decline's **timing and selectivity**
@@ -586,8 +592,8 @@ deletion anywhere breaks that chain; (3) the retrieval fix for this corpus is
 | fm `control/claims/` | **keep — contested, rule separately** | kit still wires `claims_dir` (audit D46); disposition belongs to the kit round, not a doc sweep |
 | fm `docs/findings/2026-08-13-substrate-kit-v1210-followups.md` | **keep — live, the round's step-3 input** | the unconsumed 34-row worklist; zero kit pushes since 08-14 make it the standing successor |
 | fm `docs/findings/2026-08-09-substrate-kit-defects.md` · `2026-08-13-v1210-phase2-review.md` · `2026-08-14-v1210-phase3-review.md` | **keep** | consumed but they are the defect→fix audit trail v1.21.0's changelog cites |
-| fm `docs/findings/2026-08-09-independent-guard-review.md` | **keep + index-route** | fm-orphaned adversarial-verification record backing the defects worklist — an index row costs one line |
-| fm `docs/findings/2026-08-07-what-the-substrate-caught.md` | **keep + index-route** | directly on the round's question and reachable only via the shipped log today |
+| fm `docs/findings/2026-08-09-independent-guard-review.md` | **keep** (already indexed) | adversarial-verification record backing the defects worklist; the findings README routes it — no action *(a round-1 draft said "index-route"; Codex round 2 caught that both rows already exist)* |
+| fm `docs/findings/2026-08-07-what-the-substrate-caught.md` | **keep** (already indexed) | directly on the round's question; the findings README routes it — no action |
 | **deletions** | **none recommended tonight** | under OD-3-as-amended, deletion needs "served its purpose + no residual value"; every candidate examined either sits in a frozen repo, feeds the open E1 thread, carries the 09-09 gate, or is lineage evidence this round is actively consuming. The honest lever for this corpus is Move 2 compression, not removal. |
 
 ## 11 · What the round's next session should fix first (recommendation, not execution)
