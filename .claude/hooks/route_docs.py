@@ -301,12 +301,36 @@ _HEREDOC = re.compile(
 )
 
 # Where a Bash command puts bytes on disk. Redirects and `tee` name their target
-# directly; `sed -i` edits in place and names it last. These are also what make a
-# command an AUTHORING command at all — see authored_only().
+# directly; `sed -i` edits in place and names it last; a heredoc fed to an
+# interpreter can write through a library call, which no redirect reveals.
+#
+# Extensionless paths COUNT (`cat > README <<'EOF'` is an ordinary document
+# write); the exclusions are the special sinks, named explicitly rather than
+# approximated by requiring a dot — `@codex`, fm #963 R3.
 _WRITE_TARGET = re.compile(
-    r"(?:>>?|\|\s*tee(?:\s+-a)?)\s+['\"]?([\w./@-]+\.[A-Za-z0-9]+)['\"]?"
-    r"|sed\s+(?:-[a-zA-Z]*i[a-zA-Z]*)\s+[^|;&]*?['\"]?([\w./@-]+\.[A-Za-z0-9]+)['\"]?\s*(?:$|[|;&])"
+    r"(?:>>?|\|\s*tee(?:\s+-a)?)\s+['\"]?([\w./@-]+)['\"]?"
+    r"|sed\s+(?:-[a-zA-Z]*i[a-zA-Z]*)\s+[^|;&]*?['\"]?([\w./@-]+)['\"]?\s*(?:$|[|;&])"
+    r"|(?:write_text|write_bytes)\s*\(|open\s*\([^)]*['\"][wa]"
 )
+
+# A heredoc fed to an interpreter writes through a library call that no shell
+# redirect reveals — `python3 - <<'PY'` doing `Path('docs/x.md').write_text(…)`.
+# Extracting the path from that is a parsing problem with no end (the path can
+# be a variable, an f-string, a join); the WRITE VERB is the reliable signal, so
+# a body containing one counts as authoring and the body itself is the text.
+# A printing-only body has no verb and stays silent. `@codex`, fm #963 R3.
+_WRITE_VERB = re.compile(
+    r"\b(?:write_text|write_bytes|writelines)\s*\(|\bopen\s*\([^)]*['\"][wa]|"
+    r"\.write\s*\(|\bfs\.writeFile"
+)
+
+# `> /dev/null`, `2>&1` and friends are not documents.
+_NOT_A_DOCUMENT = re.compile(r"^(?:/dev/|/proc/|&)|^\d+$")
+
+# Shell separators that end one command and begin another. Splitting on these
+# is what lets extracted text be attributed to the write it belongs to, instead
+# of any target in the payload authorizing every quoted span anywhere in it.
+_SEGMENT = re.compile(r"(?:;|&&|\|\||\n)")
 
 # Quoted spans, so a `printf '…text…' > f` carries its payload into the match.
 _QUOTED = re.compile(r"'([^']*)'|\"([^\"]*)\"", re.DOTALL)
@@ -324,9 +348,17 @@ def bash_write_targets(command: str) -> list[str]:
     equivalent Write event fired (fm #963, P1).
     """
     out: list[str] = []
+    # An interpreter heredoc whose body carries a write verb is a write, even
+    # though nothing in the shell layer says so.
+    for m in _HEREDOC.finditer(command):
+        if _WRITE_VERB.search(m.group(3)):
+            out.append("<interpreter-write>")
+            break
     for m in _WRITE_TARGET.finditer(command):
         target = m.group(1) or m.group(2)
-        if target and target not in out:
+        if not target or _NOT_A_DOCUMENT.search(target):
+            continue
+        if target not in out:
             out.append(target)
     return out
 
@@ -386,9 +418,28 @@ def authored_only(text: str) -> str:
     """
     if not bash_write_targets(text):
         return ""
-    bodies = [m.group(3) for m in _HEREDOC.finditer(text)]
-    quoted = [q for m in _QUOTED.finditer(text) for q in m.groups() if q]
-    return "\n".join(bodies + quoted)
+
+    # Attribute text to the write it belongs to. A payload is often several
+    # commands, and treating any target in it as authorization for every quoted
+    # span anywhere fires on text that was never written: `grep 'all 26
+    # repositories' docs/traps.md; echo ok > docs/x.md` would trip the count
+    # guard although the file receives only "ok", and three such compounds
+    # exhaust the repeat cap before a real claim is authored (`@codex`, fm #963
+    # R3). Heredoc bodies are pulled out first because they legitimately span
+    # separators; the remainder is then split per command and only writing
+    # segments contribute their quoted spans.
+    bodies: list[str] = []
+    remainder = text
+    for m in reversed(list(_HEREDOC.finditer(text))):
+        bodies.append(m.group(3))
+        remainder = remainder[: m.start()] + "\n" + remainder[m.end():]
+
+    written: list[str] = []
+    for segment in _SEGMENT.split(remainder):
+        if not bash_write_targets(segment):
+            continue
+        written.extend(q for m in _QUOTED.finditer(segment) for q in m.groups() if q)
+    return "\n".join(bodies + written)
 
 
 # A `repeat` route is bounded, not unlimited. Repetition is what makes a guard
@@ -609,6 +660,7 @@ def main() -> int:
     # `card-flip-to-complete` and spent it — the real card flip later in that
     # session was SILENT. Same class as fm #923, one field deeper.
     target_path = str((event.get("tool_input") or {}).get("file_path") or "")
+    bash_target_paths: list[str] = []
     if not target_path and tool == "Bash":
         # A Bash write names its target in a redirect, not in a `file_path`
         # field, so a route gating on `path_when` skipped before its content was
@@ -617,10 +669,19 @@ def main() -> int:
         # with `cat > .sessions/x.md <<'EOF'`). Take the first target: a command
         # writing several files is rare, and the first is the one the rest of
         # the line is about.
-        bash_targets = bash_write_targets(
-            str((event.get("tool_input") or {}).get("command") or "")
-        )
+        bash_targets = [
+            t for t in bash_write_targets(
+                str((event.get("tool_input") or {}).get("command") or "")
+            )
+            if t != "<interpreter-write>"
+        ]
+        # ALL of them, not the first. One payload often writes several files,
+        # and if a session card is not the first target then a route gating on
+        # `path_when` never sees it — `echo ok > docs/x.md; cat > .sessions/x.md
+        # <<'EOF' … Status: complete …` let a completed card past the
+        # merge-safety warning entirely (`@codex`, fm #963 R3 P1).
         target_path = bash_targets[0] if bash_targets else ""
+        bash_target_paths = bash_targets
     normalized_target_path = target_path.replace("\\", "/")
     checkout_prefix = REPO.as_posix().rstrip("/") + "/"
     if normalized_target_path.casefold().startswith(checkout_prefix.casefold()):
@@ -701,10 +762,18 @@ def main() -> int:
         # `path_when` is checked against the file_path FIELD alone, never the
         # haystack, so naming a path in prose cannot satisfy it (fm #938).
         path_pats = route.get("path_when") or []
+        path_candidates = (
+            bash_target_paths
+            if (tool == "Bash" and bash_target_paths)
+            else [normalized_target_path]
+        )
         if path_pats:
             try:
-                if not target_path or not any(
-                        re.search(pp, target_path, re.I) for pp in path_pats):
+                if not any(
+                    cand and re.search(pp, cand, re.I)
+                    for cand in path_candidates
+                    for pp in path_pats
+                ):
                     continue
             except re.error:
                 continue
@@ -717,7 +786,14 @@ def main() -> int:
         # text IS the authored content already, and narrowing it there would
         # blind the route to the ordinary case.
         if tool == "Bash" and route.get("authored_only"):
-            match_text = authored_only(text)
+            # Path AND content, mirroring FIELDS["Write"] = (file_path, content).
+            # Supplying content alone left `card-status-write` unable to match:
+            # its sole `when` pattern is the card PATH, so the route passed
+            # path_when and then found nothing to match against, staying silent
+            # for every Bash-authored card (`@codex`, fm #963 R3). The
+            # end-to-end complete-card case missed it because the neighbouring
+            # `card-flip-to-complete` route fired instead.
+            match_text = "\n".join(bash_target_paths + [authored_only(text)])
         elif route.get("code_only"):
             match_text = code_only(text)
         else:

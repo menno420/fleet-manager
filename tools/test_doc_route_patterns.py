@@ -21,9 +21,11 @@ usage: python3 tools/test_doc_route_patterns.py
 from __future__ import annotations
 
 import json
+import os
 import re
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 TABLE = Path(__file__).resolve().parents[1] / ".claude/hooks/doc-routes.json"
@@ -123,6 +125,15 @@ BASH_AUTHORING = [
     ("python heredoc that only prints",
      f"python3 - <<'PY'\nprint('{MARK}')\nPY", False),
     ("plain read", "cat docs/traps.md | head", False),
+    # R3 additions
+    ("extensionless target", f"cat > README <<'EOF'\n{MARK}\nEOF", True),
+    ("python write_text in a heredoc",
+     f"python3 - <<'PY'\nPath('docs/x.md').write_text('{MARK}')\nPY", True),
+    ("python open(...,'w') in a heredoc",
+     f"python3 - <<'PY'\nopen('docs/x.md','w').write('{MARK}')\nPY", True),
+    ("special sink is not a document", f"echo '{MARK}' > /dev/null", False),
+    ("mention in one segment, write in another",
+     f"grep '{MARK}' docs/traps.md; echo ok > docs/x.md", False),
 ]
 
 # `path_when` routes gate on the target path, which a Bash payload does not
@@ -143,9 +154,24 @@ CARD_PATH_CASES = [
 # derivation -> authored_only() -> pattern match.
 E2E_CASES = [
     ("card authored via redirect",
-     "cat > .sessions/2026-01-01-x.md <<'EOF'\n> **Status:** `complete`\nEOF", True),
+     "cat > .sessions/2026-01-01-x.md <<'EOF'\n> **Status:** `complete`\nEOF",
+     "TRAP-006"),
+    # R3 P1: the card is the SECOND write target, so taking only the first
+    # made both card routes fail path_when and let a completed card through.
+    ("card is the second write target",
+     "echo ok > docs/x.md; cat > .sessions/2026-01-01-x.md <<'EOF'\n"
+     "> **Status:** `complete`\nEOF", "TRAP-006"),
+    # R3: card-status-write's `when` is the card PATH, so the Bash haystack has
+    # to carry the target as well as the content, mirroring FIELDS["Write"].
+    ("in-progress card matches on its path",
+     "cat > .sessions/2026-01-01-y.md <<'EOF'\n> **Status:** `in-progress`\nEOF",
+     # distinctive to card-status-write; card-flip-to-complete does not carry it
+     "card lifecycle"),
     ("read of a card names no target",
-     "grep -rn Status .sessions/2026-01-01-x.md", False),
+     "grep -rn Status .sessions/2026-01-01-x.md", None),
+    # R3: a mention in one segment must not be authorised by a write in another.
+    ("compound: mention then unrelated write",
+     "grep 'all 26 repositories' docs/traps.md; echo ok > docs/x.md", None),
 ]
 
 
@@ -202,22 +228,37 @@ def check_plumbing() -> list[str]:
     # deleted — the helper was fine and the CALL SITE was the defect, which is
     # this whole change's own failure shape repeating one level down. Run the
     # hook as a subprocess with a real payload instead.
-    for label, command, must_fire in E2E_CASES:
-        event = json.dumps({
-            "session_id": f"selftest-{abs(hash(label)) % 10**8}",
-            "tool_name": "Bash",
-            "tool_input": {"command": command},
-        })
-        proc = subprocess.run(
-            [sys.executable, str(TABLE.parent / "route_docs.py")],
-            input=event, capture_output=True, text=True,
-        )
-        fired = bool(proc.stdout.strip())
-        if fired != must_fire:
+    for index, (label, command, expect) in enumerate(E2E_CASES):
+        # A fresh TMPDIR per case. The hook persists fired routes under
+        # $TMPDIR, and `hash()` is deterministic when PYTHONHASHSEED is set, so
+        # reusing ids made a second run of this suite fail on an already-spent
+        # route — the suite was not repeatable, which is the one property a
+        # regression suite must have (`@codex`, fm #963 R3).
+        with tempfile.TemporaryDirectory() as state:
+            env = {**os.environ, "TMPDIR": state}
+            event = json.dumps({
+                "session_id": f"selftest-{index}",
+                "tool_name": "Bash",
+                "tool_input": {"command": command},
+            })
+            proc = subprocess.run(
+                [sys.executable, str(TABLE.parent / "route_docs.py")],
+                input=event, capture_output=True, text=True, env=env,
+            )
+        # Assert WHICH route answered, never merely that something did. A bare
+        # "did anything fire" passed with the P1 fix deleted, because a
+        # neighbouring route with no `path_when` fired on the same payload and
+        # satisfied the assertion — the third time in this change that a test
+        # was too weak in exactly this way.
+        out = proc.stdout
+        if expect is None:
+            if out.strip():
+                bad.append(f"end-to-end: {label} must stay silent, but a route fired")
+        elif expect not in out:
             bad.append(
-                f"end-to-end: {label} must {'fire' if must_fire else 'stay silent'} "
-                f"but did not (a route gating on path_when needs the redirect "
-                f"target derived from the command)"
+                f"end-to-end: {label} must surface {expect!r} and did not — a "
+                f"path route needs EVERY write target, and the Bash haystack "
+                f"needs the path as well as the content"
             )
 
     from route_docs import bash_write_targets  # noqa: PLC0415

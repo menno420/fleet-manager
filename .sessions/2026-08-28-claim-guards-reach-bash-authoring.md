@@ -163,6 +163,37 @@ the suite I wrote inherited it — which is why it went green over a fix that di
 not work for two of the eight routes it claimed to cover. A test written from
 the same wrong model as the code cannot catch the model being wrong.
 
+**`@codex` R3 at head `3ebdaa7` — 6 findings (1 P1, 5 P2), all `[conceded]`.**
+
+| # | finding | disposition |
+|---|---|---|
+| P1 | `bash_targets[0]` only, so when a card is not the FIRST write target both card routes fail `path_when` — `echo ok > docs/x.md; cat > .sessions/x.md <<'EOF' … complete …` let a completed card past the merge-safety warning | `[conceded]` — `path_when` now tries **every** target |
+| P2 | The write-target test was global to the payload, so any target authorised every quoted span anywhere in it: `grep 'all 26 repositories' f; echo ok > docs/x.md` fired the count guard although the file receives only `ok` | `[conceded]` — the payload is split on `;`/`&&`/`\|\|`/newline and only **writing segments** contribute their quoted spans |
+| P2 | Requiring a dot-extension made `cat > README <<'EOF'` invisible | `[conceded]` — extensionless paths count; the special sinks (`/dev/`, `/proc/`, fd numbers) are excluded by name instead |
+| P2 | `card-status-write`'s only `when` is the card PATH, and the Bash haystack carried content alone — so it passed `path_when` and then had nothing to match | `[conceded]` — the Bash haystack is now path + content, mirroring `FIELDS["Write"]` |
+| P2 | `python3 - <<'PY'` doing `Path(…).write_text(…)` writes with no shell redirect | `[conceded]` — an interpreter heredoc is judged by **write verb**, not by extracting a path: the path can be a variable, an f-string or a join, and the verb is the reliable signal |
+| P2 | The end-to-end cases reused `hash(label)` session ids, so with `PYTHONHASHSEED` fixed a second run failed on an already-spent route | `[conceded]` — a fresh `TMPDIR` per case; the suite is now repeatable, verified by running it twice under `PYTHONHASHSEED=0` |
+
+**And R3 exposed a defect in the tests, not just the code.** The end-to-end
+cases asserted only that *something* fired. With the P1 fix deleted the card
+routes correctly skipped and `session-card-venue` — which has no `path_when` —
+fired on the same payload and satisfied the assertion. **That is the third time
+in this change a test was too weak in exactly this way**, after the first P1
+test that called the helper instead of the call site. Every end-to-end case now
+asserts *which* route answered, by a marker string checked to be distinctive
+(`card lifecycle` appears in `card-status-write` and not in
+`card-flip-to-complete`).
+
+**Convergence, stated plainly:** R2 returned 4 findings, R3 returned 6. That is
+not converging, and the reason is structural — statically deciding what a shell
+command writes is unbounded, because the shell has no fixed grammar for "this
+is a document". Each round has found a real construct the last one missed.
+**The five negative controls now pin every behaviour**, so a future round's
+finding lands against a suite that fails rather than a claim that it works. If
+R4 returns another construct, the right response is a different mechanism —
+`PostToolUse` on Bash, reading what actually changed on disk instead of parsing
+intent — not a seventh regex.
+
 ## 💡 Session idea
 
 **The disarming is a property of the harness mode, not of this session — so it
