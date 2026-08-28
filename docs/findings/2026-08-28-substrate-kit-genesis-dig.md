@@ -479,8 +479,9 @@ measured, and not the driver of the decline.** What the record supports:
   question — **answered 2026-08-28, session 3**:
   [the truth pass](2026-08-28-kit-tree-truth-pass.md) §3 — substantially
   shipped as the v1.0.0 context-economy engine, so "never fewer files"
-  narrows to "the fewer-files layer shipped and was never activated on the
-  kit's own corpus"; the §4 table now carries the retention row)*. The legibility plan's §3 split (compliance is
+  narrows to "the fewer-files layer shipped, and at HEAD it is unconfigured
+  and trace-free on the kit's own corpus"; the §4 table now carries the
+  retention row)*. The legibility plan's §3 split (compliance is
   not the problem; **finding** is) is confirmed and extended: the pain is also
   write-side budget, and the full-read audit's diagnosed mechanism is
   **append-without-retract inside internally-coherent documents** — a
