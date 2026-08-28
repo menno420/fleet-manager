@@ -988,3 +988,68 @@ route" but **"which routes should never be spent?"** — a one-line policy
 question with an estate-wide answer, and exactly the kind of thing the revised
 plan should settle once rather than route-by-route.
 
+### 3.3e · The policy he ratified — **applied to the action guards, 2026-08-28**
+
+His selection, put to him because superbot:Q-0194's fix ladder makes hooks
+owner-gated: **"Any route guarding a KIND of command never gets spent."**
+
+`OWNER`. And the striking part is what applying it revealed.
+
+**The policy was already written — inside the code that implements it.**
+`.claude/hooks/route_docs.py:505-515`, the comment directly above the line that
+honours the flag (`:516`, `if rid in fired and not route.get("repeat")`):
+
+> *"`repeat` routes are never spent. Once-per-session is right for a REFERENCE
+> pointer (say it once, the agent has it) and wrong for an ACTION guard, whose
+> whole job is to speak at each occurrence of the action. Three measured
+> incidents are the same shape — fm #922, fm #923 and fm #937 … Opt-in per
+> route, like `code_only`: blanket repetition would nag on every reference
+> route."*
+
+So the reference-vs-action-guard distinction is not a new idea from this
+sitting; it is the implementation's own stated rationale, backed by three
+measured incidents. **It had one opt-in out of 71 routes.**
+
+**And the fix that introduced it was incomplete on its own diagnosis.**
+`git log -S '"repeat": true'` dates the flag to **2026-08-24, `9bd48b4`,
+fm #938** — the PR whose comment names the failing sequence: *"step 1 spent
+`card-status-write` and step 2 spent `card-flip-before-push`."* **Both** routes
+were named as spent; **only `card-flip-before-push` received the flag.**
+`card-status-write` has been one-shot ever since, in the register's own
+worked example.
+
+**Applied this session — 9 routes, chosen by the code's own criterion** (an
+action guard is one whose subject can go wrong at *each* occurrence; a reference
+pointer says its thing once):
+
+| route | why it is an action guard |
+|---|---|
+| `shallow-clone-commit-counts` | tonight's failure — every `git log` is a fresh chance to quote the clone as the repo |
+| `exit-code-after-a-pipe` | `$?` after a pipe is wrong at every occurrence |
+| `stamping-a-measured-claim` | every `MEASURED` write is a fresh chance to overclaim |
+| `absence-claim` | every *"no hits / nothing found"* is a fresh false-null (this session produced **two**) |
+| `claim-beyond-the-sample` | every *"N of M"* is a fresh sample-as-total |
+| `recording-a-wall` | every wall sentence is a fresh violation of the estate's hardest rule |
+| `codex-verdict-poll` | every poll can read a clean verdict as absent (TRAP-007) |
+| `card-status-write` | **named as spent in fm #938's own comment and never fixed** |
+| `card-flip-to-complete` | the TRAP-007 transition — must speak at each attempt |
+
+**Deliberately NOT applied** to the ~25 provider and repo routes (`gemini`,
+`github-api`, `repo-spider-swing`, …). They are reference pointers — *read this
+doc before probing* — and the implementation's own comment warns that *"blanket
+repetition would nag on every reference route"*. His criterion names *"a class
+of command you'll run many times"*, which those technically are; the narrowing
+to hazard-per-occurrence is `DERIVED` and is flagged here rather than assumed.
+**If he wants the wider reading, it is one edit.**
+
+**Verified, not assumed:** JSON re-parsed after the edit; `repeat` routes now
+**10**; `python3 tools/test_doc_route_patterns.py` → **exit 0**, *"17 case(s) —
+CLEAN (10 must-fire, 3 must-be-silent, 4 shallow-clone)"*.
+
+**The meta-pattern, three instances in one evening.** The shallow-clone rule
+existed and was routed but arrived too early (§ 3.3d). The reference-vs-action
+policy existed in the implementing code and was applied once. The fm #938 fix
+named two routes and repaired one. **In none of these cases was anything
+unknown** — and that is the round's root cause in its purest form: not missing
+knowledge, but knowledge that fails to reach the moment.
+
