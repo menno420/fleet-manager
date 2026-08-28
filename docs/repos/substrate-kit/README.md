@@ -1,6 +1,6 @@
 # substrate-kit — the entry point
 
-> **Status:** `living-ledger` · true as of **2026-08-21**
+> **Status:** `living-ledger` · true as of **2026-08-28**
 >
 > **What this is:** fleet-manager's entry point for `menno420/substrate-kit` —
 > where the last session left off and where the next one should look.
@@ -53,10 +53,12 @@ dispositions table (recommendations only, execution owner-gated).
   unreleased; the cut stays owner-paced.
 - **The item-4 audit:**
   [the router band re-read](../../findings/2026-08-28-router-band-reread.md)
-  — all 208 body sections Q-0063–Q-0272, 59/59 quotes machine-verified;
-  seven genesis-dig claims narrowed (each routed in place), ~13 standing
-  owner rules surfaced that no live fm record carried, genesis precedents
-  mapped onto the gap table, three letter candidates.
+  — all 208 body sections superbot:Q-0063–Q-0272, 59/59 quotes
+  machine-verified (ledger committed in its appendix); seven genesis-dig
+  claims narrowed, each routed in place at the claim site; a carrier
+  census of standing owner rules (six absent from every fm document, the
+  rest in seat-era/reference surfaces or carrying a different facet);
+  genesis precedents mapped onto the gap table; three letter candidates.
 - **The morning letters (Move-1 GO · journal · §10 confirmations) were
   checked first and remain UNANSWERED** — everything owner-gated stayed
   gated. The re-read adds Q-0101 as evidence for the journal letter and

@@ -612,7 +612,7 @@ deletion anywhere breaks that chain; (3) the retrieval fix for this corpus is
 | fm `docs/eap-final-email-draft-2026-07-14.md` | **archive** (supersede-by note) | superseded by `planning/2026-08-24-final-eap-email-draft.md`; keep as correspondence lineage until E1 sends |
 | fm `docs/roster.md` · `control/` (minus `claims/`) · `telemetry/` · `projects/` · `docs/prompts/` (minus the 3 live files) | **keep as bannered RECORD** (already done) | all self-declare historical; re-litigating them is churn; Move 2 digests them out of the read path |
 | fm `control/claims/` | **keep — contested, rule separately** | kit still wires `claims_dir` (audit D46); disposition belongs to the kit round, not a doc sweep |
-| fm `docs/findings/2026-08-13-substrate-kit-v1210-followups.md` | **keep — live, the round's step-3 input** | the unconsumed 34-row worklist; zero kit pushes since 08-14 make it the standing successor |
+| fm `docs/findings/2026-08-13-substrate-kit-v1210-followups.md` | **keep — live, the round's step-3 input** | the unconsumed 34-row worklist; zero kit pushes since 08-14 make it the standing successor *(consumption began 2026-08-28: rows 13/17/18 fixed by kit #587, row 35 added — the worklist's own tail carries the record)* |
 | fm `docs/findings/2026-08-09-substrate-kit-defects.md` · `2026-08-13-v1210-phase2-review.md` · `2026-08-14-v1210-phase3-review.md` | **keep** | consumed but they are the defect→fix audit trail v1.21.0's changelog cites |
 | fm `docs/findings/2026-08-09-independent-guard-review.md` | **keep** (already indexed) | adversarial-verification record backing the defects worklist; the findings README routes it — no action *(a round-1 draft said "index-route"; Codex round 2 caught that both rows already exist)* |
 | fm `docs/findings/2026-08-07-what-the-substrate-caught.md` | **keep** (already indexed) | directly on the round's question; the findings README routes it — no action |
@@ -622,10 +622,13 @@ deletion anywhere breaks that chain; (3) the retrieval fix for this corpus is
 
 1. **The one-file unrouted fix:** a pointer in the kit tree to its fm-side
    worklist (gap #5) — smallest possible change, kit venue, no promotion
-   question, and it un-strands the round's own step 3.
+   question, and it un-strands the round's own step 3. **DONE 2026-08-28,
+   session 2 (kit #587).**
 2. **Then the worklist's own stated order:** the false negatives first (rows
    13, 17, 18 — the checker failing at its one job), per the fix order restated
-   2026-08-21.
+   2026-08-21. **DONE 2026-08-28, session 2 (kit #587; the worklist's next
+   lead is the work-destroyers 26/29/33, and its row 35 carries the review's
+   deferred residuals).**
 3. **Name, don't build, the conveyor fix:** Move 1's `♻ Carried forward`
    marker is the designed answer to gaps #1/#2 and it is **held** with the
    rest of the plan — the round should put it to the owner as the first GO

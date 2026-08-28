@@ -181,8 +181,9 @@ retractions did not refresh there — its card carries the follow-up.
 
 Fix-order restated after the couch-legend seed (2026-08-21, fm #879 — this
 supersedes the post-wave order, which is preserved struck-through below):
-**the false negatives first (13, 17, 18)** — they are the checker failing at
-its one job — then the work-destroyers and flow-stoppers from the seed round
+~~**the false negatives first (13, 17, 18)**~~ **— CONSUMED 2026-08-28,
+kit #587 (see the consumption note below); the order now LEADS with the
+work-destroyers** — then the work-destroyers and flow-stoppers from the seed round
 (**26, 29, 33** — the reset-ordering family destroys work, 29 makes 26's own
 safeguard fire on every healthy boot, 33 stops the documented upgrade flow
 at its second step; **34** rides with 33 as the same skill's other half),

@@ -158,8 +158,9 @@ copy product architecture or internal product state. Canonical intent:
   4 deferred as worklist row 35 under the review cap; fixes unreleased —
   the cut stays owner-paced) — and §11 item 4's audit ran:
   [the router band re-read](findings/2026-08-28-router-band-reread.md)
-  (208 body sections, seven dig claims narrowed, ~13 standing owner rules
-  surfaced, three letter candidates). His morning letters were checked
+  (208 body sections, seven dig claims narrowed and routed in place, a
+  carrier census of standing owner rules — six absent from every fm
+  document — three letter candidates). His morning letters were checked
   first and remain unanswered; everything owner-gated stayed gated.
 
 ### Live operating mechanisms

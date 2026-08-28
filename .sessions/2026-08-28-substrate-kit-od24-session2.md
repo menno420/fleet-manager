@@ -42,10 +42,14 @@ stays gated: no Move 1 build, no §10 disposition execution, no release.
   residuals; the Layer-2 round thread advanced to session 2 done and its
   stale routes-nowhere measurement closed in place;
   [the router band re-read](../docs/findings/2026-08-28-router-band-reread.md)
-  — §11 item 4, all 208 body sections Q-0063–Q-0272 via eight reader
-  lanes, 59/59 notable quotes machine-verified against the frozen router,
-  seven genesis-dig claims narrowed with in-place pointers, ~13 standing
-  owner rules surfaced, three letter candidates; findings-README row;
+  — §11 item 4, all 208 body sections superbot:Q-0063–Q-0272 via eight
+  reader lanes, 59/59 notable quotes machine-verified against the frozen
+  router (ledger committed in the finding's appendix, Codex R2), seven
+  genesis-dig claims narrowed with in-place pointers at each claim site
+  (Codex R1), a carrier census of standing owner rules — six absent from
+  every fm document, the rest in seat-era/reference surfaces or carrying
+  a different facet (Codex R2 corrected the first cut's "no live record"
+  headline) — three letter candidates; findings-README row;
   current-state bullet extended.
 
 ## Verify
