@@ -171,8 +171,50 @@ copy product architecture or internal product state. Canonical intent:
   and trace-free on the kit's own corpus at HEAD), kit `docs/current-state.md`
   + `control/status.md` reconciled in the kit's venue (kit #588 MERGED on
   green), the 23-file wrong-action set catalogued as §5 recommendations, and
-  `OQ-KIT-P10-REQUIRED-CHECKS` retired by a live rules read. The letters
-  were re-checked and remain unanswered.
+  `OQ-KIT-P10-REQUIRED-CHECKS` retired by a live rules read. ~~The letters
+  were re-checked and remain unanswered.~~
+- **The round's DISCUSSION SITTING ran with the owner present (2026-08-28,
+  session 4, fm #964) — every letter that was ASKED is answered, and one answer
+  re-ranks the round (OD-26).** *(Still open, so "answered" is not read as
+  "finished": the kit's name, the v1.21.0 adopter half, agenda § 2 · G's
+  card-deletion question — deliberately not asked, due after the report-only
+  census — and the BTD6 loop.)* Twelve answers recorded as each arrived:
+  [`findings/2026-08-28-od24-sitting-answers.md`](findings/2026-08-28-od24-sitting-answers.md).
+  **The headline:** asked which ways the kit still fails — the question no
+  session had put to him — he gave **one root cause**, not a list: *"they are
+  all related to the same root cause, which is mostly that agents don't take
+  enough initiative to leave the repos in a better shape"*. Three audits had
+  produced twelve gap classes; the divergence is one of **altitude**, and the
+  round had already found it (dig § 6.1) and organised around the gap table
+  anyway. **Two things he said on no agenda govern what happens next:** the
+  **cost function** — *stalling is "not necessarily bad"; **redoing** the same
+  things is the waste*, so the test for any mechanism is *does it stop a
+  re-derivation?* and **routing outranks building** — and a **three-stage
+  order**, *map (3 parallel sessions running now) → revised plan → execution*,
+  which makes this round's output **an input to a plan, not a work queue** and
+  the Move 1 hold a **stage with an exit condition** rather than something to
+  re-ask. **Answers:** June rules mostly still stand · nothing may **block** a
+  session calling work done (build the consumption loop, no gate) · a brake may
+  prompt **only when he is present** (`delete_trigger` never) · **Move 1 HELD** ·
+  the end-of-session interview is asked **by something, filtered**, and that is
+  **not** a GO for Move 1 · **AGENTS.md hand-written per repo** · the journal
+  **survives as the guidebook it already is** — his named function (*"easily find
+  out what went wrong each session"*) is already captured by the session cards,
+  so the gap is **retrieval** across them, not a second record · leftovers drain via **a standing surface
+  he reads**, scheduled unattended draining **refused** · spend caps **not
+  currently relevant** · the kit's **charter is rewritten to say initiative** ·
+  the kit **is renamed** but he supplies the name later · the next release is
+  **cut when the next fix batch lands** · **D2's target is `spider-swing`**
+  (`OQ-FM-D2-TARGET` **CLOSED** — open since 08-23, once falsely closed by
+  inference) · the final EAP mail moved from *"leave it"* to **"soon"** with a
+  **widened brief**. **`OQ-KIT-PROMPT-DOCTRINE` and `OQ-EAP-SPEND-WINDOW-MOOT`
+  also closed; `OQ-KIT-RENAME` added.** The Gemini paid-key budget decision's
+  self-contradiction is reconciled in [`decisions.md`](decisions.md) — the
+  agenda's stated prerequisite to the spend question.
+  **Session 5 is named from his own words** — he drew the boundary himself
+  (*"Records work can go now"*): a kit-venue **records** session (charter
+  rewrite + the truth pass's 23-file sweep), then the release. Everything
+  owner-gated stayed gated.
 - **The cold-boot context cost is measured, and the owner has ruled it worth
   paying (OD-25, 2026-08-28).** He ran this session (fm #962) as a deliberate
   experiment — *"to find out exactly how much context a cold boot would
