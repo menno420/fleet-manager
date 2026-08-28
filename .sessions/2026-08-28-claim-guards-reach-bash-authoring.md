@@ -194,6 +194,30 @@ the suite I wrote inherited it — which is why it went green over a fix that di
 not work for two of the eight routes it claimed to cover. A test written from
 the same wrong model as the code cannot catch the model being wrong.
 
+**`@codex` R4 at head `64b9e9d` — 6 findings (2 P1, 4 P2), all `[conceded]`.**
+This round attacked the **reuse map**, not the hook, and its two P1s took down
+the document's headline.
+
+| # | finding | disposition |
+|---|---|---|
+| P1 | The 95 % figure counts the `💡` **marker**, not an idea — `bootstrap.py:326-330` is a needle list, and `.sessions/2026-07-16-wake-0716-pm-fix227prov.md` passes while saying *"This follow-up carries no new idea"* | `[conceded]` — 120-card sample at seed 11 gives **72 % substantive** (~2,659, not 3,668), itself bounded as a property of this session's classifier threshold |
+| P1 | `idea-engine/ideas/` is recorded as canonical in **this repo's own tree** | `[conceded]` — and **one of its three citations does not hold**: `owner-queue.md:353-356` is database pruning. The other two do, and a third instance exists at `fleet-account-2026-07-26.md:194`, found by grepping the number |
+| P2 | The delivery ranking is **incommensurable** — a template writes its text by construction, a skill invocation leaves no required trace, so 46 is a floor with no ceiling | `[conceded]` — **ranking withdrawn entirely**; replaced with the stronger claim that skill use here is *unobservable*, which needs no numbers |
+| P2 | The mining bullets promise citations and give none, and the clones are not committed | `[conceded]` — retained as `REVIEWED` leads, not findings, with the debt stated |
+| P2 | 41 cards sharing a string ≠ 41 independent derivations | `[conceded]` — narrowed to repeated textual occurrence |
+| P2 | **A live regression this PR introduced:** `session-card-venue` has no `path_when`, so adding Bash let any document containing the model-line text spend the once-per-session route | `[conceded]` — reproduced with a control (prose spends it → real card write silent; clean session fires), gated on `.sessions/*.md`, re-verified |
+
+**Three corrections R4 did not raise**, from reading OD-26 after it merged from
+`main` mid-round: the document was stage-one mapping input and had pre-sequenced
+its recommendations (sequence withdrawn); **its top-scored move was the held
+function** (OD-26 § 7 — marked DO-NOT-BUILD, moves relettered A–D); and this
+session paid the re-derivation tax it describes (§ 7b of the finding).
+
+**Round tally, counted from the comment batches rather than from memory:
+3 rounds, 16 findings — 4 + 6 + 6 — all `[conceded]`, 0 `[survived]`.** A chat
+reply reported "four rounds, 11 findings"; both numbers were wrong and the
+correction was one API call that had already been made twice.
+
 **`@codex` R3 at head `3ebdaa7` — 6 findings (1 P1, 5 P2), all `[conceded]`.**
 
 | # | finding | disposition |
