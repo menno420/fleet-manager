@@ -37,6 +37,15 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 
 ## Current owner decisions — verified from fleet-manager on 2026-08-10
 
+> **The substrate-kit round's questions have a sitting of their own
+> (2026-08-28).** The two `OQ-KIT-*` entries below are the queued half; the
+> full set — the standing letters, the audits' new questions, and what a
+> session should simply decide without you — is assembled as
+> [the OD-24 open-questions agenda](planning/2026-08-28-od24-round-open-questions.md),
+> the input to the review-and-discussion session you asked for. Answers given
+> in that sitting come back here as entry updates; the agenda does not
+> replace this queue, it feeds it.
+
 - **`OQ-KIT-PROMPT-DOCTRINE` — which rule governs kit-planted brakes: your
   "no confirmation prompts ever" or the re-ratified confirm-first line?**
   (added 2026-08-28, the OD-24 round's session 2 — surfaced by
