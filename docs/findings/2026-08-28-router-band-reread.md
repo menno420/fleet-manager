@@ -36,9 +36,11 @@
 
 ## 1 · What this re-read corrects or narrows in the genesis dig
 
-Each row names the dig claim and the ruling that narrows it. The dig itself
-now carries a one-line pointer here (its §9 named this band as its thinnest
-coverage).
+Each row names the dig claim and the ruling that narrows it. The dig
+carries an in-place narrowing pointer **at each affected claim site**
+(added on Codex review of fm #959 — the first cut had only generic §9/§11
+pointers, which left the superseded readings standing where a later
+session would meet them), and its §9 coverage line routes here.
 
 1. **Q-0083 (06-10) — full self-driving was declared the end-state inside
    the genesis era**, two days after Q-0015's "not 100% autonomous": *"just
