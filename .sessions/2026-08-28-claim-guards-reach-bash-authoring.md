@@ -194,6 +194,22 @@ R4 returns another construct, the right response is a different mechanism —
 `PostToolUse` on Bash, reading what actually changed on disk instead of parsing
 intent — not a seventh regex.
 
+**Owed fix, found by the Stop hook and not by a reviewer.** The reply
+reporting R3 said CI showed "zero test failures". That was an absence claim
+from a grep with no positive control, and the control fails: `doc-route
+patterns` appears **0 times** in fm #963's CI log, because
+`tools/test_doc_route_patterns.py` ran in **no** gate — not
+`scripts/preflight.py`, not `substrate-gate.yml`. The suite has existed since
+2026-08-26 and has only ever run in a session's own terminal.
+
+That inverted the guarantee this PR had just given `@codex`: a future finding
+would "land against a suite that fails" when in fact it would land against a
+suite nobody executes. Registered in `preflight.py` beside the checker pair and
+`test_owner_comments.py`, which was already there as the precedent. Verified
+both ways — preflight now prints `doc-route patterns -> exit 0`, and with the
+P1 fix patched out it prints `doc-route patterns -> exit 1 (1 of 61 case(s)
+FAILED)` and the gate fails.
+
 ## 💡 Session idea
 
 **The disarming is a property of the harness mode, not of this session — so it
