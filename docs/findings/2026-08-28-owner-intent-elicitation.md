@@ -837,3 +837,54 @@ it.
   corrections each time"* and *"one word becomes a working feature"* are the
   same standard measured at two points: one on the work, one on the input.
 
+### 3.3c · A stale claim in `owner-profile.md`, and it was wrong the day it shipped
+
+Surfaced by his testimony in the same message, then dated — and the dating
+overturned the session's first explanation of it.
+
+**The line, at [`../owner-profile.md`](../owner-profile.md)`:46-51`:**
+
+> *"this estate instruments execution and does not instrument judgement …
+> **So his attention is not a redundancy over the gates — it is the only
+> instrument covering the half they do not.**"*
+
+**What he said, 2026-08-28**, of the automatic owner-review hook: it *"has
+already saved me a lot of time and effort, aswell as helped catch errors that I
+personally would not have been able to spot."*
+
+**So the claim is false in his favour twice over:** an instrument covering
+judgement now exists, and by his own account it catches a class **he cannot**,
+which is stronger than mere redundancy.
+
+**The session's first explanation was that the line predated the hook. `MEASURED`
+2026-08-28, and it is refuted:**
+
+```
+git log --diff-filter=A -- .claude/hooks/owner_review.py        → 767238c  2026-08-23
+git log -S 'instruments execution' -- docs/owner-profile.md     → 767238c  2026-08-23
+git log --diff-filter=A -- .../2026-08-06-provenance-mechanism-measured.md → 767238c  2026-08-23
+```
+
+**The hook, the claim that it does not exist, and its design record all landed
+in the same commit.** The line was not overtaken by later events; it was
+**wrong on the day it shipped**, written beside the instrument that contradicts
+it.
+
+**Two method notes, because both are instances of classes this estate tracks:**
+
+1. **A date printed inside a document is not the document's date.** The section
+   is headed *"(owner-stated, 2026-08-05)"*, which records when **he said** the
+   presence-model material — not when the surrounding analysis was written. The
+   session collapsed the two and produced a false chronology from it.
+2. **A `git log -S` search returned empty and was nearly read as absence.** The
+   search string spanned a line break in the wrapped file. The null was an
+   artefact of the query, not a fact about history — TRAP-003's class, caught
+   before it was recorded.
+
+**Disposition: flagged, not edited.** The paragraph is analysis *about him*
+built on his own quoted words, so the correction should carry his — and § 2's
+question about what he still wants to keep his hands on bears directly on
+whether the surrounding "attend planning, delegate execution" model still holds.
+A session amending it before he answers would be rewriting his profile from an
+inference, which is the failure this whole sitting exists to stop.
+
