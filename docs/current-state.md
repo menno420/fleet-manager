@@ -195,8 +195,9 @@ copy product architecture or internal product state. Canonical intent:
   prompt **only when he is present** (`delete_trigger` never) · **Move 1 HELD** ·
   the end-of-session interview is asked **by something, filtered**, and that is
   **not** a GO for Move 1 · **AGENTS.md hand-written per repo** · the journal
-  **survives, re-scoped** to *"find out what went wrong each session"*, routed
-  before enforced (delegated to us) · leftovers drain via **a standing surface
+  **survives as the guidebook it already is** — his named function (*"easily find
+  out what went wrong each session"*) is already captured by the session cards,
+  so the gap is **retrieval** across them, not a second record · leftovers drain via **a standing surface
   he reads**, scheduled unattended draining **refused** · spend caps **not
   currently relevant** · the kit's **charter is rewritten to say initiative** ·
   the kit **is renamed** but he supplies the name later · the next release is

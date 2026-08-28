@@ -35,9 +35,14 @@ with an obsolescence exception he did not enumerate.**
 - **A June ruling binds unless shown otherwise.** A session may not treat the
   router's rulings as archaeology, and may not quietly drop one because it is
   old. This settles the re-read's § 2 census in the direction of *carry them*:
-  the five rules it found absent from every live fleet-manager document
-  (superbot:Q-0191 · Q-0128 · Q-0131 · Q-0229 · Q-0136) are live estate law
-  that no live surface currently carries.
+  the rules it found absent from every live fleet-manager document
+  (superbot:Q-0191 · Q-0131 · Q-0229 · Q-0136) are live estate law that no live
+  surface currently carries. **superbot:Q-0128 is the exception and must not be
+  restored from this list:** § 3 below records him **superseding** it in this
+  same sitting, so the carried rule is the presence-qualified one, never
+  Q-0128's unconditional phrasing *(caught on Codex review of fm #964, R2 — the
+  first cut listed it here as live while § 3 retired it, which would have let a
+  session recreate the very conflict the sitting resolved)*.
 - **The exception is real, and it must not be compressed away.** He said
   *some* may no longer be relevant and did not say which, so **"most still
   stands" is not "all still stands"** — an unidentified obsolete subset exists
@@ -113,7 +118,12 @@ superseded broader phrasing, not as a rule that secretly meant this all along.
 `DERIVED`:
 
 - **The doctrine, in one line:** a kit-planted brake may surface an interactive
-  prompt **only when a human is present in the session**; in unattended runs it
+  prompt **only when the OWNER is present in the session** — his words were
+  *"never while **I'm** away; freely when **I'm** present"*, and a kit-planted
+  rule reaching repos or venues with another maintainer must not read that as
+  *any human* *(narrowed on Codex review of fm #964, R2: the broader form would
+  permit prompts precisely when the person who granted the exception is absent)*;
+  in unattended runs it
   must decide — refuse or proceed — and never wait.
 - **`delete_trigger` stays PREVENTED in every venue**, attended or not. It was
   carved out of all three options before he answered and no answer re-authorises
@@ -212,40 +222,50 @@ The reasoning, and each leg is measured rather than preferred:
 - **The file failed; the function did not.** The 11-of-14 byte-identical
   measurement, the zero checkers and the absence from every boot list are
   facts about a **planted five-section guidebook skeleton** — a shape nobody
-  asked for. He did not ask for a guidebook. He asked for a per-repo trail of
-  what went wrong.
-- **Nothing else serves that function — and the reason first written here was
-  wrong.** *(Codex review of fm #964, P1, upheld at source: this bullet claimed
-  routed trap records are "estate-scoped, not per-repo". The roadmap's
-  § 5.3–5.4 — marked `OWNER` — says the opposite in as many words:* **"Each
-  repo** *defines … known traps" and* **"Each repo** *exposes its recurring
-  traps in a structured form"* *(`2026-08-08-agent-operating-environment-roadmap.md:390-399`).
-  The per-repo trap surface is the intended design, so scope cannot distinguish
-  them. The leg is withdrawn.)*
-  **The distinction that does hold is LIFECYCLE, not scope.** A trap register's
-  own grammar is `TRAP · TRIGGER · WHY · REQUIRED PREVENTION · VERIFY · ORIGIN`
-  with the lifecycle *mistake → documented trap → reminder → checker*: it admits
-  an entry once something is recognised as **recurring** and has a prevention.
-  He asked for *"what went wrong **each session**"* — which includes the
-  one-off, the not-yet-recurring, and the thing whose prevention is not yet
-  known. Those are what a trap register is designed to exclude, and they are
-  precisely the raw material a trap is later distilled *from*.
-- **So the decision is closer than first written, and its condition is named.**
-  If the § 5.4 per-repo trap surface is built and turns out to absorb the
-  per-session trail as well, this disposition should be re-examined rather than
-  defended — one surface doing both beats two.
-- **Route first, enforce only on measurement.** The measured failure was never
-  that sessions refused to write it: the file is on **no boot list**, **0 of
-  37 checkers** reference it, and the single checker that touches its path
-  exists to **exempt** it (`check_template_sync`'s `LIVE_TRAFFIC_DESTS`). A
-  surface nothing points at has not been tested for adoption. So the first move
-  is routing, adoption is measured, and enforcement is a later promotion
-  decision under roadmap § 6 — never idea → mandatory infrastructure.
-- **His anti-stub ruling is honoured, not overridden.** superbot:Q-0101
-  (*"generating 24 stubs that then rot would be worse than the current gap"*)
-  is a ruling against **planting empty files**, which is exactly what happened
-  and exactly what this decision stops doing. A routed, re-scoped, unenforced
-  surface is not the thing he ruled against.
+  asked for.
+
+**The decision, third derivation — and the two discarded ones are kept visible
+because the sequence is itself the datum.** Codex review of fm #964 refuted a
+load-bearing leg in each of the first two:
+
+- **First cut:** *keep and re-scope it, because routed trap records are
+  estate-scoped rather than per-repo.* **Refuted at source (R1, P1):** the
+  roadmap's § 5.3–5.4, marked `OWNER`, says **"Each repo** defines … known
+  traps" and **"Each repo** exposes its recurring traps in a structured form"
+  (`2026-08-08-agent-operating-environment-roadmap.md:390-399`). Per-repo traps
+  are the intended design; scope cannot distinguish them.
+- **Second cut:** *keep and re-scope it, because a trap register only admits what
+  already recurs, while he asked about each session.* True as far as it goes, but
+  **refuted as sufficient (R2, P1)**: it never asked whether the function is
+  already served. It is. `.session-journal.md:5-7` defines this file as **"a
+  guidebook, not a log"** and routes per-session logs to
+  `.sessions/<date>-<slug>.md` — and those cards already record what went wrong,
+  in detail (this session's own card carries a predecessor review and eight
+  review dispositions). Re-scoping the journal into a per-session trail would
+  **destroy its defined role and duplicate the cards**.
+
+**So: the journal SURVIVES, in the role it already has — a lean per-repo
+guidebook — and his function is served by RETRIEVAL over the cards that already
+exist, not by a second record.** Reading his sentence precisely settles it: he
+asked to *"**easily** find out what went wrong each session"*. The capture is
+not missing — fleet-manager holds **431** cards and the kit **343**. What is
+missing is any way to scan them. **That is a retrieval problem, and retrieval is
+routing** — which his own cost function (§ 20) ranks above building, and which
+is the fix family the genesis dig assigned to most of its gap table.
+
+- **What this does NOT do:** create a surface, enforce anything, or change what a
+  session writes. No checker is proposed, and the planted skeleton's measured
+  failure (11 of 14 byte-identical) is not addressed by writing a new contract —
+  it is left as the open question it is.
+- **His anti-stub ruling is honoured rather than argued around.** superbot:Q-0101
+  — *"generating 24 stubs that then rot would be worse than the current gap"* —
+  ruled against planting files nothing keeps. The first two cuts each proposed a
+  re-scoped file; this one proposes **no new file at all**.
+- **What a build session should actually take from this:** the open design
+  question is *how a session, or he, gets a scannable view of what went wrong
+  across a repo's cards* — an index, a digest, a query, or the existing
+  reflection miner routed at last. Choosing among those is design and belongs to
+  a build session under roadmap § 6.
 
 **Open and explicitly not decided here:** the re-scoped journal's shape, and
 whether it is one file or a section of an existing one. That is design, it

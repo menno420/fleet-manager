@@ -106,7 +106,9 @@ now a **record** rather than an agenda.
 
 **The three things that change how this round is read:**
 
-1. **One root cause, not twelve gaps.** Asked *which ways does the kit still not
+1. **One root cause, not twelve gaps** *(that the twelve are downstream of it is
+   the sitting's `DERIVED` mapping — he was shown four of his own prior
+   complaints, never the twelve gaps)*. Asked *which ways does the kit still not
    work* — the question no session had put to him — he collapsed four of his own
    prior complaints into one: *"they are all related to the same root cause,
    which is mostly that agents don't take enough initiative to leave the repos
@@ -118,9 +120,11 @@ now a **record** rather than an agenda.
 2. **The cost function, unprompted:** *"a lot of work just keeps stalling, which
    is not necessarily bad, but also a reason why I think it's important that the
    workflow is working correctly, so we don't waste so much time redoing the same
-   things over and over"* — **stalling is tolerable; re-derivation is the waste.**
-   The test for any proposed mechanism is *does it stop something being
-   re-derived?*, which re-ranks **routing above building**.
+   things over and over"* — **re-derivation is the waste.** *"Not necessarily
+   bad"* is a **qualification**, not a blessing: some stalling is acceptable, a
+   harmful stall is not thereby fine. The test for any proposed mechanism is
+   *does it stop something being re-derived?* — less stalling is neither the case
+   for a fix nor a mark against one — which re-ranks **routing above building**.
 3. **A three-stage order, unprompted, which governs everything:** *"I am
    currently running 3 parrallel ultracode session to map most of all the repos,
    once this mapping is all done we should use this information to come up with
@@ -131,9 +135,10 @@ now a **record** rather than an agenda.
 
 **Answers that bind kit work directly:** the charter is **rewritten to say
 initiative** · `AGENTS.md` is **hand-written per repo** (the kit does not plant
-them) · the journal **survives, re-scoped** to *"find out what went wrong each
-session"* and **routed before enforced** (he delegated the call and named the
-function) · a brake may prompt **only when he is present**, never unattended
+them) · the journal **survives as the guidebook it already is** — he delegated
+the call and named a function (*"easily find out what went wrong each session"*)
+that the **existing session cards already capture**, so what is missing is
+**retrieval** across them, not a second record (no new file, nothing enforced) · a brake may prompt **only when he is present**, never unattended
 (`delete_trigger` still never) · nothing may **block** a session calling work
 done · the next release is **cut when the next fix batch lands** · the kit
 **is renamed**, but he supplies the name later (`OQ-KIT-RENAME`).

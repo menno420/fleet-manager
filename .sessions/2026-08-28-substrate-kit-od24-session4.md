@@ -159,6 +159,45 @@ disposition per `docs/conventions/adversarial-review.md`.
   Recorded as **one arm** he named, with the which-model-for-what analysis an
   earlier cut wrongly ruled out left open and his.
 
+## Codex R2 — **6 findings, 6 `[conceded]`, 0 `[survived]`** (head `8182c54`)
+
+Mostly the class R1 predicted: **corrections that did not propagate**, plus one
+P1 that refuted the journal decision a *second* time.
+
+- **P1 · the journal function is already served** `[conceded]` — R1's fix argued
+  *lifecycle, not scope*; R2 pointed out it never asked whether anything already
+  serves the function. Verified at source: `.session-journal.md:5-7` declares the
+  file **"a guidebook, not a log"** and routes per-session logs to
+  `.sessions/<date>-<slug>.md` — and those cards already record what went wrong
+  (this card is an instance). **Third derivation, and the simplest:** the journal
+  survives **as the guidebook it already is**; his *"**easily** find out"* is a
+  **retrieval** problem over 431 existing cards, not a missing record. **No new
+  file, nothing enforced** — which is also the first version of this decision
+  that honours superbot:Q-0101 by proposing nothing to plant.
+- **P2 · the derived twelve-gap mapping did not propagate** `[conceded]` — R1
+  marked it `DERIVED` in the finding while the agenda banner and OD-26 still read
+  as his measurement. Marked on both.
+- **P2 · the stalling qualification did not propagate** `[conceded]` — the
+  Layer-2 thread and OD-26 still said "stalling is tolerable" flatly. Both now
+  carry the qualification, which matters because those are the surfaces the
+  revised plan will be built from.
+- **P2 · "a human is present" was broader than his words** `[conceded]` — he said
+  *"never while **I'm** away; freely when **I'm** present"*. A kit-planted rule
+  reaching a repo with another maintainer would have permitted prompts exactly
+  when the person who granted the exception is absent. Narrowed to **the owner**,
+  here and in the queue.
+- **P2 · Q-0128 was still listed as live estate law** `[conceded]` — § 1's
+  carrier list named it among the rules to carry, while § 3 records him
+  superseding it in the same sitting. A session could have restored the
+  unconditional no-prompt rule and recreated the conflict. Removed from the list
+  with the reason stated.
+- **P2 · the completion claim swallowed the one row not asked** `[conceded]` —
+  the banner said every § 2/§ 2b row was answered while its own table marks
+  § 2 · G *not asked*. Now stated as every **eligible** row, with G preserved as
+  an outstanding conditional question for after the census.
+
+**Two-round tally: 14 findings, 14 `[conceded]`, 0 `[survived]`.**
+
 **The pattern worth naming, because it is one class:** six of the eight are the
 same failure — **compressing an owner answer into something tidier than he
 said** (an exception dropped, a conflict dissolved, an input promoted to a gate,

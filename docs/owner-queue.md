@@ -88,20 +88,24 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   Owner, live (§ 5 of [the sitting record](findings/2026-08-28-od24-sitting-answers.md)): *"Your call, if the router records are
   functional in the same way thats good enough. But I think the session journals
   would definitely add some value so we can easily find out what went wrong each
-  session."* **The decision taken under that delegation: keep the journal,
-  re-scoped to the function he named (a per-repo trail of what went wrong), and
-  ROUTE it before enforcing it** — the measured failure was never refusal but
-  invisibility (on no boot list, 0 of 37 checkers, and the one checker touching
-  its path exists to *exempt* it). His conditional is answered on **lifecycle,
-  not scope**: a trap register admits an entry once something is recognised as
-  *recurring* and has a prevention, while he asked for what went wrong **each
-  session** — the one-off and the not-yet-recurring included. *(A first cut said
-  trap records are "estate-scoped, not per-repo"; Codex fm #964 refuted it at
-  source — the roadmap § 5.3–5.4, marked `OWNER`, makes per-repo traps the
-  intended design. Leg withdrawn.)* **Re-examine if the § 5.4 per-repo trap
-  surface gets built and absorbs the per-session trail too.**
-  Enforcement stays a later promotion decision under roadmap § 6.
-  Shape and file layout are open and belong to a build session.
+  session."* **The decision taken under that delegation: the journal
+  SURVIVES in the role it already has — a lean per-repo guidebook — and his
+  function is served by RETRIEVAL over the session cards that already exist, not
+  by a second record.** `.session-journal.md:5-7` defines the file as *"a
+  guidebook, **not a log**"* and routes per-session logs to
+  `.sessions/<date>-<slug>.md`; those cards already record what went wrong in
+  detail. His word is *"**easily** find out"* — so what is missing is not capture
+  (fm holds 431 cards, the kit 343) but any way to scan them. **That is
+  retrieval, and retrieval is routing** — the fix family his own cost function
+  ranks above building. **Nothing is built, nothing enforced, no new file.**
+  *(Two earlier cuts each proposed a re-scoped journal and each lost a
+  load-bearing leg to Codex review on fm #964: first "trap records are
+  estate-scoped, not per-repo" — refuted by roadmap § 5.3–5.4, marked `OWNER`,
+  which makes per-repo traps the intended design; then a lifecycle argument that
+  never asked whether the cards already serve the function. They do.)*
+  **The open design question a build session inherits:** how anyone gets a
+  scannable view across a repo's cards — index, digest, query, or the kit's
+  existing reflection miner routed at last.
 - **`OQ-KIT-JOURNAL-SURVIVES` (original body) — does the per-repo `.session-journal.md` survive
   as a surface, or is it superseded by routed trap-style records?** (added
   2026-08-28, session 4 — the second of the three letters that had no entry.)
@@ -126,7 +130,8 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   says "ever again, no matter what it is for", and the re-read recorded the
   conflict correctly.)* From 2026-08-28 the presence rule governs; Q-0128 stands
   as the **superseded** broader phrasing. So a kit-planted brake **may prompt only when a human is in the
-  session**; unattended it must decide — refuse or proceed — never wait.
+  session** — **his** presence specifically, not any maintainer's; unattended it
+  must decide — refuse or proceed — never wait.
   **`delete_trigger` stays PREVENTED in every venue**, attended or not; fm's
   never-delete-a-trigger decision and the denying guard hook are untouched. Presence must be computed from the
   venue, not guessed. *(Original ask below.)*

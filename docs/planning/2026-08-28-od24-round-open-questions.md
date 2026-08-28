@@ -73,7 +73,11 @@ points at it.
 
 ## ✅ THE SITTING RAN — 2026-08-28, owner-live. This file is now a RECORD, not an agenda.
 
-**Every § 2 and § 2b row was put to him and answered, plus two of § 3's three.**
+**Every eligible § 2 and § 2b row was put to him and answered, plus two of § 3's
+three — with ONE deliberate exception: § 2 · G (card deletion) was NOT asked**,
+because its own minimum answer is *nothing today* until the report-only census
+runs. **It stays an outstanding conditional question**, and a session must put it
+to him once that census exists rather than reading this record as settling it.
 Verbatim answers, `OWNER` separated from `DERIVED`, and the reasoning behind each
 derived consequence: [the sitting record](../findings/2026-08-28-od24-sitting-answers.md). Answers were routed the
 same session to [`../owner-queue.md`](../owner-queue.md) (7 entries updated, 1
@@ -82,14 +86,14 @@ program's OD table.
 
 | row | his answer | where it landed |
 |---|---|---|
-| **§ 2 · 0** which ways it doesn't work | **one root cause** — *"agents don't take enough initiative to leave the repos in a better shape"* | re-ranks the round; § 4 of the record |
+| **§ 2 · 0** which ways it doesn't work | **one root cause** — *"agents don't take enough initiative to leave the repos in a better shape"*. *(That all twelve audit gaps are downstream of it is `DERIVED` — the sitting's mapping. He was shown four of his own prior complaints, never the twelve gaps.)* | re-ranks the round; § 4 of the record |
 | **§ 2 · A** June rules | *"Some of them might not be relevant anymore, but most of it still stands"* — a **fourth** option, none of the three offered | § 1 |
 | **§ 2 · B** blocking | **never block; guarantee pickup** | § 2 |
 | **§ 2 · B2** brakes prompting | **presence decides** — never while away, freely when present | `OQ-KIT-PROMPT-DOCTRINE` ✅ |
 | **§ 2 · C** Move 1 | **HELD** — and § 13 makes it a *stage* with an exit condition | `OQ-KIT-MOVE1-GO` ⏸ |
 | **§ 2 · D** the interview | **something asks, and filters** — not him | § 8 |
 | **§ 2 · E** AGENTS.md | **hand-write per repo** | § 6 |
-| **§ 2 · E2** the journal | **delegated**, with a function named → decided: keep, re-scope, route | `OQ-KIT-JOURNAL-SURVIVES` ✅ |
+| **§ 2 · E2** the journal | **delegated**, with a function named → decided: **survives as the guidebook it already is**; his function is a **retrieval** problem over the existing session cards, not a second record | `OQ-KIT-JOURNAL-SURVIVES` ✅ |
 | **§ 2 · F** leftovers | **a standing surface he reads** — scheduled unattended draining **refused** | § 10 |
 | **§ 2 · G** card deletion | **not asked** — its own minimum answer was *nothing today*, pending the report-only census | unchanged |
 | **§ 2 · H** spend caps | *"There hasn't really been much API use lately, so this is currently not relevant"* | `OQ-EAP-SPEND-WINDOW-MOOT` ✅ |
@@ -110,7 +114,10 @@ of the record.
 
 **The headline measurement.** His list and ours **converge on one cause**, and the
 divergence is one of *altitude*: we ranked twelve gap classes; he named a single
-root cause they are all downstream of. The round had already found it — dig § 6.1
+root cause. **That every one of the twelve is downstream of it is `DERIVED`** —
+the sitting's mapping, not his measurement, since the twelve were never put to
+him *(marked on Codex review of fm #964; it is the claim that re-ranked the
+round, so it must not be read as owner-confirmed)*. The round had already found it — dig § 6.1
 called the missing initiative half *"the central drift … and the review round's
 real charter"* — and then organised itself around the gap table anyway. **The
 round reproduced, on itself, the unrouted-knowledge defect it was auditing.**
@@ -330,7 +337,7 @@ sitting on. Execution of the nineteen still sits behind the packet hold.
 
 ### E2 · Does the per-repo journal survive at all?
 
-**✅ ANSWERED 2026-08-28 — DELEGATED, with a function named:** *"Your call … But I think the session journals would definitely add some value so we can easily find out what went wrong each session."* **Decided under that delegation: keep it, re-scoped to that function, and route it before enforcing it.** His conditional is answered on **lifecycle, not scope**: a trap register admits what is already recurring and preventable; he asked for what went wrong *each session*. *(The first cut's "estate-scoped" leg was refuted at source by Codex fm #964 — roadmap § 5.3–5.4, `OWNER`, makes per-repo traps the intended design.)* § 5 of [the sitting record](../findings/2026-08-28-od24-sitting-answers.md).
+**✅ ANSWERED 2026-08-28 — DELEGATED, with a function named:** *"Your call … But I think the session journals would definitely add some value so we can easily find out what went wrong each session."* **Decided under that delegation: the journal survives in the role it already has — a guidebook — and his function is served by RETRIEVAL over the session cards that already exist.** `.session-journal.md:5-7` defines it as *"a guidebook, **not a log**"* and routes per-session logs to `.sessions/`; those cards already capture what went wrong. His word is *"**easily** find out"*, so the gap is scanning 431 cards, not writing a 432nd record. **No new file, nothing enforced.** *(Two earlier cuts proposed a re-scoped journal; Codex fm #964 refuted a load-bearing leg in each — the "estate-scoped" claim against roadmap § 5.3–5.4 (`OWNER`, per-repo traps are the design), then the lifecycle argument, for never asking whether the cards already serve it.)* § 5 of [the sitting record](../findings/2026-08-28-od24-sitting-answers.md).
 
 **The ask.** Every repo carries a planted `.session-journal.md` — a running
 notebook a session is supposed to add to. **The dig measured** that no checker
