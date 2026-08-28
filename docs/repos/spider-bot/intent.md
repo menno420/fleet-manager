@@ -15,10 +15,26 @@ stays frozen as the behaviour oracle while `superbot-next` serves as
 architecture donor. He chose the name `spider-bot` over the plan's
 `superbot-community` default.
 
-> ❓ **Why a second bot at all?** `superbot` has been running the live Discord
-> bot for months. Was `spider-bot` about a clean codebase, about this being the
-> *game's* community rather than a general server, or about finally getting a
-> bot you could actually change without fear?
+**✅ ANSWERED 2026-08-28, and it is bigger than "a second bot":**
+
+> *"Superbot itself is a repo that's filled with too much history, too many
+> trials and errors. What I want from spiderbot and superbot-next (this one will
+> have to be remade aswell since the current build is nothing like the desired
+> product) is that they eventually are rebuild as one real well functioning bot
+> thats build right from the start … The goal is to create a bot without
+> architectural debt for as far as that's possible. Everything should be planned
+> and connected from the start so it remains manageable and able to grow
+> indefinitely."*
+
+**`spider-bot` is not the finished successor — it is one of two inputs to a bot
+that does not exist yet.** The end state is **one** bot, rebuilt from the start,
+with a named design criterion: **no architectural debt · planned and connected
+from the start · able to grow indefinitely.**
+
+`DERIVED`: this is the first intent in the sitting that gives a **checkable
+design criterion** rather than a purpose. It also means the shape matters more
+than the feature set — a session adding features here should know it is adding
+to an input, not to the destination.
 
 ## What done looks like
 

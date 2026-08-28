@@ -170,6 +170,28 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   the residue to the agenda's § 2 · B — a different subject, blocking a flip
   rather than interrupting him. Codex review on fm #961 caught it before he
   saw either.)* Put the sharpened fork to him, not the original two-way one.
+- **`OQ-INTENT-WRITE-UP` — write your intent, against the questions prepared for
+  you.** (added 2026-08-28, the intent elicitation sitting — your own ask:
+  *"I'd like to spend a good while thinking and writing about these things."*)
+  **WHAT:** answer as many of the open-ended prompts in
+  [`planning/2026-08-28-owner-intent-questions.md`](planning/2026-08-28-owner-intent-questions.md)
+  as you feel like — any order, any length, skip what does not spark. Four
+  parts: the estate above any single repo · a reusable set for any repo ·
+  specific ones per repo · how you want to work. **`"I don't know yet"` is a
+  real answer** and is worth recording rather than being guessed at later.
+  **WHERE:** anywhere you like — chat, a file, notes. A session turns it into
+  the records without changing your words. **WHY-IT-MATTERS:** the estate
+  records *state* exhaustively and *purpose* almost nowhere; `intent.md` is the
+  only real intent document and it covers **1 of 28 repos**. The Layer-2 shape
+  you ratified on 2026-08-08 included a `goals.md` slot that was **deferred** —
+  this fills it. **UNBLOCKS:** per-repo intent records in your words, and the
+  revised plan having a stated foundation rather than an inferred one.
+  **THE FOUR MOST VALUABLE, if you only get to a few:** what you wish you could
+  hand over completely but currently can't trust · what a good run of Slingy
+  Spider feels like (that description IS the core-feel spec, and nothing in the
+  repo contains it) · the most annoying thing an agent does, specifically and
+  pettily · what you actually want to make with `creator-kit`.
+  **VERIFIED-NEEDED:** none.
 - **`OQ-KIT-RENAME` — the kit's published name: you ruled it changes, and the
   name is the one thing only you can supply.** (added 2026-08-28, the OD-24
   discussion sitting — §§ 11 + 15 of

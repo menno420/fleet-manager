@@ -20,6 +20,11 @@
 > the destination; this is where the raw material lives so the per-repo writing
 > can be checked against it.
 
+> **The questions he writes against live in their own file:**
+> [`../planning/2026-08-28-owner-intent-questions.md`](../planning/2026-08-28-owner-intent-questions.md)
+> — open-ended prompts, no options, answerable in any order. This file holds the
+> answers; that one holds the asking.
+
 ## 0 · What the estate already holds — so he is not asked twice
 
 Retrieved before any question was put to him (the `intake` skill's RETRIEVE
@@ -447,4 +452,64 @@ this where you'd retire the kit entirely?"*:
 - **His "what would make me stop" answer for this repo is: nothing.** The slot
   is not empty for want of asking — it is genuinely not applicable here, which
   is a different and more useful record than a blank.
+
+### 1.15 · The bots — **three converge into one, built without architectural debt**
+
+His answer, verbatim, and it is the clearest product-intent statement in the
+sitting:
+
+> *"Superbot itself is a repo that's filled with too much history, too many
+> trials and errors. What I want from spiderbot and superbot-next (this one will
+> have to be remade aswell since the current build is nothing like the desired
+> product) is that they eventually are rebuild as one real well functioning bot
+> thats build right from the start, which is already documented but apparently
+> not well enough.*
+>
+> *The goal is to create a bot without architectural debt for as far as that's
+> possible. Everything should be planned and connected from the start so it
+> remains manageable and able to grow indefinitely."*
+
+`OWNER`. **The end state is ONE bot.** Not a successor plus a donor plus a
+frozen oracle — one, rebuilt from the start, and the design criterion is named:
+**no architectural debt**, everything *"planned and connected from the start"*,
+**able to grow indefinitely**.
+
+**His "already documented" claim, verified — he is right, and his hedge is the
+accurate part.** `MEASURED` 2026-08-28 against
+[`../planning/2026-08-21-game-community-bot/intent.md`](../planning/2026-08-21-game-community-bot/intent.md):
+its ESTABLISHED section does carry *"the owner rejected further feature work on
+the live bot because its **architectural debt** makes it the wrong improvement
+surface"*, that `superbot` *"is not a safe foundation"*, and that `superbot-next`
+is *"an architecture donor, not proof of a ready product"*. So the substance is
+recorded. **Three things in his sentence are NOT:**
+
+1. **That `superbot-next` must be REMADE.** The plan calls it *"a real layered
+   rebuild, not a shell"* and `ESTATE.md` calls it a **"complete-parked
+   architecture donor — 533/533 golden parity green"**. He says *"the current
+   build is nothing like the desired product"* and that it has to be redone.
+   **That is a materially stronger position than any record holds**, and the
+   estate's row reads as an asset in better shape than he thinks it is.
+2. **That the end state is ONE bot.** The records treat `spider-bot` as the
+   clean successor and `superbot-next` as a donor; nothing states that the two
+   **converge**. A session reading the estate today would keep them as separate
+   tracks indefinitely.
+3. **"Able to grow indefinitely."** The growth-forever requirement is his and
+   appears in no ESTABLISHED list. It is a real design constraint — it is the
+   reason *"planned and connected from the start"* matters more here than the
+   first version's feature set.
+
+`DERIVED`:
+
+- **This is the first repo-level intent in the sitting that names a design
+  criterion rather than a purpose** — *no architectural debt, grows
+  indefinitely* — which makes it checkable in a way "what it's for" is not.
+- **It re-frames what `spider-bot` currently is:** not the finished successor,
+  but **one of two inputs to a bot that does not exist yet.** Its own record
+  says its next feature is his pick; this says the *shape* is the point, not the
+  features.
+- **It creates a real question about sequencing** that nothing answers: the
+  convergence rebuild is a third act after two live/parked codebases, and
+  `spider-bot` is running in production with real users while it waits.
+- **It supports his own "hobby" framing** in an unexpected way: *"managable and
+  able to grow indefinitely"* is a maintainability goal, not a delivery goal.
 
