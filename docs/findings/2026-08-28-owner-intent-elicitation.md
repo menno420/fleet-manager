@@ -411,3 +411,40 @@ as if a stranger might pick it up, which is a different sentence from one aimed
 at his own agents. The description and topics are a two-minute fix in the same
 session.
 
+### 1.14 · The kit is a **real product that keeps existing** — the retirement question answered
+
+His answer, verbatim, to the draft's guiding question *"is there a version of
+this where you'd retire the kit entirely?"*:
+
+> *"The kit is meant to be a real product that keeps existing, the main goal is
+> to ensure it's working correctly in such a way that it does not need more
+> corrections, but only occasionally an addition or improvement when we come
+> across a new problem"*
+
+`OWNER`. Three things, and together they close the kit's two hardest slots:
+
+1. **It is permanent.** *"A real product that keeps existing"* — retirement is
+   not on the table, and no session should propose going back to per-repo
+   conventions. This also confirms § 1.13's audience answer from a second
+   direction: a *product* implies users.
+2. **"Done" is precisely defined, and it is about corrections:** working
+   correctly *"in such a way that it does not need more corrections"*. Not
+   feature-complete, not version-numbered — **correction-free**.
+3. **Growth is problem-driven, not roadmap-driven:** *"only occasionally an
+   addition or improvement when we come across a new problem"*.
+
+`DERIVED`, and it sharpens § 1.12 rather than repeating it:
+
+- **The 34-row worklist is not a plan.** Rows exist because problems were
+  found, and they get fixed to reach correction-free — but the worklist is not
+  a backlog to burn down for its own sake, and finishing it is not the goal.
+- **"Correction" and "addition" are now separable, and the distinction is
+  load-bearing.** A correction means the kit was wrong — those should trend to
+  zero. An addition means the *world* presented something new — those are
+  expected to keep arriving forever. A session proposing kit work should say
+  which one it is; recurring **corrections** are the failure signal, recurring
+  **additions** are healthy.
+- **His "what would make me stop" answer for this repo is: nothing.** The slot
+  is not empty for want of asking — it is genuinely not applicable here, which
+  is a different and more useful record than a blank.
+

@@ -43,10 +43,20 @@ wrong sentence.
 that the current round is a one-off correction because he stepped back too far,
 and that afterwards **the kit should go quiet again.**
 
-`DERIVED`: **done is the kit not needing sessions.** Not a feature list, not a
-version number — an absence of upkeep. The current round ends with the charter
-rewrite, the doc-surface sweep and one release; after that, recurring kit work
-is a symptom rather than progress.
+`OWNER`, 2026-08-28, and it is precise:
+
+> *"the main goal is to ensure it's working correctly in such a way that it does
+> not need more corrections, but only occasionally an addition or improvement
+> when we come across a new problem"*
+
+**Done is correction-free** — not feature-complete, not a version number.
+`DERIVED`, and the distinction is load-bearing: a **correction** means the kit
+was wrong, and those should trend to zero; an **addition** means the world
+presented a new problem, and those keep arriving forever. Any proposed kit work
+should say which it is. **Recurring corrections are the failure signal;
+recurring additions are health.** It also means the 34-row worklist is not a
+plan to burn down — the rows exist because problems were found, and finishing
+them is not itself the goal.
 
 **✅ ANSWERED 2026-08-28:** *"Quiet, but it can still grow when something proves
 out."* **Maintenance ends; development does not.** New capability is permitted
@@ -72,14 +82,14 @@ in **11 of 14** adopter repos — precisely the stub-rot he pre-judged.
 
 ## What would make me stop
 
-`DERIVED` — **this slot is inference, and it is the one most in need of his
-words.** From his 2026-08-28 answer: if kit work keeps recurring after this
-round, that is the signal it is too big, and the response is **to make it
-smaller**, not to schedule more maintenance.
+`OWNER`, 2026-08-28 — **and the answer is nothing.**
 
-> ❓ **Guiding question.** Is there a version of this where you'd retire the kit
-> entirely — go back to per-repo conventions with no shared substrate — or is
-> the kit permanent and only its *size* negotiable?
+> *"The kit is meant to be a real product that keeps existing"*
+
+Retirement is not on the table. No session should propose going back to
+per-repo conventions with no shared substrate. **This slot is not empty for want
+of asking — it is genuinely not applicable here**, which is a more useful record
+than a blank.
 
 ## Who it's for
 
