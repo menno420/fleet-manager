@@ -173,6 +173,34 @@ copy product architecture or internal product state. Canonical intent:
   green), the 23-file wrong-action set catalogued as §5 recommendations, and
   `OQ-KIT-P10-REQUIRED-CHECKS` retired by a live rules read. The letters
   were re-checked and remain unanswered.
+- **The cold-boot context cost is measured, and the owner has ruled it worth
+  paying (OD-25, 2026-08-28).** He ran this session (fm #962) as a deliberate
+  experiment — *"to find out exactly how much context a cold boot would
+  consume"* — and the answer matched his prior: **157.3k**, from 69.7k at
+  session init through 127.6k after the six mandatory reads *plus the first live
+  surfaces* (+57.9k) to 157.3k after further live-state investigation (+29.7k).
+  **`OWNER` · `NOT-VERIFIABLE`, not `MEASURED`** — these are owner-console
+  readings and the legend reserves `MEASURED` for a reproducible command; a
+  session cannot instrument its own window from inside, so this record
+  reproduces his readings rather than verifying them. The 127.6k checkpoint is
+  **combined**, so the +57.9k is not the six reads' isolated cost and must not
+  be quoted as it — that reading was never taken. **Composition at 157.3k:**
+  messages 99.9k · system tools 18k · MCP 14.6k · system prompt 11k · memory
+  9.6k · **skills 5.9k**, rows that sum to 159.0k against the stated 157.3k —
+  a 1.7k gap the record names rather than smooths, so proportions hold and
+  per-row subtraction does not. Skills are a small single-digit percentage
+  either way, so skill size is not the thing to optimize. **His ruling bounds OD-17:** offered the figure as an
+  optimization target he declined it — the boot cost buys *"an agent that knows
+  what's going on without the need for me to explain everything again"*, and
+  *"the memory my agents have … is the most valuable thing we have now"*. Token
+  count is not a defect; duplicated or mechanically derivable context is. Also
+  recorded for the first time: his **context operating policy** (sessions run
+  300–500k for small/medium work and 500–800k after a large task; automatic
+  compaction at ~750k *"uses a lot of usage"*, so he hands off deliberately at
+  ~500k via the continuation prompt) — the estate ships `continuation-prompt`
+  and has never carried its **trigger condition**, which is the same *unrouted*
+  class the OD-24 round is cataloguing. `500k` is **not** fixed as doctrine.
+  Record: [`findings/2026-08-28-context-budget-and-orientation-cost.md`](findings/2026-08-28-context-budget-and-orientation-cost.md).
 
 ### Live operating mechanisms
 
