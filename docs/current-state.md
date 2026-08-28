@@ -248,9 +248,11 @@ copy product architecture or internal product state. Canonical intent:
   have that is good skill material and … what previous sessions struggled
   with."* A 79-agent fan-out read 1,002 of the estate's 3,836 session cards.
   **The spine is the delivery-mechanism ranking**, one corpus: gate-enforced
-  **95–97 %** of 3,836 cards · card-template **598/969** · best skill invocation
-  **46/969** · `/groom-ideas` **0/969** against **82** for the same ritual
-  template-carried. **Idea consumption was published wrong twice and is now
+  **95–97 %** of 3,836 cards, and a template-carried ritual is completely
+  countable (**598/969**) because its text is written by construction. **Skill
+  invocation is not measurable at all** — no trace is required and none is kept
+  — so an earlier quantified ranking of the three is **withdrawn** (`@codex`
+  R4). **Idea consumption was published wrong twice and is now
   bounded** — a "10 : 1 ratio" (denominator never established) and then "four
   repos at zero, one is `idea-engine`" (a directory-name mismatch: it holds
   **566** idea files in `ideas/` — the same figure OD-4 has carried
@@ -262,9 +264,10 @@ copy product architecture or internal product state. Canonical intent:
   **`idea-engine` has 503 cards, 503 ideas and zero in its conveyor.** So the
   estate produces reusable knowledge reliably and never reads it back — OD-21's
   diagnosis, measured. **Why skills are the wrong container:** on one corpus,
-  gate-enforced **95–97 %** · card-template **598/969** · best skill invocation
-  **46/969**, and `/groom-ideas` **0/969** while the same ritual carried by the
-  template ran **82** times. **And the kit cannot deliver a skill anyway** — it
+  gate-enforced **95–97 %** of 3,836 cards and template-carried **598/969**,
+  both completely countable; **skill use is unobservable in this estate**, so
+  the earlier three-way ranking is withdrawn and the surviving argument is that
+  a mechanism leaving no record cannot be shown to work even when it does. **And the kit cannot deliver a skill anyway** — it
   stages and never installs (`SKILLS-index.md.tmpl:30-40`, *"nothing live"*);
   **4 of 19** repos have a populated `.claude/skills/`. **0 of 27 fm skills
   reference the guard layer and 0 of 71 routes point at the four rule

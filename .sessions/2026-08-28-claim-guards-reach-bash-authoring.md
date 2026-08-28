@@ -98,8 +98,10 @@ conveyor**. The estate produces reusable knowledge reliably and never reads it
 back, which is OD-21's diagnosis with numbers under it.
 
 **Why the container is the whole question:** gate-enforced **95–97 %** ·
-card-template **598/969** · best skill invocation **46/969** · `/groom-ideas`
-**0/969** against **82** for the same ritual carried by the template.
+card-template **598/969** — both countable. **Skill invocation is not
+measurable at all**, so the three-way ranking first published here is withdrawn
+(`@codex` R4): a template writes its text by construction, a skill need not, and
+46 is a floor with no ceiling.
 
 **Three subagent headlines were corrected before use** — the "41 sessions over
 five weeks" span is two days of filename dates; "skills are never invoked" is

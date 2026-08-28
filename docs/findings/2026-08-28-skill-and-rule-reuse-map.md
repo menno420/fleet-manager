@@ -27,14 +27,14 @@
 ## 0 · The answer in one paragraph
 
 The estate has **excellent** reusable material, and the question of *which
-container it goes into* decides whether it is ever used again. `MEASURED` on one
-corpus: the artifact **gated by `check --strict`** (the session card) holds at
-**95–97 % across 3,836 cards**; the same procedure **embedded in the card
-template** ran **598 of 969** times; the same procedure **written as a skill**
-ran **46 of 969** at best and **0 of 969** for `/groom-ideas` — whose ritual,
-carried by the template instead, ran **82** times in the same repository. That
-ranking is the finding everything else hangs off, and it is why the plan in § 6
-does not consist of writing more skills. Separately and more prosaically:
+container it goes into* decides whether it is ever used again. `MEASURED`: the artifact **gated by `check --strict`** holds at **95–97 %
+across 3,836 cards**, and a **template-carried ritual** is completely countable
+because its text is written by construction (`Session idea (Q-0089)` in **598 of
+969**). **Skill invocation is not measurable at all** — no trace is required and
+none is kept — so an earlier quantified ranking of the three was withdrawn (§ 1).
+The surviving argument is stronger for not needing the numbers: prefer
+mechanisms whose use leaves a record, because one that leaves none cannot be
+shown to work even when it does. Separately and more prosaically:
 **substrate-kit cannot deliver a skill at all** — it stages them and never
 installs, so promoting one into the kit reaches nobody.
 
@@ -43,38 +43,43 @@ publishes a bounded one.** See § 2: the corrected measurement shows **wide
 variance, not uniform failure**, and the two repositories built as idea engines
 convert at better than 1 : 1.
 
-## 1 · The delivery-mechanism ranking — the finding everything else hangs off
+## 1 · Delivery mechanisms — the ranking is WITHDRAWN, and what replaces it is better
 
-`MEASURED`, same corpus, three delivery mechanisms:
+**An earlier version of this section ranked three delivery mechanisms by how
+often each "actually ran". That ranking is withdrawn.** `@codex` (fm #963 R4)
+showed the comparison is invalid, and it is right: the mechanisms have
+**different observability**, so the numbers are not commensurable.
 
-| how a procedure reaches a session | how often it actually ran |
-|---|---|
-| **Gated by `check --strict`** (the session card) | **95–97 %** of 3,836 cards |
-| **Embedded in the card template** (`Session idea (Q-0089)` block, superbot) | **598 of 969** cards |
-| **Written as a skill** (`/session-close`, superbot — the most-invoked) | **46 of 969** cards |
-| **Written as a skill** (`/session-close`, fleet-manager) | **2 of 433** cards |
-| **Written as a skill** (`/groom-ideas`, superbot) | **0 of 969** cards |
+- A **template block** writes its own identifying text into the card *by
+  construction* — `Session idea (Q-0089)` is in the card because the template
+  put it there. Counting it counts every occurrence.
+- A **skill invocation** need not leave any trace in the card at all. So
+  `/session-close` appearing in 46 of superbot's 969 cards is a **floor with no
+  ceiling**: the true number could be anything from 46 to 969.
 
-The sharpest single case is internal to one repo: `/groom-ideas` is named in
-**0** of superbot's 969 cards, while the *same ritual* embedded in the card
-template as `Grooming (Q-0015)` ran in **82**. Same procedure, same repo, same
-sessions, two containers — 0 against 82.
+Ranking a complete count against an unbounded floor produces a number that
+looks like a measurement and is not one. **The estate has no skill-invocation
+telemetry**, so the earlier claims — "an order of magnitude weaker", "the 0–3 %
+tier" — were unsupportable and are removed.
 
-**Bound on this measurement, stated because it changes how much weight it
-carries:** invocation was counted by searching cards for the skill's name, so
-these are **lower bounds** — a session can invoke a skill without writing its
-name down. What survives the bound is the *comparison*, because both figures
-come from the same method on the same corpus: 598 template blocks against 46
-skill mentions in one card set.
+**What survives, and it is the more useful statement:**
 
-`MEASURED` correction to a subagent claim: skills are **not** never invoked.
-Ten of superbot's fourteen are named in at least one card (`/session-close` 46,
-`/fleet-review` 15, `/pre-pr` 6). The finding is not that skills are dead; it is
-that they are roughly an order of magnitude weaker than template embedding and
-two orders weaker than a gate.
+| mechanism | what can be measured | value |
+|---|---|---|
+| **Gated by `check --strict`** | conformance, directly — the checker itself is the instrument | **95–97 %** of 3,836 cards |
+| **Template-carried ritual** | complete, because the text is written by construction | `Session idea (Q-0089)` in **598 of 969**; `Grooming (Q-0015)` in **82** |
+| **Skill invocation** | **nothing** — no trace is required and none is kept | unmeasurable; card mentions give a floor only |
 
-**Convergent with the genesis dig's "the door, not the notebook", measured
-independently and at a different scale.**
+**The finding is the third row.** Not that skills are weak — that **skill use in
+this estate cannot be observed at all.** A mechanism whose use leaves no record
+cannot be measured, improved, or verified, and cannot be shown to be working
+even if it is. That is a stronger argument for preferring gates and
+template-carried rituals than the false quantification it replaces, because it
+does not depend on knowing how often skills run.
+
+**It also makes skill-invocation telemetry a concrete, cheap thing to add** —
+and until it exists, no claim about skill effectiveness in this estate, in
+either direction, is checkable.
 
 ## 2 · Idea consumption — corrected twice, and the corrected reading is different
 
@@ -239,9 +244,10 @@ holds. It is also the smallest change with the largest measured gap behind it �
 3,668 written against 357 landed.
 
 **Move 2 — port the checkers, not the skills.** superbot's nine checkers are
-the highest-value material and they are already executable. Porting a checker
-into a repo's gate puts it in the 95 % tier; rewriting it as a skill puts it in
-the 0–3 % tier. Start with the two whose method is fully general:
+the highest-value material and they are already executable. A checker in the
+gate is **measurable and enforced**; the same method rewritten as a skill is
+neither — its use leaves no record at all (§ 1). Start with the two whose method
+is fully general:
 baseline-before-you-edit (`pre-edit-check`) and sync-before-you-judge
 (`fix-drift`).
 
@@ -314,6 +320,23 @@ assumption that `docs/ideas/` is an idea's only destination. It is not, and the
 disproof was one `ls` away in directories this session had used all day. The
 write side was checked (35 of 40 sampled cards carry a substantive 💡); the
 land side never was. **A ratio needs both halves established, and only one was.**
+
+**`@codex` R4 attacked this document and landed two P1s.** (1) The 💡 count is
+a marker count, not an idea count — verified against `bootstrap.py:326-330` and
+a card that passes while carrying nothing. (2) `idea-engine/ideas/` is recorded
+as canonical in this repo's **own tree** — `tools/build_notebook_bundle.py:109-115`,
+`docs/ESTATE.md:93`, `docs/owner-queue.md:353-356`, the last naming 566 files —
+so the § 2 error was not a hard-to-find fact but one already written down here
+three times. It also showed the delivery ranking was incommensurable (§ 1,
+withdrawn) and that 41 cards sharing a string does not establish 41 independent
+derivations.
+
+**A citation debt this record has not paid.** The four mining bullets in § 2 are
+presented with per-repository specifics but carry **no card paths or line
+numbers**, and the clones and agent outputs they came from are not committed —
+so nothing in them is reproducible from this repository. `@codex` R4 called
+this correctly. They are retained as `REVIEWED` leads, not as findings, until
+the citations are committed.
 
 **Honest nulls:** six of the nine superbot checkers are verified to exist but
 not to run. The owner-ruling register outside Q-0063–Q-0272 is unread. Skill
