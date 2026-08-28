@@ -1,4 +1,4 @@
-# 2026-08-28 — cold orientation pass + the activity lane refreshed
+# 2026-08-28 — cold orientation pass, the activity lane refreshed, and the context-budget direction recorded
 
 > **Status:** `in-progress` — born red; flips only as the last commit.
 
@@ -11,12 +11,22 @@ Owner ask, live: *"Orient yourself in the repo and tell me your findings"* —
 a cold-start orientation against `README.md`'s mandatory six-read order, with
 the findings reported in chat.
 
-The session produces no plan and executes no held work. What lands here is only
-what the orientation itself generated: the gate's telemetry delta, and a refresh
-of the derived activity lane, which was two days stale on the estate's busiest
-day. Both are hygiene under OD-24 (*leave the surfaces you touched better than
-you found them*), not packet work — **OD-23's hold on packet execution stands
-and nothing here touches it.**
+The session produces no plan and executes no held work. What lands from the
+orientation half is only what the orientation itself generated: the gate's
+telemetry delta, and a refresh of the derived activity lane, which was two days
+stale on the estate's busiest day. Both are hygiene under OD-24 (*leave the
+surfaces you touched better than you found them*), not packet work.
+
+**Scope extended mid-session by the owner, live**, with two things. First, the
+purpose behind the ask: *"The reason I started this session was mostly to find
+out exactly how much context a cold boot would consume. We found out that it's
+approximately 150K like I already assumed."* So the orientation was an
+instrument reading, not only an orientation. Second, a new deliverable: *"I'm
+having a conversation with chatGPT about multiple things that could help us,
+I'd like you to review this and properrly document your findings in the repo"*,
+with a `chatgpt.com/share/…` link.
+
+**OD-23's hold on packet execution stands and nothing here touches it.**
 
 ## Shipped
 
@@ -41,10 +51,12 @@ and nothing here touches it.**
     ever resolved — so this is the first committed evidence in the derived lane
     that *local* and *ChatGPT* sessions are visible from a cloud session at
     all, which is the question the area was built to answer.
-- `.substrate/guard-fires.jsonl` — **169 records** across this session's two
-  `check --strict` runs, in **10 timestamped batches** (15:48:44–15:49:26 and
-  16:12:49–16:13:23). Committed per the gate's own instruction (*commit the
-  delta with your session; do not revert*).
+- `.substrate/guard-fires.jsonl` — **183 records in 12 timestamped
+  batches** as of this commit, across this session's `check --strict` runs.
+  The count is a moving target by construction — **every gate run appends more,
+  including the run that verifies the flip** — so read it as "what this commit
+  carries", never as a property of the session. Committed per the gate's own
+  instruction (*commit the delta with your session; do not revert*).
   **Corrected after `@codex` R1 finding 1 — and the misreading generalises.**
   The card first said *"the 7 guard-fire records … +90 lines"*, taking the
   number from the gate's closing line: `check: 7 guard-fire record(s) appended
@@ -55,6 +67,25 @@ and nothing here touches it.**
   delta it tells you to commit, by an order of magnitude, in the one sentence a
   session is most likely to quote.** Measured with
   `git diff 37ded09 -- .substrate/guard-fires.jsonl | grep -c '^+{'`.
+
+**The owner-direction half:**
+
+- `docs/findings/2026-08-28-context-budget-and-orientation-cost.md` — the new
+  record. The shared ChatGPT conversation read with `tools/read_shared_chat.py`
+  (19,704 chars). **The tool route was found by the doc-routing hook, not by
+  me:** `WebFetch` returned the page title and *"[Content truncated due to
+  length…]"*, and the `PreToolUse` hook surfaced
+  [`docs/conventions/reading-shared-ai-chats.md`](../docs/conventions/reading-shared-ai-chats.md)
+  on that same call — the doc records exactly this failure (*"200 and about 821
+  KB of HTML with **zero** conversation content"*). This is the hook doing the
+  job it was built for, in the exact shape its README describes. One friction
+  worth the next session's time: `--setup` succeeded (152/152 certificates) but
+  the reader then failed with `playwright is not installed`, so a bare
+  `pip install playwright` is still a manual prerequisite `--setup` does not
+  cover.
+- `docs/findings/README.md` · `docs/current-state.md` § Work state ·
+  the program's OD table — **OD-25** — index, live-state and directive rows for it.
+
 
 **No document was rewritten and no owner-gated item was answered.** The
 orientation's substantive output is the chat report, deliberately not a new
