@@ -7,11 +7,11 @@
 > canonical in each repository's own `.sessions/` card — this file is a
 > pointer index, never a copy.
 >
-> **Window:** the last **7 calendar days** (UTC). **Generated:** 2026-08-26 21:24Z.
+> **Window:** the last **7 calendar days** (UTC). **Generated:** 2026-08-28 15:52Z.
 > **Scope: the 19 NON-ARCHIVED repositories** — 9 archived ones are excluded, so every count here is
 > non-archived-only and is not a total for the estate's whole history.
-> **Cards:** 79 across 6 repositories, of which **1 is in flight** on an open PR.
-> **Venue stated:** 5 of 79.
+> **Cards:** 70 across 6 repositories, of which **2 are in flight** on an open PR.
+> **Venue stated:** 18 of 70.
 
 ## In flight right now — cards on open PR branches
 
@@ -20,14 +20,17 @@ session collides with, so read it before starting work in these repos.
 
 | repo | PR | venue | card |
 |---|---|---|---|
-| `fleet-manager` | [#951](https://github.com/menno420/fleet-manager/pull/951) | `cloud-container` | 2026-08-26-estate-execution-packets.md |
+| `fleet-manager` | [#961](https://github.com/menno420/fleet-manager/pull/961) | `cloud-container` | 2026-08-28-od24-round-open-questions-agenda.md |
+| `fleet-manager` | [#958](https://github.com/menno420/fleet-manager/pull/958) | `local-desktop` | 2026-08-28-owner-comment-e2e.md |
 
 ## What ran where
 
 | venue | cards |
 |---|--:|
-| `unstated` | 74 |
-| `cloud-container` | 5 |
+| `unstated` | 52 |
+| `cloud-container` | 11 |
+| `local-desktop` | 4 |
+| `chatgpt-work` | 3 |
 
 `unstated` is an honest null, never a guess: a card with no
 📍 Venue: line means nobody said, not `cloud-container`.
@@ -39,10 +42,10 @@ and nothing else. This is the split that made the log necessary.
 
 | repo | cards | reachable from a fleet-manager session without this log |
 |---|--:|---|
-| `fleet-manager` | 59 | yes |
-| `websites` | 9 | **no** |
-| `couch-legend` | 7 | **no** |
-| `product-forge` | 2 | **no** |
+| `fleet-manager` | 56 | yes |
+| `websites` | 8 | **no** |
+| `substrate-kit` | 2 | **no** |
+| `couch-legend` | 2 | **no** |
 | `sim-lab` | 1 | **no** |
 | `idea-engine` | 1 | **no** |
 
@@ -50,11 +53,24 @@ and nothing else. This is the split that made the log necessary.
 
 | date | repo | venue | model | status | card |
 |---|---|---|---|---|---|
+| 2026-08-28 | `substrate-kit` | `cloud-container` | fable-5 | `complete` | [2026-08-28-od24-round-s2-false-negatives.md](https://github.com/menno420/substrate-kit/blob/HEAD/.sessions/2026-08-28-od24-round-s2-false-negatives.md) |
+| 2026-08-28 | `substrate-kit` | `cloud-container` | fable-5 | `complete` | [2026-08-28-od24-round-s3-current-state-reconcile.md](https://github.com/menno420/substrate-kit/blob/HEAD/.sessions/2026-08-28-od24-round-s3-current-state-reconcile.md) |
+| 2026-08-28 | `fleet-manager` | `local-desktop` | fable-5 | `complete` | [2026-08-28-agent-autonomy-direction.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-28-agent-autonomy-direction.md) |
+| 2026-08-28 | `fleet-manager` | `local-desktop` | fable-5 | `complete` | [2026-08-28-local-cloud-sync-direction.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-28-local-cloud-sync-direction.md) |
+| 2026-08-28 | `fleet-manager` | `cloud-container` | fable-5 | `complete` | [2026-08-28-substrate-kit-genesis-dig.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-28-substrate-kit-genesis-dig.md) |
+| 2026-08-28 | `fleet-manager` | `cloud-container` | fable-5 | `complete` | [2026-08-28-substrate-kit-od24-session2.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-28-substrate-kit-od24-session2.md) |
+| 2026-08-28 | `fleet-manager` | `cloud-container` | fable-5 | `complete` | [2026-08-28-substrate-kit-od24-session3.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-28-substrate-kit-od24-session3.md) |
+| 2026-08-28 ⏳ | `fleet-manager` | `cloud-container` | opus-5 | `in-progress` | [2026-08-28-od24-round-open-questions-agenda.md](https://github.com/menno420/fleet-manager/pull/961/files) |
+| 2026-08-28 ⏳ | `fleet-manager` | `local-desktop` | GPT-5 family | `in-progress` | [2026-08-28-owner-comment-e2e.md](https://github.com/menno420/fleet-manager/pull/958/files) |
+| 2026-08-27 | `websites` | `chatgpt-work` | GPT-5 | `complete` | [2026-08-27-control-plane-estate-review.md](https://github.com/menno420/websites/blob/HEAD/.sessions/2026-08-27-control-plane-estate-review.md) |
+| 2026-08-27 | `websites` | `chatgpt-work` | GPT-5 | `complete` | [2026-08-27-fleet-owner-comments.md](https://github.com/menno420/websites/blob/HEAD/.sessions/2026-08-27-fleet-owner-comments.md) |
+| 2026-08-27 | `fleet-manager` | `chatgpt-work` | GPT-5 family | `complete` | [2026-08-27-owner-comments-contract.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-27-owner-comments-contract.md) |
+| 2026-08-27 | `fleet-manager` | `local-desktop` | GPT-5 family | `complete` | [2026-08-27-owner-comments-windows.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-27-owner-comments-windows.md) |
 | 2026-08-26 | `fleet-manager` | `cloud-container` | opus-5 | `complete` | [2026-08-26-cross-session-activity-log.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-26-cross-session-activity-log.md) |
+| 2026-08-26 | `fleet-manager` | `cloud-container` | fable-5 | `complete` | [2026-08-26-estate-execution-packets.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-26-estate-execution-packets.md) |
 | 2026-08-26 | `fleet-manager` | `cloud-container` | opus-5 | `complete` | [2026-08-26-legibility-and-intent-plan.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-26-legibility-and-intent-plan.md) |
 | 2026-08-26 | `fleet-manager` | `cloud-container` | opus-5 | `complete` | [2026-08-26-owner-direction-and-session-sweep.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-26-owner-direction-and-session-sweep.md) |
 | 2026-08-26 | `fleet-manager` | `cloud-container` | opus-5 | `complete` | [2026-08-26-spider-bot-commit-count.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-26-spider-bot-commit-count.md) |
-| 2026-08-26 ⏳ | `fleet-manager` | `cloud-container` | fable-5 | `in-progress` | [2026-08-26-estate-execution-packets.md](https://github.com/menno420/fleet-manager/pull/951/files) |
 | 2026-08-25 | `websites` | `unstated` | GPT-5 | `complete` | [2026-08-25-railway-hardening.md](https://github.com/menno420/websites/blob/HEAD/.sessions/2026-08-25-railway-hardening.md) |
 | 2026-08-25 | `fleet-manager` | `unstated` | opus-5 | `complete` | [2026-08-25-e1-owner-revision-pass.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-25-e1-owner-revision-pass.md) |
 | 2026-08-24 | `websites` | `unstated` | GPT-5 | `complete` | [2026-08-24-current-state-truth-closeout.md](https://github.com/menno420/websites/blob/HEAD/.sessions/2026-08-24-current-state-truth-closeout.md) |
@@ -107,28 +123,6 @@ and nothing else. This is the split that made the log necessary.
 | 2026-08-22 | `fleet-manager` | `unstated` | opus-5 | `complete` | [2026-08-22-websites-quality-sweep.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-22-websites-quality-sweep.md) |
 | 2026-08-22 | `fleet-manager` | `unstated` | fable-5 | `complete` | [2026-08-22-windows-case-collision-capabilities.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-22-windows-case-collision-capabilities.md) |
 | 2026-08-22 | `couch-legend` | `unstated` | opus-5 | `complete` | [2026-08-22-android-signing-identity.md](https://github.com/menno420/couch-legend/blob/HEAD/.sessions/2026-08-22-android-signing-identity.md) |
-| 2026-08-21 | `fleet-manager` | `unstated` | opus-5 | `complete` | [2026-08-21-couch-legend-android-apk.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-21-couch-legend-android-apk.md) |
-| 2026-08-21 | `fleet-manager` | `unstated` | fable-5 | `complete` | [2026-08-21-couch-legend-lifehigh-hub-closeout.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-21-couch-legend-lifehigh-hub-closeout.md) |
-| 2026-08-21 | `fleet-manager` | `unstated` | fable-5 | `complete` | [2026-08-21-fleet-wide-ultracode-review.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-21-fleet-wide-ultracode-review.md) |
-| 2026-08-21 | `fleet-manager` | `unstated` | gpt-5.6 | `complete` | [2026-08-21-game-community-bot-plan.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-21-game-community-bot-plan.md) |
-| 2026-08-21 | `fleet-manager` | `unstated` | opus-5 | `complete` | [2026-08-21-laptop-claude-setup.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-21-laptop-claude-setup.md) |
-| 2026-08-21 | `fleet-manager` | `unstated` | opus-5 | `complete` | [2026-08-21-laptop-setup-chip-correction.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-21-laptop-setup-chip-correction.md) |
-| 2026-08-21 | `fleet-manager` | `unstated` | fable-5 | `complete` | [2026-08-21-seed-couch-legend-substrate.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-21-seed-couch-legend-substrate.md) |
-| 2026-08-21 | `couch-legend` | `unstated` | opus-5 | `complete` | [2026-08-21-android-apk.md](https://github.com/menno420/couch-legend/blob/HEAD/.sessions/2026-08-21-android-apk.md) |
-| 2026-08-21 | `couch-legend` | `unstated` | opus-5 | `complete` | [2026-08-21-android-decisions.md](https://github.com/menno420/couch-legend/blob/HEAD/.sessions/2026-08-21-android-decisions.md) |
-| 2026-08-21 | `couch-legend` | `unstated` | fable-5 | `complete` | [2026-08-21-lifehigh-arc1.md](https://github.com/menno420/couch-legend/blob/HEAD/.sessions/2026-08-21-lifehigh-arc1.md) |
-| 2026-08-21 | `couch-legend` | `unstated` | fable-5 | `complete` | [2026-08-21-substrate-kit-seed.md](https://github.com/menno420/couch-legend/blob/HEAD/.sessions/2026-08-21-substrate-kit-seed.md) |
-| 2026-08-21 | `couch-legend` | `unstated` | GPT-5 | `complete` | [2026-08-21-visible-progress-research.md](https://github.com/menno420/couch-legend/blob/HEAD/.sessions/2026-08-21-visible-progress-research.md) |
-| 2026-08-20 | `websites` | `unstated` | fable-5 | `complete` | [2026-08-20-gate-seat-era-routes.md](https://github.com/menno420/websites/blob/HEAD/.sessions/2026-08-20-gate-seat-era-routes.md) |
-| 2026-08-20 | `websites` | `unstated` | fable-5 | `complete` | [2026-08-20-review-cutover-pages.md](https://github.com/menno420/websites/blob/HEAD/.sessions/2026-08-20-review-cutover-pages.md) |
-| 2026-08-20 | `websites` | `unstated` | fable-5 | `complete` | [2026-08-20-review-static-export.md](https://github.com/menno420/websites/blob/HEAD/.sessions/2026-08-20-review-static-export.md) |
-| 2026-08-20 | `product-forge` | `unstated` | fable-5 | `complete` | [2026-08-20-phone-controller-slice21-hardware-keyboard.md](https://github.com/menno420/product-forge/blob/HEAD/.sessions/2026-08-20-phone-controller-slice21-hardware-keyboard.md) |
-| 2026-08-20 | `product-forge` | `unstated` | fable-5 | `complete` | [2026-08-20-phone-controller-slice22-foldables.md](https://github.com/menno420/product-forge/blob/HEAD/.sessions/2026-08-20-phone-controller-slice22-foldables.md) |
-| 2026-08-20 | `fleet-manager` | `unstated` | fable-5 | `complete` | [2026-08-20-controller-app-keyboard-foldables.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-20-controller-app-keyboard-foldables.md) |
-| 2026-08-20 | `fleet-manager` | `unstated` | fable-5 | `complete` | [2026-08-20-couch-legend-adoption.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-20-couch-legend-adoption.md) |
-| 2026-08-20 | `fleet-manager` | `unstated` | fable-5 | `complete` | [2026-08-20-couch-legend-life-story-sim.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-20-couch-legend-life-story-sim.md) |
-| 2026-08-20 | `fleet-manager` | `unstated` | fable-5 | `complete` | [2026-08-20-railway-keep-bot-only-execute.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-20-railway-keep-bot-only-execute.md) |
-| 2026-08-20 | `fleet-manager` | `unstated` | fable-5 | `complete` | [2026-08-20-railway-keep-bot-only-plan.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-20-railway-keep-bot-only-plan.md) |
 
 ## Invisible work — repositories that moved without a card to explain it
 
@@ -144,7 +138,6 @@ commit is a perfectly good reason to appear here.
 | `creator-kit` | 2026-08-25 | `.sessions/` exists but holds no card at all |
 | `superbot` | 2026-08-24 | newest card is 2026-08-13 — pushed 11 days later with no card for it |
 | `spider-swing` | 2026-08-24 | newest card is 2026-08-13 — pushed 11 days later with no card for it |
-| `estate-backups` | 2026-08-20 | no `.sessions/` directory |
 
 ## Repositories with no card protocol at all
 
