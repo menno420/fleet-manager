@@ -37,6 +37,31 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 
 ## Current owner decisions — verified from fleet-manager on 2026-08-10
 
+- **`OQ-KIT-PROMPT-DOCTRINE` — which rule governs kit-planted brakes: your
+  "no confirmation prompts ever" or the re-ratified confirm-first line?**
+  (added 2026-08-28, the OD-24 round's session 2 — surfaced by
+  [the router band re-read](findings/2026-08-28-router-band-reread.md) §4.)
+  **WHAT:** one sentence choosing which governs when a kit gate would pause
+  for confirmation. Both rulings are yours: superbot:Q-0128 (06-13, *"I
+  never want to see such a prompt asking me for my confirmation ever again,
+  no matter what it is for"* — destructive-op trade-off accepted) and OD-24
+  §3's re-ratified standing line (*confirm before sending or deleting*).
+  **WHERE:** the hub chat; a reply to the round's letters folds it in.
+  **WHY-IT-MATTERS:** the review round's hook/gate fixes must know whether a
+  brake may ever surface interactively. **UNBLOCKS:** the round's gap-#7
+  flip-gate design and any kit-planted brake. **VERIFIED-NEEDED:** none —
+  both rulings are quoted verbatim in the re-read.
+- **`OQ-EAP-SPEND-WINDOW-MOOT` — record whether the ~09-07 spend-cap
+  decision window is mooted.** (added 2026-08-28, same source, §1.7.)
+  **WHAT:** one sentence — superbot:Q-0249 (07-06) deferred AI-spend caps to
+  *"the average of a couple of months"* (window lands ~2026-09-07); the
+  program close presumably mooted it, but the mooting was never recorded and
+  a dangling dated obligation is the owner-words-loss class the round
+  tracks. **WHERE:** hub chat, one line. **WHY-IT-MATTERS:** the genesis
+  dig's §10 called the ~09-09 trading gate the estate's only future-dated
+  obligation; this is the second. **UNBLOCKS:** closing the record.
+  **VERIFIED-NEEDED:** none.
+
 - **`OQ-ESTATE-ARCHIVE-LIST` ✅ ANSWERED 2026-08-22 · ✅ EXECUTED 2026-08-23 —
   the nine ungated repositories are archived** (added 2026-08-22, OD-18 table
   fm #906; answered live the same day; executed as program step **R5**, fm #912).

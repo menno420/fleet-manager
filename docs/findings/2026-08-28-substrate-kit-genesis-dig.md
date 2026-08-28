@@ -126,7 +126,7 @@ The record shows a **two-part system**, and only one part was ever mechanized:
 | part | what it was | carried by |
 |---|---|---|
 | **the ritual** | born-red card · enders (💡, ⟲, doc-audit) · flip-last | CI gate (Q-0133) + checker (`check_session_log`) + seat-prompt enders |
-| **the loop** | interview → card Context-delta → REVIEW pass every ~3-5 sessions mines the deltas → owner-ratified promotion into CLAUDE.md/hooks → next session boots into the promoted rule; ideas groomed down a lifecycle (*"every idea ends implemented or discussed"*, Q-0015) | **the owner's questions, his check-ins, and prose obligations** — no machine ever verified any of it |
+| **the loop** | interview → card Context-delta → REVIEW pass every ~3-5 sessions mines the deltas → owner-ratified promotion into CLAUDE.md/hooks → next session boots into the promoted rule; ideas groomed down a lifecycle (*"every idea ends implemented or discussed"*, superbot:Q-0015) | **the owner's questions, his check-ins, and prose obligations** — no machine ever verified any of it *(narrowed 2026-08-28, [re-read](2026-08-28-router-band-reread.md) §1.2: the loop's CADENCE was machine-fired — superbot:Q-0107's auto-firing reconciliation trigger; the substance was prose)* |
 
 Of the 22 core rulings this dig read in full, **~5 were machine-enforced; all
 four ancestors of the kit's next-agent contract (Q-0089 idea · Q-0102 review ·
@@ -326,7 +326,11 @@ The regressions, dated:
    write-side only until Move 3.
 6. **Drift incidents in the stepped-back window** (the OD-24 §6 step-1
    harvest, fm side; each verified in its card): the **flip-before-review
-   family** — fm #828 (merged 22 s after review request, 08-08), then ×5 on
+   family** *(narrowed 2026-08-28,
+   [re-read](2026-08-28-router-band-reread.md) §1.3: superbot:Q-0180's ratified June
+   design ACCEPTED the merge-vs-review race given a consumption loop —
+   superbot:Q-0174 — so the owner-precedented defect is the missing consumption
+   loop, not merge timing itself)* — fm #828 (merged 22 s after review request, 08-08), then ×5 on
    2026-08-23 alone (#915 auto-merged 37 s after open, 0 reviews; #920, #922,
    #925, #937) **with the rule already written and TRAP-006 registered the
    same morning** — *"The register entry is correct; my execution of it is what
@@ -372,9 +376,14 @@ The regressions, dated:
    precisely the job its founding plan scoped, which was narrower than the job
    he built it for.
 2. **His own intent moved, and the kit tracked the July version.** Genesis:
-   *not* 100% autonomous, *"managable and reviewable"* (Q-0015, 06-08). July:
-   *"let fable decide"* (Q-0240), *"never wait … silence = consent"* (Q-0241) —
-   his directives, canonicalized as PL-002. Post-close he re-centered on
+   *not* 100% autonomous, *"managable and reviewable"* (Q-0015, 06-08) —
+   *(narrowed 2026-08-28, [re-read](2026-08-28-router-band-reread.md) §1.1:
+   superbot:Q-0083 declared full self-driving the END-STATE two days later, inside the
+   genesis era)*. July:
+   *"let fable decide"* (superbot:Q-0240), *"never wait … silence = consent"* (superbot:Q-0241) —
+   his directives, canonicalized as PL-002 *(narrowed, re-read §1.5: superbot:Q-0241's
+   own scope clause bound never-wait to the REBUILD program, ask-first brakes
+   left standing for production)*. Post-close he re-centered on
    verification (the 07-21 reflection: *"the wall is verification, not
    capability"*) and now on initiative-with-hygiene (OD-24). **Judged: not a
    bad drift in itself — it is his prerogative and each step is recorded — but
@@ -384,7 +393,12 @@ The regressions, dated:
    closed-loop caveat — author = gatekeeper = merger — survived the whole
    program, and Codex on PRs is the one external check added, post-close, by
    his instruction *(narrowed in verification — an earlier draft said "never
-   grew the verification half")*.
+   grew the verification half"; narrowed again 2026-08-28,
+   [re-read](2026-08-28-router-band-reread.md) §1.6: superbot:Q-0258 made Codex the
+   standing review-lane drainer MID-program, 07-10, and superbot:Q-0117 had directed an
+   independent reviewer already on 06-12 — the closed loop survived despite
+   an owner directive, and he himself retired that gate as unused friction,
+   superbot:Q-0197)*.
 3. **What did not drift:** born-red, verify-first, honest negatives,
    friction→guard-as-law — all deepened post-close (traps register, injection
    hooks, adversarial-review vocabulary, the 08-08 error-ledger mechanisms).
@@ -457,7 +471,11 @@ measured, and not the driver of the decline.** What the record supports:
   *"exhorted, not enforced"*, *"handed to a session that had already ended"*,
   *"plants docs once"* — never volume; and the EAP-era answer to maintain-cost
   was **generation + checkers, never fewer files** (the 33.5h-stale hand
-  manifest → generated roster). The legibility plan's §3 split (compliance is
+  manifest → generated roster) *(narrowed 2026-08-28,
+  [re-read](2026-08-28-router-band-reread.md) §1.4: superbot:Q-0214 shows the owner
+  picked delete-with-tombstones — a bounded corpus by construction — as the
+  kit's retention posture on 07-02; whether the kit shipped it is a round
+  question)*. The legibility plan's §3 split (compliance is
   not the problem; **finding** is) is confirmed and extended: the pain is also
   write-side budget, and the full-read audit's diagnosed mechanism is
   **append-without-retract inside internally-coherent documents** — a
@@ -549,7 +567,11 @@ the whole-population re-measure caught it (TRAP-004's class, caught in-flight).
   claim. The sharpest catch: the headers-only sampling of router bodies
   Q-0063–Q-0272 **dropped a load-bearing owner directive (Q-0266)** that bears
   directly on §8 — its body was then read in full tonight and weighed as the
-  fifth rival. That band remains the finding's thinnest coverage.
+  fifth rival. ~~That band remains the finding's thinnest coverage.~~
+  **Closed 2026-08-28 (session 2): the whole band was re-read
+  bodies-in-full —
+  [the router band re-read](2026-08-28-router-band-reread.md), which
+  narrows seven claims in this finding (its §1 names each).**
 - **Skipped (named, not silent):** 645 June + 233 July superbot cards and ~121
   fm August cards beyond greps; superbot PR inline-review threads beyond 4
   spot-checks; kit docs subdirectories (audits/gen2/ideas/operations/planning/
@@ -585,12 +607,12 @@ deletion anywhere breaks that chain; (3) the retrieval fix for this corpus is
 | `kit:docs/NEXT-TASKS.md` | **archive-recommend** (kit-side edit, round session) | actively false — tells the next session to distribute v1.18.0; supersede with a pointer to the fm worklist (gap #5's fix) |
 | kit docs top-level remainder (~15 small binding/template docs) | **keep** | adopter-facing surface of a live kit; `house-style.md` is fm-orphaned but is D-7's canonical home |
 | fm `docs/eap-story.md` · `docs/eap-retrospective.md` | **keep** | the two canonical narratives; fleet-account (six-read) distils and cites them |
-| fm `docs/eap-final-night-worklists-2026-07-13.md` · `eap-final-recon-2026-07-14.md` · `eap-owner-checklist-2026-07-14.md` | **extract-then-archive** | all three carry the estate's only future-dated obligation — the **~2026-09-09** trading R5-C gate (due in 12 days) — plus possibly-undistilled owner-checklist rows; move the gate to `owner-queue.md` first, then archive |
+| fm `docs/eap-final-night-worklists-2026-07-13.md` · `eap-final-recon-2026-07-14.md` · `eap-owner-checklist-2026-07-14.md` | **extract-then-archive** | all three carry the estate's only future-dated obligation — the **~2026-09-09** trading R5-C gate (due in 12 days) — plus possibly-undistilled owner-checklist rows; move the gate to `owner-queue.md` first, then archive *(narrowed 2026-08-28, [re-read](2026-08-28-router-band-reread.md) §1.7: superbot:Q-0249 set a second ~09-07 dated obligation — the AI-spend cap window — presumably mooted by the close, the mooting never recorded)* |
 | fm `docs/eap-audit-collection.md` | **archive** | tracking instrument for a fan-out that completed 2026-07-14; not on any live path |
 | fm `docs/eap-final-email-draft-2026-07-14.md` | **archive** (supersede-by note) | superseded by `planning/2026-08-24-final-eap-email-draft.md`; keep as correspondence lineage until E1 sends |
 | fm `docs/roster.md` · `control/` (minus `claims/`) · `telemetry/` · `projects/` · `docs/prompts/` (minus the 3 live files) | **keep as bannered RECORD** (already done) | all self-declare historical; re-litigating them is churn; Move 2 digests them out of the read path |
 | fm `control/claims/` | **keep — contested, rule separately** | kit still wires `claims_dir` (audit D46); disposition belongs to the kit round, not a doc sweep |
-| fm `docs/findings/2026-08-13-substrate-kit-v1210-followups.md` | **keep — live, the round's step-3 input** | the unconsumed 34-row worklist; zero kit pushes since 08-14 make it the standing successor |
+| fm `docs/findings/2026-08-13-substrate-kit-v1210-followups.md` | **keep — live, the round's step-3 input** | ~~the unconsumed 34-row worklist; zero kit pushes since 08-14 make it the standing successor~~ **consumption began 2026-08-28 (kit #587): rows 13/17/18 fixed, row 35 added, and the kit pushed again — the worklist's own tail carries the live record** |
 | fm `docs/findings/2026-08-09-substrate-kit-defects.md` · `2026-08-13-v1210-phase2-review.md` · `2026-08-14-v1210-phase3-review.md` | **keep** | consumed but they are the defect→fix audit trail v1.21.0's changelog cites |
 | fm `docs/findings/2026-08-09-independent-guard-review.md` | **keep** (already indexed) | adversarial-verification record backing the defects worklist; the findings README routes it — no action *(a round-1 draft said "index-route"; Codex round 2 caught that both rows already exist)* |
 | fm `docs/findings/2026-08-07-what-the-substrate-caught.md` | **keep** (already indexed) | directly on the round's question; the findings README routes it — no action |
@@ -600,10 +622,13 @@ deletion anywhere breaks that chain; (3) the retrieval fix for this corpus is
 
 1. **The one-file unrouted fix:** a pointer in the kit tree to its fm-side
    worklist (gap #5) — smallest possible change, kit venue, no promotion
-   question, and it un-strands the round's own step 3.
+   question, and it un-strands the round's own step 3. **DONE 2026-08-28,
+   session 2 (kit #587).**
 2. **Then the worklist's own stated order:** the false negatives first (rows
    13, 17, 18 — the checker failing at its one job), per the fix order restated
-   2026-08-21.
+   2026-08-21. **DONE 2026-08-28, session 2 (kit #587; the worklist's next
+   lead is the work-destroyers 26/29/33, and its row 35 carries the review's
+   deferred residuals).**
 3. **Name, don't build, the conveyor fix:** Move 1's `♻ Carried forward`
    marker is the designed answer to gaps #1/#2 and it is **held** with the
    rest of the plan — the round should put it to the owner as the first GO
@@ -611,7 +636,9 @@ deletion anywhere breaks that chain; (3) the retrieval fix for this corpus is
    second mechanism.
 4. **A targeted re-read of router bodies Q-0063–Q-0272** (the band this dig
    sampled headers-only — verification proved it can hide load-bearing owner
-   directives; one session, read-only, superbot stays frozen).
+   directives; one session, read-only, superbot stays frozen). **DONE
+   2026-08-28, session 2:
+   [the router band re-read](2026-08-28-router-band-reread.md).**
 5. **And put one question to him with the morning letters** (recorded here per
    ask-and-keep-working): whether the journal survives as a per-repo surface
    (gap #2's second half) — the evidence says the guidebook function migrated

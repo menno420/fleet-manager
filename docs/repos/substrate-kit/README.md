@@ -1,6 +1,6 @@
 # substrate-kit — the entry point
 
-> **Status:** `living-ledger` · true as of **2026-08-21**
+> **Status:** `living-ledger` · true as of **2026-08-28**
 >
 > **What this is:** fleet-manager's entry point for `menno420/substrate-kit` —
 > where the last session left off and where the next one should look.
@@ -30,42 +30,58 @@ v1.20.2; trust `control/status.md` + the tree.
 
 ## Threads
 
-### Thread: the owner-directed review round — **session 1 DONE (steps 1–2); steps 3+ next**
+### Thread: the owner-directed review round — **session 2 DONE (step 3's first fixes + the item-4 audit); the letters still wait**
 
 The owner ordered a kit review round in the second overnight 2026-08-27→28
 hub sitting (*"review it again and improve it"* — verbatim record + the
 four-step method:
 [`../../findings/2026-08-28-owner-direction-agent-autonomy.md`](../../findings/2026-08-28-owner-direction-agent-autonomy.md),
-**OD-24**). **Session 1 ran overnight 2026-08-28 and executed §6 steps 1–2:**
-[`../../findings/2026-08-28-substrate-kit-genesis-dig.md`](../../findings/2026-08-28-substrate-kit-genesis-dig.md)
-— the three-era history (genesis in superbot's interview era, dated
-self-sustainment 2026-06-09, peak 2026-07-12→13, extraction as "the door,
-not the notebook"), every regression cited, the drift harvest classified
-(§7: twelve gaps, dominant classes **unenforced/unrouted** — verification
-split two further: the reflection MINER and the planted question-router are
-shipped-but-unrouted, so route them before rebuilding anything; genuinely
-**absent** are only the interview/owner-ratified-promotion halves, the
-executor, and owner-words capture), the rival-hypothesis verdict (§8: seat-ender
-removal + injection thesis supported as one mechanism; "too many files"
-real but write-side, not the driver), and the **dispositions table (§10 —
-recommendations only, zero deletions proposed, execution owner-gated)**.
-**Next session (step 3, kit venue):** §11's order — the kit-tree worklist
-pointer first, then the
-[v1.21.0 worklist](../../findings/2026-08-13-substrate-kit-v1210-followups.md)'s
-false negatives (rows 13/17/18); Move 1 goes to the owner as the first GO
-candidate rather than a new mechanism. Nothing GOs the held packets;
-AGENTS.md plant-vs-hand-write stays parked for the round.
+**OD-24**). **Session 1** (overnight 2026-08-28, steps 1–2):
+[the genesis dig](../../findings/2026-08-28-substrate-kit-genesis-dig.md) —
+three-era history, twelve classified gaps (dominant
+**unenforced/unrouted**), the rival-hypothesis verdict, the §10
+dispositions table (recommendations only, execution owner-gated).
+**Session 2** (2026-08-28, daytime) executed §11 items 1–2 and 4:
+
+- **kit #587 (MERGED on green after three Codex rounds):** the kit-tree
+  worklist pointer (gap #5 — `kit:docs/NEXT-TASKS.md` superseded into the
+  route) and the false-negative family fixed (worklist rows 13/17/18, each
+  reproduced against the published asset first; pre-push adversarial
+  verification + Codex R1 5/5 and R2 6/6 conceded-and-fixed; R3's 4
+  verified and deferred as worklist **row 35** under the two-re-review cap
+  — tally 5→6→4, measured non-convergent). Fixes ride kit `main`
+  unreleased; the cut stays owner-paced.
+- **The item-4 audit:**
+  [the router band re-read](../../findings/2026-08-28-router-band-reread.md)
+  — all 208 body sections superbot:Q-0063–Q-0272, 59/59 quotes
+  machine-verified (ledger committed in its appendix); seven genesis-dig
+  claims narrowed, each routed in place at the claim site; a carrier
+  census of standing owner rules (five absent from every fm document, the
+  rest in seat-era/reference surfaces or carrying a different facet);
+  genesis precedents mapped onto the gap table; its two new owner asks
+  queued (`OQ-KIT-PROMPT-DOCTRINE` · `OQ-EAP-SPEND-WINDOW-MOOT`).
+- **The morning letters (Move-1 GO · journal · §10 confirmations) were
+  checked first and remain UNANSWERED** — everything owner-gated stayed
+  gated. The re-read adds superbot:Q-0101 as evidence for the journal
+  letter.
+
+**Next session:** the letters' answers when they come; otherwise the
+worklist's restated order — the work-destroyers 26, 29, 33 (+34) — or the
+round's routing work (gap #3's shipped-but-unrouted reflection miner).
+Nothing GOs the held packets; AGENTS.md stays parked for the round.
 
 ### Thread: the v1.21.0 follow-up worklist — **open, lives in THIS repo, not the kit**
 
 The kit's next worklist is fleet-manager's
 [`../../findings/2026-08-13-substrate-kit-v1210-followups.md`](../../findings/2026-08-13-substrate-kit-v1210-followups.md)
-— Codex findings on the vendored v1.21.0, grown to **34 rows** (as of
-2026-08-21, fm #879 — count from the file, not from here), fix order
-restated at its tail (the false negatives lead; the couch-legend seed's
-work-destroyers follow). `MEASURED` 2026-08-21:
-the kit's own tree references it **nowhere** — a session booting on the kit
-alone cannot find its own worklist. Start any kit session from that finding.
+— Codex findings on the vendored v1.21.0 (count the rows from the file;
+rows 13/17/18 consumed by kit #587, row 35 added from its R3), fix order
+restated at its tail (the work-destroyers 26/29/33 now lead — the false
+negatives are consumed). ~~`MEASURED` 2026-08-21: the kit's own tree
+references it **nowhere**~~ — **closed 2026-08-28 (kit #587):**
+`kit:docs/NEXT-TASKS.md` is superseded into a routed pointer to this
+worklist and the round thread, reachable from the kit's boot path via its
+`current-state.md` links. Start any kit session from that finding.
 
 ### Thread: adopter currency — **3 stale rows + 5 invisible adopters** (owner-paced)
 
