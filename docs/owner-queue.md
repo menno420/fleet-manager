@@ -56,7 +56,17 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 > the same day — see their notes). Answers given in the sitting come back here
 > as entry updates; the agenda feeds this queue, it does not replace it.
 
-- **`OQ-KIT-MOVE1-GO` — GO or hold on Move 1, the end-of-session contribution
+- **`OQ-KIT-MOVE1-GO` ⏸ ANSWERED 2026-08-28 — HELD, and it is a STAGE, not a deferral.**
+  Owner, live in the OD-24 discussion sitting (§ 7 of [the sitting record](findings/2026-08-28-od24-sitting-answers.md)): offered
+  three GO shapes and a hold, he chose **hold — still planning**. Minutes later,
+  unprompted, he gave the exit condition: *"I am currently running 3 parrallel
+  ultracode session to map most of all the repos, once this mapping is all done
+  we should use this information to come up with a revised pan. Only after that
+  will we move to execution of the 'GO'"* — so **do not re-put this to him until
+  the mapping is done and the plan revised**; re-asking sooner asks him to skip
+  his own stage. Nothing Move-1-shaped may be built meanwhile, under any other
+  name. *(Original ask below, kept for its evidence base.)*
+- **`OQ-KIT-MOVE1-GO` (original body) — GO or hold on Move 1, the end-of-session contribution
   line — and if GO, how far does it reach?** (added 2026-08-28, the OD-24
   round's session 4 — **this ask is three sessions old and had no queue entry
   until now**, which is why it reads as unanswered in every card since
@@ -74,7 +84,30 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   that hold. **UNBLOCKS:** the round's whole build track, and the § 2 · B answer
   governs whether that line may ever *block* a session's close.
   **VERIFIED-NEEDED:** none — the hold is your own words, quoted above.
-- **`OQ-KIT-JOURNAL-SURVIVES` — does the per-repo `.session-journal.md` survive
+- **`OQ-KIT-JOURNAL-SURVIVES` ✅ ANSWERED 2026-08-28 — DELEGATED to us, with a function named.**
+  Owner, live (§ 5 of [the sitting record](findings/2026-08-28-od24-sitting-answers.md)): *"Your call, if the router records are
+  functional in the same way thats good enough. But I think the session journals
+  would definitely add some value so we can easily find out what went wrong each
+  session."* **The decision taken under that delegation: the journal
+  SURVIVES in the role it already has — a lean per-repo guidebook — and his
+  function is served by RETRIEVAL over the session cards that already exist, not
+  by a second record.** `.session-journal.md:5-7` defines the file as *"a
+  guidebook, **not a log**"* and routes per-session logs to
+  `.sessions/<date>-<slug>.md`; those cards already record what went wrong in
+  detail. His word is *"**easily** find out"* — so what is missing is not capture
+  (fm holds **433** dated cards at this head, the kit 343 — re-derived; the 431
+  carried from the agenda's § 7 is wrong) but any way to scan them. **That is
+  retrieval, and retrieval is routing** — the fix family his own cost function
+  ranks above building. **Nothing is built, nothing enforced, no new file.**
+  *(Two earlier cuts each proposed a re-scoped journal and each lost a
+  load-bearing leg to Codex review on fm #964: first "trap records are
+  estate-scoped, not per-repo" — refuted by roadmap § 5.3–5.4, marked `OWNER`,
+  which makes per-repo traps the intended design; then a lifecycle argument that
+  never asked whether the cards already serve the function. They do.)*
+  **The open design question a build session inherits:** how anyone gets a
+  scannable view across a repo's cards — index, digest, query, or the kit's
+  existing reflection miner routed at last.
+- **`OQ-KIT-JOURNAL-SURVIVES` (original body) — does the per-repo `.session-journal.md` survive
   as a surface, or is it superseded by routed trap-style records?** (added
   2026-08-28, session 4 — the second of the three letters that had no entry.)
   **WHAT:** one sentence — **(a)** keep it and enforce it · **(b)** retire it,
@@ -90,7 +123,23 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   dig calls the disposition *"a round question for the owner"* verbatim.
   **UNBLOCKS:** gap #2's fix family, and Move 1's `journal` value.
   **VERIFIED-NEEDED:** none.
-- **`OQ-KIT-PROMPT-DOCTRINE` — which rule governs kit-planted brakes: your
+- **`OQ-KIT-PROMPT-DOCTRINE` ✅ ANSWERED 2026-08-28 — PRESENCE DECIDES.**
+  Owner, live (§ 3 of [the sitting record](findings/2026-08-28-od24-sitting-answers.md)), choosing *"Never while I'm away; freely
+  when I'm present"*. **The conflict was real and he resolved it by drawing a
+  line neither rule drew — presence.** *(A first cut said the two "were never in
+  conflict"; Codex fm #964 caught that as rewriting the older statement — Q-0128
+  says "ever again, no matter what it is for", and the re-read recorded the
+  conflict correctly.)* From 2026-08-28 the presence rule governs; Q-0128 stands
+  as the **superseded** broader phrasing. So a kit-planted brake **may prompt only when a human is in the
+  session** — **his** presence specifically, not any maintainer's. Unattended it
+  **must not wait**, and what it does instead is **not settled by his answer**:
+  for anything the confirm-before-sending-or-deleting line covers it **refuses**
+  (that rule survives untouched); elsewhere the fail-open/fail-closed choice is
+  left open rather than assumed.
+  **`delete_trigger` stays PREVENTED in every venue**, attended or not; fm's
+  never-delete-a-trigger decision and the denying guard hook are untouched. Presence must be computed from the
+  venue, not guessed. *(Original ask below.)*
+- **`OQ-KIT-PROMPT-DOCTRINE` (original body) — which rule governs kit-planted brakes: your
   "no confirmation prompts ever" or the re-ratified confirm-first line?**
   (added 2026-08-28, the OD-24 round's session 2 — surfaced by
   [the router band re-read](findings/2026-08-28-router-band-reread.md) §4.)
@@ -121,7 +170,35 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   the residue to the agenda's § 2 · B — a different subject, blocking a flip
   rather than interrupting him. Codex review on fm #961 caught it before he
   saw either.)* Put the sharpened fork to him, not the original two-way one.
-- **`OQ-EAP-SPEND-WINDOW-MOOT` — record whether the ~09-07 spend-cap
+- **`OQ-KIT-RENAME` — the kit's published name: you ruled it changes, and the
+  name is the one thing only you can supply.** (added 2026-08-28, the OD-24
+  discussion sitting — §§ 11 + 15 of
+  [the sitting record](findings/2026-08-28-od24-sitting-answers.md).)
+  **WHAT:** one word. `kit:README.md:9` still reads *"`substrate-kit` is a
+  placeholder name"* and defers the published name to you; you chose **"Change
+  it now while it's still cheap"** over keeping it, then chose **"I'll pick the
+  name later"** over three candidates offered in the estate's naming style
+  (`agent-substrate` · `groundwork` · `session-kit`). So the directive stands
+  and only the name is missing. **WHERE:** hub chat, one word.
+  **WHY-IT-MATTERS:** 21 releases have shipped under a self-declared
+  placeholder, and the rename gets more expensive with every adopter added.
+  **WHY IT IS NOT OURS:** you were offered the chance to delegate it and did
+  not — no session may pick a name on your behalf.
+  **UNBLOCKS:** the rename itself (a build-session job with real blast radius:
+  the GitHub repo name, adopters' vendored path references, the generated
+  `docs/adopters.md`, and every fleet-manager document naming the repo — it
+  should not ride the same PR as a doc sweep). **VERIFIED-NEEDED:** none.
+- **`OQ-EAP-SPEND-WINDOW-MOOT` ✅ CLOSED 2026-08-28 — not currently relevant, by his own read.**
+  Owner, live (§ 17 of [the sitting record](findings/2026-08-28-od24-sitting-answers.md)): *"There hasn't really been much API use
+  lately, so this is currently not relevant"*. The window passes **without a
+  decision, because its premise does not hold** — there is no meaningful spend to
+  average. kit `PL-005` (observe-first budgets; caps deferred, not adopted)
+  stands unchanged, **no cap is adopted, and no meter was ordered** — the option
+  offering one was available and not taken, so a session must not build one off
+  this answer. Re-opens on his own named condition: API use going up again.
+  Prerequisite discharged the same session — `[D-0011]`'s self-contradiction is
+  reconciled in [`decisions.md`](decisions.md). *(Original ask below.)*
+- **`OQ-EAP-SPEND-WINDOW-MOOT` (original body) — record whether the ~09-07 spend-cap
   decision window is mooted.** (added 2026-08-28, same source, §1.7.)
   **WHAT:** one sentence — superbot:Q-0249 (07-06) deferred AI-spend caps to
   *"the average of a couple of months"* (window lands ~2026-09-07); the
@@ -436,7 +513,23 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   a glance at the UI. **The release is a data bundle, not a software release;
   it is deletable in one call once the notebook exists.**
 
-- **`OQ-E1-FINAL-EAP-EMAIL` — write and send the final EAP review email
+- **`OQ-E1-FINAL-EAP-EMAIL` ▶ RE-BRIEFED 2026-08-28 — "soon", and its content brief just WIDENED.**
+  Owner, live (§ 19 of [the sitting record](findings/2026-08-28-od24-sitting-answers.md)). He first selected *"Leave it — not now"*,
+  then revised it unprompted minutes later — **the revision governs**: *"About
+  the mail, that really is something to work on soon, and I think that all the
+  audits I'm doing right now will provide valuable information, not only about
+  the EAP itself but generally about how agents work, whih would be a valuable
+  addition to the mail"*. **Three changes:** (1) timing — *soon*, not dormant;
+  (2) a **new INPUT, explicitly NOT a gate** — the mapping audits' output is
+  meant to go into it, making the mail a third consumer of that work; but he did
+  **not** say it must wait for the mapping to finish, and *"soon"* says
+  otherwise, so **fold in whatever exists at the time and do not park it**
+  *(a first cut wrote "wait" here; Codex fm #964 caught it contradicting the same
+  answer's "soon")*; (3) **scope widened** — it now carries what those audits show
+  *generally about how agents work*, not only the EAP. **Consequence for the
+  one-page question: it cannot be settled yet**, because he has just added to the
+  content. Do not restructure to one page against the old brief.
+- **`OQ-E1-FINAL-EAP-EMAIL` (original body) — write and send the final EAP review email
   (owner-reserved, your pace).**
   **▶ UN-DEFERRED BY THE OWNER, 2026-08-24 (live) — this supersedes the deferral
   below.** HIS WORDS: *"today I want to work on and possibly finish the final EAP
@@ -559,7 +652,19 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   **VERIFIED-NEEDED:** owner-only by your own ruling. *(Added 2026-08-11: the
   audit found E1 in the program but absent from this queue entirely.)*
 
-- **`OQ-FM-D2-TARGET` — STILL OPEN. Which repository is D2's next target, and does
+- **`OQ-FM-D2-TARGET` ✅ ANSWERED 2026-08-28 — `spider-swing`, the measured order ratified.**
+  Owner, live (§ 18 of [the sitting record](findings/2026-08-28-od24-sitting-answers.md)), selecting *"Ratify the measured order —
+  spider-swing first"*. **Verified before recording**, because this entry is
+  where the inference-as-owner-decision failure happened once already: the
+  [intent audit](findings/2026-08-23-active-repo-intent-audit.md) § 6 does put
+  `spider-swing` first — its PROVISIONAL marker was discharged 2026-08-24 and
+  `spider-swing` **displaced `product-forge`** at the top. Full order:
+  **`spider-swing` → `product-forge` → `estate-backups` → the `websites` date
+  stamp**. **Naming the target does not start the work** — OD-13's methods-first
+  gate and his mapping → revised plan → execution sequencing both still govern.
+  The audit's caveat survives ratification: five repos remain unrated and any one
+  could displace the order. *(Original ask below.)*
+- **`OQ-FM-D2-TARGET` (original body) — Which repository is D2's next target, and does
   spider-swing enter the program at all?**
   **⚠ A 2026-08-23 session marked this ANSWERED, and it was withdrawn the same
   session** (`@codex`, fm #937). He said *"there's not much we can do except for
@@ -662,7 +767,16 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   it during the measurement would have changed the surface being tested, and
   the owner explicitly reserved the choice.
 
-- **`OQ-KIT-V1-21-RELEASE` — Call the remaining v1.21.0 rollout targets, at
+- **`OQ-KIT-V1-21-RELEASE` ◐ HALF-ANSWERED 2026-08-28 — the CUT is timed; the ADOPTERS are not.**
+  Owner, live (§ 12 of [the sitting record](findings/2026-08-28-od24-sitting-answers.md)): *"Cut when the next fix batch lands"* — so
+  kit #587 and #588 wait on `main` and ride out with the charter rewrite and the
+  doc-surface sweep in **one** release rather than their own cut. **Still his and
+  still open:** which remaining adopters take the hop (`pokemon-mod-lab`
+  owner-held at v1.15.0 · `superbot-games` *"no adopter yet"* · `trading-strategy`
+  archived). The question named them; his answer addressed **timing only**, and
+  reading a timing answer as an adopter answer would be an inference recorded as a
+  decision. *(Original ask below.)*
+- **`OQ-KIT-V1-21-RELEASE` (original body) — Call the remaining v1.21.0 rollout targets, at
   your pace.** *(Rewritten 2026-08-14: this entry's original action — open the
   dedicated release session — was completed 2026-08-13: v1.21.0 cut, published,
   and adopted here plus the seven repos you named in phases 2–3; record at
