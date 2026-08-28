@@ -331,6 +331,16 @@ receipt behind, with the full text still recoverable from history. You picked
 that posture yourself in July (superbot:Q-0214, *"delete with tombstones"*);
 it shipped in v1.0.0 and has never once been switched on, on any corpus.
 
+**Read this with OD-25, which landed while this agenda was being assembled.**
+In a parallel sitting (fm #962) you were offered the ~150k cold-boot context as
+an optimization target and **declined it**: *"this booting context does not seem
+weird to me nor bothers me … the memory my agents have … is the most valuable
+thing we have now"*, with the rule that **token count is not a defect;
+duplicated, stale or mechanically derivable context is**. So this question is
+**not** "may we cut for size" — that framing is already answered, no. It is
+narrower: whether *spent* cards may be pruned once a census shows which are
+genuinely dead weight, with the full text still recoverable.
+
 **The order matters.** A session will first run the **report-only** census —
 declare what would be pruned, delete nothing — because that needs no
 permission and turns this from a preference into a number. Your answer is only
