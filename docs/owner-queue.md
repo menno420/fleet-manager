@@ -44,17 +44,52 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 > journal question**, and **the §10 disposition confirmations** — although
 > every session card since 2026-08-28 recorded them as *"unanswered"*. They
 > lived only in audit findings, which are `RECORD`-tier and not a surface the
-> owner reads. **And once checked, only one of the three is still a live owner
-> ask:** Move 1's **GO** (stated with its options as § 2 · C of the agenda —
-> tracked here from now on); the **journal question** turns out to be largely
-> answered by his own roadmap § 5.4, and the **§10 confirmations** turn out to
-> be agent-executable — both are dispositioned in § 4 / § 5 of
+> owner reads. **Two of the three are now proper entries here:** Move 1's GO as
+> **`OQ-KIT-MOVE1-GO`** below, and the **journal question** — first closed on
+> the grounds that his roadmap § 5.4 answered it, then re-opened when Codex
+> review established § 5.4 never mentions `.session-journal.md` — as
+> **`OQ-KIT-JOURNAL-SURVIVES`**. The **§10 confirmations** turn out to be
+> agent-executable and need no entry; they are dispositioned in § 5 of
 > [the OD-24 open-questions agenda](planning/2026-08-28-od24-round-open-questions.md),
 > which is the input to the review-and-discussion session he asked for. The
 > two `OQ-KIT-*` entries below are the half that *was* queued (both narrowed
 > the same day — see their notes). Answers given in the sitting come back here
 > as entry updates; the agenda feeds this queue, it does not replace it.
 
+- **`OQ-KIT-MOVE1-GO` — GO or hold on Move 1, the end-of-session contribution
+  line — and if GO, how far does it reach?** (added 2026-08-28, the OD-24
+  round's session 4 — **this ask is three sessions old and had no queue entry
+  until now**, which is why it reads as unanswered in every card since
+  2026-08-28 while never appearing in the surface you actually read.)
+  **WHAT:** one word — GO or hold — and if GO, one letter for reach:
+  **(a)** fleet-manager only, as a measured prototype · **(b)** prototype **plus**
+  a kit release · **(c)** the whole chain including the adopter hops.
+  **WHERE:** the hub chat, or the round's sitting;
+  [the agenda](planning/2026-08-28-od24-round-open-questions.md) § 2 · C states
+  it with its evidence. **WHY-IT-MATTERS:** Move 1 is the designed answer to
+  the round's gap #1 — when a session finishes, nothing currently asks what it
+  left for the next one, which is precisely the habit that stopped when you
+  stepped back. It is built, evidenced and held by your own *"no execution yet,
+  because I still have more to plan"* (OD-23, 2026-08-28); nothing since lifts
+  that hold. **UNBLOCKS:** the round's whole build track, and the § 2 · B answer
+  governs whether that line may ever *block* a session's close.
+  **VERIFIED-NEEDED:** none — the hold is your own words, quoted above.
+- **`OQ-KIT-JOURNAL-SURVIVES` — does the per-repo `.session-journal.md` survive
+  as a surface, or is it superseded by routed trap-style records?** (added
+  2026-08-28, session 4 — the second of the three letters that had no entry.)
+  **WHAT:** one sentence — **(a)** keep it and enforce it · **(b)** retire it,
+  routed trap/idea records carry the function · **(c)** keep it unenforced and
+  stop calling it a contract. **WHERE:** the sitting;
+  [the agenda](planning/2026-08-28-od24-round-open-questions.md) § 2 · E2.
+  **WHY-IT-MATTERS:** the kit plants the file in every adopter, no checker
+  references it, and the dig measured it byte-identical to its template in 11
+  of 14 repos — so it is currently a contract nothing keeps.
+  **⚠ Nearly closed in error:** a session judged this answered by the roadmap's
+  § 5.4; Codex review on fm #961 established § 5.4 defines a recurring-*trap*
+  lifecycle and never mentions the journal (grep, zero hits), and the genesis
+  dig calls the disposition *"a round question for the owner"* verbatim.
+  **UNBLOCKS:** gap #2's fix family, and Move 1's `journal` value.
+  **VERIFIED-NEEDED:** none.
 - **`OQ-KIT-PROMPT-DOCTRINE` — which rule governs kit-planted brakes: your
   "no confirmation prompts ever" or the re-ratified confirm-first line?**
   (added 2026-08-28, the OD-24 round's session 2 — surfaced by

@@ -26,13 +26,17 @@
 
 ## 0 · The headline — the round asked you for things your own record already answers
 
-**Six of the questions this round queued for you are already answered in the
-committed record, and two more are narrower than they were posed.** The round
-is an audit of unrouted knowledge; its own output turned out to carry the same
-defect. Read § 4 before the sitting — it is what keeps the conversation short.
-*(A first cut of § 4 claimed seven answered; Codex review established that one
-of them — the confirmation doctrine — is narrowed rather than settled, and it
-is back on the agenda as § 2 · B2. The count here is the corrected one.)*
+**Five of the questions this round queued for you are already answered in the
+committed record; two more are narrower than they were posed; and one a first
+cut called answered turned out to still be yours.** The round is an audit of
+unrouted knowledge; its own output turned out to carry the same defect. Read
+§ 4 before the sitting — it is what keeps the conversation short.
+*(These counts were wrong twice before Codex review forced them to be computed
+from § 4's own rows rather than asserted. § 4 now holds eight rows: five
+answered, two narrowed-but-still-asked — the confirmation doctrine as § 2 · B2
+and the spend window as § 2 · H — and one struck through and restored to the
+agenda as § 2 · E2. That this file's own audit arithmetic needed three passes
+is itself a datum about hand-carried counts.)*
 
 The sharpest instance: session 2 queued `OQ-KIT-PROMPT-DOCTRINE` asking which
 of your rules governs a kit-planted brake, citing superbot:Q-0128 from
@@ -69,12 +73,12 @@ points at it.
 
 ## 1 · How to use this in the sitting
 
-- **§ 2 is the agenda.** Ten questions, ordered by dependency, not by size —
+- **§ 2 is the agenda.** Eleven questions, ordered by dependency, not by size —
   start at § 2 · 0, which is the one nobody ever asked you. Each carries: the
   ask in plain language · the options · what it unblocks · what the minimum
   answer is. **§ 2b adds four short ones** the audits never phrased as
   questions at all.
-- **Read § 4 first if the sitting is short.** It removes six things you might
+- **Read § 4 first if the sitting is short.** It removes five things you might
   otherwise be asked.
 - **§ 5 is not for you.** It is what a session should simply decide, recorded
   here so the sitting does not spend your attention on it. Your own rule
@@ -177,10 +181,15 @@ may ask first.
 confirmation you require or introduces a prompt you banned — and which of those
 it does is currently luck.
 
+**Carved out of every option, because you already settled it:**
+`delete_trigger` is never prompted for — it is prevented, per your 2026-08-09
+instruction. No answer below re-authorises it.
+
 **Options.** (a) Never prompt — brakes refuse or proceed, never wait. ·
 (b) Prompt only before something leaves the estate or destroys data (sends,
-deletes) — the OD-24 line, which means accepting the occasional wait. ·
-(c) Never prompt while you are away; prompt freely when you are present.
+deletes, `delete_trigger` still excluded) — the OD-24 line, which means
+accepting the occasional wait. · (c) Never prompt while you are away; prompt
+freely when you are present.
 
 **Minimum answer:** one sentence choosing (a), (b) or (c).
 
@@ -228,23 +237,66 @@ the ratification rule is already yours and is not re-asked here.
 
 ### E · AGENTS.md — what should the nineteen files actually say?
 
-**The ask.** You already decided every repo gets a small *start here* note for
-non-Claude agents, and that public is fine. **We are not asking how they get
-made** — your own past ruling (generating stubs that then rot is worse than
-the gap) plus the measurement that the kit's planted journals stayed
-byte-identical in 11 of 14 repos settles the mechanism, and § 5 records what a
-session will decide. What we cannot derive is **content**: should each file be
-pointers only (read path, hub back-link, where the records are), or pointers
-**plus a few lines of yours** about what that repo is actually for?
+**The ask — and it is the MECHANISM, which two earlier cuts of this file
+wrongly moved off your plate.** You already decided every repo gets a small
+*start here* note, and that public is fine. What is still yours is **how the
+nineteen get made and kept fresh**: does the substrate-kit **plant and
+maintain** them, so upgrade waves keep all nineteen current — or are they
+**hand-written once per repo**, as PKT-B4 records?
 
-**Options.** (a) Pointers only. · (b) Pointers plus your own purpose lines —
-and then: do you dictate them, or do we draft from each repo's docs for you to
-correct?
+**Why it is yours, on the record's own say-so.** Your own direction record
+names this exact fork as reserved for this sitting:
+[`../findings/2026-08-28-owner-direction.md`](../findings/2026-08-28-owner-direction.md)
+`:147-150` — *"The kit questions are open for the kit sitting, including one
+his AGENTS.md yes reopens … whether the kit should plant/maintain `AGENTS.md`
+so upgrade waves keep 19 files fresh, versus PKT-B4's recorded
+hand-write-per-repo."* *(A verifier here judged it agent-derivable and this
+file removed it; Codex review on fm #961 produced the line above and it wins —
+the record beats an inference about the record.)*
 
-**Minimum answer:** one sentence. If (b), the follow-on in the same breath.
+**The evidence you may want, since it cuts against planting:** you once ruled
+that *"generating 24 stubs that then rot would be worse than the current gap"*,
+and the kit's planted journals were measured **byte-identical to their template
+in 11 of 14 repos** — planting is exactly what rotted last time. Against that:
+hand-writing nineteen files has no maintenance story at all.
 
-**Note:** execution of the nineteen still sits behind the packet hold (C's
-sibling); this decides what they say when they are written.
+**Options.** (a) The kit plants and maintains them. · (b) Hand-write per repo,
+as PKT-B4 has it. · (c) Plant a minimal pointer the kit maintains, hand-write
+anything beyond it.
+
+**Minimum answer:** one sentence, (a) / (b) / (c).
+
+**What is NOT asked here:** the *content* — PKT-B4 already specifies the
+one-line purpose plus pointers, so there is no content fork to spend the
+sitting on. Execution of the nineteen still sits behind the packet hold.
+
+### E2 · Does the per-repo journal survive at all?
+
+**The ask.** Every repo carries a planted `.session-journal.md` — a running
+notebook a session is supposed to add to. **The dig measured** that no checker
+references it, that it is absent from every boot list, and (with OD-21's
+census) that it stayed byte-identical to its planted template in 11 of 14
+repos; those are its findings, cited here rather than re-measured. So it was
+never adopted by mechanism alone. Two ways forward, and the audits say this one is yours: does
+the journal **survive** as a per-repo surface worth enforcing, or is it
+**superseded** by routed records of the `traps.md` kind — the structured
+recurring-trap lifecycle your own roadmap § 5.4 specifies?
+
+**Why it is yours.** The genesis dig's gap table states it directly: *"separately
+decide whether the journal should survive as a per-repo surface or be
+superseded by traps.md-style routed records — **a round question for the
+owner**"*. *(An earlier cut of this file closed it on the grounds that roadmap
+§ 5.4 already specified the surface. Codex review established that § 5.4 never
+mentions `.session-journal.md` — grep, zero hits — so it is one side of the
+fork, not its answer.)*
+
+**Options.** (a) Keep the journal and enforce it. · (b) Retire it; routed
+trap/idea records carry the function instead. · (c) Keep it, unenforced, and
+stop pretending it is a contract.
+
+**Minimum answer:** one sentence.
+
+**Evidence:** dig § 4 + gap #2 · the roadmap's § 5.4.
 
 **Evidence:** `OQ-FM-AGENTS-BOOT` (answered yes, estate-wide) · OD-23 § 6 ·
 OD-24 § 7 (plant-vs-hand-write parked *for this round*).
@@ -297,19 +349,21 @@ you would rather watch a couple of months and decide from the average. That
 window lands about now — but **no meter ever ran** (the telemetry feed carried
 no cost and stopped 2026-07-13), so there is no average to look at.
 
-**First, what is already capped, so the question is not ambiguous** *(added on
-review — an earlier cut asked "cap or no cap" as if nothing were capped)*: the
-paid Gemini key sits behind a **€10 prepay with auto-reload off** and degrades
-to the free key at zero (`[D-0011]`) — that ceiling is yours, already decided,
-and is not what this asks about. What has no ceiling is the **card-billed**
-path (`GEMINI_API_KEY_PAID` on `generativelanguage`, measured €0.49 → €7.88
-month-to-date) and AI spend generally.
+**One thing to fix before you answer, and it is ours not yours** *(two review
+rounds landed on this; the second was right)*: the ledger contradicts itself.
+`[D-0011]` is titled *"capped at its balance"* and justifies itself by a **€10
+prepay with auto-reload off**, while its own 2026-08-11 amendment says the same
+variable, `GEMINI_API_KEY_PAID`, **bills your card** on `generativelanguage`
+(measured €0.49 → €7.88 month-to-date). Those cannot both be the current
+picture, and a session must reconcile them against the live billing surfaces
+**before** the sitting — otherwise *"leave it"* could be read as ratifying a €10
+ceiling that no longer exists.
 
-**So the question is:** leave the card-billed path uncapped and keep deciding
-by watching, or set a ceiling now?
+**Then the question, which is genuinely yours:** for AI spend going forward, do
+you want any ceiling at all, or do you keep deciding by watching?
 
-**Minimum answer:** one sentence — *leave it*, or *cap it* plus a rough number.
-The €10 prepay stays as it is either way unless you say otherwise.
+**Minimum answer:** one sentence — *no ceiling*, or *a ceiling* plus a rough
+number and what it covers.
 
 **Prior, so you can answer in a breath:** your own recorded position is
 *"budget so far is not really a problem"* and *"we spend way too much time on
@@ -375,7 +429,7 @@ and three of them were queued *for you* by the round before anyone checked.
 |---|---|
 | **`OQ-KIT-PROMPT-DOCTRINE`** — which rule governs a kit-planted brake | **NARROWED, NOT ANSWERED — and this row said "answered" until review caught it.** Your 2026-08-09 words (`.claude/hooks/README.md:483-486`) name `delete_trigger` as the one call whose prompt stalls a session, which sharpens the question but does not settle whether a *send* or *delete* may ask first. An earlier cut folded the residue into § 2 · B; B is a different subject (waiting for review, not interrupting you), so the fork is restored as its own agenda row, **§ 2 · B2**. |
 | **`OQ-EAP-SPEND-WINDOW-MOOT`** — a dangling dated obligation? | **Not dangling — it is program law.** kit `docs/program/rulings.md` **PL-005 "Observe-first budgets"** (2026-07-07) carries your full quote and the method: caps *deferred, not adopted*; instrument, then decide from the measured average. The genuine residue is that **no meter ever ran**, which is why § 2 · H exists in its place. |
-| **The journal letter** — does the per-repo journal survive? | **You already specified this surface**, in your own roadmap: `planning/2026-08-08-agent-operating-environment-roadmap.md` § 5.4 *"Known mistakes as executable knowledge"*, marked `OWNER` — and the round never cited it. The letter as posed asks you to re-decide something you decided; what remains is design, not a letter. |
+| ~~**The journal letter**~~ — **RE-OPENED, see § 2 · E2** | An earlier cut closed this on the grounds that roadmap § 5.4 already specified the surface. **Codex review refuted it:** § 5.4 defines a recurring-*trap* lifecycle and never mentions `.session-journal.md` (grep, zero hits, re-run here), so it is one side of the fork rather than its answer — and the dig calls the disposition *"a round question for the owner"* in as many words. Restored to the agenda. |
 | **The `control/claims/` disposition** — contested, rule separately | **Closed 2026-08-11** as audit finding **D46** (fm #849). The dig deferred to a ruling that had already been made. |
 | **Who corrects the Q-0241 provenance mislabel** | **Agent work, already labelled so** — the truth pass's own § 5 preamble marks every row but the last agent-executable and not owner-gated. |
 | **Q-0214's unshipped remainder** | **Answered by session 3** and annotated in place at both claim sites (re-read § 1.4, dig § 4/§ 8). |
@@ -405,6 +459,16 @@ committed record.
   report, delete nothing.
 - **The Q-0241 provenance correction** — fix the attribution at its source slot
   and re-render the two derived copies.
+- **Pin PL-002's scope sentence** — a *different* item from the mislabel above,
+  and it was mapped to this section before it actually appeared here (Codex,
+  fm #961). The truth pass found the scope clause protected only by the
+  register's append-only grammar and two header pins, with no test asserting the
+  sentence itself; a session adds that assertion so the rebuild-only scope
+  cannot be silently dropped.
+- **Reconcile `[D-0011]`'s two budget statements** against the live billing
+  surfaces — the entry is titled *capped at its balance* while its own
+  amendment says the same key bills the card. Prerequisite to § 2 · H, and
+  agent work.
 - **What becomes NOW after the sitting** — *not his to pick, and an earlier cut
   wrongly put it to him* (caught on review). The program's own ledger rule is
   explicit: *"only ONE step is NOW at a time — the owner (**or the session, if
@@ -438,22 +502,26 @@ wiring.
 - **Dedup:** mechanical, keyed on slug-or-title — **it under-merges**. AGENTS.md
   surfaced in five lanes under four titles and deduped to four rows, not one.
   66 groups resulted; the semantic merge is the one done by hand in § 2.
-- **Verify:** 26 adversarial verifiers, each told to refute. **13 survived as
-  open** (most narrowed) and **13 were closed.** The narrowings are the pass's
-  real product: nearly every survivor lost an agent-derivable half the harvest
-  had wrongly routed to the owner.
-- **Where the 13 closed ones went** *(this mapping was missing, and the counts
-  did not reconcile, until Codex review — § 4 has eight rows, not thirteen)*:
-  **8** are § 4's rows · **1** was a second lane's duplicate of § 4's
-  confirmation-doctrine row (which review then re-opened as § 2 · B2, so § 4
-  now records it as narrowed rather than answered) · **1** was
-  *"pinning PL-002's scope sentence"*, closed as not-a-question and living in
-  § 5 as agent work · **2** were estate-queue product items outside this round
-  (`pokemon-mod-lab`'s v1.21.0 hop, the review-bot's scope) and stay in the
-  queue · **1** — whether superbot:Q-0132's untrusted-input trust criterion
-  still binds the provider mix — was closed as *partial* and is genuinely
-  round-adjacent; it is named here rather than dropped, and belongs with the
-  OD-13 provider-mix row in § 2b.
+- **Verify:** 26 adversarial verifiers, each told to refute. As returned:
+  **13 open, 13 closed.** The narrowings are the pass's real product — nearly
+  every survivor lost an agent-derivable half the harvest had wrongly routed to
+  the owner.
+- **After Codex review overturned three of those closures**, the standing split
+  is **16 open / 10 closed at candidate level**, and the ten map exhaustively:
+  **7** are § 4's answered rows · **1** is *"pinning PL-002's scope sentence"*,
+  closed as not-a-question and now actually present in § 5 as agent work
+  (it was mapped here before it existed — Codex caught that too) · **2** are
+  estate-queue product items outside this round (`pokemon-mod-lab`'s v1.21.0
+  hop, the review-bot's scope), which stay in the queue.
+- **The three overturned closures**, each restored because the record said so
+  rather than because a reviewer insisted: the confirmation doctrine and its
+  second-lane duplicate → one row, § 2 · B2 · the journal disposition → § 2 · E2.
+  A fourth verdict was corrected without changing the count: the AGENTS.md
+  mechanism stayed open but was re-classified agent-derivable, and the owner's
+  own direction record reserves it for this sitting, so § 2 · E asks it.
+- **One closed-as-partial candidate is named rather than dropped:** whether
+  superbot:Q-0132's untrusted-input trust criterion still binds the provider
+  mix. It is round-adjacent and belongs with § 2b's OD-13 provider-mix row.
 - **Completeness pass:** a critic re-read the surfaces the harvest lanes did
   not own, asking what the audits never turned into a question. It returned
   nine; the five strongest are § 2 · 0 and § 2b, each **verified at source by
