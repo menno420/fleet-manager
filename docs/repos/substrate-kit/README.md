@@ -71,14 +71,15 @@ dispositions table (recommendations only, execution owner-gated).
 [the kit-tree truth pass](../../findings/2026-08-28-kit-tree-truth-pass.md)
 — the kit's whole committed doc surface (187 files at `a9acc41`, the dig's
 skipped subdirectories + `docs/succession/` included) judged per-doc with
-adversarial verification (31/36 upheld, 5 minor corrections applied), and
+adversarial verification (31/36 upheld; the workflow's five corrections
+plus Codex fm #960's three rounds all folded in), and
 **both owed checks answered**: PL-002's canonicalization **preserves**
 Q-0241's rebuild-only scope (the one drop is a Q-0241-vs-Q-0271 provenance
 mislabel in three derived copies of one owner-profile sentence), and
 Q-0214's delete-with-tombstones retention **substantially shipped** as the
 v1.0.0 economy engine — unconfigured and trace-free on the kit's own
 342-card corpus at HEAD. The headline: 104 of 187 files are honest
-self-bannered history; the failure class is a 22-file current-truth-voiced
+self-bannered history; the failure class is a 23-file current-truth-voiced
 set, catalogued as recommendations in the finding's §5 (a future
 doc-surface truth sweep; nothing owner-gated except the flagged
 economy-activation decision, carved out of the sweep's blanket).

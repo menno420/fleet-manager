@@ -46,7 +46,7 @@ into `a9acc41`).
   whole-population coverage gate, every non-obvious verdict adversarially
   verified (31/36 upheld; the workflow's 5 corrections plus Codex fm #960's
   2 verdict overturns and 3 propagation fixes, all applied and named in §6);
-  the 22-file wrong-action set catalogued as §5 recommendations (zero
+  the 23-file wrong-action set catalogued as §5 recommendations (zero
   deletions; the economy-activation decision carved out of the sweep's
   blanket); the 1,165 unjudged tracked files named with reasons
   (code/harness/cards/boilerplate; 187+1,165=1,352 ✓).

@@ -170,7 +170,7 @@ copy product architecture or internal product state. Canonical intent:
   retention substantially shipped as the v1.0.0 economy engine, unconfigured
   and trace-free on the kit's own corpus at HEAD), kit `docs/current-state.md`
   + `control/status.md` reconciled in the kit's venue (kit #588 MERGED on
-  green), the 22-file wrong-action set catalogued as §5 recommendations, and
+  green), the 23-file wrong-action set catalogued as §5 recommendations, and
   `OQ-KIT-P10-REQUIRED-CHECKS` retired by a live rules read. The letters
   were re-checked and remain unanswered.
 

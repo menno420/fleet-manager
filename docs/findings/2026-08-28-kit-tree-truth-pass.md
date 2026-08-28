@@ -11,13 +11,16 @@
 > the nine subdirectories the genesis dig's §9 names as skipped **plus
 > `docs/succession/`, which that skip list never even named**, the root docs,
 > `control/`, `telemetry/`, `.substrate/`, `.github/`, `bench/README.md`,
-> `.sessions/README.md` — was read **in full** by 19 reader lanes, each
-> primed with the session's re-verified anchors and an honest-null
-> expectation; two dedicated agents answered the owed checks; every
-> non-obvious verdict (32) and both owed answers (2 lenses each) then went
-> through an adversarial verify pass — **57 agents, ~4.5M subagent tokens,
-> 0 errors**. Coverage is whole-population by construction: assigned = 187,
-> returned = 187, checked in code, nothing swept. Verdicts are `REVIEWED`
+> `.sessions/README.md` — was read **in full** by 19 reader lanes (in full
+> with one disclosed exception: the five data files — the 766KB guard
+> ledger, two indexes, two report JSONs — were judged structurally by
+> head/tail and counts, per §6), each primed with the session's re-verified
+> anchors and an honest-null expectation; two dedicated agents answered the
+> owed checks; every non-obvious verdict (32) and both owed answers (2
+> lenses each) then went through an adversarial verify pass — **57 agents,
+> ~4.5M subagent tokens, 0 errors**. Coverage is whole-population at the
+> file level: assigned = 187, returned = 187, checked in code, no file
+> unjudged. Verdicts are `REVIEWED`
 > (lane + adversarial verifier); every load-bearing claim cites `path:line`
 > at the named SHA. **27 of 32 doc verdicts and 4 of 4 owed-check lenses
 > were upheld unchanged; the five corrections — three line-cite offsets, one
@@ -30,11 +33,11 @@
 > **The one-paragraph result:** the kit's doc surface is **mostly honest
 > history** — 104 of 187 files are dated records, and the era-banner
 > discipline held on nearly all of them — but the failure class is
-> **concentrated and current-truth-voiced**: the 22-file wrong-action set
+> **concentrated and current-truth-voiced**: the 23-file wrong-action set
 > speaks in the present tense and carries month-or-seven-week-old claims
 > that would misdirect a cold session today (the reconcile pair this session
 > executes, a stalled ideas-conveyor cohort presenting shipped work as open,
-> five apparatus docs with no era banner, and a standing-walls set that
+> seven apparatus docs with no era banner, and a standing-walls set that
 > contradicts the estate's never-write-down-a-limitation doctrine). The two
 > owed checks both came back **better than the round's working assumption**:
 > PL-002's canonicalization **preserves** Q-0241's rebuild-only scope at the
@@ -46,12 +49,12 @@
 ## 1 · Headline numbers
 
 **187 files judged:** 104 historical-record · 23 stale · 20 live · 21
-generated · 15 reference · 4 superseded. **Dispositions:** 143 keep · 22
+generated · 15 reference · 4 superseded. **Dispositions:** 142 keep · 23
 banner-or-fix-in-round · 19 keep-live · 1 regen-only · 1 supersede-pointer ·
 1 archive-recommend. *(Totals recomputed mechanically from the appendix
-after all seven verdict corrections — the workflow verify pass's five plus
-Codex fm #960's two; an earlier cut published the pre-correction totals, the
-exact drift class this audit hunts.)* 0 deletions recommended
+after every verdict correction — the workflow verify pass's five plus those
+from Codex fm #960's three review rounds; an earlier cut published
+pre-correction totals, the exact drift class this audit hunts.)* 0 deletions recommended
 (OD-3-as-amended examined; every
 candidate is either honest dated history, cited provenance, or CI-enforced
 apparatus). The full 187-row table is the appendix; §4 carries the
@@ -223,7 +226,7 @@ Grouped, with the full per-doc detail in the appendix:
   Route, not rebuild: the fixes are frontmatter flips in the conveyor's own
   grammar; the *mechanism* answer (Move 1's `♻ Carried forward`) stays held
   with the plan.
-- **(c) Five apparatus docs with no era banner.** `control/README.md`
+- **(c) Seven apparatus docs with no era banner or exhaustion pointer.** `control/README.md`
   (live-voiced protocol directing every session to execute `status: new`
   inbox orders), `control/inbox.md` (all 24 seat-era ORDERs still read
   `status: new`, including ORDER 010 "arm an hourly routine" — trigger
@@ -348,7 +351,12 @@ queue this session. Residue: deleting the two `legacy-alias-*` jobs from
   operational guarantee is wrong-action grade); the `.sessions/` corpus is
   342 dated cards plus the README, not 343 cards; and "never executed on
   the kit's own corpus" overclaimed run history from tree state — restated
-  as unconfigured-and-trace-free at HEAD. Owed-check verifier residue, folded in: "shrink" also
+  as unconfigured-and-trace-free at HEAD. Its R3 added four more, all
+  folded in: the ai-project-workflow appendix row still prescribed the
+  refuted regen method; the house-style row's disposition now matches the
+  sweep that acts on its cell; the apparatus-doc subtotal was five where
+  the group holds seven; and the read-in-full claim now discloses the five
+  structural data-file reads wherever it is made. Owed-check verifier residue, folded in: "shrink" also
   matches `guards.py` shrinkage-guard comments and two docs — none a
   retention mechanism, so check B's null stands as "nowhere load-bearing";
   `.substrate/claude/CLAUDE.md` is a staged render, not an installed boot
@@ -389,7 +397,7 @@ supersede-pointer · archive-recommend · regen-only.
 | `docs/PROJECT-CLOSEOUT.md` | historical-record | keep | A handover that declares its era on nearly every stateful claim — '§ 2 Current true state (verified live 2026-07-21)' and the footer both date-stamp it — so its now-superseded facts (v1.20.2, one open PR #552) read… |
 | `docs/_merge_verification_2026-07-15.md` | historical-record | keep | A self-bannered (`historical`) inert probe file from 2026-07-15 that states its own purpose and its own disposal condition; it can send no reader anywhere. |
 | `docs/adopters.md` | generated | regen-only | Machine-written registry (sole writer this repo, regenerated by `python3 dist/bootstrap.py currency`, last regen kit #586 stamped 2026-08-14) that faithfully reports its roster — 9/12 rows current at v1.21.0, 3… |
-| `docs/ai-project-workflow.md` | **STALE** | banner-or-fix-in-round | The slot-rendered adoption-pace line says guided while .substrate/state.json holds "mode": "active" — the fix is a render rerun of the ${integration_mode} slot, never a hand edit. |
+| `docs/ai-project-workflow.md` | **STALE** | banner-or-fix-in-round | The slot-rendered adoption-pace line says guided while .substrate/state.json holds "mode": "active" — the fix is a direct hand edit of the substituted value (the verify pass established `render --live` no-ops on an already-substituted slot; the lane's original regen prescription is refuted). |
 | `docs/architecture.md` | **live** | keep-live | Every checkable claim holds at HEAD (src/engine source of truth, dist generated by src/build_bootstrap.py, templates dir, tests/ present); the unfilled layer table is a declared skeleton slot, not a false claim. |
 | `docs/collaboration-model.md` | **live** | keep-live | All pointers resolve (control/README.md carries both cited sections at lines 149/178; docs/program/rulings.md and program/collaboration-model.md exist) and the reconciliation cadence matches substrate.config.json's… |
 | `docs/current-state.md` | **STALE** | banner-or-fix-in-round | A living-ledger current-truth surface whose headline block is a month behind the tree — it is NEXT-TASKS' still-open item 4 and the exact file this session is reconciling; a cold reader gets a false version, a false… |
@@ -398,7 +406,7 @@ supersede-pointer · archive-recommend · regen-only.
 | `docs/environment-setup-script.md` | reference | keep | Timeless owner-guidance whose two checkable claims hold: the repo has no requirements.txt, and CI's dev tools are exactly pytest + ruff (ci.yml line 153 'pip install pytest ruff'). |
 | `docs/fleet-repos.txt` | **STALE** | banner-or-fix-in-round | It is the LIVE input to the adopters.md regen (src/engine/currency.py:83 ROSTER_RELPATH = "docs/fleet-repos.txt") yet omits five real adopters (sim-lab, superbot-idle, product-forge, spider-swing, couch-legend —… |
 | `docs/helper-policy.md` | reference | keep | Four timeless placement/shadowing rules with no dated claims to go stale; the 'Where helpers go' section is a declared hand-fill slot, still empty. |
-| `docs/house-style.md` | **STALE** | keep | One table cell is false — MODEL_LINE_NEEDLE is hardcoded in src/engine/grammar.py:415 and only imported by loop/telemetry.py — while every other hardcode-location claim verified (_REF_IDEA_MARK/_REF_FLAG_MARK in… |
+| `docs/house-style.md` | **STALE** | banner-or-fix-in-round | One table cell is false — MODEL_LINE_NEEDLE is hardcoded in src/engine/grammar.py:415 and only imported by loop/telemetry.py — while every other hardcode-location claim verified; the cell fix is in the §5 sweep, so the disposition matches it *(raised from keep on Codex fm #960 R3 — an appendix row must agree with the sweep that acts on it)*… |
 | `docs/owner-profile.md` | **STALE** | keep | One spent conditional — 'once §3.2 item 7 makes the check required' — is now done (kit-quality IS the single required check on main, re-verified this session); the rest is the seat-era autonomy frame (never-wait,… |
 | `docs/ownership.md` | **STALE** | keep | Its two future-tense claims are past: docs/program/ exists at HEAD holding rulings.md (the 'lands KL-2' already landed), and the 'lab loop' named as its owner closed 2026-07-21 — but the rest of the mutation-seam… |
 | `docs/question-router.md` | **live** | keep | An empty append-only ledger whose format contract holds and whose machinery (the interview writing Q-blocks) still exists in the engine; zero blocks is an honest state, not staleness. |
