@@ -46,10 +46,31 @@ destroy it. The directory is deleted before this PR merges.
 
 - Corpus counts are re-derivable: the five scripts in the recovery tarball
   rebuild everything from the GitHub API.
-- One in-flight self-correction worth inheriting: the first extraction returned
-  **564** sections rather than 7,214, because Python's `glob` does not match
-  dot-directories and `.sessions/` was never scanned — TRAP-003's own class
-  (a null produced by the query, not the world), hit while auditing for it.
+- Resume-from-cache **verified, not assumed** (2026-08-28 23:48Z): after the
+  pause both journals gained **2** `started` entries each, not 68, and their
+  105 and 121 results replayed unchanged. The documented behaviour holds.
+- Three in-flight self-corrections worth inheriting, all one class:
+
+  1. The first extraction returned **564** sections rather than 7,214, because
+     Python's `glob` does not match dot-directories and `.sessions/` was never
+     scanned — a null produced by the query, not the world.
+  2. `merge-on-green` was written into a published PR comment as *"already
+     passing"* without being read. It has no result on this head at all.
+  3. **The container-persistence claim was backwards.** This session measured
+     that no scratchpad file predated the 18:28:55 boot and concluded the
+     storage does not survive a container. The absence was explained by the
+     circumstance — it was the session's *first* container, so nothing older
+     could exist — and proved nothing about persistence. **Measured decisively
+     at 23:48:12Z**: the container was replaced (`uptime -s` = 23:48:12, up 0
+     minutes) and the 47M corpus, both workflow journals and the scripts were
+     all intact. The session volume **does** survive container replacement
+     within a session. Scope: one replacement, same session; nothing here says
+     it survives session end.
+
+  All three are the same failure — **a conclusion drawn from an absence that
+  the circumstance already explains** — which is TRAP-003's shape reaching
+  beyond search results into environment inference. Recorded because the audit
+  this card belongs to is harvesting exactly this.
 
 ## Not done here
 
