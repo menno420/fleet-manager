@@ -226,8 +226,10 @@ Grouped, with the full per-doc detail in the appendix:
   docs — the provenance mandate is invisible from the index),
   `docs/planning/kit-lab-founding-plan-2026-07-07.md` (still badged "the
   executable founding plan"; its §6.1/§7.2 order actions on closed
-  apparatus, and its §4.1 release mechanic — tag-push — is the opposite of
-  the live workflow_dispatch path), plus
+  apparatus, and its §4.1 release mechanic — tag-push — is incomplete for
+  agents: the workflow supports both triggers, tag push owner-side canonical
+  and workflow_dispatch the only agent-runnable path, the git proxy 403ing
+  tag pushes — precision from Codex R1 on kit #588), plus
   `docs/planning/2026-07-19-night-run-idea-groom-wave2.md` (the groom
   chain's terminus, no exhaustion banner, 10+ of its 16 "open" ladder items
   verifiably shipped) and `docs/planning/2026-07-12-grounded-skills-program.md`
@@ -607,7 +609,7 @@ supersede-pointer · archive-recommend · regen-only.
 | `.github/workflows/auto-merge-disarm.yml` | **live** | keep-live | Working label-is-the-switch disarm half; its honesty note correctly locates real enforcement in the required-check gate, and the guard-stack map it cites (docs/operations/auto-merge-guards.md) exists at HEAD. |
 | `.github/workflows/auto-merge-enabler.yml` | **live** | keep-live | Working arming mechanism whose guards (required-context count, fresh-label re-read, claim/* head support) all match the tree and the current one-required-check reality; only its 2026-07-09 'UNVERIFIED — watch the… |
 | `.github/workflows/ci.yml` | **live** | keep-live | This is the working kit-quality gate the anchors name as the ONE required check; every script it invokes exists at HEAD (all six scripts/check_*.py plus tools/check_no_false_walls.py verified) and the… |
-| `.github/workflows/release.yml` | **live** | keep-live | Matches the anchor exactly — releases go via workflow_dispatch because the git proxy 403s tag pushes — and its guard commands are real (src/build_release_json.py --verify-only at line 190; fresh-dist byte-compare via… |
+| `.github/workflows/release.yml` | **live** | keep-live | Two supported triggers per its own header — tag push (owner-side canonical) and workflow_dispatch, the only agent-runnable path (the git proxy 403s tag pushes) — and its guard commands are real (src/build_release_json.py --verify-only at line 190; fresh-dist byte-compare)… |
 
 **other** (2):
 
