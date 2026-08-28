@@ -73,8 +73,73 @@ SHALLOW_MUST_FIRE = [
 ]
 
 
+# ---------------------------------------------------------------- plumbing --
+# The cases above test PATTERNS. These test the ROUTING that carries them, a
+# separate axis and the one that failed on 2026-08-28: every pattern was
+# correct, and the routes were registered `Edit`/`Write` only while auto mode
+# instructs sessions to author through Bash heredocs — so the whole
+# claim-quality set went silent for a session that then made three of the exact
+# errors those routes exist to catch. A pattern suite could not have caught it,
+# because nothing was wrong with the patterns.
+CLAIM_ROUTES = (
+    "stamping-a-measured-claim",
+    "claim-beyond-the-sample",
+    "absence-claim",
+    "recording-a-wall",
+)
+
+HEREDOC_DOC = "cat > docs/findings/x.md <<'EOF'\nall 26 repositories were swept\nEOF"
+HEREDOC_MENTION = "grep -rn 'all 26 repositories' docs/traps.md"
+
+
+def route(route_id: str) -> dict:
+    for r in json.loads(TABLE.read_text())["routes"]:
+        if r["id"] == route_id:
+            return r
+    raise SystemExit(f"route {route_id!r} not in the table")
+
+
+def check_plumbing() -> list[str]:
+    bad: list[str] = []
+    for rid in CLAIM_ROUTES:
+        r = route(rid)
+        tools = set(r.get("tools") or [])
+        if "Bash" not in tools:
+            bad.append(
+                f"{rid}: must list Bash — a document authored via heredoc is "
+                f"invisible to it otherwise (tools={sorted(tools)})"
+            )
+        if not r.get("authored_only"):
+            bad.append(
+                f"{rid}: reaches Bash but lacks authored_only, so it matches "
+                f"whole commands — a grep MENTION would spend it (fm #923)"
+            )
+        if not r.get("repeat"):
+            bad.append(
+                f"{rid}: guards a RECURRING claim class, so one firing must not "
+                f"spend it for the session"
+            )
+
+    # The extraction itself: heredoc body visible, bare command not.
+    sys.path.insert(0, str(TABLE.parent))
+    try:
+        from route_docs import authored_only  # noqa: PLC0415
+    except Exception as exc:  # pragma: no cover - import failure is the failure
+        bad.append(f"cannot import authored_only from route_docs: {exc}")
+        return bad
+    if "all 26 repositories" not in authored_only(HEREDOC_DOC):
+        bad.append("authored_only() dropped the heredoc body it must expose")
+    if authored_only(HEREDOC_MENTION).strip():
+        bad.append(
+            "authored_only() returned text for a command with no heredoc — a "
+            "mention would fire the guard and spend it"
+        )
+    return bad
+
+
 def main() -> int:
     failures: list[str] = []
+    failures.extend(check_plumbing())
     sample = patterns(SAMPLE)
     for label, text in MUST_FIRE:
         if not fires(sample, text):
@@ -88,7 +153,9 @@ def main() -> int:
         if not fires(shallow, text):
             failures.append(f"{SHALLOW}: SHOULD FIRE but is silent — {label}: {text!r}")
 
-    total = len(MUST_FIRE) + len(MUST_BE_SILENT) + len(SHALLOW_MUST_FIRE)
+    plumbing_cases = len(CLAIM_ROUTES) * 3 + 2
+    total = (len(MUST_FIRE) + len(MUST_BE_SILENT) + len(SHALLOW_MUST_FIRE)
+             + plumbing_cases)
     if failures:
         for f in failures:
             print(f"FAIL  {f}")
@@ -96,7 +163,8 @@ def main() -> int:
         return 1
     print(f"doc-route patterns: {total} case(s) — CLEAN "
           f"({len(MUST_FIRE)} must-fire, {len(MUST_BE_SILENT)} must-be-silent, "
-          f"{len(SHALLOW_MUST_FIRE)} shallow-clone)")
+          f"{len(SHALLOW_MUST_FIRE)} shallow-clone, "
+          f"{plumbing_cases} plumbing)")
     return 0
 
 

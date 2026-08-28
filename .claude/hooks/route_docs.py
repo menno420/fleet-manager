@@ -338,17 +338,53 @@ def authored_only(text: str) -> str:
     return "\n".join(m.group(3) for m in _HEREDOC.finditer(text))
 
 
-def already_fired(session: str) -> set[str]:
+# A `repeat` route is bounded, not unlimited. Repetition is what makes a guard
+# against a RECURRING error class work at all (see the fire-once analysis at the
+# `repeat` check below), but an unbounded one nags on every commit message that
+# happens to carry a count — measured on this very change, whose own
+# `git commit -F - <<'MSG'` heredoc tripped TRAP-001 and TRAP-004. The two
+# claim routes inject roughly 700 tokens together, so the cost is real and the
+# value is front-loaded: the first firings teach the session the check, and the
+# tenth is noise it has already priced in. Three is a judgement, not a
+# measurement, and it is the number to tune if it proves wrong in either
+# direction.
+REPEAT_CAP = 3
+
+
+def already_fired(session: str) -> dict[str, int]:
+    """Route id -> how many times it has fired this session.
+
+    Tolerates the older list-of-ids state format so a session already in flight
+    across this change degrades to "fired once" rather than crashing or
+    re-arming every route at once.
+    """
     try:
-        return set(json.loads((STATE_DIR / f"{session}.json").read_text()))
+        raw = json.loads((STATE_DIR / f"{session}.json").read_text())
     except Exception:
-        return set()
+        return {}
+    if isinstance(raw, dict):
+        return {str(k): int(v) for k, v in raw.items()}
+    if isinstance(raw, list):
+        return {str(rid): 1 for rid in raw}
+    return {}
 
 
-def remember(session: str, fired: set[str]) -> None:
+def spent(fired: dict[str, int], route: dict) -> bool:
+    """Has this route said what it has to say for this session?"""
+    n = fired.get(route["id"], 0)
+    if not n:
+        return False
+    if not route.get("repeat"):
+        return True
+    return n >= int(route.get("repeat_cap", REPEAT_CAP))
+
+
+def remember(session: str, fired: dict[str, int]) -> None:
     try:
         STATE_DIR.mkdir(parents=True, exist_ok=True)
-        (STATE_DIR / f"{session}.json").write_text(json.dumps(sorted(fired)))
+        (STATE_DIR / f"{session}.json").write_text(
+            json.dumps(dict(sorted(fired.items())))
+        )
     except Exception:
         pass  # advisory state; losing it costs one duplicate line
 
@@ -556,7 +592,7 @@ def main() -> int:
         # were BOTH silent, because step 1 spent `card-status-write` and step 2
         # spent `card-flip-before-push`. Opt-in per route, like `code_only`:
         # blanket repetition would nag on every reference route.
-        if rid in fired and not route.get("repeat"):
+        if spent(fired, route):
             continue
         if tool not in tuple(route.get("tools") or DEFAULT_TOOLS):
             continue
@@ -595,7 +631,7 @@ def main() -> int:
         # the exemption away from Bash leaves that fix intact.
         if any(d in text for d in docs) and tool != "Bash" and (
                 not route.get("tools") or tool in DEFAULT_TOOLS):
-            fired.add(rid)
+            fired[rid] = fired.get(rid, 0) + 1
             continue
         # `path_when` is checked against the file_path FIELD alone, never the
         # haystack, so naming a path in prose cannot satisfy it (fm #938).
@@ -639,7 +675,7 @@ def main() -> int:
                 continue
         except re.error:
             continue  # a bad pattern silences its own route, never the hook
-        fired.add(rid)
+        fired[rid] = fired.get(rid, 0) + 1
         hits.append((docs, route.get("says", "")))
         comment_repositories.update(
             unshadowed_route_repositories
@@ -653,12 +689,12 @@ def main() -> int:
             continue
         comment_index = f"docs/owner-comments/{repository}/README.md"
         if tool != "Bash" and normalized_target_path == comment_index:
-            fired.add(comment_route_id)
+            fired[comment_route_id] = fired.get(comment_route_id, 0) + 1
             # A self-read is intentionally silent, but it still consumes this
             # once-per-session pointer. Persist before the no-hit return below.
             remember(session, fired)
             continue
-        fired.add(comment_route_id)
+        fired[comment_route_id] = fired.get(comment_route_id, 0) + 1
         hits.append(
             (
                 [comment_index],
