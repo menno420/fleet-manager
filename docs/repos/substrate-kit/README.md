@@ -80,11 +80,13 @@ v1.0.0 economy engine — never run on the kit's own 343-card corpus. The
 headline: 103 of 187 files are honest self-bannered history; the failure
 class is ~20 current-truth-voiced files, catalogued as recommendations in
 the finding's §5 (a future doc-surface truth sweep; nothing owner-gated).
-**Executed in the kit's venue: kit #588** — `docs/current-state.md`
-reconciled (the supersede table's open item 4) + `control/status.md`'s
-false #552 line, through the kit's full discipline; Codex R1's two P2s
-conceded-and-fixed (the release-path wording is now precise: tag push
-owner-side canonical, workflow_dispatch the only agent-runnable trigger).
+**Executed in the kit's venue: kit #588, MERGED on green** (squash
+`7f58f0e`) — `docs/current-state.md` reconciled (the supersede table's open
+item 4) + `control/status.md`'s false #552 line, through the kit's full
+discipline; three Codex rounds (R1 two P2s + R2 one P2, all
+conceded-and-fixed — the release-path wording is now precise: tag push
+owner-side canonical, workflow_dispatch the only agent-runnable trigger;
+R3's one P1 was the born-red hold itself, consumed by the flip).
 `OQ-KIT-P10-REQUIRED-CHECKS` retired by a live rules read (kit-quality is
 the one required check — the ci.yml legacy-alias deletion is now unblocked
 agent work).
