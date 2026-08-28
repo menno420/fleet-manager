@@ -1,4 +1,4 @@
-# 2026-08-28 — the claim guards could not see Bash-authored documents
+# 2026-08-28 — the claim guards could not see Bash-authored documents; and the estate-wide skill/rule reuse map
 
 > **Status:** `in-progress` — born red; flips only as the last commit, after a
 > review answers at the head that carries the repeat cap and the tests.
@@ -78,6 +78,35 @@ session.
 - `.claude/hooks/doc-routes.json` — the 8 write-only routes gain `Bash` +
   `authored_only: true`; the 4 claim-quality ones also gain `repeat: true`.
   Write-only routes remaining: **0**.
+
+## The reuse map — the owner's second ask
+
+*"find out as much as possible about re-using existing rules and skills in the
+existing repos … what we already have that is good skill material and … what
+previous sessions struggled with."*
+
+Answered by a **79-agent fan-out** (0 errors, 6.9M subagent tokens, 2.6 h) over
+all 19 non-archived repositories, cloned to disk: ten seam readers, nine card
+miners, then adversarial verification. **1,002 cards opened** of 3,836.
+Record: [`docs/findings/2026-08-28-skill-and-rule-reuse-map.md`](../docs/findings/2026-08-28-skill-and-rule-reuse-map.md).
+
+**The spine, re-measured by this session rather than relayed:** sessions write
+an idea on **95 % of 3,836 cards**; **357** reach the conveyors. **10 : 1**,
+and **28 : 1** excluding `superbot`, whose **3.1 : 1** is the control condition.
+`idea-engine` — the ideas repository — has **503 cards, 503 ideas, zero in its
+conveyor**. The estate produces reusable knowledge reliably and never reads it
+back, which is OD-21's diagnosis with numbers under it.
+
+**Why the container is the whole question:** gate-enforced **95–97 %** ·
+card-template **598/969** · best skill invocation **46/969** · `/groom-ideas`
+**0/969** against **82** for the same ritual carried by the template.
+
+**Three subagent headlines were corrected before use** — the "41 sessions over
+five weeks" span is two days of filename dates; "skills are never invoked" is
+false (10 of 14 are); "3 of 12 repos" is 4 of 19. And the verification pattern
+is the most reusable result on its own: **17 of 17 refutations kept their source
+citation and lost only the verdict**, every one a duplicate of something
+fleet-manager already has.
 
 ## Verify
 

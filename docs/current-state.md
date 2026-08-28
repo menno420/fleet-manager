@@ -201,6 +201,25 @@ copy product architecture or internal product state. Canonical intent:
   and has never carried its **trigger condition**, which is the same *unrouted*
   class the OD-24 round is cataloguing. `500k` is **not** fixed as doctrine.
   Record: [`findings/2026-08-28-context-budget-and-orientation-cost.md`](findings/2026-08-28-context-budget-and-orientation-cost.md).
+- **The skill/rule reuse map is measured, and the container — not the material —
+  is the problem (2026-08-28).** Owner ask: *"find out exactly what we already
+  have that is good skill material and … what previous sessions struggled
+  with."* A 79-agent fan-out read 1,002 of the estate's 3,836 session cards.
+  **The spine:** sessions write an idea on **95 % of 3,836 cards** and **357**
+  reach the idea conveyors — **10 : 1**, **28 : 1** excluding `superbot` (whose
+  **3.1 : 1** is the control condition from the era the loop worked).
+  **`idea-engine` has 503 cards, 503 ideas and zero in its conveyor.** So the
+  estate produces reusable knowledge reliably and never reads it back — OD-21's
+  diagnosis, measured. **Why skills are the wrong container:** on one corpus,
+  gate-enforced **95–97 %** · card-template **598/969** · best skill invocation
+  **46/969**, and `/groom-ideas` **0/969** while the same ritual carried by the
+  template ran **82** times. **And the kit cannot deliver a skill anyway** — it
+  stages and never installs (`SKILLS-index.md.tmpl:30-40`, *"nothing live"*);
+  **4 of 19** repos have a populated `.claude/skills/`. **0 of 27 fm skills
+  reference the guard layer and 0 of 71 routes point at the four rule
+  surfaces.** Four sequenced moves proposed (`REASONED`), led by *consume the
+  cards* as a gate change. Nothing is executed; OD-23's hold stands. Record:
+  [`findings/2026-08-28-skill-and-rule-reuse-map.md`](findings/2026-08-28-skill-and-rule-reuse-map.md).
 
 ### Live operating mechanisms
 
