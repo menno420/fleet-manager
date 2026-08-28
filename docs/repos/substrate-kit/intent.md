@@ -1,6 +1,6 @@
 # substrate-kit — intent
 
-> **Status:** `DRAFT — awaiting the owner's own words.** Written 2026-08-28 by a
+> **Status:** `owner-guidance` — **DRAFT,** **awaiting the owner's own words.** Written 2026-08-28 by a
 > session from committed evidence, as the first record of the intent-elicitation
 > sitting. **He rewrites this; the draft exists to give him something to react
 > to**, which his own profile names as the form that works.
@@ -27,10 +27,15 @@ the estate:
 
 `DERIVED`: the kit is not primarily a memory system, a checker suite, or a
 session-card convention — those are its **mechanisms**. Its purpose is to make
-agents *take initiative*. The gap this round measured is that the word
-**initiative** appears nowhere in the kit's own README, closeout or program-law
-register (grep, zero hits), which is why he ordered the charter rewritten
-(2026-08-28).
+agents *take initiative*.
+
+**And the kit's own README already implies it — he said so himself.** The round
+measured the word *initiative* returning zero hits across the kit's README,
+closeout and register, and read that as a missing purpose. He corrected it
+(2026-08-28): *"whats written there is also correct, the initiative part falls
+into place perfectly with the existing sentence of 'little steering'"*. So the
+ordered charter rewrite **makes an implication explicit**; it does not fix a
+wrong sentence.
 
 ## What done looks like
 
@@ -85,11 +90,11 @@ so the audience is **agents in any repo, including repos that are not his.**
 **Verified at `main`, 2026-08-28, because the claim about the tree was hedged:**
 he is substantially right — `LICENSE` is MIT, and `README.md` carries a one-step
 adopt recipe, three modes that explicitly *pace adoption*, and a pip-installable
-form, in a repo-agnostic voice. **Two exceptions:** the purpose sentence
-(`README.md:3-5`) carries only the *autonomy* half — *"work correctly with
-little steering"* — and never initiative; and the repository description reads
-*"AI self improvement system in progress"* with no topics and no homepage, which
-is the first thing an outside adopter meets.
+form, in a repo-agnostic voice. **One exception that stands:** the repository
+description reads *"AI self improvement system in progress"*, with no topics and
+no homepage — the first thing an outside adopter meets, and it undersells a kit
+he intends others to use. *(A second, that the README's purpose sentence omits
+initiative, he refuted on sight — see "Why it exists".)*
 
 One measured oddity worth his eye: **`superbot` — the origin repo, and the only
 one running a live production service — never adopted the kit.**

@@ -50,6 +50,10 @@ account created after 2023-11-13 must run a **closed test with 12 testers opted
 in for 14 continuous days** before it may even *apply* for production, then wait
 ~7 days for review. Finished code does not shorten it.
 
+**Owner intent (DRAFT, awaiting his words):** [`intent.md`](intent.md) — the
+slots the record has never carried for this repo, from the 2026-08-28
+elicitation sitting.
+
 ## Threads
 
 ### Thread: core feel & difficulty — **active**, updated 2026-08-21 (directive unchanged since 2026-08-02)

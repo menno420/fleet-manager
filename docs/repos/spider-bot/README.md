@@ -47,6 +47,10 @@ deployment's `meta.commitHash` equals HEAD (the repo README documents the
 instance running while the Railway worker is up — that is two live bots
 answering in the real server.
 
+**Owner intent (DRAFT, awaiting his words):** [`intent.md`](intent.md) — from
+the 2026-08-28 elicitation sitting; it proposes no feature direction, per this
+file's own rule.
+
 ## Threads
 
 ### Thread: Phase-0 hardening — **closed 2026-08-24** (the registration session)

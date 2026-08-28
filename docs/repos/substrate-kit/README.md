@@ -30,6 +30,10 @@ v1.20.2~~ — **reconciled 2026-08-28 (kit #588)**: a dated reconcile block
 now heads that file; `control/status.md`'s stale #552 line fixed in the
 same PR.
 
+**Owner intent (DRAFT, awaiting his words):** [`intent.md`](intent.md) — why he
+built the kit, what "done" means, and what would make him stop, from the
+2026-08-28 elicitation sitting.
+
 ## Threads
 
 ### Thread: the owner-directed review round — **session 4 DONE (the sitting ran; every letter that was ASKED is answered); session 5 named below from his own words**

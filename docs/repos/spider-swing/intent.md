@@ -1,6 +1,6 @@
 # spider-swing (Slingy Spider) — intent
 
-> **Status:** `DRAFT — thin on purpose, awaiting his words.** Written
+> **Status:** `owner-guidance` — **DRAFT,** **thin on purpose, awaiting his words.** Written
 > 2026-08-28 from committed evidence. **Most slots below are `DERIVED`** — this
 > repo has more recorded *state* than any other in the estate and almost no
 > recorded *why*, which is itself the finding.

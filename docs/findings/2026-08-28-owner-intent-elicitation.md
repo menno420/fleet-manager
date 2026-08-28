@@ -91,7 +91,7 @@ exist.** The June mechanism he is pointing at (autonomy granted per area,
 through the router) died with the router on 2026-07-15. Nothing in the estate
 today records **which areas run themselves and which always come back to him**.
 Post-close the estate has instead accumulated *global* rules — PL-002/PL-012's
-never-wait, the ask-first list, `[D-0015]`'s trigger prohibition — which are
+never-wait, the ask-first list, the never-delete-a-trigger decision — which are
 area-blind by construction. So:
 
 - This answer is **not executable as stated** until the areas are named. It is
@@ -240,7 +240,7 @@ framing is not the interesting one.**
 
 **Why this matters more than the question it answers.** The estate is built on
 autonomy-as-permission: PL-002 and PL-012's never-wait, the decide-and-flag
-ladder, the ask-first list, autonomy rails in the CONSTITUTION, `[D-0015]`'s
+ladder, the ask-first list, autonomy rails in the CONSTITUTION, fm's never-delete-a-trigger decision's
 prohibition. All of it models the question *"how much may an agent do without
 him?"* His answer says the only real difference between autonomous and directed
 work is **where the initiative came from**, and that **his starting a task does
@@ -384,14 +384,24 @@ adoption"**, and a pip-installable form. The voice is repo-agnostic —
 *"everything a fresh repository needs"* — not estate-specific. An outsider
 could adopt it.
 
-**Two exceptions, and both land on the charter rewrite he already ordered:**
+**Two observations — and he corrected the first one the moment he read it:**
 
-1. **The purpose sentence carries the autonomy half only.** `README.md:3-5`:
-   *"A portable, self-improving **agent-memory substrate**: everything a fresh
-   repository needs for AI agents to work correctly with little steering."*
-   Steering-reduction — not **initiative**. This is the round's zero-hit grep
-   located at a line number, so the rewrite now has an exact target rather than
-   a brief.
+1. ~~The purpose sentence carries the autonomy half only.~~ **OWNER-CORRECTED,
+   2026-08-28, minutes after this was written:** *"whats written there is also
+   correct, the initiative part falls into place perfectly with the existing
+   sentence of 'little steering'"*. The session had read `README.md:3-5` —
+   *"everything a fresh repository needs for AI agents to work correctly with
+   little steering"* — as carrying only steering-reduction and **missing**
+   initiative. **He says the two are the same idea**: an agent that needs little
+   steering is one taking initiative. So the charter rewrite is an
+   **expansion that makes an implication explicit**, not a correction of
+   something wrong.
+   **Why the error is worth keeping:** the round's zero-hit grep for the word
+   *initiative* was accurate and its conclusion was not. A word-presence test
+   measured vocabulary and got read as measuring meaning — and it survived three
+   audit sessions and a completeness critic before he read one sentence and
+   dissolved it. `MEASURED` results do not stop being inferences when they are
+   about what a document *means*.
 2. **The repo's own description undersells it to exactly the audience he wants:**
    *"AI self improvement system in progress"*, **no topics, no homepage**. For a
    thing meant to be used by others that is the first surface a stranger meets.

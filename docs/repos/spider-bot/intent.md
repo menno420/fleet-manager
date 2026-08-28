@@ -1,6 +1,6 @@
 # spider-bot — intent
 
-> **Status:** `DRAFT — awaiting his words.** Written 2026-08-28 from committed
+> **Status:** `owner-guidance` — **DRAFT,** **awaiting his words.** Written 2026-08-28 from committed
 > evidence. The Layer-2 entry point says plainly that *"what the bot does next
 > is the OWNER's pick — do not infer a feature"* — so this draft deliberately
 > proposes **no** feature direction.
