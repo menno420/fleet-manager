@@ -224,12 +224,28 @@ R4 returns another construct, the right response is a different mechanism —
 intent — not a seventh regex.
 
 **Owed fix, found by the Stop hook and not by a reviewer.** The reply
-reporting R3 said CI showed "zero test failures". That was an absence claim
-from a grep with no positive control, and the control fails: `doc-route
-patterns` appears **0 times** in fm #963's CI log, because
-`tools/test_doc_route_patterns.py` ran in **no** gate — not
-`scripts/preflight.py`, not `substrate-gate.yml`. The suite has existed since
-2026-08-26 and has only ever run in a session's own terminal.
+reporting R3 said CI showed "zero test failures". That was an absence claim from
+a grep with no positive control. **The finding was right and the evidence cited
+for it was the wrong instrument** — a distinction worth recording because the
+same wrong instrument was then used a second time to conclude the fix had not
+landed.
+
+**What actually establishes it:** reading `scripts/preflight.py` and finding
+`tools/test_doc_route_patterns.py` in neither its check list nor
+`substrate-gate.yml`. The suite has existed since 2026-08-26 and had only ever
+run in a session's own terminal.
+
+**What does NOT establish it:** `doc-route patterns` appearing 0 times in the CI
+log. Measured afterwards: **no** preflight sub-check line appears in that log —
+not `doc routes`, not `false walls`, not `owner comment tests`, none of which
+were ever in question. `bootstrap.py check --strict` surfaces only preflight's
+**first** failing item, so per-check output is invisible by design.
+
+**Bound on the fix, therefore:** with the card born-red, the card-lane failure is
+preflight's first item, so a suite failure is **detected** (preflight exits 1,
+the gate exits 1, the merge stays blocked) but its **name is masked** in the CI
+finding line. It surfaces once the card flips, which is the moment it matters.
+Verified locally both directions.
 
 That inverted the guarantee this PR had just given `@codex`: a future finding
 would "land against a suite that fails" when in fact it would land against a

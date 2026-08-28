@@ -28,12 +28,23 @@
 
 The estate has **excellent** reusable material and has been putting almost all
 of it into the one container that does not deliver. `MEASURED`: sessions write
-an idea on **95 % of 3,836 session cards** and **357** ideas exist in the
-repositories' idea conveyors — a **10 : 1 write-to-land ratio**, and **28 : 1**
-once `superbot` (the era the loop actually worked) is excluded. Four
-repositories have **zero** ideas in their conveyor, and one of them is
-`idea-engine`. Meanwhile the artifact that *is* gated by `check --strict` — the
-session card itself — holds at **95–97 % conformance across all 3,836 cards**.
+an idea on **95 % of 3,836 session cards** (sampled: 35 of 40 random cards
+carry a substantive 💡, not a bare heading), and **357** files sit in the
+repositories' idea conveyors. **Four repositories have zero — and one of them
+is `idea-engine`.**
+
+**A ratio was published here and is withdrawn.** An earlier version of this
+record called that a "10 : 1 write-to-land ratio". It is not one: `docs/ideas/`
+is *a* destination, not *the* destination. In fleet-manager alone an idea can
+land as a **trap entry (7)**, a **route (71)**, an **`OQ-` owner ask (118)** or
+a **finding (65)** — surfaces this very session used. The landed side is
+therefore undercounted by an unknown amount and no lossage ratio is supportable
+from what was measured. **What is supportable is a statement about the
+conveyor**, which is the destination the kit plants for exactly this purpose:
+357 files estate-wide, four active repositories at zero.
+
+Meanwhile the artifact that *is* gated by `check --strict` — the session card
+itself — holds at **95–97 % conformance across all 3,836 cards**.
 The estate is not failing to *produce* reusable knowledge. It produces it
 reliably, on nearly every card, and then never reads it back. **So the plan is
 not "write more skills". It is "consume what the cards already contain", and
@@ -96,17 +107,23 @@ share no code and no sessions.
 | `shiftlife` | 60 | 60 | **0** |
 | **total** | **3,836** | **3,668 (95 %)** | **357** |
 
+**Read the third column as "reached the kit's conveyor", never as "survived".**
+Other destinations exist and are not counted here (§ 0).
+
 **`idea-engine` — the repository whose entire purpose is ideas — has 503 cards
-each carrying an idea and zero ideas in its conveyor.**
+each carrying an idea and zero files in its conveyor.** Its zero is the
+strongest cell in the table precisely because it needs no ratio to interpret.
 
 `docs/ideas/README.md` states the contract these numbers are measured against:
 *"Capture ideas here so they live in the repo, not in chat … A **conveyor, not
 a graveyard**: every idea ends implemented, on a roadmap, in discussion, or
 explicitly rejected."*
 
-**superbot's 3.1 : 1 is the control condition.** It is the only repo where the
-ratio is close, and it is the era the genesis dig identifies as the practice
-working. Every post-close repo is between 28 : 1 and infinite.
+**superbot is the control condition** — 803 ideas written, **256** conveyor
+files, by far the closest of any repository, and the era the genesis dig
+identifies as the practice working. Every post-close repo is far below it, four
+at zero. Stated as a comparison between repositories on one consistent measure,
+which is what the data supports; not as a survival rate.
 
 `REVIEWED` — the same shape, found independently by four mining agents in four
 repositories, each with its own citations:
@@ -268,6 +285,13 @@ from a list of attractive material elsewhere.
 - *"Skills are never invoked by name"* — false; 10 of superbot's 14 are.
 - *"3 of 12 repos have a populated `.claude/skills/`"* — the subagent's
   denominator; the measured figure over all 19 is **4 of 19**.
+
+**The withdrawn ratio, recorded as a method failure and not just an edit.** The
+first version of this record led with a 10 : 1 write-to-land ratio built on the
+assumption that `docs/ideas/` is an idea's only destination. It is not, and the
+disproof was one `ls` away in directories this session had used all day. The
+write side was checked (35 of 40 sampled cards carry a substantive 💡); the
+land side never was. **A ratio needs both halves established, and only one was.**
 
 **Honest nulls:** six of the nine superbot checkers are verified to exist but
 not to run. The owner-ruling register outside Q-0063–Q-0272 is unread. Skill
