@@ -534,3 +534,105 @@ was given; it never proves absence from a corpus it did not search.
 - **It supports his own "hobby" framing** in an unexpected way: *"managable and
   able to grow indefinitely"* is a maintainability goal, not a delivery goal.
 
+## 2 · The core statement — why this era exists, in his words
+
+Given unprompted, 2026-08-28, in answer to *"what do you wish you could hand
+over completely but currently can't trust?"* — the question this sitting flagged
+as the highest-value one it could ask. **It is the most consequential statement
+in the sitting and probably in the estate's record.**
+
+> *"What I wish to be able to fully hand over is basically everything.*
+>
+> *What I don't trust right now is that things are build according to what I
+> have in mind. And this comes mostly from how superbot-next turned out to be.
+> The task was to recreate superbot as it is right now but then in an improved
+> way. But what was build was nothing like how the original superbot functions.
+> That is the main reason why I started this extensive
+> pause/research/planning/improvement period where basically no "real" execution
+> work gets done with a few exceptions. The idea behind this is that I feel like
+> the autonomous period has removed or mangled much of my intent and the desired
+> workflow. Which is why right now all my time and effort goes towards improving
+> the system so that the future implementations go smoothly without the need for
+> multiple corrections each time, the goal is to find out the things that have
+> gone wrong and to create a mechanism that prevents those errors in a way that
+> basically forces certain things to be done in certain ways"*
+
+`OWNER`. Five things, and each one settles something the estate had been
+guessing at.
+
+**1 · The ceiling is total.** *"Basically everything."* Not a list of areas, not
+a tier. This closes the autonomy question a third time and from the opposite
+direction to § 1.8: he does not want to keep work back. **What limits delegation
+is not permission, not capability, and not risk appetite — it is whether the
+result matches what he had in mind.**
+
+**2 · The distrust has one named cause, and it is a specific event.**
+`superbot-next`. *"The task was to recreate superbot as it is right now but then
+in an improved way. But what was build was nothing like how the original
+superbot functions."* The estate records `superbot-next` as an engineering
+artefact — 533/533 golden parity, an architecture donor, capture-world literals,
+60/66 help panels button-less. **It has never recorded what that repo actually
+did to his willingness to delegate**, which is the more important fact about it.
+It is not a parked asset; it is the reason for the current era.
+
+**3 · This era has a stated purpose, and the estate never wrote it down.**
+*"That is the main reason why I started this extensive
+pause/research/planning/improvement period where basically no 'real' execution
+work gets done with a few exceptions."* Every record describes the current
+period in terms of its *contents* — the consolidation program, the roadmap, the
+OD-24 round, the mapping sessions. **None states that the pause is deliberate,
+that it is a response to `superbot-next`, or that no-real-execution is the
+intended condition rather than a symptom of stalling.** A session reading the
+estate today would try to restart execution, believing it was helping.
+
+**4 · The diagnosis is his, and it is the injection thesis in his own words.**
+*"I feel like the autonomous period has removed or mangled much of my intent and
+the desired workflow."* Note **removed or mangled** — not "the agents were
+incapable". The estate reached the same conclusion from measurement (the
+practice held where gated, the loop died where prose-only); he reached it from
+watching his intent come back wrong.
+
+**5 · The acceptance criterion, and it is measurable.** *"future implementations
+go smoothly without the need for multiple corrections each time"* — and the
+method: *"find out the things that have gone wrong and create a mechanism that
+prevents those errors in a way that basically forces certain things to be done
+in certain ways."* **Same shape as his kit answer** (§ 1.14): done means
+**correction-free**. Two independent answers, one criterion.
+
+### 2.1 · The apparent contradiction with OD-24 § 3, and why it is not one
+
+`DERIVED`, and it needs stating because a session will otherwise read these two
+as opposites:
+
+- **OD-24 § 3:** agents *"really like to add restrictions and walls and guards,
+  while I personally would rather make sure that my agents have as much freedom
+  as I have myself."*
+- **Here:** *"create a mechanism that … basically forces certain things to be
+  done in certain ways."*
+
+**These are different objects.** § 3 objects to walls that restrict **what an
+agent may do** — permission walls, confirmation prompts, capability limits.
+This asks for mechanisms that constrain **how the work is done** — method
+enforcement. He wants maximum freedom of action and minimum freedom of method.
+
+**The estate has been conflating them**, and the conflation is expensive in both
+directions: it makes a session hesitate to build a real method gate (reading
+§ 3 as anti-mechanism), while permission-shaped brakes accumulate because they
+feel like safety. The test that separates them: *does this stop an agent doing
+something, or does it stop an agent doing it the wrong way?* **The first needs
+his ratification. The second is what he is asking for.**
+
+`DERIVED`, on what follows for the round's own output:
+
+- **His Move 1 hold and this statement are consistent, not in tension.** He is
+  not withholding mechanisms — he is refusing to build them before the mapping
+  says which errors are real. *"Find out the things that have gone wrong"*
+  precedes *"create a mechanism"* in his own sentence.
+- **It re-ranks the OD-24 round's deliverable.** The round catalogued twelve
+  gaps and the sitting reduced them to one root cause; this names what the fix
+  must **be** — forcing mechanisms, derived from actual observed errors, not
+  from a design.
+- **It gives the revised plan its acceptance test**: implementations that need
+  **one** correction rather than many. That is countable against future PRs
+  without inventing a metric.
+
