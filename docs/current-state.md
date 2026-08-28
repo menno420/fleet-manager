@@ -149,6 +149,18 @@ copy product architecture or internal product state. Canonical intent:
   (dominant: unenforced/unrouted), the rival-hypothesis verdict, and the
   dispositions table (recommendations only, zero deletions):
   [`findings/2026-08-28-substrate-kit-genesis-dig.md`](findings/2026-08-28-substrate-kit-genesis-dig.md).
+  **Session 2 ran the same day (fm #959 + kit #587 MERGED):** §11 items 1–2
+  built in the kit's venue — the kit tree now routes to its fm worklist
+  (`kit:docs/NEXT-TASKS.md` superseded, gap #5 closed) and the
+  false-negative family (worklist rows 13/17/18) is fixed on kit `main`,
+  each reproduced against the published asset first, through a pre-push
+  adversarial round plus three Codex rounds (5+6 conceded-and-fixed; R3's
+  4 deferred as worklist row 35 under the review cap; fixes unreleased —
+  the cut stays owner-paced) — and §11 item 4's audit ran:
+  [the router band re-read](findings/2026-08-28-router-band-reread.md)
+  (208 body sections, seven dig claims narrowed, ~13 standing owner rules
+  surfaced, three letter candidates). His morning letters were checked
+  first and remain unanswered; everything owner-gated stayed gated.
 
 ### Live operating mechanisms
 

@@ -201,9 +201,14 @@ published v1.21.0 asset first (sha256 `8807a00e…`, three-way match), fixed in
 `src/engine/checks/check_no_false_walls.py` with named regression pins in
 `tests/test_check_no_false_walls_leg.py`, dist regenerated, and corpus-A/B'd
 against the kit + fleet-manager live trees (0 newly-flagged, 0
-newly-cleared lines). The fixes ride kit `main` unreleased — the next cut is
-owner-paced. The same PR landed the kit-tree pointer to this worklist
-(genesis-dig gap #5): `kit:docs/NEXT-TASKS.md` is superseded into the route.
+newly-cleared lines) — the A/B re-run at every review round. The PR took a
+pre-push adversarial verification round (2 regressions + 2 holes found and
+fixed) and three Codex rounds (5 + 6 conceded and fixed, all pinned; R3's 4
+verified and deferred as **row 35** below under the two-re-review cap — the
+tally 5→6→4 measured non-convergent). The fixes ride kit `main` unreleased —
+the next cut is owner-paced. The same PR landed the kit-tree pointer to this
+worklist (genesis-dig gap #5): `kit:docs/NEXT-TASKS.md` is superseded into
+the route.
 **Next per the restated order: the work-destroyers 26, 29, 33 (+34).**
 Coupling note (measured while fixing): rows 13/17/18 are separable from the
 promotion family (2/6/8/9/10) — the fixes touch only the clearing grammar
@@ -214,6 +219,13 @@ noun (`…"…" claim was superseded, <bare wall>` — the mask patterns carry n
 noun slot), and a reassertion-after-cue on the plain-clause path (pre-dates
 v1.21.0). Both are recorded in kit #587's session card as candidates for a
 future row.
+
+**Row 35 — the reassertion-grammar residuals deferred from kit #587's R3
+(2026-08-28; the two-re-review cap's land condition):**
+
+| # | site (kit main post-#587, `src/engine/checks/check_no_false_walls.py`) | defect | provenance |
+|---|---|---|---|
+| 35 | the row-13 reassertion gate + its cross-line tail | four verified corner cases, none firing on either live tree at land time: (a) an `or`-coordinated negated complement pair (`does not hold or remain in force`) reads as affirmative — false POSITIVE, cheap direction; (b) a later `whereas <other-capability>` clause suppresses the family gate over an earlier real reassertion (`…but remains in force in production, whereas deploys are unrestricted`) — false NEGATIVE; (c) the truth-token vocabulary omits direct state predicates (`active`, `enforced`, `operative`, `valid`) — false NEGATIVE; (d) the cross-line tail treats a Markdown table row as prose continuation — false POSITIVE. Fix family: per-contrast-clause family scoping + token vocabulary + a table-row stop in the tail extension; the adjacent shapes already recorded in kit #587's card (apposition-severed mention cue; reassertion after a plain-clause cue; empty-family comma-cue baseline; FALSE-label family-blindness) belong to the same future fix unit | new in kit #587 (Codex R3, all four execution-verified 2026-08-28); the round tally 5→6→4 measured non-convergent, so the cap landed the PR with these named |
 
 ## Residue this session found itself (not Codex)
 
