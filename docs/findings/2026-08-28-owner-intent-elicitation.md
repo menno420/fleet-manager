@@ -690,18 +690,45 @@ independent measurement agree without either having been derived from the other.
    design questions. The session did not ask him; it chose documented defaults
    and said so. That is the estate's decide-and-flag doctrine producing exactly
    the experience he describes.
-3. **The session applied an owner preference it was never given — and this is
-   the mechanism.** #1328 records: *"a **modest** faucet; the owner's 'rewards
-   too large/frequent' caution is respected"*. Nobody put that in the prompt;
-   the prompt was two words. The session **retrieved a previously recorded owner
-   preference and applied it unprompted.** It also reused the existing
-   `settle()` lazy-accrual pattern and cited ADR-001/002 by name rather than
+3. **The session applied constraints the two-word prompt did not contain — but
+   the strongest version of this claim did NOT survive checking, and the
+   withdrawal is recorded here rather than quietly dropped.**
+
+   **What #1328 says:** *"a **modest** faucet; the owner's 'rewards too
+   large/frequent' caution is respected"*, and it reuses the existing
+   `settle()` lazy-accrual pattern **citing ADR-001/002 by name** rather than
    inventing a mechanism.
 
-**That third row is what "one word" actually costs.** It is not model
-capability and it is not permission — it is that everything needed to build the
-thing correctly was *already written down and reachable*, so two words plus the
-repository equalled a specification. His own caveat says the same in his words:
+   **What was claimed and is now withdrawn:** that the session *retrieved a
+   previously recorded owner preference and applied it unprompted*, offered as
+   "the mechanism". `MEASURED` 2026-08-28: the phrase *"rewards too
+   large/frequent"* appears **nowhere in the frozen router** (668,746 bytes, the
+   estate's densest owner-voice corpus) and a repo-wide code search of
+   `menno420/superbot` returns **0 hits**. The PR author's parenthetical is a
+   paraphrase whose source **cannot be located**, and it is not possible to tell
+   from the artefact whether it came from a document or from the owner in the
+   same session. If it was said in-session, the unprompted-retrieval reading is
+   simply wrong.
+
+   **What survives, and it is weaker but real:** constraints of exactly that
+   class *were* recorded in the repo before #1328 opened — the Q-0196-era
+   mining/fishing economy-balance work carries an explicit faucet caution
+   (*"fish sell value is kept deliberately low … before fish become a meaningful
+   coin faucet"*, PR #1289) and a dated planning doc,
+   `docs/planning/mining-economy-balance-2026-06-22.md`. **And the ADR citation
+   is unambiguous**: ADR-001/002 are committed documents, and the session named
+   them rather than reinventing the pattern. So *"documentation substituted for
+   specification"* stands on the ADR reuse; it does not stand on the rewards
+   caution.
+
+**What "one word" actually costs — restated after the withdrawal above.** On the
+evidence that survives, it is not model capability and not permission: it is that
+the *pattern* the feature needed was already written down and citable
+(ADR-001/002, the `settle()` idiom, the existing games), so two words plus the
+repository came close to a specification. **How much of the rest came from
+documents rather than from him in-session is not established by these two PRs
+and should not be asserted.** A session studying this properly would reconstruct
+the 2026-06-22 tree and check what a two-word prompt could actually have reached. His own caveat says the same in his words:
 it should work *"in any repo where one word could turn into a feature that
 matches what currently exists."* **The one-word test is a test of the
 repository, not of the agent.**
