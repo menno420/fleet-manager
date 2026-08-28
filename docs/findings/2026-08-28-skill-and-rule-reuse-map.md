@@ -17,6 +17,15 @@
 > against source before it was written here — three subagent claims did not
 > survive that and are marked in § 7.
 >
+> **This is stage-one mapping input, not a plan (OD-26 § 13).** The owner said
+> mid-sitting, unprompted: *"I am currently running 3 parrallel ultracode
+> session to map most of all the repos, once this mapping is all done we should
+> use this information to come up with a revised plan. Only after that will we
+> move to execution of the 'GO'"*. **This session is one of those three.** Its
+> output is therefore a contribution to the revised plan, and § 6's four moves
+> are candidate inputs — **not a queue to work.** They are deliberately left
+> unsequenced-for-execution below.
+>
 > **Adds to, does not restate, the three 2026-08-28 audits** (genesis dig ·
 > router-band re-read · kit-tree truth pass). Where this record converges with
 > them it says so and gives the independent measurement.
@@ -262,9 +271,34 @@ substrate-kit delivers it to nobody. Either wire the copy into the runbook, or
 decide deliberately that skills stay repo-local and stop treating the kit as
 their distribution path.
 
-**Sequence:** 3 → 1 → 2 → 4. Move 3 is hours and needs no release; Move 1 is
-the highest-value; Move 2 is per-checker and incremental; Move 4 is a kit
-change and therefore owner-paced.
+**The sequence proposed here (3 → 1 → 2 → 4) is withdrawn as a sequence.**
+Under OD-26 § 13 the revised plan is the owner's to write from the mapping, and
+a stage-one map that arrives pre-sequenced is asking him to skip his own stage.
+What follows instead is each move scored against **his two criteria**, which is
+the form an input should take.
+
+**OD-26 § 20 — does it stop something being re-derived?** *(his stated waste:
+"redoing the same things over and over"; less stalling is a bonus, not the case
+for a mechanism)*
+**OD-26 § 4 — does it make a session more likely to leave the repo better than
+it found it?** *(his single root cause, which replaces mechanism-class as the
+organising question)*
+
+| move | stops re-derivation? | makes a session leave the repo better? |
+|---|---|---|
+| **1 · consume the cards** | **Directly.** A 💡 naming a concrete artefact that reaches no destination is re-noticed by a later session — the four mining chains are exactly this | **Directly.** It is the leave-it-better act, made a condition of closing |
+| **2 · port the checkers** | **Yes, and it is already paid for** — nine executable checkers exist; rewriting their method is itself re-derivation | Yes, if gated: a checker in the gate makes the next session's tree cleaner |
+| **3 · route the rulebook** | **Partly.** Routes deliver a rule at the moment of action; they do not preserve a session's own finding | Weakly — it prevents a mistake rather than improving the repo |
+| **4 · fix kit distribution** | **No.** It unblocks delivery; nothing is re-derived today because of it | No — enabling work, not leave-it-better work |
+
+**On his criteria the ranking inverts the one this record first proposed.**
+Move 3 was put first for being cheap; on the re-derivation test it is the
+weakest of the four. **Move 1 is the only one that scores directly on both**,
+and Move 4 scores on neither — it is a prerequisite for a path (promoting into
+the kit) that § 4 shows is not currently worth taking.
+
+**This section is `REASONED` and is an input. The owner writes the revised
+plan.**
 
 **What NOT to do, on the evidence:** do not write new skills as the primary
 vehicle. The estate has 57 skill files across four repositories and a measured
@@ -355,6 +389,28 @@ the citations are committed.
 not to run. The owner-ruling register outside Q-0063–Q-0272 is unread. Skill
 invocation is a lower bound (§ 1). No satellite repository's hook layer was
 tested, because none has one.
+
+## 7b · This session paid the tax it is describing
+
+`MEASURED`, on itself, and recorded because OD-26 § 20 names re-derivation as
+**the** waste the workflow exists to prevent.
+
+Section 2 of this record was rewritten **four times**. The fact it kept getting
+wrong — that `idea-engine` keeps its ideas in `ideas/`, not `docs/ideas/` — was
+already written in this repository in three places: `docs/ESTATE.md:93` (*"566
+fleet-era idea files"*), `tools/build_notebook_bundle.py:109-115` (whose comment
+names a **742-file group**, the exact number the first `find` returned), and
+`docs/fleet-account-2026-07-26.md:194`. **The session re-derived, badly and
+repeatedly, a fact its own repository stated three times.**
+
+That is his sentence — *"redoing the same things over and over"* — measured on
+the session writing it down, and it is the fourth instance in this round after
+the three OD-26 § 20 already lists. It is also the strongest available argument
+for Move 1 and against Move 3: routing delivers a rule at the moment of action,
+but no route existed for *"before you count a repo's ideas, ask that repo where
+it keeps them"*, and no rule would have fired. What would have caught it is the
+check that eventually did — **measure something whose answer is already written
+down, and see whether you get it.**
 
 ## 8 · What this record does NOT decide
 

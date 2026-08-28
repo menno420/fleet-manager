@@ -271,8 +271,15 @@ copy product architecture or internal product state. Canonical intent:
   stages and never installs (`SKILLS-index.md.tmpl:30-40`, *"nothing live"*);
   **4 of 19** repos have a populated `.claude/skills/`. **0 of 27 fm skills
   reference the guard layer and 0 of 71 routes point at the four rule
-  surfaces.** Four sequenced moves proposed (`REASONED`), led by *consume the
-  cards* as a gate change. Nothing is executed; OD-23's hold stands. Record:
+  surfaces.** **Reframed against OD-26**: this is **stage-one mapping input**, one of the
+  three parallel ultracode mapping sessions he named (§ 13: *mapping → revised
+  plan → execution*), so its four moves are **candidate inputs, not a
+  sequence** — the pre-sequencing it first carried was withdrawn. Re-scored
+  against his two criteria (§ 20 *does it stop re-derivation?* · § 4 *does it
+  make a session leave the repo better?*), **the ranking inverts**: routing the
+  rulebook was cheapest and is weakest on re-derivation; *consume the cards* is
+  the only move scoring directly on both. Nothing is executed; OD-23's hold
+  stands and OD-26 § 7 re-affirms Move 1 HELD. Record:
   [`findings/2026-08-28-skill-and-rule-reuse-map.md`](findings/2026-08-28-skill-and-rule-reuse-map.md).
 
 ### Live operating mechanisms
