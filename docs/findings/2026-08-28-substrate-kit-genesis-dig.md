@@ -220,6 +220,7 @@ notebook*."** What each lived practice became (`MEASURED` against
 | friction→guard | PL-007 + `rationalize` skill + friction-issue transport | law + tooling; nothing checks a guard was created |
 | understand-and-reflect (Q-0254) | `intake` skill + CONSTITUTION bullet (ported same day, 07-07 — the one ruling with a dated extraction event) | prose/skill, unenforced |
 | honest negatives | PL-012 + four wall-guard checkers | enforced **in the inverse direction only** (stops writing walls; nothing stops suppressing a negative) |
+| *(row added 2026-08-28, session 3 — this table had no retention row)* session-log retention (superbot:Q-0214: delete-with-tombstones, bounded corpus) | **NOT lost — extracted and generalized**: the v1.0.0 context-economy engine (`src/engine/economy/` — `delete_tomb` 14d default class, harvest-gated triple filter, tombstone shards, shadow→gated→normal ladder); the `/updates` owner-feed half shipped nowhere | shadow-gated actuator, tested — and **unconfigured and trace-free on the kit's own 342-card corpus at HEAD** (`economy.classes: []`, no `.sessions/pruned/` — no evidence it has ever run there); evidence: [the truth pass](2026-08-28-kit-tree-truth-pass.md) §3 |
 
 Two structural choices sealed it: the daily culture was **explicitly demoted**
 — *"The kit's own opinionated defaults (markers, badge taxonomy, born-red
@@ -475,7 +476,12 @@ measured, and not the driver of the decline.** What the record supports:
   [re-read](2026-08-28-router-band-reread.md) §1.4: superbot:Q-0214 shows the owner
   picked delete-with-tombstones — a bounded corpus by construction — as the
   kit's retention posture on 07-02; whether the kit shipped it is a round
-  question)*. The legibility plan's §3 split (compliance is
+  question — **answered 2026-08-28, session 3**:
+  [the truth pass](2026-08-28-kit-tree-truth-pass.md) §3 — substantially
+  shipped as the v1.0.0 context-economy engine, so "never fewer files"
+  narrows to "the fewer-files layer shipped, and at HEAD it is unconfigured
+  and trace-free on the kit's own corpus"; the §4 table now carries the
+  retention row)*. The legibility plan's §3 split (compliance is
   not the problem; **finding** is) is confirmed and extended: the pain is also
   write-side budget, and the full-read audit's diagnosed mechanism is
   **append-without-retract inside internally-coherent documents** — a

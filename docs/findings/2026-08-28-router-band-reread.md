@@ -72,13 +72,23 @@ session would meet them), and its §9 coverage line routes here.
    surface. Narrows dig §8's "the EAP-era answer to maintain-cost was
    generation + checkers, never fewer files" — and §4's lost-in-extraction
    table has no retention row; whether the kit shipped any of it is
-   unexamined (a round question).
+   unexamined (a round question). **Answered 2026-08-28, session 3:
+   [the truth pass](2026-08-28-kit-tree-truth-pass.md) §3 — PARTIALLY:
+   delete-with-tombstones shipped as working mechanism in v1.0.0
+   (`src/engine/economy/`), the shrink duty at checker/actuator level, the
+   `/updates` feed nowhere; unconfigured and trace-free on the kit's own
+   342-card corpus at HEAD. The dig's table now carries the retention row.**
 5. **superbot:Q-0241's own scope clause — never-wait / silence=consent governed the
    rebuild program only**, with superbot:Q-0213's ask-first brakes left standing for
    production *"until the owner generalizes this"*. Narrows dig §6.2's
    presentation of superbot:Q-0241/PL-002 as his general July intent; whether the
    kit's PL-002 canonicalization preserved that scope is one check the
-   round owes.
+   round owes. **Answered 2026-08-28, session 3:
+   [the truth pass](2026-08-28-kit-tree-truth-pass.md) §2 — PRESERVED at
+   the canonical block (both halves, `kit:docs/program/rulings.md:66-68`);
+   the scope's expiry clause was legitimately exercised by the owner via
+   PL-012 (superbot:Q-0271, 07-12); the one drop is a provenance mislabel
+   in three derived copies of one owner-profile sentence.**
 6. **superbot:Q-0258 (07-10) — Codex was made the standing drainer of the review
    lane mid-program**, in a three-lane ask topology (decide yourself ·
    relay to Codex · owner-queue only for genuinely owner-only). Narrows dig

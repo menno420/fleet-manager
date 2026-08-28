@@ -1127,9 +1127,15 @@ fleet-wide merges/ready-flips live in
 - **`OQ-NEXT-MERGE-QUEUE` — superbot-next: enable merge queue OR drop require-up-to-date** for
   `docs/**` + `control/**`. https://github.com/menno420/superbot-next/settings/rules → main
   ruleset. Kills the update-branch dance on the 6-check ruleset. Not-blocking; chronic time sink.
-- **`OQ-KIT-P10-REQUIRED-CHECKS` — substrate-kit: swap required checks to `kit-quality`,
-  up-to-date OFF.** Settings → Rules → main ruleset: remove "Kit test suite" + "Cold-adoption
-  smoke", add `kit-quality`; set "Require branches up to date" OFF. Retires the legacy alias jobs.
+- **`OQ-KIT-P10-REQUIRED-CHECKS` — ✅ RESOLVED (overtaken; verified live 2026-08-28,
+  the OD-24 round's session 3).** The live effective rules on kit `main`
+  (`GET /repos/menno420/substrate-kit/rules/branches/main`, direct-PAT) require exactly
+  one status check — **`kit-quality`** — with strict-up-to-date `false`: both halves of
+  this ask are done. No click needed. **The residue is agent work, not an ask:** the two
+  `legacy-alias-*` jobs in kit `ci.yml` (whose own comment says "delete after P10
+  lands") are now deletable in a kit build session —
+  [the truth pass](findings/2026-08-28-kit-tree-truth-pass.md) § 5. *Original ask:
+  swap required checks to `kit-quality`, up-to-date OFF; retires the legacy alias jobs.*
 - **`OQ-GBA-ROM-RULESET` — ✅ RESOLVED (overtaken; verified live 2026-08-21, fleet review
   fm #878).** The ruleset exists and is **active**: `main-branch-protection` (id 18745286)
   on gba `main`, requiring **two** contexts — `NDS ROM build` and `ROM builds`

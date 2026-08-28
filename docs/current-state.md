@@ -162,6 +162,17 @@ copy product architecture or internal product state. Canonical intent:
   carrier census of standing owner rules — five absent from every fm
   document — with its two new owner asks queued). His morning letters were checked
   first and remain unanswered; everything owner-gated stayed gated.
+  **Session 3 ran the same day (fm #960 + kit #588):**
+  [the kit-tree truth pass](findings/2026-08-28-kit-tree-truth-pass.md) —
+  all 187 doc-surface files judged at kit `a9acc41` with adversarial
+  verification, **both owed checks answered** (PL-002 preserves Q-0241's
+  rebuild-only scope at the canonical block; Q-0214's delete-with-tombstones
+  retention substantially shipped as the v1.0.0 economy engine, unconfigured
+  and trace-free on the kit's own corpus at HEAD), kit `docs/current-state.md`
+  + `control/status.md` reconciled in the kit's venue (kit #588 MERGED on
+  green), the 23-file wrong-action set catalogued as §5 recommendations, and
+  `OQ-KIT-P10-REQUIRED-CHECKS` retired by a live rules read. The letters
+  were re-checked and remain unanswered.
 
 ### Live operating mechanisms
 
