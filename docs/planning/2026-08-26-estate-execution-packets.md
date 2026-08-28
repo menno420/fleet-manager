@@ -392,7 +392,8 @@ personal or security-relevant reaches the public pages.
 his AGENTS.md yes landed 2026-08-28** (*"Agents.md should indeed be
 everywhere"*, `OQ-FM-AGENTS-BOOT` answered — execution still waits on his GO
 for plan work, and one design question is parked for the substrate-kit
-sitting: hand-write the 19 files as below, or teach the kit to plant and
+**review round** (OD-24 — the sitting happened 2026-08-28 and left it
+parked): hand-write the 19 files as below, or teach the kit to plant and
 maintain them; the ×N form
 is the C8 shape — landing modes and gates differ per repo, so each row is
 independently completable, `@codex` fm #951 round 2). One ~15-line root

@@ -40,9 +40,13 @@ And the scope rule, his own:
 > onedrive and diks + any repo it worked on, and the cloud sessions just clean
 > the repos they worked on."*
 
-The session put four design questions to him; he answered **"mostly all
-defaults with a few minor additions"**. The defaults he accepted, and the one
-he overrode:
+The session put four design questions to him; his entire acceptance,
+verbatim: **"mostly all defaults with a few minor additions"** — the
+additions being § 2's D override and § 3's walls correction. `DERIVED`, the
+table below — and the label matters: it restates the **session's own proposal
+text** that his sentence accepted, so the defaults' wording (what blocks,
+what warns, the escape hatch, the audit shape) is the agent's, not his. Only
+the acceptance sentence and the D-override quote are `OWNER`:
 
 | Q | decided |
 |---|---|
