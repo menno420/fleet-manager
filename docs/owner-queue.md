@@ -60,6 +60,19 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   brake may ever surface interactively. **UNBLOCKS:** the round's gap-#7
   flip-gate design and any kit-planted brake. **VERIFIED-NEEDED:** none —
   both rulings are quoted verbatim in the re-read.
+  **⚠ NARROWED 2026-08-28, same day, before he ever saw it — this entry was
+  posed without checking for a later statement, and there is one.**
+  `.claude/hooks/README.md:483-486` carries him live on **2026-08-09**, two
+  months after the Q-0128 line above: *"Delete triggers are the only thing
+  that gives me an approval prompt in automode, this will stall your session
+  untill I get back. Always prevent using them."* That is the same subject,
+  later, and **narrower**: he names the one call that actually raises a
+  prompt and asks for it to be prevented — not for confirmation as such to
+  be abolished. So the fork as posed ("which of the two rulings governs")
+  largely dissolves; what genuinely survives is whether a kit gate may ever
+  *block* a session, which is asked as § 2 · B of
+  [the round's open-questions agenda](planning/2026-08-28-od24-round-open-questions.md).
+  Kept open at the narrower scope; do not put the original two-way fork to him.
 - **`OQ-EAP-SPEND-WINDOW-MOOT` — record whether the ~09-07 spend-cap
   decision window is mooted.** (added 2026-08-28, same source, §1.7.)
   **WHAT:** one sentence — superbot:Q-0249 (07-06) deferred AI-spend caps to
@@ -70,6 +83,18 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   dig's §10 called the ~09-09 trading gate the estate's only future-dated
   obligation; this is the second. **UNBLOCKS:** closing the record.
   **VERIFIED-NEEDED:** none.
+  **⚠ REFRAMED 2026-08-28, same day — the premise was wrong and the real
+  question is better.** Q-0249 is **not** an unrecorded dangling obligation:
+  it was promoted to program law on 2026-07-07 as substrate-kit
+  `docs/program/rulings.md` **[PL-005] "Observe-first budgets — telemetry
+  before caps"**, carrying his full quote and the method (caps *deferred, not
+  adopted*; instrument spend, then decide from the measured average). What is
+  actually true, and worth one line from him: **no meter ever ran** — the
+  telemetry feed carried no cost field and stopped 2026-07-13 — so the
+  "decide from the average" step cannot execute and there is nothing to moot.
+  The reframed ten-second ask is § 2 · H of
+  [the agenda](planning/2026-08-28-od24-round-open-questions.md): leave it
+  uncapped, or set a cap.
 
 - **`OQ-ESTATE-ARCHIVE-LIST` ✅ ANSWERED 2026-08-22 · ✅ EXECUTED 2026-08-23 —
   the nine ungated repositories are archived** (added 2026-08-22, OD-18 table
