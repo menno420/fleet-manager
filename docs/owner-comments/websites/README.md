@@ -7,9 +7,11 @@
 > are public.** Read the [storage and privacy contract](../README.md)
 > before adding feedback. JSON preserves the owner's wording verbatim.
 
-## Unconsumed (0)
+## Unconsumed (1)
 
-No unconsumed owner comments.
+| id | created at | source | record |
+|---|---|---|---|
+| `oc-c3c8bee2da350d92f9f32fe983e273bc` | `2026-08-28T00:34:26Z` | control-plane | [`oc-c3c8bee2da350d92f9f32fe983e273bc.json`](oc-c3c8bee2da350d92f9f32fe983e273bc.json) |
 
 ## Consumed history (0)
 
