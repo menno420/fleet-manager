@@ -295,6 +295,49 @@ def code_only(text: str) -> str:
     return "".join(out)
 
 
+_HEREDOC = re.compile(
+    r"<<-?\s*(['\"]?)([A-Za-z_][A-Za-z0-9_]*)\1\s*\n(.*?)^\s*\2\s*$",
+    re.DOTALL | re.MULTILINE,
+)
+
+
+def authored_only(text: str) -> str:
+    """Return only the prose a Bash command WRITES — its heredoc bodies.
+
+    The complement of `code_only()`. That one exists because a quoted MENTION of
+    an action must not spend an action guard; this one exists because an actual
+    AUTHORED DOCUMENT must not escape a claim guard just because it arrived
+    through Bash instead of Write.
+
+    The failure this exists to stop, MEASURED 2026-08-28 on this session's own
+    transcript. Eight routes are registered `Edit`/`Write` only — the whole
+    claim-quality set: `stamping-a-measured-claim`, `claim-beyond-the-sample`,
+    `absence-claim`, `recording-a-wall`, and the four card-discipline routes.
+    Auto mode's standing instruction is to author through Bash ("make file
+    changes with sed, heredocs, or short scripts, rather than using the
+    dedicated Read, Edit, or Write tools"), so a session following it writes
+    every document via `cat > f <<'EOF'` and **all eight go silent for the whole
+    session** — with no error and nothing to notice.
+
+    Measured A/B on this hook, same offending text both ways:
+
+        Write tool      -> TRAP-001 and TRAP-004 both fire
+        Bash heredoc    -> no output, exit 0
+
+    That session then published a `MEASURED` label on owner-console state, a
+    checker count taken from grep hits, and a commit count from memory — three
+    of the exact errors those two routes exist to catch, all of them written
+    through a heredoc.
+
+    Why heredoc bodies ONLY, and not the whole command: the command is code, and
+    matching claim patterns against code re-creates the fm #923 failure in the
+    opposite direction — `grep -n 'MEASURED' docs/traps.md` would spend the
+    route and leave the real write unwarned. A heredoc body is unambiguously
+    authored prose, which is the only thing these routes should read.
+    """
+    return "\n".join(m.group(3) for m in _HEREDOC.finditer(text))
+
+
 def already_fired(session: str) -> set[str]:
     try:
         return set(json.loads((STATE_DIR / f"{session}.json").read_text()))
@@ -567,7 +610,17 @@ def main() -> int:
 
         # A route guarding an ACTION matches against code with quoted data
         # blanked, so a mention inside an argument cannot consume it (fm #923).
-        match_text = code_only(text) if route.get("code_only") else text
+        # `authored_only` narrows a Bash command to its heredoc bodies so a
+        # claim guard sees a document authored via `cat > f <<'EOF'` exactly as
+        # it sees one authored with Write. Scoped to Bash: for Write/Edit the
+        # text IS the authored content already, and narrowing it there would
+        # blind the route to the ordinary case.
+        if tool == "Bash" and route.get("authored_only"):
+            match_text = authored_only(text)
+        elif route.get("code_only"):
+            match_text = code_only(text)
+        else:
+            match_text = text
         repository_reference_route = bool(route_repositories) or route.get(
             "docs"
         ) == ["docs/ESTATE.md"]
