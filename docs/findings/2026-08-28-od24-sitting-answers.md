@@ -38,13 +38,22 @@ with an obsolescence exception he did not enumerate.**
   the five rules it found absent from every live fleet-manager document
   (superbot:Q-0191 · Q-0128 · Q-0131 · Q-0229 · Q-0136) are live estate law
   that no live surface currently carries.
-- **The exception is real but is not a session's to apply silently.** He said
-  *some* may no longer be relevant; he did not say which, and under his own
-  ratification doctrine (OD-24 § 3 — *"I agreed to them so they can indeed
-  stay"*) retiring a rule is his act, not an agent's. So a session that judges
-  a June rule obsolete **flags it for retirement with its reason** and keeps
-  obeying it meanwhile. Writing "this is probably stale" into a record and
-  acting as if it were retired is the failure this bullet exists to prevent.
+- **The exception is real, and it must not be compressed away.** He said
+  *some* may no longer be relevant and did not say which, so **"most still
+  stands" is not "all still stands"** — an unidentified obsolete subset exists
+  by his own word. *(Corrected on Codex review of fm #964, which caught this
+  bullet turning his "most" into "all". The over-reach also mis-cited OD-24
+  § 3: that doctrine governs when an agent-created **restriction** becomes
+  legitimate; it does not say only he may notice that an old rule has been
+  overtaken.)*
+- **The verification path when a specific June rule is met**, which is what the
+  exception actually needs: check whether anything later — a live surface, a
+  newer ruling, a shipped mechanism — has overtaken it. If something has, say so
+  with the evidence and treat the rule as superseded by **that**, not by
+  judgement. If nothing has, it binds. **Retiring a rule that nothing has
+  overtaken stays his**, because that is a preference, not a finding. What no
+  session may do is write "this is probably stale" and act as if it were
+  retired.
 - **What it does NOT license:** a rule-by-rule sweep of all thirteen census
   entries put to him one at a time. He was explicit in the agenda's own framing
   that walking them would consume the whole sitting, and his answer is a
@@ -85,10 +94,21 @@ answer **reconciles his two rules instead of choosing between them**:
 superbot:Q-0128 (*"I never want to see such a prompt asking me for my
 confirmation ever again, no matter what it is for"*, 06-13) and OD-24 § 3's
 re-ratified *confirm before sending or deleting* were read as contradictory for
-the length of this round. They are not: **Q-0128's grievance was the unattended
-case** — a prompt nobody is there to answer — and the 2026-08-09 line he gave
-about `delete_trigger` (*"this will stall your session untill I get back"*)
-names that mechanism exactly. The confirm-first line governs the attended case.
+the length of this round. **His new answer supersedes and qualifies them; it
+does not reveal that they never conflicted.** *(Corrected on Codex review of
+fm #964. The first cut claimed the two rules "were never in conflict" because
+Q-0128 was really about unattended prompts — which **rewrites** the older
+statement: Q-0128 says* **"ever again, no matter what it is for"**, *and the
+router band re-read recorded it as a genuine unresolved conflict with
+confirm-before-send/delete, correctly.)*
+
+What the record should say, and now does: **the conflict was real, and he
+resolved it by drawing a line neither rule drew** — presence. His 2026-08-09
+`delete_trigger` line (*"this will stall your session untill I get back"*) is
+consistent with that resolution and is why the unattended half is the sharper
+one, but it is corroboration, not proof that June meant only unattended
+prompts. **From 2026-08-28, the presence rule governs**; Q-0128 stands as the
+superseded broader phrasing, not as a rule that secretly meant this all along.
 
 `DERIVED`:
 
@@ -131,7 +151,16 @@ divergence, and it is one of **altitude, not of fact**:
   moment of action — with twelve gaps laid out flat and the fix families
   (write / route / hook / build) attached per row.
 - **His is a single cause with a direction:** *initiative to leave the repos in
-  a better shape.* Every one of our twelve is downstream of it.
+  a better shape.*
+- **That our twelve gaps are downstream of it is `DERIVED` — the sitting's
+  mapping, not his.** He was shown four of **his own prior statements** and
+  answered about those; **the twelve audit gaps were never put to him**, so he
+  did not assert convergence and this reading must not be quoted as if he had.
+  It is a defensible mapping (each gap is a way a session fails to leave a repo
+  better) and it is load-bearing enough to have re-ranked this round's work, so
+  it is labelled here rather than carried inside the owner reading. *(Marked on
+  Codex review of fm #964, which caught it sitting above the section's `DERIVED`
+  marker while being propagated as the round's headline.)*
 - **We had already found this and had already ranked it first — in the one
   place a session would not meet it.** Dig § 6.1 judged the kit's failure to
   name the initiative half of his purpose *"the central drift, present from
@@ -185,13 +214,26 @@ The reasoning, and each leg is measured rather than preferred:
   facts about a **planted five-section guidebook skeleton** — a shape nobody
   asked for. He did not ask for a guidebook. He asked for a per-repo trail of
   what went wrong.
-- **Nothing else serves that function per repo.** Routed trap records
-  (`traps.md`) carry *recurring, estate-general* traps and are the surface that
-  demonstrably works; session cards carry *one session each* and are not read
-  as a trail. Neither gives the per-repo "what went wrong here, repeatedly"
-  view he described. His *"if the router records are functional in the same
-  way"* is a genuine conditional, and the honest answer is **they are not** —
-  they are estate-scoped, not per-repo.
+- **Nothing else serves that function — and the reason first written here was
+  wrong.** *(Codex review of fm #964, P1, upheld at source: this bullet claimed
+  routed trap records are "estate-scoped, not per-repo". The roadmap's
+  § 5.3–5.4 — marked `OWNER` — says the opposite in as many words:* **"Each
+  repo** *defines … known traps" and* **"Each repo** *exposes its recurring
+  traps in a structured form"* *(`2026-08-08-agent-operating-environment-roadmap.md:390-399`).
+  The per-repo trap surface is the intended design, so scope cannot distinguish
+  them. The leg is withdrawn.)*
+  **The distinction that does hold is LIFECYCLE, not scope.** A trap register's
+  own grammar is `TRAP · TRIGGER · WHY · REQUIRED PREVENTION · VERIFY · ORIGIN`
+  with the lifecycle *mistake → documented trap → reminder → checker*: it admits
+  an entry once something is recognised as **recurring** and has a prevention.
+  He asked for *"what went wrong **each session**"* — which includes the
+  one-off, the not-yet-recurring, and the thing whose prevention is not yet
+  known. Those are what a trap register is designed to exclude, and they are
+  precisely the raw material a trap is later distilled *from*.
+- **So the decision is closer than first written, and its condition is named.**
+  If the § 5.4 per-repo trap surface is built and turns out to absorb the
+  per-session trail as well, this disposition should be re-examined rather than
+  defended — one surface doing both beats two.
 - **Route first, enforce only on measurement.** The measured failure was never
   that sessions refused to write it: the file is on **no boot list**, **0 of
   37 checkers** reference it, and the single checker that touches its path
@@ -481,8 +523,14 @@ His answer, verbatim:
    treatment. That is an A/B design, and the estate has run this exact shape
    once before: the kit's own cold-start bench, which returned **1 PASS / 8
    FAIL** on 2026-07-12 and measured the enforcement pull as a null. The
-   provider-mix session, when it comes, is that bench generalized across
-   providers rather than a discussion about which model to use where.
+   provider-mix session, when it comes, has that bench as **one component**.
+   **What it is not:** the complete method. *(Codex review of fm #964: running
+   each agent default-vs-kit measures **the kit's effect on that agent**; it does
+   not by itself determine the right **mix**, which needs cross-provider tasks, a
+   shared outcome criterion and a selection rule.)* So this records the arm he
+   named and leaves the rest of OD-13's question — including the
+   which-model-for-what analysis, which an earlier cut of this bullet wrongly
+   ruled out — open and his.
 
 `DERIVED`: nothing is built or scheduled for this. Recorded so that the method
 survives — an unrecorded method sentence is precisely the loss class this round
@@ -569,10 +617,17 @@ scope:**
 
 1. **Timing:** not *"leave it"* but *"soon"*. It stops being dormant queue
    material and becomes near-term work.
-2. **A dependency that did not exist before:** the mail now **waits on the
-   mapping audits he is running** (§ 13), because he intends their output to go
-   into it. So the mail is a *third* consumer of that mapping, alongside the
-   revised plan and this round.
+2. **A new INPUT — and deliberately not a new gate.** He intends the mapping
+   audits' output to go into the mail, which makes it a third consumer of that
+   work alongside the revised plan and this round. **He did not say the mail
+   must wait until the mapping is finished**, and *"soon"* points the other way.
+   *(Corrected on Codex review of fm #964, which caught the first cut inventing
+   a completion dependency and writing "wait" into the queue entry — against the
+   same answer's "soon". That is the § 13 sequencing being over-applied: it
+   governs execution of the GO, and he attached it to the GO, not to the mail.)*
+   So: **whoever works the mail folds in whatever mapping output exists at the
+   time**; a session must not park it waiting for the mapping to complete, and
+   if he asks for the mail before the mapping is done, that is not a conflict.
 3. **Its content brief widens, and this is the part nobody had:** the mail was
    scoped as an EAP wrap-up. He now wants it to carry what the audits show
    *"generally about how agents work"* — findings beyond the EAP itself. That
@@ -600,9 +655,14 @@ answer § 4 records:
 repos better). This gives the **cost being paid for it**, and the two together
 specify what a fix has to do:
 
-- **Stalling is explicitly not the target.** *"not necessarily bad"* — with the
-  estate's volume, work sitting is expected. A mechanism justified by "this
-  stops things stalling" is aimed at something he did not ask to fix.
+- **Stalling is not the target — but "not necessarily bad" is a qualification,
+  not a dismissal.** With the estate's volume some work sitting is expected and
+  acceptable; he did **not** say that a harmful stall is fine, nor that reducing
+  stalling is a wrong goal. *(Corrected on Codex review of fm #964, which caught
+  the first cut turning this into a rule that would reject any mechanism whose
+  benefits include less stalling.)* So: **less stalling is not a disqualifier
+  and it is not a justification either** — it simply is not the thing being
+  measured.
 - **Re-derivation is.** *"redoing the same things over and over"* is the waste
   the workflow exists to prevent, and it is the criterion any candidate fix
   should be judged against.
@@ -628,8 +688,9 @@ why it lands as confirmation rather than as a new direction:
 `DERIVED`, and it is a **test**, not a new work item:
 
 > **For any mechanism this round proposes: does it stop something being
-> re-derived? If its benefit is that work stalls less, it is aimed at the wrong
-> thing.**
+> re-derived?** That is the question it must answer. A mechanism may also
+> reduce stalling — that is a bonus, not the case for it, and not a mark
+> against it either.
 
 Applied to what is already on the table, this re-ranks cleanly and without new
 scope: **routing beats building.** The dig's own distribution said the dominant

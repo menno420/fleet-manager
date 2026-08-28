@@ -51,17 +51,46 @@
   constraint column reading *"none — and that is the problem"*. Same billing
   project, two routes, two funding sources: *the route decides who pays, not the
   key.* **What survives unchanged:** the spend authorisation — any session may
-  still spend without asking. **What changes:** its *reason*. The justification
-  is now "Vertex is credit-funded and the credit expires unused", never "the
-  balance caps the downside" — because on the card-funded route there is no
-  balance and no cap. **Not re-measured live:** the cost figures are
+  still spend without asking. **What changes:** its *reason*, and a first cut of
+  this amendment got the replacement reason wrong too *(Codex review, fm #964,
+  P1 — upheld)*: it offered *"Vertex is credit-funded and the credit expires
+  unused"*, which is a justification **for the Vertex route** and cannot
+  authorise the **card-funded** one the `verdict` below actually names. **The
+  honest statement of the basis and its limits:**
+  **(a) The authorisation is his, and it is not a cap argument at all** — see
+  `provenance`: *"whenever a session wants a review from a pro model or create
+  an image they are free to use untill the money runs out"*. He wanted the
+  capability used; that stands on his word, not on a ceiling.
+  **(b) What actually bounds the card exposure is the ROUTE RULE, not a
+  balance.** `GEMINI_API_KEY_PAID` is reached **only when Vertex has actually
+  failed** (plus the one documented exception, deep research, which exists on no
+  other path) and the reach must be **said out loud in the session card**. Volume,
+  image and video work goes to Vertex; ordinary AI Studio work goes to the free
+  key. So the card is exposed by *exceptions*, and the discipline that keeps it
+  small is the convention plus the disclosure — which is checkable, unlike a
+  balance that does not exist.
+  **(c) The `why` block below is SUPERSEDED where it reasons from a cap.** Its
+  €10-prepay / auto-reload-off / *"worst case is the balance reaching zero"* /
+  *"the calls simply 429"* chain describes a prepaid model that does not govern
+  this route; a 429 is not what happens when a card-funded key is used. Its
+  surviving halves are the owner's intent (he funded it to be used, and a
+  session stopping to ask spends his attention on a call he already made) and
+  the per-call sizing figures, which are unaffected.
+  **(d) The title is left as-is deliberately** — *"capped at its balance"* is
+  wrong for this route, and rewriting a decision's title would break every
+  citation to it; the correction lives here, where a reader of the entry meets
+  it. **Not re-measured live:** the cost figures are
   console-UI-only data no session can read (`NOT-VERIFIABLE` per the certainty
   legend); the €0.49 → €7.88 month-to-date pair is the owner's, from 2026-08-06,
   and is quoted as his, not re-derived.
 - verdict: Any session may spend `GEMINI_API_KEY_PAID` without asking — Pro-model
   review, image generation, live-search grounding, or any other paid Gemini call
   that serves the work in front of it. No approval step, no per-call budget.
-- why: The owner funded it precisely so sessions would use it, and capped the
+- why: *(Read with the 2026-08-28 amendment above: the cap reasoning in this
+  block is SUPERSEDED — it describes a prepaid model that does not govern the
+  card-funded `GEMINI_API_KEY_PAID` route this entry authorises. The owner-intent
+  and per-call sizing halves stand.)* The owner funded it precisely so sessions
+  would use it, and capped the
   downside himself: a €10 prepay with **auto-reload off**, on a project that can
   only spend on the Gemini API. The worst case is the balance reaching zero,
   which costs nothing beyond the €10 already spent and degrades gracefully to

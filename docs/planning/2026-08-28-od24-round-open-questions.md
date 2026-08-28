@@ -214,7 +214,7 @@ the race *because* a consumption loop existed) · OD-24 § 3.
 
 ### B2 · May a brake ever stop and ask you — and for what?
 
-**✅ ANSWERED 2026-08-28 — PRESENCE DECIDES:** *"Never while I'm away; freely when I'm present."* His two rules were never in conflict — Q-0128's grievance was the *unattended* prompt. `delete_trigger` stays prevented in every venue. `OQ-KIT-PROMPT-DOCTRINE` closed. § 3 of [the sitting record](../findings/2026-08-28-od24-sitting-answers.md).
+**✅ ANSWERED 2026-08-28 — PRESENCE DECIDES:** *"Never while I'm away; freely when I'm present."* The conflict was real; he resolved it by drawing a line neither rule drew — **presence** — so Q-0128 is **superseded**, not reinterpreted (corrected on Codex fm #964). `delete_trigger` stays prevented in every venue. `OQ-KIT-PROMPT-DOCTRINE` closed. § 3 of [the sitting record](../findings/2026-08-28-od24-sitting-answers.md).
 
 **The ask.** Separate from B, and it stayed open after a first pass wrongly
 folded it into B (caught on review). B is about *waiting for review before
@@ -330,7 +330,7 @@ sitting on. Execution of the nineteen still sits behind the packet hold.
 
 ### E2 · Does the per-repo journal survive at all?
 
-**✅ ANSWERED 2026-08-28 — DELEGATED, with a function named:** *"Your call … But I think the session journals would definitely add some value so we can easily find out what went wrong each session."* **Decided under that delegation: keep it, re-scoped to that function, and route it before enforcing it.** His conditional is answered honestly — routed trap records are estate-scoped, not per-repo, so they are *not* functional in the same way. § 5 of [the sitting record](../findings/2026-08-28-od24-sitting-answers.md).
+**✅ ANSWERED 2026-08-28 — DELEGATED, with a function named:** *"Your call … But I think the session journals would definitely add some value so we can easily find out what went wrong each session."* **Decided under that delegation: keep it, re-scoped to that function, and route it before enforcing it.** His conditional is answered on **lifecycle, not scope**: a trap register admits what is already recurring and preventable; he asked for what went wrong *each session*. *(The first cut's "estate-scoped" leg was refuted at source by Codex fm #964 — roadmap § 5.3–5.4, `OWNER`, makes per-repo traps the intended design.)* § 5 of [the sitting record](../findings/2026-08-28-od24-sitting-answers.md).
 
 **The ask.** Every repo carries a planted `.session-journal.md` — a running
 notebook a session is supposed to add to. **The dig measured** that no checker

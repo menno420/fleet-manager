@@ -92,9 +92,15 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   re-scoped to the function he named (a per-repo trail of what went wrong), and
   ROUTE it before enforcing it** — the measured failure was never refusal but
   invisibility (on no boot list, 0 of 37 checkers, and the one checker touching
-  its path exists to *exempt* it). His conditional is answered honestly: routed
-  trap records are **not** functional in the same way — they are estate-scoped,
-  not per-repo. Enforcement stays a later promotion decision under roadmap § 6.
+  its path exists to *exempt* it). His conditional is answered on **lifecycle,
+  not scope**: a trap register admits an entry once something is recognised as
+  *recurring* and has a prevention, while he asked for what went wrong **each
+  session** — the one-off and the not-yet-recurring included. *(A first cut said
+  trap records are "estate-scoped, not per-repo"; Codex fm #964 refuted it at
+  source — the roadmap § 5.3–5.4, marked `OWNER`, makes per-repo traps the
+  intended design. Leg withdrawn.)* **Re-examine if the § 5.4 per-repo trap
+  surface gets built and absorbs the per-session trail too.**
+  Enforcement stays a later promotion decision under roadmap § 6.
   Shape and file layout are open and belong to a build session.
 - **`OQ-KIT-JOURNAL-SURVIVES` (original body) — does the per-repo `.session-journal.md` survive
   as a surface, or is it superseded by routed trap-style records?** (added
@@ -114,10 +120,12 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   **VERIFIED-NEEDED:** none.
 - **`OQ-KIT-PROMPT-DOCTRINE` ✅ ANSWERED 2026-08-28 — PRESENCE DECIDES.**
   Owner, live (§ 3 of [the sitting record](findings/2026-08-28-od24-sitting-answers.md)), choosing *"Never while I'm away; freely
-  when I'm present"*. **His two rules were never in conflict:** Q-0128's
-  grievance was the *unattended* prompt (the one that stalls a session until he
-  is back), and OD-24 § 3's confirm-before-send/delete line governs the attended
-  case. So a kit-planted brake **may prompt only when a human is in the
+  when I'm present"*. **The conflict was real and he resolved it by drawing a
+  line neither rule drew — presence.** *(A first cut said the two "were never in
+  conflict"; Codex fm #964 caught that as rewriting the older statement — Q-0128
+  says "ever again, no matter what it is for", and the re-read recorded the
+  conflict correctly.)* From 2026-08-28 the presence rule governs; Q-0128 stands
+  as the **superseded** broader phrasing. So a kit-planted brake **may prompt only when a human is in the
   session**; unattended it must decide — refuse or proceed — never wait.
   **`delete_trigger` stays PREVENTED in every venue**, attended or not; fm's
   never-delete-a-trigger decision and the denying guard hook are untouched. Presence must be computed from the
@@ -503,9 +511,12 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   audits I'm doing right now will provide valuable information, not only about
   the EAP itself but generally about how agents work, whih would be a valuable
   addition to the mail"*. **Three changes:** (1) timing — *soon*, not dormant;
-  (2) a **new dependency** — it waits on the repo-mapping audits he is running,
-  making the mail a third consumer of that output alongside the revised plan and
-  the OD-24 round; (3) **scope widened** — it now carries what those audits show
+  (2) a **new INPUT, explicitly NOT a gate** — the mapping audits' output is
+  meant to go into it, making the mail a third consumer of that work; but he did
+  **not** say it must wait for the mapping to finish, and *"soon"* says
+  otherwise, so **fold in whatever exists at the time and do not park it**
+  *(a first cut wrote "wait" here; Codex fm #964 caught it contradicting the same
+  answer's "soon")*; (3) **scope widened** — it now carries what those audits show
   *generally about how agents work*, not only the EAP. **Consequence for the
   one-page question: it cannot be settled yet**, because he has just added to the
   content. Do not restructure to one page against the old brief.

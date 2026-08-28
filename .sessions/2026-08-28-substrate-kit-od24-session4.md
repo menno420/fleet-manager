@@ -100,6 +100,73 @@ name), fm #958 and superbot untouched.
   figures are console-only data no session can read — quoted as his, not
   re-derived.
 
+## Codex review — R1 dispositions: **8 findings, 8 `[conceded]`, 0 `[survived]`**
+
+Requested explicitly (the auto-trigger produced nothing in ~10 min; all four
+prior round PRs show the same explicit `@codex review` first comment), verdict
+at head `a045494`, 3 × P1 + 5 × P2. Every one verified against source before
+the fix; **none was argued down**, and the tally is recorded as a countable
+disposition per `docs/conventions/adversarial-review.md`.
+
+- **P1 · the journal decision's key leg was FALSE** `[conceded]` — I wrote that
+  routed trap records are *"estate-scoped, not per-repo"*, which made his
+  conditional (*"if the router records are functional in the same way that's
+  good enough"*) fail. Codex cited the roadmap; I read it: § 5.3–5.4 is marked
+  `OWNER` and says **"Each repo** defines … known traps" / **"Each repo**
+  exposes its recurring traps" (`:390-399`). **Leg withdrawn** and the decision
+  re-derived on a distinction that survives — **lifecycle, not scope**: a trap
+  register admits what is already *recurring* and has a prevention; he asked for
+  what went wrong **each session**, which is the one-off and not-yet-recurring
+  the register is designed to exclude. The disposition holds, and now carries
+  the condition under which it should be re-examined.
+- **P1 · `[D-0011]` — the replacement justification authorised the wrong route**
+  `[conceded]` — I retired *"capped at its balance"* and replaced it with
+  *"Vertex is credit-funded and the credit expires unused"*, which justifies the
+  **Vertex** route while the entry's verdict authorises the **card-funded**
+  `GEMINI_API_KEY_PAID`. And I left the `why` block's refuted €10 chain standing.
+  Now: the basis is stated as his own words, the real bound is named as the
+  **route rule + disclosure** (not a balance), and the `why` block is marked
+  superseded where it reasons from a cap.
+- **P1 · I invented a completion gate on the EAP mail** `[conceded]` — he said
+  the audits *"will provide valuable information … a valuable addition to the
+  mail"* and *"soon"*. I wrote that it **waits on** the mapping, and put "wait"
+  into the queue entry against his own "soon". Recorded now as an **input, not a
+  gate**: fold in whatever exists at the time; do not park it.
+- **P2 · "most" June rules became "all"** `[conceded]` — he allowed an
+  unidentified obsolete subset; my bullet required every rule to bind until he
+  personally retires one, and mis-cited OD-24 § 3 (which governs when an
+  agent-made *restriction* becomes legitimate) as if it reserved obsolescence to
+  him. Replaced with a **verification path**: check whether something later has
+  overtaken the rule, and treat it as superseded by that evidence; retiring a
+  rule nothing has overtaken stays his.
+- **P2 · "the two rules were never in conflict" rewrote his older statement**
+  `[conceded]` — Q-0128 says *"ever again, no matter what it is for"*, and the
+  router band re-read recorded the conflict correctly. Recorded now as what it
+  is: the conflict was **real**, and he resolved it by drawing a line neither
+  rule drew. Q-0128 is **superseded**, not reinterpreted.
+- **P2 · the twelve-gap mapping was presented inside the owner reading**
+  `[conceded]` — he was shown four of his own prior statements, never the twelve
+  gaps, so *"every one of our twelve is downstream of it"* is the sitting's
+  inference. Now labelled `DERIVED` and separated from his answer, which matters
+  because it is the claim that re-ranked the round.
+- **P2 · the stalling test over-reached** `[conceded]` — *"not necessarily
+  bad"* is a qualification, not a licence to treat any anti-stall benefit as
+  disqualifying. The test now reads: does it stop a re-derivation? — with less
+  stalling neither the case for a fix nor a mark against one.
+- **P2 · a kit A/B is not a provider-mix method** `[conceded]` — his two-arm
+  test measures **the kit's effect per agent**; determining the right *mix*
+  needs cross-provider tasks, a shared outcome criterion and a selection rule.
+  Recorded as **one arm** he named, with the which-model-for-what analysis an
+  earlier cut wrongly ruled out left open and his.
+
+**The pattern worth naming, because it is one class:** six of the eight are the
+same failure — **compressing an owner answer into something tidier than he
+said** (an exception dropped, a conflict dissolved, an input promoted to a gate,
+a component promoted to a method, an inference folded into his voice). This
+session's whole thesis is that answers must survive contact with the record, and
+the first draft eroded them in the act of writing them down. Every correction
+above widens the recorded answer back toward what he actually said.
+
 ⚑ Owner decisions needed: **all the round's standing letters are now answered.**
 What remains his: **`OQ-KIT-RENAME`** — he ruled the kit is renamed and deferred
 the name itself (one word, and no session may pick it for him); the **adopter
