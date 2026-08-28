@@ -549,7 +549,11 @@ the whole-population re-measure caught it (TRAP-004's class, caught in-flight).
   claim. The sharpest catch: the headers-only sampling of router bodies
   Q-0063–Q-0272 **dropped a load-bearing owner directive (Q-0266)** that bears
   directly on §8 — its body was then read in full tonight and weighed as the
-  fifth rival. That band remains the finding's thinnest coverage.
+  fifth rival. ~~That band remains the finding's thinnest coverage.~~
+  **Closed 2026-08-28 (session 2): the whole band was re-read
+  bodies-in-full —
+  [the router band re-read](2026-08-28-router-band-reread.md), which
+  narrows seven claims in this finding (its §1 names each).**
 - **Skipped (named, not silent):** 645 June + 233 July superbot cards and ~121
   fm August cards beyond greps; superbot PR inline-review threads beyond 4
   spot-checks; kit docs subdirectories (audits/gen2/ideas/operations/planning/
@@ -611,7 +615,9 @@ deletion anywhere breaks that chain; (3) the retrieval fix for this corpus is
    second mechanism.
 4. **A targeted re-read of router bodies Q-0063–Q-0272** (the band this dig
    sampled headers-only — verification proved it can hide load-bearing owner
-   directives; one session, read-only, superbot stays frozen).
+   directives; one session, read-only, superbot stays frozen). **DONE
+   2026-08-28, session 2:
+   [the router band re-read](2026-08-28-router-band-reread.md).**
 5. **And put one question to him with the morning letters** (recorded here per
    ask-and-keep-working): whether the journal survives as a per-repo surface
    (gap #2's second half) — the evidence says the guidebook function migrated
