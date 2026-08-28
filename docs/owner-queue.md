@@ -95,7 +95,8 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   guidebook, **not a log**"* and routes per-session logs to
   `.sessions/<date>-<slug>.md`; those cards already record what went wrong in
   detail. His word is *"**easily** find out"* — so what is missing is not capture
-  (fm holds 431 cards, the kit 343) but any way to scan them. **That is
+  (fm holds **433** dated cards at this head, the kit 343 — re-derived; the 431
+  carried from the agenda's § 7 is wrong) but any way to scan them. **That is
   retrieval, and retrieval is routing** — the fix family his own cost function
   ranks above building. **Nothing is built, nothing enforced, no new file.**
   *(Two earlier cuts each proposed a re-scoped journal and each lost a
@@ -130,8 +131,11 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   says "ever again, no matter what it is for", and the re-read recorded the
   conflict correctly.)* From 2026-08-28 the presence rule governs; Q-0128 stands
   as the **superseded** broader phrasing. So a kit-planted brake **may prompt only when a human is in the
-  session** — **his** presence specifically, not any maintainer's; unattended it
-  must decide — refuse or proceed — never wait.
+  session** — **his** presence specifically, not any maintainer's. Unattended it
+  **must not wait**, and what it does instead is **not settled by his answer**:
+  for anything the confirm-before-sending-or-deleting line covers it **refuses**
+  (that rule survives untouched); elsewhere the fail-open/fail-closed choice is
+  left open rather than assumed.
   **`delete_trigger` stays PREVENTED in every venue**, attended or not; fm's
   never-delete-a-trigger decision and the denying guard hook are untouched. Presence must be computed from the
   venue, not guessed. *(Original ask below.)*

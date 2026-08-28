@@ -174,8 +174,11 @@ copy product architecture or internal product state. Canonical intent:
   `OQ-KIT-P10-REQUIRED-CHECKS` retired by a live rules read. ~~The letters
   were re-checked and remain unanswered.~~
 - **The round's DISCUSSION SITTING ran with the owner present (2026-08-28,
-  session 4, fm #964) — ALL the letters are answered, and one answer re-ranks
-  the round (OD-26).** Twelve answers recorded as each arrived:
+  session 4, fm #964) — every letter that was ASKED is answered, and one answer
+  re-ranks the round (OD-26).** *(Still open, so "answered" is not read as
+  "finished": the kit's name, the v1.21.0 adopter half, agenda § 2 · G's
+  card-deletion question — deliberately not asked, due after the report-only
+  census — and the BTD6 loop.)* Twelve answers recorded as each arrived:
   [`findings/2026-08-28-od24-sitting-answers.md`](findings/2026-08-28-od24-sitting-answers.md).
   **The headline:** asked which ways the kit still fails — the question no
   session had put to him — he gave **one root cause**, not a list: *"they are

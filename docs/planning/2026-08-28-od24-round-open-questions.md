@@ -98,7 +98,7 @@ program's OD table.
 | **§ 2 · G** card deletion | **not asked** — its own minimum answer was *nothing today*, pending the report-only census | unchanged |
 | **§ 2 · H** spend caps | *"There hasn't really been much API use lately, so this is currently not relevant"* | `OQ-EAP-SPEND-WINDOW-MOOT` ✅ |
 | **§ 2b** kit charter | **rewrite it to say initiative** | § 9 |
-| **§ 2b** provider mix | his to work out, sequenced **after** the plan — and he named the **method** | § 16 |
+| **§ 2b** provider mix | his to work out, sequenced **after** the plan — and he named **one arm** of a method (default-vs-kit measures the kit's effect per agent; cross-provider tasks, an outcome criterion and a selection rule stay open) | § 16 |
 | **§ 2b** kit name | **change it**, but he picks the name later | `OQ-KIT-RENAME` (new) |
 | **§ 2b** next release | **cut when the next fix batch lands**; adopter half still open | `OQ-KIT-V1-21-RELEASE` ◐ |
 | **§ 3** D2's target | **`spider-swing`** — the measured order ratified | `OQ-FM-D2-TARGET` ✅ |
@@ -164,7 +164,7 @@ your own words. Not a structured list — the structuring is ours.
 
 ### A · Do your June rules still stand by default, or are they history?
 
-**✅ ANSWERED 2026-08-28 — and with a FOURTH option, not one of the three offered:** *"Some of them might not be relevant anymore, but most of it still stands."* Standing is the default; the obsolescence exception is real but is **his** to apply, so a session flags a rule for retirement and keeps obeying it meanwhile. § 1 of [the sitting record](../findings/2026-08-28-od24-sitting-answers.md).
+**✅ ANSWERED 2026-08-28 — and with a FOURTH option, not one of the three offered:** *"Some of them might not be relevant anymore, but most of it still stands."* Standing is the default, and **"most" is not "all"** — an unidentified obsolete subset exists by his own word. On meeting a specific June rule, check whether something **later has overtaken it**; if so it is superseded by that evidence. Retiring a rule nothing has overtaken stays his, because that is a preference rather than a finding. § 1 of [the sitting record](../findings/2026-08-28-od24-sitting-answers.md).
 
 **The ask.** Through June and July you told the agents a lot of things —
 *never show me a confirmation prompt again* · *if I asked for it personally,
@@ -337,7 +337,7 @@ sitting on. Execution of the nineteen still sits behind the packet hold.
 
 ### E2 · Does the per-repo journal survive at all?
 
-**✅ ANSWERED 2026-08-28 — DELEGATED, with a function named:** *"Your call … But I think the session journals would definitely add some value so we can easily find out what went wrong each session."* **Decided under that delegation: the journal survives in the role it already has — a guidebook — and his function is served by RETRIEVAL over the session cards that already exist.** `.session-journal.md:5-7` defines it as *"a guidebook, **not a log**"* and routes per-session logs to `.sessions/`; those cards already capture what went wrong. His word is *"**easily** find out"*, so the gap is scanning 431 cards, not writing a 432nd record. **No new file, nothing enforced.** *(Two earlier cuts proposed a re-scoped journal; Codex fm #964 refuted a load-bearing leg in each — the "estate-scoped" claim against roadmap § 5.3–5.4 (`OWNER`, per-repo traps are the design), then the lifecycle argument, for never asking whether the cards already serve it.)* § 5 of [the sitting record](../findings/2026-08-28-od24-sitting-answers.md).
+**✅ ANSWERED 2026-08-28 — DELEGATED, with a function named:** *"Your call … But I think the session journals would definitely add some value so we can easily find out what went wrong each session."* **Decided under that delegation: the journal survives in the role it already has — a guidebook — and his function is served by RETRIEVAL over the session cards that already exist.** `.session-journal.md:5-7` defines it as *"a guidebook, **not a log**"* and routes per-session logs to `.sessions/`; those cards already capture what went wrong. His word is *"**easily** find out"*, so the gap is scanning 433 cards, not writing a 434th record. **No new file, nothing enforced.** *(Two earlier cuts proposed a re-scoped journal; Codex fm #964 refuted a load-bearing leg in each — the "estate-scoped" claim against roadmap § 5.3–5.4 (`OWNER`, per-repo traps are the design), then the lifecycle argument, for never asking whether the cards already serve it.)* § 5 of [the sitting record](../findings/2026-08-28-od24-sitting-answers.md).
 
 **The ask.** Every repo carries a planted `.session-journal.md` — a running
 notebook a session is supposed to add to. **The dig measured** that no checker
@@ -396,7 +396,7 @@ the v1.21.0 worklist's standing rows.
 **◻ NOT ASKED 2026-08-28 — deliberately.** This row's own minimum answer is *nothing today*; the report-only census is its prerequisite and has not run. Unchanged and still his, once there are real numbers.
 
 **The ask.** Every session leaves a written note. There are now **343** in the
-toolbox repo and **431** here, and nothing has ever tidied them — even though
+toolbox repo and **431** here *(superseded: 433 dated cards at fm #964's head — re-derived 2026-08-28)*, and nothing has ever tidied them — even though
 the kit *ships* a tidy-up that deletes an old note and leaves a one-line
 receipt behind, with the full text still recoverable from history. You picked
 that posture yourself in July (superbot:Q-0214, *"delete with tombstones"*);
@@ -525,9 +525,13 @@ Recorded here so the sitting does not spend attention on them, and so the next
 session knows it is authorised to act. Each is agent-derivable from the
 committed record.
 
-- **The AGENTS.md mechanism** (kit-plants vs hand-write ×19) — decide, record
-  it as a decision, amend the packet row. Only the *content* question (§ 2 · E)
-  is yours.
+- ~~**The AGENTS.md mechanism** (kit-plants vs hand-write ×19) — decide, record
+  it as a decision, amend the packet row.~~ **SUPERSEDED 2026-08-28 — HE ANSWERED
+  IT: hand-write per repo.** No session decides this, and none may produce
+  kit-planted `AGENTS.md` files. See the banner above and § 6 of
+  [the sitting record](../findings/2026-08-28-od24-sitting-answers.md).
+  *(Caught on Codex fm #964 R3 — this bullet still instructed a session to decide
+  a fork he had already closed.)*
 - **The consumption loop for gap #7** — build and measure it; it adds no
   restriction, so it needs no GO. First re-measure whether the defect has even
   recurred since the routes hardened on 2026-08-24; an unused gate is the
@@ -616,6 +620,6 @@ wiring.
   round-relevant ones; the rest were estate-queue product letters (which belong
   to the queue) or semantic duplicates of verified rows.
 - **Counts re-derived at this branch head**, not carried from the audits: kit
-  `.sessions/` **343** cards, fleet-manager **431** — both including the cards
+  `.sessions/` **343** cards, fleet-manager **431** *(the fm figure is WRONG — re-derived on Codex fm #964 R3 as **432** at `b60a8f5` and **433** at that PR's head; the kit figure stands)* — both including the cards
   the round's own sessions added, which is why the truth pass's `342` (at kit
   `a9acc41`) and this file's `343` (at kit `7f58f0e`) are both correct.

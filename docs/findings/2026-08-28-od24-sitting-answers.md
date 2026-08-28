@@ -123,8 +123,18 @@ superseded broader phrasing, not as a rule that secretly meant this all along.
   rule reaching repos or venues with another maintainer must not read that as
   *any human* *(narrowed on Codex review of fm #964, R2: the broader form would
   permit prompts precisely when the person who granted the exception is absent)*;
-  in unattended runs it
-  must decide — refuse or proceed — and never wait.
+  in unattended runs it **must not
+  wait** — and what it does instead is **NOT settled by his answer**. He was
+  asked only *when a brake may prompt*; the option he chose says nothing about
+  whether the underlying action may proceed unattended. *(Corrected on Codex
+  fm #964 R3, P1: an earlier cut wrote "refuse or proceed", which invents a
+  fail-open authorisation for sends and deletes while OD-24 § 3's
+  confirm-before-sending-or-deleting line is still standing.)*
+  **So, explicitly: for anything the confirm-first line covers — sending, or
+  deleting — an unattended brake REFUSES**, because that is the surviving rule
+  and no answer here retired it. Elsewhere the fail-open/fail-closed choice is
+  **left unresolved** rather than delegated to whoever builds the mechanism, and
+  it goes to him if a real case arises.
 - **`delete_trigger` stays PREVENTED in every venue**, attended or not. It was
   carved out of all three options before he answered and no answer re-authorises
   it; fm's never-delete-a-trigger decision ([`decisions.md`](../decisions.md))
@@ -206,9 +216,10 @@ His answer, verbatim:
 > we can easily find out what went wrong each session."*
 
 `OWNER`. Two distinct things, and the second is the load-bearing one: he
-**delegated the disposition** and, in the same breath, **named a function the
-journal serves that nothing else currently does** — *easily find out what went
-wrong each session*, per repo.
+**delegated the disposition** and, in the same breath, **named a function** —
+*easily find out what went wrong each session*, per repo. *(An earlier cut added
+"that nothing else currently does". That was the assumption two derivations died
+on: the session cards already capture it. Removed — Codex fm #964 R3.)*
 
 **The decision, taken here under that delegation** (`DERIVED`, and recorded as
 a decision rather than an ask, per his standing *decide rather than default to
@@ -248,7 +259,10 @@ load-bearing leg in each of the first two:
 guidebook — and his function is served by RETRIEVAL over the cards that already
 exist, not by a second record.** Reading his sentence precisely settles it: he
 asked to *"**easily** find out what went wrong each session"*. The capture is
-not missing — fleet-manager holds **431** cards and the kit **343**. What is
+not missing — fleet-manager holds **433** dated cards at this branch head (432
+at `b60a8f5`, before this session) and the kit **343**. *(Re-derived on Codex
+fm #964 R3; the **431** this file first carried came from the agenda's § 7 and
+is wrong — superseded wherever it appears.)* What is
 missing is any way to scan them. **That is a retrieval problem, and retrieval is
 routing** — which his own cost function (§ 20) ranks above building, and which
 is the fix family the genesis dig assigned to most of its gap table.
@@ -267,10 +281,14 @@ is the fix family the genesis dig assigned to most of its gap table.
   reflection miner routed at last. Choosing among those is design and belongs to
   a build session under roadmap § 6.
 
-**Open and explicitly not decided here:** the re-scoped journal's shape, and
-whether it is one file or a section of an existing one. That is design, it
-belongs to a build session, and inventing it now would be the
-idea-to-infrastructure move the promotion rule forbids.
+**Open and explicitly not decided here:** which retrieval shape serves him — an
+index, a digest, a query, or the kit's existing reflection miner routed at last.
+That is design, it belongs to a build session, and inventing it now would be the
+idea-to-infrastructure move the promotion rule forbids. **What is NOT open:
+re-scoping the journal into a per-session record.** *(Both stale re-scope
+passages removed on Codex fm #964 R3 — left standing, the first
+operative-looking instruction in this section would have produced exactly the
+duplicate record the third derivation rejects.)*
 
 ## 6 · AGENTS.md — **hand-write per repo** (agenda § 2 · E)
 

@@ -108,7 +108,13 @@ completed step appends a row to §7 with its PR.
 > The packets still select no target on the owner's behalf; they no longer need
 > to, because he named one.
 
-> **`OQ-FM-D2-TARGET` remains OPEN.** A 2026-08-23 session marked it answered by
+> ~~**`OQ-FM-D2-TARGET` remains OPEN.**~~ **CLOSED 2026-08-28 (OD-26): he ratified
+> the intent audit's measured order, so the target is `spider-swing`.** The
+> paragraph below is kept as the record of *why it stayed open until he said so*,
+> and its lesson is unchanged — an estate-wide outcome is not a repository
+> selection. *(Codex fm #964 R3: this block still read present-tense after OD-26
+> closed the entry, which would have sent a session to re-ask him.)* A 2026-08-23
+> session marked it answered by
 > OD-20 and **withdrew that the same session** (`@codex`, fm #937): his words
 > state a desired estate-wide outcome — *each repo properly documented and linked
 > from the hub* — but do **not** select a repository, and do not convert D2's

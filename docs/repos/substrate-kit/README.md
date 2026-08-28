@@ -32,7 +32,14 @@ same PR.
 
 ## Threads
 
-### Thread: the owner-directed review round — **session 4 DONE (the sitting ran; ALL the letters are answered); session 5 named below from his own words**
+### Thread: the owner-directed review round — **session 4 DONE (the sitting ran; every letter that was ASKED is answered); session 5 named below from his own words**
+
+> **Still open after the sitting, so no session reads "answered" as "finished":**
+> the kit's **name** (he ruled it changes and will supply the word — `OQ-KIT-RENAME`) ·
+> the **adopter half** of `OQ-KIT-V1-21-RELEASE` (he answered timing only) ·
+> agenda **§ 2 · G** (card deletion — deliberately not asked; his answer is due
+> once the report-only census exists) · the **BTD6 history loop** (not asked; its
+> own sitting).
 
 The owner ordered a kit review round in the second overnight 2026-08-27→28
 hub sitting (*"review it again and improve it"* — verbatim record + the

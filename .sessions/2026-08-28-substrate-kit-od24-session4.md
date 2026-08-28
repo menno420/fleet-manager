@@ -1,10 +1,15 @@
 # 2026-08-28 — substrate-kit review round, session 4 (the discussion sitting: his answers, recorded)
 
-> **Status:** `in-progress` — born red; flips last, after the close-out is
-> written and the strict gate reads a real exit code.
+> **Status:** `complete` — landed after **three Codex rounds: 8 + 6 + 9 = 23
+> findings, 23 `[conceded]`, 0 `[survived]`**, every one verified at source
+> before its fix. Flip exemption per the close discipline: the last reviewed SHA
+> is `d578c02`; after it come only the R3 fixes (all nine, each named in the
+> dispositions below) and this flip. The two-re-review cap is spent and **no
+> review is pending** — nothing was deferred, so TRAP-007's flip-while-awaiting
+> case does not apply.
 
-- **📊 Model:** opus-5 · high · review/discussion (owner-live sitting)
-- **📍 Venue:** cloud-container, owner PRESENT
+- **📊 Model:** opus-5 · high · review/verify
+- **📍 Venue:** cloud-container — **owner-live sitting** (he was present and answering throughout)
 
 ## Mission
 
@@ -196,15 +201,79 @@ P1 that refuted the journal decision a *second* time.
   § 2 · G *not asked*. Now stated as every **eligible** row, with G preserved as
   an outstanding conditional question for after the census.
 
-**Two-round tally: 14 findings, 14 `[conceded]`, 0 `[survived]`.**
+## Codex R3 — **9 findings, 9 `[conceded]`, 0 `[survived]`** (head `d578c02`)
 
-**The pattern worth naming, because it is one class:** six of the eight are the
-same failure — **compressing an owner answer into something tidier than he
-said** (an exception dropped, a conflict dissolved, an input promoted to a gate,
-a component promoted to a method, an inference folded into his voice). This
-session's whole thesis is that answers must survive contact with the record, and
-the first draft eroded them in the act of writing them down. Every correction
-above widens the recorded answer back toward what he actually said.
+Tally **8 → 6 → 9**: measurably **non-convergent**. Under the two-re-review cap
+this was the last round to fix into, and the honest call was to fix all nine
+rather than defer any — every one is an **objective inconsistency**, not a
+judgment disagreement, and two were load-bearing. **Seven of the nine are
+propagation of my own R1/R2 corrections**, which is the same class R2 already
+charged and I still under-executed: a correction that stops at the canonical
+finding leaves the *routed* surfaces — the ones a future session actually reads
+— carrying the superseded reading.
+
+- **P1 · I authorised unattended action by implication** `[conceded]`, and this
+  is the sharpest finding of the three rounds. He answered only **when a brake
+  may prompt**. I wrote that unattended it *"must decide — refuse or proceed"* —
+  inventing a **fail-open authorisation for sends and deletes** while OD-24 § 3's
+  confirm-before-sending-or-deleting line is still standing and un-retired. Now:
+  unattended, a brake covering a send or delete **refuses**; for everything else
+  the fail-open/fail-closed choice is **left explicitly unresolved** rather than
+  handed to whoever builds the mechanism.
+- **P1 · the superseded journal instructions were still in the file**
+  `[conceded]` — the third derivation replaced the middle of § 5 but left the
+  framing above it and the "open questions" paragraph below still telling a build
+  session to *re-scope* the journal. The first operative-looking instruction in
+  the section would have produced exactly the duplicate per-session record the
+  revision rejects. Both removed.
+- **P2 · the card census was wrong and I propagated it** `[conceded]` — I carried
+  **431** from the agenda's § 7 into three files. Re-derived at this head:
+  **433** dated cards (**432** at `b60a8f5`). Corrected, and the agenda's own
+  figure is now marked wrong at both its sites rather than left to be re-copied.
+  A count taken from another document and never re-run is TRAP-004's class.
+- **P2 · `OQ-FM-D2-TARGET` still read OPEN in the working-plan block**
+  `[conceded]` — after OD-26 closed it. A session on the step ledger would have
+  re-asked him something he had just answered. Marked closed, with the "why it
+  stayed open" paragraph kept as record.
+- **P2 · § 5 still told a session to decide the AGENTS.md mechanism**
+  `[conceded]` — a fork **he closed** in this sitting. Struck through and
+  superseded; kit-planted `AGENTS.md` files are now explicitly forbidden there.
+- **P2 · the round thread and current-state claimed ALL letters answered**
+  `[conceded]` — while G and the BTD6 loop were never asked, the adopter half is
+  open, and the name is pending. Both now say *every letter that was **asked***,
+  and name the four still open.
+- **P2 · the findings index still flattened the stalling qualification**
+  `[conceded]` · **P2 · the agenda banner still carried the pre-correction
+  June-rule rule** `[conceded]` · **P2 · the answer table still called the
+  provider A/B "the method"** `[conceded]` — three more routed surfaces the
+  earlier fixes had not reached.
+
+**Three-round tally: 23 findings, 23 `[conceded]`, 0 `[survived]`.**
+
+**The pattern, now measured across three rounds rather than guessed at.** The 23
+findings are two classes, and both are this session's own thesis turned on it:
+
+1. **Compressing an owner answer into something tidier than he said** (~8 of 23):
+   an exception dropped, a conflict dissolved, an input promoted to a gate, a
+   component promoted to a method, an inference folded into his voice, an
+   unattended fail-open invented from an answer about prompts. A session whose
+   entire product is a record of what he said eroded his answers *in the act of
+   writing them down*.
+2. **Corrections that stop at the canonical finding** (~12 of 23): R2 charged
+   this and R3 charged it again, harder — the routed surfaces (the Layer-2
+   thread, OD-26, `current-state.md`, the findings index, the agenda banner) are
+   what a future session actually reads, and they kept carrying superseded
+   readings after the finding was fixed. **This is exactly the round's own
+   headline defect** — the dig's *unrouted* class — reproduced a third time
+   inside the session that was documenting it.
+
+The third class is a single instance worth naming separately: **the journal
+disposition took three derivations**, losing a load-bearing leg in each of the
+first two (the "estate-scoped" claim, refuted by the roadmap; then a lifecycle
+argument that never asked whether the cards already serve the function). The
+final answer proposes **nothing to build**, which is both the correct reading of
+his words and the first version that honours superbot:Q-0101. A decision that
+gets simpler under adversarial pressure was over-built to begin with.
 
 ⚑ Owner decisions needed: **all the round's standing letters are now answered.**
 What remains his: **`OQ-KIT-RENAME`** — he ruled the kit is renamed and deferred
