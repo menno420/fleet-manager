@@ -244,15 +244,29 @@ the rulebook.**
 `REASONED` throughout — this is the session's proposal, not owner-ratified, and
 § 8 says what it does not decide.
 
-**Move 1 — consume the cards. (The only move that addresses § 2.)**
-Extend the session-log checker so that flipping a card to `complete` with a 💡
-whose text names a concrete artifact requires that idea to have a routed
-destination. The estate's own spec for this is already written twice in the
+**Move A — consume the cards. ⚠ THIS IS THE HELD FUNCTION — DO NOT BUILD IT.**
+The proposal was: extend the session-log checker so that flipping a card to
+`complete` with a 💡 naming a concrete artefact requires that idea to have a
+routed destination.
+
+**That is the estate's own Move 1, in another shape, and OD-26 § 7 holds it.**
+His words there: *"Hold — still planning"*, and the section states the bound
+explicitly — *"No adjacent mechanism may be built that is Move 1 in another
+shape. The hold is on the function — a close-time declaration of what a session
+left behind — not on the filename."* A gate at card-flip asking whether the
+session's idea reached a destination **is** a close-time declaration of what the
+session left behind.
+
+**This record scored it highest of the four and recommended it hardest, while
+it was already held.** Retained as evidence *for* the held function — the four
+mining chains and the § 2 variance are exactly the case a revised plan would
+weigh — and withdrawn as a thing to build. It also **collided by name** with the
+estate's Move 1, which is why the moves here are now lettered. The estate's own spec for this is already written twice in the
 mining evidence. This is a **gate change**, which § 1 says is the only tier that
 holds. It is also the smallest change with the largest measured gap behind it —
 3,668 written against 357 landed.
 
-**Move 2 — port the checkers, not the skills.** superbot's nine checkers are
+**Move B — port the checkers, not the skills.** superbot's nine checkers are
 the highest-value material and they are already executable. A checker in the
 gate is **measurable and enforced**; the same method rewritten as a skill is
 neither — its use leaves no record at all (§ 1). Start with the two whose method
@@ -260,12 +274,12 @@ is fully general:
 baseline-before-you-edit (`pre-edit-check`) and sync-before-you-judge
 (`fix-drift`).
 
-**Move 3 — point the existing routes at the rulebook.** § 5 shows 71 routes
+**Move C — point the existing routes at the rulebook.** § 5 shows 71 routes
 covering conventions and zero covering the four rule surfaces. Adding routes is
 cheap, tested (`tools/test_doc_route_patterns.py`, 61 cases), and needs no kit
 release.
 
-**Move 4 — fix the distribution gap before promoting anything into the kit.**
+**Move D — fix the distribution gap before promoting anything into the kit.**
 Until `upgrade-distribution` performs the install step, promoting a skill into
 substrate-kit delivers it to nobody. Either wire the copy into the runbook, or
 decide deliberately that skills stay repo-local and stop treating the kit as
@@ -286,15 +300,17 @@ organising question)*
 
 | move | stops re-derivation? | makes a session leave the repo better? |
 |---|---|---|
-| **1 · consume the cards** | **Directly.** A 💡 naming a concrete artefact that reaches no destination is re-noticed by a later session — the four mining chains are exactly this | **Directly.** It is the leave-it-better act, made a condition of closing |
-| **2 · port the checkers** | **Yes, and it is already paid for** — nine executable checkers exist; rewriting their method is itself re-derivation | Yes, if gated: a checker in the gate makes the next session's tree cleaner |
-| **3 · route the rulebook** | **Partly.** Routes deliver a rule at the moment of action; they do not preserve a session's own finding | Weakly — it prevents a mistake rather than improving the repo |
-| **4 · fix kit distribution** | **No.** It unblocks delivery; nothing is re-derived today because of it | No — enabling work, not leave-it-better work |
+| **A · consume the cards** ⚠ held | **Directly.** A 💡 naming a concrete artefact that reaches no destination is re-noticed by a later session — the four mining chains are exactly this | **Directly.** It is the leave-it-better act, made a condition of closing |
+| **B · port the checkers** | **Yes, and it is already paid for** — nine executable checkers exist; rewriting their method is itself re-derivation | Yes, if gated: a checker in the gate makes the next session's tree cleaner |
+| **C · route the rulebook** | **Partly.** Routes deliver a rule at the moment of action; they do not preserve a session's own finding | Weakly — it prevents a mistake rather than improving the repo |
+| **D · fix kit distribution** | **No.** It unblocks delivery; nothing is re-derived today because of it | No — enabling work, not leave-it-better work |
 
 **On his criteria the ranking inverts the one this record first proposed.**
-Move 3 was put first for being cheap; on the re-derivation test it is the
-weakest of the four. **Move 1 is the only one that scores directly on both**,
-and Move 4 scores on neither — it is a prerequisite for a path (promoting into
+Move C was put first for being cheap; on the re-derivation test it is the
+weakest of the four. **Move A is the only one that scores directly on both —
+and it is the one OD-26 § 7 holds**, which is itself a data point: the estate's
+strongest available lever is the one the owner has deliberately paused. Move D
+scores on neither — it is a prerequisite for a path (promoting into
 the kit) that § 4 shows is not currently worth taking.
 
 **This section is `REASONED` and is an input. The owner writes the revised

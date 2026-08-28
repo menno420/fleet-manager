@@ -277,9 +277,13 @@ copy product architecture or internal product state. Canonical intent:
   sequence** — the pre-sequencing it first carried was withdrawn. Re-scored
   against his two criteria (§ 20 *does it stop re-derivation?* · § 4 *does it
   make a session leave the repo better?*), **the ranking inverts**: routing the
-  rulebook was cheapest and is weakest on re-derivation; *consume the cards* is
-  the only move scoring directly on both. Nothing is executed; OD-23's hold
-  stands and OD-26 § 7 re-affirms Move 1 HELD. Record:
+  rulebook was cheapest and is weakest on re-derivation; *consume the cards* is the only
+  move scoring directly on both — **and it is the estate's own Move 1 in another
+  shape, which OD-26 § 7 holds** (*"no adjacent mechanism may be built that is
+  Move 1 in another shape; the hold is on the function"*). The record scored it
+  highest and recommended it hardest while it was already held; it is now marked
+  DO-NOT-BUILD and retained as evidence *for* the held function. The moves are
+  lettered A–D to stop colliding with the estate's Move 1. Nothing is executed. Record:
   [`findings/2026-08-28-skill-and-rule-reuse-map.md`](findings/2026-08-28-skill-and-rule-reuse-map.md).
 
 ### Live operating mechanisms
