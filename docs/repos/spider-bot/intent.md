@@ -36,6 +36,21 @@ design criterion** rather than a purpose. It also means the shape matters more
 than the feature set — a session adding features here should know it is adding
 to an input, not to the destination.
 
+**Already recorded, and worth reading before treating any of this as new:** the
+consolidation into one new repository is a standing constraint in
+[the GCB plan](../../planning/2026-08-21-game-community-bot/README.md) `:40-43`
+(*"the eventual consolidation he describes is of the two `superbot`
+**repositories** into one new repository … **not** a merge of running bots"*),
+and `superbot-next`'s unreadiness is measured in
+[its own entry point](../superbot-next/README.md) `:29` (*"golden-parity green
+must not be read as 'ported'"* — capture-world literals, 60/66 help panels
+button-less). What his 2026-08-28 answer **adds** is the verdict the record left
+to him (`superbot-next` gets remade) and the growth requirement (*"able to grow
+indefinitely"*), which appears in no prior record. **The plan also flags its own
+unresolved contradiction one line later** — *"the executable roadmap now
+contradicts this, and that is not resolved here"* — which anyone acting on this
+should resolve first.
+
 ## What done looks like
 
 **Nothing recorded.** v0.1 shipped the tester funnel, the human-only roster,

@@ -474,29 +474,50 @@ frozen oracle — one, rebuilt from the start, and the design criterion is named
 **no architectural debt**, everything *"planned and connected from the start"*,
 **able to grow indefinitely**.
 
-**His "already documented" claim, verified — he is right, and his hedge is the
-accurate part.** `MEASURED` 2026-08-28 against
-[`../planning/2026-08-21-game-community-bot/intent.md`](../planning/2026-08-21-game-community-bot/intent.md):
-its ESTABLISHED section does carry *"the owner rejected further feature work on
-the live bot because its **architectural debt** makes it the wrong improvement
-surface"*, that `superbot` *"is not a safe foundation"*, and that `superbot-next`
-is *"an architecture donor, not proof of a ready product"*. So the substance is
-recorded. **Three things in his sentence are NOT:**
+**His "already documented" claim — he is right, and the first pass of this entry
+under-searched and got two of its three claims WRONG. Corrected below.**
 
-1. **That `superbot-next` must be REMADE.** The plan calls it *"a real layered
-   rebuild, not a shell"* and `ESTATE.md` calls it a **"complete-parked
-   architecture donor — 533/533 golden parity green"**. He says *"the current
-   build is nothing like the desired product"* and that it has to be redone.
-   **That is a materially stronger position than any record holds**, and the
-   estate's row reads as an asset in better shape than he thinks it is.
-2. **That the end state is ONE bot.** The records treat `spider-bot` as the
-   clean successor and `superbot-next` as a donor; nothing states that the two
-   **converge**. A session reading the estate today would keep them as separate
-   tracks indefinitely.
-3. **"Able to grow indefinitely."** The growth-forever requirement is his and
-   appears in no ESTABLISHED list. It is a real design constraint — it is the
-   reason *"planned and connected from the start"* matters more here than the
-   first version's feature set.
+`MEASURED` 2026-08-28, second pass, after an owner-review challenge asked what
+the "nowhere" claim rested on. **The first pass ran one grep over one directory
+with a fixed pattern list and never opened
+`docs/repos/superbot-next/README.md` at all** — then asserted three things were
+absent from the records. A broad re-search over the whole `docs/` tree:
+
+1. ~~That `superbot-next` must be REMADE is unrecorded.~~ **WRONG — the
+   substance is recorded and measured.** `docs/repos/superbot-next/README.md:29`
+   carries it as the file's governing caveat: *"**The one caveat that governs
+   everything here:** golden-parity green must not be read as 'ported'"* — with
+   the 2026-08-05 owner-live audit's evidence: **capture-world literals**
+   shipping as constants, and **60 of 66 help panels button-less**. A fresh-agent
+   test file separately records *"the disband-or-rebuild decision that remains
+   the owner's"*. **What is genuinely new is not the evidence — it is his
+   verdict.** The record measured the gap and explicitly left the call to him;
+   he has now made it: remade.
+2. ~~That the end state is ONE bot is unrecorded.~~ **WRONG, and this one is
+   nearly verbatim.**
+   [`../planning/2026-08-21-game-community-bot/README.md`](../planning/2026-08-21-game-community-bot/README.md)`:40-43`:
+   *"The bots remain separated — standing constraint. The eventual consolidation
+   he describes is of the two `superbot` **repositories** into one new
+   repository. It is **not** a merge of running bots."* His sentence names
+   `spider-bot` where the plan names "one new repository" — and `spider-bot`
+   **is** that repository. Same intent, already written down.
+3. **"Able to grow indefinitely" — this one stands.** A whole-tree grep for
+   `grow indefinitely` / `grow forever` / `unbounded growth` returns only
+   unrelated uses and this session's own files. The growth-forever requirement
+   is his and appears in no ESTABLISHED list.
+
+**And the re-search found something the first pass missed entirely:** the GCB
+plan flags its own unresolved contradiction immediately after the passage above
+— *"The executable roadmap now contradicts this, and that is not resolved
+here."* That is a live inconsistency inside the plan that governs this work,
+and it is now the sharpest thing in this entry.
+
+**Why this correction is kept rather than edited away.** It is the **second time
+in one day** that a session asserted an absence from an under-scoped search and
+was refuted — the first was the OD-24 round's *initiative* grep, which he
+himself refuted on sight. Both had the same shape: **a narrow search treated as
+a whole-population claim.** A grep proves what a pattern found in the paths it
+was given; it never proves absence from a corpus it did not search.
 
 `DERIVED`:
 
