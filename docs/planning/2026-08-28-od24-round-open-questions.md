@@ -47,9 +47,11 @@ therefore mostly answered; what survives of it is folded into § 2 · B.
 
 ## 1 · How to use this in the sitting
 
-- **§ 2 is the agenda.** Eight questions, ordered by dependency, not by size.
-  Each carries: the ask in plain language · the options · what it unblocks ·
-  what the minimum answer is.
+- **§ 2 is the agenda.** Nine questions, ordered by dependency, not by size —
+  start at § 2 · 0, which is the one nobody ever asked you. Each carries: the
+  ask in plain language · the options · what it unblocks · what the minimum
+  answer is. **§ 2b adds four short ones** the audits never phrased as
+  questions at all.
 - **Read § 4 first if the sitting is short.** It removes five things you might
   otherwise be asked.
 - **§ 5 is not for you.** It is what a session should simply decide, recorded
@@ -59,7 +61,27 @@ therefore mostly answered; what survives of it is folded into § 2 · B.
 - **Silence is not consent in this file.** Every row is here precisely because
   no session may derive it.
 
-## 2 · The agenda — eight questions, in dependency order
+## 2 · The agenda — in dependency order
+
+### 0 · Which ways does the kit still not work? — the question nobody asked you
+
+**The ask.** When you ordered this round you said, of stepping back to see how
+agents cope with the substrate-kit: *"in some ways it actually goes well, but
+in a lot of ways it still doesn't."* **No session has ever asked you which
+ways.** Three audit sessions then reconstructed a failure list from the
+committed record — twelve classified gaps, a doc-surface census, a router
+re-read — and that list is an inference from traces. Yours is first-hand.
+
+**Why it goes first.** If your list and ours agree, the round's priorities are
+confirmed and everything below is well-aimed. If they diverge, the divergence
+is the single most valuable measurement this round could produce — it tells us
+exactly where reading the record fails to see what you see.
+
+**Minimum answer:** two or three things that annoyed you, in any order, in
+your own words. Not a structured list — the structuring is ours.
+
+**Evidence:** [OD-24 § 5](../findings/2026-08-28-owner-direction-agent-autonomy.md)
+(line 185, verbatim) · the reconstructed list is dig § 7.
 
 ### A · Do your June rules still stand by default, or are they history?
 
@@ -235,6 +257,37 @@ paid key now bills your card directly, which was not true in July.
 **Evidence:** kit `docs/program/rulings.md` **PL-005** (Q-0249 is already
 program law, not a dangling obligation — see § 4) · `[D-0011]`.
 
+## 2b · Four more the audits never turned into questions
+
+Surfaced by the completeness pass, each verified at source this session. They
+are shorter than § 2's rows and mostly answerable in a breath.
+
+- **The kit's charter never mentioned the thing you built it for.** You said
+  the kit exists *"so agents become more autonomous and think more for
+  themselves and take more initiative"* (OD-24 § 2) — and the word
+  **initiative appears nowhere** in the kit's README, its closeout, or its
+  program-law register (grep, zero hits, re-run this session). So: should the
+  kit's stated purpose be rewritten to say that, or is the charter fine as
+  built and the initiative duty lives in the estate's rules instead?
+  *One sentence.*
+- **OD-13 named two prerequisites before product work; only one has been
+  worked.** Verbatim: *"further improve the methods and the rule enforcement"*
+  **and** *"further define the right mix of AI agents across different
+  providers"*. Everything since — the roadmap, this round — is the first.
+  The provider mix has had no session. Does it get one, and is that before or
+  after the round's remaining work? *One sentence.*
+- **The kit's published name is still a placeholder, by its own README.**
+  `README.md:9` reads *"`substrate-kit` is a placeholder name"* and defers the
+  published name to you. It has shipped 21 releases under it. Keep the name,
+  or change it now while the adopter list is still short? *One word.*
+- **What becomes the single next thing when this sitting ends?** The program's
+  own rule is that exactly one step is NOW. There are currently four live
+  "next" queues with no ordering between them: the program's NOW pointer (D2,
+  whose target is itself § 3's open question), the kit worklist's build rows,
+  this agenda's outcomes, and the held execution packets. *Name the one that
+  leads after the sitting* — or say "you pick", and a session will propose one
+  and flag it.
+
 ## 3 · Also yours, but not this round's
 
 The owner-queue carries the estate's open product letters, and they are
@@ -317,6 +370,13 @@ wiring.
   or misreads — the § 4 table is that half. The narrowings are the pass's real
   product: nearly every survivor lost an agent-derivable half that the harvest
   had wrongly routed to the owner.
+- **Completeness pass:** a critic re-read the surfaces the harvest lanes did
+  not own, asking what the audits never turned into a question. It returned
+  nine; the five strongest are § 2 · 0 and § 2b, each **verified at source by
+  this session before being written here** (the OD-24 § 5 quote at line 185;
+  OD-13's two-prerequisite sentence; `initiative` returning zero hits across
+  the kit's README, closeout and register; the kit README's own
+  placeholder-name line). The other four overlapped rows already present.
 - **Not claimed:** that the 40 unverified candidates hold nothing. § 6 names the
   round-relevant ones; the rest were estate-queue product letters (which belong
   to the queue) or semantic duplicates of verified rows.
