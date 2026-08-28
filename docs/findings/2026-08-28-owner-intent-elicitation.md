@@ -920,3 +920,71 @@ whether the surrounding "attend planning, delegate execution" model still holds.
 A session amending it before he answers would be rewriting his profile from an
 inference, which is the failure this whole sitting exists to stop.
 
+### 3.3d · The round's own defect, caught live — a correctly-routed rule that did not arrive
+
+**This is the OD-24 root cause happening to the session that was auditing it,
+and it is better evidence than anything in the three audits because it was
+measured as it occurred rather than reconstructed.**
+
+The shallow-clone error in § 3.3c was **not** unwritten knowledge. The estate had
+already caught it, registered it and routed it:
+
+- **Registered:** [`../traps.md`](../traps.md) TRAP-004, instance 2 — *"A commit
+  count from a SHALLOW clone … `main` holds 966; `.git/shallow` exists.
+  `git rev-list --count HEAD` and `git shortlog` share the defect."*
+- **Routed:** `.claude/hooks/doc-routes.json:1169-1181`, route
+  `shallow-clone-commit-counts`, matching `git\s+(log|rev-list|shortlog)\b` on
+  Bash.
+- **And its text is exactly the missing step:** *"Check with `test -f
+  .git/shallow` before quoting a number, and either scope the claim to the
+  sample in the same sentence or get the real figure from the API."*
+- **It even carries the prior instance:** `MEASURED` 2026-08-26, a
+  *"50 commits, one author"* claim published as a property of fleet-manager
+  when it was a property of a shallow clone (`@codex`, fm #947).
+
+**So the rule existed, was correct, was routed at the right tool, and the
+session still shipped the error into a committed file.** The reason is
+measurable:
+
+```
+grep -c '"repeat"' .claude/hooks/doc-routes.json                  → 1
+# the only route carrying repeat:true is card-flip-before-push
+# shallow-clone-commit-counts keys: ['docs','id','says','tools','when']  — no repeat
+```
+
+**The route is one-shot per session.** This session's **first tool call** ran
+`git log --oneline -12 origin/main` as ordinary orientation. Whether the route
+fired there or merely matched and spent its budget, it was **gone by the moment
+it mattered — roughly nine hours and dozens of tool calls later**, at the one
+`git log` in the session whose output became a claim.
+
+`DERIVED`, and it generalises past this one route:
+
+- **A once-per-session budget protects the *first* match, which is almost never
+  the dangerous one.** Orientation commands are harmless and they run first;
+  the load-bearing invocation comes late, after the budget is spent. For any
+  route guarding a *class of command* rather than a one-time act, one-shot is
+  close to the worst possible policy.
+- **This is the injection thesis with the instruction already injected once.**
+  The estate's measured version was *116 statements, 0 catches* — a rule
+  written but never delivered. This is sharper: **delivered, at the right tool,
+  and still absent at the moment of action.** The failure moved from *writing*
+  to *timing*.
+- **It is also the exact thing he named** — *"we don't waste so much time
+  redoing the same things over and over"*. fm #947 paid for this lesson on
+  2026-08-26. Two days later the same session class repeated it, with the guard
+  in the tree the whole time.
+
+**The fix is one word, and it is NOT taken here.** Adding `"repeat": true` to
+`shallow-clone-commit-counts` gives it the treatment `card-flip-before-push`
+already has, for the identical reason (the register: *"now `repeat: true` so it
+is never spent"*). It is **not** applied because the estate's own fix ladder —
+superbot:Q-0194, *the cheapest enforcing prevention in a fixed order: checker →
+hook → rule* — makes **checkers free to ship and hooks owner-gated**. This is a
+hook. It is put to him instead, with the evidence above.
+
+**Worth noting about the shape of the fix:** the question is not really "this
+route" but **"which routes should never be spent?"** — a one-line policy
+question with an estate-wide answer, and exactly the kind of thing the revised
+plan should settle once rather than route-by-route.
+
