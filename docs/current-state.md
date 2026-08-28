@@ -144,6 +144,11 @@ copy product architecture or internal product state. Canonical intent:
   kit-portable per model; and the **substrate-kit review round is directed**
   with a four-step method. Nothing GOs the held packets. Record:
   [`findings/2026-08-28-owner-direction-agent-autonomy.md`](findings/2026-08-28-owner-direction-agent-autonomy.md).
+  **The round's session 1 ran overnight the same date (fm #956)** — §6 steps
+  1–2 executed: the genesis dig's three-era history, twelve classified gaps
+  (dominant: unenforced/unrouted), the rival-hypothesis verdict, and the
+  dispositions table (recommendations only, zero deletions):
+  [`findings/2026-08-28-substrate-kit-genesis-dig.md`](findings/2026-08-28-substrate-kit-genesis-dig.md).
 
 ### Live operating mechanisms
 

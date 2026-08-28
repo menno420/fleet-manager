@@ -30,25 +30,31 @@ v1.20.2; trust `control/status.md` + the tree.
 
 ## Threads
 
-### Thread: the owner-directed review round — **open, direction recorded 2026-08-28**
+### Thread: the owner-directed review round — **session 1 DONE (steps 1–2); steps 3+ next**
 
 The owner ordered a kit review round in the second overnight 2026-08-27→28
-hub sitting: *"the substrate kit itself needs some work to make it actually
-do it's job in an efficient way"* … *"review it again and improve it."* His
-stepping back was a deliberate experiment — *"I wanted to find out how well
-the agents would currently work with the subtrate kit"* — and the mixed
-result is the review's evidence base. Direction, verbatim record and the
-four-step method (harvest drift incidents from the committed record →
-classify each gap: absent · unrouted · unenforced · missing procedure → fix
-kit-side → promote only by measurement, roadmap § 6):
-[`../../findings/2026-08-28-owner-direction-agent-autonomy.md`](../../findings/2026-08-28-owner-direction-agent-autonomy.md)
-(**OD-24**). The round's first session opens with the intent map
-(roadmap § 4.1), not with edits, and starts from this page's other threads —
-the [v1.21.0 follow-up worklist](../../findings/2026-08-13-substrate-kit-v1210-followups.md)
-leads, and the kit tree routing to its own worklist **nowhere** (`MEASURED`
-2026-08-21, below) is a first-order review finding already in hand. Owner
-continues *"later"* — directed, not scheduled; nothing in it GOs the held
-packets, and AGENTS.md plant-vs-hand-write is parked for this round.
+hub sitting (*"review it again and improve it"* — verbatim record + the
+four-step method:
+[`../../findings/2026-08-28-owner-direction-agent-autonomy.md`](../../findings/2026-08-28-owner-direction-agent-autonomy.md),
+**OD-24**). **Session 1 ran overnight 2026-08-28 and executed §6 steps 1–2:**
+[`../../findings/2026-08-28-substrate-kit-genesis-dig.md`](../../findings/2026-08-28-substrate-kit-genesis-dig.md)
+— the three-era history (genesis in superbot's interview era, dated
+self-sustainment 2026-06-09, peak 2026-07-12→13, extraction as "the door,
+not the notebook"), every regression cited, the drift harvest classified
+(§7: twelve gaps, dominant classes **unenforced/unrouted** — verification
+split two further: the reflection MINER and the planted question-router are
+shipped-but-unrouted, so route them before rebuilding anything; genuinely
+**absent** are only the interview/owner-ratified-promotion halves, the
+executor, and owner-words capture), the rival-hypothesis verdict (§8: seat-ender
+removal + injection thesis supported as one mechanism; "too many files"
+real but write-side, not the driver), and the **dispositions table (§10 —
+recommendations only, zero deletions proposed, execution owner-gated)**.
+**Next session (step 3, kit venue):** §11's order — the kit-tree worklist
+pointer first, then the
+[v1.21.0 worklist](../../findings/2026-08-13-substrate-kit-v1210-followups.md)'s
+false negatives (rows 13/17/18); Move 1 goes to the owner as the first GO
+candidate rather than a new mechanism. Nothing GOs the held packets;
+AGENTS.md plant-vs-hand-write stays parked for the round.
 
 ### Thread: the v1.21.0 follow-up worklist — **open, lives in THIS repo, not the kit**
 
