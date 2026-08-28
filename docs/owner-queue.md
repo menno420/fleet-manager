@@ -38,13 +38,22 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 ## Current owner decisions — verified from fleet-manager on 2026-08-10
 
 > **The substrate-kit round's questions have a sitting of their own
-> (2026-08-28).** The two `OQ-KIT-*` entries below are the queued half; the
-> full set — the standing letters, the audits' new questions, and what a
-> session should simply decide without you — is assembled as
+> (2026-08-28), and three of them were never in this file.** `MEASURED` today
+> against `origin/main`: this queue carried **134 `OQ-` references and no
+> entry** for the round's three standing letters — **Move 1's GO**, **the
+> journal question**, and **the §10 disposition confirmations** — although
+> every session card since 2026-08-28 recorded them as *"unanswered"*. They
+> lived only in audit findings, which are `RECORD`-tier and not a surface the
+> owner reads. **And once checked, only one of the three is still a live owner
+> ask:** Move 1's **GO** (stated with its options as § 2 · C of the agenda —
+> tracked here from now on); the **journal question** turns out to be largely
+> answered by his own roadmap § 5.4, and the **§10 confirmations** turn out to
+> be agent-executable — both are dispositioned in § 4 / § 5 of
 > [the OD-24 open-questions agenda](planning/2026-08-28-od24-round-open-questions.md),
-> the input to the review-and-discussion session you asked for. Answers given
-> in that sitting come back here as entry updates; the agenda does not
-> replace this queue, it feeds it.
+> which is the input to the review-and-discussion session he asked for. The
+> two `OQ-KIT-*` entries below are the half that *was* queued (both narrowed
+> the same day — see their notes). Answers given in the sitting come back here
+> as entry updates; the agenda feeds this queue, it does not replace it.
 
 - **`OQ-KIT-PROMPT-DOCTRINE` — which rule governs kit-planted brakes: your
   "no confirmation prompts ever" or the re-ratified confirm-first line?**

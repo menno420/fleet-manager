@@ -45,6 +45,20 @@ you named the one call that actually raises a prompt and asked for it to be
 prevented — not for all confirmation to be abolished. The letter as queued is
 therefore mostly answered; what survives of it is folded into § 2 · B.
 
+**And the second headline, which is not your fault and not quite ours
+either: the three letters this round has been waiting on for three sessions
+were never in the queue you read.** Move 1's GO, the journal question and the
+§10 disposition confirmations have been recorded in every session card and
+Layer-2 thread since 2026-08-28 as *"unanswered"* — but `MEASURED` at
+`origin/main` today, `docs/owner-queue.md` carries **134 `OQ-` references and
+not one entry for any of the three** (the only *journal* hits are the OneDrive
+hub's `journal.md`, unrelated). They lived in audit findings, which are
+`RECORD`-tier documents you have no reason to open. So *"the letters remain
+unanswered"* — a line three sessions repeated — was true and misleading: the
+asking never actually happened in the place asking happens. **This file is
+the first surface that carries all three where you look**, and the queue now
+points at it.
+
 ## 1 · How to use this in the sitting
 
 - **§ 2 is the agenda.** Nine questions, ordered by dependency, not by size —
