@@ -30,7 +30,8 @@ the enforced half of a two-part system, and was **extracted into the kit only in
 its enforceable form** — the kit was founded on the *measured failure* of the
 notebook half ("the door, not the notebook") and its own benchmark predicted,
 nine days before the program closed, exactly the regression the owner later
-observed. Post-close, **the ritual did not decay — the loop behind it did**:
+observed. Post-close, **the ritual's gated form did not decay — the loop
+behind it did**:
 card discipline held at ~100% presence everywhere it was gated, while the
 conveyor from cards into ideas-ledgers, journals, promoted rules and kit
 releases stopped, because the things that drove it — seat-prompt enders, owner
@@ -64,8 +65,14 @@ revived 2026-05-13 (PR #10, first `claude/` merge). May 2026: 1,206 commits,
   10 of the 12 birth-window cards (2026-06-06/07, all 12 read) record in-session
   owner Q-batches — a 16-question batch in 4 waves (PR #561), a **60-question
   batch** (Q-0013, 06-08), a 36-question vision capture. **Zero owner-typed
-  comments exist on any PR in the window** (all-time `commenter:menno420` search,
-  92 hits enumerated, footer-filtered) — the interviews lived in chat and
+  comments exist on any PR in the window** — established twice: an all-time
+  `commenter:menno420` search (92 hits enumerated, footer-filtered), then an
+  adversarial whole-population re-sweep (`MEASURED` 2026-08-28): every
+  in-window issue comment repo-wide (2, both Claude-posted with footers),
+  **0 inline review comments, 0 review bodies, 0 commit comments** — the
+  earliest owner review anywhere is PR #1035, 06-18. "Owner-typed" is
+  load-bearing (his account did post two machine-generated comments). The
+  interviews lived in chat and
   survive only as agent transcriptions and router entries. He also repeatedly
   interviewed the *apparatus*: *"maintainer asked for an honest opinion of this
   journal, then — based on it — to improve it and make future sessions keep it
@@ -208,8 +215,8 @@ notebook*."** What each lived practice became (`MEASURED` against
 | ⟲ review **substance** | `CARD_HINT_REVIEW` — one hint string; `check_card_residue` (the one substance instrument, 07-16) | **advisory-only, self-declared UNVERIFIED, never graduated** — its docstring documents the sham-card hole verbatim |
 | 💡 idea **lifecycle** (dedup · groom · "ends implemented or discussed") | template prose + `check_ungroomed_ideas` | **warn-only, "NEVER exit-affecting"**; the B4 frontmatter validator never shipped to adopters |
 | `.session-journal.md` guidebook (living, corrected-in-place) | planted 5-section skeleton | **zero** — 0 of 37 checkers reference it; the one checker that touches the path exists to **exempt** it (`check_template_sync` `LIVE_TRAFFIC_DESTS`); absent from every boot list |
-| question-router (his verbatim rulings; the DISCUSS/ask channel) | planted `question-router.md` template; PL register (law) | PL grammar checked **on the kit repo only**; no engine checker validates an adopter's router; **the ask-side mechanism has no kit descendant** |
-| the reflection interview + REVIEW/mining pass + owner-ratified promotion | — | **absent entirely** — the kit's `interview/` module fills template slots (project name, verify command), not session retrospectives |
+| question-router (his verbatim rulings; the DISCUSS/ask channel) | planted `question-router.md` template ("Maintainer answer (verbatim)" blocks); PL register (law) | PL grammar checked **on the kit repo only**; no engine checker validates an adopter's router; **the ask-side shipped as a template fm never used post-close** *(corrected in verification — an earlier draft said "no kit descendant")* |
+| the reflection interview + REVIEW/mining pass + owner-ratified promotion | the MINING half shipped: `engine/loop/reflections.py` (v1.0.0) mines 💡/⚑ card lines into a 5-entry buffer, injects them at boot, Stop-hook nags when unmined | mining is **advisory, one-liners, session-confirmed** — the **interview and owner-ratified-promotion halves are absent**; the kit's `interview/` module fills template slots, not retrospectives *(corrected in verification — an earlier draft said "absent entirely")* |
 | friction→guard | PL-007 + `rationalize` skill + friction-issue transport | law + tooling; nothing checks a guard was created |
 | understand-and-reflect (Q-0254) | `intake` skill + CONSTITUTION bullet (ported same day, 07-07 — the one ruling with a dated extraction event) | prose/skill, unenforced |
 | honest negatives | PL-012 + four wall-guard checkers | enforced **in the inverse direction only** (stops writing walls; nothing stops suppressing a negative) |
@@ -249,8 +256,18 @@ empty review sections; the 96%→60% "⟲ decline" in the first sweep was **glyp
 notation, not practice**. superbot's four post-freeze cards keep full
 discipline, and the single most rigorous predecessor-correction in the whole
 sample is post-freeze (the 56th reconcile pass refuting the 55th against a
-saved prompt at a named line, 2026-08-10). Sessions still **write** ideas:
-160/161 August cards carry one.
+saved prompt at a named line, 2026-08-10). "Form held" is more than
+non-emptiness: an adversarial residue probe over all 161 August cards found
+**0 surviving drafted-hint texts** (the sham-card fingerprint the kit's own
+`check_card_residue` hunts), so the sections were authored, not
+draft-residue (`MEASURED`, verification pass). Two honest narrowings from
+the same pass: sessions still **carry the 💡 marker** (160/161 August cards)
+but a fresh disjoint 27-card sample found ~11% of the slots holding no idea
+at all (dispatch text, mission restatement — the marker-needle hole §4
+describes, present in fm too); and August's review register visibly shifts
+in a minority toward verification/linkage entries ("Nothing to repair" in
+11/161, 10 of them from 08-13 on) — still checkable, never generic praise,
+but "substantive" is doing lighter work in August than in June.
 
 The regressions, dated:
 
@@ -259,7 +276,8 @@ The regressions, dated:
    was ordered to file them"*; **3 post-close** against 163 post-close cards
    (OD-21, `MEASURED`, verified tonight: no idea file after
    `consume-the-open-pr-signal-2026-08-11.md`, and no grooming act in any card
-   after 08-10). The demand side is namable: **every per-project
+   after 08-10 — a whole-population keyword grep over all 161 August cards,
+   spot-checked in verification, not a full read). The demand side is namable: **every per-project
    custom-instructions file in the v3 registry (9 of 9, re-measured tonight)
    carries the ender line "Enders: ONE genuine idea; prev-session review;
    heartbeat; flip."** — the close deleted that line from existence.
@@ -335,17 +353,21 @@ The regressions, dated:
 
 ## 6 · Intent deltas — judged against his recorded words
 
-1. **The kit's self-conception never contained his purpose for it.** He built
+1. **The kit's purpose statements preserved the autonomy half of his purpose
+   and never named the initiative half.** He built
    it *"so agents become more autonomous and think more for themselves and take
    more initiative"* (OD-24 §2); the kit describes itself as an
    **agent-memory substrate** whose *"claims … are enforced by checks"*
-   (`kit:README.md`, `PROJECT-CLOSEOUT.md`) — *initiative* appears nowhere in
-   its purpose statements, and the initiative-shaped practices (ideas lifecycle,
-   journal contribution, the generative rung) are exactly the ones shipped
-   unenforced as "house style." **Judged: the central drift, present from
-   founding, and the review round's real charter** — OD-21's *"does not
-   properly do it's job"* is the kit doing precisely the job its founding plan
-   scoped, which was narrower than the job he built it for.
+   (`kit:README.md`, `PROJECT-CLOSEOUT.md`). The autonomy half is genuinely
+   there — *"work correctly with little steering"*, the PL autonomy rails —
+   but the word *initiative* appears nowhere in its purpose statements (a
+   word-presence test, stated as such), and the initiative-shaped practices
+   (ideas lifecycle, journal contribution, CONSTITUTION's generative rung —
+   itself unenforced prose) are exactly the ones shipped as "house style."
+   **Judged: the central drift, present from founding, and the review round's
+   real charter** — OD-21's *"does not properly do it's job"* is the kit doing
+   precisely the job its founding plan scoped, which was narrower than the job
+   he built it for.
 2. **His own intent moved, and the kit tracked the July version.** Genesis:
    *not* 100% autonomous, *"managable and reviewable"* (Q-0015, 06-08). July:
    *"let fable decide"* (Q-0240), *"never wait … silence = consent"* (Q-0241) —
@@ -353,10 +375,13 @@ The regressions, dated:
    verification (the 07-21 reflection: *"the wall is verification, not
    capability"*) and now on initiative-with-hygiene (OD-24). **Judged: not a
    bad drift in itself — it is his prerogative and each step is recorded — but
-   the kit canonicalized the *autonomy* half of July and never grew the
-   *verification* half** (the closed-loop caveat — author = gatekeeper = merger
-   — survived the whole program; Codex on PRs is the one external check added,
-   post-close, by his instruction).
+   the kit canonicalized the *autonomy* half of July, and on the verification
+   side grew its own register (PL-014, 08-01 · PL-015, 08-06 — post-close
+   verification law) **without ever wiring a mechanized external check**: the
+   closed-loop caveat — author = gatekeeper = merger — survived the whole
+   program, and Codex on PRs is the one external check added, post-close, by
+   his instruction *(narrowed in verification — an earlier draft said "never
+   grew the verification half")*.
 3. **What did not drift:** born-red, verify-first, honest negatives,
    friction→guard-as-law — all deepened post-close (traps register, injection
    hooks, adversarial-review vocabulary, the 08-08 error-ledger mechanisms).
@@ -381,25 +406,27 @@ promote), never idea → mandatory infrastructure.
 
 | # | gap (evidence in §§4–5) | class | fix family (recommendation only) |
 |---|---|---|---|
-| 1 | ideas conveyor: cards → ledger graduation has no demand since the seat enders died; nag deliberately unseen since 08-06 | **unenforced** (write-side exists; nothing asks at close) | the legibility plan's **Move 1** (`♻ Carried forward` marker, mechanical value-vs-diff check) — already designed, kit-venue, awaiting GO; a rollout wave, not just a release |
+| 1 | ideas conveyor: cards → ledger graduation has no demand since the seat enders died; nag deliberately unseen since 08-06 | **unenforced** (write-side exists; nothing asks at close) | **hook·gate**: the legibility plan's **Move 1** (`♻ Carried forward` marker, mechanical value-vs-diff check) — already designed, kit-venue, awaiting GO; a rollout wave, not just a release |
 | 2 | journal contribution: planted file, zero checkers, absent from boot lists, exempted from drift-check | **unenforced + unrouted** (the file is never even pointed at) | fold into Move 1's `journal` value; separately decide whether the journal *should* survive as a per-repo surface or be superseded by traps.md-style routed records — a round question for the owner |
-| 3 | reflection interview / REVIEW-mining / promotion loop | **missing-procedure** (never extracted; kit has no analogue) | write as kit procedure/skill prototype on the hub first (§6 promotion); the seven questions still exist verbatim in `superbot:.sessions/README.md` |
-| 4 | ask-channel (owner rulings at the moment of action; the router's DISCUSS lane) | **absent** post-close | OD-21's website comment loop (Move 3) is its designed successor; until then, owner-comments (08-27) covers the write side |
+| 3 | reflection interview / REVIEW-mining / promotion loop | **split** *(reclassified in verification)*: the mining half shipped (`engine/loop/reflections.py`) and is **unrouted/unenforced** (advisory, nothing routes sessions to it); the interview and owner-ratified-promotion halves are **missing-procedure** | **route** the shipped miner first, then **build-procedure** for the interview/promotion halves as a hub prototype (§6 promotion); the seven questions still exist verbatim in `superbot:.sessions/README.md` |
+| 4 | ask-channel (owner rulings at the moment of action; the router's DISCUSS lane) | **unrouted/unused** *(reclassified in verification — the kit plants a shaped `question-router.md` template fm has held, unused, all post-close)* | **route** first (point the close at the planted router); **build-procedure** for the live loop: OD-21's website comment lane (Move 3) is its designed successor; owner-comments (08-27) covers the write side today |
 | 5 | kit worklist unreachable from the kit tree | **unrouted** | one pointer file in the kit tree — smallest fix in this table |
-| 6 | no executor/re-raiser for parked worklists (kit rows, superbot idea fragments, D3) | **absent** (structural: nothing wakes for a backlog) | a round decision: either a standing re-raise surface the owner sees (owner-brief already exists) or scheduled kit sessions — owner's call, not a session's |
+| 6 | no executor/re-raiser for parked worklists (kit rows, superbot idea fragments, D3) | **absent** (structural: nothing wakes for a backlog) | **route vs build-procedure is the owner's fork**: route (a standing re-raise surface he sees — owner-brief already exists) or build-procedure (scheduled kit sessions) — his call, not a session's |
 | 7 | flip-before-review keeps recurring with the rule written | **unenforced + unrouted** (routes consumed before the moment; nothing blocks the flip) | hook/gate family: make the flip commit itself the checked moment (TRAP-006/007 register already specifies the predicate) — prototype, measure |
 | 8 | owner-words capture (3 losses in one month, self-predicted recurrence) | **absent** (mechanism unbuilt, named in the 08-26 card) | build-procedure: a close-time "owner said → recorded where?" check; prototype on hub |
 | 9 | reflective-substance verification (sham-card hole) | **unenforced by design** (`check_card_residue` advisory, UNVERIFIED) | graduate per its own docstring *only after* reliability measurement (PL-008) |
 | 10 | write-side budget vs record-keeping (7000/7000 freeze) | **missing-procedure** (no overflow path existed until OD-17 invented one) | OD-17's tier split is the fix pattern; Move 2's digest is the standing answer |
-| 11 | orientation/retrieval pain (find-cost across 19 repos; advisory burial) | **unrouted** at estate scale | **Move 2 (the per-repo digest)** — compression, not deletion; already planned; this dig adds no second fix |
+| 11 | orientation/retrieval pain (find-cost across 19 repos; advisory burial) | **unrouted** at estate scale | **route** (compression is routing): **Move 2 (the per-repo digest)** — already planned; this dig adds no second fix |
 | 12 | kit defects found only by adoption-diff reviews (author-only-reader) | **missing-procedure** (no non-author read exists inside the kit's own loop) | the v1.21.0 card names it: verification by an instrument someone else wrote; Codex-on-kit-PRs is already the de facto procedure — record it as the kit's norm |
 
 **Distribution:** the harvested incidents skew overwhelmingly
 **unenforced/unrouted** — the estate's own injection thesis (116 statements, 0
-catches, twice measured) at kit scale. Genuinely **absent** are the loop's
-moving parts (interview/mining/promotion, ask-channel, executor, owner-words
-capture) — which is why "write another instruction" is the one fix family this
-table never recommends.
+catches, twice measured) at kit scale — and verification pushed it further in
+that direction: two rows first classed *absent* turned out to be shipped
+apparatus nothing routes to (the reflection miner, the planted router).
+Genuinely **absent** are the interview and owner-ratified-promotion halves,
+the executor, and owner-words capture — which is why "write another
+instruction" is the one fix family this table never recommends.
 
 ## 8 · The rival-hypothesis verdict
 
@@ -429,9 +456,14 @@ measured, and not the driver of the decline.** What the record supports:
   **append-without-retract inside internally-coherent documents** — a
   retraction/routing defect, not a count defect.
 
-**Rivals (a) close-removed-structure + (c) injection thesis: SUPPORTED, as one
-mechanism.** The owner was live on ~24 of the 38 post-close days — "stepped
-back" was a mode change (product directives and corrections continued; purpose
+**Rivals (a) close-removed-structure + (c) "never-arrived" — the injection
+thesis, in the estate's vocabulary: SUPPORTED, as one mechanism.** The owner
+was live on **at least 24 of the 38 post-close days** (`MEASURED`: enumerated
+from the OD table, decisions.md, CAPABILITIES.md owner-live venue entries,
+owner-queue.md and the §7 rows; independently re-derived in verification with
+six spot-checks — a wider docs sweep raises the floor to **28/38**, and one
+weak day, 07-30, a real-world playtest event, is excluded) — "stepped back"
+was a mode change (product directives and corrections continued; purpose
 supply stopped, deliberately: *"I wanted to find out how well the agents would
 currently work with the subtrate kit"*). What actually vanished at 07-21 was
 the **mechanized demand structure**: the seat enders (all 8 files, line 21),
@@ -448,6 +480,20 @@ tax on gate carve-outs (recurred fm #833 → idea-engine #899; fixed upstream in
 v1.21.0). No recorded case touches journals or ideas; the 11/14 byte-identical
 journals are *"never written, or written and reverted; the hash cannot tell
 them apart"* — and no upgrade-revert case is on record.
+
+**A fifth rival, surfaced by verification and weighed here: the decline was
+partly the PLANNED phase.** Q-0266 (owner, 2026-07-10, body read in full
+tonight): *"we can then consolidate later into only a few dedicated projects
+that slowly maintain what we created"* — populate → consolidate → maintain,
+with the idea-burst this finding uses as its baseline being the *ordered*
+output of the populate phase. This **confounds the timing pillar** of the
+(a)+(c) verdict: lower August volume is partly the planned phase 2. What it
+does not explain is the **selectivity** (gated practices held ~100% while
+ungated ones died — a phase change lowers volume, not compliance shape) or
+the maintenance decay (phase 3 is *"slowly maintain"*, and the §5 record is
+of maintenance NOT happening: D3 unrun, worklists unconsumed, indexes dead).
+The fusion verdict stands on selectivity; its timing pillar is shared with
+this rival.
 
 **Rival (d) era/model changes: no support.** No document attributes any decline
 to a model change; both families ran post-close; the one honest limit stands
@@ -488,6 +534,14 @@ the whole-population re-measure caught it (TRAP-004's class, caught in-flight).
   the #379–#448 window + all 92 owner-commenter hits + 12 comment threads;
   kit engine modules by targeted region (the checker census is a whole-listing,
   the bodies sampled).
+- **The verification pass, tallied:** 21 deterministic re-checks (20 PASS; the
+  one FAIL corrected two counts in place) + 6 adversarial verifiers — **1
+  CONFIRMED, 5 PARTIAL, 0 REFUTED outright**; every correction is applied
+  above and marked *(corrected/narrowed in verification)* where it changed a
+  claim. The sharpest catch: the headers-only sampling of router bodies
+  Q-0063–Q-0272 **dropped a load-bearing owner directive (Q-0266)** that bears
+  directly on §8 — its body was then read in full tonight and weighed as the
+  fifth rival. That band remains the finding's thinnest coverage.
 - **Skipped (named, not silent):** 645 June + 233 July superbot cards and ~121
   fm August cards beyond greps; superbot PR inline-review threads beyond 4
   spot-checks; kit docs subdirectories (audits/gen2/ideas/operations/planning/
@@ -547,7 +601,10 @@ deletion anywhere breaks that chain; (3) the retrieval fix for this corpus is
    rest of the plan — the round should put it to the owner as the first GO
    candidate, with this finding as its evidence base, rather than invent a
    second mechanism.
-4. **And put one question to him with the morning letters** (recorded here per
+4. **A targeted re-read of router bodies Q-0063–Q-0272** (the band this dig
+   sampled headers-only — verification proved it can hide load-bearing owner
+   directives; one session, read-only, superbot stays frozen).
+5. **And put one question to him with the morning letters** (recorded here per
    ask-and-keep-working): whether the journal survives as a per-repo surface
    (gap #2's second half) — the evidence says the guidebook function migrated
    to routed records (traps.md, Layer-2 threads) everywhere it worked, and the
