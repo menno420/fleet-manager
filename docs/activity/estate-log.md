@@ -7,11 +7,11 @@
 > canonical in each repository's own `.sessions/` card — this file is a
 > pointer index, never a copy.
 >
-> **Window:** the last **7 calendar days** (UTC). **Generated:** 2026-08-28 15:52Z.
+> **Window:** the last **7 calendar days** (UTC). **Generated:** 2026-08-28 16:12Z.
 > **Scope: the 19 NON-ARCHIVED repositories** — 9 archived ones are excluded, so every count here is
 > non-archived-only and is not a total for the estate's whole history.
-> **Cards:** 70 across 6 repositories, of which **2 are in flight** on an open PR.
-> **Venue stated:** 18 of 70.
+> **Cards:** 71 across 6 repositories, of which **3 are in flight** on an open PR.
+> **Venue stated:** 19 of 71.
 
 ## In flight right now — cards on open PR branches
 
@@ -20,6 +20,7 @@ session collides with, so read it before starting work in these repos.
 
 | repo | PR | venue | card |
 |---|---|---|---|
+| `fleet-manager` | [#962](https://github.com/menno420/fleet-manager/pull/962) | `cloud-container` | 2026-08-28-repo-orientation.md |
 | `fleet-manager` | [#961](https://github.com/menno420/fleet-manager/pull/961) | `cloud-container` | 2026-08-28-od24-round-open-questions-agenda.md |
 | `fleet-manager` | [#958](https://github.com/menno420/fleet-manager/pull/958) | `local-desktop` | 2026-08-28-owner-comment-e2e.md |
 
@@ -28,7 +29,7 @@ session collides with, so read it before starting work in these repos.
 | venue | cards |
 |---|--:|
 | `unstated` | 52 |
-| `cloud-container` | 11 |
+| `cloud-container` | 12 |
 | `local-desktop` | 4 |
 | `chatgpt-work` | 3 |
 
@@ -42,7 +43,7 @@ and nothing else. This is the split that made the log necessary.
 
 | repo | cards | reachable from a fleet-manager session without this log |
 |---|--:|---|
-| `fleet-manager` | 56 | yes |
+| `fleet-manager` | 57 | yes |
 | `websites` | 8 | **no** |
 | `substrate-kit` | 2 | **no** |
 | `couch-legend` | 2 | **no** |
@@ -60,6 +61,7 @@ and nothing else. This is the split that made the log necessary.
 | 2026-08-28 | `fleet-manager` | `cloud-container` | fable-5 | `complete` | [2026-08-28-substrate-kit-genesis-dig.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-28-substrate-kit-genesis-dig.md) |
 | 2026-08-28 | `fleet-manager` | `cloud-container` | fable-5 | `complete` | [2026-08-28-substrate-kit-od24-session2.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-28-substrate-kit-od24-session2.md) |
 | 2026-08-28 | `fleet-manager` | `cloud-container` | fable-5 | `complete` | [2026-08-28-substrate-kit-od24-session3.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-28-substrate-kit-od24-session3.md) |
+| 2026-08-28 ⏳ | `fleet-manager` | `cloud-container` | opus-5 | `in-progress` | [2026-08-28-repo-orientation.md](https://github.com/menno420/fleet-manager/pull/962/files) |
 | 2026-08-28 ⏳ | `fleet-manager` | `cloud-container` | opus-5 | `in-progress` | [2026-08-28-od24-round-open-questions-agenda.md](https://github.com/menno420/fleet-manager/pull/961/files) |
 | 2026-08-28 ⏳ | `fleet-manager` | `local-desktop` | GPT-5 family | `in-progress` | [2026-08-28-owner-comment-e2e.md](https://github.com/menno420/fleet-manager/pull/958/files) |
 | 2026-08-27 | `websites` | `chatgpt-work` | GPT-5 | `complete` | [2026-08-27-control-plane-estate-review.md](https://github.com/menno420/websites/blob/HEAD/.sessions/2026-08-27-control-plane-estate-review.md) |
