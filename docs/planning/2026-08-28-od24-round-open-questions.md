@@ -71,6 +71,50 @@ asking never actually happened in the place asking happens. **This file is
 the first surface that carries all three where you look**, and the queue now
 points at it.
 
+## ✅ THE SITTING RAN — 2026-08-28, owner-live. This file is now a RECORD, not an agenda.
+
+**Every § 2 and § 2b row was put to him and answered, plus two of § 3's three.**
+Verbatim answers, `OWNER` separated from `DERIVED`, and the reasoning behind each
+derived consequence: [the sitting record](../findings/2026-08-28-od24-sitting-answers.md). Answers were routed the
+same session to [`../owner-queue.md`](../owner-queue.md) (7 entries updated, 1
+added), [`../decisions.md`](../decisions.md) (`[D-0011]` reconciled) and the
+program's OD table.
+
+| row | his answer | where it landed |
+|---|---|---|
+| **§ 2 · 0** which ways it doesn't work | **one root cause** — *"agents don't take enough initiative to leave the repos in a better shape"* | re-ranks the round; § 4 of the record |
+| **§ 2 · A** June rules | *"Some of them might not be relevant anymore, but most of it still stands"* — a **fourth** option, none of the three offered | § 1 |
+| **§ 2 · B** blocking | **never block; guarantee pickup** | § 2 |
+| **§ 2 · B2** brakes prompting | **presence decides** — never while away, freely when present | `OQ-KIT-PROMPT-DOCTRINE` ✅ |
+| **§ 2 · C** Move 1 | **HELD** — and § 13 makes it a *stage* with an exit condition | `OQ-KIT-MOVE1-GO` ⏸ |
+| **§ 2 · D** the interview | **something asks, and filters** — not him | § 8 |
+| **§ 2 · E** AGENTS.md | **hand-write per repo** | § 6 |
+| **§ 2 · E2** the journal | **delegated**, with a function named → decided: keep, re-scope, route | `OQ-KIT-JOURNAL-SURVIVES` ✅ |
+| **§ 2 · F** leftovers | **a standing surface he reads** — scheduled unattended draining **refused** | § 10 |
+| **§ 2 · G** card deletion | **not asked** — its own minimum answer was *nothing today*, pending the report-only census | unchanged |
+| **§ 2 · H** spend caps | *"There hasn't really been much API use lately, so this is currently not relevant"* | `OQ-EAP-SPEND-WINDOW-MOOT` ✅ |
+| **§ 2b** kit charter | **rewrite it to say initiative** | § 9 |
+| **§ 2b** provider mix | his to work out, sequenced **after** the plan — and he named the **method** | § 16 |
+| **§ 2b** kit name | **change it**, but he picks the name later | `OQ-KIT-RENAME` (new) |
+| **§ 2b** next release | **cut when the next fix batch lands**; adopter half still open | `OQ-KIT-V1-21-RELEASE` ◐ |
+| **§ 3** D2's target | **`spider-swing`** — the measured order ratified | `OQ-FM-D2-TARGET` ✅ |
+| **§ 3** the EAP mail | *"leave it"* → **revised minutes later to "soon"**, with a widened brief | `OQ-E1-FINAL-EAP-EMAIL` ▶ |
+| **§ 3** the BTD6 loop | **not asked** — a product question for its own sitting | unchanged |
+
+**And one thing he said that was on no agenda**, which reframes all of the above:
+*"I am currently running 3 parrallel ultracode session to map most of all the
+repos, once this mapping is all done we should use this information to come up
+with a revised pan. Only after that will we move to execution of the 'GO'"* —
+so this round's output is **an input to a revised plan**, not a work queue. § 13
+of the record.
+
+**The headline measurement.** His list and ours **converge on one cause**, and the
+divergence is one of *altitude*: we ranked twelve gap classes; he named a single
+root cause they are all downstream of. The round had already found it — dig § 6.1
+called the missing initiative half *"the central drift … and the review round's
+real charter"* — and then organised itself around the gap table anyway. **The
+round reproduced, on itself, the unrouted-knowledge defect it was auditing.**
+
 ## 1 · How to use this in the sitting
 
 - **§ 2 is the agenda.** Eleven questions, ordered by dependency, not by size —
@@ -91,6 +135,8 @@ points at it.
 
 ### 0 · Which ways does the kit still not work? — the question nobody asked you
 
+**✅ ANSWERED 2026-08-28 — one root cause, not a list:** *"they are all related to the same root cause, which is mostly that agents don't take enough initiative to leave the repos in a better shape"*. See § 4 of [the sitting record](../findings/2026-08-28-od24-sitting-answers.md) for why this re-ranks the round's own output.
+
 **The ask.** When you ordered this round you said, of stepping back to see how
 agents cope with the substrate-kit: *"in some ways it actually goes well, but
 in a lot of ways it still doesn't."* **No session has ever asked you which
@@ -110,6 +156,8 @@ your own words. Not a structured list — the structuring is ours.
 (line 185, verbatim) · the reconstructed list is dig § 7.
 
 ### A · Do your June rules still stand by default, or are they history?
+
+**✅ ANSWERED 2026-08-28 — and with a FOURTH option, not one of the three offered:** *"Some of them might not be relevant anymore, but most of it still stands."* Standing is the default; the obsolescence exception is real but is **his** to apply, so a session flags a rule for retirement and keeps obeying it meanwhile. § 1 of [the sitting record](../findings/2026-08-28-od24-sitting-answers.md).
 
 **The ask.** Through June and July you told the agents a lot of things —
 *never show me a confirmation prompt again* · *if I asked for it personally,
@@ -135,6 +183,8 @@ the whole sitting.
 **Evidence:** [the router band re-read](../findings/2026-08-28-router-band-reread.md) § 2.
 
 ### B · May anything ever block a session from calling its work "done"?
+
+**✅ ANSWERED 2026-08-28 — NO. Never block; guarantee pickup.** Confirms his own June design (Q-0180 + Q-0174). Build the consumption loop, build **no** gate. § 2 of [the sitting record](../findings/2026-08-28-od24-sitting-answers.md).
 
 **The ask.** A session is supposed to wait for the second opinion before it
 calls a piece of work finished, and it keeps not waiting — measured five times
@@ -163,6 +213,8 @@ and needs no GO.
 the race *because* a consumption loop existed) · OD-24 § 3.
 
 ### B2 · May a brake ever stop and ask you — and for what?
+
+**✅ ANSWERED 2026-08-28 — PRESENCE DECIDES:** *"Never while I'm away; freely when I'm present."* His two rules were never in conflict — Q-0128's grievance was the *unattended* prompt. `delete_trigger` stays prevented in every venue. `OQ-KIT-PROMPT-DOCTRINE` closed. § 3 of [the sitting record](../findings/2026-08-28-od24-sitting-answers.md).
 
 **The ask.** Separate from B, and it stayed open after a first pass wrongly
 folded it into B (caught on review). B is about *waiting for review before
@@ -198,6 +250,8 @@ superbot:Q-0128 · OD-24 § 3 · `.claude/hooks/README.md:483-486`.
 
 ### C · Move 1 — GO or hold, and how far does the GO reach?
 
+**⏸ ANSWERED 2026-08-28 — HELD, and it is a STAGE not a deferral.** He chose hold over three GO shapes, then gave the exit condition unprompted (mapping → revised plan → execution). **Do not re-put this until that condition is met**, and build nothing Move-1-shaped under another name. § 7 + § 13 of [the sitting record](../findings/2026-08-28-od24-sitting-answers.md).
+
 **The ask.** When a session finishes, nothing asks it what it left behind for
 the next one — and that is precisely the habit that stopped working when you
 stepped back. Move 1 is one line every session must fill before it can close:
@@ -219,6 +273,8 @@ this one.
 
 ### D · The end-of-session questions — do you ask them again, or does something ask for you?
 
+**✅ ANSWERED 2026-08-28 — something asks, and shows him only what is worth showing.** The questioner is **not him**. **This is NOT a GO for § 2 · C** — reading it as one would be the inference-as-owner-decision failure recorded twice in this estate. § 8 of [the sitting record](../findings/2026-08-28-od24-sitting-answers.md).
+
 **The ask.** In June you used to ask each session a few questions when it
 finished — what did you learn, what should change — and you decided which
 answers became standing rules. That interview is the single practice that
@@ -236,6 +292,8 @@ the ratification rule is already yours and is not re-asked here.
 **Evidence:** dig § 4 (the reflection interview row) · § 5.
 
 ### E · AGENTS.md — what should the nineteen files actually say?
+
+**✅ ANSWERED 2026-08-28 — hand-write per repo.** PKT-B4's recorded position is confirmed by him, shown the trade and choosing it anyway; the kit does **not** plant or maintain them. Closes the fork in both places this file carried it. Execution stays behind the packet hold. § 6 of [the sitting record](../findings/2026-08-28-od24-sitting-answers.md).
 
 **The ask — and it is the MECHANISM, which two earlier cuts of this file
 wrongly moved off your plate.** You already decided every repo gets a small
@@ -272,6 +330,8 @@ sitting on. Execution of the nineteen still sits behind the packet hold.
 
 ### E2 · Does the per-repo journal survive at all?
 
+**✅ ANSWERED 2026-08-28 — DELEGATED, with a function named:** *"Your call … But I think the session journals would definitely add some value so we can easily find out what went wrong each session."* **Decided under that delegation: keep it, re-scoped to that function, and route it before enforcing it.** His conditional is answered honestly — routed trap records are estate-scoped, not per-repo, so they are *not* functional in the same way. § 5 of [the sitting record](../findings/2026-08-28-od24-sitting-answers.md).
+
 **The ask.** Every repo carries a planted `.session-journal.md` — a running
 notebook a session is supposed to add to. **The dig measured** that no checker
 references it, that it is absent from every boot list, and (with OD-21's
@@ -303,6 +363,8 @@ OD-24 § 7 (plant-vs-hand-write parked *for this round*).
 
 ### F · Who works the leftovers pile — you, or a schedule?
 
+**✅ ANSWERED 2026-08-28 — a standing surface he reads.** And a **negative worth recording**: two options offered scheduled unattended draining and he took neither, so that is **not** sanctioned. Fix family for gap #6 is **route**, not build-procedure. § 10 of [the sitting record](../findings/2026-08-28-od24-sitting-answers.md).
+
 **The ask.** There is a pile of small jobs nobody comes back to: fixes the kit
 itself needs, ideas from old sessions, write-ups we said we would do. The only
 thing that has ever drained it is you asking, as you did this week — three
@@ -323,6 +385,8 @@ own no-fake-precision rule sends that to prototype time.
 the v1.21.0 worklist's standing rows.
 
 ### G · May old session cards ever actually be deleted?
+
+**◻ NOT ASKED 2026-08-28 — deliberately.** This row's own minimum answer is *nothing today*; the report-only census is its prerequisite and has not run. Unchanged and still his, once there are real numbers.
 
 **The ask.** Every session leaves a written note. There are now **343** in the
 toolbox repo and **431** here, and nothing has ever tidied them — even though
@@ -353,6 +417,8 @@ actually be deleted with a tombstone, or do we keep everything forever?
 § 3 + § 5's carved-out last row.
 
 ### H · Spend caps — the ten-second one
+
+**✅ ANSWERED 2026-08-28 — not currently relevant:** *"There hasn't really been much API use lately."* A dismissal on relevance, **not** a no-ceiling-forever ruling; no cap adopted, **no meter ordered** (that option was offered and not taken). Its prerequisite was discharged first — `[D-0011]`'s self-contradiction is reconciled. § 17 of [the sitting record](../findings/2026-08-28-od24-sitting-answers.md).
 
 **The ask.** In early July you said the AI bills were not really a problem and
 you would rather watch a couple of months and decide from the average. That

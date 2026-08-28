@@ -548,11 +548,94 @@ breaks any remaining tie.*
   ratified the best order the evidence supports, which is what it claims to be.
 - **`OQ-FM-D2-TARGET` is retired from the queue** with his words as its answer.
 
-## 19 · The final EAP mail — **leave it** (agenda § 3)
+## 19 · The final EAP mail — **soon, and the mapping feeds it** (agenda § 3)
 
-His selection: **"Leave it — not now."**
+**Answered twice, and the second answer supersedes the first.** His selection
+was **"Leave it — not now"**; minutes later, unprompted, he revised it:
 
-`OWNER` (option selected). The one-page-versus-three question is not worked, the
-restructure is not done, and the mail is not sent. The queue entry stays open
-and untouched; nothing about it moves this round.
+> *"About the mail, that really is something to work on soon, and I think that
+> all the audits I'm doing right now will provide valuable information, not only
+> about the EAP itself but generally about how agents work, whih would be a
+> valuable addition to the mail"*
+
+`OWNER`. Recorded as a supersession rather than a correction of the record: the
+option he clicked is what he clicked, and his later live words outrank it
+([`../../CONSTITUTION.md`](../CONSTITUTION.md) — the live owner beats any stored
+text, and that includes a stored answer from ten minutes earlier). A session
+reading only the click would park this for months.
+
+**What the revision actually changes — three things, and the third is new
+scope:**
+
+1. **Timing:** not *"leave it"* but *"soon"*. It stops being dormant queue
+   material and becomes near-term work.
+2. **A dependency that did not exist before:** the mail now **waits on the
+   mapping audits he is running** (§ 13), because he intends their output to go
+   into it. So the mail is a *third* consumer of that mapping, alongside the
+   revised plan and this round.
+3. **Its content brief widens, and this is the part nobody had:** the mail was
+   scoped as an EAP wrap-up. He now wants it to carry what the audits show
+   *"generally about how agents work"* — findings beyond the EAP itself. That
+   is a materially different document from the one assembled, and it bears
+   directly on the one-page-versus-three question the agenda framed: **the
+   length problem cannot be settled until the content brief is, because he has
+   just added to the content.**
+
+`DERIVED`, and deliberately minimal: no restructure is done here, nothing is
+sent, and the one-page constraint is neither dropped nor enforced — settling it
+now would be settling it against the old brief. The queue entry is updated to
+carry the new brief and the mapping dependency so the next session meets both.
+
+## 20 · The cost function — **stalling is tolerable; REDOING is the waste** (unprompted, extends § 4)
+
+Said unprompted, later in the same sitting, and it completes the root-cause
+answer § 4 records:
+
+> *"The thing is, there is so much to do that a lot of work just keeps stalling,
+> which is not necessarily bad, but also a reason why I think it's important
+> that the workflow is working correctly, so we don't waste so much time redoing
+> the same things over and over agian"*
+
+`OWNER`. § 4 gave the *cause* (agents not taking enough initiative to leave
+repos better). This gives the **cost being paid for it**, and the two together
+specify what a fix has to do:
+
+- **Stalling is explicitly not the target.** *"not necessarily bad"* — with the
+  estate's volume, work sitting is expected. A mechanism justified by "this
+  stops things stalling" is aimed at something he did not ask to fix.
+- **Re-derivation is.** *"redoing the same things over and over"* is the waste
+  the workflow exists to prevent, and it is the criterion any candidate fix
+  should be judged against.
+
+**This is measured, three times over, in this round's own output** — which is
+why it lands as confirmation rather than as a new direction:
+
+1. **The re-read's dominant pattern, stated as its own headline:** *"the round
+   keeps re-deriving designs the owner already ruled on in June; the router is
+   where those rulings live."* Its § 3 table maps genesis precedents onto the
+   dig's gap rows, including **three cases where the genesis system already
+   built the exact mechanism a gap row presents as an open design question.**
+2. **The truth pass's stalled conveyor, with the cost named in its own
+   disposition:** four kit idea files still read `captured/open` while their
+   deliverables sit in the tree with PR receipts, and the finding says plainly
+   that *"shipped work presented as open sends a groom session rebuilding
+   existing deliverables."* That is his sentence, measured, in the kit.
+3. **This round, on itself.** § 4 records it: dig § 6.1 had already identified
+   the initiative gap as *"the central drift … and the review round's real
+   charter"*, and the round then organised around the gap table anyway. The
+   re-derivation tax was being paid by the audit whose job was to find it.
+
+`DERIVED`, and it is a **test**, not a new work item:
+
+> **For any mechanism this round proposes: does it stop something being
+> re-derived? If its benefit is that work stalls less, it is aimed at the wrong
+> thing.**
+
+Applied to what is already on the table, this re-ranks cleanly and without new
+scope: **routing beats building.** The dig's own distribution said the dominant
+gap classes are *unenforced* and *unrouted*, and that verification twice
+reclassified rows from *absent* to **shipped-but-unrouted** (the reflection
+miner; the planted question-router). A shipped mechanism nobody is routed to is
+re-derivation waiting to happen — which is exactly the class his sentence
+names, and exactly the class this round found most of.
 

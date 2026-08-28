@@ -32,7 +32,7 @@ same PR.
 
 ## Threads
 
-### Thread: the owner-directed review round — **session 3 DONE (the kit-tree truth pass + the two owed checks; current-state reconciled); the letters still wait**
+### Thread: the owner-directed review round — **session 4 DONE (the sitting ran; ALL the letters are answered); session 5 named below from his own words**
 
 The owner ordered a kit review round in the second overnight 2026-08-27→28
 hub sitting (*"review it again and improve it"* — verbatim record + the
@@ -94,21 +94,83 @@ R3's one P1 was the born-red hold itself, consumed by the flip).
 the one required check — the ci.yml legacy-alias deletion is now unblocked
 agent work).
 
-**Next session — SELECTED BY THE OWNER, live, 2026-08-28 after session 3
-landed:** *"the next session can review everything that these 3 audits have
-produced, and then helps me to discuss and answer the open questions."* So
-session 4 is a **review-and-discussion sitting**, not a build session; its
-input is
-[the round's open-questions agenda](../../planning/2026-08-28-od24-round-open-questions.md)
-(every open question the round produced, verified still-open at HEAD,
-classified owner-only vs agent-derivable). **This supersedes the candidate
-list this thread carried before** — ~~the work-destroyers 26/29/33 (+34/35),
-the §5 doc-surface sweep, gap #3's reflection miner~~ — which were a
-session's proposal; those remain the standing BUILD queue for whenever a
-build session is next, and the agenda's own "what a session should just
-decide" section says which of them need no letter at all. Nothing GOs the
-held packets; AGENTS.md stays parked for the round (and is itself an agenda
-row).
+**Session 4** (2026-08-28, **owner-live** — the review-and-discussion sitting he
+selected: *"the next session can review everything that these 3 audits have
+produced, and then helps me to discuss and answer the open questions"*):
+[the sitting's answers, verbatim](../../findings/2026-08-28-od24-sitting-answers.md)
+— **twelve answers recorded as each arrived**, `OWNER` quotes separated from
+`DERIVED` readings, and routed the same session to the queue (7 entries updated,
+1 added, **3 closed**), to `[D-0011]`, to the program as **OD-26**, and back into
+[the agenda](../../planning/2026-08-28-od24-round-open-questions.md), which is
+now a **record** rather than an agenda.
+
+**The three things that change how this round is read:**
+
+1. **One root cause, not twelve gaps.** Asked *which ways does the kit still not
+   work* — the question no session had put to him — he collapsed four of his own
+   prior complaints into one: *"they are all related to the same root cause,
+   which is mostly that agents don't take enough initiative to leave the repos
+   in a better shape"*. The divergence from the round's reconstruction is one of
+   **altitude, not fact** — and the round **had already found it** (dig § 6.1,
+   *"the central drift … and the review round's real charter"*) and then
+   organised around the gap table anyway. **The round reproduced, on itself, the
+   unrouted-knowledge defect it was auditing.**
+2. **The cost function, unprompted:** *"a lot of work just keeps stalling, which
+   is not necessarily bad, but also a reason why I think it's important that the
+   workflow is working correctly, so we don't waste so much time redoing the same
+   things over and over"* — **stalling is tolerable; re-derivation is the waste.**
+   The test for any proposed mechanism is *does it stop something being
+   re-derived?*, which re-ranks **routing above building**.
+3. **A three-stage order, unprompted, which governs everything:** *"I am
+   currently running 3 parrallel ultracode session to map most of all the repos,
+   once this mapping is all done we should use this information to come up with
+   a revised pan. Only after that will we move to execution of the 'GO'"* — so
+   **this round's output is an input to a revised plan, not a work queue**, and
+   the Move 1 hold is a **stage with an exit condition**, not a deferral to
+   re-ask next session.
+
+**Answers that bind kit work directly:** the charter is **rewritten to say
+initiative** · `AGENTS.md` is **hand-written per repo** (the kit does not plant
+them) · the journal **survives, re-scoped** to *"find out what went wrong each
+session"* and **routed before enforced** (he delegated the call and named the
+function) · a brake may prompt **only when he is present**, never unattended
+(`delete_trigger` still never) · nothing may **block** a session calling work
+done · the next release is **cut when the next fix batch lands** · the kit
+**is renamed**, but he supplies the name later (`OQ-KIT-RENAME`).
+
+### Thread: **session 5 — the kit records session, cleared by him and named from his answers**
+
+**Not a session's proposal this time.** Asked directly whether kit-side document
+work also waits for the revised plan, he answered **"Records work can go now"**,
+drawing the boundary himself: **mechanisms wait, record corrections do not.** So
+session 5 is a **kit-venue records session**, and its two halves are both his:
+
+1. **Rewrite the kit's charter to name initiative** — his § 2b answer, and the
+   round's most direct fix for the root cause he named. *Initiative* currently
+   returns **zero hits** across `kit:README.md`, `kit:docs/PROJECT-CLOSEOUT.md`
+   and `kit:docs/program/rulings.md`. **Scope guard:** the purpose statements
+   only — **not** the PL register's rulings, which are program law with
+   append-only grammar and owner provenance.
+2. **The truth pass's § 5 sweep** — the 23-file wrong-action set. Lead with the
+   rows that cost sessions capability *today*, because three of his mapping
+   sessions are running into them right now: `docs/CAPABILITIES.md`'s standing
+   false walls (in the repo whose own `check_no_false_walls` exists to prevent
+   exactly that), `docs/fleet-repos.txt`'s five missing adopters (it is the
+   **live regen input**, so the gap ships into every future registry regen), and
+   `control/inbox.md`'s 24 seat-era ORDERs still reading `status: new` —
+   including one instructing a session to arm an hourly routine, which sits
+   beside the estate's never-delete-a-trigger decision.
+
+**Then the release**, per his timing answer: kit #587 and #588 ride `main`
+unreleased and go out **with** this session's work in one cut, not before it.
+The adopter half stays open — he answered timing only.
+
+**Explicitly NOT session 5's:** Move 1 or anything Move-1-shaped (held, and it
+is a stage with an exit condition — do not re-ask him before the mapping is
+done); the interview and the standing leftovers surface (designs, not builds —
+both inherit *never block* and *never prompt unattended*); the rename (waiting
+on his name); any adopter rollout; the economy activation (flagged decision,
+carved out of the sweep's blanket); fm #958; superbot.
 
 ### Thread: the v1.21.0 follow-up worklist — **open, lives in THIS repo, not the kit**
 
