@@ -43,9 +43,11 @@ version number — an absence of upkeep. The current round ends with the charter
 rewrite, the doc-surface sweep and one release; after that, recurring kit work
 is a symptom rather than progress.
 
-> ❓ **Guiding question.** "It must end" — end meaning *no more maintenance*, or
-> *no more development at all*? Does the kit ever get genuinely new capability
-> again, or is it finished and only kept correct from here?
+**✅ ANSWERED 2026-08-28:** *"Quiet, but it can still grow when something proves
+out."* **Maintenance ends; development does not.** New capability is permitted
+only through the promotion rule — after it measures useful in a real repo first.
+He declined "shrink from here", so removal is not ordered. The failure signal is
+specifically **recurring upkeep**, not growth.
 
 ## What it must never become
 
@@ -76,17 +78,21 @@ smaller**, not to schedule more maintenance.
 
 ## Who it's for
 
-`DERIVED`: agents working in every adopter repo — 12 registry rows plus five
-adopters the roster cannot see. Not for him: he has never read the kit's
-internals, and its surfaces are agent-facing by construction.
+`OWNER`, 2026-08-28: *"The kit is definitely meant to be used by others and I'm
+pretty sure that that is already explained there. At least by the MIT license"* —
+so the audience is **agents in any repo, including repos that are not his.**
+
+**Verified at `main`, 2026-08-28, because the claim about the tree was hedged:**
+he is substantially right — `LICENSE` is MIT, and `README.md` carries a one-step
+adopt recipe, three modes that explicitly *pace adoption*, and a pip-installable
+form, in a repo-agnostic voice. **Two exceptions:** the purpose sentence
+(`README.md:3-5`) carries only the *autonomy* half — *"work correctly with
+little steering"* — and never initiative; and the repository description reads
+*"AI self improvement system in progress"* with no topics and no homepage, which
+is the first thing an outside adopter meets.
 
 One measured oddity worth his eye: **`superbot` — the origin repo, and the only
 one running a live production service — never adopted the kit.**
-
-> ❓ **Guiding question.** Is the kit ever meant to be used by anyone outside
-> your estate? It is public, it has shipped 21 releases, and it carries a
-> placeholder name you have now decided to change — which reads like a decision
-> about *other people seeing it*.
 
 ## How much it matters right now
 

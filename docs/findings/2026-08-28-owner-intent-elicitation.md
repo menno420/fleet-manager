@@ -323,3 +323,81 @@ round is still fresh"*.
 4. The final record carries **his** words, with the draft's inferences either
    confirmed, corrected, or removed.
 
+### 1.11 · Where the records live — **fleet-manager global, repos full** (the deliverable's scope, settled)
+
+His answer, verbatim:
+
+> *"Fleet manager for the global intent, like the main goal and expectations,
+> and the own repos for the whole report"*
+
+`OWNER`. A split, not a location. **fleet-manager carries the global intent —
+the main goal and his expectations per repo; each repo carries the full
+record.**
+
+`DERIVED`, and it resolves the tension cleanly rather than overriding either
+side:
+
+- It **matches [`../intent.md`](../intent.md) § 1's existing division** almost
+  word for word (*fleet-manager carries what the repo is for*; the repo carries
+  how to work inside it). The intent layer inherits the same split the
+  orientation layer already uses — no new architecture.
+- It **preserves the non-goal** (*"a second source of truth for anything a repo
+  owns"*): the full record lives once, in the repo; fleet-manager holds a
+  summary that points at it.
+- **Scope, therefore:** ~28 short global entries here (main goal + expectations),
+  and one full record per repo **in that repo**, at whatever depth the repo
+  warrants. Per-subsection records stay a per-repo judgment rather than a
+  blanket obligation.
+- **Consequence for this session's draft:** `docs/repos/substrate-kit/intent.md`
+  is a **staging draft**. Once he rewrites it, the full record belongs in the
+  kit repo and fleet-manager keeps the summary.
+
+### 1.12 · The kit's endgame — **quiet, but it may still grow when something proves out**
+
+His selection: **"Quiet, but it can still grow when something proves out."**
+
+`OWNER`. This **narrows § 1.6** rather than restating it: *"it must end"* means
+**maintenance** ends, not development. New capability is still permitted — but
+only through the promotion rule, after it measures useful in a real repo first.
+
+`DERIVED`: so the failure signal is specifically **recurring upkeep**, not
+growth. A kit that gains a checker because a repo demonstrated the need is
+healthy; a kit that needs a fourth session to fix its own docs is not. He also
+declined *"shrink from here"* — removal is not ordered.
+
+### 1.13 · The kit's audience — **for others, and he was right that it says so** (verified, with two exceptions)
+
+His answer, verbatim:
+
+> *"The kit is definitely meant to be used by others and I'm pretty sure that
+> that is already explained there. At least by the MIT license"*
+
+`OWNER` on the intent (**for others** — settled), and a **hedged** claim about
+the tree (*"pretty sure"*). Verified rather than accepted, per his own
+calibration profile — verify the hedged, act on the unhedged. `MEASURED`
+2026-08-28 against `menno420/substrate-kit` at `main`:
+
+**Substantially correct.** `LICENSE` exists (GitHub reports `spdx_id: MIT`);
+`README.md` carries an *"Install / adopt (one step)"* section with a
+copy-one-file recipe, **three integration modes that explicitly "pace
+adoption"**, and a pip-installable form. The voice is repo-agnostic —
+*"everything a fresh repository needs"* — not estate-specific. An outsider
+could adopt it.
+
+**Two exceptions, and both land on the charter rewrite he already ordered:**
+
+1. **The purpose sentence carries the autonomy half only.** `README.md:3-5`:
+   *"A portable, self-improving **agent-memory substrate**: everything a fresh
+   repository needs for AI agents to work correctly with little steering."*
+   Steering-reduction — not **initiative**. This is the round's zero-hit grep
+   located at a line number, so the rewrite now has an exact target rather than
+   a brief.
+2. **The repo's own description undersells it to exactly the audience he wants:**
+   *"AI self improvement system in progress"*, **no topics, no homepage**. For a
+   thing meant to be used by others that is the first surface a stranger meets.
+
+`DERIVED`: the audience answer changes the charter rewrite's brief — it must read
+as if a stranger might pick it up, which is a different sentence from one aimed
+at his own agents. The description and topics are a two-minute fix in the same
+session.
+
