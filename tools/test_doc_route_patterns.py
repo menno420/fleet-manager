@@ -91,6 +91,28 @@ CLAIM_ROUTES = (
 HEREDOC_DOC = "cat > docs/findings/x.md <<'EOF'\nall 26 repositories were swept\nEOF"
 HEREDOC_MENTION = "grep -rn 'all 26 repositories' docs/traps.md"
 
+# Heredoc spelling varies, and a variant `authored_only()` misses is a guard
+# silently back off for that spelling — the same failure this whole change
+# exists to fix, one level down. The `<<-` and multiple-heredoc cases were
+# raised by `@codex` on fm #963 against an earlier head; they pass, and they
+# are pinned here so a future regex tightening cannot quietly drop one.
+MARK = "all 26 repositories"
+HEREDOC_VARIANTS = [
+    ("single-quoted delimiter", f"cat > a.md <<'EOF'\n{MARK}\nEOF", True),
+    ("double-quoted delimiter", f'cat > a.md <<"EOF"\n{MARK}\nEOF', True),
+    ("bare delimiter", f"cat > a.md <<EOF\n{MARK}\nEOF", True),
+    ("tab-stripping <<-", f"cat > a.md <<-EOF\n\t{MARK}\n\tEOF", True),
+    ("custom delimiter name", f"cat > a.md <<'CARD'\n{MARK}\nCARD", True),
+    ("python3 - heredoc", f"python3 - <<'PY'\nprint('{MARK}')\nPY", True),
+    ("second of two heredocs",
+     f"cat > a.md <<'A'\nnothing\nA\ncat > b.md <<'B'\n{MARK}\nB", True),
+    ("indented terminator", f"cat > a.md <<'EOF'\n{MARK}\n  EOF", True),
+    # The silent half: a command that merely NAMES the text must not be
+    # matched, or the guard is spent by its own documentation (fm #923).
+    ("grep mention, no heredoc", f"grep -rn '{MARK}' docs/traps.md", False),
+    ("plain redirect, no heredoc", f"echo '{MARK}' > a.md", False),
+]
+
 
 def route(route_id: str) -> dict:
     for r in json.loads(TABLE.read_text())["routes"]:
@@ -134,6 +156,11 @@ def check_plumbing() -> list[str]:
             "authored_only() returned text for a command with no heredoc — a "
             "mention would fire the guard and spend it"
         )
+    for label, command, should_see in HEREDOC_VARIANTS:
+        seen = MARK in authored_only(command)
+        if seen != should_see:
+            want = "expose" if should_see else "stay silent on"
+            bad.append(f"authored_only() must {want} the {label} form")
     return bad
 
 
@@ -153,7 +180,7 @@ def main() -> int:
         if not fires(shallow, text):
             failures.append(f"{SHALLOW}: SHOULD FIRE but is silent — {label}: {text!r}")
 
-    plumbing_cases = len(CLAIM_ROUTES) * 3 + 2
+    plumbing_cases = len(CLAIM_ROUTES) * 3 + 2 + len(HEREDOC_VARIANTS)
     total = (len(MUST_FIRE) + len(MUST_BE_SILENT) + len(SHALLOW_MUST_FIRE)
              + plumbing_cases)
     if failures:

@@ -1,6 +1,7 @@
 # 2026-08-28 — the claim guards could not see Bash-authored documents
 
-> **Status:** `in-progress` — born red; flips only as the last commit.
+> **Status:** `in-progress` — born red; flips only as the last commit, after a
+> review answers at the head that carries the repeat cap and the tests.
 
 - **📊 Model:** opus-5 · high · docs-only
 - **📍 Venue:** cloud-container
@@ -97,6 +98,39 @@ mention would be spent by its own documentation, which is the fm #923 failure.
 ```
 Layer-2 handoff: null (fleet-manager itself; the change is hub-local apparatus)
 ```
+
+## Review disposition
+
+**`@codex` on head `172ccc5` — not a findings review but an independent
+reimplementation**, reported as a comment: it built the same `authored_only()`
+extraction, enabled the same eight routes, and made the same four claim guards
+repeat, then ran its own four-case A/B and got the same result. It could not
+open a PR (`make_pr: command not found`, no git remote in its environment), so
+its commits are unreachable from here and nothing was taken from them.
+
+**Two things its testing changed here.** Its case list named heredoc spellings
+mine had not been tested against — `<<-` tab-stripping, bare and double-quoted
+delimiters, multiple heredocs in one command. All ten variants pass, and they
+are now pinned in the suite rather than left in a shell transcript, because a
+spelling `authored_only()` misses is this same guard silently backing off one
+level down. Negative control: removing `<<-` support from the regex makes the
+suite exit 1 naming that variant.
+
+Its report also states *"all 17 regression cases passed"* — the suite was 17
+cases at `172ccc5` and is **41** now. That is a correct reading of an earlier
+head, not a discrepancy, and it is the reason this card did not flip on its
+comment: a verdict binds the SHA it ran on (TRAP-007).
+
+**One correction to this card's own earlier claim.** The reply reporting this
+work said the two claim routes "never fired" during the session. That was
+argued from the A/B rather than read: `route_docs.py` records per-session fire
+state at `/tmp/claude-doc-routes/<session_id>.json`, which would have answered
+it directly — and this session's regression suite opens with
+`rm -rf /tmp/claude-doc-routes`, so the evidence was destroyed by the test for
+the bug it would have evidenced. The conclusion still holds (the routes were
+structurally incapable of matching heredoc authoring, which the A/B shows), but
+it rests on inference where a direct record had existed. **Anyone reusing that
+suite should scope the reset to its own synthetic session ids.**
 
 ## 💡 Session idea
 
