@@ -51,3 +51,275 @@ is."* Each is two things **he** said; none is an agent inference about him.
 
 *(answers recorded below as they arrive)*
 
+### 1.1 · Money — **hobby; revenue is a nice side effect** (CONFLICT RESOLVED)
+
+His selection: **"Hobby — revenue is a nice side effect."**
+
+`OWNER`. The conflict was between superbot:Q-0263 (2026-07-11, *"we spend way
+too much time on safety … this is just a hobby project"*) and the estate's
+actual commercial structures — a paid Play developer account with a launch gated
+on a 12-tester closed test, `venture-lab`'s 1 live $29 SKU plus 19 ready, and
+`shiftlife`'s Pro tier. **The July line stands; the commercial structures are
+not goals.**
+
+`DERIVED`, and this is a real constraint rather than a mood:
+
+- **No repo is prioritised because it might earn.** The option he chose says so
+  explicitly. Any plan that ranks work by revenue potential is mis-aimed, and
+  `venture-lab`'s pause (OD-11) needs no commercial justification.
+- **It bounds the safety/verification budget too.** Q-0263's full line pairs the
+  hobby framing with *"we spend way too much time on safety"* — the same
+  sentence. Effort spent making commercial-grade guarantees is effort spent
+  against his stated frame.
+- **It does NOT mean the products are unserious.** He ships them, tests them
+  with real people and maintains a live bot; hobby describes the *motivation*,
+  not the standard.
+
+### 1.2 · Autonomy — **full in some areas, never in others** (CONFLICT RESOLVED, and it opens a gap)
+
+His selection: **"Full autonomy for some areas, never for others"** — area by
+area, as he granted autonomy tiers through the router in June.
+
+`OWNER`. The conflict was between superbot:Q-0015 (2026-06-08, *"not intended to
+be 100% autonomous … so this project stays managable and reviewable"*) and
+superbot:Q-0083 (2026-06-10, *"ultimately there will not be much else left to
+do"*). **Neither is the destination.** He rejected both the
+build-toward-removing-yourself reading and the reviewable-forever reading.
+
+**`DERIVED` — and this is the gap the answer opens: the area map does not
+exist.** The June mechanism he is pointing at (autonomy granted per area,
+through the router) died with the router on 2026-07-15. Nothing in the estate
+today records **which areas run themselves and which always come back to him**.
+Post-close the estate has instead accumulated *global* rules — PL-002/PL-012's
+never-wait, the ask-first list, `[D-0015]`'s trigger prohibition — which are
+area-blind by construction. So:
+
+- This answer is **not executable as stated** until the areas are named. It is
+  the highest-value follow-up in this sitting and is put to him next.
+- It also reframes § 2 · B2 of the OD-24 sitting (*presence decides* whether a
+  brake may prompt): presence is one axis, **area** is the other, and he has now
+  named the second.
+
+### 1.3 · Who the intent records are for — **agent-first, rendered to him by the website** (CONFLICT RESOLVED: not stale)
+
+His selection: **"Agent-first — I'll read them through the website."**
+
+`OWNER`. [`../intent.md`](../intent.md) § 1's rule — *"the primary reader is the
+next agent session, not the owner"* — **stands and is not stale.** The apparent
+conflict with OD-21 (the website review surface, *"easy for me to see and review"*)
+dissolves: **one source, rendered differently.** The website is the human view of
+the same material, not a second document written for him.
+
+`DERIVED`, and it constrains the deliverable he asked for in the same message:
+
+- The per-repo intent records are **written for the next agent session**, even
+  though they carry his words. His words are the *source*, not the audience.
+- **This is a genuine constraint on how they get written** — precise, checkable,
+  citable, provenance-labelled — rather than warm prose aimed at him.
+- **It makes the website a dependency of this work, not a parallel project.**
+  OD-21's comment lane is how he reads and corrects these records; without it he
+  has no view of what was written in his name. Worth stating because the two
+  were being planned as separate threads.
+
+### 1.4 · The record shape — **a default template, plus room to keep talking**
+
+His answer, verbatim:
+
+> *"All of those probably, there should be a default template but also room for
+> extra free explanation"*
+
+`OWNER`. He was offered four slots, six slots, or free-form prose, and took
+**the six plus free-form** rather than choosing between structure and voice.
+
+`DERIVED`, the template this implies — six fixed slots so records are comparable
+across 28 repos, then an open section so nothing gets truncated to fit:
+
+| slot | the question he answers |
+|---|---|
+| **Why it exists** | what made him start it, in his words |
+| **What done looks like** | the end condition, or *"never done"* said deliberately |
+| **What it must never become** | the guardrail — the non-goal specific to this repo |
+| **What would make me stop** | the kill criterion, which the estate records **nowhere** today |
+| **Who it's for** | him, an audience, or nobody yet |
+| **How much it matters right now** | the priority signal that lets a session tell a beloved project from a tolerated one |
+| **— anything else** | free, unbounded, his voice, no schema |
+
+**The `how much it matters right now` slot is the one that must carry a date**,
+because it is the slot guaranteed to go stale — which is the whole reason this
+sitting exists.
+
+### 1.5 · Repo count — **deferred, not closed** (CONFLICT RESOLVED, and sessions have been over-reading it)
+
+His answer, verbatim:
+
+> *"This is still something to reconsider later, but I think this shouldn't be a
+> concern now"*
+
+`OWNER`. The conflict was between OD-18's keep-14/archive-12 disposition
+(2026-08-22, 9 executed the next day) and OD-20's *"every repo genuinly adds
+something valuable right now"* (2026-08-23).
+
+**The correction matters, because the estate hardened his answer past what he
+said.** OD-20 has been read — including in this repo's own program row — as
+*"no further repo cuts, the reduction lever is spent."* He has now said it is
+**reconsiderable later** and merely **not a concern now**. Those are different:
+a spent lever is closed, a parked question is not.
+
+`DERIVED`:
+
+- **Nothing changes in the near term** — no cuts, no re-litigating dispositions,
+  and legibility remains the work. His *"shouldn't be a concern now"* is
+  unambiguous.
+- **But OD-20 should stop being cited as a permanent closure.** A future session
+  proposing a reasoned archive list is not contradicting him.
+- **It is a "later" with no trigger**, which is exactly the shape that goes
+  stale silently. Worth re-asking when the mapping and revised plan land, since
+  that is when the estate's shape is next under review anyway.
+
+### 1.6 · The kit vs the non-goal — **worth it now, but it MUST END** (CONFLICT RESOLVED, and it hands the round an exit condition)
+
+His selection: **"Right now it's worth it, but it must end."**
+
+`OWNER`. The conflict was between [`../intent.md`](../intent.md) § 5's non-goal —
+*"an apparatus that needs maintenance sessions of its own"* — and the
+substrate-kit round consuming four sessions this week plus a 34-row worklist.
+
+**He did not exempt the kit. He confirmed the non-goal and time-boxed the
+exception.** The option he chose reads: this round is a one-off correction
+because he stepped back too far; afterwards the kit should go quiet again —
+*and if it does not, that is the signal it is too big.*
+
+`DERIVED`, and this is the most operationally useful answer in the sitting so
+far:
+
+- **The OD-24 round now has an exit condition it did not have.** It was open-
+  ended ("review it again and improve it"). It ends when the kit stops needing
+  sessions — and the 34-row worklist is not a mandate to work all 34.
+- **It supplies a live test with a real failure branch.** If kit work keeps
+  recurring after this round, the correct response is **to make the kit smaller**,
+  not to schedule more maintenance. That is a conclusion no session would have
+  reached on its own; every prior instinct in the record was to fix more rows.
+- **It bounds session 5 and anything after it.** Records work he cleared, the
+  charter rewrite, the release — then quiet. A fifth, sixth, seventh kit session
+  is evidence against the kit, not progress.
+
+### 1.7 · shiftlife — **paused, and he intends to come back** (CONFLICT RESOLVED)
+
+His selection: **"Paused — I intend to come back to it."**
+
+`OWNER`. OD-15's *"shiftlife is not active"* (2026-08-10) never said which kind
+of inactive it was, and the estate has been treating it as functionally
+abandoned — its four open owner asks have sat since July.
+
+`DERIVED`:
+
+- **It is a live intention, not a dead repo.** Its open asks stay in the queue
+  and are legitimate; nobody should propose archiving it.
+- **It has no Layer-2 folder** (`on demand` in `ESTATE.md`) — which is now wrong
+  for a repo he intends to return to, since returning is exactly when a cold
+  session needs the handoff most.
+- **It is the estate's only private *product* repo** and the only one serving an
+  identified outside audience (shift-working households, binnenvaart first) —
+  which bears on the who-is-this-for question still open in § 2.
+
+### 1.8 · Autonomy — **he rejects the axis itself** (and this is the batch's headline)
+
+His answer, verbatim, to a proposed inside-the-estate / outside-the-estate
+autonomy boundary:
+
+> *"Not entirely sure, it really depends on the kind of task and personally I
+> don't see a lot of difference between autonomous and directed apart from where
+> the initiative comes from. The results will not automatically be better
+> because I started the task. Tho right now there isn't really much autonomous
+> work anyways since the EAP is done and most of the work right now really needs
+> some type of input from me"*
+
+`OWNER`. He was offered three shapes of an autonomy boundary and took none of
+them. **He is not choosing between autonomy tiers — he is saying the tier
+framing is not the interesting one.**
+
+**Why this matters more than the question it answers.** The estate is built on
+autonomy-as-permission: PL-002 and PL-012's never-wait, the decide-and-flag
+ladder, the ask-first list, autonomy rails in the CONSTITUTION, `[D-0015]`'s
+prohibition. All of it models the question *"how much may an agent do without
+him?"* His answer says the only real difference between autonomous and directed
+work is **where the initiative came from**, and that **his starting a task does
+not make the result better**.
+
+`DERIVED`, and stated as a correction to how this estate has been reasoning:
+
+- **The estate has been solving a permissions problem while he describes an
+  initiative problem.** This is the same thing he said as the OD-24 root cause —
+  *agents don't take enough initiative to leave the repos in a better shape* —
+  arriving from a different direction. Two independent answers, one subject.
+  **Initiative, not permission, is the axis he cares about.**
+- **It does not repeal any ratified brake.** The confirm-before-send/delete
+  line, the trigger prohibition and the production rails are unaffected; he
+  declined to *rank areas*, not to keep the safety lines. Nothing here
+  authorises anything new.
+- **The area map is therefore NOT the follow-up work** § 1.2 assumed it was.
+  That entry called the area map "the highest-value follow-up in this sitting";
+  his answer supersedes it. Recorded rather than edited away, because the
+  wrong turn is the evidence: a session (this one) reached for a permissions
+  artefact within minutes of him naming an initiative problem.
+- **The question is near-moot in practice right now, by his own account** —
+  *"there isn't really much autonomous work anyways since the EAP is done and
+  most of the work right now really needs some type of input from me"*. So any
+  effort spent designing autonomy tiers today is effort against a condition that
+  does not currently exist.
+
+### 1.9 · creator-kit, and a new thing he wants: **a repo-creation skill**
+
+His answer, verbatim:
+
+> *"A bit of the first 2 answers combined, this is not really a repo that will be
+> doing much work, tho that could change. And when this was made there weren't
+> really proper agreements made woth the local session. Which is also why I think
+> it's important to make a repo creation skill, so all repos get created in the
+> same way"*
+
+`OWNER`. Three things, and the third was not asked for:
+
+1. **The 2026-08-23 local-session rule was not yet real when creator-kit was
+   made** — *"there weren't really proper agreements made woth the local
+   session"*. So this is not a broken rule; it is a rule that had not landed on
+   that venue yet. The OD-23 discipline is two days older than the repo, but
+   arriving at a venue is not the same as being written down — the estate's own
+   injection thesis, again.
+2. **creator-kit is low-activity by intention** — *"not really a repo that will
+   be doing much work, tho that could change"*. It is not neglected; it is
+   quiet. Its unrendered `current-state.md` is still a defect, but a small one.
+3. **He wants a repo-creation skill** — *"so all repos get created in the same
+   way"*. **New, owner-originated, and not on any list.** Queued rather than
+   built: it is a mechanism, and his mapping → revised plan → execution
+   sequencing governs.
+
+`DERIVED`: the skill's value is precisely that it makes the local venue and the
+cloud venue produce identical repos — which is the OD-23 handoff goal expressed
+as a tool rather than as a rule. It is also, notably, an **initiative-side** fix
+rather than a permission-side one, which is consistent with § 1.8.
+
+### 1.10 · How the interview runs — **draft first, ask where unsure, he writes**
+
+His answer, verbatim:
+
+> *"Draft it first, but also provide questions when certain things aren't sure.
+> I want some time to write this out personally but some guiding questions would
+> help"*
+
+`OWNER`. And the first repo, by his selection: **`substrate-kit`** — *"while the
+round is still fresh"*.
+
+`DERIVED`, the working method for every remaining repo:
+
+1. A session **drafts** the intent record from the committed evidence, marking
+   every slot it inferred rather than sourced.
+2. It attaches **guiding questions** exactly where the draft is guessing — not a
+   generic questionnaire, only the genuinely uncertain slots.
+3. **He rewrites it in his own words.** The draft exists to give him something to
+   react to, which his own profile names as the form that works
+   ([`../owner-profile.md`](../owner-profile.md): *"by stating back your perceived
+   intent I will see if you understood and will correct you if you are wrong"*).
+4. The final record carries **his** words, with the draft's inferences either
+   confirmed, corrected, or removed.
+
