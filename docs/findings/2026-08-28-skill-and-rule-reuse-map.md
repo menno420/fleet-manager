@@ -90,35 +90,44 @@ a finding.
 `idea-engine`"*. **Also wrong, and worse** — the zeros were an artifact of
 counting one directory name in repositories that keep ideas elsewhere.
 
-**The corrected measurement**, each repository against **its own** idea store:
+**The corrected measurement.** Unit: **one idea item** — an `*.md` file in the
+repo's idea tree, or one `verdict-*` directory where verdicts are the output
+form. Stated because version 3 of this table mixed units (it counted
+directories *and* their contents for some repos and files only for others,
+inflating exactly the two rows it was correcting).
 
-| repo | cards | idea artifacts | store | ratio |
+**Positive control, unplanned:** `idea-engine` returns **566**, which is the
+same figure the boot file has carried since OD-4 (*"566 idea files"*) from an
+independent count. A measurement that lands on a number already in the tree
+from another source is the closest thing to corroboration available here.
+
+| repo | cards | idea items | store | ratio |
 |---|--:|--:|---|--:|
-| `idea-engine` | 503 | **580** | `ideas/` | **1.15** |
-| `sim-lab` | 259 | **551** | `sims/` (verdicts) | **2.13** |
-| `superbot` | 969 | 257 | `docs/ideas/` | 0.27 |
+| `idea-engine` | 503 | **566** | `ideas/` (`*.md`) | **1.13** |
+| `sim-lab` | 259 | **268** | `sims/verdict-*/` (dirs) | **1.03** |
+| `couch-legend` | 7 | 2 | `docs/ideas/` | 0.29 |
+| `superbot` | 969 | 256 | `docs/ideas/` | 0.26 |
 | `substrate-kit` | 343 | 50 | `docs/ideas/` | 0.15 |
 | `spider-swing` | 142 | 8 | `docs/ideas/` | 0.06 |
-| `fleet-manager` | 433 | 22 | `docs/ideas/` + `projects/ideas-lab/` | **0.05** |
-| `couch-legend` | 7 | 2 | `docs/ideas/` | 0.29 |
-| `superbot-next` | 334 | 7 | `docs/ideas/` | 0.02 |
+| **`fleet-manager`** | **433** | **18** | `docs/ideas/` | **0.04** |
 | `venture-lab` | 228 | 6 | `docs/ideas/` | 0.03 |
+| `pokemon-mod-lab` | 70 | 2 | `docs/ideas/` | 0.03 |
+| `superbot-next` | 334 | 7 | `docs/ideas/` | 0.02 |
 | `websites` | 302 | 6 | `docs/ideas/` | 0.02 |
 | `gba-homebrew` | 151 | 2 | `docs/ideas/` | 0.01 |
-| `pokemon-mod-lab` | 70 | 2 | `docs/ideas/` | 0.03 |
 | `product-forge` | 35 | 0 | `docs/ideas/` empty | 0 |
 | `shiftlife` | 60 | 0 | `docs/ideas/` empty | 0 |
 
 **What this actually shows — and it is not what versions 1 and 2 said.** The
-**two repositories built as idea and verification engines convert at better than
-1 : 1**: `idea-engine` holds 580 idea files across per-repository folders, and
-`sim-lab` holds 551 verdict artifacts, which *are* its output form. They are the
+**two repositories built as idea and verification engines convert at roughly
+1 : 1**: `idea-engine` holds 566 idea files across per-repository folders, and
+`sim-lab` 268 verdict directories, which *are* its output form. They are the
 estate's **best** performers, and this record twice named them as its worst.
 
 The gap is between **purpose-built conveyors and everything else**. `superbot`
 at 0.27 is the best of the rest — again the era the genesis dig identifies as the
 practice working. **`fleet-manager`, the hub that writes the most process
-knowledge in the estate, sits at 0.05**: 433 cards, 22 idea artifacts.
+knowledge in the estate, sits at 0.04**: 433 cards, 18 idea files.
 
 **Bound, stated because two versions of this section lacked one:** a card's 💡 is
 one field and an idea artifact is one file; they are not the same unit, and a
@@ -134,7 +143,7 @@ each with card citations rather than counts:
 - **sim-lab** — an unbroken chain V047 → V048 → V049, each independently
   proposing a tooling fix that was never routed; separately the same
   statistical-power defect re-registered across at least 5 sessions. *(Note the
-  tension with sim-lab's 2.13 above: a repo can convert ideas into its own
+  tension with sim-lab's 1.03 above: a repo can convert ideas into its own
   product and still lose process observations. The two measure different things.)*
 - **idea-engine** — a seed-sweep recipe re-derived across 8 consecutive cards.
 - **substrate-kit** — the instrument fired and the session did not see it; the
@@ -287,9 +296,12 @@ from a list of attractive material elsewhere.
 Version 1 published a lossage ratio whose denominator was never established.
 Version 2, correcting it, retreated to "four repos have zero, one is
 `idea-engine`" — and that zero was a **directory-name mismatch in the one
-repository guaranteed to keep ideas somewhere else**. `idea-engine` holds 580
-idea files in `ideas/`; `sim-lab` holds 551 verdict artifacts in `sims/`. Both
-were named as the estate's worst performers when they are its best. **The
+repository guaranteed to keep ideas somewhere else**. `idea-engine` holds 566
+idea files in `ideas/`; `sim-lab` 268 verdict directories in `sims/`. Both were
+named as the estate's worst performers when they are its best. **A third
+version then mixed units** — counting directories and their contents together
+for those two rows and files only for the rest — which inflated precisely the
+figures it was correcting. The unit is now stated in the table. **The
 correction and the original error were the same mistake — measuring a proxy and
 reporting it as the thing — made twice, twenty minutes apart, the second time
 while explicitly correcting the first.** Anyone re-running this: enumerate each

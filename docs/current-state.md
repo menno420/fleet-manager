@@ -211,11 +211,12 @@ copy product architecture or internal product state. Canonical intent:
   template-carried. **Idea consumption was published wrong twice and is now
   bounded** — a "10 : 1 ratio" (denominator never established) and then "four
   repos at zero, one is `idea-engine`" (a directory-name mismatch: it holds
-  **580** idea files in `ideas/`, and `sim-lab` **551** verdicts in `sims/`,
-  making them the estate's **best** converters, not its worst). Corrected
-  reading: **wide variance, not uniform failure** — purpose-built conveyors
-  convert above 1 : 1 while `fleet-manager`, the hub, sits at **0.05** (433
-  cards, 22 idea artifacts).
+  **566** idea files in `ideas/` — the same figure OD-4 has carried
+  independently — and `sim-lab` **268** verdict directories in `sims/`, making
+  them the estate's **best** converters, not its worst). Corrected reading:
+  **wide variance, not uniform failure** — purpose-built conveyors convert near
+  1 : 1 while `fleet-manager`, the hub, sits at **0.04** (433 cards, 18 idea
+  files).
   **`idea-engine` has 503 cards, 503 ideas and zero in its conveyor.** So the
   estate produces reusable knowledge reliably and never reads it back — OD-21's
   diagnosis, measured. **Why skills are the wrong container:** on one corpus,
