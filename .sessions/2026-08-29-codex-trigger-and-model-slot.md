@@ -158,8 +158,14 @@ happened to live in one number.
   *"deliberately withheld in-doc per harness policy"* at line 258).
 
   **So the restriction is not new. It was live and named as harness policy on
-  2026-07-09, for one lane of five.** What is new is that it applies to *this*
-  session. Caught by [fm #976](https://github.com/menno420/fleet-manager/pull/976)
+  2026-07-09 — for one lane of TEN.** *(This card first said "of five", quoting
+  fm #976's phrasing without checking the denominator beside the quote I had
+  verified. Measured: the doc is titled "all 10 lanes", its model table lists
+  **nine**, and `codetool-lab-fable5` is "the only lane that deliberately does
+  not name its model in-doc" — with a second row, `codetool-lab-opus4.8`,
+  recording a successor's model withheld under the same policy. Corrected in
+  fm #978. The numerator was right; the denominator was borrowed.)* What is new
+  is that it applies to *this* session. Caught by [fm #976](https://github.com/menno420/fleet-manager/pull/976)
   landing on `main` while this PR was in review, and verified here against the
   July document rather than taken from that PR.
 - **6 consecutive and current**, the group that matters — the five below plus
