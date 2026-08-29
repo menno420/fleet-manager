@@ -176,14 +176,180 @@ form of the fix, and cheaper than the trap it prevents.
 
 ---
 
-## 4 · The cross-corpus convergence — PENDING
+## 4 · The structural finding — the delivery layer cannot reach the errors
 
-The session-card corpus is still in adversarial verification. The analysis this
-section will carry — **which patterns appear in BOTH the self-reported cards and
-the externally-caught reviews**, the strongest signal this estate can produce —
-is not written yet, and no trap is registered until it is.
+`MEASURED` in fleet-manager's live tree, 2026-08-29, and re-verified by hand
+against the workflow's own claim:
 
-**Nothing is proposed to the kit in this revision.** Under the roadmap's §6
-promotion rule and the owner's own § 3 freedom doctrine, a review round that
-emitted infrastructure before measuring would recreate the wall-accretion he is
-correcting.
+| | |
+|---|---|
+| doc-routes total | **71** |
+| …that can fire on an `Edit`/`Write` | **8** |
+| …that can fire on a `Bash` | **42** |
+| …that can fire on **both** | **0** |
+| …that fire on neither (prompt-event only) | 21 |
+| …carrying `repeat: true` | **1** (`card-flip-before-push`) |
+
+`DEFAULT_TOOLS` in `route_docs.py:77` is `("Bash", "WebFetch", "Read", "Glob",
+"Grep")` — **`Edit` and `Write` are excluded**, so a route reaches write-time
+authoring only by naming those tools explicitly, and the eight that do are
+exactly the claim-quality and card-discipline set. They are **disjoint** from
+everything that reaches `Bash`. In auto mode, where the standing instruction is
+to author through `Bash` heredocs, all eight are silently disarmed — the defect
+[fm #963](https://github.com/menno420/fleet-manager/pull/963) measured
+independently and fixes.
+
+Two further measurements complete the picture:
+
+- **`fleet-manager` wires no `SessionStart` hook.** Its `.claude/settings.json`
+  registers `PreToolUse`, `PostToolUse`, `Stop`, `UserPromptSubmit` — nothing at
+  session boot, which is the moment OD-24 §4's cross-session chain needs.
+- **The kit ships no routing at all.** `grep -c -E "route_docs|doc-routes"
+  bootstrap.py` → **0**, against a positive control of 203 hits for `hook` in
+  the same file. The trap-register lifecycle
+  (*mistake → trap → route → checker*) therefore exists in **1 of 20
+  repositories**, while most incidents in this corpus happened in the other 19.
+
+**And the channel to fix it is already installed everywhere.** The kit's
+`.substrate/hooks/settings.template.json` wires all four events in every
+adopter:
+
+```
+PreToolUse   → bootstrap.py hook pretooluse
+SessionStart → bootstrap.py hook sessionstart
+PostToolUse  → bootstrap.py hook postedit
+Stop         → bootstrap.py hook stopcheck
+```
+
+So the highest-leverage kit slice is **not a new checker**. It is moving routing
+and the hub's write-time hooks into a channel the kit already owns in all twenty
+repositories. That is one structural change, and every checker below is worth
+less until it lands.
+
+---
+
+## 5 · The convergence — what both corpora found independently
+
+The two corpora share no evidence: session cards are what sessions **noticed
+about themselves**; review comments are what an **external reviewer caught after
+the agent declared done**. A pattern in both is the strongest signal available
+here.
+
+**Method caveat, stated first:** the pairing below is **my reading** of two
+independently-produced pattern sets, not a mechanical match. Names differ
+between corpora; I matched on trigger and mechanism. Treat the pairing as
+`REASONED` and the per-corpus counts as `MEASURED`.
+
+| convergent pattern | cards (W1) | reviews (W2) |
+|---|---|---|
+| **A guard or verifier that cannot fail** — landed green, never seen red | n=29, 10 repos | 4 separate patterns (*gate shipped without a failing fixture* · *the verifier that cannot fail* · *guard fails open* · *never observed red*) |
+| **A correction that leaves its own copies standing** | n=26, 9 repos | 2 patterns, n=20 (*superseded wording still delivered* · *survives elsewhere in the same file*) |
+| **Green read as verification when the instrument could not see the failure** | n=27+30 | *green suite, wrong path* · *shipped without ever running it* · *under-reading tool publishing a completeness claim* |
+| **A verdict written about an artifact never re-opened** | n=43, 11 repos | *writing about a file, workflow or mechanism never opened* |
+| **A count written from memory** | n=30, 12 repos | 3 patterns (*stated count contradicting the thing counted* · *never measured at the revision it describes* · *arithmetic that does not close*) |
+| **Enforcement vocabulary for a mechanism nothing implements** | n=17, 8 repos | *automation whose predicate means it never runs* · *registered in the defining surface, inert in the executing one* |
+| **The companion record the diff owes, not shipped with it** | n=28, **13 repos** — the widest | *new artifact landed without its paired registration* · *paired surfaces updated asymmetrically* |
+
+Ten of the eleven top card-corpus patterns have an independent review-corpus
+counterpart. **The one that does not converge** is *the handoff's stated state
+acted on instead of re-resolved at HEAD* (n=32, 12 repos) — expected, and it
+supports rather than weakens the split: a stale handoff is invisible to a
+reviewer reading one PR, and only the session that inherited it can see it.
+
+### The five traps this earns
+
+Each carries ≥2 named, dated instances across ≥2 repositories, per the register's
+own bar. **Proposed, not registered** — §7.
+
+- **TRAP-008 · A correction that leaves its own copies standing.**
+- **TRAP-009 · Enforcement vocabulary for a mechanism nothing implements.**
+  Its origin instance is the sharpest in the corpus: the **boot file** asserted
+  `check_no_false_walls` was a required check while `grep -rn` over
+  `.github/workflows/` returned nothing — *"in the one file whose job is to be
+  true."*
+- **TRAP-010 · A guard, test or checker that has never been seen red.**
+- **TRAP-011 · A green from an instrument that could not have seen the failure.**
+  Includes the owner-review hook dead all session behind a swallowed
+  `ModuleNotFoundError`, its silence read as a pass.
+- **TRAP-012 · A completion word beside a passing status field.** Extends
+  TRAP-006 rather than replacing it.
+
+---
+
+## 6 · The era question — answered, and the half that cannot be
+
+**The owner's "I stepped back and the agents forgot their purpose" hypothesis is
+not visible in this corpus, and the honest answer separates two questions.**
+
+What changed across the eras is the **kind** of error, and it tracks what the
+work was:
+
+- **2026-05/06 (superbot, effectively one repo):** engineering errors with
+  product blast radius. **Both production outages in the entire three-month
+  corpus are here**, each from a skipped grep.
+- **2026-07 (the Projects program, ~13 repos in parallel):** coordination
+  errors — claim files left on main across ~35 consecutive sessions, heartbeats
+  contradicting the tree. High volume, near-zero blast radius outside a machine
+  that no longer exists.
+- **2026-08 (stepped back, single sessions):** epistemic errors in owner-facing
+  artifacts — `MEASURED` badges on inferences, counts from memory, absence
+  asserted without the search.
+
+**Purpose-drift would look like work not serving his goals.** The August records
+do not contain that; they contain sessions doing exactly the asked work and
+getting facts wrong inside it. Detection also improved sharply in the same
+window, so a rising visible error count partly measures a better instrument.
+
+**What did genuinely get worse is narrower and more damning:** rules broken by
+the session that authored them, the same day. The DISCOVERY RULE violated three
+hours after being written; TRAP-006 biting twice on the day it was registered;
+the densest stale-record cluster falling exactly on 2026-08-08 → 08-28 in
+fleet-manager — *where the estate was actively studying this defect and kept
+committing it*. **Its cause is delivery, not motivation**, which is what §4
+measures and what
+[`2026-08-08-why-rules-dont-bind.md`](2026-08-08-why-rules-dont-bind.md)
+already found: 116 statements catching 0 of 16 incidents.
+
+**The half that cannot be answered:** there is no comparable per-session error
+*rate* across eras. July ran ~15 parallel seats writing short formulaic cards;
+August runs one session writing long, candid, adversarially-reviewed ones. The
+denominator moves with the era, and the May/June slice is one repo against
+twenty later. Any "errors per session, then vs now" would be TRAP-004 committed
+inside a report about TRAP-004. **The kind question this corpus answers; the
+rate question needs an instrument nobody has built.**
+
+---
+
+## 7 · What this does NOT establish
+
+Recorded at the same weight as the findings, because the promotion rule depends
+on it.
+
+- **Nothing here is registered or built.** No trap is added to
+  [`../traps.md`](../traps.md), no route, no checker, no skill edit. Under the
+  roadmap's §6 promotion rule and OD-24 §3's freedom doctrine, a review round
+  that emitted infrastructure before the owner saw it would recreate the
+  wall-accretion he is correcting.
+- **The corpus records errors sessions NOTICED.** Errors nobody caught are
+  structurally invisible. Every frequency here is a floor.
+- **Severity and the ranking are judgements**, not measurements. Cost per
+  instance is unmeasured.
+- **No false-positive rate was measured** for any proposed checker; each is an
+  estimate from the predicate's shape.
+- **The satellite repos' own gates were not inventoried.** *The kit ships no
+  routing* is measured; *therefore the satellites have none* is an **inference**.
+- **The adversarial panels under-performed.** 137 of 143 survived on the cards
+  and 140 of 141 on the reviews — bars nothing fails. The §5 table is built from
+  the top-ranked and cross-corpus-corroborated patterns rather than from
+  survival, and the remaining ~270 candidates are held as raw material.
+- **§2's 328 prose-only rules** is one lane's read per repo — an order of
+  magnitude, not a register.
+
+## 8 · The recommended next step
+
+**One structural slice, measured before anything is promoted:** move routing
+into the kit's existing hook channel, give the eight write-time routes `Bash`
+reach (fm #963 does this for the hub already), and make the claim-quality routes
+repeat. Then re-measure against this corpus: the incidents are dated and cited,
+so *"would this route have fired on that instance"* is answerable rather than
+asserted. Promote only what measures useful — §6 of the roadmap, verbatim.

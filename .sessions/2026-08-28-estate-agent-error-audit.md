@@ -1,8 +1,9 @@
 # 2026-08-28 — the estate-wide agent-error harvest (OD-24 §6 step 1, extended)
 
-> **Status:** `in-progress` — born-red by design. The audit is paused at the
-> owner's request for a usage-limit reset and resumes on a bound one-shot
-> trigger at 23:48Z. This card flips only when the finding lands.
+> **Status:** `complete` — both corpora harvested, verified and synthesized;
+> [the finding](../docs/findings/2026-08-29-estate-agent-error-audit.md) is
+> landed and indexed. Nothing is registered or built: every proposal is
+> owner-gated under the roadmap's §6 promotion rule.
 
 - **📍 Venue:** cloud-container
 
@@ -30,17 +31,32 @@ session sweeps that declared remainder.
   review comments are **externally caught after the agent declared done**.
   Patterns present in both are the strongest available signal.
 
-## State at pause
+## Shipped
 
-226 subagent results cached, zero empty: 2,188 card-corpus incidents · 687
-review-corpus incidents · 284 candidate patterns · 20 per-repo
-instruction-versus-enforcement censuses. Both harvest phases completed; the
-synthesis and adversarial-verification phases were in flight when stopped.
+- **[The finding](../docs/findings/2026-08-29-estate-agent-error-audit.md)** —
+  eight sections, indexed in `docs/findings/README.md`.
+- The audit ran as **two workflows, 986 subagents, 73.2M subagent tokens,
+  17,444 tool calls, 0 agent errors**, paused mid-run for a usage-limit reset
+  and resumed from cache on a bound trigger.
+- `.audit-recovery/` — created as insurance during the pause, **deleted in this
+  PR** as its README promised. The measurement that motivated it turned out to
+  be backwards (see Verify), which is recorded rather than quietly dropped.
 
-Preserved at `.audit-recovery/` because the harvest lives only on this
-container — `find` confirmed **no scratchpad file predates the 18:28:55 boot**,
-and the box holds exactly one session directory, so a reclaimed container would
-destroy it. The directory is deleted before this PR merges.
+## The four findings
+
+1. **The owner has no distinguishable voice on GitHub** (§1) — agents
+   authenticate with his credential, so 562 of 564 issue comments and all 155
+   review comments attributed to him are agent-authored. No estate record names
+   this, and it makes the `OWNER` certainty tag unfalsifiable from GitHub.
+2. **The delivery layer cannot reach the errors** (§4) — of 71 doc-routes, 8
+   fire on `Edit`/`Write`, 42 on `Bash`, **0 on both**, 1 repeats; the kit ships
+   **no routing at all** while already owning a four-event hook channel in every
+   adopter.
+3. **Seven patterns converge across two independent corpora** (§5), earning five
+   proposed traps.
+4. **The era question is answered in kind and refused in rate** (§6) — the
+   owner's drift hypothesis is not visible; what did worsen is rules broken by
+   the session that wrote them, whose cause is delivery, not motivation.
 
 ## Verify
 
