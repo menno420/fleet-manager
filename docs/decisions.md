@@ -449,3 +449,70 @@
 - provenance: owner, live, 2026-08-29, same sitting as [D-0019], quoted
   verbatim above; the 2026-08-05 directive's own exit clause is the
   supersession authority.
+
+## [D-0021] The initiative loop: engineered end-of-session output, tier-(c) building, consumption through the continuation prompt
+
+- status: decided
+- date: 2026-08-29
+- verdict: Owner directive, assembled across the live 2026-08-29 sitting and
+  agreed as a whole (*"Yes I agree with your suggestions"*): (1) initiative is
+  **engineered output** — at end of session / after the main objective, a hook
+  triggers a skill whose mechanical detectors raise candidates the agent must
+  disposition (`[acted]`/`[proposed]`/`[dismissed]`+reason); (2) building
+  tier is **(c)** — *"I think I agree with C"*: checkers and non-blocking
+  surfacing hooks auto-build, anything gating waits for him; (3) consumption
+  routes through the **continuation-prompt skill** — the prompt-writing agent
+  weighs queued ideas against the asked task (outrank, merge, or both when
+  small), with a mandatory disposition line in the emitted prompt as the
+  falsifiable red; (4) the queue's one home is the existing generated
+  idea backlog with its harvester extended to both unharvested forms, plus
+  slugs and a disposition column backed by a durable source the generator
+  folds in (the backlog itself is generated, not source of truth); (5) any
+  session may retire a queued idea with a stated reason recorded in that
+  durable disposition source, displayed by the queue — he spot-checks kills
+  rather than approving each.
+- why: self-report initiative is the prose-demand form that died estate-wide
+  while gated practices held (genesis dig); detectors-then-dispositions makes
+  initiative countable with a visible red; consuming at prompt-writing time
+  delivers the queue at the moment next-session scope is decided (intent §4:
+  mechanisms at the right moment, not more instructions); the owner enforced
+  the superbot version personally — the detectors make that enforcement
+  structural.
+- rules out: a skill that opens by asking the agent whether it showed
+  initiative; auto-building anything that gates or blocks; a new queue file
+  when the generated backlog exists (extend, don't invent); a continuation
+  prompt written past live queue ideas without a disposition line;
+  retirement requiring per-kill owner approval.
+- design home (the one citing home for this entry):
+  `planning/2026-08-29-initiative-loop-design.md` — his verbatim quotes, the
+  six detectors, the criteria, what stays open, and the S1–S4 implementation
+  slices for the plan's dedicated sessions. Nothing is built as of this entry
+  (OD-26 §13/§14).
+- provenance: owner, live, 2026-08-29 — the initiative-definition message,
+  *"I think I agree with C"*, the continuation-prompt mechanism message, and
+  *"Yes I agree with your suggestions"*, all in the fm #978/#981/#982
+  conversation; recorded the same hour.
+
+## [D-0022] The planning hold: no large implementations before the plan, small-and-ready excepted
+
+- status: decided
+- date: 2026-08-29
+- verdict: Owner directive, live, in his words: *"this and all further
+  sessions that I will use to plan are not supposed to make large
+  implementations before we have decided how it should all function. But
+  that does not mean you can't do any work in the meantime, if something we
+  discussed genuinely is ready to implement and it fits in a small PR then
+  you are free to implement it."*
+- why: his stated purpose — *"What this hold is mostly for is to prevent
+  that the state of everything changes too much and our plans have to be
+  re-planned each session to continue"* — with the endgame *"discuss and
+  finalize the plan as properly as we can, so we can then have a few
+  dedicated implementation session[s] to execute it."*
+- rules out: building mechanisms mid-planning because they seem useful
+  (surfaces the plan is still deliberating wait even when small); reading
+  the hold as forbidding records, corrections, and captures — those are the
+  carve-out's home ground; treating "small" alone as sufficient (it must
+  also be genuinely ready and not under deliberation).
+- provenance: owner, live, 2026-08-29, same sitting; quoted verbatim above.
+  The carve-out was exercised the same night by the directive-capture and
+  review-consumption PRs before being recorded here.
