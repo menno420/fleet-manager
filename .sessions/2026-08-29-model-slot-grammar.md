@@ -202,7 +202,7 @@ and
 [`2026-08-29-audit-od26-reconcile.md`](2026-08-29-audit-od26-reconcile.md)
 (merged). Same session, a question the owner raised after those landed.
 
-## Codex round 1 on fm #976 — 4 P2 findings, all `[conceded]`
+## Codex round 1 on fm #976 — 4 P2 findings: 3 `[conceded]`, 1 `[partial]`
 
 Reviewed `60eb15b` (before the census correction), delivered as a review with
 **four inline comments** — a different channel from fm #973's issue comment, in
