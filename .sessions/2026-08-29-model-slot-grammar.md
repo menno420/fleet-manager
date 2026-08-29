@@ -1,6 +1,11 @@
 # 2026-08-29 — the `📊 Model:` slot has no token for "my session may not name it", so five sessions invented five
 
-> **Status:** `in-progress`
+> **Status:** `complete` — landed after two Codex rounds on fm #976 (4 + 3
+> findings, **all 7 `[conceded]`, zero `[survived]`**). No third review
+> requested: round 2 was smaller than round 1 and every finding was in prose
+> rather than in the mechanism, which is the convergence the two-re-review cap
+> looks for. Last reviewed SHA `a54ccd25`; after it come only the round-2
+> fixes named in § *Codex round 2 on fm #976* and this flip.
 
 - **📊 Model:** withheld · high · docs-only
 - **⚑ Model-slot note:** this session carries an instruction against putting a
