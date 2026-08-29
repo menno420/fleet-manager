@@ -5,6 +5,11 @@
 > landed and indexed. Nothing is registered or built: every proposal is
 > owner-gated under the roadmap's §6 promotion rule.
 
+- **📊 Model:** withheld · high · review/verify
+- **⚑ Model-slot note:** the harness policy for this session forbids putting a
+  model identifier into any artifact pushed to a repository, which collides with
+  this field's family-level-model convention. Recorded as a collision rather
+  than resolved either way; the effort and PL-004 task-class halves are exact.
 - **📍 Venue:** cloud-container
 
 ## Mission
@@ -92,3 +97,53 @@ session sweeps that declared remainder.
 
 No finding is written yet, no trap is registered, and nothing is proposed to
 the kit. Those land when the audit completes.
+
+
+## ⟲ Previous-session review
+
+Previous card:
+[`2026-08-28-od24-round-open-questions-agenda.md`](2026-08-28-od24-round-open-questions-agenda.md)
+(fm #961) — the OD-24 round's discussion agenda.
+
+**Held up.** Its §5 *"what a session should just decide"* is what authorised this
+session to run a large sweep without a letter, and its §0 headline — *the round
+asked him for things his own record already answers* — set the standard this
+audit tried to meet by measuring before proposing.
+
+**One thing it could not have known, and this session owes it a correction.**
+The agenda's §2 · E2 restored the journal question to the owner partly on the
+strength of what the round's records said. This audit's §1 finds that **no
+GitHub-sourced statement in this estate can be attributed to the owner at all**,
+because agents post under his credential. That does not overturn any agenda row
+— every row this session checked traces to chat or to a committed record, not to
+a PR comment — but it means the agenda's provenance method has an untested
+assumption under it, and any future row sourced from a GitHub comment is
+unsafe. Flagged, not fixed: re-auditing the agenda's eleven rows is the
+discussion sitting's work, not this session's.
+
+**Not reviewed:** the three audits the agenda summarises were read as corpus
+inputs, not audited for correctness. This session verified the structural claims
+it repeats (the 71/8/1 route counts, the kit's missing routing) in the live tree
+rather than citing them.
+
+## 💡 Session idea
+
+**Give the kit's four already-installed hook events something to carry.**
+
+The kit wires `PreToolUse`, `SessionStart`, `PostToolUse` and `Stop` to
+`bootstrap.py hook …` in **every adopter** via
+`.substrate/hooks/settings.template.json`, and ships **no routing** through them
+(`grep -c -E "route_docs|doc-routes" bootstrap.py` → 0, positive control 203).
+Meanwhile fleet-manager's routing layer reaches `Edit`/`Write` on 8 of 71 routes
+and repeats on 1.
+
+So the cheapest real improvement is not another checker: it is **moving the
+routing layer into a channel that already exists in all twenty repositories**,
+and it is measurable against this audit's own corpus — every incident is dated
+and cited, so *"would this route have fired on that instance"* is answerable
+rather than asserted. That measurement is the promotion evidence the roadmap's
+§6 requires, and it can be run before anything is made mandatory.
+
+**Why it is an idea and not an action:** it changes what every adopter loads at
+boot, which is exactly the kind of estate-wide mechanism OD-24 §3 says an agent
+does not introduce on its own initiative.
