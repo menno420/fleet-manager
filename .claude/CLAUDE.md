@@ -295,8 +295,9 @@ Essentials:
   route does not work anymore").** `GEMINI_API_KEY` is **free tier** (AI
   Studio, daily request caps, the Interactions API, and now the default for
   everything it serves, mid-session review work included);
-  `GEMINI_API_KEY_PAID` still bills **the owner's card** — Deep Research is
-  its one documented exception, anything else needs his say-so, said out loud
+  `GEMINI_API_KEY_PAID` still bills **the owner's card** — [D-0011] still
+  authorizes spending it without asking; reach for it when the free key
+  cannot serve the task (Deep Research the documented case), said out loud
   in the card. Current API model ids for this key class: `gemini-3.6-flash`
   (`MEASURED` 2026-08-29 — the `gemini-2.5-*` ids 404 as "no longer available
   to new users"). History, the caps, and the credit-era Vertex recipe:

@@ -1,9 +1,11 @@
 # 2026-08-29 — capture of two live owner directives: review cadence and the Gemini route
 
-> **Status:** `in-progress` — born-red. The records half of directives given
-> live in the audits-review session (same conversation as fm #978), landed as
-> its own small PR under the owner's mid-planning carve-out: small, ready,
-> and not a surface the plan is deliberating.
+> **Status:** `complete` — the records half of directives given live in the
+> audits-review session (same conversation as fm #978), landed as its own
+> small PR under the owner's mid-planning carve-out: small, ready, and not a
+> surface the plan is deliberating. Flipped after the flip-readiness Codex
+> round answered and both its findings were fixed and Gemini-verified —
+> [D-0019]'s cadence worked end to end on the PR that records it.
 
 - **📊 Model:** withheld · max · docs-only
 - **⚑ Model-slot note:** harness policy forbids a model identifier in a pushed
@@ -58,6 +60,32 @@ mid-check are accurately recorded, and its numbers were re-derived before
 each disposition. **What it left implicit, which this card makes explicit:**
 the cadence it executed under ("owner directive, applied from round 2
 onward") existed in no committed record — exactly the class this PR closes.
+
+## ⚖ Flip-readiness review (Codex on 0181391, per [D-0019])
+
+Requested 21:42:06Z, answered 21:46Z as an issue comment (its sandbox had no
+remote or token, so its prepared diff stayed there — findings only):
+
+1. **Live-sounding Vertex imperatives survived in the credit-era record**
+   (*"For volume, image or video work, Vertex"*; *"## The rule — Use
+   Vertex"*). Measured: both present as cited. **[conceded]** — inline
+   supersession markers added at both spots, plus one on the §Scope exit
+   clause the header quotes.
+2. **[D-0020] over-revoked [D-0011]**: my *"anything else needs his say-so"*
+   contradicted D-0011's verdict — *"spend without asking … no approval
+   step"* — which the 2026-08-28 amendment explicitly kept standing. The
+   owner's words retire a **route**, not that authorization. Measured against
+   the verdict text. **[conceded]** — reconciled on all four surfaces
+   (decisions rules-out, conventions header, boot file, provider banner +
+   body): free key first; paid key when the free key cannot serve, no
+   ask-gate, disclosure in the card.
+3. Codex could not verify the [D-0019] quotation (the chat behind it is not
+   in the PR context). **[survived]** — the transcript is the source and this
+   session its witness; owner-verbatim is the strongest provenance a live
+   directive has.
+
+Fix diff verified on the free-key route (`gemini-3.6-flash`, 200/STOP):
+both findings **RESOLVED**, no new issues, four surfaces confirmed aligned.
 
 ## 💡 Session idea
 

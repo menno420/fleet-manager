@@ -425,8 +425,11 @@
   its own exit clause (conventions doc §Scope) said re-read and ask when the
   credit runs out. It ran out; he answered.
 - rules out: defaulting to Vertex; probing Vertex to "confirm" his statement.
-  `GEMINI_API_KEY_PAID` (his card) keeps its Deep-Research exception and
-  otherwise needs his say-so, stated in the card.
+  It does NOT touch [D-0011]: his words retire a route, not the paid key's
+  authorization — `GEMINI_API_KEY_PAID` (his card) stays free to spend without
+  asking per that entry (as amended 2026-08-28), reached when the free key
+  cannot serve the task (Deep Research the documented case), said out loud in
+  the session card as the route rule always required.
 - measurement riding along (`MEASURED` 2026-08-29, owner-live venue): the
   free key's `generateContent` serves `gemini-3.6-flash`; the `gemini-2.5-*`
   ids are still listed by `/models` but 404 as *"no longer available to new

@@ -14,9 +14,12 @@
 >
 > **The current rule:** free `GEMINI_API_KEY` for everything it serves —
 > including the mid-session review work the same sitting assigned to Gemini
-> ([D-0019]). `GEMINI_API_KEY_PAID` still bills **the owner's card**; Deep
-> Research remains its one documented exception (below), everything else
-> needs his say-so, stated in the session card. **Model ids for this key
+> ([D-0019]). `GEMINI_API_KEY_PAID` still bills **the owner's card**, and
+> the paid-key spend decision ([`../decisions.md`](../decisions.md),
+> 2026-08-05 entry as amended 2026-08-28 — its stamp home) still authorizes
+> spending it without asking — reach for it when the free key cannot serve
+> the task (Deep Research the documented case), and say so in the session
+> card, as the credit-era rule below always required. **Model ids for this key
 > class, `MEASURED` 2026-08-29:** `gemini-3.6-flash` works on
 > `generateContent`; the `gemini-2.5-*` ids are still listed by `/models` but
 > 404 with *"no longer available to new users — use models/gemini-3.6-flash"*.
@@ -83,7 +86,9 @@ quadratically with turns.
 So for a **long** multi-turn exchange the free key is both cheaper *and* more
 token-efficient than Vertex, bounded only by requests-per-day. For **volume,
 image or video work**, Vertex, because 20 requests/day is the real ceiling on
-the free tier and it is the binding one — not the token meter.
+the free tier and it is the binding one — not the token meter. *(Credit-era
+routing — superseded 2026-08-29, header above: Vertex is retired; volume work
+now weighs the free key's caps against the ledger-authorized paid key.)*
 
 ## Why — the paths are funded differently
 
@@ -142,7 +147,7 @@ the one that returns lossless PNG for image work.**
 This closes a null that stood in `providers/gemini.md`: *"whether the credit or
 the card pays… is inference until read there."* It is now read.
 
-## The rule
+## The rule *(credit-era — superseded 2026-08-29; the current rule is the header above)*
 
 **Use Vertex.** Reach for `GEMINI_API_KEY_PAID` only when Vertex has actually
 failed for the task in hand, and say so in the session card when you do.
@@ -252,3 +257,5 @@ fresh reading or a BigQuery export exists.
 The owner said *"at least this month"*. Treat Vertex-first as binding until he
 says otherwise; if credit runs out or the month turns, re-read this page and ask
 rather than silently reverting to the card.
+
+*(This clause fired 2026-08-29 — the header above is its answer.)*
