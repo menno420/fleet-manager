@@ -29,9 +29,15 @@ session sweeps that declared remainder.
 
 - **4,583 session cards** across 20 repositories, 2026-05-29 → 2026-08-28,
   fetched as API tarballs → **7,214 error-bearing sections** → 68 shards.
-- **1,592 pull-request review comments** across 12 repositories — **1,431**
-  external reviewer findings and **155 written by the owner himself**, the
-  highest-signal source in the estate.
+- **1,592 pull-request review comments** across 12 repositories — 1,437 not
+  attributed to the owner's account (1,431 Codex + 6 code-scanning) and **155
+  attributed to it**. This card originally called those 155 *"written by the
+  owner himself, the highest-signal source in the estate"*. **That is false and
+  the audit's §1 is the correction:** agents authenticate with his credential,
+  so all 155 are agent-authored. Corrected here rather than only in the finding,
+  because a session card is a durable briefing artifact and would otherwise
+  propagate exactly the false `OWNER` provenance this audit warns about (Codex,
+  fm #967).
 - Two independent corpora deliberately: session cards are **self-reported**,
   review comments are **externally caught after the agent declared done**.
   Patterns present in both are the strongest available signal.
@@ -95,8 +101,15 @@ session sweeps that declared remainder.
 
 ## Not done here
 
-No finding is written yet, no trap is registered, and nothing is proposed to
-the kit. Those land when the audit completes.
+**No trap is registered and nothing is proposed to the kit.** The five trap
+candidates (TRAP-008..012) are written up as proposals in the finding's §5 and
+deliberately not added to `docs/traps.md`; no doc-route, checker or skill is
+edited. Under the roadmap's §6 promotion rule and OD-24 §3's freedom doctrine,
+emitting estate-wide mechanism before the owner has seen the measurement would
+recreate the wall-accretion he is correcting.
+
+The finding itself **is** written and indexed —
+[`docs/findings/2026-08-29-estate-agent-error-audit.md`](../docs/findings/2026-08-29-estate-agent-error-audit.md).
 
 
 ## ⟲ Previous-session review

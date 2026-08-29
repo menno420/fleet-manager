@@ -1,8 +1,7 @@
 # The estate-wide agent-error harvest — OD-24 §6 step 1, extended
 
-> **Status:** `living-ledger` · opened 2026-08-29 · **PARTIAL — §4 pending**
-> (the session-card corpus is still in adversarial verification; §§1–3 are
-> complete and independently verified).
+> **Status:** `living-ledger` · opened 2026-08-29 · **complete** — all eight
+> sections landed; nine Codex findings conceded and folded in (fm #967).
 >
 > **What this is:** the drift-incident corpus OD-24 §6 step 1 asked for, taken
 > at estate scale. The [genesis dig](2026-08-28-substrate-kit-genesis-dig.md)
@@ -22,11 +21,14 @@ declared the work done**.
 | source | volume | span |
 |---|---|---|
 | Session cards, 20 repositories | **4,583 cards** → 7,214 error-bearing sections → 68 shards | 2026-05-29 → 2026-08-28 |
-| PR review comments, 12 repositories | **1,592** (1,431 from the external reviewer) | 2026-06-17 → 2026-08-28 |
+| PR review comments, 12 repositories | **1,592** — 155 attributed to `menno420`, **1,437 not**, of which 1,431 are the Codex reviewer and 6 are code-scanning | 2026-06-17 → 2026-08-28 |
 | Per-repo instruction surfaces | **20 of 20** censused | at HEAD |
 
-Re-derivable: `census.py` → `fetch.sh` → `extract.py` → `shard.py` →
-`reviews.py`, preserved with the harvest in this PR's `.audit-recovery/`.
+Re-derivable: the five scripts are retained at
+[`../../tools/agent_error_audit/`](../../tools/agent_error_audit/README.md)
+(`census.py` → `fetch.sh` → `extract.py` → `shard.py` → `reviews.py`). The
+**corpus itself is not committed** — it is 47 MB of other repositories' records
+— so re-running the scripts reproduces it rather than reading it from here.
 
 ---
 
@@ -114,10 +116,12 @@ this section.
 | | |
 |---|---|
 | Rules stated with **no mechanism** delivering or checking them | **328** |
-| Enforcement mechanisms found | **216** — 78 checker · 55 CI · 39 hook · 25 prose-only · 19 none |
+| Classified enforcement rows | **216** — of which **172 are mechanical** (78 checker · 55 CI · 39 hook) and 44 are not (25 prose-only · 19 none) |
 | Repositories with kit divergences an upgrade would silently revert | **20 of 20** (2–10 each) |
 
-This is OD-24 §6 step 2's taxonomy filled in with a number: the dominant class
+So the contrast that matters is **328 prose-only rules against 172 mechanical
+enforcers**, not against 216. This is OD-24 §6 step 2's taxonomy filled in with
+a number: the dominant class
 is **stated but undelivered**, exactly as the genesis dig predicted from a much
 smaller sample.
 
@@ -206,13 +210,20 @@ Two further measurements complete the picture:
   session boot, which is the moment OD-24 §4's cross-session chain needs.
 - **The kit ships no routing at all.** `grep -c -E "route_docs|doc-routes"
   bootstrap.py` → **0**, against a positive control of 203 hits for `hook` in
-  the same file. The trap-register lifecycle
-  (*mistake → trap → route → checker*) therefore exists in **1 of 20
-  repositories**, while most incidents in this corpus happened in the other 19.
+  the same file.
+- **And no adopter has built its own.** `MEASURED` adopter-by-adopter after
+  Codex correctly refused the inference (fm #967, P1): every one of the 20
+  repositories' trees searched for `doc-routes.json` and `route_docs.py` —
+  **1 of 20 has either, and it is fleet-manager**. The trap-register lifecycle
+  (*mistake → trap → route → checker*) therefore exists in one repository while
+  most incidents in this corpus happened in the other nineteen. Per-repo table:
+  [`../../tools/agent_error_audit/adopter_census.json`](../../tools/agent_error_audit/adopter_census.json).
 
-**And the channel to fix it is already installed everywhere.** The kit's
-`.substrate/hooks/settings.template.json` wires all four events in every
-adopter:
+**And the channel to fix it is already installed in 18 of the 20.** `MEASURED`
+in the same census — `.substrate/hooks/settings.template.json` is present in 18
+repositories; **`superbot` and `spider-bot` are the two exceptions**, so "every
+adopter" was wrong and is corrected here. Where it exists it wires all four
+events:
 
 ```
 PreToolUse   → bootstrap.py hook pretooluse
@@ -222,8 +233,8 @@ Stop         → bootstrap.py hook stopcheck
 ```
 
 So the highest-leverage kit slice is **not a new checker**. It is moving routing
-and the hub's write-time hooks into a channel the kit already owns in all twenty
-repositories. That is one structural change, and every checker below is worth
+and the hub's write-time hooks into a channel the kit already owns in 18 of the
+20 repositories (the other two need the channel first). That is one structural change, and every checker below is worth
 less until it lands.
 
 ---
@@ -250,11 +261,16 @@ between corpora; I matched on trigger and mechanism. Treat the pairing as
 | **Enforcement vocabulary for a mechanism nothing implements** | n=17, 8 repos | *automation whose predicate means it never runs* · *registered in the defining surface, inert in the executing one* |
 | **The companion record the diff owes, not shipped with it** | n=28, **13 repos** — the widest | *new artifact landed without its paired registration* · *paired surfaces updated asymmetrically* |
 
-Ten of the eleven top card-corpus patterns have an independent review-corpus
-counterpart. **The one that does not converge** is *the handoff's stated state
-acted on instead of re-resolved at HEAD* (n=32, 12 repos) — expected, and it
-supports rather than weakens the split: a stale handoff is invisible to a
-reviewer reading one PR, and only the session that inherited it can see it.
+**Seven convergent pairings are shown, and seven is what this section claims.**
+An earlier cut asserted *"ten of eleven top card patterns have a counterpart"*
+without tabulating the other three; Codex refused it (fm #967) and the headline
+is narrowed to the displayed evidence rather than the larger number.
+
+**One card-corpus pattern is worth naming as explicitly NOT converging:** *the
+handoff's stated state acted on instead of re-resolved at HEAD* (n=32, 12
+repos). That supports rather than weakens the split — a stale handoff is
+invisible to a reviewer reading a single PR, and only the session that inherited
+it can see it.
 
 ### The five traps this earns
 
@@ -272,7 +288,10 @@ own bar. **Proposed, not registered** — §7.
   Includes the owner-review hook dead all session behind a swallowed
   `ModuleNotFoundError`, its silence read as a pass.
 - **TRAP-012 · A completion word beside a passing status field.** Extends
-  TRAP-006 rather than replacing it.
+  TRAP-006 rather than replacing it. **Provenance differs from the other four:**
+  it has no row in the convergence table — it rests on card-corpus evidence
+  alone (three named instances across three repositories) and is therefore the
+  weakest of the five on this audit's own standard.
 
 ---
 
@@ -300,15 +319,23 @@ do not contain that; they contain sessions doing exactly the asked work and
 getting facts wrong inside it. Detection also improved sharply in the same
 window, so a rising visible error count partly measures a better instrument.
 
-**What did genuinely get worse is narrower and more damning:** rules broken by
-the session that authored them, the same day. The DISCOVERY RULE violated three
-hours after being written; TRAP-006 biting twice on the day it was registered;
-the densest stale-record cluster falling exactly on 2026-08-08 → 08-28 in
-fleet-manager — *where the estate was actively studying this defect and kept
-committing it*. **Its cause is delivery, not motivation**, which is what §4
-measures and what
-[`2026-08-08-why-rules-dont-bind.md`](2026-08-08-why-rules-dont-bind.md)
-already found: 116 statements catching 0 of 16 incidents.
+**The sharpest observed cluster — stated as an observation, not a trend.** A
+distinct kind of incident is concentrated in August: rules broken by the session
+that authored them, the same day. The DISCOVERY RULE violated three hours after
+being written; TRAP-006 biting twice on the day it was registered; the densest
+stale-record cluster falling on 2026-08-08 → 08-28 in fleet-manager — *where the
+estate was actively studying this defect and kept committing it*.
+
+An earlier cut called this *"what genuinely got worse"* and named delivery as
+its cause. **Codex refused both halves and was right** (fm #967): a denser
+observed cluster cannot establish worsening in the same document that rejects
+cross-era rate comparison, and §4's route census shows a plausible *mechanism*
+without establishing *causation*. So: the cluster is observed and dated; whether
+it represents a real increase is unanswerable here for the same reason the rate
+question is; and delivery is a **candidate** explanation, consistent with
+[`2026-08-08-why-rules-dont-bind.md`](2026-08-08-why-rules-dont-bind.md)'s
+measurement of 116 statements catching 0 of 16 incidents, not a demonstrated
+cause.
 
 **The half that cannot be answered:** there is no comparable per-session error
 *rate* across eras. July ran ~15 parallel seats writing short formulaic cards;
@@ -330,8 +357,15 @@ on it.
   roadmap's §6 promotion rule and OD-24 §3's freedom doctrine, a review round
   that emitted infrastructure before the owner saw it would recreate the
   wall-accretion he is correcting.
-- **The corpus records errors sessions NOTICED.** Errors nobody caught are
-  structurally invisible. Every frequency here is a floor.
+- **Every frequency here is an OBSERVED MENTION COUNT, not an incident count,
+  and not a lower bound.** Two forces push in opposite directions and neither
+  was measured. Errors nobody caught are structurally invisible, which
+  under-counts; but **no deduplication was performed across cards**, so one
+  incident discussed in a card, the next session's review of it and a later
+  finding can enter three times, and the panels rejected almost nothing, so
+  false positives survive. An earlier cut called every frequency a floor;
+  Codex refused it (fm #967, P1) and it is withdrawn. Corpus-level precision
+  and dedup are unmeasured.
 - **Severity and the ranking are judgements**, not measurements. Cost per
   instance is unmeasured.
 - **No false-positive rate was measured** for any proposed checker; each is an
