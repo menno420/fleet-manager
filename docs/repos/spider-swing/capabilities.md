@@ -65,8 +65,10 @@ there — same quirk, same fix. `MEASURED` 2026-08-03, ledger.
 applies to any repo in the estate:
 
 - Trigger: **post the literal comment `@codex review`. Treat that as the only
-  one.** Codex's about-box advertises two more (PR open, draft→ready) and they
-  did **not** fire when measured: 2026-08-29, fm #974 opened READY drew zero
+  one.** Codex's about-box advertises two more, and they stand
+  differently: **draft→ready is UNMEASURED** — fm #974 and fm #977 were both
+  *created* ready (`draft=false`, zero `ready_for_review` events), so nothing
+  here probes that path. **PR-open did not fire in either observation:** 2026-08-29, fm #974 opened READY drew zero
   Codex activity on `/pulls/{n}/reviews`, `/pulls/{n}/comments` and
   `/issues/{n}/comments` across its **422 s** open window — only 87 s past the
   ~335 s relay, so treat it as suggestive rather than a clean null; a queued

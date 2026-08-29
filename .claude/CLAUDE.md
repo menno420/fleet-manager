@@ -261,12 +261,14 @@ Essentials:
 - **ALWAYS ask `@codex` explicitly — never rely on it noticing your PR.** Its
   own about-box advertises three triggers (open a PR for review · mark a draft
   ready · comment `@codex review`), but **only the comment is reliable.**
-  `MEASURED` 2026-08-29, and **read the margin before leaning on it**: fm #974
-  was open **422 s** (READY `19:35:24Z` → merged `19:42:26Z`) and drew **zero**
-  Codex activity on all three surfaces — 87 s past the ~335 s relay, so
-  suggestive but not conclusive, since a queued review would plausibly be
-  abandoned at merge. fm #977 drew a review seconds after a manual request,
-  logged by Codex itself as `Review trigger: Manual request`. Owner,
+  `MEASURED` 2026-08-29, and **read what was actually probed**: both observed
+  PRs were *created* ready, so **draft→ready is untested, not refuted** (zero
+  `ready_for_review` events on either). On PR-open, fm #974 was open **422 s**
+  (`19:35:24Z` → merged `19:42:26Z`) and drew **zero** Codex activity on all
+  three surfaces — 87 s past the ~335 s relay, suggestive but not conclusive,
+  since a queued review would plausibly be abandoned at merge. fm #977 drew a
+  review seconds after a manual request, logged by Codex itself as
+  `Review trigger: Manual request`. Owner,
   live, same day: *"Codex only reviews if you ask it to."* The advertised
   auto-triggers and the observed behaviour disagree; **post the comment and
   you never have to care which is right.** Then wait — it answers in about

@@ -109,8 +109,9 @@ not required to add one).
 
 LANDING. Open PRs READY, not draft. Always ASK Codex to review — post a
 literal "@codex review" comment rather than relying on the PR-open or
-draft→ready triggers it advertises. Those did not produce a review in the two
-observations taken 2026-08-29, and neither is a clean null: fm #974 was open
+draft→ready triggers it advertises. PR-open did not produce a review in either
+observation taken 2026-08-29, draft→ready was never exercised at all, and
+neither observation is a clean null: fm #974 was open
 only 422s (87s past the ~335s relay, so a queued review could have been
 abandoned at merge) and fm #977 sat ready 47s before the manual request. Ask,
 and the question never arises; its findings arrive as

@@ -1,9 +1,13 @@
 # 2026-08-29 — the Codex trigger corrected in all five places, and the model slot dated
 
-> **Status:** `in-progress` — born red. **What is about to happen:** the wrong
-> `@codex` trigger claim is corrected in every live copy (not just the boot
-> file), and the date the `📊 Model:` slot started reading `withheld` is
-> measured from the card corpus rather than recalled.
+> **Status:** `complete` — the wrong `@codex` trigger claim is corrected in
+> every live copy (five, not just the boot file), and the date the `📊 Model:`
+> slot started reading `withheld` is measured from the card corpus rather than
+> recalled. **Two Codex rounds, 7 findings, all 7 `[conceded]`, zero
+> `[survived]`** — 5 then 2, converging. **Flip exemption, declared:** the last
+> reviewed SHA is `e15ea41`; after it come the two round-2 fixes, the
+> path-asymmetry caveat, and this flip. Both fixes only *weaken* claims — a
+> hedge and one integer — so nothing unreviewed asserts anything new.
 
 - **📊 Model:** withheld · max · docs-only
 - **⚑ Model-slot note:** this session's harness policy forbids a model
@@ -175,8 +179,11 @@ separates the groups — and note the conclusion was unchanged by the corrected
 figures, which is exactly why the error survived a first reading.
 
 **Count discipline:** these are **cards, not sessions** — one session can land
-two, so 5 withheld cards is an upper bound on 5 sessions and not a session
-count.
+two, so **6 withheld cards in the current group is an upper bound on 6
+sessions**, not a session count. (That denominator read `5` until Codex caught
+it in round 2 — left behind by the very recount that fixed the totals above.
+The count discipline this card preaches, failed by this card, in the paragraph
+stating it.)
 
 **What this does NOT establish.** Nothing here says *why*, and no dated
 Anthropic documentation was found that mentions the restriction — checked
@@ -204,6 +211,39 @@ on `main` today.
 The route around it is unchanged and costs nothing: `get_session` reports
 `session_context.model` and `external_metadata.last_served_model`, and the
 answer goes in the chat reply where it is allowed.
+
+## What the two review rounds cost, and what they bought
+
+**Round 1 on `aa17ccc`: 5 findings (3 P2, 2 P3), all `[conceded]`, zero
+`[survived]`.** The sharpest was the append-only violation — this session edited
+a dated entry in `docs/CAPABILITIES.md` in place, which its own § 5 forbids, in
+the file that states the rule. Second sharpest: the `cloud-container` figure was
+`12` and the answer was `13`, wrong for **two independent reasons** — a pre-card
+snapshot, and a venue token reading `cloud-container, owner PRESENT` that the
+counting script bucketed separately for want of a comma strip. Neither error
+changed the conclusion the number supports, which is why both survived a first
+reading.
+
+**Round 2 on `e15ea41`: 2 findings (1 P2, 1 P3), both `[conceded]`.** The P2 is
+the better one and it is a scope error this card kept making in miniature:
+every copy claimed *both* advertised auto-triggers "did not fire", while both
+observed PRs were **created** ready — `draft=false`, zero `ready_for_review`
+events on either (`/issues/{n}/events`). **PR-open was probed; draft→ready was
+never exercised.** All copies now say `UNMEASURED` for that path rather than
+refuted. The P3 was the stale `5` denominator above.
+
+**Landed at the two-round cap with the fixes applied but unreviewed.** The last
+reviewed SHA is `e15ea41`; after it come the two round-2 fixes, the
+path-asymmetry caveat below, and this flip. Both fixes are strictly
+*weakening* — they replace claims with hedges and correct one integer — so they
+add no assertion a reviewer has not seen.
+
+**The caveat, owed before Codex asked and recorded here because it is the
+weakest joint in the whole finding:** the ~15 s summary-creation latency is
+`n=1` **and comes from the manual path only**. No observation exists of the
+automatic path posting a summary. So "47 s of silence beats a 15 s post time"
+assumes both paths post at the same speed — unverified, and the argument leans
+on it.
 
 ## Verify
 
