@@ -71,6 +71,29 @@ exactly Codex's 111. Caught by re-checking the field's shape before writing
 the disposition — reading the wrong field while verifying a field-reading
 defect, one layer up from the F1 it was verifying.
 
+## Codex #978 round 2 — 5 P2s, all `[conceded]`, and the cadence change
+
+All five measured before disposition: the §9 sentence attributed my
+any-element 111 to a first-answer predicate (measured: 37 first-answer — the
+field-reading class a third time, this time in the sentence correcting it);
+§0 still carried the withdrawn "leaves no record" absolute; the findings
+README row still held four pre-round-1 conclusions (a correction leaving its
+own copies standing, live, in the index — the class the audit proposes as
+TRAP-008); the launch-SHA snippet's `> ".launch-sha.$r"` breaks on
+path-shaped `$REPOS` entries (reproduced: exit 1, *No such file or
+directory*) — upgrading F2 from unexercised to defective; and the bad-draft
+probe was under-priced ("3 agents" → 3 surgically, 13 as the committed
+workflow runs).
+
+**Owner cadence directive, applied from round 2 onward (his live words this
+session):** Codex is reserved for flip-readiness and "real important
+changes"; mid-session verification goes to the free-key Gemini route — the
+Vertex credits timed out days ago, so Vertex is off (owner-stated, not
+probed). These five wording-grade fixes therefore got a Gemini mid-check
+instead of a Codex round 3, and the PR flips on round 2's answered verdict.
+Durable capture of both directives (conventions + providers + boot file +
+decisions.md) is planned as its own small records PR after this one lands.
+
 ## ⟲ Previous-session review
 
 Previous card:

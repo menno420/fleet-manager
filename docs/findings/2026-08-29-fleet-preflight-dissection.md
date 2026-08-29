@@ -31,10 +31,11 @@ audit, §7's demand test). Its two structural weaknesses are not prose defects
 and cannot be edited away: **it has only ever been validated backwards**
 against the one run that produced it (seven sections mapping one-to-one onto
 one run's six failures is what overfitting looks like when it is honest), and
-**it lives in the one container the estate's own parallel audit says it cannot
-measure** — a skill invocation leaves no record, and this skill ships with no
-route, by its own admission unfinished under the trap lifecycle
-(`SKILL.md:400-405`). Both are settled the same way: **run it once, for real,
+**it lives in the container whose use the estate's own parallel audit found it
+cannot count** — a skill invocation *need not* leave a record (46 recorded
+invocations exist; what is missing is exhaustive telemetry, so no rate is
+derivable in either direction), and this skill ships with no route, by its own
+admission unfinished under the trap lifecycle (`SKILL.md:400-405`). Both are settled the same way: **run it once, for real,
 and route it when the revised plan allows.** Until then, edits are guesses —
 which is why this dissection names fixes and lifts rather than applying them.
 
@@ -108,10 +109,17 @@ container (`MEASURED`: `/usr/bin/gh`, 2026-08-29). What stands is narrower and
 still real: **no run of that snippet exists** — this session could not supply
 one because its own harness policy routes all GitHub work to the MCP tools,
 and that policy variance across session classes is itself the reason the
-snippet should not be the only path. Fix shape: verify the snippet at the
-skill's first real use, and put the estate-native listing (MCP or direct-PAT)
-beside it for the sessions whose policy forbids `gh`. The `--limit is a
-maximum, not a page size` warning is right and travels with whichever form.
+snippet should not be the only path. **And round 2 found the snippet carries
+an actual defect no venue can save** (`MEASURED`, reproduced this session):
+when `$REPOS` holds path-shaped entries — `projects/superbot`, any absolute
+path — the redirect `> ".launch-sha.$r"` embeds the slashes in the filename
+and fails with *No such file or directory*, so the later `cat` never recovers
+the launch SHA and the scheduled re-read silently loses its baseline. Fix
+shape: sanitize the identifier (`${r//\//-}`) or write the SHA inside each
+repo; verify the `gh` half at the skill's first real use; and put the
+estate-native listing (MCP or direct-PAT) beside it for the sessions whose
+policy forbids `gh`. The `--limit is a maximum, not a page size` warning is
+right and travels with whichever form.
 
 **F3 — the file breaks its own no-restating promise, and that debt has already
 cost one near-miss.** `SKILL.md:15-17` says it *"cites those numbers rather
@@ -242,12 +250,15 @@ neither run in this session (both are execution, and stage one is mapping):
    run prices the §3 trim, tests F1's fix, and produces the first committed
    contract sheet — no `CONTRACTS.md` exists anywhere yet, and its first
    instance is the artifact that answers the reuse map's objection.
-2. **The bad-draft probe** (from the round's open list): re-run the committed
-   judge-panel prompt (`docs/findings/data/workflows/03-judge-panel-skill-design.js`,
-   fm #973) with one deliberately broken draft among the three. All three real
-   drafts scored USABLE or better, so the panel has never been seen to reject
-   — the same never-seen-red defect §1b guards against, one layer up. Three
-   agents, minutes, decisive either way.
+2. **The bad-draft probe** (from the round's open list): judge one
+   deliberately broken draft with the committed panel's three lenses. All
+   three real drafts scored USABLE or better, so the panel has never been
+   seen to reject — the same never-seen-red defect §1b guards against, one
+   layer up. Priced honestly (round 2 corrected the first cut's "three
+   agents"): run surgically — the one bad draft under the three judge lenses
+   — it is 3 agents; re-running the committed workflow as-is is **13** (three
+   drafting lanes, three judges per draft, one synthesis). The surgical form
+   answers the question.
 
 ## 9 · The round's records against each other — the reconciliation that was owed
 
@@ -277,7 +288,10 @@ killed rows — cases where named existing coverage was the verdict. The
 row-level labeling (`already_covered_positive` true on 233 of 284) supports
 only the weaker claim that **coverage signal was collected and ignored**:
 positive means a lens named at least one real covering mechanism, and on
-**111 of the 233** the first answer begins *"partial"* — partial coverage is
+**111 of the 233** at least one answer begins *"partial"* (37 where the first
+answer does — the wider predicate is the one measured, stated as such after
+round 2 caught this sentence attributing the 111 to the narrower one, the
+field-reading error class a third time) — partial coverage is
 not duplication, and treating 233 as duplicates would push the revised plan
 toward rejecting genuinely additive work. (At verdict level, 815 of 925 named
 something — retrospective §3 — with the same partial-inclusive caveat.) And
