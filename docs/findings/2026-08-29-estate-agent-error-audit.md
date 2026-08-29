@@ -1,7 +1,8 @@
 # The estate-wide agent-error harvest — OD-24 §6 step 1, extended
 
-> **Status:** `living-ledger` · opened 2026-08-29 · **complete** — all eight
-> sections landed; nine Codex findings conceded and folded in (fm #967).
+> **Status:** `living-ledger` · opened 2026-08-29 · **complete** — nine sections;
+> **28 Codex findings across three rounds, all `[conceded]`, zero `[survived]`**
+> (fm #967 R1 9 + R2 11, fm #968 8).
 >
 > **What this is:** the drift-incident corpus OD-24 §6 step 1 asked for, taken
 > at estate scale. The [genesis dig](2026-08-28-substrate-kit-genesis-dig.md)
@@ -76,11 +77,17 @@ the document whose §3 lists this session's errors. Read in full: five are
 **562 are attributable to agents and 2 are indeterminate; none is identifiably
 the owner's first-person voice.** That is **12 repositories for review comments
 (every repository that has any) and 6 of 28 for issue comments** — the six
-busiest. **22 repositories' issue comments were not enumerated.** The mechanism
-(agents authenticate with his credential) applies wherever an agent posts, so
-the generalisation is `REASONED` and well-founded; the *measurement* stops at
-the population above, and a summary of this section that says "on GitHub" flat
-has outrun it. Recorded because that is exactly what happened once already in
+busiest. **22 repositories' issue comments were not enumerated.** The mechanism (agents authenticate with his
+credential) explains the enumerated comments — **but it is not universal, and
+that bounds the generalisation harder than an earlier cut admitted.**
+[`../execution-surfaces.md`](../execution-surfaces.md) `:42` records that the
+ChatGPT/Codex Work surface uses a *platform-native GitHub connection with no
+`$GITHUB_PAT`*, and its § 4 states plainly that **`$GITHUB_PAT` is not
+universal**. So the PAT explains this estate's Claude-side posting and cannot by
+itself carry the extension to the 22 unenumerated repositories; the connector's
+own author attribution is **unestablished here**. `REASONED` for Claude-side
+surfaces, **open** elsewhere. A summary of this section that says "on GitHub"
+flat has outrun it. Recorded because that is exactly what happened once already in
 this session's own reporting. The
 sharpest single line in the residue is an agent writing *"Menno also confirmed
 the PR #8 Reel and DEBUG controls now work on Android"* — referring to the owner
@@ -457,8 +464,12 @@ on it.
   Code's tool-time injection but says nothing about reminders delivered by other
   means (prompt text, CI output, a repo's own scripts).
 - **§1's issue-comment enumeration covers 6 of 28 repositories**, the busiest.
-  Review comments cover all 12 that have any. The extension to the remaining 22
-  is `REASONED` from the credential mechanism, not measured.
+  Review comments cover the **12 repositories the retained script selects**. A
+  scoping pass early in this session did count review comments across all 28 and
+  found 12 non-zero, but `reviews.py` hard-codes the 12, so **a re-run
+  reproduces the corpus without reproducing its exhaustiveness**. The extension
+  to the remaining repositories is `REASONED` from the credential mechanism —
+  itself bounded, since that credential is not universal (§1).
 - **The retained scripts were themselves defective** in four ways review found —
   a dead lexicon, an unrunnable first step, and two failure paths that turned
   fetch errors into silently empty corpora. All four are fixed in the retained
@@ -495,24 +506,57 @@ declaration.** It adds no session obligation, asks for no line to be filled, and
 gates nothing. If a future reader thinks it has drifted into Move 1's shape, the
 hold wins.
 
-## 9 · The recommended next step
+## 9 · Plan input — NOT a next step
 
-**One structural slice, measured before anything is promoted:** move routing into
-the kit's existing hook channel (present in 18 of 20 repositories), and re-run
-the eight write-time routes against this audit's own corpus.
+**Corrected on review (fm #968).** An earlier cut of this section was headed
+*"the recommended next step"*. That bypasses the owner's own sequencing, and
+he drew the boundary himself in the same sitting:
 
-Judged by **his** test rather than by gap class — *does this make a session more
-likely to leave the repo better than it found it?* — the answer is yes in a
-narrow, checkable way: a session that is told, at the moment it writes a claim,
-that the claim needs a measurement, leaves a truer record behind. That is one
-kind of "better", not all of them, and it does not touch the initiative half of
-his cause, which is a disposition rather than a delivery problem.
+- **OD-26 §13** — *"There is a three-stage order, and the estate is at stage
+  one: map most of all the repos → use this information to come up with a
+  revised plan → then execution. No GO'd work starts before the revised plan
+  exists."* And explicitly: *"this round's output is another one [input]. That
+  makes the round's deliverable a **contribution to a plan**, not a work queue
+  to start executing."*
+- **OD-26 §14** — *"**Mechanisms wait** for the revised plan… Document
+  corrections do not."*
 
-**The measurement that should gate it:** every incident in this corpus is dated
-and cited, so *"would this route have fired on that instance"* is answerable
-rather than asserted. Run that before promoting anything. Promote only what
-measures useful — the roadmap's §6, verbatim, and OD-26 §7's hold is the standing
-reminder that an unasked-for mechanism is the failure mode, not the deliverable.
+Routing into the kit's hook channel is a mechanism. **So it waits, and this
+section is an input to the revised plan rather than a recommendation to act.**
+Its content is unchanged; its standing is corrected.
 
-**Nothing here is built.** No trap is registered, no route added, no checker
-written, no skill edited.
+### What the input says
+
+Move routing into the kit's existing four-event hook channel — present in 18 of
+20 repositories — and re-run the eight write-time routes against this audit's
+corpus.
+
+**Against his actual test.** An earlier cut argued this under his *leave the
+repo better* statement. OD-26 **§20** sets a narrower and more specific test:
+
+> *"For any mechanism this round proposes: **does it stop something being
+> re-derived?** … A mechanism may also reduce stalling — that is a bonus, not
+> the case for it."*
+
+The honest answer is **yes**, and §20 had already reached it independently and
+more sharply than this audit did: *"routing beats building. … **A shipped
+mechanism nobody is routed to is re-derivation waiting to happen** — which is
+exactly the class his sentence names, and exactly the class this round found
+most of."*
+
+That is this audit's §4 in his vocabulary, arrived at without it: 328 stated
+rules with no delivery, a kit that ships no routing, and a channel already
+installed in 18 of 20 repositories. **The measurement corroborates a conclusion
+he had already drawn** — which is a better outcome for it than being novel, and
+worth saying plainly rather than dressing up as a new finding.
+
+### The measurement that should gate it, whenever the plan reaches it
+
+Every incident in this corpus is dated and cited, so *"would this route have
+fired on that instance"* is answerable rather than asserted. Run that before
+anything is promoted. Promote only what measures useful — the roadmap's §6,
+verbatim.
+
+**Nothing here is built.** No trap registered, no route added, no checker
+written, no skill edited, and — per OD-26 §13 — nothing proposed for execution
+before the revised plan exists.
