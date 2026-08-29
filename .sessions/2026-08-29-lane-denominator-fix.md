@@ -1,9 +1,10 @@
 # 2026-08-29 — the borrowed denominator, corrected in both copies
 
-> **Status:** `in-progress` — born red. **What is about to happen:** the phrase
-> *"one lane of five"* is corrected to *"one lane of ten"* in the two places on
-> `main` that carry it. The numerator was right and measured; the denominator
-> was quoted from a neighbouring PR and never checked.
+> **Status:** `complete` — *"one lane of five"* is corrected to *"one lane of
+> ten"* in both places on `main`. The numerator was right and measured; the
+> denominator was quoted from a neighbouring PR and never checked.
+> **No review was requested, and the reason is stated below**, so there is no
+> outstanding verdict for the flip to outrun (TRAP-007).
 
 - **📊 Model:** withheld · max · docs-only
 - **⚑ Model-slot note:** this session carries an instruction against a model
@@ -49,6 +50,24 @@ sound, is not. Nothing in the sentence looked unmeasured.
 **It is also TRAP-008 by construction:** the error existed in two files before
 this session touched anything, because fm #976 and fm #977 landed within
 40 minutes of each other and the second quoted the first.
+
+## Why no review was requested
+
+The change is one phrase in two files, and every figure behind it is readable
+by `grep` against a single document in the same tree — the title line, a table
+row count, and one quoted sentence. fm #969 set the precedent for declining a
+review on exactly this shape (a two-integer documentation correction) with the
+reason written down.
+
+**The stronger argument is that a review already failed to catch this.** Codex
+reviewed fm #977 twice — 7 findings, all conceded — and *"one lane of five"* sat
+in the diff of the second round, in a paragraph it was actively reading, and did
+not surface. That is not a criticism of the reviewer: a ratio citing a real
+document, beside a quote that checks out, is not what an adversarial reader is
+scanning for. It does mean a third round has no particular claim on catching it.
+
+**If that reasoning is wrong, this is the change to point at** — one phrase,
+two files, trivially reversible.
 
 ## Verify
 
