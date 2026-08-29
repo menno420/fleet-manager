@@ -102,15 +102,22 @@ and re-discovering one costs less than never trying.
 **It is narrower than "no model names in the repo."** The same instruction set
 that forbids the identifier also hands the session a `Co-Authored-By` trailer
 containing one and says to end every commit message with it. **That instruction
-is the basis for the distinction — read your own, not a commit count.** The
-count is not reproducible: `git log --all` returns whatever refs the local
-checkout happens to hold (656 across 123 refs in the container that wrote this;
-a fresh clone returns far fewer), and `origin/main` returns **1** across its 62
-commits, because this repo squash-merges and that collapses every PR's
-per-commit trailers into one squashed message. So the rule bites on *content
-you author* — prose, titles, code comments — not on the mandated attribution
-channel. The card's `📊 Model:` line is the ambiguous case, which is why
-sessions split on it; `withheld` is how this repo resolves it.
+is the basis for the distinction — read your own; do not try to count it.**
+
+> **Do not quote a trailer count here, in any scope.** Two attempts were wrong
+> for two different reasons. `git log --all` counts whatever refs the clone
+> holds (656 across 123 refs in the container that wrote this; 343 at a
+> reviewer's checkout of the same commit). `origin/main` looked stable and was
+> not: **this container's clone is shallow**, so `rev-list --count` returned 62
+> where full history has **993**, and the 1-trailer result it produced was a
+> truncation artifact — which then got a squash-merge explanation invented to
+> fit it. The real count from the same base is 341. The distinction this
+> paragraph draws needs no number; the instruction is the evidence.
+
+So the rule bites on *content you author* — prose, titles, code comments — not
+on the mandated attribution channel. The card's `📊 Model:` line is the
+ambiguous case, which is why sessions split on it; `withheld` is how this repo
+resolves it.
 
 Measurement and the full reasoning:
 [`.sessions/2026-08-29-model-slot-grammar.md`](2026-08-29-model-slot-grammar.md).

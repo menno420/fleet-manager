@@ -27,7 +27,8 @@ gap worth fixing.
 ## Finding 1 — the rule is not new, and never was uniform · `MEASURED`
 
 Parsed every `.md` in `.sessions/` **from the git tree** (`git ls-tree -r
---name-only HEAD .sessions/` → 441 files, minus this README), taking each
+--name-only <sha> .sessions/`; the count moves as cards land, so pin the SHA
+rather than quoting a file total), taking each
 card's first line-anchored `📊 Model:` occurrence — the kit's
 `MODEL_LINE_NEEDLE` at `bootstrap.py:1469`, bold or not. **430 cards carry the
 line; 417 name a model and 13 decline, in five spellings, across seven weeks:**
@@ -102,19 +103,30 @@ warning below the table before quoting any of these numbers:
 | `Co-Authored-By: Claude` | 14 |
 | `Co-Authored-By: Claude Opus 4.8` | 8 |
 
-**This measurement is not reproducible, and Codex demonstrated it.** `git log
---all --format="%B" | grep -c "Co-Authored-By: Claude"` returns whatever refs
-the local checkout happens to hold — 656 across 123 refs in the container that
-wrote this card, 343 at Codex's checkout of the same commit, and the breakdown
-above is likewise container-local. The one stable number is `origin/main`:
-**1 trailer across 62 commits**, because this repo squash-merges and that
-collapses every PR's per-commit trailers into a single squashed message.
+**This measurement is not reproducible anywhere, and it took two review rounds
+to get that right.**
 
-So the finding stands on the instruction text, which any session can read in
-its own prompt, and **not** on the tally. A count whose value depends on which
-branches your clone fetched is not evidence — which is the same defect this
-card's § *Matcher note* records one layer down, and the same one the audit
-catalogues as a claim wider than the sample that produced it.
+`git log --all` returns whatever refs the clone holds — 656 across 123 refs
+here, 343 at Codex's checkout of the same commit. Conceded in round 1.
+
+I then offered `origin/main` as "the one stable number": **1 trailer across 62
+commits, because this repo squash-merges**. Both halves are wrong, and the
+second is the worse error. **This container's clone is shallow** —
+`.git/shallow` exists, grafting 7 roots at 2026-08-23 — so `rev-list --count
+origin/main` returns 62 because that is where history was cut, not because main
+is 62 commits long. Codex, with full history, counts **993 reachable commits
+and 341 trailers** from the same base `8fc3cc71`. Trailers survive on main
+perfectly well.
+
+So the squash-merge mechanism was **invented to explain an artifact of my own
+clone**. That is the failure this whole card is about, committed one layer up:
+not a miscount this time but a confident causal story fitted to a number I had
+not established was real. The `--merges` check I would have run to test it
+returns 0 on a shallow clone too, so it would have confirmed the wrong story.
+
+**Nothing about the tally is quotable.** The finding stands on the instruction
+text, which any session reads in its own prompt and which needs no count at
+all.
 
 So the rule cannot mean *no model name anywhere in a commit*. The coherent
 reading is **don't editorialize model identity into content** — titles, bodies,
@@ -140,11 +152,16 @@ feedback, five sessions produced five strings.
 ## The change
 
 One local amendment to [`.sessions/README.md`](README.md), in the same marked
-style as the 2026-08-26 Venue amendment (the kit block above it is kit text and
-a kit upgrade's install may overwrite the file):
+style as the 2026-08-26 Venue amendment. The kit block above it is kit text, and
+a kit upgrade **preserves** it: `_adopt_plant` (`bootstrap.py:19563-19571`)
+reports `kept:` and returns without writing when the file exists, and
+`_merge_model_doctrine` (`:19652-19667`) is append-only and idempotent. Nothing
+here needs re-applying after an upgrade — see § *Codex round 1 on fm #976*,
+finding 3.
 
 - **The default is unchanged and stated first:** name the family-level model.
-  250 of 259 cards do, and that ledger is the point of the field.
+  **417 of the 430 cards carrying a `📊 Model:` line** do, and that ledger is
+  the point of the field.
 - **One sanctioned token** — `withheld` — for a session that actually carries
   the restriction, plus the one-line `⚑ Model-slot note` naming which half is
   exact. Not a new phrasing per session.
@@ -200,6 +217,45 @@ it is a false instruction that has been in `.sessions/README.md` since
 checking it. Copying a neighbouring block's provenance comment is exactly the
 inheritance the amendment's own "never inherit `withheld`" clause warns against,
 committed in the same file, in the same PR, by the session writing the clause.
+
+## Codex round 2 on fm #976 — 3 P2 findings, all `[conceded]`
+
+All three are on text written in round 1. One of them overturns a claim I had
+just made *while conceding a related one*.
+
+| # | finding | fix |
+|---|---|---|
+| 1 | A third overwrite warning survived in this card's § *The change* | I fixed the two in `.sessions/README.md` and reported "both instances corrected" without grepping my own card. Corrected, with the two function line-ranges cited inline. |
+| 2 | **`origin/main` is not a stable scope either — the clone is shallow** | See below. The sharpest finding of either PR. |
+| 3 | The card's thesis and change summary still carried the pre-correction census | § *The change* still said "250 of 259", and the reproduce recipe pinned a file total that moves as cards land. Now 417 of 430, and the recipe says to pin a SHA rather than quote a file count. |
+
+### Finding 2 is the one that matters
+
+Conceding round 1's trailer finding, I replaced the unreproducible `--all` count
+with what I called "the one stable number": **1 trailer across 62 commits,
+because this repo squash-merges**.
+
+`.git/shallow` exists in this container — 7 grafted roots at 2026-08-23.
+`rev-list --count origin/main` returns 62 because **that is where history was
+cut**. Codex, with full history, counts **993 reachable commits and 341
+trailers** from the same base `8fc3cc71`. Trailers survive on `main` fine.
+
+So I did not merely miscount. **I invented a causal mechanism to explain an
+artifact of my own environment**, in the same paragraph where I was conceding
+that a different count was environment-dependent. And the check that would have
+caught it — `git log --merges`, which returns 0 — returns 0 on a shallow clone
+too, so running it would have *confirmed* the wrong story.
+
+That is a sharper version of this card's own thesis than the one it was written
+to make. The matcher failures earlier in this session were narrow selectors
+reported as populations. This one is a **narrow environment reported as a
+property of the repository**, with a mechanism supplied to make it feel
+explained. The first kind a positive control catches. The second kind survives
+one, because the control confirms the artifact.
+
+**Both counts are now withdrawn.** The finding rests on the instruction text,
+which needs no tally at all — and the amendment says so in a blockquote, so the
+next session does not try a third scope.
 
 ## Verify
 
