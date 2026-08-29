@@ -110,6 +110,38 @@ was anyone's job. No lens in the rubric owned the second.
 The correction is in the script comment with the quotes attached, so the next
 reader gets the accurate version rather than the flattering one.
 
+## Codex round 2 — 6 more findings (5×P2, 1×P3), all `[conceded]`
+
+**Five of the six are on text I wrote in round 1.** That is the number worth
+noticing: fixing seven findings produced six new ones, all in the prose written
+to describe the fixes.
+
+| # | finding | fix |
+|---|---|---|
+| 1 | "populated on all 284" ≠ positive coverage — the schema *required* the field, so `nothing`/`none`/`new` are valid answers | `MEASURED`: **233 name a real covering mechanism, 51 are negative-only.** Added `already_covered_positive` (bool) and `already_covered_answers` (count) so the two are separable without parsing prose. My round-1 sentence would have made 51 genuinely-new candidates read as already covered. |
+| 2 | My own `jq` cut filtered on `refuter_count>0` — returning 58 rows and silently dropping 226, in the very command meant to expose the ignored field | Filters on `already_covered_positive` now, with a comment saying why the two fields are independent. |
+| 3 | "observed mention counts" is wrong for `instance_count` given my own §Provenance caveat | Split: the `instances` array is observed, `instance_count`/`repo_count` are the lane's **claimed** shard tallies. Quote the array, never the count. |
+| 4 | "Harvested by 986 subagents" overstates evidence independence by >10× | `MEASURED`: **80 harvest lanes** read the corpus (68 cards + 12 review); the other ~906 of the 986 are synthesis, verification, census, prescription and critic agents working on those lanes' output. Read the provenance as 80 readers. |
+| 5 (P3) | The nine `strongest_element`s called a "ranked list" | They are an **unranked set** — each chosen under a different lens against a different draft, with no recorded comparison. A draft's mean score ranks drafts, not elements. |
+| 6 | The F6 reconstruction is unverifiable once the scratch run disappears — grouping already-labelled verdicts and recomputing their means is circular | The sharpest of the six. Committed the **independent aggregates** (the run's own `ranking`, computed before any labelling existed) into the panel JSON, plus [`verify_panel_association.py`](../docs/findings/data/workflows/verify_panel_association.py), which strips the labels and re-derives the assignment from the committed file alone. It asserts both halves — uniqueness, and agreement with the committed labels. Exits 0. |
+
+Zero `[survived]`.
+
+### The round-1 → round-2 shape is itself the finding
+
+Round 1: seven findings, all conceded, all real. Round 2: six findings, five of
+them **created by round 1's fixes** — every one a claim in newly-written prose
+that was slightly wider than what the data supported (`populated` → `covered`,
+`986 agents` → `986 readers`, `reconstructed` → `verifiable`, `nine elements` →
+`ranked`). Not one is a coding error; all six are the same overreach at the
+sentence level.
+
+This is **TRAP-008** (each round's fixes create the next round's stale copies)
+in its prose form, and it is the argument for the estate's two-re-review cap
+being about *convergence*, not patience: severity is falling (round 2 carries
+the run's first P3) but count is nearly flat, because the surface being reviewed
+is text I generate faster than I verify it.
+
 ## Verify
 
 - Row counts re-derived at export (284 / 20), not carried from the chat.

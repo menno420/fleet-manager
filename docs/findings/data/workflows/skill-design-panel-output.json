@@ -229,5 +229,43 @@
    "draft_mean_score": 8.0,
    "association_note": "Reconstructed 2026-08-29 from the run ranking (per-draft mean score, mean catches and verdict multiset). The assignment is the UNIQUE partition of the nine verdicts into three one-per-lens triples satisfying all three aggregates — verified by exhaustive search. It was not recorded at run time; the workflow emitted the verdicts unlabelled."
   }
- ]
+ ],
+ "reconstruction": {
+  "why": "The workflow emitted the nine judge_verdicts UNLABELLED and not grouped by draft, so the draft_name/draft_index/draft_mean_score fields on each verdict were reconstructed after the fact. Verifying that reconstruction from the labels alone would be circular, so the INDEPENDENT aggregates it was derived from are preserved here. They come from the run's own `ranking` output, computed by the workflow before any labelling existed.",
+  "run_id": "wf_2edb23ff-4bf",
+  "independent_aggregates_from_run_ranking": [
+   {
+    "draft_name": "fleet-preflight",
+    "mean_score": 8.0,
+    "mean_catches": 5.67,
+    "verdicts": [
+     "STRONG",
+     "STRONG",
+     "STRONG"
+    ]
+   },
+   {
+    "draft_name": "fleet-budget",
+    "mean_score": 7.33,
+    "mean_catches": 5.83,
+    "verdicts": [
+     "STRONG",
+     "STRONG",
+     "USABLE"
+    ]
+   },
+   {
+    "draft_name": "fanout-preflight",
+    "mean_score": 6.83,
+    "mean_catches": 5.33,
+    "verdicts": [
+     "STRONG",
+     "USABLE",
+     "USABLE"
+    ]
+   }
+  ],
+  "procedure": "Partition the nine judge_verdicts into three triples. A triple is admissible only if it contains one verdict per lens (USABILITY / ACCEPTANCE TEST / HOUSE FIT) and its mean score, mean catches_count and sorted verdict multiset all equal one draft's row above. Search every partition exhaustively. Exactly ONE assignment satisfies all three drafts simultaneously - that uniqueness is what makes the labels sound, and it is re-checkable from this file alone with the labels stripped.",
+  "verified": "2026-08-29 — exhaustive search returned exactly 1 consistent assignment."
+ }
 }

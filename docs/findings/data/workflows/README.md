@@ -54,8 +54,14 @@ judge-panel shape. That one line is what made it bite.
 
 Three full draft bodies (~32 KB) and nine judge verdicts. **The nine
 `strongest_element` fields are the point**: each judge names the one step worth
-grafting into any winner, so it is a ranked list of skill steps that survived
-independent scrutiny and did not all reach the shipped skill.
+grafting into any winner — an **unranked set** of nine judge-selected steps that
+survived independent scrutiny and did not all reach the shipped skill.
+
+**They are not ranked and cannot be.** Each was chosen under a different lens,
+against a different draft; the file records no rank or comparison among the
+nine, and the verdict order is not even grouped by draft. A parent draft's mean
+score ranks *drafts*, not individual elements picked under different criteria.
+Treat file order as arbitrary.
 
 The two runner-up drafts are not failures — `fleet-budget` scored **7.33** with
 its allocation table, and `fanout-preflight` **6.83** (an earlier draft of this
@@ -63,10 +69,22 @@ line said 6.5, which was one judge's individual score, not the draft's mean).
 `fleet-preflight` won at **8.0**. Their good parts are recoverable from here
 rather than from a re-run.
 
-**Each verdict now names its draft.** The workflow emitted the nine verdicts
-unlabelled, and their order does not group by draft, so the association was
-reconstructed on 2026-08-29 from the run ranking — per-draft mean score, mean
-catches and verdict multiset — and is the *unique* partition into three
-one-per-lens triples satisfying all three aggregates (verified by exhaustive
-search). Each verdict carries `draft_name`, `draft_index`, `draft_mean_score`
-and an `association_note` saying exactly that.
+**Each verdict now names its draft, and the labelling is auditable without the
+scratch run.** The workflow emitted the nine verdicts unlabelled, in an order
+that does not group by draft, so the association was reconstructed on 2026-08-29
+from the run's own `ranking` aggregates — per-draft mean score, mean catches and
+verdict multiset, all computed before any labelling existed.
+
+Checking those labels against themselves would be circular, so the file carries
+a `reconstruction` block holding **the independent aggregates** and the
+procedure, and
+[`verify_panel_association.py`](verify_panel_association.py) re-derives the
+assignment from the committed JSON alone with the labels stripped:
+
+```bash
+python3 docs/findings/data/workflows/verify_panel_association.py   # exit 0
+```
+
+It asserts both halves — that exactly **one** partition into three one-per-lens
+triples reproduces all three drafts' aggregates, and that this unique partition
+equals the committed labels. Stdlib only, no network, no scratch run.
