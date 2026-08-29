@@ -1,8 +1,8 @@
 # The estate-wide agent-error harvest — OD-24 §6 step 1, extended
 
-> **Status:** `living-ledger` · opened 2026-08-29 · **complete** — nine sections;
-> **28 Codex findings across three rounds, all `[conceded]`, zero `[survived]`**
-> (fm #967 R1 9 + R2 11, fm #968 8).
+> **Status:** `living-ledger` · opened 2026-08-29 · **complete** — §§0–9;
+> **37 Codex findings across four rounds, all `[conceded]`, zero `[survived]`**
+> (fm #967 R1 9 + R2 11; fm #968 R1 8 + R2 9).
 >
 > **What this is:** the drift-incident corpus OD-24 §6 step 1 asked for, taken
 > at estate scale. The [genesis dig](2026-08-28-substrate-kit-genesis-dig.md)
