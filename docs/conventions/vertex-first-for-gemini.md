@@ -1,7 +1,33 @@
-# Default to Vertex for all Gemini work
+# Gemini routing — the free key is the route; Vertex retired 2026-08-29
 
-> **Status:** `binding`
+> **Status:** `binding` — this header carries the current rule; everything
+> below it is the credit-era record, kept because the recipes and billing
+> chain stay true as history and revive if he ever re-funds the credit.
 >
+> **Owner directive, live, 2026-08-29:** *"the paid/vertex route does not work
+> anymore since the free credits timed out a few days ago"* — use the **free**
+> `GEMINI_API_KEY`. This supersedes the 2026-08-05 Vertex-first directive
+> below by its own exit clause (*"if credit runs out … re-read this page"* —
+> §Scope): the credit that made Vertex the free path is gone, so Vertex now
+> either fails or would bill differently, and the owner has ruled the route
+> off rather than asked for a probe.
+>
+> **The current rule:** free `GEMINI_API_KEY` for everything it serves —
+> including the mid-session review work the same sitting assigned to Gemini
+> ([D-0019]). `GEMINI_API_KEY_PAID` still bills **the owner's card**; Deep
+> Research remains its one documented exception (below), everything else
+> needs his say-so, stated in the session card. **Model ids for this key
+> class, `MEASURED` 2026-08-29:** `gemini-3.6-flash` works on
+> `generateContent`; the `gemini-2.5-*` ids are still listed by `/models` but
+> 404 with *"no longer available to new users — use models/gemini-3.6-flash"*.
+> Route decision record: [`../decisions.md`](../decisions.md) [D-0020].
+
+---
+
+## The credit-era record below (2026-08-05 → 2026-08-29)
+
+# Default to Vertex for all Gemini work *(superseded 2026-08-29 — header above)*
+
 > **Owner directive, 2026-08-05: every session defaults to Vertex AI for Gemini
 > calls — at least for the rest of this month.** Not a preference. Vertex spends
 > a credit balance already paid for that expires unused, while the **paid** AI

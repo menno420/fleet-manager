@@ -389,3 +389,52 @@
   mission, superseding only the rollout order in the 2026-08-26 execution
   packets. The record/index/move mechanics incorporate the named-open review
   findings on fm #951; source-of-truth ownership remains unchanged.
+
+## [D-0019] Codex reviews are reserved for flip-readiness; mid-session verification goes to free-key Gemini
+
+- status: decided
+- date: 2026-08-29
+- verdict: Owner directive, live, in his words: *"lets keep the codex reviews
+  until the PR is ready to flip to green. I don't think It's necessary to
+  review after every push, that just wastes the usage limits. Codex should
+  only be called after a real important change to the repo. For these
+  mid-session reviews you can use the gemini API (the free one…)"* — so the
+  single Codex round lands on the head that flips; intermediate fixes are
+  verified on the free-key Gemini route.
+- why: per-push Codex rounds burn the usage limits without adding coverage the
+  final round would not give; the one Codex verdict that matters lands on the
+  head that flips, which is also what TRAP-006/007 needs.
+- rules out: requesting `@codex review` on intermediate wording/fix pushes; it
+  does NOT retire never-merge-before-an-asked-Codex-answers, and it does not
+  make the final flip-readiness round optional on changes that matter.
+- first worked use: fm #978 — round-2 fixes verified by `gemini-3.6-flash`
+  (five findings RESOLVED, no new issues), flip on Codex round 2's answered
+  verdict.
+- provenance: owner, live, 2026-08-29, in the audits-review sitting (the
+  fm #978 conversation), quoted verbatim above; recorded the same hour.
+
+## [D-0020] The Vertex route is retired; the free `GEMINI_API_KEY` is the Gemini route
+
+- status: decided
+- date: 2026-08-29
+- verdict: Owner directive, live, in his words: *"the paid/vertex route does
+  not work anymore since the free credits timed out a few days ago"* — the
+  free `GEMINI_API_KEY` is the Gemini route; one session measurement rides
+  along (the working model id).
+- why: the 2026-08-05 Vertex-first directive was funded by the prepaid credit;
+  its own exit clause (conventions doc §Scope) said re-read and ask when the
+  credit runs out. It ran out; he answered.
+- rules out: defaulting to Vertex; probing Vertex to "confirm" his statement.
+  `GEMINI_API_KEY_PAID` (his card) keeps its Deep-Research exception and
+  otherwise needs his say-so, stated in the card.
+- measurement riding along (`MEASURED` 2026-08-29, owner-live venue): the
+  free key's `generateContent` serves `gemini-3.6-flash`; the `gemini-2.5-*`
+  ids are still listed by `/models` but 404 as *"no longer available to new
+  users"* naming `gemini-3.6-flash` as the replacement.
+- homes updated in the same diff: `docs/conventions/vertex-first-for-gemini.md`
+  (supersession header), `docs/providers/gemini.md` (banner),
+  `.claude/CLAUDE.md` (Gemini and @codex bullets), `docs/CAPABILITIES.md`
+  (append-log entry).
+- provenance: owner, live, 2026-08-29, same sitting as [D-0019], quoted
+  verbatim above; the 2026-08-05 directive's own exit clause is the
+  supersession authority.

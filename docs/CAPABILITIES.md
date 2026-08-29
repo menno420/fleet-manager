@@ -171,6 +171,21 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-29 · capability · `owner-live` · **The free `GEMINI_API_KEY` serves
+  `generateContent` on `gemini-3.6-flash` through the default (proxied)
+  environment — no direct-egress dance needed — and the `gemini-2.5-*` ids
+  are closed to new users.** · evidence: `POST
+  …/v1beta/models/gemini-3.6-flash:generateContent?key=$GEMINI_API_KEY` →
+  200, `finishReason: STOP`, `usageMetadata.totalTokenCount: 8504` (a
+  five-finding fix-diff review, fm #978); the same call with
+  `gemini-2.5-flash` → 404 *"This model … is no longer available to new
+  users. Please update your code to use models/gemini-3.6-flash"*, while
+  `GET /v1beta/models` still lists the 2.5 ids — the listing is not the
+  availability surface. · workaround: none needed — use `gemini-3.6-flash`
+  (or `gemini-flash-latest`); the route rule lives in
+  `conventions/vertex-first-for-gemini.md`'s header. — LAST-VERIFIED:
+  2026-08-29
+
 - 2026-08-27 · capability · `owner-live` (Codex desktop, ordinary Windows 11
   account without Developer Mode) · **Fleet Manager's owner-comment contract
   can be verified locally on Windows without administrator or symlink

@@ -1,12 +1,12 @@
 # Gemini — provider capability reference
 
-> ⚠️ **Before you call Gemini at all, read
-> [`../conventions/vertex-first-for-gemini.md`](../conventions/vertex-first-for-gemini.md).**
-> **Owner directive 2026-08-05: default to Vertex, at least this month.** The AI
-> Studio API key spends the owner's card; Vertex spends a €251.37 credit balance
-> that is already paid for. Same models, same prompts. The Railway → service
-> account → OAuth → Vertex route is verified end to end, including
-> `googleSearch` grounding (camelCase on Vertex).
+> ⚠️ **Owner directive 2026-08-29: the free `GEMINI_API_KEY` is the route —
+> Vertex is retired** (credits timed out; his words + supersession chain:
+> [`../conventions/vertex-first-for-gemini.md`](../conventions/vertex-first-for-gemini.md)).
+> `GEMINI_API_KEY_PAID` bills his card — Deep Research is its one exception.
+> **Model ids, `MEASURED` 2026-08-29:** `gemini-3.6-flash` on
+> `generateContent`; the `gemini-2.5-*` ids 404 for new users though
+> `/models` still lists them.
 
 > **Status:** `living-ledger`
 >
