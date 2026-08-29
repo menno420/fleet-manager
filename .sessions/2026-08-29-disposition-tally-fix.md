@@ -74,13 +74,36 @@ for — but the estate has been asking for **card grammar enforced by a hook**
 (owner, 2026-08-29), and "the flip banner's tally matches the dispositions
 counted in the same file" is a concrete, checkable instance of that ask.
 
-## Guard recipe (deferred)
+## Guard recipe (deferred) — and the defect found by testing it by hand
 
-A card-grammar hook could count `` `[conceded]` `` / `` `[partial]` `` /
-`` `[survived]` `` tokens inside the card's round tables and compare them to any
-`N [conceded]`-shaped claim in the Status banner, warning on mismatch. Anchors:
-the Status-badge parse already exists (`check_log` / `missing_markers` in
-`bootstrap.py`); the disposition vocabulary is fixed by
+**The obvious recipe does not work, and finding that out is half the value.**
+"Count `` `[conceded]` `` / `` `[partial]` `` / `` `[survived]` `` tokens in the
+card's round tables and compare to the banner" was the first draft. Run against
+the two merged cards it reports **10 conceded** where the truth is 19 — because
+**9 of the 20 round-table rows carry no token at all**: both round-2 tables put
+the disposition in the section heading ("*6 findings, all `[conceded]`*") and
+omit the per-row column. A hook shipping that predicate would fire a *false*
+mismatch on every card written that way, which is the worst possible failure for
+an advisory checker: it teaches sessions to ignore it.
+
+So the recipe is **two predicates, in order**, and the first is the one that
+makes the second possible:
+
+1. **Grammar** — every numbered row in a `## Codex round N` table carries
+   exactly one disposition token. Fires on a row without one. This is what makes
+   the tally countable; without it nothing downstream is well-defined.
+2. **Tally** — sum the tokens and compare to any `N [conceded]`-shaped claim in
+   the Status banner or a round heading. Fires on mismatch.
+
+**This PR makes both cards satisfy predicate 1** — the nine untokenised rows now
+carry an explicit `` `[conceded]` `` and their tables gained the column — so the
+recipe ships with a working fixture rather than a hypothesis. `MEASURED` after
+the change: fm #973 counts (13, 0, 0) from rows alone, fm #976 counts (6, 1, 0),
+zero untokenised rows, and every table is well-formed (header, separator and
+every row at 5 pipes).
+
+Anchors: the Status-badge parse already exists (`check_log` / `missing_markers`
+in `bootstrap.py`); the disposition vocabulary is fixed by
 `docs/conventions/adversarial-review.md`. Advisory lane only — a card with no
 round table must stay silent, and an honest `[partial]` must never red.
 

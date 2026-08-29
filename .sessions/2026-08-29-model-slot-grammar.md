@@ -230,11 +230,11 @@ committed in the same file, in the same PR, by the session writing the clause.
 All three are on text written in round 1. One of them overturns a claim I had
 just made *while conceding a related one*.
 
-| # | finding | fix |
-|---|---|---|
-| 1 | A third overwrite warning survived in this card's § *The change* | I fixed the two in `.sessions/README.md` and reported "both instances corrected" without grepping my own card. Corrected, with the two function line-ranges cited inline. |
-| 2 | **`origin/main` is not a stable scope either — the clone is shallow** | See below. The sharpest finding of either PR. |
-| 3 | The card's thesis and change summary still carried the pre-correction census | § *The change* still said "250 of 259", and the reproduce recipe pinned a file total that moves as cards land. Now 417 of 430, and the recipe says to pin a SHA rather than quote a file count. |
+| # | finding | disposition | fix |
+|---|---|---|---|
+| 1 | A third overwrite warning survived in this card's § *The change* | `[conceded]` | I fixed the two in `.sessions/README.md` and reported "both instances corrected" without grepping my own card. Corrected, with the two function line-ranges cited inline. |
+| 2 | **`origin/main` is not a stable scope either — the clone is shallow** | `[conceded]` | See below. The sharpest finding of either PR. |
+| 3 | The card's thesis and change summary still carried the pre-correction census | `[conceded]` | § *The change* still said "250 of 259", and the reproduce recipe pinned a file total that moves as cards land. Now 417 of 430, and the recipe says to pin a SHA rather than quote a file count. |
 
 ### Finding 2 is the one that matters
 
