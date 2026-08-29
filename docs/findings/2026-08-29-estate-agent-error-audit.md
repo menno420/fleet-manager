@@ -51,7 +51,7 @@ Re-derivable: the five scripts are retained at
 
 ---
 
-## 1 · The identity collision — the owner has no distinguishable voice on GitHub
+## 1 · The identity collision — the owner has no distinguishable voice on the GitHub surfaces measured
 
 **This is the finding with the widest blast radius, and no record in this
 estate names it.**
@@ -72,8 +72,16 @@ the document whose §3 lists this session's errors. Read in full: five are
 **in the third person, under his account** — and two (a 2026-05-20 triage note, a
 2026-06-14 duplicate-supersede) are too short to attribute from text either way.
 
-**Scope, exactly:** of 564, **562 are attributable to agents and 2 are
-indeterminate; none is identifiably the owner's first-person voice.** The
+**Scope, exactly — and the population matters as much as the ratio.** Of 564,
+**562 are attributable to agents and 2 are indeterminate; none is identifiably
+the owner's first-person voice.** That is **12 repositories for review comments
+(every repository that has any) and 6 of 28 for issue comments** — the six
+busiest. **22 repositories' issue comments were not enumerated.** The mechanism
+(agents authenticate with his credential) applies wherever an agent posts, so
+the generalisation is `REASONED` and well-founded; the *measurement* stops at
+the population above, and a summary of this section that says "on GitHub" flat
+has outrun it. Recorded because that is exactly what happened once already in
+this session's own reporting. The
 sharpest single line in the residue is an agent writing *"Menno also confirmed
 the PR #8 Reel and DEBUG controls now work on Android"* — referring to the owner
 in the third person from the owner's own account.
@@ -448,16 +456,63 @@ on it.
 - **The routing census searched for hook files**, which is exhaustive for Claude
   Code's tool-time injection but says nothing about reminders delivered by other
   means (prompt text, CI output, a repo's own scripts).
+- **§1's issue-comment enumeration covers 6 of 28 repositories**, the busiest.
+  Review comments cover all 12 that have any. The extension to the remaining 22
+  is `REASONED` from the credential mechanism, not measured.
 - **The retained scripts were themselves defective** in four ways review found —
   a dead lexicon, an unrunnable first step, and two failure paths that turned
   fetch errors into silently empty corpora. All four are fixed in the retained
   copies; the corpus this finding rests on was gathered with the old ones.
 
-## 8 · The recommended next step
+## 8 · Reconciled against OD-26, which landed while this was written
 
-**One structural slice, measured before anything is promoted:** move routing
-into the kit's existing hook channel, give the eight write-time routes `Bash`
-reach (fm #963 does this for the hub already), and make the claim-quality routes
-repeat. Then re-measure against this corpus: the incidents are dated and cited,
-so *"would this route have fired on that instance"* is answerable rather than
-asserted. Promote only what measures useful — §6 of the roadmap, verbatim.
+**The owner held his discussion sitting on 2026-08-28 and answered twelve
+questions** ([OD-26](2026-08-28-od24-sitting-answers.md), fm #964) — after this
+audit was launched and before it landed. Two of his answers bear directly on it,
+and neither was available when the workflows were designed.
+
+**§4 · His root cause, and what this audit adds to it.** Asked which ways the
+kit still does not work, he declined the multiple-choice framing and gave one
+cause: *"agents don't take enough initiative to leave the repos in a better
+shape."* The sitting records that the round's own gap-class ranking was an
+altitude below his answer, and — sharply — that *"the round reproduced, on
+itself, the exact defect it was auditing: the right finding existed, unrouted,
+and the work aimed elsewhere."*
+
+This audit was designed inside the retired frame. What it contributes is not a
+better taxonomy but **a number under his sentence**: 328 rules stated with
+nothing delivering them, 19 of 20 repositories with no hook layer at all, and a
+kit that ships no routing. If sessions do not leave repos better, one measurable
+reason is that **nothing tells them to at the moment they could** — which is his
+cause with a mechanism attached, not a competing diagnosis.
+
+**§7 · Move 1 is HELD, and this recommendation is not it.** His hold covers *the
+function* — a close-time declaration of what a session left behind — *not the
+filename*, and forbids building that function in another shape. Checked
+deliberately, because proposing held work would be the error class this document
+catalogues: **the recommendation below is tool-time delivery, not close-time
+declaration.** It adds no session obligation, asks for no line to be filled, and
+gates nothing. If a future reader thinks it has drifted into Move 1's shape, the
+hold wins.
+
+## 9 · The recommended next step
+
+**One structural slice, measured before anything is promoted:** move routing into
+the kit's existing hook channel (present in 18 of 20 repositories), and re-run
+the eight write-time routes against this audit's own corpus.
+
+Judged by **his** test rather than by gap class — *does this make a session more
+likely to leave the repo better than it found it?* — the answer is yes in a
+narrow, checkable way: a session that is told, at the moment it writes a claim,
+that the claim needs a measurement, leaves a truer record behind. That is one
+kind of "better", not all of them, and it does not touch the initiative half of
+his cause, which is a disposition rather than a delivery problem.
+
+**The measurement that should gate it:** every incident in this corpus is dated
+and cited, so *"would this route have fired on that instance"* is answerable
+rather than asserted. Run that before promoting anything. Promote only what
+measures useful — the roadmap's §6, verbatim, and OD-26 §7's hold is the standing
+reminder that an unasked-for mechanism is the failure mode, not the deliverable.
+
+**Nothing here is built.** No trap is registered, no route added, no checker
+written, no skill edited.
