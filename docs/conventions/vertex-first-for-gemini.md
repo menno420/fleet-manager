@@ -21,8 +21,10 @@
 > the task (Deep Research the documented case), and say so in the session
 > card, as the credit-era rule below always required. **Model ids for this key
 > class, `MEASURED` 2026-08-29:** `gemini-3.6-flash` works on
-> `generateContent`; the `gemini-2.5-*` ids are still listed by `/models` but
-> 404 with *"no longer available to new users — use models/gemini-3.6-flash"*.
+> `generateContent`; `gemini-2.5-flash` (the one id probed) is still listed by
+> `/models` but 404s with *"no longer available to new users — use
+> models/gemini-3.6-flash"*; the other 2.5 ids are untested, though the error
+> text reads class-wide.
 > Route decision record: [`../decisions.md`](../decisions.md) [D-0020].
 
 ---
@@ -149,7 +151,8 @@ the card pays… is inference until read there."* It is now read.
 
 ## The rule *(credit-era — superseded 2026-08-29; the current rule is the header above)*
 
-**Use Vertex.** Reach for `GEMINI_API_KEY_PAID` only when Vertex has actually
+**Use Vertex** *(credit-era imperative — retired 2026-08-29, header above)*.
+Reach for `GEMINI_API_KEY_PAID` only when Vertex has actually
 failed for the task in hand, and say so in the session card when you do.
 
 The session that produced this directive spent €0.49-ish of card money on 21

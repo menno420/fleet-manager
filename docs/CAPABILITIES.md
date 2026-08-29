@@ -174,7 +174,9 @@ findings go here, below the fence.)
 - 2026-08-29 · capability · `owner-live` · **The free `GEMINI_API_KEY` serves
   `generateContent` on `gemini-3.6-flash` through the default (proxied)
   environment — no direct-egress dance needed — and the `gemini-2.5-*` ids
-  are closed to new users.** · evidence: `POST
+  are closed to new users** ⚠ *narrowed same day (fm #981 round-2, TRAP-004):
+  only `gemini-2.5-flash` was probed; the class-wide reading comes from the
+  404 text, not from probes of the other 2.5 ids.* · evidence: `POST
   …/v1beta/models/gemini-3.6-flash:generateContent?key=$GEMINI_API_KEY` →
   200, `finishReason: STOP`, `usageMetadata.totalTokenCount: 8504` (a
   five-finding fix-diff review, fm #978); the same call with
