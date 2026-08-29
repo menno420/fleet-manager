@@ -15,8 +15,13 @@ def pages(base):
         p+=1
         if p>40: break
     return out
-REPOS=['fleet-manager','superbot','superbot-next','websites','couch-legend','substrate-kit',
-       'idea-engine','product-forge','superbot-mineverse','gba-homebrew','sim-lab','venture-lab']
+# Enumerate EVERY repo the account holds rather than hard-coding the 12 that had
+# comments when this was first run — otherwise a re-run reproduces the corpus
+# without reproducing its exhaustiveness (Codex fm #968).
+REPOS=[r['full_name'].split('/')[1] for r in json.load(open('repos.json'))] \
+      if os.path.exists('repos.json') else []
+if not REPOS:
+    raise SystemExit('run census.py first: it fetches repos.json')
 def one(r):
     try:
         c=pages(f"https://api.github.com/repos/menno420/{r}/pulls/comments?sort=created&direction=asc")

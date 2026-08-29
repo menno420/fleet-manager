@@ -15,7 +15,7 @@ Run in order; each needs `$GITHUB_PAT` over **direct egress** (a
 | `fetch.sh` | `corpus/<repo>/` — API tarballs, filtered to records |
 | `extract.py` | `evidence.jsonl` — error-bearing sections (walks dot-dirs; `glob` does not) |
 | `shard.py` | `shards/` — lane-sized evidence files |
-| `reviews.py` | `review_comments.json` — every PR review comment |
+| `reviews.py` | `review_comments.json` — PR review comments across **every** repo in `repos.json` (it enumerates rather than hard-coding, so a re-run reproduces exhaustiveness as well as the corpus) |
 
 `adopter_census.json` is the measured per-repo routing/hook-channel table behind
 §4, one row per repo: `(repo, doc-routes.json, route_docs.py,
