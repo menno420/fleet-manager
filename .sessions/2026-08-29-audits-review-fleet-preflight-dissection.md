@@ -38,10 +38,16 @@ WORKING, updated 20:16Z), mid-way through Codex round 2's six inline findings
 — it had pushed its own correction (`a088cb5`, *"the judges caught the shape,
 not the number"*) at 20:12:21Z. Two sessions driving one PR's close is the
 collision class this estate documents, so this session stood off: no card
-flip, no merge, no comment. **Re-checked at close** — see the close-out note
-below for the state found then. No message channel to the authoring session
+flip, no merge, no comment. No message channel to the authoring session
 exists from this container (`ListAgents` empty; the CCR server carries no
 session-to-session send tool here) — measured, not assumed.
+
+**Outcome, verified ~40 minutes later:** the authoring session finished its
+own close — #973 merged at `ac5de6a` with the round-2 fixes (the coverage
+field restructured into `already_covered_positive`/`already_covered_answers`,
+plus a committed `verify_panel_association.py`), and its #976, #977 and
+follow-up #979 all landed. The stand-off cost nothing and avoided a two-writer
+race on a branch its owner was actively pushing to.
 
 ## Verify
 
@@ -55,7 +61,8 @@ session-to-session send tool here) — measured, not assumed.
 
 Previous card:
 [`2026-08-29-audit-catalogue-export.md`](2026-08-29-audit-catalogue-export.md)
-(fm #973 — **in flight, not merged**, so this is a review of a moving record).
+(fm #973 — reviewed at `731c282` while still in flight; merged at `ac5de6a`
+with two further round-2 commits this review predates).
 
 **Held up on everything re-measured here:** its row counts (284/20), the
 recovered panel fields, and the refuter tally (226/51/7) all re-derived

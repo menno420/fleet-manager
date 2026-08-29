@@ -13,10 +13,10 @@
 > [the retrospective](2026-08-29-fleet-orchestration-retrospective.md)) read
 > whole; the parallel
 > [skill-and-rule reuse map](2026-08-28-skill-and-rule-reuse-map.md) read whole;
-> the fm #973 catalogue measured directly at `731c282` (row stats re-derived,
-> sample rows and both READMEs read by hand; the branch's later `a088cb5`
-> touches no JSONL, so the stats hold at that head too — #973 is still in
-> flight under its authoring session as this is written). Certainty tags per
+> the fm #973 catalogue measured directly at `731c282` and re-verified after
+> #973 merged (`ac5de6a`): its round-2 fixes restructured the coverage field
+> (adding `already_covered_positive` / `already_covered_answers`) and every
+> stat quoted here re-derives identically on the merged rows. Certainty tags per
 > [`2026-08-05-foundation-continuation.md`](2026-08-05-foundation-continuation.md);
 > everything not marked `MEASURED` in this file is `REASONED` — a dissection is
 > a judgement and says so.
@@ -85,8 +85,13 @@ negative-token screen), and §1a could add one line telling the reader to
 fixture tri-state string fields the way §2 fixtures the instrument.
 `MEASURED` on the catalogue directly, 2026-08-29: a prefix classification over
 all 284 rows puts **93 at none-style answers** (leading "none"/"nothing"/"new")
-against 191 positive-style — a rough cut, not a hand read, but enough to show
-the example predicate would misread roughly a third of the real field values.
+against 191 positive-style. After #973's round-2 fix merged, the rows carry an
+authoritative per-row label — `already_covered_positive` is **false on 51** —
+and the 42-row gap between that and my cruder cut is itself instructive: those
+are *"nothing fully — but adjacent-X partially covers…"* answers, which no
+string test classifies reliably in either direction. Whichever number you
+take, the example predicate misreads them as coverage, and the merged data's
+boolean is exactly the fix shape the example should teach.
 
 **F2 — §6's state-check snippet is `gh`-shaped, and the fan-out venue here is
 not.** `SKILL.md:230-237` inventories open PRs with `gh pr list`. In this
@@ -235,10 +240,11 @@ existing coverage.** The reuse map's §7: in **17 of 17** refutations the
 citation held and the verdict fell — *duplicate proposed as new*. The
 catalogue: all 7 killed rows died as already-covered, and the survival rule
 ignored the coverage field it collected — at verdict level 815 of 925 named
-coverage (retrospective §3), and at row level a prefix cut this session ran
-puts positive-style coverage answers on **191 of 284 rows** (fm #973 round 2
-is right that field *population* is not positive naming: the other 93 answer
-none-style, and both kinds populate the field). And OD-26 §20 is the
+coverage (retrospective §3), and at row level the merged catalogue's own
+labeling puts positive coverage on **233 of 284 rows** (`already_covered_positive`,
+landed with #973 round 2; a cruder prefix cut this session ran reads 191, the
+gap being partial "nothing fully, but…" answers — either way, most rows were
+told something covers them and the rule read none of it). And OD-26 §20 is the
 owner saying the same thing in his own words — *"redoing the same things over
 and over"*. Three independent sources converge: **the estate's dominant
 proposal-failure is re-proposing what exists, so the revised plan should start
