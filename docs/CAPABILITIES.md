@@ -440,8 +440,10 @@ findings go here, below the fence.)
   **inline review comments**, not in the review body, so a summary that looks empty is not an
   empty review — read `/pulls/{n}/comments`. **And a CLEAN verdict is
   neither** — see § *"Codex's CLEAN verdict is an issue comment"* below, which is
-  canonical and carries the SHA-match requirement — note the clean-pass body shape **varies**, and only one of the two observed shapes has a `Reviewed commit:` line. Reviews trigger on PR open, draft→ready, and the
-  literal comment `@codex review`. Across #812/#813 it produced **13 findings over 5 rounds**,
+  canonical and carries the SHA-match requirement — note the clean-pass body shape **varies**, and only one of the two observed shapes has a `Reviewed commit:` line. Reviews trigger on **the literal comment `@codex review` only** — not on PR open
+  and not on draft→ready (owner, live, 2026-08-29, correcting this line; the
+  latency and comment-shape measurements around it are unaffected, having been
+  taken on a requested review). Across #812/#813 it produced **13 findings over 5 rounds**,
   several of which proved a PR did not do what its own title claimed. · **How this entry came
   to exist:** a session waited **150 seconds**, wrote *"no review appeared"* into a public PR
   comment as if it were evidence about the relay, and merged the PR three minutes after asking

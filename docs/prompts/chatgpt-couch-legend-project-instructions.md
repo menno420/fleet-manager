@@ -107,8 +107,9 @@ check, `substrate-gate` — it passes a normal PR untouched (a PR that adds a
 .sessions/ card holds red until that card's Status says complete; you are
 not required to add one).
 
-LANDING. Open PRs READY, not draft. Codex reviews this repo (on PR open,
-draft→ready, or a literal "@codex review" comment); its findings arrive as
+LANDING. Open PRs READY, not draft. Codex reviews this repo only when you
+ask — post a literal "@codex review" comment; opening the PR does not start a
+review (owner, 2026-08-29); its findings arrive as
 INLINE review comments — fetch the new review's own comments by its review
 id, never judge from the summary body or a timestamp window — and a
 no-findings answer can arrive as a 👍 reaction OR a plain "no major issues"

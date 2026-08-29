@@ -67,9 +67,10 @@ Same kit discipline as here: a **born-red session card first**
 session. The repo has **142 cards** — it is an unusually well-kept journal, and
 the newest card is the fastest way to learn what the last session actually did.
 
-`@codex` reviews this repo's PRs on open, draft→ready, or the literal comment
-`@codex review`, and answers in about **5.5 minutes** with findings as *inline*
-comments. Wait for it; never merge a PR you have asked it to review.
+`@codex` reviews this repo's PRs **only when asked** — the literal comment
+`@codex review`; opening a PR does not start a review, nor does draft→ready
+(owner, live, 2026-08-29). Once asked it answers in about **5.5 minutes** with
+findings as *inline* comments. Wait for it; never merge a PR you have asked it to review.
 (`capabilities.md` § Review.)
 
 ## The boundary that is easy to cross by accident
