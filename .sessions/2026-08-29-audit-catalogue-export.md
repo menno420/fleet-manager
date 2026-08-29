@@ -7,8 +7,10 @@
 > round 2's six findings were created by round 1's own fixes — TRAP-008 in its
 > prose form. Last reviewed SHA `731c282c`; after it come only the round-2
 > fixes named in § *Codex round 2*, the archival-note correction in
-> § *Correction*, and this flip. — born-red. Exporting the 284 candidate patterns and
-> 20 repository censuses the audit harvested and never used.
+> § *Correction*, and this flip.
+>
+> Exporting the 284 candidate patterns and 20 repository censuses the audit
+> harvested and never used.
 
 - **📊 Model:** withheld · high · docs-only
 - **⚑ Model-slot note:** harness policy forbids a model identifier in a pushed

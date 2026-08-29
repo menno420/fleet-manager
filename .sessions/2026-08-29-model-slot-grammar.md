@@ -1,7 +1,9 @@
 # 2026-08-29 — the `📊 Model:` slot has no token for "my session may not name it", so five sessions invented five
 
 > **Status:** `complete` — landed after two Codex rounds on fm #976 (4 + 3
-> findings, **all 7 `[conceded]`, zero `[survived]`**). No third review
+> findings: **6 `[conceded]`, 1 `[partial]`, zero `[survived]`**). *(This line
+> first said "all 7 `[conceded]`", contradicting the round-1 table below, which
+> records finding 1 as `[partial]`. Corrected fm #978.)* No third review
 > requested: round 2 was smaller than round 1 and every finding was in prose
 > rather than in the mechanism, which is the convergence the two-re-review cap
 > looks for. Last reviewed SHA `a54ccd25`; after it come only the round-2
@@ -210,7 +212,7 @@ wrong twice over.
 | # | finding | disposition | fix |
 |---|---|---|---|
 | 1 | The card-corpus counts conflate two selectors and are not reproducible as written | `[partial]` | The **values** were already corrected before this review landed (430/13, not 259/9). The **reproducibility** complaint is conceded in full: neither the amendment nor this card named its selector or its tree, so 441 files / 430 cards / 260 bolded all looked like the same measurement. Both now state the selector, the tree-level command and what the other two selectors return. |
-| 2 | The trailer count is unreproducible — 343 at the reviewed checkout, not 654 | `[conceded]` | Correct and decisive: `git log --all` counts whatever refs the clone holds (656 across 123 refs here). The count is withdrawn as evidence; the finding now rests on the instruction text, which any session reads in its own prompt. The one stable figure — `origin/main` carries **1** trailer across 62 commits, because the repo squash-merges — is stated as such. |
+| 2 | The trailer count is unreproducible — 343 at the reviewed checkout, not 654 | `[conceded]` | Correct and decisive: `git log --all` counts whatever refs the clone holds (656 across 123 refs here). The count is withdrawn as evidence; the finding now rests on the instruction text, which any session reads in its own prompt. ~~The one stable figure — `origin/main` carries **1** trailer across 62 commits, because the repo squash-merges — is stated as such.~~ **SUPERSEDED by round 2, finding 2: that replacement was itself a shallow-clone artifact and the squash-merge mechanism was invented to fit it. See § *Codex round 2 on fm #976*. Struck rather than deleted — it is the record of what I claimed at the time.** |
 | 3 | The re-apply-after-upgrade warning misstates the installer | `[conceded]` | Verified from source: `_adopt_plant` (`bootstrap.py:19563`) reports `kept:` and returns without writing when the file exists; `_merge_model_doctrine` (`:19652`) is append-only, idempotent, and preserves existing content byte-for-byte. Following the warning would have **duplicated** the amendment on every upgrade. **The warning was inherited verbatim from the 2026-08-26 Venue amendment, so the repo has carried it since then** — both instances corrected here. |
 | 4 | The previous-session link is dead in this tree | `[conceded]` | The catalogue-export card is on fm #973's branch, not this one. Replaced with the PR URL and a line saying why it is not a relative link. |
 
