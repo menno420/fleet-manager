@@ -43,9 +43,40 @@ standing* — committed by the session that had just read the trap:
 | `docs/repos/spider-swing/working-here.md` | *"reviews this repo's PRs on open, draft→ready, or the literal comment"* |
 | `docs/prompts/chatgpt-couch-legend-project-instructions.md` | *"Codex reviews this repo (on PR open, draft→ready, or a literal comment)"* |
 
-All five now say the same thing: **the literal `@codex review` comment, and
-nothing else.** Session cards were left alone — they are record tier, and a card
-records what a session believed on its date.
+All five now say the same thing: **always post the `@codex review` comment;
+treat the advertised auto-triggers as unreliable.** Session cards were left
+alone — they are record tier, and a card records what a session believed on its
+date.
+
+### The correction was itself corrected, mid-session, by the reviewer
+
+The first version of this edit asserted flatly that *"opening a PR does not
+start a review, nor does draft→ready."* Then Codex's own summary comment landed
+on this very PR and said the opposite, in its own about-box:
+
+> Reviews are triggered when you — Open a pull request for review · Mark a draft
+> as ready · Comment "@codex review" or "@codex security review".
+
+So the vendor's configuration lists the two triggers the owner's statement
+denies. **Rather than pick a side, this session measured the thing neither
+source settles.** `MEASURED` 2026-08-29, all three read surfaces, with fm #967
+as the positive control (2 reviews + 2 issue comments, so the query form works):
+
+| PR | how it was opened | Codex activity |
+|---|---|---|
+| fm #974 | **READY**, 19:35:24Z | **0** after 26 minutes — reviews, inline, issue comments all zero |
+| fm #975 | READY, 19:44:20Z | 0 (merged after 86 s — too short to count) |
+| fm #977 | READY + `@codex review` | review **Running** within seconds, self-logged `Review trigger: Manual request` |
+
+26 minutes against a ~335 s relay is not a window effect. **The advertised
+auto-trigger did not fire; the manual one did.** The owner was right about
+behaviour, the boot file was right about configuration, and the useful rule is
+neither of those: *ask, and you never have to know which.*
+
+**Note what the earlier evidence was worth.** fm #974's session polled 90
+seconds and stopped — that established nothing, and the card said so. The
+26-minute figure is a genuine measurement only because the PR sat there long
+after everyone stopped watching it.
 
 **One sub-finding worth more than the fix.** `spider-swing/capabilities.md`
 carried the trigger list under a `MEASURED 2026-08-07` banner. The latency

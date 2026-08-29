@@ -64,13 +64,17 @@ there — same quirk, same fix. `MEASURED` 2026-08-03, ledger.
 `MEASURED` 2026-08-07 on fleet-manager #812, and it is a GitHub-side relay so it
 applies to any repo in the estate:
 
-- Trigger: **the literal comment `@codex review`, and nothing else** — opening a
-  PR does not start a review, nor does draft→ready. Owner, live, 2026-08-29,
-  correcting the trigger list this line carried since 2026-08-07. Note the
-  `MEASURED` banner above covers the latency and the inline-comment shape, which
-  were timed on a requested review; **the trigger list was never measured** —
-  fm #974 opened a PR ready on the strength of it and polled for a verdict that
-  was never coming.
+- Trigger: **post the literal comment `@codex review`. Treat that as the only
+  one.** Codex's about-box advertises two more (PR open, draft→ready) and they
+  did **not** fire when measured: 2026-08-29, fm #974 opened READY drew zero
+  Codex activity on `/pulls/{n}/reviews`, `/pulls/{n}/comments` and
+  `/issues/{n}/comments` after 26 minutes, while fm #977 drew a review seconds
+  after a manual request (`Review trigger: Manual request`, Codex's own words).
+  Owner, live, same day: *"Codex only reviews if you ask it to."*
+  **Provenance note on the banner below:** its `MEASURED 2026-08-07` covers the
+  latency and the inline-comment shape, both timed on a *requested* review. The
+  trigger list was never measured by anything — it inherited the banner by
+  sitting under it, and fm #974 opened a PR ready on the strength of it.
 - Latency: **~335 seconds** (request 13:46:59Z → review 13:52:34Z on the exact
   head SHA). **Wait ≥6 minutes.** A 150-second probe once produced *"no review
   appeared"* written into a public PR comment as if it were evidence, followed

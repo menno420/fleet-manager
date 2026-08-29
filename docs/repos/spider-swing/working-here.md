@@ -67,10 +67,11 @@ Same kit discipline as here: a **born-red session card first**
 session. The repo has **142 cards** — it is an unusually well-kept journal, and
 the newest card is the fastest way to learn what the last session actually did.
 
-`@codex` reviews this repo's PRs **only when asked** — the literal comment
-`@codex review`; opening a PR does not start a review, nor does draft→ready
-(owner, live, 2026-08-29). Once asked it answers in about **5.5 minutes** with
-findings as *inline* comments. Wait for it; never merge a PR you have asked it to review.
+**Always ask `@codex` explicitly** — post the literal comment `@codex review`
+rather than relying on it noticing the PR. Its about-box also advertises PR-open
+and draft→ready triggers, but those did not fire when measured (2026-08-29, fm
+#974: zero activity after 26 minutes on a READY-opened PR). Once asked it
+answers in about **5.5 minutes** with findings as *inline* comments. Wait for it; never merge a PR you have asked it to review.
 (`capabilities.md` § Review.)
 
 ## The boundary that is easy to cross by accident

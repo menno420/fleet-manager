@@ -440,10 +440,15 @@ findings go here, below the fence.)
   **inline review comments**, not in the review body, so a summary that looks empty is not an
   empty review — read `/pulls/{n}/comments`. **And a CLEAN verdict is
   neither** — see § *"Codex's CLEAN verdict is an issue comment"* below, which is
-  canonical and carries the SHA-match requirement — note the clean-pass body shape **varies**, and only one of the two observed shapes has a `Reviewed commit:` line. Reviews trigger on **the literal comment `@codex review` only** — not on PR open
-  and not on draft→ready (owner, live, 2026-08-29, correcting this line; the
-  latency and comment-shape measurements around it are unaffected, having been
-  taken on a requested review). Across #812/#813 it produced **13 findings over 5 rounds**,
+  canonical and carries the SHA-match requirement — note the clean-pass body shape **varies**, and only one of the two observed shapes has a `Reviewed commit:` line. **Ask for the review; do not wait to be noticed.** Codex advertises three
+  triggers (PR open · draft→ready · the `@codex review` comment) and only the
+  third is reliable: `MEASURED` 2026-08-29, fm #974 opened READY produced zero
+  Codex activity across all three read surfaces after 26 minutes (~335 s relay,
+  so not a window effect), while fm #977 produced a review seconds after a
+  manual request, self-logged as `Review trigger: Manual request`. Owner, live,
+  same day: *"Codex only reviews if you ask it to."* The latency and
+  comment-shape measurements below are unaffected — both were taken on requested
+  reviews. Across #812/#813 it produced **13 findings over 5 rounds**,
   several of which proved a PR did not do what its own title claimed. · **How this entry came
   to exist:** a session waited **150 seconds**, wrote *"no review appeared"* into a public PR
   comment as if it were evidence about the relay, and merged the PR three minutes after asking

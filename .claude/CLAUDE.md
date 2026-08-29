@@ -258,11 +258,17 @@ Essentials:
   (`GIT_CONFIG_GLOBAL=/dev/null` + `https://x-access-token:$GITHUB_PAT@github.com/…`).
 - The *proxied* GitHub REST path 403s. That is a path quirk — switch to direct
   egress — **not a wall.**
-- **`@codex` reviews your PRs ONLY when you ask it to — the literal comment
-  `@codex review`, and nothing else. Opening a PR does not start a review, and
-  neither does a draft→ready flip.** Owner, live, 2026-08-29, correcting the
-  trigger list this line carried from 2026-08-07 until then. Not a wall and not
-  a limitation — **ask, then wait**: it answers in about 5.5 minutes.
+- **ALWAYS ask `@codex` explicitly — never rely on it noticing your PR.** Its
+  own about-box advertises three triggers (open a PR for review · mark a draft
+  ready · comment `@codex review`), but **only the comment is reliable.**
+  `MEASURED` 2026-08-29: fm #974 opened READY and drew **zero** Codex activity
+  on all three surfaces after 26 minutes — against a ~335 s relay, so the
+  window was not the cause — while fm #977 drew a review seconds after a manual
+  request, logged by Codex itself as `Review trigger: Manual request`. Owner,
+  live, same day: *"Codex only reviews if you ask it to."* The advertised
+  auto-triggers and the observed behaviour disagree; **post the comment and
+  you never have to care which is right.** Then wait — it answers in about
+  5.5 minutes.
   Measured 2026-08-07 on fm #812: request `13:46:59Z` → review `13:52:34Z` on
   the exact head SHA = **335 s**; 13 findings over 5 rounds across #812/#813,
   several proving a PR did not do what its own title claimed. Findings arrive as
