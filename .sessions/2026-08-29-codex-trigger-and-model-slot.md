@@ -147,12 +147,23 @@ happened to live in one number.
 
 **9 of 441 carry a `withheld` model segment**, and they are two unrelated groups:
 
-- **3 older, different cause** — `2026-07-10` ×2 and `2026-08-11`, reading
-  *"withheld per session policy (Fable-5 review wave…)"*. One of them **names
-  Fable-5 in its own parenthetical**, so that was a review-wave convention, not
-  a harness restriction.
+- **3 older — and calling them a different cause was WRONG.** This card first
+  read them as a review-wave convention because one says *"withheld per session
+  policy (Fable-5 review wave, synthesis + landing agent)"*, which I took as
+  naming its own model in the parenthetical. It does not: *"Fable-5 review
+  wave"* names the wave **being reviewed**, not the session writing the card.
+  And the cause is the same one: `docs/findings/retro-synthesis-2026-07-09.md`
+  states it outright — *"**Withheld from repo artifacts per harness policy** —
+  one assigned model, workers inherited; disclosed in owner chat"* (§7, and
+  *"deliberately withheld in-doc per harness policy"* at line 258).
+
+  **So the restriction is not new. It was live and named as harness policy on
+  2026-07-09, for one lane of five.** What is new is that it applies to *this*
+  session. Caught by [fm #976](https://github.com/menno420/fleet-manager/pull/976)
+  landing on `main` while this PR was in review, and verified here against the
+  July document rather than taken from that PR.
 - **6 consecutive and current**, the group that matters — the five below plus
-  this card.
+  this card. Continuous, which the July/August ones are not.
 
 Ordered by **commit time** rather than filename date — which matters, because
 the first one is *dated* 08-28 and was *committed* on 08-29:
@@ -244,6 +255,39 @@ weakest joint in the whole finding:** the ~15 s summary-creation latency is
 automatic path posting a summary. So "47 s of silence beats a 15 s post time"
 assumes both paths post at the same speed — unverified, and the argument leans
 on it.
+
+## Reconciled against fm #976, which landed mid-review
+
+[fm #976](https://github.com/menno420/fleet-manager/pull/976) worked the same
+owner question in parallel — opened `19:50:24Z`, seven minutes before this PR —
+and merged to `main` while this one was in its second review round. Its collision
+signal worked exactly as designed: the open PR was visible, and the only file
+overlap was the append-only telemetry ledger.
+
+**It is right and this card was wrong** on the older cards' cause (above). Two
+further reconciliations, neither a conflict:
+
+- **Grammar.** #976 sanctions the single literal token `withheld` plus a
+  `⚑ Model-slot note` naming which halves stay exact — landed in
+  [`.sessions/README.md`](README.md). **This card already uses that exact
+  form**, so it complies with a convention written independently of it. The
+  ledger had fragmented into **five** spellings across thirteen cards; the
+  checker fails open on all of them (`_exact_model_id_findings_for_card` reds
+  only an exact model ID, which is correct — reddening an honest null invites an
+  invented one), so nothing surfaced the split.
+- **Denominators, and they differ for a stated reason.** This card says **9 of
+  441**; #976 says **13 of 430**. Different selectors on the same tree: 441
+  counts dated card *files*, 430 counts cards *carrying a line-anchored
+  `📊 Model:`*, and #976's selector also catches the older spellings this card
+  filtered on the literal word. **#976's is the better instrument** and its
+  section names the trap explicitly — *"both are different questions and neither
+  is the number above."* Cited here rather than restated, so there is one home
+  for it.
+
+**Its warning is the one worth carrying:** never inherit `withheld` from a
+neighbouring card — the restriction is not uniform across sessions and never
+has been. Cards from this same venue one day earlier name a family-level model
+freely.
 
 ## Verify
 
