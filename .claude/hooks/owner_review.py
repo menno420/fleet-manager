@@ -403,17 +403,12 @@ def _free_review(text):
 def _review(text):
     # Free key only (D-0020, 2026-08-29: Vertex retired — the credit that made
     # it the no-cost 429 fallback is gone, so a fallthrough would bill the
-    # owner's card). Fail open on any failure: no enrichment this turn beats a
-    # silent card charge, and the fixed question fires either way.
-    try:
-        got = _free_review(text)
-        if got and got[0]:
-            return got
-    except (KeyboardInterrupt, SystemExit):
-        raise
-    except BaseException:
-        pass  # quota, network, shape — fail open, per the contract above
-    return None
+    # owner's card). Failures PROPAGATE: main() catches and logs them per
+    # firing — the file's own 2026-08-08 lesson is that a swallowed failure is
+    # not countable, and a 429 logged as error beats one logged as nothing.
+    # Fail-open is main()'s job; no enrichment this turn, the fixed question
+    # fires either way.
+    return _free_review(text)
 
 
 def _log(rec):

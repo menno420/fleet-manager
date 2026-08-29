@@ -1,10 +1,13 @@
 # 2026-08-29 — consuming the fm #981 review round that landed after the flip
 
-> **Status:** `in-progress` — born-red. fm #981's full Codex review (six
-> inline findings, reviewed commit `0181391`) landed at `21:49:31Z` — three
-> minutes after the 21:46 issue comment this session had taken as the whole
-> verdict — and the PR merged before they were read. This PR consumes them:
-> every finding measured against merged `main`, the confirmed ones fixed.
+> **Status:** `complete` — fm #981's full Codex review (six inline findings,
+> reviewed commit `0181391`) landed at `21:49:31Z` — three minutes after the
+> 21:46 issue comment this session had taken as the whole verdict — and the
+> PR merged before they were read. This PR consumes them: every finding
+> measured against merged `main`, the confirmed ones fixed. Flipped after
+> this PR's own flip-readiness round answered — the review object this time,
+> not the first comment — and both its findings were fixed and
+> Gemini-verified.
 
 - **📊 Model:** withheld · max · runtime bugfix
 - **⚑ Model-slot note:** harness policy forbids a model identifier in a pushed
@@ -45,6 +48,30 @@ The copy-check hook flagged it; this line is the disposition.
 - `python3 bootstrap.py check --strict` → real exit code, no pipe; born-red on
   this card until the flip.
 - Fix diff verified on the free-key Gemini route per D-0019 before the flip.
+
+## ⚖ This PR's own flip-readiness round (Codex on `6c677fc`, per [D-0019])
+
+Answered `22:16:18Z` as a review object — and this time the flip waited for
+it, per the session idea below. Two P2 findings, both measured, both real:
+
+1. **The new fail-open catch destroyed telemetry.** `_review`'s
+   `except BaseException: pass` swallowed the error `main()` was built to
+   log — the file's own 2026-08-08 lesson verbatim — leaving a 429
+   indistinguishable from a missing key (route=null, error=null).
+   **[conceded]** — the inner try/except is gone; failures propagate to
+   `main()`'s handler (`main():455-462` wraps the call and records `error`
+   per firing), so fail-open is unchanged and the failure is countable.
+2. **The class-wide 2.5 claim survived its own narrowing.** The ⚠ marker
+   withdrew what the bold headline still asserted, and the "error text reads
+   class-wide" hedge on three other surfaces mischaracterized a singular 404
+   ("This model …"). **[conceded]** — the bold claim is now id-specific with
+   the original wording noted as withdrawn provenance; the false hedge is
+   removed on all three surfaces. The Gemini cross-check caught the bold
+   residue after the first fix (verdict PARTIAL, one residue named) — fixed
+   before this flip, and that catch is the two-reviewer cadence doing its job.
+
+Fix diff verified on the free-key route (`gemini-3.6-flash`, 200/STOP):
+finding 1 RESOLVED; finding 2 PARTIAL with the residue above, then fixed.
 
 ## ⟲ Previous-session review
 

@@ -300,8 +300,7 @@ Essentials:
   cannot serve the task (Deep Research the documented case), said out loud
   in the card. Current API model ids for this key class: `gemini-3.6-flash`
   (`MEASURED` 2026-08-29 — `gemini-2.5-flash`, the one id probed, 404s as "no
-  longer available to new users"; the error text reads class-wide, the other
-  2.5 ids are untested). History, the caps, and the credit-era Vertex recipe:
+  longer available to new users"; the other 2.5 ids are untested). History, the caps, and the credit-era Vertex recipe:
   `docs/conventions/vertex-first-for-gemini.md`, which the doc-routing hook
   puts in front of you the moment you make a Gemini call.
 - **When the owner states something about this estate, it is source truth — act

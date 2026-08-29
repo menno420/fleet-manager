@@ -441,7 +441,7 @@
   free key's `generateContent` serves `gemini-3.6-flash`; `gemini-2.5-flash`
   (the one id probed) is still listed by `/models` but 404s as *"no longer
   available to new users"* naming `gemini-3.6-flash` as the replacement —
-  the other 2.5 ids are untested, though the error text reads class-wide.
+  the other 2.5 ids are untested (the 404's "This model" is singular).
 - homes updated in the same diff: `docs/conventions/vertex-first-for-gemini.md`
   (supersession header), `docs/providers/gemini.md` (banner),
   `.claude/CLAUDE.md` (Gemini and @codex bullets), `docs/CAPABILITIES.md`

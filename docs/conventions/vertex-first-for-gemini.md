@@ -23,8 +23,8 @@
 > class, `MEASURED` 2026-08-29:** `gemini-3.6-flash` works on
 > `generateContent`; `gemini-2.5-flash` (the one id probed) is still listed by
 > `/models` but 404s with *"no longer available to new users — use
-> models/gemini-3.6-flash"*; the other 2.5 ids are untested, though the error
-> text reads class-wide.
+> models/gemini-3.6-flash"*; the other 2.5 ids are untested (the 404's "This
+> model" is singular — no class-wide claim).
 > Route decision record: [`../decisions.md`](../decisions.md) [D-0020].
 
 ---
