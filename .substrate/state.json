@@ -40,8 +40,8 @@
   "promotion_rights": "propose",
   "quiet_sessions": 0,
   "reflection_buffer": {
-    "active_count": 0,
-    "last_mined": "2026-07-09"
+    "active_count": 5,
+    "last_mined": "2026-08-28"
   },
   "review_log": [],
   "session_anchor": {

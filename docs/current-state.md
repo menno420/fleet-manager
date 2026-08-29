@@ -171,8 +171,50 @@ copy product architecture or internal product state. Canonical intent:
   and trace-free on the kit's own corpus at HEAD), kit `docs/current-state.md`
   + `control/status.md` reconciled in the kit's venue (kit #588 MERGED on
   green), the 23-file wrong-action set catalogued as §5 recommendations, and
-  `OQ-KIT-P10-REQUIRED-CHECKS` retired by a live rules read. The letters
-  were re-checked and remain unanswered.
+  `OQ-KIT-P10-REQUIRED-CHECKS` retired by a live rules read. ~~The letters
+  were re-checked and remain unanswered.~~
+- **The round's DISCUSSION SITTING ran with the owner present (2026-08-28,
+  session 4, fm #964) — every letter that was ASKED is answered, and one answer
+  re-ranks the round (OD-26).** *(Still open, so "answered" is not read as
+  "finished": the kit's name, the v1.21.0 adopter half, agenda § 2 · G's
+  card-deletion question — deliberately not asked, due after the report-only
+  census — and the BTD6 loop.)* Twelve answers recorded as each arrived:
+  [`findings/2026-08-28-od24-sitting-answers.md`](findings/2026-08-28-od24-sitting-answers.md).
+  **The headline:** asked which ways the kit still fails — the question no
+  session had put to him — he gave **one root cause**, not a list: *"they are
+  all related to the same root cause, which is mostly that agents don't take
+  enough initiative to leave the repos in a better shape"*. Three audits had
+  produced twelve gap classes; the divergence is one of **altitude**, and the
+  round had already found it (dig § 6.1) and organised around the gap table
+  anyway. **Two things he said on no agenda govern what happens next:** the
+  **cost function** — *stalling is "not necessarily bad"; **redoing** the same
+  things is the waste*, so the test for any mechanism is *does it stop a
+  re-derivation?* and **routing outranks building** — and a **three-stage
+  order**, *map (3 parallel sessions running now) → revised plan → execution*,
+  which makes this round's output **an input to a plan, not a work queue** and
+  the Move 1 hold a **stage with an exit condition** rather than something to
+  re-ask. **Answers:** June rules mostly still stand · nothing may **block** a
+  session calling work done (build the consumption loop, no gate) · a brake may
+  prompt **only when he is present** (`delete_trigger` never) · **Move 1 HELD** ·
+  the end-of-session interview is asked **by something, filtered**, and that is
+  **not** a GO for Move 1 · **AGENTS.md hand-written per repo** · the journal
+  **survives as the guidebook it already is** — his named function (*"easily find
+  out what went wrong each session"*) is already captured by the session cards,
+  so the gap is **retrieval** across them, not a second record · leftovers drain via **a standing surface
+  he reads**, scheduled unattended draining **refused** · spend caps **not
+  currently relevant** · the kit's **charter is rewritten to say initiative** ·
+  the kit **is renamed** but he supplies the name later · the next release is
+  **cut when the next fix batch lands** · **D2's target is `spider-swing`**
+  (`OQ-FM-D2-TARGET` **CLOSED** — open since 08-23, once falsely closed by
+  inference) · the final EAP mail moved from *"leave it"* to **"soon"** with a
+  **widened brief**. **`OQ-KIT-PROMPT-DOCTRINE` and `OQ-EAP-SPEND-WINDOW-MOOT`
+  also closed; `OQ-KIT-RENAME` added.** The Gemini paid-key budget decision's
+  self-contradiction is reconciled in [`decisions.md`](decisions.md) — the
+  agenda's stated prerequisite to the spend question.
+  **Session 5 is named from his own words** — he drew the boundary himself
+  (*"Records work can go now"*): a kit-venue **records** session (charter
+  rewrite + the truth pass's 23-file sweep), then the release. Everything
+  owner-gated stayed gated.
 - **The cold-boot context cost is measured, and the owner has ruled it worth
   paying (OD-25, 2026-08-28).** He ran this session (fm #962) as a deliberate
   experiment — *"to find out exactly how much context a cold boot would
@@ -201,6 +243,47 @@ copy product architecture or internal product state. Canonical intent:
   and has never carried its **trigger condition**, which is the same *unrouted*
   class the OD-24 round is cataloguing. `500k` is **not** fixed as doctrine.
   Record: [`findings/2026-08-28-context-budget-and-orientation-cost.md`](findings/2026-08-28-context-budget-and-orientation-cost.md).
+- **The skill/rule reuse map is measured, and the container — not the material —
+  is the problem (2026-08-28).** Owner ask: *"find out exactly what we already
+  have that is good skill material and … what previous sessions struggled
+  with."* A 79-agent fan-out read 1,002 of the estate's 3,836 session cards.
+  **The spine is the delivery-mechanism ranking**, one corpus: gate-enforced
+  **95–97 %** of 3,836 cards, and a template-carried ritual is completely
+  countable (**598/969**) because its text is written by construction. **There is no
+  COMPLETE skill-invocation telemetry** — 46 recorded invocations exist and are
+  observable, but no exhaustive count does — so an earlier quantified ranking
+  of the three is **withdrawn** (`@codex` R4/R5). **Idea consumption was published wrong twice and is now
+  bounded** — a "10 : 1 ratio" (denominator never established) and then "four
+  repos at zero, one is `idea-engine`" (a directory-name mismatch: it holds
+  **566** idea files in `ideas/` — the same figure OD-4 has carried
+  independently — and `sim-lab` **268** verdict directories in `sims/`, making
+  them the estate's **best** converters, not its worst). Corrected reading:
+  **wide variance, not uniform failure** — purpose-built conveyors convert near
+  1 : 1 while `fleet-manager`, the hub, sits at **0.04** (433 cards, 18 idea
+  files).
+  OD-21's diagnosis is supported by the citation evidence in the record, **not** by
+  a conveyor count. **Why skills are the wrong container:** on one corpus,
+  gate-enforced **95–97 %** of 3,836 cards and template-carried **598/969**,
+  both completely countable; **skill use is unobservable in this estate**, so
+  the earlier three-way ranking is withdrawn and the surviving argument is that
+  a mechanism leaving no record cannot be shown to work even when it does. **And the kit cannot deliver a skill anyway** — it
+  stages and never installs (`SKILLS-index.md.tmpl:30-40`, *"nothing live"*);
+  **4 of 19** repos have a populated `.claude/skills/`. **0 of 27 fm skills
+  reference the guard layer and 0 of 71 routes point at the four rule
+  surfaces.** **Reframed against OD-26**: this is **stage-one mapping input**, one of the
+  three parallel ultracode mapping sessions he named (§ 13: *mapping → revised
+  plan → execution*), so its four moves are **candidate inputs, not a
+  sequence** — the pre-sequencing it first carried was withdrawn. Re-scored
+  against his two criteria (§ 20 *does it stop re-derivation?* · § 4 *does it
+  make a session leave the repo better?*), **the ranking inverts**: routing the
+  rulebook was cheapest and is weakest on re-derivation; *consume the cards* is the only
+  move scoring directly on both — **and it is the estate's own Move 1 in another
+  shape, which OD-26 § 7 holds** (*"no adjacent mechanism may be built that is
+  Move 1 in another shape; the hold is on the function"*). The record scored it
+  highest and recommended it hardest while it was already held; it is now marked
+  DO-NOT-BUILD and retained as evidence *for* the held function. The moves are
+  lettered A–D to stop colliding with the estate's Move 1. Nothing is executed. Record:
+  [`findings/2026-08-28-skill-and-rule-reuse-map.md`](findings/2026-08-28-skill-and-rule-reuse-map.md).
 
 ### Live operating mechanisms
 

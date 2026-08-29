@@ -104,6 +104,14 @@ def main() -> int:
         ("pipe exit code", [sys.executable, "tools/check_pipe_exit_code.py", "--strict"]),
         ("owner comments", [sys.executable, "tools/owner_comments.py", "check"]),
         ("owner comment tests", [sys.executable, "tools/test_owner_comments.py"]),
+        # The doc-route suite guards the routes AND their plumbing (which tools
+        # a route opts into, whether a Bash-authored document reaches it). It
+        # existed from 2026-08-26 and ran nowhere but a session's own terminal:
+        # MEASURED 2026-08-28 on fm #963's own CI log, where `doc-route
+        # patterns` appears 0 times. A regression suite nothing executes cannot
+        # catch a regression, and this one had just been offered as the reason a
+        # future finding would "land against a suite that fails".
+        ("doc-route patterns", [sys.executable, "tools/test_doc_route_patterns.py"]),
     ):
         rc = run(label, argv)
         if rc != 0:

@@ -295,17 +295,200 @@ def code_only(text: str) -> str:
     return "".join(out)
 
 
-def already_fired(session: str) -> set[str]:
+_HEREDOC = re.compile(
+    r"<<-?\s*(['\"]?)([A-Za-z_][A-Za-z0-9_]*)\1[^\n]*\n(.*?)^\s*\2\s*$",
+    re.DOTALL | re.MULTILINE,
+)
+
+# Where a Bash command puts bytes on disk. Redirects and `tee` name their target
+# directly; `sed -i` edits in place and names it last; a heredoc fed to an
+# interpreter can write through a library call, which no redirect reveals.
+#
+# Extensionless paths COUNT (`cat > README <<'EOF'` is an ordinary document
+# write); the exclusions are the special sinks, named explicitly rather than
+# approximated by requiring a dot — `@codex`, fm #963 R3.
+_WRITE_TARGET = re.compile(
+    r"(?:>>?|\|\s*tee(?:\s+-a)?)\s+['\"]?([\w./@-]+)['\"]?"
+    r"|sed\s+(?:-[a-zA-Z]*i[a-zA-Z]*)\s+[^|;&]*?['\"]?([\w./@-]+)['\"]?\s*(?:$|[|;&])"
+    r"|(?:write_text|write_bytes)\s*\(|open\s*\([^)]*['\"][wa]"
+)
+
+# A heredoc fed to an interpreter writes through a library call that no shell
+# redirect reveals — `python3 - <<'PY'` doing `Path('docs/x.md').write_text(…)`.
+# Extracting the path from that is a parsing problem with no end (the path can
+# be a variable, an f-string, a join); the WRITE VERB is the reliable signal, so
+# a body containing one counts as authoring and the body itself is the text.
+# A printing-only body has no verb and stays silent. `@codex`, fm #963 R3.
+_WRITE_VERB = re.compile(
+    r"\b(?:write_text|write_bytes|writelines)\s*\(|\bopen\s*\([^)]*['\"][wa]|"
+    r"\.write\s*\(|\bfs\.writeFile"
+)
+
+# `> /dev/null`, `2>&1` and friends are not documents.
+_NOT_A_DOCUMENT = re.compile(r"^(?:/dev/|/proc/|&)|^\d+$")
+
+# Shell separators that end one command and begin another. Splitting on these
+# is what lets extracted text be attributed to the write it belongs to, instead
+# of any target in the payload authorizing every quoted span anywhere in it.
+_SEGMENT = re.compile(r"(?:;|&&|\|\||\n)")
+
+# Quoted spans, so a `printf '…text…' > f` carries its payload into the match.
+_QUOTED = re.compile(r"'([^']*)'|\"([^\"]*)\"", re.DOTALL)
+
+
+def bash_write_targets(command: str) -> list[str]:
+    """Paths a Bash command writes to, in order of appearance.
+
+    Used for two things: deciding whether the command authors anything at all,
+    and giving `path_when` a target to match when the payload has no
+    `file_path` field. Without the second, a route that gates on the path — the
+    two card routes do — skips before the content is ever examined, which is
+    how this change shipped half-working: `@codex` reproduced
+    `cat > .sessions/x.md <<'EOF'` producing no guard output while the
+    equivalent Write event fired (fm #963, P1).
+    """
+    out: list[str] = []
+    # An interpreter heredoc whose body carries a write verb is a write, even
+    # though nothing in the shell layer says so.
+    for m in _HEREDOC.finditer(command):
+        if _WRITE_VERB.search(m.group(3)):
+            out.append("<interpreter-write>")
+            break
+    for m in _WRITE_TARGET.finditer(command):
+        target = m.group(1) or m.group(2)
+        if not target or _NOT_A_DOCUMENT.search(target):
+            continue
+        if target not in out:
+            out.append(target)
+    return out
+
+
+def authored_only(text: str) -> str:
+    """Return only the prose a Bash command WRITES — its heredoc bodies.
+
+    The complement of `code_only()`. That one exists because a quoted MENTION of
+    an action must not spend an action guard; this one exists because an actual
+    AUTHORED DOCUMENT must not escape a claim guard just because it arrived
+    through Bash instead of Write.
+
+    The failure this exists to stop, MEASURED 2026-08-28 on this session's own
+    transcript. Eight routes are registered `Edit`/`Write` only — the whole
+    claim-quality set: `stamping-a-measured-claim`, `claim-beyond-the-sample`,
+    `absence-claim`, `recording-a-wall`, and the four card-discipline routes.
+    Auto mode's standing instruction is to author through Bash ("make file
+    changes with sed, heredocs, or short scripts, rather than using the
+    dedicated Read, Edit, or Write tools"), so a session following it writes
+    every document via `cat > f <<'EOF'` and **all eight go silent for the whole
+    session** — with no error and nothing to notice.
+
+    Measured A/B on this hook, same offending text both ways:
+
+        Write tool      -> TRAP-001 and TRAP-004 both fire
+        Bash heredoc    -> no output, exit 0
+
+    That session then published a `MEASURED` label on owner-console state, a
+    checker count taken from grep hits, and a commit count from memory — three
+    of the exact errors those two routes exist to catch, all of them written
+    through a heredoc.
+
+    Why not the whole command: the command is code, and matching claim patterns
+    against code re-creates the fm #923 failure in the opposite direction —
+    `grep -n 'MEASURED' docs/traps.md` would spend the route and leave the real
+    write unwarned.
+
+    **The test is WRITE INTENT, not the presence of a heredoc.** The first cut
+    of this function keyed on the heredoc alone and `@codex` found three ways
+    that is wrong (fm #963):
+
+    - `python3 - <<'PY'` that only prints, or a heredoc fed to `grep`, writes
+      nothing — yet returned prose, fired the guard, and with the repeat cap in
+      place three such commands would exhaust the route before the session's
+      first real document write. False fire, then false silence: exactly the
+      failure the filtering exists to prevent.
+    - `printf '…' > docs/x.md` and `sed -i` reach disk with no heredoc at all,
+      so they bypassed every newly-Bash-enabled route. Worse, the first test
+      suite PINNED `echo … > a.md` as correctly-silent, enshrining the gap.
+    - `cat <<'EOF' > docs/x.md` puts the redirect after the delimiter, which the
+      first regex rejected by requiring a newline immediately after it.
+
+    So: a command authors when it names a write target. What it authors is its
+    heredoc bodies plus its quoted spans — the latter carrying the payload of a
+    `printf '…' > f`. No write target means no authored text and silence, which
+    keeps a mention cheap and leaves the route unspent.
+    """
+    if not bash_write_targets(text):
+        return ""
+
+    # Attribute text to the write it belongs to. A payload is often several
+    # commands, and treating any target in it as authorization for every quoted
+    # span anywhere fires on text that was never written: `grep 'all 26
+    # repositories' docs/traps.md; echo ok > docs/x.md` would trip the count
+    # guard although the file receives only "ok", and three such compounds
+    # exhaust the repeat cap before a real claim is authored (`@codex`, fm #963
+    # R3). Heredoc bodies are pulled out first because they legitimately span
+    # separators; the remainder is then split per command and only writing
+    # segments contribute their quoted spans.
+    bodies: list[str] = []
+    remainder = text
+    for m in reversed(list(_HEREDOC.finditer(text))):
+        bodies.append(m.group(3))
+        remainder = remainder[: m.start()] + "\n" + remainder[m.end():]
+
+    written: list[str] = []
+    for segment in _SEGMENT.split(remainder):
+        if not bash_write_targets(segment):
+            continue
+        written.extend(q for m in _QUOTED.finditer(segment) for q in m.groups() if q)
+    return "\n".join(bodies + written)
+
+
+# A `repeat` route is bounded, not unlimited. Repetition is what makes a guard
+# against a RECURRING error class work at all (see the fire-once analysis at the
+# `repeat` check below), but an unbounded one nags on every commit message that
+# happens to carry a count — measured on this very change, whose own
+# `git commit -F - <<'MSG'` heredoc tripped TRAP-001 and TRAP-004. The two
+# claim routes inject roughly 700 tokens together, so the cost is real and the
+# value is front-loaded: the first firings teach the session the check, and the
+# tenth is noise it has already priced in. Three is a judgement, not a
+# measurement, and it is the number to tune if it proves wrong in either
+# direction.
+REPEAT_CAP = 3
+
+
+def already_fired(session: str) -> dict[str, int]:
+    """Route id -> how many times it has fired this session.
+
+    Tolerates the older list-of-ids state format so a session already in flight
+    across this change degrades to "fired once" rather than crashing or
+    re-arming every route at once.
+    """
     try:
-        return set(json.loads((STATE_DIR / f"{session}.json").read_text()))
+        raw = json.loads((STATE_DIR / f"{session}.json").read_text())
     except Exception:
-        return set()
+        return {}
+    if isinstance(raw, dict):
+        return {str(k): int(v) for k, v in raw.items()}
+    if isinstance(raw, list):
+        return {str(rid): 1 for rid in raw}
+    return {}
 
 
-def remember(session: str, fired: set[str]) -> None:
+def spent(fired: dict[str, int], route: dict) -> bool:
+    """Has this route said what it has to say for this session?"""
+    n = fired.get(route["id"], 0)
+    if not n:
+        return False
+    if not route.get("repeat"):
+        return True
+    return n >= int(route.get("repeat_cap", REPEAT_CAP))
+
+
+def remember(session: str, fired: dict[str, int]) -> None:
     try:
         STATE_DIR.mkdir(parents=True, exist_ok=True)
-        (STATE_DIR / f"{session}.json").write_text(json.dumps(sorted(fired)))
+        (STATE_DIR / f"{session}.json").write_text(
+            json.dumps(dict(sorted(fired.items())))
+        )
     except Exception:
         pass  # advisory state; losing it costs one duplicate line
 
@@ -477,6 +660,28 @@ def main() -> int:
     # `card-flip-to-complete` and spent it — the real card flip later in that
     # session was SILENT. Same class as fm #923, one field deeper.
     target_path = str((event.get("tool_input") or {}).get("file_path") or "")
+    bash_target_paths: list[str] = []
+    if not target_path and tool == "Bash":
+        # A Bash write names its target in a redirect, not in a `file_path`
+        # field, so a route gating on `path_when` skipped before its content was
+        # ever examined — both card routes stayed silent for the exact authoring
+        # path adding Bash was meant to cover (`@codex`, fm #963 P1, reproduced
+        # with `cat > .sessions/x.md <<'EOF'`). Take the first target: a command
+        # writing several files is rare, and the first is the one the rest of
+        # the line is about.
+        bash_targets = [
+            t for t in bash_write_targets(
+                str((event.get("tool_input") or {}).get("command") or "")
+            )
+            if t != "<interpreter-write>"
+        ]
+        # ALL of them, not the first. One payload often writes several files,
+        # and if a session card is not the first target then a route gating on
+        # `path_when` never sees it — `echo ok > docs/x.md; cat > .sessions/x.md
+        # <<'EOF' … Status: complete …` let a completed card past the
+        # merge-safety warning entirely (`@codex`, fm #963 R3 P1).
+        target_path = bash_targets[0] if bash_targets else ""
+        bash_target_paths = bash_targets
     normalized_target_path = target_path.replace("\\", "/")
     checkout_prefix = REPO.as_posix().rstrip("/") + "/"
     if normalized_target_path.casefold().startswith(checkout_prefix.casefold()):
@@ -513,7 +718,7 @@ def main() -> int:
         # were BOTH silent, because step 1 spent `card-status-write` and step 2
         # spent `card-flip-before-push`. Opt-in per route, like `code_only`:
         # blanket repetition would nag on every reference route.
-        if rid in fired and not route.get("repeat"):
+        if spent(fired, route):
             continue
         if tool not in tuple(route.get("tools") or DEFAULT_TOOLS):
             continue
@@ -552,22 +757,47 @@ def main() -> int:
         # the exemption away from Bash leaves that fix intact.
         if any(d in text for d in docs) and tool != "Bash" and (
                 not route.get("tools") or tool in DEFAULT_TOOLS):
-            fired.add(rid)
+            fired[rid] = fired.get(rid, 0) + 1
             continue
         # `path_when` is checked against the file_path FIELD alone, never the
         # haystack, so naming a path in prose cannot satisfy it (fm #938).
         path_pats = route.get("path_when") or []
+        path_candidates = (
+            bash_target_paths
+            if (tool == "Bash" and bash_target_paths)
+            else [normalized_target_path]
+        )
         if path_pats:
             try:
-                if not target_path or not any(
-                        re.search(pp, target_path, re.I) for pp in path_pats):
+                if not any(
+                    cand and re.search(pp, cand, re.I)
+                    for cand in path_candidates
+                    for pp in path_pats
+                ):
                     continue
             except re.error:
                 continue
 
         # A route guarding an ACTION matches against code with quoted data
         # blanked, so a mention inside an argument cannot consume it (fm #923).
-        match_text = code_only(text) if route.get("code_only") else text
+        # `authored_only` narrows a Bash command to its heredoc bodies so a
+        # claim guard sees a document authored via `cat > f <<'EOF'` exactly as
+        # it sees one authored with Write. Scoped to Bash: for Write/Edit the
+        # text IS the authored content already, and narrowing it there would
+        # blind the route to the ordinary case.
+        if tool == "Bash" and route.get("authored_only"):
+            # Path AND content, mirroring FIELDS["Write"] = (file_path, content).
+            # Supplying content alone left `card-status-write` unable to match:
+            # its sole `when` pattern is the card PATH, so the route passed
+            # path_when and then found nothing to match against, staying silent
+            # for every Bash-authored card (`@codex`, fm #963 R3). The
+            # end-to-end complete-card case missed it because the neighbouring
+            # `card-flip-to-complete` route fired instead.
+            match_text = "\n".join(bash_target_paths + [authored_only(text)])
+        elif route.get("code_only"):
+            match_text = code_only(text)
+        else:
+            match_text = text
         repository_reference_route = bool(route_repositories) or route.get(
             "docs"
         ) == ["docs/ESTATE.md"]
@@ -586,7 +816,7 @@ def main() -> int:
                 continue
         except re.error:
             continue  # a bad pattern silences its own route, never the hook
-        fired.add(rid)
+        fired[rid] = fired.get(rid, 0) + 1
         hits.append((docs, route.get("says", "")))
         comment_repositories.update(
             unshadowed_route_repositories
@@ -600,12 +830,12 @@ def main() -> int:
             continue
         comment_index = f"docs/owner-comments/{repository}/README.md"
         if tool != "Bash" and normalized_target_path == comment_index:
-            fired.add(comment_route_id)
+            fired[comment_route_id] = fired.get(comment_route_id, 0) + 1
             # A self-read is intentionally silent, but it still consumes this
             # once-per-session pointer. Persist before the no-hit return below.
             remember(session, fired)
             continue
-        fired.add(comment_route_id)
+        fired[comment_route_id] = fired.get(comment_route_id, 0) + 1
         hits.append(
             (
                 [comment_index],
