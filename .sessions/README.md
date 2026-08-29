@@ -94,7 +94,12 @@ fragmented the ledger. One token makes the exception countable.
 card.** The restriction is *not* uniform across sessions and never has been: it
 was live and attributed to harness policy on 2026-07-09
 ([`docs/findings/retro-synthesis-2026-07-09.md`](../docs/findings/retro-synthesis-2026-07-09.md)
-§7, for one lane of five), while cards from the same venue one day before the
+§7 — **one lane of ten**, not of five: that doc is titled *"all 10 lanes"* and
+its model table lists nine, of which `codetool-lab-fable5` is called *"the only
+lane that deliberately does not name its model in-doc"*; a second row,
+`codetool-lab-opus4.8`, records a *successor's* model withheld under the same
+policy. The "of five" was wrong when first written here and is corrected in
+place rather than left to propagate), while cards from the same venue one day before the
 2026-08-29 batch name a family-level model freely. Copying another card's `withheld` is the
 suppressed attempt the never-write-a-wall rule exists to prevent — walls decay,
 and re-discovering one costs less than never trying.
