@@ -1,6 +1,15 @@
 # 2026-08-29 — the agent-error audit reconciled against OD-26, and its §1 scope named
 
-> **Status:** `in-progress` — born-red. Follow-up to fm #967, which merged on
+> **Status:** `complete` — landed after two Codex rounds on this PR (8 + 9
+> findings, **all 17 `[conceded]`, zero `[survived]`**; 37 across four rounds
+> counting fm #967's two). **Flip exemption, declared:** the last reviewed SHA
+> is `52a375a2`; after it come only the R2 fix commit — nine mechanical
+> corrections, each named in the thread — and this flip. **No third re-review
+> is requested**, and the reason is stated in the thread: severity converged to
+> zero P1s while count stayed flat, because each round's fixes were creating the
+> next round's stale copies — which is this audit's own TRAP-008.
+>
+> Follow-up to fm #967, which merged on
 > green while this work was in flight; the branch is restarted from the merged
 > `main` per the merged-PR discipline and this is a new change, not a reopen.
 
@@ -81,8 +90,11 @@ name.**
    PR was `closed` from **12:22:52Z onward**, which covers the later poll
    iterations for certain. The session did not record per-iteration timestamps,
    so how many of the earliest iterations preceded the merge is **unknown** —
-   "unread the whole time" was written and is withdrawn. **Named, not closed**:
-   the wrong diagnosis stands on the merged PR.
+   "unread the whole time" was written and is withdrawn. **CLOSED where it was
+   delivered:** a correction is now posted on the merged #967 thread beside the
+   original, which stands. Codex (fm #968) was right that a card is not
+   discoverable from that thread, so recording it here alone left the false
+   claim delivered and uncorrected.
 
 ## 💡 Session idea
 

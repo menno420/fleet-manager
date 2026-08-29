@@ -103,7 +103,10 @@ owner anywhere in it.**
 
 The cause is mundane and was never written down: **agents authenticate with
 `$GITHUB_PAT`, which is the owner's own credential**, so every comment, review
-reply and PR body an agent posts is authored by `menno420`. The estate records
+reply and PR body an agent posts **on those surfaces** is authored by
+`menno420` — and where the Work connector posts instead, its attribution is
+unestablished here, so those repositories are open rather than covered. The
+estate records
 the PAT's *capabilities* in several places
 (`docs/execution-surfaces.md`, `docs/providers/claude.md`) and its *attribution
 consequence* in none — a grep for any record of agents posting under the owner's
@@ -112,7 +115,8 @@ finds PAT records.
 
 **Why it matters more than an attribution nit:**
 
-1. **The `OWNER` certainty tag is unfalsifiable from GitHub.** The legend reads
+1. **The `OWNER` certainty tag is unfalsifiable on the surfaces measured.**
+   The legend reads
    *"The owner stated it… Act on it. Do not probe first."* — the estate's
    strongest instruction, and on GitHub nothing distinguishes his statement from
    an agent's paraphrase of one.
@@ -246,7 +250,9 @@ authoring only by naming those tools explicitly.
 > only the fixed figure would make the evidence unreadable — and presenting only
 > the old one would be TRAP-001, in a document about TRAP-001. **What survives
 > the fix untouched is everything below: the kit ships no routing, and 19 of 20
-> repositories have no hook layer to route into.**
+> repositories have no routing implementation to deliver them — though 18 of 20
+> do carry the kit's four-event channel, which is the seam a routing layer would
+> use.**
 
 Two further measurements complete the picture:
 
@@ -466,10 +472,16 @@ on it.
 - **§1's issue-comment enumeration covers 6 of 28 repositories**, the busiest.
   Review comments cover the **12 repositories the retained script selects**. A
   scoping pass early in this session did count review comments across all 28 and
-  found 12 non-zero, but `reviews.py` hard-codes the 12, so **a re-run
-  reproduces the corpus without reproducing its exhaustiveness**. The extension
-  to the remaining repositories is `REASONED` from the credential mechanism —
-  itself bounded, since that credential is not universal (§1).
+  found 12 non-zero. **The published corpus was gathered by a script that
+  hard-coded those 12**; the retained copy now derives the list from
+  `repos.json`, so a future run enumerates rather than assumes — but it is a
+  fresh census, not a reproduction (see the next row). The extension to the
+  remaining repositories is `REASONED` from the credential mechanism — itself
+  bounded, since that credential is not universal (§1).
+- **A re-run is a fresh census, not a reproduction.** `reviews.py` applies no
+  `created_at` cutoff, so the moment any new review comment exists its totals
+  diverge from the 1,592 this finding names. The scripts reproduce the *method*;
+  the *corpus* is the 2026-08-28 snapshot and is not committed.
 - **The retained scripts were themselves defective** in four ways review found —
   a dead lexicon, an unrunnable first step, and two failure paths that turned
   fetch errors into silently empty corpora. All four are fixed in the retained
@@ -492,7 +504,8 @@ and the work aimed elsewhere."*
 
 This audit was designed inside the retired frame. What it contributes is not a
 better taxonomy but **a number under his sentence**: 328 rules stated with
-nothing delivering them, 19 of 20 repositories with no hook layer at all, and a
+nothing delivering them, 19 of 20 repositories with no repository-local hook
+files and none with a routing implementation, and a
 kit that ships no routing. If sessions do not leave repos better, one measurable
 reason is that **nothing tells them to at the moment they could** — which is his
 cause with a mechanism attached, not a competing diagnosis.
@@ -552,9 +565,16 @@ worth saying plainly rather than dressing up as a new finding.
 
 ### The measurement that should gate it, whenever the plan reaches it
 
-Every incident in this corpus is dated and cited, so *"would this route have
-fired on that instance"* is answerable rather than asserted. Run that before
-anything is promoted. Promote only what measures useful — the roadmap's §6,
+Every incident in this corpus is dated and cited — but **that is not enough to
+decide whether a route would have fired, and an earlier cut said it was.**
+`route_docs.py` matches on `Write.content`, `Edit.new_string` or a Bash heredoc
+body; `extract.py` keeps only the resulting document section, and `reviews.py`
+discards the review API's diff hunk and commit ids. **The triggering input is
+therefore not reconstructable from this corpus for review-caught incidents or
+non-trivial authoring commands.** So the proposed measurement is a **heuristic
+lower bound** — "does the landed text match this route's pattern" — not a replay.
+A real replay needs the authoring inputs retained, which this corpus did not do.
+Run the heuristic before anything is promoted, and call it what it is. Promote only what measures useful — the roadmap's §6,
 verbatim.
 
 **Nothing here is built.** No trap registered, no route added, no checker
