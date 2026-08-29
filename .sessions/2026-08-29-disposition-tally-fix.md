@@ -134,7 +134,7 @@ Reviewed `3d17dc5a`, one commit behind the head at the time.
 
 | # | finding | disposition | fix |
 |---|---|---|---|
-| 1 | The recipe cannot count tokens the round-2 tables do not have | `[conceded]` | **Independently identical to the finding I had reached and pushed twenty minutes earlier** in `a228db4d`, testing the recipe by hand before asking for review. Two reviewers, no contact, same defect, same two cards. The recipe is now two ordered predicates and both cards satisfy the first. |
+| 1 | The recipe cannot count tokens the round-2 tables do not have | `[conceded]` | **Independently identical to the finding I reached in `a228db4d`, testing the recipe by hand.** The two ran *concurrently*, not sequentially — see the timeline below. The recipe is now two ordered predicates and both cards satisfy the first. |
 | 2 | The card's line citations had already moved | `[conceded]` | `:4` and `line 217` were stale — the edit that fixed the banner inserted lines into the file the citation pointed at. **All line numbers removed** in favour of the quoted strings, which are stable and greppable. |
 | 3 | A round-1 *heading* still said "4 P2 findings, all `[conceded]`" | `[conceded]` | The third disagreeing tally in that file. I fixed the banner Codex's earlier round named, wrote "corrected", and never swept for siblings — so the heading asserted *all conceded* through a full review round of the PR whose entire subject is that defect. |
 
@@ -152,13 +152,32 @@ both cards, checked against the rows-derived count:
 | fm #973 | (13, 0, 0) | 3 | yes |
 | fm #976 | (6, 1, 0) | 2 (one deliberately quoting the old wrong text) | yes |
 
-**Finding 1 is the more interesting data point.** The recipe defect was found
-twice independently, by hand and by review, within half an hour. That is the
-first thing in this session where an adversarial check and my own testing
-converged on the same defect from different directions — everywhere else the
-review found what I had not looked for. It is weak evidence that the recipe
-defect was real and obvious rather than a reviewer artefact, which is worth
-something given how much of today's output is one reviewer's opinion.
+**Finding 1 is the more interesting data point — and I got its timeline wrong
+first.** I wrote that I had found it "twenty minutes earlier". `MEASURED` from
+commit timestamps and the review summary:
+
+| event | time (UTC) |
+|---|---|
+| `3d17dc5a` — PR opened, review requested | 20:28:59 |
+| Codex begins reviewing `3d17dc5a` | 20:29:54 |
+| `a228db4d` — my hand-test lands the same fix | **20:32:02** |
+| Codex completes, reporting the defect | 20:33:22 |
+
+So the two overlapped by **2 min 08 s**: Codex was already reading the commit
+when I pushed the fix, and finished 80 seconds after. Not twenty minutes, and
+not sequential — genuinely concurrent, which is a *stronger* form of
+independence than the version I invented, since neither could have seen the
+other's result.
+
+That still makes it the first convergence of the day: everywhere else the review
+found what I had not looked for. It is weak evidence that the recipe defect was
+real and obvious rather than a reviewer artefact — worth something given how
+much of today's output rests on one reviewer's judgement.
+
+**And the interval itself is a fifth instance of the pattern.** "Twenty minutes"
+was not measured; it was a plausible-feeling number attached to a real event,
+which is exactly the shallow-clone squash-merge failure in miniature. I put it
+in this card and in a public comment before checking two timestamps.
 
 ## Verify
 

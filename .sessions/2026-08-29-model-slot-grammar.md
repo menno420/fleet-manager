@@ -3,7 +3,7 @@
 > **Status:** `complete` — landed after two Codex rounds on fm #976 (4 + 3
 > findings: **6 `[conceded]`, 1 `[partial]`, zero `[survived]`**). *(This line
 > first said "all 7 `[conceded]`", contradicting the round-1 table below, which
-> records finding 1 as `[partial]`. Corrected fm #978.)* No third review
+> records finding 1 as `[partial]`. Corrected fm #979.)* No third review
 > requested: round 2 was smaller than round 1 and every finding was in prose
 > rather than in the mechanism, which is the convergence the two-re-review cap
 > looks for. Last reviewed SHA `a54ccd25`; after it come only the round-2
