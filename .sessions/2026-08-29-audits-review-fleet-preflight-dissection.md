@@ -57,6 +57,20 @@ race on a branch its owner was actively pushing to.
 - `python3 bootstrap.py check --strict` → real exit code, no pipe; born-red on
   this card until the flip below.
 
+## Codex #978 round 1 — 1 P1 + 9 P2, and one near-miss of my own
+
+All ten findings were measured against source before disposition (the table is
+in the PR thread); none survived outright — the P1 (partial coverage conflated
+with duplication) and eight P2s `[conceded]`, one P2 `[partial]` (F2: the
+overclaim conceded, the diversify-the-path recommendation retained on venue-
+policy grounds). **The near-miss:** checking the P1's "111 of 233 begin
+'partial'" I first probed `already_covered_answers`, got 0, and briefly held a
+refutation — the field is an **int** (a count), so I had stringified a `1` and
+searched it for "partial". The real answers list (`already_covered_by`) gives
+exactly Codex's 111. Caught by re-checking the field's shape before writing
+the disposition — reading the wrong field while verifying a field-reading
+defect, one layer up from the F1 it was verifying.
+
 ## ⟲ Previous-session review
 
 Previous card:

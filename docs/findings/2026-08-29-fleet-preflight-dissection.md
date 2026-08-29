@@ -89,31 +89,43 @@ against 191 positive-style. After #973's round-2 fix merged, the rows carry an
 authoritative per-row label — `already_covered_positive` is **false on 51** —
 and the 42-row gap between that and my cruder cut is itself instructive: those
 are *"nothing fully — but adjacent-X partially covers…"* answers, which no
-string test classifies reliably in either direction. Whichever number you
-take, the example predicate misreads them as coverage, and the merged data's
-boolean is exactly the fix shape the example should teach.
+string test classifies reliably in either direction. **The measured effect on
+this catalogue is small, and saying so is part of the claim** (Codex #978 R1):
+the example's misreading branch fires only when `lens_refuters >= 1` as well,
+and of the negatives only **2 of 51** (authoritative) / **3 of 93** (prefix
+cut) carry a refuter — so the full predicate misclassifies 2–3 rows here, not
+a third of the set. The defect is type-safety, not blast radius: the next
+corpus need not be so lucky, and the merged data's boolean is exactly the fix
+shape the example should teach.
 
-**F2 — §6's state-check snippet is `gh`-shaped, and the fan-out venue here is
-not.** `SKILL.md:230-237` inventories open PRs with `gh pr list`. In this
-estate's remote containers GitHub work goes through the MCP tools or the
-direct-PAT path (`docs/CAPABILITIES-verified-2026-07-18.md`; the proxied REST
-path 403s), and this session's harness routes GitHub work away from `gh` even
-though the binary exists in the container (`MEASURED`: `/usr/bin/gh` present,
-2026-08-29). So the snippet as written is untested in the venue the skill
-targets. Fix shape: put the estate-native listing beside it, or defer the PR
-inventory wholly to `prompt-preflight` §1 the way the rest of the state checks
-already are. The `--limit is a maximum, not a page size` warning beside it is
-right and worth keeping wherever the snippet ends up.
+**F2 — §6's state-check snippet is unexercised in its venue, not shown
+unsuitable** *(narrowed on Codex #978 R1, which correctly refused the stronger
+form)*. `SKILL.md:230-237` inventories open PRs with `gh pr list`. The first
+cut of this finding called that a venue mismatch; the estate's own surface
+record says otherwise — `docs/execution-surfaces.md:43`: the `gh` CLI is
+*"installed by `setup-base.sh` Block 2b"*, and the binary is present in this
+container (`MEASURED`: `/usr/bin/gh`, 2026-08-29). What stands is narrower and
+still real: **no run of that snippet exists** — this session could not supply
+one because its own harness policy routes all GitHub work to the MCP tools,
+and that policy variance across session classes is itself the reason the
+snippet should not be the only path. Fix shape: verify the snippet at the
+skill's first real use, and put the estate-native listing (MCP or direct-PAT)
+beside it for the sessions whose policy forbids `gh`. The `--limit is a
+maximum, not a page size` warning is right and travels with whichever form.
 
 **F3 — the file breaks its own no-restating promise, and that debt has already
 cost one near-miss.** `SKILL.md:15-17` says it *"cites those numbers rather
 than restating the record"*; §§1 and 7 then restate the verdict tallies and
-three `MEASURED` narrative blocks at length. `MEASURED` by grep, 2026-08-29:
-the 815-of-925 figure stands in three committed surfaces besides this file
-(the retrospective, the findings index row, the skill), and the sibling
-refuter tally in three more on the #973 branch (data README, session card,
-disposition comment) — and one copy was already mistyped once, the
-155/122/7 near-miss the #973 card records against the measured 226/51/7. This
+three `MEASURED` narrative blocks at length. `MEASURED` by wide grep,
+2026-08-29 (a first, pattern-narrow grep undercounted at three — Codex #978 R1
+caught it): the 815-of-925 figure stands in **six** committed surfaces besides
+this file — the retrospective, the findings index row, the skill, the
+archived workflow `03-judge-panel-skill-design.js`, the panel output JSON, and
+the retrospective's session card. No copy has yet diverged; the related
+near-miss the #973 card records (155/122/7 against the measured 226/51/7) was
+a tally **extrapolated from a subset and caught before commit**, not a stale
+copy — what it evidences is numbers being retyped from memory, which is the
+habit six standing copies invite. This
 is the audit's proposed TRAP-008 class (*a correction that leaves its own
 copies standing*) pre-registered against our own instructional surface. The
 fix is §3's trim, not a hotfix.
@@ -128,6 +140,12 @@ used the sheet, the trim targets are already identifiable:
   355-360`) → keep the signature table and the one-line assumption result,
   cite the retrospective for the rest.
 - §1's restated verdict tallies → one line citing retrospective §3.
+- The per-section *"Catches failure N / does NOT catch"* footnotes → one
+  closing coverage table. This is the judge panel's own usability suggestion
+  (`data/workflows/skill-design-panel-output.json`: the footnotes are
+  *"coverage notes addressed to a reviewer of the skill, not to the session
+  using it"*, measured at ~15 % of the body) — the honesty they carry survives
+  intact in table form.
 - Expected landing size ~300 lines with no check removed — the cuts are
   evidence prose, never the runnable checks or the contract lines.
 
@@ -139,11 +157,17 @@ used the sheet, the trim targets are already identifiable:
   corpus and §1 the decision rule, but nothing asks how double-counted the
   published rows are. Candidate: `DEDUP: <method over output rows> ·
   precision spot-check <n>/<n> read by hand`.
-- **Make the `PILOT` line carry the number the run will be judged by.** The
-  7.0 % refute rate was visible in the first verdict batch and read only at
-  88 % of budget; §3 says so in prose, but `changed: <what>` does not force
-  the metric out. Candidate: `PILOT: … · metrics read: <the rates the full
-  run will be judged by>`.
+- **Make the `PILOT` line carry the number the run will be judged by.**
+  Stated precisely, because the first cut of this bullet promoted a
+  counterfactual to history (Codex #978 R1): the committed evidence holds only
+  the **final** aggregate — 7.0 % across all 925 verdicts — and the only
+  first-batch statement anywhere is a judge's *"would have exposed the 7.0 %
+  refute rate at 10 % of the spend"*. No batch-level tally exists. So the
+  candidate line names the metric a pilot **should estimate**, not one that
+  was ever read: `PILOT: … · metrics read: <the rates the full run will be
+  judged by>`. The shipped skill's own §3 sentence (*"was knowable from the
+  first batch … read only afterwards"*) rests on the same absent tally and
+  should be rephrased at the same trim.
 - **The hour after launch.** The skill stops at launch by design
   (`SKILL.md:425-429`); the close-time sibling — a check that a session which
   ran a fleet committed something pointing at the fleet's output — is already
@@ -158,9 +182,9 @@ map, not the diff.
 
 | part (where it lives in fleet-preflight) | lift into | what it does there |
 |---|---|---|
-| The census-caption rule — *composition in the same breath as the count; copy the caption, do not compose one* (§4) | `delegate-read` | The input-side contract for every corpus handed to Gemini: the fetch prints its own composition and that printout is the only quotable form. TRAP-004 at the cheap moment. |
-| The retention fields — repo + `source_path` + sha/id + verbatim span + the instrument that selected it (§5) | `delegate-read` | Its citation-verification already checks the output side; this contracts the input side so follow-ups stay answerable. |
-| Per-repo launch-SHA plus the scheduled re-read before writing (§6) | `prompt-preflight` | Its §1 verifies state for the repo at hand; this is the multi-repo delta form, plus the truncation warning (`--limit` is a maximum) that generalizes to every listing API. |
+| The census-caption rule — *composition in the same breath as the count; copy the caption, do not compose one* (§4) | `delegate-read` — **prose + tool work** | The input-side contract for every corpus handed to Gemini. Not liftable by skill text alone (Codex #978 R1): `tools/gemini_delegate.py:455-460` prints only file/char/token totals, so the bundler must first learn to emit the composition caption the rule makes authoritative. |
+| The retention fields — repo + `source_path` + sha/id + verbatim span + the instrument that selected it (§5) | `delegate-read` — **prose + tool work** | Same dependency: the report `_meta` (`gemini_delegate.py:481-488`) records model/files/batches/usage/globs and none of these fields; the lift is skill prose plus the report-schema extension, or it instructs callers to retain what the tool never emits. |
+| The `--limit is a maximum, not a page size` truncation lesson, and the per-repo launch-SHA capture pattern (§6) | `prompt-preflight` | Both are prompt-time material: the truncation warning generalizes to every listing API, and the launch-SHA loop is the multi-repo form of its §1. **The scheduled post-run re-read stays in fleet-preflight** — the skill marks it "belong here and only here", and it must run after the fleet, a moment `prompt-preflight` structurally never sees (Codex #978 R1 refused the original whole-row lift on exactly this). |
 | The demand test with barrier, the slot-vs-provisioning discriminator, and the first-timestamp check (§7) | `capability-probe` | These ARE capability probes — *name the method, not just the number* is that skill's whole doctrine applied to concurrency. One cross-reference row each way; teach it once. |
 | The `UNCONTRACTED` grammar — a skipped check travels with the deliverable, priced (`SKILL.md:38-39`) | `implementation-prompt` · `continuation-prompt` | A standard section: name the checks the prompt deliberately does not require, so the cost of skipping rides the handoff instead of surfacing in review. |
 | Pilot a slice you can read whole, then commit the rest (§3) | `implementation-prompt` | For any prompt that commissions batched or repetitive work, not only fan-outs. |
@@ -178,10 +202,14 @@ write new skills as the primary vehicle"* — and fleet-preflight is a new
 
 - fleet-manager is the one repository where a skill CAN bind — the routing
   table row exists in the boot file, and fan-outs launch from here;
-- the sheet is a committed artifact, so **use leaves a record**: a published
-  fan-out finding with no quoted contract sheet is visible evidence the skill
-  did not run — a partial answer to the no-telemetry objection that most
-  skills cannot give;
+- the sheet is a committed artifact, so **contract-conformance leaves a
+  record** — stated at that width and no wider (Codex #978 R1 refused the
+  wider form): a published fan-out finding with no quoted sheet proves the
+  output contract was not followed, **not** that the skill never loaded — a
+  session can invoke it and still omit the artifact, so invocation itself
+  stays exactly as unmeasurable as the reuse map says. What the sheet buys is
+  a checkable conformance signal most skills lack; the observability gap it
+  cannot close is the reuse map's point, intact;
 - the skill is owner-directed in his own words (*"not a skill that tells you
   how to start an ultracode… but to do the proper preparation in order to
   start a well organized fleet"*), which settles the should-it-exist question
@@ -232,29 +260,43 @@ against 172 mechanical enforcers; 1 of 20 repos with any routing layer; the
 kit's four-event channel present in 18 of 20), the reuse map's §5 (71 routes
 covering conventions and **zero** covering the four rule surfaces; the trap
 lifecycle run to completion for 7 execution mistakes and 0 rules), and the
-standing 2026-08-08 measurement (116 statements, 0 catches). Same direction,
-no shared instrument.
+standing 2026-08-08 measurement stated with its denominator and limit — 116
+verify-first statements across 66 files caught **0 of the 16 incidents
+observed in that one session**, and its own "Honest limit" says prevented
+errors are invisible, so it bounds the marginal value of a 117th statement,
+not the worth of the 116 *(restored on Codex #978 R1; the first cut's "116
+statements, 0 catches" dropped both)*. Same direction, no shared instrument.
 
 **They agree on the sharpest single fact of the round: proposals duplicate
 existing coverage.** The reuse map's §7: in **17 of 17** refutations the
 citation held and the verdict fell — *duplicate proposed as new*. The
-catalogue: all 7 killed rows died as already-covered, and the survival rule
-ignored the coverage field it collected — at verdict level 815 of 925 named
-coverage (retrospective §3), and at row level the merged catalogue's own
-labeling puts positive coverage on **233 of 284 rows** (`already_covered_positive`,
-landed with #973 round 2; a cruder prefix cut this session ran reads 191, the
-gap being partial "nothing fully, but…" answers — either way, most rows were
-told something covers them and the rule read none of it). And OD-26 §20 is the
-owner saying the same thing in his own words — *"redoing the same things over
-and over"*. Three independent sources converge: **the estate's dominant
-proposal-failure is re-proposing what exists, so the revised plan should start
-from inventory, not from candidate lists.**
+catalogue: all 7 killed rows died as already-covered. **The two grains must
+not be conflated, and a first cut of this paragraph conflated them (Codex
+#978 R1, P1):** the *duplicate-proposal* claim rests on the 17/17 and the 7
+killed rows — cases where named existing coverage was the verdict. The
+row-level labeling (`already_covered_positive` true on 233 of 284) supports
+only the weaker claim that **coverage signal was collected and ignored**:
+positive means a lens named at least one real covering mechanism, and on
+**111 of the 233** the first answer begins *"partial"* — partial coverage is
+not duplication, and treating 233 as duplicates would push the revised plan
+toward rejecting genuinely additive work. (At verdict level, 815 of 925 named
+something — retrospective §3 — with the same partial-inclusive caveat.) And
+OD-26 §20 is the owner saying the duplicate half in his own words — *"redoing
+the same things over and over"*. The convergence, stated at its supported
+width: **where proposals failed, they overwhelmingly failed as re-proposals
+of existing coverage, and the coverage signal that would have caught them was
+collected and unread — so the revised plan should start from inventory, not
+from candidate lists.**
 
-**A third quiet agreement:** the reuse map argues *prefer gates and checkers
-over skills* (§1, §6 Move B), and the catalogue's own fix-family distribution
-— produced by 80 harvest lanes with no such thesis — prescribes `checker` on
-166 of 284 rows against `skill` on 20. The fleet independently voted the same
-way.
+**A third alignment, held at hypothesis grade** *(downgraded from "agreement"
+on Codex #978 R1)*: the reuse map argues *prefer gates and checkers over
+skills* (§1, §6 Move B) from delivery-observability evidence, and the
+catalogue's fix-family distribution prescribes `checker` on 166 of 284 rows
+against `skill` on 20. But those labels are synthesis-lane prescriptions
+emitted under one shared schema on candidate rows the README itself says
+survived almost nothing — a direction-aligned, unvalidated prescription
+space, not an independent vote. It corroborates nothing; it merely fails to
+disagree.
 
 **Two tensions, neither a contradiction:**
 
