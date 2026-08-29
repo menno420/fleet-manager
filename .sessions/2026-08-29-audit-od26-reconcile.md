@@ -74,9 +74,15 @@ name.**
    polled `mergeable: null` / `head: 0a5b14ef` and diagnosed GitHub-side PR-ref
    lag, posting that diagnosis to the PR. The PR had been **merged** at
    12:22:52Z. The `/git/ref` read it used as its authority answered a different
-   question (branch tip) than the one it was asking (PR state), and the merged
-   state was visible in `/pulls/967` the whole time as `state: closed`, which it
-   never checked. **Named, not closed** — the comment stands on the merged PR.
+   question (branch tip) than the one it was asking (PR state), and the poll
+   printed `head.sha`, `mergeable` and `mergeable_state` while never reading
+   `state` — which the same response carried.
+   **Scoped precisely, because the first cut of this line overstated it:** the
+   PR was `closed` from **12:22:52Z onward**, which covers the later poll
+   iterations for certain. The session did not record per-iteration timestamps,
+   so how many of the earliest iterations preceded the merge is **unknown** —
+   "unread the whole time" was written and is withdrawn. **Named, not closed**:
+   the wrong diagnosis stands on the merged PR.
 
 ## 💡 Session idea
 
