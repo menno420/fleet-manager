@@ -54,8 +54,9 @@ stays a judgment, not a chore.
 Detector list (each mechanical, each reading evidence that already exists):
 1. **Contradiction sniff** — for every decision id or dated claim the
    session edited, grep its other appearances for stale citations. (The
-   2026-08-29 D-0020/D-0011 over-revocation was exactly this class, caught
-   by an outside reviewer four files away.)
+   same-night Gemini-route capture over-revoking the paid-key spend decision
+   — the fm #981 review round — was exactly this class, caught by an outside
+   reviewer four files away.)
 2. **Advisory delta** — did any gate advisory class grow this session?
 3. **Guard-fire pattern** — a guard firing repeatedly on the same rule means
    a hook kept correcting the agent; candidate for making it structural.

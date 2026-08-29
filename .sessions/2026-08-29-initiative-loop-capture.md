@@ -77,6 +77,11 @@ saying so.
 
 - `python3 bootstrap.py check --strict` → real exit code, no pipe; born-red
   on this card until the flip.
+- One instrument divergence, cause `UNVERIFIED`: CI's substrate-gate fired
+  `[stamp]` on this doc's bare decision-token example (correctly — two
+  citing homes) while the local strict run on the same content surfaced
+  only the born-red hold. Fixed by de-tokenizing the example either way;
+  the divergence itself is left as a recorded observation, not a diagnosis.
 - One Codex round at flip-readiness (ledger + planning-surface changes
   matter); fixes, if any, verified on the free-key Gemini route.
 
