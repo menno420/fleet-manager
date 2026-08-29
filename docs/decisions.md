@@ -465,9 +465,12 @@
   weighs queued ideas against the asked task (outrank, merge, or both when
   small), with a mandatory disposition line in the emitted prompt as the
   falsifiable red; (4) the queue's one home is the existing generated
-  idea backlog with its harvester extended, slugs and a disposition column;
-  (5) any session may retire a queued idea with a stated reason recorded in
-  the queue — he spot-checks kills rather than approving each.
+  idea backlog with its harvester extended to both unharvested forms, plus
+  slugs and a disposition column backed by a durable source the generator
+  folds in (the backlog itself is generated, not source of truth); (5) any
+  session may retire a queued idea with a stated reason recorded in that
+  durable disposition source, displayed by the queue — he spot-checks kills
+  rather than approving each.
 - why: self-report initiative is the prose-demand form that died estate-wide
   while gated practices held (genesis dig); detectors-then-dispositions makes
   initiative countable with a visible red; consuming at prompt-writing time

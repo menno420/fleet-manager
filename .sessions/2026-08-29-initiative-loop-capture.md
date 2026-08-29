@@ -1,9 +1,13 @@
 # 2026-08-29 — the initiative-loop design, captured while it was still warm
 
-> **Status:** `in-progress` — born-red. The design conversation converged in
-> the live sitting (*"Yes I agree with your suggestions"*), and per the
+> **Status:** `complete` — the design conversation converged in the live
+> sitting (*"Yes I agree with your suggestions"*), and per the
 > decision-capture rule — explaining it twice costs more than committing it
-> once — this PR lands it before the next session has to re-carry it.
+> once — this PR landed it before the next session has to re-carry it.
+> Flipped after the flip-readiness round answered (review object, on
+> `32fc607`) and all three findings were fixed and Gemini-verified; the
+> capture's mechanics are stronger for the round (both harvest forms, a
+> verdict-filtered detector 3, durable dispositions).
 
 - **📊 Model:** withheld · max · docs-only
 - **⚑ Model-slot note:** harness policy forbids a model identifier in a
@@ -84,6 +88,35 @@ saying so.
   the divergence itself is left as a recorded observation, not a diagnosis.
 - One Codex round at flip-readiness (ledger + planning-surface changes
   matter); fixes, if any, verified on the free-key Gemini route.
+
+## ⚖ Flip-readiness review (Codex on `32fc607`, per the cadence decision)
+
+Answered `22:56:52Z` as a review object. Three P2 findings, all against the
+design's mechanics, all measured before disposition, all real:
+
+1. **The harvest baseline was conflated and S1 under-scoped.** My "382 use
+   the heading form" was a *phrase* grep; the script's docstring names two
+   unharvested forms. Re-measured: 194 heading-form cards, 205
+   paragraph-start, of 449 files. **[conceded]** — baseline corrected in
+   place with the error named; S1 now covers both forms. (Second borrowed-
+   precision catch on the same number tonight — the review hook caught it
+   being unmeasured, Codex caught the measurement measuring the wrong
+   thing.)
+2. **Detector 3 read the wrong telemetry.** All 34,013 guard-fire records
+   are `surface:"check"`, zero hook rows, and re-recorded suppressions
+   dominate repeats (9,357 false-positive + 1,703 accepted-risk) — as
+   written it would fill the capped list with gate noise. **[conceded]** —
+   re-specified: verdict-filter + dedupe, and a durable hook-telemetry sink
+   named as an S2 prerequisite (the review hook logs to `/tmp`, which dies
+   with the container).
+3. **Retirements written into a generated file get erased on regen.** The
+   backlog's own header: do-not-hand-edit, not source of truth.
+   **[conceded]** — dispositions now live in a durable slug-keyed source
+   the generator consumes; the queue displays them. Ledger clauses (4)/(5)
+   adjusted to match before merge.
+
+Fix diff verified on the free-key route before the flip; the stamp-lane fix
+(`9ad7c79`) rode ahead of this round as a CI-demanded mechanical change.
 
 ## ⟲ Previous-session review
 
