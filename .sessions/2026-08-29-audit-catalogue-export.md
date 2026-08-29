@@ -7,7 +7,9 @@
 > round 2's six findings were created by round 1's own fixes — TRAP-008 in its
 > prose form. Last reviewed SHA `731c282c`; after it come only the round-2
 > fixes named in § *Codex round 2*, the archival-note correction in
-> § *Correction*, and this flip.
+> § *Correction*, and this flip. **Then fm #979 reviewed further**, adding a
+> `disposition` column to the round-2 table. That edit carries its own review
+> round and is not covered by `731c282c`.
 >
 > Exporting the 284 candidate patterns and 20 repository censuses the audit
 > harvested and never used.

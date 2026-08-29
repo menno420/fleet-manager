@@ -7,7 +7,10 @@
 > requested: round 2 was smaller than round 1 and every finding was in prose
 > rather than in the mechanism, which is the convergence the two-re-review cap
 > looks for. Last reviewed SHA `a54ccd25`; after it come only the round-2
-> fixes named in § *Codex round 2 on fm #976* and this flip.
+> fixes named in § *Codex round 2 on fm #976* and this flip. **Then fm #979
+> reviewed further**, adding: this correction note, the round-1 heading's tally,
+> a `disposition` column on the round-2 table, and the superseded-claim strike.
+> Those edits carry their own review round and are not covered by `a54ccd25`.
 
 - **📊 Model:** withheld · high · docs-only
 - **⚑ Model-slot note:** this session carries an instruction against putting a

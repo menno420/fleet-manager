@@ -90,38 +90,58 @@ for — but the estate has been asking for **card grammar enforced by a hook**
 (owner, 2026-08-29), and "the flip banner's tally matches the dispositions
 counted in the same file" is a concrete, checkable instance of that ask.
 
-## Guard recipe (deferred) — and the defect found by testing it by hand
+## Guard recipe (deferred) — third draft, because the first two did not work
 
-**The obvious recipe does not work, and finding that out is half the value.**
-"Count `` `[conceded]` `` / `` `[partial]` `` / `` `[survived]` `` tokens in the
-card's round tables and compare to the banner" was the first draft. Run against
-the two merged cards it reports **10 conceded** where the truth is 19 — because
-**9 of the 20 round-table rows carry no token at all**: both round-2 tables put
-the disposition in the section heading ("*6 findings, all `[conceded]`*") and
-omit the per-row column. A hook shipping that predicate would fire a *false*
-mismatch on every card written that way, which is the worst possible failure for
-an advisory checker: it teaches sessions to ignore it.
+**Two drafts of this recipe have now failed on the corpus they were written for.**
+That sequence is the finding; the recipe is just where it happened.
 
-So the recipe is **two predicates, in order**, and the first is the one that
-makes the second possible:
+**Draft 1 — "count disposition tokens in the round tables, compare to the
+banner."** Reports **10 conceded where the truth is 19**: 9 of the 20 rows carry
+no token, because both round-2 tables put the disposition in the section heading
+and omit the per-row column. Found by hand-testing before review; Codex found it
+independently in the same window.
 
-1. **Grammar** — every numbered row in a `## Codex round N` table carries
-   exactly one disposition token. Fires on a row without one. This is what makes
-   the tally countable; without it nothing downstream is well-defined.
-2. **Tally** — sum the tokens and compare to any `N [conceded]`-shaped claim in
-   the Status banner or a round heading. Fires on mismatch.
+**Draft 2 — same, after giving every row a token.** Still broken, and this time
+by *quotation*. A row that **discusses** a disposition contains the word:
+`2026-08-29-disposition-tally-fix.md:139` — a row of this card's own round-1
+table — reads `| 3 | A round-1 heading still said "4 P2 findings, all
+`[conceded]`" | `[conceded]` | … |`, so a token count sees **two** and the
+"exactly one per row" predicate fires on the card proposing it. The banner has
+the same problem in the other direction: fm #976's Status block deliberately
+retains *"all 7 `[conceded]`"* inside a correction note, so a regex reading the
+banner finds the live tally **and** the dead quoted one. Found by Codex.
 
-**This PR makes both cards satisfy predicate 1** — the nine untokenised rows now
-carry an explicit `` `[conceded]` `` and their tables gained the column — so the
-recipe ships with a working fixture rather than a hypothesis. `MEASURED` after
-the change: fm #973 counts (13, 0, 0) from rows alone, fm #976 counts (6, 1, 0),
-zero untokenised rows, and every table is well-formed (header, separator and
-every row at 5 pipes).
+**Draft 3 — parse structure, never prose.** Both failures are the same mistake:
+matching a *token* where the meaning lives in a *position*.
 
-Anchors: the Status-badge parse already exists (`check_log` / `missing_markers`
-in `bootstrap.py`); the disposition vocabulary is fixed by
-`docs/conventions/adversarial-review.md`. Advisory lane only — a card with no
-round table must stay silent, and an honest `[partial]` must never red.
+1. **Grammar** — locate the round table by its `| # | finding | disposition |
+   fix |` header, and read the **disposition column by index**. Fires when that
+   column's cell is not exactly one of the three vocabulary values. Tokens
+   anywhere else in the row are prose and are ignored.
+2. **Tally** — sum that column, and compare against **one canonical field**, not
+   against tally-shaped prose. The field does not exist yet; adding it is part of
+   the work (a `⚖ Dispositions:` line beside `📊 Model:`, or a fenced block the
+   checker owns). Free-text banners and headings stay human prose and are never
+   parsed — which is what makes a deliberately-quoted historical tally safe.
+
+**Anchors** (`.sessions/README.md:7` wants function + file + test target — the
+first two drafts named only the first two):
+
+| what | where |
+|---|---|
+| implement | `tools/check_card_disposition_tally.py`, shaped like `tools/check_doc_routes.py` |
+| **test target** | `tools/test_card_disposition_tally.py`, shaped like `tools/test_doc_route_patterns.py` |
+| fixtures | the three cards of this session — two clean, and **this card's own row 3 as the known-negative** that draft 2 failed on |
+| wire | `scripts/repo_checks.sh` beside `check_doc_routes.py`, which `substrate-gate.yml:152` runs |
+| vocabulary | fixed by `docs/conventions/adversarial-review.md` |
+
+Advisory lane only. A card with no round table stays silent; an honest
+`[partial]` never reds.
+
+**Do not implement draft 3 without running it against these three cards first.**
+Both earlier drafts read as obviously correct and both were wrong on contact
+with the corpus — which is the same finding as everything else in this PR, in
+the one place where it would have shipped as executable code.
 
 ## Previous-session review
 
@@ -178,6 +198,55 @@ much of today's output rests on one reviewer's judgement.
 was not measured; it was a plausible-feeling number attached to a real event,
 which is exactly the shallow-clone squash-merge failure in miniature. I put it
 in this card and in a public comment before checking two timestamps.
+
+## Codex round 2 on fm #979 — 5 findings (4×P2, 1×P3), all `[conceded]`
+
+Reviewed `c48b2bff`. **Two of the five I had already fixed independently in
+`935f5c90`, minutes before the review landed** — the invented twenty-minute
+interval and the `fm #978` reference — both caught by re-deriving my own
+disposition comment rather than by review. They are recorded as conceded because
+they were real, not because the review found them first.
+
+| # | finding | disposition | fix |
+|---|---|---|---|
+| 1 | The twenty-minute separation contradicts the commit timestamps | `[conceded]` | Already fixed in `935f5c90`. Measured: a 2 min 08 s **overlap**, not a separation. |
+| 2 | **The grammar predicate cannot tell a quoted disposition from a live one** | `[conceded]` | The substantive one — see below. |
+| 3 | The correction note attributes the repair to fm #978 | `[conceded]` | Already fixed in `935f5c90`; the PR is #979. |
+| 4 (P3) | The recipe names no test target, which `.sessions/README.md:7` requires | `[conceded]` | The first two drafts named function and file and stopped. Draft 3 carries an anchors table with the test module, its shape-model, the fixtures and the wiring line. |
+| 5 | The post-review coverage sentences became false when this PR edited the cards | `[conceded]` | Both Status blocks said only the round-2 fixes and the flip follow the last reviewed SHA. fm #979 then added more. Both now name what came after and say it carries its own review round. |
+
+### Finding 2 killed the second draft of the recipe
+
+**A row that *discusses* a disposition contains the word.** This card's own
+round-1 row 3 reads `| 3 | A round-1 heading still said "4 P2 findings, all
+`[conceded]`" | `[conceded]` | … |` — two tokens, so "exactly one per row" fires
+on the card proposing it. The banner fails the same way in reverse: fm #976's
+Status deliberately retains *"all 7 `[conceded]`"* inside a correction note, so a
+regex reading the banner finds the live tally and the dead quoted one.
+
+So **two drafts, both obviously correct on inspection, both wrong on contact with
+the corpus.** Draft 1 counted tokens the cards did not have; draft 2 counted
+tokens that were quotations. Both are the same mistake: **matching a token where
+the meaning lives in a position.**
+
+Draft 3 parses the disposition **column by index** and compares against one
+canonical field rather than any tally-shaped prose. `MEASURED` against all three
+cards of this session, including the row that broke draft 2 as a known-negative:
+(13, 0, 0), (6, 1, 0), (3, 0, 0) — all correct.
+
+### Why this stops here
+
+Round 1 found 3, round 2 found 5 — but 2 of those 5 were already fixed, so the
+new-defect count is flat at 3 while severity fell (round 2 carries this PR's
+first P3). More to the point, **the two things that were converging are the two
+that matter**: the recipe has moved from unimplementable → implementable-but-
+wrong → tested against its own known-negative, and the tally is now derivable
+from structure rather than from any sentence.
+
+Draft 3 has been **tested, not reviewed** — and the recipe says so in its own
+last line: do not implement it without first running it against these three
+cards. Given that both earlier drafts read as correct and were not, that
+instruction is the load-bearing part of the recipe, not the predicate.
 
 ## Verify
 
