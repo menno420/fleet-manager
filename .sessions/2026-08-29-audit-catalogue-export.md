@@ -1,6 +1,13 @@
 # 2026-08-29 — the fleet's unread output, rescued before the container took it
 
-> **Status:** `in-progress` — born-red. Exporting the 284 candidate patterns and
+> **Status:** `complete` — landed after two Codex rounds on fm #973 (7 + 6
+> findings, **all 13 `[conceded]`, zero `[survived]`**). **No third review
+> requested, and the reason is stated in the thread:** severity fell (round 2
+> carried the run's first P3) while count stayed nearly flat, because five of
+> round 2's six findings were created by round 1's own fixes — TRAP-008 in its
+> prose form. Last reviewed SHA `731c282c`; after it come only the round-2
+> fixes named in § *Codex round 2*, the archival-note correction in
+> § *Correction*, and this flip. — born-red. Exporting the 284 candidate patterns and
 > 20 repository censuses the audit harvested and never used.
 
 - **📊 Model:** withheld · high · docs-only
