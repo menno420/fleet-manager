@@ -69,8 +69,9 @@ the newest card is the fastest way to learn what the last session actually did.
 
 **Always ask `@codex` explicitly** — post the literal comment `@codex review`
 rather than relying on it noticing the PR. Its about-box also advertises PR-open
-and draft→ready triggers, but those did not fire when measured (2026-08-29, fm
-#974: zero activity after 26 minutes on a READY-opened PR). Once asked it
+and draft→ready triggers, but those did not fire in the one measurement taken
+(2026-08-29, fm #974: zero activity across a **422 s** open window, 87 s past
+the ~335 s relay — thin, and not a clean null). Once asked it
 answers in about **5.5 minutes** with findings as *inline* comments. Wait for it; never merge a PR you have asked it to review.
 (`capabilities.md` § Review.)
 

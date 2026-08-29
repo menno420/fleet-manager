@@ -443,9 +443,12 @@ findings go here, below the fence.)
   canonical and carries the SHA-match requirement — note the clean-pass body shape **varies**, and only one of the two observed shapes has a `Reviewed commit:` line. **Ask for the review; do not wait to be noticed.** Codex advertises three
   triggers (PR open · draft→ready · the `@codex review` comment) and only the
   third is reliable: `MEASURED` 2026-08-29, fm #974 opened READY produced zero
-  Codex activity across all three read surfaces after 26 minutes (~335 s relay,
-  so not a window effect), while fm #977 produced a review seconds after a
-  manual request, self-logged as `Review trigger: Manual request`. Owner, live,
+  Codex activity across all three read surfaces for its whole **422 s** open
+  window — 87 s past the ~335 s relay, which is a thin margin and not a clean
+  null (a queued review would plausibly be abandoned at merge). fm #977 produced
+  a review seconds after a manual request, self-logged as `Review trigger:
+  Manual request` — that half is unambiguous, and it is the half the rule rests
+  on. Owner, live,
   same day: *"Codex only reviews if you ask it to."* The latency and
   comment-shape measurements below are unaffected — both were taken on requested
   reviews. Across #812/#813 it produced **13 findings over 5 rounds**,

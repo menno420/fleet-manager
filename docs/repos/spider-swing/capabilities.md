@@ -68,8 +68,11 @@ applies to any repo in the estate:
   one.** Codex's about-box advertises two more (PR open, draft→ready) and they
   did **not** fire when measured: 2026-08-29, fm #974 opened READY drew zero
   Codex activity on `/pulls/{n}/reviews`, `/pulls/{n}/comments` and
-  `/issues/{n}/comments` after 26 minutes, while fm #977 drew a review seconds
-  after a manual request (`Review trigger: Manual request`, Codex's own words).
+  `/issues/{n}/comments` across its **422 s** open window — only 87 s past the
+  ~335 s relay, so treat it as suggestive rather than a clean null; a queued
+  review would plausibly be abandoned when the PR merged. fm #977 drew a review
+  seconds after a manual request (`Review trigger: Manual request`, Codex's own
+  words), which is the unambiguous half.
   Owner, live, same day: *"Codex only reviews if you ask it to."*
   **Provenance note on the banner below:** its `MEASURED 2026-08-07` covers the
   latency and the inline-comment shape, both timed on a *requested* review. The

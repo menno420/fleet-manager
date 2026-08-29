@@ -64,19 +64,26 @@ as the positive control (2 reviews + 2 issue comments, so the query form works):
 
 | PR | how it was opened | Codex activity |
 |---|---|---|
-| fm #974 | **READY**, 19:35:24Z | **0** after 26 minutes — reviews, inline, issue comments all zero |
-| fm #975 | READY, 19:44:20Z | 0 (merged after 86 s — too short to count) |
-| fm #977 | READY + `@codex review` | review **Running** within seconds, self-logged `Review trigger: Manual request` |
+| PR | open window | Codex activity |
+|---|---|---|
+| fm #974 | **422 s** (READY `19:35:24Z` → merged `19:42:26Z`) | **0** — reviews, inline, issue comments all zero |
+| fm #975 | 86 s | 0 — shorter than the relay, proves nothing |
+| fm #977 | open, + `@codex review` | review **Running** within seconds, self-logged `Review trigger: Manual request` |
 
-26 minutes against a ~335 s relay is not a window effect. **The advertised
-auto-trigger did not fire; the manual one did.** The owner was right about
-behaviour, the boot file was right about configuration, and the useful rule is
-neither of those: *ask, and you never have to know which.*
+**Read the margin honestly: 422 s is only 87 s past the ~335 s relay.** That is
+suggestive, not a clean null — a queued auto-review would plausibly be abandoned
+when the PR merged, so #974 does not prove the auto-trigger is dead. The
+unambiguous half is #977: a manual request produced a review in seconds, self
+-logged as manual. **The rule rests on that half**, which is why it is phrased
+as *always ask* rather than as a claim about what the other triggers do.
 
-**Note what the earlier evidence was worth.** fm #974's session polled 90
-seconds and stopped — that established nothing, and the card said so. The
-26-minute figure is a genuine measurement only because the PR sat there long
-after everyone stopped watching it.
+**Two figures this session got wrong before getting right**, both the same
+mistake — a window measured against the wrong clock. First, fm #974's session
+polled **90 seconds** against a 335 s relay and correctly recorded that it had
+established nothing. Then this card claimed **26 minutes** of silence on #974 —
+but the PR was only *open* for 422 s of that; the remaining ~19 minutes it spent
+merged, where no reviewer had any reason to look. Caught by the session's own
+review hook before the card landed.
 
 **One sub-finding worth more than the fix.** `spider-swing/capabilities.md`
 carried the trigger list under a `MEASURED 2026-08-07` banner. The latency
