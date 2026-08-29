@@ -1,8 +1,8 @@
 # 2026-08-29 — the audit round read whole, and the fleet-preflight dissection
 
-> **Status:** `in-progress` — born-red. Walking the owner through what the
-> 08-28/29 audits established, dissecting the untested `fleet-preflight`
-> skill, and reconciling the round's two parallel corpora.
+> **Status:** `complete` — flipped as the last commit, after Codex round 2
+> answered and the round-2 fixes passed the owner-directed Gemini mid-check
+> (all five RESOLVED, no new issues).
 
 - **📊 Model:** withheld · max · docs-only
 - **⚑ Model-slot note:** harness policy forbids a model identifier in a pushed
