@@ -37,10 +37,25 @@ estate names it.**
 
 `MEASURED` 2026-08-29, two endpoints, with positive controls:
 
-| population | attributed to `menno420` | carrying agent markers |
+| population | attributed to `menno420` | agent-authored |
 |---|---|---|
-| PR **review** comments (12 repos) | **155** | **135 (87 %)** by literal marker; the remaining 20 read identically |
-| **Issue** comments (6 busiest repos) | **564** | all but 65 by marker; those 65 open *"Pushed `9e14016`"*, *"@codex review"* |
+| PR **review** comments (12 repos) | **155** | **135 (87 %)** by literal marker; the remaining 20 read identically (judged, not marker-matched) |
+| **Issue** comments (6 busiest repos) | **564** | **499** by literal marker · **55** more by agent operational voice · **10 residue, every one read in full** |
+
+**The 10-comment residue is enumerated rather than sampled** — an earlier cut of
+this section characterised 65 comments from reading 14, which is TRAP-004 inside
+the document whose §3 lists this session's errors. Read in full: five are
+`spider-swing` landing reports (*"Phase 0 implementation merged in PR #6 as
+`e5ec3c5`"*), two are structured `## Plan addendum` bodies, one opens
+**_"Roadmap review decisions from owner:"_** — an agent relaying his decisions
+**in the third person, under his account** — and two (a 2026-05-20 triage note, a
+2026-06-14 duplicate-supersede) are too short to attribute from text either way.
+
+**Scope, exactly:** of 564, **562 are attributable to agents and 2 are
+indeterminate; none is identifiably the owner's first-person voice.** The
+sharpest single line in the residue is an agent writing *"Menno also confirmed
+the PR #8 Reel and DEBUG controls now work on Android"* — referring to the owner
+in the third person from the owner's own account.
 
 **Positive control:** the same marker regex over the 1,437 external-reviewer
 comments returns **0** Claude Code footers and **1** disposition token, so the
