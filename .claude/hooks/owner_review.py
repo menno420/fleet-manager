@@ -5,7 +5,7 @@ Fires when a session's turn ends. Reads the final assistant reply from the
 transcript and **blocks ONCE, unconditionally**, with the fixed question — "what
 made you draw this conclusion?" needs no model (docstring corrected 2026-08-11;
 it described the v1 design until then, while main() had inverted it). The
-reviewer model (free AI Studio key first, Vertex as the 429 fallback — see the
+reviewer model (free AI Studio key only since 2026-08-29 — see the
 routing note below) is strictly ADDITIVE enrichment: when it returns specifics
 they are appended under "And specifically:", and NO QUESTIONS simply appends
 nothing — the block still happens, because selective firing measured as the
@@ -44,11 +44,15 @@ model for a job the small one does. (An earlier version of this sentence added
 as an owner-caught incident: Vertex itself never broke, the google-auth LIBRARY
 was absent once and a logging defect was misfiled as auth; the cold re-measure
 is 7.5s end to end. See _free_review's docstring and README § Correction.)
-The free tier's requests-per-day cap is the real risk for a per-turn hook, so
-Vertex stays wired underneath for exactly that (429 → fall through), per
-docs/conventions/vertex-first-for-gemini.md, which reserves the Vertex default
-for volume/image/video and otherwise says "free key unless its daily cap is
-genuinely in the way". Which route answered is recorded per firing.
+The free tier's requests-per-day cap is the real risk for a per-turn hook, and
+Vertex stayed wired underneath for exactly that (429 → fall through) until
+2026-08-29, when the owner retired the route (D-0020: the prepaid credit that
+made Vertex the no-cost fallback timed out, so a fallthrough would now bill
+his card — see docs/conventions/vertex-first-for-gemini.md's supersession
+header). On any free-tier failure the hook now FAILS OPEN instead: no
+enrichment that turn, the fixed question still fires. Which route answered is
+recorded per firing; the retired auth helpers below are kept as the recipe's
+history and are unreferenced.
 """
 import base64
 import json
@@ -62,7 +66,7 @@ import urllib.parse
 import urllib.request
 
 CA = "/root/.ccr/ca-bundle.crt"
-MODEL = "gemini-3.1-pro-preview"   # Vertex fallback
+MODEL = "gemini-3.1-pro-preview"   # retired Vertex fallback (D-0020) — unreferenced, kept as history
 FREE_MODEL = "gemini-flash-latest"  # AI Studio primary — free tier, no auth chain
 CACHE_DIR = "/tmp/claude-owner-review"
 SA_CACHE = os.path.join(CACHE_DIR, "sa.json")
@@ -383,7 +387,8 @@ def _free_review(text):
     "**free** key unless its daily cap is genuinely in the way" and reserves the
     Vertex default for volume, image and video work. One ~1 k-token call per turn
     is none of those. The daily cap IS the real risk for a per-turn hook, which
-    is exactly why Vertex stays wired as the fallback below.
+    is exactly why Vertex stayed wired as the fallback until 2026-08-29
+    (D-0020 retired it — a 429 now fails open rather than billing the card).
     Honest null: n=1 input, one run per model. Not a model comparison.
     """
     key = os.environ.get("GEMINI_API_KEY")
@@ -396,26 +401,14 @@ def _free_review(text):
 
 
 def _review(text):
-    # Free first: no credentials to fetch, no key material, no subprocess. Vertex
-    # is the fallback for exactly one failure — the requests-per-day cliff (429).
-    try:
-        got = _free_review(text)
-        if got and got[0]:
-            return got
-    except (KeyboardInterrupt, SystemExit):
-        raise
-    except BaseException:
-        pass  # quota, network, shape — fall through to the credit-funded route
-
-    info = _sa()
-    if not info:
-        return None
-    token = _access_token(info)
-    url = ("https://aiplatform.googleapis.com/v1/projects/" + info["project_id"]
-           + "/locations/global/publishers/google/models/" + MODEL + ":generateContent")
-    r = _http(url, _payload(text), {"Authorization": "Bearer " + token,
-                                    "Content-Type": "application/json"})
-    return _extract(r, "vertex")
+    # Free key only (D-0020, 2026-08-29: Vertex retired — the credit that made
+    # it the no-cost 429 fallback is gone, so a fallthrough would bill the
+    # owner's card). Failures PROPAGATE: main() catches and logs them per
+    # firing — the file's own 2026-08-08 lesson is that a swallowed failure is
+    # not countable, and a 429 logged as error beats one logged as nothing.
+    # Fail-open is main()'s job; no enrichment this turn, the fixed question
+    # fires either way.
+    return _free_review(text)
 
 
 def _log(rec):

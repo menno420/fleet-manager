@@ -5,8 +5,8 @@
 > [`../conventions/vertex-first-for-gemini.md`](../conventions/vertex-first-for-gemini.md)).
 > `GEMINI_API_KEY_PAID` bills his card — [D-0011] still says spend without
 > asking where the free key can't serve; say so in the card.
-> **Model ids, `MEASURED` 2026-08-29:** `gemini-3.6-flash` works; the
-> `gemini-2.5-*` ids 404 for new users though `/models` lists them.
+> **Model ids, `MEASURED` 2026-08-29:** `gemini-3.6-flash` works;
+> `gemini-2.5-flash` (one id probed) 404s for new users though `/models` lists it.
 
 > **Status:** `living-ledger`
 >
@@ -271,7 +271,9 @@ on the SKU, not the model.
 **The PNG difference is the one that matters for game art.** JPEG puts
 compression artefacts directly on the chroma edge before `asset-pipeline` runs;
 PNG is lossless, so corner-sample keying is clean. For any image destined to
-become a sprite, prefer Vertex.
+become a sprite, prefer Vertex *(credit-era route — retired 2026-08-29, banner
+above; the PNG-vs-JPEG measurement stands, and which surviving route returns
+PNG is unmeasured)*.
 
 Setup, in order: enable the Vertex AI API · create a service account with
 **Agent Platform User** (`roles/aiplatform.user`, renamed from "Vertex AI

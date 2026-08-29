@@ -183,7 +183,7 @@ asking him anything.
 
 **Where a decision lives, so you cite the right record:** `docs/decisions.md` —
 this repo's `[D-NNNN]` entries (D-0011 the paid Gemini key is free to spend —
-budget only; the Vertex-first convention still decides the *route* ·
+budget only; the *route* is free-key-first since 2026-08-29, D-0020 ·
 D-0012 publish by default, credentials never) · the program's OD table — owner
 directives · `docs/planning/2026-08-08-fleet-manager-as-index.md` — the Layer 2
 decisions and their rejected alternatives · substrate-kit's PL register —
@@ -299,8 +299,8 @@ Essentials:
   authorizes spending it without asking; reach for it when the free key
   cannot serve the task (Deep Research the documented case), said out loud
   in the card. Current API model ids for this key class: `gemini-3.6-flash`
-  (`MEASURED` 2026-08-29 — the `gemini-2.5-*` ids 404 as "no longer available
-  to new users"). History, the caps, and the credit-era Vertex recipe:
+  (`MEASURED` 2026-08-29 — `gemini-2.5-flash`, the one id probed, 404s as "no
+  longer available to new users"; the other 2.5 ids are untested). History, the caps, and the credit-era Vertex recipe:
   `docs/conventions/vertex-first-for-gemini.md`, which the doc-routing hook
   puts in front of you the moment you make a Gemini call.
 - **When the owner states something about this estate, it is source truth — act

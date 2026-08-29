@@ -83,6 +83,13 @@
   console-UI-only data no session can read (`NOT-VERIFIABLE` per the certainty
   legend); the €0.49 → €7.88 month-to-date pair is the owner's, from 2026-08-06,
   and is quoted as his, not re-derived.
+- amendment: **(2026-08-29) the route halves of the amendments above are
+  superseded by [D-0020]: Vertex is retired** — the prepaid credit that made it
+  the default timed out (owner, live), so "default to Vertex" and
+  "volume/image/video work goes to Vertex" no longer route anything, and the
+  route-gate on the paid key becomes *the free key cannot serve the task*.
+  What survives is unchanged again: the spend authorisation in `verdict` —
+  without asking, said out loud in the session card.
 - verdict: Any session may spend `GEMINI_API_KEY_PAID` without asking — Pro-model
   review, image generation, live-search grounding, or any other paid Gemini call
   that serves the work in front of it. No approval step, no per-call budget.
@@ -431,9 +438,10 @@
   cannot serve the task (Deep Research the documented case), said out loud in
   the session card as the route rule always required.
 - measurement riding along (`MEASURED` 2026-08-29, owner-live venue): the
-  free key's `generateContent` serves `gemini-3.6-flash`; the `gemini-2.5-*`
-  ids are still listed by `/models` but 404 as *"no longer available to new
-  users"* naming `gemini-3.6-flash` as the replacement.
+  free key's `generateContent` serves `gemini-3.6-flash`; `gemini-2.5-flash`
+  (the one id probed) is still listed by `/models` but 404s as *"no longer
+  available to new users"* naming `gemini-3.6-flash` as the replacement —
+  the other 2.5 ids are untested (the 404's "This model" is singular).
 - homes updated in the same diff: `docs/conventions/vertex-first-for-gemini.md`
   (supersession header), `docs/providers/gemini.md` (banner),
   `.claude/CLAUDE.md` (Gemini and @codex bullets), `docs/CAPABILITIES.md`
