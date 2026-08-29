@@ -1,7 +1,36 @@
-# Default to Vertex for all Gemini work
+# Gemini routing — the free key is the route; Vertex retired 2026-08-29
 
-> **Status:** `binding`
+> **Status:** `binding` — this header carries the current rule; everything
+> below it is the credit-era record, kept because the recipes and billing
+> chain stay true as history and revive if he ever re-funds the credit.
 >
+> **Owner directive, live, 2026-08-29:** *"the paid/vertex route does not work
+> anymore since the free credits timed out a few days ago"* — use the **free**
+> `GEMINI_API_KEY`. This supersedes the 2026-08-05 Vertex-first directive
+> below by its own exit clause (*"if credit runs out … re-read this page"* —
+> §Scope): the credit that made Vertex the free path is gone, so Vertex now
+> either fails or would bill differently, and the owner has ruled the route
+> off rather than asked for a probe.
+>
+> **The current rule:** free `GEMINI_API_KEY` for everything it serves —
+> including the mid-session review work the same sitting assigned to Gemini
+> ([D-0019]). `GEMINI_API_KEY_PAID` still bills **the owner's card**, and
+> the paid-key spend decision ([`../decisions.md`](../decisions.md),
+> 2026-08-05 entry as amended 2026-08-28 — its stamp home) still authorizes
+> spending it without asking — reach for it when the free key cannot serve
+> the task (Deep Research the documented case), and say so in the session
+> card, as the credit-era rule below always required. **Model ids for this key
+> class, `MEASURED` 2026-08-29:** `gemini-3.6-flash` works on
+> `generateContent`; the `gemini-2.5-*` ids are still listed by `/models` but
+> 404 with *"no longer available to new users — use models/gemini-3.6-flash"*.
+> Route decision record: [`../decisions.md`](../decisions.md) [D-0020].
+
+---
+
+## The credit-era record below (2026-08-05 → 2026-08-29)
+
+# Default to Vertex for all Gemini work *(superseded 2026-08-29 — header above)*
+
 > **Owner directive, 2026-08-05: every session defaults to Vertex AI for Gemini
 > calls — at least for the rest of this month.** Not a preference. Vertex spends
 > a credit balance already paid for that expires unused, while the **paid** AI
@@ -57,7 +86,9 @@ quadratically with turns.
 So for a **long** multi-turn exchange the free key is both cheaper *and* more
 token-efficient than Vertex, bounded only by requests-per-day. For **volume,
 image or video work**, Vertex, because 20 requests/day is the real ceiling on
-the free tier and it is the binding one — not the token meter.
+the free tier and it is the binding one — not the token meter. *(Credit-era
+routing — superseded 2026-08-29, header above: Vertex is retired; volume work
+now weighs the free key's caps against the ledger-authorized paid key.)*
 
 ## Why — the paths are funded differently
 
@@ -116,7 +147,7 @@ the one that returns lossless PNG for image work.**
 This closes a null that stood in `providers/gemini.md`: *"whether the credit or
 the card pays… is inference until read there."* It is now read.
 
-## The rule
+## The rule *(credit-era — superseded 2026-08-29; the current rule is the header above)*
 
 **Use Vertex.** Reach for `GEMINI_API_KEY_PAID` only when Vertex has actually
 failed for the task in hand, and say so in the session card when you do.
@@ -226,3 +257,5 @@ fresh reading or a BigQuery export exists.
 The owner said *"at least this month"*. Treat Vertex-first as binding until he
 says otherwise; if credit runs out or the month turns, re-read this page and ask
 rather than silently reverting to the card.
+
+*(This clause fired 2026-08-29 — the header above is its answer.)*

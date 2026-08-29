@@ -283,16 +283,26 @@ Essentials:
   and merged three minutes before four real findings landed. Quota refusals are
   retry-later, never a property of the tool. (Codex *cloud* is a different
   surface — `docs/providers/chatgpt.md` — and does not bear on this relay.)
-- **Gemini: two identities, and the route decides who pays, not the key.**
-  `GEMINI_API_KEY` is **free tier** (AI Studio, daily request caps, and the only
-  path serving the Interactions API); the paid project draws the **prepaid
-  credit via Vertex** but bills **the owner's card** on `generativelanguage`.
-  Default to Vertex for volume, image and video; free key for AI Studio work;
-  `GEMINI_API_KEY_PAID` only when Vertex actually failed, said out loud in the
-  card. The caps, the credit balance, the Railway service-account recipe and the
-  billing chain are all in `docs/conventions/vertex-first-for-gemini.md`, and the
-  doc-routing hook puts them in front of you the moment you make a Gemini call —
-  which is why they are not restated here.
+  **Cadence (owner, live, 2026-08-29): reserve Codex for flip-readiness and
+  real important changes — not after every push, which wastes the usage
+  limits.** Mid-session verification of intermediate fixes goes to the
+  free-key Gemini route (`gemini-3.6-flash`, one call with the findings + the
+  diff); the single Codex round then lands on the head that flips, which is
+  also what TRAP-006/007's verdict-at-flip-head needs. First worked use:
+  fm #978 ([D-0019]).
+- **Gemini: the free key is the route — Vertex is retired (owner, live,
+  2026-08-29: the prepaid credits timed out days earlier, "the paid/vertex
+  route does not work anymore").** `GEMINI_API_KEY` is **free tier** (AI
+  Studio, daily request caps, the Interactions API, and now the default for
+  everything it serves, mid-session review work included);
+  `GEMINI_API_KEY_PAID` still bills **the owner's card** — [D-0011] still
+  authorizes spending it without asking; reach for it when the free key
+  cannot serve the task (Deep Research the documented case), said out loud
+  in the card. Current API model ids for this key class: `gemini-3.6-flash`
+  (`MEASURED` 2026-08-29 — the `gemini-2.5-*` ids 404 as "no longer available
+  to new users"). History, the caps, and the credit-era Vertex recipe:
+  `docs/conventions/vertex-first-for-gemini.md`, which the doc-routing hook
+  puts in front of you the moment you make a Gemini call.
 - **When the owner states something about this estate, it is source truth — act
   on it.** *"The token is account-scoped." · "You have access to my test bot
   token." · "Use Vertex." · "The Interactions API works fully turn based."* He
