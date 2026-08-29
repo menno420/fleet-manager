@@ -61,13 +61,18 @@ session sweeps that declared remainder.
    this, and it makes the `OWNER` certainty tag unfalsifiable from GitHub.
 2. **The delivery layer cannot reach the errors** (§4) — of 71 doc-routes, 8
    fire on `Edit`/`Write`, 42 on `Bash`, **0 on both**, 1 repeats; the kit ships
-   **no routing at all** while already owning a four-event hook channel in every
-   adopter.
+   **no routing at all**, and 19 of 20 repositories have no `.claude/hooks/` file
+   at all — while the kit's four-event hook channel is installed in **18 of 20**
+   (`superbot` and `spider-bot` excepted). Measured at `8a3a13d`; fm #963 has
+   since closed the Edit/Write disjointness on `main`.
 3. **Seven patterns converge across two independent corpora** (§5), earning five
    proposed traps.
-4. **The era question is answered in kind and refused in rate** (§6) — the
-   owner's drift hypothesis is not visible; what did worsen is rules broken by
-   the session that wrote them, whose cause is delivery, not motivation.
+4. **The era question is answered in kind, refused in rate, and the drift
+   hypothesis is UNTESTED** (§6) — the extraction filters out the mission and
+   scope sections that would answer it. A distinct August cluster is observed
+   (rules broken by the session that wrote them); whether it represents a real
+   increase is unanswerable here, and delivery is a candidate explanation, not
+   a demonstrated cause. Both stronger claims were withdrawn on review.
 
 ## Verify
 

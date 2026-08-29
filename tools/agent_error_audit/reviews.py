@@ -22,10 +22,16 @@ def one(r):
         c=pages(f"https://api.github.com/repos/menno420/{r}/pulls/comments?sort=created&direction=asc")
         return r,c
     except Exception as e:
-        return r,[('ERR',str(e))]
-res={}
+        return r, RuntimeError(f'{r}: {e}')  # propagate, never a silent empty corpus
+res={}; errors=[]
 with concurrent.futures.ThreadPoolExecutor(8) as ex:
-    for r,c in ex.map(one, REPOS): res[r]=c
+    for r,c in ex.map(one, REPOS):
+        if isinstance(c, Exception): errors.append(str(c)); continue
+        res[r]=c
+if errors:  # Codex fm #967 R2 #11: an incomplete corpus must not read as a measurement
+    import sys
+    print('FETCH FAILURES — corpus is INCOMPLETE, counts below are invalid:', *errors, sep='\n  ')
+    sys.exit(1)
 tot=0
 rows=[]
 for r,cs in res.items():

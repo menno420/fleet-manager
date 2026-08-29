@@ -20,9 +20,28 @@ declared the work done**.
 
 | source | volume | span |
 |---|---|---|
-| Session cards, 20 repositories | **4,583 cards** → 7,214 error-bearing sections → 68 shards | 2026-05-29 → 2026-08-28 |
+| Records, 20 repositories | **7,214 error-bearing sections** → 68 shards — **89 % from `.sessions/` cards, 10 % from findings, retros, audits, reviews, trap files, program docs, `CLAUDE.md` and control records** | 2026-05-29 → 2026-08-28 |
 | PR review comments, 12 repositories | **1,592** — 155 attributed to `menno420`, **1,437 not**, of which 1,431 are the Codex reviewer and 6 are code-scanning | 2026-06-17 → 2026-08-28 |
 | Per-repo instruction surfaces | **20 of 20** censused | at HEAD |
+
+**Two instrument defects, both found by review and both measured rather than
+estimated** (Codex fm #967 R2):
+
+- **The corpus was never card-only.** `fetch.sh` extracts findings, retros,
+  audits and program docs too, and `extract.py` walks every Markdown file. An
+  earlier cut of the table above called it *"4,583 cards → 7,214 sections"*,
+  which mislabelled a mixed corpus. Re-counted by document type: **6,544 card
+  sections (89 %), 797 from other documents (10 %)**. The W1 half is therefore
+  *predominantly* self-report, not purely.
+- **The error lexicon was partly dead.** `ERR_LEX` was compiled with `re.X`,
+  which silently strips the literal spaces inside multi-word alternatives, so
+  `was wrong` matched `waswrong` and never fired — 6 of 7 tested phrases were
+  inert. **Measured impact after fixing it and re-running the whole extraction:
+  7,341 sections against the published 7,214, +127 (+1 %)** — small, because
+  the heading match already selected most sections and the single-token
+  alternatives (`stale`, `drift`, `assumed`, `inferred`, `conceded`) carried the
+  rest. The defect is real; its effect on corpus size is not. Effect on
+  *composition* is unquantified.
 
 Re-derivable: the five scripts are retained at
 [`../../tools/agent_error_audit/`](../../tools/agent_error_audit/README.md)
@@ -196,12 +215,23 @@ against the workflow's own claim:
 
 `DEFAULT_TOOLS` in `route_docs.py:77` is `("Bash", "WebFetch", "Read", "Glob",
 "Grep")` — **`Edit` and `Write` are excluded**, so a route reaches write-time
-authoring only by naming those tools explicitly, and the eight that do are
-exactly the claim-quality and card-discipline set. They are **disjoint** from
-everything that reaches `Bash`. In auto mode, where the standing instruction is
-to author through `Bash` heredocs, all eight are silently disarmed — the defect
-[fm #963](https://github.com/menno420/fleet-manager/pull/963) measured
-independently and fixes.
+authoring only by naming those tools explicitly.
+
+> **⚑ THE TABLE ABOVE IS AS-MEASURED AT `8a3a13d`, AND `main` HAS SINCE MOVED.**
+> [fm #963](https://github.com/menno420/fleet-manager/pull/963) merged
+> (`25f80fd`) **while this finding was being written**, and it fixes exactly
+> this gap. Re-measured at the merged head: **Edit/Write-only 8 → 0 · reaching
+> BOTH 0 → 8 · `repeat: true` 1 → 10 · `authored_only` 8**. So the *disjointness*
+> defect is **closed on `main`** and the eight claim-quality routes now fire on
+> Bash heredoc authoring too.
+>
+> The finding keeps both numbers rather than silently restating the current
+> one: the corpus was harvested under the old behaviour, so every incident it
+> counts happened in a world where those eight routes were disarmed. Presenting
+> only the fixed figure would make the evidence unreadable — and presenting only
+> the old one would be TRAP-001, in a document about TRAP-001. **What survives
+> the fix untouched is everything below: the kit ships no routing, and 19 of 20
+> repositories have no hook layer to route into.**
 
 Two further measurements complete the picture:
 
@@ -212,9 +242,15 @@ Two further measurements complete the picture:
   bootstrap.py` → **0**, against a positive control of 203 hits for `hook` in
   the same file.
 - **And no adopter has built its own.** `MEASURED` adopter-by-adopter after
-  Codex correctly refused the inference (fm #967, P1): every one of the 20
-  repositories' trees searched for `doc-routes.json` and `route_docs.py` —
-  **1 of 20 has either, and it is fleet-manager**. The trap-register lifecycle
+  Codex refused the inference twice (fm #967 R1 and R2, both P1). The first pass
+  searched only the fleet-manager filenames `doc-routes.json` and
+  `route_docs.py`, which proves 19 repositories lack *that implementation* and
+  not that none routes by another name. **Broadened:** every repository's tree
+  searched for any `.claude/hooks/` file at all — **1 of 20 has one, and it is
+  fleet-manager (8 files)**. The `*route*` hits elsewhere are product code (bot
+  command routing, rom-hack tables), not agent-instruction delivery. Since a
+  hook is the only tool-time injection point available to Claude Code, that is
+  as close to exhaustive as this instrument gets. The trap-register lifecycle
   (*mistake → trap → route → checker*) therefore exists in one repository while
   most incidents in this corpus happened in the other nineteen. Per-repo table:
   [`../../tools/agent_error_audit/adopter_census.json`](../../tools/agent_error_audit/adopter_census.json).
@@ -241,10 +277,19 @@ less until it lands.
 
 ## 5 · The convergence — what both corpora found independently
 
-The two corpora share no evidence: session cards are what sessions **noticed
-about themselves**; review comments are what an **external reviewer caught after
-the agent declared done**. A pattern in both is the strongest signal available
-here.
+Session cards are what sessions **noticed about themselves**; review comments
+are what an **external reviewer caught after the agent declared done**.
+
+**They are not fully independent, and the overlap is now measured rather than
+assumed.** Codex refused the original *"share no evidence"* claim (fm #967 R2,
+P1) on the correct ground that `extract.py` deliberately selects
+`review disposition` sections, so a reviewer finding can enter W1 as a card's
+account of it and W2 as the original comment. Measured upper bound: **416 of
+7,214 W1 sections (5 %) contain any reviewer vocabulary at all**, and **115
+(1 %) are disposition-shaped sections mentioning the reviewer**. So corroboration
+across the two is **mostly** independent, with a ≤5 % contamination ceiling —
+not the clean separation originally claimed. Provenance matching per incident
+was not performed.
 
 **Method caveat, stated first:** the pairing below is **my reading** of two
 independently-produced pattern sets, not a mechanical match. Names differ
@@ -314,10 +359,21 @@ work was:
   artifacts — `MEASURED` badges on inferences, counts from memory, absence
   asserted without the search.
 
-**Purpose-drift would look like work not serving his goals.** The August records
-do not contain that; they contain sessions doing exactly the asked work and
-getting facts wrong inside it. Detection also improved sharply in the same
-window, so a rising visible error count partly measures a better instrument.
+**The purpose-drift half is NOT answered here, and an earlier cut wrongly said
+it was.** That cut argued the August records *"contain sessions doing exactly
+the asked work"*. Codex refused it (fm #967 R2, P1) on a ground that is decisive
+and mechanical: the extraction keeps only error-shaped headings and bodies with
+lexicon hits, so **mission, goal, scope and work-summary sections were filtered
+out of the corpus** — precisely the sections in which off-goal work would be
+visible. The instrument can classify errors that were reported; it cannot see
+whether the surrounding work served the ask. **So the hypothesis is untested,
+not disproved**, and testing it needs a different extraction over the sections
+this one discards.
+
+What the corpus does support is narrower: within the reported-error population,
+the *kind* of error tracks the era's work. Detection also improved sharply in
+the same window, so a rising visible error count partly measures a better
+instrument.
 
 **The sharpest observed cluster — stated as an observation, not a trend.** A
 distinct kind of incident is concentrated in August: rules broken by the session
@@ -378,6 +434,24 @@ on it.
   survival, and the remaining ~270 candidates are held as raw material.
 - **§2's 328 prose-only rules** is one lane's read per repo — an order of
   magnitude, not a register.
+- **The corpus is 89 % cards, 10 % other records** — not the card-only
+  population an earlier cut described.
+- **The error lexicon was partly inert** (`re.X` ate multi-word phrases).
+  Re-running with it fixed moved the section count +1 %; the effect on
+  *composition* was not quantified.
+- **The two corpora are ≤5 % contaminated**, so §5's convergence is mostly, not
+  wholly, independent corroboration.
+- **The purpose-drift question is untested**, because the extraction filters out
+  the mission and scope sections that would answer it.
+- **§4's route table is as-measured at `8a3a13d`**; `main` has since moved and
+  fm #963 closed the disjointness defect. Both figures are kept deliberately.
+- **The routing census searched for hook files**, which is exhaustive for Claude
+  Code's tool-time injection but says nothing about reminders delivered by other
+  means (prompt text, CI output, a repo's own scripts).
+- **The retained scripts were themselves defective** in four ways review found —
+  a dead lexicon, an unrunnable first step, and two failure paths that turned
+  fetch errors into silently empty corpora. All four are fixed in the retained
+  copies; the corpus this finding rests on was gathered with the old ones.
 
 ## 8 · The recommended next step
 

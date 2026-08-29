@@ -5,7 +5,19 @@ OPENER=urllib.request.build_opener(urllib.request.ProxyHandler({}), urllib.reque
 def api(url):
     req=urllib.request.Request(url, headers={'Authorization':f'Bearer {PAT}','Accept':'application/vnd.github+json'})
     return json.load(OPENER.open(req, timeout=60))
-repos=[r for r in json.load(open('repos.json'))]
+# Fetch the repo list rather than reading a file no retained script creates
+# (Codex fm #967 R2 #3). Cached to repos.json for the later scripts.
+if os.path.exists('repos.json'):
+    repos=json.load(open('repos.json'))
+else:
+    repos=[]; _p=1
+    while True:
+        _b=api(f"https://api.github.com/user/repos?per_page=100&sort=updated&page={_p}")
+        if not _b: break
+        repos+=_b; _p+=1
+        if _p>10: break
+    json.dump(repos, open('repos.json','w'))
+    print(f"fetched {len(repos)} repos -> repos.json")
 def one(r):
     name=r['full_name']; br=r['default_branch']
     try:

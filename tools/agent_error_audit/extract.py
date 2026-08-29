@@ -3,7 +3,8 @@ ROOT='corpus'
 SEC_PAT = re.compile(r'^(#{2,4})\s+(.*)$')
 # sections that carry agent-error evidence
 WANT = re.compile(r'(previous[- ]session review|friction|self[- ]initiated|what went wrong|correction|disposition|review disposition|lesson|trap|regression|postmortem|post-mortem|missteps?|mistake|guard|drift|honest state|deviation)', re.I)
-ERR_LEX = re.compile(r"""(\[conceded\]|\[survived\]|\[partial\]|conceded|retracted|was wrong|were wrong|got it wrong|incorrect(?:ly)?|should have|shouldn't have|failed to|forgot to|skipped the|never ran|did not run|didn't run|false (?:claim|positive|negative|wall)|overclaim|over-?stated|unverified claim|assumed|assumption was|misread|mis-?identified|violat\w+|breach\w*|guard fired|hook blocked|blocked by|caught by|the trap|regressi\w+|broke |broken by|flake|stale|drift\w*|not measured|inferred|hallucinat\w+|invented|fabricat\w+)""", re.I|re.X)
+ERR_LEX = re.compile(r"""(\[conceded\]|\[survived\]|\[partial\]|conceded|retracted|was wrong|were wrong|got it wrong|incorrect(?:ly)?|should have|shouldn't have|failed to|forgot to|skipped the|never ran|did not run|didn't run|false (?:claim|positive|negative|wall)|overclaim|over-?stated|unverified claim|assumed|assumption was|misread|mis-?identified|violat\w+|breach\w*|guard fired|hook blocked|blocked by|caught by|the trap|regressi\w+|broke |broken by|flake|stale|drift\w*|not measured|inferred|hallucinat\w+|invented|fabricat\w+)""", re.I)  # NOT re.X: verbose mode silently drops the literal
+# spaces in multi-word alternatives ("was wrong" -> "waswrong"). Codex fm #967 R2.
 rows=[]
 for repo in sorted(os.listdir(ROOT)):
     paths=[]
