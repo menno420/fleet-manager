@@ -26,8 +26,11 @@ gap worth fixing.
 
 ## Finding 1 — the rule is not new, and never was uniform · `MEASURED`
 
-Parsed all **430** cards in `.sessions/` carrying a `📊 Model:` header line.
-**Thirteen decline to name a model, in five spellings, across seven weeks:**
+Parsed every `.md` in `.sessions/` **from the git tree** (`git ls-tree -r
+--name-only HEAD .sessions/` → 441 files, minus this README), taking each
+card's first line-anchored `📊 Model:` occurrence — the kit's
+`MODEL_LINE_NEEDLE` at `bootstrap.py:1469`, bold or not. **430 cards carry the
+line; 417 name a model and 13 decline, in five spellings, across seven weeks:**
 
 | spelling | cards | dates |
 |---|---|---|
@@ -86,8 +89,10 @@ about the author.
 ## Finding 2 — the restriction is narrower than "no model names in the repo" · `MEASURED`
 
 The same instruction set that forbids a model identifier in a pushed artifact
-**mandates a commit trailer that contains one**, verbatim. **654** such
-trailers in five forms are reachable from this repository's branch tips:
+**mandates a commit trailer that contains one**, verbatim, and says to end
+every commit message with it. **The instruction is the evidence; the count is
+not.** Trailers reachable from branch tips, in five forms — and see the scope
+warning below the table before quoting any of these numbers:
 
 | trailer | commits |
 |---|---|
@@ -97,12 +102,19 @@ trailers in five forms are reachable from this repository's branch tips:
 | `Co-Authored-By: Claude` | 14 |
 | `Co-Authored-By: Claude Opus 4.8` | 8 |
 
-Measured: `git log --all --format="%B" | grep -c "Co-Authored-By: Claude"` →
-654. **Scope matters and the first draft of this card got it wrong:** that is
-`--all`, every branch tip. The same count against `origin/main` alone is **1** —
-squash merges collapse a PR's per-commit trailers into one squashed message. So
-the trailers are real and numerous in authored history, and nearly absent from
-the merged first-parent history.
+**This measurement is not reproducible, and Codex demonstrated it.** `git log
+--all --format="%B" | grep -c "Co-Authored-By: Claude"` returns whatever refs
+the local checkout happens to hold — 656 across 123 refs in the container that
+wrote this card, 343 at Codex's checkout of the same commit, and the breakdown
+above is likewise container-local. The one stable number is `origin/main`:
+**1 trailer across 62 commits**, because this repo squash-merges and that
+collapses every PR's per-commit trailers into a single squashed message.
+
+So the finding stands on the instruction text, which any session can read in
+its own prompt, and **not** on the tally. A count whose value depends on which
+branches your clone fetched is not evidence — which is the same defect this
+card's § *Matcher note* records one layer down, and the same one the audit
+catalogues as a claim wider than the sample that produced it.
 
 So the rule cannot mean *no model name anywhere in a commit*. The coherent
 reading is **don't editorialize model identity into content** — titles, bodies,
@@ -159,11 +171,35 @@ keeps the PR small.
 
 ## Previous-session review
 
-Continues the 2026-08-29 audit thread —
-[`2026-08-29-audit-catalogue-export.md`](2026-08-29-audit-catalogue-export.md)
-(fm #973, open: the fan-out's rescued output) and
+Continues the 2026-08-29 audit thread — the catalogue-export card, which lives
+on the open [fm #973](https://github.com/menno420/fleet-manager/pull/973) branch
+and is deliberately **not** linked relatively, because it is not in this tree —
+and
 [`2026-08-29-audit-od26-reconcile.md`](2026-08-29-audit-od26-reconcile.md)
 (merged). Same session, a question the owner raised after those landed.
+
+## Codex round 1 on fm #976 — 4 P2 findings, all `[conceded]`
+
+Reviewed `60eb15b` (before the census correction), delivered as a review with
+**four inline comments** — a different channel from fm #973's issue comment, in
+the same hour. Any check that reads one channel and concludes "no review" is
+wrong twice over.
+
+| # | finding | disposition | fix |
+|---|---|---|---|
+| 1 | The card-corpus counts conflate two selectors and are not reproducible as written | `[partial]` | The **values** were already corrected before this review landed (430/13, not 259/9). The **reproducibility** complaint is conceded in full: neither the amendment nor this card named its selector or its tree, so 441 files / 430 cards / 260 bolded all looked like the same measurement. Both now state the selector, the tree-level command and what the other two selectors return. |
+| 2 | The trailer count is unreproducible — 343 at the reviewed checkout, not 654 | `[conceded]` | Correct and decisive: `git log --all` counts whatever refs the clone holds (656 across 123 refs here). The count is withdrawn as evidence; the finding now rests on the instruction text, which any session reads in its own prompt. The one stable figure — `origin/main` carries **1** trailer across 62 commits, because the repo squash-merges — is stated as such. |
+| 3 | The re-apply-after-upgrade warning misstates the installer | `[conceded]` | Verified from source: `_adopt_plant` (`bootstrap.py:19563`) reports `kept:` and returns without writing when the file exists; `_merge_model_doctrine` (`:19652`) is append-only, idempotent, and preserves existing content byte-for-byte. Following the warning would have **duplicated** the amendment on every upgrade. **The warning was inherited verbatim from the 2026-08-26 Venue amendment, so the repo has carried it since then** — both instances corrected here. |
+| 4 | The previous-session link is dead in this tree | `[conceded]` | The catalogue-export card is on fm #973's branch, not this one. Replaced with the PR URL and a line saying why it is not a relative link. |
+
+One `[partial]`, three `[conceded]`, zero `[survived]`.
+
+**Finding 3 is the one worth carrying forward.** It is not a slip in this diff —
+it is a false instruction that has been in `.sessions/README.md` since
+2026-08-26, which I propagated by copying the surrounding convention instead of
+checking it. Copying a neighbouring block's provenance comment is exactly the
+inheritance the amendment's own "never inherit `withheld`" clause warns against,
+committed in the same file, in the same PR, by the session writing the clause.
 
 ## Verify
 

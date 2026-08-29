@@ -10,8 +10,14 @@ If the card is missing at session end, the kit **auto-drafts** one from evidence
 The `📊 Model:` model segment is the **family-level model name your own harness/environment reports this session** (e.g. `fable-5`, `opus-4.8`, `sonnet-5`) — the committed card's self-report is the attribution ground truth. Never copy it from an external surface (schedule/Routines screens are evidenced to misattribute), and never record a full dated model ID — family-level names only.
 
 <!-- fleet-manager local amendment, 2026-08-26 (fm #947) — NOT kit text.
-     A kit upgrade's install may overwrite this file; re-apply this section
-     after one (docs/SKILLS-local.md § Why the local half exists). -->
+     A kit upgrade does NOT overwrite this file and this section does NOT need
+     re-applying: `_adopt_plant` reports `kept:` and returns without writing
+     when the file exists, and `_merge_model_doctrine` is append-only,
+     idempotent, and preserves existing content byte-for-byte (bootstrap.py
+     :19563, :19652). The earlier wording here said the opposite; following it
+     would have duplicated the amendment on every upgrade. Corrected fm #976
+     after Codex checked the installer. Context: docs/SKILLS-local.md § Why the
+     local half exists. -->
 
 ## 📍 Venue — which machine ran this session (local amendment, 2026-08-26)
 
@@ -43,13 +49,23 @@ and the estate-wide index it feeds is [`docs/activity/`](../docs/activity/README
 wrong venue is not.
 
 <!-- fleet-manager local amendment, 2026-08-29 (fm #976) — NOT kit text.
-     A kit upgrade's install may overwrite this file; re-apply this section
-     after one (docs/SKILLS-local.md § Why the local half exists). -->
+     Kit-owned text is the doctrine block above the Venue section; everything
+     below it is local. A kit upgrade preserves all of it — see the note on the
+     Venue amendment for the two functions and why. -->
 
 ## `withheld` — the one token for a session that may not name its model (local amendment, 2026-08-29)
 
-**The default is unchanged: name the family-level model.** 417 of 430 dated
-cards do, and that ledger is the whole point of the field. Read the kit
+**The default is unchanged: name the family-level model.** 417 of the 430 cards
+that carry a `📊 Model:` line do, and that ledger is the whole point of the
+field.
+
+> Reproduce: enumerate `.sessions/*.md` from the tree (`git ls-tree -r
+> --name-only <sha> .sessions/` — 441 files at fm #976, minus this README), take
+> each card's **first line-anchored** `📊 Model:` occurrence — the kit's
+> `MODEL_LINE_NEEDLE`, bold or not — and read segment 1. 430 cards carry one.
+> Counting *files* instead gives 441, and requiring the bolded
+> `- **📊 Model:**` form gives 260; both are different questions and neither is
+> the number above. Read the kit
 doctrine above first; this amendment only covers the exception.
 
 **Some sessions carry a harness instruction against putting a model identifier
@@ -63,11 +79,12 @@ the single literal token and one line saying which halves are still exact:
   identifier in a pushed artifact; effort and PL-004 task class are exact.
 ```
 
-`withheld` **exactly** — not a phrasing of your own. Before this amendment,
-thirteen cards declined in five different spellings (`unrecorded-by-policy` ×4
-from 2026-07-09/10 · two distinct `withheld per session policy (…)` variants
-from 2026-07-10 · `identity withheld by session policy` from 2026-08-11 ·
-`withheld` ×6 from 2026-08-28/29), and the checker fails open on all five
+`withheld` **exactly** — not a phrasing of your own. Under the same selector,
+thirteen of those 430 cards decline in five distinct spellings:
+`unrecorded-by-policy` ×4 (2026-07-09/10) · two different
+`withheld per session policy (…)` variants (2026-07-10) ·
+`identity withheld by session policy` (2026-08-11) · `withheld` ×6
+(2026-08-28/29). The checker fails open on all five
 (`_exact_model_id_findings_for_card` reds only an *exact model ID*, correctly —
 reddening an honest null invites an invented one, the same reasoning as the
 `unrecorded` effort carve-out). So nothing surfaced the split; it just
@@ -83,12 +100,17 @@ suppressed attempt the never-write-a-wall rule exists to prevent — walls decay
 and re-discovering one costs less than never trying.
 
 **It is narrower than "no model names in the repo."** The same instruction set
-mandates a `Co-Authored-By` commit trailer that carries a model name; **654**
-across this repo's branch tips carry one (`git log --all`; `origin/main`'s own
-history shows 1, because squash merges collapse per-commit trailers). The rule bites on *content you author* —
-prose, titles, code comments — not on the mandated attribution channel. The
-card's `📊 Model:` line is the ambiguous case, which is why sessions split on
-it; `withheld` is how this repo resolves it.
+that forbids the identifier also hands the session a `Co-Authored-By` trailer
+containing one and says to end every commit message with it. **That instruction
+is the basis for the distinction — read your own, not a commit count.** The
+count is not reproducible: `git log --all` returns whatever refs the local
+checkout happens to hold (656 across 123 refs in the container that wrote this;
+a fresh clone returns far fewer), and `origin/main` returns **1** across its 62
+commits, because this repo squash-merges and that collapses every PR's
+per-commit trailers into one squashed message. So the rule bites on *content
+you author* — prose, titles, code comments — not on the mandated attribution
+channel. The card's `📊 Model:` line is the ambiguous case, which is why
+sessions split on it; `withheld` is how this repo resolves it.
 
 Measurement and the full reasoning:
 [`.sessions/2026-08-29-model-slot-grammar.md`](2026-08-29-model-slot-grammar.md).
