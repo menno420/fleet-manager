@@ -41,3 +41,52 @@ and the estate-wide index it feeds is [`docs/activity/`](../docs/activity/README
 **Omit it rather than guess.** The generator reports an absent line as
 `unstated` and prints the coverage count, so an honest null is visible and a
 wrong venue is not.
+
+<!-- fleet-manager local amendment, 2026-08-29 (fm #977) — NOT kit text.
+     A kit upgrade's install may overwrite this file; re-apply this section
+     after one (docs/SKILLS-local.md § Why the local half exists). -->
+
+## `withheld` — the one token for a session that may not name its model (local amendment, 2026-08-29)
+
+**The default is unchanged: name the family-level model.** 250 of 259 dated
+cards do, and that ledger is the whole point of the field. Read the kit
+doctrine above first; this amendment only covers the exception.
+
+**Some sessions carry a harness instruction against putting a model identifier
+into an artifact pushed to a repository.** When yours does, the card cannot
+carry a model name, and the segment has no taught value for that — so record
+the single literal token and one line saying which halves are still exact:
+
+```
+- **📊 Model:** withheld · high · docs-only
+- **⚑ Model-slot note:** this session carries an instruction against a model
+  identifier in a pushed artifact; effort and PL-004 task class are exact.
+```
+
+`withheld` **exactly** — not a phrasing of your own. Before this amendment,
+nine cards declined in five different spellings (`unrecorded-by-policy` ×4 from
+2026-07-09/10, `identity withheld by session policy` from 2026-08-11,
+`withheld` ×5 from 2026-08-28/29), and the checker fails open on all five
+(`_exact_model_id_findings_for_card` reds only an *exact model ID*, correctly —
+reddening an honest null invites an invented one, the same reasoning as the
+`unrecorded` effort carve-out). So nothing surfaced the split; it just
+fragmented the ledger. One token makes the exception countable.
+
+**Check your own instructions — never inherit `withheld` from a neighbouring
+card.** The restriction is *not* uniform across sessions and never has been: it
+was live and attributed to harness policy on 2026-07-09
+([`docs/findings/retro-synthesis-2026-07-09.md`](../docs/findings/retro-synthesis-2026-07-09.md)
+§7, for one lane of five), while cards from the same venue one day before the
+2026-08-29 batch name a family-level model freely. Copying another card's `withheld` is the
+suppressed attempt the never-write-a-wall rule exists to prevent — walls decay,
+and re-discovering one costs less than never trying.
+
+**It is narrower than "no model names in the repo."** The same instruction set
+mandates a `Co-Authored-By` commit trailer that carries a model name; this
+repo's history holds 652 of them. The rule bites on *content you author* —
+prose, titles, code comments — not on the mandated attribution channel. The
+card's `📊 Model:` line is the ambiguous case, which is why sessions split on
+it; `withheld` is how this repo resolves it.
+
+Measurement and the full reasoning:
+[`.sessions/2026-08-29-model-slot-grammar.md`](2026-08-29-model-slot-grammar.md).
