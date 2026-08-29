@@ -13,6 +13,23 @@ runnable example.** These are the three that actually ran, verbatim.
 | `02-review-corpus-and-census.js` | 12 review-comment lanes + 20 per-repo census lanes → same back half | 471 agents, 687 incidents, 20 censuses |
 | `03-judge-panel-skill-design.js` | 3 drafts from different angles → 3 judges each → synthesis grafting runner-ups | the `fleet-preflight` skill |
 
+## Two archival corrections live at the top of 01/02 and 03
+
+The three scripts are committed **verbatim as they ran**. Where a premise in one
+is now known false, the correction is a header comment rather than an edit, so
+the record of what actually executed stays intact:
+
+- **`02` — the owner lane is invalid.** It force-sets `owner_voice=true` on all
+  155 `menno420`-authored review comments. Agents post with the owner's PAT, so
+  none of it is his voice; 24 exported patterns inherit `owner_flagged: true`
+  from that premise and the synthesis lane weighted them up on it.
+- **`03` — the concurrency block the judges read as `MEASURED TELEMETRY`
+  overstates itself.** "mean 3.8" is the active-sample mean (3.43 across all
+  samples) and "this box gave 4" is observed throughput on one container across
+  a window that spanned two; a later container measured an effective limit of 2.
+  The skill those judges were shaping exists to prevent exactly this, and it
+  reached them inside its own design prompt.
+
 ## Read 01/02 as counter-examples, not templates
 
 Their verification stage is the defect [the retrospective](../../2026-08-29-fleet-orchestration-retrospective.md)
@@ -40,6 +57,16 @@ Three full draft bodies (~32 KB) and nine judge verdicts. **The nine
 grafting into any winner, so it is a ranked list of skill steps that survived
 independent scrutiny and did not all reach the shipped skill.
 
-The two runner-up drafts are not failures — the `budget` angle scored 7.33 with
-its allocation table, and the `preflight` angle 6.5. Their good parts are
-recoverable from here rather than from a re-run.
+The two runner-up drafts are not failures — `fleet-budget` scored **7.33** with
+its allocation table, and `fanout-preflight` **6.83** (an earlier draft of this
+line said 6.5, which was one judge's individual score, not the draft's mean).
+`fleet-preflight` won at **8.0**. Their good parts are recoverable from here
+rather than from a re-run.
+
+**Each verdict now names its draft.** The workflow emitted the nine verdicts
+unlabelled, and their order does not group by draft, so the association was
+reconstructed on 2026-08-29 from the run ranking — per-draft mean score, mean
+catches and verdict multiset — and is the *unique* partition into three
+one-per-lens triples satisfying all three aggregates (verified by exhaustive
+search). Each verdict carries `draft_name`, `draft_index`, `draft_mean_score`
+and an `association_note` saying exactly that.

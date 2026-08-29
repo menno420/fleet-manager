@@ -1,3 +1,30 @@
+/* ARCHIVAL CORRECTION — added 2026-08-29 when this script was committed as record.
+ * The script below is verbatim as it ran. Two of its premises are now known false.
+ * They are corrected here rather than in the code, so the record stays honest about
+ * what actually executed.
+ *
+ * 1. THE OWNER LANE IS INVALID. Phase 'Owner' (line ~62) reads 155 review comments
+ *    authored under the menno420 account and instructs the lanes "Set owner_voice=true",
+ *    treating every one as the owner correcting an agent. It is not: agents post with
+ *    the owner's PAT, so NO GitHub text in this estate is attributable to him. The
+ *    identity-collision finding (docs/findings/2026-08-29-estate-agent-error-audit.md
+ *    §1) measured 135 of the 155 carrying explicit agent markers, the remaining 20
+ *    reading as agent output, and none identifiable as his first-person voice.
+ *    Everything derived from owner_voice is therefore agent-authored review text of
+ *    ordinary weight — including the 24 exported patterns carrying owner_flagged:true
+ *    (now also stamped owner_flagged_premise:"VOID" in the JSONL) and the synthesis
+ *    weighting at line ~189 that ranks owner-flagged patterns above bot-only ones.
+ *    Do NOT read any of it as higher-authority evidence.
+ *
+ * 2. THE SURVIVAL RULE IS THE DEFECT, NOT THE MODEL. `survives: v.length > 0 &&
+ *    refuters < 2` with only one of three lenses told to refute, and `covered_by`
+ *    collected and never read by the predicate. 277 of 284 candidates survived.
+ *    See ../../2026-08-29-fleet-orchestration-retrospective.md §3.
+ *
+ * Copy the harvest and sharding structure. Do not copy the owner lane or the
+ * survival rule.
+ */
+
 export const meta = {
   name: 'external-review-error-audit',
   description: 'Mine 1,592 PR review comments (Codex + the owner) and the 20 repos instruction surfaces for agent-error patterns and enforcement gaps',

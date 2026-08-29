@@ -1,3 +1,35 @@
+/* ARCHIVAL CORRECTION — added 2026-08-29 when this script was committed as record.
+ * The script below is verbatim as it ran, INCLUDING a prompt block the judges read as
+ * `MEASURED TELEMETRY` that overstates its own certainty. Correcting it in place would
+ * falsify the record of what the judges were actually given, so the correction is here.
+ *
+ * THE CONCURRENCY FIGURES IN `EVIDENCE` ARE NOT WHAT THEY CLAIM.
+ *
+ *   the prompt says          what was actually measured
+ *   ----------------------   ------------------------------------------------------
+ *   "mean 3.8"               3.78 across ACTIVE samples only (3,718 of them);
+ *                            3.43 across all 4,097 samples. The prompt drops the
+ *                            qualifier and reads as an unconditional mean.
+ *   "this box gave 4"        Observed peak on ONE container during a window that
+ *                            crossed two containers. A later container in the same
+ *                            session measured an effective limit of 2. This is
+ *                            OBSERVED THROUGHPUT, never a measured capacity — nothing
+ *                            in the run demanded more than it got, so the ceiling was
+ *                            never probed. (A demand test — dispatch more agents at
+ *                            one instant than the expected limit, behind a barrier so
+ *                            probes stay alive while others queue — is what would
+ *                            establish a capacity. It was not run before this.)
+ *
+ * This matters more than the numbers: the skill these judges were shaping exists to
+ * stop exactly this failure — a figure entering a record as MEASURED when it is an
+ * observation with its scope stripped. It reached the judges inside the skill's own
+ * design prompt, and none of the three lenses caught it. Read the block below as
+ * "what the judges believed", never as telemetry.
+ *
+ * Sourced from ../../2026-08-29-fleet-orchestration-retrospective.md, which carries
+ * the sampled figures with their denominators.
+ */
+
 export const meta = {
   name: 'ultracode-prep-skill',
   description: 'Design an ultracode fleet-preparation skill from this session measured orchestration telemetry and its six real failures',

@@ -43,6 +43,43 @@ counts as observed mentions with no dedup measured. The README says so before it
 says anything else, because the risk of a committed catalogue is that its rows
 get quoted as established.
 
+## Codex round 1 — 7 P2 findings, all `[conceded]`
+
+Requested on `5111dd4a`; the review landed as an **issue comment**, not inline
+review comments. My first check read `reviews=0 inline=0` and concluded nothing
+had arrived — the third mis-scoped-matcher false null of the day, and the reason
+[fm #976](https://github.com/menno420/fleet-manager/pull/976) exists.
+
+| # | finding | disposition | fix |
+|---|---|---|---|
+| 1 | Pattern rows drop the panel outcome, so the 7 rejected candidates are unfindable | `[conceded]` | Recovered `survives` · `refuter_count` · `already_covered_by` · `panel_run` from the retained run JSON and joined onto all 284 rows (284/284 matched by name). Tally `MEASURED`: refuters 0 on 226 · 1 on 51 · 2 on 7. |
+| 2 | Census `repo` field carries paths and caveats, so `select(.repo=="websites")` silently misses rows | `[conceded]` | Split into canonical `repo` + `full_name` + `aliases` + `scope_notes` on 3 rows; all 20 ids now canonical and unique. |
+| 3 | L116 records `repo_count: 4` against 5 listed repos | `[conceded]` | Corrected to 5 in both the field and `date_span`. Swept all 284 — it was the only such row. |
+| 4 | The owner-attribution lane's premise is void and propagates into 24 rows | `[conceded]` | Archival correction at the head of `02-…js` (script left verbatim), `owner_flagged_premise: "VOID"` on every row carrying the key, and a README paragraph. |
+| 5 | Census sampling limits absent from the data README | `[conceded]` | New section: one reader per repo, filtered snapshots where `scope_notes` says so, some mechanisms inferred from docs. `enforcement` reads as a floor. |
+| 6 | Judge verdicts carry no link to the draft they judged | `[conceded]` | Reconstructed from the run ranking and **proved unique** by exhaustive search over partitions matching per-draft mean, catches and verdict multiset. `draft_name`/`draft_index`/`draft_mean_score`/`association_note` on all 9. |
+| 7 | The judges' `MEASURED TELEMETRY` block overstates concurrency | `[conceded]` | Archival correction at the head of `03-…js`. This is the sharpest of the seven: the skill those judges were shaping exists to stop a figure entering a record as measured with its scope stripped, and it reached them inside the skill's own design prompt. |
+
+**Zero `[survived]`.** Every finding was checked against the data before it was
+accepted; none needed arguing.
+
+### Two things the fixes turned up that Codex did not raise
+
+- **`instance_count` ≠ `instances | length` on 32 rows** (row 1: 28 claimed, 16
+  listed). The count is the lane's shard tally, the array is what it quoted.
+  Only the array is checkable; documented in the data README with a `jq` cut.
+- **The workflows README's "`preflight` angle 6.5" was one judge's individual
+  score**, not the draft's mean (6.83). Found by the F6 reconstruction.
+
+### One near-miss worth recording
+
+Writing up F1 I typed a refuter tally of 155/122/7 — extrapolated from the
+second run's numbers without reading the first. The measured tally is
+**226/51/7**. It was caught by verifying before commit, which is the right
+order, but it is the fourth instance today of *asserting a count from a subset*.
+The number would have shipped inside the very PR whose subject is unverified
+counts.
+
 ## Verify
 
 - Row counts re-derived at export (284 / 20), not carried from the chat.
