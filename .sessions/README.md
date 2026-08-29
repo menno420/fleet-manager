@@ -42,7 +42,7 @@ and the estate-wide index it feeds is [`docs/activity/`](../docs/activity/README
 `unstated` and prints the coverage count, so an honest null is visible and a
 wrong venue is not.
 
-<!-- fleet-manager local amendment, 2026-08-29 (fm #977) — NOT kit text.
+<!-- fleet-manager local amendment, 2026-08-29 (fm #976) — NOT kit text.
      A kit upgrade's install may overwrite this file; re-apply this section
      after one (docs/SKILLS-local.md § Why the local half exists). -->
 
