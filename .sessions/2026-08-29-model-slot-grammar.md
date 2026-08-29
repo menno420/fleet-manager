@@ -26,14 +26,25 @@ gap worth fixing.
 
 ## Finding 1 — the rule is not new, and never was uniform · `MEASURED`
 
-Parsed all **259** cards in `.sessions/` carrying a `📊 Model:` line.
-**Nine decline to name a model, in five spellings, across seven weeks:**
+Parsed all **430** cards in `.sessions/` carrying a `📊 Model:` header line.
+**Thirteen decline to name a model, in five spellings, across seven weeks:**
 
 | spelling | cards | dates |
 |---|---|---|
 | `unrecorded-by-policy` | 4 | 2026-07-09 ×3, 2026-07-10 |
+| `withheld per session policy (Fable-5 review wave, …)` | 1 | 2026-07-10 |
+| `withheld per session policy (manager worker, …)` | 1 | 2026-07-10 |
 | `identity withheld by session policy` | 1 | 2026-08-11 |
-| `withheld` | 5 | 2026-08-28, 2026-08-29 ×4 |
+| `withheld` | 6 | 2026-08-28, 2026-08-29 ×5 |
+
+(Plus a 14th on the open fm #973 branch, absent from this tree.)
+
+**Matcher note — this table is the third count, not the first.** The first used
+`- **📊 Model:**` and saw 260 cards; the kit's own `MODEL_LINE_NEEDLE` is the
+bare `📊 Model:`, and 170 cards carry it unbolded. The second dropped the bold
+requirement but took the *last* needle on each card, so prose mentions of the
+field displaced header lines on the cards discussing it — including this one.
+The table above is line-anchored and takes the first header occurrence.
 
 The 2026-07-09 cards annotate themselves *"(fleet program policy: no model
 identifiers in committed files)"*, and
@@ -44,7 +55,7 @@ deliberately does not name its model in-doc."*
 
 So the restriction was live **on 2026-07-09**, was already attributed to the
 harness, and was already noted as affecting exactly one lane out of five. The
-other 250 cards name a model — including `cloud-container` cards dated
+other 417 cards name a model — including `cloud-container` cards dated
 2026-08-28, one day before mine, same venue.
 
 **The variable is not the calendar. It is which sessions carry the
@@ -55,11 +66,15 @@ changed when nothing did.
 ### This corrects an earlier claim of mine in the same chat
 
 I reported *"255 of 260 cards name a real model; the only 5 saying `withheld`
-are mine from today."* Wrong three ways: the denominator is 259; five of the
-nine withholding cards are neither mine nor from today; and I found only the
-literal token `withheld` because I grepped for that string and never for the
-condition. Semantic equivalents in four other spellings sat in the corpus the
-whole time.
+are mine from today."* Wrong: seven of the thirteen withholding cards are
+neither mine nor from today, and I found only the literal token `withheld`
+because I grepped for that string and never for the condition.
+
+Then I reported the correction with a 259-card denominator — and **that was
+wrong too**, for the reason in the matcher note above: 259 was the bolded
+subset of 430. Same defect one layer up. Both reduce to one sentence: **my
+matcher was narrower than the population I claimed to have counted**, first on
+the value, then on the format.
 
 This is **TRAP-002** (mis-scoped grep produces a confident false null) from
 [`docs/findings/2026-08-29-estate-agent-error-audit.md`](../docs/findings/2026-08-29-estate-agent-error-audit.md),
@@ -71,8 +86,8 @@ about the author.
 ## Finding 2 — the restriction is narrower than "no model names in the repo" · `MEASURED`
 
 The same instruction set that forbids a model identifier in a pushed artifact
-**mandates a commit trailer that contains one**, verbatim. This repository's
-history carries **652** such trailers in five forms:
+**mandates a commit trailer that contains one**, verbatim. **654** such
+trailers in five forms are reachable from this repository's branch tips:
 
 | trailer | commits |
 |---|---|
@@ -82,7 +97,12 @@ history carries **652** such trailers in five forms:
 | `Co-Authored-By: Claude` | 14 |
 | `Co-Authored-By: Claude Opus 4.8` | 8 |
 
-Measured: `git log --all --format="%B" | grep "Co-Authored-By: Claude"`.
+Measured: `git log --all --format="%B" | grep -c "Co-Authored-By: Claude"` →
+654. **Scope matters and the first draft of this card got it wrong:** that is
+`--all`, every branch tip. The same count against `origin/main` alone is **1** —
+squash merges collapse a PR's per-commit trailers into one squashed message. So
+the trailers are real and numerous in authored history, and nearly absent from
+the merged first-parent history.
 
 So the rule cannot mean *no model name anywhere in a commit*. The coherent
 reading is **don't editorialize model identity into content** — titles, bodies,

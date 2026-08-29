@@ -48,7 +48,7 @@ wrong venue is not.
 
 ## `withheld` — the one token for a session that may not name its model (local amendment, 2026-08-29)
 
-**The default is unchanged: name the family-level model.** 250 of 259 dated
+**The default is unchanged: name the family-level model.** 417 of 430 dated
 cards do, and that ledger is the whole point of the field. Read the kit
 doctrine above first; this amendment only covers the exception.
 
@@ -64,9 +64,10 @@ the single literal token and one line saying which halves are still exact:
 ```
 
 `withheld` **exactly** — not a phrasing of your own. Before this amendment,
-nine cards declined in five different spellings (`unrecorded-by-policy` ×4 from
-2026-07-09/10, `identity withheld by session policy` from 2026-08-11,
-`withheld` ×5 from 2026-08-28/29), and the checker fails open on all five
+thirteen cards declined in five different spellings (`unrecorded-by-policy` ×4
+from 2026-07-09/10 · two distinct `withheld per session policy (…)` variants
+from 2026-07-10 · `identity withheld by session policy` from 2026-08-11 ·
+`withheld` ×6 from 2026-08-28/29), and the checker fails open on all five
 (`_exact_model_id_findings_for_card` reds only an *exact model ID*, correctly —
 reddening an honest null invites an invented one, the same reasoning as the
 `unrecorded` effort carve-out). So nothing surfaced the split; it just
@@ -82,8 +83,9 @@ suppressed attempt the never-write-a-wall rule exists to prevent — walls decay
 and re-discovering one costs less than never trying.
 
 **It is narrower than "no model names in the repo."** The same instruction set
-mandates a `Co-Authored-By` commit trailer that carries a model name; this
-repo's history holds 652 of them. The rule bites on *content you author* —
+mandates a `Co-Authored-By` commit trailer that carries a model name; **654**
+across this repo's branch tips carry one (`git log --all`; `origin/main`'s own
+history shows 1, because squash merges collapse per-commit trailers). The rule bites on *content you author* —
 prose, titles, code comments — not on the mandated attribution channel. The
 card's `📊 Model:` line is the ambiguous case, which is why sessions split on
 it; `withheld` is how this repo resolves it.
