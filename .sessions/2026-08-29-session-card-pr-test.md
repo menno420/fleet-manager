@@ -1,10 +1,11 @@
 # 2026-08-29 — a session card PR, as a test of the landing path
 
-> **Status:** `in-progress` — born red. **What is about to happen:** this card is
-> committed alone, pushed, and opened as a READY PR carrying nothing else; the
-> strict gate is then run and the badge flipped last. The card *is* the
-> deliverable, so the landing path is the thing under test rather than the
-> vehicle for something else.
+> **Status:** `complete` — the card landed alone, as asked: one added path in the
+> diff and no other file touched. **No review was requested, and the reason is
+> the owner's own, live** (§ *Why no review was requested*), so there is no
+> outstanding verdict for the flip to outrun (TRAP-007). The card *is* the
+> deliverable, so what follows is a report on the landing path itself rather
+> than on work the card accompanied.
 
 - **📊 Model:** withheld · max · docs-only
 - **⚑ Model-slot note:** this session's harness policy forbids a model
@@ -34,11 +35,13 @@ always rides in with real work:
 2. **The born-red gate on its own card** — `scripts/preflight.py` step 1 grades
    every card ADDED in the diff against `origin/main`. Here the added-card set is
    exactly one, so the lane's verdict is unambiguous rather than inferred from a
-   mixed diff.
+   mixed diff. It reported exactly that: *"1 card(s) in the merge-base diff vs
+   origin/main; gating on .sessions/2026-08-29-session-card-pr-test.md."*
 3. **The `📊 Model:` grammar** — three exit-affecting checks (R13 task class,
    R14 exact-model-ID, R15 effort tier) all read this one line, and `max` is a
    taxonomy tier that has been valid since it was declared but is rare on the
-   cards here.
+   cards here. All three passed silently, which is the only evidence a passing
+   check ever gives.
 4. **The base the diff is measured against.** On arrival `origin/main` was
    **five commits stale** (`5d10b95`) while the working tree already held
    `3606b4f`; the diff vs the tracking ref therefore showed **58 files and
@@ -46,6 +49,27 @@ always rides in with real work:
    main` collapsed it to `0 0`. Had the card been committed before that fetch,
    the added-card lane would have graded a phantom batch of merged cards as this
    PR's own.
+
+## Why no review was requested
+
+**Owner, live, mid-session:** *"Codex only reviews if you ask it to, this is not
+something you need a review on."* Both halves are his and both are acted on.
+
+The first half **corrects a stored claim in this repo**, and the correction is
+the more durable half. `.claude/CLAUDE.md` § Capabilities states the trigger as
+*"PR open, draft→ready, or the literal comment `@codex review`"*, and this
+session opened the PR READY on that basis and began polling for a verdict that
+was never coming. **This card does not fix that line** — the PR is scoped to one
+file by his own instruction — so it is flagged in the reply to him instead, and
+named here so the next session that reads the boot file has the contradiction in
+front of it.
+
+**What this session did NOT measure, and must not be read as measuring:** the
+poller ran about 90 seconds before it was stopped. The relay's own measured
+latency is ~335 s, so a quiet 90 seconds is **no evidence at all** about the
+trigger (TRAP-003 — an empty result proves the query ran, not that the world is
+empty). The correction above stands on the owner's statement, which is source
+truth for this estate, and on nothing this session observed.
 
 ## What went wrong in this session, recorded rather than tidied
 
@@ -58,11 +82,36 @@ moved to `3606b4f`), so nothing was recorded on a false pass; the point is that
 the *check* was worthless and the estate's own register had already named the
 failure. `docs/traps.md` TRAP-002.
 
+## The one thing deliberately left out of this PR
+
+`check --strict` appends to `.substrate/guard-fires.jsonl` and its own output
+says *"commit the delta with your session (do not revert)."* **Measured, 6 of
+the 6 newest commits examined** — and the clone is shallow, so that is the
+recent sample and not this repository's history (TRAP-004): every one of the six
+carries that file, the multi-file work PRs (#967 11 files, #971 8 files, #968 6
+files, #969 3 files) as well as the single-file telemetry PRs (#966, #970,
+#972). So riding along is the normal shape in the sample, and a standalone
+telemetry PR is what a *post-merge* delta gets.
+
+It is excluded here anyway, because *"only your session card"* is explicit and a
+generated ledger is not the card. It is **not reverted** either — the delta sits
+uncommitted in the working tree, and the choice between landing it on a
+follow-up branch or dropping it is the owner's, since this session is restricted
+to one designated branch. Stated in the reply rather than decided silently.
+
 ## Verify
 
-- `python3 bootstrap.py check --strict` → real exit code, read directly, no pipe.
-- The PR diff is confirmed to be one added path via `git diff --name-only
-  origin/main...HEAD` before the flip, not asserted from intent.
+Real exit codes, read directly, no pipe:
+
+| check | result |
+|---|---|
+| `python3 bootstrap.py check --strict` | **exit 1** — `1 finding(s)`, the added-card lane naming this card |
+| the same lane, invoked as CI invokes it (`--session-log .sessions/__born-red-card-added__.md --added-card <this card>`) | **exit 1** — `2 finding(s)`, both the hold: `[preflight-script]` and `[session-card-hold] … designed hold, not a defect` |
+| `substrate-gate` on the born-red head `282574b` | **failure**, completed `2026-08-29T19:36:12Z` — the required check red on the hold, verified against the check run rather than assumed (TRAP-006) |
+| `git diff --name-only origin/main...HEAD` | one path — `.sessions/2026-08-29-session-card-pr-test.md` |
+
+No grammar finding fired on the `📊 Model:` line and no marker was reported
+missing; the hold was the sole exit-affecting cause on both invocations.
 
 ## Layer-2 handoff
 
