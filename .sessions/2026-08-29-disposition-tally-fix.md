@@ -1,6 +1,13 @@
 # 2026-08-29 — three defects the merged audit cards carry about themselves
 
-> **Status:** `in-progress`
+> **Status:** `complete` — landed after two Codex rounds on fm #979 (3 + 5
+> findings, **all 8 `[conceded]`, zero `[survived]`**; 2 of round 2's 5 were
+> already fixed in `935f5c90` before the review landed). **No third review
+> requested:** new-defect count is flat at 3 per round while severity fell, and
+> the guard recipe converged from unimplementable → implementable-but-wrong →
+> tested against its own known-negative. Last reviewed SHA `c48b2bff`; after it
+> come only the round-2 fixes named in § *Codex round 2 on fm #979* and this
+> flip.
 
 - **📊 Model:** withheld · high · docs-only
 - **⚑ Model-slot note:** this session carries an instruction against a model
