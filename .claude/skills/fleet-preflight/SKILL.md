@@ -1,6 +1,6 @@
 ---
 name: fleet-preflight
-description: "The contracts to write before a multi-agent fan-out spawns its first agent — the survival rule and the fields it reads, the instrument tested on known positives, a readable pilot slice, the corpus census, what raw input is retained, the base SHA, and the run's size against MEASURED concurrency. Sibling of prompt-preflight; run it before any ultracode workflow, mass subagent sweep, or fan-out whose results will become a finding."
+description: "The contracts to write before a multi-agent fan-out spawns its first agent — the survival rule and the fields it reads, the instrument tested on known positives, a readable pilot slice, the corpus census, what raw input is retained, the base SHA, and the run's size against a concurrency limit you probed rather than inherited. Sibling of prompt-preflight; run it before any ultracode workflow, mass subagent sweep, or fan-out whose results will become a finding."
 ---
 
 # fleet-preflight
@@ -29,7 +29,7 @@ PILOT       : <lane> × <n> agents first · <n> transcripts read whole · change
 CORPUS      : <n> items = <composition pasted from the census output> · from <paths> at <when>
 RETAIN      : <fields> · follow-up "<the next measurement>" answerable: yes/no
 BASE        : <repo>@<sha> at <t0> · open PRs <#…> · re-read <sha>..main before writing
-SIZE        : concurrency <n> MEASURED from <journal path> · <a> agents × <d>s ÷ <n> ≈ <h> h floor
+SIZE        : limit <n> via <PROBE (capacity) | JOURNAL (throughput only)> at <when> · <a> × <d>s ÷ <n> ≈ <h> h floor
 EXTERNAL    : <who reviews the output after the fleet, and how many rounds are budgeted>
 UNCONTRACTED: <any line launched unfilled, and why>
 ```
@@ -64,7 +64,10 @@ rather than to decide, or deleted from the schema. Deterministic, so run it:
 
 ```python
 import ast, json, sys
-RULE = "refuted or (already_covered_by and lens_refuters >= 1)"  # ← your rule
+# Point this at the REAL predicate — import it, or paste the exact source line
+# from the workflow script. A retyped copy can pass while the code that runs
+# ignores the field, which is the failure this step exists to prevent.
+RULE = "refuted or (already_covered_by and lens_refuters >= 1)"  # ← paste from source
 REPORT_ONLY = {"quote", "citation", "note"}   # collected to publish, never to decide
 schema = set(json.load(open(sys.argv[1])))    # one sample verdict, or a key list
 read = {n.id for n in ast.walk(ast.parse(RULE)) if isinstance(n, ast.Name)}
@@ -78,10 +81,13 @@ sys.exit(1 if unread or missing else 0)
 reading a field the agents never emit, which silently evaluates falsey at scale.
 Paste the real exit code, not your reading of the output.
 
-**b · Fixture kill.** Hand-write one verdict per branch of the expression and run
-the rule over them. **At least one must die.** A rule no fixture can kill will
-not kill anything at scale either — and you will have paid 88 % of the budget to
-find that out.
+**b · Fixture kill — and fixture survival.** Hand-write one verdict per branch
+and run the rule over them. **At least one must die AND at least one must
+survive**, each with its expected outcome written down first. A kill-count alone
+is satisfied by a predicate that rejects everything: preflight passes, the fleet
+runs, nothing survives, and you learn it at the end. A rule no fixture can kill
+will not kill anything at scale either — and you will have paid 88 % of the
+budget to find that out.
 
 **c · Lens authority.** If N lenses vote, either all N carry the refute
 instruction, or you are running N−1 confirmers and a mascot. Record per-lens
@@ -162,6 +168,12 @@ anyone quotes. Classify by the directory the item came from — mechanical, and 
 is the split that was actually mislabelled:
 
 ```bash
+# Census the RECORDS you will claim, not the files that hold them. For a
+# sharded or JSONL corpus the file count is 1 or 68 while the claim is "7,214
+# sections" — count the extracted items by their retained source path:
+python3 -c "import json,collections,sys; \
+print(collections.Counter(json.loads(l)['source_kind'] for l in open(sys.argv[1])))" evidence.jsonl
+# Only when one file == one item does the file-level form apply:
 find "$CORPUS" -type f | sed 's|.*/\([^/]*\)/[^/]*$|\1|' | sort | uniq -c | sort -rn
 ```
 
@@ -187,7 +199,9 @@ heuristic.
 The flat rule, which needs no foresight: **when a transform has an input and an
 output, retain both.** Then, per record — each cheap now and unrecoverable later:
 
-- `source_path` + `source_sha` (or PR / comment id), so a claim can be reopened;
+- **`repo`** + `source_path` + `source_sha` (or PR / comment id) — the repo is
+  not optional in a multi-repo fleet: the same path and the same PR number exist
+  in many of them, and a bare SHA does not say which remote to ask;
 - the **raw span**, verbatim, not a summary of it;
 - the **input** that produced the artefact, where the artefact is derived — the
   prompt, the diff, the authoring text. This is the one that was lost;
@@ -217,14 +231,23 @@ spanned 20:
 for r in $REPOS; do
   echo "== $r"; git -C "$r" fetch origin main -q && git -C "$r" rev-parse --short origin/main
   gh pr list -R "$(git -C "$r" remote get-url origin | sed 's#.*github.com[:/]##; s#\.git$##')" \
-     --state open --limit 50 --json number,title -q '.[] | "#\(.number) \(.title)"'
+     --state open --limit 500 --json number,title -q '.[] | "#\(.number) \(.title)"'
+  git -C "$r" rev-parse origin/main > ".launch-sha.$r"   # one SHA PER REPO
 done
 ```
 
-**And one re-read, scheduled now, run immediately before you write the finding:**
+`--limit` is a maximum, not a page size: at the default it silently returns the
+first 50 and the sheet records a partial inventory as the whole one. Raise it
+past any plausible count, or detect truncation and say so.
+
+**And one re-read, scheduled now, run immediately before you write the finding
+— over EVERY repo, not just the one you happen to be standing in:**
 
 ```bash
-git log --oneline <launch-sha>..origin/main
+for r in $REPOS; do
+  echo "== $r"; git -C "$r" fetch origin main -q
+  git -C "$r" log --oneline "$(cat ".launch-sha.$r")"..origin/main
+done
 ```
 
 In the measured run `main` was never re-read at launch; mid-run **one PR merged
@@ -287,9 +310,31 @@ a small number as a ceiling.
 
 **So the primary method is a DEMAND TEST, and it is the cheap one:**
 
-> Dispatch, **at one instant**, more agents than the limit you expect. Count how
-> many actually overlap. If fewer than you dispatched, that is the limit. If it
-> equals what you dispatched, your probe was too small — go wider and repeat.
+> Dispatch, **at one instant**, more agents than the limit you expect, and make
+> each probe **stay alive while the others are still queued** (a fixed sleep, not
+> a task that can finish early). Count how many actually overlap. Fewer than
+> dispatched → that is the limit. Equal → the probe was too small; go wider.
+
+**The barrier is not optional, and review caught why (Codex, fm #971).** Without
+it, staggered provisioning produces the same signature as a limit: if probe 1
+finishes before probe 3 is even provisioned, you see 2 overlapping at capacity 3,
+and repeating the wave repeats the artefact rather than testing it.
+
+**Discriminate before believing the number.** Provisioning speed is directly
+observable in the same data — compare the gap *within* a wave against the gap
+*between* waves:
+
+| signature | reading |
+|---|---|
+| new agent starts within seconds of a **slot freeing** | slot-limited — a real limit |
+| new agent starts long after a slot freed, at a fixed cadence | provisioning-limited — not a limit |
+
+`MEASURED` 2026-08-29 on the run that produced this skill: probes within a wave
+started **2–3 s** apart, so provisioning is fast; the gaps *between* waves were
+**107 s and 128 s**, and each new agent began within **5 s of a slot freeing**.
+Fast provisioning plus starts tracking slot-frees is slot-limiting. Had
+provisioning itself taken ~120 s, the same pairs would have appeared with no
+limit at all — which is exactly the confusion the barrier removes.
 
 Three throwaway agents read a limit of 2 in one wave. `MEASURED` 2026-08-29: a
 run dispatching 3 simultaneously (a `parallel()` over three lenses) never

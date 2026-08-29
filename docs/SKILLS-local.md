@@ -2,7 +2,7 @@
 
 > **Status:** `living-ledger`
 >
-> **The one place that answers "what can I do here" without loading 27 files.**
+> **The one place that answers "what can I do here" without loading 28 files.**
 > Two halves with different owners: skills **written in this repo**, detailed
 > below, and skills **shipped by the kit**, whose generated index is
 > [`SKILLS.md`](SKILLS.md). That file regenerates from the kit's own list at
@@ -13,7 +13,7 @@
 > The roster immediately below spans **both** halves, because a session reading
 > either file alone gets part of the answer and cannot tell that it is part.
 
-## All 27 — the roster
+## All 28 — the roster
 
 `MEASURED` 2026-08-08 against `.claude/skills/` (the live, invocable tree).
 **Invoke as `/<name>`.** The one-liners are each skill's own `description`
@@ -117,6 +117,13 @@ and reported a clean install. The set below is derived by diffing every
 installed skill against its staged copy — re-derive it the same way rather than
 trusting this prose:
 `for d in .substrate/skills/*/; do n=$(basename "$d"); diff -q ".claude/skills/$n/SKILL.md" "$d/SKILL.md" >/dev/null || echo "$n"; done`.)*
+
+
+**`fleet-preflight` (local, added 2026-08-29)** — the contracts to write before a
+fan-out spawns its first agent, ordered by catch-per-second. Derived from fm #971's
+measured telemetry and the six failures that run actually produced; built by a
+three-draft judge panel and hardened by two Codex rounds (7 + 10 findings, all
+conceded). Not kit-shipped, so no upgrade overwrites it.
 
 | kit-named skill | local amendment at risk | added |
 |---|---|---|
@@ -247,7 +254,7 @@ registries**, and committing a skill to a repo does not upload anything.
 
 | scope | where it lives | what reads it |
 |---|---|---|
-| **project** — all 27 of these | `<repo>/.claude/skills/<name>/SKILL.md`, in git | Claude Code sessions whose **root** is that repo, and cloud sessions on the cloned repo |
+| **project** — all 28 of these | `<repo>/.claude/skills/<name>/SKILL.md`, in git | Claude Code sessions whose **root** is that repo, and cloud sessions on the cloned repo |
 | **personal** | `~/.claude/skills/<name>/SKILL.md` on one machine | that machine's Claude Code, all projects |
 | **account** | uploaded to the claude.ai account | claude.ai chat, Cowork (interactive **and** scheduled), Routines — and this is the list the settings page shows |
 
@@ -313,7 +320,7 @@ place the project-scope boundary shows.
 
 ### The recommendation, and what is still the owner's call
 
-**Not all 27 should travel.** An account-level skill loads everywhere, so the
+**Not all 28 should travel.** An account-level skill loads everywhere, so the
 repo-coupled ones would misfire: `session-close` drives this repo's §7 ledger and
 NOW pointer, `release` and `upgrade-distribution` are substrate-kit procedures,
 `repo-health` runs this bootstrap. The portable ones are the *method* skills that
@@ -346,7 +353,7 @@ its own" as a non-goal, so this one needs a yes rather than an inference.
 
 1. Write `.claude/skills/<name>/SKILL.md` with frontmatter (`name`,
    `description`) and a body: what it does, numbered instructions, traps.
-2. Add a row to **both** tables above — the 27-skill roster (so it is
+2. Add a row to **both** tables above — the 28-skill roster (so it is
    discoverable) and the local table (so its "when to reach for it" is
    recorded). A skill in only one of them is the defect this file just fixed.
 3. Keep the description one line and concrete — it is what a session matches
