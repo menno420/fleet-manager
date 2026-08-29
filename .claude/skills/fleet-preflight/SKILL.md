@@ -336,6 +336,22 @@ Fast provisioning plus starts tracking slot-frees is slot-limiting. Had
 provisioning itself taken ~120 s, the same pairs would have appeared with no
 limit at all — which is exactly the confusion the barrier removes.
 
+**That reading rests on one assumption, so verify it rather than inherit it:**
+that a transcript's first timestamp marks when an agent *began executing*, not
+when it was *dispatched*. If it marked dispatch, the within-wave gaps would be
+dispatch spacing and the whole discriminator inverts. **Check it in one pass** —
+measure each agent's gap from its first timestamp to its first assistant
+message. A queued agent would show that gap growing with queue depth:
+
+> `MEASURED` 2026-08-29 across 13 agents spanning 980 s of queueing: every gap
+> fell between **1.7 s and 3.8 s**, including agents starting 869 s in. Flat
+> against queue depth ⇒ the clock starts at execution, not dispatch. (One 17.4 s
+> outlier was the synthesis lane's ~90 KB prompt — first-token latency, not
+> queueing.)
+
+If your harness shows that gap *growing* with start time, your first timestamps
+are dispatch times and this discriminator does not apply.
+
 Three throwaway agents read a limit of 2 in one wave. `MEASURED` 2026-08-29: a
 run dispatching 3 simultaneously (a `parallel()` over three lenses) never
 exceeded 2 in flight, three separate times — decisive, where comparing peak

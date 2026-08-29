@@ -1,7 +1,13 @@
 # 2026-08-29 — the fan-out's own telemetry, measured and recorded
 
-> **Status:** `in-progress` — born-red. Recording the method half of the
-> estate-wide audit, plus an `ultracode` fleet-preparation skill derived from it.
+> **Status:** `complete` — landed after two Codex rounds (7 + 10 findings, **all
+> 17 `[conceded]`; one `[partial]`, defended from timing data and then closed by
+> a measurement**). **Flip exemption, declared:** the last reviewed SHA is
+> `fe184ccb`; after it come only the round-2 fix commit, the timestamp-semantics
+> verification, and this flip.
+>
+> Recording the method half of the estate-wide audit, plus the `fleet-preflight`
+> skill derived from it.
 
 - **📊 Model:** withheld · high · research
 - **⚑ Model-slot note:** the harness policy for this session forbids a model
