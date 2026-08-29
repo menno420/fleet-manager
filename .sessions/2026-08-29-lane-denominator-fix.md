@@ -59,12 +59,20 @@ row count, and one quoted sentence. fm #969 set the precedent for declining a
 review on exactly this shape (a two-integer documentation correction) with the
 reason written down.
 
-**The stronger argument is that a review already failed to catch this.** Codex
-reviewed fm #977 twice — 7 findings, all conceded — and *"one lane of five"* sat
-in the diff of the second round, in a paragraph it was actively reading, and did
-not surface. That is not a criticism of the reviewer: a ratio citing a real
-document, beside a quote that checks out, is not what an adversarial reader is
-scanning for. It does mean a third round has no particular claim on catching it.
+**A first draft of this section argued that "a review already failed to catch
+this" — and that was false, in a way worth recording.** Measured:
+`git show e15ea41:… | grep -c "one lane of five"` → **0**. The phrase entered
+the card in the reconciliation pushed *after* round 2's review completed
+(`20:25:27Z` on `e15ea41`; the text landed at `20:44:28Z` in `b219cb9`).
+**Codex was never shown it.** The claim blamed a reviewer for missing something
+outside its diff — the same defect as the borrowed denominator itself, one layer
+up: an unchecked assertion riding alongside checked ones.
+
+What is actually true, and it is a weaker and more useful statement: **the
+phrase landed on `main` unreviewed because it was written after the last
+review, at the cap, under the declared flip exemption.** That is the exemption
+working exactly as documented and carrying exactly the risk it names. A third
+round would have caught it, had one been run.
 
 **If that reasoning is wrong, this is the change to point at** — one phrase,
 two files, trivially reversible.
