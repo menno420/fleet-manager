@@ -46,3 +46,57 @@ duplicated: `git diff` against `main` is these two corrections only.
 No trap registered, no route, no checker, no skill edit. The five trap
 candidates stay proposals, owner-gated under the roadmap's §6 promotion rule and
 OD-26 §7's hold.
+
+## ⟲ Previous-session review
+
+Previous card:
+[`2026-08-28-estate-agent-error-audit.md`](2026-08-28-estate-agent-error-audit.md)
+(fm #967, merged `06d29b0b`).
+
+**Held up on the substance.** Its finding survived 20 external review findings
+across two rounds with all 20 conceded, and the two P1s that overturned
+conclusions were answered by re-measuring rather than by hedging — the adopter
+census and the corpus recount both landed as numbers.
+
+**Three defects it carried into `main`, which this card exists to close or
+name.**
+
+1. **It never met OD-26.** The owner's sitting merged as fm #964 *while that
+   session was writing*, and the session read it only at the very end — after
+   the finding's §8 recommendation had already been framed in the gap taxonomy
+   his answer retired. The reconciliation was written but lost the race with
+   `merge-on-green`. Closed here.
+2. **§1's heading outran §1's table.** The table said *"6 busiest repos"*; the
+   heading said *"on GitHub"*. The session then repeated the unscoped form in
+   its own reporting — the audit's own *"the qualifier that does not survive the
+   copy"* pattern, committed twice by the session that named it. Closed here.
+3. **It misread a merged PR as a lagging one.** For roughly twelve minutes it
+   polled `mergeable: null` / `head: 0a5b14ef` and diagnosed GitHub-side PR-ref
+   lag, posting that diagnosis to the PR. The PR had been **merged** at
+   12:22:52Z. The `/git/ref` read it used as its authority answered a different
+   question (branch tip) than the one it was asking (PR state), and the merged
+   state was visible in `/pulls/967` the whole time as `state: closed`, which it
+   never checked. **Named, not closed** — the comment stands on the merged PR.
+
+## 💡 Session idea
+
+**A gate lane for "the record you are citing moved while you wrote".**
+
+Three of this two-session sequence's errors share one shape and none is in the
+trap register: fm #963 merged and fixed the route gap §4 was measuring; fm #964
+landed the owner ruling that retired §8's frame; fm #967 itself merged while its
+own follow-up was being pushed. Each time the session cited a state that had
+been true when it started reading.
+
+The mechanical part is small and decidable: at gate time, for every `#NNN`,
+40-hex SHA or `docs/**` path a diff cites, compare the cited object's current
+state against the session's branch point — and warn when it moved. It is the
+write-side sibling of TRAP-001, whose routes fire on `MEASURED` phrasing and so
+never see a citation that was accurate at authoring time and is stale at merge
+time.
+
+**Why it is an idea and not an action:** it is a new gate lane in every adopter,
+which OD-24 §3 says an agent does not introduce on its own initiative, and
+OD-26 §7's hold makes the bar higher rather than lower. It also needs the
+measurement §9 already recommends — run it against this corpus first and count
+how many incidents it would actually have caught.
