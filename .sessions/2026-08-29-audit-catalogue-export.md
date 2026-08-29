@@ -7,8 +7,12 @@
 > round 2's six findings were created by round 1's own fixes — TRAP-008 in its
 > prose form. Last reviewed SHA `731c282c`; after it come only the round-2
 > fixes named in § *Codex round 2*, the archival-note correction in
-> § *Correction*, and this flip. — born-red. Exporting the 284 candidate patterns and
-> 20 repository censuses the audit harvested and never used.
+> § *Correction*, and this flip. **Then fm #979 reviewed further**, adding a
+> `disposition` column to the round-2 table. That edit carries its own review
+> round and is not covered by `731c282c`.
+>
+> Exporting the 284 candidate patterns and 20 repository censuses the audit
+> harvested and never used.
 
 - **📊 Model:** withheld · high · docs-only
 - **⚑ Model-slot note:** harness policy forbids a model identifier in a pushed
@@ -123,14 +127,14 @@ reader gets the accurate version rather than the flattering one.
 noticing: fixing seven findings produced six new ones, all in the prose written
 to describe the fixes.
 
-| # | finding | fix |
-|---|---|---|
-| 1 | "populated on all 284" ≠ positive coverage — the schema *required* the field, so `nothing`/`none`/`new` are valid answers | `MEASURED`: **233 name a real covering mechanism, 51 are negative-only.** Added `already_covered_positive` (bool) and `already_covered_answers` (count) so the two are separable without parsing prose. My round-1 sentence would have made 51 genuinely-new candidates read as already covered. |
-| 2 | My own `jq` cut filtered on `refuter_count>0` — returning 58 rows and silently dropping 226, in the very command meant to expose the ignored field | Filters on `already_covered_positive` now, with a comment saying why the two fields are independent. |
-| 3 | "observed mention counts" is wrong for `instance_count` given my own §Provenance caveat | Split: the `instances` array is observed, `instance_count`/`repo_count` are the lane's **claimed** shard tallies. Quote the array, never the count. |
-| 4 | "Harvested by 986 subagents" overstates evidence independence by >10× | `MEASURED`: **80 harvest lanes** read the corpus (68 cards + 12 review); the other ~906 of the 986 are synthesis, verification, census, prescription and critic agents working on those lanes' output. Read the provenance as 80 readers. |
-| 5 (P3) | The nine `strongest_element`s called a "ranked list" | They are an **unranked set** — each chosen under a different lens against a different draft, with no recorded comparison. A draft's mean score ranks drafts, not elements. |
-| 6 | The F6 reconstruction is unverifiable once the scratch run disappears — grouping already-labelled verdicts and recomputing their means is circular | The sharpest of the six. Committed the **independent aggregates** (the run's own `ranking`, computed before any labelling existed) into the panel JSON, plus [`verify_panel_association.py`](../docs/findings/data/workflows/verify_panel_association.py), which strips the labels and re-derives the assignment from the committed file alone. It asserts both halves — uniqueness, and agreement with the committed labels. Exits 0. |
+| # | finding | disposition | fix |
+|---|---|---|---|
+| 1 | "populated on all 284" ≠ positive coverage — the schema *required* the field, so `nothing`/`none`/`new` are valid answers | `[conceded]` | `MEASURED`: **233 name a real covering mechanism, 51 are negative-only.** Added `already_covered_positive` (bool) and `already_covered_answers` (count) so the two are separable without parsing prose. My round-1 sentence would have made 51 genuinely-new candidates read as already covered. |
+| 2 | My own `jq` cut filtered on `refuter_count>0` — returning 58 rows and silently dropping 226, in the very command meant to expose the ignored field | `[conceded]` | Filters on `already_covered_positive` now, with a comment saying why the two fields are independent. |
+| 3 | "observed mention counts" is wrong for `instance_count` given my own §Provenance caveat | `[conceded]` | Split: the `instances` array is observed, `instance_count`/`repo_count` are the lane's **claimed** shard tallies. Quote the array, never the count. |
+| 4 | "Harvested by 986 subagents" overstates evidence independence by >10× | `[conceded]` | `MEASURED`: **80 harvest lanes** read the corpus (68 cards + 12 review); the other ~906 of the 986 are synthesis, verification, census, prescription and critic agents working on those lanes' output. Read the provenance as 80 readers. |
+| 5 (P3) | The nine `strongest_element`s called a "ranked list" | `[conceded]` | They are an **unranked set** — each chosen under a different lens against a different draft, with no recorded comparison. A draft's mean score ranks drafts, not elements. |
+| 6 | The F6 reconstruction is unverifiable once the scratch run disappears — grouping already-labelled verdicts and recomputing their means is circular | `[conceded]` | The sharpest of the six. Committed the **independent aggregates** (the run's own `ranking`, computed before any labelling existed) into the panel JSON, plus [`verify_panel_association.py`](../docs/findings/data/workflows/verify_panel_association.py), which strips the labels and re-derives the assignment from the committed file alone. It asserts both halves — uniqueness, and agreement with the committed labels. Exits 0. |
 
 Zero `[survived]`.
 

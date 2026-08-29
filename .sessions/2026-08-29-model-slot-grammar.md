@@ -1,11 +1,16 @@
 # 2026-08-29 — the `📊 Model:` slot has no token for "my session may not name it", so five sessions invented five
 
 > **Status:** `complete` — landed after two Codex rounds on fm #976 (4 + 3
-> findings, **all 7 `[conceded]`, zero `[survived]`**). No third review
+> findings: **6 `[conceded]`, 1 `[partial]`, zero `[survived]`**). *(This line
+> first said "all 7 `[conceded]`", contradicting the round-1 table below, which
+> records finding 1 as `[partial]`. Corrected fm #979.)* No third review
 > requested: round 2 was smaller than round 1 and every finding was in prose
 > rather than in the mechanism, which is the convergence the two-re-review cap
 > looks for. Last reviewed SHA `a54ccd25`; after it come only the round-2
-> fixes named in § *Codex round 2 on fm #976* and this flip.
+> fixes named in § *Codex round 2 on fm #976* and this flip. **Then fm #979
+> reviewed further**, adding: this correction note, the round-1 heading's tally,
+> a `disposition` column on the round-2 table, and the superseded-claim strike.
+> Those edits carry their own review round and are not covered by `a54ccd25`.
 
 - **📊 Model:** withheld · high · docs-only
 - **⚑ Model-slot note:** this session carries an instruction against putting a
@@ -200,7 +205,7 @@ and
 [`2026-08-29-audit-od26-reconcile.md`](2026-08-29-audit-od26-reconcile.md)
 (merged). Same session, a question the owner raised after those landed.
 
-## Codex round 1 on fm #976 — 4 P2 findings, all `[conceded]`
+## Codex round 1 on fm #976 — 4 P2 findings: 3 `[conceded]`, 1 `[partial]`
 
 Reviewed `60eb15b` (before the census correction), delivered as a review with
 **four inline comments** — a different channel from fm #973's issue comment, in
@@ -210,7 +215,7 @@ wrong twice over.
 | # | finding | disposition | fix |
 |---|---|---|---|
 | 1 | The card-corpus counts conflate two selectors and are not reproducible as written | `[partial]` | The **values** were already corrected before this review landed (430/13, not 259/9). The **reproducibility** complaint is conceded in full: neither the amendment nor this card named its selector or its tree, so 441 files / 430 cards / 260 bolded all looked like the same measurement. Both now state the selector, the tree-level command and what the other two selectors return. |
-| 2 | The trailer count is unreproducible — 343 at the reviewed checkout, not 654 | `[conceded]` | Correct and decisive: `git log --all` counts whatever refs the clone holds (656 across 123 refs here). The count is withdrawn as evidence; the finding now rests on the instruction text, which any session reads in its own prompt. The one stable figure — `origin/main` carries **1** trailer across 62 commits, because the repo squash-merges — is stated as such. |
+| 2 | The trailer count is unreproducible — 343 at the reviewed checkout, not 654 | `[conceded]` | Correct and decisive: `git log --all` counts whatever refs the clone holds (656 across 123 refs here). The count is withdrawn as evidence; the finding now rests on the instruction text, which any session reads in its own prompt. ~~The one stable figure — `origin/main` carries **1** trailer across 62 commits, because the repo squash-merges — is stated as such.~~ **SUPERSEDED by round 2, finding 2: that replacement was itself a shallow-clone artifact and the squash-merge mechanism was invented to fit it. See § *Codex round 2 on fm #976*. Struck rather than deleted — it is the record of what I claimed at the time.** |
 | 3 | The re-apply-after-upgrade warning misstates the installer | `[conceded]` | Verified from source: `_adopt_plant` (`bootstrap.py:19563`) reports `kept:` and returns without writing when the file exists; `_merge_model_doctrine` (`:19652`) is append-only, idempotent, and preserves existing content byte-for-byte. Following the warning would have **duplicated** the amendment on every upgrade. **The warning was inherited verbatim from the 2026-08-26 Venue amendment, so the repo has carried it since then** — both instances corrected here. |
 | 4 | The previous-session link is dead in this tree | `[conceded]` | The catalogue-export card is on fm #973's branch, not this one. Replaced with the PR URL and a line saying why it is not a relative link. |
 
@@ -228,11 +233,11 @@ committed in the same file, in the same PR, by the session writing the clause.
 All three are on text written in round 1. One of them overturns a claim I had
 just made *while conceding a related one*.
 
-| # | finding | fix |
-|---|---|---|
-| 1 | A third overwrite warning survived in this card's § *The change* | I fixed the two in `.sessions/README.md` and reported "both instances corrected" without grepping my own card. Corrected, with the two function line-ranges cited inline. |
-| 2 | **`origin/main` is not a stable scope either — the clone is shallow** | See below. The sharpest finding of either PR. |
-| 3 | The card's thesis and change summary still carried the pre-correction census | § *The change* still said "250 of 259", and the reproduce recipe pinned a file total that moves as cards land. Now 417 of 430, and the recipe says to pin a SHA rather than quote a file count. |
+| # | finding | disposition | fix |
+|---|---|---|---|
+| 1 | A third overwrite warning survived in this card's § *The change* | `[conceded]` | I fixed the two in `.sessions/README.md` and reported "both instances corrected" without grepping my own card. Corrected, with the two function line-ranges cited inline. |
+| 2 | **`origin/main` is not a stable scope either — the clone is shallow** | `[conceded]` | See below. The sharpest finding of either PR. |
+| 3 | The card's thesis and change summary still carried the pre-correction census | `[conceded]` | § *The change* still said "250 of 259", and the reproduce recipe pinned a file total that moves as cards land. Now 417 of 430, and the recipe says to pin a SHA rather than quote a file count. |
 
 ### Finding 2 is the one that matters
 
