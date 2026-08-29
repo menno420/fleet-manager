@@ -22,9 +22,32 @@
  *
  * This matters more than the numbers: the skill these judges were shaping exists to
  * stop exactly this failure — a figure entering a record as MEASURED when it is an
- * observation with its scope stripped. It reached the judges inside the skill's own
- * design prompt, and none of the three lenses caught it. Read the block below as
- * "what the judges believed", never as telemetry.
+ * observation with its scope stripped — and it reached them inside the skill's own
+ * design prompt.
+ *
+ * WHAT THE JUDGES DID AND DID NOT CATCH (measured over skill-design-panel-output.json,
+ * 8 of 9 verdicts engage the telemetry directly). An earlier version of this comment
+ * said "none of the three lenses caught it". That was wrong, and worth correcting
+ * precisely, because the distinction is the whole lesson:
+ *
+ *   CAUGHT — the laundering SHAPE, squarely and repeatedly:
+ *     fleet-preflight/USABILITY: "It prints the answer in bold (peak 4, mean 3.8,
+ *       median 4) directly above the place where the session is supposed to measure,
+ *       and then gives no executable measurement."
+ *     fanout-preflight/ACCEPTANCE: "`nproc` measures CPUs, not achieved harness
+ *       concurrency; stamping it MEASURED-this-box repeats the exact laundering
+ *       failure it names."
+ *     fleet-preflight/HOUSE FIT: "In an estate whose hardest rule is 'no documented
+ *       value quoted as measured', the fix is a real script."
+ *
+ *   NOT CAUGHT — the figure itself. No lens asked what 3.8 was a mean OF. Every one
+ *     of them argued about how the number should be obtained and presented, and all
+ *     nine took its value as given. A panel can be right about method and still pass
+ *     a wrong number through, because "is this measured properly?" and "is this
+ *     number what it says it is?" are different questions and only the first was
+ *     anyone's job.
+ *
+ * Read the block below as "what the judges believed", never as telemetry.
  *
  * Sourced from ../../2026-08-29-fleet-orchestration-retrospective.md, which carries
  * the sampled figures with their denominators.

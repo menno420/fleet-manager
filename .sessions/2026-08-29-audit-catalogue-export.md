@@ -58,7 +58,7 @@ had arrived — the third mis-scoped-matcher false null of the day, and the reas
 | 4 | The owner-attribution lane's premise is void and propagates into 24 rows | `[conceded]` | Archival correction at the head of `02-…js` (script left verbatim), `owner_flagged_premise: "VOID"` on every row carrying the key, and a README paragraph. |
 | 5 | Census sampling limits absent from the data README | `[conceded]` | New section: one reader per repo, filtered snapshots where `scope_notes` says so, some mechanisms inferred from docs. `enforcement` reads as a floor. |
 | 6 | Judge verdicts carry no link to the draft they judged | `[conceded]` | Reconstructed from the run ranking and **proved unique** by exhaustive search over partitions matching per-draft mean, catches and verdict multiset. `draft_name`/`draft_index`/`draft_mean_score`/`association_note` on all 9. |
-| 7 | The judges' `MEASURED TELEMETRY` block overstates concurrency | `[conceded]` | Archival correction at the head of `03-…js`. This is the sharpest of the seven: the skill those judges were shaping exists to stop a figure entering a record as measured with its scope stripped, and it reached them inside the skill's own design prompt. |
+| 7 | The judges' `MEASURED TELEMETRY` block overstates concurrency | `[conceded]` | Archival correction at the head of `03-…js`. The sharpest of the seven: the skill those judges were shaping exists to stop a figure entering a record as measured with its scope stripped, and it reached them inside the skill's own design prompt. **See § Correction below** — my first write-up of this said no lens caught it, which is false. |
 
 **Zero `[survived]`.** Every finding was checked against the data before it was
 accepted; none needed arguing.
@@ -79,6 +79,36 @@ second run's numbers without reading the first. The measured tally is
 order, but it is the fourth instance today of *asserting a count from a subset*.
 The number would have shipped inside the very PR whose subject is unverified
 counts.
+
+## Correction — "none of the three lenses caught it" was wrong
+
+The archival comment I first pushed to `03-judge-panel-skill-design.js`, and the
+fm #973 disposition comment quoting it, both said the concurrency laundering
+reached the judges **uncaught**. I asserted that without reading the verdicts.
+
+Measured over `skill-design-panel-output.json`: **8 of 9 verdicts engage the
+telemetry directly**, several attacking it hard —
+
+> `fleet-preflight`/USABILITY: *"It prints the answer in bold (**peak 4, mean 3.8,
+> median 4**) directly above the place where the session is supposed to measure,
+> and then gives no executable measurement."*
+>
+> `fanout-preflight`/ACCEPTANCE: *"`nproc` measures CPUs, not achieved harness
+> concurrency; stamping it `MEASURED-this-box` repeats the exact laundering
+> failure it names."*
+
+So the panel caught the **shape** squarely. What no lens did was ask *what 3.8
+was a mean of* — all nine took the value as given while arguing about how such a
+value ought to be obtained and presented.
+
+**That is a better finding than the one I wrote over it.** "The judges missed it"
+is a story about weak judges. The truth is that a panel can be right about method
+and still pass a wrong number through, because *is this measured properly?* and
+*is this number what it says it is?* are different questions, and only the first
+was anyone's job. No lens in the rubric owned the second.
+
+The correction is in the script comment with the quotes attached, so the next
+reader gets the accurate version rather than the flattering one.
 
 ## Verify
 
