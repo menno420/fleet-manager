@@ -10,10 +10,18 @@
 > and because a retrospective that lives only in a chat is the loss mode this
 > repo keeps writing findings about.
 >
-> **Every figure here is `MEASURED`** from the run's own agent transcripts
-> (`~/.claude/projects/…/subagents/workflows/wf_*/agent-*.jsonl`, which carry
-> per-message timestamps and usage). Nothing is quoted from tool documentation —
+> **Every figure here is `MEASURED`** from the run's own agent transcripts —
+> runs `wf_9781a5e1-7af` and `wf_b8da4e25-5a3`, whose `agent-*.jsonl` files carry
+> per-message timestamps and usage. Nothing is quoted from tool documentation —
 > see failure 6 for why that distinction is the point.
+>
+> **Reproducibility, stated honestly (Codex, fm #971).** The parser is committed
+> at [`../../tools/agent_error_audit/orchestration_telemetry.py`](../../tools/agent_error_audit/orchestration_telemetry.py)
+> and the run ids are named — **but the transcripts live in a container-local
+> cache that is already gone** (this container booted 2026-08-29 14:53:50; the
+> measured runs predate it). The *method* is auditable; the *figures are not
+> re-derivable from this repository*. Treat every number below as a recorded
+> observation you cannot re-run.
 
 ## 1 · What was run
 
@@ -39,7 +47,7 @@ independently (a class could be verified as soon as its own synthesis landed).
 | agent transcripts | **1,063** |
 | output tokens | **913,042** |
 | wall clock | **17.1 h** (including a ~95 min deliberate pause) |
-| **measured concurrency** | **peak 4 · mean 3.8 · median 4** |
+| **observed concurrency** | **peak 4 · median 4 · mean 3.43 across all 4,097 samples (3.78 across the 3,718 active)** |
 | idle samples | 379 of 4,097 15-second samples (9 %), almost exactly the pause |
 
 **Cost by lane:**
@@ -53,16 +61,33 @@ independently (a class could be verified as soon as its own synthesis landed).
 | harvest (reviews) | 12 | 2,122 | 0 % | ~310 s |
 | prescribe + critic | 2 | 165 | 0 % | 498 s / 196 s |
 
-### The one planning number worth carrying
+### The one planning number worth carrying — and what it is not
 
-**Concurrency was 4, not the 10–16 the tool reference describes** (the documented
-cap is `min(16, CPUs−2)`; this container yielded 4). At 4 concurrent and a ~190 s
-mean agent duration, **each additional agent costs roughly 48 seconds of wall
-clock**. 1,063 agents is therefore a ~14-hour serialised job, and the whole run's
-17.1 h is explained by that arithmetic rather than by any stall.
+**Observed throughput was 4 concurrent**, against the 10–16 the tool reference
+describes. At 4 concurrent and ~190 s mean duration, **each further agent costs
+~48 s of wall clock once the fleet is saturated** — 1,063 agents is a ~14-hour
+serialised job, which is what the run's 17.1 h was.
 
-**A fan-out's size is a wall-clock decision, not only a token decision** — and
-the conversion factor must be measured on the box, not read.
+**Three limits, all conceded on review (Codex, fm #971):**
+
+1. **Observed throughput, not measured capacity.** 15-second sampling shows what
+   overlapped *at sample instants*; a fifth lane could run between samples, and
+   transcript timing alone never shows work was queued while four ran. Calling
+   it "the cap" over-attributes.
+2. **The marginal rate holds only above saturation.** Below the limit, an added
+   agent costs no extra wall clock at all.
+3. **It is not one container.** The window (2026-08-28 18:35 → 08-29 11:39)
+   **spans a container replacement at 23:48:12**, so 4 is an aggregate over two
+   containers — and a later 12-lane run in a third showed an effective limit of
+   **2**.
+
+**The method that does establish a limit**, arrived at after failing this three
+times in one session, is a **demand test**: dispatch more agents at one instant
+than the limit you expect, then read how many actually overlap. That third run
+demanded 3 simultaneously (a `parallel()` over three lenses) and never exceeded
+2, three times running. Cheap, decisive — and it must run **at launch**, because
+a fleet plan cannot inherit a concurrency number from a previous run when the
+container may not even be the same one.
 
 ## 3 · The verification stage was mis-designed, not under-resourced
 
