@@ -43,10 +43,25 @@ standing* — committed by the session that had just read the trap:
 | `docs/repos/spider-swing/working-here.md` | *"reviews this repo's PRs on open, draft→ready, or the literal comment"* |
 | `docs/prompts/chatgpt-couch-legend-project-instructions.md` | *"Codex reviews this repo (on PR open, draft→ready, or a literal comment)"* |
 
-All five now say the same thing: **always post the `@codex review` comment;
-treat the advertised auto-triggers as unreliable.** Session cards were left
-alone — they are record tier, and a card records what a session believed on its
-date.
+Four now say the same thing: **always post the `@codex review` comment; treat
+the advertised auto-triggers as unreliable.** Session cards were left alone —
+record tier, and a card records what a session believed on its date.
+
+**`docs/CAPABILITIES.md` is the fifth and it is handled differently, because
+editing it in place was wrong.** That file's § 5 states *"Re-verifications
+APPEND, never edit"*, and its own 2026-08-23 row demonstrates the pattern —
+marked as superseded with a ⚠ pointer, explicitly *"marked rather than
+rewritten, per § 5's append-never-edit rule."* The first version of this PR
+inserted 2026-08-29 evidence straight into the 2026-08-07 row while leaving its
+`LAST-VERIFIED: 2026-08-07` untouched, which makes the ledger's own provenance
+false — **the append-only rule broken inside the file that states it.** Caught
+by Codex (P2), `[conceded]`. Now: the 2026-08-07 row is restored verbatim and
+its trigger sentence carries a ⚠ supersession marker, and the correction lives
+in a **new dated 2026-08-29 append entry**.
+
+**A restoration re-creates what it restores.** Putting the old row back put the
+wrong sentence back, and the copy check caught it on re-run — which is why the
+marker exists rather than the row simply being reverted and forgotten.
 
 ### The correction was itself corrected, mid-session, by the reviewer
 
@@ -62,8 +77,6 @@ denies. **Rather than pick a side, this session measured the thing neither
 source settles.** `MEASURED` 2026-08-29, all three read surfaces, with fm #967
 as the positive control (2 reviews + 2 issue comments, so the query form works):
 
-| PR | how it was opened | Codex activity |
-|---|---|---|
 | PR | open window | Codex activity |
 |---|---|---|
 | fm #974 | **422 s** (READY `19:35:24Z` → merged `19:42:26Z`) | **0** — reviews, inline, issue comments all zero |
@@ -72,10 +85,28 @@ as the positive control (2 reviews + 2 issue comments, so the query form works):
 
 **Read the margin honestly: 422 s is only 87 s past the ~335 s relay.** That is
 suggestive, not a clean null — a queued auto-review would plausibly be abandoned
-when the PR merged, so #974 does not prove the auto-trigger is dead. The
-unambiguous half is #977: a manual request produced a review in seconds, self
--logged as manual. **The rule rests on that half**, which is why it is phrased
-as *always ask* rather than as a claim about what the other triggers do.
+when the PR merged, so #974 does not prove the auto-trigger is dead.
+
+**The sharper measurement is #977's own timeline**, found only after the first
+three were written, and it does not depend on relay latency at all:
+
+```
+19:57:21Z  PR #977 created, draft=false (READY)
+19:58:08Z  manual "@codex review"            (+47 s)
+19:58:23Z  Codex summary comment CREATED     (+15 s after the request)
+```
+
+A trigger produces the `Running` summary in **~15 s** — the review itself takes
+~335 s, but the summary does not. The PR sat open and ready for **47 s** with no
+summary comment in existence. An auto-trigger at open should have posted one by
+about `19:57:36Z`. (n=1 on the 15 s figure, from this session's own request.)
+
+**And the instrument that looked like evidence was not one.** The review-summary
+comment is **edited in place** — one comment object, updated per review — and
+its own header says it shows the *latest* activity. Reading three
+`Manual request` rows across three heads therefore says nothing about what else
+fired; an auto-triggered row would simply have been overwritten. The `created_at`
+comparison above is the reading that survives.
 
 **Two figures this session got wrong before getting right**, both the same
 mistake — a window measured against the wrong clock. First, fm #974's session
@@ -94,17 +125,30 @@ happen again.
 
 ## 2 · When the model slot changed — measured, not recalled
 
-**Population: all 440 dated cards in `.sessions/`**, enumerated whole, not
-sampled (the directory README is not a card). Fleet-manager only — other
-repositories keep their own cards and are not visible from here.
+**Population: all 441 dated cards in `.sessions/`** as the committed tree holds
+them — **including this card**, which is itself `withheld` and `cloud-container`.
+Enumerated whole, not sampled (the directory README is not a card).
+Fleet-manager only; other repositories keep their own cards, not visible here.
 
-**8 of 440 carry a `withheld` model segment**, and they are two unrelated groups:
+**Both corrections here came from the reviewer, and the second is the
+interesting one.** The first draft counted 440/8 — a pre-card snapshot, a
+whole-directory claim that excluded the file making it. The second: it reported
+`cloud-container` as **12 named**, when the answer was **13 all along**. One
+card's venue line reads `cloud-container, owner PRESENT`, and the counting
+script split on whitespace without stripping the comma, bucketing that card
+under `cloud-container,` as if it were a different venue. **The card was
+mis-binned before this session's card existed** — so that figure was wrong for a
+reason having nothing to do with the snapshot, and two independent errors
+happened to live in one number.
+
+**9 of 441 carry a `withheld` model segment**, and they are two unrelated groups:
 
 - **3 older, different cause** — `2026-07-10` ×2 and `2026-08-11`, reading
   *"withheld per session policy (Fable-5 review wave…)"*. One of them **names
   Fable-5 in its own parenthetical**, so that was a review-wave convention, not
   a harness restriction.
-- **5 consecutive and current**, the group that matters.
+- **6 consecutive and current**, the group that matters — the five below plus
+  this card.
 
 Ordered by **commit time** rather than filename date — which matters, because
 the first one is *dated* 08-28 and was *committed* on 08-29:
@@ -124,9 +168,11 @@ the first one is *dated* 08-28 and was *committed* on 08-29:
 hours, overnight.** Every card committed before it names a model; every card
 committed after it withholds. Nothing in between.
 
-**Venue does not explain it.** Cross-tabulated over the whole corpus:
-`cloud-container` cards split **12 named / 5 withheld**, so it is not a
-cloud-versus-laptop effect. Time is the only variable that separates the groups.
+**Venue does not explain it.** Cross-tabulated over the whole corpus with the
+venue token normalised: `cloud-container` cards split **13 named / 6 withheld**,
+so it is not a cloud-versus-laptop effect. Time is the only variable that
+separates the groups — and note the conclusion was unchanged by the corrected
+figures, which is exactly why the error survived a first reading.
 
 **Count discipline:** these are **cards, not sessions** — one session can land
 two, so 5 withheld cards is an upper bound on 5 sessions and not a session
@@ -166,8 +212,14 @@ answer goes in the chat reply where it is allowed.
   same `📊 Model:` regex the kit's own parser uses, and commit times from
   `git log --diff-filter=A` per file — not from filename dates, which is what
   moves `estate-agent-error-audit` across the boundary.
-- Post-edit re-grep for `draft→ready` across all live `.md`: the only remaining
-  hit is the new text stating that draft→ready does *not* trigger a review.
+- Post-edit copy check. **The first version of this line claimed the re-grep
+  left "only one hit", which was false** — `draft→ready` legitimately appears in
+  8 live files, four of them the ones edited here (the corrected text names the
+  trigger in order to qualify it) and four unrelated, where it means an agent
+  flipping a PR out of draft. A bare phrase grep cannot separate those, so the
+  copy check that actually ran was `grep -rn` for the *claim* phrasings
+  (`Trigger: PR open`, `reviews trigger on`, `reviews this repo (on PR open`)
+  and reading each hit.
 
 ## Layer-2 handoff
 

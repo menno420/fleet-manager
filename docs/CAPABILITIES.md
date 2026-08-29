@@ -429,6 +429,8 @@ findings go here, below the fence.)
   the artefact that implements the behaviour was sitting in the container. Before recording any
   hook or CLI behaviour as undocumented, grep the binary. · workaround: none needed. —
   LAST-VERIFIED: 2026-08-08
+- 2026-08-29 · capability · `any` · **Ask for the Codex review; do not wait to be noticed — re-verification of the 2026-08-07 entry's trigger list below.** · evidence: Codex's own about-box advertises three triggers (open a PR for review · mark a draft ready · comment `@codex review`), and the advertised automatic ones did not produce a review in the two observations available. **fm #977, the sharpest:** PR created `19:57:21Z` with `draft=false`; no Codex comment existed until `19:58:23Z`, **15 s after** the manual `@codex review` at `19:58:08Z`. Since a trigger produces the `Running` summary in ~15 s, the 47 s the PR sat open and ready without one is a window in which an auto-trigger should already have posted. **fm #974, weaker and stated as such:** opened READY, zero Codex activity on `/pulls/{n}/reviews`, `/pulls/{n}/comments` and `/issues/{n}/comments` across its whole **422 s** open window — only 87 s past the ~335 s relay, and a queued review would plausibly be abandoned at merge, so it is suggestive rather than a clean null. Owner, live, same day: *"Codex only reviews if you ask it to."* · **RULE, superseding nothing in the 2026-08-07 row — that row's latency and inline-comment measurements stand, both taken on requested reviews:** post the `@codex review` comment every time; never rely on the PR-open or draft→ready triggers. The 2026-08-07 row's trigger list was never measured — it inherited that row's `MEASURED` framing by sitting inside it, and fm #974 opened a PR ready on the strength of it and polled for a verdict that was never coming. · **Instrument note:** the review-summary issue comment is **edited in place** and shows only the *latest* activity, so its `Review trigger` column is not a history — reading three `Manual request` rows across three heads does not establish that nothing else fired. Use the comment's `created_at` against the PR's `created_at`, which is what the fm #977 measurement above does. · workaround: none needed. — LAST-VERIFIED: 2026-08-29
+
 - 2026-08-24 · capability · `any` · **The clean verdict's `Reviewed commit:` line is OPTIONAL, and the headline does not predict it — re-verification of the 2026-08-23 entry below.** · evidence: fm #938's clean pass (issue comment `2026-08-23T23:42:43Z`, 3,155 bytes) contained **no `Reviewed commit:` line** — `'Reviewed commit:' in body` → **False** — and named the head only as a 40-hex SHA inside `blob/<sha>/…` URLs, beside the merge-preview SHA. fm #939's clean pass, **same `Approved — no blocking findings` headline**, **did** carry the line. So line presence is an **independent variation**: never branch on the headline. · **RULE, superseding the "match the `Reviewed commit:` SHA on both surfaces" instruction in the 2026-08-23 row below:** match **per surface** — a REVIEW object carries `commit_id`, compare it directly; an ISSUE COMMENT has none, so try `Reviewed commit:` first and fall back to testing whether your head is **among** the 40-hex SHAs in the body (presence, not position — one of them is the merge preview). If nothing matches, re-request rather than guess. · workaround: none needed. — LAST-VERIFIED: 2026-08-24
 
 - 2026-08-23 · capability · `any` · **A CLEAN Codex verdict creates no review object and lands in `/issues/{n}/comments` — second independent confirmation.** · evidence: fm #924, verdict posted `2026-08-23T11:23:57Z` (~3 min after open) reading *"Didn't find any major issues"*, while `/pulls/924/reviews` and `/pulls/924/comments` both returned **0**. First observation: websites #511, 2026-08-22. **Match the `Reviewed commit:` SHA on both surfaces** — recency is not sufficient, since a stale clean verdict from an earlier head otherwise reads as covering the current one. **⚠ THIS SENTENCE IS SUPERSEDED by the 2026-08-24 entry above — do not follow it as written.** It assumes every clean verdict carries a `Reviewed commit:` line; fm #938's did not, so following it reports a real verdict as absent. The measurement in this row stands as recorded on its date; only the instruction is superseded. Marked rather than rewritten, per § 5's append-never-edit rule. · **How this entry came to exist:** a session polled only `/reviews` and `/pulls/{n}/comments` for 24 minutes, concluded no review had arrived, and wrote that into a committed card — the PR had passed clean. The canonical section had said so since the day before and **no route delivered it**; route `codex-verdict-poll` now does. — LAST-VERIFIED: 2026-08-23
@@ -440,15 +442,16 @@ findings go here, below the fence.)
   **inline review comments**, not in the review body, so a summary that looks empty is not an
   empty review — read `/pulls/{n}/comments`. **And a CLEAN verdict is
   neither** — see § *"Codex's CLEAN verdict is an issue comment"* below, which is
-  canonical and carries the SHA-match requirement — note the clean-pass body shape **varies**, and only one of the two observed shapes has a `Reviewed commit:` line. **Ask for the review; do not wait to be noticed.** Codex advertises three
-  triggers (PR open · draft→ready · the `@codex review` comment) and only the
-  third is reliable: `MEASURED` 2026-08-29, fm #974 opened READY produced zero
-  Codex activity across all three read surfaces for its whole **422 s** open
-  window — 87 s past the ~335 s relay, which is a thin margin and not a clean
-  null (a queued review would plausibly be abandoned at merge). fm #977 produced
-  a review seconds after a manual request, self-logged as `Review trigger:
-  Manual request` — that half is unambiguous, and it is the half the rule rests
-  on. Owner, live,
+  canonical and carries the SHA-match requirement — note the clean-pass body shape **varies**, and only one of the two observed shapes has a `Reviewed commit:` line. Reviews trigger on PR open, draft→ready, and the
+  literal comment `@codex review`. **⚠ THIS SENTENCE IS SUPERSEDED by the
+  2026-08-29 entry above — do not act on the first two triggers.** They are what
+  Codex's about-box advertises, and neither produced a review when observed;
+  fm #974 opened a PR ready on the strength of this sentence and polled for a
+  verdict that was never coming. The measurement in this row — the 335 s latency
+  and the inline-comment shape — stands as recorded on its date, both taken on a
+  *requested* review; only the trigger list is superseded, and it was never
+  measured here in the first place. Marked rather than rewritten, per § 5's
+  append-never-edit rule. Owner, live,
   same day: *"Codex only reviews if you ask it to."* The latency and
   comment-shape measurements below are unaffected — both were taken on requested
   reviews. Across #812/#813 it produced **13 findings over 5 rounds**,
