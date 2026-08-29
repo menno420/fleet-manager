@@ -1,8 +1,10 @@
 # 2026-08-29 — the audit's own banner counters, corrected
 
-> **Status:** `in-progress` — born-red. A two-number documentation correction to
-> a merged finding; cleared to proceed by OD-26 §14 (*"document corrections do
-> not [wait for the revised plan]"*).
+> **Status:** `complete` — the two counters are corrected and every sibling copy
+> re-grepped. **No review was requested and the reason is stated below**, so
+> there is no outstanding verdict for the flip to outrun (TRAP-007). A two-number
+> documentation correction to a merged finding; cleared to proceed by OD-26 §14
+> (*"document corrections do not [wait for the revised plan]"*).
 
 - **📊 Model:** withheld · high · docs-only
 - **📍 Venue:** cloud-container
