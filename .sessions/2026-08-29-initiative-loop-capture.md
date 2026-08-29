@@ -41,6 +41,38 @@ finally writes down as [D-0022]. Captured:
   everything in S1–S4, which is named for the plan's implementation
   sessions, not started (OD-26 §13/§14).
 
+## ⚠ Near-miss: the capture "merged" before it was ever pushed
+
+The first landing attempt failed in a way worth its whole record:
+
+1. **The session was on a detached HEAD and its pushes were no-ops.** A stray
+   `git checkout -q origin/main --` inside an earlier compound command
+   detached HEAD, so the capture commits landed on no branch; every
+   subsequent `git push -u origin <branch>` then pushed the *stale local
+   branch ref* — still at the fm #982 head — and reported "Everything
+   up-to-date", which a `| tail -1` reduced to the tracking line. The push
+   looked successful, was technically successful, and moved nothing. (First
+   written up here as a non-fast-forward rejection — wrong mechanism,
+   corrected by measuring: `git branch --show-current` came back empty and
+   the fix-context hook addressed the branch as `HEAD`. Two lessons, both
+   instrument-class: never truncate a push's output, and after any push that
+   matters verify `git ls-remote` against `git rev-parse HEAD` — the pair
+   that actually caught this.)
+2. **A PR was then created against the stale head** — content already on
+   `main` — and the merge-on-green lander merged it at `22:48:08Z` on the
+   old head's still-green checks: **fm #983 is a merged PR whose title
+   claims a capture its diff does not contain** (tree-identical merge;
+   `main` unchanged). The estate's "PR did not do what its title claimed"
+   class, produced this time by infrastructure rather than prose.
+3. **A Codex round was requested against that head** and ran on a
+   merged-empty PR — one wasted round, the exact waste the cadence decision
+   exists to avoid.
+
+Detection: the Codex Running summary named the *old* SHA, which did not
+match the pushed commit — the mismatch was the alarm. This PR (the
+successor) carries the actual capture; fm #983's thread gets one comment
+saying so.
+
 ## Verify
 
 - `python3 bootstrap.py check --strict` → real exit code, no pipe; born-red
