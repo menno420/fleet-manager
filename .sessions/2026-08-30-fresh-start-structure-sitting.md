@@ -141,6 +141,32 @@ with the last marked mandatory and this incident as its measurement — and to
 skills are `local` tier in `docs/SKILLS-local.md`, so no kit re-apply row is
 owed.
 
+### The same defect, one layer up — in the review round itself
+
+The owner's second correction, immediately after the first: *"This is a defect
+in the review round aswell."* He is right, and it is the more interesting half.
+The owner-review hook's question 1 ended *"If you only inferred it, say so in
+the reply"* — and this session discharged it by **writing the hedge**. A
+confession reads as rigour, costs one sentence, and satisfies the question
+literally; the `grep` that would have refuted it costs a tool call. So the
+review round was **rewarding wall-writing**: it converted an unchecked
+assumption into an explicitly stated limitation and called that an answer.
+
+Fixed in `.claude/hooks/owner_review.py`'s `FIXED` block by **ordering the
+discharge**: check first — grep `docs/CAPABILITIES.md` for the surface or
+credential, open the `providers/` or `conventions/` doc, read the file at the
+line, hit the live API — and confess only when the tree and the live surface
+genuinely cannot answer, naming the lookup you ran and what it returned. The
+question now states the rule outright: ***"I could not verify X" is a false wall
+unless you tried***, and a wall in a reply or a prompt is worse than one in a
+doc because `tools/check_no_false_walls.py` scans neither. The incident is
+recorded in a comment above the block, per the file's existing convention of
+carrying each question's measurement with it.
+
+Verified: `ast.parse` clean, and the hook exits 0 on an empty payload
+(fail-open, as designed). The real positive control is the next Stop event —
+the amended text appears in the feedback or the edit did not take.
+
 ## What the owner asked for, and what was still missing
 
 He asked for **a folder directed at him** — one place showing the ideas,
