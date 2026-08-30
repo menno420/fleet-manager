@@ -17,11 +17,12 @@ Why added : Owner, live 2026-08-30, in the fresh-start structure sitting:
             returns ZERO hits; the only pointer in the tree is inside
             docs/owner-queue.md, itself one of the surfaces he could not find
             things in.
-What it does: reads four source surfaces and writes owner/README.md.
+What it does: reads five source surfaces and writes owner/README.md.
             1. docs/owner-queue.md   -> Decide  (OQ- entries, open ones only)
             2. docs/repos/*/intent.md + docs/intent.md -> Answer (the ❓ lines)
             3. owner-guidance docs + the prepared prompts -> Read and edit
             4. idea backlog + unconsumed owner comments   -> Triage
+            5. owner/*.md siblings                        -> Read now
 Design    : GENERATED, never hand-maintained. The truth stays in the source
             files; this only aggregates. A hand-kept "needs Menno" page would
             be the highest-churn document in the repo and the first to rot,
@@ -191,6 +192,21 @@ def owner_guidance_docs() -> tuple[list[str], list[str]]:
     return live, old
 
 
+def owner_workbooks() -> list[str]:
+    """Editable owner-facing siblings beside the generated index."""
+    out: list[str] = []
+    for p in sorted((REPO / "owner").glob("*.md")):
+        if p == OUT:
+            continue
+        try:
+            head = p.read_text(encoding="utf-8")[:600]
+        except OSError:
+            continue
+        if "owner-guidance" in head:
+            out.append(p.relative_to(REPO).as_posix())
+    return out
+
+
 def ungroomed_ideas() -> tuple[list[str], str | None]:
     text = read("docs/planning/idea-backlog.md")
     if text is None:
@@ -228,6 +244,7 @@ def main() -> int:
     oq, oq_err = oq_entries()
     questions, q_missing = intent_questions()
     guidance, guidance_old = owner_guidance_docs()
+    workbooks = owner_workbooks()
     ideas, idea_err = ungroomed_ideas()
     comments, comments_unreadable = unconsumed_comments()
 
@@ -240,7 +257,7 @@ def main() -> int:
     a("> **Status:** `generated` — **do not hand-edit;** regenerate with")
     a("> `python3 tools/gen_owner_index.py`. **NOT SOURCE OF TRUTH:** every item")
     a("> below is a pointer, and the linked file wins. This page exists because")
-    a("> what needs your attention was spread across four surfaces you had to")
+    a("> what needs your attention was spread across several surfaces you had to")
     a("> already know about; it is swept from them so it cannot go stale.")
     a(">")
     a(f"> generated-at {stamp}")
@@ -249,6 +266,20 @@ def main() -> int:
     a("documents waiting for your own words · piles that need triage. **What is")
     a("not here:** anything an agent can settle without you.")
     a("")
+
+    a("## Read now — short workbooks in this folder")
+    a("")
+    if workbooks:
+        a("These are short drafts made for your own edits. Each separates your")
+        a("quoted words (`OWNER`) from a session's revisable inference (`DERIVED`).")
+        a("")
+        for rel in workbooks:
+            name = pathlib.PurePosixPath(rel).name
+            a(f"- [`{name}`]({name})")
+        a("")
+    else:
+        a("No editable sibling workbooks found.")
+        a("")
 
     a("## Decide — open items in the owner queue")
     a("")
@@ -385,7 +416,8 @@ def main() -> int:
     OUT.write_text(content, encoding="utf-8")
     print(f"owner index: {len(live)} open of {len(oq)} queue entries · "
           f"{sum(len(v) for v in questions.values())} question(s) · "
-          f"{len(guidance)} owner-guidance doc(s) · {len(ideas)} ungroomed idea(s) · "
+          f"{len(guidance)} owner-guidance doc(s) · {len(workbooks)} workbook(s) · "
+          f"{len(ideas)} ungroomed idea(s) · "
           f"{len(comments)} repo(s) with unconsumed comments -> {OUT.relative_to(REPO)}")
     return 0
 

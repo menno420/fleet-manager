@@ -9,6 +9,7 @@
 
 | finding | what it holds |
 |---|---|
+| [`2026-08-30-tree-only-cold-read.md`](2026-08-30-tree-only-cold-read.md) | The first measurement of the repository tree alone: pinned `main` path names, no document opened, four orientation questions plus three blind placements, then a strict scored delta after the full routed read. Verdict: purpose and two placements pass, era/work partial, exact next step and owner placement on the pinned tree fail; also separates placement findability from truth accuracy and requires future tests to pin a commit SHA. |
 | [`2026-07-22-pat-and-automode-capabilities.md`](2026-07-22-pat-and-automode-capabilities.md) | Post-close capability finding: the App-vs-PAT access model, a table of GitHub operations tested with real HTTP codes over direct egress, the four d…. |
 | [`2026-08-04-generated-art-pipeline.md`](2026-08-04-generated-art-pipeline.md) | Finding that spider-swing's art consistency came from a committed pipeline (contract-freezing, one-asset-per-call, full-res despill + three-scale a…. |
 | ★ [`2026-08-05-foundation-continuation.md`](2026-08-05-foundation-continuation.md) | Read-path entry 2b: the certainty legend (MEASURED/OWNER/REASONED/...) plus a 2026-08-05 five-item revised order of work, the false-negative gap, t…. |
