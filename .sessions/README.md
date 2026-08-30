@@ -126,3 +126,38 @@ resolves it.
 
 Measurement and the full reasoning:
 [`.sessions/2026-08-29-model-slot-grammar.md`](2026-08-29-model-slot-grammar.md).
+
+<!-- fleet-manager local amendment, 2026-08-29 (session-identity slot, [D-0023]) — NOT
+     kit text. Kit upgrades preserve this file — see the Venue amendment's note. -->
+
+## 🔗 Session — which conversation wrote this card (local amendment, 2026-08-29; REQUIRED)
+
+Directly under the `📍 Venue:` line, one line, **required on every card added
+from 2026-08-29 on** (owner directive, live — required with an honest null,
+*"a small fix that benefits us right away"*; decision ledger [D-0023]):
+
+```
+- **🔗 Session:** [session_01ABC…](https://claude.ai/code/session_01ABC…) · "the session's title"
+```
+
+**Read your own identity — never copy a neighbouring card's.** In a cloud
+container, `get_session` (claude-code-remote MCP, called with no argument)
+returns this session's `id` and `title`; the id doubles as the URL
+`https://claude.ai/code/<id>`. Quote the title as a search hint for the
+owner's session list — titles can be renamed, so the **id is the key**.
+
+**The honest null is the single literal token `unavailable`**, plus one line
+saying why (a venue with no session-reading tool, say). Same reasoning as
+`withheld` above: reddening an honest null invites an invented one, so the
+checker accepts exactly the token — but silence is not a null. A card with
+neither an id nor the token reds the added-card preflight
+(`scripts/preflight.py`, session-line check; local and CI run the same
+script).
+
+**Why:** the Model line answers *who*, Venue answers *where*, and nothing
+answered *which conversation* — so "ask the session that did this" meant the
+owner scrolling chat history from memory. The harness's `Claude-Session`
+commit trailer already carries exactly this and the repo's squash-merge
+discards the commit body (measured — fm #977's card, § 3), so the card is
+the artifact that survives. **No backfill**: existing cards say what their
+sessions knew (record tier).
