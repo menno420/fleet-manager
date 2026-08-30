@@ -28,11 +28,19 @@ the folders and reading the filenames."*
 
 Reorganizing in place breaks citations at scale (this repo is
 citation-dense; the estate's own convention for moves is permanent stubs). A
-fresh start whose records never move breaks nothing: **the old fleet-manager
-becomes the archive** — read-only, permanently linkable, every card and
-finding exactly where every citation expects it — and the new hub starts
-with only the distilled living core, born in the intended structure. The
-owner's archive ask and his fresh-repo ask solve each other.
+fresh start whose records never move breaks no **inbound** citation: **the
+old fleet-manager becomes the archive** — read-only, permanently linkable,
+every card and finding exactly where every existing link expects it — and
+the new hub starts with only the distilled living core, born in the
+intended structure. The one link class that does break is the carried
+documents' own **outbound** relative links (`docs/CAPABILITIES.md` and
+`docs/owner-queue.md`, for example, link relatively into `findings/`,
+`audits/` and `planning/` — copied whole, those would resolve inside the
+new hub where the targets don't exist), and the carry step owns it: at seed
+time every relative link in a carried document is rewritten to a permanent
+archive URL, or the entry is distilled rather than copied. Mechanical and
+enumerable, and named in the carry-cut below. The owner's archive ask and
+his fresh-repo ask solve each other.
 
 **And the counterweight, his too** (same sitting): *"some parts of the fleet
 manager repo are pretty well organized after all."* True, and load-bearing
@@ -133,8 +141,10 @@ human half: he finds a named document without opening an index.
   (cutover failed before because the replacement never worked; this one
   cannot ship unverified) — recorded as intent pending his explicit yes.
 - **The carry-cut:** proposed tier-based — living ledgers (decisions,
-  capabilities, owner-queue) and still-binding conventions carry whole;
-  cards, findings, audits and seat-era apparatus stay archived, reachable by
-  link. He mentioned seeding *"from fleet-manager and the other repos"* —
-  wider than this repo; the baseline audit scopes it.
+  capabilities, owner-queue) and still-binding conventions carry whole
+  **with their outbound relative links rewritten to permanent archive URLs
+  at seed time** (the link-rewrite pass above); cards, findings, audits and
+  seat-era apparatus stay archived, reachable by link. He mentioned seeding
+  *"from fleet-manager and the other repos"* — wider than this repo; the
+  baseline audit scopes it.
 - **The name.**

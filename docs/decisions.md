@@ -591,7 +591,9 @@
   becomes a fresh repository (possibly under a new name), built in the
   intended structure with the gates and this sitting's designs as birth
   rules; this fleet-manager is not reorganized in place — it becomes the
-  archive, read-only and permanently linkable, so no citation ever breaks.
+  archive, read-only and permanently linkable, so no inbound citation ever
+  breaks (carried documents' outbound relative links are rewritten to
+  archive URLs at seed time — the one link class copying breaks).
   His sequence: finish the plan → establish a trustworthy baseline from
   fleet-manager and the other repos (re-audit only where information has
   changed; every seeded claim carries a certainty tag) → build the skills,
