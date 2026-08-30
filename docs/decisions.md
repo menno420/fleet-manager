@@ -802,3 +802,114 @@
   ruling; each entry below names the exact recommendation it ratifies so any one
   of them can be corrected without disturbing the others. Here: recommendation 4, "when the archive-candidate
   check runs."
+
+## [D-0030] Session-card idea markers: one canonical form, gated by a checker, coached by the end-of-session skill
+
+- status: decided
+- date: 2026-08-30
+- verdict: Owner directive, live: *"I think the right way would be that a hook
+  triggers at the end if session which prompts a skill that tells each session
+  exactly what to write down in the session cards etc."* — agreed as
+  ***"Yes I think I agree with those suggestions"*** on this shape: (1) **no
+  second hook** — extend [D-0021]'s slice S2, the initiative skill and its
+  non-blocking end-of-session hook; (2) **form is gated by a checker**, the
+  `scripts/preflight.py` added-card lane that already enforces [D-0023]'s
+  `🔗 Session:` line; (3) **substance is coached by the skill**, since what is
+  worth recording is judgement no checker scores; (4) the canonical form is the
+  **bullet** `- 💡`; (5) **required with an honest null**, the [D-0023] shape;
+  (6) **no backfill** — S1 teaches the harvester all three existing forms.
+- why: measured 2026-08-30 across 453 cards — 452 carry the 💡 marker and **0
+  are text-only**, so the defect is the shape around the marker (bullet 59 ·
+  heading 198 · paragraph-start 206, overlapping), not its presence. And the
+  cost is not cosmetic: `scripts/gen_idea_backlog.py:70` harvests
+  `^- (?:\*\*)?💡` only, so **59 of 452 cards reach the queue and 391 do not**.
+  The bullet is canonical because it alone has an end delimiter — a machine can
+  find where a heading or paragraph idea stops only by guessing.
+- rules out: a second end-of-session hook; putting the format rule in the skill
+  where it can be skipped; putting the substance rule in a checker that cannot
+  judge it; rewriting the 452 existing cards; a sanctioned-but-optional marker.
+- depends on: [D-0021] slices S1 (harvester reads all three forms) and S2 (the
+  hook + skill). Neither is built; the [D-0022] planning hold governs.
+- provenance: owner, live, 2026-08-30, the fresh-start structure sitting;
+  design home `planning/2026-08-30-fresh-start-redirect.md` § *Answered — the
+  2026-08-30 afternoon sitting*.
+
+## [D-0031] The no-idea null retires an idea rather than promoting one, and says so in three places
+
+- status: decided
+- date: 2026-08-30
+- verdict: The owner proposed *"if there is no idea then a session should
+  possibly give another idea a +1 to move it up the queue or something"*,
+  heard the objections and took the alternative: the null's three permitted
+  answers, in preference order, are **a new idea** · **a retirement with a
+  stated reason** · **`nothing this session`**. His addition, verbatim:
+  *"when a session retired an idea it should state it clearly in the chat and
+  in the session card."* Recorded in **three** places — the chat, the session
+  card, and the durable disposition source — each doing a different job.
+- why: a raw +1 fails three ways. It makes the honest null expensive, so
+  fabricating a throwaway idea becomes the cheaper path — the exact junk the
+  cap exists to prevent. Agent votes are not independent: one model, one repo,
+  one list order, so forty votes are one opinion sampled forty times, and top
+  entries are read most and therefore stay top. And a tally is a
+  script-computable proxy for precisely the judgement reserved for humans in
+  the archive rule. Pruning also beats ranking on the numbers: the queue moves
+  from 57 toward ~450 once [D-0021]'s S1 lands, and a pile that size cannot be
+  ranked into usefulness. The third recording place is load-bearing and does
+  not yet exist — `gen_idea_backlog.py` reads only `.sessions/*.md` and
+  `docs/planning/*.md` and has no disposition concept, so a retirement written
+  only in a card leaves the idea re-harvested from that same card forever.
+- rules out: vote or +1 tallies as a queue-ordering signal; a null that
+  requires an action, and so is no longer free; a retirement recorded silently,
+  or without a reason, or in the card alone; deleting a retired entry (it stays
+  displayed per [D-0021] item 5, so a wrong kill is one line to reverse).
+- the useful signal instead: an **encounter** count — an idea raised in the
+  course of real work, with one line on how it came up — never a vote.
+- provenance: owner, live, 2026-08-30, same sitting; quoted verbatim above.
+
+## [D-0032] The findability contract: required reading order kept, one question per file, no file outside a folder
+
+- status: decided
+- date: 2026-08-30
+- verdict: Owner directive, live, correcting this repo's own acceptance test:
+  *"There should be a required reading order. What I meant is that when an
+  agent does its reading/orientation, it automatically notices which other
+  files except for the reading order are also worth reading into or at least
+  being made in such a way that if I later mention something, that the agent
+  knows that certain things are written in logical places."* Four rules follow:
+  (1) the required reading order **stays**, and the acceptance test is restated
+  to measure **retrieval** (a topic he names resolves to one folder before any
+  search — the scored half) and **placement** (a new document is filed
+  correctly — secondary); (2) **one question per file, one screen** — *"instead
+  of reading a 500 line file, you see for example 10 50 line files"* — split by
+  question, never by size, and append logs by subject, never by date; (3)
+  **names are as short as possible while still naming a question a reader would
+  ask**; (4) **no file lives outside a folder**, and the top-level map is
+  **generated** from the folder READMEs.
+- why: the earlier test wording (*"no map and no mandatory read list"*) plus §
+  structure-first naming *"the six-read order"* as compensation would have told
+  a future session to delete the reading order — the opposite of his intent.
+  On file size, a failure in this very session is the evidence: the answer to
+  *"can ChatGPT Work open a PR"* sat at `docs/execution-surfaces.md:137` and
+  203–206, the file was opened, the pattern matched, and `head -50` discarded
+  **56% of a 114-line result** before the answer was reported as unverifiable —
+  the predictable response to a long file, which no better name prevents.
+  Measured: 371 files, median 132 lines, **75 files over 300 lines holding 57%
+  of all prose**. On naming and READMEs, both of his rules are already
+  implemented (median name **2 words**; **62 of 65** subfolders carry a README)
+  — which is why the refinements carry the weight: short is not the goal,
+  answering a question is; and the 64 loose top-level files are in no folder and
+  so governed by no README, the one place the contract does not reach.
+- rules out: reading "structure replaces gates" as licence to drop the reading
+  order; splitting a comparison document (`execution-surfaces.md` stays whole);
+  splitting an append log by date; a hand-maintained top-level map — it drifted
+  this same session, when `owner/` was created and `docs/MAP.md` never learned
+  of it; scoring the acceptance test on a self-scored run.
+- scope, stated honestly: "no file outside a folder" addresses about **half**
+  of this session's eight observed failures — four were in foldered files
+  (`docs/providers/gemini-notebook.md`, `docs/planning/idea-backlog.md`,
+  `docs/planning/README.md`, `scripts/gen_idea_backlog.py`), where the session
+  read a document *describing* the thing rather than the thing. Structure
+  mitigates that (short files get read whole) but does not cure it.
+- provenance: owner, live, 2026-08-30, the fresh-start structure sitting;
+  design home `planning/2026-08-30-fresh-start-redirect.md` § *The acceptance
+  test* and § *Answered — the 2026-08-30 afternoon sitting*.

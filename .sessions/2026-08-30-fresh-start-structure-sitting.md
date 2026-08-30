@@ -185,6 +185,52 @@ enumerates. The prepared prompts are
 [`docs/planning/2026-08-28-owner-intent-questions.md`](../docs/planning/2026-08-28-owner-intent-questions.md)
 (167 lines, 12 sections), tracked as `OQ-INTENT-WRITE-UP`.
 
+## The afternoon batch — four more packages
+
+The sitting continued past the nine opening items. Settled and recorded as
+[D-0030] (card idea markers: one canonical bullet form, gated by the preflight
+added-card lane, coached by [D-0021]'s S2 skill, no backfill), [D-0031] (the
+no-idea null retires rather than votes, stated in chat + card + the durable
+disposition source that S1 must build), and [D-0032] (the findability contract:
+the required reading order stays, the acceptance test is restated around
+retrieval, one question per file, no file outside a folder, generated map).
+
+Measurements this session produced, all reproducible from the tree:
+
+- 453 cards · **452 carry 💡, 0 text-only** · bullet 59 / heading 198 /
+  paragraph-start 206 · `gen_idea_backlog.py:70` harvests the bullet only, so
+  **391 structural ideas are invisible to the queue**.
+- `docs/` + root: 371 files, median 132 lines, **75 files over 300 lines hold
+  57% of all prose**.
+- Median filename **2 words**; **62 of 65** subfolders carry a README; **64**
+  loose files at `docs/` top level belong to no folder.
+
+## Corrections this session made to its own claims
+
+Eight, each caught by the owner-review round rather than by a reader. The three
+that changed a recommendation: a design budget built on a source cap read from
+a hook summary rather than `docs/providers/gemini-notebook.md` (whose own table
+shows corpora already run at 6× that number); a queue-growth ceiling quoted as
+"up to 393" when the real structural figure was **391**; and a claim that every
+failure this session was a top-level file, when **four of eight were foldered** —
+the scope correction now carried in [D-0032] itself.
+
+The pattern behind most of them, stated so the next session can look for it:
+**grep-and-truncate reported as a read.** `head -50` on a 114-line result is
+what hid `docs/execution-surfaces.md:137`, and that single failure is the
+evidence base for [D-0032]'s one-question-per-file rule.
+
+## Cross-vendor review — fm #989
+
+ChatGPT Work delivered the independent second opinion (tree-only cold read,
+structure review, five `owner/` workbooks, draft `AGENTS.md` + `codex.md`).
+Reviewed at head `ce6044fc`: three findings raised, of which **F2 was withdrawn**
+after the owner clarified that the required reading order stays — the doc's
+wording, not the review, was wrong, and [D-0032] fixes it. Its review caught two
+real defects in this branch, both since fixed: `docs/MAP.md` carried no route to
+`owner/`, and `docs/planning/README.md` still listed the fresh-start confirms as
+open after they were answered.
+
 ## Verification
 
 - [ ] `python3 bootstrap.py check --strict` on a real exit code at the flip

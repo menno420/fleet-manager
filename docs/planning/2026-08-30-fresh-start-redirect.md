@@ -126,12 +126,40 @@ already maintains (`SKILLS-local.md`'s ⚠ re-apply table).
 
 ## The acceptance test (gates the cutover)
 
-The new hub is ready when a **cold agent given no map and no mandatory read
-list** orients from the tree and filenames alone: states the repo's purpose,
-era, current work and next step, and correctly places three test documents
-into the folders where they belong — blind-scored, the §4.8 fresh-agent
-method (producer + independent scorer). The owner's browsing test is the
-human half: he finds a named document without opening an index.
+**Restated 2026-08-30 (owner-live) — the earlier wording said the opposite of
+what he meant.** It read *"a cold agent given no map and no mandatory read list
+orients from the tree and filenames alone"*, and § structure-first named *"the
+six-read order"* among the compensation rules expected to dissolve. Taken
+together those would have told a future session to delete the reading order.
+His correction, verbatim: *"There should be a required reading order. What I
+meant is that when an agent does its reading/orientation, it automatically
+notices which other files except for the reading order are also worth reading
+into or at least being made in such a way that if I later mention something,
+that the agent knows that certain things are written in logical places, making
+it faster for me and the agents to navigate."*
+
+So the required reading order **stays**, and the test measures **findability**,
+in two directions:
+
+- **Retrieval (the scored half).** Name a topic the owner would plausibly
+  mention in chat — the Gemini notebook route, the archive rule, what
+  `spider-swing` is for, the Codex review cadence — and a cold agent resolves
+  each to one folder **before** searching. This is the direction that costs him
+  time daily, and it had never been tested.
+- **Placement (the secondary check).** Given a new document, the agent files it
+  where it belongs. Tested 2026-08-30 on the tree-only cold read: 2 pass, 1
+  fail.
+
+Both blind-scored by an independent agent, per the §4.8 producer + scorer
+method — a self-scored run does not meet this bar, which the 2026-08-30
+tree-only read notes about itself. The owner's browsing test is the human half:
+he finds a named document without opening an index.
+
+**What is compensation, stated narrowly** so this is not over-read again: a map
+that exists because 64 top-level files cannot be scanned by eye; a routing hook
+that fires because a session would not otherwise find the provider doc; his
+having to say *"go look in section X"* because the filename did not say it. An
+entry point is not compensation.
 
 ## Addendum — the owner's structure sketch (2026-08-30, pre-sleep), with the consults he invited
 
@@ -443,3 +471,139 @@ tracked as `OQ-INTENT-WRITE-UP`. **Why he could not find them, `MEASURED`
 `docs/current-state.md` returns **zero** hits — including `docs/repos/README.md`,
 the index of the very folder they live in. The only pointer in the tree is
 inside `docs/owner-queue.md`.
+
+
+## Answered — the 2026-08-30 afternoon sitting (his words, verbatim)
+
+Continuing the same day. Four packages settled, each recorded here because the
+mechanisms they describe are not yet built and the [D-0022] hold governs.
+
+### Session-card grammar and the idea marker
+
+His observation, and the correction the measurement made to it: he recalled
+*"some where marked with an emoji and some marked by text."* Measured across
+all 453 cards — **452 carry the 💡 marker and 0 are text-only**. The
+inconsistency is the *shape around* the marker: bullet (59) · heading (198) ·
+paragraph-start (206), counts overlapping. And the damage is larger than the
+inconsistency: `scripts/gen_idea_backlog.py:70` harvests
+`BULLET_RE = ^- (?:\*\*)?💡` only, so **59 of 452 cards are harvested and 391
+are invisible to the queue** (structural forms only; just 2 cards carry an
+inline mention alone).
+
+His mechanism: *"a hook triggers at the end if session which prompts a skill
+that tells each session exactly what to write down in the session cards etc."*
+Agreed, with the split the estate's own record requires:
+
+- **Not a second hook** — extend [D-0021]'s slice **S2** (the initiative skill
+  and its non-blocking end-of-session hook). Two hooks at the same moment
+  compete for one session's attention.
+- **Form goes in a checker, not the skill.** `scripts/preflight.py` already
+  enforces [D-0023]'s `🔗 Session:` line on added cards, locally and in CI;
+  the idea marker extends that lane. A skill can be skipped; a gate cannot.
+- **Substance goes in the skill** — what is worth writing down is judgement no
+  checker can score.
+- **Canonical form: the bullet** `- 💡`. One line, one idea, unambiguous
+  boundary; the heading and paragraph forms have no end delimiter, which is
+  why a machine cannot find where they stop.
+- **No backfill.** [D-0021]'s slice **S1** teaches the harvester all three
+  forms — that is what recovers the 391 — and the 452 existing cards stay as
+  they are, per [D-0023]'s record-tier precedent.
+- **Required with an honest null**, the [D-0023] shape, his call: *"Yes I think
+  I agree with those suggestions."*
+
+### The honest null does work: retire, don't vote
+
+His proposal: *"if there is no idea then a session should possibly give another
+idea a +1 to move it up the queue or something."* Argued against and he
+accepted the alternative. Three reasons a raw +1 fails: it makes the null
+expensive, so fabricating a throwaway idea becomes the cheaper path; agent
+votes are not independent (one model, one repo, one list order — forty votes
+are one opinion sampled forty times, and top entries get read most so they
+stay top); and a tally is a script-computable proxy standing in for exactly the
+judgement he reserved for humans in the archive rule.
+
+What replaces it, in preference order — **a new idea** · **a retirement with a
+stated reason** · **`nothing this session`**, the third staying free so no
+session is pushed into fabricating either an idea or a kill. The null points at
+the cap rather than the ordering: with the queue heading from 57 toward ~450
+once S1 lands, ranking is hopeless and pruning is the only thing that helps.
+[D-0021] item 5 already permits any session to retire an idea with a stated
+reason, and the retired entry stays *displayed* — so a wrong kill is one line
+to reverse.
+
+His addition, verbatim: *"when a session retired an idea it should state it
+clearly in the chat and in the session card."* Three places, and they are not
+redundant — **the chat** (which is what makes his *"he spot-checks kills"* in
+[D-0021] item 5 possible at all), **the session card** (which session killed
+it, beside what else it did), and **the durable disposition source**. The third
+is load-bearing and does not yet exist: `gen_idea_backlog.py` reads only
+`.sessions/*.md` and `docs/planning/*.md`, and contains no disposition concept,
+so a retirement written only in a card leaves the idea **re-harvested from that
+same card on every regeneration**. Building that source is S1's job.
+
+### One question per file
+
+His rule: *"each folder should be split into multiple sub folders, so instead
+of reading a 500 line file, you see for example 10 50 line files."* The evidence
+is a failure in this session: asked whether ChatGPT Work could open a PR, the
+answer sat at `docs/execution-surfaces.md:137` and again at 203–206; the file
+was opened, the grep pattern matched those lines, and `head -50` discarded
+**56% of a 114-line result** that contained the answer, which was then reported
+as unverifiable. His reading of why structure beats instruction: *"even tho not
+all rules get followed even if they are currently in an agents context. I do
+know that you are programmed to investigate, and if you have the obvious names
+in front of you that match a certain task, I'm pretty sure that will make it a
+lot easier for you to search efficiently."*
+
+Measured across `docs/` + root: **371 files, median 132 lines, and 75 files
+over 300 lines holding 57% of all prose** — more than half the words sit in the
+fifth of files nobody reads whole, `owner-queue.md` (2,161) and
+`CAPABILITIES.md` (2,136) at the top.
+
+The rule, with the constraint that keeps it from backfiring: **split by
+question, not by size.** Sections answering different questions split; sections
+that are instances of one question stay together, because splitting a
+comparison destroys it — `execution-surfaces.md` is a comparison between
+surfaces and must not become five files. **Append logs split by subject, never
+by date**: chronology lives in git history, the same principle as the archive
+manifest. And `fleet-triage.md`, whose 52 sections are dated sweeps rather than
+per-repo entries, is not a split candidate at all — it is seat-era history and
+archives whole.
+
+### Naming, folder READMEs, and what actually leaks
+
+His rule: *"Each file should have a proper name that defines what the purpose
+is in as little tokens as possible. And the readme of the main folders should
+explain in a little more depth what everything is supposed to do, and same
+thing, better to have more small readmes than one large one."*
+
+Measured, and the surprise is that **both halves are already implemented here**:
+median filename is **2 words**, and **62 of 65** subfolders under `docs/`
+already carry a README. So neither is the missing piece, and two refinements
+matter more than the rules themselves:
+
+- **Short is not the goal; answering a question is.** `traps.md`,
+  `ownership.md`, `q-index.md` and `fence-index.md` are all short and none is
+  retrievable. The rule is *as few tokens as possible **while still naming a
+  question a reader would ask*** — `capabilities/chatgpt-work.md` beats
+  `CAPABILITIES.md` by being longer. (25% of names carry a `YYYY-MM-DD` prefix:
+  earned in evidence and record folders where recency is the question, a token
+  cost in live folders where the topic is.)
+- **The top-level map must be GENERATED from the folder READMEs.** Ten
+  contracts plus a hand-maintained index states the same fact twice and drifts —
+  measured this session: `owner/` was created and `docs/MAP.md` never learned
+  of it, because the map is written by hand.
+
+And the addition neither rule covers: **no file outside a folder.** `docs/` has
+**64 loose top-level files**, which are in no folder and therefore governed by
+no README — the one place the per-folder contract does not reach, and where the
+largest files live. Checkable: count files at a level no README governs.
+
+**Scoped honestly.** An earlier draft of this argued that every failure in this
+session was a top-level file. That is false — of eight, four were foldered
+(`docs/providers/gemini-notebook.md`, `docs/planning/idea-backlog.md`,
+`docs/planning/README.md`, `scripts/gen_idea_backlog.py`). Foldering did not
+protect them because in each the session read *a document describing the thing*
+rather than the thing. So this rule addresses about half the observed failures;
+the short-file rule covers most of the rest, and neither cures reading a
+description instead of a source.
