@@ -630,10 +630,14 @@
   claims (no certainty tag, no seed); reading "structure replaces gates"
   into this — practice gates stay, navigation-compensation rules are what
   the structure retires.
-- open (owner to confirm, not yet his verbatim): the hard-cutover rule (this
-  repo archives the day the new hub passes acceptance; no coexistence
-  window) and the exact carry-cut (proposed tier-based: living ledgers and
-  binding conventions carry; record tier stays archived); the name.
+- ~~open (owner to confirm)~~ **ANSWERED 2026-08-30**, the morning after this
+  entry, in the fresh-start structure sitting: the **hard cutover** (agreed on
+  a split form — an absolute write cutover, with the GitHub archive flag free
+  to lag without creating coexistence), the **carry-cut** (three verbs, not
+  two: carry whole · distill · archive only), and the **name** (`estate`).
+  His verbatim words for each are in the design home's § *Answered — the
+  2026-08-30 morning sitting*; the queue entry `OQ-FM-FRESH-START-CONFIRMS`
+  tracks what remains.
 - design home: `planning/2026-08-30-fresh-start-redirect.md` — his quotes
   whole, the differentiator table, the acceptance test, the counterweight.
 - provenance: owner, live, 2026-08-30, the audits-review sitting (the

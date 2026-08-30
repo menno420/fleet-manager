@@ -231,6 +231,31 @@ real defects in this branch, both since fixed: `docs/MAP.md` carried no route to
 `owner/`, and `docs/planning/README.md` still listed the fresh-start confirms as
 open after they were answered.
 
+## Codex round on fm #988 — 11 findings, all `[conceded]`
+
+Requested at flip-readiness per [D-0019], on head `bd3384a`. Codex returned
+**2 P1 and 9 P2**. Every one was verified locally and fixed; none survived.
+
+| # | Sev | Where | Finding | Disposition |
+|---|---|---|---|---|
+| 1 | P1 | `gen_owner_index.py:94` | closure inferred from `DONE` anywhere in a wrapped headline dropped a live entry (`OQ-SHIFTLIFE-PHASE0`, which retains two owner asks) | `[conceded]` — closure now read from the entry-status position only; the entry is back in the index (verified: 1 occurrence) |
+| 2 | P1 | `gen_owner_index.py:114` | only the ❓ line was kept, so questions rendered as fragments ending in "and"/"the" | `[conceded]` — continuation captured to the next question/heading/blank; output now full sentences |
+| 3 | P2 | `docs/decisions.md` D-0025 | open items listed as unanswered after the morning sitting answered all three | `[conceded]` — closed with a pointer to § *Answered* |
+| 4 | P2 | `gen_owner_index.py:83` | duplicate filter knew `(original body)` but not `(superseded body)`, so a resolved entry's superseded copy showed as open | `[conceded]` — both forms filtered |
+| 5 | P2 | redirect doc :133 | § structure-first still named the six-read order as compensation, leaving both the old and corrected readings in one document | `[conceded]` — that section rewritten; the reading order is explicitly excluded from the class |
+| 6 | P2 | `prompt-preflight/SKILL.md:79` | the literal `<vendor>` route resolves to `docs/providers/codex.md`, which does not exist | `[conceded]` — routed to `docs/providers/chatgpt.md` (Work/Codex § at :154) with a check-the-path-exists instruction |
+| 7 | P2 | redirect doc :490 | **391 counted cards, not blocks** — five cards carry several paragraph ideas, and one "heading" was an H1 title | `[conceded]` — re-derived: **409** structural blocks (197 heading + 212 paragraph). Sizing S1 on 391 understated recovery by 18 |
+| 8 | P2 | redirect doc :582 | README denominator excluded three tracked dirs for holding no Markdown | `[conceded]` — **62 of 68, six uncovered**, which is materially weaker evidence than 62 of 65 |
+| 9 | P2 | `gen_owner_index.py:307` | no drift check anywhere, so the generated CORE surface goes stale on the next source edit | `[conceded]` — `--check` mode added and wired into `scripts/preflight.py`; negative-controlled (exit 1 on injected drift, 0 clean) |
+| 10 | P2 | `gen_owner_index.py:295` | bare `\| … \|` rows without a header are not a Markdown table on GitHub | `[conceded]` — header + separator emitted |
+| 11 | P2 | `gen_owner_index.py:172` | an unreadable owner-comment index became a silent zero, so the page could assert "none unconsumed" about a source it never read | `[conceded]` — unreadable indexes collected and rendered as an explicit incompleteness warning |
+
+**Tally: 11 `[conceded]`, 0 `[survived]`, 0 `[partial]`.** Findings 7 and 8 are
+the notable ones — both corrected numbers this session had published, and both
+are the same defect class the session spent the day correcting in itself: a
+figure derived from a convenient denominator rather than the one the claim
+needs.
+
 ## Verification
 
 - [ ] `python3 bootstrap.py check --strict` on a real exit code at the flip

@@ -6,7 +6,7 @@
 > what needs your attention was spread across four surfaces you had to
 > already know about; it is swept from them so it cannot go stale.
 >
-> generated-at 2026-08-30T12:25:29Z
+> generated-at 2026-08-30T15:21:07Z
 
 **What is here:** things only you can decide · questions written for you ·
 documents waiting for your own words · piles that need triage. **What is
@@ -14,7 +14,7 @@ not here:** anything an agent can settle without you.
 
 ## Decide — open items in the owner queue
 
-38 open of 70 entries in [`docs/owner-queue.md`](../docs/owner-queue.md) (historical duplicate bodies excluded). Each entry there carries its
+38 open of 69 entries in [`docs/owner-queue.md`](../docs/owner-queue.md) (historical duplicate bodies excluded). Each entry there carries its
 own WHAT / WHERE / WHY-IT-MATTERS / UNBLOCKS.
 
 **Open (35)**
@@ -33,6 +33,7 @@ own WHAT / WHERE / WHY-IT-MATTERS / UNBLOCKS.
 - **`OQ-GEMINI-TIER`** — (VENUE: one evening, your account) Run the one-clip test before paying for a Gemini tier (2026-08-03).
 - **`OQ-SHIFTLIFE-CI`** — (VENUE: 2-min click) DE-ESCALATED: CI came back by itself; the click is now prevention, not repair (2026-07-25).
 - **`OQ-SHIFTLIFE-PRO-DRIFT`** — (VENUE: 1-min decision, geen haast) Een Pro-functie is per ongeluk gratis geworden — jouw plan, jouw keuze wat er nu in het plan staat (2026-07-26).
+- **`OQ-SHIFTLIFE-PHASE0`** — two owner asks: beta names (real-world) + Expo account (5 min) — sync is DONE, the product is beta-ready pending on-phone QA (2026-07-25).
 - **`OQ-SBW-DUP-FAILSAFE`** — (VENUE: hub) delete one of the two enabled "SuperBot World failsafe wake" crons.
 - **`OQ-KIT-WAVE-REMNANTS`** — (VENUE: hub) land the 4 remaining kit-wave v1.17.0→v1.20.1
 - **`OQ-WEBSITES-LABEL-MACHINERY`** — (VENUE: owner-live) remove the websites
@@ -47,7 +48,6 @@ own WHAT / WHERE / WHY-IT-MATTERS / UNBLOCKS.
 - **`OQ-WEBSITES-RAILWAY-POSTGRES`** — websites: add Railway PostgreSQL to project
 - **`OQ-WEBSITES-PAT`** — websites: a token for control-plane, one recipe, two tiers. STILL OPEN
 - **`OQ-CL-LICENSE`** — couch-legend: pick a license, or say "none on purpose". OPEN
-- **`OQ-FM-APPARATUS-SIZING`** — (superseded body) — right-size fleet-manager's own apparatus (NEXT-TASKS item 3).
 - **`OQ-RAILWAY-PROJECT-SPLIT`** — websites Railway duplication. Services exist in BOTH
 - **`OQ-RAILWAY-SHIFTLIFE-SCOPE`** — ⚑ one-letter call: does "keep only bot things" cover shiftlife?
 - **`OQ-RG-POSTGRES-BOTSITE`** — ⚑ one-letter call: the now-orphaned old-botsite database.
@@ -73,22 +73,22 @@ about a repo and marks every line `OWNER` (your words) or `DERIVED`
 
 ### [`docs/repos/spider-bot/intent.md`](../docs/repos/spider-bot/intent.md)
 
-- ❓ Is this a **tool for the game** — its job is to run the tester funnel and
-- ❓ The AI replies on mention anywhere public and takes initiative only in
-- ❓ This one is unusually concrete: if the game's closed test ends and the
-- ❓ It is the only repo where a careless push reaches real people within
+- ❓ Is this a **tool for the game** — its job is to run the tester funnel and feedback loop, and it is done when that works — or a **community thing in its own right** that keeps growing as long as the server does?
+- ❓ The AI replies on mention anywhere public and takes initiative only in `general`. What do you want people to *feel* about it — a useful utility that stays out of the way, or a character that belongs in the server? That judgment is yours and nothing else in the record implies it.
+- ❓ This one is unusually concrete: if the game's closed test ends and the community doesn't grow, does the bot keep running? It costs a Railway worker continuously and has real users today.
+- ❓ It is the only repo where a careless push reaches real people within minutes, and it has the *lightest* gate in the estate (informational CI, no PR requirement). Is that deliberate — you want to be able to fix the live bot fast — or is it just how it ended up?
 
 ### [`docs/repos/spider-swing/intent.md`](../docs/repos/spider-swing/intent.md)
 
-- ❓ **The question I most want answered here.** Why a swinging game? Was it the
-- ❓ **Is the goal to ship it, or to make it good?** You have deferred unlock
-- ❓ **Where did 25 k come from?** A number that specific usually has a story,
-- ❓ If the 12 testers come back and say it isn't fun, is that a signal to keep
-- ❓ It is the only repo where an outside clock runs whether or not anyone
+- ❓ **The question I most want answered here.** Why a swinging game? Was it the mechanic that interested you, wanting to ship something on Play, wanting to learn Godot, or something else entirely? Everything below is easier to get right once this line exists.
+- ❓ **Is the goal to ship it, or to make it good?** You have deferred unlock systems, Campaign depth and monetisation *by directive* until the core loop is right — which reads like the game matters more than the launch. If that's true, the launch date should stop being treated as the milestone.
+- ❓ **Where did 25 k come from?** A number that specific usually has a story, and if it was a guess it should say so — your own no-fake-precision rule.
+- ❓ If the 12 testers come back and say it isn't fun, is that a signal to keep tuning or a signal to stop? There is no wrong answer, but a session that doesn't know will always assume "keep tuning".
+- ❓ It is the only repo where an outside clock runs whether or not anyone works on it. Does that change how you want it prioritised against everything else, or is the evening-project rhythm exactly right as it is?
 
 ### [`docs/repos/substrate-kit/intent.md`](../docs/repos/substrate-kit/intent.md)
 
-- ❓ **Guiding question.** The kit's daily culture — markers, badges, born-red —
+- ❓ **Guiding question.** The kit's daily culture — markers, badges, born-red — was deliberately demoted at founding to *"house style, not program law"*, while the autonomy mechanics became binding law for every adopter. Was that the right split? It is the decision that made the card ritual survive and the ideas loop die.
 
 ## Read and edit — written for your hand, not ours
 
@@ -135,6 +135,8 @@ is a real answer. Tracked as `OQ-INTENT-WRITE-UP`.
 harvests one of three idea formats and calls its own count *"a floor
 over one formatting style, never a measurement of the corpus."*
 
+| Card date | Source card | Idea | Groom status |
+|---|---|---|---|
 | 2026-07-21 | `2026-07-21-fm-final-closer.md` | close-out day — no new idea beyond the closer itself; the honest slot-filler rule (Q-0089 … | **ungroomed** ⚠ >2d |
 | 2026-07-20 | `2026-07-20-fm-morning-records.md` | I9 UNCOVERED-CHAIN | **ungroomed** ⚠ >2d |
 | 2026-07-15 | `2026-07-15-wake-1126z-queue-sweep.md` | I9 heartbeat-vs-registry coherence invariant | **ungroomed** ⚠ >2d |

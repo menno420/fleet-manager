@@ -79,7 +79,10 @@ def oq_entries() -> tuple[list[tuple[str, str, str]], str | None]:
         headline = tail.strip()
         if len(headline) < 40 and i + 1 < len(lines):
             headline = (headline + " " + lines[i + 1].strip()).strip()
-        if "(original body)" in headline:
+        # Both duplicate forms the queue actually uses. Recognizing only
+        # "(original body)" left the SUPERSEDED copy of a resolved entry
+        # showing as open (Codex, fm #988: OQ-FM-APPARATUS-SIZING).
+        if "(original body)" in headline or "(superseded body)" in headline:
             continue
         # PARTIAL and HELD are tested FIRST and the order is load-bearing: a
         # partly-answered entry carries ✅ for the half that IS answered, so a
@@ -90,13 +93,27 @@ def oq_entries() -> tuple[list[tuple[str, str, str]], str | None]:
             state = "partial"
         elif any(t in headline for t in HELD):
             state = "held"
-        elif any(t in headline for t in CLOSED):
+        elif _closed_state(headline):
             state = "closed"
         else:
             state = "open"
         headline = re.sub(r"\*\*|`|—\s*$", "", headline).strip(" -—*")
         out.append((slug, state, headline[:200]))
     return out, None
+
+
+def _closed_state(headline: str) -> bool:
+    """Closure must be the ENTRY's status, never an incidental status word.
+
+    A substring test anywhere in the wrapped headline drops live owner work:
+    `OQ-SHIFTLIFE-PHASE0` says only that a *sync* is DONE while explicitly
+    retaining two owner asks, and was omitted from the index entirely
+    (Codex, fm #988). Require the marker to sit in the entry-status position —
+    the leading run of the headline, before the em-dash that opens the prose —
+    so a status word inside the description cannot close an entry.
+    """
+    head = re.split(r"\s+[—–]\s+", headline, maxsplit=1)[0]
+    return any(tok in head for tok in CLOSED)
 
 
 def intent_questions() -> tuple[dict[str, list[str]], list[str]]:
@@ -111,7 +128,26 @@ def intent_questions() -> tuple[dict[str, list[str]], list[str]]:
         except OSError:
             missing.append(rel)
             continue
-        qs = [ln.strip(" >*").rstrip() for ln in lines if "❓" in ln]
+        # Questions wrap across lines; keeping only the ❓ line emitted
+        # fragments ending in "and" or "the" (Codex, fm #988). Take each
+        # question through its continuation, to the next blank line,
+        # question, or heading.
+        qs = []
+        i = 0
+        while i < len(lines):
+            if "❓" in lines[i]:
+                buf = [lines[i].strip(" >*").rstrip()]
+                j = i + 1
+                while j < len(lines):
+                    nxt = lines[j].strip(" >*").rstrip()
+                    if not nxt or "❓" in lines[j] or lines[j].lstrip().startswith("#"):
+                        break
+                    buf.append(nxt)
+                    j += 1
+                qs.append(" ".join(buf).strip())
+                i = j
+                continue
+            i += 1
         if qs:
             found[rel] = qs
     return found, missing
@@ -163,17 +199,28 @@ def ungroomed_ideas() -> tuple[list[str], str | None]:
     return rows, None
 
 
-def unconsumed_comments() -> list[tuple[str, int]]:
+def unconsumed_comments() -> tuple[list[tuple[str, int]], list[str]]:
+    """Unconsumed counts per repository, plus the indexes that could not be read.
+
+    A skipped unreadable index used to be indistinguishable from a zero, so the
+    page could assert "none unconsumed" on a source it never read — the exact
+    false affirmative the honest-null contract forbids (Codex, fm #988).
+    """
     out: list[tuple[str, int]] = []
+    unreadable: list[str] = []
     for p in sorted(REPO.glob("docs/owner-comments/*/README.md")):
         try:
             text = p.read_text(encoding="utf-8")
         except OSError:
+            unreadable.append(p.parent.name)
             continue
         m = re.search(r"## Unconsumed \((\d+)\)", text)
-        if m and int(m.group(1)) > 0:
+        if m is None:
+            unreadable.append(p.parent.name)
+            continue
+        if int(m.group(1)) > 0:
             out.append((p.parent.name, int(m.group(1))))
-    return out
+    return out, unreadable
 
 
 def main() -> int:
@@ -182,7 +229,7 @@ def main() -> int:
     questions, q_missing = intent_questions()
     guidance, guidance_old = owner_guidance_docs()
     ideas, idea_err = ungroomed_ideas()
-    comments = unconsumed_comments()
+    comments, comments_unreadable = unconsumed_comments()
 
     live = [e for e in oq if e[1] != "closed"]
     L: list[str] = []
@@ -291,6 +338,10 @@ def main() -> int:
         a("harvests one of three idea formats and calls its own count *\"a floor")
         a("over one formatting style, never a measurement of the corpus.\"*")
         a("")
+        # A bare "| … |" run is not a Markdown table without a header row —
+        # GitHub collapses it into a pipe-delimited paragraph (Codex, fm #988).
+        a("| Card date | Source card | Idea | Groom status |")
+        a("|---|---|---|---|")
         for row in ideas:
             a(row)
         a("")
@@ -301,10 +352,37 @@ def main() -> int:
             a(f"- [`{repo}`](../docs/owner-comments/{repo}/README.md) — {n}")
     else:
         a("**Owner comments:** none unconsumed.")
+    if comments_unreadable:
+        a("")
+        a("⚠ **Unreadable owner-comment indexes — this section is INCOMPLETE:** "
+          + ", ".join(f"`{r}`" for r in comments_unreadable)
+          + ". Their unconsumed counts are unknown, not zero.")
     a("")
 
+    content = "\n".join(L) + "\n"
+    # --check is the drift gate: the generated CORE surface is only correct if
+    # regenerating it here reproduces what is committed. Without it the index
+    # goes stale on the next queue edit — the exact failure the generated
+    # design claims to prevent (Codex, fm #988). The generated-at stamp is
+    # volatile by construction and is excluded from the comparison.
+    if "--check" in sys.argv:
+        strip = lambda s: "\n".join(
+            ln for ln in s.splitlines() if not ln.startswith("> generated-at "))
+        try:
+            live = OUT.read_text(encoding="utf-8")
+        except OSError:
+            print(f"owner index: {OUT.relative_to(REPO)} is missing — run "
+                  "`python3 tools/gen_owner_index.py`")
+            return 1
+        if strip(live) != strip(content):
+            print(f"owner index: DRIFT — {OUT.relative_to(REPO)} does not match its "
+                  "sources; run `python3 tools/gen_owner_index.py` and commit the result")
+            return 1
+        print(f"owner index: {OUT.relative_to(REPO)} is current")
+        return 0
+
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text("\n".join(L) + "\n", encoding="utf-8")
+    OUT.write_text(content, encoding="utf-8")
     print(f"owner index: {len(live)} open of {len(oq)} queue entries · "
           f"{sum(len(v) for v in questions.values())} question(s) · "
           f"{len(guidance)} owner-guidance doc(s) · {len(ideas)} ungroomed idea(s) · "

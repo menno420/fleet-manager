@@ -103,10 +103,13 @@ His challenge, granted: *"it would be foolish to create detailed skills and
 forced working methods while doing all that inside a repo that doesn't have
 any structure at all."* The refined split this direction rests on: the
 estate's rules are of two kinds. **Navigation-compensation rules** — the
-six-read order, the doc-routing table, the map itself — exist because the
-tree fails; in a right-shaped repo most of them shrink or become generated
-views, which is why he has had to say *"go look in section X"* to agents who
-then found no section X. **Practice gates** — born-red, verification before
+doc-routing table, and a map that exists because 64 top-level files cannot be
+scanned by eye — arise because the tree fails; in a right-shaped repo they
+shrink or become generated views, which is why he has had to say *"go look in
+section X"* to agents who then found no section X. **The required reading
+order is NOT in this class** — corrected 2026-08-30, owner-live: *"There
+should be a required reading order."* An entry point is orientation, not
+compensation; see § *The acceptance test* for the restatement and [D-0032]. **Practice gates** — born-red, verification before
 fold, review-before-flip — exist because prose-demanded practices died even
 when well-organized (the genesis measurement; the never-run fleet-preflight
 skill was well-written). The new hub is born with the kit and its gates in
@@ -486,9 +489,15 @@ all 453 cards — **452 carry the 💡 marker and 0 are text-only**. The
 inconsistency is the *shape around* the marker: bullet (59) · heading (198) ·
 paragraph-start (206), counts overlapping. And the damage is larger than the
 inconsistency: `scripts/gen_idea_backlog.py:70` harvests
-`BULLET_RE = ^- (?:\*\*)?💡` only, so **59 of 452 cards are harvested and 391
-are invisible to the queue** (structural forms only; just 2 cards carry an
-inline mention alone).
+`BULLET_RE = ^- (?:\*\*)?💡` only. Counted as **blocks**, which is what S1
+has to recover: **59 bullet blocks are harvested and 409 structural blocks are
+invisible** — 197 heading blocks plus 212 paragraph-start blocks. (Corrected
+after Codex review on fm #988: an earlier draft said 391, which counted
+*cards* rather than blocks — five cards carry several paragraph-start ideas —
+and included one H1 title in `2026-07-19-fm-evening-groom.md` that mentions 💡
+without being an idea heading. Sizing S1 on 391 understates the recovery by
+18.) By card, 59 of 452 are harvested; just 2 cards carry an inline mention
+alone.
 
 His mechanism: *"a hook triggers at the end if session which prompts a skill
 that tells each session exactly what to write down in the session cards etc."*
@@ -578,8 +587,13 @@ explain in a little more depth what everything is supposed to do, and same
 thing, better to have more small readmes than one large one."*
 
 Measured, and the surprise is that **both halves are already implemented here**:
-median filename is **2 words**, and **62 of 65** subfolders under `docs/`
-already carry a README. So neither is the missing piece, and two refinements
+median filename is **2 words**, and **62 of 68** subfolders under `docs/`
+carry a README — **6 uncovered**. (Corrected after Codex review on fm #988:
+an earlier draft said 62 of 65, a denominator that silently dropped three
+tracked directories for containing no Markdown — `docs/audits/2026-08-10-full-read/raw`,
+`docs/experiments/tools`, `docs/prompts/v3/tools` — even though the folder
+contract applies to them too. 62 of 68 with six uncovered is materially weaker
+evidence that the rule is "already implemented" than 62 of 65 was.) So neither is the missing piece, and two refinements
 matter more than the rules themselves:
 
 - **Short is not the goal; answering a question is.** `traps.md`,

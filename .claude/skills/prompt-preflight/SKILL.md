@@ -74,7 +74,12 @@ prompt.** Not one doc. Four, and the order matters because the last one is where
 the walls get refuted:
 
 1. **`docs/providers/<vendor>.md`** — model ids, surfaces, what the vendor
-   actually is this month.
+   actually is this month. **Check the filename exists before citing it**: the
+   record is named for the *vendor*, not the product, so Codex and ChatGPT Work
+   both live in [`docs/providers/chatgpt.md`](../../../docs/providers/chatgpt.md)
+   (its Work/Codex section begins at line 154) and there is no `codex.md`.
+   If no file matches the vendor, say so and fall back to source 4 rather than
+   citing a path you have not opened.
 2. **`docs/prompts/<vendor>-*.md`** — any standing instruction set already
    written for that surface. Do not re-derive one that exists.
 3. **[`docs/execution-surfaces.md`](../../../docs/execution-surfaces.md)** — the
