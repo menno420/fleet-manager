@@ -137,27 +137,39 @@ from 2026-08-29 on** (owner directive, live — required with an honest null,
 *"a small fix that benefits us right away"*; decision ledger [D-0023]):
 
 ```
-- **🔗 Session:** [session_01ABC…](https://claude.ai/code/session_01ABC…) · "the session's title"
+- **🔗 Session:** [session_01ABCDEFGH](https://claude.ai/code/session_01ABCDEFGH) · "the session's title"
+- **🔗 Session:** unavailable — <one line: why this venue cannot read it>
 ```
+
+**Exactly one of those two forms, full-matched in the header block** (the
+lines above the card's first `## ` heading — a fenced example in the body
+does not count). The checker requires the URL to embed the **same** id as
+the link text, the title in quotes, and the null's reason after the em-dash
+— substring variants (`unavailable-ish`, a foreign URL, an id buried in
+prose) red the added-card preflight (`scripts/preflight.py`, session-line
+check; local and CI run the same script).
 
 **Read your own identity — never copy a neighbouring card's.** In a cloud
 container, `get_session` (claude-code-remote MCP, called with no argument)
 returns this session's `id` and `title`; the id doubles as the URL
 `https://claude.ai/code/<id>`. Quote the title as a search hint for the
 owner's session list — titles can be renamed, so the **id is the key**.
+The null is honest, not convenient: same reasoning as `withheld` above —
+reddening an honest null invites an invented one, but silence is not a null.
 
-**The honest null is the single literal token `unavailable`**, plus one line
-saying why (a venue with no session-reading tool, say). Same reasoning as
-`withheld` above: reddening an honest null invites an invented one, so the
-checker accepts exactly the token — but silence is not a null. A card with
-neither an id nor the token reds the added-card preflight
-(`scripts/preflight.py`, session-line check; local and CI run the same
-script).
+**Delivered at authoring time, not just checked later:** the
+`session-card-venue` doc-route injects this requirement the moment a card
+is written, and the session-close skill's born-red step names it. The kit's
+auto-drafted skeleton does not yet carry the slot — a drafted card already
+counts incomplete, and the preflight red names exactly what to add.
 
 **Why:** the Model line answers *who*, Venue answers *where*, and nothing
 answered *which conversation* — so "ask the session that did this" meant the
 owner scrolling chat history from memory. The harness's `Claude-Session`
-commit trailer already carries exactly this and the repo's squash-merge
-discards the commit body (measured — fm #977's card, § 3), so the card is
-the artifact that survives. **No backfill**: existing cards say what their
-sessions knew (record tier).
+commit trailer already carries exactly this, but trailer survival depends on
+the merge path: fm #974/#975's squashed PRs lost their commit bodies
+(measured, fm #977's card § 3) while full history holds 341 trailer-carrying
+commits among 993 on `main` (the count blockquote above — the earlier
+"squash discards everything" reading was a shallow-clone artifact). The card
+is the per-session record that survives **regardless of merge style**.
+**No backfill**: existing cards say what their sessions knew (record tier).

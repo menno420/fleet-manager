@@ -46,12 +46,19 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 GUARD = "FM_PREFLIGHT_ACTIVE"
 
-# Required 🔗 Session line on every ADDED card (owner directive 2026-08-29,
-# D-0023; grammar: .sessions/README.md § 🔗 Session). A session id (which the
-# claude.ai/code URL form contains) or the single literal honest-null token
-# `unavailable` — silence is not a null.
+# Required 🔗 Session line in every ADDED card's header block (owner
+# directive 2026-08-29, D-0023; grammar: .sessions/README.md § 🔗 Session).
+# Full-match, one of exactly two canonical forms: the id-as-URL with the
+# title quoted (the backreference makes the URL embed the SAME id), or the
+# literal honest-null token with its reason. Only lines above the card's
+# first `## ` heading count, so a fenced example in the body cannot satisfy
+# it. First form was substring-loose (`unavailable-ish`, foreign URLs and
+# prose-wrapped ids all passed) — Codex on fm #985, conceded and hardened.
 SESSION_LINE_RE = re.compile(
-    r"^- \*\*🔗 Session:\*\* (?:.*\bsession_[A-Za-z0-9]{8,}\b|unavailable\b)")
+    r"^- \*\*🔗 Session:\*\* "
+    r"(?:\[(session_[A-Za-z0-9]{8,})\]\(https://claude\.ai/code/\1\) · \".+\""
+    r"|unavailable — .+)$"
+)
 
 
 def missing_session_line(cards: list[str]) -> list[str]:
@@ -61,7 +68,12 @@ def missing_session_line(cards: list[str]) -> list[str]:
             text = (REPO / card).read_text(encoding="utf-8")
         except OSError:
             continue  # an unreadable card is the added-card lane's finding
-        if not any(SESSION_LINE_RE.match(line) for line in text.splitlines()):
+        header: list[str] = []
+        for line in text.splitlines():
+            if line.startswith("## "):
+                break
+            header.append(line)
+        if not any(SESSION_LINE_RE.match(line) for line in header):
             bad.append(card)
     return bad
 

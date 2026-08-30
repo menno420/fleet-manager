@@ -529,8 +529,12 @@
   Because it's a small fix that benefits us right away."* The honest null is
   the single literal token `unavailable` plus one line saying why.
 - why: the harness's `Claude-Session` commit trailer already carries exactly
-  this and the repo's squash-merge discards the commit body (measured, fm
-  #977's card § 3), so the card is the artifact that survives; and a
+  this, but trailer survival depends on the merge path — fm #974/#975's
+  squashed PRs lost their commit bodies (measured, fm #977's card § 3) while
+  full history holds 341 trailer-carrying commits among 993 on `main`
+  (`.sessions/README.md`'s count blockquote; the broader "squash discards
+  everything" reading was a shallow-clone artifact) — so the card is the
+  per-session record that survives regardless of merge style; and a
   required line with an honest null is the gated form — the optional form is
   the prose-demanded practice the estate watched die. Implemented the same
   hour under [D-0022]'s carve-out at the owner's explicit word ("one of the
