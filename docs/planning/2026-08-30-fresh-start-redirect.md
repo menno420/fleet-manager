@@ -205,23 +205,206 @@ and flag-don't-move keep archive moves in deliberate single sessions) and
 its provenance worry (git history carries the timeline; the mirror only
 relocates the working view).
 
-**Open for his morning, from the sketch + consult:** stub-or-no-stub inside
-the new hub · the machine definition of "an active project uses it" ·
-whether session cards — born as records — skip the aging rule or are born
-archive-tier · `codex.md` folded into `AGENTS.md` or kept separate.
+## Answered — the 2026-08-30 morning sitting (his words, verbatim)
 
-## Open — owner to confirm; not yet his verbatim
+The § Open items below and the addendum's four questions were put to the owner
+one topic at a time on the morning of 2026-08-30. What he settled:
 
-- **The hard-cutover rule:** this repo archives (read-only on GitHub —
-  platform behavior to verify at execution time, not assumed) the day the
-  new hub passes acceptance; no coexistence window. His account implies it
-  (cutover failed before because the replacement never worked; this one
-  cannot ship unverified) — recorded as intent pending his explicit yes.
-- **The carry-cut:** proposed tier-based — living ledgers (decisions,
-  capabilities, owner-queue) and still-binding conventions carry whole
-  **with their outbound relative links rewritten to permanent archive URLs
-  at seed time** (the link-rewrite pass above); cards, findings, audits and
-  seat-era apparatus stay archived, reachable by link. He mentioned seeding
-  *"from fleet-manager and the other repos"* — wider than this repo; the
-  baseline audit scopes it.
-- **The name.**
+**The hard cutover — agreed, and split in two.** The session proposed
+separating the *write cutover* (the day the new hub passes acceptance, all new
+work goes there — absolute, no exceptions) from the *GitHub archive flag* (a
+mechanical step that may lag by days without creating coexistence, since
+coexistence is about where work happens, not about a flag). Owner: **"Agreed."**
+The reasoning behind the split is that his own EAP account names the fake
+"done" as what killed the last cutover, not the coexistence itself —
+coexistence was the symptom of a replacement that never worked.
+
+**The carry-cut — agreed, with the separation stated as a principle.** His
+words: *"Yes, I think we should be very strict about how historical records or
+finished work should be documented. I don't think it's a good idea to leave
+historical and current work in the same files like you said is now true in
+owner-queue."* So the proposed three verbs stand — **carry whole** (copied
+as-is, outbound relative links rewritten to archive URLs) · **distill**
+(rewritten fresh in the new hub, the long-form original archived and linked) ·
+**archive only** (stays put, reachable by link, nothing copied) — and the
+middle verb is the one his principle requires: `owner-queue.md` and
+`CAPABILITIES.md` are live *and* historical in the same file, which is exactly
+what he does not want carried forward.
+
+**Seeding scope, his words:** *"Seeding comes mostly from fleet-manager and
+superbot, tho some of the newer repos will have to add something aswell but
+mainly for the router/summary sections."* So the baseline audit is not
+estate-wide-equal: fleet-manager and `superbot` are the substantive sources;
+the newer repos contribute to the router and summary layers only.
+
+**The name — leaning `estate`, not yet confirmed.** His words: *"I think
+'estate' might be a good call, I was personally considering calling it
+'structure' but I feel like that name would make it a bit ambiguous to
+discuss."* His rejection reason is worth keeping: a repo named `structure`
+cannot be discussed without collision ("the structure of `structure`").
+`estate` is already his own vocabulary (`docs/ESTATE.md`) and names the thing
+rather than a mechanism — which is how `fleet-manager` went stale, naming a
+seat architecture retired 2026-07-21. **Recorded as leaning; the confirming
+word is still owed.**
+
+**Stubs inside the new hub — agreed, with the precondition made mechanical.**
+No per-file stubs, contingent on an inbound-reference rewrite pass; and the
+pass is a **tool, not a discipline** — `tools/archive_move.py` scans the repo
+for inbound references, rewrites every one, then moves the file. Moving a file
+any other way is out of contract. A stub remains only where the reference is
+external and cannot be rewritten. (The owner asked for this in plainer
+language and agreed on the restatement; the reason it must be a tool is the
+estate's own record that prose-demanded practices die.)
+
+**"An active project uses it" — his definition replaces the mechanical one,
+and changes what the rule is for.** His words: *"I think it should mean that
+the value the file holds is gone. So a file could sit untouched for 2 months
+and still not be archived as long as there are still certain things in there
+that are required for something that we plan on doing. But to prevent things
+from sitting around too long, there should probably be a script that surfaces
+these kinds of files that have been unused for a while."*
+
+This supersedes the session's proposed rule, which **decided** archive
+eligibility from a reference test. His splits the mechanism in two: a script
+**surfaces** candidates on a cheap mechanical proxy (untouched for N days —
+**N = 30** as his starting figure: *"30 days is probably a good start"*), and a
+person or session **judges** whether the value is gone. It also dissolves the
+reference-lock deadlock more cleanly than the proposed rule did: a file held by
+a stale plan reference simply appears on the candidate list and someone says
+the plan is dead — the reference is context, never a veto. Convergent with the
+already-decided flag-don't-move rule. Design note added by the session: the
+candidate list must carry *why* each file surfaced (days untouched, what still
+links to it), or the judgement costs an investigation and gets skipped.
+
+**How the pin is expressed — his words:** *"I think maybe a bit of both, one
+list that names them all, automatically arranged by a scrip that fetches the
+info from the files."* So: the marker lives in each file's header, the roster
+is generated from the markers, nobody hand-edits the roster. Same shape as
+`docs/owner-comments/*/README.md` and `docs/planning/idea-backlog.md`, the two
+generated indexes this estate already relies on.
+
+**When the check runs — open; he asked for a suggestion.** His words: *"Not
+entirely sure. what do you suggest?"* The session's suggestion, awaiting his
+word: neither a cron nor on-demand, but **as one more detector inside the
+initiative loop's end-of-session hook** ([D-0021] slice S2 — *not yet built*).
+Three reasons: it is the same shape (mechanical detector → surfaced candidate →
+agent disposition), it fires at the one moment an agent with loaded context is
+present to make the value judgement his definition requires, and it keeps one
+surfacing mechanism rather than two.
+
+**Session cards — archived on a clock, and read more than they are now.** His
+words: *"Yes, these cards should be consistently archived. But also, there
+should be more effort spend reading them. Maybe each new session should read
+the last 3 session cards each time, and the session cards should be written in
+such a way that they hold valuable information in a concise way. So it doesn't
+take too much context or time for an agent to read them, but would help an
+agent understand what the current work has been."*
+
+Two design notes from the session. First, this **strengthens an existing
+contract rather than adding a rule**: `.sessions/README.md` already requires a
+*Previous-session review* marker on every card; his version raises one to
+three. Second, concision needs structure, not exhortation — the proposal is a
+required short block near the top of every card (*"What the next session needs
+to know"*, 3–5 lines, written for someone who was not there) with the
+long-form record below it, so reading three cards costs about fifteen lines.
+That also fixes a mismatch his ask exposes: cards today are written as records
+*of* a session, not briefings *for* the next one. **This card is the first
+written to that shape.** Card volume, measured 2026-08-30:
+`ls -1 .sessions/*.md | wc -l` = **453** — the largest single document class in
+the repo, which is why they age on a fixed clock rather than on the
+reference test.
+
+**Per-vendor instruction files — his direction, superseding the session's
+fold-into-`AGENTS.md` proposal.** His words: *"I'm not entirely sure, all I
+know is that I think it's important that we have a way to separate the
+instructions for the different types of agents. So we should also have a
+grok.md and gemini.md, tho gemini itself does not see a repo as you or the
+other AIs would. so for that I have another solution. We can add this repo to a
+notebook or to google Drive, which does make it an extra part we need to
+maintain, but I think this will not be that hard since it can be as easy as
+just completely re-cloning the repo into there each time I intend to talk to
+gemini about it etc."*
+
+The session had argued for folding `codex.md` into `AGENTS.md`; his reason for
+separation generalises past Codex to Grok and Gemini, which that proposal had
+no answer for, so separation wins. The risk it introduces is split-brain —
+four vendor files each drifting into their own version of a shared rule — and
+the design answer is a strict division of labour: **`AGENTS.md` carries every
+rule that applies to all agents** (single source of truth, vendor-neutral),
+and **`CLAUDE.md` / `codex.md` / `grok.md` / `gemini.md` carry only the delta**
+(how that agent loads context, what access it has, what its surface cannot do).
+The rule that keeps it honest: a statement appearing in two vendor files
+belongs in `AGENTS.md` — checkable by duplicate-paragraph detection across the
+four, flag-only.
+
+**What the Gemini half already has here, and the constraint it comes with.**
+His Drive/notebook solution is largely built: `tools/build_notebook_bundle.py`
+(added 2026-08-23, hardened against nine `@codex` findings on fm #934)
+enumerates tracked files only, converts what a notebook cannot ingest,
+flattens paths into filenames because the filename is the citation label, and
+partitions rather than merges; `docs/providers/gemini-notebook.md` carries the
+convention, and `OQ-GEMINI-NOTEBOOKS` is his own standing queue entry. Its
+recorded caps: **50 sources per notebook** (`MEASURED`, Google's FAQ) and
+**300 on PRO** (`OWNER`, read off the Dutch splash, not on the fetched FAQ
+page and not established for the standalone surface). Its § built table records
+`curious-research` at 110 sources → 1 notebook and `idea-engine` at 779 → 3
+notebooks split 300/292/190, so a corpus over the cap **partitions cleanly
+rather than failing**. Two design consequences: the archive must be excluded
+from the bundle (the `CORPORA` table at `tools/build_notebook_bundle.py:81`
+takes `exclude_exact` paths only, so a subtree exclusion needs a small code
+addition, not just config); and `gemini.md` is two documents, since Gemini
+reads a flat pile with no tree, no git and no dates — instructions to *us* on
+preparing its context, and **an orientation source that goes into the notebook
+as source #1** saying what the snapshot is, when it was taken, and that
+anything later is invisible to it.
+
+**Mirror drift — frozen, and the real fix is upstream.** His words: *"Yes I
+kinda agree, tho I also think we should make sure that there don't have to be
+any renames along the way."* Both halves are adopted. The archive mirrors the
+tree **as it was at archive time** and does not track later renames — tracking
+them would rewrite archive paths and destroy the one property the archive
+exists to provide. And his upstream point becomes a design requirement: folders
+are **named by role, with the set of roles exhaustive**, so every document has
+one obvious home and nothing forces a rename later. The failure this repo
+already demonstrates is `docs/audits/` vs `docs/findings/` — neither name
+wrong, the taxonomy simply never closed, so material landed by feel. Because
+the archive freezes, a post-cutover rename is expensive; the naming decision is
+therefore free only now, during planning, which argues for a dedicated pass on
+the folder tree before anything is created.
+
+**The review-cadence amendment ([D-0019]) — confirmed.** His words: *"Yes,
+agreed."* Written into that entry in the same PR as this section.
+
+## Still open after this sitting
+
+- **The new hub's name** — leaning `estate`; his confirming word still owed.
+- **When the archive-candidate check runs** — the session's suggestion (a
+  detector inside [D-0021]'s S2 end-of-session hook) is with him.
+- **The idea-queue cap** — his proposal, verbatim: *"the ideas that agents
+  should create at the end of a session. These shouldn't stack too much either,
+  we should have a maximum amount, maybe 50 ideas at most at any time. If there
+  are more than 50 there has to be a dedicated session discussing them with me
+  and deciding which ones to keep, which ones to discard and which ones we
+  could possibly execute immediately. Tho preferably these ideas should be
+  discussed even sooner, or at least be made visible in a more efficient way."*
+  The session's response, with him: the cap should **trigger a review, never
+  block recording** (a hard stop at 50 makes an agent at #51 either suppress a
+  good idea or discard one without judgement); the cap must count **undisposed**
+  ideas, not harvested ones, since the backlog is generated and regenerates
+  ([D-0021] item 5's durable retirement source is what makes that countable);
+  and *"discussed even sooner"* is the more valuable half, best served by a
+  sharper trigger than raw count — an idea surfaced in three consecutive
+  sessions without disposition is more informative than the pile reaching an
+  arbitrary size.
+  **The measurement problem, `MEASURED` 2026-08-30:** the count does not
+  currently exist. `docs/planning/idea-backlog.md` reports *"57 idea block(s)
+  across 350 card(s) · 4 ungroomed"*, `generated-at 2026-08-11T18:01:58Z`, and
+  its own header states the harvest is *"the BULLET form only"*, that *"the
+  majority conventions … are NOT harvested"*, and that the figure is *"a floor
+  over one formatting style, never a measurement of the corpus"* — against 453
+  cards today. [D-0021]'s slice **S1** is the fix. Whether the undisposed count
+  is near 50 is unknown, and the one weak signal available (4 of 57 ungroomed,
+  ~7%, via a groom-detector the header itself tags unverified) argues **against**
+  an immediate breach rather than for one.
+- **A dedicated folder-naming pass** — proposed to him as the next sitting, on
+  the C2 reasoning above.
