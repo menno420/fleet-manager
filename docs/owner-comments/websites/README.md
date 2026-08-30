@@ -7,15 +7,15 @@
 > are public.** Read the [storage and privacy contract](../README.md)
 > before adding feedback. JSON preserves the owner's wording verbatim.
 
-## Unconsumed (1)
+## Unconsumed (0)
 
-| id | created at | source | record |
+No unconsumed owner comments.
+
+## Consumed history (1)
+
+| id | created at | consumed at | preserved record |
 |---|---|---|---|
-| `oc-c3c8bee2da350d92f9f32fe983e273bc` | `2026-08-28T00:34:26Z` | control-plane | [`oc-c3c8bee2da350d92f9f32fe983e273bc.json`](oc-c3c8bee2da350d92f9f32fe983e273bc.json) |
-
-## Consumed history (0)
-
-No consumed owner comments.
+| `oc-c3c8bee2da350d92f9f32fe983e273bc` | `2026-08-28T00:34:26Z` | `2026-08-28T00:43:20Z` | [`oc-c3c8bee2da350d92f9f32fe983e273bc.json`](consumed/oc-c3c8bee2da350d92f9f32fe983e273bc.json) |
 
 ## Consume mechanically
 

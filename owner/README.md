@@ -6,7 +6,7 @@
 > what needs your attention was spread across four surfaces you had to
 > already know about; it is swept from them so it cannot go stale.
 >
-> generated-at 2026-08-30T15:25:34Z
+> generated-at 2026-08-30T18:46:19Z
 
 **What is here:** things only you can decide · questions written for you ·
 documents waiting for your own words · piles that need triage. **What is
@@ -142,7 +142,5 @@ over one formatting style, never a measurement of the corpus."*
 | 2026-07-15 | `2026-07-15-wake-1126z-queue-sweep.md` | I9 heartbeat-vs-registry coherence invariant | **ungroomed** ⚠ >2d |
 | 2026-07-15 | `2026-07-15-oversight-wake-0715.md` | `check_owner_queue.py` now probes PR state live but the *session* venue always degrades to… | **ungroomed** ⚠ >2d |
 
-**Owner comments not yet consumed:**
-
-- [`websites`](../docs/owner-comments/websites/README.md) — 1
+**Owner comments:** none unconsumed.
 
