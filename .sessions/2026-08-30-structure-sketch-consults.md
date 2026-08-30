@@ -1,9 +1,14 @@
 # 2026-08-30 — the owner's structure sketch captured, with the consults he invited
 
-> **Status:** `in-progress` — born-red. The owner went to sleep leaving his
+> **Status:** `complete` — the owner went to sleep leaving his
 > target-structure ideas in chat with an explicit invitation: *"you can think
 > about this and discuss with gemini and codex if you want."* Chat does not
-> survive a container reclaim; this PR does.
+> survive a container reclaim; this PR does. Both invited consults ran and
+> both changed the design: Gemini's six adversarial findings are in the
+> addendum, and the Codex round (review object on `9ebe693`) added two more
+> — the no-stub candidate now carries an inbound-link-rewrite precondition,
+> and the archive search exclusion moves from prose into the tools' real
+> ignore configuration. Fixes Gemini-verified before this flip.
 
 - **📊 Model:** withheld · max · docs-only
 - **⚑ Model-slot note:** harness policy forbids a model identifier in a
@@ -70,6 +75,9 @@ tonight flipped only after its round answered, fixes Gemini-verified.
 sharpest finding generalizes past `archive/`: every mirror namespace
 (archive, backup, staging) makes each glob and grep return two generations
 of truth, and stale hits poison context silently. The new hub's tree design
-should reserve exactly one non-active namespace and teach the default
-search excludes in `AGENTS.md` — one convention, enforced by the search
-tools' own defaults, instead of per-folder warnings.
+should reserve exactly one non-active namespace and put its exclusion in
+the search tools' real ignore files (`.rgignore`/`.ignore` — not
+`.gitignore`, archived files stay tracked), with `AGENTS.md` documenting
+the opt-in for deliberate archive searches. (First written as "taught in
+`AGENTS.md`" — the Codex round corrected it: prose changes no tool's
+default.)

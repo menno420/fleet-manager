@@ -172,13 +172,21 @@ checker feeding the initiative queue — never an auto-move.
 his invitation). Its findings worth designing against:
 
 1. **Search pollution** — a same-structure `archive/` doubles every
-   glob/grep hit and feeds stale records into agent context; the tree needs
-   one namespace default searches exclude, taught in `AGENTS.md`.
+   glob/grep hit and feeds stale records into agent context. The Codex
+   round sharpened the fix: the exclusion must live in the search tools'
+   **actual ignore configuration** (`.rgignore`/`.ignore` — never
+   `.gitignore`, since archived files must stay tracked), with the opt-in
+   for deliberate archive searches documented in `AGENTS.md`; a convention
+   written only in `AGENTS.md` asks cooperative agents to remember and
+   changes no tool's default.
 2. **Stub accumulation defeats the cleanup it serves** — per-file stubs are
-   the clutter, one generation later. Candidate: no per-file stubs inside
-   the new hub at all — the archive path is *derivable* (same relative path
-   under `archive/`), so the convention plus one line per folder README
-   replaces every stub.
+   the clutter, one generation later. Candidate, with the precondition the
+   Codex round added: no per-file stubs inside the new hub **contingent on
+   the mover running a repository-wide inbound-reference check and
+   rewriting every link it finds** (the same mechanical pass the carry-cut
+   already owns — a derivable archive path helps only readers who already
+   know the move happened; it repairs no link). A stub remains only where
+   a reference cannot be rewritten (external citations).
 3. **Mirror drift** — renaming or splitting an active folder breaks the
    mirror's symmetry; the design must say whether `archive/` reflects the
    tree-at-archive-time or tracks renames.
