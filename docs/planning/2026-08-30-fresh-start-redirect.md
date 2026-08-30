@@ -479,7 +479,7 @@ inside `docs/owner-queue.md`.
 ## Answered — the 2026-08-30 afternoon sitting (his words, verbatim)
 
 Continuing the same day. Four packages settled, each recorded here because the
-mechanisms they describe are not yet built and the [D-0022] hold governs.
+mechanisms they describe are not yet built and the planning hold governs (the 2026-08-29 decision, ledger entry immediately after the initiative loop).
 
 ### Session-card grammar and the idea marker
 
@@ -503,21 +503,21 @@ His mechanism: *"a hook triggers at the end if session which prompts a skill
 that tells each session exactly what to write down in the session cards etc."*
 Agreed, with the split the estate's own record requires:
 
-- **Not a second hook** — extend [D-0021]'s slice **S2** (the initiative skill
+- **Not a second hook** — extend [the initiative-loop decision](2026-08-29-initiative-loop-design.md)'s slice **S2** (the initiative skill
   and its non-blocking end-of-session hook). Two hooks at the same moment
   compete for one session's attention.
 - **Form goes in a checker, not the skill.** `scripts/preflight.py` already
-  enforces [D-0023]'s `🔗 Session:` line on added cards, locally and in CI;
+  enforces the required `🔗 Session:` line (the 2026-08-29 card-grammar decision, stamped in [`../SKILLS-local.md`](../SKILLS-local.md)) on added cards, locally and in CI;
   the idea marker extends that lane. A skill can be skipped; a gate cannot.
 - **Substance goes in the skill** — what is worth writing down is judgement no
   checker can score.
 - **Canonical form: the bullet** `- 💡`. One line, one idea, unambiguous
   boundary; the heading and paragraph forms have no end delimiter, which is
   why a machine cannot find where they stop.
-- **No backfill.** [D-0021]'s slice **S1** teaches the harvester all three
+- **No backfill.** [the initiative-loop decision](2026-08-29-initiative-loop-design.md)'s slice **S1** teaches the harvester all three
   forms — that is what recovers the 391 — and the 452 existing cards stay as
-  they are, per [D-0023]'s record-tier precedent.
-- **Required with an honest null**, the [D-0023] shape, his call: *"Yes I think
+  they are, per that card-grammar decision's record-tier precedent.
+- **Required with an honest null**, the same required-with-an-honest-null shape, his call: *"Yes I think
   I agree with those suggestions."*
 
 ### The honest null does work: retire, don't vote
@@ -536,14 +536,14 @@ stated reason** · **`nothing this session`**, the third staying free so no
 session is pushed into fabricating either an idea or a kill. The null points at
 the cap rather than the ordering: with the queue heading from 57 toward ~450
 once S1 lands, ranking is hopeless and pruning is the only thing that helps.
-[D-0021] item 5 already permits any session to retire an idea with a stated
+[the initiative-loop decision](2026-08-29-initiative-loop-design.md) item 5 already permits any session to retire an idea with a stated
 reason, and the retired entry stays *displayed* — so a wrong kill is one line
 to reverse.
 
 His addition, verbatim: *"when a session retired an idea it should state it
 clearly in the chat and in the session card."* Three places, and they are not
 redundant — **the chat** (which is what makes his *"he spot-checks kills"* in
-[D-0021] item 5 possible at all), **the session card** (which session killed
+[the initiative-loop decision](2026-08-29-initiative-loop-design.md) item 5 possible at all), **the session card** (which session killed
 it, beside what else it did), and **the durable disposition source**. The third
 is load-bearing and does not yet exist: `gen_idea_backlog.py` reads only
 `.sessions/*.md` and `docs/planning/*.md`, and contains no disposition concept,

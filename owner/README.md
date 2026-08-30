@@ -6,7 +6,7 @@
 > what needs your attention was spread across four surfaces you had to
 > already know about; it is swept from them so it cannot go stale.
 >
-> generated-at 2026-08-30T15:21:07Z
+> generated-at 2026-08-30T15:25:34Z
 
 **What is here:** things only you can decide · questions written for you ·
 documents waiting for your own words · piles that need triage. **What is

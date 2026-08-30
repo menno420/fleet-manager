@@ -1,9 +1,10 @@
 # 2026-08-30 — the fresh-start structure sitting: nine open items answered
 
-> **Status:** `in-progress` — born red. The owner is answering the redirect
-> doc's § Open and § Addendum one topic at a time; this card grows as answers
-> land and flips only when the PR is verified green with a Codex round on the
-> flip head.
+> **Status:** `complete` — flipped after the Codex round on `bd3384a` returned
+> 11 findings (2 P1, 9 P2), **all 11 `[conceded]`, 0 `[survived]`**, each fixed
+> and verified against output rather than against the patch. Fixes checked on
+> the free-key Gemini route per [D-0019] (7/7 RESOLVED, no new issues);
+> `python3 bootstrap.py check --strict` read on its real exit code.
 
 - **📊 Model:** withheld · high · docs-only
 - **⚑ Model-slot note:** this session carries an instruction against a model
@@ -258,6 +259,22 @@ needs.
 
 ## Verification
 
-- [ ] `python3 bootstrap.py check --strict` on a real exit code at the flip
-- [ ] Codex round at flip-readiness ([D-0019]); Gemini for mid-session checks
-- [ ] Card flipped to `complete` as the deliberate last step
+- [x] `python3 bootstrap.py check --strict` read on its real exit code — never
+      `$?` after a pipe. Red throughout on the born-red hold alone, which is the
+      designed state, confirmed against the CI job log rather than assumed.
+- [x] Codex round at flip-readiness ([D-0019]) on `bd3384a`: 11 findings, all
+      conceded and fixed. Intermediate fixes verified on the free-key Gemini
+      route, not a second Codex round.
+- [x] The owner index drift check is negative-controlled: exit 1 on injected
+      drift, 0 when current — a gate that cannot fail would have been worthless.
+- [x] Three `[stamp]` findings surfaced only once the card flipped — the lane's
+      *"a real finding otherwise"* branch. The afternoon capture cited three
+      decisions homed in other documents, and the ledger rule is one citing home
+      per decision; rewritten as descriptive links. Gate went 4 findings -> 0.
+- [x] Noted for the new hub, found while resolving that: decision ids are **not
+      repo-qualified**, so this repo's docs quote other repos' `D-NNNN` ids
+      (`D-0030` is a superbot decision in `research/2026-07-12-problem-census-core.md`;
+      `D-0031` is quoted superbot-next checker output). No collision in this
+      ledger, but the namespace bleeds across repos — the same defect R28 fixed
+      for `owner/repo#N` references.
+- [x] Card flipped to `complete` as the deliberate last step.
