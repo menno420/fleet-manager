@@ -268,15 +268,26 @@ mainly for the router/summary sections."* So the baseline audit is not
 estate-wide-equal: fleet-manager and `superbot` are the substantive sources;
 the newer repos contribute to the router and summary layers only.
 
-**The name — leaning `estate`, not yet confirmed.** His words: *"I think
-'estate' might be a good call, I was personally considering calling it
-'structure' but I feel like that name would make it a bit ambiguous to
-discuss."* His rejection reason is worth keeping: a repo named `structure`
-cannot be discussed without collision ("the structure of `structure`").
-`estate` is already his own vocabulary (`docs/ESTATE.md`) and names the thing
-rather than a mechanism — which is how `fleet-manager` went stale, naming a
-seat architecture retired 2026-07-21. **Recorded as leaning; the confirming
-word is still owed.**
+**The name — `estate`, settled.** His words: *"I think 'estate' might be a
+good call, I was personally considering calling it 'structure' but I feel like
+that name would make it a bit ambiguous to discuss."* His rejection reason is
+worth keeping: a repo named `structure` cannot be discussed without collision
+("the structure of `structure`"). `estate` is already his own vocabulary
+(`docs/ESTATE.md`) and names the thing rather than a mechanism — which is how
+`fleet-manager` went stale, naming a seat architecture retired 2026-07-21.
+
+> **This paragraph read *"recorded as leaning; the confirming word is still
+> owed"* until 2026-08-30 evening, after the ledger had already settled it.**
+> The name is decided: the ledger entry naming the hub carries the verdict and
+> its provenance, and the queue entry `OQ-FM-FRESH-START-CONFIRMS` — which is
+> that decision's one citing home — shows all three confirms closed. (The id is
+> deliberately not repeated here: the first draft of this correction cited it
+> and thereby created the second-citing-home violation it was fixing.) The
+> contradiction landed because this section was written in the morning and
+> never re-read after the ledger moved, which is the same defect the
+> independent review named in its § 7: *"several polished front doors can each
+> be internally plausible and jointly stale."* Corrected in the follow-up PR
+> after the merge, found while reading the merged PR's own Codex review.
 
 **Stubs inside the new hub — agreed, with the precondition made mechanical.**
 No per-file stubs, contingent on an inbound-reference rewrite pass; and the
