@@ -144,6 +144,11 @@ def main() -> int:
         ("false walls", [sys.executable, "tools/check_no_false_walls.py", "--strict"]),
         ("pipe exit code", [sys.executable, "tools/check_pipe_exit_code.py", "--strict"]),
         ("owner comments", [sys.executable, "tools/owner_comments.py", "check"]),
+        # The owner index is a GENERATED CORE surface, so it is only true
+        # while it matches its sources. Until this ran here it regenerated
+        # solely when someone remembered to invoke it by hand — the exact
+        # staleness the generated design exists to prevent (Codex, fm #988).
+        ("owner index drift", [sys.executable, "tools/gen_owner_index.py", "--check"]),
         ("owner comment tests", [sys.executable, "tools/test_owner_comments.py"]),
         # The doc-route suite guards the routes AND their plumbing (which tools
         # a route opts into, whether a Bash-authored document reaches it). It

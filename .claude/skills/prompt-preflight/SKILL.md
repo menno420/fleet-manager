@@ -66,11 +66,46 @@ A large body of chat-only decisions means the planning was never recorded. Stop
 and run `decision-capture` — commit the decisions, then point at them. The prompt
 shrinks to a pointer and the decisions outlive the prompt.
 
-### 3 · Read the target surface's constraints
+### 3 · Read the target surface's constraints — ALL FOUR SOURCES, not one
 
-Prompts run somewhere, and surfaces differ in ways that break instructions
-silently. Read [`docs/execution-surfaces.md`](../../../docs/execution-surfaces.md)
-and check the four that actually bite:
+**The moment the owner names who the prompt is for — ChatGPT, Codex, Gemini,
+Grok, a Claude surface — reading that vendor's records is part of writing the
+prompt.** Not one doc. Four, and the order matters because the last one is where
+the walls get refuted:
+
+1. **`docs/providers/<vendor>.md`** — model ids, surfaces, what the vendor
+   actually is this month. **Check the filename exists before citing it**: the
+   record is named for the *vendor*, not the product, so Codex and ChatGPT Work
+   both live in [`docs/providers/chatgpt.md`](../../../docs/providers/chatgpt.md)
+   (its Work/Codex section begins at line 154) and there is no `codex.md`.
+   If no file matches the vendor, say so and fall back to source 4 rather than
+   citing a path you have not opened.
+2. **`docs/prompts/<vendor>-*.md`** — any standing instruction set already
+   written for that surface. Do not re-derive one that exists.
+3. **[`docs/execution-surfaces.md`](../../../docs/execution-surfaces.md)** — the
+   comparison table and the four constraints below.
+4. **`docs/CAPABILITIES.md`, grepped for the surface name.** This one is not
+   optional and it is the one that gets skipped:
+
+   ```bash
+   grep -n -i "<surface name>" docs/CAPABILITIES.md
+   ```
+
+**Why step 4 is mandatory.** `MEASURED` 2026-08-30: a session wrote a ChatGPT
+Work prompt having read sources 1–3, and hedged that it *"could not verify
+whether ChatGPT Work can open a PR through the connector."* The owner corrected
+it — *"Gpt work has full access and you could verify that in the repo"* — and
+`docs/CAPABILITIES.md:429` settles it in as many words: measured across fm #835's
+entire landing, the connector created the branch, the commits, a READY PR, review
+replies, resolved threads, read check runs and returned a full Actions job log,
+with repo metadata `admin: true, push: true`. The entry even ends *"Do not probe
+for `gh` or `$GITHUB_PAT` on that surface; their absence blocked nothing."* The
+hedge was a false wall, written into an artifact the receiving session would have
+obeyed — the exact failure `tools/check_no_false_walls.py` exists to catch, and it
+does not scan prompts. **Before you write a single line about what a surface
+cannot do, grep the ledger for it.**
+
+Then check the four that actually bite:
 
 - **Network during the task.** Off by default on some surfaces. Anything needing
   a download, a package install or a fetch either belongs in the environment's

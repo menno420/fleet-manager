@@ -175,9 +175,12 @@ When the exception fires:
 
 ### 5 · Adapt to the target surface
 
-Ask which surface it is for if it is not obvious. Then, from
-[`docs/execution-surfaces.md`](../../../docs/execution-surfaces.md), adjust only
-what actually differs:
+Ask which surface it is for if it is not obvious. **Once it is named, go read
+that vendor's records before writing — all four sources in `prompt-preflight`
+§ 3, and `docs/CAPABILITIES.md` grepped for the surface name is the one that is
+not optional.** A prompt that hedges about what the target can do hands the
+receiving session a false wall, and the estate's wall checker does not scan
+prompts. Then adjust only what actually differs:
 
 - **Task-phase network may be off.** Move any install, download or fetch into a
   prerequisite line — *"the environment must already have X"* — instead of a

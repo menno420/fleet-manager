@@ -127,9 +127,33 @@ reply, no verdict — just the questions."""
 # SELECTIVE FIRING IS THE WORST OF THE THREE" — and a reviewer that returns
 # NO QUESTIONS on some turns *is* selective firing. So the fixed question is the
 # hook, and the model is an optional enrichment that can never be load-bearing.
+# Question 1 said "if you only inferred it, say so" and STOPPED there — which the
+# session discharges by writing a hedge. MEASURED 2026-08-30, owner-caught: asked
+# what established that ChatGPT Work could open a PR, a session answered by
+# stating plainly that it could not verify it — and shipped that hedge inside a
+# prompt another session would obey. docs/CAPABILITIES.md:429 had settled it in
+# 2026-08-10 (branch, commits, READY PR, review replies, resolved threads, check
+# runs, full job log, `admin: true, push: true`). The owner: "Gpt work has full
+# access and you could verify that in the repo" — then: "This is a defect in the
+# review round aswell." He is right: a review that accepts a confession in place
+# of a lookup REWARDS wall-writing, because a hedge reads as rigour and costs one
+# sentence while the grep costs a tool call. So the discharge is now ordered —
+# verify first, confess only when the tree genuinely cannot answer — and the
+# false-wall rule is stated inside the question, since check_no_false_walls.py
+# scans living docs and never sees a reply or a prompt.
 FIXED = """1. What made you draw that conclusion? Name the load-bearing claim in the reply
 above and what you actually ran, read or measured to establish it — a command, a path and
-line, an exact error. If you only inferred it, say so in the reply.
+line, an exact error.
+
+If you only inferred it, GO AND CHECK IT NOW — do not answer with the hedge. This
+estate writes down what it has measured, so the answer is usually one command away:
+grep `docs/CAPABILITIES.md` for the surface or credential, open the doc under
+`docs/providers/` or `docs/conventions/`, read the file at the line, hit the live
+API with `$GITHUB_PAT` over direct egress. Only when the tree and the live surface
+genuinely cannot answer does "I inferred this" discharge the question — and then say
+which lookup you ran and what it returned. **"I could not verify X" is a false wall
+unless you tried**, and a wall written into a reply or a prompt is worse than one in
+a doc, because no checker scans either.
 
 2. ONLY IF that surfaced a weak link: can you simplify the mistake? A sound derivation
 reduces to one sentence; a confabulated one either drops the load-bearing part under
