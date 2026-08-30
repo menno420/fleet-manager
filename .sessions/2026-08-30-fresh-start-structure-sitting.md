@@ -10,8 +10,7 @@
   identifier in a pushed artifact; effort and PL-004 task class are exact. The
   sanctioned token and why it is not a wall: [`.sessions/README.md`](README.md).
 - **📍 Venue:** cloud-container
-- **🔗 Session:** https://claude.ai/code/session_0135KbiXT3G8WY4yyni2nEJM —
-  *"Fresh-start redirect planning"*
+- **🔗 Session:** [session_0135KbiXT3G8WY4yyni2nEJM](https://claude.ai/code/session_0135KbiXT3G8WY4yyni2nEJM) · "Fresh-start redirect planning"
 
 💡 Session idea: the owner's B2 answer redefined a rule I had written as a
 *decision* procedure into a *surfacing* one — "the value the file holds is
