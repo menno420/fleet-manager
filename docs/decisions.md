@@ -408,6 +408,18 @@
   mid-session reviews you can use the gemini API (the free one…)"* — so the
   single Codex round lands on the head that flips; intermediate fixes are
   verified on the free-key Gemini route.
+- amended: 2026-08-30, owner live, in the fresh-start structure sitting. The
+  practice this entry describes was asked back to him as an explicit rule and
+  confirmed — *"Yes, agreed"* — so two things this entry left implicit are now
+  stated. **(1) The flip lands on an answered verdict:** the PR flips green on
+  the head the Codex round actually answered, never on a later head that has
+  not been reviewed (this is TRAP-006/007's requirement, and the entry's
+  never-merge-before-an-asked-Codex-answers rule already implied it).
+  **(2) A Gemini verification is sufficient for an intermediate push:** the
+  free-key route is not merely the permitted place to send mid-session checks,
+  it fully discharges the verification owed on a fix that is not the flip head.
+  Neither clause loosens the flip-readiness round, which stays mandatory on
+  changes that matter.
 - why: per-push Codex rounds burn the usage limits without adding coverage the
   final round would not give; the one Codex verdict that matters lands on the
   head that flips, which is also what TRAP-006/007 needs.

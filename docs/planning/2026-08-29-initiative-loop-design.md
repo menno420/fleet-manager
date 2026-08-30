@@ -127,9 +127,10 @@ its red looks like, making "never ran" visible within a session or two.
 
 ## What is deliberately NOT settled here
 
-- **The review-cadence amendment** (whether the flip-on-answered-verdict +
-  Gemini-verified-fixes practice gets written into the 2026-08-29 cadence
-  decision) — asked, not yet answered; stays open.
+- ~~**The review-cadence amendment**~~ — **✅ SETTLED 2026-08-30**, owner live
+  in the fresh-start structure sitting: *"Yes, agreed."* Both clauses
+  (flip-on-answered-verdict, Gemini-verified fixes sufficient for intermediate
+  pushes) are now written into [D-0019] as a dated amendment.
 - **Hook wiring** (which event fires the skill, Stop vs. session-close) and
   the detectors' build order — implementation detail for the dedicated
   sessions the plan will name.
