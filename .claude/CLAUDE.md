@@ -191,7 +191,9 @@ program law binding every repo.
 
 ## The working style (owner-set, 2026-07-26; restated 2026-08-08)
 - **One thing at a time, finished properly** — not slow for its own sake, and
-  not a licence to stop short (OD-6 as he restated it). Small PRs. Cleanup of
+  not a licence to stop short (OD-6 as he restated it). Small PRs — **and
+  few: one main PR per session, grown by pushing; an extra PR carries a
+  stated exception reason in the card (guideline, D-0024).** Cleanup of
   spent docs/repos is allowed and wanted, with a stated reason (OD-3 amended).
 - **Records may grow; instructions may not.** The fix for an unfollowed rule is
   a mechanism that delivers it at the right moment, never another statement of

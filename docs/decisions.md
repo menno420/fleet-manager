@@ -549,3 +549,78 @@
   the mechanism proven the same hour by `get_session` returning this
   session's own id and title from inside the container, across an MCP
   reconnect he screenshotted.
+
+## [D-0024] One main PR per session — a guideline with a countable red, not a gate
+
+- status: decided
+- date: 2026-08-30
+- verdict: Owner directive, live: *"I believe the correct way to do it is to
+  have one main PR per session which just gets more commits as the session
+  moves along. And for a few exceptions another extra PR may be opened and
+  merged on demand."* And its tier, his call: *"this is not something that
+  is extremely important but should be seen as a guideline"* — advisory,
+  never blocking. An extra PR (or an early merge) carries one stated reason
+  in the session card: urgency · independent revertability · reviewability ·
+  a records-only PR that must land first · the owner asked.
+- why: card-per-PR practice inflated records and review cost — measured the
+  night this was decided: one conversation produced five PRs, five cards,
+  five Codex rounds and one empty merged PR (fm #983) born of a between-PR
+  branch restart. Fewer, richer cards are easier to review and cheaper in
+  review rounds (one flip-readiness round per session instead of per PR).
+  His own worry that unenforced rules die is answered at the middle tier:
+  delivered at the decision moment (session-close's landing flow, the boot
+  file's working-style bullet) and countable (the session-identity line
+  groups cards by conversation, so PRs-per-session and missing exception
+  reasons are measurable) — enforcement upgrades later with data, not
+  suspicion.
+- rules out: a blocking check on PR count; splitting per sub-task by
+  default; reading "small PRs" (the size rule, which stands) as a reason to
+  multiply PRs; an extra PR with no stated reason in the card.
+- delivery: `.claude/skills/session-close/SKILL.md` (re-apply row in the
+  local skills registry), the boot file's working-style bullet; design
+  context in the fresh-start redirect planning doc.
+- provenance: owner, live, 2026-08-29/30, the audits-review sitting; quoted
+  verbatim above.
+
+## [D-0025] The plan is redirected to a fresh start: a new hub seeded from a verified baseline; this repo becomes the archive
+
+- status: decided
+- date: 2026-08-30
+- verdict: Owner directive, live: *"The plan that we are planning should be
+  redirected towards a fresh start."* The revised plan's execution target
+  becomes a fresh repository (possibly under a new name), built in the
+  intended structure with the gates and this sitting's designs as birth
+  rules; this fleet-manager is not reorganized in place — it becomes the
+  archive, read-only and permanently linkable, so no citation ever breaks.
+  His sequence: finish the plan → establish a trustworthy baseline from
+  fleet-manager and the other repos (re-audit only where information has
+  changed; every seeded claim carries a certainty tag) → build the skills,
+  hooks and gates → seed the new repo's working context → active
+  consolidation passes from birth.
+- why: his fresh-eyes browsing test failed (audits split 2-vs-7 across two
+  folders, 80 top-level docs entries, a self-declared-deletable probe file
+  present six weeks after its purpose ended) and a map that must be read
+  before navigating is a compensating mechanism; reorganizing in place
+  breaks citations at scale while a fresh start whose records never move
+  breaks none. His EAP account names what killed the superbot rebuild —
+  coordinator-relay indirection, minimal steering, unverified "done"
+  claims — and the estate's record corroborates the third (golden parity
+  533/533 green while capture-world literals shipped): cutover to a
+  non-functional replacement was impossible. The redirect answers each:
+  direct owner-live sessions (the relay is gone since the program closed),
+  the owner personally managing, and a falsifiable acceptance test gating
+  the cutover.
+- rules out: reorganizing this repo's tree in place as the main path
+  (forward-only placement discipline governs the meantime); creating the
+  new repository before the plan is finished; seeding unverified carried
+  claims (no certainty tag, no seed); reading "structure replaces gates"
+  into this — practice gates stay, navigation-compensation rules are what
+  the structure retires.
+- open (owner to confirm, not yet his verbatim): the hard-cutover rule (this
+  repo archives the day the new hub passes acceptance; no coexistence
+  window) and the exact carry-cut (proposed tier-based: living ledgers and
+  binding conventions carry; record tier stays archived); the name.
+- design home: `planning/2026-08-30-fresh-start-redirect.md` — his quotes
+  whole, the differentiator table, the acceptance test, the counterweight.
+- provenance: owner, live, 2026-08-30, the audits-review sitting (the
+  challenge round and the softening note both quoted in the design home).
