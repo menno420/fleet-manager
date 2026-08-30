@@ -115,6 +115,32 @@ looking for under twelve seat-era drafts from July — split into live and
 historical on the estate's own stated rule, with the demotion visible in a
 collapsed block rather than silent, per his own A2 principle.
 
+## The skill fix he asked for, and the defect that earned it
+
+Writing the ChatGPT Work prompt, this session read `docs/providers/chatgpt.md`,
+`docs/prompts/chatgpt-project-instructions.md` and `docs/execution-surfaces.md`
+— and then hedged that it *"could not verify whether ChatGPT Work can open a PR
+through the connector."* The owner corrected it in one line: *"Gpt work has full
+access and you could verify that in the repo."* He was right and the record is
+unambiguous — `docs/CAPABILITIES.md:429`, `MEASURED` 2026-08-10 across fm #835's
+entire landing: branch, commits, a READY PR, review replies, resolved threads,
+check runs and a full Actions job log, all through the connector, with repo
+metadata `admin: true, push: true`, and the entry closing *"Do not probe for
+`gh` or `$GITHUB_PAT` on that surface; their absence blocked nothing."*
+
+**The hedge was a false wall written into a prompt** — an artifact the receiving
+session would have obeyed — and `tools/check_no_false_walls.py` does not scan
+prompts, so nothing would have caught it. His fix, his words: *"Whenever I
+mention who the prompt is for the skill should tell you to read the relevant
+information about the specified AI."* Applied to
+`.claude/skills/prompt-preflight/SKILL.md` § 3, which now names **four** sources
+instead of one — `providers/<vendor>.md`, `prompts/<vendor>-*.md`,
+`execution-surfaces.md`, and `CAPABILITIES.md` **grepped for the surface name**,
+with the last marked mandatory and this incident as its measurement — and to
+`.claude/skills/continuation-prompt/SKILL.md` § 5, which routes to it. Both
+skills are `local` tier in `docs/SKILLS-local.md`, so no kit re-apply row is
+owed.
+
 ## What the owner asked for, and what was still missing
 
 He asked for **a folder directed at him** — one place showing the ideas,
