@@ -3,14 +3,25 @@
 > **Status:** `generated` — **do not hand-edit;** regenerate with
 > `python3 tools/gen_owner_index.py`. **NOT SOURCE OF TRUTH:** every item
 > below is a pointer, and the linked file wins. This page exists because
-> what needs your attention was spread across four surfaces you had to
+> what needs your attention was spread across several surfaces you had to
 > already know about; it is swept from them so it cannot go stale.
 >
-> generated-at 2026-08-30T18:46:19Z
+> generated-at 2026-08-30T19:01:42Z
 
 **What is here:** things only you can decide · questions written for you ·
 documents waiting for your own words · piles that need triage. **What is
 not here:** anything an agent can settle without you.
+
+## Read now — short workbooks in this folder
+
+These are short drafts made for your own edits. Each separates your
+quoted words (`OWNER`) from a session's revisable inference (`DERIVED`).
+
+- [`choose-estate-archive-shape.md`](choose-estate-archive-shape.md)
+- [`choose-estate-folder-structure.md`](choose-estate-folder-structure.md)
+- [`choose-estate-migration-order.md`](choose-estate-migration-order.md)
+- [`fill-repository-purposes.md`](fill-repository-purposes.md)
+- [`triage-recorded-ideas.md`](triage-recorded-ideas.md)
 
 ## Decide — open items in the owner queue
 
