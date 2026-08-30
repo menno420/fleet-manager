@@ -41,7 +41,11 @@ steps.
    file the claim there as well.
 2. Born-red card as the FIRST commit — `.sessions/<date>-<slug>.md` whose
    Status badge line declares `in-progress` (the born-red hold token), plus
-   a one-line "what is about to happen". Push, then open the PR READY (not
+   a one-line "what is about to happen", and the required header lines:
+   `📊 Model:`, `📍 Venue:`, and `🔗 Session:` — your own id and title read
+   via `get_session` (claude-code-remote MCP, no argument), or the exact
+   honest-null `unavailable — <why>` where the venue cannot read it
+   (D-0023; grammar and forms: `.sessions/README.md` § 🔗 Session). Push, then open the PR READY (not
    draft) immediately: the open PR + the claim are the in-flight signal
    parallel sessions collide without.
 3. Land your own green PR — merging is normal agent work. Once the required

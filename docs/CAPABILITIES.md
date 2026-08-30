@@ -171,6 +171,18 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-08-29 · capability · `owner-live` · **A session can read its own
+  identity from inside the container — `get_session` (claude-code-remote
+  MCP, no argument) returns this session's `id`, `title`, model and status,
+  and the id is a live `https://claude.ai/code/<id>` URL.** · evidence:
+  called this sitting → `"id":"session_01D2EKd9GfuiWbyuNmCDisLk",
+  "title":"2026-08-28/29 audits and fleet-preflight review"`; answered
+  correctly again immediately after an MCP server disconnect/reconnect the
+  same hour. Basis of the required card session-line (the 2026-08-29
+  session-identity decision; grammar `.sessions/README.md` § 🔗 Session).
+  · workaround: none needed — in a venue without the tool, the grammar's
+  honest-null token records that venue's answer. — LAST-VERIFIED: 2026-08-29
+
 - 2026-08-29 · capability · `owner-live` · **The free `GEMINI_API_KEY` serves
   `generateContent` on `gemini-3.6-flash` through the default (proxied)
   environment — no direct-egress dance needed — and `gemini-2.5-flash` is

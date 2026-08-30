@@ -38,12 +38,44 @@ everything CI would red on).
 from __future__ import annotations
 
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 GUARD = "FM_PREFLIGHT_ACTIVE"
+
+# Required 🔗 Session line in every ADDED card's header block (owner
+# directive 2026-08-29, D-0023; grammar: .sessions/README.md § 🔗 Session).
+# Full-match, one of exactly two canonical forms: the id-as-URL with the
+# title quoted (the backreference makes the URL embed the SAME id), or the
+# literal honest-null token with its reason. Only lines above the card's
+# first `## ` heading count, so a fenced example in the body cannot satisfy
+# it. First form was substring-loose (`unavailable-ish`, foreign URLs and
+# prose-wrapped ids all passed) — Codex on fm #985, conceded and hardened.
+SESSION_LINE_RE = re.compile(
+    r"^- \*\*🔗 Session:\*\* "
+    r"(?:\[(session_[A-Za-z0-9]{8,})\]\(https://claude\.ai/code/\1\) · \".+\""
+    r"|unavailable — .+)$"
+)
+
+
+def missing_session_line(cards: list[str]) -> list[str]:
+    bad = []
+    for card in cards:
+        try:
+            text = (REPO / card).read_text(encoding="utf-8")
+        except OSError:
+            continue  # an unreadable card is the added-card lane's finding
+        header: list[str] = []
+        for line in text.splitlines():
+            if line.startswith("## "):
+                break
+            header.append(line)
+        if not any(SESSION_LINE_RE.match(line) for line in header):
+            bad.append(card)
+    return bad
 
 
 def run(label: str, argv: list[str], env: dict | None = None) -> int:
@@ -86,7 +118,8 @@ def main() -> int:
     failed = 0
     failing: list[str] = []
 
-    for card in added_cards():
+    cards = added_cards()
+    for card in cards:
         rc = run(
             f"added-card lane ({card})",
             [sys.executable, "bootstrap.py", "check", "--strict",
@@ -97,6 +130,14 @@ def main() -> int:
             failing.append(f"added-card lane ({card}) — born-red HOLD if the "
                            "card is still in-progress; a real finding otherwise")
         failed |= rc != 0
+
+    for card in missing_session_line(cards):
+        print(f"preflight: session-line ({card}) -> exit 1  (missing the "
+              "required '- **🔗 Session:**' line — session id/URL, or the "
+              "literal honest-null 'unavailable'; D-0023, "
+              ".sessions/README.md § 🔗 Session)")
+        failing.append(f"session-line ({card}) — required since 2026-08-29")
+        failed = True
 
     for label, argv in (
         ("doc routes", [sys.executable, "tools/check_doc_routes.py", "--strict"]),

@@ -516,3 +516,36 @@
 - provenance: owner, live, 2026-08-29, same sitting; quoted verbatim above.
   The carve-out was exercised the same night by the directive-capture and
   review-consumption PRs before being recorded here.
+
+## [D-0023] Every new session card carries its session identity — required, with an honest null
+
+- status: decided
+- date: 2026-08-29
+- verdict: Owner directive, live: the card grammar gains a required
+  `🔗 Session:` line — the session id (as its claude.ai/code URL) plus the
+  title quoted as a search hint — so any card can be traced back to the
+  conversation that wrote it. *"Yes we should make it required with an honest
+  null, and this is one of the exceptions that should happen immediately.
+  Because it's a small fix that benefits us right away."* The honest null is
+  the single literal token `unavailable` plus one line saying why.
+- why: the harness's `Claude-Session` commit trailer already carries exactly
+  this, but trailer survival depends on the merge path — fm #974/#975's
+  squashed PRs lost their commit bodies (measured, fm #977's card § 3) while
+  full history holds 341 trailer-carrying commits among 993 on `main`
+  (`.sessions/README.md`'s count blockquote; the broader "squash discards
+  everything" reading was a shallow-clone artifact) — so the card is the
+  per-session record that survives regardless of merge style; and a
+  required line with an honest null is the gated form — the optional form is
+  the prose-demanded practice the estate watched die. Implemented the same
+  hour under [D-0022]'s carve-out at the owner's explicit word ("one of the
+  exceptions that should happen immediately").
+- rules out: a sanctioned-but-optional line; inventing or inheriting a
+  session id when the venue cannot read one (the token is the only null);
+  a phrasing-of-your-own null; backfilling existing cards (record tier).
+- enforcement: `scripts/preflight.py` session-line check on ADDED cards —
+  local `check --strict` and CI's substrate-gate run the same script;
+  grammar home `.sessions/README.md` § 🔗 Session (its one citing home).
+- provenance: owner, live, 2026-08-29, same sitting as [D-0021]/[D-0022];
+  the mechanism proven the same hour by `get_session` returning this
+  session's own id and title from inside the container, across an MCP
+  reconnect he screenshotted.
