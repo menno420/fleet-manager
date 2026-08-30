@@ -51,7 +51,11 @@ you, so skipping is a decision rather than an accident. A fresh session should
    the roadmap is the methods-and-enforcement subplan that `OD-13` prioritises
    *ahead of* the lettered product steps — not a replacement for the program. A
    session that reads only the program learns the steps but not that OD-13 puts
-   the roadmap's phases first.
+   the roadmap's phases first. **Execution target redirected 2026-08-30
+   (owner-live): the plan executes in a fresh hub repository and this repo
+   becomes the read-only archive — read
+   [the fresh-start redirect](docs/planning/2026-08-30-fresh-start-redirect.md)
+   with both.**
 5. **[`docs/fleet-account-2026-07-26.md`](docs/fleet-account-2026-07-26.md)** —
    *how it came to existence*: the EAP story from 2025-08 to the close,
    owner-reviewed. Read once; do not re-derive the history.

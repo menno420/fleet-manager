@@ -87,7 +87,12 @@ test; do not confuse the two.
    architecture decisions taken live 2026-08-08, in three phases: retrieval +
    orientation (landed, fm #826) · intent resolution (first slice landed, fm #830;
    § 4.8 run in full — producer half fm #851, blind-scorer half fm #852,
-   PARTIAL confirmed 3/3 scorings) · the common operating protocol (not started). **This entry exists because the roadmap appeared in neither this file
+   PARTIAL confirmed 3/3 scorings) · the common operating protocol (not started).
+   **EXECUTION TARGET REDIRECTED 2026-08-30 ([D-0025], owner-live): the plan
+   executes in a FRESH HUB repository — this repo becomes the read-only
+   archive. Read `docs/planning/2026-08-30-fresh-start-redirect.md` WITH the
+   roadmap; do not start implementation work premised on this repo being the
+   long-term home.** **This entry exists because the roadmap appeared in neither this file
    nor `README.md` until 2026-08-10**, while `current-state.md` carried it *below*
    its own "preserved, not current" banner — so a session walking this path met a
    plan from 2026-07-26 and never learned a newer direction had been set two weeks
@@ -191,7 +196,9 @@ program law binding every repo.
 
 ## The working style (owner-set, 2026-07-26; restated 2026-08-08)
 - **One thing at a time, finished properly** — not slow for its own sake, and
-  not a licence to stop short (OD-6 as he restated it). Small PRs. Cleanup of
+  not a licence to stop short (OD-6 as he restated it). Small PRs — **and
+  few: one main PR per session, grown by pushing; an extra PR carries a
+  stated exception reason in the card (guideline, D-0024).** Cleanup of
   spent docs/repos is allowed and wanted, with a stated reason (OD-3 amended).
 - **Records may grow; instructions may not.** The fix for an unfollowed rule is
   a mechanism that delivers it at the right moment, never another statement of

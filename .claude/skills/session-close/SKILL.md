@@ -45,7 +45,14 @@ steps.
    `📊 Model:`, `📍 Venue:`, and `🔗 Session:` — your own id and title read
    via `get_session` (claude-code-remote MCP, no argument), or the exact
    honest-null `unavailable — <why>` where the venue cannot read it
-   (D-0023; grammar and forms: `.sessions/README.md` § 🔗 Session). Push, then open the PR READY (not
+   (D-0023; grammar and forms: `.sessions/README.md` § 🔗 Session).
+   **One main PR per session (guideline, D-0024):** the session's further
+   work grows THIS PR with more commits — richer card, one flip-readiness
+   review round instead of one per split. Open an extra PR (or merge early)
+   only for a stated reason, named in the card: urgency · independent
+   revertability · reviewability · a records-only PR that must land first ·
+   the owner asked. Not a gate — but countable: the card's session line
+   groups a session's PRs, so a split with no stated reason is visible. Push, then open the PR READY (not
    draft) immediately: the open PR + the claim are the in-flight signal
    parallel sessions collide without.
 3. Land your own green PR — merging is normal agent work. Once the required
