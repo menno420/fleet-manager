@@ -1,9 +1,9 @@
 # 2026-08-30 — independent fresh-start structure review
 
-> **Status:** `in-progress` — Claude Code's cross-vendor review arrived after
-> the first close. The card is reopened while its provenance correction,
-> navigation-policy correction, workbook clarity line, folder-boundary rules,
-> and independent-scorer requirement are folded in and re-verified.
+> **Status:** `complete` — Claude Code's cross-vendor review was dispositioned;
+> its provenance correction, navigation-policy correction, workbook clarity
+> line, folder-boundary rules, and independent-scorer requirement are folded in
+> and verified on the merged `main` baseline.
 
 - **📊 Model:** gpt-5.6 · high · docs-only
 - **📍 Venue:** chatgpt-work
@@ -92,9 +92,9 @@ exists on the planning branch.
   hold; all eight were corrected. Second run reported only the inherited
   `fresh-start-structure-sitting` in-progress card, the branch's deliberate
   born-red hold named in the task. It is not repaired here.
-- [x] Claude Code review requested on PR #989 before the final card flip. No
-  review reply was present at close; the request and six review questions are
-  preserved in the PR conversation for that running planning session.
+- [x] Claude Code review requested on PR #989 before the final card flip. Its
+  reply was read and dispositioned in the PR conversation; all three findings
+  and both proposed planning improvements were adopted.
 - [x] Remote diff checked after publication. The first connector transfer
   truncated `.substrate/guard-fires.jsonl` and appeared to delete 34,347 lines.
   Its generated telemetry delta is preserved in local commit `e92059e`; the PR
@@ -108,4 +108,4 @@ exists on the planning branch.
   branch. `python3 tools/gen_owner_index.py --check` reports current. A new
   `python3 bootstrap.py check --strict` returned real exit code `1` for this
   card's own `in-progress` born-red hold only: one selected card, no draft defect.
-- [ ] Card flipped to `complete` as the deliberate last commit after review fixes
+- [x] Card flipped to `complete` as the deliberate last commit after review fixes
