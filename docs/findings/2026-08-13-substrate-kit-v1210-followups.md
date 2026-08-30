@@ -61,7 +61,7 @@ marked; every one dist-routed, zero adopter-side changes owed):
 
 | # | site (vendored v1.21.0) | defect | provenance |
 |---|---|---|---|
-| 13 | `bootstrap.py:5873` | **P1** — a qualified reassertion after a repudiation is cleared: `The "agents cannot merge" rule is false in staging but true in production` exits at `rule is false` and emits nothing, where v1.20.2 flagged it — a false **NEGATIVE** (a standing wall stays green), the expensive direction by the checker's own doctrine | new in v1.21.0 (gba #215 R1) |
+| 13 | `bootstrap.py:5873` | **P1** — a qualified reassertion after a repudiation is cleared: `The "agents cannot merge" rule is false in staging but true in production` exits at `rule is false` and emits nothing, where v1.20.2 flagged it — a false **NEGATIVE** (a standing wall stays green), the expensive direction by the checker's own doctrine | new in v1.21.0 (gba #215 R1) — **FIXED upstream, kit #587 (2026-08-28)** |
 | 14 | `substrate-gate.yml` template `:278` (pytest step) | the always-planted pytest step keys on `tests/` EXISTENCE; a native/fixture `tests/` dir with no Python tests makes pytest collect nothing and exit 5 → the gate reds permanently on non-Python repos that add one (measured non-bite on gba: no `tests/` dir at all) | new in v1.21.0 (gba #215 R1) |
 | 15 | `bootstrap.py:4872` (`check_fastlane_symmetry`) | looks exclusively for `.github/workflows/ci.yml`, but the kit generates the claims-only guard into `substrate-gate.yml` (`LIVE_CI_RELPATH`) — standard adopters hit the early return and the symmetry checker NEVER runs, silently missing the card-less auto-merge hole it exists to catch | new in v1.21.0 (venture-lab #289 R1) |
 
@@ -78,8 +78,8 @@ independent confirmation, same sites, every wave PR.
 | # | site (vendored v1.21.0) | defect | provenance |
 |---|---|---|---|
 | 16 | `substrate-gate.yml` template `:278` (pytest step) | **P1** — the step installs only `requirements.txt`; a repo keeping deps in `requirements-dev.txt` (mineverse, deliberately) collect-fails on imports and the REQUIRED gate stays red past the flip — bit live on mineverse #144, fixed there by reverting the regen | new in v1.21.0 (row 14's sibling — the step's second wrong assumption) |
-| 17 | `bootstrap.py:5780` | the occurrence mask is applied to `_REPUDIATION_CUES` but not `_DATED_LINE`/`_FALSE_LABEL`, so `FALSE "agents cannot merge", agents cannot merge` and the dated-supersession variant pass strict — false **NEGATIVE**, joins row 13 at the top | new in v1.21.0 (mineverse #144 R1) |
-| 18 | `bootstrap.py:6036` | a digest `BEGIN` fence with no `END` (merge conflict, hand edit, forged marker) exempts every remaining line of `docs/seat-digest.md` from the strict false-wall scan — fails open; the drift check that would notice is advisory-only | new in v1.21.0 (two independent sightings: idea-engine #899 `:6036`, mineverse #144 `:6038`) |
+| 17 | `bootstrap.py:5780` | the occurrence mask is applied to `_REPUDIATION_CUES` but not `_DATED_LINE`/`_FALSE_LABEL`, so `FALSE "agents cannot merge", agents cannot merge` and the dated-supersession variant pass strict — false **NEGATIVE**, joins row 13 at the top | new in v1.21.0 (mineverse #144 R1) — **FIXED upstream, kit #587 (2026-08-28)** |
+| 18 | `bootstrap.py:6036` | a digest `BEGIN` fence with no `END` (merge conflict, hand edit, forged marker) exempts every remaining line of `docs/seat-digest.md` from the strict false-wall scan — fails open; the drift check that would notice is advisory-only | new in v1.21.0 (two independent sightings: idea-engine #899 `:6036`, mineverse #144 `:6038`) — **FIXED upstream, kit #587 (2026-08-28)** |
 | 19 | `bootstrap.py:3010` | provenance finding paths are computed relative to `docs_root` (`measurements/x.md`, not `docs/measurements/x.md`) — reports point at the wrong artifact and an exception written with the real path can never match | pre-existing since #565 (idea-engine #899 R1) |
 | 20 | `bootstrap.py:4492` | the boot-path checker does not recognise the kit's OWN generated `.claude/CLAUDE.md` heading (`## Orientation — read first, in order`) → false `boot-section-missing` on kit-standard repos — observed live on idea-engine's tree this session | pre-existing since #579 (idea-engine #899 R1) |
 | 21 | `bootstrap.py:4587` | boot entries the template marks `when present` (`HANDOFF.md`, untracked) are treated as mandatory → false `boot-path-unresolved` on healthy generated agreements | pre-existing since #579 (idea-engine #899 R1) |
@@ -181,8 +181,9 @@ retractions did not refresh there — its card carries the follow-up.
 
 Fix-order restated after the couch-legend seed (2026-08-21, fm #879 — this
 supersedes the post-wave order, which is preserved struck-through below):
-**the false negatives first (13, 17, 18)** — they are the checker failing at
-its one job — then the work-destroyers and flow-stoppers from the seed round
+~~**the false negatives first (13, 17, 18)**~~ **— CONSUMED 2026-08-28,
+kit #587 (see the consumption note below); the order now LEADS with the
+work-destroyers** — then the work-destroyers and flow-stoppers from the seed round
 (**26, 29, 33** — the reset-ordering family destroys work, 29 makes 26's own
 safeguard fire on every healthy boot, 33 stops the documented upgrade flow
 at its second step; **34** rides with 33 as the same skill's other half),
@@ -194,6 +195,38 @@ then the exit-affecting promotion family as one contract-review unit
 then the promotion family (2, 6, 8, 9, 10), then the adopter-facing template
 defects (14, 16, 22, 15, 23 — 23 added 2026-08-14, fm #858), then the
 boot-path family (4, 11, 12, 20, 21), then the rest (1, 3, 5, 7, 19).~~
+
+**Consumption began 2026-08-28 (kit #587, the OD-24 review round's session
+2): rows 13, 17 and 18 are FIXED upstream in kit #587** — each reproduced against the
+published v1.21.0 asset first (sha256 `8807a00e…`, three-way match), fixed in
+`src/engine/checks/check_no_false_walls.py` with named regression pins in
+`tests/test_check_no_false_walls_leg.py`, dist regenerated, and corpus-A/B'd
+against the kit + fleet-manager live trees (0 newly-flagged, 0
+newly-cleared lines) — the A/B re-run at every review round. The PR took a
+pre-push adversarial verification round (2 regressions + 2 holes found and
+fixed) and three Codex rounds (5 + 6 conceded and fixed, all pinned; R3's 4
+verified and deferred as **row 35** below under the two-re-review cap — the
+tally 5→6→4 measured non-convergent). The fixes ride kit `main` unreleased —
+the next cut is owner-paced. The same PR landed the kit-tree pointer to this
+worklist (genesis-dig gap #5): `kit:docs/NEXT-TASKS.md` is superseded into
+the route.
+**Next per the restated order: the work-destroyers 26, 29, 33 (+34).**
+Coupling note (measured while fixing): rows 13/17/18 are separable from the
+promotion family (2/6/8/9/10) — the fixes touch only the clearing grammar
+and the fence scan, not the promotion seam. Two adjacent uncovered shapes
+were found and deliberately left (same clearing-grammar territory, not in
+any row's repro): a cue severed from its quoted mention by an apposition
+noun (`…"…" claim was superseded, <bare wall>` — the mask patterns carry no
+noun slot), and a reassertion-after-cue on the plain-clause path (pre-dates
+v1.21.0). Both are recorded in kit #587's session card as candidates for a
+future row.
+
+**Row 35 — the reassertion-grammar residuals deferred from kit #587's R3
+(2026-08-28; the two-re-review cap's land condition):**
+
+| # | site (kit main post-#587, `src/engine/checks/check_no_false_walls.py`) | defect | provenance |
+|---|---|---|---|
+| 35 | the row-13 reassertion gate + its cross-line tail | four verified corner cases, none firing on either live tree at land time: (a) an `or`-coordinated negated complement pair (`does not hold or remain in force`) reads as affirmative — false POSITIVE, cheap direction; (b) a later `whereas <other-capability>` clause suppresses the family gate over an earlier real reassertion (`…but remains in force in production, whereas deploys are unrestricted`) — false NEGATIVE; (c) the truth-token vocabulary omits direct state predicates (`active`, `enforced`, `operative`, `valid`) — false NEGATIVE; (d) the cross-line tail treats a Markdown table row as prose continuation — false POSITIVE. Fix family: per-contrast-clause family scoping + token vocabulary + a table-row stop in the tail extension; the adjacent shapes already recorded in kit #587's card (apposition-severed mention cue; reassertion after a plain-clause cue; empty-family comma-cue baseline; FALSE-label family-blindness) belong to the same future fix unit | new in kit #587 (Codex R3, all four execution-verified 2026-08-28); the round tally 5→6→4 measured non-convergent, so the cap landed the PR with these named |
 
 ## Residue this session found itself (not Codex)
 
@@ -217,8 +250,9 @@ and measured the superbot-next gate failure in the real venue:
 The next kit session takes this file the way this session took the
 seven-defect worklist: fix upstream in the **restated order above**
 (superseded 2026-08-13, fm #855 — this line originally said "2 and 5 first",
-written when the list had five rows; the wave grew it to 22 and the false
-negatives now lead), with reproductions before
+written when the list had five rows; the wave grew it to 22; the false
+negatives led until they were **consumed by kit #587 on 2026-08-28 — the
+work-destroyers 26/29/33 now lead**), with reproductions before
 dispositions, and verify against the published asset, not the changelog.
 Rows 1 and 5 carry the fm #853 Codex thread verbatim; rows 2–4 predate the
 release and simply had their first non-author read here.

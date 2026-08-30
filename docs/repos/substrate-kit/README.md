@@ -1,6 +1,6 @@
 # substrate-kit — the entry point
 
-> **Status:** `living-ledger` · true as of **2026-08-21**
+> **Status:** `living-ledger` · true as of **2026-08-28**
 >
 > **What this is:** fleet-manager's entry point for `menno420/substrate-kit` —
 > where the last session left off and where the next one should look.
@@ -25,41 +25,181 @@ kit #581–#586). The Self-Improvement seat closed 2026-07-21; releases are cut
 by owner-directed sessions using this repo's `release` →
 `upgrade-distribution` skills. `MEASURED` 2026-08-21: 0 open PRs — records
 still carrying "#552 parked for owner ratification" describe July (**#552
-MERGED 2026-08-04**), and its own `docs/current-state.md` body still says
-v1.20.2; trust `control/status.md` + the tree.
+MERGED 2026-08-04**). ~~Its own `docs/current-state.md` body still says
+v1.20.2~~ — **reconciled 2026-08-28 (kit #588)**: a dated reconcile block
+now heads that file; `control/status.md`'s stale #552 line fixed in the
+same PR.
+
+**Owner intent (DRAFT, awaiting his words):** [`intent.md`](intent.md) — why he
+built the kit, what "done" means, and what would make him stop, from the
+2026-08-28 elicitation sitting.
 
 ## Threads
 
-### Thread: the owner-directed review round — **open, direction recorded 2026-08-28**
+### Thread: the owner-directed review round — **session 4 DONE (the sitting ran; every letter that was ASKED is answered); session 5 named below from his own words**
+
+> **Still open after the sitting, so no session reads "answered" as "finished":**
+> the kit's **name** (he ruled it changes and will supply the word — `OQ-KIT-RENAME`) ·
+> the **adopter half** of `OQ-KIT-V1-21-RELEASE` (he answered timing only) ·
+> agenda **§ 2 · G** (card deletion — deliberately not asked; his answer is due
+> once the report-only census exists) · the **BTD6 history loop** (not asked; its
+> own sitting).
 
 The owner ordered a kit review round in the second overnight 2026-08-27→28
-hub sitting: *"the substrate kit itself needs some work to make it actually
-do it's job in an efficient way"* … *"review it again and improve it."* His
-stepping back was a deliberate experiment — *"I wanted to find out how well
-the agents would currently work with the subtrate kit"* — and the mixed
-result is the review's evidence base. Direction, verbatim record and the
-four-step method (harvest drift incidents from the committed record →
-classify each gap: absent · unrouted · unenforced · missing procedure → fix
-kit-side → promote only by measurement, roadmap § 6):
-[`../../findings/2026-08-28-owner-direction-agent-autonomy.md`](../../findings/2026-08-28-owner-direction-agent-autonomy.md)
-(**OD-24**). The round's first session opens with the intent map
-(roadmap § 4.1), not with edits, and starts from this page's other threads —
-the [v1.21.0 follow-up worklist](../../findings/2026-08-13-substrate-kit-v1210-followups.md)
-leads, and the kit tree routing to its own worklist **nowhere** (`MEASURED`
-2026-08-21, below) is a first-order review finding already in hand. Owner
-continues *"later"* — directed, not scheduled; nothing in it GOs the held
-packets, and AGENTS.md plant-vs-hand-write is parked for this round.
+hub sitting (*"review it again and improve it"* — verbatim record + the
+four-step method:
+[`../../findings/2026-08-28-owner-direction-agent-autonomy.md`](../../findings/2026-08-28-owner-direction-agent-autonomy.md),
+**OD-24**). **Session 1** (overnight 2026-08-28, steps 1–2):
+[the genesis dig](../../findings/2026-08-28-substrate-kit-genesis-dig.md) —
+three-era history, twelve classified gaps (dominant
+**unenforced/unrouted**), the rival-hypothesis verdict, the §10
+dispositions table (recommendations only, execution owner-gated).
+**Session 2** (2026-08-28, daytime) executed §11 items 1–2 and 4:
+
+- **kit #587 (MERGED on green after three Codex rounds):** the kit-tree
+  worklist pointer (gap #5 — `kit:docs/NEXT-TASKS.md` superseded into the
+  route) and the false-negative family fixed (worklist rows 13/17/18, each
+  reproduced against the published asset first; pre-push adversarial
+  verification + Codex R1 5/5 and R2 6/6 conceded-and-fixed; R3's 4
+  verified and deferred as worklist **row 35** under the two-re-review cap
+  — tally 5→6→4, measured non-convergent). Fixes ride kit `main`
+  unreleased; the cut stays owner-paced.
+- **The item-4 audit:**
+  [the router band re-read](../../findings/2026-08-28-router-band-reread.md)
+  — all 208 body sections superbot:Q-0063–Q-0272, 59/59 quotes
+  machine-verified (ledger committed in its appendix); seven genesis-dig
+  claims narrowed, each routed in place at the claim site; a carrier
+  census of standing owner rules (five absent from every fm document, the
+  rest in seat-era/reference surfaces or carrying a different facet);
+  genesis precedents mapped onto the gap table; its two new owner asks
+  queued (`OQ-KIT-PROMPT-DOCTRINE` · `OQ-EAP-SPEND-WINDOW-MOOT`).
+- **The morning letters (Move-1 GO · journal · §10 confirmations) were
+  checked first and remain UNANSWERED** — everything owner-gated stayed
+  gated. The re-read adds superbot:Q-0101 as evidence for the journal
+  letter.
+
+**Session 3** (2026-08-28, daytime — the round's next audit):
+[the kit-tree truth pass](../../findings/2026-08-28-kit-tree-truth-pass.md)
+— the kit's whole committed doc surface (187 files at `a9acc41`, the dig's
+skipped subdirectories + `docs/succession/` included) judged per-doc with
+adversarial verification (31/36 upheld; the workflow's five corrections
+plus Codex fm #960's three rounds all folded in), and
+**both owed checks answered**: PL-002's canonicalization **preserves**
+Q-0241's rebuild-only scope (the one drop is a Q-0241-vs-Q-0271 provenance
+mislabel in three derived copies of one owner-profile sentence), and
+Q-0214's delete-with-tombstones retention **substantially shipped** as the
+v1.0.0 economy engine — unconfigured and trace-free on the kit's own
+342-card corpus at HEAD. The headline: 104 of 187 files are honest
+self-bannered history; the failure class is a 23-file current-truth-voiced
+set, catalogued as recommendations in the finding's §5 (a future
+doc-surface truth sweep; nothing owner-gated except the flagged
+economy-activation decision, carved out of the sweep's blanket).
+**Executed in the kit's venue: kit #588, MERGED on green** (squash
+`7f58f0e`) — `docs/current-state.md` reconciled (the supersede table's open
+item 4) + `control/status.md`'s false #552 line, through the kit's full
+discipline; three Codex rounds (R1 two P2s + R2 one P2, all
+conceded-and-fixed — the release-path wording is now precise: tag push
+owner-side canonical, workflow_dispatch the only agent-runnable trigger;
+R3's one P1 was the born-red hold itself, consumed by the flip).
+`OQ-KIT-P10-REQUIRED-CHECKS` retired by a live rules read (kit-quality is
+the one required check — the ci.yml legacy-alias deletion is now unblocked
+agent work).
+
+**Session 4** (2026-08-28, **owner-live** — the review-and-discussion sitting he
+selected: *"the next session can review everything that these 3 audits have
+produced, and then helps me to discuss and answer the open questions"*):
+[the sitting's answers, verbatim](../../findings/2026-08-28-od24-sitting-answers.md)
+— **twelve answers recorded as each arrived**, `OWNER` quotes separated from
+`DERIVED` readings, and routed the same session to the queue (7 entries updated,
+1 added, **3 closed**), to `[D-0011]`, to the program as **OD-26**, and back into
+[the agenda](../../planning/2026-08-28-od24-round-open-questions.md), which is
+now a **record** rather than an agenda.
+
+**The three things that change how this round is read:**
+
+1. **One root cause, not twelve gaps** *(that the twelve are downstream of it is
+   the sitting's `DERIVED` mapping — he was shown four of his own prior
+   complaints, never the twelve gaps)*. Asked *which ways does the kit still not
+   work* — the question no session had put to him — he collapsed four of his own
+   prior complaints into one: *"they are all related to the same root cause,
+   which is mostly that agents don't take enough initiative to leave the repos
+   in a better shape"*. The divergence from the round's reconstruction is one of
+   **altitude, not fact** — and the round **had already found it** (dig § 6.1,
+   *"the central drift … and the review round's real charter"*) and then
+   organised around the gap table anyway. **The round reproduced, on itself, the
+   unrouted-knowledge defect it was auditing.**
+2. **The cost function, unprompted:** *"a lot of work just keeps stalling, which
+   is not necessarily bad, but also a reason why I think it's important that the
+   workflow is working correctly, so we don't waste so much time redoing the same
+   things over and over"* — **re-derivation is the waste.** *"Not necessarily
+   bad"* is a **qualification**, not a blessing: some stalling is acceptable, a
+   harmful stall is not thereby fine. The test for any proposed mechanism is
+   *does it stop something being re-derived?* — less stalling is neither the case
+   for a fix nor a mark against one — which re-ranks **routing above building**.
+3. **A three-stage order, unprompted, which governs everything:** *"I am
+   currently running 3 parrallel ultracode session to map most of all the repos,
+   once this mapping is all done we should use this information to come up with
+   a revised pan. Only after that will we move to execution of the 'GO'"* — so
+   **this round's output is an input to a revised plan, not a work queue**, and
+   the Move 1 hold is a **stage with an exit condition**, not a deferral to
+   re-ask next session.
+
+**Answers that bind kit work directly:** the charter is **rewritten to say
+initiative** · `AGENTS.md` is **hand-written per repo** (the kit does not plant
+them) · the journal **survives as the guidebook it already is** — he delegated
+the call and named a function (*"easily find out what went wrong each session"*)
+that the **existing session cards already capture**, so what is missing is
+**retrieval** across them, not a second record (no new file, nothing enforced) · a brake may prompt **only when he is present**, never unattended
+(`delete_trigger` still never) · nothing may **block** a session calling work
+done · the next release is **cut when the next fix batch lands** · the kit
+**is renamed**, but he supplies the name later (`OQ-KIT-RENAME`).
+
+### Thread: **session 5 — the kit records session, cleared by him and named from his answers**
+
+**Not a session's proposal this time.** Asked directly whether kit-side document
+work also waits for the revised plan, he answered **"Records work can go now"**,
+drawing the boundary himself: **mechanisms wait, record corrections do not.** So
+session 5 is a **kit-venue records session**, and its two halves are both his:
+
+1. **Rewrite the kit's charter to name initiative** — his § 2b answer, and the
+   round's most direct fix for the root cause he named. *Initiative* currently
+   returns **zero hits** across `kit:README.md`, `kit:docs/PROJECT-CLOSEOUT.md`
+   and `kit:docs/program/rulings.md`. **Scope guard:** the purpose statements
+   only — **not** the PL register's rulings, which are program law with
+   append-only grammar and owner provenance.
+2. **The truth pass's § 5 sweep** — the 23-file wrong-action set. Lead with the
+   rows that cost sessions capability *today*, because three of his mapping
+   sessions are running into them right now: `docs/CAPABILITIES.md`'s standing
+   false walls (in the repo whose own `check_no_false_walls` exists to prevent
+   exactly that), `docs/fleet-repos.txt`'s five missing adopters (it is the
+   **live regen input**, so the gap ships into every future registry regen), and
+   `control/inbox.md`'s 24 seat-era ORDERs still reading `status: new` —
+   including one instructing a session to arm an hourly routine, which sits
+   beside the estate's never-delete-a-trigger decision.
+
+**Then the release**, per his timing answer: kit #587 and #588 ride `main`
+unreleased and go out **with** this session's work in one cut, not before it.
+The adopter half stays open — he answered timing only.
+
+**Explicitly NOT session 5's:** Move 1 or anything Move-1-shaped (held, and it
+is a stage with an exit condition — do not re-ask him before the mapping is
+done); the interview and the standing leftovers surface (designs, not builds —
+both inherit *never block* and *never prompt unattended*); the rename (waiting
+on his name); any adopter rollout; the economy activation (flagged decision,
+carved out of the sweep's blanket); fm #958; superbot.
 
 ### Thread: the v1.21.0 follow-up worklist — **open, lives in THIS repo, not the kit**
 
 The kit's next worklist is fleet-manager's
 [`../../findings/2026-08-13-substrate-kit-v1210-followups.md`](../../findings/2026-08-13-substrate-kit-v1210-followups.md)
-— Codex findings on the vendored v1.21.0, grown to **34 rows** (as of
-2026-08-21, fm #879 — count from the file, not from here), fix order
-restated at its tail (the false negatives lead; the couch-legend seed's
-work-destroyers follow). `MEASURED` 2026-08-21:
-the kit's own tree references it **nowhere** — a session booting on the kit
-alone cannot find its own worklist. Start any kit session from that finding.
+— Codex findings on the vendored v1.21.0 (count the rows from the file;
+rows 13/17/18 consumed by kit #587, row 35 added from its R3), fix order
+restated at its tail (the work-destroyers 26/29/33 now lead — the false
+negatives are consumed). ~~`MEASURED` 2026-08-21: the kit's own tree
+references it **nowhere**~~ — **closed 2026-08-28 (kit #587):**
+`kit:docs/NEXT-TASKS.md` is superseded into a routed pointer to this
+worklist and the round thread, reachable from the kit's boot path via its
+`current-state.md` links. Start any kit session from that finding.
 
 ### Thread: adopter currency — **3 stale rows + 5 invisible adopters** (owner-paced)
 
@@ -93,13 +233,17 @@ skill graduation (roadmap § 7) — its own session.
 - **`src/engine/` is source of truth; `dist/bootstrap.py` is GENERATED and
   byte-pinned** — after any engine edit run `python3 src/build_bootstrap.py`;
   CI reds on divergence.
-- Gate: **`kit-quality` is the ONE required check**; local convergence is
-  `python3 scripts/preflight.py`. Legacy alias jobs mirror it without running
-  anything (`OQ-KIT-P10-REQUIRED-CHECKS` would retire them).
-- **Releases go ONLY via `release.yml` `workflow_dispatch`** (the git proxy
-  403s tag pushes — path quirk, not a wall); verify with
-  `scripts/verify_release.py` / three-way sha256. The `release` skill here is
-  the procedure.
+- Gate: **`kit-quality` is the ONE required check** (live rules re-verified
+  2026-08-28); local convergence is `python3 scripts/preflight.py`. Legacy
+  alias jobs mirror it without running anything (`OQ-KIT-P10-REQUIRED-CHECKS`
+  resolved 2026-08-28 — deleting the aliases from `ci.yml` is now unblocked
+  agent work for a build session).
+- **Releases: `workflow_dispatch` on `release.yml` is the only AGENT-runnable
+  path** (the git proxy 403s tag pushes — path quirk, not a wall); the
+  workflow's other supported trigger, a hand-pushed `v*` tag, is owner-side
+  canonical (its own header; precision from Codex R1 on kit #588). Verify
+  with `scripts/verify_release.py` / three-way sha256. The `release` skill
+  here is the procedure.
 - `docs/adopters.md` is **GENERATED — never hand-edit**; regenerate with
   `python3 dist/bootstrap.py currency` (sole writer: this repo).
 - Engine code is stdlib-only, no print/assert/subprocess (CI lint leg).

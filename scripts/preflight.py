@@ -38,12 +38,44 @@ everything CI would red on).
 from __future__ import annotations
 
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 GUARD = "FM_PREFLIGHT_ACTIVE"
+
+# Required 🔗 Session line in every ADDED card's header block (owner
+# directive 2026-08-29, D-0023; grammar: .sessions/README.md § 🔗 Session).
+# Full-match, one of exactly two canonical forms: the id-as-URL with the
+# title quoted (the backreference makes the URL embed the SAME id), or the
+# literal honest-null token with its reason. Only lines above the card's
+# first `## ` heading count, so a fenced example in the body cannot satisfy
+# it. First form was substring-loose (`unavailable-ish`, foreign URLs and
+# prose-wrapped ids all passed) — Codex on fm #985, conceded and hardened.
+SESSION_LINE_RE = re.compile(
+    r"^- \*\*🔗 Session:\*\* "
+    r"(?:\[(session_[A-Za-z0-9]{8,})\]\(https://claude\.ai/code/\1\) · \".+\""
+    r"|unavailable — .+)$"
+)
+
+
+def missing_session_line(cards: list[str]) -> list[str]:
+    bad = []
+    for card in cards:
+        try:
+            text = (REPO / card).read_text(encoding="utf-8")
+        except OSError:
+            continue  # an unreadable card is the added-card lane's finding
+        header: list[str] = []
+        for line in text.splitlines():
+            if line.startswith("## "):
+                break
+            header.append(line)
+        if not any(SESSION_LINE_RE.match(line) for line in header):
+            bad.append(card)
+    return bad
 
 
 def run(label: str, argv: list[str], env: dict | None = None) -> int:
@@ -86,7 +118,8 @@ def main() -> int:
     failed = 0
     failing: list[str] = []
 
-    for card in added_cards():
+    cards = added_cards()
+    for card in cards:
         rc = run(
             f"added-card lane ({card})",
             [sys.executable, "bootstrap.py", "check", "--strict",
@@ -98,12 +131,33 @@ def main() -> int:
                            "card is still in-progress; a real finding otherwise")
         failed |= rc != 0
 
+    for card in missing_session_line(cards):
+        print(f"preflight: session-line ({card}) -> exit 1  (missing the "
+              "required '- **🔗 Session:**' line — session id/URL, or the "
+              "literal honest-null 'unavailable'; D-0023, "
+              ".sessions/README.md § 🔗 Session)")
+        failing.append(f"session-line ({card}) — required since 2026-08-29")
+        failed = True
+
     for label, argv in (
         ("doc routes", [sys.executable, "tools/check_doc_routes.py", "--strict"]),
         ("false walls", [sys.executable, "tools/check_no_false_walls.py", "--strict"]),
         ("pipe exit code", [sys.executable, "tools/check_pipe_exit_code.py", "--strict"]),
         ("owner comments", [sys.executable, "tools/owner_comments.py", "check"]),
+        # The owner index is a GENERATED CORE surface, so it is only true
+        # while it matches its sources. Until this ran here it regenerated
+        # solely when someone remembered to invoke it by hand — the exact
+        # staleness the generated design exists to prevent (Codex, fm #988).
+        ("owner index drift", [sys.executable, "tools/gen_owner_index.py", "--check"]),
         ("owner comment tests", [sys.executable, "tools/test_owner_comments.py"]),
+        # The doc-route suite guards the routes AND their plumbing (which tools
+        # a route opts into, whether a Bash-authored document reaches it). It
+        # existed from 2026-08-26 and ran nowhere but a session's own terminal:
+        # MEASURED 2026-08-28 on fm #963's own CI log, where `doc-route
+        # patterns` appears 0 times. A regression suite nothing executes cannot
+        # catch a regression, and this one had just been offered as the reason a
+        # future finding would "land against a suite that fails".
+        ("doc-route patterns", [sys.executable, "tools/test_doc_route_patterns.py"]),
     ):
         rc = run(label, argv)
         if rc != 0:

@@ -37,10 +37,67 @@
   "Without asking" stands; "without routing" never did. Recorded because the
   full-read audit found this entry, the boot file and `providers/gemini.md` all
   advertising the un-routed version while the convention ruled the opposite.
+- amendment: **(2026-08-28) the title's "capped at its balance" is FALSE for the
+  route this entry authorises — reconciled for the OD-24 round's spend question
+  (agenda § 2 · H), which could not honestly be put to the owner while the
+  ledger contradicted itself.** The cap reasoning in `why` below (a €10 prepay,
+  auto-reload off, *"the worst case is the balance reaching zero"*) describes a
+  **prepaid** model. Per
+  [`conventions/vertex-first-for-gemini.md`](conventions/vertex-first-for-gemini.md)
+  (`binding`) that model is true of **Vertex** — credit-funded, €245.23 left
+  2026-08-06, and the credit **expires unused** — and false of
+  **`GEMINI_API_KEY_PAID`**, whose `generativelanguage` route is **excluded from
+  the credit and billed to the owner's card**, with the convention's own
+  constraint column reading *"none — and that is the problem"*. Same billing
+  project, two routes, two funding sources: *the route decides who pays, not the
+  key.* **What survives unchanged:** the spend authorisation — any session may
+  still spend without asking. **What changes:** its *reason*, and a first cut of
+  this amendment got the replacement reason wrong too *(Codex review, fm #964,
+  P1 — upheld)*: it offered *"Vertex is credit-funded and the credit expires
+  unused"*, which is a justification **for the Vertex route** and cannot
+  authorise the **card-funded** one the `verdict` below actually names. **The
+  honest statement of the basis and its limits:**
+  **(a) The authorisation is his, and it is not a cap argument at all** — see
+  `provenance`: *"whenever a session wants a review from a pro model or create
+  an image they are free to use untill the money runs out"*. He wanted the
+  capability used; that stands on his word, not on a ceiling.
+  **(b) What actually bounds the card exposure is the ROUTE RULE, not a
+  balance.** `GEMINI_API_KEY_PAID` is reached **only when Vertex has actually
+  failed** (plus the one documented exception, deep research, which exists on no
+  other path) and the reach must be **said out loud in the session card**. Volume,
+  image and video work goes to Vertex; ordinary AI Studio work goes to the free
+  key. So the card is exposed by *exceptions*, and the discipline that keeps it
+  small is the convention plus the disclosure — which is checkable, unlike a
+  balance that does not exist.
+  **(c) The `why` block below is SUPERSEDED where it reasons from a cap.** Its
+  €10-prepay / auto-reload-off / *"worst case is the balance reaching zero"* /
+  *"the calls simply 429"* chain describes a prepaid model that does not govern
+  this route; a 429 is not what happens when a card-funded key is used. Its
+  surviving halves are the owner's intent (he funded it to be used, and a
+  session stopping to ask spends his attention on a call he already made) and
+  the per-call sizing figures, which are unaffected.
+  **(d) The title is left as-is deliberately** — *"capped at its balance"* is
+  wrong for this route, and rewriting a decision's title would break every
+  citation to it; the correction lives here, where a reader of the entry meets
+  it. **Not re-measured live:** the cost figures are
+  console-UI-only data no session can read (`NOT-VERIFIABLE` per the certainty
+  legend); the €0.49 → €7.88 month-to-date pair is the owner's, from 2026-08-06,
+  and is quoted as his, not re-derived.
+- amendment: **(2026-08-29) the route halves of the amendments above are
+  superseded by [D-0020]: Vertex is retired** — the prepaid credit that made it
+  the default timed out (owner, live), so "default to Vertex" and
+  "volume/image/video work goes to Vertex" no longer route anything, and the
+  route-gate on the paid key becomes *the free key cannot serve the task*.
+  What survives is unchanged again: the spend authorisation in `verdict` —
+  without asking, said out loud in the session card.
 - verdict: Any session may spend `GEMINI_API_KEY_PAID` without asking — Pro-model
   review, image generation, live-search grounding, or any other paid Gemini call
   that serves the work in front of it. No approval step, no per-call budget.
-- why: The owner funded it precisely so sessions would use it, and capped the
+- why: *(Read with the 2026-08-28 amendment above: the cap reasoning in this
+  block is SUPERSEDED — it describes a prepaid model that does not govern the
+  card-funded `GEMINI_API_KEY_PAID` route this entry authorises. The owner-intent
+  and per-call sizing halves stand.)* The owner funded it precisely so sessions
+  would use it, and capped the
   downside himself: a €10 prepay with **auto-reload off**, on a project that can
   only spend on the Gemini API. The worst case is the balance reaching zero,
   which costs nothing beyond the €10 already spent and degrades gracefully to
@@ -339,3 +396,524 @@
   mission, superseding only the rollout order in the 2026-08-26 execution
   packets. The record/index/move mechanics incorporate the named-open review
   findings on fm #951; source-of-truth ownership remains unchanged.
+
+## [D-0019] Codex reviews are reserved for flip-readiness; mid-session verification goes to free-key Gemini
+
+- status: decided
+- date: 2026-08-29
+- verdict: Owner directive, live, in his words: *"lets keep the codex reviews
+  until the PR is ready to flip to green. I don't think It's necessary to
+  review after every push, that just wastes the usage limits. Codex should
+  only be called after a real important change to the repo. For these
+  mid-session reviews you can use the gemini API (the free one…)"* — so the
+  single Codex round lands on the head that flips; intermediate fixes are
+  verified on the free-key Gemini route.
+- amended: 2026-08-30, owner live, in the fresh-start structure sitting. The
+  practice this entry describes was asked back to him as an explicit rule and
+  confirmed — *"Yes, agreed"* — so two things this entry left implicit are now
+  stated. **(1) The flip lands on an answered verdict:** the PR flips green on
+  the head the Codex round actually answered, never on a later head that has
+  not been reviewed (this is TRAP-006/007's requirement, and the entry's
+  never-merge-before-an-asked-Codex-answers rule already implied it).
+  **(2) A Gemini verification is sufficient for an intermediate push:** the
+  free-key route is not merely the permitted place to send mid-session checks,
+  it fully discharges the verification owed on a fix that is not the flip head.
+  Neither clause loosens the flip-readiness round, which stays mandatory on
+  changes that matter.
+- why: per-push Codex rounds burn the usage limits without adding coverage the
+  final round would not give; the one Codex verdict that matters lands on the
+  head that flips, which is also what TRAP-006/007 needs.
+- rules out: requesting `@codex review` on intermediate wording/fix pushes; it
+  does NOT retire never-merge-before-an-asked-Codex-answers, and it does not
+  make the final flip-readiness round optional on changes that matter.
+- first worked use: fm #978 — round-2 fixes verified by `gemini-3.6-flash`
+  (five findings RESOLVED, no new issues), flip on Codex round 2's answered
+  verdict.
+- provenance: owner, live, 2026-08-29, in the audits-review sitting (the
+  fm #978 conversation), quoted verbatim above; recorded the same hour.
+
+## [D-0020] The Vertex route is retired; the free `GEMINI_API_KEY` is the Gemini route
+
+- status: decided
+- date: 2026-08-29
+- verdict: Owner directive, live, in his words: *"the paid/vertex route does
+  not work anymore since the free credits timed out a few days ago"* — the
+  free `GEMINI_API_KEY` is the Gemini route; one session measurement rides
+  along (the working model id).
+- why: the 2026-08-05 Vertex-first directive was funded by the prepaid credit;
+  its own exit clause (conventions doc §Scope) said re-read and ask when the
+  credit runs out. It ran out; he answered.
+- rules out: defaulting to Vertex; probing Vertex to "confirm" his statement.
+  It does NOT touch [D-0011]: his words retire a route, not the paid key's
+  authorization — `GEMINI_API_KEY_PAID` (his card) stays free to spend without
+  asking per that entry (as amended 2026-08-28), reached when the free key
+  cannot serve the task (Deep Research the documented case), said out loud in
+  the session card as the route rule always required.
+- measurement riding along (`MEASURED` 2026-08-29, owner-live venue): the
+  free key's `generateContent` serves `gemini-3.6-flash`; `gemini-2.5-flash`
+  (the one id probed) is still listed by `/models` but 404s as *"no longer
+  available to new users"* naming `gemini-3.6-flash` as the replacement —
+  the other 2.5 ids are untested (the 404's "This model" is singular).
+- homes updated in the same diff: `docs/conventions/vertex-first-for-gemini.md`
+  (supersession header), `docs/providers/gemini.md` (banner),
+  `.claude/CLAUDE.md` (Gemini and @codex bullets), `docs/CAPABILITIES.md`
+  (append-log entry).
+- provenance: owner, live, 2026-08-29, same sitting as [D-0019], quoted
+  verbatim above; the 2026-08-05 directive's own exit clause is the
+  supersession authority.
+
+## [D-0021] The initiative loop: engineered end-of-session output, tier-(c) building, consumption through the continuation prompt
+
+- status: decided
+- date: 2026-08-29
+- verdict: Owner directive, assembled across the live 2026-08-29 sitting and
+  agreed as a whole (*"Yes I agree with your suggestions"*): (1) initiative is
+  **engineered output** — at end of session / after the main objective, a hook
+  triggers a skill whose mechanical detectors raise candidates the agent must
+  disposition (`[acted]`/`[proposed]`/`[dismissed]`+reason); (2) building
+  tier is **(c)** — *"I think I agree with C"*: checkers and non-blocking
+  surfacing hooks auto-build, anything gating waits for him; (3) consumption
+  routes through the **continuation-prompt skill** — the prompt-writing agent
+  weighs queued ideas against the asked task (outrank, merge, or both when
+  small), with a mandatory disposition line in the emitted prompt as the
+  falsifiable red; (4) the queue's one home is the existing generated
+  idea backlog with its harvester extended to both unharvested forms, plus
+  slugs and a disposition column backed by a durable source the generator
+  folds in (the backlog itself is generated, not source of truth); (5) any
+  session may retire a queued idea with a stated reason recorded in that
+  durable disposition source, displayed by the queue — he spot-checks kills
+  rather than approving each.
+- why: self-report initiative is the prose-demand form that died estate-wide
+  while gated practices held (genesis dig); detectors-then-dispositions makes
+  initiative countable with a visible red; consuming at prompt-writing time
+  delivers the queue at the moment next-session scope is decided (intent §4:
+  mechanisms at the right moment, not more instructions); the owner enforced
+  the superbot version personally — the detectors make that enforcement
+  structural.
+- rules out: a skill that opens by asking the agent whether it showed
+  initiative; auto-building anything that gates or blocks; a new queue file
+  when the generated backlog exists (extend, don't invent); a continuation
+  prompt written past live queue ideas without a disposition line;
+  retirement requiring per-kill owner approval.
+- design home (the one citing home for this entry):
+  `planning/2026-08-29-initiative-loop-design.md` — his verbatim quotes, the
+  six detectors, the criteria, what stays open, and the S1–S4 implementation
+  slices for the plan's dedicated sessions. Nothing is built as of this entry
+  (OD-26 §13/§14).
+- provenance: owner, live, 2026-08-29 — the initiative-definition message,
+  *"I think I agree with C"*, the continuation-prompt mechanism message, and
+  *"Yes I agree with your suggestions"*, all in the fm #978/#981/#982
+  conversation; recorded the same hour.
+
+## [D-0022] The planning hold: no large implementations before the plan, small-and-ready excepted
+
+- status: decided
+- date: 2026-08-29
+- verdict: Owner directive, live, in his words: *"this and all further
+  sessions that I will use to plan are not supposed to make large
+  implementations before we have decided how it should all function. But
+  that does not mean you can't do any work in the meantime, if something we
+  discussed genuinely is ready to implement and it fits in a small PR then
+  you are free to implement it."*
+- why: his stated purpose — *"What this hold is mostly for is to prevent
+  that the state of everything changes too much and our plans have to be
+  re-planned each session to continue"* — with the endgame *"discuss and
+  finalize the plan as properly as we can, so we can then have a few
+  dedicated implementation session[s] to execute it."*
+- rules out: building mechanisms mid-planning because they seem useful
+  (surfaces the plan is still deliberating wait even when small); reading
+  the hold as forbidding records, corrections, and captures — those are the
+  carve-out's home ground; treating "small" alone as sufficient (it must
+  also be genuinely ready and not under deliberation).
+- provenance: owner, live, 2026-08-29, same sitting; quoted verbatim above.
+  The carve-out was exercised the same night by the directive-capture and
+  review-consumption PRs before being recorded here.
+
+## [D-0023] Every new session card carries its session identity — required, with an honest null
+
+- status: decided
+- date: 2026-08-29
+- verdict: Owner directive, live: the card grammar gains a required
+  `🔗 Session:` line — the session id (as its claude.ai/code URL) plus the
+  title quoted as a search hint — so any card can be traced back to the
+  conversation that wrote it. *"Yes we should make it required with an honest
+  null, and this is one of the exceptions that should happen immediately.
+  Because it's a small fix that benefits us right away."* The honest null is
+  the single literal token `unavailable` plus one line saying why.
+- why: the harness's `Claude-Session` commit trailer already carries exactly
+  this, but trailer survival depends on the merge path — fm #974/#975's
+  squashed PRs lost their commit bodies (measured, fm #977's card § 3) while
+  full history holds 341 trailer-carrying commits among 993 on `main`
+  (`.sessions/README.md`'s count blockquote; the broader "squash discards
+  everything" reading was a shallow-clone artifact) — so the card is the
+  per-session record that survives regardless of merge style; and a
+  required line with an honest null is the gated form — the optional form is
+  the prose-demanded practice the estate watched die. Implemented the same
+  hour under [D-0022]'s carve-out at the owner's explicit word ("one of the
+  exceptions that should happen immediately").
+- rules out: a sanctioned-but-optional line; inventing or inheriting a
+  session id when the venue cannot read one (the token is the only null);
+  a phrasing-of-your-own null; backfilling existing cards (record tier).
+- enforcement: `scripts/preflight.py` session-line check on ADDED cards —
+  local `check --strict` and CI's substrate-gate run the same script;
+  grammar home `.sessions/README.md` § 🔗 Session (its one citing home).
+- provenance: owner, live, 2026-08-29, same sitting as [D-0021]/[D-0022];
+  the mechanism proven the same hour by `get_session` returning this
+  session's own id and title from inside the container, across an MCP
+  reconnect he screenshotted.
+
+## [D-0024] One main PR per session — a guideline with a countable red, not a gate
+
+- status: decided
+- date: 2026-08-30
+- verdict: Owner directive, live: *"I believe the correct way to do it is to
+  have one main PR per session which just gets more commits as the session
+  moves along. And for a few exceptions another extra PR may be opened and
+  merged on demand."* And its tier, his call: *"this is not something that
+  is extremely important but should be seen as a guideline"* — advisory,
+  never blocking. An extra PR (or an early merge) carries one stated reason
+  in the session card: urgency · independent revertability · reviewability ·
+  a records-only PR that must land first · the owner asked.
+- why: card-per-PR practice inflated records and review cost — measured the
+  night this was decided: one conversation produced five PRs, five cards,
+  five Codex rounds and one empty merged PR (fm #983) born of a between-PR
+  branch restart. Fewer, richer cards are easier to review and cheaper in
+  review rounds (one flip-readiness round per session instead of per PR).
+  His own worry that unenforced rules die is answered at the middle tier:
+  delivered at the decision moment (session-close's landing flow, the boot
+  file's working-style bullet) and countable (the session-identity line
+  groups cards by conversation, so PRs-per-session and missing exception
+  reasons are measurable) — enforcement upgrades later with data, not
+  suspicion.
+- rules out: a blocking check on PR count; splitting per sub-task by
+  default; reading "small PRs" (the size rule, which stands) as a reason to
+  multiply PRs; an extra PR with no stated reason in the card.
+- delivery: `.claude/skills/session-close/SKILL.md` (re-apply row in the
+  local skills registry), the boot file's working-style bullet; design
+  context in the fresh-start redirect planning doc.
+- provenance: owner, live, 2026-08-29/30, the audits-review sitting; quoted
+  verbatim above.
+
+## [D-0025] The plan is redirected to a fresh start: a new hub seeded from a verified baseline; this repo becomes the archive
+
+- status: decided
+- date: 2026-08-30
+- verdict: Owner directive, live: *"The plan that we are planning should be
+  redirected towards a fresh start."* The revised plan's execution target
+  becomes a fresh repository (possibly under a new name), built in the
+  intended structure with the gates and this sitting's designs as birth
+  rules; this fleet-manager is not reorganized in place — it becomes the
+  archive, read-only and permanently linkable, so no inbound citation ever
+  breaks (carried documents' outbound relative links are rewritten to
+  archive URLs at seed time — the one link class copying breaks).
+  His sequence: finish the plan → establish a trustworthy baseline from
+  fleet-manager and the other repos (re-audit only where information has
+  changed; every seeded claim carries a certainty tag) → build the skills,
+  hooks and gates → seed the new repo's working context → active
+  consolidation passes from birth.
+- why: his fresh-eyes browsing test failed (audits split 2-vs-7 across two
+  folders, 80 top-level docs entries, a self-declared-deletable probe file
+  present six weeks after its purpose ended) and a map that must be read
+  before navigating is a compensating mechanism; reorganizing in place
+  breaks citations at scale while a fresh start whose records never move
+  breaks none. His EAP account names what killed the superbot rebuild —
+  coordinator-relay indirection, minimal steering, unverified "done"
+  claims — and the estate's record corroborates the third (golden parity
+  533/533 green while capture-world literals shipped): cutover to a
+  non-functional replacement was impossible. The redirect answers each:
+  direct owner-live sessions (the relay is gone since the program closed),
+  the owner personally managing, and a falsifiable acceptance test gating
+  the cutover.
+- rules out: reorganizing this repo's tree in place as the main path
+  (forward-only placement discipline governs the meantime); creating the
+  new repository before the plan is finished; seeding unverified carried
+  claims (no certainty tag, no seed); reading "structure replaces gates"
+  into this — practice gates stay, navigation-compensation rules are what
+  the structure retires.
+- ~~open (owner to confirm)~~ **ANSWERED 2026-08-30**, the morning after this
+  entry, in the fresh-start structure sitting: the **hard cutover** (agreed on
+  a split form — an absolute write cutover, with the GitHub archive flag free
+  to lag without creating coexistence), the **carry-cut** (three verbs, not
+  two: carry whole · distill · archive only), and the **name** (`estate`).
+  His verbatim words for each are in the design home's § *Answered — the
+  2026-08-30 morning sitting*; the queue entry `OQ-FM-FRESH-START-CONFIRMS`
+  tracks what remains.
+- design home: `planning/2026-08-30-fresh-start-redirect.md` — his quotes
+  whole, the differentiator table, the acceptance test, the counterweight.
+- provenance: owner, live, 2026-08-30, the audits-review sitting (the
+  challenge round and the softening note both quoted in the design home).
+
+## [D-0026] The new hub is named `estate`
+
+- status: decided
+- date: 2026-08-30
+- verdict: The fresh-start hub ([D-0025]) is named **`estate`**. Two owner
+  statements carry it. First, his own weighing: *"I think 'estate' might be a
+  good call, I was personally considering calling it 'structure' but I feel
+  like that name would make it a bit ambiguous to discuss."* Then his assent to
+  the recommendation that `estate` be the name.
+- why: `fleet-manager` names an architecture that no longer exists — a fleet of
+  agent seats retired 2026-07-21 — so every session that boots here reads a
+  name describing a dead thing, and a fresh start is the only moment that is
+  free to drop. `estate` is already his own vocabulary (`docs/ESTATE.md`, "the
+  estate"), names the thing rather than a mechanism that may not survive, and
+  is short in citations — which matters because every archive URL and every
+  inbound link in the new hub carries it. His own rejection of `structure` is
+  the sharpest argument in the record: a repository named `structure` cannot be
+  discussed without collision.
+- rules out: re-opening the name in a later sitting absent a fresh owner
+  statement; `structure`, on his stated reason. It does NOT settle the
+  namespace or the GitHub repository name's exact form (`estate` vs a prefixed
+  variant), which is an execution detail for the creation session.
+- provenance: owner, live, 2026-08-30, the fresh-start structure sitting. **Read
+  the form of the assent honestly:** five recommendations were put to him as a
+  numbered list at the end of a status message, and he answered the list as a
+  whole — *"Yes I agree with all current suggestions."* That is a real
+  authorization and is recorded as one, but it is **not** a verbatim per-item
+  ruling; each entry below names the exact recommendation it ratifies so any one
+  of them can be corrected without disturbing the others. Here: recommendation 1, "the name — `estate`, or
+  something else."
+
+## [D-0027] A generated `owner/` index: one place for everything waiting on him
+
+- status: decided
+- date: 2026-08-30
+- verdict: The estate gains **`owner/README.md`** — a single index of
+  everything that needs the owner, **generated and never hand-maintained**,
+  swept from the surfaces that already hold the truth (the owner queue, the
+  intent documents' ❓ markers, the owner-guidance documents, the idea backlog,
+  unconsumed owner comments). His ask, verbatim: *"We should create a folder
+  directed at me, so I can see everything that needs my attention at once. For
+  example the Ideas, any decisions I should make, open questions, and the files
+  I was looking for yesterday, those that explain the intent of all the
+  repos."* Built **now, in fleet-manager**, not deferred to the new hub, and it
+  is a **carry whole** item when `estate` is seeded.
+- why: what needs him was spread across at least five surfaces he had to
+  already know existed. **The cost was measured the same day:** he went looking
+  for the per-repo intent documents, could not find them, and concluded from
+  that failure that the repo was less structured than he thought — which is
+  what triggered the whole fresh-start redirect. Grepping the per-repo intent
+  path across `README.md`, `docs/MAP.md`, `.claude/CLAUDE.md`,
+  `docs/repos/README.md` and `docs/current-state.md` returns **zero** hits; the
+  single pointer in the tree sits inside `docs/owner-queue.md`, itself one of
+  the surfaces he could not navigate. Generated rather than hand-kept because a
+  hand-maintained "needs Menno" page would be the highest-churn document in the
+  repo and the first to rot — the exact failure being designed against. It is
+  also the same build as the *"made visible in a more efficient way"* half of
+  his idea-cap ask ([D-0028]), not a second mechanism.
+- rules out: hand-editing `owner/README.md`; making it a source of truth (every
+  item is a pointer and the linked file wins); deferring it to the new hub;
+  a section that silently drops an unreadable source — an unreadable surface is
+  reported in the output.
+- built: `tools/gen_owner_index.py` + the generated `owner/README.md`.
+  **Two defects were caught by positive control before it landed**, both worth
+  the record: the first version classified `OQ-FM-FRESH-START-CONFIRMS` as
+  closed and dropped it — its header reads `✅ TWO OF THREE ANSWERED`, and the
+  ✅ test ran before the partly-answered test, hiding the entry most live that
+  day; and the "Read and edit" section listed 23 owner-guidance documents
+  undifferentiated, burying the three `intent.md` files he had actually gone
+  looking for under twelve seat-era drafts — fixed by splitting live from
+  historical on the estate's own stated rule, with the demotion visible rather
+  than silent, per his A2 principle that historical and current material must
+  not share one list.
+- provenance: owner, live, 2026-08-30, the fresh-start structure sitting. **Read
+  the form of the assent honestly:** five recommendations were put to him as a
+  numbered list at the end of a status message, and he answered the list as a
+  whole — *"Yes I agree with all current suggestions."* That is a real
+  authorization and is recorded as one, but it is **not** a verbatim per-item
+  ruling; each entry below names the exact recommendation it ratifies so any one
+  of them can be corrected without disturbing the others. Here: recommendation 2, "the `owner/` folder —
+  build now here, or at the new hub's birth?"
+
+<!-- Do NOT cite this id from any docs/ file: `sb D-0028` in
+     repos/superbot-next/README.md is superbot's OWN register, so the bare
+     string already has two referents in this tree and the stamp checker
+     counts both. Refer to it in prose and link this register instead. -->
+## [D-0028] The idea queue has a cap of 50 — provisional, and it triggers a review rather than blocking
+
+- status: decided
+- date: 2026-08-30
+- verdict: Owner directive, live: *"the ideas that agents should create at the
+  end of a session. These shouldn't stack too much either, we should have a
+  maximum amount, maybe 50 ideas at most at any time. If there are more than 50
+  there has to be a dedicated session discussing them with me and deciding
+  which ones to keep, which ones to discard and which ones we could possibly
+  execute immediately. Tho preferably these ideas should be discussed even
+  sooner, or at least be made visible in a more efficient way."* Recorded with
+  three qualifications he assented to: **(1)** the cap **triggers a review,
+  never blocks recording** — a hard stop at 50 leaves an agent at idea 51
+  either suppressing a good idea or discarding one without judgement, and both
+  lose information; **(2)** it counts **undisposed** ideas, not harvested ones,
+  since the backlog is generated and regenerates ([D-0021] item 5's durable
+  retirement source is what makes that countable); **(3)** **50 is provisional**
+  — his starting figure, revisited at the first triage sitting.
+- why: his stated purpose is that the pile gets reviewed rather than growing
+  forever, and that rule is sound whatever the true count turns out to be.
+- the count does not currently exist (`MEASURED` 2026-08-30):
+  `docs/planning/idea-backlog.md` reports *"57 idea block(s) across 350
+  card(s) · 4 ungroomed"* at `generated-at 2026-08-11T18:01:58Z`, and its own
+  header states the harvest is *"the BULLET form only"*, that *"the majority
+  conventions … are NOT harvested"*, and that the figure is *"a floor over one
+  formatting style, never a measurement of the corpus"* — against 453 cards
+  today. [D-0021]'s slice **S1** is the fix, and this entry puts the counting
+  requirement in its scope. Whether the undisposed total is near 50 is
+  **unknown**; the one weak signal available (4 of 57 ungroomed, ~7 %, via a
+  groom detector the backlog's own header tags unverified) argues **against** an
+  immediate breach rather than for one.
+- rules out: a blocking check on queue size; reading the cap against the
+  harvested total rather than the undisposed one; treating 50 as measured;
+  waiting for a breach as the only way ideas reach him — the sharper trigger
+  agreed alongside is that **an idea surfaced in three consecutive sessions
+  without disposition** is itself the signal, and `owner/README.md` ([D-0027])
+  is the "made visible" half.
+- provenance: owner, live, 2026-08-30, the fresh-start structure sitting. **Read
+  the form of the assent honestly:** five recommendations were put to him as a
+  numbered list at the end of a status message, and he answered the list as a
+  whole — *"Yes I agree with all current suggestions."* That is a real
+  authorization and is recorded as one, but it is **not** a verbatim per-item
+  ruling; each entry below names the exact recommendation it ratifies so any one
+  of them can be corrected without disturbing the others. Here: recommendation 3, "the idea cap — record it
+  now with 50 as provisional?"
+
+## [D-0029] The archive-candidate check is a detector inside the initiative loop, not its own schedule
+
+- status: decided
+- date: 2026-08-30
+- verdict: The archive-eligibility surfacing agreed in the same sitting (a
+  script surfaces files untouched for **N = 30 days**; a person judges whether
+  *"the value the file holds is gone"*) runs as **one more detector inside
+  [D-0021]'s end-of-session initiative hook (slice S2)** — not a cron, not
+  on-demand. Answering his *"Not entirely sure. what do you suggest?"*
+- why: three reasons, assented to as a set. It is the **same shape** as every
+  other detector in that loop — mechanical signal raised, agent dispositions
+  it; it **fires when someone can act**, since the value judgement his
+  definition requires needs an agent with loaded context present, which a
+  scheduled run at an arbitrary hour does not have; and it keeps **one
+  surfacing mechanism rather than two** to build, maintain and remember.
+- rules out: a standalone cron or Routine for archive sweeps; an on-demand-only
+  check (nothing that must be remembered gets run); the detector moving any
+  file — it flags only, per the already-decided flag-don't-move rule. Note S2
+  is **designed, not built** ([D-0021], nothing started), so this entry names
+  where the detector belongs, not a hook it can be added to today.
+- candidate-list requirement: each surfaced file carries **why** it surfaced
+  (days untouched, what still links to it). A bare list of paths costs the
+  judge an investigation and gets skipped.
+- provenance: owner, live, 2026-08-30, the fresh-start structure sitting. **Read
+  the form of the assent honestly:** five recommendations were put to him as a
+  numbered list at the end of a status message, and he answered the list as a
+  whole — *"Yes I agree with all current suggestions."* That is a real
+  authorization and is recorded as one, but it is **not** a verbatim per-item
+  ruling; each entry below names the exact recommendation it ratifies so any one
+  of them can be corrected without disturbing the others. Here: recommendation 4, "when the archive-candidate
+  check runs."
+
+## [D-0030] Session-card idea markers: one canonical form, gated by a checker, coached by the end-of-session skill
+
+- status: decided
+- date: 2026-08-30
+- verdict: Owner directive, live: *"I think the right way would be that a hook
+  triggers at the end if session which prompts a skill that tells each session
+  exactly what to write down in the session cards etc."* — agreed as
+  ***"Yes I think I agree with those suggestions"*** on this shape: (1) **no
+  second hook** — extend [D-0021]'s slice S2, the initiative skill and its
+  non-blocking end-of-session hook; (2) **form is gated by a checker**, the
+  `scripts/preflight.py` added-card lane that already enforces [D-0023]'s
+  `🔗 Session:` line; (3) **substance is coached by the skill**, since what is
+  worth recording is judgement no checker scores; (4) the canonical form is the
+  **bullet** `- 💡`; (5) **required with an honest null**, the [D-0023] shape;
+  (6) **no backfill** — S1 teaches the harvester all three existing forms.
+- why: measured 2026-08-30 across 453 cards — 452 carry the 💡 marker and **0
+  are text-only**, so the defect is the shape around the marker (bullet 59 ·
+  heading 198 · paragraph-start 206, overlapping), not its presence. And the
+  cost is not cosmetic: `scripts/gen_idea_backlog.py:70` harvests
+  `^- (?:\*\*)?💡` only, so **59 of 452 cards reach the queue and 391 do not**.
+  The bullet is canonical because it alone has an end delimiter — a machine can
+  find where a heading or paragraph idea stops only by guessing.
+- rules out: a second end-of-session hook; putting the format rule in the skill
+  where it can be skipped; putting the substance rule in a checker that cannot
+  judge it; rewriting the 452 existing cards; a sanctioned-but-optional marker.
+- depends on: [D-0021] slices S1 (harvester reads all three forms) and S2 (the
+  hook + skill). Neither is built; the [D-0022] planning hold governs.
+- provenance: owner, live, 2026-08-30, the fresh-start structure sitting;
+  design home `planning/2026-08-30-fresh-start-redirect.md` § *Answered — the
+  2026-08-30 afternoon sitting*.
+
+## [D-0031] The no-idea null retires an idea rather than promoting one, and says so in three places
+
+- status: decided
+- date: 2026-08-30
+- verdict: The owner proposed *"if there is no idea then a session should
+  possibly give another idea a +1 to move it up the queue or something"*,
+  heard the objections and took the alternative: the null's three permitted
+  answers, in preference order, are **a new idea** · **a retirement with a
+  stated reason** · **`nothing this session`**. His addition, verbatim:
+  *"when a session retired an idea it should state it clearly in the chat and
+  in the session card."* Recorded in **three** places — the chat, the session
+  card, and the durable disposition source — each doing a different job.
+- why: a raw +1 fails three ways. It makes the honest null expensive, so
+  fabricating a throwaway idea becomes the cheaper path — the exact junk the
+  cap exists to prevent. Agent votes are not independent: one model, one repo,
+  one list order, so forty votes are one opinion sampled forty times, and top
+  entries are read most and therefore stay top. And a tally is a
+  script-computable proxy for precisely the judgement reserved for humans in
+  the archive rule. Pruning also beats ranking on the numbers: the queue moves
+  from 57 toward ~450 once [D-0021]'s S1 lands, and a pile that size cannot be
+  ranked into usefulness. The third recording place is load-bearing and does
+  not yet exist — `gen_idea_backlog.py` reads only `.sessions/*.md` and
+  `docs/planning/*.md` and has no disposition concept, so a retirement written
+  only in a card leaves the idea re-harvested from that same card forever.
+- rules out: vote or +1 tallies as a queue-ordering signal; a null that
+  requires an action, and so is no longer free; a retirement recorded silently,
+  or without a reason, or in the card alone; deleting a retired entry (it stays
+  displayed per [D-0021] item 5, so a wrong kill is one line to reverse).
+- the useful signal instead: an **encounter** count — an idea raised in the
+  course of real work, with one line on how it came up — never a vote.
+- provenance: owner, live, 2026-08-30, same sitting; quoted verbatim above.
+
+## [D-0032] The findability contract: required reading order kept, one question per file, no file outside a folder
+
+- status: decided
+- date: 2026-08-30
+- verdict: Owner directive, live, correcting this repo's own acceptance test:
+  *"There should be a required reading order. What I meant is that when an
+  agent does its reading/orientation, it automatically notices which other
+  files except for the reading order are also worth reading into or at least
+  being made in such a way that if I later mention something, that the agent
+  knows that certain things are written in logical places."* Four rules follow:
+  (1) the required reading order **stays**, and the acceptance test is restated
+  to measure **retrieval** (a topic he names resolves to one folder before any
+  search — the scored half) and **placement** (a new document is filed
+  correctly — secondary); (2) **one question per file, one screen** — *"instead
+  of reading a 500 line file, you see for example 10 50 line files"* — split by
+  question, never by size, and append logs by subject, never by date; (3)
+  **names are as short as possible while still naming a question a reader would
+  ask**; (4) **no file lives outside a folder**, and the top-level map is
+  **generated** from the folder READMEs.
+- why: the earlier test wording (*"no map and no mandatory read list"*) plus §
+  structure-first naming *"the six-read order"* as compensation would have told
+  a future session to delete the reading order — the opposite of his intent.
+  On file size, a failure in this very session is the evidence: the answer to
+  *"can ChatGPT Work open a PR"* sat at `docs/execution-surfaces.md:137` and
+  203–206, the file was opened, the pattern matched, and `head -50` discarded
+  **56% of a 114-line result** before the answer was reported as unverifiable —
+  the predictable response to a long file, which no better name prevents.
+  Measured: 371 files, median 132 lines, **75 files over 300 lines holding 57%
+  of all prose**. On naming and READMEs, both of his rules are already
+  implemented (median name **2 words**; **62 of 65** subfolders carry a README)
+  — which is why the refinements carry the weight: short is not the goal,
+  answering a question is; and the 64 loose top-level files are in no folder and
+  so governed by no README, the one place the contract does not reach.
+- rules out: reading "structure replaces gates" as licence to drop the reading
+  order; splitting a comparison document (`execution-surfaces.md` stays whole);
+  splitting an append log by date; a hand-maintained top-level map — it drifted
+  this same session, when `owner/` was created and `docs/MAP.md` never learned
+  of it; scoring the acceptance test on a self-scored run.
+- scope, stated honestly: "no file outside a folder" addresses about **half**
+  of this session's eight observed failures — four were in foldered files
+  (`docs/providers/gemini-notebook.md`, `docs/planning/idea-backlog.md`,
+  `docs/planning/README.md`, `scripts/gen_idea_backlog.py`), where the session
+  read a document *describing* the thing rather than the thing. Structure
+  mitigates that (short files get read whole) but does not cure it.
+- provenance: owner, live, 2026-08-30, the fresh-start structure sitting;
+  design home `planning/2026-08-30-fresh-start-redirect.md` § *The acceptance
+  test* and § *Answered — the 2026-08-30 afternoon sitting*.

@@ -87,7 +87,12 @@ test; do not confuse the two.
    architecture decisions taken live 2026-08-08, in three phases: retrieval +
    orientation (landed, fm #826) · intent resolution (first slice landed, fm #830;
    § 4.8 run in full — producer half fm #851, blind-scorer half fm #852,
-   PARTIAL confirmed 3/3 scorings) · the common operating protocol (not started). **This entry exists because the roadmap appeared in neither this file
+   PARTIAL confirmed 3/3 scorings) · the common operating protocol (not started).
+   **EXECUTION TARGET REDIRECTED 2026-08-30 ([D-0025], owner-live): the plan
+   executes in a FRESH HUB repository — this repo becomes the read-only
+   archive. Read `docs/planning/2026-08-30-fresh-start-redirect.md` WITH the
+   roadmap; do not start implementation work premised on this repo being the
+   long-term home.** **This entry exists because the roadmap appeared in neither this file
    nor `README.md` until 2026-08-10**, while `current-state.md` carried it *below*
    its own "preserved, not current" banner — so a session walking this path met a
    plan from 2026-07-26 and never learned a newer direction had been set two weeks
@@ -183,7 +188,7 @@ asking him anything.
 
 **Where a decision lives, so you cite the right record:** `docs/decisions.md` —
 this repo's `[D-NNNN]` entries (D-0011 the paid Gemini key is free to spend —
-budget only; the Vertex-first convention still decides the *route* ·
+budget only; the *route* is free-key-first since 2026-08-29, D-0020 ·
 D-0012 publish by default, credentials never) · the program's OD table — owner
 directives · `docs/planning/2026-08-08-fleet-manager-as-index.md` — the Layer 2
 decisions and their rejected alternatives · substrate-kit's PL register —
@@ -191,7 +196,9 @@ program law binding every repo.
 
 ## The working style (owner-set, 2026-07-26; restated 2026-08-08)
 - **One thing at a time, finished properly** — not slow for its own sake, and
-  not a licence to stop short (OD-6 as he restated it). Small PRs. Cleanup of
+  not a licence to stop short (OD-6 as he restated it). Small PRs — **and
+  few: one main PR per session, grown by pushing; an extra PR carries a
+  stated exception reason in the card (guideline, D-0024).** Cleanup of
   spent docs/repos is allowed and wanted, with a stated reason (OD-3 amended).
 - **Records may grow; instructions may not.** The fix for an unfollowed rule is
   a mechanism that delivers it at the right moment, never another statement of
@@ -258,8 +265,21 @@ Essentials:
   (`GIT_CONFIG_GLOBAL=/dev/null` + `https://x-access-token:$GITHUB_PAT@github.com/…`).
 - The *proxied* GitHub REST path 403s. That is a path quirk — switch to direct
   egress — **not a wall.**
-- **`@codex` reviews your PRs, and it answers in about 5.5 minutes — wait for
-  it.** Trigger: PR open, draft→ready, or the literal comment `@codex review`.
+- **ALWAYS ask `@codex` explicitly — never rely on it noticing your PR.** Its
+  own about-box advertises three triggers (open a PR for review · mark a draft
+  ready · comment `@codex review`), but **only the comment is reliable.**
+  `MEASURED` 2026-08-29, and **read what was actually probed**: both observed
+  PRs were *created* ready, so **draft→ready is untested, not refuted** (zero
+  `ready_for_review` events on either). On PR-open, fm #974 was open **422 s**
+  (`19:35:24Z` → merged `19:42:26Z`) and drew **zero** Codex activity on all
+  three surfaces — 87 s past the ~335 s relay, suggestive but not conclusive,
+  since a queued review would plausibly be abandoned at merge. fm #977 drew a
+  review seconds after a manual request, logged by Codex itself as
+  `Review trigger: Manual request`. Owner,
+  live, same day: *"Codex only reviews if you ask it to."* The advertised
+  auto-triggers and the observed behaviour disagree; **post the comment and
+  you never have to care which is right.** Then wait — it answers in about
+  5.5 minutes.
   Measured 2026-08-07 on fm #812: request `13:46:59Z` → review `13:52:34Z` on
   the exact head SHA = **335 s**; 13 findings over 5 rounds across #812/#813,
   several proving a PR did not do what its own title claimed. Findings arrive as
@@ -270,16 +290,26 @@ Essentials:
   and merged three minutes before four real findings landed. Quota refusals are
   retry-later, never a property of the tool. (Codex *cloud* is a different
   surface — `docs/providers/chatgpt.md` — and does not bear on this relay.)
-- **Gemini: two identities, and the route decides who pays, not the key.**
-  `GEMINI_API_KEY` is **free tier** (AI Studio, daily request caps, and the only
-  path serving the Interactions API); the paid project draws the **prepaid
-  credit via Vertex** but bills **the owner's card** on `generativelanguage`.
-  Default to Vertex for volume, image and video; free key for AI Studio work;
-  `GEMINI_API_KEY_PAID` only when Vertex actually failed, said out loud in the
-  card. The caps, the credit balance, the Railway service-account recipe and the
-  billing chain are all in `docs/conventions/vertex-first-for-gemini.md`, and the
-  doc-routing hook puts them in front of you the moment you make a Gemini call —
-  which is why they are not restated here.
+  **Cadence (owner, live, 2026-08-29): reserve Codex for flip-readiness and
+  real important changes — not after every push, which wastes the usage
+  limits.** Mid-session verification of intermediate fixes goes to the
+  free-key Gemini route (`gemini-3.6-flash`, one call with the findings + the
+  diff); the single Codex round then lands on the head that flips, which is
+  also what TRAP-006/007's verdict-at-flip-head needs. First worked use:
+  fm #978 ([D-0019]).
+- **Gemini: the free key is the route — Vertex is retired (owner, live,
+  2026-08-29: the prepaid credits timed out days earlier, "the paid/vertex
+  route does not work anymore").** `GEMINI_API_KEY` is **free tier** (AI
+  Studio, daily request caps, the Interactions API, and now the default for
+  everything it serves, mid-session review work included);
+  `GEMINI_API_KEY_PAID` still bills **the owner's card** — [D-0011] still
+  authorizes spending it without asking; reach for it when the free key
+  cannot serve the task (Deep Research the documented case), said out loud
+  in the card. Current API model ids for this key class: `gemini-3.6-flash`
+  (`MEASURED` 2026-08-29 — `gemini-2.5-flash`, the one id probed, 404s as "no
+  longer available to new users"; the other 2.5 ids are untested). History, the caps, and the credit-era Vertex recipe:
+  `docs/conventions/vertex-first-for-gemini.md`, which the doc-routing hook
+  puts in front of you the moment you make a Gemini call.
 - **When the owner states something about this estate, it is source truth — act
   on it.** *"The token is account-scoped." · "You have access to my test bot
   token." · "Use Vertex." · "The Interactions API works fully turn based."* He
@@ -350,6 +380,7 @@ half; the local file explains the split.
 | Any audio ask — a cue, a loop, a stem, or "make the audio better" | `audio-prompt` |
 | About to say "I can't" / a tool seems missing / something new worked | `capability-probe` |
 | A job means reading a whole corpus (all cards, all results, a full tree) | `delegate-read` |
+| About to fan out agents — an ultracode workflow, a mass sweep, any run whose output becomes a finding | `fleet-preflight` (before the first agent spawns, not after) |
 | Owner asks anything status-shaped ("where are we", "what's left") | `owner-brief` |
 | Owner asks what OTHER sessions did — his local ones especially — or you need the estate-wide picture | **not a skill: run `python3 tools/estate_activity.py refresh`, then read [`docs/activity/`](../docs/activity/README.md)** — this repo's `.sessions/` is fleet-manager's work ALONE (MEASURED 2026-08-26: 74 cards estate-wide that week, 54 reachable from here, 20 not) |
 | Ending the session | `session-close` (run the one strict command and read its real exit code) |
