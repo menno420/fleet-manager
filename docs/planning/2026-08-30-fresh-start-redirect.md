@@ -133,6 +133,83 @@ into the folders where they belong — blind-scored, the §4.8 fresh-agent
 method (producer + independent scorer). The owner's browsing test is the
 human half: he finds a named document without opening an index.
 
+## Addendum — the owner's structure sketch (2026-08-30, pre-sleep), with the consults he invited
+
+His words before sleep, captured so tomorrow starts from them: root-minimal —
+*"Eventually I don't thing there should be any files at root level, with a few
+minor exceptions"*; an `AGENTS.md` at root *"which gives some basic rules and
+routes claude to claude.md and chatGPT to a codex.md"*; *"a clear README.md
+and a repo map, this time one that can just clearly point at well structured
+and properly used folders"*; *"Each folder gets it's own README.md which
+explains what the use of that folder is and which things there should or
+shouldn't be"*; and the archive — *"a comprehensive archive system that
+accounts for project scope and time, so if it's been weeks since something
+was written and there is currently no active project using it, something
+should move to an archive folder, the archive folder should basically be a
+clone of the repo with the same folders inside it, but all of them archived,
+so if you look for an archived file it's still just as easy to find."*
+Urgency, revised by his own second look: *"it's not as urgent as I imagined
+… the logical entrypoints and root directories are the worst looking."*
+
+**Session analysis.** Root exceptions in practice: README, AGENTS.md,
+license-class, and tool-required roots (the kit's `bootstrap.py` sits at
+root today — whether the new hub can nest it is a kit question for the
+plan). On routing: `AGENTS.md` is the emerging cross-vendor convention that
+Codex-class tools read natively, so the sketch's `codex.md` may be one hop
+more than needed — `AGENTS.md` itself can carry the Codex-facing content,
+with one line routing Claude readers to `CLAUDE.md` (which Claude Code
+auto-loads regardless; the routing line serves readers, not loaders). A
+separate `codex.md` earns its place only if Codex-specific content should
+not live in the vendor-neutral file. Per-folder READMEs are the placement
+contracts of layer 1 above — convergent, and the old repo's evidence backs
+them. The archive mirror is the **new hub's immune system** against becoming
+this repo: the old repo stays the frozen archive of the past; the new hub's
+`archive/` is the rolling archive of its own aging material. The move rule
+(weeks-old + no active plan references it) is mechanizable as a **flagging**
+checker feeding the initiative queue — never an auto-move.
+
+**The Gemini consult** (free-key route, adversarial, run the same night at
+his invitation). Its findings worth designing against:
+
+1. **Search pollution** — a same-structure `archive/` doubles every
+   glob/grep hit and feeds stale records into agent context. The Codex
+   round sharpened the fix: the exclusion must live in the search tools'
+   **actual ignore configuration** (`.rgignore`/`.ignore` — never
+   `.gitignore`, since archived files must stay tracked), with the opt-in
+   for deliberate archive searches documented in `AGENTS.md`; a convention
+   written only in `AGENTS.md` asks cooperative agents to remember and
+   changes no tool's default.
+2. **Stub accumulation defeats the cleanup it serves** — per-file stubs are
+   the clutter, one generation later. Candidate, with the precondition the
+   Codex round added: no per-file stubs inside the new hub **contingent on
+   the mover running a repository-wide inbound-reference check and
+   rewriting every link it finds** (the same mechanical pass the carry-cut
+   already owns — a derivable archive path helps only readers who already
+   know the move happened; it repairs no link). A stub remains only where
+   a reference cannot be rewritten (external citations).
+3. **Mirror drift** — renaming or splitting an active folder breaks the
+   mirror's symmetry; the design must say whether `archive/` reflects the
+   tree-at-archive-time or tracks renames.
+4. **Reference-lock deadlock** — *"no active project uses it"* needs a
+   machine-readable definition, or one stale plan reference locks a file
+   active forever and the lifecycle engine freezes.
+5. **Per-folder README cost** — dozens of metadata files burned into agent
+   context on recursive tasks; keep each to one screen and generate the map
+   *from* them.
+6. **Routing split-brain** — multi-hop `AGENTS.md → codex.md` indirection
+   risks per-vendor divergence; converges with the analysis above (flatten
+   to `AGENTS.md` + `CLAUDE.md`).
+
+Down-weighted, with reasons: its merge-conflict worry (the one-PR guideline
+and flag-don't-move keep archive moves in deliberate single sessions) and
+its provenance worry (git history carries the timeline; the mirror only
+relocates the working view).
+
+**Open for his morning, from the sketch + consult:** stub-or-no-stub inside
+the new hub · the machine definition of "an active project uses it" ·
+whether session cards — born as records — skip the aging rule or are born
+archive-tier · `codex.md` folded into `AGENTS.md` or kept separate.
+
 ## Open — owner to confirm; not yet his verbatim
 
 - **The hard-cutover rule:** this repo archives (read-only on GitHub —

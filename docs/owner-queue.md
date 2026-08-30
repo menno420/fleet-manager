@@ -56,6 +56,16 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 > the same day — see their notes). Answers given in the sitting come back here
 > as entry updates; the agenda feeds this queue, it does not replace it.
 
+- **`OQ-FM-FRESH-START-CONFIRMS`** (added 2026-08-30, the redirect sitting) —
+  the fresh-start redirect
+  ([design home](planning/2026-08-30-fresh-start-redirect.md), § Open) waits
+  on three owner words: **(1) hard cutover** — the old repo archives
+  read-only the day the new hub passes the fresh-agent acceptance test, no
+  coexistence window (recorded as implied intent; needs his verbatim yes);
+  **(2) the carry-cut** — living ledgers and binding conventions carry with
+  outbound links rewritten to archive URLs, record tier stays archived;
+  **(3) the new hub's name.** His structure sketch (same doc, § Addendum) is
+  thinking material he said he'll take more time on — not an ask.
 - **`OQ-KIT-MOVE1-GO` ⏸ ANSWERED 2026-08-28 — HELD, and it is a STAGE, not a deferral.**
   Owner, live in the OD-24 discussion sitting (§ 7 of [the sitting record](findings/2026-08-28-od24-sitting-answers.md)): offered
   three GO shapes and a hold, he chose **hold — still planning**. Minutes later,
