@@ -638,3 +638,167 @@
   whole, the differentiator table, the acceptance test, the counterweight.
 - provenance: owner, live, 2026-08-30, the audits-review sitting (the
   challenge round and the softening note both quoted in the design home).
+
+## [D-0026] The new hub is named `estate`
+
+- status: decided
+- date: 2026-08-30
+- verdict: The fresh-start hub ([D-0025]) is named **`estate`**. Two owner
+  statements carry it. First, his own weighing: *"I think 'estate' might be a
+  good call, I was personally considering calling it 'structure' but I feel
+  like that name would make it a bit ambiguous to discuss."* Then his assent to
+  the recommendation that `estate` be the name.
+- why: `fleet-manager` names an architecture that no longer exists — a fleet of
+  agent seats retired 2026-07-21 — so every session that boots here reads a
+  name describing a dead thing, and a fresh start is the only moment that is
+  free to drop. `estate` is already his own vocabulary (`docs/ESTATE.md`, "the
+  estate"), names the thing rather than a mechanism that may not survive, and
+  is short in citations — which matters because every archive URL and every
+  inbound link in the new hub carries it. His own rejection of `structure` is
+  the sharpest argument in the record: a repository named `structure` cannot be
+  discussed without collision.
+- rules out: re-opening the name in a later sitting absent a fresh owner
+  statement; `structure`, on his stated reason. It does NOT settle the
+  namespace or the GitHub repository name's exact form (`estate` vs a prefixed
+  variant), which is an execution detail for the creation session.
+- provenance: owner, live, 2026-08-30, the fresh-start structure sitting. **Read
+  the form of the assent honestly:** five recommendations were put to him as a
+  numbered list at the end of a status message, and he answered the list as a
+  whole — *"Yes I agree with all current suggestions."* That is a real
+  authorization and is recorded as one, but it is **not** a verbatim per-item
+  ruling; each entry below names the exact recommendation it ratifies so any one
+  of them can be corrected without disturbing the others. Here: recommendation 1, "the name — `estate`, or
+  something else."
+
+## [D-0027] A generated `owner/` index: one place for everything waiting on him
+
+- status: decided
+- date: 2026-08-30
+- verdict: The estate gains **`owner/README.md`** — a single index of
+  everything that needs the owner, **generated and never hand-maintained**,
+  swept from the surfaces that already hold the truth (the owner queue, the
+  intent documents' ❓ markers, the owner-guidance documents, the idea backlog,
+  unconsumed owner comments). His ask, verbatim: *"We should create a folder
+  directed at me, so I can see everything that needs my attention at once. For
+  example the Ideas, any decisions I should make, open questions, and the files
+  I was looking for yesterday, those that explain the intent of all the
+  repos."* Built **now, in fleet-manager**, not deferred to the new hub, and it
+  is a **carry whole** item when `estate` is seeded.
+- why: what needs him was spread across at least five surfaces he had to
+  already know existed. **The cost was measured the same day:** he went looking
+  for the per-repo intent documents, could not find them, and concluded from
+  that failure that the repo was less structured than he thought — which is
+  what triggered the whole fresh-start redirect. Grepping the per-repo intent
+  path across `README.md`, `docs/MAP.md`, `.claude/CLAUDE.md`,
+  `docs/repos/README.md` and `docs/current-state.md` returns **zero** hits; the
+  single pointer in the tree sits inside `docs/owner-queue.md`, itself one of
+  the surfaces he could not navigate. Generated rather than hand-kept because a
+  hand-maintained "needs Menno" page would be the highest-churn document in the
+  repo and the first to rot — the exact failure being designed against. It is
+  also the same build as the *"made visible in a more efficient way"* half of
+  his idea-cap ask ([D-0028]), not a second mechanism.
+- rules out: hand-editing `owner/README.md`; making it a source of truth (every
+  item is a pointer and the linked file wins); deferring it to the new hub;
+  a section that silently drops an unreadable source — an unreadable surface is
+  reported in the output.
+- built: `tools/gen_owner_index.py` + the generated `owner/README.md`.
+  **Two defects were caught by positive control before it landed**, both worth
+  the record: the first version classified `OQ-FM-FRESH-START-CONFIRMS` as
+  closed and dropped it — its header reads `✅ TWO OF THREE ANSWERED`, and the
+  ✅ test ran before the partly-answered test, hiding the entry most live that
+  day; and the "Read and edit" section listed 23 owner-guidance documents
+  undifferentiated, burying the three `intent.md` files he had actually gone
+  looking for under twelve seat-era drafts — fixed by splitting live from
+  historical on the estate's own stated rule, with the demotion visible rather
+  than silent, per his A2 principle that historical and current material must
+  not share one list.
+- provenance: owner, live, 2026-08-30, the fresh-start structure sitting. **Read
+  the form of the assent honestly:** five recommendations were put to him as a
+  numbered list at the end of a status message, and he answered the list as a
+  whole — *"Yes I agree with all current suggestions."* That is a real
+  authorization and is recorded as one, but it is **not** a verbatim per-item
+  ruling; each entry below names the exact recommendation it ratifies so any one
+  of them can be corrected without disturbing the others. Here: recommendation 2, "the `owner/` folder —
+  build now here, or at the new hub's birth?"
+
+<!-- Do NOT cite this id from any docs/ file: `sb D-0028` in
+     repos/superbot-next/README.md is superbot's OWN register, so the bare
+     string already has two referents in this tree and the stamp checker
+     counts both. Refer to it in prose and link this register instead. -->
+## [D-0028] The idea queue has a cap of 50 — provisional, and it triggers a review rather than blocking
+
+- status: decided
+- date: 2026-08-30
+- verdict: Owner directive, live: *"the ideas that agents should create at the
+  end of a session. These shouldn't stack too much either, we should have a
+  maximum amount, maybe 50 ideas at most at any time. If there are more than 50
+  there has to be a dedicated session discussing them with me and deciding
+  which ones to keep, which ones to discard and which ones we could possibly
+  execute immediately. Tho preferably these ideas should be discussed even
+  sooner, or at least be made visible in a more efficient way."* Recorded with
+  three qualifications he assented to: **(1)** the cap **triggers a review,
+  never blocks recording** — a hard stop at 50 leaves an agent at idea 51
+  either suppressing a good idea or discarding one without judgement, and both
+  lose information; **(2)** it counts **undisposed** ideas, not harvested ones,
+  since the backlog is generated and regenerates ([D-0021] item 5's durable
+  retirement source is what makes that countable); **(3)** **50 is provisional**
+  — his starting figure, revisited at the first triage sitting.
+- why: his stated purpose is that the pile gets reviewed rather than growing
+  forever, and that rule is sound whatever the true count turns out to be.
+- the count does not currently exist (`MEASURED` 2026-08-30):
+  `docs/planning/idea-backlog.md` reports *"57 idea block(s) across 350
+  card(s) · 4 ungroomed"* at `generated-at 2026-08-11T18:01:58Z`, and its own
+  header states the harvest is *"the BULLET form only"*, that *"the majority
+  conventions … are NOT harvested"*, and that the figure is *"a floor over one
+  formatting style, never a measurement of the corpus"* — against 453 cards
+  today. [D-0021]'s slice **S1** is the fix, and this entry puts the counting
+  requirement in its scope. Whether the undisposed total is near 50 is
+  **unknown**; the one weak signal available (4 of 57 ungroomed, ~7 %, via a
+  groom detector the backlog's own header tags unverified) argues **against** an
+  immediate breach rather than for one.
+- rules out: a blocking check on queue size; reading the cap against the
+  harvested total rather than the undisposed one; treating 50 as measured;
+  waiting for a breach as the only way ideas reach him — the sharper trigger
+  agreed alongside is that **an idea surfaced in three consecutive sessions
+  without disposition** is itself the signal, and `owner/README.md` ([D-0027])
+  is the "made visible" half.
+- provenance: owner, live, 2026-08-30, the fresh-start structure sitting. **Read
+  the form of the assent honestly:** five recommendations were put to him as a
+  numbered list at the end of a status message, and he answered the list as a
+  whole — *"Yes I agree with all current suggestions."* That is a real
+  authorization and is recorded as one, but it is **not** a verbatim per-item
+  ruling; each entry below names the exact recommendation it ratifies so any one
+  of them can be corrected without disturbing the others. Here: recommendation 3, "the idea cap — record it
+  now with 50 as provisional?"
+
+## [D-0029] The archive-candidate check is a detector inside the initiative loop, not its own schedule
+
+- status: decided
+- date: 2026-08-30
+- verdict: The archive-eligibility surfacing agreed in the same sitting (a
+  script surfaces files untouched for **N = 30 days**; a person judges whether
+  *"the value the file holds is gone"*) runs as **one more detector inside
+  [D-0021]'s end-of-session initiative hook (slice S2)** — not a cron, not
+  on-demand. Answering his *"Not entirely sure. what do you suggest?"*
+- why: three reasons, assented to as a set. It is the **same shape** as every
+  other detector in that loop — mechanical signal raised, agent dispositions
+  it; it **fires when someone can act**, since the value judgement his
+  definition requires needs an agent with loaded context present, which a
+  scheduled run at an arbitrary hour does not have; and it keeps **one
+  surfacing mechanism rather than two** to build, maintain and remember.
+- rules out: a standalone cron or Routine for archive sweeps; an on-demand-only
+  check (nothing that must be remembered gets run); the detector moving any
+  file — it flags only, per the already-decided flag-don't-move rule. Note S2
+  is **designed, not built** ([D-0021], nothing started), so this entry names
+  where the detector belongs, not a hook it can be added to today.
+- candidate-list requirement: each surfaced file carries **why** it surfaced
+  (days untouched, what still links to it). A bare list of paths costs the
+  judge an investigation and gets skipped.
+- provenance: owner, live, 2026-08-30, the fresh-start structure sitting. **Read
+  the form of the assent honestly:** five recommendations were put to him as a
+  numbered list at the end of a status message, and he answered the list as a
+  whole — *"Yes I agree with all current suggestions."* That is a real
+  authorization and is recorded as one, but it is **not** a verbatim per-item
+  ruling; each entry below names the exact recommendation it ratifies so any one
+  of them can be corrected without disturbing the others. Here: recommendation 4, "when the archive-candidate
+  check runs."

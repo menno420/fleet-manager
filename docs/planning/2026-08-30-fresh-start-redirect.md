@@ -286,7 +286,8 @@ generated indexes this estate already relies on.
 **When the check runs — open; he asked for a suggestion.** His words: *"Not
 entirely sure. what do you suggest?"* The session's suggestion, awaiting his
 word: neither a cron nor on-demand, but **as one more detector inside the
-initiative loop's end-of-session hook** ([D-0021] slice S2 — *not yet built*).
+initiative loop's end-of-session hook** (slice S2 of the initiative-loop
+design — *not yet built*).
 Three reasons: it is the same shape (mechanical detector → surfaced candidate →
 agent disposition), it fires at the one moment an agent with loaded context is
 present to make the value judgement his definition requires, and it keeps one
@@ -372,15 +373,21 @@ the archive freezes, a post-cutover rename is expensive; the naming decision is
 therefore free only now, during planning, which argues for a dedicated pass on
 the folder tree before anything is created.
 
-**The review-cadence amendment ([D-0019]) — confirmed.** His words: *"Yes,
-agreed."* Written into that entry in the same PR as this section.
+**The review-cadence amendment — confirmed.** His words: *"Yes,
+agreed."* Written into the cadence entry — stamped in [`docs/decisions.md`](../decisions.md), whose citing home is
+`conventions/vertex-first-for-gemini.md` — in the same PR as this section.
 
 ## Still open after this sitting
 
-- **The new hub's name** — leaning `estate`; his confirming word still owed.
-- **When the archive-candidate check runs** — the session's suggestion (a
-  detector inside [D-0021]'s S2 end-of-session hook) is with him.
-- **The idea-queue cap** — his proposal, verbatim: *"the ideas that agents
+- ~~**The new hub's name**~~ — **✅ SETTLED: `estate`**, later the same day;
+  stamped in [`docs/decisions.md`](../decisions.md), cited from `owner-queue.md`.
+- ~~**When the archive-candidate check runs**~~ — **✅ SETTLED** ([D-0029]): a
+  detector inside the initiative loop's S2 end-of-session hook, not a cron and
+  not on-demand.
+- **The idea-queue cap** — **✅ RECORDED** in the decision register (50
+  provisional; it
+  triggers a review, never blocks recording; it counts undisposed ideas).
+  His proposal, verbatim: *"the ideas that agents
   should create at the end of a session. These shouldn't stack too much either,
   we should have a maximum amount, maybe 50 ideas at most at any time. If there
   are more than 50 there has to be a dedicated session discussing them with me
@@ -391,7 +398,8 @@ agreed."* Written into that entry in the same PR as this section.
   block recording** (a hard stop at 50 makes an agent at #51 either suppress a
   good idea or discard one without judgement); the cap must count **undisposed**
   ideas, not harvested ones, since the backlog is generated and regenerates
-  ([D-0021] item 5's durable retirement source is what makes that countable);
+  (the initiative-loop decision's item 5 provides the durable retirement
+  source that makes that countable);
   and *"discussed even sooner"* is the more valuable half, best served by a
   sharper trigger than raw count — an idea surfaced in three consecutive
   sessions without disposition is more informative than the pile reaching an
@@ -402,9 +410,36 @@ agreed."* Written into that entry in the same PR as this section.
   its own header states the harvest is *"the BULLET form only"*, that *"the
   majority conventions … are NOT harvested"*, and that the figure is *"a floor
   over one formatting style, never a measurement of the corpus"* — against 453
-  cards today. [D-0021]'s slice **S1** is the fix. Whether the undisposed count
+  cards today. The initiative-loop design's slice **S1** is the fix
+  ([`2026-08-29-initiative-loop-design.md`](2026-08-29-initiative-loop-design.md)
+  § Implementation slices). Whether the undisposed count
   is near 50 is unknown, and the one weak signal available (4 of 57 ungroomed,
   ~7%, via a groom-detector the header itself tags unverified) argues **against**
   an immediate breach rather than for one.
-- **A dedicated folder-naming pass** — proposed to him as the next sitting, on
-  the C2 reasoning above.
+- **A dedicated folder-naming pass** — **✅ AGREED as the next sitting**, on the
+  C2 reasoning above: the archive freezes, so a post-cutover rename is
+  expensive and the naming decision is free only during planning. Nothing is
+  designed for it yet; the session that takes it should arrive with a proposed
+  set of role-named folders and what each folder's README would declare, for
+  him to cut and correct rather than invent.
+
+## What he asked for that this sitting built
+
+**A folder directed at him** — his words: *"We should create a folder directed
+at me, so I can see everything that needs my attention at once."* Built as the
+generated `owner/README.md` ([D-0027]), swept from the owner queue, the intent
+documents' ❓ markers, the owner-guidance documents, the idea backlog and the
+unconsumed owner comments. It is a **carry whole** item when `estate` is seeded.
+
+**The documents he could not find** were `docs/repos/<repo>/intent.md` —
+`spider-bot`, `spider-swing` and `substrate-kit`, all three written 2026-08-28,
+all `Status: owner-guidance`, carrying 10 ❓ questions addressed to him — plus
+`docs/intent.md` for fleet-manager itself, against the 28 repositories the
+owner-comments checker enumerates. The prepared prompts are
+`docs/planning/2026-08-28-owner-intent-questions.md` (167 lines, 12 sections),
+tracked as `OQ-INTENT-WRITE-UP`. **Why he could not find them, `MEASURED`
+2026-08-30:** grepping the per-repo intent path across `README.md`,
+`docs/MAP.md`, `.claude/CLAUDE.md`, `docs/repos/README.md` and
+`docs/current-state.md` returns **zero** hits — including `docs/repos/README.md`,
+the index of the very folder they live in. The only pointer in the tree is
+inside `docs/owner-queue.md`.

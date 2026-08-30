@@ -56,8 +56,9 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 > the same day — see their notes). Answers given in the sitting come back here
 > as entry updates; the agenda feeds this queue, it does not replace it.
 
-- **`OQ-FM-FRESH-START-CONFIRMS` ✅ TWO OF THREE ANSWERED 2026-08-30 — only the
-  name is still owed.** (added 2026-08-30, the redirect sitting; answered the
+- **`OQ-FM-FRESH-START-CONFIRMS` ✅ FULLY ANSWERED 2026-08-30 — all three words
+  given; nothing owed.** The name landed later the same day as [D-0026]:
+  **`estate`**, on his own weighing plus his assent to the recommendation. (added 2026-08-30, the redirect sitting; answered the
   next morning in the structure sitting — his words are quoted in the
   [design home](planning/2026-08-30-fresh-start-redirect.md) § *Answered*.)
   **(1) Hard cutover — ✅ answered, *"Agreed"***, on the split form: the *write
@@ -69,12 +70,13 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   work in the same files."* Three verbs, not two — carry whole · distill ·
   archive only. Seeding scope also settled: *"mostly from fleet-manager and
   superbot,"* the newer repos contributing to router/summary sections only.
-  **(3) The new hub's name — ⬜ STILL OWED, leaning `estate`.** *"I think
+  **(3) The new hub's name — ✅ `estate` ([D-0026]).** *"I think
   'estate' might be a good call, I was personally considering calling it
   'structure' but I feel like that name would make it a bit ambiguous to
-  discuss."* A leaning is not a confirmation; the naming word is the one thing
-  left in this entry. **WHY-IT-MATTERS:** every archive URL and every citation
-  in the new hub carries it, and it is the one call nobody can make for you.
+  discuss."* Recorded first as a leaning, then settled the same day when he
+  assented to the recommendation that `estate` be the name — the form of that
+  assent (a blanket yes to a five-item list) is stated in [D-0026]'s provenance
+  so it stays correctable.
   His structure sketch (same doc, § Addendum) was also worked in that sitting —
   all four of its questions answered; what remains open is listed in the design
   home's § *Still open after this sitting*.

@@ -130,7 +130,8 @@ its red looks like, making "never ran" visible within a session or two.
 - ~~**The review-cadence amendment**~~ — **✅ SETTLED 2026-08-30**, owner live
   in the fresh-start structure sitting: *"Yes, agreed."* Both clauses
   (flip-on-answered-verdict, Gemini-verified fixes sufficient for intermediate
-  pushes) are now written into [D-0019] as a dated amendment.
+  pushes) are now written into the review-cadence entry in
+  [`docs/decisions.md`](../decisions.md) as a dated amendment.
 - **Hook wiring** (which event fires the skill, Stop vs. session-close) and
   the detectors' build order — implementation detail for the dedicated
   sessions the plan will name.

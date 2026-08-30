@@ -90,7 +90,32 @@ grepped. The last one held: 0 hits in `README.md`, `docs/MAP.md`,
 `.claude/CLAUDE.md`, `docs/repos/README.md` and `docs/current-state.md`; 1 in
 `docs/owner-queue.md`.
 
-## What the owner asked for that is not yet built
+## Built this sitting, on his blanket assent
+
+He answered the five open recommendations as a list — *"Yes I agree with all
+current suggestions."* That is a real authorization and is recorded as one, but
+it is not a per-item verbatim ruling, so each decision entry names the exact
+recommendation it ratifies and can be corrected alone. Four entries landed:
+**[D-0026]** the new hub is named **`estate`** · **[D-0027]** the generated
+`owner/` index, built now here rather than deferred · **[D-0028]** the idea cap
+(50, provisional, triggers a review and never blocks recording, counts
+undisposed ideas) · **[D-0029]** the archive-candidate check as a detector
+inside [D-0021]'s S2 hook rather than a cron. `OQ-FM-FRESH-START-CONFIRMS` is
+now fully answered and closed.
+
+`tools/gen_owner_index.py` + `owner/README.md` are the build. **Two defects
+caught by positive control before landing**, and the control is the point —
+running the generator only proved it ran. First, `OQ-FM-FRESH-START-CONFIRMS`
+was classified closed and dropped: its header reads `✅ TWO OF THREE ANSWERED`,
+and the ✅ test ran before the partly-answered test, so the entry most live that
+day vanished from the index built to surface it. Precedence reversed, with the
+reason in a code comment. Second, "Read and edit" listed 23 owner-guidance
+documents undifferentiated, burying the three `intent.md` files he had gone
+looking for under twelve seat-era drafts from July — split into live and
+historical on the estate's own stated rule, with the demotion visible in a
+collapsed block rather than silent, per his own A2 principle.
+
+## What the owner asked for, and what was still missing
 
 He asked for **a folder directed at him** — one place showing the ideas,
 decisions owed, open questions, and the documents written for him to edit.
