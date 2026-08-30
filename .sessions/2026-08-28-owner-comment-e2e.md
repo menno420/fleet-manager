@@ -1,9 +1,22 @@
 # 2026-08-28 — production owner-comment end-to-end proof
 
-> **Status:** `in-progress` — the consumed-history change is pushed in PR #958; the owner ended the local session before its final green check, merge, and consumed-replay proof.
+> **Status:** `complete` — closed out 2026-08-30 by a hub session at the owner's
+> instruction, two days after the local session was interrupted. `origin/main`
+> was merged in to clear a conflict in the append-only guard-fire ledger (union
+> of both sides, 35 206 + 161 = 35 367 lines, zero records dropped, every line
+> valid JSON), then `python3 bootstrap.py check --strict` was re-run and read on
+> its real exit code. **One item from the handoff below is NOT done and is not
+> this session's to do: the post-merge production replay check** — see § *What
+> remains for the owner*.
 
-- **📊 Model:** GPT-5 family · high · verification
+- **📊 Model:** GPT-5 family · high · review/verify
+- **⚑ Model-line note:** the task class read `verification` until the 2026-08-30
+  closeout, which is off-taxonomy — it prefix-matches none of the nine PL-004
+  classes, and the added-card lane held the gate on it. Changed to the
+  taxonomy's own term for this work, `review/verify`; the model and effort
+  segments are the original session's self-report and are untouched.
 - **📍 Venue:** local-desktop
+- **🔗 Session:** unavailable — written 2026-08-28 in a local desktop session on another vendor's surface, which exposes no Claude session id
 
 ## Mission
 
@@ -32,7 +45,29 @@ Layer-2 handoff: null (record-lifecycle verification only; no websites product-s
 - Exact-head Codex review of product commit `0cd327aaff` found no major issues and no inline findings. This completion text plus expected guard telemetry is the deliberate records-only change after that review.
 - Production showed truthful unavailable, pending, landed replay, visible unconsumed, and anonymous locked-control states during the live workflow; consumed replay and final public state remain to be checked after PR #958 merges.
 
-## Open handoff
+## Open handoff — resolved 2026-08-30, except one owner-side check
 
-- PR #958 contains the mechanical consumed-history move and exact-head review of product commit `0cd327aaff` is clean.
-- Re-run `python bootstrap.py check --strict`, flip this card to complete only after it passes, push the records-only closeout, wait for green CI, merge PR #958, then reload the original production submission to verify `consumed_replayed` and confirm the public page has no active feedback while the history link remains accessible.
+Done in the closeout session:
+
+- **Conflict resolved.** `.substrate/guard-fires.jsonl` was the only conflicted
+  file. Resolved as a union of both sides, since the ledger is append-only and
+  the gate's own message says to commit the delta rather than revert it:
+  35 206 lines from `main` + this branch's 161 additions = 35 367, no record
+  dropped, all lines valid JSON.
+- **`python3 tools/owner_comments.py check`** — exit 0: *"CLEAN — 28
+  repositories, 0 unconsumed, 1 consumed"*, which is the consumption this PR
+  exists to make.
+- **`python3 bootstrap.py check --strict`** — re-run and read on its real exit
+  code, never `$?` after a pipe. Its one finding was this card's own born-red
+  hold, cleared by this flip.
+
+## What remains for the owner
+
+The final step of the original handoff is a **live production check** this
+session cannot perform: after the merge, reload the original website submission
+to confirm it reports `consumed_replayed`, and confirm the public repository
+page shows no active feedback while the consumed-history link stays reachable.
+The repository side of that is already true and verifiable here — the record
+lives at `docs/owner-comments/websites/consumed/` with its wording and
+timestamps preserved, and both indexes read 0 active / 1 consumed. What is
+unverified is only the **production surface's** rendering of that state.
