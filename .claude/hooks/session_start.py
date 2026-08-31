@@ -75,8 +75,12 @@ CONTRACT (identical to every other advisory hook here)
 
 Unlike `route_docs.py`, this one is NOT silent-by-default and NOT deduplicated.
 Those rules exist because an advisory that fires on every tool call becomes
-noise the session learns to skip. `SessionStart` fires once per session by
-construction, so there is no noise field to join — and the estate's own measured
+noise the session learns to skip. `SessionStart` fires once per SESSION-START
+TRANSITION — not once per session, since `compact` and `clear` fire it again in
+a live session (Codex, fm #992 R3; the earlier "once per session by
+construction" hid exactly the repeated-compaction population this file's own
+source table handles). Either way it is bounded by transitions rather than by
+tool calls, so there is no noise field to join — and the estate's own measured
 finding on selective firing (`docs/findings/2026-08-06-provenance-mechanism-measured.md`
 § 8: *"fixed-and-always-on and blended-into-conversation both avoid the
 test-signal; selective firing is the worst of the three"*) argues against making
@@ -352,7 +356,14 @@ def main() -> None:
         # is cold. Recorded so a schema change is visible rather than assumed.
         rec(note="non-string-source", source_type=type(raw).__name__)
         raw = None
-    source = (raw or "unknown").lower()
+    # NO .lower() before the WARM_SOURCES test. Lower-casing widened the warm set
+    # past the documented values — "RESUME" and "Resume" took the warm path while
+    # the contract says the closed set is those exact strings and everything else
+    # is cold (Codex, fm #992 R3, P2). It fails in the wrong direction: the whole
+    # asymmetry argument is that an unrecognised value must get the FULL
+    # contract, and a cased variant is an unrecognised value until upstream says
+    # otherwise. Costing a resume ~500 tokens is the safe error here.
+    source = raw or "unknown"
 
     missing = [p for p, _ in READS if not _present(p)]
     missing += [p for p in COMPANIONS if not _present(p)]
