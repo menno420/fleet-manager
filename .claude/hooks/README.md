@@ -192,6 +192,40 @@ look like the dedupe failed when it did not.
 > from a measurement rather than a suspicion. `error: null` alongside
 > `route: null` is the specific oddity — it suggests a short-circuit *before*
 > the call rather than a failed call.
+>
+> **RESOLVED 2026-08-31 — the short-circuit was real, and it is now countable.**
+> The banner's own last sentence named it: `route: null` **and** `error: null`
+> together were uniquely produced by `_free_review`'s `if not key: return None`.
+> Every other failure raises and lands in `error`; every successful call stamps
+> `um["route"] = "free"` in `_extract` *before* the text is read, so even an
+> empty completion logs `route: "free"`. One branch, one signature.
+>
+> **Read what is and is not established.** That branch is now a raised
+> `RuntimeError` carrying `no-key:` and the reason, so the next occurrence names
+> itself in the log instead of presenting as an unexplained null. What is
+> **not** established is that this is what happened on 2026-08-26: `LOG` lives
+> under `/tmp`, which dies with the container, so those six lines are gone and
+> cannot be re-examined. The diagnosis is `REASONED` from the code paths, not
+> `MEASURED` against the incident.
+>
+> And the banner's framing invited the wrong inference, so it is corrected here
+> rather than left to mislead: **`GEMINI_API_KEY` present in the environment**
+> meant present in the *session's* environment, which is not the hook
+> subprocess's. Those happen to be the same set — hook processes inherit the
+> parent environment, and Claude Code strips only `OTEL_*`
+> ([`code.claude.com/docs/en/hooks`](https://code.claude.com/docs/en/hooks),
+> read 2026-08-31) — so this does **not** explain the incident either. It
+> narrows the next investigation to provisioning rather than plumbing.
+>
+> Live evidence that the path itself is healthy, `MEASURED` 2026-08-31 in this
+> container: a real firing logged
+> `{"route": "free", "enriched": true, "out_tokens": 71}`, and a pipe-test with
+> the key stripped logged
+> `{"route": null, "enriched": false, "error": "RuntimeError: no-key: ..."}`
+> while still blocking. **The eighteen-day silence is the finding, not the
+> missing key** — this is the same file that recorded, on 2026-08-08, that a
+> mechanism whose absence is invisible is indistinguishable from a working one,
+> and then shipped one more unlogged branch on the line below.
 
 > added 2026-08-07 · design record:
 > [`docs/findings/2026-08-06-provenance-mechanism-measured.md`](../../docs/findings/2026-08-06-provenance-mechanism-measured.md)
@@ -580,3 +614,96 @@ own current case count; do not maintain a second number here. The silence cases
 outnumber the fire cases on purpose. A `PreToolUse` guard sits in every tool call
 the session makes, and a guard that denies a legitimate call is worse than no
 guard when the owner is away to wave it through.
+
+---
+
+## `session_start.py` — the six mandatory reads, delivered at boot
+
+`SessionStart`, advisory, fail-open. Added 2026-08-31. It prints the
+cold-orientation contract — README.md's numbered six-read order, each line with
+what the read gives — into the session's opening context, and stats every path
+first so a moved document is reported as moved instead of printed as a live link.
+
+**Why a mechanism and not another paragraph.** The six-read rule has been stated
+in prose and missed three times, each instance recorded in `.claude/CLAUDE.md`
+itself: entry 0 (2026-08-05, the read path started at the program, so a session
+following it exactly never learned the owner's reflection existed), entry 2b
+(2026-08-06, the doc calling itself *"supersedes everything else about what to do
+next"* was reachable only from a handoff prompt), entry 1b (2026-08-10, the
+2026-08-08 roadmap was in neither the boot file nor README). **All three repairs
+were another paragraph in the file whose prose had just failed** —
+`docs/intent.md` § 4 names that as the wrong move, and this is the mechanism it
+asks for instead. The gap itself was already measured:
+[`docs/findings/2026-08-29-estate-agent-error-audit.md:259`](../../docs/findings/2026-08-29-estate-agent-error-audit.md)
+— *"`fleet-manager` wires no `SessionStart` hook"* — and OD-24 §4 names the event
+as the cross-session chain's seam.
+
+**What it adds that prose cannot**, since the list itself is already readable:
+
+1. **That the apparatus loaded.** The boot triad's two failure cases — root is a
+   satellite repo, root is the bare clone parent — are both silent. This hook
+   cannot warn in either (it does not run either); its **firing** is the signal,
+   which is why the injected text says so in one line.
+2. **That the six documents still exist at this HEAD.** Same discipline as
+   `tools/check_doc_routes.py`, whose docstring rates a pointer at a moved doc
+   *"worse than no hook, because the session stops looking"* — and whose
+   `--strict` treats a missing file as a hard error, not a note.
+3. **Which start this is.** `source` separates a cold boot from a resume or a
+   post-compaction continuation.
+
+**Two of this directory's standing rules are deliberately inverted here, and the
+inversion is the point.** `route_docs.py` is silent-by-default and deduplicated
+because an advisory firing on every tool call becomes noise. `SessionStart` fires
+**once per session by construction**, so there is no noise field to join — and
+`docs/findings/2026-08-06-provenance-mechanism-measured.md` § 8 measured the
+alternative: *"fixed-and-always-on and blended-into-conversation both avoid the
+test-signal; selective firing is the worst of the three."*
+
+| `source` | injected |
+|---|---|
+| `startup`, `clear`, **and any unrecognised or absent value** | the full contract (~2.2 kB) |
+| `resume`, `compact`, `fork` | a ~0.4 kB pointer — `compact` says why it is being re-shown |
+
+**An unknown `source` is treated as cold on purpose.** The documented set is five
+values; under-injecting on a real cold start loses the orientation this exists to
+deliver, while over-injecting on a warm one costs ~500 tokens. The asymmetry
+picks the default, and a sixth value added upstream must not turn this hook off
+silently.
+
+**Output is plain-text stdout, not the JSON decision object** the tool-time hooks
+use. `SessionStart` is one of the four events where Claude Code adds raw stdout
+to context ([`code.claude.com/docs/en/hooks`](https://code.claude.com/docs/en/hooks),
+read 2026-08-31); printing JSON here would deliver the braces as prose.
+
+Every firing — **including both skip paths** — is countable at
+`/tmp/claude-session-start/log.jsonl`. That is not decoration: `owner_review.py`
+shipped one unlogged branch and it cost eighteen days of invisible absence, in
+this same directory, in a file whose own header had already written the rule.
+
+```bash
+# all five documented sources + the absent-source default
+for s in startup clear resume compact fork; do
+  echo "{\"session_id\":\"t\",\"source\":\"$s\"}" > /tmp/in.json
+  python3 .claude/hooks/session_start.py < /tmp/in.json > /tmp/out.txt; echo "$s rc=$?"
+done
+echo '{"session_id":"t"}' | python3 .claude/hooks/session_start.py | head -1   # cold
+# POSITIVE CONTROL — the missing-doc warning must fire when docs really are absent
+mkdir -p /tmp/emptyrepo && echo '{"source":"startup"}' > /tmp/in.json
+CLAUDE_PROJECT_DIR=/tmp/emptyrepo python3 .claude/hooks/session_start.py < /tmp/in.json | grep MISSING
+# fail-open
+echo 'not json' | python3 .claude/hooks/session_start.py; echo "rc=$?"   # 0, silent, logged
+cat /tmp/claude-session-start/log.jsonl
+```
+
+Verified 2026-08-31 across all five sources, the absent-source default, malformed
+stdin and empty stdin: **exit 0 and empty stderr on every path, 11 firings, 11
+log lines.** The missing-doc block was tested against a genuinely empty tree
+(TRAP-003's positive control) — 8 of 8 paths reported missing there, 0 of 8 in
+this repo.
+
+**Registered on both surfaces**: `.claude/settings.json` for the ordinary
+single-source boot, and `tools/install_root_hooks.py` for the rescue path. Worth
+naming plainly, because this row's rescue case is self-defeating: when root has
+moved, this hook did not fire either, so the session that most needed the
+orientation is the one that never got it. `--apply` fixes every session after it,
+not the one running it.
