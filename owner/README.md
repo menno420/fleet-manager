@@ -6,7 +6,7 @@
 > what needs your attention was spread across several surfaces you had to
 > already know about; it is swept from them so it cannot go stale.
 >
-> generated-at 2026-08-30T19:01:42Z
+> generated-at 2026-08-31T19:16:44Z
 
 **What is here:** things only you can decide · questions written for you ·
 documents waiting for your own words · piles that need triage. **What is
@@ -21,6 +21,7 @@ quoted words (`OWNER`) from a session's revisable inference (`DERIVED`).
 - [`choose-estate-folder-structure.md`](choose-estate-folder-structure.md)
 - [`choose-estate-migration-order.md`](choose-estate-migration-order.md)
 - [`fill-repository-purposes.md`](fill-repository-purposes.md)
+- [`intent-workbooks.md`](intent-workbooks.md)
 - [`triage-recorded-ideas.md`](triage-recorded-ideas.md)
 
 ## Decide — open items in the owner queue
