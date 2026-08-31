@@ -39,15 +39,19 @@ carry, because each is only knowable at boot:
    not apply" from "the rule never arrived". Two halves:
      · **Nothing loaded** — this hook did not run either, so its FIRING is the
        only signal, which is why the injected text names itself.
-     · **Hooks loaded but nothing else** — the rescue state after
-       `tools/install_root_hooks.py --apply`, where the session root is not this
-       repo. That one IS detectable, by comparing `CLAUDE_PROJECT_DIR` against
-       this file's own location, and `_root_note` says so. From the inside it
-       looks exactly like a normal boot, which is what makes it worth naming.
+     · **This repo's `.claude/` did not auto-load, but its hooks are
+       registered** — the state after `tools/install_root_hooks.py --apply`.
+       That IS detectable, by comparing `CLAUDE_PROJECT_DIR` against this
+       file's own location, and `_root_note` reports it. It reports only that
+       much: the root could be a satellite repo with a full `.claude/` of its
+       own, or the bare clone parent with none, and the comparison cannot tell
+       them apart. From the inside both look exactly like a normal boot.
 2. **Whether the six documents are still there.** Same discipline as
    `tools/check_doc_routes.py`: a pointer at a moved or deleted doc is worse
-   than no pointer, because the session stops looking. Every path is stat'd and
-   a missing one is reported as missing rather than printed as a live link.
+   than no pointer, because the session stops looking. Every path is checked
+   with `isfile` — matching that checker's `Path.is_file()`, so a directory
+   reusing a document's old pathname still reports as missing — and a missing
+   one is named rather than printed as a live link.
 3. **Which start this is.** `source` distinguishes a cold boot from a resume or
    a post-compaction continuation; the six-read mandate is written for the cold
    case, and re-injecting it verbatim after every compaction would spend context
@@ -123,8 +127,8 @@ LOG = os.path.join(CACHE_DIR, "log.jsonl")
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
 # Set when Claude Code launched us. Compared against REPO rather than used as
-# it: a mismatch IS the multi-root boot, and it is worth saying out loud —
-# see _root_note.
+# it: a mismatch means this repo's .claude/ did not auto-load, which is worth
+# saying out loud — but NOT which root replaced it. See _root_note.
 SESSION_ROOT = os.environ.get("CLAUDE_PROJECT_DIR")
 
 # The six reads, in README.md's numbered order, each with what the read GIVES —
@@ -204,7 +208,16 @@ def _log(rec: dict) -> None:
 
 
 def _present(rel: str) -> bool:
-    return os.path.exists(os.path.join(REPO, rel))
+    """A REGULAR FILE at the path, not merely something at the path.
+
+    `os.path.exists` returns true for a directory, so a moved document whose old
+    pathname was reused by a directory would print as a live read and be omitted
+    from both warnings (Codex, fm #992 R2, P2). That is weaker than the
+    `tools/check_doc_routes.py` discipline this hook's docstring claims to
+    share — that checker uses `Path.is_file()` — so the claim was wrong before
+    this line was.
+    """
+    return os.path.isfile(os.path.join(REPO, rel))
 
 
 def _missing_note(missing: list[str]) -> str:
@@ -227,22 +240,33 @@ def _missing_note(missing: list[str]) -> str:
 
 
 def _root_note() -> str:
-    """Say so when the session root is not this repo.
+    """Say so when the session root is not this repo — and no more than that.
 
-    This is the multi-root boot: root is the bare clone parent, so THIS repo's
-    settings, skills and `.claude/CLAUDE.md` never loaded, and the hook is
-    running only because `tools/install_root_hooks.py --apply` put it in the
-    root's settings. Hooks without the boot file is a state a session cannot
-    otherwise detect, and it looks exactly like a normal boot from the inside.
+    What the comparison ESTABLISHES: fleet-manager is not the session root, so
+    this repo's `.claude/` did not auto-load and the hook is running from an
+    installed registration.
+
+    What it does NOT establish is which root produced the mismatch, and the
+    first version asserted one anyway — "this is the multi-root boot… only the
+    installer's hooks are live". `tools/install_root_hooks.py` targets whichever
+    root the environment names, so the root can equally be a SATELLITE REPO
+    whose own hooks, skills and CLAUDE.md are loaded and live (Codex, fm #992
+    R2, P2). Naming the bare-clone-parent case would then be a confident wrong
+    diagnosis in the one message whose value is that it only appears when
+    something is genuinely off. So the note reports the fact and names both
+    possibilities without picking.
     """
     if not SESSION_ROOT or os.path.realpath(SESSION_ROOT) == os.path.realpath(REPO):
         return ""
     return (
         f"\n\n⚠ SESSION ROOT IS NOT THIS REPO — root is {SESSION_ROOT}, the "
-        f"reads above are under {REPO}. This is the multi-root boot: this "
-        "repo's skills and .claude/CLAUDE.md did NOT load, and only the hooks "
-        "installed by tools/install_root_hooks.py are live. Invoke skills by "
-        "name; nothing will route you to them."
+        f"reads above are under {REPO}. So this repo's .claude/ did not "
+        "auto-load: its skills and CLAUDE.md are NOT available to you, and "
+        "these hooks are running from an installed registration. What IS "
+        "loaded depends on the root, which this check cannot see — a satellite "
+        "repo brings its own .claude/, the bare clone parent brings none. "
+        "Check `ls /root/.claude/projects/` if it matters; invoke this repo's "
+        "skills by name, because nothing will route you to them."
     )
 
 
@@ -293,6 +317,11 @@ def _warm_block(source: str, missing: list[str]) -> str:
     ) + _missing_note(missing) + _root_note()
 
 
+def rec(**kw) -> None:
+    """One log line, timestamped. EVERY exit from main() goes through this."""
+    _log({"ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), **kw})
+
+
 def main() -> None:
     try:
         data = json.load(sys.stdin)
@@ -300,10 +329,26 @@ def main() -> None:
         # Malformed or absent stdin is not a reason to spend a boot on a
         # traceback. Logged, because an unlogged skip is the defect this file's
         # header is about.
-        return _log({"ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-                     "skip": "bad-stdin"})
+        return rec(skip="bad-stdin")
 
-    source = (data.get("source") or "unknown").lower()
+    # Valid JSON of the WRONG SHAPE parses fine and then raises downstream:
+    # `[]` has no .get, `{"source": 1}` has no .lower. Both used to escape to
+    # the module-level BaseException handler, which exits 0 WITHOUT logging — so
+    # an upstream schema change would look exactly like a hook that never ran,
+    # in a file whose own header calls that the false guardrail (Codex, fm #992
+    # R2, P2). Shape is checked here; anything else that raises is caught and
+    # logged by the wrapper below.
+    if not isinstance(data, dict):
+        return rec(skip="bad-payload", payload_type=type(data).__name__)
+
+    raw = data.get("source")
+    if raw is not None and not isinstance(raw, str):
+        # Not fatal — an unreadable source is just an unknown one, and unknown
+        # is cold. Recorded so a schema change is visible rather than assumed.
+        rec(note="non-string-source", source_type=type(raw).__name__)
+        raw = None
+    source = (raw or "unknown").lower()
+
     missing = [p for p, _ in READS if not _present(p)]
     missing += [p for p in COMPANIONS if not _present(p)]
 
@@ -315,12 +360,11 @@ def main() -> None:
     cold = source not in WARM_SOURCES
     text = _cold_block(missing) if cold else _warm_block(source, missing)
 
-    _log({"ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-          "session": data.get("session_id"), "source": source,
-          "cold": cold, "missing": missing, "chars": len(text),
-          "repo": REPO, "session_root": SESSION_ROOT,
-          "root_moved": bool(SESSION_ROOT) and
-          os.path.realpath(SESSION_ROOT or "") != os.path.realpath(REPO)})
+    rec(session=data.get("session_id"), source=source, cold=cold,
+        missing=missing, chars=len(text), repo=REPO,
+        session_root=SESSION_ROOT,
+        root_moved=bool(SESSION_ROOT) and
+        os.path.realpath(SESSION_ROOT) != os.path.realpath(REPO))
 
     # SessionStart adds plain-text stdout to the session's context — NOT the
     # JSON decision object the tool-time events use. Verified against
@@ -339,10 +383,20 @@ if __name__ == "__main__":
         # about bugs — not a licence to outlive the process that owns us.
         # owner_review.py learned this the expensive way (2026-08-08).
         raise
-    except BaseException:
+    except BaseException as exc:
         # BaseException rather than Exception: MEASURED 2026-08-08 in this
         # directory, a native panic (PanicException -> BaseException -> object)
         # escaped a narrower catch and the hook exited 1. A SessionStart hook
         # that exits non-zero starts the session with an error notice.
-        pass  # FAIL-OPEN
+        #
+        # And it LOGS before it swallows. Until fm #992 R2 this was a bare
+        # `pass`, which made the contract three lines above ("every firing is
+        # countable, including the skips") false for exactly the population that
+        # matters — an unanticipated crash. That is the same defect this file's
+        # header criticises owner_review.py for, shipped in the file criticising
+        # it. `rec` has its own try, so a broken log cannot resurrect the crash.
+        try:
+            rec(skip="crashed", error=f"{type(exc).__name__}: {exc}"[:300])
+        except BaseException:
+            pass
     sys.exit(0)

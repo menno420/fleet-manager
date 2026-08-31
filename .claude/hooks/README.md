@@ -706,17 +706,34 @@ shipped one unlogged branch and it cost eighteen days of invisible absence, in
 this same directory, in a file whose own header had already written the rule.
 
 ```bash
-# all five documented sources + the absent-source default
-for s in startup clear resume compact fork; do
+# routing — `made-up` must come back COLD, not warm
+for s in made-up startup clear resume compact fork; do
   echo "{\"session_id\":\"t\",\"source\":\"$s\"}" > /tmp/in.json
-  python3 .claude/hooks/session_start.py < /tmp/in.json > /tmp/out.txt; echo "$s rc=$?"
+  python3 .claude/hooks/session_start.py < /tmp/in.json > /tmp/out.txt
+  printf '%-9s rc=%s %s\n' "$s" "$?" "$(head -c 18 /tmp/out.txt)"
 done
-echo '{"session_id":"t"}' | python3 .claude/hooks/session_start.py | head -1   # cold
-# POSITIVE CONTROL — the missing-doc warning must fire when docs really are absent
-mkdir -p /tmp/emptyrepo && echo '{"source":"startup"}' > /tmp/in.json
-CLAUDE_PROJECT_DIR=/tmp/emptyrepo python3 .claude/hooks/session_start.py < /tmp/in.json | grep MISSING
-# fail-open
-echo 'not json' | python3 .claude/hooks/session_start.py; echo "rc=$?"   # 0, silent, logged
+echo '{"session_id":"t"}' | python3 .claude/hooks/session_start.py | head -1   # absent -> cold
+
+# POSITIVE CONTROL — the missing-doc warning must fire when the reads are absent.
+# The hook resolves its reads from __file__, so the control must RELOCATE THE
+# HOOK; setting CLAUDE_PROJECT_DIR does nothing here and would pass silently.
+mkdir -p /tmp/fakerepo/.claude/hooks
+cp .claude/hooks/session_start.py /tmp/fakerepo/.claude/hooks/
+echo '{"source":"startup"}' > /tmp/in.json
+python3 /tmp/fakerepo/.claude/hooks/session_start.py < /tmp/in.json | grep -c "MISSING AT THIS HEAD"
+echo '{"source":"resume"}'  > /tmp/in.json   # and on the WARM path
+python3 /tmp/fakerepo/.claude/hooks/session_start.py < /tmp/in.json | grep -c "do not exist"
+
+# root note: fires when root is not this repo, silent when it is
+echo '{"source":"startup"}' > /tmp/in.json
+CLAUDE_PROJECT_DIR=/home/user            python3 .claude/hooks/session_start.py < /tmp/in.json | grep -c "SESSION ROOT IS NOT"
+CLAUDE_PROJECT_DIR=$(pwd)                python3 .claude/hooks/session_start.py < /tmp/in.json | grep -c "SESSION ROOT IS NOT"
+
+# fail-open, all three shapes — each must exit 0 AND leave a log line
+for bad in 'not json' '[]' '{"source": 1}'; do
+  printf '%s' "$bad" > /tmp/in.json
+  python3 .claude/hooks/session_start.py < /tmp/in.json > /dev/null 2>&1; echo "$bad rc=$?"
+done
 cat /tmp/claude-session-start/log.jsonl
 ```
 
