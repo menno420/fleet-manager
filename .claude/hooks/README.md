@@ -192,6 +192,40 @@ look like the dedupe failed when it did not.
 > from a measurement rather than a suspicion. `error: null` alongside
 > `route: null` is the specific oddity — it suggests a short-circuit *before*
 > the call rather than a failed call.
+>
+> **RESOLVED 2026-08-31 — the short-circuit was real, and it is now countable.**
+> The banner's own last sentence named it: `route: null` **and** `error: null`
+> together were uniquely produced by `_free_review`'s `if not key: return None`.
+> Every other failure raises and lands in `error`; every successful call stamps
+> `um["route"] = "free"` in `_extract` *before* the text is read, so even an
+> empty completion logs `route: "free"`. One branch, one signature.
+>
+> **Read what is and is not established.** That branch is now a raised
+> `RuntimeError` carrying `no-key:` and the reason, so the next occurrence names
+> itself in the log instead of presenting as an unexplained null. What is
+> **not** established is that this is what happened on 2026-08-26: `LOG` lives
+> under `/tmp`, which dies with the container, so those six lines are gone and
+> cannot be re-examined. The diagnosis is `REASONED` from the code paths, not
+> `MEASURED` against the incident.
+>
+> And the banner's framing invited the wrong inference, so it is corrected here
+> rather than left to mislead: **`GEMINI_API_KEY` present in the environment**
+> meant present in the *session's* environment, which is not the hook
+> subprocess's. Those happen to be the same set — hook processes inherit the
+> parent environment, and Claude Code strips only `OTEL_*`
+> ([`code.claude.com/docs/en/hooks`](https://code.claude.com/docs/en/hooks),
+> read 2026-08-31) — so this does **not** explain the incident either. It
+> narrows the next investigation to provisioning rather than plumbing.
+>
+> Live evidence that the path itself is healthy, `MEASURED` 2026-08-31 in this
+> container: a real firing logged
+> `{"route": "free", "enriched": true, "out_tokens": 71}`, and a pipe-test with
+> the key stripped logged
+> `{"route": null, "enriched": false, "error": "RuntimeError: no-key: ..."}`
+> while still blocking. **The eighteen-day silence is the finding, not the
+> missing key** — this is the same file that recorded, on 2026-08-08, that a
+> mechanism whose absence is invisible is indistinguishable from a working one,
+> and then shipped one more unlogged branch on the line below.
 
 > added 2026-08-07 · design record:
 > [`docs/findings/2026-08-06-provenance-mechanism-measured.md`](../../docs/findings/2026-08-06-provenance-mechanism-measured.md)
@@ -580,3 +614,155 @@ own current case count; do not maintain a second number here. The silence cases
 outnumber the fire cases on purpose. A `PreToolUse` guard sits in every tool call
 the session makes, and a guard that denies a legitimate call is worse than no
 guard when the owner is away to wave it through.
+
+---
+
+## `session_start.py` — the six mandatory reads, delivered at boot
+
+`SessionStart`, advisory, fail-open. Added 2026-08-31. It prints the
+cold-orientation contract — README.md's numbered six-read order, each line with
+what the read gives — into the session's opening context, and stats every path
+first so a moved document is reported as moved instead of printed as a live link.
+
+**Why a mechanism and not another paragraph.** The six-read rule has been stated
+in prose and missed three times, each instance recorded in `.claude/CLAUDE.md`
+itself: entry 0 (2026-08-05, the read path started at the program, so a session
+following it exactly never learned the owner's reflection existed), entry 2b
+(2026-08-06, the doc calling itself *"supersedes everything else about what to do
+next"* was reachable only from a handoff prompt), entry 1b (2026-08-10, the
+2026-08-08 roadmap was in neither the boot file nor README). **All three repairs
+were another paragraph in the file whose prose had just failed** —
+`docs/intent.md` § 4 names that as the wrong move, and this is the mechanism it
+asks for instead. The gap itself was already measured:
+[`docs/findings/2026-08-29-estate-agent-error-audit.md:259`](../../docs/findings/2026-08-29-estate-agent-error-audit.md)
+— *"`fleet-manager` wires no `SessionStart` hook"* — and OD-24 §4 names the event
+as the cross-session chain's seam.
+
+**What it adds that prose cannot**, since the list itself is already readable:
+
+1. **That the apparatus loaded.** The boot triad's two failure cases — root is a
+   satellite repo, root is the bare clone parent — are both silent. This hook
+   cannot warn in either (it does not run either); its **firing** is the signal,
+   which is why the injected text says so in one line.
+2. **That the six documents still exist at this HEAD.** Same discipline as
+   `tools/check_doc_routes.py`, whose docstring rates a pointer at a moved doc
+   *"worse than no hook, because the session stops looking"* — and whose
+   `--strict` treats a missing file as a hard error, not a note.
+3. **Which start this is.** `source` separates a cold boot from a resume or a
+   post-compaction continuation.
+
+**Two of this directory's standing rules are deliberately inverted here, and the
+inversion is the point.** `route_docs.py` is silent-by-default and deduplicated
+because an advisory firing on every tool call becomes noise. `SessionStart` fires
+**once per session by construction**, so there is no noise field to join — and
+`docs/findings/2026-08-06-provenance-mechanism-measured.md` § 8 measured the
+alternative: *"fixed-and-always-on and blended-into-conversation both avoid the
+test-signal; selective firing is the worst of the three."*
+
+| `source` | injected |
+|---|---|
+| `resume`, `compact`, `fork` — **the closed WARM set** | a ~0.4 kB pointer; `compact` says why it is being re-shown |
+| everything else, **unrecognised and absent values included** | the full contract (~2.2 kB) |
+
+**Cold is the default, and the closed set is the warm one.** Under-injecting on
+a real cold start loses the orientation this exists to deliver; over-injecting on
+a warm one costs ~500 tokens. The asymmetry picks the default, and stating WARM
+as the closed set is what makes a sixth upstream `source` fail safe.
+
+> **This was backwards in the first version, and the way it got caught is the
+> point.** It read `cold = source in {"startup","clear"} or source == "unknown"`,
+> which sends a genuinely unrecognised value down the WARM path — the opposite of
+> what the docstring, this table and the commit message all promised. Only the
+> *absent* case reached the cold default, and the absent case was the one that
+> got tested; the unrecognised-value path was asserted from reading the code and
+> never run. Codex caught it on fm #992 (P2). **A test that covers the cases you
+> thought of is not a test of the default.**
+
+Both notes — moved reads and a moved root — are appended to **every** start, warm
+included. The first version computed the missing list and then used it only in the
+cold block, so a resumed session was handed `docs/current-state.md` as a live
+pointer even when it had moved (Codex, fm #992, P2). A dead route is *worse* on a
+resume, because a resumed session has more reason to trust a path it already used.
+
+**The reads resolve from `__file__`, never from `CLAUDE_PROJECT_DIR`.** Those are
+the same directory in an ordinary boot and different in exactly the case
+`tools/install_root_hooks.py` exists for: root is the bare clone parent while the
+reads are under `fleet-manager`. The env-first version would have reported all
+eight paths missing precisely on the rescue surface, or matched same-named files
+in another clone (Codex, fm #992, P2) — **a missing-doc warning that fires only
+when it is wrong is worse than none.** The mismatch is not merely avoided but
+*reported*: `_root_note` names the multi-root boot, because "hooks loaded, skills
+and CLAUDE.md did not" is a state that looks exactly like a normal boot from the
+inside.
+
+**Output is plain-text stdout, not the JSON decision object** the tool-time hooks
+use. `SessionStart` is one of the four events where Claude Code adds raw stdout
+to context ([`code.claude.com/docs/en/hooks`](https://code.claude.com/docs/en/hooks),
+read 2026-08-31); printing JSON here would deliver the braces as prose.
+
+Every firing — **including both skip paths** — is countable at
+`/tmp/claude-session-start/log.jsonl`. That is not decoration: `owner_review.py`
+shipped one unlogged branch and it cost eighteen days of invisible absence, in
+this same directory, in a file whose own header had already written the rule.
+
+```bash
+# routing — `made-up` must come back COLD, not warm
+for s in made-up startup clear resume compact fork; do
+  echo "{\"session_id\":\"t\",\"source\":\"$s\"}" > /tmp/in.json
+  python3 .claude/hooks/session_start.py < /tmp/in.json > /tmp/out.txt
+  printf '%-9s rc=%s %s\n' "$s" "$?" "$(head -c 18 /tmp/out.txt)"
+done
+echo '{"session_id":"t"}' | python3 .claude/hooks/session_start.py | head -1   # absent -> cold
+
+# POSITIVE CONTROL — the missing-doc warning must fire when the reads are absent.
+# The hook resolves its reads from __file__, so the control must RELOCATE THE
+# HOOK; setting CLAUDE_PROJECT_DIR does nothing here and would pass silently.
+mkdir -p /tmp/fakerepo/.claude/hooks
+cp .claude/hooks/session_start.py /tmp/fakerepo/.claude/hooks/
+echo '{"source":"startup"}' > /tmp/in.json
+python3 /tmp/fakerepo/.claude/hooks/session_start.py < /tmp/in.json | grep -c "MISSING AT THIS HEAD"
+echo '{"source":"resume"}'  > /tmp/in.json   # and on the WARM path
+python3 /tmp/fakerepo/.claude/hooks/session_start.py < /tmp/in.json | grep -c "do not exist"
+
+# root note: fires when root is not this repo, silent when it is
+echo '{"source":"startup"}' > /tmp/in.json
+CLAUDE_PROJECT_DIR=/home/user            python3 .claude/hooks/session_start.py < /tmp/in.json | grep -c "SESSION ROOT IS NOT"
+CLAUDE_PROJECT_DIR=$(pwd)                python3 .claude/hooks/session_start.py < /tmp/in.json | grep -c "SESSION ROOT IS NOT"
+
+# fail-open, all three shapes — each must exit 0 AND leave a log line
+for bad in 'not json' '[]' '{"source": 1}'; do
+  printf '%s' "$bad" > /tmp/in.json
+  python3 .claude/hooks/session_start.py < /tmp/in.json > /dev/null 2>&1; echo "$bad rc=$?"
+done
+cat /tmp/claude-session-start/log.jsonl
+```
+
+Verified 2026-08-31 across all five documented sources, an **unrecognised**
+source, the absent-source default, malformed stdin and empty stdin: **exit 0 and
+empty stderr on every path**, every firing logged. Three positive controls, since
+a quiet check proves nothing (TRAP-003):
+
+| control | expected | got |
+|---|---|---|
+| missing-doc block, hook **relocated** into a tree with none of the reads | fires | 6 of 6 read paths reported missing |
+| the same greps in this repo | silent | 0 |
+| same relocated tree, on a **warm** start | fires | fires |
+| a **directory** created at `docs/intent.md` in that tree | still missing | still missing (`exists` would have rescued it) |
+| root note, `CLAUDE_PROJECT_DIR=/home/user` | fires, and **0** missing | fires, 0 missing |
+| root note, `CLAUDE_PROJECT_DIR` = this repo | silent | 0 |
+| `not json` · `[]` · `{"source": 1}` · `{"source": null}` | exit 0, each logged distinctly | `bad-stdin` · `bad-payload` · `non-string-source` + a normal cold firing · cold |
+
+**The first version of this table was measured with a control that had stopped
+working.** Round 1 changed `REPO` to derive from `__file__`, which made
+`CLAUDE_PROJECT_DIR=/tmp/emptyrepo` inert — so the published command would have
+reported no missing lines and passed. The result itself was real (the actual run
+had relocated the hook), but the documented control could no longer produce it.
+Codex caught it on fm #992 R2. **A control that cannot fail is worse than no
+control**, and it is worth more scepticism than the code it guards.
+
+**Registered on both surfaces**: `.claude/settings.json` for the ordinary
+single-source boot, and `tools/install_root_hooks.py` for the rescue path. Worth
+naming plainly, because this row's rescue case is self-defeating: when root has
+moved, this hook did not fire either, so the session that most needed the
+orientation is the one that never got it. `--apply` fixes every session after it,
+not the one running it.

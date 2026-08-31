@@ -417,7 +417,30 @@ def _free_review(text):
     """
     key = os.environ.get("GEMINI_API_KEY")
     if not key:
-        return None
+        # RAISE rather than return None, so the absence is COUNTABLE.
+        #
+        # Until 2026-08-31 this returned a bare None, and that made the missing
+        # key the one enrichment failure the telemetry could not name: every
+        # other path lands in `error`, and a successful call stamps route="free"
+        # before extraction, so `{"route":null,"enriched":false,"error":null}`
+        # was uniquely produced HERE and read as an unexplained oddity for
+        # eighteen days (see the MEASURED banner in .claude/hooks/README.md, six
+        # firings on 2026-08-26).
+        #
+        # NOT `rec(skip=...)`, which was the shape first proposed: in main()
+        # `skip=` means the hook returned EARLY and no block happened. Here the
+        # block still happens — the fixed question is the mechanism and never
+        # depended on this call — so recording a skip would misreport the one
+        # thing about this hook that matters most.
+        #
+        # And the absence is a real anomaly worth flagging rather than a normal
+        # condition: hook processes inherit the parent environment (Claude Code
+        # strips only OTEL_*, verified against code.claude.com/docs/en/hooks
+        # 2026-08-31), and D-0020 retired the Vertex fallback, so no key means
+        # no enrichment on this container until someone provisions one.
+        raise RuntimeError(
+            "no-key: GEMINI_API_KEY absent from the hook environment — "
+            "enrichment unavailable; the fixed question still fired")
     r = _http("https://generativelanguage.googleapis.com/v1beta/models/"
               + FREE_MODEL + ":generateContent", _payload(text),
               {"x-goog-api-key": key, "Content-Type": "application/json"})

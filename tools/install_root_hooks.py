@@ -74,6 +74,19 @@ HOOKS = {
     # Also absent until 2026-08-11 — losing it silently removes the estate's
     # CLAIM-layer instrument. Stop has no tool to match on.
     "owner_review.py": (("Stop", None),),
+    # session-start orientation: the six mandatory reads, delivered at the one
+    # moment the cold-orientation contract applies. No matcher — SessionStart
+    # matchers filter on `source` values, and this hook branches on source
+    # itself so that a value nobody anticipated still gets the cold block
+    # rather than silence.
+    #
+    # Worth stating plainly, because it is the one hook in this table whose
+    # rescue case is self-defeating: when root has moved, THIS hook did not fire
+    # either, so the session that most needs the orientation is the one that
+    # never got it. Installing it here does not fix that boot — nothing can,
+    # from inside a session that already started. It fixes every session after
+    # the operator runs --apply, which is the same bargain every other row makes.
+    "session_start.py": (("SessionStart", None),),
 }
 
 # Per-hook timeout for NEW registrations (seconds; merge_event leaves existing
