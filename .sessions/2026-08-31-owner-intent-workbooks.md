@@ -1,8 +1,8 @@
 # 2026-08-31 — owner intent workbooks moved into Fleet Manager
 
-> **Status:** `in-progress` — place the complete owner intent workbook inside
-> Fleet Manager, make it discoverable through the generated owner index, verify
-> the repository gates, review the exact PR head, and merge the result.
+> **Status:** `complete` — the complete owner intent workbook is inside Fleet
+> Manager, surfaced by the generated owner index, verified, and reviewed on the
+> exact pre-flip head with no findings. PR #994 is eligible to merge.
 
 - **📊 Model:** GPT-5 family · high · docs-only
 - **📍 Venue:** other
@@ -43,8 +43,53 @@ current truth out of Fleet Manager, or change the agreed cutover boundary.
 
 ## What the next session needs to know
 
-The work is intentionally held born-red. The workbook was already validated as
+The work began intentionally held born-red. The workbook was already validated as
 51 Markdown files, 47 answerable worksheets, 28 repository drafts, no file over
-58 lines, and no broken internal links. Those checks must be repeated after the
-files are adapted and placed under `owner/intent-workbooks/`.
+58 lines, and no broken internal links. Those checks were repeated after the
+files were adapted and placed under `owner/intent-workbooks/`.
 
+## Shipped
+
+- `owner/intent-workbooks.md` — the direct owner-facing entry point, discovered
+  automatically by the generated `owner/README.md`.
+- `owner/intent-workbooks/` — 47 short answerable worksheets plus three nested
+  indexes: eight estate-wide intent pages, eleven successor-folder contracts,
+  and one prefilled intent draft for every live GitHub repository.
+- `owner/README.md` — regenerated through `tools/gen_owner_index.py`; the
+  collection appears as the sixth short workbook without hand-maintaining the
+  generated page.
+- Local cleanup — at the owner's request, the earlier 51-file staging copy at
+  `C:\dev\estate-owner-workbook` was sent to the Windows Recycle Bin. It never
+  existed in OneDrive. Fleet Manager is now the only active copy.
+
+All agent interpretations use `DERIVED`, recommendations use `PROPOSED`, and
+owner answer areas remain blank `OWNER` fields. The collection is explicitly
+successor preparation; it does not override Fleet Manager's current records or
+product-repository truth.
+
+## Verification
+
+- Collection count: 51 Markdown files.
+- Worksheet shape: 47 of 47 carry `Questions for you` and an `OWNER` answer
+  field; maximum worksheet length is 44 lines.
+- Repository coverage: live GitHub list 28, repository drafts 28, exact match.
+- Relative-link scan: every Markdown link in the collection resolves.
+- Provenance scan: zero `INFERRED` labels remain after alignment with the
+  repository's `OWNER` / `DERIVED` contract.
+- `python tools/gen_owner_index.py --check` → current.
+- `python bootstrap.py check --strict` → real exit 1 before the flip, with one
+  finding only: this card's designed born-red `in-progress` hold. Nine
+  guard-fire writes were reported by the command; the resulting telemetry
+  ledger delta is committed with the session.
+
+## Review and landing
+
+Codex review completed on exact head `59145f9e242df948d140fcb9c0a5ed52f4d0cb2d`
+with no major issues and zero inline comments. This final commit changes only
+the session card's status and close-out text, so it takes the documented flip
+exemption: no reviewable workbook content follows the reviewed SHA.
+
+Layer-2 handoff: null (Fleet Manager itself; no satellite repository attached).
+
+Capability delta: null. Owner ask: null. The owner's live instruction to carry
+the PR through merge is fulfilled by this session's landing sequence.
