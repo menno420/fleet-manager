@@ -744,9 +744,21 @@ a quiet check proves nothing (TRAP-003):
 
 | control | expected | got |
 |---|---|---|
-| missing-doc block against a tree with none of the reads | fires | 8 of 8 reported missing (0 of 8 in this repo) |
-| same, on a **warm** start | fires | fires |
-| rescue path — `CLAUDE_PROJECT_DIR=/home/user`, reads under `fleet-manager` | **0** missing, root note fires | 0 missing, root note fires |
+| missing-doc block, hook **relocated** into a tree with none of the reads | fires | 6 of 6 read paths reported missing |
+| the same greps in this repo | silent | 0 |
+| same relocated tree, on a **warm** start | fires | fires |
+| a **directory** created at `docs/intent.md` in that tree | still missing | still missing (`exists` would have rescued it) |
+| root note, `CLAUDE_PROJECT_DIR=/home/user` | fires, and **0** missing | fires, 0 missing |
+| root note, `CLAUDE_PROJECT_DIR` = this repo | silent | 0 |
+| `not json` · `[]` · `{"source": 1}` · `{"source": null}` | exit 0, each logged distinctly | `bad-stdin` · `bad-payload` · `non-string-source` + a normal cold firing · cold |
+
+**The first version of this table was measured with a control that had stopped
+working.** Round 1 changed `REPO` to derive from `__file__`, which made
+`CLAUDE_PROJECT_DIR=/tmp/emptyrepo` inert — so the published command would have
+reported no missing lines and passed. The result itself was real (the actual run
+had relocated the hook), but the documented control could no longer produce it.
+Codex caught it on fm #992 R2. **A control that cannot fail is worse than no
+control**, and it is worth more scepticism than the code it guards.
 
 **Registered on both surfaces**: `.claude/settings.json` for the ordinary
 single-source boot, and `tools/install_root_hooks.py` for the rescue path. Worth

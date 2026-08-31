@@ -59,7 +59,12 @@ carry, because each is only knowable at boot:
 
 CONTRACT (identical to every other advisory hook here)
 ------------------------------------------------------
-· Never blocks. Exit 0 on every path, including a crash.
+· Never blocks. Exit 0 on every path, including a crash — with ONE deliberate
+  exception: `KeyboardInterrupt` and `SystemExit` are re-raised, so a SIGINT
+  still terminates. Fail-open is a promise about bugs, not a licence to outlive
+  the process that owns us (`owner_review.py`, MEASURED 2026-08-08). Flagged as
+  a contract violation by the Gemini pass on the R2 fixes and kept — but the
+  bullet used to read as an absolute, which is why it now names its exception.
 · Writes nothing to the repo — telemetry goes to /tmp, so a session trying to
   keep a clean tree never finds this in `git status`.
 · Every firing is countable at /tmp/claude-session-start/log.jsonl, INCLUDING
