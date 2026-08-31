@@ -50,10 +50,6 @@ product ambition and `superbot`, `spider-swing`, and `websites` as the three
 repositories the owner would preserve, with `superbot` preferably rebuilt in a
 properly structured successor. No owner wording was normalized or rewritten.
 
-One point remains deliberately unresolved rather than inferred: whether the
-future estate hub and the desired `superbot` rebuild are the same new repository
-or separate repositories.
-
 ## Verification and review
 
 - `python tools/gen_owner_index.py --check` -> current.
