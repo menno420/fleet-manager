@@ -77,10 +77,13 @@ Unlike `route_docs.py`, this one is NOT silent-by-default and NOT deduplicated.
 Those rules exist because an advisory that fires on every tool call becomes
 noise the session learns to skip. `SessionStart` fires once per SESSION-START
 TRANSITION — not once per session, since `compact` and `clear` fire it again in
-a live session (Codex, fm #992 R3; the earlier "once per session by
-construction" hid exactly the repeated-compaction population this file's own
-source table handles). Either way it is bounded by transitions rather than by
-tool calls, so there is no noise field to join — and the estate's own measured
+a live session (fm #992 R3; the earlier "once per session by construction" hid
+exactly the repeated-compaction population this file's own source table
+handles). A long session that compacts repeatedly therefore sees this repeatedly,
+and the justification has to survive that rather than assume it away (fm #993
+R4): it is bounded by transitions rather than tool calls, which is orders of
+magnitude rarer than the per-call channel those rules were written for, and
+`compact` is precisely the moment re-injection is worth most — and the estate's own measured
 finding on selective firing (`docs/findings/2026-08-06-provenance-mechanism-measured.md`
 § 8: *"fixed-and-always-on and blended-into-conversation both avoid the
 test-signal; selective firing is the worst of the three"*) argues against making
@@ -118,8 +121,11 @@ LOG = os.path.join(CACHE_DIR, "log.jsonl")
 # The first version read CLAUDE_PROJECT_DIR first, and Codex caught what that
 # breaks (fm #992, P2): the two are the same directory in an ordinary boot and
 # DIFFERENT in exactly the case this hook is installed for by
-# `tools/install_root_hooks.py`. There, root is the bare clone parent
-# `/home/user` while the reads are under `/home/user/fleet-manager` — so the
+# `tools/install_root_hooks.py`. There the root may be the bare clone parent
+# `/home/user` OR a satellite repo, with the reads under
+# `/home/user/fleet-manager` either way (the "there, root is the bare clone
+# parent" phrasing here was the same over-claim `_root_note` carried — third
+# surface, fm #993 R4) — so the
 # env-first version would have reported all eight paths missing precisely on the
 # rescue surface, or matched unrelated same-named files in another clone. A
 # missing-doc warning that fires only when it is wrong is worse than none.
