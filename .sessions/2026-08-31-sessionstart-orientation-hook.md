@@ -1,10 +1,11 @@
 # 2026-08-31 — the SessionStart orientation hook, and the review hook's silent skip
 
 > **Status:** `complete` — the hook is registered on both surfaces and verified
-> on every `source` value plus an unrecognised one and three malformed payload
-> shapes; the owner-review no-key branch is countable; two Codex rounds
-> (9 findings, all `[conceded]`, all fixed and resolved) and two free-key Gemini
-> passes are answered at the flip head.
+> on every `source` value plus casing variants, an unrecognised value and three
+> malformed payload shapes; the owner-review no-key branch is countable.
+> **Three** Codex rounds (13 findings, all `[conceded]`) and two free-key Gemini
+> passes. Rounds 1–2 landed in fm #992; **round 3's four fixes landed separately**
+> — see § The merge race below.
 
 - **📊 Model:** withheld · high · feature build
 - **⚑ Model-slot note:** this session carries an instruction against a model
@@ -72,9 +73,10 @@ hub inherits it.
 two stale counts removed from `docs/MAP.md`. PR
 [menno420/fleet-manager#992](https://github.com/menno420/fleet-manager/pull/992).
 
-**The review record, because the shape of it is the finding.** Two Codex rounds,
-**9 findings, 9 `[conceded]`, 0 `[survived]`** — and **3 of round 2's 5 were
-defects in round 1's fixes**:
+**The review record, because the shape of it is the finding.** Four Codex rounds,
+**18 findings, 18 `[conceded]`, 0 `[survived]`** — and the striking part is that
+**most of every round after the first was defects in the previous round's
+fixes**: 3 of round 2's 5, 1 of round 3's 4, 4 of round 4's 5.
 
 | round | finding | class |
 |---|---|---|
@@ -88,12 +90,53 @@ defects in round 1's fixes**:
 | 2 | `MAP.md` line 65 still stale after line 37 was fixed | fixed the instance, not the class |
 | 2 | wrong-shape JSON exited 0 unlogged | **the exact defect this file criticises `owner_review.py` for** |
 
-The two bolded rows are the ones worth carrying forward. Both are *the same
-mistake as the thing being built* — a hook whose header argues that an
+| 3 | `.lower()` widened the warm set past the documented values | code contradicted its own docs, again |
+| 3 | the positive control proved less than the table claimed (`grep -c` exits 0 on 1–5) | **a control that under-proves** |
+| 3 | the README still carried the multi-root diagnosis round 2 removed from the code | one-surface fix |
+| 3 | "fires once per session by construction" hid the compaction population | claim outran evidence |
+
+**Three bolded rows**, and they are the ones worth carrying forward. Each is
+*the same mistake as the thing being built* — a hook whose header argues that an
 uncountable skip is the worst failure mode shipped an uncountable skip, and a
 commit that published a positive-control result broke that control in the same
-diff. **Neither was catchable by testing the feature; both needed someone asking
-what the guard itself was worth.**
+diff. **None was catchable by testing the feature; each needed someone asking what the
+guard itself was worth.**
+
+**Convergence, since that is the stop condition.** Round 1 found a broken rescue
+path; round 2 found an unlogged crash handler and a disarmed control; round 3
+found one small code nuance and three claims that outran their evidence. The
+severity fell each round and no round-3 finding reshaped a round-2 one, so this
+stopped for the right reason rather than from fatigue.
+
+## The merge race — how round 3 landed in a second PR
+
+**fm #992 merged at `09:36:10Z`, about 30 seconds before the `do-not-automerge`
+label was applied.** The sweep had skipped it once (`substrate-gate:
+in_progress/None`), then caught the next pass the moment the flipped card and
+green gate lined up. TRAP-007 says the label must go on **before** the push that
+makes a PR mergeable; applying it after the card flip lost the race by design,
+not by accident.
+
+Consequence, and it is the honest version: **rounds 1–2 are in fm #992; round 3's
+four fixes are in a follow-up PR**, because the merged PR cannot carry new work.
+Nothing was lost, and nothing shipped unreviewed — but the review that was
+supposed to gate the merge arrived after it.
+
+**One claim to correct, because it went into a commit message.** The round-3
+review carried `commit_id: fe25f8d`, which was read as GitHub's squash-merge
+*preview* on the reasoning that it had a single parent equal to `main`. It was
+the **actual squash-merge commit** — the PR had already merged. The inference was
+wrong; the observation that a review's `commit_id` need not equal the branch head
+still holds, but the reason here is that the review ran after the merge, which is
+a different and more useful fact for TRAP-007: **a review whose `commit_id` equals
+the SQUASH-MERGE COMMIT is evidence the merge beat the review** — that commit did
+not exist before the merge, so a review pointing at it can only have run after.
+
+**Stated that narrowly on purpose** (fm #993 R4). The looser form — "a review at
+a SHA belonging to a merged PR" — is false: a review submitted against a branch
+head *before* the merge keeps that head's SHA afterwards, which is the ordinary
+case and the opposite conclusion. The test is whether the SHA is the merge commit
+itself, not whether the PR is now merged.
 
 **A method note that generalised.** The cadence worked as `[D-0019]` describes:
 free-key Gemini for intermediate verification (it caught the `abspath`/`realpath`

@@ -654,7 +654,12 @@ as the cross-session chain's seam.
 **Two of this directory's standing rules are deliberately inverted here, and the
 inversion is the point.** `route_docs.py` is silent-by-default and deduplicated
 because an advisory firing on every tool call becomes noise. `SessionStart` fires
-**once per session by construction**, so there is no noise field to join — and
+**once per session-start transition** — not once per session, since `compact`
+and `clear` fire it again in a live session. A long session that compacts
+repeatedly sees it repeatedly, so the justification has to survive that rather
+than assume it away (fm #993 R4): transitions are orders of magnitude rarer than
+the per-call channel the silence rules were written for, and `compact` is
+precisely the moment re-injection is worth most. And
 `docs/findings/2026-08-06-provenance-mechanism-measured.md` § 8 measured the
 alternative: *"fixed-and-always-on and blended-into-conversation both avoid the
 test-signal; selective firing is the worst of the three."*
@@ -686,14 +691,27 @@ resume, because a resumed session has more reason to trust a path it already use
 
 **The reads resolve from `__file__`, never from `CLAUDE_PROJECT_DIR`.** Those are
 the same directory in an ordinary boot and different in exactly the case
-`tools/install_root_hooks.py` exists for: root is the bare clone parent while the
-reads are under `fleet-manager`. The env-first version would have reported all
+`tools/install_root_hooks.py` exists for — **for example** root is the bare clone
+parent while the reads are under `fleet-manager`, and equally root may be a
+satellite repo. The env-first version would have reported all
 eight paths missing precisely on the rescue surface, or matched same-named files
-in another clone (Codex, fm #992, P2) — **a missing-doc warning that fires only
-when it is wrong is worse than none.** The mismatch is not merely avoided but
-*reported*: `_root_note` names the multi-root boot, because "hooks loaded, skills
-and CLAUDE.md did not" is a state that looks exactly like a normal boot from the
+in another clone (Codex, fm #992 R1, P2) — **a missing-doc warning that fires
+only when it is wrong is worse than none.** The mismatch is not merely avoided
+but *reported*: `_root_note` says this repo's `.claude/` did not auto-load, so
+its skills and `CLAUDE.md` are unavailable and the hooks are running from an
+installed registration — a state that looks exactly like a normal boot from the
 inside.
+
+**It does not say which root replaced it, and this paragraph used to.** The
+comparison establishes only that fleet-manager is not the session root;
+`tools/install_root_hooks.py` targets whichever root the environment names, so
+that root can equally be a satellite repo with a full `.claude/` of its own as
+the bare clone parent with none. The note names both and picks neither. Round 2
+removed the over-claim from the code and **left it standing here** — caught in
+round 3 — and the round-3 correction then left the *preceding* paragraph still
+saying "in exactly the case", caught in round 4. Twice is a pattern, so name it:
+**patching the sentence you were shown leaves its neighbours contradicting it**,
+and for an over-claim the neighbours are exactly where it hides.
 
 **Output is plain-text stdout, not the JSON decision object** the tool-time hooks
 use. `SessionStart` is one of the four events where Claude Code adds raw stdout
@@ -720,9 +738,13 @@ echo '{"session_id":"t"}' | python3 .claude/hooks/session_start.py | head -1   #
 mkdir -p /tmp/fakerepo/.claude/hooks
 cp .claude/hooks/session_start.py /tmp/fakerepo/.claude/hooks/
 echo '{"source":"startup"}' > /tmp/in.json
-python3 /tmp/fakerepo/.claude/hooks/session_start.py < /tmp/in.json | grep -c "MISSING AT THIS HEAD"
+n=$(python3 /tmp/fakerepo/.claude/hooks/session_start.py < /tmp/in.json | grep -c "MISSING AT THIS HEAD")
+# `|| { …; false; }` so the control EXITS nonzero: a bare `echo FAIL` succeeds,
+# and an advertised control that always exits 0 cannot fail a CI job (R4).
+[ "$n" = 6 ] && echo "cold PASS" || { echo "cold FAIL: $n of 6"; false; }
 echo '{"source":"resume"}'  > /tmp/in.json   # and on the WARM path
-python3 /tmp/fakerepo/.claude/hooks/session_start.py < /tmp/in.json | grep -c "do not exist"
+n=$(python3 /tmp/fakerepo/.claude/hooks/session_start.py < /tmp/in.json | grep -c "do not exist")
+[ "$n" = 1 ] && echo "warm PASS" || { echo "warm FAIL: $n of 1"; false; }
 
 # root note: fires when root is not this repo, silent when it is
 echo '{"source":"startup"}' > /tmp/in.json
@@ -744,13 +766,24 @@ a quiet check proves nothing (TRAP-003):
 
 | control | expected | got |
 |---|---|---|
-| missing-doc block, hook **relocated** into a tree with none of the reads | fires | 6 of 6 read paths reported missing |
+| missing-doc block, hook **relocated** into a tree with none of the reads | **exactly 6** | 6 of 6 read paths reported missing |
 | the same greps in this repo | silent | 0 |
 | same relocated tree, on a **warm** start | fires | fires |
 | a **directory** created at `docs/intent.md` in that tree | still missing | still missing (`exists` would have rescued it) |
 | root note, `CLAUDE_PROJECT_DIR=/home/user` | fires, and **0** missing | fires, 0 missing |
 | root note, `CLAUDE_PROJECT_DIR` = this repo | silent | 0 |
 | `not json` · `[]` · `{"source": 1}` · `{"source": null}` | exit 0, each logged distinctly | `bad-stdin` · `bad-payload` · `non-string-source` + a normal cold firing · cold |
+
+**And the control asserts its count, and exits nonzero when it does not hold.**
+`grep -c` exits 0 whenever *any* line matches, so a regression dropping six
+warnings to three would have printed `3` and passed while the table claimed 6 of
+6 (fm #992 R3). Asserting the count fixed the comparison but not the exit status
+— `[ … ] && echo PASS || echo FAIL` still exits 0, because the `echo` succeeds —
+so a CI job running it could not fail on any of crash (0), partial coverage
+(1–5) or duplication (7+). Fixed in fm #993 R4. **Three rounds, three
+control-quality findings, each subtler than the last**: a control that cannot
+fail, then one that proves less than its claim, then one that proves it and
+cannot report it.
 
 **The first version of this table was measured with a control that had stopped
 working.** Round 1 changed `REPO` to derive from `__file__`, which made

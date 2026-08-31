@@ -75,8 +75,15 @@ CONTRACT (identical to every other advisory hook here)
 
 Unlike `route_docs.py`, this one is NOT silent-by-default and NOT deduplicated.
 Those rules exist because an advisory that fires on every tool call becomes
-noise the session learns to skip. `SessionStart` fires once per session by
-construction, so there is no noise field to join — and the estate's own measured
+noise the session learns to skip. `SessionStart` fires once per SESSION-START
+TRANSITION — not once per session, since `compact` and `clear` fire it again in
+a live session (fm #992 R3; the earlier "once per session by construction" hid
+exactly the repeated-compaction population this file's own source table
+handles). A long session that compacts repeatedly therefore sees this repeatedly,
+and the justification has to survive that rather than assume it away (fm #993
+R4): it is bounded by transitions rather than tool calls, which is orders of
+magnitude rarer than the per-call channel those rules were written for, and
+`compact` is precisely the moment re-injection is worth most — and the estate's own measured
 finding on selective firing (`docs/findings/2026-08-06-provenance-mechanism-measured.md`
 § 8: *"fixed-and-always-on and blended-into-conversation both avoid the
 test-signal; selective firing is the worst of the three"*) argues against making
@@ -114,8 +121,11 @@ LOG = os.path.join(CACHE_DIR, "log.jsonl")
 # The first version read CLAUDE_PROJECT_DIR first, and Codex caught what that
 # breaks (fm #992, P2): the two are the same directory in an ordinary boot and
 # DIFFERENT in exactly the case this hook is installed for by
-# `tools/install_root_hooks.py`. There, root is the bare clone parent
-# `/home/user` while the reads are under `/home/user/fleet-manager` — so the
+# `tools/install_root_hooks.py`. There the root may be the bare clone parent
+# `/home/user` OR a satellite repo, with the reads under
+# `/home/user/fleet-manager` either way (the "there, root is the bare clone
+# parent" phrasing here was the same over-claim `_root_note` carried — third
+# surface, fm #993 R4) — so the
 # env-first version would have reported all eight paths missing precisely on the
 # rescue surface, or matched unrelated same-named files in another clone. A
 # missing-doc warning that fires only when it is wrong is worse than none.
@@ -352,7 +362,14 @@ def main() -> None:
         # is cold. Recorded so a schema change is visible rather than assumed.
         rec(note="non-string-source", source_type=type(raw).__name__)
         raw = None
-    source = (raw or "unknown").lower()
+    # NO .lower() before the WARM_SOURCES test. Lower-casing widened the warm set
+    # past the documented values — "RESUME" and "Resume" took the warm path while
+    # the contract says the closed set is those exact strings and everything else
+    # is cold (Codex, fm #992 R3, P2). It fails in the wrong direction: the whole
+    # asymmetry argument is that an unrecognised value must get the FULL
+    # contract, and a cased variant is an unrecognised value until upstream says
+    # otherwise. Costing a resume ~500 tokens is the safe error here.
+    source = raw or "unknown"
 
     missing = [p for p, _ in READS if not _present(p)]
     missing += [p for p in COMPANIONS if not _present(p)]
