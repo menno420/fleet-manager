@@ -113,7 +113,14 @@ LOG = os.path.join(CACHE_DIR, "log.jsonl")
 #
 # Never `git rev-parse` here: a hook must not need a subprocess to find its own
 # repo, and the rescue case has no repo at the session root to ask.
-REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+#
+# `realpath`, not `abspath`: abspath does not resolve symlinks, and `_root_note`
+# compares REPO against the session root with realpath on both sides. Mixing the
+# two would make a symlinked checkout report a spurious "root is not this repo"
+# warning — a false alarm in the one message whose whole value is that it only
+# appears when something is genuinely wrong. Raised by the free-key Gemini pass
+# on this fix commit (D-0019 cadence).
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
 # Set when Claude Code launched us. Compared against REPO rather than used as
 # it: a mismatch IS the multi-root boot, and it is worth saying out loud —
