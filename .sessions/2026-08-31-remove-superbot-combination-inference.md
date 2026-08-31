@@ -1,7 +1,7 @@
 # 2026-08-31 — remove unsupported Superbot combination inference
 
-> **Status:** `in-progress` — remove an agent-created ambiguity that incorrectly
-> suggested the Fleet Manager successor might also be the Superbot rebuild.
+> **Status:** `complete` — the agent-created ambiguity is removed and the
+> correction is grounded in the owner's words and Superbot's own repository.
 
 - **📊 Model:** GPT-5 family · high · docs-only
 - **📍 Venue:** local-desktop
@@ -37,3 +37,28 @@ That inference should have been checked against Superbot before it was recorded.
 
 Layer-2 handoff: null (Fleet Manager itself; Superbot was inspected read-only).
 
+## Shipped
+
+- `.sessions/2026-08-31-first-owner-intent-answer.md` — removed only the four
+  lines that invented a possible combined Fleet Manager/Superbot successor.
+- `.sessions/2026-08-31-remove-superbot-combination-inference.md` — recorded the
+  correction, its source evidence, and why the original inference was invalid.
+- `.substrate/guard-fires.jsonl` — committed the required pre-flip telemetry.
+
+The owner's completed `why-this-estate-exists.md` workbook was not changed.
+
+## Verification
+
+- Superbot live source at `5e3a667` -> separate Project Manager and SuperBot 2.0
+  lanes; no combined-repository topology.
+- `python tools/gen_owner_index.py --check` -> current.
+- `python bootstrap.py check --strict` -> exit 1 with one new blocking finding
+  only: this card's designed `in-progress` hold; nine guard-fire records were
+  appended and committed.
+- `git diff --check` -> clean.
+
+External AI review: not requested. This is a small, directly owner-corrected
+records fix, and the merging agent judged that another review would add no
+useful assurance.
+
+Capability delta: null. Owner ask: null.
