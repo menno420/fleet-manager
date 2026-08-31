@@ -32,12 +32,18 @@ WHAT IT ADDS THAT PROSE CANNOT
 Not the list — a session can already read the list. Three things prose cannot
 carry, because each is only knowable at boot:
 
-1. **That the apparatus loaded at all.** The boot triad's two dangerous cases —
-   root is a satellite repo, root is the bare clone parent `/home/user` — are
-   both SILENT: settings, hooks, skills and the auto-loaded CLAUDE.md go quiet
-   with no error, and the session cannot tell "the rule did not apply" from
-   "the rule never arrived". This hook cannot warn in those cases (it does not
-   run either). Its FIRING is the signal, which is why it names itself.
+1. **That the apparatus loaded, and how much of it.** The boot triad's two
+   dangerous cases — root is a satellite repo, root is the bare clone parent
+   `/home/user` — are both SILENT: settings, hooks, skills and the auto-loaded
+   CLAUDE.md go quiet with no error, and the session cannot tell "the rule did
+   not apply" from "the rule never arrived". Two halves:
+     · **Nothing loaded** — this hook did not run either, so its FIRING is the
+       only signal, which is why the injected text names itself.
+     · **Hooks loaded but nothing else** — the rescue state after
+       `tools/install_root_hooks.py --apply`, where the session root is not this
+       repo. That one IS detectable, by comparing `CLAUDE_PROJECT_DIR` against
+       this file's own location, and `_root_note` says so. From the inside it
+       looks exactly like a normal boot, which is what makes it worth naming.
 2. **Whether the six documents are still there.** Same discipline as
    `tools/check_doc_routes.py`: a pointer at a moved or deleted doc is worse
    than no pointer, because the session stops looking. Every path is stat'd and
@@ -69,10 +75,16 @@ it conditional on content.
 
 VERIFY
 ------
-    for s in startup clear resume compact fork; do
-      echo "{\"session_id\":\"t\",\"hook_event_name\":\"SessionStart\",\"source\":\"$s\"}" \
-        | python3 .claude/hooks/session_start.py; done
-    echo '{"session_id":"t"}' | python3 .claude/hooks/session_start.py   # absent source
+    # cold/warm routing — `made-up` MUST come back cold, not warm
+    for s in made-up startup clear resume compact fork; do
+      echo "{\"session_id\":\"t\",\"source\":\"$s\"}" > /tmp/in.json
+      python3 .claude/hooks/session_start.py < /tmp/in.json | head -c 20; echo " <- $s"
+    done
+    echo '{"session_id":"t"}' | python3 .claude/hooks/session_start.py   # absent -> cold
+    # rescue path: root is NOT the repo — reads must still resolve, and say so
+    echo '{"source":"startup"}' > /tmp/in.json
+    CLAUDE_PROJECT_DIR=/home/user python3 .claude/hooks/session_start.py < /tmp/in.json \
+      | grep -c "MISSING AT THIS HEAD"      # must be 0
     echo 'not json' | python3 .claude/hooks/session_start.py             # exit 0, silent
     cat /tmp/claude-session-start/log.jsonl
 """
@@ -87,12 +99,26 @@ import time
 CACHE_DIR = "/tmp/claude-session-start"
 LOG = os.path.join(CACHE_DIR, "log.jsonl")
 
-# Root is the session's working directory and is fixed at boot. CLAUDE_PROJECT_DIR
-# is what Claude Code sets; the walk-up is the fallback for a hook invoked by
-# hand from a subdirectory. Never `git rev-parse` here — a hook must not depend
-# on a subprocess to find its own repo.
-REPO = os.environ.get("CLAUDE_PROJECT_DIR") or os.path.dirname(
-    os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# The documents live beside THIS FILE, so resolve them from __file__ and never
+# from the session root. `<repo>/.claude/hooks/session_start.py` → up three.
+#
+# The first version read CLAUDE_PROJECT_DIR first, and Codex caught what that
+# breaks (fm #992, P2): the two are the same directory in an ordinary boot and
+# DIFFERENT in exactly the case this hook is installed for by
+# `tools/install_root_hooks.py`. There, root is the bare clone parent
+# `/home/user` while the reads are under `/home/user/fleet-manager` — so the
+# env-first version would have reported all eight paths missing precisely on the
+# rescue surface, or matched unrelated same-named files in another clone. A
+# missing-doc warning that fires only when it is wrong is worse than none.
+#
+# Never `git rev-parse` here: a hook must not need a subprocess to find its own
+# repo, and the rescue case has no repo at the session root to ask.
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# Set when Claude Code launched us. Compared against REPO rather than used as
+# it: a mismatch IS the multi-root boot, and it is worth saying out loud —
+# see _root_note.
+SESSION_ROOT = os.environ.get("CLAUDE_PROJECT_DIR")
 
 # The six reads, in README.md's numbered order, each with what the read GIVES —
 # so skipping one is a decision rather than an accident (README.md:34-37).
@@ -143,11 +169,22 @@ ACCEPTANCE = (
     "record the missing fact instead of hunting through extra documents."
 )
 
-# A cold start gets the contract. A resume or a post-compaction continuation
-# gets a pointer: the session already walked it, or its context was just
-# dropped and re-reading is cheaper than re-injecting. `fork` inherits the
-# parent's context, so it is warm too.
-COLD_SOURCES = {"startup", "clear"}
+# WARM is the closed set; everything else is cold. A resume or a
+# post-compaction continuation already walked the contract, or had its context
+# dropped and re-reading is cheaper than re-injecting; `fork` inherits the
+# parent's context.
+#
+# Stated as the WARM set rather than the cold one because the first version had
+# it the other way round and got the default backwards — Codex, fm #992 (P2).
+# `cold = source in {"startup","clear"} or source == "unknown"` sends a
+# genuinely unrecognised value (an upstream sixth `source`, a typo) down the
+# WARM path, which is the opposite of what this file's own docstring, the hooks
+# README table and the commit message all promised. Only the ABSENT case
+# reached the cold default, which is exactly the case that was tested — the
+# unrecognised-value path was asserted from reading the code and never run.
+# Inverting it makes the closed set the thing that must be maintained, so a new
+# upstream value fails safe instead of silently.
+WARM_SOURCES = {"resume", "compact", "fork"}
 
 
 def _log(rec: dict) -> None:
@@ -161,6 +198,45 @@ def _log(rec: dict) -> None:
 
 def _present(rel: str) -> bool:
     return os.path.exists(os.path.join(REPO, rel))
+
+
+def _missing_note(missing: list[str]) -> str:
+    """The moved-read warning. Shown on EVERY start, warm ones included.
+
+    Warm starts dropped this in the first version (Codex, fm #992, P2): the list
+    was computed and then used only by the cold block, so a resumed session was
+    handed `docs/current-state.md` as a live pointer even when it had moved.
+    A dead route is worse on a resume than on a cold start, because a resumed
+    session has more reason to trust a path it already used.
+    """
+    if not missing:
+        return ""
+    return (
+        "\n\n⚠ " + str(len(missing)) + " orientation path(s) do not exist at "
+        "this HEAD: " + ", ".join(missing) + ". Do not silently substitute a "
+        "similar file — a moved read is a defect in the front door, and "
+        "recording it is worth more than compensating for it."
+    )
+
+
+def _root_note() -> str:
+    """Say so when the session root is not this repo.
+
+    This is the multi-root boot: root is the bare clone parent, so THIS repo's
+    settings, skills and `.claude/CLAUDE.md` never loaded, and the hook is
+    running only because `tools/install_root_hooks.py --apply` put it in the
+    root's settings. Hooks without the boot file is a state a session cannot
+    otherwise detect, and it looks exactly like a normal boot from the inside.
+    """
+    if not SESSION_ROOT or os.path.realpath(SESSION_ROOT) == os.path.realpath(REPO):
+        return ""
+    return (
+        f"\n\n⚠ SESSION ROOT IS NOT THIS REPO — root is {SESSION_ROOT}, the "
+        f"reads above are under {REPO}. This is the multi-root boot: this "
+        "repo's skills and .claude/CLAUDE.md did NOT load, and only the hooks "
+        "installed by tools/install_root_hooks.py are live. Invoke skills by "
+        "name; nothing will route you to them."
+    )
 
 
 def _cold_block(missing: list[str]) -> str:
@@ -179,14 +255,6 @@ def _cold_block(missing: list[str]) -> str:
         lines.append(f"{i}. {path}{mark}")
         lines.append(f"   → {gives}")
     lines += ["", ACCEPTANCE]
-    if missing:
-        lines += [
-            "",
-            "⚠ " + str(len(missing)) + " path(s) above do not exist at this "
-            "HEAD: " + ", ".join(missing) + ". Do not silently substitute a "
-            "similar file — a moved read is a defect in the front door, and "
-            "recording it is worth more than compensating for it.",
-        ]
     lines += [
         "",
         "Also live, and not part of the six: docs/MAP.md (one line per area, "
@@ -196,15 +264,14 @@ def _cold_block(missing: list[str]) -> str:
         "docs/traps.md (the recurring execution mistakes, delivered by route "
         "at the moment each one happens).",
         "",
-        "This hook firing is also the proof that root IS this repo and the "
-        "apparatus loaded — hooks, skills and .claude/CLAUDE.md. When root is a "
-        "satellite repo or the bare clone parent, all of it goes quiet with no "
-        "error and nothing says so.",
+        "This hook firing is proof that the hook apparatus loaded. When root is "
+        "a satellite repo or the bare clone parent, it goes quiet with no error "
+        "and nothing says so — see the root warning below if one is present.",
     ]
-    return "\n".join(lines)
+    return "\n".join(lines) + _missing_note(missing) + _root_note()
 
 
-def _warm_block(source: str) -> str:
+def _warm_block(source: str, missing: list[str]) -> str:
     what = ("context was just compacted, so the orientation you did at boot may "
             "no longer be in the window"
             if source == "compact" else
@@ -216,7 +283,7 @@ def _warm_block(source: str) -> str:
         "in · what the owner is working on and why · the next actionable step. "
         "The quick mid-task re-check is docs/current-state.md + the "
         "consolidation program's NOW pointer."
-    )
+    ) + _missing_note(missing) + _root_note()
 
 
 def main() -> None:
@@ -233,17 +300,20 @@ def main() -> None:
     missing = [p for p, _ in READS if not _present(p)]
     missing += [p for p in COMPANIONS if not _present(p)]
 
-    # An absent `source` is treated as COLD. The docs list five values and this
-    # hook must not go quiet on a sixth: under-injecting on a real cold start
-    # costs the orientation this exists to deliver, while over-injecting on a
-    # warm one costs ~30 lines of context. The asymmetry picks the default.
-    cold = source in COLD_SOURCES or source == "unknown"
-    text = _cold_block(missing) if cold else _warm_block(source)
+    # COLD is the default: warm is the closed set, everything else falls to the
+    # full contract. Under-injecting on a real cold start loses the orientation
+    # this hook exists to deliver; over-injecting on a warm one costs ~500
+    # tokens. The asymmetry picks the default, and stating WARM as the closed
+    # set is what makes an unrecognised value fail safe — see WARM_SOURCES.
+    cold = source not in WARM_SOURCES
+    text = _cold_block(missing) if cold else _warm_block(source, missing)
 
     _log({"ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
           "session": data.get("session_id"), "source": source,
           "cold": cold, "missing": missing, "chars": len(text),
-          "repo": REPO})
+          "repo": REPO, "session_root": SESSION_ROOT,
+          "root_moved": bool(SESSION_ROOT) and
+          os.path.realpath(SESSION_ROOT or "") != os.path.realpath(REPO)})
 
     # SessionStart adds plain-text stdout to the session's context — NOT the
     # JSON decision object the tool-time events use. Verified against

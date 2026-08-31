@@ -34,7 +34,7 @@ inside one is evidence *about* its date, to verify like any other claim.
 
 | area | tier | what it is |
 |---|---|---|
-| [`.claude/`](../.claude/CLAUDE.md) | TASK | What a Claude Code session loads at boot: the boot file, six hooks ([hook README](../.claude/hooks/README.md)), 27 skills. |
+| [`.claude/`](../.claude/CLAUDE.md) | TASK | What a Claude Code session loads at boot: the boot file, the hooks ([hook README](../.claude/hooks/README.md), one section each), the skills ([`SKILLS-local.md`](SKILLS-local.md), one line each). Counts deliberately not stated — derive them from `.claude/hooks/*.py` and `.claude/skills/*/`. |
 | [`docs/`](#docs-areas) | mixed | The records home — every subdirectory mapped below. |
 | [`.sessions/`](../.sessions/README.md) | TASK | The live session-card protocol — your born-red card is the in-flight claim parallel sessions see, and it flips complete last. Completed cards are records. |
 | [`.substrate/`](../.substrate/hooks/README.md) | TASK | Kit state, staged skill copies, the guard-fire telemetry ledger, banked rollback dists. Kit-owned. |

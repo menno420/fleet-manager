@@ -661,14 +661,39 @@ test-signal; selective firing is the worst of the three."*
 
 | `source` | injected |
 |---|---|
-| `startup`, `clear`, **and any unrecognised or absent value** | the full contract (~2.2 kB) |
-| `resume`, `compact`, `fork` | a ~0.4 kB pointer — `compact` says why it is being re-shown |
+| `resume`, `compact`, `fork` — **the closed WARM set** | a ~0.4 kB pointer; `compact` says why it is being re-shown |
+| everything else, **unrecognised and absent values included** | the full contract (~2.2 kB) |
 
-**An unknown `source` is treated as cold on purpose.** The documented set is five
-values; under-injecting on a real cold start loses the orientation this exists to
-deliver, while over-injecting on a warm one costs ~500 tokens. The asymmetry
-picks the default, and a sixth value added upstream must not turn this hook off
-silently.
+**Cold is the default, and the closed set is the warm one.** Under-injecting on
+a real cold start loses the orientation this exists to deliver; over-injecting on
+a warm one costs ~500 tokens. The asymmetry picks the default, and stating WARM
+as the closed set is what makes a sixth upstream `source` fail safe.
+
+> **This was backwards in the first version, and the way it got caught is the
+> point.** It read `cold = source in {"startup","clear"} or source == "unknown"`,
+> which sends a genuinely unrecognised value down the WARM path — the opposite of
+> what the docstring, this table and the commit message all promised. Only the
+> *absent* case reached the cold default, and the absent case was the one that
+> got tested; the unrecognised-value path was asserted from reading the code and
+> never run. Codex caught it on fm #992 (P2). **A test that covers the cases you
+> thought of is not a test of the default.**
+
+Both notes — moved reads and a moved root — are appended to **every** start, warm
+included. The first version computed the missing list and then used it only in the
+cold block, so a resumed session was handed `docs/current-state.md` as a live
+pointer even when it had moved (Codex, fm #992, P2). A dead route is *worse* on a
+resume, because a resumed session has more reason to trust a path it already used.
+
+**The reads resolve from `__file__`, never from `CLAUDE_PROJECT_DIR`.** Those are
+the same directory in an ordinary boot and different in exactly the case
+`tools/install_root_hooks.py` exists for: root is the bare clone parent while the
+reads are under `fleet-manager`. The env-first version would have reported all
+eight paths missing precisely on the rescue surface, or matched same-named files
+in another clone (Codex, fm #992, P2) — **a missing-doc warning that fires only
+when it is wrong is worse than none.** The mismatch is not merely avoided but
+*reported*: `_root_note` names the multi-root boot, because "hooks loaded, skills
+and CLAUDE.md did not" is a state that looks exactly like a normal boot from the
+inside.
 
 **Output is plain-text stdout, not the JSON decision object** the tool-time hooks
 use. `SessionStart` is one of the four events where Claude Code adds raw stdout
@@ -695,11 +720,16 @@ echo 'not json' | python3 .claude/hooks/session_start.py; echo "rc=$?"   # 0, si
 cat /tmp/claude-session-start/log.jsonl
 ```
 
-Verified 2026-08-31 across all five sources, the absent-source default, malformed
-stdin and empty stdin: **exit 0 and empty stderr on every path, 11 firings, 11
-log lines.** The missing-doc block was tested against a genuinely empty tree
-(TRAP-003's positive control) — 8 of 8 paths reported missing there, 0 of 8 in
-this repo.
+Verified 2026-08-31 across all five documented sources, an **unrecognised**
+source, the absent-source default, malformed stdin and empty stdin: **exit 0 and
+empty stderr on every path**, every firing logged. Three positive controls, since
+a quiet check proves nothing (TRAP-003):
+
+| control | expected | got |
+|---|---|---|
+| missing-doc block against a tree with none of the reads | fires | 8 of 8 reported missing (0 of 8 in this repo) |
+| same, on a **warm** start | fires | fires |
+| rescue path — `CLAUDE_PROJECT_DIR=/home/user`, reads under `fleet-manager` | **0** missing, root note fires | 0 missing, root note fires |
 
 **Registered on both surfaces**: `.claude/settings.json` for the ordinary
 single-source boot, and `tools/install_root_hooks.py` for the rescue path. Worth
