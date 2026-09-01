@@ -42,6 +42,19 @@ in the PR's own numbers — changed-files far exceeding what the change touches
 command. Fixed by rebuilding from the fetched `fd33e7b` and force-pushing;
 `git diff --name-only fd33e7b HEAD` now returns exactly the 7 intended files.
 
+## Previous-session review
+
+- `2026-09-01-owner-workbook-expansion.md` — this session's own earlier card,
+  landed as fm #997. Its verification section claims the collection was
+  extended correctly; this card records the three claims in it that rested on
+  filenames rather than files.
+- `2026-08-31-first-owner-intent-answer.md` — the rule this correction protects:
+  completed workbooks stay verbatim owner evidence until an explicit synthesis
+  pass. A worksheet that asks an already-answered question corrupts that from
+  the other end, by inviting an answer the record already holds.
+- `2026-08-31-owner-intent-workbooks.md` — created the collection whose eight
+  estate worksheets this session had read the titles of and not the bodies.
+
 ## Mission
 
 Fix three defects in the workbooks added by fm #997, all of the same shape — a
