@@ -985,9 +985,9 @@
 - rules out: building the full Phase 3 apparatus before any material enters
   the new tree.
 
-## [D-0036] Hooks live in the hub repository only, because it is the root of every cloud session — a design choice, not a gap
+## [D-0038] Hooks live in the hub repository only, because it is the root of every cloud session — a design choice, not a gap
 
-- status: decided (recorded design choice)
+- status: decided
 - date: 2026-09-01
 - verdict: fleet-manager — and `estate` after it — is the root repository of
   every cloud session, so its `.claude/` hooks and skills load for every such

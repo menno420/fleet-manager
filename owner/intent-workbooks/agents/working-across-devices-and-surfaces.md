@@ -1,6 +1,6 @@
 # Where you work, and what an agent should assume about it
 
-> **`VERIFIED` pointer, 2026-09-01:** you answered part of this page live — hooks and skills live only in fleet-manager because it is the root of every cloud session, and only a session started with two or more repos attached loses them. Your words verbatim: [`docs/findings/2026-09-01-owner-direction.md`](../../../docs/findings/2026-09-01-owner-direction.md) § 4; recorded as [D-0036].
+> **`VERIFIED` pointer, 2026-09-01:** you answered part of this page live — hooks and skills live only in fleet-manager because it is the root of every cloud session, and only a session started with two or more repos attached loses them. Your words verbatim: [`docs/findings/2026-09-01-owner-direction.md`](../../../docs/findings/2026-09-01-owner-direction.md) § 4; recorded as [D-0038].
 
 ## My current understanding
 

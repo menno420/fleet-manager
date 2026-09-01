@@ -1,8 +1,12 @@
 # 2026-09-01 — the restate block aligned with `intake`, and the owner's first Fable 5.1 sitting recorded
 
-> **Status:** `in-progress` — born red. Flips to `complete` only after
-> `python scripts/preflight.py` returns a real exit code read directly and the
-> diff has been re-read whole.
+> **Status:** `complete` — flipped after `python bootstrap.py check --strict`
+> returned exit 1 on the card hold alone (every other lane clean, read directly)
+> and the diff was re-read whole. Added to the PR since it opened: the
+> pilot-validated evidence-pass workflow, its contract sheet and shard tool
+> (`docs/findings/data/workflows/04-*`, `shard_patterns.py`), the successor
+> structure proposal folder under `docs/planning/`, and the measured finding.
+> No Codex round, per the owner's cadence for skill text and records.
 
 - **📊 Model:** fable-5 · high · docs-only
 - **📍 Venue:** local-desktop
@@ -49,7 +53,7 @@ produced.
    thread, the deliberate hook placement, the automerger doubt, his changing
    involvement, the six defaults.
 4. **`docs/decisions.md`** — [D-0033] archive shape · [D-0034] file length ·
-   [D-0035] build order · [D-0036] hooks in the hub repo only, by design.
+   [D-0035] build order · [D-0038] hooks in the hub repo only, by design.
 5. **`docs/findings/README.md`** — membership regenerated with
    `tools/gen_findings_index.py`.
 6. Pointers from three intent workbooks to the owner-direction record, so his

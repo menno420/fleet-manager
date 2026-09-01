@@ -57,8 +57,8 @@ successor a measurable target and a historical control.
 
 `DERIVED`: the second quote is now a mechanism on his laptop — a first-prompt
 hook that injects a four-line restatement (HE SAID · ALREADY SETTLED · I INFER
-· LEAST SURE) and a post-compaction re-anchor; laptop-hub decision [D-0039]
-there. The estate-side twin belongs in substrate-kit's SessionStart composer
+· LEAST SURE) and a post-compaction re-anchor; laptop-hub decision 39
+there (OneDrive\Hub\decisions.md). The estate-side twin belongs in substrate-kit's SessionStart composer
 (plan input). The `continuation-prompt` skill's restate block is aligned to the
 same four lines in the PR that lands this record.
 
@@ -118,7 +118,7 @@ audit: 986 agents, of which 80 read the corpus.
 `DERIVED`: this corrects a reading in
 [`2026-08-29-estate-agent-error-audit.md`](2026-08-29-estate-agent-error-audit.md)
 § 4 that treated "hook files in 1 of 20 repositories" as a gap. It is a design
-choice for cloud sessions, recorded as [D-0036]. What stays uncovered: a
+choice for cloud sessions, recorded as [D-0038]. What stays uncovered: a
 session started with two or more repos attached, Codex and ChatGPT Work
 sessions, and local sessions opened directly in a repo clone; and `estate`
 inherits the role of root.
@@ -170,11 +170,11 @@ clone in `C:\dev` was deleted on his word (F=1).
 > defaults."*
 
 The six, as put to him (the full record is the hub folder named above; the
-decisions landed here are [D-0033] to [D-0036]): **A** archive shape
+decisions landed here are [D-0033], [D-0034], [D-0035] and [D-0038] — two numbers in between are skipped because their tokens already appear in this repository's records citing other repositories' decisions): **A** archive shape
 `archive/<role>/<YYYY-MM>/<original path>` plus a generated manifest · **B**
 file length soft cap 120 lines advised at write time, hard cap 200 fails
 preflight, `evidence/` and `archive/` exempt · **C** install the restate hook
-on the laptop now (done, [D-0039] on the hub) · **D** land the restate fix in
+on the laptop now (done, hub decision 39) · **D** land the restate fix in
 `continuation-prompt` and `prompt-preflight` now (this PR) · **E** build order:
 thin seed → blind cold test → write cutover → deeper machinery, with only kit
 changes K1–K5 before the seed · **F** delete the stale personal clone (done).
