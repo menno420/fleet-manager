@@ -1,5 +1,9 @@
 # What an agent should do when it thinks you are wrong
 
+> **Overlaps with**
+> [`../estate/how-agents-should-work-with-you.md`](../estate/how-agents-should-work-with-you.md)
+> question 5. Answer either one.
+
 ## My current understanding
 
 `VERIFIED`: this estate's rule is that your live word beats any written record,

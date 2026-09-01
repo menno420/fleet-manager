@@ -13,7 +13,7 @@ records still win until the cutover."*
 have not been asked. They are here so the week produces a start, not only a
 pile of answers.
 
-- [`what-the-new-hub-is-called.md`](what-the-new-hub-is-called.md)
+- [`what-the-new-hub-is-called.md`](what-the-new-hub-is-called.md) — **settled: `estate`**, in your own words 2026-08-30. Kept only for the two narrow things still open.
 - [`what-carries-over.md`](what-carries-over.md)
 - [`what-happens-to-fleet-manager.md`](what-happens-to-fleet-manager.md)
 - [`how-the-new-hub-should-feel.md`](how-the-new-hub-should-feel.md)

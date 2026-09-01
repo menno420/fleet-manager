@@ -1,5 +1,10 @@
 # Time, money, and what an agent may spend
 
+> **Overlaps with**
+> [`../estate/risk-and-owner-authority.md`](../estate/risk-and-owner-authority.md)
+> question 1 on the spending threshold. This page asks about the budget behind
+> it.
+
 ## My current understanding
 
 `VERIFIED`: this repository already records one standing spending decision —

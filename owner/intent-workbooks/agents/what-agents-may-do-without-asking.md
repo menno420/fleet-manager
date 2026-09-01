@@ -1,5 +1,11 @@
 # What I think agents may do without asking you
 
+> **Overlaps with**
+> [`../estate/risk-and-owner-authority.md`](../estate/risk-and-owner-authority.md),
+> which asks the same boundary from the risk side — spending, restarts, private
+> repositories, unsent messages. That page asks what is dangerous; this one
+> asks what is routine. Either is a real answer to both.
+
 ## My current understanding
 
 `VERIFIED`: `docs/intent.md` records the standing rule — continue approved or
