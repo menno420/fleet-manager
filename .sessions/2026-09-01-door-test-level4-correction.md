@@ -1,6 +1,8 @@
 # 2026-09-01 — the door test graded a room it never entered
 
-> **Status:** `in-progress` — born red; flips last.
+> **Status:** `complete` — the regrade is pushed, fm #1004 is open and ready,
+> and the strict check ran with its real exit code read; its only blocking
+> finding was this card's own born-red hold.
 
 - **📊 Model:** withheld · high · docs-only
 - **⚑ Model-slot note:** this session carries an instruction against a model
@@ -58,4 +60,28 @@ protect a number is how a measurement quietly becomes a fiction.
 
 ## Verification
 
-(filled at close)
+- `python3 bootstrap.py check --strict` → **exit 1, read directly, not after a
+  pipe**. Sole blocking finding: this card's designed born-red hold.
+- **All five files under `docs/repos/spider-swing/` opened**, not listed —
+  the omission that produced the false finding.
+- Length claim re-measured after the edit rather than assumed: the collection's
+  longest unanswered worksheet is **58**, and `owner/intent-workbooks.md` now
+  says 58.
+- Both generated pages `--check` current; worksheet count unchanged at 74
+  (an edit, not an addition).
+
+## The mechanism gap this exposes, stated but NOT built
+
+A `UserPromptSubmit` doc route fired correctly and put the right README in
+front of me; I did not open it. So the injection worked and the reading did
+not — which is the half `docs/intent.md` § 4's injection thesis does not cover:
+a route can deliver a document, and nothing observes whether it was read.
+
+`REASONED`, `n=1`. Not proposed as a checker here: a gate that tried to enforce
+reading would have to infer intent from tool calls, and a bad instrument for
+this is worse than none. Recorded so the next session has the observation
+rather than rediscovering it.
+
+No Codex round, per the owner's 2026-08-29 cadence correction.
+
+Capability delta: null. Owner ask: null.
