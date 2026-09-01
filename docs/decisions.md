@@ -917,3 +917,89 @@
 - provenance: owner, live, 2026-08-30, the fresh-start structure sitting;
   design home `planning/2026-08-30-fresh-start-redirect.md` § *The acceptance
   test* and § *Answered — the 2026-08-30 afternoon sitting*.
+
+
+## [D-0033] `estate` archive shape: role, then month, then the original path — plus a generated manifest
+
+- status: decided
+- date: 2026-09-01
+- verdict: In the successor hub, archived material moves to
+  `archive/<role>/<YYYY-MM>/<original path>` by tool only
+  (`tools/moves/archive_move.py`), and every move writes one row to a
+  generated `archive/manifest.csv`: old path · new path · date · reason ·
+  replacement · commit. The archive mirrors the tree as it was at archive time
+  and never tracks later renames.
+- why: the month layer answers "when did this stop mattering" and prevents
+  collisions when a same-named file is archived twice; the manifest, not
+  symmetry, is the lookup bridge (the ChatGPT Work structure review of
+  2026-08-30, § 3, against the plain-mirror sketch). His earlier words hold
+  either way: *"a comprehensive archive system that accounts for project scope
+  and time."*
+- provenance: owner, 2026-09-01, live, choosing all defaults on the successor
+  proposal (question A); the session's recommendation and its reasoning are
+  in the laptop-hub record named in
+  [`findings/2026-09-01-owner-direction.md`](findings/2026-09-01-owner-direction.md) § 7.
+- rules out: a plain role-only mirror without the month layer; moving a file
+  by hand.
+
+## [D-0034] File length in `estate`: 120 lines advised at write time, 200 lines fails preflight; evidence, archive and generated files exempt
+
+- status: decided
+- date: 2026-09-01
+- verdict: A PostToolUse advisory fires when a file passes 120 lines ("split by
+  question"); preflight fails at 200 lines. `evidence/`, `archive/` and
+  generated files are exempt (records may grow). Companion rule from the same
+  proposal: table cells at most 200 characters, prose wrapped at 100 — one
+  claim per line.
+- why: fleet-manager measured 27 Markdown files over 600 lines and 57 % of its
+  prose in the fifth of files nobody reads whole; its mandatory reading order
+  costs about 352 KB. The owner's own rule — *"whenever an agent opens a file,
+  it reads it whole"* — carries its mechanism only if length is enforced
+  (`owner/intent-workbooks/successor/naming-and-file-size.md`). TRAP-008's
+  first instance was an 869-character line.
+- provenance: owner, 2026-09-01, live, all defaults (question B).
+- rules out: advisory-only length; a 50-line hard target (his `goals/` example
+  stays the ideal, not the gate).
+
+## [D-0035] `estate` build order: thin seed → blind cold test → write cutover → deeper machinery; only kit changes K1–K5 before the seed
+
+- status: decided
+- date: 2026-09-01
+- verdict: The sequence is: his letters on the structure; K1–K5 in
+  substrate-kit in one release (opt-out `control/`, no generic `docs/`
+  planting for a hub profile, visible `sessions/`, owner-profile as a pointer
+  plus repo slots, telemetry ledger untracked); folder READMEs and the
+  migration manifest for the seed set only; seed `estate` from the manifest;
+  a blind cold test by a separate agent, fix, repeat once; the absolute write
+  cutover with a redirect on fleet-manager's front door; then routing in the
+  kit's hook channel, the restate section in the kit's SessionStart, and the
+  initiative loop — from measured use, not before.
+- why: the ChatGPT Work review's § 5 argument, adopted: designing every
+  mechanism against an empty tree risks reproducing fleet-manager's
+  abstractions before the structure has met real material. K1–K5 come first
+  because they shape the tree at birth and would cost renames later, against
+  his no-renames condition ([D-0025], 2026-08-30).
+- provenance: owner, 2026-09-01, live, all defaults (question E). Consistent
+  with [D-0025]'s sequence and OD-26 § 13 (mechanisms wait for the revised
+  plan; this order is plan input).
+- rules out: building the full Phase 3 apparatus before any material enters
+  the new tree.
+
+## [D-0036] Hooks live in the hub repository only, because it is the root of every cloud session — a design choice, not a gap
+
+- status: decided (recorded design choice)
+- date: 2026-09-01
+- verdict: fleet-manager — and `estate` after it — is the root repository of
+  every cloud session, so its `.claude/` hooks and skills load for every such
+  session; repositories added to the scope later keep them. The only cloud
+  case that loses them is a session started with two or more repositories
+  attached. Hook files in the other repositories are therefore not expected.
+- why: his words, 2026-09-01: *"it was deliberate that only one repo has these
+  hooks etc. I always use fleet-manager as the root repo for a cloud session…
+  Only if I personally attach 2 or more repos to a session at start then the
+  hooks and skills do not load."* The 2026-08-29 estate-agent-error audit § 4
+  read "hook files in 1 of 20 repositories" as a gap; this entry corrects the
+  reading. What stays uncovered and is real: multi-repo starts, Codex and
+  ChatGPT Work sessions, and local sessions opened directly in a clone.
+- provenance: owner, 2026-09-01, live; full quote in
+  [`findings/2026-09-01-owner-direction.md`](findings/2026-09-01-owner-direction.md) § 4.

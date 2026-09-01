@@ -1,5 +1,7 @@
 # What I think agents may do without asking you
 
+> **`VERIFIED` pointer, 2026-09-01:** on merging, your words live — *"my agents can all merge PRs themselves"* — and your doubt about the automerger that was built when the Projects claimed they could not. Verbatim: [`docs/findings/2026-09-01-owner-direction.md`](../../../docs/findings/2026-09-01-owner-direction.md) § 5; the question is open (G).
+
 > **Overlaps with**
 > [`../estate/risk-and-owner-authority.md`](../estate/risk-and-owner-authority.md),
 > which asks the same boundary from the risk side — spending, restarts, private

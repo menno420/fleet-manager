@@ -152,10 +152,25 @@ STATE      : <branch / PR / CI, each verified just now>
 POINT AT   : <paths that exist at HEAD>
 CARRY      : <decisions that exist only in this chat>
 OMIT       : <what the session will re-derive>
+NUMBERS    : <every count, size or date the prompt states, each with the command
+              that produced it just now — or moved to UNVERIFIED>
+VENUE      : <where the receiving session opens: a repo clone · the laptop hub ·
+              a cloud container — this decides whether the prompt says "clone
+              first", and names the shell and interpreter (`python` on Windows)>
 SURFACE    : <constraints that change the wording, or "unknown — check-don't-assume">
 DONE WHEN  : <acceptance + verify command>
+CLOSE WITH : <the end-of-session obligations of that venue, named>
 UNVERIFIED : <anything asserted but not checked — must appear in the prompt as uncertain>
 ```
 
 An empty `UNVERIFIED` line is the goal. A non-empty one is fine — it just has to
 survive into the prompt as doubt rather than being quietly promoted to fact.
+
+**`NUMBERS`, `VENUE` and `CLOSE WITH` were added 2026-09-01, each for a measured
+miss in one prompt:** a "~26 of 27 repos" figure carried from research that had
+never counted it (measured the next session by blob SHA across 28 repositories:
+17 kit-generated stubs, 10 absent, 0 copies); `python3 scripts/preflight.py`
+prescribed to a session that opened on a Windows laptop hub where the rule is
+read via `gh` and clone only to change; and no word on how that surface's
+session ends. Skill § 5 already said "adapt to the target surface"; nothing
+forced the writer to name it. A line in the note does.

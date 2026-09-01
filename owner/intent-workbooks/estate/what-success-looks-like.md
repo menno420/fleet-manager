@@ -1,5 +1,7 @@
 # What I think success looks like
 
+> **`VERIFIED` pointer, 2026-09-01:** you named the success test live — *"any agent can work on any repo with little to no input from my side"*, with pre-EAP `/superbot` as the baseline where it was already true. Verbatim: [`docs/findings/2026-09-01-owner-direction.md`](../../../docs/findings/2026-09-01-owner-direction.md) § 1.
+
 ## My current understanding
 
 `VERIFIED`: the current intent record names three outcomes: a fresh session
