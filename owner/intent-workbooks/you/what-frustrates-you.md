@@ -5,6 +5,12 @@
 > at the moment the mistake would happen. `docs/intent.md` § 4 is explicit that
 > this, not another written rule, is how a correction becomes durable.
 
+> **Overlaps deliberately with**
+> [`../estate/how-agents-should-work-with-you.md`](../estate/how-agents-should-work-with-you.md)
+> question 1, which already asks for the most annoying small thing agents
+> repeatedly do. Answer it in whichever file you open first — the other can
+> point at it. This page is the wider version.
+
 ## My current understanding
 
 `VERIFIED`: on 2026-08-31 you named clutter directly — agents should *"not just

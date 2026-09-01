@@ -1,33 +1,39 @@
-# What the new hub is called
+# What the new hub is called — settled
 
-## My current understanding
+> **This page was drafted as an open question and was wrong to be.** You
+> settled the name on 2026-08-30 and the record was right there. Corrected
+> 2026-09-01 rather than left for you to answer twice — `docs/intent.md` § 2
+> counts "sessions stop asking things the repo already answers" as one of the
+> three things that make this estate working.
 
-`VERIFIED`: the planning documents refer to the successor as `estate`. That is
-a working name from a planning session, not a decision you have made — no
-record in this repository says you chose it.
+## Settled
 
-`DERIVED`: this is a small decision with a long tail. The name appears in every
-boot file, every prompt, every clone command and every satellite pointer for
-years. It is also the first word an agent reads about your estate, so it is
-doing orientation work whether you intend it to or not.
+`VERIFIED`: the successor is called **`estate`**, in your own words, recorded
+in `docs/planning/2026-08-30-fresh-start-redirect.md` line 271:
 
-`VERIFIED`: you have said names should be intuitive enough that anyone
-immediately understands what kind of information is in a place. That standard
-applies to the repository name first.
+> *"I think 'estate' might be a good call, I was personally considering calling
+> it 'structure' but I feel like that name would make it a bit ambiguous to
+> discuss."*
 
-## What I suggest
+`VERIFIED`: your rejection reason is recorded with it and is worth keeping —
+a repository named `structure` cannot be discussed without collision ("the
+structure of `structure`"). The same record notes that `estate` is already your
+own vocabulary (`docs/ESTATE.md`) and that it names the thing rather than a
+mechanism, which is how `fleet-manager` went stale: it names a seat
+architecture retired 2026-07-21.
 
-`PROPOSED`: pick a name you would say out loud. `estate` is accurate and
-slightly cold; something of your own would be better if one comes to mind.
-There is no technical constraint — it can be renamed later, but the pointers
-in twenty-odd other repositories would need updating, so once is cheaper.
+## What is genuinely still open
+
+`PROPOSED`: only two things, and neither needs answering this week.
+
+1. Whether `fleet-manager` survives anywhere as an alias — covered on
+   [`what-happens-to-fleet-manager.md`](what-happens-to-fleet-manager.md).
+2. Whether the repository is public or private at creation.
 
 ## Questions for you
 
-1. What do you want it called?
-2. Do you want the naming to match the rest of your repositories in style, or
-   deliberately stand apart because it is the hub?
-3. Should the old name survive anywhere as an alias, or disappear entirely?
+1. Is `estate` still the name, a day's distance from deciding it?
+2. Public or private on day one?
 
 ## Your words
 
