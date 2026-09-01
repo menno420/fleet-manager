@@ -6,7 +6,7 @@
 > what needs your attention was spread across several surfaces you had to
 > already know about; it is swept from them so it cannot go stale.
 >
-> generated-at 2026-08-31T19:16:44Z
+> generated-at 2026-09-01T09:26:20Z
 
 **What is here:** things only you can decide · questions written for you ·
 documents waiting for your own words · piles that need triage. **What is
@@ -23,6 +23,14 @@ quoted words (`OWNER`) from a session's revisable inference (`DERIVED`).
 - [`fill-repository-purposes.md`](fill-repository-purposes.md)
 - [`intent-workbooks.md`](intent-workbooks.md)
 - [`triage-recorded-ideas.md`](triage-recorded-ideas.md)
+
+## Write — the intent workbooks
+
+**1 of 71 worksheets carry your words.** Full list, generated from the
+worksheets themselves: [`owner/intent-workbooks/PROGRESS.md`](intent-workbooks/PROGRESS.md).
+
+- [`intent-workbooks/HOW-TO-ANSWER.md`](intent-workbooks/HOW-TO-ANSWER.md) — the one convention, two minutes.
+- [`intent-workbooks/WHEN-I-AM-BACK.md`](intent-workbooks/WHEN-I-AM-BACK.md) — what the first session back does with the answers.
 
 ## Decide — open items in the owner queue
 

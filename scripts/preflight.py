@@ -149,6 +149,13 @@ def main() -> int:
         # solely when someone remembered to invoke it by hand — the exact
         # staleness the generated design exists to prevent (Codex, fm #988).
         ("owner index drift", [sys.executable, "tools/gen_owner_index.py", "--check"]),
+        # Same reasoning, one layer down: the workbook progress page is the
+        # only surface that says which of the owner's worksheets carry his
+        # answers, and it is generated from the worksheets themselves. It goes
+        # stale the moment he answers one, which is precisely when a session
+        # needs it to be right.
+        ("workbook progress drift",
+         [sys.executable, "tools/gen_workbook_progress.py", "--check"]),
         ("owner comment tests", [sys.executable, "tools/test_owner_comments.py"]),
         # The doc-route suite guards the routes AND their plumbing (which tools
         # a route opts into, whether a Bash-authored document reaches it). It
