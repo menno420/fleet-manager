@@ -37,7 +37,12 @@ written here — so this page cannot drift from what the folder says it is.
 
 ## What this page does NOT cover
 
-**The 64 files sitting loose at this level.** They are real and several are
+**The 64 other files at this level** — 65 counting this README, `MEASURED`
+2026-09-01. *(This line first said "64 files sitting loose at this level",
+written in the same change that added this README and so wrong on arrival by
+one: `docs/traps.md` TRAP-008, a count restated without re-testing it after the
+thing it counts changed. Corrected 2026-09-01, phrased so the README is
+excluded explicitly rather than silently.)* They are real and several are
 CORE, but they are not doors — they are objects on the floor of this room, and
 listing them here would duplicate [`MAP.md`](MAP.md), which is the repo-wide
 router and already carries them with their tiers.
