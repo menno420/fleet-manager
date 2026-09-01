@@ -1,6 +1,9 @@
 # 2026-09-01 — the session's own error pattern, documented as a finding and a trap
 
-> **Status:** `in-progress` — born red; flips last.
+> **Status:** `complete` — the finding, TRAP-008, its route and its controls
+> are pushed; fm #1005 is open and ready; the strict check ran with its real
+> exit code read and its only remaining blocking finding was this card's own
+> born-red hold.
 
 - **📊 Model:** withheld · high · docs-only
 - **⚑ Model-slot note:** this session carries an instruction against a model
@@ -65,4 +68,35 @@ register's coverage table says so rather than implying full cover.
 
 ## Verification
 
-(filled at close)
+- `python3 bootstrap.py check --strict` → **exit read after a REDIRECT, not a
+  pipe** (TRAP-002). First run surfaced a **real** finding beyond the born-red
+  hold: `invalid badge token 'finding'`. I had invented the token from the
+  folder's name instead of reading the allowed set — **TRAP-008 committed while
+  writing TRAP-008**, the seventh instance and the second inside its own
+  document. Corrected to `audit` after reading what three sibling findings
+  actually carry (`audit`, `audit`, `reference`). Re-run: born-red hold alone.
+- **The route was proved end-to-end, not merely validated.** Immediately after
+  registration it fired unprompted on this session's own `grep -c` /
+  `grep -n` call, quoting TRAP-008 back at me — the `mistake → entry → route`
+  lifecycle observed live rather than asserted.
+- **Positive and negative controls, both required to pass:** 7 must-fire cases,
+  each an actual command this session ran or a sentence it actually wrote,
+  and 3 must-be-silent cases guarding the noise boundary (reading a whole file
+  with `sed -n`, grepping for content rather than names, ordinary prose).
+  `tools/test_doc_route_patterns.py` → 71 cases CLEAN.
+- `python3 tools/check_doc_routes.py` → 72 routes · 37 docs routed · 0 errors.
+- The register's summary count corrected 7→8 in the same change that made it
+  stale.
+
+## What this does NOT establish
+
+`REASONED`, not measured: that the route will catch the *next* instance. It
+fires on the listing-command and label-characterisation surfaces only; the
+never-opened half belongs to `read_before_write.py` and the inherited-claim
+half (instance 4) has **no** delivery at all. The coverage table states that
+rather than implying full cover. Six — now seven — instances in one session is
+a set of named instances, which is the register's stated bar, and not a rate.
+
+No Codex round, per the owner's 2026-08-29 cadence correction.
+
+Capability delta: null. Owner ask: null.

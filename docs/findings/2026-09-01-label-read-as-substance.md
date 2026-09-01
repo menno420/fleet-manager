@@ -1,6 +1,6 @@
 # A label read as its contents — six instances in one session
 
-> **Status:** `finding` · tier **RECORD** · dated 2026-09-01 · `MEASURED`
+> **Status:** `audit` · tier **RECORD** · dated 2026-09-01 · `MEASURED`
 > except where marked. Certainty legend:
 > [`2026-08-05-foundation-continuation.md`](2026-08-05-foundation-continuation.md).
 >
