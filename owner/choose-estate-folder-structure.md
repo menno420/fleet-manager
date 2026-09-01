@@ -5,6 +5,16 @@
 > `OWNER` = your words, quoted · `DERIVED` = this session's inference, revisable.
 > This is not yet your document: only exact quotations tagged `OWNER` are your
 > words; blank `OWNER` sections are waiting for you.
+>
+> **Note, 2026-09-01:** the same 11 role names are also proposed at
+> [`owner/intent-workbooks/folders/README.md`](intent-workbooks/folders/README.md)
+> — your conditional agreement below ("no renames along the way") already
+> covers that page too; the "Names you want changed" section is the one
+> genuinely open item. A related but distinct question — file size and nesting
+> depth *within* each folder, not the folder names themselves — now has its
+> own answered page:
+> [`owner/intent-workbooks/successor/naming-and-file-size.md`](intent-workbooks/successor/naming-and-file-size.md),
+> answered 2026-09-01.
 
 ## How I see it
 
