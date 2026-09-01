@@ -1,6 +1,8 @@
 # 2026-09-01 — the owner's nested folder shape, and the two conditions on it
 
-> **Status:** `in-progress` — born red; flips last.
+> **Status:** `complete` — pushed, fm #1002 open and ready, strict check run
+> with its real exit code read; only blocking finding was this card's own
+> born-red hold.
 
 - **📊 Model:** withheld · high · docs-only
 - **⚑ Model-slot note:** this session carries an instruction against a model
@@ -59,4 +61,25 @@ the path. Open sets need an index one level up; closed sets do not.
 
 ## Verification
 
-(filled at close)
+- `python3 bootstrap.py check --strict` → **exit 1, read directly, not after a
+  pipe**. Sole blocking finding: this card's designed born-red hold.
+- **The precedent was read in source, not assumed from the folder names.**
+  `tools/owner_comments.py:2567` `consume()` — the rename, the in-file `state`
+  write and the reindex are all in that one method; `scripts/preflight.py:146`
+  wires its `check` into the gate. Both cited by line because a claim about a
+  mechanism is worth nothing without one.
+- Page held to **53 lines**, inside the collection's stated 54-line norm — the
+  norm this session had to correct once already.
+- Both generated pages `--check` current; no worksheet count change (edit, not
+  addition).
+
+## What this does NOT establish
+
+That his nested scheme is *better* than the flat one. It establishes that its
+one known failure mode has a working local solution, and that his two examples
+differ in a way that changes the answer. Nobody has run a session against the
+proposed layout; the comparison remains a counterfactual.
+
+No Codex round, per the owner's 2026-08-29 cadence correction.
+
+Capability delta: null. Owner ask: null — four questions live in the worksheet.
