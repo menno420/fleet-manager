@@ -17,3 +17,5 @@ pile of answers.
 - [`what-carries-over.md`](what-carries-over.md)
 - [`what-happens-to-fleet-manager.md`](what-happens-to-fleet-manager.md)
 - [`how-the-new-hub-should-feel.md`](how-the-new-hub-should-feel.md)
+- [`why-agents-misread-this-repo.md`](why-agents-misread-this-repo.md) — the
+  measured version of the same question: three real misses, what caused each.
