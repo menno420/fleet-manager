@@ -1,6 +1,8 @@
 # 2026-09-01 — the owner's naming rule, and the folder scheme he already has
 
-> **Status:** `in-progress` — born red; flips last.
+> **Status:** `complete` — pushed, fm #1001 open and ready, strict check run
+> with its real exit code read; only blocking finding was this card's own
+> born-red hold.
 
 - **📊 Model:** withheld · high · docs-only
 - **⚑ Model-slot note:** this session carries an instruction against a model
@@ -66,4 +68,25 @@ read as ported."* Fifth instance of reading a summary instead of the source.
 
 ## Verification
 
-(filled at close)
+- `python3 bootstrap.py check --strict` → **exit 1, read directly, not after a
+  pipe**. Sole blocking finding: this card's designed born-red hold.
+- **The population count is a census, not a sample** (TRAP-004): every
+  directory under `docs/repos/` enumerated, not a grep. 10 folders, each
+  listed; the 28-repository denominator is `docs/ESTATE.md`'s own count, which
+  `owner/intent-workbooks/repositories/README.md` independently states.
+- **Both sources opened, not summarised** — `docs/repos/spider-bot/README.md`
+  and `docs/repos/superbot-next/README.md`. Opening them is what produced the
+  correction above; the hook summary that replaced them had been sufficient to
+  mislead me twice.
+- Index count cross-checked against the generator: both 73. Longest unanswered
+  worksheet still 54, matching the index's claim.
+
+## What this does NOT establish
+
+That his scheme *would* have caught two of three is `REASONED` from a
+counterfactual, not measured — no one ran a session against the proposed
+layout. The population numbers are exact; the prediction is not.
+
+No Codex round, per the owner's 2026-08-29 cadence correction.
+
+Capability delta: null. Owner ask: null — four questions live in the worksheet.
