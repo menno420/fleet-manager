@@ -58,8 +58,7 @@
         "docs/CAPABILITIES.md"
       ],
       "says": "STOP — you are about to write a limitation down. Two checks first, in this order. (1) DID THE OWNER SAY OTHERWISE? His statements about this estate are source truth, not a hypothesis your probe gets to overturn — a failed call means you used the wrong path, not that he was wrong. This exact failure is on the record: 2026-08-05 he wrote that the Interactions API 'works fully turn based and stored session history', a probe of the Vertex path returned RESOURCE_PROJECT_INVALID, and 'unavailable' went into the ledger anyway. It works, on the other surface, exactly as he said. (2) Has the estate already measured it? grep docs/providers/ and docs/conventions/ before recording anything. See THE DISCOVERY RULE step 0.",
-      "authored_only": true,
-      "repeat": true
+      "authored_only": true
     },
     {
       "id": "discovery-probe",
@@ -1006,8 +1005,7 @@
         "docs/traps.md"
       ],
       "says": "TRAP-001 — you are stamping something MEASURED. One check: is your basis a **live surface**, or a document that describes one? A citation is not a measurement, and this estate's most recent failure was exactly that laundering — a session wrote 'measuring the live state instead' and then cited an audit doc, having already retracted a CORRECT finding on the strength of a code comment written two months earlier. The credential was in the environment the whole time: $GITHUB_PAT over direct egress for GitHub, $RAILWAY_API_KEY against backboard.railway.com/graphql/v2 for anything deployed. If you truly cannot read the live surface, the sentence must say so: 'per <doc> dated <date>, not re-verified.' MAP.md's own closing rule — the live surface wins over any document here — did not prevent three instances in one conversation. Register: docs/traps.md TRAP-001.",
-      "authored_only": true,
-      "repeat": true
+      "authored_only": true
     },
     {
       "id": "absence-claim",
@@ -1028,8 +1026,7 @@
         "docs/traps.md"
       ],
       "says": "TRAP-003 — you are about to record that something is NOT there. An empty result proves your QUERY RAN; it does not prove the world is empty. Run the positive control FIRST: make the same query, in the same form, find something you know IS present. If it can't, the query is broken, not the world. MEASURED 2026-08-23: a 26-repo index sweep using `path:README.md` with no search term returned 0 for EVERY repo including fleet-manager — it measured nothing, and was caught only because a known-good repo also came back empty. Same day, spider-swing was recorded as having 'no next-step line anywhere in 662 lines' from a heading regex; reading the file found it at lines 512-514, in prose. For a 'not in file F' claim, OPEN F — a keyword search is not a read. Register: docs/traps.md TRAP-003.",
-      "authored_only": true,
-      "repeat": true
+      "authored_only": true
     },
     {
       "id": "claim-beyond-the-sample",
@@ -1051,8 +1048,7 @@
         "docs/traps.md"
       ],
       "says": "STOP — you are about to write a COUNT or a UNIVERSAL over a population. State N MEASURED of M TOTAL and name what the unmeasured remainder is. TRAP-004, and it fired four times on 2026-08-26 in one session, twice inside the very document warning about it: a kit-version census taken from TEN repos was published over all of them and contradicted by the estate's own records (five live versions across 16 adopters, not three); a commit count taken from a SHALLOW container clone (52 here, 966 on main) was written as the repository's history; 'all 51 notifications were replays' described a set by its majority when four were new; and a card count was reported as a session count when one session can land two cards. THE COUNT-ONLY FORM IS THE ONE THAT KEEPS GETTING THROUGH — 'X cards', 'Y commits' with no ratio and no qualifier reads as a census and is usually a sample. Two checks before you write it: (1) did you enumerate the WHOLE population, or the first page / the default depth / the ten you sampled? (2) does a record already in this tree contradict it? Re-measuring the full set is nearly always cheaper than the argument about whether the sample generalises — the ten-repo shortcut above cost a round of review to undo, and the full sweep took two minutes.",
-      "authored_only": true,
-      "repeat": true
+      "authored_only": true
     },
     {
       "id": "card-flip-before-push",
@@ -1226,6 +1222,30 @@
         "docs/planning/2026-08-26-estate-execution-packets.md"
       ],
       "says": "You are naming the estate execution packets (2026-08-26, OD-22's frame). Read docs/planning/2026-08-26-estate-execution-packets.md before acting: § 5 is the packet catalog (target, executor, steps, acceptance, verify, non-scope per packet), § 4 the venue block every packet inherits — run its precheck first on a local session (python --version · gh auth status; if Python is missing, the PR's required check is the binding gate, never merge on red). The first sitting is PKT-C1 (spider-swing's front door); the pair that must not slip is A1/A2 (gate the next-agent contribution); the owner-lane letters are § 5's closing table. The doc's figures carry the command that produced each — re-derive before building on one, never quote. The owner accepted the plan provisionally ('not read every word yet'), so expect his line-level corrections to outrank the prose."
+    },
+    {
+      "id": "listing-is-not-reading",
+      "docs": [
+        "docs/traps.md",
+        "docs/findings/2026-09-01-label-read-as-substance.md"
+      ],
+      "tools": [
+        "Bash",
+        "Edit",
+        "Write"
+      ],
+      "repeat": true,
+      "authored_only": false,
+      "when": [
+        "\\bgrep\\s+(-\\w*\\s+)*-\\w*l\\b",
+        "\\bfind\\b[^\\n|]*\\s-name\\b",
+        "\\bgit\\s+ls-tree\\b",
+        "\\bhead\\s+-n?\\s*1\\b",
+        "\\b[\\w./-]+\\.md\\b\\s+(is|holds|carries|covers|contains)\\s+the\\b",
+        "\\bthe\\s+(row|cell|entry)\\s+(for|named|says|reads)\\b",
+        "\\b\\d+\\s+files?\\s+named\\b"
+      ],
+      "says": "STOP — TRAP-008. You located something; you have not necessarily read it. A listing or matching command (ls, find -name, grep -l, head -1, git ls-tree) yields NAMES AND COUNTS, never contents — it can locate a thing, it cannot characterise one. Same for a label: read to the end of the unit you are quoting, the whole cell, the whole row, the whole file. docs/ESTATE.md:85 is 869 chars on one line, one cell 673: it opens 'the ground-up bot rebuild' and puts 'parity != ported' ~400 chars later IN THE SAME CELL. Six instances in one session on 2026-09-01, one of them committed inside the document written to describe this trap. A pointer is not its document: when the boot file NAMES a doc, open the doc. Cite the line you actually read, not the path."
     }
   ]
 }

@@ -67,6 +67,31 @@ MUST_BE_SILENT = [
     ("a rule, not a claim", "every session should contribute an idea for the next agent"),
 ]
 
+# TRAP-008, added 2026-09-01. Every LABEL_MUST_FIRE string is either a command
+# this session actually ran before mis-characterising what it found, or a
+# sentence it actually wrote. LABEL_MUST_BE_SILENT guards the noise boundary:
+# these commands and sentences are the normal, correct case and firing on them
+# would train the route to be ignored (the register's own warning).
+LABEL = "listing-is-not-reading"
+LABEL_MUST_FIRE = [
+    # instance 6 — level 4 graded from a listing
+    ("grep -l", "grep -rl 'spider-swing' docs/"),
+    ("find -name", "find . -name 'why-this-estate-exists*'"),
+    ("git ls-tree", "git ls-tree -r --name-only origin/main -- owner"),
+    ("head -1 for a title", "head -1 docs/findings/README.md"),
+    # instance 5 — characterising a doc by its label
+    ("doc characterised", "docs/MAP.md is the router for the repo"),
+    # instance 1 — a table row quoted as the thing
+    ("table row as evidence", "the row for superbot-next says it reached parity"),
+    # instance 6 again — a count of names reported as knowledge of contents
+    ("files named", "the folder holds 5 files named by type"),
+]
+LABEL_MUST_BE_SILENT = [
+    ("reading a whole file", "sed -n '1,200p' docs/intent.md"),
+    ("an ordinary edit", "the owner answered six questions in his own words"),
+    ("grep for content, not names", "grep -n 'parity' docs/ESTATE.md"),
+]
+
 SHALLOW = "shallow-clone-commit-counts"
 SHALLOW_MUST_FIRE = [
     ("git log", "git log --oneline | head -20"),
@@ -288,6 +313,14 @@ def main() -> int:
         if fires(sample, text):
             failures.append(f"{SAMPLE}: SHOULD BE SILENT but fires — {label}: {text!r}")
 
+    label = patterns(LABEL)
+    for lbl, text in LABEL_MUST_FIRE:
+        if not fires(label, text):
+            failures.append(f"{LABEL}: SHOULD FIRE but is silent — {lbl}: {text!r}")
+    for lbl, text in LABEL_MUST_BE_SILENT:
+        if fires(label, text):
+            failures.append(f"{LABEL}: SHOULD BE SILENT but fires — {lbl}: {text!r}")
+
     shallow = patterns(SHALLOW)
     for label, text in SHALLOW_MUST_FIRE:
         if not fires(shallow, text):
@@ -295,6 +328,7 @@ def main() -> int:
 
     plumbing_cases = len(CLAIM_ROUTES) * 3 + 2 + len(BASH_AUTHORING) + len(CARD_PATH_CASES) + len(E2E_CASES)
     total = (len(MUST_FIRE) + len(MUST_BE_SILENT) + len(SHALLOW_MUST_FIRE)
+             + len(LABEL_MUST_FIRE) + len(LABEL_MUST_BE_SILENT)
              + plumbing_cases)
     if failures:
         for f in failures:

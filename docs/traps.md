@@ -369,6 +369,55 @@ demonstrated on itself.
   matches the completion transition itself. Re-run post-fix: **1 fires, 2 fires,
   3 fires, 4 fires, and every later push fires.**
 
+## TRAP-008 · A label read as its contents
+
+- **TRIGGER** — you are about to state what something **is** — a repository, a
+  document, a folder, a table row, an invariant, a claim under a heading — and
+  your basis is its **name, title, heading, or opening clause** rather than the
+  thing itself.
+- **WHY** — labels are written short; the qualifier that reverses them lives
+  downstream, and in this estate it reliably does. `docs/ESTATE.md:85` is 869
+  characters on one line, one cell of it 673: the cell opens *"the ground-up
+  bot rebuild"* and places *"parity ≠ ported"* ~400 characters later, inside
+  the same cell. Finding the line is not reading it.
+- **REQUIRED PREVENTION** — read to the end of the unit you are quoting: the
+  whole cell, the whole row, the whole file. A pointer is not its document —
+  when the boot file names a doc, **open the doc**. A listing command (`ls`,
+  `find -name`, `grep -l`, `head -1`, `git ls-tree`) yields **names and counts,
+  never contents**: it may locate a thing, it may not characterise one.
+- **VERIFY** — the record cites the **line or section actually read**, not the
+  path alone. "Per `X.md`" is not a citation; "`X.md:85`, whose cell ends
+  `parity ≠ ported`" is.
+- **ORIGIN** — `MEASURED`, six instances, all 2026-09-01 in one session
+  (fm #997–#1004); full record:
+  [`findings/2026-09-01-label-read-as-substance.md`](findings/2026-09-01-label-read-as-substance.md).
+  1. `docs/ESTATE.md:85` — `superbot-next` called a finished rebuild; the
+     reversing qualifier was in the same cell, ~400 characters on.
+  2. The owner was asked to re-name the successor hub. Settled at
+     `docs/decisions.md:650` and twice in
+     `planning/2026-08-30-fresh-start-redirect.md`. The boot file's **pointer**
+     to that doc was read; the doc was not opened.
+  3. A `2026-08-31` date-string match in 10 files reported as 10 citations.
+     Nine were.
+  4. *"No worksheet is longer than 44 lines"* carried forward into
+     `owner/intent-workbooks.md` **in the same PR that shipped worksheets at 46
+     and 47.**
+  5. `docs/MAP.md` proposed as the source for a `docs/` index without being
+     opened. It is the **repo-wide** router — its rows cover `.claude/`,
+     `.sessions/`, `scripts/`, `tools/`, `bootstrap.py` and `../`.
+  6. The door test's level 4 graded from `ls` output alone, **inside the
+     document written to describe this very trap**, after five instances had
+     already been recorded (regraded, fm #1004).
+- **ROUTE** — `listing-is-not-reading` (Bash/Edit/Write, `repeat: true`).
+  **Coverage is partial and the split is the point:** the route reaches the
+  *sub-file* half — instances 1, 3, 6, where the thing was located and then
+  under-read. Instances 2 and 5 are the *never-opened* half, which is
+  `.claude/hooks/read_before_write.py`'s existing job. Instance 4 — an
+  inherited sentence restated without testing it — is **undelivered**, and a
+  checker for it would have to know which claims are inherited.
+
+---
+
 ## Coverage — stated so the gap is visible
 
 | trap | delivered by | deterministic checker |
@@ -380,10 +429,16 @@ demonstrated on itself.
 | TRAP-005 | **none** — see its entry | no |
 | TRAP-006 | **2 routes** — `card-flip-before-push` (Bash/push) + `card-status-write` (Edit/Write/MultiEdit) | not yet — the check would have to read the PR that does not exist yet |
 | TRAP-007 | **2 routes** — `card-flip-to-complete` (Edit/Write/MultiEdit, matches the completion transition) + `card-flip-before-push`, now `repeat: true` so it is never spent | not yet — a checker would have to know a review was *requested*, which is PR state, not tree state |
+| TRAP-008 | **1 route** — `listing-is-not-reading` (Bash/Edit/Write, `repeat: true`); reaches instances 1, 3, 6. Instances 2 and 5 are `read_before_write.py`'s; instance 4 is **undelivered** | not yet — a checker would have to know which claims are inherited |
 
-**The honest state of this register: seven entries, six delivered by route (TRAP-006
+**The honest state of this register: eight entries, seven delivered by route (TRAP-006
 and TRAP-007 by two each — they share `card-flip-before-push`), and TRAP-002 complete
-through the full § 5.4 lifecycle** — mistake → trap entry
+through the full § 5.4 lifecycle**
+
+*(This sentence read "seven entries, six delivered" until 2026-09-01, when
+TRAP-008 was added directly above it and the count was not re-read. Corrected
+in the same change — it is TRAP-008 instance 4's exact class, an inherited
+count restated without testing it, committed inside TRAP-008's own PR.)* — mistake → trap entry
 → route → deterministic checker. `tools/check_pipe_exit_code.py` runs in
 `python3 bootstrap.py check --strict` via `scripts/preflight.py`, and scans
 **executable surfaces only**: `.github/workflows/*.yml|yaml`, `**/*.sh`, **plus
