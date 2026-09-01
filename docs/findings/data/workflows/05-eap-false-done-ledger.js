@@ -145,7 +145,7 @@ const correctionPool = allReaders.flatMap(r => r.corrections.map(c => ({ ...c, s
 log(`pool: ${claimPool.length} claims, ${correctionPool.length} corrections`)
 
 // split correction pool into groups; each merge group gets the FULL claim pool (it must search across all claims) plus its own slice of corrections
-const CHUNK = 25
+const CHUNK = 40
 const corrGroups = []
 for (let i = 0; i < correctionPool.length; i += CHUNK) corrGroups.push(correctionPool.slice(i, i + CHUNK))
 if (corrGroups.length === 0) corrGroups.push([])
