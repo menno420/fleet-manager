@@ -1,8 +1,8 @@
 # 2026-09-01 — why agents misread this repo, measured
 
-> **Status:** `in-progress` — born red. Flips to `complete` only after the
-> branch is pushed, the PR is open and ready, and the strict check has run with
-> its real exit code read.
+> **Status:** `complete` — the measured worksheet and both corrections are
+> pushed; fm #999 is open and ready; the strict check ran with its real exit
+> code read and its only blocking finding was this card's own born-red hold.
 
 - **📊 Model:** withheld · high · docs-only
 - **⚑ Model-slot note:** this session carries an instruction against a model
@@ -62,4 +62,29 @@ week — he is pausing every AI subscription for about a week from ~2026-09-10.
 
 ## Verification
 
-(filled at close)
+- `python3 bootstrap.py check --strict` → **exit 1, read directly, not after a
+  pipe** (TRAP-002). Sole blocking finding: this card's designed born-red hold.
+  Every other lane exit 0, including `workbook progress drift`.
+- **The index claim cross-checked against the generator rather than counted by
+  hand**: `owner/intent-workbooks.md` says 72, `tools/gen_workbook_progress.py`
+  says 72. Hand-counting is what produced the stale 71 this PR fixes.
+- **The false invariant tested before replacing it**, not assumed: the three
+  longest worksheets on `main` measured 67, 47, 46 against a claimed ceiling of
+  44. Two of the three were shipped by fm #997 in the same change that carried
+  the claim forward.
+- The new worksheet was **63 lines on first write and trimmed to 54** before
+  landing. Left as it was, a page arguing that over-packed documents get
+  half-read would have been the longest unanswered page in the collection.
+
+## What this does NOT establish
+
+The three misses are one session's, and the sample is three. The
+document-shape measurements are exact and repeatable; the causal claim that
+shape produced the misread is `REASONED` from one instance, not measured across
+sessions. `docs/traps.md` would take it as a candidate, not an entry.
+
+No Codex round — per the owner's 2026-08-29 cadence correction, and consistent
+with the two preceding owner-document landings today.
+
+Capability delta: null. Owner ask: null — the three questions live in the
+worksheet where he will read them next week.
