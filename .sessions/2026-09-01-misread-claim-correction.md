@@ -1,6 +1,8 @@
 # 2026-09-01 — correct the misread page's own overstatement
 
-> **Status:** `in-progress` — born red; flips last.
+> **Status:** `complete` — the corrected page is pushed, fm #1000 is open and
+> ready, and the strict check ran with its real exit code read; its only
+> blocking finding was this card's own born-red hold.
 
 - **📊 Model:** withheld · high · docs-only
 - **⚑ Model-slot note:** this session carries an instruction against a model
@@ -42,4 +44,27 @@ established as wrong, on a surface he will read offline.
 
 ## Verification
 
-(filled at close)
+- `python3 bootstrap.py check --strict` → **exit 1, read directly, not after a
+  pipe**. Sole blocking finding: this card's designed born-red hold.
+- **The index's own length claim re-tested after the edit, not assumed.** The
+  corrected page came back at 66 lines, then 55, then 54; `owner/intent-workbooks.md`
+  states the longest unanswered worksheet is 54, and the measured max across
+  the collection is 54. Had I stopped at 55 the claim I corrected earlier today
+  would have been false again within the hour.
+- Both generated pages `--check` current.
+
+## The pattern this session actually produced
+
+Four corrections, one root: **a label read as substance.** A date read as a
+citation · a table-row title read as a finished rebuild · an inherited
+invariant read as true · and here, my own conclusion sentence read as what the
+table under it said. The last is the instructive one, because the evidence was
+three lines above the claim and still lost the argument to it.
+
+`REASONED`, not measured: nothing in the gate compares a document's conclusion
+with its own table. That is a candidate mechanism, not a finding — one session,
+`n=4`.
+
+No Codex round, per the owner's 2026-08-29 cadence correction.
+
+Capability delta: null. Owner ask: null.

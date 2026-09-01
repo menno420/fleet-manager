@@ -26,8 +26,7 @@ That cell opens *"the ground-up bot rebuild"* and puts the reversing qualifier
 *"parity ≠ ported"* ~400 characters later.
 
 `MEASURED`, lines over 400 chars: `ESTATE.md` **15** (max 1365) · the
-consolidation program **71** (max **7393**) · `MAP.md` 3 · `intent.md` 1 ·
-`current-state.md` 0 · `.claude/CLAUDE.md` 0.
+consolidation program **71** (max **7393**) · `MAP.md` 3 · rest 0–1.
 
 `DERIVED`: **a mechanical rule covers one miss in three.** Corrected
 2026-09-01 — this page first claimed shape was *the* failing axis, and its own
