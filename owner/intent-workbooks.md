@@ -36,19 +36,41 @@ When an answer becomes settled, an agent should preserve your words, move the
 durable result to its one canonical home, and leave a pointer from the workbook
 instead of silently turning an old inference into policy.
 
+## Start here
+
+- [`intent-workbooks/HOW-TO-ANSWER.md`](intent-workbooks/HOW-TO-ANSWER.md) —
+  two minutes, and the one convention that makes your answers findable
+  afterwards. Read it before the first page you answer.
+- [`intent-workbooks/PROGRESS.md`](intent-workbooks/PROGRESS.md) — generated:
+  which worksheets already carry your words. Never hand-ticked.
+- [`intent-workbooks/WHEN-I-AM-BACK.md`](intent-workbooks/WHEN-I-AM-BACK.md) —
+  what the first session after your offline week should do with the answers,
+  written now rather than improvised then.
+
 ## Open the collection
 
 - [`estate/`](intent-workbooks/estate/README.md) — why the whole collection
   exists and how you want it run.
+- [`you/`](intent-workbooks/you/README.md) — how you work, decide, and want to
+  be talked to. Added 2026-09-01; the collection had 47 questions about the
+  estate and almost none about you.
+- [`agents/`](intent-workbooks/agents/README.md) — the working contract: what
+  agents may do unasked, when to stop, what "done" means, which AI does what.
+- [`products/`](intent-workbooks/products/README.md) — the things you are
+  building, as products rather than as repositories.
+- [`successor/`](intent-workbooks/successor/README.md) — the four decisions the
+  fresh-hub cutover needs from you.
 - [`folders/`](intent-workbooks/folders/README.md) — one proposed contract for
   every main folder in the successor hub.
 - [`repositories/`](intent-workbooks/repositories/README.md) — one prefilled
   intent draft for each of the 28 repositories visible on GitHub.
 
-The collection contains 47 answerable worksheets plus four small indexes. No
-worksheet is longer than 44 lines. It remains successor preparation: current
-Fleet Manager records still win until the cutover, and product repositories
-remain canonical for their own implementation truth.
+The collection contains **71 answerable worksheets** (`MEASURED` 2026-09-01 by
+`tools/gen_workbook_progress.py`, which enumerates the whole tree) plus the
+section indexes and the three pages above. No worksheet is longer than 44
+lines. It remains successor preparation: current Fleet Manager records still
+win until the cutover, and product repositories remain canonical for their own
+implementation truth.
 
 ## One guiding question
 

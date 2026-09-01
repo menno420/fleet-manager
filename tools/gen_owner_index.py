@@ -50,6 +50,15 @@ import sys
 REPO = pathlib.Path(__file__).resolve().parent.parent
 OUT = REPO / "owner" / "README.md"
 
+# The workbook answer detector lives in its own generator; importing it keeps
+# ONE definition of "the owner has written here". Restating the regex would
+# create a second, silently divergent answer to the same question.
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+try:
+    from gen_workbook_progress import worksheets as _worksheets
+except Exception:  # pragma: no cover - reported as an honest null below
+    _worksheets = None
+
 OQ_HEAD = re.compile(r"^- \*\*`(OQ-[A-Z0-9-]+)`(.*)$")
 # A closed entry announces itself in its own header line.
 CLOSED = ("✅", "CLOSED", "RESOLVED", "DONE", "MOOT")
@@ -207,6 +216,28 @@ def owner_workbooks() -> list[str]:
     return out
 
 
+def workbook_progress() -> tuple[int, int, str | None]:
+    """(answered, total, error) across the nested intent-workbook collection.
+
+    The collection sits BELOW owner/'s direct siblings, so the "Read now"
+    section above lists only its index page. That is the exact
+    presence-is-not-surfacing failure the collection's own landing card named,
+    and it matters most during a stretch when the owner is working the
+    worksheets with no agent running.
+    """
+    if _worksheets is None:
+        return 0, 0, "tools/gen_workbook_progress.py could not be imported"
+    try:
+        found, unreadable = _worksheets()
+    except OSError as exc:
+        return 0, 0, f"workbook collection unreadable: {exc}"
+    total = sum(len(v) for v in found.values())
+    done = sum(1 for v in found.values() for _, ok in v if ok)
+    err = (f"{len(unreadable)} worksheet(s) unreadable and excluded"
+           if unreadable else None)
+    return done, total, err
+
+
 def ungroomed_ideas() -> tuple[list[str], str | None]:
     text = read("docs/planning/idea-backlog.md")
     if text is None:
@@ -245,6 +276,7 @@ def main() -> int:
     questions, q_missing = intent_questions()
     guidance, guidance_old = owner_guidance_docs()
     workbooks = owner_workbooks()
+    wb_done, wb_total, wb_err = workbook_progress()
     ideas, idea_err = ungroomed_ideas()
     comments, comments_unreadable = unconsumed_comments()
 
@@ -280,6 +312,26 @@ def main() -> int:
     else:
         a("No editable sibling workbooks found.")
         a("")
+
+    a("## Write — the intent workbooks")
+    a("")
+    if wb_total:
+        a(f"**{wb_done} of {wb_total} worksheets carry your words.** Full list, "
+          "generated from the")
+        a("worksheets themselves: "
+          "[`owner/intent-workbooks/PROGRESS.md`](intent-workbooks/PROGRESS.md).")
+        a("")
+        a("- [`intent-workbooks/HOW-TO-ANSWER.md`](intent-workbooks/HOW-TO-ANSWER.md)"
+          " — the one convention, two minutes.")
+        a("- [`intent-workbooks/WHEN-I-AM-BACK.md`](intent-workbooks/WHEN-I-AM-BACK.md)"
+          " — what the first session back does with the answers.")
+    else:
+        a("The intent-workbook collection could not be counted.")
+    if wb_err:
+        a("")
+        a(f"⚠ **{wb_err}** — the count above is over what could be read, "
+          "not over the whole collection.")
+    a("")
 
     a("## Decide — open items in the owner queue")
     a("")
@@ -417,6 +469,7 @@ def main() -> int:
     print(f"owner index: {len(live)} open of {len(oq)} queue entries · "
           f"{sum(len(v) for v in questions.values())} question(s) · "
           f"{len(guidance)} owner-guidance doc(s) · {len(workbooks)} workbook(s) · "
+          f"{wb_done}/{wb_total} worksheets answered · "
           f"{len(ideas)} ungroomed idea(s) · "
           f"{len(comments)} repo(s) with unconsumed comments -> {OUT.relative_to(REPO)}")
     return 0
