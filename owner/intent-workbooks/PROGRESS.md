@@ -5,9 +5,9 @@
 > themselves, so it cannot disagree with them. Ticking a box here by
 > hand would be undone the next time it runs.
 >
-> generated-at 2026-09-01T10:25:52Z
+> generated-at 2026-09-01T10:32:25Z
 
-**1 of 72 worksheets carry your words.** A worksheet counts as
+**1 of 73 worksheets carry your words.** A worksheet counts as
 answered when it contains an `OWNER:` block with text under it, or an
 inline `(OWNER <date>: …)` marker — see
 [`HOW-TO-ANSWER.md`](HOW-TO-ANSWER.md).
@@ -91,9 +91,10 @@ re-reading every file.
 - ☐ [`repositories/venture-lab.md`](repositories/venture-lab.md)
 - ☐ [`repositories/websites.md`](repositories/websites.md)
 
-## The new hub — 0/5
+## The new hub — 0/6
 
 - ☐ [`successor/how-the-new-hub-should-feel.md`](successor/how-the-new-hub-should-feel.md)
+- ☐ [`successor/naming-and-file-size.md`](successor/naming-and-file-size.md)
 - ☐ [`successor/what-carries-over.md`](successor/what-carries-over.md)
 - ☐ [`successor/what-happens-to-fleet-manager.md`](successor/what-happens-to-fleet-manager.md)
 - ☐ [`successor/what-the-new-hub-is-called.md`](successor/what-the-new-hub-is-called.md)
