@@ -22,7 +22,9 @@ log('aggregation fixtures: 2 kill, 1 survive — pass; fields read: refuted, alr
 const FM = (typeof args === 'object' && args && args.fm) || '/home/user/fleet-manager'
 const SB = (typeof args === 'object' && args && args.sb) || '/tmp/eap-night/superbot-eap'
 const JUDGE_MODEL = (typeof args === 'object' && args && args.judgeModel) || undefined
-log(`paths: fm=${FM} sb=${SB} · verify/critic model=${JUDGE_MODEL || 'session default'}`)
+const PILOT_ONLY = Boolean(typeof args === 'object' && args && args.pilotOnly)
+const SKIP_SATELLITE = Boolean(typeof args === 'object' && args && args.skipSatellite)
+log(`paths: fm=${FM} sb=${SB} · verify/critic model=${JUDGE_MODEL || 'session default'} · pilotOnly=${PILOT_ONLY} · skipSatellite=${SKIP_SATELLITE}`)
 
 const TASK = `You are one reader in a multi-agent pass building a FALSE-DONE LEDGER for Menno's estate: a table of every claim of "done" / "complete" / "shipped" / "working" / "finished" / "landed" made during the EAP fortnight (July 2026, the Anthropic Early Access Program on the /superbot production Discord bot), matched against what was later found to actually be true. This is not the mail-evidence pass (a sibling fleet handles that) — this fleet's ONLY product is the ledger. The owner's own words about this: "I noticed that much of the work that was claimed to be complete was in fact not complete at all." Turn that sentence into countable rows.`
 
@@ -112,8 +114,15 @@ function expand(files, tag) {
   }
   return out
 }
-const SB_UNITS = expand(SB_FILES, 'sb')
-const FM_UNITS = expand(FM_FILES, 'fm')
+let SB_UNITS = expand(SB_FILES, 'sb')
+let FM_UNITS = expand(FM_FILES, 'fm')
+if (PILOT_ONLY) {
+  // pilot: one fleet-manager split-file half, one superbot split-file half, chosen to pilot the split-by-line-range mechanic itself (05-CONTRACTS-night.md PILOT line)
+  FM_UNITS = FM_UNITS.filter(u => u.label === 'fm:eap-story.md[1-300]' || u.label === 'fm:PROJECT-CLOSEOUT.md[1-210]')
+  SB_UNITS = SB_UNITS.filter(u => u.label === 'sb:anthropic-email-2-draft-2026-07-11.md[1-310]')
+} else if (SKIP_SATELLITE) {
+  SB_UNITS = []
+}
 log(`reader units: superbot ${SB_UNITS.length} (from ${SB_FILES.length} files) · fleet-manager ${FM_UNITS.length} (from ${FM_FILES.length} files)`)
 
 const fmReads = parallel(FM_UNITS.map(u => () => agent(readerPrompt(u.path, u.range, 'This is a fleet-manager estate record about the EAP fortnight.'), { label: u.label, phase: 'Read', schema: READER_B })))
