@@ -1,6 +1,8 @@
 # 2026-09-01 — the room description's own count, wrong on arrival
 
-> **Status:** `in-progress` — born red; flips last.
+> **Status:** `complete` — pushed, fm #1007 open and ready, strict check run
+> with its real exit code read; only blocking finding was this card's own
+> born-red hold.
 
 - **📊 Model:** withheld · high · docs-only
 - **⚑ Model-slot note:** this session carries an instruction against a model
@@ -49,4 +51,31 @@ that judgement rather than an unstated omission.
 
 ## Verification
 
-(filled at close)
+- `python3 bootstrap.py check --strict` → **exit read after a redirect, not a
+  pipe**. Sole blocking finding: this card's designed born-red hold.
+- **The corrected numbers are asserted against the directory, not eyeballed:**
+  a check enumerated `docs/` (65 files total, 64 excluding `README.md`) and
+  asserted the exact sentence `"**The 64 other files at this level** — 65
+  counting this README"` appears in the file. Both halves match the tree.
+- The error was found by **re-measuring a claim in my own reply** — `ls -p
+  docs/ | grep -vc /` → 65 against `docs/README.md:40` → 64 — rather than
+  restating the number a third time.
+
+## The pattern, now twice since it was registered
+
+TRAP-008 instance 4 is *a count restated without re-testing it*. Since the
+register entry landed in fm #1005 it has recurred twice: the register's own
+summary line ("seven entries") went stale inside #1005, and this count went
+stale inside fm #1003. Both were self-inflicted by the same change that made
+them wrong.
+
+`REASONED`, not measured: the sub-pattern is narrower than TRAP-008 as written
+— **not "I read the label" but "I did not re-read after changing the thing."**
+Two instances is the register's stated bar, so this is a candidate for its own
+entry or a sharpened ORIGIN on TRAP-008. It is **not** filed as either here:
+that is a register edit, this card is a one-line content fix, and conflating
+them is how a small correction becomes an unreviewed policy change.
+
+No Codex round, per the owner's 2026-08-29 cadence correction.
+
+Capability delta: null. Owner ask: null.
