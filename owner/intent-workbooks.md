@@ -65,7 +65,7 @@ instead of silently turning an old inference into policy.
 - [`repositories/`](intent-workbooks/repositories/README.md) — one prefilled
   intent draft for each of the 28 repositories visible on GitHub.
 
-The collection contains **73 answerable worksheets** (`MEASURED` 2026-09-01 by
+The collection contains **74 answerable worksheets** (`MEASURED` 2026-09-01 by
 `tools/gen_workbook_progress.py`, which enumerates the whole tree) plus the
 section indexes and the three pages above. `MEASURED` 2026-09-01: the longest
 **unanswered** worksheet is 54 lines and the median is well under 40 — short on

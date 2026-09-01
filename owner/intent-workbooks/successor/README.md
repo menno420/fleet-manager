@@ -16,6 +16,8 @@ pile of answers.
 - [`what-the-new-hub-is-called.md`](what-the-new-hub-is-called.md) — **settled: `estate`**, in your own words 2026-08-30. Kept only for the two narrow things still open.
 - [`what-carries-over.md`](what-carries-over.md)
 - [`what-happens-to-fleet-manager.md`](what-happens-to-fleet-manager.md)
+- [`the-door-test.md`](the-door-test.md) — your doors analogy turned into a
+  repeatable acceptance test, plus its first run against this repo.
 - [`how-the-new-hub-should-feel.md`](how-the-new-hub-should-feel.md)
 - [`naming-and-file-size.md`](naming-and-file-size.md) — your naming rule,
   and the measurement that says the scheme already exists and was never filled.

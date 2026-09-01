@@ -6,7 +6,7 @@
 > what needs your attention was spread across several surfaces you had to
 > already know about; it is swept from them so it cannot go stale.
 >
-> generated-at 2026-09-01T10:32:25Z
+> generated-at 2026-09-01T11:22:39Z
 
 **What is here:** things only you can decide · questions written for you ·
 documents waiting for your own words · piles that need triage. **What is
@@ -26,7 +26,7 @@ quoted words (`OWNER`) from a session's revisable inference (`DERIVED`).
 
 ## Write — the intent workbooks
 
-**1 of 73 worksheets carry your words.** Full list, generated from the
+**1 of 74 worksheets carry your words.** Full list, generated from the
 worksheets themselves: [`owner/intent-workbooks/PROGRESS.md`](intent-workbooks/PROGRESS.md).
 
 - [`intent-workbooks/HOW-TO-ANSWER.md`](intent-workbooks/HOW-TO-ANSWER.md) — the one convention, two minutes.
