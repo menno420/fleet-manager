@@ -1,50 +1,51 @@
-# Your naming rule — and the measurement that changes where it applies
+# Your naming rule — and the two conditions on it
 
-> Your words, live 2026-09-01: *"create more folders and shorter but more
-> specific files… the filename tells you exactly what the file contains. And
-> the folder name should tell you exactly which types of files are there. And I
-> want to make sure that whenever an agent opens a file, it reads it whole."*
+> Your words, live 2026-09-01: *"more folders and shorter but more specific
+> files… the filename tells you exactly what the file contains… the folder name
+> should tell you exactly which types of files are there… whenever an agent
+> opens a file, it reads it whole."* Shape clarified same day: **nested**, not
+> sibling — `superbot/goals/{completed,in-progress,planned}` ·
+> `superbot/problems/{cogs,API,railway}`.
 
 ## Why the rule is right
 
-`MEASURED` 2026-09-01, this session's three misses: your scheme catches **two**
-of three. A short `successor-name.md` gets opened where a 634-line planning doc
-did not (miss 1); a one-claim file cannot hide a reversing qualifier 400
-characters into a table cell (miss 2). My own proposal — a line-length lint —
-caught one.
+`MEASURED`: against this session's three misses your scheme catches **two**; my
+counter-proposal, a line-length lint, caught **one**.
 
-`DERIVED`: *"reads it whole"* cannot be an instruction. `docs/intent.md` § 4 is
-explicit that instructions do not bind and mechanisms do. **But your rule
-already contains its own mechanism: a 30-line file is read whole because it is
-30 lines.** Length is the enforcement; the sentence about reading is not.
+`DERIVED`: *"reads it whole"* cannot be an instruction — `docs/intent.md` § 4
+is explicit that instructions do not bind and mechanisms do. **Your rule
+carries its own mechanism: a 30-line file is read whole because it is 30
+lines.** Length is the enforcement; the sentence about reading is decoration.
+
+## Condition 1 — state in the path needs a command
+
+`MEASURED`: `docs/owner-comments/<repo>/{unconsumed,consumed}/` is your scheme
+running today. `tools/owner_comments.py consume` moves the file, writes `state`
+inside it too, and reindexes — one diff — and `tools/owner_comments.py check`
+is a preflight lane, so a file whose folder and contents disagree **reds the
+build**. Copy that, not the folder names. Left to agent discipline, a goal that
+finishes and is not moved is wrong twice: wrong path *and* wrong state.
+
+## Condition 2 — closed sets in the path, open sets need an index
+
+`DERIVED`: your two examples differ. `{completed,in-progress,planned}` is
+**closed** — an agent guesses the path correctly forever.
+`{cogs,API,railway}` is **open**: the next subsystem invents a folder nobody
+can guess, and guessing is the whole point.
 
 ## The measurement that redirects the effort
 
-`MEASURED` 2026-09-01: **this structure already exists.** `docs/repos/<name>/`
-was adopted 2026-08-08 with fixed filenames — `README.md`, `intent.md`,
-`capabilities.md`, `records.md`, `working-here.md`.
-
-- **10 of 28** repositories have a folder at all.
-- **3 of 10** have anything beyond `README.md`.
-- **1 of 10** (`spider-swing`) has the full set.
-
-`DERIVED`: the scheme is not missing. **It was designed, adopted, and never
-populated.** A rebuild that re-designs it spends its effort on the half that
-already worked.
-
-## One refinement worth arguing about
-
-`PROPOSED`: your sketch reads as sibling folders — `/superbot`,
-`/superbot-goals`, `/superbot-problems`. Prefer **one folder per repository
-with the same filenames inside every one**: `superbot/goals.md`,
-`superbot/problems.md`, `spider-swing/goals.md`. Both halves of your rule still
-hold, and an agent learns the vocabulary **once** instead of 28 times.
+`MEASURED`: **the folder-per-topic scheme already exists.** `docs/repos/<name>/`
+was adopted 2026-08-08 with fixed filenames. **10 of 28** repositories have a
+folder; **3 of 10** have anything beyond `README.md`; **1 of 10**
+(`spider-swing`) has the full set. It was designed, adopted, and never
+populated. A rebuild that re-designs it spends effort on the half that worked.
 
 ## Questions for you
 
-1. Sibling folders, or one folder per repo with fixed filenames inside?
-2. What is the line count at which you would want a file split?
-3. Which files do you want in *every* repo folder, no exceptions?
+1. Which category sets are closed for good, and which will keep growing?
+2. What line count should force a split?
+3. Which folders must exist in *every* topic, no exceptions?
 4. `docs/repos/` was adopted and left empty. What would make the new one fill?
 
 ## Your words
