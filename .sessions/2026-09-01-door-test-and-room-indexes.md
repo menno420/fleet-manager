@@ -1,6 +1,8 @@
 # 2026-09-01 — the door test, and two rooms that could not describe themselves
 
-> **Status:** `in-progress` — born red; flips last.
+> **Status:** `complete` — both room descriptions and the door test are
+> pushed, fm #1003 is open and ready, and the strict check ran with its real
+> exit code read; its only blocking finding was this card's born-red hold.
 
 - **📊 Model:** withheld · high · docs-only
 - **⚑ Model-slot note:** this session carries an instruction against a model
@@ -64,4 +66,36 @@ doors and confidently described them, three times today.
 
 ## Verification
 
-(filled at close)
+- `python3 bootstrap.py check --strict` → **exit 1, read directly, not after a
+  pipe**. Sole blocking finding: this card's designed born-red hold.
+- **Every door description in `docs/README.md` was taken from that folder's own
+  `head -1`, not written here.** All 15 subdirectories were enumerated and each
+  one's README opened for its title line; none was described from its name.
+  That is the precise failure this session made six times, so the page that
+  fixes it must not commit it.
+- **The proposal this replaces was tested and rejected on evidence.** I had
+  proposed building `docs/README.md` from `MAP.md`'s content, having never
+  opened `MAP.md`. Opening it shows it is the **repo-wide** router — its rows
+  cover `.claude/`, `.sessions/`, `.github/`, `scripts/`, `tools/`,
+  `bootstrap.py`, `../` and root-level files — so copying it into `docs/` would
+  have put root-level areas behind a `docs/` path and created the second source
+  of truth `intent.md` § 5 names as a non-goal.
+- Live-API confirmation of the gap before fixing it: GitHub's per-directory
+  readme endpoint returned `Not Found` for `docs` and `owner/intent-workbooks`,
+  and `README.md` for `docs/repos` and `owner`.
+- Count corrected 72 → 74 in `owner/intent-workbooks.md`, cross-checked against
+  `tools/gen_workbook_progress.py` rather than hand-counted.
+- New worksheet at **54 lines**, exactly the collection's stated norm.
+
+## What this does NOT establish
+
+The walk is one question against one repo. It shows three defects exist; it
+does not measure how often a walker hits them, and `docs/repos/` walked clean.
+`REASONED`, not measured: that the leaf-level defect is the costliest of the
+three. Nobody has walked the proposed layout, so the comparison stays a
+counterfactual.
+
+No Codex round, per the owner's 2026-08-29 cadence correction.
+
+Capability delta: null. Owner ask: null — three questions live in the door-test
+worksheet.
