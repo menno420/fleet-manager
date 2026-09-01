@@ -51,8 +51,12 @@ ROOT = REPO / "owner" / "intent-workbooks"
 OUT = ROOT / "PROGRESS.md"
 
 # Files that are indexes or instructions, not worksheets with an OWNER slot.
+# ALL-IN-ONE.md is the generated bundle of every worksheet. Measured
+# 2026-09-01: without this entry it counted as a 75th worksheet AND read as
+# answered, because it contains every other worksheet's OWNER markers -- the
+# progress page would have inflated its own denominator and numerator at once.
 NOT_A_WORKSHEET = {"README.md", "PROGRESS.md", "HOW-TO-ANSWER.md",
-                   "WHEN-I-AM-BACK.md"}
+                   "WHEN-I-AM-BACK.md", "ALL-IN-ONE.md"}
 
 # Form 2: an inline marker the owner writes mid-page.
 INLINE = re.compile(r"\(\s*owner(?:\s+reply)?\s+[^:)]{0,40}:", re.IGNORECASE)

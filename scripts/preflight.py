@@ -156,6 +156,18 @@ def main() -> int:
         # needs it to be right.
         ("workbook progress drift",
          [sys.executable, "tools/gen_workbook_progress.py", "--check"]),
+        # The findings index decayed twice by the same mechanism: hand-kept
+        # membership over a directory that keeps growing. Its own header
+        # records being "regenerated complete on 2026-08-10 ... after the old
+        # index was measured listing 25 of 42"; on 2026-09-01 it listed 65 of
+        # 72. Descriptions there stay authored and are preserved verbatim --
+        # only membership is generated, and only membership is gated.
+        ("findings index drift",
+         [sys.executable, "tools/gen_findings_index.py", "--check"]),
+        # NOTE: owner/intent-workbooks/ALL-IN-ONE.md is deliberately NOT gated.
+        # It is the owner's working copy; a drift lane would red continuously
+        # the moment he starts writing in it. It reconciles via
+        # `gen_workbook_bundle.py --split`, not via a gate.
         ("owner comment tests", [sys.executable, "tools/test_owner_comments.py"]),
         # The doc-route suite guards the routes AND their plumbing (which tools
         # a route opts into, whether a Bash-authored document reaches it). It
