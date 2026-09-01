@@ -2,10 +2,31 @@
 
 > **Status:** `complete` — pushed, PR open, preflight run clean.
 
+- **📊 Model:** sonnet-5 · high · docs-only
 - **📍 Venue:** Claude Code, local (Menno's laptop, not the cloud pipeline)
+- **🔗 Session:** unavailable — local Claude Code CLI session, not the cloud
+  pipeline; no `claude.ai/code` session URL exists for this run
 - **Requested by:** Menno directly, after a laptop-side investigation found
   the estate has asked him the same intent questions in five separate
   document generations since late July, without closing the earlier ones.
+
+💡 Session idea: the generator scripts (`gen_owner_index.py`,
+`gen_workbook_progress.py`) already detect duplication in one narrow sense —
+counting `❓` lines and `OWNER:` markers — but nothing detects *semantic*
+duplication (the same question asked in different words across generations).
+A cheap next step: hash each `❓` line's normalized text and flag near-matches
+across `docs/repos/*/intent.md` and `owner/intent-workbooks/**/*.md`
+automatically, rather than relying on an outside research pass to catch it
+by hand each time.
+
+## Previous-session review
+
+No directly preceding session on this exact merge — this follows from a
+laptop-side research pass (not a fleet-manager session; see Mission below),
+not from a prior `.sessions/` card in this repo. The most relevant recent
+context is fm #997–#1006 (today, the `agents/`/`successor/`/`you/`/`products/`
+expansion) — this session's edits are deliberately scoped to avoid touching
+any file that campaign already changed.
 
 ## Mission
 
