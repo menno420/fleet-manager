@@ -68,7 +68,7 @@ instead of silently turning an old inference into policy.
 The collection contains **74 answerable worksheets** (`MEASURED` 2026-09-01 by
 `tools/gen_workbook_progress.py`, which enumerates the whole tree) plus the
 section indexes and the three pages above. `MEASURED` 2026-09-01: the longest
-**unanswered** worksheet is 54 lines and the median is well under 40 — short on
+**unanswered** worksheet is 58 lines and the median is well under 40 — short on
 purpose. Answered ones grow, correctly: yours is 67. (The collection previously
 claimed "no worksheet is longer than 44 lines"; that was inherited and untrue
 the day it was written — two worksheets shipped at 46 and 47.) It remains
