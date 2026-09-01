@@ -17,6 +17,18 @@ fun repeatable run matter more than checking off a launch date.
 to players, but a release that does not feel good would not satisfy the deeper
 goal.
 
+`VERIFIED`: this repository already has its own dedicated intent file,
+[`docs/repos/spider-swing/intent.md`](../../../docs/repos/spider-swing/intent.md).
+Its one answered slot, dated 2026-08-02:
+
+> *"tune core feel, difficulty and upgrade impact until excellent play can
+> meaningfully reach 25 k+"*
+
+That is the closest thing to a stated finish line for this repo, and bears
+directly on questions 4 and 5 below. Question 7 here ("where did 25k come
+from?") is the exact same open question as that file's own — answer it once
+and it closes in both places.
+
 ## Questions for you
 
 1. Why did you choose a swinging game in the first place?

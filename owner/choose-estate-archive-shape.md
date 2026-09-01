@@ -5,6 +5,10 @@
 > `OWNER` = your words, quoted · `DERIVED` = this session's inference, revisable.
 > This is not yet your document: only exact quotations tagged `OWNER` are your
 > words; blank `OWNER` sections are waiting for you.
+>
+> **Note, 2026-09-01:** this same question is also asked, in more detail, at
+> [`owner/intent-workbooks/folders/archive.md`](intent-workbooks/folders/archive.md).
+> Both are still unanswered — pick one and answer there; no need to answer twice.
 
 ## How I see it
 

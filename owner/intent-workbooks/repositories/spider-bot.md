@@ -16,6 +16,22 @@ both operational infrastructure and part of the server experience.
 `DERIVED`: its first finish line is a reliable tester/community loop, but it may
 grow into a community product if you want the server to outlive the closed test.
 
+`VERIFIED`: this repository already has its own dedicated intent file,
+[`docs/repos/spider-bot/intent.md`](../../../docs/repos/spider-bot/intent.md),
+answered in part on 2026-08-28:
+
+> *"Superbot itself is a repo that's filled with too much history, too many
+> trials and errors. What I want from spiderbot and superbot-next... is that
+> they eventually are rebuild as one real well functioning bot thats build
+> right from the start... The goal is to create a bot without architectural
+> debt for as far as that's possible. Everything should be planned and
+> connected from the start so it remains manageable and able to grow
+> indefinitely."*
+
+That file's own four open questions are the same four below (tool-vs-community,
+what people should feel, the stop condition, and the deploy-gate looseness) —
+answering here answers there too, no need to write it twice.
+
 ## Questions for you
 
 1. Is Spider Bot mainly a tool for the game, or a community product in its own

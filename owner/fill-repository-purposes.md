@@ -5,6 +5,13 @@
 > `OWNER` = your words, quoted · `DERIVED` = this session's inference, revisable.
 > This is not yet your document: only exact quotations tagged `OWNER` are your
 > words; blank `OWNER` sections are waiting for you.
+>
+> **Note, 2026-09-01:** the "first five" this page asks for now have a full,
+> dedicated page each at
+> [`owner/intent-workbooks/repositories/`](intent-workbooks/repositories/) —
+> one per repository, 28 in total, already drafted with more context than the
+> one-sentence-per-row table below. Answering there also answers this page;
+> this table stays useful as the at-a-glance coverage list.
 
 ## How I see it
 

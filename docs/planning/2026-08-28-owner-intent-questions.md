@@ -19,6 +19,17 @@
 > recorded for anything. The records are exhaustive about *state* and near-silent
 > about *purpose*, because state is a by-product of working and purpose only ever
 > comes from asking you.
+>
+> **Update, 2026-09-01:** Section 1 below is answered — see
+> [`owner/intent-workbooks/estate/why-this-estate-exists.md`](../../owner/intent-workbooks/estate/why-this-estate-exists.md),
+> which covers the same seven questions and carries your actual reply. Section
+> 4 ("How you want to work") is the same cluster of questions as
+> [`owner/intent-workbooks/agents/`](../../owner/intent-workbooks/agents/) (a
+> newer, more granular breakdown) and as `OQ-INTENT-WRITE-UP` in
+> `docs/owner-queue.md` — three places asking the same four questions. Answer
+> once, wherever is easiest, rather than three times. Sections 2 and 3 are not
+> superseded by anything and are still the most direct route into the per-repo
+> pages.
 
 ## 1 · The whole thing — the layer above any single repo
 
