@@ -1,6 +1,8 @@
 # 2026-09-01 — owner-review corrections to the new workbooks
 
-> **Status:** `in-progress` — born red. Flips to `complete` last.
+> **Status:** `complete` — the settled-name page is corrected, the four
+> overlapping worksheets are cross-linked, and preflight is green on every lane
+> except this card's own born-red hold.
 
 - **📊 Model:** withheld · high · docs-only
 - **⚑ Model-slot note:** this session carries an instruction against a model
@@ -19,6 +21,26 @@ produces a confident and entirely plausible sentence.
 fm #997 merged on green before the owner-review round surfaced these defects.
 A merged pull request cannot carry the correction, so this lands as its own
 change on a branch restarted from `origin/main`.
+
+**And a second defect, in the restart itself, worth its own trap-shaped note.**
+The first attempt at that restart ran `git checkout -B <branch> origin/main`
+**without fetching first**. `origin/main` was a stale remote-tracking ref
+pointing at `23a6b56` — the commit before fm #997's own squash-merge landed as
+`fd33e7b`. So the branch was rebuilt on the *pre-merge* main and carried fm
+#997's three original unsquashed commits again. GitHub then saw both sides
+adding the same 30-odd files by different SHAs and marked fm #998 `dirty`:
+5 commits, 39 changed files, for a change that touches 7. The owner spotted it
+before the polling loop did — the loop was waiting on check-runs that never
+registered, because a conflicted PR does not run them, and it read that as
+"checks pending" rather than as a symptom.
+
+**The rule this cost:** after a squash-merge, `git fetch origin <base>` is part
+of restarting a branch, not an optimisation. A remote-tracking ref is a cache,
+and `checkout -B` from a cache silently resurrects merged history. The tell is
+in the PR's own numbers — changed-files far exceeding what the change touches
+— and `git merge-base --is-ancestor origin/main HEAD` answers it in one
+command. Fixed by rebuilding from the fetched `fd33e7b` and force-pushing;
+`git diff --name-only fd33e7b HEAD` now returns exactly the 7 intended files.
 
 ## Mission
 
