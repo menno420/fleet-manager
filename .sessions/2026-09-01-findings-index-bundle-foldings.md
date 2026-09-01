@@ -1,6 +1,8 @@
 # 2026-09-01 — the findings index generated, the offline bundle, two foldings
 
-> **Status:** `in-progress` — born red; flips last.
+> **Status:** `complete` — all three items are pushed, fm #1006 is open and
+> ready, and the strict check ran with its real exit code read; its only
+> blocking finding was this card's own born-red hold.
 
 - **📊 Model:** withheld · high · docs-only
 - **⚑ Model-slot note:** this session carries an instruction against a model
@@ -74,4 +76,36 @@ redone. A blanket checkout is not a scalpel, and this session used it as one.
 
 ## Verification
 
-(filled at close)
+- `python3 bootstrap.py check --strict` → **exit read after a redirect, not a
+  pipe**. Sole blocking finding: this card's designed born-red hold. All nine
+  preflight lanes exit 0, including the new `findings index drift`.
+- **No description was lost or altered**, proved rather than eyeballed: parsed
+  `HEAD:docs/findings/README.md` and the new file into `{filename: (star,
+  description)}` maps and asserted set equality on the 65 pre-existing rows —
+  **0 lost, 0 altered, 7 added, 0 ghosts.**
+- **The round trip is byte-exact**, proved by sha256 over all 74 worksheets
+  before and after `generate → --split`: **74 of 74 identical.** This is the
+  control that failed first and found the normalisation bug.
+- **Drift check negative-controlled**: clean → 0; a ghost row appended → 1;
+  restored → 0.
+- **`--split` refusal negative-controlled**: an END marker deleted → refuses,
+  exit 1, names the file, and the worksheet tree is untouched afterwards.
+- **The bundle's self-counting bug was caught by the progress generator's own
+  output** reading `3 of 75` where 74 was the truth — the denominator moved,
+  which is what exposed it.
+
+## What this does NOT establish
+
+`REASONED`, not measured: that the owner will find one 2,932-line file easier
+to work in than 74 small ones. That is the premise he stated and I built to it;
+nobody has used it yet. If it reads badly on a phone the fix is the bundle's
+shape, not the split mechanism, which is independently verified above.
+
+The findings placeholders are honest placeholders, not descriptions: seven rows
+now carry each file's **own quoted title** plus *"description still owed"*.
+Writing real gists means reading seven findings, which is a separate job and is
+not claimed here.
+
+No Codex round, per the owner's 2026-08-29 cadence correction.
+
+Capability delta: null. Owner ask: null.
