@@ -63,12 +63,16 @@ padding it.
 ```text
 CONTINUE: <one line — what this session is picking up>
 
-BEFORE YOUR FIRST TOOL CALL — state back what you think this task is.
-Inline in your first reply, not as a question, in a few sentences: the goal in
-your own words, the specs and constraints it implies, the scope you take it to
-cover, and the follow-on the owner probably wants but did not spell out. Then
-begin. This is the owner's one cheap chance to correct your aim; a first reply
-that only announces your first action spends it.
+BEFORE YOUR FIRST TOOL CALL — state the task back, inline in this same reply,
+in four labelled lines (never one fused paragraph, never a question):
+  HE SAID — the ask in your own words, one or two sentences.
+  ALREADY SETTLED — what the repo already decided about it, naming the file,
+                    or "nothing found yet".
+  I INFER — the specs, constraints and scope the ask implies, and the follow-on
+            the owner probably wants but did not spell out. Labelled inference.
+  LEAST SURE — the one reading you are least sure of; he corrects it in a word.
+Then begin. This is the owner's one cheap chance to correct your aim; a first
+reply that only announces your first action spends it.
 
 WHERE THINGS STAND
 <verified state: branch, PR, CI, what landed. Each item checked at HEAD in
@@ -78,7 +82,9 @@ READ FIRST
 <2–4 paths, most specific first. Not a reading list — the minimum to act
 correctly. If one doc supersedes the others, say which wins. Say explicitly
 that this is a floor, not a boundary, so the list cannot be read as
-sufficient. UNLESS the owner asked for comprehension — then see below.>
+sufficient. Tag each entry `verified at HEAD` or `snapshot of <date>`, so a
+record that was right on its day is not read as right today. UNLESS the owner
+asked for comprehension — then see below.>
 
 DECIDED (do not re-litigate)
 <each decision, one line, with its reason clause>
@@ -98,6 +104,18 @@ DONE WHEN
 
 OUT OF SCOPE
 <what not to touch. Always present; this is the cheapest correction available.>
+
+LESSONS FROM THIS SESSION
+<at most three lines: what this session got wrong, and what caught it. The
+highest-value handoff content by the estate's own measurements, and the most
+commonly dropped.>
+
+CLOSE WITH
+<the end-of-session obligations of the surface the prompt is for — the repo's
+session-close skill, or on the laptop hub: `session-log.ps1 -Append`, release
+the claim, delete the clone, append any verified capability. Named, because
+the receiving session cannot infer them and the wrong surface's ritual
+misleads.>
 ```
 
 ### 4a · The restate block is not optional, and it goes in the PROMPT
@@ -113,6 +131,16 @@ has always said to *"state back, inline in your first substantive response
 ask: the implied specs, the surrounding constraints, the likely intended scope,
 and the follow-on the owner probably wants but didn't spell out."* Read it once;
 that is the definition this block compresses.
+
+**Why four labelled lines and not "a few sentences" (2026-09-01).** `intake`'s
+2026-08-09 revision names the fused paragraph as the failure mode: *"three kinds
+of claim that read exactly alike, so nobody can check the one that is wrong."*
+The block used to ask for exactly that paragraph. The four lines keep his words,
+the repo's decisions and the session's inference apart, and `LEAST SURE` is the
+line the owner answers in one word — his stated preference is to correct a
+restated interpretation, not to answer a menu. The same four lines are what
+the laptop hub's first-prompt hook injects, so a session that arrives without a
+continuation prompt is asked the same thing.
 
 **It was documented and it still did not happen.** Measured 2026-08-06: a
 session opened from one of these prompts and its entire first substantive

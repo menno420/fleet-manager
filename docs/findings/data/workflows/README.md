@@ -88,3 +88,22 @@ python3 docs/findings/data/workflows/verify_panel_association.py   # exit 0
 It asserts both halves — that exactly **one** partition into three one-per-lens
 triples reproduces all three drafts' aggregates, and that this unique partition
 equals the committed labels. Stdlib only, no network, no scratch run.
+
+## 04 — the EAP-mail evidence pass (2026-09-01, pilot-validated, full run handed to the night session)
+
+| file | what it is |
+|---|---|
+| [`04-eap-mail-evidence-pass.js`](04-eap-mail-evidence-pass.js) | 20 document readers · 12 pattern-shard readers · 1 census reader · 6 prior-mail readers → three merges + dedupe → two refuting lenses per candidate (rule: `dies_if (a.refuted \|\| b.refuted) \|\| (a.already_covered_by && b.already_covered_by)`, fixtures asserted before any agent spawns) → three spine proposals, three judges with their own counts, a completeness critic. Takes `args {fm, sb, pat, judgeModel}`. |
+| [`04-CONTRACTS.md`](04-CONTRACTS.md) | the fleet-preflight sheet as filled for its pilot: 18 agents, 1.22 M tokens, 19 min, concurrency 6 by demand test, and what the pilot changed. |
+| [`shard_patterns.py`](shard_patterns.py) | splits the 284-pattern catalogue into 12 readable shards plus the census, sorted by repo spread; prints the corpus census the sheet quotes. |
+
+**How to run it from a fresh clone (Git Bash on the laptop):**
+
+```bash
+FM=/c/dev/<clone>; SCR=<a scratch folder>; mkdir -p "$SCR/superbot-eap" "$SCR/patterns"
+for n in $(gh api repos/menno420/superbot/contents/docs/eap --jq '.[] | select(.type=="file") | .name'); do gh api "repos/menno420/superbot/contents/docs/eap/$n" --jq .content | base64 -d > "$SCR/superbot-eap/$n"; done
+python docs/findings/data/workflows/shard_patterns.py "$SCR/patterns" 12
+# then: Workflow({scriptPath: "<repo>/docs/findings/data/workflows/04-eap-mail-evidence-pass.js", args: {fm: "$FM", sb: "$SCR/superbot-eap", pat: "$SCR/patterns", judgeModel: "opus"}})
+```
+
+Read `04-CONTRACTS.md` first and fill your own sheet before the first agent spawns; the pilot is the step that catches what nobody thought to check.
