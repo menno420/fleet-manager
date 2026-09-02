@@ -61,8 +61,11 @@ Owner asleep; no owner-facing decision made, only evidence assembled.
 ## Report
 
 `docs/findings/2026-09-02-eap-mail-evidence-report.md` — corpus census,
-verified findings quoted from verifier `corrected_claim` text (never the raw
-merge wording), the false-done ledger, the prior-mail overlap map, the
+verified findings drawing on verifier `corrected_claim` text (quoted
+directly for most rows, synthesized from the row plus both lenses' records
+where a single `corrected_claim` was unusable or needed combining — the
+report's own front matter says which; never the raw merge wording alone),
+the false-done ledger, the prior-mail overlap map, the
 owner's words, all three judged spines, and — most load-bearing — **both
 fleets' completeness critics, summarized** (full detail in the raw JSON, not
 reproduced in the report itself — the report says so explicitly), because

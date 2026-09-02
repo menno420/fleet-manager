@@ -61,8 +61,15 @@
 resharded into 12 files (161684+136817+130276+123659+119956+129328+120359+
 125216+127275+123470+117583+93707 bytes; high-severity&repo_count≥3: 118;
 no covering mechanism named: 51; panel-killed: 7) + 20 repo censuses (395 KB)
-· prior mails from superbot@5e3a667 docs/eap: 7 files ≈160 KB (SHA unchanged
-from the 2026-09-01 pilot).
+· prior mails: **[CORRECTED, Codex review round 8]** the retained result
+carries **6** `prior_mails` entries, not the 7-file design the pilot's own
+CONTRACTS sheet named — 5 superbot files (`anthropic-email-2/3/4`,
+`gen1-wrapup-email-final-candidate`, `2026-07-18-followup-email-draft`) plus
+the current fleet-manager draft; `permission-classifier-findings-consolidated-2026-07-16.md`
+is missing from the executed readers despite being cited as `covered_by`
+for two non-survivors in § 2 — its own coverage claim rests on a file this
+pass's readers never opened (SHA unchanged from the 2026-09-01 pilot,
+5e3a667, for the files that did run).
 **Gap the corpus does NOT cover, named by Fleet A's own critic:** `fa9a391`
 added `docs/findings/2026-09-01-owner-direction.md`,
 `docs/findings/2026-09-01-fleet-manager-measured.md` and the successor-
@@ -162,16 +169,24 @@ into a mail.
 6. **B5** (finding, both) — *The evidence cited for a done/verified claim
    routinely establishes something narrower than the claim: a green suite
    standing for the shipped path, one enforcement claim naming a mechanism
-   nothing implements.* **[DATA DEFECT, per the critic]**: this row's
-   surviving `claim` field is not the original candidate text — it is
-   verifier meta-commentary ("Holds as written; the numbers 9, 7, 5 and 2 are
-   exact repo_counts...") left in the payload where the claim should be nothing
-   downstream can check what actually survived. **Do not quote this row's
-   `claim` field verbatim; the pattern it describes is real (repo_counts 9,
-   7, 5, 2 from the 284-pattern catalogue) but its wording must be
-   reconstructed from the shard data before use.** This is also the row
-   closest to the owner's own stated priority for this mail (§ 6) and it is
-   in **none of the three spines** — see § 5.
+   nothing implements.* *"The evidence cited for a done or verified claim
+   routinely establishes something narrower or different from the claim it
+   is cited for: a green suite standing for the shipped path (repo_count
+   9), one environment or viewport standing for the whole surface (7), a
+   call's success standing for the state it was meant to produce (5), and a
+   proxy signal standing for the property it approximates (2)."* **[DATA
+   DEFECT, per the critic — CORRECTED, Codex review round 8]**: the
+   downstream `verified[].row.claim` field this pass's spine/critic stages
+   were shown is verifier meta-commentary ("Holds as written; the numbers
+   9, 7, 5 and 2 are exact repo_counts...") instead of the claim — but the
+   text above is **not lost or reconstructed**; it is the original
+   candidate wording, retained intact at
+   `result.verified[].candidate.claim` (id `B5`) in
+   `fleet-a-full-wf_bda232c1-cf5.json`, quoted directly. The defect is in
+   the prompt construction that built the downstream `survivorBrief` passed
+   to spine/critic agents, not in what was measured or retained. This is
+   also the row closest to the owner's own stated priority for this mail
+   (§ 6) and it is in **none of the three spines** — see § 5.
 7. **A1-9+B3** (finding, general) — *The change lands correctly and
    everything the change obligates elsewhere does not: a companion artifact
    owed by the same diff (a derived file, a ledger row, an index link, a
@@ -502,8 +517,12 @@ exposed:
   means this ledger is a **sample of the EAP record, not the EAP record**,
   and its survivor count should never be read as exhaustive.
 
-**Third check: Codex review of this PR (fm #1010), seven rounds so far, 43 findings
-total, all addressed** — the drafted version of this report itself had
+**Third check: Codex review of this PR (fm #1010), multiple rounds, all
+findings addressed or explicitly disclosed** (current round/finding tally:
+`docs/findings/data/workflows/05-CONTRACTS-night.md` EXTERNAL line — the
+one place that live count is kept, per Codex review round 7/8: restating it
+here too created a second copy that went stale every single round) — the
+drafted version of this report itself had
 errors, caught by exactly the external adversarial round the night brief's
 DECIDED section requires. Round 1 (10 findings) is summarized above where
 this note originally stood; round 2 (10 more, on the round-1 fix commit)
