@@ -191,11 +191,33 @@ into a mail.
     RISK, per the critic]** the "no ambient clock" framing is refutable as
     written (a date *is* in the session's own context) — reword to "not
     re-checked against the clock at the moment of writing" before use.
-12. **A3-1+A2-1+B13** (ask, both) — *A way for a session to see the other
-    sessions — what they did, what they are touching now, and how many can
-    actually run — because none of the three is currently retrievable.* The
-    pass's only surviving **ask**-role candidate, and it is in **none of the
-    three spines** (§ 5).
+12. **A3-1+A2-1+B13 — NARROWED (Codex review round 4, fm #1010): the
+    fit-lens verifier explicitly drops the row's first leg.** The merge
+    stage's original wording (a broad "see the other sessions" ask covering
+    reachability, provenance, reservation and concurrency) is what this
+    report originally quoted; the fit-lens `corrected_claim` instead says
+    *"Drop leg 1 entirely (it is draft ask 3 and July ask (d)7 restated)"*
+    and narrows the row to two legs the current draft does NOT already
+    carry: **(a)** a shared-namespace reservation primitive — this estate's
+    parallel lanes built the same artefact twice for want of one
+    (substrate-kit PRs #362/#363 built the same ORDER independently; two
+    lanes adopted the identical kit 7 minutes apart, ~19 min of one lane's
+    work wasted; three subagents independently minted the identical
+    identifier "G-7" for three different primitives); **(b)** a per-launch
+    concurrency figure an agent can read — one 1,063-agent run showed
+    observed concurrency of peak 4, median 4, mean 3.43 across 4,097
+    samples against a documented 10–16, "per-container and cannot be
+    inherited." Its own proposed ask line: *"A concurrency figure and a
+    shared-namespace reservation primitive an agent can read at launch —
+    because a fan-out plan sized from the documented 10-16 against an
+    observed 4 gets its wall clock wrong by more than 3×, and four separate
+    lanes in this estate built the same artefact twice for want of a way to
+    say 'I have this one.'"* The reachability/provenance material (74
+    session records, 54 reachable, 0-of-418 carrying a machine field), if
+    used at all, belongs as one clause under the current draft's existing
+    ask 3, not as a second ask. This is the pass's only surviving
+    **ask**-role candidate, and it is in **none of the three spines** (§ 5)
+    — meaning none of the three even carries the narrowed version.
 
 **4 non-survivors, with reason** (not silently dropped):
 
@@ -511,8 +533,11 @@ confirmed by direct check of the committed pilot JSON). Two real defects:
 group's corrections** (up to `CHUNK`=40 at a time) with no log, no
 `orphaned_corrections` entry, and no critic visibility — fixed to log
 failed groups and pass their raw corrections to the critic as
-`unprocessedCorrections` (this run's actual failure count is unknown; the
-fix did not run retroactively); **L02's claim citation pointed at this
+`unprocessedCorrections` (**[CORRECTED, round 4]** checked directly against
+this run's own numbers rather than assumed: `merged` (150) + `orphaned`
+(182) = 332 = `corrections` exactly, so this actual run had zero merge-group
+failures — the fix guards a real risk the code had, not a defect this run
+hit); **L02's claim citation pointed at this
 session's `/tmp/eap-night/...` scratch fetch**, a path that will not
 survive the container — replaced with the pinned `superbot:...@5e3a667`
 repository path (§ 3). **Disclosed, not fixed:** the survival rule requires

@@ -192,7 +192,13 @@ const dedup = await agent(`${TASK}
 Deduplicate and rank the candidate ledger rows below (produced by ${corrGroups.length} parallel merge groups, so the same false-done may appear more than once from different angles). Return one ranked list of at most 45 rows: merge any two describing the same underlying false-done (keep both citations), rank by how clearly it shows a "claimed done, actually not" pattern with a solid citation on both sides. Drop nothing silently within your budget — a row you drop must still appear, marked with certainty "dropped" and the reason in the actually field; if you must omit a row entirely for space, prefer omitting near-duplicates of a row you kept over omitting a row describing a distinct mechanism.
 ROWS: ${JSON.stringify(mergedRows)}
 Do not open files. Final message: the structured output only.`, { label: 'dedupe + rank rows', phase: 'Merge', schema: ROWS, model: JUDGE_MODEL })
-const ranked = (dedup && dedup.rows ? dedup.rows : []).filter(Boolean)
+// FIXED (Codex review round 4, fm #1010): if this single dedup agent call fails, the old
+// `[]` fallback discarded ALL 150 merged rows silently -- verify and the critic got nothing,
+// the run "succeeded," and the return showed ranked:0 with no trace of what was lost. Fall
+// back to the pre-dedup mergedRows (undeduplicated, unranked, but not lost) and say so.
+const dedupFailed = !(dedup && dedup.rows)
+if (dedupFailed) log(`DEDUPE FAILED: falling back to ${mergedRows.length} undeduplicated merged rows (near-duplicates likely present, none lost)`)
+const ranked = (dedupFailed ? mergedRows : dedup.rows).filter(Boolean)
 const toVerify = ranked.filter(r => r.certainty !== 'dropped').slice(0, 30)
 const rankedButUnverified = ranked.filter(r => r.certainty !== 'dropped').slice(30)
 log(`ranked ${ranked.length}; verifying ${toVerify.length}; ranked-but-unverified (slice cap) ${rankedButUnverified.length}; marked dropped by dedupe ${ranked.filter(r => r.certainty === 'dropped').length}; NOTE: rows the dedupe agent omitted entirely (150 merged -> at most 45 returned) never reach this log at all — known limit, see the comment above the dedupe call`)
