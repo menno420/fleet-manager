@@ -656,7 +656,7 @@ the reviewer's word); verify the fix without Codex — the free-key Gemini route
 card; then flip, or hand off with the state written down. A fourth round and a
 merge with a hidden error are the two moves it forbids.
 
-**What the count honestly is.** Session-local and per PR — the key is `owner/repo#N` (Codex, fm #1011 round 2: two repositories' `#42` must not share an allowance; a half the call does not name is written `?`), kept under the event's
+**What the count honestly is.** Session-local and per PR — the key is `owner/repo#N` (Codex, fm #1011 round 2: two repositories' `#42` must not share an allowance; a half the call does not name is written `?`), kept under a per-session `flock` so a parallel tool batch cannot all read count 0 and pass as round 1 (Codex, fm #1011 round 3; 12 simultaneous requests in the suite: 3 allowed, 9 denied), keyed by the event's
 `session_id` like every other hook here. A PR another session already reviewed
 starts at zero — fm #1010's 17 rounds were one session, so this would have
 stopped it at its fourth request (03:46Z) instead of its seventeenth (06:21Z);

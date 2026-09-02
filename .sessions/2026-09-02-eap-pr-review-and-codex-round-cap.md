@@ -55,7 +55,20 @@ kept absolutely: **this session requested no Codex round.**
    one allowance — keys are now `owner/repo#N` from the MCP fields, the
    endpoint path or `-R`, with `?` for an unknown half; and this card's own
    Verify line still said 30 cases after the suite grew — the number is
-   gone, the executable prints it. Round 3 is the last the cap allows.
+   gone, the executable prints it. **Round 3 (`3972c76`), the last the cap
+   allows, four findings, all real, handled by the cap's own exit (fix ·
+   verify without Codex · disclose · flip):** `gh api -X GET … -f …` was read
+   as a POST (an explicit GET now overrides the field inference); `gh pr
+   comment <URL>` left both key halves empty (the URL's repo and number are
+   parsed now); parallel tool batches could all pass as round 1 (the
+   load→decide→save transaction now runs under a per-session `flock`, fail-
+   open, with a 12-process test); and **a false measurement of this
+   session's own** — § 8 of `fleet-preflight` and D-0040 said fm #1010's 204
+   agents inherited Fable; the retained JSON says 62 Sonnet + 142 Opus, zero
+   Fable, tiered by the night session's own `JUDGE_MODEL` — corrected in
+   both places and told to the owner, since the same false sentence had been
+   said to him in chat. Post-round-3 verification: the suite, the gate, and
+   one free-key Gemini pass over the diff ([D-0019]); no fourth round.
 
 **Why two PRs this session (D-0024 exception, stated):** fm #1010 is another
 session's PR, finished on its own branch because its own card's born-red
@@ -97,7 +110,8 @@ that means for your task"* — it happened twice here; the first line after a
 mid-turn message must acknowledge it and say what it changes. (2) *"all your
 agents are also Fable 5.1, why didn't you choose to use Opus or Sonnet for
 that?"* — the workflow's `agent()` inherits the session model unless `model`
-is set; it was left unset. Mechanical reads (classifying review threads)
+is set; it was left unset — by this session, not by the night session,
+   whose scripts set Opus for every reasoning stage (correction, round 3). Mechanical reads (classifying review threads)
 are Sonnet work and verification is Opus work, both cheaper against his Max
 allowance; a default was put to him as a one-letter choice. **He answered
 with the rule itself** — reading/mapping on Sonnet 5, reasoning on Opus 5,

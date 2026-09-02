@@ -228,6 +228,35 @@ check("gh api GET of the endpoint mentioning the phrase stays silent",
 check("gh pr view mentioning the phrase stays silent",
       decision(run(bash("gh pr view 88 --comments | grep -c '@codex review'"), session=s3)),
       "silent")
+check("gh api with an explicit -X GET and fields is a read (Codex, fm #1011 r3)",
+      decision(run(bash("gh api -X GET repos/o/r/issues/88/comments -f per_page=100 "
+                        "--jq '.[].body' | grep '@codex review'"), session=s3)), "silent")
+check("gh api --method GET with fields is a read",
+      decision(run(bash("gh api --method GET repos/o/r/issues/88/comments -f per_page=100 "
+                        "--jq '.[].body' | grep '@codex review'"), session=s3)), "silent")
+
+print("URL targets and parallel batches (Codex, fm #1011 r3)")
+s4 = f"url-{uuid.uuid4()}"
+for i in range(3):
+    check(f"gh pr comment <url> on o/a#42 counts (round {i + 1})",
+          decision(run(bash(f"gh pr comment https://github.com/o/a/pull/42 --body '@codex review {i}'"),
+                       session=s4)), "note")
+check("gh pr comment <url> on o/b#42 is a different PR, its own count",
+      decision(run(bash("gh pr comment https://github.com/o/b/pull/42 --body '@codex review'"),
+                   session=s4)), "note")
+check("the fourth on o/a#42 by URL is denied",
+      decision(run(bash("gh pr comment https://github.com/o/a/pull/42 --body '@codex review 3'"),
+                   session=s4)), "deny")
+
+import concurrent.futures
+s5 = f"par-{uuid.uuid4()}"
+with concurrent.futures.ThreadPoolExecutor(max_workers=12) as ex:
+    outs = list(ex.map(lambda i: decision(run(mcp(99, f"@codex review batch {i}"), session=s5)),
+                       range(12)))
+check("12 simultaneous requests on one PR: exactly 3 allowed",
+      str(sum(1 for o in outs if o == "note")), "3")
+check("... and the other 9 denied",
+      str(sum(1 for o in outs if o == "deny")), "9")
 
 print()
 print(f"{passed} passed, {failed} failed")

@@ -1065,10 +1065,13 @@
   leaves `model` unset is a stage nobody sized.
 - why: the Workflow harness inherits the main-loop model unless told
   otherwise, and Fable is metered against the owner's Max allowance; the
-  2026-09-02 morning workflow ran two mechanical classification reads and
-  four verifiers on Fable for no reason but the default, and the night
-  fleets before it (fm #1010) ran 204 agents the same way. Judged by the
-  task, most of that was Sonnet work.
+  2026-09-02 morning workflow ran two mechanical classification reads (and
+  started two verifiers) on Fable for no reason but the default. The night
+  fleets before it (fm #1010) were already tiered — `MEASURED` from the
+  retained JSON, 204 agents: 62 Sonnet readers, 142 Opus merge/verify/judge/
+  critic agents, zero Fable — which is most of this rule in practice; what
+  they lacked was the final-review tier. *(First written as "ran 204 agents
+  the same way"; false, corrected after Codex, fm #1011 round 3.)*
 - rules out: leaving `model` unset in a workflow script or an Agent call;
   reading "the session is on Fable" as a reason for its subagents to be;
   putting a final review on a lower tier to save cost — the last look is

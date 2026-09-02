@@ -397,11 +397,18 @@ probably as final reviewer it should be Fable 5.1."* ([D-0040])
 
 Both fan-out surfaces take a model per call — the Workflow tool's `agent()`
 has a `model` option per stage and the Agent tool has the same — and both
-**inherit the session's model when it is left unset.** That default is what
-staffed fm #1010's 204 night-fleet agents and the 2026-09-02 morning
-workflow's six on Fable 5.1, metered against the owner's plan, for reads that
-were Sonnet work. Write the tier down per stage before the first agent
-spawns:
+**inherit the session's model when it is left unset.** `MEASURED` from the
+retained JSON: the night fleets of fm #1010 were already tiered — 204 agents,
+62 on `claude-sonnet-5` (the readers, inherited from a Sonnet session) and
+142 on `claude-opus-5` (every merge, verify, judge and critic stage, set
+explicitly as `JUDGE_MODEL` in both scripts), zero on Fable — so the rule
+below mostly names what that session did; what it lacked was the last tier.
+The 2026-09-02 morning workflow, six agents on a Fable session with `model`
+unset, is the inheritance case: mechanical classification reads on the
+top tier, metered against the owner's plan. *(This paragraph first claimed
+the night fleets inherited too — Codex, fm #1011 round 3, against the
+retained `model` fields; corrected.)* Write the tier down per stage before
+the first agent spawns:
 
 | stage | tier | why |
 |---|---|---|

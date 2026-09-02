@@ -67,6 +67,11 @@ import subprocess
 import sys
 from pathlib import Path
 
+try:
+    import fcntl
+except ImportError:  # pragma: no cover — non-POSIX: run unlocked, never fail
+    fcntl = None
+
 try:  # sibling module; sys.path[0] is this directory when run as a script
     from trigger_tools_guard import _strip_written_content
 except Exception:  # pragma: no cover — never let an import trap the session
@@ -99,12 +104,22 @@ ENDPOINT_RE = re.compile(
 # 2, P1): `gh pr comment 77 --body '@codex review'`, `gh pr review 77 --comment
 # -b '…'`, and `gh api repos/o/r/issues/77/comments -f body='…'` (a field flag
 # switches gh's method to POST, per `gh api --help`).
+# `gh pr comment [<number> | <url> | <branch>]` — the URL form carries the
+# repository and the number (Codex, fm #1011 round 3); a branch target leaves
+# the number unknown, written `?`.
 GH_PR_RE = re.compile(
-    r"\bgh\s+pr\s+(?:comment|review)\s+(?:(?P<pr>\d+)|\S+)(?P<rest>[^\n|;&]*)", re.I
+    r"\bgh\s+pr\s+(?:comment|review)\s+"
+    r"(?:(?P<pr>\d+)|(?P<url>https?://github\.com/(?P<urepo>[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)/pull/(?P<upr>\d+))|\S+)"
+    r"(?P<rest>[^\n|;&]*)",
+    re.I,
 )
 GH_REPO_FLAG_RE = re.compile(r"(?:^|\s)(?:-R|--repo)[= ]\s*(?P<repo>[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)")
 GH_API_RE = re.compile(r"\bgh\s+api\b(?P<rest>[^\n|;&]*)", re.I)
 GH_API_POST_RE = re.compile(r"(?:\s-[fF]\s|\s--(?:raw-)?field[= ]|\s--input[= ]|-X\s*POST|--method[= ]\s*POST)", re.I)
+# `gh api --method GET … -f k=v` sends the fields as a query string (`gh api
+# --help`); an explicit GET is a read whatever fields it carries (Codex, fm #1011
+# round 3).
+GH_API_GET_RE = re.compile(r"(?:-X|--method)[= ]?\s*GET\b", re.I)
 POST_RE = re.compile(
     r"(?:-X\s*POST|--request[= ]\s*POST|\s-d\s|\s--data(?:-raw|-binary)?[= ]|"
     r"\s--json[= ]|requests\.post\s*\(|\.post\s*\(|method\s*[:=]\s*[\"']POST[\"'])",
@@ -232,13 +247,15 @@ def _bash_request(event: dict) -> tuple[str, str] | None:
     if m and (POST_RE.search(text) or GH_API_RE.search(text)):
         if not POST_RE.search(text):  # gh api: a field flag or an explicit method is the POST
             api = GH_API_RE.search(text)
-            if not api or not GH_API_POST_RE.search(" " + api.group("rest") + " "):
+            rest = " " + (api.group("rest") if api else "") + " "
+            if not api or GH_API_GET_RE.search(rest) or not GH_API_POST_RE.search(rest):
                 return None
         return _key(m.group("repo"), m.group("pr")), text
     g = GH_PR_RE.search(text)
     if g:
         flag = GH_REPO_FLAG_RE.search(text)
-        return _key(flag.group("repo") if flag else None, g.group("pr")), text
+        repo = g.group("urepo") or (flag.group("repo") if flag else None)
+        return _key(repo, g.group("pr") or g.group("upr")), text
     return None
 
 
@@ -287,6 +304,32 @@ def main() -> int:
 
     pr, text = hit
     session = str(event.get("session_id") or "nosession")
+    # One hook process per tool call, and a parallel tool batch runs several at
+    # once: without a lock every one of them reads count=0 and passes as round 1
+    # (Codex, fm #1011 round 3: 12 parallel requests, all allowed). The whole
+    # load → decide → save transaction runs under a per-session lock; if the
+    # lock cannot be taken the guard still counts, unlocked — fail open, never
+    # fail silent.
+    lock = None
+    try:
+        if fcntl is not None:
+            STATE_DIR.mkdir(parents=True, exist_ok=True)
+            lock = open(STATE_DIR / f"{session}.lock", "a+")
+            fcntl.flock(lock, fcntl.LOCK_EX)
+    except Exception:
+        lock = None
+    try:
+        return _decide(event, pr, text, session)
+    finally:
+        if lock is not None:
+            try:
+                fcntl.flock(lock, fcntl.LOCK_UN)
+                lock.close()
+            except Exception:
+                pass
+
+
+def _decide(event: dict, pr: str, text: str, session: str) -> int:
     state = _load(session)
     entry = state.get(pr) or {"count": 0, "seen": []}
     head = _head(event)
