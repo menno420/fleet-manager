@@ -20,6 +20,18 @@ export const meta = {
 // doing this would wrongly kill a surviving row via the coverage branch. Normalize first.
 // FIXED (Codex review round 2, fm #1010): "n/a — ..." is another negative form real verifier
 // output actually used ("n/a — neither ..."), not caught by the round-1 regex. Broadened.
+// DISCLOSED, NOT FIXED (Codex review round 14, fm #1010): this is a prefix-only check — a
+// verifier that opens with a negative clause and then states a real, later affirmative coverage
+// ("Not covered by docs/traps.md ... It IS already-codified plumbing elsewhere: docs/playbook.md
+// R22") is misclassified as pure negative, since only the leading words are matched. Real:
+// FD-02/L04's own lens-B text has exactly this shape in both retained runs (already_covered_by
+// starting "Not covered by ..." / "docs/playbook.md:370-378 (fleet rule R22) — NOT traps.md",
+// each followed by a genuine R22 coverage claim). Checked whether this actually flipped any
+// row's dies() verdict, across every verified row in both the pilot and full retained JSON: no —
+// dies()'s already-covered path requires BOTH lenses' already_covered_by non-empty, and in every
+// single verified row across both runs at least one lens left it empty, so the AND-gate was never
+// reached regardless of this function's precision. A real imprecision, empirically inert on the
+// runs that actually shipped; left as-is rather than patched post-hoc (05-CONTRACTS-night.md).
 const isNegativeCoverage = (s) => !s || /^\s*(none|n\/a|not\s+covered|no\b)/i.test(s)
 const dies = (a, b) => (a.refuted || b.refuted) || (!isNegativeCoverage(a.already_covered_by) && !isNegativeCoverage(b.already_covered_by))
 const FIX = [
@@ -207,7 +219,7 @@ const toVerify = ranked.filter(r => r.certainty !== 'dropped').slice(0, 30)
 const rankedButUnverified = ranked.filter(r => r.certainty !== 'dropped').slice(30)
 log(`ranked ${ranked.length}; verifying ${toVerify.length}; ranked-but-unverified (slice cap) ${rankedButUnverified.length}; marked dropped by dedupe ${ranked.filter(r => r.certainty === 'dropped').length}; NOTE: rows the dedupe agent omitted entirely (150 merged -> at most 45 returned) never reach this log at all — known limit, see the comment above the dedupe call`)
 
-// ---------------- Phase 3: verify (pipelined; two refuting lenses per row, same rule as Fleet A) ----------------
+// ---------------- Phase 3: verify (pipelined; two refuting lenses per row, same shape as Fleet A — NOT the same rule, see the aggregation-contract comment above dies()) ----------------
 phase('Verify')
 function verifyHolds(r) {
   return `You are an adversarial verifier for a false-done ledger row. Your job is to REFUTE this row if it does not hold. Default to refuted=true when you cannot confirm it from the cited lines.

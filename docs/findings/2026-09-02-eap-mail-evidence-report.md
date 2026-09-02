@@ -116,6 +116,18 @@ numbers must be corrected before anything here goes into a mail.
    where the same class of rule is advisory prose that cannot fail a build,
    the same audit found decay (23 stale claim files untouched in one
    repository; a review protocol last run 46 days before its own census).*
+   **[CORRECTED, Codex review round 14: the headline overclaims.]** The
+   fit-lens verifier rejects "predicts whether agents follow it" as written:
+   the 335/335, 302/302 and 503/503 figures measure presence of a literal
+   marker, not adherence to the rule the marker stands for. The websites
+   row is its own counterexample in the same source — 302/302 cards are
+   "structurally perfect" on marker presence, but of those same 302 cards
+   only **~10% name any skill** and **5/302 (≈1.7%) use the estate's own
+   disposition vocabulary**. The narrower, source-supported claim: a
+   binary exit-affecting check on a literal marker gets near-total
+   adherence *to the marker*; the reasoning the marker exists to represent
+   is not carried across by the same mechanism, and this report's own
+   framing had promoted byte-form compliance into behavioral compliance.
    Citations: `docs/findings/2026-08-28-substrate-kit-genesis-dig.md`,
    `docs/findings/2026-08-29-estate-agent-error-audit.md`.
    **[DISPUTED, not "unfixed" — corrected, Codex review round 7]** the
@@ -446,16 +458,33 @@ entered the full run's claim pool at all** — its refutation survives only
 as four unmatched `orphaned_corrections` entries (the false-done itself:
 "the headline claim has never executed against real Stripe... 13 green
 tests inject synthetic events authored from memory," each dropped with the
-reason "no earlier done-claim found in this corpus"). Both L02 and L08
-drew their pilot-survival evidence from the one superbot reader unit the
-pilot happened to read — the exact unit the full run's `skipSatellite: true`
-cut. The two fleet-manager-sourced pilot survivors (L03 → FD-01, L04 →
-FD-02) both held. The honest statement is narrower than "reversed at
-scale": **removing the superbot lane removed the evidence those two rows
-depended on**, which this pass cannot distinguish
-from genuine verifier instability without a run that reads the same corpus
-twice. Neither this report nor the underlying pass diagnoses which it is —
-say so, don't imply causation either way.
+reason "no earlier done-claim found in this corpus").
+
+**L02 and L08 lost their pilot-survival evidence for two different reasons
+— [CORRECTED, Codex review round 14: this report previously attributed
+both to the same superbot cut].** L08's correction cited
+`anthropic-email-2-draft-2026-07-11.md` — the one superbot file the pilot
+happened to read, the exact file `skipSatellite: true` removed from the
+full run; that loss is real and mechanical. **L02's correction cited
+`docs/eap-story.md` throughout, in both runs — a fleet-manager file that
+was never cut.** What actually happened to L02: the pilot's
+`docs/eap-story.md` reader (lines 1-300) cited the correction (`:229-233`)
+and *reconstructed* a claim from it (L02's own `certainty` field says so:
+"the claim side is reconstructed from the correction record, which is the
+only place the 13-green-tests status is quoted"); the full run's reader
+covering the same passage (now `:241-245` — the file shifted, and was
+split across two readers this time instead of one) captured only the
+correction, no matching claim. That is an extraction inconsistency across
+two independent reads of the identical source, not a corpus-size or
+satellite-cut effect — the correction itself survives in the full run,
+unmatched, as one of the `orphaned_corrections` entries. Only L03 → FD-01
+and L04 → FD-02, the two fleet-manager-sourced pilot survivors, held
+cleanly in both runs. The honest statement is narrower still than the
+prior draft's "reversed at scale": **one row (L08) lost its evidence to
+the satellite cut; the other (L02) lost it to reader inconsistency on a
+source that was never cut at all** — different mechanisms, and a rerun
+proposing to recover L02 by re-adding the superbot lane would not fix the
+actual cause.
 
 **25 non-survivors carry only the word "refuted" IN THIS REPORT** — not in
 the raw output. **[CORRECTED, Codex review, fm #1010]** every non-survivor's
@@ -472,7 +501,7 @@ field into the report); that pull is next-session work, not done here.
 | source | status | topics | asks | good-parts |
 |---|---|---|---|---|
 | email-4 (classifier regression) | **SENT** 2026-07-16 ~21:12Z | coordinator/worker trust boundary, model-independence, coordinator-merge-freedom proposal, "can't use the product to debug the product," settable permission scope | 13 | 5 |
-| email-2 (scale-up) | **SENT** 2026-07-12 13:24:40Z (thread `19f41cd2e5380bb3`) — Fleet A's own critic found one candidate's overlap verdict treated this as an unconfirmed draft; that verdict is void, see § 5 | 10 | 10 |
+| email-2 (scale-up) | **SENT** 2026-07-12 13:24:40Z (thread `19f41cd2e5380bb3`) — Fleet A's own critic found one candidate's overlap verdict treated this as an unconfirmed draft; that verdict is void, see § 5 | scale arc 1-3→15→8 repos, shared memory as standout win, durable-state recoverability, born-red+auto-merge composition, agent-armed Routines, mechanical-vs-social-layer trust, merge-authority root cause, Routine model drift, Routines spawning repo-less, owner-click gating, two-vantage permission split, Routine observability, trigger-scheduler incident, carryover from July 8, hand-built compensating patterns, shipped-work roundup, public review website, self-wake wobble + 3-option proposal, ranked "what would help" list — **[CORRECTED, Codex review round 14: this cell was missing, shifting 10 (asks) into the topics column and leaving good-parts blank; 19 topics, 10 asks, 10 good-parts per the retained reader record]** | 10 | 10 |
 | email-3 | send-ready 2026-07-13; sent status unverified from this source | Projects hallucinate capability limits, anti-stall doctrine, hub/Project venue split, "one-word dream," doctrine as versioned artifacts | 4 | 6 |
 | gen1 wrap-up (final candidate) | send-candidate 2026-07-10; no sent confirmation in this source | large single-session PRs, honesty at 10x parallelism, durable-state recovery, permission-classifier coherence | 10 | 9 |
 | 07-18 follow-up | **NOT SENT — free material** | venue-scoped denial (same authority, denied inside a Project, unrestricted outside), two-layer necessity, PR-backlog disposition numbers | 2 | 3 |
@@ -718,17 +747,26 @@ then cut by the ranking cap, or against a claim never selected at all.
 - **`OWNER`** — *"I noticed that much of the work that was claimed to be
   complete was in fact not complete at all. Which is definitely something
   to review closely and mention in the final EAP mail, which I still
-  haven't send."* (2026-09-01, the direct mandate for Fleet B — relayed
-  verbatim in this session's own originating night-fleet brief; not
-  independently re-citable to an in-repo file, since the brief itself is
-  the primary source)
-- **`OWNER`** — *"I scaled it until I found the wall; the wall is human
+  haven't send."* (2026-09-01, the direct mandate for Fleet B —
+  **[CORRECTED, Codex review round 14]** this report previously said the
+  quote had no in-repo citation and pointed only at this session's own
+  originating brief; it is in fact already reproduced verbatim at
+  `docs/findings/2026-09-01-owner-direction.md:73-75`, present at the
+  audited base SHA)
+- **`DERIVED`** — *"I scaled it until I found the wall; the wall is human
   review, not agent capability; and that tells you exactly how close
   self-running AI actually is."* (2026-07-21, the offered thesis line —
-  `docs/owner-reflection-2026-07-21.md:189-191`)
-- **`OWNER`** — *"less a coding tool, more a way for someone like me to run
-  a software project by describing it"* (2026-07-21, the offered
-  throughline — `docs/owner-reflection-2026-07-21.md:191-193`)
+  `docs/owner-reflection-2026-07-21.md:189-191`). **[CORRECTED, Codex
+  review round 14: mislabeled OWNER in round 13.]** The retained
+  `owner_words.rules_for_the_mail` record and the source document's own
+  §-opening line (`docs/owner-reflection-2026-07-21.md:163-165`, "Guidance
+  distilled from the whole email exchange") both flag this as distilled
+  guidance for a future drafting session, not the owner's own verbatim
+  wording — first-person phrasing notwithstanding.
+- **`DERIVED`** — *"less a coding tool, more a way for someone like me to
+  run a software project by describing it"* (2026-07-21, the offered
+  throughline — `docs/owner-reflection-2026-07-21.md:191-193`). Same
+  correction and same source caveat as the thesis line above.
 - **`DERIVED` — rules for the mail, distilled** (Codex review round 12:
   the raw record itself flags several of these as distilled guidance and
   at least one reading as "not itself a verbatim rule" — labeled here so
@@ -763,6 +801,17 @@ text) are in the raw JSON — reproduced in full because they are close to
 send-ready text:
 `docs/findings/data/2026-09-02-eap-mail-evidence/fleet-a-full-wf_bda232c1-cf5.json`
 → `result.spines[2]`.
+
+**⚠ DO NOT COPY THIS SPINE VERBATIM — [Codex review round 14]:** the spine
+text (both its finding-6 body and its patch wording) still carries the
+uncorrected A1-6 framing this report fixes in § 2 above — "a disjoint
+27-card sample found about one in nine marked sections held no real
+content," treating the full-161-card zero-empty-review-sections result and
+the disjoint 27-card ~1-in-9-empty-*idea-slot* sample as one measurement.
+The spine JSON is retained verbatim as the agent produced it and is not
+edited here; whoever drafts from it must patch this exact clause to match
+§ 2's corrected wording before it reaches the mail, or it reintroduces the
+error this report exists to catch.
 
 **What it deliberately drops, and why** (its own field, not this report's
 gloss): the self-review survival-rule finding (#2 above) — arithmetic needs a
@@ -825,11 +874,22 @@ drafts Part 2 without him present. The next session should: (1) fix the
 **[UNFIXED]** items in § 2 before quoting any of them; (2) **read
 `docs/findings/night-review-2026-07-10.md` before using FD-01 or FD-02 in
 the mail** — both critics independently name it as the original measured
-source neither fan-out's readers opened, and its addition may also let
-**L02's underlying claim (venture-lab's Stripe false-green) finally enter
-the claim pool** — it never did in the full run, surviving only as
-unmatched orphaned corrections — and may settle **L08's** (self-arming
-routines) refuted status, which came from the same cut superbot lane; (3)
+source neither fan-out's readers opened, and its addition may also give
+**L02's underlying claim (venture-lab's Stripe false-green)** a fresh claim
+source to enter the pool through. **Read this precisely, per round 14's
+correction: L02's problem was never a missing corpus** — its correction
+sits in `docs/eap-story.md`, a fleet-manager file that was read in both
+runs — **it was an extraction inconsistency**, where the full run's reader
+for that same passage produced the correction but no matching claim,
+unlike the pilot's reader on the same passage. Adding night-review as a
+source may supply an independent claim, but the more direct fix is
+re-checking why the full run's `eap-story.md` reader dropped the claim
+side of a passage its own pilot predecessor caught; do not re-add the
+superbot lane expecting that alone to recover L02 — it never depended on
+it. **L08** (self-arming routines), unlike L02, genuinely did draw its
+refuted status from the cut superbot lane
+(`anthropic-email-2-draft-2026-07-11.md`) and may be settled by restoring
+that source; (3)
 decide, with the owner, whether the false-done
 substitution taxonomy (B5, Fleet A) or the false-done ledger itself (Fleet
 B, his own directly-stated priority for this mail) gets a slot in the mail
