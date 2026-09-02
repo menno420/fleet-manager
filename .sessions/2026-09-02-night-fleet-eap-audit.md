@@ -1,10 +1,15 @@
 # 2026-09-02 — night fleet EAP mail evidence report (Fleet A + Fleet B)
 
-> **Status:** `in-progress` — Fleet A landed (12 survivors, 3 judged spines,
-> critic read); Fleet B's full fleet-manager-only run in flight
-> (`skipSatellite: true`, launched 00:23Z after Fleet A landed to avoid slot
-> contention). Report drafted from Fleet A; Fleet B's full-run numbers and the
-> `docs/findings/README.md` regeneration land before the flip.
+> **Status:** `in-progress` — both fleets landed and both reports read; the
+> Codex review is being requested next, and the flip is the deliberate last
+> commit once it answers. Fleet A: 12 survivors, 3 judged spines (unanimous
+> winner), critic read in full. Fleet B: pilot 4 survivors, full
+> fleet-manager-only run (`skipSatellite: true`) 3 survivors — 2 of the
+> pilot's 4 reversed on the larger corpus, a method finding kept in the
+> report rather than smoothed over. Both fleets' critics converge: the
+> primary source behind the pass's strongest false-done rows
+> (`docs/findings/night-review-2026-07-10.md`) was never in either fixed
+> reader corpus.
 
 - **📊 Model:** claude-sonnet-5 · xhigh · research
 - **📍 Venue:** cloud-container
@@ -32,8 +37,12 @@ Owner asleep; no owner-facing decision made, only evidence assembled.
    hidden. 4 survivors (false-done rows), 1 unresolved same-mechanism
    split-verdict.
 4. **Fleet B full run**, scoped to the fleet-manager-only lane (32 superbot
-   reader units cut first, per the night brief's own cut order) — launched
-   00:23Z, run `wf_fb35b278-362`. Result pending at this commit.
+   reader units cut first, per the night brief's own cut order) — run
+   `wf_fb35b278-362`, 83 agents, 7.11M tokens, 146.7 min. 505 claims/332
+   corrections → 150 merged → 30 ranked → 28 verified → **3 survivors**. Two
+   of the pilot's four survivors (venture-lab Stripe false-green,
+   self-arming routines) did **not** survive the larger corpus — kept in the
+   report as a method finding, not smoothed away.
 5. **CUT: Fleet C** (19-repo closeout audit) — not attempted; no wall-clock
    left at measured concurrency 2.
 
