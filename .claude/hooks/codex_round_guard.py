@@ -11,7 +11,7 @@ There was a rule — [D-0019], 2026-08-29: *"lets keep the codex reviews until t
 PR is ready to flip to green. I don't think It's necessary to review after every
 push, that just wastes the usage limits."* It was prose, in the boot file and the
 decision ledger, and fm #1010 requested a round after **every** push anyway:
-17 rounds, 91 findings, 03:00Z → 06:30Z, on one 931-line report. Nothing in the
+17 rounds, 88 inline findings, 03:00Z → 06:30Z, on one 931-line report. Nothing in the
 session's feedback channel ever said *stop*; the harness's own drive-to-green
 text says the opposite (*"there is no round limit"*), and the session quoted
 that line back in its round-13 comment. A rule that is only stated has never

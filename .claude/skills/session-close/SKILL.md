@@ -170,8 +170,17 @@ steps.
    | **P1 · P2** | must be dispositioned — fixed, or refuted in the thread with the evidence. A fix means another round. |
    | **P3 · advisory · nits** | acknowledge and land. **These do not earn a round of their own**; batch them into the next session's work. |
 
-   **Cap it at two re-review rounds, then land with the open findings named** in
-   the card and the PR body. This is not impatience — it is `MEASURED`:
+   **Three rounds in total, never a fourth — and it is a denying hook, not this
+   sentence:** `.claude/hooks/codex_round_guard.py` counts each `@codex review`
+   out loud and denies the fourth ([D-0039]; `docs/traps.md` TRAP-009). Which
+   PRs owe a round at all is [D-0019] as amended 2026-09-02 — a records-only
+   PR flips on a direct check or the Gemini pass, with no Codex round. At
+   round three's answer: every finding fixed (direct check named) or refuted
+   with evidence in the thread, one countable line in the card (`round 3: N
+   findings — N fixed, N refuted, 0 open`), then flip. *(This paragraph read
+   "cap it at two re-review rounds, then land with the open findings named"
+   until 2026-09-02 — the same total, in words that named neither the hook nor
+   the decision.)* Why a cap at all is `MEASURED`:
    `substrate-kit#580` ran **five rounds and 34 findings without converging**,
    and the convergence predicted from its own curve (9 → 9 → 8 → 2) was falsified
    when round 5 returned 6

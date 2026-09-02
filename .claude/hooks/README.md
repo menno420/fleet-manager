@@ -255,6 +255,20 @@ look like the dedupe failed when it did not.
 > can afford to honour the server's stated wait on a 429 — a different
 > failure, not a precedent for this one). What is *not* established: whether
 > today's 503 rate is typical — one hour, one container, eight calls.
+> **(3) Later the same day: the 429 is the free tier's PER-DAY, PER-MODEL
+> cap, and the add-on was spending the budget the flip-time verification
+> needs.** Twenty firings in the review sitting: 10 skipped as too short, 2
+> enriched (one caught a real gap), 5 × 503, 3 × 429 whose body names
+> `GenerateRequestsPerDayPerProjectPerModel-FreeTier` on model
+> `gemini-3.8-flash` — what `gemini-flash-latest` resolved to that day, and
+> the model class the [D-0019] passes draw on. Probed at that moment:
+> `gemini-3.5-flash-lite` and `gemini-3.6-flash` both answered 200, so the
+> cap is per model. Owner, live: *"make the gemini route to a lite model
+> with higher caps"* — `FREE_MODEL` is now `gemini-3.5-flash-lite`, which
+> carries its own daily cap; the system prompt is the load-bearing part
+> (the 2026-08-08 measurement below), so the smaller model costs nothing
+> the hook uses. Asked whether the reply text leaving to Google was wanted
+> at all, he kept the add-on: on the lite model.
 
 > added 2026-08-07 · design record:
 > [`docs/findings/2026-08-06-provenance-mechanism-measured.md`](../../docs/findings/2026-08-06-provenance-mechanism-measured.md)

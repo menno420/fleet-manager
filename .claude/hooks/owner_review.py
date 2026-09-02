@@ -68,7 +68,17 @@ import urllib.request
 
 CA = "/root/.ccr/ca-bundle.crt"
 MODEL = "gemini-3.1-pro-preview"   # retired Vertex fallback (D-0020) — unreferenced, kept as history
-FREE_MODEL = "gemini-flash-latest"  # AI Studio primary — free tier, no auth chain
+FREE_MODEL = "gemini-3.5-flash-lite"  # AI Studio, free tier, no auth chain — a LITE model on purpose
+# Owner, live, 2026-09-02: "make the gemini route to a lite model with higher
+# caps." MEASURED the same hour: the free tier's cap is PER DAY, PER MODEL
+# (`GenerateRequestsPerDayPerProjectPerModel-FreeTier`), and `gemini-flash-latest`
+# resolved to `gemini-3.8-flash` — the model the mid-session verification
+# passes ([D-0019]) also draw on — so a per-turn hook was spending the budget
+# the flip-time check needs: 3 of this hook's 10 calls that day were 429s on
+# that one model while `gemini-3.5-flash-lite` and `gemini-3.6-flash` both
+# still answered 200. The lite model carries its own daily cap and the system
+# prompt is the load-bearing part, not the model (2026-08-08 measurement
+# below), so the hook loses nothing by taking the smaller one.
 CACHE_DIR = "/tmp/claude-owner-review"
 SA_CACHE = os.path.join(CACHE_DIR, "sa.json")
 LOG = os.path.join(CACHE_DIR, "log.jsonl")

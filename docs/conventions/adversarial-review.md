@@ -209,6 +209,13 @@ because the format forces each objection to be dispositioned individually.
 
 ## Routing
 
+> **Superseded 2026-08-29 ([D-0020]), noted here 2026-09-02:** Vertex is
+> retired; the free `GEMINI_API_KEY` is the route, and its cap is **per day,
+> per model** — so the per-turn Stop hook runs on a lite model
+> (`gemini-3.5-flash-lite`) and the flip-time verification pass on
+> `gemini-3.6-flash`, each on its own budget. The paragraph below is the
+> credit-era routing, kept as the record it is.
+
 **Vertex**, per [`vertex-first-for-gemini.md`](vertex-first-for-gemini.md) —
 prepaid credit, no daily cliff. `GEMINI_API_KEY` (free tier) is fine for AI
 Studio calls but carries ~20 requests/day on flagship Flash, which a

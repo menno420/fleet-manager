@@ -102,6 +102,12 @@ except RuntimeError as exc:
           str(exc).startswith("no-key:"), True)
 check("... and made no network call", len(hook._http.calls), 0)
 
+print("the model")
+check("the add-on runs on a lite model (owner, 2026-09-02: its own daily cap)",
+      "lite" in hook.FREE_MODEL, True)
+check("... and not on the alias that shares the verification passes' cap",
+      hook.FREE_MODEL == "gemini-flash-latest", False)
+
 print("the REASON text")
 reason = hook.REASON
 check("says the owner has already seen the reply", "ALREADY SEEN THAT REPLY" in reason, True)

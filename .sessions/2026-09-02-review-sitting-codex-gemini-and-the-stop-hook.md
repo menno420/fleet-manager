@@ -154,6 +154,25 @@ hook live with `CAP = 3`.
    top of the report's § 10. The sitting's close is redirected: item 6, the
    OPEN items, then the mail's contents with him, then a continuation
    prompt for the mail session.
+12. **Item 6 of 6, one place per fact — confirmed** (*"Yes I think that's a
+   good rule to have"*); the checker decision is the 💡 below, taken by the
+   session at his ask.
+13. **The cap's exit and the Gemini add-on — both decided.** *"What's your
+   opinions on these? has the gemini add on ever fired as far as you know?
+   And what would be the most efficient and correct way to handle the codex
+   review exit?"* Answered from the hook's log (20 firings this session: 10
+   skipped as too short, 2 enriched, 5 × 503, 3 × 429) and two live probes
+   — the 429 is the free tier's per-day, per-model cap on
+   `gemini-3.8-flash`, what `gemini-flash-latest` resolved to, while
+   `gemini-3.5-flash-lite` and `gemini-3.6-flash` still answered. His
+   answer: *"Yes I agree, make the gemini route to a lite model with higher
+   caps. All agreed."* Landed: `FREE_MODEL = "gemini-3.5-flash-lite"` in the
+   hook (suite pins it), the exit as recommended in D-0039 (amended in
+   place), the which-PRs-owe-a-round tiers in D-0019 (amended in place), the
+   auto-trigger correction in the boot file's `@codex` bullet and as a new
+   ledger line, and the three drifts: `session-close` step 6c now names the
+   hook and D-0039; the adversarial-review convention's Routing section
+   carries a D-0020 supersession note; the cap hook's docstring says 88.
 9. **Pre-existing, not this PR's, noted for the record:**
    `python3 tools/test_change_guard.py` exits 1 on `origin/main` as well as
    on this branch (15/16; the failing case is *"real historical defect still

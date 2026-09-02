@@ -171,6 +171,23 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-09-02 · capability · `owner-live` · **Codex's automatic review
+  triggers (PR open, draft→ready) are NOT ENABLED on this account — the
+  owner's choice, not an unreliability — re-verification of the 2026-08-29
+  and 2026-08-07 entries below and of the product-forge #49 entry's "PR-open
+  trigger" attribution.** · evidence: owner, live, 2026-09-02, verbatim: *"it
+  appears it's written down as if there is an automatic review trigger. There
+  isn't, that is something I would have to personally enable and I explicitly
+  didn't do that because I don't think every PR needs a review."* Under the
+  DISCOVERY RULE step 0 an owner statement about his own estate is source
+  truth; it explains every observation below at once — zero reviews on fm
+  #974's PR-open, the manual-request trigger on fm #977, and product-forge
+  #49's review arriving after the explicit comment, which the entry credited
+  to PR-open. The capability is unchanged: `@codex review` by comment works
+  and answers in ~335 s. · workaround: none needed — post the comment; and
+  post it only on the PRs that owe a round ([D-0019] as amended 2026-09-02).
+  — LAST-VERIFIED: 2026-09-02
+
 - 2026-09-02 · wall · `owner-live` · **A message the owner sends MID-TURN does
   not pass through `UserPromptSubmit` — so no hook can deliver a reminder with
   it; only the harness's own mid-turn notice arrives.** · evidence: probe run

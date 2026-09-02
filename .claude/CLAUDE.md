@@ -269,7 +269,14 @@ Essentials:
   (`GIT_CONFIG_GLOBAL=/dev/null` + `https://x-access-token:$GITHUB_PAT@github.com/…`).
 - The *proxied* GitHub REST path 403s. That is a path quirk — switch to direct
   egress — **not a wall.**
-- **ALWAYS ask `@codex` explicitly — never rely on it noticing your PR.** Its
+- **ALWAYS ask `@codex` explicitly — never rely on it noticing your PR.**
+  **The automatic triggers are OFF, by the owner's choice** (owner, live,
+  2026-09-02: *"it appears it's written down as if there is an automatic
+  review trigger. There isn't, that is something I would have to personally
+  enable and I explicitly didn't do that because I don't think every PR
+  needs a review"*) — so the comment is the only trigger, not merely the
+  reliable one, and the measurements below are of a feature that was never
+  enabled. Which PRs owe a round at all: [D-0019] as amended 2026-09-02. Its
   own about-box advertises three triggers (open a PR for review · mark a draft
   ready · comment `@codex review`), but **only the comment is reliable.**
   `MEASURED` 2026-08-29, and **read what was actually probed**: both observed

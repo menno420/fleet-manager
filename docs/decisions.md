@@ -430,6 +430,33 @@
 - first worked use: fm #978 — round-2 fixes verified by `gemini-3.6-flash`
   (five findings RESOLVED, no new issues), flip on Codex round 2's answered
   verdict.
+- amended (2026-09-02, the review sitting, owner live): **which PRs owe the
+  flip-readiness round is a property of the diff, not a judgement.** His
+  words: *"I think only when it's substantial new work or actual coding that
+  this is necessary. And I guess aswell during large batches of document
+  restructuring etc. To make sure that no important things are forgotten.
+  But this is a tricky thing to determine tho, because Claude agents often
+  make mistakes in reading and understanding the documents they write
+  about."* The session put the measured case to him — fm #1010 was a
+  document and Codex found 16 factual reversals in it (`factual-reversal-core`
+  counted from `docs/findings/data/2026-09-02-codex-round-cap/round-classification.json`)
+  — and proposed three tiers, which he chose (*"I think I agree"*): **(1)
+  the diff touches an executable or binding surface → one round** — hooks,
+  tools, scripts, workflows, skills, settings, the boot file, this ledger,
+  `docs/traps.md`; path prefixes, nothing to interpret. **(2) A large
+  documentation change → one round** — a threshold, provisionally more than
+  five files or two hundred added lines under `docs/`. **(3) Otherwise no
+  Codex** — a card, a findings note, a ledger line flips on the Gemini pass
+  or a direct source check plus the Stop hook. The verdict is meant to be
+  computed from the diff at the flip moment and printed to the session
+  ("this PR owes a Codex round because it touches `.claude/hooks/`") — a
+  checker beside the card-flip route, shaped in the review sitting's card,
+  not built. What tier (3) lets through, said plainly: a small records PR
+  with one wrong checkable claim; accepted for the usage limits the original
+  entry names. He added the expectation, not a measurement, that *"once the
+  new repo and everything is properly made … these errors will go down
+  aswell since it will be easier for agents to read and find the right
+  information."*
 - provenance: owner, live, 2026-08-29, in the audits-review sitting (the
   fm #978 conversation), quoted verbatim above; recorded the same hour.
 
@@ -1044,6 +1071,25 @@
 - delivery: `.claude/hooks/codex_round_guard.py` + `tools/test_codex_round_guard.py`;
   `.claude/settings.json` and `tools/install_root_hooks.py` (the rescue path);
   the boot file's `@codex` bullet; `docs/traps.md` TRAP-009.
+- amended (2026-09-02, the review sitting, owner live): **the exit is
+  confirmed as his, and made countable.** Put to him as the landing session's
+  `DERIVED` reading and answered *"All agreed"* — with the session's
+  recommendation of how to run it, which he accepted in the same word: (1)
+  round one only on the head that is ready to flip ([D-0019]); rounds two
+  and three only when a fix changed something a reviewer would have an
+  opinion about; nits and P3s never earn a round (`session-close` step 6c).
+  (2) At round three's answer every finding gets one of two dispositions in
+  the thread — **fixed**, with the direct check that verified it named, or
+  **refuted** with evidence — and the card carries one countable line:
+  `round 3: N findings — N fixed, N refuted, 0 open`. Then flip; the flip
+  head is one small commit past the last verdict and the card says so. (3)
+  Hand off instead of flipping only when a round-three finding needs a
+  design change: close the PR ([D-0017] — nothing waits open), keep the
+  branch, write the state in the card; the next session starts with its own
+  three rounds. "Verify without Codex" means a **direct check first** (re-run
+  the test, open the file at the line); the Gemini pass is second choice,
+  and on the free tier's daily cap it is sometimes not available at all
+  (measured that day: 3 of the review hook's 10 calls were 429s).
 - provenance: owner, live, 2026-09-02, quoted verbatim above; the measurement
   is TRAP-009's ORIGIN.
 
