@@ -14,16 +14,18 @@ export const meta = {
 // an empty string when nothing is covered, but a verifier that instead writes negative prose
 // ("none — ...", "not covered by ...") is not caught by a bare truthiness check — both lenses
 // doing this would wrongly kill a surviving row via the coverage branch. Normalize first.
-const isNegativeCoverage = (s) => !s || /^\s*(none|not\s+covered|no\b)/i.test(s)
+// FIXED (Codex review round 2, fm #1010): "n/a — ..." is another negative form real verifier
+// output actually used ("n/a — neither ..."), not caught by the round-1 regex. Broadened.
+const isNegativeCoverage = (s) => !s || /^\s*(none|n\/a|not\s+covered|no\b)/i.test(s)
 const dies = (a, b) => (a.refuted || b.refuted) || (!isNegativeCoverage(a.already_covered_by) && !isNegativeCoverage(b.already_covered_by))
 const FIX = [
   [{ refuted: true,  already_covered_by: '' }, { refuted: false, already_covered_by: '' }, true ],
   [{ refuted: false, already_covered_by: 'traps.md TRAP-006' }, { refuted: false, already_covered_by: 'redirect doc' }, true ],
   [{ refuted: false, already_covered_by: '' }, { refuted: false, already_covered_by: '' }, false ],
-  [{ refuted: false, already_covered_by: 'none — not docs/traps.md, nearest is TRAP-003' }, { refuted: false, already_covered_by: 'none — no match found' }, false ],
+  [{ refuted: false, already_covered_by: 'none — not docs/traps.md, nearest is TRAP-003' }, { refuted: false, already_covered_by: 'n/a — neither file names this pattern' }, false ],
 ]
 for (const [a, b, exp] of FIX) { if (dies(a, b) !== exp) throw new Error('aggregation fixture failed') }
-log('aggregation fixtures: 3 kill, 2 survive — pass; fields read: refuted, already_covered_by (negative-prose normalized)')
+log('aggregation fixtures: 2 kill, 2 survive — pass; fields read: refuted, already_covered_by (negative-prose normalized, incl. n/a)')
 
 const FM = (typeof args === 'object' && args && args.fm) || '/home/user/fleet-manager'
 const SB = (typeof args === 'object' && args && args.sb) || '/tmp/eap-night/superbot-eap'
@@ -138,6 +140,11 @@ const fmOut = fmOutRaw.filter(Boolean), sbOut = sbOutRaw.filter(Boolean)
 log(`readers: fleet-manager ${fmOut.length}/${FM_UNITS.length} · superbot ${sbOut.length}/${SB_UNITS.length}`)
 if (fmOut.length < FM_UNITS.length) log(`DROPPED fm units: ${FM_UNITS.filter((u, i) => !fmOutRaw[i]).map(u => u.label).join(', ')}`)
 if (sbOut.length < SB_UNITS.length) log(`DROPPED sb units: ${SB_UNITS.filter((u, i) => !sbOutRaw[i]).map(u => u.label).join(', ')}`)
+// FIXED (Codex review round 2, fm #1010): the deterministic FM_UNITS/SB_UNITS labels (which
+// carry the split range, e.g. "fm:eap-story.md[301-580]"), index-aligned to the raw results,
+// not the model-authored `source` field a reader can render as a bare path missing its range.
+const fmOkLabels = FM_UNITS.filter((u, i) => fmOutRaw[i]).map(u => u.label)
+const sbOkLabels = SB_UNITS.filter((u, i) => sbOutRaw[i]).map(u => u.label)
 const allReaders = [...fmOut, ...sbOut]
 const totalClaims = allReaders.reduce((n, r) => n + r.claims.length, 0)
 const totalCorrections = allReaders.reduce((n, r) => n + r.corrections.length, 0)
@@ -159,7 +166,7 @@ log(`merge groups: ${corrGroups.length} × up to ${CHUNK} corrections, each sear
 
 const mergeParts = (await parallel(corrGroups.map((g, gi) => () =>
   agent(`${TASK}
-You build ledger ROWS for group ${gi + 1} of ${corrGroups.length} of the corrections pool below, by finding each one's matching earlier claim in the FULL claims pool. Produce at most 25 rows (ids R${gi + 1}-1..R${gi + 1}-25).
+You build ledger ROWS for group ${gi + 1} of ${corrGroups.length} of the corrections pool below, by finding each one's matching earlier claim in the FULL claims pool. Produce up to ${CHUNK} rows, one per correction in this group that has a matching claim (ids R${gi + 1}-1..R${gi + 1}-${CHUNK}) — every correction in this group that matches a claim gets a row; do not drop a genuine match to stay under a smaller count.
 ${mergeRules}
 CORRECTIONS (this group): ${JSON.stringify(g)}
 FULL CLAIMS POOL (search this for matches): ${JSON.stringify(claimPool)}`,
@@ -216,7 +223,7 @@ phase('Critic')
 // already_covered_by), not just id/claim/actually/reason — the critic could not previously audit
 // thin verification or a meaning-changing correction without them.
 const critic = await agent(`You are the completeness critic for a multi-agent pass building the EAP false-done ledger. Below is what was ACTUALLY read (not the planned corpus — some lanes may have been cut for time), what survived verification with both lenses' full records, and what was dropped. Say what is MISSING: sources under ${FM}/docs (EAP-related) or ${SB} that should have been read and were not; surviving rows whose verification looks thin (a verifier that opened nothing, or a corrected_claim that changes the row's meaning — check each survivor's a/b corrected_claim against its row's claim/actually for exactly this); orphaned corrections that plausibly DO have a matching claim somewhere the merge missed; and any other gap. Be concrete and short.
-READ: fleet-manager ${JSON.stringify(fmOut.map(r => r.source))} (${fmOut.length}/${FM_UNITS.length} units) · superbot ${JSON.stringify(sbOut.map(r => r.source))} (${sbOut.length}/${SB_UNITS.length} units)
+READ: fleet-manager ${JSON.stringify(fmOkLabels)} (${fmOut.length}/${FM_UNITS.length} units) · superbot ${JSON.stringify(sbOkLabels)} (${sbOut.length}/${SB_UNITS.length} units) — labels carry the split range where one applies; a file with only one of its two range-labels present here had its other half fail or get cut
 SURVIVORS (with full verifier records): ${JSON.stringify(survivors.map(r => ({ id: r.row.id, claim: r.row.claim, actually: r.row.actually, lens_holds: r.a, lens_fit: r.b })))}
 NON-SURVIVORS: ${JSON.stringify(results.filter(r => !r.survives).map(r => ({ id: r.row.id, claim: r.row.claim, reason: r.reason, lens_holds: r.a, lens_fit: r.b })))}
 ORPHANED CORRECTIONS: ${JSON.stringify(orphaned)}

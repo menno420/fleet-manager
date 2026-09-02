@@ -1,15 +1,23 @@
 # 2026-09-02 — night fleet EAP mail evidence report (Fleet A + Fleet B)
 
-> **Status:** `in-progress` — both fleets landed and both reports read; the
-> Codex review is being requested next, and the flip is the deliberate last
-> commit once it answers. Fleet A: 12 survivors, 3 judged spines (unanimous
-> winner), critic read in full. Fleet B: pilot 4 survivors, full
+> **Status:** `in-progress` — Codex round 2 (10 more findings) landed on
+> `76834c8` and is fixed in the working tree below, but that fix is not yet
+> reviewed on its own head (a review binds the SHA it ran on, TRAP-006/007)
+> — pushing this commit with the card still `in-progress` keeps the
+> born-red hold active while round 3 is requested and awaited. The flip to
+> `complete` is a separate, later commit, once a round confirms clean on
+> the exact head that ships it. Fleet A: 12 survivors, 3 judged spines
+> (unanimous on which spine won, not on every graft recommendation — see
+> the report's § 7 correction, round 2). Fleet B: pilot 4 survivors, full
 > fleet-manager-only run (`skipSatellite: true`) 3 survivors — 2 of the
-> pilot's 4 reversed on the larger corpus, a method finding kept in the
-> report rather than smoothed over. Both fleets' critics converge: the
-> primary source behind the pass's strongest false-done rows
-> (`docs/findings/night-review-2026-07-10.md`) was never in either fixed
-> reader corpus.
+> pilot's 4 did not survive the full run; the two corpora are not nested
+> (the full run cut the one superbot reader both depended on), so this is
+> not clean evidence of scaling or verifier instability either way. Both
+> fleets' critics converge: the primary source behind the pass's strongest
+> false-done rows (`docs/findings/night-review-2026-07-10.md`) was never
+> read by either fleet's READERS (verifiers reached it directly in some
+> cases). **Read the report itself, not this summary** — Codex caught real
+> inaccuracies in earlier drafts of this very summary-writing, twice.
 
 - **📊 Model:** claude-sonnet-5 · xhigh · research
 - **📍 Venue:** cloud-container

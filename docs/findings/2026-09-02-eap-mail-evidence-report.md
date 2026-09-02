@@ -4,8 +4,12 @@
 > run overnight (fleet-preflight sheet: `docs/findings/data/workflows/05-CONTRACTS-night.md`,
 > scripts beside it) while the owner slept. Every finding below is quoted from
 > a **verifier's `corrected_claim`**, never from the raw candidate or the merge
-> stage's wording, per the night brief's own rule. Non-survivors are listed with
-> their reason, not silently dropped. **Read the "What was not read, and what
+> stage's wording, per the night brief's own rule. Fleet A's non-survivors are
+> listed with their individual reason (§ 2); **Fleet B's 25 non-survivors are
+> not** — this report has only the aggregate "refuted," a known gap named in
+> § 3 and § 5 (the individual reasons exist in each row's raw verifier record
+> under `docs/findings/data/2026-09-02-eap-mail-evidence/`, just not pulled
+> into this document). **Read the "What was not read, and what
 > the critics found wrong" section before using anything here for the mail** —
 > both critics found real, unfixed defects in what survived, and the owner's
 > own stated top priority for this mail (the false-done pattern) is under-
@@ -27,8 +31,11 @@
   the fleet-manager-only lane** (`skipSatellite: true` — 16 reader units, the
   11 named EAP docs split over 400 lines) — **83 agents, 7.11M tokens, 146.7
   min** (run `wf_fb35b278-362`). See § 3 for the result: 3 survivors, not the
-  pilot's 4, and two of the pilot's four survivors reversed on the larger
-  corpus — read § 3 and § 5 together before trusting any count here.
+  pilot's 4 — two of the pilot's survivors did not survive the full run, but
+  the two corpora are **not nested** (the full run cut the one superbot
+  reader both depended on), so this is not clean evidence of scaling or
+  verifier instability either way. Read § 3 and § 5 together before
+  trusting any count here.
 - **CUT: the 32 superbot `docs/eap` reader units** (of Fleet B's full 48-unit
   design) — dropped **before** any fleet-manager-side cut, exactly as the
   night brief's SIZE rule specifies ("drop Fleet B's satellite-heavy readers
@@ -256,9 +263,13 @@ the original claim (see § 5).
   reported "mining gen-1 complete green" on that gate. Actually: the gate
   collected 73 of 121 tests — `games/exploration/tests/` (48 tests) was
   invisible, and neither close-out heartbeat acknowledged the fix order.
-  This is the pilot's **L03**, now with two independent citation paths
+  This is the pilot's **L03**, now cited from two fleet-manager documents
   (`docs/eap-story.md`, `docs/launch-readiness-2026-07-10.md`) instead of
-  one, and a second layer the pilot didn't catch: the close-out heartbeats
+  one — **CORRECTED (Codex review, fm #1010): these are two corroborating
+  retellings of the same primary measurement, not independent evidence.**
+  Both are fleet-manager renderings of `docs/findings/night-review-2026-07-10.md`
+  (§ 5's "single most damaging omission"), which no reader in this pass
+  opened. A second layer the pilot didn't catch: the close-out heartbeats
   that *kept reporting green* after the gap was found.
 - **FD-02** (merges 5 sub-rows) — pokemon-mod-lab's README declared PRIVATE
   "no exceptions" and 8 PR bodies repeated it, while the repo was
@@ -414,15 +425,21 @@ exposed:
   over-collapsing in the merge (FD-17 originally absorbed 6 sub-rows before
   its own verifier narrowed it to 1; FD-13 absorbs 7) nor tightening in the
   verify lenses is diagnosed as the cause.
-- **`docs/traps.md` was never in the reader corpus.** `already_covered_by`
-  is exactly the field meant to answer "is this already a named trap," and
-  it IS populated on several verdicts (§ 3 correction above) — but never
-  against `docs/traps.md` itself, because no reader or verifier was pointed
-  at it as a corpus item (verifiers cited it from general knowledge of the
-  file, not from a corpus read). Concretely: FD-17 resembles TRAP-008 ("a
-  label read as its contents") and TRAP-006/007 (its own fit-lens verifier
-  agrees); FD-01 (CI green over an uncollected third of a suite) resembles
-  TRAP-003 and TRAP-004, uncross-checked. Neither pattern-catalogue register
+- **`docs/traps.md` was never in the READER corpus** (the extraction phase
+  that produces claims and corrections) — **CORRECTED (Codex review, fm
+  #1010): verifiers did open it directly.** Both verifier prompts instruct
+  checking coverage against `docs/traps.md`, and FD-17's holds-lens
+  `what_i_opened` lists it by section (TRAP-006 §207ff, TRAP-007 §292ff),
+  with its fit-lens `already_covered_by` naming TRAP-006/007 explicitly —
+  this is real, verified overlap, not a guess from general knowledge. The
+  more precise limitation: no READER read `docs/traps.md` as a corpus item
+  to extract from, so any false-done whose only trace is in the trap
+  register itself (rather than in a document a reader happened to open)
+  would never enter the claims/corrections pool at all — a coverage gap in
+  extraction, not in verification. FD-17 also resembles TRAP-008 ("a label
+  read as its contents"); FD-01 (CI green over an uncollected third of a
+  suite) resembles TRAP-003 and TRAP-004, neither cross-checked. Neither
+  pattern-catalogue register
   (`docs/findings/data/2026-08-29-agent-error-patterns.jsonl`, the very
   corpus Fleet A read the same night) was cross-checked either.
 - **A single systematic misclassification dominates the 182 orphaned
@@ -440,29 +457,33 @@ exposed:
   means this ledger is a **sample of the EAP record, not the EAP record**,
   and its survivor count should never be read as exhaustive.
 
-**Third check: Codex review of this PR (fm #1010), 10 findings, all
-addressed** — the drafted version of this report itself had errors, caught
-by exactly the external adversarial round the night brief's DECIDED section
-requires. Fixed in the report text above (not by editing this section, so
-the record of what Codex actually caught stays legible): FD-17 was
-overstated as one six-part survivor when its own verifier narrowed it to a
-single sub-claim (§ 3); "0 already-covered" implied the field went unused
-when it is in fact populated, just never against `docs/traps.md` (§ 3, § 5
-above); "16× the corpus" and "48 readers" overstated the pilot-to-full-run
-comparison, which was ~5.3× on the 16 units actually executed; "reversed on
-the larger corpus" implied scaling/verifier instability when the two
-corpora are not nested — the pilot's two reversed survivors depended on the
-one superbot reader the full run cut, and this pass cannot distinguish that
-from genuine instability. Fixed in the scripts, disclosed rather than
-silently shipped, not re-run tonight for time: `already_covered_by`
-negative-prose normalization in `dies()` (verified against this run's raw
-data — 3 instances existed, none flipped an actual verdict); the critic's
-`READ` list and survivor/non-survivor payload now reflect actually-executed
-units and full verifier records rather than the planned corpus and bare
-id/claim/reason; the dedupe stage's silent loss of rows beyond its own
-output cap (150 merged → at most 45 returned) is now logged and partially
-disclosed, not fixed outright — a real fix needs batching that stage like
-the merge stage, left for next time.
+**Third check: Codex review of this PR (fm #1010), two rounds, 20 findings
+total, all addressed** — the drafted version of this report itself had
+errors, caught by exactly the external adversarial round the night brief's
+DECIDED section requires. Round 1 (10 findings) is summarized above where
+this note originally stood; round 2 (10 more, on the round-1 fix commit)
+caught residue round 1 missed: FD-17's citation independence overstated —
+`docs/eap-story.md` and `docs/launch-readiness-2026-07-10.md` are two
+corroborating retellings of one primary source, not two independent paths
+(§ 2, FD-01); the "never against `docs/traps.md`" line was itself wrong —
+verifiers DID open it directly (FD-17's `what_i_opened` cites it by
+section) — the real gap is narrower: no READER read it as a corpus item
+(§ 5); the executive summary and § 5 still said "reversed... on the larger
+corpus" after the body text was corrected — fixed for consistency; the
+judge score table transcribed spine 0 and spine 1's per-judge totals in the
+wrong order (§ 7); the "unanimous" graft recommendation was 2 of 3 judges,
+not 3 — the owner-rules judge recommends a different reserve ask (§ 7); the
+front-matter banner claimed every non-survivor carries a reason, true for
+Fleet A, false for Fleet B's 25 — narrowed. Script fixes from round 2: the
+negative-coverage regex missed `"n/a — ..."`, a form the actual full-run
+output used; the critic's `READ` list used the model-authored `source`
+field, which a split reader can render as a bare path missing its range —
+switched to the deterministic unit labels; the merge stage's per-group row
+cap (25) was tighter than its input size (`CHUNK`=40), so a group with more
+than 25 genuine matches would silently lose the excess — the cap now equals
+`CHUNK`. Not fixed, disclosed: the dedupe stage's silent loss of rows
+beyond its own output cap (150 merged → at most 45 returned) is logged but
+not batched like the merge stage — next-session work.
 
 ## 6 · The owner's words on this mail, collected (5 readers, 25 quotes kept)
 
@@ -495,8 +516,9 @@ the merge stage, left for next time.
 ## 7 · The three spines and their judge scores (all three judges agree on the winner)
 
 All three lenses (product-team, evidence, owner-rules) independently scored
-**spine index 2** highest: **18/20, 19/20, 19/20** (vs. spine 0's 16/17/14 and
-spine 1's 17/18/13).
+**spine index 2** highest: **18/20, 19/20, 19/20** (vs. spine 0's 16/14/17 and
+spine 1's 17/16/13, judge-1/judge-2/judge-3 order — corrected per judge
+transcript, Codex review fm #1010: no judge gave spine 1 an 18).
 
 **Winner — "Part 2 Addendum — General Agent-Behavior Findings (≤450 words) +
 Required Part 2 Patches."** Keeps the current 1,686-word Part 2 intact, adds
@@ -518,12 +540,19 @@ substitution taxonomy (B5) — the owner's own stated priority (§ 6), held out
 for a *future* revision on the reasoning that it "sharpens" an existing ask,
 which is exactly the gap the critic (§ 5) flags as unaddressed.
 
-**All three judges' unanimous top graft recommendation** (from the two
-non-winning spines, into the winner): add the null-result-vs-check-that-
-never-ran finding (#3 above) as a fourth addendum item if the owner will
-spend ~100 more words — called "the single most product-actionable item in
+**Two of three judges' top graft recommendation — CORRECTED (Codex review,
+fm #1010): not unanimous.** The product-lens and evidence-lens judges both
+recommend adding the null-result-vs-check-that-never-ran finding (#3 above)
+as a fourth addendum item if the owner will spend ~100 more words — the
+evidence-lens judge calls it "the single most product-actionable item in
 any of the three spines... a concrete tool-result contract change, not a
-process wish."
+process wish." **The owner-rules judge recommends a different reserve
+fourth ask instead** — the measured concurrency leg (fan-out concurrency
+held at 4, median 4/mean 3.43 across 4,097 samples, against a documented
+10–16), calling it "clean, product-legible, absent from the four July mails
+and from the current draft." Both are live options if the owner grants more
+words; this report originally claimed all three judges agreed, which they
+did not.
 
 **Every judge's pre-send mechanics warning, independent of spine choice:**
 confirm every linked document is merged to `main` before sending (the
