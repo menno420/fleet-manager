@@ -193,7 +193,11 @@ def parse_card(text: str) -> dict:
     # bullet inside a card body, which this estate's cards now plausibly carry.
     header = text.split("\n## ", 1)[0]
     venue = VENUE_RE.search(header)
-    model = MODEL_RE.search(header)
+    # The model selector is the first LINE-ANCHORED occurrence anywhere in the
+    # card (.sessions/README.md § Model) — some cards open with a `## Correction`
+    # section above their header block, so the header-only search of the venue
+    # line does not apply here (@codex, fm #1012 round 3).
+    model = MODEL_RE.search(text)
     status = STATUS_RE.search(text)
     title = ""
     for line in text.splitlines():

@@ -1,6 +1,11 @@
 # 2026-09-02 — fm #1010 reviewed and landed on its flip head; the Codex round cap (TRAP-009 · D-0039)
 
-> **Status:** `complete` — the morning-after session: the night fleet's
+> **Status:** `in-progress` — re-opened for the records follow-up PR's
+> review fixes, so the card's own lifecycle holds it (Codex, that PR's round
+> 3: a card that reads `complete` while fixes are underway is the shape
+> TRAP-006 exists for; the `do-not-automerge` label was holding the merge,
+> the card was not). Flips `complete` as the follow-up's last commit.
+> The session itself: the night fleet's
 > PR #1010 reviewed on its exact head and landed (merged 07:59Z); the
 > owner's "three rounds, never more" turned into a denying hook, driven
 > through exactly three Codex rounds of its own and flipped by the cap's
@@ -156,6 +161,22 @@ What it lands:
   run at HEAD), listed among the live files in `docs/prompts/README.md`.
 - `docs/activity/estate-log.md` regenerated; `docs/findings/README.md`
   regenerated for the new record.
+
+**Two mechanisms changed during this PR's review rounds — it is not records
+only after round 1:** `tools/estate_activity.py` now takes the model from
+the first line-anchored `📊 Model:` occurrence anywhere in the card, bold or
+not (round 1: an unanchored search matched prose about the convention and
+left a lone backtick in the model cell; round 2: the anchored bullet-only
+form blanked the 170 cards that use the plain line; round 3: the header-only
+search blanked a card whose header follows a `## Correction` section) —
+verified on the plain, bolded, convention-quoting and late-header card
+shapes, then the log regenerated with zero blank model cells;
+`tools/gen_findings_index.py` stamps a new placeholder row with the run date
+instead of a hardcoded 2026-09-01 (round 2), verified by regenerating and
+reading this PR's own row. Codex rounds on this PR: three (the cap), 6 + 3 +
+4 findings, all real, all fixed; after round 3 the fixes were verified
+without a fourth round (the checks below plus one free-key Gemini pass),
+the cap's exit applied a second time.
 
 Three things this session got wrong, kept here because the card is where the
 next session looks: mid-turn messages went unacknowledged three times until
