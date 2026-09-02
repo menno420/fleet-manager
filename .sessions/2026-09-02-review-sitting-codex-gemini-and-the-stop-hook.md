@@ -115,6 +115,14 @@ hook live with `CAP = 3`.
    in this PR; the checker itself is shaped, not built.
 6. **The new hook answer style, confirmed:** *"this way of answering the
    hook is a lot more clear to read."*
+7. **Item 2 of 6, the model tiers — confirmed with one amendment.** *"Yes
+   that's right, tho Fable should only be used when I explicitly request
+   it, since Fable uses a lot more usage than the other models, I try to
+   only use it when I believe that it would really make a difference."*
+   Landed in place: D-0040 carries the amendment; the `fleet-preflight`
+   contract sheet's MODELS line now ends `fable: none | <stage> — owner
+   asked, in words, for this run`, § 8's table puts the last look on
+   `opus` and makes a Fable stage a quoted owner ask.
 
 ## Verify
 

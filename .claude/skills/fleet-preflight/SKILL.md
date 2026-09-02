@@ -31,7 +31,7 @@ RETAIN      : <fields> · follow-up "<the next measurement>" answerable: yes/no
 BASE        : <repo>@<sha> at <t0> · open PRs <#…> · re-read <sha>..main before writing
 SIZE        : limit <n> via <PROBE (capacity) | JOURNAL (throughput only)> at <when> · <a> × <d>s ÷ <n> ≈ <h> h floor
 EXTERNAL    : <who reviews the output after the fleet, and how many rounds are budgeted>
-MODELS      : <stage> → <model tier> … · reasons: <stage(s) on opus> · reviews last: <stage on fable>
+MODELS      : <stage> → <model tier> … · reasons: <stage(s) on opus> · reviews last: <stage on opus> · fable: none | <stage> — owner asked, in words, for this run: "<quote>"
 UNCONTRACTED: <any line launched unfilled, and why>
 ```
 
@@ -395,6 +395,16 @@ task, for general reading and mapping Sonnet 5 would be more than enough. But
 when it's also necessary to use reasoning it's better to use Opus 5 and
 probably as final reviewer it should be Fable 5.1."* ([D-0040])
 
+**Amended the same day, owner live, in the review sitting that walked this
+rule back to him:** *"Fable should only be used when I explicitly request
+it, since Fable uses a lot more usage than the other models, I try to only
+use it when I believe that it would really make a difference."* So the last
+look runs on **Opus 5 by default**; Fable is a tier a session may name for
+a stage **only when the owner asked for it, in words, for that run** — and
+the sheet quotes his ask beside the stage. A session that is itself on Fable
+does not pass that on: the session's model was his choice for the session,
+not for its agents (D-0040 as amended).
+
 Both fan-out surfaces take a model per call — the Workflow tool's `agent()`
 has a `model` option per stage and the Agent tool has the same — and both
 **inherit the session's model when it is left unset.** `MEASURED` from the
@@ -414,12 +424,14 @@ the first agent spawns:
 |---|---|---|
 | readers, mappers, classifiers, census, extraction | `sonnet` | reading and mapping; the instrument is the prompt, not the model |
 | verifiers, judges, merge/dedupe that must reason from evidence | `opus` | the stage that decides what survives |
-| the final reviewer, critic, or spine judge — the last look | `fable` | the one that must be right |
+| the final reviewer, critic, or spine judge — the last look | `opus` | the one that must be right; Opus is the ceiling a session picks on its own |
+| any stage the owner asked to run on Fable, in words, for this run | `fable` | his call, never the session's — quote the ask on the sheet |
 
-> **Contract line:** `MODELS: readers → sonnet · verify → opus · critic → fable`
+> **Contract line:** `MODELS: readers → sonnet · verify → opus · critic → opus · fable: none`
 > (one arrow per stage the script actually has). A stage with no tier named is
 > a stage nobody sized — say `UNCONTRACTED — inherited` rather than leave it
-> blank, so the inheritance travels with the finding.
+> blank, so the inheritance travels with the finding. `fable:` is written
+> even when it is `none`, so a Fable stage is always a visible, quoted choice.
 
 *Catches* the silent inheritance at the only moment it can be caught: the
 script is being written, and `model:` is one more field beside `label:`.

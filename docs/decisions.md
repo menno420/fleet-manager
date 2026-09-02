@@ -1063,6 +1063,19 @@
   from evidence on `opus`; the final reviewer or critic on `fable`. The
   session's own model is never the default for a subagent — a stage that
   leaves `model` unset is a stage nobody sized.
+- amended (2026-09-02, same day, owner live in the review sitting that put
+  this entry back to him): **Fable is never a tier a session chooses.**
+  *"Fable should only be used when I explicitly request it, since Fable
+  uses a lot more usage than the other models, I try to only use it when I
+  believe that it would really make a difference."* So the last look runs
+  on `opus` by default, and a stage runs on `fable` only when he asked for
+  it, in words, for that run — the contract sheet quotes the ask beside the
+  stage and writes `fable: none` otherwise, so a Fable stage is always a
+  visible, quoted choice. A session that is itself on Fable does not pass
+  that on: his choice of model for the session is not a choice for its
+  agents. The "rules out" clause below about the final review is read with
+  this amendment: the last look is not put *below* `opus` to save cost; it
+  is not put *on* `fable` without his word.
 - why: the Workflow harness inherits the main-loop model unless told
   otherwise, and Fable is metered against the owner's Max allowance; the
   2026-09-02 morning workflow ran two mechanical classification reads (and
