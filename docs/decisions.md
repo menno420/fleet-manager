@@ -415,7 +415,12 @@
   stated. **(1) The flip lands on an answered verdict:** the PR flips green on
   the head the Codex round actually answered, never on a later head that has
   not been reviewed (this is TRAP-006/007's requirement, and the entry's
-  never-merge-before-an-asked-Codex-answers rule already implied it).
+  never-merge-before-an-asked-Codex-answers rule already implied it). *The
+  one exception, stated here since 2026-09-02 because it was only ever in
+  `session-close` step 6c: the flip commit itself — the card's badge and
+  close-out text, nothing a reviewer has an opinion about — is by
+  construction one commit past the verdict, and taking that exemption means
+  the card names the reviewed SHA and what came after it.*
   **(2) A Gemini verification is sufficient for an intermediate push:** the
   free-key route is not merely the permitted place to send mid-session checks,
   it fully discharges the verification owed on a fix that is not the flip head.
@@ -446,8 +451,11 @@
   `docs/traps.md`; path prefixes, nothing to interpret. **(2) A large
   documentation change → one round** — a threshold, provisionally more than
   five files or two hundred added lines under `docs/`. **(3) Otherwise no
-  Codex** — a card, a findings note, a ledger line flips on the Gemini pass
-  or a direct source check plus the Stop hook. The verdict is meant to be
+  Codex** — a card, a findings note, a capabilities-ledger line flips on the
+  Gemini pass or a direct source check plus the Stop hook. (A line in *this*
+  ledger is tier 1: a decision is a binding surface, so a decisions-only PR
+  owes its round — Codex, fm #1013 round 1, which caught tier 3 saying "a
+  ledger line" without naming which ledger.) The verdict is meant to be
   computed from the diff at the flip moment and printed to the session
   ("this PR owes a Codex round because it touches `.claude/hooks/`") — a
   checker beside the card-flip route, shaped in the review sitting's card,
@@ -1081,19 +1089,28 @@
   (2) At round three's answer every finding gets one of two dispositions in
   the thread — **fixed**, with the direct check that verified it named, or
   **refuted** with evidence — and the card carries one countable line:
-  `round 3: N findings — N fixed, N refuted, 0 open`. Then flip; the flip
-  head is one small commit past the last verdict and the card says so. (3)
+  `round 3: N findings — N fixed, N refuted, 0 open`. Then flip. Two kinds
+  of commit may follow the last verdict, and both are named in the card: a
+  round-three fix, verified directly (that is this exit), and the flip
+  commit itself — badge and close-out text, the exemption `session-close`
+  6c and [D-0019]'s clause (1) name, nothing reviewable in it. (3)
   Hand off instead of flipping only when a round-three finding needs a
   design change: close the PR ([D-0017] — nothing waits open), keep the
   branch, write the state in the card; the next session starts with its own
   three rounds. "Verify without Codex" means a **direct check first** (re-run
   the test, open the file at the line); the Gemini pass is second choice,
-  and on the free tier's daily cap it is sometimes not available at all
-  (measured that day: 3 of the review hook's 10 calls were 429s).
+  and the free tier's cap is per day and per model — the review hook's own
+  model (`gemini-3.8-flash`, behind the `gemini-flash-latest` alias) was
+  exhausted that day on 3 of the hook's 10 calls while the verification
+  model, `gemini-3.6-flash`, still answered; each is metered on its own.
 - provenance: owner, live, 2026-09-02, quoted verbatim above; the measurement
   is TRAP-009's ORIGIN.
 
-## [D-0040] Fan-out agents are staffed by task tier: Sonnet 5 reads and maps, Opus 5 reasons, Fable 5.1 reviews last — never the session's model by inheritance
+## [D-0040] Fan-out agents are staffed by task tier: Sonnet 5 reads and maps, Opus 5 reasons and takes the last look, Fable 5.1 only on the owner's explicit ask — never the session's model by inheritance
+
+*(Heading amended 2026-09-02 with the entry; it read "Opus 5 reasons, Fable
+5.1 reviews last" until then — the original wording survives verbatim in the
+verdict below, as provenance.)*
 
 - status: decided
 - date: 2026-09-02
@@ -1142,3 +1159,39 @@
   every fan-out through that skill.
 - provenance: owner, live, 2026-09-02, quoted verbatim above; the
   measurement it reacts to is this session's own card.
+
+## [D-0041] The owner's quoted words may be corrected for spelling — meaning unchanged, shown to him when in doubt
+
+- status: decided
+- date: 2026-09-02
+- verdict: Owner, live, in the review sitting, after seeing his own typos
+  quoted verbatim into a public record: *"I do think you should be able to
+  correct my typos when quoting me in the repo or when you state back a
+  sentence to me directly. As long as the meaning of the sentence doesn't
+  change. If you're in doubt you could always send the examples of how you
+  would write my words sin the repo for me to confirm."* So a quotation of
+  his words in a record or a reply may fix spelling and spacing ("aswell"
+  → "as well", "where" → "were", "intructions" → "instructions"), never a
+  word choice, an order, or a hedge; a session unsure whether a change
+  touches meaning shows him the cleaned sentence beside the original and
+  lets him confirm. The `OWNER` tag still means his words; the chat stays
+  the verbatim source.
+- why: the 2026-09-01 and 2026-09-02 owner-direction records quoted him
+  *"verbatim, typos included, so anything derived from them can be checked
+  against source"*, and the sitting's session followed that. He writes
+  fast and knowingly — *"I know I should saw 'as well' but when I'm talking
+  to AI I don't really think it matters"* — and the cost of verbatim was
+  that "aswell", "acutally" and "Projects where advertised" now sit in a
+  public file. Checkability against the chat is unaffected by a spelling
+  fix; a wording change is what would break it, and that stays out.
+- rules out: rewording, reordering, compressing or "improving" a quoted
+  sentence under this rule — that is paraphrase and is marked `DERIVED`;
+  correcting spelling inside a quotation of someone other than him; going
+  back through past records to clean them (allowed, not owed).
+- provenance: owner, live, 2026-09-02, quoted verbatim above (this entry
+  keeps his typo on purpose, as the last one). He believed he had said this
+  in an earlier session; the tree was searched (`decisions.md`,
+  `CONSTITUTION.md`, `intent.md`, the owner reflection, the 2026-08-28 and
+  2026-09-01 owner-direction records, the playbook) and holds no earlier
+  statement of it — only the verbatim-with-typos convention it replaces —
+  so this is the first written home.

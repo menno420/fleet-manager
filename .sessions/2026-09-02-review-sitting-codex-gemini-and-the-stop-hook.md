@@ -202,6 +202,36 @@ hook live with `CAP = 3`.
    The mail's shape (A, false-done in, Part 1 drafted, ~2,100 words) went
    to him as four letters and was not answered in a word — the prompt
    carries the length as its LEAST SURE line.
+16. **His words may be corrected for spelling** (owner, live, after seeing
+   his typos quoted into the record): landed as the typo entry of
+   2026-09-02 in `docs/decisions.md` and § 3b of the owner-direction
+   record; the tree held no earlier statement of it.
+17. **Codex round 1 on this PR (`b8ff610`): 10 findings, 2 P1, 8 P2 — all
+   real, all fixed on the next head.** P1: the new prompt's
+   `owner-guidance` badge put it in the owner index as *historical* and
+   `gen_owner_index.py --check` failed — badge set to `reference`, its
+   sibling prompt's choice (fixed differently from the suggested
+   exception; check exit 0). P1: five `stamp` findings from the strict gate
+   — decision ids cited from more than one doc under `docs/` (the check
+   counts any `D-NNNN`, bracketed or not, outside the ledger) — every id
+   the diff added outside `docs/decisions.md` is now a prose name
+   ("the cap entry of 2026-09-02"). P2s: the review-cadence entry's tier 3
+   "a ledger line" now says *capabilities*-ledger and tier 1 keeps the
+   decisions ledger; the flip-commit exemption is stated in both amended
+   entries, reconciling "flip on an answered verdict" with "one commit
+   past it"; the model-tier entry's heading now matches its amended rule;
+   exhausted retries log `attempts` (pinned on the raised error) with a
+   `main()`-level suite case; **the claim that the review hook was spending
+   the verification pass's quota was false** — `gemini-flash-latest`
+   resolved to `gemini-3.8-flash`, the verification model is
+   `gemini-3.6-flash`, and the measurement itself showed the latter still
+   answering; corrected in the hook comment, the hooks README, the cap
+   entry, the mail prompt and this card's item 13 (which said "the budget
+   the flip-time check needs" — it did not); review-quality parity on the
+   lite model marked UNMEASURED (the 2026-08-08 comparison was
+   flash-latest vs Vertex Pro); the close skill's severity table gained a
+   round-three row; and the mail prompt's shape/false-done/Part 1/length
+   package moved from DECIDED to OPEN, since he never answered it in a word.
 9. **Pre-existing, not this PR's, noted for the record:**
    `python3 tools/test_change_guard.py` exits 1 on `origin/main` as well as
    on this branch (15/16; the failing case is *"real historical defect still

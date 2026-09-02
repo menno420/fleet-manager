@@ -256,19 +256,24 @@ look like the dedupe failed when it did not.
 > failure, not a precedent for this one). What is *not* established: whether
 > today's 503 rate is typical — one hour, one container, eight calls.
 > **(3) Later the same day: the 429 is the free tier's PER-DAY, PER-MODEL
-> cap, and the add-on was spending the budget the flip-time verification
-> needs.** Twenty firings in the review sitting: 10 skipped as too short, 2
+> cap.** Twenty firings in the review sitting: 10 skipped as too short, 2
 > enriched (one caught a real gap), 5 × 503, 3 × 429 whose body names
 > `GenerateRequestsPerDayPerProjectPerModel-FreeTier` on model
-> `gemini-3.8-flash` — what `gemini-flash-latest` resolved to that day, and
-> the model class the [D-0019] passes draw on. Probed at that moment:
-> `gemini-3.5-flash-lite` and `gemini-3.6-flash` both answered 200, so the
-> cap is per model. Owner, live: *"make the gemini route to a lite model
-> with higher caps"* — `FREE_MODEL` is now `gemini-3.5-flash-lite`, which
-> carries its own daily cap; the system prompt is the load-bearing part
-> (the 2026-08-08 measurement below), so the smaller model costs nothing
-> the hook uses. Asked whether the reply text leaving to Google was wanted
-> at all, he kept the add-on: on the lite model.
+> `gemini-3.8-flash` — what `gemini-flash-latest` resolved to that day.
+> Probed at that moment: `gemini-3.5-flash-lite` and `gemini-3.6-flash`
+> (the flip-time verification model) both answered 200, so the cap is per
+> model and the two routes were never sharing a budget — *this paragraph
+> first said the hook was spending the verification pass's quota; false,
+> the measurement itself shows the opposite (Codex, fm #1013 round 1).*
+> Owner, live: *"make the gemini route to a lite model with higher caps"* —
+> `FREE_MODEL` is now `gemini-3.5-flash-lite`, on its own daily cap, his
+> choice for headroom. **Review-quality parity on the lite model is
+> UNMEASURED:** the 2026-08-08 "same two findings" comparison was
+> `gemini-flash-latest` against the Vertex Pro model, n=1, and the only
+> lite probe on record answered "OK" to a one-word prompt. Asked whether the
+> reply text leaving to Google was wanted at all, he kept the add-on.
+> Also from that round: exhausted retries now log `attempts` (the count
+> rides on the raised error), with a `main()`-level case in the suite.
 
 > added 2026-08-07 · design record:
 > [`docs/findings/2026-08-06-provenance-mechanism-measured.md`](../../docs/findings/2026-08-06-provenance-mechanism-measured.md)

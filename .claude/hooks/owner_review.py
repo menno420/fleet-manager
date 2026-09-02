@@ -71,14 +71,17 @@ MODEL = "gemini-3.1-pro-preview"   # retired Vertex fallback (D-0020) — unrefe
 FREE_MODEL = "gemini-3.5-flash-lite"  # AI Studio, free tier, no auth chain — a LITE model on purpose
 # Owner, live, 2026-09-02: "make the gemini route to a lite model with higher
 # caps." MEASURED the same hour: the free tier's cap is PER DAY, PER MODEL
-# (`GenerateRequestsPerDayPerProjectPerModel-FreeTier`), and `gemini-flash-latest`
-# resolved to `gemini-3.8-flash` — the model the mid-session verification
-# passes ([D-0019]) also draw on — so a per-turn hook was spending the budget
-# the flip-time check needs: 3 of this hook's 10 calls that day were 429s on
-# that one model while `gemini-3.5-flash-lite` and `gemini-3.6-flash` both
-# still answered 200. The lite model carries its own daily cap and the system
-# prompt is the load-bearing part, not the model (2026-08-08 measurement
-# below), so the hook loses nothing by taking the smaller one.
+# (`GenerateRequestsPerDayPerProjectPerModel-FreeTier`); `gemini-flash-latest`
+# resolved to `gemini-3.8-flash`, and that one model was exhausted — 3 of this
+# hook's 10 calls that day were 429s on it — while `gemini-3.5-flash-lite` and
+# `gemini-3.6-flash` (the model the flip-time verification passes use) both
+# still answered 200. So the routes were never sharing a budget (a first
+# version of this comment said they were — Codex, fm #1013 round 1); the lite
+# model is his choice for headroom, and it carries its own daily cap. What is
+# NOT measured: whether the lite model asks the same questions the flash
+# model did — the 2026-08-08 comparison below was flash-latest against the
+# Vertex Pro model, n=1, and the only lite probe on record returned HTTP 200
+# to "Reply with the single word OK." Review-quality parity is unmeasured.
 CACHE_DIR = "/tmp/claude-owner-review"
 SA_CACHE = os.path.join(CACHE_DIR, "sa.json")
 LOG = os.path.join(CACHE_DIR, "log.jsonl")
@@ -484,6 +487,7 @@ def _free_review(text):
             if exc.code == 503 and attempt <= RETRIES:
                 time.sleep(BACKOFF_S * attempt)
                 continue
+            exc.attempts = attempt   # the count survives the failure — main() logs it
             raise
         out, um = _extract(r, "free")
         um["attempts"] = attempt   # countable: how often the retry earned its keep
@@ -545,6 +549,9 @@ def main():
         raise                                      # termination is not a defect
     except BaseException as exc:                   # creds, network, parse, timeout, native panic
         err = f"{type(exc).__name__}: {exc}"[:300]
+        # Exhausted retries used to log attempts=null — the one case the count
+        # was for (Codex, fm #1013 round 1). _free_review pins it on the error.
+        um["attempts"] = getattr(exc, "attempts", None)
 
     specifics = "" if out.upper().startswith("NO QUESTIONS") else out.strip()
     rec(reply_chars=len(text), route=um.get("route"), enriched=bool(specifics),

@@ -167,7 +167,8 @@ steps.
 
    | severity | what it costs |
    |---|---|
-   | **P1 · P2** | must be dispositioned — fixed, or refuted in the thread with the evidence. A fix means another round. |
+   | **P1 · P2** | must be dispositioned — fixed, or refuted in the thread with the evidence. A fix means another round — **until round three**, see the next row. |
+   | **P1 · P2 found by round three** | fixed and verified WITHOUT Codex (a direct check — re-run the test, open the file at the line — named in the thread; the Gemini pass second), or refuted with evidence; the card carries `round 3: N findings — N fixed, N refuted, 0 open`; then flip. No fourth round: the hook denies it. |
    | **P3 · advisory · nits** | acknowledge and land. **These do not earn a round of their own**; batch them into the next session's work. |
 
    **Three rounds in total, never a fourth — and it is a denying hook, not this

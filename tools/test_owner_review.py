@@ -91,6 +91,31 @@ check("worst case fits the 120 s registration",
       (hook.RETRIES + 1) * hook.NET_TIMEOUT + hook.BACKOFF_S * sum(range(1, hook.RETRIES + 1)) < 120,
       True)
 
+print("main() logs the attempt count when every retry fails")
+import contextlib
+import json
+import tempfile
+tmp = tempfile.mkdtemp()
+transcript = os.path.join(tmp, "t.jsonl")
+with open(transcript, "w") as f:
+    f.write(json.dumps({"message": {"role": "user", "content": "a real user turn"}}) + "\n")
+    f.write(json.dumps({"message": {"role": "assistant", "content": "reply " * 120}}) + "\n")
+hook.CACHE_DIR = tmp
+hook.LOG = os.path.join(tmp, "log.jsonl")
+hook._http = stub((503, 503, 503))
+os.environ["GEMINI_API_KEY"] = "stub-key-for-the-suite"
+out = io.StringIO()
+with contextlib.redirect_stdout(out):
+    sys.stdin = io.StringIO(json.dumps({"session_id": "suite", "transcript_path": transcript}))
+    hook.main()
+    sys.stdin = sys.__stdin__
+block = json.loads(out.getvalue())
+last = json.loads(open(hook.LOG).read().strip().split("\n")[-1])
+check("the fixed question still fired (decision=block)", block.get("decision"), "block")
+check("the log line carries attempts=3, not null", last.get("attempts"), 3)
+check("... beside the 503 error", str(last.get("error", "")).startswith("HTTPError"), True)
+check("... and enriched=false", last.get("enriched"), False)
+
 print("no key")
 os.environ.pop("GEMINI_API_KEY", None)
 hook._http = stub((200,))

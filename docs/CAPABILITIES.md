@@ -185,7 +185,8 @@ findings go here, below the fence.)
   #49's review arriving after the explicit comment, which the entry credited
   to PR-open. The capability is unchanged: `@codex review` by comment works
   and answers in ~335 s. · workaround: none needed — post the comment; and
-  post it only on the PRs that owe a round ([D-0019] as amended 2026-09-02).
+  post it only on the PRs that owe a round (the review-cadence decision of
+  2026-08-29 in `decisions.md`, as amended 2026-09-02).
   — LAST-VERIFIED: 2026-09-02
 
 - 2026-09-02 · wall · `owner-live` · **A message the owner sends MID-TURN does

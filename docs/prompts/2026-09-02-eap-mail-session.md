@@ -1,6 +1,6 @@
 # Continuation prompt — the EAP mail session (drafted 2026-09-02, the review sitting)
 
-> **Status:** `owner-guidance` · paste-ready, `continuation-prompt` skill shape,
+> **Status:** `reference` · paste-ready, `continuation-prompt` skill shape,
 > preflight run at HEAD `e7e91ea` on the review sitting's branch (main at
 > `b32e9b2` + fm #1013 once it lands). Written for a fresh cloud session
 > booting with **fleet-manager as its root** (boot triad case one — the hooks
@@ -31,7 +31,10 @@ the four lines above do at start, so he can see whether his intent landed.
 One item at a time, plain language, his pace. No fan-out agents unless he
 opts in himself; the word "ultracode" in a message of his is a description,
 not an opt-in — the harness misread it twice in two days. No agent runs on
-Fable unless he asks for it, in words, for that run (D-0040 as amended).
+Fable unless he asks for it, in words, for that run (the model-tier entry of
+2026-09-02 in docs/decisions.md, as amended the same day). His words may be
+corrected for spelling when quoted, meaning unchanged — show him the cleaned
+sentence when in doubt (his rule, 2026-09-02, the typo entry of that day).
 
 WHERE THINGS STAND (verified at HEAD on 2026-09-02 — re-verify first)
 - The mail's working file is docs/planning/2026-08-24-final-eap-email-draft.md:
@@ -80,11 +83,12 @@ below cannot be applied from their headings.
 DECIDED (do not re-litigate — owner, 2026-09-02, quoted in § 5b–5d)
 - A session drafts the mail; he reads, edits and sends. The report stays
   evidence; the draft is built from it and from his answers.
-- Shape A: Part 2 stays as it is (1,686 words, the one-page cap he chose on
-  2026-08-25 for it), plus one addendum of at most ~450 words. Total lands
-  near 2,100 words. Reason: all three judges picked this shape and it keeps
-  five rounds of verified Part 2 text intact.
-- The addendum's frame is the answer to Anthropic's own question — what
+- The mail is the record of everything for both sides, the research
+  interviews included; their overlap does not change it (his answer 6).
+- What the addendum SAYS about Projects versus sessions is his — the six
+  plus six answers in § 5c–5d are the content, and the DERIVED answer under
+  them is the session's ordering of his words, checked with him. What the
+  addendum's frame is the answer to Anthropic's own question — what
   would make him choose a Project over a session — in his terms: what the
   two share (everything at the level of capability; a session on a wake
   chain is an autonomous worker too), the three things a Project ADDS
@@ -98,13 +102,6 @@ DECIDED (do not re-litigate — owner, 2026-09-02, quoted in § 5b–5d)
   Projects). His claim that the coordinator handles several tasks at once
   better than a session's fan-out goes in marked as his inference, or not
   at all — his own caveat.
-- The false-done ledger is IN, as the evidence that verification is the
-  deciding line: FD-01 (a CI step claimed to run the tests and did not,
-  green reported on top), FD-02 (a README declaring private, eight PR
-  bodies repeating it, on a world-readable repo), FD-17 narrowed to its one
-  sub-claim. Read docs/findings/night-review-2026-07-10.md before using
-  FD-01 or FD-02 (report § 10 item 2 — both critics name it as the primary
-  source no reader opened).
 - The overlap rule (the draft's own § 1 decision 2, confirmed by the
   sitting's read of all four sent mails): anything already argued becomes
   ONE pointer line. Already sent: scoped pre-authorization / standing
@@ -116,33 +113,32 @@ DECIDED (do not re-litigate — owner, 2026-09-02, quoted in § 5b–5d)
   1–3, the outside-vendor review, asks 1, 2, 4, 5, the instruction box as a
   delivery tier that WORKED, the honest-queue ask, "more organized and
   structured documentation" (his answer 4), and the false-done rows.
-- Part 1 is DRAFTED by you as a proposal he rewrites in his own voice —
-  from the beat table AND his § 5d opinions: the 50/50 verdict with
+- Part 1's material is his § 5d opinions: the 50/50 verdict with
   superbot-next as the worked example (built in days against a weeks
   estimate; code sound, functionality not as intended); permissions as the
   one fix, read by him as a bug, so the FEATURE ask he calls fair is "which
   Projects are active"; he reviews finished products, so unmerged PRs are
   invisible to him; "a couple of hours a day", with his own caveat that he
-  is not a typical user; the mail as the record of everything, interviews
-  included, for both sides. Beat 3 (the verdict paragraph) stays the
-  paragraph only he can supply — draft it, and say in the card that it is
-  the one he must rewrite.
+  is not a typical user. Beat 3 (the verdict paragraph) is the paragraph
+  only he can supply.
 - The two REQUIRED one-clause patches to Part 2 from the winning spine
   (§ 7) are applied; the "21 of 21 incidents with zero fabrication"
   sentence is qualified so it does not contradict the addendum.
 - The instruction-box sort in § 5d (defaults / scaffolding / seat-specific)
   is the answer to "what should have been the product's default"; the
   addendum may cite it in one sentence with the public path.
-- Confidentiality: D-0014 — no third-party addresses, no unreleased
-  specifics, vendor messages as metadata only; his own words verbatim.
-  Settle any confidentiality question BEFORE the first push, never before
-  the merge (the record's § 0 lesson).
+- Confidentiality (the decisions ledger's confidentiality entry): no third-
+  party addresses, no unreleased specifics, vendor messages as metadata
+  only; his own words quoted, spelling corrected at most. Settle any
+  confidentiality question BEFORE the first push, never before the merge
+  (the record's § 0 lesson).
 - Codex: this is a large documentation change, so it owes exactly one
-  Codex round, at flip-readiness, on the head that flips (D-0019 as amended
-  2026-09-02; cap three, D-0039; the hook counts). Intermediate pushes are
-  verified by a direct source check first, the free-key Gemini pass second
-  (gemini-3.6-flash; the per-turn hook now runs on a lite model so the two
-  do not share a daily cap).
+  Codex round, at flip-readiness, on the head that flips (the review-cadence
+  decision of 2026-08-29 as amended 2026-09-02; the cap entry of 2026-09-02,
+  three rounds, the hook counts). Intermediate pushes are verified by a
+  direct source check first, the free-key Gemini pass second on
+  gemini-3.6-flash, which has its own per-model daily cap; the per-turn
+  review hook runs on gemini-3.5-flash-lite, also on its own cap.
 
 REJECTED, AND WHY
 - Shape B (rewrite Part 2 around the month after) and C (keep the strict
@@ -163,9 +159,25 @@ REJECTED, AND WHY
   recipients himself in Gmail.
 
 OPEN (what would settle each)
-- The total length. He heard "about 2,100 words" and did not object; the
-  four-letter question went unanswered as the sitting moved on. Put it in
-  your LEAST SURE line; one word from him settles it.
+- THE SHAPE, RECOMMENDED AND NOT YET ACCEPTED — put it to him first, as
+  one question, before drafting. The sitting proposed and he did not answer
+  in a word (the four-letter question went unanswered as the sitting moved
+  on to Projects versus sessions): (A) Part 2 stays as it is, 1,686 words,
+  the one-page cap he chose 2026-08-25, plus ONE addendum of at most ~450
+  words framed as the Projects-versus-sessions answer above, total near
+  2,100 words — the shape all three judges picked, keeping five rounds of
+  verified Part 2 text intact; (B) rewrite Part 2 around the month after;
+  (C) the strict one-page cap, no addendum. With A: the false-done ledger
+  IN as the evidence that verification is the deciding line — FD-01 (a CI
+  step claimed to run the tests and did not, green reported on top), FD-02
+  (a README declaring private, eight PR bodies repeating it, on a world-
+  readable repo), FD-17 narrowed to its one sub-claim; read
+  docs/findings/night-review-2026-07-10.md before using FD-01 or FD-02
+  (report § 10 item 2). And: Part 1 DRAFTED by you from the beat table and
+  his § 5d opinions, as a proposal he rewrites in his own voice — his words
+  were "a proper draft created which I can read and edit", which the
+  sitting read as both parts, unconfirmed. One word on each settles it;
+  your LEAST SURE line is the shape.
 - The judges' optional fourth addendum item (a clean result is
   indistinguishable from a check that never ran — ~100 words). Include only
   if he grants the words; two of three judges wanted it.

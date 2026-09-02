@@ -104,7 +104,26 @@ session understood the message and what it changes** — the same shape as
 the four labelled lines a session states at start — so he can see whether
 his intent landed before the work runs on. What was wrong in the original
 reading was the word *first*, which asked for an interrupt; what was right
-was *say what it changes*.
+was *say what it changes*. **Confirmed in practice later the same sitting,
+`OWNER`:** after three mid-turn messages were each acknowledged at the next
+tool boundary with how they were understood — *"Thank you, that is a
+perfect example of how I'd like my messages answered mid turn."*
+
+### 3b · His words may be corrected for spelling (added in the review sitting, 2026-09-02)
+
+> *"I do think you should be able to correct my typos when quoting me in
+> the repo or when you state back a sentence to me directly. As long as the
+> meaning of the sentence doesn't change. If you're in doubt you could
+> always send the examples of how you would write my words sin the repo for
+> me to confirm. I believe I have already said this before in a previous
+> session and that was supposed to be documented."*
+
+`DERIVED`: this record's own header rule — *verbatim, typos included* — is
+superseded for spelling and spacing, never for wording; the decision is the
+typo entry of 2026-09-02 in [`../decisions.md`](../decisions.md). The tree
+was searched for the earlier statement he remembers and holds none; that
+entry is its first home. The quotations already in this file are left as
+written (allowed to clean, not owed).
 
 ## 4 · Which model a dispatched agent runs on
 
