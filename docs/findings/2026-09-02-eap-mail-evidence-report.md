@@ -491,7 +491,7 @@ exposed:
   means this ledger is a **sample of the EAP record, not the EAP record**,
   and its survivor count should never be read as exhaustive.
 
-**Third check: Codex review of this PR (fm #1010), two rounds, 20 findings
+**Third check: Codex review of this PR (fm #1010), four rounds so far, 33 findings
 total, all addressed** — the drafted version of this report itself had
 errors, caught by exactly the external adversarial round the night brief's
 DECIDED section requires. Round 1 (10 findings) is summarized above where
