@@ -215,6 +215,14 @@ using FD-01/FD-02) is the draft's precondition. The review sitting ends by
 agreeing the mail's contents with him and handing the mail session a
 continuation prompt built for that.
 
+**The shape, chosen at the close of the sitting, `OWNER`:** put to him as
+three letters — A, Part 2 unchanged plus one addendum of about 450 words
+framed as the Projects-versus-sessions answer, the false-done rows in, Part
+1 drafted for him to rewrite, near 2,100 words in total; B, rewrite Part 2
+around the month after; C, the strict one-page cap — *"I think we can go
+with A. What's your opinion?"* The session's opinion was A as well, and the
+mail-session prompt carries it as DECIDED.
+
 ## 5c · The time after — what a Project adds over a session (owner, the review sitting, 2026-09-02)
 
 He raised it as the part of the mail he most wants to answer well:

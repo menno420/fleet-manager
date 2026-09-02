@@ -33,8 +33,9 @@ opts in himself; the word "ultracode" in a message of his is a description,
 not an opt-in — the harness misread it twice in two days. No agent runs on
 Fable unless he asks for it, in words, for that run (the model-tier entry of
 2026-09-02 in docs/decisions.md, as amended the same day). His words may be
-corrected for spelling when quoted, meaning unchanged — show him the cleaned
-sentence when in doubt (his rule, 2026-09-02, the typo entry of that day).
+corrected for spelling and lightly tightened for clarity when quoted, meaning
+unchanged — show him the cleaned sentence beside the original when in doubt
+(his rule, 2026-09-02, the typo entry of that day, as amended).
 
 WHERE THINGS STAND (verified at HEAD on 2026-09-02 — re-verify first)
 - The mail's working file is docs/planning/2026-08-24-final-eap-email-draft.md:
@@ -83,11 +84,26 @@ below cannot be applied from their headings.
 DECIDED (do not re-litigate — owner, 2026-09-02, quoted in § 5b–5d)
 - A session drafts the mail; he reads, edits and sends. The report stays
   evidence; the draft is built from it and from his answers.
+- SHAPE A (owner, 2026-09-02, at the close of the sitting: "I think we can
+  go with A"): Part 2 stays as it is — 1,686 words, the one-page cap he
+  chose 2026-08-25 — plus ONE addendum of at most ~450 words framed as the
+  Projects-versus-sessions answer below, total near 2,100 words; the shape
+  all three judges picked, keeping five rounds of verified Part 2 text
+  intact. With it: the false-done ledger IN as the evidence that
+  verification is the deciding line — FD-01 (a CI step claimed to run the
+  tests and did not, green reported on top), FD-02 (a README declaring
+  private, eight PR bodies repeating it, on a world-readable repo), FD-17
+  narrowed to its one sub-claim; read docs/findings/night-review-2026-07-10.md
+  before using FD-01 or FD-02 (report § 10 item 2). And Part 1 DRAFTED by
+  you from the beat table and his § 5d opinions, as a proposal he rewrites
+  in his own voice — beat 3, the verdict paragraph, is the one only he can
+  supply; say so in the card. B (rewrite Part 2 around the month after)
+  and C (the strict one-page cap, no addendum) were offered and not chosen.
 - The mail is the record of everything for both sides, the research
   interviews included; their overlap does not change it (his answer 6).
 - What the addendum SAYS about Projects versus sessions is his — the six
   plus six answers in § 5c–5d are the content, and the DERIVED answer under
-  them is the session's ordering of his words, checked with him. What the
+  them is the session's ordering of his words, checked with him. The
   addendum's frame is the answer to Anthropic's own question — what
   would make him choose a Project over a session — in his terms: what the
   two share (everything at the level of capability; a session on a wake
@@ -159,25 +175,6 @@ REJECTED, AND WHY
   recipients himself in Gmail.
 
 OPEN (what would settle each)
-- THE SHAPE, RECOMMENDED AND NOT YET ACCEPTED — put it to him first, as
-  one question, before drafting. The sitting proposed and he did not answer
-  in a word (the four-letter question went unanswered as the sitting moved
-  on to Projects versus sessions): (A) Part 2 stays as it is, 1,686 words,
-  the one-page cap he chose 2026-08-25, plus ONE addendum of at most ~450
-  words framed as the Projects-versus-sessions answer above, total near
-  2,100 words — the shape all three judges picked, keeping five rounds of
-  verified Part 2 text intact; (B) rewrite Part 2 around the month after;
-  (C) the strict one-page cap, no addendum. With A: the false-done ledger
-  IN as the evidence that verification is the deciding line — FD-01 (a CI
-  step claimed to run the tests and did not, green reported on top), FD-02
-  (a README declaring private, eight PR bodies repeating it, on a world-
-  readable repo), FD-17 narrowed to its one sub-claim; read
-  docs/findings/night-review-2026-07-10.md before using FD-01 or FD-02
-  (report § 10 item 2). And: Part 1 DRAFTED by you from the beat table and
-  his § 5d opinions, as a proposal he rewrites in his own voice — his words
-  were "a proper draft created which I can read and edit", which the
-  sitting read as both parts, unconfirmed. One word on each settles it;
-  your LEAST SURE line is the shape.
 - The judges' optional fourth addendum item (a clean result is
   indistinguishable from a check that never ran — ~100 words). Include only
   if he grants the words; two of three judges wanted it.

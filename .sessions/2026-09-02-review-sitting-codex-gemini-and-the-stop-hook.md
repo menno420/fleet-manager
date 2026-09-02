@@ -200,8 +200,10 @@ hook live with `CAP = 3`.
    pointer moved to E1 on his words (*"your continuation prompt will be
    for the email session"*), the kit records step demoted to "behind it".
    The mail's shape (A, false-done in, Part 1 drafted, ~2,100 words) went
-   to him as four letters and was not answered in a word — the prompt
-   carries the length as its LEAST SURE line.
+   to him as four letters and was not answered in a word at the time; the
+   prompt carried it as OPEN (Codex rounds 1 and 2 held it there) until he
+   answered at the close of the sitting — *"I think we can go with A"* —
+   after which the prompt carries it as DECIDED with his words.
 16. **His words may be corrected for spelling** (owner, live, after seeing
    his typos quoted into the record): landed as the typo entry of
    2026-09-02 in `docs/decisions.md` and § 3b of the owner-direction
