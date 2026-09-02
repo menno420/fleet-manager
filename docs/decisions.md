@@ -214,7 +214,8 @@
   (`ended_reason: run_once_fired`) and costs nothing to leave; if a recurring one
   must go, say so in the reply and he removes it in seconds. Enforced by
   `.claude/hooks/trigger_tools_guard.py`, which **denies** rather than warns —
-  the only denying hook in the estate — with `FM_ALLOW_TRIGGER_DELETE=1` as the
+  the only denying hook in the estate *(true until 2026-09-02; the Codex round
+  cap, [D-0039], is the second)* — with `FM_ALLOW_TRIGGER_DELETE=1` as the
   deliberate override for when he asks directly. Secondly, **`send_later` is not
   the tool for watching a PR**: `subscribe_pr_activity` wakes the session on
   comments, reviews and CI **failures**, but not CI success or a new push. A
@@ -1003,3 +1004,44 @@
   ChatGPT Work sessions, and local sessions opened directly in a clone.
 - provenance: owner, 2026-09-01, live; full quote in
   [`findings/2026-09-01-owner-direction.md`](findings/2026-09-01-owner-direction.md) § 4.
+
+## [D-0039] Codex review rounds are capped at three per PR — a hook denies the fourth, and the exit is fix · disclose · flip-or-hand-off
+
+- status: decided
+- date: 2026-09-02
+- verdict: Owner, live, 2026-09-02, after fm #1010 ran 17 rounds overnight:
+  *"For some reason it thought it was necessary to have 17 rounds of codex
+  reviews. I thought there was a rule to prevent this from happening.
+  Apparently not a good rule. I think there should be a maximum of 3 review
+  rounds at most, never more than that."* Three `@codex review` requests per
+  PR per session; `.claude/hooks/codex_round_guard.py` counts each one out
+  loud and denies the fourth (`FM_ALLOW_CODEX_ROUND=1` when he asks for
+  another himself). `DERIVED`, the session's reading of what the cap *means*,
+  put to him in the same reply and adopted unless he corrects it: **the cap is
+  an exit, not a merge-regardless.** At round three the session fixes what
+  was found, verifies the fix without Codex ([D-0019]'s Gemini route or a
+  direct source check), discloses anything unfixed in the PR and the card,
+  and then flips — or hands off with the state written down when the residue
+  is too large to ship. What it never does is a fourth round, or a merge with
+  a known error hidden.
+- why: [D-0019] said the same thing on 2026-08-29 as prose ("not after every
+  push") and fm #1010 requested a round after every one of its 16 fix pushes
+  anyway, 03:00Z → 06:30Z, because nothing in the session's feedback channel
+  said stop and the harness's own drive-to-green text said the opposite. A
+  cap needs no judgement, so it can be a deny — the shape the trigger guard
+  established ([D-0015]). Cost of the loop, measured: 17 Codex verdicts against
+  one 931-line report, five of them (by the session's own accounting) finding
+  only drift its previous fix had caused, because the report restated the
+  same facts in six places. The value was real too — factual reversals landed
+  as late as rounds 11, 14 and 15 — which is why the exit is disclose-then-flip
+  and not merge-regardless: a capped loop ships with its residue named; an
+  uncapped one ships whenever the reviewer happens to find nothing.
+- rules out: a fourth round without the override; "one clean round" as the
+  exit condition; restating a live fact in more than one place inside the same
+  PR (the churn's structural cause — `docs/traps.md` TRAP-009); reading the
+  cap as permission to merge with a known error undisclosed.
+- delivery: `.claude/hooks/codex_round_guard.py` + `tools/test_codex_round_guard.py`;
+  `.claude/settings.json` and `tools/install_root_hooks.py` (the rescue path);
+  the boot file's `@codex` bullet; `docs/traps.md` TRAP-009.
+- provenance: owner, live, 2026-09-02, quoted verbatim above; the measurement
+  is TRAP-009's ORIGIN.

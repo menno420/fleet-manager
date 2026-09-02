@@ -510,7 +510,8 @@ both. Only one of those facts was discoverable from a synthetic test.
 
 ## The trigger-tools guard — `trigger_tools_guard.py`
 
-**The only hook here that DENIES.** Everything else in this directory is
+**One of the two hooks here that DENY** (the other, `codex_round_guard.py`, is
+the section after this one). Everything else in this directory is
 advisory, because everything else involves judgement — is this text a wall, is
 this claim propagated, is this table malformed. This one involves none: a tool
 name is an exact string, and the owner has stated there is no legitimate
@@ -614,6 +615,60 @@ own current case count; do not maintain a second number here. The silence cases
 outnumber the fire cases on purpose. A `PreToolUse` guard sits in every tool call
 the session makes, and a guard that denies a legitimate call is worse than no
 guard when the owner is away to wave it through.
+
+---
+
+## The Codex round cap — `codex_round_guard.py`
+
+**The second hook here that DENIES**, added 2026-09-02, and it denies for the
+same reason the trigger guard does: the thing it decides on is a count, and a
+count needs no judgement.
+
+**Owner, live, 2026-09-02**, after reading fm #1010: *"For some reason it
+thought it was necessary to have 17 rounds of codex reviews. I thought there was
+a rule to prevent this from happening. Apparently not a good rule. I think there
+should be a maximum of 3 review rounds at most, never more than that."*
+
+There was a rule. [D-0019] (2026-08-29) — *"I don't think It's necessary to
+review after every push, that just wastes the usage limits"* — sat in the boot
+file and the decision ledger, and the night session requested a round after
+every one of its 16 fix pushes: 17 review objects, 88 inline threads, 03:00Z →
+06:30Z, on a 931-line report. Nothing in its feedback channel said stop; the
+cloud harness's drive-to-green text says *"there is no round limit"* and the
+session quoted that line back at round 13. `docs/traps.md` TRAP-009 carries the
+measurement; this hook is its delivery.
+
+| subject | behaviour | why |
+|---|---|---|
+| `mcp__*__add_issue_comment` / `pull_request_review_write` / `add_reply_to_pull_request_comment` whose body carries `@codex review` (or `@codex security review`) | rounds 1–3 **allowed and counted out loud** (`Codex review round N of 3 on PR #…`); round 4+ **denied** | the body is a named field, so "this posts a review request on PR #N" is an exact match |
+| a `Bash` command that visibly POSTs the phrase to `/issues/N/comments`, `/pulls/N/comments` or `/pulls/N/reviews` | same count, same deny | the route around the tools; needs phrase + endpoint + a POST verb together, so a `grep`, a quoted-heredoc doc, or a commit message stays silent |
+| the same body again (a retried call) | silent, not re-counted | a retry is not a round |
+| everything else | silent | including `@codex address that feedback`, which is a different command |
+
+**Deliberate override:** `FM_ALLOW_CODEX_ROUND=1`, for the case where he asks
+for another round himself; the note then says the override is in effect and
+asks for his ask to be named in the card.
+
+**What the denial says instead**, because a wall with no exit is what gets
+edited out: fix what the last round found (verified against source, never on
+the reviewer's word); verify the fix without Codex — the free-key Gemini route,
+[D-0019], or a direct re-check; disclose the residue in the PR comment and the
+card; then flip, or hand off with the state written down. A fourth round and a
+merge with a hidden error are the two moves it forbids.
+
+**What the count honestly is.** Session-local and per PR, keyed by the event's
+`session_id` like every other hook here. A PR another session already reviewed
+starts at zero — fm #1010's 17 rounds were one session, so this would have
+stopped it at its fourth request (03:46Z) instead of its seventeenth (06:21Z);
+a PR passed across sessions is not fully covered. It never reads GitHub: a hook
+has ten seconds and no promise of network, and a guard that sometimes cannot
+count is worse than one that counts a smaller, honest thing. The heredoc
+discipline is imported from `trigger_tools_guard.py` rather than re-derived.
+
+Suite: `python3 tools/test_codex_round_guard.py` — silence cases first, then
+the fm #1010 sequence walked exactly (three counted, the fourth denied, the
+override, the retry, a second PR), then the Bash leg. The executable prints its
+own case count.
 
 ---
 

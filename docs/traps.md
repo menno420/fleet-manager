@@ -418,6 +418,59 @@ demonstrated on itself.
 
 ---
 
+## TRAP-009 · A review loop with no exit condition
+
+- **TRIGGER** — you are about to post a fourth `@codex review` on the same PR,
+  or you are re-requesting a round because the previous one "still found
+  something".
+- **WHY** — three things combine, and none of them says stop. (1) A review
+  binds the head it ran on (TRAP-007), so every fix commit is a new head that
+  "needs" a round. (2) A reviewer shown a long prose document returns a P2
+  almost every time — and on fm #1010 five of the seventeen rounds (5, 10, 12,
+  16, 17, by the session's own per-round accounting) found only drift the
+  previous round's *own fix* had caused, because the report restated the same
+  facts in six places (front-matter summary, § 3, § 5's closing note, § 10, the
+  session card, the CONTRACTS sheet) and every correction had to be propagated
+  to all of them. (3) The cloud harness's own drive-to-green text reads *"there
+  is no round limit: repeated findings on your pushes mean fix the root cause,
+  not stop"*, and the session quoted it back in its round-13 comment. "One
+  clean round" is therefore not a reachable exit; the loop ran from the first
+  request at `02:53Z` to the seventeenth verdict at `06:30Z` and ended only
+  when the owner stopped it by hand.
+- **REQUIRED PREVENTION** — three rounds, then out: fix what round three
+  found, verify the fix without Codex (free-key Gemini, [D-0019], or a direct
+  check against source), disclose the residue in the PR comment and the card,
+  then flip — or hand off with the state written down. And the structural
+  half: **one canonical place per fact.** A number or a mechanism claim lives
+  in one section and every other surface points at it; the night session did
+  this for the round count at round 7 and for nothing else, which is why the
+  drift rounds existed.
+- **VERIFY** — each `@codex review` request prints `Codex review round N of 3
+  on PR #…` in the tool result; the fourth is denied with the exit spelled
+  out. No count means the guard did not load — root is not this repo (boot
+  triad case two or three), so run `tools/install_root_hooks.py --apply`.
+- **ORIGIN** — `MEASURED` 2026-09-02, fm #1010: 17 review objects on 17
+  successive heads (`94af16e` → `8470c9d`), 88 inline review threads, first
+  request `02:53:25Z`, last verdict `06:30:05Z`, 26 commits on the PR. The
+  rounds were not worthless — factual reversals of the report's own content
+  landed as late as rounds 11 (a wrong measurement spliced into a survivor; a
+  percentage correction that was itself backwards), 14 (a wrong cause
+  attribution; a marker-presence figure read as behavioural compliance) and 15
+  (round 14's own diagnosis, wrong) — which is exactly why the exit is
+  *disclose-then-flip*, never *merge-regardless*. The rule that should have
+  prevented the loop existed: [D-0019], 2026-08-29, *"I don't think It's
+  necessary to review after every push, that just wastes the usage limits"* —
+  prose in the boot file and the ledger, delivered at no moment. Owner, live,
+  2026-09-02: *"I thought there was a rule to prevent this from happening.
+  Apparently not a good rule. I think there should be a maximum of 3 review
+  rounds at most, never more than that."*
+- **route** — none; delivered by a **denying hook** instead,
+  [`.claude/hooks/codex_round_guard.py`](../.claude/hooks/codex_round_guard.py)
+  (`PreToolUse` on the MCP comment tools and on Bash POSTs to a comments
+  endpoint), because a count needs no judgement and a route's reminder would
+  be the fourth statement of a rule that three statements did not deliver.
+  Suite: `tools/test_codex_round_guard.py`. Decision: [D-0039].
+
 ## Coverage — stated so the gap is visible
 
 | trap | delivered by | deterministic checker |
@@ -430,10 +483,14 @@ demonstrated on itself.
 | TRAP-006 | **2 routes** — `card-flip-before-push` (Bash/push) + `card-status-write` (Edit/Write/MultiEdit) | not yet — the check would have to read the PR that does not exist yet |
 | TRAP-007 | **2 routes** — `card-flip-to-complete` (Edit/Write/MultiEdit, matches the completion transition) + `card-flip-before-push`, now `repeat: true` so it is never spent | not yet — a checker would have to know a review was *requested*, which is PR state, not tree state |
 | TRAP-008 | **1 route** — `listing-is-not-reading` (Bash/Edit/Write, `repeat: true`); reaches instances 1, 3, 6. Instances 2 and 5 are `read_before_write.py`'s; instance 4 is **undelivered** | not yet — a checker would have to know which claims are inherited |
+| TRAP-009 | **no route — a denying hook**, `.claude/hooks/codex_round_guard.py` (PreToolUse on the MCP comment tools + Bash POSTs to a comments endpoint) | ✅ the hook **is** the deterministic check — a per-PR count, no judgement; suite `tools/test_codex_round_guard.py` |
 
-**The honest state of this register: eight entries, seven delivered by route (TRAP-006
-and TRAP-007 by two each — they share `card-flip-before-push`), and TRAP-002 complete
-through the full § 5.4 lifecycle**
+**The honest state of this register: nine entries — seven delivered by route (TRAP-006
+and TRAP-007 by two each — they share `card-flip-before-push`), one (TRAP-009) delivered
+by a denying hook with no route at all, one (TRAP-005) undelivered — and two complete
+through the full § 5.4 lifecycle, TRAP-002 by checker and TRAP-009 by the hook itself**
+*(re-counted 2026-09-02 when TRAP-009 was added; the sentence below records why the
+count is re-read rather than incremented)*
 
 *(This sentence read "seven entries, six delivered" until 2026-09-01, when
 TRAP-008 was added directly above it and the count was not re-read. Corrected

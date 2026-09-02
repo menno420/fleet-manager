@@ -249,8 +249,9 @@ program law binding every repo.
   `commits/{sha}/check-runs` until every run is `completed`; measured on fm #833,
   green on the 2nd of 12 × 15 s iterations), or end the turn saying plainly that
   it is still pending. Enforced by
-  `.claude/hooks/trigger_tools_guard.py` — the estate's **only denying hook**,
-  because this is the one rule with no judgement in it.
+  `.claude/hooks/trigger_tools_guard.py` — one of the estate's **two denying
+  hooks** (the Codex round cap above is the other), because a rule with no
+  judgement in it is the only kind that may deny.
 
 ## Capabilities — record capabilities, never limitations
 Full verified matrix: **`docs/CAPABILITIES-verified-2026-07-18.md`** (+
@@ -296,7 +297,13 @@ Essentials:
   free-key Gemini route (`gemini-3.6-flash`, one call with the findings + the
   diff); the single Codex round then lands on the head that flips, which is
   also what TRAP-006/007's verdict-at-flip-head needs. First worked use:
-  fm #978 ([D-0019]).
+  fm #978 ([D-0019]). **Hard cap: three rounds per PR per session (owner,
+  live, 2026-09-02, [D-0039]) — `.claude/hooks/codex_round_guard.py` counts
+  each `@codex review` out loud and DENIES the fourth.** fm #1010 ran 17
+  rounds overnight (03:00Z → 06:30Z) because the cadence rule above was prose
+  only; the exit at round three is fix · verify without Codex · disclose the
+  residue · flip or hand off — never a fourth round, never a merge with a
+  known error hidden (`docs/traps.md` TRAP-009).
 - **Gemini: the free key is the route — Vertex is retired (owner, live,
   2026-08-29: the prepaid credits timed out days earlier, "the paid/vertex
   route does not work anymore").** `GEMINI_API_KEY` is **free tier** (AI
