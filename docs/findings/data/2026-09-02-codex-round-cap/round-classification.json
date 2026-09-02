@@ -1,0 +1,777 @@
+{
+ "rounds": {
+  "10": {
+   "round": 10,
+   "findings": [
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "sync-drift-self-inflicted",
+     "summary": "review_threads[52]: front-matter banner still called B5 'synthesized' and guaranteed raw candidate wording was never used alone, after round 9 (ecc5b50) fixed \u00a72 to quote B5 from result.verified[5].candidate.claim and synced the workflows README but not the report's own banner.",
+     "fix_action": "52fd100: banner rewritten to state the per-row rule (direct quote / synthesis for FD-02 / retained original candidate for B5); docs/findings/README.md index line synced (52fd100 diff @@ -4,10 and README.md:30)."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "sync-drift-self-inflicted",
+     "summary": "review_threads[53]: \u00a710 handoff still said L02/L08 'reversed between the pilot and the full run' after round 9's \u00a73 correction that L02 never entered the full run's claim pool (survives only as orphaned_corrections).",
+     "fix_action": "52fd100 report diff @@ -734: reworded to per-row next steps (L02's claim never entered the pool; L08 refuted from the cut superbot lane)."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "factual-correction-minor",
+     "summary": "review_threads[54]: round-9 fix ecc5b50 wrote that 'both A3-7's and B14's verifiers list permission-classifier-findings-consolidated-2026-07-16.md in what_i_opened'. Raw fleet-a-full result.verified[15] (B14): neither lens's what_i_opened contains that file; lens b already_covered_by = anthropic-email-4-classifier-regression-sent-2026-07-16.md (in the executed 6-file corpus); only A3-7 (result.verified[14]) opened it. Wrong claim introduced by the previous round's fix (not a propagation miss); ancillary \u00a71 corpus-gap paragraph + CONTRACTS CORPUS line.",
+     "fix_action": "52fd100: \u00a71 corpus paragraph and 05-CONTRACTS-night.md CORPUS line un-group B14 from A3-7 and record email-4 as B14's provenance ('B14 is NOT the same gap, checked directly, round 10')."
+    }
+   ],
+   "substantive_count": 1,
+   "self_inflicted_count": 2,
+   "cap3_would_have_shipped_error": false,
+   "note": "3 threads, all P2, all consequences of round 9's own fix (two propagation misses, one new wrong claim). Commit 52fd100 message matches the diff. No core content changed."
+  },
+  "11": {
+   "round": 11,
+   "findings": [
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "sync-drift-self-inflicted",
+     "summary": "review_threads[55]: \u00a72 header still promised every row is the first verifier's corrected_claim and the session card (:64-67) still said unusable corrections were 'synthesized' \u2014 two more copies of the B5-provenance statement rounds 9-10 corrected in the banner/\u00a72 row/READMEs.",
+     "fix_action": "b499449: \u00a72 header now 'every row except B5 \u2026 retained original candidate quotation'; session card deliverables paragraph synced."
+    },
+    {
+     "path": "docs/findings/data/workflows/05-eap-false-done-ledger.js",
+     "badge": "P2",
+     "category": "script-defect",
+     "summary": "review_threads[56]: 04-eap-mail-evidence-pass.js:22 uses bare truthiness on already_covered_by while 05:19-20 (isNegativeCoverage, added by round-1 fix 76834c8) normalizes 'none/n/a/not covered/no' \u2014 a rerun of both fleets applies different survival rules; 05 meta.phases and workflows/README.md:116 still said 'same rule as Fleet A'. Real executable divergence, but self-caused: created by the round-1 patch of 05 under a convention that leaves 04 verbatim-as-run.",
+     "fix_action": "b499449: DISCLOSED as a NOTE on the Fleet A AGGREGATE line of 05-CONTRACTS-night.md; neither script nor README text changed (the stale phrases were re-flagged in rounds 12, 13 and 14)."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "wording-precision",
+     "summary": "review_threads[57]: \u00a77 'Every judge's pre-send mechanics warning' \u2014 raw result.judges: the reproducibility/credentials caveat appears in judges[0] and judges[2] only; judges[1] has no such text (2 of 3 confirmed; which index is the 'evidence' judge not verified).",
+     "fix_action": "b499449 \u00a77: merged-to-main and stale-count warnings kept as all-three; reproducibility caveat attributed to the product and owner-rules judges only, [CORRECTED, round 11]."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "wording-precision",
+     "summary": "review_threads[58]: \u00a71 said the pilot's one superbot reader was 'the only superbot-side evidence in this pass'; Fleet A's result.prior_mails has 6 entries, 5 from superbot.",
+     "fix_action": "b499449 \u00a71: scoped to 'Fleet B's false-done pass', [SCOPED, round 11] marker."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "factual-reversal-core",
+     "summary": "review_threads[59]: \u00a72 survivor row 9 (A2-4+A2-5) said the 13 errors were 'scored against 116 committed statements, the statements caught 0'. result.verified[8].a.corrected_claim and .b.corrected_claim both give the two-part test (8 machine-decidable: 4 watched/2 built/2 declined; 3 human procedure; 1 no moment; 1 open); the 116/0 pair is a different measurement (current draft's Finding 3). Wording present since the original draft 8b6f9f8.",
+     "fix_action": "b499449 \u00a72 row 9 rewritten to the two-part-test scoring with a CORRECTED marker; CONTRACTS EXTERNAL logs it as a substantive core fix."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "factual-reversal-core",
+     "summary": "review_threads[60]: \u00a72 survivor row 2's [UNFIXED] flag said '7.0% of 925' was wrong and should be 6.5% (60/925). Raw: sum of refuter_count over all 284 rows of docs/findings/data/2026-08-29-agent-error-patterns.jsonl = 65; 65/925 = 7.03%; result.verified[1].a.discrepancies says 'the 7.0% is right and the 60 is the figure that does not reconcile' (lens b had said 'Fix 7.0% to 6.5%' and the report followed lens b). '60/925' present since draft 8b6f9f8.",
+     "fix_action": "b499449 \u00a72 row 2: [REVERSED, round 11 \u2014 '7.0%' is right, not wrong]; 60 named as the mismatched figure; 'do not change this row's percentage before send'."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "wording-precision",
+     "summary": "review_threads[61]: verbatim-quoted verifier ask line 'wall clock wrong by more than 3\u00d7' \u2014 10/4 = 2.5\u00d7, 10/3.43 \u2248 2.9\u00d7; only the top of the documented 10-16 range clears 3\u00d7.",
+     "fix_action": "b499449 \u00a72 row 12: quote kept verbatim; [CAVEAT, round 11] added (bound as 'up to 4\u00d7' or name the documented figure if used in the mail)."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "sync-drift-self-inflicted",
+     "summary": "review_threads[62]: \u00a73 pilot summary '11 refuted; 0 already-covered'. Raw fleet-b-pilot result.verified: lens b already_covered_by populated on L01, L02, L05, L06, L15 (plus 'Not covered\u2026' on L03/L04 and 'none \u2014' on L12/L13), lens a empty on all 15 rows, so 0 rows killed but the field was used. The full-run paragraph (report@52fd100 lines 313-324, 'Correction (Codex review, fm #1010): already_covered_by was NOT left empty on 0 rows') already carried this exact correction from an earlier round; the pilot copy of the same template sentence was never updated.",
+     "fix_action": "b499449 \u00a73: '0 rows killed by both-lenses coverage agreement' with the populated rows named, [CORRECTED, round 11]."
+    }
+   ],
+   "substantive_count": 3,
+   "self_inflicted_count": 2,
+   "cap3_would_have_shipped_error": true,
+   "note": "8 threads, all P2. Two core reversals (threads 59, 60) in \u00a72 survivor rows, both present since the original draft \u2014 a 3-round cap would have merged the report asserting the wrong scoring method for A2-4+A2-5 and directing the drafter to change a correct 7.0% to 6.5%. Thread 56 is counted substantive as a disclosed script design gap, but it is self-caused by round 1's patch of 05; re-bucket to sync-drift if origin outweighs the executable divergence. The 04 script was not touched in b499449 (stat: session card, guard-fires, report, CONTRACTS only)."
+  },
+  "12": {
+   "round": 12,
+   "findings": [
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "factual-correction-minor",
+     "summary": "review_threads[63]: round-11 fix b499449 called the two-part-test scoring the row's 'real, distinct measurement'; docs/findings/2026-08-09-error-to-mechanism.md:16-17 says 'Verdicts are REASONED; the two built checks and the one failed check are MEASURED', and result.verified[8].a.discrepancies[1] restates it. Certainty-label error introduced by the previous round's fix.",
+     "fix_action": "d8c3689 \u00a72 row 9: 'real, distinct basis \u2014 [CERTAINTY, round 12] labeled REASONED at source \u2026 not MEASURED'."
+    },
+    {
+     "path": "docs/findings/data/workflows/05-eap-false-done-ledger.js",
+     "badge": "P2",
+     "category": "sync-drift-self-inflicted",
+     "summary": "review_threads[64]: 05 meta.phases Verify detail and workflows/README.md:116 still said 'same survival rule as Fleet A/04' after round 11 disclosed the divergence only in the CONTRACTS sheet.",
+     "fix_action": "d8c3689: both phrases changed to 'same shape as Fleet A, but with negative-coverage-prose normalization 04 does not have'. (The session counted this one thread as two findings, which is why d8c3689 says '6 findings' for 5 threads.)"
+    },
+    {
+     "path": "docs/findings/data/workflows/05-CONTRACTS-night.md",
+     "badge": "P2",
+     "category": "sync-drift-self-inflicted",
+     "summary": "review_threads[65]: CONTRACTS PILOT line still said '0 already-covered' after round 11 corrected the report's pilot paragraph (thread 62).",
+     "fix_action": "d8c3689 CONTRACTS PILOT line: '0 rows killed by both-lenses coverage agreement (individual fit-lens verdicts DO populate already_covered_by for \u2026 L01, L02, L05, L06, L15 \u2026)'."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "factual-correction-minor",
+     "summary": "review_threads[66]: \u00a76 first owner quote silently normalized 'whih' \u2192 'which' and added a closing period, with no OWNER label; docs/findings/2026-08-28-od24-sitting-answers.md:642-645 reads 'whih would be a valuable addition to the mail' with no period.",
+     "fix_action": "d8c3689 \u00a76: quote restored verbatim including the typo, OWNER label and file:line citation added, [CORRECTED, round 12]."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "factual-correction-minor",
+     "summary": "review_threads[67]: \u00a76 'Rules for the mail, distilled' block sat under 'the owner's words' with no DERIVED marker although result.owner_words.rules_for_mail flags entries as distilled / 'not itself a verbatim rule'.",
+     "fix_action": "d8c3689 \u00a76: block relabeled 'DERIVED \u2014 rules for the mail, distilled' with the provenance caveat."
+    }
+   ],
+   "substantive_count": 3,
+   "self_inflicted_count": 2,
+   "cap3_would_have_shipped_error": false,
+   "note": "5 threads in the JSON (commit d8c3689 says 6 \u2014 thread 64 names two locations). All P2. No core content changed; the three substantive items are certainty/provenance labels and quote fidelity, one of them (63) introduced by round 11's own fix."
+  },
+  "13": {
+   "round": 13,
+   "findings": [
+    {
+     "path": ".sessions/2026-09-02-night-fleet-eap-audit.md",
+     "badge": "P2",
+     "category": "sync-drift-self-inflicted",
+     "summary": "review_threads[68]: session card item 4 (d8c3689 :55-58) still said both L02 and L08 'did not survive the larger corpus \u2014 kept in the report as a method finding' after \u00a73 (round 9) distinguished L08 (refuted, FD-13) from L02 (never in the claim pool).",
+     "fix_action": "dfda5a0: item 4 rewritten to name the two mechanisms \u2014 but retained the phrase 'kept as a method finding', which round 17 flags again."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "factual-correction-minor",
+     "summary": "review_threads[69]: three \u00a76 owner quotes (2026-09-01 mandate, 2026-07-21 thesis and throughline) carried no OWNER marker; round 12 had labeled only the first quote.",
+     "fix_action": "dfda5a0 \u00a76: OWNER labels added to all three with citations (owner-reflection-2026-07-21.md:189-191 / 191-193); the 2026-09-01 quote was marked 'not independently re-citable' (a new error, reversed round 14) and the two 2026-07-21 labels were themselves wrong (round 14 thread 79)."
+    },
+    {
+     "path": "docs/findings/data/workflows/05-eap-false-done-ledger.js",
+     "badge": "P2",
+     "category": "sync-drift-self-inflicted",
+     "summary": "review_threads[70]: 05:12 comment directly above dies() still read 'same rule as Fleet A (04-eap-mail-evidence-pass.js)' after round 12 fixed meta.phases and the README.",
+     "fix_action": "dfda5a0: comment rewritten 'Same SHAPE as Fleet A \u2026 but NOT the same rule: this fleet adds the isNegativeCoverage() normalization'."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "factual-reversal-core",
+     "summary": "review_threads[71]: \u00a72 survivor row 10 (A1-6) asserted 'roughly one in nine marked sections carried no actual content' (161 cards; 27-card sample). result.verified[10].a.discrepancies[0]: \"'empty' is the wrong word and the source contradicts it \u2026 a mechanical empty-section detector over all 161 August cards found zero empty review sections\"; .b.discrepancies[2] 'Denominator conflation'; the ~11% is idea-slot content in a disjoint 27-card sample. Row carried the candidate headline, not the verifier's corrected_claim, since draft 8b6f9f8. The session's commit message classed round 13 as 'no new factual reversals'.",
+     "fix_action": "dfda5a0 \u00a72 row 10 rewritten: 161/161 marker presence, zero empty review sections, ~11% of idea slots in the 27-card sample, kept as separate denominators, [CORRECTED, round 13]."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "wording-precision",
+     "summary": "review_threads[72]: \u00a72 row 3 '+127 sections' dropped the source/verifier '+1%' scale qualifier.",
+     "fix_action": "dfda5a0: '(+1%)' and 'small in scale, real in kind' added."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "wording-precision",
+     "summary": "review_threads[73]: \u00a73 L03 and FD-01 presented 'substrate-gate now runs the suite' (and 'mining gen-1 complete green') as verbatim PR #16 / heartbeat quotes; fleet-b-full result.verified FD-01 lens a and b discrepancies: 'No file in fleet-manager reproduces PR #16's body; the phrase is a fleet-manager reviewer's rendering' appearing in three forms. 73/121 substance unchanged.",
+     "fix_action": "dfda5a0 \u00a73: both places relabeled as fleet-manager's own rendering; 'FALSE as stated' cited to night-review-2026-07-10.md:330-334."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "factual-reversal-core",
+     "summary": "review_threads[74]: \u00a73 ledger row FD-02 said the standing R22 guard was appended AFTER the owner's API-verified flip. docs/launch-readiness-2026-07-10.md:545 puts the verified flip at ~15:12Z and :551-554 the ORDER 003 append at a76ada7 12:56Z; fleet-b-full FD-02 lens b discrepancies note the same 'ordering oddity'. Wording present since Fleet B landing commit 5a95d9e.",
+     "fix_action": "dfda5a0 \u00a73 FD-02: ordering reversed, both timestamps stated, marked CORRECTED; residue (missing visibility line) kept as holding either way."
+    }
+   ],
+   "substantive_count": 3,
+   "self_inflicted_count": 2,
+   "cap3_would_have_shipped_error": true,
+   "note": "7 threads in the JSON (commit dfda5a0 says 'Eight findings' \u2014 its FD-01/L03 bullet covers two quotes; cannot be reconciled further from this file). All P2. Two core items (71 in a \u00a72 survivor row, 74 in the \u00a73 ledger) both date from the original drafts, so a 3-round cap would have shipped them; the session itself labeled this round 'no new factual reversals', which the diff does not support for 71/74."
+  },
+  "14": {
+   "round": 14,
+   "findings": [
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "factual-reversal-core",
+     "summary": "review_threads[75]: \u00a73 said 'Both L02 and L08 drew their pilot-survival evidence from the one superbot reader unit \u2026 the exact unit skipSatellite cut' (sentence added by round-1 fix 76834c8). Raw fleet-b-pilot result.ranked[1]/verified[1] (L02): citation_claim and citation_found are both docs/eap-story.md:229-233, a fleet-manager file read in both runs; fleet-b-full orphaned_corrections carries the same Stripe correction unmatched. Round 14's replacement diagnosis ('extraction inconsistency across two independent reads') was itself wrong (round 15).",
+     "fix_action": "59f036f \u00a73: new paragraph attributing L08 to the superbot cut and L02 to reader inconsistency; \u00a710 handoff rewritten; CONTRACTS EXTERNAL logs it as a substantive reversal."
+    },
+    {
+     "path": "docs/findings/data/workflows/05-eap-false-done-ledger.js",
+     "badge": "P2",
+     "category": "sync-drift-self-inflicted",
+     "summary": "review_threads[76]: 05 Phase-3 heading comment (line 206 at ecc5b50) still said 'same rule as Fleet A' after round 13 fixed only the comment above dies().",
+     "fix_action": "59f036f: heading changed to 'same shape as Fleet A \u2014 NOT the same rule, see the aggregation-contract comment above dies()'."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "factual-correction-minor",
+     "summary": "review_threads[77]: round-13 fix dfda5a0 said the 2026-09-01 mandate quote was 'not independently re-citable to an in-repo file'; docs/findings/2026-09-01-owner-direction.md:73-75 reproduces it verbatim at the audited base. Wrong citation claim introduced by the previous round's fix.",
+     "fix_action": "59f036f \u00a76: citation restored with [CORRECTED, round 14] note."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "factual-reversal-core",
+     "summary": "review_threads[78]: \u00a72 survivor row 1 (A1-5+B10+B11) headline 'predicts whether agents follow it'. result.verified[0].b.discrepancies[0]: 'OVERCLAIM IN THE HEADLINE \u2026 compliance with a literal byte-form, not with the rule \u2026 302/302 cards structurally perfect, ~10% naming any skill, 5/302 using the estate's disposition vocabulary'. Row carried the candidate headline since the draft. The 335/302/503 numbers are unchanged (interpretation overclaim), but it is the survivor row's central claim and the session logged it as a substantive reversal.",
+     "fix_action": "59f036f \u00a72 row 1: [CORRECTED, round 14] block narrowing the claim to marker-adherence; the italic headline is left in place with the correction appended."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "factual-correction-minor",
+     "summary": "review_threads[79]: round 13 labeled the 2026-07-21 thesis and throughline quotes OWNER; docs/owner-reflection-2026-07-21.md:163-165 introduces the section as 'Guidance distilled from the whole email exchange' and result.owner_words.rules_for_the_mail calls them distilled guidance. The quotes had been presented as owner's words since the draft; round 13 made the wrong label explicit.",
+     "fix_action": "59f036f \u00a76: both relabeled DERIVED with the source caveat, [CORRECTED, round 14: mislabeled OWNER in round 13]."
+    },
+    {
+     "path": "docs/findings/data/workflows/05-eap-false-done-ledger.js",
+     "badge": "P2",
+     "category": "script-defect",
+     "summary": "review_threads[80]: isNegativeCoverage() (added by round-1 fix 76834c8) is prefix-only: pilot L04 lens b already_covered_by starts 'Not covered by docs/traps.md \u2026' then asserts real R22 coverage, and the regex classifies it negative. Checked: in both retained runs 0 verified rows have both lenses' already_covered_by non-empty (pilot 15 rows, full 28 rows), so the AND-gate was never reached and no dies() verdict flipped. Real gap in a fix-introduced function; empirically inert.",
+     "fix_action": "59f036f: 'DISCLOSED, NOT FIXED' comment at the function recording the empirical sweep; no code change."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "sync-drift-self-inflicted",
+     "summary": "review_threads[81]: \u00a77 pointed the drafter at result.spines[2] as close to send-ready; the retained spine text contains 'a disjoint 27-card sample found about one in nine marked sections held no real content' (present twice in spines[2]) \u2014 the exact A1-6 wording round 13 corrected in \u00a72; the pointer was not updated.",
+     "fix_action": "59f036f \u00a77: '\u26a0 DO NOT COPY THIS SPINE VERBATIM \u2014 [Codex review round 14]' warning added at the citation; spine JSON untouched."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "factual-correction-minor",
+     "summary": "review_threads[82]: \u00a74 prior-mail overlap table email-2 row had 4 cells under a 5-column header, shifting '10' into topics and blanking good-parts; result.prior_mails[1] (anthropic-email-2-draft) has topics 19, asks 10, good_parts 10.",
+     "fix_action": "59f036f \u00a74: topics cell restored (19 topics listed) with a CORRECTED note."
+    }
+   ],
+   "substantive_count": 6,
+   "self_inflicted_count": 2,
+   "cap3_would_have_shipped_error": true,
+   "note": "8 threads, all P2. Two core reversals: 75 (cause attribution written by round 1's fix, so inside a 3-round cap it would have shipped) and 78 (candidate headline since the draft). Three of the four minor items and the script gap were introduced by earlier fix commits (77/79 by round 13, 80 by round 1). Round 14's own new L02 diagnosis was wrong and is reversed in round 15."
+  },
+  "15": {
+   "round": 15,
+   "findings": [
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "factual-reversal-core",
+     "summary": "review_threads[83]: round-14 fix 59f036f diagnosed L02 as 'extraction inconsistency across two independent reads' (pilot reader reconstructed a claim, full-run reader did not). Raw fleet-b-pilot result.readers[0] (docs/eap-story.md 1-300): claims[] (21 entries) has no Stripe/venture-lab/membership-kit claim; corrections[9] carries the Stripe passage at docs/eap-story.md:229-233; result.ranked[1].certainty: 'the claim side is reconstructed from the correction record' \u2014 the pilot MERGE stage invented the claim against 05's no-manufacture mergeRules while both runs' readers agreed. Error introduced by the previous round's fix; the underlying wrong attribution had existed since round 1.",
+     "fix_action": "d8df5d9 \u00a73, \u00a710, front-matter and session card: L02 attributed to the pilot merge stage; cites 05-eap-false-done-ledger.js:171 (already stale in the same commit, see round 16)."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "sync-drift-self-inflicted",
+     "summary": "review_threads[84]: front-matter \u00a71 summary and session card :16-18 still said 'the full run cut the one superbot reader both depended on' after round 14 corrected \u00a73.",
+     "fix_action": "d8df5d9: both summaries rewritten to 'two different mechanisms \u2026 only L08 depended on the cut superbot reader', pointing to \u00a73."
+    },
+    {
+     "path": "docs/findings/data/workflows/05-eap-false-done-ledger.js",
+     "badge": "P2",
+     "category": "script-defect",
+     "summary": "review_threads[85]: FM_FILES/SB_FILES split at fixed line counts. Verified: docs/eap-story.md:300-303 is one bullet ('9 dropped send_later one-shots, 2 wedged crons \u2026 the damning line'); fleet-b-full result.readers[6] (eap-story 1-300) has no claim/correction mentioning it, readers[7] (301-580) extracted only the 'damning line' correction cited eap-story.md:301-303 \u2014 the 9/2 counts never entered the pool. Original design gap, not fix-caused.",
+     "fix_action": "d8df5d9: 'DISCLOSED, NOT FIXED' comment above FM_FILES plus a new \u00a75 corpus-gap bullet in the report; splits unchanged."
+    }
+   ],
+   "substantive_count": 2,
+   "self_inflicted_count": 1,
+   "cap3_would_have_shipped_error": true,
+   "note": "3 threads, all P2. The core reversal (83) reverses round 14's own diagnosis, so under a 3-round cap this specific error would not exist \u2014 but the L02 cause attribution shipped at round 3 would have been round 1's wrong 'both depended on the cut superbot reader' version, so the flag stands on the underlying claim. 85 is the only original (non-fix-caused) script defect in rounds 10-17."
+  },
+  "16": {
+   "round": 16,
+   "findings": [
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "sync-drift-self-inflicted",
+     "summary": "review_threads[86]: round 15 inserted an 11-line disclosure comment above FM_FILES, moving mergeRules ('do not manufacture') from 05-eap-false-done-ledger.js:171 (at 59f036f) to :182 (at d8df5d9); the three ':171' citations round 15 itself wrote (report :482 and :912, 05-CONTRACTS-night.md:26) pointed at unrelated text.",
+     "fix_action": "8470c9d: all three citations updated to :182; CONTRACTS EXTERNAL tally bumped."
+    }
+   ],
+   "substantive_count": 0,
+   "self_inflicted_count": 1,
+   "cap3_would_have_shipped_error": false,
+   "note": "1 thread, P2, a line-number shift caused entirely by the previous commit's own insertion."
+  },
+  "17": {
+   "round": 17,
+   "findings": [
+    {
+     "path": ".sessions/2026-09-02-night-fleet-eap-audit.md",
+     "badge": "P2",
+     "category": "sync-drift-self-inflicted",
+     "summary": "review_threads[87]: session card item 4 at HEAD 8470c9d line 57 still reads 'kept as a method finding, not smoothed into a symmetric pair'; the report's \u00a73 (rounds 9/14/15) and the card's own top banner (round 15, lines 16-20) say the corpora are non-nested and L02 was a merge-stage invention \u2014 this second card copy was reworded in round 13 but never synced to the later corrections.",
+     "fix_action": "Not yet fixed \u2014 no commit after 8470c9d on this branch."
+    }
+   ],
+   "substantive_count": 0,
+   "self_inflicted_count": 1,
+   "cap3_would_have_shipped_error": false,
+   "note": "1 thread, P2, unresolved (is_resolved=false, is_outdated=false). Same statement family as threads 53, 68 and 84 \u2014 the fifth round to touch L02's fate in the session card/handoff copies."
+  },
+  "1": {
+   "round": 1,
+   "note": "Reviewed 94af16e, fixed in 76834c8 (03:07:31Z). Bucketed 9 threads (03:00:11-03:00:13Z; 5xP1, 4xP2), but the fix commit message, CONTRACTS EXTERNAL line and later Codex tally (thread [33]: '10+10+8+5+1') all say 10 findings; the JSON has totalCount 88 with hasNextPage false, so no thread is missing from the file \u2014 the 10th 'finding' is not an inline thread and I could not identify it. All 9 threads addressed per the commit; none rejected. Four core reversals in the original report (FD-17 scope, '0 already-covered' cause, 48-reader/16x arithmetic, reversal-at-scale framing), four script defects, one wording overclaim; zero self-inflicted (first round).",
+   "findings": [
+    {
+     "path": "docs/findings/data/workflows/05-eap-false-done-ledger.js",
+     "badge": "P1",
+     "category": "script-defect",
+     "summary": "review_threads[0] 03:00:11Z: critic prompt labelled the planned FM_FILES/SB_FILES as READ even on skipSatellite/pilotOnly runs; raw fleet-b-full result.counts shows fm_units 16, sb_units 0, so the critic was told 30 superbot files were read.",
+     "fix_action": "Fixed in 76834c8 hunk @@ -198,11 +209,19 @@: READ now built from fmOut/sbOut (executed units) with n/N unit counts."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P1",
+     "category": "factual-reversal-core",
+     "summary": "review_threads[1] 03:00:11Z: FD-17 published all six merged sub-claims as one surviving false-done although the fit-lens corrected_claim narrows it to the OA-002/Codex stamp; confirmed at fleet-b-full result.verified[16].b.corrected_claim ('Narrow FD-17 from six merged items to the one...').",
+     "fix_action": "Fixed in 76834c8 report hunk @@ -261,29 +268,43 @@: FD-17 row rewritten to the single OA-002 sub-claim, the other five listed as not-false-dones."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "factual-reversal-core",
+     "summary": "review_threads[2] 03:00:11Z: \u00a73 attributed '0 already-covered' to already_covered_by never being populated; raw fleet-b-full shows 20 non-empty fit-lens values, incl. result.verified[1].b ('docs/playbook.md:370-378 (fleet rule R22)') and [16].b (TRAP-006/007) on two survivors.",
+     "fix_action": "Fixed in 76834c8 report hunk @@ -239,10 +239,17 @@ (Correction paragraph naming FD-02 R22 and FD-17 TRAP-006/007) and \u00a75 hunk @@ -383,20 +404,27 @@."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "factual-reversal-core",
+     "summary": "review_threads[3] 03:00:11Z: report said '48 readers' and a '16x corpus increase' (94af16e lines 283, 386-387) while raw result.counts is fm_units 16 / sb_units 0 (~5.3x over the 3-unit pilot).",
+     "fix_action": "Fixed in 76834c8 hunk @@ -383,20 +404,27 @@: '16 readers \u2192 3 survivors', '~5.3x, not 16x'."
+    },
+    {
+     "path": "docs/findings/data/workflows/05-eap-false-done-ledger.js",
+     "badge": "P1",
+     "category": "script-defect",
+     "summary": "review_threads[4] 03:00:11Z: dedupe/rank stage receives 150 merged rows but returns at most 30; raw fleet-b-full result.ranked[29].id = 'DROP-B \u2014 real false-dones that did not fit the 30-row cap (22 candidate rows)', never verified or reported.",
+     "fix_action": "Disclosed/partially mitigated in 76834c8 hunk @@ -163,13 +169,18 @@: KNOWN LIMIT comment, cap raised 30\u219245, rankedButUnverified logged and passed to the critic and returned; CONTRACTS UNCONTRACTED line says 'logged now, not fixed' (batching left for a later session)."
+    },
+    {
+     "path": "docs/findings/data/workflows/05-eap-false-done-ledger.js",
+     "badge": "P2",
+     "category": "script-defect",
+     "summary": "review_threads[5] 03:00:13Z: dies() treated any non-empty already_covered_by as affirmative; raw output contains negative prose ('none \u2014 ...' at result.verified[3].b, [12].b, [20].b), so two negative answers would kill a row.",
+     "fix_action": "Fixed in 76834c8 hunk @@ -10,14 +10,20 @@: isNegativeCoverage regex + 4th fixture; archival header added to 04-eap-mail-evidence-pass.js lines 1-9 (shares the expression, committed as-run)."
+    },
+    {
+     "path": "docs/findings/data/workflows/README.md",
+     "badge": "P2",
+     "category": "wording-precision",
+     "summary": "review_threads[6] 03:00:13Z: README claimed both critics 'reproduced in full' while the report summarizes selected findings and points to raw JSON.",
+     "fix_action": "Fixed in 76834c8 README.md line 118: 'key findings summarized (not reproduced in full...)'. Same phrase in the session card and findings index was NOT touched here (resurfaces as [14],[23],[27])."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P1",
+     "category": "factual-reversal-core",
+     "summary": "review_threads[7] 03:00:13Z: 'Reversed from the pilot, on the larger corpus' attributed L02/L08 non-survival to scale/verifier instability; pilot read 2 fm + 1 superbot unit, full run 16 fm + 0 superbot (raw counts), so the corpora are not nested.",
+     "fix_action": "Fixed in 76834c8 hunk @@ -261,29 +268,43 @@: 'CORRECTED framing ... the two corpora are not nested ... removing the superbot lane removed the evidence those two rows depended on'."
+    },
+    {
+     "path": "docs/findings/data/workflows/05-eap-false-done-ledger.js",
+     "badge": "P1",
+     "category": "script-defect",
+     "summary": "review_threads[8] 03:00:13Z: critic received only id/claim/actually for survivors and id/claim/reason for non-survivors, no what_i_opened/discrepancies/corrected_claim, so it could not audit thin verification or meaning-changing corrections (e.g. FD-17).",
+     "fix_action": "Fixed in 76834c8 hunk @@ -198,11 +209,19 @@: SURVIVORS/NON-SURVIVORS now carry lens_holds: r.a and lens_fit: r.b."
+    }
+   ],
+   "substantive_count": 8,
+   "self_inflicted_count": 0,
+   "cap3_would_have_shipped_error": false
+  },
+  "2": {
+   "round": 2,
+   "note": "Reviewed 76834c8, fixed in d49d437 (03:23:02Z). Bucketed 11 threads (03:17:35-36Z, all P2) vs the commit's '10 more findings'. Thread [14] (session card 'in full') was NOT fixed in d49d437 \u2014 .sessions/2026-09-02-night-fleet-eap-audit.md line 63 still reads 'completeness critics in full' at d49d437 (the card diff there touched only the Status block); it was re-raised as round-3 [23] and fixed in 1965aa9. Two core reversals (judge scores, FD-01 independence), one minor factual error introduced by the round-1 fix, three script defects, three self-inflicted, two wording.",
+   "findings": [
+    {
+     "path": "docs/findings/data/workflows/05-eap-false-done-ledger.js",
+     "badge": "P2",
+     "category": "script-defect",
+     "summary": "review_threads[9] 03:17:35Z: round-1 normalizer matched only none/not covered/no; raw fleet-b-full result.verified[25].b.already_covered_by = 'n/a \u2014 neither docs/traps.md nor ...' would still count as coverage.",
+     "fix_action": "Fixed in d49d437 hunk @@ -14,16 +14,18 @@: regex broadened to (none|n\\/a|not\\s+covered|no\\b), 4th fixture uses the n/a form."
+    },
+    {
+     "path": "docs/findings/data/workflows/05-eap-false-done-ledger.js",
+     "badge": "P2",
+     "category": "script-defect",
+     "summary": "review_threads[10] 03:17:35Z: round-1's READ list used the model-authored source string, which a split reader can render as a bare path without its range, hiding a failed sibling half.",
+     "fix_action": "Fixed in d49d437 hunk @@ -138,6 +140,11 @@ and the READ line: index-aligned fmOkLabels/sbOkLabels from FM_UNITS/SB_UNITS.label."
+    },
+    {
+     "path": "docs/findings/data/workflows/05-eap-false-done-ledger.js",
+     "badge": "P2",
+     "category": "sync-drift-self-inflicted",
+     "summary": "review_threads[11] 03:17:35Z: log string said 'aggregation fixtures: 3 kill, 2 survive' for a 4-fixture table (2 kill, 2 survive). Introduced by 76834c8's own edit (hunk @@ -10,14 +10,20 @@ added the 4th fixture and mis-wrote the tally); no runtime effect.",
+     "fix_action": "Fixed in d49d437 hunk @@ -14,16 +14,18 @@: '2 kill, 2 survive'."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "factual-correction-minor",
+     "summary": "review_threads[12] 03:17:35Z: \u00a75 line '(verifiers cited it from general knowledge of the file, not from a corpus read)' was wrong \u2014 both verifier prompts direct a docs/traps.md check and FD-17's records cite it by section. The sentence did not exist at 94af16e (grep count 0); it was written by the round-1 fix 76834c8.",
+     "fix_action": "Fixed in d49d437 hunk @@ -414,15 +425,21 @@: 'CORRECTED ... verifiers did open it directly'; gap narrowed to 'no READER read docs/traps.md as a corpus item'. (I did not independently confirm traps.md in result.verified[16].a.what_i_opened.)"
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "sync-drift-self-inflicted",
+     "summary": "review_threads[13] 03:17:35Z: executive summary (\u00a70) still said 'two of the pilot's four survivors reversed on the larger corpus' after 76834c8 corrected \u00a73 to the non-nested framing.",
+     "fix_action": "Fixed in d49d437 hunk @@ -27,8 +31,11 @@."
+    },
+    {
+     "path": ".sessions/2026-09-02-night-fleet-eap-audit.md",
+     "badge": "P2",
+     "category": "sync-drift-self-inflicted",
+     "summary": "review_threads[14] 03:17:36Z: session card still says both critics reproduced 'in full' after the workflows README fix in 76834c8.",
+     "fix_action": "NOT addressed in d49d437 (card line 63 still 'critics in full'; only the Status block changed). Fixed in 1965aa9 card hunk @@ -60,9 +60,11 @@ after re-raise as round-3 thread [23]."
+    },
+    {
+     "path": "docs/findings/data/workflows/05-eap-false-done-ledger.js",
+     "badge": "P2",
+     "category": "script-defect",
+     "summary": "review_threads[15] 03:17:36Z: merge prompt allowed at most 25 rows per group while CHUNK=40 corrections per group, so up to 15 genuine matches per group could vanish.",
+     "fix_action": "Fixed in d49d437 hunk @@ -159,7 +166,7 @@: 'Produce up to ${CHUNK} rows ... do not drop a genuine match'."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "wording-precision",
+     "summary": "review_threads[16] 03:17:36Z: front-matter banner 'Non-survivors are listed with their reason' was true for Fleet A only; Fleet B's 25 carry only 'refuted' in the report.",
+     "fix_action": "Fixed in d49d437 hunk @@ -4,8 +4,12 @@: banner narrowed, points to raw verifier records."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "factual-reversal-core",
+     "summary": "review_threads[17] 03:17:36Z: \u00a77 gave spine 0 as 16/17/14 and spine 1 as 17/18/13 (94af16e line 446); raw fleet-a result.judges[0..2].scores: spine 0 totals 16/14/17, spine 1 totals 17/16/13 \u2014 no judge gave spine 1 an 18.",
+     "fix_action": "Fixed in d49d437 hunk @@ -495,8 +516,9 @@: '16/14/17 and 17/16/13, judge-1/judge-2/judge-3 order'."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "wording-precision",
+     "summary": "review_threads[18] 03:17:36Z: \u00a77 called the null-result graft recommendation unanimous; only judges[0] and [1] recommend it, judges[2].graft_from_others opens with the method-caveat/merge-precondition grafts (fleet-a raw).",
+     "fix_action": "Fixed in d49d437 hunk @@ -518,12 +540,19 @@: 'Two of three judges' ... The owner-rules judge recommends a different reserve fourth ask'. \u00a72 item 3 copy left untouched (resurfaces as [21])."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "factual-reversal-core",
+     "summary": "review_threads[19] 03:17:36Z: FD-01 row claimed 'two independent citation paths' (94af16e line 252); raw fleet-b-full result.verified[0].a.what_i_opened names docs/findings/night-review-2026-07-10.md:320-352 as 'the primary record' of which eap-story/launch-readiness are retellings.",
+     "fix_action": "Fixed in d49d437 hunk @@ -256,9 +263,13 @@: 'two corroborating retellings of the same primary measurement, not independent evidence'."
+    }
+   ],
+   "substantive_count": 6,
+   "self_inflicted_count": 3,
+   "cap3_would_have_shipped_error": false
+  },
+  "3": {
+   "round": 3,
+   "note": "Reviewed d49d437, fixed in 1965aa9 (03:36:32Z). Bucketed 7 threads (03:32:17Z; 1xP1, 6xP2) vs the commit's '8 more findings'. Three of seven are copies not updated by earlier fixes (CONTRACTS AGGREGATE line, \u00a72 'unanimous', session card 'in full' \u2014 the last a second raise of round-2 [14]). Real content: filter(Boolean) silent group loss (fixed), asymmetric lens scope (disclosed), scratch-path citation (fixed). '[22] unauditable beyond refuted' is original text (94af16e line 291) that the round-2 banner fix contradicted; classified wording, since the session's own commit calls it 'residue' and the fix only distinguishes 'not pulled into this report' from 'absent from raw output'.",
+   "findings": [
+    {
+     "path": "docs/findings/data/workflows/05-CONTRACTS-night.md",
+     "badge": "P2",
+     "category": "sync-drift-self-inflicted",
+     "summary": "review_threads[20] 03:32:17Z: Fleet B AGGREGATE line still recorded the bare-truthiness dies() and 3-fixture 2/3-vs-1/3 tally after 76834c8/d49d437 changed the script to isNegativeCoverage and 4 fixtures.",
+     "fix_action": "Fixed in 1965aa9 CONTRACTS hunk @@ -16,7 +16,7 @@: expression updated, 'fixture kill 2/4, survive 2/4 (current script; the run itself asserted the original 3-fixture form)'."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "sync-drift-self-inflicted",
+     "summary": "review_threads[21] 03:32:17Z: \u00a72 item 3 (line 125-129) still said the graft recommendation was 'unanimous across all three judges' after d49d437 fixed \u00a77 only.",
+     "fix_action": "Fixed in 1965aa9 hunk @@ -125,8 +125,9 @@: 'from 2 of the 3 judges ... not unanimous'."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "wording-precision",
+     "summary": "review_threads[22] 03:32:17Z: \u00a73 said '25 of 28 rows are currently unauditable beyond refuted' (94af16e line 291) and \u00a75 'no audit trail for refutations', overstating a limitation \u2014 the raw JSON retains both verifier records per non-survivor (confirmed: fleet-b-full result.verified[i].a/.b present on all 28).",
+     "fix_action": "Fixed in 1965aa9 hunks @@ -317,11 +322,15 @@ ('only the word refuted IN THIS REPORT \u2014 not in the raw output') and @@ -397,10 +406,13 @@."
+    },
+    {
+     "path": ".sessions/2026-09-02-night-fleet-eap-audit.md",
+     "badge": "P2",
+     "category": "sync-drift-self-inflicted",
+     "summary": "review_threads[23] 03:32:17Z: session card Report section still says both critics reproduced 'in full' (second raise; round-2 [14] was missed by d49d437).",
+     "fix_action": "Fixed in 1965aa9 card hunk @@ -60,9 +60,11 @@: 'critics, summarized (full detail in the raw JSON...)'."
+    },
+    {
+     "path": "docs/findings/data/workflows/05-eap-false-done-ledger.js",
+     "badge": "P2",
+     "category": "script-defect",
+     "summary": "review_threads[24] 03:32:17Z: holds-lens prompt limits overlap to two named sources while fit-lens searches broadly, yet dies() needs both populated; raw result.verified[1] (FD-02) survives=True with b.already_covered_by naming playbook R22 and a empty.",
+     "fix_action": "Disclosed, not fixed: 1965aa9 CONTRACTS UNCONTRACTED 'ASYMMETRIC COVERAGE (Codex review round 3 ... not fixed)' and report \u00a75 Round 3 paragraph; no prompt change."
+    },
+    {
+     "path": "docs/findings/data/workflows/05-eap-false-done-ledger.js",
+     "badge": "P1",
+     "category": "script-defect",
+     "summary": "review_threads[25] 03:32:17Z: parallel(...).filter(Boolean) on merge groups silently drops a whole failed group's up-to-40 corrections with no log, no orphan entry, no critic visibility.",
+     "fix_action": "Fixed in 1965aa9 hunk @@ -164,17 +164,25 @@: mergePartsRaw kept index-aligned, failedGroups/unprocessedCorrections logged, passed to the critic (@@ -229,17 +237,20 @@) and returned in counts."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "factual-correction-minor",
+     "summary": "review_threads[26] 03:32:17Z: L02 claim citation pointed at the uncommitted scratch path /tmp/eap-night/superbot-eap/fleet-overnight-review-2026-07-10.md:33,105.",
+     "fix_action": "Fixed in 1965aa9 hunk @@ -217,9 +218,13 @@: 'superbot:docs/eap/fleet-overnight-review-2026-07-10.md:33,105 at pinned SHA 5e3a667'."
+    }
+   ],
+   "substantive_count": 3,
+   "self_inflicted_count": 3,
+   "cap3_would_have_shipped_error": false
+  },
+  "4": {
+   "round": 4,
+   "note": "Reviewed 1965aa9, fixed in a742ec7 (03:46:05Z). 5 threads (03:43:15-16Z; 1xP1, 4xP2), matching the commit's count. One core reversal: survivor #12 in \u00a72 still quoted the broad merge-stage ask although the fit-lens corrected_claim (fleet-a result.verified[12].b) begins 'Drop leg 1 entirely' \u2014 original error present at 94af16e lines 186-188, so a 3-round cap would have merged the report with the wrong survivor wording. Plus one script fix (dedupe null fallback), one minor error introduced by the round-3 fix ('failure count is unknown'), and two stale copies ('in full' in the findings index; card round count).",
+   "findings": [
+    {
+     "path": "docs/findings/README.md",
+     "badge": "P2",
+     "category": "sync-drift-self-inflicted",
+     "summary": "review_threads[27] 03:43:15Z: findings index row (line 30) still says both critics 'in full' after the workflows README (76834c8), report and session card (1965aa9) were corrected.",
+     "fix_action": "Fixed in a742ec7 README.md line 30: 'critics **summarized** (full detail in the raw JSON...)'; also changed '(unanimous winner)' to '(unanimous on the winning spine, not on every graft recommendation)'."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "factual-correction-minor",
+     "summary": "review_threads[28] 03:43:15Z: '(this run's actual failure count is unknown...)' \u2014 written by 1965aa9 (line 514) \u2014 was wrong; raw fleet-b-full result.counts merged 150 + orphaned 182 = 332 = corrections, i.e. zero failed merge groups.",
+     "fix_action": "Fixed in a742ec7 hunk @@ -511,8 +533,11 @@: '[CORRECTED, round 4] ... 150 + 182 = 332 = corrections exactly, so this actual run had zero merge-group failures'."
+    },
+    {
+     "path": "docs/findings/data/workflows/05-eap-false-done-ledger.js",
+     "badge": "P1",
+     "category": "script-defect",
+     "summary": "review_threads[29] 03:43:15Z: if the single dedupe agent returned null the `[]` fallback discarded all 150 merged rows and the run continued with ranked: 0.",
+     "fix_action": "Fixed in a742ec7 hunk @@ -192,7 +192,13 @@: dedupFailed \u2192 fall back to mergedRows and log 'DEDUPE FAILED'."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "factual-reversal-core",
+     "summary": "review_threads[30] 03:43:15Z: \u00a72 survivor #12 (A3-1+A2-1+B13) quoted the broad 'see the other sessions' ask (94af16e lines 186-188) although the fit-lens corrected_claim (fleet-a result.verified[12].b) says 'Drop leg 1 entirely (it is draft ask 3 and July ask (d)7 restated)' and narrows to reservation + concurrency.",
+     "fix_action": "Fixed in a742ec7 hunk @@ -191,11 +191,33 @@: row rewritten as 'NARROWED ... the fit-lens verifier explicitly drops the row's first leg', with the two-leg ask and proposed ask line."
+    },
+    {
+     "path": ".sessions/2026-09-02-night-fleet-eap-audit.md",
+     "badge": "P2",
+     "category": "sync-drift-self-inflicted",
+     "summary": "review_threads[31] 03:43:16Z: card Status still said 'Codex round 2 (10 more findings) landed ... round 3 requested' on a head where round 3 was already fixed; CONTRACTS EXTERNAL and the report closing note still said 'two rounds, 20 findings'.",
+     "fix_action": "Fixed in a742ec7: card Status \u2192 'rounds 1-4 landed (10+10+8+5 findings, 33 total)'; CONTRACTS EXTERNAL \u2192 'FOUR Codex rounds so far'. The report's closing note was NOT updated (becomes round-5 [32])."
+    }
+   ],
+   "substantive_count": 3,
+   "self_inflicted_count": 2,
+   "cap3_would_have_shipped_error": true
+  },
+  "5": {
+   "round": 5,
+   "note": "Reviewed a742ec7, fixed in 130bd83 (03:51:04Z). Single P2 thread (03:50:05Z): the report's closing note tally, which round 4 updated in the card and CONTRACTS but not in the report. Entire round is self-inflicted drift; the fix commit changed exactly one line of the report (stat: 2 +-).",
+   "findings": [
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "sync-drift-self-inflicted",
+     "summary": "review_threads[32] 03:50:05Z: \u00a75 closing note still 'two rounds, 20 findings' while card and CONTRACTS say four rounds / 33 (a742ec7 missed this copy).",
+     "fix_action": "Fixed in 130bd83 hunk @@ -491,7 +491,7 @@: 'four rounds so far, 33 findings' \u2014 itself stale on the next head (round-6 [33])."
+    }
+   ],
+   "substantive_count": 0,
+   "self_inflicted_count": 1,
+   "cap3_would_have_shipped_error": false
+  },
+  "6": {
+   "round": 6,
+   "note": "Reviewed 130bd83, fixed in fd4bdc2 (04:03:36Z). 3 threads (04:00:27Z, all P2). One real script defect (reader prompt never bounded CLAIMS to the EAP window; the session measured 30/505 post-window claims \u2014 my crude filter on result.readers[].claims[].date_stated > '2026-07-21' gives 61, formats unnormalised, not reconciled), one banner overclaim, one stale tally (structural: the round-5 fix is what round 6 reviews). No core reversal.",
+   "findings": [
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "sync-drift-self-inflicted",
+     "summary": "review_threads[33] 04:00:27Z: closing note at 130bd83 says four rounds / 33 while 130bd83 itself is the round-5 fix; card and CONTRACTS also still describe round 5 as pending.",
+     "fix_action": "Fixed in fd4bdc2: report @@ -491,7 +494,7 @@ 'six rounds so far, 37 findings'; card Status 'rounds 1-6 landed'; CONTRACTS 'SIX'; commit message concedes 'an inherent one-round lag'."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "wording-precision",
+     "summary": "review_threads[34] 04:00:27Z: banner 'Every finding below is quoted from a verifier's corrected_claim' overclaimed \u2014 B5 prints candidate wording because fleet-a result.verified[5].a.corrected_claim begins 'Holds as written; the numbers 9, 7, 5 and 2...', and FD-02 is a synthesis of both lenses.",
+     "fix_action": "Fixed in fd4bdc2 hunk @@ -2,9 +2,12 @@: banner now describes both provenance paths (quoted vs synthesized, naming B5 and FD-02). Copies in the findings index, session card and workflows README untouched (rounds 7, 8, 9)."
+    },
+    {
+     "path": "docs/findings/data/workflows/05-eap-false-done-ledger.js",
+     "badge": "P2",
+     "category": "script-defect",
+     "summary": "review_threads[35] 04:00:27Z: readerPrompt extracted every done-claim with no EAP date boundary, so post-07-21 estate history consumed the capped merge/rank/verify stages (e.g. FD-20 claimed_when 2026-07-26 at result.verified[19]).",
+     "fix_action": "Fixed in fd4bdc2 hunk @@ -77,8 +77,8 @@: CLAIMS bounded 'ON OR BEFORE 2026-07-21', corrections unbounded; CONTRACTS 'DATE-SCOPE CREEP' entry records 30/505 and that all 3 survivors are in-window."
+    }
+   ],
+   "substantive_count": 1,
+   "self_inflicted_count": 1,
+   "cap3_would_have_shipped_error": false
+  },
+  "7": {
+   "round": 7,
+   "note": "Reviewed fd4bdc2, fixed in fee0e4b (04:14:22Z). 6 threads (04:10:50-53Z, all P2). One core reversal: \u00a72 finding #1's '[UNFIXED] ... verifier could reproduce only 9' (original at 94af16e lines 89-91) misrepresented the raw verdicts \u2014 fleet-a result.verified[0].a.discrepancies says 'I counted the rows myself: exactly 10 of 20 ... the candidate's 10 is right'; only the fit lens and result.critic say 9. Two script items (lower date bound fixed; critic-lacks-claimPool disclosed), one RETAIN overpromise removed (doc-only), two stale index copies. fee0e4b also introduced the 'one place for the live tally' rule while keeping a second live tally in the report note (round-8 [45]).",
+   "findings": [
+    {
+     "path": "docs/findings/data/workflows/05-eap-false-done-ledger.js",
+     "badge": "P2",
+     "category": "script-defect",
+     "summary": "review_threads[36] 04:10:50Z: round-6 date fix bounded only the upper end; raw claim pool has pre-window dates (crude filter: 4 claims with date_stated before 2026-07-07, values '2026-06-08', '2026-06 (J..', malformed '07-10'; session counted 3 June claims).",
+     "fix_action": "Fixed in fee0e4b hunk @@ -77,7 +77,7 @@: 'ON OR AFTER 2026-07-07 AND ON OR BEFORE 2026-07-21'; CONTRACTS 'CLAIM WINDOW NOW BOUNDS BOTH ENDS'."
+    },
+    {
+     "path": "docs/findings/data/workflows/05-CONTRACTS-night.md",
+     "badge": "P2",
+     "category": "wording-precision",
+     "summary": "review_threads[37] 04:10:51Z: RETAIN line promised 'which claims were never refuted (claimPool minus matched rows) yes' (present since 94af16e line 23) but the return keeps no mergedRows or matched-claim ids, so the subtraction is not answerable.",
+     "fix_action": "Fixed doc-only in fee0e4b RETAIN line: promise removed, replaced by '[CORRECTED, Codex review round 7] NOT directly answerable from the retained output'; no script retention change (fee0e4b's js diff is the date bound only)."
+    },
+    {
+     "path": "docs/findings/README.md",
+     "badge": "P2",
+     "category": "sync-drift-self-inflicted",
+     "summary": "review_threads[38] 04:10:51Z: findings index row still says '12 verified findings quoted from each verifier's corrected_claim' after fd4bdc2 corrected the report banner.",
+     "fix_action": "Fixed in fee0e4b README.md line 30: 'drawing on each verifier's corrected_claim (quoted directly for most rows; synthesized ... where a single corrected_claim was unusable or needed combining)'. Session card and workflows README copies not touched (round 8 [44], round 9 [47])."
+    },
+    {
+     "path": "docs/findings/README.md",
+     "badge": "P2",
+     "category": "sync-drift-self-inflicted",
+     "summary": "review_threads[39] 04:10:52Z: findings index still says 'Landed after 4 rounds of Codex review' while card/CONTRACTS/report record six.",
+     "fix_action": "Fixed in fee0e4b README.md line 30: hardcoded round count removed; card Status likewise \u2192 'multiple Codex rounds ... current tally: 05-CONTRACTS-night.md EXTERNAL line'."
+    },
+    {
+     "path": "docs/findings/data/workflows/05-eap-false-done-ledger.js",
+     "badge": "P2",
+     "category": "script-defect",
+     "summary": "review_threads[40] 04:10:53Z: critic is asked to find orphaned corrections whose claim the merge missed but sees only the \u226430 claims on verified rows, not the 505-claim pool (182 orphans in raw result.orphaned_corrections).",
+     "fix_action": "Disclosed, not fixed: fee0e4b CONTRACTS UNCONTRACTED 'CRITIC LACKS THE FULL CLAIM POOL (Codex review round 7, not fixed)' and report \u00a75 Round 7 paragraph."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "factual-reversal-core",
+     "summary": "review_threads[41] 04:10:53Z: \u00a72 finding #1 marked the payload's '10 of 20 rows report no .claude/' as '[UNFIXED]' because 'its own verifier could reproduce only 9' (94af16e lines 89-91); raw fleet-a result.verified[0].a.discrepancies (A1-5+B10+B11) recounts 'exactly 10 of 20 ... the candidate's 10 is right', only the fit lens/critic say 9 \u2014 the report had presented the minority count as the correction.",
+     "fix_action": "Fixed in fee0e4b hunk @@ -96,9 +96,17 @@: '[DISPUTED, not unfixed] ... unresolved 9-vs-10 split, 2 of 3 counts (census + holds-lens) favoring 10. Needs a fresh recount.'"
+    }
+   ],
+   "substantive_count": 3,
+   "self_inflicted_count": 2,
+   "cap3_would_have_shipped_error": true
+  },
+  "8": {
+   "round": 8,
+   "note": "Reviewed fee0e4b, fixed in fa16a99 (04:28:28Z). 5 threads (04:24:58Z, all P2). Two real but ancillary data corrections (prior-mail corpus 7\u21926 in \u00a71/CONTRACTS CORPUS \u2014 raw fleet-a result.prior_mails has 6 entries, 5 superbot + docs/planning/2026-08-24-final-eap-email-draft.md; B5 wording retained at result.verified[5].candidate.claim, so the \u00a72.6 handoff 'reconstruct from shard data' was wrong), one design gap disclosed (one row per correction), two stale copies (card provenance guarantee; the report's second live tally created by fee0e4b). No survivor/ledger/judge content changed \u2192 no core reversal; borderline: the 7\u21926 corpus count also underlies \u00a74's overlap map coverage claim.",
+   "findings": [
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "factual-correction-minor",
+     "summary": "review_threads[42] 04:24:58Z: \u00a71 corpus census said 'prior mails ... 7 files' (94af16e line 54); raw fleet-a result.prior_mails has 6 entries (anthropic-email-4/2/3, gen1-wrapup, 2026-07-18-followup, plus the current draft) and permission-classifier-findings-consolidated-2026-07-16.md is absent from the readers.",
+     "fix_action": "Fixed in fa16a99 hunk @@ -61,8 +61,15 @@ ('[CORRECTED, Codex review round 8] ... 6 prior_mails entries') and CONTRACTS Fleet A CORPUS line; the \u00a74 heading copy was missed (round-9 [49]) and the new wording overclaimed 'readers never opened' (round-9 [48])."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "factual-correction-minor",
+     "summary": "review_threads[43] 04:24:58Z: \u00a72.6 told the next session B5's wording 'must be reconstructed from the shard data'; raw fleet-a result.verified[5].candidate.claim retains the original text intact (row.claim is null; a.corrected_claim is the meta-commentary).",
+     "fix_action": "Fixed in fa16a99 hunk @@ -162,16 +169,24 @@: \u00a72.6 quotes candidate.claim directly and locates the defect in the survivorBrief prompt construction."
+    },
+    {
+     "path": ".sessions/2026-09-02-night-fleet-eap-audit.md",
+     "badge": "P2",
+     "category": "sync-drift-self-inflicted",
+     "summary": "review_threads[44] 04:24:58Z: card Report section still says findings are 'quoted from verifier corrected_claim text (never the raw merge wording)' after the report banner (fd4bdc2) and findings index (fee0e4b) were corrected.",
+     "fix_action": "Fixed in fa16a99 card hunk @@ -61,8 +61,11 @@ and workflows README line 118 (whose new wording is itself wrong for B5 \u2014 round-9 [47])."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "sync-drift-self-inflicted",
+     "summary": "review_threads[45] 04:24:58Z: report closing note kept a live 'seven rounds so far, 43 findings' tally (written by fee0e4b) while fee0e4b's CONTRACTS EXTERNAL line declared itself 'the one place a live round count belongs' \u2014 two copies, one-round lag guaranteed.",
+     "fix_action": "Fixed in fa16a99 hunk @@ -502,8 +517,12 @@: note now says 'multiple rounds' and links to the CONTRACTS EXTERNAL line."
+    },
+    {
+     "path": "docs/findings/data/workflows/05-eap-false-done-ledger.js",
+     "badge": "P2",
+     "category": "script-defect",
+     "summary": "review_threads[46] 04:24:58Z: ROW schema holds one claim/citation_claim pair and the merge partitions by correction (150 rows + 182 orphans = 332 corrections, raw counts), so a correction refuting several distinct claims yields one row.",
+     "fix_action": "Disclosed, not fixed: fa16a99 CONTRACTS UNCONTRACTED 'ONE ROW PER CORRECTION, NOT PER MATCHED CLAIM (Codex review round 8 ... not fixed)'."
+    }
+   ],
+   "substantive_count": 3,
+   "self_inflicted_count": 2,
+   "cap3_would_have_shipped_error": false
+  },
+  "9": {
+   "round": 9,
+   "note": "Reviewed fa16a99, fixed in ecc5b50 (04:38:53Z). 5 threads (04:35:40Z; 4xP2, 1xP3). One core reversal that had survived since the first commit: the \u00a73 cross-run mapping 'L02 \u2192 FD-09' (94af16e line 281). Raw fleet-b-full result.verified[8].row.id is 'FD-09 (merges R4-15, ...)' with claim '\"First revenue\" \u2014 the Stripe Webhook Test Kit LIVE at $29 on Gumroad'; the pilot's result.verified[1] L02 is 'venture-lab ORDER 003 ... $49 product whose Stripe payment path was covered by 13 green tests'; L02's refutation exists in the full run only as result.orphaned_corrections[46,60,79,142]. A 3-round cap would have merged that wrong mapping. Remainder: one wrong section cross-ref (original, 94af16e line 343), one overclaim introduced by fa16a99, two copies missed by fa16a99.",
+   "findings": [
+    {
+     "path": "docs/findings/data/workflows/README.md",
+     "badge": "P2",
+     "category": "sync-drift-self-inflicted",
+     "summary": "review_threads[47] 04:35:40Z: fa16a99's README line 118 says B5 is 'synthesized from the row plus both lenses' records' while the report \u00a72.6 at fa16a99 (line 185) says B5 is 'quoted directly' from candidate.claim \u2014 the round-8 sync introduced a conflicting provenance.",
+     "fix_action": "Fixed in ecc5b50 README.md line 118: 'drawing on each verifier's corrected_claim where usable (the report's own front matter states, per row, exactly what each finding draws on...)'."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "wording-precision",
+     "summary": "review_threads[48] 04:35:40Z: fa16a99's new \u00a71 text said the coverage claim 'rests on a file this pass's readers never opened' (fa16a99 line 71); per Codex the A3-7 and B14 verifiers list the file in what_i_opened \u2014 only the extraction readers skipped it (verifier what_i_opened not independently checked by me).",
+     "fix_action": "Fixed in ecc5b50 hunk @@ -66,10 +66,14 @@ and CONTRACTS CORPUS line: 'missing from the executed prior-mail extraction readers ... the coverage verdicts themselves are not unsupported'."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "sync-drift-self-inflicted",
+     "summary": "review_threads[49] 04:35:40Z: \u00a74 heading still '(6 readers, all 4 July mails + the 2 unsent drafts + the current draft)' = 7 inputs after fa16a99 corrected \u00a71 to 6.",
+     "fix_action": "Fixed in ecc5b50 hunk @@ -380,7 +392,7 @@: '(6 readers \u2014 5 superbot prior-mail files + the current fleet-manager draft; not 7)'."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P3",
+     "category": "factual-correction-minor",
+     "summary": "review_threads[50] 04:35:40Z: \u00a75 critic note pointed to 'the winning spine (\u00a7 6)' (original, 94af16e line 343) but \u00a76 is 'The owner's words' (94af16e line 415) and \u00a77 'The three spines' (line 443).",
+     "fix_action": "Fixed in ecc5b50 hunk @@ -429,7 +441,7 @@: '(\u00a7 7)'."
+    },
+    {
+     "path": "docs/findings/2026-09-02-eap-mail-evidence-report.md",
+     "badge": "P2",
+     "category": "factual-reversal-core",
+     "summary": "review_threads[51] 04:35:40Z: \u00a73 mapped pilot L02 (venture-lab $49 Stripe false-green, pilot result.verified[1]) to full-run FD-09 (94af16e line 281, carried through 76834c8's reframing); raw fleet-b-full result.verified[8] FD-09 is the unrelated $29 Gumroad 'first revenue' claim, and L02's claim never entered the full-run pool \u2014 its refutation survives only as result.orphaned_corrections[46,60,79,142].",
+     "fix_action": "Fixed in ecc5b50 hunk @@ -358,14 +362,22 @@: 'L02 does NOT map to FD-09 ... never entered the full run's claim pool at all \u2014 its refutation survives only as four unmatched orphaned_corrections entries'; CONTRACTS EXTERNAL round-9 entry records it as 'a real mapping error'."
+    }
+   ],
+   "substantive_count": 2,
+   "self_inflicted_count": 2,
+   "cap3_would_have_shipped_error": true
+  }
+ },
+ "root_cause": {
+  "ad991b299cf05589d": "Every load-bearing fact is restated in six to ten places with no canonical copy \u2014 the L02/L08 fate lives in the report's front-matter summary, \u00a73, \u00a710, the session card's banner AND its item 4, and the CONTRACTS EXTERNAL log, and was corrected in rounds 9, 10, 13, 14, 15, 16 and is still flagged in 17; the B5-provenance guarantee sat in the banner, \u00a72 header, findings README, workflows README and session card (rounds 9-11); the phrase 'same rule as Fleet A' sat in four places across 05-eap-false-done-ledger.js (meta.phases, the dies() comment, the Phase-3 heading) and workflows/README.md and took rounds 11-14 to purge, so 13 of the 36 findings in rounds 10-17 are pure propagation residue of the previous fix. Each fix commit also writes fresh prose \u2014 new diagnoses, citations, labels and a growing EXTERNAL tally line \u2014 instead of deleting duplicates, so fixes become the next round's targets: 8 of the 18 substantive findings in this range were introduced by an earlier fix commit (the B14 claim by round 9; the 04/05 divergence, isNegativeCoverage gap and the L02-superbot attribution by round 1's 76834c8; 'real, distinct measurement' by round 11; the 'not re-citable' citation and OWNER mislabels by round 13; the 'extraction inconsistency' diagnosis by round 14; the :171\u2192:182 shift by round 15). Underneath that, the \u00a72 rows were drafted from candidate headline text while the header promised the verifier's corrected_claim, so the retained JSON already contained the refutation of three core rows (result.verified[8], [10] and [0] discrepancies) \u2014 Codex kept finding errors simply by reading the raw JSON the report summarized, and those original-draft errors (rounds 11, 13, 14) are what a 3-round cap would have merged. Finally, patching 05 mid-review under a verbatim-as-run convention that left 04 untouched manufactured a real executable divergence that then had to be described consistently in four more places.",
+  "ab98baa07215c0bf6": "The PR restates the same handful of facts in at least five files and roughly a dozen locations: inside the report each claim appears in the front-matter banner, the \u00a70 executive summary, the \u00a72/\u00a73 rows, a \u00a74 heading and a \u00a75 closing note, and the same claims are re-rendered in the session card (Status block and Report section), the docs/findings/README.md index row, docs/findings/data/workflows/README.md, and four lines of 05-CONTRACTS-night.md (AGGREGATE, RETAIN, CORPUS, EXTERNAL) \u2014 'critics reproduced in full' lived in four files and took rounds 1, 2/3 and 4 to clear, 'unanimous' took rounds 2, 3 and 4, and the 'corrected_claim-only' guarantee took rounds 6, 7, 8 and 9. Each fix commit touched only a subset of those copies, and because every Codex round reviews the previous fix commit's head, the residue plus any new sentence the fix itself introduced (76834c8's 'general knowledge' line and mis-written fixture tally, 1965aa9's 'failure count is unknown', fa16a99's 'readers never opened' and its wrong README provenance for B5) became the next round's findings \u2014 16 of the 52 threads in rounds 1-9 are of this kind. The live round/finding tally embedded in the report note, session card, findings index and CONTRACTS sheet was stale by construction (the commit that fixes round N is exactly what round N+1 reviews) and produced a finding in each of rounds 4, 5, 6, 7 and 8 until fee0e4b/fa16a99 reduced it to one location. Underneath that churn the original report carried genuine core errors that Codex surfaced only incrementally \u2014 judge scores and FD-01 independence in round 2, survivor #12's un-applied narrowing in round 4, the 10-vs-9 misattribution (94af16e:89-91) in round 7, and the L02\u2192FD-09 mapping (94af16e:281) not until round 9 \u2014 so rounds 4, 7 and 9 each corrected a core claim a 3-round cap would have shipped, and the self-inflicted loop is also what kept the reviewer looking long enough to find them."
+ }
+}

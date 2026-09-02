@@ -127,3 +127,41 @@ not get asked. That is the case for the sheet line.
 
 Layer-2 handoff: null (fleet-manager itself; no satellite repo attached this
 session).
+
+## Close-out addendum — records-only follow-up PR (same session, after fm #1011 merged)
+
+**Why a third PR from one session (D-0024 exception, stated):** the owner
+asked, after fm #1011 had merged, that *"everything from this session is
+properly documented in the repo"* and for a continuation prompt for a
+step-by-step review sitting — records only, at his ask, landing what the
+two merged PRs could not carry because it happened after them. Nothing in
+it changes a mechanism.
+
+What it lands:
+- `docs/findings/2026-09-02-owner-direction.md` — his words from the sitting
+  verbatim (the cap, "finish your current agents", how he wants a session to
+  reply, the model tiers, the reasoning question, the subagent-cap question,
+  the close), each with what it led to and what stays open.
+- `docs/findings/data/2026-09-02-codex-round-cap/` — the per-round
+  classification of fm #1010's 88 review threads (the numbers behind
+  TRAP-009, re-derivable from the tree) and both free-key Gemini
+  verification passes ([D-0019]) as run.
+- `docs/CAPABILITIES.md` — two dated lines: a Sonnet 5 session dispatched
+  Opus 5 subagents (fm #1010's retained JSON, 142 of them), so a session's
+  agents are not capped at its own model; and completed agents' results
+  survive a workflow `TaskStop` in the run's `journal.jsonl`, while queued
+  agents start on their own the instant a slot frees.
+- `docs/prompts/2026-09-02-step-by-step-review-sitting.md` — the
+  continuation prompt (the `continuation-prompt` skill's shape, preflight
+  run at HEAD), listed among the live files in `docs/prompts/README.md`.
+- `docs/activity/estate-log.md` regenerated; `docs/findings/README.md`
+  regenerated for the new record.
+
+Three things this session got wrong, kept here because the card is where the
+next session looks: mid-turn messages went unacknowledged three times until
+he asked (fix: acknowledge first, always); "finish your current agents" was
+read as the two that were running when he said it, and two verifiers the
+runtime had just started were killed by the stop; and a sentence about last
+night's agents inheriting Fable was written from inference and was false —
+the retained JSON's `model` fields settled it (62 Sonnet, 142 Opus, zero
+Fable) after Codex round 3 caught it.

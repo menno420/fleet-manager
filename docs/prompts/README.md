@@ -2,7 +2,12 @@
 
 > **Status:** `living-ledger`
 
-> **Three files here are LIVE, not part of the historical ledger below:**
+> **Four files here are LIVE, not part of the historical ledger below** —
+> the fourth, added 2026-09-02:
+> [`2026-09-02-step-by-step-review-sitting.md`](2026-09-02-step-by-step-review-sitting.md),
+> the continuation prompt for the owner's review sitting over what the
+> 2026-09-02 sessions landed (paste-ready; `continuation-prompt` skill shape).
+> The original three:
 > [`chatgpt-project-instructions.md`](chatgpt-project-instructions.md) — the
 > standing Instructions for the owner's ChatGPT "Fleet Manager" project,
 > rewritten 2026-08-10 —
