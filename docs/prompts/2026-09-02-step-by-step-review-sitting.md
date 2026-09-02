@@ -37,8 +37,10 @@ WHERE THINGS STAND (verified at HEAD on 2026-09-02, ~13:45Z — re-verify first)
   claude/night-fleet-eap-pr-review-pcssm0, title "Records: the 2026-09-02
   sitting, retained verification data, two capabilities, this prompt") —
   believed merged by the time you read this; confirm it.
-- The hook .claude/hooks/codex_round_guard.py is live on main and loads only
-  for sessions that boot with fleet-manager as root (boot triad case one).
+- The hook .claude/hooks/codex_round_guard.py is live on main. It loads
+  automatically for sessions that boot with fleet-manager as root (boot
+  triad case one); a multi-root session gets it only after
+  `python3 tools/install_root_hooks.py --apply`, the rescue path.
 - Nothing is in flight: no open PR from these sessions once the records PR
   lands, no running workflow.
 
@@ -59,8 +61,11 @@ what the sitting needs, not the estate.
 
 DECIDED (do not re-litigate — confirm each with him, amend only on his word)
 - Three Codex review rounds per PR, never more: a denying hook, not prose
-  (owner; the cap entry in decisions.md). The fourth request is denied; FM_ALLOW_CODEX_ROUND=1 only
-  when he asks for another himself.
+  (owner; the cap entry in decisions.md). The fourth request is denied;
+  FM_ALLOW_CODEX_ROUND=1 only when he asks for another himself. The hook's
+  count is per PR PER SESSION (it never reads GitHub) — a PR handed on after
+  three rounds starts at zero in the next session, so there the rule binds
+  you, not the hook: read the PR's round tally before requesting any.
 - Fan-out agents are staffed by task tier — Sonnet 5 reads and maps, Opus 5
   reasons, Fable 5.1 reviews last; `model` is never left to inheritance
   (owner; the model-tier entry in decisions.md; the MODELS line of the

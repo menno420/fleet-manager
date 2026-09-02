@@ -7,7 +7,7 @@
 > canonical in each repository's own `.sessions/` card — this file is a
 > pointer index, never a copy.
 >
-> **Window:** the last **7 calendar days** (UTC). **Generated:** 2026-09-02 13:33Z.
+> **Window:** the last **7 calendar days** (UTC). **Generated:** 2026-09-02 13:56Z.
 > **Scope: the 19 NON-ARCHIVED repositories** — 9 archived ones are excluded, so every count here is
 > non-archived-only and is not a total for the estate's whole history.
 > **Cards:** 56 across 3 repositories, of which **0 are in flight** on an open PR.
@@ -76,13 +76,13 @@ and nothing else. This is the split that made the log necessary.
 | 2026-08-29 | `fleet-manager` | `cloud-container` | withheld | `complete` | [2026-08-29-audit-catalogue-export.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-29-audit-catalogue-export.md) |
 | 2026-08-29 | `fleet-manager` | `cloud-container` | withheld | `complete` | [2026-08-29-audit-od26-reconcile.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-29-audit-od26-reconcile.md) |
 | 2026-08-29 | `fleet-manager` | `cloud-container` | withheld | `complete` | [2026-08-29-audits-review-fleet-preflight-dissection.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-29-audits-review-fleet-preflight-dissection.md) |
-| 2026-08-29 | `fleet-manager` | `cloud-container` | ` | `complete` | [2026-08-29-codex-trigger-and-model-slot.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-29-codex-trigger-and-model-slot.md) |
+| 2026-08-29 | `fleet-manager` | `cloud-container` | withheld | `complete` | [2026-08-29-codex-trigger-and-model-slot.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-29-codex-trigger-and-model-slot.md) |
 | 2026-08-29 | `fleet-manager` | `cloud-container` | withheld | `complete` | [2026-08-29-disposition-tally-fix.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-29-disposition-tally-fix.md) |
 | 2026-08-29 | `fleet-manager` | `cloud-container` | withheld | `complete` | [2026-08-29-fleet-orchestration-retro.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-29-fleet-orchestration-retro.md) |
 | 2026-08-29 | `fleet-manager` | `unstated` | withheld | `complete` | [2026-08-29-fm981-round2-consumption.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-29-fm981-round2-consumption.md) |
 | 2026-08-29 | `fleet-manager` | `unstated` | withheld | `complete` | [2026-08-29-initiative-loop-capture.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-29-initiative-loop-capture.md) |
 | 2026-08-29 | `fleet-manager` | `cloud-container` | withheld | `complete` | [2026-08-29-lane-denominator-fix.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-29-lane-denominator-fix.md) |
-| 2026-08-29 | `fleet-manager` | `cloud-container` | ` slot has no token for "my session may not name it", so five sessions invented five | `complete` | [2026-08-29-model-slot-grammar.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-29-model-slot-grammar.md) |
+| 2026-08-29 | `fleet-manager` | `cloud-container` | withheld | `complete` | [2026-08-29-model-slot-grammar.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-29-model-slot-grammar.md) |
 | 2026-08-29 | `fleet-manager` | `unstated` | withheld | `complete` | [2026-08-29-owner-directive-capture-gemini-codex.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-29-owner-directive-capture-gemini-codex.md) |
 | 2026-08-29 | `fleet-manager` | `cloud-container` | withheld | `complete` | [2026-08-29-session-card-pr-test.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-29-session-card-pr-test.md) |
 | 2026-08-29 | `fleet-manager` | `unstated` | withheld | `complete` | [2026-08-29-session-identity-slot.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-08-29-session-identity-slot.md) |

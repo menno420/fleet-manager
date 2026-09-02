@@ -95,7 +95,15 @@ VENUE_RE = re.compile(
     r"^[ \t]*[-*][ \t]+\*\*\N{ROUND PUSHPIN}[ \t]*Venue:\*\*[ \t]*`?([A-Za-z][A-Za-z-]*)`?[ \t]*$",
     re.M,
 )
-MODEL_RE = re.compile(r"\N{BAR CHART}\s*Model:\*{0,2}\s*(.+)")
+# Same anchoring as VENUE_RE, for the same reason: an unanchored search over the
+# whole card read prose *about* the model line (a card titled after the model
+# slot, a sentence quoting the convention) as the model itself, and the derived
+# table showed a lone backtick or a sentence fragment in the model cell
+# (@codex, fm #1012). The complete header bullet, or nothing.
+MODEL_RE = re.compile(
+    r"^[ \t]*[-*][ \t]+\*\*\N{BAR CHART}[ \t]*Model:\*\*[ \t]*(.+?)[ \t]*$",
+    re.M,
+)
 STATUS_RE = re.compile(r"\*\*Status:\*\*\s*`([a-z-]+)`", re.I)
 
 
@@ -181,7 +189,7 @@ def parse_card(text: str) -> dict:
     # bullet inside a card body, which this estate's cards now plausibly carry.
     header = text.split("\n## ", 1)[0]
     venue = VENUE_RE.search(header)
-    model = MODEL_RE.search(text)
+    model = MODEL_RE.search(header)
     status = STATUS_RE.search(text)
     title = ""
     for line in text.splitlines():

@@ -2,7 +2,7 @@
 
 > **Status:** `reference` · owner-live, cloud container (the session that
 > reviewed and landed fm #1010 and wrote fm #1011). `OWNER` throughout unless
-> marked `DERIVED`. Same job as
+> marked `DERIVED` — or `VENDOR`, once, for a screenshot he showed. Same job as
 > [`2026-09-01-owner-direction.md`](2026-09-01-owner-direction.md): his words
 > verbatim, typos included, so anything derived from them can be checked
 > against source. Every mechanism sketched here is `DERIVED` and lives where
@@ -86,8 +86,8 @@ that has a hook and a second window.
 > models for one task? So start your task with Sonnet as mapper and then use
 > Opus and Fable as review?"*
 
-Alongside, his screenshot of the vendor's announcement: *"Claude Fable 5.1 is
-now available — Included for up to 50% of your Max plan usage."*
+`VENDOR` (his screenshot of the announcement, not his words): *"Claude Fable
+5.1 is now available — Included for up to 50% of your Max plan usage."*
 
 `DERIVED`: yes — both fan-out surfaces take a model per call, so one task is
 staffed in tiers. Recorded as the model-tier entry of 2026-09-02 in

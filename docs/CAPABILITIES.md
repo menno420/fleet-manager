@@ -199,11 +199,16 @@ findings go here, below the fence.)
   `docs/findings/data/2026-09-02-codex-round-cap/round-classification.json`;
   the journal also showed two verifiers `started` in the seconds after the
   first classifier finished, before the stop killed them (their transcripts:
-  two and one tool calls). · workaround: to honour "finish the current ones,
-  start no more" exactly, stop the workflow the moment the running agents'
-  `result` lines appear in the journal — there is no drain control between
-  a result and the next queued start; a `Monitor` on the journal gives a
-  ~5 s window, which is what this session used. — LAST-VERIFIED: 2026-09-02
+  two and one tool calls). · workaround — and read this as the measured
+  edge, not a recipe: a `Monitor` polling the journal every 5 s fired only
+  AFTER the two queued verifiers had started, so watching the journal did
+  not honour "finish the current ones, start no more" — the stop still
+  killed two just-started agents. What does honour it: stop the workflow
+  immediately and accept the running agents' loss, or shape the script so
+  nothing is queued behind running agents when a stop may be needed
+  (stages sized to the measured concurrency, one `parallel()` at a time).
+  No in-run drain control was found; if one exists it is unmeasured here.
+  — LAST-VERIFIED: 2026-09-02
 
 - 2026-08-29 · capability · `owner-live` · **A session can read its own
   identity from inside the container — `get_session` (claude-code-remote
