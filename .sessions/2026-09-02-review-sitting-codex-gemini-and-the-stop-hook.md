@@ -145,6 +145,15 @@ hook live with `CAP = 3`.
    `docs/findings/2026-09-02-owner-direction.md` § 2 (record grown in
    place): "finish current, start none" lets anything already started
    finish, runtime-started included; "stop all" is the stop button.
+11. **Item 5 of 6, the mail — amended.** *"Yes that's mostly it tho I would
+   like a proper draft created which I can read and edit … your
+   continuation prompt will be for the email session … it's also important
+   that we discuss what the email should contain. After we are done with
+   the rest of the topics."* Landed as § 5b of
+   `docs/findings/2026-09-02-owner-direction.md` and a dated pointer at the
+   top of the report's § 10. The sitting's close is redirected: item 6, the
+   OPEN items, then the mail's contents with him, then a continuation
+   prompt for the mail session.
 9. **Pre-existing, not this PR's, noted for the record:**
    `python3 tools/test_change_guard.py` exits 1 on `origin/main` as well as
    on this branch (15/16; the failing case is *"real historical defect still

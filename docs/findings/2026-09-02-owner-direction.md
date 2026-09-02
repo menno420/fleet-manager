@@ -161,6 +161,29 @@ Defaults act like gravity; a question a default has already answered does not
 get asked. That is why his rules from this sitting live in a hook and a
 contract-sheet line rather than in a paragraph.
 
+## 5b · The mail — a session drafts it; he reads, edits and sends (added in the review sitting, 2026-09-02)
+
+Put to him as the fifth DECIDED item: *the report is evidence only; you
+alone write and send the mail; no session drafts its second part without
+you present.*
+
+> *"Yes that's mostly it tho I would like a proper draft created which I
+> can read and edit. I believe after our current session we should have
+> the proper preparations for this, so eventually when this session comes
+> to an end your continuation prompt will be for the email session. So this
+> session I think it's also important that we discuss what the email should
+> contain. After we are done with the rest of the topics"*
+
+`DERIVED`: the night brief's *"no mail text drafted tonight"* and the
+report's § 10 *"only he writes and sends"* described the night session's
+mandate, not a standing rule. The standing arrangement is: **a session
+drafts the mail from the report and the record; he reads, edits and sends
+it.** The report stays evidence, and its § 10 list (resolve the flagged
+rows, re-open every citation, read `night-review-2026-07-10.md` before
+using FD-01/FD-02) is the draft's precondition. The review sitting ends by
+agreeing the mail's contents with him and handing the mail session a
+continuation prompt built for that.
+
 ## 6 · The close
 
 > *"Make sure everything from this session is properly documented in the repo
