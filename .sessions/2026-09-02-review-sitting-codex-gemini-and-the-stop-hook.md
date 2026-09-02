@@ -232,6 +232,21 @@ hook live with `CAP = 3`.
    flash-latest vs Vertex Pro); the close skill's severity table gained a
    round-three row; and the mail prompt's shape/false-done/Part 1/length
    package moved from DECIDED to OPEN, since he never answered it in a word.
+18. **Codex round 2 (`c64631f`): 5 findings, all P2, all real, all fixed on
+   the next head** — the owner-direction record's § 1 still said the
+   round-three exit was unconfirmed (his "All agreed" appended there) and
+   its § 3 still said the mid-turn probe was unmeasured (the n = 2 result
+   appended, pointing at the ledger entry); the mail prompt still listed
+   shapes B and C under REJECTED and said the length was accepted while
+   OPEN said neither was answered (the REJECTED bullet removed); the
+   prompt said the mail PR owes "exactly one" round (now: one required,
+   re-request on a reviewable fix, three at most); and the review-cadence
+   entry's tier-1 list omitted `.codex/hooks/` and `environments/` (the
+   rule is now by executable file type plus the binding documents, with
+   directories as examples — partial: `environments/setup-base.sh`, which
+   the finding named, does not exist at HEAD; `environments/` holds a
+   README and a template). Round 3 requested on the fix head — the last
+   the cap allows.
 9. **Pre-existing, not this PR's, noted for the record:**
    `python3 tools/test_change_guard.py` exits 1 on `origin/main` as well as
    on this branch (15/16; the failing case is *"real historical defect still
@@ -270,10 +285,13 @@ session after the mail session; not this sitting.
 
 💡 Session idea (second): **the owes-a-round verdict, computed from the
 diff** ([D-0019] as amended 2026-09-02). Input: `git diff --name-status
-origin/main...HEAD` plus added-line counts. Rule: any path under
-`.claude/hooks/`, `.claude/skills/`, `.claude/settings.json`, `tools/`,
-`scripts/`, `.github/workflows/`, `bootstrap.py`, `.claude/CLAUDE.md`,
-`docs/decisions.md` or `docs/traps.md` → *owes a round, because <path>*;
+origin/main...HEAD` plus added-line counts. Rule: any executable file by
+type (`.py`, `.sh`, `.js`/`.mjs`, `.ps1`, `.github/workflows/*.yml`,
+`.claude/settings.json`, `.codex/hooks.json`) wherever it sits, or any of
+the binding documents (`.claude/CLAUDE.md`, `.claude/skills/**`,
+`docs/decisions.md`, `docs/traps.md`) → *owes a round, because <path>*
+(file type, not a directory list — Codex round 2 found `.codex/hooks/` and
+`environments/` missing from the first list);
 else more than five files or two hundred added lines under `docs/` → *owes
 a round, large docs change (<n> files, <m> lines)*; else → *no Codex round:
 direct check or Gemini pass*. Printed by the `card-flip-to-complete` route

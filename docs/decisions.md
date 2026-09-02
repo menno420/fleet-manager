@@ -446,9 +446,16 @@
   document and Codex found 16 factual reversals in it (`factual-reversal-core`
   counted from `docs/findings/data/2026-09-02-codex-round-cap/round-classification.json`)
   — and proposed three tiers, which he chose (*"I think I agree"*): **(1)
-  the diff touches an executable or binding surface → one round** — hooks,
-  tools, scripts, workflows, skills, settings, the boot file, this ledger,
-  `docs/traps.md`; path prefixes, nothing to interpret. **(2) A large
+  the diff touches an executable or binding surface → one round** — any
+  executable file wherever it sits (`.py`, `.sh`, `.js`/`.mjs`, `.ps1`,
+  `.github/workflows/*.yml`, `.claude/settings.json`, `.codex/hooks.json`)
+  and the binding documents (the boot file, the skills, this ledger,
+  `docs/traps.md`); directories such as `.claude/hooks/`, `.codex/hooks/`,
+  `tools/`, `scripts/`, `environments/` are where those files live today,
+  named as examples, not as the rule — a path list goes stale the day a
+  new directory appears (Codex, fm #1013 round 2, which found `.codex/hooks/`
+  and `environments/` missing from the first list). File type plus the
+  named documents, nothing to interpret. **(2) A large
   documentation change → one round** — a threshold, provisionally more than
   five files or two hundred added lines under `docs/`. **(3) Otherwise no
   Codex** — a card, a findings note, a capabilities-ledger line flips on the

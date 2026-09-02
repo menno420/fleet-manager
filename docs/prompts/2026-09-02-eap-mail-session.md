@@ -132,18 +132,18 @@ DECIDED (do not re-litigate — owner, 2026-09-02, quoted in § 5b–5d)
   only; his own words quoted, spelling corrected at most. Settle any
   confidentiality question BEFORE the first push, never before the merge
   (the record's § 0 lesson).
-- Codex: this is a large documentation change, so it owes exactly one
-  Codex round, at flip-readiness, on the head that flips (the review-cadence
-  decision of 2026-08-29 as amended 2026-09-02; the cap entry of 2026-09-02,
-  three rounds, the hook counts). Intermediate pushes are verified by a
+- Codex: this is a large documentation change, so it owes a Codex round at
+  flip-readiness (the review-cadence decision of 2026-08-29 as amended
+  2026-09-02). One round is required; a fix that changes something a
+  reviewer would have an opinion about re-requests on the new head; three
+  rounds in total at most, and at round three the exit is fix, verify
+  directly, disclose, flip (the cap entry of 2026-09-02; the hook counts
+  and denies the fourth). Intermediate pushes are verified by a
   direct source check first, the free-key Gemini pass second on
   gemini-3.6-flash, which has its own per-model daily cap; the per-turn
   review hook runs on gemini-3.5-flash-lite, also on its own cap.
 
 REJECTED, AND WHY
-- Shape B (rewrite Part 2 around the month after) and C (keep the strict
-  one-page cap, no addendum) → the judges' shape keeps five rounds of
-  verified text and the owner accepted the length.
 - Re-arguing the classifier / venue denial → the 16 July mail is their best-
   documented finding already; one sentence, as the thing that ended the
   coordinator model for him.
@@ -210,8 +210,10 @@ DONE WHEN
   citation re-opened (the critic's 4-for-4 line-anchor drift); every linked
   document confirmed on main; every count re-run and dated.
 - The same text staged as a Gmail draft he can edit, or the wall recorded.
-- One Codex round answered on the flip head; `python3 bootstrap.py check
-  --strict` exit 0; the PR landed on green. He sends.
+- The last Codex round answered on the head that flips (one required, at
+  most three; the flip commit itself is the one exempt commit past it);
+  `python3 bootstrap.py check --strict` exit 0; the PR landed on green. He
+  sends.
 
 OUT OF SCOPE
 - Sending the mail, or adding recipients. Re-running any fleet. Editing the

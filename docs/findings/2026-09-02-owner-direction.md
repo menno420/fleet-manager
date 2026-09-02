@@ -32,7 +32,10 @@ the cap entry of 2026-09-02 in [`../decisions.md`](../decisions.md). The session
 11, 13, 14 and 15 each corrected content from the original draft, so the cap
 is an exit (fix · verify without Codex · disclose · flip or hand off), never a
 merge-regardless. **That exit reading is the session's, marked `DERIVED` in
-that entry, and he has not yet confirmed it in a word.** The per-round
+that entry, and he has not yet confirmed it in a word.** *(Confirmed later
+the same day in the review sitting — the exit was put to him with the
+session's recommendation for running it and he answered "All agreed"; the
+cap entry in `../decisions.md` carries the amendment and his words.)* The per-round
 classification behind the numbers is retained at
 [`data/2026-09-02-codex-round-cap/`](data/2026-09-02-codex-round-cap/README.md).
 
@@ -86,7 +89,13 @@ any progress note about the tool result it arrived with. It happened three
 times this session before the rule was stated. No mechanism delivers this
 yet; whether a mid-turn message passes through `UserPromptSubmit` (where a
 hook could inject the reminder) is **unmeasured** — one probe for a session
-that has a hook and a second window.
+that has a hook and a second window. *(Measured in the review sitting the
+same day, n = 2: a mid-turn message does NOT pass through
+`UserPromptSubmit` — both arrived bare with the harness's own notice while
+the same hook fired on his first, ordinary message. The dated wall entry in
+[`../CAPABILITIES.md`](../CAPABILITIES.md) is canonical; a prompt hook is
+not a viable carrier for this rule, and the `Stop` hook is the remaining
+candidate.)*
 
 **Refined by him the next day (2026-09-02, the review sitting), `OWNER`:**
 
