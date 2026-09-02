@@ -267,6 +267,71 @@ file's `CLAUDE.md` loads only when the root is right, and goes quiet with
 no error otherwise), it carried rules about *form* well, and no delivery
 tier carried rules about *judgement* without an instrument behind them.
 
+## 5d · The fortnight, in his words — answers to the sitting's guiding questions (2026-09-02)
+
+Asked six questions to refresh the EAP fortnight for the mail; the first
+three answered here, verbatim, typos included. `OWNER` throughout.
+
+**1 · What a normal day of the program was:**
+
+> *"That depended a little based on how far along the EAP we were, at the
+> start I was more invested than around the end. Mostly because the longer
+> it lasted the more problems we encountered and it took more and more time
+> to go through all the clicks, which I usually had done by a regular
+> session that was working alongside it. I mostly send "continue" when they
+> claimed that their actionable queue was "exhausted", while I could clearly
+> see that it wasn't. I had to eventually hunt down all the sub agent
+> sessions to personally tell them what to do, effectively rendering the
+> coordinator basically useless. But when the coordinator did work properly
+> around the start of the EAP it genuinely was an efficient way to work.
+> Partly because the Projects all ran on Fable 5 for free which allowed me
+> to really take advantage of that and get a lot of work done. What I did
+> ritually is every day I would reset (basically delete a Projects memory
+> completely) and re-send the startup prompt and when we had created a new
+> version of the intructions I would paste those too. That was mostly what
+> I did each day, then every few hours I'd send the continuation prompt,
+> which should still be in the repo aswell. Which was made to work on every
+> Project so they would just continue with anything that was still not
+> fully completed."*
+
+The continuation prompt is `docs/prompts/v3/universal-continue.md`; the
+daily paste pair is `per-project/<seat>-custom-instructions.md` +
+`<seat>-startup.md` (`docs/prompts/v3/README.md`). *"Their actionable queue
+was exhausted"* as a false claim he could see through is not a phrase the
+era records carry (grepped the retrospective, the story, the account and
+the reflection: no hit) — this is the first place it is written down.
+
+**2 · How he found out a Project had gone silent:**
+
+> *"I mostly found out by checking in on them, I personally did not really
+> find it very easy to see whether or not a Project was still working or
+> stalling. My idea for this was to have this displayed more clearly in the
+> main Projects "homescreen""*
+
+**3 · Which Project he understood best, and what let him see into it:**
+
+> *"I guess the feet-manager was the one I understood best because it was
+> the one that I talked to most of the time. It was my way to understand
+> all the Projects at once, the fleet-manager was reponsible for sending
+> new orders into the repos, the continuation prompt was responsible for
+> triggering the Projects to read and continue with the new orders. Tho
+> sometimes when a Project was still active it would find the new orders
+> themselves without any external triggers, which was a pleasant way to
+> work. This is why we asked for a cross-session memory or message system
+> so that it would be easier for the Projects to tell each other what was
+> going on."*
+
+`DERIVED`, for the mail: three things a Project must do to be chosen over a
+session, each from his own experience rather than the record — (a) show
+working-versus-stalled on the Projects home screen, since he found stalls
+only by opening each one; (b) a coordinator that cannot declare its queue
+exhausted while orders sit unread in the repo, since that false empty is
+what made him bypass it and go to the workers himself; (c) a channel
+between Projects, since the "pleasant" case was a Project noticing a new
+order without being poked, and it happened only sometimes. And one fact
+for the economics line: the Projects ran on Fable 5 at no cost to him,
+which is part of why the early throughput was worth having.
+
 ## 6 · The close
 
 > *"Make sure everything from this session is properly documented in the repo
