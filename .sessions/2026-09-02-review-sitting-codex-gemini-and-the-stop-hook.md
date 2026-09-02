@@ -1,10 +1,16 @@
 # 2026-09-02 — the review sitting: fm #1010 and #1011 walked with the owner, item by item
 
-> **Status:** `in-progress` — born red. The sitting is live: the owner is
-> confirming or amending each 2026-09-02 decision in turn, and two hook
-> corrections he asked for mid-sitting are landing in this PR. Flips
-> `complete` as the last commit, after the sitting's review round answers on
-> the head that flips.
+> **Status:** `complete` — every DECIDED item confirmed or amended by him in
+> place, every OPEN item answered or given a named probe, the mail's shape
+> chosen (A), his twelve answers and the Projects-versus-sessions answer in
+> the record, two hook corrections he asked for landed, and the continuation
+> prompt written for the mail session. Codex: three rounds, the cap —
+> 10 + 5 + 7 findings, all real, all fixed; round three's fixes verified
+> directly (the cap's exit), no fourth round. **Reviewed SHA `4d1c168`
+> (round 3). After it:** `17b5096` (his choice of A and two prompt
+> sentences — records), `32996b5` (the round-three fixes, verified by the
+> suite, the owner-index check, the link and false-walls checkers and the
+> strict gate), and this flip commit. Landed on green.
 
 - **📊 Model:** fable-5 · xhigh · review/verify
 - **📍 Venue:** cloud-container
@@ -288,10 +294,49 @@ hook live with `CAP = 3`.
    fan-out, so CI does not see it. Left alone in a review sitting; named
    here so the next session that touches `change_guard.py` starts from it.
 
+## Shipped
+
+- `.claude/hooks/owner_review.py` — the block text asks for only what is new;
+  503 retried twice with `attempts` logged (also on exhaustion); the add-on
+  on `gemini-3.5-flash-lite` (his choice) — `d68bfee`, `91c8080`, `c64631f`
+- `tools/test_owner_review.py` — new suite, prints its own count — same
+- `.claude/hooks/codex_round_guard.py` — docstring count 88 — `91c8080`
+- `.claude/CLAUDE.md` — Stop-hook bullet (only what is new); `@codex`
+  bullet (auto-triggers are off by his choice) — `d68bfee`, `91c8080`
+- `.claude/hooks/README.md` — the 2026-09-02 corrections paragraph — same
+- `.claude/skills/fleet-preflight/SKILL.md` — MODELS line and § 8: last
+  look on Opus, Fable only on his ask — `4117c20`
+- `.claude/skills/session-close/SKILL.md` — 6c names the hook and the cap;
+  round-three row in the severity table — `91c8080`, `c64631f`
+- `docs/decisions.md` — the review-cadence entry amended (which PRs owe a
+  round; the two exemptions), the cap entry amended (the exit, countable),
+  the model-tier entry amended (Fable opt-in) with its heading, D-0041
+  (his words may be corrected and lightly tightened) — `4117c20`, `91c8080`,
+  `c64631f`, `0e3827b`, `4d1c168`, `32996b5`
+- `docs/findings/2026-09-02-owner-direction.md` — § 2, § 3, § 3b, § 5b, § 5c,
+  § 5d, § 6 grown in place with his words from the sitting — six commits
+- `docs/findings/2026-09-02-eap-mail-evidence-report.md` — a dated pointer
+  at § 10 — `30578a6`
+- `docs/CAPABILITIES.md` — two dated lines: the auto-trigger correction;
+  the mid-turn wall (narrowed to `UserPromptSubmit`) — `0b16dbf`, `91c8080`,
+  `32996b5`
+- `docs/prompts/2026-09-02-eap-mail-session.md` — the mail session's
+  continuation prompt — `b8ff610` and every round since; listed in
+  `docs/prompts/README.md`
+- `docs/planning/2026-07-26-consolidation-program.md` — NOW → E1 on his
+  words — `b8ff610`
+- `docs/SKILLS-local.md`, `docs/conventions/adversarial-review.md` — the
+  re-apply row; the D-0020 supersession note — `91c8080`, `c64631f`
+
 ## Verify
 
-`python3 bootstrap.py check --strict` — run before the flip; only the
-born-red hold red. `python3 tools/test_owner_review.py` — the executable
+`python3 bootstrap.py check --strict` — run before the flip on `32996b5`:
+exit 1 with only the born-red hold red, zero `[stamp]` lines; exit 0 after
+the flip is what CI reports on this PR's last run.
+`python3 tools/test_owner_review.py` — 25 passed, 0 failed.
+`python3 tools/gen_owner_index.py --check` — exit 0.
+`python3 scripts/check_docs_links.py` — CLEAN, 498 files.
+`python3 tools/check_no_false_walls.py` — exit 0. `python3 tools/test_owner_review.py` — the executable
 prints its own case count. The pipe-tests in `.claude/hooks/README.md`
 § owner-review (`stop_hook_active` → exit 0, empty).
 
