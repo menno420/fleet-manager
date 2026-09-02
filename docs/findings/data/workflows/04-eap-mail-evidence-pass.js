@@ -1,3 +1,12 @@
+// ARCHIVAL CORRECTION (2026-09-02, Codex review of fm #1010's sibling script 05-eap-false-done-ledger.js,
+// same dies() expression): the aggregation rule below treats ANY nonempty already_covered_by as a
+// positive coverage verdict, but nothing stops a verifier from writing negative prose ("none — ...",
+// "not covered by ...") into that field instead of leaving it "" as the READ_RULES/verifyB prompts ask.
+// If BOTH lenses on one candidate did this, the row would be wrongly killed via the coverage branch.
+// Committed verbatim as it ran tonight (2026-09-02 rerun, 84 agents, 12 survivors) per this repo's own
+// convention for 01/02/03 above; not spot-checked against this run's raw verdicts for whether it fired
+// (05's equivalent check found 3 instances, none of which flipped an actual outcome). Fix before reuse:
+// normalize already_covered_by (e.g. treat /^\s*(none|not\s+covered|no\b)/i as falsy) before the dies() check.
 export const meta = {
   name: 'eap-mail-evidence-pass',
   description: 'Map every recent audit, the raw 284-pattern catalogue and the prior mails into verified, novelty-checked evidence for the final EAP review mail, then propose and judge three spines for the widened brief',
