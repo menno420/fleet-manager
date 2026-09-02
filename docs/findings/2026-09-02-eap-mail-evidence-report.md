@@ -38,10 +38,11 @@
   11 named EAP docs split over 400 lines) — **83 agents, 7.11M tokens, 146.7
   min** (run `wf_fb35b278-362`). See § 3 for the result: 3 survivors, not the
   pilot's 4 — two of the pilot's survivors did not survive the full run, but
-  the two corpora are **not nested** (the full run cut the one superbot
-  reader both depended on), so this is not clean evidence of scaling or
-  verifier instability either way. Read § 3 and § 5 together before
-  trusting any count here.
+  the two corpora are **not nested**, and the two losses have different
+  mechanisms, not one shared cause **[CORRECTED, Codex review round 15:
+  this summary previously said both lost the same cut superbot reader —
+  only one did]**. Read § 3 in full before trusting any count or causal
+  claim here; this summary intentionally does not restate the mechanism.
 - **CUT: the 32 superbot `docs/eap` reader units** (of Fleet B's full 48-unit
   design) — dropped **before** any fleet-manager-side cut, exactly as the
   night brief's SIZE rule specifies ("drop Fleet B's satellite-heavy readers
@@ -461,30 +462,37 @@ tests inject synthetic events authored from memory," each dropped with the
 reason "no earlier done-claim found in this corpus").
 
 **L02 and L08 lost their pilot-survival evidence for two different reasons
-— [CORRECTED, Codex review round 14: this report previously attributed
-both to the same superbot cut].** L08's correction cited
+— [CORRECTED, Codex review round 14, then corrected again round 15: round
+14 misdiagnosed L02's mechanism].** L08's correction cited
 `anthropic-email-2-draft-2026-07-11.md` — the one superbot file the pilot
 happened to read, the exact file `skipSatellite: true` removed from the
 full run; that loss is real and mechanical. **L02's correction cited
 `docs/eap-story.md` throughout, in both runs — a fleet-manager file that
-was never cut.** What actually happened to L02: the pilot's
-`docs/eap-story.md` reader (lines 1-300) cited the correction (`:229-233`)
-and *reconstructed* a claim from it (L02's own `certainty` field says so:
-"the claim side is reconstructed from the correction record, which is the
-only place the 13-green-tests status is quoted"); the full run's reader
-covering the same passage (now `:241-245` — the file shifted, and was
-split across two readers this time instead of one) captured only the
-correction, no matching claim. That is an extraction inconsistency across
-two independent reads of the identical source, not a corpus-size or
-satellite-cut effect — the correction itself survives in the full run,
-unmatched, as one of the `orphaned_corrections` entries. Only L03 → FD-01
-and L04 → FD-02, the two fleet-manager-sourced pilot survivors, held
-cleanly in both runs. The honest statement is narrower still than the
-prior draft's "reversed at scale": **one row (L08) lost its evidence to
-the satellite cut; the other (L02) lost it to reader inconsistency on a
-source that was never cut at all** — different mechanisms, and a rerun
-proposing to recover L02 by re-adding the superbot lane would not fix the
-actual cause.
+was never cut**, so its loss cannot be a satellite-cut effect either way.
+**What actually happened to L02, per round 15's correction: the READERS
+did not disagree.** Both the pilot's `docs/eap-story.md` reader (lines
+1-300, citing the correction at `:229-233`) and the full run's equivalent
+reader (citing it at `:241-245`, the file having shifted) extracted the
+correction and **no matching claim** — checked directly:
+`result.readers[0].claims` in the retained pilot JSON (21 entries) has no
+venture-lab/Stripe/membership-kit claim, the same as the full run. The
+actual divergence is in the **merge stage**, not the readers: the merge
+contract is explicit ("a ledger ROW requires BOTH a claim ... AND a
+correction ... do not manufacture" a row when no matching claim exists,
+`05-eap-false-done-ledger.js:171`) — but L02's own `certainty` field
+admits the pilot's merge violated exactly that rule: "the claim side is
+reconstructed from the correction record, which is the only place the
+13-green-tests status is quoted." The pilot's merge stage invented a
+claim from an orphaned correction; the full run's merge stage correctly
+left the same correction unmatched, in `orphaned_corrections`. Only
+L03 → FD-01 and L04 → FD-02, the two fleet-manager-sourced pilot
+survivors, held cleanly in both runs. The honest statement: **one row
+(L08) lost its evidence to the satellite cut; the other (L02) never had a
+matching claim in either run — the pilot's own merge stage should not
+have produced it, and the full run correctly declined to** — different
+mechanisms, and a rerun proposing to recover L02 by re-adding the
+superbot lane, or by fixing reader coverage, would not fix the actual
+cause; the fix belongs in the merge stage's own contract enforcement.
 
 **25 non-survivors carry only the word "refuted" IN THIS REPORT** — not in
 the raw output. **[CORRECTED, Codex review, fm #1010]** every non-survivor's
@@ -632,6 +640,22 @@ exposed:
   documented choice (not relitigated mid-run, per the night brief), but it
   means this ledger is a **sample of the EAP record, not the EAP record**,
   and its survivor count should never be read as exhaustive.
+- **Fixed line-count file splits bisect live evidence records — [Codex
+  review round 15, confirmed real not hypothetical].** Five of the
+  fleet-manager and superbot files over 400 lines were split at fixed line
+  counts, not paragraph or section boundaries (`05-eap-false-done-ledger.js`,
+  `FM_FILES`/`SB_FILES`). Checked directly against the retained readers: at
+  `docs/eap-story.md`'s 300/301 split, the trigger-scheduler incident bullet
+  (line 300: "9 dropped send_later one-shots, 2 wedged crons..."; lines
+  301-303: the completing "damning line" quote) fell across both readers —
+  reader 1 (lines 1-300) extracted nothing for it, reader 2 (lines 301-580)
+  extracted only the completing quote, and the measured 9/2 counts never
+  entered the claims/corrections pool at all. `eap-retrospective.md:220-221`
+  and `launch-readiness-2026-07-10.md:360-361` cut mid-paragraph the same
+  way (not individually checked for lost content the way this instance
+  was). This is a corpus-coverage gap distinct from the ones above:
+  content that was read by no reader, in full, because it straddled a
+  boundary chosen by line count rather than structure.
 
 **Third check: Codex review of this PR (fm #1010), multiple rounds, all
 findings addressed or explicitly disclosed** (current round/finding tally:
@@ -876,16 +900,21 @@ drafts Part 2 without him present. The next session should: (1) fix the
 the mail** — both critics independently name it as the original measured
 source neither fan-out's readers opened, and its addition may also give
 **L02's underlying claim (venture-lab's Stripe false-green)** a fresh claim
-source to enter the pool through. **Read this precisely, per round 14's
-correction: L02's problem was never a missing corpus** — its correction
-sits in `docs/eap-story.md`, a fleet-manager file that was read in both
-runs — **it was an extraction inconsistency**, where the full run's reader
-for that same passage produced the correction but no matching claim,
-unlike the pilot's reader on the same passage. Adding night-review as a
-source may supply an independent claim, but the more direct fix is
-re-checking why the full run's `eap-story.md` reader dropped the claim
-side of a passage its own pilot predecessor caught; do not re-add the
-superbot lane expecting that alone to recover L02 — it never depended on
+source to enter the pool through. **Read this precisely, per round 15's
+correction (round 14's own diagnosis was itself wrong): L02's problem was
+never a missing corpus, and it was not a reader inconsistency either** —
+its correction sits in `docs/eap-story.md`, a fleet-manager file read in
+both runs, and **both runs' readers agreed**: neither extracted a matching
+claim (checked directly against `result.readers[0].claims` in the
+retained pilot JSON). **The actual fault is in the merge stage**: the
+pilot's merge invented a claim from the orphaned correction alone, which
+its own contract explicitly forbids ("do not manufacture" a row,
+`05-eap-false-done-ledger.js:171`); the full run's merge correctly left
+it unmatched. Adding night-review as a source may supply an independent
+claim, but the more direct fix is enforcing the merge stage's own
+no-manufacture rule (or accepting the row only ever existed via a
+contract violation); do not re-add the superbot lane expecting that alone
+to recover L02 — it never depended on
 it. **L08** (self-arming routines), unlike L02, genuinely did draw its
 refuted status from the cut superbot lane
 (`anthropic-email-2-draft-2026-07-11.md`) and may be settled by restoring

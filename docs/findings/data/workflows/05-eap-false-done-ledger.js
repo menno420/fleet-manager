@@ -119,6 +119,17 @@ const SB_FILES = [
   { path: `${SB}/gen1-wrapup-email-final-candidate.md`, split: [[1, 220], [221, 425]] },
   { path: `${SB}/anthropic-email-2-draft-2026-07-11.md`, split: [[1, 310], [311, 608]] },
 ]
+// DISCLOSED, NOT FIXED (Codex review round 15, fm #1010): these split points are fixed line
+// counts, not paragraph/section boundaries, and bisect live evidence records. Confirmed real,
+// not hypothetical: eap-story.md's split at 300/301 cuts the trigger-scheduler incident bullet
+// (line 300: "9 dropped send_later one-shots, 2 wedged crons..."; lines 301-303: the "damning
+// line" quote that completes it) in half — the retained full-run readers show reader 1 (1-300)
+// extracted NOTHING for this incident and reader 2 (301-580) extracted only the completing quote,
+// losing the 9/2 counts entirely from the claim/correction pool. eap-retrospective.md:220-221 and
+// launch-readiness-2026-07-10.md:360-361 cut mid-paragraph/mid-list the same way (not individually
+// checked for lost content the way the eap-story instance was). Left as-is rather than re-split
+// post-hoc, since re-splitting would not change output already produced; a rerun should split on
+// blank lines or heading boundaries near these counts, not fixed line counts.
 const FM_FILES = [
   { path: `${FM}/docs/eap-audit-collection.md` }, { path: `${FM}/docs/eap-final-recon-2026-07-14.md` },
   { path: `${FM}/docs/fleet-inconsistencies-2026-07-13.md` }, { path: `${FM}/docs/pr-landing-audit-2026-07-16.md` },

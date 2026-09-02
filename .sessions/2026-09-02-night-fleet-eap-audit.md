@@ -14,9 +14,10 @@
 > graft recommendation — see the report's § 7 correction, round 2). Fleet
 > B: pilot 4 survivors, full
 > fleet-manager-only run (`skipSatellite: true`) 3 survivors — 2 of the
-> pilot's 4 did not survive the full run; the two corpora are not nested
-> (the full run cut the one superbot reader both depended on), so this is
-> not clean evidence of scaling or verifier instability either way. Both
+> pilot's 4 did not survive the full run, by two different mechanisms, not
+> one shared cause (only L08 depended on the cut superbot reader; L02's
+> loss traces to the pilot's merge stage, not any cut — see the report's
+> § 3, corrected round 15). Both
 > fleets' critics converge: the primary source behind the pass's strongest
 > false-done rows (`docs/findings/night-review-2026-07-10.md`) was never
 > read by either fleet's READERS (verifiers reached it directly in some
@@ -59,7 +60,9 @@ Owner asleep; no owner-facing decision made, only evidence assembled.
    (venture-lab's Stripe false-green) never re-entered the claim pool at
    all — it survives only as four unmatched `orphaned_corrections` entries,
    never merged, ranked, or verified. See the report's § 3 for the full
-   correction (Codex review round 9).
+   correction (Codex review round 9, mechanism refined round 15: L02's
+   claim was a merge-stage invention from an orphaned correction, not a
+   reader or corpus-cut effect).
 5. **CUT: Fleet C** (19-repo closeout audit) — not attempted; no wall-clock
    left at measured concurrency 2.
 
