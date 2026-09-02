@@ -171,6 +171,62 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-09-02 · capability · `owner-live` · **Codex's automatic review
+  triggers (PR open, draft→ready) are NOT ENABLED on this account — the
+  owner's choice, not an unreliability — re-verification of the 2026-08-29
+  and 2026-08-07 entries below and of the product-forge #49 entry's "PR-open
+  trigger" attribution.** · evidence: owner, live, 2026-09-02, verbatim: *"it
+  appears it's written down as if there is an automatic review trigger. There
+  isn't, that is something I would have to personally enable and I explicitly
+  didn't do that because I don't think every PR needs a review."* Under the
+  DISCOVERY RULE step 0 an owner statement about his own estate is source
+  truth; it explains every observation below at once — zero reviews on fm
+  #974's PR-open, the manual-request trigger on fm #977, and product-forge
+  #49's review arriving after the explicit comment, which the entry credited
+  to PR-open. The capability is unchanged: `@codex review` by comment works
+  and answers in ~335 s. · workaround: none needed — post the comment; and
+  post it only on the PRs that owe a round (the review-cadence decision of
+  2026-08-29 in `decisions.md`, as amended 2026-09-02).
+  — LAST-VERIFIED: 2026-09-02
+
+- 2026-09-02 · wall · `owner-live` · **A message the owner sends MID-TURN does
+  not pass through `UserPromptSubmit` — a prompt hook cannot deliver a
+  reminder with it; the message arrives with the harness's own mid-turn
+  notice, attached to the next tool result.** *(Narrowed the same day —
+  Codex, fm #1013 round 3: a first version said "no hook can deliver a
+  reminder with it", which the probe does not support; see the workaround.)*
+  · evidence: probe run
+  in the review sitting, cloud container, Claude Code 2.1.258. The owner sent
+  `websites repo` while a two-minute Bash command ran; it arrived attached to
+  the tool result as *"The user sent a new message while you were working:
+  websites repo — This is how Claude Code surfaces messages the user sends
+  mid-turn — within the running turn, often alongside the next tool result,
+  rather than as a separate conversation turn"* with **no** `UserPromptSubmit
+  hook additional context` block. The `repo-websites-prompt` route
+  (`.claude/hooks/doc-routes.json`, tools `UserPromptSubmit`, when
+  `\bwebsites repo\b`) would have injected the websites README pointer; the
+  session's route state (`/tmp/claude-doc-routes/<session>.json`) shows it
+  never fired, so it was not consumed earlier. Second sample the same minute,
+  a longer sentence containing the phrase: same bare arrival. **Positive
+  control:** the same hook on the same session fired on the owner's first,
+  ordinary message (the `owner-comments-fleet-manager` route's block arrived
+  with it), so the `UserPromptSubmit` plumbing works here; it is the mid-turn
+  path that bypasses it. n = 2 messages, one venue, one CLI build. ·
+  workaround: the acknowledgement rule (owner direction 2026-09-02 § 3:
+  say how the message was understood and what it changes, at the next
+  boundary) cannot ride `UserPromptSubmit`. The event that matches the
+  rule's own timing is **`PostToolUse`** — the message arrives attached to
+  a tool result, and this repo already injects `additionalContext` at
+  that boundary (`.claude/hooks/change_guard.py`, `emit()`): a hook there
+  could read the transcript tail, see a user message queued since the last
+  turn boundary, and inject the one-line reminder. Unprobed as of
+  2026-09-02 — whether the queued message is visible to a `PostToolUse`
+  hook (in the transcript, or in the event payload) is the next probe. The
+  `Stop` hook is the other candidate (it reads the transcript already and
+  could ask whether the reply says how the message was understood). Both
+  shaped, neither built.
+  — LAST-VERIFIED: 2026-09-02
+
 - 2026-09-02 · capability · `owner-live` · **A session's dispatched agents
   are NOT capped at the session's own model tier — a Sonnet 5 session ran
   142 Opus 5 subagents.** · evidence: fm #1010's night session (card

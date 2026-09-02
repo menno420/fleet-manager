@@ -227,6 +227,54 @@ look like the dedupe failed when it did not.
 > mechanism whose absence is invisible is indistinguishable from a working one,
 > and then shipped one more unlogged branch on the line below.
 
+> **2026-09-02 — two corrections from the owner's own reading of the hook in
+> use.** (1) **The block does not withhold the reply.** Owner, live: the
+> session's first message is on his screen before the hook fires, and the
+> `REASON` text's *"address each point IN the reply the owner reads — amend
+> the reply"* made every session re-send the whole message with one
+> `[survived]` line added — *"it just appears you send the same message
+> exactly the same … it seems like it's getting worse."* Worse for a measured
+> reason: when the enrichment fails (below), the fixed question is answered
+> by a single `[survived]` line, so the second message is 100 % repetition.
+> The `REASON` text now says the owner has already seen the reply and asks
+> for **only what is new** — the corrected sentence, or the `[survived]`
+> line(s) alone; the boot file's Stop-hook bullet says the same. (2) **The
+> enrichment's 503 is Google shedding load, and one attempt was losing it.**
+> Both firings of the session that measured this logged
+> `error: "HTTPError: HTTP Error 503: Service Unavailable"`; reproduced on
+> the endpoint the same hour: body *"This model is currently experiencing
+> high demand. Spikes in demand are usually temporary"*, status
+> `UNAVAILABLE`, on **3 of 8 calls** across `gemini-flash-latest` and
+> `gemini-3.6-flash`, direct egress and proxied alike, each 503 back in
+> 1–6 s and the next call succeeding — `_free_review` itself 503'd on one run
+> and answered on the next, 5 s apart. Not the proxy (the hook never uses
+> it: `ProxyHandler({})`), not the key, not the model id. `_free_review` now
+> retries a 503 twice (2 s, then 4 s) and logs `attempts`. It retries no
+> 429: the hook does not tell a per-minute 429 from a daily cap, and neither
+> wait belongs in a per-turn hook (`tools/gemini_delegate.py`, a batch tool,
+> can afford to honour the server's stated wait on a 429 — a different
+> failure, not a precedent for this one). What is *not* established: whether
+> today's 503 rate is typical — one hour, one container, eight calls.
+> **(3) Later the same day: the 429 is the free tier's PER-DAY, PER-MODEL
+> cap.** Twenty firings in the review sitting: 10 skipped as too short, 2
+> enriched (one caught a real gap), 5 × 503, 3 × 429 whose body names
+> `GenerateRequestsPerDayPerProjectPerModel-FreeTier` on model
+> `gemini-3.8-flash` — what `gemini-flash-latest` resolved to that day.
+> Probed at that moment: `gemini-3.5-flash-lite` and `gemini-3.6-flash`
+> (the flip-time verification model) both answered 200, so the cap is per
+> model and the two routes were never sharing a budget — *this paragraph
+> first said the hook was spending the verification pass's quota; false,
+> the measurement itself shows the opposite (Codex, fm #1013 round 1).*
+> Owner, live: *"make the gemini route to a lite model with higher caps"* —
+> `FREE_MODEL` is now `gemini-3.5-flash-lite`, on its own daily cap, his
+> choice for headroom. **Review-quality parity on the lite model is
+> UNMEASURED:** the 2026-08-08 "same two findings" comparison was
+> `gemini-flash-latest` against the Vertex Pro model, n=1, and the only
+> lite probe on record answered "OK" to a one-word prompt. Asked whether the
+> reply text leaving to Google was wanted at all, he kept the add-on.
+> Also from that round: exhausted retries now log `attempts` (the count
+> rides on the raised error), with a `main()`-level case in the suite.
+
 > added 2026-08-07 · design record:
 > [`docs/findings/2026-08-06-provenance-mechanism-measured.md`](../../docs/findings/2026-08-06-provenance-mechanism-measured.md)
 

@@ -415,7 +415,17 @@
   stated. **(1) The flip lands on an answered verdict:** the PR flips green on
   the head the Codex round actually answered, never on a later head that has
   not been reviewed (this is TRAP-006/007's requirement, and the entry's
-  never-merge-before-an-asked-Codex-answers rule already implied it).
+  never-merge-before-an-asked-Codex-answers rule already implied it). *The
+  two exceptions, stated here since 2026-09-02 because they were only ever
+  in `session-close` step 6c and the cap entry: the flip commit itself —
+  the card's badge and close-out text, nothing a reviewer has an opinion
+  about — and, when the third and last round finds a P1/P2, the fix commit
+  that answers it, verified directly (a re-run test, the file opened at the
+  line) because the fourth round is denied. Both are by construction past
+  the verdict, and taking either exemption means the card names the
+  reviewed SHA, what came after it, and how each later commit was verified.
+  (Codex, fm #1013 rounds 1 and 3: the flip exemption alone left a closer
+  at round three with no compliant move.)*
   **(2) A Gemini verification is sufficient for an intermediate push:** the
   free-key route is not merely the permitted place to send mid-session checks,
   it fully discharges the verification owed on a fix that is not the flip head.
@@ -430,6 +440,47 @@
 - first worked use: fm #978 — round-2 fixes verified by `gemini-3.6-flash`
   (five findings RESOLVED, no new issues), flip on Codex round 2's answered
   verdict.
+- amended (2026-09-02, the review sitting, owner live): **which PRs owe the
+  flip-readiness round is a property of the diff, not a judgement.** His
+  words: *"I think only when it's substantial new work or actual coding that
+  this is necessary. And I guess aswell during large batches of document
+  restructuring etc. To make sure that no important things are forgotten.
+  But this is a tricky thing to determine tho, because Claude agents often
+  make mistakes in reading and understanding the documents they write
+  about."* The session put the measured case to him — fm #1010 was a
+  document and Codex found 16 factual reversals in it (`factual-reversal-core`
+  counted from `docs/findings/data/2026-09-02-codex-round-cap/round-classification.json`)
+  — and proposed three tiers, which he chose (*"I think I agree"*): **(1)
+  the diff touches an executable or binding surface → one round** — any
+  executable file wherever it sits (`.py`, `.sh`, `.js`/`.mjs`, `.ps1`,
+  `.github/workflows/*.yml`), **any configuration a hook or the gate reads
+  at run time** (`.claude/settings.json`, `.claude/hooks/doc-routes.json`,
+  `.codex/hooks.json`, `substrate.config.json`,
+  `.substrate/check-exceptions.yml` — the allowlist that can suppress a
+  blocking finding), and the binding documents (the boot file, the skills,
+  this ledger, `docs/traps.md`); directories such as `.claude/hooks/`,
+  `.codex/hooks/`, `tools/`, `scripts/`, `environments/` are where those
+  files live today, named as examples, not as the rule — a path list goes
+  stale the day a new directory appears (Codex, fm #1013 round 2 found
+  `.codex/hooks/` and `environments/` missing from the first list; round 3
+  found the gate's own YAML/JSON inputs missing from the second). File type
+  plus the named documents, nothing to interpret. **(2) A large
+  documentation change → one round** — a threshold, provisionally more than
+  five files or two hundred added lines under `docs/`. **(3) Otherwise no
+  Codex** — a card, a findings note, a capabilities-ledger line flips on the
+  Gemini pass or a direct source check plus the Stop hook. (A line in *this*
+  ledger is tier 1: a decision is a binding surface, so a decisions-only PR
+  owes its round — Codex, fm #1013 round 1, which caught tier 3 saying "a
+  ledger line" without naming which ledger.) The verdict is meant to be
+  computed from the diff at the flip moment and printed to the session
+  ("this PR owes a Codex round because it touches `.claude/hooks/`") — a
+  checker beside the card-flip route, shaped in the review sitting's card,
+  not built. What tier (3) lets through, said plainly: a small records PR
+  with one wrong checkable claim; accepted for the usage limits the original
+  entry names. He added the expectation, not a measurement, that *"once the
+  new repo and everything is properly made … these errors will go down
+  aswell since it will be easier for agents to read and find the right
+  information."*
 - provenance: owner, live, 2026-08-29, in the audits-review sitting (the
   fm #978 conversation), quoted verbatim above; recorded the same hour.
 
@@ -1044,10 +1095,38 @@
 - delivery: `.claude/hooks/codex_round_guard.py` + `tools/test_codex_round_guard.py`;
   `.claude/settings.json` and `tools/install_root_hooks.py` (the rescue path);
   the boot file's `@codex` bullet; `docs/traps.md` TRAP-009.
+- amended (2026-09-02, the review sitting, owner live): **the exit is
+  confirmed as his, and made countable.** Put to him as the landing session's
+  `DERIVED` reading and answered *"All agreed"* — with the session's
+  recommendation of how to run it, which he accepted in the same word: (1)
+  round one only on the head that is ready to flip ([D-0019]); rounds two
+  and three only when a fix changed something a reviewer would have an
+  opinion about; nits and P3s never earn a round (`session-close` step 6c).
+  (2) At round three's answer every finding gets one of two dispositions in
+  the thread — **fixed**, with the direct check that verified it named, or
+  **refuted** with evidence — and the card carries one countable line:
+  `round 3: N findings — N fixed, N refuted, 0 open`. Then flip. Two kinds
+  of commit may follow the last verdict, and both are named in the card: a
+  round-three fix, verified directly (that is this exit), and the flip
+  commit itself — badge and close-out text, the exemption `session-close`
+  6c and [D-0019]'s clause (1) name, nothing reviewable in it. (3)
+  Hand off instead of flipping only when a round-three finding needs a
+  design change: close the PR ([D-0017] — nothing waits open), keep the
+  branch, write the state in the card; the next session starts with its own
+  three rounds. "Verify without Codex" means a **direct check first** (re-run
+  the test, open the file at the line); the Gemini pass is second choice,
+  and the free tier's cap is per day and per model — the review hook's own
+  model (`gemini-3.8-flash`, behind the `gemini-flash-latest` alias) was
+  exhausted that day on 3 of the hook's 10 calls while the verification
+  model, `gemini-3.6-flash`, still answered; each is metered on its own.
 - provenance: owner, live, 2026-09-02, quoted verbatim above; the measurement
   is TRAP-009's ORIGIN.
 
-## [D-0040] Fan-out agents are staffed by task tier: Sonnet 5 reads and maps, Opus 5 reasons, Fable 5.1 reviews last — never the session's model by inheritance
+## [D-0040] Fan-out agents are staffed by task tier: Sonnet 5 reads and maps, Opus 5 reasons and takes the last look, Fable 5.1 only on the owner's explicit ask — never the session's model by inheritance
+
+*(Heading amended 2026-09-02 with the entry; it read "Opus 5 reasons, Fable
+5.1 reviews last" until then — the original wording survives verbatim in the
+verdict below, as provenance.)*
 
 - status: decided
 - date: 2026-09-02
@@ -1063,6 +1142,19 @@
   from evidence on `opus`; the final reviewer or critic on `fable`. The
   session's own model is never the default for a subagent — a stage that
   leaves `model` unset is a stage nobody sized.
+- amended (2026-09-02, same day, owner live in the review sitting that put
+  this entry back to him): **Fable is never a tier a session chooses.**
+  *"Fable should only be used when I explicitly request it, since Fable
+  uses a lot more usage than the other models, I try to only use it when I
+  believe that it would really make a difference."* So the last look runs
+  on `opus` by default, and a stage runs on `fable` only when he asked for
+  it, in words, for that run — the contract sheet quotes the ask beside the
+  stage and writes `fable: none` otherwise, so a Fable stage is always a
+  visible, quoted choice. A session that is itself on Fable does not pass
+  that on: his choice of model for the session is not a choice for its
+  agents. The "rules out" clause below about the final review is read with
+  this amendment: the last look is not put *below* `opus` to save cost; it
+  is not put *on* `fable` without his word.
 - why: the Workflow harness inherits the main-loop model unless told
   otherwise, and Fable is metered against the owner's Max allowance; the
   2026-09-02 morning workflow ran two mechanical classification reads (and
@@ -1083,3 +1175,48 @@
   every fan-out through that skill.
 - provenance: owner, live, 2026-09-02, quoted verbatim above; the
   measurement it reacts to is this session's own card.
+
+## [D-0041] The owner's quoted words may be corrected for spelling and lightly tightened for clarity — meaning unchanged, shown to him when in doubt
+
+- status: decided
+- date: 2026-09-02
+- verdict: Owner, live, in the review sitting, after seeing his own typos
+  quoted verbatim into a public record: *"I do think you should be able to
+  correct my typos when quoting me in the repo or when you state back a
+  sentence to me directly. As long as the meaning of the sentence doesn't
+  change. If you're in doubt you could always send the examples of how you
+  would write my words sin the repo for me to confirm."* So a quotation of
+  his words in a record or a reply may fix spelling and spacing ("aswell"
+  → "as well", "where" → "were", "intructions" → "instructions"), never a
+  word choice, an order, or a hedge; a session unsure whether a change
+  touches meaning shows him the cleaned sentence beside the original and
+  lets him confirm. The `OWNER` tag still means his words; the chat stays
+  the verbatim source.
+- amended (2026-09-02, minutes later, the same message re-read): **not
+  spelling only.** His second sentence on it — *"Not about the asking but
+  about being able to slightly change my wording to make the sentences more
+  clear or compact"* — permits a light rewording for clarity or compactness
+  as well: dropping a filler ("tho", "basically"), splitting a run-on at a
+  "which", tightening a doubled phrase. The test is unchanged: the meaning
+  must survive, a hedge stays a hedge, an order of points stays, and a
+  session unsure of any of that shows him both versions. The first version
+  of this entry ruled rewording out; that was narrower than his words.
+- why: the 2026-09-01 and 2026-09-02 owner-direction records quoted him
+  *"verbatim, typos included, so anything derived from them can be checked
+  against source"*, and the sitting's session followed that. He writes
+  fast and knowingly — *"I know I should saw 'as well' but when I'm talking
+  to AI I don't really think it matters"* — and the cost of verbatim was
+  that "aswell", "acutally" and "Projects where advertised" now sit in a
+  public file. Checkability against the chat is unaffected by a spelling
+  fix; a wording change is what would break it, and that stays out.
+- rules out: changing what a quoted sentence claims, hedges, or orders —
+  that is paraphrase and is marked `DERIVED`; correcting anything inside a
+  quotation of someone other than him; going back through past records to
+  clean them (allowed, not owed).
+- provenance: owner, live, 2026-09-02, quoted verbatim above (this entry
+  keeps his typo on purpose, as the last one). He believed he had said this
+  in an earlier session; the tree was searched (`decisions.md`,
+  `CONSTITUTION.md`, `intent.md`, the owner reflection, the 2026-08-28 and
+  2026-09-01 owner-direction records, the playbook) and holds no earlier
+  statement of it — only the verbatim-with-typos convention it replaces —
+  so this is the first written home.

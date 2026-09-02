@@ -2,11 +2,15 @@
 
 > **Status:** `living-ledger`
 
-> **Four files here are LIVE, not part of the historical ledger below** —
-> the fourth, added 2026-09-02:
+> **Five files here are LIVE, not part of the historical ledger below** —
+> the fifth, added 2026-09-02 at the close of the review sitting:
+> [`2026-09-02-eap-mail-session.md`](2026-09-02-eap-mail-session.md), the
+> continuation prompt for the session that drafts the final EAP mail for the
+> owner to read, edit and send (paste-ready; `continuation-prompt` skill
+> shape). The fourth, added earlier the same day:
 > [`2026-09-02-step-by-step-review-sitting.md`](2026-09-02-step-by-step-review-sitting.md),
 > the continuation prompt for the owner's review sitting over what the
-> 2026-09-02 sessions landed (paste-ready; `continuation-prompt` skill shape).
+> 2026-09-02 sessions landed — consumed by that sitting (fm #1013).
 > The original three:
 > [`chatgpt-project-instructions.md`](chatgpt-project-instructions.md) — the
 > standing Instructions for the owner's ChatGPT "Fleet Manager" project,

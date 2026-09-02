@@ -210,10 +210,13 @@ program law binding every repo.
   to the added-card lane and both checkers. **The check list lives in that
   script, not in prose here** — every written enumeration of it has gone stale
   (the `session-close` skill named two of three until 2026-08-08).
-- **The Stop hook reviews the reply you are about to send, and blocks once.**
-  That is normal operation, not a fault: answer its questions **in** the reply
-  the owner reads — fix what it exposes, and where your reasoning holds, keep
-  it and say why in one line marked `[survived]`. Same disposition vocabulary
+- **The Stop hook reviews the reply you just sent, and blocks once.**
+  That is normal operation, not a fault — and **the owner has already seen
+  that reply** (owner, 2026-09-02: the block does not withhold it, so a session
+  that "amends the reply" puts the same message in front of him twice). Answer
+  with **only what is new**: the corrected sentence and what changed it, or
+  one line marked `[survived]` naming what you read or ran — never the reply
+  again. Same disposition vocabulary
   for any adversarial review: `[survived]` / `[conceded]` / `[partial]`, so the
   tally is countable rather than a reading (`docs/conventions/adversarial-review.md`).
   A **firing** instrument is information; a quiet one is no evidence at all.
@@ -266,7 +269,14 @@ Essentials:
   (`GIT_CONFIG_GLOBAL=/dev/null` + `https://x-access-token:$GITHUB_PAT@github.com/…`).
 - The *proxied* GitHub REST path 403s. That is a path quirk — switch to direct
   egress — **not a wall.**
-- **ALWAYS ask `@codex` explicitly — never rely on it noticing your PR.** Its
+- **ALWAYS ask `@codex` explicitly — never rely on it noticing your PR.**
+  **The automatic triggers are OFF, by the owner's choice** (owner, live,
+  2026-09-02: *"it appears it's written down as if there is an automatic
+  review trigger. There isn't, that is something I would have to personally
+  enable and I explicitly didn't do that because I don't think every PR
+  needs a review"*) — so the comment is the only trigger, not merely the
+  reliable one, and the measurements below are of a feature that was never
+  enabled. Which PRs owe a round at all: [D-0019] as amended 2026-09-02. Its
   own about-box advertises three triggers (open a PR for review · mark a draft
   ready · comment `@codex review`), but **only the comment is reliable.**
   `MEASURED` 2026-08-29, and **read what was actually probed**: both observed

@@ -910,6 +910,12 @@ reused unchanged).
 
 ## 10 · What tomorrow's session should do with this
 
+> **Owner, 2026-09-02 (the review sitting), on the sentence below:** *"I
+> would like a proper draft created which I can read and edit."* A session
+> drafts the mail from this report; he reads, edits and sends. The rest of
+> this section is that draft's precondition list, unchanged. Record:
+> [`2026-09-02-owner-direction.md`](2026-09-02-owner-direction.md) § 5b.
+
 This report is evidence, not a drafted mail — per the night brief and the
 owner's own reservation, only he writes and sends Part 1, and no session
 drafts Part 2 without him present. The next session should: (1) resolve the
