@@ -360,6 +360,59 @@ exactly the workaround he describes: going to the workers himself. The
 classifier-moved-to-Sonnet-5 timing is his (`OWNER`, hedged "mostly
 started after"); the tree carries no dated line on the classifier's model.
 
+**4 · What went into the instruction box that could not go in the repo:**
+
+> *"That is somewhat of a trick question. As we already have clearly
+> documented, rules written in a repo do not necessarily get followed
+> properly. So what I had to put in the instructions where things that I
+> wanted to make sure we're actually followed."*
+
+**5 · Why eight Projects, and whether a fixed product changes the number:**
+
+> *"8 was just a coincidental pick after we consolidated. Those were just
+> the amount of Projects we determined were valuable, I could probably have
+> managed a little more than that, tho I don't think that would have
+> improved the results. Less would have probably been better if I intended
+> to keep them all active in parallel. The only reason this much was even
+> possible was because the unlimited usage they gave us for using the
+> Projects."*
+
+**6 · What he missed after the Projects were switched off:**
+
+> *"Honestly, I didn't miss anything. Mainly because it was a pretty
+> intensive task to keep all of them running and checking in on them. Tho
+> what I do miss in general is the fact that for certain tasks, like
+> creating ideas and working on the substrate kit. They were very capable
+> of working through the day with multiple active sub agents. What I most
+> compare it to is a steady running ultracode that spawns new agents
+> everytime one is finished. This was not yet perfect tho I think if they
+> manage to perfect the feature so that they do go on infinitely if that is
+> their order, then this would be immensely valuable. What they offer as
+> opposed to a regular session is the fact that the coordinator is a mind
+> of it's own that has the ability to come up with new tasks. Which a
+> regular session can technically do aswell. But the coordinator with it's
+> sub agents can do multiple tasks at once better than a regular ultracode
+> could. (That last claim has no official proof. This is what I infer based
+> on logic)"*
+
+*(The word "ultracode" in that answer was read by the harness as an
+opt-in to multi-agent orchestration and the workflow reference loaded
+itself into the session — the second time in two days a descriptive use
+of the word did that. The session did not act on it; no agents ran in the
+sitting.)*
+
+`DERIVED`, the answer to Anthropic's question as his six answers leave it:
+what a Project *adds* is (1) verbatim delivery of one rule set into every
+agent, which carried the rules he needed followed; (2) a coordinator that
+is a mind of its own — generates its next tasks and keeps several agents
+busy through a whole day on generative work (ideas, the kit), which he
+compares to an ultracode fan-out that never drains and rates as
+*"immensely valuable"* if it ran indefinitely on order; and (3) it was
+worth eight at once only because usage was unlimited. His one claim of
+degree — that the coordinator plus workers handle several tasks at once
+better than a session's fan-out — he marks himself as inferred, not
+measured, and the mail must carry it that way or not at all.
+
 `DERIVED`, for the mail: four things a Project must do to be chosen over a
 session, each from his own experience — (a) show working-versus-stalled on
 the Projects home screen, since he found stalls only by opening each one;
