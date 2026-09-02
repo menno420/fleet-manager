@@ -173,7 +173,22 @@ think every PR needs a review"* says not every one; the tree never draws the
 line, and today's records-only fm #1012 ran all three. Put to him as one
 question; his answer lands in D-0019 in place.
 
-💡 Session idea: none yet.
+💡 Session idea: **the one-place-per-fact checker, narrowed to what a script
+can decide** (owner confirmed the rule, item 6: *"Yes I think that's a good
+rule to have"*; asked for the session's decision on the checker, since
+*"I'm not yet that technical that I see myself as the right fit to make
+these decisions on my own"*). Not the general form — a checker over prose
+cannot tell a claim from a quotation of it (`docs/conventions/adversarial-review.md`
+§ the permanent false positive). The buildable form: over a PR's **added
+lines only**, a number with its label (`88 findings`, `17 rounds`, `204
+agents`, `335 s`) that appears in two or more files of the same diff is
+reported once per number with the files. Acceptance before it may go red:
+**fires on fm #1010's diff** (the known positive — the round tally in six
+places), **silent on a records-only PR** with one card and one ledger line
+(the known negative), and advisory for its first ten PRs so the
+false-positive rate is measured, not assumed. Home when built: the
+`check --strict` fan-out beside `check_no_false_walls.py`. For a build
+session after the mail session; not this sitting.
 
 ⟲ Previous-session review: the landing session (fm #1011, fm #1012) left a
 continuation prompt that was accurate at HEAD to the commit and named its
