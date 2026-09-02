@@ -171,6 +171,45 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-09-02 · capability · `owner-live` · **A session's dispatched agents
+  are NOT capped at the session's own model tier — a Sonnet 5 session ran
+  142 Opus 5 subagents.** · evidence: fm #1010's night session (card
+  `📊 Model: sonnet-5`) passed `judgeModel` into both fleet scripts
+  (`04-eap-mail-evidence-pass.js:38`, `05-eap-false-done-ledger.js:48`, at
+  `origin/main`), and the retained results under
+  `docs/findings/data/2026-09-02-eap-mail-evidence/` carry `"model"` fields
+  of `claude-opus-5[1m]` on 41 + 34 + 67 = 142 agents and `claude-sonnet-5`
+  on 43 + 3 + 16 = 62, zero Fable; counted from the three JSON files on
+  2026-09-02. The owner had assumed the cap existed (*"I thought a sessions
+  agents were capped at it's own model"*). · workaround: none needed; the
+  half still unmeasured is whether a Sonnet or Opus session can dispatch
+  **Fable** agents (plan-metered on his account per the vendor notice he
+  showed) — one probe: spawn one Fable agent from a Sonnet session and read
+  the model field back. Rule for choosing the tier: the model-tier decision of 2026-09-02 in
+  `docs/decisions.md`. — LAST-VERIFIED:
+  2026-09-02
+
+- 2026-09-02 · capability · `owner-live` · **Completed agents' results
+  survive a workflow `TaskStop` — they are readable from the run's
+  `journal.jsonl` after the stop; queued agents start on their own the
+  instant a running one frees a slot.** · evidence: workflow
+  `wf_aab55c5a-fba`, this session, stopped at the owner's *"finish your
+  current agents but do not start more"* — both classifier `result` entries
+  were read from `<transcript dir>/journal.jsonl` after the stop and became
+  `docs/findings/data/2026-09-02-codex-round-cap/round-classification.json`;
+  the journal also showed two verifiers `started` in the seconds after the
+  first classifier finished, before the stop killed them (their transcripts:
+  two and one tool calls). · workaround — and read this as the measured
+  edge, not a recipe: a `Monitor` polling the journal every 5 s fired only
+  AFTER the two queued verifiers had started, so watching the journal did
+  not honour "finish the current ones, start no more" — the stop still
+  killed two just-started agents. What does honour it: stop the workflow
+  immediately and accept the running agents' loss, or shape the script so
+  nothing is queued behind running agents when a stop may be needed
+  (stages sized to the measured concurrency, one `parallel()` at a time).
+  No in-run drain control was found; if one exists it is unmeasured here.
+  — LAST-VERIFIED: 2026-09-02
+
 - 2026-08-29 · capability · `owner-live` · **A session can read its own
   identity from inside the container — `get_session` (claude-code-remote
   MCP, no argument) returns this session's `id`, `title`, model and status,

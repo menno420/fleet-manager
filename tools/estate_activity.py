@@ -95,7 +95,19 @@ VENUE_RE = re.compile(
     r"^[ \t]*[-*][ \t]+\*\*\N{ROUND PUSHPIN}[ \t]*Venue:\*\*[ \t]*`?([A-Za-z][A-Za-z-]*)`?[ \t]*$",
     re.M,
 )
-MODEL_RE = re.compile(r"\N{BAR CHART}\s*Model:\*{0,2}\s*(.+)")
+# Line-anchored like VENUE_RE, for the same reason: an unanchored search over the
+# whole card read prose *about* the model line (a card titled after the model
+# slot, a sentence quoting the convention) as the model itself, and the derived
+# table showed a lone backtick or a sentence fragment in the model cell
+# (@codex, fm #1012 round 1). Unlike VENUE_RE it accepts the documented
+# unbolded forms — `.sessions/README.md` § Model defines the selector as the
+# first LINE-ANCHORED `📊 Model:` occurrence, "bold or not", and 170 cards use
+# the plain `📊 Model: …` line (@codex, fm #1012 round 2: requiring the bolded
+# bullet silently blanked those).
+MODEL_RE = re.compile(
+    r"^[ \t]*(?:[-*][ \t]+)?\*{0,2}\N{BAR CHART}[ \t]*Model:\*{0,2}[ \t]*(.+?)[ \t]*$",
+    re.M,
+)
 STATUS_RE = re.compile(r"\*\*Status:\*\*\s*`([a-z-]+)`", re.I)
 
 
@@ -181,6 +193,10 @@ def parse_card(text: str) -> dict:
     # bullet inside a card body, which this estate's cards now plausibly carry.
     header = text.split("\n## ", 1)[0]
     venue = VENUE_RE.search(header)
+    # The model selector is the first LINE-ANCHORED occurrence anywhere in the
+    # card (.sessions/README.md § Model) — some cards open with a `## Correction`
+    # section above their header block, so the header-only search of the venue
+    # line does not apply here (@codex, fm #1012 round 3).
     model = MODEL_RE.search(text)
     status = STATUS_RE.search(text)
     title = ""

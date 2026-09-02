@@ -1,6 +1,11 @@
 # 2026-09-02 — fm #1010 reviewed and landed on its flip head; the Codex round cap (TRAP-009 · D-0039)
 
-> **Status:** `complete` — the morning-after session: the night fleet's
+> **Status:** `complete` — flipped as the records follow-up PR's last
+> commit, after its three Codex rounds (the cap) and the post-round-3
+> verification without a fourth; it had been re-opened `in-progress` for
+> those fixes so the card's own lifecycle held the PR, not only the
+> `do-not-automerge` label (Codex, that PR's round 3). The session itself:
+> the night fleet's
 > PR #1010 reviewed on its exact head and landed (merged 07:59Z); the
 > owner's "three rounds, never more" turned into a denying hook, driven
 > through exactly three Codex rounds of its own and flipped by the cap's
@@ -127,3 +132,60 @@ not get asked. That is the case for the sheet line.
 
 Layer-2 handoff: null (fleet-manager itself; no satellite repo attached this
 session).
+
+## Close-out addendum — records-only follow-up PR (same session, after fm #1011 merged)
+
+**Why a third PR from one session (D-0024 exception, stated):** the owner
+asked, after fm #1011 had merged, that *"everything from this session is
+properly documented in the repo"* and for a continuation prompt for a
+step-by-step review sitting — records only, at his ask, landing what the
+two merged PRs could not carry because it happened after them. Nothing in
+it changes a mechanism.
+
+What it lands:
+- `docs/findings/2026-09-02-owner-direction.md` — his words from the sitting
+  verbatim (the cap, "finish your current agents", how he wants a session to
+  reply, the model tiers, the reasoning question, the subagent-cap question,
+  the close), each with what it led to and what stays open.
+- `docs/findings/data/2026-09-02-codex-round-cap/` — the per-round
+  classification of fm #1010's 88 review threads (the numbers behind
+  TRAP-009, re-derivable from the tree) and both free-key Gemini
+  verification passes ([D-0019]) as run.
+- `docs/CAPABILITIES.md` — two dated lines: a Sonnet 5 session dispatched
+  Opus 5 subagents (fm #1010's retained JSON, 142 of them), so a session's
+  agents are not capped at its own model; and completed agents' results
+  survive a workflow `TaskStop` in the run's `journal.jsonl`, while queued
+  agents start on their own the instant a slot frees.
+- `docs/prompts/2026-09-02-step-by-step-review-sitting.md` — the
+  continuation prompt (the `continuation-prompt` skill's shape, preflight
+  run at HEAD), listed among the live files in `docs/prompts/README.md`.
+- `docs/activity/estate-log.md` regenerated; `docs/findings/README.md`
+  regenerated for the new record.
+
+**Two mechanisms changed during this PR's review rounds — it is not records
+only after round 1:** `tools/estate_activity.py` now takes the model from
+the first line-anchored `📊 Model:` occurrence anywhere in the card, bold or
+not (round 1: an unanchored search matched prose about the convention and
+left a lone backtick in the model cell; round 2: the anchored bullet-only
+form blanked the 170 cards that use the plain line; round 3: the header-only
+search blanked a card whose header follows a `## Correction` section) —
+verified on the plain, bolded, convention-quoting and late-header card
+shapes, then the log regenerated with zero blank model cells;
+`tools/gen_findings_index.py` stamps a new placeholder row with the run date
+instead of a hardcoded 2026-09-01 (round 2), verified by regenerating and
+reading this PR's own row. Codex rounds on this PR: three (the cap), 6 + 3 +
+4 findings, all real, all fixed; after round 3 the fixes were verified
+without a fourth round — by direct check only: the regex run on the four
+card shapes, the log regenerated with zero blank cells, the link and gate
+checks; the free-key Gemini pass was attempted twice and failed (a read
+timeout, then HTTP 503), which is stated here rather than a pass claimed.
+The cap's exit, applied a second time.
+
+Three things this session got wrong, kept here because the card is where the
+next session looks: mid-turn messages went unacknowledged three times until
+he asked (fix: acknowledge first, always); "finish your current agents" was
+read as the two that were running when he said it, and two verifiers the
+runtime had just started were killed by the stop; and a sentence about last
+night's agents inheriting Fable was written from inference and was false —
+the retained JSON's `model` fields settled it (62 Sonnet, 142 Opus, zero
+Fable) after Codex round 3 caught it.
