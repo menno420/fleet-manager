@@ -97,6 +97,25 @@ hook live with `CAP = 3`.
      `attempts`, and does not retry a 429. Suite:
      `tools/test_owner_review.py`.
 
+5. **Which PRs owe a Codex round — answered.** His words: *"I think only
+   when it's substantial new work or actual coding that this is necessary.
+   And I guess aswell during large batches of document restructuring etc. To
+   make sure that no important things are forgotten. But this is a tricky
+   thing to determine tho, because Claude agents often make mistakes in
+   reading and understanding the documents they write about."* The session
+   put the measured case to him (fm #1010 was a document; `factual-reversal-core:
+   16` counted from the retained JSON) and proposed making the decision a
+   property of the diff, read at the flip moment: (1) touches an executable
+   or binding surface → one round; (2) a large docs change over a threshold
+   → one round; (3) otherwise no Codex — the Gemini pass or a direct check.
+   He chose **A** (*"I think I agree"*), adding the expectation, not a
+   measurement, that *"once the new repo and everything is properly made …
+   these errors will go down aswell since it will be easier for agents to
+   read and find the right information."* Lands as an amendment to D-0019
+   in this PR; the checker itself is shaped, not built.
+6. **The new hook answer style, confirmed:** *"this way of answering the
+   hook is a lot more clear to read."*
+
 ## Verify
 
 `python3 bootstrap.py check --strict` — run before the flip; only the
