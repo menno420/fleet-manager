@@ -123,6 +123,16 @@ hook live with `CAP = 3`.
    contract sheet's MODELS line now ends `fable: none | <stage> — owner
    asked, in words, for this run`, § 8's table puts the last look on
    `opus` and makes a Fable stage a quoted owner ask.
+8. **Item 3 of 6, acknowledging a mid-turn message — refined.** Not an
+   interrupt: *"once it's done or in between steps I'd like some
+   acknowledgement so I know my message came through properly. Just like at
+   session start … I'd like to know how you understood my message."* His
+   words and the refined reading are in
+   `docs/findings/2026-09-02-owner-direction.md` § 3 (record grown in
+   place). Whether a mid-turn message passes through `UserPromptSubmit`
+   stays the probe that decides if a hook can deliver it; the recipe is one
+   trigger phrase sent while a command runs, and the routing hook's note
+   arriving with the message is the positive result.
 
 ## Verify
 

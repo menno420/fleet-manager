@@ -73,6 +73,24 @@ yet; whether a mid-turn message passes through `UserPromptSubmit` (where a
 hook could inject the reminder) is **unmeasured** — one probe for a session
 that has a hook and a second window.
 
+**Refined by him the next day (2026-09-02, the review sitting), `OWNER`:**
+
+> *"I don't necessarily mean that it should answer right away before
+> finishing it's current task, but once it's done or in between steps I'd
+> like some acknowledgement so I know my message came through properly. Just
+> like at session start, when I say something that changes how the task is
+> supposed to go I'd like to know how you understood my message, so I know
+> if my intent came through correctly or not and whether or not I still
+> have to add more context or if my message alone was sufficient."*
+
+`DERIVED` from that: the timing is **the next natural boundary** (a step
+finished, a tool result read), not an interrupt; the content is **how the
+session understood the message and what it changes** — the same shape as
+the four labelled lines a session states at start — so he can see whether
+his intent landed before the work runs on. What was wrong in the original
+reading was the word *first*, which asked for an interrupt; what was right
+was *say what it changes*.
+
 ## 4 · Which model a dispatched agent runs on
 
 > *"And second that you really like to take initiative with Dispatching
