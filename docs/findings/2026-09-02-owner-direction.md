@@ -184,6 +184,51 @@ using FD-01/FD-02) is the draft's precondition. The review sitting ends by
 agreeing the mail's contents with him and handing the mail session a
 continuation prompt built for that.
 
+## 5c · The time after — what a Project adds over a session (owner, the review sitting, 2026-09-02)
+
+He raised it as the part of the mail he most wants to answer well:
+
+> *"one of the questions anthropic asked me is what would make me choose a
+> Project over a regular claude code session. I'd like to be able to give
+> them a proper answer. I'd like to be able to tell them what the normal
+> sessions and the Projects have in common and where they differ enough to
+> make a difference"*
+
+And a first-hand observation the tree did not hold (shiftlife's Layer 2
+has no line on it; the ledger's 2026-07-14 entries measured `send_later`
+chains firing on schedule in seat venues, which corroborates the mechanism):
+
+> *"One other thing that I found out recently when working on shiftlife, an
+> app I created ( or a session created ) based on research about what
+> people were requesting on the internet. I did not really do anything for
+> this project, I did not review or verify what got done, but what happened
+> is that once I started that session, it kept itself alive through
+> indefinite send_later. Which is basically the same capability as what the
+> Projects where advertised to be; an autonomous worker. Tho not exactly
+> the same since the Projects offer more customization, which is better if
+> it acutally works properly. Tho what I want to say is that a normal
+> session has the ability to act as an autonomous worker aswell. So the
+> main thing a Project adds over a normal session is the ability to add
+> custom instructions etc. Another thing the Projects do well is that it
+> spawns it's own agents that work like normal agents to manage the context
+> in a long run. Tho the same effect is ultimately achieved when a normal
+> session automatically compacts at ~75% context."*
+
+`DERIVED`, the session's reading put back to him in the sitting: autonomy
+is not what a Project adds — a session on a wake chain is an autonomous
+worker, `OWNER` here and `MEASURED` in the ledger. What a Project offered
+that a session does not, from the record: custom instructions at the
+project level (the weakest delivery tier by the estate's own measurement —
+`docs/findings/2026-08-08-why-rules-dont-bind.md`, the night report's
+survivor #1), and fresh coordinator/worker seats in place of one
+compacting context (a different failure shape, not the same effect: a
+compaction carries a model-written summary forward, a fresh seat carries
+only what the repo holds — `REASONED`). Everything the retrospective's
+§ 3 list asks for (standing grants, scheduler observability, death
+visibility, a native inter-session channel, a deterministic merge
+contract) is what a Project would have to add to be worth choosing; none
+of it is custom instructions.
+
 ## 6 · The close
 
 > *"Make sure everything from this session is properly documented in the repo
