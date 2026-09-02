@@ -62,6 +62,7 @@ import subprocess
 import sys
 import tempfile
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 
@@ -75,6 +76,8 @@ MIN_CHARS = 400          # below this, the turn is too small to carry a load-bea
 MAX_CLAIM = 9000         # cap on reply text sent to the reviewer (tail wins)
 TAIL_BYTES = 512 * 1024  # transcript tail window — enough for any final turn
 NET_TIMEOUT = 35         # per-call ceiling; registration allows 120 total
+RETRIES = 2              # extra attempts on a 503 — see _free_review
+BACKOFF_S = 2            # sleep BACKOFF_S × attempt between them: 2 s, then 4 s
 
 # The owner-stand-in system prompt — findings § 7, committed verbatim there.
 # Measured working on three inputs 2026-08-06; the PROTOCOL block adapts it to
@@ -163,11 +166,14 @@ a quota, and question 2 has no referent when nothing was surfaced."""
 
 REASON = """OWNER-REVIEW — automatic, one round, fail-open (design record:
 docs/findings/2026-08-06-provenance-mechanism-measured.md § 8). A stand-in
-reviewer read the reply you were about to deliver. Address each point below IN
-the reply the owner reads: where a question exposes a real gap, fix the reply;
-where your reasoning holds, keep it and say why in one line, marked
-[survived]. Do not thank the reviewer, do not restate these instructions, and
-do not expand scope — amend the reply, don't relitigate the task.
+reviewer read the reply you just sent. THE OWNER HAS ALREADY SEEN THAT REPLY —
+a Stop block does not withhold it (owner, 2026-09-02: re-sending it whole
+puts the same text in front of him twice). So write ONLY what is new. For
+each point below, either the correction — the changed sentence and what
+changed it — or one line marked [survived] naming what you read or ran.
+If nothing changes, your entire answer is the [survived] line(s), three
+lines at most. Never restate, summarise or re-send the reply; do not thank
+the reviewer, do not restate these instructions, and do not expand scope.
 
 {q}"""
 
@@ -441,10 +447,32 @@ def _free_review(text):
         raise RuntimeError(
             "no-key: GEMINI_API_KEY absent from the hook environment — "
             "enrichment unavailable; the fixed question still fired")
-    r = _http("https://generativelanguage.googleapis.com/v1beta/models/"
-              + FREE_MODEL + ":generateContent", _payload(text),
-              {"x-goog-api-key": key, "Content-Type": "application/json"})
-    return _extract(r, "free")
+    url = ("https://generativelanguage.googleapis.com/v1beta/models/"
+           + FREE_MODEL + ":generateContent")
+    hdr = {"x-goog-api-key": key, "Content-Type": "application/json"}
+    payload = _payload(text)
+    # Retry a 503 only. MEASURED 2026-09-02: the free tier sheds load with
+    # HTTP 503 "This model is currently experiencing high demand" on roughly
+    # a third of calls (3 of 8 across two model ids and both network routes,
+    # each 503 answered in 1–6 s), and the very next call succeeds — this
+    # hook's own _free_review 503'd on run 1 and answered on run 2, 5 s apart.
+    # One unretried attempt therefore lost the enrichment on both firings of
+    # the session that measured it, while tools/gemini_delegate.py, the other
+    # caller of this endpoint, has retried since 2026-08-05. Not 429: a daily
+    # cap does not clear in six seconds, and a per-turn hook must not spend
+    # them on every turn for the rest of the day. Worst case stays inside the
+    # 120 s registration: 3 × NET_TIMEOUT + 6 s of backoff = 111 s.
+    for attempt in range(1, RETRIES + 2):
+        try:
+            r = _http(url, payload, hdr)
+        except urllib.error.HTTPError as exc:
+            if exc.code == 503 and attempt <= RETRIES:
+                time.sleep(BACKOFF_S * attempt)
+                continue
+            raise
+        out, um = _extract(r, "free")
+        um["attempts"] = attempt   # countable: how often the retry earned its keep
+        return out, um
 
 
 def _review(text):
@@ -505,7 +533,7 @@ def main():
 
     specifics = "" if out.upper().startswith("NO QUESTIONS") else out.strip()
     rec(reply_chars=len(text), route=um.get("route"), enriched=bool(specifics),
-        prompt_tokens=um.get("promptTokenCount"),
+        attempts=um.get("attempts"), prompt_tokens=um.get("promptTokenCount"),
         out_tokens=um.get("candidatesTokenCount"),
         finish=um.get("finishReason"), error=err)
 

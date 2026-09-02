@@ -210,10 +210,13 @@ program law binding every repo.
   to the added-card lane and both checkers. **The check list lives in that
   script, not in prose here** — every written enumeration of it has gone stale
   (the `session-close` skill named two of three until 2026-08-08).
-- **The Stop hook reviews the reply you are about to send, and blocks once.**
-  That is normal operation, not a fault: answer its questions **in** the reply
-  the owner reads — fix what it exposes, and where your reasoning holds, keep
-  it and say why in one line marked `[survived]`. Same disposition vocabulary
+- **The Stop hook reviews the reply you just sent, and blocks once.**
+  That is normal operation, not a fault — and **the owner has already seen
+  that reply** (owner, 2026-09-02: the block does not withhold it, so a session
+  that "amends the reply" puts the same message in front of him twice). Answer
+  with **only what is new**: the corrected sentence and what changed it, or
+  one line marked `[survived]` naming what you read or ran — never the reply
+  again. Same disposition vocabulary
   for any adversarial review: `[survived]` / `[conceded]` / `[partial]`, so the
   tally is countable rather than a reading (`docs/conventions/adversarial-review.md`).
   A **firing** instrument is information; a quiet one is no evidence at all.

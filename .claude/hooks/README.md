@@ -227,6 +227,33 @@ look like the dedupe failed when it did not.
 > mechanism whose absence is invisible is indistinguishable from a working one,
 > and then shipped one more unlogged branch on the line below.
 
+> **2026-09-02 — two corrections from the owner's own reading of the hook in
+> use.** (1) **The block does not withhold the reply.** Owner, live: the
+> session's first message is on his screen before the hook fires, and the
+> `REASON` text's *"address each point IN the reply the owner reads — amend
+> the reply"* made every session re-send the whole message with one
+> `[survived]` line added — *"it just appears you send the same message
+> exactly the same … it seems like it's getting worse."* Worse for a measured
+> reason: when the enrichment fails (below), the fixed question is answered
+> by a single `[survived]` line, so the second message is 100 % repetition.
+> The `REASON` text now says the owner has already seen the reply and asks
+> for **only what is new** — the corrected sentence, or the `[survived]`
+> line(s) alone; the boot file's Stop-hook bullet says the same. (2) **The
+> enrichment's 503 is Google shedding load, and one attempt was losing it.**
+> Both firings of the session that measured this logged
+> `error: "HTTPError: HTTP Error 503: Service Unavailable"`; reproduced on
+> the endpoint the same hour: body *"This model is currently experiencing
+> high demand. Spikes in demand are usually temporary"*, status
+> `UNAVAILABLE`, on **3 of 8 calls** across `gemini-flash-latest` and
+> `gemini-3.6-flash`, direct egress and proxied alike, each 503 back in
+> 1–6 s and the next call succeeding — `_free_review` itself 503'd on one run
+> and answered on the next, 5 s apart. Not the proxy (the hook never uses
+> it: `ProxyHandler({})`), not the key, not the model id. `_free_review` now
+> retries a 503 twice (2 s, then 4 s) and logs `attempts`;
+> `tools/gemini_delegate.py` has retried this endpoint since 2026-08-05. What
+> is *not* established: whether today's rate is typical — one hour, one
+> container, eight calls.
+
 > added 2026-08-07 · design record:
 > [`docs/findings/2026-08-06-provenance-mechanism-measured.md`](../../docs/findings/2026-08-06-provenance-mechanism-measured.md)
 
