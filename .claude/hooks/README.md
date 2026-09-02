@@ -641,7 +641,7 @@ measurement; this hook is its delivery.
 | subject | behaviour | why |
 |---|---|---|
 | `mcp__*__add_issue_comment` / `pull_request_review_write` / `add_reply_to_pull_request_comment` whose body carries `@codex review` (or `@codex security review`) | rounds 1–3 **allowed and counted out loud** (`Codex review round N of 3 on PR #…`); round 4+ **denied** | the body is a named field, so "this posts a review request on PR #N" is an exact match |
-| a `Bash` command that visibly POSTs the phrase to `/issues/N/comments`, `/pulls/N/comments` or `/pulls/N/reviews` | same count, same deny | the route around the tools; needs phrase + endpoint + a POST verb together, so a `grep`, a quoted-heredoc doc, or a commit message stays silent |
+| a `Bash` command that visibly POSTs the phrase to `/issues/N/comments`, `/pulls/N/comments` or `/pulls/N/reviews`, or sends it through the GitHub CLI (`gh pr comment N …`, `gh pr review N …`, `gh api …/comments -f …`) | same count, same deny | the route around the tools; the raw form needs phrase + endpoint + a POST verb together, the CLI form needs the phrase + the command, so a `grep`, a quoted-heredoc doc, a `gh api` GET, or a commit message stays silent |
 | the same body again **on the same checked-out head** (a retried call) | silent, not re-counted | a retry is not a round — but the head is part of the key: the literal `@codex review` on each new fix commit is fm #1010's exact loop shape and counts every time (Codex, fm #1011 round 1); an unreadable head disables the dedup rather than the count |
 | everything else | silent | including `@codex address that feedback`, which is a different command |
 
@@ -656,7 +656,7 @@ the reviewer's word); verify the fix without Codex — the free-key Gemini route
 card; then flip, or hand off with the state written down. A fourth round and a
 merge with a hidden error are the two moves it forbids.
 
-**What the count honestly is.** Session-local and per PR, keyed by the event's
+**What the count honestly is.** Session-local and per PR — the key is `owner/repo#N` (Codex, fm #1011 round 2: two repositories' `#42` must not share an allowance; a half the call does not name is written `?`), kept under the event's
 `session_id` like every other hook here. A PR another session already reviewed
 starts at zero — fm #1010's 17 rounds were one session, so this would have
 stopped it at its fourth request (03:46Z) instead of its seventeenth (06:21Z);

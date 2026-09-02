@@ -92,7 +92,19 @@ COMMENT_TOOL_RE = re.compile(
 
 # Bash leg: the executed text must show all three — the phrase, a comment
 # endpoint, and something that sends a body. Any one alone is prose.
-ENDPOINT_RE = re.compile(r"/(?:issues|pulls)/(\d+)/(?:comments|reviews)\b")
+ENDPOINT_RE = re.compile(
+    r"(?:repos/(?P<repo>[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+))?/(?:issues|pulls)/(?P<pr>\d+)/(?:comments|reviews)\b"
+)
+# The GitHub CLI posts without a literal endpoint or verb (Codex, fm #1011 round
+# 2, P1): `gh pr comment 77 --body '@codex review'`, `gh pr review 77 --comment
+# -b '…'`, and `gh api repos/o/r/issues/77/comments -f body='…'` (a field flag
+# switches gh's method to POST, per `gh api --help`).
+GH_PR_RE = re.compile(
+    r"\bgh\s+pr\s+(?:comment|review)\s+(?:(?P<pr>\d+)|\S+)(?P<rest>[^\n|;&]*)", re.I
+)
+GH_REPO_FLAG_RE = re.compile(r"(?:^|\s)(?:-R|--repo)[= ]\s*(?P<repo>[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)")
+GH_API_RE = re.compile(r"\bgh\s+api\b(?P<rest>[^\n|;&]*)", re.I)
+GH_API_POST_RE = re.compile(r"(?:\s-[fF]\s|\s--(?:raw-)?field[= ]|\s--input[= ]|-X\s*POST|--method[= ]\s*POST)", re.I)
 POST_RE = re.compile(
     r"(?:-X\s*POST|--request[= ]\s*POST|\s-d\s|\s--data(?:-raw|-binary)?[= ]|"
     r"\s--json[= ]|requests\.post\s*\(|\.post\s*\(|method\s*[:=]\s*[\"']POST[\"'])",
@@ -100,7 +112,7 @@ POST_RE = re.compile(
 )
 
 DENY_MSG = (
-    "BLOCKED — this would be Codex review round {n} on PR #{pr} in this session, "
+    "BLOCKED — this would be Codex review round {n} on {pr} in this session, "
     "and the cap is {cap}. Owner, live, 2026-09-02, after fm #1010 ran 17 rounds "
     "overnight: \"I think there should be a maximum of 3 review rounds at most, "
     "never more than that.\"\n"
@@ -132,14 +144,14 @@ DENY_MSG = (
 )
 
 COUNT_MSG = (
-    "Codex review round {n} of {cap} on PR #{pr} this session (cap: owner, "
+    "Codex review round {n} of {cap} on {pr} this session (cap: owner, "
     "2026-09-02, after fm #1010's 17 rounds). [D-0019]: intermediate fixes are "
     "verified on the free-key Gemini route or directly against source; Codex is "
     "for the head that flips. A fourth request will be denied."
 )
 
 LAST_MSG = (
-    "Codex review round {n} of {cap} on PR #{pr} this session — THE LAST ONE THE "
+    "Codex review round {n} of {cap} on {pr} this session — THE LAST ONE THE "
     "CAP ALLOWS (owner, 2026-09-02). Whatever it returns: verify each finding "
     "against source, fix, disclose the residue in the PR comment and the card, "
     "then flip or hand off. A fourth request will be denied."
@@ -182,12 +194,19 @@ def _save(session: str, state: dict) -> None:
         pass  # losing state costs one uncounted round, never a stalled session
 
 
+def _key(repo: str | None, pr: str | None) -> str:
+    """`owner/repo#N` — the repository is part of the identity (Codex, fm #1011
+    round 2, P2): a session working two repositories must not let `a#42` and
+    `b#42` share one allowance. Unknown halves are spelled out, never guessed."""
+    return f"{repo or '?'}#{pr or '?'}"
+
+
 def _pr_from_input(ti: dict) -> str:
     for key in ("pullNumber", "pull_number", "issue_number", "issueNumber", "number"):
         v = ti.get(key)
         if v not in (None, ""):
-            return str(v)
-    return "unknown"
+            return _key(f"{ti.get('owner')}/{ti.get('repo')}" if ti.get("owner") and ti.get("repo") else None, str(v))
+    return _key(None, None)
 
 
 def _mcp_request(event: dict) -> tuple[str, str] | None:
@@ -210,9 +229,17 @@ def _bash_request(event: dict) -> tuple[str, str] | None:
     if not REQUEST_RE.search(text):
         return None
     m = ENDPOINT_RE.search(text)
-    if not m or not POST_RE.search(text):
-        return None
-    return m.group(1), text
+    if m and (POST_RE.search(text) or GH_API_RE.search(text)):
+        if not POST_RE.search(text):  # gh api: a field flag or an explicit method is the POST
+            api = GH_API_RE.search(text)
+            if not api or not GH_API_POST_RE.search(" " + api.group("rest") + " "):
+                return None
+        return _key(m.group("repo"), m.group("pr")), text
+    g = GH_PR_RE.search(text)
+    if g:
+        flag = GH_REPO_FLAG_RE.search(text)
+        return _key(flag.group("repo") if flag else None, g.group("pr")), text
+    return None
 
 
 def deny(reason: str) -> int:
@@ -279,7 +306,7 @@ def main() -> int:
 
     if n > CAP:  # override in effect — say so, keep counting
         return note(
-            f"FM_ALLOW_CODEX_ROUND=1 override: Codex round {n} on PR #{pr}, past the "
+            f"FM_ALLOW_CODEX_ROUND=1 override: Codex round {n} on {pr}, past the "
             f"cap of {CAP}. Name the owner's ask that authorised it in the card."
         )
     if n == CAP:

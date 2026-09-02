@@ -190,7 +190,7 @@ check("curl -X POST to issues/N/comments with the phrase counts",
       decision(run(bash("curl -sS -X POST $API/repos/o/r/issues/77/comments "
                         "-d '{\"body\":\"@codex review please\"}'"), session=s2)), "note")
 check("python requests.post through an executed heredoc counts",
-      decision(run(bash("python3 - <<'EOF'\nimport requests\nrequests.post(f'{API}/issues/77/"
+      decision(run(bash("python3 - <<'EOF'\nimport requests\nrequests.post(f'{API}/repos/o/r/issues/77/"
                         "comments', json={'body': '@codex review'})\nEOF"), session=s2)), "note")
 check("curl --data to pulls/N/reviews with the phrase counts",
       decision(run(bash("curl --request POST $API/repos/o/r/pulls/77/reviews "
@@ -199,6 +199,35 @@ check("curl --data to pulls/N/reviews with the phrase counts",
 check("the fourth Bash-leg request on the same PR is denied",
       decision(run(bash("curl -X POST $API/repos/o/r/issues/77/comments "
                         "-d '{\"body\":\"@codex review again\"}'"), session=s2)), "deny")
+check("the same NUMBER in another repository is another PR (Codex, fm #1011 r2)",
+      decision(run(bash("curl -X POST $API/repos/o/other/issues/77/comments "
+                        "-d '{\"body\":\"@codex review\"}'"), session=s2)), "note")
+
+print("the GitHub CLI — no endpoint, no verb, still a request (Codex, fm #1011 r2)")
+s3 = f"gh-{uuid.uuid4()}"
+check("gh pr comment N --body with the phrase counts",
+      decision(run(bash("gh pr comment 88 --body '@codex review'"), session=s3)), "note")
+check("gh pr review N --comment -b with the phrase counts (round 2)",
+      decision(run(bash("gh pr review 88 --comment -b '@codex review on the new head'"),
+                   session=s3)), "note")
+check("gh api to a comments endpoint with a field flag counts (keyed to o/r#88, its own PR)",
+      decision(run(bash("gh api repos/o/r/issues/88/comments -f body='@codex review please'"),
+                   session=s3)), "note")
+check("gh pr comment with -R names the repository: a different PR again, its own count",
+      decision(run(bash("gh pr comment 88 -R o/other --body '@codex review'"), session=s3)),
+      "note")
+check("third unqualified gh request is round 3, the last",
+      decision(run(bash("gh pr comment 88 --body '@codex review, third head'"), session=s3)),
+      "note")
+check("the fourth gh request on the unqualified PR is denied",
+      decision(run(bash("gh pr comment 88 --body '@codex review, fourth head'"), session=s3)),
+      "deny")
+check("gh api GET of the endpoint mentioning the phrase stays silent",
+      decision(run(bash("gh api repos/o/r/issues/88/comments --jq '.[].body' | grep '@codex review'"),
+                   session=s3)), "silent")
+check("gh pr view mentioning the phrase stays silent",
+      decision(run(bash("gh pr view 88 --comments | grep -c '@codex review'"), session=s3)),
+      "silent")
 
 print()
 print(f"{passed} passed, {failed} failed")

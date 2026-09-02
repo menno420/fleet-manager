@@ -1046,3 +1046,37 @@
   the boot file's `@codex` bullet; `docs/traps.md` TRAP-009.
 - provenance: owner, live, 2026-09-02, quoted verbatim above; the measurement
   is TRAP-009's ORIGIN.
+
+## [D-0040] Fan-out agents are staffed by task tier: Sonnet 5 reads and maps, Opus 5 reasons, Fable 5.1 reviews last — never the session's model by inheritance
+
+- status: decided
+- date: 2026-09-02
+- verdict: Owner, live, 2026-09-02, after seeing every subagent in a
+  morning workflow inherit the session's Fable 5.1: *"I think the dispatch
+  agents should be judged by the task, for general reading and mapping
+  Sonnet 5 would be more than enough. But when it's also necessary to use
+  reasoning it's better to use Opus 5 and probably as final reviewer it
+  should be Fable 5.1."* Both fan-out surfaces take a model per call (the
+  Workflow tool's `agent()` `model` option per stage, the Agent tool's
+  `model`), so one task is staffed in tiers: readers, mappers and
+  classifiers on `sonnet`; verifiers, judges and anything that must reason
+  from evidence on `opus`; the final reviewer or critic on `fable`. The
+  session's own model is never the default for a subagent — a stage that
+  leaves `model` unset is a stage nobody sized.
+- why: the Workflow harness inherits the main-loop model unless told
+  otherwise, and Fable is metered against the owner's Max allowance; the
+  2026-09-02 morning workflow ran two mechanical classification reads and
+  four verifiers on Fable for no reason but the default, and the night
+  fleets before it (fm #1010) ran 204 agents the same way. Judged by the
+  task, most of that was Sonnet work.
+- rules out: leaving `model` unset in a workflow script or an Agent call;
+  reading "the session is on Fable" as a reason for its subagents to be;
+  putting a final review on a lower tier to save cost — the last look is
+  the one that must be right.
+- delivery: `.claude/skills/fleet-preflight/SKILL.md` — a MODELS line on
+  the contract sheet every fan-out fills before its first agent spawns
+  (the tier per stage, named, with the stage that reasons and the stage
+  that reviews called out); the boot file's routing row already sends
+  every fan-out through that skill.
+- provenance: owner, live, 2026-09-02, quoted verbatim above; the
+  measurement it reacts to is this session's own card.

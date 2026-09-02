@@ -47,7 +47,15 @@ kept absolutely: **this session requested no Codex round.**
    an unreadable head disables the dedup rather than the count, and the
    suite walks both (37 cases). Codex also fixed it in its own sandbox on a
    branch it never pushed (verified: no `codex/*` ref on origin, no second
-   open PR); the fix here is this session's own.
+   open PR); the fix here is this session's own. **Round 2 (`358c2c8`), three
+   findings, all real:** the Bash leg missed the GitHub CLI (`gh pr comment N
+   --body '@codex review'`, `gh api …/comments -f body=…` — no endpoint or no
+   verb in the text) — now matched as request shapes of their own; the count
+   was keyed on the PR number alone, so two repositories' `#42` would share
+   one allowance — keys are now `owner/repo#N` from the MCP fields, the
+   endpoint path or `-R`, with `?` for an unknown half; and this card's own
+   Verify line still said 30 cases after the suite grew — the number is
+   gone, the executable prints it. Round 3 is the last the cap allows.
 
 **Why two PRs this session (D-0024 exception, stated):** fm #1010 is another
 session's PR, finished on its own branch because its own card's born-red
@@ -57,8 +65,9 @@ this session's own work. One of the two is not this session's PR.
 ## Verify
 
 `python3 bootstrap.py check --strict` — run in this branch's worktree before
-the flip; `python3 tools/test_codex_round_guard.py` — 30 cases, 0 failed
-(silence cases first, then the fm #1010 sequence, then the Bash leg).
+the flip, only the born-red hold red; `python3 tools/test_codex_round_guard.py`
+— 0 failed, and the executable prints its own case count (a number written
+here went stale within one round — Codex, round 2 — so it is not restated).
 
 ⚑ decide-and-flag: **what the cap means at round three** — fix · verify
 without Codex · disclose the residue · flip or hand off, never a fourth round
@@ -90,7 +99,15 @@ agents are also Fable 5.1, why didn't you choose to use Opus or Sonnet for
 that?"* — the workflow's `agent()` inherits the session model unless `model`
 is set; it was left unset. Mechanical reads (classifying review threads)
 are Sonnet work and verification is Opus work, both cheaper against his Max
-allowance; a default was put to him as a one-letter choice.
+allowance; a default was put to him as a one-letter choice. **He answered
+with the rule itself** — reading/mapping on Sonnet 5, reasoning on Opus 5,
+final review on Fable 5.1 — recorded as [D-0040] and delivered as the
+`MODELS` line of the `fleet-preflight` contract sheet (§ 8 of that skill),
+the sheet every fan-out fills before its first agent spawns. His follow-up
+question — why none of the agents chose a tier themselves — has the same
+answer as the seventeen rounds: the harness default said "leave it", the
+cost was out of view, and a question a default has already answered does
+not get asked. That is the case for the sheet line.
 
 Layer-2 handoff: null (fleet-manager itself; no satellite repo attached this
 session).
