@@ -50,7 +50,8 @@ HOOKS = {
     # reset --hard over a dirty tree — the facts the 2026-08-08 git failures
     # were missing at the moment of the command.
     "git_state_guard.py": (("PreToolUse", MATCHER),),
-    # trigger-tools guard: the ONLY denying hook, and the one whose absence is
+    # trigger-tools guard: one of the two denying hooks (codex_round_guard.py
+    # below is the other), and the one whose absence is
     # silently expensive. A multi-root session that loses this can call
     # `delete_trigger`, raise an approval prompt on the owner's screen, and stall
     # until he is physically back — the exact failure the guard exists to stop,
@@ -60,6 +61,15 @@ HOOKS = {
     # it, which left the rescue path rescuing three hooks out of four.
     "trigger_tools_guard.py": (
         ("PreToolUse", "Bash|mcp__.*__delete_trigger|mcp__.*__send_later"),
+    ),
+    # Codex round cap: the second denying hook. Counts each `@codex review`
+    # request per PR per session and denies the fourth (owner, live,
+    # 2026-09-02, after fm #1010 ran 17 rounds; [D-0039], TRAP-009). Its own
+    # matcher for the same reason as the trigger guard: it must see the MCP
+    # comment tools by name, and MATCHER covers only the built-ins.
+    "codex_round_guard.py": (
+        ("PreToolUse", "Bash|mcp__.*__add_issue_comment|mcp__.*__pull_request_review_write|"
+                       "mcp__.*__add_reply_to_pull_request_comment"),
     ),
     # change guard: kit-named skill amendments, broken tables, un-propagated
     # edits — before the write AND after it lands (propagation is only knowable

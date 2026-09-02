@@ -55,7 +55,15 @@ copy product architecture or internal product state. Canonical intent:
   **cut the contested 97.5 % ratio**. Part 2 is **1,686 words**, from
   `python3 tools/render_eap_mail.py --count` rather than from prose — the figure
   had been wrong in all three places it was written. **A session still does not
-  draft Part 1 or send it.**
+  draft Part 1 or send it.** **The evidence base for Part 2's widening landed
+  2026-09-02 (fm #1010):**
+  [`findings/2026-09-02-eap-mail-evidence-report.md`](findings/2026-09-02-eap-mail-evidence-report.md)
+  — two overnight fan-outs (12 verified Fleet A findings, a 3-row false-done
+  ledger, three judged spines), evidence only, no mail text; its § 5 (what the
+  critics found wrong) and § 10 (the handoff) are the load-bearing sections
+  for whichever session next works the mail with him. It went through
+  seventeen Codex rounds; the three-round cap that followed is
+  [`traps.md`](traps.md) TRAP-009 (its decision is stamped there).
 - **D2 is the actionable program step. `OQ-FM-D2-TARGET` is STILL OPEN** — a
   2026-08-23 session marked it answered by OD-20 and withdrew that the same
   session (`@codex`, fm #937); his words set an estate-wide outcome, not a

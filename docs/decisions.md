@@ -214,7 +214,8 @@
   (`ended_reason: run_once_fired`) and costs nothing to leave; if a recurring one
   must go, say so in the reply and he removes it in seconds. Enforced by
   `.claude/hooks/trigger_tools_guard.py`, which **denies** rather than warns —
-  the only denying hook in the estate — with `FM_ALLOW_TRIGGER_DELETE=1` as the
+  the only denying hook in the estate *(true until 2026-09-02; the Codex round
+  cap, [D-0039], is the second)* — with `FM_ALLOW_TRIGGER_DELETE=1` as the
   deliberate override for when he asks directly. Secondly, **`send_later` is not
   the tool for watching a PR**: `subscribe_pr_activity` wakes the session on
   comments, reviews and CI **failures**, but not CI success or a new push. A
@@ -1003,3 +1004,82 @@
   ChatGPT Work sessions, and local sessions opened directly in a clone.
 - provenance: owner, 2026-09-01, live; full quote in
   [`findings/2026-09-01-owner-direction.md`](findings/2026-09-01-owner-direction.md) § 4.
+
+## [D-0039] Codex review rounds are capped at three per PR — a hook denies the fourth, and the exit is fix · disclose · flip-or-hand-off
+
+- status: decided
+- date: 2026-09-02
+- verdict: Owner, live, 2026-09-02, after fm #1010 ran 17 rounds overnight:
+  *"For some reason it thought it was necessary to have 17 rounds of codex
+  reviews. I thought there was a rule to prevent this from happening.
+  Apparently not a good rule. I think there should be a maximum of 3 review
+  rounds at most, never more than that."* Three `@codex review` requests per
+  PR per session; `.claude/hooks/codex_round_guard.py` counts each one out
+  loud and denies the fourth (`FM_ALLOW_CODEX_ROUND=1` when he asks for
+  another himself). `DERIVED`, the session's reading of what the cap *means*,
+  put to him in the same reply and adopted unless he corrects it: **the cap is
+  an exit, not a merge-regardless.** At round three the session fixes what
+  was found, verifies the fix without Codex ([D-0019]'s Gemini route or a
+  direct source check), discloses anything unfixed in the PR and the card,
+  and then flips — or hands off with the state written down when the residue
+  is too large to ship. What it never does is a fourth round, or a merge with
+  a known error hidden.
+- why: [D-0019] said the same thing on 2026-08-29 as prose ("not after every
+  push") and fm #1010 requested a round after every one of its 16 fix pushes
+  anyway, 03:00Z → 06:30Z, because nothing in the session's feedback channel
+  said stop and the harness's own drive-to-green text said the opposite. A
+  cap needs no judgement, so it can be a deny — the shape the trigger guard
+  established ([D-0015]). Cost of the loop, measured: 17 Codex verdicts against
+  one 931-line report; 29 of the 88 inline findings (a third, classified at
+  the landing) were drift a previous fix had caused, three rounds (5, 16,
+  17) found nothing else, because the report restated the same facts in six
+  to ten places. The value was real too — factual reversals landed
+  as late as rounds 11, 14 and 15 — which is why the exit is disclose-then-flip
+  and not merge-regardless: a capped loop ships with its residue named; an
+  uncapped one ships whenever the reviewer happens to find nothing.
+- rules out: a fourth round without the override; "one clean round" as the
+  exit condition; restating a live fact in more than one place inside the same
+  PR (the churn's structural cause — `docs/traps.md` TRAP-009); reading the
+  cap as permission to merge with a known error undisclosed.
+- delivery: `.claude/hooks/codex_round_guard.py` + `tools/test_codex_round_guard.py`;
+  `.claude/settings.json` and `tools/install_root_hooks.py` (the rescue path);
+  the boot file's `@codex` bullet; `docs/traps.md` TRAP-009.
+- provenance: owner, live, 2026-09-02, quoted verbatim above; the measurement
+  is TRAP-009's ORIGIN.
+
+## [D-0040] Fan-out agents are staffed by task tier: Sonnet 5 reads and maps, Opus 5 reasons, Fable 5.1 reviews last — never the session's model by inheritance
+
+- status: decided
+- date: 2026-09-02
+- verdict: Owner, live, 2026-09-02, after seeing every subagent in a
+  morning workflow inherit the session's Fable 5.1: *"I think the dispatch
+  agents should be judged by the task, for general reading and mapping
+  Sonnet 5 would be more than enough. But when it's also necessary to use
+  reasoning it's better to use Opus 5 and probably as final reviewer it
+  should be Fable 5.1."* Both fan-out surfaces take a model per call (the
+  Workflow tool's `agent()` `model` option per stage, the Agent tool's
+  `model`), so one task is staffed in tiers: readers, mappers and
+  classifiers on `sonnet`; verifiers, judges and anything that must reason
+  from evidence on `opus`; the final reviewer or critic on `fable`. The
+  session's own model is never the default for a subagent — a stage that
+  leaves `model` unset is a stage nobody sized.
+- why: the Workflow harness inherits the main-loop model unless told
+  otherwise, and Fable is metered against the owner's Max allowance; the
+  2026-09-02 morning workflow ran two mechanical classification reads (and
+  started two verifiers) on Fable for no reason but the default. The night
+  fleets before it (fm #1010) were already tiered — `MEASURED` from the
+  retained JSON, 204 agents: 62 Sonnet readers, 142 Opus merge/verify/judge/
+  critic agents, zero Fable — which is most of this rule in practice; what
+  they lacked was the final-review tier. *(First written as "ran 204 agents
+  the same way"; false, corrected after Codex, fm #1011 round 3.)*
+- rules out: leaving `model` unset in a workflow script or an Agent call;
+  reading "the session is on Fable" as a reason for its subagents to be;
+  putting a final review on a lower tier to save cost — the last look is
+  the one that must be right.
+- delivery: `.claude/skills/fleet-preflight/SKILL.md` — a MODELS line on
+  the contract sheet every fan-out fills before its first agent spawns
+  (the tier per stage, named, with the stage that reasons and the stage
+  that reviews called out); the boot file's routing row already sends
+  every fan-out through that skill.
+- provenance: owner, live, 2026-09-02, quoted verbatim above; the
+  measurement it reacts to is this session's own card.

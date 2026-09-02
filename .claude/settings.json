@@ -75,6 +75,16 @@
             "timeout": 10
           }
         ]
+      },
+      {
+        "matcher": "Bash|mcp__.*__add_issue_comment|mcp__.*__pull_request_review_write|mcp__.*__add_reply_to_pull_request_comment",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -f \"${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel)}\"/.claude/hooks/codex_round_guard.py ] && python3 \"${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel)}\"/.claude/hooks/codex_round_guard.py || true",
+            "timeout": 10
+          }
+        ]
       }
     ],
     "Stop": [

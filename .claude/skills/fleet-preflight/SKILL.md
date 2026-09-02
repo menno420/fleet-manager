@@ -31,6 +31,7 @@ RETAIN      : <fields> · follow-up "<the next measurement>" answerable: yes/no
 BASE        : <repo>@<sha> at <t0> · open PRs <#…> · re-read <sha>..main before writing
 SIZE        : limit <n> via <PROBE (capacity) | JOURNAL (throughput only)> at <when> · <a> × <d>s ÷ <n> ≈ <h> h floor
 EXTERNAL    : <who reviews the output after the fleet, and how many rounds are budgeted>
+MODELS      : <stage> → <model tier> … · reasons: <stage(s) on opus> · reviews last: <stage on fable>
 UNCONTRACTED: <any line launched unfilled, and why>
 ```
 
@@ -386,6 +387,42 @@ planned for.
 *Catches failure 6* at the place it did damage — the number reported to the
 owner. It does **not** catch a documented value quoted as measured anywhere else
 in the run; only the habit in § 1 and § 2 of pasting real exit codes does.
+
+### 8 · Model contract — the tier per stage is chosen, never inherited
+
+**Owner, live, 2026-09-02:** *"the dispatch agents should be judged by the
+task, for general reading and mapping Sonnet 5 would be more than enough. But
+when it's also necessary to use reasoning it's better to use Opus 5 and
+probably as final reviewer it should be Fable 5.1."* ([D-0040])
+
+Both fan-out surfaces take a model per call — the Workflow tool's `agent()`
+has a `model` option per stage and the Agent tool has the same — and both
+**inherit the session's model when it is left unset.** `MEASURED` from the
+retained JSON: the night fleets of fm #1010 were already tiered — 204 agents,
+62 on `claude-sonnet-5` (the readers, inherited from a Sonnet session) and
+142 on `claude-opus-5` (every merge, verify, judge and critic stage, set
+explicitly as `JUDGE_MODEL` in both scripts), zero on Fable — so the rule
+below mostly names what that session did; what it lacked was the last tier.
+The 2026-09-02 morning workflow, six agents on a Fable session with `model`
+unset, is the inheritance case: mechanical classification reads on the
+top tier, metered against the owner's plan. *(This paragraph first claimed
+the night fleets inherited too — Codex, fm #1011 round 3, against the
+retained `model` fields; corrected.)* Write the tier down per stage before
+the first agent spawns:
+
+| stage | tier | why |
+|---|---|---|
+| readers, mappers, classifiers, census, extraction | `sonnet` | reading and mapping; the instrument is the prompt, not the model |
+| verifiers, judges, merge/dedupe that must reason from evidence | `opus` | the stage that decides what survives |
+| the final reviewer, critic, or spine judge — the last look | `fable` | the one that must be right |
+
+> **Contract line:** `MODELS: readers → sonnet · verify → opus · critic → fable`
+> (one arrow per stage the script actually has). A stage with no tier named is
+> a stage nobody sized — say `UNCONTRACTED — inherited` rather than leave it
+> blank, so the inheritance travels with the finding.
+
+*Catches* the silent inheritance at the only moment it can be caught: the
+script is being written, and `model:` is one more field beside `label:`.
 
 ## Output
 
