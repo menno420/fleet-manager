@@ -479,7 +479,7 @@ venture-lab/Stripe/membership-kit claim, the same as the full run. The
 actual divergence is in the **merge stage**, not the readers: the merge
 contract is explicit ("a ledger ROW requires BOTH a claim ... AND a
 correction ... do not manufacture" a row when no matching claim exists,
-`05-eap-false-done-ledger.js:171`) — but L02's own `certainty` field
+`05-eap-false-done-ledger.js:182`) — but L02's own `certainty` field
 admits the pilot's merge violated exactly that rule: "the claim side is
 reconstructed from the correction record, which is the only place the
 13-green-tests status is quoted." The pilot's merge stage invented a
@@ -909,7 +909,7 @@ claim (checked directly against `result.readers[0].claims` in the
 retained pilot JSON). **The actual fault is in the merge stage**: the
 pilot's merge invented a claim from the orphaned correction alone, which
 its own contract explicitly forbids ("do not manufacture" a row,
-`05-eap-false-done-ledger.js:171`); the full run's merge correctly left
+`05-eap-false-done-ledger.js:182`); the full run's merge correctly left
 it unmatched. Adding night-review as a source may supply an independent
 claim, but the more direct fix is enforcing the merge stage's own
 no-manufacture rule (or accepting the row only ever existed via a
