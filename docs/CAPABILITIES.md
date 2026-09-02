@@ -190,8 +190,12 @@ findings go here, below the fence.)
   — LAST-VERIFIED: 2026-09-02
 
 - 2026-09-02 · wall · `owner-live` · **A message the owner sends MID-TURN does
-  not pass through `UserPromptSubmit` — so no hook can deliver a reminder with
-  it; only the harness's own mid-turn notice arrives.** · evidence: probe run
+  not pass through `UserPromptSubmit` — a prompt hook cannot deliver a
+  reminder with it; the message arrives with the harness's own mid-turn
+  notice, attached to the next tool result.** *(Narrowed the same day —
+  Codex, fm #1013 round 3: a first version said "no hook can deliver a
+  reminder with it", which the probe does not support; see the workaround.)*
+  · evidence: probe run
   in the review sitting, cloud container, Claude Code 2.1.258. The owner sent
   `websites repo` while a two-minute Bash command ran; it arrived attached to
   the tool result as *"The user sent a new message while you were working:
@@ -210,11 +214,17 @@ findings go here, below the fence.)
   path that bypasses it. n = 2 messages, one venue, one CLI build. ·
   workaround: the acknowledgement rule (owner direction 2026-09-02 § 3:
   say how the message was understood and what it changes, at the next
-  boundary) cannot ride a prompt hook; the delivery channel that does exist
-  is the harness notice itself, and the other candidate is the `Stop` hook,
-  which already reads the transcript and could ask, when a mid-turn user
-  message sits inside the final turn, whether the reply says how it was
-  understood — shaped, not built.
+  boundary) cannot ride `UserPromptSubmit`. The event that matches the
+  rule's own timing is **`PostToolUse`** — the message arrives attached to
+  a tool result, and this repo already injects `additionalContext` at
+  that boundary (`.claude/hooks/change_guard.py`, `emit()`): a hook there
+  could read the transcript tail, see a user message queued since the last
+  turn boundary, and inject the one-line reminder. Unprobed as of
+  2026-09-02 — whether the queued message is visible to a `PostToolUse`
+  hook (in the transcript, or in the event payload) is the next probe. The
+  `Stop` hook is the other candidate (it reads the transcript already and
+  could ask whether the reply says how the message was understood). Both
+  shaped, neither built.
   — LAST-VERIFIED: 2026-09-02
 
 - 2026-09-02 · capability · `owner-live` · **A session's dispatched agents

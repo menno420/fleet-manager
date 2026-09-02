@@ -416,11 +416,16 @@
   the head the Codex round actually answered, never on a later head that has
   not been reviewed (this is TRAP-006/007's requirement, and the entry's
   never-merge-before-an-asked-Codex-answers rule already implied it). *The
-  one exception, stated here since 2026-09-02 because it was only ever in
-  `session-close` step 6c: the flip commit itself — the card's badge and
-  close-out text, nothing a reviewer has an opinion about — is by
-  construction one commit past the verdict, and taking that exemption means
-  the card names the reviewed SHA and what came after it.*
+  two exceptions, stated here since 2026-09-02 because they were only ever
+  in `session-close` step 6c and the cap entry: the flip commit itself —
+  the card's badge and close-out text, nothing a reviewer has an opinion
+  about — and, when the third and last round finds a P1/P2, the fix commit
+  that answers it, verified directly (a re-run test, the file opened at the
+  line) because the fourth round is denied. Both are by construction past
+  the verdict, and taking either exemption means the card names the
+  reviewed SHA, what came after it, and how each later commit was verified.
+  (Codex, fm #1013 rounds 1 and 3: the flip exemption alone left a closer
+  at round three with no compliant move.)*
   **(2) A Gemini verification is sufficient for an intermediate push:** the
   free-key route is not merely the permitted place to send mid-session checks,
   it fully discharges the verification owed on a fix that is not the flip head.
@@ -448,14 +453,18 @@
   — and proposed three tiers, which he chose (*"I think I agree"*): **(1)
   the diff touches an executable or binding surface → one round** — any
   executable file wherever it sits (`.py`, `.sh`, `.js`/`.mjs`, `.ps1`,
-  `.github/workflows/*.yml`, `.claude/settings.json`, `.codex/hooks.json`)
-  and the binding documents (the boot file, the skills, this ledger,
-  `docs/traps.md`); directories such as `.claude/hooks/`, `.codex/hooks/`,
-  `tools/`, `scripts/`, `environments/` are where those files live today,
-  named as examples, not as the rule — a path list goes stale the day a
-  new directory appears (Codex, fm #1013 round 2, which found `.codex/hooks/`
-  and `environments/` missing from the first list). File type plus the
-  named documents, nothing to interpret. **(2) A large
+  `.github/workflows/*.yml`), **any configuration a hook or the gate reads
+  at run time** (`.claude/settings.json`, `.claude/hooks/doc-routes.json`,
+  `.codex/hooks.json`, `substrate.config.json`,
+  `.substrate/check-exceptions.yml` — the allowlist that can suppress a
+  blocking finding), and the binding documents (the boot file, the skills,
+  this ledger, `docs/traps.md`); directories such as `.claude/hooks/`,
+  `.codex/hooks/`, `tools/`, `scripts/`, `environments/` are where those
+  files live today, named as examples, not as the rule — a path list goes
+  stale the day a new directory appears (Codex, fm #1013 round 2 found
+  `.codex/hooks/` and `environments/` missing from the first list; round 3
+  found the gate's own YAML/JSON inputs missing from the second). File type
+  plus the named documents, nothing to interpret. **(2) A large
   documentation change → one round** — a threshold, provisionally more than
   five files or two hundred added lines under `docs/`. **(3) Otherwise no
   Codex** — a card, a findings note, a capabilities-ledger line flips on the

@@ -137,8 +137,11 @@ hook live with `CAP = 3`.
    harness's own notice and no route block; the `repo-websites-prompt`
    route had never fired (route state read); the positive control is his
    first message of the session, which did carry a `UserPromptSubmit`
-   block. Recorded as a dated wall in `docs/CAPABILITIES.md` with the
-   workaround candidates (the harness notice; a `Stop`-hook check).
+   block. Recorded as a dated wall in `docs/CAPABILITIES.md` — narrowed
+   after Codex round 3 to `UserPromptSubmit` alone, since a `PostToolUse`
+   hook (the boundary the message arrives at; `change_guard.py` injects
+   context there today) is the candidate the probe did not test — with
+   `PostToolUse` and `Stop` named as the next probes.
 10. **Item 4 of 6, stopping agents — confirmed, with the two-tier form.**
    *"Yes that's right, unless I would say something like 'stop all your
    agents' but then usually I would hit the stop button myself."* Landed in
@@ -245,10 +248,39 @@ hook live with `CAP = 3`.
    re-request on a reviewable fix, three at most); and the review-cadence
    entry's tier-1 list omitted `.codex/hooks/` and `environments/` (the
    rule is now by executable file type plus the binding documents, with
-   directories as examples — partial: `environments/setup-base.sh`, which
-   the finding named, does not exist at HEAD; `environments/` holds a
-   README and a template). Round 3 requested on the fix head — the last
-   the cap allows.
+   directories as examples). **A false disposition in this item, corrected
+   at round 3:** this line first said `environments/setup-base.sh` "does
+   not exist at HEAD" and that `environments/` held only a README and a
+   template. It holds `setup-base.sh`, five `archetype-*.sh` scripts, a
+   `templates/setup-universal.sh` and more (`git ls-tree -r HEAD
+   environments`, 14 entries). The session had listed three directories in
+   one command piped through `head`, the output was cut after the first
+   two files of `environments/`, and the truncated listing was read as the
+   whole tree — then written into a Codex comment as fact. Codex round 3
+   caught it. The rewrite by file type covers those `.sh` files either way.
+   Round 3 requested on the fix head — the last the cap allows.
+19. **Codex round 3 (`4d1c168`), the last the cap allows: `round 3: 7
+   findings — 7 fixed, 0 refuted, 0 open`.** Each fixed on the head that
+   flips and verified directly, no fourth round: (1) the review-cadence
+   entry's clause (1) now exempts a directly verified round-three fix as
+   well as the flip commit (re-read both entries side by side); (2) tier 1
+   now names the configuration a hook or the gate reads at run time —
+   `substrate.config.json`, `.substrate/check-exceptions.yml`,
+   `doc-routes.json`, `hooks.json`, `settings.json` (the allowlist path
+   confirmed in `bootstrap.py`'s allowlist seam); (3) the mail prompt's
+   two spelling-only sentences now carry the light-tightening rule as
+   amended (grep for "spelling" in the prompt: both occurrences updated);
+   (4) item 18's false `environments/` disposition corrected above from
+   `git ls-tree`; (5) the ⚑ flag marked answered; (6) the Gmail probe
+   split into the API half a session can measure and the owner half only
+   his word settles, in the prompt's state, OPEN and first-step lines; (7)
+   the mid-turn wall narrowed to `UserPromptSubmit` with `PostToolUse`
+   named as the untested candidate, in the ledger, the owner-direction
+   record and item 8 (`change_guard.py`'s `emit()` read to confirm it
+   injects `additionalContext` on `PostToolUse`). Verification after the
+   fixes: the suite, `gen_owner_index.py --check`, the link checker, the
+   false-walls checker and the strict gate (born-red hold only, zero
+   stamp findings) — the direct checks the cap's exit names.
 9. **Pre-existing, not this PR's, noted for the record:**
    `python3 tools/test_change_guard.py` exits 1 on `origin/main` as well as
    on this branch (15/16; the failing case is *"real historical defect still
@@ -263,10 +295,11 @@ born-red hold red. `python3 tools/test_owner_review.py` — the executable
 prints its own case count. The pipe-tests in `.claude/hooks/README.md`
 § owner-review (`stop_hook_active` → exit 0, empty).
 
-⚑ decide-and-flag: **which PRs owe a Codex round.** His sentence *"I don't
-think every PR needs a review"* says not every one; the tree never draws the
-line, and today's records-only fm #1012 ran all three. Put to him as one
-question; his answer lands in D-0019 in place.
+⚑ decide-and-flag: **which PRs owe a Codex round — ANSWERED in this
+sitting** (item 5: he chose the diff-property tiers, *"I think I agree"*),
+landed as the 2026-09-02 amendment of the review-cadence entry in
+`docs/decisions.md`; nothing left to ask. Kept as a flag line only so the
+card's shape stays countable.
 
 💡 Session idea: **the one-place-per-fact checker, narrowed to what a script
 can decide** (owner confirmed the rule, item 6: *"Yes I think that's a good

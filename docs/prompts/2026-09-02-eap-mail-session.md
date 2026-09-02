@@ -61,8 +61,10 @@ WHERE THINGS STAND (verified at HEAD on 2026-09-02 — re-verify first)
   is still open, its branch is claude/fleet-manager-review-09-02-sokbbp;
   do not build on it — start from main.
 - The Gmail MCP server offers create_draft / list_drafts / update_draft to a
-  session; whether a draft actually lands in his Drafts folder is UNMEASURED
-  as of 2026-09-02 (no ledger entry). Your first step below measures it.
+  session; whether a session-created draft is visible and editable to him
+  in Gmail's own Drafts view is UNMEASURED as of 2026-09-02 (no ledger
+  entry). A session can measure only its own half — that the API creates
+  and reads back the draft; his half is him opening Gmail and saying so.
 
 READ FIRST (a floor, not a boundary — each verified at HEAD 2026-09-02)
 1. docs/findings/2026-09-02-owner-direction.md § 5b, 5c and 5d — his words
@@ -145,7 +147,8 @@ DECIDED (do not re-litigate — owner, 2026-09-02, quoted in § 5b–5d)
   addendum may cite it in one sentence with the public path.
 - Confidentiality (the decisions ledger's confidentiality entry): no third-
   party addresses, no unreleased specifics, vendor messages as metadata
-  only; his own words quoted, spelling corrected at most. Settle any
+  only; his own words quoted — spelling fixed and lightly tightened for
+  clarity at most, meaning, hedges and order unchanged. Settle any
   confidentiality question BEFORE the first push, never before the merge
   (the record's § 0 lesson).
 - Codex: this is a large documentation change, so it owes a Codex round at
@@ -181,17 +184,22 @@ OPEN (what would settle each)
 - The five open pre-send calls in the draft's § 2 (a–e). Mechanical once
   the shape is fixed; put each to him as the one-word answer the draft
   already names.
-- Whether a session-created Gmail draft reaches his Drafts folder. Measure
-  it as the first step below; record the outcome in docs/CAPABILITIES.md
-  either way, with the verbatim result.
+- Whether a session-created Gmail draft is visible and editable to him in
+  Gmail. Two halves: the API half (create, then list it back) is yours to
+  measure in the first step below and goes into docs/CAPABILITIES.md as
+  exactly that — "create_draft + list_drafts persistence" — with the
+  verbatim result; the owner half is recorded only when he says, in words,
+  that he saw and could edit it in Gmail. Never record the broader
+  capability from the API read-back alone.
 
 YOUR FIRST STEP
 Confirm the state above at HEAD (`git log --oneline -3 origin/main`; fm
 #1013's state via the API; `python3 tools/render_eap_mail.py --count` and
 `--verify`). Then run the Gmail probe: create one draft titled
 "EAP mail — draft in progress (session probe)" with a one-line body and
-no recipients, list drafts to confirm it exists, and tell him it is there
-for him to delete or keep as the container the final text will go into.
+no recipients, list drafts to confirm the API reads it back, and ask him
+to open Gmail and say whether he sees it and can edit it — that sentence
+from him, not the list call, is what makes it a capability.
 Then open the sitting with the LEAST SURE line answered and the § 10
 precondition list as the work order.
 

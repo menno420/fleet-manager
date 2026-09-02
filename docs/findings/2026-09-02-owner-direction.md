@@ -94,8 +94,10 @@ same day, n = 2: a mid-turn message does NOT pass through
 `UserPromptSubmit` — both arrived bare with the harness's own notice while
 the same hook fired on his first, ordinary message. The dated wall entry in
 [`../CAPABILITIES.md`](../CAPABILITIES.md) is canonical; a prompt hook is
-not a viable carrier for this rule, and the `Stop` hook is the remaining
-candidate.)*
+not a viable carrier for this rule. The candidates that remain are
+`PostToolUse` — the boundary the message actually arrives at, where this
+repo's `change_guard.py` already injects context — and `Stop`; whether a
+`PostToolUse` hook can see the queued message is the next probe.)*
 
 **Refined by him the next day (2026-09-02, the review sitting), `OWNER`:**
 
