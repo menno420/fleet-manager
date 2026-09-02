@@ -52,9 +52,14 @@ Owner asleep; no owner-facing decision made, only evidence assembled.
    reader units cut first, per the night brief's own cut order) — run
    `wf_fb35b278-362`, 83 agents, 7.11M tokens, 146.7 min. 505 claims/332
    corrections → 150 merged → 30 ranked → 28 verified → **3 survivors**. Two
-   of the pilot's four survivors (venture-lab Stripe false-green,
-   self-arming routines) did **not** survive the larger corpus — kept in the
-   report as a method finding, not smoothed away.
+   of the pilot's four survivors did not carry into these 3, but not by the
+   same mechanism — kept as a method finding, not smoothed into a
+   symmetric pair: **L08** (self-arming routines) re-entered the claim pool
+   and was actively refuted, reappearing as **FD-13**, refuted; **L02**
+   (venture-lab's Stripe false-green) never re-entered the claim pool at
+   all — it survives only as four unmatched `orphaned_corrections` entries,
+   never merged, ranked, or verified. See the report's § 3 for the full
+   correction (Codex review round 9).
 5. **CUT: Fleet C** (19-repo closeout audit) — not attempted; no wall-clock
    left at measured concurrency 2.
 

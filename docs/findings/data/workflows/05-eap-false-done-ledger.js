@@ -9,7 +9,11 @@ export const meta = {
   ],
 }
 
-// ---- aggregation contract (fleet-preflight § 1) — asserted before any agent spawns, same rule as Fleet A (04-eap-mail-evidence-pass.js)
+// ---- aggregation contract (fleet-preflight § 1) — asserted before any agent spawns.
+// Same SHAPE as Fleet A (04-eap-mail-evidence-pass.js: two refuting lenses, dies_if
+// refuted-or-already-covered) but NOT the same rule: this fleet adds the
+// isNegativeCoverage() normalization below, which 04 does not have (committed
+// verbatim as it ran — see 05-CONTRACTS-night.md AGGREGATE and workflows/README.md).
 // FIXED (Codex review, fm #1010): the READER prompt tells verifiers to leave already_covered_by
 // an empty string when nothing is covered, but a verifier that instead writes negative prose
 // ("none — ...", "not covered by ...") is not caught by a bare truthiness check — both lenses

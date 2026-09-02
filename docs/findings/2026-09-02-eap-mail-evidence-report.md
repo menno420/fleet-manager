@@ -165,8 +165,10 @@ numbers must be corrected before anything here goes into a mail.
    returning 0 everywhere, caught only because a known-good control also
    came back empty; the CI gate collecting 73 of 121 tests with 48 invisible
    (superbot-games, 2026-07-10); the space-stripping phrase regex that ran
-   under 986 agents and moved the corpus +127 sections once fixed
-   (2026-08-29). Dropped from all three spines for budget, not weakness —
+   under 986 agents and moved the corpus +127 sections (+1%) once fixed
+   (2026-08-29) — small in scale, real in kind: a regex silently
+   under-counting is the same failure class as a null result read as
+   clean. Dropped from all three spines for budget, not weakness —
    the top graft recommendation from 2 of the 3 judges (product-lens and
    evidence-lens; the owner-rules judge recommends the concurrency finding
    instead, see § 7 — not unanimous, corrected per Codex review, fm #1010).
@@ -245,10 +247,19 @@ numbers must be corrected before anything here goes into a mail.
    cites are measured. Do not upgrade this scoring's certainty when using
    it.
 10. **A1-6** (finding, both) — *A merge-blocking check that verifies a
-    marker's presence, not its substance, reached full compliance while
-    roughly one in nine marked sections carried no actual content* (161
-    session cards at ~100% marker presence; a disjoint 27-card sample found
-    ~1-in-9 empty underneath). Clean, well-cited, no critic flag.
+    marker's presence, not its substance, reached full compliance while a
+    sampled slot the check never covers held nothing about 1 in 9 times.*
+    **[CORRECTED, Codex review round 13: these are two different checks
+    over two different fields, not one result at two sample sizes.]** Over
+    fleet-manager's full 161 August session cards, the 💡 idea marker was
+    present 161/161 and a mechanical detector found **zero** empty review
+    sections — the gate held everywhere it actually checked. A separate,
+    disjoint 27-card sample checked idea-slot *content* (a field the
+    mechanical detector does not cover) and found ~11% (~1-in-9) holding no
+    actual idea — dispatch text or a mission restatement, not leftover
+    template text (an adversarial probe over all 161 cards found zero
+    surviving auto-drafted hint strings, so the empty slots were authored,
+    not template residue). Clean, well-cited, no critic flag.
 11. **B4** (finding, general) — *Values an available command or the
     environment would supply are written from recall or composition instead:
     counts and figures in 12 repositories, time values in 8.* **[WORDING
@@ -320,11 +331,14 @@ extracted → 18 merged rows → 16 ranked → 15 verified → **4 survivors**:
   `docs/findings/night-review-2026-07-10.md:31-33,118-140` (a file
   **outside** tonight's fixed reader list, opened by the verifier directly —
   see § 5).
-- **L03** — superbot-games PR #16 asserted "substrate-gate now runs the
-  suite"; the gate collected 73 of 121 tests (48 exploration tests
-  invisible), and the session card's own arithmetic (62+11=73) papered over
-  the gap. Graded "FALSE as stated" the same night; fixed the next day (PR
-  #24), floor later raised 121→147→230.
+- **L03** — superbot-games PR #16 asserted that the substrate-gate CI step
+  now ran the test suite (fleet-manager's rendering — no file here
+  reproduces the PR body itself, see FD-01's correction in § 2); the gate
+  collected 73 of 121 tests (48 exploration tests invisible), and the
+  session card's own arithmetic (62+11=73) papered over the gap. Graded
+  "FALSE as stated" the same night (a direct quote of the night review's
+  own verdict word, `docs/findings/night-review-2026-07-10.md:330-334`);
+  fixed the next day (PR #24), floor later raised 121→147→230.
 - **L04** — pokemon-mod-lab declared itself PRIVATE "no exceptions" in its
   README and 8 PR bodies while world-readable the whole time, with vendored
   Nintendo source shipped publicly; caught by the same night review (Q16);
@@ -362,9 +376,15 @@ should have surfaced rather than this report erasing. `docs/traps.md` itself
 still was never in the reader corpus, which is the more precise version of
 the original claim (see § 5).
 
-- **FD-01** (merges 4 sub-rows) — superbot-games PR #16 asserted
-  "substrate-gate now runs the suite," and the lane's close-out heartbeats
-  reported "mining gen-1 complete green" on that gate. Actually: the gate
+- **FD-01** (merges 4 sub-rows) — superbot-games PR #16 asserted that the
+  substrate-gate CI step now ran the test suite, and the lane's close-out
+  heartbeats reported clean status ("mining gen-1 complete green") on that
+  gate. **CORRECTED (Codex review round 13): both wordings — "substrate-gate
+  now runs the suite" and "mining gen-1 complete green" — are
+  fleet-manager's own renderings, not verbatim quotes; no file readable
+  from this repo reproduces PR #16's body or the heartbeat text itself
+  (both verifiers flag this: certainty is high on the measured 73/121
+  substance, one notch lower on "quoted verbatim").** Actually: the gate
   collected 73 of 121 tests — `games/exploration/tests/` (48 tests) was
   invisible, and neither close-out heartbeat acknowledged the fix order.
   This is the pilot's **L03**, now cited from two fleet-manager documents
@@ -379,10 +399,18 @@ the original claim (see § 5).
   "no exceptions" and 8 PR bodies repeated it, while the repo was
   world-readable with vendored Nintendo source, matching all 13 account
   repos being public at the time. This is the pilot's **L04** — same
-  finding, now also carrying the residue the pilot missed: even after the
-  owner's API-verified flip, the repo's status file carried no
-  `visibility: private — verified <ts>` line, so a standing guard had to be
-  appended separately (ORDER 003, `a76ada7`).
+  finding, now also carrying the residue the pilot missed:
+  `docs/launch-readiness-2026-07-10.md:551-554` records ORDER 003 (the
+  standing R22 guard) appended at `a76ada7` 12:56Z, while the same
+  document's own API check confirming `private:true` is timestamped
+  ~15:12Z (line 545) — the guard-append precedes the cited
+  API-verification by ~2h16m, an ordering the source document leaves
+  unreconciled itself. **CORRECTED (Codex review round 13): this report
+  previously stated the guard was appended *after* the verified flip,
+  which reverses the source's own two timestamps.** Either ordering, the
+  residue holds: the status file still lacked the
+  `visibility: private — verified <ts> via <surface>` line the guard
+  exists to add.
 - **FD-17 — CORRECTED (Codex review, fm #1010): narrow to one sub-claim, not
   six.** The merge stage grouped six disposition-stamp sub-rows into one
   row, but the fit-lens verifier's `corrected_claim` explicitly narrows it:
@@ -687,15 +715,20 @@ then cut by the ranking cap, or against a claim never selected at all.
   information, not only about the EAP itself but generally about how
   agents work, whih would be a valuable addition to the mail"*
   (2026-08-28, `docs/findings/2026-08-28-od24-sitting-answers.md:642-645`)
-- *"I noticed that much of the work that was claimed to be complete was in
-  fact not complete at all. Which is definitely something to review closely
-  and mention in the final EAP mail, which I still haven't send."*
-  (2026-09-01 — the direct mandate for Fleet B)
-- *"I scaled it until I found the wall; the wall is human review, not agent
-  capability; and that tells you exactly how close self-running AI actually
-  is."* (2026-07-21 — the offered thesis line)
-- *"less a coding tool, more a way for someone like me to run a software
-  project by describing it"* (2026-07-21 — the offered throughline)
+- **`OWNER`** — *"I noticed that much of the work that was claimed to be
+  complete was in fact not complete at all. Which is definitely something
+  to review closely and mention in the final EAP mail, which I still
+  haven't send."* (2026-09-01, the direct mandate for Fleet B — relayed
+  verbatim in this session's own originating night-fleet brief; not
+  independently re-citable to an in-repo file, since the brief itself is
+  the primary source)
+- **`OWNER`** — *"I scaled it until I found the wall; the wall is human
+  review, not agent capability; and that tells you exactly how close
+  self-running AI actually is."* (2026-07-21, the offered thesis line —
+  `docs/owner-reflection-2026-07-21.md:189-191`)
+- **`OWNER`** — *"less a coding tool, more a way for someone like me to run
+  a software project by describing it"* (2026-07-21, the offered
+  throughline — `docs/owner-reflection-2026-07-21.md:191-193`)
 - **`DERIVED` — rules for the mail, distilled** (Codex review round 12:
   the raw record itself flags several of these as distilled guidance and
   at least one reading as "not itself a verbatim rule" — labeled here so
