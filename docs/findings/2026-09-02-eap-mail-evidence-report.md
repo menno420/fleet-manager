@@ -66,10 +66,14 @@ carries **6** `prior_mails` entries, not the 7-file design the pilot's own
 CONTRACTS sheet named — 5 superbot files (`anthropic-email-2/3/4`,
 `gen1-wrapup-email-final-candidate`, `2026-07-18-followup-email-draft`) plus
 the current fleet-manager draft; `permission-classifier-findings-consolidated-2026-07-16.md`
-is missing from the executed readers despite being cited as `covered_by`
-for two non-survivors in § 2 — its own coverage claim rests on a file this
-pass's readers never opened (SHA unchanged from the 2026-09-01 pilot,
-5e3a667, for the files that did run).
+is missing from the executed **prior-mail extraction readers** despite
+being cited as `covered_by` for two non-survivors in § 2 — **[CORRECTED,
+Codex review round 9]** the coverage verdicts themselves are not
+unsupported: both A3-7's and B14's verifiers list this file in
+`what_i_opened` and cite its contents directly, so the gap is narrower than
+"never opened by this pass" — it was opened by verifiers checking overlap,
+just never fed to the systematic prior-mail extraction stage (SHA unchanged
+from the 2026-09-01 pilot, 5e3a667, for the files that did run).
 **Gap the corpus does NOT cover, named by Fleet A's own critic:** `fa9a391`
 added `docs/findings/2026-09-01-owner-direction.md`,
 `docs/findings/2026-09-01-fleet-manager-measured.md` and the successor-
@@ -358,14 +362,22 @@ the original claim (see § 5).
 
 **Two of the pilot's four survivors did not survive the full run — CORRECTED
 framing (Codex review, fm #1010): the two corpora are not nested, so this is
-not clean evidence of scaling or verifier instability.** L02 (venture-lab's
-Stripe false-green, → **FD-09**, refuted) and L08 (self-arming routines, →
-**FD-13**, refuted) both drew their pilot-survival evidence from the one
-superbot reader unit the pilot happened to read — the exact unit the full
-run's `skipSatellite: true` cut. The two fleet-manager-sourced pilot
-survivors (L03 → FD-01, L04 → FD-02) both held. The honest statement is
-narrower than "reversed at scale": **removing the superbot lane removed the
-evidence those two rows depended on**, which this pass cannot distinguish
+not clean evidence of scaling or verifier instability.** L08 (self-arming
+routines) reappears as **FD-13**, refuted. **L02 (venture-lab's Stripe
+false-green) does NOT map to FD-09** — **[CORRECTED, Codex review round 9]**
+FD-09 is an unrelated $29 Gumroad-product claim; the actual fate of L02's
+underlying claim, checked directly against the raw JSON, is that it **never
+entered the full run's claim pool at all** — its refutation survives only
+as four unmatched `orphaned_corrections` entries (the false-done itself:
+"the headline claim has never executed against real Stripe... 13 green
+tests inject synthetic events authored from memory," each dropped with the
+reason "no earlier done-claim found in this corpus"). Both L02 and L08
+drew their pilot-survival evidence from the one superbot reader unit the
+pilot happened to read — the exact unit the full run's `skipSatellite: true`
+cut. The two fleet-manager-sourced pilot survivors (L03 → FD-01, L04 →
+FD-02) both held. The honest statement is narrower than "reversed at
+scale": **removing the superbot lane removed the evidence those two rows
+depended on**, which this pass cannot distinguish
 from genuine verifier instability without a run that reads the same corpus
 twice. Neither this report nor the underlying pass diagnoses which it is —
 say so, don't imply causation either way.
@@ -380,7 +392,7 @@ this Markdown document. The CONTRACTS sheet's pilot note flagged this exact
 gap and named the fix (pull a reason from each verifier's `discrepancies`
 field into the report); that pull is next-session work, not done here.
 
-## 4 · Prior-mail overlap map (6 readers, all 4 July mails + the 2 unsent drafts + the current draft)
+## 4 · Prior-mail overlap map (6 readers — 5 superbot prior-mail files + the current fleet-manager draft; **[CORRECTED, Codex review round 9]** not 7 — see § 1's corrected corpus census)
 
 | source | status | topics | asks | good-parts |
 |---|---|---|---|---|
@@ -429,7 +441,7 @@ survivors, not just gaps in coverage.
   reconciling date, the draft's "21/21 zero fabrication" sitting beside this
   pass's own Finding 6-equivalent (Fleet A survivor evidence of citations
   that don't resolve) with no clause holding the two apart — the exact
-  self-contradiction risk the winning spine (§ 6) was built to patch, but
+  self-contradiction risk the winning spine (§ 7) was built to patch, but
   only for the two required edits it names, not for the wider set the critic
   found.
 - **Nothing was checked against the live Gmail thread** — the correspondence
