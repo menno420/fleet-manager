@@ -1,11 +1,11 @@
 # 2026-09-02 — fm #1010 reviewed and landed on its flip head; the Codex round cap (TRAP-009 · D-0039)
 
-> **Status:** `in-progress` — re-opened for the records follow-up PR's
-> review fixes, so the card's own lifecycle holds it (Codex, that PR's round
-> 3: a card that reads `complete` while fixes are underway is the shape
-> TRAP-006 exists for; the `do-not-automerge` label was holding the merge,
-> the card was not). Flips `complete` as the follow-up's last commit.
-> The session itself: the night fleet's
+> **Status:** `complete` — flipped as the records follow-up PR's last
+> commit, after its three Codex rounds (the cap) and the post-round-3
+> verification without a fourth; it had been re-opened `in-progress` for
+> those fixes so the card's own lifecycle held the PR, not only the
+> `do-not-automerge` label (Codex, that PR's round 3). The session itself:
+> the night fleet's
 > PR #1010 reviewed on its exact head and landed (merged 07:59Z); the
 > owner's "three rounds, never more" turned into a denying hook, driven
 > through exactly three Codex rounds of its own and flipped by the cap's
@@ -175,8 +175,11 @@ shapes, then the log regenerated with zero blank model cells;
 instead of a hardcoded 2026-09-01 (round 2), verified by regenerating and
 reading this PR's own row. Codex rounds on this PR: three (the cap), 6 + 3 +
 4 findings, all real, all fixed; after round 3 the fixes were verified
-without a fourth round (the checks below plus one free-key Gemini pass),
-the cap's exit applied a second time.
+without a fourth round — by direct check only: the regex run on the four
+card shapes, the log regenerated with zero blank cells, the link and gate
+checks; the free-key Gemini pass was attempted twice and failed (a read
+timeout, then HTTP 503), which is stated here rather than a pass claimed.
+The cap's exit, applied a second time.
 
 Three things this session got wrong, kept here because the card is where the
 next session looks: mid-turn messages went unacknowledged three times until
