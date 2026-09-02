@@ -225,16 +225,47 @@ run the Project-like case by design, not by accident:
 is not what a Project adds — a session on a wake chain is an autonomous
 worker, `OWNER` here and `MEASURED` in the ledger. What a Project offered
 that a session does not, from the record: custom instructions at the
-project level (the weakest delivery tier by the estate's own measurement —
-`docs/findings/2026-08-08-why-rules-dont-bind.md`, the night report's
-survivor #1), and fresh coordinator/worker seats in place of one
+project level, and fresh coordinator/worker seats in place of one
 compacting context (a different failure shape, not the same effect: a
 compaction carries a model-written summary forward, a fresh seat carries
 only what the repo holds — `REASONED`). Everything the retrospective's
 § 3 list asks for (standing grants, scheduler observability, death
 visibility, a native inter-session channel, a deterministic merge
-contract) is what a Project would have to add to be worth choosing; none
-of it is custom instructions.
+contract) is what a Project would have to add to be worth choosing.
+
+**The session first called the instruction box "the weakest delivery
+tier by the estate's own measurement" and he corrected it, `OWNER`:**
+
+> *"the custom instructions that these Projects offered where pretty
+> valuable, in a way that they get send to each agent verbatim. So the way
+> that we used the intructions, as you can probably still see in the repo
+> is that we made them a set of rules or expectations that all the sub
+> agents where meant to follow. Which allowed us to leave the main starting
+> prompt to send to the coordinator mainly for the actual task, this was a
+> pretty nice way to work and I believe the instructions were followed
+> pretty well."*
+
+Checked against the tree, and he is right on every part. The split is the
+v3 registry's own recipe (`docs/prompts/v3/README.md` § How to found a
+seat: Custom Instructions ≤ 8,000 chars pasted into the Project, the
+per-seat startup prompt as the coordinator's first message), and the
+startup template says which rules ride which artifact: *"GEN-3 + TRUTH ride
+your Custom Instructions (the co-pasted core; newest wins over memory)"*
+(`docs/prompts/v3/universal-startup.md`). Adherence is `MEASURED` in the
+retrospective: the honesty rules held under a hostile recount (21 of 21
+incidents, zero fabrication, § 1.3) and the card-shape rules held at scale
+(⟲ previous-session reviews on 767 of 949 superbot cards and 129 of 132
+fleet-manager cards, § 1.4). The 116-statements / zero-catches measurement
+the session had leaned on (`docs/findings/2026-08-08-why-rules-dont-bind.md`)
+was of **repository prose in a session**, not of the instruction box — a
+different delivery tier, and the tree never measured the box as failing.
+What the two venues *shared* was the rule class that failed: verify-before-
+claim did not bind in the EAP either (Part 2's Finding 1, false-done). So
+the sharper statement for the mail: **verbatim injection into every agent
+at spawn is a real delivery tier a session lost at the close** (the boot
+file's `CLAUDE.md` loads only when the root is right, and goes quiet with
+no error otherwise), it carried rules about *form* well, and no delivery
+tier carried rules about *judgement* without an instrument behind them.
 
 ## 6 · The close
 
