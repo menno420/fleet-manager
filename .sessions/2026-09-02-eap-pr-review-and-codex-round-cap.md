@@ -1,9 +1,11 @@
 # 2026-09-02 — fm #1010 reviewed and landed on its flip head; the Codex round cap (TRAP-009 · D-0039)
 
-> **Status:** `in-progress` — the morning-after session: review the night
-> fleet's PR #1010 on its exact head, land it, and turn the owner's "three
-> rounds, never more" into a denying hook. Flips to `complete` as the
-> deliberate last commit of this PR.
+> **Status:** `complete` — the morning-after session: the night fleet's
+> PR #1010 reviewed on its exact head and landed (merged 07:59Z); the
+> owner's "three rounds, never more" turned into a denying hook, driven
+> through exactly three Codex rounds of its own and flipped by the cap's
+> own exit — round 3's findings fixed, verified by the suite, the gate and
+> one free-key Gemini pass, nothing left undisclosed, no fourth round.
 
 - **📊 Model:** fable-5 · max · feature build
 - **📍 Venue:** cloud-container
