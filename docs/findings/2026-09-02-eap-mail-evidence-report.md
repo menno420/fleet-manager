@@ -2,9 +2,12 @@
 
 > **Status:** `reference` · produced by two verified, novelty-checked fan-outs
 > run overnight (fleet-preflight sheet: `docs/findings/data/workflows/05-CONTRACTS-night.md`,
-> scripts beside it) while the owner slept. Every finding below is quoted from
-> a **verifier's `corrected_claim`**, never from the raw candidate or the merge
-> stage's wording, per the night brief's own rule. Fleet A's non-survivors are
+> scripts beside it) while the owner slept. Every finding below draws on a
+> **verifier's `corrected_claim`** — quoted directly where one lens supplied
+> usable text, synthesized from the row plus both lenses' records where a
+> `corrected_claim` was itself unusable (B5) or where the two lenses'
+> corrections needed combining (FD-02) — but never the raw candidate or
+> merge-stage wording taken alone, per the night brief's own rule. Fleet A's non-survivors are
 > listed with their individual reason (§ 2); **Fleet B's 25 non-survivors are
 > not** — this report has only the aggregate "refuted," a known gap named in
 > § 3 and § 5 (the individual reasons exist in each row's raw verifier record
@@ -491,7 +494,7 @@ exposed:
   means this ledger is a **sample of the EAP record, not the EAP record**,
   and its survivor count should never be read as exhaustive.
 
-**Third check: Codex review of this PR (fm #1010), four rounds so far, 33 findings
+**Third check: Codex review of this PR (fm #1010), six rounds so far, 37 findings
 total, all addressed** — the drafted version of this report itself had
 errors, caught by exactly the external adversarial round the night brief's
 DECIDED section requires. Round 1 (10 findings) is summarized above where
@@ -548,6 +551,24 @@ survives as a "fresh finding" even though its own fit-lens calls it
 "already-known plumbing" (naming `docs/playbook.md` R22), because the
 holds-lens left the field empty. Recorded in the CONTRACTS sheet; a real
 fix needs symmetric lens scope or a single aggregated coverage verdict.
+
+**Round 5** (1 finding): this closing note's own round tally had already
+gone stale by the push that fixed round 4 — corrected, and corrected again
+after round 5 for the same reason (a tally naming "N rounds" is stale the
+moment the commit fixing round N's own finding is what round N+1 reviews;
+readers should treat this count as accurate as of this exact head, not as
+self-maintaining). **Round 6** (3 findings): the front-matter's
+`corrected_claim`-only guarantee overstated itself — B5's own
+`corrected_claim` is corrupted (§ 2.6) and FD-02's paragraph synthesizes
+both lenses rather than quoting one, so the banner now describes both
+paths; **a real, verified defect** — the reader prompt never bounded CLAIMS
+to the EAP fortnight, and checking this run's own claim pool directly found
+30 of 505 claims (5.9%) dated 2026-07-22 or later, consuming capacity in
+the capped merge/verify stages — reader prompt fixed for future runs;
+checked directly (not assumed) that all 3 of this run's actual survivors
+have in-window `claimed_when` dates, so the pool dilution did not
+contaminate the survivor set, though it may have silently displaced an
+in-window candidate — unknowable without a re-run (§ 3, CONTRACTS sheet).
 
 ## 6 · The owner's words on this mail, collected (5 readers, 25 quotes kept)
 
