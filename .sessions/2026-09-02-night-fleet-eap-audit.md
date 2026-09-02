@@ -1,15 +1,16 @@
 # 2026-09-02 — night fleet EAP mail evidence report (Fleet A + Fleet B)
 
-> **Status:** `in-progress` — multiple Codex rounds landed, all findings
-> fixed or explicitly disclosed as each fix commit's diff (current tally:
-> `docs/findings/data/workflows/05-CONTRACTS-night.md` EXTERNAL line, the
-> one place a live round count is kept — restating it here too just adds a
-> second copy that goes stale every round). This commit's fixes are not
-> yet reviewed on their own head (a review binds the SHA it ran on,
-> TRAP-006/007) — pushing with the card still `in-progress` keeps the
-> born-red hold active while the next round is requested and awaited. The
-> flip to `complete` is a separate, later commit, once a round confirms
-> clean on the exact head that ships it. Fleet A: 12
+> **Status:** `complete` — seventeen Codex rounds landed (the tally and the
+> per-round record live on `docs/findings/data/workflows/05-CONTRACTS-night.md`'s
+> EXTERNAL line, the one place they are kept), every finding fixed or
+> explicitly disclosed. Round 17 answered on `8470c9d` with one card-sync
+> finding and no report defect; the owner then stopped the loop live
+> (*"a maximum of 3 review rounds at most, never more"*), and the landing
+> session — a different model family — reviewed that head against the
+> retained JSON itself, made two verified edits, and flipped this card with
+> **no eighteenth round** (EXTERNAL line, flip-session entry; the cap itself
+> lands as a denying hook in the follow-on PR — `docs/traps.md` TRAP-009,
+> [D-0039]). Fleet A: 12
 > survivors, 3 judged spines (unanimous on which spine won, not on every
 > graft recommendation — see the report's § 7 correction, round 2). Fleet
 > B: pilot 4 survivors, full
@@ -24,7 +25,7 @@
 > cases). **Read the report itself, not this summary** — Codex caught real
 > inaccuracies in earlier drafts of this very summary-writing, twice.
 
-- **📊 Model:** claude-sonnet-5 · xhigh · research
+- **📊 Model:** sonnet-5 · xhigh · research
 - **📍 Venue:** cloud-container
 - **🔗 Session:** [session_014jGUwuZnmtEFUmXNerNyV8](https://claude.ai/code/session_014jGUwuZnmtEFUmXNerNyV8) · "Night fleet audit and EAP report"
 
@@ -89,8 +90,13 @@ read § 5 before drafting anything from this.
 
 ## Verify
 
-`python3 bootstrap.py check --strict` — to be run before the flip; expect the
-born-red card hold as the only pre-flip red.
+`python3 bootstrap.py check --strict` — exit 1 with only the born-red hold
+before the flip (landing session, 2026-09-02), exit 0 after it. The pre-flip
+edits were verified by the landing session directly against the retained
+JSON and the cited files, plus one free-key Gemini pass over the diff
+([D-0019]: the four source-anchored claims SUPPORTED, none CONTRADICTED,
+five not judged because no excerpt was supplied for them — each of those
+five was checked directly instead).
 
 ⚑ decide-and-flag: none — no owner decision was made tonight, only evidence
 assembled, per the brief's own "no mail text drafted tonight" rule.
