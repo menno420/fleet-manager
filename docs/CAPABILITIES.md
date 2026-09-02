@@ -171,6 +171,34 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-09-02 · wall · `owner-live` · **A message the owner sends MID-TURN does
+  not pass through `UserPromptSubmit` — so no hook can deliver a reminder with
+  it; only the harness's own mid-turn notice arrives.** · evidence: probe run
+  in the review sitting, cloud container, Claude Code 2.1.258. The owner sent
+  `websites repo` while a two-minute Bash command ran; it arrived attached to
+  the tool result as *"The user sent a new message while you were working:
+  websites repo — This is how Claude Code surfaces messages the user sends
+  mid-turn — within the running turn, often alongside the next tool result,
+  rather than as a separate conversation turn"* with **no** `UserPromptSubmit
+  hook additional context` block. The `repo-websites-prompt` route
+  (`.claude/hooks/doc-routes.json`, tools `UserPromptSubmit`, when
+  `\bwebsites repo\b`) would have injected the websites README pointer; the
+  session's route state (`/tmp/claude-doc-routes/<session>.json`) shows it
+  never fired, so it was not consumed earlier. Second sample the same minute,
+  a longer sentence containing the phrase: same bare arrival. **Positive
+  control:** the same hook on the same session fired on the owner's first,
+  ordinary message (the `owner-comments-fleet-manager` route's block arrived
+  with it), so the `UserPromptSubmit` plumbing works here; it is the mid-turn
+  path that bypasses it. n = 2 messages, one venue, one CLI build. ·
+  workaround: the acknowledgement rule (owner direction 2026-09-02 § 3:
+  say how the message was understood and what it changes, at the next
+  boundary) cannot ride a prompt hook; the delivery channel that does exist
+  is the harness notice itself, and the other candidate is the `Stop` hook,
+  which already reads the transcript and could ask, when a mid-turn user
+  message sits inside the final turn, whether the reply says how it was
+  understood — shaped, not built.
+  — LAST-VERIFIED: 2026-09-02
+
 - 2026-09-02 · capability · `owner-live` · **A session's dispatched agents
   are NOT capped at the session's own model tier — a Sonnet 5 session ran
   142 Opus 5 subagents.** · evidence: fm #1010's night session (card

@@ -132,7 +132,19 @@ hook live with `CAP = 3`.
    place). Whether a mid-turn message passes through `UserPromptSubmit`
    stays the probe that decides if a hook can deliver it; the recipe is one
    trigger phrase sent while a command runs, and the routing hook's note
-   arriving with the message is the positive result.
+   arriving with the message is the positive result. **Run, same sitting,
+   n = 2: negative.** Both of his mid-turn messages arrived bare with the
+   harness's own notice and no route block; the `repo-websites-prompt`
+   route had never fired (route state read); the positive control is his
+   first message of the session, which did carry a `UserPromptSubmit`
+   block. Recorded as a dated wall in `docs/CAPABILITIES.md` with the
+   workaround candidates (the harness notice; a `Stop`-hook check).
+9. **Pre-existing, not this PR's, noted for the record:**
+   `python3 tools/test_change_guard.py` exits 1 on `origin/main` as well as
+   on this branch (15/16; the failing case is *"real historical defect still
+   caught (6 rows) [silent, wanted fire]"*). It is not in the gate's
+   fan-out, so CI does not see it. Left alone in a review sitting; named
+   here so the next session that touches `change_guard.py` starts from it.
 
 ## Verify
 
