@@ -209,6 +209,21 @@ false-positive rate is measured, not assumed. Home when built: the
 `check --strict` fan-out beside `check_no_false_walls.py`. For a build
 session after the mail session; not this sitting.
 
+💡 Session idea (second): **the owes-a-round verdict, computed from the
+diff** ([D-0019] as amended 2026-09-02). Input: `git diff --name-status
+origin/main...HEAD` plus added-line counts. Rule: any path under
+`.claude/hooks/`, `.claude/skills/`, `.claude/settings.json`, `tools/`,
+`scripts/`, `.github/workflows/`, `bootstrap.py`, `.claude/CLAUDE.md`,
+`docs/decisions.md` or `docs/traps.md` → *owes a round, because <path>*;
+else more than five files or two hundred added lines under `docs/` → *owes
+a round, large docs change (<n> files, <m> lines)*; else → *no Codex round:
+direct check or Gemini pass*. Printed by the `card-flip-to-complete` route
+at the flip moment (the route exists; the verdict is the addition), or as a
+standalone `tools/codex_round_owed.py` the session-close skill names.
+Acceptance: says *owes* on fm #1011 (hook) and fm #1010 (a 931-line report
+plus scripts), says *no round* on a one-card, one-ledger-line PR. Same build
+session as the checker above.
+
 ⟲ Previous-session review: the landing session (fm #1011, fm #1012) left a
 continuation prompt that was accurate at HEAD to the commit and named its
 own three mistakes; the only state it could not know was that fm #1012 had
