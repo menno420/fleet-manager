@@ -214,6 +214,13 @@ chains firing on schedule in seat venues, which corroborates the mechanism):
 > in a long run. Tho the same effect is ultimately achieved when a normal
 > session automatically compacts at ~75% context."*
 
+Asked nothing, he added mid-turn why the repo is paused — which makes the
+run the Project-like case by design, not by accident:
+
+> *"Yes the repo is paused because I mainly started it as a test project
+> to see how well Claude would create an app like this, tho I do intend to
+> eventually get back to it and work it through"*
+
 `DERIVED`, the session's reading put back to him in the sitting: autonomy
 is not what a Project adds — a session on a wake chain is an autonomous
 worker, `OWNER` here and `MEASURED` in the ledger. What a Project offered
