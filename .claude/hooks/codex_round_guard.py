@@ -40,10 +40,14 @@ Two legs, and the split follows `trigger_tools_guard.py`'s reasoning exactly:
 event's `session_id` like every other hook here. A PR another session already
 reviewed starts at zero here — fm #1010's 17 rounds were one session, so this
 guard would have stopped it at 04:00Z instead of 06:30Z, but a PR passed across
-sessions is not fully covered. Identical bodies are one request (a retried call
-is not a new round). The count never reads GitHub: a hook has ten seconds and no
-promise of network, and a guard that sometimes cannot count is worse than one
-that counts a smaller, honest thing.
+sessions is not fully covered. A retried call is not a new round: an identical body
+**on the same checked-out head** is deduplicated. The head is part of the key
+because the body alone is not one — a session that posts the literal
+`@codex review` on every fix commit is running new rounds, and keying on the
+text alone would have counted fm #1010's seventeen as one (Codex, fm #1011
+round 1, the first thing it found). The count never reads GitHub: a hook has
+ten seconds and no promise of network, and a guard that sometimes cannot count
+is worse than one that counts a smaller, honest thing.
 
 **Deliberate override:** `FM_ALLOW_CODEX_ROUND=1`, for the case where he asks
 for another round himself. A guard with no escape becomes a wall someone edits
@@ -59,6 +63,7 @@ import hashlib
 import json
 import os
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -73,6 +78,7 @@ except Exception:  # pragma: no cover — never let an import trap the session
 CAP = 3  # owner, live, 2026-09-02: "a maximum of 3 review rounds at most, never more"
 
 STATE_DIR = Path(os.environ.get("TMPDIR", "/tmp")) / "claude-codex-rounds"
+REPO = Path(__file__).resolve().parents[2]
 
 # The phrase Codex's own About-block documents as the trigger. `@codex address
 # that feedback` is a different command and is not a round.
@@ -101,9 +107,10 @@ DENY_MSG = (
     "\n"
     "WHY THE LOOP DOES NOT CONVERGE ON ITS OWN: every fix is a new head, every "
     "new head 'needs' a review, and a reviewer shown a long prose document "
-    "returns a P2 almost every time — on fm #1010, 5 of 17 rounds found only "
-    "drift the previous round's own fix had caused. 'One clean round' is not a "
-    "reachable exit condition; the cap is.\n"
+    "returns a P2 almost every time — on fm #1010, a third of all 88 findings "
+    "were drift a previous round's own fix had caused, and three rounds (5, 16, "
+    "17) found nothing else. 'One clean round' is not a reachable exit "
+    "condition; the cap is.\n"
     "\n"
     "WHAT TO DO INSTEAD, in this order:\n"
     "1. Fix what the last round found. Verify each finding against the raw "
@@ -139,8 +146,24 @@ LAST_MSG = (
 )
 
 
-def _fingerprint(text: str) -> str:
-    return hashlib.sha256(text.encode("utf-8", "replace")).hexdigest()[:12]
+def _head(event: dict) -> str:
+    """The checked-out commit the request is made from, or "" if unreadable.
+
+    Read from the event's ``cwd`` (the session root), this file's repo as the
+    fallback. "" makes ``main`` skip deduplication entirely — the safe direction
+    is to count, so an unreadable head never turns a new round into a retry.
+    """
+    cwd = str(event.get("cwd") or REPO)
+    try:
+        p = subprocess.run(["git", "-C", cwd, "rev-parse", "HEAD"],
+                           capture_output=True, text=True, timeout=3)
+        return p.stdout.strip() if p.returncode == 0 else ""
+    except Exception:
+        return ""
+
+
+def _fingerprint(head: str, text: str) -> str:
+    return hashlib.sha256((head + "\n" + text).encode("utf-8", "replace")).hexdigest()[:12]
 
 
 def _load(session: str) -> dict:
@@ -239,9 +262,10 @@ def main() -> int:
     session = str(event.get("session_id") or "nosession")
     state = _load(session)
     entry = state.get(pr) or {"count": 0, "seen": []}
-    fp = _fingerprint(text)
-    if fp in entry["seen"]:
-        return 0  # the same request again (a retry) is not a new round
+    head = _head(event)
+    fp = _fingerprint(head, text)
+    if head and fp in entry["seen"]:
+        return 0  # the same request on the same head (a retry) is not a new round
     n = int(entry["count"]) + 1
     allowed = os.environ.get("FM_ALLOW_CODEX_ROUND") == "1"
 

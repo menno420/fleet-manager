@@ -25,14 +25,15 @@ HOOK = REPO / ".claude" / "hooks" / "codex_round_guard.py"
 passed = failed = 0
 
 
-def run(event: dict, *, allow: bool = False, session: str | None = None) -> dict:
+def run(event: dict, *, allow: bool = False, session: str | None = None,
+        cwd: str | None = None) -> dict:
     env = dict(os.environ)
     env["TMPDIR"] = TMP
     if allow:
         env["FM_ALLOW_CODEX_ROUND"] = "1"
     else:
         env.pop("FM_ALLOW_CODEX_ROUND", None)
-    event = {"hook_event_name": "PreToolUse", **event,
+    event = {"hook_event_name": "PreToolUse", "cwd": cwd or HEAD_A, **event,
              "session_id": session or f"test-{uuid.uuid4()}"}
     p = subprocess.run(
         [sys.executable, str(HOOK)], input=json.dumps(event),
@@ -67,6 +68,27 @@ def check(name: str, actual: str, expected: str) -> None:
 
 
 TMP = tempfile.mkdtemp(prefix="codex-round-guard-test-")
+
+
+def _git_repo_with_commits(n: int) -> str:
+    """A throwaway repo whose HEAD stands in for one checked-out head.
+
+    The guard keys a retry on head + body, so the suite needs two distinct heads
+    it controls — not this repo's, which moves under the test.
+    """
+    d = tempfile.mkdtemp(prefix="codex-round-guard-head-", dir=TMP)
+    g = ["git", "-C", d]
+    subprocess.run(g + ["init", "-q"], check=True)
+    for i in range(n):
+        Path(d, "f").write_text(str(i))
+        subprocess.run(g + ["add", "f"], check=True)
+        subprocess.run(g + ["-c", "user.name=t", "-c", "user.email=t@t", "commit",
+                            "-q", "-m", f"c{i}"], check=True)
+    return d
+
+
+HEAD_A = _git_repo_with_commits(1)
+HEAD_B = _git_repo_with_commits(2)
 
 
 def mcp(pr: int, body: str, tool: str = "mcp__github__add_issue_comment") -> dict:
@@ -136,6 +158,22 @@ check("round 4 via the Bash route is denied the same",
 check("round 4 via pull_request_review_write is denied the same",
       decision(run(mcp(1010, "@codex security review",
                        tool="mcp__github__pull_request_review_write"), session=s)), "deny")
+check("the SAME body on a NEW head is a new round, not a retry (Codex, fm #1011 r1)",
+      decision(run(mcp(1012, "@codex review"), session=s, cwd=HEAD_A)), "note")
+check("... and the identical body on that same head is a retry",
+      decision(run(mcp(1012, "@codex review"), session=s, cwd=HEAD_A)), "silent")
+check("... and again on a second head counts again",
+      decision(run(mcp(1012, "@codex review"), session=s, cwd=HEAD_B)), "note")
+check("... a third distinct head is round 3, the last allowed",
+      decision(run(mcp(1012, "@codex review"), session=s,
+                   cwd=_git_repo_with_commits(3))), "note")
+check("... the fourth distinct head is denied: fm #1010's literal loop shape",
+      decision(run(mcp(1012, "@codex review"), session=s,
+                   cwd=_git_repo_with_commits(4))), "deny")
+check("an unreadable head never turns a new round into a retry (counts)",
+      decision(run(mcp(1013, "@codex review"), session=s, cwd=TMP)), "note")
+check("... same body, still unreadable head: counted again, not deduplicated",
+      decision(run(mcp(1013, "@codex review"), session=s, cwd=TMP)), "note")
 check("a DIFFERENT PR in the same session starts its own count",
       decision(run(mcp(1011, "@codex review"), session=s)), "note")
 check("a different session starts at zero",

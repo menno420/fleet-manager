@@ -1030,9 +1030,10 @@
   said stop and the harness's own drive-to-green text said the opposite. A
   cap needs no judgement, so it can be a deny — the shape the trigger guard
   established ([D-0015]). Cost of the loop, measured: 17 Codex verdicts against
-  one 931-line report, five of them (by the session's own accounting) finding
-  only drift its previous fix had caused, because the report restated the
-  same facts in six places. The value was real too — factual reversals landed
+  one 931-line report; 29 of the 88 inline findings (a third, classified at
+  the landing) were drift a previous fix had caused, three rounds (5, 16,
+  17) found nothing else, because the report restated the same facts in six
+  to ten places. The value was real too — factual reversals landed
   as late as rounds 11, 14 and 15 — which is why the exit is disclose-then-flip
   and not merge-regardless: a capped loop ships with its residue named; an
   uncapped one ships whenever the reviewer happens to find nothing.

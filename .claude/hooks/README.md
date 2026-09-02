@@ -642,7 +642,7 @@ measurement; this hook is its delivery.
 |---|---|---|
 | `mcp__*__add_issue_comment` / `pull_request_review_write` / `add_reply_to_pull_request_comment` whose body carries `@codex review` (or `@codex security review`) | rounds 1–3 **allowed and counted out loud** (`Codex review round N of 3 on PR #…`); round 4+ **denied** | the body is a named field, so "this posts a review request on PR #N" is an exact match |
 | a `Bash` command that visibly POSTs the phrase to `/issues/N/comments`, `/pulls/N/comments` or `/pulls/N/reviews` | same count, same deny | the route around the tools; needs phrase + endpoint + a POST verb together, so a `grep`, a quoted-heredoc doc, or a commit message stays silent |
-| the same body again (a retried call) | silent, not re-counted | a retry is not a round |
+| the same body again **on the same checked-out head** (a retried call) | silent, not re-counted | a retry is not a round — but the head is part of the key: the literal `@codex review` on each new fix commit is fm #1010's exact loop shape and counts every time (Codex, fm #1011 round 1); an unreadable head disables the dedup rather than the count |
 | everything else | silent | including `@codex address that feedback`, which is a different command |
 
 **Deliberate override:** `FM_ALLOW_CODEX_ROUND=1`, for the case where he asks

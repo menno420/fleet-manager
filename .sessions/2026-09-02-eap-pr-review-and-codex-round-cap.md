@@ -39,7 +39,15 @@ kept absolutely: **this session requested no Codex round.**
    sequence; wired in `.claude/settings.json` and the rescue table in
    `tools/install_root_hooks.py`; recorded as `docs/traps.md` TRAP-009 (the
    measurement) and `docs/decisions.md` [D-0039] (the rule and its exit);
-   one sentence in the boot file's `@codex` bullet points at it.
+   one sentence in the boot file's `@codex` bullet points at it. **Codex
+   round 1 on this PR (`173dcd2`) found one real defect:** the retry dedup
+   keyed on the comment body alone, so the literal `@codex review` posted on
+   each successive fix commit — fm #1010's exact shape — would have counted
+   as one round and bypassed the cap. Fixed: the key is now head + body,
+   an unreadable head disables the dedup rather than the count, and the
+   suite walks both (37 cases). Codex also fixed it in its own sandbox on a
+   branch it never pushed (verified: no `codex/*` ref on origin, no second
+   open PR); the fix here is this session's own.
 
 **Why two PRs this session (D-0024 exception, stated):** fm #1010 is another
 session's PR, finished on its own branch because its own card's born-red
@@ -72,6 +80,17 @@ work: it treated "one clean round" as the exit, and against a 931-line prose
 report that exit does not exist. It also wrote the round tally into six
 places and then had to fix five of them every round until round 7 taught it
 otherwise for one of the numbers.
+
+**Owner feedback, live, mid-session (two observations, recorded for the
+next session):** (1) *"you tend to ignore messages mid turn, meaning you do
+not show in chat that the message has arrived and that you understand what
+that means for your task"* — it happened twice here; the first line after a
+mid-turn message must acknowledge it and say what it changes. (2) *"all your
+agents are also Fable 5.1, why didn't you choose to use Opus or Sonnet for
+that?"* — the workflow's `agent()` inherits the session model unless `model`
+is set; it was left unset. Mechanical reads (classifying review threads)
+are Sonnet work and verification is Opus work, both cheaper against his Max
+allowance; a default was put to him as a one-letter choice.
 
 Layer-2 handoff: null (fleet-manager itself; no satellite repo attached this
 session).

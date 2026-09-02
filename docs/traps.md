@@ -426,9 +426,10 @@ demonstrated on itself.
 - **WHY** — three things combine, and none of them says stop. (1) A review
   binds the head it ran on (TRAP-007), so every fix commit is a new head that
   "needs" a round. (2) A reviewer shown a long prose document returns a P2
-  almost every time — and on fm #1010 five of the seventeen rounds (5, 10, 12,
-  16, 17, by the session's own per-round accounting) found only drift the
-  previous round's *own fix* had caused, because the report restated the same
+  almost every time — and on fm #1010, 29 of the 88 inline findings (a third,
+  classified against their fix commits at the landing) were drift a previous
+  round's *own fix* had caused, and three rounds (5, 16, 17) found nothing
+  else — because the report restated the same
   facts in six places (front-matter summary, § 3, § 5's closing note, § 10, the
   session card, the CONTRACTS sheet) and every correction had to be propagated
   to all of them. (3) The cloud harness's own drive-to-green text reads *"there
@@ -438,8 +439,8 @@ demonstrated on itself.
   request at `02:53Z` to the seventeenth verdict at `06:30Z` and ended only
   when the owner stopped it by hand.
 - **REQUIRED PREVENTION** — three rounds, then out: fix what round three
-  found, verify the fix without Codex (free-key Gemini, [D-0019], or a direct
-  check against source), disclose the residue in the PR comment and the card,
+  found, verify the fix without Codex (the free-key Gemini route the 2026-08-29
+  cadence decision names in `decisions.md`, or a direct check against source), disclose the residue in the PR comment and the card,
   then flip — or hand off with the state written down. And the structural
   half: **one canonical place per fact.** A number or a mechanism claim lives
   in one section and every other surface points at it; the night session did
@@ -458,8 +459,9 @@ demonstrated on itself.
   attribution; a marker-presence figure read as behavioural compliance) and 15
   (round 14's own diagnosis, wrong) — which is exactly why the exit is
   *disclose-then-flip*, never *merge-regardless*. The rule that should have
-  prevented the loop existed: [D-0019], 2026-08-29, *"I don't think It's
-  necessary to review after every push, that just wastes the usage limits"* —
+  prevented the loop existed: the 2026-08-29 cadence decision in
+  `decisions.md`, *"I don't think It's necessary to review after every push,
+  that just wastes the usage limits"* —
   prose in the boot file and the ledger, delivered at no moment. Owner, live,
   2026-09-02: *"I thought there was a rule to prevent this from happening.
   Apparently not a good rule. I think there should be a maximum of 3 review
