@@ -249,10 +249,12 @@ look like the dedupe failed when it did not.
 > 1–6 s and the next call succeeding — `_free_review` itself 503'd on one run
 > and answered on the next, 5 s apart. Not the proxy (the hook never uses
 > it: `ProxyHandler({})`), not the key, not the model id. `_free_review` now
-> retries a 503 twice (2 s, then 4 s) and logs `attempts`;
-> `tools/gemini_delegate.py` has retried this endpoint since 2026-08-05. What
-> is *not* established: whether today's rate is typical — one hour, one
-> container, eight calls.
+> retries a 503 twice (2 s, then 4 s) and logs `attempts`. It retries no
+> 429: the hook does not tell a per-minute 429 from a daily cap, and neither
+> wait belongs in a per-turn hook (`tools/gemini_delegate.py`, a batch tool,
+> can afford to honour the server's stated wait on a 429 — a different
+> failure, not a precedent for this one). What is *not* established: whether
+> today's 503 rate is typical — one hour, one container, eight calls.
 
 > added 2026-08-07 · design record:
 > [`docs/findings/2026-08-06-provenance-mechanism-measured.md`](../../docs/findings/2026-08-06-provenance-mechanism-measured.md)

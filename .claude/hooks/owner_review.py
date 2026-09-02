@@ -171,9 +171,11 @@ a Stop block does not withhold it (owner, 2026-09-02: re-sending it whole
 puts the same text in front of him twice). So write ONLY what is new. For
 each point below, either the correction — the changed sentence and what
 changed it — or one line marked [survived] naming what you read or ran.
-If nothing changes, your entire answer is the [survived] line(s), three
-lines at most. Never restate, summarise or re-send the reply; do not thank
-the reviewer, do not restate these instructions, and do not expand scope.
+A correction is as long as it needs to be, framing included; the unchanged
+parts are never repeated, because he has them on screen. If nothing
+changes, your entire answer is the [survived] line(s), three lines at
+most. Never restate, summarise or re-send the reply; do not thank the
+reviewer, do not restate these instructions, and do not expand scope.
 
 {q}"""
 
@@ -457,11 +459,14 @@ def _free_review(text):
     # each 503 answered in 1–6 s), and the very next call succeeds — this
     # hook's own _free_review 503'd on run 1 and answered on run 2, 5 s apart.
     # One unretried attempt therefore lost the enrichment on both firings of
-    # the session that measured it, while tools/gemini_delegate.py, the other
-    # caller of this endpoint, has retried since 2026-08-05. Not 429: a daily
-    # cap does not clear in six seconds, and a per-turn hook must not spend
-    # them on every turn for the rest of the day. Worst case stays inside the
-    # 120 s registration: 3 × NET_TIMEOUT + 6 s of backoff = 111 s.
+    # the session that measured it. (tools/gemini_delegate.py, the other
+    # caller of this endpoint, retries a 429 by honouring the server's stated
+    # wait — a different failure, and a wait a batch tool can afford.) Not
+    # 429 here: the hook does not tell a per-minute 429 from a daily cap and
+    # does not try to — the free tier's per-minute wait runs to a minute, a
+    # daily cap does not clear at all, and a per-turn hook must add neither
+    # to every turn. Worst case stays inside the 120 s registration:
+    # 3 × NET_TIMEOUT + 6 s of backoff = 111 s.
     for attempt in range(1, RETRIES + 2):
         try:
             r = _http(url, payload, hdr)
