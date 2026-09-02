@@ -236,10 +236,22 @@ numbers must be corrected before anything here goes into a mail.
    before use.
 8. **A2-7+B6** (finding, both) — *Claims about a named artifact are written
    without the artifact being resolved: references that do not exist or do
-   not contain what is claimed (repo_count 10).* **[UNFIXED]** still carries
-   a citation (`idea-engine docs/audits/eap-project-audit-2026-07-14.md:76`)
-   its own verifier flagged as not resolving — the finding about unresolved
-   references itself ships one.
+   not contain what is claimed (repo_count 10).* **[CORRECTED, review pass
+   2026-09-02 (fm #1010's landing session)]** this row shipped, until the
+   flip, a citation its own verifier flagged as not resolving
+   (`idea-engine docs/audits/eap-project-audit-2026-07-14.md:76` — "at line
+   76, a time-to-land PR sampling table... the fabrication material is at
+   lines 151 and 165. Either the repo attribution or the line number is
+   wrong") — the finding about unresolved references itself shipped one.
+   Resolved against this repository's own copy, opened at the flip head:
+   `docs/audits/eap-project-audit-2026-07-14.md:151` (the Codex-relay row —
+   "Cost arrived as fabrication — #4... the VERDICT 016 gate (3/3
+   fabrications caught, 0/24 false alarms)") and `:165` (the gate ordered
+   fleet-wide MANDATORY), with the suspension itself at
+   `docs/fleet-inconsistencies-2026-07-13.md:147` (INC-43: the `@codex`
+   verdict-review step SUSPENDED at `dedc12e` "after 3/3 verified fabricated
+   reviews (incidents #1–#3)"). The idea-engine copy was not opened (that
+   repository was not attached); cite the fleet-manager lines.
 9. **A2-4+A2-5 — CORRECTED (Codex review round 11): wrong method/denominator
    in the original text.** *Delivering the rule at the moment of action has
    a measured ceiling and two silent failure modes: of 13 errors from one
@@ -458,8 +470,14 @@ underlying claim, checked directly against the raw JSON, is that it **never
 entered the full run's claim pool at all** — its refutation survives only
 as four unmatched `orphaned_corrections` entries (the false-done itself:
 "the headline claim has never executed against real Stripe... 13 green
-tests inject synthetic events authored from memory," each dropped with the
-reason "no earlier done-claim found in this corpus").
+tests inject synthetic events authored from memory," each dropped because
+no matching done-claim exists in the pool — four differently worded
+`reason` fields, one of them verbatim "No earlier done-claim found in this
+corpus for venture-lab's Stripe integration being green/verified before
+2026-07-10"; the pool's only venture-lab Stripe done-claims are the $29
+Gumroad kit of 2026-07-12 and PR #9 of 2026-07-10, a different product
+**[PRECISION, review pass 2026-09-02: this sentence previously presented
+one paraphrase as the quoted reason of all four]**).
 
 **L02 and L08 lost their pilot-survival evidence for two different reasons
 — [CORRECTED, Codex review round 14, then corrected again round 15: round
@@ -894,8 +912,11 @@ reused unchanged).
 
 This report is evidence, not a drafted mail — per the night brief and the
 owner's own reservation, only he writes and sends Part 1, and no session
-drafts Part 2 without him present. The next session should: (1) fix the
-**[UNFIXED]** items in § 2 before quoting any of them; (2) **read
+drafts Part 2 without him present. The next session should: (1) resolve the
+flagged items in § 2 before quoting any of them — **[UNVERIFIED]** (#4),
+**[PROVENANCE FLAG]** (#7), **[WORDING RISK]** (#11) and the unresolved
+9-vs-10 split in #1; the one **[UNFIXED]** citation (#8) was resolved at
+the flip; (2) **read
 `docs/findings/night-review-2026-07-10.md` before using FD-01 or FD-02 in
 the mail** — both critics independently name it as the original measured
 source neither fan-out's readers opened, and its addition may also give

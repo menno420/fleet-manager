@@ -53,9 +53,12 @@ Owner asleep; no owner-facing decision made, only evidence assembled.
    reader units cut first, per the night brief's own cut order) — run
    `wf_fb35b278-362`, 83 agents, 7.11M tokens, 146.7 min. 505 claims/332
    corrections → 150 merged → 30 ranked → 28 verified → **3 survivors**. Two
-   of the pilot's four survivors did not carry into these 3, but not by the
-   same mechanism — kept as a method finding, not smoothed into a
-   symmetric pair: **L08** (self-arming routines) re-entered the claim pool
+   of the pilot's four survivors did not carry into these 3 — **not a
+   scaling or method result**: the two corpora are not nested, and L02 only
+   existed because the pilot's merge stage violated its own no-manufacture
+   contract (the report's § 3 has the two non-comparable outcomes; this
+   sentence was corrected at the flip, Codex round 17's one finding): **L08**
+   (self-arming routines) re-entered the claim pool
    and was actively refuted, reappearing as **FD-13**, refuted; **L02**
    (venture-lab's Stripe false-green) never re-entered the claim pool at
    all — it survives only as four unmatched `orphaned_corrections` entries,
