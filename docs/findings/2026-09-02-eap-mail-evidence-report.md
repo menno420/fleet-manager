@@ -96,9 +96,17 @@ into a mail.
    repository; a review protocol last run 46 days before its own census).*
    Citations: `docs/findings/2026-08-28-substrate-kit-genesis-dig.md`,
    `docs/findings/2026-08-29-estate-agent-error-audit.md`.
-   **[UNFIXED, per Fleet A's critic]** the payload still reads "10 of 20 rows
-   report no `.claude/` directory" after its own verifier could reproduce
-   only 9 on two independent regex passes and never fixed the number.
+   **[DISPUTED, not "unfixed" — corrected, Codex review round 7]** the
+   payload reads "10 of 20 rows report no `.claude/` directory," and this
+   is NOT a clean error: the original census reader's count, AND the
+   holds-lens verifier's own independent recount, both land on **10**
+   (holds-lens: *"I counted the rows myself: exactly 10... the candidate's
+   10 is right"*); only the fit-lens verifier's separate recount reports
+   **9** (two regex passes, omitting `sim-lab`). This report previously
+   presented the fit-lens's 9 as the correction and the payload's 10 as
+   unfixed — reversed: it is an unresolved 9-vs-10 split between the two
+   lenses, 2 of 3 counts (census + holds-lens) favoring 10. Needs a fresh
+   recount to settle, not a silent pick of either lens.
    **[CORRECTION, per the owner's 2026-09-01 sitting, unread by this
    reader]**: the "1 of 20 repos has hooks" framing is not a coverage gap —
    the owner states it is **deliberate** (owner ruling recorded in
@@ -494,7 +502,7 @@ exposed:
   means this ledger is a **sample of the EAP record, not the EAP record**,
   and its survivor count should never be read as exhaustive.
 
-**Third check: Codex review of this PR (fm #1010), six rounds so far, 37 findings
+**Third check: Codex review of this PR (fm #1010), seven rounds so far, 43 findings
 total, all addressed** — the drafted version of this report itself had
 errors, caught by exactly the external adversarial round the night brief's
 DECIDED section requires. Round 1 (10 findings) is summarized above where
@@ -569,6 +577,27 @@ checked directly (not assumed) that all 3 of this run's actual survivors
 have in-window `claimed_when` dates, so the pool dilution did not
 contaminate the survivor set, though it may have silently displaced an
 in-window candidate — unknowable without a re-run (§ 3, CONTRACTS sheet).
+
+**Round 7** (6 findings): the round-6 date fix only bounded the upper end
+of the EAP window; the run's own claim pool already had 3 pre-window June
+claims, so the reader prompt now bounds both 07-07 and 07-21 (CONTRACTS
+sheet). **A real correction to this report's own earlier correction:** § 2
+finding #1's "10 of 20" figure was flagged **[UNFIXED]** as if the
+payload's own verifier disproved it — checked directly against the raw
+verdicts, the holds-lens verifier independently recounted and got **10**
+("the candidate's 10 is right"), the same as the original census reader;
+only the fit-lens verifier's separate recount got 9. This is an unresolved
+2-of-3 split, not a clean correction, and the finding above now says so.
+Index/wording sync: `docs/findings/README.md`'s row for this report is
+changed to describe review rounds without a hardcoded number (a specific
+count in a second file goes stale the instant the next round lands — this
+closing note, updated each round in place, is the one place a round count
+belongs); the CONTRACTS sheet's RETAIN line dropped an overpromised
+follow-up query ("which claims were never refuted") the retained output
+cannot actually answer. Disclosed, not fixed: the completeness critic sees
+only the ≤30 claims attached to verified rows, not the full 505-claim pool,
+so it cannot check an orphaned correction against a claim that was matched
+then cut by the ranking cap, or against a claim never selected at all.
 
 ## 6 · The owner's words on this mail, collected (5 readers, 25 quotes kept)
 

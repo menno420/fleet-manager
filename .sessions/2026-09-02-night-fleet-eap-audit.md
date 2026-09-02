@@ -1,13 +1,15 @@
 # 2026-09-02 — night fleet EAP mail evidence report (Fleet A + Fleet B)
 
-> **Status:** `in-progress` — Codex rounds 1-6 landed (10+10+8+5+1+3
-> findings, 37 total, all fixed or explicitly disclosed as this commit's
-> diff); round 6's fixes (this commit) are not yet reviewed on their own
-> head (a review binds the SHA it ran on, TRAP-006/007) — pushing with the
-> card still `in-progress` keeps the born-red hold active while round 7 is
-> requested and awaited. The flip to `complete` is a separate, later
-> commit, once a
-> round confirms clean on the exact head that ships it. Fleet A: 12
+> **Status:** `in-progress` — multiple Codex rounds landed, all findings
+> fixed or explicitly disclosed as each fix commit's diff (current tally:
+> `docs/findings/data/workflows/05-CONTRACTS-night.md` EXTERNAL line, the
+> one place a live round count is kept — restating it here too just adds a
+> second copy that goes stale every round). This commit's fixes are not
+> yet reviewed on their own head (a review binds the SHA it ran on,
+> TRAP-006/007) — pushing with the card still `in-progress` keeps the
+> born-red hold active while the next round is requested and awaited. The
+> flip to `complete` is a separate, later commit, once a round confirms
+> clean on the exact head that ships it. Fleet A: 12
 > survivors, 3 judged spines (unanimous on which spine won, not on every
 > graft recommendation — see the report's § 7 correction, round 2). Fleet
 > B: pilot 4 survivors, full
