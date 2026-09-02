@@ -25,8 +25,10 @@
   clock by sharing the same 2 slots) — **37 agents, 2.66M tokens, 38.4 min**
   (run `wf_d0348386-8b6`) — then, once Fleet A landed, a **full run scoped to
   the fleet-manager-only lane** (`skipSatellite: true` — 16 reader units, the
-  11 named EAP docs split over 400 lines) — see § 3 for its result, filled
-  after this document's first commit once the run lands.
+  11 named EAP docs split over 400 lines) — **83 agents, 7.11M tokens, 146.7
+  min** (run `wf_fb35b278-362`). See § 3 for the result: 3 survivors, not the
+  pilot's 4, and two of the pilot's four survivors reversed on the larger
+  corpus — read § 3 and § 5 together before trusting any count here.
 - **CUT: the 32 superbot `docs/eap` reader units** (of Fleet B's full 48-unit
   design) — dropped **before** any fleet-manager-side cut, exactly as the
   night brief's SIZE rule specifies ("drop Fleet B's satellite-heavy readers
@@ -235,10 +237,59 @@ extracted → 18 merged rows → 16 ranked → 15 verified → **4 survivors**:
 11 refuted (routine plan-evolution, not false-dones, or citations that did
 not hold up); 0 already-covered.
 
-**Full run (16 fleet-manager-only reader units, `skipSatellite: true`) —**
-launched at 00:23Z after Fleet A landed; result not yet in at first commit of
-this report. **[FILL AFTER NOTIFICATION — see run id in the commit that adds
-this section's numbers.]**
+**Full run (16 fleet-manager-only reader units, `skipSatellite: true`, run
+`wf_fb35b278-362`):** 505 claims, 332 corrections extracted → 150 merged rows
+→ 30 ranked → 28 verified → **3 survivors**, 25 refuted, 0 already-covered
+(the reason is very likely that `docs/traps.md` was never in the reader
+corpus and `already_covered_by` was never populated as a result — critic
+finding, below).
+
+- **FD-01** (merges 4 sub-rows) — superbot-games PR #16 asserted
+  "substrate-gate now runs the suite," and the lane's close-out heartbeats
+  reported "mining gen-1 complete green" on that gate. Actually: the gate
+  collected 73 of 121 tests — `games/exploration/tests/` (48 tests) was
+  invisible, and neither close-out heartbeat acknowledged the fix order.
+  This is the pilot's **L03**, now with two independent citation paths
+  (`docs/eap-story.md`, `docs/launch-readiness-2026-07-10.md`) instead of
+  one, and a second layer the pilot didn't catch: the close-out heartbeats
+  that *kept reporting green* after the gap was found.
+- **FD-02** (merges 5 sub-rows) — pokemon-mod-lab's README declared PRIVATE
+  "no exceptions" and 8 PR bodies repeated it, while the repo was
+  world-readable with vendored Nintendo source, matching all 13 account
+  repos being public at the time. This is the pilot's **L04** — same
+  finding, now also carrying the residue the pilot missed: even after the
+  owner's API-verified flip, the repo's status file carried no
+  `visibility: private — verified <ts>` line, so a standing guard had to be
+  appended separately (ORDER 003, `a76ada7`).
+- **FD-17** (merges 6 sub-rows) — disposition stamps read as delivery:
+  "ORDER 002/014 done," two INC rows marked "✅ RESOLVED," and a
+  strikethrough "~~enable Codex~~ resolved" — while the same ledger
+  self-discloses that inbox orders read `status: new` forever because "only
+  fm can flip and fm demonstrably doesn't," one "resolved" item left an
+  in-tree duplicate, and by a 2026-08-11 audit **~65 of 82 ledger items had
+  never been retired at all**. **[UNVERIFIED, per the critic]** that closing
+  number is quoted from a document outside this pass's corpus and outside
+  the EAP fortnight the ledger covers — flag, don't drop, but don't quote it
+  as this ledger's own measurement either. **[WEAKER STRUCTURE, per the
+  critic]** unlike FD-01/FD-02, this row's claim and correction are both
+  self-disclosures from the *same* document (`docs/fleet-inconsistencies-2026-07-13.md`)
+  — the ledger is both claimant and corrector here, which the row's own text
+  does not flag.
+
+**Reversed from the pilot, on the larger corpus — read this as a finding about
+the method, not just about these two claims:** **L02** (venture-lab's Stripe
+false-green) is **FD-09** in the full run and is **refuted**; **L08**
+(self-arming routines) is **FD-13** and is **refuted**. Two of the pilot's
+four survivors did not survive at 16× the corpus. Neither the pilot's
+write-up nor this pass diagnoses why (merge over-collapsing — FD-13 alone
+absorbs 7 sub-rows — or the verify lenses tightening are both live
+possibilities, per the critic).
+
+**25 non-survivors carry only the word "refuted"** — the CONTRACTS sheet's
+pilot note flagged this exact gap and named the fix (pull a reason from each
+verifier's `discrepancies` field); that pull did not happen in this run's
+output, so 25 of 28 rows are currently unauditable beyond "refuted." Fixing
+this is next-session work, not done here.
 
 ## 4 · Prior-mail overlap map (6 readers, all 4 July mails + the 2 unsent drafts + the current draft)
 
@@ -318,7 +369,48 @@ survivors, not just gaps in coverage.
   11 of 15 pilot candidates vanish with the single word "refuted" and
   nothing else; this is itself an instance of the append-without-retract
   pattern the estate's own audits name.
-- **L07/L08/L12 same-mechanism split verdict** (§ 3) — unresolved.
+- **L07/L08/L12 same-mechanism split verdict** (§ 3) — unresolved (and, per
+  the full-run critic below, L08 itself did not survive the larger corpus).
+
+**Fleet B's full-run critic** (full detail in
+`docs/findings/data/2026-09-02-eap-mail-evidence/fleet-b-full-wf_fb35b278-362.json`)
+— the same corpus-distance defect, now sharper, plus new ones the larger run
+exposed:
+
+- **`docs/findings/night-review-2026-07-10.md` is "the single most damaging
+  omission"** (the critic's own words) — it is the *original* measured
+  source for **both** FD-01 and FD-02, the pass's two strongest survivors,
+  and was named as a known gap by the pilot's own CONTRACTS note and still
+  not added to the 16-file corpus. Both survivors' "actually" halves rest on
+  a document no reader unit opened — only verifiers reached it, inconsistently.
+- **Yield collapsed, not scaled: 3 readers → 4 survivors; 48 readers → 3
+  survivors.** A 16× corpus increase produced *fewer* absolute survivors.
+  Neither over-collapsing in the merge (FD-17 alone absorbs 6 sub-rows,
+  FD-13 seven) nor tightening in the verify lenses is diagnosed as the
+  cause — both are live and unresolved.
+- **`docs/traps.md` was never in the reader corpus**, and `already_covered_by`
+  is exactly the field meant to answer "is this already a named trap" — the
+  full run reports 0 already-covered across 28 verified rows, which the
+  critic reads as an artifact of the register never being read, not evidence
+  of genuine novelty. Concretely: FD-17 resembles TRAP-008 ("a label read as
+  its contents") and TRAP-006/007; FD-01 (CI green over an uncollected
+  third of a suite) resembles TRAP-003 and TRAP-004. Neither pattern-catalogue
+  register (`docs/findings/data/2026-08-29-agent-error-patterns.jsonl`, the
+  very corpus Fleet A read the same night) was cross-checked either.
+- **A single systematic misclassification dominates the 182 orphaned
+  corrections** — roughly 40 are dropped as "corrects a wall/status/stale-count,
+  not a done-claim," which is schema-correct but means the ledger's
+  corrections side is mostly measuring a *different* phenomenon (false
+  walls, stale status) than its claims side. Several other orphans look like
+  genuine merge misses rather than absences — e.g. one dedupe reason
+  literally states the counterpart "is the same statement split onto the
+  claims side, so pairing would be circular," which describes a merge
+  failure, not a justification.
+- **The corpus was DECIDED at 11 fleet-manager files against roughly 30
+  EAP-era documents this repository actually holds** — a deliberate,
+  documented choice (not relitigated mid-run, per the night brief), but it
+  means this ledger is a **sample of the EAP record, not the EAP record**,
+  and its survivor count should never be read as exhaustive.
 
 ## 6 · The owner's words on this mail, collected (5 readers, 25 quotes kept)
 
@@ -405,20 +497,26 @@ reused unchanged).
   candidates, all 16 verify pairs, all 3 spines, all 3 judges, the critic).
 - `docs/findings/data/2026-09-02-eap-mail-evidence/fleet-b-pilot-wf_d0348386-8b6.json`
   — Fleet B's pilot return value.
-- `docs/findings/data/2026-09-02-eap-mail-evidence/fleet-b-full-*.json` —
-  Fleet B's full scoped run, added once it lands.
+- `docs/findings/data/2026-09-02-eap-mail-evidence/fleet-b-full-wf_fb35b278-362.json`
+  — Fleet B's full scoped run (16 fleet-manager-only reader units).
 
 ## 10 · What tomorrow's session should do with this
 
 This report is evidence, not a drafted mail — per the night brief and the
 owner's own reservation, only he writes and sends Part 1, and no session
 drafts Part 2 without him present. The next session should: (1) fix the
-**[UNFIXED]** items in § 2 before quoting any of them; (2) resolve the
-L07/L08/L12 contradiction in § 3 and decide whether Fleet B's full run
-changes the ledger's survivor set; (3) decide, with the owner, whether B5
-(the false-done substitution taxonomy — his own stated priority) gets a
-fourth addendum slot or replaces one of the winning spine's three; (4)
-re-verify every citation this report carries forward — the critic's spot
-check found a 4-for-4 line-anchor drift rate, and nothing here should be
-trusted to the line without a fresh open; (5) confirm every linked document
-is on `main`, and re-run every stale count, on the day of sending.
+**[UNFIXED]** items in § 2 before quoting any of them; (2) **read
+`docs/findings/night-review-2026-07-10.md` before using FD-01 or FD-02 in
+the mail** — both critics independently name it as the original measured
+source neither fan-out's readers opened, and its addition may also revive
+L02/L08 (venture-lab, self-arming routines), which reversed between the
+pilot and the full run; (3) decide, with the owner, whether the false-done
+substitution taxonomy (B5, Fleet A) or the false-done ledger itself (Fleet
+B, his own directly-stated priority for this mail) gets a slot in the mail
+— neither is in any of Fleet A's three spines; (4) fill in the 25 non-survivor
+reasons Fleet B's full run left as bare "refuted" (pull from each verifier's
+`discrepancies` field, per the CONTRACTS sheet's own pilot note); (5)
+re-verify every citation this report carries forward — Fleet A's critic
+spot-check found a 4-for-4 citation line-anchor drift rate, and nothing here
+should be trusted to the line without a fresh open; (6) confirm every linked
+document is on `main`, and re-run every stale count, on the day of sending.
