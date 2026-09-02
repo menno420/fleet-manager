@@ -46,8 +46,10 @@
   design) — dropped **before** any fleet-manager-side cut, exactly as the
   night brief's SIZE rule specifies ("drop Fleet B's satellite-heavy readers
   before dropping its fleet-manager readers"). The pilot's 1 superbot reader
-  is the only superbot-side evidence in this pass; nothing else from that
-  corpus was read tonight.
+  is the only superbot-side evidence **Fleet B's false-done pass** read
+  tonight — **[SCOPED, Codex review round 11]** not "in this pass" overall:
+  Fleet A separately and systematically read 5 superbot prior-mail files
+  (§ 1, § 4), which is unaffected by this cut.
 - **CUT: Fleet C** (the 19-repo EAP-birth closeout audit) — not attempted.
   Fleet A alone took 2.6h against a measured concurrency of 2; there was no
   wall-clock left to fit a third fleet before 05:00 Europe/Amsterdam, let
@@ -98,12 +100,14 @@ smaller** — pilot read 2 fm units + 1 sb unit; the full scoped run read the
 
 ## 2 · Fleet A — verified findings surviving both lenses (12 of 16 verified, 27 ranked, 44 pooled, 284 pattern rows read)
 
-Each row is the surviving candidate's **id**, its **`corrected_claim`** as the
-first verifier that supplied one wrote it (never the merge's original
-wording), scope, and citations. Where the critic (§ 5) caught an error the
-verifier itself did not fix in the payload, that is flagged inline as
-**[UNFIXED]** — these numbers must be corrected before anything here goes
-into a mail.
+Each row is the surviving candidate's **id**, its wording, scope, and
+citations. Wording is the first verifier's **`corrected_claim`** for every
+row except **B5**, whose text is instead the **retained original candidate
+quotation** (its `corrected_claim` field is itself corrupted — see item 6);
+never the merge stage's wording taken alone without checking it against a
+verifier. Where the critic (§ 5) caught an error the verifier itself did
+not fix in the payload, that is flagged inline as **[UNFIXED]** — these
+numbers must be corrected before anything here goes into a mail.
 
 1. **A1-5+B10+B11** (finding, both) — *The delivery tier a rule sits in, not
    its wording, predicts whether agents follow it: where a rule is a
@@ -138,13 +142,22 @@ into a mail.
    in the two designs this estate measured, discriminated only where the
    decision rule let a single skeptic win and the refuters were independent
    of the author; where it did not, it looked rigorous and refuted almost
-   nothing.* **[UNFIXED]** the payload still states "7.0% of 925 verdicts,"
-   which the verifier itself computed as 60/925 = **6.5%**, not 7.0% — fix
-   before send. Also carries a citation the same verifier found supports
-   none of its claims (`2026-08-24-e1-source-sweep.md:284-288`) and a "load-
-   bearing correction" the verifier showed was already applied in the
-   current draft on 2026-08-25 — this row is stale in two more places than
-   its own corrected_claim admits.
+   nothing.* **[REVERSED, Codex review round 11 — "7.0%" is right, not
+   wrong]** this report previously flagged "7.0% of 925 verdicts" as an
+   error needing correction to "6.5% (60/925)" — backwards. Checked
+   directly: summing `refuter_count` across all 284 rows of
+   `docs/findings/data/2026-08-29-agent-error-patterns.jsonl` gives **65**,
+   and 65/925 = 7.03% ≈ **7.0%, matching the payload as written**. The
+   verifier's own discrepancy note says exactly this ("i.e. the 7.0% is
+   right") — "60" is the mismatched figure (the source's own 293
+   CONFIRMED + 572 PARTIAL + 60 REFUTED pattern-level tally, a different
+   count from the 65 refuting lens-verdicts), not "7.0%". Do not change
+   this row's percentage before send. Also carries a citation the same
+   verifier found supports none of its claims
+   (`2026-08-24-e1-source-sweep.md:284-288`) and a "load-bearing
+   correction" the verifier showed was already applied in the current
+   draft on 2026-08-25 — this row is stale in two other places than its
+   own corrected_claim admits, just not the percentage.
 3. **A1-7+A2-6+B2** (finding, both) — *A null or clean result is
    indistinguishable, in what an agent sees, from a check that never ran,
    never covered the case, or never executed as written — and the same
@@ -212,11 +225,21 @@ into a mail.
    a citation (`idea-engine docs/audits/eap-project-audit-2026-07-14.md:76`)
    its own verifier flagged as not resolving — the finding about unresolved
    references itself ships one.
-9. **A2-4+A2-5** (finding, general) — *Delivering the rule at the moment of
-   action has a measured ceiling and two silent failure modes: of 13 errors
-   from one session scored against 116 committed statements, the statements
-   caught 0.* Already substantially in the current draft (Finding 3);
-   this row extends it with the ceiling/failure-mode framing.
+9. **A2-4+A2-5 — CORRECTED (Codex review round 11): wrong method/denominator
+   in the original text.** *Delivering the rule at the moment of action has
+   a measured ceiling and two silent failure modes: of 13 errors from one
+   session, scored against a two-part test (does an actionable moment exist,
+   and is the error decidable there from the text alone) — 8 were
+   machine-decidable (4 already watched, 2 built, 2 buildable but
+   deliberately declined), 3 needed a human procedure, 1 had no moment, 1
+   remains an open design question; in the register of 8 recurring failure
+   patterns, 7 are delivered by a reminder route and exactly 1 has a
+   deterministic checker.* This report previously stated the 13 errors were
+   "scored against 116 committed statements, the statements caught 0" — that
+   116-statements/0-caught pair is a **different** measurement, already in
+   the current draft's own Finding 3; conflating the two invented a method
+   and denominator for this row. The two-part-test scoring above is the
+   row's real, distinct measurement.
 10. **A1-6** (finding, both) — *A merge-blocking check that verifies a
     marker's presence, not its substance, reached full compliance while
     roughly one in nine marked sections carried no actual content* (161
@@ -249,7 +272,14 @@ into a mail.
     because a fan-out plan sized from the documented 10-16 against an
     observed 4 gets its wall clock wrong by more than 3×, and four separate
     lanes in this estate built the same artefact twice for want of a way to
-    say 'I have this one.'"* The reachability/provenance material (74
+    say 'I have this one.'"* **[CAVEAT, Codex review round 11]** the "more
+    than 3×" figure in that quoted ask line is not unconditionally true —
+    documented-10 against observed-4 is 2.5×, documented-mean-3.43 is
+    ~2.9×; only the top of the documented 10–16 range clears 3×. Quoted
+    here verbatim as the verifier wrote it; if this line goes into the
+    actual mail, bound it ("up to 4×") or name which documented figure it
+    compares against, rather than sending "more than 3×" unconditionally.
+    The reachability/provenance material (74
     session records, 54 reachable, 0-of-418 carrying a machine field), if
     used at all, belongs as one clause under the current draft's existing
     ask 3, not as a second ask. This is the pass's only surviving
@@ -306,7 +336,13 @@ extracted → 18 merged rows → 16 ranked → 15 verified → **4 survivors**:
   L08 as provisional until reconciled.
 
 11 refuted (routine plan-evolution, not false-dones, or citations that did
-not hold up); 0 already-covered.
+not hold up); **0 rows killed by both-lenses coverage agreement**
+(**[CORRECTED, Codex review round 11]** not "0 already-covered" as
+originally written — `already_covered_by` is populated on multiple
+fit-lens verdicts in the raw pilot JSON, including L01, L02, L05, L06 and
+L15 with real citations (`docs/planning/2026-08-30-fresh-start-redirect.md`,
+`docs/fleet-account-2026-07-26.md`, `docs/traps.md` TRAP-001), the same
+distinction § 3's full-run text already makes — applied here too).
 
 **Full run (16 fleet-manager-only reader units, `skipSatellite: true`, run
 `wf_fb35b278-362`):** 505 claims, 332 corrections extracted → 150 merged rows
@@ -706,14 +742,17 @@ and from the current draft." Both are live options if the owner grants more
 words; this report originally claimed all three judges agreed, which they
 did not.
 
-**Every judge's pre-send mechanics warning, independent of spine choice:**
-confirm every linked document is merged to `main` before sending (the
-2026-08-29 audit and 2026-09-01 documents were on a feature branch, not
-`main`, as of the judging pass — verify this is fixed before send); re-run
-every stale count (the routes figure, 67→71→72 across three dates) the day
-of sending and date it that day; state the reproducibility caveat (owner's
-own credentials, private repos included, method reproducible, inputs not)
-once for the whole mail rather than per finding.
+**Pre-send mechanics warnings, independent of spine choice —
+**[CORRECTED, Codex review round 11]** not unanimous across all three:**
+all three judges warn to confirm every linked document is merged to `main`
+before sending (the 2026-08-29 audit and 2026-09-01 documents were on a
+feature branch, not `main`, as of the judging pass) and to re-run every
+stale count (the routes figure, 67→71→72 across three dates) the day of
+sending, dated that day. The reproducibility caveat (owner's own
+credentials, private repos included, method reproducible, inputs not),
+stated once for the whole mail rather than per finding, is raised by the
+**product and owner-rules judges only** — the evidence judge does not
+request it.
 
 ## 8 · Contract sheets (quoted, not summarized)
 
