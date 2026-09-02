@@ -164,17 +164,25 @@ for (let i = 0; i < correctionPool.length; i += CHUNK) corrGroups.push(correctio
 if (corrGroups.length === 0) corrGroups.push([])
 log(`merge groups: ${corrGroups.length} × up to ${CHUNK} corrections, each searched against all ${claimPool.length} claims`)
 
-const mergeParts = (await parallel(corrGroups.map((g, gi) => () =>
+const mergePartsRaw = await parallel(corrGroups.map((g, gi) => () =>
   agent(`${TASK}
 You build ledger ROWS for group ${gi + 1} of ${corrGroups.length} of the corrections pool below, by finding each one's matching earlier claim in the FULL claims pool. Produce up to ${CHUNK} rows, one per correction in this group that has a matching claim (ids R${gi + 1}-1..R${gi + 1}-${CHUNK}) — every correction in this group that matches a claim gets a row; do not drop a genuine match to stay under a smaller count.
 ${mergeRules}
 CORRECTIONS (this group): ${JSON.stringify(g)}
 FULL CLAIMS POOL (search this for matches): ${JSON.stringify(claimPool)}`,
-    { label: `merge R${gi + 1}: corrections → rows`, phase: 'Merge', schema: ROWS, model: JUDGE_MODEL })))).filter(Boolean)
+    { label: `merge R${gi + 1}: corrections → rows`, phase: 'Merge', schema: ROWS, model: JUDGE_MODEL })))
+// FIXED (Codex review round 3, fm #1010): a plain filter(Boolean) here silently dropped a whole
+// group's up-to-CHUNK corrections (never in ledger rows, never in orphaned_corrections, never
+// logged) if its merge agent errored. Keep index alignment so a failed group is named and its
+// raw corrections are preserved for the critic instead of vanishing.
+const mergeParts = mergePartsRaw.filter(Boolean)
+const failedGroups = corrGroups.filter((g, i) => !mergePartsRaw[i])
+const unprocessedCorrections = corrGroups.flatMap((g, i) => mergePartsRaw[i] ? [] : g)
+if (failedGroups.length) log(`MERGE GROUP FAILURES: ${failedGroups.length}/${corrGroups.length} groups returned null — ${unprocessedCorrections.length} corrections never became rows or orphans, preserved in unprocessedCorrections`)
 
 const mergedRows = mergeParts.flatMap(m => m.rows || [])
 const orphaned = mergeParts.flatMap(m => m.orphaned_corrections || [])
-log(`merged: ${mergedRows.length} candidate rows, ${orphaned.length} orphaned corrections`)
+log(`merged: ${mergedRows.length} candidate rows, ${orphaned.length} orphaned corrections${failedGroups.length ? `, ${unprocessedCorrections.length} unprocessed (${failedGroups.length} failed groups)` : ''}`)
 
 // KNOWN LIMIT (Codex review, fm #1010, not fully fixed): with 150 input rows the model can only
 // surface ~30-45 total in one call — rows beyond that cap vanish with no "dropped" marker at all,
@@ -229,17 +237,20 @@ NON-SURVIVORS: ${JSON.stringify(results.filter(r => !r.survives).map(r => ({ id:
 ORPHANED CORRECTIONS: ${JSON.stringify(orphaned)}
 MARKED DROPPED BY DEDUPE (with a stated reason): ${JSON.stringify(ranked.filter(r => r.certainty === 'dropped'))}
 RANKED BUT NEVER VERIFIED (slice(0,30) cap on the verify stage, not marked dropped): ${JSON.stringify(rankedButUnverified)}
+UNPROCESSED CORRECTIONS (their merge group's agent errored — never became rows or orphans): ${JSON.stringify(unprocessedCorrections)}
 Read only; never write. Final message: the structured output only.`, { label: 'completeness critic', phase: 'Critic', schema: CRITIC, effort: 'high', model: JUDGE_MODEL })
 
 return {
   contract: 'see 05-CONTRACTS-night.md beside this script',
   counts: { fm_units: FM_UNITS.length, sb_units: SB_UNITS.length, fm_ok: fmOut.length, sb_ok: sbOut.length,
     claims: claimPool.length, corrections: correctionPool.length, merged: mergedRows.length, orphaned: orphaned.length,
-    ranked: ranked.length, verified: results.length, survivors: survivors.length },
+    ranked: ranked.length, verified: results.length, survivors: survivors.length, failed_merge_groups: failedGroups.length,
+    unprocessed_corrections: unprocessedCorrections.length },
   readers: allReaders,
   ranked,
   ranked_but_unverified: rankedButUnverified,
   verified: results,
   orphaned_corrections: orphaned,
+  unprocessed_corrections: unprocessedCorrections,
   critic,
 }

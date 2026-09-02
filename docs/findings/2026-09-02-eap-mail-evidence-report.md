@@ -125,8 +125,9 @@ into a mail.
    (superbot-games, 2026-07-10); the space-stripping phrase regex that ran
    under 986 agents and moved the corpus +127 sections once fixed
    (2026-08-29). Dropped from all three spines for budget, not weakness —
-   the judge panel's top-scored graft recommendation, unanimous across all
-   three judges.
+   the top graft recommendation from 2 of the 3 judges (product-lens and
+   evidence-lens; the owner-rules judge recommends the concurrency finding
+   instead, see § 7 — not unanimous, corrected per Codex review, fm #1010).
 4. **A2-3+B1** (finding, general) — *Agent-authored checks are landed and
    counted as coverage after a single green run, with no run in which they
    were ever shown to fail; when the instrument is broken, its silence is
@@ -217,9 +218,13 @@ extracted → 18 merged rows → 16 ranked → 15 verified → **4 survivors**:
   always set `customer_email`, while the live path had `customer_email: null`
   on real events plus an invalid success-URL placeholder. Found the same
   night by the fleet-manager night review (R23); fix issued as venture-lab
-  ORDER 003. Citations (verifier-corrected): claim —
-  `/tmp/eap-night/superbot-eap/fleet-overnight-review-2026-07-10.md:33,105`;
-  found — `docs/findings/night-review-2026-07-10.md:31-33,118-140` (a file
+  ORDER 003. Citations (verifier-corrected): claim — **[PATH FIXED, Codex
+  review round 3, fm #1010]** `superbot:docs/eap/fleet-overnight-review-2026-07-10.md:33,105`
+  at pinned SHA `5e3a667` (the verifier's original citation used this
+  session's `/tmp/eap-night/...` scratch fetch, an uncommitted container
+  path that will not survive this session — replaced with the pinned repo
+  path so the citation stays independently verifiable); found —
+  `docs/findings/night-review-2026-07-10.md:31-33,118-140` (a file
   **outside** tonight's fixed reader list, opened by the verifier directly —
   see § 5).
 - **L03** — superbot-games PR #16 asserted "substrate-gate now runs the
@@ -317,11 +322,15 @@ from genuine verifier instability without a run that reads the same corpus
 twice. Neither this report nor the underlying pass diagnoses which it is —
 say so, don't imply causation either way.
 
-**25 non-survivors carry only the word "refuted"** — the CONTRACTS sheet's
-pilot note flagged this exact gap and named the fix (pull a reason from each
-verifier's `discrepancies` field); that pull did not happen in this run's
-output, so 25 of 28 rows are currently unauditable beyond "refuted." Fixing
-this is next-session work, not done here.
+**25 non-survivors carry only the word "refuted" IN THIS REPORT** — not in
+the raw output. **[CORRECTED, Codex review, fm #1010]** every non-survivor's
+full verifier records (both lenses' `what_i_opened`, `discrepancies`,
+`corrected_claim`, `already_covered_by`) are retained in
+`docs/findings/data/2026-09-02-eap-mail-evidence/fleet-b-full-wf_fb35b278-362.json`
+— the evidence is not lost or unauditable, it simply was not pulled into
+this Markdown document. The CONTRACTS sheet's pilot note flagged this exact
+gap and named the fix (pull a reason from each verifier's `discrepancies`
+field into the report); that pull is next-session work, not done here.
 
 ## 4 · Prior-mail overlap map (6 readers, all 4 July mails + the 2 unsent drafts + the current draft)
 
@@ -397,10 +406,13 @@ survivors, not just gaps in coverage.
   brief). Verifiers sometimes opened it anyway (not restricted the way
   readers are) and corrected citations accordingly; this is inconsistent
   across rows, not a rule.
-- **No corpus census, no denominator, and no audit trail for refutations** —
-  11 of 15 pilot candidates vanish with the single word "refuted" and
-  nothing else; this is itself an instance of the append-without-retract
-  pattern the estate's own audits name.
+- **No corpus census, no denominator, and no audit trail in what the critic
+  itself was shown** — 11 of 15 pilot candidates reached the pilot's critic
+  as the single word "refuted" and nothing else (its prompt was fixed for
+  the full run, see § 3's script fixes, but not retroactively for the
+  pilot). The raw pilot JSON does retain each row's full verifier records —
+  this is a gap in what the critic saw and in what this report pulls
+  forward, not in what was measured.
 - **L07/L08/L12 same-mechanism split verdict** (§ 3) — unresolved (and, per
   the full-run critic below, L08 itself did not survive the larger corpus).
 
@@ -484,6 +496,33 @@ than 25 genuine matches would silently lose the excess — the cap now equals
 `CHUNK`. Not fixed, disclosed: the dedupe stage's silent loss of rows
 beyond its own output cap (150 merged → at most 45 returned) is logged but
 not batched like the merge stage — next-session work.
+
+**Round 3 (8 more findings, on the round-2 fix commit):** the session card
+still called both critics "reproduced in full" after the README's wording
+was already softened — fixed there too; the CONTRACTS sheet's AGGREGATE
+line for Fleet B described the pre-round-1 `dies()` expression and fixture
+tally, no longer what the script asserts — updated; two more "unanimous"/
+"unauditable beyond refuted" claims survived from the pre-round-2 wording
+in §§ 2 and § 3's "25 non-survivors" line — both corrected to distinguish
+"not pulled into this report" from "absent from the raw output" (which the
+raw output is not: every non-survivor retains full verifier records,
+confirmed by direct check of the committed pilot JSON). Two real defects:
+**the merge stage's `filter(Boolean)` silently dropped an entire failed
+group's corrections** (up to `CHUNK`=40 at a time) with no log, no
+`orphaned_corrections` entry, and no critic visibility — fixed to log
+failed groups and pass their raw corrections to the critic as
+`unprocessedCorrections` (this run's actual failure count is unknown; the
+fix did not run retroactively); **L02's claim citation pointed at this
+session's `/tmp/eap-night/...` scratch fetch**, a path that will not
+survive the container — replaced with the pinned `superbot:...@5e3a667`
+repository path (§ 3). **Disclosed, not fixed:** the survival rule requires
+BOTH lenses to populate `already_covered_by` before killing a row as
+already-covered, but only the fit-lens prompt searches broadly for
+coverage — the holds-lens prompt checks only two named sources. FD-02
+survives as a "fresh finding" even though its own fit-lens calls it
+"already-known plumbing" (naming `docs/playbook.md` R22), because the
+holds-lens left the field empty. Recorded in the CONTRACTS sheet; a real
+fix needs symmetric lens scope or a single aggregated coverage verdict.
 
 ## 6 · The owner's words on this mail, collected (5 readers, 25 quotes kept)
 

@@ -60,9 +60,11 @@ Owner asleep; no owner-facing decision made, only evidence assembled.
 verified findings quoted from verifier `corrected_claim` text (never the raw
 merge wording), the false-done ledger, the prior-mail overlap map, the
 owner's words, all three judged spines, and — most load-bearing — **both
-fleets' completeness critics in full**, because both found real unfixed
-defects in their own survivors (stale arithmetic, drifted citation line
-anchors, one corrupted claim field, the owner's own stated top priority for
+fleets' completeness critics, summarized** (full detail in the raw JSON, not
+reproduced in the report itself — the report says so explicitly), because
+both found real unfixed defects in their own survivors (stale arithmetic,
+drifted citation line anchors, one corrupted claim field, the owner's own
+stated top priority for
 this mail present in zero of the three spines). The report says plainly:
 read § 5 before drafting anything from this.
 
