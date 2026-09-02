@@ -142,6 +142,8 @@ CLOSE WITH
 This repo's session-close skill: born-red card as the first commit, PR opened
 ready, `python3 bootstrap.py check --strict` exit 0, the card flipped
 complete as the last commit after the review round answers on that head, land
-on green. Any newly verified capability goes into docs/CAPABILITIES.md as a
-dated line with its venue token — never a wall.
+on green. Anything newly verified goes into docs/CAPABILITIES.md as a dated
+line with its venue token — capability OR wall, per the ledger's own
+discovery rule: a probe that is refused is a wall worth recording with the
+observed error verbatim; what is never written is an unverified one.
 ```

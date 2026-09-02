@@ -95,13 +95,17 @@ VENUE_RE = re.compile(
     r"^[ \t]*[-*][ \t]+\*\*\N{ROUND PUSHPIN}[ \t]*Venue:\*\*[ \t]*`?([A-Za-z][A-Za-z-]*)`?[ \t]*$",
     re.M,
 )
-# Same anchoring as VENUE_RE, for the same reason: an unanchored search over the
+# Line-anchored like VENUE_RE, for the same reason: an unanchored search over the
 # whole card read prose *about* the model line (a card titled after the model
 # slot, a sentence quoting the convention) as the model itself, and the derived
 # table showed a lone backtick or a sentence fragment in the model cell
-# (@codex, fm #1012). The complete header bullet, or nothing.
+# (@codex, fm #1012 round 1). Unlike VENUE_RE it accepts the documented
+# unbolded forms — `.sessions/README.md` § Model defines the selector as the
+# first LINE-ANCHORED `📊 Model:` occurrence, "bold or not", and 170 cards use
+# the plain `📊 Model: …` line (@codex, fm #1012 round 2: requiring the bolded
+# bullet silently blanked those).
 MODEL_RE = re.compile(
-    r"^[ \t]*[-*][ \t]+\*\*\N{BAR CHART}[ \t]*Model:\*\*[ \t]*(.+?)[ \t]*$",
+    r"^[ \t]*(?:[-*][ \t]+)?\*{0,2}\N{BAR CHART}[ \t]*Model:\*{0,2}[ \t]*(.+?)[ \t]*$",
     re.M,
 )
 STATUS_RE = re.compile(r"\*\*Status:\*\*\s*`([a-z-]+)`", re.I)

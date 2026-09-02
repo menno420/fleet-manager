@@ -31,6 +31,7 @@ Date      : 2026-09-01
 
 from __future__ import annotations
 
+import datetime
 import pathlib
 import re
 import sys
@@ -68,7 +69,7 @@ def build() -> tuple[str, int, int]:
         star, desc = kept.get(p.name, ("", None))
         if desc is None:
             added += 1
-            desc = (f"*(indexed 2026-09-01 by `tools/gen_findings_index.py`; "
+            desc = (f"*(indexed {datetime.date.today().isoformat()} by `tools/gen_findings_index.py`; "
                     f"description still owed)* — its own title: “{title_of(p)}”")
         lines.append(f"| {star}[`{p.name}`]({p.name}) | {desc} |")
 
