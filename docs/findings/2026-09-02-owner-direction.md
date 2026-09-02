@@ -296,10 +296,18 @@ three answered here, verbatim, typos included. `OWNER` throughout.
 
 The continuation prompt is `docs/prompts/v3/universal-continue.md`; the
 daily paste pair is `per-project/<seat>-custom-instructions.md` +
-`<seat>-startup.md` (`docs/prompts/v3/README.md`). *"Their actionable queue
-was exhausted"* as a false claim he could see through is not a phrase the
-era records carry (grepped the retrospective, the story, the account and
-the reflection: no hit) — this is the first place it is written down.
+`<seat>-startup.md` (`docs/prompts/v3/README.md`). The false *"queue is
+exhausted"* claim is already on the record in his own words three days
+earlier — `docs/planning/2026-08-30-fresh-start-redirect.md:58-70`, *"the
+occasional 'continue' after the sessions claimed that the work was
+'completely done, the executable work queue is exhausted' and when I then
+went to look what was done it was not nearly anything you could call done
+at all"* — and that account adds the mechanism he saw: the coordinator
+relayed orders *"in it's own words"* and *"the subagent does not think it's
+own coordinator is a trustworthy source and starts questioning
+everything."* *(This paragraph first said the phrase appeared nowhere in
+the era records, on a grep of four files; the wider grep found it, and the
+sentence is corrected here rather than deleted.)*
 
 **2 · How he found out a Project had gone silent:**
 
