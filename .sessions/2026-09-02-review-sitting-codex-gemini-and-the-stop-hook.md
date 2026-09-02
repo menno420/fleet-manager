@@ -139,6 +139,12 @@ hook live with `CAP = 3`.
    first message of the session, which did carry a `UserPromptSubmit`
    block. Recorded as a dated wall in `docs/CAPABILITIES.md` with the
    workaround candidates (the harness notice; a `Stop`-hook check).
+10. **Item 4 of 6, stopping agents — confirmed, with the two-tier form.**
+   *"Yes that's right, unless I would say something like 'stop all your
+   agents' but then usually I would hit the stop button myself."* Landed in
+   `docs/findings/2026-09-02-owner-direction.md` § 2 (record grown in
+   place): "finish current, start none" lets anything already started
+   finish, runtime-started included; "stop all" is the stop button.
 9. **Pre-existing, not this PR's, noted for the record:**
    `python3 tools/test_change_guard.py` exits 1 on `origin/main` as well as
    on this branch (15/16; the failing case is *"real historical defect still

@@ -55,6 +55,21 @@ the current ones" and chose wrong. What survives a stop: every completed
 agent's result stays readable in the workflow's `journal.jsonl` (the two
 classifier results were read from it after the stop).
 
+**Confirmed by him the next day (2026-09-02, the review sitting), `OWNER`,
+asked whether anything the runtime has already started may finish and the
+stop applies only to what has not begun:**
+
+> *"Yes that's right, unless I would say something like 'stop all your
+> agents' but then usually I would hit the stop button myself"*
+
+`DERIVED`: two instructions, two behaviours. *Finish the current agents,
+do not start more* — everything already running finishes, including an
+agent the runtime started by itself after the words arrived; nothing new is
+queued or spawned by the session. *Stop all your agents* — everything is
+stopped, and he expects to do that with the stop button himself rather than
+in words. The 2026-09-02 morning session's stop was the wrong response to
+the first instruction.
+
 ## 3 · How he wants to be spoken to
 
 > *"You did not reply to my previous message, why is that?"*
