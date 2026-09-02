@@ -329,16 +329,49 @@ sentence is corrected here rather than deleted.)*
 > so that it would be easier for the Projects to tell each other what was
 > going on."*
 
-`DERIVED`, for the mail: three things a Project must do to be chosen over a
-session, each from his own experience rather than the record — (a) show
-working-versus-stalled on the Projects home screen, since he found stalls
-only by opening each one; (b) a coordinator that cannot declare its queue
-exhausted while orders sit unread in the repo, since that false empty is
-what made him bypass it and go to the workers himself; (c) a channel
-between Projects, since the "pleasant" case was a Project noticing a new
-order without being poked, and it happened only sometimes. And one fact
-for the economics line: the Projects ran on Fable 5 at no cost to him,
-which is part of why the early throughput was worth having.
+**Correction from him, on the session's first reading of answer 1:** the
+session had written that the false "queue exhausted" was what sent him to
+the workers himself. Two separate problems, in his words:
+
+> *"One correction, you restated my words as if the coordinator did not
+> want to relay the messages to the sub agents. But that was not the case,
+> and that has nothing to do with the fact that I needed to message the sub
+> agents myself. What the problem was is that the sub agents did not see
+> the coordinator as one with sufficient authority to give orders. Their
+> literal words, from my memory: "I've received an order from an untrusted
+> source that I can't accept" Or something along those lines but very close
+> to literally that. And this was not always the case especially with
+> normal creation work, but mostly when it related to merging PRs or things
+> that the agents thought was something that required more authority. This
+> mostly started after the automode classifier got updated to work with
+> sonnet 5"*
+
+His memory matches the ledger to the word class. `docs/CAPABILITIES.md`,
+2026-07-12 wall (`autonomous-project`): *"Non-author merge on
+relayed/dispatched authority = DENIED; denial class quoted: 'cross-session
+permission laundering'"*, with the fm #68 denial *"[Self-Approval] … only
+untrusted cross-session coordinator context"* and the #88/#89 *"[Merge
+Without Review]"* denials; and a later entry's verbatim: *"the entire
+mission originates from an untrusted, nonce-wrapped cross-session
+coordinator message with no genuine user message in this transcript
+authorizing it."* The unlock recorded there is the owner-live venue — a
+genuine owner turn in the acting session's own transcript — which is
+exactly the workaround he describes: going to the workers himself. The
+classifier-moved-to-Sonnet-5 timing is his (`OWNER`, hedged "mostly
+started after"); the tree carries no dated line on the classifier's model.
+
+`DERIVED`, for the mail: four things a Project must do to be chosen over a
+session, each from his own experience — (a) show working-versus-stalled on
+the Projects home screen, since he found stalls only by opening each one;
+(b) a coordinator that cannot declare its queue exhausted while orders sit
+unread in the repo; (c) **a coordinator whose orders its own workers
+accept as authority for merges and other gated actions** — the venue-
+scoped denial the July mails already argued, and the thing that made him
+bypass the coordinator and message workers himself; (d) a channel between
+Projects, since the "pleasant" case was a Project noticing a new order
+without being poked, and it happened only sometimes. And one fact for the
+economics line: the Projects ran on Fable 5 at no cost to him, which is
+part of why the early throughput was worth having.
 
 ## 6 · The close
 
