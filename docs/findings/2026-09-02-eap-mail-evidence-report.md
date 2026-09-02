@@ -239,10 +239,17 @@ not hold up); 0 already-covered.
 
 **Full run (16 fleet-manager-only reader units, `skipSatellite: true`, run
 `wf_fb35b278-362`):** 505 claims, 332 corrections extracted → 150 merged rows
-→ 30 ranked → 28 verified → **3 survivors**, 25 refuted, 0 already-covered
-(the reason is very likely that `docs/traps.md` was never in the reader
-corpus and `already_covered_by` was never populated as a result — critic
-finding, below).
+→ 30 ranked → 28 verified → **3 survivors**, 25 refuted. **Correction (Codex
+review, fm #1010): `already_covered_by` was NOT left empty on 0 rows** — it
+is populated on several lenses, including two of the three survivors below
+(FD-02's fit lens names `docs/playbook.md` R22; FD-17's fit lens names
+`docs/traps.md` TRAP-006/007). No row was *killed* by the both-lenses-covered
+path (the aggregation rule requires both lenses to agree, and none did), but
+"0 already-covered" as originally written implied the field went unused,
+which is false — it shows real, if split, coverage verdicts the ledger
+should have surfaced rather than this report erasing. `docs/traps.md` itself
+still was never in the reader corpus, which is the more precise version of
+the original claim (see § 5).
 
 - **FD-01** (merges 4 sub-rows) — superbot-games PR #16 asserted
   "substrate-gate now runs the suite," and the lane's close-out heartbeats
@@ -261,29 +268,43 @@ finding, below).
   owner's API-verified flip, the repo's status file carried no
   `visibility: private — verified <ts>` line, so a standing guard had to be
   appended separately (ORDER 003, `a76ada7`).
-- **FD-17** (merges 6 sub-rows) — disposition stamps read as delivery:
-  "ORDER 002/014 done," two INC rows marked "✅ RESOLVED," and a
-  strikethrough "~~enable Codex~~ resolved" — while the same ledger
-  self-discloses that inbox orders read `status: new` forever because "only
-  fm can flip and fm demonstrably doesn't," one "resolved" item left an
-  in-tree duplicate, and by a 2026-08-11 audit **~65 of 82 ledger items had
-  never been retired at all**. **[UNVERIFIED, per the critic]** that closing
-  number is quoted from a document outside this pass's corpus and outside
-  the EAP fortnight the ledger covers — flag, don't drop, but don't quote it
-  as this ledger's own measurement either. **[WEAKER STRUCTURE, per the
-  critic]** unlike FD-01/FD-02, this row's claim and correction are both
-  self-disclosures from the *same* document (`docs/fleet-inconsistencies-2026-07-13.md`)
-  — the ledger is both claimant and corrector here, which the row's own text
-  does not flag.
+- **FD-17 — CORRECTED (Codex review, fm #1010): narrow to one sub-claim, not
+  six.** The merge stage grouped six disposition-stamp sub-rows into one
+  row, but the fit-lens verifier's `corrected_claim` explicitly narrows it:
+  *"fleet-manager stamped sim-lab's OA-002 struck-through as resolved
+  ('~~Owner: enable Codex (OA-002)~~ resolved — Codex envs exist for all 12
+  repos') while sim-lab held OA-002 open with 6+ @codex questions pending;
+  the 2026-07-13/14 fleet review found the stamp conflated
+  integration-ENABLED with usage-QUOTA-capped."* The other five sub-claims
+  the merge bundled in do **not** hold as false-dones per the same verifier:
+  the INC-40/INC-41 "✅ RESOLVED" stamps name their own residue in the same
+  table cell (honestly scoped, not a later correction); the ORDER 002/014
+  "done" stamp is independently corroborated (`bbaccec`); the inbox-vs-
+  status.md lag (INC-73) is filed by the ledger itself as by-design under a
+  documented one-writer convention; and the "~65 of 82 items never retired"
+  figure is quoted from `docs/audits/2026-08-10-full-read/findings.md`, a
+  document **outside both this pass's corpus and the EAP fortnight the
+  ledger covers** — it is queue decay against dispositions that document's
+  own § 12 calls "recommendations... not completed work," not a false-done.
+  This report originally stated all six as one surviving row, which
+  contradicted the verifier's own correction; the row above is the corrected
+  version. Coverage: TRAP-006/007-family per the fit lens, "a variant
+  instrument... not a duplicate" (registry/queue disposition stamps, not
+  session-card status flips).
 
-**Reversed from the pilot, on the larger corpus — read this as a finding about
-the method, not just about these two claims:** **L02** (venture-lab's Stripe
-false-green) is **FD-09** in the full run and is **refuted**; **L08**
-(self-arming routines) is **FD-13** and is **refuted**. Two of the pilot's
-four survivors did not survive at 16× the corpus. Neither the pilot's
-write-up nor this pass diagnoses why (merge over-collapsing — FD-13 alone
-absorbs 7 sub-rows — or the verify lenses tightening are both live
-possibilities, per the critic).
+**Two of the pilot's four survivors did not survive the full run — CORRECTED
+framing (Codex review, fm #1010): the two corpora are not nested, so this is
+not clean evidence of scaling or verifier instability.** L02 (venture-lab's
+Stripe false-green, → **FD-09**, refuted) and L08 (self-arming routines, →
+**FD-13**, refuted) both drew their pilot-survival evidence from the one
+superbot reader unit the pilot happened to read — the exact unit the full
+run's `skipSatellite: true` cut. The two fleet-manager-sourced pilot
+survivors (L03 → FD-01, L04 → FD-02) both held. The honest statement is
+narrower than "reversed at scale": **removing the superbot lane removed the
+evidence those two rows depended on**, which this pass cannot distinguish
+from genuine verifier instability without a run that reads the same corpus
+twice. Neither this report nor the underlying pass diagnoses which it is —
+say so, don't imply causation either way.
 
 **25 non-survivors carry only the word "refuted"** — the CONTRACTS sheet's
 pilot note flagged this exact gap and named the fix (pull a reason from each
@@ -383,20 +404,27 @@ exposed:
   and was named as a known gap by the pilot's own CONTRACTS note and still
   not added to the 16-file corpus. Both survivors' "actually" halves rest on
   a document no reader unit opened — only verifiers reached it, inconsistently.
-- **Yield collapsed, not scaled: 3 readers → 4 survivors; 48 readers → 3
-  survivors.** A 16× corpus increase produced *fewer* absolute survivors.
-  Neither over-collapsing in the merge (FD-17 alone absorbs 6 sub-rows,
-  FD-13 seven) nor tightening in the verify lenses is diagnosed as the
-  cause — both are live and unresolved.
-- **`docs/traps.md` was never in the reader corpus**, and `already_covered_by`
-  is exactly the field meant to answer "is this already a named trap" — the
-  full run reports 0 already-covered across 28 verified rows, which the
-  critic reads as an artifact of the register never being read, not evidence
-  of genuine novelty. Concretely: FD-17 resembles TRAP-008 ("a label read as
-  its contents") and TRAP-006/007; FD-01 (CI green over an uncollected
-  third of a suite) resembles TRAP-003 and TRAP-004. Neither pattern-catalogue
-  register (`docs/findings/data/2026-08-29-agent-error-patterns.jsonl`, the
-  very corpus Fleet A read the same night) was cross-checked either.
+- **Yield collapsed, not scaled: 3 readers → 4 survivors; 16 readers → 3
+  survivors.** **[CORRECTED, Codex review, fm #1010]** the executed
+  full run read 16 fleet-manager units, not the unexecuted 48-unit combined
+  design — the corpus grew ~5.3×, not 16×, and (per the corrected framing
+  above) even that comparison isn't clean since the pilot's superbot unit
+  was cut, not merely outweighed. What still stands: a larger read produced
+  *fewer* absolute survivors in raw terms (4 → 3), and neither
+  over-collapsing in the merge (FD-17 originally absorbed 6 sub-rows before
+  its own verifier narrowed it to 1; FD-13 absorbs 7) nor tightening in the
+  verify lenses is diagnosed as the cause.
+- **`docs/traps.md` was never in the reader corpus.** `already_covered_by`
+  is exactly the field meant to answer "is this already a named trap," and
+  it IS populated on several verdicts (§ 3 correction above) — but never
+  against `docs/traps.md` itself, because no reader or verifier was pointed
+  at it as a corpus item (verifiers cited it from general knowledge of the
+  file, not from a corpus read). Concretely: FD-17 resembles TRAP-008 ("a
+  label read as its contents") and TRAP-006/007 (its own fit-lens verifier
+  agrees); FD-01 (CI green over an uncollected third of a suite) resembles
+  TRAP-003 and TRAP-004, uncross-checked. Neither pattern-catalogue register
+  (`docs/findings/data/2026-08-29-agent-error-patterns.jsonl`, the very
+  corpus Fleet A read the same night) was cross-checked either.
 - **A single systematic misclassification dominates the 182 orphaned
   corrections** — roughly 40 are dropped as "corrects a wall/status/stale-count,
   not a done-claim," which is schema-correct but means the ledger's
@@ -411,6 +439,30 @@ exposed:
   documented choice (not relitigated mid-run, per the night brief), but it
   means this ledger is a **sample of the EAP record, not the EAP record**,
   and its survivor count should never be read as exhaustive.
+
+**Third check: Codex review of this PR (fm #1010), 10 findings, all
+addressed** — the drafted version of this report itself had errors, caught
+by exactly the external adversarial round the night brief's DECIDED section
+requires. Fixed in the report text above (not by editing this section, so
+the record of what Codex actually caught stays legible): FD-17 was
+overstated as one six-part survivor when its own verifier narrowed it to a
+single sub-claim (§ 3); "0 already-covered" implied the field went unused
+when it is in fact populated, just never against `docs/traps.md` (§ 3, § 5
+above); "16× the corpus" and "48 readers" overstated the pilot-to-full-run
+comparison, which was ~5.3× on the 16 units actually executed; "reversed on
+the larger corpus" implied scaling/verifier instability when the two
+corpora are not nested — the pilot's two reversed survivors depended on the
+one superbot reader the full run cut, and this pass cannot distinguish that
+from genuine instability. Fixed in the scripts, disclosed rather than
+silently shipped, not re-run tonight for time: `already_covered_by`
+negative-prose normalization in `dies()` (verified against this run's raw
+data — 3 instances existed, none flipped an actual verdict); the critic's
+`READ` list and survivor/non-survivor payload now reflect actually-executed
+units and full verifier records rather than the planned corpus and bare
+id/claim/reason; the dedupe stage's silent loss of rows beyond its own
+output cap (150 merged → at most 45 returned) is now logged and partially
+disclosed, not fixed outright — a real fix needs batching that stage like
+the merge stage, left for next time.
 
 ## 6 · The owner's words on this mail, collected (5 readers, 25 quotes kept)
 

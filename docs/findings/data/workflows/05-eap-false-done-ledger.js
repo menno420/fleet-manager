@@ -10,14 +10,20 @@ export const meta = {
 }
 
 // ---- aggregation contract (fleet-preflight § 1) — asserted before any agent spawns, same rule as Fleet A (04-eap-mail-evidence-pass.js)
-const dies = (a, b) => (a.refuted || b.refuted) || (Boolean(a.already_covered_by) && Boolean(b.already_covered_by))
+// FIXED (Codex review, fm #1010): the READER prompt tells verifiers to leave already_covered_by
+// an empty string when nothing is covered, but a verifier that instead writes negative prose
+// ("none — ...", "not covered by ...") is not caught by a bare truthiness check — both lenses
+// doing this would wrongly kill a surviving row via the coverage branch. Normalize first.
+const isNegativeCoverage = (s) => !s || /^\s*(none|not\s+covered|no\b)/i.test(s)
+const dies = (a, b) => (a.refuted || b.refuted) || (!isNegativeCoverage(a.already_covered_by) && !isNegativeCoverage(b.already_covered_by))
 const FIX = [
   [{ refuted: true,  already_covered_by: '' }, { refuted: false, already_covered_by: '' }, true ],
   [{ refuted: false, already_covered_by: 'traps.md TRAP-006' }, { refuted: false, already_covered_by: 'redirect doc' }, true ],
   [{ refuted: false, already_covered_by: '' }, { refuted: false, already_covered_by: '' }, false ],
+  [{ refuted: false, already_covered_by: 'none — not docs/traps.md, nearest is TRAP-003' }, { refuted: false, already_covered_by: 'none — no match found' }, false ],
 ]
 for (const [a, b, exp] of FIX) { if (dies(a, b) !== exp) throw new Error('aggregation fixture failed') }
-log('aggregation fixtures: 2 kill, 1 survive — pass; fields read: refuted, already_covered_by')
+log('aggregation fixtures: 3 kill, 2 survive — pass; fields read: refuted, already_covered_by (negative-prose normalized)')
 
 const FM = (typeof args === 'object' && args && args.fm) || '/home/user/fleet-manager'
 const SB = (typeof args === 'object' && args && args.sb) || '/tmp/eap-night/superbot-eap'
@@ -163,13 +169,18 @@ const mergedRows = mergeParts.flatMap(m => m.rows || [])
 const orphaned = mergeParts.flatMap(m => m.orphaned_corrections || [])
 log(`merged: ${mergedRows.length} candidate rows, ${orphaned.length} orphaned corrections`)
 
+// KNOWN LIMIT (Codex review, fm #1010, not fully fixed): with 150 input rows the model can only
+// surface ~30-45 total in one call — rows beyond that cap vanish with no "dropped" marker at all,
+// which is different from (and worse than) the rows this prompt DOES mark dropped. A real fix is to
+// batch this stage like the merge stage above; not done here for time. Disclosed, not silently shipped.
 const dedup = await agent(`${TASK}
-Deduplicate and rank the candidate ledger rows below (produced by ${corrGroups.length} parallel merge groups, so the same false-done may appear more than once from different angles). Return one ranked list of at most 30 rows: merge any two describing the same underlying false-done (keep both citations), rank by how clearly it shows a "claimed done, actually not" pattern with a solid citation on both sides. Drop nothing silently — a row you drop must still appear, marked with certainty "dropped" and the reason in the actually field.
+Deduplicate and rank the candidate ledger rows below (produced by ${corrGroups.length} parallel merge groups, so the same false-done may appear more than once from different angles). Return one ranked list of at most 45 rows: merge any two describing the same underlying false-done (keep both citations), rank by how clearly it shows a "claimed done, actually not" pattern with a solid citation on both sides. Drop nothing silently within your budget — a row you drop must still appear, marked with certainty "dropped" and the reason in the actually field; if you must omit a row entirely for space, prefer omitting near-duplicates of a row you kept over omitting a row describing a distinct mechanism.
 ROWS: ${JSON.stringify(mergedRows)}
 Do not open files. Final message: the structured output only.`, { label: 'dedupe + rank rows', phase: 'Merge', schema: ROWS, model: JUDGE_MODEL })
 const ranked = (dedup && dedup.rows ? dedup.rows : []).filter(Boolean)
 const toVerify = ranked.filter(r => r.certainty !== 'dropped').slice(0, 30)
-log(`ranked ${ranked.length}; verifying ${toVerify.length}`)
+const rankedButUnverified = ranked.filter(r => r.certainty !== 'dropped').slice(30)
+log(`ranked ${ranked.length}; verifying ${toVerify.length}; ranked-but-unverified (slice cap) ${rankedButUnverified.length}; marked dropped by dedupe ${ranked.filter(r => r.certainty === 'dropped').length}; NOTE: rows the dedupe agent omitted entirely (150 merged -> at most 45 returned) never reach this log at all — known limit, see the comment above the dedupe call`)
 
 // ---------------- Phase 3: verify (pipelined; two refuting lenses per row, same rule as Fleet A) ----------------
 phase('Verify')
@@ -198,11 +209,19 @@ log(`verify: ${survivors.length}/${results.length} survive · refuted ${results.
 
 // ---------------- Phase 4: completeness critic ----------------
 phase('Critic')
-const critic = await agent(`You are the completeness critic for a multi-agent pass building the EAP false-done ledger. Below is what was read, what survived verification, and what was dropped. Say what is MISSING: sources under ${FM}/docs (EAP-related) or ${SB} that should have been read and were not; surviving rows whose verification looks thin (a verifier that opened nothing, or a corrected_claim that changes the row's meaning); orphaned corrections that plausibly DO have a matching claim somewhere the merge missed; and any other gap. Be concrete and short.
-READ: fleet-manager ${JSON.stringify(FM_FILES.map(f => f.path))} · superbot ${JSON.stringify(SB_FILES.map(f => f.path))}
-SURVIVORS: ${JSON.stringify(survivors.map(r => ({ id: r.row.id, claim: r.row.claim, actually: r.row.actually })))}
-NON-SURVIVORS: ${JSON.stringify(results.filter(r => !r.survives).map(r => ({ id: r.row.id, claim: r.row.claim, reason: r.reason })))}
+// FIXED (Codex review, fm #1010): this prompt used to pass the PLANNED file lists (FM_FILES/SB_FILES)
+// as "READ" regardless of skipSatellite/pilotOnly, so a critic on a skipSatellite run wrongly concluded
+// the full superbot corpus was read. Use the ACTUAL executed reader sources instead. Also pass each
+// survivor/non-survivor's full verifier records (both lenses' what_i_opened/discrepancies/corrected_claim/
+// already_covered_by), not just id/claim/actually/reason — the critic could not previously audit
+// thin verification or a meaning-changing correction without them.
+const critic = await agent(`You are the completeness critic for a multi-agent pass building the EAP false-done ledger. Below is what was ACTUALLY read (not the planned corpus — some lanes may have been cut for time), what survived verification with both lenses' full records, and what was dropped. Say what is MISSING: sources under ${FM}/docs (EAP-related) or ${SB} that should have been read and were not; surviving rows whose verification looks thin (a verifier that opened nothing, or a corrected_claim that changes the row's meaning — check each survivor's a/b corrected_claim against its row's claim/actually for exactly this); orphaned corrections that plausibly DO have a matching claim somewhere the merge missed; and any other gap. Be concrete and short.
+READ: fleet-manager ${JSON.stringify(fmOut.map(r => r.source))} (${fmOut.length}/${FM_UNITS.length} units) · superbot ${JSON.stringify(sbOut.map(r => r.source))} (${sbOut.length}/${SB_UNITS.length} units)
+SURVIVORS (with full verifier records): ${JSON.stringify(survivors.map(r => ({ id: r.row.id, claim: r.row.claim, actually: r.row.actually, lens_holds: r.a, lens_fit: r.b })))}
+NON-SURVIVORS: ${JSON.stringify(results.filter(r => !r.survives).map(r => ({ id: r.row.id, claim: r.row.claim, reason: r.reason, lens_holds: r.a, lens_fit: r.b })))}
 ORPHANED CORRECTIONS: ${JSON.stringify(orphaned)}
+MARKED DROPPED BY DEDUPE (with a stated reason): ${JSON.stringify(ranked.filter(r => r.certainty === 'dropped'))}
+RANKED BUT NEVER VERIFIED (slice(0,30) cap on the verify stage, not marked dropped): ${JSON.stringify(rankedButUnverified)}
 Read only; never write. Final message: the structured output only.`, { label: 'completeness critic', phase: 'Critic', schema: CRITIC, effort: 'high', model: JUDGE_MODEL })
 
 return {
@@ -212,6 +231,7 @@ return {
     ranked: ranked.length, verified: results.length, survivors: survivors.length },
   readers: allReaders,
   ranked,
+  ranked_but_unverified: rankedButUnverified,
   verified: results,
   orphaned_corrections: orphaned,
   critic,
