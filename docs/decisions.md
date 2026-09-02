@@ -1160,7 +1160,7 @@ verdict below, as provenance.)*
 - provenance: owner, live, 2026-09-02, quoted verbatim above; the
   measurement it reacts to is this session's own card.
 
-## [D-0041] The owner's quoted words may be corrected for spelling — meaning unchanged, shown to him when in doubt
+## [D-0041] The owner's quoted words may be corrected for spelling and lightly tightened for clarity — meaning unchanged, shown to him when in doubt
 
 - status: decided
 - date: 2026-09-02
@@ -1176,6 +1176,15 @@ verdict below, as provenance.)*
   touches meaning shows him the cleaned sentence beside the original and
   lets him confirm. The `OWNER` tag still means his words; the chat stays
   the verbatim source.
+- amended (2026-09-02, minutes later, the same message re-read): **not
+  spelling only.** His second sentence on it — *"Not about the asking but
+  about being able to slightly change my wording to make the sentences more
+  clear or compact"* — permits a light rewording for clarity or compactness
+  as well: dropping a filler ("tho", "basically"), splitting a run-on at a
+  "which", tightening a doubled phrase. The test is unchanged: the meaning
+  must survive, a hedge stays a hedge, an order of points stays, and a
+  session unsure of any of that shows him both versions. The first version
+  of this entry ruled rewording out; that was narrower than his words.
 - why: the 2026-09-01 and 2026-09-02 owner-direction records quoted him
   *"verbatim, typos included, so anything derived from them can be checked
   against source"*, and the sitting's session followed that. He writes
@@ -1184,10 +1193,10 @@ verdict below, as provenance.)*
   that "aswell", "acutally" and "Projects where advertised" now sit in a
   public file. Checkability against the chat is unaffected by a spelling
   fix; a wording change is what would break it, and that stays out.
-- rules out: rewording, reordering, compressing or "improving" a quoted
-  sentence under this rule — that is paraphrase and is marked `DERIVED`;
-  correcting spelling inside a quotation of someone other than him; going
-  back through past records to clean them (allowed, not owed).
+- rules out: changing what a quoted sentence claims, hedges, or orders —
+  that is paraphrase and is marked `DERIVED`; correcting anything inside a
+  quotation of someone other than him; going back through past records to
+  clean them (allowed, not owed).
 - provenance: owner, live, 2026-09-02, quoted verbatim above (this entry
   keeps his typo on purpose, as the last one). He believed he had said this
   in an earlier session; the tree was searched (`decisions.md`,

@@ -119,8 +119,11 @@ perfect example of how I'd like my messages answered mid turn."*
 > session and that was supposed to be documented."*
 
 `DERIVED`: this record's own header rule — *verbatim, typos included* — is
-superseded for spelling and spacing, never for wording; the decision is the
-typo entry of 2026-09-02 in [`../decisions.md`](../decisions.md). The tree
+superseded for spelling, spacing and a light tightening for clarity — never
+for what a sentence claims, hedges or orders; the decision is the typo entry
+of 2026-09-02 in [`../decisions.md`](../decisions.md), amended minutes later
+when his *"slightly change my wording to make the sentences more clear or
+compact"* was re-read. The tree
 was searched for the earlier statement he remembers and holds none; that
 entry is its first home. The quotations already in this file are left as
 written (allowed to clean, not owed).
