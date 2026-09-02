@@ -173,6 +173,35 @@ hook live with `CAP = 3`.
    ledger line, and the three drifts: `session-close` step 6c now names the
    hook and D-0039; the adversarial-review convention's Routing section
    carries a D-0020 supersession note; the cap hook's docstring says 88.
+14. **The time after — Projects versus sessions, and the mail's contents.**
+   He asked for a proper answer to Anthropic's question (*"what would make
+   me choose a Project over a regular claude code session"*), corrected the
+   session twice (the instruction box was a real delivery tier, not the
+   weakest — checked against the v3 registry and the retrospective; and the
+   workers refused the coordinator as *"an untrusted source"*, matching the
+   2026-07-12 ledger wall — the session had swapped the cause), answered
+   six guiding questions and six more an Anthropic reader would ask, all
+   verbatim in `docs/findings/2026-09-02-owner-direction.md` § 5c–5d with
+   the DERIVED answer beneath them. The four sent July mails and two unsent
+   drafts were read from superbot over the direct API and mapped against
+   the planned mail: the outcome findings, the outside review, asks 1, 2, 4,
+   5, the instruction box, the honest-queue ask and the false-done rows are
+   new; three of the four "Project fixes" and the coordinator-continuous
+   ask were sent in July and become pointer lines. The instruction box was
+   sorted into defaults / scaffolding / seat-specific from one v3.8 paste.
+   *"ultracode"* in one of his answers was read by the harness as an
+   opt-in and the workflow reference loaded itself; not acted on — the
+   second such misread in two days, now in the mail prompt's lessons.
+15. **The close, at his direction:** the continuation prompt is for the
+   mail session — `docs/prompts/2026-09-02-eap-mail-session.md` (preflight
+   at HEAD: the draft's 1,686 words and loss-free render from its own tool;
+   Gmail draft creation offered but unmeasured, left as that session's
+   first step); listed in `docs/prompts/README.md`; the program's NOW
+   pointer moved to E1 on his words (*"your continuation prompt will be
+   for the email session"*), the kit records step demoted to "behind it".
+   The mail's shape (A, false-done in, Part 1 drafted, ~2,100 words) went
+   to him as four letters and was not answered in a word — the prompt
+   carries the length as its LEAST SURE line.
 9. **Pre-existing, not this PR's, noted for the record:**
    `python3 tools/test_change_guard.py` exits 1 on `origin/main` as well as
    on this branch (15/16; the failing case is *"real historical defect still

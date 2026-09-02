@@ -71,7 +71,21 @@ hasn't said) picks the next NOW from the top of any track. **Verify before
 fold** — no repo is merged or archived before its conformance/truth pass. Every
 completed step appends a row to §7 with its PR.
 
-### ➡ NOW: **The OD-24 round's session 5 — the kit records work he cleared** *(D2's target is now ANSWERED: `spider-swing`)*
+### ➡ NOW: **E1 — the final EAP mail, drafted for him to read, edit and send**
+
+> **Moved 2026-09-02 by the owner, live, in the review sitting:** *"I would
+> like a proper draft created which I can read and edit. I believe after our
+> current session we should have the proper preparations for this, so
+> eventually when this session comes to an end your continuation prompt
+> will be for the email session."* The preparations landed in fm #1013: his
+> words and decisions in `docs/findings/2026-09-02-owner-direction.md`
+> § 5b–5d, the evidence in the night report, and the paste-ready prompt at
+> `docs/prompts/2026-09-02-eap-mail-session.md`. E1's working file is
+> `docs/planning/2026-08-24-final-eap-email-draft.md`. This is an owner pick,
+> so it stands until he says otherwise; the kit records step below is the
+> one behind it.
+
+#### Behind it — was NOW from 2026-08-28 to 2026-09-02: **The OD-24 round's session 5 — the kit records work he cleared** *(D2's target is now ANSWERED: `spider-swing`)*
 
 > **Moved 2026-08-28 by the sitting session, not by the owner** — per this
 > section's own rule (*only ONE step is NOW at a time — the owner **or the

@@ -541,6 +541,11 @@ part of why the early throughput was worth having.
 > and use the continuation prompt skill so the next session can review it and
 > help me go over everything step by step"*
 
+**And the close of the review sitting itself (2026-09-02, later):** the
+sitting's continuation prompt is for the mail session —
+[`../prompts/2026-09-02-eap-mail-session.md`](../prompts/2026-09-02-eap-mail-session.md)
+— per § 5b; the program's NOW pointer moved to E1 on his words there.
+
 `DERIVED`: this record, the retained verification data, the ledger entries,
 the card's close-out addendum, and
 [`../prompts/2026-09-02-step-by-step-review-sitting.md`](../prompts/2026-09-02-step-by-step-review-sitting.md),
