@@ -4,10 +4,13 @@
 > run overnight (fleet-preflight sheet: `docs/findings/data/workflows/05-CONTRACTS-night.md`,
 > scripts beside it) while the owner slept. Every finding below draws on a
 > **verifier's `corrected_claim`** — quoted directly where one lens supplied
-> usable text, synthesized from the row plus both lenses' records where a
-> `corrected_claim` was itself unusable (B5) or where the two lenses'
-> corrections needed combining (FD-02) — but never the raw candidate or
-> merge-stage wording taken alone, per the night brief's own rule. Fleet A's non-survivors are
+> usable text; synthesized from the row plus both lenses' records where the
+> two lenses' corrections needed combining (FD-02); quoted directly from the
+> **retained original candidate** where a `corrected_claim` was itself
+> unusable and the candidate wording survived intact elsewhere in the raw
+> JSON (B5) — but never the raw candidate or merge-stage wording taken alone
+> *without* checking it against the verifiers first, per the night brief's
+> own rule. Fleet A's non-survivors are
 > listed with their individual reason (§ 2); **Fleet B's 25 non-survivors are
 > not** — this report has only the aggregate "refuted," a known gap named in
 > § 3 and § 5 (the individual reasons exist in each row's raw verifier record
@@ -67,12 +70,16 @@ CONTRACTS sheet named — 5 superbot files (`anthropic-email-2/3/4`,
 `gen1-wrapup-email-final-candidate`, `2026-07-18-followup-email-draft`) plus
 the current fleet-manager draft; `permission-classifier-findings-consolidated-2026-07-16.md`
 is missing from the executed **prior-mail extraction readers** despite
-being cited as `covered_by` for two non-survivors in § 2 — **[CORRECTED,
-Codex review round 9]** the coverage verdicts themselves are not
-unsupported: both A3-7's and B14's verifiers list this file in
-`what_i_opened` and cite its contents directly, so the gap is narrower than
-"never opened by this pass" — it was opened by verifiers checking overlap,
-just never fed to the systematic prior-mail extraction stage (SHA unchanged
+being cited as `covered_by` for non-survivor A3-7 in § 2 — **[CORRECTED,
+Codex review rounds 9-10]** A3-7's coverage verdict is not unsupported:
+its verifiers list this file in `what_i_opened` and cite its contents
+directly, so the gap is narrower than "never opened by this pass" for A3-7
+— it was opened by verifiers checking overlap, just never fed to the
+systematic prior-mail extraction stage. **B14 is a different case, checked
+directly and NOT the same gap**: its fit-lens verifier's `already_covered_by`
+names `anthropic-email-4-classifier-regression-sent-2026-07-16.md`, a file
+that WAS in the executed 6-file extraction corpus — B14's overlap
+verdict rests on a file this pass did read, not the missing one (SHA unchanged
 from the 2026-09-01 pilot, 5e3a667, for the files that did run).
 **Gap the corpus does NOT cover, named by Fleet A's own critic:** `fa9a391`
 added `docs/findings/2026-09-01-owner-direction.md`,
@@ -734,9 +741,12 @@ drafts Part 2 without him present. The next session should: (1) fix the
 **[UNFIXED]** items in § 2 before quoting any of them; (2) **read
 `docs/findings/night-review-2026-07-10.md` before using FD-01 or FD-02 in
 the mail** — both critics independently name it as the original measured
-source neither fan-out's readers opened, and its addition may also revive
-L02/L08 (venture-lab, self-arming routines), which reversed between the
-pilot and the full run; (3) decide, with the owner, whether the false-done
+source neither fan-out's readers opened, and its addition may also let
+**L02's underlying claim (venture-lab's Stripe false-green) finally enter
+the claim pool** — it never did in the full run, surviving only as
+unmatched orphaned corrections — and may settle **L08's** (self-arming
+routines) refuted status, which came from the same cut superbot lane; (3)
+decide, with the owner, whether the false-done
 substitution taxonomy (B5, Fleet A) or the false-done ledger itself (Fleet
 B, his own directly-stated priority for this mail) gets a slot in the mail
 — neither is in any of Fleet A's three spines; (4) fill in the 25 non-survivor
