@@ -89,7 +89,9 @@ into a mail.
    only 9 on two independent regex passes and never fixed the number.
    **[CORRECTION, per the owner's 2026-09-01 sitting, unread by this
    reader]**: the "1 of 20 repos has hooks" framing is not a coverage gap —
-   the owner states it is **deliberate** ([D-0038]): fleet-manager is always
+   the owner states it is **deliberate** (owner ruling recorded in
+   `docs/decisions.md` and `docs/findings/2026-09-01-owner-direction.md` § 4):
+   fleet-manager is always
    the cloud-session root by design, so its hooks apply to every session that
    roots there regardless of how many other repos load no `.claude/` of
    their own. State this finding with that correction attached, or drop the
