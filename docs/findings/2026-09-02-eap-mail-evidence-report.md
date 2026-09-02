@@ -239,7 +239,11 @@ numbers must be corrected before anything here goes into a mail.
    116-statements/0-caught pair is a **different** measurement, already in
    the current draft's own Finding 3; conflating the two invented a method
    and denominator for this row. The two-part-test scoring above is the
-   row's real, distinct measurement.
+   row's real, distinct basis — **[CERTAINTY, Codex review round 12]**
+   labeled `REASONED` at source (`docs/findings/2026-08-09-error-to-mechanism.md:14-17`),
+   not `MEASURED` — only the detector/check replays this candidate also
+   cites are measured. Do not upgrade this scoring's certainty when using
+   it.
 10. **A1-6** (finding, both) — *A merge-blocking check that verifies a
     marker's presence, not its substance, reached full compliance while
     roughly one in nine marked sections carried no actual content* (161
@@ -675,10 +679,14 @@ then cut by the ranking cap, or against a claim never selected at all.
 
 ## 6 · The owner's words on this mail, collected (5 readers, 25 quotes kept)
 
-- *"About the mail, that really is something to work on soon, and I think
-  that all the audits I'm doing right now will provide valuable information,
-  not only about the EAP itself but generally about how agents work, which
-  would be a valuable addition to the mail."* (2026-08-28)
+- **`OWNER`**, verbatim including the source's own typo — **[CORRECTED,
+  Codex review round 12]** this report previously silently normalized
+  "whih" to "which" and added a closing period; restored to the source
+  exactly: *"About the mail, that really is something to work on soon, and
+  I think that all the audits I'm doing right now will provide valuable
+  information, not only about the EAP itself but generally about how
+  agents work, whih would be a valuable addition to the mail"*
+  (2026-08-28, `docs/findings/2026-08-28-od24-sitting-answers.md:642-645`)
 - *"I noticed that much of the work that was claimed to be complete was in
   fact not complete at all. Which is definitely something to review closely
   and mention in the final EAP mail, which I still haven't send."*
@@ -688,7 +696,11 @@ then cut by the ranking cap, or against a claim never selected at all.
   is."* (2026-07-21 — the offered thesis line)
 - *"less a coding tool, more a way for someone like me to run a software
   project by describing it"* (2026-07-21 — the offered throughline)
-- **Rules for the mail, distilled:** it is owner-reserved (only he sends it);
+- **`DERIVED` — rules for the mail, distilled** (Codex review round 12:
+  the raw record itself flags several of these as distilled guidance and
+  at least one reading as "not itself a verbatim rule" — labeled here so
+  it isn't mistaken for settled owner instruction; the owner can replace
+  any of it): it is owner-reserved (only he sends it);
   don't re-argue permission/coordinator-trust material already covered
   exhaustively; net-new content in priority order (capability feedback,
   a week-over-week scorecard, the "what I had to build myself" teardown,

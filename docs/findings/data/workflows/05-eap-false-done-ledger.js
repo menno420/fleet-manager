@@ -4,7 +4,7 @@ export const meta = {
   phases: [
     { title: 'Read', detail: 'one reader per file (48: 32 superbot docs/eap, 16 fleet-manager EAP docs), split any file over 400 lines by line range' },
     { title: 'Merge', detail: 'correlate claims against corrections across all readers into ledger rows' },
-    { title: 'Verify', detail: 'two refuting lenses per row (holds? real false-done, not just plan evolution or already-known?); same survival rule as Fleet A' },
+    { title: 'Verify', detail: 'two refuting lenses per row (holds? real false-done, not just plan evolution or already-known?); same shape as Fleet A, but with negative-coverage-prose normalization Fleet A (04) does not have (see 05-CONTRACTS-night.md AGGREGATE)' },
     { title: 'Critic', detail: 'completeness critic — what was not read, what looks thin' },
   ],
 }
