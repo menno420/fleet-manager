@@ -1,6 +1,6 @@
 # websites — the entry point
 
-> **Status:** `living-ledger` · true as of **2026-08-21**
+> **Status:** `living-ledger` · true as of **2026-09-03**
 >
 > **What this is:** fleet-manager's entry point for `menno420/websites` —
 > where the last session left off and where the next one should look.
@@ -31,6 +31,36 @@ and `quality` (with the born-red session-card hold) is the required CI
 check. Codex reviews every PR on the bare literal `@codex review`.
 
 ## Threads
+
+### Thread: the review-site pass for a first-time Anthropic reader — **IN FLIGHT**, 2026-09-03
+
+The owner's 2026-09-02 ask (`docs/prompts/2026-09-02-review-site-session.md`;
+his words in `docs/findings/2026-09-02-owner-direction.md` § 5c–5d): make the
+Pages site usable by a reviewer who has never seen the repositories —
+*"easy to navigate"*, *"explains everything properly"*, *"preferably with some
+examples of how we want things to look"*, including a mockup of the claude.ai
+Projects overview with each Project's state visible. Executed in websites
+**#524** (branch `claude/review-site-navigation-examples`; fleet-manager card
+[`.sessions/2026-09-03-review-site-pass.md`](../../../.sessions/2026-09-03-review-site-pass.md)).
+What landed there: a cold-read critique of all ten nav pages first (the work
+order, put to the owner before editing); the Overview rewritten for a cold
+reader; grouped nav (*Read first · The record · Questions*); three new pages —
+`/story` (the fortnight, the eight Projects joined to the committed seat
+registry, how a Project was run), `/examples` (a finding, a session card, a
+timeline, the **Projects-overview mockup**, labelled a proposal with
+illustrative values), `/after` (what a Project adds over a session, his words
+with `OWNER`/`DERIVED`/`REVIEWED` labels); Problems gains the three he names
+first (coordinator authority refused · the false "queue exhausted" · stall
+visibility); every fleet-manager citation pinned to `ef3c0c8`. **Two traps
+worth carrying:** the stale "routed to the fleet as an order" promise lived
+in *five* places (the ask-url body and four templates) — grep the templates,
+not just `story.py`; and a superbot file named as "the July 8 email" was the
+gen-1 wrap-up *candidate* (superseded by the July 12 mail, never sent) — the
+July 8 text is on the Gmail thread only, its send time recorded in that
+candidate's header. A link-integrity test over the static export now exists
+(`review/tests/test_static_links.py`): the exporter's exit 0 proves 200s,
+this proves every internal href resolves. Landing state, the Pages dispatch
+and the live check are recorded in the fm card as they happen.
 
 ### Thread: keep-bot-only execution — **LANDED**, 2026-08-20/21
 
