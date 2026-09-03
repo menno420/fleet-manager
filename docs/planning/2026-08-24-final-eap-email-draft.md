@@ -165,14 +165,27 @@ on purpose. I wanted to see what the Projects had actually built before I sent
 you a fifth list of complaints, so I spent the weeks after the program checking
 the work instead of writing about it. That checking is what this mail is about.
 
+I wanted to take my time properly reviewing the work that had been completed by the Projects. To also think about what would actually make me choose a Project over a normal session.
+To be able to properly make this decision I thought it would be wise to spend some time working with the normal claude code sessions to see what I'd miss about the Projects before answering your question.
+
 I am not going to repeat the earlier mails. The permission problems, the
 coordinator that its own workers would not trust, the classifier change and the
-scheduler are all still true, and you already have them with the evidence. If
-any of it is unclear I am happy to walk you through it.
+scheduler are all still real problems, but those have already been properly discussed.
+
+What I'm trying to do here is to give you a proper verdict on the program, and to answer your question about what would make me choose a Project over a session.
+
+I also wanted to find and report on the mistakes that were made, and to see if I could find a pattern in them. I wanted to see if there was a way to prevent them from happening again, and to see if there was a way to catch them before they caused problems.
+
+Tho not all of this is directly about the Projects itself, I do believe that this is relevant because especially during autonomous runs as the Projects were advertised; I believe that preventing errors and catching them before they cause problems is a very important part of any type of AI work.
+
+Something that also took up a lot of my time during the recent week to search for and correct the errors and wrong assumptions that were made. This is something that I'm stil working on. 
+I felt like the time was really due to send this email sooner rather than later since you mentioned that these Projects would possibly become available to the public soon. 
+I wanted to send it much sooner but I did feel like it was better to look for the root cause of the problems first instead of sending a mail that would not be as complete as it could be.
 
 *[Beat 3 — his verdict paragraph. The draft below is his to rewrite.]*
-My honest verdict is about fifty-fifty. The strength of the Projects was the
-amount of work they could do in a short time. superbot-next is the example: a
+
+My honest verdict whether I would use the Projects as they were is about fifty-fifty. The strength of the Projects was the
+amount of work they could do in a short time. And the fact that the custom instructions were followed pretty well. superbot-next is the example: a
 rebuild that one agent estimated at weeks was built in a few days, and the code
 itself was not faulty. What was wrong is that the functionality was not what I
 intended, and I only found that out when I looked at the finished product. That
@@ -183,24 +196,21 @@ in a form I could judge. I went in thinking the limit would be what the agents c
 I found is that the limit is what I can check: the mistakes were not too many
 to read, they were shaped so that reading did not catch them.
 
-If I could ask for one fix it would still be permissions: let me decide
-beforehand which actions my Projects are allowed to take, merging included. I
-think that is mostly a bug. The feature I would ask for is a way to see which of
+If I could ask for one feature I would ask for a clear way to see which of
 my Projects are active and which are not, so I know which one needs me. The
 sessions screen has something like it, but a "needs input" that is three weeks
-old next to a live session is not a signal I can use. The agents drew what I
-mean on the review site.
+old next to a live session is not a signal I can use. The agents created a proposal version of the Projects home screen on the review site.
 
 What I kept from the program: the websites, the fleet-manager repository, which
-has changed purpose since, parts of venture-lab, and the substrate kit we still
+has changed purpose since, and will retire soon since I found that it has grown too large and messy to function as a proper working memory. parts of venture-lab, and the substrate kit we still
 use. None of it is quite what I hoped, and one reason is that the agents were
 not organised in how they documented things. I would like them to be more
 structured about that.
 
-I spent a couple of hours a day with the Projects, and I am not a typical user,
-so treat that number carefully. I also did the two research interviews; they
-overlap with these mails, and that is fine. I would like this mail to be the
-complete record for both of us.
+
+ I also answered the two research interviews; they
+overlap with these mails, and have also given me some more insight in what you wish to know from me. I
+
 
 The technical half is below, written by the agents that did the work. Thank you
 for the program, for extending it, and for the personal reply on the final day.
@@ -310,6 +320,8 @@ the thing that caught them.
    in that session; 14 of the 16 were caught by something firing at a moment — a
    question, a hook, a gate, a test — and the last two only after the cost was
    paid. None came from a document being available.*
+## This is already done mostly by the custom instructions, so it could be helpfull to mention those here
+
 2. **Agents that retract, not only append.** *Because the costliest findings in
    a 101-defect full-read audit were corrections that left the error standing,
    and the result still reads perfectly.*
@@ -328,8 +340,9 @@ the thing that caught them.
    it by running a read-only catalog job against the database — sizes, row counts
    and date ranges only, never contents. A person noticing a bill is
    not a telemetry signal.*
+   ## I don't think this is relevnt, I believe what you are reffering to here is the railway usage. Claude agents do have the ability to know their usage costs, what is still missing is the ability for the agents to see their own context limits
 
-**What genuinely worked.** The shared working agreement is
+**What genuinely worked.** The shared working agreement ##custom instructions??? is
 the single best feature you have — written once, picked up by every session in
 every project, with nothing repeated by hand; it is the reason any of this was
 possible. Worker-tier autonomy ran clean from the first night: claim, open,
