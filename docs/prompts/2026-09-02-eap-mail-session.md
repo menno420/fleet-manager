@@ -178,6 +178,13 @@ REJECTED, AND WHY
   recipients himself in Gmail.
 
 OPEN (what would settle each)
+- Whether the review-site pass (docs/prompts/2026-09-02-review-site-session.md
+  — navigation, explanation, examples including a Projects-overview mockup,
+  asked for the same evening) must land BEFORE this mail is sent. He said
+  the mail session would be next, then asked for that prompt "so the next
+  session can work on the review website", and said he would send the next
+  day; nothing he said orders the two. Ask him in your first reply; until
+  he answers, the mail links only pages that are correct today.
 - The judges' optional fourth addendum item (a clean result is
   indistinguishable from a check that never ran — ~100 words). Include only
   if he grants the words; two of three judges wanted it.

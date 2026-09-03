@@ -13,8 +13,9 @@ https://menno420.github.io/websites/ — so a reviewer who has never seen the
 repositories can navigate it, understand the program from it, and see
 examples of how the owner wants things to look, including a mockup of the
 Projects overview with each Project's state visible. Build from the written
-descriptions and the one screenshot described below; more screenshots come
-from him later.
+descriptions and the one screenshot described below; he will "see if" he
+can find more screenshots — proceed as if none arrive, and use them if they
+do.
 
 BEFORE YOUR FIRST TOOL CALL — state the task back, inline in this same reply,
 in four labelled lines (never one fused paragraph, never a question):
@@ -69,11 +70,16 @@ WHERE THINGS STAND (verified 2026-09-02 ~22:30Z — re-verify first)
   rebuild needs an explicit `review-pages.yml` dispatch; and the exporter's
   exit 0 proves every route rendered 200, NOT link integrity — grep the
   `_site` tree for the links you added.
-- The final EAP mail is being drafted in a parallel session (prompt:
-  docs/prompts/2026-09-02-eap-mail-session.md) and will link to this site.
-  That session does not wait on you; any page the mail links must be correct
-  at send time, which is why the era framing and the "Start here" cards
-  must not regress.
+- The final EAP mail has its own session prompt
+  (docs/prompts/2026-09-02-eap-mail-session.md) and will link to this site.
+  WHICH COMES FIRST IS NOT SETTLED: he said the mail session would be the
+  next one, then asked for this prompt so "the next session can work on
+  the review website", and said he would finalize and send the mail the
+  next day. Nothing he said orders the two. Ask him in your first reply
+  whether the site pass must land before the mail is sent; until he
+  answers, assume the mail may go out first, so any page it links must be
+  correct at all times — the era framing and the "Start here" cards must
+  not regress at any commit.
 - The owner's screenshot of the claude.ai Projects overview, 11 July 2026
   23:34, during the program (described here because the image is not in
   the repo): a grid of eight project cards — Ideas Lab, Game Lab, Venture
@@ -92,10 +98,14 @@ READ FIRST (a floor, not a boundary — each verified at HEAD 2026-09-02)
    data model, the edition ritual, the house rules (every claim cites a
    PR/commit/file; problems get the same specificity as successes; nothing
    is estimated; "we don't know" is a valid sentence), the verify commands.
-3. The live site, all ten pages, read cold as a reviewer would, BEFORE
-   opening a template — and write one paragraph per page of what confused
-   you, what you could not find, and what a first-time reader would need.
-   That critique is the work order; put it to him before editing.
+3. The live site, read cold as a reviewer would, BEFORE opening a template:
+   the ten navigation pages AND at least one page from every dynamic route
+   family — a `/fleet/{repo}` detail, a `/reviews/{slug}` edition, the
+   `/questions` ledger, an `/ask` seeded answer (the exporter renders about
+   35 routes; the export-losses decision and `gen_static.py` say which).
+   Write one paragraph per page of what confused you, what you could not
+   find, and what a first-time reader would need. That critique is the
+   work order; put it to him before editing.
 4. docs/findings/2026-09-02-owner-direction.md § 5c and § 5d — what he
    wants Anthropic to understand: what a Project adds over a session (the
    instruction box as a delivery tier; a coordinator that is a mind of its
@@ -114,7 +124,9 @@ DECIDED (owner, 2026-09-02 — do not re-litigate)
   properly", "preferably with some examples of how we want things to look".
 - "Examples of how we want things to look" includes a mockup of the
   Projects overview — the screen above, redrawn so each Project card shows
-  its state. Built from the description now; his further screenshots later.
+  its state. Built from the description now; further screenshots only if he
+  finds them ("I will see if I can find some example screenshots later") —
+  never wait on them.
 - Build from the descriptions in the tree: the July mails' findings (the
   site's "Start here" cards already are the 12 July mail's findings), the
   night report's verified findings, his answers in § 5c–5d. Nothing on a
@@ -168,8 +180,13 @@ OPEN (what would settle each — put the first to him before editing)
 YOUR FIRST STEP
 Confirm the state above: `git log --oneline -3 origin/main` here; the live
 index over direct egress; the websites repo's head and open PRs via the
-API. Attach websites with push (`add_repo`, then clone via the direct PAT
-path). Then do READ FIRST item 3 — the ten-page cold read with one
+API. Attach websites with `add_repo(menno420, websites, access: "push")`,
+then clone and push over the plain `https://github.com/menno420/websites`
+URL through the configured remote — measured 2026-08-21 (ledger): once
+attached with push, the plain URL pushes through the proxy and no PAT is
+needed. `printenv GITHUB_PAT >/dev/null && echo present || echo absent`
+tells you whether the direct-egress path exists as a spare route; it is
+never a prerequisite. Then do READ FIRST item 3 — the ten-page cold read with one
 paragraph per page — and put the critique and the OPEN shape question (A/B/
 C) to him in one message before changing anything.
 
@@ -179,8 +196,12 @@ DONE WHEN
   he confirmed; the examples in the shape he chose, each labelled and each
   claim cited; the Projects-overview mockup labelled as a proposal.
 - `python3 -m pytest review/tests -q` green; `python3 review/gen_static.py
-  --out _site --base-path /websites` exit 0 AND every link you added
-  present in the exported tree (grep it — exit 0 is not link integrity);
+  --out _site --base-path /websites` exit 0 AND every internal href you
+  added RESOLVES to a file under `_site` at the `/websites` base path — a
+  short script that parses each added page's hrefs and stats the target
+  (or a real link checker over `_site`), not a grep for the string: a
+  misspelled or double-prefixed href passes the exporter and a grep alike,
+  which is exactly how the double-prefix P1 shipped before;
   `python3 bootstrap.py check --strict` exit 0 in websites.
 - `review-pages.yml` dispatched after the merge and the live site fetched
   over direct egress showing the change.
