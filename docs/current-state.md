@@ -46,14 +46,12 @@ copy product architecture or internal product state. Canonical intent:
 ### Work state
 
 - **E1 is DRAFTED IN FULL AND STAGED (2026-09-03, fm #1017) — both parts, in
-  a Gmail draft in his own mailbox with no recipients; what is left is his:
-  read, rewrite Part 1 (beat 3 above all), answer the one-word calls in the
-  draft's § 2, add the recipients, send.** Shape A of 2026-09-02: Part 2 at the
+  a Gmail draft in his own mailbox with no recipients; what is left is his: read it again, add what he wants to add, answer the one-word calls in the draft's § 2, add the recipients, send.** Shape A of 2026-09-02: Part 2 at the
   1,686 words he chose plus two one-clause patches and the
   Projects-versus-sessions addendum carrying the three false-done rows;
   **rewritten once more on 2026-09-03 evening from his own edits (fm #1019)
   and ChatGPT Work's independent review** — Part 1 in his words (696), the
-  addendum 488 of body plus 75 of source bullets, block 2,279 words by
+  addendum 488 of body plus 75 of source bullets, block 2,299 words by
   `--count`; he reads it again before anything is sent. *(The paragraph below is the 2026-08-25
   state, kept.)*
   **E1 was assembled, revised against his own calls, and waiting on two things
@@ -63,7 +61,7 @@ copy product architecture or internal product state. Canonical intent:
   — *"a revision pass and my own section added/edited"* — **was put to him rather
   than interpreted**: two operations, and the pass covers the whole document. He
   then chose **the literal one-page cap** (findings 1–3 and asks 1–5 only) and
-  **cut the contested 97.5 % ratio**. Part 2 is **2,279 words** (1,686 after his cap; the
+  **cut the contested 97.5 % ratio**. Part 2 is **2,299 words** (1,686 after his cap; the
   2026-09-02 addendum and two patches added the rest, fm #1017), from
   `python3 tools/render_eap_mail.py --count` rather than from prose — the figure
   had been wrong in all three places it was written. **A session still does not

@@ -40,7 +40,7 @@
 | 4 | **Fresh compose, new subject, no reply-linkage** | Plan § 1: the standalone closing statement, readable cold in minutes | replying on the old thread instead |
 | 5 | The thesis is **refined, not replaced**: the wall is human review *because the defects are shaped to survive review* | The month of auditing earned the sharper version; the original is still true and still his | keeping the July wording |
 | 6 | Part 1 is a **beat table placed BEFORE `COPY FROM HERE`**, and the drafted prose is **deleted, not retained** — **OVERTURNED BY THE OWNER 2026-09-02:** *"I would like a proper draft created which I can read and edit"* (§ 5b), and Shape A chosen with Part 1 drafted for him to rewrite. The proposal now sits **below the beat table, still outside the COPY markers**, so `--count` excludes it and it cannot be pasted by accident; beat 3 stays his | Rounds 2 and 3 both rejected weaker versions: a scaffold inside the markers gets pasted whatever the header calls it, and prose outside them still supplies his voice when he is invited to lift phrases — the owner then chose exactly that supply, knowingly | rewriting it in his own words, which is the expected outcome |
-| 7 | **The one-page bound wins — findings 1–3 and asks 1–5 only** — **AMENDED 2026-09-02 (Shape A):** the 1,686 words he chose stay as they are; one addendum and two one-clause patches are added on top, so the block is now **2,097 → 2,279 words** (re-derived by `--count`; the addendum is 488 of body plus 75 of its own source bullets after the 2026-09-03 evening rewrite) | Two of his own instructions collided (§ 2 item 6: the cap, versus *"add genuinely new points"*). Surfaced rather than resolved, and **he chose the literal cap on 2026-08-25**: findings 4–5 out, asks 6–14 out, optional finding 6 out — 2,097 down to 1,686 words. On 2026-09-02, offered A (Part 2 unchanged plus one addendum), B (rewrite around the month after) and C (the strict cap, no addendum), he chose A | saying which of the two month-after findings goes back, or "cut the addendum" |
+| 7 | **The one-page bound wins — findings 1–3 and asks 1–5 only** — **AMENDED 2026-09-02 (Shape A):** the 1,686 words he chose stay as they are; one addendum and two one-clause patches are added on top, so the block is now **2,097 → 2,299 words** (re-derived by `--count`; the addendum is 488 of body plus 75 of its own source bullets after the 2026-09-03 evening rewrite) | Two of his own instructions collided (§ 2 item 6: the cap, versus *"add genuinely new points"*). Surfaced rather than resolved, and **he chose the literal cap on 2026-08-25**: findings 4–5 out, asks 6–14 out, optional finding 6 out — 2,097 down to 1,686 words. On 2026-09-02, offered A (Part 2 unchanged plus one addendum), B (rewrite around the month after) and C (the strict cap, no addendum), he chose A | saying which of the two month-after findings goes back, or "cut the addendum" |
 | 8 | **The addendum is the answer to Anthropic's own question — what would make him choose a Project over a session — in his terms**, and it carries the false-done rows | His answers in [§ 5c–5d](../findings/2026-09-02-owner-direction.md) are the content; the DERIVED ordering under them was checked with him in the sitting; his one claim of degree (the coordinator beats a session's fan-out at several tasks at once) goes in marked as his inference, his own caveat. The three false-done rows are FD-01, FD-02 and FD-17 narrowed to its one sub-claim ([the evidence report](../findings/2026-09-02-eap-mail-evidence-report.md) § 3), each re-opened at source before use — FD-01 now also read from the pull request itself | naming another frame, or "drop the false-done rows" |
 
 **Logistics.** Fresh Gmail compose — *not* a reply. To the EAP alias, cc the
@@ -62,7 +62,7 @@ re-breaks raggedly at whatever width their client uses. Run one of these instead
 | `python3 tools/render_eap_mail.py --count` | the word count, computed from the source rather than quoted from a sentence about it |
 | `python3 tools/render_eap_mail.py --eml > mail.eml` | **a real message you can open in a mail client** — plain + HTML alternatives — to *see* the rendering before sending. Headers are blank: it previews, it never sends. **Scope, 2026-09-03:** it renders **Part 2 only**, under the subject the tool hard-codes (the older "one month on" line); the complete message with both parts and the chosen subject is the **Gmail draft** below, built from the same renderer |
 | `python3 tools/check_eap_figures.py` | checks that **this document's stated figures still match the mail** — run it after any edit to the COPY block, because the count is hard-coded in five living documents and one re-wording falsifies all of them at once |
-| `python3 tools/render_eap_mail.py --verify` | proof the paste is **complete** — asserts the rendering dropped nothing and invented nothing (2,279 → 2,279 on 2026-09-03). Worth running once before you paste |
+| `python3 tools/render_eap_mail.py --verify` | proof the paste is **complete** — asserts the rendering dropped nothing and invented nothing (2,299 → 2,299 on 2026-09-03). Worth running once before you paste |
 
 **What is verified, and what is not.** An earlier version of this note said no
 mail client was reachable and left it there. That was a wall, not a measurement —
@@ -337,8 +337,10 @@ the thing that caught them.
    the middle of it.*
 
 **What genuinely worked.** The custom instructions are the single best feature
-you have — written once, delivered to every agent in every project, with
-nothing repeated by hand; they are the reason any of this was possible. Worker-tier autonomy ran clean from the first night: claim, open,
+you have — pasted once into a Project, then delivered to every agent that
+Project spawned with nothing repeated by hand below that (the paste into each
+Project, and the re-paste after a reset, was the owner's); they are the reason
+any of this was possible. Worker-tier autonomy ran clean from the first night: claim, open,
 verify, land, with no prompts and no tool failures. The self-improving loop
 closed across repositories in about 30 hours — one project found a defect in the
 shared tooling, routed it upstream, the tooling shipped a fix, and the project
@@ -474,7 +476,7 @@ The reports and methods are public:
 > - **Length** — after the evening rewrite the addendum is 488 words of body
 >   plus 75 in its four source bullets, **563 in all**, against the ~450 he
 >   chose (his restored hedges cost words; the instruction-box argument and
->   its bullet are cut); the block is 2,279 against the "near 2,100" the
+>   its bullet are cut); the block is 2,299 against the "near 2,100" the
 >   sitting estimated — *keep* / *cut the addendum to 450 with its sources*.
 > - **Part 1** — 696 words, his own after fm #1019, tightened for spelling and
 >   run-ons only; he reads it again — *keep* / *shorten*.
@@ -594,7 +596,7 @@ each is one line to overturn.
 - **c · The month-after spine is three findings, not five** — and the month-after
   is **§ 1 decision 1's entire rationale** for sending this at all. → *"put
   finding 4 back"* (drift, 92 words) or *"finding 5 back"* (cost, 193 words)
-- **d · 2,279 words is about four pages (1,686 before the 2026-09-02 addendum), and one page IS reachable — by
+- **d · 2,299 words is about four pages (1,686 before the 2026-09-02 addendum), and one page IS reachable — by
   restructure, not by subtraction.** *(Corrected 2026-08-25: this entry said "no
   route reached one page", which was only ever true of **cutting things**. Nobody
   had tried changing the shape.)* Subtractive floor: cutting the good-parts block
@@ -682,7 +684,7 @@ each is one line to overturn.
    recorded in the queue, the program § 7 row and `docs/planning/README.md`,
    stays true.
 6. **The length — ANSWERED: the literal cap.** **Part 2 was 2,097 words at
-   `9b2d83a`, 1,678 after the cut, and 2,279 as it now stands** — the eight-word
+   `9b2d83a`, 1,678 after the cut, and 2,299 as it now stands** — the eight-word
    census fix at consequence *e* took it to 1,686, and Shape A's addendum and two
    patches (2026-09-03, § 1 decisions 7–8) account for the rest.
    **The number now comes from a command rather than from prose:**
