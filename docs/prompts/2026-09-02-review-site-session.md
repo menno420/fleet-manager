@@ -42,9 +42,9 @@ WHERE THINGS STAND (verified 2026-09-02 ~22:30Z — re-verify first)
 - The site is the websites repo's `review/` app: FastAPI renders committed
   data under `review/data/`, `review/gen_static.py --out _site --base-path
   /websites` exports it, and `review-pages.yml` publishes to GitHub Pages.
-  No Railway service behind it since 2026-08-20 (websites decision D-0037:
-  the live `/ask/api` path died with the process; seeded answers survive as
-  static pages). Everything a page shows is a committed file; a missing or
+  No Railway service behind it since 2026-08-20 (websites' static-export
+  decision of that date: the live `/ask/api` path died with the process;
+  seeded answers survive as static pages). Everything a page shows is a committed file; a missing or
   stale mirror banners honestly (`fleetdata.STALE_HOURS` = 48 h).
 - Live at HEAD: title "Program Review — how an owner + agent fleet shipped";
   ten pages — Overview, Process, Growth, Fleet, Reviews, Q&A (questionnaire),
@@ -103,9 +103,9 @@ READ FIRST (a floor, not a boundary — each verified at HEAD 2026-09-02)
    screen; no false "queue exhausted"; workers accept the coordinator's
    authority; a channel between Projects), his 50/50 verdict, and the
    sorted instruction box (defaults / scaffolding / seat-specific).
-5. websites: docs/decisions.md D-0035–D-0039 (the fleet source repoint, the
-   route gate, the static export and its losses, `/repos` as the owner
-   view, review comments as public records).
+5. websites: docs/decisions.md — its five entries of 2026-08-20 (the fleet
+   source repoint, the route gate, the static export and its losses,
+   `/repos` as the owner view, review comments as public records).
 
 DECIDED (owner, 2026-09-02 — do not re-litigate)
 - The existing site is the target, not a new one. ("Yes it's the existing
@@ -132,8 +132,8 @@ REJECTED, AND WHY
 - Rebuilding on another stack or framework → the app, its tests
   (`review/tests` pin the edition format and the routes) and the exporter
   work; the ask is navigation, explanation and examples, not a rewrite.
-- Reviving the Railway service or the live `/ask/api` path → D-0037; the
-  audience is a reader of a static archive.
+- Reviving the Railway service or the live `/ask/api` path → websites'
+  static-export decision; the audience is a reader of a static archive.
 - Inventing screenshots, or presenting a mockup as the product → he will
   supply real screenshots; until then a mockup is drawn and labelled.
 - Hardcoding a fleet size, a count or a date into a template → house rule;
@@ -222,7 +222,7 @@ token, capability or wall, with the observed result verbatim.
 direct egress at HEAD: the live index (HTTP 200, its ten navigation
 targets and headings), the review app's README, the exporter's usage line,
 the websites repo's visibility, workflows, templates and `.claude/`
-contents, its decisions D-0035–D-0039 by heading, and the Layer 2 entry's
+contents, its five 2026-08-20 decisions by heading, and the Layer 2 entry's
 traps. The screenshot is described from the image the owner sent in the
 sitting; the image itself is not in the repo. Not verified: the current
 render of the nine pages beyond the index — the receiving session's cold
