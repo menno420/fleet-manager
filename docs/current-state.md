@@ -49,9 +49,12 @@ copy product architecture or internal product state. Canonical intent:
   a Gmail draft in his own mailbox with no recipients; what is left is his:
   read, rewrite Part 1 (beat 3 above all), answer the one-word calls in the
   draft's § 2, add the recipients, send.** Shape A of 2026-09-02: Part 2 at the
-  1,686 words he chose plus two one-clause patches and the 541-word
-  Projects-versus-sessions addendum (453 of body, 88 of source bullets) carrying the three false-done rows;
-  block 2,279 words by `--count`. *(The paragraph below is the 2026-08-25
+  1,686 words he chose plus two one-clause patches and the
+  Projects-versus-sessions addendum carrying the three false-done rows;
+  **rewritten once more on 2026-09-03 evening from his own edits (fm #1019)
+  and ChatGPT Work's independent review** — Part 1 in his words (696), the
+  addendum 488 of body plus 75 of source bullets, block 2,279 words by
+  `--count`; he reads it again before anything is sent. *(The paragraph below is the 2026-08-25
   state, kept.)*
   **E1 was assembled, revised against his own calls, and waiting on two things
   only he can do: Part 1, and sending.** *(2026-08-25, fm #946. The reservation
