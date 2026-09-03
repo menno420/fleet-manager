@@ -40,7 +40,7 @@
 | 4 | **Fresh compose, new subject, no reply-linkage** | Plan § 1: the standalone closing statement, readable cold in minutes | replying on the old thread instead |
 | 5 | The thesis is **refined, not replaced**: the wall is human review *because the defects are shaped to survive review* | The month of auditing earned the sharper version; the original is still true and still his | keeping the July wording |
 | 6 | Part 1 is a **beat table placed BEFORE `COPY FROM HERE`**, and the drafted prose is **deleted, not retained** — **OVERTURNED BY THE OWNER 2026-09-02:** *"I would like a proper draft created which I can read and edit"* (§ 5b), and Shape A chosen with Part 1 drafted for him to rewrite. The proposal now sits **below the beat table, still outside the COPY markers**, so `--count` excludes it and it cannot be pasted by accident; beat 3 stays his | Rounds 2 and 3 both rejected weaker versions: a scaffold inside the markers gets pasted whatever the header calls it, and prose outside them still supplies his voice when he is invited to lift phrases — the owner then chose exactly that supply, knowingly | rewriting it in his own words, which is the expected outcome |
-| 7 | **The one-page bound wins — findings 1–3 and asks 1–5 only** — **AMENDED 2026-09-02 (Shape A):** the 1,686 words he chose stay as they are; one addendum and two one-clause patches are added on top, so the block is now **2,097 → 2,323 words** (re-derived by `--count`; the addendum alone is ~450) | Two of his own instructions collided (§ 2 item 6: the cap, versus *"add genuinely new points"*). Surfaced rather than resolved, and **he chose the literal cap on 2026-08-25**: findings 4–5 out, asks 6–14 out, optional finding 6 out — 2,097 down to 1,686 words. On 2026-09-02, offered A (Part 2 unchanged plus one addendum), B (rewrite around the month after) and C (the strict cap, no addendum), he chose A | saying which of the two month-after findings goes back, or "cut the addendum" |
+| 7 | **The one-page bound wins — findings 1–3 and asks 1–5 only** — **AMENDED 2026-09-02 (Shape A):** the 1,686 words he chose stay as they are; one addendum and two one-clause patches are added on top, so the block is now **2,097 → 2,322 words** (re-derived by `--count`; the addendum is 453 of body plus 88 of its own source bullets) | Two of his own instructions collided (§ 2 item 6: the cap, versus *"add genuinely new points"*). Surfaced rather than resolved, and **he chose the literal cap on 2026-08-25**: findings 4–5 out, asks 6–14 out, optional finding 6 out — 2,097 down to 1,686 words. On 2026-09-02, offered A (Part 2 unchanged plus one addendum), B (rewrite around the month after) and C (the strict cap, no addendum), he chose A | saying which of the two month-after findings goes back, or "cut the addendum" |
 | 8 | **The addendum is the answer to Anthropic's own question — what would make him choose a Project over a session — in his terms**, and it carries the false-done rows | His answers in [§ 5c–5d](../findings/2026-09-02-owner-direction.md) are the content; the DERIVED ordering under them was checked with him in the sitting; his one claim of degree (the coordinator beats a session's fan-out at several tasks at once) goes in marked as his inference, his own caveat. The three false-done rows are FD-01, FD-02 and FD-17 narrowed to its one sub-claim ([the evidence report](../findings/2026-09-02-eap-mail-evidence-report.md) § 3), each re-opened at source before use — FD-01 now also read from the pull request itself | naming another frame, or "drop the false-done rows" |
 
 **Logistics.** Fresh Gmail compose — *not* a reply. To the EAP alias, cc the
@@ -62,7 +62,7 @@ re-breaks raggedly at whatever width their client uses. Run one of these instead
 | `python3 tools/render_eap_mail.py --count` | the word count, computed from the source rather than quoted from a sentence about it |
 | `python3 tools/render_eap_mail.py --eml > mail.eml` | **a real message you can open in a mail client** — plain + HTML alternatives — to *see* the rendering before sending. Headers are blank: it previews, it never sends. **Scope, 2026-09-03:** it renders **Part 2 only**, under the subject the tool hard-codes (the older "one month on" line); the complete message with both parts and the chosen subject is the **Gmail draft** below, built from the same renderer |
 | `python3 tools/check_eap_figures.py` | checks that **this document's stated figures still match the mail** — run it after any edit to the COPY block, because the count is hard-coded in five living documents and one re-wording falsifies all of them at once |
-| `python3 tools/render_eap_mail.py --verify` | proof the paste is **complete** — asserts the rendering dropped nothing and invented nothing (2,323 → 2,323 on 2026-09-03). Worth running once before you paste |
+| `python3 tools/render_eap_mail.py --verify` | proof the paste is **complete** — asserts the rendering dropped nothing and invented nothing (2,322 → 2,322 on 2026-09-03). Worth running once before you paste |
 
 **What is verified, and what is not.** An earlier version of this note said no
 mail client was reachable and left it there. That was a wall, not a measurement —
@@ -147,7 +147,9 @@ default, is that he writes it in the compose window and it goes out unchecked.
 
 > **What this is.** A proposal built only from the beat table above and his own
 > answers of 2026-09-02 ([§ 5d](../findings/2026-09-02-owner-direction.md));
-> nothing in it is a fact he has not stated. **Beat 3 — the verdict paragraph
+> nothing in it is a fact he has not stated (the classifier timing is his
+> § 5d correction — *"this mostly started after the automode classifier got
+> updated"* — and his 16 July mail). **Beat 3 — the verdict paragraph
 > — is the one only he can supply**: the version below is assembled from his
 > sitting answers (the 50/50, superbot-next, the permissions read as a bug,
 > reviewing finished products) and from the thesis line in his reflection,
@@ -175,9 +177,9 @@ rebuild that one agent estimated at weeks was built in a few days, and the code
 itself was not faulty. What was wrong is that the functionality was not what I
 intended, and I only found that out when I looked at the finished product. That
 is how I review work, as a finished product, which is only possible once the
-pull requests actually merge. In the second week the permission problems kept
-many of them from merging, so some of the work never reached me in a form I
-could judge. I went in thinking the limit would be what the agents can do. What
+pull requests actually merge. After the classifier changed, the permission
+problems kept pull requests from merging, so some of the work never reached me
+in a form I could judge. I went in thinking the limit would be what the agents can do. What
 I found is that the limit is what I can check: the mistakes were not too many
 to read, they were shaped so that reading did not catch them.
 
@@ -413,10 +415,10 @@ Everything above is public:
 - The permission, trust and classifier findings argued in full in July, which
   this mail deliberately does not repeat:
   `github.com/menno420/superbot/blob/main/docs/eap/permission-classifier-findings-consolidated-2026-07-16.md`
-- The review site built for you — the Overview is the entry; Menno's answer in
-  full at `/after/`, the Projects-overview mockup at
-  `/examples/#projects-overview-mockup`, the three problems he names first at
-  `/problems/`: `https://menno420.github.io/websites/`
+- The review site built for you — [the Overview](https://menno420.github.io/websites/)
+  is the entry; then [Menno's answer in full](https://menno420.github.io/websites/after/),
+  [the Projects-overview mockup](https://menno420.github.io/websites/examples/#projects-overview-mockup)
+  and [the three problems he names first](https://menno420.github.io/websites/problems/)
 - His words, verbatim, that the addendum is built from:
   `github.com/menno420/fleet-manager/blob/main/docs/findings/2026-09-02-owner-direction.md`
 - The commissioned night review that caught the first two false-dones (Q7, Q16),
@@ -460,11 +462,12 @@ Everything above is public:
 > - **The judges' optional fourth addendum item** (a clean result is
 >   indistinguishable from a check that never ran, ~100 words; two of three
 >   judges wanted it) — *no* / *add it*.
-> - **Length** — the addendum is 453 words against the ~450 he chose; the block
->   is 2,323 against the "near 2,100" the sitting estimated, the difference
->   being the links block (ten bullets, 195 words) and the two patches (~75) —
->   *keep* / *trim the links* / *drop the instruction-box link*.
-> - **Part 1** — 537 words as proposed, his to rewrite; beat 3 above all —
+> - **Length** — the addendum is 453 words of body plus 88 in its own five
+>   source bullets, **541 in all**, against the ~450 he chose; the block is
+>   2,322 against the "near 2,100" the sitting estimated, the rest being the two
+>   patches (~75) — *keep* / *trim the links* / *drop the instruction-box link*
+>   / *cut the addendum to 450 with its sources*.
+> - **Part 1** — 536 words as proposed, his to rewrite; beat 3 above all —
 >   *rewrite in Gmail* / *rewrite here and I verify it*.
 >
 > **Where the draft is:** Gmail → Drafts → "Claude Code Projects EAP — the final
@@ -544,7 +547,7 @@ each is one line to overturn.
 - **c · The month-after spine is three findings, not five** — and the month-after
   is **§ 1 decision 1's entire rationale** for sending this at all. → *"put
   finding 4 back"* (drift, 92 words) or *"finding 5 back"* (cost, 193 words)
-- **d · 2,323 words is about four pages (1,686 before the 2026-09-02 addendum), and one page IS reachable — by
+- **d · 2,322 words is about four pages (1,686 before the 2026-09-02 addendum), and one page IS reachable — by
   restructure, not by subtraction.** *(Corrected 2026-08-25: this entry said "no
   route reached one page", which was only ever true of **cutting things**. Nobody
   had tried changing the shape.)* Subtractive floor: cutting the good-parts block
@@ -632,7 +635,7 @@ each is one line to overturn.
    recorded in the queue, the program § 7 row and `docs/planning/README.md`,
    stays true.
 6. **The length — ANSWERED: the literal cap.** **Part 2 was 2,097 words at
-   `9b2d83a`, 1,678 after the cut, and 2,323 as it now stands** — the eight-word
+   `9b2d83a`, 1,678 after the cut, and 2,322 as it now stands** — the eight-word
    census fix at consequence *e* took it to 1,686, and Shape A's addendum and two
    patches (2026-09-03, § 1 decisions 7–8) account for the rest.
    **The number now comes from a command rather than from prose:**

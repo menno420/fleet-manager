@@ -51,7 +51,7 @@ as a proposal he rewrites in his own voice. Working file:
   item 2), and the raw verifier records for FD-01/FD-02/FD-17 out of
   `fleet-b-full-wf_fb35b278-362.json`. Not from the report's summaries.
 - **Part 1 proposed** (`docs/planning/2026-08-24-final-eap-email-draft.md`,
-  below the beat table, outside the COPY markers): 537 words by the same
+  below the beat table, outside the COPY markers): 536 words by the same
   method as `--count`; every fact in it is one he stated in § 5d or the beat
   table's facts column; beat 3 is marked as his alone and its proposal is
   assembled from his sitting answers plus the reflection's DERIVED thesis line.
@@ -61,7 +61,7 @@ as a proposal he rewrites in his own voice. Working file:
   scopes: the fortnight's false-dones were caught by a commissioned review, and
   the July 3-of-3 fabricated reviews (`docs/audits/eap-project-audit-2026-07-14.md:151`
   · `docs/fleet-inconsistencies-2026-07-13.md:147`, INC-43) with the self-fix.
-- **The addendum** — 453 words, framed as the answer to Anthropic's question in
+- **The addendum** — 453 words of body plus 88 in its five source bullets (541 in all, the figure the owner's length call is put against), framed as the answer to Anthropic's question in
   his terms: what the two share (shiftlife, his § 5c words), the three adds
   (verbatim delivery — with `docs/eap-retrospective.md:80`'s 767 of 949 as the
   rules-of-form evidence and the judgement caveat; the coordinator as a mind of
@@ -92,7 +92,7 @@ as a proposal he rewrites in his own voice. Working file:
   fleet-inconsistencies (INC-04, INC-43); the instruction box (present on
   `main`). All five pre-existing links confirmed on `main`; superbot's doc 200
   via the API.
-- **Figures re-derived:** block **2,323 words** (`--count`), `--verify`
+- **Figures re-derived:** block **2,322 words** (`--count`), `--verify`
   loss-free (2323 → 2323), 30 bold + 13 italic (italics deliberately held at 13
   so the 2026-08-25 card's guarded figure stays true), `--selftest` 13/13.
   `check_eap_figures.py` clean after two changes: the "three pages" pattern now
@@ -150,7 +150,17 @@ as a proposal he rewrites in his own voice. Working file:
   38 open of 69); and `--eml` previewing Part 2 only under the tool's older
   hard-coded subject (the docs narrowed — the Gmail draft is the complete
   preview; the tool itself untouched, per the no-mechanism-change scope).
-  Round 2 requested on the fix head — *(tally below)*.
+- **Codex round 2** on `57021fb` (requested 18:58Z, review 19:06:45Z): **4
+  findings, all P2, 4 conceded, 0 survived** — beat 3's "in the second week …
+  many of them" was the session's dating, not his words (replaced by his own
+  § 5d phrase, "after the classifier changed", and the proposal's intro now
+  names that source); the review-site paths were backticked text in the HTML
+  body, not links (each named page is now a markdown link → an anchor in HTML,
+  "label (url)" in plain text); the addendum's budget must count its own five
+  source bullets (453 + 88 = 541, now the figure the § 2 length call is put
+  against); the owner-queue send step named only the cc list (now the EAP
+  alias in To and the cc addresses, both from the July thread's headers).
+  Round 3 requested on the fix head — *(tally below)*.
 
 ## § 10 preconditions, ticked
 

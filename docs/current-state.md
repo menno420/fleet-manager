@@ -49,9 +49,9 @@ copy product architecture or internal product state. Canonical intent:
   a Gmail draft in his own mailbox with no recipients; what is left is his:
   read, rewrite Part 1 (beat 3 above all), answer the one-word calls in the
   draft's § 2, add the recipients, send.** Shape A of 2026-09-02: Part 2 at the
-  1,686 words he chose plus two one-clause patches and the 453-word
-  Projects-versus-sessions addendum carrying the three false-done rows;
-  block 2,323 words by `--count`. *(The paragraph below is the 2026-08-25
+  1,686 words he chose plus two one-clause patches and the 541-word
+  Projects-versus-sessions addendum (453 of body, 88 of source bullets) carrying the three false-done rows;
+  block 2,322 words by `--count`. *(The paragraph below is the 2026-08-25
   state, kept.)*
   **E1 was assembled, revised against his own calls, and waiting on two things
   only he can do: Part 1, and sending.** *(2026-08-25, fm #946. The reservation
@@ -60,7 +60,7 @@ copy product architecture or internal product state. Canonical intent:
   — *"a revision pass and my own section added/edited"* — **was put to him rather
   than interpreted**: two operations, and the pass covers the whole document. He
   then chose **the literal one-page cap** (findings 1–3 and asks 1–5 only) and
-  **cut the contested 97.5 % ratio**. Part 2 is **2,323 words** (1,686 after his cap; the
+  **cut the contested 97.5 % ratio**. Part 2 is **2,322 words** (1,686 after his cap; the
   2026-09-02 addendum and two patches added the rest, fm #1017), from
   `python3 tools/render_eap_mail.py --count` rather than from prose — the figure
   had been wrong in all three places it was written. **A session still does not
