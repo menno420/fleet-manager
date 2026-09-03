@@ -1,9 +1,15 @@
 # 2026-09-02 — records only: the continuation prompt for the review-site session
 
-> **Status:** `in-progress` — born red. A records-only follow-up to the
-> review sitting (fm #1013, merged `015c292`), at the owner's ask after that
-> PR landed: the continuation prompt for the session that improves the
-> program-review site for Anthropic. Flips `complete` as the last commit.
+> **Status:** `complete` — the review-site session's continuation prompt
+> landed at `docs/prompts/2026-09-02-review-site-session.md`, listed in the
+> prompts README, his words in the owner-direction record's § 6, the order
+> against E1 recorded as unsettled beside the NOW pointer, and the three
+> front doors pointing at the one live-prompt list. Codex: three rounds, the
+> cap — 6 + 3 + 3 findings, all real, all fixed; round three's fixes
+> verified directly, no fourth round. **Reviewed SHA `43b574c` (round 3).
+> After it:** the round-three fix commit (verified by the link, false-walls
+> and owner-index checks and the strict gate) and this flip commit. Landed
+> on green.
 
 - **📊 Model:** fable-5 · xhigh · review/verify
 - **📍 Venue:** cloud-container
