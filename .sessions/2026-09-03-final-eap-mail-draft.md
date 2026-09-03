@@ -98,7 +98,7 @@ as a proposal he rewrites in his own voice. Working file:
   fleet-inconsistencies (INC-04, INC-43); the instruction box (present on
   `main`). All five pre-existing links confirmed on `main`; superbot's doc 200
   via the API.
-- **Figures re-derived:** block **2,322 words** (`--count`), `--verify`
+- **Figures re-derived:** block **2,279 words** (`--count`), `--verify`
   loss-free (2322 → 2322 at the reviewed head `4d90d43`; 2323 → 2323 one commit earlier), 30 bold + 13 italic (italics deliberately held at 13
   so the 2026-08-25 card's guarded figure stays true), `--selftest` 13/13.
   `check_eap_figures.py` clean after two changes: the "three pages" pattern now
@@ -172,7 +172,7 @@ as a proposal he rewrites in his own voice. Working file:
   **Missed in round 2's own review body** (read only at round 3, because the
   round-2 poll printed review ids and not bodies — the finding sat in the
   review body, not inline): owner-queue's "is **1,686** now" — fixed, "was
-  1,686 after his 2026-08-25 cut and is 2,322 with the addendum".
+  1,686 after his 2026-08-25 cut and is 2,279 with the addendum".
 - **Codex round 3** on `4d90d43` (requested 19:10Z, review 19:17:52Z; the
   cap's last round): **3 findings, all P2 — 3 fixed, 0 refuted, 0 open**,
   each verified directly, no fourth round: the card had not recorded the
