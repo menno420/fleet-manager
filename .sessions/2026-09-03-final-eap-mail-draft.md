@@ -1,9 +1,15 @@
 # 2026-09-03 — the final EAP mail, drafted for the owner to read, edit and send
 
-> **Status:** `in-progress` — born red. What is about to happen: program step
-> **E1**'s draft, both parts, built from the night fleet's evidence report and
-> the owner's 2026-09-02 answers, staged as a Gmail draft he can edit. He
-> sends; this session never does.
+> **Status:** `complete` — program step **E1**'s draft, both parts, built
+> from the night fleet's evidence report and the owner's 2026-09-02 answers
+> under Shape A, staged as a Gmail draft in his own mailbox with no recipients.
+> He reads, rewrites Part 1, answers the one-word calls, adds the recipients and
+> sends; this session never does. Codex: three rounds, the cap — 4 + 5 + 3
+> findings, all real, all fixed; round three's fixes verified directly (the
+> cap's exit), no fourth round. **Reviewed SHA `4d90d43` (round 3). After it:**
+> `815a0b9` (the round-three fixes, verified by the figure checker, `--verify`,
+> preflight and the strict gate) and this flip commit — the one exempt commit,
+> a badge flip plus close-out text. Landed on green.
 
 - **📊 Model:** withheld · xhigh · docs-only
 - **⚑ Model-slot note:** this session carries an instruction against a model
