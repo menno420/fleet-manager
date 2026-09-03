@@ -108,7 +108,7 @@ completed step appends a row to §7 with its PR.
 > an independent reviewer; both parts rewritten from that (Part 1 696 words,
 > addendum 488 of body plus 75 of source bullets, block 2,299 by `--count`).
 > He reads it again before anything is sent. **E1 stays NOW until he sends:** what is
-> left is his read, his rewrite, his one-word answers to the draft's § 2, the
+> left is his re-read, his additions, his one-word answers to the draft's § 2, the
 > recipients, and the send; then the send record (§ 3 of the draft) and the
 > ledger row that closes it.
 
