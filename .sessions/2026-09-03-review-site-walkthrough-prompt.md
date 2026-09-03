@@ -1,8 +1,8 @@
 # 2026-09-03 — the walkthrough prompt: ChatGPT Work + the Chrome extension review the live review site
 
-> **Status:** `in-progress` — branch `claude/anthropic-program-review-site-27w608`
-> (restarted from `main` after #1016 merged); flips to `complete` + PR number
-> as the deliberate LAST code step.
+> **Status:** `complete` — branch `claude/anthropic-program-review-site-27w608`
+> (restarted from `main` after #1016 merged), PR #1018. Born red until this
+> flip, the deliberate LAST step.
 
 - **📊 Model:** fable-5 · xhigh · idea/planning
 - **📍 Venue:** cloud-container
@@ -38,7 +38,14 @@ the connector-as-complete-route entry of 2026-08-10).
   `gh`/PAT probing, no `delete_trigger` rule, nothing waiting on approval.
 - `docs/prompts/README.md` — the live-files note counts seven and names the
   new one.
-- Verified: `python3 bootstrap.py check --strict` — (filled at flip).
+- `README.md` and `.claude/CLAUDE.md` — their dated live-prompt count
+  ("six files as of 2026-09-02") restamped to seven as of 2026-09-03; the
+  prompts README stays the one list.
+- Verified: `python3 bootstrap.py check --strict` — exit 1 solely on this
+  card's born-red hold before the flip; exit 0 at the flip (the strict run
+  recorded in the commit that carries it). The restart of the designated
+  branch from `main` was tree-checked: `git diff --stat origin/main HEAD`
+  listed only this session's files.
 
 ## 💡 Session idea
 
