@@ -32,7 +32,7 @@ check. Codex reviews every PR on the bare literal `@codex review`.
 
 ## Threads
 
-### Thread: the review-site pass for a first-time Anthropic reader — **IN FLIGHT**, 2026-09-03
+### Thread: the review-site pass for a first-time Anthropic reader — **LANDED**, 2026-09-03
 
 The owner's 2026-09-02 ask (`docs/prompts/2026-09-02-review-site-session.md`;
 his words in `docs/findings/2026-09-02-owner-direction.md` § 5c–5d): make the
@@ -59,8 +59,16 @@ gen-1 wrap-up *candidate* (superseded by the July 12 mail, never sent) — the
 July 8 text is on the Gmail thread only, its send time recorded in that
 candidate's header. A link-integrity test over the static export now exists
 (`review/tests/test_static_links.py`): the exporter's exit 0 proves 200s,
-this proves every internal href resolves. Landing state, the Pages dispatch
-and the live check are recorded in the fm card as they happen.
+this proves every internal href resolves. **Landed:** #524 auto-merged on
+green at `137b80e` (10:45Z) after three Codex rounds (12 conceded, 0
+survived; round 3 clean at `41df1f3`); `review-pages.yml` dispatched by hand
+(no push-event run fired for the merge — the trap held), run 33746044580
+green; live over direct egress at 10:46Z showing build `137b80eb`. **Next
+touch:** the owner's answers to the two questions the pass asked (the
+examples' shape A/B/C — built on C; whether the site had to land before the
+mail — moot, it did); the mail session links `/after`,
+`/examples#projects-overview-mockup`, `/problems#coordinator-authority` and
+`/story` (named in its prompt's `OPEN` bullet).
 
 ### Thread: keep-bot-only execution — **LANDED**, 2026-08-20/21
 

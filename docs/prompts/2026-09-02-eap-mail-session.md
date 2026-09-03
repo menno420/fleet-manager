@@ -187,6 +187,16 @@ OPEN (what would settle each)
   the four labelled lines and the state check (the restate block takes no
   question); until he answers, the mail links only pages that are correct
   today.
+  UPDATE 2026-09-03: the site pass LANDED (websites #524 -> 137b80e, live at
+  10:46Z, fm card .sessions/2026-09-03-review-site-pass.md), so the order
+  question is moot. Pages the addendum's claims read against, all live and
+  link-checked: /after (his answer to the Projects-versus-sessions question,
+  OWNER/DERIVED/REVIEWED per paragraph), /examples#projects-overview-mockup
+  (the "which Project needs me" screen, labelled a proposal),
+  /problems#coordinator-authority - #false-done - #stall-visibility (the
+  three problems he names first), /story (the fortnight and the eight
+  Projects). The Overview stays the entry; its "Start here" cards and era
+  framing are unchanged in substance.
 - The judges' optional fourth addendum item (a clean result is
   indistinguishable from a check that never ran — ~100 words). Include only
   if he grants the words; two of three judges wanted it.
