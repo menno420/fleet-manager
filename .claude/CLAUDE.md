@@ -171,10 +171,11 @@ the minimum to act, never the boundary of what is worth reading (`CONSTITUTION.m
 
 **Live vs historical:** `docs/roster.md`, `control/`, `telemetry/`,
 `projects/`, `docs/prompts/` are **seat-era apparatus — historical record** (exceptions:
-`docs/prompts/chatgpt-project-instructions.md`,
-`docs/prompts/chatgpt-couch-legend-project-instructions.md` + the
-curious-research review
-prompt are live; `control/claims/` is contested — the kit still wires it), not current
+the live prompts listed at the top of `docs/prompts/README.md` — the two
+ChatGPT instruction sets, the curious-research review prompt and the
+2026-09-02 continuation prompts, six files as of 2026-09-02; that README is
+the one list, this line points at it; `control/claims/` is contested — the
+kit still wires it), not current
 truth (the seats no longer exist; the roster was retired 2026-08-07 and no
 longer regenerates). Per-repo truth lives in each repo's
 `docs/PROJECT-CLOSEOUT.md` + `docs/current-state.md`. The live surface always

@@ -79,11 +79,12 @@ WHERE THINGS STAND (verified 2026-09-02 ~22:30Z — re-verify first)
   WHICH COMES FIRST IS NOT SETTLED: he said the mail session would be the
   next one, then asked for this prompt so "the next session can work on
   the review website", and said he would finalize and send the mail the
-  next day. Nothing he said orders the two. Ask him in your first reply
-  whether the site pass must land before the mail is sent; until he
-  answers, assume the mail may go out first, so any page it links must be
-  correct at all times — the era framing and the "Start here" cards must
-  not regress at any commit.
+  next day. Nothing he said orders the two. Ask him whether the site pass
+  must land before the mail is sent — in your first message AFTER the four
+  labelled lines and the state check, never inside the restate block, which
+  takes no question; until he answers, assume the mail may go out first, so
+  any page it links must be correct at all times — the era framing and the
+  "Start here" cards must not regress at any commit.
 - The owner's screenshot of the claude.ai Projects overview, 11 July 2026
   23:34, during the program (described here because the image is not in
   the repo): a grid of eight project cards — Ideas Lab, Game Lab, Venture
@@ -98,11 +99,10 @@ WHERE THINGS STAND (verified 2026-09-02 ~22:30Z — re-verify first)
 READ FIRST (a floor, not a boundary — each verified at HEAD 2026-09-02)
 1. docs/repos/websites/README.md — the Layer 2 entry: what the repo is, the
    cutover, the traps, the paused follow-ups. Read before attaching.
-2. websites: review/README.md — the surface table, the bake→commit→render
-   data model, the edition ritual, the house rules (every claim cites a
-   PR/commit/file; problems get the same specificity as successes; nothing
-   is estimated; "we don't know" is a valid sentence), the verify commands.
-3. The live site, read cold as a reviewer would, BEFORE opening a template:
+2. The live site, read cold as a reviewer would, BEFORE the site's own
+   README and BEFORE opening a template — a first-time Anthropic visitor
+   has neither, and reading them first masks exactly the discoverability
+   failures you are there to find:
    the ten navigation pages AND at least one page from every dynamic route
    family — a `/fleet/{repo}` detail, a `/reviews/{slug}` edition, the
    `/questions` ledger, an `/ask` seeded answer (the exporter renders about
@@ -110,6 +110,10 @@ READ FIRST (a floor, not a boundary — each verified at HEAD 2026-09-02)
    Write one paragraph per page of what confused you, what you could not
    find, and what a first-time reader would need. That critique is the
    work order; put it to him before editing.
+3. websites: review/README.md — only after item 2's critique is written — the surface table, the bake→commit→render
+   data model, the edition ritual, the house rules (every claim cites a
+   PR/commit/file; problems get the same specificity as successes; nothing
+   is estimated; "we don't know" is a valid sentence), the verify commands.
 4. docs/findings/2026-09-02-owner-direction.md § 5c and § 5d — what he
    wants Anthropic to understand: what a Project adds over a session (the
    instruction box as a delivery tier; a coordinator that is a mind of its
