@@ -43,9 +43,11 @@ WHERE THINGS STAND (verified 2026-09-02 ~22:30Z — re-verify first)
 - The site is the websites repo's `review/` app: FastAPI renders committed
   data under `review/data/`, `review/gen_static.py --out _site --base-path
   /websites` exports it, and `review-pages.yml` publishes to GitHub Pages.
-  No Railway service behind it since 2026-08-20 (websites' static-export
-  decision of that date: the live `/ask/api` path died with the process;
-  seeded answers survive as static pages). Everything a page shows is a committed file; a missing or
+  The 2026-08-20/21 cutover: the static-export decision and the Pages site
+  on the 20th, the consumers repointed and the Railway service deleted on
+  the 21st (the Layer 2 entry has the measured sequence). The live
+  `/ask/api` path died with the process; seeded answers survive as static
+  pages. Everything a page shows is a committed file; a missing or
   stale mirror banners honestly (`fleetdata.STALE_HOURS` = 48 h).
 - Live at HEAD: title "Program Review — how an owner + agent fleet shipped";
   ten pages — Overview, Process, Growth, Fleet, Reviews, Q&A (questionnaire),
@@ -71,7 +73,9 @@ WHERE THINGS STAND (verified 2026-09-02 ~22:30Z — re-verify first)
   exit 0 proves every route rendered 200, NOT link integrity — grep the
   `_site` tree for the links you added.
 - The final EAP mail has its own session prompt
-  (docs/prompts/2026-09-02-eap-mail-session.md) and will link to this site.
+  (docs/prompts/2026-09-02-eap-mail-session.md), whose acceptance now
+  requires it to link this site (the current draft carries no
+  `menno420.github.io/websites` URL; the July mails linked it twice).
   WHICH COMES FIRST IS NOT SETTLED: he said the mail session would be the
   next one, then asked for this prompt so "the next session can work on
   the review website", and said he would finalize and send the mail the
@@ -146,8 +150,9 @@ REJECTED, AND WHY
   work; the ask is navigation, explanation and examples, not a rewrite.
 - Reviving the Railway service or the live `/ask/api` path → websites'
   static-export decision; the audience is a reader of a static archive.
-- Inventing screenshots, or presenting a mockup as the product → he will
-  supply real screenshots; until then a mockup is drawn and labelled.
+- Inventing screenshots, or presenting a mockup as the product → real
+  screenshots come only if he finds them; with or without them a mockup is
+  drawn and labelled as a mockup.
 - Hardcoding a fleet size, a count or a date into a template → house rule;
   the pages render what the committed mirrors hold and banner when stale.
 - Any fan-out for the pass → he did not opt in; one attended session.

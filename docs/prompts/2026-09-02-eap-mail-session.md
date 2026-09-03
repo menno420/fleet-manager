@@ -221,6 +221,13 @@ DONE WHEN
   or dropped; night-review-2026-07-10 read before FD-01/FD-02; every
   citation re-opened (the critic's 4-for-4 line-anchor drift); every linked
   document confirmed on main; every count re-run and dated.
+- The mail links the review site — https://menno420.github.io/websites/ —
+  at least once, by design and not by accident: the Overview as the entry,
+  plus whichever page(s) the addendum's claims are best read against,
+  chosen and named in the card. The July mails linked the site twice; the
+  current draft carries no `menno420.github.io/websites` URL at all. If the
+  site pass has not landed when he sends, link only pages that are correct
+  today (the Overview's "Start here" cards and era framing are).
 - The same text staged as a Gmail draft he can edit, or the wall recorded.
 - The last Codex round answered on the head that flips (one required, at
   most three; the flip commit itself is the one exempt commit past it);
