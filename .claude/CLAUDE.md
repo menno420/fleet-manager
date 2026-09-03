@@ -173,7 +173,7 @@ the minimum to act, never the boundary of what is worth reading (`CONSTITUTION.m
 `projects/`, `docs/prompts/` are **seat-era apparatus — historical record** (exceptions:
 the live prompts listed at the top of `docs/prompts/README.md` — the two
 ChatGPT instruction sets, the curious-research review prompt and the
-2026-09-02 continuation prompts, six files as of 2026-09-02; that README is
+2026-09-02/03 continuation prompts, seven files as of 2026-09-03; that README is
 the one list, this line points at it; `control/claims/` is contested — the
 kit still wires it), not current
 truth (the seats no longer exist; the roster was retired 2026-08-07 and no

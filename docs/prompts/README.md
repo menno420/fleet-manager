@@ -2,8 +2,13 @@
 
 > **Status:** `living-ledger`
 
-> **Six files here are LIVE, not part of the historical ledger below** —
-> the sixth, added 2026-09-02 after the review sitting closed:
+> **Seven files here are LIVE, not part of the historical ledger below** —
+> the seventh, added 2026-09-03 after the review-site pass landed
+> (websites #524): [`2026-09-03-review-site-walkthrough-chatgpt-work.md`](2026-09-03-review-site-walkthrough-chatgpt-work.md),
+> the continuation prompt for a ChatGPT Work session on the owner's laptop
+> that walks the live site through his Chrome extension and reports whether
+> it is intuitive, works and looks as expected. The sixth, added 2026-09-02
+> after the review sitting closed:
 > [`2026-09-02-review-site-session.md`](2026-09-02-review-site-session.md),
 > the continuation prompt for the session that improves the program-review
 > site for Anthropic (navigation, explanation, examples including a
