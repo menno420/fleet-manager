@@ -57,6 +57,13 @@ CONSUMERS = [
     ".sessions/2026-08-25-e1-owner-revision-pass.md",
 ]
 BASE = "9b2d83a:docs/planning/2026-08-24-final-eap-email-draft.md"
+# The 1,686-word text he chose 2026-08-25, at the last commit before the
+# 2026-09-02 addendum landed (fm #1017). Three figures are measurements OF THAT
+# TEXT — the cut-only route, the one-sentence-per-block floor, and the
+# "N after the cut" clause — and re-deriving them from the grown mail would
+# demand that historical cards be rewritten to match. So they are computed from
+# this pinned text; absent in a shallow checkout, they SKIP with a NOTE, like BASE.
+CAP_BASE = "a65fcfd:docs/planning/2026-08-24-final-eap-email-draft.md"
 CENSUS_FIX = ", and **seven were created after the program closed**"
 
 # (pattern, keys-in-group-order). Every occurrence in every consumer is checked.
@@ -64,7 +71,7 @@ CLAIMS = [
     (r"Part\s+2\s+was\s+([\d,]+)\s+words\s+at",                    ["before"]),
     (r"9b2d83a`,\s+([\d,]+)\s+after\s+the\s+cut",                  ["cut_only"]),
     (r"and\s+([\d,]+)\s+as\s+it\s+now\s+stands",                   ["now"]),
-    (r"·\s+([\d,]+)\s+words\s+is\s+about\s+three\s+pages",         ["now"]),
+    (r"·\s+([\d,]+)\s+words\s+is\s+about\s+\w+\s+pages",           ["now"]),
     (r"carries\s+\*\*([\d,]+)\s+bold",                             ["bold"]),
     (r"bold\s+and\s+([\d,]+)\s+italic\s+spans",                    ["italic"]),
     (r"the\s+route\s+lands\s+at\s+\*\*([\d,]+)\*\*",               ["cut_only"]),
@@ -127,6 +134,9 @@ def computed() -> dict:
     # to ignore it.
     r = subprocess.run(["git", "show", BASE], cwd=ROOT, capture_output=True, text=True)
     base = r.stdout if r.returncode == 0 else None
+    r2 = subprocess.run(["git", "show", CAP_BASE], cwd=ROOT, capture_output=True, text=True)
+    capmd = r2.stdout if r2.returncode == 0 else None
+    capN = R.extract(capmd) if capmd is not None else None
     at = lambda p: next(k for k, l in enumerate(N) if l.startswith(p))
     gp, so, ev = (at("**What genuinely worked"), at("**A standing offer"),
                   at("Everything above is public"))
@@ -138,17 +148,18 @@ def computed() -> dict:
     # the executive-summary route: each block reduced to its lead claim. Computed,
     # because it is now an option offered to the owner and a bare number in prose
     # is exactly what this file exists to stop.
-    paras = [x for x in R.to_text(N).split("\n\n") if x.strip()]
+    paras = [x for x in R.to_text(capN).split("\n\n") if x.strip()] if capN is not None else []
     lead = []
     for x in paras:
         if re.match(r"^\d+\.", x) or x.startswith("- ") or x.startswith("Everything above"):
             lead.append(x)
         else:
             lead.append(re.split(r"(?<=[.!?])\s", x.strip())[0])
-    exec_summary = sum(1 for s in lead for w in s.split() if re.search(r"[A-Za-z0-9]", w))
+    exec_summary = (sum(1 for s in lead for w in s.split() if re.search(r"[A-Za-z0-9]", w))
+                    if capN is not None else None)
     return {"exec_summary": exec_summary,
             "before": mw(R.extract(base)) if base is not None else None,
-            "cut_only": mw(R.extract(md.replace(CENSUS_FIX, ""))),
+            "cut_only": mw(R.extract(capmd.replace(CENSUS_FIX, ""))) if capmd is not None else None,
             "now": mw(N),
             "floor": mw(N) - mw(N[gp:so]) - mw(N[so:ev]),
             "bold": c["bold"], "italic": c["italic"],
@@ -186,6 +197,9 @@ def main() -> int:
     if want["before"] is None:
         print("  NOTE: base commit 9b2d83a not in this clone (shallow checkout) — "
               "the pre-cut baseline claim is SKIPPED, not silently passed.")
+    if want["cut_only"] is None:
+        print("  NOTE: pre-addendum commit a65fcfd not in this clone (shallow checkout) — "
+              "the cut-only and one-sentence-floor claims are SKIPPED, not silently passed.")
     docs = {p: (ROOT / p).read_text(encoding="utf-8") for p in CONSUMERS}
 
     # INVENTORY FIRST. If a claim has vanished, no amount of value-checking on

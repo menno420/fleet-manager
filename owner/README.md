@@ -6,7 +6,7 @@
 > what needs your attention was spread across several surfaces you had to
 > already know about; it is swept from them so it cannot go stale.
 >
-> generated-at 2026-09-01T17:49:17Z
+> generated-at 2026-09-03T18:57:55Z
 
 **What is here:** things only you can decide · questions written for you ·
 documents waiting for your own words · piles that need triage. **What is
@@ -77,7 +77,7 @@ own WHAT / WHERE / WHY-IT-MATTERS / UNBLOCKS.
 
 **Partly answered (2)**
 
-- **`OQ-E1-FINAL-EAP-EMAIL`** — ▶ RE-BRIEFED 2026-08-28 — "soon", and its content brief just WIDENED.
+- **`OQ-E1-FINAL-EAP-EMAIL`** — ▶ DRAFTED IN FULL AND STAGED 2026-09-03 (fm #1017) — what is left is his: read, edit, add the recipients, send.
 - **`OQ-KIT-V1-21-RELEASE`** — ◐ HALF-ANSWERED 2026-08-28 — the CUT is timed; the ADOPTERS are not.
 
 **Held by your own word (1)**
