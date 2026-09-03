@@ -40,7 +40,7 @@
 | 4 | **Fresh compose, new subject, no reply-linkage** | Plan § 1: the standalone closing statement, readable cold in minutes | replying on the old thread instead |
 | 5 | The thesis is **refined, not replaced**: the wall is human review *because the defects are shaped to survive review* | The month of auditing earned the sharper version; the original is still true and still his | keeping the July wording |
 | 6 | Part 1 is a **beat table placed BEFORE `COPY FROM HERE`**, and the drafted prose is **deleted, not retained** — **OVERTURNED BY THE OWNER 2026-09-02:** *"I would like a proper draft created which I can read and edit"* (§ 5b), and Shape A chosen with Part 1 drafted for him to rewrite. The proposal now sits **below the beat table, still outside the COPY markers**, so `--count` excludes it and it cannot be pasted by accident; beat 3 stays his | Rounds 2 and 3 both rejected weaker versions: a scaffold inside the markers gets pasted whatever the header calls it, and prose outside them still supplies his voice when he is invited to lift phrases — the owner then chose exactly that supply, knowingly | rewriting it in his own words, which is the expected outcome |
-| 7 | **The one-page bound wins — findings 1–3 and asks 1–5 only** — **AMENDED 2026-09-02 (Shape A):** the 1,686 words he chose stay as they are; one addendum and two one-clause patches are added on top, so the block is now **2,097 → 2,318 words** (re-derived by `--count`; the addendum alone is ~450) | Two of his own instructions collided (§ 2 item 6: the cap, versus *"add genuinely new points"*). Surfaced rather than resolved, and **he chose the literal cap on 2026-08-25**: findings 4–5 out, asks 6–14 out, optional finding 6 out — 2,097 down to 1,686 words. On 2026-09-02, offered A (Part 2 unchanged plus one addendum), B (rewrite around the month after) and C (the strict cap, no addendum), he chose A | saying which of the two month-after findings goes back, or "cut the addendum" |
+| 7 | **The one-page bound wins — findings 1–3 and asks 1–5 only** — **AMENDED 2026-09-02 (Shape A):** the 1,686 words he chose stay as they are; one addendum and two one-clause patches are added on top, so the block is now **2,097 → 2,323 words** (re-derived by `--count`; the addendum alone is ~450) | Two of his own instructions collided (§ 2 item 6: the cap, versus *"add genuinely new points"*). Surfaced rather than resolved, and **he chose the literal cap on 2026-08-25**: findings 4–5 out, asks 6–14 out, optional finding 6 out — 2,097 down to 1,686 words. On 2026-09-02, offered A (Part 2 unchanged plus one addendum), B (rewrite around the month after) and C (the strict cap, no addendum), he chose A | saying which of the two month-after findings goes back, or "cut the addendum" |
 | 8 | **The addendum is the answer to Anthropic's own question — what would make him choose a Project over a session — in his terms**, and it carries the false-done rows | His answers in [§ 5c–5d](../findings/2026-09-02-owner-direction.md) are the content; the DERIVED ordering under them was checked with him in the sitting; his one claim of degree (the coordinator beats a session's fan-out at several tasks at once) goes in marked as his inference, his own caveat. The three false-done rows are FD-01, FD-02 and FD-17 narrowed to its one sub-claim ([the evidence report](../findings/2026-09-02-eap-mail-evidence-report.md) § 3), each re-opened at source before use — FD-01 now also read from the pull request itself | naming another frame, or "drop the false-done rows" |
 
 **Logistics.** Fresh Gmail compose — *not* a reply. To the EAP alias, cc the
@@ -167,11 +167,12 @@ amount of work they could do in a short time. superbot-next is the example: a
 rebuild that one agent estimated at weeks was built in a few days, and the code
 itself was not faulty. What was wrong is that the functionality was not what I
 intended, and I only found that out when I looked at the finished product. That
-is how I review work, as a finished product, which is only possible when the
-pull requests actually merge, and the permission problems kept that from
-happening. I went in thinking the limit would be what the agents can do. What I
-found is that the limit is what I can check: the mistakes were not too many to
-read, they were shaped so that reading did not catch them.
+is how I review work, as a finished product, which is only possible once the
+pull requests actually merge. In the second week the permission problems kept
+many of them from merging, so some of the work never reached me in a form I
+could judge. I went in thinking the limit would be what the agents can do. What
+I found is that the limit is what I can check: the mistakes were not too many
+to read, they were shaped so that reading did not catch them.
 
 If I could ask for one fix it would still be permissions: let me decide
 beforehand which actions my Projects are allowed to take, merging included. I
@@ -283,11 +284,12 @@ the false-dones was independent adversarial review by a *different vendor's*
 model, wired into the PR flow. Measured on one pull request: request to review in
 **335 seconds**. Separately, and across two pull requests: **13 findings over
 5 rounds**, several of them proving a pull request did not do what its own title
-claimed. We have kept it wired in since (scoped, so it is not read as more: the
-fortnight's false-dones in the addendum were caught by a commissioned review, not
-by this, and in one repository that July three of three checked reviews from this
-same class were found fabricated, one citing a commit that exists in no ref, so
-we now resolve what a review cites before trusting it). We have no
+claimed. We have kept it wired in since. Two scopes on that, so it is not read
+as more: the fortnight's false-dones in the addendum were caught by a
+commissioned review, not by this; and in one repository that July, three of
+three checked reviews from this same class were found fabricated, one citing a
+commit that exists in no ref, so we now resolve what a review cites before
+trusting it. We have no
 controlled comparison against a longer checklist — what we have is that this is
 the thing that caught them.
 
@@ -356,8 +358,8 @@ a self-scheduled wake chain is an autonomous worker too — one of his repositor
 was built and kept alive that way unreviewed. A Project added three things.
 First, one rule set delivered verbatim into every agent it spawned: "this was a
 pretty nice way to work and I believe the instructions were followed pretty
-well", and the record agrees on rules of form (767 of 949 cards in one repository
-carried the required review section). What it could not carry was judgement:
+well", and the record agrees on rules of form (767 of 949 session cards in one
+repository carried the required review section). What it could not carry was judgement:
 verify-before-claim failed there as in repository prose. About half of one
 worker's box was doctrine any autonomous-agent user would want as the default
 (linked below). Second, a coordinator that is "a mind of its own",
@@ -385,8 +387,8 @@ an owner action resolved when only half of it was (integration enabled, quota
 still capped). The first two were caught by a commissioned whole-night review
 that ran once, on no schedule; the third by a consistency review three days
 later; none by a gate. Two asks follow: a "queue exhausted" checked
-against the repository before it is reported, and agents more organised and
-structured in how they document what they built — his words.
+against the repository before it is reported, and agents that are, in his words,
+"more organized and structured in how they document things".
 
 Everything above is public:
 - The census behind the figures above, measured 2026-08-24 — 27 repositories,
@@ -451,11 +453,11 @@ Everything above is public:
 > - **The judges' optional fourth addendum item** (a clean result is
 >   indistinguishable from a check that never ran, ~100 words; two of three
 >   judges wanted it) — *no* / *add it*.
-> - **Length** — the addendum is 451 words against the ~450 he chose; the block
->   is 2,318 against the "near 2,100" the sitting estimated, the difference
+> - **Length** — the addendum is 453 words against the ~450 he chose; the block
+>   is 2,323 against the "near 2,100" the sitting estimated, the difference
 >   being the links block (ten bullets, 195 words) and the two patches (~75) —
 >   *keep* / *trim the links* / *drop the instruction-box link*.
-> - **Part 1** — 518 words as proposed, his to rewrite; beat 3 above all —
+> - **Part 1** — 537 words as proposed, his to rewrite; beat 3 above all —
 >   *rewrite in Gmail* / *rewrite here and I verify it*.
 >
 > **Where the draft is:** Gmail → Drafts → "Claude Code Projects EAP — the final
@@ -535,7 +537,7 @@ each is one line to overturn.
 - **c · The month-after spine is three findings, not five** — and the month-after
   is **§ 1 decision 1's entire rationale** for sending this at all. → *"put
   finding 4 back"* (drift, 92 words) or *"finding 5 back"* (cost, 193 words)
-- **d · 2,318 words is about four pages (1,686 before the 2026-09-02 addendum), and one page IS reachable — by
+- **d · 2,323 words is about four pages (1,686 before the 2026-09-02 addendum), and one page IS reachable — by
   restructure, not by subtraction.** *(Corrected 2026-08-25: this entry said "no
   route reached one page", which was only ever true of **cutting things**. Nobody
   had tried changing the shape.)* Subtractive floor: cutting the good-parts block
@@ -623,7 +625,7 @@ each is one line to overturn.
    recorded in the queue, the program § 7 row and `docs/planning/README.md`,
    stays true.
 6. **The length — ANSWERED: the literal cap.** **Part 2 was 2,097 words at
-   `9b2d83a`, 1,678 after the cut, and 2,318 as it now stands** — the eight-word
+   `9b2d83a`, 1,678 after the cut, and 2,323 as it now stands** — the eight-word
    census fix at consequence *e* took it to 1,686, and Shape A's addendum and two
    patches (2026-09-03, § 1 decisions 7–8) account for the rest.
    **The number now comes from a command rather than from prose:**
