@@ -93,7 +93,7 @@ as a proposal he rewrites in his own voice. Working file:
   `main`). All five pre-existing links confirmed on `main`; superbot's doc 200
   via the API.
 - **Figures re-derived:** block **2,322 words** (`--count`), `--verify`
-  loss-free (2323 → 2323), 30 bold + 13 italic (italics deliberately held at 13
+  loss-free (2322 → 2322 at the reviewed head `4d90d43`; 2323 → 2323 one commit earlier), 30 bold + 13 italic (italics deliberately held at 13
   so the 2026-08-25 card's guarded figure stays true), `--selftest` 13/13.
   `check_eap_figures.py` clean after two changes: the "three pages" pattern now
   accepts any page word (the block is about four), and the three figures that
@@ -120,9 +120,12 @@ as a proposal he rewrites in his own voice. Working file:
 - **Gmail:** the probe draft was then UPDATED in place with the full mail —
   plain body + HTML body from the render tool, subject *"Claude Code Projects
   EAP — the final review, six weeks on"*, no recipients — three times as the
-  text moved (message ids `1a0688cbba3238fb` → `1a06898c5ba3551a`; draft id
-  stable). `get_draft` MINIMAL read it back with `labelIds ["DRAFT"]` and the
-  Part 1 snippet. Capability line in `docs/CAPABILITIES.md`, API half only.
+  text moved — **four updates in all**, the last carrying the round-2 body
+  (message ids `1a0688cbba3238fb` → `1a06898c5ba3551a` → `1a068adeab59caad`;
+  draft id stable). `get_draft` MINIMAL read the final one back at ~19:23Z:
+  `labelIds ["DRAFT"]`, `messageId 1a068adeab59caad`, the Part 1 snippet —
+  the body in Gmail is the reviewed head's text. Capability line in
+  `docs/CAPABILITIES.md`, API half only.
 - **The mailbox, re-checked (the critic's own flag):** thread A still holds only
   the 07-16 21:12 and 21:42 messages; thread B unchanged; nothing from the
   vendor since 2026-08-18 — an async UX-study invitation ("20 minutes on how
@@ -160,7 +163,24 @@ as a proposal he rewrites in his own voice. Working file:
   source bullets (453 + 88 = 541, now the figure the § 2 length call is put
   against); the owner-queue send step named only the cc list (now the EAP
   alias in To and the cc addresses, both from the July thread's headers).
-  Round 3 requested on the fix head — *(tally below)*.
+  **Missed in round 2's own review body** (read only at round 3, because the
+  round-2 poll printed review ids and not bodies — the finding sat in the
+  review body, not inline): owner-queue's "is **1,686** now" — fixed, "was
+  1,686 after his 2026-08-25 cut and is 2,322 with the addendum".
+- **Codex round 3** on `4d90d43` (requested 19:10Z, review 19:17:52Z; the
+  cap's last round): **3 findings, all P2 — 3 fixed, 0 refuted, 0 open**,
+  each verified directly, no fourth round: the card had not recorded the
+  post-round-2 Gmail update (it had happened — message id `1a068adeab59caad`;
+  now recorded with its read-back); the card's `--verify` figure was one
+  commit stale (2323 → 2322, corrected); `docs/current-state.md`'s retained
+  2026-08-25 paragraph mixed the live count with a superseded "does not draft
+  Part 1" instruction (the instruction marked superseded by Shape A). Direct
+  verification after the fixes: `check_eap_figures.py` clean,
+  `render_eap_mail.py --verify` loss-free, `scripts/preflight.py` failing only
+  on the born-red hold, `python3 bootstrap.py check --strict` exit 0 after the
+  flip. **Tally across the three rounds: 12 findings — 12 conceded, 0
+  survived** (4 + 4 + 3, plus the round-2 body finding counted with round 2's
+  four — 4 + 5 + 3 = 12).
 
 ## § 10 preconditions, ticked
 

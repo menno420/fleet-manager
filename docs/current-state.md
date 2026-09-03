@@ -64,7 +64,8 @@ copy product architecture or internal product state. Canonical intent:
   2026-09-02 addendum and two patches added the rest, fm #1017), from
   `python3 tools/render_eap_mail.py --count` rather than from prose — the figure
   had been wrong in all three places it was written. **A session still does not
-  draft Part 1 or send it.** **The evidence base for Part 2's widening landed
+  send it** *(the "does not draft Part 1" half of this sentence was superseded
+  2026-09-02 by Shape A — Part 1 is proposed for him to rewrite, fm #1017)*. **The evidence base for Part 2's widening landed
   2026-09-02 (fm #1010):**
   [`findings/2026-09-02-eap-mail-evidence-report.md`](findings/2026-09-02-eap-mail-evidence-report.md)
   — two overnight fan-outs (12 verified Fleet A findings, a 3-row false-done
