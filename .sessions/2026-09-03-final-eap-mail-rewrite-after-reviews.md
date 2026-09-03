@@ -16,7 +16,8 @@
 - **⚑ Model-slot note:** this session carries an instruction against a model
   identifier in a pushed artifact; effort and PL-004 task class are exact.
 - **📍 Venue:** cloud-container
-- **🔗 Session:** [session_01FYmmtAxtUAuXyAhWpejVYK](https://claude.ai/code/session_01FYmmtAxtUAuXyAhWpejVYK) · "Final EAP mail draft" (the same session as `.sessions/2026-09-03-final-eap-mail-draft.md`, continued after fm #1017 merged; a second PR because the owner opened it — the stated exception, [D-0024])
+- **🔗 Session:** [session_01FYmmtAxtUAuXyAhWpejVYK](https://claude.ai/code/session_01FYmmtAxtUAuXyAhWpejVYK) · "Final EAP mail draft"
+- **⚑ Same session as** `.sessions/2026-09-03-final-eap-mail-draft.md`, continued after fm #1017 merged; a second PR because the owner opened it — the stated exception under the one-PR-per-session guideline.
 
 **Why a second card:** fm #1017's card is complete and merged; this is the
 owner's PR, and the estate records every landing.
