@@ -1,6 +1,6 @@
 # 2026-09-03 — records only: one stale cross-reference in the review-site prompt
 
-> **Status:** `in-progress` — born red. The review-site continuation prompt's
+> **Status:** `complete` — the review-site continuation prompt's
 > first step said "READ FIRST item 3 — the ten-page cold read" after Codex
 > round 3 of fm #1014 had moved the cold read to item 2; found while pasting
 > the prompt to the owner. One line. Tier 3 (records only, under the

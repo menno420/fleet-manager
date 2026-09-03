@@ -195,7 +195,7 @@ URL through the configured remote — measured 2026-08-21 (ledger): once
 attached with push, the plain URL pushes through the proxy and no PAT is
 needed. `printenv GITHUB_PAT >/dev/null && echo present || echo absent`
 tells you whether the direct-egress path exists as a spare route; it is
-never a prerequisite. Then do READ FIRST item 3 — the ten-page cold read with one
+never a prerequisite. Then do READ FIRST item 2 — the cold read, one
 paragraph per page — and put the critique and the OPEN shape question (A/B/
 C) to him in one message before changing anything.
 
