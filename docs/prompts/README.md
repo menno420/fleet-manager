@@ -2,8 +2,12 @@
 
 > **Status:** `living-ledger`
 
-> **Five files here are LIVE, not part of the historical ledger below** —
-> the fifth, added 2026-09-02 at the close of the review sitting:
+> **Six files here are LIVE, not part of the historical ledger below** —
+> the sixth, added 2026-09-02 after the review sitting closed:
+> [`2026-09-02-review-site-session.md`](2026-09-02-review-site-session.md),
+> the continuation prompt for the session that improves the program-review
+> site for Anthropic (navigation, explanation, examples including a
+> Projects-overview mockup). The fifth, added at the close of the sitting:
 > [`2026-09-02-eap-mail-session.md`](2026-09-02-eap-mail-session.md), the
 > continuation prompt for the session that drafts the final EAP mail for the
 > owner to read, edit and send (paste-ready; `continuation-prompt` skill

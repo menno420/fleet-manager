@@ -178,6 +178,15 @@ REJECTED, AND WHY
   recipients himself in Gmail.
 
 OPEN (what would settle each)
+- Whether the review-site pass (docs/prompts/2026-09-02-review-site-session.md
+  — navigation, explanation, examples including a Projects-overview mockup,
+  asked for the same evening) must land BEFORE this mail is sent. He said
+  the mail session would be next, then asked for that prompt "so the next
+  session can work on the review website", and said he would send the next
+  day; nothing he said orders the two. Ask him in your first message after
+  the four labelled lines and the state check (the restate block takes no
+  question); until he answers, the mail links only pages that are correct
+  today.
 - The judges' optional fourth addendum item (a clean result is
   indistinguishable from a check that never ran — ~100 words). Include only
   if he grants the words; two of three judges wanted it.
@@ -214,6 +223,13 @@ DONE WHEN
   or dropped; night-review-2026-07-10 read before FD-01/FD-02; every
   citation re-opened (the critic's 4-for-4 line-anchor drift); every linked
   document confirmed on main; every count re-run and dated.
+- The mail links the review site — https://menno420.github.io/websites/ —
+  at least once, by design and not by accident: the Overview as the entry,
+  plus whichever page(s) the addendum's claims are best read against,
+  chosen and named in the card. The July mails linked the site twice; the
+  current draft carries no `menno420.github.io/websites` URL at all. If the
+  site pass has not landed when he sends, link only pages that are correct
+  today (the Overview's "Start here" cards and era framing are).
 - The same text staged as a Gmail draft he can edit, or the wall recorded.
 - The last Codex round answered on the head that flips (one required, at
   most three; the flip commit itself is the one exempt commit past it);
