@@ -587,6 +587,26 @@ sitting's continuation prompt is for the mail session —
 [`../prompts/2026-09-02-eap-mail-session.md`](../prompts/2026-09-02-eap-mail-session.md)
 — per § 5b; the program's NOW pointer moved to E1 on his words there.
 
+**A second prompt, asked for after that PR merged, `OWNER`:**
+
+> *"Use the continuation prompt skills so the next session can work on the
+> review website for Anthropic. I want to make sure that thos website is
+> easy to navigate and explains everything properly. Preferably with some
+> examples of how we want things to look. I will see if I can find some
+> example screenshots later, but for now it should just try to create it
+> based on the descriptions we have."*
+
+> *"Yes it's the existing one. And with examples of how we want things to
+> be I also mean the projects overview."* — and, with a screenshot of the
+> claude.ai Projects overview from 11 July (eight project cards showing
+> only a name, an age and "Only visible to you"): *"This screen is where
+> I'd like the projects to be showing whether or not they are active."*
+
+`DERIVED`: the site is the websites repo's Pages export; the prompt is
+[`../prompts/2026-09-02-review-site-session.md`](../prompts/2026-09-02-review-site-session.md),
+with the screenshot described in words because the image is not in the
+repo, and the shape of the examples left to him as its first question.
+
 `DERIVED`: this record, the retained verification data, the ledger entries,
 the card's close-out addendum, and
 [`../prompts/2026-09-02-step-by-step-review-sitting.md`](../prompts/2026-09-02-step-by-step-review-sitting.md),

@@ -83,7 +83,11 @@ completed step appends a row to §7 with its PR.
 > `docs/prompts/2026-09-02-eap-mail-session.md`. E1's working file is
 > `docs/planning/2026-08-24-final-eap-email-draft.md`. This is an owner pick,
 > so it stands until he says otherwise; the kit records step below is the
-> one behind it.
+> one behind it. **Beside E1, at his ask the same evening:** the review-site
+> pass — the site the mail links to; navigation, explanation, examples
+> including a Projects-overview mockup — prompt at
+> `docs/prompts/2026-09-02-review-site-session.md`; a parallel session, not
+> a step E1 waits on.
 
 #### Behind it — was NOW from 2026-08-28 to 2026-09-02: **The OD-24 round's session 5 — the kit records work he cleared** *(D2's target is now ANSWERED: `spider-swing`)*
 
