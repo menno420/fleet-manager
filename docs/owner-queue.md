@@ -566,7 +566,7 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   one-clause patches and one addendum — the Projects-versus-sessions answer in
   his terms, with the three false-done rows as the evidence that verification
   is the deciding line. Block: **2,323 words** by `--count`, addendum 453, Part
-  1 proposal 518. **Staged as a Gmail draft in his own mailbox, no recipients:**
+  1 proposal 537. **Staged as a Gmail draft in his own mailbox, no recipients:**
   Drafts → *"Claude Code Projects EAP — the final review, six weeks on"* (id
   `r-9208017789511753451`). WHAT: open it, rewrite Part 1 in his voice, answer
   the one-word calls in [the draft's § 2](planning/2026-08-24-final-eap-email-draft.md)
@@ -577,7 +577,7 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   list-back); **his half — that he sees and can edit it in Gmail — is recorded
   only when he says so**, in words. After sending: the send record in § 3 of the
   draft (date, subject, `Message-Id`), then this entry closes.
-- **`OQ-E1-FINAL-EAP-EMAIL` ▶ RE-BRIEFED 2026-08-28 — "soon", and its content brief just WIDENED.**
+- **`OQ-E1-FINAL-EAP-EMAIL` (superseded body) ▶ RE-BRIEFED 2026-08-28 — "soon", and its content brief just WIDENED.** *(Superseded by the 2026-09-03 entry above; kept for its record.)*
   Owner, live (§ 19 of [the sitting record](findings/2026-08-28-od24-sitting-answers.md)). He first selected *"Leave it — not now"*,
   then revised it unprompted minutes later — **the revision governs**: *"About
   the mail, that really is something to work on soon, and I think that all the

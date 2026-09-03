@@ -60,28 +60,35 @@ re-breaks raggedly at whatever width their client uses. Run one of these instead
 | `python3 tools/render_eap_mail.py` | **plain text — use this for a normal compose.** Emphasis marks gone, paragraphs unwrapped so the mail client reflows them |
 | `python3 tools/render_eap_mail.py --html > mail.html` | a **complete HTML document**. **Open it in a browser, select all, copy, and paste *that*** — pasting the HTML source into the compose gives literal `<p>` tags, which is worse than asterisks. This is the only route that keeps the emphasis |
 | `python3 tools/render_eap_mail.py --count` | the word count, computed from the source rather than quoted from a sentence about it |
-| `python3 tools/render_eap_mail.py --eml > mail.eml` | **a real message you can open in a mail client** — plain + HTML alternatives — to *see* the rendering before sending. Headers are blank: it previews, it never sends |
+| `python3 tools/render_eap_mail.py --eml > mail.eml` | **a real message you can open in a mail client** — plain + HTML alternatives — to *see* the rendering before sending. Headers are blank: it previews, it never sends. **Scope, 2026-09-03:** it renders **Part 2 only**, under the subject the tool hard-codes (the older "one month on" line); the complete message with both parts and the chosen subject is the **Gmail draft** below, built from the same renderer |
 | `python3 tools/check_eap_figures.py` | checks that **this document's stated figures still match the mail** — run it after any edit to the COPY block, because the count is hard-coded in five living documents and one re-wording falsifies all of them at once |
-| `python3 tools/render_eap_mail.py --verify` | proof the paste is **complete** — asserts the rendering dropped nothing and invented nothing (1,686 → 1,686). Worth running once before you paste |
+| `python3 tools/render_eap_mail.py --verify` | proof the paste is **complete** — asserts the rendering dropped nothing and invented nothing (2,323 → 2,323 on 2026-09-03). Worth running once before you paste |
 
 **What is verified, and what is not.** An earlier version of this note said no
 mail client was reachable and left it there. That was a wall, not a measurement —
 nothing had been tried. What has now actually been run:
 
 - **The HTML renders correctly in a real browser engine.** Headless Chromium
-  (`/opt/pw-browsers/chromium-1194`): all **27 `<strong>`, 12 `<em>`, 9 `<li>`,
-  both lists and 12 paragraphs survive rendering, and **zero literal asterisks**
-  appear. The DOM's 27/12 split independently confirms `--count`'s emphasis
-  figures by a completely different route.
+  (`/opt/pw-browsers/chromium-1194`), **re-measured 2026-09-03 on the expanded
+  block plus the Part 1 proposal, the same document the Gmail draft holds:**
+  `--dump-dom` shows **30 `<strong>`, 14 `<em>` (13 in Part 2 plus the beat-3
+  note in Part 1), 15 `<li>`, both lists, 26 paragraphs and one `<hr>`**, and
+  **zero literal asterisks**. The DOM's 30/13 split for Part 2 independently
+  confirms `--count`'s emphasis figures by a completely different route. *(The
+  2026-08-24 measurement on the 1,686-word block was 27/12/9 and 12
+  paragraphs; superseded, not contradicted.)*
 - **The document is structurally valid** — stdlib `HTMLParser`, no unclosed tags,
-  no mismatched closes.
+  no mismatched closes (re-run 2026-09-03 on the combined document).
 - **`--eml` produces a real message** — `multipart/alternative`, `text/plain` +
   `text/html`, parses back through Python's `email` module. **Open it in Gmail,
   Thunderbird or Mail and you see what the recipient sees, before you send.**
 
 **Still unverified:** how *Gmail specifically* treats a paste, since that is its
-editor's behaviour rather than the file's. The `.eml` is the closest available
-answer and is one command away.
+editor's behaviour rather than the file's. **As of 2026-09-03 the paste is not
+the route:** the complete mail was placed in his Gmail Drafts by the API with
+the plain and HTML bodies from this renderer (no paste, no `.eml`), so what is
+unverified is now his half only — that he sees and can edit that draft. The
+`.eml` remains a Part 2-only preview.
 
 **And one real trade-off, not a limitation:** the plain-text route **deletes**
 the emphasis rather than preserving it. All 43 spans go, so *"116 to nothing"*

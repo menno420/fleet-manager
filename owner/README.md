@@ -6,7 +6,7 @@
 > what needs your attention was spread across several surfaces you had to
 > already know about; it is swept from them so it cannot go stale.
 >
-> generated-at 2026-09-03T18:41:29Z
+> generated-at 2026-09-03T18:57:55Z
 
 **What is here:** things only you can decide · questions written for you ·
 documents waiting for your own words · piles that need triage. **What is
@@ -34,7 +34,7 @@ worksheets themselves: [`owner/intent-workbooks/PROGRESS.md`](intent-workbooks/P
 
 ## Decide — open items in the owner queue
 
-39 open of 70 entries in [`docs/owner-queue.md`](../docs/owner-queue.md) (historical duplicate bodies excluded). Each entry there carries its
+38 open of 69 entries in [`docs/owner-queue.md`](../docs/owner-queue.md) (historical duplicate bodies excluded). Each entry there carries its
 own WHAT / WHERE / WHY-IT-MATTERS / UNBLOCKS.
 
 **Open (35)**
@@ -75,10 +75,9 @@ own WHAT / WHERE / WHY-IT-MATTERS / UNBLOCKS.
 - **`OQ-IDEA-ROUTING-OWNER-ONLY`** — Ideas-Lab items that are owner-only (not auto-routable).
 - **`OQ-SI-CHAIN-DEAD`** — (VENUE: hub first, then owner) Self Improvement seat wakes but never
 
-**Partly answered (3)**
+**Partly answered (2)**
 
 - **`OQ-E1-FINAL-EAP-EMAIL`** — ▶ DRAFTED IN FULL AND STAGED 2026-09-03 (fm #1017) — what is left is his: read, edit, add the recipients, send.
-- **`OQ-E1-FINAL-EAP-EMAIL`** — ▶ RE-BRIEFED 2026-08-28 — "soon", and its content brief just WIDENED.
 - **`OQ-KIT-V1-21-RELEASE`** — ◐ HALF-ANSWERED 2026-08-28 — the CUT is timed; the ADOPTERS are not.
 
 **Held by your own word (1)**
