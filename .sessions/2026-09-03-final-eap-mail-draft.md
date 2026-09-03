@@ -11,9 +11,9 @@
 > preflight and the strict gate) and this flip commit — the one exempt commit,
 > a badge flip plus close-out text. Landed on green.
 
-- **📊 Model:** withheld · xhigh · docs-only
+- **📊 Model:** Fable 5.1 · xhigh · docs-only
 - **⚑ Model-slot note:** this session carries an instruction against a model
-  identifier in a pushed artifact; effort and PL-004 task class are exact.
+  identifier in a pushed artifact; effort and PL-004 task class are exact. (owner edited the model afterwards)
 - **📍 Venue:** cloud-container
 - **🔗 Session:** [session_01FYmmtAxtUAuXyAhWpejVYK](https://claude.ai/code/session_01FYmmtAxtUAuXyAhWpejVYK) · "Final EAP mail draft"
 

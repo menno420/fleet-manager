@@ -139,7 +139,7 @@ def computed() -> dict:
     capN = R.extract(capmd) if capmd is not None else None
     at = lambda p: next(k for k, l in enumerate(N) if l.startswith(p))
     gp, so, ev = (at("**What genuinely worked"), at("**A standing offer"),
-                  at("Everything above is public"))
+                  at("The reports and methods are public"))  # renamed 2026-09-03 (reviewer finding E3)
     c = R.count(N)
     # the assertion count comes from the tool's own output, not from a constant
     out = subprocess.run([sys.executable, str(ROOT / "tools/render_eap_mail.py"), "--selftest"],
@@ -151,7 +151,7 @@ def computed() -> dict:
     paras = [x for x in R.to_text(capN).split("\n\n") if x.strip()] if capN is not None else []
     lead = []
     for x in paras:
-        if re.match(r"^\d+\.", x) or x.startswith("- ") or x.startswith("Everything above"):
+        if re.match(r"^\d+\.", x) or x.startswith("- ") or x.startswith("Everything above") or x.startswith("The reports and methods"):
             lead.append(x)
         else:
             lead.append(re.split(r"(?<=[.!?])\s", x.strip())[0])
