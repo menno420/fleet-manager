@@ -171,6 +171,23 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-09-03 · capability · `owner-live` · **A cloud container can RENDER a
+  static site to PNG for the owner to look at — no Playwright install needed.**
+  · evidence: `/opt/pw-browsers/chromium-1194/chrome-linux/chrome
+  --headless=new --no-sandbox --disable-gpu --hide-scrollbars
+  --window-size=1400,2600 --screenshot=<out.png> <url>` against
+  `python3 -m http.server` serving websites' `_site` export under a
+  `websites/` symlink (so `/websites/...` base-path links resolve) wrote
+  five PNGs of 368–662 KB in one pass (2026-09-03 ~09:55Z, this session);
+  `python3 -c "import playwright"` → `ModuleNotFoundError` and `PIL` is absent
+  too, so the browser binary is the route, not the Python packages. A URL
+  `#fragment` does NOT scroll the capture — the viewport starts at the top;
+  to render one section, write a copy of the exported page with a `<style>`
+  that hides every other section and shoot that. Delivered to the owner with
+  `SendUserFile` (two files, `display: render`), which is the "show him a
+  rendered page, not a diff" rule made cheap. · workaround: none needed.
+  — LAST-VERIFIED: 2026-09-03
+
 - 2026-09-02 · capability · `owner-live` · **Codex's automatic review
   triggers (PR open, draft→ready) are NOT ENABLED on this account — the
   owner's choice, not an unreliability — re-verification of the 2026-08-29

@@ -90,7 +90,12 @@ completed step appends a row to §7 with its PR.
 > is unsettled:** he said the mail session would be next, then asked for
 > this prompt "so the next session can work on the review website", and
 > said he would send the mail the next day; whether the site pass must land
-> before the send is his to say, and both prompts ask him.
+> before the send is his to say, and both prompts ask him. **The site pass
+> landed first anyway (2026-09-03, websites #524 → `137b80e`, live):** the
+> mail may now link `/after` (his answer to Anthropic's Projects-versus-
+> sessions question), `/examples#projects-overview-mockup`,
+> `/problems#coordinator-authority` and `/story` — fm card
+> `.sessions/2026-09-03-review-site-pass.md`.
 
 #### Behind it — was NOW from 2026-08-28 to 2026-09-02: **The OD-24 round's session 5 — the kit records work he cleared** *(D2's target is now ANSWERED: `spider-swing`)*
 
