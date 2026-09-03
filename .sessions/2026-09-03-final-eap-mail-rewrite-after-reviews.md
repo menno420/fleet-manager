@@ -1,13 +1,16 @@
 # 2026-09-03 — the final EAP mail rewritten once more, from the owner's own edits and an independent review
 
-> **Status:** `in-progress` — born red. What is about to happen: the owner's
-> pull request (fm #1019, branch `owner-edits`) carries his rewrite of Part 1
-> and comments on Part 2; ChatGPT Work reviewed the mail cold the same
-> evening; this session takes both in and rewrites both parts on his branch,
-> then restages the Gmail draft. **He reads it again before anything is
-> sent** — his words, mid-turn: *"I won't just send the corrected mail at once.
-> First I will read it again and see if there are any additions I should
-> make."*
+> **Status:** `complete` — the owner's pull request (fm #1019, branch
+> `owner-edits`) carried his rewrite of Part 1 and comments on Part 2;
+> ChatGPT Work reviewed the mail cold the same evening; this session took
+> both in, rewrote both parts on his branch and restaged the Gmail draft.
+> **He reads it again before anything is sent** — his words, mid-turn: *"I
+> won't just send the corrected mail at once. First I will read it again and
+> see if there are any additions I should make."* Codex: two rounds — 3
+> findings, all fixed; round two clean ("Didn't find any major issues",
+> reviewed commit `8b7e2fb`, 21:28:55Z). **Reviewed SHA `8b7e2fb`. After
+> it:** this flip commit only — the badge and the close-out text, the one
+> exempt commit. Landed on green.
 
 - **📊 Model:** withheld · xhigh · docs-only
 - **⚑ Model-slot note:** this session carries an instruction against a model
@@ -108,8 +111,20 @@ owner's PR, and the estate records every landing.
 - **Landing:** four session commits on his branch (`7b1fc8b` the rewrite,
   `8b3ae5c` and `9c1d984` records — two record scripts stopped at wrapped
   anchors and the shell pushed the partial sets, which is why there are
-  three record commits — `66ce999` the rest and this card). Codex round
-  requested on `66ce999` — *(tally below)*.
+  three record commits — `66ce999` the rest and this card).
+- **Codex round 1** on `66ce999` (requested 21:12:52Z, review 21:19:25Z):
+  **3 findings, all P2, 3 conceded, 0 survived** — the custom-instructions
+  praise overstated what was automatic (scoped: pasted once per Project,
+  delivered to every agent that Project spawned; the paste and the re-paste
+  after a reset were his — `docs/prompts/v3/README.md:18-26`, owner-direction
+  :330-333); the owner-queue WHAT, current-state and the program NOW block
+  still told him to rewrite Part 1 (now: re-read, additions, the one-word
+  calls, recipients, send); the edit pairs promised by the draft were not yet
+  in the pushed card (they are above). Block 2,279 → 2,299 with the scoped
+  sentence; guarded consumers moved; `--verify` loss-free; checker clean.
+- **Codex round 2** on `8b7e2fb` (requested 21:25:34Z, verdict 21:28:55Z):
+  **clean** — "Didn't find any major issues", reviewed commit `8b7e2fb0de`.
+  No third round needed. **Tally: 3 findings, 3 conceded, 0 survived.**
 
 ## 💡 Session idea
 
