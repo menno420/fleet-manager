@@ -565,8 +565,8 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   paragraph, is his alone), Part 2 kept at the 1,686 words he chose plus two
   one-clause patches and one addendum — the Projects-versus-sessions answer in
   his terms, with the three false-done rows as the evidence that verification
-  is the deciding line. Block: **2,279 words** by `--count`, addendum 453 of body plus 88 of its own source bullets, Part
-  1 proposal 536. **Staged as a Gmail draft in his own mailbox, no recipients:**
+  is the deciding line. Block: **2,279 words** by `--count` after the evening rewrite (his edits in fm #1019 + the independent review), addendum 488 of body plus 75 of its source bullets, Part
+  1 696 words in his own words. **Staged as a Gmail draft in his own mailbox, no recipients:**
   Drafts → *"Claude Code Projects EAP — the final review, six weeks on"* (id
   `r-9208017789511753451`). WHAT: open it, rewrite Part 1 in his voice, answer
   the one-word calls in [the draft's § 2](planning/2026-08-24-final-eap-email-draft.md)

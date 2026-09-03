@@ -40,7 +40,7 @@
 | 4 | **Fresh compose, new subject, no reply-linkage** | Plan § 1: the standalone closing statement, readable cold in minutes | replying on the old thread instead |
 | 5 | The thesis is **refined, not replaced**: the wall is human review *because the defects are shaped to survive review* | The month of auditing earned the sharper version; the original is still true and still his | keeping the July wording |
 | 6 | Part 1 is a **beat table placed BEFORE `COPY FROM HERE`**, and the drafted prose is **deleted, not retained** — **OVERTURNED BY THE OWNER 2026-09-02:** *"I would like a proper draft created which I can read and edit"* (§ 5b), and Shape A chosen with Part 1 drafted for him to rewrite. The proposal now sits **below the beat table, still outside the COPY markers**, so `--count` excludes it and it cannot be pasted by accident; beat 3 stays his | Rounds 2 and 3 both rejected weaker versions: a scaffold inside the markers gets pasted whatever the header calls it, and prose outside them still supplies his voice when he is invited to lift phrases — the owner then chose exactly that supply, knowingly | rewriting it in his own words, which is the expected outcome |
-| 7 | **The one-page bound wins — findings 1–3 and asks 1–5 only** — **AMENDED 2026-09-02 (Shape A):** the 1,686 words he chose stay as they are; one addendum and two one-clause patches are added on top, so the block is now **2,097 → 2,279 words** (re-derived by `--count`; the addendum is 453 of body plus 88 of its own source bullets) | Two of his own instructions collided (§ 2 item 6: the cap, versus *"add genuinely new points"*). Surfaced rather than resolved, and **he chose the literal cap on 2026-08-25**: findings 4–5 out, asks 6–14 out, optional finding 6 out — 2,097 down to 1,686 words. On 2026-09-02, offered A (Part 2 unchanged plus one addendum), B (rewrite around the month after) and C (the strict cap, no addendum), he chose A | saying which of the two month-after findings goes back, or "cut the addendum" |
+| 7 | **The one-page bound wins — findings 1–3 and asks 1–5 only** — **AMENDED 2026-09-02 (Shape A):** the 1,686 words he chose stay as they are; one addendum and two one-clause patches are added on top, so the block is now **2,097 → 2,279 words** (re-derived by `--count`; the addendum is 488 of body plus 75 of its own source bullets after the 2026-09-03 evening rewrite) | Two of his own instructions collided (§ 2 item 6: the cap, versus *"add genuinely new points"*). Surfaced rather than resolved, and **he chose the literal cap on 2026-08-25**: findings 4–5 out, asks 6–14 out, optional finding 6 out — 2,097 down to 1,686 words. On 2026-09-02, offered A (Part 2 unchanged plus one addendum), B (rewrite around the month after) and C (the strict cap, no addendum), he chose A | saying which of the two month-after findings goes back, or "cut the addendum" |
 | 8 | **The addendum is the answer to Anthropic's own question — what would make him choose a Project over a session — in his terms**, and it carries the false-done rows | His answers in [§ 5c–5d](../findings/2026-09-02-owner-direction.md) are the content; the DERIVED ordering under them was checked with him in the sitting; his one claim of degree (the coordinator beats a session's fan-out at several tasks at once) goes in marked as his inference, his own caveat. The three false-done rows are FD-01, FD-02 and FD-17 narrowed to its one sub-claim ([the evidence report](../findings/2026-09-02-eap-mail-evidence-report.md) § 3), each re-opened at source before use — FD-01 now also read from the pull request itself | naming another frame, or "drop the false-done rows" |
 
 **Logistics.** Fresh Gmail compose — *not* a reply. To the EAP alias, cc the
@@ -471,13 +471,51 @@ The reports and methods are public:
 > - **The judges' optional fourth addendum item** (a clean result is
 >   indistinguishable from a check that never ran, ~100 words; two of three
 >   judges wanted it) — *no* / *add it*.
-> - **Length** — the addendum is 453 words of body plus 88 in its own five
->   source bullets, **541 in all**, against the ~450 he chose; the block is
->   2,279 against the "near 2,100" the sitting estimated, the rest being the two
->   patches (~75) — *keep* / *trim the links* / *drop the instruction-box link*
->   / *cut the addendum to 450 with its sources*.
-> - **Part 1** — 536 words as proposed, his to rewrite; beat 3 above all —
->   *rewrite in Gmail* / *rewrite here and I verify it*.
+> - **Length** — after the evening rewrite the addendum is 488 words of body
+>   plus 75 in its four source bullets, **563 in all**, against the ~450 he
+>   chose (his restored hedges cost words; the instruction-box argument and
+>   its bullet are cut); the block is 2,279 against the "near 2,100" the
+>   sitting estimated — *keep* / *cut the addendum to 450 with its sources*.
+> - **Part 1** — 696 words, his own after fm #1019, tightened for spelling and
+>   run-ons only; he reads it again — *keep* / *shorten*.
+>
+> **▶ 2026-09-03 evening — after his edits (fm #1019) and the independent
+> review (ChatGPT Work).** His three comments on Part 2 are applied: ask 1
+> names the custom instructions as the closest thing to rules arriving at the
+> moment of action; ask 5 is now his — an agent that can see its own context
+> limit (the hosting-store example is out as not relevant); "the shared working
+> agreement" is now "the custom instructions". The reviewer's findings, with
+> dispositions — B (claims vs evidence): 8 conceded (the evaluation described
+> as what it tested; "can survive" a review; "far more likely to bind" for
+> "only if"; "tests and self-checks"; "caught in these reviews" for "reliably";
+> "did not ensure" judgement; the instruction-box default cut; "publicly
+> readable when checked"). C (voice): applied where his own edit had not
+> already answered it (the opening, "not ready to use", "mostly started after
+> the classifier update", the narrower "what I kept", the gift sentence);
+> the thesis sentence removed. D (his words): 5 conceded ("basically the same
+> capability … tho not exactly the same"; "mostly"; "possible only because …
+> fewer would probably have been better"; the task qualification and
+> "immensely valuable if perfected"; "no exceptions" out of quotation marks).
+> E: 3 conceded ("The reports and methods are public"). F (overlap): his
+> own edit removed the permissions ask; the Projects-overview ask stays by
+> his 2 September choice — *survived*, his. H: the instruction-box cut and
+> "about 81 %" taken; the count digression compressed to one sentence. I
+> (confidentiality): the two linked files are existing public records, no new
+> disclosure — *survived*, noted.
+> **New one-word calls from this pass:**
+> - *public-soon* — his sentence "since you mentioned that the Projects may
+>   become available to the public soon" repeats a vendor plan detail in a
+>   public file; it is his, and already in his own public commit — *keep* /
+>   *cut*.
+> - *thesis* — "I went in thinking the limit would be what the agents can do …
+>   shaped so that reading did not catch them" is out (the reflection's
+>   derived line, not his words; the reviewer's one change) — *stay out* /
+>   *back*.
+> - *hours* — he cut "a couple of hours a day"; respected — *stay out* / *back*.
+> - *permissions* — he cut the one-fix permissions paragraph; respected;
+>   the July pointer sentence carries it — *stay out* / *back*.
+> - *counts* — Finding 3's three-later-counts parenthetical is compressed to
+>   one sentence (the reviewer's "loses the reader") — *keep* / *restore*.
 >
 > **Where the draft is:** Gmail → Drafts → "Claude Code Projects EAP — the final
 > review, six weeks on" (id `r-9208017789511753451`), no recipients. Part 2 in
