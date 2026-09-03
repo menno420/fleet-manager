@@ -559,6 +559,24 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   a glance at the UI. **The release is a data bundle, not a software release;
   it is deletable in one call once the notebook exists.**
 
+- **`OQ-E1-FINAL-EAP-EMAIL` ▶ DRAFTED IN FULL AND STAGED 2026-09-03 (fm #1017) — what is left is his: read, edit, add the recipients, send.**
+  Shape A (owner, 2026-09-02, [§ 5b](findings/2026-09-02-owner-direction.md)):
+  Part 1 proposed from the beat table and his answers (beat 3, the verdict
+  paragraph, is his alone), Part 2 kept at the 1,686 words he chose plus two
+  one-clause patches and one addendum — the Projects-versus-sessions answer in
+  his terms, with the three false-done rows as the evidence that verification
+  is the deciding line. Block: **2,318 words** by `--count`, addendum 451, Part
+  1 proposal 518. **Staged as a Gmail draft in his own mailbox, no recipients:**
+  Drafts → *"Claude Code Projects EAP — the final review, six weeks on"* (id
+  `r-9208017789511753451`). WHAT: open it, rewrite Part 1 in his voice, answer
+  the one-word calls in [the draft's § 2](planning/2026-08-24-final-eap-email-draft.md)
+  (a–e, subject, the optional fourth item, length), add the three cc addresses
+  from the July thread, send from a fresh compose (not a reply). WHY-IT-MATTERS:
+  two promises to a named person on 2026-07-21, the record for both sides.
+  VERIFIED-NEEDED: the API half of the Gmail-draft route is measured (create +
+  list-back); **his half — that he sees and can edit it in Gmail — is recorded
+  only when he says so**, in words. After sending: the send record in § 3 of the
+  draft (date, subject, `Message-Id`), then this entry closes.
 - **`OQ-E1-FINAL-EAP-EMAIL` ▶ RE-BRIEFED 2026-08-28 — "soon", and its content brief just WIDENED.**
   Owner, live (§ 19 of [the sitting record](findings/2026-08-28-od24-sitting-answers.md)). He first selected *"Leave it — not now"*,
   then revised it unprompted minutes later — **the revision governs**: *"About
@@ -601,7 +619,8 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
     reading, not narrower**.
   - **The length (§ 2 item 6): the literal cap.** Findings 1–3 and asks 1–5 only;
     findings 4–5, asks 6–14 and the optional finding 6 are out.
-    **2,097 → 1,686 words.** *(The count is method-dependent and that was never
+    **2,097 → 2,318 words** as of 2026-09-03 — the cap took it to 1,686 and Shape
+    A's addendum (2026-09-02, fm #1017) added the rest. *(The count is method-dependent and that was never
     stated, which is why it drifted: the draft said 2,082, this entry said 2,127, the file
     measured 2,151 — and **none of the three was right**, because the method was
     never stated and both obvious methods count punctuation or bullet glyphs as
@@ -618,7 +637,7 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   the venue asymmetry (ask 8, *"the strongest single argument in the estate"*) is
   gone; the prior-mail pointer that § 1 decision 2 requires moved onto the July
   findings link; the month-after spine is three findings rather than five;
-  **1,686 words is about three pages** — but **one page IS reachable**, by
+  **1,686 words is about three pages** (2,318 with the 2026-09-02 addendum) — but **one page IS reachable**, by
   restructure rather than subtraction. Measured: **487 words at one sentence per
   block, 667 at two, 853 at three.** But the 471 is a **floor, not a draft** —
   printed out, it keeps no scale numbers and no evidence under any finding. A

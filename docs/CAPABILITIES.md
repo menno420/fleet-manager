@@ -171,6 +171,23 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-09-03 · capability · `owner-live` · **Gmail `create_draft` + `list_drafts`
+  persistence — a session can create a draft in the owner's mailbox and read it
+  back; `update_draft` then replaces its subject and body in place, same draft
+  id.** · evidence (this session, the EAP mail): `create_draft` with subject
+  "EAP mail — draft in progress (session probe)", a one-line body and no
+  recipients → `{"id":"r-9208017789511753451","messageId":"1a0687ba98696dbd","threadId":"1a0687ba98696dbd"}`;
+  `list_drafts` (`query: subject:"EAP mail — draft in progress (session
+  probe)"`, `view: DRAFT_VIEW_FULL`) → one draft, `labelIds: ["DRAFT"]`,
+  `sender` the owner's address, subject and `plaintextBody` verbatim as sent,
+  `date 2026-09-03T18:15:29Z`; `update_draft` with the full mail (plain `body`
+  + `htmlBody`, new subject) → `{"id":"r-9208017789511753451","messageId":"1a0688cbba3238fb","threadId":"1a0688cbba3238fb"}`
+  — the draft id is stable, the message id moves. **Scope of this line is the
+  API half only.** Whether the owner sees and can edit a session-created draft
+  in Gmail's own Drafts view is his half and is recorded here only when he
+  says so in words — as of this line, UNMEASURED. · workaround: none needed.
+  — LAST-VERIFIED: 2026-09-03
+
 - 2026-09-03 · capability · `owner-live` · **A cloud container can RENDER a
   static site to PNG for the owner to look at — no Playwright install needed.**
   · evidence: `/opt/pw-browsers/chromium-1194/chrome-linux/chrome
