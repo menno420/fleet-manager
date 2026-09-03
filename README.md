@@ -99,7 +99,7 @@ closeout) · [`docs/roster.md`](docs/roster.md) · [`control/`](control/README.m
 [`docs/prompts/`](docs/prompts/README.md) *(mixed — its live exceptions are
 enumerated in ONE place, the top of [its own README](docs/prompts/README.md):
 the two ChatGPT instruction sets, the curious-research review prompt, and the
-2026-09-02 continuation prompts — six files as of 2026-09-02; this line used
+2026-09-02/03 continuation prompts — seven files as of 2026-09-03; this line used
 to keep its own list and fell one file behind twice)*.
 Never use the historical parts to answer "what is
 happening now?" — the [map](docs/MAP.md) lists every RECORD area.
