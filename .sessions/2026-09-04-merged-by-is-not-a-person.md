@@ -1,7 +1,8 @@
 # 2026-09-04 — "The owner merged it" was an account name read as a person
 
-> **Status:** `in-progress` — branch `claude/spider-bot-ai-ops-sthix0`, restarted
-> from `main` because its previous PR (fm #1041) merged. Born red; flipped last.
+> **Status:** `complete` — merged path: fm #1043 with spider-bot#6, branch
+> `claude/spider-bot-ai-ops-sthix0`, restarted from `main` because its previous
+> PR (fm #1041) merged. Born red; flipped here as the last step.
 
 - **📊 Model:** Opus 5 · xhigh · docs-only
 - **📍 Venue:** cloud-container
@@ -68,4 +69,19 @@ it before four documents carried it.
 
 ## Close-out
 
-Pending — this card is the merge hold.
+**Landed as fm #1043**, with [spider-bot#6](https://github.com/menno420/spider-bot/pull/6)
+carrying the same correction to that repo's tranche card.
+
+`check --strict` held red on the born-red hold as the only finding, read from the
+finding lines; `check_no_false_walls.py` exit 0; `check_doc_routes.py` 74 routes,
+0 errors. The new route fired on this card's own text while it was being
+written — the positive control for the route, not an assertion that it would.
+
+The spider-bot force-push needed an explicit expected value
+(`--force-with-lease=<branch>:<sha>`) because the branch had no remote-tracking
+ref after `#4`'s squash; the hook computed the discarded head as
+**content-identical to `origin/main`**, so nothing was lost.
+
+**Unchanged by any of this:** the deployment verification. `meta.commitHash`
+`5a7f8a285a095855e0450b7c237d184344d5a580` equals `main` HEAD — two printed
+strings compared, and who pressed merge does not touch it.
