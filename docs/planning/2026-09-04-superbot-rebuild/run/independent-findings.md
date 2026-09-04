@@ -400,3 +400,93 @@ load-bearing measurements — 314 panels, 153 button-less, help 60/66, 640 butto
 explicitly self-labelled as a grep, does not. That is a document to trust on its
 measurements and to re-run on its greps, which is exactly how it asked to be
 read.
+
+## I-13 · The two-tap property, measured at last: from `help.*`, the rebuild's front door reaches NOTHING — `MEASURED`
+
+The 2026-08-05 audit closed with this honest null (§ 9):
+
+> *"The two-tap property was **not measured**, only the zero-button rate. Proving
+> or refuting 'every feature is two taps from `!help`' needs the route table
+> walked as a graph, which is the acceptance test proposed in § 4b, not a result
+> reported here."*
+
+[`reachability_probe.py`](reachability_probe.py) walks it. It is written the way
+the successor's gate must be written — it **declares its population, asserts a
+committed floor, and walks the shipped artifact** (`manifest.snapshot.json`)
+rather than a runtime registry a fixture can empty.
+
+```
+POPULATION : every panel in the committed manifest.snapshot.json
+             314 panels (floor 250, satisfied)
+             200 DOWNWARD edges (button/selector/extra-route to another panel)
+             278 edges including framework Back/Home up-links
+             a 314-node graph needs >= 313 edges merely to be a tree
+```
+
+| entry set | roots | reachable | unreachable | max depth |
+|---|---|---|---|---|
+| **`help.*` panels** | 66 | **66 / 314** | **248** | **0** |
+| `*.hub` / `*.main` | 37 | 107 / 314 | 207 | 2 |
+| every panel a **command** routes to | 58 | 117 / 314 | 197 | 2 |
+| **all three combined** | 133 | **185 / 314** | **129** | 2 |
+| combined, **counting Back/Home up-links too** | 133 | 185 / 314 | 129 | — |
+
+**The first row is the finding.** Walking from the help tree, **max depth is
+zero**: the 66 help panels are 66 isolated nodes with no outgoing panel edge
+between them. The old bot's product is *"the only command anyone ever needs is
+`!help`, from there you can use every feature the bot ships, always 2 taps
+away."* In the rebuild, **`!help` reaches nothing at all.** The 60-of-66
+zero-button figure said the pages had no buttons; this says the front door is
+not a door.
+
+**Second, the structural fact that explains it.** 314 panels are wired by **200**
+downward edges. A 314-node graph needs at least 313 edges merely to be a
+*connected tree*. The navigation graph was never capable of being connected —
+this is not a wiring gap someone forgot to finish, it is an artifact that was
+never a graph. Adding Back/Home up-links raises the edge count to 278 and changes
+reachability by **zero panels**, exactly as it must: an up-link points at an
+ancestor you have already reached, so it can never introduce anyone to anything.
+
+**Third, where the holes are.** From *all* entry points combined — help, every
+hub, and every panel any command routes to — 129 of 314 panels are unreachable,
+concentrated in the operator surface:
+
+| subsystem | unreachable / total |
+|---|---|
+| **`setup`** | **39 / 40** |
+| `utility` | 10 / 10 |
+| `ai` | 10 / 27 |
+| `cleanup` | 7 / 12 |
+| `settings` | 7 / 13 |
+| `general` | 3 / 3 |
+
+`setup` at 39 of 40 is the one that matters most: **first-run onboarding is the
+single most important operator journey, and 39 of its 40 panels cannot be reached
+from any declared entry point.** That is the same shape the pilot found
+independently in `superbot` — where `"setup"` appears zero times as a key in
+`subsystem_registry.py`, so the Help dropdown can never reach it, and every
+operator-tier command is exempt from the per-command reachability guard by
+construction. **Both bots lose the setup journey to the navigation graph, for
+different reasons.** A successor that fixes only one of those two mechanisms
+still ships a bot whose owner cannot find setup.
+
+### Honest nulls, and the first is load-bearing
+
+- **"Unreachable" means unreachable IN THE DECLARED GRAPH, not proven unreachable
+  at runtime.** Of 640 declared actions, **463 carry a `handler:` ref, 159 a
+  `panel:` ref and 18 a `workflow:` ref** — and a `handler:` could render a panel
+  programmatically without declaring a panel edge. The true runtime figure is
+  somewhere between this and better. **It is nonetheless the right measurement
+  for this architecture**, because the manifest's entire premise is that it
+  declares the shipped surface: a panel reachable only through an undeclared jump
+  is invisible to every generated help page, every reachability check and every
+  audit — which is the defect, not an excuse for it.
+- The entry sets use `panel_id` prefixes (`help.*`, `*.hub`, `*.main`) plus
+  declared command routes. A hand-wired entry matching none of those and routed
+  by no command would be missed; the combined row exists to bound that.
+- The probe reads `actions`, `selectors[].options[].handler`, `selectors[].handler`
+  and `navigation.extra_routes`. The positive control that makes the count
+  trustworthy: **every one of the 640 action handlers resolves to a `$ref`** (zero
+  non-ref handlers), and `layout.pages` was checked and holds **only** `rows` of
+  action-id strings — a layout over actions already counted, contributing no
+  edges. So no edge class is silently dropped.
