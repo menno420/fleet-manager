@@ -366,7 +366,8 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   handoff) are **not mentioned** — that is absence, not refusal, and a later
   session must not read this closure as him ruling them out. Canonical:
   [`repos/spider-bot/intent.md`](repos/spider-bot/intent.md) · rules:
-  [`[D-0042]`](decisions.md) · the plan it narrows:
+  the rules it generates, stamped at spider-bot's entry point:
+  [`repos/spider-bot/README.md`](repos/spider-bot/README.md) · the plan it narrows:
   [the GCB plan's 2026-09-04 note](planning/2026-08-21-game-community-bot/README.md).
   *The original entry is preserved below unchanged, because the menu is what his
   answer was given against.*

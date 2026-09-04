@@ -1253,6 +1253,14 @@ verdict below, as provenance.)*
   enters durable private storage with a stable id BEFORE any GitHub call;
   GitHub is a projection and a sink, never a reason to lose data, and never a
   place private or interpersonal material is published.
+- why: the record this repo held was 2026-08-24's, written the day the repo was
+  created, and it said in as many words that *"what the bot does next is the
+  OWNER's pick"* — so every session since had a purpose-shaped hole and filled
+  it from an older multi-game roadmap that was never about this bot. He has now
+  said what it is for, and the four rules above are what a session can be held
+  to; without them "reliable automoderator with heavy AI integration" reads as
+  licence to give a model moderation permissions, which is the one reading his
+  own word *reliable* forbids.
 - rules out: re-broadening spider-bot into the multi-game community platform
   because an older roadmap says so; giving a model raw moderation calls because
   "heavy AI integration" sounds like it; making GitHub the primary store;

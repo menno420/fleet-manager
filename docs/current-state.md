@@ -140,7 +140,8 @@ copy product architecture or internal product state. Canonical intent:
   **`OQ-GCB-REVIEW-SCOPE`** (open since 2026-08-23), and **narrows** the
   [game-community-bot plan](planning/2026-08-21-game-community-bot/README.md)
   out of its multi-game breadth. The four rules it generates are
-  **[D-0042]**, the sharpest being that *heavy AI integration* means the AI
+  the rules stamped at [`repos/spider-bot/README.md`](repos/spider-bot/README.md),
+  the sharpest being that *heavy AI integration* means the AI
   supplies **judgement** while deterministic code supplies **authority** —
   spider-bot's invariant 5 refined, never deleted.
   **Implemented the same session, all of it OFF on arrival:** one intake service
@@ -392,7 +393,8 @@ copy product architecture or internal product state. Canonical intent:
 - **Spider Bot becomes the AI operations bot of the Slingy Spider test server**
   (2026-09-04, fm #1021 · spider-bot #3 · spider-swing #181). Owner direction,
   recorded in [`repos/spider-bot/intent.md`](repos/spider-bot/intent.md) and
-  **[D-0042]**; `OQ-GCB-REVIEW-SCOPE` closed by his own words rather than by a
+  the rules at [`repos/spider-bot/README.md`](repos/spider-bot/README.md);
+  `OQ-GCB-REVIEW-SCOPE` closed by his own words rather than by a
   session picking from the menu it offered (A and C are **not mentioned** —
   absence, not refusal, and the closure says so).
   **The method note worth keeping:** the ultracode design pilot was aimed at

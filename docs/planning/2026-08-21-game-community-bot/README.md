@@ -52,7 +52,8 @@ the multi-game platform on this document's authority.
   `spider-bot` any more; the repo's own plan is.
 
 Canonical intent: [`../../repos/spider-bot/intent.md`](../../repos/spider-bot/intent.md).
-The four rules his statement generates: [`[D-0042]`](../../decisions.md).
+The four rules his statement generates are stamped at spider-bot's entry
+point: [`docs/repos/spider-bot/README.md`](../../repos/spider-bot/README.md).
 
 ## AMENDED 2026-08-23 — OD-19 narrows the first slice and adds one hard constraint
 

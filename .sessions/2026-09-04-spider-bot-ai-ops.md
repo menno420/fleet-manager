@@ -38,12 +38,80 @@ registry, closed-test clock and membership memory that the entry point lists as
 
 ## What was done
 
-<!-- filled at close -->
+**Three PRs, one purpose.**
+
+| PR | What |
+|---|---|
+| [fleet-manager#1021](https://github.com/menno420/fleet-manager/pull/1021) | The records: `intent.md` answered, `[D-0042]`, `OQ-GCB-REVIEW-SCOPE` closed, the Layer-2 entry point re-derived |
+| [spider-bot#3](https://github.com/menno420/spider-bot/pull/3) | The build: 19 commits, +13,190 lines, 246 → 647 tests |
+| [spider-swing#181](https://github.com/menno420/spider-swing/pull/181) | The producer half of the support feed: a versioned, fail-closed cross-repo contract |
+
+**The build, in dependency order.** Shared foundations (stable ids, a storage
+seam, a GitHub client, typed AI verdict contracts, a policy layer, correlation)
+→ the developer feedback loop (one intake service behind every entry point,
+conversational filing, privacy classification, store-first, idempotent GitHub
+projection) → the AI moderation foundation (event logging, classifier,
+deterministic policy evaluator, shadow mode, one case model, a staff review
+surface) → the game-knowledge seam → run-evidence import. Nothing new enforces
+on arrival: moderation ships `off`, the autonomy ceiling ships at
+`flag_for_review`, the GitHub path is fail-closed until a credential exists.
+
+**The adversarial review is most of what this session actually was.**
+
+- **8 lanes** (`fleet-preflight` run first; concurrency measured at 2, so the
+  fleet was spent on design and review rather than parallel implementation) plus
+  a synthesis pass: **41 findings**, every one reproduced here before it was
+  touched, every fix carrying a test verified to fail when the fix is removed.
+- **1 Codex round** at flip-readiness: **15 more** (5 P1, 10 P2), all fifteen
+  reproduced and fixed. That is the number that matters: Codex found fifteen
+  things eight independent Opus lanes had missed.
+- The four worst, and they are the same shape: **`classifier.SYSTEM` reached
+  the model on no call ever made** (a mode-dispatch bug routed moderation down
+  the chat path); **the human publication gate approved by report id** so it
+  swapped a classifier publishing unseen content for a person publishing unseen
+  content; **a masked markdown link — and then an HTML anchor — passed both
+  escapers** into a public issue under the bot's name; and **two members filing
+  at the same instant could leave a report durably stored and invisible to
+  every read path**, after its reporter had been told it was saved.
+
+**What the whole review is about, stated once:** of the five sharpest findings,
+four were *documented* protections — a docstring asserting a property is the
+cheapest possible way to stop looking for its absence.
+
+**Records reconciled here:** `docs/repos/spider-bot/intent.md` (ANSWERED, all
+four ❓ closed beside their questions), `[D-0042]`, `OQ-GCB-REVIEW-SCOPE`
+CLOSED and mapped honestly onto its own A–D menu (B and D in his answer, two
+things the menu never offered added, A and C **not mentioned** — absence, not
+refusal), the GCB plan NARROWED, the Layer-2 entry point re-derived with the
+correction kept visible, `docs/current-state.md`, and `owner/README.md`
+regenerated.
+
+**Two count slips in my own commit messages**, recorded because the rule is that
+a number in a message is a claim: one said 513 where the run was 539, one said
+553 where it was 552. Both were written before reading the run's own output.
+Every count from the third commit onwards was read first.
 
 ## 💡 Session idea
 
-<!-- filled at close -->
+**The estate's checkers verify code. Nothing verifies that a docstring's claim
+is true.** Four of the five worst findings in this review were properties the
+code *asserted about itself* in prose — "the one defence that does not rely on
+the model cooperating", "the scanned set is the published set", "never raises",
+"what stops a retry loop hammering a 404 forever" — while the behaviour had
+drifted or had never been wired. Each was found by someone executing the claim,
+never by reading it.
+
+The cheap version of a fix: a convention that a docstring making a checkable
+claim names the test that checks it. `read_before_write.py` already catches
+writing about a file you have not opened; this is the same defect one level in —
+writing about behaviour you have not run.
 
 ## ⟲ Previous-session review
 
-<!-- filled at close -->
+The 2026-08-24 registration session's Layer-2 entry point froze that day's
+numbers into prose and was never re-derived: by today it was wrong about the
+commit count, the test count, and — worst — still listed as a *candidate* a
+feature that had shipped eleven days earlier. Its own dated header was supposed
+to be the honesty mechanism. **A dated header is not one if nothing re-reads
+it.** The correction is kept visible in the file rather than quietly applied,
+because the correction is the useful part.
