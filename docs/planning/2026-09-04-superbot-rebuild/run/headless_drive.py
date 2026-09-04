@@ -593,11 +593,19 @@ class Drive:
 
         conn = await asyncpg.connect(self.dsn)
         try:
-            before = [dict(r) for r in await conn.fetch(
-                "SELECT guild_id, mode, updated_by FROM guild_command_access_policy")]
-            await conn.execute("DELETE FROM guild_command_access_channel_roles")
-            await conn.execute("DELETE FROM guild_command_access_channels")
-            await conn.execute("UPDATE guild_command_access_policy SET mode='all_channels'")
+            async with conn.transaction():
+                before = [dict(r) for r in await conn.fetch(
+                    "SELECT guild_id, mode, updated_by FROM guild_command_access_policy "
+                    "WHERE guild_id=$1", GUILD_ID)]
+                # scoped to the synthetic guild only — a reused test database
+                # may hold other guilds' rows, which are not this walk's to touch
+                await conn.execute(
+                    "DELETE FROM guild_command_access_channel_roles WHERE guild_id=$1", GUILD_ID)
+                await conn.execute(
+                    "DELETE FROM guild_command_access_channels WHERE guild_id=$1", GUILD_ID)
+                await conn.execute(
+                    "UPDATE guild_command_access_policy SET mode='all_channels' WHERE guild_id=$1",
+                    GUILD_ID)
         finally:
             await conn.close()
         # the reader caches per guild for 60 s (sb/domain/platform/command_access.py
@@ -924,7 +932,26 @@ async def fetch_rows(dsn: str, sql: str) -> list[dict]:
 # --------------------------------------------------------------------------
 # main
 # --------------------------------------------------------------------------
+def checkout_revision(repo: str) -> tuple[str, bool]:
+    """(HEAD sha, dirty) of the checkout the drive is about to run — the pin
+    the record carries is READ from the tree, never taken from a flag."""
+    import subprocess
+
+    head = subprocess.run(["git", "-C", repo, "rev-parse", "HEAD"],
+                          capture_output=True, text=True, check=True).stdout.strip()
+    status = subprocess.run(["git", "-C", repo, "status", "--porcelain"],
+                            capture_output=True, text=True, check=True).stdout
+    return head, bool(status.strip())
+
+
 async def main_async(args) -> int:
+    head, dirty = checkout_revision(args.repo)
+    if args.pin and head != args.pin:
+        raise SystemExit(f"checkout HEAD {head} is not the expected pin {args.pin}; "
+                         f"refusing to attribute evidence to the wrong source state")
+    if dirty:
+        raise SystemExit(f"checkout at {head} has uncommitted changes; the record "
+                         f"could not be attributed to a revision")
     sys.path.insert(0, args.repo)
     os.chdir(args.repo)
     os.environ["DISCORD_BOT_TOKEN_PRODUCTION"] = "headless-placeholder-never-a-real-token"
@@ -1007,11 +1034,18 @@ async def main_async(args) -> int:
     gw.build_bot = build_bot_and_fake
     gw.connect_gateway = stub_connect_gateway
 
+    boot_state = {"ok": False, "failed": False}
+
     class _BootWatch(logging.Handler):
         def emit(self, record):
-            if record.name == "sb.app.main" and "boot complete" in record.getMessage():
+            if record.name != "sb.app.main":
+                return
+            message = record.getMessage()
+            if "boot complete" in message:
+                boot_state["ok"] = True
                 boot_complete.set()
-            if record.name == "sb.app.main" and "FAILED_STARTUP" in record.getMessage():
+            elif "FAILED_STARTUP" in message:
+                boot_state["failed"] = True
                 boot_complete.set()
 
     logging.getLogger("sb.app.main").addHandler(_BootWatch())
@@ -1022,16 +1056,32 @@ async def main_async(args) -> int:
     await asyncio.wait({app_task, asyncio.create_task(boot_complete.wait())},
                        timeout=180, return_when=asyncio.FIRST_COMPLETED)
     boot_s = round(time.perf_counter() - t_boot, 2)
-    result: dict = {"pin": args.pin, "started_at": now_iso(), "boot_seconds": boot_s,
-                    "boot_log": boot_log[:], "boot_failed": app_task.done()}
-    if app_task.done():
-        result["exit"] = app_task.result() if not app_task.exception() else repr(app_task.exception())
+    from sb.kernel import lifecycle
+
+    booted = (boot_state["ok"] and not boot_state["failed"] and not app_task.done()
+              and lifecycle.get_phase() is lifecycle.Phase.RUNNING)
+    result: dict = {"pin": head, "started_at": now_iso(), "boot_seconds": boot_s,
+                    "boot_log": boot_log[:], "boot_failed": not booted,
+                    "boot_state": dict(boot_state), "wait_timed_out": not boot_complete.is_set()}
+    if not booted:
+        # a timeout, a FAILED_STARTUP, or a task that already unwound: nothing
+        # below may run against it — record the state and stop.
+        if not app_task.done():
+            app_task.cancel()
+            try:
+                await app_task
+            except (asyncio.CancelledError, Exception):  # noqa: BLE001
+                pass
+        result["exit"] = (app_task.result() if app_task.done() and not app_task.cancelled()
+                          and app_task.exception() is None else repr(
+                              app_task.exception() if app_task.done() and not app_task.cancelled()
+                              else "cancelled"))
+        result["lifecycle_phase_final"] = lifecycle.get_phase().value
         json.dump(result, open(args.out, "w"), indent=1, default=str)
         print(json.dumps({k: v for k, v in result.items() if k != "boot_log"}, indent=1, default=str))
         return 1
 
     bot = holder["bot"]
-    from sb.kernel import lifecycle
     result["lifecycle_phase_after_boot"] = lifecycle.get_phase().value
     # /ready as the health server sees it (no gateway => not ready by design)
     import urllib.request
@@ -1088,7 +1138,7 @@ async def main_async(args) -> int:
         json.dump(result, open(args.out, "w"), indent=1, default=str)
         print(json.dumps({"restart_check": True, "run_app_exit": result["run_app_exit"],
                           "resume_sweep_log": result["resume_sweep_log"]}, indent=1, default=str))
-        return 0
+        return 0 if result["run_app_exit"] == 0 else 2
 
     # PHASE 0 — first contact on a fresh guild: /help and /setup as the owner,
     # /help as a plain member. Nothing configured, empty tables.
@@ -1209,7 +1259,9 @@ async def main_async(args) -> int:
     summary["phase_sizes"] = {k: (v.get("interactions", len(v)) if isinstance(v, dict) else len(v))
                               for k, v in phases.items() if v is not None}
     print(json.dumps(summary, indent=1, default=str))
-    return 0
+    # the shell sees the composition root's own verdict: a non-zero return, a
+    # shutdown that timed out or raised, is an unclean run and says so.
+    return 0 if exit_code == 0 else 2
 
 
 def main() -> int:
@@ -1217,7 +1269,9 @@ def main() -> int:
     ap.add_argument("--repo", default="/home/user/superbot-next")
     ap.add_argument("--dsn", default="postgresql://superbot@127.0.0.1:54329/superbot")
     ap.add_argument("--out", default="headless_drive_result.json")
-    ap.add_argument("--pin", default="d5f66dc27768d49b2755f368c6a2d0ecca66a1af")
+    ap.add_argument("--pin", default=None,
+                    help="the revision the checkout is EXPECTED to be at; the drive refuses "
+                         "to run when HEAD differs. The recorded pin is always read from HEAD.")
     ap.add_argument("--budget", type=int, default=400)
     ap.add_argument("--global-budget", type=int, default=3000)
     ap.add_argument("--skip-global", action="store_true")

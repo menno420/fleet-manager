@@ -95,8 +95,8 @@ worker, its Postgres and every Discord surface stay untouched** (the rail in
   `AttributeError`s** (`ticket/setup_panel.py:159,191` — `WorkflowResult.ok`;
   `platform/guild_snapshot.py:243` — `ResourceRequirement.name`); the
   **one-click owner lock-out** on the Command Access panel (the override is
-  the platform owner's); the global walk (1,821 interactions, 237 of 314
-  rendered, 234 sent, 77 never); the population contract applied; a nine-row
+  the platform owner's); the global walk (1,490 interactions, 236 panels) and the whole run
+  (1,821 interactions, 237 of 314 rendered, 234 sent, 77 never); the population contract applied; a nine-row
   table of package claims confirmed, sharpened or contradicted; the gateway
   leg's recipe; the honest nulls.
 - **Pointers into the package** — `13-verdict.md` gap 1 (CLOSED IN PART

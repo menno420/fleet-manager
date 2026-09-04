@@ -8,10 +8,10 @@
 > everything below is `MEASURED` unless it says otherwise, **and "measured"
 > here means measured HEADLESS** — read § 1 before quoting any number.
 >
-> **What produced it:** [`headless_drive.py`](headless_drive.py), run five
+> **What produced it:** [`headless_drive.py`](headless_drive.py), run six
 > times to a clean end on a fresh database while the walker itself was being
-> corrected (§ 6, § 7), plus one *restart* run over the same database. The
-> retained result of the final run is
+> corrected (§ 6, § 7) and then hardened after review, plus one *restart* run
+> over the same database. The retained result of the final run is
 > [`raw/headless-drive-2026-09-04.json`](raw/headless-drive-2026-09-04.json)
 > (every interaction, render and `resolve()` outcome; message payloads and
 > component lists dropped, texts clipped). The panel counts in §§ 2–6 were
@@ -412,12 +412,16 @@ python3.11 -m venv ../sbnext-venv && ../sbnext-venv/bin/pip install --require-ha
 #    in the CCR container: initdb/pg_ctl under the `postgres` account, DSN
 #    postgresql://superbot@127.0.0.1:54329/superbot
 
-# 3. the drive — fresh database, then the restart check over the same one
+# 3. the drive — fresh database, then the restart check over the same one.
+#    --pin is the revision you EXPECT; the drive refuses a checkout at any other
+#    HEAD or with uncommitted changes, and records the HEAD it actually ran on.
 ../sbnext-venv/bin/python <fleet-manager>/docs/planning/2026-09-04-superbot-rebuild/run/headless_drive.py \
-    --repo . --dsn postgresql://superbot@127.0.0.1:54329/superbot --out drive.json
-../sbnext-venv/bin/python .../headless_drive.py --repo . --dsn ... --restart-check --out restart.json
+    --repo . --pin d5f66dc27768d49b2755f368c6a2d0ecca66a1af \
+    --dsn postgresql://superbot@127.0.0.1:54329/superbot --out drive.json
+../sbnext-venv/bin/python .../headless_drive.py --repo . --pin d5f66dc2… --dsn ... --restart-check --out restart.json
 ```
 
-Read the real exit code, not one after a pipe. The final run took about eight
-minutes; `--skip-global` gives the help and setup walks alone in under a
-minute.
+Read the real exit code, not one after a pipe — the drive returns 0 only when
+the composition root itself exited 0 after a clean boot and shutdown. The
+final run took about eight minutes; `--skip-global` gives the help and setup
+walks alone in under a minute.
