@@ -87,6 +87,33 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   can ride along or be left on their defaults. Nothing here needs a click — it
   is six sentences at most.
 
+- **`OQ-SUPERBOT-NEXT-GATEWAY-LEG` 🟡 OPEN — the one leg of verdict gap 1 a
+  session could not run: connect the test app once and read what Discord
+  holds.** (added 2026-09-04, fm #1040.) **WHAT:** the headless drive closed
+  gap 1 as far as it goes ([`run/boot-observation.md`](planning/2026-09-04-superbot-rebuild/run/boot-observation.md));
+  what it could not observe is Discord itself — the real gateway READY, the
+  test application's **remote command set** (the one-call measurement
+  `13-verdict.md` names), the join launcher landing in a real guild, and a
+  human's `/help` → `/setup` drive. **WHERE:** any session of yours where the
+  container's bot-token variable may be used, or your own machine with the
+  `superbot-next` checkout at `d5f66dc2`. **HOW:** in that session say *"run
+  the gateway leg of `OQ-SUPERBOT-NEXT-GATEWAY-LEG`"* — the recipe is
+  `run/boot-observation.md` § *The gateway leg* (identity check first, then
+  `python3 -m sb` on the test plane with `SB_APPCMD_SYNC_GUILD_ID` set to a
+  test guild, then the two `GET …/commands` reads); no token value is written
+  anywhere. **WHY-IT-MATTERS:** it is the last dynamic null in the package,
+  and the remote command set decides whether the audit's *"27 slash commands
+  survive"* is a fact or a leftover. **UNBLOCKS:** nothing on the critical
+  path — slice one does not wait on it; it retires a `PARTIAL` reason.
+  **VERIFIED-NEEDED:** on 2026-09-04, in one auto-mode container session,
+  five commands that referenced `DISCORD_BOT_TOKEN_PRODUCTION` were refused
+  by that venue's classifier — a read-only `GET /users/@me` among them, meant
+  only to confirm the token is the test app before any connect (the estate's
+  own records say it is — audit § 7, superbot-next's testing ledger). A
+  momentary, per-call refusal, not a property of the token: re-attempt on any
+  change; a permission rule for that variable, or your word in a session you
+  are watching, clears it.
+
 - **`OQ-FM-FRESH-START-CONFIRMS` ✅ FULLY ANSWERED 2026-08-30 — all three words
   given; nothing owed.** The name landed later the same day as [D-0026]:
   **`estate`**, on his own weighing plus his assent to the recommendation. (added 2026-08-30, the redirect sitting; answered the

@@ -13,7 +13,9 @@
 | [`in-flight-direction.md`](in-flight-direction.md) | the owner statement that landed **mid-run**, caught by the sheet's own BASE re-read: what it changes for this review, and the standing action for the synthesis step |
 | [`evidence-digest.md`](evidence-digest.md) | every retained fleet row compacted to one line, built for the writing step. **Transcription, not judgement** — `lane-claimed` until re-derived |
 | [`refutation-pass.md`](refutation-pass.md) | the adversarial verification the AGGREGATE contract designed as its second filter — **62 of 196 lane strengths refuted**, 34 of them cited in the deliverables. Check any `lane-claimed` figure here before relying on it |
-| `raw/` | the fleet's retained output (agent journals, `lane-results.json`, `refutation-pass.json`) |
+| [`headless_drive.py`](headless_drive.py) | the instrument that closes verdict gap 1 as far as a session can: boots `superbot-next`'s composition root end to end against a local Postgres with the gateway stubbed, then drives the help tree, the setup flow, the join launcher and every slash command through the real spine and the production presenter, clicking every rendered control. Declares its population (the committed snapshot's 314 panel ids) and reports both directions of the difference. Needs the `superbot-next` checkout, its hash-pinned venv and a throwaway Postgres — the recipe is in its docstring |
+| [`boot-observation.md`](boot-observation.md) | what that drive observed at the pin `d5f66dc2` (2026-09-04, fm #1040): the boot, the first-run access, the help tree walked to exhaustion, the setup flow, the lock-outs, the runtime defects, the population figures, and a table of every package claim the run confirmed, sharpened or contradicted |
+| `raw/` | the fleet's retained output (agent journals, `lane-results.json`, `refutation-pass.json`) and the drive's retained result (`headless-drive-2026-09-04.json` — every interaction, render and resolve() outcome, without message payloads) |
 
 Nothing in this folder is authoritative for the plan's conclusions; it is the
 material that lets someone check them.

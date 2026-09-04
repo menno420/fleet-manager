@@ -48,6 +48,13 @@ files:** [`run/refutation-pass.md`](run/refutation-pass.md). The fan-out's
 adversarial pass **refuted 62 of 196 lane strengths**, and 34 of those are cited
 here — always as `lane-claimed`, never as `MEASURED`. The ledger says which.
 
+**And one piece turns the reachability numbers from a static read into an
+observation:** [`run/boot-observation.md`](run/boot-observation.md) (2026-09-04,
+fm #1040) — `superbot-next` booted headless at the pin and driven through the
+real dispatch spine and the production presenter. Where a figure in these files
+came from the compiled manifest, that record carries its runtime twin, and
+[`13-verdict.md`](13-verdict.md) gap 1 says which ones moved.
+
 ## The measurement snapshot
 
 Everything here was measured against these pins at **2026-09-04T11:52:55Z**:
