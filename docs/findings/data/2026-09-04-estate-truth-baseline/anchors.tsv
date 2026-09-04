@@ -1,0 +1,40 @@
+# Estate baseline anchors — the best prior evidence that read each repository
+# FROM ITS OWN SOURCE, and the instant it measured.
+#
+# baseline_utc is the START of the measurement day: an audit written on the
+# 22nd read a tree that existed that day, so taking the day's end would
+# silently absorb same-day commits the audit never saw.
+#
+# certainty is the PRIOR evidence's own rating, not this run's.  It is the
+# judgement half of the classification and is applied by the reader; delta.py
+# decides only UNCHANGED vs CHANGED, which is a fact about the tree.
+#
+# repo	baseline_utc	evidence_ref	prior_certainty
+Substrate-kit-app	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED
+codetool-lab-fable5	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED
+codetool-lab-opus4.8	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED
+codetool-lab-sonnet5	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED
+couch-legend	2026-08-22T00:00:00Z	repos/couch-legend/README.md	MEASURED
+creator-kit	2026-08-26T00:00:00Z	findings/2026-08-26-cross-session-visibility.md	WEAK
+curious-research	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED
+estate-backups	2026-08-23T00:00:00Z	findings/2026-08-23-active-repo-intent-audit.md	UNRATED
+fleet-manager	2026-09-01T00:00:00Z	findings/2026-09-01-fleet-manager-measured.md	MEASURED
+gba-homebrew	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED
+idea-engine	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED
+pokemon-mod-lab	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED
+product-forge	2026-08-23T00:00:00Z	findings/2026-08-23-active-repo-intent-audit.md	UNRATED
+proxybench	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED
+shiftlife	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED
+sim-lab	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED
+spider-bot	2026-08-28T00:00:00Z	repos/spider-bot/README.md	MEASURED
+spider-swing	2026-08-28T00:00:00Z	repos/spider-swing/README.md	MEASURED
+substrate-kit	2026-08-28T00:00:00Z	findings/2026-08-28-kit-tree-truth-pass.md	MEASURED
+superbot	2026-08-21T00:00:00Z	repos/superbot/README.md	MEASURED
+superbot-games	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED
+superbot-idle	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED
+superbot-mineverse	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED
+superbot-next	2026-08-21T00:00:00Z	repos/superbot-next/README.md	MEASURED
+superbot-plugin-hello	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED
+trading-strategy	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED
+venture-lab	2026-08-21T00:00:00Z	repos/venture-lab/README.md	MEASURED
+websites	2026-09-03T00:00:00Z	repos/websites/README.md	MEASURED
