@@ -87,3 +87,13 @@ reproducing 0.138 %. Corrected in the Layer-2 thread here and in
 couch-legend's sim record and DESIGN (its correction PR). Exception reason:
 a wrong published number on `main` is the drift the records rule exists to
 prevent; it does not wait for a next session.
+
+## Addendum — the owner's answers, live, 18:33Z
+
+Four questions asked after both PRs landed; four answers, recorded where
+the next session reads: phase B *"haven't played yet"* (`OQ-CL-COUCH-FEEL`
+stays open) · the ceiling stays (couch-legend [D-0004]) · C before D once B
+is a yes ([D-0005]) · he runs the chapter 4–6 prompts in ChatGPT himself
+(`OQ-CL-SCENES-4-6` route a; the prepay top-up is not needed for them).
+Second PR from this session, docs-only — exception reason under [D-0024]:
+the answers arrived after the main PR had merged.
