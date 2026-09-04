@@ -67,13 +67,24 @@ deployment's `meta.commitHash` equals HEAD (the repo README documents the
 instance running while the Railway worker is up — that is two live bots
 answering in the real server.
 
-One more Railway fact, and it is not a failure when you see it: `.railway/railway.ts`
-sets build **watch patterns** (`spiderbot/**`, `requirements.txt`,
-`.python-version` — the `railway.json` this line used to name was replaced by
-the IaC file in spider-bot#1/#2 on 2026-08-25), so a docs- or tests-only commit
+One more Railway fact, and it is not a failure when you see it:
+**`.railway/railway.ts`** sets build **watch patterns** (`spiderbot/**`,
+`requirements.txt`, `.python-version`), so a docs- or tests-only commit
 deliberately does **not** deploy and the live `commitHash` will lag HEAD.
 Preserve them — without watch patterns a scheduled commit once restarted a
 donor's production worker ~293 times in one billing cycle.
+
+**CORRECTED 2026-09-04.** This paragraph said `railway.json`, and listed
+`railway.json` itself among the patterns. The repo has held only
+`.railway/railway.ts` since spider-bot#1/#2 landed the Railpack/IaC migration
+on 2026-08-25 — three weeks before this entry repeated the older shape, as did
+spider-bot's own `CLAUDE.md` and `docs/rollout.md` until the review pass on
+spider-bot#3 read the docs against the tree. **It mattered rather than being
+cosmetic:** the lag it predicts had already happened and nobody had looked —
+the live worker ran `bc4f9985` while `main` was `bf4d7527`, because that commit
+touched only `.railway/railway.ts`, which is not among the patterns. A
+post-merge `meta.commitHash == HEAD` check would have compared against a hash
+that was never live.
 
 **Owner intent — ANSWERED 2026-09-04:** [`intent.md`](intent.md). The
 2026-08-28 draft's four ❓ slots are closed there, and the rules the answer

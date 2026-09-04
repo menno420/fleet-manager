@@ -96,8 +96,12 @@ empty): `synced 12 guild commands` · `channels not found (features degrade):
 bot-state, case-state, intake-state` · the `ready` event with
 `channels=["announcements","bug-reports","feedback","general","mod-log","start-here"]`,
 `members=3`, `intake=false`, `github=false`, `moderation="off"`,
-**`support_feed="feed"`**. Written into spider-bot's tranche-1 card in
-[spider-bot#5](https://github.com/menno420/spider-bot/pull/5). What only he can
+**`support_feed="feed"`**. **The build session was still running in parallel
+and measured the same deployment minutes later** — same hash, same `ready`
+line — and wrote it into spider-bot's tranche-1 card as
+[spider-bot#4](https://github.com/menno420/spider-bot/pull/4) (merged) and
+fm #1041, neither session aware of the other until fm #1039 read `dirty`. Two
+independent measurements agree; this card's are its own. What only he can
 check: `/home` opens, `/tester count` answers, the AI replies on mention.
 
 One correction to my own reading, kept because it is the kind that gets
