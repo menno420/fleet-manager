@@ -158,3 +158,57 @@ python3 docs/planning/2026-09-04-superbot-rebuild/run/reachability_probe.py /hom
 
 *(close-out — Shipped, the gate's real exit code, the review round, the
 Layer-2 handoff line — is written when the work lands; see below once it is)*
+
+## Close-out
+
+**Shipped** (all on `claude/superbot-evidence-gap-kyum0x`, PR fm #1040):
+
+- `bd0de2d` — the born-red card.
+- `f1907d9` — the instrument `run/headless_drive.py`, the record
+  `run/boot-observation.md`, the retained raw result
+  `run/raw/headless-drive-2026-09-04.json`; pointers in `13-verdict.md`,
+  `00-README.md`, `run/README.md`; the estate records
+  (`docs/repos/superbot-next/README.md`, `docs/current-state.md`,
+  `docs/owner-queue.md`, `docs/CAPABILITIES.md`, the regenerated
+  `owner/README.md`).
+- `6a62663` — merge of `origin/main` (four commits landed while this ran;
+  `guard-fires.jsonl` resolved as a union, the owner index regenerated).
+- `e1591a7` — the record corrected against the final run before the review
+  answered (run count, route count, DB deltas, command census).
+- *(review-round commits and the flip are listed below as they land)*
+
+**Verify** — `python3 bootstrap.py check --strict --added-card
+.sessions/2026-09-04-superbot-successor-evidence-gap.md` on the merged tree:
+**exit 1, two findings, both the designed born-red hold**
+(`session-card-hold` and the preflight lane mirroring it); no other finding.
+Three real findings were met and fixed on the way: `false-wall:
+classifier-denied-standing` (the refusal was re-worded as the dated,
+momentary thing it was), `orientation-budget` (the boot-read set went 10
+words over 7,000 after the current-state line; trimmed), and `owner index
+drift` (regenerated). `reachability_probe.py` at the pin reproduces the
+package's static figures exactly (314 panels · 200 edges · help depth 0 ·
+setup 39 of 40 · 185 of 314 combined).
+
+**⚑ decide-and-flag**
+
+- The gateway leg is an owner step now (`OQ-SUPERBOT-NEXT-GATEWAY-LEG`),
+  not a session's — decided rather than asked, because five refusals in one
+  venue are a fact about the venue and the headless route delivered the
+  rest. If he would rather a session retry, one word in a watched session
+  does it.
+- The three runtime defects are recorded in the successor's package and the
+  `superbot-next` Layer-2 thread, **not** filed against `superbot-next` —
+  that repo is parked and read-only by the verdict's rail, and the
+  successor plan is where they matter. Flagged, not opened.
+
+**⟲ previous-session review** — fm #1025's card said the package's dynamic
+claims were static reads and named the boot as the one gap a session could
+close alone. That was right, and the boot changed three of its numbers
+(§ 9 of the record) without changing a conclusion — the package's own
+prediction. One thing it could not have known: the walker's first clean
+run was lost to a lock-out the walker itself caused, which is the R4 drive's
+first item now.
+
+**Layer-2 handoff:** `docs/repos/superbot-next/README.md` — *the headless
+boot* thread added (2026-09-04, later the same day); the rebuild-review
+thread left as it was.

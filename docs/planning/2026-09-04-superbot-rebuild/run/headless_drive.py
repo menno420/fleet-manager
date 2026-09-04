@@ -44,7 +44,6 @@ from __future__ import annotations
 import argparse
 import asyncio
 import collections
-import contextlib
 import datetime as dt
 import itertools
 import json
@@ -1124,12 +1123,10 @@ async def main_async(args) -> int:
              {"label": "/setup-status", "payload": slash_payload(owner, "setup-status")},
              {"label": "/setup-describe", "payload": slash_payload(owner, "setup-describe")}]
     setup_walk = await drive.walk_from(owner, roots, budget=args.budget, label="setup")
-    # the launcher card's buttons, clicked as the owner
+    # the launcher card's buttons, clicked as the owner (a channel message,
+    # not an interaction reply — so it is driven here rather than by the walk)
     launcher_walk = None
     if launcher_msgs:
-        launcher_walk = await drive.walk_from(
-            owner, [], budget=args.budget, label="launcher")
-        # walk_from with no roots does nothing; drive the launcher explicitly
         seen = {}
         for msg in launcher_msgs:
             for c in wire_components(msg):
